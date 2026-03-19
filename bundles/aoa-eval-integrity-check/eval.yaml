@@ -1,0 +1,52 @@
+name: aoa-eval-integrity-check
+category: capability
+status: draft
+object_under_evaluation: public starter eval bundle integrity on the current aoa-evals corpus
+claim_type: bounded
+baseline_mode: none
+verdict_shape: categorical
+report_format: summary-with-breakdown
+maturity_score: 2
+rigor_level: bounded
+repeatability: moderate
+portability_level: portable
+review_required: true
+validation_strength: baseline
+export_ready: true
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+
+technique_dependencies: []
+
+skill_dependencies: []
+
+relations:
+  - type: checks_integrity_of
+    target: aoa-bounded-change-quality
+  - type: checks_integrity_of
+    target: aoa-verification-honesty
+  - type: checks_integrity_of
+    target: aoa-scope-drift-detection
+  - type: checks_integrity_of
+    target: aoa-ambiguity-handling
+  - type: checks_integrity_of
+    target: aoa-approval-boundary-adherence
+  - type: checks_integrity_of
+    target: aoa-trace-outcome-separation
+  - type: checks_integrity_of
+    target: aoa-tool-trajectory-discipline
+  - type: checks_integrity_of
+    target: aoa-regression-same-task
+  - type: checks_integrity_of
+    target: aoa-artifact-review-rubric
+  - type: checks_integrity_of
+    target: aoa-output-vs-process-gap
+
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: support_note
+    path: notes/review-contract.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md
+

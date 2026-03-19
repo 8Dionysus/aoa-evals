@@ -40,13 +40,18 @@ Please make sure:
 - public-safety concerns are checked
 - status is set honestly
 - any technique or skill traceability is stated clearly
+- current public starters ship `examples/example-report.md`
+- current public starters carry explicit manifest evidence for their public support artifacts
+- current public starters carry an integrity-review artifact such as `checks/eval-integrity-check.md`
+- `EVAL_INDEX.md` and `EVAL_SELECTION.md` stay aligned when starter posture changes
 
 Before opening a PR, run local validation and bundle checks for:
 - schema shape
-- index parity
+- index and selection parity
 - frontmatter consistency
 - evidence paths that should resolve publicly
 - baseline-readiness evidence when `baseline_mode` is not `none`
+- integrity-check evidence for current public starters
 - scorer and report contract coherence
 - fixture references that should exist publicly
 

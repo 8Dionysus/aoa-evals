@@ -37,3 +37,5 @@ relations:
 evidence:
   - kind: origin_need
     path: notes/origin-need.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md

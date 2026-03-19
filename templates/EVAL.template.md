@@ -136,6 +136,11 @@ Describe how to run the eval reproducibly:
 - regression signal if applicable
 - interpretation note
 
+For public starter bundles, also ship:
+- `examples/example-report.md`
+- explicit manifest evidence entries for public support artifacts
+- an integrity-review artifact such as `checks/eval-integrity-check.md`
+
 ## Failure modes
 
 Name the main ways this eval can fail as an instrument:
@@ -182,6 +187,8 @@ Examples:
 - confirm scoring logic is reviewable
 - confirm blind spots are named
 - confirm the output does not imply stronger conclusions than the eval supports
+- confirm manifest evidence is explicit and resolves publicly
+- confirm `EVAL_INDEX.md` and `EVAL_SELECTION.md` stay aligned if this bundle is a current public starter
 
 ## Technique traceability
 

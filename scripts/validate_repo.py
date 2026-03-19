@@ -19,6 +19,7 @@ from jsonschema import Draft202012Validator
 REPO_ROOT = Path(__file__).resolve().parents[1]
 BUNDLES_DIR_NAME = "bundles"
 EVAL_INDEX_NAME = "EVAL_INDEX.md"
+EVAL_SELECTION_NAME = "EVAL_SELECTION.md"
 SCHEMAS_DIR_NAME = "schemas"
 
 REQUIRED_HEADINGS = {
@@ -203,6 +204,58 @@ def resolve_manifest_path(bundle_dir: Path, raw_path: str) -> Path:
     return bundle_dir / candidate
 
 
+def extract_table_eval_names(text: str, heading: str) -> list[str]:
+    lines = text.splitlines()
+    try:
+        start_index = next(
+            index for index, line in enumerate(lines) if line.strip() == heading
+        )
+    except StopIteration:
+        return []
+
+    table_lines: list[str] = []
+    for line in lines[start_index + 1 :]:
+        stripped = line.strip()
+        if stripped.startswith("## "):
+            break
+        if stripped.startswith("|"):
+            table_lines.append(line)
+            continue
+        if table_lines and not stripped:
+            break
+        if table_lines:
+            break
+
+    pattern = re.compile(r"^\|\s*(aoa-[a-z0-9-]+)\s*\|")
+    return [
+        pattern.match(line).group(1)
+        for line in table_lines
+        if pattern.match(line)
+    ]
+
+
+def load_starter_eval_names(
+    repo_root: Path,
+    issues: list[ValidationIssue],
+) -> list[str]:
+    index_path = repo_root / EVAL_INDEX_NAME
+    try:
+        text = index_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        issues.append(ValidationIssue(EVAL_INDEX_NAME, "file is missing"))
+        return []
+
+    starter_names = extract_table_eval_names(text, "## Starter eval bundles")
+    if not starter_names:
+        issues.append(
+            ValidationIssue(
+                relative_location(index_path),
+                "missing or empty 'Starter eval bundles' table",
+            )
+        )
+    return starter_names
+
+
 def validate_eval_frontmatter(
     eval_name: str,
     metadata: dict[str, Any],
@@ -343,20 +396,13 @@ def validate_bundle(
 
 def validate_eval_index(
     repo_root: Path,
+    starter_names: Sequence[str],
     selected_evals: set[str] | None = None,
 ) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     index_path = repo_root / EVAL_INDEX_NAME
-
-    try:
-        text = index_path.read_text(encoding="utf-8")
-    except FileNotFoundError:
-        return [ValidationIssue(EVAL_INDEX_NAME, "file is missing")]
-
-    pattern = re.compile(r"^\|\s*(aoa-[a-z0-9-]+)\s*\|", flags=re.MULTILINE)
-    names = pattern.findall(text)
-    counts = Counter(names)
     location = relative_location(index_path)
+    counts = Counter(starter_names)
 
     if selected_evals is None:
         eval_dirs = {
@@ -370,28 +416,122 @@ def validate_eval_index(
                 issues.append(
                     ValidationIssue(
                         location,
-                        f"eval '{name}' appears {count} times in the index",
+                        f"starter eval '{name}' appears {count} times in the starter table",
                     )
                 )
 
-        for missing in sorted(eval_dirs - counts.keys()):
+        starter_set = set(counts.keys())
+
+        for missing in sorted(eval_dirs - starter_set):
             issues.append(
-                ValidationIssue(location, f"eval '{missing}' is missing from the index")
+                ValidationIssue(
+                    location,
+                    f"eval '{missing}' is missing from the starter table",
+                )
+            )
+
+        for extra in sorted(starter_set - eval_dirs):
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"starter eval '{extra}' has no matching bundle directory",
+                )
             )
     else:
         for name in sorted(selected_evals):
             count = counts.get(name, 0)
             if count == 0:
                 issues.append(
-                    ValidationIssue(location, f"eval '{name}' is missing from the index")
+                    ValidationIssue(
+                        location,
+                        f"eval '{name}' is missing from the starter table",
+                    )
                 )
             elif count > 1:
                 issues.append(
                     ValidationIssue(
                         location,
-                        f"eval '{name}' appears {count} times in the index",
+                        f"starter eval '{name}' appears {count} times in the starter table",
                     )
                 )
+
+    return issues
+
+
+def validate_eval_selection(
+    repo_root: Path,
+    starter_names: Sequence[str],
+    selected_evals: set[str] | None = None,
+) -> list[ValidationIssue]:
+    selection_path = repo_root / EVAL_SELECTION_NAME
+    try:
+        text = selection_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        return [ValidationIssue(EVAL_SELECTION_NAME, "file is missing")]
+
+    location = relative_location(selection_path)
+    names_in_selection = set(re.findall(r"aoa-[a-z0-9-]+", text))
+    names_to_check = selected_evals if selected_evals is not None else set(starter_names)
+    issues: list[ValidationIssue] = []
+
+    for name in sorted(names_to_check):
+        if name not in names_in_selection:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"starter eval '{name}' is missing from EVAL_SELECTION.md",
+                )
+            )
+
+    return issues
+
+
+def validate_starter_bundle_contract(
+    repo_root: Path,
+    starter_names: Sequence[str],
+    selected_evals: set[str] | None = None,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    names_to_check = selected_evals if selected_evals is not None else set(starter_names)
+
+    for name in sorted(names_to_check):
+        bundle_dir = repo_root / BUNDLES_DIR_NAME / name
+        manifest_path = bundle_dir / "eval.yaml"
+        location = relative_location(bundle_dir)
+
+        example_report = bundle_dir / "examples" / "example-report.md"
+        if not example_report.is_file():
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "starter bundle is missing examples/example-report.md",
+                )
+            )
+
+        manifest = load_yaml_file(manifest_path, issues)
+        if not isinstance(manifest, dict):
+            continue
+
+        evidence = manifest.get("evidence", [])
+        if not evidence:
+            issues.append(
+                ValidationIssue(
+                    relative_location(manifest_path),
+                    "starter bundle must include at least one manifest evidence entry",
+                )
+            )
+            continue
+
+        has_integrity_check = any(
+            item.get("kind") == "integrity_check" for item in evidence
+        )
+        if not has_integrity_check:
+            issues.append(
+                ValidationIssue(
+                    relative_location(manifest_path),
+                    "starter bundle must include an evidence entry with kind 'integrity_check'",
+                )
+            )
 
     return issues
 
@@ -414,6 +554,7 @@ def run_validation(
 ) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     all_eval_names = discover_eval_names(repo_root)
+    starter_names = load_starter_eval_names(repo_root, issues)
 
     if eval_name is not None:
         if eval_name not in all_eval_names:
@@ -427,7 +568,27 @@ def run_validation(
     for name in target_evals:
         issues.extend(validate_bundle(repo_root, name))
 
-    issues.extend(validate_eval_index(repo_root, selected_evals=selected_evals))
+    issues.extend(
+        validate_eval_index(
+            repo_root,
+            starter_names=starter_names,
+            selected_evals=selected_evals,
+        )
+    )
+    issues.extend(
+        validate_eval_selection(
+            repo_root,
+            starter_names=starter_names,
+            selected_evals=selected_evals,
+        )
+    )
+    issues.extend(
+        validate_starter_bundle_contract(
+            repo_root,
+            starter_names=starter_names,
+            selected_evals=selected_evals,
+        )
+    )
     return issues
 
 

@@ -37,3 +37,5 @@ evidence:
     path: notes/origin-need.md
   - kind: baseline_readiness
     path: notes/baseline-readiness.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md

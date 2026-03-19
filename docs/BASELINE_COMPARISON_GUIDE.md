@@ -44,6 +44,26 @@ A careful comparison should also name:
 - reviewer changes if they matter materially
 - any case removals or additions
 
+## Longitudinal-window hygiene
+
+When `baseline_mode` is `longitudinal-window`, keep explicit:
+- ordered named windows
+- one named bounded surface that stays constant across those windows
+- one public report or summary artifact per window
+- context changes that materially affect comparability
+
+Do not call the windows comparable if:
+- the proof job changed between windows
+- the case family drifted without disclosure
+- report polish is the main visible difference
+- reviewer or policy changes are large enough to swamp the bounded surface
+
+If comparability is weakened materially, prefer:
+- `mixed or unstable movement`
+- or `no clear directional movement`
+
+over a cleaner growth story.
+
 ## Improvement, regression, and noisy variation
 
 | reading | use when | caution |

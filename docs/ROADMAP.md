@@ -274,6 +274,9 @@ Goal: make the repository useful for measuring agent development across repeated
 
 This is where `aoa-evals` becomes a true growth organ rather than a collection of bounded checks.
 
+Current public surface:
+- `aoa-longitudinal-growth-snapshot` as the bounded starter for repeated-window movement on one named workflow surface
+
 Priority surfaces:
 - longitudinal growth snapshot bundles
 - repeated-window comparison protocols
@@ -403,12 +406,11 @@ The repository should keep preferring:
 Near-term next moves should use the new docs spine to shape the next agent-first surfaces and support artifacts.
 
 Highest-priority additions:
-- `aoa-longitudinal-growth-snapshot`
 - status-specific evidence expectations beyond the current draft starter floor
 - portable fixture-family reuse once current bundle meanings stabilize
 
 Next likely cross-surface candidate after the current public starter set:
-- `aoa-longitudinal-growth-snapshot`
+- no additional named starter bundle is currently locked
 
 Recent repo hardening now in place:
 - local dev dependencies in `requirements-dev.txt`
@@ -423,8 +425,8 @@ Next repository hardening steps:
 - add stronger manifest-to-selection and roadmap parity checks
 - add status-specific evidence expectations beyond the current baseline-mode rule
 - add compact report examples for any future starter bundles that still ship notes-only support artifacts
-- add clearer comparative report-contract expectations for regression and future longitudinal bundles
-- add a distinctness note for every remaining planned starter bundle so nearby evals do not collapse semantically before they ship
+- add clearer comparative report-contract expectations for regression and longitudinal bundles
+- keep distinctness notes ready whenever a newly named starter bundle is introduced so nearby evals do not collapse semantically before they ship
 
 ---
 

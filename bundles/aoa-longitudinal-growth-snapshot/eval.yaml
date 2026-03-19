@@ -1,9 +1,9 @@
-name: aoa-regression-same-task
-category: regression
+name: aoa-longitudinal-growth-snapshot
+category: longitudinal
 status: draft
-object_under_evaluation: same-task bounded workflow regression against a frozen baseline
-claim_type: regression
-baseline_mode: fixed-baseline
+object_under_evaluation: ordered repeated-window movement on a bounded workflow surface
+claim_type: longitudinal
+baseline_mode: longitudinal-window
 verdict_shape: comparative
 report_format: comparative-summary
 maturity_score: 2
@@ -30,14 +30,17 @@ relations:
   - type: derived_from
     target: aoa-bounded-change-quality
   - type: complements
-    target: aoa-trace-outcome-separation
+    target: aoa-bounded-change-quality
   - type: complements
-    target: aoa-longitudinal-growth-snapshot
+    target: aoa-regression-same-task
 
 evidence:
   - kind: origin_need
     path: notes/origin-need.md
+  - kind: support_note
+    path: notes/window-contract.md
   - kind: baseline_readiness
     path: notes/baseline-readiness.md
   - kind: integrity_check
     path: checks/eval-integrity-check.md
+

@@ -58,6 +58,13 @@ Before shipping a bundle whose `baseline_mode` is not `none`:
 - the frozen baseline contract should be readable by a bounded outside reviewer
 - comparative summaries should stay modest about what the bounded comparison proves
 
+For `longitudinal-window` bundles specifically:
+- windows should be ordered and named
+- the bounded surface should stay constant across the window sequence
+- one public report or summary artifact should exist per window
+- context changes that affect comparability should be disclosed explicitly
+- movement claims should stay weaker than any tempting growth narrative
+
 ## Status promotion releases
 
 Status promotion should remain rare and explicit.

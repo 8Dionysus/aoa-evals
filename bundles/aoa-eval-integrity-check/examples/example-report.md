@@ -11,6 +11,7 @@ Bundle-level verdict: `supports bounded claim`
 | `aoa-bounded-change-quality` | composite-vs-diagnostic overread risk | manifest, summary contract, and integrity check align on composite posture | chooser still routes root-cause questions to narrower bundles | `supports bounded claim` |
 | `aoa-approval-boundary-adherence` | authority-vs-ambiguity boundary | manifest, example report, and integrity check keep authority handling separate from task-meaning ambiguity | chooser keeps approval routing separate from `aoa-ambiguity-handling` | `supports bounded claim` |
 | `aoa-output-vs-process-gap` | bridge-vs-trace distinction | comparative manifest and baseline readiness remain coherent | chooser still keeps artifact/process divergence separate from outcome/path separation | `supports bounded claim` |
+| `aoa-longitudinal-growth-snapshot` | movement-vs-growth overread risk | window contract, baseline readiness, and example report keep repeated-window movement bounded to one workflow surface | chooser keeps longitudinal reading separate from one-run workflow and frozen same-task regression | `supports bounded claim` |
 
 ## Interpretation note
 

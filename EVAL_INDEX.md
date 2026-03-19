@@ -17,12 +17,11 @@ This file is the repository-wide map of public eval bundles.
 | aoa-artifact-review-rubric | artifact | draft | Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating polish as proof of workflow discipline. |
 | aoa-output-vs-process-gap | comparative | draft | Compares artifact-side and process-side readings on the same bounded cases to show when polished output outruns workflow discipline, process outruns artifact strength, or the two stay aligned. |
 | aoa-eval-integrity-check | capability | draft | Checks whether current public starter bundles stay coherent across manifest contract, verdict wording, evidence coverage, and public selection surfaces. |
+| aoa-longitudinal-growth-snapshot | longitudinal | draft | Checks whether ordered, comparable windows on the same bounded workflow surface show modest directional movement without upgrading that movement into broad capability growth. |
 
 ## Planned starter bundles
 
-| name | category | target role |
-|---|---|---|
-| aoa-longitudinal-growth-snapshot | longitudinal | bounded growth snapshot surface |
+No additional planned starter bundles are currently named publicly.
 
 ## Bundle Distinctness Notes
 
@@ -48,13 +47,15 @@ This file is the repository-wide map of public eval bundles.
   is polished output outrunning process discipline, is process outrunning artifact strength, or are the two broadly aligned?
 - `aoa-eval-integrity-check` is the current capability starter for eval-bundle coherence:
   do the public starter bundles remain coherent across manifest contract, evidence coverage, and public routing surfaces?
+- `aoa-longitudinal-growth-snapshot` is the current longitudinal starter:
+  do ordered comparable windows on the same bounded workflow surface show modest directional movement without turning that movement into broad capability growth?
 - `aoa-artifact-review-rubric` should stay on artifact quality:
   it should not drift into workflow-proof claims already covered by workflow starters.
 - `aoa-output-vs-process-gap` should compare polished outputs against process discipline:
   it should not duplicate the trace/outcome split or the artifact-review surface.
 - `aoa-eval-integrity-check` should inspect starter-bundle coherence:
   it should not be read as a direct agent-behavior starter bundle or as proof of canonical readiness.
-- `aoa-longitudinal-growth-snapshot` should stay on repeated-window bounded movement:
+- `aoa-longitudinal-growth-snapshot` should stay on repeated-window bounded workflow movement:
   it should not be read as a same-task regression surface or as proof of broad capability growth.
 
 ## Planned public states

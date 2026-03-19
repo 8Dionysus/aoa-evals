@@ -41,6 +41,8 @@ relations:
     target: aoa-artifact-review-rubric
   - type: checks_integrity_of
     target: aoa-output-vs-process-gap
+  - type: checks_integrity_of
+    target: aoa-longitudinal-growth-snapshot
 
 evidence:
   - kind: origin_need

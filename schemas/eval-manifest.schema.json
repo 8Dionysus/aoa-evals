@@ -1,0 +1,269 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-evals/schemas/eval-manifest.schema.json",
+  "title": "aoa-evals eval.yaml manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "category",
+    "status",
+    "object_under_evaluation",
+    "claim_type",
+    "baseline_mode",
+    "verdict_shape",
+    "report_format",
+    "maturity_score",
+    "rigor_level",
+    "repeatability",
+    "portability_level",
+    "review_required",
+    "validation_strength",
+    "export_ready",
+    "blind_spot_disclosure",
+    "score_interpretation_bound",
+    "technique_dependencies",
+    "skill_dependencies",
+    "relations",
+    "evidence"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^aoa-[a-z0-9-]+$"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "capability",
+        "workflow",
+        "boundary",
+        "artifact",
+        "regression",
+        "comparative",
+        "longitudinal",
+        "stress"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "bounded",
+        "portable",
+        "baseline",
+        "canonical",
+        "deprecated"
+      ]
+    },
+    "object_under_evaluation": {
+      "type": "string",
+      "minLength": 3
+    },
+    "claim_type": {
+      "type": "string",
+      "enum": [
+        "bounded",
+        "comparative",
+        "regression",
+        "longitudinal"
+      ]
+    },
+    "baseline_mode": {
+      "type": "string",
+      "enum": [
+        "none",
+        "fixed-baseline",
+        "previous-version",
+        "peer-compare",
+        "longitudinal-window"
+      ]
+    },
+    "verdict_shape": {
+      "type": "string",
+      "enum": [
+        "pass-fail",
+        "categorical",
+        "scalar-with-interpretation",
+        "comparative",
+        "mixed"
+      ]
+    },
+    "report_format": {
+      "type": "string",
+      "enum": [
+        "summary",
+        "summary-with-breakdown",
+        "comparative-summary"
+      ]
+    },
+    "maturity_score": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "rigor_level": {
+      "type": "string",
+      "enum": [
+        "light",
+        "bounded",
+        "strict"
+      ]
+    },
+    "repeatability": {
+      "type": "string",
+      "enum": [
+        "low",
+        "moderate",
+        "high"
+      ]
+    },
+    "portability_level": {
+      "type": "string",
+      "enum": [
+        "local-shaped",
+        "portable",
+        "broad"
+      ]
+    },
+    "review_required": {
+      "type": "boolean"
+    },
+    "validation_strength": {
+      "type": "string",
+      "enum": [
+        "baseline",
+        "source_backed",
+        "cross_context"
+      ]
+    },
+    "export_ready": {
+      "type": "boolean"
+    },
+    "blind_spot_disclosure": {
+      "type": "string",
+      "enum": [
+        "required-and-present",
+        "partial",
+        "missing"
+      ]
+    },
+    "score_interpretation_bound": {
+      "type": "string",
+      "enum": [
+        "explicit",
+        "partial",
+        "missing"
+      ]
+    },
+    "technique_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "repo",
+          "path"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^AOA-T-(?:[0-9]{4}|PENDING-[A-Z0-9-]+)$"
+          },
+          "repo": {
+            "type": "string",
+            "minLength": 3
+          },
+          "path": {
+            "type": "string",
+            "minLength": 3
+          }
+        }
+      }
+    },
+    "skill_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "repo",
+          "path"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^(aoa|abyss|atm10)-[a-z0-9-]+$"
+          },
+          "repo": {
+            "type": "string",
+            "minLength": 3
+          },
+          "path": {
+            "type": "string",
+            "minLength": 3
+          }
+        }
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "target"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "requires",
+              "complements",
+              "supersedes",
+              "conflicts_with",
+              "used_together_for",
+              "derived_from",
+              "checks_integrity_of"
+            ]
+          },
+          "target": {
+            "type": "string",
+            "pattern": "^aoa-[a-z0-9-]+$"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "path"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "origin_need",
+              "portable_review",
+              "baseline_readiness",
+              "canonical_readiness",
+              "integrity_check",
+              "support_note"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 3
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+name: aoa-approval-boundary-adherence
+category: boundary
+status: draft
+object_under_evaluation: authority and approval boundary handling in agent behavior
+claim_type: bounded
+baseline_mode: none
+verdict_shape: categorical
+report_format: summary
+maturity_score: 2
+rigor_level: bounded
+repeatability: moderate
+portability_level: portable
+review_required: true
+validation_strength: baseline
+export_ready: true
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+
+technique_dependencies: []
+
+skill_dependencies:
+  - name: aoa-approval-gate-check
+    repo: 8Dionysus/aoa-skills
+    path: skills/aoa-approval-gate-check/SKILL.md
+
+relations: []
+evidence: []

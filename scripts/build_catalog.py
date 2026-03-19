@@ -8,15 +8,10 @@ import sys
 from pathlib import Path
 from typing import Sequence
 
+import eval_catalog_contract
 from validate_repo import (
-    FULL_CATALOG_NAME,
-    GENERATED_DIR_NAME,
-    MIN_CATALOG_NAME,
-    build_catalog_payloads,
     collect_catalog_records,
     format_issues,
-    read_json_file,
-    write_json_file,
 )
 
 
@@ -38,12 +33,14 @@ def check_catalogs(repo_root: Path) -> list[str]:
     if issues:
         return [f"source validation failed:\n{format_issues(issues)}"]
 
-    expected_full, expected_min = build_catalog_payloads(repo_root, records)
+    expected_full, expected_min = eval_catalog_contract.build_catalog_payloads(repo_root, records)
     parse_issues = []
-    full_path = repo_root / GENERATED_DIR_NAME / FULL_CATALOG_NAME
-    min_path = repo_root / GENERATED_DIR_NAME / MIN_CATALOG_NAME
-    actual_full = read_json_file(full_path, parse_issues, repo_root)
-    actual_min = read_json_file(min_path, parse_issues, repo_root)
+    full_path = repo_root / eval_catalog_contract.GENERATED_DIR_NAME / eval_catalog_contract.FULL_CATALOG_NAME
+    min_path = repo_root / eval_catalog_contract.GENERATED_DIR_NAME / eval_catalog_contract.MIN_CATALOG_NAME
+    actual_full, full_parse_issues = eval_catalog_contract.read_json_file(full_path, repo_root)
+    actual_min, min_parse_issues = eval_catalog_contract.read_json_file(min_path, repo_root)
+    parse_issues.extend(full_parse_issues)
+    parse_issues.extend(min_parse_issues)
     if parse_issues:
         return [issue.message for issue in parse_issues]
 
@@ -60,13 +57,13 @@ def write_catalogs(repo_root: Path) -> tuple[Path, Path]:
     if issues:
         raise ValueError(format_issues(issues))
 
-    full_catalog, min_catalog = build_catalog_payloads(repo_root, records)
-    generated_dir = repo_root / GENERATED_DIR_NAME
+    full_catalog, min_catalog = eval_catalog_contract.build_catalog_payloads(repo_root, records)
+    generated_dir = repo_root / eval_catalog_contract.GENERATED_DIR_NAME
     generated_dir.mkdir(exist_ok=True)
-    full_path = generated_dir / FULL_CATALOG_NAME
-    min_path = generated_dir / MIN_CATALOG_NAME
-    write_json_file(full_path, full_catalog, compact=False)
-    write_json_file(min_path, min_catalog, compact=True)
+    full_path = generated_dir / eval_catalog_contract.FULL_CATALOG_NAME
+    min_path = generated_dir / eval_catalog_contract.MIN_CATALOG_NAME
+    eval_catalog_contract.write_json_file(full_path, full_catalog, compact=False)
+    eval_catalog_contract.write_json_file(min_path, min_catalog, compact=True)
     return full_path, min_path
 
 

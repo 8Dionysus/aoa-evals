@@ -411,6 +411,31 @@ def test_validate_repo_stale_generated_catalogs_fail(tmp_path: Path) -> None:
     )
 
 
+def test_targeted_validation_catches_stale_generated_catalog_for_selected_eval(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-targeted-stale-generated")
+    write_catalogs(tmp_path)
+
+    eval_md_path = tmp_path / "bundles" / "aoa-targeted-stale-generated" / "EVAL.md"
+    text = eval_md_path.read_text(encoding="utf-8")
+    eval_md_path.write_text(
+        text.replace("Minimal summary for validation.", "Changed without rebuilding catalog.", 1),
+        encoding="utf-8",
+    )
+
+    issues = run_validation(tmp_path, eval_name="aoa-targeted-stale-generated")
+
+    assert any(
+        "generated catalog entry for 'aoa-targeted-stale-generated' is out of date; run 'python scripts/build_catalog.py'"
+        in issue.message
+        for issue in issues
+    )
+    assert any(
+        "generated min catalog entry for 'aoa-targeted-stale-generated' is out of date; run 'python scripts/build_catalog.py'"
+        in issue.message
+        for issue in issues
+    )
+
+
 def test_validate_repo_rejects_min_projection_drift(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-min-projection-drift")
     write_catalogs(tmp_path)

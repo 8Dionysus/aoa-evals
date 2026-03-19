@@ -1,0 +1,30 @@
+name: aoa-bounded-change-quality
+category: workflow
+status: draft
+object_under_evaluation: bounded agent change workflow
+claim_type: bounded
+baseline_mode: none
+verdict_shape: categorical
+report_format: summary
+maturity_score: 2
+rigor_level: bounded
+repeatability: moderate
+portability_level: portable
+review_required: true
+validation_strength: baseline
+export_ready: true
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+
+technique_dependencies:
+  - id: AOA-T-0001
+    repo: 8Dionysus/aoa-techniques
+    path: techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md
+
+skill_dependencies:
+  - name: aoa-change-protocol
+    repo: 8Dionysus/aoa-skills
+    path: skills/aoa-change-protocol/SKILL.md
+
+relations: []
+evidence: []

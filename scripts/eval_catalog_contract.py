@@ -1,0 +1,357 @@
+from __future__ import annotations
+
+import json
+import re
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+
+
+GENERATED_DIR_NAME = "generated"
+FULL_CATALOG_NAME = "eval_catalog.json"
+MIN_CATALOG_NAME = "eval_catalog.min.json"
+CATALOG_VERSION = 1
+CATALOG_SOURCE_OF_TRUTH = {
+    "eval_markdown": "bundles/*/EVAL.md",
+    "eval_manifest": "bundles/*/eval.yaml",
+}
+MIN_ENTRY_KEYS = (
+    "name",
+    "category",
+    "status",
+    "summary",
+    "object_under_evaluation",
+    "claim_type",
+    "baseline_mode",
+    "verdict_shape",
+    "report_format",
+    "maturity_score",
+    "rigor_level",
+    "repeatability",
+    "portability_level",
+    "review_required",
+    "validation_strength",
+    "export_ready",
+    "technique_dependencies",
+    "skill_dependencies",
+    "eval_path",
+)
+KNOWN_REPOS = (
+    "aoa-routing",
+    "aoa-techniques",
+    "aoa-skills",
+    "aoa-evals",
+    "aoa-memo",
+)
+
+
+@dataclass(frozen=True)
+class ContractIssue:
+    location: str
+    message: str
+
+
+def relative_location(path: Path, root: Path) -> str:
+    try:
+        return path.relative_to(root).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
+def format_issues(issues: list[ContractIssue]) -> str:
+    return "\n".join(f"- {issue.location}: {issue.message}" for issue in issues)
+
+
+def normalize_repo_name(raw: str) -> str:
+    text = raw.strip()
+    if not text:
+        raise ValueError("repo value must not be empty")
+    if text in KNOWN_REPOS:
+        return text
+
+    if text.startswith("git@"):
+        text = text.split(":", 1)[-1]
+    if "://" in text:
+        text = text.split("://", 1)[-1]
+        if "/" in text:
+            text = text.split("/", 1)[-1]
+    text = text.rstrip("/")
+    if text.endswith(".git"):
+        text = text[:-4]
+
+    candidate = text.rsplit("/", 1)[-1]
+    if candidate in KNOWN_REPOS:
+        return candidate
+
+    raise ValueError(f"unsupported repo reference '{raw}'")
+
+
+def is_repo_relative_path(raw_path: str) -> bool:
+    if not raw_path or raw_path == "TBD":
+        return False
+    if re.match(r"^[A-Za-z]:[/\\\\]", raw_path) or raw_path.startswith(("/", "\\\\")):
+        return False
+    normalized = raw_path.replace("\\", "/")
+    if normalized.startswith("./"):
+        return False
+    parts = normalized.split("/")
+    if any(part in {"", ".", ".."} for part in parts):
+        return False
+    return True
+
+
+def ensure_repo_relative_path(raw_path: str, location: str) -> tuple[str, list[ContractIssue]]:
+    issues: list[ContractIssue] = []
+    if not isinstance(raw_path, str) or not raw_path.strip():
+        issues.append(ContractIssue(location, "path must be a non-empty string"))
+        return "", issues
+
+    value = raw_path.strip().replace("\\", "/")
+    if not is_repo_relative_path(value):
+        issues.append(
+            ContractIssue(location, "path must be a concrete repo-relative path")
+        )
+    return value, issues
+
+
+def normalize_technique_dependency_refs(
+    manifest: dict[str, Any],
+    eval_yaml_path: Path,
+    repo_root: Path,
+) -> tuple[list[dict[str, str]], list[ContractIssue]]:
+    normalized: list[dict[str, str]] = []
+    issues: list[ContractIssue] = []
+    dependencies = manifest.get("technique_dependencies", [])
+    for index, item in enumerate(dependencies):
+        location = f"{relative_location(eval_yaml_path, repo_root)}.technique_dependencies[{index}]"
+        if not isinstance(item, dict):
+            continue
+        dependency_id = item.get("id")
+        repo_raw = item.get("repo")
+        raw_path = item.get("path")
+
+        if not isinstance(dependency_id, str):
+            continue
+        if not isinstance(repo_raw, str):
+            continue
+
+        try:
+            repo_name = normalize_repo_name(repo_raw)
+        except ValueError as exc:
+            issues.append(ContractIssue(location, str(exc)))
+            repo_name = repo_raw
+
+        if repo_name != "aoa-techniques":
+            issues.append(
+                ContractIssue(location, ".repo must resolve to 'aoa-techniques'")
+            )
+
+        normalized_path = ""
+        if isinstance(raw_path, str):
+            normalized_path, path_issues = ensure_repo_relative_path(
+                raw_path,
+                f"{location}.path",
+            )
+            issues.extend(path_issues)
+
+        normalized.append(
+            {
+                "id": dependency_id,
+                "repo": repo_name,
+                "path": normalized_path,
+            }
+        )
+    return normalized, issues
+
+
+def normalize_skill_dependency_refs(
+    manifest: dict[str, Any],
+    eval_yaml_path: Path,
+    repo_root: Path,
+) -> tuple[list[dict[str, str]], list[ContractIssue]]:
+    normalized: list[dict[str, str]] = []
+    issues: list[ContractIssue] = []
+    dependencies = manifest.get("skill_dependencies", [])
+    for index, item in enumerate(dependencies):
+        location = f"{relative_location(eval_yaml_path, repo_root)}.skill_dependencies[{index}]"
+        if not isinstance(item, dict):
+            continue
+        dependency_name = item.get("name")
+        repo_raw = item.get("repo")
+        raw_path = item.get("path")
+
+        if not isinstance(dependency_name, str):
+            continue
+        if not isinstance(repo_raw, str):
+            continue
+
+        try:
+            repo_name = normalize_repo_name(repo_raw)
+        except ValueError as exc:
+            issues.append(ContractIssue(location, str(exc)))
+            repo_name = repo_raw
+
+        if repo_name != "aoa-skills":
+            issues.append(
+                ContractIssue(location, ".repo must resolve to 'aoa-skills'")
+            )
+
+        normalized_path = ""
+        if isinstance(raw_path, str):
+            normalized_path, path_issues = ensure_repo_relative_path(
+                raw_path,
+                f"{location}.path",
+            )
+            issues.extend(path_issues)
+
+        normalized.append(
+            {
+                "name": dependency_name,
+                "repo": repo_name,
+                "path": normalized_path,
+            }
+        )
+    return normalized, issues
+
+
+def full_catalog_entry(repo_root: Path, record: Any) -> dict[str, Any]:
+    metadata = record.metadata
+    manifest = record.manifest
+    technique_refs, technique_issues = normalize_technique_dependency_refs(
+        manifest,
+        record.eval_yaml_path,
+        repo_root,
+    )
+    skill_refs, skill_issues = normalize_skill_dependency_refs(
+        manifest,
+        record.eval_yaml_path,
+        repo_root,
+    )
+    if technique_issues or skill_issues:
+        raise ValueError(format_issues(technique_issues + skill_issues))
+
+    return {
+        "name": metadata["name"],
+        "category": metadata["category"],
+        "status": metadata["status"],
+        "summary": metadata["summary"],
+        "object_under_evaluation": metadata["object_under_evaluation"],
+        "claim_type": metadata["claim_type"],
+        "baseline_mode": metadata["baseline_mode"],
+        "verdict_shape": manifest["verdict_shape"],
+        "report_format": metadata["report_format"],
+        "maturity_score": manifest["maturity_score"],
+        "rigor_level": manifest["rigor_level"],
+        "repeatability": manifest["repeatability"],
+        "portability_level": manifest["portability_level"],
+        "review_required": manifest["review_required"],
+        "validation_strength": manifest["validation_strength"],
+        "export_ready": manifest["export_ready"],
+        "blind_spot_disclosure": manifest["blind_spot_disclosure"],
+        "score_interpretation_bound": manifest["score_interpretation_bound"],
+        "eval_path": relative_location(record.eval_md_path, repo_root),
+        "technique_dependencies": list(metadata["technique_dependencies"]),
+        "technique_refs": technique_refs,
+        "skill_dependencies": list(metadata["skill_dependencies"]),
+        "skill_refs": skill_refs,
+        "relations": list(manifest["relations"]),
+        "evidence": list(manifest["evidence"]),
+    }
+
+
+def project_min_catalog(full_catalog: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "catalog_version": full_catalog["catalog_version"],
+        "source_of_truth": full_catalog["source_of_truth"],
+        "evals": [
+            {key: entry[key] for key in MIN_ENTRY_KEYS}
+            for entry in full_catalog["evals"]
+        ],
+    }
+
+
+def build_catalog_payloads(
+    repo_root: Path,
+    records: list[Any],
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    sorted_records = sorted(records, key=lambda record: record.name)
+    full_catalog = {
+        "catalog_version": CATALOG_VERSION,
+        "source_of_truth": CATALOG_SOURCE_OF_TRUTH,
+        "evals": [full_catalog_entry(repo_root, record) for record in sorted_records],
+    }
+    return full_catalog, project_min_catalog(full_catalog)
+
+
+def read_json_file(path: Path, repo_root: Path) -> tuple[Any | None, list[ContractIssue]]:
+    issues: list[ContractIssue] = []
+    try:
+        return json.loads(path.read_text(encoding="utf-8")), issues
+    except FileNotFoundError:
+        issues.append(ContractIssue(relative_location(path, repo_root), "file is missing"))
+    except json.JSONDecodeError as exc:
+        issues.append(ContractIssue(relative_location(path, repo_root), f"invalid JSON: {exc}"))
+    return None, issues
+
+
+def write_json_file(path: Path, payload: Any, compact: bool = False) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if compact:
+        text = json.dumps(
+            payload,
+            ensure_ascii=True,
+            indent=None,
+            separators=(",", ":"),
+            sort_keys=True,
+        )
+    else:
+        text = json.dumps(
+            payload,
+            ensure_ascii=True,
+            indent=2,
+            sort_keys=True,
+        )
+    path.write_text(f"{text}\n", encoding="utf-8")
+
+
+def catalog_entries_by_name(
+    catalog: dict[str, Any],
+    *,
+    array_key: str,
+    key_name: str,
+    location: str,
+) -> tuple[dict[str, dict[str, Any]], list[ContractIssue]]:
+    entries = catalog.get(array_key)
+    if not isinstance(entries, list):
+        return {}, [ContractIssue(location, f"catalog field '{array_key}' must be a list")]
+
+    issues: list[ContractIssue] = []
+    entry_map: dict[str, dict[str, Any]] = {}
+    for index, entry in enumerate(entries):
+        if not isinstance(entry, dict):
+            issues.append(
+                ContractIssue(
+                    location,
+                    f"catalog field '{array_key}[{index}]' must be an object",
+                )
+            )
+            continue
+        name = entry.get(key_name)
+        if not isinstance(name, str):
+            issues.append(
+                ContractIssue(
+                    location,
+                    f"catalog field '{array_key}[{index}].{key_name}' must be a string",
+                )
+            )
+            continue
+        if name in entry_map:
+            issues.append(
+                ContractIssue(
+                    location,
+                    f"catalog field '{array_key}' must not contain duplicate '{name}' entries",
+                )
+            )
+            continue
+        entry_map[name] = entry
+    return entry_map, issues

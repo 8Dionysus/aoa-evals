@@ -88,3 +88,23 @@ def test_build_catalog_check_passes_after_write(tmp_path: Path) -> None:
     assert min_path.name == "eval_catalog.min.json"
     assert build_catalog.check_catalogs(tmp_path) == []
 
+
+def test_build_catalog_rejects_invalid_dependency_contract(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-invalid-contract")
+
+    manifest_path = tmp_path / "bundles" / "aoa-invalid-contract" / "eval.yaml"
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    manifest["technique_dependencies"][0]["repo"] = "example/other-repo"
+    manifest["technique_dependencies"][0]["path"] = "../bad/path.md"
+    manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
+
+    try:
+        build_catalog.write_catalogs(tmp_path)
+    except ValueError as exc:
+        assert "repo must resolve to 'aoa-techniques'" in str(exc)
+    else:
+        raise AssertionError("write_catalogs should reject invalid dependency contracts")
+
+    problems = build_catalog.check_catalogs(tmp_path)
+    assert problems
+    assert "source validation failed" in problems[0]

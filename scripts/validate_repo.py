@@ -16,19 +16,18 @@ from typing import Any, Iterable, Sequence
 import yaml
 from jsonschema import Draft202012Validator
 
+import eval_catalog_contract
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 BUNDLES_DIR_NAME = "bundles"
 EVAL_INDEX_NAME = "EVAL_INDEX.md"
 EVAL_SELECTION_NAME = "EVAL_SELECTION.md"
 SCHEMAS_DIR_NAME = "schemas"
 GENERATED_DIR_NAME = "generated"
-FULL_CATALOG_NAME = "eval_catalog.json"
-MIN_CATALOG_NAME = "eval_catalog.min.json"
-CATALOG_VERSION = 1
-CATALOG_SOURCE_OF_TRUTH = {
-    "eval_markdown": "bundles/*/EVAL.md",
-    "eval_manifest": "bundles/*/eval.yaml",
-}
+FULL_CATALOG_NAME = eval_catalog_contract.FULL_CATALOG_NAME
+MIN_CATALOG_NAME = eval_catalog_contract.MIN_CATALOG_NAME
+CATALOG_VERSION = eval_catalog_contract.CATALOG_VERSION
+CATALOG_SOURCE_OF_TRUTH = eval_catalog_contract.CATALOG_SOURCE_OF_TRUTH
 
 MIRRORED_FIELDS = (
     "name",
@@ -39,34 +38,8 @@ MIRRORED_FIELDS = (
     "baseline_mode",
     "report_format",
 )
-MIN_ENTRY_KEYS = (
-    "name",
-    "category",
-    "status",
-    "summary",
-    "object_under_evaluation",
-    "claim_type",
-    "baseline_mode",
-    "verdict_shape",
-    "report_format",
-    "maturity_score",
-    "rigor_level",
-    "repeatability",
-    "portability_level",
-    "review_required",
-    "validation_strength",
-    "export_ready",
-    "technique_dependencies",
-    "skill_dependencies",
-    "eval_path",
-)
-KNOWN_REPOS = (
-    "aoa-routing",
-    "aoa-techniques",
-    "aoa-skills",
-    "aoa-evals",
-    "aoa-memo",
-)
+MIN_ENTRY_KEYS = eval_catalog_contract.MIN_ENTRY_KEYS
+KNOWN_REPOS = eval_catalog_contract.KNOWN_REPOS
 
 REQUIRED_HEADINGS = {
     "Intent",
@@ -262,53 +235,19 @@ def resolve_manifest_path(bundle_dir: Path, raw_path: str) -> Path:
 
 
 def normalize_repo_name(raw: str) -> str:
-    text = raw.strip()
-    if not text:
-        raise ValueError("repo value must not be empty")
-    if text in KNOWN_REPOS:
-        return text
-
-    if text.startswith("git@"):
-        text = text.split(":", 1)[-1]
-    if "://" in text:
-        text = text.split("://", 1)[-1]
-        if "/" in text:
-            text = text.split("/", 1)[-1]
-    text = text.rstrip("/")
-    if text.endswith(".git"):
-        text = text[:-4]
-
-    candidate = text.rsplit("/", 1)[-1]
-    if candidate in KNOWN_REPOS:
-        return candidate
-
-    raise ValueError(f"unsupported repo reference '{raw}'")
+    return eval_catalog_contract.normalize_repo_name(raw)
 
 
 def is_repo_relative_path(raw_path: str) -> bool:
-    if not raw_path or raw_path == "TBD":
-        return False
-    if re.match(r"^[A-Za-z]:[/\\\\]", raw_path) or raw_path.startswith(("/", "\\\\")):
-        return False
-    normalized = raw_path.replace("\\", "/")
-    if normalized.startswith("./"):
-        return False
-    parts = normalized.split("/")
-    if any(part in {"", ".", ".."} for part in parts):
-        return False
-    return True
+    return eval_catalog_contract.is_repo_relative_path(raw_path)
 
 
 def ensure_repo_relative_path(raw_path: str, location: str, issues: list[ValidationIssue]) -> str:
-    if not isinstance(raw_path, str) or not raw_path.strip():
-        issues.append(ValidationIssue(location, "path must be a non-empty string"))
-        return ""
-
-    value = raw_path.strip().replace("\\", "/")
-    if not is_repo_relative_path(value):
-        issues.append(
-            ValidationIssue(location, "path must be a concrete repo-relative path")
-        )
+    value, contract_issues = eval_catalog_contract.ensure_repo_relative_path(raw_path, location)
+    issues.extend(
+        ValidationIssue(issue.location, issue.message)
+        for issue in contract_issues
+    )
     return value
 
 
@@ -479,47 +418,15 @@ def normalize_technique_dependency_refs(
     eval_yaml_path: Path,
     issues: list[ValidationIssue],
 ) -> list[dict[str, str]]:
-    normalized: list[dict[str, str]] = []
-    dependencies = manifest.get("technique_dependencies", [])
-    for index, item in enumerate(dependencies):
-        location = f"{relative_location(eval_yaml_path)}.technique_dependencies[{index}]"
-        if not isinstance(item, dict):
-            continue
-        dependency_id = item.get("id")
-        repo_raw = item.get("repo")
-        raw_path = item.get("path")
-
-        if not isinstance(dependency_id, str):
-            continue
-        if not isinstance(repo_raw, str):
-            continue
-
-        try:
-            repo_name = normalize_repo_name(repo_raw)
-        except ValueError as exc:
-            issues.append(ValidationIssue(location, str(exc)))
-            repo_name = repo_raw
-
-        if repo_name != "aoa-techniques":
-            issues.append(
-                ValidationIssue(location, ".repo must resolve to 'aoa-techniques'")
-            )
-
-        normalized_path = ""
-        if isinstance(raw_path, str):
-            normalized_path = ensure_repo_relative_path(
-                raw_path,
-                f"{location}.path",
-                issues,
-            )
-
-        normalized.append(
-            {
-                "id": dependency_id,
-                "repo": repo_name,
-                "path": normalized_path,
-            }
-        )
+    normalized, contract_issues = eval_catalog_contract.normalize_technique_dependency_refs(
+        manifest,
+        eval_yaml_path,
+        eval_yaml_path.parents[2],
+    )
+    issues.extend(
+        ValidationIssue(issue.location, issue.message)
+        for issue in contract_issues
+    )
     return normalized
 
 
@@ -528,47 +435,15 @@ def normalize_skill_dependency_refs(
     eval_yaml_path: Path,
     issues: list[ValidationIssue],
 ) -> list[dict[str, str]]:
-    normalized: list[dict[str, str]] = []
-    dependencies = manifest.get("skill_dependencies", [])
-    for index, item in enumerate(dependencies):
-        location = f"{relative_location(eval_yaml_path)}.skill_dependencies[{index}]"
-        if not isinstance(item, dict):
-            continue
-        dependency_name = item.get("name")
-        repo_raw = item.get("repo")
-        raw_path = item.get("path")
-
-        if not isinstance(dependency_name, str):
-            continue
-        if not isinstance(repo_raw, str):
-            continue
-
-        try:
-            repo_name = normalize_repo_name(repo_raw)
-        except ValueError as exc:
-            issues.append(ValidationIssue(location, str(exc)))
-            repo_name = repo_raw
-
-        if repo_name != "aoa-skills":
-            issues.append(
-                ValidationIssue(location, ".repo must resolve to 'aoa-skills'")
-            )
-
-        normalized_path = ""
-        if isinstance(raw_path, str):
-            normalized_path = ensure_repo_relative_path(
-                raw_path,
-                f"{location}.path",
-                issues,
-            )
-
-        normalized.append(
-            {
-                "name": dependency_name,
-                "repo": repo_name,
-                "path": normalized_path,
-            }
-        )
+    normalized, contract_issues = eval_catalog_contract.normalize_skill_dependency_refs(
+        manifest,
+        eval_yaml_path,
+        eval_yaml_path.parents[2],
+    )
+    issues.extend(
+        ValidationIssue(issue.location, issue.message)
+        for issue in contract_issues
+    )
     return normalized
 
 
@@ -894,110 +769,37 @@ def collect_catalog_records(
 
 
 def full_catalog_entry(repo_root: Path, record: EvalBundleRecord) -> dict[str, Any]:
-    metadata = record.metadata
-    manifest = record.manifest
-    technique_refs = [
-        {
-            "id": item["id"],
-            "repo": normalize_repo_name(item["repo"]),
-            "path": item["path"].replace("\\", "/"),
-        }
-        for item in manifest["technique_dependencies"]
-    ]
-    skill_refs = [
-        {
-            "name": item["name"],
-            "repo": normalize_repo_name(item["repo"]),
-            "path": item["path"].replace("\\", "/"),
-        }
-        for item in manifest["skill_dependencies"]
-    ]
-    return {
-        "name": metadata["name"],
-        "category": metadata["category"],
-        "status": metadata["status"],
-        "summary": metadata["summary"],
-        "object_under_evaluation": metadata["object_under_evaluation"],
-        "claim_type": metadata["claim_type"],
-        "baseline_mode": metadata["baseline_mode"],
-        "verdict_shape": manifest["verdict_shape"],
-        "report_format": metadata["report_format"],
-        "maturity_score": manifest["maturity_score"],
-        "rigor_level": manifest["rigor_level"],
-        "repeatability": manifest["repeatability"],
-        "portability_level": manifest["portability_level"],
-        "review_required": manifest["review_required"],
-        "validation_strength": manifest["validation_strength"],
-        "export_ready": manifest["export_ready"],
-        "blind_spot_disclosure": manifest["blind_spot_disclosure"],
-        "score_interpretation_bound": manifest["score_interpretation_bound"],
-        "eval_path": relative_location(record.eval_md_path, repo_root),
-        "technique_dependencies": list(metadata["technique_dependencies"]),
-        "technique_refs": technique_refs,
-        "skill_dependencies": list(metadata["skill_dependencies"]),
-        "skill_refs": skill_refs,
-        "relations": list(manifest["relations"]),
-        "evidence": list(manifest["evidence"]),
-    }
+    return eval_catalog_contract.full_catalog_entry(repo_root, record)
 
 
 def project_min_catalog(full_catalog: dict[str, Any]) -> dict[str, Any]:
-    return {
-        "catalog_version": full_catalog["catalog_version"],
-        "source_of_truth": full_catalog["source_of_truth"],
-        "evals": [
-            {key: entry[key] for key in MIN_ENTRY_KEYS}
-            for entry in full_catalog["evals"]
-        ],
-    }
+    return eval_catalog_contract.project_min_catalog(full_catalog)
 
 
 def build_catalog_payloads(
     repo_root: Path,
     records: list[EvalBundleRecord],
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    sorted_records = sorted(records, key=lambda record: record.name)
-    full_catalog = {
-        "catalog_version": CATALOG_VERSION,
-        "source_of_truth": CATALOG_SOURCE_OF_TRUTH,
-        "evals": [full_catalog_entry(repo_root, record) for record in sorted_records],
-    }
-    return full_catalog, project_min_catalog(full_catalog)
+    return eval_catalog_contract.build_catalog_payloads(repo_root, records)
 
 
 def read_json_file(path: Path, issues: list[ValidationIssue], repo_root: Path) -> Any | None:
-    try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except FileNotFoundError:
-        issues.append(ValidationIssue(relative_location(path, repo_root), "file is missing"))
-    except json.JSONDecodeError as exc:
-        issues.append(ValidationIssue(relative_location(path, repo_root), f"invalid JSON: {exc}"))
-    return None
+    payload, contract_issues = eval_catalog_contract.read_json_file(path, repo_root)
+    issues.extend(
+        ValidationIssue(issue.location, issue.message)
+        for issue in contract_issues
+    )
+    return payload
 
 
 def write_json_file(path: Path, payload: Any, compact: bool = False) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if compact:
-        text = json.dumps(
-            payload,
-            ensure_ascii=True,
-            indent=None,
-            separators=(",", ":"),
-            sort_keys=True,
-        )
-    else:
-        text = json.dumps(
-            payload,
-            ensure_ascii=True,
-            indent=2,
-            sort_keys=True,
-        )
-    path.write_text(f"{text}\n", encoding="utf-8")
+    eval_catalog_contract.write_json_file(path, payload, compact=compact)
 
 
 def validate_generated_catalogs(
     repo_root: Path,
     records: list[EvalBundleRecord],
+    target_eval_names: Sequence[str] | None = None,
 ) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     full_path = repo_root / GENERATED_DIR_NAME / FULL_CATALOG_NAME
@@ -1010,29 +812,117 @@ def validate_generated_catalogs(
     if actual_full is None or actual_min is None:
         return issues
 
-    if actual_full != expected_full:
-        issues.append(
-            ValidationIssue(
-                relative_location(full_path, repo_root),
-                "generated catalog is out of date; run 'python scripts/build_catalog.py'",
+    full_location = relative_location(full_path, repo_root)
+    min_location = relative_location(min_path, repo_root)
+    if target_eval_names is None:
+        if actual_full != expected_full:
+            issues.append(
+                ValidationIssue(
+                    full_location,
+                    "generated catalog is out of date; run 'python scripts/build_catalog.py'",
+                )
             )
-        )
-    if actual_min != expected_min:
-        issues.append(
-            ValidationIssue(
-                relative_location(min_path, repo_root),
-                "generated min catalog is out of date; run 'python scripts/build_catalog.py'",
+        if actual_min != expected_min:
+            issues.append(
+                ValidationIssue(
+                    min_location,
+                    "generated min catalog is out of date; run 'python scripts/build_catalog.py'",
+                )
             )
-        )
 
-    projected_min = project_min_catalog(actual_full)
-    if actual_min != projected_min:
-        issues.append(
-            ValidationIssue(
-                relative_location(min_path, repo_root),
-                "min catalog must stay a projection of the full catalog",
+        projected_min = project_min_catalog(actual_full)
+        if actual_min != projected_min:
+            issues.append(
+                ValidationIssue(
+                    min_location,
+                    "min catalog must stay a projection of the full catalog",
+                )
             )
-        )
+        return issues
+
+    full_entries, full_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+        actual_full,
+        array_key="evals",
+        key_name="name",
+        location=full_location,
+    )
+    min_entries, min_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+        actual_min,
+        array_key="evals",
+        key_name="name",
+        location=min_location,
+    )
+    issues.extend(
+        ValidationIssue(issue.location, issue.message)
+        for issue in full_entry_issues + min_entry_issues
+    )
+
+    expected_full_entries = {
+        record.name: full_catalog_entry(repo_root, record)
+        for record in records
+    }
+    expected_min_entries = {
+        name: project_min_catalog(
+            {
+                "catalog_version": CATALOG_VERSION,
+                "source_of_truth": CATALOG_SOURCE_OF_TRUTH,
+                "evals": [entry],
+            }
+        )["evals"][0]
+        for name, entry in expected_full_entries.items()
+    }
+
+    for eval_name in target_eval_names:
+        actual_full_entry = full_entries.get(eval_name)
+        actual_min_entry = min_entries.get(eval_name)
+        if actual_full_entry is None:
+            issues.append(
+                ValidationIssue(
+                    full_location,
+                    f"generated catalog is missing eval '{eval_name}'",
+                )
+            )
+            continue
+        if actual_min_entry is None:
+            issues.append(
+                ValidationIssue(
+                    min_location,
+                    f"generated min catalog is missing eval '{eval_name}'",
+                )
+            )
+            continue
+
+        expected_full_entry = expected_full_entries[eval_name]
+        expected_min_entry = expected_min_entries[eval_name]
+        if actual_full_entry != expected_full_entry:
+            issues.append(
+                ValidationIssue(
+                    full_location,
+                    f"generated catalog entry for '{eval_name}' is out of date; run 'python scripts/build_catalog.py'",
+                )
+            )
+        if actual_min_entry != expected_min_entry:
+            issues.append(
+                ValidationIssue(
+                    min_location,
+                    f"generated min catalog entry for '{eval_name}' is out of date; run 'python scripts/build_catalog.py'",
+                )
+            )
+
+        projected_min_entry = project_min_catalog(
+            {
+                "catalog_version": actual_full.get("catalog_version"),
+                "source_of_truth": actual_full.get("source_of_truth"),
+                "evals": [actual_full_entry],
+            }
+        )["evals"][0]
+        if actual_min_entry != projected_min_entry:
+            issues.append(
+                ValidationIssue(
+                    min_location,
+                    f"generated min catalog entry for '{eval_name}' must stay a projection of the full catalog",
+                )
+            )
 
     return issues
 
@@ -1088,6 +978,14 @@ def run_validation(
         all_source_issues, all_records = collect_catalog_records(repo_root)
         if not all_source_issues:
             issues.extend(validate_generated_catalogs(repo_root, all_records))
+    elif eval_name is not None and not source_issues:
+        issues.extend(
+            validate_generated_catalogs(
+                repo_root,
+                records,
+                target_eval_names=target_evals,
+            )
+        )
 
     return issues
 

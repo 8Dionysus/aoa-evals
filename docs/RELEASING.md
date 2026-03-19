@@ -25,6 +25,7 @@ Prefer bounded releases over mixed large batches.
 
 Recommended local release loop:
 - `python -m pip install -r requirements-dev.txt`
+- `python scripts/build_catalog.py`
 - `python scripts/validate_repo.py`
 - `python -m pytest`
 
@@ -93,6 +94,7 @@ Before finalizing a change:
 - confirm summaries do not overstate the evidence
 - confirm blind spots and interpretation notes still match the current wording
 - confirm starter-bundle integrity artifacts still match current manifest and chooser wording
+- confirm `generated/eval_catalog.json` and `generated/eval_catalog.min.json` were rebuilt from current markdown and manifest sources
 - confirm release scope is small enough that reviewers can reason about it directly
 
 ## Final note

@@ -38,6 +38,10 @@ These are reader-facing navigation artifacts derived from authoritative markdown
   - use when you need one bounded eval choice by category, status, claim type, or nearby relation
 - [Eval Index](../EVAL_INDEX.md)
   - use when you need the current public eval map
+- `generated/eval_catalog.json`
+  - use when a reader or router needs the full derived catalog with dependency refs, relations, and evidence metadata
+- `generated/eval_catalog.min.json`
+  - use when a reader or router needs the thin projection surface for routing and indexing
 
 ### Authored review and governance guides
 
@@ -102,6 +106,7 @@ These are outside `docs/` but matter when navigating the repo:
 ## Notes
 
 - Prefer generated reader surfaces when the question is "which eval should I inspect next?"
+- Prefer `generated/eval_catalog*.json` when the question is "what is the deterministic machine-readable eval surface right now?"
 - Prefer authored guides when the question is "what does this repo mean by this score, verdict, or boundary?"
 - Prefer boundary guides when the question is "is this bundle really portable and honest enough to publish?"
 - Treat the docs listed here as the canonical wording layer for future public bundle authoring.

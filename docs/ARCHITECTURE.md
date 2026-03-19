@@ -144,6 +144,16 @@ but a reviewer should still be able to understand:
 
 Portable proof surfaces are preferred over opaque benchmark theater.
 
+## Derived reader surfaces
+
+`generated/eval_catalog.json` and `generated/eval_catalog.min.json` are deterministic
+reader surfaces derived from:
+- `bundles/*/EVAL.md`
+- `bundles/*/eval.yaml`
+
+They exist to support routing, navigation, and read-heavy consumers.
+They do not replace the authored bundle meaning in markdown and manifest files.
+
 ## Maturity direction
 
 An eval bundle should eventually record:

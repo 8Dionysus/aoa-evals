@@ -1,0 +1,5 @@
+seeds/
+TODO.local.md
+PLANS.local.md
+__pycache__/
+*.pyc

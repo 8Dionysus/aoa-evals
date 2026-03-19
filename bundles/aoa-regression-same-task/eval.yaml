@@ -1,11 +1,11 @@
-name: aoa-bounded-change-quality
-category: workflow
+name: aoa-regression-same-task
+category: regression
 status: draft
-object_under_evaluation: bounded agent change workflow
-claim_type: bounded
-baseline_mode: none
-verdict_shape: categorical
-report_format: summary
+object_under_evaluation: same-task bounded workflow regression against a frozen baseline
+claim_type: regression
+baseline_mode: fixed-baseline
+verdict_shape: comparative
+report_format: comparative-summary
 maturity_score: 2
 rigor_level: bounded
 repeatability: moderate
@@ -27,16 +27,13 @@ skill_dependencies:
     path: skills/aoa-change-protocol/SKILL.md
 
 relations:
-  - type: complements
-    target: aoa-verification-honesty
-  - type: complements
-    target: aoa-scope-drift-detection
-  - type: complements
-    target: aoa-ambiguity-handling
+  - type: derived_from
+    target: aoa-bounded-change-quality
   - type: complements
     target: aoa-trace-outcome-separation
-  - type: complements
-    target: aoa-tool-trajectory-discipline
-  - type: complements
-    target: aoa-output-vs-process-gap
-evidence: []
+
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: baseline_readiness
+    path: notes/baseline-readiness.md

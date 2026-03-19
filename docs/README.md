@@ -20,8 +20,10 @@ Choose the path that matches your question:
 - I need to understand score and verdict boundaries:
   - [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md)
   - [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md)
-- I need to understand portability and fixture discipline:
+- I need to understand portability, fixtures, blind spots, or baseline comparison:
   - [Fixture Surface Guide](FIXTURE_SURFACE_GUIDE.md)
+  - [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md)
+  - [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
   - [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
 - I need release process guidance:
   - [Releasing `aoa-evals`](RELEASING.md)
@@ -64,22 +66,28 @@ These guides explain what makes an eval bundle portable, bounded, and honest abo
 2. [EVAL_INDEX](../EVAL_INDEX.md)
 3. [Eval Philosophy](EVAL_PHILOSOPHY.md)
 4. [Architecture](ARCHITECTURE.md)
-5. one concrete `EVAL.md` bundle
+5. [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md)
+6. one concrete `EVAL.md` bundle
 
 ### Reviewer path
 
 1. [Eval Rubric](EVAL_RUBRIC.md)
 2. [Eval Review Guide](EVAL_REVIEW_GUIDE.md)
-3. one eval bundle plus its `notes/`
-4. [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
+3. [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md)
+4. one eval bundle plus its `notes/`
+5. [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md)
+6. [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
 
 ### Eval author path
 
 1. [Eval Philosophy](EVAL_PHILOSOPHY.md)
 2. [Architecture](ARCHITECTURE.md)
-3. [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
-4. [Fixture Surface Guide](FIXTURE_SURFACE_GUIDE.md)
-5. [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md)
+3. [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md)
+4. [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md)
+5. [Fixture Surface Guide](FIXTURE_SURFACE_GUIDE.md)
+6. [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md)
+7. [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
+8. [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
 
 ## Companion Repository Surfaces
 
@@ -89,10 +97,11 @@ These are outside `docs/` but matter when navigating the repo:
 - [EVAL_INDEX](../EVAL_INDEX.md)
 - [EVAL_SELECTION](../EVAL_SELECTION.md)
 - [CONTRIBUTING](../CONTRIBUTING.md)
-- [CHANGELOG](../CHANGELOG.md)
+- [Eval Template](../templates/EVAL.template.md)
 
 ## Notes
 
 - Prefer generated reader surfaces when the question is "which eval should I inspect next?"
 - Prefer authored guides when the question is "what does this repo mean by this score, verdict, or boundary?"
 - Prefer boundary guides when the question is "is this bundle really portable and honest enough to publish?"
+- Treat the docs listed here as the canonical wording layer for future public bundle authoring.

@@ -10,6 +10,11 @@ The repository should help both:
 - agents that need bounded evaluation surfaces they can run, compare, and report on
 - humans who need to understand what those evals really prove and what they still do not prove
 
+The strongest current external signal is that the next durable layer of agent evaluation sits at the intersection of:
+- agent-first evaluation philosophy
+- trace, trajectory, and tool-use evaluation
+- portable, parseable bundle and report contracts
+
 This roadmap is not about maximizing bundle count quickly.
 It is about building a proof canon that can support honest growth.
 
@@ -23,6 +28,7 @@ This repository should prioritize:
 3. human-readable score and verdict semantics
 4. eval integrity and anti-theater safeguards
 5. reusable public bundles over local benchmark spectacle
+6. trace-aware workflow evaluation without forcing one exact tool path by default
 
 In practice, this means the repo should prefer a smaller number of strong eval bundles
 rather than a fast flood of weak ones.
@@ -32,6 +38,59 @@ rather than a fast flood of weak ones.
 The roadmap is organized by capability layers rather than by calendar time.
 A later layer may begin before an earlier one is fully complete,
 but earlier layers should remain the priority until their public shape is stable.
+
+## Research-guided intake lanes
+
+Current external intake should be organized into three main lanes.
+
+### Lane A: agent-first eval philosophy
+
+Priority inputs:
+- Anthropic agent-evals methodology
+- OpenAI agent-evals and evaluation best-practice guidance
+- Inspect core concepts where they reinforce bounded review and scoring discipline
+
+Expected repository outputs:
+- stronger vocabulary for task, outcome, grader, scorer, harness, suite, and blind spots
+- clearer score and verdict interpretation docs
+- clearer workflow-versus-artifact separation
+
+### Lane B: trace, trajectory, and tool-use evaluation
+
+Priority inputs:
+- OpenAI trace grading and grader patterns
+- Inspect logs and rescoring model
+- LangSmith trajectory evaluation ideas
+- MLflow trace-aware scoring and tool-correctness ideas
+
+Expected repository outputs:
+- workflow bundles that evaluate outcome and path separately where needed
+- trajectory-aware review guidance
+- log-versus-score separation that remains human-readable
+
+### Lane C: portable bundle and report contracts
+
+Priority inputs:
+- OpenAI eval-run and testing-criteria ideas
+- Inspect eval-set and scorer separation
+- Braintrust remote-eval and baseline-diff ideas
+- Langfuse experiment and summary-result object ideas
+
+Expected repository outputs:
+- cleaner scorer contracts
+- stronger report summary contracts
+- more explicit baseline and comparison semantics
+- better fixture replacement and portability rules
+
+### Specialized sidecar branch
+
+After the core lanes stabilize, the repository should also draw from:
+- Promptfoo for agent red-team and boundary attack patterns
+- DeepEval and DeepTeam for selective metric and adversarial ideas
+- AWS Agent Evaluation and AgentCore for evaluator hooks and trace normalization concepts
+
+Likely bundle direction from this branch:
+- boundary red-team evals that stay distinct from the core workflow-proof bundles
 
 ---
 
@@ -67,17 +126,34 @@ Goal: establish the first canonical cluster of agent-first eval surfaces.
 These bundles should focus on how agents behave during bounded work,
 not merely on the polish of final artifacts.
 
+This layer should deliberately mix two bundle shapes:
+- composite workflow bundles that check whether a bounded workflow still holds together end to end
+- diagnostic bundles that isolate one nearby failure surface so regressions are easier to interpret
+
+The repo should name which shape a bundle belongs to before treating nearby bundles as distinct.
+
 Priority starter families:
-- bounded change quality
-- approval and authority boundary adherence
-- verification honesty
-- scope drift detection
-- ambiguity handling
+- bounded change quality:
+  composite workflow integrator for non-trivial change tasks; may observe scope drift, fake verification, or reporting drift together, without pretending to isolate the root cause
+- approval and authority boundary adherence:
+  diagnostic boundary surface for permission, approval, and authority classification; this is about whether the agent is allowed to act, not whether the task itself is underspecified
+- verification honesty:
+  diagnostic workflow surface for whether claimed verification matches performed verification, skipped checks, and named limits
+- scope drift detection:
+  diagnostic boundary surface for silent widening, narrowing, or reshaping of the requested work surface
+- ambiguity handling:
+  diagnostic stress surface for incomplete, conflicting, or underspecified task meaning; this should exclude authority ambiguity already covered by approval-boundary bundles
+- trace-to-outcome separation:
+  workflow surface that keeps final outcome judgment separate from path judgment when both matter
+- tool-trajectory discipline:
+  workflow surface for tool-use path quality only when the path itself is part of the bounded claim
 
 Desired outcomes:
 - the repo can check whether an agent stayed scoped
 - the repo can check whether an agent used real verification rather than symbolic confidence
 - the repo can check whether an agent handled ambiguous authority honestly
+- the repo can inspect a workflow trace without pretending there is always one exact correct path
+- the repo can judge outcome separately from process when that distinction matters
 - the repo can check whether a workflow claim is supported without pretending to measure all quality
 
 Exit signals:
@@ -89,6 +165,8 @@ Exit signals:
 Important discipline:
 - workflow quality should not be collapsed into a single generic score
 - bundles should expose different failure modes rather than flatten them
+- composite bundles should not masquerade as diagnostic bundles
+- diagnostic bundles should state what they intentionally do **not** evaluate so nearby bundles stay distinct
 
 ---
 
@@ -104,6 +182,7 @@ Priority surfaces:
 - policy-surface comparison bundles
 - baseline-mode guidance
 - compact summary report contracts
+- repeated-run guidance for surfaces where one pass is not enough
 
 Desired outcomes:
 - an agent update can be checked against a fixed bounded surface
@@ -129,6 +208,10 @@ Goal: separate polished output quality from underlying workflow discipline.
 
 Many agent systems get over-credited because outputs look good even when process quality is weak.
 This layer should make that gap visible.
+
+Current public bridge:
+- `aoa-artifact-review-rubric` as the bounded artifact-quality starter
+- `aoa-output-vs-process-gap` as the first public artifact-versus-process bridge surface
 
 Priority surfaces:
 - artifact review rubric bundles
@@ -165,6 +248,7 @@ Priority surfaces:
 - report schemas and summary builders
 - local runner helpers
 - fixture replacement contracts for portable bundles
+- log and rescore conventions
 
 Desired outcomes:
 - bundles can reuse shared parts without becoming opaque
@@ -313,22 +397,30 @@ The repository should keep preferring:
 
 ## What should happen next
 
-Near-term next moves should focus on agent-first surfaces and repository coherence.
+Near-term next moves should use the new docs spine to shape the next agent-first surfaces and support artifacts.
 
 Highest-priority additions:
-- `aoa-verification-honesty`
-- `aoa-regression-same-task`
-- `aoa-ambiguity-handling`
-- `aoa-scope-drift-detection`
-- `requirements-dev.txt`
-- missing guidance docs linked from `docs/README.md`
-- support artifacts for the starter bundles so local validation becomes meaningful rather than structural only
+- `aoa-longitudinal-growth-snapshot`
+- `aoa-eval-integrity-check`
+- stronger evidence coverage for the older starter bundles
+- portable fixture-family reuse once current bundle meanings stabilize
+
+Next likely cross-surface candidate after the current public starter set:
+- `aoa-eval-integrity-check`
+
+Recent repo hardening now in place:
+- local dev dependencies in `requirements-dev.txt`
+- validator tests under `tests/`
+- evidence-path validation for manifest evidence entries
+- baseline-readiness validation for baseline-mode bundles
 
 Next repository hardening steps:
-- add tests for the validator
-- add stronger manifest-to-index parity checks
-- add support-artifact requirements per bundle maturity level
-- add compact report examples for starter bundles
+- keep docs, index, selection, and template aligned to the canonical docs spine
+- add stronger manifest-to-selection and roadmap parity checks
+- add status-specific evidence expectations beyond the current baseline-mode rule
+- add compact report examples for the older starter bundles that still ship notes-only support artifacts
+- add clearer comparative report-contract expectations for regression and future longitudinal bundles
+- add a distinctness note for every remaining planned starter bundle so nearby evals do not collapse semantically before they ship
 
 ---
 

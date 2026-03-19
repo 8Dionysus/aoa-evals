@@ -196,6 +196,13 @@ def find_support_artifacts(bundle_dir: Path) -> list[Path]:
     return artifacts
 
 
+def resolve_manifest_path(bundle_dir: Path, raw_path: str) -> Path:
+    candidate = Path(raw_path)
+    if candidate.is_absolute():
+        return candidate
+    return bundle_dir / candidate
+
+
 def validate_eval_frontmatter(
     eval_name: str,
     metadata: dict[str, Any],
@@ -252,6 +259,41 @@ def validate_eval_manifest(
         )
 
 
+def validate_manifest_evidence(
+    manifest: dict[str, Any],
+    bundle_dir: Path,
+    eval_yaml_path: Path,
+    issues: list[ValidationIssue],
+) -> None:
+    location = relative_location(eval_yaml_path)
+    evidence = manifest.get("evidence", [])
+
+    for item in evidence:
+        raw_path = item.get("path")
+        if not isinstance(raw_path, str):
+            continue
+        resolved_path = resolve_manifest_path(bundle_dir, raw_path)
+        if not resolved_path.exists():
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"evidence path '{raw_path}' does not exist",
+                )
+            )
+
+    if manifest.get("baseline_mode") != "none":
+        has_baseline_readiness = any(
+            item.get("kind") == "baseline_readiness" for item in evidence
+        )
+        if not has_baseline_readiness:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "baseline_mode is not 'none' but no evidence entry with kind 'baseline_readiness' is present",
+                )
+            )
+
+
 def validate_bundle(
     repo_root: Path,
     eval_name: str,
@@ -293,6 +335,8 @@ def validate_bundle(
         manifest = load_yaml_file(eval_yaml_path, issues)
         if manifest is not None:
             validate_eval_manifest(eval_name, manifest, eval_yaml_path, issues)
+            if isinstance(manifest, dict):
+                validate_manifest_evidence(manifest, bundle_dir, eval_yaml_path, issues)
 
     return issues
 

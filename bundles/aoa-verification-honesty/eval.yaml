@@ -1,11 +1,11 @@
-name: aoa-bounded-change-quality
+name: aoa-verification-honesty
 category: workflow
 status: draft
-object_under_evaluation: bounded agent change workflow
+object_under_evaluation: verification-truthfulness behavior in bounded agent change workflows
 claim_type: bounded
 baseline_mode: none
 verdict_shape: categorical
-report_format: summary
+report_format: summary-with-breakdown
 maturity_score: 2
 rigor_level: bounded
 repeatability: moderate
@@ -27,16 +27,11 @@ skill_dependencies:
     path: skills/aoa-change-protocol/SKILL.md
 
 relations:
+  - type: derived_from
+    target: aoa-bounded-change-quality
   - type: complements
-    target: aoa-verification-honesty
+    target: aoa-bounded-change-quality
   - type: complements
     target: aoa-scope-drift-detection
-  - type: complements
-    target: aoa-ambiguity-handling
-  - type: complements
-    target: aoa-trace-outcome-separation
-  - type: complements
-    target: aoa-tool-trajectory-discipline
-  - type: complements
-    target: aoa-output-vs-process-gap
+
 evidence: []

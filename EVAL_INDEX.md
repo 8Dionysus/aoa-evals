@@ -7,20 +7,51 @@ This file is the repository-wide map of public eval bundles.
 | name | category | status | summary |
 |---|---|---|---|
 | aoa-bounded-change-quality | workflow | draft | Checks whether a non-trivial agent change stays scoped, explicitly verified, and clearly reported without silent task expansion. |
+| aoa-verification-honesty | workflow | draft | Checks whether an agent truthfully reports which verification steps on a bounded change task were executed, skipped, or blocked. |
+| aoa-scope-drift-detection | boundary | draft | Checks whether an agent keeps requested scope aligned with executed scope on bounded change tasks, or explicitly discloses deviation. |
+| aoa-ambiguity-handling | stress | draft | Checks whether an agent handles incomplete, conflicting, or underspecified task meaning on bounded change tasks without silently choosing an unearned path. |
 | aoa-approval-boundary-adherence | boundary | draft | Checks whether an agent correctly distinguishes safe action, explicit-approval-required action, and out-of-bounds action. |
+| aoa-trace-outcome-separation | workflow | draft | Checks whether bounded change workflows remain reviewable when final outcome and execution-path quality are judged separately before any combined reading. |
+| aoa-tool-trajectory-discipline | workflow | draft | Checks whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself is part of the bounded claim. |
+| aoa-regression-same-task | regression | draft | Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth. |
+| aoa-artifact-review-rubric | artifact | draft | Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating polish as proof of workflow discipline. |
+| aoa-output-vs-process-gap | comparative | draft | Compares artifact-side and process-side readings on the same bounded cases to show when polished output outruns workflow discipline, process outruns artifact strength, or the two stay aligned. |
 
 ## Planned starter bundles
 
 | name | category | target role |
 |---|---|---|
-| aoa-artifact-review-rubric | artifact | reviewable artifact-quality rubric surface |
-| aoa-regression-same-task | regression | bounded same-task regression detector |
-| aoa-ambiguity-handling | stress | incomplete-information and ambiguity probe |
-| aoa-scope-drift-detection | boundary | silent task-expansion detector |
-| aoa-verification-honesty | workflow | real-vs-symbolic verification checker |
-| aoa-output-vs-process-gap | comparative | output polish vs process discipline comparator |
 | aoa-longitudinal-growth-snapshot | longitudinal | bounded growth snapshot surface |
 | aoa-eval-integrity-check | capability | scorer and verdict coherence check for other evals |
+
+## Bundle Distinctness Notes
+
+- `aoa-bounded-change-quality` is the composite workflow starter:
+  it can observe multiple nearby failure modes together and should not be treated as the precise diagnostic surface for any one of them.
+- `aoa-verification-honesty` is the current diagnostic workflow starter for verification truthfulness:
+  did the agent claim checks it did not run, overstate coverage, or hide missing verification?
+- `aoa-scope-drift-detection` is the current diagnostic boundary starter for scope alignment:
+  did the agent silently widen, narrow, or reshape the requested task surface?
+- `aoa-ambiguity-handling` is the current diagnostic stress starter for task-meaning ambiguity:
+  did the agent ask, bound assumptions, or explicitly branch when requirements were incomplete or conflicting?
+- `aoa-approval-boundary-adherence` is the current diagnostic boundary starter for authority ambiguity:
+  did the agent classify safe, approval-gated, and out-of-bounds actions correctly without treating uncertainty as permission?
+- `aoa-trace-outcome-separation` is the current trace-aware workflow starter:
+  are final outcome and execution path being judged separately before any combined reading?
+- `aoa-tool-trajectory-discipline` is the current narrower tool-path workflow starter:
+  did tool use stay disciplined on cases where the tool path itself matters to the claim?
+- `aoa-regression-same-task` is the current regression starter:
+  did the candidate materially regress against a frozen baseline on the same bounded task family?
+- `aoa-artifact-review-rubric` is the current artifact starter:
+  did the produced artifact itself look strong on the visible task surface without implying a strong workflow?
+- `aoa-output-vs-process-gap` is the current artifact/process bridge starter:
+  is polished output outrunning process discipline, is process outrunning artifact strength, or are the two broadly aligned?
+- `aoa-artifact-review-rubric` should stay on artifact quality:
+  it should not drift into workflow-proof claims already covered by workflow starters.
+- `aoa-output-vs-process-gap` should compare polished outputs against process discipline:
+  it should not duplicate the trace/outcome split or the artifact-review surface.
+- `aoa-eval-integrity-check` should inspect scorer and verdict coherence:
+  it should not be read as a direct agent-behavior starter bundle.
 
 ## Planned public states
 

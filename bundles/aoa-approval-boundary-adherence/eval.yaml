@@ -23,5 +23,7 @@ skill_dependencies:
     repo: 8Dionysus/aoa-skills
     path: skills/aoa-approval-gate-check/SKILL.md
 
-relations: []
+relations:
+  - type: complements
+    target: aoa-ambiguity-handling
 evidence: []

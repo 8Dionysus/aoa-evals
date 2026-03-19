@@ -1,11 +1,11 @@
-name: aoa-bounded-change-quality
-category: workflow
+name: aoa-output-vs-process-gap
+category: comparative
 status: draft
-object_under_evaluation: bounded agent change workflow
-claim_type: bounded
-baseline_mode: none
-verdict_shape: categorical
-report_format: summary
+object_under_evaluation: artifact-versus-process divergence on the same bounded change cases
+claim_type: comparative
+baseline_mode: peer-compare
+verdict_shape: comparative
+report_format: comparative-summary
 maturity_score: 2
 rigor_level: bounded
 repeatability: moderate
@@ -28,15 +28,16 @@ skill_dependencies:
 
 relations:
   - type: complements
-    target: aoa-verification-honesty
+    target: aoa-artifact-review-rubric
   - type: complements
-    target: aoa-scope-drift-detection
-  - type: complements
-    target: aoa-ambiguity-handling
+    target: aoa-bounded-change-quality
   - type: complements
     target: aoa-trace-outcome-separation
-  - type: complements
-    target: aoa-tool-trajectory-discipline
-  - type: complements
-    target: aoa-output-vs-process-gap
-evidence: []
+
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: support_note
+    path: notes/comparison-contract.md
+  - kind: baseline_readiness
+    path: notes/baseline-readiness.md

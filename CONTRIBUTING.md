@@ -45,8 +45,17 @@ Before opening a PR, run local validation and bundle checks for:
 - schema shape
 - index parity
 - frontmatter consistency
+- evidence paths that should resolve publicly
+- baseline-readiness evidence when `baseline_mode` is not `none`
 - scorer and report contract coherence
 - fixture references that should exist publicly
+
+## Local development setup
+
+Recommended local setup:
+- `python -m pip install -r requirements-dev.txt`
+- `python scripts/validate_repo.py`
+- `python -m pytest`
 
 ## Preferred PR scope
 
@@ -104,6 +113,7 @@ Should usually demonstrate:
 Should usually demonstrate:
 - stable enough repeatability for disciplined comparison
 - clear baseline or comparison semantics
+- explicit `baseline_readiness` evidence when the bundle uses a non-`none` baseline mode
 - fixture discipline strong enough to support comparative use
 - verdicts or scores that resist false certainty
 - practical reuse beyond one origin need

@@ -1,11 +1,11 @@
-name: aoa-bounded-change-quality
-category: workflow
+name: aoa-artifact-review-rubric
+category: artifact
 status: draft
-object_under_evaluation: bounded agent change workflow
+object_under_evaluation: produced artifact quality on bounded agent change tasks
 claim_type: bounded
 baseline_mode: none
-verdict_shape: categorical
-report_format: summary
+verdict_shape: mixed
+report_format: summary-with-breakdown
 maturity_score: 2
 rigor_level: bounded
 repeatability: moderate
@@ -28,15 +28,12 @@ skill_dependencies:
 
 relations:
   - type: complements
-    target: aoa-verification-honesty
-  - type: complements
-    target: aoa-scope-drift-detection
-  - type: complements
-    target: aoa-ambiguity-handling
-  - type: complements
-    target: aoa-trace-outcome-separation
-  - type: complements
-    target: aoa-tool-trajectory-discipline
+    target: aoa-bounded-change-quality
   - type: complements
     target: aoa-output-vs-process-gap
-evidence: []
+
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: support_note
+    path: notes/rubric-contract.md

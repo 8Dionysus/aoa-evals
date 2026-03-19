@@ -1,11 +1,11 @@
-name: aoa-bounded-change-quality
+name: aoa-tool-trajectory-discipline
 category: workflow
 status: draft
-object_under_evaluation: bounded agent change workflow
+object_under_evaluation: tool-use trajectory discipline in bounded agent change workflows
 claim_type: bounded
 baseline_mode: none
 verdict_shape: categorical
-report_format: summary
+report_format: summary-with-breakdown
 maturity_score: 2
 rigor_level: bounded
 repeatability: moderate
@@ -27,16 +27,13 @@ skill_dependencies:
     path: skills/aoa-change-protocol/SKILL.md
 
 relations:
-  - type: complements
-    target: aoa-verification-honesty
-  - type: complements
-    target: aoa-scope-drift-detection
-  - type: complements
-    target: aoa-ambiguity-handling
+  - type: derived_from
+    target: aoa-trace-outcome-separation
   - type: complements
     target: aoa-trace-outcome-separation
   - type: complements
-    target: aoa-tool-trajectory-discipline
-  - type: complements
-    target: aoa-output-vs-process-gap
-evidence: []
+    target: aoa-bounded-change-quality
+
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md

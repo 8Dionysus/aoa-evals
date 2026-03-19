@@ -26,4 +26,8 @@ skill_dependencies:
 relations:
   - type: complements
     target: aoa-ambiguity-handling
-evidence: []
+evidence:
+  - kind: support_note
+    path: notes/summary-contract.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md

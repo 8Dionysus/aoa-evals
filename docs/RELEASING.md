@@ -44,7 +44,9 @@ Before shipping a new public draft bundle:
 - fixtures should be public-safe or replaceable by contract
 - scoring or verdict logic should be reviewable
 - blind spots should be named clearly
-- the bundle should include at least one support note and one example report when they materially help readers inspect the surface
+- the bundle should include explicit manifest evidence for its public support artifacts
+- current public starters should ship `examples/example-report.md`
+- current public starters should ship an integrity-review artifact such as `checks/eval-integrity-check.md`
 - `EVAL_INDEX.md` should include the new public bundle
 - `EVAL_SELECTION.md` should be updated if the chooser meaningfully changes
 
@@ -83,6 +85,7 @@ Before finalizing a change:
 - confirm the public claim stayed bounded
 - confirm summaries do not overstate the evidence
 - confirm blind spots and interpretation notes still match the current wording
+- confirm starter-bundle integrity artifacts still match current manifest and chooser wording
 - confirm release scope is small enough that reviewers can reason about it directly
 
 ## Final note

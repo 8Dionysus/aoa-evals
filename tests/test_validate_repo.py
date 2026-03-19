@@ -26,6 +26,19 @@ def make_index(repo_root: Path, name: str, category: str) -> None:
     )
 
 
+def make_selection(repo_root: Path, names: list[str]) -> None:
+    lines = "\n".join(f"- `{name}`" for name in names)
+    write_text(
+        repo_root / "EVAL_SELECTION.md",
+        f"""
+        # Eval Selection
+
+        Current starter posture:
+        {lines}
+        """,
+    )
+
+
 def make_eval_bundle(
     repo_root: Path,
     *,
@@ -39,7 +52,11 @@ def make_eval_bundle(
     support_files: dict[str, str] | None = None,
 ) -> None:
     bundle_dir = repo_root / "bundles" / name
-    support_files = support_files or {"notes/origin-need.md": "# Origin Need\n"}
+    support_files = support_files or {
+        "notes/origin-need.md": "# Origin Need\n",
+        "examples/example-report.md": "# Example Report\n",
+        "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
+    }
 
     write_text(
         bundle_dir / "EVAL.md",
@@ -150,6 +167,12 @@ def make_eval_bundle(
         "relations: []",
     ]
 
+    if evidence_entries is None:
+        evidence_entries = [
+            {"kind": "origin_need", "path": "notes/origin-need.md"},
+            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+        ]
+
     if evidence_entries:
         manifest_lines.append("evidence:")
         for entry in evidence_entries:
@@ -164,6 +187,7 @@ def make_eval_bundle(
         write_text(bundle_dir / relative_path, content)
 
     make_index(repo_root, name, category)
+    make_selection(repo_root, [name])
 
 
 def test_validate_repo_rejects_missing_evidence_path(tmp_path: Path) -> None:
@@ -195,11 +219,55 @@ def test_validate_repo_requires_baseline_readiness_for_non_none_baseline(tmp_pat
     assert any("baseline_readiness" in issue.message for issue in issues)
 
 
+def test_validate_repo_rejects_missing_starter_example_report(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-missing-example-report",
+        support_files={
+            "notes/origin-need.md": "# Origin Need\n",
+            "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
+        },
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any("examples/example-report.md" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_integrity_check_evidence_for_starter(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-missing-integrity-evidence",
+        evidence_entries=[{"kind": "origin_need", "path": "notes/origin-need.md"}],
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any("kind 'integrity_check'" in issue.message for issue in issues)
+
+
+def test_validate_repo_rejects_bundle_missing_from_starter_table(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-missing-from-starter-table")
+    make_index(tmp_path, "aoa-some-other-bundle", "workflow")
+
+    issues = run_validation(tmp_path)
+
+    assert any("missing from the starter table" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_starter_presence_in_selection(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-missing-from-selection")
+    make_selection(tmp_path, [])
+
+    issues = run_validation(tmp_path)
+
+    assert any("missing from EVAL_SELECTION.md" in issue.message for issue in issues)
+
+
 def test_validate_repo_accepts_valid_non_baseline_bundle_without_baseline_readiness(tmp_path: Path) -> None:
     make_eval_bundle(
         tmp_path,
         name="aoa-valid-non-baseline",
-        evidence_entries=[{"kind": "origin_need", "path": "notes/origin-need.md"}],
     )
 
     issues = run_validation(tmp_path)
@@ -219,10 +287,13 @@ def test_validate_repo_accepts_valid_baseline_bundle_with_readiness_evidence(tmp
         evidence_entries=[
             {"kind": "origin_need", "path": "notes/origin-need.md"},
             {"kind": "baseline_readiness", "path": "notes/baseline-readiness.md"},
+            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
         ],
         support_files={
             "notes/origin-need.md": "# Origin Need\n",
             "notes/baseline-readiness.md": "# Baseline Readiness\n",
+            "examples/example-report.md": "# Example Report\n",
+            "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
         },
     )
 

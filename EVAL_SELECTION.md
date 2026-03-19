@@ -32,6 +32,8 @@ Current starter posture:
   use it when the main question is the produced artifact itself.
 - `aoa-output-vs-process-gap` is the current artifact/process bridge starter:
   use it when the main question is whether polished output is outrunning process discipline or vice versa.
+- `aoa-eval-integrity-check` is the current capability starter for eval-bundle coherence:
+  use it when the main question is whether a public starter bundle is overstating what it proves or drifting out of alignment with its public contract.
 
 See also:
 - [EVAL_INDEX](EVAL_INDEX.md)
@@ -69,6 +71,9 @@ See also:
 ### I need to know whether polished output is outrunning process discipline
 - `aoa-output-vs-process-gap`
 
+### I need to check whether a public starter bundle is coherent as an eval surface
+- `aoa-eval-integrity-check`
+
 ## Pick by category
 
 | category | use when | starter bundles |
@@ -79,6 +84,7 @@ See also:
 | `regression` | You care about frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | `artifact` | You care about the produced artifact itself rather than the workflow that produced it. | `aoa-artifact-review-rubric` |
 | `comparative` | You care about cross-surface divergence such as polished output versus process discipline. | `aoa-output-vs-process-gap` |
+| `capability` | You care about whether a bounded eval ability or review surface is present, such as integrity checking of public eval bundles. | `aoa-eval-integrity-check` |
 
 ## Pick by public maturity
 
@@ -113,6 +119,7 @@ Trace-aware split and tool-path workflow starters are also public, but they shou
 | same-task regression comparison | You want a frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | artifact review | You want to judge the produced artifact itself on the visible task surface. | `aoa-artifact-review-rubric` |
 | output-vs-process divergence | You want to compare artifact-side and process-side readings on the same bounded cases. | `aoa-output-vs-process-gap` |
+| eval-bundle integrity | You want to inspect whether a public starter bundle remains coherent across its manifest, evidence, and public routing surfaces. | `aoa-eval-integrity-check` |
 
 ## Reader guidance
 
@@ -140,5 +147,6 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-regression-same-task` is a frozen-baseline comparison surface; it should not be treated as proof of general capability growth.
 - `aoa-artifact-review-rubric` stays on artifact quality only; it does not imply strong workflow discipline.
 - `aoa-output-vs-process-gap` is a bridge surface; it does not replace standalone artifact review, standalone workflow review, or trace/path separation.
+- `aoa-eval-integrity-check` is a meta-eval for public starter-bundle coherence; it does not replace direct agent-behavior evaluation or promotion review.
 - As the corpus grows, later generated surfaces may add filters by status, object under evaluation, baseline mode, and verdict shape.
 - Prefer `baseline` or `canonical` bundles for stronger comparison claims once the public corpus reaches that stage.

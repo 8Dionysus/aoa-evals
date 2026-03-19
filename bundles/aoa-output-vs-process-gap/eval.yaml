@@ -41,3 +41,5 @@ evidence:
     path: notes/comparison-contract.md
   - kind: baseline_readiness
     path: notes/baseline-readiness.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md

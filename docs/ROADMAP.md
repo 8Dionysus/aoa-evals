@@ -303,6 +303,9 @@ Goal: make the repository trustworthy even when agents and operators become bett
 At scale, evals must not only measure agents.
 They must also defend themselves.
 
+Current public surface:
+- `aoa-eval-integrity-check` as the bounded starter for starter-bundle coherence and public-surface drift review
+
 Priority surfaces:
 - eval integrity checks
 - score semantics review
@@ -401,24 +404,25 @@ Near-term next moves should use the new docs spine to shape the next agent-first
 
 Highest-priority additions:
 - `aoa-longitudinal-growth-snapshot`
-- `aoa-eval-integrity-check`
-- stronger evidence coverage for the older starter bundles
+- status-specific evidence expectations beyond the current draft starter floor
 - portable fixture-family reuse once current bundle meanings stabilize
 
 Next likely cross-surface candidate after the current public starter set:
-- `aoa-eval-integrity-check`
+- `aoa-longitudinal-growth-snapshot`
 
 Recent repo hardening now in place:
 - local dev dependencies in `requirements-dev.txt`
 - validator tests under `tests/`
 - evidence-path validation for manifest evidence entries
 - baseline-readiness validation for baseline-mode bundles
+- starter-table parity between `EVAL_INDEX.md` and `EVAL_SELECTION.md`
+- starter example-report and integrity-check expectations for current public starters
 
 Next repository hardening steps:
 - keep docs, index, selection, and template aligned to the canonical docs spine
 - add stronger manifest-to-selection and roadmap parity checks
 - add status-specific evidence expectations beyond the current baseline-mode rule
-- add compact report examples for the older starter bundles that still ship notes-only support artifacts
+- add compact report examples for any future starter bundles that still ship notes-only support artifacts
 - add clearer comparative report-contract expectations for regression and future longitudinal bundles
 - add a distinctness note for every remaining planned starter bundle so nearby evals do not collapse semantically before they ship
 

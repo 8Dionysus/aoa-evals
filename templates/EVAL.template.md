@@ -70,6 +70,11 @@ Do not use this eval when:
 - scoring or rubric configuration
 - baseline or comparison target if applicable
 
+If `baseline_mode` is `longitudinal-window`, also make explicit:
+- ordered named windows
+- one public report or summary artifact per window
+- context notes that affect comparability
+
 ## Fixtures and case surface
 
 Describe:
@@ -118,6 +123,10 @@ If comparison exists, also say:
 - what counts as regression
 - what should only be treated as noisy variation
 - how style-only changes are kept from looking like capability growth
+
+If the comparison is longitudinal:
+- name why the windows are comparable
+- state what would force a `mixed or unstable` or `no clear directional movement` read
 
 ## Execution contract
 

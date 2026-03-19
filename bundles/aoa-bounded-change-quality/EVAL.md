@@ -34,6 +34,8 @@ If the main question is tool-use path quality on cases where the tool path itsel
 use `aoa-tool-trajectory-discipline`.
 If the main question is whether polished output is outrunning process discipline or vice versa,
 use `aoa-output-vs-process-gap`.
+If the main question is repeated-window movement on this bounded workflow surface,
+use `aoa-longitudinal-growth-snapshot`.
 
 The goal is not to prove overall coding quality.
 The goal is to test one bounded claim:
@@ -252,6 +254,9 @@ pair this bundle with `aoa-tool-trajectory-discipline`.
 
 For artifact-versus-process divergence on the same bounded cases,
 pair this bundle with `aoa-output-vs-process-gap`.
+
+For ordered repeated-window movement on the same bounded workflow surface,
+pair this bundle with `aoa-longitudinal-growth-snapshot`.
 
 ## Verification
 

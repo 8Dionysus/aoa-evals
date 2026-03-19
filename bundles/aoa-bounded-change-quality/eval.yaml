@@ -39,6 +39,8 @@ relations:
     target: aoa-tool-trajectory-discipline
   - type: complements
     target: aoa-output-vs-process-gap
+  - type: complements
+    target: aoa-longitudinal-growth-snapshot
 evidence:
   - kind: support_note
     path: notes/summary-contract.md

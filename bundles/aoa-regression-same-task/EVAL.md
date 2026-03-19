@@ -72,7 +72,7 @@ Do not use this eval when:
 - you only need one-run workflow quality and no baseline exists yet
 - the task family is still changing underneath the comparison
 - the comparison target is not actually frozen
-- the main question is longitudinal trend rather than same-task regression
+- the main question is longitudinal trend rather than same-task regression; use `aoa-longitudinal-growth-snapshot`
 
 ## Inputs
 
@@ -216,7 +216,7 @@ Likely misleading-result path:
 Nearby claim classes that should use a different bundle instead:
 - one-run bounded workflow quality should use `aoa-bounded-change-quality`
 - broader outcome-vs-path split should use `aoa-trace-outcome-separation`
-- movement across repeated windows should use a future longitudinal bundle
+- movement across repeated windows should use `aoa-longitudinal-growth-snapshot`
 
 ## Interpretation guidance
 
@@ -234,6 +234,9 @@ Use this bundle together with one-run starter bundles
 when you need both:
 - a bounded regression read
 - and a narrower root-cause diagnosis for why the comparison moved
+
+Use `aoa-longitudinal-growth-snapshot`
+when the main question is ordered movement across windows rather than one frozen same-task baseline.
 
 A negative or mixed result is valuable because it can reveal:
 - reviewable same-task regression

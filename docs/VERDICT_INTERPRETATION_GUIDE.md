@@ -68,6 +68,23 @@ Do not use repeated runs to imply:
 - universal superiority
 - cross-surface equivalence
 
+## Longitudinal interpretation
+
+Use longitudinal readings only when:
+- windows are ordered and named
+- the same bounded surface is being read across windows
+- context drift is disclosed
+- style-only movement is not being mistaken for substantive change
+
+Canonical longitudinal readings should stay modest:
+
+| reading | meaning | does not mean |
+|---|---|---|
+| `bounded improvement signal` | Later windows look reviewably stronger on the same bounded surface. | General capability growth or durable improvement everywhere. |
+| `mixed or unstable movement` | The sequence shows real movement, but it splits, drifts, or becomes too unstable for a cleaner directional claim. | A polite pass or a hidden growth story. |
+| `no clear directional movement` | The sequence looks flat, too small, or too style-shaped for a stronger trend reading. | Evidence that nothing changed at all. |
+| `bounded regression signal` | Later windows lost a reviewable strength on the same bounded surface. | Proof of universal decline. |
+
 ## Composite vs diagnostic bundles
 
 | bundle shape | positive verdict means | negative or mixed verdict means | common misuse |

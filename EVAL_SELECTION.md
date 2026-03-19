@@ -34,6 +34,8 @@ Current starter posture:
   use it when the main question is whether polished output is outrunning process discipline or vice versa.
 - `aoa-eval-integrity-check` is the current capability starter for eval-bundle coherence:
   use it when the main question is whether a public starter bundle is overstating what it proves or drifting out of alignment with its public contract.
+- `aoa-longitudinal-growth-snapshot` is the current longitudinal starter:
+  use it when the main question is ordered repeated-window movement on the same bounded workflow surface.
 
 See also:
 - [EVAL_INDEX](EVAL_INDEX.md)
@@ -74,6 +76,9 @@ See also:
 ### I need to check whether a public starter bundle is coherent as an eval surface
 - `aoa-eval-integrity-check`
 
+### I need to read repeated-window movement on the same bounded workflow surface
+- `aoa-longitudinal-growth-snapshot`
+
 ## Pick by category
 
 | category | use when | starter bundles |
@@ -85,6 +90,7 @@ See also:
 | `artifact` | You care about the produced artifact itself rather than the workflow that produced it. | `aoa-artifact-review-rubric` |
 | `comparative` | You care about cross-surface divergence such as polished output versus process discipline. | `aoa-output-vs-process-gap` |
 | `capability` | You care about whether a bounded eval ability or review surface is present, such as integrity checking of public eval bundles. | `aoa-eval-integrity-check` |
+| `longitudinal` | You care about ordered repeated-window movement on the same bounded surface rather than one-run or one-baseline comparison. | `aoa-longitudinal-growth-snapshot` |
 
 ## Pick by public maturity
 
@@ -96,7 +102,8 @@ There is no `canonical` eval yet.
 ### If you need a bounded comparison surface
 Use `aoa-regression-same-task` when you need a frozen-baseline same-task comparison.
 Use `aoa-output-vs-process-gap` when you need artifact-side versus process-side peer comparison on the same bounded cases.
-Broader `baseline` surfaces are still future work.
+Use `aoa-longitudinal-growth-snapshot` when you need ordered repeated-window movement on the same bounded workflow surface.
+Broader `baseline` or growth surfaces remain modest draft work.
 
 ### If you need an early public proof sketch
 Use `draft` bundles carefully and read their boundaries, blind spots, and interpretation notes before drawing conclusions.
@@ -120,6 +127,7 @@ Trace-aware split and tool-path workflow starters are also public, but they shou
 | artifact review | You want to judge the produced artifact itself on the visible task surface. | `aoa-artifact-review-rubric` |
 | output-vs-process divergence | You want to compare artifact-side and process-side readings on the same bounded cases. | `aoa-output-vs-process-gap` |
 | eval-bundle integrity | You want to inspect whether a public starter bundle remains coherent across its manifest, evidence, and public routing surfaces. | `aoa-eval-integrity-check` |
+| bounded longitudinal movement | You want to inspect ordered repeated-window movement on one named bounded workflow surface. | `aoa-longitudinal-growth-snapshot` |
 
 ## Reader guidance
 
@@ -148,5 +156,6 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-artifact-review-rubric` stays on artifact quality only; it does not imply strong workflow discipline.
 - `aoa-output-vs-process-gap` is a bridge surface; it does not replace standalone artifact review, standalone workflow review, or trace/path separation.
 - `aoa-eval-integrity-check` is a meta-eval for public starter-bundle coherence; it does not replace direct agent-behavior evaluation or promotion review.
+- `aoa-longitudinal-growth-snapshot` is a repeated-window movement surface; it does not replace one-run workflow reading or frozen same-task regression.
 - As the corpus grows, later generated surfaces may add filters by status, object under evaluation, baseline mode, and verdict shape.
 - Prefer `baseline` or `canonical` bundles for stronger comparison claims once the public corpus reaches that stage.

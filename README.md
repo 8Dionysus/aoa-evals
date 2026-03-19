@@ -99,6 +99,7 @@ and keep agent quality tied to reproducible evidence.
 ## Repository structure
 
 - `docs/` — architecture, philosophy, roadmap, conventions, interpretation guides
+- `generated/` — derived routing and reader catalogs
 - `templates/` — templates for eval authoring and metadata
 - `bundles/` — eval bundles
 - `fixtures/` — shared reusable fixture sets
@@ -121,6 +122,9 @@ A typical eval bundle contains:
 - optional `checks/`
 - optional `reports/summary.schema.json`
 - optional `notes/blind-spots.md`
+
+`EVAL.md` and `eval.yaml` remain authoritative.
+`generated/eval_catalog.json` and `generated/eval_catalog.min.json` are derived reader surfaces for routing and indexing.
 
 ## Evaluation bundle shape
 
@@ -171,6 +175,28 @@ It does not reduce agent quality to one number.
 It does not treat any single eval as the whole truth.
 
 This repository prefers explicit limits over false objectivity.
+
+## Local validation
+
+Install the local dependencies:
+
+```bash
+python -m pip install -r requirements-dev.txt
+```
+
+Run the full repository check:
+
+```bash
+python scripts/validate_repo.py
+```
+
+Build the derived reader catalogs:
+
+```bash
+python scripts/build_catalog.py
+```
+
+The validator checks that generated catalogs exist, stay current, and keep the min catalog as an exact projection of the full catalog.
 
 An eval should say:
 - what it can support

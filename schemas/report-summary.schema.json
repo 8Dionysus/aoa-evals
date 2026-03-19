@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-evals/schemas/report-summary.schema.json",
+  "title": "aoa-evals summary report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations"
+  ],
+  "properties": {
+    "eval_name": {
+      "type": "string",
+      "pattern": "^aoa-[a-z0-9-]+$"
+    },
+    "bundle_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "bounded",
+        "portable",
+        "baseline",
+        "canonical",
+        "deprecated"
+      ]
+    },
+    "object_under_evaluation": {
+      "type": "string",
+      "minLength": 3
+    },
+    "verdict": {
+      "type": "string",
+      "minLength": 3
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 10
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "score": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

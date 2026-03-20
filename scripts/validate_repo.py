@@ -803,6 +803,45 @@ def project_min_catalog(full_catalog: dict[str, Any]) -> dict[str, Any]:
     return eval_catalog_contract.project_min_catalog(full_catalog)
 
 
+def project_min_catalog_safely(
+    full_catalog: dict[str, Any],
+    *,
+    location: str,
+    label: str,
+    issues: list[ValidationIssue],
+) -> dict[str, Any] | None:
+    try:
+        return project_min_catalog(full_catalog)
+    except (KeyError, TypeError):
+        issues.append(
+            ValidationIssue(
+                location,
+                f"{label} is malformed; min projection could not be computed",
+            )
+        )
+        return None
+
+
+def validate_catalog_metadata(
+    actual_catalog: dict[str, Any],
+    expected_catalog: dict[str, Any],
+    *,
+    location: str,
+    label: str,
+    issues: list[ValidationIssue],
+) -> None:
+    if (
+        actual_catalog.get("catalog_version") != expected_catalog["catalog_version"]
+        or actual_catalog.get("source_of_truth") != expected_catalog["source_of_truth"]
+    ):
+        issues.append(
+            ValidationIssue(
+                location,
+                f"{label} metadata is out of date; run 'python scripts/build_catalog.py'",
+            )
+        )
+
+
 def build_catalog_payloads(
     repo_root: Path,
     records: list[EvalBundleRecord],
@@ -865,7 +904,14 @@ def validate_generated_catalogs(
                 )
             )
 
-        projected_min = project_min_catalog(actual_full)
+        projected_min = project_min_catalog_safely(
+            actual_full,
+            location=full_location,
+            label="generated catalog",
+            issues=issues,
+        )
+        if projected_min is None:
+            return issues
         if actual_min != projected_min:
             issues.append(
                 ValidationIssue(
@@ -874,6 +920,21 @@ def validate_generated_catalogs(
                 )
             )
         return issues
+
+    validate_catalog_metadata(
+        actual_full,
+        expected_full,
+        location=full_location,
+        label="generated catalog",
+        issues=issues,
+    )
+    validate_catalog_metadata(
+        actual_min,
+        expected_min,
+        location=min_location,
+        label="generated min catalog",
+        issues=issues,
+    )
 
     full_entries, full_entry_issues = eval_catalog_contract.catalog_entries_by_name(
         actual_full,
@@ -944,13 +1005,19 @@ def validate_generated_catalogs(
                 )
             )
 
-        projected_min_entry = project_min_catalog(
+        projected_min_catalog_payload = project_min_catalog_safely(
             {
                 "catalog_version": actual_full.get("catalog_version"),
                 "source_of_truth": actual_full.get("source_of_truth"),
                 "evals": [actual_full_entry],
-            }
-        )["evals"][0]
+            },
+            location=full_location,
+            label=f"generated catalog entry for '{eval_name}'",
+            issues=issues,
+        )
+        if projected_min_catalog_payload is None:
+            continue
+        projected_min_entry = projected_min_catalog_payload["evals"][0]
         if actual_min_entry != projected_min_entry:
             issues.append(
                 ValidationIssue(

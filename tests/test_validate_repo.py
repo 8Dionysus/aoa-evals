@@ -522,6 +522,33 @@ def test_targeted_validation_catches_stale_generated_capsule_for_selected_eval(t
     )
 
 
+def test_targeted_validation_catches_stale_catalog_metadata(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-targeted-metadata-drift")
+    write_catalogs(tmp_path)
+
+    full_path = tmp_path / "generated" / "eval_catalog.json"
+    min_path = tmp_path / "generated" / "eval_catalog.min.json"
+    full_catalog = json.loads(full_path.read_text(encoding="utf-8"))
+    min_catalog = json.loads(min_path.read_text(encoding="utf-8"))
+    full_catalog["catalog_version"] = 999
+    min_catalog["source_of_truth"] = {"broken": True}
+    full_path.write_text(json.dumps(full_catalog), encoding="utf-8")
+    min_path.write_text(json.dumps(min_catalog), encoding="utf-8")
+
+    issues = run_validation(tmp_path, eval_name="aoa-targeted-metadata-drift")
+
+    assert any(
+        "generated catalog metadata is out of date; run 'python scripts/build_catalog.py'"
+        in issue.message
+        for issue in issues
+    )
+    assert any(
+        "generated min catalog metadata is out of date; run 'python scripts/build_catalog.py'"
+        in issue.message
+        for issue in issues
+    )
+
+
 def test_validate_repo_rejects_capsule_source_section_without_derivable_content(tmp_path: Path) -> None:
     make_eval_bundle(
         tmp_path,
@@ -569,6 +596,23 @@ def test_validate_repo_rejects_min_projection_drift(tmp_path: Path) -> None:
 
     assert any(
         "min catalog must stay a projection of the full catalog" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_reports_malformed_full_catalog_projection_error(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-malformed-full-catalog")
+    write_catalogs(tmp_path)
+
+    full_path = tmp_path / "generated" / "eval_catalog.json"
+    full_catalog = json.loads(full_path.read_text(encoding="utf-8"))
+    del full_catalog["evals"]
+    full_path.write_text(json.dumps(full_catalog), encoding="utf-8")
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "generated catalog is malformed; min projection could not be computed" in issue.message
         for issue in issues
     )
 

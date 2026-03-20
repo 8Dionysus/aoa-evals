@@ -75,6 +75,17 @@ Stage 1 metadata can support review, but it does not decide it.
 None of these fields auto-promote an eval bundle.
 Baseline and canonical decisions still require explicit human review.
 
+## Tracked Review Evidence
+
+Promotion-shaped reviews should leave a small public trail:
+
+- bundles already operating at `portable`, `baseline`, or `canonical` posture should carry `portable_review`
+- bundles seeking or holding `canonical` posture should carry `canonical_readiness`
+- bundles using `comparative-summary` should carry a `support_note` that names the comparison contract and its interpretation limits
+
+These notes do not decide the review outcome by themselves.
+They keep the public reasoning inspectable after the decision.
+
 ## Review Notes
 
 Review should stay bounded and concrete.

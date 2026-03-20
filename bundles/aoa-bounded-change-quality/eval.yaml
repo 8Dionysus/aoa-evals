@@ -42,6 +42,8 @@ relations:
   - type: complements
     target: aoa-longitudinal-growth-snapshot
 evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
   - kind: support_note
     path: notes/summary-contract.md
   - kind: integrity_check

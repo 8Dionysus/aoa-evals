@@ -10,6 +10,7 @@ Each window should preserve:
 - the same anchor workflow surface
 - comparable case meaning or declared replacement logic
 - comparable verdict interpretation
+- the same bounded workflow surface even when fixtures rotate within the declared window rules
 
 Each window should disclose:
 - reviewer changes if they materially affect reading

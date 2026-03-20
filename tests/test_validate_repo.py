@@ -15,6 +15,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 import build_catalog
 from validate_repo import (
+    NO_ADDITIONAL_STARTER_BUNDLES_TEXT,
     build_capsule_payload,
     build_catalog_payloads,
     collect_catalog_records,
@@ -39,6 +40,10 @@ def make_index(repo_root: Path, name: str, category: str) -> None:
         | name | category | status | summary |
         |---|---|---|---|
         | {name} | {category} | draft | Minimal summary for validation. |
+
+        ## Planned starter bundles
+
+        {NO_ADDITIONAL_STARTER_BUNDLES_TEXT}
         """,
     )
 
@@ -56,11 +61,50 @@ def make_selection(repo_root: Path, names: list[str]) -> None:
     )
 
 
+def make_roadmap(
+    repo_root: Path,
+    current_public_surface_names: list[str] | None = None,
+    *,
+    include_absence_note: bool = True,
+) -> None:
+    current_public_surface_names = current_public_surface_names or []
+    current_surface_block = ""
+    if current_public_surface_names:
+        surface_lines = "\n".join(
+            f"- `{name}` as the current public surface for validation."
+            for name in current_public_surface_names
+        )
+        current_surface_block = f"\nCurrent public surface:\n{surface_lines}\n"
+
+    next_candidate_line = (
+        f"- {NO_ADDITIONAL_STARTER_BUNDLES_TEXT}"
+        if include_absence_note
+        else "- placeholder next candidate"
+    )
+
+    write_text(
+        repo_root / "docs" / "ROADMAP.md",
+        f"""
+        # Roadmap
+
+        ## What should happen next
+
+        Highest-priority additions:
+        - placeholder
+
+        Next likely cross-surface candidate after the current public starter set:
+        {next_candidate_line}
+        {current_surface_block}
+        """,
+    )
+
+
 def make_eval_bundle(
     repo_root: Path,
     *,
     name: str,
     category: str = "workflow",
+    status: str = "draft",
     claim_type: str = "bounded",
     baseline_mode: str = "none",
     verdict_shape: str = "categorical",
@@ -73,11 +117,11 @@ def make_eval_bundle(
     section_overrides: dict[str, str] | None = None,
 ) -> None:
     bundle_dir = repo_root / "bundles" / name
-    support_files = support_files or {
+    support_files = dict(support_files or {
         "notes/origin-need.md": "# Origin Need\n",
         "examples/example-report.md": "# Example Report\n",
         "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
-    }
+    })
     technique_dependencies = technique_dependencies or [
         {
             "id": "AOA-T-0001",
@@ -93,10 +137,84 @@ def make_eval_bundle(
         }
     ]
     relations = relations or []
+    if evidence_entries is None:
+        evidence_entries = [
+            {"kind": "origin_need", "path": "notes/origin-need.md"},
+            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+        ]
+        if status in {"portable", "baseline", "canonical"}:
+            evidence_entries.append(
+                {"kind": "portable_review", "path": "notes/portable-review.md"}
+            )
+            support_files.setdefault("notes/portable-review.md", "# Portable Review\n")
+        if status == "canonical":
+            evidence_entries.append(
+                {"kind": "canonical_readiness", "path": "notes/canonical-readiness.md"}
+            )
+            support_files.setdefault(
+                "notes/canonical-readiness.md",
+                "# Canonical Readiness\n",
+            )
+        if baseline_mode != "none":
+            evidence_entries.append(
+                {"kind": "baseline_readiness", "path": "notes/baseline-readiness.md"}
+            )
+            support_files.setdefault(
+                "notes/baseline-readiness.md",
+                "# Baseline Readiness\n",
+            )
+        if report_format == "comparative-summary":
+            if baseline_mode == "longitudinal-window":
+                evidence_entries.append(
+                    {"kind": "support_note", "path": "notes/window-contract.md"}
+                )
+                support_files.setdefault(
+                    "notes/window-contract.md",
+                    textwrap.dedent(
+                        """\
+                        # Window Contract
+
+                        ordered window sequence
+                        anchor workflow surface
+                        no clear directional movement
+                        """
+                    ),
+                )
+            elif baseline_mode == "peer-compare":
+                evidence_entries.append(
+                    {"kind": "support_note", "path": "notes/comparison-contract.md"}
+                )
+                support_files.setdefault(
+                    "notes/comparison-contract.md",
+                    textwrap.dedent(
+                        """\
+                        # Comparison Contract
+
+                        matched conditions
+                        side-by-side interpretation
+                        """
+                    ),
+                )
+            else:
+                evidence_entries.append(
+                    {"kind": "support_note", "path": "notes/comparison-contract.md"}
+                )
+                support_files.setdefault(
+                    "notes/comparison-contract.md",
+                    textwrap.dedent(
+                        """\
+                        # Comparison Contract
+
+                        baseline target
+                        noisy variation
+                        style-only overread
+                        """
+                    ),
+                )
     frontmatter = {
         "name": name,
         "category": category,
-        "status": "draft",
+        "status": status,
         "summary": "Minimal summary for validation.",
         "object_under_evaluation": "bounded test surface",
         "claim_type": claim_type,
@@ -197,7 +315,7 @@ def make_eval_bundle(
     manifest = {
         "name": name,
         "category": category,
-        "status": "draft",
+        "status": status,
         "object_under_evaluation": "bounded test surface",
         "claim_type": claim_type,
         "baseline_mode": baseline_mode,
@@ -215,11 +333,7 @@ def make_eval_bundle(
         "technique_dependencies": technique_dependencies,
         "skill_dependencies": skill_dependencies,
         "relations": relations,
-        "evidence": evidence_entries
-        or [
-            {"kind": "origin_need", "path": "notes/origin-need.md"},
-            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
-        ],
+        "evidence": evidence_entries,
     }
     write_text(bundle_dir / "eval.yaml", yaml.safe_dump(manifest, sort_keys=False))
 
@@ -228,6 +342,7 @@ def make_eval_bundle(
 
     make_index(repo_root, name, category)
     make_selection(repo_root, [name])
+    make_roadmap(repo_root, [name])
 
 
 def write_catalogs(repo_root: Path) -> None:
@@ -274,6 +389,23 @@ def test_validate_repo_rejects_missing_evidence_path(tmp_path: Path) -> None:
     assert any("evidence path 'notes/missing.md' does not exist" in issue.message for issue in issues)
 
 
+def test_validate_repo_requires_origin_need_for_starter_bundle(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-missing-origin-need",
+        evidence_entries=[{"kind": "integrity_check", "path": "checks/eval-integrity-check.md"}],
+        support_files={
+            "examples/example-report.md": "# Example Report\n",
+            "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
+        },
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("starter bundle must include an evidence entry with kind 'origin_need'" in issue.message for issue in issues)
+
+
 def test_validate_repo_requires_baseline_readiness_for_non_none_baseline(tmp_path: Path) -> None:
     make_eval_bundle(
         tmp_path,
@@ -290,6 +422,98 @@ def test_validate_repo_requires_baseline_readiness_for_non_none_baseline(tmp_pat
     issues = run_validation(tmp_path)
 
     assert any("baseline_readiness" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_portable_review_for_portable_status(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-missing-portable-review",
+        status="portable",
+        evidence_entries=[
+            {"kind": "origin_need", "path": "notes/origin-need.md"},
+            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+        ],
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("status 'portable' requires an evidence entry with kind 'portable_review'" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_canonical_readiness_for_canonical_status(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-missing-canonical-readiness",
+        status="canonical",
+        evidence_entries=[
+            {"kind": "origin_need", "path": "notes/origin-need.md"},
+            {"kind": "portable_review", "path": "notes/portable-review.md"},
+            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+        ],
+        support_files={
+            "notes/origin-need.md": "# Origin Need\n",
+            "notes/portable-review.md": "# Portable Review\n",
+            "examples/example-report.md": "# Example Report\n",
+            "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
+        },
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("status 'canonical' requires an evidence entry with kind 'canonical_readiness'" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_support_note_for_comparative_summary(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-missing-comparison-contract",
+        category="regression",
+        claim_type="regression",
+        baseline_mode="fixed-baseline",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+        evidence_entries=[
+            {"kind": "origin_need", "path": "notes/origin-need.md"},
+            {"kind": "baseline_readiness", "path": "notes/baseline-readiness.md"},
+            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+        ],
+        support_files={
+            "notes/origin-need.md": "# Origin Need\n",
+            "notes/baseline-readiness.md": "# Baseline Readiness\n",
+            "examples/example-report.md": "# Example Report\n",
+            "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
+        },
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("report_format 'comparative-summary' requires an evidence entry with kind 'support_note'" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_roadmap_current_public_surface_to_be_a_starter_bundle(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-alpha")
+    make_eval_bundle(tmp_path, name="aoa-beta")
+    make_index(tmp_path, "aoa-alpha", "workflow")
+    make_selection(tmp_path, ["aoa-alpha"])
+    make_roadmap(tmp_path, ["aoa-beta"])
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("roadmap 'Current public surface' eval 'aoa-beta' must appear in EVAL_INDEX.md starter bundles" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_absence_note_sync_between_roadmap_and_index(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-absence-note-drift")
+    make_roadmap(tmp_path, ["aoa-absence-note-drift"], include_absence_note=False)
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("absence note" in issue.message for issue in issues)
 
 
 def test_validate_repo_rejects_mirrored_field_drift(tmp_path: Path) -> None:
@@ -635,11 +859,13 @@ def test_validate_repo_accepts_valid_baseline_bundle_with_readiness_evidence(tmp
         report_format="comparative-summary",
         evidence_entries=[
             {"kind": "origin_need", "path": "notes/origin-need.md"},
+            {"kind": "support_note", "path": "notes/comparison-contract.md"},
             {"kind": "baseline_readiness", "path": "notes/baseline-readiness.md"},
             {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
         ],
         support_files={
             "notes/origin-need.md": "# Origin Need\n",
+            "notes/comparison-contract.md": "# Comparison Contract\nbaseline target\nnoisy variation\nstyle-only overread\n",
             "notes/baseline-readiness.md": "# Baseline Readiness\n",
             "examples/example-report.md": "# Example Report\n",
             "checks/eval-integrity-check.md": "# Eval Integrity Check\n",

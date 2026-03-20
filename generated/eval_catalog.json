@@ -74,6 +74,10 @@
       "eval_path": "bundles/aoa-approval-boundary-adherence/EVAL.md",
       "evidence": [
         {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
           "kind": "support_note",
           "path": "notes/summary-contract.md"
         },
@@ -187,6 +191,10 @@
       "claim_type": "bounded",
       "eval_path": "bundles/aoa-bounded-change-quality/EVAL.md",
       "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
         {
           "kind": "support_note",
           "path": "notes/summary-contract.md"
@@ -502,6 +510,10 @@
         {
           "kind": "origin_need",
           "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/comparison-contract.md"
         },
         {
           "kind": "baseline_readiness",

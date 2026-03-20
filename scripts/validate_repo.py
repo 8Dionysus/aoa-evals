@@ -23,6 +23,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 BUNDLES_DIR_NAME = "bundles"
 EVAL_INDEX_NAME = "EVAL_INDEX.md"
 EVAL_SELECTION_NAME = "EVAL_SELECTION.md"
+ROADMAP_NAME = "docs/ROADMAP.md"
 SCHEMAS_DIR_NAME = "schemas"
 GENERATED_DIR_NAME = "generated"
 FULL_CATALOG_NAME = eval_catalog_contract.FULL_CATALOG_NAME
@@ -44,6 +45,9 @@ MIRRORED_FIELDS = (
 )
 MIN_ENTRY_KEYS = eval_catalog_contract.MIN_ENTRY_KEYS
 KNOWN_REPOS = eval_catalog_contract.KNOWN_REPOS
+NO_ADDITIONAL_STARTER_BUNDLES_TEXT = (
+    "No additional planned starter bundles are currently named publicly."
+)
 
 REQUIRED_HEADINGS = {
     "Intent",
@@ -320,6 +324,140 @@ def load_starter_eval_names(
     return starter_names
 
 
+def has_evidence_kind(evidence: Sequence[dict[str, Any]], kind: str) -> bool:
+    return any(item.get("kind") == kind for item in evidence)
+
+
+def load_evidence_texts(
+    bundle_dir: Path,
+    evidence: Sequence[dict[str, Any]],
+    *,
+    kind: str,
+) -> list[str]:
+    texts: list[str] = []
+    for item in evidence:
+        if item.get("kind") != kind:
+            continue
+        raw_path = item.get("path")
+        if not isinstance(raw_path, str):
+            continue
+        resolved_path = resolve_manifest_path(bundle_dir, raw_path)
+        if not resolved_path.is_file():
+            continue
+        try:
+            texts.append(resolved_path.read_text(encoding="utf-8").lower())
+        except OSError:
+            continue
+    return texts
+
+
+def contains_phrase_group(text: str, phrases: Sequence[str]) -> bool:
+    return any(phrase in text for phrase in phrases)
+
+
+def validate_status_specific_evidence(
+    manifest: dict[str, Any],
+    location: str,
+    evidence: Sequence[dict[str, Any]],
+    issues: list[ValidationIssue],
+) -> None:
+    required_evidence_by_status = {
+        "portable": ("portable_review",),
+        "baseline": ("portable_review",),
+        "canonical": ("portable_review", "canonical_readiness"),
+    }
+    status = manifest.get("status")
+    for kind in required_evidence_by_status.get(status, ()):
+        if not has_evidence_kind(evidence, kind):
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"status '{status}' requires an evidence entry with kind '{kind}'",
+                )
+            )
+
+
+def validate_comparative_summary_contract(
+    manifest: dict[str, Any],
+    bundle_dir: Path,
+    location: str,
+    evidence: Sequence[dict[str, Any]],
+    issues: list[ValidationIssue],
+) -> None:
+    if manifest.get("report_format") != "comparative-summary":
+        return
+
+    if not has_evidence_kind(evidence, "support_note"):
+        issues.append(
+            ValidationIssue(
+                location,
+                "report_format 'comparative-summary' requires an evidence entry with kind 'support_note'",
+            )
+        )
+        return
+
+    support_note_text = "\n".join(
+        load_evidence_texts(bundle_dir, evidence, kind="support_note")
+    )
+    baseline_mode = manifest.get("baseline_mode")
+
+    if baseline_mode in {"fixed-baseline", "previous-version"}:
+        phrase_groups = (
+            ("baseline",),
+            ("noisy variation",),
+            ("style-only", "style only"),
+        )
+        if not all(contains_phrase_group(support_note_text, group) for group in phrase_groups):
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"comparative-summary bundle with baseline_mode '{baseline_mode}' must state the baseline target, noisy variation, and style-only overread limits in a support note",
+                )
+            )
+    elif baseline_mode == "peer-compare":
+        phrase_groups = (
+            ("matched",),
+            ("side-by-side", "side by side"),
+        )
+        if not all(contains_phrase_group(support_note_text, group) for group in phrase_groups):
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "comparative-summary bundle with baseline_mode 'peer-compare' must state matched conditions and side-by-side interpretation limits in a support note",
+                )
+            )
+    elif baseline_mode == "longitudinal-window":
+        phrase_groups = (
+            ("ordered",),
+            ("window",),
+            ("same bounded workflow surface", "anchor workflow surface"),
+            ("no clear directional movement", "mixed or unstable movement"),
+        )
+        if not all(contains_phrase_group(support_note_text, group) for group in phrase_groups):
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "comparative-summary bundle with baseline_mode 'longitudinal-window' must state ordered windows, cross-window invariants, and cautious movement interpretation in a support note",
+                )
+            )
+
+
+def extract_bulleted_eval_names(text: str, label: str) -> list[str]:
+    lines = text.splitlines()
+    names: list[str] = []
+    for index, line in enumerate(lines):
+        if line.strip() != label:
+            continue
+        for candidate in lines[index + 1 :]:
+            stripped = candidate.strip()
+            if not stripped:
+                break
+            if not stripped.startswith("- "):
+                break
+            names.extend(re.findall(r"aoa-[a-z0-9-]+", stripped))
+    return names
+
+
 def validate_eval_frontmatter(
     eval_name: str,
     metadata: dict[str, Any],
@@ -409,6 +547,15 @@ def validate_manifest_evidence(
                     "baseline_mode is not 'none' but no evidence entry with kind 'baseline_readiness' is present",
                 )
             )
+
+    validate_status_specific_evidence(manifest, location, evidence, issues)
+    validate_comparative_summary_contract(
+        manifest,
+        bundle_dir,
+        location,
+        evidence,
+        issues,
+    )
 
 
 def validate_mirrored_manifest_fields(
@@ -766,6 +913,82 @@ def validate_starter_bundle_contract(
                     "starter bundle must include an evidence entry with kind 'integrity_check'",
                 )
             )
+
+        has_origin_need = any(
+            item.get("kind") == "origin_need" for item in evidence
+        )
+        if not has_origin_need:
+            issues.append(
+                ValidationIssue(
+                    relative_location(manifest_path, repo_root),
+                    "starter bundle must include an evidence entry with kind 'origin_need'",
+                )
+            )
+
+    return issues
+
+
+def validate_roadmap_parity(
+    repo_root: Path,
+    starter_names: Sequence[str],
+    selected_evals: set[str] | None = None,
+) -> list[ValidationIssue]:
+    roadmap_path = repo_root / ROADMAP_NAME
+    try:
+        roadmap_text = roadmap_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        return [ValidationIssue(ROADMAP_NAME, "file is missing")]
+
+    location = relative_location(roadmap_path, repo_root)
+    starter_set = set(starter_names)
+    bundle_names = {
+        path.name
+        for path in (repo_root / BUNDLES_DIR_NAME).iterdir()
+        if path.is_dir()
+    }
+    current_public_surface_names = set(
+        extract_bulleted_eval_names(roadmap_text, "Current public surface:")
+    )
+    names_to_check = current_public_surface_names
+    if selected_evals is not None:
+        names_to_check = current_public_surface_names.intersection(selected_evals)
+
+    issues: list[ValidationIssue] = []
+    for name in sorted(names_to_check):
+        if name not in bundle_names:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"roadmap 'Current public surface' eval '{name}' has no matching bundle directory",
+                )
+            )
+            continue
+        if name not in starter_set:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"roadmap 'Current public surface' eval '{name}' must appear in EVAL_INDEX.md starter bundles",
+                )
+            )
+
+    if selected_evals is not None:
+        return issues
+
+    index_path = repo_root / EVAL_INDEX_NAME
+    try:
+        index_text = index_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        return issues
+
+    roadmap_has_absence_note = NO_ADDITIONAL_STARTER_BUNDLES_TEXT in roadmap_text
+    index_has_absence_note = NO_ADDITIONAL_STARTER_BUNDLES_TEXT in index_text
+    if roadmap_has_absence_note != index_has_absence_note:
+        issues.append(
+            ValidationIssue(
+                location,
+                f"absence note '{NO_ADDITIONAL_STARTER_BUNDLES_TEXT}' must stay synchronized with {EVAL_INDEX_NAME}",
+            )
+        )
 
     return issues
 
@@ -1162,6 +1385,13 @@ def run_validation(
     )
     issues.extend(
         validate_starter_bundle_contract(
+            repo_root,
+            starter_names=starter_names,
+            selected_evals=selected_evals,
+        )
+    )
+    issues.extend(
+        validate_roadmap_parity(
             repo_root,
             starter_names=starter_names,
             selected_evals=selected_evals,

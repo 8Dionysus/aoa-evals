@@ -124,6 +124,13 @@ If comparison exists, also say:
 - what should only be treated as noisy variation
 - how style-only changes are kept from looking like capability growth
 
+If `report_format` is `comparative-summary`, also ship a tracked `support_note` evidence entry that names the comparison contract.
+
+Make that note explicit:
+- for `fixed-baseline` or `previous-version`, state the baseline target, what counts as noisy variation, and why style-only change is not enough
+- for `peer-compare`, state the matched conditions and the limits of side-by-side interpretation
+- for `longitudinal-window`, state the ordered windows, the cross-window invariants, and the cautious movement language
+
 If the comparison is longitudinal:
 - name why the windows are comparable
 - state what would force a `mixed or unstable` or `no clear directional movement` read
@@ -146,6 +153,7 @@ Describe how to run the eval reproducibly:
 - interpretation note
 
 For public starter bundles, also ship:
+- `notes/origin-need.md` or another tracked `origin_need` evidence note
 - `examples/example-report.md`
 - explicit manifest evidence entries for public support artifacts
 - an integrity-review artifact such as `checks/eval-integrity-check.md`
@@ -197,6 +205,9 @@ Examples:
 - confirm blind spots are named
 - confirm the output does not imply stronger conclusions than the eval supports
 - confirm manifest evidence is explicit and resolves publicly
+- confirm status-shaped evidence is present when needed:
+  `portable`, `baseline`, and `canonical` should carry `portable_review`;
+  `canonical` should also carry `canonical_readiness`
 - confirm `EVAL_INDEX.md` and `EVAL_SELECTION.md` stay aligned if this bundle is a current public starter
 
 ## Technique traceability

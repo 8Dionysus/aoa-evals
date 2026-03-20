@@ -410,7 +410,7 @@ Highest-priority additions:
 - portable fixture-family reuse once current bundle meanings stabilize
 
 Next likely cross-surface candidate after the current public starter set:
-- no additional named starter bundle is currently locked
+- No additional planned starter bundles are currently named publicly.
 
 Recent repo hardening now in place:
 - local dev dependencies in `requirements-dev.txt`
@@ -419,13 +419,13 @@ Recent repo hardening now in place:
 - baseline-readiness validation for baseline-mode bundles
 - starter-table parity between `EVAL_INDEX.md` and `EVAL_SELECTION.md`
 - starter example-report and integrity-check expectations for current public starters
+- status-specific evidence expectations for promotion-shaped statuses
+- comparative-summary support-note expectations for comparison-contract clarity
+- roadmap parity checks for current public surface references and absence-note sync
 
 Next repository hardening steps:
 - keep docs, index, selection, and template aligned to the canonical docs spine
-- add stronger manifest-to-selection and roadmap parity checks
-- add status-specific evidence expectations beyond the current baseline-mode rule
 - add compact report examples for any future starter bundles that still ship notes-only support artifacts
-- add clearer comparative report-contract expectations for regression and longitudinal bundles
 - keep distinctness notes ready whenever a newly named starter bundle is introduced so nearby evals do not collapse semantically before they ship
 
 ---

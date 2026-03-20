@@ -63,7 +63,23 @@ This rubric does not introduce graph inference, automatic ranking, or fully auto
 | `baseline_readiness` | Review note showing the eval is stable enough to function as a bounded comparison surface. |
 | `canonical_readiness` | Review note showing the eval is strong enough to be recommended by default for its bounded proof class. |
 | `integrity_check` | Evidence that the scorer, verdict logic, or report contract was itself checked for coherence. |
-| `support_note` | Other tracked support note that materially explains limits, rollout, or interpretation. |
+| `support_note` | Other tracked support note that materially explains limits, rollout, or interpretation, including comparison-contract notes for comparative summaries. |
+
+## Evidence floor by public posture
+
+Current public expectations should stay small but explicit:
+
+- public starter bundles should carry `origin_need`, `integrity_check`, and `examples/example-report.md`
+- status `portable`, `baseline`, and `canonical` should carry `portable_review`
+- status `canonical` should also carry `canonical_readiness`
+- any bundle with `baseline_mode != none` should carry `baseline_readiness`
+- any bundle with `report_format: comparative-summary` should carry a `support_note` that names the comparison contract
+
+Comparison-contract notes should stay bounded:
+
+- `fixed-baseline` and `previous-version` notes should name the baseline target, noisy variation, and style-only overread limits
+- `peer-compare` notes should name matched conditions and side-by-side interpretation limits
+- `longitudinal-window` notes should name ordered windows, cross-window invariants, and cautious movement language
 
 ## Stage 1 discipline
 

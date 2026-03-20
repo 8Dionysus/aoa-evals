@@ -46,6 +46,7 @@ Before shipping a new public draft bundle:
 - scoring or verdict logic should be reviewable
 - blind spots should be named clearly
 - the bundle should include explicit manifest evidence for its public support artifacts
+- the bundle should include a tracked `origin_need` evidence note
 - current public starters should ship `examples/example-report.md`
 - current public starters should ship an integrity-review artifact such as `checks/eval-integrity-check.md`
 - `EVAL_INDEX.md` should include the new public bundle
@@ -58,6 +59,7 @@ Before shipping a bundle whose `baseline_mode` is not `none`:
 - at least one `baseline_readiness` evidence note should be present
 - the frozen baseline contract should be readable by a bounded outside reviewer
 - comparative summaries should stay modest about what the bounded comparison proves
+- if `report_format` is `comparative-summary`, at least one `support_note` should make the comparison contract explicit
 
 For `longitudinal-window` bundles specifically:
 - windows should be ordered and named
@@ -69,6 +71,11 @@ For `longitudinal-window` bundles specifically:
 ## Status promotion releases
 
 Status promotion should remain rare and explicit.
+
+Before shipping a promoted public status:
+- `portable`, `baseline`, and `canonical` bundles should carry `portable_review`
+- `canonical` bundles should also carry `canonical_readiness`
+- `comparative-summary` bundles should already carry an explicit comparison-contract `support_note`
 
 Use:
 - [Eval Review Guide](EVAL_REVIEW_GUIDE.md) for `portable -> baseline`

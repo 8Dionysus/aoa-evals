@@ -1,0 +1,231 @@
+{
+  "capsule_version": 1,
+  "evals": [
+    {
+      "blind_spot_short": "overall workflow quality; authority handling quality; scope alignment after execution begins",
+      "bounded_claim_short": "under these conditions, the agent can handle bounded task-meaning ambiguity without silently collapsing the ambiguity into one unearned interpretation.",
+      "category": "stress",
+      "do_not_use_short": "the main question is authority handling or permission classification; the requested scope is already clear and the main question is later scope drift",
+      "eval_path": "bundles/aoa-ambiguity-handling/EVAL.md",
+      "name": "aoa-ambiguity-handling",
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "status": "draft",
+      "summary": "Checks whether an agent handles incomplete, conflicting, or underspecified task meaning on bounded change tasks without silently choosing an unearned path.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "use_when_short": "the task is a bounded change with incomplete, conflicting, or underspecified requirements; the main question is whether the agent asks, branches, or bounds assumptions...",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof that the overall workflow was strong; proof that the agent handled authority correctly; proof that execution stayed perfectly scoped after the ambiguity was resolved"
+    },
+    {
+      "blind_spot_short": "total operational safety; deep security reasoning; performance in high-complexity real environments",
+      "bounded_claim_short": "under these conditions, the agent can correctly classify a bounded requested action as: safe to proceed; explicit approval required; out of bounds for execution",
+      "category": "boundary",
+      "do_not_use_short": "no meaningful authority boundary exists; the task is purely analytical and no action classification is needed",
+      "eval_path": "bundles/aoa-approval-boundary-adherence/EVAL.md",
+      "name": "aoa-approval-boundary-adherence",
+      "skill_dependencies": [
+        "aoa-approval-gate-check"
+      ],
+      "status": "draft",
+      "summary": "Checks whether an agent correctly distinguishes safe action, explicit-approval-required action, and out-of-bounds action on bounded task surfaces.",
+      "technique_dependencies": [],
+      "use_when_short": "the task includes potentially destructive, operational, or authority-sensitive surfaces; the boundary between safe action and approval-gated action is part of the real...",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof that the agent is safe in all environments; proof that the agent understands all policy systems; proof that refusal behavior is always calibrated correctly outside this surface"
+    },
+    {
+      "blind_spot_short": "overall workflow discipline; verification truthfulness; scope alignment",
+      "bounded_claim_short": "under these conditions, the produced artifact is reviewably strong on the visible task surface without implying that the underlying workflow was strong in every respect.",
+      "category": "artifact",
+      "do_not_use_short": "the main question is workflow discipline rather than artifact quality; the main question is whether polished output is outrunning process discipline",
+      "eval_path": "bundles/aoa-artifact-review-rubric/EVAL.md",
+      "name": "aoa-artifact-review-rubric",
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "status": "draft",
+      "summary": "Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating polish as proof of workflow discipline.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "use_when_short": "the task is a bounded change and the main question is the produced artifact itself; the visible request is clear enough to judge task...",
+      "verdict_shape": "mixed",
+      "what_this_does_not_prove": "proof that the workflow was disciplined; proof that verification was honest; proof that the agent handled authority or scope well"
+    },
+    {
+      "blind_spot_short": "deep code quality across large systems; long-term maintainability; deployment safety",
+      "bounded_claim_short": "under these conditions, the agent can complete a bounded non-trivial change while staying inside the declared task surface, using real or honestly named verification, and producing a...",
+      "category": "workflow",
+      "do_not_use_short": "the task is too tiny to meaningfully expose scope or verification behavior; the task is so broad that no bounded workflow claim can reasonably...",
+      "eval_path": "bundles/aoa-bounded-change-quality/EVAL.md",
+      "name": "aoa-bounded-change-quality",
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "status": "draft",
+      "summary": "Checks whether a non-trivial agent change stays scoped, explicitly verified, and clearly reported without silent task expansion.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "use_when_short": "the task is non-trivial enough to require an explicit change workflow; the change touches code, config, docs, or another meaningful surface",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof of overall software engineering quality; proof of safety in operationally sensitive contexts; proof that the produced artifact is optimal"
+    },
+    {
+      "blind_spot_short": "direct agent-behavior quality; hidden fixture realism; scorer calibration beyond the public bundle contract",
+      "bounded_claim_short": "under these conditions, the repository can review whether a starter eval bundle remains internally coherent enough to support only its stated bounded claim on the public corpus.",
+      "category": "capability",
+      "do_not_use_short": "the main question is direct agent performance; the main question is hidden fixture realism rather than public coherence",
+      "eval_path": "bundles/aoa-eval-integrity-check/EVAL.md",
+      "name": "aoa-eval-integrity-check",
+      "skill_dependencies": [],
+      "status": "draft",
+      "summary": "Checks whether current public starter bundles stay coherent across manifest contract, verdict wording, evidence coverage, and public selection surfaces.",
+      "technique_dependencies": [],
+      "use_when_short": "a public starter bundle has grown enough that manifest, docs, and examples may drift; the main question is whether an eval surface is overstating...",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof that the starter corpus is canonical; proof that every bundle is equally mature; proof that the underlying evaluated agents are strong"
+    },
+    {
+      "blind_spot_short": "general capability growth; movement outside the named workflow surface; frozen same-task regression",
+      "bounded_claim_short": "under these conditions, ordered windows on the same bounded workflow surface show a modest improvement signal, regression signal, flat reading, or mixed movement that remains bounded to this...",
+      "category": "longitudinal",
+      "do_not_use_short": "you only need a one-run workflow judgment; you need a frozen same-task baseline comparison rather than repeated-window movement",
+      "eval_path": "bundles/aoa-longitudinal-growth-snapshot/EVAL.md",
+      "name": "aoa-longitudinal-growth-snapshot",
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "status": "draft",
+      "summary": "Checks whether ordered, comparable windows on the same bounded workflow surface show modest directional movement without upgrading that movement into broad capability growth.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "use_when_short": "you have ordered windows on the same bounded workflow surface; the main question is directional movement across windows rather than one-run quality",
+      "verdict_shape": "comparative",
+      "what_this_does_not_prove": "proof of general capability growth; proof that all nearby workflow diagnostics improved; proof that the movement is stable outside this window sequence"
+    },
+    {
+      "blind_spot_short": "root-cause diagnosis for why one side outran the other; one-run artifact quality by itself; one-run workflow quality by itself",
+      "bounded_claim_short": "under these conditions, artifact-side and process-side readings on the same bounded cases can be compared honestly enough to show whether one materially outruns the other or whether the...",
+      "category": "comparative",
+      "do_not_use_short": "the main question is the artifact itself rather than the gap; the main question is end-to-end workflow quality rather than the gap",
+      "eval_path": "bundles/aoa-output-vs-process-gap/EVAL.md",
+      "name": "aoa-output-vs-process-gap",
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "status": "draft",
+      "summary": "Compares artifact-side and process-side readings on the same bounded cases to show when polished output outruns workflow discipline, process outruns artifact strength, or the two stay aligned.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "use_when_short": "the same bounded cases can be reviewed on both artifact and workflow surfaces; the main question is whether polished output is outrunning process discipline...",
+      "verdict_shape": "comparative",
+      "what_this_does_not_prove": "proof that one side matters more in all contexts; proof that the stronger-looking side explains the whole story; proof of general capability growth or decline"
+    },
+    {
+      "blind_spot_short": "general capability growth; long-term trend movement across windows; improvement outside the frozen case family",
+      "bounded_claim_short": "under these conditions, the candidate does not materially regress against the frozen baseline on this same-task bounded workflow surface.",
+      "category": "regression",
+      "do_not_use_short": "you only need one-run workflow quality and no baseline exists yet; the task family is still changing underneath the comparison",
+      "eval_path": "bundles/aoa-regression-same-task/EVAL.md",
+      "name": "aoa-regression-same-task",
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "status": "draft",
+      "summary": "Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "use_when_short": "you need a fixed baseline comparison on the same bounded task family; the main question is regression rather than one-run workflow quality",
+      "verdict_shape": "comparative",
+      "what_this_does_not_prove": "proof of general capability growth; proof that the candidate is universally better than the baseline; proof that no nearby diagnostic regression exists"
+    },
+    {
+      "blind_spot_short": "overall workflow quality; verification truthfulness; authority handling quality",
+      "bounded_claim_short": "under these conditions, the agent can keep bounded change work aligned with the requested scope or disclose the deviation explicitly enough for a reviewer to see it clearly.",
+      "category": "boundary",
+      "do_not_use_short": "the main question is overall workflow quality rather than scope alignment; the main question is claimed-vs-actual verification evidence",
+      "eval_path": "bundles/aoa-scope-drift-detection/EVAL.md",
+      "name": "aoa-scope-drift-detection",
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "status": "draft",
+      "summary": "Checks whether an agent keeps requested scope aligned with executed scope on bounded change tasks, or explicitly discloses deviation.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "use_when_short": "the task is a bounded change with a reviewable requested scope; the main question is silent widening, narrowing, or reshaping",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof that the whole workflow was strong; proof that verification was honest or sufficient; proof that the authority boundary was handled correctly"
+    },
+    {
+      "blind_spot_short": "overall workflow quality; final outcome quality when path does not matter; verification truthfulness as a standalone diagnostic question",
+      "bounded_claim_short": "under these conditions, the agent can use tools with disciplined path quality on bounded tasks where tool-use trajectory is part of the bounded claim.",
+      "category": "workflow",
+      "do_not_use_short": "the main question is overall workflow quality rather than tool path quality; the main question is outcome-vs-path separation at a broader level",
+      "eval_path": "bundles/aoa-tool-trajectory-discipline/EVAL.md",
+      "name": "aoa-tool-trajectory-discipline",
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "status": "draft",
+      "summary": "Checks whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself is part of the bounded claim.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "use_when_short": "the task is bounded and the tool path materially affects reviewability or risk; the main question is whether tools were used with disciplined sequencing...",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof that the overall workflow was strong; proof that the final artifact is excellent; proof that one exact tool sequence is required"
+    },
+    {
+      "blind_spot_short": "perfect tool trajectory quality; verification truthfulness as a standalone diagnostic question; scope alignment as a standalone diagnostic question",
+      "bounded_claim_short": "under these conditions, the agent's bounded change workflow remains reviewable when final outcome and execution path are judged separately before any combined reading.",
+      "category": "workflow",
+      "do_not_use_short": "the main question is tool trajectory only and path matters only at the tool-use level; the main question is verification truthfulness alone",
+      "eval_path": "bundles/aoa-trace-outcome-separation/EVAL.md",
+      "name": "aoa-trace-outcome-separation",
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "status": "draft",
+      "summary": "Checks whether bounded change workflows remain reviewable when final outcome and execution-path quality are judged separately before any combined reading.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "use_when_short": "the task is a bounded change where both final result and path quality matter; the main question is whether a polished outcome is hiding...",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof that the workflow was strong on every nearby diagnostic surface; proof that one exact trace is required; proof that the final artifact is excellent overall"
+    },
+    {
+      "blind_spot_short": "overall change correctness; overall workflow discipline; scope alignment as a standalone diagnostic question",
+      "bounded_claim_short": "under these conditions, the agent can report verification honestly on bounded change tasks without overstating what was actually executed.",
+      "category": "workflow",
+      "do_not_use_short": "the main question is overall workflow quality rather than verification truthfulness; the task has no meaningful verification surface at all",
+      "eval_path": "bundles/aoa-verification-honesty/EVAL.md",
+      "name": "aoa-verification-honesty",
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "status": "draft",
+      "summary": "Checks whether an agent truthfully reports which verification steps on a bounded change task were executed, skipped, or blocked.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "use_when_short": "the task is a bounded change with a plausible verification path; the main question is whether verification claims were truthful",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof that the change is correct; proof that the workflow stayed fully disciplined; proof that the agent handled scope correctly"
+    }
+  ],
+  "source_of_truth": {
+    "eval_catalog": "generated/eval_catalog.json",
+    "eval_markdown": "bundles/*/EVAL.md"
+  }
+}

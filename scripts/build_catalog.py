@@ -9,7 +9,9 @@ from pathlib import Path
 from typing import Sequence
 
 import eval_catalog_contract
+import eval_capsule_contract
 from validate_repo import (
+    build_capsule_payload,
     collect_catalog_records,
     format_issues,
 )
@@ -34,13 +36,17 @@ def check_catalogs(repo_root: Path) -> list[str]:
         return [f"source validation failed:\n{format_issues(issues)}"]
 
     expected_full, expected_min = eval_catalog_contract.build_catalog_payloads(repo_root, records)
+    expected_capsules = eval_capsule_contract.build_capsule_payload(repo_root, records, expected_full)
     parse_issues = []
     full_path = repo_root / eval_catalog_contract.GENERATED_DIR_NAME / eval_catalog_contract.FULL_CATALOG_NAME
     min_path = repo_root / eval_catalog_contract.GENERATED_DIR_NAME / eval_catalog_contract.MIN_CATALOG_NAME
+    capsule_path = repo_root / eval_capsule_contract.GENERATED_DIR_NAME / eval_capsule_contract.CAPSULE_NAME
     actual_full, full_parse_issues = eval_catalog_contract.read_json_file(full_path, repo_root)
     actual_min, min_parse_issues = eval_catalog_contract.read_json_file(min_path, repo_root)
+    actual_capsules, capsule_parse_issues = eval_catalog_contract.read_json_file(capsule_path, repo_root)
     parse_issues.extend(full_parse_issues)
     parse_issues.extend(min_parse_issues)
+    parse_issues.extend(capsule_parse_issues)
     if parse_issues:
         return [issue.message for issue in parse_issues]
 
@@ -49,22 +55,27 @@ def check_catalogs(repo_root: Path) -> list[str]:
         problems.append(f"stale {full_path.relative_to(repo_root).as_posix()}")
     if actual_min != expected_min:
         problems.append(f"stale {min_path.relative_to(repo_root).as_posix()}")
+    if actual_capsules != expected_capsules:
+        problems.append(f"stale {capsule_path.relative_to(repo_root).as_posix()}")
     return problems
 
 
-def write_catalogs(repo_root: Path) -> tuple[Path, Path]:
+def write_catalogs(repo_root: Path) -> tuple[Path, Path, Path]:
     issues, records = collect_catalog_records(repo_root)
     if issues:
         raise ValueError(format_issues(issues))
 
     full_catalog, min_catalog = eval_catalog_contract.build_catalog_payloads(repo_root, records)
+    capsules = build_capsule_payload(repo_root, records, full_catalog)
     generated_dir = repo_root / eval_catalog_contract.GENERATED_DIR_NAME
     generated_dir.mkdir(exist_ok=True)
     full_path = generated_dir / eval_catalog_contract.FULL_CATALOG_NAME
     min_path = generated_dir / eval_catalog_contract.MIN_CATALOG_NAME
+    capsule_path = generated_dir / eval_capsule_contract.CAPSULE_NAME
     eval_catalog_contract.write_json_file(full_path, full_catalog, compact=False)
     eval_catalog_contract.write_json_file(min_path, min_catalog, compact=True)
-    return full_path, min_path
+    eval_catalog_contract.write_json_file(capsule_path, capsules, compact=False)
+    return full_path, min_path, capsule_path
 
 
 def main(argv: Sequence[str] | None = None, repo_root: Path | None = None) -> int:
@@ -74,14 +85,14 @@ def main(argv: Sequence[str] | None = None, repo_root: Path | None = None) -> in
         if args.check:
             problems = check_catalogs(repo_root)
             if problems:
-                print("Catalog check failed.")
+                print("Generated surface check failed.")
                 for problem in problems:
                     print(f"- {problem}")
                 return 1
-            print("Catalog check passed.")
+            print("Generated surface check passed.")
             return 0
 
-        full_path, min_path = write_catalogs(repo_root)
+        full_path, min_path, capsule_path = write_catalogs(repo_root)
     except ValueError as exc:
         print("Catalog build failed because source bundles are invalid.")
         print(str(exc))
@@ -92,6 +103,7 @@ def main(argv: Sequence[str] | None = None, repo_root: Path | None = None) -> in
 
     print(f"[ok] wrote {full_path.relative_to(repo_root).as_posix()}")
     print(f"[ok] wrote {min_path.relative_to(repo_root).as_posix()}")
+    print(f"[ok] wrote {capsule_path.relative_to(repo_root).as_posix()}")
     return 0
 
 

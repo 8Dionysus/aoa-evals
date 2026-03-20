@@ -15,6 +15,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 import build_catalog
 from validate_repo import (
+    build_capsule_payload,
     build_catalog_payloads,
     collect_catalog_records,
     run_validation,
@@ -69,6 +70,7 @@ def make_eval_bundle(
     relations: list[dict[str, str]] | None = None,
     evidence_entries: list[dict[str, str]] | None = None,
     support_files: dict[str, str] | None = None,
+    section_overrides: dict[str, str] | None = None,
 ) -> None:
     bundle_dir = repo_root / "bundles" / name
     support_files = support_files or {
@@ -103,66 +105,87 @@ def make_eval_bundle(
         "technique_dependencies": [entry["id"] for entry in technique_dependencies],
         "skill_dependencies": [entry["name"] for entry in skill_dependencies],
     }
-    body = textwrap.dedent(
-        f"""\
-        # {name}
+    section_bodies = {
+        "Intent": "Minimal intent.",
+        "Object under evaluation": "Minimal object.",
+        "Bounded claim": textwrap.dedent(
+            """\
+            This eval is designed to support a claim like:
 
-        ## Intent
-        Minimal intent.
+            under these conditions, the bounded claim holds on this surface.
 
-        ## Object under evaluation
-        Minimal object.
+            This eval does not support claims such as:
+            - broad general strength
+            - total safety
+            """
+        ).strip(),
+        "Trigger boundary": textwrap.dedent(
+            """\
+            Use this eval when:
+            - bounded review matters
+            - the workflow claim is the real question
 
-        ## Bounded claim
-        Minimal bounded claim.
+            Do not use this eval when:
+            - the task is unbounded
+            - the main question is something else
+            """
+        ).strip(),
+        "Inputs": "- input",
+        "Fixtures and case surface": "- fixture",
+        "Scoring or verdict logic": "- logic",
+        "Baseline or comparison mode": "- mode",
+        "Execution contract": "- contract",
+        "Outputs": "- output",
+        "Failure modes": "- failure",
+        "Blind spots": textwrap.dedent(
+            """\
+            This eval does not prove:
+            - broad general strength
+            - stable behavior across time
+            - downstream artifact excellence
+            """
+        ).strip(),
+        "Interpretation guidance": textwrap.dedent(
+            """\
+            Treat a positive result as support for one bounded claim:
+            the bounded claim holds on this surface.
 
-        ## Trigger boundary
-        Use this eval when:
-        - one
+            Do not treat a positive result as:
+            - proof of general capability
+            - proof of total safety
+            - proof that every nearby surface is strong
+            """
+        ).strip(),
+        "Verification": "- verify",
+        "Technique traceability": "- " + (technique_dependencies[0]["id"] if technique_dependencies else "none"),
+        "Skill traceability": "- " + (skill_dependencies[0]["name"] if skill_dependencies else "none"),
+        "Adaptation points": "- point",
+    }
+    if section_overrides:
+        section_bodies.update(section_overrides)
 
-        Do not use this eval when:
-        - two
-
-        ## Inputs
-        - input
-
-        ## Fixtures and case surface
-        - fixture
-
-        ## Scoring or verdict logic
-        - logic
-
-        ## Baseline or comparison mode
-        - mode
-
-        ## Execution contract
-        - contract
-
-        ## Outputs
-        - output
-
-        ## Failure modes
-        - failure
-
-        ## Blind spots
-        - blind spot
-
-        ## Interpretation guidance
-        - guidance
-
-        ## Verification
-        - verify
-
-        ## Technique traceability
-        - {technique_dependencies[0]['id']}
-
-        ## Skill traceability
-        - {skill_dependencies[0]['name']}
-
-        ## Adaptation points
-        - point
-        """
-    )
+    body_sections = [f"# {name}"]
+    for heading in (
+        "Intent",
+        "Object under evaluation",
+        "Bounded claim",
+        "Trigger boundary",
+        "Inputs",
+        "Fixtures and case surface",
+        "Scoring or verdict logic",
+        "Baseline or comparison mode",
+        "Execution contract",
+        "Outputs",
+        "Failure modes",
+        "Blind spots",
+        "Interpretation guidance",
+        "Verification",
+        "Technique traceability",
+        "Skill traceability",
+        "Adaptation points",
+    ):
+        body_sections.append(f"## {heading}\n{section_bodies[heading]}")
+    body = "\n\n".join(body_sections) + "\n"
     write_text(
         bundle_dir / "EVAL.md",
         "---\n"
@@ -212,8 +235,10 @@ def write_catalogs(repo_root: Path) -> None:
     if issues:
         return
     full_catalog, min_catalog = build_catalog_payloads(repo_root, records)
+    capsules = build_capsule_payload(repo_root, records, full_catalog)
     write_json_file(repo_root / "generated" / "eval_catalog.json", full_catalog, compact=False)
     write_json_file(repo_root / "generated" / "eval_catalog.min.json", min_catalog, compact=True)
+    write_json_file(repo_root / "generated" / "eval_capsules.json", capsules, compact=False)
 
 
 def test_build_catalog_preserves_same_kind_relations_in_full_catalog(tmp_path: Path) -> None:
@@ -395,6 +420,20 @@ def test_validate_repo_missing_generated_catalogs_fail(tmp_path: Path) -> None:
     assert any("file is missing" in issue.message for issue in issues if "generated/" in issue.location)
 
 
+def test_validate_repo_missing_generated_capsules_fail(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-missing-capsules")
+    write_catalogs(tmp_path)
+
+    (tmp_path / "generated" / "eval_capsules.json").unlink()
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        issue.location == "generated/eval_capsules.json" and "file is missing" in issue.message
+        for issue in issues
+    )
+
+
 def test_validate_repo_stale_generated_catalogs_fail(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-stale-generated")
     write_catalogs(tmp_path)
@@ -407,6 +446,29 @@ def test_validate_repo_stale_generated_catalogs_fail(tmp_path: Path) -> None:
 
     assert any(
         "generated catalog is out of date; run 'python scripts/build_catalog.py'" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_stale_generated_capsules_fail(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-stale-capsules")
+    write_catalogs(tmp_path)
+
+    eval_md_path = tmp_path / "bundles" / "aoa-stale-capsules" / "EVAL.md"
+    text = eval_md_path.read_text(encoding="utf-8")
+    eval_md_path.write_text(
+        text.replace(
+            "under these conditions, the bounded claim holds on this surface.",
+            "under these conditions, the bounded claim changed without rebuilding capsules.",
+            1,
+        ),
+        encoding="utf-8",
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "generated capsules are out of date; run 'python scripts/build_catalog.py'" in issue.message
         for issue in issues
     )
 
@@ -431,6 +493,64 @@ def test_targeted_validation_catches_stale_generated_catalog_for_selected_eval(t
     )
     assert any(
         "generated min catalog entry for 'aoa-targeted-stale-generated' is out of date; run 'python scripts/build_catalog.py'"
+        in issue.message
+        for issue in issues
+    )
+
+
+def test_targeted_validation_catches_stale_generated_capsule_for_selected_eval(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-targeted-stale-capsule")
+    write_catalogs(tmp_path)
+
+    eval_md_path = tmp_path / "bundles" / "aoa-targeted-stale-capsule" / "EVAL.md"
+    text = eval_md_path.read_text(encoding="utf-8")
+    eval_md_path.write_text(
+        text.replace(
+            "under these conditions, the bounded claim holds on this surface.",
+            "under these conditions, the bounded claim drifted after generation.",
+            1,
+        ),
+        encoding="utf-8",
+    )
+
+    issues = run_validation(tmp_path, eval_name="aoa-targeted-stale-capsule")
+
+    assert any(
+        "generated capsule entry for 'aoa-targeted-stale-capsule' is out of date; run 'python scripts/build_catalog.py'"
+        in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_rejects_capsule_source_section_without_derivable_content(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-missing-capsule-source",
+        section_overrides={"Interpretation guidance": ""},
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "missing capsule source section 'Interpretation guidance'" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_rejects_capsule_catalog_alignment_drift(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-capsule-alignment-drift")
+    write_catalogs(tmp_path)
+
+    capsule_path = tmp_path / "generated" / "eval_capsules.json"
+    capsules = json.loads(capsule_path.read_text(encoding="utf-8"))
+    capsules["evals"] = []
+    capsule_path.write_text(json.dumps(capsules), encoding="utf-8")
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "capsules are missing eval 'aoa-capsule-alignment-drift' from generated/eval_catalog.json"
         in issue.message
         for issue in issues
     )

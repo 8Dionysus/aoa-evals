@@ -99,7 +99,7 @@ and keep agent quality tied to reproducible evidence.
 ## Repository structure
 
 - `docs/` — architecture, philosophy, roadmap, conventions, interpretation guides
-- `generated/` — derived routing and reader catalogs
+- `generated/` — derived routing catalogs, reader catalogs, and local runtime cards
 - `templates/` — templates for eval authoring and metadata
 - `bundles/` — eval bundles
 - `fixtures/` — shared reusable fixture sets
@@ -124,7 +124,7 @@ A typical eval bundle contains:
 - optional `notes/blind-spots.md`
 
 `EVAL.md` and `eval.yaml` remain authoritative.
-`generated/eval_catalog.json` and `generated/eval_catalog.min.json` are derived reader surfaces for routing and indexing.
+`generated/eval_catalog.json`, `generated/eval_catalog.min.json`, and `generated/eval_capsules.json` are derived reader surfaces for routing, indexing, and local runtime lookup cards.
 
 ## Evaluation bundle shape
 
@@ -196,7 +196,7 @@ Build the derived reader catalogs:
 python scripts/build_catalog.py
 ```
 
-The validator checks that generated catalogs exist, stay current, and keep the min catalog as an exact projection of the full catalog.
+The validator checks that generated catalogs and capsules exist, stay current, keep the min catalog as an exact projection of the full catalog, and keep capsules aligned 1:1 with the catalog surface.
 
 An eval should say:
 - what it can support

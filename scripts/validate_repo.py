@@ -17,6 +17,7 @@ import yaml
 from jsonschema import Draft202012Validator
 
 import eval_catalog_contract
+import eval_capsule_contract
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 BUNDLES_DIR_NAME = "bundles"
@@ -28,6 +29,9 @@ FULL_CATALOG_NAME = eval_catalog_contract.FULL_CATALOG_NAME
 MIN_CATALOG_NAME = eval_catalog_contract.MIN_CATALOG_NAME
 CATALOG_VERSION = eval_catalog_contract.CATALOG_VERSION
 CATALOG_SOURCE_OF_TRUTH = eval_catalog_contract.CATALOG_SOURCE_OF_TRUTH
+CAPSULE_NAME = eval_capsule_contract.CAPSULE_NAME
+CAPSULE_VERSION = eval_capsule_contract.CAPSULE_VERSION
+CAPSULE_SOURCE_OF_TRUTH = eval_capsule_contract.CAPSULE_SOURCE_OF_TRUTH
 
 MIRRORED_FIELDS = (
     "name",
@@ -76,6 +80,7 @@ class EvalBundleRecord:
     eval_yaml_path: Path
     metadata: dict[str, Any]
     manifest: dict[str, Any]
+    sections: dict[str, str]
 
 
 @lru_cache(maxsize=None)
@@ -156,12 +161,12 @@ def load_yaml_file(path: Path, issues: list[ValidationIssue]) -> Any | None:
 def parse_eval_markdown(
     eval_md_path: Path,
     issues: list[ValidationIssue],
-) -> tuple[dict[str, Any] | None, set[str]]:
+) -> tuple[dict[str, Any] | None, dict[str, str]]:
     try:
         text = eval_md_path.read_text(encoding="utf-8")
     except FileNotFoundError:
         issues.append(ValidationIssue(relative_location(eval_md_path), "file is missing"))
-        return None, set()
+        return None, {}
 
     lines = text.splitlines()
     if not lines or lines[0].strip() != "---":
@@ -171,7 +176,7 @@ def parse_eval_markdown(
                 "missing YAML frontmatter opening delimiter",
             )
         )
-        return None, set()
+        return None, {}
 
     closing_index = None
     for index in range(1, len(lines)):
@@ -186,7 +191,7 @@ def parse_eval_markdown(
                 "missing YAML frontmatter closing delimiter",
             )
         )
-        return None, set()
+        return None, {}
 
     frontmatter_text = "\n".join(lines[1:closing_index])
     body = "\n".join(lines[closing_index + 1 :])
@@ -200,7 +205,7 @@ def parse_eval_markdown(
                 f"invalid frontmatter YAML: {exc}",
             )
         )
-        return None, set()
+        return None, {}
 
     if not isinstance(metadata, dict):
         issues.append(
@@ -209,13 +214,25 @@ def parse_eval_markdown(
                 "frontmatter must parse to a mapping",
             )
         )
-        return None, set()
+        return None, {}
 
-    headings = set(
-        match.group(1).strip()
-        for match in re.finditer(r"^##\s+(.+?)\s*$", body, flags=re.MULTILINE)
-    )
-    return metadata, headings
+    sections: dict[str, str] = {}
+    current_heading: str | None = None
+    current_lines: list[str] = []
+    for line in body.splitlines():
+        heading_match = re.match(r"^##\s+(.+?)\s*$", line)
+        if heading_match:
+            if current_heading is not None:
+                sections[current_heading] = "\n".join(current_lines).strip()
+            current_heading = heading_match.group(1).strip()
+            current_lines = []
+            continue
+        if current_heading is not None:
+            current_lines.append(line)
+    if current_heading is not None:
+        sections[current_heading] = "\n".join(current_lines).strip()
+
+    return metadata, sections
 
 
 def find_support_artifacts(bundle_dir: Path) -> list[Path]:
@@ -546,15 +563,24 @@ def validate_bundle(
 
     metadata: dict[str, Any] | None = None
     manifest: dict[str, Any] | None = None
-    headings: set[str] = set()
+    sections: dict[str, str] = {}
     frontmatter_valid = False
     manifest_valid = False
 
     if eval_md_path.is_file():
-        metadata, headings = parse_eval_markdown(eval_md_path, issues)
+        metadata, sections = parse_eval_markdown(eval_md_path, issues)
         if metadata is not None:
             frontmatter_valid = validate_eval_frontmatter(eval_name, metadata, eval_md_path, issues)
-            validate_eval_headings(headings, eval_md_path, issues)
+            validate_eval_headings(set(sections), eval_md_path, issues)
+            capsule_source_issues = eval_capsule_contract.validate_capsule_source_sections(
+                sections,
+                eval_md_path,
+                repo_root,
+            )
+            issues.extend(
+                ValidationIssue(issue.location, issue.message)
+                for issue in capsule_source_issues
+            )
 
     if eval_yaml_path.is_file():
         loaded_manifest = load_yaml_file(eval_yaml_path, issues)
@@ -593,6 +619,7 @@ def validate_bundle(
             eval_yaml_path=eval_yaml_path,
             metadata=metadata,
             manifest=manifest,
+            sections=sections,
         )
         return issues, record
 
@@ -783,6 +810,14 @@ def build_catalog_payloads(
     return eval_catalog_contract.build_catalog_payloads(repo_root, records)
 
 
+def build_capsule_payload(
+    repo_root: Path,
+    records: list[EvalBundleRecord],
+    full_catalog: dict[str, Any],
+) -> dict[str, Any]:
+    return eval_capsule_contract.build_capsule_payload(repo_root, records, full_catalog)
+
+
 def read_json_file(path: Path, issues: list[ValidationIssue], repo_root: Path) -> Any | None:
     payload, contract_issues = eval_catalog_contract.read_json_file(path, repo_root)
     issues.extend(
@@ -927,6 +962,98 @@ def validate_generated_catalogs(
     return issues
 
 
+def validate_generated_capsules(
+    repo_root: Path,
+    records: list[EvalBundleRecord],
+    target_eval_names: Sequence[str] | None = None,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    full_path = repo_root / GENERATED_DIR_NAME / FULL_CATALOG_NAME
+    capsule_path = repo_root / GENERATED_DIR_NAME / CAPSULE_NAME
+    capsule_location = relative_location(capsule_path, repo_root)
+
+    expected_full, _expected_min = build_catalog_payloads(repo_root, records)
+    expected_capsules = build_capsule_payload(repo_root, records, expected_full)
+    actual_capsules = read_json_file(capsule_path, issues, repo_root)
+    if actual_capsules is None:
+        return issues
+
+    if not isinstance(actual_capsules, dict):
+        issues.append(
+            ValidationIssue(capsule_location, "generated capsules payload must be an object")
+        )
+        return issues
+
+    if actual_capsules.get("capsule_version") != CAPSULE_VERSION:
+        issues.append(
+            ValidationIssue(capsule_location, f"capsule_version must be {CAPSULE_VERSION}")
+        )
+    if actual_capsules.get("source_of_truth") != CAPSULE_SOURCE_OF_TRUTH:
+        issues.append(
+            ValidationIssue(capsule_location, "source_of_truth does not match the capsule contract")
+        )
+
+    if target_eval_names is None:
+        if actual_capsules != expected_capsules:
+            issues.append(
+                ValidationIssue(
+                    capsule_location,
+                    "generated capsules are out of date; run 'python scripts/build_catalog.py'",
+                )
+            )
+    else:
+        expected_entries, expected_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+            expected_capsules,
+            array_key="evals",
+            key_name="name",
+            location=capsule_location,
+        )
+        actual_entries, actual_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+            actual_capsules,
+            array_key="evals",
+            key_name="name",
+            location=capsule_location,
+        )
+        issues.extend(
+            ValidationIssue(issue.location, issue.message)
+            for issue in expected_entry_issues + actual_entry_issues
+        )
+        for eval_name in target_eval_names:
+            actual_entry = actual_entries.get(eval_name)
+            if actual_entry is None:
+                issues.append(
+                    ValidationIssue(
+                        capsule_location,
+                        f"generated capsules are missing eval '{eval_name}'",
+                    )
+                )
+                continue
+            if actual_entry != expected_entries[eval_name]:
+                issues.append(
+                    ValidationIssue(
+                        capsule_location,
+                        f"generated capsule entry for '{eval_name}' is out of date; run 'python scripts/build_catalog.py'",
+                    )
+                )
+
+    alignment_issues: list[ValidationIssue] = []
+    actual_full = read_json_file(full_path, alignment_issues, repo_root)
+    issues.extend(alignment_issues)
+    if isinstance(actual_full, dict):
+        contract_issues = eval_capsule_contract.validate_capsule_alignment(
+            actual_full,
+            actual_capsules,
+            location=capsule_location,
+            target_eval_names=set(target_eval_names) if target_eval_names is not None else None,
+        )
+        issues.extend(
+            ValidationIssue(issue.location, issue.message)
+            for issue in contract_issues
+        )
+
+    return issues
+
+
 def format_issues(issues: Sequence[ValidationIssue]) -> str:
     lines = [f"- {issue.location}: {issue.message}" for issue in issues]
     return "\n".join(lines)
@@ -978,9 +1105,17 @@ def run_validation(
         all_source_issues, all_records = collect_catalog_records(repo_root)
         if not all_source_issues:
             issues.extend(validate_generated_catalogs(repo_root, all_records))
+            issues.extend(validate_generated_capsules(repo_root, all_records))
     elif eval_name is not None and not source_issues:
         issues.extend(
             validate_generated_catalogs(
+                repo_root,
+                records,
+                target_eval_names=target_evals,
+            )
+        )
+        issues.extend(
+            validate_generated_capsules(
                 repo_root,
                 records,
                 target_eval_names=target_evals,

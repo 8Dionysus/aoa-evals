@@ -24,6 +24,14 @@ If you are new to this repository, follow this short path:
 5. Open `bundles/aoa-bounded-change-quality/EVAL.md` as the first starter eval bundle.
 6. Use `templates/EVAL.template.md` when authoring a new eval.
 
+## Quick routes
+
+- if you need upstream reusable practice, go to [aoa-techniques](https://github.com/8Dionysus/aoa-techniques)
+- if you need bounded execution workflows to evaluate, go to [aoa-skills](https://github.com/8Dionysus/aoa-skills)
+- if you need the smallest next surface by task type, go to [aoa-routing](https://github.com/8Dionysus/aoa-routing)
+- if you need role posture or handoff context around an evaluation target, go to [aoa-agents](https://github.com/8Dionysus/aoa-agents)
+- if you need scenario-level operating context, go to [aoa-playbooks](https://github.com/8Dionysus/aoa-playbooks)
+
 ## What belongs here
 
 Good candidates:
@@ -167,6 +175,10 @@ The current goal is to establish:
 - portable scoring and report surfaces
 - baseline comparison discipline
 - the path toward trustworthy regression and longitudinal evaluation
+
+## Read this before overclaiming
+
+`aoa-evals` supports bounded proof surfaces, not total intelligence scores; `What this repository does not try to do` below defines what one eval result can and cannot support.
 
 ## What this repository does not try to do
 

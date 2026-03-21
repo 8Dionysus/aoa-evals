@@ -5,7 +5,7 @@ Checked:
 - public wording keeps this split distinct from artifact-versus-process comparison
 - manifest and example report both preserve the trace-aware workflow posture
 
-Still draft-limited:
+Still bounded-limited:
 - this bundle remains a bounded trace-aware workflow surface, not a universal path rubric
 - path quality still depends on reviewable captured evidence
 

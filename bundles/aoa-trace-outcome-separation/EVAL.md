@@ -1,7 +1,7 @@
 ---
 name: aoa-trace-outcome-separation
 category: workflow
-status: draft
+status: bounded
 summary: Checks whether bounded change workflows remain reviewable when final outcome and execution-path quality are judged separately before any combined reading.
 object_under_evaluation: outcome-vs-path separation in bounded agent change workflows
 claim_type: bounded
@@ -19,7 +19,7 @@ skill_dependencies:
 
 Use this eval to check whether a bounded change workflow stays reviewable when final outcome and execution path are judged separately.
 
-This starter bundle is a `diagnostic` workflow eval.
+This bounded bundle is a `diagnostic` workflow eval.
 It isolates outcome-vs-path separation.
 It is not meant to stand in for a pure tool-trajectory eval or a one-score summary of overall workflow quality.
 It is also not the same question as artifact-versus-process comparison.
@@ -87,7 +87,7 @@ Do not use this eval when:
 
 ## Fixtures and case surface
 
-This starter bundle should use only bounded change tasks.
+This bounded bundle should use only bounded change tasks.
 
 A strong starter fixture set should include:
 - a case where the final artifact looks fine but the path was weak
@@ -144,11 +144,23 @@ Signals toward `mixed support` or `does not support bounded claim`:
 - divergence is visible in the evidence but flattened in the final summary
 - the review implicitly assumes one exact trace instead of bounded path quality
 
+### Review outcome language
+
+- `approve` means the outcome-vs-path split stayed reviewable on this surface.
+- `defer` means the evidence is too thin, too mixed, or too overstated for bounded promotion.
+
+### Failure vs readout
+
+- failure is the mismatch between the separate outcome/path evidence and the combined claim
+- readout is the public wording that summarizes that mismatch
+- a clean readout cannot repair a flattened split
+- a clumsy readout does not by itself invalidate a supported separation
+
 ## Baseline or comparison mode
 
-This starter bundle uses `none`.
+This bounded bundle uses `none`.
 
-It is a standalone workflow proof surface.
+It is a standalone diagnostic proof surface.
 A later baseline form may compare:
 - the same agent before and after workflow-policy changes
 - different workflow modes on the same bounded cases
@@ -171,6 +183,7 @@ Execution expectations:
 - do not infer outcome quality from path discipline alone
 - do not require one exact tool sequence when multiple disciplined paths could work
 - keep enough evidence that a careful reviewer can see why outcome and path notes differ
+- keep approve/defer language separate from the failure/readout split
 
 ## Outputs
 
@@ -180,6 +193,7 @@ The eval should produce:
 - outcome note for each case
 - path note for each case
 - combined-reading note for each case
+- an explicit approval-or-defer readout for the bounded promotion review
 - explicit interpretation note
 
 A compact public summary-with-breakdown may include:
@@ -255,6 +269,7 @@ A negative or mixed result is valuable because it can reveal:
 - confirm fixtures expose a real outcome-vs-path separation question
 - confirm per-case notes keep outcome and path distinct before any combined reading
 - confirm the bundle-level verdict does not outrun the case evidence
+- confirm the promotion note keeps approve/defer language separate from failure/readout language
 - confirm blind spots and nearby-bundle boundaries are named clearly
 
 ## Technique traceability

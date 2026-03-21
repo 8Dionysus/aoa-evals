@@ -1,7 +1,7 @@
 ---
 name: aoa-tool-trajectory-discipline
 category: workflow
-status: draft
+status: bounded
 summary: Checks whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself is part of the bounded claim.
 object_under_evaluation: tool-use trajectory discipline in bounded agent change workflows
 claim_type: bounded
@@ -19,7 +19,7 @@ skill_dependencies:
 
 Use this eval to check whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself matters.
 
-This starter bundle is a `diagnostic` workflow eval.
+This bounded bundle is a `diagnostic` workflow eval.
 It isolates tool-use trajectory discipline.
 It is not meant to stand in for a broader end-to-end workflow eval or a general outcome-quality judgment.
 
@@ -85,7 +85,7 @@ Do not use this eval when:
 
 ## Fixtures and case surface
 
-This starter bundle should use only bounded tasks where tool path matters to the claim.
+This bounded bundle should use only bounded tasks where tool path matters to the claim.
 
 A strong starter fixture set should include:
 - a case where tool sequencing materially affects reviewability
@@ -142,11 +142,23 @@ Signals toward `mixed support` or `does not support bounded claim`:
 - the path becomes too opaque for bounded review
 - the final summary launders weak tool use into a cleaner-looking workflow story
 
+### Review outcome language
+
+- `approve` means the trajectory reading stayed reviewable on this surface.
+- `defer` means the evidence is too thin, too mixed, or too overstated for bounded promotion.
+
+### Failure vs readout
+
+- failure is the mismatch between the visible tool-path evidence and the trajectory claim
+- readout is the public wording that summarizes that mismatch
+- a clean readout cannot repair omitted or noisy tool evidence
+- a clumsy readout does not by itself invalidate a supported path judgment
+
 ## Baseline or comparison mode
 
-This starter bundle uses `none`.
+This bounded bundle uses `none`.
 
-It is a standalone workflow proof surface.
+It is a standalone diagnostic proof surface.
 A later baseline form may compare:
 - the same agent before and after tool-use policy changes
 - different tool-use strategies on the same bounded cases
@@ -169,6 +181,7 @@ Execution expectations:
 - do not require one ideal sequence when multiple disciplined paths are plausible
 - do not treat decorative tool usage as positive evidence
 - keep enough evidence that a careful reviewer can see why the trajectory note was assigned
+- keep approve/defer language separate from the failure/readout split
 
 ## Outputs
 
@@ -178,6 +191,7 @@ The eval should produce:
 - trajectory note for each case
 - why-path-matters note for each case
 - visible omission or churn summary
+- an explicit approval-or-defer readout for the bounded promotion review
 - explicit interpretation note
 
 A compact public summary-with-breakdown may include:
@@ -252,6 +266,7 @@ A negative or mixed result is valuable because it can reveal:
 - confirm fixtures explain why tool path matters on each case
 - confirm per-case notes remain grounded in visible tool evidence
 - confirm the bundle-level verdict does not outrun the case evidence
+- confirm the promotion note keeps approve/defer language separate from failure/readout language
 - confirm blind spots and nearby-bundle boundaries are named clearly
 
 ## Technique traceability

@@ -5,7 +5,7 @@ Checked:
 - public wording still excludes outcome-only cases where path reading would be theater
 - manifest and example report align on narrower tool-trajectory posture
 
-Still draft-limited:
+Still bounded-limited:
 - this bundle remains a bounded path-quality surface, not a general workflow grade
 - tool-discipline judgment still depends on case design and reviewable logs
 

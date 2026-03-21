@@ -67,6 +67,10 @@ In short:
 
 `practice canon -> workflow canon -> proof canon`
 
+The current runtime path for public eval use is:
+
+`pick -> inspect -> expand -> object use`
+
 ## Why this repository exists
 
 Strong agents need more than artifacts, intentions, or convincing demos.
@@ -125,6 +129,7 @@ A typical eval bundle contains:
 
 `EVAL.md` and `eval.yaml` remain authoritative.
 `generated/eval_catalog.json`, `generated/eval_catalog.min.json`, and `generated/eval_capsules.json` are derived reader surfaces for routing, indexing, and local runtime lookup cards.
+`generated/eval_sections.full.json` is the source-owned section payload surface for bounded expand-time reads.
 
 ## Evaluation bundle shape
 
@@ -197,6 +202,7 @@ python scripts/build_catalog.py
 ```
 
 The validator checks that generated catalogs and capsules exist, stay current, keep the min catalog as an exact projection of the full catalog, and keep capsules aligned 1:1 with the catalog surface.
+It also checks that `generated/eval_sections.full.json` exists, stays current, and remains 1:1 aligned with the catalog and capsule surfaces.
 
 An eval should say:
 - what it can support

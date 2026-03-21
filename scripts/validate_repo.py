@@ -18,6 +18,7 @@ from jsonschema import Draft202012Validator
 
 import eval_catalog_contract
 import eval_capsule_contract
+import eval_section_contract
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 BUNDLES_DIR_NAME = "bundles"
@@ -32,6 +33,9 @@ CATALOG_SOURCE_OF_TRUTH = eval_catalog_contract.CATALOG_SOURCE_OF_TRUTH
 CAPSULE_NAME = eval_capsule_contract.CAPSULE_NAME
 CAPSULE_VERSION = eval_capsule_contract.CAPSULE_VERSION
 CAPSULE_SOURCE_OF_TRUTH = eval_capsule_contract.CAPSULE_SOURCE_OF_TRUTH
+SECTION_NAME = eval_section_contract.SECTIONS_NAME
+SECTION_VERSION = eval_section_contract.SECTION_VERSION
+SECTION_SOURCE_OF_TRUTH = eval_section_contract.SECTION_SOURCE_OF_TRUTH
 
 MIRRORED_FIELDS = (
     "name",
@@ -45,25 +49,7 @@ MIRRORED_FIELDS = (
 MIN_ENTRY_KEYS = eval_catalog_contract.MIN_ENTRY_KEYS
 KNOWN_REPOS = eval_catalog_contract.KNOWN_REPOS
 
-REQUIRED_HEADINGS = {
-    "Intent",
-    "Object under evaluation",
-    "Bounded claim",
-    "Trigger boundary",
-    "Inputs",
-    "Fixtures and case surface",
-    "Scoring or verdict logic",
-    "Baseline or comparison mode",
-    "Execution contract",
-    "Outputs",
-    "Failure modes",
-    "Blind spots",
-    "Interpretation guidance",
-    "Verification",
-    "Technique traceability",
-    "Adaptation points",
-}
-OPTIONAL_HEADINGS = {"Skill traceability"}
+REQUIRED_HEADINGS = set(eval_section_contract.CANONICAL_HEADINGS)
 
 
 @dataclass(frozen=True)
@@ -339,21 +325,19 @@ def validate_eval_frontmatter(
 
 
 def validate_eval_headings(
-    headings: set[str],
+    sections: dict[str, str],
     eval_md_path: Path,
     issues: list[ValidationIssue],
 ) -> None:
     location = relative_location(eval_md_path)
-    for heading in sorted(REQUIRED_HEADINGS - headings):
-        issues.append(ValidationIssue(location, f"missing required section '{heading}'"))
-
-    if not OPTIONAL_HEADINGS.intersection(headings):
-        issues.append(
-            ValidationIssue(
-                location,
-                "missing section 'Skill traceability'; include it even if it only states none or deferred",
-            )
-        )
+    contract_issues = eval_section_contract.collect_section_contract_issues(
+        sections,
+        location=location,
+    )
+    issues.extend(
+        ValidationIssue(issue.location, issue.message)
+        for issue in contract_issues
+    )
 
 
 def validate_eval_manifest(
@@ -571,7 +555,7 @@ def validate_bundle(
         metadata, sections = parse_eval_markdown(eval_md_path, issues)
         if metadata is not None:
             frontmatter_valid = validate_eval_frontmatter(eval_name, metadata, eval_md_path, issues)
-            validate_eval_headings(set(sections), eval_md_path, issues)
+            validate_eval_headings(sections, eval_md_path, issues)
             capsule_source_issues = eval_capsule_contract.validate_capsule_source_sections(
                 sections,
                 eval_md_path,
@@ -1121,6 +1105,148 @@ def validate_generated_capsules(
     return issues
 
 
+def validate_generated_sections(
+    repo_root: Path,
+    records: list[EvalBundleRecord],
+    target_eval_names: Sequence[str] | None = None,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    full_path = repo_root / GENERATED_DIR_NAME / FULL_CATALOG_NAME
+    sections_path = repo_root / GENERATED_DIR_NAME / SECTION_NAME
+    sections_location = relative_location(sections_path, repo_root)
+
+    expected_sections, section_contract_issues = eval_section_contract.build_sections_payload(
+        repo_root,
+        records,
+    )
+    issues.extend(
+        ValidationIssue(issue.location, issue.message)
+        for issue in section_contract_issues
+    )
+    if section_contract_issues:
+        return issues
+
+    actual_sections = read_json_file(sections_path, issues, repo_root)
+    if actual_sections is None:
+        return issues
+    if not isinstance(actual_sections, dict):
+        issues.append(
+            ValidationIssue(sections_location, "generated sections payload must be an object")
+        )
+        return issues
+
+    if actual_sections.get("section_version") != SECTION_VERSION:
+        issues.append(
+            ValidationIssue(sections_location, f"section_version must be {SECTION_VERSION}")
+        )
+    if actual_sections.get("source_of_truth") != SECTION_SOURCE_OF_TRUTH:
+        issues.append(
+            ValidationIssue(sections_location, "source_of_truth does not match the section contract")
+        )
+
+    if target_eval_names is None:
+        if actual_sections != expected_sections:
+            issues.append(
+                ValidationIssue(
+                    sections_location,
+                    "generated sections are out of date; run 'python scripts/build_catalog.py'",
+                )
+            )
+    else:
+        expected_entries, expected_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+            expected_sections,
+            array_key="evals",
+            key_name="name",
+            location=sections_location,
+        )
+        actual_entries, actual_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+            actual_sections,
+            array_key="evals",
+            key_name="name",
+            location=sections_location,
+        )
+        issues.extend(
+            ValidationIssue(issue.location, issue.message)
+            for issue in expected_entry_issues + actual_entry_issues
+        )
+        for eval_name in target_eval_names:
+            actual_entry = actual_entries.get(eval_name)
+            if actual_entry is None:
+                issues.append(
+                    ValidationIssue(
+                        sections_location,
+                        f"generated sections are missing eval '{eval_name}'",
+                    )
+                )
+                continue
+            if actual_entry != expected_entries[eval_name]:
+                issues.append(
+                    ValidationIssue(
+                        sections_location,
+                        f"generated section entry for '{eval_name}' is out of date; run 'python scripts/build_catalog.py'",
+                    )
+                )
+
+    actual_full = read_json_file(full_path, issues, repo_root)
+    if not isinstance(actual_full, dict):
+        return issues
+
+    catalog_entries, catalog_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+        actual_full,
+        array_key="evals",
+        key_name="name",
+        location=relative_location(full_path, repo_root),
+    )
+    section_entries, section_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+        actual_sections,
+        array_key="evals",
+        key_name="name",
+        location=sections_location,
+    )
+    issues.extend(
+        ValidationIssue(issue.location, issue.message)
+        for issue in catalog_entry_issues + section_entry_issues
+    )
+    if catalog_entry_issues or section_entry_issues:
+        return issues
+
+    catalog_names = set(catalog_entries)
+    section_names = set(section_entries)
+    if target_eval_names is not None:
+        target_name_set = set(target_eval_names)
+        catalog_names &= target_name_set
+        section_names &= target_name_set
+
+    for missing in sorted(catalog_names - section_names):
+        issues.append(
+            ValidationIssue(
+                sections_location,
+                f"generated sections are missing eval '{missing}' from generated/eval_catalog.json",
+            )
+        )
+    for extra in sorted(section_names - catalog_names):
+        issues.append(
+            ValidationIssue(
+                sections_location,
+                f"generated sections include unknown eval '{extra}' from generated/eval_catalog.json",
+            )
+        )
+
+    for eval_name in sorted(catalog_names & section_names):
+        catalog_entry = catalog_entries[eval_name]
+        section_entry = section_entries[eval_name]
+        for field_name in ("category", "status", "verdict_shape", "eval_path"):
+            if section_entry.get(field_name) != catalog_entry.get(field_name):
+                issues.append(
+                    ValidationIssue(
+                        sections_location,
+                        f"generated section entry for '{eval_name}' must align with full catalog field '{field_name}'",
+                    )
+                )
+
+    return issues
+
+
 def format_issues(issues: Sequence[ValidationIssue]) -> str:
     lines = [f"- {issue.location}: {issue.message}" for issue in issues]
     return "\n".join(lines)
@@ -1173,6 +1299,7 @@ def run_validation(
         if not all_source_issues:
             issues.extend(validate_generated_catalogs(repo_root, all_records))
             issues.extend(validate_generated_capsules(repo_root, all_records))
+            issues.extend(validate_generated_sections(repo_root, all_records))
     elif eval_name is not None and not source_issues:
         issues.extend(
             validate_generated_catalogs(
@@ -1183,6 +1310,13 @@ def run_validation(
         )
         issues.extend(
             validate_generated_capsules(
+                repo_root,
+                records,
+                target_eval_names=target_evals,
+            )
+        )
+        issues.extend(
+            validate_generated_sections(
                 repo_root,
                 records,
                 target_eval_names=target_evals,

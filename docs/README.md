@@ -44,6 +44,8 @@ These are reader-facing navigation artifacts derived from authoritative markdown
   - use when a reader or router needs the thin projection surface for routing and indexing
 - `generated/eval_capsules.json`
   - use when a local runtime needs compact eval cards derived from bounded claim, trigger boundary, blind spots, and interpretation guidance
+- `generated/eval_sections.full.json`
+  - use when a local runtime needs bounded section expansion from source-owned eval markdown without reopening the whole bundle blindly
 
 ### Authored review and governance guides
 
@@ -110,6 +112,11 @@ These are outside `docs/` but matter when navigating the repo:
 - Prefer generated reader surfaces when the question is "which eval should I inspect next?"
 - Prefer `generated/eval_catalog*.json` when the question is "what is the deterministic machine-readable eval surface right now?"
 - Prefer `generated/eval_capsules.json` when the question is "what is the smallest local runtime card for this eval?"
+- Prefer `generated/eval_sections.full.json` when the question is "which exact eval section should I expand next?"
 - Prefer authored guides when the question is "what does this repo mean by this score, verdict, or boundary?"
 - Prefer boundary guides when the question is "is this bundle really portable and honest enough to publish?"
 - Treat the docs listed here as the canonical wording layer for future public bundle authoring.
+
+The current runtime path is:
+
+`pick -> inspect -> expand -> object use`

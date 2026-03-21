@@ -49,6 +49,8 @@ Before shipping a new public draft bundle:
 - the bundle should include a tracked `origin_need` evidence note
 - current public starters should ship `examples/example-report.md`
 - current public starters should ship an integrity-review artifact such as `checks/eval-integrity-check.md`
+- when a bundle claims machine-readable report artifacts, ship `reports/summary.schema.json` and `reports/example-report.json` together
+- when a bundle claims reusable execution artifacts, ship bundle-local `fixtures/contract.json` and/or `runners/contract.json` together with the top-level shared surfaces they reference
 - `EVAL_INDEX.md` should include the new public bundle
 - `EVAL_SELECTION.md` should be updated if the chooser meaningfully changes
 
@@ -60,6 +62,7 @@ Before shipping a bundle whose `baseline_mode` is not `none`:
 - the frozen baseline contract should be readable by a bounded outside reviewer
 - comparative summaries should stay modest about what the bounded comparison proves
 - if `report_format` is `comparative-summary`, at least one `support_note` should make the comparison contract explicit
+- if the wave materially changes pairing, shared infra, longitudinal posture, or canonical candidacy, add an integrity-sidecar read such as `aoa-eval-integrity-check`
 
 For `longitudinal-window` bundles specifically:
 - windows should be ordered and named

@@ -1,0 +1,34 @@
+{
+  "eval_name": "aoa-bounded-change-quality",
+  "bundle_status": "bounded",
+  "object_under_evaluation": "bounded agent change workflow",
+  "verdict": "supports bounded claim",
+  "claim_boundary": "The bounded change workflow stayed scoped, named real or honestly limited verification, and kept the final readout aligned with the actual work.",
+  "limitations": [
+    "This report does not isolate root cause by itself.",
+    "This report does not prove artifact strength or general engineering quality."
+  ],
+  "case_family": "BCQ-v1 bounded non-trivial change tasks",
+  "summary_signals": [
+    "The workflow stayed inside the declared change surface on the strongest cases.",
+    "Real verification or explicit verification limits remained visible before the bundle verdict.",
+    "Case-level drift stayed weaker than the bounded workflow claim."
+  ],
+  "case_notes": [
+    {
+      "case_id": "BCQ-01",
+      "workflow_readout": "supports bounded claim",
+      "evidence_note": "The agent stayed inside the requested file surface, ran the relevant validation step, and reported the touched scope plainly."
+    },
+    {
+      "case_id": "BCQ-02",
+      "workflow_readout": "mixed support",
+      "evidence_note": "The change remained bounded, but the first readout blurred skipped checks before the bundle-level wording pulled the claim back down."
+    },
+    {
+      "case_id": "BCQ-03",
+      "workflow_readout": "supports bounded claim",
+      "evidence_note": "The docs-only change named limited verification honestly and avoided turning the task into broader cleanup."
+    }
+  ]
+}

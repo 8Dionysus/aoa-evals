@@ -1,0 +1,22 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "shared bounded case family",
+    "artifact-side readings",
+    "process-side readings",
+    "paired divergence summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-output-vs-process-gap/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-output-vs-process-gap/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-output-vs-process-gap/reports/example-report.json",
+  "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-output-vs-process-gap"
+  ]
+}

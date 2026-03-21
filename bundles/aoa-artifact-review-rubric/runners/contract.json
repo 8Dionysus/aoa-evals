@@ -1,0 +1,22 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "bounded artifact case dossier",
+    "visible request surface",
+    "produced artifact or changed surface",
+    "rubric-axis notes"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-artifact-review-rubric/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-artifact-review-rubric/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-artifact-review-rubric/reports/example-report.json",
+  "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-artifact-review-rubric"
+  ]
+}

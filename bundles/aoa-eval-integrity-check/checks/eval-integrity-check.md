@@ -1,12 +1,13 @@
 # Eval Integrity Check
 
 Checked:
-- the bundle is explicitly a `diagnostic` meta-eval for starter-bundle coherence
+- the bundle is explicitly a `diagnostic` bounded meta-eval for starter-bundle coherence
 - `checks_integrity_of` relations target the current public starter corpus only
 - report shape stays `summary-with-breakdown` and verdicts stay categorical
-- support notes and example report make the integrity surface reviewable
+- support notes, runner contract, and schema-backed example report make the integrity surface reviewable
+- semantic anti-theater classes such as bundle blur, baseline by association, style-over-substance, and growth overclaiming are named directly
 
-Still draft-limited:
+Still bounded-limited:
 - this bundle does not replace promotion review
 - hidden scorer or fixture quality outside the public dossier is still out of scope
 

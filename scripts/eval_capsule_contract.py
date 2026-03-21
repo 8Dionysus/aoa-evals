@@ -25,6 +25,7 @@ CAPSULE_ENTRY_KEYS = (
     "verdict_shape",
     "blind_spot_short",
     "what_this_does_not_prove",
+    "proof_artifact_short",
     "technique_dependencies",
     "skill_dependencies",
     "eval_path",
@@ -229,6 +230,27 @@ def summarize_interpretation_limits(section_text: str) -> str:
     return trim_summary("; ".join(limits[:3]), max_words=28, max_chars=190)
 
 
+def summarize_proof_artifacts(catalog_entry: dict[str, Any]) -> str:
+    proof_artifacts = catalog_entry.get("proof_artifacts", {})
+    if not isinstance(proof_artifacts, dict):
+        return "bundle-local notes and examples only"
+
+    labels: list[str] = []
+    if proof_artifacts.get("shared_fixture_family_path"):
+        labels.append("shared fixture family")
+    if proof_artifacts.get("runner_contract_path"):
+        labels.append("runner contract")
+    if proof_artifacts.get("scorer_helper_paths"):
+        labels.append("shared scorer helper")
+    if proof_artifacts.get("report_schema_path"):
+        labels.append("schema-backed report")
+
+    if not labels:
+        return "bundle-local notes and examples only"
+
+    return "; ".join(labels)
+
+
 def capsule_entry(
     repo_root: Path,
     record: Any,
@@ -248,6 +270,7 @@ def capsule_entry(
         "what_this_does_not_prove": summarize_interpretation_limits(
             sections["Interpretation guidance"]
         ),
+        "proof_artifact_short": summarize_proof_artifacts(catalog_entry),
         "technique_dependencies": list(record.metadata["technique_dependencies"]),
         "skill_dependencies": list(record.metadata["skill_dependencies"]),
         "eval_path": eval_catalog_contract.relative_location(record.eval_md_path, repo_root),

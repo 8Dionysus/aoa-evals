@@ -26,6 +26,16 @@
       "name": "aoa-ambiguity-handling",
       "object_under_evaluation": "task-meaning ambiguity handling in bounded agent change workflows",
       "portability_level": "portable",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
@@ -99,6 +109,16 @@
       "name": "aoa-approval-boundary-adherence",
       "object_under_evaluation": "authority and approval boundary handling in agent behavior",
       "portability_level": "portable",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
       "relations": [
         {
           "target": "aoa-ambiguity-handling",
@@ -156,10 +176,26 @@
       "name": "aoa-artifact-review-rubric",
       "object_under_evaluation": "produced artifact quality on bounded agent change tasks",
       "portability_level": "portable",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-artifact-review-rubric/fixtures/contract.json",
+        "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+        "report_example_path": "bundles/aoa-artifact-review-rubric/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-artifact-review-rubric/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-artifact-review-rubric/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/bounded-change-paired-v1/README.md"
+      },
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
           "type": "complements"
+        },
+        {
+          "target": "aoa-bounded-change-quality",
+          "type": "used_together_for"
         },
         {
           "target": "aoa-output-vs-process-gap",
@@ -225,6 +261,18 @@
       "name": "aoa-bounded-change-quality",
       "object_under_evaluation": "bounded agent change workflow",
       "portability_level": "portable",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-bounded-change-quality/fixtures/contract.json",
+        "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+        "report_example_path": "bundles/aoa-bounded-change-quality/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-bounded-change-quality/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-bounded-change-quality/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/bounded-change-paired-v1/README.md"
+      },
       "relations": [
         {
           "target": "aoa-verification-honesty",
@@ -245,6 +293,10 @@
         {
           "target": "aoa-tool-trajectory-discipline",
           "type": "complements"
+        },
+        {
+          "target": "aoa-artifact-review-rubric",
+          "type": "used_together_for"
         },
         {
           "target": "aoa-output-vs-process-gap",
@@ -310,6 +362,18 @@
       "name": "aoa-eval-integrity-check",
       "object_under_evaluation": "public starter eval bundle integrity on the current aoa-evals corpus",
       "portability_level": "portable",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": "bundles/aoa-eval-integrity-check/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-eval-integrity-check/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-eval-integrity-check/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": null
+      },
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
@@ -363,8 +427,8 @@
       "score_interpretation_bound": "explicit",
       "skill_dependencies": [],
       "skill_refs": [],
-      "status": "draft",
-      "summary": "Checks whether current public starter bundles stay coherent across manifest contract, verdict wording, evidence coverage, and public selection surfaces.",
+      "status": "bounded",
+      "summary": "Checks whether current public starter bundles stay coherent across manifest contract, verdict wording, evidence coverage, and public selection surfaces, especially when polished wording risks outrunning evidence.",
       "technique_dependencies": [],
       "technique_refs": [],
       "validation_strength": "baseline",
@@ -399,6 +463,16 @@
       "name": "aoa-longitudinal-growth-snapshot",
       "object_under_evaluation": "ordered repeated-window movement on a bounded workflow surface",
       "portability_level": "portable",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
@@ -472,14 +546,34 @@
       "name": "aoa-output-vs-process-gap",
       "object_under_evaluation": "artifact-versus-process divergence on the same bounded change cases",
       "portability_level": "portable",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-output-vs-process-gap/fixtures/contract.json",
+        "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+        "report_example_path": "bundles/aoa-output-vs-process-gap/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-output-vs-process-gap/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-output-vs-process-gap/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/bounded-change-paired-v1/README.md"
+      },
       "relations": [
         {
           "target": "aoa-artifact-review-rubric",
           "type": "complements"
         },
         {
+          "target": "aoa-artifact-review-rubric",
+          "type": "used_together_for"
+        },
+        {
           "target": "aoa-bounded-change-quality",
           "type": "complements"
+        },
+        {
+          "target": "aoa-bounded-change-quality",
+          "type": "used_together_for"
         },
         {
           "target": "aoa-trace-outcome-separation",
@@ -549,6 +643,16 @@
       "name": "aoa-regression-same-task",
       "object_under_evaluation": "same-task bounded workflow regression against a frozen baseline",
       "portability_level": "portable",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
@@ -618,6 +722,16 @@
       "name": "aoa-scope-drift-detection",
       "object_under_evaluation": "scope-alignment behavior in bounded agent change workflows",
       "portability_level": "portable",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
@@ -687,6 +801,16 @@
       "name": "aoa-tool-trajectory-discipline",
       "object_under_evaluation": "tool-use trajectory discipline in bounded agent change workflows",
       "portability_level": "portable",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
       "relations": [
         {
           "target": "aoa-trace-outcome-separation",
@@ -756,6 +880,16 @@
       "name": "aoa-trace-outcome-separation",
       "object_under_evaluation": "outcome-vs-path separation in bounded agent change workflows",
       "portability_level": "portable",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
@@ -833,6 +967,16 @@
       "name": "aoa-verification-honesty",
       "object_under_evaluation": "verification-truthfulness behavior in bounded agent change workflows",
       "portability_level": "portable",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
       "relations": [
         {
           "target": "aoa-bounded-change-quality",

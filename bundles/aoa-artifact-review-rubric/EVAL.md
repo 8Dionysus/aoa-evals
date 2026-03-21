@@ -94,6 +94,10 @@ A strong starter fixture set should include:
 - an artifact that is modest but disciplined and fit for the ask
 - an artifact where readability or reviewability is the main bounded issue
 
+For the current artifact/process paired proof flow,
+this bundle can reuse `fixtures/bounded-change-paired-v1/README.md`
+when the same cases also need workflow-side and bridge-side reads.
+
 Fixture families should avoid:
 - giant artifacts with unbounded review burden
 - hidden house-style cases where only insiders know the expected artifact shape
@@ -190,6 +194,7 @@ Execution expectations:
 - do not use hidden local standards as if they were part of the visible request
 - keep enough evidence that a careful reviewer can see why each rubric axis was judged the way it was
 - keep approve/defer language separate from the failure/readout split
+- when shipping a machine-readable report, validate it against `reports/summary.schema.json`
 
 ## Outputs
 
@@ -200,6 +205,7 @@ The eval should produce:
 - artifact-strength summary
 - an explicit approval-or-defer readout for the bounded promotion review
 - explicit limitations note
+- an optional schema-backed companion report artifact at `reports/example-report.json`
 
 A compact public summary-with-breakdown may include:
 - case id
@@ -259,6 +265,10 @@ when you need both:
 Use this bundle together with `aoa-output-vs-process-gap`
 when you need to know whether artifact polish is outrunning process discipline or vice versa.
 
+For the first materialized paired proof flow,
+use `reports/artifact-process-paired-proof-flow-v1.md`
+so artifact and workflow reads stay independent before the bridge summary.
+
 A negative or mixed result is valuable because it can reveal:
 - polished incompleteness
 - visible bounded defects
@@ -292,3 +302,5 @@ Project overlays may add:
 - repo-specific readability expectations
 - local summary formats that still preserve axis-level evidence
 - later comparison baselines for repeated runs
+- local fixture replacements allowed by `fixtures/contract.json`
+- local runner wrappers that still validate against `reports/summary.schema.json`

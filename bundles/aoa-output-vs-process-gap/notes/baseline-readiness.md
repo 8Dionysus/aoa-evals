@@ -14,3 +14,7 @@ Minimum v1 peer-comparison conditions:
 This note does **not** claim that the bundle is a broad mature baseline.
 It states only that the peer-comparison contract is explicit enough for this draft bridge surface,
 including mixed or noise-limited cases that should not be turned into a winner.
+
+For the current public pairing shape,
+the shared case-family contract is `fixtures/bounded-change-paired-v1/README.md`
+and the paired readout dossier is `reports/artifact-process-paired-proof-flow-v1.md`.

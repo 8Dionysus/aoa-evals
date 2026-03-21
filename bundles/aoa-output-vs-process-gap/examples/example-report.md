@@ -5,6 +5,8 @@
 - bundle: `aoa-output-vs-process-gap`
 - bundle shape: `comparative`
 - verdict: `mixed comparison signal`
+- machine-readable companion: `reports/example-report.json`
+- paired proof dossier: `reports/artifact-process-paired-proof-flow-v1.md`
 
 ## Matched Conditions
 

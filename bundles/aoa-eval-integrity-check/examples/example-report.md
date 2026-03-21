@@ -2,20 +2,22 @@
 
 Bundle: `aoa-eval-integrity-check`
 Corpus slice: current public starter bundles
-Bundle-level verdict: `supports bounded claim`
+Bundle-level verdict: `mixed support`
+Machine-readable companion: `reports/example-report.json`
 
 ## Per-target breakdown
 
 | target bundle | integrity risk class | evidence note | public-routing note | target reading |
 |---|---|---|---|---|
-| `aoa-bounded-change-quality` | composite-vs-diagnostic overread risk | manifest, summary contract, and integrity check align on composite posture | chooser still routes root-cause questions to narrower bundles | `supports bounded claim` |
-| `aoa-approval-boundary-adherence` | authority-vs-ambiguity boundary | manifest, example report, and integrity check keep authority handling separate from task-meaning ambiguity | chooser keeps approval routing separate from `aoa-ambiguity-handling` | `supports bounded claim` |
-| `aoa-output-vs-process-gap` | bridge-vs-trace distinction | comparative manifest and baseline readiness remain coherent | chooser still keeps artifact/process divergence separate from outcome/path separation | `supports bounded claim` |
-| `aoa-longitudinal-growth-snapshot` | movement-vs-growth overread risk | window contract, baseline readiness, and example report keep repeated-window movement bounded to one workflow surface | chooser keeps longitudinal reading separate from one-run workflow and frozen same-task regression | `supports bounded claim` |
+| `aoa-bounded-change-quality` | artifact/process collapse risk | manifest, summary contract, runner contract, and schema-backed report still keep the workflow bundle distinct from artifact-only and bridge reads | chooser still routes artifact-only questions away from the composite workflow starter | `supports bounded claim` |
+| `aoa-output-vs-process-gap` | baseline by association risk | comparative manifest, pairing dossier, and runner contract are coherent, but the bridge still sits near a stronger baseline surface | chooser keeps the bridge separate from `aoa-regression-same-task` | `mixed support` |
+| `aoa-longitudinal-growth-snapshot` | growth overclaiming risk | window contract and example report are present, but shared repeated-window proof artifacts are not yet materialized | chooser still keeps longitudinal movement separate from broad capability narrative | `mixed support` |
+| `aoa-artifact-review-rubric` | style-over-substance risk | rubric contract, fixture contract, and schema-backed report still keep polish weaker than the artifact claim | chooser keeps artifact review separate from workflow discipline and bridge reading | `supports bounded claim` |
 
 ## Interpretation note
 
 This report supports a bounded integrity claim about public starter-bundle coherence only.
 It does not prove canonical readiness,
 and it does not evaluate underlying agent behavior directly.
+It is valuable precisely when the public wording looks stronger than the bounded proof surface underneath.
 

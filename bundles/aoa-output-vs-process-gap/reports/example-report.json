@@ -1,0 +1,47 @@
+{
+  "eval_name": "aoa-output-vs-process-gap",
+  "bundle_status": "draft",
+  "object_under_evaluation": "artifact-versus-process divergence on the same bounded change cases",
+  "verdict": "mixed comparison signal",
+  "claim_boundary": "Artifact-side and process-side readings can be compared honestly enough on this shared case family to show divergence or alignment without forcing a winner.",
+  "limitations": [
+    "This report does not replace standalone artifact review.",
+    "This report does not replace standalone workflow review.",
+    "This report is not a baseline-default comparator."
+  ],
+  "case_family": "OP-v1 shared bounded change comparison set",
+  "paired_surfaces": [
+    "aoa-artifact-review-rubric",
+    "aoa-bounded-change-quality"
+  ],
+  "per_case_comparisons": [
+    {
+      "case_id": "OP-01",
+      "artifact_side_reading": "supports bounded claim",
+      "process_side_reading": "mixed support",
+      "gap_reading": "artifact outruns process",
+      "side_by_side_note": "Polished output looked strong, but the process-side evidence stayed visibly weaker."
+    },
+    {
+      "case_id": "OP-02",
+      "artifact_side_reading": "mixed support",
+      "process_side_reading": "supports bounded claim",
+      "gap_reading": "process outruns artifact",
+      "side_by_side_note": "The workflow stayed disciplined even though the artifact remained only modest."
+    },
+    {
+      "case_id": "OP-03",
+      "artifact_side_reading": "supports bounded claim",
+      "process_side_reading": "supports bounded claim",
+      "gap_reading": "artifact and process are broadly aligned",
+      "side_by_side_note": "Both surfaces stayed strong on the same bounded case without forcing a winner."
+    },
+    {
+      "case_id": "OP-04",
+      "artifact_side_reading": "mixed support",
+      "process_side_reading": "mixed support",
+      "gap_reading": "mixed comparison signal",
+      "side_by_side_note": "Presentation differences were more visible than bounded quality movement, so the honest comparison stayed noise-limited."
+    }
+  ]
+}

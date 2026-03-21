@@ -1,0 +1,18 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "starter-bundle dossier",
+    "public chooser and index wording",
+    "bundle-local evidence and report artifacts",
+    "integrity risk classification notes"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-eval-integrity-check/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-eval-integrity-check/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-eval-integrity-check"
+  ]
+}

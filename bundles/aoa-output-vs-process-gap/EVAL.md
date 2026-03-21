@@ -107,6 +107,8 @@ The fixture surface is public-safe when:
 - the shared case family remains visible and stable enough for peer comparison
 - another repo could replace the cases with comparable bounded change tasks and preserve the same comparison posture
 
+The current materialized shared family is `fixtures/bounded-change-paired-v1/README.md`.
+
 ## Scoring or verdict logic
 
 This eval prefers comparative per-case notes plus a comparative bundle-level verdict.
@@ -149,7 +151,7 @@ Signals toward `mixed comparison signal`:
 
 ## Baseline or comparison mode
 
-This starter bundle uses `peer-compare`.
+This draft bundle uses `peer-compare`.
 
 In v1, the peer surfaces are:
 - artifact side: `aoa-artifact-review-rubric`
@@ -181,6 +183,8 @@ Execution expectations:
 - do not use trace/path separation as if it were the same comparative question
 - do not force every case into a winner when alignment or mixed evidence is more truthful
 - keep enough side-by-side evidence that a careful reviewer can see why each gap reading was assigned
+- when shipping a machine-readable report, validate it against `reports/summary.schema.json`
+- keep the paired read compatible with `reports/artifact-process-paired-proof-flow-v1.md`
 
 ## Outputs
 
@@ -191,6 +195,7 @@ The eval should produce:
 - process-side reading for each case
 - gap reading for each case
 - explicit interpretation note
+- an optional schema-backed companion report artifact at `reports/example-report.json`
 
 A compact public comparative-summary may include:
 - case id
@@ -249,6 +254,10 @@ when you need a follow-up read on whether the process side looks weak because pa
 Do not treat this bridge as a baseline-default comparator.
 It remains a draft side-by-side surface even when the paired workflow or artifact starters are stronger individually.
 
+For the first materialized artifact/process pairing,
+use `reports/artifact-process-paired-proof-flow-v1.md`
+to keep the workflow, artifact, bridge, and integrity sidecar surfaces distinct.
+
 A negative or mixed result is valuable because it can reveal:
 - polished output outrunning workflow discipline
 - disciplined process outrunning artifact strength
@@ -282,3 +291,5 @@ Project overlays may add:
 - repo-specific artifact or workflow rubrics
 - follow-up readers for why one side outran the other
 - later stronger peer-comparison discipline
+- local replacements allowed by `fixtures/contract.json`
+- local runner wrappers that still validate against `reports/summary.schema.json`

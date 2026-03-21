@@ -44,6 +44,7 @@ Good candidates:
 - scorers, rubrics, and verdict schemas
 - shared fixtures and baseline surfaces
 - report contracts and interpretation guides
+- schema-backed report examples and bundle-local runner contracts
 
 Bad candidates:
 - random tests without a portable evaluation contract
@@ -114,11 +115,11 @@ and keep agent quality tied to reproducible evidence.
 - `generated/` — derived routing catalogs, reader catalogs, and local runtime cards
 - `templates/` — templates for eval authoring and metadata
 - `bundles/` — eval bundles
-- `fixtures/` — shared reusable fixture sets
-- `scorers/` — shared scoring and verdict helpers
-- `runners/` — execution helpers and portable runner surfaces
+- `fixtures/` — shared reusable fixture families and replacement contracts
+- `scorers/` — shared bounded breakdown helpers
+- `runners/` — portable runner contracts for schema-backed proof artifacts
 - `schemas/` — machine-readable bundle and report contracts
-- `reports/` — compact public summary artifacts
+- `reports/` — compact public summary artifacts and paired readout dossiers
 - `scripts/` — local validation, build, and reporting helpers
 - `EVAL_INDEX.md` — repository-wide eval map
 
@@ -133,6 +134,8 @@ A typical eval bundle contains:
 - optional `examples/`
 - optional `checks/`
 - optional `reports/summary.schema.json`
+- optional `reports/example-report.json`
+- optional `runners/contract.json`
 - optional `notes/blind-spots.md`
 
 `EVAL.md` and `eval.yaml` remain authoritative.

@@ -58,6 +58,16 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
         {"kind": "origin_need", "path": "notes/origin-need.md"},
         {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
     ]
+    assert entry["proof_artifacts"] == {
+        "fixture_contract_path": None,
+        "shared_fixture_family_path": None,
+        "runner_contract_path": None,
+        "runner_surface_path": None,
+        "scorer_helper_paths": [],
+        "paired_readout_path": None,
+        "report_schema_path": None,
+        "report_example_path": None,
+    }
 
     min_entry = next(item for item in min_catalog["evals"] if item["name"] == "aoa-catalog-shape")
     assert set(min_entry) == {
@@ -94,6 +104,7 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
         "verdict_shape": "categorical",
         "blind_spot_short": "broad general strength; stable behavior across time; downstream artifact excellence",
         "what_this_does_not_prove": "proof of general capability; proof of total safety; proof that every nearby surface is strong",
+        "proof_artifact_short": "bundle-local notes and examples only",
         "technique_dependencies": ["AOA-T-0001"],
         "skill_dependencies": ["aoa-change-protocol"],
         "eval_path": "bundles/aoa-catalog-shape/EVAL.md",

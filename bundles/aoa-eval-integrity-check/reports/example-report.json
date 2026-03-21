@@ -1,0 +1,38 @@
+{
+  "eval_name": "aoa-eval-integrity-check",
+  "bundle_status": "bounded",
+  "object_under_evaluation": "public starter eval bundle integrity on the current aoa-evals corpus",
+  "verdict": "mixed support",
+  "claim_boundary": "The repository can review whether public starter bundles stay coherent enough to support only their bounded claims, but the integrity read remains weaker than promotion review or direct agent evaluation.",
+  "limitations": [
+    "This report does not prove direct agent quality.",
+    "This report does not prove canonical readiness by itself."
+  ],
+  "corpus_slice": "current public starter bundles",
+  "per_target_breakdown": [
+    {
+      "target_bundle": "aoa-bounded-change-quality",
+      "integrity_risk_class": "artifact/process collapse risk",
+      "target_reading": "supports bounded claim",
+      "note": "The workflow bundle stays distinct from artifact-only and paired bridge reads on the same bounded family.",
+      "evidence_coverage": "support notes, integrity check, and schema-backed report artifacts all align",
+      "routing_note": "chooser still routes artifact-only questions away from the composite workflow starter"
+    },
+    {
+      "target_bundle": "aoa-output-vs-process-gap",
+      "integrity_risk_class": "baseline by association risk",
+      "target_reading": "mixed support",
+      "note": "The bridge now has better paired artifacts, but it still must not be read as a baseline-default comparator.",
+      "evidence_coverage": "comparison contract, runner contract, and paired report are present",
+      "routing_note": "public wording keeps the bridge separate from the same-task baseline surface"
+    },
+    {
+      "target_bundle": "aoa-longitudinal-growth-snapshot",
+      "integrity_risk_class": "growth overclaiming risk",
+      "target_reading": "mixed support",
+      "note": "The longitudinal starter still needs stronger repeated-window artifacts before movement can be read as more than bounded directional evidence.",
+      "evidence_coverage": "window contract and example report exist, but shared repeated-window fixture infrastructure is not yet materialized",
+      "routing_note": "public wording keeps longitudinal movement separate from broad capability narrative"
+    }
+  ]
+}

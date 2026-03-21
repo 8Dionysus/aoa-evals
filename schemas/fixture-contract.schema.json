@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-evals/schemas/fixture-contract.schema.json",
+  "title": "aoa-evals fixture contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "shared_fixture_family_path",
+    "shared_case_surface",
+    "bounded_replacement_rule",
+    "public_safe_requirements"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": 1
+    },
+    "shared_fixture_family_path": {
+      "type": "string",
+      "minLength": 3
+    },
+    "shared_case_surface": {
+      "type": "string",
+      "minLength": 10
+    },
+    "bounded_replacement_rule": {
+      "type": "string",
+      "minLength": 20
+    },
+    "public_safe_requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    }
+  }
+}

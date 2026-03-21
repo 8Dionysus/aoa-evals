@@ -144,6 +144,15 @@ but a reviewer should still be able to understand:
 
 Portable proof surfaces are preferred over opaque benchmark theater.
 
+When a bundle starts to act as a reusable proof instrument rather than a prose-only starter,
+it should materialize that claim through bounded artifacts such as:
+- shared fixture contracts
+- shared scorer helpers
+- bundle-local runner contracts
+- schema-backed report examples
+
+These artifacts remain subordinate to the authored markdown and manifest surfaces.
+
 ## Derived reader surfaces
 
 `generated/eval_catalog.json` and `generated/eval_catalog.min.json` are deterministic

@@ -128,7 +128,7 @@ Per-target review should ask:
 - does verdict and report wording match the actual bundle posture?
 - do blind spots keep nearby bundles distinct?
 - does public selection wording route readers to the bundle honestly?
-- does the support and evidence surface make the bundle reviewable enough for draft status?
+- does the support and evidence surface make the bundle reviewable enough for its current public status?
 
 Bundle-level reading should stay downstream of the target notes.
 If different targets show materially different integrity risk classes,
@@ -140,7 +140,7 @@ Signals toward `supports bounded claim`:
 - manifest fields match the public bundle posture
 - report and verdict wording stay bounded and readable
 - blind spots clearly point to nearby bundles where needed
-- evidence and integrity artifacts make the draft surface reviewable
+- evidence and integrity artifacts make the current public surface reviewable at its stated status
 - public index and chooser wording stay consistent with the bundle job
 
 ### Degrade signals
@@ -172,7 +172,7 @@ A careful run should:
 3. review the target against the integrity risk classes
 4. assign a per-target integrity note
 5. derive a bundle-level verdict from the set of reviewed starter targets
-6. publish a summary-with-breakdown artifact with explicit draft limits
+6. publish a summary-with-breakdown artifact with explicit public-status limits
 
 Execution expectations:
 - do not treat missing hidden internals as automatic failure
@@ -220,7 +220,7 @@ Likely false-pass path:
 - public wording looks coherent while hidden reviewer practice is still inconsistent.
 
 Likely misleading-result path:
-- a draft bundle can fail this integrity read because documentation is thin,
+- a starter bundle can fail this integrity read because documentation is thin for its stated public status,
   even when the underlying agent-behavior question is still valuable.
 
 Nearby claim classes that should use a different bundle instead:

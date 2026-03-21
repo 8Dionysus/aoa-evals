@@ -12,29 +12,29 @@ This surface prefers:
 - honest uncertainty
 
 Current starter posture:
-- `aoa-bounded-change-quality` is the current composite workflow starter:
+- `aoa-bounded-change-quality` is the current bounded composite workflow starter:
   use it when you want one end-to-end workflow signal for a bounded non-trivial change task.
-- `aoa-verification-honesty` is the current diagnostic workflow starter:
+- `aoa-verification-honesty` is the current bounded diagnostic workflow starter:
   use it when the main question is whether claimed verification matched executed, skipped, or blocked checks.
-- `aoa-scope-drift-detection` is the current diagnostic boundary starter for scope alignment:
+- `aoa-scope-drift-detection` is the current bounded diagnostic boundary starter for scope alignment:
   use it when the main question is whether requested scope still matched executed scope.
-- `aoa-ambiguity-handling` is the current diagnostic stress starter:
+- `aoa-ambiguity-handling` is the current bounded diagnostic stress starter:
   use it when the main question is incomplete, conflicting, or underspecified task meaning.
-- `aoa-approval-boundary-adherence` is the current diagnostic boundary starter:
+- `aoa-approval-boundary-adherence` is the current bounded diagnostic boundary starter:
   use it when the main question is approval, authority, or permission classification.
-- `aoa-trace-outcome-separation` is the current trace-aware workflow starter:
+- `aoa-trace-outcome-separation` is the current draft trace-aware workflow starter:
   use it when the main question is whether final outcome and path should stay separate before any combined reading.
-- `aoa-tool-trajectory-discipline` is the current tool-path workflow starter:
+- `aoa-tool-trajectory-discipline` is the current draft tool-path workflow starter:
   use it when tool-use path quality matters as its own bounded surface.
-- `aoa-regression-same-task` is the current same-task regression starter:
+- `aoa-regression-same-task` is the current draft same-task regression starter:
   use it when you need a frozen-baseline comparison rather than a one-run judgment.
-- `aoa-artifact-review-rubric` is the current artifact starter:
+- `aoa-artifact-review-rubric` is the current draft artifact starter:
   use it when the main question is the produced artifact itself.
-- `aoa-output-vs-process-gap` is the current artifact/process bridge starter:
+- `aoa-output-vs-process-gap` is the current draft artifact/process bridge starter:
   use it when the main question is whether polished output is outrunning process discipline or vice versa.
-- `aoa-eval-integrity-check` is the current capability starter for eval-bundle coherence:
+- `aoa-eval-integrity-check` is the current draft capability starter for eval-bundle coherence:
   use it when the main question is whether a public starter bundle is overstating what it proves or drifting out of alignment with its public contract.
-- `aoa-longitudinal-growth-snapshot` is the current longitudinal starter:
+- `aoa-longitudinal-growth-snapshot` is the current draft longitudinal starter:
   use it when the main question is ordered repeated-window movement on the same bounded workflow surface.
 
 See also:
@@ -94,7 +94,7 @@ See also:
 
 ## Pick by public maturity
 
-Current starter posture is intentionally modest.
+Current starter posture is still intentionally modest, but a first bounded tranche now exists.
 
 ### If you need a stable public default now
 There is no `canonical` eval yet.
@@ -105,7 +105,11 @@ Use `aoa-output-vs-process-gap` when you need artifact-side versus process-side 
 Use `aoa-longitudinal-growth-snapshot` when you need ordered repeated-window movement on the same bounded workflow surface.
 Broader `baseline` or growth surfaces remain modest draft work.
 
-### If you need an early public proof sketch
+### If you need a bounded one-run starter now
+Prefer `aoa-bounded-change-quality`, `aoa-verification-honesty`, `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, or `aoa-approval-boundary-adherence`.
+These bundles now have explicit bounded review notes and stronger example readouts, but they still do not support portable, baseline, or canonical claims.
+
+### If you need an early public proof sketch beyond that bounded tranche
 Use `draft` bundles carefully and read their boundaries, blind spots, and interpretation notes before drawing conclusions.
 
 ### If you need a narrow diagnostic surface rather than a composite signal

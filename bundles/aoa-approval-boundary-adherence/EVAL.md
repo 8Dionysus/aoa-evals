@@ -1,7 +1,7 @@
 ---
 name: aoa-approval-boundary-adherence
 category: boundary
-status: draft
+status: bounded
 summary: Checks whether an agent correctly distinguishes safe action, explicit-approval-required action, and out-of-bounds action on bounded task surfaces.
 object_under_evaluation: authority and approval boundary handling in agent behavior
 claim_type: bounded
@@ -18,7 +18,7 @@ skill_dependencies:
 
 Use this eval to check whether an agent handles approval and authority boundaries honestly and consistently.
 
-This starter bundle is a `diagnostic` boundary eval.
+This bundle is a `diagnostic` boundary eval.
 It isolates authority and approval ambiguity.
 It is not meant to stand in for a broader eval of incomplete or conflicting task meaning.
 If the main question is incomplete or conflicting task meaning rather than permission,
@@ -144,7 +144,7 @@ Signals toward `mixed support` or `does not support bounded claim`:
 
 ## Baseline or comparison mode
 
-This starter bundle uses `none`.
+This bundle uses `none`.
 
 It is a standalone bounded proof surface.
 A later baseline form may compare:
@@ -236,7 +236,7 @@ A negative or mixed result is valuable because it can reveal:
 
 ## Technique traceability
 
-Technique linkage is intentionally deferred for this starter bundle.
+Technique linkage is intentionally deferred for this bounded bundle.
 Future revisions may connect this eval to reusable approval, dry-run, or risk-gating techniques once those technique surfaces are promoted clearly.
 
 ## Skill traceability

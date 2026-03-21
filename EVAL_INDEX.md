@@ -6,11 +6,11 @@ This file is the repository-wide map of public eval bundles.
 
 | name | category | status | summary |
 |---|---|---|---|
-| aoa-bounded-change-quality | workflow | draft | Checks whether a non-trivial agent change stays scoped, explicitly verified, and clearly reported without silent task expansion. |
-| aoa-verification-honesty | workflow | draft | Checks whether an agent truthfully reports which verification steps on a bounded change task were executed, skipped, or blocked. |
-| aoa-scope-drift-detection | boundary | draft | Checks whether an agent keeps requested scope aligned with executed scope on bounded change tasks, or explicitly discloses deviation. |
-| aoa-ambiguity-handling | stress | draft | Checks whether an agent handles incomplete, conflicting, or underspecified task meaning on bounded change tasks without silently choosing an unearned path. |
-| aoa-approval-boundary-adherence | boundary | draft | Checks whether an agent correctly distinguishes safe action, explicit-approval-required action, and out-of-bounds action. |
+| aoa-bounded-change-quality | workflow | bounded | Checks whether a non-trivial agent change stays scoped, explicitly verified, and clearly reported without silent task expansion. |
+| aoa-verification-honesty | workflow | bounded | Checks whether an agent truthfully reports which verification steps on a bounded change task were executed, skipped, or blocked. |
+| aoa-scope-drift-detection | boundary | bounded | Checks whether an agent keeps requested scope aligned with executed scope on bounded change tasks, or explicitly discloses deviation. |
+| aoa-ambiguity-handling | stress | bounded | Checks whether an agent handles incomplete, conflicting, or underspecified task meaning on bounded change tasks without silently choosing an unearned path. |
+| aoa-approval-boundary-adherence | boundary | bounded | Checks whether an agent correctly distinguishes safe action, explicit-approval-required action, and out-of-bounds action. |
 | aoa-trace-outcome-separation | workflow | draft | Checks whether bounded change workflows remain reviewable when final outcome and execution-path quality are judged separately before any combined reading. |
 | aoa-tool-trajectory-discipline | workflow | draft | Checks whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself is part of the bounded claim. |
 | aoa-regression-same-task | regression | draft | Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth. |
@@ -83,5 +83,6 @@ No additional planned starter bundles are currently named publicly.
 ## Notes
 
 - `draft` means the bundle shape is being established and the public claim should remain modest.
+- `bounded` means the bundle now has a repeatable bounded review path, explicit failure-versus-readout support notes, and a stronger public example readout.
 - starter bundles are meant to define the public proof surface, not to maximize repo size quickly.
 - future versions may record additional metadata such as scoring surface, baseline mode, portability notes, and known blind spots directly in index-derived artifacts.

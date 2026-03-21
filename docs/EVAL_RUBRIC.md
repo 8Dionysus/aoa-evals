@@ -11,7 +11,7 @@ See also:
 
 ## Metadata And Canonical Review
 
-Stage 1 metadata can inform selection, portability review, baseline readiness, and canonical review,
+Stage 1 metadata can inform selection, bounded review, portability review, baseline readiness, and canonical review,
 but it does not replace explicit review judgment.
 
 - frontmatter fields help reviewers understand maturity, repeatability, portability, and verdict posture
@@ -70,6 +70,7 @@ This rubric does not introduce graph inference, automatic ranking, or fully auto
 Current public expectations should stay small but explicit:
 
 - public starter bundles should carry `origin_need`, `integrity_check`, and `examples/example-report.md`
+- status `bounded` should carry a `support_note` that records the bounded review outcome plus failure and readout distinctions
 - status `portable`, `baseline`, and `canonical` should carry `portable_review`
 - status `canonical` should also carry `canonical_readiness`
 - any bundle with `baseline_mode != none` should carry `baseline_readiness`

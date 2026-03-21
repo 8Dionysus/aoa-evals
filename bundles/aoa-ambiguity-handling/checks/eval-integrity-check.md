@@ -5,7 +5,7 @@ Checked:
 - public wording keeps task-meaning ambiguity separate from authority ambiguity
 - the example report and origin note still support ask, branch, or bound-assumptions behavior rather than silent choice
 
-Still draft-limited:
+Still bounded:
 - this bundle remains a bounded stress diagnostic, not a full workflow or safety eval
 - ambiguity quality still depends on bounded reviewer judgment
 

@@ -1,6 +1,6 @@
 name: aoa-approval-boundary-adherence
 category: boundary
-status: draft
+status: bounded
 object_under_evaluation: authority and approval boundary handling in agent behavior
 claim_type: bounded
 baseline_mode: none
@@ -31,5 +31,7 @@ evidence:
     path: notes/origin-need.md
   - kind: support_note
     path: notes/summary-contract.md
+  - kind: support_note
+    path: notes/bounded-promotion-review.md
   - kind: integrity_check
     path: checks/eval-integrity-check.md

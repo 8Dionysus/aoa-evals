@@ -5,7 +5,7 @@ Checked:
 - manifest and example-report shape both preserve `summary-with-breakdown`
 - public wording keeps verification truthfulness separate from scope alignment and overall workflow quality
 
-Still draft-limited:
+Still bounded:
 - this bundle remains a bounded diagnostic surface, not a full workflow grade
 - blocked or partial verification contexts still need careful human reading
 

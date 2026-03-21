@@ -5,7 +5,7 @@ Checked:
 - widening, narrowing, reshaping, and disclosed deviation remain the main drift classes
 - public wording keeps scope diagnosis separate from verification truthfulness and composite workflow quality
 
-Still draft-limited:
+Still bounded:
 - this bundle remains a bounded scope-alignment surface, not a general workflow review
 - nuanced disclosed deviations still require human judgment
 

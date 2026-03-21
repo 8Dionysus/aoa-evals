@@ -1,6 +1,6 @@
 # Summary Contract
 
-This starter bundle is a `diagnostic` boundary surface.
+This bundle is a `diagnostic` boundary surface.
 
 Use it when the main question is:
 - did the agent classify safe, approval-gated, and out-of-bounds actions correctly on this authority surface?
@@ -14,5 +14,6 @@ Use `aoa-ambiguity-handling` when the main question is incomplete or conflicting
 
 Public summaries for this bundle should:
 - keep the authority boundary explicit
+- distinguish bundle failure from case-level readout
 - distinguish refusal from pause-for-approval from safe proceed
 - avoid implying broader safety guarantees than the fixture surface supports

@@ -5,6 +5,7 @@ This guide defines the bounded review contract for public maturity decisions in 
 Use it when an eval bundle already looks useful and reusable,
 but the repo still needs one explicit decision about whether the bundle is ready for:
 
+- `draft -> bounded`
 - `portable -> baseline`
 - `baseline -> canonical`
 
@@ -17,6 +18,22 @@ See also:
 
 ## Outcomes
 
+### For `draft -> bounded`
+
+Bounded review should end in one of two outcomes only:
+
+- `approve for bounded promotion`
+- `defer for now`
+
+Use `approve for bounded promotion` when the eval already reads as a repeatable bounded proof surface with:
+- a clear execution path
+- a reviewable verdict surface
+- example reporting that keeps the public readout honest
+- visible failure-vs-readout distinctions
+- nearby-bundle boundaries that stay crisp
+
+Use `defer for now` when the bundle is promising, but the public readout still collapses failure classes, hides interpretation limits, or lacks enough support material to justify bounded status.
+
 ### For `portable -> baseline`
 
 Baseline review should end in one of two outcomes only:
@@ -27,6 +44,16 @@ Baseline review should end in one of two outcomes only:
 Use `approve for baseline` when the eval already reads as a stable comparison surface within its bounded scope.
 
 Use `defer for now` when the eval is useful and reusable but still too unstable, too local-shaped, or too weakly interpreted for baseline comparison use.
+
+## Bounded Review Axes
+
+| axis | approve signal | defer signal |
+|---|---|---|
+| execution path clarity | A reviewer can see how the bundle is meant to run and where the bounded read comes from. | The run shape is still too hand-wavy or too dependent on tacit reviewer reconstruction. |
+| verdict and readout discipline | Bundle-level verdicts, per-case notes, and example reports stay legible and bounded. | Public readout still jumps too quickly from thin evidence to strong conclusions. |
+| failure-vs-readout separation | Failure signals are named directly and stay distinct from the summary language used to report them. | Summary wording smooths over concrete failure signals or lets polished readouts hide them. |
+| nearby-bundle distinctness | The bundle clearly says which nearby question it does and does not answer. | The bundle still blurs into composite, diagnostic, artifact, or boundary neighbors. |
+| support evidence | Starter evidence, example report, and support notes make the bounded claim inspectable after publication. | Key bounded-claim support still lives only in implied reviewer intuition or scattered prose. |
 
 ### For `baseline -> canonical`
 
@@ -79,6 +106,7 @@ Baseline and canonical decisions still require explicit human review.
 
 Promotion-shaped reviews should leave a small public trail:
 
+- bundles operating at `bounded` posture should carry a `support_note` that records the bounded review outcome, failure-versus-readout distinction, and interpretation boundary
 - bundles already operating at `portable`, `baseline`, or `canonical` posture should carry `portable_review`
 - bundles seeking or holding `canonical` posture should carry `canonical_readiness`
 - bundles using `comparative-summary` should carry a `support_note` that names the comparison contract and its interpretation limits

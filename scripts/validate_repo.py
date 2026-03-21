@@ -343,6 +343,7 @@ def contains_phrase_group(text: str, phrases: Sequence[str]) -> bool:
 
 def validate_status_specific_evidence(
     manifest: dict[str, Any],
+    bundle_dir: Path,
     location: str,
     evidence: Sequence[dict[str, Any]],
     issues: list[ValidationIssue],
@@ -359,6 +360,32 @@ def validate_status_specific_evidence(
                 ValidationIssue(
                     location,
                     f"status '{status}' requires an evidence entry with kind '{kind}'",
+                )
+            )
+
+    if status == "bounded":
+        support_note_text = "\n".join(
+            load_evidence_texts(bundle_dir, evidence, kind="support_note")
+        )
+        if not support_note_text:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "status 'bounded' requires an evidence entry with kind 'support_note'",
+                )
+            )
+            return
+
+        phrase_groups = (
+            ("approve for bounded", "approve for bounded promotion"),
+            ("readout",),
+            ("failure",),
+        )
+        if not all(contains_phrase_group(support_note_text, group) for group in phrase_groups):
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "status 'bounded' requires a support_note that records approve-for-bounded outcome plus failure and readout distinctions",
                 )
             )
 
@@ -532,7 +559,7 @@ def validate_manifest_evidence(
                 )
             )
 
-    validate_status_specific_evidence(manifest, location, evidence, issues)
+    validate_status_specific_evidence(manifest, bundle_dir, location, evidence, issues)
     validate_comparative_summary_contract(
         manifest,
         bundle_dir,

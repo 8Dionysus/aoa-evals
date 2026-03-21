@@ -1,6 +1,6 @@
 # Summary Contract
 
-This starter bundle is a `composite` workflow surface.
+This bundle is a `composite` workflow surface.
 
 Use it when the main question is:
 - did a bounded non-trivial change workflow hold together end to end?
@@ -19,5 +19,6 @@ Use `aoa-output-vs-process-gap` when the main question is whether polished outpu
 
 Public summaries for this bundle should:
 - keep the bounded workflow claim explicit
+- distinguish bundle failure from case-level readout
 - mention when case evidence materially diverges
 - prefer `mixed support` over a cleaner-looking pass when nearby failure modes split

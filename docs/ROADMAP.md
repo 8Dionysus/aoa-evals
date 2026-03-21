@@ -406,7 +406,7 @@ The repository should keep preferring:
 Near-term next moves should use the new docs spine to shape the next agent-first surfaces and support artifacts.
 
 Highest-priority additions:
-- status-specific evidence expectations beyond the current draft starter floor
+- finish the remaining `draft -> bounded` tranche for `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, and `aoa-artifact-review-rubric`
 - portable fixture-family reuse once current bundle meanings stabilize
 
 Next likely cross-surface candidate after the current public starter set:
@@ -420,6 +420,7 @@ Recent repo hardening now in place:
 - starter-table parity between `EVAL_INDEX.md` and `EVAL_SELECTION.md`
 - starter example-report and integrity-check expectations for current public starters
 - status-specific evidence expectations for promotion-shaped statuses
+- bounded-status support-note expectations for approve/defer review outcome plus failure-versus-readout distinction
 - comparative-summary support-note expectations for comparison-contract clarity
 - roadmap parity checks for current public surface references and absence-note sync
 

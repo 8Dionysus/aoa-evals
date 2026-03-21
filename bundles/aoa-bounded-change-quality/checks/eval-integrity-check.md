@@ -5,7 +5,7 @@ Checked:
 - manifest, summary contract, and example report all keep workflow quality broader than any one nearby diagnostic
 - public routing points verification, scope, ambiguity, trace, tool-path, and artifact/process questions to narrower starters where needed
 
-Still draft-limited:
+Still bounded-limited:
 - this bundle remains a modest one-run workflow surface
 - support coverage does not make it a baseline or canonical eval
 

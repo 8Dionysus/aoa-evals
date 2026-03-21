@@ -1,6 +1,6 @@
 name: aoa-bounded-change-quality
 category: workflow
-status: draft
+status: bounded
 object_under_evaluation: bounded agent change workflow
 claim_type: bounded
 baseline_mode: none
@@ -46,5 +46,7 @@ evidence:
     path: notes/origin-need.md
   - kind: support_note
     path: notes/summary-contract.md
+  - kind: support_note
+    path: notes/bounded-promotion-review.md
   - kind: integrity_check
     path: checks/eval-integrity-check.md

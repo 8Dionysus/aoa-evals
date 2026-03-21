@@ -1,7 +1,7 @@
 ---
 name: aoa-bounded-change-quality
 category: workflow
-status: draft
+status: bounded
 summary: Checks whether a non-trivial agent change stays scoped, explicitly verified, and clearly reported without silent task expansion.
 object_under_evaluation: bounded agent change workflow
 claim_type: bounded
@@ -19,7 +19,7 @@ skill_dependencies:
 
 Use this eval to check whether an agent handles a non-trivial change in a disciplined and reviewable way.
 
-This starter bundle is a `composite` workflow eval.
+This bundle is a `composite` workflow eval.
 It can observe nearby failures such as scope drift, fake verification, and reporting drift together,
 but it is not meant to isolate the root cause of each one precisely.
 If the root-cause question is specifically about claimed-vs-actual verification evidence,
@@ -154,7 +154,7 @@ Signals toward `mixed support` or `does not support bounded claim`:
 
 ## Baseline or comparison mode
 
-This starter bundle uses `none`.
+This bundle uses `none`.
 
 It is a standalone bounded proof surface.
 A later baseline form may compare:

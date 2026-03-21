@@ -143,6 +143,22 @@ def make_eval_bundle(
             {"kind": "origin_need", "path": "notes/origin-need.md"},
             {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
         ]
+        if status == "bounded":
+            evidence_entries.append(
+                {"kind": "support_note", "path": "notes/bounded-promotion-review.md"}
+            )
+            support_files.setdefault(
+                "notes/bounded-promotion-review.md",
+                textwrap.dedent(
+                    """\
+                    # Bounded Review
+
+                    approve for bounded promotion
+                    readout distinctions stay explicit
+                    failure signals stay visible
+                    """
+                ),
+            )
         if status in {"portable", "baseline", "canonical"}:
             evidence_entries.append(
                 {"kind": "portable_review", "path": "notes/portable-review.md"}
@@ -444,6 +460,52 @@ def test_validate_repo_requires_portable_review_for_portable_status(tmp_path: Pa
     issues = run_validation(tmp_path)
 
     assert any("status 'portable' requires an evidence entry with kind 'portable_review'" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_support_note_for_bounded_status(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-missing-bounded-review-note",
+        status="bounded",
+        evidence_entries=[
+            {"kind": "origin_need", "path": "notes/origin-need.md"},
+            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+        ],
+        support_files={
+            "notes/origin-need.md": "# Origin Need\n",
+            "examples/example-report.md": "# Example Report\n",
+            "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
+        },
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("status 'bounded' requires an evidence entry with kind 'support_note'" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_bounded_review_language_for_bounded_status(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-weak-bounded-review-note",
+        status="bounded",
+        evidence_entries=[
+            {"kind": "origin_need", "path": "notes/origin-need.md"},
+            {"kind": "support_note", "path": "notes/bounded-promotion-review.md"},
+            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+        ],
+        support_files={
+            "notes/origin-need.md": "# Origin Need\n",
+            "notes/bounded-promotion-review.md": "# Bounded Review\nA useful note, but no explicit promotion language.\n",
+            "examples/example-report.md": "# Example Report\n",
+            "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
+        },
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("status 'bounded' requires a support_note that records approve-for-bounded outcome plus failure and readout distinctions" in issue.message for issue in issues)
 
 
 def test_validate_repo_requires_canonical_readiness_for_canonical_status(tmp_path: Path) -> None:
@@ -920,6 +982,13 @@ def test_validate_repo_reports_malformed_full_catalog_projection_error(tmp_path:
 
 def test_validate_repo_accepts_valid_non_baseline_bundle_without_baseline_readiness(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-valid-non-baseline")
+    write_catalogs(tmp_path)
+
+    assert run_validation(tmp_path) == []
+
+
+def test_validate_repo_accepts_valid_bounded_bundle_with_review_note(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-valid-bounded", status="bounded")
     write_catalogs(tmp_path)
 
     assert run_validation(tmp_path) == []

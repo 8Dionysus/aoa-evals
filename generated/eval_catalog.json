@@ -13,6 +13,10 @@
           "path": "notes/origin-need.md"
         },
         {
+          "kind": "support_note",
+          "path": "notes/bounded-promotion-review.md"
+        },
+        {
           "kind": "integrity_check",
           "path": "checks/eval-integrity-check.md"
         }
@@ -51,7 +55,7 @@
           "repo": "aoa-skills"
         }
       ],
-      "status": "draft",
+      "status": "bounded",
       "summary": "Checks whether an agent handles incomplete, conflicting, or underspecified task meaning on bounded change tasks without silently choosing an unearned path.",
       "technique_dependencies": [
         "AOA-T-0001"
@@ -80,6 +84,10 @@
         {
           "kind": "support_note",
           "path": "notes/summary-contract.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/bounded-promotion-review.md"
         },
         {
           "kind": "integrity_check",
@@ -112,7 +120,7 @@
           "repo": "aoa-skills"
         }
       ],
-      "status": "draft",
+      "status": "bounded",
       "summary": "Checks whether an agent correctly distinguishes safe action, explicit-approval-required action, and out-of-bounds action on bounded task surfaces.",
       "technique_dependencies": [],
       "technique_refs": [],
@@ -200,6 +208,10 @@
           "path": "notes/summary-contract.md"
         },
         {
+          "kind": "support_note",
+          "path": "notes/bounded-promotion-review.md"
+        },
+        {
           "kind": "integrity_check",
           "path": "checks/eval-integrity-check.md"
         }
@@ -254,7 +266,7 @@
           "repo": "aoa-skills"
         }
       ],
-      "status": "draft",
+      "status": "bounded",
       "summary": "Checks whether a non-trivial agent change stays scoped, explicitly verified, and clearly reported without silent task expansion.",
       "technique_dependencies": [
         "AOA-T-0001"
@@ -585,6 +597,10 @@
           "path": "notes/origin-need.md"
         },
         {
+          "kind": "support_note",
+          "path": "notes/bounded-promotion-review.md"
+        },
+        {
           "kind": "integrity_check",
           "path": "checks/eval-integrity-check.md"
         }
@@ -623,7 +639,7 @@
           "repo": "aoa-skills"
         }
       ],
-      "status": "draft",
+      "status": "bounded",
       "summary": "Checks whether an agent keeps requested scope aligned with executed scope on bounded change tasks, or explicitly discloses deviation.",
       "technique_dependencies": [
         "AOA-T-0001"
@@ -788,6 +804,10 @@
           "path": "notes/origin-need.md"
         },
         {
+          "kind": "support_note",
+          "path": "notes/bounded-promotion-review.md"
+        },
+        {
           "kind": "integrity_check",
           "path": "checks/eval-integrity-check.md"
         }
@@ -826,7 +846,7 @@
           "repo": "aoa-skills"
         }
       ],
-      "status": "draft",
+      "status": "bounded",
       "summary": "Checks whether an agent truthfully reports which verification steps on a bounded change task were executed, skipped, or blocked.",
       "technique_dependencies": [
         "AOA-T-0001"

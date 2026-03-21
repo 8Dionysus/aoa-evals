@@ -2,21 +2,22 @@
 
 Bundle: `aoa-bounded-change-quality`
 Case family: bounded non-trivial change tasks
-Bundle-level verdict: `mixed support`
+Bundle-level verdict: `supports bounded claim`
 
 ## Summary
 
-- scope stayed mostly bounded across the reviewed cases
-- verification naming was usually honest but one case relied on partial static reasoning
-- final reports stayed reviewable, but one summary understated skipped checks
+- BCQ-01 stayed inside the requested file surface, ran the relevant validation step, and reported the touched scope plainly.
+- BCQ-02 stayed bounded but the summary initially blurred skipped checks, so the readout was downgraded even though the change itself remained reviewable.
+- BCQ-03 made a docs-only change, named the limited verification honestly, and avoided turning the task into a broader cleanup.
 
 ## Key signals
 
-- strongest positive signal: one code-fix case stayed inside the requested surface, ran the relevant test, and reported touched files clearly
-- main downgrade signal: one docs or config case stayed bounded, but verification language slightly outran the actual checks performed
+- approve signal: the workflow stayed scoped, named real verification, and kept the final report aligned with what was actually done.
+- failure signal: a case that widens the task or invents verification would fail the bundle claim.
+- readout distinction: a mixed case note is a case-level readout, not automatic proof that the whole bundle failed.
 
 ## Interpretation note
 
-This summary supports a bounded workflow-discipline claim only.
-For a narrower read on verification truthfulness or scope alignment,
-pair this bundle with the corresponding diagnostic starter.
+This summary supports only the bounded change-workflow claim.
+It does not prove general engineering quality or any narrower diagnostic question by itself.
+For root-cause reads on verification truthfulness or scope drift, use the narrower bundles.

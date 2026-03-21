@@ -462,6 +462,32 @@ def validate_status_specific_evidence(
             )
 
 
+def validate_status_portability_monotonicity(
+    manifest: dict[str, Any],
+    location: str,
+    issues: list[ValidationIssue],
+) -> None:
+    required_portability_by_status = {
+        "draft": "local-shaped",
+        "bounded": "local-shaped",
+        "portable": "portable",
+        "baseline": "portable",
+        "canonical": "broad",
+    }
+    status = manifest.get("status")
+    portability_level = manifest.get("portability_level")
+    required_portability = required_portability_by_status.get(status)
+    if required_portability is None:
+        return
+    if portability_level != required_portability:
+        issues.append(
+            ValidationIssue(
+                location,
+                f"status '{status}' requires portability_level '{required_portability}' but found '{portability_level}'",
+            )
+        )
+
+
 def validate_comparative_summary_contract(
     manifest: dict[str, Any],
     bundle_dir: Path,
@@ -631,6 +657,7 @@ def validate_manifest_evidence(
                 )
             )
 
+    validate_status_portability_monotonicity(manifest, location, issues)
     validate_status_specific_evidence(manifest, bundle_dir, location, evidence, issues)
     validate_comparative_summary_contract(
         manifest,

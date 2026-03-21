@@ -16,6 +16,7 @@ but it does not replace explicit review judgment.
 
 - frontmatter fields help reviewers understand maturity, repeatability, portability, and verdict posture
 - the same bounded frontmatter layer can support later generated selection and reporting surfaces
+- `status` is the primary public maturity signal for low-context readers and generated routing surfaces
 - they do not auto-promote an eval bundle to `baseline` or `canonical`
 - promotion to `baseline` and `baseline -> canonical` decisions should follow the bounded review contract in [Eval Review Guide](EVAL_REVIEW_GUIDE.md)
 
@@ -26,11 +27,11 @@ but it does not replace explicit review judgment.
 | `maturity_score` | Coarse readiness signal from `1` to `5`. Use `5` for canonical default proof surfaces, `4` for strong baseline evals, `3` for portable evals, and lower values for earlier public states. |
 | `rigor_level` | Contract strictness for normal use. `light` fits advisory or exploratory evals, `bounded` fits reusable public bundles with clear limits, `strict` fits evals with hard score semantics, strong fixture discipline, or regression-critical verdict surfaces. |
 | `repeatability` | Expected run stability. `low` means results vary meaningfully across runs or environments, `moderate` means some movement is expected but bounded interpretation is still possible, `high` means the result shape should be stable enough for disciplined comparison. |
-| `portability_level` | How well the bundle survives outside its birth context. `local-shaped` means still closely tied to one environment, `portable` means generally reusable with bounded adaptation, `broad` means suitable as a wider default proof surface. |
+| `portability_level` | How well the bundle survives outside its birth context. `local-shaped` means still closely tied to one environment, `portable` means generally reusable with bounded adaptation, `broad` means suitable as a wider default proof surface. This metadata must not read stronger than the bundle `status`. |
 | `baseline_mode` | Whether the bundle is primarily standalone or comparative. Suggested values include `none`, `fixed-baseline`, `previous-version`, `peer-compare`, and `longitudinal-window`. |
 | `verdict_shape` | Main result type. Suggested values include `pass-fail`, `categorical`, `scalar-with-interpretation`, `comparative`, and `mixed`. |
 | `review_required` | Whether normal public use should still expect explicit human review before strong conclusions are drawn from the eval result. |
-| `validation_strength` | Evidence strength for the eval bundle itself. `baseline` means mostly structural validation, `source_backed` means it is grounded in real evaluation needs or repeated failure surfaces, `cross_context` means the bundle has shown stable meaning beyond one local context or review cycle. |
+| `validation_strength` | Evidence strength for the eval bundle itself. `baseline` means mostly structural validation, `source_backed` means it is grounded in real evaluation needs or repeated failure surfaces, `cross_context` means the bundle has shown stable meaning beyond one local context or review cycle. Treat this as review metadata, not as a routing or recommendation signal. |
 | `public_safety_reviewed_at` | Most recent public-safety review date for the published bundle, formatted as `YYYY-MM-DD`. |
 | `export_ready` | Whether the bundle is safe for Stage 1 structured catalog publication. This is about machine-readable publication safety for repo-local outputs, not about graph or AoA export. |
 | `relations` | Small structured links to other in-repo eval bundles. Keep the list bounded to direct reusable relationships only. |
@@ -88,6 +89,8 @@ Comparison-contract notes should stay bounded:
 Current intended repo posture:
 
 - `export_ready` should be treated as a publication floor, not a recommendation signal
+- `status` should remain the dominant public maturity signal on thin routing surfaces
+- `portability_level` should stay monotonic with `status` rather than outrun it
 - `maturity_score` should remain coarse and reviewable
 - `repeatability` should describe interpretation risk, not pretend to eliminate uncertainty
 - `blind_spot_disclosure` should be taken seriously; missing blind spots should block strong claims

@@ -110,6 +110,7 @@ def make_eval_bundle(
     baseline_mode: str = "none",
     verdict_shape: str = "categorical",
     report_format: str = "summary",
+    portability_level: str | None = None,
     technique_dependencies: list[dict[str, str]] | None = None,
     skill_dependencies: list[dict[str, str]] | None = None,
     relations: list[dict[str, str]] | None = None,
@@ -299,6 +300,16 @@ def make_eval_bundle(
     if section_overrides:
         section_bodies.update(section_overrides)
 
+    default_portability_by_status = {
+        "draft": "local-shaped",
+        "bounded": "local-shaped",
+        "portable": "portable",
+        "baseline": "portable",
+        "canonical": "broad",
+    }
+    if portability_level is None:
+        portability_level = default_portability_by_status.get(status, "local-shaped")
+
     body_sections = [f"# {name}"]
     for heading in (
         "Intent",
@@ -341,7 +352,7 @@ def make_eval_bundle(
         "maturity_score": 2,
         "rigor_level": "bounded",
         "repeatability": "moderate",
-        "portability_level": "portable",
+        "portability_level": portability_level,
         "review_required": True,
         "validation_strength": "baseline",
         "export_ready": True,
@@ -606,6 +617,79 @@ def test_validate_repo_requires_portable_review_for_baseline_status(tmp_path: Pa
     issues = run_validation(tmp_path)
 
     assert any("status 'baseline' requires an evidence entry with kind 'portable_review'" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_local_shaped_portability_for_bounded_status(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-bounded-portability-drift",
+        status="bounded",
+        portability_level="portable",
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "status 'bounded' requires portability_level 'local-shaped' but found 'portable'"
+        in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_requires_local_shaped_portability_for_draft_status(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-draft-portability-drift",
+        status="draft",
+        portability_level="portable",
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "status 'draft' requires portability_level 'local-shaped' but found 'portable'"
+        in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_requires_portable_portability_for_baseline_status(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-baseline-portability-drift",
+        status="baseline",
+        category="regression",
+        claim_type="regression",
+        baseline_mode="fixed-baseline",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+        portability_level="local-shaped",
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "status 'baseline' requires portability_level 'portable' but found 'local-shaped'"
+        in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_requires_broad_portability_for_canonical_status(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-canonical-portability-drift",
+        status="canonical",
+        portability_level="portable",
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "status 'canonical' requires portability_level 'broad' but found 'portable'"
+        in issue.message
+        for issue in issues
+    )
 
 
 def test_validate_repo_requires_support_note_for_bounded_status(tmp_path: Path) -> None:
@@ -1316,6 +1400,18 @@ def test_validate_repo_accepts_valid_baseline_status_bundle_with_portable_review
     write_catalogs(tmp_path)
 
     assert run_validation(tmp_path) == []
+
+
+def test_real_repo_has_only_one_non_local_shaped_portability_bundle() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    non_local_shaped = {
+        record.name: record.manifest["portability_level"]
+        for record in records
+        if record.manifest["portability_level"] != "local-shaped"
+    }
+    assert non_local_shaped == {"aoa-regression-same-task": "portable"}
 
 
 def test_validate_repo_accepts_valid_bundle_with_materialized_proof_artifacts(tmp_path: Path) -> None:

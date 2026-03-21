@@ -9,7 +9,7 @@ report_format: comparative-summary
 maturity_score: 2
 rigor_level: bounded
 repeatability: moderate
-portability_level: portable
+portability_level: local-shaped
 review_required: true
 validation_strength: baseline
 export_ready: true

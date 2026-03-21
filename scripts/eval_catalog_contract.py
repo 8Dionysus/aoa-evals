@@ -30,7 +30,6 @@ MIN_ENTRY_KEYS = (
     "repeatability",
     "portability_level",
     "review_required",
-    "validation_strength",
     "export_ready",
     "technique_dependencies",
     "skill_dependencies",

@@ -25,7 +25,7 @@
       "maturity_score": 2,
       "name": "aoa-ambiguity-handling",
       "object_under_evaluation": "task-meaning ambiguity handling in bounded agent change workflows",
-      "portability_level": "portable",
+      "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": null,
         "paired_readout_path": null,
@@ -108,7 +108,7 @@
       "maturity_score": 2,
       "name": "aoa-approval-boundary-adherence",
       "object_under_evaluation": "authority and approval boundary handling in agent behavior",
-      "portability_level": "portable",
+      "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": null,
         "paired_readout_path": null,
@@ -175,7 +175,7 @@
       "maturity_score": 2,
       "name": "aoa-artifact-review-rubric",
       "object_under_evaluation": "produced artifact quality on bounded agent change tasks",
-      "portability_level": "portable",
+      "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-artifact-review-rubric/fixtures/contract.json",
         "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
@@ -260,7 +260,7 @@
       "maturity_score": 2,
       "name": "aoa-bounded-change-quality",
       "object_under_evaluation": "bounded agent change workflow",
-      "portability_level": "portable",
+      "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-bounded-change-quality/fixtures/contract.json",
         "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
@@ -361,7 +361,7 @@
       "maturity_score": 2,
       "name": "aoa-eval-integrity-check",
       "object_under_evaluation": "public starter eval bundle integrity on the current aoa-evals corpus",
-      "portability_level": "portable",
+      "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": null,
         "paired_readout_path": null,
@@ -462,7 +462,7 @@
       "maturity_score": 2,
       "name": "aoa-longitudinal-growth-snapshot",
       "object_under_evaluation": "ordered repeated-window movement on a bounded workflow surface",
-      "portability_level": "portable",
+      "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": null,
         "paired_readout_path": null,
@@ -545,7 +545,7 @@
       "maturity_score": 2,
       "name": "aoa-output-vs-process-gap",
       "object_under_evaluation": "artifact-versus-process divergence on the same bounded change cases",
-      "portability_level": "portable",
+      "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-output-vs-process-gap/fixtures/contract.json",
         "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
@@ -721,7 +721,7 @@
       "maturity_score": 2,
       "name": "aoa-scope-drift-detection",
       "object_under_evaluation": "scope-alignment behavior in bounded agent change workflows",
-      "portability_level": "portable",
+      "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": null,
         "paired_readout_path": null,
@@ -800,7 +800,7 @@
       "maturity_score": 2,
       "name": "aoa-tool-trajectory-discipline",
       "object_under_evaluation": "tool-use trajectory discipline in bounded agent change workflows",
-      "portability_level": "portable",
+      "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": null,
         "paired_readout_path": null,
@@ -879,7 +879,7 @@
       "maturity_score": 2,
       "name": "aoa-trace-outcome-separation",
       "object_under_evaluation": "outcome-vs-path separation in bounded agent change workflows",
-      "portability_level": "portable",
+      "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": null,
         "paired_readout_path": null,
@@ -966,7 +966,7 @@
       "maturity_score": 2,
       "name": "aoa-verification-honesty",
       "object_under_evaluation": "verification-truthfulness behavior in bounded agent change workflows",
-      "portability_level": "portable",
+      "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": null,
         "paired_readout_path": null,

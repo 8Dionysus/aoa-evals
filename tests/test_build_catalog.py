@@ -58,6 +58,7 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
         {"kind": "origin_need", "path": "notes/origin-need.md"},
         {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
     ]
+    assert entry["validation_strength"] == "baseline"
     assert entry["proof_artifacts"] == {
         "fixture_contract_path": None,
         "shared_fixture_family_path": None,
@@ -85,12 +86,12 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
         "repeatability",
         "portability_level",
         "review_required",
-        "validation_strength",
         "export_ready",
         "technique_dependencies",
         "skill_dependencies",
         "eval_path",
     }
+    assert "validation_strength" not in min_entry
 
     capsule_entry = next(item for item in capsules["evals"] if item["name"] == "aoa-catalog-shape")
     assert capsule_entry == {

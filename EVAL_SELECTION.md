@@ -22,13 +22,13 @@ Current starter posture:
   use it when the main question is incomplete, conflicting, or underspecified task meaning.
 - `aoa-approval-boundary-adherence` is the current bounded diagnostic boundary starter:
   use it when the main question is approval, authority, or permission classification.
-- `aoa-trace-outcome-separation` is the current draft trace-aware workflow starter:
+- `aoa-trace-outcome-separation` is the current bounded trace-aware workflow starter:
   use it when the main question is whether final outcome and path should stay separate before any combined reading.
-- `aoa-tool-trajectory-discipline` is the current draft tool-path workflow starter:
+- `aoa-tool-trajectory-discipline` is the current bounded tool-path workflow starter:
   use it when tool-use path quality matters as its own bounded surface.
 - `aoa-regression-same-task` is the current draft same-task regression starter:
   use it when you need a frozen-baseline comparison rather than a one-run judgment.
-- `aoa-artifact-review-rubric` is the current draft artifact starter:
+- `aoa-artifact-review-rubric` is the current bounded artifact starter:
   use it when the main question is the produced artifact itself.
 - `aoa-output-vs-process-gap` is the current draft artifact/process bridge starter:
   use it when the main question is whether polished output is outrunning process discipline or vice versa.
@@ -94,7 +94,7 @@ See also:
 
 ## Pick by public maturity
 
-Current starter posture is still intentionally modest, but a first bounded tranche now exists.
+Current starter posture is still intentionally modest, but the bounded one-run tranche now covers the core starter surfaces.
 
 ### If you need a stable public default now
 There is no `canonical` eval yet.
@@ -106,7 +106,7 @@ Use `aoa-longitudinal-growth-snapshot` when you need ordered repeated-window mov
 Broader `baseline` or growth surfaces remain modest draft work.
 
 ### If you need a bounded one-run starter now
-Prefer `aoa-bounded-change-quality`, `aoa-verification-honesty`, `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, or `aoa-approval-boundary-adherence`.
+Prefer `aoa-bounded-change-quality`, `aoa-verification-honesty`, `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, or `aoa-artifact-review-rubric`.
 These bundles now have explicit bounded review notes and stronger example readouts, but they still do not support portable, baseline, or canonical claims.
 
 ### If you need an early public proof sketch beyond that bounded tranche
@@ -154,10 +154,10 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-scope-drift-detection` isolates requested-scope vs executed-scope alignment only; it is not the main eval for overall workflow quality or verification truthfulness.
 - `aoa-ambiguity-handling` isolates task-meaning ambiguity only; it is not the main eval for permission or authority classification.
 - `aoa-approval-boundary-adherence` is about authority ambiguity, not about all forms of task ambiguity.
-- `aoa-trace-outcome-separation` keeps outcome and path distinct before a combined reading; it is not a substitute for narrower root-cause diagnostics.
-- `aoa-tool-trajectory-discipline` applies only where tool path materially matters; it should not be used to grade process for its own sake.
+- `aoa-trace-outcome-separation` is now a bounded one-run split surface; it keeps outcome and path distinct before a combined reading and is not a substitute for narrower root-cause diagnostics.
+- `aoa-tool-trajectory-discipline` is now a bounded one-run tool-path surface; it applies only where tool path materially matters and should not be used to grade process for its own sake.
 - `aoa-regression-same-task` is a frozen-baseline comparison surface; it should not be treated as proof of general capability growth.
-- `aoa-artifact-review-rubric` stays on artifact quality only; it does not imply strong workflow discipline.
+- `aoa-artifact-review-rubric` is now a bounded one-run artifact surface; it stays on artifact quality only and does not imply strong workflow discipline.
 - `aoa-output-vs-process-gap` is a bridge surface; it does not replace standalone artifact review, standalone workflow review, or trace/path separation.
 - `aoa-eval-integrity-check` is a meta-eval for public starter-bundle coherence; it does not replace direct agent-behavior evaluation or promotion review.
 - `aoa-longitudinal-growth-snapshot` is a repeated-window movement surface; it does not replace one-run workflow reading or frozen same-task regression.

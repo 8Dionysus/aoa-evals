@@ -1,7 +1,7 @@
 ---
 name: aoa-artifact-review-rubric
 category: artifact
-status: draft
+status: bounded
 summary: Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating polish as proof of workflow discipline.
 object_under_evaluation: produced artifact quality on bounded agent change tasks
 claim_type: bounded
@@ -19,7 +19,7 @@ skill_dependencies:
 
 Use this eval to check whether a produced artifact on a bounded change task is strong on the visible task surface.
 
-This starter bundle is a `diagnostic` artifact eval.
+This bounded bundle is a `diagnostic` artifact eval.
 It isolates artifact quality.
 It is not meant to stand in for workflow discipline, path quality, or authority handling.
 
@@ -86,7 +86,7 @@ Do not use this eval when:
 
 ## Fixtures and case surface
 
-This starter bundle should use bounded change artifacts on the same general task family as the current workflow bundles.
+This bounded bundle should use bounded change artifacts on the same general task family as the current workflow bundles.
 
 A strong starter fixture set should include:
 - an artifact that looks polished and is actually solid on the visible task surface
@@ -148,11 +148,23 @@ Signals toward `mixed support` or `does not support bounded claim`:
 - reviewability is poor enough that the artifact is hard to trust or check
 - the readout quietly upgrades polish into workflow proof
 
+### Review outcome language
+
+- `approve` means the artifact-side readout stayed reviewable on this surface.
+- `defer` means the evidence is too thin, too mixed, or too overstated for bounded promotion.
+
+### Failure vs readout
+
+- failure is the mismatch between the artifact claim and the visible artifact evidence
+- readout is the public wording that summarizes that mismatch
+- a clean readout cannot repair missed visible requirements
+- a clumsy readout does not by itself invalidate a supported artifact judgment
+
 ## Baseline or comparison mode
 
-This starter bundle uses `none`.
+This bounded bundle uses `none`.
 
-It is a standalone artifact proof surface.
+It is a standalone diagnostic proof surface.
 A later comparison form may compare:
 - the same agent across comparable artifact families
 - alternate output styles on the same bounded cases
@@ -177,6 +189,7 @@ Execution expectations:
 - do not let the final summary erase a weak rubric axis
 - do not use hidden local standards as if they were part of the visible request
 - keep enough evidence that a careful reviewer can see why each rubric axis was judged the way it was
+- keep approve/defer language separate from the failure/readout split
 
 ## Outputs
 
@@ -185,6 +198,7 @@ The eval should produce:
 - per-case breakdown notes
 - rubric-axis notes for each case
 - artifact-strength summary
+- an explicit approval-or-defer readout for the bounded promotion review
 - explicit limitations note
 
 A compact public summary-with-breakdown may include:
@@ -257,6 +271,7 @@ A negative or mixed result is valuable because it can reveal:
 - confirm the visible request is enough to support artifact review
 - confirm rubric axes stay distinct and reviewable
 - confirm the bundle-level verdict does not outrun axis or case evidence
+- confirm the promotion note keeps approve/defer language separate from failure/readout language
 - confirm blind spots and nearby-bundle boundaries are named clearly
 
 ## Technique traceability

@@ -47,7 +47,7 @@
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
-      "status": "draft",
+      "status": "bounded",
       "summary": "Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating polish as proof of workflow discipline.",
       "technique_dependencies": [
         "AOA-T-0001"
@@ -176,7 +176,7 @@
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
-      "status": "draft",
+      "status": "bounded",
       "summary": "Checks whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself is part of the bounded claim.",
       "technique_dependencies": [
         "AOA-T-0001"
@@ -195,7 +195,7 @@
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
-      "status": "draft",
+      "status": "bounded",
       "summary": "Checks whether bounded change workflows remain reviewable when final outcome and execution-path quality are judged separately before any combined reading.",
       "technique_dependencies": [
         "AOA-T-0001"

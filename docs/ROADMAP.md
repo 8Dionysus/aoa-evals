@@ -162,6 +162,10 @@ Exit signals:
 - each bundle has bounded interpretation guidance and named blind spots
 - public users can tell which bundle to run for which claim
 
+Current public posture:
+- the one-run starter tranche is now bounded across composite workflow, diagnostic workflow, boundary, stress, trace/path, and artifact surfaces
+- the next priority is comparison and regression discipline rather than more one-run starter naming
+
 Important discipline:
 - workflow quality should not be collapsed into a single generic score
 - bundles should expose different failure modes rather than flatten them
@@ -406,8 +410,9 @@ The repository should keep preferring:
 Near-term next moves should use the new docs spine to shape the next agent-first surfaces and support artifacts.
 
 Highest-priority additions:
-- finish the remaining `draft -> bounded` tranche for `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, and `aoa-artifact-review-rubric`
-- portable fixture-family reuse once current bundle meanings stabilize
+- stabilize `aoa-regression-same-task` as the first baseline candidate with explicit regression-versus-noisy-variation semantics
+- strengthen the public artifact/process pairing across `aoa-artifact-review-rubric`, `aoa-bounded-change-quality`, and `aoa-output-vs-process-gap`
+- portable fixture-family reuse once comparison and pairing meanings stabilize
 
 Next likely cross-surface candidate after the current public starter set:
 - No additional planned starter bundles are currently named publicly.

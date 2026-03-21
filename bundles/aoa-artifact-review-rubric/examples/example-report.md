@@ -6,13 +6,20 @@
 - bundle shape: `diagnostic`
 - verdict: `mixed support`
 
+## Bounded Promotion Readout
+
+- approve when the report keeps rubric-axis notes visible before any bundle-level verdict
+- defer when polish is used to hide visible misses in fit, coherence, completeness, or reviewability
+- failure is the artifact-evidence mismatch
+- readout is the public description of that mismatch
+
 ## Per-Case Breakdown
 
-| case id | task fit | coherence | completeness | reviewability | per-case note |
-|---|---|---|---|---|---|
-| AR-01 | strong | strong | strong | strong | supports bounded claim |
-| AR-02 | strong | mixed | mixed | strong | mixed support |
-| AR-03 | adequate | adequate | adequate | strong | supports bounded claim |
+| case id | task fit | coherence | completeness | reviewability | failure vs readout | outcome |
+|---|---|---|---|---|---|---|
+| AR-01 | strong | strong | strong | strong | aligned; the readout preserves the axis-level strength without overclaiming workflow quality | approve |
+| AR-02 | strong | mixed | mixed | strong | the failure is visible completeness weakness that the polished presentation tried to wash away | defer |
+| AR-03 | adequate | adequate | adequate | strong | the artifact is modest but fit for the ask, and the readout keeps that modesty visible | approve |
 
 ## Bundle-Level Reading
 
@@ -21,6 +28,13 @@ but not consistently enough for `supports bounded claim`.
 
 The main downgrade came from:
 - one polished artifact that still left visible bounded weaknesses in coherence and completeness
+
+## Failure vs Readout
+
+- failure means the case evidence did not support the artifact-quality claim
+- readout means the public summary of that case
+- a polished readout cannot repair missed visible requirements
+- an approved readout still does not imply strong workflow discipline
 
 ## Interpretation Boundary
 

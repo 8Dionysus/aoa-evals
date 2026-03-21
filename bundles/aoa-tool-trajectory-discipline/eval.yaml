@@ -1,6 +1,6 @@
 name: aoa-tool-trajectory-discipline
 category: workflow
-status: draft
+status: bounded
 object_under_evaluation: tool-use trajectory discipline in bounded agent change workflows
 claim_type: bounded
 baseline_mode: none
@@ -37,5 +37,7 @@ relations:
 evidence:
   - kind: origin_need
     path: notes/origin-need.md
+  - kind: support_note
+    path: notes/bounded-promotion-review.md
   - kind: integrity_check
     path: checks/eval-integrity-check.md

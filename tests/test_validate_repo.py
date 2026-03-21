@@ -14,6 +14,7 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import build_catalog
+import eval_section_contract
 from validate_repo import (
     NO_ADDITIONAL_STARTER_BUNDLES_TEXT,
     build_capsule_payload,
@@ -351,9 +352,13 @@ def write_catalogs(repo_root: Path) -> None:
         return
     full_catalog, min_catalog = build_catalog_payloads(repo_root, records)
     capsules = build_capsule_payload(repo_root, records, full_catalog)
+    sections, section_issues = eval_section_contract.build_sections_payload(repo_root, records)
+    if section_issues:
+        return
     write_json_file(repo_root / "generated" / "eval_catalog.json", full_catalog, compact=False)
     write_json_file(repo_root / "generated" / "eval_catalog.min.json", min_catalog, compact=True)
     write_json_file(repo_root / "generated" / "eval_capsules.json", capsules, compact=False)
+    write_json_file(repo_root / "generated" / "eval_sections.full.json", sections, compact=False)
 
 
 def test_build_catalog_preserves_same_kind_relations_in_full_catalog(tmp_path: Path) -> None:
@@ -802,6 +807,78 @@ def test_validate_repo_rejects_capsule_catalog_alignment_drift(tmp_path: Path) -
 
     assert any(
         "capsules are missing eval 'aoa-capsule-alignment-drift' from generated/eval_catalog.json"
+        in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_rejects_missing_generated_sections(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-missing-sections-surface")
+    write_catalogs(tmp_path)
+    (tmp_path / "generated" / "eval_sections.full.json").unlink()
+
+    issues = run_validation(tmp_path)
+
+    assert any("file is missing" in issue.message for issue in issues if issue.location.endswith("eval_sections.full.json"))
+
+
+def test_validate_repo_rejects_stale_generated_sections(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-stale-sections-surface")
+    write_catalogs(tmp_path)
+
+    eval_md_path = tmp_path / "bundles" / "aoa-stale-sections-surface" / "EVAL.md"
+    eval_md_path.write_text(
+        eval_md_path.read_text(encoding="utf-8").replace(
+            "## Adaptation points\n- point\n",
+            "## Adaptation points\n- point\n- another point\n",
+        ),
+        encoding="utf-8",
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "generated sections are out of date; run 'python scripts/build_catalog.py'"
+        in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_rejects_section_catalog_alignment_drift(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-section-alignment-drift")
+    write_catalogs(tmp_path)
+
+    sections_path = tmp_path / "generated" / "eval_sections.full.json"
+    sections = json.loads(sections_path.read_text(encoding="utf-8"))
+    sections["evals"][0]["status"] = "promoted"
+    sections_path.write_text(json.dumps(sections), encoding="utf-8")
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "generated section entry for 'aoa-section-alignment-drift' must align with full catalog field 'status'"
+        in issue.message
+        for issue in issues
+    )
+
+
+def test_targeted_validation_catches_stale_generated_section_for_selected_eval(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-targeted-stale-sections")
+    write_catalogs(tmp_path)
+
+    eval_md_path = tmp_path / "bundles" / "aoa-targeted-stale-sections" / "EVAL.md"
+    eval_md_path.write_text(
+        eval_md_path.read_text(encoding="utf-8").replace(
+            "## Adaptation points\n- point\n",
+            "## Adaptation points\n- point\n- another point\n",
+        ),
+        encoding="utf-8",
+    )
+
+    issues = run_validation(tmp_path, eval_name="aoa-targeted-stale-sections")
+
+    assert any(
+        "generated section entry for 'aoa-targeted-stale-sections' is out of date; run 'python scripts/build_catalog.py'"
         in issue.message
         for issue in issues
     )

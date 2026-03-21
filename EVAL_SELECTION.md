@@ -26,7 +26,7 @@ Current starter posture:
   use it when the main question is whether final outcome and path should stay separate before any combined reading.
 - `aoa-tool-trajectory-discipline` is the current bounded tool-path workflow starter:
   use it when tool-use path quality matters as its own bounded surface.
-- `aoa-regression-same-task` is the current draft same-task regression starter:
+- `aoa-regression-same-task` is the current baseline same-task regression starter:
   use it when you need a frozen-baseline comparison rather than a one-run judgment.
 - `aoa-artifact-review-rubric` is the current bounded artifact starter:
   use it when the main question is the produced artifact itself.
@@ -100,10 +100,10 @@ Current starter posture is still intentionally modest, but the bounded one-run t
 There is no `canonical` eval yet.
 
 ### If you need a bounded comparison surface
-Use `aoa-regression-same-task` when you need a frozen-baseline same-task comparison.
+Prefer `aoa-regression-same-task` when you need the first public `baseline` same-task comparison surface.
 Use `aoa-output-vs-process-gap` when you need artifact-side versus process-side peer comparison on the same bounded cases.
 Use `aoa-longitudinal-growth-snapshot` when you need ordered repeated-window movement on the same bounded workflow surface.
-Broader `baseline` or growth surfaces remain modest draft work.
+Other comparative and growth surfaces remain modest draft work.
 
 ### If you need a bounded one-run starter now
 Prefer `aoa-bounded-change-quality`, `aoa-verification-honesty`, `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, or `aoa-artifact-review-rubric`.
@@ -156,9 +156,9 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-approval-boundary-adherence` is about authority ambiguity, not about all forms of task ambiguity.
 - `aoa-trace-outcome-separation` is now a bounded one-run split surface; it keeps outcome and path distinct before a combined reading and is not a substitute for narrower root-cause diagnostics.
 - `aoa-tool-trajectory-discipline` is now a bounded one-run tool-path surface; it applies only where tool path materially matters and should not be used to grade process for its own sake.
-- `aoa-regression-same-task` is a frozen-baseline comparison surface; it should not be treated as proof of general capability growth.
+- `aoa-regression-same-task` is now the first public `baseline` surface; it is a frozen-baseline comparison surface and should not be treated as proof of general capability growth.
 - `aoa-artifact-review-rubric` is now a bounded one-run artifact surface; it stays on artifact quality only and does not imply strong workflow discipline.
-- `aoa-output-vs-process-gap` is a bridge surface; it does not replace standalone artifact review, standalone workflow review, or trace/path separation.
+- `aoa-output-vs-process-gap` remains a draft bridge surface; it does not replace standalone artifact review, standalone workflow review, trace/path separation, or the public baseline regression surface.
 - `aoa-eval-integrity-check` is a meta-eval for public starter-bundle coherence; it does not replace direct agent-behavior evaluation or promotion review.
 - `aoa-longitudinal-growth-snapshot` is a repeated-window movement surface; it does not replace one-run workflow reading or frozen same-task regression.
 - As the corpus grows, later generated surfaces may add filters by status, object under evaluation, baseline mode, and verdict shape.

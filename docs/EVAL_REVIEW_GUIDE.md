@@ -6,7 +6,7 @@ Use it when an eval bundle already looks useful and reusable,
 but the repo still needs one explicit decision about whether the bundle is ready for:
 
 - `draft -> bounded`
-- `portable -> baseline`
+- promotion to `baseline`
 - `baseline -> canonical`
 
 This guide is review-first.
@@ -34,7 +34,7 @@ Use `approve for bounded promotion` when the eval already reads as a repeatable 
 
 Use `defer for now` when the bundle is promising, but the public readout still collapses failure classes, hides interpretation limits, or lacks enough support material to justify bounded status.
 
-### For `portable -> baseline`
+### For promotion to `baseline`
 
 Baseline review should end in one of two outcomes only:
 
@@ -44,6 +44,9 @@ Baseline review should end in one of two outcomes only:
 Use `approve for baseline` when the eval already reads as a stable comparison surface within its bounded scope.
 
 Use `defer for now` when the eval is useful and reusable but still too unstable, too local-shaped, or too weakly interpreted for baseline comparison use.
+
+Record that public approval trail in `portable_review`.
+Do not introduce a separate evidence kind for baseline approval notes.
 
 ## Bounded Review Axes
 
@@ -107,7 +110,7 @@ Baseline and canonical decisions still require explicit human review.
 Promotion-shaped reviews should leave a small public trail:
 
 - bundles operating at `bounded` posture should carry a `support_note` that records the bounded review outcome, failure-versus-readout distinction, and interpretation boundary
-- bundles already operating at `portable`, `baseline`, or `canonical` posture should carry `portable_review`
+- bundles already operating at `portable`, `baseline`, or `canonical` posture should carry `portable_review`; for baseline promotion this is the public review trail
 - bundles seeking or holding `canonical` posture should carry `canonical_readiness`
 - bundles using `comparative-summary` should carry a `support_note` that names the comparison contract and its interpretation limits
 

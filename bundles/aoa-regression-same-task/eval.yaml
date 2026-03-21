@@ -1,12 +1,12 @@
 name: aoa-regression-same-task
 category: regression
-status: draft
+status: baseline
 object_under_evaluation: same-task bounded workflow regression against a frozen baseline
 claim_type: regression
 baseline_mode: fixed-baseline
 verdict_shape: comparative
 report_format: comparative-summary
-maturity_score: 2
+maturity_score: 4
 rigor_level: bounded
 repeatability: moderate
 portability_level: portable
@@ -37,6 +37,8 @@ relations:
 evidence:
   - kind: origin_need
     path: notes/origin-need.md
+  - kind: portable_review
+    path: notes/portable-review.md
   - kind: support_note
     path: notes/comparison-contract.md
   - kind: baseline_readiness

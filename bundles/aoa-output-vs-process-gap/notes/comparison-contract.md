@@ -8,6 +8,7 @@ Use this bundle only when those two readings are under matched conditions:
 - the same bounded case set
 - the same evaluated candidate or run family
 - the same review frame before any gap summary is assigned
+- the same side-by-side evidence window before any winner-like read is attempted
 
 Canonical v1 comparative readings:
 - `artifact outruns process`
@@ -18,6 +19,7 @@ Canonical v1 comparative readings:
 Public summary discipline:
 - keep artifact-side and process-side notes visible before the gap reading
 - keep the comparison side-by-side long enough that a reviewer can see why the gap reading was assigned
+- keep mixed or noise-limited side-by-side cases as mixed rather than forcing a winner
 - do not turn the bridge into a winner-takes-all scoreboard
 - do not use trace/path separation as a substitute for artifact/process comparison
 - do not let style polish stand in for process discipline

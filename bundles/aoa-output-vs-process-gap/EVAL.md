@@ -19,7 +19,7 @@ skill_dependencies:
 
 Use this eval to compare artifact-side and process-side readings on the same bounded change cases.
 
-This starter bundle is a `comparative` bridge eval.
+This draft bundle is a `comparative` bridge eval.
 It compares polished output against workflow discipline.
 It is not meant to replace the underlying artifact or workflow bundles,
 and it is not a root-cause diagnostic surface by itself.
@@ -87,7 +87,7 @@ Do not use this eval when:
 
 ## Fixtures and case surface
 
-This starter bundle should use the same bounded case family for both artifact and process readings.
+This draft bundle should use the same bounded case family for both artifact and process readings.
 
 A strong starter fixture set should include:
 - a case where the artifact is strong and the process is weak
@@ -126,11 +126,14 @@ Per-case review should ask:
 
 Bundle-level reading should stay downstream of per-case comparison notes.
 If case evidence materially diverges, prefer `mixed comparison signal` over a cleaner-looking winner.
+Use `mixed comparison signal` when the side-by-side read is genuinely split
+or when the evidence is too noise-limited to justify a stronger winner.
 
 ### Approve signals
 
 Signals toward a clean comparative reading:
 - both artifact-side and process-side notes are assigned before the gap reading
+- matched conditions stay visible enough that the two side readings remain truly side-by-side
 - style-only polish is not mistaken for strong process discipline
 - modest artifacts are not auto-downgraded when the process side is clearly stronger
 - aligned cases remain aligned instead of being forced into a winner-takes-all read
@@ -141,6 +144,7 @@ Signals toward `mixed comparison signal`:
 - the comparison quietly upgrades polished output into workflow proof
 - the comparison quietly upgrades disciplined workflow into artifact excellence
 - trace/path divergence is treated as if it were the same thing as artifact/process divergence
+- matched conditions drift enough that the side-by-side read stops being trustworthy
 - the comparative summary names a winner where the evidence is actually mixed or noisy
 
 ## Baseline or comparison mode
@@ -157,6 +161,11 @@ The point is the bounded divergence or alignment between them on the same cases.
 `aoa-trace-outcome-separation` is a nearby follow-up reader,
 but it is not the default paired process surface in v1.
 
+Matched conditions should stay explicit:
+- the same bounded case family
+- the same evaluated run family
+- the same review frame before any gap summary is assigned
+
 ## Execution contract
 
 A careful run should:
@@ -171,7 +180,7 @@ Execution expectations:
 - do not let one side silently stand in for the other
 - do not use trace/path separation as if it were the same comparative question
 - do not force every case into a winner when alignment or mixed evidence is more truthful
-- keep enough evidence that a careful reviewer can see why each gap reading was assigned
+- keep enough side-by-side evidence that a careful reviewer can see why each gap reading was assigned
 
 ## Outputs
 
@@ -197,6 +206,7 @@ This eval can fail as an instrument when:
 - the two sides are not actually reading the same bounded case family
 - hidden house-style preference dominates the artifact side
 - process-side evidence is too thin for a fair peer comparison
+- matched conditions are named loosely enough that the side-by-side read becomes performative
 - trace/path divergence is mistaken for artifact/process divergence
 - the summary turns the bridge into a winner-takes-all scoreboard
 - one vivid divergent case is treated as the whole story
@@ -236,6 +246,9 @@ Do not treat a positive comparative result as:
 Use this bundle together with `aoa-trace-outcome-separation`
 when you need a follow-up read on whether the process side looks weak because path and outcome diverged internally.
 
+Do not treat this bridge as a baseline-default comparator.
+It remains a draft side-by-side surface even when the paired workflow or artifact starters are stronger individually.
+
 A negative or mixed result is valuable because it can reveal:
 - polished output outrunning workflow discipline
 - disciplined process outrunning artifact strength
@@ -247,6 +260,7 @@ A negative or mixed result is valuable because it can reveal:
 - confirm the bounded claim is explicit
 - confirm the same bounded case family is used on both sides
 - confirm artifact-side and process-side readings exist before any gap reading
+- confirm matched conditions stay explicit enough for a real side-by-side interpretation
 - confirm the bundle-level verdict does not outrun the comparison evidence
 - confirm blind spots and nearby-bundle boundaries are named clearly
 

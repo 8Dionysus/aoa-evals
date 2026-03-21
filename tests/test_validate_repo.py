@@ -462,6 +462,37 @@ def test_validate_repo_requires_portable_review_for_portable_status(tmp_path: Pa
     assert any("status 'portable' requires an evidence entry with kind 'portable_review'" in issue.message for issue in issues)
 
 
+def test_validate_repo_requires_portable_review_for_baseline_status(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-missing-baseline-portable-review",
+        status="baseline",
+        category="regression",
+        claim_type="regression",
+        baseline_mode="fixed-baseline",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+        evidence_entries=[
+            {"kind": "origin_need", "path": "notes/origin-need.md"},
+            {"kind": "support_note", "path": "notes/comparison-contract.md"},
+            {"kind": "baseline_readiness", "path": "notes/baseline-readiness.md"},
+            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+        ],
+        support_files={
+            "notes/origin-need.md": "# Origin Need\n",
+            "notes/comparison-contract.md": "# Comparison Contract\nbaseline target\nnoisy variation\nstyle-only overread\n",
+            "notes/baseline-readiness.md": "# Baseline Readiness\n",
+            "examples/example-report.md": "# Example Report\n",
+            "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
+        },
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("status 'baseline' requires an evidence entry with kind 'portable_review'" in issue.message for issue in issues)
+
+
 def test_validate_repo_requires_support_note_for_bounded_status(tmp_path: Path) -> None:
     make_eval_bundle(
         tmp_path,
@@ -558,6 +589,74 @@ def test_validate_repo_requires_support_note_for_comparative_summary(tmp_path: P
     issues = run_validation(tmp_path)
 
     assert any("report_format 'comparative-summary' requires an evidence entry with kind 'support_note'" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_fixed_baseline_contract_phrases(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-weak-fixed-baseline-contract",
+        category="regression",
+        claim_type="regression",
+        baseline_mode="fixed-baseline",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+        evidence_entries=[
+            {"kind": "origin_need", "path": "notes/origin-need.md"},
+            {"kind": "support_note", "path": "notes/comparison-contract.md"},
+            {"kind": "baseline_readiness", "path": "notes/baseline-readiness.md"},
+            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+        ],
+        support_files={
+            "notes/origin-need.md": "# Origin Need\n",
+            "notes/comparison-contract.md": "# Comparison Contract\nbaseline target only\n",
+            "notes/baseline-readiness.md": "# Baseline Readiness\n",
+            "examples/example-report.md": "# Example Report\n",
+            "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
+        },
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "must state the baseline target, noisy variation, and style-only overread limits in a support note"
+        in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_requires_peer_compare_contract_phrases(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-weak-peer-compare-contract",
+        category="comparative",
+        claim_type="comparative",
+        baseline_mode="peer-compare",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+        evidence_entries=[
+            {"kind": "origin_need", "path": "notes/origin-need.md"},
+            {"kind": "support_note", "path": "notes/comparison-contract.md"},
+            {"kind": "baseline_readiness", "path": "notes/baseline-readiness.md"},
+            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+        ],
+        support_files={
+            "notes/origin-need.md": "# Origin Need\n",
+            "notes/comparison-contract.md": "# Comparison Contract\nmatched conditions only\n",
+            "notes/baseline-readiness.md": "# Baseline Readiness\n",
+            "examples/example-report.md": "# Example Report\n",
+            "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
+        },
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "must state matched conditions and side-by-side interpretation limits in a support note"
+        in issue.message
+        for issue in issues
+    )
 
 
 def test_validate_repo_requires_roadmap_current_public_surface_to_be_a_starter_bundle(tmp_path: Path) -> None:
@@ -1016,6 +1115,22 @@ def test_validate_repo_accepts_valid_baseline_bundle_with_readiness_evidence(tmp
             "examples/example-report.md": "# Example Report\n",
             "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
         },
+    )
+    write_catalogs(tmp_path)
+
+    assert run_validation(tmp_path) == []
+
+
+def test_validate_repo_accepts_valid_baseline_status_bundle_with_portable_review(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-valid-baseline-status",
+        status="baseline",
+        category="regression",
+        claim_type="regression",
+        baseline_mode="fixed-baseline",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
     )
     write_catalogs(tmp_path)
 

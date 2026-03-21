@@ -207,7 +207,7 @@ Examples:
 - confirm manifest evidence is explicit and resolves publicly
 - confirm status-shaped evidence is present when needed:
   `bounded` should carry a `support_note` with approve/defer bounded review outcome plus failure/readout distinctions;
-  `portable`, `baseline`, and `canonical` should carry `portable_review`;
+  `portable`, `baseline`, and `canonical` should carry `portable_review`, and `baseline` should use it as the public review trail for approve/defer baseline decisions;
   `canonical` should also carry `canonical_readiness`
 - confirm `EVAL_INDEX.md` and `EVAL_SELECTION.md` stay aligned if this bundle is a current public starter
 

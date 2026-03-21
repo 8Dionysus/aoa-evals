@@ -528,6 +528,10 @@
           "path": "notes/origin-need.md"
         },
         {
+          "kind": "portable_review",
+          "path": "notes/portable-review.md"
+        },
+        {
           "kind": "support_note",
           "path": "notes/comparison-contract.md"
         },
@@ -541,7 +545,7 @@
         }
       ],
       "export_ready": true,
-      "maturity_score": 2,
+      "maturity_score": 4,
       "name": "aoa-regression-same-task",
       "object_under_evaluation": "same-task bounded workflow regression against a frozen baseline",
       "portability_level": "portable",
@@ -574,7 +578,7 @@
           "repo": "aoa-skills"
         }
       ],
-      "status": "draft",
+      "status": "baseline",
       "summary": "Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth.",
       "technique_dependencies": [
         "AOA-T-0001"

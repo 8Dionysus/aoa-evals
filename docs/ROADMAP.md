@@ -200,6 +200,10 @@ Exit signals:
 - comparative evals can be run without hiding the baseline logic
 - readers can tell the difference between improvement, regression, and noisy variation
 
+Current public posture:
+- `aoa-regression-same-task` is now the first public `baseline` starter for frozen same-task regression
+- `aoa-output-vs-process-gap` remains the draft peer-comparison bridge rather than a baseline-default comparator
+
 Important discipline:
 - baseline creation should be conservative
 - no bundle should be called baseline if repeatability or score semantics are still muddy
@@ -410,8 +414,8 @@ The repository should keep preferring:
 Near-term next moves should use the new docs spine to shape the next agent-first surfaces and support artifacts.
 
 Highest-priority additions:
-- stabilize `aoa-regression-same-task` as the first baseline candidate with explicit regression-versus-noisy-variation semantics
 - strengthen the public artifact/process pairing across `aoa-artifact-review-rubric`, `aoa-bounded-change-quality`, and `aoa-output-vs-process-gap`
+- keep `aoa-regression-same-task` conservative as the first public baseline starter rather than promoting other comparison surfaces by association
 - portable fixture-family reuse once comparison and pairing meanings stabilize
 
 Next likely cross-surface candidate after the current public starter set:

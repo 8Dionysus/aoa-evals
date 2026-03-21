@@ -17,7 +17,7 @@ but it does not replace explicit review judgment.
 - frontmatter fields help reviewers understand maturity, repeatability, portability, and verdict posture
 - the same bounded frontmatter layer can support later generated selection and reporting surfaces
 - they do not auto-promote an eval bundle to `baseline` or `canonical`
-- `portable -> baseline` and `baseline -> canonical` decisions should follow the bounded review contract in [Eval Review Guide](EVAL_REVIEW_GUIDE.md)
+- promotion to `baseline` and `baseline -> canonical` decisions should follow the bounded review contract in [Eval Review Guide](EVAL_REVIEW_GUIDE.md)
 
 ## Field meanings
 
@@ -59,7 +59,7 @@ This rubric does not introduce graph inference, automatic ranking, or fully auto
 | kind | meaning |
 |---|---|
 | `origin_need` | Note describing the real quality question, repeated failure mode, or regression surface that caused the eval to exist. |
-| `portable_review` | Note showing that the bundle remained meaningful outside its birth context. |
+| `portable_review` | Note showing that the bundle remained meaningful outside its birth context, including the public approval trail for baseline promotion. |
 | `baseline_readiness` | Review note showing the eval is stable enough to function as a bounded comparison surface. |
 | `canonical_readiness` | Review note showing the eval is strong enough to be recommended by default for its bounded proof class. |
 | `integrity_check` | Evidence that the scorer, verdict logic, or report contract was itself checked for coherence. |
@@ -71,7 +71,7 @@ Current public expectations should stay small but explicit:
 
 - public starter bundles should carry `origin_need`, `integrity_check`, and `examples/example-report.md`
 - status `bounded` should carry a `support_note` that records the bounded review outcome plus failure and readout distinctions
-- status `portable`, `baseline`, and `canonical` should carry `portable_review`
+- status `portable`, `baseline`, and `canonical` should carry `portable_review`; baseline promotions should use this as the public review trail
 - status `canonical` should also carry `canonical_readiness`
 - any bundle with `baseline_mode != none` should carry `baseline_readiness`
 - any bundle with `report_format: comparative-summary` should carry a `support_note` that names the comparison contract

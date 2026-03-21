@@ -74,11 +74,12 @@ Status promotion should remain rare and explicit.
 
 Before shipping a promoted public status:
 - `portable`, `baseline`, and `canonical` bundles should carry `portable_review`
+- when promoting to `baseline`, `portable_review` should be the public approval trail and should record the reuse boundary explicitly
 - `canonical` bundles should also carry `canonical_readiness`
 - `comparative-summary` bundles should already carry an explicit comparison-contract `support_note`
 
 Use:
-- [Eval Review Guide](EVAL_REVIEW_GUIDE.md) for `portable -> baseline`
+- [Eval Review Guide](EVAL_REVIEW_GUIDE.md) for promotion to `baseline`
 - [Eval Review Guide](EVAL_REVIEW_GUIDE.md) for `baseline -> canonical`
 
 Do not use metadata alone as a release gate for promotion.

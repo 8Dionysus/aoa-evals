@@ -1,7 +1,7 @@
 ---
 name: aoa-regression-same-task
 category: regression
-status: draft
+status: baseline
 summary: Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth.
 object_under_evaluation: same-task bounded workflow regression against a frozen baseline
 claim_type: regression
@@ -19,7 +19,7 @@ skill_dependencies:
 
 Use this eval to check whether a candidate regresses against a frozen baseline on the same bounded task family.
 
-This starter bundle is a `comparative` regression eval.
+This baseline bundle is a `comparative` regression eval.
 It is not a one-run workflow starter.
 It is not meant to prove general capability growth or decline beyond the fixed comparison surface.
 
@@ -85,7 +85,7 @@ Do not use this eval when:
 
 ## Fixtures and case surface
 
-This starter bundle should use only bounded change tasks with a frozen case family.
+This baseline bundle should use only bounded change tasks with a frozen case family.
 
 A strong starter fixture set should include:
 - repeatable bounded change tasks shared by baseline and candidate
@@ -120,6 +120,10 @@ Per-case review should ask:
 - could style or formatting changes be masquerading as capability movement?
 - does the comparative summary preserve the same bounded comparison visible in the evidence?
 
+Per-case comparison notes may also record `bounded improvement present`
+when the candidate is reviewably stronger on the same frozen surface.
+That does not force a stronger bundle-level growth claim by itself.
+
 Bundle-level reading should stay downstream of per-case comparison notes.
 If case evidence materially diverges, prefer `mixed regression signal` over a cleaner-looking aggregate claim.
 
@@ -140,12 +144,27 @@ Signals toward `mixed regression signal` or `regression present`:
 - the comparison surface drifts away from the frozen baseline contract
 - the final summary overstates what the bounded comparison actually proved
 
+### Baseline review outcome language
+
+- `approve for baseline` means the frozen target, comparison rubric, and public readout are stable enough for bounded reuse.
+- `defer for now` means the comparison surface is still too local-shaped, too unstable, or too easy to overread for baseline status.
+
+### Regression vs noisy variation
+
+- `regression present` means the candidate lost a reviewable strength the frozen baseline had on the same surface.
+- `no material regression` means the candidate preserved the frozen baseline's reviewable strengths closely enough for the bounded claim.
+- `noisy variation` means the visible difference is too weak, too style-shaped, or too ambiguous to justify a stronger comparison claim.
+
 ## Baseline or comparison mode
 
-This starter bundle uses `fixed-baseline`.
+This baseline bundle uses `fixed-baseline`.
 
 The baseline should be frozen before candidate comparison begins.
 The same bounded case family should be used for both baseline and candidate.
+
+The public v1 baseline target should stay named explicitly in the report.
+A compact baseline label such as `RS-v1 frozen bounded workflow reference` is enough,
+as long as the frozen target is inspectable and stable across comparison runs.
 
 In this surface:
 - improvement means the candidate is reviewably stronger on the bounded comparison surface
@@ -168,6 +187,7 @@ Execution expectations:
 - do not rewrite the case family after seeing the candidate
 - do not move the baseline target after freezing it
 - do not let style-only presentation shifts masquerade as capability movement
+- keep the named frozen baseline target visible in the public report
 - keep enough evidence that a careful reviewer can see why each comparative note was assigned
 
 ## Outputs
@@ -175,12 +195,15 @@ Execution expectations:
 The eval should produce:
 - one bundle-level comparative verdict
 - per-case comparison notes
+- the named frozen baseline target
 - baseline-strength summary
 - candidate-change summary
 - regression or no-regression reading
+- noisy-variation notes where the comparison should stay weaker
 - explicit interpretation note
 
 A compact public comparative-summary may include:
+- baseline target
 - case id
 - baseline note
 - candidate note
@@ -250,6 +273,7 @@ A negative or mixed result is valuable because it can reveal:
 - confirm the baseline is actually frozen
 - confirm baseline and candidate use the same case family
 - confirm per-case comparison notes remain grounded in inspectable evidence
+- confirm the named baseline target remains visible in the public report
 - confirm the bundle-level verdict does not outrun the comparison evidence
 
 ## Technique traceability

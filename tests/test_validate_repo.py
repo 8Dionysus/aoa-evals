@@ -377,6 +377,71 @@ def write_catalogs(repo_root: Path) -> None:
     write_json_file(repo_root / "generated" / "eval_sections.full.json", sections, compact=False)
 
 
+def add_materialized_proof_artifacts(
+    repo_root: Path,
+    *,
+    bundle_name: str,
+    report_schema: dict[str, object],
+    report_example: dict[str, object],
+    include_fixture_contract: bool = True,
+    include_paired_readout: bool = False,
+) -> None:
+    write_text(repo_root / "runners" / "reportable_proof_contract.md", "# Runner Contract\n")
+    write_text(repo_root / "scorers" / "bounded_rubric_breakdown.py", "def helper():\n    return {'ok': True}\n")
+    if include_paired_readout:
+        write_text(repo_root / "reports" / "paired-proof.md", "# Paired Proof\n")
+
+    fixture_family_path = "fixtures/shared-bounded-family/README.md"
+    if include_fixture_contract:
+        write_text(repo_root / "fixtures" / "shared-bounded-family" / "README.md", "# Shared Fixture Family\n")
+        write_text(
+            repo_root / "bundles" / bundle_name / "fixtures" / "contract.json",
+            json.dumps(
+                {
+                    "contract_version": 1,
+                    "shared_fixture_family_path": fixture_family_path,
+                    "shared_case_surface": "shared bounded case family for validation",
+                    "bounded_replacement_rule": "replace only with the same bounded case class and public-safe evidence surface",
+                    "public_safe_requirements": [
+                        "outside reviewers can inspect the surface",
+                    ],
+                },
+                indent=2,
+            ),
+        )
+
+    schema_path = f"bundles/{bundle_name}/reports/summary.schema.json"
+    example_path = f"bundles/{bundle_name}/reports/example-report.json"
+    write_text(
+        repo_root / "bundles" / bundle_name / "reports" / "summary.schema.json",
+        json.dumps(report_schema, indent=2),
+    )
+    write_text(
+        repo_root / "bundles" / bundle_name / "reports" / "example-report.json",
+        json.dumps(report_example, indent=2),
+    )
+
+    runner_contract: dict[str, object] = {
+        "contract_version": 1,
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "inputs": ["bounded case dossier"],
+        "scorer_helper_paths": ["scorers/bounded_rubric_breakdown.py"],
+        "report_schema_path": schema_path,
+        "report_example_path": example_path,
+    }
+    if include_fixture_contract:
+        runner_contract["fixture_contract_paths"] = [
+            f"bundles/{bundle_name}/fixtures/contract.json"
+        ]
+    if include_paired_readout:
+        runner_contract["paired_readout_path"] = "reports/paired-proof.md"
+
+    write_text(
+        repo_root / "bundles" / bundle_name / "runners" / "contract.json",
+        json.dumps(runner_contract, indent=2),
+    )
+
+
 def test_build_catalog_preserves_same_kind_relations_in_full_catalog(tmp_path: Path) -> None:
     make_eval_bundle(
         tmp_path,
@@ -395,6 +460,56 @@ def test_build_catalog_preserves_same_kind_relations_in_full_catalog(tmp_path: P
     assert alpha_entry["relations"] == [{"type": "complements", "target": "aoa-beta"}]
     assert alpha_entry["technique_refs"][0]["repo"] == "aoa-techniques"
     assert alpha_entry["skill_refs"][0]["repo"] == "aoa-skills"
+
+
+def test_build_catalog_records_materialized_proof_artifacts(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-materialized-proof")
+    add_materialized_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-materialized-proof",
+        report_schema={
+            "type": "object",
+            "additionalProperties": False,
+            "required": [
+                "eval_name",
+                "bundle_status",
+                "object_under_evaluation",
+                "verdict",
+                "claim_boundary",
+                "limitations",
+            ],
+            "properties": {
+                "eval_name": {"const": "aoa-materialized-proof"},
+                "bundle_status": {"const": "draft"},
+                "object_under_evaluation": {"const": "bounded test surface"},
+                "verdict": {"type": "string"},
+                "claim_boundary": {"type": "string"},
+                "limitations": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "minItems": 1,
+                },
+            },
+        },
+        report_example={
+            "eval_name": "aoa-materialized-proof",
+            "bundle_status": "draft",
+            "object_under_evaluation": "bounded test surface",
+            "verdict": "supports bounded claim",
+            "claim_boundary": "bounded machine-readable proof artifact for validation",
+            "limitations": ["still bounded"],
+        },
+        include_paired_readout=True,
+    )
+
+    assert build_catalog.main(argv=[], repo_root=tmp_path) == 0
+
+    full_catalog = json.loads((tmp_path / "generated" / "eval_catalog.json").read_text(encoding="utf-8"))
+    entry = next(item for item in full_catalog["evals"] if item["name"] == "aoa-materialized-proof")
+
+    assert entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/shared-bounded-family/README.md"
+    assert entry["proof_artifacts"]["runner_surface_path"] == "runners/reportable_proof_contract.md"
+    assert entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-materialized-proof/reports/summary.schema.json"
 
 
 def test_validate_repo_rejects_missing_evidence_path(tmp_path: Path) -> None:
@@ -657,6 +772,72 @@ def test_validate_repo_requires_peer_compare_contract_phrases(tmp_path: Path) ->
         in issue.message
         for issue in issues
     )
+
+
+def test_validate_repo_rejects_missing_shared_fixture_family_path(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-missing-shared-fixture")
+    write_catalogs(tmp_path)
+    write_text(
+        tmp_path / "bundles" / "aoa-missing-shared-fixture" / "fixtures" / "contract.json",
+        json.dumps(
+            {
+                "contract_version": 1,
+                "shared_fixture_family_path": "fixtures/does-not-exist/README.md",
+                "shared_case_surface": "shared bounded case family for validation",
+                "bounded_replacement_rule": "replace only with the same bounded case class and public-safe evidence surface",
+                "public_safe_requirements": ["outside reviewers can inspect the surface"],
+            },
+            indent=2,
+        ),
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any("shared_fixture_family_path" in issue.location and "does not exist" in issue.message for issue in issues)
+
+
+def test_validate_repo_rejects_report_example_that_violates_bundle_schema(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-invalid-report-example")
+    write_catalogs(tmp_path)
+    add_materialized_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-invalid-report-example",
+        report_schema={
+            "type": "object",
+            "additionalProperties": False,
+            "required": [
+                "eval_name",
+                "bundle_status",
+                "object_under_evaluation",
+                "verdict",
+                "claim_boundary",
+                "limitations",
+            ],
+            "properties": {
+                "eval_name": {"const": "aoa-invalid-report-example"},
+                "bundle_status": {"const": "draft"},
+                "object_under_evaluation": {"const": "bounded test surface"},
+                "verdict": {"type": "string"},
+                "claim_boundary": {"type": "string"},
+                "limitations": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "minItems": 1,
+                },
+            },
+        },
+        report_example={
+            "eval_name": "aoa-invalid-report-example",
+            "bundle_status": "draft",
+            "object_under_evaluation": "bounded test surface",
+            "verdict": "supports bounded claim",
+            "claim_boundary": "missing limitations should fail",
+        },
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any("report violation" in issue.message and "limitations" in issue.message for issue in issues)
 
 
 def test_validate_repo_requires_roadmap_current_public_surface_to_be_a_starter_bundle(tmp_path: Path) -> None:
@@ -1131,6 +1312,49 @@ def test_validate_repo_accepts_valid_baseline_status_bundle_with_portable_review
         baseline_mode="fixed-baseline",
         verdict_shape="comparative",
         report_format="comparative-summary",
+    )
+    write_catalogs(tmp_path)
+
+    assert run_validation(tmp_path) == []
+
+
+def test_validate_repo_accepts_valid_bundle_with_materialized_proof_artifacts(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-valid-proof-artifacts")
+    add_materialized_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-valid-proof-artifacts",
+        report_schema={
+            "type": "object",
+            "additionalProperties": False,
+            "required": [
+                "eval_name",
+                "bundle_status",
+                "object_under_evaluation",
+                "verdict",
+                "claim_boundary",
+                "limitations",
+            ],
+            "properties": {
+                "eval_name": {"const": "aoa-valid-proof-artifacts"},
+                "bundle_status": {"const": "draft"},
+                "object_under_evaluation": {"const": "bounded test surface"},
+                "verdict": {"type": "string"},
+                "claim_boundary": {"type": "string"},
+                "limitations": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "minItems": 1,
+                },
+            },
+        },
+        report_example={
+            "eval_name": "aoa-valid-proof-artifacts",
+            "bundle_status": "draft",
+            "object_under_evaluation": "bounded test surface",
+            "verdict": "supports bounded claim",
+            "claim_boundary": "bounded machine-readable proof artifact for validation",
+            "limitations": ["still bounded"],
+        },
     )
     write_catalogs(tmp_path)
 

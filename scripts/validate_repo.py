@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Any, Iterable, Sequence
 
 import yaml
-from jsonschema import Draft202012Validator
+from jsonschema import Draft202012Validator, SchemaError
 
 import eval_catalog_contract
 import eval_capsule_contract
@@ -146,6 +146,78 @@ def load_yaml_file(path: Path, issues: list[ValidationIssue]) -> Any | None:
         issues.append(ValidationIssue(relative_location(path), f"invalid YAML: {exc}"))
         return None
     return data
+
+
+def load_json_payload(path: Path, issues: list[ValidationIssue]) -> Any | None:
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        issues.append(ValidationIssue(relative_location(path), "file is missing"))
+        return None
+    except json.JSONDecodeError as exc:
+        issues.append(ValidationIssue(relative_location(path), f"invalid JSON: {exc}"))
+        return None
+
+
+def validate_inline_schema(
+    schema: Any,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+) -> bool:
+    if not isinstance(schema, dict):
+        issues.append(ValidationIssue(location, "schema must parse to an object"))
+        return False
+    try:
+        Draft202012Validator.check_schema(schema)
+    except SchemaError as exc:
+        issues.append(ValidationIssue(location, f"invalid JSON schema: {exc.message}"))
+        return False
+    return True
+
+
+def validate_json_against_inline_schema(
+    data: Any,
+    schema: dict[str, Any],
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+) -> bool:
+    validator = Draft202012Validator(schema)
+    schema_errors = sorted(
+        validator.iter_errors(data),
+        key=lambda error: (list(error.absolute_path), error.message),
+    )
+    for error in schema_errors:
+        error_path = format_schema_path(error.absolute_path)
+        if error_path:
+            message = f"report violation at '{error_path}': {error.message}"
+        else:
+            message = f"report violation: {error.message}"
+        issues.append(ValidationIssue(location, message))
+    return not schema_errors
+
+
+def validate_repo_relative_contract_path(
+    repo_root: Path,
+    raw_path: str,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+) -> str | None:
+    normalized_path = ensure_repo_relative_path(raw_path, location, issues)
+    if not normalized_path:
+        return None
+    resolved_path = repo_root / normalized_path
+    if not resolved_path.exists():
+        issues.append(
+            ValidationIssue(
+                location,
+                f"path '{normalized_path}' does not exist",
+            )
+        )
+        return None
+    return normalized_path
 
 
 def parse_eval_markdown(
@@ -690,6 +762,135 @@ def validate_manifest_relations(
         seen_pairs.add(pair)
 
 
+def validate_bundle_report_artifacts(
+    repo_root: Path,
+    bundle_dir: Path,
+    manifest: dict[str, Any] | None,
+    issues: list[ValidationIssue],
+) -> None:
+    schema_path = bundle_dir / "reports" / "summary.schema.json"
+    example_path = bundle_dir / "reports" / "example-report.json"
+    has_schema = schema_path.is_file()
+    has_example = example_path.is_file()
+
+    if has_schema and not has_example:
+        issues.append(
+            ValidationIssue(
+                relative_location(bundle_dir, repo_root),
+                "bundle-local report schema exists but reports/example-report.json is missing",
+            )
+        )
+    if has_example and not has_schema:
+        issues.append(
+            ValidationIssue(
+                relative_location(bundle_dir, repo_root),
+                "bundle-local report example exists but reports/summary.schema.json is missing",
+            )
+        )
+    if not has_schema or not has_example:
+        return
+
+    schema_location = relative_location(schema_path, repo_root)
+    example_location = relative_location(example_path, repo_root)
+    schema_issues: list[ValidationIssue] = []
+    schema = load_json_payload(schema_path, schema_issues)
+    issues.extend(schema_issues)
+    if schema is None or not validate_inline_schema(
+        schema,
+        location=schema_location,
+        issues=issues,
+    ):
+        return
+
+    example_payload = load_json_payload(example_path, issues)
+    if example_payload is None:
+        return
+    validate_json_against_inline_schema(
+        example_payload,
+        schema,
+        location=example_location,
+        issues=issues,
+    )
+
+
+def validate_bundle_fixture_contract(
+    repo_root: Path,
+    bundle_dir: Path,
+    issues: list[ValidationIssue],
+) -> None:
+    contract_path = bundle_dir / "fixtures" / "contract.json"
+    if not contract_path.is_file():
+        return
+
+    location = relative_location(contract_path, repo_root)
+    payload = load_json_payload(contract_path, issues)
+    if payload is None:
+        return
+    if not validate_against_schema(payload, "fixture-contract.schema.json", location, issues):
+        return
+
+    shared_fixture_family_path = payload.get("shared_fixture_family_path")
+    if isinstance(shared_fixture_family_path, str):
+        validate_repo_relative_contract_path(
+            repo_root,
+            shared_fixture_family_path,
+            location=f"{location}.shared_fixture_family_path",
+            issues=issues,
+        )
+
+
+def validate_bundle_runner_contract(
+    repo_root: Path,
+    bundle_dir: Path,
+    issues: list[ValidationIssue],
+) -> None:
+    contract_path = bundle_dir / "runners" / "contract.json"
+    if not contract_path.is_file():
+        return
+
+    location = relative_location(contract_path, repo_root)
+    payload = load_json_payload(contract_path, issues)
+    if payload is None:
+        return
+    if not validate_against_schema(payload, "runner-contract.schema.json", location, issues):
+        return
+
+    for field_name in ("runner_surface_path", "report_schema_path", "report_example_path", "paired_readout_path"):
+        raw_value = payload.get(field_name)
+        if isinstance(raw_value, str):
+            validate_repo_relative_contract_path(
+                repo_root,
+                raw_value,
+                location=f"{location}.{field_name}",
+                issues=issues,
+            )
+
+    for field_name in ("fixture_contract_paths", "scorer_helper_paths"):
+        values = payload.get(field_name, [])
+        if not isinstance(values, list):
+            continue
+        for index, value in enumerate(values):
+            if not isinstance(value, str):
+                continue
+            validate_repo_relative_contract_path(
+                repo_root,
+                value,
+                location=f"{location}.{field_name}[{index}]",
+                issues=issues,
+            )
+
+
+def validate_bundle_proof_artifacts(
+    repo_root: Path,
+    bundle_dir: Path,
+    manifest: dict[str, Any] | None,
+    issues: list[ValidationIssue],
+) -> None:
+    validate_bundle_report_artifacts(repo_root, bundle_dir, manifest, issues)
+    validate_bundle_fixture_contract(repo_root, bundle_dir, issues)
+    validate_bundle_runner_contract(repo_root, bundle_dir, issues)
+
+
 def validate_bundle(
     repo_root: Path,
     eval_name: str,
@@ -747,6 +948,8 @@ def validate_bundle(
             if isinstance(loaded_manifest, dict):
                 manifest = loaded_manifest
                 validate_manifest_evidence(manifest, bundle_dir, eval_yaml_path, issues)
+
+    validate_bundle_proof_artifacts(repo_root, bundle_dir, manifest, issues)
 
     if metadata is not None and manifest is not None and frontmatter_valid and manifest_valid:
         validate_mirrored_manifest_fields(

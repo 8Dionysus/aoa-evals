@@ -1,8 +1,8 @@
 ---
 name: aoa-eval-integrity-check
 category: capability
-status: draft
-summary: Checks whether current public starter bundles stay coherent across manifest contract, verdict wording, evidence coverage, and public selection surfaces.
+status: bounded
+summary: Checks whether current public starter bundles stay coherent across manifest contract, verdict wording, evidence coverage, and public selection surfaces, especially when polished wording risks outrunning evidence.
 object_under_evaluation: public starter eval bundle integrity on the current aoa-evals corpus
 claim_type: bounded
 baseline_mode: none
@@ -17,7 +17,7 @@ skill_dependencies: []
 
 Use this eval to check whether the current public starter bundles stay coherent enough to support only their bounded claims.
 
-This starter bundle is a `diagnostic` capability eval.
+This bounded bundle is a `diagnostic` capability eval.
 It is a meta-eval for eval bundles themselves.
 It is not meant to stand in for direct agent-behavior evaluation,
 and it is not a promotion gate by itself.
@@ -31,7 +31,8 @@ verdict and report wording,
 blind spots,
 support artifacts,
 and public chooser or index wording
-stay coherent enough that a bundle supports only its bounded claim and not more.
+stay coherent enough that a bundle supports only its bounded claim and not more,
+especially when polished wording, thin evidence, or nearby surfaces tempt readers into saying too much.
 
 ## Object under evaluation
 
@@ -43,6 +44,7 @@ Primary surfaces under evaluation:
 - blind-spot and nearby-bundle distinctness clarity
 - support-artifact and evidence coverage
 - public index and selection wording coherence
+- semantic anti-theater risks such as bundle blur, baseline by association, and style-heavy overread
 
 Nearby surfaces intentionally excluded:
 - direct runtime quality of the evaluated agent
@@ -108,6 +110,10 @@ Strong review classes for v1:
 - blind-spot or nearby-bundle distinctness weakness
 - baseline or comparative semantics mismatch where applicable
 - thin evidence or support coverage
+- style-over-substance failure
+- baseline by association
+- artifact/process collapse
+- growth overclaiming
 
 Target families should avoid:
 - planned bundles that are not yet public starters
@@ -151,6 +157,19 @@ Signals toward `mixed support` or `does not support bounded claim`:
 - starter bundles ship weak or missing evidence support
 - comparative or baseline wording drifts away from manifest semantics
 - public routing collapses nearby bundles into one vague category
+- schema-backed report artifacts look clean while the bounded claim is still being overstated
+
+### Review outcome language
+
+- `approve for bounded promotion` means the integrity sidecar is strong enough to review starter-bundle coherence without pretending to replace broader promotion review.
+- `defer for now` means the integrity surface still looks too structural, too local, or too easy to overread as stronger proof than it carries.
+
+### Failure vs readout
+
+- failure is semantic overreach, bundle blur, thin evidence, or routing drift in the public eval surface itself
+- readout is the bounded public wording that reports that integrity risk
+- a polished readout cannot repair an integrity failure underneath
+- a cautious readout can still be valuable even when the bundle-level verdict stays mixed
 
 ## Baseline or comparison mode
 
@@ -179,6 +198,8 @@ Execution expectations:
 - do not treat a clean integrity read as proof of agent quality
 - do not let roadmap or chooser wording outrun the bundle-local contract
 - keep enough evidence that a careful reviewer can see why each integrity risk class was assigned
+- when pairing, shared infra, longitudinal, or canonical waves materially change a public surface, carry this integrity sidecar or an equivalent bounded integrity packet
+- when shipping a machine-readable report, validate it against `reports/summary.schema.json`
 
 ## Outputs
 
@@ -189,6 +210,7 @@ The eval should produce:
 - support-coverage summary
 - public-routing coherence summary
 - explicit limitations note
+- an optional schema-backed companion report artifact at `reports/example-report.json`
 
 A compact public summary-with-breakdown may include:
 - target bundle
@@ -217,7 +239,7 @@ This eval does not prove:
 - canonical readiness by itself
 
 Likely false-pass path:
-- public wording looks coherent while hidden reviewer practice is still inconsistent.
+- public wording looks coherent while thin evidence, style-heavy summaries, or shared infra drift still make the public claim stronger than the proof surface.
 
 Likely misleading-result path:
 - a starter bundle can fail this integrity read because documentation is thin for its stated public status,
@@ -244,6 +266,8 @@ A negative or mixed result is valuable because it can reveal:
 - public chooser overreach
 - thin evidence coverage
 - nearby bundles collapsing into each other conceptually
+- style-only polish being mistaken for stronger proof
+- baseline or growth posture being inferred by association rather than by evidence
 
 ## Verification
 
@@ -252,6 +276,7 @@ A negative or mixed result is valuable because it can reveal:
 - confirm the verdict does not outrun per-target integrity notes
 - confirm support and evidence coverage are inspected directly
 - confirm blind spots and promotion limits are named clearly
+- confirm semantic anti-theater classes such as bundle blur, baseline by association, and growth overclaiming are inspected when relevant
 
 ## Technique traceability
 
@@ -270,4 +295,5 @@ Project overlays may add:
 - local promotion gates
 - local status-transition evidence requirements
 - local bundle-family review batches
+- local runner wrappers that still validate against `reports/summary.schema.json`
 

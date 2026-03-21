@@ -4,6 +4,9 @@ Bundle: `aoa-bounded-change-quality`
 Case family: bounded non-trivial change tasks
 Bundle-level verdict: `supports bounded claim`
 
+Machine-readable companion: `reports/example-report.json`
+Shared paired dossier when artifact/process comparison also matters: `reports/artifact-process-paired-proof-flow-v1.md`
+
 ## Summary
 
 - BCQ-01 stayed inside the requested file surface, ran the relevant validation step, and reported the touched scope plainly.

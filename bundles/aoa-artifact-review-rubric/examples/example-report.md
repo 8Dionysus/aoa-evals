@@ -5,6 +5,8 @@
 - bundle: `aoa-artifact-review-rubric`
 - bundle shape: `diagnostic`
 - verdict: `mixed support`
+- machine-readable companion: `reports/example-report.json`
+- shared paired dossier: `reports/artifact-process-paired-proof-flow-v1.md`
 
 ## Bounded Promotion Readout
 

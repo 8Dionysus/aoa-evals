@@ -104,6 +104,13 @@ Good fixture families for this eval include:
 - a small feature slice where scope drift is an active risk
 - a repo task where unrelated cleanup temptation is high
 
+For the current artifact/process paired proof flow,
+this bundle can also reuse the shared family in `fixtures/bounded-change-paired-v1/README.md`
+when the same cases need to stay readable on:
+- the workflow surface
+- the artifact surface
+- the paired bridge surface
+
 Fixture families should avoid:
 - trivial typo-only edits
 - giant refactors
@@ -181,6 +188,8 @@ Execution expectations:
 - no rewriting of the task after seeing the output
 - no pretending that missing verification happened
 - bounded reviewer judgment is allowed, but rubric use should stay explicit
+- when shipping a machine-readable report, validate it against `reports/summary.schema.json`
+- when used in the paired artifact/process flow, keep the shared fixture family and paired readout dossier visible
 
 ## Outputs
 
@@ -191,6 +200,7 @@ The eval should produce:
 - verification honesty summary
 - report-quality note
 - explicit limitations note
+- an optional schema-backed companion report artifact at `reports/example-report.json`
 
 A compact public summary may include:
 - case id
@@ -255,6 +265,10 @@ pair this bundle with `aoa-tool-trajectory-discipline`.
 For artifact-versus-process divergence on the same bounded cases,
 pair this bundle with `aoa-output-vs-process-gap`.
 
+For the first materialized paired read,
+use the shared dossier `reports/artifact-process-paired-proof-flow-v1.md`
+so the workflow, artifact, and bridge readings stay distinct.
+
 For ordered repeated-window movement on the same bounded workflow surface,
 pair this bundle with `aoa-longitudinal-growth-snapshot`.
 
@@ -284,3 +298,5 @@ Project overlays may add:
 - repo-specific source-of-truth surfaces
 - stronger report rubrics
 - comparison baselines for repeated runs
+- local replacements allowed by `fixtures/contract.json`
+- local runner wrappers that still validate against `reports/summary.schema.json`

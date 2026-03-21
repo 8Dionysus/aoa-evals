@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-eval-integrity-check summary-with-breakdown report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "corpus_slice",
+    "per_target_breakdown"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-eval-integrity-check"
+    },
+    "bundle_status": {
+      "const": "bounded"
+    },
+    "object_under_evaluation": {
+      "const": "public starter eval bundle integrity on the current aoa-evals corpus"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "corpus_slice": {
+      "type": "string",
+      "minLength": 5
+    },
+    "per_target_breakdown": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target_bundle",
+          "integrity_risk_class",
+          "target_reading",
+          "note"
+        ],
+        "properties": {
+          "target_bundle": {
+            "type": "string",
+            "pattern": "^aoa-[a-z0-9-]+$"
+          },
+          "integrity_risk_class": {
+            "type": "string",
+            "minLength": 3
+          },
+          "target_reading": {
+            "type": "string",
+            "minLength": 3
+          },
+          "note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "evidence_coverage": {
+            "type": "string",
+            "minLength": 3
+          },
+          "routing_note": {
+            "type": "string",
+            "minLength": 3
+          }
+        }
+      }
+    }
+  }
+}

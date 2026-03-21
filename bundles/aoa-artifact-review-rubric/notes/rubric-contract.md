@@ -13,6 +13,8 @@ Public summary discipline:
 - do not collapse the result into a scalar score
 - keep the bundle-level verdict weaker than the strongest-looking single axis
 - do not upgrade artifact polish into workflow proof
+- keep the paired read compatible with `reports/artifact-process-paired-proof-flow-v1.md`
+- keep any schema-backed companion report weaker than the bundle-local artifact judgment
 
 If the main question is whether artifact polish is outrunning workflow discipline,
 use `aoa-output-vs-process-gap`.

@@ -29,6 +29,8 @@ skill_dependencies:
 relations:
   - type: complements
     target: aoa-bounded-change-quality
+  - type: used_together_for
+    target: aoa-bounded-change-quality
   - type: complements
     target: aoa-output-vs-process-gap
 

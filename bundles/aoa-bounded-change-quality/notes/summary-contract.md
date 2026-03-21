@@ -22,3 +22,5 @@ Public summaries for this bundle should:
 - distinguish bundle failure from case-level readout
 - mention when case evidence materially diverges
 - prefer `mixed support` over a cleaner-looking pass when nearby failure modes split
+- stay compatible with the shared paired read in `reports/artifact-process-paired-proof-flow-v1.md` without collapsing workflow and artifact reads into one score
+- keep any schema-backed companion report weaker than the bundle-local interpretation boundary

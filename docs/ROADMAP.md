@@ -220,6 +220,7 @@ This layer should make that gap visible.
 Current public bridge:
 - `aoa-artifact-review-rubric` as the bounded artifact-quality starter
 - `aoa-output-vs-process-gap` as the first public artifact-versus-process bridge surface
+- first materialized paired proof artifacts across those surfaces plus `aoa-bounded-change-quality` through a shared fixture family, runner contracts, and schema-backed report examples
 
 Priority surfaces:
 - artifact review rubric bundles
@@ -414,9 +415,9 @@ The repository should keep preferring:
 Near-term next moves should use the new docs spine to shape the next agent-first surfaces and support artifacts.
 
 Highest-priority additions:
-- strengthen the public artifact/process pairing across `aoa-artifact-review-rubric`, `aoa-bounded-change-quality`, and `aoa-output-vs-process-gap`
+- extend the newly materialized artifact/process pairing beyond its first shared fixture family, runner contracts, and schema-backed report slice
 - keep `aoa-regression-same-task` conservative as the first public baseline starter rather than promoting other comparison surfaces by association
-- portable fixture-family reuse once comparison and pairing meanings stabilize
+- bring repeated-window fixture and report contracts to `aoa-longitudinal-growth-snapshot` without inflating movement claims
 
 Next likely cross-surface candidate after the current public starter set:
 - No additional planned starter bundles are currently named publicly.
@@ -435,7 +436,7 @@ Recent repo hardening now in place:
 
 Next repository hardening steps:
 - keep docs, index, selection, and template aligned to the canonical docs spine
-- add compact report examples for any future starter bundles that still ship notes-only support artifacts
+- add schema-backed report artifacts and runner contracts to future starter bundles that still ship notes-only support artifacts
 - keep distinctness notes ready whenever a newly named starter bundle is introduced so nearby evals do not collapse semantically before they ship
 
 ---

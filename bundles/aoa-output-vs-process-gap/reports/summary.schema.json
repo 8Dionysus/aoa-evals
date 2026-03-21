@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-output-vs-process-gap comparative-summary report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "paired_surfaces",
+    "per_case_comparisons"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-output-vs-process-gap"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "artifact-versus-process divergence on the same bounded change cases"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "artifact outruns process",
+        "process outruns artifact",
+        "artifact and process are broadly aligned",
+        "mixed comparison signal"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "paired_surfaces": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "per_case_comparisons": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "artifact_side_reading",
+          "process_side_reading",
+          "gap_reading",
+          "side_by_side_note"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "artifact_side_reading": {
+            "type": "string",
+            "minLength": 3
+          },
+          "process_side_reading": {
+            "type": "string",
+            "minLength": 3
+          },
+          "gap_reading": {
+            "type": "string",
+            "minLength": 3
+          },
+          "side_by_side_note": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    }
+  }
+}

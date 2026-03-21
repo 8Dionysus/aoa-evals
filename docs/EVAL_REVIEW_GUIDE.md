@@ -48,6 +48,9 @@ Use `defer for now` when the eval is useful and reusable but still too unstable,
 Record that public approval trail in `portable_review`.
 Do not introduce a separate evidence kind for baseline approval notes.
 
+When a wave materially deepens pairing, shared infra, longitudinal reading, or canonical candidacy,
+carry `aoa-eval-integrity-check` or an equivalent bounded integrity packet as a sidecar.
+
 ## Bounded Review Axes
 
 | axis | approve signal | defer signal |
@@ -113,6 +116,7 @@ Promotion-shaped reviews should leave a small public trail:
 - bundles already operating at `portable`, `baseline`, or `canonical` posture should carry `portable_review`; for baseline promotion this is the public review trail
 - bundles seeking or holding `canonical` posture should carry `canonical_readiness`
 - bundles using `comparative-summary` should carry a `support_note` that names the comparison contract and its interpretation limits
+- bundles claiming reusable proof artifacts should ship schema-backed report examples and runner/fixture contracts before those artifacts are treated as part of the public proof surface
 
 These notes do not decide the review outcome by themselves.
 They keep the public reasoning inspectable after the decision.

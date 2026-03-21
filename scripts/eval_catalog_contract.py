@@ -214,6 +214,71 @@ def normalize_skill_dependency_refs(
     return normalized, issues
 
 
+def load_optional_json(path: Path) -> Any | None:
+    if not path.is_file():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+def build_proof_artifacts_entry(repo_root: Path, record: Any) -> dict[str, Any]:
+    bundle_dir = record.bundle_dir
+    fixture_contract_path = bundle_dir / "fixtures" / "contract.json"
+    runner_contract_path = bundle_dir / "runners" / "contract.json"
+    report_schema_path = bundle_dir / "reports" / "summary.schema.json"
+    report_example_path = bundle_dir / "reports" / "example-report.json"
+
+    fixture_contract = load_optional_json(fixture_contract_path)
+    runner_contract = load_optional_json(runner_contract_path)
+
+    shared_fixture_family_path = None
+    if isinstance(fixture_contract, dict):
+        raw_fixture_family_path = fixture_contract.get("shared_fixture_family_path")
+        if isinstance(raw_fixture_family_path, str) and raw_fixture_family_path.strip():
+            shared_fixture_family_path = raw_fixture_family_path.replace("\\", "/")
+
+    runner_surface_path = None
+    scorer_helper_paths: list[str] = []
+    paired_readout_path = None
+    if isinstance(runner_contract, dict):
+        raw_runner_surface_path = runner_contract.get("runner_surface_path")
+        if isinstance(raw_runner_surface_path, str) and raw_runner_surface_path.strip():
+            runner_surface_path = raw_runner_surface_path.replace("\\", "/")
+
+        raw_scorer_paths = runner_contract.get("scorer_helper_paths", [])
+        if isinstance(raw_scorer_paths, list):
+            scorer_helper_paths = [
+                path.replace("\\", "/")
+                for path in raw_scorer_paths
+                if isinstance(path, str) and path.strip()
+            ]
+
+        raw_paired_readout_path = runner_contract.get("paired_readout_path")
+        if isinstance(raw_paired_readout_path, str) and raw_paired_readout_path.strip():
+            paired_readout_path = raw_paired_readout_path.replace("\\", "/")
+
+    return {
+        "fixture_contract_path": relative_location(fixture_contract_path, repo_root)
+        if fixture_contract_path.is_file()
+        else None,
+        "shared_fixture_family_path": shared_fixture_family_path,
+        "runner_contract_path": relative_location(runner_contract_path, repo_root)
+        if runner_contract_path.is_file()
+        else None,
+        "runner_surface_path": runner_surface_path,
+        "scorer_helper_paths": scorer_helper_paths,
+        "paired_readout_path": paired_readout_path,
+        "report_schema_path": relative_location(report_schema_path, repo_root)
+        if report_schema_path.is_file()
+        else None,
+        "report_example_path": relative_location(report_example_path, repo_root)
+        if report_example_path.is_file()
+        else None,
+    }
+
+
 def full_catalog_entry(repo_root: Path, record: Any) -> dict[str, Any]:
     metadata = record.metadata
     manifest = record.manifest
@@ -256,6 +321,7 @@ def full_catalog_entry(repo_root: Path, record: Any) -> dict[str, Any]:
         "skill_refs": skill_refs,
         "relations": list(manifest["relations"]),
         "evidence": list(manifest["evidence"]),
+        "proof_artifacts": build_proof_artifacts_entry(repo_root, record),
     }
 
 

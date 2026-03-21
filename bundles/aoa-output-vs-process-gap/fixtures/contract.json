@@ -1,0 +1,11 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/bounded-change-paired-v1/README.md",
+  "shared_case_surface": "shared bounded change cases that can be read side by side for artifact strength, workflow discipline, and divergence without turning the bridge into a baseline-default comparator",
+  "bounded_replacement_rule": "A local repo may replace the paired cases only if the replacement preserves the same bounded change ask, keeps matched conditions explicit on both sides, and still supports all four paired shapes without turning style polish into the stronger claim.",
+  "public_safe_requirements": [
+    "matched conditions remain explicit on both sides",
+    "artifact and process evidence stay reviewable on the same case family",
+    "mixed or noise-limited comparisons remain possible without forcing a winner"
+  ]
+}

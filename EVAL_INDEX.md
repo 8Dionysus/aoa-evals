@@ -16,7 +16,7 @@ This file is the repository-wide map of public eval bundles.
 | aoa-regression-same-task | regression | baseline | Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth. |
 | aoa-artifact-review-rubric | artifact | bounded | Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating polish as proof of workflow discipline. |
 | aoa-output-vs-process-gap | comparative | draft | Compares artifact-side and process-side readings on the same bounded cases to show when polished output outruns workflow discipline, process outruns artifact strength, or the two stay aligned. |
-| aoa-eval-integrity-check | capability | draft | Checks whether current public starter bundles stay coherent across manifest contract, verdict wording, evidence coverage, and public selection surfaces. |
+| aoa-eval-integrity-check | capability | bounded | Checks whether current public starter bundles stay coherent across manifest contract, verdict wording, evidence coverage, and public selection surfaces, especially when polished wording risks outrunning evidence. |
 | aoa-longitudinal-growth-snapshot | longitudinal | draft | Checks whether ordered, comparable windows on the same bounded workflow surface show modest directional movement without upgrading that movement into broad capability growth. |
 
 ## Planned starter bundles
@@ -45,15 +45,15 @@ No additional planned starter bundles are currently named publicly.
   did the produced artifact itself look strong on the visible task surface without implying a strong workflow?
 - `aoa-output-vs-process-gap` is the current artifact/process bridge starter:
   is polished output outrunning process discipline, is process outrunning artifact strength, or are the two broadly aligned?
-- `aoa-eval-integrity-check` is the current capability starter for eval-bundle coherence:
-  do the public starter bundles remain coherent across manifest contract, evidence coverage, and public routing surfaces?
+- `aoa-eval-integrity-check` is the current bounded integrity sidecar starter:
+  do the public starter bundles remain coherent across manifest contract, evidence coverage, public routing, and semantic anti-theater risks?
 - `aoa-longitudinal-growth-snapshot` is the current longitudinal starter:
   do ordered comparable windows on the same bounded workflow surface show modest directional movement without turning that movement into broad capability growth?
 - `aoa-artifact-review-rubric` should stay on artifact quality:
   it should not drift into workflow-proof claims already covered by workflow starters.
 - `aoa-output-vs-process-gap` should compare polished outputs against process discipline:
   it should not duplicate the trace/outcome split or the artifact-review surface.
-- `aoa-eval-integrity-check` should inspect starter-bundle coherence:
+- `aoa-eval-integrity-check` should inspect starter-bundle coherence and semantic overreach:
   it should not be read as a direct agent-behavior starter bundle or as proof of canonical readiness.
 - `aoa-longitudinal-growth-snapshot` should stay on repeated-window bounded workflow movement:
   it should not be read as a same-task regression surface or as proof of broad capability growth.
@@ -85,6 +85,8 @@ No additional planned starter bundles are currently named publicly.
 - `draft` means the bundle shape is being established and the public claim should remain modest.
 - `bounded` means the bundle now has a repeatable bounded review path, explicit failure-versus-readout support notes, and a stronger public example readout.
 - the current bounded one-run starter tranche now spans composite workflow, diagnostic workflow, boundary, stress, trace/path, and artifact surfaces.
+- the first materialized paired proof flow now sits across `aoa-artifact-review-rubric`, `aoa-bounded-change-quality`, and `aoa-output-vs-process-gap` using shared fixtures, runner contracts, and schema-backed report examples.
 - the current first public `baseline` starter is `aoa-regression-same-task`; other comparative and longitudinal starters remain draft.
+- `aoa-eval-integrity-check` is now bounded as the public integrity sidecar for semantic overreach and public-surface drift.
 - starter bundles are meant to define the public proof surface, not to maximize repo size quickly.
 - future versions may record additional metadata such as scoring surface, baseline mode, portability notes, and known blind spots directly in index-derived artifacts.

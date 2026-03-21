@@ -144,6 +144,12 @@ Describe how to run the eval reproducibly:
 - deterministic vs non-deterministic expectations
 - required environment boundaries
 
+If the bundle ships a machine-readable public report artifact,
+also note:
+- the bundle-local runner contract at `runners/contract.json`
+- the bundle-local report schema at `reports/summary.schema.json`
+- how local fixture replacement stays bounded
+
 ## Outputs
 
 - compact report artifact
@@ -157,6 +163,13 @@ For public starter bundles, also ship:
 - `examples/example-report.md`
 - explicit manifest evidence entries for public support artifacts
 - an integrity-review artifact such as `checks/eval-integrity-check.md`
+
+If the bundle is starting to act as a reusable proof instrument,
+also consider shipping:
+- `fixtures/contract.json`
+- `runners/contract.json`
+- `reports/summary.schema.json`
+- `reports/example-report.json`
 
 ## Failure modes
 
@@ -227,3 +240,5 @@ Project overlays may add:
 - local report sinks
 - local baseline references
 - local safety or approval rules
+
+When they do, say what replacement is allowed without changing the bounded claim.

@@ -29,7 +29,11 @@ skill_dependencies:
 relations:
   - type: complements
     target: aoa-artifact-review-rubric
+  - type: used_together_for
+    target: aoa-artifact-review-rubric
   - type: complements
+    target: aoa-bounded-change-quality
+  - type: used_together_for
     target: aoa-bounded-change-quality
   - type: complements
     target: aoa-trace-outcome-separation

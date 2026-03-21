@@ -32,7 +32,7 @@ Current starter posture:
   use it when the main question is the produced artifact itself.
 - `aoa-output-vs-process-gap` is the current draft artifact/process bridge starter:
   use it when the main question is whether polished output is outrunning process discipline or vice versa.
-- `aoa-eval-integrity-check` is the current draft capability starter for eval-bundle coherence:
+- `aoa-eval-integrity-check` is the current bounded capability sidecar for eval-bundle coherence:
   use it when the main question is whether a public starter bundle is overstating what it proves or drifting out of alignment with its public contract.
 - `aoa-longitudinal-growth-snapshot` is the current draft longitudinal starter:
   use it when the main question is ordered repeated-window movement on the same bounded workflow surface.
@@ -104,6 +104,7 @@ Prefer `aoa-regression-same-task` when you need the first public `baseline` same
 Use `aoa-output-vs-process-gap` when you need artifact-side versus process-side peer comparison on the same bounded cases.
 Use `aoa-longitudinal-growth-snapshot` when you need ordered repeated-window movement on the same bounded workflow surface.
 Other comparative and growth surfaces remain modest draft work.
+Use `aoa-eval-integrity-check` as the bounded sidecar when a public maturity wave risks semantic overreach, bundle blur, or baseline/growth-by-association drift.
 
 ### If you need a bounded one-run starter now
 Prefer `aoa-bounded-change-quality`, `aoa-verification-honesty`, `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, or `aoa-artifact-review-rubric`.
@@ -158,8 +159,8 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-tool-trajectory-discipline` is now a bounded one-run tool-path surface; it applies only where tool path materially matters and should not be used to grade process for its own sake.
 - `aoa-regression-same-task` is now the first public `baseline` surface; it is a frozen-baseline comparison surface and should not be treated as proof of general capability growth.
 - `aoa-artifact-review-rubric` is now a bounded one-run artifact surface; it stays on artifact quality only and does not imply strong workflow discipline.
-- `aoa-output-vs-process-gap` remains a draft bridge surface; it does not replace standalone artifact review, standalone workflow review, trace/path separation, or the public baseline regression surface.
-- `aoa-eval-integrity-check` is a meta-eval for public starter-bundle coherence; it does not replace direct agent-behavior evaluation or promotion review.
+- `aoa-output-vs-process-gap` remains a draft bridge surface; it now participates in the first materialized artifact/process paired proof flow, but it still does not replace standalone artifact review, standalone workflow review, trace/path separation, or the public baseline regression surface.
+- `aoa-eval-integrity-check` is now a bounded meta-eval for public starter-bundle coherence and semantic anti-theater review; it does not replace direct agent-behavior evaluation or promotion review.
 - `aoa-longitudinal-growth-snapshot` is a repeated-window movement surface; it does not replace one-run workflow reading or frozen same-task regression.
 - As the corpus grows, later generated surfaces may add filters by status, object under evaluation, baseline mode, and verdict shape.
 - Prefer `baseline` or `canonical` bundles for stronger comparison claims once the public corpus reaches that stage.

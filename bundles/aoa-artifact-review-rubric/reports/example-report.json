@@ -1,0 +1,41 @@
+{
+  "eval_name": "aoa-artifact-review-rubric",
+  "bundle_status": "bounded",
+  "object_under_evaluation": "produced artifact quality on bounded agent change tasks",
+  "verdict": "mixed support",
+  "claim_boundary": "The produced artifact is reviewably strong only on parts of this bounded visible task surface and does not support broader workflow claims.",
+  "limitations": [
+    "This report does not prove workflow discipline.",
+    "This report does not prove global artifact optimality."
+  ],
+  "case_family": "APR-v1 bounded change artifact cases",
+  "per_case_breakdown": [
+    {
+      "case_id": "AR-01",
+      "task_fit": "strong",
+      "coherence": "strong",
+      "completeness": "strong",
+      "reviewability": "strong",
+      "failure_vs_readout": "The readout stays aligned with a genuinely strong artifact surface and does not widen into workflow proof.",
+      "outcome": "approve"
+    },
+    {
+      "case_id": "AR-02",
+      "task_fit": "strong",
+      "coherence": "mixed",
+      "completeness": "mixed",
+      "reviewability": "strong",
+      "failure_vs_readout": "The failure is visible incompleteness that polish tried to hide, so the public readout stays defer.",
+      "outcome": "defer"
+    },
+    {
+      "case_id": "AR-03",
+      "task_fit": "adequate",
+      "coherence": "adequate",
+      "completeness": "adequate",
+      "reviewability": "strong",
+      "failure_vs_readout": "The artifact is modest but fit for the ask, and the readout keeps that modesty visible.",
+      "outcome": "approve"
+    }
+  ]
+}

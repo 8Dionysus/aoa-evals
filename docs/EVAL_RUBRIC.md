@@ -75,6 +75,7 @@ Current public expectations should stay small but explicit:
 - status `canonical` should also carry `canonical_readiness`
 - any bundle with `baseline_mode != none` should carry `baseline_readiness`
 - any bundle with `report_format: comparative-summary` should carry a `support_note` that names the comparison contract
+- once a bundle claims reusable proof artifacts, those artifacts should become reviewable too: shared fixture contract, runner contract, report schema, and example report
 
 Comparison-contract notes should stay bounded:
 

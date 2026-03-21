@@ -1,6 +1,6 @@
 name: aoa-eval-integrity-check
 category: capability
-status: draft
+status: bounded
 object_under_evaluation: public starter eval bundle integrity on the current aoa-evals corpus
 claim_type: bounded
 baseline_mode: none

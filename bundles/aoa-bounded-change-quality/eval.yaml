@@ -37,6 +37,8 @@ relations:
     target: aoa-trace-outcome-separation
   - type: complements
     target: aoa-tool-trajectory-discipline
+  - type: used_together_for
+    target: aoa-artifact-review-rubric
   - type: complements
     target: aoa-output-vs-process-gap
   - type: complements

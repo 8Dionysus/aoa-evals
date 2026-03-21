@@ -3,6 +3,7 @@
 Bundle: `aoa-bounded-change-quality`
 Case family: bounded non-trivial change tasks
 Bundle-level verdict: `supports bounded claim`
+This is the composite workflow surface, not the narrower verification, scope, or ambiguity diagnostics.
 
 Machine-readable companion: `reports/example-report.json`
 Shared paired dossier when artifact/process comparison also matters: `reports/artifact-process-paired-proof-flow-v1.md`
@@ -23,4 +24,4 @@ Shared paired dossier when artifact/process comparison also matters: `reports/ar
 
 This summary supports only the bounded change-workflow claim.
 It does not prove general engineering quality or any narrower diagnostic question by itself.
-For root-cause reads on verification truthfulness or scope drift, use the narrower bundles.
+For root-cause reads on verification truthfulness, scope drift, or task-meaning ambiguity, use the narrower bundles instead.

@@ -8,6 +8,9 @@
 - machine-readable companion: `reports/example-report.json`
 - shared paired dossier: `reports/artifact-process-paired-proof-flow-v1.md`
 
+This is the standalone artifact review surface.
+For the paired bridge read, use `aoa-output-vs-process-gap` after the artifact surface is clear.
+
 ## Bounded Promotion Readout
 
 - approve when the report keeps rubric-axis notes visible before any bundle-level verdict
@@ -47,4 +50,4 @@ For an end-to-end workflow reading,
 use this report together with `aoa-bounded-change-quality`.
 
 For artifact-versus-process divergence,
-use it together with `aoa-output-vs-process-gap`.
+use the bridge bundle `aoa-output-vs-process-gap`.

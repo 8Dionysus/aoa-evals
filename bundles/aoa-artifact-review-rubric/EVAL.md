@@ -22,6 +22,8 @@ Use this eval to check whether a produced artifact on a bounded change task is s
 This bounded bundle is a `diagnostic` artifact eval.
 It isolates artifact quality.
 It is not meant to stand in for workflow discipline, path quality, or authority handling.
+If the main question is workflow discipline, path quality, or authority handling,
+use the matching workflow or boundary bundle instead.
 
 The goal is not to prove total engineering quality.
 The goal is to test one bounded claim:
@@ -29,6 +31,10 @@ The goal is to test one bounded claim:
 under bounded change tasks,
 the produced artifact can be reviewably strong on the visible task surface
 without turning artifact polish into proof of workflow discipline.
+
+This bundle answers artifact quality, not process quality.
+For process-side readings on the same cases, use `aoa-bounded-change-quality`.
+For artifact-versus-process divergence, use `aoa-output-vs-process-gap`.
 
 ## Object under evaluation
 
@@ -267,7 +273,7 @@ when you need to know whether artifact polish is outrunning process discipline o
 
 For the first materialized paired proof flow,
 use `reports/artifact-process-paired-proof-flow-v1.md`
-so artifact and workflow reads stay independent before the bridge summary.
+after the standalone artifact and workflow reads are already clear.
 
 A negative or mixed result is valuable because it can reveal:
 - polished incompleteness

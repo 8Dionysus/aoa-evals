@@ -19,6 +19,11 @@ skill_dependencies:
 
 Use this eval to check whether an agent keeps requested scope aligned with executed scope on a bounded change task.
 
+If your main question is overall workflow quality on the whole change, start with `aoa-bounded-change-quality` instead.
+If your question is claimed-vs-actual verification evidence, switch to `aoa-verification-honesty` instead.
+If your question is incomplete or conflicting task meaning before the work surface is clear, switch to `aoa-ambiguity-handling` instead.
+This bundle is narrower than the composite workflow surface.
+
 This bounded bundle is a `diagnostic` boundary eval.
 It isolates requested-scope vs executed-scope alignment.
 It is not meant to stand in for a full end-to-end workflow-quality judgment.

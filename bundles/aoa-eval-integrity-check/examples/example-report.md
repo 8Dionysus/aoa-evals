@@ -5,6 +5,9 @@ Corpus slice: current public starter bundles
 Bundle-level verdict: `mixed support`
 Machine-readable companion: `reports/example-report.json`
 
+This is the bounded integrity sidecar for public starter bundles.
+It is a meta-eval, not a direct agent-behavior starter.
+
 ## Per-target breakdown
 
 | target bundle | integrity risk class | evidence note | public-routing note | target reading |
@@ -20,4 +23,6 @@ This report supports a bounded integrity claim about public starter-bundle coher
 It does not prove canonical readiness,
 and it does not evaluate underlying agent behavior directly.
 It is valuable precisely when the public wording looks stronger than the bounded proof surface underneath.
+
+For direct agent behavior, use the workflow, artifact, regression, or bridge bundles instead.
 

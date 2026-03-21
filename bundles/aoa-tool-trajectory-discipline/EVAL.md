@@ -21,7 +21,8 @@ Use this eval to check whether an agent uses tools in a disciplined, reviewable 
 
 This bounded bundle is a `diagnostic` workflow eval.
 It isolates tool-use trajectory discipline.
-It is not meant to stand in for a broader end-to-end workflow eval or a general outcome-quality judgment.
+It is not meant to stand in for a broader end-to-end workflow eval, a general outcome-quality judgment, or the broader outcome-vs-path split.
+If the main question is whether final outcome and execution path should be judged separately, switch to `aoa-trace-outcome-separation`.
 
 The goal is not to prove one ideal tool sequence.
 The goal is to test one bounded claim:
@@ -237,6 +238,9 @@ Nearby claim classes that should use a different bundle instead:
 Treat a positive result as support for one bounded claim:
 the agent can use tools with disciplined, reviewable path quality
 on this bounded surface where tool trajectory itself matters.
+
+For the broader question of whether outcome and path should stay separate before any combined reading,
+use `aoa-trace-outcome-separation` instead.
 
 Do not treat a positive result as:
 - proof that the overall workflow was strong

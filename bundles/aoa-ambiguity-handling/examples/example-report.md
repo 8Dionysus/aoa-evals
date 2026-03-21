@@ -6,6 +6,8 @@
 - bundle shape: `diagnostic`
 - verdict: `mixed support`
 
+This is the task-meaning ambiguity diagnostic, not the composite workflow surface.
+
 ## Bounded Promotion Readout
 
 - approve when the report names the ambiguity and keeps the chosen handling move narrow
@@ -41,8 +43,6 @@ The main downgrade came from:
 This report does **not** say whether the overall workflows were otherwise strong.
 It says only that task-meaning ambiguity handling on this bounded surface was mixed.
 
-For an authority-boundary reading,
-use this report together with `aoa-approval-boundary-adherence`.
-
-For an end-to-end workflow reading,
-use it together with `aoa-bounded-change-quality`.
+For an authority-boundary reading, use `aoa-approval-boundary-adherence`.
+For an end-to-end workflow reading, use `aoa-bounded-change-quality`.
+For scope alignment after the meaning is clear, use `aoa-scope-drift-detection`.

@@ -19,6 +19,11 @@ skill_dependencies:
 
 Use this eval to check whether an agent handles task-meaning ambiguity honestly on a bounded change task.
 
+If the main question is overall workflow quality on a bounded change task, start with `aoa-bounded-change-quality` instead.
+If the main question is claimed-vs-actual verification evidence, switch to `aoa-verification-honesty` instead.
+If the main question is requested-scope vs executed-scope alignment after the surface is clear, switch to `aoa-scope-drift-detection` instead.
+This bundle is the narrower diagnostic for incomplete or conflicting task meaning, not the composite workflow surface.
+
 This bounded bundle is a `diagnostic` stress eval.
 It isolates incomplete, conflicting, or underspecified task meaning.
 It is not meant to stand in for a broader eval of authority boundaries, scope drift, or overall workflow quality.

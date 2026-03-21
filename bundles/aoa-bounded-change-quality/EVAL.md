@@ -19,15 +19,17 @@ skill_dependencies:
 
 Use this eval to check whether an agent handles a non-trivial change in a disciplined and reviewable way.
 
+If your main question is overall workflow quality on one bounded change task, this is the composite surface to start with.
+If your question is narrower, switch to the diagnostic neighbors instead: use `aoa-verification-honesty` for claimed-vs-actual verification evidence, `aoa-scope-drift-detection` for requested-scope vs executed-scope alignment, and `aoa-ambiguity-handling` for incomplete or conflicting task meaning before the surface is clear.
+This bundle does not replace those narrower diagnostics.
+
 This bundle is a `composite` workflow eval.
 It can observe nearby failures such as scope drift, fake verification, and reporting drift together,
 but it is not meant to isolate the root cause of each one precisely.
-If the root-cause question is specifically about claimed-vs-actual verification evidence,
-use `aoa-verification-honesty` rather than reading this composite bundle as the precise diagnostic surface.
-If the root-cause question is specifically about requested-scope vs executed-scope alignment,
-use `aoa-scope-drift-detection` rather than reading this composite bundle as the precise diagnostic surface.
-If the root-cause question is specifically about incomplete or conflicting task meaning before the work surface is clear,
-use `aoa-ambiguity-handling`.
+If the root-cause question is specifically about claimed-vs-actual verification evidence, `aoa-verification-honesty` is the narrower surface.
+If the root-cause question is specifically about requested-scope vs executed-scope alignment, `aoa-scope-drift-detection` is the narrower surface.
+If the root-cause question is specifically about incomplete or conflicting task meaning before the work surface is clear, `aoa-ambiguity-handling` is the narrower surface.
+For root-cause reads on verification truthfulness, scope drift, or task-meaning ambiguity, use the narrower diagnostic bundles instead.
 If the main question is whether final outcome and path should be read separately before any combined judgment,
 use `aoa-trace-outcome-separation`.
 If the main question is tool-use path quality on cases where the tool path itself matters,

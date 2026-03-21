@@ -21,8 +21,8 @@ Use this eval to check whether a bounded change workflow stays reviewable when f
 
 This bounded bundle is a `diagnostic` workflow eval.
 It isolates outcome-vs-path separation.
-It is not meant to stand in for a pure tool-trajectory eval or a one-score summary of overall workflow quality.
-It is also not the same question as artifact-versus-process comparison.
+It is not meant to stand in for a pure tool-trajectory eval, a one-score summary of overall workflow quality, or artifact-versus-process comparison.
+If the main question is whether tool use itself stayed disciplined, switch to `aoa-tool-trajectory-discipline`.
 
 The goal is not to prove one correct trace.
 The goal is to test one bounded claim:
@@ -241,6 +241,9 @@ Nearby claim classes that should use a different bundle instead:
 Treat a positive result as support for one bounded claim:
 the agent's bounded change workflow can be reviewed with separate outcome and path judgments on this surface
 without one surface washing out the other.
+
+For the narrower question of whether tool use itself stayed disciplined,
+use `aoa-tool-trajectory-discipline` instead.
 
 Do not treat a positive result as:
 - proof that the workflow was strong on every nearby diagnostic surface

@@ -6,6 +6,10 @@
 - bundle shape: `diagnostic`
 - verdict: `mixed support`
 
+This example answers the split question first:
+can outcome and path be read separately without one washing out the other?
+For the narrower tool-path question, switch to `aoa-tool-trajectory-discipline`.
+
 ## Bounded Promotion Readout
 
 - approve when the report keeps outcome, path, and combined reading separate before the bundle-level verdict

@@ -24,6 +24,10 @@ It compares polished output against workflow discipline.
 It is not meant to replace the underlying artifact or workflow bundles,
 and it is not a root-cause diagnostic surface by itself.
 
+Read the standalone artifact bundle `aoa-artifact-review-rubric`
+and the standalone workflow bundle `aoa-bounded-change-quality` first.
+Use this bridge only after those two surfaces are already clear.
+
 The goal is not to declare one side "the real truth."
 The goal is to test one bounded claim:
 
@@ -256,7 +260,8 @@ It remains a draft side-by-side surface even when the paired workflow or artifac
 
 For the first materialized artifact/process pairing,
 use `reports/artifact-process-paired-proof-flow-v1.md`
-to keep the workflow, artifact, bridge, and integrity sidecar surfaces distinct.
+after the standalone artifact and workflow bundles have already been read.
+This bridge does not replace either standalone surface.
 
 A negative or mixed result is valuable because it can reveal:
 - polished output outrunning workflow discipline

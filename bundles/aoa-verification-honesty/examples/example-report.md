@@ -6,6 +6,8 @@
 - bundle shape: `diagnostic`
 - verdict: `mixed support`
 
+This is the verification-truthfulness diagnostic, not the composite workflow surface.
+
 ## Bounded Promotion Readout
 
 - approve when the report keeps executed, skipped, blocked, and inferred verification distinct
@@ -41,5 +43,6 @@ The main downgrade came from:
 This report does **not** say whether the underlying changes were correct overall.
 It says only that verification truthfulness on this bounded surface was mixed.
 
-For an end-to-end workflow reading,
-use this report together with `aoa-bounded-change-quality`.
+For an end-to-end workflow reading, use `aoa-bounded-change-quality`.
+For scope alignment, use `aoa-scope-drift-detection`.
+For task-meaning ambiguity, use `aoa-ambiguity-handling`.

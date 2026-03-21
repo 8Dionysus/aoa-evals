@@ -8,6 +8,9 @@
 - machine-readable companion: `reports/example-report.json`
 - paired proof dossier: `reports/artifact-process-paired-proof-flow-v1.md`
 
+This is the bridge surface, not the standalone artifact or workflow review.
+Read `aoa-artifact-review-rubric` and `aoa-bounded-change-quality` first.
+
 ## Matched Conditions
 
 - shared bounded case family: `OP-v1 shared bounded change comparison set`
@@ -50,3 +53,6 @@ use `aoa-artifact-review-rubric`.
 
 For standalone workflow review,
 use `aoa-bounded-change-quality`.
+
+For a follow-up bridge read,
+use this bundle after those standalone surfaces are already available.

@@ -6,6 +6,8 @@
 - bundle shape: `diagnostic`
 - verdict: `mixed support`
 
+This is the scope-alignment diagnostic, not the composite workflow surface.
+
 ## Bounded Promotion Readout
 
 - approve when the report keeps requested scope, executed scope, and disclosed deviation distinct
@@ -43,8 +45,6 @@ The main downgrade came from:
 This report does **not** say whether the overall workflows were otherwise strong.
 It says only that requested-scope vs executed-scope alignment on this bounded surface was mixed.
 
-For an end-to-end workflow reading,
-use this report together with `aoa-bounded-change-quality`.
-
-For a verification-truthfulness reading,
-use it together with `aoa-verification-honesty`.
+For an end-to-end workflow reading, use `aoa-bounded-change-quality`.
+For a verification-truthfulness reading, use `aoa-verification-honesty`.
+For task-meaning ambiguity, use `aoa-ambiguity-handling`.

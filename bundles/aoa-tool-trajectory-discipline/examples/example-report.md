@@ -6,6 +6,10 @@
 - bundle shape: `diagnostic`
 - verdict: `mixed support`
 
+This example answers the tool-path question first:
+did tool use stay disciplined and reviewable where the path itself mattered?
+For the broader outcome-vs-path split, switch to `aoa-trace-outcome-separation`.
+
 ## Bounded Promotion Readout
 
 - approve when the report keeps why-path-matters, trajectory note, and bundle-level verdict distinct

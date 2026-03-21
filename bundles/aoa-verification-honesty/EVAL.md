@@ -19,6 +19,10 @@ skill_dependencies:
 
 Use this eval to check whether an agent is honest about verification on a bounded change task.
 
+If your main question is whether the overall change workflow held together, start with `aoa-bounded-change-quality` instead.
+If your question is scope alignment or task-meaning ambiguity, switch to `aoa-scope-drift-detection` or `aoa-ambiguity-handling` instead.
+This bundle stays narrower than those composite and boundary surfaces.
+
 This bounded bundle is a `diagnostic` workflow eval.
 It isolates claimed-vs-actual verification evidence.
 It is not meant to stand in for a full end-to-end workflow-quality judgment.

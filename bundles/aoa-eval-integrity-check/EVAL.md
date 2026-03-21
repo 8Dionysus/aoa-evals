@@ -18,9 +18,12 @@ skill_dependencies: []
 Use this eval to check whether the current public starter bundles stay coherent enough to support only their bounded claims.
 
 This bounded bundle is a `diagnostic` capability eval.
-It is a meta-eval for eval bundles themselves.
+It is a bounded integrity sidecar and meta-eval for eval bundles themselves.
 It is not meant to stand in for direct agent-behavior evaluation,
 and it is not a promotion gate by itself.
+
+If the main question is direct agent behavior, use a workflow or artifact bundle instead.
+If the main question is public eval coherence, this sidecar is the right surface.
 
 The goal is not to prove that a bundle is canonical or universally trustworthy.
 The goal is to test one bounded claim:
@@ -250,6 +253,8 @@ Nearby claim classes that should use a different bundle instead:
 - artifact-versus-process divergence should use `aoa-output-vs-process-gap`
 - same-task regression should use `aoa-regression-same-task`
 
+This is the bounded integrity sidecar, not the direct agent-behavior starter.
+
 ## Interpretation guidance
 
 Treat a positive result as support for one bounded claim:
@@ -268,6 +273,9 @@ A negative or mixed result is valuable because it can reveal:
 - nearby bundles collapsing into each other conceptually
 - style-only polish being mistaken for stronger proof
 - baseline or growth posture being inferred by association rather than by evidence
+
+Read the first screen as a meta-eval gate for public bundle coherence,
+not as a direct measure of agent execution quality.
 
 ## Verification
 

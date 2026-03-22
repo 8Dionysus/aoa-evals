@@ -87,11 +87,12 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
         "portability_level",
         "review_required",
         "export_ready",
+        "validation_strength",
         "technique_dependencies",
         "skill_dependencies",
         "eval_path",
     }
-    assert "validation_strength" not in min_entry
+    assert min_entry["validation_strength"] == "baseline"
 
     capsule_entry = next(item for item in capsules["evals"] if item["name"] == "aoa-catalog-shape")
     assert capsule_entry == {

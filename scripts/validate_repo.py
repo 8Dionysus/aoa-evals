@@ -1731,15 +1731,18 @@ def run_validation(
     issues: list[ValidationIssue] = []
     all_eval_names = discover_eval_names(repo_root)
     starter_names = load_starter_eval_names(repo_root, issues)
+    starter_set = set(starter_names)
 
     if eval_name is not None:
         if eval_name not in all_eval_names:
             raise ValueError(f"unknown eval '{eval_name}'")
         target_evals = [eval_name]
         selected_evals = {eval_name}
+        selected_starter_evals = selected_evals.intersection(starter_set)
     else:
         target_evals = all_eval_names
         selected_evals = None
+        selected_starter_evals = None
 
     source_issues, records = collect_catalog_records(repo_root, target_evals)
     issues.extend(source_issues)
@@ -1748,21 +1751,21 @@ def run_validation(
         validate_eval_index(
             repo_root,
             starter_names=starter_names,
-            selected_evals=selected_evals,
+            selected_evals=selected_starter_evals,
         )
     )
     issues.extend(
         validate_eval_selection(
             repo_root,
             starter_names=starter_names,
-            selected_evals=selected_evals,
+            selected_evals=selected_starter_evals,
         )
     )
     issues.extend(
         validate_starter_bundle_contract(
             repo_root,
             starter_names=starter_names,
-            selected_evals=selected_evals,
+            selected_evals=selected_starter_evals,
         )
     )
     issues.extend(

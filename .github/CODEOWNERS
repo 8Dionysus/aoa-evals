@@ -1,0 +1,10 @@
+# Narrow ownership map for governance-critical eval surfaces.
+/.github/ @8Dionysus
+/scripts/ @8Dionysus
+/docs/ @8Dionysus
+/bundles/ @8Dionysus
+/fixtures/ @8Dionysus
+/scorers/ @8Dionysus
+/runners/ @8Dionysus
+/schemas/ @8Dionysus
+/reports/ @8Dionysus

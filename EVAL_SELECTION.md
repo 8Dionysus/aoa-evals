@@ -26,10 +26,14 @@ Current starter posture:
   use it when the main question is whether final outcome and path should stay separate before any combined reading.
 - `aoa-tool-trajectory-discipline` is the current bounded tool-path workflow starter:
   use it when tool-use path quality matters as its own bounded surface.
+- `aoa-witness-trace-integrity` is the current draft witness workflow starter:
+  use it when the main question is whether a bounded run left a reviewable witness trace before any downstream memo or compost use.
 - `aoa-regression-same-task` is the current baseline same-task regression starter:
   use it when you need a frozen-baseline comparison rather than a one-run judgment.
 - `aoa-artifact-review-rubric` is the current bounded artifact starter:
   use it when the main question is the produced artifact itself.
+- `aoa-compost-provenance-preservation` is the current draft compost artifact starter:
+  use it when the main question is whether a witness-derived note or principle candidate preserved provenance and review posture.
 - `aoa-output-vs-process-gap` is the current draft artifact/process bridge starter:
   use it when the main question is whether polished output is outrunning process discipline or vice versa after the standalone artifact and workflow surfaces are already legible.
 - `aoa-eval-integrity-check` is the current bounded integrity sidecar meta-eval for eval-bundle coherence:
@@ -76,12 +80,20 @@ See also:
 - `aoa-tool-trajectory-discipline`
   If the question is whether outcome and path should stay separately readable before any combined reading, switch to `aoa-trace-outcome-separation`.
 
+### I need to know whether a bounded run left a reviewable witness trace
+- `aoa-witness-trace-integrity`
+  Use this when the main question is whether meaningful steps, tool calls, external effects, failures, redaction posture, and the markdown summary stayed reviewable enough for downstream use.
+
 ### I need to compare a candidate against a frozen baseline on the same bounded task family
 - `aoa-regression-same-task`
 
 ### I need to judge the produced artifact itself
 - `aoa-artifact-review-rubric`
   If the question is artifact-versus-process divergence on the same cases, switch to `aoa-output-vs-process-gap`.
+
+### I need to know whether a witness-derived compost artifact preserved provenance
+- `aoa-compost-provenance-preservation`
+  Use this when the main question is whether a note, synthesis, or principle candidate kept source refs, review state, limits, and demotion posture visible.
 
 ### I need to know whether polished output is outrunning process discipline
 - `aoa-output-vs-process-gap`
@@ -98,11 +110,11 @@ See also:
 
 | category | use when | starter bundles |
 |---|---|---|
-| `workflow` | You care about multi-step execution quality, verification truthfulness, outcome-vs-path separation, or tool-path quality where path matters. | `aoa-bounded-change-quality`, `aoa-verification-honesty`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline` |
+| `workflow` | You care about multi-step execution quality, verification truthfulness, outcome-vs-path separation, tool-path quality where path matters, or public witness-trace reviewability. | `aoa-bounded-change-quality`, `aoa-verification-honesty`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, `aoa-witness-trace-integrity` |
 | `boundary` | You care about authority, approval, permission adherence, or requested-scope alignment. | `aoa-scope-drift-detection`, `aoa-approval-boundary-adherence` |
 | `stress` | You care about incomplete, conflicting, or underspecified task meaning. | `aoa-ambiguity-handling` |
 | `regression` | You care about frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
-| `artifact` | You care about the produced artifact itself rather than the workflow that produced it. | `aoa-artifact-review-rubric` |
+| `artifact` | You care about the produced artifact itself or about provenance-preserving compost artifacts derived from witness-facing inputs. | `aoa-artifact-review-rubric`, `aoa-compost-provenance-preservation` |
 | `comparative` | You care about cross-surface divergence such as polished output versus process discipline. | `aoa-output-vs-process-gap` |
 | `capability` | You care about whether a bounded eval-side review surface is present, such as integrity checking of public eval bundles. | `aoa-eval-integrity-check` |
 | `longitudinal` | You care about ordered repeated-window movement on the same bounded surface rather than one-run or one-baseline comparison. | `aoa-longitudinal-growth-snapshot` |
@@ -148,8 +160,10 @@ Trace-aware split and tool-path workflow starters are also public, but they shou
 | task-meaning ambiguity handling | You want to isolate incomplete or conflicting requirements rather than permission classification. | `aoa-ambiguity-handling` |
 | outcome-vs-path split | You want separate readings for final outcome and execution path before any combined workflow verdict. | `aoa-trace-outcome-separation` |
 | tool trajectory discipline | You want to judge tool-use path quality only where the tool path itself matters. | `aoa-tool-trajectory-discipline` |
+| witness trace integrity | You want to know whether a bounded run left a reviewable public witness trace before memo or compost reuse. | `aoa-witness-trace-integrity` |
 | same-task regression comparison | You want a frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | artifact review | You want to judge the produced artifact itself on the visible task surface. | `aoa-artifact-review-rubric` |
+| compost provenance preservation | You want to know whether a witness-derived note or principle candidate kept provenance, review state, and demotion posture visible. | `aoa-compost-provenance-preservation` |
 | output-vs-process divergence | You want to compare artifact-side and process-side readings on the same bounded cases. | `aoa-output-vs-process-gap` |
 | eval-bundle integrity | You want to inspect whether a public starter bundle remains coherent across its manifest, evidence, and public routing surfaces. | `aoa-eval-integrity-check` |
 | bounded longitudinal movement | You want to inspect ordered repeated-window movement on one named bounded workflow surface. | `aoa-longitudinal-growth-snapshot` |
@@ -178,8 +192,10 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-approval-boundary-adherence` is about authority ambiguity, not about all forms of task ambiguity.
 - `aoa-trace-outcome-separation` is now a bounded one-run split surface; it keeps outcome and path distinct before a combined reading and is not a substitute for narrower root-cause diagnostics.
 - `aoa-tool-trajectory-discipline` is now a bounded one-run tool-path surface; it applies only where tool path materially matters and should not be used to grade process for its own sake or to replace the broader outcome-versus-path split.
+- `aoa-witness-trace-integrity` is a draft witness workflow surface; it checks whether a public witness artifact stayed reviewable enough for bounded downstream use and does not claim runtime telemetry completeness or outcome quality.
 - `aoa-regression-same-task` is now the first public `baseline` surface; it is a frozen-baseline comparison surface and should not be treated as proof of general capability growth.
 - `aoa-artifact-review-rubric` is now a bounded one-run artifact surface; it stays on artifact quality only and does not imply strong workflow discipline or replace the bridge surface.
+- `aoa-compost-provenance-preservation` is a draft compost artifact surface; it checks provenance and review-state preservation on witness-derived artifacts and does not imply canon-readiness or replace general artifact review.
 - `aoa-output-vs-process-gap` remains a draft bridge surface; it now participates in the first materialized artifact/process paired proof flow, but it still does not replace standalone artifact review, standalone workflow review, trace/path separation, or the public baseline regression surface.
 - `aoa-eval-integrity-check` is now a bounded integrity sidecar meta-eval for public starter-bundle coherence and semantic anti-theater review; it does not replace direct agent-behavior evaluation, promotion review, or proof of canonical readiness.
 - `aoa-longitudinal-growth-snapshot` is a repeated-window movement surface; it does not replace one-run workflow reading or frozen same-task regression.

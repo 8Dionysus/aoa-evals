@@ -13,8 +13,10 @@ This file is the repository-wide map of public eval bundles.
 | aoa-approval-boundary-adherence | boundary | bounded | Checks whether an agent correctly distinguishes safe action, explicit-approval-required action, and out-of-bounds action. |
 | aoa-trace-outcome-separation | workflow | bounded | Checks whether bounded change workflows remain reviewable when final outcome and execution-path quality stay separately readable before any combined reading, rather than grading the tool path itself. |
 | aoa-tool-trajectory-discipline | workflow | bounded | Checks whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself is part of the bounded claim, rather than acting as a general outcome-versus-path splitter. |
+| aoa-witness-trace-integrity | workflow | draft | Checks whether a public witness trace for a bounded run keeps meaningful steps, tool visibility, state deltas, failures, redaction posture, and the markdown summary aligned enough for review. |
 | aoa-regression-same-task | regression | baseline | Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth. |
 | aoa-artifact-review-rubric | artifact | bounded | Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating artifact quality as proof of workflow discipline or as an artifact/process bridge. |
+| aoa-compost-provenance-preservation | artifact | draft | Checks whether witness-derived compost artifacts preserve provenance, review state, limits, and contradiction posture as they move toward note, principle, or canon-candidate surfaces. |
 | aoa-output-vs-process-gap | comparative | draft | Compares artifact-side and process-side readings on the same bounded cases as a bridge surface, not as a replacement for standalone artifact review, standalone workflow review, or baseline comparison. |
 | aoa-eval-integrity-check | capability | bounded | Checks whether current public starter bundles stay coherent as eval surfaces across manifest contract, verdict wording, evidence coverage, and public routing; this bounded integrity sidecar is not a direct agent-behavior starter. |
 | aoa-longitudinal-growth-snapshot | longitudinal | draft | Checks whether ordered, comparable windows on the same bounded workflow surface show modest directional movement without upgrading that movement into broad capability growth. |
@@ -42,11 +44,17 @@ No additional planned starter bundles are currently named publicly.
 - `aoa-tool-trajectory-discipline` is the current bounded narrower tool-path workflow starter:
   did tool use stay disciplined on cases where the tool path itself matters to the claim?
   It should not be read as the general outcome-versus-path split surface.
+- `aoa-witness-trace-integrity` is the current draft witness workflow starter:
+  did a bounded run leave a reviewable witness trace with meaningful steps, visible tool use, explicit external effects, preserved failures, and an honest markdown summary?
+  It should not be read as proof of outcome quality or as a substitute for future runtime instrumentation.
 - `aoa-regression-same-task` is the current baseline regression starter:
   did the candidate materially regress against a frozen baseline on the same bounded task family?
 - `aoa-artifact-review-rubric` is the current bounded artifact starter:
   did the produced artifact itself look strong on the visible task surface without implying a strong workflow?
   Start here when the question is artifact quality itself; do not skip straight to the bridge surface.
+- `aoa-compost-provenance-preservation` is the current draft compost artifact starter:
+  did a witness-derived note, synthesis, or principle candidate preserve provenance, review state, current limits, and demotion posture?
+  It should not be read as proof of canon-readiness or as a replacement for general artifact review.
 - `aoa-output-vs-process-gap` is the current artifact/process bridge starter:
   is polished output outrunning process discipline, is process outrunning artifact strength, or are the two broadly aligned?
   It should be read after the standalone artifact and workflow surfaces, not as a replacement for them.
@@ -57,6 +65,10 @@ No additional planned starter bundles are currently named publicly.
   do ordered comparable windows on the same bounded workflow surface show modest directional movement without turning that movement into broad capability growth?
 - `aoa-artifact-review-rubric` should stay on artifact quality:
   it should not drift into workflow-proof claims already covered by workflow starters.
+- `aoa-witness-trace-integrity` should stay on public witness reviewability:
+  it should not drift into outcome grading, hidden-runtime completeness, or compost quality claims.
+- `aoa-compost-provenance-preservation` should stay on provenance-preserving compost artifacts:
+  it should not drift into philosophical proof, canon-readiness, or general artifact grading detached from provenance.
 - `aoa-output-vs-process-gap` should compare polished outputs against process discipline:
   it should not duplicate the trace/outcome split or the artifact-review surface.
 - `aoa-eval-integrity-check` should inspect starter-bundle coherence and semantic overreach:
@@ -80,7 +92,7 @@ No additional planned starter bundles are currently named publicly.
 - `capability` checks whether a bounded ability is present.
 - `workflow` checks multi-step behavior rather than isolated answers.
 - `boundary` checks scope, authority, safety, or approval adherence.
-- `artifact` checks the quality of produced outputs.
+- `artifact` checks the quality or provenance-preserving integrity of produced outputs.
 - `regression` checks whether a change made behavior worse.
 - `comparative` compares variants, versions, or modes.
 - `longitudinal` checks change over time.
@@ -91,6 +103,7 @@ No additional planned starter bundles are currently named publicly.
 - `draft` means the bundle shape is being established and the public claim should remain modest.
 - `bounded` means the bundle now has a repeatable bounded review path, explicit failure-versus-readout support notes, and a stronger public example readout.
 - the current bounded one-run starter tranche now spans composite workflow, diagnostic workflow, boundary, stress, trace/path, and artifact surfaces.
+- the witness/compost pilot pair now has its first draft proof surfaces in `aoa-witness-trace-integrity` and `aoa-compost-provenance-preservation`.
 - the first materialized paired proof flow now sits across `aoa-artifact-review-rubric`, `aoa-bounded-change-quality`, and `aoa-output-vs-process-gap` using shared fixtures, runner contracts, and schema-backed report examples.
 - the current first public `baseline` starter is `aoa-regression-same-task`; other comparative and longitudinal starters remain draft.
 - `aoa-eval-integrity-check` is now bounded as the public integrity sidecar for semantic overreach and public-surface drift.

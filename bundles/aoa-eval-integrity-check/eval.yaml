@@ -43,6 +43,10 @@ relations:
     target: aoa-output-vs-process-gap
   - type: checks_integrity_of
     target: aoa-longitudinal-growth-snapshot
+  - type: checks_integrity_of
+    target: aoa-witness-trace-integrity
+  - type: checks_integrity_of
+    target: aoa-compost-provenance-preservation
 
 evidence:
   - kind: origin_need

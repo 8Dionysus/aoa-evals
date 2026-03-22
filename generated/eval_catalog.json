@@ -340,6 +340,65 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "category": "artifact",
+      "claim_type": "bounded",
+      "eval_path": "bundles/aoa-compost-provenance-preservation/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/provenance-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "export_ready": false,
+      "maturity_score": 2,
+      "name": "aoa-compost-provenance-preservation",
+      "object_under_evaluation": "provenance-preserving compost artifacts derived from witness-facing inputs",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
+      "relations": [
+        {
+          "target": "aoa-artifact-review-rubric",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-witness-trace-integrity",
+          "type": "used_together_for"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether witness-derived compost artifacts preserve provenance, review state, limits, and contradiction posture as they move from raw input toward note, principle, or canon-candidate surfaces.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "validation_strength": "baseline",
+      "verdict_shape": "mixed"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
       "category": "capability",
       "claim_type": "bounded",
       "eval_path": "bundles/aoa-eval-integrity-check/EVAL.md",
@@ -417,6 +476,14 @@
         },
         {
           "target": "aoa-longitudinal-growth-snapshot",
+          "type": "checks_integrity_of"
+        },
+        {
+          "target": "aoa-witness-trace-integrity",
+          "type": "checks_integrity_of"
+        },
+        {
+          "target": "aoa-compost-provenance-preservation",
           "type": "checks_integrity_of"
         }
       ],
@@ -1020,6 +1087,69 @@
       ],
       "validation_strength": "baseline",
       "verdict_shape": "categorical"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
+      "category": "workflow",
+      "claim_type": "bounded",
+      "eval_path": "bundles/aoa-witness-trace-integrity/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/trace-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "export_ready": false,
+      "maturity_score": 2,
+      "name": "aoa-witness-trace-integrity",
+      "object_under_evaluation": "reviewable integrity of witness trace exports on bounded runs",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
+      "relations": [
+        {
+          "target": "aoa-trace-outcome-separation",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-tool-trajectory-discipline",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-compost-provenance-preservation",
+          "type": "used_together_for"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether a public witness trace for a bounded run keeps meaningful steps, tool visibility, state deltas, failures, redaction posture, and the markdown summary aligned enough for review.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "validation_strength": "baseline",
+      "verdict_shape": "mixed"
     }
   ],
   "source_of_truth": {

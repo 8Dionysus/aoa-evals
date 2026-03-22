@@ -164,6 +164,7 @@ Exit signals:
 
 Current public posture:
 - the one-run starter tranche is now bounded across composite workflow, diagnostic workflow, boundary, stress, trace/path, and artifact surfaces
+- `aoa-witness-trace-integrity` now opens the first draft witness-facing workflow proof surface without pretending runtime instrumentation is already in place
 - the next priority is comparison and regression discipline rather than more one-run starter naming
 
 Important discipline:
@@ -219,6 +220,7 @@ This layer should make that gap visible.
 
 Current public bridge:
 - `aoa-artifact-review-rubric` as the bounded artifact-quality starter
+- `aoa-compost-provenance-preservation` as the draft provenance-preserving compost artifact starter
 - `aoa-output-vs-process-gap` as the first public artifact-versus-process bridge surface
 - first materialized paired proof artifacts across those surfaces plus `aoa-bounded-change-quality` through a shared fixture family, runner contracts, and schema-backed report examples
 
@@ -418,6 +420,7 @@ Highest-priority additions:
 - extend the newly materialized artifact/process pairing beyond its first shared fixture family, runner contracts, and schema-backed report slice
 - keep `aoa-regression-same-task` conservative as the first public baseline starter rather than promoting other comparison surfaces by association
 - bring repeated-window fixture and report contracts to `aoa-longitudinal-growth-snapshot` without inflating movement claims
+- harden the new witness/compost pilot proof surfaces without inflating them into runtime-instrumentation claims before `abyss-stack` is actually ready
 
 Next likely cross-surface candidate after the current public starter set:
 - No additional planned starter bundles are currently named publicly.

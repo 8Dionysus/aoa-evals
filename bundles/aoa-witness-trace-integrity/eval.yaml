@@ -1,0 +1,37 @@
+name: aoa-witness-trace-integrity
+category: workflow
+status: draft
+object_under_evaluation: reviewable integrity of witness trace exports on bounded runs
+claim_type: bounded
+baseline_mode: none
+verdict_shape: mixed
+report_format: summary-with-breakdown
+maturity_score: 2
+rigor_level: bounded
+repeatability: moderate
+portability_level: local-shaped
+review_required: true
+validation_strength: baseline
+export_ready: false
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+
+technique_dependencies: []
+
+skill_dependencies: []
+
+relations:
+  - type: complements
+    target: aoa-trace-outcome-separation
+  - type: complements
+    target: aoa-tool-trajectory-discipline
+  - type: used_together_for
+    target: aoa-compost-provenance-preservation
+
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: support_note
+    path: notes/trace-contract.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md

@@ -377,6 +377,100 @@
       "verdict_shape": "categorical"
     },
     {
+      "category": "artifact",
+      "eval_path": "bundles/aoa-compost-provenance-preservation/EVAL.md",
+      "name": "aoa-compost-provenance-preservation",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to check whether witness-derived compost artifacts keep their provenance alive as they are distilled.\n\nThis draft bundle is a `diagnostic` artifact eval.\nIt checks whether a compost note,\nprinciple candidate,\nor canon-facing candidate preserves source refs,\nreview state,\nlimits,\nand contradiction posture.\nIt is not meant to prove philosophical truth,\nand it is not a replacement for general artifact-quality review.\n\nThe goal is not to prove that a composted insight is final.\nThe goal is to test one bounded claim:\n\nunder these conditions,\nwitness-derived compost artifacts can be distilled without severing provenance,\nwithout hiding review state,\nand without turning note or principle candidates into premature canon.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks provenance-preserving compost artifacts derived from witness-facing inputs.\n\nPrimary surfaces under evaluation:\n- retention of source refs back to the witness-facing input\n- visibility of review status and current limits\n- honesty about what changed from raw input to note or principle candidate\n- preservation of contradiction,\n  stale,\n  or demotion posture\n- refusal to treat every compost artifact as canon-ready\n\nNearby surfaces intentionally excluded:\n- direct quality of the original run\n- general artifact polish outside provenance discipline\n- philosophical validity of the principle itself\n- executable ToS platform behavior",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions,\na witness-derived compost artifact can move from raw input toward note,\nsynthesis,\nor principle candidate\nwithout losing provenance,\nreview posture,\nor the ability to stay partial,\ncontested,\nor later demoted.\n\nThis eval does **not** support claims such as:\n- the resulting principle is canonically true\n- the note is complete enough to replace its sources\n- ToS now owns the operational route that produced the witness\n- contradiction or decay handling is solved for all future compost artifacts",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n- a public witness or summary is being distilled into a compost artifact\n- provenance and review posture are part of the real question\n- the main risk is premature abstraction or canon inflation\n- a note or principle candidate may otherwise look cleaner than its evidence allows\n\nDo not use this eval when:\n- no witness-facing input is available\n- the artifact is not part of a compost route\n- the main question is generic artifact quality rather than provenance preservation\n- the route is already claiming full canonization beyond this pilot contract",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- one witness-facing input such as `WitnessTrace` or `witness_summary_md`\n- one compost note,\n  synthesis note,\n  or principle candidate\n- visible source refs\n- visible review-state and limit notes\n- visible promotion boundary for anything approaching canon",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "A strong starter fixture set should include:\n- a raw witness-derived input becoming a note\n- a note becoming a principle candidate while keeping visible source refs\n- a case where review state stays provisional and visible\n- a case where contradiction or staleness remains possible after distillation\n- a case where a tempting canon-like summary must be held back\n\nFixture families should avoid:\n- notes that sever their route from the witness-facing input\n- canon-like artifacts with no visible review or provenance posture\n- highly polished summaries that no longer show their limits\n- cases that depend on hidden private source references",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a bundle-level verdict with an explicit breakdown.\n\nSuggested verdict classes:\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nSuggested breakdown axes:\n- `source_ref_retention`\n- `review_state_visibility`\n- `limit_honesty`\n- `promotion_boundary`\n- `contradiction_and_decay_posture`\n\nPer-artifact review should ask:\n- can a reviewer still trace the compost artifact back to the witness-facing input?\n- are review state and current limits visible?\n- does the artifact say what remains partial or provisional?\n- does a principle candidate keep its source refs rather than replacing them?\n- do contradiction,\n  stale,\n  or demotion paths remain possible?\n\n### Approve signals\n\nSignals toward `supports bounded claim`:\n- source refs remain visible and specific\n- review state stays explicit\n- principle candidates keep visible dependence on their upstream note or witness\n- contradictions,\n  decay,\n  or demotion remain possible\n- canon-facing language stays gated behind explicit review\n\n### Degrade signals\n\nSignals toward `mixed support` or `does not support bounded claim`:\n- a note or principle candidate severs its source refs\n- review posture disappears behind polished synthesis\n- limits are no longer named\n- canon-like phrasing appears without a clear gate\n- contradiction,\n  stale posture,\n  or later demotion becomes structurally impossible",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`.\n\nIt is a standalone bounded proof surface for provenance-preserving compost.\nA later stronger form may compare:\n- different compost routes on the same witness input\n- the same compost artifact before and after review\n- note versus principle candidate behavior across repeated pilot runs\n\nWithout that later comparison form,\nthis bundle supports only modest claims about current provenance preservation on the chosen cases.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n1. choose one witness-facing input and one downstream compost artifact\n2. inspect source refs,\n   review state,\n   and current limits directly\n3. confirm whether the artifact preserved provenance through distillation\n4. confirm whether contradiction and decay posture remain possible\n5. confirm whether promotion stopped honestly before canon when evidence stayed partial\n6. publish a summary-with-breakdown artifact with an explicit interpretation boundary\n\nExecution expectations:\n- do not reward abstraction that severed provenance\n- do not treat polished synthesis as proof of canon-readiness\n- do not move operational ownership into ToS while reviewing the artifact\n- do not erase decay or demotion posture in the name of clarity",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n- one bundle-level verdict\n- one breakdown across the provenance-preservation axes\n- one note on the most material preservation or severance point\n- one explicit interpretation boundary\n\nA compact public summary-with-breakdown may include:\n- artifact id\n- verdict\n- breakdown by provenance-preservation axis\n- main source-ref note\n- main promotion-boundary note",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "This eval can fail as an instrument when:\n- reviewers reward polished synthesis more than provenance retention\n- source refs exist only nominally and are not actually useful\n- review state is copied mechanically without shaping interpretation\n- contradiction or demotion posture is ignored because the artifact looks clean\n- the bundle is over-read as proof of canonization",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n- philosophical correctness of the resulting idea\n- final canon readiness\n- quality of the original run that produced the witness\n- general artifact quality outside provenance discipline\n- long-term ToS growth policy beyond this pilot wave\n\nLikely false-pass path:\n- the artifact keeps token source refs,\n  but review state and limits are so vague that a reader still overreads it as settled truth.\n\nLikely misleading-result path:\n- a careful provisional note can look modest or incomplete\n  precisely because it preserved contradiction,\n  decay,\n  and review posture honestly.\n\nNearby claim classes that should use a different bundle instead:\n- general produced-artifact quality should use `aoa-artifact-review-rubric`\n- witness trace honesty should use `aoa-witness-trace-integrity`\n- broader ToS doctrinal review should use the manual `Tree-of-Sophia` review route",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe compost artifact preserved provenance and review posture well enough for bounded reuse.\n\nDo not treat a positive result as:\n- proof that the resulting principle is canon\n- proof that all contradictions have been resolved\n- proof that operational ownership moved into ToS\n- proof that later growth seeds are already implemented\n\nA mixed or negative result is valuable because it can reveal:\n- provenance severance\n- hidden review posture\n- premature canon language\n- limits erased by polished synthesis\n- contradiction or decay routes being closed too early",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- confirm the bounded claim is explicit\n- confirm the witness-facing input and downstream artifact are both inspected\n- confirm source refs remain visible and specific\n- confirm review state and current limits remain explicit\n- confirm principle or canon-facing language stays gated honestly\n- confirm contradiction,\n  stale,\n  or demotion posture remains possible",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "Technique linkage is intentionally deferred for this starter bundle.\nThe current pilot is doctrinal and playbook-led rather than driven by a reusable compost technique canon.",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "Skill linkage is intentionally deferred for this starter bundle.\nThe current pilot route lives first in `aoa-playbooks/witness-to-compost-pilot`\nand in ToS compost doctrine rather than in a standalone skill bundle.",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "Project overlays may add:\n- local compost note shapes\n- local review-state vocabularies\n- local promotion gates for principle candidates\n- local decay or staleness rules\n- later comparison forms once the provenance-preserving compost route stabilizes",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "mixed"
+    },
+    {
       "category": "capability",
       "eval_path": "bundles/aoa-eval-integrity-check/EVAL.md",
       "name": "aoa-eval-integrity-check",
@@ -1127,6 +1221,100 @@
       ],
       "status": "bounded",
       "verdict_shape": "categorical"
+    },
+    {
+      "category": "workflow",
+      "eval_path": "bundles/aoa-witness-trace-integrity/EVAL.md",
+      "name": "aoa-witness-trace-integrity",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to check whether a bounded run leaves behind a witness trace that a reviewer can actually inspect.\n\nThis draft bundle is a `diagnostic` workflow eval.\nIt checks whether the public witness artifact stays reviewable enough to support downstream memo writeback and compost distillation.\nIt is not meant to prove final outcome quality,\nand it is not a substitute for full runtime instrumentation in `abyss-stack`.\n\nThe goal is not to prove total transparency.\nThe goal is to test one bounded claim:\n\nunder these conditions,\na bounded run can leave a witness trace whose meaningful steps,\ntool use,\nexternal effects,\nfailure paths,\nand summary readout remain visible enough for review.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks reviewable integrity of witness trace exports on bounded runs.\n\nPrimary surfaces under evaluation:\n- meaningful-step visibility\n- tool-call visibility when tools materially shaped the run\n- explicit `state_delta` notes for external effects\n- failure-path preservation when the route degrades or stops early\n- redaction-first handling\n- alignment between the trace and the human-readable markdown summary\n\nNearby surfaces intentionally excluded:\n- final artifact quality by itself\n- exact one-true trace or one mandatory tool order\n- hidden runtime logging quality in `abyss-stack`\n- downstream compost promotion quality",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions,\nthe repository can preserve a witness trace that is reviewable enough\nto understand what the run tried to do,\nwhat materially happened,\nwhere external effects occurred,\nwhere failures or review flags appeared,\nand what the summary still does not prove.\n\nThis eval does **not** support claims such as:\n- the run outcome was correct\n- the full internal reasoning process is available\n- the runtime trace pipeline is production-ready\n- every bounded run now requires the same trace depth",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n- the run is non-trivial enough to need a reviewable witness\n- a downstream memo writeback or compost route depends on the trace\n- tool use or external effects materially shaped the route\n- the main question is whether the trace contract stayed honest and legible\n\nDo not use this eval when:\n- the run is trivial and no meaningful witness surface is needed\n- there was no material route to reconstruct beyond a simple answer\n- the main question is outcome quality rather than trace honesty\n- the surface depends on runtime instrumentation that this pilot wave does not yet implement",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- `witness_trace_json`\n- `witness_summary_md`\n- the bounded task or run goal\n- redaction notes when any step required them\n- the governing route contract, such as `aoa-playbooks/witness-to-compost-pilot`",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "A strong starter fixture set should include:\n- a bounded run with visible tool use\n- a bounded run with at least one explicit external effect\n- a bounded run with a preserved partial failure path\n- a bounded run where redaction is required but the trace still stays reviewable\n- a bounded run where the markdown summary could easily over-polish what the trace shows\n\nFixture families should avoid:\n- hidden private logs that outside reviewers cannot inspect\n- runtime-only telemetry that this public pilot contract does not promise\n- perfectly clean happy-path traces only\n- cases where the trace can pass without saying anything meaningful",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a bundle-level verdict with an explicit breakdown.\n\nSuggested verdict classes:\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nSuggested breakdown axes:\n- `step_visibility`\n- `tool_visibility`\n- `state_delta_visibility`\n- `failure_path_preservation`\n- `redaction_posture`\n- `summary_alignment`\n\nPer-run review should ask:\n- are the meaningful steps visible enough to reconstruct the route?\n- are tool calls named when tools materially shaped the result?\n- are external effects marked as `state_delta` rather than hidden in prose?\n- does failure still leave a partial witness?\n- does redaction protect sensitive content without erasing the route?\n- does the markdown summary stay weaker than the trace rather than stronger?\n\n### Approve signals\n\nSignals toward `supports bounded claim`:\n- meaningful route steps are visible in order\n- tool use is named where it mattered materially\n- external effects are marked explicitly\n- a failure path still leaves a partial witness\n- summary wording matches the visible trace and keeps limits explicit\n\n### Degrade signals\n\nSignals toward `mixed support` or `does not support bounded claim`:\n- a meaningful step is omitted from the witness\n- tool use materially shaped the run but is hidden\n- external effects appear only in prose and not as `state_delta`\n- failure paths disappear behind a polished summary\n- redaction strips away the route itself rather than only sensitive payloads\n- the markdown summary claims more coherence or success than the trace supports",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`.\n\nIt is a standalone bounded proof surface for witness integrity.\nA later stronger form may compare:\n- the same route before and after witness-contract revisions\n- trace quality across repeated runs on the same playbook\n- public witness exports against stronger runtime capture later in `abyss-stack`\n\nWithout that later comparison form,\nthis bundle supports only modest claims about current trace integrity on the chosen cases.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n1. choose one bounded run that requires a witness trace\n2. inspect the JSON trace and markdown summary together\n3. confirm whether meaningful steps remain visible in order\n4. confirm whether tool use and external effects are named honestly\n5. confirm whether failures and redactions remain reviewable\n6. publish a summary-with-breakdown artifact with an explicit interpretation boundary\n\nExecution expectations:\n- do not require a single perfect tool path\n- do not treat hidden private runtime telemetry as part of the public contract\n- do not let the markdown summary stand in for the trace itself\n- do not upgrade partial visibility into total transparency",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n- one bundle-level verdict\n- one breakdown across the witness-integrity axes\n- one note on the most material trace gap or success\n- one explicit interpretation boundary\n\nA compact public summary-with-breakdown may include:\n- run id\n- verdict\n- breakdown by witness-integrity axis\n- major review flags\n- one note on what a human should inspect next",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "This eval can fail as an instrument when:\n- reviewers mistake polished summaries for trace integrity\n- the chosen cases are so small that witness quality is never really tested\n- hidden local telemetry is treated as part of the public contract\n- redaction is used as a reason to erase route visibility entirely\n- reviewers quietly demand one exact tool sequence instead of bounded reviewability",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n- final outcome quality\n- internal reasoning completeness\n- runtime instrumentation coverage\n- downstream compost quality\n- long-term repeatability across broader task families\n\nLikely false-pass path:\n- the trace looks orderly and complete at a glance,\n  but one material external effect or failure branch was never made explicit.\n\nLikely misleading-result path:\n- a bounded public trace can look mixed only because strong redaction was necessary,\n  even when the underlying route stayed honest within its contract.\n\nNearby claim classes that should use a different bundle instead:\n- outcome-versus-path split should use `aoa-trace-outcome-separation`\n- tool-path quality where the path itself is the main claim should use `aoa-tool-trajectory-discipline`\n- downstream provenance-preserving digestion should use `aoa-compost-provenance-preservation`",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe public witness trace stayed reviewable enough to support bounded downstream use.\n\nDo not treat a positive result as:\n- proof that the run outcome was correct\n- proof that all internal reasoning is transparent\n- proof that `abyss-stack` runtime instrumentation is already solved\n- proof that every future run needs the same trace depth\n\nA mixed or negative result is valuable because it can reveal:\n- hidden tool use\n- missing external-effect notes\n- failure-path erasure\n- over-polished summaries\n- redaction posture that became too destructive to review",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- confirm the bounded claim is explicit\n- confirm the trace and markdown summary are both inspected\n- confirm tool use is visible where it mattered materially\n- confirm external effects are marked as `state_delta`\n- confirm failure-path and redaction posture remain reviewable\n- confirm the summary stays weaker than the trace rather than stronger",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "Technique linkage is intentionally deferred for this starter bundle.\nThe current pilot is contract-first and does not yet assume a reusable witness-capture technique canon.",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "Skill linkage is intentionally deferred for this starter bundle.\nThe current pilot route lives first in `aoa-playbooks/witness-to-compost-pilot`\nrather than in a standalone skill bundle.",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "Project overlays may add:\n- local witness trace depths\n- local redaction classes\n- local state-delta review rules\n- local summary templates\n- later comparison or regression forms once the public witness contract stabilizes",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "mixed"
     }
   ],
   "section_version": 1,

@@ -73,6 +73,8 @@ No additional planned starter bundles are currently named publicly.
   it should not duplicate the trace/outcome split or the artifact-review surface.
 - `aoa-eval-integrity-check` should inspect starter-bundle coherence and semantic overreach:
   it should not be read as a direct agent-behavior starter bundle or as proof of canonical readiness.
+- `aoa-long-horizon-depth` should stay on checkpoint-based restart fidelity:
+  it should not drift into final-answer grading, runtime-instrumentation completeness, or general philosophical depth claims.
 - `aoa-longitudinal-growth-snapshot` should stay on repeated-window bounded workflow movement:
   it should not be read as a same-task regression surface or as proof of broad capability growth.
 
@@ -104,6 +106,7 @@ No additional planned starter bundles are currently named publicly.
 - `bounded` means the bundle now has a repeatable bounded review path, explicit failure-versus-readout support notes, and a stronger public example readout.
 - the current bounded one-run starter tranche now spans composite workflow, diagnostic workflow, boundary, stress, trace/path, and artifact surfaces.
 - the witness/compost pilot pair now has its first draft proof surfaces in `aoa-witness-trace-integrity` and `aoa-compost-provenance-preservation`.
+- checkpoint-based restart fidelity now has its first draft public bundle in `aoa-long-horizon-depth`, but it is not part of the current starter set.
 - the first materialized paired proof flow now sits across `aoa-artifact-review-rubric`, `aoa-bounded-change-quality`, and `aoa-output-vs-process-gap` using shared fixtures, runner contracts, and schema-backed report examples.
 - the current first public `baseline` starter is `aoa-regression-same-task`; other comparative and longitudinal starters remain draft.
 - `aoa-eval-integrity-check` is now bounded as the public integrity sidecar for semantic overreach and public-surface drift.

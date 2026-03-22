@@ -937,6 +937,17 @@ def test_validate_repo_requires_roadmap_current_public_surface_to_be_a_starter_b
     assert any("roadmap 'Current public surface' eval 'aoa-beta' must appear in EVAL_INDEX.md starter bundles" in issue.message for issue in issues)
 
 
+def test_validate_repo_allows_public_bundle_outside_starter_surface(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-starter-alpha")
+    make_eval_bundle(tmp_path, name="aoa-public-draft")
+    make_index(tmp_path, "aoa-starter-alpha", "workflow")
+    make_selection(tmp_path, ["aoa-starter-alpha"])
+    make_roadmap(tmp_path, ["aoa-starter-alpha"])
+    write_catalogs(tmp_path)
+
+    assert run_validation(tmp_path) == []
+
+
 def test_validate_repo_requires_absence_note_sync_between_roadmap_and_index(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-absence-note-drift")
     make_roadmap(tmp_path, ["aoa-absence-note-drift"], include_absence_note=False)

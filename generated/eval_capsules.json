@@ -112,6 +112,22 @@
       "what_this_does_not_prove": "proof that the starter corpus is canonical; proof that every bundle is equally mature; proof that the underlying evaluated agents are strong"
     },
     {
+      "blind_spot_short": "final inquiry correctness; philosophical depth by itself; runtime trace completeness",
+      "bounded_claim_short": "under these conditions, a checkpoint-based long-horizon inquiry route can relaunch with its active axis, open contradictions, and memo-versus-canon boundaries still reviewably intact.",
+      "category": "workflow",
+      "do_not_use_short": "the route ends in one bounded pass and never needs relaunch; no checkpoint artifact exists to inspect",
+      "eval_path": "bundles/aoa-long-horizon-depth/EVAL.md",
+      "name": "aoa-long-horizon-depth",
+      "proof_artifact_short": "bundle-local notes and examples only",
+      "skill_dependencies": [],
+      "status": "draft",
+      "summary": "Checks whether a checkpoint-based long-horizon inquiry can relaunch with its axis, contradictions, and canon-vs-memory boundaries still legible.",
+      "technique_dependencies": [],
+      "use_when_short": "the route spans more than one bounded pass; a checkpoint pack is the intended relaunch surface",
+      "verdict_shape": "mixed",
+      "what_this_does_not_prove": "proof that the inquiry reached the right conclusion; proof of broad long-horizon capability; proof that runtime instrumentation is solved"
+    },
+    {
       "blind_spot_short": "general capability growth; movement outside the named workflow surface; frozen same-task regression",
       "bounded_claim_short": "under these conditions, ordered windows on the same bounded workflow surface show a modest improvement signal, regression signal, flat reading, or mixed movement that remains bounded to this...",
       "category": "longitudinal",

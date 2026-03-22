@@ -1052,14 +1052,7 @@ def validate_eval_index(
     else:
         for name in sorted(selected_evals):
             count = counts.get(name, 0)
-            if count == 0:
-                issues.append(
-                    ValidationIssue(
-                        location,
-                        f"eval '{name}' is missing from the starter table",
-                    )
-                )
-            elif count > 1:
+            if count > 1:
                 issues.append(
                     ValidationIssue(
                         location,

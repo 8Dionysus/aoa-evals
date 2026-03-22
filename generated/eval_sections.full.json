@@ -565,6 +565,100 @@
       "verdict_shape": "categorical"
     },
     {
+      "category": "workflow",
+      "eval_path": "bundles/aoa-long-horizon-depth/EVAL.md",
+      "name": "aoa-long-horizon-depth",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to check whether a long-horizon inquiry route can stop and relaunch without faking continuity.\n\nThis draft bundle is a `diagnostic` workflow eval.\nIt focuses on one nearby question:\ndid the checkpoint pack preserve enough axis, contradiction posture, and delta separation for a bounded relaunch?\n\nIt is not a general depth eval.\nIt is not a judgment of philosophical quality by itself.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks restart fidelity of checkpoint-based long-horizon inquiry routes.\n\nPrimary surfaces under evaluation:\n- checkpoint completeness\n- axis retention after relaunch\n- contradiction preservation\n- separation of `memory_delta` and `canon_delta`\n- resistance to false continuity\n\nNearby surfaces intentionally excluded:\n- final truth of the inquiry outcome\n- rhetorical sophistication of the synthesis\n- runtime instrumentation depth in `abyss-stack`\n- general artifact polish outside the checkpoint route",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions, a checkpoint-based long-horizon inquiry route can relaunch with its active axis, open contradictions, and memo-versus-canon boundaries still reviewably intact.\n\nThis eval does **not** support claims such as:\n- the inquiry reached the right final answer\n- the route is generally intelligent\n- the runtime stack has complete long-horizon instrumentation\n- every long-horizon question now supports the same restart fidelity",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n- the route spans more than one bounded pass\n- a checkpoint pack is the intended relaunch surface\n- contradictions and deltas need to survive a pause honestly\n- the main question is restart fidelity rather than final answer quality\n\nDo not use this eval when:\n- the route ends in one bounded pass and never needs relaunch\n- no checkpoint artifact exists to inspect\n- the main question is witness-trace reviewability rather than restart fidelity\n- the route depends on hidden private context unavailable to public reviewers",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- one `inquiry_checkpoint` artifact\n- one prior-pass evidence pack\n- one relaunch or simulated relaunch readout\n- contradiction notes or contradiction map\n- the bounded restart contract for the route",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "A strong starter case surface should include:\n- one architectural inquiry with an explicit checkpoint pack\n- one pass where contradictions remain open across relaunch\n- one pass where `memory_delta` and `canon_delta` are both present\n- one pass where a restart could easily drift into summary theater if the checkpoint were weak\n\nFixtures should avoid:\n- one-pass tasks with no real restart need\n- checkpoints that are only polished summaries with no explicit evidence refs\n- cases where the next pass still depends on the full raw history\n- routes whose continuity depends on private notes outside the bundle",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a summary-with-breakdown verdict.\n\nSuggested verdict classes:\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nSuggested breakdown axes:\n- `checkpoint_completeness`\n- `axis_retention`\n- `contradiction_preservation`\n- `delta_separation`\n- `false_continuity_resistance`\n\nPer-case review should ask:\n- does the checkpoint name the objective, current thesis, open questions, and next tests clearly enough to relaunch?\n- does the relaunch keep the same active axis rather than inventing a cleaner one?\n- do contradictions survive as contradictions?\n- do `memory_delta` and `canon_delta` remain distinct?\n- does the relaunch rely on the checkpoint pack rather than on hidden raw continuity?\n\n### Approve signals\n\nSignals toward `supports bounded claim`:\n- the checkpoint pack is complete enough for bounded relaunch\n- the relaunch preserves the active axis without inflation\n- contradictions remain visible and reviewable\n- delta separation stays explicit\n- the relaunch does not silently depend on the full prior transcript\n\n### Degrade signals\n\nSignals toward `mixed support` or `does not support bounded claim`:\n- the checkpoint omits current axis, open questions, or next tests\n- relaunch invents new continuity not supported by the pack\n- contradictions disappear for smoothness\n- `memory_delta` and `canon_delta` collapse into one summary blur\n- the route needs hidden raw history to make sense again",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`.\n\nIt is a standalone bounded proof surface for restart fidelity.\nA later stronger form may compare:\n- repeated relaunches on the same inquiry line\n- different checkpoint shapes on the same long-horizon route\n- before-vs-after checkpoint contract revisions\n\nWithout a baseline, this bundle supports only modest claims about the current restart surface on the chosen cases.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n1. choose a long-horizon route with a real checkpoint pack\n2. inspect the checkpoint, contradiction notes, and delta artifacts together\n3. inspect the relaunch readout or simulated relaunch prompt surface\n4. judge whether the checkpoint alone is strong enough to preserve the axis honestly\n5. publish a summary-with-breakdown artifact with an explicit interpretation boundary\n\nExecution expectations:\n- do not grade final answer quality as if it were restart fidelity\n- do not assume full raw history is allowed during relaunch\n- do not reward smooth prose if contradiction posture disappeared\n- do not treat `memory_delta` and `canon_delta` as interchangeable",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n- one bundle-level verdict\n- one breakdown across the restart-fidelity axes\n- one note on the strongest restart-support signal\n- one note on the strongest restart-risk gap\n- one explicit interpretation boundary",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "This eval can fail as an instrument when:\n- the checkpoint is judged by prose smoothness instead of relaunch usefulness\n- the relaunch secretly relies on raw history the reviewer cannot see\n- contradictions are treated as noise to clean up\n- canon and memory deltas are merged for convenience\n- the chosen cases never really stress restart fidelity",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n- final inquiry correctness\n- philosophical depth by itself\n- runtime trace completeness\n- long-term stability across every inquiry family\n- that one good restart implies general long-horizon competence\n\nLikely false-pass path:\n- a checkpoint looks tidy and complete, but the next pass still needed hidden transcript continuity.\n\nLikely misleading-result path:\n- a route gets a mixed result because the inquiry is genuinely open-ended, even though the checkpoint preserved that openness honestly.\n\nNearby claim classes that should use a different bundle instead:\n- witness-trace reviewability should use `aoa-witness-trace-integrity`\n- repeated-window movement should use `aoa-longitudinal-growth-snapshot`\n- same-task regression should use `aoa-regression-same-task`",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe checkpoint-based route can relaunch without losing its axis dishonestly.\n\nDo not treat a positive result as:\n- proof that the inquiry reached the right conclusion\n- proof of broad long-horizon capability\n- proof that runtime instrumentation is solved\n- proof that every future relaunch will be equally strong\n\nA mixed or negative result is still valuable because it can reveal:\n- thin checkpoint packs\n- erased contradictions\n- hidden dependence on raw history\n- blurred canon-versus-memory boundaries",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- confirm the bounded claim is explicit\n- confirm the checkpoint artifact is real and inspectable\n- confirm scoring logic stays on restart fidelity rather than final-answer quality\n- confirm blind spots are named\n- confirm the output does not imply stronger claims than the bundle supports\n- confirm manifest evidence is explicit and resolves publicly",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "This bundle currently uses no explicit upstream technique dependency.",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "This bundle currently uses no explicit upstream skill dependency.",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "Project overlays may add:\n- local checkpoint schemas\n- local relaunch harnesses\n- local contradiction-map formats\n- local report sinks\n\nWhen they do, the bounded claim should remain restart fidelity rather than final-answer quality.",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "mixed"
+    },
+    {
       "category": "longitudinal",
       "eval_path": "bundles/aoa-longitudinal-growth-snapshot/EVAL.md",
       "name": "aoa-longitudinal-growth-snapshot",

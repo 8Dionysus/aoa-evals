@@ -502,6 +502,65 @@
       "verdict_shape": "categorical"
     },
     {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
+      "category": "workflow",
+      "claim_type": "bounded",
+      "eval_path": "bundles/aoa-long-horizon-depth/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/restart-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "export_ready": false,
+      "maturity_score": 2,
+      "name": "aoa-long-horizon-depth",
+      "object_under_evaluation": "restart fidelity of checkpoint-based long-horizon inquiry routes",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
+      "relations": [
+        {
+          "target": "aoa-witness-trace-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-longitudinal-growth-snapshot",
+          "type": "complements"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether a checkpoint-based long-horizon inquiry can relaunch with its axis, contradictions, and canon-vs-memory boundaries still legible.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "validation_strength": "baseline",
+      "verdict_shape": "mixed"
+    },
+    {
       "baseline_mode": "longitudinal-window",
       "blind_spot_disclosure": "required-and-present",
       "category": "longitudinal",

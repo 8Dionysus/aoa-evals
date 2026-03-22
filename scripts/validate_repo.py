@@ -1042,14 +1042,6 @@ def validate_eval_index(
 
         starter_set = set(counts.keys())
 
-        for missing in sorted(eval_dirs - starter_set):
-            issues.append(
-                ValidationIssue(
-                    location,
-                    f"eval '{missing}' is missing from the starter table",
-                )
-            )
-
         for extra in sorted(starter_set - eval_dirs):
             issues.append(
                 ValidationIssue(

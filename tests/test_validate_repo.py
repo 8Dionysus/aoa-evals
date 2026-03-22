@@ -21,6 +21,7 @@ from validate_repo import (
     build_catalog_payloads,
     collect_catalog_records,
     run_validation,
+    validate_eval_index,
     write_json_file,
 )
 
@@ -957,6 +958,23 @@ def test_validate_repo_allows_targeted_non_starter_bundle_validation(tmp_path: P
     write_catalogs(tmp_path)
 
     assert run_validation(tmp_path, eval_name="aoa-public-draft") == []
+
+
+def test_validate_eval_index_allows_targeted_non_starter_bundle_selection(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-starter-alpha")
+    make_eval_bundle(tmp_path, name="aoa-public-draft")
+    make_index(tmp_path, "aoa-starter-alpha", "workflow")
+    make_selection(tmp_path, ["aoa-starter-alpha"])
+    make_roadmap(tmp_path, ["aoa-starter-alpha"])
+    write_catalogs(tmp_path)
+
+    issues = validate_eval_index(
+        tmp_path,
+        starter_names=["aoa-starter-alpha"],
+        selected_evals={"aoa-public-draft"},
+    )
+
+    assert issues == []
 
 
 def test_validate_repo_requires_absence_note_sync_between_roadmap_and_index(tmp_path: Path) -> None:

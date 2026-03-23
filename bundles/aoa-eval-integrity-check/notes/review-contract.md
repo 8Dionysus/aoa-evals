@@ -12,6 +12,8 @@ Required target dossier:
 - `eval.yaml`
 - `examples/example-report.md`
 - `reports/example-report.json` when a bundle ships a schema-backed report artifact
+- `runners/contract.json` when a bundle ships a bundle-local runner contract
+- `fixtures/contract.json` when a bundle names a shared fixture family
 - support notes and checks
 - `EVAL_INDEX.md` starter row and distinctness note
 - `EVAL_SELECTION.md` posture and chooser wording
@@ -28,6 +30,12 @@ Required review classes:
 - artifact/process collapse
 - comparative overread
 - growth overclaiming
+
+When a public comparison surface changes,
+review the comparison trio directly:
+- `aoa-regression-same-task` for style-only movement and frozen-baseline overread risk
+- `aoa-output-vs-process-gap` for baseline-by-association risk
+- `aoa-longitudinal-growth-snapshot` for growth-overclaiming risk
 
 The resulting note should name one integrity risk class directly.
 If the dossier is mixed,

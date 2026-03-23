@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-longitudinal-growth-snapshot comparative-summary report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "anchor_surface",
+    "window_family",
+    "windows"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-longitudinal-growth-snapshot"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "ordered repeated-window movement on a bounded workflow surface"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "bounded improvement signal",
+        "no clear directional movement",
+        "mixed or unstable movement",
+        "bounded regression signal"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "anchor_surface": {
+      "type": "string",
+      "minLength": 5
+    },
+    "window_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "windows": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "window_id",
+          "window_order",
+          "workflow_note",
+          "movement_reading",
+          "context_note"
+        ],
+        "properties": {
+          "window_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "window_order": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "workflow_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "movement_reading": {
+            "type": "string",
+            "enum": [
+              "bounded improvement signal",
+              "no clear directional movement",
+              "mixed or unstable movement",
+              "bounded regression signal"
+            ]
+          },
+          "context_note": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    }
+  }
+}

@@ -12,10 +12,9 @@ It is a meta-eval, not a direct agent-behavior starter.
 
 | target bundle | integrity risk class | evidence note | public-routing note | target reading |
 |---|---|---|---|---|
-| `aoa-bounded-change-quality` | artifact/process collapse risk | manifest, summary contract, runner contract, and schema-backed report still keep the workflow bundle distinct from artifact-only and bridge reads | chooser still routes artifact-only questions away from the composite workflow starter | `supports bounded claim` |
+| `aoa-regression-same-task` | style-only movement risk | frozen case-family contract, runner contract, schema-backed report, and baseline dossier still keep style-only change weaker than same-task regression evidence | chooser keeps the baseline surface separate from repeated-window movement and one-run workflow reads | `supports bounded claim` |
 | `aoa-output-vs-process-gap` | baseline by association risk | comparative manifest, pairing dossier, and runner contract are coherent, but the bridge still sits near a stronger baseline surface | chooser keeps the bridge separate from `aoa-regression-same-task` | `mixed support` |
-| `aoa-longitudinal-growth-snapshot` | growth overclaiming risk | window contract and example report are present, but shared repeated-window proof artifacts are not yet materialized | chooser still keeps longitudinal movement separate from broad capability narrative | `mixed support` |
-| `aoa-artifact-review-rubric` | style-over-substance risk | rubric contract, fixture contract, and schema-backed report still keep polish weaker than the artifact claim | chooser keeps artifact review separate from workflow discipline and bridge reading | `supports bounded claim` |
+| `aoa-longitudinal-growth-snapshot` | growth overclaiming risk | repeated-window fixture contract, runner contract, schema-backed report, and proof dossier are now present, but the draft surface still needs cautious interpretation | chooser still keeps longitudinal movement separate from same-task baseline and broad capability narrative | `mixed support` |
 
 ## Interpretation note
 

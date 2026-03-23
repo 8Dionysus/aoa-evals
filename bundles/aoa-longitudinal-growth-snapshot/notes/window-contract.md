@@ -23,3 +23,8 @@ Treat style-only or report-only movement as:
 
 unless the bounded workflow evidence itself also moved.
 
+Keep the current materialized repeated-window proof flow aligned with:
+- `fixtures/repeated-window-bounded-v1/README.md`
+- `reports/example-report.json`
+- `reports/repeated-window-proof-flow-v1.md`
+

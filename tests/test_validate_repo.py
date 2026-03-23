@@ -397,26 +397,33 @@ def add_materialized_proof_artifacts(
     report_example: dict[str, object],
     include_fixture_contract: bool = True,
     include_paired_readout: bool = False,
+    include_runner_contract: bool = True,
+    fixture_family_path: str = "fixtures/shared-bounded-family/README.md",
+    shared_case_surface: str = "shared bounded case family for validation",
+    bounded_replacement_rule: str = "replace only with the same bounded case class and public-safe evidence surface",
+    public_safe_requirements: list[str] | None = None,
+    runner_inputs: list[str] | None = None,
+    paired_readout_path: str = "reports/paired-proof.md",
 ) -> None:
     write_text(repo_root / "runners" / "reportable_proof_contract.md", "# Runner Contract\n")
     write_text(repo_root / "scorers" / "bounded_rubric_breakdown.py", "def helper():\n    return {'ok': True}\n")
     if include_paired_readout:
-        write_text(repo_root / "reports" / "paired-proof.md", "# Paired Proof\n")
+        write_text(repo_root / Path(paired_readout_path), "# Paired Proof\n")
 
-    fixture_family_path = "fixtures/shared-bounded-family/README.md"
     if include_fixture_contract:
-        write_text(repo_root / "fixtures" / "shared-bounded-family" / "README.md", "# Shared Fixture Family\n")
+        public_safe_requirements = public_safe_requirements or [
+            "outside reviewers can inspect the surface",
+        ]
+        write_text(repo_root / Path(fixture_family_path), "# Shared Fixture Family\n")
         write_text(
             repo_root / "bundles" / bundle_name / "fixtures" / "contract.json",
             json.dumps(
                 {
                     "contract_version": 1,
                     "shared_fixture_family_path": fixture_family_path,
-                    "shared_case_surface": "shared bounded case family for validation",
-                    "bounded_replacement_rule": "replace only with the same bounded case class and public-safe evidence surface",
-                    "public_safe_requirements": [
-                        "outside reviewers can inspect the surface",
-                    ],
+                    "shared_case_surface": shared_case_surface,
+                    "bounded_replacement_rule": bounded_replacement_rule,
+                    "public_safe_requirements": public_safe_requirements,
                 },
                 indent=2,
             ),
@@ -433,24 +440,267 @@ def add_materialized_proof_artifacts(
         json.dumps(report_example, indent=2),
     )
 
-    runner_contract: dict[str, object] = {
-        "contract_version": 1,
-        "runner_surface_path": "runners/reportable_proof_contract.md",
-        "inputs": ["bounded case dossier"],
-        "scorer_helper_paths": ["scorers/bounded_rubric_breakdown.py"],
-        "report_schema_path": schema_path,
-        "report_example_path": example_path,
-    }
-    if include_fixture_contract:
-        runner_contract["fixture_contract_paths"] = [
-            f"bundles/{bundle_name}/fixtures/contract.json"
-        ]
-    if include_paired_readout:
-        runner_contract["paired_readout_path"] = "reports/paired-proof.md"
+    if include_runner_contract:
+        runner_contract: dict[str, object] = {
+            "contract_version": 1,
+            "runner_surface_path": "runners/reportable_proof_contract.md",
+            "inputs": runner_inputs or ["bounded case dossier"],
+            "scorer_helper_paths": ["scorers/bounded_rubric_breakdown.py"],
+            "report_schema_path": schema_path,
+            "report_example_path": example_path,
+        }
+        if include_fixture_contract:
+            runner_contract["fixture_contract_paths"] = [
+                f"bundles/{bundle_name}/fixtures/contract.json"
+            ]
+        if include_paired_readout:
+            runner_contract["paired_readout_path"] = paired_readout_path
 
-    write_text(
-        repo_root / "bundles" / bundle_name / "runners" / "contract.json",
-        json.dumps(runner_contract, indent=2),
+        write_text(
+            repo_root / "bundles" / bundle_name / "runners" / "contract.json",
+            json.dumps(runner_contract, indent=2),
+        )
+
+
+def add_fixed_baseline_proof_artifacts(
+    repo_root: Path,
+    *,
+    bundle_name: str,
+    status: str = "draft",
+    include_fixture_contract: bool = True,
+    include_runner_contract: bool = True,
+) -> None:
+    add_materialized_proof_artifacts(
+        repo_root,
+        bundle_name=bundle_name,
+        include_fixture_contract=include_fixture_contract,
+        include_runner_contract=include_runner_contract,
+        include_paired_readout=True,
+        fixture_family_path="fixtures/frozen-same-task-v1/README.md",
+        shared_case_surface="shared frozen same-task case family for validation",
+        bounded_replacement_rule="replace only with the same bounded task family, the same named frozen baseline target, and the same visible evidence surface",
+        public_safe_requirements=[
+            "the frozen baseline target stays visible and inspectable",
+            "baseline and candidate stay on the same bounded case family",
+        ],
+        runner_inputs=[
+            "frozen baseline target",
+            "candidate run family on the same bounded cases",
+            "per-case comparison notes",
+        ],
+        paired_readout_path="reports/same-task-baseline-proof-flow-v1.md",
+        report_schema={
+            "type": "object",
+            "additionalProperties": False,
+            "required": [
+                "eval_name",
+                "bundle_status",
+                "object_under_evaluation",
+                "verdict",
+                "claim_boundary",
+                "limitations",
+                "baseline_target",
+                "case_family",
+                "per_case_comparisons",
+            ],
+            "properties": {
+                "eval_name": {"const": bundle_name},
+                "bundle_status": {"const": status},
+                "object_under_evaluation": {"const": "bounded test surface"},
+                "verdict": {
+                    "type": "string",
+                    "enum": [
+                        "no material regression",
+                        "mixed regression signal",
+                        "regression present",
+                    ],
+                },
+                "claim_boundary": {"type": "string"},
+                "limitations": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "minItems": 1,
+                },
+                "baseline_target": {"type": "string"},
+                "case_family": {"type": "string"},
+                "per_case_comparisons": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": [
+                            "case_id",
+                            "baseline_note",
+                            "candidate_note",
+                            "comparative_reading",
+                            "comparison_note",
+                        ],
+                        "properties": {
+                            "case_id": {"type": "string"},
+                            "baseline_note": {"type": "string"},
+                            "candidate_note": {"type": "string"},
+                            "comparative_reading": {
+                                "type": "string",
+                                "enum": [
+                                    "no material regression",
+                                    "bounded improvement present",
+                                    "noisy variation",
+                                    "regression present",
+                                ],
+                            },
+                            "comparison_note": {"type": "string"},
+                        },
+                    },
+                },
+            },
+        },
+        report_example={
+            "eval_name": bundle_name,
+            "bundle_status": status,
+            "object_under_evaluation": "bounded test surface",
+            "verdict": "mixed regression signal",
+            "claim_boundary": "bounded same-task regression example for validation",
+            "limitations": ["still bounded"],
+            "baseline_target": "RS-v1 frozen bounded workflow reference",
+            "case_family": "frozen-same-task-v1",
+            "per_case_comparisons": [
+                {
+                    "case_id": "RS-01",
+                    "baseline_note": "baseline note",
+                    "candidate_note": "candidate note",
+                    "comparative_reading": "no material regression",
+                    "comparison_note": "comparison note",
+                }
+            ],
+        },
+    )
+
+
+def add_longitudinal_proof_artifacts(
+    repo_root: Path,
+    *,
+    bundle_name: str,
+    include_fixture_contract: bool = True,
+    include_runner_contract: bool = True,
+    report_example_override: dict[str, object] | None = None,
+) -> None:
+    report_example = {
+        "eval_name": bundle_name,
+        "bundle_status": "draft",
+        "object_under_evaluation": "bounded test surface",
+        "verdict": "mixed or unstable movement",
+        "claim_boundary": "bounded repeated-window movement example for validation",
+        "limitations": ["still bounded"],
+        "anchor_surface": "aoa-bounded-change-quality",
+        "window_family": "repeated-window-bounded-v1",
+        "windows": [
+            {
+                "window_id": "LG-01",
+                "window_order": 1,
+                "workflow_note": "workflow note",
+                "movement_reading": "no clear directional movement",
+                "context_note": "context note",
+            },
+            {
+                "window_id": "LG-02",
+                "window_order": 2,
+                "workflow_note": "workflow note later",
+                "movement_reading": "bounded improvement signal",
+                "context_note": "context note later",
+            },
+        ],
+    }
+    if report_example_override:
+        report_example.update(report_example_override)
+
+    add_materialized_proof_artifacts(
+        repo_root,
+        bundle_name=bundle_name,
+        include_fixture_contract=include_fixture_contract,
+        include_runner_contract=include_runner_contract,
+        include_paired_readout=True,
+        fixture_family_path="fixtures/repeated-window-bounded-v1/README.md",
+        shared_case_surface="shared repeated-window workflow family for validation",
+        bounded_replacement_rule="replace only with the same ordered named windows on one bounded workflow surface and explicit context notes",
+        public_safe_requirements=[
+            "the anchor workflow surface stays explicit across the window sequence",
+            "each window has a public report or summary artifact",
+        ],
+        runner_inputs=[
+            "ordered named windows",
+            "one public report or summary artifact per window",
+            "context-shift notes",
+        ],
+        paired_readout_path="reports/repeated-window-proof-flow-v1.md",
+        report_schema={
+            "type": "object",
+            "additionalProperties": False,
+            "required": [
+                "eval_name",
+                "bundle_status",
+                "object_under_evaluation",
+                "verdict",
+                "claim_boundary",
+                "limitations",
+                "anchor_surface",
+                "window_family",
+                "windows",
+            ],
+            "properties": {
+                "eval_name": {"const": bundle_name},
+                "bundle_status": {"const": "draft"},
+                "object_under_evaluation": {"const": "bounded test surface"},
+                "verdict": {
+                    "type": "string",
+                    "enum": [
+                        "bounded improvement signal",
+                        "no clear directional movement",
+                        "mixed or unstable movement",
+                        "bounded regression signal",
+                    ],
+                },
+                "claim_boundary": {"type": "string"},
+                "limitations": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "minItems": 1,
+                },
+                "anchor_surface": {"type": "string"},
+                "window_family": {"type": "string"},
+                "windows": {
+                    "type": "array",
+                    "minItems": 2,
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": [
+                            "window_id",
+                            "window_order",
+                            "workflow_note",
+                            "movement_reading",
+                            "context_note",
+                        ],
+                        "properties": {
+                            "window_id": {"type": "string"},
+                            "window_order": {"type": "integer", "minimum": 1},
+                            "workflow_note": {"type": "string"},
+                            "movement_reading": {
+                                "type": "string",
+                                "enum": [
+                                    "bounded improvement signal",
+                                    "no clear directional movement",
+                                    "mixed or unstable movement",
+                                    "bounded regression signal",
+                                ],
+                            },
+                            "context_note": {"type": "string"},
+                        },
+                    },
+                },
+            },
+        },
+        report_example=report_example,
     )
 
 
@@ -825,6 +1075,72 @@ def test_validate_repo_requires_fixed_baseline_contract_phrases(tmp_path: Path) 
     )
 
 
+def test_validate_repo_requires_materialized_report_artifacts_for_fixed_baseline(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-missing-fixed-baseline-report-artifacts",
+        category="regression",
+        claim_type="regression",
+        baseline_mode="fixed-baseline",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+        evidence_entries=[
+            {"kind": "origin_need", "path": "notes/origin-need.md"},
+            {"kind": "support_note", "path": "notes/comparison-contract.md"},
+            {"kind": "baseline_readiness", "path": "notes/baseline-readiness.md"},
+            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+        ],
+        support_files={
+            "notes/origin-need.md": "# Origin Need\n",
+            "notes/comparison-contract.md": "# Comparison Contract\nbaseline target\nnoisy variation\nstyle-only overread\n",
+            "notes/baseline-readiness.md": "# Baseline Readiness\n",
+            "examples/example-report.md": "# Example Report\n",
+            "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
+        },
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("reports/summary.schema.json" in issue.message for issue in issues)
+    assert any("reports/example-report.json" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_runner_contract_for_fixed_baseline(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-missing-fixed-baseline-runner",
+        category="regression",
+        claim_type="regression",
+        baseline_mode="fixed-baseline",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+        evidence_entries=[
+            {"kind": "origin_need", "path": "notes/origin-need.md"},
+            {"kind": "support_note", "path": "notes/comparison-contract.md"},
+            {"kind": "baseline_readiness", "path": "notes/baseline-readiness.md"},
+            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+        ],
+        support_files={
+            "notes/origin-need.md": "# Origin Need\n",
+            "notes/comparison-contract.md": "# Comparison Contract\nbaseline target\nnoisy variation\nstyle-only overread\n",
+            "notes/baseline-readiness.md": "# Baseline Readiness\n",
+            "examples/example-report.md": "# Example Report\n",
+            "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
+        },
+    )
+    add_fixed_baseline_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-missing-fixed-baseline-runner",
+        include_runner_contract=False,
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("runners/contract.json" in issue.message for issue in issues)
+
+
 def test_validate_repo_requires_peer_compare_contract_phrases(tmp_path: Path) -> None:
     make_eval_bundle(
         tmp_path,
@@ -857,6 +1173,41 @@ def test_validate_repo_requires_peer_compare_contract_phrases(tmp_path: Path) ->
         in issue.message
         for issue in issues
     )
+
+
+def test_validate_repo_requires_fixture_contract_for_longitudinal_window(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-missing-longitudinal-fixture",
+        category="longitudinal",
+        claim_type="longitudinal",
+        baseline_mode="longitudinal-window",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+        evidence_entries=[
+            {"kind": "origin_need", "path": "notes/origin-need.md"},
+            {"kind": "support_note", "path": "notes/window-contract.md"},
+            {"kind": "baseline_readiness", "path": "notes/baseline-readiness.md"},
+            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+        ],
+        support_files={
+            "notes/origin-need.md": "# Origin Need\n",
+            "notes/window-contract.md": "# Window Contract\nordered window\nanchor workflow surface\nno clear directional movement\nmixed or unstable movement\n",
+            "notes/baseline-readiness.md": "# Baseline Readiness\n",
+            "examples/example-report.md": "# Example Report\n",
+            "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
+        },
+    )
+    add_longitudinal_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-missing-longitudinal-fixture",
+        include_fixture_contract=False,
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("fixtures/contract.json" in issue.message for issue in issues)
 
 
 def test_validate_repo_rejects_missing_shared_fixture_family_path(tmp_path: Path) -> None:
@@ -925,6 +1276,84 @@ def test_validate_repo_rejects_report_example_that_violates_bundle_schema(tmp_pa
     assert any("report violation" in issue.message and "limitations" in issue.message for issue in issues)
 
 
+def test_validate_repo_rejects_longitudinal_report_with_duplicate_window_id(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-duplicate-longitudinal-window",
+        category="longitudinal",
+        claim_type="longitudinal",
+        baseline_mode="longitudinal-window",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_longitudinal_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-duplicate-longitudinal-window",
+        report_example_override={
+            "windows": [
+                {
+                    "window_id": "LG-01",
+                    "window_order": 1,
+                    "workflow_note": "workflow note",
+                    "movement_reading": "no clear directional movement",
+                    "context_note": "context note",
+                },
+                {
+                    "window_id": "LG-01",
+                    "window_order": 2,
+                    "workflow_note": "workflow note later",
+                    "movement_reading": "bounded improvement signal",
+                    "context_note": "context note later",
+                },
+            ]
+        },
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("window_id 'LG-01' must be unique" in issue.message for issue in issues)
+
+
+def test_validate_repo_rejects_longitudinal_report_with_non_increasing_window_order(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-out-of-order-longitudinal-window",
+        category="longitudinal",
+        claim_type="longitudinal",
+        baseline_mode="longitudinal-window",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_longitudinal_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-out-of-order-longitudinal-window",
+        report_example_override={
+            "windows": [
+                {
+                    "window_id": "LG-01",
+                    "window_order": 2,
+                    "workflow_note": "workflow note",
+                    "movement_reading": "no clear directional movement",
+                    "context_note": "context note",
+                },
+                {
+                    "window_id": "LG-02",
+                    "window_order": 2,
+                    "workflow_note": "workflow note later",
+                    "movement_reading": "bounded improvement signal",
+                    "context_note": "context note later",
+                },
+            ]
+        },
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("window_order values must be strictly increasing" in issue.message for issue in issues)
+
+
 def test_validate_repo_requires_roadmap_current_public_surface_to_be_a_starter_bundle(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-alpha")
     make_eval_bundle(tmp_path, name="aoa-beta")
@@ -946,7 +1375,8 @@ def test_validate_repo_allows_public_bundle_outside_starter_surface(tmp_path: Pa
     make_roadmap(tmp_path, ["aoa-starter-alpha"])
     write_catalogs(tmp_path)
 
-    assert run_validation(tmp_path) == []
+    assert run_validation(tmp_path, eval_name="aoa-starter-alpha") == []
+    assert run_validation(tmp_path, eval_name="aoa-public-draft") == []
 
 
 def test_validate_repo_allows_targeted_non_starter_bundle_validation(tmp_path: Path) -> None:
@@ -1388,14 +1818,14 @@ def test_validate_repo_accepts_valid_non_baseline_bundle_without_baseline_readin
     make_eval_bundle(tmp_path, name="aoa-valid-non-baseline")
     write_catalogs(tmp_path)
 
-    assert run_validation(tmp_path) == []
+    assert run_validation(tmp_path, eval_name="aoa-valid-non-baseline") == []
 
 
 def test_validate_repo_accepts_valid_bounded_bundle_with_review_note(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-valid-bounded", status="bounded")
     write_catalogs(tmp_path)
 
-    assert run_validation(tmp_path) == []
+    assert run_validation(tmp_path, eval_name="aoa-valid-bounded") == []
 
 
 def test_validate_repo_accepts_valid_baseline_bundle_with_readiness_evidence(tmp_path: Path) -> None:
@@ -1421,9 +1851,10 @@ def test_validate_repo_accepts_valid_baseline_bundle_with_readiness_evidence(tmp
             "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
         },
     )
+    add_fixed_baseline_proof_artifacts(tmp_path, bundle_name="aoa-valid-baseline")
     write_catalogs(tmp_path)
 
-    assert run_validation(tmp_path) == []
+    assert run_validation(tmp_path, eval_name="aoa-valid-baseline") == []
 
 
 def test_validate_repo_accepts_valid_baseline_status_bundle_with_portable_review(tmp_path: Path) -> None:
@@ -1437,9 +1868,33 @@ def test_validate_repo_accepts_valid_baseline_status_bundle_with_portable_review
         verdict_shape="comparative",
         report_format="comparative-summary",
     )
+    add_fixed_baseline_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-valid-baseline-status",
+        status="baseline",
+    )
     write_catalogs(tmp_path)
 
-    assert run_validation(tmp_path) == []
+    assert run_validation(tmp_path, eval_name="aoa-valid-baseline-status") == []
+
+
+def test_validate_repo_accepts_valid_longitudinal_bundle_with_materialized_artifacts(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-valid-longitudinal-materialized",
+        category="longitudinal",
+        claim_type="longitudinal",
+        baseline_mode="longitudinal-window",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_longitudinal_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-valid-longitudinal-materialized",
+    )
+    write_catalogs(tmp_path)
+
+    assert run_validation(tmp_path, eval_name="aoa-valid-longitudinal-materialized") == []
 
 
 def test_real_repo_has_only_one_non_local_shaped_portability_bundle() -> None:
@@ -1494,4 +1949,4 @@ def test_validate_repo_accepts_valid_bundle_with_materialized_proof_artifacts(tm
     )
     write_catalogs(tmp_path)
 
-    assert run_validation(tmp_path) == []
+    assert run_validation(tmp_path, eval_name="aoa-valid-proof-artifacts") == []

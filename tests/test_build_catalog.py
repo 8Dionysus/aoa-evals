@@ -187,3 +187,24 @@ def test_build_catalog_rejects_missing_required_section_contract(tmp_path: Path)
         assert "missing required section 'Skill traceability'" in str(exc)
     else:
         raise AssertionError("write_catalogs should reject missing required section contract")
+
+
+def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+    entries = {entry["name"]: entry for entry in full_catalog["evals"]}
+
+    regression_artifacts = entries["aoa-regression-same-task"]["proof_artifacts"]
+    longitudinal_artifacts = entries["aoa-longitudinal-growth-snapshot"]["proof_artifacts"]
+
+    assert regression_artifacts["shared_fixture_family_path"] == "fixtures/frozen-same-task-v1/README.md"
+    assert regression_artifacts["runner_contract_path"] == "bundles/aoa-regression-same-task/runners/contract.json"
+    assert regression_artifacts["report_schema_path"] == "bundles/aoa-regression-same-task/reports/summary.schema.json"
+    assert regression_artifacts["paired_readout_path"] == "reports/same-task-baseline-proof-flow-v1.md"
+
+    assert longitudinal_artifacts["shared_fixture_family_path"] == "fixtures/repeated-window-bounded-v1/README.md"
+    assert longitudinal_artifacts["runner_contract_path"] == "bundles/aoa-longitudinal-growth-snapshot/runners/contract.json"
+    assert longitudinal_artifacts["report_schema_path"] == "bundles/aoa-longitudinal-growth-snapshot/reports/summary.schema.json"
+    assert longitudinal_artifacts["paired_readout_path"] == "reports/repeated-window-proof-flow-v1.md"

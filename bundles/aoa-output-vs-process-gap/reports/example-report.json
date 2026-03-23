@@ -7,7 +7,8 @@
   "limitations": [
     "This report does not replace standalone artifact review.",
     "This report does not replace standalone workflow review.",
-    "This report is not a baseline-default comparator."
+    "This report is not a baseline-default comparator.",
+    "This report does not prove general capability growth or decline."
   ],
   "case_family": "OP-v1 shared bounded change comparison set",
   "paired_surfaces": [

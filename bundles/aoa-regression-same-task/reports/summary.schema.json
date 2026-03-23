@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-regression-same-task comparative-summary report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "baseline_target",
+    "case_family",
+    "per_case_comparisons"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-regression-same-task"
+    },
+    "bundle_status": {
+      "const": "baseline"
+    },
+    "object_under_evaluation": {
+      "const": "same-task bounded workflow regression against a frozen baseline"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "no material regression",
+        "mixed regression signal",
+        "regression present"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "baseline_target": {
+      "type": "string",
+      "minLength": 5
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "per_case_comparisons": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "baseline_note",
+          "candidate_note",
+          "comparative_reading",
+          "comparison_note"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "baseline_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "candidate_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "comparative_reading": {
+            "type": "string",
+            "enum": [
+              "no material regression",
+              "bounded improvement present",
+              "noisy variation",
+              "regression present"
+            ]
+          },
+          "comparison_note": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    }
+  }
+}

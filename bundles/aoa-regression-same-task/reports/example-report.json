@@ -1,0 +1,44 @@
+{
+  "eval_name": "aoa-regression-same-task",
+  "bundle_status": "baseline",
+  "object_under_evaluation": "same-task bounded workflow regression against a frozen baseline",
+  "verdict": "mixed regression signal",
+  "claim_boundary": "On this frozen same-task surface, the candidate can be compared against one named baseline target without treating style-only change as capability movement or turning the result into general growth.",
+  "limitations": [
+    "This report does not prove general capability growth or decline.",
+    "This report does not replace one-run workflow diagnosis.",
+    "This report does not explain every root cause behind a regression signal."
+  ],
+  "baseline_target": "RS-v1 frozen bounded workflow reference",
+  "case_family": "frozen-same-task-v1 bounded workflow set",
+  "per_case_comparisons": [
+    {
+      "case_id": "RS-01",
+      "baseline_note": "The baseline stayed scoped and reported verification limits clearly.",
+      "candidate_note": "The candidate matched the same bounded workflow surface with no visible loss.",
+      "comparative_reading": "no material regression",
+      "comparison_note": "The frozen baseline strength was preserved closely enough that the same-task read stayed bounded and stable."
+    },
+    {
+      "case_id": "RS-02",
+      "baseline_note": "The baseline left a reviewable verification trail and one explicit verification boundary.",
+      "candidate_note": "The candidate produced a cleaner-looking summary but skipped the visible check that made the baseline reviewable.",
+      "comparative_reading": "regression present",
+      "comparison_note": "The candidate lost a reviewable workflow strength that the frozen baseline had on the same case."
+    },
+    {
+      "case_id": "RS-03",
+      "baseline_note": "The baseline outcome was modest, but the path was bounded and explicit.",
+      "candidate_note": "The candidate changed phrasing and report structure while keeping the same bounded workflow evidence.",
+      "comparative_reading": "noisy variation",
+      "comparison_note": "The visible difference stayed style-shaped and too weak to justify a stronger regression or improvement claim."
+    },
+    {
+      "case_id": "RS-04",
+      "baseline_note": "The baseline handled the task cleanly but left one uncertainty implicit.",
+      "candidate_note": "The candidate kept the same bounded workflow surface and made the uncertainty explicit without widening scope.",
+      "comparative_reading": "bounded improvement present",
+      "comparison_note": "The candidate is reviewably stronger on this case, but one bounded improvement does not erase the regression elsewhere."
+    }
+  ]
+}

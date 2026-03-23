@@ -49,6 +49,7 @@ No additional planned starter bundles are currently named publicly.
   It should not be read as proof of outcome quality or as a substitute for future runtime instrumentation.
 - `aoa-regression-same-task` is the current baseline regression starter:
   did the candidate materially regress against a frozen baseline on the same bounded task family?
+  Its current materialized proof flow runs through `fixtures/frozen-same-task-v1/README.md`, `reports/example-report.json`, and `reports/same-task-baseline-proof-flow-v1.md`.
 - `aoa-artifact-review-rubric` is the current bounded artifact starter:
   did the produced artifact itself look strong on the visible task surface without implying a strong workflow?
   Start here when the question is artifact quality itself; do not skip straight to the bridge surface.
@@ -63,6 +64,7 @@ No additional planned starter bundles are currently named publicly.
   It is a meta-eval for public starter bundles, not a direct agent-behavior starter and not proof of canonical readiness.
 - `aoa-longitudinal-growth-snapshot` is the current longitudinal starter:
   do ordered comparable windows on the same bounded workflow surface show modest directional movement without turning that movement into broad capability growth?
+  Its current materialized proof flow runs through `fixtures/repeated-window-bounded-v1/README.md`, `reports/example-report.json`, and `reports/repeated-window-proof-flow-v1.md`, but the bundle remains draft.
 - `aoa-artifact-review-rubric` should stay on artifact quality:
   it should not drift into workflow-proof claims already covered by workflow starters.
 - `aoa-witness-trace-integrity` should stay on public witness reviewability:
@@ -108,6 +110,7 @@ No additional planned starter bundles are currently named publicly.
 - the witness/compost pilot pair now has its first draft proof surfaces in `aoa-witness-trace-integrity` and `aoa-compost-provenance-preservation`.
 - checkpoint-based restart fidelity now has its first draft public bundle in `aoa-long-horizon-depth`, but it is not part of the current starter set.
 - the first materialized paired proof flow now sits across `aoa-artifact-review-rubric`, `aoa-bounded-change-quality`, and `aoa-output-vs-process-gap` using shared fixtures, runner contracts, and schema-backed report examples.
+- the comparison spine now also has materialized proof flows for `aoa-regression-same-task` and `aoa-longitudinal-growth-snapshot` through shared fixture families, runner contracts, and schema-backed report examples.
 - the current first public `baseline` starter is `aoa-regression-same-task`; other comparative and longitudinal starters remain draft.
 - `aoa-eval-integrity-check` is now bounded as the public integrity sidecar for semantic overreach and public-surface drift.
 - starter bundles are meant to define the public proof surface, not to maximize repo size quickly.

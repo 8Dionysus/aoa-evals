@@ -590,14 +590,16 @@
       "object_under_evaluation": "ordered repeated-window movement on a bounded workflow surface",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": null,
-        "paired_readout_path": null,
-        "report_example_path": null,
-        "report_schema_path": null,
-        "runner_contract_path": null,
-        "runner_surface_path": null,
-        "scorer_helper_paths": [],
-        "shared_fixture_family_path": null
+        "fixture_contract_path": "bundles/aoa-longitudinal-growth-snapshot/fixtures/contract.json",
+        "paired_readout_path": "reports/repeated-window-proof-flow-v1.md",
+        "report_example_path": "bundles/aoa-longitudinal-growth-snapshot/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-longitudinal-growth-snapshot/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-longitudinal-growth-snapshot/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/repeated-window-bounded-v1/README.md"
       },
       "relations": [
         {
@@ -770,14 +772,16 @@
       "object_under_evaluation": "same-task bounded workflow regression against a frozen baseline",
       "portability_level": "portable",
       "proof_artifacts": {
-        "fixture_contract_path": null,
-        "paired_readout_path": null,
-        "report_example_path": null,
-        "report_schema_path": null,
-        "runner_contract_path": null,
-        "runner_surface_path": null,
-        "scorer_helper_paths": [],
-        "shared_fixture_family_path": null
+        "fixture_contract_path": "bundles/aoa-regression-same-task/fixtures/contract.json",
+        "paired_readout_path": "reports/same-task-baseline-proof-flow-v1.md",
+        "report_example_path": "bundles/aoa-regression-same-task/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-regression-same-task/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-regression-same-task/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/frozen-same-task-v1/README.md"
       },
       "relations": [
         {

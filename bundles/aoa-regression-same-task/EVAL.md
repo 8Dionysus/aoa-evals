@@ -104,6 +104,8 @@ The fixture surface is public-safe when:
 - the candidate and baseline are compared on the same visible cases
 - another repo could replace the case family with a comparable frozen bounded set and preserve the same regression question
 
+The current materialized shared family is `fixtures/frozen-same-task-v1/README.md`.
+
 ## Scoring or verdict logic
 
 This eval prefers a comparative bundle-level verdict with per-case comparison notes.
@@ -189,6 +191,8 @@ Execution expectations:
 - do not let style-only presentation shifts masquerade as capability movement
 - keep the named frozen baseline target visible in the public report
 - keep enough evidence that a careful reviewer can see why each comparative note was assigned
+- when shipping a machine-readable report, validate it against `reports/summary.schema.json`
+- keep the same-task baseline read compatible with `reports/same-task-baseline-proof-flow-v1.md`
 
 ## Outputs
 
@@ -201,6 +205,7 @@ The eval should produce:
 - regression or no-regression reading
 - noisy-variation notes where the comparison should stay weaker
 - explicit interpretation note
+- an optional schema-backed companion report artifact at `reports/example-report.json`
 
 A compact public comparative-summary may include:
 - baseline target

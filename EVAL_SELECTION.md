@@ -30,6 +30,7 @@ Current starter posture:
   use it when the main question is whether a bounded run left a reviewable witness trace before any downstream memo or compost use.
 - `aoa-regression-same-task` is the current baseline same-task regression starter:
   use it when you need a frozen-baseline comparison rather than a one-run judgment.
+  Its current materialized proof flow uses a shared frozen case family, runner contract, schema-backed report, and shared baseline dossier.
 - `aoa-artifact-review-rubric` is the current bounded artifact starter:
   use it when the main question is the produced artifact itself.
 - `aoa-compost-provenance-preservation` is the current draft compost artifact starter:
@@ -40,6 +41,7 @@ Current starter posture:
   use it when the main question is whether a public starter bundle is overstating what it proves or drifting out of alignment with its public contract, not when you need a direct agent-behavior eval.
 - `aoa-longitudinal-growth-snapshot` is the current draft longitudinal starter:
   use it when the main question is ordered repeated-window movement on the same bounded workflow surface.
+  Its current materialized proof flow uses a shared repeated-window family, runner contract, schema-backed report, and shared dossier, but the bundle remains draft.
 
 See also:
 - [EVAL_INDEX](EVAL_INDEX.md)
@@ -135,6 +137,7 @@ There is no `canonical` eval yet.
 Prefer `aoa-regression-same-task` when you need the first public `baseline` same-task comparison surface.
 Use `aoa-output-vs-process-gap` when you need artifact-side versus process-side peer comparison on the same bounded cases after the standalone artifact and workflow surfaces are already readable.
 Use `aoa-longitudinal-growth-snapshot` when you need ordered repeated-window movement on the same bounded workflow surface.
+`aoa-regression-same-task` and `aoa-longitudinal-growth-snapshot` now ship materialized proof artifacts, but only `aoa-regression-same-task` is the public baseline surface.
 Other comparative and growth surfaces remain modest draft work.
 Use `aoa-eval-integrity-check` as the bounded sidecar when a public maturity wave risks semantic overreach, bundle blur, or baseline/growth-by-association drift.
 

@@ -12,3 +12,5 @@ A shared fixture family should:
 
 Current shared families:
 - `bounded-change-paired-v1` for artifact/process pairing on the bounded change corpus
+- `frozen-same-task-v1` for frozen same-task regression against one named baseline target
+- `repeated-window-bounded-v1` for ordered repeated-window movement on one named workflow surface

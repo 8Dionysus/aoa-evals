@@ -1,0 +1,44 @@
+{
+  "eval_name": "aoa-longitudinal-growth-snapshot",
+  "bundle_status": "draft",
+  "object_under_evaluation": "ordered repeated-window movement on a bounded workflow surface",
+  "verdict": "mixed or unstable movement",
+  "claim_boundary": "Across this named repeated-window sequence, the repository can read modest directional movement on one anchor workflow surface without turning cleaner reports or one vivid window into general growth.",
+  "limitations": [
+    "This report does not prove general capability growth.",
+    "This report does not replace same-task frozen-baseline comparison.",
+    "This report does not prove durable movement outside the named window sequence."
+  ],
+  "anchor_surface": "aoa-bounded-change-quality",
+  "window_family": "repeated-window-bounded-v1 bounded workflow sequence",
+  "windows": [
+    {
+      "window_id": "LG-01",
+      "window_order": 1,
+      "workflow_note": "Bounded workflow discipline was modest but reviewable on the anchor surface.",
+      "movement_reading": "no clear directional movement",
+      "context_note": "Initial named window establishes the comparison surface before any directional read."
+    },
+    {
+      "window_id": "LG-02",
+      "window_order": 2,
+      "workflow_note": "Verification naming and scope discipline improved without major contract drift.",
+      "movement_reading": "bounded improvement signal",
+      "context_note": "Reviewer posture stayed comparable and the same anchor workflow surface remained visible."
+    },
+    {
+      "window_id": "LG-03",
+      "window_order": 3,
+      "workflow_note": "Summaries became cleaner, but workflow evidence looked mostly flat relative to LG-02.",
+      "movement_reading": "no clear directional movement",
+      "context_note": "Report polish increased more than bounded workflow evidence, so style stayed weaker than movement."
+    },
+    {
+      "window_id": "LG-04",
+      "window_order": 4,
+      "workflow_note": "One visible workflow strength from LG-02 disappeared and the final window looked less stable.",
+      "movement_reading": "mixed or unstable movement",
+      "context_note": "Reviewer mix changed and one case slice refreshed enough to keep the top-line read cautious."
+    }
+  ]
+}

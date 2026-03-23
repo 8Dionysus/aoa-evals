@@ -11,12 +11,12 @@
   "corpus_slice": "current public starter bundles",
   "per_target_breakdown": [
     {
-      "target_bundle": "aoa-bounded-change-quality",
-      "integrity_risk_class": "artifact/process collapse risk",
+      "target_bundle": "aoa-regression-same-task",
+      "integrity_risk_class": "style-only movement risk",
       "target_reading": "supports bounded claim",
-      "note": "The workflow bundle stays distinct from artifact-only and paired bridge reads on the same bounded family.",
-      "evidence_coverage": "support notes, integrity check, and schema-backed report artifacts all align",
-      "routing_note": "chooser still routes artifact-only questions away from the composite workflow starter"
+      "note": "The frozen same-task surface keeps style-only differences weaker than the baseline comparison evidence and does not narrate one same-task result as general growth.",
+      "evidence_coverage": "frozen fixture contract, runner contract, schema-backed report, and shared baseline dossier all align",
+      "routing_note": "public wording keeps the baseline surface separate from repeated-window movement and one-run workflow starters"
     },
     {
       "target_bundle": "aoa-output-vs-process-gap",
@@ -30,9 +30,9 @@
       "target_bundle": "aoa-longitudinal-growth-snapshot",
       "integrity_risk_class": "growth overclaiming risk",
       "target_reading": "mixed support",
-      "note": "The longitudinal starter still needs stronger repeated-window artifacts before movement can be read as more than bounded directional evidence.",
-      "evidence_coverage": "window contract and example report exist, but shared repeated-window fixture infrastructure is not yet materialized",
-      "routing_note": "public wording keeps longitudinal movement separate from broad capability narrative"
+      "note": "The longitudinal starter now has repeated-window proof artifacts, but the draft surface still needs cautious wording so ordered movement is not read as broad capability growth.",
+      "evidence_coverage": "window contract, repeated-window fixture contract, runner contract, schema-backed report, and shared dossier are present",
+      "routing_note": "public wording keeps longitudinal movement separate from same-task baseline comparison and broad capability narrative"
     }
   ]
 }

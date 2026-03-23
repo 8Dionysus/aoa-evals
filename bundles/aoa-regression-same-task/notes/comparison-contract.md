@@ -18,3 +18,5 @@ Public summary discipline:
 - treat style-only or presentation-only changes as noisy variation unless the bounded workflow evidence also moved
 - do not let a single improved case erase a material regression somewhere else in the frozen set
 - do not overread one same-task comparison as proof of broad capability growth or decline
+- keep the frozen case-family contract aligned with `fixtures/frozen-same-task-v1/README.md`
+- keep any schema-backed companion report and shared dossier aligned with `reports/example-report.json` and `reports/same-task-baseline-proof-flow-v1.md`

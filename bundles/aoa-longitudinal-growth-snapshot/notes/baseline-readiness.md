@@ -13,6 +13,8 @@ Minimum readiness for this surface:
   - bounded regression
   - no clear directional movement
   - mixed or unstable movement
+- the shared window-family contract remains `fixtures/repeated-window-bounded-v1/README.md`
+- the schema-backed report and dossier remain aligned with `reports/example-report.json` and `reports/repeated-window-proof-flow-v1.md`
 
 If those conditions do not hold,
 the honest result is not a stronger longitudinal claim.

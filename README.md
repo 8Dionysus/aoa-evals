@@ -38,6 +38,7 @@ If you are new to this repository, follow this short path:
 - if you need the current comparison ladder, read `docs/COMPARISON_SPINE_GUIDE.md`
 - if you need the artifact/process read order, read `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
 - if you need cautious repeated-window reading, read `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
+- if you need shared fixture/runner/scorer conventions, read `docs/SHARED_PROOF_INFRA_GUIDE.md`
 
 ## What belongs here
 

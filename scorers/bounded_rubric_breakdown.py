@@ -65,7 +65,21 @@ def build_comparative_case(
     }
 
 
-def build_target_risk(
+def build_transition_note(
+    window_id: str,
+    movement_reading: str,
+    context_note: str,
+    transition_note: str,
+) -> dict[str, str]:
+    return {
+        "window_id": window_id,
+        "movement_reading": movement_reading,
+        "context_note": context_note,
+        "transition_note": transition_note,
+    }
+
+
+def build_integrity_risk_entry(
     target_bundle: str,
     integrity_risk_class: str,
     target_reading: str,
@@ -85,4 +99,23 @@ def build_target_risk(
     if routing_note:
         payload["routing_note"] = routing_note
     return payload
+
+
+def build_target_risk(
+    target_bundle: str,
+    integrity_risk_class: str,
+    target_reading: str,
+    note: str,
+    *,
+    evidence_coverage: str | None = None,
+    routing_note: str | None = None,
+) -> dict[str, str]:
+    return build_integrity_risk_entry(
+        target_bundle,
+        integrity_risk_class,
+        target_reading,
+        note,
+        evidence_coverage=evidence_coverage,
+        routing_note=routing_note,
+    )
 

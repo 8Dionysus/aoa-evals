@@ -30,6 +30,7 @@ Choose the path that matches your question:
   - [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md)
   - [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
   - [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
+  - [Shared Proof Infra Guide](SHARED_PROOF_INFRA_GUIDE.md)
 - I need release process guidance:
   - [Releasing `aoa-evals`](RELEASING.md)
 
@@ -75,6 +76,7 @@ These guides explain what makes an eval bundle portable, bounded, and honest abo
 - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
 - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
 - [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md)
+- [Shared Proof Infra Guide](SHARED_PROOF_INFRA_GUIDE.md)
 
 ### Derived bridge surfaces
 
@@ -117,6 +119,7 @@ feed existing eval bundles without creating a second proof canon.
 9. [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md)
 10. [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
 11. [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
+12. [Shared Proof Infra Guide](SHARED_PROOF_INFRA_GUIDE.md)
 
 ## Companion Repository Surfaces
 
@@ -128,6 +131,7 @@ These are outside `docs/` but matter when navigating the repo:
 - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
 - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
 - [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md)
+- [Shared Proof Infra Guide](SHARED_PROOF_INFRA_GUIDE.md)
 - `../reports/same-task-baseline-proof-flow-v1.md`
 - `../reports/comparison-spine-proof-flow-v1.md`
 - `../reports/artifact-process-paired-proof-flow-v2.md`
@@ -147,6 +151,7 @@ These are outside `docs/` but matter when navigating the repo:
 - Prefer boundary guides when the question is "is this bundle really portable and honest enough to publish?"
 - Prefer [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md) when the question is "which artifact/process surface should I read first, and where does the bridge stop?"
 - Prefer [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md) when the question is "what makes repeated windows comparable enough for a bounded movement read?"
+- Prefer [Shared Proof Infra Guide](SHARED_PROOF_INFRA_GUIDE.md) when the question is "how do fixture, runner, scorer, and dossier contracts stay reusable without hiding meaning?"
 - Prefer [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md) when the question is "how do playbook artifacts, verification artifacts, or `WitnessTrace` sidecars become bounded eval evidence?"
 - Treat the docs listed here as the canonical wording layer for future public bundle authoring.
 

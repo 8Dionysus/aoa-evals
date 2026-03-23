@@ -194,6 +194,8 @@ def build_default_comparison_surface(
         ensure_support_bundle(repo_root, "aoa-peer-right")
         write_text(repo_root / "fixtures" / "bounded-change-paired-v1" / "README.md", "# Shared Fixture Family\n")
         write_text(repo_root / "reports" / "artifact-process-paired-proof-flow-v1.md", "# Paired Proof\n")
+        write_text(repo_root / "fixtures" / "bounded-change-paired-v2" / "README.md", "# Shared Fixture Family\n")
+        write_text(repo_root / "reports" / "artifact-process-paired-proof-flow-v2.md", "# Paired Proof\n")
         return {
             "shared_family_path": "fixtures/bounded-change-paired-v1/README.md",
             "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
@@ -242,6 +244,7 @@ def make_repo_docs(
         See `docs/COMPARISON_SPINE_GUIDE.md` when you need the comparison ladder.
         See `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md` when you need the artifact/process layer.
         See `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md` when you need repeated-window discipline.
+        See `docs/SHARED_PROOF_INFRA_GUIDE.md` when you need shared proof infra rules.
         Generated comparison routing lives in `generated/comparison_spine.json`.
         """,
     )
@@ -253,6 +256,7 @@ def make_repo_docs(
         - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
         - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
         - [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md)
+        - [Shared Proof Infra Guide](SHARED_PROOF_INFRA_GUIDE.md)
         - `generated/comparison_spine.json`
         """,
     )
@@ -290,6 +294,17 @@ def make_repo_docs(
         context_note
         transition_note
         after the one-run and baseline reads
+        """,
+    )
+    write_text(
+        repo_root / "docs" / "SHARED_PROOF_INFRA_GUIDE.md",
+        """
+        # Shared Proof Infra Guide
+
+        shared_fixture_family_path
+        additional_shared_fixture_family_paths
+        paired_readout_path
+        additional_paired_readout_paths
         """,
     )
     write_text(

@@ -57,6 +57,7 @@ SECTION_SOURCE_OF_TRUTH = eval_section_contract.SECTION_SOURCE_OF_TRUTH
 COMPARISON_SPINE_NAME = eval_comparison_spine_contract.COMPARISON_SPINE_NAME
 COMPARISON_SPINE_VERSION = eval_comparison_spine_contract.COMPARISON_SPINE_VERSION
 COMPARISON_SPINE_SOURCE_OF_TRUTH = eval_comparison_spine_contract.COMPARISON_SPINE_SOURCE_OF_TRUTH
+ARTIFACT_PROCESS_GUIDE_NAME = "docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md"
 
 MIRRORED_FIELDS = (
     "name",
@@ -238,6 +239,14 @@ def markdown_anchors(path: Path) -> set[str]:
         seen[base] = suffix + 1
         anchors.add(base if suffix == 0 else f"{base}-{suffix}")
     return anchors
+
+
+def read_text_or_issue(path: Path, issues: list[ValidationIssue], *, root: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        issues.append(ValidationIssue(relative_location(path, root), "file is missing"))
+        return ""
 
 
 def validate_against_schema(
@@ -1357,6 +1366,18 @@ def validate_bundle_fixture_contract(
             issues=issues,
         )
 
+    additional_shared_fixture_family_paths = payload.get("additional_shared_fixture_family_paths", [])
+    if isinstance(additional_shared_fixture_family_paths, list):
+        for index, value in enumerate(additional_shared_fixture_family_paths):
+            if not isinstance(value, str):
+                continue
+            validate_repo_relative_contract_path(
+                repo_root,
+                value,
+                location=f"{location}.additional_shared_fixture_family_paths[{index}]",
+                issues=issues,
+            )
+
 
 def validate_bundle_runner_contract(
     repo_root: Path,
@@ -1390,6 +1411,18 @@ def validate_bundle_runner_contract(
                 repo_root,
                 raw_value,
                 location=f"{location}.{field_name}",
+                issues=issues,
+            )
+
+    additional_paired_readout_paths = payload.get("additional_paired_readout_paths", [])
+    if isinstance(additional_paired_readout_paths, list):
+        for index, value in enumerate(additional_paired_readout_paths):
+            if not isinstance(value, str):
+                continue
+            validate_repo_relative_contract_path(
+                repo_root,
+                value,
+                location=f"{location}.additional_paired_readout_paths[{index}]",
                 issues=issues,
             )
 
@@ -1849,6 +1882,116 @@ def validate_comparison_doctrine_surfaces(
                 )
             )
 
+    return issues
+
+
+def validate_artifact_process_doctrine_surfaces(
+    repo_root: Path,
+    records: Sequence[EvalBundleRecord],
+    selected_evals: set[str] | None = None,
+) -> list[ValidationIssue]:
+    relevant_names = {
+        "aoa-artifact-review-rubric",
+        "aoa-bounded-change-quality",
+        "aoa-output-vs-process-gap",
+        "aoa-witness-trace-integrity",
+        "aoa-compost-provenance-preservation",
+    }
+    if selected_evals is not None and not relevant_names.intersection(selected_evals):
+        return []
+
+    issues: list[ValidationIssue] = []
+    guide_text = read_text_or_issue(
+        repo_root / "docs" / "ARTIFACT_PROCESS_SEPARATION_GUIDE.md",
+        issues,
+        root=repo_root,
+    )
+    readme_text = read_text_or_issue(repo_root / "README.md", issues, root=repo_root)
+    docs_readme_text = read_text_or_issue(
+        repo_root / "docs" / "README.md",
+        issues,
+        root=repo_root,
+    )
+    selection_text = read_text_or_issue(
+        repo_root / EVAL_SELECTION_NAME,
+        issues,
+        root=repo_root,
+    )
+    index_text = read_text_or_issue(
+        repo_root / EVAL_INDEX_NAME,
+        issues,
+        root=repo_root,
+    )
+
+    if ARTIFACT_PROCESS_GUIDE_NAME not in readme_text:
+        issues.append(
+            ValidationIssue(
+                "README.md",
+                f"README.md must reference {ARTIFACT_PROCESS_GUIDE_NAME}",
+            )
+        )
+    if "Artifact Process Separation Guide" not in docs_readme_text:
+        issues.append(
+            ValidationIssue(
+                "docs/README.md",
+                "docs/README.md must list Artifact Process Separation Guide",
+            )
+        )
+    if "## Artifact Process Layer" not in index_text:
+        issues.append(
+            ValidationIssue(
+                EVAL_INDEX_NAME,
+                "EVAL_INDEX.md must describe the artifact/process layer as a bounded program layer",
+            )
+        )
+    if "standalone artifact and workflow surfaces" not in selection_text:
+        issues.append(
+            ValidationIssue(
+                EVAL_SELECTION_NAME,
+                "EVAL_SELECTION.md must say that the artifact/process bridge is read only after the standalone artifact and workflow surfaces",
+            )
+        )
+
+    for phrase in (
+        "aoa-artifact-review-rubric",
+        "aoa-bounded-change-quality",
+        "aoa-output-vs-process-gap",
+        "aoa-witness-trace-integrity",
+        "aoa-compost-provenance-preservation",
+        "matched conditions",
+        "style-over-substance",
+        "fixtures/bounded-change-paired-v2/README.md",
+        "reports/artifact-process-paired-proof-flow-v2.md",
+    ):
+        if phrase not in guide_text:
+            issues.append(
+                ValidationIssue(
+                    ARTIFACT_PROCESS_GUIDE_NAME,
+                    f"artifact/process doctrine must mention '{phrase}'",
+                )
+            )
+
+    record_map = {record.name: record for record in records}
+    bundle_phrase_checks = {
+        "aoa-artifact-review-rubric": ("artifact-side reading",),
+        "aoa-bounded-change-quality": ("process-side reading",),
+        "aoa-output-vs-process-gap": ("matched-condition", "side_by_side_note"),
+        "aoa-witness-trace-integrity": ("adjacent witness context",),
+        "aoa-compost-provenance-preservation": ("adjacent compost context",),
+    }
+    for name, phrases in bundle_phrase_checks.items():
+        record = record_map.get(name)
+        if record is None:
+            continue
+        bundle_text = "\n".join(record.sections.values())
+        for phrase in phrases:
+            if phrase not in bundle_text:
+                issues.append(
+                    ValidationIssue(
+                        relative_location(record.eval_md_path, repo_root),
+                        f"artifact/process distinctness wording must mention '{phrase}'",
+                    )
+                )
     return issues
 
 
@@ -2769,6 +2912,13 @@ def run_validation(
     if not source_issues:
         issues.extend(
             validate_comparison_doctrine_surfaces(
+                repo_root,
+                records,
+                selected_evals=selected_evals,
+            )
+        )
+        issues.extend(
+            validate_artifact_process_doctrine_surfaces(
                 repo_root,
                 records,
                 selected_evals=selected_evals,

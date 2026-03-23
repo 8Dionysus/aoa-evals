@@ -24,6 +24,7 @@ Choose the path that matches your question:
   - [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md)
 - I need to understand portability, fixtures, blind spots, or baseline comparison:
   - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
+  - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
   - [Fixture Surface Guide](FIXTURE_SURFACE_GUIDE.md)
   - [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md)
   - [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
@@ -71,6 +72,7 @@ These guides explain what makes an eval bundle portable, bounded, and honest abo
 - [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md)
 - [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
 - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
+- [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
 
 ### Derived bridge surfaces
 
@@ -109,8 +111,9 @@ feed existing eval bundles without creating a second proof canon.
 5. [Fixture Surface Guide](FIXTURE_SURFACE_GUIDE.md)
 6. [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md)
 7. [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
-8. [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
-9. [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
+8. [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
+9. [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
+10. [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
 
 ## Companion Repository Surfaces
 
@@ -120,8 +123,10 @@ These are outside `docs/` but matter when navigating the repo:
 - [EVAL_INDEX](../EVAL_INDEX.md)
 - [EVAL_SELECTION](../EVAL_SELECTION.md)
 - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
+- [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
 - `../reports/same-task-baseline-proof-flow-v1.md`
 - `../reports/comparison-spine-proof-flow-v1.md`
+- `../reports/artifact-process-paired-proof-flow-v2.md`
 - `../reports/repeated-window-proof-flow-v1.md`
 - [CONTRIBUTING](../CONTRIBUTING.md)
 - [Eval Template](../templates/EVAL.template.md)
@@ -135,6 +140,7 @@ These are outside `docs/` but matter when navigating the repo:
 - Prefer `generated/eval_sections.full.json` when the question is "which exact eval section should I expand next?"
 - Prefer authored guides when the question is "what does this repo mean by this score, verdict, or boundary?"
 - Prefer boundary guides when the question is "is this bundle really portable and honest enough to publish?"
+- Prefer [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md) when the question is "which artifact/process surface should I read first, and where does the bridge stop?"
 - Prefer [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md) when the question is "how do playbook artifacts, verification artifacts, or `WitnessTrace` sidecars become bounded eval evidence?"
 - Treat the docs listed here as the canonical wording layer for future public bundle authoring.
 

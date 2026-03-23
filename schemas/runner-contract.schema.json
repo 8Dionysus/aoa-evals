@@ -53,6 +53,13 @@
       "type": "string",
       "minLength": 3
     },
+    "additional_paired_readout_paths": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
     "validation_commands": {
       "type": "array",
       "items": {

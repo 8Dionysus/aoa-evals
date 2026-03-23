@@ -36,6 +36,8 @@ and it is not a root-cause diagnostic surface by itself.
 Read the standalone artifact bundle `aoa-artifact-review-rubric`
 and the standalone workflow bundle `aoa-bounded-change-quality` first.
 Use this bridge only after those two surfaces are already clear.
+`aoa-witness-trace-integrity` and `aoa-compost-provenance-preservation` may sit adjacent to this layer,
+but they do not replace the standalone artifact-side or process-side readings.
 
 The goal is not to declare one side "the real truth."
 The goal is to test one bounded claim:
@@ -121,6 +123,7 @@ The fixture surface is public-safe when:
 - another repo could replace the cases with comparable bounded change tasks and preserve the same comparison posture
 
 The current materialized shared family is `fixtures/bounded-change-paired-v1/README.md`.
+The second matched family `fixtures/bounded-change-paired-v2/README.md` may deepen the same bridge surface without changing the peer surfaces.
 
 ## Scoring or verdict logic
 
@@ -137,6 +140,7 @@ Per-case review should ask:
 - what is the process-side reading on this case?
 - does one side materially outrun the other?
 - is the divergence real, or is it mostly style or presentation drift?
+- does the side-by-side note name matched-condition evidence directly rather than stylistic impression alone?
 - does the final comparative summary preserve the same bounded difference visible in the evidence?
 
 Bundle-level reading should stay downstream of per-case comparison notes.
@@ -173,6 +177,8 @@ In v1, the peer surfaces are:
 Its machine-readable comparison surface uses the shared family `fixtures/bounded-change-paired-v1/README.md`,
 publishes through `reports/artifact-process-paired-proof-flow-v1.md`,
 and should carry `aoa-eval-integrity-check` when a public wording or maturity wave risks turning the bridge into a baseline-by-association surface.
+The second dossier `reports/artifact-process-paired-proof-flow-v2.md`
+may deepen the same bridge read order without changing the current `peer_surfaces`.
 
 Neither side is the default truth source.
 The point is the bounded divergence or alignment between them on the same cases.
@@ -200,8 +206,9 @@ Execution expectations:
 - do not use trace/path separation as if it were the same comparative question
 - do not force every case into a winner when alignment or mixed evidence is more truthful
 - keep enough side-by-side evidence that a careful reviewer can see why each gap reading was assigned
+- make `side_by_side_note` name matched request, reviewer frame, or evidence-window facts when those facts shape the bridge verdict
 - when shipping a machine-readable report, validate it against `reports/summary.schema.json`
-- keep the paired read compatible with `reports/artifact-process-paired-proof-flow-v1.md`
+- keep the paired read compatible with `reports/artifact-process-paired-proof-flow-v1.md` and `reports/artifact-process-paired-proof-flow-v2.md`
 
 ## Outputs
 

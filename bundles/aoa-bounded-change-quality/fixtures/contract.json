@@ -1,6 +1,9 @@
 {
   "contract_version": 1,
   "shared_fixture_family_path": "fixtures/bounded-change-paired-v1/README.md",
+  "additional_shared_fixture_family_paths": [
+    "fixtures/bounded-change-paired-v2/README.md"
+  ],
   "shared_case_surface": "bounded non-trivial change cases that remain readable for workflow discipline, artifact quality, and paired artifact/process divergence without widening the claim",
   "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same bounded change ask class, keeps the visible request and workflow evidence inspectable, and still supports the paired artifact/process shapes without introducing private context.",
   "public_safe_requirements": [

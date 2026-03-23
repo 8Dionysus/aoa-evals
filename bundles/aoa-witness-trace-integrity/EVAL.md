@@ -21,6 +21,8 @@ This draft bundle is a `diagnostic` workflow eval.
 It checks whether the public witness artifact stays reviewable enough to support downstream memo writeback and compost distillation.
 It is not meant to prove final outcome quality,
 and it is not a substitute for full runtime instrumentation in `abyss-stack`.
+It may sit upstream of artifact/process pairing as adjacent witness context,
+but it does not replace `aoa-bounded-change-quality` as the process-side reading.
 
 The goal is not to prove total transparency.
 The goal is to test one bounded claim:

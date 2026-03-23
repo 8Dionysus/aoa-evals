@@ -11,6 +11,7 @@ but rather:
 See also:
 - [Documentation Map](README.md)
 - [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
+- [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
 - [Eval Selection](../EVAL_SELECTION.md)
 
 ## Current public comparison ladder

@@ -33,6 +33,7 @@ the produced artifact can be reviewably strong on the visible task surface
 without turning artifact polish into proof of workflow discipline.
 
 This bundle answers artifact quality, not process quality.
+Its output is the `artifact-side reading`, not the `process-side reading`.
 For process-side readings on the same cases, use `aoa-bounded-change-quality`.
 For artifact-versus-process divergence, use `aoa-output-vs-process-gap`.
 
@@ -103,6 +104,8 @@ A strong starter fixture set should include:
 For the current artifact/process paired proof flow,
 this bundle can reuse `fixtures/bounded-change-paired-v1/README.md`
 when the same cases also need workflow-side and bridge-side reads.
+The second matched family `fixtures/bounded-change-paired-v2/README.md`
+may deepen the same artifact/process layer without changing this bundle into a bridge surface.
 
 Fixture families should avoid:
 - giant artifacts with unbounded review burden
@@ -196,11 +199,13 @@ A careful run should:
 
 Execution expectations:
 - do not infer workflow strength from artifact polish alone
+- do not let matched-condition drift disappear when the same case feeds a downstream bridge verdict
 - do not let the final summary erase a weak rubric axis
 - do not use hidden local standards as if they were part of the visible request
 - keep enough evidence that a careful reviewer can see why each rubric axis was judged the way it was
 - keep approve/defer language separate from the failure/readout split
 - when shipping a machine-readable report, validate it against `reports/summary.schema.json`
+- keep the shared paired reads compatible with `reports/artifact-process-paired-proof-flow-v1.md` and `reports/artifact-process-paired-proof-flow-v2.md`
 
 ## Outputs
 

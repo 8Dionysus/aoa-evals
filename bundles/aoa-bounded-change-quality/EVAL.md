@@ -36,6 +36,7 @@ If the main question is tool-use path quality on cases where the tool path itsel
 use `aoa-tool-trajectory-discipline`.
 If the main question is whether polished output is outrunning process discipline or vice versa,
 use `aoa-output-vs-process-gap`.
+This bundle supplies the `process-side reading` in that layer; it should not be stretched into the artifact-side read.
 If the main question is repeated-window movement on this bounded workflow surface,
 use `aoa-longitudinal-growth-snapshot`.
 
@@ -112,6 +113,8 @@ when the same cases need to stay readable on:
 - the workflow surface
 - the artifact surface
 - the paired bridge surface
+The second matched family `fixtures/bounded-change-paired-v2/README.md`
+may deepen the same bridge layer without changing this bundle into an artifact-quality surface.
 
 Fixture families should avoid:
 - trivial typo-only edits
@@ -192,6 +195,7 @@ Execution expectations:
 - bounded reviewer judgment is allowed, but rubric use should stay explicit
 - when shipping a machine-readable report, validate it against `reports/summary.schema.json`
 - when used in the paired artifact/process flow, keep the shared fixture family and paired readout dossier visible
+- when used in that flow, keep matched conditions explicit enough that artifact polish cannot quietly replace workflow evidence
 
 ## Outputs
 

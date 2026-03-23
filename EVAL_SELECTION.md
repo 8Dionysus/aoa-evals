@@ -36,12 +36,14 @@ Current starter posture:
 - `aoa-compost-provenance-preservation` is the current draft compost artifact starter:
   use it when the main question is whether a witness-derived note or principle candidate preserved provenance and review posture.
 - `aoa-output-vs-process-gap` is the current draft artifact/process bridge starter:
-  use it when the main question is whether polished output is outrunning process discipline or vice versa after the standalone artifact and workflow surfaces are already legible.
+  use it when the main question is whether polished output is outrunning process discipline or vice versa after the standalone artifact and workflow surfaces are already legible and matched conditions are explicit.
 - `aoa-eval-integrity-check` is the current bounded integrity sidecar meta-eval for eval-bundle coherence:
   use it when the main question is whether a public starter bundle is overstating what it proves or drifting out of alignment with its public contract, especially across the comparison spine, not when you need a direct agent-behavior eval.
 - `aoa-longitudinal-growth-snapshot` is the current draft longitudinal starter:
   use it when the main question is ordered repeated-window movement on the same bounded workflow surface.
   Its current materialized proof flow uses a shared repeated-window family, runner contract, schema-backed report, and shared dossier, but the bundle remains draft.
+
+The artifact/process bridge is read only after the standalone artifact and workflow surfaces are already visible.
 
 See also:
 - [EVAL_INDEX](EVAL_INDEX.md)
@@ -91,7 +93,7 @@ See also:
 
 ### I need to judge the produced artifact itself
 - `aoa-artifact-review-rubric`
-  If the question is artifact-versus-process divergence on the same cases, switch to `aoa-output-vs-process-gap`.
+  If the question is artifact-versus-process divergence on the same cases, switch to `aoa-output-vs-process-gap` only after the standalone workflow read is already visible.
 
 ### I need to know whether a witness-derived compost artifact preserved provenance
 - `aoa-compost-provenance-preservation`
@@ -100,6 +102,7 @@ See also:
 ### I need to know whether polished output is outrunning process discipline
 - `aoa-output-vs-process-gap`
   Do not use this bridge surface as a replacement for standalone artifact review, standalone workflow review, or frozen-baseline comparison.
+  Read the side-by-side note as matched-condition evidence, not as stylistic explanation alone.
 
 ### I need to check whether a public starter bundle is coherent as an eval surface
 - `aoa-eval-integrity-check`
@@ -218,6 +221,7 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-artifact-review-rubric` is now a bounded one-run artifact surface; it stays on artifact quality only and does not imply strong workflow discipline or replace the bridge surface.
 - `aoa-compost-provenance-preservation` is a draft compost artifact surface; it checks provenance and review-state preservation on witness-derived artifacts and does not imply canon-readiness or replace general artifact review.
 - `aoa-output-vs-process-gap` remains a draft bridge surface; it now participates in the first materialized artifact/process paired proof flow, but it still does not replace standalone artifact review, standalone workflow review, trace/path separation, or the public baseline regression surface.
+- `aoa-output-vs-process-gap` now also carries a second matched family and paired dossier, but it still stays draft and does not inherit stronger status by association.
 - `aoa-eval-integrity-check` is now a bounded integrity sidecar meta-eval for public starter-bundle coherence and semantic anti-theater review across the comparison spine; it does not replace direct agent-behavior evaluation, promotion review, or proof of canonical readiness.
 - `aoa-longitudinal-growth-snapshot` is a repeated-window movement surface; it does not replace one-run workflow reading or frozen same-task regression.
 - `generated/comparison_spine.json` is now the minimal filtered reader surface for the comparison ladder.

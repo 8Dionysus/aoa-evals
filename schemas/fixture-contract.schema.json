@@ -19,6 +19,13 @@
       "type": "string",
       "minLength": 3
     },
+    "additional_shared_fixture_family_paths": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
     "shared_case_surface": {
       "type": "string",
       "minLength": 10

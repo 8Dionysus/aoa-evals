@@ -177,13 +177,15 @@ without hidden scoring assumptions or untracked private context.
 
 ## Current repository phase
 
-This repository is in bootstrap mode.
+This repository remains in public bootstrap,
+now with the first materialized comparison wave for frozen same-task and repeated-window surfaces.
 
 The current goal is to establish:
 - the public doctrine for bounded agent evaluation
 - the eval bundle shape and metadata contracts
 - the first starter eval bundles
 - portable scoring and report surfaces
+- shared fixture families, runner contracts, and schema-backed report examples for materialized comparison flows
 - baseline comparison discipline
 - the path toward trustworthy regression and longitudinal evaluation
 
@@ -221,6 +223,7 @@ python scripts/build_catalog.py
 
 The validator checks that generated catalogs and capsules exist, stay current, keep the min catalog as an exact projection of the full catalog, and keep capsules aligned 1:1 with the catalog surface.
 It also checks that `generated/eval_sections.full.json` exists, stays current, and remains 1:1 aligned with the catalog and capsule surfaces.
+It also checks that `fixed-baseline` and `longitudinal-window` comparative-summary bundles ship their materialized report, runner, and fixture contracts when those public surfaces are in use.
 
 An eval should say:
 - what it can support

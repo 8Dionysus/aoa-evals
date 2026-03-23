@@ -1,0 +1,22 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "ordered named windows",
+    "one public report or summary artifact per window",
+    "context-shift notes",
+    "bundle-level movement summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-longitudinal-growth-snapshot/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-longitudinal-growth-snapshot/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-longitudinal-growth-snapshot/reports/example-report.json",
+  "paired_readout_path": "reports/repeated-window-proof-flow-v1.md",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-longitudinal-growth-snapshot"
+  ]
+}

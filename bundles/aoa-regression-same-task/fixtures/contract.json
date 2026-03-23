@@ -1,0 +1,11 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/frozen-same-task-v1/README.md",
+  "shared_case_surface": "shared frozen same-task cases that keep one named baseline target, one candidate read on the same bounded case family, and enough evidence for per-case regression notes before the bundle-level verdict",
+  "bounded_replacement_rule": "A local repo may replace the frozen same-task cases only if the replacement preserves the same bounded change ask, keeps the frozen baseline inspectable on the same visible case family, and still supports no material regression, bounded improvement present, noisy variation, and regression present without turning style-only differences into the stronger claim.",
+  "public_safe_requirements": [
+    "the frozen baseline target stays visible and inspectable",
+    "baseline and candidate remain on the same bounded case family",
+    "style-only differences do not become the stronger regression claim"
+  ]
+}

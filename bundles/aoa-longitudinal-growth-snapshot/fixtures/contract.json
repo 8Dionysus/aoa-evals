@@ -1,0 +1,11 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/repeated-window-bounded-v1/README.md",
+  "shared_case_surface": "shared repeated-window bounded workflow reports that keep one named anchor workflow surface, ordered named windows, and enough evidence for movement notes before the bundle-level verdict",
+  "bounded_replacement_rule": "A local repo may replace the repeated-window sequence only if the replacement preserves the same bounded workflow surface across ordered named windows, keeps one public report or summary artifact per window, and still supports bounded improvement signal, no clear directional movement, mixed or unstable movement, and bounded regression signal without turning report polish into a stronger movement claim.",
+  "public_safe_requirements": [
+    "the anchor workflow surface stays explicit across the ordered windows",
+    "each window has a public report or summary artifact",
+    "context drift that changes comparability is disclosed"
+  ]
+}

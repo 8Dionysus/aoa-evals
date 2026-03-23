@@ -204,6 +204,8 @@ Exit signals:
 Current public posture:
 - `aoa-regression-same-task` is now the first public `baseline` starter for frozen same-task regression
 - `aoa-output-vs-process-gap` remains the draft peer-comparison bridge rather than a baseline-default comparator
+- `aoa-longitudinal-growth-snapshot` now has materialized repeated-window fixture, runner, and schema-backed report artifacts while remaining a draft movement surface
+- `aoa-eval-integrity-check` should travel as the bounded sidecar whenever public comparison wording changes materially
 
 Important discipline:
 - baseline creation should be conservative
@@ -286,7 +288,7 @@ Goal: make the repository useful for measuring agent development across repeated
 This is where `aoa-evals` becomes a true growth organ rather than a collection of bounded checks.
 
 Current public surface:
-- `aoa-longitudinal-growth-snapshot` as the bounded starter for repeated-window movement on one named workflow surface
+- `aoa-longitudinal-growth-snapshot` as the draft starter for repeated-window movement on one named workflow surface, now with its first materialized repeated-window proof artifacts
 
 Priority surfaces:
 - longitudinal growth snapshot bundles
@@ -417,9 +419,10 @@ The repository should keep preferring:
 Near-term next moves should use the new docs spine to shape the next agent-first surfaces and support artifacts.
 
 Highest-priority additions:
+- keep the newly materialized same-task baseline and repeated-window comparison flows conservative and non-theatrical
 - extend the newly materialized artifact/process pairing beyond its first shared fixture family, runner contracts, and schema-backed report slice
 - keep `aoa-regression-same-task` conservative as the first public baseline starter rather than promoting other comparison surfaces by association
-- bring repeated-window fixture and report contracts to `aoa-longitudinal-growth-snapshot` without inflating movement claims
+- keep the repeated-window fixture and report contracts on `aoa-longitudinal-growth-snapshot` aligned with cautious movement wording rather than inflating them into stronger status claims
 - harden the new witness/compost pilot proof surfaces without inflating them into runtime-instrumentation claims before `abyss-stack` is actually ready
 
 Next likely cross-surface candidate after the current public starter set:

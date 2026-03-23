@@ -134,7 +134,7 @@
       "do_not_use_short": "you only need a one-run workflow judgment; you need a frozen same-task baseline comparison rather than repeated-window movement",
       "eval_path": "bundles/aoa-longitudinal-growth-snapshot/EVAL.md",
       "name": "aoa-longitudinal-growth-snapshot",
-      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -174,7 +174,7 @@
       "do_not_use_short": "you only need one-run workflow quality and no baseline exists yet; the task family is still changing underneath the comparison",
       "eval_path": "bundles/aoa-regression-same-task/EVAL.md",
       "name": "aoa-regression-same-task",
-      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],

@@ -111,6 +111,8 @@ The evidence surface is public-safe when:
 - context changes are disclosed where they matter materially
 - another repo could replace the reports with comparable bounded window artifacts and preserve the same movement question
 
+The current materialized shared family is `fixtures/repeated-window-bounded-v1/README.md`.
+
 ## Scoring or verdict logic
 
 This eval prefers per-window notes plus a comparative bundle-level verdict.
@@ -180,6 +182,8 @@ Execution expectations:
 - do not treat report polish as workflow growth by default
 - do not let one vivid window erase mixed or flat evidence elsewhere
 - keep enough evidence that a careful reviewer can see why the directional reading was assigned
+- when shipping a machine-readable report, validate it against `reports/summary.schema.json`
+- keep the repeated-window read compatible with `reports/repeated-window-proof-flow-v1.md`
 
 ## Outputs
 
@@ -189,6 +193,7 @@ The eval should produce:
 - movement summary on the named workflow surface
 - context-shift note where needed
 - explicit interpretation boundary
+- an optional schema-backed companion report artifact at `reports/example-report.json`
 
 A compact public comparative-summary may include:
 - window id

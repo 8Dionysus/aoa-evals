@@ -5,10 +5,13 @@
 - bundle: `aoa-regression-same-task`
 - bundle shape: `comparative`
 - verdict: `mixed regression signal`
+- machine-readable companion: `reports/example-report.json`
+- shared proof dossier: `reports/same-task-baseline-proof-flow-v1.md`
 
 ## Frozen Baseline Target
 
 - baseline target: `RS-v1 frozen bounded workflow reference`
+- shared case family: `frozen-same-task-v1 bounded workflow set`
 - compared object: current candidate run family on the same bounded cases
 - baseline posture: first public `baseline` starter for same-task regression in `aoa-evals`
 

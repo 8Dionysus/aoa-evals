@@ -23,6 +23,7 @@ Before calling a bundle baseline-ready, it should already have:
 - a stable bounded claim
 - explicit per-case and bundle-level result semantics
 - a fixture surface that is stable or replaceable by contract
+- a schema-backed public report artifact and runner contract when the comparison surface is already materialized publicly
 - repeatability strong enough for bounded comparison
 - blind spots named clearly
 - a report shape that makes comparison legible
@@ -50,6 +51,7 @@ When `baseline_mode` is `longitudinal-window`, keep explicit:
 - ordered named windows
 - one named bounded surface that stays constant across those windows
 - one public report or summary artifact per window
+- one shared window-family contract or explicit replacement rule when the surface is materialized publicly
 - context changes that materially affect comparability
 
 Do not call the windows comparable if:

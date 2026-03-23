@@ -23,6 +23,7 @@ Public summary discipline:
 - do not turn the bridge into a winner-takes-all scoreboard
 - do not use trace/path separation as a substitute for artifact/process comparison
 - do not let style polish stand in for process discipline
+- do not overread one side-by-side comparison as proof of general capability growth or decline
 - do not overread one side-by-side comparison as proof of general workflow or artifact superiority
 - keep the comparative read aligned with `reports/artifact-process-paired-proof-flow-v1.md`
 - keep any schema-backed companion report weaker than the bounded side-by-side interpretation

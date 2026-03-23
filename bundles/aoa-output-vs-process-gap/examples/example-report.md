@@ -46,7 +46,8 @@ It says only that on this bounded shared case family,
 the relationship between the two surfaces was mixed.
 
 It also does **not** say that a side-by-side bridge read can replace
-`aoa-trace-outcome-separation` or function as a stable baseline-default comparator.
+`aoa-trace-outcome-separation`, function as a stable baseline-default comparator,
+or prove general capability growth or decline.
 
 For standalone artifact review,
 use `aoa-artifact-review-rubric`.

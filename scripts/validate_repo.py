@@ -391,6 +391,15 @@ def validate_json_against_inline_schema(
     return not schema_errors
 
 
+def requires_materialized_comparison_artifacts(manifest: dict[str, Any] | None) -> bool:
+    if not isinstance(manifest, dict):
+        return False
+    return (
+        manifest.get("report_format") == "comparative-summary"
+        and manifest.get("baseline_mode") in {"fixed-baseline", "longitudinal-window"}
+    )
+
+
 def validate_repo_relative_contract_path(
     repo_root: Path,
     raw_path: str,
@@ -992,6 +1001,8 @@ def validate_bundle_report_artifacts(
     example_path = bundle_dir / "reports" / "example-report.json"
     has_schema = schema_path.is_file()
     has_example = example_path.is_file()
+    required_mode = manifest.get("baseline_mode") if isinstance(manifest, dict) else None
+    requires_materialized = requires_materialized_comparison_artifacts(manifest)
 
     if has_schema and not has_example:
         issues.append(
@@ -1000,6 +1011,14 @@ def validate_bundle_report_artifacts(
                 "bundle-local report schema exists but reports/example-report.json is missing",
             )
         )
+    elif requires_materialized and not has_example:
+        issues.append(
+            ValidationIssue(
+                relative_location(bundle_dir, repo_root),
+                f"comparative-summary bundle with baseline_mode '{required_mode}' must ship reports/example-report.json",
+            )
+        )
+
     if has_example and not has_schema:
         issues.append(
             ValidationIssue(
@@ -1007,6 +1026,14 @@ def validate_bundle_report_artifacts(
                 "bundle-local report example exists but reports/summary.schema.json is missing",
             )
         )
+    elif requires_materialized and not has_schema:
+        issues.append(
+            ValidationIssue(
+                relative_location(bundle_dir, repo_root),
+                f"comparative-summary bundle with baseline_mode '{required_mode}' must ship reports/summary.schema.json",
+            )
+        )
+
     if not has_schema or not has_example:
         return
 
@@ -1025,21 +1052,78 @@ def validate_bundle_report_artifacts(
     example_payload = load_json_payload(example_path, issues)
     if example_payload is None:
         return
-    validate_json_against_inline_schema(
+    example_valid = validate_json_against_inline_schema(
         example_payload,
         schema,
         location=example_location,
         issues=issues,
     )
+    if example_valid and required_mode == "longitudinal-window":
+        validate_longitudinal_report_example(
+            example_payload,
+            location=example_location,
+            issues=issues,
+        )
+
+
+def validate_longitudinal_report_example(
+    example_payload: Any,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+) -> None:
+    if not isinstance(example_payload, dict):
+        return
+
+    windows = example_payload.get("windows")
+    if not isinstance(windows, list):
+        return
+
+    seen_window_ids: set[str] = set()
+    last_order: int | None = None
+    for index, window in enumerate(windows):
+        if not isinstance(window, dict):
+            continue
+
+        window_id = window.get("window_id")
+        if isinstance(window_id, str):
+            if window_id in seen_window_ids:
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.windows[{index}].window_id",
+                        f"longitudinal example report window_id '{window_id}' must be unique",
+                    )
+                )
+            seen_window_ids.add(window_id)
+
+        window_order = window.get("window_order")
+        if isinstance(window_order, int):
+            if last_order is not None and window_order <= last_order:
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.windows[{index}].window_order",
+                        "longitudinal example report window_order values must be strictly increasing",
+                    )
+                )
+            last_order = window_order
 
 
 def validate_bundle_fixture_contract(
     repo_root: Path,
     bundle_dir: Path,
+    manifest: dict[str, Any] | None,
     issues: list[ValidationIssue],
 ) -> None:
     contract_path = bundle_dir / "fixtures" / "contract.json"
     if not contract_path.is_file():
+        if requires_materialized_comparison_artifacts(manifest):
+            baseline_mode = manifest.get("baseline_mode") if isinstance(manifest, dict) else "unknown"
+            issues.append(
+                ValidationIssue(
+                    relative_location(bundle_dir, repo_root),
+                    f"comparative-summary bundle with baseline_mode '{baseline_mode}' must ship fixtures/contract.json",
+                )
+            )
         return
 
     location = relative_location(contract_path, repo_root)
@@ -1062,10 +1146,19 @@ def validate_bundle_fixture_contract(
 def validate_bundle_runner_contract(
     repo_root: Path,
     bundle_dir: Path,
+    manifest: dict[str, Any] | None,
     issues: list[ValidationIssue],
 ) -> None:
     contract_path = bundle_dir / "runners" / "contract.json"
     if not contract_path.is_file():
+        if requires_materialized_comparison_artifacts(manifest):
+            baseline_mode = manifest.get("baseline_mode") if isinstance(manifest, dict) else "unknown"
+            issues.append(
+                ValidationIssue(
+                    relative_location(bundle_dir, repo_root),
+                    f"comparative-summary bundle with baseline_mode '{baseline_mode}' must ship runners/contract.json",
+                )
+            )
         return
 
     location = relative_location(contract_path, repo_root)
@@ -1107,8 +1200,8 @@ def validate_bundle_proof_artifacts(
     issues: list[ValidationIssue],
 ) -> None:
     validate_bundle_report_artifacts(repo_root, bundle_dir, manifest, issues)
-    validate_bundle_fixture_contract(repo_root, bundle_dir, issues)
-    validate_bundle_runner_contract(repo_root, bundle_dir, issues)
+    validate_bundle_fixture_contract(repo_root, bundle_dir, manifest, issues)
+    validate_bundle_runner_contract(repo_root, bundle_dir, manifest, issues)
 
 
 def validate_bundle(

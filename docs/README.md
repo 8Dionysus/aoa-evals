@@ -114,6 +114,8 @@ These are outside `docs/` but matter when navigating the repo:
 - [README](../README.md)
 - [EVAL_INDEX](../EVAL_INDEX.md)
 - [EVAL_SELECTION](../EVAL_SELECTION.md)
+- `../reports/same-task-baseline-proof-flow-v1.md`
+- `../reports/repeated-window-proof-flow-v1.md`
 - [CONTRIBUTING](../CONTRIBUTING.md)
 - [Eval Template](../templates/EVAL.template.md)
 

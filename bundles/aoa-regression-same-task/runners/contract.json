@@ -1,0 +1,22 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "frozen baseline target",
+    "candidate run family on the same bounded cases",
+    "per-case comparison notes",
+    "bundle-level regression summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-regression-same-task/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-regression-same-task/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-regression-same-task/reports/example-report.json",
+  "paired_readout_path": "reports/same-task-baseline-proof-flow-v1.md",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-regression-same-task"
+  ]
+}

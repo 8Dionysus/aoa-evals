@@ -12,7 +12,7 @@
   "per_target_breakdown": [
     {
       "target_bundle": "aoa-regression-same-task",
-      "integrity_risk_class": "style-only movement risk",
+      "integrity_risk_class": "fixed-baseline drift",
       "target_reading": "supports bounded claim",
       "note": "The frozen same-task surface keeps style-only differences weaker than the baseline comparison evidence and does not narrate one same-task result as general growth.",
       "evidence_coverage": "frozen fixture contract, runner contract, schema-backed report, and shared baseline dossier all align",
@@ -20,7 +20,7 @@
     },
     {
       "target_bundle": "aoa-output-vs-process-gap",
-      "integrity_risk_class": "baseline by association risk",
+      "integrity_risk_class": "baseline by association",
       "target_reading": "mixed support",
       "note": "The bridge now has better paired artifacts, but it still must not be read as a baseline-default comparator.",
       "evidence_coverage": "comparison contract, runner contract, and paired report are present",
@@ -28,7 +28,7 @@
     },
     {
       "target_bundle": "aoa-longitudinal-growth-snapshot",
-      "integrity_risk_class": "growth overclaiming risk",
+      "integrity_risk_class": "growth by association",
       "target_reading": "mixed support",
       "note": "The longitudinal starter now has repeated-window proof artifacts, but the draft surface still needs cautious wording so ordered movement is not read as broad capability growth.",
       "evidence_coverage": "window contract, repeated-window fixture contract, runner contract, schema-backed report, and shared dossier are present",

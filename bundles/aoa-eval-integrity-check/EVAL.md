@@ -114,13 +114,15 @@ Strong review classes for v1:
 - blind-spot or nearby-bundle distinctness weakness
 - baseline or comparative semantics mismatch where applicable
 - thin evidence or support coverage
-- style-over-substance failure
-- baseline by association
+- style-over-substance
 - artifact/process collapse
-- growth overclaiming
-- fixed-baseline drift
+- baseline by association
+- growth by association
 - peer-compare blur
+- fixed-baseline drift
 - longitudinal overclaim
+- schema-clean but claim-overstated
+- routing overreach
 
 Target families should avoid:
 - planned bundles that are not yet public starters
@@ -165,6 +167,7 @@ Signals toward `mixed support` or `does not support bounded claim`:
 - comparative or baseline wording drifts away from manifest semantics
 - public routing collapses nearby bundles into one vague category
 - schema-backed report artifacts look clean while the bounded claim is still being overstated
+- a draft bridge or longitudinal surface inherits stronger status by association
 
 ### Review outcome language
 
@@ -190,6 +193,7 @@ A later stronger integrity form may compare:
 
 Without a baseline, this bundle supports only modest claims about current public coherence on the chosen starter corpus.
 Its current public job is to serve as the integrity sidecar for comparison-spine waves without pretending to replace direct bundle-specific comparison evidence.
+In the current wave set it also serves as the anti-gaming sidecar for artifact/process pairing and repeated-window movement.
 
 ## Execution contract
 

@@ -146,6 +146,17 @@ COMPARISON_SURFACE_ALLOWED_KEYS = {
         COMPARISON_SURFACE_COMMON_KEYS + ("anchor_surface", "window_family_label")
     ),
 }
+INTEGRITY_RISK_CLASSES = (
+    "style-over-substance",
+    "artifact/process collapse",
+    "baseline by association",
+    "growth by association",
+    "peer-compare blur",
+    "fixed-baseline drift",
+    "longitudinal overclaim",
+    "schema-clean but claim-overstated",
+    "routing overreach",
+)
 MARKDOWN_HEADING = re.compile(r"^(#{1,6})\s+(.*\S)\s*$")
 
 
@@ -2120,6 +2131,82 @@ def validate_repeated_window_doctrine_surfaces(
     return issues
 
 
+def validate_integrity_taxonomy_surfaces(
+    repo_root: Path,
+    selected_evals: set[str] | None = None,
+) -> list[ValidationIssue]:
+    relevant_names = {
+        "aoa-eval-integrity-check",
+        "aoa-regression-same-task",
+        "aoa-output-vs-process-gap",
+        "aoa-longitudinal-growth-snapshot",
+        "aoa-artifact-review-rubric",
+        "aoa-bounded-change-quality",
+    }
+    if selected_evals is not None and not relevant_names.intersection(selected_evals):
+        return []
+
+    issues: list[ValidationIssue] = []
+    eval_text = read_text_or_issue(
+        repo_root / "bundles" / "aoa-eval-integrity-check" / "EVAL.md",
+        issues,
+        root=repo_root,
+    )
+    review_text = read_text_or_issue(
+        repo_root / "bundles" / "aoa-eval-integrity-check" / "notes" / "review-contract.md",
+        issues,
+        root=repo_root,
+    )
+    schema_location = "bundles/aoa-eval-integrity-check/reports/summary.schema.json"
+    schema_payload = load_json_payload(
+        repo_root / "bundles" / "aoa-eval-integrity-check" / "reports" / "summary.schema.json",
+        issues,
+    )
+    schema_enum: list[str] = []
+    if isinstance(schema_payload, dict):
+        properties = schema_payload.get("properties", {})
+        if isinstance(properties, dict):
+            per_target_breakdown = properties.get("per_target_breakdown", {})
+            if isinstance(per_target_breakdown, dict):
+                items = per_target_breakdown.get("items", {})
+                if isinstance(items, dict):
+                    item_properties = items.get("properties", {})
+                    if isinstance(item_properties, dict):
+                        risk_schema = item_properties.get("integrity_risk_class", {})
+                        if isinstance(risk_schema, dict):
+                            raw_enum = risk_schema.get("enum", [])
+                            if isinstance(raw_enum, list):
+                                schema_enum = [
+                                    item
+                                    for item in raw_enum
+                                    if isinstance(item, str)
+                                ]
+    if tuple(schema_enum) != INTEGRITY_RISK_CLASSES:
+        issues.append(
+            ValidationIssue(
+                schema_location,
+                "integrity_risk_class enum must match the public integrity risk taxonomy",
+            )
+        )
+
+    for phrase in INTEGRITY_RISK_CLASSES:
+        if phrase not in review_text:
+            issues.append(
+                ValidationIssue(
+                    "bundles/aoa-eval-integrity-check/notes/review-contract.md",
+                    f"integrity review contract must mention '{phrase}'",
+                )
+            )
+        if phrase not in eval_text and phrase not in review_text:
+            issues.append(
+                ValidationIssue(
+                    "bundles/aoa-eval-integrity-check/EVAL.md",
+                    f"integrity sidecar surfaces must mention '{phrase}' in EVAL.md or review-contract.md",
+                )
+            )
+    return issues
+
+
 def discover_eval_names(repo_root: Path) -> list[str]:
     bundles_dir = repo_root / BUNDLES_DIR_NAME
     if not bundles_dir.is_dir():
@@ -3053,6 +3140,12 @@ def run_validation(
             validate_repeated_window_doctrine_surfaces(
                 repo_root,
                 records,
+                selected_evals=selected_evals,
+            )
+        )
+        issues.extend(
+            validate_integrity_taxonomy_surfaces(
+                repo_root,
                 selected_evals=selected_evals,
             )
         )

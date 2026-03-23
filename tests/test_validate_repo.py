@@ -2107,6 +2107,86 @@ def test_validate_repo_rejects_longitudinal_report_with_non_increasing_window_or
     assert any("window_order values must be strictly increasing" in issue.message for issue in issues)
 
 
+def test_validate_repo_requires_integrity_risk_taxonomy_enum(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-eval-integrity-check", category="capability")
+    add_materialized_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-eval-integrity-check",
+        report_schema={
+            "type": "object",
+            "additionalProperties": False,
+            "required": [
+                "eval_name",
+                "bundle_status",
+                "object_under_evaluation",
+                "verdict",
+                "claim_boundary",
+                "limitations",
+                "corpus_slice",
+                "per_target_breakdown",
+            ],
+            "properties": {
+                "eval_name": {"const": "aoa-eval-integrity-check"},
+                "bundle_status": {"const": "draft"},
+                "object_under_evaluation": {"const": "bounded test surface"},
+                "verdict": {"type": "string"},
+                "claim_boundary": {"type": "string"},
+                "limitations": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+                "corpus_slice": {"type": "string"},
+                "per_target_breakdown": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": [
+                            "target_bundle",
+                            "integrity_risk_class",
+                            "target_reading",
+                            "note",
+                        ],
+                        "properties": {
+                            "target_bundle": {"type": "string"},
+                            "integrity_risk_class": {
+                                "type": "string",
+                                "enum": ["style-over-substance"],
+                            },
+                            "target_reading": {"type": "string"},
+                            "note": {"type": "string"},
+                        },
+                    },
+                },
+            },
+        },
+        report_example={
+            "eval_name": "aoa-eval-integrity-check",
+            "bundle_status": "draft",
+            "object_under_evaluation": "bounded test surface",
+            "verdict": "mixed support",
+            "claim_boundary": "bounded integrity example",
+            "limitations": ["still bounded"],
+            "corpus_slice": "starter bundles",
+            "per_target_breakdown": [
+                {
+                    "target_bundle": "aoa-alpha",
+                    "integrity_risk_class": "style-over-substance",
+                    "target_reading": "mixed support",
+                    "note": "note",
+                }
+            ],
+        },
+    )
+    write_text(
+        tmp_path / "bundles" / "aoa-eval-integrity-check" / "notes" / "review-contract.md",
+        "# Review Contract\nstyle-over-substance\n",
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path, eval_name="aoa-eval-integrity-check")
+
+    assert any("integrity_risk_class enum must match" in issue.message for issue in issues)
+
+
 def test_validate_repo_requires_roadmap_current_public_surface_to_be_a_starter_bundle(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-alpha")
     make_eval_bundle(tmp_path, name="aoa-beta")

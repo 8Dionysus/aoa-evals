@@ -22,8 +22,9 @@ If you are new to this repository, follow this short path:
 3. Read `docs/EVAL_PHILOSOPHY.md` for the core stance on proof, limits, and growth.
 4. Read `EVAL_INDEX.md` for the current eval surface.
 5. Read `docs/COMPARISON_SPINE_GUIDE.md` if your question is about regression, peer comparison, or repeated-window movement.
-6. Open `bundles/aoa-bounded-change-quality/EVAL.md` as the first starter eval bundle.
-7. Use `templates/EVAL.template.md` when authoring a new eval.
+6. Read `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md` if your question is about artifact-side versus process-side reading.
+7. Open `bundles/aoa-bounded-change-quality/EVAL.md` as the first starter eval bundle.
+8. Use `templates/EVAL.template.md` when authoring a new eval.
 
 ## Quick routes
 
@@ -34,6 +35,7 @@ If you are new to this repository, follow this short path:
 - if you need scenario-level operating context, go to [aoa-playbooks](https://github.com/8Dionysus/aoa-playbooks)
 - if you need the runtime-artifact or trace-to-verdict seam, read `docs/TRACE_EVAL_BRIDGE.md`
 - if you need the current comparison ladder, read `docs/COMPARISON_SPINE_GUIDE.md`
+- if you need the artifact/process read order, read `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
 
 ## What belongs here
 
@@ -191,6 +193,7 @@ The current goal is to establish:
 - portable scoring and report surfaces
 - shared fixture families, runner contracts, and schema-backed report examples for materialized comparison flows
 - baseline comparison discipline
+- artifact/process separation doctrine that stays weaker than standalone bundle meaning
 - the path toward trustworthy regression and longitudinal evaluation
 
 ## Read this before overclaiming

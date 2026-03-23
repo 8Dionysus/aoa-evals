@@ -26,6 +26,8 @@ limits,
 and contradiction posture.
 It is not meant to prove philosophical truth,
 and it is not a replacement for general artifact-quality review.
+It may sit downstream of artifact/process pairing as adjacent compost context,
+but it does not replace `aoa-artifact-review-rubric` as the artifact-side reading.
 
 The goal is not to prove that a composted insight is final.
 The goal is to test one bounded claim:

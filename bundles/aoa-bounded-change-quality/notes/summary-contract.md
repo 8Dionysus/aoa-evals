@@ -1,6 +1,7 @@
 # Summary Contract
 
 This bundle is a `composite` workflow surface.
+Its output is the `process-side reading` in the current artifact/process layer.
 
 Use it when the main question is:
 - did a bounded non-trivial change workflow hold together end to end?
@@ -22,5 +23,10 @@ Public summaries for this bundle should:
 - distinguish bundle failure from case-level readout
 - mention when case evidence materially diverges
 - prefer `mixed support` over a cleaner-looking pass when nearby failure modes split
-- stay compatible with the shared paired read in `reports/artifact-process-paired-proof-flow-v1.md` without collapsing workflow and artifact reads into one score
+- stay compatible with the shared paired reads in `reports/artifact-process-paired-proof-flow-v1.md` and `reports/artifact-process-paired-proof-flow-v2.md` without collapsing workflow and artifact reads into one score
+- keep matched conditions explicit whenever the same cases feed the downstream bridge verdict
+- keep style-over-substance risk visible whenever cleaner artifact polish could look stronger than the workflow evidence
 - keep any schema-backed companion report weaker than the bundle-local interpretation boundary
+
+`aoa-witness-trace-integrity` may sit upstream as adjacent witness context,
+but it does not replace the workflow discipline surface here.

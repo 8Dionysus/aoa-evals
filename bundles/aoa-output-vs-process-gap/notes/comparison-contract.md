@@ -10,6 +10,7 @@ Use this bundle only when those two readings are under matched conditions:
 - the same review frame before any gap summary is assigned
 - the same side-by-side evidence window before any winner-like read is attempted
 - the same shared family `fixtures/bounded-change-paired-v1/README.md`
+- or the second matched family `fixtures/bounded-change-paired-v2/README.md`
 
 Canonical v1 comparative readings:
 - `artifact outruns process`
@@ -24,8 +25,9 @@ Public summary discipline:
 - do not turn the bridge into a winner-takes-all scoreboard
 - do not use trace/path separation as a substitute for artifact/process comparison
 - do not let style polish stand in for process discipline
+- make `side_by_side_note` name matched-condition evidence directly, not stylistic impression alone
 - do not overread one side-by-side comparison as proof of general capability growth or decline
 - do not overread one side-by-side comparison as proof of general workflow or artifact superiority
-- keep the comparative read aligned with `reports/artifact-process-paired-proof-flow-v1.md`
+- keep the comparative read aligned with `reports/artifact-process-paired-proof-flow-v1.md` and `reports/artifact-process-paired-proof-flow-v2.md`
 - carry `aoa-eval-integrity-check` as the integrity sidecar when public bridge wording, routing, or maturity posture changes materially
 - keep any schema-backed companion report weaker than the bounded side-by-side interpretation

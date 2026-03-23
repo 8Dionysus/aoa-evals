@@ -239,6 +239,7 @@ def make_repo_docs(
         # aoa-evals
 
         See `docs/COMPARISON_SPINE_GUIDE.md` when you need the comparison ladder.
+        See `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md` when you need the artifact/process layer.
         Generated comparison routing lives in `generated/comparison_spine.json`.
         """,
     )
@@ -248,6 +249,7 @@ def make_repo_docs(
         # Documentation Map
 
         - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
+        - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
         - `generated/comparison_spine.json`
         """,
     )
@@ -261,12 +263,30 @@ def make_repo_docs(
         """,
     )
     write_text(
+        repo_root / "docs" / "ARTIFACT_PROCESS_SEPARATION_GUIDE.md",
+        """
+        # Artifact Process Separation Guide
+
+        `aoa-artifact-review-rubric`
+        `aoa-bounded-change-quality`
+        `aoa-output-vs-process-gap`
+        `aoa-witness-trace-integrity`
+        `aoa-compost-provenance-preservation`
+        matched conditions
+        style-over-substance
+        fixtures/bounded-change-paired-v2/README.md
+        reports/artifact-process-paired-proof-flow-v2.md
+        """,
+    )
+    write_text(
         repo_root / "EVAL_SELECTION.md",
         f"""
         # Eval Selection
 
         Current starter posture:
         {"".join(f"- `{name}`\n" for name in starter_names)}
+
+        The artifact/process bridge is read only after the standalone artifact and workflow surfaces are already visible.
 
         ## Pick Comparison Surface
 
@@ -290,6 +310,12 @@ def make_index(
 
         The comparison spine is a bounded program layer.
         """
+    artifact_process_block = """
+
+        ## Artifact Process Layer
+
+        The artifact/process layer is a bounded program layer.
+        """
     write_text(
         repo_root / "EVAL_INDEX.md",
         f"""
@@ -305,6 +331,7 @@ def make_index(
 
         {NO_ADDITIONAL_STARTER_BUNDLES_TEXT}
         {comparison_spine_block}
+        {artifact_process_block}
         """,
     )
 
@@ -329,6 +356,7 @@ def make_selection(
 
         Current starter posture:
         {lines}
+        The artifact/process bridge is read only after the standalone artifact and workflow surfaces are already visible.
         {comparison_block}
         """,
     )
@@ -700,23 +728,30 @@ def add_materialized_proof_artifacts(
     public_safe_requirements: list[str] | None = None,
     runner_inputs: list[str] | None = None,
     paired_readout_path: str = "reports/paired-proof.md",
+    additional_fixture_family_paths: list[str] | None = None,
+    additional_paired_readout_paths: list[str] | None = None,
 ) -> None:
     write_text(repo_root / "runners" / "reportable_proof_contract.md", "# Runner Contract\n")
     write_text(repo_root / "scorers" / "bounded_rubric_breakdown.py", "def helper():\n    return {'ok': True}\n")
     if include_paired_readout:
         write_text(repo_root / Path(paired_readout_path), "# Paired Proof\n")
+    for extra_path in additional_paired_readout_paths or []:
+        write_text(repo_root / Path(extra_path), "# Paired Proof\n")
 
     if include_fixture_contract:
         public_safe_requirements = public_safe_requirements or [
             "outside reviewers can inspect the surface",
         ]
         write_text(repo_root / Path(fixture_family_path), "# Shared Fixture Family\n")
+        for extra_path in additional_fixture_family_paths or []:
+            write_text(repo_root / Path(extra_path), "# Shared Fixture Family\n")
         write_text(
             repo_root / "bundles" / bundle_name / "fixtures" / "contract.json",
             json.dumps(
                 {
                     "contract_version": 1,
                     "shared_fixture_family_path": fixture_family_path,
+                    "additional_shared_fixture_family_paths": additional_fixture_family_paths or [],
                     "shared_case_surface": shared_case_surface,
                     "bounded_replacement_rule": bounded_replacement_rule,
                     "public_safe_requirements": public_safe_requirements,
@@ -761,6 +796,8 @@ def add_materialized_proof_artifacts(
             ]
         if include_paired_readout:
             runner_contract["paired_readout_path"] = paired_readout_path
+        if additional_paired_readout_paths:
+            runner_contract["additional_paired_readout_paths"] = additional_paired_readout_paths
 
         write_text(
             repo_root / "bundles" / bundle_name / "runners" / "contract.json",
@@ -1037,9 +1074,12 @@ def add_peer_compare_proof_artifacts(
             "shared bounded case family",
             "artifact-side readings",
             "process-side readings",
+            "matched-condition evidence",
             "paired divergence summary",
         ],
         paired_readout_path="reports/artifact-process-paired-proof-flow-v1.md",
+        additional_fixture_family_paths=["fixtures/bounded-change-paired-v2/README.md"],
+        additional_paired_readout_paths=["reports/artifact-process-paired-proof-flow-v2.md"],
         report_schema={
             "type": "object",
             "additionalProperties": False,
@@ -1763,6 +1803,28 @@ def test_validate_repo_rejects_mismatched_comparison_surface_paired_readout_path
     assert any("paired_readout_path must match runners/contract.json" in issue.message for issue in issues)
 
 
+def test_validate_repo_rejects_invalid_additional_fixture_family_path(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-output-vs-process-gap",
+        category="comparative",
+        claim_type="comparative",
+        baseline_mode="peer-compare",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_peer_compare_proof_artifacts(tmp_path, bundle_name="aoa-output-vs-process-gap")
+    contract_path = tmp_path / "bundles" / "aoa-output-vs-process-gap" / "fixtures" / "contract.json"
+    payload = json.loads(contract_path.read_text(encoding="utf-8"))
+    payload["additional_shared_fixture_family_paths"] = ["fixtures/missing-v2/README.md"]
+    contract_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path, eval_name="aoa-output-vs-process-gap")
+
+    assert any("additional_shared_fixture_family_paths" in issue.location for issue in issues)
+
+
 def test_validate_repo_requires_comparison_doctrine_selection_parity(tmp_path: Path) -> None:
     make_eval_bundle(
         tmp_path,
@@ -1788,6 +1850,16 @@ def test_validate_repo_requires_comparison_doctrine_selection_parity(tmp_path: P
     issues = run_validation(tmp_path)
 
     assert any("Pick Comparison Surface" in issue.message or "comparison selector question" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_artifact_process_doctrine_guide(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-artifact-review-rubric", category="artifact")
+    write_catalogs(tmp_path)
+    (tmp_path / "docs" / "ARTIFACT_PROCESS_SEPARATION_GUIDE.md").unlink()
+
+    issues = run_validation(tmp_path, eval_name="aoa-artifact-review-rubric")
+
+    assert any("ARTIFACT_PROCESS_SEPARATION_GUIDE.md" in issue.location or "ARTIFACT_PROCESS_SEPARATION_GUIDE.md" in issue.message for issue in issues)
 
 
 def test_validate_repo_requires_fixture_contract_for_longitudinal_window(tmp_path: Path) -> None:

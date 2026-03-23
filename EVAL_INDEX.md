@@ -42,6 +42,23 @@ Public discipline:
 - `aoa-longitudinal-growth-snapshot` remains draft and should not inherit growth claims by association
 - `aoa-eval-integrity-check` remains the comparison-spine sidecar, not a replacement for direct comparison evidence
 
+## Artifact Process Layer
+
+The current artifact/process layer is also a bounded program layer rather than three unrelated starter bundles.
+
+Read it as:
+- `aoa-artifact-review-rubric` for the artifact-side reading
+- `aoa-bounded-change-quality` for the process-side reading
+- `aoa-output-vs-process-gap` only after both standalone readings exist
+- `aoa-witness-trace-integrity` as adjacent upstream witness context when needed
+- `aoa-compost-provenance-preservation` as adjacent downstream compost context when needed
+
+Public discipline:
+- artifact polish does not prove workflow discipline
+- workflow discipline does not prove artifact excellence
+- witness integrity does not replace workflow discipline
+- compost provenance does not replace artifact review
+
 ## Bundle Distinctness Notes
 
 - `aoa-bounded-change-quality` is the composite workflow starter:
@@ -63,19 +80,21 @@ Public discipline:
   It should not be read as the general outcome-versus-path split surface.
 - `aoa-witness-trace-integrity` is the current draft witness workflow starter:
   did a bounded run leave a reviewable witness trace with meaningful steps, visible tool use, explicit external effects, preserved failures, and an honest markdown summary?
-  It should not be read as proof of outcome quality or as a substitute for future runtime instrumentation.
+  It should not be read as proof of outcome quality, as a substitute for future runtime instrumentation, or as the default process-side read in the artifact/process layer.
 - `aoa-regression-same-task` is the current baseline regression starter:
   did the candidate materially regress against a frozen baseline on the same bounded task family?
   Its current machine-readable comparison surface is anchored in `aoa-bounded-change-quality` and its materialized proof flow runs through `fixtures/frozen-same-task-v1/README.md`, `reports/example-report.json`, and `reports/same-task-baseline-proof-flow-v1.md`.
 - `aoa-artifact-review-rubric` is the current bounded artifact starter:
   did the produced artifact itself look strong on the visible task surface without implying a strong workflow?
   Start here when the question is artifact quality itself; do not skip straight to the bridge surface.
+  Its shared paired families now include `fixtures/bounded-change-paired-v1/README.md` and `fixtures/bounded-change-paired-v2/README.md`, but the bundle remains the standalone artifact-side read rather than the bridge.
 - `aoa-compost-provenance-preservation` is the current draft compost artifact starter:
   did a witness-derived note, synthesis, or principle candidate preserve provenance, review state, current limits, and demotion posture?
-  It should not be read as proof of canon-readiness or as a replacement for general artifact review.
+  It should not be read as proof of canon-readiness, as a replacement for general artifact review, or as the default artifact-side read in the artifact/process layer.
 - `aoa-output-vs-process-gap` is the current artifact/process bridge starter:
   is polished output outrunning process discipline, is process outrunning artifact strength, or are the two broadly aligned?
   It should be read after the standalone artifact and workflow surfaces, not as a replacement for them, and not as a baseline-by-association surface.
+  Its materialized bridge now spans `fixtures/bounded-change-paired-v1/README.md`, `fixtures/bounded-change-paired-v2/README.md`, `reports/artifact-process-paired-proof-flow-v1.md`, and `reports/artifact-process-paired-proof-flow-v2.md`, but the bundle remains draft.
 - `aoa-eval-integrity-check` is the current bounded integrity sidecar starter:
   do the public starter bundles remain coherent across manifest contract, evidence coverage, public routing, and semantic anti-theater risks, especially across the comparison spine?
   It is a meta-eval for public starter bundles, not a direct agent-behavior starter and not proof of canonical readiness.
@@ -127,6 +146,7 @@ Public discipline:
 - the witness/compost pilot pair now has its first draft proof surfaces in `aoa-witness-trace-integrity` and `aoa-compost-provenance-preservation`.
 - checkpoint-based restart fidelity now has its first draft public bundle in `aoa-long-horizon-depth`, but it is not part of the current starter set.
 - the first materialized paired proof flow now sits across `aoa-artifact-review-rubric`, `aoa-bounded-change-quality`, and `aoa-output-vs-process-gap` using shared fixtures, runner contracts, and schema-backed report examples.
+- the artifact/process layer now also carries a second matched family and second paired dossier so the bridge can deepen without changing `peer_surfaces` or promoting by association.
 - the comparison spine now also has materialized proof flows for `aoa-regression-same-task`, `aoa-output-vs-process-gap`, and `aoa-longitudinal-growth-snapshot` through shared fixture families, runner contracts, schema-backed report examples, and the shared read-order artifact `reports/comparison-spine-proof-flow-v1.md`.
 - the current first public `baseline` starter is `aoa-regression-same-task`; other comparative and longitudinal starters remain draft.
 - `aoa-eval-integrity-check` is now bounded as the public integrity sidecar for semantic overreach and public-surface drift.

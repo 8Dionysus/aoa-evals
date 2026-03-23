@@ -13,6 +13,8 @@ Minimum v1 peer-comparison conditions:
 - style-only polish is not treated as proof of stronger process discipline
 - the shared family remains `fixtures/bounded-change-paired-v1/README.md`
 - the paired readout remains `reports/artifact-process-paired-proof-flow-v1.md`
+- the second matched family `fixtures/bounded-change-paired-v2/README.md` may deepen the bridge without changing the peer surfaces
+- the second paired readout `reports/artifact-process-paired-proof-flow-v2.md` may deepen the bridge without promoting it by association
 - `aoa-eval-integrity-check` remains the integrity sidecar whenever the public bridge wording or maturity posture changes materially
 
 This note does **not** claim that the bundle is a broad mature baseline.

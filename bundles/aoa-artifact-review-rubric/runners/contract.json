@@ -16,6 +16,9 @@
   "report_schema_path": "bundles/aoa-artifact-review-rubric/reports/summary.schema.json",
   "report_example_path": "bundles/aoa-artifact-review-rubric/reports/example-report.json",
   "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+  "additional_paired_readout_paths": [
+    "reports/artifact-process-paired-proof-flow-v2.md"
+  ],
   "validation_commands": [
     "python scripts/validate_repo.py --eval aoa-artifact-review-rubric"
   ]

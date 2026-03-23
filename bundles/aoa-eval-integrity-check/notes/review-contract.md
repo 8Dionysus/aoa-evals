@@ -25,17 +25,27 @@ Required review classes:
 - blind-spot or nearby-bundle distinctness weakness
 - baseline or comparative semantics mismatch where applicable
 - weak evidence or support coverage
-- style-over-substance failure
-- baseline by association
+- style-over-substance
 - artifact/process collapse
-- comparative overread
-- growth overclaiming
+- baseline by association
+- growth by association
+- peer-compare blur
+- fixed-baseline drift
+- longitudinal overclaim
+- schema-clean but claim-overstated
+- routing overreach
 
 When a public comparison surface changes,
 review the comparison trio directly:
-- `aoa-regression-same-task` for style-only movement and frozen-baseline overread risk
-- `aoa-output-vs-process-gap` for baseline-by-association risk
-- `aoa-longitudinal-growth-snapshot` for growth-overclaiming risk
+- `aoa-regression-same-task` for `fixed-baseline drift`
+- `aoa-output-vs-process-gap` for `baseline by association`, `artifact/process collapse`, and `peer-compare blur`
+- `aoa-longitudinal-growth-snapshot` for `growth by association` and `longitudinal overclaim`
+
+When the artifact/process layer changes,
+review the standalone trio directly:
+- `aoa-artifact-review-rubric`
+- `aoa-bounded-change-quality`
+- `aoa-output-vs-process-gap`
 
 Treat this bundle as the bounded integrity sidecar for:
 - `fixed-baseline` comparison waves

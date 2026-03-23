@@ -5,7 +5,8 @@
     "starter-bundle dossier",
     "public chooser and index wording",
     "bundle-local evidence and report artifacts",
-    "integrity risk classification notes"
+    "integrity risk classification notes",
+    "anti-gaming taxonomy for false-pass and overclaim review"
   ],
   "scorer_helper_paths": [
     "scorers/bounded_rubric_breakdown.py"

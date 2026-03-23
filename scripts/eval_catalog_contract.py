@@ -223,6 +223,25 @@ def load_optional_json(path: Path) -> Any | None:
         return None
 
 
+def normalize_comparison_surface(manifest: dict[str, Any]) -> dict[str, Any] | None:
+    comparison_surface = manifest.get("comparison_surface")
+    if not isinstance(comparison_surface, dict):
+        return None
+
+    normalized: dict[str, Any] = {}
+    for key, value in comparison_surface.items():
+        if isinstance(value, str):
+            normalized[key] = value.replace("\\", "/")
+        elif isinstance(value, list):
+            normalized[key] = [
+                item.replace("\\", "/") if isinstance(item, str) else item
+                for item in value
+            ]
+        else:
+            normalized[key] = value
+    return normalized
+
+
 def build_proof_artifacts_entry(repo_root: Path, record: Any) -> dict[str, Any]:
     bundle_dir = record.bundle_dir
     fixture_contract_path = bundle_dir / "fixtures" / "contract.json"
@@ -315,6 +334,7 @@ def full_catalog_entry(repo_root: Path, record: Any) -> dict[str, Any]:
         "blind_spot_disclosure": manifest["blind_spot_disclosure"],
         "score_interpretation_bound": manifest["score_interpretation_bound"],
         "eval_path": relative_location(record.eval_md_path, repo_root),
+        "comparison_surface": normalize_comparison_surface(manifest),
         "technique_dependencies": list(metadata["technique_dependencies"]),
         "technique_refs": technique_refs,
         "skill_dependencies": list(metadata["skill_dependencies"]),

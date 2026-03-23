@@ -2,7 +2,7 @@
 name: aoa-eval-integrity-check
 category: capability
 status: bounded
-summary: Checks whether current public starter bundles stay coherent across manifest contract, verdict wording, evidence coverage, and public selection surfaces, especially when polished wording risks outrunning evidence.
+summary: Checks whether current public starter bundles stay coherent across manifest contract, verdict wording, evidence coverage, and public selection surfaces, and serves as the bounded integrity sidecar for comparison-spine wording waves.
 object_under_evaluation: public starter eval bundle integrity on the current aoa-evals corpus
 claim_type: bounded
 baseline_mode: none
@@ -76,6 +76,7 @@ Use this eval when:
 - the main question is whether an eval surface is overstating what it proves
 - index and selection wording materially shape how outside readers will use a starter bundle
 - comparative, regression, or bridge bundles need a bounded integrity read before stronger reuse
+- fixed-baseline, peer-compare, or longitudinal-window surfaces are changing wording, routing, or maturity posture and need an explicit bounded integrity sidecar
 
 Do not use this eval when:
 - the main question is direct agent performance
@@ -117,6 +118,9 @@ Strong review classes for v1:
 - baseline by association
 - artifact/process collapse
 - growth overclaiming
+- fixed-baseline drift
+- peer-compare blur
+- longitudinal overclaim
 
 Target families should avoid:
 - planned bundles that are not yet public starters
@@ -185,6 +189,7 @@ A later stronger integrity form may compare:
 - starter-bundle integrity across broader maturity bands
 
 Without a baseline, this bundle supports only modest claims about current public coherence on the chosen starter corpus.
+Its current public job is to serve as the integrity sidecar for comparison-spine waves without pretending to replace direct bundle-specific comparison evidence.
 
 ## Execution contract
 
@@ -201,7 +206,7 @@ Execution expectations:
 - do not treat a clean integrity read as proof of agent quality
 - do not let roadmap or chooser wording outrun the bundle-local contract
 - keep enough evidence that a careful reviewer can see why each integrity risk class was assigned
-- when pairing, shared infra, longitudinal, or canonical waves materially change a public surface, carry this integrity sidecar or an equivalent bounded integrity packet
+- when fixed-baseline, peer-compare, longitudinal-window, pairing, shared infra, or canonical waves materially change a public surface, carry this integrity sidecar or an equivalent bounded integrity packet
 - when shipping a machine-readable report, validate it against `reports/summary.schema.json`
 
 ## Outputs
@@ -252,6 +257,7 @@ Nearby claim classes that should use a different bundle instead:
 - end-to-end workflow quality should use `aoa-bounded-change-quality`
 - artifact-versus-process divergence should use `aoa-output-vs-process-gap`
 - same-task regression should use `aoa-regression-same-task`
+- repeated-window movement should use `aoa-longitudinal-growth-snapshot`
 
 This is the bounded integrity sidecar, not the direct agent-behavior starter.
 

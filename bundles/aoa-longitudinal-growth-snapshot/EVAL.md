@@ -7,6 +7,13 @@ object_under_evaluation: ordered repeated-window movement on a bounded workflow 
 claim_type: longitudinal
 baseline_mode: longitudinal-window
 report_format: comparative-summary
+comparison_surface:
+  shared_family_path: fixtures/repeated-window-bounded-v1/README.md
+  paired_readout_path: reports/repeated-window-proof-flow-v1.md
+  integrity_sidecar: aoa-eval-integrity-check
+  selection_question: Do you need ordered repeated-window movement on one named bounded workflow surface?
+  anchor_surface: aoa-bounded-change-quality
+  window_family_label: repeated-window-bounded-v1 bounded workflow sequence
 technique_dependencies:
   - AOA-T-0001
 skill_dependencies:
@@ -157,6 +164,10 @@ Signals toward `mixed or unstable movement` or `bounded regression signal`:
 ## Baseline or comparison mode
 
 This starter bundle uses `longitudinal-window`.
+Its machine-readable comparison surface is anchored in `aoa-bounded-change-quality`,
+uses the shared family `fixtures/repeated-window-bounded-v1/README.md`,
+publishes through `reports/repeated-window-proof-flow-v1.md`,
+and should carry `aoa-eval-integrity-check` whenever a public wording or maturity wave could otherwise turn ordered windows into growth myth.
 
 In this surface:
 - the windows must be ordered and named

@@ -6,6 +6,7 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "stress",
       "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-ambiguity-handling/EVAL.md",
       "evidence": [
         {
@@ -85,6 +86,7 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "boundary",
       "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-approval-boundary-adherence/EVAL.md",
       "evidence": [
         {
@@ -152,6 +154,7 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "artifact",
       "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-artifact-review-rubric/EVAL.md",
       "evidence": [
         {
@@ -237,6 +240,7 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "workflow",
       "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-bounded-change-quality/EVAL.md",
       "evidence": [
         {
@@ -342,6 +346,7 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "artifact",
       "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-compost-provenance-preservation/EVAL.md",
       "evidence": [
         {
@@ -401,6 +406,7 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "capability",
       "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-eval-integrity-check/EVAL.md",
       "evidence": [
         {
@@ -495,7 +501,7 @@
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "bounded",
-      "summary": "Checks whether current public starter bundles stay coherent across manifest contract, verdict wording, evidence coverage, and public selection surfaces, especially when polished wording risks outrunning evidence.",
+      "summary": "Checks whether current public starter bundles stay coherent across manifest contract, verdict wording, evidence coverage, and public selection surfaces, and serves as the bounded integrity sidecar for comparison-spine wording waves.",
       "technique_dependencies": [],
       "technique_refs": [],
       "validation_strength": "baseline",
@@ -506,6 +512,7 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "workflow",
       "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-long-horizon-depth/EVAL.md",
       "evidence": [
         {
@@ -565,6 +572,14 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "longitudinal",
       "claim_type": "longitudinal",
+      "comparison_surface": {
+        "anchor_surface": "aoa-bounded-change-quality",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "paired_readout_path": "reports/repeated-window-proof-flow-v1.md",
+        "selection_question": "Do you need ordered repeated-window movement on one named bounded workflow surface?",
+        "shared_family_path": "fixtures/repeated-window-bounded-v1/README.md",
+        "window_family_label": "repeated-window-bounded-v1 bounded workflow sequence"
+      },
       "eval_path": "bundles/aoa-longitudinal-growth-snapshot/EVAL.md",
       "evidence": [
         {
@@ -613,6 +628,10 @@
         {
           "target": "aoa-regression-same-task",
           "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
         }
       ],
       "repeatability": "moderate",
@@ -650,6 +669,17 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "comparative",
       "claim_type": "comparative",
+      "comparison_surface": {
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "matched_surface": "same bounded change case family under matched artifact and workflow review conditions",
+        "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+        "peer_surfaces": [
+          "aoa-artifact-review-rubric",
+          "aoa-bounded-change-quality"
+        ],
+        "selection_question": "Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?",
+        "shared_family_path": "fixtures/bounded-change-paired-v1/README.md"
+      },
       "eval_path": "bundles/aoa-output-vs-process-gap/EVAL.md",
       "evidence": [
         {
@@ -706,6 +736,10 @@
         {
           "target": "aoa-trace-outcome-separation",
           "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
         }
       ],
       "repeatability": "moderate",
@@ -743,6 +777,14 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "regression",
       "claim_type": "regression",
+      "comparison_surface": {
+        "anchor_surface": "aoa-bounded-change-quality",
+        "baseline_target_label": "RS-v1 frozen bounded workflow reference",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "paired_readout_path": "reports/same-task-baseline-proof-flow-v1.md",
+        "selection_question": "Do you need a frozen-baseline comparison on the same bounded task family?",
+        "shared_family_path": "fixtures/frozen-same-task-v1/README.md"
+      },
       "eval_path": "bundles/aoa-regression-same-task/EVAL.md",
       "evidence": [
         {
@@ -789,6 +831,10 @@
           "type": "derived_from"
         },
         {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
+        },
+        {
           "target": "aoa-trace-outcome-separation",
           "type": "complements"
         },
@@ -832,6 +878,7 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "boundary",
       "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-scope-drift-detection/EVAL.md",
       "evidence": [
         {
@@ -911,6 +958,7 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "workflow",
       "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-tool-trajectory-discipline/EVAL.md",
       "evidence": [
         {
@@ -990,6 +1038,7 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "workflow",
       "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-trace-outcome-separation/EVAL.md",
       "evidence": [
         {
@@ -1077,6 +1126,7 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "workflow",
       "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-verification-honesty/EVAL.md",
       "evidence": [
         {
@@ -1156,6 +1206,7 @@
       "blind_spot_disclosure": "required-and-present",
       "category": "workflow",
       "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-witness-trace-integrity/EVAL.md",
       "evidence": [
         {

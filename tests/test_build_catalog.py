@@ -12,7 +12,12 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 import build_catalog
 import eval_section_contract
-from validate_repo import build_capsule_payload, build_catalog_payloads, collect_catalog_records
+from validate_repo import (
+    build_capsule_payload,
+    build_catalog_payloads,
+    build_comparison_spine_payload,
+    collect_catalog_records,
+)
 
 from test_validate_repo import make_eval_bundle
 
@@ -59,6 +64,7 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
         {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
     ]
     assert entry["validation_strength"] == "baseline"
+    assert entry["comparison_surface"] is None
     assert entry["proof_artifacts"] == {
         "fixture_contract_path": None,
         "shared_fixture_family_path": None,
@@ -107,6 +113,7 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
         "blind_spot_short": "broad general strength; stable behavior across time; downstream artifact excellence",
         "what_this_does_not_prove": "proof of general capability; proof of total safety; proof that every nearby surface is strong",
         "proof_artifact_short": "bundle-local notes and examples only",
+        "comparison_surface": None,
         "technique_dependencies": ["AOA-T-0001"],
         "skill_dependencies": ["aoa-change-protocol"],
         "eval_path": "bundles/aoa-catalog-shape/EVAL.md",
@@ -139,12 +146,13 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
 def test_build_catalog_check_passes_after_write(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-check-pass")
 
-    full_path, min_path, capsule_path, sections_path = build_catalog.write_catalogs(tmp_path)
+    full_path, min_path, capsule_path, sections_path, comparison_spine_path = build_catalog.write_catalogs(tmp_path)
 
     assert full_path.name == "eval_catalog.json"
     assert min_path.name == "eval_catalog.min.json"
     assert capsule_path.name == "eval_capsules.json"
     assert sections_path.name == "eval_sections.full.json"
+    assert comparison_spine_path.name == "comparison_spine.json"
     assert build_catalog.check_catalogs(tmp_path) == []
 
 
@@ -194,7 +202,9 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+    comparison_spine = build_comparison_spine_payload(REPO_ROOT, records, full_catalog)
     entries = {entry["name"]: entry for entry in full_catalog["evals"]}
+    comparison_entries = {entry["name"]: entry for entry in comparison_spine["evals"]}
 
     regression_artifacts = entries["aoa-regression-same-task"]["proof_artifacts"]
     longitudinal_artifacts = entries["aoa-longitudinal-growth-snapshot"]["proof_artifacts"]
@@ -208,3 +218,15 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     assert longitudinal_artifacts["runner_contract_path"] == "bundles/aoa-longitudinal-growth-snapshot/runners/contract.json"
     assert longitudinal_artifacts["report_schema_path"] == "bundles/aoa-longitudinal-growth-snapshot/reports/summary.schema.json"
     assert longitudinal_artifacts["paired_readout_path"] == "reports/repeated-window-proof-flow-v1.md"
+
+    assert entries["aoa-regression-same-task"]["comparison_surface"]["baseline_target_label"] == "RS-v1 frozen bounded workflow reference"
+    assert entries["aoa-output-vs-process-gap"]["comparison_surface"]["peer_surfaces"] == [
+        "aoa-artifact-review-rubric",
+        "aoa-bounded-change-quality",
+    ]
+    assert entries["aoa-longitudinal-growth-snapshot"]["comparison_surface"]["window_family_label"] == "repeated-window-bounded-v1 bounded workflow sequence"
+    assert set(comparison_entries) == {
+        "aoa-longitudinal-growth-snapshot",
+        "aoa-output-vs-process-gap",
+        "aoa-regression-same-task",
+    }

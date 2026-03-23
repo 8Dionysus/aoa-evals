@@ -11,6 +11,7 @@ Each window should preserve:
 - comparable case meaning or declared replacement logic
 - comparable verdict interpretation
 - the same bounded workflow surface even when fixtures rotate within the declared window rules
+- the same shared family `fixtures/repeated-window-bounded-v1/README.md`
 
 Each window should disclose:
 - reviewer changes if they materially affect reading
@@ -27,4 +28,5 @@ Keep the current materialized repeated-window proof flow aligned with:
 - `fixtures/repeated-window-bounded-v1/README.md`
 - `reports/example-report.json`
 - `reports/repeated-window-proof-flow-v1.md`
+- `aoa-eval-integrity-check` as the integrity sidecar whenever public movement wording, routing, or maturity posture changes materially
 

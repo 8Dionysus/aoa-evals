@@ -19,6 +19,7 @@ from validate_repo import (
     NO_ADDITIONAL_STARTER_BUNDLES_TEXT,
     build_capsule_payload,
     build_catalog_payloads,
+    build_comparison_spine_payload,
     collect_catalog_records,
     run_validation,
     validate_eval_index,
@@ -31,7 +32,264 @@ def write_text(path: Path, content: str) -> None:
     path.write_text(textwrap.dedent(content).lstrip(), encoding="utf-8")
 
 
-def make_index(repo_root: Path, name: str, category: str) -> None:
+def ensure_support_bundle(repo_root: Path, name: str, *, category: str = "workflow") -> None:
+    bundle_dir = repo_root / "bundles" / name
+    if bundle_dir.exists():
+        return
+
+    write_text(
+        bundle_dir / "EVAL.md",
+        f"""
+        ---
+        name: {name}
+        category: {category}
+        status: draft
+        summary: Minimal support bundle for validation.
+        object_under_evaluation: bounded support surface
+        claim_type: bounded
+        baseline_mode: none
+        report_format: summary
+        technique_dependencies: []
+        skill_dependencies: []
+        ---
+
+        # {name}
+
+        ## Intent
+        Minimal support intent.
+
+        ## Object under evaluation
+        Minimal support object.
+
+        ## Bounded claim
+        This eval is designed to support a claim like:
+
+        under these conditions, the bounded support claim holds on this surface.
+
+        This eval does not support claims such as:
+        - broad general strength
+        - total safety
+
+        ## Trigger boundary
+        Use this eval when:
+        - bounded review matters
+        - the support surface is the real question
+
+        Do not use this eval when:
+        - the task is unbounded
+        - the main question is something else
+
+        ## Inputs
+        - input
+
+        ## Fixtures and case surface
+        - fixture
+
+        ## Scoring or verdict logic
+        - logic
+
+        ## Baseline or comparison mode
+        - none
+
+        ## Execution contract
+        - contract
+
+        ## Outputs
+        - output
+
+        ## Failure modes
+        - failure
+
+        ## Blind spots
+        This eval does not prove:
+        - broad general strength
+        - stable behavior across time
+        - downstream artifact excellence
+
+        ## Interpretation guidance
+        Treat a positive result as support for one bounded claim:
+        the bounded support claim holds on this surface.
+
+        Do not treat a positive result as:
+        - proof of general capability
+        - proof of total safety
+        - proof that every nearby surface is strong
+
+        ## Verification
+        - verify
+
+        ## Technique traceability
+        - none
+
+        ## Skill traceability
+        - none
+
+        ## Adaptation points
+        - point
+        """,
+    )
+    write_text(
+        bundle_dir / "eval.yaml",
+        yaml.safe_dump(
+            {
+                "name": name,
+                "category": category,
+                "status": "draft",
+                "object_under_evaluation": "bounded support surface",
+                "claim_type": "bounded",
+                "baseline_mode": "none",
+                "verdict_shape": "categorical",
+                "report_format": "summary",
+                "maturity_score": 1,
+                "rigor_level": "bounded",
+                "repeatability": "moderate",
+                "portability_level": "local-shaped",
+                "review_required": True,
+                "validation_strength": "baseline",
+                "export_ready": True,
+                "blind_spot_disclosure": "required-and-present",
+                "score_interpretation_bound": "explicit",
+                "technique_dependencies": [],
+                "skill_dependencies": [],
+                "relations": [],
+                "evidence": [
+                    {"kind": "origin_need", "path": "notes/origin-need.md"},
+                    {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+                ],
+            },
+            sort_keys=False,
+        ),
+    )
+    write_text(bundle_dir / "notes" / "origin-need.md", "# Origin Need\n")
+    write_text(bundle_dir / "examples" / "example-report.md", "# Example Report\n")
+    write_text(bundle_dir / "checks" / "eval-integrity-check.md", "# Eval Integrity Check\n")
+
+
+def build_default_comparison_surface(
+    repo_root: Path,
+    *,
+    bundle_name: str,
+    baseline_mode: str,
+) -> dict[str, object] | None:
+    if baseline_mode == "none":
+        return None
+
+    ensure_support_bundle(repo_root, "aoa-eval-integrity-check", category="capability")
+
+    if baseline_mode in {"fixed-baseline", "previous-version"}:
+        ensure_support_bundle(repo_root, "aoa-anchor-surface")
+        write_text(repo_root / "fixtures" / "frozen-same-task-v1" / "README.md", "# Shared Fixture Family\n")
+        write_text(repo_root / "reports" / "same-task-baseline-proof-flow-v1.md", "# Paired Proof\n")
+        return {
+            "shared_family_path": "fixtures/frozen-same-task-v1/README.md",
+            "paired_readout_path": "reports/same-task-baseline-proof-flow-v1.md",
+            "integrity_sidecar": "aoa-eval-integrity-check",
+            "selection_question": "Do you need a frozen-baseline comparison on the same bounded task family?",
+            "anchor_surface": "aoa-anchor-surface",
+            "baseline_target_label": "RS-v1 frozen bounded workflow reference",
+        }
+
+    if baseline_mode == "peer-compare":
+        ensure_support_bundle(repo_root, "aoa-peer-left")
+        ensure_support_bundle(repo_root, "aoa-peer-right")
+        write_text(repo_root / "fixtures" / "bounded-change-paired-v1" / "README.md", "# Shared Fixture Family\n")
+        write_text(repo_root / "reports" / "artifact-process-paired-proof-flow-v1.md", "# Paired Proof\n")
+        return {
+            "shared_family_path": "fixtures/bounded-change-paired-v1/README.md",
+            "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+            "integrity_sidecar": "aoa-eval-integrity-check",
+            "selection_question": "Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?",
+            "peer_surfaces": ["aoa-peer-left", "aoa-peer-right"],
+            "matched_surface": "same bounded case family under matched peer conditions",
+        }
+
+    ensure_support_bundle(repo_root, "aoa-anchor-surface")
+    write_text(repo_root / "fixtures" / "repeated-window-bounded-v1" / "README.md", "# Shared Fixture Family\n")
+    write_text(repo_root / "reports" / "repeated-window-proof-flow-v1.md", "# Paired Proof\n")
+    return {
+        "shared_family_path": "fixtures/repeated-window-bounded-v1/README.md",
+        "paired_readout_path": "reports/repeated-window-proof-flow-v1.md",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "selection_question": "Do you need ordered repeated-window movement on one named bounded workflow surface?",
+        "anchor_surface": "aoa-anchor-surface",
+        "window_family_label": "repeated-window-bounded-v1 validation family",
+    }
+
+
+def make_repo_docs(
+    repo_root: Path,
+    *,
+    starter_names: list[str],
+    comparison_entries: list[tuple[str, str]] | None = None,
+) -> None:
+    comparison_entries = comparison_entries or []
+    comparison_lines = "\n".join(f"- `{name}`" for _question, name in comparison_entries)
+    comparison_questions = "\n".join(
+        f"### {question}\n- `{name}`"
+        for question, name in comparison_entries
+    )
+    if not comparison_questions:
+        comparison_questions = "### Do you need a frozen-baseline comparison on the same bounded task family?\n- `aoa-regression-same-task`"
+    doctrine_names = starter_names + [name for _question, name in comparison_entries] + ["aoa-eval-integrity-check"]
+    doctrine_block = "\n".join(f"- `{name}`" for name in sorted(set(doctrine_names)))
+
+    write_text(
+        repo_root / "README.md",
+        """
+        # aoa-evals
+
+        See `docs/COMPARISON_SPINE_GUIDE.md` when you need the comparison ladder.
+        Generated comparison routing lives in `generated/comparison_spine.json`.
+        """,
+    )
+    write_text(
+        repo_root / "docs" / "README.md",
+        """
+        # Documentation Map
+
+        - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
+        - `generated/comparison_spine.json`
+        """,
+    )
+    write_text(
+        repo_root / "docs" / "COMPARISON_SPINE_GUIDE.md",
+        f"""
+        # Comparison Spine Guide
+
+        Current comparison doctrine:
+        {doctrine_block}
+        """,
+    )
+    write_text(
+        repo_root / "EVAL_SELECTION.md",
+        f"""
+        # Eval Selection
+
+        Current starter posture:
+        {"".join(f"- `{name}`\n" for name in starter_names)}
+
+        ## Pick Comparison Surface
+
+        {comparison_questions}
+        """,
+    )
+
+
+def make_index(
+    repo_root: Path,
+    name: str,
+    category: str,
+    *,
+    include_comparison_spine: bool = False,
+) -> None:
+    comparison_spine_block = ""
+    if include_comparison_spine:
+        comparison_spine_block = """
+
+        ## Comparison Spine
+
+        The comparison spine is a bounded program layer.
+        """
     write_text(
         repo_root / "EVAL_INDEX.md",
         f"""
@@ -46,12 +304,24 @@ def make_index(repo_root: Path, name: str, category: str) -> None:
         ## Planned starter bundles
 
         {NO_ADDITIONAL_STARTER_BUNDLES_TEXT}
+        {comparison_spine_block}
         """,
     )
 
 
-def make_selection(repo_root: Path, names: list[str]) -> None:
+def make_selection(
+    repo_root: Path,
+    names: list[str],
+    comparison_entries: list[tuple[str, str]] | None = None,
+) -> None:
     lines = "\n".join(f"- `{name}`" for name in names)
+    comparison_entries = comparison_entries or []
+    comparison_block = ""
+    if comparison_entries:
+        comparison_block = "\n## Pick Comparison Surface\n\n" + "\n".join(
+            f"### {question}\n- `{name}`"
+            for question, name in comparison_entries
+        )
     write_text(
         repo_root / "EVAL_SELECTION.md",
         f"""
@@ -59,6 +329,7 @@ def make_selection(repo_root: Path, names: list[str]) -> None:
 
         Current starter posture:
         {lines}
+        {comparison_block}
         """,
     )
 
@@ -118,6 +389,7 @@ def make_eval_bundle(
     evidence_entries: list[dict[str, str]] | None = None,
     support_files: dict[str, str] | None = None,
     section_overrides: dict[str, str] | None = None,
+    comparison_surface: dict[str, object] | None = None,
 ) -> None:
     bundle_dir = repo_root / "bundles" / name
     support_files = dict(support_files or {
@@ -140,6 +412,12 @@ def make_eval_bundle(
         }
     ]
     relations = relations or []
+    if comparison_surface is None:
+        comparison_surface = build_default_comparison_surface(
+            repo_root,
+            bundle_name=name,
+            baseline_mode=baseline_mode,
+        )
     if evidence_entries is None:
         evidence_entries = [
             {"kind": "origin_need", "path": "notes/origin-need.md"},
@@ -242,6 +520,8 @@ def make_eval_bundle(
         "technique_dependencies": [entry["id"] for entry in technique_dependencies],
         "skill_dependencies": [entry["name"] for entry in skill_dependencies],
     }
+    if comparison_surface is not None:
+        frontmatter["comparison_surface"] = comparison_surface
     section_bodies = {
         "Intent": "Minimal intent.",
         "Object under evaluation": "Minimal object.",
@@ -361,6 +641,7 @@ def make_eval_bundle(
         "score_interpretation_bound": "explicit",
         "technique_dependencies": technique_dependencies,
         "skill_dependencies": skill_dependencies,
+        "comparison_surface": comparison_surface,
         "relations": relations,
         "evidence": evidence_entries,
     }
@@ -369,9 +650,21 @@ def make_eval_bundle(
     for relative_path, content in support_files.items():
         write_text(bundle_dir / relative_path, content)
 
-    make_index(repo_root, name, category)
-    make_selection(repo_root, [name])
+    comparison_entries = []
+    if isinstance(comparison_surface, dict):
+        raw_question = comparison_surface.get("selection_question")
+        if isinstance(raw_question, str):
+            comparison_entries.append((raw_question, name))
+
+    make_index(
+        repo_root,
+        name,
+        category,
+        include_comparison_spine=baseline_mode != "none",
+    )
+    make_selection(repo_root, [name], comparison_entries=comparison_entries)
     make_roadmap(repo_root, [name])
+    make_repo_docs(repo_root, starter_names=[name], comparison_entries=comparison_entries)
 
 
 def write_catalogs(repo_root: Path) -> None:
@@ -380,12 +673,14 @@ def write_catalogs(repo_root: Path) -> None:
         return
     full_catalog, min_catalog = build_catalog_payloads(repo_root, records)
     capsules = build_capsule_payload(repo_root, records, full_catalog)
+    comparison_spine = build_comparison_spine_payload(repo_root, records, full_catalog)
     sections, section_issues = eval_section_contract.build_sections_payload(repo_root, records)
     if section_issues:
         return
     write_json_file(repo_root / "generated" / "eval_catalog.json", full_catalog, compact=False)
     write_json_file(repo_root / "generated" / "eval_catalog.min.json", min_catalog, compact=True)
     write_json_file(repo_root / "generated" / "eval_capsules.json", capsules, compact=False)
+    write_json_file(repo_root / "generated" / "comparison_spine.json", comparison_spine, compact=False)
     write_json_file(repo_root / "generated" / "eval_sections.full.json", sections, compact=False)
 
 
@@ -395,6 +690,7 @@ def add_materialized_proof_artifacts(
     bundle_name: str,
     report_schema: dict[str, object],
     report_example: dict[str, object],
+    comparison_mode: str | None = None,
     include_fixture_contract: bool = True,
     include_paired_readout: bool = False,
     include_runner_contract: bool = True,
@@ -431,6 +727,16 @@ def add_materialized_proof_artifacts(
 
     schema_path = f"bundles/{bundle_name}/reports/summary.schema.json"
     example_path = f"bundles/{bundle_name}/reports/example-report.json"
+    if comparison_mode is not None:
+        schema_required = list(report_schema.get("required", []))
+        if "comparison_mode" not in schema_required:
+            insert_at = 3 if len(schema_required) >= 3 else len(schema_required)
+            schema_required.insert(insert_at, "comparison_mode")
+            report_schema["required"] = schema_required
+        schema_properties = dict(report_schema.get("properties", {}))
+        schema_properties["comparison_mode"] = {"const": comparison_mode}
+        report_schema["properties"] = schema_properties
+        report_example["comparison_mode"] = comparison_mode
     write_text(
         repo_root / "bundles" / bundle_name / "reports" / "summary.schema.json",
         json.dumps(report_schema, indent=2),
@@ -475,6 +781,7 @@ def add_fixed_baseline_proof_artifacts(
         bundle_name=bundle_name,
         include_fixture_contract=include_fixture_contract,
         include_runner_contract=include_runner_contract,
+        comparison_mode="fixed-baseline",
         include_paired_readout=True,
         fixture_family_path="fixtures/frozen-same-task-v1/README.md",
         shared_case_surface="shared frozen same-task case family for validation",
@@ -619,6 +926,7 @@ def add_longitudinal_proof_artifacts(
         bundle_name=bundle_name,
         include_fixture_contract=include_fixture_contract,
         include_runner_contract=include_runner_contract,
+        comparison_mode="longitudinal-window",
         include_paired_readout=True,
         fixture_family_path="fixtures/repeated-window-bounded-v1/README.md",
         shared_case_surface="shared repeated-window workflow family for validation",
@@ -701,6 +1009,119 @@ def add_longitudinal_proof_artifacts(
             },
         },
         report_example=report_example,
+    )
+
+
+def add_peer_compare_proof_artifacts(
+    repo_root: Path,
+    *,
+    bundle_name: str,
+    include_fixture_contract: bool = True,
+    include_runner_contract: bool = True,
+) -> None:
+    add_materialized_proof_artifacts(
+        repo_root,
+        bundle_name=bundle_name,
+        include_fixture_contract=include_fixture_contract,
+        include_runner_contract=include_runner_contract,
+        comparison_mode="peer-compare",
+        include_paired_readout=True,
+        fixture_family_path="fixtures/bounded-change-paired-v1/README.md",
+        shared_case_surface="shared bounded change case family for validation",
+        bounded_replacement_rule="replace only with the same bounded case family under matched artifact and workflow review conditions",
+        public_safe_requirements=[
+            "the shared case family stays explicit",
+            "the side-by-side artifact and workflow surfaces stay reviewable",
+        ],
+        runner_inputs=[
+            "shared bounded case family",
+            "artifact-side readings",
+            "process-side readings",
+            "paired divergence summary",
+        ],
+        paired_readout_path="reports/artifact-process-paired-proof-flow-v1.md",
+        report_schema={
+            "type": "object",
+            "additionalProperties": False,
+            "required": [
+                "eval_name",
+                "bundle_status",
+                "object_under_evaluation",
+                "verdict",
+                "claim_boundary",
+                "limitations",
+                "case_family",
+                "paired_surfaces",
+                "per_case_comparisons",
+            ],
+            "properties": {
+                "eval_name": {"const": bundle_name},
+                "bundle_status": {"const": "draft"},
+                "object_under_evaluation": {"const": "bounded test surface"},
+                "verdict": {
+                    "type": "string",
+                    "enum": [
+                        "artifact outruns process",
+                        "process outruns artifact",
+                        "artifact and process are broadly aligned",
+                        "mixed comparison signal",
+                    ],
+                },
+                "claim_boundary": {"type": "string"},
+                "limitations": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "minItems": 1,
+                },
+                "case_family": {"type": "string"},
+                "paired_surfaces": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "minItems": 2,
+                },
+                "per_case_comparisons": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": [
+                            "case_id",
+                            "artifact_side_reading",
+                            "process_side_reading",
+                            "gap_reading",
+                            "side_by_side_note",
+                        ],
+                        "properties": {
+                            "case_id": {"type": "string"},
+                            "artifact_side_reading": {"type": "string"},
+                            "process_side_reading": {"type": "string"},
+                            "gap_reading": {"type": "string"},
+                            "side_by_side_note": {"type": "string"},
+                        },
+                    },
+                },
+            },
+        },
+        report_example={
+            "eval_name": bundle_name,
+            "bundle_status": "draft",
+            "object_under_evaluation": "bounded test surface",
+            "verdict": "mixed comparison signal",
+            "claim_boundary": "bounded peer-compare example for validation",
+            "limitations": ["still bounded"],
+            "case_family": "bounded-change-paired-v1",
+            "paired_surfaces": ["aoa-peer-left", "aoa-peer-right"],
+            "per_case_comparisons": [
+                {
+                    "case_id": "PC-01",
+                    "artifact_side_reading": "supports bounded claim",
+                    "process_side_reading": "mixed support",
+                    "gap_reading": "artifact outruns process",
+                    "side_by_side_note": "paired note",
+                }
+            ],
+        },
     )
 
 
@@ -1173,6 +1594,200 @@ def test_validate_repo_requires_peer_compare_contract_phrases(tmp_path: Path) ->
         in issue.message
         for issue in issues
     )
+
+
+def test_validate_repo_accepts_valid_fixed_baseline_comparison_surface(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-valid-fixed-baseline",
+        category="regression",
+        claim_type="regression",
+        baseline_mode="fixed-baseline",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_fixed_baseline_proof_artifacts(tmp_path, bundle_name="aoa-valid-fixed-baseline")
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path, eval_name="aoa-valid-fixed-baseline")
+
+    assert issues == []
+
+
+def test_validate_repo_accepts_valid_peer_compare_comparison_surface(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-valid-peer-compare",
+        category="comparative",
+        claim_type="comparative",
+        baseline_mode="peer-compare",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_peer_compare_proof_artifacts(tmp_path, bundle_name="aoa-valid-peer-compare")
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path, eval_name="aoa-valid-peer-compare")
+
+    assert issues == []
+
+
+def test_validate_repo_accepts_valid_longitudinal_comparison_surface(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-valid-longitudinal-window",
+        category="longitudinal",
+        claim_type="longitudinal",
+        baseline_mode="longitudinal-window",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_longitudinal_proof_artifacts(tmp_path, bundle_name="aoa-valid-longitudinal-window")
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path, eval_name="aoa-valid-longitudinal-window")
+
+    assert issues == []
+
+
+def test_validate_repo_requires_comparison_surface_for_non_none_baseline(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-missing-comparison-surface",
+        category="regression",
+        claim_type="regression",
+        baseline_mode="fixed-baseline",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    manifest_path = tmp_path / "bundles" / "aoa-missing-comparison-surface" / "eval.yaml"
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    manifest.pop("comparison_surface", None)
+    manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
+
+    issues = run_validation(tmp_path)
+
+    assert any("comparison_surface" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_comparison_mode_in_comparative_report_artifacts(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-missing-comparison-mode",
+        category="regression",
+        claim_type="regression",
+        baseline_mode="fixed-baseline",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_fixed_baseline_proof_artifacts(tmp_path, bundle_name="aoa-missing-comparison-mode")
+    schema_path = tmp_path / "bundles" / "aoa-missing-comparison-mode" / "reports" / "summary.schema.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    schema["required"] = [item for item in schema["required"] if item != "comparison_mode"]
+    schema["properties"].pop("comparison_mode", None)
+    schema_path.write_text(json.dumps(schema, indent=2), encoding="utf-8")
+    example_path = tmp_path / "bundles" / "aoa-missing-comparison-mode" / "reports" / "example-report.json"
+    example = json.loads(example_path.read_text(encoding="utf-8"))
+    example.pop("comparison_mode", None)
+    example_path.write_text(json.dumps(example, indent=2), encoding="utf-8")
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("comparison_mode" in issue.message for issue in issues)
+
+
+def test_validate_repo_rejects_peer_compare_with_wrong_peer_surface_count(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-invalid-peer-surface-count",
+        category="comparative",
+        claim_type="comparative",
+        baseline_mode="peer-compare",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    manifest_path = tmp_path / "bundles" / "aoa-invalid-peer-surface-count" / "eval.yaml"
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    manifest["comparison_surface"]["peer_surfaces"] = ["aoa-peer-left"]
+    manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
+
+    issues = run_validation(tmp_path)
+
+    assert any("peer_surfaces" in issue.location or "peer_surfaces" in issue.message for issue in issues)
+
+
+def test_validate_repo_rejects_mismatched_comparison_surface_shared_family_path(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-mismatched-shared-family",
+        category="regression",
+        claim_type="regression",
+        baseline_mode="fixed-baseline",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_fixed_baseline_proof_artifacts(tmp_path, bundle_name="aoa-mismatched-shared-family")
+    write_text(tmp_path / "fixtures" / "alt-family" / "README.md", "# Shared Fixture Family\n")
+    manifest_path = tmp_path / "bundles" / "aoa-mismatched-shared-family" / "eval.yaml"
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    manifest["comparison_surface"]["shared_family_path"] = "fixtures/alt-family/README.md"
+    manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("shared_family_path must match fixtures/contract.json" in issue.message for issue in issues)
+
+
+def test_validate_repo_rejects_mismatched_comparison_surface_paired_readout_path(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-mismatched-paired-readout",
+        category="longitudinal",
+        claim_type="longitudinal",
+        baseline_mode="longitudinal-window",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_longitudinal_proof_artifacts(tmp_path, bundle_name="aoa-mismatched-paired-readout")
+    write_text(tmp_path / "reports" / "alt-proof-flow.md", "# Paired Proof\n")
+    manifest_path = tmp_path / "bundles" / "aoa-mismatched-paired-readout" / "eval.yaml"
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    manifest["comparison_surface"]["paired_readout_path"] = "reports/alt-proof-flow.md"
+    manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path)
+
+    assert any("paired_readout_path must match runners/contract.json" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_comparison_doctrine_selection_parity(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-selection-drift",
+        category="regression",
+        claim_type="regression",
+        baseline_mode="fixed-baseline",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_fixed_baseline_proof_artifacts(tmp_path, bundle_name="aoa-selection-drift")
+    write_catalogs(tmp_path)
+    write_text(
+        tmp_path / "EVAL_SELECTION.md",
+        """
+        # Eval Selection
+
+        Current starter posture:
+        - `aoa-selection-drift`
+        """,
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any("Pick Comparison Surface" in issue.message or "comparison selector question" in issue.message for issue in issues)
 
 
 def test_validate_repo_requires_fixture_contract_for_longitudinal_window(tmp_path: Path) -> None:

@@ -156,6 +156,57 @@
         "missing"
       ]
     },
+    "comparison_surface": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "shared_family_path": {
+          "type": "string",
+          "minLength": 3
+        },
+        "paired_readout_path": {
+          "type": "string",
+          "minLength": 3
+        },
+        "integrity_sidecar": {
+          "type": "string",
+          "pattern": "^aoa-[a-z0-9-]+$"
+        },
+        "selection_question": {
+          "type": "string",
+          "minLength": 10
+        },
+        "anchor_surface": {
+          "type": "string",
+          "pattern": "^aoa-[a-z0-9-]+$"
+        },
+        "baseline_target_label": {
+          "type": "string",
+          "minLength": 5
+        },
+        "peer_surfaces": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^aoa-[a-z0-9-]+$"
+          }
+        },
+        "matched_surface": {
+          "type": "string",
+          "minLength": 5
+        },
+        "window_family_label": {
+          "type": "string",
+          "minLength": 5
+        }
+      }
+    },
     "technique_dependencies": {
       "type": "array",
       "items": {
@@ -265,5 +316,107 @@
         }
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "baseline_mode": {
+            "const": "none"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "comparison_surface": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "baseline_mode": {
+            "enum": [
+              "fixed-baseline",
+              "previous-version"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "comparison_surface"
+        ],
+        "properties": {
+          "comparison_surface": {
+            "type": "object",
+            "required": [
+              "shared_family_path",
+              "paired_readout_path",
+              "integrity_sidecar",
+              "selection_question",
+              "anchor_surface",
+              "baseline_target_label"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "baseline_mode": {
+            "const": "peer-compare"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "comparison_surface"
+        ],
+        "properties": {
+          "comparison_surface": {
+            "type": "object",
+            "required": [
+              "shared_family_path",
+              "paired_readout_path",
+              "integrity_sidecar",
+              "selection_question",
+              "peer_surfaces",
+              "matched_surface"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "baseline_mode": {
+            "const": "longitudinal-window"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "comparison_surface"
+        ],
+        "properties": {
+          "comparison_surface": {
+            "type": "object",
+            "required": [
+              "shared_family_path",
+              "paired_readout_path",
+              "integrity_sidecar",
+              "selection_question",
+              "anchor_surface",
+              "window_family_label"
+            ]
+          }
+        }
+      }
+    }
+  ]
 }

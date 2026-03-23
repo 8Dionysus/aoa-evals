@@ -7,6 +7,13 @@ object_under_evaluation: same-task bounded workflow regression against a frozen 
 claim_type: regression
 baseline_mode: fixed-baseline
 report_format: comparative-summary
+comparison_surface:
+  shared_family_path: fixtures/frozen-same-task-v1/README.md
+  paired_readout_path: reports/same-task-baseline-proof-flow-v1.md
+  integrity_sidecar: aoa-eval-integrity-check
+  selection_question: Do you need a frozen-baseline comparison on the same bounded task family?
+  anchor_surface: aoa-bounded-change-quality
+  baseline_target_label: RS-v1 frozen bounded workflow reference
 technique_dependencies:
   - AOA-T-0001
 skill_dependencies:
@@ -160,6 +167,10 @@ Signals toward `mixed regression signal` or `regression present`:
 ## Baseline or comparison mode
 
 This baseline bundle uses `fixed-baseline`.
+Its machine-readable comparison surface is anchored in `aoa-bounded-change-quality`,
+uses the shared family `fixtures/frozen-same-task-v1/README.md`,
+publishes through `reports/same-task-baseline-proof-flow-v1.md`,
+and should carry `aoa-eval-integrity-check` whenever a public maturity, wording, or baseline-contract wave could otherwise turn the same-task read theatrical.
 
 The baseline should be frozen before candidate comparison begins.
 The same bounded case family should be used for both baseline and candidate.

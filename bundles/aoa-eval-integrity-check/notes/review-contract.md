@@ -37,6 +37,11 @@ review the comparison trio directly:
 - `aoa-output-vs-process-gap` for baseline-by-association risk
 - `aoa-longitudinal-growth-snapshot` for growth-overclaiming risk
 
+Treat this bundle as the bounded integrity sidecar for:
+- `fixed-baseline` comparison waves
+- `peer-compare` comparison waves
+- `longitudinal-window` comparison waves
+
 The resulting note should name one integrity risk class directly.
 If the dossier is mixed,
 prefer `mixed support` over a cleaner-looking pass.

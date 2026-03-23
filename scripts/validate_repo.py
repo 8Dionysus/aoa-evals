@@ -20,6 +20,7 @@ from jsonschema import Draft202012Validator, SchemaError
 import eval_catalog_contract
 import eval_capsule_contract
 import eval_section_contract
+import eval_comparison_spine_contract
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -53,6 +54,9 @@ CAPSULE_SOURCE_OF_TRUTH = eval_capsule_contract.CAPSULE_SOURCE_OF_TRUTH
 SECTION_NAME = eval_section_contract.SECTIONS_NAME
 SECTION_VERSION = eval_section_contract.SECTION_VERSION
 SECTION_SOURCE_OF_TRUTH = eval_section_contract.SECTION_SOURCE_OF_TRUTH
+COMPARISON_SPINE_NAME = eval_comparison_spine_contract.COMPARISON_SPINE_NAME
+COMPARISON_SPINE_VERSION = eval_comparison_spine_contract.COMPARISON_SPINE_VERSION
+COMPARISON_SPINE_SOURCE_OF_TRUTH = eval_comparison_spine_contract.COMPARISON_SPINE_SOURCE_OF_TRUTH
 
 MIRRORED_FIELDS = (
     "name",
@@ -62,6 +66,7 @@ MIRRORED_FIELDS = (
     "claim_type",
     "baseline_mode",
     "report_format",
+    "comparison_surface",
 )
 MIN_ENTRY_KEYS = eval_catalog_contract.MIN_ENTRY_KEYS
 KNOWN_REPOS = eval_catalog_contract.KNOWN_REPOS
@@ -118,6 +123,26 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
         "trace_surfaces": [],
         "verification_surface": "inquiry_checkpoint",
     },
+}
+COMPARISON_SURFACE_COMMON_KEYS = (
+    "shared_family_path",
+    "paired_readout_path",
+    "integrity_sidecar",
+    "selection_question",
+)
+COMPARISON_SURFACE_ALLOWED_KEYS = {
+    "fixed-baseline": set(
+        COMPARISON_SURFACE_COMMON_KEYS + ("anchor_surface", "baseline_target_label")
+    ),
+    "previous-version": set(
+        COMPARISON_SURFACE_COMMON_KEYS + ("anchor_surface", "baseline_target_label")
+    ),
+    "peer-compare": set(
+        COMPARISON_SURFACE_COMMON_KEYS + ("peer_surfaces", "matched_surface")
+    ),
+    "longitudinal-window": set(
+        COMPARISON_SURFACE_COMMON_KEYS + ("anchor_surface", "window_family_label")
+    ),
 }
 MARKDOWN_HEADING = re.compile(r"^(#{1,6})\s+(.*\S)\s*$")
 
@@ -396,7 +421,7 @@ def requires_materialized_comparison_artifacts(manifest: dict[str, Any] | None) 
         return False
     return (
         manifest.get("report_format") == "comparative-summary"
-        and manifest.get("baseline_mode") in {"fixed-baseline", "longitudinal-window"}
+        and manifest.get("baseline_mode") != "none"
     )
 
 
@@ -420,6 +445,146 @@ def validate_repo_relative_contract_path(
         )
         return None
     return normalized_path
+
+
+def validate_comparison_eval_target(
+    raw_name: Any,
+    *,
+    location: str,
+    known_eval_names: set[str],
+    issues: list[ValidationIssue],
+) -> str | None:
+    if not isinstance(raw_name, str) or not raw_name:
+        issues.append(
+            ValidationIssue(location, "comparison target must be a non-empty eval name")
+        )
+        return None
+    if raw_name not in known_eval_names:
+        issues.append(
+            ValidationIssue(location, f"comparison target '{raw_name}' does not exist")
+        )
+        return None
+    return raw_name
+
+
+def validate_comparison_surface_contract(
+    repo_root: Path,
+    bundle_dir: Path,
+    manifest: dict[str, Any],
+    *,
+    known_eval_names: set[str],
+    issues: list[ValidationIssue],
+) -> None:
+    baseline_mode = manifest.get("baseline_mode")
+    if baseline_mode == "none":
+        return
+
+    location = relative_location(bundle_dir / "eval.yaml", repo_root)
+    comparison_surface = manifest.get("comparison_surface")
+    if not isinstance(comparison_surface, dict):
+        issues.append(
+            ValidationIssue(
+                location,
+                "comparison bundle must define comparison_surface in eval.yaml",
+            )
+        )
+        return
+
+    allowed_keys = COMPARISON_SURFACE_ALLOWED_KEYS.get(baseline_mode, set())
+    unexpected_keys = sorted(set(comparison_surface) - allowed_keys)
+    if unexpected_keys:
+        issues.append(
+            ValidationIssue(
+                location,
+                f"comparison_surface has unexpected keys for baseline_mode '{baseline_mode}': {', '.join(unexpected_keys)}",
+            )
+        )
+
+    shared_family_path = comparison_surface.get("shared_family_path")
+    normalized_shared_family_path = None
+    if isinstance(shared_family_path, str):
+        normalized_shared_family_path = validate_repo_relative_contract_path(
+            repo_root,
+            shared_family_path,
+            location=f"{location}.comparison_surface.shared_family_path",
+            issues=issues,
+        )
+
+    paired_readout_path = comparison_surface.get("paired_readout_path")
+    normalized_paired_readout_path = None
+    if isinstance(paired_readout_path, str):
+        normalized_paired_readout_path = validate_repo_relative_contract_path(
+            repo_root,
+            paired_readout_path,
+            location=f"{location}.comparison_surface.paired_readout_path",
+            issues=issues,
+        )
+
+    integrity_sidecar = comparison_surface.get("integrity_sidecar")
+    validate_comparison_eval_target(
+        integrity_sidecar,
+        location=f"{location}.comparison_surface.integrity_sidecar",
+        known_eval_names=known_eval_names,
+        issues=issues,
+    )
+
+    if baseline_mode in {"fixed-baseline", "previous-version", "longitudinal-window"}:
+        validate_comparison_eval_target(
+            comparison_surface.get("anchor_surface"),
+            location=f"{location}.comparison_surface.anchor_surface",
+            known_eval_names=known_eval_names,
+            issues=issues,
+        )
+
+    if baseline_mode == "peer-compare":
+        raw_peer_surfaces = comparison_surface.get("peer_surfaces")
+        if not isinstance(raw_peer_surfaces, list):
+            issues.append(
+                ValidationIssue(
+                    f"{location}.comparison_surface.peer_surfaces",
+                    "peer_surfaces must be a list",
+                )
+            )
+        else:
+            for index, raw_name in enumerate(raw_peer_surfaces):
+                validate_comparison_eval_target(
+                    raw_name,
+                    location=f"{location}.comparison_surface.peer_surfaces[{index}]",
+                    known_eval_names=known_eval_names,
+                    issues=issues,
+                )
+
+    fixture_contract_path = bundle_dir / "fixtures" / "contract.json"
+    fixture_contract = eval_catalog_contract.load_optional_json(fixture_contract_path)
+    if isinstance(fixture_contract, dict):
+        fixture_family_path = fixture_contract.get("shared_fixture_family_path")
+        if (
+            isinstance(fixture_family_path, str)
+            and normalized_shared_family_path is not None
+            and fixture_family_path.replace("\\", "/") != normalized_shared_family_path
+        ):
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "comparison_surface.shared_family_path must match fixtures/contract.json shared_fixture_family_path",
+                )
+            )
+
+    runner_contract_path = bundle_dir / "runners" / "contract.json"
+    runner_contract = eval_catalog_contract.load_optional_json(runner_contract_path)
+    if isinstance(runner_contract, dict):
+        runner_paired_readout_path = runner_contract.get("paired_readout_path")
+        if (
+            isinstance(runner_paired_readout_path, str)
+            and normalized_paired_readout_path is not None
+            and runner_paired_readout_path.replace("\\", "/") != normalized_paired_readout_path
+        ):
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "comparison_surface.paired_readout_path must match runners/contract.json paired_readout_path",
+                )
+            )
 
 
 def parse_eval_markdown(
@@ -1058,6 +1223,15 @@ def validate_bundle_report_artifacts(
         location=example_location,
         issues=issues,
     )
+    if manifest is not None and manifest.get("report_format") == "comparative-summary":
+        validate_comparative_report_mode_contract(
+            schema,
+            example_payload,
+            required_mode=required_mode,
+            schema_location=schema_location,
+            example_location=example_location,
+            issues=issues,
+        )
     if example_valid and required_mode == "longitudinal-window":
         validate_longitudinal_report_example(
             example_payload,
@@ -1106,6 +1280,47 @@ def validate_longitudinal_report_example(
                     )
                 )
             last_order = window_order
+
+
+def validate_comparative_report_mode_contract(
+    schema: dict[str, Any],
+    example_payload: Any,
+    *,
+    required_mode: str | None,
+    schema_location: str,
+    example_location: str,
+    issues: list[ValidationIssue],
+) -> None:
+    if required_mode is None:
+        return
+
+    required_fields = schema.get("required", [])
+    if "comparison_mode" not in required_fields:
+        issues.append(
+            ValidationIssue(
+                schema_location,
+                "comparative-summary report schema must require 'comparison_mode'",
+            )
+        )
+    properties = schema.get("properties", {})
+    comparison_mode_schema = properties.get("comparison_mode")
+    if not isinstance(comparison_mode_schema, dict) or comparison_mode_schema.get("const") != required_mode:
+        issues.append(
+            ValidationIssue(
+                schema_location,
+                f"comparative-summary report schema must pin comparison_mode to '{required_mode}'",
+            )
+        )
+
+    if not isinstance(example_payload, dict):
+        return
+    if example_payload.get("comparison_mode") != required_mode:
+        issues.append(
+            ValidationIssue(
+                example_location,
+                f"comparative-summary report example must set comparison_mode to '{required_mode}'",
+            )
+        )
 
 
 def validate_bundle_fixture_contract(
@@ -1261,6 +1476,14 @@ def validate_bundle(
             if isinstance(loaded_manifest, dict):
                 manifest = loaded_manifest
                 validate_manifest_evidence(manifest, bundle_dir, eval_yaml_path, issues)
+                if manifest_valid:
+                    validate_comparison_surface_contract(
+                        repo_root,
+                        bundle_dir,
+                        manifest,
+                        known_eval_names=known_eval_names,
+                        issues=issues,
+                    )
 
     validate_bundle_proof_artifacts(repo_root, bundle_dir, manifest, issues)
 
@@ -1505,6 +1728,130 @@ def validate_roadmap_parity(
     return issues
 
 
+def validate_comparison_doctrine_surfaces(
+    repo_root: Path,
+    records: Sequence[EvalBundleRecord],
+    selected_evals: set[str] | None = None,
+) -> list[ValidationIssue]:
+    comparison_records = [
+        record for record in records if record.manifest.get("baseline_mode") != "none"
+    ]
+    if selected_evals is not None:
+        comparison_records = [
+            record for record in comparison_records if record.name in selected_evals
+        ]
+    if not comparison_records:
+        return []
+
+    issues: list[ValidationIssue] = []
+    doctrine_path = repo_root / "docs" / "COMPARISON_SPINE_GUIDE.md"
+    readme_path = repo_root / "README.md"
+    docs_readme_path = repo_root / "docs" / "README.md"
+    selection_path = repo_root / EVAL_SELECTION_NAME
+    index_path = repo_root / EVAL_INDEX_NAME
+
+    try:
+        doctrine_text = doctrine_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        return [ValidationIssue("docs/COMPARISON_SPINE_GUIDE.md", "file is missing")]
+
+    try:
+        readme_text = readme_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        readme_text = ""
+        issues.append(ValidationIssue("README.md", "file is missing"))
+
+    try:
+        docs_readme_text = docs_readme_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        docs_readme_text = ""
+        issues.append(ValidationIssue("docs/README.md", "file is missing"))
+
+    try:
+        selection_text = selection_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        selection_text = ""
+        issues.append(ValidationIssue(EVAL_SELECTION_NAME, "file is missing"))
+
+    try:
+        index_text = index_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        index_text = ""
+        issues.append(ValidationIssue(EVAL_INDEX_NAME, "file is missing"))
+
+    if "docs/COMPARISON_SPINE_GUIDE.md" not in readme_text:
+        issues.append(
+            ValidationIssue(
+                "README.md",
+                "README.md must reference docs/COMPARISON_SPINE_GUIDE.md",
+            )
+        )
+    if "generated/comparison_spine.json" not in readme_text:
+        issues.append(
+            ValidationIssue(
+                "README.md",
+                "README.md must reference generated/comparison_spine.json",
+            )
+        )
+
+    if "Comparison Spine Guide" not in docs_readme_text:
+        issues.append(
+            ValidationIssue(
+                "docs/README.md",
+                "docs/README.md must list Comparison Spine Guide",
+            )
+        )
+    if "generated/comparison_spine.json" not in docs_readme_text:
+        issues.append(
+            ValidationIssue(
+                "docs/README.md",
+                "docs/README.md must reference generated/comparison_spine.json",
+            )
+        )
+
+    if "## Pick Comparison Surface" not in selection_text:
+        issues.append(
+            ValidationIssue(
+                EVAL_SELECTION_NAME,
+                "EVAL_SELECTION.md must include a 'Pick Comparison Surface' chooser section",
+            )
+        )
+
+    if "comparison spine" not in index_text.lower():
+        issues.append(
+            ValidationIssue(
+                EVAL_INDEX_NAME,
+                "EVAL_INDEX.md must describe the comparison spine as a public program layer",
+            )
+        )
+
+    doctrine_names = {record.name for record in comparison_records}
+    doctrine_names.add("aoa-eval-integrity-check")
+    for name in sorted(doctrine_names):
+        if name not in doctrine_text:
+            issues.append(
+                ValidationIssue(
+                    "docs/COMPARISON_SPINE_GUIDE.md",
+                    f"comparison doctrine must mention '{name}'",
+                )
+            )
+
+    for record in comparison_records:
+        comparison_surface = record.manifest.get("comparison_surface")
+        if not isinstance(comparison_surface, dict):
+            continue
+        selection_question = comparison_surface.get("selection_question")
+        if isinstance(selection_question, str) and selection_question not in selection_text:
+            issues.append(
+                ValidationIssue(
+                    EVAL_SELECTION_NAME,
+                    f"EVAL_SELECTION.md must include the comparison selector question for '{record.name}'",
+                )
+            )
+
+    return issues
+
+
 def discover_eval_names(repo_root: Path) -> list[str]:
     bundles_dir = repo_root / BUNDLES_DIR_NAME
     if not bundles_dir.is_dir():
@@ -1590,6 +1937,18 @@ def build_capsule_payload(
     full_catalog: dict[str, Any],
 ) -> dict[str, Any]:
     return eval_capsule_contract.build_capsule_payload(repo_root, records, full_catalog)
+
+
+def build_comparison_spine_payload(
+    repo_root: Path,
+    records: list[EvalBundleRecord],
+    full_catalog: dict[str, Any],
+) -> dict[str, Any]:
+    return eval_comparison_spine_contract.build_comparison_spine_payload(
+        repo_root,
+        records,
+        full_catalog,
+    )
 
 
 def read_json_file(path: Path, issues: list[ValidationIssue], repo_root: Path) -> Any | None:
@@ -1998,6 +2357,114 @@ def validate_generated_sections(
     return issues
 
 
+def validate_generated_comparison_spine(
+    repo_root: Path,
+    records: list[EvalBundleRecord],
+    target_eval_names: Sequence[str] | None = None,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    full_path = repo_root / GENERATED_DIR_NAME / FULL_CATALOG_NAME
+    comparison_spine_path = repo_root / GENERATED_DIR_NAME / COMPARISON_SPINE_NAME
+    comparison_spine_location = relative_location(comparison_spine_path, repo_root)
+    comparison_target_names = {
+        record.name
+        for record in records
+        if record.manifest.get("baseline_mode") != "none"
+    }
+    if target_eval_names is not None:
+        comparison_target_names &= set(target_eval_names)
+    if not comparison_target_names and target_eval_names is not None:
+        return issues
+
+    expected_full, _expected_min = build_catalog_payloads(repo_root, records)
+    expected_comparison_spine = build_comparison_spine_payload(repo_root, records, expected_full)
+    actual_comparison_spine = read_json_file(comparison_spine_path, issues, repo_root)
+    if actual_comparison_spine is None:
+        return issues
+    if not isinstance(actual_comparison_spine, dict):
+        issues.append(
+            ValidationIssue(
+                comparison_spine_location,
+                "generated comparison spine payload must be an object",
+            )
+        )
+        return issues
+
+    if actual_comparison_spine.get("comparison_spine_version") != COMPARISON_SPINE_VERSION:
+        issues.append(
+            ValidationIssue(
+                comparison_spine_location,
+                f"comparison_spine_version must be {COMPARISON_SPINE_VERSION}",
+            )
+        )
+    if actual_comparison_spine.get("source_of_truth") != COMPARISON_SPINE_SOURCE_OF_TRUTH:
+        issues.append(
+            ValidationIssue(
+                comparison_spine_location,
+                "source_of_truth does not match the comparison spine contract",
+            )
+        )
+
+    if target_eval_names is None:
+        if actual_comparison_spine != expected_comparison_spine:
+            issues.append(
+                ValidationIssue(
+                    comparison_spine_location,
+                    "generated comparison spine is out of date; run 'python scripts/build_catalog.py'",
+                )
+            )
+    else:
+        expected_entries, expected_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+            expected_comparison_spine,
+            array_key="evals",
+            key_name="name",
+            location=comparison_spine_location,
+        )
+        actual_entries, actual_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+            actual_comparison_spine,
+            array_key="evals",
+            key_name="name",
+            location=comparison_spine_location,
+        )
+        issues.extend(
+            ValidationIssue(issue.location, issue.message)
+            for issue in expected_entry_issues + actual_entry_issues
+        )
+        for eval_name in sorted(comparison_target_names):
+            actual_entry = actual_entries.get(eval_name)
+            if actual_entry is None:
+                issues.append(
+                    ValidationIssue(
+                        comparison_spine_location,
+                        f"generated comparison spine is missing eval '{eval_name}'",
+                    )
+                )
+                continue
+            if actual_entry != expected_entries[eval_name]:
+                issues.append(
+                    ValidationIssue(
+                        comparison_spine_location,
+                        f"generated comparison spine entry for '{eval_name}' is out of date; run 'python scripts/build_catalog.py'",
+                    )
+                )
+
+    actual_full = read_json_file(full_path, issues, repo_root)
+    if not isinstance(actual_full, dict):
+        return issues
+
+    contract_issues = eval_comparison_spine_contract.validate_comparison_spine_alignment(
+        actual_full,
+        actual_comparison_spine,
+        location=comparison_spine_location,
+        target_eval_names=comparison_target_names if comparison_target_names else None,
+    )
+    issues.extend(
+        ValidationIssue(issue.location, issue.message)
+        for issue in contract_issues
+    )
+    return issues
+
+
 def expected_contract_test_refs(record: EvalBundleRecord) -> set[str]:
     refs: set[str] = set()
     for item in record.manifest.get("evidence", []):
@@ -2299,6 +2766,14 @@ def run_validation(
             selected_evals=selected_evals,
         )
     )
+    if not source_issues:
+        issues.extend(
+            validate_comparison_doctrine_surfaces(
+                repo_root,
+                records,
+                selected_evals=selected_evals,
+            )
+        )
 
     if eval_name is None and not source_issues:
         all_source_issues, all_records = collect_catalog_records(repo_root)
@@ -2307,6 +2782,7 @@ def run_validation(
             issues.extend(validate_generated_catalogs(repo_root, all_records))
             issues.extend(validate_generated_capsules(repo_root, all_records))
             issues.extend(validate_generated_sections(repo_root, all_records))
+            issues.extend(validate_generated_comparison_spine(repo_root, all_records))
     elif eval_name is not None and not source_issues:
         issues.extend(
             validate_generated_catalogs(
@@ -2324,6 +2800,13 @@ def run_validation(
         )
         issues.extend(
             validate_generated_sections(
+                repo_root,
+                records,
+                target_eval_names=target_evals,
+            )
+        )
+        issues.extend(
+            validate_generated_comparison_spine(
                 repo_root,
                 records,
                 target_eval_names=target_evals,

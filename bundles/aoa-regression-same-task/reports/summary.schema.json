@@ -7,6 +7,7 @@
     "eval_name",
     "bundle_status",
     "object_under_evaluation",
+    "comparison_mode",
     "verdict",
     "claim_boundary",
     "limitations",
@@ -23,6 +24,9 @@
     },
     "object_under_evaluation": {
       "const": "same-task bounded workflow regression against a frozen baseline"
+    },
+    "comparison_mode": {
+      "const": "fixed-baseline"
     },
     "verdict": {
       "type": "string",

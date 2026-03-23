@@ -23,6 +23,7 @@ Choose the path that matches your question:
 - I need to understand how runtime artifacts and trace surfaces become eval evidence:
   - [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md)
 - I need to understand portability, fixtures, blind spots, or baseline comparison:
+  - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
   - [Fixture Surface Guide](FIXTURE_SURFACE_GUIDE.md)
   - [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md)
   - [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
@@ -46,6 +47,8 @@ These are reader-facing navigation artifacts derived from authoritative markdown
   - use when a reader or router needs the thin projection surface for routing and indexing
 - `generated/eval_capsules.json`
   - use when a local runtime needs compact eval cards derived from bounded claim, trigger boundary, blind spots, and interpretation guidance
+- `generated/comparison_spine.json`
+  - use when a reader or router needs the filtered comparison-only ladder with mode-specific comparison contracts
 - `generated/eval_sections.full.json`
   - use when a local runtime needs bounded section expansion from source-owned eval markdown without reopening the whole bundle blindly
 
@@ -67,6 +70,7 @@ These guides explain what makes an eval bundle portable, bounded, and honest abo
 - [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
 - [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md)
 - [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
+- [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
 
 ### Derived bridge surfaces
 
@@ -104,8 +108,9 @@ feed existing eval bundles without creating a second proof canon.
 4. [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md)
 5. [Fixture Surface Guide](FIXTURE_SURFACE_GUIDE.md)
 6. [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md)
-7. [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
-8. [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
+7. [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
+8. [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
+9. [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
 
 ## Companion Repository Surfaces
 
@@ -114,7 +119,9 @@ These are outside `docs/` but matter when navigating the repo:
 - [README](../README.md)
 - [EVAL_INDEX](../EVAL_INDEX.md)
 - [EVAL_SELECTION](../EVAL_SELECTION.md)
+- [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
 - `../reports/same-task-baseline-proof-flow-v1.md`
+- `../reports/comparison-spine-proof-flow-v1.md`
 - `../reports/repeated-window-proof-flow-v1.md`
 - [CONTRIBUTING](../CONTRIBUTING.md)
 - [Eval Template](../templates/EVAL.template.md)
@@ -124,6 +131,7 @@ These are outside `docs/` but matter when navigating the repo:
 - Prefer generated reader surfaces when the question is "which eval should I inspect next?"
 - Prefer `generated/eval_catalog*.json` when the question is "what is the deterministic machine-readable eval surface right now?"
 - Prefer `generated/eval_capsules.json` when the question is "what is the smallest local runtime card for this eval?"
+- Prefer `generated/comparison_spine.json` when the question is "which comparison surface in the current ladder should I inspect next?"
 - Prefer `generated/eval_sections.full.json` when the question is "which exact eval section should I expand next?"
 - Prefer authored guides when the question is "what does this repo mean by this score, verdict, or boundary?"
 - Prefer boundary guides when the question is "is this bundle really portable and honest enough to publish?"

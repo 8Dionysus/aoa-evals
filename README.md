@@ -21,8 +21,9 @@ If you are new to this repository, follow this short path:
 2. Read `docs/ARCHITECTURE.md` for the high-level model.
 3. Read `docs/EVAL_PHILOSOPHY.md` for the core stance on proof, limits, and growth.
 4. Read `EVAL_INDEX.md` for the current eval surface.
-5. Open `bundles/aoa-bounded-change-quality/EVAL.md` as the first starter eval bundle.
-6. Use `templates/EVAL.template.md` when authoring a new eval.
+5. Read `docs/COMPARISON_SPINE_GUIDE.md` if your question is about regression, peer comparison, or repeated-window movement.
+6. Open `bundles/aoa-bounded-change-quality/EVAL.md` as the first starter eval bundle.
+7. Use `templates/EVAL.template.md` when authoring a new eval.
 
 ## Quick routes
 
@@ -32,6 +33,7 @@ If you are new to this repository, follow this short path:
 - if you need role posture or handoff context around an evaluation target, go to [aoa-agents](https://github.com/8Dionysus/aoa-agents)
 - if you need scenario-level operating context, go to [aoa-playbooks](https://github.com/8Dionysus/aoa-playbooks)
 - if you need the runtime-artifact or trace-to-verdict seam, read `docs/TRACE_EVAL_BRIDGE.md`
+- if you need the current comparison ladder, read `docs/COMPARISON_SPINE_GUIDE.md`
 
 ## What belongs here
 
@@ -142,6 +144,7 @@ A typical eval bundle contains:
 
 `EVAL.md` and `eval.yaml` remain authoritative.
 `generated/eval_catalog.json`, `generated/eval_catalog.min.json`, and `generated/eval_capsules.json` are derived reader surfaces for routing, indexing, and local runtime lookup cards.
+`generated/comparison_spine.json` is the filtered comparison-only routing and selection surface for `fixed-baseline`, `peer-compare`, and `longitudinal-window` bundles.
 `generated/eval_sections.full.json` is the source-owned section payload surface for bounded expand-time reads.
 `docs/TRACE_EVAL_BRIDGE.md` plus `examples/artifact_to_verdict_hook.*.example.json` are derived bridge surfaces for runtime evidence inputs; they do not change eval bundle ownership, wording, or status.
 
@@ -179,6 +182,7 @@ without hidden scoring assumptions or untracked private context.
 
 This repository remains in public bootstrap,
 now with the first materialized comparison wave for frozen same-task and repeated-window surfaces.
+The next public hardening step is a coherent comparison spine rather than isolated comparison bundles.
 
 The current goal is to establish:
 - the public doctrine for bounded agent evaluation
@@ -222,8 +226,9 @@ python scripts/build_catalog.py
 ```
 
 The validator checks that generated catalogs and capsules exist, stay current, keep the min catalog as an exact projection of the full catalog, and keep capsules aligned 1:1 with the catalog surface.
+It also checks that `generated/comparison_spine.json` exists, stays current, and remains aligned with the comparison entries in `generated/eval_catalog.json`.
 It also checks that `generated/eval_sections.full.json` exists, stays current, and remains 1:1 aligned with the catalog and capsule surfaces.
-It also checks that `fixed-baseline` and `longitudinal-window` comparative-summary bundles ship their materialized report, runner, and fixture contracts when those public surfaces are in use.
+It also checks that comparison bundles with `baseline_mode != none` ship aligned comparison-surface metadata, materialized report artifacts, runner contracts, and fixture contracts when those public surfaces are in use.
 
 An eval should say:
 - what it can support

@@ -26,6 +26,7 @@ CAPSULE_ENTRY_KEYS = (
     "blind_spot_short",
     "what_this_does_not_prove",
     "proof_artifact_short",
+    "comparison_surface",
     "technique_dependencies",
     "skill_dependencies",
     "eval_path",
@@ -271,6 +272,7 @@ def capsule_entry(
             sections["Interpretation guidance"]
         ),
         "proof_artifact_short": summarize_proof_artifacts(catalog_entry),
+        "comparison_surface": catalog_entry.get("comparison_surface"),
         "technique_dependencies": list(record.metadata["technique_dependencies"]),
         "skill_dependencies": list(record.metadata["skill_dependencies"]),
         "eval_path": eval_catalog_contract.relative_location(record.eval_md_path, repo_root),
@@ -352,6 +354,7 @@ def validate_capsule_alignment(
         "status",
         "summary",
         "verdict_shape",
+        "comparison_surface",
         "technique_dependencies",
         "skill_dependencies",
         "eval_path",

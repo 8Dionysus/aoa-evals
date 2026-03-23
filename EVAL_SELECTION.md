@@ -38,7 +38,7 @@ Current starter posture:
 - `aoa-output-vs-process-gap` is the current draft artifact/process bridge starter:
   use it when the main question is whether polished output is outrunning process discipline or vice versa after the standalone artifact and workflow surfaces are already legible.
 - `aoa-eval-integrity-check` is the current bounded integrity sidecar meta-eval for eval-bundle coherence:
-  use it when the main question is whether a public starter bundle is overstating what it proves or drifting out of alignment with its public contract, not when you need a direct agent-behavior eval.
+  use it when the main question is whether a public starter bundle is overstating what it proves or drifting out of alignment with its public contract, especially across the comparison spine, not when you need a direct agent-behavior eval.
 - `aoa-longitudinal-growth-snapshot` is the current draft longitudinal starter:
   use it when the main question is ordered repeated-window movement on the same bounded workflow surface.
   Its current materialized proof flow uses a shared repeated-window family, runner contract, schema-backed report, and shared dossier, but the bundle remains draft.
@@ -107,6 +107,24 @@ See also:
 
 ### I need to read repeated-window movement on the same bounded workflow surface
 - `aoa-longitudinal-growth-snapshot`
+
+## Pick Comparison Surface
+
+### Do you need a frozen-baseline comparison on the same bounded task family?
+- `aoa-regression-same-task`
+  This remains the only current default public `baseline` comparison surface.
+
+### Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?
+- `aoa-output-vs-process-gap`
+  Read it only after the standalone artifact and workflow surfaces are already visible.
+
+### Do you need ordered repeated-window movement on one named bounded workflow surface?
+- `aoa-longitudinal-growth-snapshot`
+  Keep the read modest; this remains a draft repeated-window movement surface.
+
+### Do you need the bounded integrity sidecar for a comparison-spine wording or maturity wave?
+- `aoa-eval-integrity-check`
+  Use it when public comparison wording, routing, or maturity posture risks turning the current comparison read theatrical.
 
 ## Pick by category
 
@@ -200,7 +218,8 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-artifact-review-rubric` is now a bounded one-run artifact surface; it stays on artifact quality only and does not imply strong workflow discipline or replace the bridge surface.
 - `aoa-compost-provenance-preservation` is a draft compost artifact surface; it checks provenance and review-state preservation on witness-derived artifacts and does not imply canon-readiness or replace general artifact review.
 - `aoa-output-vs-process-gap` remains a draft bridge surface; it now participates in the first materialized artifact/process paired proof flow, but it still does not replace standalone artifact review, standalone workflow review, trace/path separation, or the public baseline regression surface.
-- `aoa-eval-integrity-check` is now a bounded integrity sidecar meta-eval for public starter-bundle coherence and semantic anti-theater review; it does not replace direct agent-behavior evaluation, promotion review, or proof of canonical readiness.
+- `aoa-eval-integrity-check` is now a bounded integrity sidecar meta-eval for public starter-bundle coherence and semantic anti-theater review across the comparison spine; it does not replace direct agent-behavior evaluation, promotion review, or proof of canonical readiness.
 - `aoa-longitudinal-growth-snapshot` is a repeated-window movement surface; it does not replace one-run workflow reading or frozen same-task regression.
+- `generated/comparison_spine.json` is now the minimal filtered reader surface for the comparison ladder.
 - As the corpus grows, later generated surfaces may add filters by status, object under evaluation, baseline mode, and verdict shape.
 - Prefer `baseline` or `canonical` bundles for stronger comparison claims once the public corpus reaches that stage.

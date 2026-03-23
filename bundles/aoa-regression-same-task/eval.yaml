@@ -6,6 +6,13 @@ claim_type: regression
 baseline_mode: fixed-baseline
 verdict_shape: comparative
 report_format: comparative-summary
+comparison_surface:
+  shared_family_path: fixtures/frozen-same-task-v1/README.md
+  paired_readout_path: reports/same-task-baseline-proof-flow-v1.md
+  integrity_sidecar: aoa-eval-integrity-check
+  selection_question: Do you need a frozen-baseline comparison on the same bounded task family?
+  anchor_surface: aoa-bounded-change-quality
+  baseline_target_label: RS-v1 frozen bounded workflow reference
 maturity_score: 4
 rigor_level: bounded
 repeatability: moderate
@@ -29,6 +36,8 @@ skill_dependencies:
 relations:
   - type: derived_from
     target: aoa-bounded-change-quality
+  - type: used_together_for
+    target: aoa-eval-integrity-check
   - type: complements
     target: aoa-trace-outcome-separation
   - type: complements

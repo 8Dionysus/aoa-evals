@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-evals/schemas/artifact-to-verdict-hook.schema.json",
+  "title": "aoa-evals artifact to verdict hook",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "surface_type",
+    "hook_id",
+    "playbook_id",
+    "eval_anchor",
+    "verdict_bundle_ref",
+    "artifact_inputs",
+    "artifact_contract_refs",
+    "trace_surfaces",
+    "verification_surface",
+    "contract_test_refs",
+    "report_expectation"
+  ],
+  "properties": {
+    "surface_type": {
+      "type": "string",
+      "const": "artifact_to_verdict_hook"
+    },
+    "hook_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 3
+    },
+    "playbook_id": {
+      "type": "string",
+      "pattern": "^AOA-P-[0-9]{4}$"
+    },
+    "eval_anchor": {
+      "type": "string",
+      "pattern": "^aoa-[a-z0-9-]+$"
+    },
+    "verdict_bundle_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_inputs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "artifact_contract_refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "trace_surfaces": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "verification_surface": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contract_test_refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "report_expectation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "report_format",
+        "verdict_shape",
+        "review_required"
+      ],
+      "properties": {
+        "report_format": {
+          "type": "string",
+          "minLength": 1
+        },
+        "verdict_shape": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_required": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

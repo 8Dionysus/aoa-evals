@@ -20,6 +20,8 @@ Choose the path that matches your question:
 - I need to understand score and verdict boundaries:
   - [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md)
   - [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md)
+- I need to understand how runtime artifacts and trace surfaces become eval evidence:
+  - [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md)
 - I need to understand portability, fixtures, blind spots, or baseline comparison:
   - [Fixture Surface Guide](FIXTURE_SURFACE_GUIDE.md)
   - [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md)
@@ -65,6 +67,14 @@ These guides explain what makes an eval bundle portable, bounded, and honest abo
 - [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
 - [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md)
 - [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
+
+### Derived bridge surfaces
+
+These surfaces explain how neighboring runtime artifacts and trace inputs can
+feed existing eval bundles without creating a second proof canon.
+
+- [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md)
+- `../examples/artifact_to_verdict_hook.*.example.json`
 
 ## Recommended Reading Paths
 
@@ -115,6 +125,7 @@ These are outside `docs/` but matter when navigating the repo:
 - Prefer `generated/eval_sections.full.json` when the question is "which exact eval section should I expand next?"
 - Prefer authored guides when the question is "what does this repo mean by this score, verdict, or boundary?"
 - Prefer boundary guides when the question is "is this bundle really portable and honest enough to publish?"
+- Prefer [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md) when the question is "how do playbook artifacts, verification artifacts, or `WitnessTrace` sidecars become bounded eval evidence?"
 - Treat the docs listed here as the canonical wording layer for future public bundle authoring.
 
 The current runtime path is:

@@ -31,6 +31,7 @@ If you are new to this repository, follow this short path:
 - if you need the smallest next surface by task type, go to [aoa-routing](https://github.com/8Dionysus/aoa-routing)
 - if you need role posture or handoff context around an evaluation target, go to [aoa-agents](https://github.com/8Dionysus/aoa-agents)
 - if you need scenario-level operating context, go to [aoa-playbooks](https://github.com/8Dionysus/aoa-playbooks)
+- if you need the runtime-artifact or trace-to-verdict seam, read `docs/TRACE_EVAL_BRIDGE.md`
 
 ## What belongs here
 
@@ -119,6 +120,7 @@ and keep agent quality tied to reproducible evidence.
 - `scorers/` — shared bounded breakdown helpers
 - `runners/` — portable runner contracts for schema-backed proof artifacts
 - `schemas/` — machine-readable bundle and report contracts
+- `examples/` — derived hook examples that bind playbook artifacts to existing eval bundles
 - `reports/` — compact public summary artifacts and paired readout dossiers
 - `scripts/` — local validation, build, and reporting helpers
 - `EVAL_INDEX.md` — repository-wide eval map
@@ -141,6 +143,7 @@ A typical eval bundle contains:
 `EVAL.md` and `eval.yaml` remain authoritative.
 `generated/eval_catalog.json`, `generated/eval_catalog.min.json`, and `generated/eval_capsules.json` are derived reader surfaces for routing, indexing, and local runtime lookup cards.
 `generated/eval_sections.full.json` is the source-owned section payload surface for bounded expand-time reads.
+`docs/TRACE_EVAL_BRIDGE.md` plus `examples/artifact_to_verdict_hook.*.example.json` are derived bridge surfaces for runtime evidence inputs; they do not change eval bundle ownership, wording, or status.
 
 ## Evaluation bundle shape
 

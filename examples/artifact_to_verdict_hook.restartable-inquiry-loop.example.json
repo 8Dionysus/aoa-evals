@@ -1,0 +1,32 @@
+{
+  "surface_type": "artifact_to_verdict_hook",
+  "hook_id": "aoa-p-0009-long-horizon-depth-hook",
+  "playbook_id": "AOA-P-0009",
+  "eval_anchor": "aoa-long-horizon-depth",
+  "verdict_bundle_ref": "repo:aoa-evals/bundles/aoa-long-horizon-depth/EVAL.md",
+  "artifact_inputs": [
+    "inquiry_checkpoint",
+    "decision_ledger",
+    "contradiction_map",
+    "memory_delta",
+    "canon_delta",
+    "next_pass_brief"
+  ],
+  "artifact_contract_refs": [
+    "repo:aoa-memo/schemas/inquiry_checkpoint.schema.json",
+    "repo:aoa-memo/schemas/checkpoint-to-memory-contract.schema.json",
+    "repo:aoa-playbooks/playbooks/restartable-inquiry-loop/PLAYBOOK.md#expected-artifacts",
+    "repo:aoa-playbooks/generated/playbook_registry.min.json"
+  ],
+  "trace_surfaces": [],
+  "verification_surface": "inquiry_checkpoint",
+  "contract_test_refs": [
+    "repo:aoa-evals/bundles/aoa-long-horizon-depth/checks/eval-integrity-check.md",
+    "repo:aoa-evals/bundles/aoa-long-horizon-depth/notes/restart-contract.md"
+  ],
+  "report_expectation": {
+    "report_format": "summary-with-breakdown",
+    "verdict_shape": "mixed",
+    "review_required": true
+  }
+}

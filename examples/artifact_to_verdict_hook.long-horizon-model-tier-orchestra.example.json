@@ -1,0 +1,34 @@
+{
+  "surface_type": "artifact_to_verdict_hook",
+  "hook_id": "aoa-p-0008-tool-trajectory-hook",
+  "playbook_id": "AOA-P-0008",
+  "eval_anchor": "aoa-tool-trajectory-discipline",
+  "verdict_bundle_ref": "repo:aoa-evals/bundles/aoa-tool-trajectory-discipline/EVAL.md",
+  "artifact_inputs": [
+    "route_decision",
+    "bounded_plan",
+    "verification_result",
+    "transition_decision",
+    "distillation_pack"
+  ],
+  "artifact_contract_refs": [
+    "repo:aoa-agents/schemas/artifact.route_decision.schema.json",
+    "repo:aoa-agents/schemas/artifact.bounded_plan.schema.json",
+    "repo:aoa-agents/schemas/artifact.verification_result.schema.json",
+    "repo:aoa-agents/schemas/artifact.transition_decision.schema.json",
+    "repo:aoa-agents/schemas/artifact.distillation_pack.schema.json"
+  ],
+  "trace_surfaces": [
+    "repo:aoa-memo/docs/WITNESS_TRACE_CONTRACT.md"
+  ],
+  "verification_surface": "verification_result",
+  "contract_test_refs": [
+    "repo:aoa-evals/bundles/aoa-tool-trajectory-discipline/checks/eval-integrity-check.md",
+    "repo:aoa-evals/bundles/aoa-tool-trajectory-discipline/notes/bounded-promotion-review.md"
+  ],
+  "report_expectation": {
+    "report_format": "summary-with-breakdown",
+    "verdict_shape": "categorical",
+    "review_required": true
+  }
+}

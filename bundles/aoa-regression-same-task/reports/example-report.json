@@ -2,6 +2,7 @@
   "eval_name": "aoa-regression-same-task",
   "bundle_status": "baseline",
   "object_under_evaluation": "same-task bounded workflow regression against a frozen baseline",
+  "comparison_mode": "fixed-baseline",
   "verdict": "mixed regression signal",
   "claim_boundary": "On this frozen same-task surface, the candidate can be compared against one named baseline target without treating style-only change as capability movement or turning the result into general growth.",
   "limitations": [

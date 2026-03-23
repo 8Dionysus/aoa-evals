@@ -1,0 +1,159 @@
+{
+  "comparison_spine_version": 1,
+  "evals": [
+    {
+      "baseline_mode": "longitudinal-window",
+      "comparison_surface": {
+        "anchor_surface": "aoa-bounded-change-quality",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "paired_readout_path": "reports/repeated-window-proof-flow-v1.md",
+        "selection_question": "Do you need ordered repeated-window movement on one named bounded workflow surface?",
+        "shared_family_path": "fixtures/repeated-window-bounded-v1/README.md",
+        "window_family_label": "repeated-window-bounded-v1 bounded workflow sequence"
+      },
+      "eval_path": "bundles/aoa-longitudinal-growth-snapshot/EVAL.md",
+      "interpretation_boundary": "proof of general capability growth; proof that all nearby workflow diagnostics improved; proof that the movement is stable outside this window sequence",
+      "name": "aoa-longitudinal-growth-snapshot",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-longitudinal-growth-snapshot/fixtures/contract.json",
+        "paired_readout_path": "reports/repeated-window-proof-flow-v1.md",
+        "report_example_path": "bundles/aoa-longitudinal-growth-snapshot/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-longitudinal-growth-snapshot/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-longitudinal-growth-snapshot/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/repeated-window-bounded-v1/README.md"
+      },
+      "relations": [
+        {
+          "target": "aoa-bounded-change-quality",
+          "type": "derived_from"
+        },
+        {
+          "target": "aoa-bounded-change-quality",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-regression-same-task",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
+        }
+      ],
+      "selection_summary": "Do you need ordered repeated-window movement on one named bounded workflow surface?",
+      "status": "draft"
+    },
+    {
+      "baseline_mode": "peer-compare",
+      "comparison_surface": {
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "matched_surface": "same bounded change case family under matched artifact and workflow review conditions",
+        "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+        "peer_surfaces": [
+          "aoa-artifact-review-rubric",
+          "aoa-bounded-change-quality"
+        ],
+        "selection_question": "Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?",
+        "shared_family_path": "fixtures/bounded-change-paired-v1/README.md"
+      },
+      "eval_path": "bundles/aoa-output-vs-process-gap/EVAL.md",
+      "interpretation_boundary": "proof that one side matters more in all contexts; proof that the stronger-looking side explains the whole story; proof of general capability growth or decline",
+      "name": "aoa-output-vs-process-gap",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-output-vs-process-gap/fixtures/contract.json",
+        "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+        "report_example_path": "bundles/aoa-output-vs-process-gap/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-output-vs-process-gap/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-output-vs-process-gap/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/bounded-change-paired-v1/README.md"
+      },
+      "relations": [
+        {
+          "target": "aoa-artifact-review-rubric",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-artifact-review-rubric",
+          "type": "used_together_for"
+        },
+        {
+          "target": "aoa-bounded-change-quality",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-bounded-change-quality",
+          "type": "used_together_for"
+        },
+        {
+          "target": "aoa-trace-outcome-separation",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
+        }
+      ],
+      "selection_summary": "Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?",
+      "status": "draft"
+    },
+    {
+      "baseline_mode": "fixed-baseline",
+      "comparison_surface": {
+        "anchor_surface": "aoa-bounded-change-quality",
+        "baseline_target_label": "RS-v1 frozen bounded workflow reference",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "paired_readout_path": "reports/same-task-baseline-proof-flow-v1.md",
+        "selection_question": "Do you need a frozen-baseline comparison on the same bounded task family?",
+        "shared_family_path": "fixtures/frozen-same-task-v1/README.md"
+      },
+      "eval_path": "bundles/aoa-regression-same-task/EVAL.md",
+      "interpretation_boundary": "proof of general capability growth; proof that the candidate is universally better than the baseline; proof that no nearby diagnostic regression exists",
+      "name": "aoa-regression-same-task",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-regression-same-task/fixtures/contract.json",
+        "paired_readout_path": "reports/same-task-baseline-proof-flow-v1.md",
+        "report_example_path": "bundles/aoa-regression-same-task/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-regression-same-task/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-regression-same-task/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/frozen-same-task-v1/README.md"
+      },
+      "relations": [
+        {
+          "target": "aoa-bounded-change-quality",
+          "type": "derived_from"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
+        },
+        {
+          "target": "aoa-trace-outcome-separation",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-longitudinal-growth-snapshot",
+          "type": "complements"
+        }
+      ],
+      "selection_summary": "Do you need a frozen-baseline comparison on the same bounded task family?",
+      "status": "baseline"
+    }
+  ],
+  "source_of_truth": {
+    "eval_catalog": "generated/eval_catalog.json",
+    "eval_manifest": "bundles/*/eval.yaml",
+    "eval_markdown": "bundles/*/EVAL.md"
+  }
+}

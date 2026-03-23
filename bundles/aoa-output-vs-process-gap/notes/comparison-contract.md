@@ -9,6 +9,7 @@ Use this bundle only when those two readings are under matched conditions:
 - the same evaluated candidate or run family
 - the same review frame before any gap summary is assigned
 - the same side-by-side evidence window before any winner-like read is attempted
+- the same shared family `fixtures/bounded-change-paired-v1/README.md`
 
 Canonical v1 comparative readings:
 - `artifact outruns process`
@@ -26,4 +27,5 @@ Public summary discipline:
 - do not overread one side-by-side comparison as proof of general capability growth or decline
 - do not overread one side-by-side comparison as proof of general workflow or artifact superiority
 - keep the comparative read aligned with `reports/artifact-process-paired-proof-flow-v1.md`
+- carry `aoa-eval-integrity-check` as the integrity sidecar when public bridge wording, routing, or maturity posture changes materially
 - keep any schema-backed companion report weaker than the bounded side-by-side interpretation

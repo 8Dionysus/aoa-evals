@@ -6,6 +6,13 @@ claim_type: longitudinal
 baseline_mode: longitudinal-window
 verdict_shape: comparative
 report_format: comparative-summary
+comparison_surface:
+  shared_family_path: fixtures/repeated-window-bounded-v1/README.md
+  paired_readout_path: reports/repeated-window-proof-flow-v1.md
+  integrity_sidecar: aoa-eval-integrity-check
+  selection_question: Do you need ordered repeated-window movement on one named bounded workflow surface?
+  anchor_surface: aoa-bounded-change-quality
+  window_family_label: repeated-window-bounded-v1 bounded workflow sequence
 maturity_score: 2
 rigor_level: bounded
 repeatability: moderate
@@ -33,6 +40,8 @@ relations:
     target: aoa-bounded-change-quality
   - type: complements
     target: aoa-regression-same-task
+  - type: used_together_for
+    target: aoa-eval-integrity-check
 
 evidence:
   - kind: origin_need

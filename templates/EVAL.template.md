@@ -7,6 +7,21 @@ object_under_evaluation: agent
 claim_type: bounded
 baseline_mode: none
 report_format: summary
+# If baseline_mode != none, also add:
+# comparison_surface:
+#   shared_family_path: fixtures/shared-family/README.md
+#   paired_readout_path: reports/paired-proof-flow-v1.md
+#   integrity_sidecar: aoa-eval-integrity-check
+#   selection_question: Do you need this comparison surface?
+#   # fixed-baseline / previous-version:
+#   # anchor_surface: aoa-anchor-bundle
+#   # baseline_target_label: named baseline target
+#   # peer-compare:
+#   # peer_surfaces: [aoa-left-surface, aoa-right-surface]
+#   # matched_surface: same bounded case family under matched conditions
+#   # longitudinal-window:
+#   # anchor_surface: aoa-anchor-bundle
+#   # window_family_label: named repeated-window family
 technique_dependencies: []
 skill_dependencies: []
 ---
@@ -75,6 +90,9 @@ If `baseline_mode` is `longitudinal-window`, also make explicit:
 - one public report or summary artifact per window
 - context notes that affect comparability
 
+If `baseline_mode` is not `none`, also mirror a machine-readable `comparison_surface` block in both frontmatter and `eval.yaml`.
+That block should keep the shared family path, paired readout path, integrity sidecar, and the selection question explicit.
+
 ## Fixtures and case surface
 
 Describe:
@@ -125,6 +143,8 @@ If comparison exists, also say:
 - how style-only changes are kept from looking like capability growth
 
 If `report_format` is `comparative-summary`, also ship a tracked `support_note` evidence entry that names the comparison contract.
+Also make the bundle-local report schema require `comparison_mode` with `const` equal to `baseline_mode`,
+and make the bundle-local report example carry the same `comparison_mode` value.
 
 Make that note explicit:
 - for `fixed-baseline` or `previous-version`, state the baseline target, what counts as noisy variation, and why style-only change is not enough

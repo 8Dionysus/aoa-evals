@@ -7,6 +7,7 @@ but you still need to decide whether repeated comparison would mean something bo
 
 See also:
 - [Documentation Map](README.md)
+- [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
 - [Eval Review Guide](EVAL_REVIEW_GUIDE.md)
 - [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md)
 

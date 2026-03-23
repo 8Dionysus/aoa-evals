@@ -7,6 +7,15 @@ object_under_evaluation: artifact-versus-process divergence on the same bounded 
 claim_type: comparative
 baseline_mode: peer-compare
 report_format: comparative-summary
+comparison_surface:
+  shared_family_path: fixtures/bounded-change-paired-v1/README.md
+  paired_readout_path: reports/artifact-process-paired-proof-flow-v1.md
+  integrity_sidecar: aoa-eval-integrity-check
+  selection_question: Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?
+  peer_surfaces:
+    - aoa-artifact-review-rubric
+    - aoa-bounded-change-quality
+  matched_surface: same bounded change case family under matched artifact and workflow review conditions
 technique_dependencies:
   - AOA-T-0001
 skill_dependencies:
@@ -160,6 +169,10 @@ This draft bundle uses `peer-compare`.
 In v1, the peer surfaces are:
 - artifact side: `aoa-artifact-review-rubric`
 - process side: `aoa-bounded-change-quality`
+
+Its machine-readable comparison surface uses the shared family `fixtures/bounded-change-paired-v1/README.md`,
+publishes through `reports/artifact-process-paired-proof-flow-v1.md`,
+and should carry `aoa-eval-integrity-check` when a public wording or maturity wave risks turning the bridge into a baseline-by-association surface.
 
 Neither side is the default truth source.
 The point is the bounded divergence or alignment between them on the same cases.

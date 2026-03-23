@@ -7,6 +7,7 @@
     "eval_name",
     "bundle_status",
     "object_under_evaluation",
+    "comparison_mode",
     "verdict",
     "claim_boundary",
     "limitations",
@@ -23,6 +24,9 @@
     },
     "object_under_evaluation": {
       "const": "artifact-versus-process divergence on the same bounded change cases"
+    },
+    "comparison_mode": {
+      "const": "peer-compare"
     },
     "verdict": {
       "type": "string",

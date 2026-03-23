@@ -2,6 +2,7 @@
   "eval_name": "aoa-output-vs-process-gap",
   "bundle_status": "draft",
   "object_under_evaluation": "artifact-versus-process divergence on the same bounded change cases",
+  "comparison_mode": "peer-compare",
   "verdict": "mixed comparison signal",
   "claim_boundary": "Artifact-side and process-side readings can be compared honestly enough on this shared case family to show divergence or alignment without forcing a winner.",
   "limitations": [

@@ -2,6 +2,7 @@
 
 Use this bundle only when the baseline target is explicit:
 - baseline target: `RS-v1 frozen bounded workflow reference`
+- anchor surface: `aoa-bounded-change-quality`
 - the baseline run family is frozen
 - the candidate is judged on the same bounded task family
 - comparison is read as regression detection, not as general capability ranking
@@ -19,4 +20,6 @@ Public summary discipline:
 - do not let a single improved case erase a material regression somewhere else in the frozen set
 - do not overread one same-task comparison as proof of broad capability growth or decline
 - keep the frozen case-family contract aligned with `fixtures/frozen-same-task-v1/README.md`
+- keep the paired readout aligned with `reports/same-task-baseline-proof-flow-v1.md`
+- carry `aoa-eval-integrity-check` as the integrity sidecar when public baseline wording, routing, or maturity posture changes materially
 - keep any schema-backed companion report and shared dossier aligned with `reports/example-report.json` and `reports/same-task-baseline-proof-flow-v1.md`

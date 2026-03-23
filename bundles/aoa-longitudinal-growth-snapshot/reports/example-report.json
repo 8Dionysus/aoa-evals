@@ -2,6 +2,7 @@
   "eval_name": "aoa-longitudinal-growth-snapshot",
   "bundle_status": "draft",
   "object_under_evaluation": "ordered repeated-window movement on a bounded workflow surface",
+  "comparison_mode": "longitudinal-window",
   "verdict": "mixed or unstable movement",
   "claim_boundary": "Across this named repeated-window sequence, the repository can read modest directional movement on one anchor workflow surface without turning cleaner reports or one vivid window into general growth.",
   "limitations": [

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 from collections import Counter
@@ -21,12 +22,27 @@ import eval_capsule_contract
 import eval_section_contract
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+
+
+def repo_root_from_env(env_name: str, default: Path) -> Path:
+    override = os.environ.get(env_name)
+    if not override:
+        return default
+    return Path(override).expanduser().resolve()
+
+
+AOA_AGENTS_ROOT = repo_root_from_env("AOA_AGENTS_ROOT", REPO_ROOT.parent / "aoa-agents")
+AOA_PLAYBOOKS_ROOT = repo_root_from_env(
+    "AOA_PLAYBOOKS_ROOT", REPO_ROOT.parent / "aoa-playbooks"
+)
+AOA_MEMO_ROOT = repo_root_from_env("AOA_MEMO_ROOT", REPO_ROOT.parent / "aoa-memo")
 BUNDLES_DIR_NAME = "bundles"
 EVAL_INDEX_NAME = "EVAL_INDEX.md"
 EVAL_SELECTION_NAME = "EVAL_SELECTION.md"
 ROADMAP_NAME = "docs/ROADMAP.md"
 SCHEMAS_DIR_NAME = "schemas"
 GENERATED_DIR_NAME = "generated"
+EXAMPLES_DIR_NAME = "examples"
 FULL_CATALOG_NAME = eval_catalog_contract.FULL_CATALOG_NAME
 MIN_CATALOG_NAME = eval_catalog_contract.MIN_CATALOG_NAME
 CATALOG_VERSION = eval_catalog_contract.CATALOG_VERSION
@@ -54,6 +70,56 @@ NO_ADDITIONAL_STARTER_BUNDLES_TEXT = (
 )
 
 REQUIRED_HEADINGS = set(eval_section_contract.CANONICAL_HEADINGS)
+VISIBLE_ROOTS = (
+    REPO_ROOT,
+    AOA_AGENTS_ROOT,
+    AOA_PLAYBOOKS_ROOT,
+    AOA_MEMO_ROOT,
+)
+REPO_REF_PREFIX = "repo:"
+REPO_REF_ROOTS = {
+    "aoa-evals": REPO_ROOT,
+    "aoa-agents": AOA_AGENTS_ROOT,
+    "aoa-playbooks": AOA_PLAYBOOKS_ROOT,
+    "aoa-memo": AOA_MEMO_ROOT,
+}
+ARTIFACT_VERDICT_HOOK_SCHEMA_NAME = "artifact-to-verdict-hook.schema.json"
+ARTIFACT_VERDICT_HOOK_EXAMPLES = {
+    "AOA-P-0008": REPO_ROOT
+    / EXAMPLES_DIR_NAME
+    / "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
+    "AOA-P-0009": REPO_ROOT
+    / EXAMPLES_DIR_NAME
+    / "artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
+}
+TRACE_EVAL_HOOK_EXPECTATIONS = {
+    "AOA-P-0008": {
+        "eval_anchor": "aoa-tool-trajectory-discipline",
+        "artifact_contract_refs": [
+            "repo:aoa-agents/schemas/artifact.route_decision.schema.json",
+            "repo:aoa-agents/schemas/artifact.bounded_plan.schema.json",
+            "repo:aoa-agents/schemas/artifact.verification_result.schema.json",
+            "repo:aoa-agents/schemas/artifact.transition_decision.schema.json",
+            "repo:aoa-agents/schemas/artifact.distillation_pack.schema.json",
+        ],
+        "trace_surfaces": [
+            "repo:aoa-memo/docs/WITNESS_TRACE_CONTRACT.md",
+        ],
+        "verification_surface": "verification_result",
+    },
+    "AOA-P-0009": {
+        "eval_anchor": "aoa-long-horizon-depth",
+        "artifact_contract_refs": [
+            "repo:aoa-memo/schemas/inquiry_checkpoint.schema.json",
+            "repo:aoa-memo/schemas/checkpoint-to-memory-contract.schema.json",
+            "repo:aoa-playbooks/playbooks/restartable-inquiry-loop/PLAYBOOK.md#expected-artifacts",
+            "repo:aoa-playbooks/generated/playbook_registry.min.json",
+        ],
+        "trace_surfaces": [],
+        "verification_surface": "inquiry_checkpoint",
+    },
+}
+MARKDOWN_HEADING = re.compile(r"^(#{1,6})\s+(.*\S)\s*$")
 
 
 @dataclass(frozen=True)
@@ -102,6 +168,15 @@ def relative_location(path: Path, root: Path | None = None) -> str:
         return path.as_posix()
 
 
+def display_location(path: Path) -> str:
+    for root in VISIBLE_ROOTS:
+        try:
+            return path.relative_to(root).as_posix()
+        except ValueError:
+            continue
+    return path.as_posix()
+
+
 def format_schema_path(path_parts: Iterable[Any]) -> str:
     parts: list[str] = []
     for part in path_parts:
@@ -113,6 +188,31 @@ def format_schema_path(path_parts: Iterable[Any]) -> str:
             else:
                 parts.append(str(part))
     return "".join(parts)
+
+
+def markdown_anchor(text: str) -> str:
+    anchor = text.strip().lower()
+    anchor = re.sub(r"[^\w\s-]", "", anchor)
+    anchor = re.sub(r"\s+", "-", anchor)
+    anchor = re.sub(r"-+", "-", anchor)
+    return anchor.strip("-")
+
+
+@lru_cache(maxsize=None)
+def markdown_anchors(path: Path) -> set[str]:
+    anchors: set[str] = set()
+    seen: dict[str, int] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        match = MARKDOWN_HEADING.match(line)
+        if not match:
+            continue
+        base = markdown_anchor(match.group(2))
+        if not base:
+            continue
+        suffix = seen.get(base, 0)
+        seen[base] = suffix + 1
+        anchors.add(base if suffix == 0 else f"{base}-{suffix}")
+    return anchors
 
 
 def validate_against_schema(
@@ -159,6 +259,43 @@ def load_json_payload(path: Path, issues: list[ValidationIssue]) -> Any | None:
         return None
 
 
+def load_mapping_entries(
+    payload: Any,
+    *,
+    array_key: str,
+    key_name: str,
+    location: str,
+    issues: list[ValidationIssue],
+) -> dict[str, dict[str, Any]]:
+    if not isinstance(payload, dict):
+        issues.append(ValidationIssue(location, "payload must be an object"))
+        return {}
+    items = payload.get(array_key)
+    if not isinstance(items, list):
+        issues.append(ValidationIssue(location, f"missing array '{array_key}'"))
+        return {}
+
+    entries: dict[str, dict[str, Any]] = {}
+    for index, item in enumerate(items):
+        item_location = f"{location}.{array_key}[{index}]"
+        if not isinstance(item, dict):
+            issues.append(ValidationIssue(item_location, "entry must be an object"))
+            continue
+        key = item.get(key_name)
+        if not isinstance(key, str) or not key:
+            issues.append(
+                ValidationIssue(item_location, f"entry must expose string key '{key_name}'")
+            )
+            continue
+        if key in entries:
+            issues.append(
+                ValidationIssue(item_location, f"duplicate entry for '{key_name}' value '{key}'")
+            )
+            continue
+        entries[key] = item
+    return entries
+
+
 def validate_inline_schema(
     schema: Any,
     *,
@@ -174,6 +311,62 @@ def validate_inline_schema(
         issues.append(ValidationIssue(location, f"invalid JSON schema: {exc.message}"))
         return False
     return True
+
+
+def parse_repo_ref(
+    raw_ref: Any,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+) -> tuple[str, Path, str | None] | None:
+    if not isinstance(raw_ref, str) or not raw_ref:
+        issues.append(ValidationIssue(location, "reference must be a non-empty string"))
+        return None
+    if not raw_ref.startswith(REPO_REF_PREFIX):
+        issues.append(ValidationIssue(location, "reference must start with 'repo:'"))
+        return None
+
+    payload = raw_ref[len(REPO_REF_PREFIX) :]
+    if "/" not in payload:
+        issues.append(
+            ValidationIssue(location, "reference must include a repo name and repo-relative path")
+        )
+        return None
+
+    repo_name, path_with_anchor = payload.split("/", 1)
+    repo_root = REPO_REF_ROOTS.get(repo_name)
+    if repo_root is None:
+        issues.append(ValidationIssue(location, f"unknown repo in reference: '{repo_name}'"))
+        return None
+
+    path_text, _, anchor = path_with_anchor.partition("#")
+    if not path_text:
+        issues.append(ValidationIssue(location, "reference path must not be empty"))
+        return None
+
+    target = repo_root / path_text
+    if not target.exists():
+        issues.append(
+            ValidationIssue(
+                location,
+                f"reference target does not exist: {repo_name}/{path_text}",
+            )
+        )
+        return None
+
+    if anchor:
+        if target.suffix.lower() != ".md":
+            issues.append(
+                ValidationIssue(location, f"markdown anchor refs must target a .md file: '{raw_ref}'")
+            )
+            return None
+        if anchor not in markdown_anchors(target):
+            issues.append(
+                ValidationIssue(location, f"markdown anchor does not exist for ref '{raw_ref}'")
+            )
+            return None
+
+    return repo_name, target, anchor or None
 
 
 def validate_json_against_inline_schema(
@@ -1712,6 +1905,251 @@ def validate_generated_sections(
     return issues
 
 
+def expected_contract_test_refs(record: EvalBundleRecord) -> set[str]:
+    refs: set[str] = set()
+    for item in record.manifest.get("evidence", []):
+        if not isinstance(item, dict):
+            continue
+        if item.get("kind") not in {"integrity_check", "support_note"}:
+            continue
+        raw_path = item.get("path")
+        if not isinstance(raw_path, str) or not raw_path:
+            continue
+        refs.add(
+            f"repo:aoa-evals/{record.bundle_dir.relative_to(REPO_ROOT).as_posix()}/{raw_path}"
+        )
+    return refs
+
+
+def validate_trace_eval_bridge_surfaces(
+    repo_root: Path,
+    records: list[EvalBundleRecord],
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    schema_path = repo_root / SCHEMAS_DIR_NAME / ARTIFACT_VERDICT_HOOK_SCHEMA_NAME
+    schema_location = relative_location(schema_path, repo_root)
+    schema = load_json_payload(schema_path, issues)
+    if schema is None:
+        return issues
+    if not validate_inline_schema(schema, location=schema_location, issues=issues):
+        return issues
+
+    playbook_registry_path = AOA_PLAYBOOKS_ROOT / "generated" / "playbook_registry.min.json"
+    playbook_registry_location = display_location(playbook_registry_path)
+    playbook_registry = load_json_payload(playbook_registry_path, issues)
+    playbooks_by_id = load_mapping_entries(
+        playbook_registry,
+        array_key="playbooks",
+        key_name="id",
+        location=playbook_registry_location,
+        issues=issues,
+    )
+
+    eval_catalog_path = repo_root / GENERATED_DIR_NAME / MIN_CATALOG_NAME
+    eval_catalog_location = relative_location(eval_catalog_path, repo_root)
+    eval_catalog = load_json_payload(eval_catalog_path, issues)
+    evals_by_name = load_mapping_entries(
+        eval_catalog,
+        array_key="evals",
+        key_name="name",
+        location=eval_catalog_location,
+        issues=issues,
+    )
+
+    records_by_name = {record.name: record for record in records}
+
+    for playbook_id, example_path in ARTIFACT_VERDICT_HOOK_EXAMPLES.items():
+        location = relative_location(example_path, repo_root)
+        payload = load_json_payload(example_path, issues)
+        if payload is None:
+            continue
+        if not isinstance(payload, dict):
+            issues.append(ValidationIssue(location, "example payload must be an object"))
+            continue
+
+        validate_against_schema(
+            payload,
+            ARTIFACT_VERDICT_HOOK_SCHEMA_NAME,
+            location,
+            issues,
+        )
+
+        if payload.get("playbook_id") != playbook_id:
+            issues.append(
+                ValidationIssue(location, f"playbook_id must be '{playbook_id}'")
+            )
+
+        playbook_entry = playbooks_by_id.get(playbook_id)
+        if playbook_entry is None:
+            issues.append(
+                ValidationIssue(location, f"playbook_id '{playbook_id}' does not resolve in aoa-playbooks")
+            )
+            continue
+
+        expected_hook = TRACE_EVAL_HOOK_EXPECTATIONS[playbook_id]
+        if payload.get("eval_anchor") != expected_hook["eval_anchor"]:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"eval_anchor must be '{expected_hook['eval_anchor']}' for {playbook_id}",
+                )
+            )
+
+        eval_anchor = payload.get("eval_anchor")
+        if not isinstance(eval_anchor, str):
+            continue
+        catalog_entry = evals_by_name.get(eval_anchor)
+        if catalog_entry is None:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"eval_anchor '{eval_anchor}' does not resolve in generated/eval_catalog.min.json",
+                )
+            )
+            continue
+
+        playbook_eval_anchors = playbook_entry.get("eval_anchors")
+        if not isinstance(playbook_eval_anchors, list) or eval_anchor not in playbook_eval_anchors:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"eval_anchor '{eval_anchor}' is not present in aoa-playbooks eval_anchors for {playbook_id}",
+                )
+            )
+
+        expected_artifacts = playbook_entry.get("expected_artifacts")
+        if payload.get("artifact_inputs") != expected_artifacts:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "artifact_inputs must exactly match aoa-playbooks expected_artifacts",
+                )
+            )
+
+        if payload.get("artifact_contract_refs") != expected_hook["artifact_contract_refs"]:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "artifact_contract_refs do not match the bounded cross-repo contract refs for this hook",
+                )
+            )
+
+        if payload.get("trace_surfaces") != expected_hook["trace_surfaces"]:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "trace_surfaces do not match the bounded sidecar posture for this hook",
+                )
+            )
+
+        if payload.get("verification_surface") != expected_hook["verification_surface"]:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"verification_surface must be '{expected_hook['verification_surface']}'",
+                )
+            )
+
+        if not isinstance(expected_artifacts, list) or payload.get("verification_surface") not in expected_artifacts:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "verification_surface must resolve inside the playbook artifact input set",
+                )
+            )
+
+        expected_bundle_ref = f"repo:aoa-evals/{catalog_entry.get('eval_path')}"
+        if payload.get("verdict_bundle_ref") != expected_bundle_ref:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"verdict_bundle_ref must equal '{expected_bundle_ref}'",
+                )
+            )
+
+        verdict_bundle_resolution = parse_repo_ref(
+            payload.get("verdict_bundle_ref"),
+            location=f"{location}.verdict_bundle_ref",
+            issues=issues,
+        )
+        if verdict_bundle_resolution is not None:
+            _repo_name, verdict_bundle_path, _anchor = verdict_bundle_resolution
+            expected_bundle_path = repo_root / str(catalog_entry.get("eval_path"))
+            if verdict_bundle_path != expected_bundle_path:
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        "verdict_bundle_ref must resolve to the selected eval anchor bundle path",
+                    )
+                )
+
+        record = records_by_name.get(eval_anchor)
+        if record is None:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"eval anchor '{eval_anchor}' does not resolve to a local bundle record",
+                )
+            )
+            continue
+
+        expected_report_expectation = {
+            "report_format": record.manifest.get("report_format"),
+            "verdict_shape": record.manifest.get("verdict_shape"),
+            "review_required": record.manifest.get("review_required"),
+        }
+        if payload.get("report_expectation") != expected_report_expectation:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "report_expectation must exactly match the selected eval bundle manifest",
+                )
+            )
+
+        resolved_contract_test_refs: set[str] = set()
+        contract_test_refs = payload.get("contract_test_refs")
+        if not isinstance(contract_test_refs, list):
+            issues.append(
+                ValidationIssue(f"{location}.contract_test_refs", "contract_test_refs must be a list")
+            )
+        else:
+            for index, ref in enumerate(contract_test_refs):
+                resolution = parse_repo_ref(
+                    ref,
+                    location=f"{location}.contract_test_refs[{index}]",
+                    issues=issues,
+                )
+                if resolution is None:
+                    continue
+                repo_name, target_path, _anchor = resolution
+                resolved_contract_test_refs.add(
+                    f"repo:{repo_name}/{target_path.relative_to(REPO_REF_ROOTS[repo_name]).as_posix()}"
+                )
+        if resolved_contract_test_refs and resolved_contract_test_refs != expected_contract_test_refs(record):
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "contract_test_refs must resolve to the selected bundle's integrity check and support note",
+                )
+            )
+
+        for field_name in ("artifact_contract_refs", "trace_surfaces"):
+            refs = payload.get(field_name)
+            if not isinstance(refs, list):
+                issues.append(
+                    ValidationIssue(f"{location}.{field_name}", f"{field_name} must be a list")
+                )
+                continue
+            for index, ref in enumerate(refs):
+                parse_repo_ref(
+                    ref,
+                    location=f"{location}.{field_name}[{index}]",
+                    issues=issues,
+                )
+
+    return issues
+
+
 def format_issues(issues: Sequence[ValidationIssue]) -> str:
     lines = [f"- {issue.location}: {issue.message}" for issue in issues]
     return "\n".join(lines)
@@ -1772,6 +2210,7 @@ def run_validation(
     if eval_name is None and not source_issues:
         all_source_issues, all_records = collect_catalog_records(repo_root)
         if not all_source_issues:
+            issues.extend(validate_trace_eval_bridge_surfaces(repo_root, all_records))
             issues.extend(validate_generated_catalogs(repo_root, all_records))
             issues.extend(validate_generated_capsules(repo_root, all_records))
             issues.extend(validate_generated_sections(repo_root, all_records))

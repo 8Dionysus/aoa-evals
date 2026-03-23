@@ -10,6 +10,8 @@ A compliant bundle-local runner contract should name:
 - the scorer helper paths it uses, if any
 - the bundle-local report schema
 - the bundle-local example report artifact
+- the primary shared dossier path when the bundle participates in a shared read order
+- any additional shared dossier paths only when the same bundle participates in more than one public proof flow
 
 ## Required execution discipline
 
@@ -27,5 +29,10 @@ A schema-backed report artifact should:
 - keep the claim boundary explicit
 - include the main bounded verdict or comparative reading
 - carry limitations that remain readable to a human reviewer
+
+Shared dossier discipline:
+- keep the primary dossier in `paired_readout_path`
+- keep any extra dossiers in `additional_paired_readout_paths`
+- keep all shared dossiers weaker than the bundle-local interpretation boundary
 
 The schema is a report contract, not a stronger truth claim.

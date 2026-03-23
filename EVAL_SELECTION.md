@@ -43,9 +43,6 @@ Current starter posture:
   use it when the main question is ordered repeated-window movement on the same bounded workflow surface.
   Its current materialized proof flow uses a shared repeated-window family, runner contract, schema-backed report, and shared dossiers, but the bundle remains draft.
 
-The artifact/process bridge is read only after the standalone artifact and workflow surfaces are already visible.
-For repeated-window reading, `context_note` is the comparability disclosure and `transition_note` explains movement.
-
 See also:
 - [EVAL_INDEX](EVAL_INDEX.md)
 - [Documentation Map](docs/README.md)

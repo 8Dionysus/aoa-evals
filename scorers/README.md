@@ -10,3 +10,4 @@ Shared scorer helpers here should:
 
 The current helper is intentionally small:
 - `bounded_rubric_breakdown.py` builds repeatable breakdown payloads for workflow, artifact, comparative, and integrity reports
+- it now also provides shared transition-note and integrity-risk payload helpers for repeated-window and sidecar reports

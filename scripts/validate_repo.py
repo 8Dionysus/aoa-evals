@@ -21,6 +21,7 @@ import eval_catalog_contract
 import eval_capsule_contract
 import eval_section_contract
 import eval_comparison_spine_contract
+import eval_proof_contract_helpers
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -59,6 +60,7 @@ COMPARISON_SPINE_VERSION = eval_comparison_spine_contract.COMPARISON_SPINE_VERSI
 COMPARISON_SPINE_SOURCE_OF_TRUTH = eval_comparison_spine_contract.COMPARISON_SPINE_SOURCE_OF_TRUTH
 ARTIFACT_PROCESS_GUIDE_NAME = "docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md"
 REPEATED_WINDOW_GUIDE_NAME = "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md"
+SHARED_PROOF_INFRA_GUIDE_NAME = "docs/SHARED_PROOF_INFRA_GUIDE.md"
 
 MIRRORED_FIELDS = (
     "name",
@@ -578,7 +580,10 @@ def validate_comparison_surface_contract(
     fixture_contract_path = bundle_dir / "fixtures" / "contract.json"
     fixture_contract = eval_catalog_contract.load_optional_json(fixture_contract_path)
     if isinstance(fixture_contract, dict):
-        fixture_family_path = fixture_contract.get("shared_fixture_family_path")
+        fixture_family_paths = eval_proof_contract_helpers.collect_fixture_family_paths(
+            fixture_contract
+        )
+        fixture_family_path = fixture_family_paths[0] if fixture_family_paths else None
         if (
             isinstance(fixture_family_path, str)
             and normalized_shared_family_path is not None
@@ -594,7 +599,10 @@ def validate_comparison_surface_contract(
     runner_contract_path = bundle_dir / "runners" / "contract.json"
     runner_contract = eval_catalog_contract.load_optional_json(runner_contract_path)
     if isinstance(runner_contract, dict):
-        runner_paired_readout_path = runner_contract.get("paired_readout_path")
+        paired_readout_paths = eval_proof_contract_helpers.collect_paired_readout_paths(
+            runner_contract
+        )
+        runner_paired_readout_path = paired_readout_paths[0] if paired_readout_paths else None
         if (
             isinstance(runner_paired_readout_path, str)
             and normalized_paired_readout_path is not None
@@ -1404,26 +1412,19 @@ def validate_bundle_fixture_contract(
     if not validate_against_schema(payload, "fixture-contract.schema.json", location, issues):
         return
 
-    shared_fixture_family_path = payload.get("shared_fixture_family_path")
-    if isinstance(shared_fixture_family_path, str):
+    fixture_family_paths = eval_proof_contract_helpers.collect_fixture_family_paths(payload)
+    for index, shared_fixture_family_path in enumerate(fixture_family_paths):
+        field_name = (
+            "shared_fixture_family_path"
+            if index == 0
+            else f"{eval_proof_contract_helpers.ADDITIONAL_FIXTURE_FAMILY_PATHS_KEY}[{index - 1}]"
+        )
         validate_repo_relative_contract_path(
             repo_root,
             shared_fixture_family_path,
-            location=f"{location}.shared_fixture_family_path",
+            location=f"{location}.{field_name}",
             issues=issues,
         )
-
-    additional_shared_fixture_family_paths = payload.get("additional_shared_fixture_family_paths", [])
-    if isinstance(additional_shared_fixture_family_paths, list):
-        for index, value in enumerate(additional_shared_fixture_family_paths):
-            if not isinstance(value, str):
-                continue
-            validate_repo_relative_contract_path(
-                repo_root,
-                value,
-                location=f"{location}.additional_shared_fixture_family_paths[{index}]",
-                issues=issues,
-            )
 
 
 def validate_bundle_runner_contract(
@@ -1461,17 +1462,19 @@ def validate_bundle_runner_contract(
                 issues=issues,
             )
 
-    additional_paired_readout_paths = payload.get("additional_paired_readout_paths", [])
-    if isinstance(additional_paired_readout_paths, list):
-        for index, value in enumerate(additional_paired_readout_paths):
-            if not isinstance(value, str):
-                continue
-            validate_repo_relative_contract_path(
-                repo_root,
-                value,
-                location=f"{location}.additional_paired_readout_paths[{index}]",
-                issues=issues,
-            )
+    additional_paired_readout_paths = eval_proof_contract_helpers.normalize_repo_relative_path_list(
+        payload,
+        eval_proof_contract_helpers.ADDITIONAL_PAIRED_READOUT_PATHS_KEY,
+    )
+    for index, value in enumerate(additional_paired_readout_paths):
+        validate_repo_relative_contract_path(
+            repo_root,
+            value,
+            location=(
+                f"{location}.{eval_proof_contract_helpers.ADDITIONAL_PAIRED_READOUT_PATHS_KEY}[{index}]"
+            ),
+            issues=issues,
+        )
 
     for field_name in ("fixture_contract_paths", "scorer_helper_paths"):
         values = payload.get(field_name, [])
@@ -2204,6 +2207,152 @@ def validate_integrity_taxonomy_surfaces(
                     f"integrity sidecar surfaces must mention '{phrase}' in EVAL.md or review-contract.md",
                 )
             )
+    return issues
+
+
+def validate_shared_proof_infra_surfaces(
+    repo_root: Path,
+    selected_evals: set[str] | None = None,
+) -> list[ValidationIssue]:
+    fixture_relevant_names = {
+        "aoa-artifact-review-rubric",
+        "aoa-bounded-change-quality",
+        "aoa-output-vs-process-gap",
+    }
+    runner_relevant_names = fixture_relevant_names | {
+        "aoa-longitudinal-growth-snapshot",
+    }
+    relevant_names = fixture_relevant_names | runner_relevant_names
+    if selected_evals is not None and not relevant_names.intersection(selected_evals):
+        return []
+
+    issues: list[ValidationIssue] = []
+    guide_text = read_text_or_issue(
+        repo_root / "docs" / "SHARED_PROOF_INFRA_GUIDE.md",
+        issues,
+        root=repo_root,
+    )
+    readme_text = read_text_or_issue(repo_root / "README.md", issues, root=repo_root)
+    docs_readme_text = read_text_or_issue(
+        repo_root / "docs" / "README.md",
+        issues,
+        root=repo_root,
+    )
+    fixtures_readme_text = read_text_or_issue(
+        repo_root / "fixtures" / "README.md",
+        issues,
+        root=repo_root,
+    )
+    reports_readme_text = read_text_or_issue(
+        repo_root / "reports" / "README.md",
+        issues,
+        root=repo_root,
+    )
+    runner_surface_text = read_text_or_issue(
+        repo_root / "runners" / "reportable_proof_contract.md",
+        issues,
+        root=repo_root,
+    )
+
+    if SHARED_PROOF_INFRA_GUIDE_NAME not in readme_text:
+        issues.append(
+            ValidationIssue(
+                "README.md",
+                f"README.md must reference {SHARED_PROOF_INFRA_GUIDE_NAME}",
+            )
+        )
+    if "Shared Proof Infra Guide" not in docs_readme_text:
+        issues.append(
+            ValidationIssue(
+                "docs/README.md",
+                "docs/README.md must list Shared Proof Infra Guide",
+            )
+        )
+    for phrase in (
+        "additional_shared_fixture_family_paths",
+        "additional_paired_readout_paths",
+        "shared_fixture_family_path",
+        "paired_readout_path",
+    ):
+        if phrase not in guide_text:
+            issues.append(
+                ValidationIssue(
+                    SHARED_PROOF_INFRA_GUIDE_NAME,
+                    f"shared proof infra guide must mention '{phrase}'",
+                )
+            )
+
+    if "additional_shared_fixture_family_paths" not in fixtures_readme_text:
+        issues.append(
+            ValidationIssue(
+                "fixtures/README.md",
+                "fixtures/README.md must describe additional_shared_fixture_family_paths",
+            )
+        )
+    if "additional_paired_readout_paths" not in reports_readme_text:
+        issues.append(
+            ValidationIssue(
+                "reports/README.md",
+                "reports/README.md must describe additional_paired_readout_paths",
+            )
+        )
+    if "additional_paired_readout_paths" not in runner_surface_text:
+        issues.append(
+            ValidationIssue(
+                "runners/reportable_proof_contract.md",
+                "runners/reportable_proof_contract.md must describe additional_paired_readout_paths",
+            )
+        )
+
+    fixture_bundle_names = (
+        selected_evals.intersection(fixture_relevant_names)
+        if selected_evals is not None
+        else fixture_relevant_names
+    )
+    runner_bundle_names = (
+        selected_evals.intersection(runner_relevant_names)
+        if selected_evals is not None
+        else runner_relevant_names
+    )
+    fixture_contracts_with_additional = 0
+    runner_contracts_with_additional = 0
+    for name in fixture_bundle_names:
+        fixture_payload = eval_catalog_contract.load_optional_json(
+            repo_root / "bundles" / name / "fixtures" / "contract.json"
+        )
+        fixture_paths = eval_proof_contract_helpers.normalize_repo_relative_path_list(
+            fixture_payload if isinstance(fixture_payload, dict) else {},
+            eval_proof_contract_helpers.ADDITIONAL_FIXTURE_FAMILY_PATHS_KEY,
+        )
+        if fixture_paths:
+            fixture_contracts_with_additional += 1
+    for name in runner_bundle_names:
+        runner_payload = eval_catalog_contract.load_optional_json(
+            repo_root / "bundles" / name / "runners" / "contract.json"
+        )
+        runner_paths = eval_proof_contract_helpers.normalize_repo_relative_path_list(
+            runner_payload if isinstance(runner_payload, dict) else {},
+            eval_proof_contract_helpers.ADDITIONAL_PAIRED_READOUT_PATHS_KEY,
+        )
+        if runner_paths:
+            runner_contracts_with_additional += 1
+
+    minimum_fixture_count = 1 if selected_evals is not None and fixture_bundle_names else 2
+    minimum_runner_count = 1 if selected_evals is not None and runner_bundle_names else 2
+    if fixture_bundle_names and fixture_contracts_with_additional < minimum_fixture_count:
+        issues.append(
+            ValidationIssue(
+                "fixtures/README.md",
+                "shared proof infra must be exercised by fixture contracts in more than one bundle family",
+            )
+        )
+    if runner_bundle_names and runner_contracts_with_additional < minimum_runner_count:
+        issues.append(
+            ValidationIssue(
+                "reports/README.md",
+                "shared proof infra must be exercised by runner contracts in more than one bundle family",
+            )
+        )
     return issues
 
 
@@ -3145,6 +3294,12 @@ def run_validation(
         )
         issues.extend(
             validate_integrity_taxonomy_surfaces(
+                repo_root,
+                selected_evals=selected_evals,
+            )
+        )
+        issues.extend(
+            validate_shared_proof_infra_surfaces(
                 repo_root,
                 selected_evals=selected_evals,
             )

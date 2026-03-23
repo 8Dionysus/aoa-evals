@@ -169,6 +169,7 @@ also note:
 - the bundle-local runner contract at `runners/contract.json`
 - the bundle-local report schema at `reports/summary.schema.json`
 - how local fixture replacement stays bounded
+- if the bundle participates in more than one shared proof flow, keep the primary family and dossier in the primary contract fields and record any additional shared family or dossier paths in bundle-local contract arrays
 
 ## Outputs
 

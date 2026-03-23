@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -19,7 +20,7 @@ from validate_repo import (
     collect_catalog_records,
 )
 
-from test_validate_repo import make_eval_bundle
+from test_validate_repo import add_peer_compare_proof_artifacts, make_eval_bundle
 
 
 def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None:
@@ -154,6 +155,27 @@ def test_build_catalog_check_passes_after_write(tmp_path: Path) -> None:
     assert sections_path.name == "eval_sections.full.json"
     assert comparison_spine_path.name == "comparison_spine.json"
     assert build_catalog.check_catalogs(tmp_path) == []
+
+
+def test_build_catalog_keeps_primary_proof_artifact_paths_when_additional_paths_exist(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-output-vs-process-gap",
+        category="comparative",
+        claim_type="comparative",
+        baseline_mode="peer-compare",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_peer_compare_proof_artifacts(tmp_path, bundle_name="aoa-output-vs-process-gap")
+
+    assert build_catalog.main(argv=[], repo_root=tmp_path) == 0
+
+    full_catalog = json.loads((tmp_path / "generated" / "eval_catalog.json").read_text(encoding="utf-8"))
+    entry = next(item for item in full_catalog["evals"] if item["name"] == "aoa-output-vs-process-gap")
+
+    assert entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/bounded-change-paired-v1/README.md"
+    assert entry["proof_artifacts"]["paired_readout_path"] == "reports/artifact-process-paired-proof-flow-v1.md"
 
 
 def test_build_catalog_rejects_invalid_dependency_contract(tmp_path: Path) -> None:

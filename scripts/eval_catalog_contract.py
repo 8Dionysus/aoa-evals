@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+import eval_proof_contract_helpers
+
 
 GENERATED_DIR_NAME = "generated"
 FULL_CATALOG_NAME = "eval_catalog.json"
@@ -253,10 +255,11 @@ def build_proof_artifacts_entry(repo_root: Path, record: Any) -> dict[str, Any]:
     runner_contract = load_optional_json(runner_contract_path)
 
     shared_fixture_family_path = None
-    if isinstance(fixture_contract, dict):
-        raw_fixture_family_path = fixture_contract.get("shared_fixture_family_path")
-        if isinstance(raw_fixture_family_path, str) and raw_fixture_family_path.strip():
-            shared_fixture_family_path = raw_fixture_family_path.replace("\\", "/")
+    fixture_family_paths = eval_proof_contract_helpers.collect_fixture_family_paths(
+        fixture_contract if isinstance(fixture_contract, dict) else None
+    )
+    if fixture_family_paths:
+        shared_fixture_family_path = fixture_family_paths[0]
 
     runner_surface_path = None
     scorer_helper_paths: list[str] = []
@@ -274,9 +277,11 @@ def build_proof_artifacts_entry(repo_root: Path, record: Any) -> dict[str, Any]:
                 if isinstance(path, str) and path.strip()
             ]
 
-        raw_paired_readout_path = runner_contract.get("paired_readout_path")
-        if isinstance(raw_paired_readout_path, str) and raw_paired_readout_path.strip():
-            paired_readout_path = raw_paired_readout_path.replace("\\", "/")
+        paired_readout_paths = eval_proof_contract_helpers.collect_paired_readout_paths(
+            runner_contract
+        )
+        if paired_readout_paths:
+            paired_readout_path = paired_readout_paths[0]
 
     return {
         "fixture_contract_path": relative_location(fixture_contract_path, repo_root)

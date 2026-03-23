@@ -23,8 +23,9 @@ If you are new to this repository, follow this short path:
 4. Read `EVAL_INDEX.md` for the current eval surface.
 5. Read `docs/COMPARISON_SPINE_GUIDE.md` if your question is about regression, peer comparison, or repeated-window movement.
 6. Read `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md` if your question is about artifact-side versus process-side reading.
-7. Open `bundles/aoa-bounded-change-quality/EVAL.md` as the first starter eval bundle.
-8. Use `templates/EVAL.template.md` when authoring a new eval.
+7. Read `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md` if your question is about repeated-window comparability and cautious movement language.
+8. Open `bundles/aoa-bounded-change-quality/EVAL.md` as the first starter eval bundle.
+9. Use `templates/EVAL.template.md` when authoring a new eval.
 
 ## Quick routes
 
@@ -36,6 +37,7 @@ If you are new to this repository, follow this short path:
 - if you need the runtime-artifact or trace-to-verdict seam, read `docs/TRACE_EVAL_BRIDGE.md`
 - if you need the current comparison ladder, read `docs/COMPARISON_SPINE_GUIDE.md`
 - if you need the artifact/process read order, read `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
+- if you need cautious repeated-window reading, read `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
 
 ## What belongs here
 
@@ -194,6 +196,7 @@ The current goal is to establish:
 - shared fixture families, runner contracts, and schema-backed report examples for materialized comparison flows
 - baseline comparison discipline
 - artifact/process separation doctrine that stays weaker than standalone bundle meaning
+- repeated-window discipline that stays weaker than broad growth claims
 - the path toward trustworthy regression and longitudinal evaluation
 
 ## Read this before overclaiming

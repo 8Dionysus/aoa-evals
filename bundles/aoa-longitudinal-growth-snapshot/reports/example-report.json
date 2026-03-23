@@ -18,28 +18,32 @@
       "window_order": 1,
       "workflow_note": "Bounded workflow discipline was modest but reviewable on the anchor surface.",
       "movement_reading": "no clear directional movement",
-      "context_note": "Initial named window establishes the comparison surface before any directional read."
+      "context_note": "Initial named window establishes the comparison surface before any directional read.",
+      "transition_note": "Initial window anchors the sequence, so the honest read is a setup note rather than a transition claim."
     },
     {
       "window_id": "LG-02",
       "window_order": 2,
       "workflow_note": "Verification naming and scope discipline improved without major contract drift.",
       "movement_reading": "bounded improvement signal",
-      "context_note": "Reviewer posture stayed comparable and the same anchor workflow surface remained visible."
+      "context_note": "Reviewer posture stayed comparable and the same anchor workflow surface remained visible.",
+      "transition_note": "Relative to LG-01, the movement looks real because verification naming strengthened on the same anchor workflow surface."
     },
     {
       "window_id": "LG-03",
       "window_order": 3,
       "workflow_note": "Summaries became cleaner, but workflow evidence looked mostly flat relative to LG-02.",
       "movement_reading": "no clear directional movement",
-      "context_note": "Report polish increased more than bounded workflow evidence, so style stayed weaker than movement."
+      "context_note": "Report polish increased more than bounded workflow evidence, so style stayed weaker than movement.",
+      "transition_note": "Relative to LG-02, the cleaner reporting does not justify a stronger movement claim because the workflow evidence stayed broadly flat."
     },
     {
       "window_id": "LG-04",
       "window_order": 4,
       "workflow_note": "One visible workflow strength from LG-02 disappeared and the final window looked less stable.",
       "movement_reading": "mixed or unstable movement",
-      "context_note": "Reviewer mix changed and one case slice refreshed enough to keep the top-line read cautious."
+      "context_note": "Reviewer mix changed and one case slice refreshed enough to keep the top-line read cautious.",
+      "transition_note": "Relative to LG-03, one strength regressed but the reviewer mix changed enough that the honest read stays unstable rather than clean regression."
     }
   ]
 }

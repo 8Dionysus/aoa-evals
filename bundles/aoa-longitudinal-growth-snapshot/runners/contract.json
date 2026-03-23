@@ -4,7 +4,8 @@
   "inputs": [
     "ordered named windows",
     "one public report or summary artifact per window",
-    "context-shift notes",
+    "context-shift notes as comparability disclosure",
+    "transition notes for non-initial windows",
     "bundle-level movement summary"
   ],
   "fixture_contract_paths": [
@@ -16,6 +17,9 @@
   "report_schema_path": "bundles/aoa-longitudinal-growth-snapshot/reports/summary.schema.json",
   "report_example_path": "bundles/aoa-longitudinal-growth-snapshot/reports/example-report.json",
   "paired_readout_path": "reports/repeated-window-proof-flow-v1.md",
+  "additional_paired_readout_paths": [
+    "reports/repeated-window-proof-flow-v2.md"
+  ],
   "validation_commands": [
     "python scripts/validate_repo.py --eval aoa-longitudinal-growth-snapshot"
   ]

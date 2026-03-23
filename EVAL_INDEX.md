@@ -100,7 +100,7 @@ Public discipline:
   It is a meta-eval for public starter bundles, not a direct agent-behavior starter and not proof of canonical readiness.
 - `aoa-longitudinal-growth-snapshot` is the current longitudinal starter:
   do ordered comparable windows on the same bounded workflow surface show modest directional movement without turning that movement into broad capability growth?
-  Its current machine-readable comparison surface is anchored in `aoa-bounded-change-quality` and its materialized proof flow runs through `fixtures/repeated-window-bounded-v1/README.md`, `reports/example-report.json`, and `reports/repeated-window-proof-flow-v1.md`, but the bundle remains draft.
+  Its current machine-readable comparison surface is anchored in `aoa-bounded-change-quality` and its materialized proof flow runs through `fixtures/repeated-window-bounded-v1/README.md`, `reports/example-report.json`, `reports/repeated-window-proof-flow-v1.md`, and `reports/repeated-window-proof-flow-v2.md`, but the bundle remains draft.
 - `aoa-artifact-review-rubric` should stay on artifact quality:
   it should not drift into workflow-proof claims already covered by workflow starters.
 - `aoa-witness-trace-integrity` should stay on public witness reviewability:
@@ -148,6 +148,7 @@ Public discipline:
 - the first materialized paired proof flow now sits across `aoa-artifact-review-rubric`, `aoa-bounded-change-quality`, and `aoa-output-vs-process-gap` using shared fixtures, runner contracts, and schema-backed report examples.
 - the artifact/process layer now also carries a second matched family and second paired dossier so the bridge can deepen without changing `peer_surfaces` or promoting by association.
 - the comparison spine now also has materialized proof flows for `aoa-regression-same-task`, `aoa-output-vs-process-gap`, and `aoa-longitudinal-growth-snapshot` through shared fixture families, runner contracts, schema-backed report examples, and the shared read-order artifact `reports/comparison-spine-proof-flow-v1.md`.
+- the repeated-window layer now also carries a second shared dossier with explicit transition-note discipline so comparability stays visible before any top-line movement story.
 - the current first public `baseline` starter is `aoa-regression-same-task`; other comparative and longitudinal starters remain draft.
 - `aoa-eval-integrity-check` is now bounded as the public integrity sidecar for semantic overreach and public-surface drift.
 - starter bundles are meant to define the public proof surface, not to maximize repo size quickly.

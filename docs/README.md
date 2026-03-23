@@ -25,6 +25,7 @@ Choose the path that matches your question:
 - I need to understand portability, fixtures, blind spots, or baseline comparison:
   - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
   - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
+  - [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md)
   - [Fixture Surface Guide](FIXTURE_SURFACE_GUIDE.md)
   - [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md)
   - [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
@@ -73,6 +74,7 @@ These guides explain what makes an eval bundle portable, bounded, and honest abo
 - [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
 - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
 - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
+- [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md)
 
 ### Derived bridge surfaces
 
@@ -112,8 +114,9 @@ feed existing eval bundles without creating a second proof canon.
 6. [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md)
 7. [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
 8. [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
-9. [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
-10. [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
+9. [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md)
+10. [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
+11. [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
 
 ## Companion Repository Surfaces
 
@@ -124,10 +127,12 @@ These are outside `docs/` but matter when navigating the repo:
 - [EVAL_SELECTION](../EVAL_SELECTION.md)
 - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
 - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
+- [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md)
 - `../reports/same-task-baseline-proof-flow-v1.md`
 - `../reports/comparison-spine-proof-flow-v1.md`
 - `../reports/artifact-process-paired-proof-flow-v2.md`
 - `../reports/repeated-window-proof-flow-v1.md`
+- `../reports/repeated-window-proof-flow-v2.md`
 - [CONTRIBUTING](../CONTRIBUTING.md)
 - [Eval Template](../templates/EVAL.template.md)
 
@@ -141,6 +146,7 @@ These are outside `docs/` but matter when navigating the repo:
 - Prefer authored guides when the question is "what does this repo mean by this score, verdict, or boundary?"
 - Prefer boundary guides when the question is "is this bundle really portable and honest enough to publish?"
 - Prefer [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md) when the question is "which artifact/process surface should I read first, and where does the bridge stop?"
+- Prefer [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md) when the question is "what makes repeated windows comparable enough for a bounded movement read?"
 - Prefer [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md) when the question is "how do playbook artifacts, verification artifacts, or `WitnessTrace` sidecars become bounded eval evidence?"
 - Treat the docs listed here as the canonical wording layer for future public bundle authoring.
 

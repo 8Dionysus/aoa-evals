@@ -58,6 +58,7 @@ COMPARISON_SPINE_NAME = eval_comparison_spine_contract.COMPARISON_SPINE_NAME
 COMPARISON_SPINE_VERSION = eval_comparison_spine_contract.COMPARISON_SPINE_VERSION
 COMPARISON_SPINE_SOURCE_OF_TRUTH = eval_comparison_spine_contract.COMPARISON_SPINE_SOURCE_OF_TRUTH
 ARTIFACT_PROCESS_GUIDE_NAME = "docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md"
+REPEATED_WINDOW_GUIDE_NAME = "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md"
 
 MIRRORED_FIELDS = (
     "name",
@@ -1258,6 +1259,32 @@ def validate_longitudinal_report_example(
     if not isinstance(example_payload, dict):
         return
 
+    claim_boundary = example_payload.get("claim_boundary")
+    if isinstance(claim_boundary, str):
+        lowered_claim = claim_boundary.lower()
+        if "broad capability growth" in lowered_claim or "general capability growth" in lowered_claim:
+            issues.append(
+                ValidationIssue(
+                    f"{location}.claim_boundary",
+                    "longitudinal example report claim_boundary must stay weaker than broad or general capability growth",
+                )
+            )
+
+    limitations = example_payload.get("limitations")
+    if isinstance(limitations, list):
+        lowered_limitations = [
+            item.lower()
+            for item in limitations
+            if isinstance(item, str)
+        ]
+        if not any("general capability growth" in item for item in lowered_limitations):
+            issues.append(
+                ValidationIssue(
+                    f"{location}.limitations",
+                    "longitudinal example report limitations must name that the report does not prove general capability growth",
+                )
+            )
+
     windows = example_payload.get("windows")
     if not isinstance(windows, list):
         return
@@ -1289,6 +1316,15 @@ def validate_longitudinal_report_example(
                     )
                 )
             last_order = window_order
+
+        transition_note = window.get("transition_note")
+        if not isinstance(transition_note, str) or not transition_note.strip():
+            issues.append(
+                ValidationIssue(
+                    f"{location}.windows[{index}].transition_note",
+                    "longitudinal example report windows must include a non-empty transition_note",
+                )
+            )
 
 
 def validate_comparative_report_mode_contract(
@@ -1990,6 +2026,95 @@ def validate_artifact_process_doctrine_surfaces(
                     ValidationIssue(
                         relative_location(record.eval_md_path, repo_root),
                         f"artifact/process distinctness wording must mention '{phrase}'",
+                    )
+                )
+    return issues
+
+
+def validate_repeated_window_doctrine_surfaces(
+    repo_root: Path,
+    records: Sequence[EvalBundleRecord],
+    selected_evals: set[str] | None = None,
+) -> list[ValidationIssue]:
+    if selected_evals is not None and "aoa-longitudinal-growth-snapshot" not in selected_evals:
+        return []
+
+    issues: list[ValidationIssue] = []
+    guide_text = read_text_or_issue(
+        repo_root / "docs" / "REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
+        issues,
+        root=repo_root,
+    )
+    readme_text = read_text_or_issue(repo_root / "README.md", issues, root=repo_root)
+    docs_readme_text = read_text_or_issue(
+        repo_root / "docs" / "README.md",
+        issues,
+        root=repo_root,
+    )
+    selection_text = read_text_or_issue(
+        repo_root / EVAL_SELECTION_NAME,
+        issues,
+        root=repo_root,
+    )
+    index_text = read_text_or_issue(
+        repo_root / EVAL_INDEX_NAME,
+        issues,
+        root=repo_root,
+    )
+
+    if REPEATED_WINDOW_GUIDE_NAME not in readme_text:
+        issues.append(
+            ValidationIssue(
+                "README.md",
+                f"README.md must reference {REPEATED_WINDOW_GUIDE_NAME}",
+            )
+        )
+    if "Repeated Window Discipline Guide" not in docs_readme_text:
+        issues.append(
+            ValidationIssue(
+                "docs/README.md",
+                "docs/README.md must list Repeated Window Discipline Guide",
+            )
+        )
+    for phrase in (
+        "aoa-longitudinal-growth-snapshot",
+        "context_note",
+        "transition_note",
+        "after",
+    ):
+        if phrase not in guide_text:
+            issues.append(
+                ValidationIssue(
+                    REPEATED_WINDOW_GUIDE_NAME,
+                    f"repeated-window doctrine must mention '{phrase}'",
+                )
+            )
+
+    if "context_note" not in selection_text or "transition_note" not in selection_text:
+        issues.append(
+            ValidationIssue(
+                EVAL_SELECTION_NAME,
+                "EVAL_SELECTION.md must explain context_note and transition_note for repeated-window reading",
+            )
+        )
+    if "reports/repeated-window-proof-flow-v2.md" not in index_text:
+        issues.append(
+            ValidationIssue(
+                EVAL_INDEX_NAME,
+                "EVAL_INDEX.md must reference reports/repeated-window-proof-flow-v2.md for repeated-window discipline",
+            )
+        )
+
+    record_map = {record.name: record for record in records}
+    record = record_map.get("aoa-longitudinal-growth-snapshot")
+    if record is not None:
+        bundle_text = "\n".join(record.sections.values())
+        for phrase in ("context_note", "transition_note"):
+            if phrase not in bundle_text:
+                issues.append(
+                    ValidationIssue(
+                        relative_location(record.eval_md_path, repo_root),
+                        f"longitudinal bundle wording must mention '{phrase}'",
                     )
                 )
     return issues
@@ -2919,6 +3044,13 @@ def run_validation(
         )
         issues.extend(
             validate_artifact_process_doctrine_surfaces(
+                repo_root,
+                records,
+                selected_evals=selected_evals,
+            )
+        )
+        issues.extend(
+            validate_repeated_window_doctrine_surfaces(
                 repo_root,
                 records,
                 selected_evals=selected_evals,

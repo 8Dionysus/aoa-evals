@@ -206,6 +206,7 @@ def build_default_comparison_surface(
     ensure_support_bundle(repo_root, "aoa-anchor-surface")
     write_text(repo_root / "fixtures" / "repeated-window-bounded-v1" / "README.md", "# Shared Fixture Family\n")
     write_text(repo_root / "reports" / "repeated-window-proof-flow-v1.md", "# Paired Proof\n")
+    write_text(repo_root / "reports" / "repeated-window-proof-flow-v2.md", "# Paired Proof\n")
     return {
         "shared_family_path": "fixtures/repeated-window-bounded-v1/README.md",
         "paired_readout_path": "reports/repeated-window-proof-flow-v1.md",
@@ -240,6 +241,7 @@ def make_repo_docs(
 
         See `docs/COMPARISON_SPINE_GUIDE.md` when you need the comparison ladder.
         See `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md` when you need the artifact/process layer.
+        See `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md` when you need repeated-window discipline.
         Generated comparison routing lives in `generated/comparison_spine.json`.
         """,
     )
@@ -250,6 +252,7 @@ def make_repo_docs(
 
         - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
         - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
+        - [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md)
         - `generated/comparison_spine.json`
         """,
     )
@@ -279,6 +282,17 @@ def make_repo_docs(
         """,
     )
     write_text(
+        repo_root / "docs" / "REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
+        """
+        # Repeated Window Discipline Guide
+
+        aoa-longitudinal-growth-snapshot
+        context_note
+        transition_note
+        after the one-run and baseline reads
+        """,
+    )
+    write_text(
         repo_root / "EVAL_SELECTION.md",
         f"""
         # Eval Selection
@@ -287,6 +301,7 @@ def make_repo_docs(
         {"".join(f"- `{name}`\n" for name in starter_names)}
 
         The artifact/process bridge is read only after the standalone artifact and workflow surfaces are already visible.
+        For repeated-window reading, `context_note` is the comparability disclosure and `transition_note` explains movement.
 
         ## Pick Comparison Surface
 
@@ -315,6 +330,7 @@ def make_index(
         ## Artifact Process Layer
 
         The artifact/process layer is a bounded program layer.
+        `reports/repeated-window-proof-flow-v2.md`
         """
     write_text(
         repo_root / "EVAL_INDEX.md",
@@ -357,6 +373,7 @@ def make_selection(
         Current starter posture:
         {lines}
         The artifact/process bridge is read only after the standalone artifact and workflow surfaces are already visible.
+        `context_note` is the comparability disclosure and `transition_note` explains repeated-window movement.
         {comparison_block}
         """,
     )
@@ -934,8 +951,8 @@ def add_longitudinal_proof_artifacts(
         "bundle_status": "draft",
         "object_under_evaluation": "bounded test surface",
         "verdict": "mixed or unstable movement",
-        "claim_boundary": "bounded repeated-window movement example for validation",
-        "limitations": ["still bounded"],
+        "claim_boundary": "bounded repeated-window movement example for validation on one anchored surface",
+        "limitations": ["this report does not prove general capability growth beyond this anchored surface"],
         "anchor_surface": "aoa-bounded-change-quality",
         "window_family": "repeated-window-bounded-v1",
         "windows": [
@@ -945,6 +962,7 @@ def add_longitudinal_proof_artifacts(
                 "workflow_note": "workflow note",
                 "movement_reading": "no clear directional movement",
                 "context_note": "context note",
+                "transition_note": "initial transition note",
             },
             {
                 "window_id": "LG-02",
@@ -952,6 +970,7 @@ def add_longitudinal_proof_artifacts(
                 "workflow_note": "workflow note later",
                 "movement_reading": "bounded improvement signal",
                 "context_note": "context note later",
+                "transition_note": "follow-up transition note",
             },
         ],
     }
@@ -975,9 +994,11 @@ def add_longitudinal_proof_artifacts(
         runner_inputs=[
             "ordered named windows",
             "one public report or summary artifact per window",
-            "context-shift notes",
+            "context-shift notes as comparability disclosure",
+            "transition notes for non-initial windows",
         ],
         paired_readout_path="reports/repeated-window-proof-flow-v1.md",
+        additional_paired_readout_paths=["reports/repeated-window-proof-flow-v2.md"],
         report_schema={
             "type": "object",
             "additionalProperties": False,
@@ -1025,6 +1046,7 @@ def add_longitudinal_proof_artifacts(
                             "workflow_note",
                             "movement_reading",
                             "context_note",
+                            "transition_note",
                         ],
                         "properties": {
                             "window_id": {"type": "string"},
@@ -1040,6 +1062,7 @@ def add_longitudinal_proof_artifacts(
                                 ],
                             },
                             "context_note": {"type": "string"},
+                            "transition_note": {"type": "string"},
                         },
                     },
                 },
@@ -1963,6 +1986,45 @@ def test_validate_repo_rejects_report_example_that_violates_bundle_schema(tmp_pa
     assert any("report violation" in issue.message and "limitations" in issue.message for issue in issues)
 
 
+def test_validate_repo_requires_longitudinal_transition_note(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-longitudinal-growth-snapshot",
+        category="longitudinal",
+        claim_type="longitudinal",
+        baseline_mode="longitudinal-window",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_longitudinal_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-longitudinal-growth-snapshot",
+        report_example_override={
+            "windows": [
+                {
+                    "window_id": "LG-01",
+                    "window_order": 1,
+                    "workflow_note": "workflow note",
+                    "movement_reading": "no clear directional movement",
+                    "context_note": "context note",
+                },
+                {
+                    "window_id": "LG-02",
+                    "window_order": 2,
+                    "workflow_note": "workflow note later",
+                    "movement_reading": "bounded improvement signal",
+                    "context_note": "context note later",
+                },
+            ]
+        },
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path, eval_name="aoa-longitudinal-growth-snapshot")
+
+    assert any("transition_note" in issue.message or "transition_note" in issue.location for issue in issues)
+
+
 def test_validate_repo_rejects_longitudinal_report_with_duplicate_window_id(tmp_path: Path) -> None:
     make_eval_bundle(
         tmp_path,
@@ -1984,6 +2046,7 @@ def test_validate_repo_rejects_longitudinal_report_with_duplicate_window_id(tmp_
                     "workflow_note": "workflow note",
                     "movement_reading": "no clear directional movement",
                     "context_note": "context note",
+                    "transition_note": "initial transition note",
                 },
                 {
                     "window_id": "LG-01",
@@ -1991,6 +2054,7 @@ def test_validate_repo_rejects_longitudinal_report_with_duplicate_window_id(tmp_
                     "workflow_note": "workflow note later",
                     "movement_reading": "bounded improvement signal",
                     "context_note": "context note later",
+                    "transition_note": "duplicate id transition note",
                 },
             ]
         },
@@ -2023,6 +2087,7 @@ def test_validate_repo_rejects_longitudinal_report_with_non_increasing_window_or
                     "workflow_note": "workflow note",
                     "movement_reading": "no clear directional movement",
                     "context_note": "context note",
+                    "transition_note": "out-of-order transition note",
                 },
                 {
                     "window_id": "LG-02",
@@ -2030,6 +2095,7 @@ def test_validate_repo_rejects_longitudinal_report_with_non_increasing_window_or
                     "workflow_note": "workflow note later",
                     "movement_reading": "bounded improvement signal",
                     "context_note": "context note later",
+                    "transition_note": "second out-of-order transition note",
                 },
             ]
         },

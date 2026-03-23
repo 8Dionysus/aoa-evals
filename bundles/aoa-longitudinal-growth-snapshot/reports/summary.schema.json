@@ -68,7 +68,8 @@
           "window_order",
           "workflow_note",
           "movement_reading",
-          "context_note"
+          "context_note",
+          "transition_note"
         ],
         "properties": {
           "window_id": {
@@ -93,6 +94,10 @@
             ]
           },
           "context_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "transition_note": {
             "type": "string",
             "minLength": 10
           }

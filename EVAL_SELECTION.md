@@ -41,9 +41,10 @@ Current starter posture:
   use it when the main question is whether a public starter bundle is overstating what it proves or drifting out of alignment with its public contract, especially across the comparison spine, not when you need a direct agent-behavior eval.
 - `aoa-longitudinal-growth-snapshot` is the current draft longitudinal starter:
   use it when the main question is ordered repeated-window movement on the same bounded workflow surface.
-  Its current materialized proof flow uses a shared repeated-window family, runner contract, schema-backed report, and shared dossier, but the bundle remains draft.
+  Its current materialized proof flow uses a shared repeated-window family, runner contract, schema-backed report, and shared dossiers, but the bundle remains draft.
 
 The artifact/process bridge is read only after the standalone artifact and workflow surfaces are already visible.
+For repeated-window reading, `context_note` is the comparability disclosure and `transition_note` explains movement.
 
 See also:
 - [EVAL_INDEX](EVAL_INDEX.md)
@@ -110,6 +111,7 @@ See also:
 
 ### I need to read repeated-window movement on the same bounded workflow surface
 - `aoa-longitudinal-growth-snapshot`
+  Read `context_note` as the comparability disclosure and `transition_note` as the bounded explanation of movement against the previous window.
 
 ## Pick Comparison Surface
 
@@ -223,7 +225,7 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-output-vs-process-gap` remains a draft bridge surface; it now participates in the first materialized artifact/process paired proof flow, but it still does not replace standalone artifact review, standalone workflow review, trace/path separation, or the public baseline regression surface.
 - `aoa-output-vs-process-gap` now also carries a second matched family and paired dossier, but it still stays draft and does not inherit stronger status by association.
 - `aoa-eval-integrity-check` is now a bounded integrity sidecar meta-eval for public starter-bundle coherence and semantic anti-theater review across the comparison spine; it does not replace direct agent-behavior evaluation, promotion review, or proof of canonical readiness.
-- `aoa-longitudinal-growth-snapshot` is a repeated-window movement surface; it does not replace one-run workflow reading or frozen same-task regression.
+- `aoa-longitudinal-growth-snapshot` is a repeated-window movement surface; it does not replace one-run workflow reading or frozen same-task regression, and its `context_note` plus `transition_note` should stay visible before any top-line movement story.
 - `generated/comparison_spine.json` is now the minimal filtered reader surface for the comparison ladder.
 - As the corpus grows, later generated surfaces may add filters by status, object under evaluation, baseline mode, and verdict shape.
 - Prefer `baseline` or `canonical` bundles for stronger comparison claims once the public corpus reaches that stage.

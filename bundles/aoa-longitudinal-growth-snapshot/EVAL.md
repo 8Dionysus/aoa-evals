@@ -93,6 +93,7 @@ Do not use this eval when:
 - one bounded workflow surface anchored in `aoa-bounded-change-quality`
 - one public report or summary artifact per window
 - context notes for environment, reviewer, or policy changes if they matter materially
+- one transition note per non-initial window explaining why movement relative to the previous window is real, flat, unstable, or regressive
 - longitudinal comparison rubric
 
 ## Fixtures and case surface
@@ -172,7 +173,8 @@ and should carry `aoa-eval-integrity-check` whenever a public wording or maturit
 In this surface:
 - the windows must be ordered and named
 - the bounded workflow surface must stay the same
-- context changes that affect comparability must be disclosed
+- context changes that affect comparability must be disclosed through `context_note`
+- each non-initial window must explain movement through `transition_note`
 - style-only or report-only movement should default to `no clear directional movement` or `mixed or unstable movement`
 
 For a frozen same-task comparison against one fixed baseline,
@@ -193,8 +195,9 @@ Execution expectations:
 - do not treat report polish as workflow growth by default
 - do not let one vivid window erase mixed or flat evidence elsewhere
 - keep enough evidence that a careful reviewer can see why the directional reading was assigned
+- keep the bundle-level verdict weaker than the weakest comparability note or transition note in the sequence
 - when shipping a machine-readable report, validate it against `reports/summary.schema.json`
-- keep the repeated-window read compatible with `reports/repeated-window-proof-flow-v1.md`
+- keep the repeated-window read compatible with `reports/repeated-window-proof-flow-v1.md` and `reports/repeated-window-proof-flow-v2.md`
 
 ## Outputs
 

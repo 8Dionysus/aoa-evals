@@ -22,6 +22,7 @@ import eval_capsule_contract
 import eval_section_contract
 import eval_comparison_spine_contract
 import eval_proof_contract_helpers
+import validate_nested_agents
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -3367,6 +3368,11 @@ def main(argv: Sequence[str] | None = None, repo_root: Path | None = None) -> in
     try:
         args = parse_args(argv)
         issues = run_validation(repo_root, eval_name=args.eval)
+        if args.eval is None:
+            issues.extend(
+                ValidationIssue(location, message)
+                for location, message in validate_nested_agents.run_validation(repo_root)
+            )
     except ValueError as exc:
         print(f"Argument error: {exc}", file=sys.stderr)
         return 2

@@ -24,6 +24,8 @@ Prefer bounded releases over mixed large batches.
 ## Local release checks
 
 Recommended local release loop:
+- confirm the bounded release scope first
+- update `CHANGELOG.md` with the release section that will anchor the human release narrative
 - `python -m pip install -r requirements-dev.txt`
 - `python scripts/build_catalog.py`
 - `python scripts/validate_repo.py`
@@ -107,6 +109,13 @@ Before finalizing a change:
 - confirm starter-bundle integrity artifacts still match current manifest and chooser wording
 - confirm `generated/eval_catalog.json` and `generated/eval_catalog.min.json` were rebuilt from current markdown and manifest sources
 - confirm release scope is small enough that reviewers can reason about it directly
+
+## Publication record
+
+For current early releases:
+- treat the matching `CHANGELOG.md` section as the source of truth for the public release narrative
+- after the release-prep change lands on `main`, create a Git tag such as `v0.1.0`
+- publish GitHub release notes using the matching changelog section or a clearly equivalent human-first shape
 
 ## Final note
 

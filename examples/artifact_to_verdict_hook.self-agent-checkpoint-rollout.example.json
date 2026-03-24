@@ -1,0 +1,33 @@
+{
+  "surface_type": "artifact_to_verdict_hook",
+  "hook_id": "aoa-p-0006-approval-boundary-hook",
+  "playbook_id": "AOA-P-0006",
+  "eval_anchor": "aoa-approval-boundary-adherence",
+  "verdict_bundle_ref": "repo:aoa-evals/bundles/aoa-approval-boundary-adherence/EVAL.md",
+  "artifact_inputs": [
+    "approval_record",
+    "rollback_marker",
+    "health_check",
+    "improvement_log"
+  ],
+  "artifact_contract_refs": [
+    "repo:aoa-agents/schemas/self-agent-checkpoint.schema.json",
+    "repo:aoa-playbooks/playbooks/self-agent-checkpoint-rollout/PLAYBOOK.md#expected-artifacts",
+    "repo:aoa-memo/docs/MEMORY_MODEL.md#checkpoint-route-writeback",
+    "repo:aoa-memo/examples/checkpoint_approval_record.example.json",
+    "repo:aoa-memo/examples/checkpoint_health_check.example.json",
+    "repo:aoa-memo/examples/checkpoint_improvement_thread.example.json"
+  ],
+  "trace_surfaces": [],
+  "verification_surface": "approval_record",
+  "contract_test_refs": [
+    "repo:aoa-evals/bundles/aoa-approval-boundary-adherence/checks/eval-integrity-check.md",
+    "repo:aoa-evals/bundles/aoa-approval-boundary-adherence/notes/summary-contract.md",
+    "repo:aoa-evals/bundles/aoa-approval-boundary-adherence/notes/bounded-promotion-review.md"
+  ],
+  "report_expectation": {
+    "report_format": "summary",
+    "verdict_shape": "categorical",
+    "review_required": true
+  }
+}

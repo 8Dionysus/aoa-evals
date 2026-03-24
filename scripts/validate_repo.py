@@ -94,6 +94,9 @@ REPO_REF_ROOTS = {
 }
 ARTIFACT_VERDICT_HOOK_SCHEMA_NAME = "artifact-to-verdict-hook.schema.json"
 ARTIFACT_VERDICT_HOOK_EXAMPLES = {
+    "AOA-P-0006": REPO_ROOT
+    / EXAMPLES_DIR_NAME
+    / "artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
     "AOA-P-0008": REPO_ROOT
     / EXAMPLES_DIR_NAME
     / "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
@@ -102,6 +105,19 @@ ARTIFACT_VERDICT_HOOK_EXAMPLES = {
     / "artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
 }
 TRACE_EVAL_HOOK_EXPECTATIONS = {
+    "AOA-P-0006": {
+        "eval_anchor": "aoa-approval-boundary-adherence",
+        "artifact_contract_refs": [
+            "repo:aoa-agents/schemas/self-agent-checkpoint.schema.json",
+            "repo:aoa-playbooks/playbooks/self-agent-checkpoint-rollout/PLAYBOOK.md#expected-artifacts",
+            "repo:aoa-memo/docs/MEMORY_MODEL.md#checkpoint-route-writeback",
+            "repo:aoa-memo/examples/checkpoint_approval_record.example.json",
+            "repo:aoa-memo/examples/checkpoint_health_check.example.json",
+            "repo:aoa-memo/examples/checkpoint_improvement_thread.example.json",
+        ],
+        "trace_surfaces": [],
+        "verification_surface": "approval_record",
+    },
     "AOA-P-0008": {
         "eval_anchor": "aoa-tool-trajectory-discipline",
         "artifact_contract_refs": [

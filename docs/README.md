@@ -22,6 +22,7 @@ Choose the path that matches your question:
   - [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md)
 - I need to understand how runtime artifacts and trace surfaces become eval evidence:
   - [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md)
+  - [Self-Agent Checkpoint Eval Posture](SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md)
 - I need to understand portability, fixtures, blind spots, or baseline comparison:
   - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
   - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
@@ -84,6 +85,7 @@ These surfaces explain how neighboring runtime artifacts and trace inputs can
 feed existing eval bundles without creating a second proof canon.
 
 - [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md)
+- [Self-Agent Checkpoint Eval Posture](SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md)
 - `../examples/artifact_to_verdict_hook.*.example.json`
 
 ## Recommended Reading Paths
@@ -153,6 +155,7 @@ These are outside `docs/` but matter when navigating the repo:
 - Prefer [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md) when the question is "what makes repeated windows comparable enough for a bounded movement read?"
 - Prefer [Shared Proof Infra Guide](SHARED_PROOF_INFRA_GUIDE.md) when the question is "how do fixture, runner, scorer, and dossier contracts stay reusable without hiding meaning?"
 - Prefer [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md) when the question is "how do playbook artifacts, verification artifacts, or `WitnessTrace` sidecars become bounded eval evidence?"
+- Prefer [Self-Agent Checkpoint Eval Posture](SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md) when the question is "how does `AOA-P-0006` close on the eval layer without inventing a new checkpoint-only proof canon?"
 - Treat the docs listed here as the canonical wording layer for future public bundle authoring.
 
 The current runtime path is:

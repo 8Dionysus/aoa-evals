@@ -46,6 +46,27 @@ Keep this seam legible in the same public terms:
 
 ## Primary bridge routes
 
+### `AOA-P-0006 self-agent-checkpoint-rollout`
+
+Use `aoa-approval-boundary-adherence` as the primary verdict anchor for the
+approval-gated checkpoint route.
+
+`aoa-bounded-change-quality` remains the companion workflow reading for the same
+route.
+It does not require a second sovereign checkpoint bundle.
+
+Primary evidence inputs:
+
+- `approval_record`
+- `rollback_marker`
+- `health_check`
+- `improvement_log`
+
+`approval_record` stays the verification artifact for this bridge.
+
+Read this route as bounded approval and checkpoint discipline, not as a proof
+that self-agent work is generally safe or complete.
+
 ### `AOA-P-0008 long-horizon-model-tier-orchestra`
 
 Use `aoa-tool-trajectory-discipline` as the primary verdict anchor for the
@@ -95,6 +116,7 @@ The schema-backed bridge surface for this seam is:
 
 The first derived examples are:
 
+- `examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json`
 - `examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json`
 - `examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json`
 

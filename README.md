@@ -35,6 +35,7 @@ If you are new to this repository, follow this short path:
 - if you need role posture or handoff context around an evaluation target, go to [aoa-agents](https://github.com/8Dionysus/aoa-agents)
 - if you need scenario-level operating context, go to [aoa-playbooks](https://github.com/8Dionysus/aoa-playbooks)
 - if you need the runtime-artifact or trace-to-verdict seam, read `docs/TRACE_EVAL_BRIDGE.md`
+- if you need the bounded bridge from `abyss-stack` runtime artifacts into selected proof inputs, read `docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
 - if you need the self-agent checkpoint eval landing, read `docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`
 - if you need the current comparison ladder, read `docs/COMPARISON_SPINE_GUIDE.md`
 - if you need the artifact/process read order, read `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
@@ -54,6 +55,7 @@ Good candidates:
 - shared fixtures and baseline surfaces
 - report contracts and interpretation guides
 - schema-backed report examples and bundle-local runner contracts
+- selected runtime benchmark evidence dossiers when they preserve bounded claim meaning
 
 Bad candidates:
 - random tests without a portable evaluation contract

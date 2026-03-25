@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-evals/schemas/runtime-evidence-selection.schema.json",
+  "title": "aoa-evals runtime evidence selection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "surface_type",
+    "selection_id",
+    "source_repo",
+    "source_schema_ref",
+    "source_manifests",
+    "bounded_claim",
+    "promotion_target",
+    "comparison_mode",
+    "selected_evidence",
+    "environment_invariants",
+    "do_not_overread",
+    "review_posture"
+  ],
+  "properties": {
+    "surface_type": {
+      "type": "string",
+      "const": "runtime_evidence_selection"
+    },
+    "selection_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 3
+    },
+    "source_repo": {
+      "type": "string",
+      "const": "abyss-stack"
+    },
+    "source_schema_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_manifests": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "bounded_claim": {
+      "type": "string",
+      "minLength": 1
+    },
+    "promotion_target": {
+      "type": "string",
+      "enum": [
+        "local-only",
+        "evidence-sidecar",
+        "bundle-candidate"
+      ]
+    },
+    "comparison_mode": {
+      "type": "string",
+      "enum": [
+        "none",
+        "fixed-baseline",
+        "peer-compare",
+        "longitudinal-window"
+      ]
+    },
+    "candidate_eval_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "selected_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "artifact_ref",
+          "evidence_role",
+          "summary_only"
+        ],
+        "properties": {
+          "artifact_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_role": {
+            "type": "string",
+            "enum": [
+              "summary",
+              "case-breakdown",
+              "environment-note",
+              "comparison-note",
+              "integrity-sidecar"
+            ]
+          },
+          "summary_only": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "environment_invariants": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "environment_deltas": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "excluded_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "do_not_overread": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "review_posture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "portable_enough",
+        "comparison_hygiene_named",
+        "human_review_required"
+      ],
+      "properties": {
+        "portable_enough": {
+          "type": "boolean"
+        },
+        "comparison_hygiene_named": {
+          "type": "boolean"
+        },
+        "human_review_required": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

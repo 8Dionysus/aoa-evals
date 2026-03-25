@@ -1,0 +1,62 @@
+{
+  "surface_type": "runtime_evidence_selection",
+  "selection_id": "workhorse-q4-vs-q6-latency-tradeoff",
+  "source_repo": "abyss-stack",
+  "source_schema_ref": "repo:abyss-stack/schemas/runtime-benchmark.schema.json",
+  "source_manifests": [
+    "repo:abyss-stack/Logs/runtime-benchmarks/runs/2026-03-24T154200Z__latency-single-turn__workhorse-local-q4/benchmark.manifest.json",
+    "repo:abyss-stack/Logs/runtime-benchmarks/runs/2026-03-24T161000Z__latency-single-turn__workhorse-local-q6/benchmark.manifest.json"
+  ],
+  "bounded_claim": "Under matched host, preset, and fixture conditions, the q6 runtime variant keeps lower p95 first-token latency than the q4 variant while using more VRAM. This is a runtime tradeoff claim only.",
+  "promotion_target": "bundle-candidate",
+  "comparison_mode": "fixed-baseline",
+  "candidate_eval_refs": [
+    "candidate:fixed-baseline-runtime-latency-tradeoff"
+  ],
+  "selected_evidence": [
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/runtime-benchmarks/runs/2026-03-24T154200Z__latency-single-turn__workhorse-local-q4/summary.json",
+      "evidence_role": "summary",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/runtime-benchmarks/runs/2026-03-24T154200Z__latency-single-turn__workhorse-local-q4/notes.md",
+      "evidence_role": "environment-note",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/runtime-benchmarks/runs/2026-03-24T161000Z__latency-single-turn__workhorse-local-q6/summary.json",
+      "evidence_role": "summary",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/runtime-benchmarks/comparisons/2026-03-24/workhorse-q4-vs-q6-latency-tradeoff.md",
+      "evidence_role": "comparison-note",
+      "summary_only": true
+    }
+  ],
+  "environment_invariants": [
+    "same host hardware class",
+    "same preset: agent-observability",
+    "same benchmark family: latency-single-turn",
+    "same fixture family: runtime-latency-smoke-v1",
+    "same measurement contract: 3 warmups and 24 measured runs"
+  ],
+  "environment_deltas": [
+    "quantization_or_runtime_variant changed from q4_k_m to q6_k"
+  ],
+  "excluded_artifacts": [
+    "repo:abyss-stack/Logs/runtime-benchmarks/runs/2026-03-24T154200Z__latency-single-turn__workhorse-local-q4/render/rendered-config.redacted.yml",
+    "repo:abyss-stack/Logs/runtime-benchmarks/runs/2026-03-24T161000Z__latency-single-turn__workhorse-local-q6/raw/device-samples.jsonl"
+  ],
+  "do_not_overread": [
+    "does not rank reasoning quality",
+    "does not prove better agent behavior",
+    "does not support cross-host leaderboard claims"
+  ],
+  "review_posture": {
+    "portable_enough": false,
+    "comparison_hygiene_named": true,
+    "human_review_required": true
+  }
+}

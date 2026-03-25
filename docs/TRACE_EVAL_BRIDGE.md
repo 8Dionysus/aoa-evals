@@ -120,6 +120,9 @@ The first derived examples are:
 - `examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json`
 - `examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json`
 
+Runtime benchmark evidence selection is adjacent to this bridge, not a replacement for it.
+See [RUNTIME_BENCH_PROMOTION_GUIDE.md](RUNTIME_BENCH_PROMOTION_GUIDE.md) when `abyss-stack` latency, load, recovery, or context-stress artifacts need bounded promotion discipline before they travel upward as selected proof inputs.
+
 These hook surfaces bind together:
 
 - playbook-owned artifact inputs

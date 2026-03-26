@@ -15,6 +15,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 import build_catalog
 import eval_section_contract
+import validate_repo
 from validate_repo import (
     NO_ADDITIONAL_STARTER_BUNDLES_TEXT,
     build_capsule_payload,
@@ -30,6 +31,35 @@ from validate_repo import (
 def write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(textwrap.dedent(content).lstrip(), encoding="utf-8")
+
+
+def write_integrity_example_report(path: Path) -> None:
+    write_text(
+        path,
+        """
+        # Example Report
+
+        ## Per-target breakdown
+
+        | target bundle | integrity risk class |
+        |---|---|
+        | `aoa-regression-same-task` | fixed-baseline drift |
+        | `aoa-output-vs-process-gap` | baseline by association |
+        | `aoa-longitudinal-growth-snapshot` | longitudinal overclaim |
+
+        ## Taxonomy reference
+
+        - `style-over-substance`
+        - `artifact/process collapse`
+        - `baseline by association`
+        - `growth by association`
+        - `peer-compare blur`
+        - `fixed-baseline drift`
+        - `longitudinal overclaim`
+        - `schema-clean but claim-overstated`
+        - `routing overreach`
+        """,
+    )
 
 
 def ensure_support_bundle(repo_root: Path, name: str, *, category: str = "workflow") -> None:
@@ -1863,6 +1893,58 @@ def test_validate_repo_rejects_invalid_additional_fixture_family_path(tmp_path: 
     assert any("additional_shared_fixture_family_paths" in issue.location for issue in issues)
 
 
+def test_validate_repo_rejects_blank_shared_fixture_family_path(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-output-vs-process-gap",
+        category="comparative",
+        claim_type="comparative",
+        baseline_mode="peer-compare",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_peer_compare_proof_artifacts(tmp_path, bundle_name="aoa-output-vs-process-gap")
+    contract_path = tmp_path / "bundles" / "aoa-output-vs-process-gap" / "fixtures" / "contract.json"
+    payload = json.loads(contract_path.read_text(encoding="utf-8"))
+    payload["shared_fixture_family_path"] = "   "
+    contract_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path, eval_name="aoa-output-vs-process-gap")
+
+    assert any(
+        issue.location.endswith(".shared_fixture_family_path")
+        and "path must be a non-empty string" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_rejects_blank_additional_paired_readout_path(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-output-vs-process-gap",
+        category="comparative",
+        claim_type="comparative",
+        baseline_mode="peer-compare",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_peer_compare_proof_artifacts(tmp_path, bundle_name="aoa-output-vs-process-gap")
+    contract_path = tmp_path / "bundles" / "aoa-output-vs-process-gap" / "runners" / "contract.json"
+    payload = json.loads(contract_path.read_text(encoding="utf-8"))
+    payload["additional_paired_readout_paths"] = ["   "]
+    contract_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path, eval_name="aoa-output-vs-process-gap")
+
+    assert any(
+        issue.location.endswith(".additional_paired_readout_paths[0]")
+        and "path must be a non-empty string" in issue.message
+        for issue in issues
+    )
+
+
 def test_validate_repo_requires_comparison_doctrine_selection_parity(tmp_path: Path) -> None:
     make_eval_bundle(
         tmp_path,
@@ -2001,6 +2083,46 @@ def test_validate_repo_rejects_report_example_that_violates_bundle_schema(tmp_pa
     assert any("report violation" in issue.message and "limitations" in issue.message for issue in issues)
 
 
+def test_validate_repo_allows_missing_initial_longitudinal_transition_note(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-longitudinal-growth-snapshot",
+        category="longitudinal",
+        claim_type="longitudinal",
+        baseline_mode="longitudinal-window",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_longitudinal_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-longitudinal-growth-snapshot",
+        report_example_override={
+            "windows": [
+                {
+                    "window_id": "LG-01",
+                    "window_order": 1,
+                    "workflow_note": "workflow note",
+                    "movement_reading": "no clear directional movement",
+                    "context_note": "context note",
+                },
+                {
+                    "window_id": "LG-02",
+                    "window_order": 2,
+                    "workflow_note": "workflow note later",
+                    "movement_reading": "bounded improvement signal",
+                    "context_note": "context note later",
+                    "transition_note": "follow-up transition note",
+                },
+            ]
+        },
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path, eval_name="aoa-longitudinal-growth-snapshot")
+
+    assert not any("transition_note" in issue.location for issue in issues)
+
+
 def test_validate_repo_requires_longitudinal_transition_note(tmp_path: Path) -> None:
     make_eval_bundle(
         tmp_path,
@@ -2038,6 +2160,36 @@ def test_validate_repo_requires_longitudinal_transition_note(tmp_path: Path) -> 
     issues = run_validation(tmp_path, eval_name="aoa-longitudinal-growth-snapshot")
 
     assert any("transition_note" in issue.message or "transition_note" in issue.location for issue in issues)
+
+
+def test_validate_repo_allows_negated_longitudinal_growth_disclaimer_in_claim_boundary(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-longitudinal-growth-snapshot",
+        category="longitudinal",
+        claim_type="longitudinal",
+        baseline_mode="longitudinal-window",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_longitudinal_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-longitudinal-growth-snapshot",
+        report_example_override={
+            "claim_boundary": (
+                "This bounded report does not prove general capability growth beyond "
+                "this anchored surface."
+            ),
+        },
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path, eval_name="aoa-longitudinal-growth-snapshot")
+
+    assert not any(
+        "claim_boundary must stay weaker than broad or general capability growth" in issue.message
+        for issue in issues
+    )
 
 
 def test_validate_repo_rejects_longitudinal_report_with_duplicate_window_id(tmp_path: Path) -> None:
@@ -2193,13 +2345,142 @@ def test_validate_repo_requires_integrity_risk_taxonomy_enum(tmp_path: Path) -> 
     )
     write_text(
         tmp_path / "bundles" / "aoa-eval-integrity-check" / "notes" / "review-contract.md",
-        "# Review Contract\nstyle-over-substance\n",
+        "\n".join(
+            [
+                "# Review Contract",
+                "style-over-substance",
+                "artifact/process collapse",
+                "baseline by association",
+                "growth by association",
+                "peer-compare blur",
+                "fixed-baseline drift",
+                "longitudinal overclaim",
+                "schema-clean but claim-overstated",
+                "routing overreach",
+                "",
+            ]
+        ),
+    )
+    write_integrity_example_report(
+        tmp_path / "bundles" / "aoa-eval-integrity-check" / "examples" / "example-report.md"
     )
     write_catalogs(tmp_path)
 
     issues = run_validation(tmp_path, eval_name="aoa-eval-integrity-check")
 
     assert any("integrity_risk_class enum must match" in issue.message for issue in issues)
+
+
+def test_validate_repo_requires_integrity_taxonomy_in_example_report(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-eval-integrity-check", category="capability")
+    add_materialized_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-eval-integrity-check",
+        report_schema={
+            "type": "object",
+            "additionalProperties": False,
+            "required": [
+                "eval_name",
+                "bundle_status",
+                "object_under_evaluation",
+                "verdict",
+                "claim_boundary",
+                "limitations",
+                "corpus_slice",
+                "per_target_breakdown",
+            ],
+            "properties": {
+                "eval_name": {"const": "aoa-eval-integrity-check"},
+                "bundle_status": {"const": "draft"},
+                "object_under_evaluation": {"type": "string"},
+                "verdict": {"type": "string"},
+                "claim_boundary": {"type": "string"},
+                "limitations": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+                "corpus_slice": {"type": "string"},
+                "per_target_breakdown": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": [
+                            "target_bundle",
+                            "integrity_risk_class",
+                            "target_reading",
+                            "note",
+                        ],
+                        "properties": {
+                            "target_bundle": {"type": "string"},
+                            "integrity_risk_class": {
+                                "type": "string",
+                                "enum": [
+                                    "style-over-substance",
+                                    "artifact/process collapse",
+                                    "baseline by association",
+                                    "growth by association",
+                                    "peer-compare blur",
+                                    "fixed-baseline drift",
+                                    "longitudinal overclaim",
+                                    "schema-clean but claim-overstated",
+                                    "routing overreach",
+                                ],
+                            },
+                            "target_reading": {"type": "string"},
+                            "note": {"type": "string"},
+                        },
+                    },
+                },
+            },
+        },
+        report_example={
+            "eval_name": "aoa-eval-integrity-check",
+            "bundle_status": "draft",
+            "object_under_evaluation": "bounded test surface",
+            "verdict": "mixed support",
+            "claim_boundary": "bounded integrity example",
+            "limitations": ["still bounded"],
+            "corpus_slice": "starter bundles",
+            "per_target_breakdown": [
+                {
+                    "target_bundle": "aoa-alpha",
+                    "integrity_risk_class": "style-over-substance",
+                    "target_reading": "mixed support",
+                    "note": "note",
+                }
+            ],
+        },
+    )
+    write_text(
+        tmp_path / "bundles" / "aoa-eval-integrity-check" / "notes" / "review-contract.md",
+        "\n".join(
+            [
+                "# Review Contract",
+                "style-over-substance",
+                "artifact/process collapse",
+                "baseline by association",
+                "growth by association",
+                "peer-compare blur",
+                "fixed-baseline drift",
+                "longitudinal overclaim",
+                "schema-clean but claim-overstated",
+                "routing overreach",
+                "",
+            ]
+        ),
+    )
+    write_text(
+        tmp_path / "bundles" / "aoa-eval-integrity-check" / "examples" / "example-report.md",
+        "# Example Report\n",
+    )
+    write_catalogs(tmp_path)
+
+    issues = run_validation(tmp_path, eval_name="aoa-eval-integrity-check")
+
+    assert any(
+        issue.location == "bundles/aoa-eval-integrity-check/examples/example-report.md"
+        and "integrity example report must mention" in issue.message
+        for issue in issues
+    )
 
 
 def test_validate_repo_requires_roadmap_current_public_surface_to_be_a_starter_bundle(tmp_path: Path) -> None:
@@ -2743,6 +3024,36 @@ def test_validate_repo_accepts_valid_longitudinal_bundle_with_materialized_artif
     write_catalogs(tmp_path)
 
     assert run_validation(tmp_path, eval_name="aoa-valid-longitudinal-materialized") == []
+
+
+def test_validate_repo_allows_local_run_without_sibling_dependency_repos(monkeypatch) -> None:
+    missing_agents_root = REPO_ROOT / ".tmp" / "missing-aoa-agents"
+    missing_playbooks_root = REPO_ROOT / ".tmp" / "missing-aoa-playbooks"
+    missing_memo_root = REPO_ROOT / ".tmp" / "missing-aoa-memo"
+
+    monkeypatch.setattr(validate_repo, "AOA_AGENTS_ROOT", missing_agents_root)
+    monkeypatch.setattr(validate_repo, "AOA_PLAYBOOKS_ROOT", missing_playbooks_root)
+    monkeypatch.setattr(validate_repo, "AOA_MEMO_ROOT", missing_memo_root)
+    monkeypatch.setattr(
+        validate_repo,
+        "REPO_REF_ROOTS",
+        {
+            "aoa-evals": validate_repo.REPO_ROOT,
+            "aoa-agents": missing_agents_root,
+            "aoa-playbooks": missing_playbooks_root,
+            "aoa-memo": missing_memo_root,
+        },
+    )
+
+    issues = run_validation(REPO_ROOT)
+
+    assert not any(
+        "reference target does not exist: aoa-agents/" in issue.message
+        or "reference target does not exist: aoa-playbooks/" in issue.message
+        or "reference target does not exist: aoa-memo/" in issue.message
+        or "does not resolve in aoa-playbooks" in issue.message
+        for issue in issues
+    )
 
 
 def test_real_repo_has_only_one_non_local_shaped_portability_bundle() -> None:

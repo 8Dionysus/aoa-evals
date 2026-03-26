@@ -410,6 +410,8 @@ def parse_repo_ref(
         return None
 
     target = repo_root / path_text
+    if not repo_root.exists():
+        return repo_name, target, anchor or None
     if not target.exists():
         issues.append(
             ValidationIssue(
@@ -485,6 +487,41 @@ def validate_repo_relative_contract_path(
         )
         return None
     return normalized_path
+
+
+def validate_raw_repo_relative_path(
+    raw_value: Any,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+) -> str | None:
+    if not isinstance(raw_value, str):
+        return None
+    normalized_path = ensure_repo_relative_path(raw_value, location, issues)
+    return normalized_path or None
+
+
+def validate_raw_repo_relative_path_list(
+    payload: dict[str, Any],
+    key: str,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+) -> list[str]:
+    raw_values = payload.get(key, [])
+    if not isinstance(raw_values, list):
+        return []
+
+    normalized_paths: list[str] = []
+    for index, raw_value in enumerate(raw_values):
+        normalized_path = validate_raw_repo_relative_path(
+            raw_value,
+            location=f"{location}.{key}[{index}]",
+            issues=issues,
+        )
+        if normalized_path is not None:
+            normalized_paths.append(normalized_path)
+    return normalized_paths
 
 
 def validate_comparison_eval_target(
@@ -1286,6 +1323,48 @@ def validate_bundle_report_artifacts(
         )
 
 
+LONGITUDINAL_GROWTH_CLAIM_PHRASES = (
+    "broad capability growth",
+    "general capability growth",
+)
+LONGITUDINAL_GROWTH_DISCLAIMER_MARKERS = (
+    "does not",
+    "do not",
+    "did not",
+    "doesn't",
+    "don't",
+    "cannot",
+    "can't",
+    "is not",
+    "isn't",
+    "not prove",
+    "not proven",
+    "not support",
+    "not supported",
+    "not imply",
+    "not implied",
+    "without proving",
+    "without implying",
+    "weaker than",
+    "rather than",
+)
+
+
+def claim_boundary_overclaims_longitudinal_growth(claim_boundary: str) -> bool:
+    clauses = [
+        clause.strip()
+        for clause in re.split(r"[.;:\n]+", claim_boundary.lower())
+        if clause.strip()
+    ]
+    for clause in clauses:
+        if not any(phrase in clause for phrase in LONGITUDINAL_GROWTH_CLAIM_PHRASES):
+            continue
+        if any(marker in clause for marker in LONGITUDINAL_GROWTH_DISCLAIMER_MARKERS):
+            continue
+        return True
+    return False
+
+
 def validate_longitudinal_report_example(
     example_payload: Any,
     *,
@@ -1297,8 +1376,7 @@ def validate_longitudinal_report_example(
 
     claim_boundary = example_payload.get("claim_boundary")
     if isinstance(claim_boundary, str):
-        lowered_claim = claim_boundary.lower()
-        if "broad capability growth" in lowered_claim or "general capability growth" in lowered_claim:
+        if claim_boundary_overclaims_longitudinal_growth(claim_boundary):
             issues.append(
                 ValidationIssue(
                     f"{location}.claim_boundary",
@@ -1354,11 +1432,13 @@ def validate_longitudinal_report_example(
             last_order = window_order
 
         transition_note = window.get("transition_note")
+        if index == 0 and transition_note is None:
+            continue
         if not isinstance(transition_note, str) or not transition_note.strip():
             issues.append(
                 ValidationIssue(
                     f"{location}.windows[{index}].transition_note",
-                    "longitudinal example report windows must include a non-empty transition_note",
+                    "longitudinal example report non-initial windows must include a non-empty transition_note",
                 )
             )
 
@@ -1429,6 +1509,17 @@ def validate_bundle_fixture_contract(
     if not validate_against_schema(payload, "fixture-contract.schema.json", location, issues):
         return
 
+    validate_raw_repo_relative_path(
+        payload.get("shared_fixture_family_path"),
+        location=f"{location}.shared_fixture_family_path",
+        issues=issues,
+    )
+    validate_raw_repo_relative_path_list(
+        payload,
+        eval_proof_contract_helpers.ADDITIONAL_FIXTURE_FAMILY_PATHS_KEY,
+        location=location,
+        issues=issues,
+    )
     fixture_family_paths = eval_proof_contract_helpers.collect_fixture_family_paths(payload)
     for index, shared_fixture_family_path in enumerate(fixture_family_paths):
         field_name = (
@@ -1479,6 +1570,12 @@ def validate_bundle_runner_contract(
                 issues=issues,
             )
 
+    validate_raw_repo_relative_path_list(
+        payload,
+        eval_proof_contract_helpers.ADDITIONAL_PAIRED_READOUT_PATHS_KEY,
+        location=location,
+        issues=issues,
+    )
     additional_paired_readout_paths = eval_proof_contract_helpers.normalize_repo_relative_path_list(
         payload,
         eval_proof_contract_helpers.ADDITIONAL_PAIRED_READOUT_PATHS_KEY,
@@ -2177,6 +2274,12 @@ def validate_integrity_taxonomy_surfaces(
         issues,
         root=repo_root,
     )
+    example_report_location = "bundles/aoa-eval-integrity-check/examples/example-report.md"
+    example_report_text = read_text_or_issue(
+        repo_root / "bundles" / "aoa-eval-integrity-check" / "examples" / "example-report.md",
+        issues,
+        root=repo_root,
+    )
     schema_location = "bundles/aoa-eval-integrity-check/reports/summary.schema.json"
     schema_payload = load_json_payload(
         repo_root / "bundles" / "aoa-eval-integrity-check" / "reports" / "summary.schema.json",
@@ -2222,6 +2325,13 @@ def validate_integrity_taxonomy_surfaces(
                 ValidationIssue(
                     "bundles/aoa-eval-integrity-check/EVAL.md",
                     f"integrity sidecar surfaces must mention '{phrase}' in EVAL.md or review-contract.md",
+                )
+            )
+        if phrase not in example_report_text:
+            issues.append(
+                ValidationIssue(
+                    example_report_location,
+                    f"integrity example report must mention '{phrase}'",
                 )
             )
     return issues
@@ -3013,6 +3123,9 @@ def validate_trace_eval_bridge_surfaces(
     if schema is None:
         return issues
     if not validate_inline_schema(schema, location=schema_location, issues=issues):
+        return issues
+
+    if not AOA_PLAYBOOKS_ROOT.exists():
         return issues
 
     playbook_registry_path = AOA_PLAYBOOKS_ROOT / "generated" / "playbook_registry.min.json"

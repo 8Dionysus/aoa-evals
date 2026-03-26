@@ -12,9 +12,21 @@ It is a meta-eval, not a direct agent-behavior starter.
 
 | target bundle | integrity risk class | evidence note | public-routing note | target reading |
 |---|---|---|---|---|
-| `aoa-regression-same-task` | style-only movement risk | frozen case-family contract, runner contract, schema-backed report, and baseline dossier still keep style-only change weaker than same-task regression evidence | chooser keeps the baseline surface separate from repeated-window movement and one-run workflow reads | `supports bounded claim` |
-| `aoa-output-vs-process-gap` | baseline by association risk | comparative manifest, pairing dossier, and runner contract are coherent, but the bridge still sits near a stronger baseline surface | chooser keeps the bridge separate from `aoa-regression-same-task` | `mixed support` |
-| `aoa-longitudinal-growth-snapshot` | growth overclaiming risk | repeated-window fixture contract, runner contract, schema-backed report, and proof dossier are now present, but the draft surface still needs cautious interpretation | chooser still keeps longitudinal movement separate from same-task baseline and broad capability narrative | `mixed support` |
+| `aoa-regression-same-task` | style-over-substance | frozen case-family contract, runner contract, schema-backed report, and baseline dossier still keep style-only change weaker than same-task regression evidence | chooser keeps the baseline surface separate from repeated-window movement and one-run workflow reads | `supports bounded claim` |
+| `aoa-output-vs-process-gap` | baseline by association | comparative manifest, pairing dossier, and runner contract are coherent, but the bridge still sits near a stronger baseline surface | chooser keeps the bridge separate from `aoa-regression-same-task` | `mixed support` |
+| `aoa-longitudinal-growth-snapshot` | longitudinal overclaim | repeated-window fixture contract, runner contract, schema-backed report, and proof dossier are now present, but the draft surface still needs cautious interpretation | chooser still keeps longitudinal movement separate from same-task baseline and broad capability narrative | `mixed support` |
+
+## Taxonomy reference
+
+- `style-over-substance`
+- `artifact/process collapse`
+- `baseline by association`
+- `growth by association`
+- `peer-compare blur`
+- `fixed-baseline drift`
+- `longitudinal overclaim`
+- `schema-clean but claim-overstated`
+- `routing overreach`
 
 ## Interpretation note
 

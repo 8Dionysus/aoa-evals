@@ -11,7 +11,7 @@ import sys
 from collections import Counter
 from dataclasses import dataclass
 from functools import lru_cache
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any, Iterable, Sequence
 
 import yaml
@@ -39,6 +39,7 @@ AOA_PLAYBOOKS_ROOT = repo_root_from_env(
     "AOA_PLAYBOOKS_ROOT", REPO_ROOT.parent / "aoa-playbooks"
 )
 AOA_MEMO_ROOT = repo_root_from_env("AOA_MEMO_ROOT", REPO_ROOT.parent / "aoa-memo")
+ABYSS_STACK_ROOT = repo_root_from_env("ABYSS_STACK_ROOT", REPO_ROOT.parent / "abyss-stack")
 BUNDLES_DIR_NAME = "bundles"
 EVAL_INDEX_NAME = "EVAL_INDEX.md"
 EVAL_SELECTION_NAME = "EVAL_SELECTION.md"
@@ -85,6 +86,7 @@ VISIBLE_ROOTS = (
     AOA_AGENTS_ROOT,
     AOA_PLAYBOOKS_ROOT,
     AOA_MEMO_ROOT,
+    ABYSS_STACK_ROOT,
 )
 REPO_REF_PREFIX = "repo:"
 REPO_REF_ROOTS = {
@@ -92,8 +94,10 @@ REPO_REF_ROOTS = {
     "aoa-agents": AOA_AGENTS_ROOT,
     "aoa-playbooks": AOA_PLAYBOOKS_ROOT,
     "aoa-memo": AOA_MEMO_ROOT,
+    "abyss-stack": ABYSS_STACK_ROOT,
 }
 ARTIFACT_VERDICT_HOOK_SCHEMA_NAME = "artifact-to-verdict-hook.schema.json"
+RUNTIME_EVIDENCE_SELECTION_SCHEMA_NAME = "runtime-evidence-selection.schema.json"
 ARTIFACT_VERDICT_HOOK_EXAMPLES = {
     "AOA-P-0006": REPO_ROOT
     / EXAMPLES_DIR_NAME
@@ -104,6 +108,18 @@ ARTIFACT_VERDICT_HOOK_EXAMPLES = {
     "AOA-P-0009": REPO_ROOT
     / EXAMPLES_DIR_NAME
     / "artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
+}
+RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
+    "runtime_evidence_selection.workhorse-local.example.json": {
+        "target_eval": None,
+        "source_schema_ref": "repo:abyss-stack/schemas/runtime-benchmark.schema.json",
+        "candidate_eval_refs": ["candidate:fixed-baseline-runtime-latency-tradeoff"],
+    },
+    "runtime_evidence_selection.return-anchor-integrity.example.json": {
+        "target_eval": "aoa-return-anchor-integrity",
+        "source_schema_ref": "repo:abyss-stack/schemas/runtime-return-event.schema.json",
+        "candidate_eval_refs": ["candidate:aoa-return-anchor-integrity"],
+    },
 }
 TRACE_EVAL_HOOK_EXPECTATIONS = {
     "AOA-P-0006": {
@@ -434,6 +450,44 @@ def parse_repo_ref(
             return None
 
     return repo_name, target, anchor or None
+
+
+def validate_abyss_stack_logs_ref(
+    raw_ref: Any,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+) -> PurePosixPath | None:
+    if not isinstance(raw_ref, str) or not raw_ref:
+        issues.append(ValidationIssue(location, "reference must be a non-empty string"))
+        return None
+    if "#" in raw_ref:
+        issues.append(ValidationIssue(location, "operational evidence refs must not include markdown anchors"))
+        return None
+    if "\\" in raw_ref:
+        issues.append(ValidationIssue(location, "reference must use forward slashes"))
+        return None
+    if not raw_ref.startswith("repo:abyss-stack/"):
+        issues.append(ValidationIssue(location, "reference must stay inside 'repo:abyss-stack/Logs/'"))
+        return None
+
+    path_text = raw_ref[len("repo:abyss-stack/") :]
+    if not path_text:
+        issues.append(ValidationIssue(location, "reference path must not be empty"))
+        return None
+
+    ref_path = PurePosixPath(path_text)
+    if ref_path.is_absolute():
+        issues.append(ValidationIssue(location, "reference path must be repo-relative"))
+        return None
+    if any(part in {"", ".", ".."} for part in ref_path.parts):
+        issues.append(ValidationIssue(location, "reference path must not contain empty, '.' or '..' segments"))
+        return None
+    if len(ref_path.parts) < 2 or ref_path.parts[0] != "Logs":
+        issues.append(ValidationIssue(location, "reference must stay inside 'repo:abyss-stack/Logs/'"))
+        return None
+
+    return ref_path
 
 
 def validate_json_against_inline_schema(
@@ -3344,6 +3398,136 @@ def validate_trace_eval_bridge_surfaces(
     return issues
 
 
+def validate_runtime_evidence_selection_surfaces(
+    repo_root: Path,
+    records: list[EvalBundleRecord],
+    *,
+    target_eval_names: set[str] | None = None,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    selected_examples: list[tuple[Path, dict[str, Any]]] = []
+    for example_name, expectations in RUNTIME_EVIDENCE_SELECTION_EXAMPLES.items():
+        target_eval = expectations.get("target_eval")
+        example_path = repo_root / EXAMPLES_DIR_NAME / example_name
+        if target_eval_names is None:
+            if example_path.exists():
+                selected_examples.append((example_path, expectations))
+            continue
+        if target_eval in target_eval_names:
+            selected_examples.append((example_path, expectations))
+
+    if not selected_examples:
+        return issues
+
+    schema_path = repo_root / SCHEMAS_DIR_NAME / RUNTIME_EVIDENCE_SELECTION_SCHEMA_NAME
+    schema_location = relative_location(schema_path, repo_root)
+    schema = load_json_payload(schema_path, issues)
+    if schema is None:
+        return issues
+    if not validate_inline_schema(schema, location=schema_location, issues=issues):
+        return issues
+
+    record_names = {record.name for record in records}
+
+    for example_path, expectations in selected_examples:
+        target_eval = expectations.get("target_eval")
+        location = relative_location(example_path, repo_root)
+        payload = load_json_payload(example_path, issues)
+        if payload is None:
+            continue
+        if not isinstance(payload, dict):
+            issues.append(ValidationIssue(location, "example payload must be an object"))
+            continue
+
+        validate_against_schema(
+            payload,
+            RUNTIME_EVIDENCE_SELECTION_SCHEMA_NAME,
+            location,
+            issues,
+        )
+
+        expected_schema_ref = expectations["source_schema_ref"]
+        if payload.get("source_schema_ref") != expected_schema_ref:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"source_schema_ref must equal '{expected_schema_ref}'",
+                )
+            )
+
+        schema_resolution = parse_repo_ref(
+            payload.get("source_schema_ref"),
+            location=f"{location}.source_schema_ref",
+            issues=issues,
+        )
+        if schema_resolution is not None:
+            repo_name, target_path, _anchor = schema_resolution
+            if repo_name != "abyss-stack":
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        "source_schema_ref must resolve inside abyss-stack tracked schema space",
+                    )
+                )
+            expected_schema_path = ABYSS_STACK_ROOT / expected_schema_ref[len("repo:abyss-stack/") :]
+            if target_path != expected_schema_path:
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        "source_schema_ref must resolve to the expected abyss-stack schema",
+                    )
+                )
+
+        expected_candidate_eval_refs = expectations["candidate_eval_refs"]
+        if payload.get("candidate_eval_refs") != expected_candidate_eval_refs:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"candidate_eval_refs must equal {expected_candidate_eval_refs!r}",
+                )
+            )
+        elif target_eval is not None and target_eval not in record_names:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"candidate eval '{target_eval}' does not resolve to a local bundle record",
+                )
+            )
+
+        for field_name in ("source_manifests", "excluded_artifacts"):
+            refs = payload.get(field_name, [])
+            if refs is None:
+                continue
+            if not isinstance(refs, list):
+                issues.append(ValidationIssue(f"{location}.{field_name}", f"{field_name} must be a list"))
+                continue
+            for index, ref in enumerate(refs):
+                validate_abyss_stack_logs_ref(
+                    ref,
+                    location=f"{location}.{field_name}[{index}]",
+                    issues=issues,
+                )
+
+        selected_evidence = payload.get("selected_evidence")
+        if not isinstance(selected_evidence, list):
+            issues.append(
+                ValidationIssue(f"{location}.selected_evidence", "selected_evidence must be a list")
+            )
+            continue
+        for index, item in enumerate(selected_evidence):
+            item_location = f"{location}.selected_evidence[{index}]"
+            if not isinstance(item, dict):
+                issues.append(ValidationIssue(item_location, "selected evidence entry must be an object"))
+                continue
+            validate_abyss_stack_logs_ref(
+                item.get("artifact_ref"),
+                location=f"{item_location}.artifact_ref",
+                issues=issues,
+            )
+
+    return issues
+
+
 def format_issues(issues: Sequence[ValidationIssue]) -> str:
     lines = [f"- {issue.location}: {issue.message}" for issue in issues]
     return "\n".join(lines)
@@ -3439,11 +3623,24 @@ def run_validation(
         all_source_issues, all_records = collect_catalog_records(repo_root)
         if not all_source_issues:
             issues.extend(validate_trace_eval_bridge_surfaces(repo_root, all_records))
+            issues.extend(
+                validate_runtime_evidence_selection_surfaces(
+                    repo_root,
+                    all_records,
+                )
+            )
             issues.extend(validate_generated_catalogs(repo_root, all_records))
             issues.extend(validate_generated_capsules(repo_root, all_records))
             issues.extend(validate_generated_sections(repo_root, all_records))
             issues.extend(validate_generated_comparison_spine(repo_root, all_records))
     elif eval_name is not None and not source_issues:
+        issues.extend(
+            validate_runtime_evidence_selection_surfaces(
+                repo_root,
+                records,
+                target_eval_names=set(target_evals),
+            )
+        )
         issues.extend(
             validate_generated_catalogs(
                 repo_root,

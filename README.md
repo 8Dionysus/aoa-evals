@@ -37,6 +37,7 @@ If you are new to this repository, follow this short path:
 - if you need the runtime-artifact or trace-to-verdict seam, read `docs/TRACE_EVAL_BRIDGE.md`
 - if you need the bounded bridge from `abyss-stack` runtime artifacts into selected proof inputs, read `docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
 - if you need the self-agent checkpoint eval landing, read `docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`
+- if you need the recurrence-aware proof program for bounded anchor fidelity and honest re-entry, read `docs/RECURRENCE_PROOF_PROGRAM.md`
 - if you need the current comparison ladder, read `docs/COMPARISON_SPINE_GUIDE.md`
 - if you need the artifact/process read order, read `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
 - if you need cautious repeated-window reading, read `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
@@ -154,7 +155,7 @@ A typical eval bundle contains:
 `generated/eval_catalog.json`, `generated/eval_catalog.min.json`, and `generated/eval_capsules.json` are derived reader surfaces for routing, indexing, and local runtime lookup cards.
 `generated/comparison_spine.json` is the filtered comparison-only routing and selection surface for `fixed-baseline`, `peer-compare`, and `longitudinal-window` bundles.
 `generated/eval_sections.full.json` is the source-owned section payload surface for bounded expand-time reads.
-`docs/TRACE_EVAL_BRIDGE.md`, `docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`, and `examples/artifact_to_verdict_hook.*.example.json` are derived bridge surfaces for runtime evidence inputs; they do not change eval bundle ownership, wording, or status.
+`docs/TRACE_EVAL_BRIDGE.md`, `docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`, `docs/RECURRENCE_PROOF_PROGRAM.md`, `examples/artifact_to_verdict_hook.*.example.json`, and `examples/runtime_evidence_selection.*.example.json` are derived bridge surfaces for runtime evidence inputs; they do not change eval bundle ownership, wording, or status.
 
 ## Evaluation bundle shape
 

@@ -424,8 +424,12 @@ Highest-priority additions:
 - keep `aoa-regression-same-task` conservative as the first public baseline starter rather than promoting other comparison surfaces by association
 - keep the repeated-window fixture and report contracts on `aoa-longitudinal-growth-snapshot` aligned with cautious movement wording rather than inflating them into stronger status claims
 - harden the new witness/compost pilot proof surfaces without inflating them into runtime-instrumentation claims before `abyss-stack` is actually ready
+- harden the first recurrence-aware proof surface without inflating it into a broad safety or capability claim, and keep it outside the current starter set until case families and report artifacts are field-tested
 
 Next likely cross-surface candidate after the current public starter set:
+- `aoa-return-anchor-integrity` as a draft non-starter return-hygiene bundle
+
+Starter posture remains conservative:
 - No additional planned starter bundles are currently named publicly.
 
 Recent repo hardening now in place:

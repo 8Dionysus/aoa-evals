@@ -252,3 +252,19 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
         "aoa-output-vs-process-gap",
         "aoa-regression-same-task",
     }
+
+
+def test_real_repo_return_anchor_integrity_enters_generated_surfaces_without_expanding_comparison_spine() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+    capsules = build_capsule_payload(REPO_ROOT, records, full_catalog)
+    sections, section_issues = eval_section_contract.build_sections_payload(REPO_ROOT, records)
+    comparison_spine = build_comparison_spine_payload(REPO_ROOT, records, full_catalog)
+
+    assert section_issues == []
+    assert any(entry["name"] == "aoa-return-anchor-integrity" for entry in full_catalog["evals"])
+    assert any(entry["name"] == "aoa-return-anchor-integrity" for entry in capsules["evals"])
+    assert any(entry["name"] == "aoa-return-anchor-integrity" for entry in sections["evals"])
+    assert all(entry["name"] != "aoa-return-anchor-integrity" for entry in comparison_spine["evals"])

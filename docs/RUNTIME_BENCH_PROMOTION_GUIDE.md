@@ -111,6 +111,7 @@ Do not read it as:
 Use `../schemas/runtime-evidence-selection.schema.json` as the machine-readable selection contract.
 
 Use `../examples/runtime_evidence_selection.workhorse-local.example.json` as the first bounded example.
+Use `../examples/runtime_evidence_selection.return-anchor-integrity.example.json` when selected `runtime_return_event` summaries and return-policy notes need to travel upward as a bounded evidence sidecar for `aoa-return-anchor-integrity`.
 
 ## Boundary to preserve
 Runtime posture can become evidence.

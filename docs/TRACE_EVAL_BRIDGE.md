@@ -88,6 +88,13 @@ optional sidecar for `aoa-witness-trace-integrity`.
 That sidecar is evidence-only.
 It does not silently add a required playbook artifact.
 
+When the route emits an explicit return decision, anchor refs, and bounded
+re-entry note, `aoa-return-anchor-integrity` may travel as an adjacent
+diagnostic surface.
+That sidecar stays on anchor fidelity and honest re-entry.
+It does not replace `aoa-tool-trajectory-discipline` as the primary
+route-quality anchor.
+
 ### `AOA-P-0009 restartable-inquiry-loop`
 
 Use `aoa-long-horizon-depth` as the primary verdict anchor for the first
@@ -108,6 +115,11 @@ This route should be read as checkpoint-and-relaunch evidence, not as final
 answer grading.
 `memory_delta` and `canon_delta` must remain distinct.
 
+When the restart route also emits explicit return-aware artifacts,
+`aoa-return-anchor-integrity` may travel as an adjacent diagnostic surface.
+It remains narrower than `aoa-long-horizon-depth` and does not replace
+checkpoint-and-relaunch reading.
+
 ## Hook surface
 
 The schema-backed bridge surface for this seam is:
@@ -122,6 +134,7 @@ The first derived examples are:
 
 Runtime benchmark evidence selection is adjacent to this bridge, not a replacement for it.
 See [RUNTIME_BENCH_PROMOTION_GUIDE.md](RUNTIME_BENCH_PROMOTION_GUIDE.md) when `abyss-stack` latency, load, recovery, or context-stress artifacts need bounded promotion discipline before they travel upward as selected proof inputs.
+See [RECURRENCE_PROOF_PROGRAM.md](RECURRENCE_PROOF_PROGRAM.md) when the question is whether return-aware artifacts and runtime sidecars support a narrower anchor-integrity read.
 
 These hook surfaces bind together:
 

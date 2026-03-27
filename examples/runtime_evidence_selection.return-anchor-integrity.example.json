@@ -1,0 +1,61 @@
+{
+  "surface_type": "runtime_evidence_selection",
+  "selection_id": "return-anchor-integrity-wrapper-v1",
+  "source_repo": "abyss-stack",
+  "source_schema_ref": "repo:abyss-stack/schemas/runtime-return-event.schema.json",
+  "source_manifests": [
+    "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T120500Z__return-aware-route__case-a/return.manifest.json",
+    "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T121900Z__return-aware-route__case-b/return.manifest.json"
+  ],
+  "bounded_claim": "On this bounded return-aware wrapper family, selected runtime evidence can show whether return events named reason, anchor, and bounded rebuild posture without turning that read into final-quality or capability claims. This is return-hygiene evidence only.",
+  "promotion_target": "evidence-sidecar",
+  "comparison_mode": "none",
+  "candidate_eval_refs": [
+    "candidate:aoa-return-anchor-integrity"
+  ],
+  "selected_evidence": [
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T120500Z__return-aware-route__case-a/return-event.summary.json",
+      "evidence_role": "summary",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T120500Z__return-aware-route__case-a/return-event.case-breakdown.json",
+      "evidence_role": "case-breakdown",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T121900Z__return-aware-route__case-b/return-policy.note.md",
+      "evidence_role": "environment-note",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/agent-api/notes/return-integrity-sidecar-v1.md",
+      "evidence_role": "integrity-sidecar",
+      "summary_only": true
+    }
+  ],
+  "environment_invariants": [
+    "same wrapper policy family: return-aware-v1",
+    "same phase contract: route-plan-verify transition model",
+    "same context rebuild class: core plus selected anchor surfaces",
+    "same redaction posture for runtime evidence publication"
+  ],
+  "environment_deltas": [
+    "route family varies across cases while the return policy remains unchanged"
+  ],
+  "excluded_artifacts": [
+    "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T120500Z__return-aware-route__case-a/raw/full-transcript.jsonl",
+    "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T121900Z__return-aware-route__case-b/render/rendered-context-pack.full.json"
+  ],
+  "do_not_overread": [
+    "does not prove final answer quality",
+    "does not prove broad long-horizon capability",
+    "does not replace scope, approval, or verification evals"
+  ],
+  "review_posture": {
+    "portable_enough": false,
+    "comparison_hygiene_named": true,
+    "human_review_required": true
+  }
+}

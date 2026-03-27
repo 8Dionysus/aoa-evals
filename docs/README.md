@@ -24,6 +24,7 @@ Choose the path that matches your question:
   - [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md)
   - [Runtime Bench Promotion Guide](RUNTIME_BENCH_PROMOTION_GUIDE.md)
   - [Self-Agent Checkpoint Eval Posture](SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md)
+  - [Recurrence Proof Program](RECURRENCE_PROOF_PROGRAM.md)
 - I need to understand portability, fixtures, blind spots, or baseline comparison:
   - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
   - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
@@ -87,7 +88,9 @@ feed existing eval bundles without creating a second proof canon.
 
 - [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md)
 - [Self-Agent Checkpoint Eval Posture](SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md)
+- [Recurrence Proof Program](RECURRENCE_PROOF_PROGRAM.md)
 - `../examples/artifact_to_verdict_hook.*.example.json`
+- `../examples/runtime_evidence_selection.*.example.json`
 
 ## Recommended Reading Paths
 
@@ -158,6 +161,7 @@ These are outside `docs/` but matter when navigating the repo:
 - Prefer [Runtime Bench Promotion Guide](RUNTIME_BENCH_PROMOTION_GUIDE.md) when the question is "how can `abyss-stack` latency, load, recovery, or context-stress artifacts travel upward without becoming a fake capability ranking?"
 - Prefer [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md) when the question is "how do playbook artifacts, verification artifacts, or `WitnessTrace` sidecars become bounded eval evidence?"
 - Prefer [Self-Agent Checkpoint Eval Posture](SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md) when the question is "how does `AOA-P-0006` close on the eval layer without inventing a new checkpoint-only proof canon?"
+- Prefer [Recurrence Proof Program](RECURRENCE_PROOF_PROGRAM.md) when the question is "how does explicit return behavior become bounded proof without replacing scope, approval, verification, or restart-fidelity surfaces?"
 - Treat the docs listed here as the canonical wording layer for future public bundle authoring.
 
 The current runtime path is:

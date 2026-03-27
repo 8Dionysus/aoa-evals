@@ -774,6 +774,145 @@ def write_catalogs(repo_root: Path) -> None:
     write_json_file(repo_root / "generated" / "eval_sections.full.json", sections, compact=False)
 
 
+def make_abyss_stack_schema(tmp_path: Path, schema_name: str) -> Path:
+    schema_path = tmp_path / "abyss-stack" / "schemas" / schema_name
+    write_text(
+        schema_path,
+        """
+        {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "title": "test schema",
+          "type": "object"
+        }
+        """,
+    )
+    return schema_path
+
+
+def write_runtime_evidence_selection_example(
+    repo_root: Path,
+    *,
+    filename: str,
+    source_schema_ref: str,
+    candidate_eval_refs: list[str],
+) -> None:
+    write_text(
+        repo_root / "schemas" / "runtime-evidence-selection.schema.json",
+        """
+        {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "$id": "https://aoa-evals/schemas/runtime-evidence-selection.schema.json",
+          "title": "aoa-evals runtime evidence selection",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "surface_type",
+            "selection_id",
+            "source_repo",
+            "source_schema_ref",
+            "source_manifests",
+            "bounded_claim",
+            "promotion_target",
+            "comparison_mode",
+            "selected_evidence",
+            "environment_invariants",
+            "do_not_overread",
+            "review_posture"
+          ],
+          "properties": {
+            "surface_type": {"const": "runtime_evidence_selection"},
+            "selection_id": {"type": "string"},
+            "source_repo": {"const": "abyss-stack"},
+            "source_schema_ref": {"type": "string"},
+            "source_manifests": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+            "bounded_claim": {"type": "string", "minLength": 1},
+            "promotion_target": {"type": "string", "enum": ["local-only", "evidence-sidecar", "bundle-candidate"]},
+            "comparison_mode": {"type": "string", "enum": ["none", "fixed-baseline", "peer-compare", "longitudinal-window"]},
+            "candidate_eval_refs": {"type": "array", "items": {"type": "string"}},
+            "selected_evidence": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["artifact_ref", "evidence_role", "summary_only"],
+                "properties": {
+                  "artifact_ref": {"type": "string"},
+                  "evidence_role": {"type": "string"},
+                  "summary_only": {"type": "boolean"}
+                }
+              }
+            },
+            "environment_invariants": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+            "environment_deltas": {"type": "array", "items": {"type": "string"}},
+            "excluded_artifacts": {"type": "array", "items": {"type": "string"}},
+            "do_not_overread": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+            "review_posture": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["portable_enough", "comparison_hygiene_named", "human_review_required"],
+              "properties": {
+                "portable_enough": {"type": "boolean"},
+                "comparison_hygiene_named": {"type": "boolean"},
+                "human_review_required": {"type": "boolean"}
+              }
+            }
+          }
+        }
+        """,
+    )
+    write_text(
+        repo_root / "examples" / filename,
+        json.dumps(
+            {
+                "surface_type": "runtime_evidence_selection",
+                "selection_id": "return-anchor-integrity-wrapper-v1",
+                "source_repo": "abyss-stack",
+                "source_schema_ref": source_schema_ref,
+                "source_manifests": [
+                    "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T120500Z__return-aware-route__case-a/return.manifest.json"
+                ],
+                "bounded_claim": "Bounded return-aware runtime evidence can support anchor-fidelity reading without becoming a final-quality claim.",
+                "promotion_target": "evidence-sidecar",
+                "comparison_mode": "none",
+                "candidate_eval_refs": candidate_eval_refs,
+                "selected_evidence": [
+                    {
+                        "artifact_ref": "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T120500Z__return-aware-route__case-a/return-event.summary.json",
+                        "evidence_role": "summary",
+                        "summary_only": True,
+                    },
+                    {
+                        "artifact_ref": "repo:abyss-stack/Logs/agent-api/notes/return-integrity-sidecar-v1.md",
+                        "evidence_role": "integrity-sidecar",
+                        "summary_only": True,
+                    },
+                ],
+                "environment_invariants": [
+                    "same wrapper policy family",
+                    "same return-aware route family",
+                ],
+                "environment_deltas": [
+                    "route family varies across cases while return policy remains unchanged"
+                ],
+                "excluded_artifacts": [
+                    "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T120500Z__return-aware-route__case-a/raw/full-transcript.jsonl"
+                ],
+                "do_not_overread": [
+                    "does not prove final answer quality"
+                ],
+                "review_posture": {
+                    "portable_enough": False,
+                    "comparison_hygiene_named": True,
+                    "human_review_required": True,
+                },
+            },
+            indent=2,
+        )
+        + "\n",
+    )
+
+
 def add_materialized_proof_artifacts(
     repo_root: Path,
     *,
@@ -3030,10 +3169,12 @@ def test_validate_repo_allows_local_run_without_sibling_dependency_repos(monkeyp
     missing_agents_root = REPO_ROOT / ".tmp" / "missing-aoa-agents"
     missing_playbooks_root = REPO_ROOT / ".tmp" / "missing-aoa-playbooks"
     missing_memo_root = REPO_ROOT / ".tmp" / "missing-aoa-memo"
+    missing_abyss_stack_root = REPO_ROOT / ".tmp" / "missing-abyss-stack"
 
     monkeypatch.setattr(validate_repo, "AOA_AGENTS_ROOT", missing_agents_root)
     monkeypatch.setattr(validate_repo, "AOA_PLAYBOOKS_ROOT", missing_playbooks_root)
     monkeypatch.setattr(validate_repo, "AOA_MEMO_ROOT", missing_memo_root)
+    monkeypatch.setattr(validate_repo, "ABYSS_STACK_ROOT", missing_abyss_stack_root)
     monkeypatch.setattr(
         validate_repo,
         "REPO_REF_ROOTS",
@@ -3042,6 +3183,7 @@ def test_validate_repo_allows_local_run_without_sibling_dependency_repos(monkeyp
             "aoa-agents": missing_agents_root,
             "aoa-playbooks": missing_playbooks_root,
             "aoa-memo": missing_memo_root,
+            "abyss-stack": missing_abyss_stack_root,
         },
     )
 
@@ -3051,9 +3193,167 @@ def test_validate_repo_allows_local_run_without_sibling_dependency_repos(monkeyp
         "reference target does not exist: aoa-agents/" in issue.message
         or "reference target does not exist: aoa-playbooks/" in issue.message
         or "reference target does not exist: aoa-memo/" in issue.message
+        or "reference target does not exist: abyss-stack/" in issue.message
         or "does not resolve in aoa-playbooks" in issue.message
         for issue in issues
     )
+
+
+def test_validate_repo_accepts_return_runtime_evidence_selection_for_non_starter_bundle(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    make_eval_bundle(tmp_path, name="aoa-starter-alpha")
+    make_eval_bundle(tmp_path, name="aoa-return-anchor-integrity")
+    make_index(tmp_path, "aoa-starter-alpha", "workflow")
+    make_selection(tmp_path, ["aoa-starter-alpha"])
+    make_roadmap(tmp_path, ["aoa-starter-alpha"])
+    make_repo_docs(tmp_path, starter_names=["aoa-starter-alpha"])
+    write_runtime_evidence_selection_example(
+        tmp_path,
+        filename="runtime_evidence_selection.return-anchor-integrity.example.json",
+        source_schema_ref="repo:abyss-stack/schemas/runtime-return-event.schema.json",
+        candidate_eval_refs=["candidate:aoa-return-anchor-integrity"],
+    )
+    write_catalogs(tmp_path)
+
+    abyss_stack_root = tmp_path / "abyss-stack"
+    make_abyss_stack_schema(tmp_path, "runtime-return-event.schema.json")
+    monkeypatch.setattr(validate_repo, "ABYSS_STACK_ROOT", abyss_stack_root)
+    monkeypatch.setattr(
+        validate_repo,
+        "REPO_REF_ROOTS",
+        {
+            "aoa-evals": tmp_path,
+            "aoa-agents": validate_repo.AOA_AGENTS_ROOT,
+            "aoa-playbooks": validate_repo.AOA_PLAYBOOKS_ROOT,
+            "aoa-memo": validate_repo.AOA_MEMO_ROOT,
+            "abyss-stack": abyss_stack_root,
+        },
+    )
+
+    issues = run_validation(tmp_path, eval_name="aoa-return-anchor-integrity")
+
+    assert issues == []
+
+
+def test_validate_repo_rejects_return_runtime_evidence_selection_outside_tracked_schema_space(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    make_eval_bundle(tmp_path, name="aoa-starter-alpha")
+    make_eval_bundle(tmp_path, name="aoa-return-anchor-integrity")
+    make_index(tmp_path, "aoa-starter-alpha", "workflow")
+    make_selection(tmp_path, ["aoa-starter-alpha"])
+    make_roadmap(tmp_path, ["aoa-starter-alpha"])
+    make_repo_docs(tmp_path, starter_names=["aoa-starter-alpha"])
+    write_runtime_evidence_selection_example(
+        tmp_path,
+        filename="runtime_evidence_selection.return-anchor-integrity.example.json",
+        source_schema_ref="repo:abyss-stack/docs/RECURRENCE_RUNTIME_POLICY.md",
+        candidate_eval_refs=["candidate:aoa-return-anchor-integrity"],
+    )
+    write_catalogs(tmp_path)
+
+    abyss_stack_root = tmp_path / "abyss-stack"
+    write_text(abyss_stack_root / "docs" / "RECURRENCE_RUNTIME_POLICY.md", "# Recurrence Runtime Policy\n")
+    monkeypatch.setattr(validate_repo, "ABYSS_STACK_ROOT", abyss_stack_root)
+    monkeypatch.setattr(
+        validate_repo,
+        "REPO_REF_ROOTS",
+        {
+            "aoa-evals": tmp_path,
+            "aoa-agents": validate_repo.AOA_AGENTS_ROOT,
+            "aoa-playbooks": validate_repo.AOA_PLAYBOOKS_ROOT,
+            "aoa-memo": validate_repo.AOA_MEMO_ROOT,
+            "abyss-stack": abyss_stack_root,
+        },
+    )
+
+    issues = run_validation(tmp_path, eval_name="aoa-return-anchor-integrity")
+
+    assert any(
+        "source_schema_ref must equal 'repo:abyss-stack/schemas/runtime-return-event.schema.json'"
+        in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_accepts_non_tracked_abyss_stack_logs_refs_for_return_runtime_evidence(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    make_eval_bundle(tmp_path, name="aoa-starter-alpha")
+    make_eval_bundle(tmp_path, name="aoa-return-anchor-integrity")
+    make_index(tmp_path, "aoa-starter-alpha", "workflow")
+    make_selection(tmp_path, ["aoa-starter-alpha"])
+    make_roadmap(tmp_path, ["aoa-starter-alpha"])
+    make_repo_docs(tmp_path, starter_names=["aoa-starter-alpha"])
+    write_runtime_evidence_selection_example(
+        tmp_path,
+        filename="runtime_evidence_selection.return-anchor-integrity.example.json",
+        source_schema_ref="repo:abyss-stack/schemas/runtime-return-event.schema.json",
+        candidate_eval_refs=["candidate:aoa-return-anchor-integrity"],
+    )
+    write_catalogs(tmp_path)
+
+    abyss_stack_root = tmp_path / "abyss-stack"
+    make_abyss_stack_schema(tmp_path, "runtime-return-event.schema.json")
+    monkeypatch.setattr(validate_repo, "ABYSS_STACK_ROOT", abyss_stack_root)
+    monkeypatch.setattr(
+        validate_repo,
+        "REPO_REF_ROOTS",
+        {
+            "aoa-evals": tmp_path,
+            "aoa-agents": validate_repo.AOA_AGENTS_ROOT,
+            "aoa-playbooks": validate_repo.AOA_PLAYBOOKS_ROOT,
+            "aoa-memo": validate_repo.AOA_MEMO_ROOT,
+            "abyss-stack": abyss_stack_root,
+        },
+    )
+
+    issues = run_validation(tmp_path, eval_name="aoa-return-anchor-integrity")
+
+    assert not any(
+        "reference target does not exist: abyss-stack/Logs/" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_allows_return_anchor_integrity_as_public_non_starter_bundle(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    make_eval_bundle(tmp_path, name="aoa-starter-alpha")
+    make_eval_bundle(tmp_path, name="aoa-return-anchor-integrity")
+    make_index(tmp_path, "aoa-starter-alpha", "workflow")
+    make_selection(tmp_path, ["aoa-starter-alpha"])
+    make_roadmap(tmp_path, ["aoa-starter-alpha"])
+    make_repo_docs(tmp_path, starter_names=["aoa-starter-alpha"])
+    write_runtime_evidence_selection_example(
+        tmp_path,
+        filename="runtime_evidence_selection.return-anchor-integrity.example.json",
+        source_schema_ref="repo:abyss-stack/schemas/runtime-return-event.schema.json",
+        candidate_eval_refs=["candidate:aoa-return-anchor-integrity"],
+    )
+    write_catalogs(tmp_path)
+
+    abyss_stack_root = tmp_path / "abyss-stack"
+    make_abyss_stack_schema(tmp_path, "runtime-return-event.schema.json")
+    monkeypatch.setattr(validate_repo, "ABYSS_STACK_ROOT", abyss_stack_root)
+    monkeypatch.setattr(
+        validate_repo,
+        "REPO_REF_ROOTS",
+        {
+            "aoa-evals": tmp_path,
+            "aoa-agents": validate_repo.AOA_AGENTS_ROOT,
+            "aoa-playbooks": validate_repo.AOA_PLAYBOOKS_ROOT,
+            "aoa-memo": validate_repo.AOA_MEMO_ROOT,
+            "abyss-stack": abyss_stack_root,
+        },
+    )
+
+    assert run_validation(tmp_path, eval_name="aoa-return-anchor-integrity") == []
 
 
 def test_real_repo_has_only_one_non_local_shaped_portability_bundle() -> None:

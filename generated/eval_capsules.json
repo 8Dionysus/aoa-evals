@@ -222,6 +222,23 @@
       "what_this_does_not_prove": "proof of general capability growth; proof that the candidate is universally better than the baseline; proof that no nearby diagnostic regression exists"
     },
     {
+      "blind_spot_short": "final task correctness; general long-horizon depth; approval correctness on mutation routes",
+      "bounded_claim_short": "under these conditions, a return-capable route can recover from drift by naming a valid anchor, rebuilding only the bounded context it needs, and re-entering or stopping without faking...",
+      "category": "workflow",
+      "comparison_surface": null,
+      "do_not_use_short": "no return actually occurred; the question is final-answer quality rather than return discipline",
+      "eval_path": "bundles/aoa-return-anchor-integrity/EVAL.md",
+      "name": "aoa-return-anchor-integrity",
+      "proof_artifact_short": "schema-backed report",
+      "skill_dependencies": [],
+      "status": "draft",
+      "summary": "Checks whether a return-capable route names a real anchor and re-enters or stops without faking continuity.",
+      "technique_dependencies": [],
+      "use_when_short": "a route emitted an explicit return decision or return event; the active question is whether the return was honest and bounded",
+      "verdict_shape": "mixed",
+      "what_this_does_not_prove": "proof that the full task outcome is strong; proof that the route is broadly safe; proof that long-horizon reasoning is solved"
+    },
+    {
       "blind_spot_short": "overall workflow quality; verification truthfulness; authority handling quality",
       "bounded_claim_short": "under these conditions, the agent can keep bounded change work aligned with the requested scope or disclose the deviation explicitly enough for a reviewer to see it clearly.",
       "category": "boundary",

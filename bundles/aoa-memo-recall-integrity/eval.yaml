@@ -1,0 +1,33 @@
+name: aoa-memo-recall-integrity
+category: workflow
+status: draft
+object_under_evaluation: integrity of memo recall on explicit inspect/capsule/expand consumer paths
+claim_type: bounded
+baseline_mode: none
+verdict_shape: mixed
+report_format: summary-with-breakdown
+maturity_score: 2
+rigor_level: bounded
+repeatability: moderate
+portability_level: local-shaped
+review_required: true
+validation_strength: baseline
+export_ready: false
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+technique_dependencies: []
+skill_dependencies: []
+relations:
+  - type: complements
+    target: aoa-witness-trace-integrity
+  - type: complements
+    target: aoa-compost-provenance-preservation
+  - type: used_together_for
+    target: aoa-eval-integrity-check
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: support_note
+    path: notes/memo-guardrail-pilot.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md

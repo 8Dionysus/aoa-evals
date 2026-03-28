@@ -163,6 +163,23 @@
       "what_this_does_not_prove": "proof of general capability growth; proof that all nearby workflow diagnostics improved; proof that the movement is stable outside this window sequence"
     },
     {
+      "blind_spot_short": "contradiction handling quality; permission leakage resistance; over-promotion discipline",
+      "bounded_claim_short": "under these conditions, a consumer of aoa-memo can use the first inspect/capsule/expand path without turning memo into proof, while keeping precision, provenance, and staleness posture...",
+      "category": "workflow",
+      "comparison_surface": null,
+      "do_not_use_short": "no memo recall surface was consumed; the main question is contradiction handling or rights policy",
+      "eval_path": "bundles/aoa-memo-recall-integrity/EVAL.md",
+      "name": "aoa-memo-recall-integrity",
+      "proof_artifact_short": "bundle-local notes and examples only",
+      "skill_dependencies": [],
+      "status": "draft",
+      "summary": "Checks whether memo recall stays narrow, provenance-visible, and staleness-honest across the first inspect/capsule/expand consumer wave.",
+      "technique_dependencies": [],
+      "use_when_short": "a route consumes aoa-memo through explicit recall contracts; the main question is whether memo recall stayed bounded and source-honest",
+      "verdict_shape": "mixed",
+      "what_this_does_not_prove": "proof that memo recall is generally authoritative; proof that all memo guardrail risks are now covered; proof that downstream routing or runtime behavior is fully solved"
+    },
+    {
       "blind_spot_short": "root-cause diagnosis for why one side outran the other; one-run artifact quality by itself; one-run workflow quality by itself",
       "bounded_claim_short": "under these conditions, artifact-side and process-side readings on the same bounded cases can be compared honestly enough to show whether one materially outruns the other or whether the...",
       "category": "comparative",

@@ -192,6 +192,7 @@ without hidden scoring assumptions or untracked private context.
 This repository remains in public bootstrap,
 now with the first materialized comparison wave for frozen same-task and repeated-window surfaces.
 The next public hardening step is a coherent comparison spine rather than isolated comparison bundles.
+The first draft memo-recall integrity pilot is now also present as a non-starter diagnostic bundle anchored to `aoa-memo` guardrail surfaces, but it remains intentionally narrower than the broader comparison and starter programs.
 
 The current goal is to establish:
 - the public doctrine for bounded agent evaluation

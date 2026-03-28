@@ -673,6 +673,70 @@
       "verdict_shape": "comparative"
     },
     {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
+      "category": "workflow",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "bundles/aoa-memo-recall-integrity/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/memo-guardrail-pilot.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "export_ready": false,
+      "maturity_score": 2,
+      "name": "aoa-memo-recall-integrity",
+      "object_under_evaluation": "integrity of memo recall on explicit inspect/capsule/expand consumer paths",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
+      "relations": [
+        {
+          "target": "aoa-witness-trace-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-compost-provenance-preservation",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether memo recall stays narrow, provenance-visible, and staleness-honest across the first inspect/capsule/expand consumer wave.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "validation_strength": "baseline",
+      "verdict_shape": "mixed"
+    },
+    {
       "baseline_mode": "peer-compare",
       "blind_spot_disclosure": "required-and-present",
       "category": "comparative",

@@ -9,6 +9,7 @@
 This example answers the split question first:
 can outcome and path be read separately without one washing out the other?
 For the narrower tool-path question, switch to `aoa-tool-trajectory-discipline`.
+Its machine-readable companion lives at `reports/example-report.json`.
 
 ## Bounded Promotion Readout
 

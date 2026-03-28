@@ -1,0 +1,24 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "bounded change case dossier",
+    "visible outcome artifact or changed surface",
+    "visible path evidence",
+    "separate outcome note",
+    "separate path note",
+    "combined reading after separate notes",
+    "bundle-level split summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-trace-outcome-separation/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-trace-outcome-separation/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-trace-outcome-separation/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-trace-outcome-separation"
+  ]
+}

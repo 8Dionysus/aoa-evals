@@ -23,6 +23,9 @@ This bounded bundle is a `diagnostic` workflow eval.
 It isolates outcome-vs-path separation.
 It is not meant to stand in for a pure tool-trajectory eval, a one-score summary of overall workflow quality, or artifact-versus-process comparison.
 If the main question is whether tool use itself stayed disciplined, switch to `aoa-tool-trajectory-discipline`.
+Its current materialized bounded proof flow runs through
+`fixtures/trace-outcome-bounded-v1/README.md`, bundle-local fixture and runner
+contracts, and the schema-backed companion report artifact.
 
 The goal is not to prove one correct trace.
 The goal is to test one bounded claim:
@@ -107,6 +110,12 @@ The fixture surface is public-safe when:
 - path review does not depend on hidden operational context
 - another repo could replace the cases with comparable bounded change tasks that preserve the same outcome-vs-path split question
 
+The current materialized shared family is
+`fixtures/trace-outcome-bounded-v1/README.md`.
+When the machine-readable proof surface is in use, local replacements should
+preserve the same five split pressures through the bounded replacement rule in
+`fixtures/contract.json`.
+
 ## Scoring or verdict logic
 
 This eval prefers a categorical bundle-level verdict with per-case breakdown notes.
@@ -184,6 +193,14 @@ Execution expectations:
 - do not require one exact tool sequence when multiple disciplined paths could work
 - keep enough evidence that a careful reviewer can see why outcome and path notes differ
 - keep approve/defer language separate from the failure/readout split
+- when shipping a machine-readable report, validate it against
+  `reports/summary.schema.json`
+- keep the shared case-family contract in
+  `fixtures/trace-outcome-bounded-v1/README.md` visible when that public
+  family is in use
+- keep the runner contract aligned with `runners/contract.json` so outcome
+  reading, path reading, combined reading, and failure-versus-readout do not
+  collapse into one top-line score
 
 ## Outputs
 
@@ -195,6 +212,8 @@ The eval should produce:
 - combined-reading note for each case
 - an explicit approval-or-defer readout for the bounded promotion review
 - explicit interpretation note
+- an optional schema-backed companion report artifact at
+  `reports/example-report.json`
 
 A compact public summary-with-breakdown may include:
 - case id
@@ -273,6 +292,10 @@ A negative or mixed result is valuable because it can reveal:
 - confirm per-case notes keep outcome and path distinct before any combined reading
 - confirm the bundle-level verdict does not outrun the case evidence
 - confirm the promotion note keeps approve/defer language separate from failure/readout language
+- confirm the machine-readable report contract keeps separate outcome and path
+  readings visible before each combined note
+- confirm fixture and runner contracts preserve the same split question under
+  bounded local replacement
 - confirm blind spots and nearby-bundle boundaries are named clearly
 
 ## Technique traceability
@@ -293,3 +316,5 @@ Project overlays may add:
 - repo-specific outcome rubrics
 - local combined-reading formats that still preserve separate outcome and path notes
 - later comparison baselines for repeated runs
+- local fixture replacements allowed by `fixtures/contract.json`
+- local runner wrappers that still validate against `reports/summary.schema.json`

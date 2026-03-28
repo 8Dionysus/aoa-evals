@@ -43,5 +43,7 @@ evidence:
     path: notes/origin-need.md
   - kind: support_note
     path: notes/bounded-promotion-review.md
+  - kind: support_note
+    path: notes/proof-surface-contract.md
   - kind: integrity_check
     path: checks/eval-integrity-check.md

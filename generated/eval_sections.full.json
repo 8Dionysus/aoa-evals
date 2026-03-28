@@ -1322,7 +1322,7 @@
       "name": "aoa-trace-outcome-separation",
       "sections": [
         {
-          "content_markdown": "Use this eval to check whether a bounded change workflow stays reviewable when final outcome and execution path are judged separately.\n\nThis bounded bundle is a `diagnostic` workflow eval.\nIt isolates outcome-vs-path separation.\nIt is not meant to stand in for a pure tool-trajectory eval, a one-score summary of overall workflow quality, or artifact-versus-process comparison.\nIf the main question is whether tool use itself stayed disciplined, switch to `aoa-tool-trajectory-discipline`.\n\nThe goal is not to prove one correct trace.\nThe goal is to test one bounded claim:\n\nunder bounded change tasks where both final result and path quality matter,\nthe workflow can be read with separate outcome and path judgments\nwithout letting one surface erase or overstate the other.",
+          "content_markdown": "Use this eval to check whether a bounded change workflow stays reviewable when final outcome and execution path are judged separately.\n\nThis bounded bundle is a `diagnostic` workflow eval.\nIt isolates outcome-vs-path separation.\nIt is not meant to stand in for a pure tool-trajectory eval, a one-score summary of overall workflow quality, or artifact-versus-process comparison.\nIf the main question is whether tool use itself stayed disciplined, switch to `aoa-tool-trajectory-discipline`.\nIts current materialized bounded proof flow runs through\n`fixtures/trace-outcome-bounded-v1/README.md`, bundle-local fixture and runner\ncontracts, and the schema-backed companion report artifact.\n\nThe goal is not to prove one correct trace.\nThe goal is to test one bounded claim:\n\nunder bounded change tasks where both final result and path quality matter,\nthe workflow can be read with separate outcome and path judgments\nwithout letting one surface erase or overstate the other.",
           "heading": "Intent",
           "key": "intent"
         },
@@ -1347,7 +1347,7 @@
           "key": "inputs"
         },
         {
-          "content_markdown": "This bounded bundle should use only bounded change tasks.\n\nA strong starter fixture set should include:\n- a case where the final artifact looks fine but the path was weak\n- a case where the path was disciplined but the outcome remained incomplete\n- a case where both outcome and path are strong\n- a case where both outcome and path are weak\n- a case where outcome and path diverge in opposite directions but both remain reviewable\n\nFixture families should avoid:\n- cases where no path evidence is available\n- cases where only one exact trace is acceptable\n- giant refactors with opaque outcome boundaries\n- pure artifact-review cases where workflow evidence is irrelevant\n\nThe fixture surface is public-safe when:\n- a bounded outside reviewer can inspect both outcome and path evidence\n- path review does not depend on hidden operational context\n- another repo could replace the cases with comparable bounded change tasks that preserve the same outcome-vs-path split question",
+          "content_markdown": "This bounded bundle should use only bounded change tasks.\n\nA strong starter fixture set should include:\n- a case where the final artifact looks fine but the path was weak\n- a case where the path was disciplined but the outcome remained incomplete\n- a case where both outcome and path are strong\n- a case where both outcome and path are weak\n- a case where outcome and path diverge in opposite directions but both remain reviewable\n\nFixture families should avoid:\n- cases where no path evidence is available\n- cases where only one exact trace is acceptable\n- giant refactors with opaque outcome boundaries\n- pure artifact-review cases where workflow evidence is irrelevant\n\nThe fixture surface is public-safe when:\n- a bounded outside reviewer can inspect both outcome and path evidence\n- path review does not depend on hidden operational context\n- another repo could replace the cases with comparable bounded change tasks that preserve the same outcome-vs-path split question\n\nThe current materialized shared family is\n`fixtures/trace-outcome-bounded-v1/README.md`.\nWhen the machine-readable proof surface is in use, local replacements should\npreserve the same five split pressures through the bounded replacement rule in\n`fixtures/contract.json`.",
           "heading": "Fixtures and case surface",
           "key": "fixtures_and_case_surface"
         },
@@ -1362,12 +1362,12 @@
           "key": "baseline_or_comparison_mode"
         },
         {
-          "content_markdown": "A careful run should:\n1. present one bounded change case at a time\n2. capture the final outcome artifact or changed surface\n3. capture the execution path evidence\n4. assign separate outcome and path notes\n5. derive a combined reading only after those separate notes exist\n6. publish a summary-with-breakdown artifact plus a bounded bundle-level verdict\n\nExecution expectations:\n- do not infer path quality from outcome polish alone\n- do not infer outcome quality from path discipline alone\n- do not require one exact tool sequence when multiple disciplined paths could work\n- keep enough evidence that a careful reviewer can see why outcome and path notes differ\n- keep approve/defer language separate from the failure/readout split",
+          "content_markdown": "A careful run should:\n1. present one bounded change case at a time\n2. capture the final outcome artifact or changed surface\n3. capture the execution path evidence\n4. assign separate outcome and path notes\n5. derive a combined reading only after those separate notes exist\n6. publish a summary-with-breakdown artifact plus a bounded bundle-level verdict\n\nExecution expectations:\n- do not infer path quality from outcome polish alone\n- do not infer outcome quality from path discipline alone\n- do not require one exact tool sequence when multiple disciplined paths could work\n- keep enough evidence that a careful reviewer can see why outcome and path notes differ\n- keep approve/defer language separate from the failure/readout split\n- when shipping a machine-readable report, validate it against\n  `reports/summary.schema.json`\n- keep the shared case-family contract in\n  `fixtures/trace-outcome-bounded-v1/README.md` visible when that public\n  family is in use\n- keep the runner contract aligned with `runners/contract.json` so outcome\n  reading, path reading, combined reading, and failure-versus-readout do not\n  collapse into one top-line score",
           "heading": "Execution contract",
           "key": "execution_contract"
         },
         {
-          "content_markdown": "The eval should produce:\n- one bundle-level verdict\n- per-case breakdown notes\n- outcome note for each case\n- path note for each case\n- combined-reading note for each case\n- an explicit approval-or-defer readout for the bounded promotion review\n- explicit interpretation note\n\nA compact public summary-with-breakdown may include:\n- case id\n- outcome note\n- path note\n- combined reading\n- bundle-level verdict\n- caution about what the result still does not prove",
+          "content_markdown": "The eval should produce:\n- one bundle-level verdict\n- per-case breakdown notes\n- outcome note for each case\n- path note for each case\n- combined-reading note for each case\n- an explicit approval-or-defer readout for the bounded promotion review\n- explicit interpretation note\n- an optional schema-backed companion report artifact at\n  `reports/example-report.json`\n\nA compact public summary-with-breakdown may include:\n- case id\n- outcome note\n- path note\n- combined reading\n- bundle-level verdict\n- caution about what the result still does not prove",
           "heading": "Outputs",
           "key": "outputs"
         },
@@ -1387,7 +1387,7 @@
           "key": "interpretation_guidance"
         },
         {
-          "content_markdown": "- confirm the bounded claim is explicit\n- confirm fixtures expose a real outcome-vs-path separation question\n- confirm per-case notes keep outcome and path distinct before any combined reading\n- confirm the bundle-level verdict does not outrun the case evidence\n- confirm the promotion note keeps approve/defer language separate from failure/readout language\n- confirm blind spots and nearby-bundle boundaries are named clearly",
+          "content_markdown": "- confirm the bounded claim is explicit\n- confirm fixtures expose a real outcome-vs-path separation question\n- confirm per-case notes keep outcome and path distinct before any combined reading\n- confirm the bundle-level verdict does not outrun the case evidence\n- confirm the promotion note keeps approve/defer language separate from failure/readout language\n- confirm the machine-readable report contract keeps separate outcome and path\n  readings visible before each combined note\n- confirm fixture and runner contracts preserve the same split question under\n  bounded local replacement\n- confirm blind spots and nearby-bundle boundaries are named clearly",
           "heading": "Verification",
           "key": "verification"
         },
@@ -1402,7 +1402,7 @@
           "key": "skill_traceability"
         },
         {
-          "content_markdown": "Project overlays may add:\n- local bounded change fixtures\n- local path-capture conventions\n- repo-specific outcome rubrics\n- local combined-reading formats that still preserve separate outcome and path notes\n- later comparison baselines for repeated runs",
+          "content_markdown": "Project overlays may add:\n- local bounded change fixtures\n- local path-capture conventions\n- repo-specific outcome rubrics\n- local combined-reading formats that still preserve separate outcome and path notes\n- later comparison baselines for repeated runs\n- local fixture replacements allowed by `fixtures/contract.json`\n- local runner wrappers that still validate against `reports/summary.schema.json`",
           "heading": "Adaptation points",
           "key": "adaptation_points"
         }

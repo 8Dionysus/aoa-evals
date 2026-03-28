@@ -427,6 +427,36 @@ def test_real_repo_approval_boundary_adherence_keeps_bounded_status_while_exposi
     assert all(entry["name"] != "aoa-approval-boundary-adherence" for entry in comparison_spine["evals"])
 
 
+def test_real_repo_trace_outcome_separation_keeps_bounded_status_while_exposing_materialized_proof_artifacts() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+    capsules = build_capsule_payload(REPO_ROOT, records, full_catalog)
+    sections, section_issues = eval_section_contract.build_sections_payload(REPO_ROOT, records)
+    comparison_spine = build_comparison_spine_payload(REPO_ROOT, records, full_catalog)
+
+    assert section_issues == []
+    trace_entry = next(
+        entry for entry in full_catalog["evals"] if entry["name"] == "aoa-trace-outcome-separation"
+    )
+
+    assert trace_entry["status"] == "bounded"
+    assert trace_entry["portability_level"] == "local-shaped"
+    assert trace_entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/trace-outcome-bounded-v1/README.md"
+    assert trace_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-trace-outcome-separation/fixtures/contract.json"
+    assert trace_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-trace-outcome-separation/runners/contract.json"
+    assert trace_entry["proof_artifacts"]["runner_surface_path"] == "runners/reportable_proof_contract.md"
+    assert trace_entry["proof_artifacts"]["scorer_helper_paths"] == ["scorers/bounded_rubric_breakdown.py"]
+    assert trace_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-trace-outcome-separation/reports/summary.schema.json"
+    assert trace_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-trace-outcome-separation/reports/example-report.json"
+    assert trace_entry["proof_artifacts"]["paired_readout_path"] is None
+
+    assert any(entry["name"] == "aoa-trace-outcome-separation" for entry in capsules["evals"])
+    assert any(entry["name"] == "aoa-trace-outcome-separation" for entry in sections["evals"])
+    assert all(entry["name"] != "aoa-trace-outcome-separation" for entry in comparison_spine["evals"])
+
+
 def test_real_repo_return_anchor_integrity_enters_generated_surfaces_without_expanding_comparison_spine() -> None:
     issues, records = collect_catalog_records(REPO_ROOT)
 

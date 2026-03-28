@@ -366,6 +366,36 @@ def test_real_repo_scope_drift_detection_keeps_bounded_status_while_exposing_mat
     assert all(entry["name"] != "aoa-scope-drift-detection" for entry in comparison_spine["evals"])
 
 
+def test_real_repo_ambiguity_handling_keeps_bounded_status_while_exposing_materialized_proof_artifacts() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+    capsules = build_capsule_payload(REPO_ROOT, records, full_catalog)
+    sections, section_issues = eval_section_contract.build_sections_payload(REPO_ROOT, records)
+    comparison_spine = build_comparison_spine_payload(REPO_ROOT, records, full_catalog)
+
+    assert section_issues == []
+    ambiguity_entry = next(
+        entry for entry in full_catalog["evals"] if entry["name"] == "aoa-ambiguity-handling"
+    )
+
+    assert ambiguity_entry["status"] == "bounded"
+    assert ambiguity_entry["portability_level"] == "local-shaped"
+    assert ambiguity_entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/ambiguity-bounded-v1/README.md"
+    assert ambiguity_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-ambiguity-handling/fixtures/contract.json"
+    assert ambiguity_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-ambiguity-handling/runners/contract.json"
+    assert ambiguity_entry["proof_artifacts"]["runner_surface_path"] == "runners/reportable_proof_contract.md"
+    assert ambiguity_entry["proof_artifacts"]["scorer_helper_paths"] == ["scorers/bounded_rubric_breakdown.py"]
+    assert ambiguity_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-ambiguity-handling/reports/summary.schema.json"
+    assert ambiguity_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-ambiguity-handling/reports/example-report.json"
+    assert ambiguity_entry["proof_artifacts"]["paired_readout_path"] is None
+
+    assert any(entry["name"] == "aoa-ambiguity-handling" for entry in capsules["evals"])
+    assert any(entry["name"] == "aoa-ambiguity-handling" for entry in sections["evals"])
+    assert all(entry["name"] != "aoa-ambiguity-handling" for entry in comparison_spine["evals"])
+
+
 def test_real_repo_return_anchor_integrity_enters_generated_surfaces_without_expanding_comparison_spine() -> None:
     issues, records = collect_catalog_records(REPO_ROOT)
 

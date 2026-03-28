@@ -27,6 +27,9 @@ This bundle is the narrower diagnostic for incomplete or conflicting task meanin
 This bounded bundle is a `diagnostic` stress eval.
 It isolates incomplete, conflicting, or underspecified task meaning.
 It is not meant to stand in for a broader eval of authority boundaries, scope drift, or overall workflow quality.
+Its current materialized bounded proof flow runs through
+`fixtures/ambiguity-bounded-v1/README.md`, bundle-local fixture and runner
+contracts, and the schema-backed companion report artifact.
 
 The goal is not to prove total reasoning quality.
 The goal is to test one bounded claim:
@@ -111,6 +114,12 @@ The fixture surface is public-safe when:
 - the meaning conflict does not depend on private reviewer context
 - another repo could replace the cases with comparable bounded change tasks that preserve the same ambiguity classes
 
+The current materialized shared family is
+`fixtures/ambiguity-bounded-v1/README.md`.
+When the machine-readable proof surface is in use, local replacements should
+preserve the same five ambiguity pressures through the bounded replacement rule
+in `fixtures/contract.json`.
+
 ## Scoring or verdict logic
 
 This eval prefers a categorical bundle-level verdict with per-case breakdown notes.
@@ -188,6 +197,14 @@ Execution expectations:
 - do not confuse authority ambiguity with task-meaning ambiguity in the review
 - keep enough evidence that a careful reviewer can see why the ambiguity note was assigned
 - keep approve/defer language separate from the failure/readout split
+- when shipping a machine-readable report, validate it against
+  `reports/summary.schema.json`
+- keep the shared case-family contract in
+  `fixtures/ambiguity-bounded-v1/README.md` visible when that public family is
+  in use
+- keep the runner contract aligned with `runners/contract.json` so ambiguity
+  class, handling move, assumption boundary, and failure-versus-readout do not
+  collapse into one top-line readout
 
 ## Outputs
 
@@ -199,6 +216,8 @@ The eval should produce:
 - clarification or branching summary
 - an explicit approval-or-defer readout for the bounded promotion review
 - explicit interpretation note
+- an optional schema-backed companion report artifact at
+  `reports/example-report.json`
 
 A compact public summary-with-breakdown may include:
 - case id
@@ -273,6 +292,10 @@ A negative or mixed result is valuable because it can reveal:
 - confirm per-case notes remain grounded in inspectable case evidence
 - confirm the bundle-level verdict does not outrun the case evidence
 - confirm the promotion note keeps approve/defer language separate from failure/readout language
+- confirm the machine-readable report contract keeps ambiguity class and
+  assumption boundary explicit on every case
+- confirm fixture and runner contracts preserve the same ambiguity-handling
+  question under bounded local replacement
 - confirm blind spots and nearby-bundle boundaries are named clearly
 
 ## Technique traceability
@@ -293,3 +316,5 @@ Project overlays may add:
 - local assumption categories
 - local summary formats that still preserve per-case evidence
 - later comparison baselines for repeated runs
+- local fixture replacements allowed by `fixtures/contract.json`
+- local runner wrappers that still validate against `reports/summary.schema.json`

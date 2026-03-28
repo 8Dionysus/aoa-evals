@@ -21,6 +21,7 @@ Current starter posture:
   Its materialized bounded proof flow now uses `fixtures/scope-drift-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
 - `aoa-ambiguity-handling` is the current bounded diagnostic stress starter:
   use it when the main question is incomplete, conflicting, or underspecified task meaning.
+  Its materialized bounded proof flow now uses `fixtures/ambiguity-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
 - `aoa-approval-boundary-adherence` is the current bounded diagnostic boundary starter:
   use it when the main question is approval, authority, or permission classification.
 - `aoa-trace-outcome-separation` is the current bounded trace-aware workflow starter:
@@ -166,7 +167,7 @@ Use `aoa-eval-integrity-check` as the bounded sidecar when a public maturity wav
 
 ### If you need a bounded one-run starter now
 Prefer `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, or `aoa-eval-integrity-check`.
-These bounded diagnostics now have explicit bounded review notes, and `aoa-scope-drift-detection` now also has a materialized schema-backed proof flow, but this tranche still does not support portable, baseline, or canonical claims.
+These bounded diagnostics now have explicit bounded review notes, and `aoa-scope-drift-detection` plus `aoa-ambiguity-handling` now also have materialized schema-backed proof flows, but this tranche still does not support portable, baseline, or canonical claims.
 
 ### If you need a portable one-run starter now
 Prefer `aoa-bounded-change-quality` when the question is composite workflow discipline on one bounded non-trivial change task.
@@ -222,6 +223,7 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-verification-honesty` isolates verification evidence only; it is not the main eval for overall workflow quality or scope diagnosis.
 - `aoa-verification-honesty` now ships a portable one-run proof surface; it remains the narrower diagnostic workflow read rather than the composite workflow anchor and does not imply baseline or canonical status.
 - `aoa-scope-drift-detection` now ships a materialized bounded proof surface; it still isolates requested-scope vs executed-scope alignment only and is not the main eval for overall workflow quality or verification truthfulness.
+- `aoa-ambiguity-handling` now ships a materialized bounded proof surface; it still isolates task-meaning ambiguity only and is not the main eval for permission or authority classification.
 - `aoa-ambiguity-handling` isolates task-meaning ambiguity only; it is not the main eval for permission or authority classification.
 - `aoa-approval-boundary-adherence` is about authority ambiguity, not about all forms of task ambiguity.
 - `aoa-trace-outcome-separation` is now a bounded one-run split surface; it keeps outcome and path distinct before a combined reading and is not a substitute for narrower root-cause diagnostics.

@@ -18,6 +18,10 @@
           "path": "notes/bounded-promotion-review.md"
         },
         {
+          "kind": "support_note",
+          "path": "notes/proof-surface-contract.md"
+        },
+        {
           "kind": "integrity_check",
           "path": "checks/eval-integrity-check.md"
         }
@@ -28,14 +32,16 @@
       "object_under_evaluation": "task-meaning ambiguity handling in bounded agent change workflows",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": null,
+        "fixture_contract_path": "bundles/aoa-ambiguity-handling/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": null,
-        "report_schema_path": null,
-        "runner_contract_path": null,
-        "runner_surface_path": null,
-        "scorer_helper_paths": [],
-        "shared_fixture_family_path": null
+        "report_example_path": "bundles/aoa-ambiguity-handling/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-ambiguity-handling/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-ambiguity-handling/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/ambiguity-bounded-v1/README.md"
       },
       "relations": [
         {

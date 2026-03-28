@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/ambiguity-bounded-v1/README.md",
+  "shared_case_surface": "bounded change cases that keep ambiguity class, handling move, assumption boundary, and failure-versus-readout distinctions inspectable on the same task-meaning ambiguity surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same task-meaning ambiguity question, keeps the ambiguity-bearing request and resulting handling move jointly inspectable, and still covers incomplete requirements, conflicting instructions, underspecified acceptance criteria, bounded disclosed fallback assumptions, and silent path-choice pressure without collapsing permission ambiguity into meaning ambiguity or treating one house-style answer as implicitly correct.",
+  "public_safe_requirements": [
+    "a bounded outside reviewer can see why more than one interpretation exists",
+    "authority or permission uncertainty stays separate from task-meaning ambiguity",
+    "clarification, branching, and bounded assumptions stay reviewable as distinct handling moves",
+    "the public readout stays weaker than the ambiguity-bearing evidence"
+  ]
+}

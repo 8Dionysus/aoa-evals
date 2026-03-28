@@ -1,0 +1,24 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "bounded ambiguity-bearing case dossier",
+    "ambiguous task statement",
+    "clarifications provided during the run",
+    "observed handling move",
+    "resulting execution surface",
+    "final report",
+    "bundle-level ambiguity summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-ambiguity-handling/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-ambiguity-handling/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-ambiguity-handling/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-ambiguity-handling"
+  ]
+}

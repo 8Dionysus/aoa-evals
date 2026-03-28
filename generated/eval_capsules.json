@@ -9,7 +9,7 @@
       "do_not_use_short": "the main question is authority handling or permission classification; the requested scope is already clear and the main question is later scope drift",
       "eval_path": "bundles/aoa-ambiguity-handling/EVAL.md",
       "name": "aoa-ambiguity-handling",
-      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],

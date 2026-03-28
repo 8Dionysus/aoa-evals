@@ -1,0 +1,24 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "memo guardrail case dossier",
+    "explicit read path note",
+    "selected inspect, capsule, or expand surface",
+    "provenance-thread or stronger-source note",
+    "lifecycle or staleness note",
+    "stronger-source escalation note when present",
+    "bundle-level recall summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-memo-recall-integrity/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-memo-recall-integrity/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-memo-recall-integrity/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-memo-recall-integrity"
+  ]
+}

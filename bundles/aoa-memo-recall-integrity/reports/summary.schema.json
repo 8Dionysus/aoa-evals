@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-memo-recall-integrity summary-with-breakdown report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "breakdown",
+    "strongest_recall_signal",
+    "strongest_recall_risk",
+    "case_notes"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-memo-recall-integrity"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "integrity of memo recall on explicit inspect/capsule/expand consumer paths"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "breakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "precision_fit",
+        "provenance_visibility",
+        "staleness_honesty"
+      ],
+      "properties": {
+        "precision_fit": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "provenance_visibility": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "staleness_honesty": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        }
+      }
+    },
+    "strongest_recall_signal": {
+      "type": "string",
+      "minLength": 10
+    },
+    "strongest_recall_risk": {
+      "type": "string",
+      "minLength": 10
+    },
+    "case_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "read_path",
+          "recall_reading",
+          "provenance_note",
+          "staleness_note",
+          "stronger_source_note"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "read_path": {
+            "type": "string",
+            "minLength": 5
+          },
+          "recall_reading": {
+            "type": "string",
+            "enum": [
+              "supports bounded claim",
+              "mixed support",
+              "does not support bounded claim"
+            ]
+          },
+          "provenance_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "staleness_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "stronger_source_note": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    }
+  }
+}

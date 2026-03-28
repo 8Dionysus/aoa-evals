@@ -432,8 +432,7 @@ Highest-priority additions:
 - field-test the newly materialized recurrence-aware proof surfaces without inflating them into broad safety or capability claims, and keep them outside the current starter set while their case families and report artifacts mature
 
 Next likely cross-surface candidate after the current public starter set:
-- `aoa-return-anchor-integrity` and `aoa-long-horizon-depth` as the materialized draft recurrence pair
-- `aoa-memo-recall-integrity` as a draft non-starter memo-recall diagnostic pilot anchored to the first `aoa-memo` guardrail triad
+- `aoa-return-anchor-integrity`, `aoa-long-horizon-depth`, and `aoa-memo-recall-integrity` as the materialized draft recurrence-and-memo pilot layer
 
 Starter posture remains conservative:
 - No additional planned starter bundles are currently named publicly.
@@ -452,7 +451,7 @@ Recent repo hardening now in place:
 
 Next repository hardening steps:
 - keep docs, index, selection, and template aligned to the canonical docs spine
-- extend schema-backed report artifacts and runner contracts into the next non-starter proof wave, starting with `aoa-memo-recall-integrity`
+- field-test the materialized memo-recall pilot against wider `aoa-memo` guardrail surfaces before naming contradiction, promotion, or permissions bundles
 - keep distinctness notes ready whenever a newly named starter bundle is introduced so nearby evals do not collapse semantically before they ship
 
 ---

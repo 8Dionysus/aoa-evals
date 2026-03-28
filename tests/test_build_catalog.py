@@ -555,7 +555,21 @@ def test_real_repo_memo_recall_integrity_enters_generated_surfaces_without_expan
     comparison_spine = build_comparison_spine_payload(REPO_ROOT, records, full_catalog)
 
     assert section_issues == []
-    assert any(entry["name"] == "aoa-memo-recall-integrity" for entry in full_catalog["evals"])
+    memo_entry = next(
+        entry for entry in full_catalog["evals"] if entry["name"] == "aoa-memo-recall-integrity"
+    )
+
+    assert memo_entry["status"] == "draft"
+    assert memo_entry["portability_level"] == "local-shaped"
+    assert memo_entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/memo-recall-guardrail-v1/README.md"
+    assert memo_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-memo-recall-integrity/fixtures/contract.json"
+    assert memo_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-memo-recall-integrity/runners/contract.json"
+    assert memo_entry["proof_artifacts"]["runner_surface_path"] == "runners/reportable_proof_contract.md"
+    assert memo_entry["proof_artifacts"]["scorer_helper_paths"] == ["scorers/bounded_rubric_breakdown.py"]
+    assert memo_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-memo-recall-integrity/reports/summary.schema.json"
+    assert memo_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-memo-recall-integrity/reports/example-report.json"
+    assert memo_entry["proof_artifacts"]["paired_readout_path"] is None
+
     assert any(entry["name"] == "aoa-memo-recall-integrity" for entry in capsules["evals"])
     assert any(entry["name"] == "aoa-memo-recall-integrity" for entry in sections["evals"])
     assert all(entry["name"] != "aoa-memo-recall-integrity" for entry in comparison_spine["evals"])

@@ -170,7 +170,7 @@
       "do_not_use_short": "no memo recall surface was consumed; the main question is contradiction handling or rights policy",
       "eval_path": "bundles/aoa-memo-recall-integrity/EVAL.md",
       "name": "aoa-memo-recall-integrity",
-      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
       "skill_dependencies": [],
       "status": "draft",
       "summary": "Checks whether memo recall stays narrow, provenance-visible, and staleness-honest across the first inspect/capsule/expand consumer wave.",

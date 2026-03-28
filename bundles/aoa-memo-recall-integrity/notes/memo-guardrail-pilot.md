@@ -13,5 +13,12 @@ minimum:
 This pilot intentionally does not absorb contradiction handling, permission
 leakage, over-promotion, or hallucinated merge checks.
 
+Its current materialized draft proof flow runs through
+`fixtures/memo-recall-guardrail-v1/README.md`,
+`bundles/aoa-memo-recall-integrity/fixtures/contract.json`,
+`bundles/aoa-memo-recall-integrity/runners/contract.json`, and the
+schema-backed companion report in
+`bundles/aoa-memo-recall-integrity/reports/example-report.json`.
+
 Selected runtime or routing traces may travel as evidence sidecars.
 They do not replace the source-owned memo guardrail pack.

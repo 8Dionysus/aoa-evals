@@ -126,6 +126,9 @@ Public discipline:
   it should not drift into final-answer grading, checkpoint-only restart fidelity, scope diagnosis, approval classification, or post-return verification claims.
 - `aoa-longitudinal-growth-snapshot` should stay on repeated-window bounded workflow movement:
   it should not be read as a same-task regression surface or as proof of broad capability growth.
+- `aoa-memo-recall-integrity` should stay on bounded inspect/capsule/expand memo recall:
+  its materialized draft proof flow now anchors on `fixtures/memo-recall-guardrail-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  it should not drift into contradiction handling, permission inference, canon promotion, or broad memory-quality claims.
 
 ## Planned public states
 
@@ -163,6 +166,7 @@ Public discipline:
 - the witness/compost pilot pair now has materialized draft proof surfaces in `aoa-witness-trace-integrity` and `aoa-compost-provenance-preservation`.
 - checkpoint-based restart fidelity now has a materialized draft public bundle in `aoa-long-horizon-depth`, anchored by `fixtures/long-horizon-restart-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
 - return-aware anchor fidelity now has its first materialized draft public bundle in `aoa-return-anchor-integrity`, anchored by `fixtures/return-anchor-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
+- memo recall integrity now has a materialized draft public bundle in `aoa-memo-recall-integrity`, anchored by `fixtures/memo-recall-guardrail-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
 - the first materialized paired proof flow now sits across `aoa-artifact-review-rubric`, `aoa-bounded-change-quality`, and `aoa-output-vs-process-gap` using shared fixtures, runner contracts, and schema-backed report examples.
 - the artifact/process layer now also carries a second matched family and second paired dossier so the bridge can deepen without changing `peer_surfaces` or promoting by association.
 - the comparison spine now also has materialized proof flows for `aoa-regression-same-task`, `aoa-output-vs-process-gap`, and `aoa-longitudinal-growth-snapshot` through shared fixture families, runner contracts, schema-backed report examples, and the shared read-order artifact `reports/comparison-spine-proof-flow-v1.md`.

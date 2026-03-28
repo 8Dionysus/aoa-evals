@@ -1,0 +1,38 @@
+{
+  "eval_name": "aoa-memo-recall-integrity",
+  "bundle_status": "draft",
+  "object_under_evaluation": "integrity of memo recall on explicit inspect/capsule/expand consumer paths",
+  "verdict": "mixed support",
+  "claim_boundary": "On this bounded memo-guardrail family, the consumer can often keep recall compact and provenance-visible, but that support weakens when lifecycle posture blurs or when memo grounding is too thin for the consumer path being attempted.",
+  "limitations": [
+    "This report does not prove contradiction handling quality.",
+    "This report does not prove permission or authority safety from memo fields.",
+    "This report does not prove general memory quality."
+  ],
+  "case_family": "memo-recall-guardrail-v1 bounded inspect-capsule-expand family",
+  "breakdown": {
+    "precision_fit": "strong",
+    "provenance_visibility": "mixed",
+    "staleness_honesty": "mixed"
+  },
+  "strongest_recall_signal": "Inspect stayed smaller than full expansion on the precision case while still keeping the provenance-thread boundary visible.",
+  "strongest_recall_risk": "A stale memo surface remained compact but too easy to read as current until the consumer escalated to a stronger source.",
+  "case_notes": [
+    {
+      "case_id": "MRI-01",
+      "read_path": "inspect -> capsule",
+      "recall_reading": "supports bounded claim",
+      "provenance_note": "The compact recall kept the provenance-thread pointer visible instead of treating the capsule as self-justifying proof.",
+      "staleness_note": "Lifecycle posture remained current and did not require expansion to see that the claim was still active.",
+      "stronger_source_note": "No stronger-source escalation was needed because the compact surface stayed bounded and sufficient."
+    },
+    {
+      "case_id": "MRI-02",
+      "read_path": "inspect -> stronger-source",
+      "recall_reading": "mixed support",
+      "provenance_note": "The provenance pointer survived, but the consumer had to lift to a stronger source because memo grounding alone was too thin.",
+      "staleness_note": "The recalled claim showed superseded posture only after the stronger source was checked against the lifecycle surface.",
+      "stronger_source_note": "Escalation was the honest move, but the compact memo surface looked cleaner than the lifecycle evidence justified."
+    }
+  ]
+}

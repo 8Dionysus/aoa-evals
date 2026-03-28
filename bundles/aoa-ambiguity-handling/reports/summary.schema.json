@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-ambiguity-handling summary-with-breakdown report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "per_case_breakdown"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-ambiguity-handling"
+    },
+    "bundle_status": {
+      "const": "bounded"
+    },
+    "object_under_evaluation": {
+      "const": "task-meaning ambiguity handling in bounded agent change workflows"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "per_case_breakdown": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "ambiguity_class",
+          "observed_handling_move",
+          "assumption_boundary",
+          "failure_vs_readout",
+          "outcome"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "ambiguity_class": {
+            "type": "string",
+            "enum": [
+              "incomplete",
+              "conflicting",
+              "underspecified"
+            ]
+          },
+          "observed_handling_move": {
+            "type": "string",
+            "minLength": 10
+          },
+          "assumption_boundary": {
+            "type": "string",
+            "minLength": 10
+          },
+          "failure_vs_readout": {
+            "type": "string",
+            "minLength": 10
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "approve",
+              "defer"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

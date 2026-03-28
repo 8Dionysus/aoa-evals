@@ -199,6 +199,9 @@ than runtime instrumentation and canon claims.
 The current bounded scope-alignment diagnostic now also has a materialized case
 family, runner contract, and schema-backed report example without changing its
 bounded status.
+The current bounded task-meaning ambiguity diagnostic now also has a
+materialized case family, runner contract, and schema-backed report example
+without changing its bounded status.
 The first recurrence-aware proof surface now also has a materialized draft case family and runner contract in `aoa-return-anchor-integrity`, while remaining outside the starter set.
 
 The current goal is to establish:

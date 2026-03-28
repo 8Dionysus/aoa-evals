@@ -428,6 +428,7 @@ Highest-priority additions:
 
 Next likely cross-surface candidate after the current public starter set:
 - `aoa-return-anchor-integrity` as a draft non-starter return-hygiene bundle
+- `aoa-memo-recall-integrity` as a draft non-starter memo-recall diagnostic pilot anchored to the first `aoa-memo` guardrail triad
 
 Starter posture remains conservative:
 - No additional planned starter bundles are currently named publicly.

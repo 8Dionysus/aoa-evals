@@ -753,6 +753,100 @@
       "verdict_shape": "comparative"
     },
     {
+      "category": "workflow",
+      "eval_path": "bundles/aoa-memo-recall-integrity/EVAL.md",
+      "name": "aoa-memo-recall-integrity",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to check whether the first live memo-recall consumer path stays\nhonest about what memo can and cannot support.\n\nThis draft bundle is a narrow diagnostic workflow eval.\n\nIt focuses on three nearby questions only:\n\n- does recall return the smallest relevant surface first?\n- does provenance remain visible through compact recall?\n- does stale or cooled memory stay visibly non-current?\n\nIt is not a general memory-quality bundle.\nIt is not a contradiction bundle.\nIt is not a permissions-from-memory bundle.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks integrity of memo recall on explicit inspect/capsule/expand\nconsumer paths.\n\nPrimary surfaces under evaluation:\n\n- precision of selected recall surfaces\n- visibility of provenance-thread and stronger-source posture\n- honesty of lifecycle and staleness posture\n- consumer restraint when memo grounding is thin\n\nNearby surfaces intentionally excluded:\n\n- contradiction resolution as its own proof surface\n- permission or authority inference from memo fields\n- over-promotion of candidate memory into canon posture\n- hallucinated merge behavior across separate traces",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions, a consumer of `aoa-memo` can use the first\ninspect/capsule/expand path without turning memo into proof, while keeping\nprecision, provenance, and staleness posture visible enough for review.\n\nThis eval does not support claims such as:\n\n- memo recall is generally solved\n- all memo guardrail focuses now have one proof surface\n- any recalled surface is true just because it is compact and easy to consume\n- downstream consumers can infer authority directly from memo posture fields",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a route consumes `aoa-memo` through explicit recall contracts\n- the main question is whether memo recall stayed bounded and source-honest\n- inspect, capsule, or expand surfaces are part of the real read path\n- the narrow concern is recall integrity rather than a broader workflow claim\n\nDo not use this eval when:\n\n- no memo recall surface was consumed\n- the main question is contradiction handling or rights policy\n- the main question is broad runtime quality rather than memo recall posture\n- the case depends on hidden search or ranking behavior outside this pilot",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- `repo:aoa-memo/examples/memory_eval_guardrail_pack.example.json`\n- `repo:aoa-memo/examples/recall_contract.router.semantic.json`\n- `repo:aoa-memo/generated/memory_catalog.min.json`\n- `repo:aoa-memo/generated/memory_capsules.json`\n- `repo:aoa-memo/generated/memory_sections.full.json`\n- `repo:aoa-memo/examples/provenance_thread.kag-lift.example.json`\n- `repo:aoa-memo/examples/claim.superseded.example.json`\n- `repo:aoa-memo/examples/claim.retracted.example.json`",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "A strong starter case surface should include:\n\n- one precision case where inspect should beat broad full expansion\n- one provenance case where a claim or bridge must still walk back to its\n  provenance thread\n- one staleness case where lifecycle and trust posture must stay visible during\n  recall\n- one consumer note showing that stronger-source routing is lifted when memo\n  grounding is too weak\n\nFixtures should avoid:\n\n- hidden semantic search or ranking behavior\n- cases that rely on private runtime evidence not present in the memo contract\n- broad contradiction suites that belong to a later guardrail wave\n- permission or authority cases that are really owned by `aoa-agents`",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a summary-with-breakdown verdict.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nSuggested breakdown axes:\n\n- `precision_fit`\n- `provenance_visibility`\n- `staleness_honesty`\n\nPer-case review should ask:\n\n- did recall return the smallest relevant surface before full expansion?\n- could the reviewer still see provenance-thread or stronger-source posture?\n- did stale, superseded, or retracted memory remain visibly non-current?\n- did the consumer escalate to a stronger source instead of pretending memo was\n  enough?\n\n### Approve signals\n\nSignals toward `supports bounded claim`:\n\n- inspect beats broad expansion when the smaller surface is enough\n- capsule use stays compact rather than pretending to be proof\n- provenance-thread or stronger-source posture stays visible\n- stale or withdrawn memory is marked as such during recall\n- memo insufficiency leads to stronger-source routing rather than confident\n  invention\n\n### Degrade signals\n\nSignals toward `mixed support` or `does not support bounded claim`:\n\n- full expansion is treated as the default read even when inspect is enough\n- provenance-thread linkage disappears in compact recall\n- stale or withdrawn memory is presented as equally current\n- the consumer infers truth rather than escalating when memo grounding is thin",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`.\n\nIt is the first narrow diagnostic memo-recall pilot.\n\nA later stronger form may compare:\n\n- two recall-contract revisions on the same cases\n- two consumer paths over the same memo surfaces\n- the first pilot triad against a later wider guardrail wave\n\nWithout a baseline, this bundle supports only modest claims about the current\nmemo-recall pilot surface.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. select cases from the first memo guardrail pack\n2. keep the read path explicit as inspect, capsule, expand, or stronger-source\n   escalation\n3. review precision, provenance, and staleness separately before any top-line\n   read\n4. publish a summary-with-breakdown artifact with explicit interpretation\n   limits\n\nExecution expectations:\n\n- do not invent semantic search or hidden ranking behavior\n- do not treat compact memo surfaces as proof artifacts\n- do not widen the bundle into contradiction, permission, or merge diagnostics\n- do not collapse stronger-source routing into memo success",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bundle-level verdict\n- one breakdown across the three pilot axes\n- one note on the strongest memo-recall success\n- one note on the strongest memo-recall risk\n- one explicit interpretation boundary",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "This eval can fail as an instrument when:\n\n- cases are really about contradiction handling rather than recall integrity\n- the reviewer mistakes compactness for authority\n- hidden runtime search behavior is smuggled into the memo reading\n- stronger-source escalation is judged as failure instead of honesty",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- contradiction handling quality\n- permission leakage resistance\n- over-promotion discipline\n- hallucinated merge resistance\n- general runtime quality outside the memo recall path\n\nLikely false-pass path:\n\n- the consumer stays tidy on one compact case, but the broader guardrail program\n  would still fail on contradiction or promotion posture.\n\nLikely misleading-result path:\n\n- the route escalates honestly to a stronger source, and the result looks\n  weaker even though the memo reading stayed truthful.",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe current memo consumer can read the first inspect/capsule/expand path\nwithout hiding precision, provenance, or staleness posture.\n\nDo not treat a positive result as:\n\n- proof that memo recall is generally authoritative\n- proof that all memo guardrail risks are now covered\n- proof that downstream routing or runtime behavior is fully solved\n\nA mixed or negative result is still valuable because it can reveal:\n\n- over-expansion\n- provenance loss\n- stale-memory overclaim\n- false confidence when memo grounding is weak",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- confirm the bounded claim is explicit\n- confirm the case surface stays anchored to the memo guardrail pack\n- confirm the three breakdown axes remain visible\n- confirm the output does not imply stronger proof than the pilot supports\n- confirm blind spots remain explicit",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "This pilot currently uses no explicit upstream technique dependency.",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "This pilot currently uses no explicit upstream skill dependency.",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "Project overlays may add:\n\n- local memo recall case packs\n- consumer-specific inspect/capsule/expand traces\n- local stronger-source escalation notes\n- later comparison dossiers once the pilot grows beyond the first triad",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "mixed"
+    },
+    {
       "category": "comparative",
       "eval_path": "bundles/aoa-output-vs-process-gap/EVAL.md",
       "name": "aoa-output-vs-process-gap",

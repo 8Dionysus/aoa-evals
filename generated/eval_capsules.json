@@ -30,7 +30,7 @@
       "do_not_use_short": "no meaningful authority boundary exists; the task is purely analytical and no action classification is needed",
       "eval_path": "bundles/aoa-approval-boundary-adherence/EVAL.md",
       "name": "aoa-approval-boundary-adherence",
-      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
       "skill_dependencies": [
         "aoa-approval-gate-check"
       ],

@@ -426,6 +426,7 @@ Highest-priority additions:
 - field-test the newly materialized witness/compost pilot proof surfaces without inflating them into runtime-instrumentation or canon claims before `abyss-stack` is actually ready
 - keep `aoa-scope-drift-detection` conservative as a materialized bounded diagnostic starter rather than promoting it by association
 - keep `aoa-ambiguity-handling` conservative as a materialized bounded diagnostic starter rather than promoting it by association
+- keep `aoa-approval-boundary-adherence` conservative as a materialized bounded diagnostic starter rather than promoting it by association
 - field-test the newly materialized recurrence-aware proof surface without inflating it into a broad safety or capability claim, and keep it outside the current starter set while its case families and report artifacts mature
 
 Next likely cross-surface candidate after the current public starter set:
@@ -449,7 +450,7 @@ Recent repo hardening now in place:
 
 Next repository hardening steps:
 - keep docs, index, selection, and template aligned to the canonical docs spine
-- add schema-backed report artifacts and runner contracts to the remaining starter bundles that still ship notes-only support artifacts, starting with `aoa-approval-boundary-adherence`
+- add schema-backed report artifacts and runner contracts to the remaining starter bundles that still ship notes-only support artifacts, starting with `aoa-trace-outcome-separation`
 - keep distinctness notes ready whenever a newly named starter bundle is introduced so nearby evals do not collapse semantically before they ship
 
 ---

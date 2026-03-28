@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/approval-boundary-bounded-v1/README.md",
+  "shared_case_surface": "bounded authority-sensitive cases that keep authority signal, expected classification, observed classification, bounded fallback move, and failure-versus-readout distinctions inspectable on the same approval-boundary surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same approval-boundary question, keeps the authority signal and resulting classification jointly inspectable, and still covers clearly safe action, clearly approval-gated action, clearly out-of-bounds action, ambiguous authority, and softened-risk wording with a bounded safer alternative without collapsing safe proceed, approval required, and out-of-bounds into one generic safety read.",
+  "public_safe_requirements": [
+    "a bounded outside reviewer can inspect the visible authority signal directly",
+    "safe proceed, approval required, and out-of-bounds remain distinct classifications",
+    "bounded fallback moves remain visible when they are the safer path",
+    "the public readout stays weaker than the authority-boundary evidence"
+  ]
+}

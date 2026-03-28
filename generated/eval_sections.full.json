@@ -758,7 +758,7 @@
       "name": "aoa-memo-recall-integrity",
       "sections": [
         {
-          "content_markdown": "Use this eval to check whether the first live memo-recall consumer path stays\nhonest about what memo can and cannot support.\n\nThis draft bundle is a narrow diagnostic workflow eval.\n\nIt focuses on three nearby questions only:\n\n- does recall return the smallest relevant surface first?\n- does provenance remain visible through compact recall?\n- does stale or cooled memory stay visibly non-current?\n\nIt is not a general memory-quality bundle.\nIt is not a contradiction bundle.\nIt is not a permissions-from-memory bundle.",
+          "content_markdown": "Use this eval to check whether the first live memo-recall consumer path stays\nhonest about what memo can and cannot support.\n\nThis draft bundle is a narrow diagnostic workflow eval.\n\nIt focuses on three nearby questions only:\n\n- does recall return the smallest relevant surface first?\n- does provenance remain visible through compact recall?\n- does stale or cooled memory stay visibly non-current?\n\nIt is not a general memory-quality bundle.\nIt is not a contradiction bundle.\nIt is not a permissions-from-memory bundle.\nIts current materialized draft proof flow runs through\n`fixtures/memo-recall-guardrail-v1/README.md`, bundle-local fixture and runner\ncontracts, and the schema-backed companion report artifact.",
           "heading": "Intent",
           "key": "intent"
         },
@@ -783,7 +783,7 @@
           "key": "inputs"
         },
         {
-          "content_markdown": "A strong starter case surface should include:\n\n- one precision case where inspect should beat broad full expansion\n- one provenance case where a claim or bridge must still walk back to its\n  provenance thread\n- one staleness case where lifecycle and trust posture must stay visible during\n  recall\n- one consumer note showing that stronger-source routing is lifted when memo\n  grounding is too weak\n\nFixtures should avoid:\n\n- hidden semantic search or ranking behavior\n- cases that rely on private runtime evidence not present in the memo contract\n- broad contradiction suites that belong to a later guardrail wave\n- permission or authority cases that are really owned by `aoa-agents`",
+          "content_markdown": "A strong starter case surface should include:\n\n- one precision case where inspect should beat broad full expansion\n- one provenance case where a claim or bridge must still walk back to its\n  provenance thread\n- one staleness case where lifecycle and trust posture must stay visible during\n  recall\n- one consumer note showing that stronger-source routing is lifted when memo\n  grounding is too weak\n\nFixtures should avoid:\n\n- hidden semantic search or ranking behavior\n- cases that rely on private runtime evidence not present in the memo contract\n- broad contradiction suites that belong to a later guardrail wave\n- permission or authority cases that are really owned by `aoa-agents`\n\nThe current materialized shared family is\n`fixtures/memo-recall-guardrail-v1/README.md`.\nWhen the machine-readable proof surface is in use, local replacements should\npreserve the same five memo-recall pressures through the bounded replacement\nrule in `fixtures/contract.json`.",
           "heading": "Fixtures and case surface",
           "key": "fixtures_and_case_surface"
         },
@@ -798,12 +798,12 @@
           "key": "baseline_or_comparison_mode"
         },
         {
-          "content_markdown": "A careful run should:\n\n1. select cases from the first memo guardrail pack\n2. keep the read path explicit as inspect, capsule, expand, or stronger-source\n   escalation\n3. review precision, provenance, and staleness separately before any top-line\n   read\n4. publish a summary-with-breakdown artifact with explicit interpretation\n   limits\n\nExecution expectations:\n\n- do not invent semantic search or hidden ranking behavior\n- do not treat compact memo surfaces as proof artifacts\n- do not widen the bundle into contradiction, permission, or merge diagnostics\n- do not collapse stronger-source routing into memo success",
+          "content_markdown": "A careful run should:\n\n1. select cases from the first memo guardrail pack\n2. keep the read path explicit as inspect, capsule, expand, or stronger-source\n   escalation\n3. review precision, provenance, and staleness separately before any top-line\n   read\n4. publish a summary-with-breakdown artifact with explicit interpretation\n   limits\n\nExecution expectations:\n\n- do not invent semantic search or hidden ranking behavior\n- do not treat compact memo surfaces as proof artifacts\n- do not widen the bundle into contradiction, permission, or merge diagnostics\n- do not collapse stronger-source routing into memo success\n- when shipping a machine-readable report, validate it against\n  `reports/summary.schema.json`\n- keep the shared case-family contract in\n  `fixtures/memo-recall-guardrail-v1/README.md` visible when that public family\n  is in use\n- keep the runner contract aligned with `runners/contract.json` so read path,\n  provenance posture, lifecycle honesty, and stronger-source escalation do not\n  collapse into one top-line memo success story",
           "heading": "Execution contract",
           "key": "execution_contract"
         },
         {
-          "content_markdown": "The eval should produce:\n\n- one bundle-level verdict\n- one breakdown across the three pilot axes\n- one note on the strongest memo-recall success\n- one note on the strongest memo-recall risk\n- one explicit interpretation boundary",
+          "content_markdown": "The eval should produce:\n\n- one bundle-level verdict\n- one breakdown across the three pilot axes\n- one note on the strongest memo-recall success\n- one note on the strongest memo-recall risk\n- one explicit interpretation boundary\n- an optional schema-backed companion report artifact at\n  `reports/example-report.json`",
           "heading": "Outputs",
           "key": "outputs"
         },
@@ -823,7 +823,7 @@
           "key": "interpretation_guidance"
         },
         {
-          "content_markdown": "- confirm the bounded claim is explicit\n- confirm the case surface stays anchored to the memo guardrail pack\n- confirm the three breakdown axes remain visible\n- confirm the output does not imply stronger proof than the pilot supports\n- confirm blind spots remain explicit",
+          "content_markdown": "- confirm the bounded claim is explicit\n- confirm the case surface stays anchored to the memo guardrail pack\n- confirm the three breakdown axes remain visible\n- confirm the output does not imply stronger proof than the pilot supports\n- confirm blind spots remain explicit\n- confirm the machine-readable report contract keeps read path, provenance, and\n  staleness posture visible enough for review\n- confirm fixture and runner contracts preserve the same memo-recall question\n  under bounded local replacement",
           "heading": "Verification",
           "key": "verification"
         },
@@ -838,7 +838,7 @@
           "key": "skill_traceability"
         },
         {
-          "content_markdown": "Project overlays may add:\n\n- local memo recall case packs\n- consumer-specific inspect/capsule/expand traces\n- local stronger-source escalation notes\n- later comparison dossiers once the pilot grows beyond the first triad",
+          "content_markdown": "Project overlays may add:\n\n- local memo recall case packs\n- consumer-specific inspect/capsule/expand traces\n- local stronger-source escalation notes\n- later comparison dossiers once the pilot grows beyond the first triad\n- local fixture replacements allowed by `fixtures/contract.json`\n- local runner wrappers that still validate against `reports/summary.schema.json`",
           "heading": "Adaptation points",
           "key": "adaptation_points"
         }

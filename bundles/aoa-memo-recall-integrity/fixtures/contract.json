@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/memo-recall-guardrail-v1/README.md",
+  "shared_case_surface": "memo recall cases that keep explicit inspect-capsule-expand read paths, provenance-thread or stronger-source posture, lifecycle honesty, and thin-grounding escalation reviewable on the same bounded consumer surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same memo-recall integrity question, keeps the read path explicit, and still covers inspect-over-expand precision, provenance-thread visibility, stale-or-withdrawn lifecycle honesty, stronger-source escalation under thin grounding, and compact-surface false-authority pressure without turning the bundle into contradiction handling, permission inference, or broad memory-quality grading.",
+  "public_safe_requirements": [
+    "a bounded outside reviewer can inspect the read path and recalled memo surface directly",
+    "provenance-thread or stronger-source posture remains visible during compact recall",
+    "stale, superseded, or retracted memory remains visibly non-current",
+    "stronger-source escalation stays reviewable when memo grounding is too thin"
+  ]
+}

@@ -235,6 +235,7 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-tool-trajectory-discipline` now ships a materialized bounded proof surface; it still isolates path-sensitive tool use only and is not a generic workflow or outcome-vs-path score.
 - `aoa-tool-trajectory-discipline` is now a bounded one-run tool-path surface; it applies only where tool path materially matters and should not be used to grade process for its own sake or to replace the broader outcome-versus-path split.
 - `aoa-long-horizon-depth` is now a materialized draft recurrence workflow surface; it stays on checkpoint-based restart fidelity and does not imply final-answer quality, broad long-horizon capability, or starter status.
+- `aoa-memo-recall-integrity` is now a materialized draft memo workflow surface; it stays on inspect/capsule/expand recall integrity and does not imply contradiction coverage, permission safety, or starter status.
 - `aoa-witness-trace-integrity` is a materialized draft witness workflow surface; it checks whether a public witness artifact stayed reviewable enough for bounded downstream use and does not claim runtime telemetry completeness or outcome quality.
 - `aoa-regression-same-task` is now the first public `baseline` surface; it is a frozen-baseline comparison surface and should not be treated as proof of general capability growth.
 - `aoa-artifact-review-rubric` is now the portable one-run artifact anchor; it stays on artifact quality only and does not imply strong workflow discipline or replace the bridge surface.

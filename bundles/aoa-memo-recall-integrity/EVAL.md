@@ -29,6 +29,9 @@ It focuses on three nearby questions only:
 It is not a general memory-quality bundle.
 It is not a contradiction bundle.
 It is not a permissions-from-memory bundle.
+Its current materialized draft proof flow runs through
+`fixtures/memo-recall-guardrail-v1/README.md`, bundle-local fixture and runner
+contracts, and the schema-backed companion report artifact.
 
 ## Object under evaluation
 
@@ -110,6 +113,12 @@ Fixtures should avoid:
 - broad contradiction suites that belong to a later guardrail wave
 - permission or authority cases that are really owned by `aoa-agents`
 
+The current materialized shared family is
+`fixtures/memo-recall-guardrail-v1/README.md`.
+When the machine-readable proof surface is in use, local replacements should
+preserve the same five memo-recall pressures through the bounded replacement
+rule in `fixtures/contract.json`.
+
 ## Scoring or verdict logic
 
 This eval prefers a summary-with-breakdown verdict.
@@ -187,6 +196,14 @@ Execution expectations:
 - do not treat compact memo surfaces as proof artifacts
 - do not widen the bundle into contradiction, permission, or merge diagnostics
 - do not collapse stronger-source routing into memo success
+- when shipping a machine-readable report, validate it against
+  `reports/summary.schema.json`
+- keep the shared case-family contract in
+  `fixtures/memo-recall-guardrail-v1/README.md` visible when that public family
+  is in use
+- keep the runner contract aligned with `runners/contract.json` so read path,
+  provenance posture, lifecycle honesty, and stronger-source escalation do not
+  collapse into one top-line memo success story
 
 ## Outputs
 
@@ -197,6 +214,8 @@ The eval should produce:
 - one note on the strongest memo-recall success
 - one note on the strongest memo-recall risk
 - one explicit interpretation boundary
+- an optional schema-backed companion report artifact at
+  `reports/example-report.json`
 
 ## Failure modes
 
@@ -253,6 +272,10 @@ A mixed or negative result is still valuable because it can reveal:
 - confirm the three breakdown axes remain visible
 - confirm the output does not imply stronger proof than the pilot supports
 - confirm blind spots remain explicit
+- confirm the machine-readable report contract keeps read path, provenance, and
+  staleness posture visible enough for review
+- confirm fixture and runner contracts preserve the same memo-recall question
+  under bounded local replacement
 
 ## Technique traceability
 
@@ -270,3 +293,5 @@ Project overlays may add:
 - consumer-specific inspect/capsule/expand traces
 - local stronger-source escalation notes
 - later comparison dossiers once the pilot grows beyond the first triad
+- local fixture replacements allowed by `fixtures/contract.json`
+- local runner wrappers that still validate against `reports/summary.schema.json`

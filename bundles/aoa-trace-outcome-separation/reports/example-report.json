@@ -1,0 +1,38 @@
+{
+  "eval_name": "aoa-trace-outcome-separation",
+  "bundle_status": "bounded",
+  "object_under_evaluation": "outcome-vs-path separation in bounded agent change workflows",
+  "verdict": "mixed support",
+  "claim_boundary": "This report speaks only to whether final outcome and execution path stayed separately readable on this bounded case family before any combined reading.",
+  "limitations": [
+    "It does not grade the narrower tool-path question by itself.",
+    "It does not replace artifact-versus-process comparison."
+  ],
+  "case_family": "trace-outcome-bounded-v1 public split-reading family",
+  "per_case_breakdown": [
+    {
+      "case_id": "TO-01",
+      "outcome_reading": "strong",
+      "path_reading": "strong",
+      "combined_reading": "supports bounded claim",
+      "failure_vs_readout": "Both surfaces stayed strong and the combined readout preserved that split rather than flattening it.",
+      "outcome": "approve"
+    },
+    {
+      "case_id": "TO-02",
+      "outcome_reading": "strong",
+      "path_reading": "weak",
+      "combined_reading": "does not support bounded claim",
+      "failure_vs_readout": "Polished outcome did not repair the skipped verification and weak path evidence, even though the public summary tried to flatten that divergence.",
+      "outcome": "defer"
+    },
+    {
+      "case_id": "TO-03",
+      "outcome_reading": "weak",
+      "path_reading": "strong",
+      "combined_reading": "mixed support",
+      "failure_vs_readout": "A disciplined path remained visible, but it did not rescue the incomplete outcome, and the readout kept that separation explicit.",
+      "outcome": "approve"
+    }
+  ]
+}

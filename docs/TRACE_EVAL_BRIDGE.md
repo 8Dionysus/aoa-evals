@@ -83,6 +83,17 @@ Primary evidence inputs:
 `verification_result` stays the verification artifact for the first hook
 surface.
 
+When the route exposes both a visible outcome surface and visible path evidence,
+`aoa-trace-outcome-separation` may travel as an adjacent split-reading
+diagnostic surface.
+Its current bounded proof flow is anchored in
+`fixtures/trace-outcome-bounded-v1/README.md`, bundle-local fixture and runner
+contracts, and a schema-backed companion report artifact.
+That sidecar stays on keeping outcome and path readable before any combined
+reading.
+It does not replace `aoa-tool-trajectory-discipline` as the narrower
+tool-path anchor for this route.
+
 When a bounded route also exports `WitnessTrace`, that trace may travel as an
 optional sidecar for `aoa-witness-trace-integrity`.
 That sidecar is evidence-only.

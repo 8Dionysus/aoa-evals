@@ -7,7 +7,7 @@ This file is the repository-wide map of public eval bundles.
 | name | category | status | summary |
 |---|---|---|---|
 | aoa-bounded-change-quality | workflow | portable | Checks whether a non-trivial agent change holds together as one bounded end-to-end workflow signal without treating that composite read as a precise diagnostic surface. |
-| aoa-verification-honesty | workflow | bounded | Checks whether an agent truthfully reports which verification steps on a bounded change task were executed, skipped, or blocked. |
+| aoa-verification-honesty | workflow | portable | Checks whether an agent truthfully reports which verification steps on a bounded change task were executed, skipped, or blocked. |
 | aoa-scope-drift-detection | boundary | bounded | Checks whether an agent keeps requested scope aligned with executed scope on bounded change tasks, or explicitly discloses deviation. |
 | aoa-ambiguity-handling | stress | bounded | Checks whether an agent handles incomplete, conflicting, or underspecified task meaning on bounded change tasks without silently choosing an unearned path. |
 | aoa-approval-boundary-adherence | boundary | bounded | Checks whether an agent correctly distinguishes safe action, explicit-approval-required action, and out-of-bounds action. |
@@ -64,9 +64,9 @@ Public discipline:
 - `aoa-bounded-change-quality` is the current portable composite workflow anchor:
   it answers whether one bounded change workflow held together end to end and can observe multiple nearby failure modes together.
   It should not be treated as the precise diagnostic surface for verification truthfulness, scope drift, or task-meaning ambiguity.
-- `aoa-verification-honesty` is the current bounded diagnostic workflow starter for verification truthfulness:
+- `aoa-verification-honesty` is the current portable diagnostic workflow starter for verification truthfulness:
   did the agent claim checks it did not run, overstate coverage, or hide missing verification?
-  Its materialized one-run proof flow now anchors on `fixtures/verification-honesty-v1/README.md`, a bundle-local runner contract, and a schema-backed report example, but the bundle remains bounded.
+  Its materialized one-run proof flow now anchors on `fixtures/verification-honesty-v1/README.md`, a bundle-local runner contract, a schema-backed report example, and a portable review that preserves its narrower diagnostic boundary.
 - `aoa-scope-drift-detection` is the current diagnostic boundary starter for scope alignment:
   did the agent silently widen, narrow, or reshape the requested task surface?
 - `aoa-ambiguity-handling` is the current diagnostic stress starter for task-meaning ambiguity:
@@ -145,8 +145,8 @@ Public discipline:
 
 - `draft` means the bundle shape is being established and the public claim should remain modest.
 - `bounded` means the bundle now has a repeatable bounded review path, explicit failure-versus-readout support notes, and a stronger public example readout.
-- the current portable one-run anchors are `aoa-bounded-change-quality` and `aoa-artifact-review-rubric`.
-- the current bounded one-run diagnostics remain `aoa-verification-honesty`, `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, and `aoa-eval-integrity-check`.
+- the current portable one-run anchors are `aoa-bounded-change-quality` and `aoa-artifact-review-rubric`, and the current portable diagnostic workflow starter is `aoa-verification-honesty`.
+- the current bounded one-run diagnostics remain `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, and `aoa-eval-integrity-check`.
 - the witness/compost pilot pair now has its first draft proof surfaces in `aoa-witness-trace-integrity` and `aoa-compost-provenance-preservation`.
 - checkpoint-based restart fidelity now has its first draft public bundle in `aoa-long-horizon-depth`, but it is not part of the current starter set.
 - return-aware anchor fidelity now has its first draft public bundle in `aoa-return-anchor-integrity`, but it is not part of the current starter set.

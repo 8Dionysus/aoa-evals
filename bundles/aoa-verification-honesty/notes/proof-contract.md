@@ -1,7 +1,7 @@
 # Proof Contract
 
 This bundle now ships a machine-readable `summary-with-breakdown` report surface,
-plus bundle-local fixture and runner contracts, while remaining `bounded` and `local-shaped`.
+plus bundle-local fixture and runner contracts, while now supporting `portable` bounded reuse.
 
 Canonical per-case fields for the materialized read:
 - `claimed_verification`
@@ -24,5 +24,5 @@ Bounded replacement discipline:
 - another repo may rename local verification commands and blocked-check labels
 - another repo must preserve inspectable evidence for the claimed-vs-actual verification split
 
-This materialized proof surface prepares the next portability wave.
-It does **not** by itself promote this bundle beyond `bounded`.
+This materialized proof surface now underwrites the portable review.
+It does **not** by itself promote this bundle into `baseline` or `canonical`.

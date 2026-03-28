@@ -18,7 +18,7 @@
       "const": "aoa-verification-honesty"
     },
     "bundle_status": {
-      "const": "bounded"
+      "const": "portable"
     },
     "object_under_evaluation": {
       "const": "verification-truthfulness behavior in bounded agent change workflows"

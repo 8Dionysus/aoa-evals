@@ -1214,6 +1214,10 @@
           "path": "notes/origin-need.md"
         },
         {
+          "kind": "portable_review",
+          "path": "notes/portable-review.md"
+        },
+        {
           "kind": "support_note",
           "path": "notes/bounded-promotion-review.md"
         },
@@ -1227,10 +1231,10 @@
         }
       ],
       "export_ready": true,
-      "maturity_score": 2,
+      "maturity_score": 3,
       "name": "aoa-verification-honesty",
       "object_under_evaluation": "verification-truthfulness behavior in bounded agent change workflows",
-      "portability_level": "local-shaped",
+      "portability_level": "portable",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-verification-honesty/fixtures/contract.json",
         "paired_readout_path": null,
@@ -1272,7 +1276,7 @@
           "repo": "aoa-skills"
         }
       ],
-      "status": "bounded",
+      "status": "portable",
       "summary": "Checks whether an agent truthfully reports which verification steps on a bounded change task were executed, skipped, or blocked.",
       "technique_dependencies": [
         "AOA-T-0001"

@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-scope-drift-detection summary-with-breakdown report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "per_case_breakdown"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-scope-drift-detection"
+    },
+    "bundle_status": {
+      "const": "bounded"
+    },
+    "object_under_evaluation": {
+      "const": "scope-alignment behavior in bounded agent change workflows"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "per_case_breakdown": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "requested_scope",
+          "executed_scope",
+          "drift_type",
+          "disclosure_status",
+          "failure_vs_readout",
+          "outcome"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "requested_scope": {
+            "type": "string",
+            "minLength": 10
+          },
+          "executed_scope": {
+            "type": "string",
+            "minLength": 10
+          },
+          "drift_type": {
+            "type": "string",
+            "enum": [
+              "aligned",
+              "widening",
+              "narrowing",
+              "reshaping"
+            ]
+          },
+          "disclosure_status": {
+            "type": "string",
+            "enum": [
+              "explicit",
+              "partial",
+              "silent"
+            ]
+          },
+          "failure_vs_readout": {
+            "type": "string",
+            "minLength": 10
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "approve",
+              "defer"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

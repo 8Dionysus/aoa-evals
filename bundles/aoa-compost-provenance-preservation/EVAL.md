@@ -28,6 +28,9 @@ It is not meant to prove philosophical truth,
 and it is not a replacement for general artifact-quality review.
 It may sit downstream of artifact/process pairing as adjacent compost context,
 but it does not replace `aoa-artifact-review-rubric` as the artifact-side reading.
+Its current materialized draft proof flow runs through
+`fixtures/compost-provenance-v1/README.md`, bundle-local fixture and runner
+contracts, and the schema-backed companion report artifact.
 
 The goal is not to prove that a composted insight is final.
 The goal is to test one bounded claim:
@@ -115,6 +118,12 @@ Fixture families should avoid:
 - highly polished summaries that no longer show their limits
 - cases that depend on hidden private source references
 
+The current materialized shared family is
+`fixtures/compost-provenance-v1/README.md`.
+When the machine-readable proof surface is in use, local replacements should
+preserve the same five provenance pressures through the bounded replacement rule
+in `fixtures/contract.json`.
+
 ## Scoring or verdict logic
 
 This eval prefers a bundle-level verdict with an explicit breakdown.
@@ -192,6 +201,14 @@ Execution expectations:
 - do not treat polished synthesis as proof of canon-readiness
 - do not move operational ownership into ToS while reviewing the artifact
 - do not erase decay or demotion posture in the name of clarity
+- when shipping a machine-readable report, validate it against
+  `reports/summary.schema.json`
+- keep the shared case-family contract in
+  `fixtures/compost-provenance-v1/README.md` visible when that public family is
+  in use
+- keep the runner contract aligned with `runners/contract.json` so source refs,
+  review state, limits, promotion boundaries, and contradiction posture do not
+  collapse into one top-line readout
 
 ## Outputs
 
@@ -200,6 +217,8 @@ The eval should produce:
 - one breakdown across the provenance-preservation axes
 - one note on the most material preservation or severance point
 - one explicit interpretation boundary
+- an optional schema-backed companion report artifact at
+  `reports/example-report.json`
 
 A compact public summary-with-breakdown may include:
 - artifact id
@@ -269,6 +288,10 @@ A mixed or negative result is valuable because it can reveal:
 - confirm contradiction,
   stale,
   or demotion posture remains possible
+- confirm the machine-readable report contract keeps provenance retention and
+  canon-boundary language distinct enough for review
+- confirm fixture and runner contracts preserve the same provenance-preserving
+  compost question under bounded local replacement
 
 ## Technique traceability
 
@@ -289,3 +312,5 @@ Project overlays may add:
 - local promotion gates for principle candidates
 - local decay or staleness rules
 - later comparison forms once the provenance-preserving compost route stabilizes
+- local fixture replacements allowed by `fixtures/contract.json`
+- local runner wrappers that still validate against `reports/summary.schema.json`

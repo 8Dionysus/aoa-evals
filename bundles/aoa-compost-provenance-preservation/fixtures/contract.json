@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/compost-provenance-v1/README.md",
+  "shared_case_surface": "witness-derived compost artifacts that keep source refs, review state, current limits, promotion boundary, and contradiction-or-demotion posture inspectable on the same provenance-preserving surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same provenance-preserving compost question, keeps the witness-facing input and downstream artifact jointly inspectable, and still covers witness-to-note distillation, note-to-principle pressure, provisional review-state visibility, contradiction-or-demotion preservation, and canon-pressure holdback without turning the bundle into canon-readiness or general artifact-polish grading.",
+  "public_safe_requirements": [
+    "visible source refs remain specific enough for a bounded outside reviewer",
+    "review state and current limits stay explicit on the downstream artifact",
+    "promotion toward principle or canon remains bounded and review-gated",
+    "the resulting readout stays non-canonical and preserves contradiction or demotion posture"
+  ]
+}

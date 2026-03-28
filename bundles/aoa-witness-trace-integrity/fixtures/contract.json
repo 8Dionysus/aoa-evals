@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/witness-trace-v1/README.md",
+  "shared_case_surface": "bounded runs that keep meaningful steps, tool visibility, explicit state_delta notes, partial failure preservation, reviewable redaction, and markdown-summary boundaries inspectable on the same witness trace surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same witness-integrity question, keeps the public trace and summary jointly inspectable, and still covers visible tool use, explicit state_delta notes, partial-failure preservation, reviewable redaction, and markdown-summary overclaim pressure without turning the bundle into runtime-telemetry completeness or outcome grading.",
+  "public_safe_requirements": [
+    "a bounded outside reviewer can inspect the public trace without hidden runtime-only telemetry",
+    "redaction protects sensitive payloads without erasing route reviewability",
+    "summary wording stays weaker than the visible trace rather than stronger",
+    "external effects remain visible as state_delta notes when they materially shaped the run"
+  ]
+}

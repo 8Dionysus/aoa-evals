@@ -18,6 +18,7 @@ Current starter posture:
   use it when the main question is whether claimed verification matched executed, skipped, or blocked checks.
 - `aoa-scope-drift-detection` is the current bounded diagnostic boundary starter for scope alignment:
   use it when the main question is whether requested scope still matched executed scope.
+  Its materialized bounded proof flow now uses `fixtures/scope-drift-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
 - `aoa-ambiguity-handling` is the current bounded diagnostic stress starter:
   use it when the main question is incomplete, conflicting, or underspecified task meaning.
 - `aoa-approval-boundary-adherence` is the current bounded diagnostic boundary starter:
@@ -28,6 +29,7 @@ Current starter posture:
   use it when tool-use path quality matters as its own bounded surface.
 - `aoa-witness-trace-integrity` is the current draft witness workflow starter:
   use it when the main question is whether a bounded run left a reviewable witness trace before any downstream memo or compost use.
+  Its current draft proof flow is already materialized through a shared witness case family, bundle-local runner contract, and schema-backed report example.
 - `aoa-regression-same-task` is the current baseline same-task regression starter:
   use it when you need a frozen-baseline comparison rather than a one-run judgment.
   Its current materialized proof flow uses a shared frozen case family, runner contract, schema-backed report, and shared baseline dossier.
@@ -35,6 +37,7 @@ Current starter posture:
   use it when the main question is the produced artifact itself.
 - `aoa-compost-provenance-preservation` is the current draft compost artifact starter:
   use it when the main question is whether a witness-derived note or principle candidate preserved provenance and review posture.
+  Its current draft proof flow is already materialized through a shared compost case family, bundle-local runner contract, and schema-backed report example.
 - `aoa-output-vs-process-gap` is the current draft artifact/process bridge starter:
   use it when the main question is whether polished output is outrunning process discipline or vice versa after the standalone artifact and workflow surfaces are already legible and matched conditions are explicit.
 - `aoa-eval-integrity-check` is the current bounded integrity sidecar meta-eval for eval-bundle coherence:
@@ -163,7 +166,7 @@ Use `aoa-eval-integrity-check` as the bounded sidecar when a public maturity wav
 
 ### If you need a bounded one-run starter now
 Prefer `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, or `aoa-eval-integrity-check`.
-These bounded diagnostics now have explicit bounded review notes and stronger example readouts, but they still do not support portable, baseline, or canonical claims.
+These bounded diagnostics now have explicit bounded review notes, and `aoa-scope-drift-detection` now also has a materialized schema-backed proof flow, but this tranche still does not support portable, baseline, or canonical claims.
 
 ### If you need a portable one-run starter now
 Prefer `aoa-bounded-change-quality` when the question is composite workflow discipline on one bounded non-trivial change task.
@@ -218,15 +221,15 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-bounded-change-quality` is now the portable one-run workflow anchor; portability here means bounded reuse, not baseline comparison or canonical default status.
 - `aoa-verification-honesty` isolates verification evidence only; it is not the main eval for overall workflow quality or scope diagnosis.
 - `aoa-verification-honesty` now ships a portable one-run proof surface; it remains the narrower diagnostic workflow read rather than the composite workflow anchor and does not imply baseline or canonical status.
-- `aoa-scope-drift-detection` isolates requested-scope vs executed-scope alignment only; it is not the main eval for overall workflow quality or verification truthfulness.
+- `aoa-scope-drift-detection` now ships a materialized bounded proof surface; it still isolates requested-scope vs executed-scope alignment only and is not the main eval for overall workflow quality or verification truthfulness.
 - `aoa-ambiguity-handling` isolates task-meaning ambiguity only; it is not the main eval for permission or authority classification.
 - `aoa-approval-boundary-adherence` is about authority ambiguity, not about all forms of task ambiguity.
 - `aoa-trace-outcome-separation` is now a bounded one-run split surface; it keeps outcome and path distinct before a combined reading and is not a substitute for narrower root-cause diagnostics.
 - `aoa-tool-trajectory-discipline` is now a bounded one-run tool-path surface; it applies only where tool path materially matters and should not be used to grade process for its own sake or to replace the broader outcome-versus-path split.
-- `aoa-witness-trace-integrity` is a draft witness workflow surface; it checks whether a public witness artifact stayed reviewable enough for bounded downstream use and does not claim runtime telemetry completeness or outcome quality.
+- `aoa-witness-trace-integrity` is a materialized draft witness workflow surface; it checks whether a public witness artifact stayed reviewable enough for bounded downstream use and does not claim runtime telemetry completeness or outcome quality.
 - `aoa-regression-same-task` is now the first public `baseline` surface; it is a frozen-baseline comparison surface and should not be treated as proof of general capability growth.
 - `aoa-artifact-review-rubric` is now the portable one-run artifact anchor; it stays on artifact quality only and does not imply strong workflow discipline or replace the bridge surface.
-- `aoa-compost-provenance-preservation` is a draft compost artifact surface; it checks provenance and review-state preservation on witness-derived artifacts and does not imply canon-readiness or replace general artifact review.
+- `aoa-compost-provenance-preservation` is a materialized draft compost artifact surface; it checks provenance and review-state preservation on witness-derived artifacts and does not imply canon-readiness or replace general artifact review.
 - `aoa-output-vs-process-gap` remains a draft bridge surface; it now participates in the first materialized artifact/process paired proof flow, but it still does not replace standalone artifact review, standalone workflow review, trace/path separation, or the public baseline regression surface.
 - `aoa-output-vs-process-gap` now also carries a second matched family and paired dossier, but it still stays draft and does not inherit stronger status by association.
 - `aoa-eval-integrity-check` is now a bounded integrity sidecar meta-eval for public starter-bundle coherence and semantic anti-theater review across the comparison spine; it does not replace direct agent-behavior evaluation, promotion review, or proof of canonical readiness.

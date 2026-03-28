@@ -1,0 +1,23 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "bounded change case dossier",
+    "requested scope statement",
+    "executed change surface",
+    "final report",
+    "explicit deviation note when present",
+    "bundle-level scope-drift summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-scope-drift-detection/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-scope-drift-detection/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-scope-drift-detection/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-scope-drift-detection"
+  ]
+}

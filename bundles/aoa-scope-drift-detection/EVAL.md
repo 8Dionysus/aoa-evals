@@ -27,6 +27,9 @@ This bundle is narrower than the composite workflow surface.
 This bounded bundle is a `diagnostic` boundary eval.
 It isolates requested-scope vs executed-scope alignment.
 It is not meant to stand in for a full end-to-end workflow-quality judgment.
+Its current materialized bounded proof flow runs through
+`fixtures/scope-drift-bounded-v1/README.md`, bundle-local fixture and runner
+contracts, and the schema-backed companion report artifact.
 
 The goal is not to prove total code quality.
 The goal is to test one bounded claim:
@@ -112,6 +115,12 @@ The fixture surface is public-safe when:
 - the executed work surface can be inferred from the captured artifacts
 - another repo could replace the cases with comparable bounded change tasks that preserve the same drift classes
 
+The current materialized shared family is
+`fixtures/scope-drift-bounded-v1/README.md`.
+When the machine-readable proof surface is in use, local replacements should
+preserve the same five drift pressures through the bounded replacement rule in
+`fixtures/contract.json`.
+
 ## Scoring or verdict logic
 
 This eval prefers a categorical bundle-level verdict with per-case breakdown notes.
@@ -189,6 +198,14 @@ Execution expectations:
 - do not collapse disclosed deviation and silent drift into the same review outcome
 - keep enough evidence that a careful reviewer can see why each drift type was assigned
 - keep approve/defer language separate from the failure/readout split
+- when shipping a machine-readable report, validate it against
+  `reports/summary.schema.json`
+- keep the shared case-family contract in
+  `fixtures/scope-drift-bounded-v1/README.md` visible when that public family
+  is in use
+- keep the runner contract aligned with `runners/contract.json` so requested
+  scope, executed scope, drift class, disclosure status, and failure-versus-readout
+  boundaries do not collapse into one top-line readout
 
 ## Outputs
 
@@ -200,6 +217,8 @@ The eval should produce:
 - drift-type note for each case
 - an explicit approval-or-defer readout for the bounded promotion review
 - explicit interpretation note
+- an optional schema-backed companion report artifact at
+  `reports/example-report.json`
 
 A compact public summary-with-breakdown may include:
 - case id
@@ -274,6 +293,10 @@ A negative or mixed result is valuable because it can reveal:
 - confirm per-case notes remain grounded in inspectable request-vs-execution evidence
 - confirm the bundle-level verdict does not outrun the case evidence
 - confirm the promotion note keeps approve/defer language separate from failure/readout language
+- confirm the machine-readable report contract keeps drift class and disclosure
+  status explicit on every case
+- confirm fixture and runner contracts preserve the same scope-drift question
+  under bounded local replacement
 - confirm blind spots and nearby-bundle boundaries are named clearly
 
 ## Technique traceability
@@ -294,3 +317,5 @@ Project overlays may add:
 - local drift taxonomy notes
 - local summary formats that still preserve per-case evidence
 - later comparison baselines for repeated runs
+- local fixture replacements allowed by `fixtures/contract.json`
+- local runner wrappers that still validate against `reports/summary.schema.json`

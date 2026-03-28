@@ -193,6 +193,12 @@ This repository remains in public bootstrap,
 now with the first materialized comparison wave for frozen same-task and repeated-window surfaces.
 The next public hardening step is a coherent comparison spine rather than isolated comparison bundles.
 The first draft memo-recall integrity pilot is now also present as a non-starter diagnostic bundle anchored to `aoa-memo` guardrail surfaces, but it remains intentionally narrower than the broader comparison and starter programs.
+The witness/compost pilot pair now also has materialized draft case families,
+runner contracts, and schema-backed report artifacts, while remaining weaker
+than runtime instrumentation and canon claims.
+The current bounded scope-alignment diagnostic now also has a materialized case
+family, runner contract, and schema-backed report example without changing its
+bounded status.
 The first recurrence-aware proof surface now also has a materialized draft case family and runner contract in `aoa-return-anchor-integrity`, while remaining outside the starter set.
 
 The current goal is to establish:
@@ -200,7 +206,7 @@ The current goal is to establish:
 - the eval bundle shape and metadata contracts
 - the first starter eval bundles
 - portable scoring and report surfaces
-- shared fixture families, runner contracts, and schema-backed report examples for materialized comparison flows
+- shared fixture families, runner contracts, and schema-backed report examples for materialized comparison flows and diagnostic pilots
 - baseline comparison discipline
 - artifact/process separation doctrine that stays weaker than standalone bundle meaning
 - repeated-window discipline that stays weaker than broad growth claims

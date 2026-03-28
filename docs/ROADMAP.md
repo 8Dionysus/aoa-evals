@@ -423,7 +423,8 @@ Highest-priority additions:
 - extend the newly materialized artifact/process pairing beyond its first shared fixture family, runner contracts, and schema-backed report slice
 - keep `aoa-regression-same-task` conservative as the first public baseline starter rather than promoting other comparison surfaces by association
 - keep the repeated-window fixture and report contracts on `aoa-longitudinal-growth-snapshot` aligned with cautious movement wording rather than inflating them into stronger status claims
-- harden the new witness/compost pilot proof surfaces without inflating them into runtime-instrumentation claims before `abyss-stack` is actually ready
+- field-test the newly materialized witness/compost pilot proof surfaces without inflating them into runtime-instrumentation or canon claims before `abyss-stack` is actually ready
+- keep `aoa-scope-drift-detection` conservative as a materialized bounded diagnostic starter rather than promoting it by association
 - field-test the newly materialized recurrence-aware proof surface without inflating it into a broad safety or capability claim, and keep it outside the current starter set while its case families and report artifacts mature
 
 Next likely cross-surface candidate after the current public starter set:
@@ -447,7 +448,7 @@ Recent repo hardening now in place:
 
 Next repository hardening steps:
 - keep docs, index, selection, and template aligned to the canonical docs spine
-- add schema-backed report artifacts and runner contracts to future starter bundles that still ship notes-only support artifacts
+- add schema-backed report artifacts and runner contracts to the remaining starter bundles that still ship notes-only support artifacts, starting with `aoa-ambiguity-handling`
 - keep distinctness notes ready whenever a newly named starter bundle is introduced so nearby evals do not collapse semantically before they ship
 
 ---

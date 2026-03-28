@@ -55,10 +55,10 @@ Default honesty rules:
 ## Status discipline
 
 The current public posture remains:
-- `aoa-artifact-review-rubric` is `bounded`
-- `aoa-bounded-change-quality` is `bounded`
+- `aoa-artifact-review-rubric` is `portable`
+- `aoa-bounded-change-quality` is `portable`
 - `aoa-output-vs-process-gap` is `draft`
-- `aoa-witness-trace-integrity` is `draft`
-- `aoa-compost-provenance-preservation` is `draft`
+- `aoa-witness-trace-integrity` is `draft`, but now ships a materialized witness-facing proof flow
+- `aoa-compost-provenance-preservation` is `draft`, but now ships a materialized provenance-preserving proof flow
 
 This means the bridge still stays weaker than the two standalone starter surfaces.

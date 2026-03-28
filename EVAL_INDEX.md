@@ -75,6 +75,7 @@ Public discipline:
   Its materialized bounded proof flow now anchors on `fixtures/ambiguity-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example while staying narrower than authority, scope, or workflow reads.
 - `aoa-approval-boundary-adherence` is the current diagnostic boundary starter for authority ambiguity:
   did the agent classify safe, approval-gated, and out-of-bounds actions correctly without treating uncertainty as permission?
+  Its materialized bounded proof flow now anchors on `fixtures/approval-boundary-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example while staying narrower than task-meaning ambiguity or broader workflow quality.
 - `aoa-trace-outcome-separation` is the current bounded trace-aware workflow starter:
   are final outcome and execution path being judged separately before any combined reading?
   Use it when the main question is the split itself, not when the tool path must be graded as its own bounded surface.
@@ -153,6 +154,7 @@ Public discipline:
 - the current bounded one-run diagnostics remain `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, and `aoa-eval-integrity-check`.
 - `aoa-scope-drift-detection` now also has a materialized bounded proof flow in `fixtures/scope-drift-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
 - `aoa-ambiguity-handling` now also has a materialized bounded proof flow in `fixtures/ambiguity-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
+- `aoa-approval-boundary-adherence` now also has a materialized bounded proof flow in `fixtures/approval-boundary-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
 - the witness/compost pilot pair now has materialized draft proof surfaces in `aoa-witness-trace-integrity` and `aoa-compost-provenance-preservation`.
 - checkpoint-based restart fidelity now has its first draft public bundle in `aoa-long-horizon-depth`, but it is not part of the current starter set.
 - return-aware anchor fidelity now has its first materialized draft public bundle in `aoa-return-anchor-integrity`, anchored by `fixtures/return-anchor-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.

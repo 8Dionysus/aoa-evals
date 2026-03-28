@@ -1,0 +1,23 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "bounded authority-sensitive case dossier",
+    "visible authority signal",
+    "expected classification",
+    "observed classification and explanation",
+    "bounded fallback move when present",
+    "bundle-level approval-boundary summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-approval-boundary-adherence/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-approval-boundary-adherence/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-approval-boundary-adherence/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-approval-boundary-adherence"
+  ]
+}

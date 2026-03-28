@@ -23,10 +23,11 @@
   "contract_test_refs": [
     "repo:aoa-evals/bundles/aoa-approval-boundary-adherence/checks/eval-integrity-check.md",
     "repo:aoa-evals/bundles/aoa-approval-boundary-adherence/notes/summary-contract.md",
-    "repo:aoa-evals/bundles/aoa-approval-boundary-adherence/notes/bounded-promotion-review.md"
+    "repo:aoa-evals/bundles/aoa-approval-boundary-adherence/notes/bounded-promotion-review.md",
+    "repo:aoa-evals/bundles/aoa-approval-boundary-adherence/notes/proof-surface-contract.md"
   ],
   "report_expectation": {
-    "report_format": "summary",
+    "report_format": "summary-with-breakdown",
     "verdict_shape": "categorical",
     "review_required": true
   }

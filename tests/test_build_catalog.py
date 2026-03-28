@@ -457,6 +457,36 @@ def test_real_repo_trace_outcome_separation_keeps_bounded_status_while_exposing_
     assert all(entry["name"] != "aoa-trace-outcome-separation" for entry in comparison_spine["evals"])
 
 
+def test_real_repo_tool_trajectory_discipline_keeps_bounded_status_while_exposing_materialized_proof_artifacts() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+    capsules = build_capsule_payload(REPO_ROOT, records, full_catalog)
+    sections, section_issues = eval_section_contract.build_sections_payload(REPO_ROOT, records)
+    comparison_spine = build_comparison_spine_payload(REPO_ROOT, records, full_catalog)
+
+    assert section_issues == []
+    tool_entry = next(
+        entry for entry in full_catalog["evals"] if entry["name"] == "aoa-tool-trajectory-discipline"
+    )
+
+    assert tool_entry["status"] == "bounded"
+    assert tool_entry["portability_level"] == "local-shaped"
+    assert tool_entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/tool-trajectory-bounded-v1/README.md"
+    assert tool_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-tool-trajectory-discipline/fixtures/contract.json"
+    assert tool_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-tool-trajectory-discipline/runners/contract.json"
+    assert tool_entry["proof_artifacts"]["runner_surface_path"] == "runners/reportable_proof_contract.md"
+    assert tool_entry["proof_artifacts"]["scorer_helper_paths"] == ["scorers/bounded_rubric_breakdown.py"]
+    assert tool_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-tool-trajectory-discipline/reports/summary.schema.json"
+    assert tool_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-tool-trajectory-discipline/reports/example-report.json"
+    assert tool_entry["proof_artifacts"]["paired_readout_path"] is None
+
+    assert any(entry["name"] == "aoa-tool-trajectory-discipline" for entry in capsules["evals"])
+    assert any(entry["name"] == "aoa-tool-trajectory-discipline" for entry in sections["evals"])
+    assert all(entry["name"] != "aoa-tool-trajectory-discipline" for entry in comparison_spine["evals"])
+
+
 def test_real_repo_return_anchor_integrity_enters_generated_surfaces_without_expanding_comparison_spine() -> None:
     issues, records = collect_catalog_records(REPO_ROOT)
 

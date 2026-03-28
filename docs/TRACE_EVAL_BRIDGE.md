@@ -71,6 +71,9 @@ that self-agent work is generally safe or complete.
 
 Use `aoa-tool-trajectory-discipline` as the primary verdict anchor for the
 first model-tier route.
+Its current bounded proof flow is anchored in
+`fixtures/tool-trajectory-bounded-v1/README.md`, bundle-local fixture and
+runner contracts, and a schema-backed companion report artifact.
 
 Primary evidence inputs:
 

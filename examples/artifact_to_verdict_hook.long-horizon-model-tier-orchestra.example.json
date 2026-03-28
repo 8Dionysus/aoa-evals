@@ -24,7 +24,8 @@
   "verification_surface": "verification_result",
   "contract_test_refs": [
     "repo:aoa-evals/bundles/aoa-tool-trajectory-discipline/checks/eval-integrity-check.md",
-    "repo:aoa-evals/bundles/aoa-tool-trajectory-discipline/notes/bounded-promotion-review.md"
+    "repo:aoa-evals/bundles/aoa-tool-trajectory-discipline/notes/bounded-promotion-review.md",
+    "repo:aoa-evals/bundles/aoa-tool-trajectory-discipline/notes/proof-surface-contract.md"
   ],
   "report_expectation": {
     "report_format": "summary-with-breakdown",

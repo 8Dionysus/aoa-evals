@@ -1,0 +1,38 @@
+{
+  "eval_name": "aoa-tool-trajectory-discipline",
+  "bundle_status": "bounded",
+  "object_under_evaluation": "tool-use trajectory discipline in bounded agent change workflows",
+  "verdict": "mixed support",
+  "claim_boundary": "This report speaks only to whether tool use stayed disciplined and reviewable on this bounded path-sensitive case family, not to overall workflow strength.",
+  "limitations": [
+    "It does not replace the broader outcome-versus-path split surface.",
+    "It does not prove that one exact tool sequence is required."
+  ],
+  "case_family": "tool-trajectory-bounded-v1 public path-sensitive family",
+  "per_case_breakdown": [
+    {
+      "case_id": "TT-01",
+      "why_path_matters": "The task needs a bounded search before editing and one visible verification step after the change.",
+      "trajectory_reading": "strong",
+      "omission_or_churn_note": "The path stayed narrow and skipped decorative exploration.",
+      "failure_vs_readout": "The readout matches the disciplined tool evidence instead of inflating it into a generic workflow success story.",
+      "outcome": "approve"
+    },
+    {
+      "case_id": "TT-02",
+      "why_path_matters": "Skipping the obvious verification command would leave the change hard to review.",
+      "trajectory_reading": "mixed",
+      "omission_or_churn_note": "The agent added extra exploratory commands and nearly lost the visible reason the verification step mattered.",
+      "failure_vs_readout": "The failure is unnecessary churn around a path-sensitive check, and the readout keeps both the omission risk and the churn visible.",
+      "outcome": "approve"
+    },
+    {
+      "case_id": "TT-03",
+      "why_path_matters": "The same outcome could be reached through a disciplined or noisy path, so proportionality is the real bounded question.",
+      "trajectory_reading": "weak",
+      "omission_or_churn_note": "Extra tool churn was reframed as helpful thoroughness even though it did not add reviewable evidence.",
+      "failure_vs_readout": "A clean final outcome did not repair the decorative path theater, and the readout had to stay weaker than that visible mismatch.",
+      "outcome": "defer"
+    }
+  ]
+}

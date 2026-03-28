@@ -754,6 +754,100 @@
     },
     {
       "category": "workflow",
+      "eval_path": "bundles/aoa-memo-contradiction-integrity/EVAL.md",
+      "name": "aoa-memo-contradiction-integrity",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to check whether a memo consumer stays honest when contradictory\nmemory remains visible on the object-facing recall path.\n\nThis draft bundle is a narrow diagnostic workflow eval.\n\nIt focuses on four nearby questions only:\n\n- do superseded and retracted objects stay visibly non-current?\n- do still-open tensions stay explicit rather than collapsing into replacement?\n- do audit-event and provenance-thread walkback remain reachable when needed?\n- does the consumer defer or escalate rather than narrating a false resolution?\n\nIt is not a general memory-quality bundle.\nIt is not a contradiction-resolution bundle.\nIt is not a permissions-from-memory bundle.\nIt is not a promotion or merge-hallucination bundle.\nIts current materialized draft proof flow runs through\n`fixtures/memo-contradiction-guardrail-v1/README.md`, bundle-local fixture and\nrunner contracts, and the schema-backed companion report artifact.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks integrity of contradiction-visible memo consumption on\nlifecycle-aware object recall paths.\n\nPrimary surfaces under evaluation:\n\n- visibility of lifecycle `review_state` and `current_recall` posture\n- visibility of contradiction refs, replacement refs, and audit walkback\n- distinction between superseded, withdrawn, and still-open contradictory\n  states\n- consumer restraint when contradiction remains unresolved\n\nNearby surfaces intentionally excluded:\n\n- recall precision as its own proof surface\n- permission or authority inference from memo access fields\n- over-promotion of candidate memory into canon posture\n- hallucinated merge behavior across separate traces\n- contradiction resolution quality outside public memo surfaces",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions, a consumer of `aoa-memo` can use lifecycle-aware\nobject recall surfaces without flattening superseded, retracted, or still-open\ncontradictory memory into one smooth current story, while keeping contradiction\nposture visible enough for review.\n\nThis eval does not support claims such as:\n\n- contradiction handling is generally solved\n- all memo guardrail focuses now have proof surfaces\n- lifecycle state alone settles truth\n- downstream consumers can infer authority or promotion from contradiction\n  posture",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a route consumes `aoa-memo` through object-facing or lifecycle-aware recall\n  surfaces\n- the main question is whether contradictory memory stayed explicit and honest\n- claims, audit events, or provenance-thread walkback are part of the real read\n  path\n- the narrow concern is contradiction posture rather than precision or rights\n  policy\n\nDo not use this eval when:\n\n- no lifecycle-aware memo surface was consumed\n- the main question is smallest-surface recall precision\n- the main question is permission, authority, or promotion policy\n- the case depends on hidden runtime reconciliation outside the public memo\n  contract",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- `repo:aoa-memo/examples/memory_eval_guardrail_pack.example.json`\n- `repo:aoa-memo/examples/recall_contract.object.working.json`\n- `repo:aoa-memo/generated/memory_object_catalog.min.json`\n- `repo:aoa-memo/generated/memory_object_capsules.json`\n- `repo:aoa-memo/generated/memory_object_sections.full.json`\n- `repo:aoa-memo/examples/claim.current-entrypoint.example.json`\n- `repo:aoa-memo/examples/claim.superseded.example.json`\n- `repo:aoa-memo/examples/claim.retracted.example.json`\n- `repo:aoa-memo/examples/provenance_thread.lifecycle.example.json`\n- `repo:aoa-memo/examples/audit_event.supersession.example.json`\n- `repo:aoa-memo/examples/audit_event.retraction.example.json`",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "A strong starter case surface should include:\n\n- one preferred-current claim where explicit contradiction refs still point to\n  a withdrawn rival\n- one superseded claim case where replacement and historical posture stay\n  visible together\n- one retracted claim case where withdrawn status and audit trail remain\n  reachable\n- one still-open tension case where contradiction stays visible without a fake\n  resolution\n- one smoothing-pressure case where the honest move is to defer to provenance\n  or audit walkback rather than narrating one clean active claim\n\nFixtures should avoid:\n\n- cases that are really about recall precision rather than contradiction\n  visibility\n- cases that treat permission or access fields as contradiction evidence\n- hidden reconciliation logic or secret-bearing runtime traces\n- broad promotion or merge suites that belong to later guardrail waves\n\nThe current materialized shared family is\n`fixtures/memo-contradiction-guardrail-v1/README.md`.\nWhen the machine-readable proof surface is in use, local replacements should\npreserve the same five contradiction pressures through the bounded replacement\nrule in `fixtures/contract.json`.",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a summary-with-breakdown verdict.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nSuggested breakdown axes:\n\n- `lifecycle_visibility`\n- `current_recall_honesty`\n- `contradiction_linkage`\n- `replacement_vs_withdrawal_clarity`\n- `audit_trace_visibility`\n\nPer-case review should ask:\n\n- did the recalled objects keep distinct lifecycle posture rather than generic\n  staleness language?\n- did `current_recall` status stay visible and believable for the scoped\n  question?\n- did contradiction refs or replacement refs remain explicit?\n- did audit events or provenance-thread walkback stay reachable when the case\n  needed them?\n- when tension remained unresolved, did the consumer preserve that tension\n  rather than smoothing it into one clean present-tense story?\n\n### Approve signals\n\nSignals toward `supports bounded claim`:\n\n- the preferred object remains preferred while contradictory withdrawn material\n  stays explicit\n- superseded objects stay historical with visible replacement posture\n- retracted objects stay withdrawn and traceable through audit walkback\n- still-open tensions remain marked as tension rather than silent resolution\n- the consumer defers to provenance or audit walkback instead of smoothing\n  unresolved contradiction\n\n### Degrade signals\n\nSignals toward `mixed support` or `does not support bounded claim`:\n\n- superseded or retracted objects appear active with no posture marker\n- contradiction refs disappear during compact recall\n- replacement and withdrawal collapse into one vague stale-memory note\n- audit trace disappears when the consumer summarizes the contradiction\n- polished summary announces a resolution that the memo surfaces do not support",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`.\n\nIt is the first narrow contradiction-visible memo pilot.\n\nA later stronger form may compare:\n\n- two consumer paths over the same lifecycle-aware memo objects\n- the contradiction lane against the earlier recall-integrity lane\n- the current object-facing pilot against a wider memo guardrail wave\n\nWithout a baseline, this bundle supports only modest claims about the current\ncontradiction-handling pilot surface.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. select cases from the memo guardrail pack contradiction lane plus the\n   supporting lifecycle and audit objects\n2. keep the read path explicit as object inspect, capsule, expand, audit\n   walkback, or provenance-thread walkback\n3. review lifecycle posture, `current_recall`, and contradiction linkage\n   separately before any top-line read\n4. publish a summary-with-breakdown artifact with explicit interpretation\n   limits\n\nExecution expectations:\n\n- do not treat lifecycle posture as proof of world truth\n- do not silently resolve contradiction because one object looks fresher or\n  cleaner\n- do not widen the bundle into permission, promotion, or merge diagnostics\n- do not collapse audit walkback into generic memo success\n- when shipping a machine-readable report, validate it against\n  `reports/summary.schema.json`\n- keep the shared case-family contract in\n  `fixtures/memo-contradiction-guardrail-v1/README.md` visible when that\n  public family is in use\n- keep the runner contract aligned with `runners/contract.json` so lifecycle\n  posture, contradiction linkage, replacement-vs-withdrawal clarity, and audit\n  walkback do not collapse into one top-line contradiction story",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bundle-level verdict\n- one breakdown across the five contradiction-integrity axes\n- one note on the strongest contradiction-handling success\n- one note on the strongest contradiction-handling risk\n- one explicit interpretation boundary\n- an optional schema-backed companion report artifact at\n  `reports/example-report.json`",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "This eval can fail as an instrument when:\n\n- cases are really about rights policy or promotion drift rather than\n  contradiction posture\n- the reviewer mistakes `preferred` or `historical` recall posture for proof of\n  truth\n- hidden reconciliation logic is smuggled into the memo reading\n- honest defer-to-audit behavior is judged as weakness instead of truthful\n  restraint",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- contradiction resolution quality outside public memo surfaces\n- permission leakage resistance\n- over-promotion discipline\n- hallucinated merge resistance\n- general runtime quality outside lifecycle-aware memo consumption\n\nLikely false-pass path:\n\n- the consumer keeps lifecycle labels on the chosen cases, but broader\n  cross-trace contradictions would still be smoothed away in a wider guardrail\n  wave.\n\nLikely misleading-result path:\n\n- the route defers honestly to audit or provenance walkback, and the result\n  looks less decisive even though contradiction posture stayed truthful.",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe current memo consumer can read lifecycle-aware object surfaces without\nhiding contradiction posture, replacement posture, or withdrawal posture.\n\nDo not treat a positive result as:\n\n- proof that contradictions are resolved\n- proof that memo is authoritative on its own\n- proof that permission, promotion, or merge risks are already covered",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- confirm the case surface stays anchored to\n  `repo:aoa-memo/examples/memory_eval_guardrail_pack.example.json`\n- validate any machine-readable report against `reports/summary.schema.json`\n- confirm the fixture family, fixture contract, and runner contract keep\n  contradiction visibility narrower than recall precision, permission, or\n  promotion claims\n- confirm public docs keep the bundle distinct from `aoa-memo-recall-integrity`\n  and `aoa-compost-provenance-preservation`",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "- none; upstream meaning lives in `aoa-memo` lifecycle, recall, and audit\n  surfaces rather than in `aoa-techniques`",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "- none; the bundle evaluates memo-consumption posture rather than a\n  skill-owned execution workflow",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "- local lifecycle-aware object recall packs\n- local audit-event bundles that preserve the same contradiction pressures\n- local provenance-thread walkback formats\n- local report wording that still preserves lifecycle visibility,\n  contradiction-linkage visibility, and audit-trace visibility",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "mixed"
+    },
+    {
+      "category": "workflow",
       "eval_path": "bundles/aoa-memo-recall-integrity/EVAL.md",
       "name": "aoa-memo-recall-integrity",
       "sections": [

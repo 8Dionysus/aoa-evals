@@ -1,0 +1,42 @@
+{
+  "eval_name": "aoa-memo-contradiction-integrity",
+  "bundle_status": "draft",
+  "object_under_evaluation": "integrity of contradiction-visible memo consumption on lifecycle-aware object recall paths",
+  "verdict": "mixed support",
+  "claim_boundary": "On this bounded lifecycle-aware memo family, the consumer can often keep contradiction posture visible across preferred, superseded, and withdrawn objects, but that support weakens when a compact summary smooths an unresolved tension into a cleaner current story than the memo surfaces justify.",
+  "limitations": [
+    "This report does not prove contradiction resolution quality outside public memo surfaces.",
+    "This report does not prove permission or authority safety from memo fields.",
+    "This report does not prove promotion discipline or merge-hallucination resistance."
+  ],
+  "case_family": "memo-contradiction-guardrail-v1 bounded lifecycle-aware object recall family",
+  "breakdown": {
+    "lifecycle_visibility": "strong",
+    "current_recall_honesty": "mixed",
+    "contradiction_linkage": "strong",
+    "replacement_vs_withdrawal_clarity": "mixed",
+    "audit_trace_visibility": "strong"
+  },
+  "strongest_contradiction_signal": "The object-facing read preserved the preferred claim, the historical superseded claim, the withdrawn rival, and the audit walkback without pretending they all shared one active posture.",
+  "strongest_contradiction_risk": "A compact summary nearly treated unresolved tension as settled because the fresher preferred claim sounded cleaner than the contradictory historical trail.",
+  "case_notes": [
+    {
+      "case_id": "MCI-01",
+      "read_path": "object inspect -> capsule -> audit walkback",
+      "contradiction_reading": "mixed support",
+      "lifecycle_note": "The preferred claim stayed preferred while the withdrawn rival remained visibly withdrawn and the superseded claim remained historical.",
+      "current_recall_note": "Current recall posture stayed visible, but the compact summary leaned too close to a single clean active answer.",
+      "contradiction_note": "Contradiction refs stayed explicit between the preferred claim and the withdrawn rival instead of disappearing during the capsule step.",
+      "audit_or_replacement_note": "Audit walkback remained reachable, though the replacement story was easier to read than the unresolved tension it was meant to accompany."
+    },
+    {
+      "case_id": "MCI-02",
+      "read_path": "object inspect -> provenance-thread walkback",
+      "contradiction_reading": "supports bounded claim",
+      "lifecycle_note": "The case preserved historical versus withdrawn posture clearly enough that no silent replacement reading was possible.",
+      "current_recall_note": "The consumer kept the current entrypoint explicit without pretending the contradictory history had vanished.",
+      "contradiction_note": "Still-open tension stayed visible through the provenance-thread timeline rather than being summarized away.",
+      "audit_or_replacement_note": "Provenance walkback supplied the honest bounded trace when the compact object surface alone was not sufficient."
+    }
+  ]
+}

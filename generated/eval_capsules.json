@@ -163,6 +163,23 @@
       "what_this_does_not_prove": "proof of general capability growth; proof that all nearby workflow diagnostics improved; proof that the movement is stable outside this window sequence"
     },
     {
+      "blind_spot_short": "contradiction resolution quality outside public memo surfaces; permission leakage resistance; over-promotion discipline",
+      "bounded_claim_short": "under these conditions, a consumer of aoa-memo can use lifecycle-aware object recall surfaces without flattening superseded, retracted, or still-open contradictory memory into one smooth...",
+      "category": "workflow",
+      "comparison_surface": null,
+      "do_not_use_short": "no lifecycle-aware memo surface was consumed; the main question is smallest-surface recall precision",
+      "eval_path": "bundles/aoa-memo-contradiction-integrity/EVAL.md",
+      "name": "aoa-memo-contradiction-integrity",
+      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "skill_dependencies": [],
+      "status": "draft",
+      "summary": "Checks whether lifecycle-aware memo consumers keep superseded, retracted, and still-open contradiction posture explicit instead of flattening memory tension into one smooth current story.",
+      "technique_dependencies": [],
+      "use_when_short": "a route consumes aoa-memo through object-facing or lifecycle-aware recall",
+      "verdict_shape": "mixed",
+      "what_this_does_not_prove": "proof that contradictions are resolved; proof that memo is authoritative on its own; proof that permission, promotion, or merge risks are already covered"
+    },
+    {
       "blind_spot_short": "contradiction handling quality; permission leakage resistance; over-promotion discipline",
       "bounded_claim_short": "under these conditions, a consumer of aoa-memo can use the first inspect/capsule/expand path without turning memo into proof, while keeping precision, provenance, and staleness posture...",
       "category": "workflow",

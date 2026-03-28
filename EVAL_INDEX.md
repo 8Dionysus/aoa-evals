@@ -69,6 +69,7 @@ Public discipline:
   Its materialized one-run proof flow now anchors on `fixtures/verification-honesty-v1/README.md`, a bundle-local runner contract, a schema-backed report example, and a portable review that preserves its narrower diagnostic boundary.
 - `aoa-scope-drift-detection` is the current diagnostic boundary starter for scope alignment:
   did the agent silently widen, narrow, or reshape the requested task surface?
+  Its materialized bounded proof flow now anchors on `fixtures/scope-drift-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example while staying narrower than workflow, verification, or ambiguity reads.
 - `aoa-ambiguity-handling` is the current diagnostic stress starter for task-meaning ambiguity:
   did the agent ask, bound assumptions, or explicitly branch when requirements were incomplete or conflicting?
 - `aoa-approval-boundary-adherence` is the current diagnostic boundary starter for authority ambiguity:
@@ -81,6 +82,7 @@ Public discipline:
   It should not be read as the general outcome-versus-path split surface.
 - `aoa-witness-trace-integrity` is the current draft witness workflow starter:
   did a bounded run leave a reviewable witness trace with meaningful steps, visible tool use, explicit external effects, preserved failures, and an honest markdown summary?
+  Its materialized draft proof flow now anchors on `fixtures/witness-trace-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
   It should not be read as proof of outcome quality, as a substitute for future runtime instrumentation, or as the default process-side read in the artifact/process layer.
 - `aoa-regression-same-task` is the current baseline regression starter:
   did the candidate materially regress against a frozen baseline on the same bounded task family?
@@ -91,6 +93,7 @@ Public discipline:
   Its shared paired families now include `fixtures/bounded-change-paired-v1/README.md` and `fixtures/bounded-change-paired-v2/README.md`, but the bundle remains the standalone artifact-side read rather than the bridge.
 - `aoa-compost-provenance-preservation` is the current draft compost artifact starter:
   did a witness-derived note, synthesis, or principle candidate preserve provenance, review state, current limits, and demotion posture?
+  Its materialized draft proof flow now anchors on `fixtures/compost-provenance-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
   It should not be read as proof of canon-readiness, as a replacement for general artifact review, or as the default artifact-side read in the artifact/process layer.
 - `aoa-output-vs-process-gap` is the current artifact/process bridge starter:
   is polished output outrunning process discipline, is process outrunning artifact strength, or are the two broadly aligned?
@@ -147,7 +150,8 @@ Public discipline:
 - `bounded` means the bundle now has a repeatable bounded review path, explicit failure-versus-readout support notes, and a stronger public example readout.
 - the current portable one-run anchors are `aoa-bounded-change-quality` and `aoa-artifact-review-rubric`, and the current portable diagnostic workflow starter is `aoa-verification-honesty`.
 - the current bounded one-run diagnostics remain `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, and `aoa-eval-integrity-check`.
-- the witness/compost pilot pair now has its first draft proof surfaces in `aoa-witness-trace-integrity` and `aoa-compost-provenance-preservation`.
+- `aoa-scope-drift-detection` now also has a materialized bounded proof flow in `fixtures/scope-drift-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
+- the witness/compost pilot pair now has materialized draft proof surfaces in `aoa-witness-trace-integrity` and `aoa-compost-provenance-preservation`.
 - checkpoint-based restart fidelity now has its first draft public bundle in `aoa-long-horizon-depth`, but it is not part of the current starter set.
 - return-aware anchor fidelity now has its first materialized draft public bundle in `aoa-return-anchor-integrity`, anchored by `fixtures/return-anchor-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
 - the first materialized paired proof flow now sits across `aoa-artifact-review-rubric`, `aoa-bounded-change-quality`, and `aoa-output-vs-process-gap` using shared fixtures, runner contracts, and schema-backed report examples.

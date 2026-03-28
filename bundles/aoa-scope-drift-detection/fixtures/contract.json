@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/scope-drift-bounded-v1/README.md",
+  "shared_case_surface": "bounded change cases that keep requested scope, executed scope, drift class, deviation disclosure, and failure-versus-readout boundaries inspectable on the same scope-alignment surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same scope-drift question, keeps the request and executed change surface jointly inspectable, and still covers exact-scope temptation, silent widening, silent narrowing, reshaping, and disclosed deviation while preserving aligned, widening, narrowing, and reshaping as distinct drift classes and explicit-versus-silent disclosure as a real review surface.",
+  "public_safe_requirements": [
+    "a bounded outside reviewer can inspect the requested scope directly",
+    "the executed change surface remains visible enough to assign a drift class",
+    "explicit deviation stays distinguishable from silent drift",
+    "the public readout stays weaker than the request-versus-execution evidence"
+  ]
+}

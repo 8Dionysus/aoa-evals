@@ -1,0 +1,40 @@
+{
+  "eval_name": "aoa-witness-trace-integrity",
+  "bundle_status": "draft",
+  "object_under_evaluation": "reviewable integrity of witness trace exports on bounded runs",
+  "verdict": "mixed support",
+  "claim_boundary": "This report speaks only to whether the public witness trace stayed reviewable enough for bounded downstream use on this case family.",
+  "limitations": [
+    "It does not grade final outcome quality.",
+    "It does not prove runtime telemetry completeness."
+  ],
+  "case_family": "witness-trace-v1 bounded public witness family",
+  "breakdown": {
+    "step_visibility": "strong",
+    "tool_visibility": "mixed",
+    "state_delta_visibility": "mixed",
+    "failure_path_preservation": "strong",
+    "redaction_posture": "strong",
+    "summary_alignment": "mixed"
+  },
+  "case_notes": [
+    {
+      "case_id": "WT-01",
+      "trace_reading": "supports bounded claim",
+      "trace_note": "Meaningful route steps, tool use, and one external effect stayed visible in order.",
+      "summary_boundary_note": "The markdown summary stayed weaker than the trace and preserved the same bounded limits.",
+      "next_inspection_target": "Check whether later redaction variants keep the same state_delta clarity."
+    },
+    {
+      "case_id": "WT-04",
+      "trace_reading": "mixed support",
+      "trace_note": "The route remained reviewable under redaction, but one materially used tool appeared only in the summary.",
+      "summary_boundary_note": "The summary remained bounded, yet it looked slightly cleaner than the visible tool path supported.",
+      "next_inspection_target": "Inspect the missing tool-visibility segment before reusing this trace downstream."
+    }
+  ],
+  "major_review_flags": [
+    "One case hid materially relevant tool use from the public trace.",
+    "State-delta wording remained uneven across the family."
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "eval_name": "aoa-compost-provenance-preservation",
+  "bundle_status": "draft",
+  "object_under_evaluation": "provenance-preserving compost artifacts derived from witness-facing inputs",
+  "verdict": "mixed support",
+  "claim_boundary": "This report speaks only to whether witness-derived compost artifacts preserved provenance and review posture on this bounded family.",
+  "limitations": [
+    "It does not prove canon readiness.",
+    "It does not grade the philosophical truth of the resulting idea."
+  ],
+  "case_family": "compost-provenance-v1 witness-derived compost family",
+  "breakdown": {
+    "source_ref_retention": "strong",
+    "review_state_visibility": "strong",
+    "limit_honesty": "mixed",
+    "promotion_boundary": "mixed",
+    "contradiction_and_decay_posture": "strong"
+  },
+  "case_notes": [
+    {
+      "case_id": "CP-01",
+      "artifact_reading": "supports bounded claim",
+      "source_ref_note": "The note kept direct refs back to the upstream witness summary and named what changed in distillation.",
+      "review_state_note": "The artifact stayed explicitly provisional and kept current limits visible.",
+      "promotion_boundary_note": "The note stopped short of principle or canon language and kept contradiction posture open."
+    },
+    {
+      "case_id": "CP-05",
+      "artifact_reading": "mixed support",
+      "source_ref_note": "Source refs remained present, but one canon-leaning sentence looked cleaner than the evidence chain supported.",
+      "review_state_note": "Review posture stayed visible, yet the artifact's polished top line risked over-reading by a new reviewer.",
+      "promotion_boundary_note": "The promotion gate held, but the canon-pressure case still needs tighter boundary wording."
+    }
+  ]
+}

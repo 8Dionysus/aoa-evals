@@ -87,6 +87,9 @@ When a bounded route also exports `WitnessTrace`, that trace may travel as an
 optional sidecar for `aoa-witness-trace-integrity`.
 That sidecar is evidence-only.
 It does not silently add a required playbook artifact.
+Its current draft public proof flow is anchored in
+`fixtures/witness-trace-v1/README.md`, bundle-local fixture and runner
+contracts, and a schema-backed companion report artifact.
 
 When the route emits an explicit return decision, anchor refs, and bounded
 re-entry note, `aoa-return-anchor-integrity` may travel as an adjacent

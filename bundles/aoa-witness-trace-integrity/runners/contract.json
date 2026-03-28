@@ -1,0 +1,24 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "bounded run dossier",
+    "witness_trace_json",
+    "witness_summary_md",
+    "bounded run goal",
+    "redaction notes when present",
+    "governing route contract ref",
+    "bundle-level witness summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-witness-trace-integrity/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-witness-trace-integrity/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-witness-trace-integrity/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-witness-trace-integrity"
+  ]
+}

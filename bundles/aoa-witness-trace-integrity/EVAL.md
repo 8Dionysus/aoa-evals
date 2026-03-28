@@ -23,6 +23,9 @@ It is not meant to prove final outcome quality,
 and it is not a substitute for full runtime instrumentation in `abyss-stack`.
 It may sit upstream of artifact/process pairing as adjacent witness context,
 but it does not replace `aoa-bounded-change-quality` as the process-side reading.
+Its current materialized draft proof flow runs through
+`fixtures/witness-trace-v1/README.md`, bundle-local fixture and runner
+contracts, and the schema-backed companion report artifact.
 
 The goal is not to prove total transparency.
 The goal is to test one bounded claim:
@@ -107,6 +110,11 @@ Fixture families should avoid:
 - perfectly clean happy-path traces only
 - cases where the trace can pass without saying anything meaningful
 
+The current materialized shared family is `fixtures/witness-trace-v1/README.md`.
+When the machine-readable proof surface is in use, local replacements should
+preserve the same five witness pressures through the bounded replacement rule in
+`fixtures/contract.json`.
+
 ## Scoring or verdict logic
 
 This eval prefers a bundle-level verdict with an explicit breakdown.
@@ -179,6 +187,13 @@ Execution expectations:
 - do not treat hidden private runtime telemetry as part of the public contract
 - do not let the markdown summary stand in for the trace itself
 - do not upgrade partial visibility into total transparency
+- when shipping a machine-readable report, validate it against
+  `reports/summary.schema.json`
+- keep the shared case-family contract in `fixtures/witness-trace-v1/README.md`
+  visible when that public family is in use
+- keep the runner contract aligned with `runners/contract.json` so meaningful
+  steps, tool visibility, `state_delta`, failures, redaction posture, and
+  summary boundaries do not collapse into one top-line readout
 
 ## Outputs
 
@@ -187,6 +202,8 @@ The eval should produce:
 - one breakdown across the witness-integrity axes
 - one note on the most material trace gap or success
 - one explicit interpretation boundary
+- an optional schema-backed companion report artifact at
+  `reports/example-report.json`
 
 A compact public summary-with-breakdown may include:
 - run id
@@ -252,6 +269,10 @@ A mixed or negative result is valuable because it can reveal:
 - confirm external effects are marked as `state_delta`
 - confirm failure-path and redaction posture remain reviewable
 - confirm the summary stays weaker than the trace rather than stronger
+- confirm the machine-readable report contract keeps trace evidence and polished
+  summary boundaries distinct enough for review
+- confirm fixture and runner contracts preserve the same witness-integrity
+  question under bounded local replacement
 
 ## Technique traceability
 
@@ -272,3 +293,5 @@ Project overlays may add:
 - local state-delta review rules
 - local summary templates
 - later comparison or regression forms once the public witness contract stabilizes
+- local fixture replacements allowed by `fixtures/contract.json`
+- local runner wrappers that still validate against `reports/summary.schema.json`

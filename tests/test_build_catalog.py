@@ -276,6 +276,96 @@ def test_real_repo_verification_honesty_exposes_materialized_proof_artifacts() -
     assert verification_artifacts["paired_readout_path"] is None
 
 
+def test_real_repo_witness_trace_integrity_enters_generated_surfaces_with_materialized_proof_artifacts() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+    capsules = build_capsule_payload(REPO_ROOT, records, full_catalog)
+    sections, section_issues = eval_section_contract.build_sections_payload(REPO_ROOT, records)
+    comparison_spine = build_comparison_spine_payload(REPO_ROOT, records, full_catalog)
+
+    assert section_issues == []
+    witness_entry = next(
+        entry for entry in full_catalog["evals"] if entry["name"] == "aoa-witness-trace-integrity"
+    )
+
+    assert witness_entry["status"] == "draft"
+    assert witness_entry["portability_level"] == "local-shaped"
+    assert witness_entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/witness-trace-v1/README.md"
+    assert witness_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-witness-trace-integrity/fixtures/contract.json"
+    assert witness_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-witness-trace-integrity/runners/contract.json"
+    assert witness_entry["proof_artifacts"]["runner_surface_path"] == "runners/reportable_proof_contract.md"
+    assert witness_entry["proof_artifacts"]["scorer_helper_paths"] == ["scorers/bounded_rubric_breakdown.py"]
+    assert witness_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-witness-trace-integrity/reports/summary.schema.json"
+    assert witness_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-witness-trace-integrity/reports/example-report.json"
+    assert witness_entry["proof_artifacts"]["paired_readout_path"] is None
+
+    assert any(entry["name"] == "aoa-witness-trace-integrity" for entry in capsules["evals"])
+    assert any(entry["name"] == "aoa-witness-trace-integrity" for entry in sections["evals"])
+    assert all(entry["name"] != "aoa-witness-trace-integrity" for entry in comparison_spine["evals"])
+
+
+def test_real_repo_compost_provenance_preservation_enters_generated_surfaces_with_materialized_proof_artifacts() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+    capsules = build_capsule_payload(REPO_ROOT, records, full_catalog)
+    sections, section_issues = eval_section_contract.build_sections_payload(REPO_ROOT, records)
+    comparison_spine = build_comparison_spine_payload(REPO_ROOT, records, full_catalog)
+
+    assert section_issues == []
+    compost_entry = next(
+        entry for entry in full_catalog["evals"] if entry["name"] == "aoa-compost-provenance-preservation"
+    )
+
+    assert compost_entry["status"] == "draft"
+    assert compost_entry["portability_level"] == "local-shaped"
+    assert compost_entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/compost-provenance-v1/README.md"
+    assert compost_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-compost-provenance-preservation/fixtures/contract.json"
+    assert compost_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-compost-provenance-preservation/runners/contract.json"
+    assert compost_entry["proof_artifacts"]["runner_surface_path"] == "runners/reportable_proof_contract.md"
+    assert compost_entry["proof_artifacts"]["scorer_helper_paths"] == ["scorers/bounded_rubric_breakdown.py"]
+    assert compost_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-compost-provenance-preservation/reports/summary.schema.json"
+    assert compost_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-compost-provenance-preservation/reports/example-report.json"
+    assert compost_entry["proof_artifacts"]["paired_readout_path"] is None
+
+    assert any(entry["name"] == "aoa-compost-provenance-preservation" for entry in capsules["evals"])
+    assert any(entry["name"] == "aoa-compost-provenance-preservation" for entry in sections["evals"])
+    assert all(entry["name"] != "aoa-compost-provenance-preservation" for entry in comparison_spine["evals"])
+
+
+def test_real_repo_scope_drift_detection_keeps_bounded_status_while_exposing_materialized_proof_artifacts() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+    capsules = build_capsule_payload(REPO_ROOT, records, full_catalog)
+    sections, section_issues = eval_section_contract.build_sections_payload(REPO_ROOT, records)
+    comparison_spine = build_comparison_spine_payload(REPO_ROOT, records, full_catalog)
+
+    assert section_issues == []
+    scope_entry = next(
+        entry for entry in full_catalog["evals"] if entry["name"] == "aoa-scope-drift-detection"
+    )
+
+    assert scope_entry["status"] == "bounded"
+    assert scope_entry["portability_level"] == "local-shaped"
+    assert scope_entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/scope-drift-bounded-v1/README.md"
+    assert scope_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-scope-drift-detection/fixtures/contract.json"
+    assert scope_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-scope-drift-detection/runners/contract.json"
+    assert scope_entry["proof_artifacts"]["runner_surface_path"] == "runners/reportable_proof_contract.md"
+    assert scope_entry["proof_artifacts"]["scorer_helper_paths"] == ["scorers/bounded_rubric_breakdown.py"]
+    assert scope_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-scope-drift-detection/reports/summary.schema.json"
+    assert scope_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-scope-drift-detection/reports/example-report.json"
+    assert scope_entry["proof_artifacts"]["paired_readout_path"] is None
+
+    assert any(entry["name"] == "aoa-scope-drift-detection" for entry in capsules["evals"])
+    assert any(entry["name"] == "aoa-scope-drift-detection" for entry in sections["evals"])
+    assert all(entry["name"] != "aoa-scope-drift-detection" for entry in comparison_spine["evals"])
+
+
 def test_real_repo_return_anchor_integrity_enters_generated_surfaces_without_expanding_comparison_spine() -> None:
     issues, records = collect_catalog_records(REPO_ROOT)
 

@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-witness-trace-integrity summary-with-breakdown report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "breakdown",
+    "case_notes",
+    "major_review_flags"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-witness-trace-integrity"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "reviewable integrity of witness trace exports on bounded runs"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "breakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "step_visibility",
+        "tool_visibility",
+        "state_delta_visibility",
+        "failure_path_preservation",
+        "redaction_posture",
+        "summary_alignment"
+      ],
+      "properties": {
+        "step_visibility": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "tool_visibility": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "state_delta_visibility": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "failure_path_preservation": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "redaction_posture": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "summary_alignment": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        }
+      }
+    },
+    "case_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "trace_reading",
+          "trace_note",
+          "summary_boundary_note",
+          "next_inspection_target"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "trace_reading": {
+            "type": "string",
+            "enum": [
+              "supports bounded claim",
+              "mixed support",
+              "does not support bounded claim"
+            ]
+          },
+          "trace_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "summary_boundary_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "next_inspection_target": {
+            "type": "string",
+            "minLength": 5
+          }
+        }
+      }
+    },
+    "major_review_flags": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    }
+  }
+}

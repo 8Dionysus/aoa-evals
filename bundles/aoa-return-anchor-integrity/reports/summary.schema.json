@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "aoa-return-anchor-integrity summary report",
+  "title": "aoa-return-anchor-integrity summary-with-breakdown report",
   "type": "object",
   "additionalProperties": false,
   "required": [

@@ -55,6 +55,12 @@ It checks whether a return-capable route:
 - stayed inside a bounded loop discipline
 
 This bundle stays on anchor fidelity and honest re-entry.
+Its current materialized draft proof flow runs through
+`fixtures/return-anchor-v1/README.md`,
+`bundles/aoa-return-anchor-integrity/fixtures/contract.json`,
+`bundles/aoa-return-anchor-integrity/runners/contract.json`, and the
+schema-backed companion report in
+`bundles/aoa-return-anchor-integrity/reports/example-report.json`.
 
 It does not replace:
 

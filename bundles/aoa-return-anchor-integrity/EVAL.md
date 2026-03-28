@@ -27,6 +27,9 @@ anchor and bounded re-entry rather than through smooth improvisation?
 It is not a general workflow-quality eval.
 It is not a final-answer-quality eval.
 It is not a general safety or approval eval.
+Its current materialized draft proof flow runs through
+`fixtures/return-anchor-v1/README.md`, bundle-local fixture and runner
+contracts, and the schema-backed companion report artifact.
 
 ## Object under evaluation
 
@@ -111,6 +114,11 @@ Fixtures should avoid:
 - cases whose only evidence is polished summary prose
 - cases where raw full transcript continuity is silently required
 - cases that mainly test final artifact quality rather than return integrity
+
+The current materialized shared family is `fixtures/return-anchor-v1/README.md`.
+When the machine-readable proof surface is in use, local replacements should
+preserve the same four return pressures through the bounded replacement rule in
+`fixtures/contract.json`.
 
 ## Scoring or verdict logic
 
@@ -197,6 +205,15 @@ Execution expectations:
 - do not treat full raw continuity as if it were bounded rebuild
 - do not treat scope, approval, or verification questions as solved by this
   bundle alone
+- when shipping a machine-readable report, validate it against
+  `reports/summary.schema.json`
+- keep runtime evidence sidecars weaker than the bundle-local interpretation
+  boundary
+- keep the shared case-family contract in `fixtures/return-anchor-v1/README.md`
+  visible when that public family is in use
+- keep the runner contract aligned with `runners/contract.json` so return
+  reason, anchor validity, bounded rebuild, re-entry, safe stop, and loop
+  posture do not collapse into one top-line readout
 
 ## Outputs
 
@@ -207,6 +224,8 @@ The eval should produce:
 - one note on the strongest anchor-support signal
 - one note on the strongest return-risk gap
 - one explicit interpretation boundary
+- an optional schema-backed companion report artifact at
+  `reports/example-report.json`
 
 ## Failure modes
 
@@ -279,6 +298,10 @@ A mixed or negative result is still valuable because it can reveal:
 - confirm blind spots are named
 - confirm the output does not imply stronger claims than the bundle supports
 - confirm manifest evidence is explicit and resolves publicly
+- confirm the machine-readable report contract keeps return reason, anchor,
+  rebuild, re-entry, safe-stop, and loop posture distinct enough for review
+- confirm fixture and runner contracts preserve the same return-anchor question
+  under bounded local replacement
 
 ## Technique traceability
 

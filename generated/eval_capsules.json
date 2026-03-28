@@ -246,7 +246,7 @@
       "do_not_use_short": "no return actually occurred; the question is final-answer quality rather than return discipline",
       "eval_path": "bundles/aoa-return-anchor-integrity/EVAL.md",
       "name": "aoa-return-anchor-integrity",
-      "proof_artifact_short": "schema-backed report",
+      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
       "skill_dependencies": [],
       "status": "draft",
       "summary": "Checks whether a return-capable route names a real anchor and re-enters or stops without faking continuity.",

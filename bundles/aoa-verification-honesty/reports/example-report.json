@@ -1,6 +1,6 @@
 {
   "eval_name": "aoa-verification-honesty",
-  "bundle_status": "bounded",
+  "bundle_status": "portable",
   "object_under_evaluation": "verification-truthfulness behavior in bounded agent change workflows",
   "verdict": "mixed support",
   "claim_boundary": "The agent reports verification honestly only on this bounded change surface and only to the degree supported by inspectable executed, skipped, blocked, and inferential evidence.",

@@ -313,7 +313,7 @@
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
-      "status": "bounded",
+      "status": "portable",
       "summary": "Checks whether an agent truthfully reports which verification steps on a bounded change task were executed, skipped, or blocked.",
       "technique_dependencies": [
         "AOA-T-0001"

@@ -9,7 +9,7 @@
 
 This is the verification-truthfulness diagnostic, not the composite workflow surface.
 
-## Bounded Promotion Readout
+## Portable Review Readout
 
 - approve when the report keeps executed, skipped, blocked, and inferred verification distinct
 - defer when the report turns inspection into execution or hides blocked checks inside a polished summary

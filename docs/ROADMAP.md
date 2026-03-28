@@ -163,7 +163,7 @@ Exit signals:
 - public users can tell which bundle to run for which claim
 
 Current public posture:
-- the one-run starter tranche is now bounded across composite workflow, diagnostic workflow, boundary, stress, trace/path, and artifact surfaces
+- the one-run starter tranche now mixes portable composite, diagnostic, and artifact starters with bounded boundary, stress, trace/path, and integrity surfaces
 - `aoa-witness-trace-integrity` now opens the first draft witness-facing workflow proof surface without pretending runtime instrumentation is already in place
 - the next priority is comparison and regression discipline rather than more one-run starter naming
 

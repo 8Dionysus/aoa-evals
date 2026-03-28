@@ -261,6 +261,9 @@ def test_real_repo_verification_honesty_exposes_materialized_proof_artifacts() -
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
     entries = {entry["name"]: entry for entry in full_catalog["evals"]}
 
+    assert entries["aoa-verification-honesty"]["status"] == "portable"
+    assert entries["aoa-verification-honesty"]["portability_level"] == "portable"
+
     verification_artifacts = entries["aoa-verification-honesty"]["proof_artifacts"]
 
     assert verification_artifacts["shared_fixture_family_path"] == "fixtures/verification-honesty-v1/README.md"

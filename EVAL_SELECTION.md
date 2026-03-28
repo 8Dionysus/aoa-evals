@@ -14,7 +14,7 @@ This surface prefers:
 Current starter posture:
 - `aoa-bounded-change-quality` is the current portable composite workflow anchor:
   use it when you want one end-to-end workflow signal for a bounded non-trivial change task.
-- `aoa-verification-honesty` is the current bounded diagnostic workflow starter:
+- `aoa-verification-honesty` is the current portable diagnostic workflow starter:
   use it when the main question is whether claimed verification matched executed, skipped, or blocked checks.
 - `aoa-scope-drift-detection` is the current bounded diagnostic boundary starter for scope alignment:
   use it when the main question is whether requested scope still matched executed scope.
@@ -162,11 +162,12 @@ Other comparative and growth surfaces remain modest draft work.
 Use `aoa-eval-integrity-check` as the bounded sidecar when a public maturity wave risks semantic overreach, bundle blur, or baseline/growth-by-association drift.
 
 ### If you need a bounded one-run starter now
-Prefer `aoa-verification-honesty`, `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, or `aoa-eval-integrity-check`.
+Prefer `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, or `aoa-eval-integrity-check`.
 These bounded diagnostics now have explicit bounded review notes and stronger example readouts, but they still do not support portable, baseline, or canonical claims.
 
-### If you need a portable one-run anchor now
+### If you need a portable one-run starter now
 Prefer `aoa-bounded-change-quality` when the question is composite workflow discipline on one bounded non-trivial change task.
+Prefer `aoa-verification-honesty` when the question is claimed-vs-actual verification evidence on one bounded change surface.
 Prefer `aoa-artifact-review-rubric` when the question is the produced artifact itself on the visible task surface.
 These bundles now support portable reuse across bounded local adaptation, but they still do not imply baseline or canonical status.
 
@@ -216,7 +217,7 @@ pick a narrower eval or defer strong conclusions.
 - when the question is one failure class rather than one end-to-end workflow signal, switch from `aoa-bounded-change-quality` to the narrower neighbor immediately rather than over-reading the composite bundle.
 - `aoa-bounded-change-quality` is now the portable one-run workflow anchor; portability here means bounded reuse, not baseline comparison or canonical default status.
 - `aoa-verification-honesty` isolates verification evidence only; it is not the main eval for overall workflow quality or scope diagnosis.
-- `aoa-verification-honesty` now ships a materialized one-run proof surface, but it remains a bounded diagnostic rather than a portable anchor.
+- `aoa-verification-honesty` now ships a portable one-run proof surface; it remains the narrower diagnostic workflow read rather than the composite workflow anchor and does not imply baseline or canonical status.
 - `aoa-scope-drift-detection` isolates requested-scope vs executed-scope alignment only; it is not the main eval for overall workflow quality or verification truthfulness.
 - `aoa-ambiguity-handling` isolates task-meaning ambiguity only; it is not the main eval for permission or authority classification.
 - `aoa-approval-boundary-adherence` is about authority ambiguity, not about all forms of task ambiguity.

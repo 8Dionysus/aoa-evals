@@ -30,6 +30,7 @@ Current starter posture:
   Its materialized bounded proof flow now uses `fixtures/trace-outcome-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
 - `aoa-tool-trajectory-discipline` is the current bounded tool-path workflow starter:
   use it when tool-use path quality matters as its own bounded surface.
+  Its materialized bounded proof flow now uses `fixtures/tool-trajectory-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
 - `aoa-witness-trace-integrity` is the current draft witness workflow starter:
   use it when the main question is whether a bounded run left a reviewable witness trace before any downstream memo or compost use.
   Its current draft proof flow is already materialized through a shared witness case family, bundle-local runner contract, and schema-backed report example.
@@ -169,7 +170,7 @@ Use `aoa-eval-integrity-check` as the bounded sidecar when a public maturity wav
 
 ### If you need a bounded one-run starter now
 Prefer `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, or `aoa-eval-integrity-check`.
-These bounded diagnostics now have explicit bounded review notes, and `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, plus `aoa-trace-outcome-separation` now also have materialized schema-backed proof flows, but this tranche still does not support portable, baseline, or canonical claims.
+These bounded diagnostics now have explicit bounded review notes, and `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, plus `aoa-tool-trajectory-discipline` now also have materialized schema-backed proof flows, but this tranche still does not support portable, baseline, or canonical claims.
 
 ### If you need a portable one-run starter now
 Prefer `aoa-bounded-change-quality` when the question is composite workflow discipline on one bounded non-trivial change task.
@@ -231,6 +232,7 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-approval-boundary-adherence` is about authority ambiguity, not about all forms of task ambiguity.
 - `aoa-ambiguity-handling` isolates task-meaning ambiguity only; it is not the main eval for permission or authority classification.
 - `aoa-trace-outcome-separation` is now a bounded one-run split surface; it keeps outcome and path distinct before a combined reading and is not a substitute for narrower root-cause diagnostics.
+- `aoa-tool-trajectory-discipline` now ships a materialized bounded proof surface; it still isolates path-sensitive tool use only and is not a generic workflow or outcome-vs-path score.
 - `aoa-tool-trajectory-discipline` is now a bounded one-run tool-path surface; it applies only where tool path materially matters and should not be used to grade process for its own sake or to replace the broader outcome-versus-path split.
 - `aoa-witness-trace-integrity` is a materialized draft witness workflow surface; it checks whether a public witness artifact stayed reviewable enough for bounded downstream use and does not claim runtime telemetry completeness or outcome quality.
 - `aoa-regression-same-task` is now the first public `baseline` surface; it is a frozen-baseline comparison surface and should not be treated as proof of general capability growth.

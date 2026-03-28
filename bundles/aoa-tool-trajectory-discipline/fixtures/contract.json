@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/tool-trajectory-bounded-v1/README.md",
+  "shared_case_surface": "bounded path-sensitive tasks that keep why-path-matters evidence, inspectable tool traces, omission-or-churn notes, and failure-versus-readout distinctions visible on the same tool-trajectory surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same tool-trajectory question, keeps why the path matters visible before the trajectory is judged, and still covers sequencing-matters, avoidable churn, skipped obvious checks, disciplined-versus-noisy same-outcome, and tool-misuse-hides-risk pressures without collapsing the bundle into a generic workflow score or one hidden ideal sequence.",
+  "public_safe_requirements": [
+    "a bounded outside reviewer can inspect the tool evidence directly",
+    "why path matters stays visible in the case contract before any trajectory note",
+    "avoidable churn and obvious omissions remain inspectable as separate path failures",
+    "the public readout stays weaker than the visible tool-path evidence"
+  ]
+}

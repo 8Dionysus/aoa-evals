@@ -1,0 +1,24 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "bounded path-sensitive case dossier",
+    "why-path-matters statement",
+    "visible tool evidence",
+    "trajectory note",
+    "omission or churn note",
+    "failure-versus-readout note",
+    "bundle-level trajectory summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-tool-trajectory-discipline/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-tool-trajectory-discipline/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-tool-trajectory-discipline/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-tool-trajectory-discipline"
+  ]
+}

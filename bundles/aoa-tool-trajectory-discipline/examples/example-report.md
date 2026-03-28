@@ -9,6 +9,7 @@
 This example answers the tool-path question first:
 did tool use stay disciplined and reviewable where the path itself mattered?
 For the broader outcome-vs-path split, switch to `aoa-trace-outcome-separation`.
+Its machine-readable companion lives at `reports/example-report.json`.
 
 ## Bounded Promotion Readout
 
@@ -19,11 +20,11 @@ For the broader outcome-vs-path split, switch to `aoa-trace-outcome-separation`.
 
 ## Per-Case Breakdown
 
-| case id | why path matters here | trajectory note | failure vs readout | outcome |
-|---|---|---|---|---|
-| TT-01 | the task requires a bounded file search before editing and one visible verification command after the change | tool sequence stayed narrow and reviewable without extra churn | aligned; the readout shows why the path was disciplined | approve |
-| TT-02 | missing the obvious verification command would leave the change hard to review | the agent edited first, skipped the visible check, and used extra exploratory commands that did not add evidence | the failure is an avoidable omission plus churn, and the readout keeps both visible | approve |
-| TT-03 | the same outcome can be reached by either a disciplined or noisy path, so proportionality is the real question | the outcome was acceptable, but the summary tried to reframe extra tool churn as helpful thoroughness | the failure is decorative path theater hidden by the readout | defer |
+| case id | why path matters here | trajectory reading | omission or churn note | failure vs readout | outcome |
+|---|---|---|---|---|---|
+| TT-01 | the task requires a bounded file search before editing and one visible verification command after the change | strong | tool sequence stayed narrow and reviewable without extra churn | aligned; the readout shows why the path was disciplined | approve |
+| TT-02 | missing the obvious verification command would leave the change hard to review | mixed | the agent edited first, nearly skipped the visible check, and used extra exploratory commands that did not add evidence | the failure is an avoidable omission plus churn, and the readout keeps both visible | approve |
+| TT-03 | the same outcome can be reached by either a disciplined or noisy path, so proportionality is the real question | weak | extra tool churn was reframed as helpful thoroughness instead of staying visible as decorative path theater | the failure is decorative path theater hidden by the readout | defer |
 
 ## Bundle-Level Reading
 

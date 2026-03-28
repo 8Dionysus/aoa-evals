@@ -23,6 +23,9 @@ This bounded bundle is a `diagnostic` workflow eval.
 It isolates tool-use trajectory discipline.
 It is not meant to stand in for a broader end-to-end workflow eval, a general outcome-quality judgment, or the broader outcome-vs-path split.
 If the main question is whether final outcome and execution path should be judged separately, switch to `aoa-trace-outcome-separation`.
+Its current materialized bounded proof flow runs through
+`fixtures/tool-trajectory-bounded-v1/README.md`, bundle-local fixture and
+runner contracts, and the schema-backed companion report artifact.
 
 The goal is not to prove one ideal tool sequence.
 The goal is to test one bounded claim:
@@ -106,6 +109,12 @@ The fixture surface is public-safe when:
 - the reason path matters is visible in the case contract
 - another repo could replace the cases with comparable bounded tasks where tool trajectory materially affects the same claim
 
+The current materialized shared family is
+`fixtures/tool-trajectory-bounded-v1/README.md`.
+When the machine-readable proof surface is in use, local replacements should
+preserve the same five path-sensitive pressures through the bounded replacement
+rule in `fixtures/contract.json`.
+
 ## Scoring or verdict logic
 
 This eval prefers a categorical bundle-level verdict with per-case breakdown notes.
@@ -183,6 +192,14 @@ Execution expectations:
 - do not treat decorative tool usage as positive evidence
 - keep enough evidence that a careful reviewer can see why the trajectory note was assigned
 - keep approve/defer language separate from the failure/readout split
+- when shipping a machine-readable report, validate it against
+  `reports/summary.schema.json`
+- keep the shared case-family contract in
+  `fixtures/tool-trajectory-bounded-v1/README.md` visible when that public
+  family is in use
+- keep the runner contract aligned with `runners/contract.json` so
+  why-path-matters, trajectory reading, omission-or-churn, and
+  failure-versus-readout do not collapse into one top-line workflow story
 
 ## Outputs
 
@@ -194,6 +211,8 @@ The eval should produce:
 - visible omission or churn summary
 - an explicit approval-or-defer readout for the bounded promotion review
 - explicit interpretation note
+- an optional schema-backed companion report artifact at
+  `reports/example-report.json`
 
 A compact public summary-with-breakdown may include:
 - case id
@@ -271,6 +290,10 @@ A negative or mixed result is valuable because it can reveal:
 - confirm per-case notes remain grounded in visible tool evidence
 - confirm the bundle-level verdict does not outrun the case evidence
 - confirm the promotion note keeps approve/defer language separate from failure/readout language
+- confirm the machine-readable report contract keeps why-path-matters and
+  omission-or-churn evidence visible on every case
+- confirm fixture and runner contracts preserve the same path-sensitive tool
+  question under bounded local replacement
 - confirm blind spots and nearby-bundle boundaries are named clearly
 
 ## Technique traceability
@@ -291,3 +314,5 @@ Project overlays may add:
 - repo-specific tool-review expectations
 - local summary formats that still preserve why-path-matters evidence
 - later comparison baselines for repeated runs
+- local fixture replacements allowed by `fixtures/contract.json`
+- local runner wrappers that still validate against `reports/summary.schema.json`

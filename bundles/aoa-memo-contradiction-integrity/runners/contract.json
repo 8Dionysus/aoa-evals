@@ -1,0 +1,24 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "memo contradiction case dossier",
+    "explicit object-facing read path note",
+    "selected claim or audit-event surfaces",
+    "lifecycle and current-recall note",
+    "contradiction-linkage note",
+    "audit or replacement-walkback note when present",
+    "bundle-level contradiction summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-memo-contradiction-integrity/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-memo-contradiction-integrity/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-memo-contradiction-integrity/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-memo-contradiction-integrity"
+  ]
+}

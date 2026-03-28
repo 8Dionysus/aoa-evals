@@ -702,6 +702,80 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
+      "eval_path": "bundles/aoa-memo-contradiction-integrity/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/contradiction-guardrail-pilot.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/proof-surface-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "export_ready": false,
+      "maturity_score": 2,
+      "name": "aoa-memo-contradiction-integrity",
+      "object_under_evaluation": "integrity of contradiction-visible memo consumption on lifecycle-aware object recall paths",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-memo-contradiction-integrity/fixtures/contract.json",
+        "paired_readout_path": null,
+        "report_example_path": "bundles/aoa-memo-contradiction-integrity/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-memo-contradiction-integrity/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-memo-contradiction-integrity/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/memo-contradiction-guardrail-v1/README.md"
+      },
+      "relations": [
+        {
+          "target": "aoa-memo-recall-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-long-horizon-depth",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-compost-provenance-preservation",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether lifecycle-aware memo consumers keep superseded, retracted, and still-open contradiction posture explicit instead of flattening memory tension into one smooth current story.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "validation_strength": "baseline",
+      "verdict_shape": "mixed"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
+      "category": "workflow",
+      "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-memo-recall-integrity/EVAL.md",
       "evidence": [
         {

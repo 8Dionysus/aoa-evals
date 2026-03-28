@@ -196,6 +196,10 @@ The memo-recall integrity pilot is now also present as a materialized draft
 non-starter diagnostic bundle anchored to `aoa-memo` guardrail surfaces, but it
 remains intentionally narrower than the broader comparison and starter
 programs.
+The memo-contradiction integrity pilot is now also present as a materialized
+draft non-starter diagnostic bundle anchored to lifecycle, audit-event, and
+current-recall surfaces in `aoa-memo`, while remaining narrower than
+permission, promotion, or merge-hallucination guardrails.
 The witness/compost pilot pair now also has materialized draft case families,
 runner contracts, and schema-backed report artifacts, while remaining weaker
 than runtime instrumentation and canon claims.

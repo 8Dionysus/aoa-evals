@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/memo-contradiction-guardrail-v1/README.md",
+  "shared_case_surface": "lifecycle-aware memo contradiction cases that keep review_state, current_recall posture, contradiction refs, replacement-vs-withdrawal distinction, and audit or provenance walkback reviewable on the same bounded object-facing consumer surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same memo contradiction-integrity question, keeps the object-facing read path explicit, and still covers preferred-with-contradiction visibility, superseded historical posture, retracted withdrawn posture, still-open contradiction tension, and smoothing-pressure escalation to audit or provenance walkback without turning the bundle into recall precision, permission inference, promotion review, or broad memory-quality grading.",
+  "public_safe_requirements": [
+    "a bounded outside reviewer can inspect the selected object surfaces and lifecycle fields directly",
+    "superseded, withdrawn, and still-open contradictory states remain distinguishable during recall",
+    "contradiction refs, replacement refs, and audit or provenance walkback remain reviewable when present",
+    "lifecycle posture stays weaker than proof or contradiction resolution"
+  ]
+}

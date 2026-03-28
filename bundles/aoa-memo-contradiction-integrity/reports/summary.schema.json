@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-memo-contradiction-integrity summary-with-breakdown report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "breakdown",
+    "strongest_contradiction_signal",
+    "strongest_contradiction_risk",
+    "case_notes"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-memo-contradiction-integrity"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "integrity of contradiction-visible memo consumption on lifecycle-aware object recall paths"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "breakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lifecycle_visibility",
+        "current_recall_honesty",
+        "contradiction_linkage",
+        "replacement_vs_withdrawal_clarity",
+        "audit_trace_visibility"
+      ],
+      "properties": {
+        "lifecycle_visibility": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "current_recall_honesty": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "contradiction_linkage": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "replacement_vs_withdrawal_clarity": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "audit_trace_visibility": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        }
+      }
+    },
+    "strongest_contradiction_signal": {
+      "type": "string",
+      "minLength": 10
+    },
+    "strongest_contradiction_risk": {
+      "type": "string",
+      "minLength": 10
+    },
+    "case_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "read_path",
+          "contradiction_reading",
+          "lifecycle_note",
+          "current_recall_note",
+          "contradiction_note",
+          "audit_or_replacement_note"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "read_path": {
+            "type": "string",
+            "minLength": 5
+          },
+          "contradiction_reading": {
+            "type": "string",
+            "enum": [
+              "supports bounded claim",
+              "mixed support",
+              "does not support bounded claim"
+            ]
+          },
+          "lifecycle_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "current_recall_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "contradiction_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "audit_or_replacement_note": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    }
+  }
+}

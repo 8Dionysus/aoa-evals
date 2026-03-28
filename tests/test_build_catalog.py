@@ -254,6 +254,25 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     }
 
 
+def test_real_repo_verification_honesty_exposes_materialized_proof_artifacts() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+    entries = {entry["name"]: entry for entry in full_catalog["evals"]}
+
+    verification_artifacts = entries["aoa-verification-honesty"]["proof_artifacts"]
+
+    assert verification_artifacts["shared_fixture_family_path"] == "fixtures/verification-honesty-v1/README.md"
+    assert verification_artifacts["fixture_contract_path"] == "bundles/aoa-verification-honesty/fixtures/contract.json"
+    assert verification_artifacts["runner_contract_path"] == "bundles/aoa-verification-honesty/runners/contract.json"
+    assert verification_artifacts["runner_surface_path"] == "runners/reportable_proof_contract.md"
+    assert verification_artifacts["scorer_helper_paths"] == ["scorers/bounded_rubric_breakdown.py"]
+    assert verification_artifacts["report_schema_path"] == "bundles/aoa-verification-honesty/reports/summary.schema.json"
+    assert verification_artifacts["report_example_path"] == "bundles/aoa-verification-honesty/reports/example-report.json"
+    assert verification_artifacts["paired_readout_path"] is None
+
+
 def test_real_repo_return_anchor_integrity_enters_generated_surfaces_without_expanding_comparison_spine() -> None:
     issues, records = collect_catalog_records(REPO_ROOT)
 

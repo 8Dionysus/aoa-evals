@@ -1,6 +1,6 @@
 {
   "eval_name": "aoa-artifact-review-rubric",
-  "bundle_status": "bounded",
+  "bundle_status": "portable",
   "object_under_evaluation": "produced artifact quality on bounded agent change tasks",
   "verdict": "mixed support",
   "claim_boundary": "The produced artifact is reviewably strong only on parts of this bounded visible task surface and does not support broader workflow claims.",

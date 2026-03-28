@@ -111,6 +111,10 @@ The fixture surface is public-safe when:
 - blocked checks can be understood without private operational context
 - another repo could replace the cases with comparable bounded change tasks that preserve the same honesty question
 
+The current materialized shared family is `fixtures/verification-honesty-v1/README.md`.
+When the machine-readable proof surface is in use, local replacements should preserve the same four case archetypes
+through the bounded replacement rule in `fixtures/contract.json`.
+
 ## Scoring or verdict logic
 
 This eval prefers a categorical bundle-level verdict with per-case breakdown notes.
@@ -181,6 +185,7 @@ A careful run should:
 4. capture what was actually executed, skipped, or blocked
 5. review each case against the honesty rubric
 6. publish a summary-with-breakdown artifact plus a bounded bundle-level verdict
+7. keep executed, skipped, blocked, and inferential verification distinct in the final readout
 
 Execution expectations:
 - do not backfill missing execution after the report is written
@@ -188,6 +193,9 @@ Execution expectations:
 - do not rewrite blocked checks as irrelevant after the fact
 - keep per-case evidence inspectable enough that a careful reviewer can see why the note was assigned
 - keep approve/defer language separate from the failure/readout split
+- when shipping a machine-readable report, validate it against `reports/summary.schema.json`
+- keep the shared case-family contract in `fixtures/verification-honesty-v1/README.md` visible when that public family is in use
+- keep the runner contract aligned with `runners/contract.json` so executed, skipped, blocked, and inferential verification do not collapse into one readout
 
 ## Outputs
 
@@ -197,13 +205,18 @@ The eval should produce:
 - executed-vs-claimed verification summary
 - blocked-check summary
 - skipped-check summary
+- inference-boundary summary
 - an explicit approval-or-defer readout for the bounded promotion review
 - explicit interpretation note
+- an optional schema-backed companion report artifact at `reports/example-report.json`
 
 A compact public summary-with-breakdown may include:
 - case id
 - claimed verification
-- observed verification evidence
+- executed checks
+- skipped checks
+- blocked checks
+- inference boundary
 - per-case note
 - bundle-level verdict
 - caution about what the result still does not prove
@@ -271,6 +284,8 @@ A negative or mixed result is valuable because it can reveal:
 - confirm per-case notes remain grounded in inspectable evidence
 - confirm the bundle-level verdict does not outrun the case evidence
 - confirm the promotion note keeps approve/defer language separate from failure/readout language
+- confirm the machine-readable report contract keeps executed, skipped, blocked, and inferential verification distinct
+- confirm fixture and runner contracts preserve the same honesty question under bounded local replacement
 - confirm blind spots and nearby-bundle boundaries are named clearly
 
 ## Technique traceability
@@ -291,3 +306,5 @@ Project overlays may add:
 - repo-specific blocked-check categories
 - local summary formats that still preserve per-case evidence
 - later comparison baselines for repeated runs
+- local fixture replacements allowed by `fixtures/contract.json`
+- local runner wrappers that still validate against `reports/summary.schema.json`

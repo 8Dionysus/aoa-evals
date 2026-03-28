@@ -162,6 +162,10 @@
           "path": "notes/origin-need.md"
         },
         {
+          "kind": "portable_review",
+          "path": "notes/portable-review.md"
+        },
+        {
           "kind": "support_note",
           "path": "notes/bounded-promotion-review.md"
         },
@@ -175,10 +179,10 @@
         }
       ],
       "export_ready": true,
-      "maturity_score": 2,
+      "maturity_score": 3,
       "name": "aoa-artifact-review-rubric",
       "object_under_evaluation": "produced artifact quality on bounded agent change tasks",
-      "portability_level": "local-shaped",
+      "portability_level": "portable",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-artifact-review-rubric/fixtures/contract.json",
         "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
@@ -220,7 +224,7 @@
           "repo": "aoa-skills"
         }
       ],
-      "status": "bounded",
+      "status": "portable",
       "summary": "Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating polish as proof of workflow discipline.",
       "technique_dependencies": [
         "AOA-T-0001"
@@ -248,6 +252,10 @@
           "path": "notes/origin-need.md"
         },
         {
+          "kind": "portable_review",
+          "path": "notes/portable-review.md"
+        },
+        {
           "kind": "support_note",
           "path": "notes/summary-contract.md"
         },
@@ -261,10 +269,10 @@
         }
       ],
       "export_ready": true,
-      "maturity_score": 2,
+      "maturity_score": 3,
       "name": "aoa-bounded-change-quality",
       "object_under_evaluation": "bounded agent change workflow",
-      "portability_level": "local-shaped",
+      "portability_level": "portable",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-bounded-change-quality/fixtures/contract.json",
         "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
@@ -326,7 +334,7 @@
           "repo": "aoa-skills"
         }
       ],
-      "status": "bounded",
+      "status": "portable",
       "summary": "Checks whether a non-trivial agent change stays scoped, explicitly verified, and clearly reported without silent task expansion.",
       "technique_dependencies": [
         "AOA-T-0001"
@@ -1210,6 +1218,10 @@
           "path": "notes/bounded-promotion-review.md"
         },
         {
+          "kind": "support_note",
+          "path": "notes/proof-contract.md"
+        },
+        {
           "kind": "integrity_check",
           "path": "checks/eval-integrity-check.md"
         }
@@ -1220,14 +1232,16 @@
       "object_under_evaluation": "verification-truthfulness behavior in bounded agent change workflows",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": null,
+        "fixture_contract_path": "bundles/aoa-verification-honesty/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": null,
-        "report_schema_path": null,
-        "runner_contract_path": null,
-        "runner_surface_path": null,
-        "scorer_helper_paths": [],
-        "shared_fixture_family_path": null
+        "report_example_path": "bundles/aoa-verification-honesty/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-verification-honesty/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-verification-honesty/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/verification-honesty-v1/README.md"
       },
       "relations": [
         {

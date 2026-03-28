@@ -11,7 +11,7 @@
 This is the standalone artifact review surface.
 For the paired bridge read, use `aoa-output-vs-process-gap` after the artifact surface is clear.
 
-## Bounded Promotion Readout
+## Portable Review Readout
 
 - approve when the report keeps rubric-axis notes visible before any bundle-level verdict
 - defer when polish is used to hide visible misses in fit, coherence, completeness, or reviewability

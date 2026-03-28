@@ -9,9 +9,29 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    env:
+      AOA_TECHNIQUES_ROOT: ${{ github.workspace }}/.deps/aoa-techniques
+      AOA_SKILLS_ROOT: ${{ github.workspace }}/.deps/aoa-skills
+      AOA_AGENTS_ROOT: ${{ github.workspace }}/.deps/aoa-agents
+      AOA_PLAYBOOKS_ROOT: ${{ github.workspace }}/.deps/aoa-playbooks
+      AOA_MEMO_ROOT: ${{ github.workspace }}/.deps/aoa-memo
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Checkout aoa-techniques
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: 8Dionysus/aoa-techniques
+          ref: 296de7615afeeca721b11a7091d41e7fe63b96ec
+          path: .deps/aoa-techniques
+
+      - name: Checkout aoa-skills
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: 8Dionysus/aoa-skills
+          ref: 0ed9286aff3222a5e86875af8e2d885c6d0128ec
+          path: .deps/aoa-skills
 
       - name: Checkout aoa-agents
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -42,9 +62,11 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements-dev.txt
 
+      - name: Check generated surfaces
+        run: python scripts/build_catalog.py --check
+
       - name: Run eval validator
-        env:
-          AOA_AGENTS_ROOT: ${{ github.workspace }}/.deps/aoa-agents
-          AOA_PLAYBOOKS_ROOT: ${{ github.workspace }}/.deps/aoa-playbooks
-          AOA_MEMO_ROOT: ${{ github.workspace }}/.deps/aoa-memo
         run: python scripts/validate_repo.py
+
+      - name: Run tests
+        run: python -m pytest -q

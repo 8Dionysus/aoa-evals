@@ -1,7 +1,7 @@
 ---
 name: aoa-artifact-review-rubric
 category: artifact
-status: bounded
+status: portable
 summary: Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating polish as proof of workflow discipline.
 object_under_evaluation: produced artifact quality on bounded agent change tasks
 claim_type: bounded
@@ -19,7 +19,7 @@ skill_dependencies:
 
 Use this eval to check whether a produced artifact on a bounded change task is strong on the visible task surface.
 
-This bounded bundle is a `diagnostic` artifact eval.
+This portable bundle is a `diagnostic` artifact eval.
 It isolates artifact quality.
 It is not meant to stand in for workflow discipline, path quality, or authority handling.
 If the main question is workflow discipline, path quality, or authority handling,
@@ -177,7 +177,7 @@ Signals toward `mixed support` or `does not support bounded claim`:
 
 This bounded bundle uses `none`.
 
-It is a standalone diagnostic proof surface.
+It is a portable standalone diagnostic proof surface.
 A later comparison form may compare:
 - the same agent across comparable artifact families
 - alternate output styles on the same bounded cases

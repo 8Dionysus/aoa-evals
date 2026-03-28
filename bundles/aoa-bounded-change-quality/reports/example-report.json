@@ -1,6 +1,6 @@
 {
   "eval_name": "aoa-bounded-change-quality",
-  "bundle_status": "bounded",
+  "bundle_status": "portable",
   "object_under_evaluation": "bounded agent change workflow",
   "verdict": "supports bounded claim",
   "claim_boundary": "The bounded change workflow stayed scoped, named real or honestly limited verification, and kept the final readout aligned with the actual work.",

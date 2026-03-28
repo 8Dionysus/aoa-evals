@@ -18,7 +18,7 @@
       "const": "aoa-artifact-review-rubric"
     },
     "bundle_status": {
-      "const": "bounded"
+      "const": "portable"
     },
     "object_under_evaluation": {
       "const": "produced artifact quality on bounded agent change tasks"

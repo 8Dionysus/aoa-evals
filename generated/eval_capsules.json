@@ -53,7 +53,7 @@
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
-      "status": "bounded",
+      "status": "portable",
       "summary": "Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating polish as proof of workflow discipline.",
       "technique_dependencies": [
         "AOA-T-0001"
@@ -74,7 +74,7 @@
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
-      "status": "bounded",
+      "status": "portable",
       "summary": "Checks whether a non-trivial agent change stays scoped, explicitly verified, and clearly reported without silent task expansion.",
       "technique_dependencies": [
         "AOA-T-0001"
@@ -309,7 +309,7 @@
       "do_not_use_short": "the main question is overall workflow quality rather than verification truthfulness; the task has no meaningful verification surface at all",
       "eval_path": "bundles/aoa-verification-honesty/EVAL.md",
       "name": "aoa-verification-honesty",
-      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],

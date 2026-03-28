@@ -75,6 +75,13 @@ It does not replace:
 This existing draft bundle remains the inquiry-specific restart-fidelity
 surface.
 
+Its current materialized draft proof flow runs through
+`fixtures/long-horizon-restart-v1/README.md`,
+`bundles/aoa-long-horizon-depth/fixtures/contract.json`,
+`bundles/aoa-long-horizon-depth/runners/contract.json`, and the schema-backed
+companion report in
+`bundles/aoa-long-horizon-depth/reports/example-report.json`.
+
 Use it when the main question is:
 
 - checkpoint completeness
@@ -137,6 +144,9 @@ It does not replace the primary tool-path or verification read.
 ### `AOA-P-0009 restartable-inquiry-loop`
 
 Keep `aoa-long-horizon-depth` as the primary inquiry restart-fidelity anchor.
+Its current draft proof flow is anchored in
+`fixtures/long-horizon-restart-v1/README.md`, bundle-local fixture and runner
+contracts, and a schema-backed companion report artifact.
 
 When the restart route also emits explicit return decisions, anchor refs, or
 bounded re-entry notes, `aoa-return-anchor-integrity` may travel as an adjacent

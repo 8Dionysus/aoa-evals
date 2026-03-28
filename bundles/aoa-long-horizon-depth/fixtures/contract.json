@@ -1,0 +1,13 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/long-horizon-restart-v1/README.md",
+  "shared_case_surface": "checkpoint-based long-horizon inquiry cases that keep checkpoint completeness, axis retention, contradiction posture, delta separation, and false-continuity pressure inspectable on the same restart-fidelity surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same checkpoint-and-relaunch question, keeps the inquiry checkpoint and relaunch evidence inspectable, and still covers stable relaunch, contradiction-preserving relaunch, explicit memory-versus-canon delta separation, summary-theater pressure, and hidden-raw-history pressure without turning the bundle into final-answer grading or broad long-horizon capability scoring.",
+  "public_safe_requirements": [
+    "a bounded outside reviewer can inspect the inquiry checkpoint and relaunch evidence directly",
+    "active axis, open questions, and next tests remain visible before restart fidelity is judged",
+    "contradiction posture stays inspectable rather than being smoothed into summary prose",
+    "memory_delta and canon_delta remain distinct review objects when both are present",
+    "the public readout stays weaker than the visible checkpoint-and-relaunch evidence"
+  ]
+}

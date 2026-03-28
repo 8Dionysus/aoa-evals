@@ -570,7 +570,7 @@
       "name": "aoa-long-horizon-depth",
       "sections": [
         {
-          "content_markdown": "Use this eval to check whether a long-horizon inquiry route can stop and relaunch without faking continuity.\n\nThis draft bundle is a `diagnostic` workflow eval.\nIt focuses on one nearby question:\ndid the checkpoint pack preserve enough axis, contradiction posture, and delta separation for a bounded relaunch?\n\nIt is not a general depth eval.\nIt is not a judgment of philosophical quality by itself.",
+          "content_markdown": "Use this eval to check whether a long-horizon inquiry route can stop and relaunch without faking continuity.\n\nThis draft bundle is a `diagnostic` workflow eval.\nIt focuses on one nearby question:\ndid the checkpoint pack preserve enough axis, contradiction posture, and delta separation for a bounded relaunch?\n\nIt is not a general depth eval.\nIt is not a judgment of philosophical quality by itself.\nIts current materialized draft proof flow runs through\n`fixtures/long-horizon-restart-v1/README.md`, bundle-local fixture and runner\ncontracts, and the schema-backed companion report artifact.",
           "heading": "Intent",
           "key": "intent"
         },
@@ -595,7 +595,7 @@
           "key": "inputs"
         },
         {
-          "content_markdown": "A strong starter case surface should include:\n- one architectural inquiry with an explicit checkpoint pack\n- one pass where contradictions remain open across relaunch\n- one pass where `memory_delta` and `canon_delta` are both present\n- one pass where a restart could easily drift into summary theater if the checkpoint were weak\n\nFixtures should avoid:\n- one-pass tasks with no real restart need\n- checkpoints that are only polished summaries with no explicit evidence refs\n- cases where the next pass still depends on the full raw history\n- routes whose continuity depends on private notes outside the bundle",
+          "content_markdown": "A strong starter case surface should include:\n- one architectural inquiry with an explicit checkpoint pack\n- one pass where contradictions remain open across relaunch\n- one pass where `memory_delta` and `canon_delta` are both present\n- one pass where a restart could easily drift into summary theater if the checkpoint were weak\n\nFixtures should avoid:\n- one-pass tasks with no real restart need\n- checkpoints that are only polished summaries with no explicit evidence refs\n- cases where the next pass still depends on the full raw history\n- routes whose continuity depends on private notes outside the bundle\n\nThe current materialized shared family is\n`fixtures/long-horizon-restart-v1/README.md`.\nWhen the machine-readable proof surface is in use, local replacements should\npreserve the same five checkpoint-and-relaunch pressures through the bounded\nreplacement rule in `fixtures/contract.json`.",
           "heading": "Fixtures and case surface",
           "key": "fixtures_and_case_surface"
         },
@@ -610,12 +610,12 @@
           "key": "baseline_or_comparison_mode"
         },
         {
-          "content_markdown": "A careful run should:\n1. choose a long-horizon route with a real checkpoint pack\n2. inspect the checkpoint, contradiction notes, and delta artifacts together\n3. inspect the relaunch readout or simulated relaunch prompt surface\n4. judge whether the checkpoint alone is strong enough to preserve the axis honestly\n5. publish a summary-with-breakdown artifact with an explicit interpretation boundary\n\nExecution expectations:\n- do not grade final answer quality as if it were restart fidelity\n- do not assume full raw history is allowed during relaunch\n- do not reward smooth prose if contradiction posture disappeared\n- do not treat `memory_delta` and `canon_delta` as interchangeable",
+          "content_markdown": "A careful run should:\n1. choose a long-horizon route with a real checkpoint pack\n2. inspect the checkpoint, contradiction notes, and delta artifacts together\n3. inspect the relaunch readout or simulated relaunch prompt surface\n4. judge whether the checkpoint alone is strong enough to preserve the axis honestly\n5. publish a summary-with-breakdown artifact with an explicit interpretation boundary\n\nExecution expectations:\n- do not grade final answer quality as if it were restart fidelity\n- do not assume full raw history is allowed during relaunch\n- do not reward smooth prose if contradiction posture disappeared\n- do not treat `memory_delta` and `canon_delta` as interchangeable\n- when shipping a machine-readable report, validate it against\n  `reports/summary.schema.json`\n- keep the shared case-family contract in\n  `fixtures/long-horizon-restart-v1/README.md` visible when that public family\n  is in use\n- keep the runner contract aligned with `runners/contract.json` so checkpoint\n  completeness, axis retention, contradiction posture, delta separation, and\n  false-continuity pressure do not collapse into one top-line readout",
           "heading": "Execution contract",
           "key": "execution_contract"
         },
         {
-          "content_markdown": "The eval should produce:\n- one bundle-level verdict\n- one breakdown across the restart-fidelity axes\n- one note on the strongest restart-support signal\n- one note on the strongest restart-risk gap\n- one explicit interpretation boundary",
+          "content_markdown": "The eval should produce:\n- one bundle-level verdict\n- one breakdown across the restart-fidelity axes\n- one note on the strongest restart-support signal\n- one note on the strongest restart-risk gap\n- one explicit interpretation boundary\n- an optional schema-backed companion report artifact at\n  `reports/example-report.json`",
           "heading": "Outputs",
           "key": "outputs"
         },
@@ -635,7 +635,7 @@
           "key": "interpretation_guidance"
         },
         {
-          "content_markdown": "- confirm the bounded claim is explicit\n- confirm the checkpoint artifact is real and inspectable\n- confirm scoring logic stays on restart fidelity rather than final-answer quality\n- confirm blind spots are named\n- confirm the output does not imply stronger claims than the bundle supports\n- confirm manifest evidence is explicit and resolves publicly",
+          "content_markdown": "- confirm the bounded claim is explicit\n- confirm the checkpoint artifact is real and inspectable\n- confirm scoring logic stays on restart fidelity rather than final-answer quality\n- confirm blind spots are named\n- confirm the output does not imply stronger claims than the bundle supports\n- confirm manifest evidence is explicit and resolves publicly\n- confirm the machine-readable report contract keeps checkpoint completeness,\n  delta separation, and false-continuity pressure visible enough for review\n- confirm fixture and runner contracts preserve the same checkpoint-and-relaunch\n  question under bounded local replacement",
           "heading": "Verification",
           "key": "verification"
         },
@@ -650,7 +650,7 @@
           "key": "skill_traceability"
         },
         {
-          "content_markdown": "Project overlays may add:\n- local checkpoint schemas\n- local relaunch harnesses\n- local contradiction-map formats\n- local report sinks\n\nWhen they do, the bounded claim should remain restart fidelity rather than final-answer quality.",
+          "content_markdown": "Project overlays may add:\n- local checkpoint schemas\n- local relaunch harnesses\n- local contradiction-map formats\n- local report sinks\n- local fixture replacements allowed by `fixtures/contract.json`\n- local runner wrappers that still validate against `reports/summary.schema.json`\n\nWhen they do, the bounded claim should remain restart fidelity rather than final-answer quality.",
           "heading": "Adaptation points",
           "key": "adaptation_points"
         }

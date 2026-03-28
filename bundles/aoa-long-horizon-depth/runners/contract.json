@@ -1,0 +1,24 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "inquiry_checkpoint artifact",
+    "prior-pass evidence pack",
+    "contradiction notes or contradiction_map",
+    "memory_delta artifact when present",
+    "canon_delta artifact when present",
+    "relaunch readout or simulated relaunch prompt surface",
+    "bundle-level restart summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-long-horizon-depth/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-long-horizon-depth/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-long-horizon-depth/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-long-horizon-depth"
+  ]
+}

@@ -120,6 +120,7 @@ Public discipline:
 - `aoa-eval-integrity-check` should inspect starter-bundle coherence and semantic overreach:
   it should not be read as a direct agent-behavior starter bundle or as proof of canonical readiness.
 - `aoa-long-horizon-depth` should stay on checkpoint-based restart fidelity:
+  its materialized draft proof flow now anchors on `fixtures/long-horizon-restart-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
   it should not drift into final-answer grading, runtime-instrumentation completeness, or general philosophical depth claims.
 - `aoa-return-anchor-integrity` should stay on return-anchor fidelity and honest re-entry:
   it should not drift into final-answer grading, checkpoint-only restart fidelity, scope diagnosis, approval classification, or post-return verification claims.
@@ -160,7 +161,7 @@ Public discipline:
 - `aoa-trace-outcome-separation` now also has a materialized bounded proof flow in `fixtures/trace-outcome-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
 - `aoa-tool-trajectory-discipline` now also has a materialized bounded proof flow in `fixtures/tool-trajectory-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
 - the witness/compost pilot pair now has materialized draft proof surfaces in `aoa-witness-trace-integrity` and `aoa-compost-provenance-preservation`.
-- checkpoint-based restart fidelity now has its first draft public bundle in `aoa-long-horizon-depth`, but it is not part of the current starter set.
+- checkpoint-based restart fidelity now has a materialized draft public bundle in `aoa-long-horizon-depth`, anchored by `fixtures/long-horizon-restart-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
 - return-aware anchor fidelity now has its first materialized draft public bundle in `aoa-return-anchor-integrity`, anchored by `fixtures/return-anchor-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
 - the first materialized paired proof flow now sits across `aoa-artifact-review-rubric`, `aoa-bounded-change-quality`, and `aoa-output-vs-process-gap` using shared fixtures, runner contracts, and schema-backed report examples.
 - the artifact/process layer now also carries a second matched family and second paired dossier so the bridge can deepen without changing `peer_surfaces` or promoting by association.

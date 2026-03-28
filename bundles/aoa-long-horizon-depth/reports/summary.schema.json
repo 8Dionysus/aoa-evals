@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-long-horizon-depth summary-with-breakdown report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "breakdown",
+    "strongest_support_signal",
+    "strongest_restart_gap",
+    "case_notes"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-long-horizon-depth"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "restart fidelity of checkpoint-based long-horizon inquiry routes"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "breakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checkpoint_completeness",
+        "axis_retention",
+        "contradiction_preservation",
+        "delta_separation",
+        "false_continuity_resistance"
+      ],
+      "properties": {
+        "checkpoint_completeness": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "axis_retention": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "contradiction_preservation": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "delta_separation": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "false_continuity_resistance": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        }
+      }
+    },
+    "strongest_support_signal": {
+      "type": "string",
+      "minLength": 10
+    },
+    "strongest_restart_gap": {
+      "type": "string",
+      "minLength": 10
+    },
+    "case_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "restart_reading",
+          "checkpoint_note",
+          "delta_note",
+          "continuity_note"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "restart_reading": {
+            "type": "string",
+            "enum": [
+              "supports bounded claim",
+              "mixed support",
+              "does not support bounded claim"
+            ]
+          },
+          "checkpoint_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "delta_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "continuity_note": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    }
+  }
+}

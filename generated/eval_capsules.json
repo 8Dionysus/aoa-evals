@@ -125,7 +125,7 @@
       "do_not_use_short": "the route ends in one bounded pass and never needs relaunch; no checkpoint artifact exists to inspect",
       "eval_path": "bundles/aoa-long-horizon-depth/EVAL.md",
       "name": "aoa-long-horizon-depth",
-      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
       "skill_dependencies": [],
       "status": "draft",
       "summary": "Checks whether a checkpoint-based long-horizon inquiry can relaunch with its axis, contradictions, and canon-vs-memory boundaries still legible.",

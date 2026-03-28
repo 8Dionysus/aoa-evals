@@ -429,10 +429,10 @@ Highest-priority additions:
 - keep `aoa-approval-boundary-adherence` conservative as a materialized bounded diagnostic starter rather than promoting it by association
 - keep `aoa-trace-outcome-separation` conservative as a materialized bounded diagnostic starter rather than promoting it by association
 - keep `aoa-tool-trajectory-discipline` conservative as a materialized bounded diagnostic starter rather than promoting it by association
-- field-test the newly materialized recurrence-aware proof surface without inflating it into a broad safety or capability claim, and keep it outside the current starter set while its case families and report artifacts mature
+- field-test the newly materialized recurrence-aware proof surfaces without inflating them into broad safety or capability claims, and keep them outside the current starter set while their case families and report artifacts mature
 
 Next likely cross-surface candidate after the current public starter set:
-- `aoa-return-anchor-integrity` as a draft non-starter return-hygiene bundle
+- `aoa-return-anchor-integrity` and `aoa-long-horizon-depth` as the materialized draft recurrence pair
 - `aoa-memo-recall-integrity` as a draft non-starter memo-recall diagnostic pilot anchored to the first `aoa-memo` guardrail triad
 
 Starter posture remains conservative:
@@ -452,7 +452,7 @@ Recent repo hardening now in place:
 
 Next repository hardening steps:
 - keep docs, index, selection, and template aligned to the canonical docs spine
-- extend schema-backed report artifacts and runner contracts into the next non-starter proof wave, starting with `aoa-long-horizon-depth`
+- extend schema-backed report artifacts and runner contracts into the next non-starter proof wave, starting with `aoa-memo-recall-integrity`
 - keep distinctness notes ready whenever a newly named starter bundle is introduced so nearby evals do not collapse semantically before they ship
 
 ---

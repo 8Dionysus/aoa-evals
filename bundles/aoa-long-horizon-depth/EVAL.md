@@ -23,6 +23,9 @@ did the checkpoint pack preserve enough axis, contradiction posture, and delta s
 
 It is not a general depth eval.
 It is not a judgment of philosophical quality by itself.
+Its current materialized draft proof flow runs through
+`fixtures/long-horizon-restart-v1/README.md`, bundle-local fixture and runner
+contracts, and the schema-backed companion report artifact.
 
 ## Object under evaluation
 
@@ -88,6 +91,12 @@ Fixtures should avoid:
 - checkpoints that are only polished summaries with no explicit evidence refs
 - cases where the next pass still depends on the full raw history
 - routes whose continuity depends on private notes outside the bundle
+
+The current materialized shared family is
+`fixtures/long-horizon-restart-v1/README.md`.
+When the machine-readable proof surface is in use, local replacements should
+preserve the same five checkpoint-and-relaunch pressures through the bounded
+replacement rule in `fixtures/contract.json`.
 
 ## Scoring or verdict logic
 
@@ -156,6 +165,14 @@ Execution expectations:
 - do not assume full raw history is allowed during relaunch
 - do not reward smooth prose if contradiction posture disappeared
 - do not treat `memory_delta` and `canon_delta` as interchangeable
+- when shipping a machine-readable report, validate it against
+  `reports/summary.schema.json`
+- keep the shared case-family contract in
+  `fixtures/long-horizon-restart-v1/README.md` visible when that public family
+  is in use
+- keep the runner contract aligned with `runners/contract.json` so checkpoint
+  completeness, axis retention, contradiction posture, delta separation, and
+  false-continuity pressure do not collapse into one top-line readout
 
 ## Outputs
 
@@ -165,6 +182,8 @@ The eval should produce:
 - one note on the strongest restart-support signal
 - one note on the strongest restart-risk gap
 - one explicit interpretation boundary
+- an optional schema-backed companion report artifact at
+  `reports/example-report.json`
 
 ## Failure modes
 
@@ -220,6 +239,10 @@ A mixed or negative result is still valuable because it can reveal:
 - confirm blind spots are named
 - confirm the output does not imply stronger claims than the bundle supports
 - confirm manifest evidence is explicit and resolves publicly
+- confirm the machine-readable report contract keeps checkpoint completeness,
+  delta separation, and false-continuity pressure visible enough for review
+- confirm fixture and runner contracts preserve the same checkpoint-and-relaunch
+  question under bounded local replacement
 
 ## Technique traceability
 
@@ -236,5 +259,7 @@ Project overlays may add:
 - local relaunch harnesses
 - local contradiction-map formats
 - local report sinks
+- local fixture replacements allowed by `fixtures/contract.json`
+- local runner wrappers that still validate against `reports/summary.schema.json`
 
 When they do, the bounded claim should remain restart fidelity rather than final-answer quality.

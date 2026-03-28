@@ -211,6 +211,9 @@ without changing its bounded status.
 The current bounded tool-trajectory diagnostic now also has a materialized
 case family, runner contract, and schema-backed report example without
 changing its bounded status.
+The checkpoint-based restart-fidelity surface in `aoa-long-horizon-depth` now
+also has a materialized draft case family, runner contract, and schema-backed
+report example while remaining outside the starter set.
 The first recurrence-aware proof surface now also has a materialized draft case family and runner contract in `aoa-return-anchor-integrity`, while remaining outside the starter set.
 
 The current goal is to establish:

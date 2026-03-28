@@ -1,0 +1,31 @@
+{
+  "eval_name": "aoa-long-horizon-depth",
+  "bundle_status": "draft",
+  "object_under_evaluation": "restart fidelity of checkpoint-based long-horizon inquiry routes",
+  "verdict": "mixed support",
+  "claim_boundary": "On this bounded checkpoint-and-relaunch family, the route can often preserve its active axis and open contradictions honestly, but that support weakens when delta boundaries blur or when relaunch still needs hidden transcript continuity.",
+  "limitations": [
+    "This report does not prove final inquiry correctness.",
+    "This report does not prove broad long-horizon capability.",
+    "This report does not replace witness-trace or return-anchor evals."
+  ],
+  "case_family": "long-horizon-restart-v1 checkpoint-based inquiry relaunch family",
+  "breakdown": {
+    "checkpoint_completeness": "strong",
+    "axis_retention": "mixed",
+    "contradiction_preservation": "strong",
+    "delta_separation": "mixed",
+    "false_continuity_resistance": "mixed"
+  },
+  "strongest_support_signal": "The checkpoint preserved objective, active axis, open questions, and next tests clearly enough for a bounded relaunch.",
+  "strongest_restart_gap": "Delta separation weakened because canon and memory updates became easier to read together than apart, which raised false-continuity pressure.",
+  "case_notes": [
+    {
+      "case_id": "LHD-01",
+      "restart_reading": "mixed support",
+      "checkpoint_note": "The checkpoint named the current thesis, open contradictions, and next tests without pretending the inquiry had already converged.",
+      "delta_note": "memory_delta and canon_delta were both present, but the canon update summary looked cleaner than the evidence split justified.",
+      "continuity_note": "The relaunch stayed mostly inside the checkpoint pack, yet one restart note still hinted at unseen transcript continuity."
+    }
+  ]
+}

@@ -550,6 +550,10 @@
           "path": "notes/restart-contract.md"
         },
         {
+          "kind": "support_note",
+          "path": "notes/proof-surface-contract.md"
+        },
+        {
           "kind": "integrity_check",
           "path": "checks/eval-integrity-check.md"
         }
@@ -560,14 +564,16 @@
       "object_under_evaluation": "restart fidelity of checkpoint-based long-horizon inquiry routes",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": null,
+        "fixture_contract_path": "bundles/aoa-long-horizon-depth/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": null,
-        "report_schema_path": null,
-        "runner_contract_path": null,
-        "runner_surface_path": null,
-        "scorer_helper_paths": [],
-        "shared_fixture_family_path": null
+        "report_example_path": "bundles/aoa-long-horizon-depth/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-long-horizon-depth/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-long-horizon-depth/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/long-horizon-restart-v1/README.md"
       },
       "relations": [
         {

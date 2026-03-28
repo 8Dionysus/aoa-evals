@@ -22,7 +22,8 @@
   "verification_surface": "inquiry_checkpoint",
   "contract_test_refs": [
     "repo:aoa-evals/bundles/aoa-long-horizon-depth/checks/eval-integrity-check.md",
-    "repo:aoa-evals/bundles/aoa-long-horizon-depth/notes/restart-contract.md"
+    "repo:aoa-evals/bundles/aoa-long-horizon-depth/notes/restart-contract.md",
+    "repo:aoa-evals/bundles/aoa-long-horizon-depth/notes/proof-surface-contract.md"
   ],
   "report_expectation": {
     "report_format": "summary-with-breakdown",

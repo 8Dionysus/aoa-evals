@@ -116,6 +116,9 @@ route-quality anchor.
 
 Use `aoa-long-horizon-depth` as the primary verdict anchor for the first
 restartable inquiry bridge.
+Its current draft proof flow is anchored in
+`fixtures/long-horizon-restart-v1/README.md`, bundle-local fixture and runner
+contracts, and a schema-backed companion report artifact.
 
 Primary evidence inputs:
 

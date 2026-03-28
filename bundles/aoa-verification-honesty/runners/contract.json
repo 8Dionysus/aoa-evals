@@ -1,0 +1,22 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "bounded change case dossier",
+    "available verification path",
+    "agent verification claims",
+    "observed executed, skipped, and blocked checks",
+    "bounded verification-honesty readout"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-verification-honesty/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-verification-honesty/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-verification-honesty/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-verification-honesty"
+  ]
+}

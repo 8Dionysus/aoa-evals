@@ -221,10 +221,10 @@ Many agent systems get over-credited because outputs look good even when process
 This layer should make that gap visible.
 
 Current public bridge:
-- `aoa-artifact-review-rubric` as the bounded artifact-quality starter
+- `aoa-artifact-review-rubric` as the portable artifact-quality anchor
 - `aoa-compost-provenance-preservation` as the draft provenance-preserving compost artifact starter
 - `aoa-output-vs-process-gap` as the first public artifact-versus-process bridge surface
-- first materialized paired proof artifacts across those surfaces plus `aoa-bounded-change-quality` through a shared fixture family, runner contracts, and schema-backed report examples
+- first materialized paired proof artifacts across those surfaces plus `aoa-bounded-change-quality` as the portable workflow anchor through a shared fixture family, runner contracts, and schema-backed report examples
 
 Priority surfaces:
 - artifact review rubric bundles

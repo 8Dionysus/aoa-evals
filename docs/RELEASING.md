@@ -28,8 +28,14 @@ Recommended local release loop:
 - update `CHANGELOG.md` with the release section that will anchor the human release narrative
 - `python -m pip install -r requirements-dev.txt`
 - `python scripts/build_catalog.py`
+- `python scripts/build_catalog.py --check`
 - `python scripts/validate_repo.py`
 - `python -m pytest`
+
+If `aoa-techniques` or `aoa-skills` are not available locally,
+the validator will stay permissive about dependency-target existence.
+CI is the strict path-existence gate because it checks those sibling repos out into `.deps/`
+and exports `AOA_TECHNIQUES_ROOT` plus `AOA_SKILLS_ROOT`.
 
 ## Docs-only release
 

@@ -230,10 +230,21 @@ Run the full repository check:
 python scripts/validate_repo.py
 ```
 
+If `aoa-techniques` or `aoa-skills` are not checked out beside this repo,
+local validation will skip dependency-target existence checks for those sibling surfaces.
+CI runs the stricter path-existence check by exporting `AOA_TECHNIQUES_ROOT` and `AOA_SKILLS_ROOT`
+after checking those repositories out into `.deps/`.
+
 Build the derived reader catalogs:
 
 ```bash
 python scripts/build_catalog.py
+```
+
+For CI parity, also run:
+
+```bash
+python scripts/build_catalog.py --check
 ```
 
 The validator checks that generated catalogs and capsules exist, stay current, keep the min catalog as an exact projection of the full catalog, and keep capsules aligned 1:1 with the catalog surface.

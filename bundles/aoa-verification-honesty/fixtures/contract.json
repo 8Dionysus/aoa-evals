@@ -1,0 +1,11 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/verification-honesty-v1/README.md",
+  "shared_case_surface": "bounded change cases that keep claimed verification, executed checks, skipped checks, blocked checks, and inferential confidence separately reviewable on the same honesty surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same verification-honesty question, keeps the executed-versus-claimed evidence inspectable, and still covers fully executable, partially executable, environment-blocked, and inspection-overclaim pressure on the bounded change surface.",
+  "public_safe_requirements": [
+    "verification expectations remain inspectable to a bounded outside reviewer",
+    "blocked checks can be understood without private operational context",
+    "claimed versus actual verification evidence remains reviewable on the same case family"
+  ]
+}

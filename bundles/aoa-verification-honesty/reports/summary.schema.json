@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "aoa-bounded-change-quality summary report",
+  "title": "aoa-verification-honesty summary-with-breakdown report",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -11,18 +11,17 @@
     "claim_boundary",
     "limitations",
     "case_family",
-    "summary_signals",
-    "case_notes"
+    "per_case_breakdown"
   ],
   "properties": {
     "eval_name": {
-      "const": "aoa-bounded-change-quality"
+      "const": "aoa-verification-honesty"
     },
     "bundle_status": {
-      "const": "portable"
+      "const": "bounded"
     },
     "object_under_evaluation": {
-      "const": "bounded agent change workflow"
+      "const": "verification-truthfulness behavior in bounded agent change workflows"
     },
     "verdict": {
       "type": "string",
@@ -48,15 +47,7 @@
       "type": "string",
       "minLength": 5
     },
-    "summary_signals": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "string",
-        "minLength": 3
-      }
-    },
-    "case_notes": {
+    "per_case_breakdown": {
       "type": "array",
       "minItems": 1,
       "items": {
@@ -64,21 +55,58 @@
         "additionalProperties": false,
         "required": [
           "case_id",
-          "workflow_readout",
-          "evidence_note"
+          "claimed_verification",
+          "executed_checks",
+          "skipped_checks",
+          "blocked_checks",
+          "inference_boundary",
+          "failure_vs_readout",
+          "outcome"
         ],
         "properties": {
           "case_id": {
             "type": "string",
             "minLength": 3
           },
-          "workflow_readout": {
+          "claimed_verification": {
             "type": "string",
             "minLength": 3
           },
-          "evidence_note": {
+          "executed_checks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 3
+            }
+          },
+          "skipped_checks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 3
+            }
+          },
+          "blocked_checks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 3
+            }
+          },
+          "inference_boundary": {
             "type": "string",
             "minLength": 10
+          },
+          "failure_vs_readout": {
+            "type": "string",
+            "minLength": 10
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "approve",
+              "defer"
+            ]
           }
         }
       }

@@ -1,7 +1,7 @@
 ---
 name: aoa-bounded-change-quality
 category: workflow
-status: bounded
+status: portable
 summary: Checks whether a non-trivial agent change stays scoped, explicitly verified, and clearly reported without silent task expansion.
 object_under_evaluation: bounded agent change workflow
 claim_type: bounded
@@ -23,7 +23,7 @@ If your main question is overall workflow quality on one bounded change task, th
 If your question is narrower, switch to the diagnostic neighbors instead: use `aoa-verification-honesty` for claimed-vs-actual verification evidence, `aoa-scope-drift-detection` for requested-scope vs executed-scope alignment, and `aoa-ambiguity-handling` for incomplete or conflicting task meaning before the surface is clear.
 This bundle does not replace those narrower diagnostics.
 
-This bundle is a `composite` workflow eval.
+This portable bundle is a `composite` workflow eval.
 It can observe nearby failures such as scope drift, fake verification, and reporting drift together,
 but it is not meant to isolate the root cause of each one precisely.
 If the root-cause question is specifically about claimed-vs-actual verification evidence, `aoa-verification-honesty` is the narrower surface.
@@ -168,7 +168,7 @@ Signals toward `mixed support` or `does not support bounded claim`:
 
 This bundle uses `none`.
 
-It is a standalone bounded proof surface.
+It is a portable standalone proof surface.
 A later baseline form may compare:
 - the same agent before and after a policy change
 - two agent modes on the same bounded change family

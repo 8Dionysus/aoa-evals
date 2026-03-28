@@ -2805,6 +2805,57 @@ def test_validate_repo_rejects_non_repo_relative_dependency_path(tmp_path: Path)
     assert any("path must be a concrete repo-relative path" in issue.message for issue in issues)
 
 
+def test_validate_repo_accepts_dependency_targets_when_roots_exist(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    make_eval_bundle(tmp_path, name="aoa-valid-dependency-targets")
+    write_catalogs(tmp_path)
+
+    techniques_root = tmp_path / ".deps" / "aoa-techniques"
+    skills_root = tmp_path / ".deps" / "aoa-skills"
+    write_text(
+        techniques_root / "techniques" / "agent-workflows" / "plan-diff-apply-verify-report" / "TECHNIQUE.md",
+        "# Technique\n",
+    )
+    write_text(
+        skills_root / "skills" / "aoa-change-protocol" / "SKILL.md",
+        "# Skill\n",
+    )
+
+    monkeypatch.setattr(validate_repo, "AOA_TECHNIQUES_ROOT", techniques_root)
+    monkeypatch.setattr(validate_repo, "AOA_SKILLS_ROOT", skills_root)
+
+    assert run_validation(tmp_path, eval_name="aoa-valid-dependency-targets") == []
+
+
+def test_validate_repo_rejects_missing_dependency_target_when_root_exists(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    make_eval_bundle(tmp_path, name="aoa-missing-dependency-target")
+    write_catalogs(tmp_path)
+
+    techniques_root = tmp_path / ".deps" / "aoa-techniques"
+    skills_root = tmp_path / ".deps" / "aoa-skills"
+    write_text(techniques_root / "README.md", "# Technique Repo\n")
+    write_text(
+        skills_root / "skills" / "aoa-change-protocol" / "SKILL.md",
+        "# Skill\n",
+    )
+
+    monkeypatch.setattr(validate_repo, "AOA_TECHNIQUES_ROOT", techniques_root)
+    monkeypatch.setattr(validate_repo, "AOA_SKILLS_ROOT", skills_root)
+
+    issues = run_validation(tmp_path, eval_name="aoa-missing-dependency-target")
+
+    assert any(
+        "dependency target does not exist: aoa-techniques/techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md"
+        in issue.message
+        for issue in issues
+    )
+
+
 def test_validate_repo_missing_generated_catalogs_fail(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-missing-generated")
 
@@ -3166,11 +3217,15 @@ def test_validate_repo_accepts_valid_longitudinal_bundle_with_materialized_artif
 
 
 def test_validate_repo_allows_local_run_without_sibling_dependency_repos(monkeypatch) -> None:
+    missing_techniques_root = REPO_ROOT / ".tmp" / "missing-aoa-techniques"
+    missing_skills_root = REPO_ROOT / ".tmp" / "missing-aoa-skills"
     missing_agents_root = REPO_ROOT / ".tmp" / "missing-aoa-agents"
     missing_playbooks_root = REPO_ROOT / ".tmp" / "missing-aoa-playbooks"
     missing_memo_root = REPO_ROOT / ".tmp" / "missing-aoa-memo"
     missing_abyss_stack_root = REPO_ROOT / ".tmp" / "missing-abyss-stack"
 
+    monkeypatch.setattr(validate_repo, "AOA_TECHNIQUES_ROOT", missing_techniques_root)
+    monkeypatch.setattr(validate_repo, "AOA_SKILLS_ROOT", missing_skills_root)
     monkeypatch.setattr(validate_repo, "AOA_AGENTS_ROOT", missing_agents_root)
     monkeypatch.setattr(validate_repo, "AOA_PLAYBOOKS_ROOT", missing_playbooks_root)
     monkeypatch.setattr(validate_repo, "AOA_MEMO_ROOT", missing_memo_root)
@@ -3180,6 +3235,8 @@ def test_validate_repo_allows_local_run_without_sibling_dependency_repos(monkeyp
         "REPO_REF_ROOTS",
         {
             "aoa-evals": validate_repo.REPO_ROOT,
+            "aoa-techniques": missing_techniques_root,
+            "aoa-skills": missing_skills_root,
             "aoa-agents": missing_agents_root,
             "aoa-playbooks": missing_playbooks_root,
             "aoa-memo": missing_memo_root,
@@ -3190,7 +3247,9 @@ def test_validate_repo_allows_local_run_without_sibling_dependency_repos(monkeyp
     issues = run_validation(REPO_ROOT)
 
     assert not any(
-        "reference target does not exist: aoa-agents/" in issue.message
+        "dependency target does not exist: aoa-techniques/" in issue.message
+        or "dependency target does not exist: aoa-skills/" in issue.message
+        or "reference target does not exist: aoa-agents/" in issue.message
         or "reference target does not exist: aoa-playbooks/" in issue.message
         or "reference target does not exist: aoa-memo/" in issue.message
         or "reference target does not exist: abyss-stack/" in issue.message
@@ -3356,7 +3415,7 @@ def test_validate_repo_allows_return_anchor_integrity_as_public_non_starter_bund
     assert run_validation(tmp_path, eval_name="aoa-return-anchor-integrity") == []
 
 
-def test_real_repo_has_only_one_non_local_shaped_portability_bundle() -> None:
+def test_real_repo_has_expected_non_local_shaped_portability_bundles() -> None:
     issues, records = collect_catalog_records(REPO_ROOT)
 
     assert issues == []
@@ -3365,7 +3424,11 @@ def test_real_repo_has_only_one_non_local_shaped_portability_bundle() -> None:
         for record in records
         if record.manifest["portability_level"] != "local-shaped"
     }
-    assert non_local_shaped == {"aoa-regression-same-task": "portable"}
+    assert non_local_shaped == {
+        "aoa-artifact-review-rubric": "portable",
+        "aoa-bounded-change-quality": "portable",
+        "aoa-regression-same-task": "portable",
+    }
 
 
 def test_validate_repo_accepts_valid_bundle_with_materialized_proof_artifacts(tmp_path: Path) -> None:

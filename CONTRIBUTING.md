@@ -55,10 +55,15 @@ Before opening a PR, run local validation and bundle checks for:
 - scorer and report contract coherence
 - fixture references that should exist publicly
 
+Local note:
+- if `aoa-techniques` or `aoa-skills` are not checked out beside `aoa-evals`, local validation will skip dependency-target existence checks for those sibling repos
+- CI performs the strict dependency-path existence check by exporting `AOA_TECHNIQUES_ROOT` and `AOA_SKILLS_ROOT` after checking those repos out into `.deps/`
+
 ## Local development setup
 
 Recommended local setup:
 - `python -m pip install -r requirements-dev.txt`
+- `python scripts/build_catalog.py --check`
 - `python scripts/validate_repo.py`
 - `python -m pytest`
 

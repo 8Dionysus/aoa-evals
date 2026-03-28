@@ -34,6 +34,10 @@ def repo_root_from_env(env_name: str, default: Path) -> Path:
     return Path(override).expanduser().resolve()
 
 
+AOA_TECHNIQUES_ROOT = repo_root_from_env(
+    "AOA_TECHNIQUES_ROOT", REPO_ROOT.parent / "aoa-techniques"
+)
+AOA_SKILLS_ROOT = repo_root_from_env("AOA_SKILLS_ROOT", REPO_ROOT.parent / "aoa-skills")
 AOA_AGENTS_ROOT = repo_root_from_env("AOA_AGENTS_ROOT", REPO_ROOT.parent / "aoa-agents")
 AOA_PLAYBOOKS_ROOT = repo_root_from_env(
     "AOA_PLAYBOOKS_ROOT", REPO_ROOT.parent / "aoa-playbooks"
@@ -83,6 +87,8 @@ NO_ADDITIONAL_STARTER_BUNDLES_TEXT = (
 REQUIRED_HEADINGS = set(eval_section_contract.CANONICAL_HEADINGS)
 VISIBLE_ROOTS = (
     REPO_ROOT,
+    AOA_TECHNIQUES_ROOT,
+    AOA_SKILLS_ROOT,
     AOA_AGENTS_ROOT,
     AOA_PLAYBOOKS_ROOT,
     AOA_MEMO_ROOT,
@@ -91,6 +97,8 @@ VISIBLE_ROOTS = (
 REPO_REF_PREFIX = "repo:"
 REPO_REF_ROOTS = {
     "aoa-evals": REPO_ROOT,
+    "aoa-techniques": AOA_TECHNIQUES_ROOT,
+    "aoa-skills": AOA_SKILLS_ROOT,
     "aoa-agents": AOA_AGENTS_ROOT,
     "aoa-playbooks": AOA_PLAYBOOKS_ROOT,
     "aoa-memo": AOA_MEMO_ROOT,
@@ -1225,6 +1233,38 @@ def normalize_skill_dependency_refs(
     return normalized
 
 
+def dependency_repo_root(repo_name: str) -> Path | None:
+    if repo_name == "aoa-techniques":
+        return AOA_TECHNIQUES_ROOT
+    if repo_name == "aoa-skills":
+        return AOA_SKILLS_ROOT
+    return None
+
+
+def validate_dependency_target_exists(
+    repo_name: str,
+    raw_path: str,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+) -> None:
+    if not raw_path:
+        return
+
+    repo_root = dependency_repo_root(repo_name)
+    if repo_root is None or not repo_root.exists():
+        return
+
+    target_path = repo_root / raw_path
+    if not target_path.is_file():
+        issues.append(
+            ValidationIssue(
+                location,
+                f"dependency target does not exist: {repo_name}/{raw_path}",
+            )
+        )
+
+
 def validate_dependency_drift(
     metadata: dict[str, Any],
     manifest: dict[str, Any],
@@ -1242,6 +1282,13 @@ def validate_dependency_drift(
                 f"ordered technique refs do not match {relative_location(eval_md_path)}.technique_dependencies",
             )
         )
+    for index, item in enumerate(manifest_technique_refs):
+        validate_dependency_target_exists(
+            item["repo"],
+            item["path"],
+            location=f"{relative_location(eval_yaml_path)}.technique_dependencies[{index}].path",
+            issues=issues,
+        )
 
     frontmatter_skills = metadata.get("skill_dependencies", [])
     manifest_skill_refs = normalize_skill_dependency_refs(manifest, eval_yaml_path, issues)
@@ -1252,6 +1299,13 @@ def validate_dependency_drift(
                 relative_location(eval_yaml_path),
                 f"ordered skill refs do not match {relative_location(eval_md_path)}.skill_dependencies",
             )
+        )
+    for index, item in enumerate(manifest_skill_refs):
+        validate_dependency_target_exists(
+            item["repo"],
+            item["path"],
+            location=f"{relative_location(eval_yaml_path)}.skill_dependencies[{index}].path",
+            issues=issues,
         )
 
 

@@ -1040,7 +1040,7 @@
       "name": "aoa-return-anchor-integrity",
       "sections": [
         {
-          "content_markdown": "Use this eval to check whether a route that decided to return actually returned\nto something real.\n\nThis draft bundle is a `diagnostic` workflow eval.\n\nIt focuses on one nearby question:\ndid the route, after losing its axis or boundary, recover through a valid\nanchor and bounded re-entry rather than through smooth improvisation?\n\nIt is not a general workflow-quality eval.\nIt is not a final-answer-quality eval.\nIt is not a general safety or approval eval.",
+          "content_markdown": "Use this eval to check whether a route that decided to return actually returned\nto something real.\n\nThis draft bundle is a `diagnostic` workflow eval.\n\nIt focuses on one nearby question:\ndid the route, after losing its axis or boundary, recover through a valid\nanchor and bounded re-entry rather than through smooth improvisation?\n\nIt is not a general workflow-quality eval.\nIt is not a final-answer-quality eval.\nIt is not a general safety or approval eval.\nIts current materialized draft proof flow runs through\n`fixtures/return-anchor-v1/README.md`, bundle-local fixture and runner\ncontracts, and the schema-backed companion report artifact.",
           "heading": "Intent",
           "key": "intent"
         },
@@ -1065,7 +1065,7 @@
           "key": "inputs"
         },
         {
-          "content_markdown": "A strong starter case surface should include:\n\n- one route where return is triggered by lost axis or verification posture\n- one route where return is triggered by source or boundary confusion\n- one route where a valid anchor exists but the re-entry still risks fake\n  continuity\n- one route where safe stop is the honest outcome instead of forced re-entry\n\nFixtures should avoid:\n\n- routes with no explicit return signal\n- cases whose only evidence is polished summary prose\n- cases where raw full transcript continuity is silently required\n- cases that mainly test final artifact quality rather than return integrity",
+          "content_markdown": "A strong starter case surface should include:\n\n- one route where return is triggered by lost axis or verification posture\n- one route where return is triggered by source or boundary confusion\n- one route where a valid anchor exists but the re-entry still risks fake\n  continuity\n- one route where safe stop is the honest outcome instead of forced re-entry\n\nFixtures should avoid:\n\n- routes with no explicit return signal\n- cases whose only evidence is polished summary prose\n- cases where raw full transcript continuity is silently required\n- cases that mainly test final artifact quality rather than return integrity\n\nThe current materialized shared family is `fixtures/return-anchor-v1/README.md`.\nWhen the machine-readable proof surface is in use, local replacements should\npreserve the same four return pressures through the bounded replacement rule in\n`fixtures/contract.json`.",
           "heading": "Fixtures and case surface",
           "key": "fixtures_and_case_surface"
         },
@@ -1080,12 +1080,12 @@
           "key": "baseline_or_comparison_mode"
         },
         {
-          "content_markdown": "A careful run should:\n\n1. choose a route where return actually occurred\n2. inspect the return decision, anchor refs, and rebuild surfaces together\n3. inspect the re-entry or safe-stop readout\n4. judge whether the route returned to a real bounded anchor\n5. publish a summary-with-breakdown artifact with explicit interpretation\n   limits\n\nExecution expectations:\n\n- do not grade final answer quality as if it were return integrity\n- do not reward smoother prose over real anchor evidence\n- do not hide repeated returns inside a single success story\n- do not treat full raw continuity as if it were bounded rebuild\n- do not treat scope, approval, or verification questions as solved by this\n  bundle alone",
+          "content_markdown": "A careful run should:\n\n1. choose a route where return actually occurred\n2. inspect the return decision, anchor refs, and rebuild surfaces together\n3. inspect the re-entry or safe-stop readout\n4. judge whether the route returned to a real bounded anchor\n5. publish a summary-with-breakdown artifact with explicit interpretation\n   limits\n\nExecution expectations:\n\n- do not grade final answer quality as if it were return integrity\n- do not reward smoother prose over real anchor evidence\n- do not hide repeated returns inside a single success story\n- do not treat full raw continuity as if it were bounded rebuild\n- do not treat scope, approval, or verification questions as solved by this\n  bundle alone\n- when shipping a machine-readable report, validate it against\n  `reports/summary.schema.json`\n- keep runtime evidence sidecars weaker than the bundle-local interpretation\n  boundary\n- keep the shared case-family contract in `fixtures/return-anchor-v1/README.md`\n  visible when that public family is in use\n- keep the runner contract aligned with `runners/contract.json` so return\n  reason, anchor validity, bounded rebuild, re-entry, safe stop, and loop\n  posture do not collapse into one top-line readout",
           "heading": "Execution contract",
           "key": "execution_contract"
         },
         {
-          "content_markdown": "The eval should produce:\n\n- one bundle-level verdict\n- one breakdown across the return-integrity axes\n- one note on the strongest anchor-support signal\n- one note on the strongest return-risk gap\n- one explicit interpretation boundary",
+          "content_markdown": "The eval should produce:\n\n- one bundle-level verdict\n- one breakdown across the return-integrity axes\n- one note on the strongest anchor-support signal\n- one note on the strongest return-risk gap\n- one explicit interpretation boundary\n- an optional schema-backed companion report artifact at\n  `reports/example-report.json`",
           "heading": "Outputs",
           "key": "outputs"
         },
@@ -1105,7 +1105,7 @@
           "key": "interpretation_guidance"
         },
         {
-          "content_markdown": "- confirm the bounded claim is explicit\n- confirm a real return artifact or event exists\n- confirm anchor refs are inspectable\n- confirm scoring logic stays on return integrity rather than task success\n- confirm blind spots are named\n- confirm the output does not imply stronger claims than the bundle supports\n- confirm manifest evidence is explicit and resolves publicly",
+          "content_markdown": "- confirm the bounded claim is explicit\n- confirm a real return artifact or event exists\n- confirm anchor refs are inspectable\n- confirm scoring logic stays on return integrity rather than task success\n- confirm blind spots are named\n- confirm the output does not imply stronger claims than the bundle supports\n- confirm manifest evidence is explicit and resolves publicly\n- confirm the machine-readable report contract keeps return reason, anchor,\n  rebuild, re-entry, safe-stop, and loop posture distinct enough for review\n- confirm fixture and runner contracts preserve the same return-anchor question\n  under bounded local replacement",
           "heading": "Verification",
           "key": "verification"
         },

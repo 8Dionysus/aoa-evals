@@ -1,0 +1,23 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "return decision or equivalent return event",
+    "named anchor refs",
+    "selected bounded rebuild surfaces",
+    "re-entry note or safe-stop note",
+    "optional runtime_evidence_selection sidecar",
+    "bundle-level return-integrity summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-return-anchor-integrity/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-return-anchor-integrity/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-return-anchor-integrity/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-return-anchor-integrity"
+  ]
+}

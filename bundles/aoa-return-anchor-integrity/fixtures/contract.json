@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/return-anchor-v1/README.md",
+  "shared_case_surface": "bounded return-aware routes that keep return reason, anchor validity, bounded context rebuild, honest re-entry or safe stop, and loop posture reviewable on the same recurrence-aware surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same return-anchor question, keeps the return reason and anchor refs inspectable, and still covers valid bounded re-entry, source-or-boundary rebuild, decorative-anchor overclaim pressure, and honest safe-stop pressure without turning the bundle into checkpoint-only restart fidelity or final-answer grading.",
+  "public_safe_requirements": [
+    "a real return artifact or return event remains visible per case",
+    "anchor refs and rebuild surfaces stay inspectable without private raw continuity",
+    "safe-stop or re-entry posture remains reviewable to a bounded outside reviewer",
+    "repeated-return pressure stays visible when loop discipline is part of the case"
+  ]
+}

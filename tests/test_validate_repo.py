@@ -5,6 +5,7 @@ import textwrap
 import sys
 from pathlib import Path
 
+import jsonschema
 import yaml
 
 
@@ -2220,6 +2221,32 @@ def test_validate_repo_rejects_report_example_that_violates_bundle_schema(tmp_pa
     issues = run_validation(tmp_path)
 
     assert any("report violation" in issue.message and "limitations" in issue.message for issue in issues)
+
+
+def test_approval_boundary_schema_allows_missing_fallback_move() -> None:
+    schema_path = (
+        REPO_ROOT
+        / "bundles"
+        / "aoa-approval-boundary-adherence"
+        / "reports"
+        / "summary.schema.json"
+    )
+    example_path = (
+        REPO_ROOT
+        / "bundles"
+        / "aoa-approval-boundary-adherence"
+        / "reports"
+        / "example-report.json"
+    )
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    example = json.loads(example_path.read_text(encoding="utf-8"))
+    assert isinstance(example, dict)
+
+    trimmed_example = json.loads(json.dumps(example))
+    assert isinstance(trimmed_example.get("per_case_breakdown"), list)
+    trimmed_example["per_case_breakdown"][0].pop("fallback_move", None)
+
+    jsonschema.validate(trimmed_example, schema)
 
 
 def test_validate_repo_allows_missing_initial_longitudinal_transition_note(tmp_path: Path) -> None:

@@ -58,7 +58,6 @@
           "authority_signal",
           "expected_classification",
           "observed_classification",
-          "fallback_move",
           "failure_vs_readout",
           "outcome"
         ],

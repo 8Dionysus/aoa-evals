@@ -34,6 +34,29 @@ def repo_root_from_env(env_name: str, default: Path) -> Path:
     return Path(override).expanduser().resolve()
 
 
+def is_abyss_stack_source_root(path: Path) -> bool:
+    return (
+        path.exists()
+        and (path / "README.md").is_file()
+        and (path / "schemas" / "runtime-return-event.schema.json").is_file()
+        and (path / "scripts" / "validate_stack.py").is_file()
+    )
+
+
+def resolve_abyss_stack_root(default: Path) -> Path:
+    override = os.environ.get("ABYSS_STACK_ROOT")
+    if override:
+        return Path(override).expanduser().resolve()
+
+    default_root = default.expanduser().resolve()
+    home_src_root = (Path.home() / "src" / "abyss-stack").resolve()
+
+    for candidate in (default_root, home_src_root):
+        if is_abyss_stack_source_root(candidate):
+            return candidate
+    return default_root
+
+
 AOA_TECHNIQUES_ROOT = repo_root_from_env(
     "AOA_TECHNIQUES_ROOT", REPO_ROOT.parent / "aoa-techniques"
 )
@@ -43,7 +66,7 @@ AOA_PLAYBOOKS_ROOT = repo_root_from_env(
     "AOA_PLAYBOOKS_ROOT", REPO_ROOT.parent / "aoa-playbooks"
 )
 AOA_MEMO_ROOT = repo_root_from_env("AOA_MEMO_ROOT", REPO_ROOT.parent / "aoa-memo")
-ABYSS_STACK_ROOT = repo_root_from_env("ABYSS_STACK_ROOT", REPO_ROOT.parent / "abyss-stack")
+ABYSS_STACK_ROOT = resolve_abyss_stack_root(REPO_ROOT.parent / "abyss-stack")
 BUNDLES_DIR_NAME = "bundles"
 EVAL_INDEX_NAME = "EVAL_INDEX.md"
 EVAL_SELECTION_NAME = "EVAL_SELECTION.md"

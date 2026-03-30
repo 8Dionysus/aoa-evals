@@ -58,6 +58,7 @@ Before opening a PR, run local validation and bundle checks for:
 Local note:
 - if `aoa-techniques` or `aoa-skills` are not checked out beside `aoa-evals`, local validation will skip dependency-target existence checks for those sibling repos
 - CI performs the strict dependency-path existence check by exporting `AOA_TECHNIQUES_ROOT` and `AOA_SKILLS_ROOT` after checking those repos out into `.deps/`
+- if `abyss-stack` is present locally only as a deployed runtime tree, export `ABYSS_STACK_ROOT` to the source checkout before running `python scripts/validate_repo.py`
 
 ## Local development setup
 

@@ -36,6 +36,8 @@ If `aoa-techniques` or `aoa-skills` are not available locally,
 the validator will stay permissive about dependency-target existence.
 CI is the strict path-existence gate because it checks those sibling repos out into `.deps/`
 and exports `AOA_TECHNIQUES_ROOT` plus `AOA_SKILLS_ROOT`.
+If `abyss-stack` is not checked out beside `aoa-evals` and not under `~/src/abyss-stack`,
+export `ABYSS_STACK_ROOT` to the source checkout so runtime-evidence example refs resolve against tracked schemas.
 
 ## Docs-only release
 

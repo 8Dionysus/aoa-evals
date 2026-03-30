@@ -264,6 +264,9 @@ If `aoa-techniques` or `aoa-skills` are not checked out beside this repo,
 local validation will skip dependency-target existence checks for those sibling surfaces.
 CI runs the stricter path-existence check by exporting `AOA_TECHNIQUES_ROOT` and `AOA_SKILLS_ROOT`
 after checking those repositories out into `.deps/`.
+For `abyss-stack`, the validator prefers a source-shaped checkout over a deployed runtime tree.
+If your `abyss-stack` source checkout is not beside `aoa-evals` and not under `~/src/abyss-stack`,
+export `ABYSS_STACK_ROOT=/absolute/path/to/abyss-stack` before running validation.
 
 Build the derived reader catalogs:
 

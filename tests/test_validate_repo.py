@@ -3285,6 +3285,40 @@ def test_validate_repo_allows_local_run_without_sibling_dependency_repos(monkeyp
     )
 
 
+def test_resolve_abyss_stack_root_prefers_source_checkout_over_runtime_tree(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    runtime_like_root = tmp_path / "srv" / "abyss-stack"
+    write_text(runtime_like_root / "Configs" / "README.md", "# Runtime mirror\n")
+
+    home_root = tmp_path / "home" / "dionysus"
+    source_root = home_root / "src" / "abyss-stack"
+    write_text(source_root / "README.md", "# abyss-stack\n")
+    write_text(source_root / "scripts" / "validate_stack.py", "print('ok')\n")
+    write_text(source_root / "schemas" / "runtime-return-event.schema.json", "{}\n")
+
+    monkeypatch.setenv("HOME", str(home_root))
+    monkeypatch.delenv("ABYSS_STACK_ROOT", raising=False)
+
+    resolved = validate_repo.resolve_abyss_stack_root(runtime_like_root)
+
+    assert resolved == source_root.resolve()
+
+
+def test_resolve_abyss_stack_root_respects_env_override(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    default_root = tmp_path / "srv" / "abyss-stack"
+    override_root = tmp_path / "custom" / "abyss-stack"
+    monkeypatch.setenv("ABYSS_STACK_ROOT", str(override_root))
+
+    resolved = validate_repo.resolve_abyss_stack_root(default_root)
+
+    assert resolved == override_root.resolve()
+
+
 def test_validate_repo_accepts_return_runtime_evidence_selection_for_non_starter_bundle(
     tmp_path: Path,
     monkeypatch,

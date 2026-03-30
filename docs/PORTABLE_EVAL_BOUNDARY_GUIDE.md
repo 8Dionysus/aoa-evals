@@ -1,6 +1,6 @@
 # Portable Eval Boundary Guide
 
-This guide defines the portability requirements for evaluation bundles within the `aoa-evals` bounded proof canon, ensuring they are suitable for public publication.
+This guide defines the portability requirements for evaluation bundles within the `aoa-evals` bounded proof canon, ensuring they represent bounded claims about workflow quality suitable for the public proof surface.
 
 Use this guide when a bundle demonstrates utility in a specific context but requires verification that it survives as a public proof surface rather than remaining a local testing artifact.
 

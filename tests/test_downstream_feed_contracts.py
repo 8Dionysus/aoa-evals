@@ -20,6 +20,7 @@ def load_module(script_name: str):
 
 
 runtime_template_index_builder = load_module("generate_runtime_candidate_template_index.py")
+runtime_candidate_intake_builder = load_module("generate_runtime_candidate_intake.py")
 
 
 def load_json(relative_path: str) -> dict:
@@ -133,6 +134,36 @@ class DownstreamFeedContractsTests(unittest.TestCase):
                     for runtime_artifact in entry["required_runtime_artifacts"]
                 )
             )
+
+    def test_runtime_candidate_intake_is_generator_backed_and_keeps_review_refs(self) -> None:
+        current = load_json("generated/runtime_candidate_intake.min.json")
+        expected = runtime_candidate_intake_builder.build_runtime_candidate_intake_payload()
+
+        self.assertEqual(current, expected)
+        self.assertEqual(
+            set(current.keys()),
+            {"schema_version", "layer", "source_of_truth", "templates"},
+        )
+        self.assertEqual(current["schema_version"], 1)
+        self.assertEqual(current["layer"], "aoa-evals")
+
+        by_name = {
+            (entry["template_kind"], entry["template_name"]): entry
+            for entry in current["templates"]
+        }
+        workhorse = by_name[("runtime_evidence_selection", "workhorse-q4-vs-q6-latency-tradeoff")]
+        self.assertEqual(workhorse["review_guide_ref"], "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md")
+        self.assertEqual(
+            workhorse["owner_review_refs"],
+            [
+                "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+                "docs/EVAL_REVIEW_GUIDE.md",
+                "examples/runtime_evidence_selection.workhorse-local.example.json",
+            ],
+        )
+        hook = by_name[("artifact_to_verdict_hook", "aoa-p-0006-approval-boundary-hook")]
+        self.assertEqual(hook["review_guide_ref"], "docs/TRACE_EVAL_BRIDGE.md")
+        self.assertEqual(hook["candidate_acceptance_posture"], "candidate_until_eval_review")
 
 
 if __name__ == "__main__":

@@ -94,6 +94,8 @@ QUESTBOOK_NAME = "QUESTBOOK.md"
 QUESTBOOK_INTEGRATION_NAME = "docs/QUESTBOOK_EVAL_INTEGRATION.md"
 QUEST_SCHEMA_NAME = "schemas/quest.schema.json"
 QUEST_DISPATCH_SCHEMA_NAME = "schemas/quest_dispatch.schema.json"
+QUEST_CATALOG_NAME = "generated/quest_catalog.min.json"
+QUEST_DISPATCH_NAME = "generated/quest_dispatch.min.json"
 QUEST_CATALOG_EXAMPLE_NAME = "generated/quest_catalog.min.example.json"
 QUEST_DISPATCH_EXAMPLE_NAME = "generated/quest_dispatch.min.example.json"
 QUEST_NAMES = (
@@ -541,12 +543,67 @@ def build_expected_quest_dispatch_entry(
     }
 
 
+def questbook_surface_enabled(repo_root: Path) -> bool:
+    markers = (
+        repo_root / QUESTBOOK_NAME,
+        repo_root / QUESTBOOK_INTEGRATION_NAME,
+        repo_root / "quests",
+        repo_root / QUEST_SCHEMA_NAME,
+        repo_root / QUEST_DISPATCH_SCHEMA_NAME,
+    )
+    return repo_root == REPO_ROOT or any(path.exists() for path in markers)
+
+
+def load_quest_projection_records(repo_root: Path) -> list[tuple[str, dict[str, Any], str]]:
+    records: list[tuple[str, dict[str, Any], str]] = []
+    for quest_name in QUEST_NAMES:
+        quest_path = repo_root / "quests" / f"{quest_name}.yaml"
+        try:
+            quest_data = yaml.safe_load(quest_path.read_text(encoding="utf-8"))
+        except FileNotFoundError as exc:
+            raise ValueError(f"{quest_path.relative_to(repo_root).as_posix()} is missing") from exc
+        except yaml.YAMLError as exc:
+            raise ValueError(f"{quest_path.relative_to(repo_root).as_posix()} is invalid YAML: {exc}") from exc
+        if not isinstance(quest_data, dict):
+            raise ValueError(f"{quest_path.relative_to(repo_root).as_posix()} must be a YAML mapping")
+        if quest_data.get("schema_version") != QUEST_SCHEMA_VERSION:
+            raise ValueError(f"{quest_path.relative_to(repo_root).as_posix()} must keep schema_version '{QUEST_SCHEMA_VERSION}'")
+        if quest_data.get("repo") != "aoa-evals":
+            raise ValueError(f"{quest_path.relative_to(repo_root).as_posix()} must keep repo 'aoa-evals'")
+        if quest_data.get("id") != quest_name:
+            raise ValueError(f"{quest_path.relative_to(repo_root).as_posix()} must keep id '{quest_name}'")
+        if quest_data.get("public_safe") is not True:
+            raise ValueError(f"{quest_path.relative_to(repo_root).as_posix()} must keep public_safe true")
+        records.append((quest_name, quest_data, quest_path.relative_to(repo_root).as_posix()))
+    return records
+
+
+def build_quest_catalog_projection(repo_root: Path) -> list[dict[str, Any]]:
+    return [
+        build_expected_quest_catalog_entry(quest_data, source_path=source_path)
+        for _, quest_data, source_path in load_quest_projection_records(repo_root)
+    ]
+
+
+def build_quest_dispatch_projection(repo_root: Path) -> list[dict[str, Any]]:
+    return [
+        build_expected_quest_dispatch_entry(
+            quest_data,
+            quest_name=quest_name,
+            source_path=source_path,
+        )
+        for quest_name, quest_data, source_path in load_quest_projection_records(repo_root)
+    ]
+
+
 def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     questbook_path = repo_root / QUESTBOOK_NAME
     integration_path = repo_root / QUESTBOOK_INTEGRATION_NAME
     quest_schema_path = repo_root / QUEST_SCHEMA_NAME
     quest_dispatch_schema_path = repo_root / QUEST_DISPATCH_SCHEMA_NAME
+    quest_catalog_path = repo_root / QUEST_CATALOG_NAME
+    quest_dispatch_path = repo_root / QUEST_DISPATCH_NAME
     quest_catalog_example_path = repo_root / QUEST_CATALOG_EXAMPLE_NAME
     quest_dispatch_example_path = repo_root / QUEST_DISPATCH_EXAMPLE_NAME
     quest_paths = [repo_root / "quests" / f"{quest_name}.yaml" for quest_name in QUEST_NAMES]
@@ -651,6 +708,22 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                     )
                 )
 
+    actual_live_catalog = load_json_payload(quest_catalog_path, issues)
+    if isinstance(actual_live_catalog, list):
+        if actual_live_catalog != expected_catalog_entries:
+            issues.append(
+                ValidationIssue(
+                    relative_location(quest_catalog_path, repo_root),
+                    "generated quest catalog is out of date or mismatched",
+                )
+            )
+    else:
+        issues.append(
+            ValidationIssue(
+                relative_location(quest_catalog_path, repo_root),
+                "generated quest catalog must be an array",
+            )
+        )
     actual_catalog = load_json_payload(quest_catalog_example_path, issues)
     if isinstance(actual_catalog, list):
         if actual_catalog != expected_catalog_entries:
@@ -660,11 +733,34 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                     "generated quest catalog example is out of date or mismatched",
                 )
             )
+        elif actual_live_catalog != actual_catalog:
+            issues.append(
+                ValidationIssue(
+                    relative_location(quest_catalog_example_path, repo_root),
+                    "generated quest catalog example must match generated quest catalog",
+                )
+            )
     else:
         issues.append(
             ValidationIssue(
                 relative_location(quest_catalog_example_path, repo_root),
                 "generated quest catalog example must be an array",
+            )
+        )
+    actual_live_dispatch = load_json_payload(quest_dispatch_path, issues)
+    if isinstance(actual_live_dispatch, list):
+        if actual_live_dispatch != expected_dispatch_entries:
+            issues.append(
+                ValidationIssue(
+                    relative_location(quest_dispatch_path, repo_root),
+                    "generated quest dispatch is out of date or mismatched",
+                )
+            )
+    else:
+        issues.append(
+            ValidationIssue(
+                relative_location(quest_dispatch_path, repo_root),
+                "generated quest dispatch must be an array",
             )
         )
     actual_dispatch = load_json_payload(quest_dispatch_example_path, issues)
@@ -674,6 +770,13 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                 ValidationIssue(
                     relative_location(quest_dispatch_example_path, repo_root),
                     "generated quest dispatch example is out of date or mismatched",
+                )
+            )
+        elif actual_live_dispatch != actual_dispatch:
+            issues.append(
+                ValidationIssue(
+                    relative_location(quest_dispatch_example_path, repo_root),
+                    "generated quest dispatch example must match generated quest dispatch",
                 )
             )
         else:

@@ -58,6 +58,7 @@ def make_questbook_surface(repo_root: Path) -> None:
         "quests/AOA-EV-Q-0002.yaml",
         "quests/AOA-EV-Q-0003.yaml",
         "quests/AOA-EV-Q-0004.yaml",
+        "quests/AOA-EV-Q-0005.yaml",
     ]:
         copy_repo_text(repo_root, relative_path)
 
@@ -3591,6 +3592,17 @@ class TestValidateQuestbookSurface:
         assert any(issue.location.endswith("QUESTBOOK.md") for issue in issues)
         assert any("file is missing" in issue.message for issue in issues)
 
+    def test_discover_quest_names_includes_additive_quests(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+
+        assert validate_repo.discover_quest_names(tmp_path) == [
+            "AOA-EV-Q-0001",
+            "AOA-EV-Q-0002",
+            "AOA-EV-Q-0003",
+            "AOA-EV-Q-0004",
+            "AOA-EV-Q-0005",
+        ]
+
     def test_missing_tracked_id_in_questbook_fails(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
         questbook_path = tmp_path / "QUESTBOOK.md"
@@ -3626,8 +3638,8 @@ class TestValidateQuestbookSurface:
 
         issues = validate_questbook_surface(tmp_path)
 
-        assert any("AOA-EV-Q-0002.yaml" in issue.location for issue in issues)
-        assert any("file is missing" in issue.message for issue in issues)
+        assert any("quests" == issue.location for issue in issues)
+        assert any("missing required foundation quest file 'AOA-EV-Q-0002.yaml'" in issue.message for issue in issues)
 
     def test_quest_id_filename_mismatch_fails(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
@@ -3653,7 +3665,7 @@ class TestValidateQuestbookSurface:
 
     def test_missing_public_safe_fails(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
-        quest_path = tmp_path / "quests" / "AOA-EV-Q-0004.yaml"
+        quest_path = tmp_path / "quests" / "AOA-EV-Q-0005.yaml"
         quest_data = yaml.safe_load(quest_path.read_text(encoding="utf-8"))
         quest_data["public_safe"] = False
         write_yaml_payload(quest_path, quest_data)
@@ -3740,3 +3752,12 @@ class TestValidateQuestbookSurface:
             issue.location.endswith("QUESTBOOK.md") and issue.message == "file is missing"
             for issue in issues
         )
+
+    def test_quest_projection_includes_additive_quest(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+
+        catalog_projection = validate_repo.build_quest_catalog_projection(tmp_path)
+        dispatch_projection = validate_repo.build_quest_dispatch_projection(tmp_path)
+
+        assert [entry["id"] for entry in catalog_projection][-1] == "AOA-EV-Q-0005"
+        assert [entry["id"] for entry in dispatch_projection][-1] == "AOA-EV-Q-0005"

@@ -89,5 +89,28 @@
     "state": "captured",
     "wrapper_class": "codex_primary",
     "write_scope": "docs_only"
+  },
+  {
+    "activation_mode": "manual",
+    "band": "frontier",
+    "control_mode": "human_codex_copilot",
+    "delegate_tier": "planner",
+    "difficulty": "d3_seam",
+    "fallback_tier": "verifier",
+    "id": "AOA-EV-Q-0005",
+    "public_safe": true,
+    "repo": "aoa-evals",
+    "requires_artifacts": [
+      "bounded_plan",
+      "work_result",
+      "verification_result"
+    ],
+    "risk": "r2_contract",
+    "schema_version": "quest_dispatch_v1",
+    "source_path": "quests/AOA-EV-Q-0005.yaml",
+    "split_required": true,
+    "state": "captured",
+    "wrapper_class": "hybrid",
+    "write_scope": "repo_local"
   }
 ]

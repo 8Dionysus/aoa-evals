@@ -98,7 +98,7 @@ QUEST_CATALOG_NAME = "generated/quest_catalog.min.json"
 QUEST_DISPATCH_NAME = "generated/quest_dispatch.min.json"
 QUEST_CATALOG_EXAMPLE_NAME = "generated/quest_catalog.min.example.json"
 QUEST_DISPATCH_EXAMPLE_NAME = "generated/quest_dispatch.min.example.json"
-QUEST_NAMES = (
+FOUNDATION_QUEST_NAMES = (
     "AOA-EV-Q-0001",
     "AOA-EV-Q-0002",
     "AOA-EV-Q-0003",
@@ -121,6 +121,27 @@ QUEST_SCHEMA_TITLE = "work_quest_v1"
 QUEST_SCHEMA_VERSION = "work_quest_v1"
 QUEST_DISPATCH_SCHEMA_TITLE = "quest_dispatch_v1"
 QUEST_DISPATCH_SCHEMA_VERSION = "quest_dispatch_v1"
+QUEST_DISPATCH_ARTIFACT_OVERRIDES = {
+    "AOA-EV-Q-0001": [
+        "bounded_plan",
+        "work_result",
+        "verification_result",
+    ],
+    "AOA-EV-Q-0002": [
+        "bounded_plan",
+        "evaluation_result",
+        "verification_result",
+    ],
+    "AOA-EV-Q-0003": [
+        "bounded_plan",
+        "work_result",
+        "verification_result",
+    ],
+    "AOA-EV-Q-0004": [
+        "recurrence_evidence",
+        "promotion_decision",
+    ],
+}
 
 MIRRORED_FIELDS = (
     "name",
@@ -401,7 +422,46 @@ def load_json_payload(path: Path, issues: list[ValidationIssue]) -> Any | None:
         issues.append(ValidationIssue(relative_location(path), f"invalid JSON: {exc}"))
         return None
 
+def quest_sort_key(quest_name: str) -> tuple[int, str]:
+    suffix = quest_name.rsplit("-", 1)[-1]
+    try:
+        return (int(suffix), quest_name)
+    except ValueError:
+        return (sys.maxsize, quest_name)
 
+
+def discover_quest_names(repo_root: Path) -> list[str]:
+    quests_dir = repo_root / "quests"
+    quest_names = sorted(
+        {
+            path.stem
+            for path in quests_dir.glob("AOA-EV-Q-*.yaml")
+            if path.is_file()
+        },
+        key=quest_sort_key,
+    )
+    if not quest_names:
+        return list(FOUNDATION_QUEST_NAMES)
+    return quest_names
+
+
+def missing_foundation_quest_names(quest_names: Iterable[str]) -> list[str]:
+    quest_name_set = set(quest_names)
+    return [quest_name for quest_name in FOUNDATION_QUEST_NAMES if quest_name not in quest_name_set]
+
+
+def should_validate_questbook_surface(repo_root: Path) -> bool:
+    questbook_paths = (
+        repo_root / QUESTBOOK_NAME,
+        repo_root / QUESTBOOK_INTEGRATION_NAME,
+        repo_root / QUEST_SCHEMA_NAME,
+        repo_root / QUEST_DISPATCH_SCHEMA_NAME,
+        repo_root / QUEST_CATALOG_EXAMPLE_NAME,
+        repo_root / QUEST_DISPATCH_EXAMPLE_NAME,
+    )
+    if any(path.exists() for path in questbook_paths):
+        return True
+    return any((repo_root / "quests" / f"{quest_name}.yaml").exists() for quest_name in discover_quest_names(repo_root))
 def validate_quest_schema_envelope(
     schema: Any,
     *,
@@ -487,27 +547,13 @@ def build_expected_quest_dispatch_entry(
     activation = quest.get("activation")
     if not isinstance(activation, dict):
         activation = {}
-    requires_artifacts = {
-        "AOA-EV-Q-0001": [
-            "bounded_plan",
-            "work_result",
-            "verification_result",
-        ],
-        "AOA-EV-Q-0002": [
-            "bounded_plan",
-            "evaluation_result",
-            "verification_result",
-        ],
-        "AOA-EV-Q-0003": [
-            "bounded_plan",
-            "work_result",
-            "verification_result",
-        ],
-        "AOA-EV-Q-0004": [
-            "recurrence_evidence",
-            "promotion_decision",
-        ],
-    }
+    requires_artifacts = QUEST_DISPATCH_ARTIFACT_OVERRIDES.get(quest_name)
+    if requires_artifacts is None:
+        kind = quest.get("kind")
+        if kind == "harvest":
+            requires_artifacts = ["recurrence_evidence", "promotion_decision"]
+        else:
+            requires_artifacts = ["bounded_plan", "work_result", "verification_result"]
     entry = {
         "schema_version": QUEST_DISPATCH_SCHEMA_VERSION,
         "id": quest["id"],
@@ -520,7 +566,7 @@ def build_expected_quest_dispatch_entry(
         "delegate_tier": quest["delegate_tier"],
         "split_required": quest["split_required"],
         "write_scope": quest["write_scope"],
-        "requires_artifacts": requires_artifacts[quest_name],
+        "requires_artifacts": requires_artifacts,
         "activation_mode": activation.get("mode"),
         "source_path": source_path,
         "public_safe": quest["public_safe"],
@@ -534,7 +580,12 @@ def build_expected_quest_dispatch_entry(
 
 def load_quest_projection_records(repo_root: Path) -> list[tuple[str, dict[str, Any], str]]:
     records: list[tuple[str, dict[str, Any], str]] = []
-    for quest_name in QUEST_NAMES:
+    quest_names = discover_quest_names(repo_root)
+    missing_foundation = missing_foundation_quest_names(quest_names)
+    if missing_foundation:
+        missing_display = ", ".join(missing_foundation)
+        raise ValueError(f"missing required foundation quest files: {missing_display}")
+    for quest_name in quest_names:
         quest_path = repo_root / "quests" / f"{quest_name}.yaml"
         try:
             quest_data = yaml.safe_load(quest_path.read_text(encoding="utf-8"))
@@ -584,7 +635,15 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
     quest_dispatch_path = repo_root / QUEST_DISPATCH_NAME
     quest_catalog_example_path = repo_root / QUEST_CATALOG_EXAMPLE_NAME
     quest_dispatch_example_path = repo_root / QUEST_DISPATCH_EXAMPLE_NAME
-    quest_paths = [repo_root / "quests" / f"{quest_name}.yaml" for quest_name in QUEST_NAMES]
+    quest_names = discover_quest_names(repo_root)
+    quest_paths = [repo_root / "quests" / f"{quest_name}.yaml" for quest_name in quest_names]
+    for quest_name in missing_foundation_quest_names(quest_names):
+        issues.append(
+            ValidationIssue(
+                "quests",
+                f"missing required foundation quest file '{quest_name}.yaml'",
+            )
+        )
 
     questbook_text = read_text_or_issue(questbook_path, issues, root=repo_root)
     integration_text = read_text_or_issue(integration_path, issues, root=repo_root)
@@ -633,7 +692,7 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
     valid_quest_ids: list[str] = []
     active_quest_ids: list[str] = []
     closed_quest_ids: list[str] = []
-    for quest_name, quest_path in zip(QUEST_NAMES, quest_paths, strict=True):
+    for quest_name, quest_path in zip(quest_names, quest_paths, strict=True):
         quest_data = load_yaml_file(quest_path, issues)
         if not isinstance(quest_data, dict):
             continue

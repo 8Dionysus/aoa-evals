@@ -34,6 +34,9 @@ A good eval quest normally points to:
 The generated quest catalog and dispatch examples are versioned example-only surfaces.
 They support review and validation, but they are not live portable verdict authority.
 
+Example-only progression surfaces may cite upstream read-only refs such as `AOA-SK-Q-0003`.
+Those references stay source-owned upstream and do not widen this rollout into `aoa-skills`.
+
 ## Manual-first pilot lane
 
 - `AOA-EV-Q-0002` closed one source/proof review lane by anchoring the surviving proof question in `EVAL_INDEX.md` and `docs/COMPARISON_SPINE_GUIDE.md`.

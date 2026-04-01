@@ -1,0 +1,47 @@
+schema_version: work_quest_v1
+id: AOA-EV-Q-0001
+title: Land repo-local questbook surface for proof and regression obligations
+summary: Create the repo-local tracked obligation layer without replacing eval bundles,
+  indexes, or proof docs.
+repo: aoa-evals
+owner_surface: questbook/public-surface
+theme_ref: ''
+milestone_ref: ''
+kind: rollout
+state: ready
+band: frontier
+difficulty: d2_slice
+risk: r1_repo_local
+control_mode: codex_supervised
+delegate_tier: executor
+fallback_tier: verifier
+wrapper_class: local_patcher
+write_scope: repo_local
+split_required: false
+complexity_basis:
+  scope: 2
+  ambiguity: 1
+  boundary: 1
+  verification: 1
+parent: null
+depends_on: []
+activation:
+  mode: immediate
+anchor_ref:
+  artifact: architecture
+  ref: docs/ARCHITECTURE.md
+handoff_role: eval-maintainer
+evidence:
+- QUESTBOOK.md exists
+- quest and dispatch schemas exist
+- starter quest and dispatch examples exist
+harvest:
+  target: none
+opened_at: '2026-03-31'
+touched_at: '2026-03-31'
+tags:
+- questbook
+- proof
+- regression
+notes: ''
+public_safe: true

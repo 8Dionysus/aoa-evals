@@ -14,8 +14,11 @@ import eval_section_contract
 import eval_comparison_spine_contract
 from validate_repo import (
     build_capsule_payload,
+    build_quest_catalog_projection,
+    build_quest_dispatch_projection,
     collect_catalog_records,
     format_issues,
+    questbook_surface_enabled,
 )
 
 
@@ -57,6 +60,10 @@ def check_catalogs(repo_root: Path) -> list[str]:
         / eval_comparison_spine_contract.GENERATED_DIR_NAME
         / eval_comparison_spine_contract.COMPARISON_SPINE_NAME
     )
+    quest_catalog_path = repo_root / "generated" / "quest_catalog.min.json"
+    quest_dispatch_path = repo_root / "generated" / "quest_dispatch.min.json"
+    quest_catalog_example_path = repo_root / "generated" / "quest_catalog.min.example.json"
+    quest_dispatch_example_path = repo_root / "generated" / "quest_dispatch.min.example.json"
     actual_full, full_parse_issues = eval_catalog_contract.read_json_file(full_path, repo_root)
     actual_min, min_parse_issues = eval_catalog_contract.read_json_file(min_path, repo_root)
     actual_capsules, capsule_parse_issues = eval_catalog_contract.read_json_file(capsule_path, repo_root)
@@ -84,6 +91,35 @@ def check_catalogs(repo_root: Path) -> list[str]:
         problems.append(f"stale {sections_path.relative_to(repo_root).as_posix()}")
     if actual_comparison_spine != expected_comparison_spine:
         problems.append(f"stale {comparison_spine_path.relative_to(repo_root).as_posix()}")
+    if questbook_surface_enabled(repo_root):
+        expected_quest_catalog = build_quest_catalog_projection(repo_root)
+        expected_quest_dispatch = build_quest_dispatch_projection(repo_root)
+        actual_quest_catalog, quest_catalog_parse_issues = eval_catalog_contract.read_json_file(
+            quest_catalog_path, repo_root
+        )
+        actual_quest_dispatch, quest_dispatch_parse_issues = eval_catalog_contract.read_json_file(
+            quest_dispatch_path, repo_root
+        )
+        actual_quest_catalog_example, quest_catalog_example_parse_issues = eval_catalog_contract.read_json_file(
+            quest_catalog_example_path, repo_root
+        )
+        actual_quest_dispatch_example, quest_dispatch_example_parse_issues = eval_catalog_contract.read_json_file(
+            quest_dispatch_example_path, repo_root
+        )
+        parse_issues.extend(quest_catalog_parse_issues)
+        parse_issues.extend(quest_dispatch_parse_issues)
+        parse_issues.extend(quest_catalog_example_parse_issues)
+        parse_issues.extend(quest_dispatch_example_parse_issues)
+        if parse_issues:
+            return [issue.message for issue in parse_issues]
+        if actual_quest_catalog != expected_quest_catalog:
+            problems.append(f"stale {quest_catalog_path.relative_to(repo_root).as_posix()}")
+        if actual_quest_dispatch != expected_quest_dispatch:
+            problems.append(f"stale {quest_dispatch_path.relative_to(repo_root).as_posix()}")
+        if actual_quest_catalog_example != expected_quest_catalog:
+            problems.append(f"stale {quest_catalog_example_path.relative_to(repo_root).as_posix()}")
+        if actual_quest_dispatch_example != expected_quest_dispatch:
+            problems.append(f"stale {quest_dispatch_example_path.relative_to(repo_root).as_posix()}")
     return problems
 
 
@@ -114,6 +150,21 @@ def write_catalogs(repo_root: Path) -> tuple[Path, Path, Path, Path, Path]:
     eval_catalog_contract.write_json_file(capsule_path, capsules, compact=False)
     eval_catalog_contract.write_json_file(sections_path, sections, compact=False)
     eval_catalog_contract.write_json_file(comparison_spine_path, comparison_spine, compact=False)
+    if questbook_surface_enabled(repo_root):
+        quest_catalog = build_quest_catalog_projection(repo_root)
+        quest_dispatch = build_quest_dispatch_projection(repo_root)
+        eval_catalog_contract.write_json_file(
+            generated_dir / "quest_catalog.min.json", quest_catalog, compact=True
+        )
+        eval_catalog_contract.write_json_file(
+            generated_dir / "quest_dispatch.min.json", quest_dispatch, compact=True
+        )
+        eval_catalog_contract.write_json_file(
+            generated_dir / "quest_catalog.min.example.json", quest_catalog, compact=False
+        )
+        eval_catalog_contract.write_json_file(
+            generated_dir / "quest_dispatch.min.example.json", quest_dispatch, compact=False
+        )
     return full_path, min_path, capsule_path, sections_path, comparison_spine_path
 
 

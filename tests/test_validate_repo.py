@@ -56,6 +56,8 @@ def make_questbook_surface(repo_root: Path) -> None:
         "docs/QUESTBOOK_EVAL_INTEGRATION.md",
         "schemas/quest.schema.json",
         "schemas/quest_dispatch.schema.json",
+        "generated/quest_catalog.min.json",
+        "generated/quest_dispatch.min.json",
         "generated/quest_catalog.min.example.json",
         "generated/quest_dispatch.min.example.json",
         "quests/AOA-EV-Q-0001.yaml",
@@ -3674,3 +3676,23 @@ class TestValidateQuestbookSurface:
         issues = validate_questbook_surface(tmp_path)
 
         assert any("generated quest catalog example is out of date or mismatched" in issue.message for issue in issues)
+
+    def test_missing_live_catalog_fails(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        (tmp_path / "generated" / "quest_catalog.min.json").unlink()
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any("generated/quest_catalog.min.json" in issue.location for issue in issues)
+        assert any("file is missing" in issue.message for issue in issues)
+
+    def test_live_dispatch_drift_fails(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        dispatch_path = tmp_path / "generated" / "quest_dispatch.min.json"
+        dispatch_data = json.loads(dispatch_path.read_text(encoding="utf-8"))
+        dispatch_data[0]["source_path"] = "quests/not-the-right-file.yaml"
+        write_json_payload(dispatch_path, dispatch_data)
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any("generated quest dispatch is out of date or mismatched" in issue.message for issue in issues)

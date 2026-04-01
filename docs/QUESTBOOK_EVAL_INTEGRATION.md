@@ -33,3 +33,9 @@ A good eval quest normally points to:
 
 The generated quest catalog and dispatch examples are versioned example-only surfaces.
 They support review and validation, but they are not live portable verdict authority.
+
+## Manual-first pilot lane
+
+- `AOA-EV-Q-0002` closed one source/proof review lane by anchoring the surviving proof question in `EVAL_INDEX.md` and `docs/COMPARISON_SPINE_GUIDE.md`.
+- No live routing consumer, dispatch input, or quest builder was introduced for this pass.
+- The result is bounded proof alignment, not a new verdict authority layer.

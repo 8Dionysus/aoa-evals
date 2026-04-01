@@ -58,5 +58,20 @@
     "state": "captured",
     "theme_ref": "",
     "title": "Harvest repeated blind-spot and caution-language repairs into reusable eval patterns and rubrics"
+  },
+  {
+    "band": "frontier",
+    "difficulty": "d3_seam",
+    "id": "AOA-EV-Q-0005",
+    "kind": "proof",
+    "milestone_ref": "",
+    "owner_surface": "proof/progression-evidence",
+    "public_safe": true,
+    "repo": "aoa-evals",
+    "risk": "r2_contract",
+    "source_path": "quests/AOA-EV-Q-0005.yaml",
+    "state": "captured",
+    "theme_ref": "",
+    "title": "Define a multi-axis progression evidence contract for reviewed advancement"
   }
 ]

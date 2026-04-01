@@ -1,0 +1,30 @@
+{
+  "schema_version": "progression_evidence_v1",
+  "id": "AOA-EV-PROG-0001",
+  "agent_id": "AOA-A-EXAMPLE-CODER",
+  "quest_id": "AOA-SK-Q-0003",
+  "verdict": "advance",
+  "review_scope": "quest_scoped",
+  "axis_deltas": {
+    "boundary_integrity": 1,
+    "execution_reliability": 2,
+    "change_legibility": 1,
+    "review_sharpness": 0,
+    "proof_discipline": 1,
+    "provenance_hygiene": 1,
+    "deep_readiness": 0
+  },
+  "artifact_refs": [
+    "quest:AOA-SK-Q-0003",
+    "dispatch:quest_dispatch_v1:AOA-SK-Q-0003",
+    "verification:portable-layer-contract-check"
+  ],
+  "evaluator_ref": "AOA-A-EXAMPLE-EVALUATOR",
+  "confidence": "medium",
+  "cautions": [
+    "Example only. One reviewed event should not auto-grant wider authority."
+  ],
+  "notes": "Portable layer contract tightened with bounded verification and no source-ownership drift.",
+  "reviewed_at": "2026-04-01",
+  "public_safe": true
+}

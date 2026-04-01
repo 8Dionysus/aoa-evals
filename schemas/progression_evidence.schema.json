@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://8dionysus.github.io/schemas/progression_evidence_v1.schema.json",
+  "title": "progression_evidence_v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "agent_id",
+    "quest_id",
+    "verdict",
+    "review_scope",
+    "axis_deltas",
+    "artifact_refs",
+    "evaluator_ref",
+    "confidence",
+    "reviewed_at",
+    "public_safe"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "progression_evidence_v1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "quest_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "advance",
+        "hold",
+        "reanchor",
+        "downgrade"
+      ]
+    },
+    "review_scope": {
+      "type": "string",
+      "enum": [
+        "quest_scoped",
+        "route_scoped",
+        "campaign_scoped"
+      ]
+    },
+    "axis_deltas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "boundary_integrity",
+        "execution_reliability",
+        "change_legibility",
+        "review_sharpness",
+        "proof_discipline",
+        "provenance_hygiene",
+        "deep_readiness"
+      ],
+      "properties": {
+        "boundary_integrity": {
+          "type": "integer",
+          "minimum": -3,
+          "maximum": 3
+        },
+        "execution_reliability": {
+          "type": "integer",
+          "minimum": -3,
+          "maximum": 3
+        },
+        "change_legibility": {
+          "type": "integer",
+          "minimum": -3,
+          "maximum": 3
+        },
+        "review_sharpness": {
+          "type": "integer",
+          "minimum": -3,
+          "maximum": 3
+        },
+        "proof_discipline": {
+          "type": "integer",
+          "minimum": -3,
+          "maximum": 3
+        },
+        "provenance_hygiene": {
+          "type": "integer",
+          "minimum": -3,
+          "maximum": 3
+        },
+        "deep_readiness": {
+          "type": "integer",
+          "minimum": -3,
+          "maximum": 3
+        }
+      }
+    },
+    "artifact_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "evaluator_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "cautions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "notes": {
+      "type": "string"
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "public_safe": {
+      "type": "boolean"
+    }
+  }
+}

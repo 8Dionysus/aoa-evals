@@ -1,0 +1,49 @@
+schema_version: work_quest_v1
+id: AOA-EV-Q-0005
+title: Define a multi-axis progression evidence contract for reviewed advancement
+summary: Add a bounded proof surface for advancement verdicts and axis deltas without collapsing evaluation into one score.
+repo: aoa-evals
+owner_surface: proof/progression-evidence
+theme_ref: ''
+milestone_ref: ''
+kind: proof
+state: captured
+band: frontier
+difficulty: d3_seam
+risk: r2_contract
+control_mode: human_codex_copilot
+delegate_tier: planner
+fallback_tier: verifier
+wrapper_class: hybrid
+write_scope: repo_local
+split_required: true
+complexity_basis:
+  scope: 2
+  ambiguity: 2
+  boundary: 2
+  verification: 2
+parent: null
+depends_on: []
+activation:
+  mode: manual
+  note: open when the first adjunct progression proof surface is ready to land
+anchor_ref:
+  artifact: progression_evidence_model
+  ref: docs/PROGRESSION_EVIDENCE_MODEL.md
+  note: advancement must stay proof-shaped and multi-axis
+handoff_role: eval-maintainer
+evidence:
+  - progression evidence supports advance, hold, reanchor, and downgrade
+  - axis deltas are explicit and bounded
+  - one universal score remains excluded
+harvest:
+  target: eval
+opened_at: '2026-04-01'
+touched_at: '2026-04-01'
+tags:
+  - progression
+  - proof
+  - xp
+notes: >
+  Keep progression evidence portable and reviewable. Do not make it a disguised global intelligence rating.
+public_safe: true

@@ -25,7 +25,8 @@ If you are new to this repository, follow this short path:
 6. Read `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md` if your question is about artifact-side versus process-side reading.
 7. Read `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md` if your question is about repeated-window comparability and cautious movement language.
 8. Open `bundles/aoa-bounded-change-quality/EVAL.md` as the first starter eval bundle.
-9. Use `templates/EVAL.template.md` when authoring a new eval.
+9. Read `docs/PROGRESSION_EVIDENCE_MODEL.md` for the adjunct multi-axis advancement seam.
+10. Use `templates/EVAL.template.md` when authoring a new eval.
 
 ## Quick routes
 
@@ -42,6 +43,7 @@ If you are new to this repository, follow this short path:
 - if you need the artifact/process read order, read `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
 - if you need cautious repeated-window reading, read `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
 - if you need shared fixture/runner/scorer conventions, read `docs/SHARED_PROOF_INFRA_GUIDE.md`
+- if you need adjunct progression evidence that stays proof-shaped and refuses score collapse, read `docs/PROGRESSION_EVIDENCE_MODEL.md`
 
 ## What belongs here
 

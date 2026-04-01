@@ -15,7 +15,7 @@ Do not use it for:
 - turning every local test tweak into a tracked quest
 
 ## Frontier
-- none yet
+- `AOA-EV-Q-0005` - define a multi-axis progression evidence contract for reviewed advancement
 
 ## Near
 - `AOA-EV-Q-0003` - tighten the trace-eval bridge and artifact-process separation for portable verdicts

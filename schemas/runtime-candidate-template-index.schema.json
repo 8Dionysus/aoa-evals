@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/8Dionysus/aoa-evals/main/schemas/runtime-candidate-template-index.schema.json",
+  "title": "aoa-evals runtime candidate template index",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "layer",
+    "source_of_truth",
+    "templates"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "layer": {
+      "type": "string",
+      "const": "aoa-evals"
+    },
+    "source_of_truth": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eval_catalog",
+        "runtime_evidence_selection_examples",
+        "artifact_to_verdict_hook_examples"
+      ],
+      "properties": {
+        "eval_catalog": {
+          "type": "string",
+          "const": "generated/eval_catalog.min.json"
+        },
+        "runtime_evidence_selection_examples": {
+          "type": "string",
+          "const": "examples/runtime_evidence_selection.*.example.json"
+        },
+        "artifact_to_verdict_hook_examples": {
+          "type": "string",
+          "const": "examples/artifact_to_verdict_hook.*.example.json"
+        }
+      }
+    },
+    "templates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "template_kind",
+          "template_name",
+          "playbook_id",
+          "eval_anchor",
+          "verdict_bundle_ref",
+          "required_runtime_artifacts",
+          "review_required",
+          "source_example_ref"
+        ],
+        "properties": {
+          "template_kind": {
+            "type": "string",
+            "enum": [
+              "runtime_evidence_selection",
+              "artifact_to_verdict_hook"
+            ]
+          },
+          "template_name": {
+            "type": "string",
+            "minLength": 3
+          },
+          "playbook_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^AOA-P-[0-9]{4}$"
+          },
+          "eval_anchor": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 3
+          },
+          "verdict_bundle_ref": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 3
+          },
+          "required_runtime_artifacts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 3
+            }
+          },
+          "review_required": {
+            "type": "boolean"
+          },
+          "source_example_ref": {
+            "type": "string",
+            "pattern": "^examples/(runtime_evidence_selection|artifact_to_verdict_hook)\\..+\\.example\\.json$"
+          }
+        }
+      }
+    }
+  }
+}

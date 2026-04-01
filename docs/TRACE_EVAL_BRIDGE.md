@@ -167,6 +167,7 @@ These hook surfaces bind together:
 
 They are derived bridge metadata.
 They are not a second proof canon and not a runtime judge implementation.
+Runtime-produced hook packets remain review candidates until `aoa-evals` confirms their bounded use against the owning eval bundle.
 
 ## Non-goals
 

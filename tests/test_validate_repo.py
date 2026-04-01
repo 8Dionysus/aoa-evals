@@ -47,12 +47,6 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 def make_questbook_surface(repo_root: Path) -> None:
     for relative_path in [
         "QUESTBOOK.md",
-        "EVAL_INDEX.md",
-        "docs/ARCHITECTURE.md",
-        "docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md",
-        "docs/COMPARISON_SPINE_GUIDE.md",
-        "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
-        "docs/TRACE_EVAL_BRIDGE.md",
         "docs/QUESTBOOK_EVAL_INTEGRATION.md",
         "schemas/quest.schema.json",
         "schemas/quest_dispatch.schema.json",
@@ -803,6 +797,8 @@ def make_eval_bundle(
 
 
 def write_catalogs(repo_root: Path) -> None:
+    if not (repo_root / "QUESTBOOK.md").is_file():
+        make_questbook_surface(repo_root)
     issues, records = collect_catalog_records(repo_root)
     if issues:
         return
@@ -3696,3 +3692,51 @@ class TestValidateQuestbookSurface:
         issues = validate_questbook_surface(tmp_path)
 
         assert any("generated quest dispatch is out of date or mismatched" in issue.message for issue in issues)
+
+    def test_live_dispatch_optional_field_schema_violation_surfaces_before_parity(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        dispatch_path = tmp_path / "generated" / "quest_dispatch.min.json"
+        dispatch_data = json.loads(dispatch_path.read_text(encoding="utf-8"))
+        dispatch_data[0]["fallback_tier"] = None
+        write_json_payload(dispatch_path, dispatch_data)
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any(
+            issue.location.endswith("quest_dispatch.min.json[0]")
+            and "fallback_tier" in issue.message
+            for issue in issues
+        )
+        assert not any(
+            issue.location.endswith("quest_dispatch.min.json")
+            and issue.message == "generated quest dispatch is out of date or mismatched"
+            for issue in issues
+        )
+
+    def test_example_dispatch_optional_field_schema_violation_surfaces_before_parity(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        dispatch_path = tmp_path / "generated" / "quest_dispatch.min.example.json"
+        dispatch_data = json.loads(dispatch_path.read_text(encoding="utf-8"))
+        dispatch_data[0]["wrapper_class"] = None
+        write_json_payload(dispatch_path, dispatch_data)
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any(
+            issue.location.endswith("quest_dispatch.min.example.json[0]")
+            and "wrapper_class" in issue.message
+            for issue in issues
+        )
+        assert not any(
+            issue.location.endswith("quest_dispatch.min.example.json")
+            and issue.message == "generated quest dispatch example is out of date or mismatched"
+            for issue in issues
+        )
+
+    def test_run_validation_reports_missing_questbook_surface_without_gate(self, tmp_path: Path) -> None:
+        issues = run_validation(tmp_path)
+
+        assert any(
+            issue.location.endswith("QUESTBOOK.md") and issue.message == "file is missing"
+            for issue in issues
+        )

@@ -402,20 +402,6 @@ def load_json_payload(path: Path, issues: list[ValidationIssue]) -> Any | None:
         return None
 
 
-def should_validate_questbook_surface(repo_root: Path) -> bool:
-    questbook_paths = (
-        repo_root / QUESTBOOK_NAME,
-        repo_root / QUESTBOOK_INTEGRATION_NAME,
-        repo_root / QUEST_SCHEMA_NAME,
-        repo_root / QUEST_DISPATCH_SCHEMA_NAME,
-        repo_root / QUEST_CATALOG_EXAMPLE_NAME,
-        repo_root / QUEST_DISPATCH_EXAMPLE_NAME,
-    )
-    if any(path.exists() for path in questbook_paths):
-        return True
-    return any((repo_root / "quests" / f"{quest_name}.yaml").exists() for quest_name in QUEST_NAMES)
-
-
 def validate_quest_schema_envelope(
     schema: Any,
     *,
@@ -522,7 +508,7 @@ def build_expected_quest_dispatch_entry(
             "promotion_decision",
         ],
     }
-    return {
+    entry = {
         "schema_version": QUEST_DISPATCH_SCHEMA_VERSION,
         "id": quest["id"],
         "repo": quest["repo"],
@@ -538,20 +524,12 @@ def build_expected_quest_dispatch_entry(
         "activation_mode": activation.get("mode"),
         "source_path": source_path,
         "public_safe": quest["public_safe"],
-        "fallback_tier": quest.get("fallback_tier"),
-        "wrapper_class": quest.get("wrapper_class"),
     }
-
-
-def questbook_surface_enabled(repo_root: Path) -> bool:
-    markers = (
-        repo_root / QUESTBOOK_NAME,
-        repo_root / QUESTBOOK_INTEGRATION_NAME,
-        repo_root / "quests",
-        repo_root / QUEST_SCHEMA_NAME,
-        repo_root / QUEST_DISPATCH_SCHEMA_NAME,
-    )
-    return repo_root == REPO_ROOT or any(path.exists() for path in markers)
+    if "fallback_tier" in quest:
+        entry["fallback_tier"] = quest.get("fallback_tier")
+    if "wrapper_class" in quest:
+        entry["wrapper_class"] = quest.get("wrapper_class")
+    return entry
 
 
 def load_quest_projection_records(repo_root: Path) -> list[tuple[str, dict[str, Any], str]]:
@@ -652,6 +630,7 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
 
     expected_catalog_entries: list[dict[str, Any]] = []
     expected_dispatch_entries: list[dict[str, Any]] = []
+    valid_quest_ids: list[str] = []
     active_quest_ids: list[str] = []
     closed_quest_ids: list[str] = []
     for quest_name, quest_path in zip(QUEST_NAMES, quest_paths, strict=True):
@@ -678,7 +657,10 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
         else:
             active_quest_ids.append(quest_name)
 
+        if quest_data.get("id") != quest_name:
+            continue
         source_path = quest_path.relative_to(repo_root).as_posix()
+        valid_quest_ids.append(quest_name)
         expected_catalog_entries.append(
             build_expected_quest_catalog_entry(quest_data, source_path=source_path)
         )
@@ -708,9 +690,21 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                     )
                 )
 
+    expected_catalog_by_id = {
+        entry["id"]: entry for entry in expected_catalog_entries
+    }
     actual_live_catalog = load_json_payload(quest_catalog_path, issues)
+    actual_live_catalog_by_id: dict[str, dict[str, Any]] = {}
     if isinstance(actual_live_catalog, list):
-        if actual_live_catalog != expected_catalog_entries:
+        for item in actual_live_catalog:
+            if isinstance(item, dict):
+                item_id = item.get("id")
+                if isinstance(item_id, str) and item_id in expected_catalog_by_id:
+                    actual_live_catalog_by_id[item_id] = item
+        if any(
+            actual_live_catalog_by_id.get(quest_id) != expected_catalog_by_id[quest_id]
+            for quest_id in valid_quest_ids
+        ):
             issues.append(
                 ValidationIssue(
                     relative_location(quest_catalog_path, repo_root),
@@ -726,14 +720,26 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
         )
     actual_catalog = load_json_payload(quest_catalog_example_path, issues)
     if isinstance(actual_catalog, list):
-        if actual_catalog != expected_catalog_entries:
+        actual_catalog_by_id: dict[str, dict[str, Any]] = {}
+        for item in actual_catalog:
+            if isinstance(item, dict):
+                item_id = item.get("id")
+                if isinstance(item_id, str) and item_id in expected_catalog_by_id:
+                    actual_catalog_by_id[item_id] = item
+        if any(
+            actual_catalog_by_id.get(quest_id) != expected_catalog_by_id[quest_id]
+            for quest_id in valid_quest_ids
+        ):
             issues.append(
                 ValidationIssue(
                     relative_location(quest_catalog_example_path, repo_root),
                     "generated quest catalog example is out of date or mismatched",
                 )
             )
-        elif actual_live_catalog != actual_catalog:
+        elif any(
+            actual_catalog_by_id.get(quest_id) != actual_live_catalog_by_id.get(quest_id)
+            for quest_id in valid_quest_ids
+        ):
             issues.append(
                 ValidationIssue(
                     relative_location(quest_catalog_example_path, repo_root),
@@ -747,9 +753,37 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                 "generated quest catalog example must be an array",
             )
         )
+    expected_dispatch_by_id = {
+        entry["id"]: entry for entry in expected_dispatch_entries
+    }
     actual_live_dispatch = load_json_payload(quest_dispatch_path, issues)
+    actual_live_dispatch_by_id: dict[str, dict[str, Any]] = {}
+    invalid_live_dispatch_ids: set[str] = set()
     if isinstance(actual_live_dispatch, list):
-        if actual_live_dispatch != expected_dispatch_entries:
+        for index, item in enumerate(actual_live_dispatch):
+            location = f"{relative_location(quest_dispatch_path, repo_root)}[{index}]"
+            if not isinstance(item, dict):
+                continue
+            item_valid = validate_against_schema(
+                item,
+                "quest_dispatch.schema.json",
+                location,
+                issues,
+            )
+            item_id = item.get("id")
+            if not item_valid and isinstance(item_id, str):
+                invalid_live_dispatch_ids.add(item_id)
+            if item_valid and isinstance(item_id, str) and item_id in expected_dispatch_by_id:
+                actual_live_dispatch_by_id[item_id] = item
+        comparable_live_dispatch_ids = [
+            quest_id
+            for quest_id in valid_quest_ids
+            if quest_id not in invalid_live_dispatch_ids
+        ]
+        if any(
+            actual_live_dispatch_by_id.get(quest_id) != expected_dispatch_by_id[quest_id]
+            for quest_id in comparable_live_dispatch_ids
+        ):
             issues.append(
                 ValidationIssue(
                     relative_location(quest_dispatch_path, repo_root),
@@ -765,14 +799,42 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
         )
     actual_dispatch = load_json_payload(quest_dispatch_example_path, issues)
     if isinstance(actual_dispatch, list):
-        if actual_dispatch != expected_dispatch_entries:
+        actual_dispatch_by_id: dict[str, dict[str, Any]] = {}
+        invalid_example_dispatch_ids: set[str] = set()
+        for index, item in enumerate(actual_dispatch):
+            location = f"{relative_location(quest_dispatch_example_path, repo_root)}[{index}]"
+            if not isinstance(item, dict):
+                continue
+            item_valid = validate_against_schema(
+                item,
+                "quest_dispatch.schema.json",
+                location,
+                issues,
+            )
+            item_id = item.get("id")
+            if not item_valid and isinstance(item_id, str):
+                invalid_example_dispatch_ids.add(item_id)
+            if item_valid and isinstance(item_id, str) and item_id in expected_dispatch_by_id:
+                actual_dispatch_by_id[item_id] = item
+        comparable_example_dispatch_ids = [
+            quest_id
+            for quest_id in valid_quest_ids
+            if quest_id not in invalid_example_dispatch_ids
+        ]
+        if any(
+            actual_dispatch_by_id.get(quest_id) != expected_dispatch_by_id[quest_id]
+            for quest_id in comparable_example_dispatch_ids
+        ):
             issues.append(
                 ValidationIssue(
                     relative_location(quest_dispatch_example_path, repo_root),
                     "generated quest dispatch example is out of date or mismatched",
                 )
             )
-        elif actual_live_dispatch != actual_dispatch:
+        elif any(
+            actual_dispatch_by_id.get(quest_id) != actual_live_dispatch_by_id.get(quest_id)
+            for quest_id in comparable_example_dispatch_ids
+        ):
             issues.append(
                 ValidationIssue(
                     relative_location(quest_dispatch_example_path, repo_root),
@@ -780,22 +842,15 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                 )
             )
         else:
-            for index, item in enumerate(actual_dispatch):
-                if not isinstance(item, dict):
+            for quest_id in comparable_example_dispatch_ids:
+                item = actual_dispatch_by_id.get(quest_id)
+                if item is None:
                     continue
-                location = f"{relative_location(quest_dispatch_example_path, repo_root)}[{index}]"
-                if item.get("schema_version") != QUEST_DISPATCH_SCHEMA_VERSION:
-                    issues.append(
-                        ValidationIssue(
-                            location,
-                            f"schema_version must be '{QUEST_DISPATCH_SCHEMA_VERSION}'",
-                        )
-                    )
                 requires_artifacts = item.get("requires_artifacts")
                 if not isinstance(requires_artifacts, list) or not requires_artifacts:
                     issues.append(
                         ValidationIssue(
-                            location,
+                            relative_location(quest_dispatch_example_path, repo_root),
                             "dispatch example must keep requires_artifacts as a non-empty example-only list",
                         )
                     )
@@ -4054,7 +4109,12 @@ def run_validation(
     eval_name: str | None = None,
 ) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
-    all_eval_names = discover_eval_names(repo_root)
+    bundles_dir_exists = (repo_root / BUNDLES_DIR_NAME).is_dir()
+    try:
+        all_eval_names = discover_eval_names(repo_root)
+    except FileNotFoundError:
+        issues.append(ValidationIssue(BUNDLES_DIR_NAME, "directory is missing"))
+        all_eval_names = []
     starter_names = load_starter_eval_names(repo_root, issues)
     starter_set = set(starter_names)
 
@@ -4069,38 +4129,42 @@ def run_validation(
         selected_evals = None
         selected_starter_evals = None
 
-    source_issues, records = collect_catalog_records(repo_root, target_evals)
+    if all_eval_names:
+        source_issues, records = collect_catalog_records(repo_root, target_evals)
+    else:
+        source_issues, records = [], []
     issues.extend(source_issues)
 
-    issues.extend(
-        validate_eval_index(
-            repo_root,
-            starter_names=starter_names,
-            selected_evals=selected_starter_evals,
+    if bundles_dir_exists:
+        issues.extend(
+            validate_eval_index(
+                repo_root,
+                starter_names=starter_names,
+                selected_evals=selected_starter_evals,
+            )
         )
-    )
-    issues.extend(
-        validate_eval_selection(
-            repo_root,
-            starter_names=starter_names,
-            selected_evals=selected_starter_evals,
+        issues.extend(
+            validate_eval_selection(
+                repo_root,
+                starter_names=starter_names,
+                selected_evals=selected_starter_evals,
+            )
         )
-    )
-    issues.extend(
-        validate_starter_bundle_contract(
-            repo_root,
-            starter_names=starter_names,
-            selected_evals=selected_starter_evals,
+        issues.extend(
+            validate_starter_bundle_contract(
+                repo_root,
+                starter_names=starter_names,
+                selected_evals=selected_starter_evals,
+            )
         )
-    )
-    issues.extend(
-        validate_roadmap_parity(
-            repo_root,
-            starter_names=starter_names,
-            selected_evals=selected_evals,
+        issues.extend(
+            validate_roadmap_parity(
+                repo_root,
+                starter_names=starter_names,
+                selected_evals=selected_evals,
+            )
         )
-    )
-    if not source_issues:
+    if bundles_dir_exists and not source_issues:
         issues.extend(
             validate_comparison_doctrine_surfaces(
                 repo_root,
@@ -4135,7 +4199,7 @@ def run_validation(
             )
         )
 
-    if eval_name is None and not source_issues:
+    if bundles_dir_exists and eval_name is None and not source_issues:
         all_source_issues, all_records = collect_catalog_records(repo_root)
         if not all_source_issues:
             issues.extend(validate_trace_eval_bridge_surfaces(repo_root, all_records))
@@ -4149,7 +4213,7 @@ def run_validation(
             issues.extend(validate_generated_capsules(repo_root, all_records))
             issues.extend(validate_generated_sections(repo_root, all_records))
             issues.extend(validate_generated_comparison_spine(repo_root, all_records))
-    elif eval_name is not None and not source_issues:
+    elif bundles_dir_exists and eval_name is not None and not source_issues:
         issues.extend(
             validate_runtime_evidence_selection_surfaces(
                 repo_root,
@@ -4186,8 +4250,7 @@ def run_validation(
             )
         )
 
-    if should_validate_questbook_surface(repo_root):
-        issues.extend(validate_questbook_surface(repo_root))
+    issues.extend(validate_questbook_surface(repo_root))
 
     return issues
 

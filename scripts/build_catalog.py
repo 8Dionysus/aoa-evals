@@ -18,11 +18,21 @@ from validate_repo import (
     build_quest_dispatch_projection,
     collect_catalog_records,
     format_issues,
-    questbook_surface_enabled,
 )
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+QUESTBOOK_SURFACE_SENTINELS = (
+    "QUESTBOOK.md",
+    "docs/QUESTBOOK_EVAL_INTEGRATION.md",
+    "schemas/quest.schema.json",
+    "schemas/quest_dispatch.schema.json",
+    "quests",
+)
+
+
+def has_questbook_surface(repo_root: Path) -> bool:
+    return any((repo_root / relative_path).exists() for relative_path in QUESTBOOK_SURFACE_SENTINELS)
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
@@ -91,7 +101,7 @@ def check_catalogs(repo_root: Path) -> list[str]:
         problems.append(f"stale {sections_path.relative_to(repo_root).as_posix()}")
     if actual_comparison_spine != expected_comparison_spine:
         problems.append(f"stale {comparison_spine_path.relative_to(repo_root).as_posix()}")
-    if questbook_surface_enabled(repo_root):
+    if has_questbook_surface(repo_root):
         expected_quest_catalog = build_quest_catalog_projection(repo_root)
         expected_quest_dispatch = build_quest_dispatch_projection(repo_root)
         actual_quest_catalog, quest_catalog_parse_issues = eval_catalog_contract.read_json_file(
@@ -150,7 +160,7 @@ def write_catalogs(repo_root: Path) -> tuple[Path, Path, Path, Path, Path]:
     eval_catalog_contract.write_json_file(capsule_path, capsules, compact=False)
     eval_catalog_contract.write_json_file(sections_path, sections, compact=False)
     eval_catalog_contract.write_json_file(comparison_spine_path, comparison_spine, compact=False)
-    if questbook_surface_enabled(repo_root):
+    if has_questbook_surface(repo_root):
         quest_catalog = build_quest_catalog_projection(repo_root)
         quest_dispatch = build_quest_dispatch_projection(repo_root)
         eval_catalog_contract.write_json_file(

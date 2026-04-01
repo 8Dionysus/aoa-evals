@@ -15,8 +15,7 @@ Do not use it for:
 - turning every local test tweak into a tracked quest
 
 ## Frontier
-- `AOA-EV-Q-0001` - land repo-local questbook surface for proof and regression obligations
-- `AOA-EV-Q-0002` - track missing proof bundles and regression-surface gaps named by the eval index or comparison spine
+- none yet
 
 ## Near
 - `AOA-EV-Q-0003` - tighten the trace-eval bridge and artifact-process separation for portable verdicts

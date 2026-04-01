@@ -9,7 +9,7 @@ owner_surface: proof/backlog
 theme_ref: ''
 milestone_ref: ''
 kind: proof
-state: triaged
+state: done
 band: frontier
 difficulty: d2_slice
 risk: r1_repo_local
@@ -48,5 +48,7 @@ tags:
 - proof
 - regression
 - coverage
-notes: ''
+notes: Closed in the Phase 2 manual-first pilot after the surviving proof lane
+  was anchored to the eval index and comparison spine without opening routing or
+  builder automation early.
 public_safe: true

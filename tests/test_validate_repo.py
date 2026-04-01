@@ -3604,7 +3604,10 @@ class TestValidateQuestbookSurface:
 
         issues = validate_questbook_surface(tmp_path)
 
-        assert any("QUESTBOOK.md must reference 'AOA-EV-Q-0004'" in issue.message for issue in issues)
+        assert any(
+            "QUESTBOOK.md must reference active quest id 'AOA-EV-Q-0004'" in issue.message
+            for issue in issues
+        )
 
     def test_missing_integration_boundary_token_fails(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)

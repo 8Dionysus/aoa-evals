@@ -102,7 +102,7 @@ QUEST_NAMES = (
     "AOA-EV-Q-0003",
     "AOA-EV-Q-0004",
 )
-QUESTBOOK_REQUIRED_IDS = QUEST_NAMES
+CLOSED_QUEST_STATES = {"done", "dropped"}
 QUESTBOOK_INTEGRATION_REQUIRED_TOKENS = (
     "proof",
     "regression",
@@ -574,14 +574,6 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
         )
 
     if questbook_text:
-        for quest_name in QUESTBOOK_REQUIRED_IDS:
-            if quest_name not in questbook_text:
-                issues.append(
-                    ValidationIssue(
-                        relative_location(questbook_path, repo_root),
-                        f"QUESTBOOK.md must reference '{quest_name}'",
-                    )
-                )
         for token in QUESTBOOK_NOTE_REQUIRED_TOKENS:
             if token not in questbook_text:
                 issues.append(
@@ -603,6 +595,8 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
 
     expected_catalog_entries: list[dict[str, Any]] = []
     expected_dispatch_entries: list[dict[str, Any]] = []
+    active_quest_ids: list[str] = []
+    closed_quest_ids: list[str] = []
     for quest_name, quest_path in zip(QUEST_NAMES, quest_paths, strict=True):
         quest_data = load_yaml_file(quest_path, issues)
         if not isinstance(quest_data, dict):
@@ -622,6 +616,10 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
             )
         if quest_data.get("public_safe") is not True:
             issues.append(ValidationIssue(location, "quest must set public_safe to true"))
+        if quest_data.get("state") in CLOSED_QUEST_STATES:
+            closed_quest_ids.append(quest_name)
+        else:
+            active_quest_ids.append(quest_name)
 
         source_path = quest_path.relative_to(repo_root).as_posix()
         expected_catalog_entries.append(
@@ -634,6 +632,24 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                 source_path=source_path,
             )
         )
+
+    if questbook_text:
+        for quest_name in active_quest_ids:
+            if quest_name not in questbook_text:
+                issues.append(
+                    ValidationIssue(
+                        relative_location(questbook_path, repo_root),
+                        f"QUESTBOOK.md must reference active quest id '{quest_name}'",
+                    )
+                )
+        for quest_name in closed_quest_ids:
+            if quest_name in questbook_text:
+                issues.append(
+                    ValidationIssue(
+                        relative_location(questbook_path, repo_root),
+                        f"QUESTBOOK.md must not list closed quest id '{quest_name}'",
+                    )
+                )
 
     actual_catalog = load_json_payload(quest_catalog_example_path, issues)
     if isinstance(actual_catalog, list):

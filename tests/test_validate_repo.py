@@ -63,6 +63,21 @@ def make_questbook_surface(repo_root: Path) -> None:
         copy_repo_text(repo_root, relative_path)
 
 
+def make_runtime_candidate_template_index_surface(repo_root: Path) -> None:
+    for relative_path in [
+        "generated/eval_catalog.min.json",
+        "generated/runtime_candidate_template_index.min.json",
+        "schemas/runtime-candidate-template-index.schema.json",
+        "examples/runtime_evidence_selection.workhorse-local.example.json",
+        "examples/runtime_evidence_selection.return-anchor-integrity.example.json",
+        "examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
+        "examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
+        "examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
+        "scripts/generate_runtime_candidate_template_index.py",
+    ]:
+        copy_repo_text(repo_root, relative_path)
+
+
 def write_yaml_payload(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(yaml.safe_dump(payload, sort_keys=False), encoding="utf-8")
@@ -3761,3 +3776,23 @@ class TestValidateQuestbookSurface:
 
         assert [entry["id"] for entry in catalog_projection][-1] == "AOA-EV-Q-0005"
         assert [entry["id"] for entry in dispatch_projection][-1] == "AOA-EV-Q-0005"
+
+    def test_runtime_candidate_template_index_validates_for_current_repo(self) -> None:
+        issues = validate_repo.validate_runtime_candidate_template_index(REPO_ROOT)
+
+        assert issues == []
+
+    def test_runtime_candidate_template_index_drift_fails(self, tmp_path: Path) -> None:
+        make_runtime_candidate_template_index_surface(tmp_path)
+        index_path = tmp_path / "generated" / "runtime_candidate_template_index.min.json"
+        payload = json.loads(index_path.read_text(encoding="utf-8"))
+        payload["templates"][0]["review_required"] = False
+        write_json_payload(index_path, payload)
+
+        issues = validate_repo.validate_runtime_candidate_template_index(tmp_path)
+
+        assert any(
+            issue.location == "generated/runtime_candidate_template_index.min.json"
+            and "out of date or mismatched" in issue.message
+            for issue in issues
+        )

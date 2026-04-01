@@ -117,3 +117,4 @@ Use `../examples/runtime_evidence_selection.return-anchor-integrity.example.json
 Runtime posture can become evidence.
 
 It does not become proof canon until `aoa-evals` gives it bounded meaning.
+Until that review happens, runtime evidence-selection packets stay candidate surfaces rather than portable verdict authority.

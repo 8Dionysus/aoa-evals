@@ -119,6 +119,20 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         self.assertEqual(checkpoint_hook["playbook_id"], "AOA-P-0006")
         self.assertEqual(checkpoint_hook["eval_anchor"], "aoa-approval-boundary-adherence")
         self.assertTrue(checkpoint_hook["review_required"])
+        for entry in current["templates"]:
+            self.assertEqual(
+                entry["required_runtime_artifacts"],
+                list(dict.fromkeys(entry["required_runtime_artifacts"])),
+            )
+            self.assertTrue(entry["source_example_ref"].startswith("examples/"))
+            self.assertTrue(
+                all(
+                    runtime_artifact
+                    and runtime_artifact == runtime_artifact.lower()
+                    and " " not in runtime_artifact
+                    for runtime_artifact in entry["required_runtime_artifacts"]
+                )
+            )
 
 
 if __name__ == "__main__":

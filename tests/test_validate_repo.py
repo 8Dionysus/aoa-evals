@@ -24,6 +24,7 @@ from validate_repo import (
     build_comparison_spine_payload,
     collect_catalog_records,
     run_validation,
+    validate_questbook_surface,
     validate_eval_index,
     write_json_file,
 )
@@ -32,6 +33,47 @@ from validate_repo import (
 def write_text(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(textwrap.dedent(content).lstrip(), encoding="utf-8")
+
+
+def copy_repo_text(repo_root: Path, relative_path: str) -> None:
+    source = REPO_ROOT / relative_path
+    if not source.exists():
+        raise FileNotFoundError(source)
+    destination = repo_root / relative_path
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
+
+
+def make_questbook_surface(repo_root: Path) -> None:
+    for relative_path in [
+        "QUESTBOOK.md",
+        "EVAL_INDEX.md",
+        "docs/ARCHITECTURE.md",
+        "docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md",
+        "docs/COMPARISON_SPINE_GUIDE.md",
+        "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
+        "docs/TRACE_EVAL_BRIDGE.md",
+        "docs/QUESTBOOK_EVAL_INTEGRATION.md",
+        "schemas/quest.schema.json",
+        "schemas/quest_dispatch.schema.json",
+        "generated/quest_catalog.min.example.json",
+        "generated/quest_dispatch.min.example.json",
+        "quests/AOA-EV-Q-0001.yaml",
+        "quests/AOA-EV-Q-0002.yaml",
+        "quests/AOA-EV-Q-0003.yaml",
+        "quests/AOA-EV-Q-0004.yaml",
+    ]:
+        copy_repo_text(repo_root, relative_path)
+
+
+def write_yaml_payload(path: Path, payload: object) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(yaml.safe_dump(payload, sort_keys=False), encoding="utf-8")
+
+
+def write_json_payload(path: Path, payload: object) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
 def write_integrity_example_report(path: Path) -> None:
@@ -3534,3 +3576,98 @@ def test_validate_repo_accepts_valid_bundle_with_materialized_proof_artifacts(tm
     write_catalogs(tmp_path)
 
     assert run_validation(tmp_path, eval_name="aoa-valid-proof-artifacts") == []
+
+
+class TestValidateQuestbookSurface:
+    def test_valid_questbook_surface_passes(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+
+        assert validate_questbook_surface(tmp_path) == []
+
+    def test_missing_questbook_file_fails(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        (tmp_path / "QUESTBOOK.md").unlink()
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any(issue.location.endswith("QUESTBOOK.md") for issue in issues)
+        assert any("file is missing" in issue.message for issue in issues)
+
+    def test_missing_tracked_id_in_questbook_fails(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        questbook_path = tmp_path / "QUESTBOOK.md"
+        questbook_text = questbook_path.read_text(encoding="utf-8").replace(
+            "AOA-EV-Q-0004",
+            "AOA-EV-Q-9999",
+        )
+        questbook_path.write_text(questbook_text, encoding="utf-8")
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any("QUESTBOOK.md must reference 'AOA-EV-Q-0004'" in issue.message for issue in issues)
+
+    def test_missing_integration_boundary_token_fails(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        integration_path = tmp_path / "docs" / "QUESTBOOK_EVAL_INTEGRATION.md"
+        integration_text = integration_path.read_text(encoding="utf-8").replace(
+            "verdict-bridge",
+            "verdict bridge",
+        )
+        integration_path.write_text(integration_text, encoding="utf-8")
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any("integration note must mention 'verdict-bridge'" in issue.message for issue in issues)
+
+    def test_missing_quest_yaml_fails(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        (tmp_path / "quests" / "AOA-EV-Q-0002.yaml").unlink()
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any("AOA-EV-Q-0002.yaml" in issue.location for issue in issues)
+        assert any("file is missing" in issue.message for issue in issues)
+
+    def test_quest_id_filename_mismatch_fails(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        quest_path = tmp_path / "quests" / "AOA-EV-Q-0003.yaml"
+        quest_data = yaml.safe_load(quest_path.read_text(encoding="utf-8"))
+        quest_data["id"] = "AOA-EV-Q-9999"
+        write_yaml_payload(quest_path, quest_data)
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any("quest id must match filename 'AOA-EV-Q-0003'" in issue.message for issue in issues)
+
+    def test_wrong_repo_value_fails(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        quest_path = tmp_path / "quests" / "AOA-EV-Q-0001.yaml"
+        quest_data = yaml.safe_load(quest_path.read_text(encoding="utf-8"))
+        quest_data["repo"] = "aoa-techniques"
+        write_yaml_payload(quest_path, quest_data)
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any("quest repo must be 'aoa-evals'" in issue.message for issue in issues)
+
+    def test_missing_public_safe_fails(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        quest_path = tmp_path / "quests" / "AOA-EV-Q-0004.yaml"
+        quest_data = yaml.safe_load(quest_path.read_text(encoding="utf-8"))
+        quest_data["public_safe"] = False
+        write_yaml_payload(quest_path, quest_data)
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any("quest must set public_safe to true" in issue.message for issue in issues)
+
+    def test_example_projection_drift_fails(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        catalog_path = tmp_path / "generated" / "quest_catalog.min.example.json"
+        catalog_data = json.loads(catalog_path.read_text(encoding="utf-8"))
+        catalog_data[0]["source_path"] = "quests/not-the-right-file.yaml"
+        write_json_payload(catalog_path, catalog_data)
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any("generated quest catalog example is out of date or mismatched" in issue.message for issue in issues)

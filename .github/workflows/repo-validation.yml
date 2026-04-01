@@ -23,14 +23,14 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: 8Dionysus/aoa-techniques
-          ref: 296de7615afeeca721b11a7091d41e7fe63b96ec
+          ref: c4b9a432ae2124f2e877e716d0248777861ecc87
           path: .deps/aoa-techniques
 
       - name: Checkout aoa-skills
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: 8Dionysus/aoa-skills
-          ref: 0ed9286aff3222a5e86875af8e2d885c6d0128ec
+          ref: 83eaac030b865a0992c56f677db691efc371225e
           path: .deps/aoa-skills
 
       - name: Checkout aoa-agents

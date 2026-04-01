@@ -1,0 +1,50 @@
+schema_version: work_quest_v1
+id: AOA-EV-Q-0003
+title: Tighten the trace-eval bridge and artifact-process separation for portable
+  verdicts
+summary: Keep the runtime-trace seam and verdict interpretation surface honest and
+  reviewable.
+repo: aoa-evals
+owner_surface: trace-eval-bridge
+theme_ref: ''
+milestone_ref: ''
+kind: seam
+state: captured
+band: near
+difficulty: d3_seam
+risk: r2_contract
+control_mode: human_codex_copilot
+delegate_tier: planner
+fallback_tier: verifier
+wrapper_class: hybrid
+write_scope: repo_local
+split_required: true
+complexity_basis:
+  scope: 2
+  ambiguity: 1
+  boundary: 2
+  verification: 2
+parent: null
+depends_on: []
+activation:
+  mode: on_review_of
+  ref: docs/TRACE_EVAL_BRIDGE.md
+  note: review when trace or verdict surface changes
+anchor_ref:
+  artifact: artifact-process-separation
+  ref: docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md
+handoff_role: eval-maintainer
+evidence:
+- trace-to-verdict seams are explicit
+- artifact/process separation is named
+- portable verdict guidance stays aligned with runtime traces
+harvest:
+  target: none
+opened_at: '2026-03-31'
+touched_at: '2026-03-31'
+tags:
+- trace
+- verdict
+- bridge
+notes: ''
+public_safe: true

@@ -1,0 +1,52 @@
+schema_version: work_quest_v1
+id: AOA-EV-Q-0002
+title: Track missing proof bundles and regression-surface gaps named by the eval index
+  or comparison spine
+summary: Use quests to track missing proof or regression surfaces that should not
+  disappear into narrative backlog.
+repo: aoa-evals
+owner_surface: proof/backlog
+theme_ref: ''
+milestone_ref: ''
+kind: proof
+state: triaged
+band: frontier
+difficulty: d2_slice
+risk: r1_repo_local
+control_mode: codex_supervised
+delegate_tier: planner
+fallback_tier: verifier
+wrapper_class: codex_primary
+write_scope: docs_only
+split_required: false
+complexity_basis:
+  scope: 2
+  ambiguity: 1
+  boundary: 1
+  verification: 2
+parent: null
+depends_on: []
+activation:
+  mode: on_review_of
+  ref: EVAL_INDEX.md
+  note: open when new proof gaps survive bundle or index review
+anchor_ref:
+  artifact: comparison-spine
+  ref: docs/COMPARISON_SPINE_GUIDE.md
+handoff_role: eval-maintainer
+evidence:
+- missing proof routes receive stable quest IDs
+- regression gaps map back to the comparison spine
+- quality claims do not float without bounded proof surfaces
+harvest:
+  target: eval
+  trigger_count: 2
+  note: repeated proof gaps may indicate a missing reusable eval bundle
+opened_at: '2026-03-31'
+touched_at: '2026-03-31'
+tags:
+- proof
+- regression
+- coverage
+notes: ''
+public_safe: true

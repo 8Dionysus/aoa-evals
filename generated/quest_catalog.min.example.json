@@ -1,0 +1,62 @@
+[
+  {
+    "id": "AOA-EV-Q-0001",
+    "title": "Land repo-local questbook surface for proof and regression obligations",
+    "repo": "aoa-evals",
+    "theme_ref": "",
+    "milestone_ref": "",
+    "state": "ready",
+    "band": "frontier",
+    "kind": "rollout",
+    "difficulty": "d2_slice",
+    "risk": "r1_repo_local",
+    "owner_surface": "questbook/public-surface",
+    "source_path": "quests/AOA-EV-Q-0001.yaml",
+    "public_safe": true
+  },
+  {
+    "id": "AOA-EV-Q-0002",
+    "title": "Track missing proof bundles and regression-surface gaps named by the eval index or comparison spine",
+    "repo": "aoa-evals",
+    "theme_ref": "",
+    "milestone_ref": "",
+    "state": "triaged",
+    "band": "frontier",
+    "kind": "proof",
+    "difficulty": "d2_slice",
+    "risk": "r1_repo_local",
+    "owner_surface": "proof/backlog",
+    "source_path": "quests/AOA-EV-Q-0002.yaml",
+    "public_safe": true
+  },
+  {
+    "id": "AOA-EV-Q-0003",
+    "title": "Tighten the trace-eval bridge and artifact-process separation for portable verdicts",
+    "repo": "aoa-evals",
+    "theme_ref": "",
+    "milestone_ref": "",
+    "state": "captured",
+    "band": "near",
+    "kind": "seam",
+    "difficulty": "d3_seam",
+    "risk": "r2_contract",
+    "owner_surface": "trace-eval-bridge",
+    "source_path": "quests/AOA-EV-Q-0003.yaml",
+    "public_safe": true
+  },
+  {
+    "id": "AOA-EV-Q-0004",
+    "title": "Harvest repeated blind-spot and caution-language repairs into reusable eval patterns and rubrics",
+    "repo": "aoa-evals",
+    "theme_ref": "",
+    "milestone_ref": "",
+    "state": "captured",
+    "band": "latent",
+    "kind": "harvest",
+    "difficulty": "d2_slice",
+    "risk": "r1_repo_local",
+    "owner_surface": "harvest/blind-spots",
+    "source_path": "quests/AOA-EV-Q-0004.yaml",
+    "public_safe": true
+  }
+]

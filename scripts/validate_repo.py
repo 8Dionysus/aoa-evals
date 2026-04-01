@@ -90,6 +90,35 @@ COMPARISON_SPINE_SOURCE_OF_TRUTH = eval_comparison_spine_contract.COMPARISON_SPI
 ARTIFACT_PROCESS_GUIDE_NAME = "docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md"
 REPEATED_WINDOW_GUIDE_NAME = "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md"
 SHARED_PROOF_INFRA_GUIDE_NAME = "docs/SHARED_PROOF_INFRA_GUIDE.md"
+QUESTBOOK_NAME = "QUESTBOOK.md"
+QUESTBOOK_INTEGRATION_NAME = "docs/QUESTBOOK_EVAL_INTEGRATION.md"
+QUEST_SCHEMA_NAME = "schemas/quest.schema.json"
+QUEST_DISPATCH_SCHEMA_NAME = "schemas/quest_dispatch.schema.json"
+QUEST_CATALOG_EXAMPLE_NAME = "generated/quest_catalog.min.example.json"
+QUEST_DISPATCH_EXAMPLE_NAME = "generated/quest_dispatch.min.example.json"
+QUEST_NAMES = (
+    "AOA-EV-Q-0001",
+    "AOA-EV-Q-0002",
+    "AOA-EV-Q-0003",
+    "AOA-EV-Q-0004",
+)
+QUESTBOOK_REQUIRED_IDS = QUEST_NAMES
+QUESTBOOK_INTEGRATION_REQUIRED_TOKENS = (
+    "proof",
+    "regression",
+    "verdict-bridge",
+    "example-only",
+    "not live portable verdict authority",
+)
+QUESTBOOK_NOTE_REQUIRED_TOKENS = (
+    "proof",
+    "regression",
+    "verdict-bridge",
+)
+QUEST_SCHEMA_TITLE = "work_quest_v1"
+QUEST_SCHEMA_VERSION = "work_quest_v1"
+QUEST_DISPATCH_SCHEMA_TITLE = "quest_dispatch_v1"
+QUEST_DISPATCH_SCHEMA_VERSION = "quest_dispatch_v1"
 
 MIRRORED_FIELDS = (
     "name",
@@ -369,6 +398,297 @@ def load_json_payload(path: Path, issues: list[ValidationIssue]) -> Any | None:
     except json.JSONDecodeError as exc:
         issues.append(ValidationIssue(relative_location(path), f"invalid JSON: {exc}"))
         return None
+
+
+def should_validate_questbook_surface(repo_root: Path) -> bool:
+    questbook_paths = (
+        repo_root / QUESTBOOK_NAME,
+        repo_root / QUESTBOOK_INTEGRATION_NAME,
+        repo_root / QUEST_SCHEMA_NAME,
+        repo_root / QUEST_DISPATCH_SCHEMA_NAME,
+        repo_root / QUEST_CATALOG_EXAMPLE_NAME,
+        repo_root / QUEST_DISPATCH_EXAMPLE_NAME,
+    )
+    if any(path.exists() for path in questbook_paths):
+        return True
+    return any((repo_root / "quests" / f"{quest_name}.yaml").exists() for quest_name in QUEST_NAMES)
+
+
+def validate_quest_schema_envelope(
+    schema: Any,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+    expected_title: str,
+    expected_schema_version: str,
+) -> bool:
+    if not validate_inline_schema(schema, location=location, issues=issues):
+        return False
+    if not isinstance(schema, dict):
+        return False
+
+    ok = True
+    if schema.get("title") != expected_title:
+        issues.append(
+            ValidationIssue(location, f"schema title must be '{expected_title}'")
+        )
+        ok = False
+    if schema.get("type") != "object":
+        issues.append(ValidationIssue(location, "schema must describe an object"))
+        ok = False
+    if schema.get("additionalProperties") is not False:
+        issues.append(
+            ValidationIssue(location, "schema must forbid additional properties")
+        )
+        ok = False
+    properties = schema.get("properties")
+    if not isinstance(properties, dict):
+        issues.append(ValidationIssue(location, "schema properties must be an object"))
+        return False
+    schema_version = properties.get("schema_version")
+    if not isinstance(schema_version, dict) or schema_version.get("const") != expected_schema_version:
+        issues.append(
+            ValidationIssue(
+                location,
+                f"schema_version must be a const of '{expected_schema_version}'",
+            )
+        )
+        ok = False
+    required = schema.get("required")
+    if not isinstance(required, list):
+        issues.append(ValidationIssue(location, "schema required list is missing"))
+        ok = False
+    else:
+        for field in ("schema_version", "id", "public_safe"):
+            if field not in required:
+                issues.append(
+                    ValidationIssue(location, f"schema must require '{field}'")
+                )
+                ok = False
+    return ok
+
+
+def build_expected_quest_catalog_entry(
+    quest: dict[str, Any],
+    *,
+    source_path: str,
+) -> dict[str, Any]:
+    return {
+        "id": quest["id"],
+        "title": quest["title"],
+        "repo": quest["repo"],
+        "theme_ref": quest.get("theme_ref", ""),
+        "milestone_ref": quest.get("milestone_ref", ""),
+        "state": quest["state"],
+        "band": quest["band"],
+        "kind": quest["kind"],
+        "difficulty": quest["difficulty"],
+        "risk": quest["risk"],
+        "owner_surface": quest["owner_surface"],
+        "source_path": source_path,
+        "public_safe": quest["public_safe"],
+    }
+
+
+def build_expected_quest_dispatch_entry(
+    quest: dict[str, Any],
+    *,
+    quest_name: str,
+    source_path: str,
+) -> dict[str, Any]:
+    activation = quest.get("activation")
+    if not isinstance(activation, dict):
+        activation = {}
+    requires_artifacts = {
+        "AOA-EV-Q-0001": [
+            "bounded_plan",
+            "work_result",
+            "verification_result",
+        ],
+        "AOA-EV-Q-0002": [
+            "bounded_plan",
+            "evaluation_result",
+            "verification_result",
+        ],
+        "AOA-EV-Q-0003": [
+            "bounded_plan",
+            "work_result",
+            "verification_result",
+        ],
+        "AOA-EV-Q-0004": [
+            "recurrence_evidence",
+            "promotion_decision",
+        ],
+    }
+    return {
+        "schema_version": QUEST_DISPATCH_SCHEMA_VERSION,
+        "id": quest["id"],
+        "repo": quest["repo"],
+        "state": quest["state"],
+        "band": quest["band"],
+        "difficulty": quest["difficulty"],
+        "risk": quest["risk"],
+        "control_mode": quest["control_mode"],
+        "delegate_tier": quest["delegate_tier"],
+        "split_required": quest["split_required"],
+        "write_scope": quest["write_scope"],
+        "requires_artifacts": requires_artifacts[quest_name],
+        "activation_mode": activation.get("mode"),
+        "source_path": source_path,
+        "public_safe": quest["public_safe"],
+        "fallback_tier": quest.get("fallback_tier"),
+        "wrapper_class": quest.get("wrapper_class"),
+    }
+
+
+def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    questbook_path = repo_root / QUESTBOOK_NAME
+    integration_path = repo_root / QUESTBOOK_INTEGRATION_NAME
+    quest_schema_path = repo_root / QUEST_SCHEMA_NAME
+    quest_dispatch_schema_path = repo_root / QUEST_DISPATCH_SCHEMA_NAME
+    quest_catalog_example_path = repo_root / QUEST_CATALOG_EXAMPLE_NAME
+    quest_dispatch_example_path = repo_root / QUEST_DISPATCH_EXAMPLE_NAME
+    quest_paths = [repo_root / "quests" / f"{quest_name}.yaml" for quest_name in QUEST_NAMES]
+
+    questbook_text = read_text_or_issue(questbook_path, issues, root=repo_root)
+    integration_text = read_text_or_issue(integration_path, issues, root=repo_root)
+
+    quest_schema = load_json_payload(quest_schema_path, issues)
+    if quest_schema is not None:
+        validate_quest_schema_envelope(
+            quest_schema,
+            location=relative_location(quest_schema_path, repo_root),
+            issues=issues,
+            expected_title=QUEST_SCHEMA_TITLE,
+            expected_schema_version=QUEST_SCHEMA_VERSION,
+        )
+    quest_dispatch_schema = load_json_payload(quest_dispatch_schema_path, issues)
+    if quest_dispatch_schema is not None:
+        validate_quest_schema_envelope(
+            quest_dispatch_schema,
+            location=relative_location(quest_dispatch_schema_path, repo_root),
+            issues=issues,
+            expected_title=QUEST_DISPATCH_SCHEMA_TITLE,
+            expected_schema_version=QUEST_DISPATCH_SCHEMA_VERSION,
+        )
+
+    if questbook_text:
+        for quest_name in QUESTBOOK_REQUIRED_IDS:
+            if quest_name not in questbook_text:
+                issues.append(
+                    ValidationIssue(
+                        relative_location(questbook_path, repo_root),
+                        f"QUESTBOOK.md must reference '{quest_name}'",
+                    )
+                )
+        for token in QUESTBOOK_NOTE_REQUIRED_TOKENS:
+            if token not in questbook_text:
+                issues.append(
+                    ValidationIssue(
+                        relative_location(questbook_path, repo_root),
+                        f"QUESTBOOK.md must mention '{token}'",
+                    )
+                )
+
+    if integration_text:
+        for token in QUESTBOOK_INTEGRATION_REQUIRED_TOKENS:
+            if token not in integration_text:
+                issues.append(
+                    ValidationIssue(
+                        relative_location(integration_path, repo_root),
+                        f"integration note must mention '{token}'",
+                    )
+                )
+
+    expected_catalog_entries: list[dict[str, Any]] = []
+    expected_dispatch_entries: list[dict[str, Any]] = []
+    for quest_name, quest_path in zip(QUEST_NAMES, quest_paths, strict=True):
+        quest_data = load_yaml_file(quest_path, issues)
+        if not isinstance(quest_data, dict):
+            continue
+        location = relative_location(quest_path, repo_root)
+        if not validate_against_schema(quest_data, "quest.schema.json", location, issues):
+            continue
+        if quest_data.get("schema_version") != QUEST_SCHEMA_VERSION:
+            issues.append(
+                ValidationIssue(location, f"schema_version must be '{QUEST_SCHEMA_VERSION}'")
+            )
+        if quest_data.get("repo") != "aoa-evals":
+            issues.append(ValidationIssue(location, "quest repo must be 'aoa-evals'"))
+        if quest_data.get("id") != quest_name:
+            issues.append(
+                ValidationIssue(location, f"quest id must match filename '{quest_name}'")
+            )
+        if quest_data.get("public_safe") is not True:
+            issues.append(ValidationIssue(location, "quest must set public_safe to true"))
+
+        source_path = quest_path.relative_to(repo_root).as_posix()
+        expected_catalog_entries.append(
+            build_expected_quest_catalog_entry(quest_data, source_path=source_path)
+        )
+        expected_dispatch_entries.append(
+            build_expected_quest_dispatch_entry(
+                quest_data,
+                quest_name=quest_name,
+                source_path=source_path,
+            )
+        )
+
+    actual_catalog = load_json_payload(quest_catalog_example_path, issues)
+    if isinstance(actual_catalog, list):
+        if actual_catalog != expected_catalog_entries:
+            issues.append(
+                ValidationIssue(
+                    relative_location(quest_catalog_example_path, repo_root),
+                    "generated quest catalog example is out of date or mismatched",
+                )
+            )
+    else:
+        issues.append(
+            ValidationIssue(
+                relative_location(quest_catalog_example_path, repo_root),
+                "generated quest catalog example must be an array",
+            )
+        )
+    actual_dispatch = load_json_payload(quest_dispatch_example_path, issues)
+    if isinstance(actual_dispatch, list):
+        if actual_dispatch != expected_dispatch_entries:
+            issues.append(
+                ValidationIssue(
+                    relative_location(quest_dispatch_example_path, repo_root),
+                    "generated quest dispatch example is out of date or mismatched",
+                )
+            )
+        else:
+            for index, item in enumerate(actual_dispatch):
+                if not isinstance(item, dict):
+                    continue
+                location = f"{relative_location(quest_dispatch_example_path, repo_root)}[{index}]"
+                if item.get("schema_version") != QUEST_DISPATCH_SCHEMA_VERSION:
+                    issues.append(
+                        ValidationIssue(
+                            location,
+                            f"schema_version must be '{QUEST_DISPATCH_SCHEMA_VERSION}'",
+                        )
+                    )
+                requires_artifacts = item.get("requires_artifacts")
+                if not isinstance(requires_artifacts, list) or not requires_artifacts:
+                    issues.append(
+                        ValidationIssue(
+                            location,
+                            "dispatch example must keep requires_artifacts as a non-empty example-only list",
+                        )
+                    )
+    else:
+        issues.append(
+            ValidationIssue(
+                relative_location(quest_dispatch_example_path, repo_root),
+                "generated quest dispatch example must be an array",
+            )
+        )
+
+    return issues
 
 
 def load_mapping_entries(
@@ -3746,6 +4066,9 @@ def run_validation(
                 target_eval_names=target_evals,
             )
         )
+
+    if should_validate_questbook_surface(repo_root):
+        issues.extend(validate_questbook_surface(repo_root))
 
     return issues
 

@@ -3796,3 +3796,26 @@ class TestValidateQuestbookSurface:
             and "out of date or mismatched" in issue.message
             for issue in issues
         )
+
+    def test_runtime_candidate_template_index_rejects_non_normalized_required_runtime_artifacts(self, tmp_path: Path) -> None:
+        make_runtime_candidate_template_index_surface(tmp_path)
+        example_path = tmp_path / "examples" / "runtime_evidence_selection.workhorse-local.example.json"
+        example_payload = json.loads(example_path.read_text(encoding="utf-8"))
+        example_payload["selected_evidence"][0]["evidence_role"] = "Summary Artifact"
+        write_json_payload(example_path, example_payload)
+
+        index_path = tmp_path / "generated" / "runtime_candidate_template_index.min.json"
+        payload = json.loads(index_path.read_text(encoding="utf-8"))
+        for entry in payload["templates"]:
+            if entry["template_name"] == "workhorse-q4-vs-q6-latency-tradeoff":
+                entry["required_runtime_artifacts"][0] = "Summary Artifact"
+                break
+        write_json_payload(index_path, payload)
+
+        issues = validate_repo.validate_runtime_candidate_template_index(tmp_path)
+
+        assert any(
+            issue.location.startswith("generated/runtime_candidate_template_index.min.json.templates[")
+            and "normalized to lowercase runtime artifact names" in issue.message
+            for issue in issues
+        )

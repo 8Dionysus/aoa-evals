@@ -184,6 +184,7 @@ ARTIFACT_VERDICT_HOOK_SCHEMA_NAME = "artifact-to-verdict-hook.schema.json"
 RUNTIME_EVIDENCE_SELECTION_SCHEMA_NAME = "runtime-evidence-selection.schema.json"
 RUNTIME_CANDIDATE_TEMPLATE_INDEX_SCHEMA_NAME = "runtime-candidate-template-index.schema.json"
 RUNTIME_CANDIDATE_TEMPLATE_INDEX_NAME = "generated/runtime_candidate_template_index.min.json"
+NORMALIZED_RUNTIME_ARTIFACT_RE = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
 ARTIFACT_VERDICT_HOOK_EXAMPLES = {
     "AOA-P-0006": REPO_ROOT
     / EXAMPLES_DIR_NAME
@@ -4263,6 +4264,28 @@ def validate_runtime_candidate_template_index(repo_root: Path) -> list[Validatio
         if not isinstance(entry, dict):
             issues.append(ValidationIssue(location, "template entry must be an object"))
             continue
+
+        required_runtime_artifacts = entry.get("required_runtime_artifacts")
+        if isinstance(required_runtime_artifacts, list):
+            normalized_artifacts = [
+                artifact
+                for artifact in required_runtime_artifacts
+                if isinstance(artifact, str) and bool(NORMALIZED_RUNTIME_ARTIFACT_RE.fullmatch(artifact))
+            ]
+            if len(normalized_artifacts) != len(required_runtime_artifacts):
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        "required_runtime_artifacts must stay normalized to lowercase runtime artifact names",
+                    )
+                )
+            if len(required_runtime_artifacts) != len(set(required_runtime_artifacts)):
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        "required_runtime_artifacts must not duplicate runtime artifact names",
+                    )
+                )
 
         source_example_ref = entry.get("source_example_ref")
         if not isinstance(source_example_ref, str):

@@ -13,18 +13,21 @@ Use the shortest route by need:
 - docs map: `docs/README.md`
 - architecture: `docs/ARCHITECTURE.md`
 - proof posture and limits: `docs/EVAL_PHILOSOPHY.md`
-- current eval surface: `EVAL_INDEX.md`
+- current eval surface and chooser: `EVAL_INDEX.md` and `EVAL_SELECTION.md`
 - first starter bundle: `bundles/aoa-bounded-change-quality/EVAL.md`
 - authoring template: `templates/EVAL.template.md`
 
 ## Route by need
 
+- score semantics, verdict boundaries, and review posture: `docs/SCORE_SEMANTICS_GUIDE.md`, `docs/VERDICT_INTERPRETATION_GUIDE.md`, `docs/EVAL_RUBRIC.md`, and `docs/EVAL_REVIEW_GUIDE.md`
+- derived reader surfaces: `generated/eval_catalog.min.json`, `generated/eval_capsules.json`, and `generated/eval_sections.full.json`
 - regression, peer comparison, and repeated-window reading: `docs/COMPARISON_SPINE_GUIDE.md`, `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`, and `generated/comparison_spine.json`
 - artifact-side versus process-side reading: `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
 - runtime-artifact to verdict bridge: `docs/TRACE_EVAL_BRIDGE.md` and `docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
+- portability, fixtures, and baseline-boundary guides: `docs/FIXTURE_SURFACE_GUIDE.md`, `docs/BLIND_SPOT_DISCLOSURE_GUIDE.md`, `docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md`, and `docs/BASELINE_COMPARISON_GUIDE.md`
 - shared proof infra and portable report surfaces: `docs/SHARED_PROOF_INFRA_GUIDE.md`, `fixtures/`, `runners/`, `scorers/`, `reports/`, and `schemas/`
 - adjunct progression, self-agent, and recurrence seams: `docs/PROGRESSION_EVIDENCE_MODEL.md`, `docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`, and `docs/RECURRENCE_PROOF_PROGRAM.md`
-- selection surfaces: `EVAL_SELECTION.md`
+- selection and release surfaces: `EVAL_SELECTION.md` and `docs/RELEASING.md`
 
 ## What belongs here
 

@@ -7,6 +7,48 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-04-01
+
+Second public release of `aoa-evals`.
+
+This changelog entry uses the release-prep merge date.
+
+### Summary
+
+- current public corpus now ships as `18` public eval bundles, up from `15` in `v0.1.0`
+- this release extends the repo with progression evidence, downstream feed contracts, questbook source-proof surfaces, and runtime candidate intake/template-index surfaces
+- review posture is stronger for operator-facing runtime audit and intake flows while the repository remains bounded proof canon rather than a generic benchmark dump
+
+### Added
+
+- progression evidence adjunct surfaces for the current public proof contour
+- eval downstream feed contracts for sibling consumers
+- questbook source-proof surfaces and live questbook projections from quest YAML
+- runtime candidate template index surfaces under `generated/runtime_candidate_template_index.min.json`
+- runtime candidate intake surfaces under `generated/runtime_candidate_intake.min.json`
+
+### Changed
+
+- hardened runtime candidate template indexing for operator audit and review prep
+- clarified portable-eval and contract wording across the public proof surface
+- fixed source-root handling around `abyss-stack`-adjacent resolution in the local validation path
+
+### Included in this release
+
+- `18` public eval bundles under `bundles/`
+- current generated reader and comparison surfaces under `generated/`, including the runtime candidate template/index families
+
+### Validation
+
+- `python scripts/build_catalog.py`
+- `python scripts/build_catalog.py --check`
+- `python scripts/validate_repo.py`
+- `python -m pytest`
+
+### Notes
+
+- this remains a bounded proof release, not a claim that every current public bundle is equally mature or that `aoa-evals` has become a generic runtime QA repository
+
 ## [0.1.0] - 2026-03-23
 
 First public release of `aoa-evals` as the bounded proof-canon repository in the AOA public surface.

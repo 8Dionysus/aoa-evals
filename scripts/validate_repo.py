@@ -143,6 +143,25 @@ QUEST_DISPATCH_ARTIFACT_OVERRIDES = {
         "promotion_decision",
     ],
 }
+ALLOWED_ORCHESTRATOR_CAPABILITY_TARGETS = {
+    "repo_layer_selection",
+    "evidence_closure",
+    "bounded_next_step",
+}
+ORCHESTRATOR_PROOF_QUESTS = {
+    "AOA-EV-Q-0006": ("aoa-agents:router", "repo_layer_selection"),
+    "AOA-EV-Q-0007": ("aoa-agents:review", "evidence_closure"),
+    "AOA-EV-Q-0008": ("aoa-agents:bounded_execution", "bounded_next_step"),
+}
+ORCHESTRATOR_CLASS_CATALOG_NAME = "generated/orchestrator_class_catalog.min.json"
+ORCHESTRATOR_PROOF_ALIGNMENT_NAME = "docs/ORCHESTRATOR_PROOF_ALIGNMENT.md"
+ORCHESTRATOR_PROOF_REQUIRED_TOKENS = (
+    "## Router",
+    "## Review",
+    "## Bounded execution",
+    "## Boundary rule",
+    "Proof surfaces judge work.",
+)
 
 MIRRORED_FIELDS = (
     "name",
@@ -466,6 +485,79 @@ def load_json_payload(path: Path, issues: list[ValidationIssue]) -> Any | None:
         issues.append(ValidationIssue(relative_location(path), f"invalid JSON: {exc}"))
         return None
 
+
+def load_live_orchestrator_class_ids(issues: list[ValidationIssue]) -> set[str]:
+    catalog_path = AOA_AGENTS_ROOT / ORCHESTRATOR_CLASS_CATALOG_NAME
+    payload = load_json_payload(catalog_path, issues)
+    if not isinstance(payload, dict):
+        issues.append(
+            ValidationIssue(
+                relative_location(catalog_path, AOA_AGENTS_ROOT),
+                "orchestrator class catalog must be an object",
+            )
+        )
+        return set()
+    entries = payload.get("orchestrator_classes")
+    if not isinstance(entries, list):
+        issues.append(
+            ValidationIssue(
+                relative_location(catalog_path, AOA_AGENTS_ROOT),
+                "orchestrator class catalog must expose an orchestrator_classes list",
+            )
+        )
+        return set()
+    class_ids: set[str] = set()
+    for index, entry in enumerate(entries):
+        if not isinstance(entry, dict):
+            issues.append(
+                ValidationIssue(
+                    f"{relative_location(catalog_path, AOA_AGENTS_ROOT)}.orchestrator_classes[{index}]",
+                    "orchestrator class entry must be an object",
+                )
+            )
+            continue
+        class_id = entry.get("id")
+        if not isinstance(class_id, str) or not class_id:
+            issues.append(
+                ValidationIssue(
+                    f"{relative_location(catalog_path, AOA_AGENTS_ROOT)}.orchestrator_classes[{index}]",
+                    "orchestrator class entry must expose a string id",
+                )
+            )
+            continue
+        class_ids.add(class_id)
+    return class_ids
+
+
+def validate_orchestrator_class_ref(
+    orchestrator_class_ref: object,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+    live_class_ids: set[str],
+) -> str | None:
+    if not isinstance(orchestrator_class_ref, str):
+        issues.append(ValidationIssue(location, "quest orchestrator_class_ref must be a string"))
+        return None
+    repo_name, separator, class_id = orchestrator_class_ref.partition(":")
+    if separator != ":" or repo_name != "aoa-agents" or not class_id:
+        issues.append(
+            ValidationIssue(
+                location,
+                "quest orchestrator_class_ref must use the form 'aoa-agents:<class_id>'",
+            )
+        )
+        return None
+    if class_id not in live_class_ids:
+        issues.append(
+            ValidationIssue(
+                location,
+                "quest orchestrator_class_ref must resolve in aoa-agents/generated/orchestrator_class_catalog.min.json",
+            )
+        )
+        return None
+    return class_id
+
 def quest_sort_key(quest_name: str) -> tuple[int, str]:
     suffix = quest_name.rsplit("-", 1)[-1]
     try:
@@ -565,7 +657,7 @@ def build_expected_quest_catalog_entry(
     *,
     source_path: str,
 ) -> dict[str, Any]:
-    return {
+    entry = {
         "id": quest["id"],
         "title": quest["title"],
         "repo": quest["repo"],
@@ -580,6 +672,16 @@ def build_expected_quest_catalog_entry(
         "source_path": source_path,
         "public_safe": quest["public_safe"],
     }
+    for optional_key in (
+        "orchestrator_class_ref",
+        "capability_target",
+        "playbook_family_refs",
+        "proof_surface_refs",
+        "memory_surface_refs",
+    ):
+        if optional_key in quest:
+            entry[optional_key] = quest[optional_key]
+    return entry
 
 
 def build_expected_quest_dispatch_entry(
@@ -619,6 +721,9 @@ def build_expected_quest_dispatch_entry(
         entry["fallback_tier"] = quest.get("fallback_tier")
     if "wrapper_class" in quest:
         entry["wrapper_class"] = quest.get("wrapper_class")
+    for optional_key in ("orchestrator_class_ref", "capability_target"):
+        if optional_key in quest:
+            entry[optional_key] = quest.get(optional_key)
     return entry
 
 
@@ -673,6 +778,7 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     questbook_path = repo_root / QUESTBOOK_NAME
     integration_path = repo_root / QUESTBOOK_INTEGRATION_NAME
+    orchestrator_alignment_path = repo_root / ORCHESTRATOR_PROOF_ALIGNMENT_NAME
     quest_schema_path = repo_root / QUEST_SCHEMA_NAME
     quest_dispatch_schema_path = repo_root / QUEST_DISPATCH_SCHEMA_NAME
     quest_catalog_path = repo_root / QUEST_CATALOG_NAME
@@ -736,6 +842,8 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
     valid_quest_ids: list[str] = []
     active_quest_ids: list[str] = []
     closed_quest_ids: list[str] = []
+    live_orchestrator_class_ids = load_live_orchestrator_class_ids(issues)
+    needs_orchestrator_alignment_doc = False
     for quest_name, quest_path in zip(quest_names, quest_paths, strict=True):
         quest_data = load_yaml_file(quest_path, issues)
         if not isinstance(quest_data, dict):
@@ -755,6 +863,58 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
             )
         if quest_data.get("public_safe") is not True:
             issues.append(ValidationIssue(location, "quest must set public_safe to true"))
+        orchestrator_class_ref = quest_data.get("orchestrator_class_ref")
+        capability_target = quest_data.get("capability_target")
+        if orchestrator_class_ref is None and capability_target is not None:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "quest must not declare capability_target without orchestrator_class_ref",
+                )
+            )
+        if orchestrator_class_ref is not None:
+            needs_orchestrator_alignment_doc = True
+            validate_orchestrator_class_ref(
+                orchestrator_class_ref,
+                location=location,
+                issues=issues,
+                live_class_ids=live_orchestrator_class_ids,
+            )
+            if capability_target not in ALLOWED_ORCHESTRATOR_CAPABILITY_TARGETS:
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        "quest capability_target must resolve to a supported orchestrator capability",
+                    )
+                )
+        expected_orchestrator_pair = ORCHESTRATOR_PROOF_QUESTS.get(quest_name)
+        if expected_orchestrator_pair is not None:
+            expected_ref, expected_target = expected_orchestrator_pair
+            if quest_data.get("kind") != "proof":
+                issues.append(
+                    ValidationIssue(location, "orchestrator proof quests must keep kind 'proof'")
+                )
+            if quest_data.get("owner_surface") != "docs/ORCHESTRATOR_PROOF_ALIGNMENT.md":
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        "orchestrator proof quests must keep owner_surface docs/ORCHESTRATOR_PROOF_ALIGNMENT.md",
+                    )
+                )
+            if orchestrator_class_ref != expected_ref:
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        f"orchestrator proof quest must keep orchestrator_class_ref '{expected_ref}'",
+                    )
+                )
+            if capability_target != expected_target:
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        f"orchestrator proof quest must keep capability_target '{expected_target}'",
+                    )
+                )
         if quest_data.get("state") in CLOSED_QUEST_STATES:
             closed_quest_ids.append(quest_name)
         else:
@@ -774,6 +934,24 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                 source_path=source_path,
             )
         )
+
+    if orchestrator_alignment_path.exists():
+        needs_orchestrator_alignment_doc = True
+    if needs_orchestrator_alignment_doc:
+        orchestrator_doc_text = read_text_or_issue(
+            orchestrator_alignment_path,
+            issues,
+            root=repo_root,
+        )
+        if orchestrator_doc_text:
+            for token in ORCHESTRATOR_PROOF_REQUIRED_TOKENS:
+                if token not in orchestrator_doc_text:
+                    issues.append(
+                        ValidationIssue(
+                            relative_location(orchestrator_alignment_path, repo_root),
+                            f"orchestrator proof alignment note must mention '{token}'",
+                        )
+                    )
 
     if questbook_text:
         for quest_name in active_quest_ids:

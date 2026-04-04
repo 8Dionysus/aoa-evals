@@ -1,0 +1,51 @@
+schema_version: work_quest_v1
+id: AOA-EV-Q-0009
+title: Add unlock-proof doctrine for the RPG bridge wave
+summary: Define a bounded proof surface that can justify, gate, hold, or revoke unlock candidates without replacing progression evidence or source quest authority.
+repo: aoa-evals
+owner_surface: docs/UNLOCK_PROOF_BRIDGE.md
+theme_ref: ''
+milestone_ref: ''
+kind: proof
+state: triaged
+band: frontier
+difficulty: d3_seam
+risk: r2_contract
+control_mode: human_codex_copilot
+delegate_tier: planner
+fallback_tier: verifier
+wrapper_class: codex_primary
+write_scope: repo_local
+split_required: false
+complexity_basis:
+  scope: 2
+  ambiguity: 2
+  boundary: 2
+  verification: 3
+parent: null
+depends_on:
+  - AOA-Q-0007
+activation:
+  mode: manual
+  note: open when bridge-wave unlocks need bounded proof beyond generic progression evidence
+anchor_ref:
+  artifact: unlock_proof_bridge
+  ref: docs/UNLOCK_PROOF_BRIDGE.md
+  note: unlock proof must stay smaller than quest state and smaller than a global rank
+handoff_role: proof-maintainer
+evidence:
+  - unlock dispositions are explicit
+  - conditions and cautions are explicit
+  - proof remains bounded and cited
+harvest:
+  target: none
+opened_at: '2026-04-04'
+touched_at: '2026-04-04'
+tags:
+  - rpg
+  - proof
+  - unlocks
+notes: >
+  Do not treat routing hints or memo witness alone as unlock proof. Keep `hold` and `revoke`
+  available when caution is the honest verdict.
+public_safe: true

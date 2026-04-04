@@ -19,6 +19,7 @@ Do not use it for:
 - `AOA-EV-Q-0006` - define router orchestrator proof anchors for boundary adherence and source-of-truth selection
 - `AOA-EV-Q-0007` - define review orchestrator proof anchors for evidence completeness and honest closure
 - `AOA-EV-Q-0008` - define bounded-execution orchestrator proof anchors for smallest-step quality and scope discipline
+- `AOA-EV-Q-0009` - define bounded unlock-proof doctrine for bridge-wave grants, gates, holds, and revokes
 
 ## Near
 - `AOA-EV-Q-0003` - tighten the trace-eval bridge and artifact-process separation for portable verdicts

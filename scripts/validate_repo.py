@@ -4231,7 +4231,7 @@ def validate_runtime_candidate_template_index(repo_root: Path) -> list[Validatio
     try:
         builder = load_runtime_candidate_template_index_builder(repo_root)
         expected = builder.build_runtime_candidate_template_index_payload()
-    except Exception as exc:
+    except (Exception, SystemExit) as exc:
         issues.append(ValidationIssue(generated_location, str(exc)))
         return issues
 
@@ -4427,7 +4427,7 @@ def validate_runtime_candidate_intake(repo_root: Path) -> list[ValidationIssue]:
     try:
         builder = load_runtime_candidate_intake_builder(repo_root)
         expected = builder.build_runtime_candidate_intake_payload()
-    except Exception as exc:
+    except (Exception, SystemExit) as exc:
         issues.append(ValidationIssue(generated_location, str(exc)))
         return issues
 

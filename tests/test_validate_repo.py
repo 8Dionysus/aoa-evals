@@ -3860,6 +3860,26 @@ class TestValidateQuestbookSurface:
             for issue in issues
         )
 
+    def test_runtime_candidate_template_index_reports_builder_system_exit(self, monkeypatch) -> None:
+        class FailingBuilder:
+            def build_runtime_candidate_template_index_payload(self) -> dict[str, object]:
+                raise SystemExit("builder-exit")
+
+        monkeypatch.setattr(
+            validate_repo,
+            "load_runtime_candidate_template_index_builder",
+            lambda repo_root: FailingBuilder(),
+        )
+
+        issues = validate_repo.validate_runtime_candidate_template_index(REPO_ROOT)
+
+        assert issues == [
+            validate_repo.ValidationIssue(
+                "generated/runtime_candidate_template_index.min.json",
+                "builder-exit",
+            )
+        ]
+
     def test_runtime_candidate_intake_validates_for_current_repo(self) -> None:
         issues = validate_repo.validate_runtime_candidate_intake(REPO_ROOT)
 
@@ -3894,6 +3914,26 @@ class TestValidateQuestbookSurface:
             and "owner_review_refs must stay a non-empty list" in issue.message
             for issue in issues
         )
+
+    def test_runtime_candidate_intake_reports_builder_system_exit(self, monkeypatch) -> None:
+        class FailingBuilder:
+            def build_runtime_candidate_intake_payload(self) -> dict[str, object]:
+                raise SystemExit("builder-exit")
+
+        monkeypatch.setattr(
+            validate_repo,
+            "load_runtime_candidate_intake_builder",
+            lambda repo_root: FailingBuilder(),
+        )
+
+        issues = validate_repo.validate_runtime_candidate_intake(REPO_ROOT)
+
+        assert issues == [
+            validate_repo.ValidationIssue(
+                "generated/runtime_candidate_intake.min.json",
+                "builder-exit",
+            )
+        ]
 
     def test_phase_alpha_eval_matrix_validates_for_current_repo(self) -> None:
         issues = validate_repo.validate_phase_alpha_eval_matrix(REPO_ROOT)

@@ -63,6 +63,25 @@ def make_questbook_surface(repo_root: Path) -> None:
         copy_repo_text(repo_root, relative_path)
 
 
+def rewrite_questbook_projections(repo_root: Path) -> None:
+    write_json_payload(
+        repo_root / "generated" / "quest_catalog.min.json",
+        validate_repo.build_quest_catalog_projection(repo_root),
+    )
+    write_json_payload(
+        repo_root / "generated" / "quest_catalog.min.example.json",
+        validate_repo.build_quest_catalog_projection(repo_root),
+    )
+    write_json_payload(
+        repo_root / "generated" / "quest_dispatch.min.json",
+        validate_repo.build_quest_dispatch_projection(repo_root),
+    )
+    write_json_payload(
+        repo_root / "generated" / "quest_dispatch.min.example.json",
+        validate_repo.build_quest_dispatch_projection(repo_root),
+    )
+
+
 def make_runtime_candidate_template_index_surface(repo_root: Path) -> None:
     for relative_path in [
         "generated/eval_catalog.min.json",
@@ -3779,6 +3798,40 @@ class TestValidateQuestbookSurface:
             and issue.message == "generated quest dispatch is out of date or mismatched"
             for issue in issues
         )
+
+    def test_unlock_proof_bridge_additive_surface_passes(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        for relative_path in [
+            "docs/UNLOCK_PROOF_BRIDGE.md",
+            "schemas/unlock_proof_catalog.schema.json",
+            "generated/unlock_proof_cards.min.example.json",
+            "quests/AOA-EV-Q-0009.yaml",
+        ]:
+            copy_repo_text(tmp_path, relative_path)
+        rewrite_questbook_projections(tmp_path)
+
+        issues = validate_questbook_surface(tmp_path)
+        issues.extend(validate_repo.validate_unlock_proof_bridge_surface(tmp_path))
+
+        assert issues == []
+
+    def test_unlock_proof_bridge_rejects_legacy_playbook_quest_ref(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        for relative_path in [
+            "docs/UNLOCK_PROOF_BRIDGE.md",
+            "schemas/unlock_proof_catalog.schema.json",
+            "generated/unlock_proof_cards.min.example.json",
+            "quests/AOA-EV-Q-0009.yaml",
+        ]:
+            copy_repo_text(tmp_path, relative_path)
+        example_path = tmp_path / "generated" / "unlock_proof_cards.min.example.json"
+        example_text = example_path.read_text(encoding="utf-8").replace("AOA-PB-Q-0007", "AOA-PB-Q-0004")
+        example_path.write_text(example_text, encoding="utf-8")
+        rewrite_questbook_projections(tmp_path)
+
+        issues = validate_repo.validate_unlock_proof_bridge_surface(tmp_path)
+
+        assert any("legacy playbook quest id" in issue.message for issue in issues)
 
     def test_example_dispatch_optional_field_schema_violation_surfaces_before_parity(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)

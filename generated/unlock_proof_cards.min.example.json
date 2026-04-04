@@ -1,0 +1,167 @@
+{
+  "schema_version": "unlock_proof_catalog_v1",
+  "proofs": [
+    {
+      "schema_version": "unlock_proof_v1",
+      "proof_id": "UP-2026-04-04-0001",
+      "subject_ref": "build.AOA-A-0002.codex.2026-04-04T20:30:00Z",
+      "subject_kind": "agent_build",
+      "review_scope": "route_scoped",
+      "verdict": "gated_grant",
+      "related_refs": {
+        "quest_refs": [
+          "AOA-PB-Q-0007"
+        ],
+        "playbook_refs": [
+          "AOA-P-0011"
+        ],
+        "progression_evidence_refs": [
+          "examples/progression_evidence.example.json#AOA-EV-PROG-0001"
+        ]
+      },
+      "unlock_candidates": [
+        {
+          "unlock_id": "ability.aoa-safe-infra-change",
+          "unlock_kind": "ability",
+          "disposition": "grant",
+          "confidence": "medium",
+          "evidence_refs": [
+            "bundles/aoa-bounded-change-quality/EVAL.md",
+            "repo:aoa-playbooks/playbooks/bounded-change-safe/PLAYBOOK.md",
+            "docs/PROGRESSION_EVIDENCE_MODEL.md"
+          ],
+          "conditions": [
+            "bounded change route must still pass explicit verification before writeback",
+            "local-adapter posture must remain visible when infra bindings are active"
+          ],
+          "cautions": [
+            "Portable ability grant does not widen local adapter rights by itself."
+          ]
+        },
+        {
+          "unlock_id": "party.AOA-P-0011.safe-change-pair",
+          "unlock_kind": "party_template",
+          "disposition": "gated_grant",
+          "confidence": "medium",
+          "evidence_refs": [
+            "repo:aoa-playbooks/playbooks/bounded-change-safe/PLAYBOOK.md",
+            "repo:aoa-playbooks/generated/playbook_review_status.min.json#AOA-P-0011",
+            "bundles/aoa-bounded-change-quality/EVAL.md"
+          ],
+          "conditions": [
+            "reviewer slot must remain filled",
+            "proof-first verification pass required before merge or handoff"
+          ],
+          "cautions": [
+            "One clean pair route is not proof for larger orchestrated cohorts."
+          ]
+        },
+        {
+          "unlock_id": "risk_ceiling:r2_contract",
+          "unlock_kind": "risk_ceiling",
+          "disposition": "hold",
+          "confidence": "low",
+          "evidence_refs": [
+            "bundles/aoa-bounded-change-quality/EVAL.md",
+            "docs/PROGRESSION_EVIDENCE_MODEL.md"
+          ],
+          "conditions": [
+            "Need one more reviewed cross-repo bounded-change route with clean reanchor posture"
+          ],
+          "cautions": [
+            "Current evidence is enough for repo-local contract work, not broader risk widening."
+          ]
+        }
+      ],
+      "evidence_refs": [
+        "bundles/aoa-bounded-change-quality/EVAL.md",
+        "repo:aoa-playbooks/playbooks/bounded-change-safe/PLAYBOOK.md",
+        "docs/PROGRESSION_EVIDENCE_MODEL.md"
+      ],
+      "evaluator_ref": "AOA-A-EXAMPLE-EVALUATOR",
+      "notes": "Example only. Unlock proof stays smaller than quest state and smaller than runtime equip state.",
+      "reviewed_at": "2026-04-04",
+      "public_safe": true
+    },
+    {
+      "schema_version": "unlock_proof_v1",
+      "proof_id": "UP-2026-04-04-0002",
+      "subject_ref": "party.AOA-P-0018.validation-remediation-triad",
+      "subject_kind": "party_template",
+      "review_scope": "campaign_scoped",
+      "verdict": "grant",
+      "related_refs": {
+        "quest_refs": [
+          "AOA-PB-Q-0007"
+        ],
+        "playbook_refs": [
+          "AOA-P-0018"
+        ],
+        "progression_evidence_refs": [
+          "examples/progression_evidence.example.json#AOA-EV-PROG-0001"
+        ]
+      },
+      "unlock_candidates": [
+        {
+          "unlock_id": "party.AOA-P-0018.validation-remediation-triad",
+          "unlock_kind": "party_template",
+          "disposition": "grant",
+          "confidence": "high",
+          "evidence_refs": [
+            "repo:aoa-playbooks/playbooks/validation-driven-remediation/PLAYBOOK.md",
+            "repo:aoa-playbooks/generated/playbook_review_status.min.json#AOA-P-0018",
+            "docs/COMPARISON_SPINE_GUIDE.md"
+          ],
+          "conditions": [
+            "evaluator slot remains present when regression posture is in play"
+          ],
+          "cautions": [
+            "Campaign-scale readiness still depends on route-specific anchors and recall posture."
+          ]
+        },
+        {
+          "unlock_id": "cohort_pattern:triad",
+          "unlock_kind": "cohort_pattern",
+          "disposition": "grant",
+          "confidence": "medium",
+          "evidence_refs": [
+            "repo:aoa-playbooks/playbooks/validation-driven-remediation/PLAYBOOK.md",
+            "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md"
+          ],
+          "conditions": [
+            "use only in validation/remediation scenarios with explicit evaluator participation"
+          ],
+          "cautions": [
+            "Triad posture is scenario-shaped, not a universal default for all routes."
+          ]
+        },
+        {
+          "unlock_id": "campaign.validation-remediation",
+          "unlock_kind": "campaign_lane",
+          "disposition": "gated_grant",
+          "confidence": "medium",
+          "evidence_refs": [
+            "repo:aoa-playbooks/playbooks/validation-driven-remediation/PLAYBOOK.md",
+            "docs/COMPARISON_SPINE_GUIDE.md"
+          ],
+          "conditions": [
+            "lane anchors and reanchor policy must be named explicitly before broader rollout"
+          ],
+          "cautions": [
+            "Campaign unlock is broader than one route; keep the lane gated until anchors are explicit."
+          ]
+        }
+      ],
+      "evidence_refs": [
+        "repo:aoa-playbooks/playbooks/validation-driven-remediation/PLAYBOOK.md",
+        "docs/COMPARISON_SPINE_GUIDE.md",
+        "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md"
+      ],
+      "evaluator_ref": "AOA-A-EXAMPLE-EVALUATOR",
+      "notes": "Example only. Granting a party lane still does not auto-equip or auto-route it.",
+      "reviewed_at": "2026-04-04",
+      "public_safe": true
+    }
+  ],
+  "notes": "Example only. Unlock proof remains bounded, cited, and smaller than source quest acceptance or runtime session state."
+}

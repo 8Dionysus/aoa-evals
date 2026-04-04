@@ -162,6 +162,15 @@ ORCHESTRATOR_PROOF_REQUIRED_TOKENS = (
     "## Boundary rule",
     "Proof surfaces judge work.",
 )
+UNLOCK_PROOF_BRIDGE_NAME = "docs/UNLOCK_PROOF_BRIDGE.md"
+UNLOCK_PROOF_SCHEMA_NAME = "unlock_proof_catalog.schema.json"
+UNLOCK_PROOF_EXAMPLE_NAME = "generated/unlock_proof_cards.min.example.json"
+UNLOCK_PROOF_REQUIRED_TOKENS = (
+    "## Core rule",
+    "`gated_grant`",
+    "It interprets reviewed evidence",
+    "using one proof object as a universal agent ranking",
+)
 
 MIRRORED_FIELDS = (
     "name",
@@ -915,6 +924,18 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                         f"orchestrator proof quest must keep capability_target '{expected_target}'",
                     )
                 )
+        if quest_name == "AOA-EV-Q-0009":
+            if quest_data.get("kind") != "proof":
+                issues.append(
+                    ValidationIssue(location, "unlock proof bridge quest must keep kind 'proof'")
+                )
+            if quest_data.get("owner_surface") != "docs/UNLOCK_PROOF_BRIDGE.md":
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        "unlock proof bridge quest must keep owner_surface docs/UNLOCK_PROOF_BRIDGE.md",
+                    )
+                )
         if quest_data.get("state") in CLOSED_QUEST_STATES:
             closed_quest_ids.append(quest_name)
         else:
@@ -952,6 +973,9 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                             f"orchestrator proof alignment note must mention '{token}'",
                         )
                     )
+
+    if "AOA-EV-Q-0009" in valid_quest_ids:
+        issues.extend(validate_unlock_proof_bridge_surface(repo_root))
 
     if questbook_text:
         for quest_name in active_quest_ids:
@@ -1142,6 +1166,118 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                 "generated quest dispatch example must be an array",
             )
         )
+
+    return issues
+
+
+def validate_unlock_proof_bridge_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    doc_path = repo_root / UNLOCK_PROOF_BRIDGE_NAME
+    schema_path = repo_root / SCHEMAS_DIR_NAME / UNLOCK_PROOF_SCHEMA_NAME
+    example_path = repo_root / UNLOCK_PROOF_EXAMPLE_NAME
+
+    doc_text = read_text_or_issue(doc_path, issues, root=repo_root)
+    if doc_text:
+        for token in UNLOCK_PROOF_REQUIRED_TOKENS:
+            if token not in doc_text:
+                issues.append(
+                    ValidationIssue(
+                        relative_location(doc_path, repo_root),
+                        f"unlock proof bridge note must mention '{token}'",
+                    )
+                )
+
+    schema_payload = load_json_payload(schema_path, issues)
+    if isinstance(schema_payload, dict):
+        if schema_payload.get("title") != "unlock_proof_catalog_v1":
+            issues.append(
+                ValidationIssue(
+                    relative_location(schema_path, repo_root),
+                    "unlock proof schema title must be 'unlock_proof_catalog_v1'",
+                )
+            )
+        try:
+            Draft202012Validator.check_schema(schema_payload)
+        except SchemaError as exc:
+            issues.append(
+                ValidationIssue(
+                    relative_location(schema_path, repo_root),
+                    f"invalid JSON schema: {exc.message}",
+                )
+            )
+    elif schema_payload is not None:
+        issues.append(
+            ValidationIssue(
+                relative_location(schema_path, repo_root),
+                "unlock proof schema must be a JSON object",
+            )
+        )
+
+    example_text = read_text_or_issue(example_path, issues, root=repo_root)
+    example_payload = load_json_payload(example_path, issues)
+    if isinstance(example_payload, dict):
+        validate_against_schema(
+            example_payload,
+            UNLOCK_PROOF_SCHEMA_NAME,
+            relative_location(example_path, repo_root),
+            issues,
+        )
+        if example_payload.get("schema_version") != "unlock_proof_catalog_v1":
+            issues.append(
+                ValidationIssue(
+                    relative_location(example_path, repo_root),
+                    "unlock proof example schema_version must be 'unlock_proof_catalog_v1'",
+                )
+            )
+        proofs = example_payload.get("proofs")
+        if not isinstance(proofs, list) or not proofs:
+            issues.append(
+                ValidationIssue(
+                    relative_location(example_path, repo_root),
+                    "unlock proof example must expose a non-empty proofs list",
+                )
+            )
+        else:
+            for index, proof in enumerate(proofs):
+                if not isinstance(proof, dict):
+                    continue
+                if proof.get("public_safe") is not True:
+                    issues.append(
+                        ValidationIssue(
+                            f"{relative_location(example_path, repo_root)}.proofs[{index}]",
+                            "unlock proof example entries must keep public_safe true",
+                        )
+                    )
+        if example_payload.get("notes") and "Example only." not in str(example_payload.get("notes")):
+            issues.append(
+                ValidationIssue(
+                    relative_location(example_path, repo_root),
+                    "unlock proof example notes must keep example-only posture explicit",
+                )
+            )
+    elif example_payload is not None:
+        issues.append(
+            ValidationIssue(
+                relative_location(example_path, repo_root),
+                "unlock proof example must be a JSON object",
+            )
+        )
+
+    if example_text:
+        if "AOA-PB-Q-0004" in example_text:
+            issues.append(
+                ValidationIssue(
+                    relative_location(example_path, repo_root),
+                    "unlock proof example must not keep legacy playbook quest id 'AOA-PB-Q-0004'",
+                )
+            )
+        if "AOA-EV-PROG-0002" in example_text:
+            issues.append(
+                ValidationIssue(
+                    relative_location(example_path, repo_root),
+                    "unlock proof example must not reference missing progression evidence id 'AOA-EV-PROG-0002'",
+                )
+            )
 
     return issues
 

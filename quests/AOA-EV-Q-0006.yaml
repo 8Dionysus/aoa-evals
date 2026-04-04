@@ -1,0 +1,60 @@
+schema_version: work_quest_v1
+id: AOA-EV-Q-0006
+title: Define router orchestrator proof anchors for boundary adherence and source-of-truth selection
+summary: Add bounded proof anchors for router-oriented work without confusing route choice with class identity.
+repo: aoa-evals
+owner_surface: docs/ORCHESTRATOR_PROOF_ALIGNMENT.md
+theme_ref: ''
+milestone_ref: ''
+kind: proof
+state: captured
+band: frontier
+difficulty: d2_slice
+risk: r1_repo_local
+control_mode: human_codex_copilot
+delegate_tier: planner
+fallback_tier: verifier
+wrapper_class: hybrid
+write_scope: docs_only
+split_required: false
+complexity_basis:
+  scope: 1
+  ambiguity: 1
+  boundary: 2
+  verification: 2
+parent: null
+depends_on:
+  - AOA-EV-Q-0002
+activation:
+  mode: manual
+  note: open when router-facing class proof needs a public eval-side anchor map
+anchor_ref:
+  artifact: orchestrator_proof_alignment
+  ref: docs/ORCHESTRATOR_PROOF_ALIGNMENT.md
+handoff_role: eval-maintainer
+orchestrator_class_ref: aoa-agents:router
+capability_target: repo_layer_selection
+playbook_family_refs:
+  - repo:aoa-playbooks/generated/playbook_activation_surfaces.min.json
+  - repo:aoa-playbooks/generated/playbook_federation_surfaces.min.json
+proof_surface_refs:
+  - generated/eval_catalog.min.json
+  - docs/ORCHESTRATOR_PROOF_ALIGNMENT.md#router
+memory_surface_refs:
+  - repo:aoa-memo/generated/memory_object_catalog.min.json
+  - repo:aoa-memo/docs/ORCHESTRATOR_MEMORY_ALIGNMENT.md
+evidence:
+  - router proof names boundary adherence explicitly
+  - source-of-truth selection remains reviewable
+  - proof does not redefine router identity
+harvest:
+  target: eval
+opened_at: '2026-04-03'
+touched_at: '2026-04-03'
+tags:
+  - orchestrators
+  - router
+  - proof
+notes: >
+  Keep router proof bounded and source-of-truth aware. Do not collapse it into a generic routing score.
+public_safe: true

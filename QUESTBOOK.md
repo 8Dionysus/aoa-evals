@@ -16,6 +16,9 @@ Do not use it for:
 
 ## Frontier
 - `AOA-EV-Q-0005` - define a multi-axis progression evidence contract for reviewed advancement
+- `AOA-EV-Q-0006` - define router orchestrator proof anchors for boundary adherence and source-of-truth selection
+- `AOA-EV-Q-0007` - define review orchestrator proof anchors for evidence completeness and honest closure
+- `AOA-EV-Q-0008` - define bounded-execution orchestrator proof anchors for smallest-step quality and scope discipline
 
 ## Near
 - `AOA-EV-Q-0003` - tighten the trace-eval bridge and artifact-process separation for portable verdicts

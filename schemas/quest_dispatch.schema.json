@@ -81,6 +81,18 @@
         "blocked"
       ]
     },
+    "orchestrator_class_ref": {
+      "type": "string",
+      "pattern": "^aoa-agents:[a-z0-9_]+$"
+    },
+    "capability_target": {
+      "type": "string",
+      "enum": [
+        "repo_layer_selection",
+        "evidence_closure",
+        "bounded_next_step"
+      ]
+    },
     "delegate_tier": {
       "type": "string",
       "enum": [

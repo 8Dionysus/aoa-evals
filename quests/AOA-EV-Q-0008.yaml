@@ -1,0 +1,60 @@
+schema_version: work_quest_v1
+id: AOA-EV-Q-0008
+title: Define bounded-execution orchestrator proof anchors for smallest-step quality and scope discipline
+summary: Add bounded proof anchors for smallest-step execution work without collapsing execution quality into a universal score.
+repo: aoa-evals
+owner_surface: docs/ORCHESTRATOR_PROOF_ALIGNMENT.md
+theme_ref: ''
+milestone_ref: ''
+kind: proof
+state: captured
+band: frontier
+difficulty: d2_slice
+risk: r1_repo_local
+control_mode: human_codex_copilot
+delegate_tier: planner
+fallback_tier: verifier
+wrapper_class: hybrid
+write_scope: docs_only
+split_required: false
+complexity_basis:
+  scope: 1
+  ambiguity: 1
+  boundary: 2
+  verification: 2
+parent: null
+depends_on:
+  - AOA-EV-Q-0002
+activation:
+  mode: manual
+  note: open when bounded-execution class proof needs a public eval-side anchor map
+anchor_ref:
+  artifact: orchestrator_proof_alignment
+  ref: docs/ORCHESTRATOR_PROOF_ALIGNMENT.md
+handoff_role: eval-maintainer
+orchestrator_class_ref: aoa-agents:bounded_execution
+capability_target: bounded_next_step
+playbook_family_refs:
+  - repo:aoa-playbooks/generated/playbook_registry.min.json
+  - repo:aoa-playbooks/generated/playbook_review_intake.min.json
+proof_surface_refs:
+  - generated/eval_catalog.min.json
+  - docs/ORCHESTRATOR_PROOF_ALIGNMENT.md#bounded-execution
+memory_surface_refs:
+  - repo:aoa-memo/generated/memory_object_capsules.json
+  - repo:aoa-memo/examples/recall_contract.object.working.phase-alpha.json
+evidence:
+  - bounded-execution proof names smallest-step quality explicitly
+  - scope discipline remains reviewable
+  - proof does not become a universal score
+harvest:
+  target: eval
+opened_at: '2026-04-03'
+touched_at: '2026-04-03'
+tags:
+  - orchestrators
+  - bounded-execution
+  - proof
+notes: >
+  Keep bounded-execution proof route-shaped and scope-aware. Judge the next bounded step, not a vague global capability score.
+public_safe: true

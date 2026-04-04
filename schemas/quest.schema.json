@@ -54,6 +54,18 @@
     "milestone_ref": {
       "type": "string"
     },
+    "orchestrator_class_ref": {
+      "type": "string",
+      "pattern": "^aoa-agents:[a-z0-9_]+$"
+    },
+    "capability_target": {
+      "type": "string",
+      "enum": [
+        "repo_layer_selection",
+        "evidence_closure",
+        "bounded_next_step"
+      ]
+    },
     "kind": {
       "type": "string",
       "enum": [
@@ -210,6 +222,27 @@
       ]
     },
     "depends_on": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "playbook_family_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "proof_surface_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "memory_surface_refs": {
       "type": "array",
       "items": {
         "type": "string"

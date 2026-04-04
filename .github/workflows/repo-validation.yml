@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: 8Dionysus/aoa-agents
-          ref: a559139bc1f2571bb5dc83d63a3407070983373d
+          ref: bf974accbf426a0574c3e63e2c13fef76057e190
           path: .deps/aoa-agents
 
       - name: Checkout aoa-playbooks

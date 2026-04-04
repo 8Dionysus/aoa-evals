@@ -37,21 +37,21 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: 8Dionysus/aoa-agents
-          ref: cea2a7e4c87df18c92207bacd5dfa8c22e9789c6
+          ref: a559139bc1f2571bb5dc83d63a3407070983373d
           path: .deps/aoa-agents
 
       - name: Checkout aoa-playbooks
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: 8Dionysus/aoa-playbooks
-          ref: 5279e78821b5e6bc06b0036c3898cd58bc37ed2c
+          ref: d36651f070e01363db690ae273dc47155a109fcf
           path: .deps/aoa-playbooks
 
       - name: Checkout aoa-memo
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: 8Dionysus/aoa-memo
-          ref: 798c5d5e1fc74de788b4b9e9f6a6bc7c4c2865fb
+          ref: 15f071dbec306ddee34909e32fd8f16a7d159360
           path: .deps/aoa-memo
 
       - name: Setup Python

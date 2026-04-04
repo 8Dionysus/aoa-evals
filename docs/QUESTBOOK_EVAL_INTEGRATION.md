@@ -29,6 +29,24 @@ A good eval quest normally points to:
 - a trace-to-verdict bridge debt
 - a repeated caution pattern that wants canon instead of duplicated prose
 
+## Installed quest-harvest posture
+
+`aoa-quest-harvest` may assist this repo only as a post-session installed skill after a reviewed run, closure, or pause.
+
+- it is not used inside an active route
+- it does not define orchestrator identity
+- it does not replace eval bundle meaning, playbook route canon, or memo ownership
+- one anecdotal repeat is not enough to promote a proof pattern
+
+Its allowed verdicts are:
+
+- `keep/open quest`
+- `promote to skill`
+- `promote to playbook`
+- `promote to orchestrator surface`
+- `promote to proof surface`
+- `promote to memo surface`
+
 ## Example-only surfaces
 
 The generated quest catalog and dispatch examples are versioned example-only surfaces.

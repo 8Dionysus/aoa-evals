@@ -148,7 +148,9 @@ The schema-backed bridge surface for this seam is:
 
 The first derived examples are:
 
+- `examples/artifact_to_verdict_hook.local-stack-diagnosis.example.json`
 - `examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json`
+- `examples/artifact_to_verdict_hook.validation-driven-remediation.example.json`
 - `examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json`
 - `examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json`
 

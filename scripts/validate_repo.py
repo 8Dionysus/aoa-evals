@@ -185,11 +185,19 @@ RUNTIME_EVIDENCE_SELECTION_SCHEMA_NAME = "runtime-evidence-selection.schema.json
 RUNTIME_CANDIDATE_TEMPLATE_INDEX_SCHEMA_NAME = "runtime-candidate-template-index.schema.json"
 RUNTIME_CANDIDATE_TEMPLATE_INDEX_NAME = "generated/runtime_candidate_template_index.min.json"
 RUNTIME_CANDIDATE_INTAKE_NAME = "generated/runtime_candidate_intake.min.json"
+PHASE_ALPHA_EVAL_MATRIX_SCHEMA_NAME = "phase-alpha-eval-matrix.schema.json"
+PHASE_ALPHA_EVAL_MATRIX_NAME = "generated/phase_alpha_eval_matrix.min.json"
 NORMALIZED_RUNTIME_ARTIFACT_RE = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
 ARTIFACT_VERDICT_HOOK_EXAMPLES = {
+    "AOA-P-0014": REPO_ROOT
+    / EXAMPLES_DIR_NAME
+    / "artifact_to_verdict_hook.local-stack-diagnosis.example.json",
     "AOA-P-0006": REPO_ROOT
     / EXAMPLES_DIR_NAME
     / "artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
+    "AOA-P-0018": REPO_ROOT
+    / EXAMPLES_DIR_NAME
+    / "artifact_to_verdict_hook.validation-driven-remediation.example.json",
     "AOA-P-0008": REPO_ROOT
     / EXAMPLES_DIR_NAME
     / "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
@@ -208,8 +216,26 @@ RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
         "source_schema_ref": "repo:abyss-stack/schemas/runtime-return-event.schema.json",
         "candidate_eval_refs": ["candidate:aoa-return-anchor-integrity"],
     },
+    "runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json": {
+        "target_eval": "aoa-memo-recall-integrity",
+        "source_schema_ref": "repo:abyss-stack/schemas/runtime-memo-export-candidate.schema.json",
+        "candidate_eval_refs": ["candidate:aoa-memo-recall-integrity"],
+    },
 }
 TRACE_EVAL_HOOK_EXPECTATIONS = {
+    "AOA-P-0014": {
+        "eval_anchor": "aoa-verification-honesty",
+        "artifact_contract_refs": [
+            "repo:aoa-playbooks/playbooks/local-stack-diagnosis/PLAYBOOK.md#expected-artifacts",
+            "repo:aoa-playbooks/docs/alpha-readiness/local-stack-diagnosis.md",
+            "repo:aoa-agents/examples/alpha_reference_routes/local-stack-diagnosis.example.json",
+            "repo:aoa-memo/examples/state_capsule.phase-alpha-local-stack.example.json",
+            "repo:aoa-memo/examples/episode.phase-alpha-local-stack.example.json",
+            "repo:aoa-memo/examples/decision.phase-alpha-local-stack.example.json",
+        ],
+        "trace_surfaces": [],
+        "verification_surface": "verification_pack",
+    },
     "AOA-P-0006": {
         "eval_anchor": "aoa-approval-boundary-adherence",
         "artifact_contract_refs": [
@@ -222,6 +248,19 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
         ],
         "trace_surfaces": [],
         "verification_surface": "approval_record",
+    },
+    "AOA-P-0018": {
+        "eval_anchor": "aoa-scope-drift-detection",
+        "artifact_contract_refs": [
+            "repo:aoa-playbooks/playbooks/validation-driven-remediation/PLAYBOOK.md#expected-artifacts",
+            "repo:aoa-playbooks/docs/alpha-readiness/validation-driven-remediation.md",
+            "repo:aoa-agents/examples/alpha_reference_routes/validation-driven-remediation.example.json",
+            "repo:aoa-memo/examples/episode.phase-alpha-validation-remediation.example.json",
+            "repo:aoa-memo/examples/decision.phase-alpha-validation-remediation.example.json",
+            "repo:aoa-memo/examples/recall_contract.object.working.phase-alpha.json",
+        ],
+        "trace_surfaces": [],
+        "verification_surface": "revalidation_pack",
     },
     "AOA-P-0008": {
         "eval_anchor": "aoa-tool-trajectory-discipline",
@@ -4367,6 +4406,19 @@ def load_runtime_candidate_intake_builder(repo_root: Path):
     return module
 
 
+def load_phase_alpha_eval_matrix_builder(repo_root: Path):
+    module_path = repo_root / "scripts" / "generate_phase_alpha_eval_matrix.py"
+    spec = importlib.util.spec_from_file_location(
+        "generate_phase_alpha_eval_matrix",
+        module_path,
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError("unable to load phase alpha eval matrix generator")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def validate_runtime_candidate_intake(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     generated_path = repo_root / RUNTIME_CANDIDATE_INTAKE_NAME
@@ -4507,6 +4559,150 @@ def validate_runtime_candidate_intake(repo_root: Path) -> list[ValidationIssue]:
     return issues
 
 
+def validate_phase_alpha_eval_matrix(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    generated_path = repo_root / PHASE_ALPHA_EVAL_MATRIX_NAME
+    generated_location = relative_location(generated_path, repo_root)
+    schema_path = repo_root / SCHEMAS_DIR_NAME / PHASE_ALPHA_EVAL_MATRIX_SCHEMA_NAME
+    schema_location = relative_location(schema_path, repo_root)
+
+    schema = load_json_payload(schema_path, issues)
+    if schema is None:
+        return issues
+    if not validate_inline_schema(schema, location=schema_location, issues=issues):
+        return issues
+    if not AOA_PLAYBOOKS_ROOT.exists():
+        return issues
+
+    try:
+        builder = load_phase_alpha_eval_matrix_builder(repo_root)
+        expected = builder.build_phase_alpha_eval_matrix_payload()
+    except Exception as exc:
+        issues.append(ValidationIssue(generated_location, str(exc)))
+        return issues
+
+    payload = load_json_payload(generated_path, issues)
+    if payload is None:
+        return issues
+    if not isinstance(payload, dict):
+        issues.append(ValidationIssue(generated_location, "generated phase alpha eval matrix must be an object"))
+        return issues
+
+    validate_against_schema(
+        payload,
+        PHASE_ALPHA_EVAL_MATRIX_SCHEMA_NAME,
+        generated_location,
+        issues,
+    )
+
+    if payload != expected:
+        issues.append(
+            ValidationIssue(
+                generated_location,
+                "generated phase alpha eval matrix is out of date or mismatched",
+            )
+        )
+
+    if payload.get("runtime_lanes") != {"primary": "llama.cpp", "control": "llama.cpp-second-pass"}:
+        issues.append(
+            ValidationIssue(
+                generated_location,
+                "runtime_lanes must stay {'primary': 'llama.cpp', 'control': 'llama.cpp-second-pass'}",
+            )
+        )
+
+    playbook_matrix_path = AOA_PLAYBOOKS_ROOT / "generated" / "phase_alpha_run_matrix.min.json"
+    playbook_matrix_location = display_location(playbook_matrix_path)
+    playbook_matrix = load_json_payload(playbook_matrix_path, issues)
+    playbook_runs = load_mapping_entries(
+        playbook_matrix,
+        array_key="runs",
+        key_name="run_id",
+        location=playbook_matrix_location,
+        issues=issues,
+    )
+
+    runs = payload.get("runs")
+    if not isinstance(runs, list):
+        issues.append(ValidationIssue(generated_location, "runs must be a list"))
+        return issues
+
+    seen_run_ids: list[str] = []
+    for index, item in enumerate(runs):
+        location = f"{generated_location}.runs[{index}]"
+        if not isinstance(item, dict):
+            issues.append(ValidationIssue(location, "run entry must be an object"))
+            continue
+        run_id = item.get("run_id")
+        if not isinstance(run_id, str):
+            issues.append(ValidationIssue(location, "run_id must be a string"))
+            continue
+        seen_run_ids.append(run_id)
+        source_run = playbook_runs.get(run_id)
+        if source_run is None:
+            issues.append(ValidationIssue(location, f"run_id '{run_id}' does not resolve in aoa-playbooks"))
+            continue
+
+        for field_name in ("sequence", "playbook_id", "playbook_name"):
+            if item.get(field_name) != source_run.get(field_name):
+                issues.append(ValidationIssue(location, f"{field_name} must match aoa-playbooks phase alpha run matrix"))
+
+        if item.get("runtime_lane") != source_run.get("runtime_path_key"):
+            issues.append(ValidationIssue(location, "runtime_lane must match aoa-playbooks runtime_path_key"))
+
+        required_evals = item.get("required_evals")
+        if not isinstance(required_evals, list) or not required_evals:
+            issues.append(ValidationIssue(location, "required_evals must be a non-empty list"))
+            continue
+
+        observed_anchors: list[str] = []
+        for eval_index, eval_item in enumerate(required_evals):
+            eval_location = f"{location}.required_evals[{eval_index}]"
+            if not isinstance(eval_item, dict):
+                issues.append(ValidationIssue(eval_location, "required eval entry must be an object"))
+                continue
+            eval_anchor = eval_item.get("eval_anchor")
+            if not isinstance(eval_anchor, str):
+                issues.append(ValidationIssue(eval_location, "eval_anchor must be a string"))
+                continue
+            observed_anchors.append(eval_anchor)
+            evidence_refs = eval_item.get("evidence_refs")
+            if not isinstance(evidence_refs, list) or not evidence_refs:
+                issues.append(ValidationIssue(eval_location, "evidence_refs must be a non-empty list"))
+                continue
+            if len(evidence_refs) != len(set(evidence_refs)):
+                issues.append(ValidationIssue(eval_location, "evidence_refs must not duplicate refs"))
+            for ref_index, ref in enumerate(evidence_refs):
+                ref_location = f"{eval_location}.evidence_refs[{ref_index}]"
+                if not isinstance(ref, str) or not ref:
+                    issues.append(ValidationIssue(ref_location, "evidence ref must be a non-empty string"))
+                    continue
+                if ref.startswith("repo:"):
+                    parse_repo_ref(ref, location=ref_location, issues=issues)
+                else:
+                    validate_repo_relative_contract_path(
+                        repo_root,
+                        ref,
+                        location=ref_location,
+                        issues=issues,
+                    )
+
+        if observed_anchors != source_run.get("eval_anchors"):
+            issues.append(ValidationIssue(location, "required_evals must stay ordered to aoa-playbooks eval_anchors"))
+
+    if seen_run_ids != [item.get("run_id") for item in runs if isinstance(item, dict)]:
+        issues.append(ValidationIssue(generated_location, "runs must keep deterministic ordering"))
+    if set(seen_run_ids) != set(playbook_runs):
+        missing = sorted(set(playbook_runs) - set(seen_run_ids))
+        extra = sorted(set(seen_run_ids) - set(playbook_runs))
+        if missing:
+            issues.append(ValidationIssue(generated_location, "missing phase alpha runs: " + ", ".join(missing)))
+        if extra:
+            issues.append(ValidationIssue(generated_location, "unexpected phase alpha runs: " + ", ".join(extra)))
+
+    return issues
+
+
 def format_issues(issues: Sequence[ValidationIssue]) -> str:
     lines = [f"- {issue.location}: {issue.message}" for issue in issues]
     return "\n".join(lines)
@@ -4619,6 +4815,7 @@ def run_validation(
             )
             issues.extend(validate_runtime_candidate_template_index(repo_root))
             issues.extend(validate_runtime_candidate_intake(repo_root))
+            issues.extend(validate_phase_alpha_eval_matrix(repo_root))
             issues.extend(validate_generated_catalogs(repo_root, all_records))
             issues.extend(validate_generated_capsules(repo_root, all_records))
             issues.extend(validate_generated_sections(repo_root, all_records))

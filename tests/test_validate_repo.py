@@ -70,7 +70,10 @@ def make_runtime_candidate_template_index_surface(repo_root: Path) -> None:
         "schemas/runtime-candidate-template-index.schema.json",
         "examples/runtime_evidence_selection.workhorse-local.example.json",
         "examples/runtime_evidence_selection.return-anchor-integrity.example.json",
+        "examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json",
+        "examples/artifact_to_verdict_hook.local-stack-diagnosis.example.json",
         "examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
+        "examples/artifact_to_verdict_hook.validation-driven-remediation.example.json",
         "examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
         "examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
         "scripts/generate_runtime_candidate_template_index.py",
@@ -87,10 +90,30 @@ def make_runtime_candidate_intake_surface(repo_root: Path) -> None:
         "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
         "examples/runtime_evidence_selection.workhorse-local.example.json",
         "examples/runtime_evidence_selection.return-anchor-integrity.example.json",
+        "examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json",
+        "examples/artifact_to_verdict_hook.local-stack-diagnosis.example.json",
         "examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
+        "examples/artifact_to_verdict_hook.validation-driven-remediation.example.json",
         "examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
         "examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
         "scripts/generate_runtime_candidate_intake.py",
+    ]:
+        copy_repo_text(repo_root, relative_path)
+
+
+def make_phase_alpha_eval_matrix_surface(repo_root: Path) -> None:
+    for relative_path in [
+        "generated/phase_alpha_eval_matrix.min.json",
+        "schemas/phase-alpha-eval-matrix.schema.json",
+        "examples/phase_alpha_eval_matrix.example.json",
+        "examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json",
+        "examples/runtime_evidence_selection.return-anchor-integrity.example.json",
+        "examples/artifact_to_verdict_hook.local-stack-diagnosis.example.json",
+        "examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
+        "examples/artifact_to_verdict_hook.validation-driven-remediation.example.json",
+        "examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
+        "examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
+        "scripts/generate_phase_alpha_eval_matrix.py",
     ]:
         copy_repo_text(repo_root, relative_path)
 
@@ -3869,5 +3892,26 @@ class TestValidateQuestbookSurface:
         assert any(
             issue.location.startswith("generated/runtime_candidate_intake.min.json.templates[")
             and "owner_review_refs must stay a non-empty list" in issue.message
+            for issue in issues
+        )
+
+    def test_phase_alpha_eval_matrix_validates_for_current_repo(self) -> None:
+        issues = validate_repo.validate_phase_alpha_eval_matrix(REPO_ROOT)
+
+        assert issues == []
+
+    def test_phase_alpha_eval_matrix_drift_fails(self, tmp_path: Path, monkeypatch) -> None:
+        make_phase_alpha_eval_matrix_surface(tmp_path)
+        matrix_path = tmp_path / "generated" / "phase_alpha_eval_matrix.min.json"
+        payload = json.loads(matrix_path.read_text(encoding="utf-8"))
+        payload["runs"][0]["required_evals"][0]["eval_anchor"] = "aoa-bounded-change-quality"
+        write_json_payload(matrix_path, payload)
+
+        monkeypatch.setenv("AOA_PLAYBOOKS_ROOT", str(validate_repo.AOA_PLAYBOOKS_ROOT))
+        issues = validate_repo.validate_phase_alpha_eval_matrix(tmp_path)
+
+        assert any(
+            issue.location == "generated/phase_alpha_eval_matrix.min.json"
+            and "out of date or mismatched" in issue.message
             for issue in issues
         )

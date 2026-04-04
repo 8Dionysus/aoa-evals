@@ -112,6 +112,7 @@ Use `../schemas/runtime-evidence-selection.schema.json` as the machine-readable 
 
 Use `../examples/runtime_evidence_selection.workhorse-local.example.json` as the first bounded example.
 Use `../examples/runtime_evidence_selection.return-anchor-integrity.example.json` when selected `runtime_return_event` summaries and return-policy notes need to travel upward as a bounded evidence sidecar for `aoa-return-anchor-integrity`.
+Use `../examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json` when selected runtime memo-export packets need to travel upward as a bounded evidence sidecar for `aoa-memo-recall-integrity` on the Phase Alpha rerun seam.
 
 ## Boundary to preserve
 Runtime posture can become evidence.

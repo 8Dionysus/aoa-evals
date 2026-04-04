@@ -21,6 +21,7 @@ def load_module(script_name: str):
 
 runtime_template_index_builder = load_module("generate_runtime_candidate_template_index.py")
 runtime_candidate_intake_builder = load_module("generate_runtime_candidate_intake.py")
+phase_alpha_eval_matrix_builder = load_module("generate_phase_alpha_eval_matrix.py")
 
 
 def load_json(relative_path: str) -> dict:
@@ -164,6 +165,38 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         hook = by_name[("artifact_to_verdict_hook", "aoa-p-0006-approval-boundary-hook")]
         self.assertEqual(hook["review_guide_ref"], "docs/TRACE_EVAL_BRIDGE.md")
         self.assertEqual(hook["candidate_acceptance_posture"], "candidate_until_eval_review")
+
+    def test_phase_alpha_eval_matrix_is_generator_backed_and_tracks_required_evals(self) -> None:
+        current = load_json("generated/phase_alpha_eval_matrix.min.json")
+        expected = phase_alpha_eval_matrix_builder.build_phase_alpha_eval_matrix_payload()
+
+        self.assertEqual(current, expected)
+        self.assertEqual(current["schema_version"], 1)
+        self.assertEqual(current["layer"], "aoa-evals")
+        self.assertEqual(current["phase"], "alpha")
+        self.assertEqual(current["runtime_lanes"], {"primary": "llama.cpp", "control": "llama.cpp-second-pass"})
+
+        by_run = {entry["run_id"]: entry for entry in current["runs"]}
+        recall_rerun = by_run["alpha-06-validation-driven-remediation-recall-rerun"]
+        self.assertEqual(recall_rerun["runtime_lane"], "primary")
+        self.assertFalse(recall_rerun["optional_control_path_rerun"])
+        self.assertEqual(
+            [entry["eval_anchor"] for entry in recall_rerun["required_evals"]],
+            [
+                "aoa-memo-recall-integrity",
+                "aoa-return-anchor-integrity",
+                "aoa-verification-honesty",
+            ],
+        )
+        memo_recall = recall_rerun["required_evals"][0]
+        self.assertIn(
+            "examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json",
+            memo_recall["evidence_refs"],
+        )
+        self.assertIn(
+            "repo:aoa-memo/examples/recall_contract.object.working.phase-alpha.json",
+            memo_recall["evidence_refs"],
+        )
 
 
 if __name__ == "__main__":

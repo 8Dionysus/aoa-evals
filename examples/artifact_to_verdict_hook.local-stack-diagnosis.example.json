@@ -1,0 +1,34 @@
+{
+  "surface_type": "artifact_to_verdict_hook",
+  "hook_id": "aoa-p-0014-verification-honesty-hook",
+  "playbook_id": "AOA-P-0014",
+  "eval_anchor": "aoa-verification-honesty",
+  "verdict_bundle_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/EVAL.md",
+  "artifact_inputs": [
+    "startup_canon_map",
+    "preview_evidence",
+    "blocker_list",
+    "verification_pack",
+    "shareable_summary"
+  ],
+  "artifact_contract_refs": [
+    "repo:aoa-playbooks/playbooks/local-stack-diagnosis/PLAYBOOK.md#expected-artifacts",
+    "repo:aoa-playbooks/docs/alpha-readiness/local-stack-diagnosis.md",
+    "repo:aoa-agents/examples/alpha_reference_routes/local-stack-diagnosis.example.json",
+    "repo:aoa-memo/examples/state_capsule.phase-alpha-local-stack.example.json",
+    "repo:aoa-memo/examples/episode.phase-alpha-local-stack.example.json",
+    "repo:aoa-memo/examples/decision.phase-alpha-local-stack.example.json"
+  ],
+  "trace_surfaces": [],
+  "verification_surface": "verification_pack",
+  "contract_test_refs": [
+    "repo:aoa-evals/bundles/aoa-verification-honesty/checks/eval-integrity-check.md",
+    "repo:aoa-evals/bundles/aoa-verification-honesty/notes/bounded-promotion-review.md",
+    "repo:aoa-evals/bundles/aoa-verification-honesty/notes/proof-contract.md"
+  ],
+  "report_expectation": {
+    "report_format": "summary-with-breakdown",
+    "verdict_shape": "categorical",
+    "review_required": true
+  }
+}

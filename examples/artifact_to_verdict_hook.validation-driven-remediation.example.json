@@ -1,0 +1,35 @@
+{
+  "surface_type": "artifact_to_verdict_hook",
+  "hook_id": "aoa-p-0018-scope-drift-hook",
+  "playbook_id": "AOA-P-0018",
+  "eval_anchor": "aoa-scope-drift-detection",
+  "verdict_bundle_ref": "repo:aoa-evals/bundles/aoa-scope-drift-detection/EVAL.md",
+  "artifact_inputs": [
+    "failure_map",
+    "boundary_map",
+    "remediation_change_set",
+    "revalidation_pack",
+    "remediation_decision",
+    "handoff_record"
+  ],
+  "artifact_contract_refs": [
+    "repo:aoa-playbooks/playbooks/validation-driven-remediation/PLAYBOOK.md#expected-artifacts",
+    "repo:aoa-playbooks/docs/alpha-readiness/validation-driven-remediation.md",
+    "repo:aoa-agents/examples/alpha_reference_routes/validation-driven-remediation.example.json",
+    "repo:aoa-memo/examples/episode.phase-alpha-validation-remediation.example.json",
+    "repo:aoa-memo/examples/decision.phase-alpha-validation-remediation.example.json",
+    "repo:aoa-memo/examples/recall_contract.object.working.phase-alpha.json"
+  ],
+  "trace_surfaces": [],
+  "verification_surface": "revalidation_pack",
+  "contract_test_refs": [
+    "repo:aoa-evals/bundles/aoa-scope-drift-detection/checks/eval-integrity-check.md",
+    "repo:aoa-evals/bundles/aoa-scope-drift-detection/notes/bounded-promotion-review.md",
+    "repo:aoa-evals/bundles/aoa-scope-drift-detection/notes/proof-surface-contract.md"
+  ],
+  "report_expectation": {
+    "report_format": "summary-with-breakdown",
+    "verdict_shape": "categorical",
+    "review_required": true
+  }
+}

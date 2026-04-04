@@ -4,10 +4,10 @@
   "source_repo": "abyss-stack",
   "source_schema_ref": "repo:abyss-stack/schemas/runtime-return-event.schema.json",
   "source_manifests": [
-    "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T120500Z__return-aware-route__case-a/return.manifest.json",
-    "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T121900Z__return-aware-route__case-b/return.manifest.json"
+    "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/inquiry_checkpoint.json",
+    "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/next_pass_brief.md"
   ],
-  "bounded_claim": "On this bounded return-aware wrapper family, selected runtime evidence can show whether return events named reason, anchor, and bounded rebuild posture without turning that read into final-quality or capability claims. This is return-hygiene evidence only.",
+  "bounded_claim": "On the bounded Phase Alpha checkpoint and rerun family, selected runtime evidence can show whether pause/resume named explicit return anchors and bounded rebuild posture without turning that read into final-quality or capability claims. This is return-hygiene evidence only.",
   "promotion_target": "evidence-sidecar",
   "comparison_mode": "none",
   "candidate_eval_refs": [
@@ -15,38 +15,36 @@
   ],
   "selected_evidence": [
     {
-      "artifact_ref": "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T120500Z__return-aware-route__case-a/return-event.summary.json",
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/inquiry_checkpoint.json",
       "evidence_role": "summary",
       "summary_only": true
     },
     {
-      "artifact_ref": "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T120500Z__return-aware-route__case-a/return-event.case-breakdown.json",
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/decision_ledger.md",
       "evidence_role": "case-breakdown",
       "summary_only": true
     },
     {
-      "artifact_ref": "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T121900Z__return-aware-route__case-b/return-policy.note.md",
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/next_pass_brief.md",
       "evidence_role": "environment-note",
       "summary_only": true
     },
     {
-      "artifact_ref": "repo:abyss-stack/Logs/agent-api/notes/return-integrity-sidecar-v1.md",
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/revalidation_pack.json",
       "evidence_role": "integrity-sidecar",
       "summary_only": true
     }
   ],
   "environment_invariants": [
-    "same wrapper policy family: return-aware-v1",
-    "same phase contract: route-plan-verify transition model",
-    "same context rebuild class: core plus selected anchor surfaces",
+    "same checkpoint-first route family inside Phase Alpha",
+    "same context rebuild class: landed memo anchors plus selected route surfaces",
     "same redaction posture for runtime evidence publication"
   ],
   "environment_deltas": [
-    "route family varies across cases while the return policy remains unchanged"
+    "pause and resume are separated into checkpoint and rerun surfaces while the return-anchor contract stays unchanged"
   ],
   "excluded_artifacts": [
-    "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T120500Z__return-aware-route__case-a/raw/full-transcript.jsonl",
-    "repo:abyss-stack/Logs/agent-api/runs/2026-03-26T121900Z__return-aware-route__case-b/render/rendered-context-pack.full.json"
+    "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/resume_health.json"
   ],
   "do_not_overread": [
     "does not prove final answer quality",

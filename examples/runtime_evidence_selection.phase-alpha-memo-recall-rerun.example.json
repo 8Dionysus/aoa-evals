@@ -1,0 +1,56 @@
+{
+  "surface_type": "runtime_evidence_selection",
+  "selection_id": "phase-alpha-memo-recall-rerun-v1",
+  "source_repo": "abyss-stack",
+  "source_schema_ref": "repo:abyss-stack/schemas/runtime-memo-export-candidate.schema.json",
+  "source_manifests": [
+    "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/next_pass_brief.md",
+    "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/revalidation_pack.json"
+  ],
+  "bounded_claim": "On the bounded Phase Alpha recall rerun seam, selected runtime evidence can show whether the rerun stayed inspect-capsule-expand, used landed memo objects only, and avoided stronger source escalation or hidden-state recovery. This is memo-recall hygiene evidence only.",
+  "promotion_target": "evidence-sidecar",
+  "comparison_mode": "none",
+  "candidate_eval_refs": [
+    "candidate:aoa-memo-recall-integrity"
+  ],
+  "selected_evidence": [
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/next_pass_brief.md",
+      "evidence_role": "summary",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/failure_map.json",
+      "evidence_role": "case-breakdown",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/revalidation_pack.json",
+      "evidence_role": "environment-note",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/remediation_decision.json",
+      "evidence_role": "integrity-sidecar",
+      "summary_only": true
+    }
+  ],
+  "environment_invariants": [
+    "same owner-local writeback boundary for Phase Alpha",
+    "same human-review requirement before promotion into explicit memo objects",
+    "same memo-first rerun posture: inspect then capsule then expand"
+  ],
+  "environment_deltas": [
+    "next_pass_brief and rerun verification surfaces preserve different bounded evidence roles inside the same rerun lane"
+  ],
+  "do_not_overread": [
+    "does not prove broad memory quality",
+    "does not prove final answer quality",
+    "does not replace return-anchor, scope, approval, or verification evals"
+  ],
+  "review_posture": {
+    "portable_enough": false,
+    "comparison_hygiene_named": true,
+    "human_review_required": true
+  }
+}

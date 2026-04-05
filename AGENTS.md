@@ -131,6 +131,30 @@ Summarize:
 
 Do not claim checks you did not run.
 
+## Audit contract
+
+For repository audits and GitHub review, read `AUDIT.md` after the core docs.
+
+## Review guidelines
+
+For GitHub review in this repository, treat the following as P0:
+
+- secret-bearing fixtures, private benchmark data, or hidden telemetry presented as public proof surfaces
+- wording that converts a bounded eval into a broad intelligence, general safety, or universal trust claim
+- public chooser or comparison wording that silently changes default baseline or public maturity meaning without matching bundle contract and evidence
+
+Treat the following as P1:
+
+- `EVAL.md` and `eval.yaml` drift on category, status, baseline, or report semantics
+- verdict wording becomes stronger than support-artifact coverage
+- blind spots or nearby-bundle distinctness are erased
+- comparison spine or generated routing surfaces drift away from bundle-local contracts
+- shared infra names or paths imply stronger proof than the bundle supports
+- trace/eval bridge wording shifts verdict interpretation out of `aoa-evals`
+- claiming validation that was not actually run
+
+Ignore trivial wording nits unless the task explicitly asks for copyediting.
+
 When the task crosses repo boundaries, use the neighboring repositories for their owned meaning:
 
 - `aoa-techniques` for upstream practice

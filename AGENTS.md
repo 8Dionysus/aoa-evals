@@ -110,6 +110,15 @@ python scripts/build_catalog.py
 python scripts/build_catalog.py --check
 ```
 
+For the current full non-mutating repo integrity battery, also run:
+
+```bash
+python scripts/generate_runtime_candidate_template_index.py --check
+python scripts/generate_runtime_candidate_intake.py --check
+python scripts/generate_phase_alpha_eval_matrix.py --check
+python -m pytest -q tests
+```
+
 Confirm that:
 
 - the claim remains bounded

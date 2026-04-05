@@ -10,11 +10,11 @@ An eval here is not a random benchmark and not a pile of project-local tests. It
 
 Use the shortest route by need:
 
+- first concrete source-owned proof surface: `bundles/aoa-bounded-change-quality/EVAL.md`
 - docs map: `docs/README.md`
-- architecture: `docs/ARCHITECTURE.md`
 - proof posture and limits: `docs/EVAL_PHILOSOPHY.md`
+- architecture: `docs/ARCHITECTURE.md`
 - current eval surface and chooser: `EVAL_INDEX.md` and `EVAL_SELECTION.md`
-- first starter bundle: `bundles/aoa-bounded-change-quality/EVAL.md`
 - authoring template: `templates/EVAL.template.md`
 
 ## Route by need
@@ -85,17 +85,26 @@ Install local dependencies:
 python -m pip install -r requirements-dev.txt
 ```
 
-Run the full repository check:
+Run the minimum repository check:
 
 ```bash
 python scripts/validate_repo.py
 ```
 
-Refresh or parity-check the derived reader catalogs when needed:
+Run the current full non-mutating proof-surface battery when you need parity across authored, generated, and adjunct surfaces:
+
+```bash
+python scripts/build_catalog.py --check
+python scripts/generate_runtime_candidate_template_index.py --check
+python scripts/generate_runtime_candidate_intake.py --check
+python scripts/generate_phase_alpha_eval_matrix.py --check
+python -m pytest -q tests
+```
+
+Refresh the derived reader catalogs only when you intentionally need to rewrite them:
 
 ```bash
 python scripts/build_catalog.py
-python scripts/build_catalog.py --check
 ```
 
 If local sibling repositories are not checked out beside this repo, some dependency-target existence checks stay in the looser local path. Use the documented environment variables when you need the stricter federated path.

@@ -3657,6 +3657,18 @@ class TestValidateQuestbookSurface:
 
         assert validate_questbook_surface(tmp_path) == []
 
+    def test_missing_orchestrator_catalog_is_ignored_until_needed(
+        self,
+        tmp_path: Path,
+        monkeypatch,
+    ) -> None:
+        make_questbook_surface(tmp_path)
+        missing_agents_root = tmp_path / "missing-aoa-agents"
+
+        monkeypatch.setattr(validate_repo, "AOA_AGENTS_ROOT", missing_agents_root)
+
+        assert validate_questbook_surface(tmp_path) == []
+
     def test_missing_questbook_file_fails(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
         (tmp_path / "QUESTBOOK.md").unlink()

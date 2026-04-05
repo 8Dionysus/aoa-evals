@@ -851,7 +851,7 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
     valid_quest_ids: list[str] = []
     active_quest_ids: list[str] = []
     closed_quest_ids: list[str] = []
-    live_orchestrator_class_ids = load_live_orchestrator_class_ids(issues)
+    live_orchestrator_class_ids: set[str] | None = None
     needs_orchestrator_alignment_doc = False
     for quest_name, quest_path in zip(quest_names, quest_paths, strict=True):
         quest_data = load_yaml_file(quest_path, issues)
@@ -883,6 +883,8 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
             )
         if orchestrator_class_ref is not None:
             needs_orchestrator_alignment_doc = True
+            if live_orchestrator_class_ids is None:
+                live_orchestrator_class_ids = load_live_orchestrator_class_ids(issues)
             validate_orchestrator_class_ref(
                 orchestrator_class_ref,
                 location=location,

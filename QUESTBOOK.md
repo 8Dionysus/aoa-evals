@@ -54,5 +54,11 @@ Allowed verdicts:
 - `quests/*.yaml`
 - `schemas/quest.schema.json`
 - `schemas/quest_dispatch.schema.json`
+- `generated/quest_catalog.min.json`
+- `generated/quest_dispatch.min.json`
 - `generated/quest_catalog.min.example.json`
 - `generated/quest_dispatch.min.example.json`
+
+The live generated quest pair is a repo-local review and validation projection.
+The example pair is its example mirror.
+Neither pair replaces eval bundle meaning or becomes live portable verdict authority.

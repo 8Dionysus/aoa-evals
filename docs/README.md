@@ -8,10 +8,12 @@ Use it when you want to understand **which doc to open next** without guessing f
 
 Choose the path that matches your question:
 
+- I need one concrete source-owned proof surface first:
+  - [First starter bundle](../bundles/aoa-bounded-change-quality/EVAL.md)
 - I need to understand what this repository means by evaluation:
   - [Eval Philosophy](EVAL_PHILOSOPHY.md)
   - [Architecture](ARCHITECTURE.md)
-- I need to pick or inspect an eval bundle:
+- I need to pick or inspect an eval bundle by routing surface:
   - [Eval Selection](../EVAL_SELECTION.md)
   - [Eval Index](../EVAL_INDEX.md)
 - I need to understand status, review posture, or canonization:
@@ -42,6 +44,8 @@ Choose the path that matches your question:
 ### Generated reader surfaces
 
 These are reader-facing navigation artifacts derived from authoritative markdown and generated data.
+Use them after you know whether you need routing convenience or source-owned bundle meaning.
+They do not replace `bundles/*/EVAL.md` and `bundles/*/eval.yaml`.
 
 - [Eval Selection](../EVAL_SELECTION.md)
   - use when you need one bounded eval choice by category, status, claim type, or nearby relation
@@ -97,11 +101,24 @@ feed existing eval bundles without creating a second proof canon.
 ### New reader path
 
 1. [README](../README.md)
-2. [EVAL_INDEX](../EVAL_INDEX.md)
-3. [Eval Philosophy](EVAL_PHILOSOPHY.md)
-4. [Architecture](ARCHITECTURE.md)
-5. [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md)
-6. one concrete `EVAL.md` bundle
+2. [First starter bundle](../bundles/aoa-bounded-change-quality/EVAL.md)
+3. [EVAL_SELECTION](../EVAL_SELECTION.md)
+4. [EVAL_INDEX](../EVAL_INDEX.md)
+5. [Eval Philosophy](EVAL_PHILOSOPHY.md)
+6. [Architecture](ARCHITECTURE.md)
+
+## Verify Current Surfaces
+
+Use this non-mutating check path when you need to confirm current public and adjunct surfaces:
+
+```bash
+python scripts/validate_repo.py
+python scripts/build_catalog.py --check
+python scripts/generate_runtime_candidate_template_index.py --check
+python scripts/generate_runtime_candidate_intake.py --check
+python scripts/generate_phase_alpha_eval_matrix.py --check
+python -m pytest -q tests
+```
 
 ### Reviewer path
 
@@ -149,6 +166,7 @@ These are outside `docs/` but matter when navigating the repo:
 ## Notes
 
 - Prefer generated reader surfaces when the question is "which eval should I inspect next?"
+- Prefer one concrete `EVAL.md` bundle when the question is "where is the source-owned proof meaning for this claim?"
 - Prefer `generated/eval_catalog*.json` when the question is "what is the deterministic machine-readable eval surface right now?"
 - Prefer `generated/eval_capsules.json` when the question is "what is the smallest local runtime card for this eval?"
 - Prefer `generated/comparison_spine.json` when the question is "which comparison surface in the current ladder should I inspect next?"

@@ -47,10 +47,12 @@ Its allowed verdicts are:
 - `promote to proof surface`
 - `promote to memo surface`
 
-## Example-only surfaces
+## Generated quest surfaces
 
-The generated quest catalog and dispatch examples are versioned example-only surfaces.
-They support review and validation, but they are not live portable verdict authority.
+The live generated quest catalog and dispatch surfaces are repo-local review and validation projections.
+The matching example files remain versioned example-only surfaces and example mirrors.
+Neither pair is a live portable verdict authority, and both surfaces are explicitly not live portable verdict authority for public proof claims.
+Neither pair replaces eval bundle meaning.
 
 Example-only progression surfaces may cite upstream read-only refs such as `AOA-SK-Q-0003`.
 Those references stay source-owned upstream and do not widen this rollout into `aoa-skills`.

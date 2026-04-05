@@ -6,7 +6,7 @@ compatibility: Designed for Codex or similar coding agents with repository file 
 metadata:
   aoa_scope: core
   aoa_status: scaffold
-  aoa_invocation_mode: explicit-preferred
+  aoa_invocation_mode: explicit-only
   aoa_source_skill_path: skills/aoa-quest-harvest/SKILL.md
   aoa_source_repo: 8Dionysus/aoa-skills
   aoa_technique_dependencies: AOA-T-PENDING-QUEST-HARVEST,AOA-T-PENDING-PROMOTION-TRIAGE
@@ -59,6 +59,7 @@ Do not use this skill when:
 10. record the verdict with one clear reason for promotion and one clear reason against the nearest wrong target
 
 ## Contracts
+- invocation must remain explicit and post-session
 - orchestrator class identity must not be promoted into a skill
 - a skill promotion must stay leaf-workflow-shaped
 - a playbook promotion must stay route-shaped

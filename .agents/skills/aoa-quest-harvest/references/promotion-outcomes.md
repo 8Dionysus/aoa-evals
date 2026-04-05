@@ -16,11 +16,16 @@ This reference names the allowed outcomes for `aoa-quest-harvest`.
 4. `promote_to_orchestrator_surface`
    Use when the repeated unit is class law such as read order, boundary note, allowed surfaces, forbidden surfaces, or expected outputs.
 
-5. `promote_to_proof_or_memory_surface`
-   Use when the repeated unit is specifically a proof pattern for `aoa-evals` or a recurrence and writeback pattern for `aoa-memo`.
+5. `promote_to_proof_surface`
+   Use when the repeated unit is specifically a proof pattern, verdict posture, rubric law, or another bounded evaluation surface owned by `aoa-evals`.
+
+6. `promote_to_memo_surface`
+   Use when the repeated unit is specifically a recurrence, recall, or writeback pattern owned by `aoa-memo`.
 
 ## Guardrail
 
 Do not promote an orchestrator class into a skill just because an orchestrator repeatedly performs some work.
 
 Promote only the repeatable leaf workflow, not the class itself.
+
+Do not collapse proof and memo promotions into one shared outcome. They route to different owner layers for different reasons.

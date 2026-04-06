@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-evals/schemas/eval-result-receipt.schema.json",
+  "title": "aoa-evals eval result receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "report_format",
+    "verdict",
+    "claim_scope",
+    "bundle_ref",
+    "report_ref",
+    "interpretation_bound"
+  ],
+  "properties": {
+    "eval_name": {
+      "type": "string",
+      "pattern": "^aoa-[a-z0-9-]+$"
+    },
+    "bundle_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "bounded",
+        "portable",
+        "baseline",
+        "canonical",
+        "deprecated"
+      ]
+    },
+    "report_format": {
+      "type": "string",
+      "enum": [
+        "summary",
+        "summary-with-breakdown",
+        "comparative-summary"
+      ]
+    },
+    "verdict": {
+      "type": "string",
+      "minLength": 3
+    },
+    "claim_scope": {
+      "type": "string",
+      "enum": [
+        "bundle_scoped",
+        "fixed_baseline_scoped",
+        "peer_compare_scoped",
+        "repeated_window_scoped"
+      ]
+    },
+    "comparison_mode": {
+      "type": "string",
+      "enum": [
+        "none",
+        "fixed-baseline",
+        "peer-compare",
+        "longitudinal-window"
+      ]
+    },
+    "bundle_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "report_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "case_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "score": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "interpretation_bound": {
+      "type": "string",
+      "minLength": 20
+    }
+  }
+}

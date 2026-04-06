@@ -171,6 +171,11 @@ They are derived bridge metadata.
 They are not a second proof canon and not a runtime judge implementation.
 Runtime-produced hook packets remain review candidates until `aoa-evals` confirms their bounded use against the owning eval bundle.
 
+When a bounded verdict later needs one machine-readable publication sidecar,
+use [EVAL_RESULT_RECEIPT_GUIDE.md](EVAL_RESULT_RECEIPT_GUIDE.md).
+That seam records publication facts and stays weaker than bundle-local proof
+meaning.
+
 ## Non-goals
 
 - no secret internal judge

@@ -3,3 +3,4 @@ TODO.local.md
 PLANS.local.md
 __pycache__/
 *.pyc
+.aoa/live_receipts/

@@ -1,6 +1,6 @@
 ---
 name: aoa-quest-harvest
-description: Triage repeated reviewed quest evidence into the right promotion target without collapsing skills, playbooks, orchestrator classes, proof, or memory into one layer. Use when a bounded work pattern has repeated, reviewed evidence exists, and you need to decide whether it should stay a quest or move into the next honest owner surface. Do not use when the route is still active, only one anecdotal occurrence exists, or the task is to invent net-new doctrine instead of classifying a repeated pattern.
+description: Give the final promotion verdict on one repeated reviewed quest-shaped unit without collapsing skills, playbooks, orchestrator classes, proof, or memory into one layer. Use when a bounded quest-shaped work pattern has repeated, reviewed evidence exists, and you need the final honest verdict on whether it should stay a quest or move into the next owner surface. Do not use when the route is still active, only one anecdotal occurrence exists, the task is to invent net-new doctrine, or a broader reviewed session artifact still needs donor harvest, route forks, diagnosis, repair, or progression reflection first.
 license: Apache-2.0
 compatibility: Designed for Codex or similar coding agents with repository file access and an interactive shell. Network access is optional and only needed when repository validation or referenced workflows require it.
 metadata:
@@ -23,13 +23,15 @@ Use this skill when:
 - a bounded work pattern has repeated and now needs an explicit promotion decision
 - reviewed evidence exists, but the correct destination is still unclear
 - the decision must distinguish between skill, playbook, orchestrator surface, proof surface, memo surface, or staying a quest
-- the route needs a compact post-session harvest rather than another free-form discussion
+- the route needs a compact final promotion triage rather than another free-form discussion
 
 Do not use this skill when:
 - the route is still active and the evidence has not been reviewed yet
 - there is only one anecdotal occurrence with no honest repeat signal
 - the task is to invent net-new doctrine rather than classify a repeated pattern
 - the route is already clearly scenario-shaped and only needs playbook authoring
+- the source is a reviewed session artifact with multiple candidate donor units that still need owner-layer routing first; use `aoa-session-donor-harvest`
+- the source still needs explicit route forks, diagnosis, repair, or progression reflection from the wider session-harvest family before final promotion triage
 
 ## Inputs
 - source quest or quest family

@@ -1,0 +1,38 @@
+{
+  "event_kind": "eval_result_receipt",
+  "event_id": "evr-bcq-2026-04-05-001",
+  "observed_at": "2026-04-05T21:30:00Z",
+  "run_ref": "eval-run-bcq-demo-001",
+  "session_ref": "session:bcq-demo-2026-04-05",
+  "actor_ref": "aoa-evals:reviewer:example",
+  "object_ref": {
+    "repo": "aoa-evals",
+    "kind": "eval_bundle",
+    "id": "aoa-bounded-change-quality",
+    "version": "portable"
+  },
+  "evidence_refs": [
+    {
+      "kind": "bundle_report",
+      "ref": "repo:aoa-evals/bundles/aoa-bounded-change-quality/reports/example-report.json",
+      "role": "primary"
+    },
+    {
+      "kind": "bundle_contract",
+      "ref": "repo:aoa-evals/bundles/aoa-bounded-change-quality/EVAL.md",
+      "role": "verdict-meaning"
+    }
+  ],
+  "payload": {
+    "eval_name": "aoa-bounded-change-quality",
+    "bundle_status": "portable",
+    "report_format": "summary",
+    "verdict": "supports bounded claim",
+    "claim_scope": "bundle_scoped",
+    "bundle_ref": "repo:aoa-evals/bundles/aoa-bounded-change-quality/EVAL.md",
+    "report_ref": "repo:aoa-evals/bundles/aoa-bounded-change-quality/reports/example-report.json",
+    "case_count": 3,
+    "score": null,
+    "interpretation_bound": "Example only. This receipt records one bounded proof publication and does not replace bundle-local verdict meaning, limitations, or cross-bundle interpretation."
+  }
+}

@@ -11,6 +11,16 @@ Top-level report artifacts here should only capture cross-bundle readouts such a
 - shared readout dossiers
 - reusable public comparison guidance
 
+Shared machine-readable publication receipts that span more than one bundle do
+not live under `reports/`.
+Keep those shared receipt seams in `schemas/` and `examples/` so bundle-local
+report artifacts remain the stronger proof contract.
+
+Current shared receipt surfaces:
+- `schemas/stats-event-envelope.schema.json`
+- `schemas/eval-result-receipt.schema.json`
+- `examples/eval_result_receipt.example.json`
+
 Current shared dossiers:
 - `artifact-process-paired-proof-flow-v1.md` for artifact/process bridge reading
 - `artifact-process-paired-proof-flow-v2.md` for second-family artifact/process bridge reading

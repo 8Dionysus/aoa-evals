@@ -210,6 +210,18 @@ REPO_REF_ROOTS = {
 }
 ARTIFACT_VERDICT_HOOK_SCHEMA_NAME = "artifact-to-verdict-hook.schema.json"
 RUNTIME_EVIDENCE_SELECTION_SCHEMA_NAME = "runtime-evidence-selection.schema.json"
+STATS_EVENT_ENVELOPE_SCHEMA_NAME = "stats-event-envelope.schema.json"
+EVAL_RESULT_RECEIPT_SCHEMA_NAME = "eval-result-receipt.schema.json"
+EVAL_RESULT_RECEIPT_GUIDE_NAME = "docs/EVAL_RESULT_RECEIPT_GUIDE.md"
+EVAL_RESULT_RECEIPT_EXAMPLE_NAME = "examples/eval_result_receipt.example.json"
+EVAL_RESULT_RECEIPT_REQUIRED_TOKENS = (
+    "## Core rule",
+    "`eval_result_receipt`",
+    "`stats-event-envelope`",
+    "`supersedes`",
+    "bundle-local verdict meaning",
+    "repo-global score",
+)
 RUNTIME_CANDIDATE_TEMPLATE_INDEX_SCHEMA_NAME = "runtime-candidate-template-index.schema.json"
 RUNTIME_CANDIDATE_TEMPLATE_INDEX_NAME = "generated/runtime_candidate_template_index.min.json"
 RUNTIME_CANDIDATE_INTAKE_NAME = "generated/runtime_candidate_intake.min.json"
@@ -1280,6 +1292,207 @@ def validate_unlock_proof_bridge_surface(repo_root: Path) -> list[ValidationIssu
                     "unlock proof example must not reference missing progression evidence id 'AOA-EV-PROG-0002'",
                 )
             )
+
+    return issues
+
+
+def validate_eval_result_receipt_surfaces(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    guide_path = repo_root / EVAL_RESULT_RECEIPT_GUIDE_NAME
+    envelope_schema_path = repo_root / SCHEMAS_DIR_NAME / STATS_EVENT_ENVELOPE_SCHEMA_NAME
+    payload_schema_path = repo_root / SCHEMAS_DIR_NAME / EVAL_RESULT_RECEIPT_SCHEMA_NAME
+    example_path = repo_root / EVAL_RESULT_RECEIPT_EXAMPLE_NAME
+
+    guide_text = read_text_or_issue(guide_path, issues, root=repo_root)
+    if guide_text:
+        for token in EVAL_RESULT_RECEIPT_REQUIRED_TOKENS:
+            if token not in guide_text:
+                issues.append(
+                    ValidationIssue(
+                        relative_location(guide_path, repo_root),
+                        f"eval result receipt guide must mention '{token}'",
+                    )
+                )
+
+    envelope_schema = load_json_payload(envelope_schema_path, issues)
+    if isinstance(envelope_schema, dict):
+        if envelope_schema.get("title") != "aoa-evals stats event envelope":
+            issues.append(
+                ValidationIssue(
+                    relative_location(envelope_schema_path, repo_root),
+                    "stats event envelope schema title must be 'aoa-evals stats event envelope'",
+                )
+            )
+        try:
+            Draft202012Validator.check_schema(envelope_schema)
+        except SchemaError as exc:
+            issues.append(
+                ValidationIssue(
+                    relative_location(envelope_schema_path, repo_root),
+                    f"invalid JSON schema: {exc.message}",
+                )
+            )
+    elif envelope_schema is not None:
+        issues.append(
+            ValidationIssue(
+                relative_location(envelope_schema_path, repo_root),
+                "stats event envelope schema must be a JSON object",
+            )
+        )
+
+    payload_schema = load_json_payload(payload_schema_path, issues)
+    if isinstance(payload_schema, dict):
+        if payload_schema.get("title") != "aoa-evals eval result receipt":
+            issues.append(
+                ValidationIssue(
+                    relative_location(payload_schema_path, repo_root),
+                    "eval result receipt schema title must be 'aoa-evals eval result receipt'",
+                )
+            )
+        try:
+            Draft202012Validator.check_schema(payload_schema)
+        except SchemaError as exc:
+            issues.append(
+                ValidationIssue(
+                    relative_location(payload_schema_path, repo_root),
+                    f"invalid JSON schema: {exc.message}",
+                )
+            )
+    elif payload_schema is not None:
+        issues.append(
+            ValidationIssue(
+                relative_location(payload_schema_path, repo_root),
+                "eval result receipt schema must be a JSON object",
+            )
+        )
+
+    example_payload = load_json_payload(example_path, issues)
+    if isinstance(example_payload, dict):
+        validate_against_schema(
+            example_payload,
+            STATS_EVENT_ENVELOPE_SCHEMA_NAME,
+            relative_location(example_path, repo_root),
+            issues,
+        )
+        if example_payload.get("event_kind") != "eval_result_receipt":
+            issues.append(
+                ValidationIssue(
+                    relative_location(example_path, repo_root),
+                    "eval result receipt example must keep event_kind as 'eval_result_receipt'",
+                )
+            )
+
+        object_ref = example_payload.get("object_ref")
+        if isinstance(object_ref, dict):
+            if object_ref.get("repo") != "aoa-evals":
+                issues.append(
+                    ValidationIssue(
+                        relative_location(example_path, repo_root),
+                        "eval result receipt example object_ref.repo must be 'aoa-evals'",
+                    )
+                )
+            if object_ref.get("kind") != "eval_bundle":
+                issues.append(
+                    ValidationIssue(
+                        relative_location(example_path, repo_root),
+                        "eval result receipt example object_ref.kind must be 'eval_bundle'",
+                    )
+                )
+
+        evidence_refs = example_payload.get("evidence_refs")
+        seen_primary = False
+        if isinstance(evidence_refs, list):
+            for index, evidence_ref in enumerate(evidence_refs):
+                if not isinstance(evidence_ref, dict):
+                    continue
+                ref = evidence_ref.get("ref")
+                if isinstance(ref, str):
+                    parse_repo_ref(
+                        ref,
+                        location=f"{relative_location(example_path, repo_root)}.evidence_refs[{index}].ref",
+                        issues=issues,
+                    )
+                if evidence_ref.get("role") == "primary":
+                    seen_primary = True
+        if not seen_primary:
+            issues.append(
+                ValidationIssue(
+                    relative_location(example_path, repo_root),
+                    "eval result receipt example must include one primary evidence ref",
+                )
+            )
+
+        payload = example_payload.get("payload")
+        if isinstance(payload, dict):
+            validate_against_schema(
+                payload,
+                EVAL_RESULT_RECEIPT_SCHEMA_NAME,
+                f"{relative_location(example_path, repo_root)}.payload",
+                issues,
+            )
+            bundle_ref = payload.get("bundle_ref")
+            if isinstance(bundle_ref, str):
+                parse_repo_ref(
+                    bundle_ref,
+                    location=f"{relative_location(example_path, repo_root)}.payload.bundle_ref",
+                    issues=issues,
+                )
+            report_ref = payload.get("report_ref")
+            if isinstance(report_ref, str):
+                parse_repo_ref(
+                    report_ref,
+                    location=f"{relative_location(example_path, repo_root)}.payload.report_ref",
+                    issues=issues,
+                )
+            if (
+                isinstance(object_ref, dict)
+                and isinstance(payload.get("eval_name"), str)
+                and payload["eval_name"] != object_ref.get("id")
+            ):
+                issues.append(
+                    ValidationIssue(
+                        relative_location(example_path, repo_root),
+                        "eval result receipt example payload.eval_name must match object_ref.id",
+                    )
+                )
+            if (
+                isinstance(report_ref, str)
+                and isinstance(evidence_refs, list)
+                and report_ref
+                not in {
+                    entry.get("ref")
+                    for entry in evidence_refs
+                    if isinstance(entry, dict)
+                }
+            ):
+                issues.append(
+                    ValidationIssue(
+                        relative_location(example_path, repo_root),
+                        "eval result receipt example payload.report_ref must also appear in evidence_refs",
+                    )
+                )
+            interpretation_bound = payload.get("interpretation_bound")
+            if isinstance(interpretation_bound, str) and "Example only." not in interpretation_bound:
+                issues.append(
+                    ValidationIssue(
+                        relative_location(example_path, repo_root),
+                        "eval result receipt example interpretation_bound must keep example-only posture explicit",
+                    )
+                )
+        else:
+            issues.append(
+                ValidationIssue(
+                    relative_location(example_path, repo_root),
+                    "eval result receipt example payload must be an object",
+                )
+            )
+    elif example_payload is not None:
+        issues.append(
+            ValidationIssue(
+                relative_location(example_path, repo_root),
+                "eval result receipt example must be a JSON object",
+            )
+        )
 
     return issues
 
@@ -5123,6 +5336,7 @@ def run_validation(
         all_source_issues, all_records = collect_catalog_records(repo_root)
         if not all_source_issues:
             issues.extend(validate_trace_eval_bridge_surfaces(repo_root, all_records))
+            issues.extend(validate_eval_result_receipt_surfaces(repo_root))
             issues.extend(
                 validate_runtime_evidence_selection_surfaces(
                     repo_root,

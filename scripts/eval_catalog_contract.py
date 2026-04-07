@@ -35,7 +35,11 @@ MIN_ENTRY_KEYS = (
     "validation_strength",
     "export_ready",
     "technique_dependencies",
+    "technique_refs",
     "skill_dependencies",
+    "skill_refs",
+    "evidence_kinds",
+    "proof_surface_kinds",
     "eval_path",
 )
 KNOWN_REPOS = (
@@ -303,6 +307,32 @@ def build_proof_artifacts_entry(repo_root: Path, record: Any) -> dict[str, Any]:
     }
 
 
+def compact_evidence_kinds(evidence_entries: list[dict[str, Any]]) -> list[str]:
+    kinds: list[str] = []
+    for entry in evidence_entries:
+        kind = entry.get("kind")
+        if isinstance(kind, str) and kind not in kinds:
+            kinds.append(kind)
+    return kinds
+
+
+def compact_proof_surface_kinds(proof_artifacts: dict[str, Any]) -> list[str]:
+    kinds: list[str] = []
+    if proof_artifacts.get("fixture_contract_path"):
+        kinds.append("fixture_contract")
+    if proof_artifacts.get("shared_fixture_family_path"):
+        kinds.append("shared_fixture_family")
+    if proof_artifacts.get("runner_contract_path"):
+        kinds.append("runner_contract")
+    if proof_artifacts.get("scorer_helper_paths"):
+        kinds.append("scorer_helper")
+    if proof_artifacts.get("report_schema_path"):
+        kinds.append("report_schema")
+    if proof_artifacts.get("paired_readout_path"):
+        kinds.append("paired_readout")
+    return kinds
+
+
 def full_catalog_entry(repo_root: Path, record: Any) -> dict[str, Any]:
     metadata = record.metadata
     manifest = record.manifest
@@ -318,6 +348,9 @@ def full_catalog_entry(repo_root: Path, record: Any) -> dict[str, Any]:
     )
     if technique_issues or skill_issues:
         raise ValueError(format_issues(technique_issues + skill_issues))
+
+    evidence_entries = list(manifest["evidence"])
+    proof_artifacts = build_proof_artifacts_entry(repo_root, record)
 
     return {
         "name": metadata["name"],
@@ -345,8 +378,10 @@ def full_catalog_entry(repo_root: Path, record: Any) -> dict[str, Any]:
         "skill_dependencies": list(metadata["skill_dependencies"]),
         "skill_refs": skill_refs,
         "relations": list(manifest["relations"]),
-        "evidence": list(manifest["evidence"]),
-        "proof_artifacts": build_proof_artifacts_entry(repo_root, record),
+        "evidence": evidence_entries,
+        "evidence_kinds": compact_evidence_kinds(evidence_entries),
+        "proof_artifacts": proof_artifacts,
+        "proof_surface_kinds": compact_proof_surface_kinds(proof_artifacts),
     }
 
 

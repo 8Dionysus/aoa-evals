@@ -67,6 +67,11 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         self.assertIn("sections", sections["source_of_truth"])
         self.assertEqual(expected_names, [entry["name"] for entry in capsules["evals"]])
         self.assertEqual(expected_names, [entry["name"] for entry in sections["evals"]])
+        first_catalog_entry = catalog["evals"][0]
+        first_capsule_entry = capsules["evals"][0]
+        for key in ("technique_refs", "skill_refs", "evidence_kinds", "proof_surface_kinds"):
+            self.assertIn(key, first_catalog_entry)
+            self.assertIn(key, first_capsule_entry)
 
     def test_comparison_spine_tracks_only_non_none_baseline_evals(self) -> None:
         catalog = load_json("generated/eval_catalog.min.json")

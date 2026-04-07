@@ -26,6 +26,11 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": true,
       "maturity_score": 2,
       "name": "aoa-ambiguity-handling",
@@ -43,6 +48,13 @@
         ],
         "shared_fixture_family_path": "fixtures/ambiguity-bounded-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
@@ -116,6 +128,11 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": true,
       "maturity_score": 2,
       "name": "aoa-approval-boundary-adherence",
@@ -133,6 +150,13 @@
         ],
         "shared_fixture_family_path": "fixtures/approval-boundary-bounded-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-ambiguity-handling",
@@ -190,6 +214,12 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "portable_review",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": true,
       "maturity_score": 3,
       "name": "aoa-artifact-review-rubric",
@@ -207,6 +237,14 @@
         ],
         "shared_fixture_family_path": "fixtures/bounded-change-paired-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema",
+        "paired_readout"
+      ],
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
@@ -280,6 +318,12 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "portable_review",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": true,
       "maturity_score": 3,
       "name": "aoa-bounded-change-quality",
@@ -297,6 +341,14 @@
         ],
         "shared_fixture_family_path": "fixtures/bounded-change-paired-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema",
+        "paired_readout"
+      ],
       "relations": [
         {
           "target": "aoa-verification-honesty",
@@ -386,6 +438,11 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": false,
       "maturity_score": 2,
       "name": "aoa-compost-provenance-preservation",
@@ -403,6 +460,13 @@
         ],
         "shared_fixture_family_path": "fixtures/compost-provenance-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-artifact-review-rubric",
@@ -448,6 +512,11 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": true,
       "maturity_score": 2,
       "name": "aoa-eval-integrity-check",
@@ -465,6 +534,11 @@
         ],
         "shared_fixture_family_path": null
       },
+      "proof_surface_kinds": [
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
@@ -558,6 +632,11 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": false,
       "maturity_score": 2,
       "name": "aoa-long-horizon-depth",
@@ -575,6 +654,13 @@
         ],
         "shared_fixture_family_path": "fixtures/long-horizon-restart-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-witness-trace-integrity",
@@ -631,6 +717,12 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "baseline_readiness",
+        "integrity_check"
+      ],
       "export_ready": true,
       "maturity_score": 2,
       "name": "aoa-longitudinal-growth-snapshot",
@@ -648,6 +740,14 @@
         ],
         "shared_fixture_family_path": "fixtures/repeated-window-bounded-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema",
+        "paired_readout"
+      ],
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
@@ -721,6 +821,11 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": false,
       "maturity_score": 2,
       "name": "aoa-memo-contradiction-integrity",
@@ -738,6 +843,13 @@
         ],
         "shared_fixture_family_path": "fixtures/memo-contradiction-guardrail-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-memo-recall-integrity",
@@ -795,6 +907,11 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": false,
       "maturity_score": 2,
       "name": "aoa-memo-recall-integrity",
@@ -812,6 +929,13 @@
         ],
         "shared_fixture_family_path": "fixtures/memo-recall-guardrail-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-witness-trace-integrity",
@@ -875,6 +999,12 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "baseline_readiness",
+        "integrity_check"
+      ],
       "export_ready": true,
       "maturity_score": 2,
       "name": "aoa-output-vs-process-gap",
@@ -892,6 +1022,14 @@
         ],
         "shared_fixture_family_path": "fixtures/bounded-change-paired-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema",
+        "paired_readout"
+      ],
       "relations": [
         {
           "target": "aoa-artifact-review-rubric",
@@ -984,6 +1122,13 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "portable_review",
+        "support_note",
+        "baseline_readiness",
+        "integrity_check"
+      ],
       "export_ready": true,
       "maturity_score": 4,
       "name": "aoa-regression-same-task",
@@ -1001,6 +1146,14 @@
         ],
         "shared_fixture_family_path": "fixtures/frozen-same-task-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema",
+        "paired_readout"
+      ],
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
@@ -1070,6 +1223,11 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": false,
       "maturity_score": 2,
       "name": "aoa-return-anchor-integrity",
@@ -1087,6 +1245,13 @@
         ],
         "shared_fixture_family_path": "fixtures/return-anchor-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-long-horizon-depth",
@@ -1148,6 +1313,11 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": true,
       "maturity_score": 2,
       "name": "aoa-scope-drift-detection",
@@ -1165,6 +1335,13 @@
         ],
         "shared_fixture_family_path": "fixtures/scope-drift-bounded-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
@@ -1234,6 +1411,11 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": true,
       "maturity_score": 2,
       "name": "aoa-tool-trajectory-discipline",
@@ -1251,6 +1433,13 @@
         ],
         "shared_fixture_family_path": "fixtures/tool-trajectory-bounded-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-trace-outcome-separation",
@@ -1320,6 +1509,11 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": true,
       "maturity_score": 2,
       "name": "aoa-trace-outcome-separation",
@@ -1337,6 +1531,13 @@
         ],
         "shared_fixture_family_path": "fixtures/trace-outcome-bounded-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
@@ -1418,6 +1619,12 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "portable_review",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": true,
       "maturity_score": 3,
       "name": "aoa-verification-honesty",
@@ -1435,6 +1642,13 @@
         ],
         "shared_fixture_family_path": "fixtures/verification-honesty-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-bounded-change-quality",
@@ -1504,6 +1718,11 @@
           "path": "checks/eval-integrity-check.md"
         }
       ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "export_ready": false,
       "maturity_score": 2,
       "name": "aoa-witness-trace-integrity",
@@ -1521,6 +1740,13 @@
         ],
         "shared_fixture_family_path": "fixtures/witness-trace-v1/README.md"
       },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-trace-outcome-separation",

@@ -26,11 +26,15 @@ It does not replace bundle-local verdict meaning.
 
 The shared schema-backed surfaces for this seam are:
 
+- canonical shared envelope:
+  `repo:aoa-stats/schemas/stats-event-envelope.schema.json`
 - `schemas/stats-event-envelope.schema.json`
 - `schemas/eval-result-receipt.schema.json`
 - `examples/eval_result_receipt.example.json`
 
 Use the shared `stats-event-envelope` for event facts.
+Treat the local `aoa-evals` copy as a mirror of the canonical `aoa-stats`
+schema rather than as a competing source of ownership.
 Use `eval-result-receipt.schema.json` only for the bounded proof payload that
 travels inside that envelope.
 
@@ -68,6 +72,8 @@ Do not silently rewrite old publication facts.
 
 ## Boundary to preserve
 
+- `aoa-stats` owns the shared cross-repo receipt envelope and active event-kind
+  vocabulary used for downstream derivation
 - `aoa-evals` owns verdict meaning, report interpretation, and claim limits
 - bundle-local report schemas remain the stronger machine-readable proof
   contract

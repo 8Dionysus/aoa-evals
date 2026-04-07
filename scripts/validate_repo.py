@@ -67,6 +67,7 @@ AOA_PLAYBOOKS_ROOT = repo_root_from_env(
     "AOA_PLAYBOOKS_ROOT", REPO_ROOT.parent / "aoa-playbooks"
 )
 AOA_MEMO_ROOT = repo_root_from_env("AOA_MEMO_ROOT", REPO_ROOT.parent / "aoa-memo")
+AOA_STATS_ROOT = repo_root_from_env("AOA_STATS_ROOT", REPO_ROOT.parent / "aoa-stats")
 ABYSS_STACK_ROOT = resolve_abyss_stack_root(REPO_ROOT.parent / "abyss-stack")
 BUNDLES_DIR_NAME = "bundles"
 EVAL_INDEX_NAME = "EVAL_INDEX.md"
@@ -1323,6 +1324,35 @@ def validate_eval_result_receipt_surfaces(repo_root: Path) -> list[ValidationIss
                     "stats event envelope schema title must be 'aoa-evals stats event envelope'",
                 )
             )
+        canonical_schema_ref = envelope_schema.get("x-canonical_schema_ref")
+        if canonical_schema_ref != "repo:aoa-stats/schemas/stats-event-envelope.schema.json":
+            issues.append(
+                ValidationIssue(
+                    relative_location(envelope_schema_path, repo_root),
+                    "stats event envelope mirror must point to repo:aoa-stats/schemas/stats-event-envelope.schema.json",
+                )
+            )
+        canonical_envelope_path = AOA_STATS_ROOT / SCHEMAS_DIR_NAME / STATS_EVENT_ENVELOPE_SCHEMA_NAME
+        if canonical_envelope_path.exists():
+            canonical_envelope = load_json_payload(canonical_envelope_path, issues)
+            if isinstance(canonical_envelope, dict):
+                local_enum = (
+                    envelope_schema.get("properties", {})
+                    .get("event_kind", {})
+                    .get("enum")
+                )
+                canonical_enum = (
+                    canonical_envelope.get("properties", {})
+                    .get("event_kind", {})
+                    .get("enum")
+                )
+                if local_enum != canonical_enum:
+                    issues.append(
+                        ValidationIssue(
+                            relative_location(envelope_schema_path, repo_root),
+                            "stats event envelope mirror enum must match ../aoa-stats/schemas/stats-event-envelope.schema.json",
+                        )
+                    )
         try:
             Draft202012Validator.check_schema(envelope_schema)
         except SchemaError as exc:

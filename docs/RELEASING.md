@@ -32,12 +32,16 @@ Recommended local release loop:
 - `python scripts/validate_repo.py`
 - `python -m pytest`
 
+When you need the latest-sibling canary rather than the pinned repo-validation lane, run:
+- `python scripts/run_sibling_canary.py --repo-root . --matrix scripts/sibling_canary_matrix.json`
+
 If `aoa-techniques` or `aoa-skills` are not available locally,
 the validator will stay permissive about dependency-target existence.
 CI is the strict path-existence gate because it checks those sibling repos out into `.deps/`
 and exports `AOA_TECHNIQUES_ROOT` plus `AOA_SKILLS_ROOT`.
 If `abyss-stack` is not checked out beside `aoa-evals` and not under `~/src/abyss-stack`,
 export `ABYSS_STACK_ROOT` to the source checkout so runtime-evidence example refs resolve against tracked schemas.
+The canary follows the same source-checkout rule and will prefer `~/src/abyss-stack` over a runtime-like sibling mirror when both exist.
 
 ## Docs-only release
 

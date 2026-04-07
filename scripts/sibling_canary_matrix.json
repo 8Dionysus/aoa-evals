@@ -1,0 +1,54 @@
+{
+  "matrix_version": 1,
+  "entries": [
+    {
+      "repo": "aoa-techniques",
+      "root_variable": "AOA_TECHNIQUES_ROOT",
+      "path": "../aoa-techniques",
+      "purpose": "prove technique dependency refs against the latest sibling checkout",
+      "resolver": "direct"
+    },
+    {
+      "repo": "aoa-skills",
+      "root_variable": "AOA_SKILLS_ROOT",
+      "path": "../aoa-skills",
+      "purpose": "prove skill dependency refs and bundle-local proof links against latest workflow surfaces",
+      "resolver": "direct"
+    },
+    {
+      "repo": "aoa-agents",
+      "root_variable": "AOA_AGENTS_ROOT",
+      "path": "../aoa-agents",
+      "purpose": "prove orchestrator and role-facing proof refs against the latest sibling checkout",
+      "resolver": "direct"
+    },
+    {
+      "repo": "aoa-playbooks",
+      "root_variable": "AOA_PLAYBOOKS_ROOT",
+      "path": "../aoa-playbooks",
+      "purpose": "prove eval-anchor and phase-alpha playbook refs against the latest sibling checkout",
+      "resolver": "direct"
+    },
+    {
+      "repo": "aoa-memo",
+      "root_variable": "AOA_MEMO_ROOT",
+      "path": "../aoa-memo",
+      "purpose": "prove recall and return-path evidence refs against the latest sibling checkout",
+      "resolver": "direct"
+    },
+    {
+      "repo": "aoa-stats",
+      "root_variable": "AOA_STATS_ROOT",
+      "path": "../aoa-stats",
+      "purpose": "prove stats envelope mirror parity against the latest canonical schema",
+      "resolver": "direct"
+    },
+    {
+      "repo": "abyss-stack",
+      "root_variable": "ABYSS_STACK_ROOT",
+      "path": "../abyss-stack",
+      "purpose": "prove runtime-evidence schema refs against a real source checkout instead of a runtime mirror",
+      "resolver": "abyss-stack-source"
+    }
+  ]
+}

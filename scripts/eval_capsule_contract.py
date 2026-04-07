@@ -28,7 +28,11 @@ CAPSULE_ENTRY_KEYS = (
     "proof_artifact_short",
     "comparison_surface",
     "technique_dependencies",
+    "technique_refs",
     "skill_dependencies",
+    "skill_refs",
+    "evidence_kinds",
+    "proof_surface_kinds",
     "eval_path",
 )
 REQUIRED_SOURCE_HEADINGS = (
@@ -237,6 +241,8 @@ def summarize_proof_artifacts(catalog_entry: dict[str, Any]) -> str:
         return "bundle-local notes and examples only"
 
     labels: list[str] = []
+    if proof_artifacts.get("fixture_contract_path"):
+        labels.append("fixture contract")
     if proof_artifacts.get("shared_fixture_family_path"):
         labels.append("shared fixture family")
     if proof_artifacts.get("runner_contract_path"):
@@ -274,7 +280,11 @@ def capsule_entry(
         "proof_artifact_short": summarize_proof_artifacts(catalog_entry),
         "comparison_surface": catalog_entry.get("comparison_surface"),
         "technique_dependencies": list(record.metadata["technique_dependencies"]),
+        "technique_refs": list(catalog_entry.get("technique_refs", [])),
         "skill_dependencies": list(record.metadata["skill_dependencies"]),
+        "skill_refs": list(catalog_entry.get("skill_refs", [])),
+        "evidence_kinds": list(catalog_entry.get("evidence_kinds", [])),
+        "proof_surface_kinds": list(catalog_entry.get("proof_surface_kinds", [])),
         "eval_path": eval_catalog_contract.relative_location(record.eval_md_path, repo_root),
     }
 

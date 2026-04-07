@@ -55,9 +55,9 @@ They do not replace `bundles/*/EVAL.md` and `bundles/*/eval.yaml`.
 - `generated/eval_catalog.json`
   - use when a reader or router needs the full derived catalog with dependency refs, relations, and evidence metadata
 - `generated/eval_catalog.min.json`
-  - use when a reader or router needs the thin projection surface for routing and indexing
+  - use when a reader or router needs the thin projection surface for routing, indexing, and compact upstream proof-lineage
 - `generated/eval_capsules.json`
-  - use when a local runtime needs compact eval cards derived from bounded claim, trigger boundary, blind spots, and interpretation guidance
+  - use when a local runtime needs compact eval cards derived from bounded claim, trigger boundary, blind spots, interpretation guidance, and compact lineage signals
 - `generated/comparison_spine.json`
   - use when a reader or router needs the filtered comparison-only ladder with mode-specific comparison contracts
 - `generated/eval_sections.full.json`

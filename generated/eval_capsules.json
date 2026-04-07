@@ -8,15 +8,41 @@
       "comparison_surface": null,
       "do_not_use_short": "the main question is authority handling or permission classification; the requested scope is already clear and the main question is later scope drift",
       "eval_path": "bundles/aoa-ambiguity-handling/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-ambiguity-handling",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [
         "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
       ],
       "status": "bounded",
       "summary": "Checks whether an agent handles incomplete, conflicting, or underspecified task meaning on bounded change tasks without silently choosing an unearned path.",
       "technique_dependencies": [
         "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
       ],
       "use_when_short": "the task is a bounded change with incomplete, conflicting, or underspecified requirements; the main question is whether the agent asks, branches, or bounds assumptions...",
       "verdict_shape": "categorical",
@@ -29,14 +55,34 @@
       "comparison_surface": null,
       "do_not_use_short": "no meaningful authority boundary exists; the task is purely analytical and no action classification is needed",
       "eval_path": "bundles/aoa-approval-boundary-adherence/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-approval-boundary-adherence",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [
         "aoa-approval-gate-check"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-approval-gate-check",
+          "path": "skills/aoa-approval-gate-check/SKILL.md",
+          "repo": "aoa-skills"
+        }
       ],
       "status": "bounded",
       "summary": "Checks whether an agent correctly distinguishes safe action, explicit-approval-required action, and out-of-bounds action on bounded task surfaces.",
       "technique_dependencies": [],
+      "technique_refs": [],
       "use_when_short": "the task includes potentially destructive, operational, or authority-sensitive surfaces; the boundary between safe action and approval-gated action is part of the real...",
       "verdict_shape": "categorical",
       "what_this_does_not_prove": "proof that the agent is safe in all environments; proof that the agent understands all policy systems; proof that refusal behavior is always calibrated correctly outside this surface"
@@ -48,15 +94,43 @@
       "comparison_surface": null,
       "do_not_use_short": "the main question is workflow discipline rather than artifact quality; the main question is whether polished output is outrunning process discipline",
       "eval_path": "bundles/aoa-artifact-review-rubric/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "portable_review",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-artifact-review-rubric",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema",
+        "paired_readout"
+      ],
       "skill_dependencies": [
         "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
       ],
       "status": "portable",
       "summary": "Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating polish as proof of workflow discipline.",
       "technique_dependencies": [
         "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
       ],
       "use_when_short": "the task is a bounded change and the main question is the produced artifact itself; the visible request is clear enough to judge task...",
       "verdict_shape": "mixed",
@@ -69,15 +143,43 @@
       "comparison_surface": null,
       "do_not_use_short": "the task is too tiny to meaningfully expose scope or verification behavior; the task is so broad that no bounded workflow claim can reasonably...",
       "eval_path": "bundles/aoa-bounded-change-quality/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "portable_review",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-bounded-change-quality",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema",
+        "paired_readout"
+      ],
       "skill_dependencies": [
         "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
       ],
       "status": "portable",
       "summary": "Checks whether a non-trivial agent change stays scoped, explicitly verified, and clearly reported without silent task expansion.",
       "technique_dependencies": [
         "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
       ],
       "use_when_short": "the task is non-trivial enough to require an explicit change workflow; the change touches code, config, docs, or another meaningful surface",
       "verdict_shape": "categorical",
@@ -90,12 +192,26 @@
       "comparison_surface": null,
       "do_not_use_short": "no witness-facing input is available; the artifact is not part of a compost route",
       "eval_path": "bundles/aoa-compost-provenance-preservation/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-compost-provenance-preservation",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether witness-derived compost artifacts preserve provenance, review state, limits, and contradiction posture as they move from raw input toward note, principle, or canon-candidate surfaces.",
       "technique_dependencies": [],
+      "technique_refs": [],
       "use_when_short": "a public witness or summary is being distilled into a compost artifact; provenance and review posture are part of the real question",
       "verdict_shape": "mixed",
       "what_this_does_not_prove": "proof that the resulting principle is canon; proof that all contradictions have been resolved; proof that operational ownership moved into ToS"
@@ -107,12 +223,24 @@
       "comparison_surface": null,
       "do_not_use_short": "the main question is direct agent performance; the main question is hidden fixture realism rather than public coherence",
       "eval_path": "bundles/aoa-eval-integrity-check/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-eval-integrity-check",
       "proof_artifact_short": "runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [],
+      "skill_refs": [],
       "status": "bounded",
       "summary": "Checks whether current public starter bundles stay coherent across manifest contract, verdict wording, evidence coverage, and public selection surfaces, and serves as the bounded integrity sidecar for comparison-spine wording waves.",
       "technique_dependencies": [],
+      "technique_refs": [],
       "use_when_short": "a public starter bundle has grown enough that manifest, docs, and examples may drift; the main question is whether an eval surface is overstating...",
       "verdict_shape": "categorical",
       "what_this_does_not_prove": "proof that the starter corpus is canonical; proof that every bundle is equally mature; proof that the underlying evaluated agents are strong"
@@ -124,12 +252,26 @@
       "comparison_surface": null,
       "do_not_use_short": "the route ends in one bounded pass and never needs relaunch; no checkpoint artifact exists to inspect",
       "eval_path": "bundles/aoa-long-horizon-depth/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-long-horizon-depth",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a checkpoint-based long-horizon inquiry can relaunch with its axis, contradictions, and canon-vs-memory boundaries still legible.",
       "technique_dependencies": [],
+      "technique_refs": [],
       "use_when_short": "the route spans more than one bounded pass; a checkpoint pack is the intended relaunch surface",
       "verdict_shape": "mixed",
       "what_this_does_not_prove": "proof that the inquiry reached the right conclusion; proof of broad long-horizon capability; proof that runtime instrumentation is solved"
@@ -148,15 +290,43 @@
       },
       "do_not_use_short": "you only need a one-run workflow judgment; you need a frozen same-task baseline comparison rather than repeated-window movement",
       "eval_path": "bundles/aoa-longitudinal-growth-snapshot/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "baseline_readiness",
+        "integrity_check"
+      ],
       "name": "aoa-longitudinal-growth-snapshot",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema",
+        "paired_readout"
+      ],
       "skill_dependencies": [
         "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
       ],
       "status": "draft",
       "summary": "Checks whether ordered, comparable windows on the same bounded workflow surface show modest directional movement without upgrading that movement into broad capability growth.",
       "technique_dependencies": [
         "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
       ],
       "use_when_short": "you have ordered windows on the same bounded workflow surface; the main question is directional movement across windows rather than one-run quality",
       "verdict_shape": "comparative",
@@ -169,12 +339,26 @@
       "comparison_surface": null,
       "do_not_use_short": "no lifecycle-aware memo surface was consumed; the main question is smallest-surface recall precision",
       "eval_path": "bundles/aoa-memo-contradiction-integrity/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-memo-contradiction-integrity",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether lifecycle-aware memo consumers keep superseded, retracted, and still-open contradiction posture explicit instead of flattening memory tension into one smooth current story.",
       "technique_dependencies": [],
+      "technique_refs": [],
       "use_when_short": "a route consumes aoa-memo through object-facing or lifecycle-aware recall",
       "verdict_shape": "mixed",
       "what_this_does_not_prove": "proof that contradictions are resolved; proof that memo is authoritative on its own; proof that permission, promotion, or merge risks are already covered"
@@ -186,12 +370,26 @@
       "comparison_surface": null,
       "do_not_use_short": "no memo recall surface was consumed; the main question is contradiction handling or rights policy",
       "eval_path": "bundles/aoa-memo-recall-integrity/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-memo-recall-integrity",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether memo recall stays narrow, provenance-visible, and staleness-honest across the first inspect/capsule/expand consumer wave.",
       "technique_dependencies": [],
+      "technique_refs": [],
       "use_when_short": "a route consumes aoa-memo through explicit recall contracts; the main question is whether memo recall stayed bounded and source-honest",
       "verdict_shape": "mixed",
       "what_this_does_not_prove": "proof that memo recall is generally authoritative; proof that all memo guardrail risks are now covered; proof that downstream routing or runtime behavior is fully solved"
@@ -213,15 +411,43 @@
       },
       "do_not_use_short": "the main question is the artifact itself rather than the gap; the main question is end-to-end workflow quality rather than the gap",
       "eval_path": "bundles/aoa-output-vs-process-gap/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "baseline_readiness",
+        "integrity_check"
+      ],
       "name": "aoa-output-vs-process-gap",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema",
+        "paired_readout"
+      ],
       "skill_dependencies": [
         "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
       ],
       "status": "draft",
       "summary": "Compares artifact-side and process-side readings on the same bounded cases to show when polished output outruns workflow discipline, process outruns artifact strength, or the two stay aligned.",
       "technique_dependencies": [
         "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
       ],
       "use_when_short": "the same bounded cases can be reviewed on both artifact and workflow surfaces; the main question is whether polished output is outrunning process discipline...",
       "verdict_shape": "comparative",
@@ -241,15 +467,44 @@
       },
       "do_not_use_short": "you only need one-run workflow quality and no baseline exists yet; the task family is still changing underneath the comparison",
       "eval_path": "bundles/aoa-regression-same-task/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "portable_review",
+        "support_note",
+        "baseline_readiness",
+        "integrity_check"
+      ],
       "name": "aoa-regression-same-task",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema",
+        "paired_readout"
+      ],
       "skill_dependencies": [
         "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
       ],
       "status": "baseline",
       "summary": "Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth.",
       "technique_dependencies": [
         "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
       ],
       "use_when_short": "you need a fixed baseline comparison on the same bounded task family; the main question is regression rather than one-run workflow quality",
       "verdict_shape": "comparative",
@@ -262,12 +517,26 @@
       "comparison_surface": null,
       "do_not_use_short": "no return actually occurred; the question is final-answer quality rather than return discipline",
       "eval_path": "bundles/aoa-return-anchor-integrity/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-return-anchor-integrity",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a return-capable route names a real anchor and re-enters or stops without faking continuity.",
       "technique_dependencies": [],
+      "technique_refs": [],
       "use_when_short": "a route emitted an explicit return decision or return event; the active question is whether the return was honest and bounded",
       "verdict_shape": "mixed",
       "what_this_does_not_prove": "proof that the full task outcome is strong; proof that the route is broadly safe; proof that long-horizon reasoning is solved"
@@ -279,15 +548,41 @@
       "comparison_surface": null,
       "do_not_use_short": "the main question is overall workflow quality rather than scope alignment; the main question is claimed-vs-actual verification evidence",
       "eval_path": "bundles/aoa-scope-drift-detection/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-scope-drift-detection",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [
         "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
       ],
       "status": "bounded",
       "summary": "Checks whether an agent keeps requested scope aligned with executed scope on bounded change tasks, or explicitly discloses deviation.",
       "technique_dependencies": [
         "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
       ],
       "use_when_short": "the task is a bounded change with a reviewable requested scope; the main question is silent widening, narrowing, or reshaping",
       "verdict_shape": "categorical",
@@ -300,15 +595,41 @@
       "comparison_surface": null,
       "do_not_use_short": "the main question is overall workflow quality rather than tool path quality; the main question is outcome-vs-path separation at a broader level",
       "eval_path": "bundles/aoa-tool-trajectory-discipline/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-tool-trajectory-discipline",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [
         "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
       ],
       "status": "bounded",
       "summary": "Checks whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself is part of the bounded claim.",
       "technique_dependencies": [
         "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
       ],
       "use_when_short": "the task is bounded and the tool path materially affects reviewability or risk; the main question is whether tools were used with disciplined sequencing...",
       "verdict_shape": "categorical",
@@ -321,15 +642,41 @@
       "comparison_surface": null,
       "do_not_use_short": "the main question is tool trajectory only and path matters only at the tool-use level; the main question is verification truthfulness alone",
       "eval_path": "bundles/aoa-trace-outcome-separation/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-trace-outcome-separation",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [
         "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
       ],
       "status": "bounded",
       "summary": "Checks whether bounded change workflows remain reviewable when final outcome and execution-path quality are judged separately before any combined reading.",
       "technique_dependencies": [
         "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
       ],
       "use_when_short": "the task is a bounded change where both final result and path quality matter; the main question is whether a polished outcome is hiding...",
       "verdict_shape": "categorical",
@@ -342,15 +689,42 @@
       "comparison_surface": null,
       "do_not_use_short": "the main question is overall workflow quality rather than verification truthfulness; the task has no meaningful verification surface at all",
       "eval_path": "bundles/aoa-verification-honesty/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "portable_review",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-verification-honesty",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [
         "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
       ],
       "status": "portable",
       "summary": "Checks whether an agent truthfully reports which verification steps on a bounded change task were executed, skipped, or blocked.",
       "technique_dependencies": [
         "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
       ],
       "use_when_short": "the task is a bounded change with a plausible verification path; the main question is whether verification claims were truthful",
       "verdict_shape": "categorical",
@@ -363,12 +737,26 @@
       "comparison_surface": null,
       "do_not_use_short": "the run is trivial and no meaningful witness surface is needed; there was no material route to reconstruct beyond a simple answer",
       "eval_path": "bundles/aoa-witness-trace-integrity/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
       "name": "aoa-witness-trace-integrity",
-      "proof_artifact_short": "shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a public witness trace for a bounded run keeps meaningful steps, tool visibility, state deltas, failures, redaction posture, and the markdown summary aligned enough for review.",
       "technique_dependencies": [],
+      "technique_refs": [],
       "use_when_short": "the run is non-trivial enough to need a reviewable witness; a downstream memo writeback or compost route depends on the trace",
       "verdict_shape": "mixed",
       "what_this_does_not_prove": "proof that the run outcome was correct; proof that all internal reasoning is transparent; proof that abyss-stack runtime instrumentation is already solved"

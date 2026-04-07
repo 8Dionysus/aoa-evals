@@ -96,10 +96,18 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
         "export_ready",
         "validation_strength",
         "technique_dependencies",
+        "technique_refs",
         "skill_dependencies",
+        "skill_refs",
+        "evidence_kinds",
+        "proof_surface_kinds",
         "eval_path",
     }
     assert min_entry["validation_strength"] == "baseline"
+    assert min_entry["technique_refs"] == entry["technique_refs"]
+    assert min_entry["skill_refs"] == entry["skill_refs"]
+    assert min_entry["evidence_kinds"] == ["origin_need", "integrity_check"]
+    assert min_entry["proof_surface_kinds"] == []
 
     capsule_entry = next(item for item in capsules["evals"] if item["name"] == "aoa-catalog-shape")
     assert capsule_entry == {
@@ -116,7 +124,23 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
         "proof_artifact_short": "bundle-local notes and examples only",
         "comparison_surface": None,
         "technique_dependencies": ["AOA-T-0001"],
+        "technique_refs": [
+            {
+                "id": "AOA-T-0001",
+                "repo": "aoa-techniques",
+                "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+            }
+        ],
         "skill_dependencies": ["aoa-change-protocol"],
+        "skill_refs": [
+            {
+                "name": "aoa-change-protocol",
+                "repo": "aoa-skills",
+                "path": "skills/aoa-change-protocol/SKILL.md",
+            }
+        ],
+        "evidence_kinds": ["origin_need", "integrity_check"],
+        "proof_surface_kinds": [],
         "eval_path": "bundles/aoa-catalog-shape/EVAL.md",
     }
 

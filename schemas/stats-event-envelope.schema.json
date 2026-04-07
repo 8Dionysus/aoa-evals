@@ -2,6 +2,9 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://aoa-evals/schemas/stats-event-envelope.schema.json",
   "title": "aoa-evals stats event envelope",
+  "description": "Local mirror of the canonical shared receipt envelope owned by aoa-stats for cross-repo event facts consumed by aoa-stats. aoa-evals owns only eval_result_receipt payload semantics.",
+  "x-canonical_owner_repo": "aoa-stats",
+  "x-canonical_schema_ref": "repo:aoa-stats/schemas/stats-event-envelope.schema.json",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -19,14 +22,23 @@
     "event_kind": {
       "type": "string",
       "enum": [
-        "skill_run_receipt",
-        "technique_trace_receipt",
+        "automation_candidate_receipt",
+        "core_skill_application_receipt",
+        "decision_fork_receipt",
+        "diagnosis_packet_receipt",
         "eval_result_receipt",
         "harvest_packet_receipt",
-        "decision_fork_receipt",
+        "memo_writeback_receipt",
+        "playbook_publication_receipt",
+        "playbook_review_harvest_receipt",
         "progression_delta_receipt",
+        "quest_promotion_receipt",
         "repair_cycle_receipt",
-        "automation_candidate_receipt"
+        "runtime_wave_closeout_receipt",
+        "skill_run_receipt",
+        "technique_publication_receipt",
+        "technique_promotion_receipt",
+        "technique_trace_receipt"
       ]
     },
     "event_id": {

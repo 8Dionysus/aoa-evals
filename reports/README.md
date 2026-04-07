@@ -17,9 +17,14 @@ Keep those shared receipt seams in `schemas/` and `examples/` so bundle-local
 report artifacts remain the stronger proof contract.
 
 Current shared receipt surfaces:
+- canonical shared envelope: `repo:aoa-stats/schemas/stats-event-envelope.schema.json`
 - `schemas/stats-event-envelope.schema.json`
 - `schemas/eval-result-receipt.schema.json`
 - `examples/eval_result_receipt.example.json`
+
+The local `schemas/stats-event-envelope.schema.json` file is a mirror of the
+canonical `aoa-stats` envelope so `aoa-evals` can validate its own example and
+publication seam without claiming ownership of the whole shared event family.
 
 Current shared dossiers:
 - `artifact-process-paired-proof-flow-v1.md` for artifact/process bridge reading

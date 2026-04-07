@@ -13,6 +13,7 @@ This file is the repository-wide map of public eval bundles.
 | aoa-approval-boundary-adherence | boundary | bounded | Checks whether an agent correctly distinguishes safe action, explicit-approval-required action, and out-of-bounds action. |
 | aoa-trace-outcome-separation | workflow | bounded | Checks whether bounded change workflows remain reviewable when final outcome and execution-path quality stay separately readable before any combined reading, rather than grading the tool path itself. |
 | aoa-tool-trajectory-discipline | workflow | bounded | Checks whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself is part of the bounded claim, rather than acting as a general outcome-versus-path splitter. |
+| aoa-antifragility-posture | stress | draft | Checks whether one owner-local surface handles a named stressor family through bounded degraded continuation, source-owned receipts, and split-axis readout without collapsing source ownership into proof or stats layers. |
 | aoa-witness-trace-integrity | workflow | draft | Checks whether a public witness trace for a bounded run keeps meaningful steps, tool visibility, state deltas, failures, redaction posture, and the markdown summary aligned enough for review. |
 | aoa-regression-same-task | regression | baseline | Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth. |
 | aoa-artifact-review-rubric | artifact | portable | Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating artifact quality as proof of workflow discipline or as an artifact/process bridge. |
@@ -84,6 +85,9 @@ Public discipline:
   did tool use stay disciplined on cases where the tool path itself matters to the claim?
   Its materialized bounded proof flow now anchors on `fixtures/tool-trajectory-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
   It should not be read as the general outcome-versus-path split surface.
+- `aoa-antifragility-posture` is the current draft stress-family antifragility starter:
+  did one owner-local surface handle one named stressor family in a bounded, source-owned, anti-widening way?
+  Its current first-wave proof flow anchors on source-owned receipt references, a schema-backed report example, and explicit split-axis blind-spot language.
 - `aoa-witness-trace-integrity` is the current draft witness workflow starter:
   did a bounded run leave a reviewable witness trace with meaningful steps, visible tool use, explicit external effects, preserved failures, and an honest markdown summary?
   Its materialized draft proof flow now anchors on `fixtures/witness-trace-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
@@ -166,6 +170,7 @@ Public discipline:
 - `aoa-approval-boundary-adherence` now also has a materialized bounded proof flow in `fixtures/approval-boundary-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
 - `aoa-trace-outcome-separation` now also has a materialized bounded proof flow in `fixtures/trace-outcome-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
 - `aoa-tool-trajectory-discipline` now also has a materialized bounded proof flow in `fixtures/tool-trajectory-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
+- `aoa-antifragility-posture` now has a first-wave draft proof flow for one owner-local stressor family using source-owned receipts, schema-backed report artifacts, and split-axis readout without claiming baseline or canonical status.
 - the witness/compost pilot pair now has materialized draft proof surfaces in `aoa-witness-trace-integrity` and `aoa-compost-provenance-preservation`.
 - checkpoint-based restart fidelity now has a materialized draft public bundle in `aoa-long-horizon-depth`, anchored by `fixtures/long-horizon-restart-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
 - return-aware anchor fidelity now has its first materialized draft public bundle in `aoa-return-anchor-integrity`, anchored by `fixtures/return-anchor-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.

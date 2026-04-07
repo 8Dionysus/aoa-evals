@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-evals/bundles/aoa-antifragility-posture/reports/summary.schema.json",
+  "title": "aoa_antifragility_posture_summary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_id",
+    "generated_at_utc",
+    "scope",
+    "inputs",
+    "axes",
+    "blind_spots",
+    "verdict_summary"
+  ],
+  "$defs": {
+    "axis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "pass",
+            "warn",
+            "fail",
+            "na"
+          ]
+        },
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": "antifragility_eval_report_v1"
+    },
+    "report_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generated_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repo",
+        "surface"
+      ],
+      "properties": {
+        "repo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "surface": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stressor_class": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "window_label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receipt_refs",
+        "adaptation_refs",
+        "evidence_refs"
+      ],
+      "properties": {
+        "receipt_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "adaptation_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "axes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "containment",
+        "fallback_fidelity",
+        "false_action_prevention",
+        "recovery_latency",
+        "adaptation_gain",
+        "operator_burden",
+        "trust_calibration"
+      ],
+      "properties": {
+        "containment": {
+          "$ref": "#/$defs/axis"
+        },
+        "fallback_fidelity": {
+          "$ref": "#/$defs/axis"
+        },
+        "false_action_prevention": {
+          "$ref": "#/$defs/axis"
+        },
+        "recovery_latency": {
+          "$ref": "#/$defs/axis"
+        },
+        "adaptation_gain": {
+          "$ref": "#/$defs/axis"
+        },
+        "operator_burden": {
+          "$ref": "#/$defs/axis"
+        },
+        "trust_calibration": {
+          "$ref": "#/$defs/axis"
+        }
+      }
+    },
+    "blind_spots": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "verdict_summary": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "schema_version": "antifragility_eval_report_v1",
+  "report_id": "aoa-evals:atm10-hybrid-query:2026-W15",
+  "generated_at_utc": "2026-04-10T18:00:00Z",
+  "scope": {
+    "repo": "ATM10-Agent",
+    "surface": "hybrid-query",
+    "stressor_class": "kag_stage_failed",
+    "window_label": "2026-W15"
+  },
+  "inputs": {
+    "receipt_refs": [
+      "atm10:hybrid-query:2026-04-07T14:12:33Z:retrieval-only-fallback"
+    ],
+    "adaptation_refs": [
+      "atm10:hybrid-query:delta:2026-04-08T09:00:00Z:kag-retry-policy-v1"
+    ],
+    "evidence_refs": [
+      "runs/2026-04-07T14-12-33Z-hybrid-query/run.json",
+      "runs/2026-04-07T14-12-33Z-hybrid-query/hybrid_query_results.json"
+    ]
+  },
+  "axes": {
+    "containment": {
+      "status": "pass",
+      "score": 0.93,
+      "notes": "Degradation stayed bounded to the run and surface."
+    },
+    "fallback_fidelity": {
+      "status": "pass",
+      "score": 0.88,
+      "notes": "Retrieval-only answer remained weaker than full hybrid mode."
+    },
+    "false_action_prevention": {
+      "status": "pass",
+      "score": 0.95,
+      "notes": "No mutation widening was observed."
+    },
+    "recovery_latency": {
+      "status": "warn",
+      "score": 0.62,
+      "notes": "Operator-visible recovery exists, but adaptation is still early."
+    },
+    "adaptation_gain": {
+      "status": "na",
+      "score": null,
+      "notes": "No repeated-window verified improvement yet."
+    },
+    "operator_burden": {
+      "status": "warn",
+      "score": 0.68,
+      "notes": "Recovery remains reviewable but still requires manual interpretation."
+    },
+    "trust_calibration": {
+      "status": "pass",
+      "score": 0.9,
+      "notes": "Degraded status is explicit and machine-readable."
+    }
+  },
+  "blind_spots": [
+    "Single stressor receipt in window",
+    "No verified repeated-window adaptation result yet"
+  ],
+  "verdict_summary": "Promising first-wave antifragile posture with strong containment and trust calibration, but insufficient evidence for adaptation gain."
+}

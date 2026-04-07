@@ -102,6 +102,88 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "category": "stress",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "bundles/aoa-antifragility-posture/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "portable_review",
+          "path": "notes/portable-review.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "portable_review",
+        "integrity_check"
+      ],
+      "export_ready": true,
+      "maturity_score": 2,
+      "name": "aoa-antifragility-posture",
+      "object_under_evaluation": "owner-local antifragility posture for one surface and stressor family",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": "bundles/aoa-antifragility-posture/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-antifragility-posture/reports/summary.schema.json",
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
+      "proof_surface_kinds": [
+        "report_schema"
+      ],
+      "relations": [
+        {
+          "target": "aoa-longitudinal-growth-snapshot",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-regression-same-task",
+          "type": "complements"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether one owner-local surface handles a named stressor family through bounded degraded continuation, source-owned receipts, and split-axis readout without stealing source ownership.",
+      "technique_dependencies": [
+        "AOA-T-0097",
+        "AOA-T-0098"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0097",
+          "path": "techniques/system-recovery/degrade-reground-recover/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        },
+        {
+          "id": "AOA-T-0098",
+          "path": "techniques/validation-patterns/receipt-first-failure-analysis/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "validation_strength": "baseline",
+      "verdict_shape": "categorical"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,

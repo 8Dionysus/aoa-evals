@@ -1,0 +1,41 @@
+name: aoa-antifragility-posture
+category: stress
+status: draft
+object_under_evaluation: owner-local antifragility posture for one surface and stressor family
+claim_type: bounded
+baseline_mode: none
+verdict_shape: categorical
+report_format: summary
+maturity_score: 2
+rigor_level: bounded
+repeatability: moderate
+portability_level: local-shaped
+review_required: true
+validation_strength: baseline
+export_ready: true
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+
+technique_dependencies:
+  - id: AOA-T-0097
+    repo: 8Dionysus/aoa-techniques
+    path: techniques/system-recovery/degrade-reground-recover/TECHNIQUE.md
+  - id: AOA-T-0098
+    repo: 8Dionysus/aoa-techniques
+    path: techniques/validation-patterns/receipt-first-failure-analysis/TECHNIQUE.md
+
+skill_dependencies: []
+
+relations:
+  - type: complements
+    target: aoa-longitudinal-growth-snapshot
+  - type: complements
+    target: aoa-regression-same-task
+
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: portable_review
+    path: notes/portable-review.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md

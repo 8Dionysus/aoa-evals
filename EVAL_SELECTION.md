@@ -31,6 +31,8 @@ Current starter posture:
 - `aoa-tool-trajectory-discipline` is the current bounded tool-path workflow starter:
   use it when tool-use path quality matters as its own bounded surface.
   Its materialized bounded proof flow now uses `fixtures/tool-trajectory-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+- `aoa-antifragility-posture` is the current draft stress-family antifragility starter:
+  use it when the main question is whether one owner-local surface handled one named stressor family through bounded degraded continuation, source-owned receipts, and explicit anti-widening posture.
 - `aoa-witness-trace-integrity` is the current draft witness workflow starter:
   use it when the main question is whether a bounded run left a reviewable witness trace before any downstream memo or compost use.
   Its current draft proof flow is already materialized through a shared witness case family, bundle-local runner contract, and schema-backed report example.
@@ -80,6 +82,10 @@ See also:
 
 ### I need to evaluate incomplete or conflicting task meaning rather than authority ambiguity
 - `aoa-ambiguity-handling`
+
+### I need to read one owner-local antifragility family without collapsing source ownership
+- `aoa-antifragility-posture`
+  Use this when the question is bounded degraded continuation plus source-owned receipt posture on one named stressor family, not broad repo quality or repeated-window movement.
 
 ### I need to split final outcome judgment from path judgment without assuming one correct trace
 - `aoa-trace-outcome-separation`
@@ -141,7 +147,7 @@ See also:
 |---|---|---|
 | `workflow` | You care about multi-step execution quality, verification truthfulness, outcome-vs-path separation, tool-path quality where path matters, or public witness-trace reviewability. | `aoa-bounded-change-quality`, `aoa-verification-honesty`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, `aoa-witness-trace-integrity` |
 | `boundary` | You care about authority, approval, permission adherence, or requested-scope alignment. | `aoa-scope-drift-detection`, `aoa-approval-boundary-adherence` |
-| `stress` | You care about incomplete, conflicting, or underspecified task meaning. | `aoa-ambiguity-handling` |
+| `stress` | You care about incomplete, conflicting, or underspecified task meaning, or about one bounded owner-local stressor family and whether degraded continuation stayed reviewable, source-owned, and weaker than the normal path. | `aoa-ambiguity-handling`, `aoa-antifragility-posture` |
 | `regression` | You care about frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | `artifact` | You care about the produced artifact itself or about provenance-preserving compost artifacts derived from witness-facing inputs. | `aoa-artifact-review-rubric`, `aoa-compost-provenance-preservation` |
 | `comparative` | You care about cross-surface divergence such as polished output versus process discipline. | `aoa-output-vs-process-gap` |
@@ -234,6 +240,7 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-trace-outcome-separation` is now a bounded one-run split surface; it keeps outcome and path distinct before a combined reading and is not a substitute for narrower root-cause diagnostics.
 - `aoa-tool-trajectory-discipline` now ships a materialized bounded proof surface; it still isolates path-sensitive tool use only and is not a generic workflow or outcome-vs-path score.
 - `aoa-tool-trajectory-discipline` is now a bounded one-run tool-path surface; it applies only where tool path materially matters and should not be used to grade process for its own sake or to replace the broader outcome-versus-path split.
+- `aoa-antifragility-posture` is a draft first-wave stress-family surface; it stays on one owner-local receipt family and should not be over-read as broad resilience, repeated-window improvement, or stats authority.
 - `aoa-long-horizon-depth` is now a materialized draft recurrence workflow surface; it stays on checkpoint-based restart fidelity and does not imply final-answer quality, broad long-horizon capability, or starter status.
 - `aoa-memo-recall-integrity` is now a materialized draft memo workflow surface; it stays on inspect/capsule/expand recall integrity and does not imply contradiction coverage, permission safety, or starter status.
 - `aoa-memo-contradiction-integrity` is now a materialized draft memo workflow surface; it stays on lifecycle-aware contradiction visibility and does not imply contradiction resolution, permission safety, promotion discipline, or starter status.

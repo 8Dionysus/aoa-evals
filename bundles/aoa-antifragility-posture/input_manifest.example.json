@@ -1,0 +1,16 @@
+{
+  "repo": "ATM10-Agent",
+  "surface": "hybrid-query",
+  "stressor_class": "kag_stage_failed",
+  "window_label": "2026-W15",
+  "receipt_refs": [
+    "ATM10-Agent/examples/stressor_receipt.retrieval_only_fallback.example.json"
+  ],
+  "adaptation_refs": [
+    "ATM10-Agent/examples/adaptation_delta.retrieval_only_fallback.example.json"
+  ],
+  "evidence_refs": [
+    "runs/2026-04-07T14-12-33Z-hybrid-query/run.json",
+    "runs/2026-04-07T14-12-33Z-hybrid-query/hybrid_query_results.json"
+  ]
+}

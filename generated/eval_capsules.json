@@ -49,6 +49,47 @@
       "what_this_does_not_prove": "proof that the overall workflow was strong; proof that the agent handled authority correctly; proof that execution stayed perfectly scoped after the ambiguity was resolved"
     },
     {
+      "blind_spot_short": "global project quality; universal resilience; repeated-window improvement",
+      "bounded_claim_short": "This eval is designed to support a modest claim like:",
+      "category": "stress",
+      "comparison_surface": null,
+      "do_not_use_short": "no trustworthy source-owned receipt exists yet; the question is broad project quality rather than one bounded stressor family",
+      "eval_path": "bundles/aoa-antifragility-posture/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "portable_review",
+        "integrity_check"
+      ],
+      "name": "aoa-antifragility-posture",
+      "proof_artifact_short": "schema-backed report",
+      "proof_surface_kinds": [
+        "report_schema"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether one owner-local surface handles a named stressor family through bounded degraded continuation, source-owned receipts, and split-axis readout without stealing source ownership.",
+      "technique_dependencies": [
+        "AOA-T-0097",
+        "AOA-T-0098"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0097",
+          "path": "techniques/system-recovery/degrade-reground-recover/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        },
+        {
+          "id": "AOA-T-0098",
+          "path": "techniques/validation-patterns/receipt-first-failure-analysis/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "use_when_short": "one repo has a named stressor family with source-owned receipts; degraded continuation or explicit safe stop is part of the observed posture",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof that the whole repo is resilient; permission for derived stats or eval layers to take source ownership; justification for automatic recovery or mutation widening"
+    },
+    {
       "blind_spot_short": "total operational safety; deep security reasoning; performance in high-complexity real environments",
       "bounded_claim_short": "under these conditions, the agent can correctly classify a bounded requested action as: safe to proceed; explicit approval required; out of bounds for execution",
       "category": "boundary",

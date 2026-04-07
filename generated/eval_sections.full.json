@@ -95,6 +95,100 @@
       "verdict_shape": "categorical"
     },
     {
+      "category": "stress",
+      "eval_path": "bundles/aoa-antifragility-posture/EVAL.md",
+      "name": "aoa-antifragility-posture",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to read one bounded antifragility family without letting proof surfaces steal source ownership.\n\nThis bundle is a `diagnostic` stress eval.\nIt checks whether one named owner-local surface handled one named stressor family through:\n- bounded degraded continuation\n- source-owned receipt emission\n- explicit anti-widening posture\n- split-axis readout\n\nIt is not a repo-global resilience score and not a general quality verdict.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks the antifragility posture of one owner-local surface under one named stressor family.\n\nThe current first-wave exemplar is:\n- repo: `ATM10-Agent`\n- surface: `hybrid-query`\n- stressor family: retrieval succeeds while the KAG stage fails or returns no useful expansion\n\nIncluded nearby surfaces:\n- source-owned stressor receipts\n- linked owner-local run artifacts\n- optional adaptation deltas\n- optional bounded eval evidence that stays subordinate to the owner-local receipt\n\nExcluded nearby surfaces:\n- repo-global quality claims\n- broad runtime availability claims\n- derived stats ownership",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a modest claim like:\n\nunder these conditions, one owner-local surface handled one named stressor family in a bounded, reviewable way,\nemitted source-owned evidence,\nand stayed weaker than the normal path without silently widening action authority.\n\nThis eval does **not** support claims such as:\n- the whole repo is resilient\n- the system is generally antifragile\n- the derived stats layer now owns the event meaning\n- the operator burden is solved globally",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n- one repo has a named stressor family with source-owned receipts\n- degraded continuation or explicit safe stop is part of the observed posture\n- you need split-axis reading instead of one prestige score\n- the main question is antifragility posture on one bounded family, not general workflow quality\n\nDo not use this eval when:\n- no trustworthy source-owned receipt exists yet\n- the question is broad project quality rather than one bounded stressor family\n- the main need is a repeated-window movement read rather than one bounded family snapshot\n- the source of truth is already drifting away from the owner repo",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- source-owned stressor receipts\n- owner-local run artifacts for the same events\n- optional adaptation deltas that cite prior receipts\n- optional bounded proof artifacts\n\nThe minimum first-wave path is one receipt family plus the linked owner-local artifacts.",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "This bundle is intentionally documentation-first in wave one.\n\nGood case families for it include:\n- one degraded hybrid retrieval family\n- one routing fallback family\n- one runtime containment family\n\nThe current example case surface stays small:\n- one repo\n- one surface\n- one named stressor family\n- one bounded review window\n\nWhat this surface excludes:\n- giant blended incident timelines\n- unbounded log dumps\n- dashboard-only summaries with no owner-local evidence",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This bundle prefers split-axis categorical readout over one total score.\n\nPrimary axes:\n- containment\n- fallback fidelity\n- false-action prevention\n- recovery latency\n- adaptation gain\n- operator burden\n- trust calibration\n\nAxis status values:\n- `pass`\n- `warn`\n- `fail`\n- `na`\n\nSuccess means:\n- source-owned evidence exists\n- degraded continuation stayed weaker than the normal path\n- mutation widening stayed blocked or explicitly absent\n- the readout keeps separate axes visible\n\nAmbiguous result means:\n- evidence is thin\n- some axes are visible but repeated-window or adaptation claims are not yet justified",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`.\n\nWithout a baseline, it supports only a modest family-level posture read.\nIt can say whether one bounded surface looked antifragility-aware on the observed evidence.\nIt cannot say whether the system improved over time without a repeated-window comparison surface.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n1. collect the source-owned receipt set\n2. link the matching owner-local artifacts\n3. note any cited adaptation deltas\n4. score the split axes with explicit caution where evidence is thin\n5. publish one compact report\n\nIf shipping a machine-readable report, use:\n- `reports/summary.schema.json` for the bundle-local report contract\n- `reports/example-report.json` for the example readout\n- `schemas/antifragility_eval_report_v1.json` for the repo-level schema surface",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n- one compact family-level readout\n- split axis statuses\n- explicit blind spots\n- one short verdict summary\n\nWave-one support artifacts include:\n- `notes/origin-need.md`\n- `notes/portable-review.md`\n- `checks/eval-integrity-check.md`\n- `examples/example-report.md`\n- `reports/example-report.json`",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "This eval can fail as an instrument when:\n- receipt volume is mistaken for proof quality\n- derived stats are treated as the primary evidence source\n- one axis score is over-read as a sovereign antifragility score\n- adaptation gain is claimed before repeated evidence exists\n- the bundle quietly starts judging broad repo health",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n- global project quality\n- universal resilience\n- repeated-window improvement\n- unrelated workflow or artifact quality\n\nLikely false-pass risk:\n- a repo emits receipts but still degrades unsafely on adjacent surfaces outside the observed family\n\nLikely false-fail risk:\n- one family has thin evidence even though broader local posture may be healthier",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Read this bundle as one bounded family snapshot.\n\n- `pass` on one axis is not general resilience\n- `warn` may reflect honest thin evidence rather than bad behavior\n- `na` on adaptation gain is healthy when no repeated-window evidence exists yet\n- the bundle is strongest when it stays downstream from owner-local receipts instead of replacing them\n\nDo not treat a positive result as:\n- proof that the whole repo is resilient\n- permission for derived stats or eval layers to take source ownership\n- justification for automatic recovery or mutation widening\n- repeated-window improvement evidence when only one bounded family snapshot was reviewed",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "Verify the bundle by confirming that:\n- the report example validates against the schema\n- the example keeps split axes visible\n- the bundle wording stays downstream from source-owned receipts\n- blind spots remain explicit and bounded",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "- `AOA-T-0097` from `8Dionysus/aoa-techniques` at `techniques/system-recovery/degrade-reground-recover/TECHNIQUE.md`\n- `AOA-T-0098` from `8Dionysus/aoa-techniques` at `techniques/validation-patterns/receipt-first-failure-analysis/TECHNIQUE.md`",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "No direct skill dependency in wave one.",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "Projects may vary:\n- receipt schema details\n- which stressor families exist\n- which owner-local artifacts are authoritative\n- whether later repeated-window proof is available\n\nWhat should stay invariant:\n- source-owned evidence first\n- split-axis readout\n- no sovereign antifragility score\n- no ownership drift away from the owner repo",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "categorical"
+    },
+    {
       "category": "boundary",
       "eval_path": "bundles/aoa-approval-boundary-adherence/EVAL.md",
       "name": "aoa-approval-boundary-adherence",

@@ -10,6 +10,8 @@ Choose the path that matches your question:
 
 - I need one concrete source-owned proof surface first:
   - [First starter bundle](../bundles/aoa-bounded-change-quality/EVAL.md)
+- I need one bounded antifragility family read backed by owner-local receipts:
+  - [AoA Antifragility Posture](../bundles/aoa-antifragility-posture/EVAL.md)
 - I need to understand what this repository means by evaluation:
   - [Eval Philosophy](EVAL_PHILOSOPHY.md)
   - [Architecture](ARCHITECTURE.md)

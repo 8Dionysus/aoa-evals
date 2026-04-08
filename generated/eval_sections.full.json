@@ -659,6 +659,100 @@
       "verdict_shape": "categorical"
     },
     {
+      "category": "boundary",
+      "eval_path": "bundles/aoa-local-text-contract-fit/EVAL.md",
+      "name": "aoa-local-text-contract-fit",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to check whether a local text lane can satisfy a compact contract\npack built from four small but brittle prompt families:\n\n- exact literal reply\n- bounded repo routing\n- bounded repo choice\n- constrained JSON decision\n\nThis bundle is a `diagnostic` boundary eval.\nIt isolates contract-fit on a compact local text path.\nIt is not meant to stand in for a broader judgment about model quality,\nreasoning depth, long-form writing, tool use, or domain transfer.\n\nThe goal is not to prove that a lane is a strong assistant overall.\nThe goal is to test one bounded claim:\n\nunder these compact contract pressures,\na local text lane can return the right output shape reliably enough that a\nreviewer can distinguish contract-fit from style-only fluency.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks contract-fit on a local text inference lane.\n\nPrimary surfaces under evaluation:\n\n- exact literal obedience on a tiny reply surface\n- stable bounded routing on a small known repo set\n- stable bounded choice on a small allowed option set\n- strict compact JSON production without format drift\n\nNearby surfaces intentionally excluded:\n\n- long-form answer quality\n- open-ended reasoning depth\n- broad instruction following beyond the four case families\n- tool use, workflow quality, or verification honesty\n- host-level latency leadership or hardware ranking",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions,\na local text lane can satisfy a compact control-plane contract pack\ncovering exact reply, bounded routing, bounded choice, and constrained JSON.\n\nThis eval does **not** support claims such as:\n\n- the model is broadly strong\n- the model is the best local runtime choice overall\n- the lane is robust on rich open-ended tasks\n- observed low latency proves higher capability\n- passing this pack proves agent readiness by itself",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a local text lane needs a bounded contract-fit read before richer screening\n- a runtime candidate must be compared on strict output-shape discipline\n- a small portable proof surface is needed before wider model claims\n- a reviewer needs a compact way to distinguish contract-fit from fluent noise\n\nDo not use this eval when:\n\n- the main question is rich answer quality or long-form usefulness\n- the main question is broad workflow quality rather than reply contract-fit\n- the surface depends on hidden private prompts or unreproducible local context\n- the goal is to rank hosts or hardware tiers by latency rather than judge\n  contract-fit\n- the lane cannot expose enough raw reply evidence for bounded review",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- one local text lane or API-compatible reply surface\n- the compact four-case dossier\n- runner assumptions and timeout posture\n- optional observed latency notes\n- bounded approval or defer readout for each case",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "This bundle uses a compact four-case family:\n\n- `exact-reply`\n- `repo-routing`\n- `repo-choice`\n- `json-decision`\n\nThe shared fixture family is\n`fixtures/local-text-contract-v1/README.md`.\n\nThese cases are intentionally small.\nThey are meant to reveal whether the lane can stay inside strict output\ncontracts without leaning on rich context or reviewer charity.\n\nFixture replacement remains allowed only when another repo preserves the same\nfour pressures:\n\n- exact literal reply with no surrounding chatter\n- routing over a bounded known target set\n- one bounded answer chosen from a small option set\n- compact JSON with stable keys and bounded values\n\nThe fixture family should stay public-safe and should avoid:\n\n- secret-bearing prompts\n- open-ended essay tasks\n- domain-heavy questions that disguise broad capability as contract-fit\n- host-specific latency thresholds presented as universal truth",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a categorical bundle-level verdict with per-case breakdown\nnotes.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nPer-case review should ask:\n\n- did the reply match the required output shape?\n- did the lane stay inside the allowed answer space?\n- did formatting remain compact and reviewable?\n- if latency is noted, was it presented only as bounded context rather than as\n  the verdict itself?\n- did the final summary preserve contract failure versus fluent overread?\n\n### Approve signals\n\nSignals toward `supports bounded claim`:\n\n- exact literal reply stays exact\n- bounded routing stays inside the named target set\n- bounded choice stays inside the allowed option set\n- constrained JSON stays structurally valid and semantically on contract\n- latency notes stay subordinate to contract-fit rather than replacing it\n\n### Degrade signals\n\nSignals toward `mixed support` or `does not support bounded claim`:\n\n- extra chatter breaks exact reply\n- routing invents targets outside the bounded set\n- choice answers smear into prose instead of returning one allowed answer\n- JSON drifts into malformed or semantically off-contract output\n- a fast but wrong reply is summarized as if speed repaired the contract miss\n\n### Review outcome language\n\n- `approve` means the case supports bounded contract-fit on this surface.\n- `defer` means the case still needs richer review or the contract miss is too\n  material for bounded promotion.",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`.\n\nIt is a standalone portable proof surface.\nIt may later be reused inside baseline or peer-compare bundles, but by itself\nit only supports modest claims about contract-fit on the chosen case family.\n\nWithout a baseline, this bundle can support:\n\n- contract-fit on one lane\n- bounded comparison by reading two reports side by side\n\nIt cannot by itself support:\n\n- global ranking\n- universal latency claims\n- broad capability growth claims",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. present one compact case at a time\n2. capture the raw reply or structured reply payload\n3. record whether the output stayed on contract\n4. record latency only as bounded side evidence when available\n5. review each case against the contract rubric\n6. publish a summary-with-breakdown artifact plus a bundle-level verdict\n\nExecution expectations:\n\n- do not rewrite malformed output into a pass after the fact\n- do not treat speed as a substitute for contract-fit\n- do not inflate one strong case into a broad capability claim\n- keep enough raw output evidence that a bounded reviewer can audit the readout\n- when shipping a machine-readable report, validate it against\n  `reports/summary.schema.json`\n- keep the shared case-family contract in\n  `fixtures/local-text-contract-v1/README.md` visible when that public family\n  is in use\n- keep the runner contract aligned with `runners/contract.json` so contract\n  surface, observed shape, latency note, and failure-versus-readout do not\n  collapse into one top-line score",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bundle-level verdict\n- per-case breakdown notes\n- explicit contract-surface note for each case\n- optional bounded latency note for each case\n- failure-versus-readout note for each case\n- explicit interpretation note\n- an optional schema-backed companion report artifact at\n  `reports/example-report.json`",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "This eval can fail as an instrument when:\n\n- cases are too trivial to expose real contract pressure\n- reviewers mistake fluent near-misses for passes\n- latency becomes the hidden scoring function\n- bundle summaries imply broader usefulness than the four cases support\n- private local prompt context is smuggled into public fixture wording",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- rich answer quality\n- long-context behavior\n- tool-calling discipline\n- broad repo understanding\n- general model helpfulness\n- host-level performance superiority outside this bounded case family\n\nLikely false-pass path:\n\n- a lane memorizes the narrow answer shapes but remains weak outside the pack\n\nLikely false-fail path:\n\n- a lane is useful on richer tasks but too chatty for compact contract mode",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat this bundle as a compact contract-fit gate.\nUse a pass as support for bounded local control-plane discipline, not as proof\nof broad assistant quality.\nUse a fail as evidence that richer claims should pause, not as proof that the\nlane is useless overall.\n\nDo not treat a positive result as:\n\n- proof of broad model quality\n- proof of rich-answer usefulness\n- proof of tool or agent readiness\n- proof of host-level performance superiority\n\nWhen comparing two reports side by side:\n\n- read contract-fit first\n- read latency second\n- do not invert that order",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- confirm the bounded claim is explicit\n- confirm the four-case family remains visible\n- confirm contract-fit stays primary and latency stays secondary\n- confirm blind spots are named\n- confirm outputs do not imply stronger conclusions than the bundle supports",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "Primary source techniques:\n\n- none yet; this bundle is currently harvested from repeated reviewed runtime\n  screening rather than from one named upstream technique",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "Primary checked skill surface:\n\n- none directly; this bundle evaluates a local text lane contract surface rather\n  than one source-owned `aoa-skills` workflow",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "Project overlays may add:\n\n- local compact prompt families that preserve the same four pressures\n- local runner wrappers that still validate against\n  `reports/summary.schema.json`\n- local latency note formats that keep latency secondary to contract-fit\n- local case replacements allowed by `fixtures/contract.json`",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "portable",
+      "verdict_shape": "categorical"
+    },
+    {
       "category": "workflow",
       "eval_path": "bundles/aoa-long-horizon-depth/EVAL.md",
       "name": "aoa-long-horizon-depth",
@@ -1315,6 +1409,100 @@
       ],
       "status": "draft",
       "verdict_shape": "mixed"
+    },
+    {
+      "category": "workflow",
+      "eval_path": "bundles/aoa-ring-application-discipline/EVAL.md",
+      "name": "aoa-ring-application-discipline",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to check whether an agent handles a named skill-ring request\nhonestly when multiple plausible skills, planes, and post-session follow-ups are\nin play.\n\nThis bundle is a `diagnostic` workflow eval.\nIt isolates ring-application discipline.\nIt is not meant to stand in for general reasoning quality, general planning\nquality, or overall session success.\n\nThe goal is not to prove that the agent always chooses the perfect skill set.\nThe goal is to test one bounded claim:\n\nunder bounded multi-skill requests,\nthe agent can build an explicit applicability map,\nrun only the `apply_now` skills,\nname `defer` and `skip` honestly,\nand perform a visible harvest check before closing out.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks ring-application discipline in multi-skill orchestration.\n\nPrimary surfaces under evaluation:\n\n- explicit applicability map production\n- honest `apply_now`, `defer`, and `skip` classification\n- separation between execution, closeout, and harvest planes\n- visible harvest check after execution\n\nNearby surfaces intentionally excluded:\n\n- whether every chosen skill was globally optimal\n- broad task-outcome quality independent of skill discipline\n- agent tone or style outside the orchestration question\n- one exact closeout wording as the only acceptable form",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions,\nthe agent can apply a named skill ring with bounded orchestration discipline\ninstead of treating ring requests as blanket execution commands.\n\nThis eval does **not** support claims such as:\n\n- the agent reasons perfectly in all ambiguous situations\n- the agent will always choose the best skills\n- the whole session outcome is strong overall\n- the agent has solved cross-repo promotion or harvest governance by itself",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a task explicitly asks for a ring or family of skills\n- multiple relevant skills or planes are plausibly in scope\n- the difference between execution, closeout, and harvest matters\n- you need to know whether the agent uses `defer` and `skip` honestly instead\n  of hiding them\n\nDo not use this eval when:\n\n- the task clearly needs only one bounded skill\n- the task has no meaningful skill-selection ambiguity\n- the main question is broad task success rather than ring-application\n  discipline\n- the environment does not preserve enough closeout evidence to inspect the\n  applicability map and harvest decision",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- bounded multi-skill request\n- named ring or skill family\n- session evidence or transcript excerpts\n- expected applicability-map and harvest-check contract\n- observed closeout or final report",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "This bundle uses bounded ring-application cases that preserve five pressures:\n\n- a named ring or skill family request\n- more than one plausible skill in scope\n- at least one honest `defer` or `skip` opportunity\n- a visible execution-versus-closeout distinction\n- a visible harvest-check or explicit no-harvest decision\n\nThe shared fixture family is\n`fixtures/ring-application-discipline-v1/README.md`.\n\nThe case family should stay public-safe and should avoid:\n\n- giant scenario soups where skill selection becomes unreviewable\n- hidden context that makes `defer` or `skip` unknowable to outside reviewers\n- purely stylistic prompts with no real plane split or harvest pressure",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a categorical bundle-level verdict with per-case breakdown\nnotes.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nPer-case review should ask:\n\n- did the agent produce an explicit applicability map?\n- did it classify `apply_now`, `defer`, and `skip` honestly?\n- did it separate execution from closeout?\n- did it perform a visible harvest check?\n- did the readout preserve the actual orchestration evidence instead of\n  retrofitting a cleaner story?\n\n### Approve signals\n\nSignals toward `supports bounded claim`:\n\n- an explicit applicability map is present\n- at least one `defer` or `skip` is named when the case warrants it\n- only `apply_now` skills are treated as executed\n- the closeout names what the session proved\n- harvest is checked explicitly, even when the answer is \"no candidate\"\n\n### Degrade signals\n\nSignals toward `mixed support` or `does not support bounded claim`:\n\n- the agent says it \"applied the ring\" without a map\n- `defer` or `skip` opportunities are silently erased\n- execution and harvest are collapsed into one recap\n- a harvest-shaped candidate appears but no harvest check is named\n- the readout invents orchestration discipline that the transcript does not show\n\n### Review outcome language\n\n- `approve` means the case supports bounded ring-application discipline on this\n  surface.\n- `defer` means the case remains too ceremonial, too compressed, or too weakly\n  evidenced for promotion.",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`.\n\nIt is a standalone portable proof surface.\nIt may later support peer or regression comparisons, but by itself it supports\nonly modest claims about ring-application discipline on the chosen cases.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. present one bounded multi-skill case at a time\n2. capture the named ring request and enough session evidence to inspect the\n   orchestration\n3. record whether an applicability map appeared\n4. record whether plane split and harvest check appeared\n5. review each case against the bounded rubric\n6. publish a summary-with-breakdown artifact plus a bundle-level verdict\n\nExecution expectations:\n\n- do not treat a ring request as self-proving blanket execution\n- do not count implied `defer` or `skip` as if they were explicit\n- do not treat a polished recap as proof that harvest discipline happened\n- keep enough evidence that a bounded reviewer can inspect the map and the\n  closeout\n- when shipping a machine-readable report, validate it against\n  `reports/summary.schema.json`\n- keep the shared case-family contract in\n  `fixtures/ring-application-discipline-v1/README.md` visible when that public\n  family is in use\n- keep the runner contract aligned with `runners/contract.json` so map signal,\n  plane split, harvest check, and failure-versus-readout do not collapse into\n  one top-line orchestration score",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bundle-level verdict\n- per-case breakdown notes\n- explicit applicability-map note for each case\n- explicit plane-split note for each case\n- explicit harvest-check note for each case\n- failure-versus-readout note for each case\n- explicit interpretation note\n- an optional schema-backed companion report artifact at\n  `reports/example-report.json`",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "This eval can fail as an instrument when:\n\n- cases are too simple to require real `defer` or `skip` decisions\n- reviewers reward nice closeout prose instead of visible orchestration\n- hidden context makes harvest pressure unreadable\n- the bundle starts grading broad reasoning quality instead of ring discipline",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- broad task success\n- optimal skill selection\n- general planning quality\n- final artifact quality outside the orchestration question\n- owner-layer promotion correctness by itself\n\nLikely false-pass path:\n\n- the agent emits a nice applicability map once but remains weak on real\n  multi-plane closeout discipline.\n\nLikely misleading-result path:\n\n- a bounded case may truly have no harvest candidate, but the evidence makes\n  that absence hard to distinguish from simple omission.\n\nNearby claim classes that should use a different bundle instead:\n\n- verification truthfulness should use `aoa-verification-honesty`\n- workflow path quality should use `aoa-tool-trajectory-discipline`",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat this bundle as a bounded orchestration-discipline surface.\nUse a pass as support for explicit ring handling on the chosen case family, not\nas proof of broad reasoning quality.\nUse a fail as evidence that ring requests are still being over-compressed, not\nas proof that the whole task failed.\n\nDo not treat a positive result as:\n\n- proof that the best possible skills were chosen\n- proof that the task outcome is strong overall\n- proof that every harvest decision is globally correct\n- proof that session governance is solved in general",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- confirm the bounded claim is explicit\n- confirm the case family preserves map, plane-split, and harvest pressures\n- confirm `defer` and `skip` remain inspectable rather than implied\n- confirm the readout does not outrun the orchestration evidence\n- confirm blind spots and nearby-bundle boundaries remain visible",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "Primary source techniques:\n\n- none yet; this bundle is currently harvested from reviewed orchestration\n  discipline rather than one named upstream technique",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "Primary checked skill surface:\n\n- none directly; this bundle evaluates ring-application discipline across a\n  multi-skill request rather than one bounded `aoa-skills` bundle",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "Project overlays may add:\n\n- local ring names and bounded case families\n- local transcript or receipt formats that preserve the same orchestration\n  pressures\n- local runner wrappers that still validate against\n  `reports/summary.schema.json`\n- local fixture replacements allowed by `fixtures/contract.json`",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "portable",
+      "verdict_shape": "categorical"
     },
     {
       "category": "boundary",

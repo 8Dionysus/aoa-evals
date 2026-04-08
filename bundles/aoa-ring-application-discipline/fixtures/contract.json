@@ -1,0 +1,11 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/ring-application-discipline-v1/README.md",
+  "shared_case_surface": "bounded multi-skill requests that keep named ring selection, explicit apply-now versus defer-skip classification, execution-versus-closeout separation, and visible harvest-check pressure jointly inspectable on one orchestration surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same ring-application question, keeps applicability-map evidence inspectable, and still covers named ring request, honest defer-or-skip pressure, visible plane split, and explicit harvest-check pressure without upgrading the bundle into a broad reasoning-quality or task-success surface.",
+  "public_safe_requirements": [
+    "the ring request and skill-family scope remain visible to a bounded outside reviewer",
+    "applicability-map evidence remains inspectable on the same case family",
+    "harvest-check presence or absence remains reviewable without hidden private context"
+  ]
+}

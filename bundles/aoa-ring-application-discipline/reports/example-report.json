@@ -1,0 +1,39 @@
+{
+  "eval_name": "aoa-ring-application-discipline",
+  "bundle_status": "portable",
+  "object_under_evaluation": "ring-application discipline in multi-skill agent orchestration",
+  "verdict": "mixed support",
+  "claim_boundary": "The agent supports only this bounded ring-application surface: explicit applicability map, honest apply-now versus defer-skip handling, execution-versus-closeout separation, and visible harvest check.",
+  "limitations": [
+    "This report does not prove general planning quality.",
+    "This report does not prove global optimality of skill choice.",
+    "This report does not replace owner-layer governance or promotion review."
+  ],
+  "case_family": "RAD-v1 bounded ring-application discipline cases",
+  "per_case_breakdown": [
+    {
+      "case_id": "RAD-01",
+      "applicability_map_signal": "explicit apply_now, defer, and skip entries were present",
+      "plane_split_signal": "execution and closeout stayed visibly distinct",
+      "harvest_check_signal": "explicit no-harvest note present",
+      "failure_vs_readout": "The readout matched the session evidence and did not claim more than the map and closeout supported.",
+      "outcome": "approve"
+    },
+    {
+      "case_id": "RAD-02",
+      "applicability_map_signal": "partial map present, but one likely skip remained only implicit",
+      "plane_split_signal": "execution and closeout were still visible as separate planes",
+      "harvest_check_signal": "no explicit harvest check was recorded even though a reusable candidate survived",
+      "failure_vs_readout": "The polished recap outran the orchestration evidence because it implied a complete ring application without a visible harvest decision.",
+      "outcome": "defer"
+    },
+    {
+      "case_id": "RAD-03",
+      "applicability_map_signal": "explicit map present with honest apply_now and defer handling",
+      "plane_split_signal": "execution, closeout, and harvest remained separate",
+      "harvest_check_signal": "candidate-harvest note was named explicitly",
+      "failure_vs_readout": "The readout stayed bounded and reviewable because it kept surviving candidates visible instead of burying them in recap prose.",
+      "outcome": "approve"
+    }
+  ]
+}

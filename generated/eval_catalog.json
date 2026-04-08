@@ -692,6 +692,80 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "category": "boundary",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "bundles/aoa-local-text-contract-fit/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "portable_review",
+          "path": "notes/portable-review.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/bounded-promotion-review.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/proof-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "portable_review",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": true,
+      "maturity_score": 3,
+      "name": "aoa-local-text-contract-fit",
+      "object_under_evaluation": "local text lane contract-fit on compact control and structure prompts",
+      "portability_level": "portable",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-local-text-contract-fit/fixtures/contract.json",
+        "paired_readout_path": null,
+        "report_example_path": "bundles/aoa-local-text-contract-fit/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-local-text-contract-fit/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-local-text-contract-fit/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/local-text-contract-v1/README.md"
+      },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "relations": [],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "portable",
+      "summary": "Checks whether a local text lane can satisfy a compact four-case contract pack without upgrading bounded control prompts into broad capability claims.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "validation_strength": "baseline",
+      "verdict_shape": "categorical"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -1369,6 +1443,89 @@
       "technique_refs": [],
       "validation_strength": "baseline",
       "verdict_shape": "mixed"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
+      "category": "workflow",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "bundles/aoa-ring-application-discipline/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "portable_review",
+          "path": "notes/portable-review.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/bounded-promotion-review.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/proof-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "portable_review",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": true,
+      "maturity_score": 3,
+      "name": "aoa-ring-application-discipline",
+      "object_under_evaluation": "ring-application discipline in multi-skill agent orchestration",
+      "portability_level": "portable",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-ring-application-discipline/fixtures/contract.json",
+        "paired_readout_path": null,
+        "report_example_path": "bundles/aoa-ring-application-discipline/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-ring-application-discipline/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-ring-application-discipline/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/ring-application-discipline-v1/README.md"
+      },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "relations": [
+        {
+          "target": "aoa-verification-honesty",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-tool-trajectory-discipline",
+          "type": "complements"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "portable",
+      "summary": "Checks whether an agent applies a named skill ring through an explicit applicability map, honest defer-skip decisions, and a visible harvest check instead of ceremonial blanket execution.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "validation_strength": "baseline",
+      "verdict_shape": "categorical"
     },
     {
       "baseline_mode": "none",

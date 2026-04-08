@@ -1,0 +1,51 @@
+{
+  "eval_name": "aoa-local-text-contract-fit",
+  "bundle_status": "portable",
+  "object_under_evaluation": "local text lane contract-fit on compact control and structure prompts",
+  "verdict": "supports bounded claim",
+  "claim_boundary": "The lane supports only this compact four-case contract family: exact literal reply, bounded repo routing, bounded repo choice, and constrained JSON decision.",
+  "limitations": [
+    "This report does not prove rich answer quality or long-form usefulness.",
+    "This report does not prove broad repo understanding.",
+    "This report does not turn host-local latency into a general ranking claim."
+  ],
+  "case_family": "LTC-v1 compact local text contract cases",
+  "per_case_breakdown": [
+    {
+      "case_id": "LTC-01",
+      "contract_surface": "exact literal reply",
+      "expected_shape": "one exact literal string with no wrapper text",
+      "observed_shape": "exact literal string returned with no extra chatter",
+      "latency_note": "Observed latency stayed comfortably inside the bounded local review window.",
+      "failure_vs_readout": "The case readout stays narrow because the pass reflects literal contract-fit rather than broad assistant quality.",
+      "outcome": "approve"
+    },
+    {
+      "case_id": "LTC-02",
+      "contract_surface": "bounded repo routing",
+      "expected_shape": "one valid route drawn only from the named repo set",
+      "observed_shape": "route stayed inside the allowed repo set and matched the bounded routing question",
+      "latency_note": "Observed latency remained moderate and secondary to route correctness.",
+      "failure_vs_readout": "The readout keeps route correctness primary and does not upgrade the case into broad repo understanding.",
+      "outcome": "approve"
+    },
+    {
+      "case_id": "LTC-03",
+      "contract_surface": "bounded repo choice",
+      "expected_shape": "one answer drawn only from the allowed option set",
+      "observed_shape": "single valid option returned without drifting into prose",
+      "latency_note": "Observed latency stayed inside the bounded local review window.",
+      "failure_vs_readout": "The readout stays honest because it treats compact choice discipline as the result, not general model judgment.",
+      "outcome": "approve"
+    },
+    {
+      "case_id": "LTC-04",
+      "contract_surface": "constrained JSON decision",
+      "expected_shape": "compact valid JSON with the required keys and bounded values",
+      "observed_shape": "valid compact JSON returned with the required keys and semantically bounded values",
+      "latency_note": "Observed latency stayed reviewable and did not alter the contract verdict.",
+      "failure_vs_readout": "The readout keeps structural validity distinct from any richer-answer claim or host-level ranking read.",
+      "outcome": "approve"
+    }
+  ]
+}

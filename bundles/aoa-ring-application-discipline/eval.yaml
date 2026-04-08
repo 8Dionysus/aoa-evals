@@ -1,0 +1,39 @@
+name: aoa-ring-application-discipline
+category: workflow
+status: portable
+object_under_evaluation: ring-application discipline in multi-skill agent orchestration
+claim_type: bounded
+baseline_mode: none
+verdict_shape: categorical
+report_format: summary-with-breakdown
+maturity_score: 3
+rigor_level: bounded
+repeatability: moderate
+portability_level: portable
+review_required: true
+validation_strength: baseline
+export_ready: true
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+
+technique_dependencies: []
+
+skill_dependencies: []
+
+relations:
+  - type: complements
+    target: aoa-verification-honesty
+  - type: complements
+    target: aoa-tool-trajectory-discipline
+
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: portable_review
+    path: notes/portable-review.md
+  - kind: support_note
+    path: notes/bounded-promotion-review.md
+  - kind: support_note
+    path: notes/proof-contract.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md

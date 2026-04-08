@@ -1,0 +1,11 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/local-text-contract-v1/README.md",
+  "shared_case_surface": "compact local text cases that keep exact literal reply, bounded routing, bounded choice, and constrained JSON decision jointly inspectable on one contract-fit surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete prompts only if it preserves the same four contract pressures, keeps raw output evidence inspectable, and still tests exact literal reply, bounded target routing, bounded single-choice output, and compact JSON decision without upgrading the bundle into a broad capability or latency ranking surface.",
+  "public_safe_requirements": [
+    "the prompts stay public-safe and reviewable without hidden private context",
+    "the allowed answer spaces remain explicit to a bounded outside reviewer",
+    "observed output shape remains inspectable on the same compact case family"
+  ]
+}

@@ -1,0 +1,35 @@
+name: aoa-local-text-contract-fit
+category: boundary
+status: portable
+object_under_evaluation: local text lane contract-fit on compact control and structure prompts
+claim_type: bounded
+baseline_mode: none
+verdict_shape: categorical
+report_format: summary-with-breakdown
+maturity_score: 3
+rigor_level: bounded
+repeatability: moderate
+portability_level: portable
+review_required: true
+validation_strength: baseline
+export_ready: true
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+
+technique_dependencies: []
+
+skill_dependencies: []
+
+relations: []
+
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: portable_review
+    path: notes/portable-review.md
+  - kind: support_note
+    path: notes/bounded-promotion-review.md
+  - kind: support_note
+    path: notes/proof-contract.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md

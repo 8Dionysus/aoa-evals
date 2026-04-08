@@ -1,0 +1,22 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "bounded multi-skill case dossier",
+    "named ring or skill family request",
+    "session evidence or transcript excerpt",
+    "bounded orchestration readout",
+    "visible applicability-map, plane-split, and harvest-check evidence"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-ring-application-discipline/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-ring-application-discipline/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-ring-application-discipline/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-ring-application-discipline"
+  ]
+}

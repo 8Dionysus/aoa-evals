@@ -3603,7 +3603,9 @@ def test_real_repo_has_expected_non_local_shaped_portability_bundles() -> None:
     assert non_local_shaped == {
         "aoa-artifact-review-rubric": "portable",
         "aoa-bounded-change-quality": "portable",
+        "aoa-local-text-contract-fit": "portable",
         "aoa-regression-same-task": "portable",
+        "aoa-ring-application-discipline": "portable",
         "aoa-verification-honesty": "portable",
     }
 

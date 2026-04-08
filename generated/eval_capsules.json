@@ -287,6 +287,38 @@
       "what_this_does_not_prove": "proof that the starter corpus is canonical; proof that every bundle is equally mature; proof that the underlying evaluated agents are strong"
     },
     {
+      "blind_spot_short": "rich answer quality; long-context behavior; tool-calling discipline",
+      "bounded_claim_short": "under these conditions, a local text lane can satisfy a compact control-plane contract pack covering exact reply, bounded routing, bounded choice, and constrained JSON.",
+      "category": "boundary",
+      "comparison_surface": null,
+      "do_not_use_short": "the main question is rich answer quality or long-form usefulness; the main question is broad workflow quality rather than reply contract-fit",
+      "eval_path": "bundles/aoa-local-text-contract-fit/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "portable_review",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-local-text-contract-fit",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "portable",
+      "summary": "Checks whether a local text lane can satisfy a compact four-case contract pack without upgrading bounded control prompts into broad capability claims.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "use_when_short": "a local text lane needs a bounded contract-fit read before richer screening; a runtime candidate must be compared on strict output-shape discipline",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof of broad model quality; proof of rich-answer usefulness; proof of tool or agent readiness"
+    },
+    {
       "blind_spot_short": "final inquiry correctness; philosophical depth by itself; runtime trace completeness",
       "bounded_claim_short": "under these conditions, a checkpoint-based long-horizon inquiry route can relaunch with its active axis, open contradictions, and memo-versus-canon boundaries still reviewably intact.",
       "category": "workflow",
@@ -581,6 +613,38 @@
       "use_when_short": "a route emitted an explicit return decision or return event; the active question is whether the return was honest and bounded",
       "verdict_shape": "mixed",
       "what_this_does_not_prove": "proof that the full task outcome is strong; proof that the route is broadly safe; proof that long-horizon reasoning is solved"
+    },
+    {
+      "blind_spot_short": "broad task success; optimal skill selection; general planning quality",
+      "bounded_claim_short": "under these conditions, the agent can apply a named skill ring with bounded orchestration discipline instead of treating ring requests as blanket execution commands.",
+      "category": "workflow",
+      "comparison_surface": null,
+      "do_not_use_short": "the task clearly needs only one bounded skill; the task has no meaningful skill-selection ambiguity",
+      "eval_path": "bundles/aoa-ring-application-discipline/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "portable_review",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-ring-application-discipline",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "portable",
+      "summary": "Checks whether an agent applies a named skill ring through an explicit applicability map, honest defer-skip decisions, and a visible harvest check instead of ceremonial blanket execution.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "use_when_short": "a task explicitly asks for a ring or family of skills; multiple relevant skills or planes are plausibly in scope",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof that the best possible skills were chosen; proof that the task outcome is strong overall; proof that every harvest decision is globally correct"
     },
     {
       "blind_spot_short": "overall workflow quality; verification truthfulness; authority handling quality",

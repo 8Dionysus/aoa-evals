@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/stress-recovery-window-bounded-v1/README.md",
+  "shared_case_surface": "bounded repeated-window stress recovery reports that keep one named owner surface, one named stressor family, and an owner-first evidence chain across ordered windows",
+  "bounded_replacement_rule": "A local repo may replace the stress recovery window family only if the replacement preserves the same owner-first evidence order, keeps ordered named windows on one named stressor family, keeps one public report artifact per window, and still supports healthier, mixed, fragile, or suppressed readout without turning route hints or memo context into stronger truth than owner evidence.",
+  "public_safe_requirements": [
+    "the owner surface and named stressor family stay explicit across the ordered windows",
+    "each window has source-owned owner receipts or equally strong owner-local evidence",
+    "route hints and memo context remain secondary to owner evidence",
+    "context drift that changes comparability is disclosed"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "ordered named windows",
+    "source-owned owner receipts and owner-local artifacts",
+    "wave-3 handoff, playbook, and KAG objects for the same stressor family",
+    "optional route hints and memo context as secondary shaping evidence",
+    "bundle-level longitudinal stress recovery summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-stress-recovery-window/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-stress-recovery-window/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-stress-recovery-window/reports/example-report.json",
+  "paired_readout_path": "reports/stress-recovery-window-proof-flow-v1.md",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-stress-recovery-window"
+  ]
+}

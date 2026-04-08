@@ -12,6 +12,7 @@ Use the shortest route by need:
 
 - first concrete source-owned proof surface: `bundles/aoa-bounded-change-quality/EVAL.md`
 - docs map: `docs/README.md`
+- repeated-window stress recovery proof surface: `bundles/aoa-stress-recovery-window/EVAL.md` and `docs/STRESS_RECOVERY_WINDOW_EVALS.md`
 - proof posture and limits: `docs/EVAL_PHILOSOPHY.md`
 - architecture: `docs/ARCHITECTURE.md`
 - current eval surface and chooser: `EVAL_INDEX.md` and `EVAL_SELECTION.md`
@@ -22,6 +23,7 @@ Use the shortest route by need:
 - score semantics, verdict boundaries, and review posture: `docs/SCORE_SEMANTICS_GUIDE.md`, `docs/VERDICT_INTERPRETATION_GUIDE.md`, `docs/EVAL_RUBRIC.md`, and `docs/EVAL_REVIEW_GUIDE.md`
 - derived reader surfaces: `generated/eval_catalog.min.json`, `generated/eval_capsules.json`, and `generated/eval_sections.full.json`
 - regression, peer comparison, and repeated-window reading: `docs/COMPARISON_SPINE_GUIDE.md`, `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`, and `generated/comparison_spine.json`
+- bounded stress recovery longitudinal reading: `docs/STRESS_RECOVERY_WINDOW_EVALS.md` and `bundles/aoa-stress-recovery-window/EVAL.md`
 - artifact-side versus process-side reading: `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
 - runtime-artifact to verdict bridge: `docs/TRACE_EVAL_BRIDGE.md`, `docs/EVAL_RESULT_RECEIPT_GUIDE.md`, and `docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
 - local shared-envelope mirror and eval publication seam:

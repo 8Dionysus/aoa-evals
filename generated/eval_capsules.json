@@ -630,6 +630,60 @@
       "what_this_does_not_prove": "proof that the whole workflow was strong; proof that verification was honest or sufficient; proof that the authority boundary was handled correctly"
     },
     {
+      "blind_spot_short": "long-horizon health across unrelated stressor families; repo-global readiness for mutation; that future KAG projection families will follow the same re-entry discipline",
+      "bounded_claim_short": "under these conditions, ordered windows on one named stressor family show healthier recovery posture because the system stayed evidence-linked, bounded, and honest about re-entry, without...",
+      "category": "longitudinal",
+      "comparison_surface": {
+        "anchor_surface": "aoa-antifragility-posture",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "paired_readout_path": "reports/stress-recovery-window-proof-flow-v1.md",
+        "selection_question": "Do you need ordered repeated-window proof for one named stress recovery family?",
+        "shared_family_path": "fixtures/stress-recovery-window-bounded-v1/README.md",
+        "window_family_label": "stress-recovery-window-bounded-v1 bounded stress recovery sequence"
+      },
+      "do_not_use_short": "no trustworthy owner receipt family exists yet; the windows are too inconsistent to compare honestly",
+      "eval_path": "bundles/aoa-stress-recovery-window/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "baseline_readiness",
+        "integrity_check"
+      ],
+      "name": "aoa-stress-recovery-window",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema",
+        "paired_readout"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether a named stressor family shows healthier handling across an ordered bounded window without letting proof, stats, routing, or memo outrank owner evidence.",
+      "technique_dependencies": [
+        "AOA-T-0097",
+        "AOA-T-0098"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0097",
+          "path": "techniques/system-recovery/degrade-reground-recover/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        },
+        {
+          "id": "AOA-T-0098",
+          "path": "techniques/validation-patterns/receipt-first-failure-analysis/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "use_when_short": "you have ordered windows on the same named stressor family; the main question is repeated-window recovery posture rather than one-run family reading",
+      "verdict_shape": "comparative",
+      "what_this_does_not_prove": "proof that the whole federation is resilient; permission to bypass owner receipts, playbook gates, or KAG quarantine posture; justification for direct mutation widening"
+    },
+    {
       "blind_spot_short": "overall workflow quality; final outcome quality when path does not matter; verification truthfulness as a standalone diagnostic question",
       "bounded_claim_short": "under these conditions, the agent can use tools with disciplined path quality on bounded tasks where tool-use trajectory is part of the bounded claim.",
       "category": "workflow",

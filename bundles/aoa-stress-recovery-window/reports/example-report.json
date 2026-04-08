@@ -1,0 +1,107 @@
+{
+  "eval_name": "aoa-stress-recovery-window",
+  "bundle_status": "draft",
+  "object_under_evaluation": "ordered stress recovery posture on one named owner surface and adjacent evidence family",
+  "comparison_mode": "longitudinal-window",
+  "report_id": "eval-stress-window-2026w14-hybrid-query-kag",
+  "generated_at_utc": "2026-04-07T15:45:00Z",
+  "window": {
+    "label": "kag-regrounding-window-2026w14",
+    "start_utc": "2026-04-01T00:00:00Z",
+    "end_utc": "2026-04-07T00:00:00Z"
+  },
+  "scope": {
+    "stressor_family": "hybrid-query-kag-unhealthy",
+    "repo_roots": [
+      "ATM10-Agent",
+      "aoa-agents",
+      "aoa-playbooks",
+      "aoa-kag",
+      "aoa-routing",
+      "aoa-memo"
+    ],
+    "owner_surface": "hybrid-query",
+    "surface_family": "kag-regrounding"
+  },
+  "inputs": {
+    "source_receipt_refs": [
+      "ATM10-Agent/examples/stressor_receipt.retrieval_only_fallback.example.json"
+    ],
+    "handoff_refs": [
+      "aoa-agents/examples/stress_handoff_envelope.example.json"
+    ],
+    "playbook_lane_refs": [
+      "aoa-playbooks/examples/playbook_stress_lane.example.json"
+    ],
+    "reentry_gate_refs": [
+      "aoa-playbooks/examples/playbook_reentry_gate.example.json"
+    ],
+    "projection_health_refs": [
+      "aoa-kag/examples/projection_health_receipt.example.json"
+    ],
+    "regrounding_ticket_refs": [
+      "aoa-kag/examples/regrounding_ticket.example.json"
+    ],
+    "route_hint_refs": [
+      "aoa-routing/examples/composite_stress_route_hint.example.json"
+    ],
+    "memo_context_refs": [
+      "aoa-memo/examples/recovery_pattern_memory.example.json"
+    ],
+    "adaptation_delta_refs": [
+      "ATM10-Agent/examples/adaptation_delta.retrieval_only_fallback.example.json"
+    ]
+  },
+  "axes": {
+    "handoff_fidelity": {
+      "status": "pass",
+      "score": 0.9,
+      "rationale": "The handoff narrows behavior, blocks mutation, and carries evidence plus re-entry conditions."
+    },
+    "route_discipline": {
+      "status": "pass",
+      "score": 0.88,
+      "rationale": "Routing prefers reground-first and playbook-guided recovery over convenience re-entry."
+    },
+    "reentry_quality": {
+      "status": "warn",
+      "score": 0.72,
+      "rationale": "Re-entry is evidence-backed, but the window is still small and depends on one reviewed gate family."
+    },
+    "regrounding_effectiveness": {
+      "status": "warn",
+      "score": 0.69,
+      "rationale": "Projection health improves after regrounding, but success is tied to a narrow derived-surface family."
+    },
+    "evidence_continuity": {
+      "status": "pass",
+      "score": 0.91,
+      "rationale": "Owner receipts, handoffs, playbook gates, and route hints cite each other with little ambiguity."
+    },
+    "false_promotion_prevention": {
+      "status": "pass",
+      "score": 0.93,
+      "rationale": "Ticket creation and quarantine exit are not treated as health by themselves."
+    },
+    "operator_burden": {
+      "status": "warn",
+      "score": 0.64,
+      "rationale": "The operator still has to review regrounding and re-entry before trust widens."
+    },
+    "trust_calibration": {
+      "status": "pass",
+      "score": 0.89,
+      "rationale": "Degradation, quarantine, and re-entry limits stay visible throughout the window."
+    }
+  },
+  "overall_posture": "mixed",
+  "narrative_summary": "The recovery window is healthier than a brittle fallback loop because the system stays explicit, bounded, and evidence-linked. The main weakness is that the window is still narrow and operator review remains important.",
+  "blind_spots": [
+    "The report does not prove long-horizon health across unrelated stressor families.",
+    "The report does not prove that future KAG projection families will obey the same re-entry discipline."
+  ],
+  "evidence_gaps": [
+    "Only one owner surface family is represented in this window.",
+    "There is limited repeated-window evidence for reduced operator burden."
+  ]
+}

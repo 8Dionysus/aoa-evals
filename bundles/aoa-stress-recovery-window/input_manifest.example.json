@@ -1,0 +1,45 @@
+{
+  "schema_version": "stress_recovery_window_eval_input_manifest_v1",
+  "window": {
+    "label": "kag-regrounding-window-2026w14",
+    "start_utc": "2026-04-01T00:00:00Z",
+    "end_utc": "2026-04-07T00:00:00Z"
+  },
+  "scope": {
+    "stressor_family": "hybrid-query-kag-unhealthy",
+    "repo_roots": [
+      "ATM10-Agent",
+      "aoa-agents",
+      "aoa-playbooks",
+      "aoa-kag",
+      "aoa-routing",
+      "aoa-memo"
+    ],
+    "owner_surface": "hybrid-query",
+    "surface_family": "kag-regrounding"
+  },
+  "source_receipt_refs": [
+    "ATM10-Agent/examples/stressor_receipt.retrieval_only_fallback.example.json"
+  ],
+  "handoff_refs": [
+    "aoa-agents/examples/stress_handoff_envelope.example.json"
+  ],
+  "playbook_lane_refs": [
+    "aoa-playbooks/examples/playbook_stress_lane.example.json"
+  ],
+  "reentry_gate_refs": [
+    "aoa-playbooks/examples/playbook_reentry_gate.example.json"
+  ],
+  "projection_health_refs": [
+    "aoa-kag/examples/projection_health_receipt.example.json"
+  ],
+  "regrounding_ticket_refs": [
+    "aoa-kag/examples/regrounding_ticket.example.json"
+  ],
+  "route_hint_refs": [
+    "aoa-routing/examples/composite_stress_route_hint.example.json"
+  ],
+  "memo_context_refs": [
+    "aoa-memo/examples/recovery_pattern_memory.example.json"
+  ]
+}

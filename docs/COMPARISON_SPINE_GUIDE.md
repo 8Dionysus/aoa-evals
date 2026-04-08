@@ -25,12 +25,14 @@ Current public comparison bundles:
 - `aoa-regression-same-task`
 - `aoa-output-vs-process-gap`
 - `aoa-longitudinal-growth-snapshot`
+- `aoa-stress-recovery-window`
 - `aoa-eval-integrity-check`
 
 This ladder is intentionally asymmetric:
 - `aoa-regression-same-task` is the first and only public `baseline` default
 - `aoa-output-vs-process-gap` remains a draft peer-comparison bridge
 - `aoa-longitudinal-growth-snapshot` remains a draft repeated-window movement surface
+- `aoa-stress-recovery-window` remains a draft repeated-window stress recovery surface
 - `aoa-eval-integrity-check` remains the bounded integrity sidecar, not a promotion shortcut
 
 ## Comparison modes
@@ -73,6 +75,7 @@ Current machine-readable contract should keep explicit:
 
 Current bundle:
 - `aoa-longitudinal-growth-snapshot`
+- `aoa-stress-recovery-window`
 
 Use when:
 - ordered named windows stay on one bounded workflow surface
@@ -85,6 +88,7 @@ Current machine-readable contract should keep explicit:
 - window family label
 - paired readout path
 - integrity sidecar
+- the owner-first evidence rule whenever the repeated-window surface is stress-shaped
 
 ## Read order
 
@@ -111,6 +115,7 @@ Default honesty rules:
 - style-only movement is not capability movement by default
 - peer-comparison is not baseline by association
 - repeated-window movement is not general growth by association
+- repeated-window stress recovery is not live health authority by association
 - integrity sidecar success is not direct agent-quality proof
 
 ## Status discipline
@@ -119,6 +124,7 @@ Status remains intentionally conservative:
 - `aoa-regression-same-task` stays the only default public `baseline` surface
 - `aoa-output-vs-process-gap` stays `draft`
 - `aoa-longitudinal-growth-snapshot` stays `draft`
+- `aoa-stress-recovery-window` stays `draft`
 - `aoa-eval-integrity-check` stays `bounded`
 
 This means:

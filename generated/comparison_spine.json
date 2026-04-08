@@ -149,6 +149,52 @@
       ],
       "selection_summary": "Do you need a frozen-baseline comparison on the same bounded task family?",
       "status": "baseline"
+    },
+    {
+      "baseline_mode": "longitudinal-window",
+      "comparison_surface": {
+        "anchor_surface": "aoa-antifragility-posture",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "paired_readout_path": "reports/stress-recovery-window-proof-flow-v1.md",
+        "selection_question": "Do you need ordered repeated-window proof for one named stress recovery family?",
+        "shared_family_path": "fixtures/stress-recovery-window-bounded-v1/README.md",
+        "window_family_label": "stress-recovery-window-bounded-v1 bounded stress recovery sequence"
+      },
+      "eval_path": "bundles/aoa-stress-recovery-window/EVAL.md",
+      "interpretation_boundary": "proof that the whole federation is resilient; permission to bypass owner receipts, playbook gates, or KAG quarantine posture; justification for direct mutation widening",
+      "name": "aoa-stress-recovery-window",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-stress-recovery-window/fixtures/contract.json",
+        "paired_readout_path": "reports/stress-recovery-window-proof-flow-v1.md",
+        "report_example_path": "bundles/aoa-stress-recovery-window/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-stress-recovery-window/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-stress-recovery-window/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/stress-recovery-window-bounded-v1/README.md"
+      },
+      "relations": [
+        {
+          "target": "aoa-antifragility-posture",
+          "type": "derived_from"
+        },
+        {
+          "target": "aoa-antifragility-posture",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-longitudinal-growth-snapshot",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
+        }
+      ],
+      "selection_summary": "Do you need ordered repeated-window proof for one named stress recovery family?",
+      "status": "draft"
     }
   ],
   "source_of_truth": {

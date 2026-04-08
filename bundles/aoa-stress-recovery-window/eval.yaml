@@ -1,0 +1,54 @@
+name: aoa-stress-recovery-window
+category: longitudinal
+status: draft
+object_under_evaluation: ordered stress recovery posture on one named owner surface and adjacent evidence family
+claim_type: longitudinal
+baseline_mode: longitudinal-window
+verdict_shape: comparative
+report_format: comparative-summary
+comparison_surface:
+  shared_family_path: fixtures/stress-recovery-window-bounded-v1/README.md
+  paired_readout_path: reports/stress-recovery-window-proof-flow-v1.md
+  integrity_sidecar: aoa-eval-integrity-check
+  selection_question: Do you need ordered repeated-window proof for one named stress recovery family?
+  anchor_surface: aoa-antifragility-posture
+  window_family_label: stress-recovery-window-bounded-v1 bounded stress recovery sequence
+maturity_score: 2
+rigor_level: bounded
+repeatability: moderate
+portability_level: local-shaped
+review_required: true
+validation_strength: baseline
+export_ready: true
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+
+technique_dependencies:
+  - id: AOA-T-0097
+    repo: 8Dionysus/aoa-techniques
+    path: techniques/system-recovery/degrade-reground-recover/TECHNIQUE.md
+  - id: AOA-T-0098
+    repo: 8Dionysus/aoa-techniques
+    path: techniques/validation-patterns/receipt-first-failure-analysis/TECHNIQUE.md
+
+skill_dependencies: []
+
+relations:
+  - type: derived_from
+    target: aoa-antifragility-posture
+  - type: complements
+    target: aoa-antifragility-posture
+  - type: complements
+    target: aoa-longitudinal-growth-snapshot
+  - type: used_together_for
+    target: aoa-eval-integrity-check
+
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: support_note
+    path: notes/window-contract.md
+  - kind: baseline_readiness
+    path: notes/baseline-readiness.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md

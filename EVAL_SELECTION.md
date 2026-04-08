@@ -33,6 +33,9 @@ Current starter posture:
   Its materialized bounded proof flow now uses `fixtures/tool-trajectory-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
 - `aoa-antifragility-posture` is the current draft stress-family antifragility starter:
   use it when the main question is whether one owner-local surface handled one named stressor family through bounded degraded continuation, source-owned receipts, and explicit anti-widening posture.
+- `aoa-stress-recovery-window` is the current draft longitudinal stress-recovery starter:
+  use it when the main question is whether ordered windows on one named stressor family show healthier handling without letting proof, stats, routing, or memo outrank owner evidence.
+  Its current materialized proof flow uses a shared stress-recovery window family, runner contract, schema-backed report, and paired readout, but the bundle remains draft.
 - `aoa-witness-trace-integrity` is the current draft witness workflow starter:
   use it when the main question is whether a bounded run left a reviewable witness trace before any downstream memo or compost use.
   Its current draft proof flow is already materialized through a shared witness case family, bundle-local runner contract, and schema-backed report example.
@@ -87,6 +90,10 @@ See also:
 - `aoa-antifragility-posture`
   Use this when the question is bounded degraded continuation plus source-owned receipt posture on one named stressor family, not broad repo quality or repeated-window movement.
 
+### I need to read repeated-window stress recovery on one named family without letting derived layers outrank owner evidence
+- `aoa-stress-recovery-window`
+  Use this when the question is repeated-window recovery posture for one named stressor family, not one-run owner-local posture and not federation-wide resilience.
+
 ### I need to split final outcome judgment from path judgment without assuming one correct trace
 - `aoa-trace-outcome-separation`
   If the path itself is the bounded surface, switch to `aoa-tool-trajectory-discipline`.
@@ -137,6 +144,10 @@ See also:
 - `aoa-longitudinal-growth-snapshot`
   Keep the read modest; this remains a draft repeated-window movement surface.
 
+### Do you need ordered repeated-window proof for one named stress recovery family?
+- `aoa-stress-recovery-window`
+  Keep the read owner-first; this remains a draft repeated-window stress recovery surface.
+
 ### Do you need the bounded integrity sidecar for a comparison-spine wording or maturity wave?
 - `aoa-eval-integrity-check`
   Use it when public comparison wording, routing, or maturity posture risks turning the current comparison read theatrical.
@@ -152,7 +163,7 @@ See also:
 | `artifact` | You care about the produced artifact itself or about provenance-preserving compost artifacts derived from witness-facing inputs. | `aoa-artifact-review-rubric`, `aoa-compost-provenance-preservation` |
 | `comparative` | You care about cross-surface divergence such as polished output versus process discipline. | `aoa-output-vs-process-gap` |
 | `capability` | You care about whether a bounded eval-side review surface is present, such as integrity checking of public eval bundles. | `aoa-eval-integrity-check` |
-| `longitudinal` | You care about ordered repeated-window movement on the same bounded surface rather than one-run or one-baseline comparison. | `aoa-longitudinal-growth-snapshot` |
+| `longitudinal` | You care about ordered repeated-window movement on the same bounded surface, or about repeated-window stress recovery posture on one named stressor family rather than one-run or one-baseline comparison. | `aoa-longitudinal-growth-snapshot`, `aoa-stress-recovery-window` |
 
 Guardrails:
 - `workflow` here spans both composite and narrower surfaces; if you need a root-cause read, switch from `aoa-bounded-change-quality` to the narrower neighbor.
@@ -170,7 +181,8 @@ There is no `canonical` eval yet.
 Prefer `aoa-regression-same-task` when you need the first public `baseline` same-task comparison surface.
 Use `aoa-output-vs-process-gap` when you need artifact-side versus process-side peer comparison on the same bounded cases after the standalone artifact and workflow surfaces are already readable.
 Use `aoa-longitudinal-growth-snapshot` when you need ordered repeated-window movement on the same bounded workflow surface.
-`aoa-regression-same-task` and `aoa-longitudinal-growth-snapshot` now ship materialized proof artifacts, but only `aoa-regression-same-task` is the public baseline surface.
+Use `aoa-stress-recovery-window` when the repeated-window question is specifically owner-first stress recovery posture for one named stressor family.
+`aoa-regression-same-task`, `aoa-longitudinal-growth-snapshot`, and `aoa-stress-recovery-window` now ship materialized proof artifacts, but only `aoa-regression-same-task` is the public baseline surface.
 Other comparative and growth surfaces remain modest draft work.
 Use `aoa-eval-integrity-check` as the bounded sidecar when a public maturity wave risks semantic overreach, bundle blur, or baseline/growth-by-association drift.
 
@@ -209,6 +221,7 @@ Trace-aware split and tool-path workflow starters are also public, but they shou
 | output-vs-process divergence | You want to compare artifact-side and process-side readings on the same bounded cases. | `aoa-output-vs-process-gap` |
 | eval-bundle integrity | You want to inspect whether a public starter bundle remains coherent across its manifest, evidence, and public routing surfaces. | `aoa-eval-integrity-check` |
 | bounded longitudinal movement | You want to inspect ordered repeated-window movement on one named bounded workflow surface. | `aoa-longitudinal-growth-snapshot` |
+| bounded stress recovery longitudinal read | You want to inspect ordered repeated-window recovery posture on one named stressor family without letting downstream derived layers outrank owner evidence. | `aoa-stress-recovery-window` |
 
 ## Reader guidance
 
@@ -241,6 +254,7 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-tool-trajectory-discipline` now ships a materialized bounded proof surface; it still isolates path-sensitive tool use only and is not a generic workflow or outcome-vs-path score.
 - `aoa-tool-trajectory-discipline` is now a bounded one-run tool-path surface; it applies only where tool path materially matters and should not be used to grade process for its own sake or to replace the broader outcome-versus-path split.
 - `aoa-antifragility-posture` is a draft first-wave stress-family surface; it stays on one owner-local receipt family and should not be over-read as broad resilience, repeated-window improvement, or stats authority.
+- `aoa-stress-recovery-window` is a draft fourth-wave longitudinal stress surface; it stays on one named stressor family and should not be over-read as federation-wide resilience or live health authority.
 - `aoa-long-horizon-depth` is now a materialized draft recurrence workflow surface; it stays on checkpoint-based restart fidelity and does not imply final-answer quality, broad long-horizon capability, or starter status.
 - `aoa-memo-recall-integrity` is now a materialized draft memo workflow surface; it stays on inspect/capsule/expand recall integrity and does not imply contradiction coverage, permission safety, or starter status.
 - `aoa-memo-contradiction-integrity` is now a materialized draft memo workflow surface; it stays on lifecycle-aware contradiction visibility and does not imply contradiction resolution, permission safety, promotion discipline, or starter status.
@@ -252,6 +266,7 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-output-vs-process-gap` now also carries a second matched family and paired dossier, but it still stays draft and does not inherit stronger status by association.
 - `aoa-eval-integrity-check` is now a bounded integrity sidecar meta-eval for public starter-bundle coherence and semantic anti-theater review across the comparison spine; it does not replace direct agent-behavior evaluation, promotion review, or proof of canonical readiness.
 - `aoa-longitudinal-growth-snapshot` is a repeated-window movement surface; it does not replace one-run workflow reading or frozen same-task regression, and its `context_note` plus `transition_note` should stay visible before any top-line movement story.
+- `aoa-stress-recovery-window` is a repeated-window stress recovery surface; it does not replace one-run owner-local antifragility reading, frozen same-task regression, or owner-owned health truth.
 - `generated/comparison_spine.json` is now the minimal filtered reader surface for the comparison ladder.
 - As the corpus grows, later generated surfaces may add filters by status, object under evaluation, baseline mode, and verdict shape.
 - Prefer `baseline` or `canonical` bundles for stronger comparison claims once the public corpus reaches that stage.

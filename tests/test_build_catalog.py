@@ -254,6 +254,7 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
 
     regression_artifacts = entries["aoa-regression-same-task"]["proof_artifacts"]
     longitudinal_artifacts = entries["aoa-longitudinal-growth-snapshot"]["proof_artifacts"]
+    stress_recovery_artifacts = entries["aoa-stress-recovery-window"]["proof_artifacts"]
 
     assert regression_artifacts["shared_fixture_family_path"] == "fixtures/frozen-same-task-v1/README.md"
     assert regression_artifacts["runner_contract_path"] == "bundles/aoa-regression-same-task/runners/contract.json"
@@ -265,16 +266,23 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     assert longitudinal_artifacts["report_schema_path"] == "bundles/aoa-longitudinal-growth-snapshot/reports/summary.schema.json"
     assert longitudinal_artifacts["paired_readout_path"] == "reports/repeated-window-proof-flow-v1.md"
 
+    assert stress_recovery_artifacts["shared_fixture_family_path"] == "fixtures/stress-recovery-window-bounded-v1/README.md"
+    assert stress_recovery_artifacts["runner_contract_path"] == "bundles/aoa-stress-recovery-window/runners/contract.json"
+    assert stress_recovery_artifacts["report_schema_path"] == "bundles/aoa-stress-recovery-window/reports/summary.schema.json"
+    assert stress_recovery_artifacts["paired_readout_path"] == "reports/stress-recovery-window-proof-flow-v1.md"
+
     assert entries["aoa-regression-same-task"]["comparison_surface"]["baseline_target_label"] == "RS-v1 frozen bounded workflow reference"
     assert entries["aoa-output-vs-process-gap"]["comparison_surface"]["peer_surfaces"] == [
         "aoa-artifact-review-rubric",
         "aoa-bounded-change-quality",
     ]
     assert entries["aoa-longitudinal-growth-snapshot"]["comparison_surface"]["window_family_label"] == "repeated-window-bounded-v1 bounded workflow sequence"
+    assert entries["aoa-stress-recovery-window"]["comparison_surface"]["window_family_label"] == "stress-recovery-window-bounded-v1 bounded stress recovery sequence"
     assert set(comparison_entries) == {
         "aoa-longitudinal-growth-snapshot",
         "aoa-output-vs-process-gap",
         "aoa-regression-same-task",
+        "aoa-stress-recovery-window",
     }
 
 

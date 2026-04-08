@@ -1411,6 +1411,100 @@
       "verdict_shape": "categorical"
     },
     {
+      "category": "longitudinal",
+      "eval_path": "bundles/aoa-stress-recovery-window/EVAL.md",
+      "name": "aoa-stress-recovery-window",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to check whether ordered windows around one named stressor family show healthier handling without upgrading that movement into federation-wide resilience.\n\nThis starter bundle is a `diagnostic` longitudinal eval.\nIt is downstream of owner receipts, wave-3 handoff and regrounding objects, and bounded eval evidence.\nIts goal is to test one modest claim:\n\nacross ordered comparable windows on one named stress recovery family,\nthe system can show healthier containment, route discipline, re-entry posture, and evidence continuity\nwithout letting proof, stats, routing, or memo seize ownership of the event meaning.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks ordered stress recovery posture on one named owner surface and adjacent evidence family.\n\nPrimary surfaces under evaluation:\n\n- source-owned stressor receipts for one family\n- stress handoff envelopes\n- playbook stress lanes and re-entry gates\n- projection-health receipts and regrounding tickets\n- bounded route hints and memo context that stay weaker than owner evidence\n\nNearby surfaces intentionally excluded:\n\n- repo-global health or uptime claims\n- broad resilience claims across unrelated stressor families\n- route hints treated as stronger than the owner receipts they cite\n- memo context treated as present-tense health proof",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions,\nordered windows on one named stressor family show healthier recovery posture\nbecause the system stayed evidence-linked, bounded, and honest about re-entry,\nwithout turning downstream derived layers into stronger truth than the owner evidence.\n\nThis eval does **not** support claims such as:\n\n- the whole federation is healthy\n- all future re-entry attempts will be safe\n- one route hint or one memo object proves present-tense recovery\n- a repeated stress window replaces first-wave owner-local antifragility reading",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- you have ordered windows on the same named stressor family\n- the main question is repeated-window recovery posture rather than one-run family reading\n- owner receipts and adjacent wave-3 objects are explicit enough to follow\n- you need split-axis proof rather than a prestige scalar\n\nDo not use this eval when:\n\n- no trustworthy owner receipt family exists yet\n- the windows are too inconsistent to compare honestly\n- the main need is first-wave bounded antifragility reading rather than repeated-window movement\n- the only signals available are route hints or memo context without stronger evidence",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- ordered named windows\n- one bounded owner surface or tightly related surface family\n- one public input manifest for the chosen window family\n- source-owned stressor receipts and owner-local artifacts\n- wave-3 handoff, playbook, and KAG objects for the same family when available\n- optional route hints and memo context that remain secondary\n\nBecause `baseline_mode` is `longitudinal-window`, this bundle also requires:\n\n- ordered windows\n- one public report or summary artifact per window family read\n- context notes that affect comparability",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "This bundle stays report-led and bounded.\n\nA strong v1 window family includes:\n\n- one named owner surface\n- one named stressor family\n- repeated windows that keep the same owner and adjacent evidence family in play\n- a visible recovery lesson about containment, route posture, re-entry, or regrounding\n\nThe current exemplar keeps the surface narrow:\n\n- owner repo: `ATM10-Agent`\n- owner surface: `hybrid-query`\n- stressor family: `hybrid-query-kag-unhealthy`\n- adjacent layers: `aoa-agents`, `aoa-playbooks`, `aoa-kag`, `aoa-routing`, and `aoa-memo`\n\nThis surface excludes:\n\n- floating incident timelines with no named window contract\n- health claims that are not anchored to owner receipts\n- route-only or memo-only evidence chains\n\nThe current shared family is `fixtures/stress-recovery-window-bounded-v1/README.md`.",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This bundle prefers split-axis categorical readout plus one bounded bundle posture.\n\nPrimary axes:\n\n- `handoff_fidelity`\n- `route_discipline`\n- `reentry_quality`\n- `regrounding_effectiveness`\n- `evidence_continuity`\n- `false_promotion_prevention`\n- `operator_burden`\n- `trust_calibration`\n\nAxis status values:\n\n- `pass`\n- `warn`\n- `fail`\n- `na`\n\nThe evidence hierarchy should stay explicit:\n\n1. owner receipts and owner-local artifacts\n2. wave-3 handoff, lane, gate, projection-health, and regrounding objects\n3. bounded eval report interpretation\n4. derived stats summary and route hints as secondary shaping context\n5. memo context only as reviewed recall\n\nSuccess means the windows support healthier bounded recovery posture without false promotion.\nRegression means later windows widen, hide uncertainty, or break evidence continuity.\nAmbiguous results should remain `mixed` or `suppressed`.",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This starter bundle uses `longitudinal-window`.\n\nIts machine-readable comparison surface is anchored in `aoa-antifragility-posture`,\nuses the shared family `fixtures/stress-recovery-window-bounded-v1/README.md`,\npublishes through `reports/stress-recovery-window-proof-flow-v1.md`,\nand keeps `aoa-eval-integrity-check` as the integrity sidecar whenever public stress wording or maturity posture changes materially.\n\nIn this surface:\n\n- the windows must be ordered and named\n- the same bounded stress family must stay visible across the window\n- the same owner surface or tightly related surface family must remain in scope\n- style-only movement should not look like recovery growth\n- missing owner evidence should force cautious or suppressed readout\n\nIf the sequence loses comparability or owner evidence thins out,\nprefer `mixed` or `suppressed` over a cleaner story.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. define the ordered window and the named stressor family\n2. collect source-owned owner receipts and owner-local artifacts\n3. gather the relevant wave-3 handoff, playbook, and KAG objects\n4. interpret route hints and memo context only after the stronger evidence is visible\n5. publish one comparative-summary artifact with a bounded longitudinal posture\n\nWhen shipping a machine-readable report, validate it against:\n\n- `reports/summary.schema.json`\n\nThis bundle also ships:\n\n- the bundle-local fixture contract at `fixtures/contract.json`\n- the bundle-local runner contract at `runners/contract.json`\n- the shared window family note at `fixtures/stress-recovery-window-bounded-v1/README.md`\n- the paired readout at `reports/stress-recovery-window-proof-flow-v1.md`",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bundle-level longitudinal posture\n- split-axis status and rationale\n- explicit blind spots and evidence gaps\n- an optional machine-readable report at `reports/example-report.json`\n\nFor this starter bundle, the public support artifacts are:\n\n- `notes/origin-need.md`\n- `notes/window-contract.md`\n- `notes/baseline-readiness.md`\n- `checks/eval-integrity-check.md`\n- `examples/example-report.md`",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "Main ways this eval can fail as an instrument:\n\n- route hints outrank owner evidence\n- memo context quietly acts like present-tense proof\n- later windows look healthier only because the reporting became cleaner\n- quarantine exit or ticket creation is over-read as healthy re-entry\n- thin owner evidence is glossed over instead of being suppressed",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- long-horizon health across unrelated stressor families\n- repo-global readiness for mutation\n- that future KAG projection families will follow the same re-entry discipline\n- that operator burden is solved outside the named window",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat this bundle as repeated-window proof for one bounded stress family, not as a total resilience measure.\n\nUse it together with `aoa-antifragility-posture` when you need both:\n\n- one owner-local family read\n- one ordered repeated-window read for the same family\n\n- healthier route posture or memo recall is not the same as owner-surface health\n- suppressed or mixed outcomes may be the most honest longitudinal result when owner evidence stays thin\n- a healthier window still remains weaker than the gate or quarantine objects it cites\n\nDo not treat a positive result as:\n- proof that the whole federation is resilient\n- permission to bypass owner receipts, playbook gates, or KAG quarantine posture\n- justification for direct mutation widening\n- present-tense health proof just because route, stats, and memo layers now align",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- confirm the named stress family and ordered windows are explicit\n- confirm the evidence chain stays owner-first\n- confirm route and memo layers stay weaker than owner evidence\n- confirm the report stays longitudinal rather than incident-global\n- confirm the output does not imply stronger conclusions than the bundle supports",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "- `AOA-T-0097` from `aoa-techniques`: degrade, reground, recover\n- `AOA-T-0098` from `aoa-techniques`: receipt-first failure analysis",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "This bundle does not directly depend on a specific runtime skill surface.",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "Project overlays may add:\n\n- local repeated-window fixture families\n- local runner guidance\n- local source-owned stressor families\n- stricter suppression rules for thin evidence",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "comparative"
+    },
+    {
       "category": "workflow",
       "eval_path": "bundles/aoa-tool-trajectory-discipline/EVAL.md",
       "name": "aoa-tool-trajectory-discipline",

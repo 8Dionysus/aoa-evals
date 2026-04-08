@@ -1469,6 +1469,115 @@
       "verdict_shape": "categorical"
     },
     {
+      "baseline_mode": "longitudinal-window",
+      "blind_spot_disclosure": "required-and-present",
+      "category": "longitudinal",
+      "claim_type": "longitudinal",
+      "comparison_surface": {
+        "anchor_surface": "aoa-antifragility-posture",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "paired_readout_path": "reports/stress-recovery-window-proof-flow-v1.md",
+        "selection_question": "Do you need ordered repeated-window proof for one named stress recovery family?",
+        "shared_family_path": "fixtures/stress-recovery-window-bounded-v1/README.md",
+        "window_family_label": "stress-recovery-window-bounded-v1 bounded stress recovery sequence"
+      },
+      "eval_path": "bundles/aoa-stress-recovery-window/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/window-contract.md"
+        },
+        {
+          "kind": "baseline_readiness",
+          "path": "notes/baseline-readiness.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "baseline_readiness",
+        "integrity_check"
+      ],
+      "export_ready": true,
+      "maturity_score": 2,
+      "name": "aoa-stress-recovery-window",
+      "object_under_evaluation": "ordered stress recovery posture on one named owner surface and adjacent evidence family",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-stress-recovery-window/fixtures/contract.json",
+        "paired_readout_path": "reports/stress-recovery-window-proof-flow-v1.md",
+        "report_example_path": "bundles/aoa-stress-recovery-window/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-stress-recovery-window/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-stress-recovery-window/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/stress-recovery-window-bounded-v1/README.md"
+      },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema",
+        "paired_readout"
+      ],
+      "relations": [
+        {
+          "target": "aoa-antifragility-posture",
+          "type": "derived_from"
+        },
+        {
+          "target": "aoa-antifragility-posture",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-longitudinal-growth-snapshot",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "comparative-summary",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether a named stressor family shows healthier handling across an ordered bounded window without letting proof, stats, routing, or memo outrank owner evidence.",
+      "technique_dependencies": [
+        "AOA-T-0097",
+        "AOA-T-0098"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0097",
+          "path": "techniques/system-recovery/degrade-reground-recover/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        },
+        {
+          "id": "AOA-T-0098",
+          "path": "techniques/validation-patterns/receipt-first-failure-analysis/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "validation_strength": "baseline",
+      "verdict_shape": "comparative"
+    },
+    {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
       "category": "workflow",

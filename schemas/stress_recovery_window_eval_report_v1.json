@@ -1,0 +1,268 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-evals/schemas/stress_recovery_window_eval_report_v1.json",
+  "title": "stress_recovery_window_eval_report_v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_id",
+    "generated_at_utc",
+    "window",
+    "scope",
+    "inputs",
+    "axes",
+    "overall_posture",
+    "blind_spots",
+    "evidence_gaps"
+  ],
+  "$defs": {
+    "axis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "score",
+        "rationale"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "pass",
+            "warn",
+            "fail",
+            "na"
+          ]
+        },
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": "stress_recovery_window_eval_report_v1"
+    },
+    "report_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generated_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "start_utc",
+        "end_utc"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "start_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end_utc": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stressor_family",
+        "repo_roots"
+      ],
+      "properties": {
+        "stressor_family": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repo_roots": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "owner_surface": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "surface_family": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_receipt_refs",
+        "handoff_refs",
+        "playbook_lane_refs",
+        "reentry_gate_refs",
+        "projection_health_refs",
+        "regrounding_ticket_refs"
+      ],
+      "properties": {
+        "source_receipt_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "handoff_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "playbook_lane_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "reentry_gate_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "projection_health_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "regrounding_ticket_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "route_hint_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "memo_context_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "adaptation_delta_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "axes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "handoff_fidelity",
+        "route_discipline",
+        "reentry_quality",
+        "regrounding_effectiveness",
+        "evidence_continuity",
+        "false_promotion_prevention",
+        "operator_burden",
+        "trust_calibration"
+      ],
+      "properties": {
+        "handoff_fidelity": {
+          "$ref": "#/$defs/axis"
+        },
+        "route_discipline": {
+          "$ref": "#/$defs/axis"
+        },
+        "reentry_quality": {
+          "$ref": "#/$defs/axis"
+        },
+        "regrounding_effectiveness": {
+          "$ref": "#/$defs/axis"
+        },
+        "evidence_continuity": {
+          "$ref": "#/$defs/axis"
+        },
+        "false_promotion_prevention": {
+          "$ref": "#/$defs/axis"
+        },
+        "operator_burden": {
+          "$ref": "#/$defs/axis"
+        },
+        "trust_calibration": {
+          "$ref": "#/$defs/axis"
+        }
+      }
+    },
+    "overall_posture": {
+      "enum": [
+        "healthy",
+        "mixed",
+        "fragile",
+        "suppressed"
+      ]
+    },
+    "narrative_summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "blind_spots": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

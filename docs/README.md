@@ -12,6 +12,9 @@ Choose the path that matches your question:
   - [First starter bundle](../bundles/aoa-bounded-change-quality/EVAL.md)
 - I need one bounded antifragility family read backed by owner-local receipts:
   - [AoA Antifragility Posture](../bundles/aoa-antifragility-posture/EVAL.md)
+- I need one repeated-window stress recovery proof surface without turning routing or memo into stronger truth:
+  - [AoA Stress Recovery Window](../bundles/aoa-stress-recovery-window/EVAL.md)
+  - [Stress Recovery Window Evals](STRESS_RECOVERY_WINDOW_EVALS.md)
 - I need to understand what this repository means by evaluation:
   - [Eval Philosophy](EVAL_PHILOSOPHY.md)
   - [Architecture](ARCHITECTURE.md)

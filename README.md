@@ -6,6 +6,8 @@ Public library of portable evaluation bundles for agents and agent-shaped workfl
 
 An eval here is not a random benchmark and not a pile of project-local tests. It is a bounded proof surface with clear claim limits, explicit scoring or verdict logic, defined fixtures or cases, known blind spots, and portable execution guidance.
 
+> Current release: `v0.3.0`. See [CHANGELOG](CHANGELOG.md) for release notes.
+
 ## Start here
 
 Use the shortest route by need:

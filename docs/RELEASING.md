@@ -26,6 +26,7 @@ Prefer bounded releases over mixed large batches.
 Recommended local release loop:
 - confirm the bounded release scope first
 - update `CHANGELOG.md` with the release section that will anchor the human release narrative
+- `python scripts/release_check.py`
 - `python -m pip install -r requirements-dev.txt`
 - `python scripts/build_catalog.py`
 - `python scripts/build_catalog.py --check`

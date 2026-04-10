@@ -7,6 +7,36 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-04-10
+
+### Added
+
+- local-text and ring-discipline eval bundles plus antifragility posture and
+  fourth-wave stress-recovery evals
+- live eval-result receipt contracts and publisher support together with a
+  latest-sibling canary workflow
+- repo-local project-foundation, session-harvest, and automation-opportunity
+  skill surfaces for proof-repo follow-through
+
+### Changed
+
+- hardened proof validation, portable-eval expectations, and compact proof
+  lineage readers across the current public corpus
+- clarified proof-route, validator, and AGENTS guidance around the next-wave
+  bounded proof posture
+
+### Included in this release
+
+- proof-corpus expansions across `bundles/`, `docs/`, `generated/`,
+  `examples/`, `fixtures/`, `schemas/`, and `reports/`, including Phase Alpha
+  routing surfaces, RPG unlock proof, runtime candidate hardening, and new
+  bounded audit posture
+- repo-local operating and follow-through surfaces under `.agents/`, `.github/`,
+  `AGENTS.md`, `AUDIT.md`, `README.md`, `EVAL_INDEX.md`, `EVAL_SELECTION.md`,
+  `QUESTBOOK.md`, `quests/`, `scripts/`, and `tests/`, including quest and
+  automation harvest installs, latest-sibling canary support, and route
+  clarifications
+
 ## [0.2.0] - 2026-04-01
 
 Second public release of `aoa-evals`.

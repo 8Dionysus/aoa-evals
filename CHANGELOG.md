@@ -9,6 +9,20 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [0.3.0] - 2026-04-10
 
+### Summary
+
+- this release adds local-text and ring-discipline eval bundles, live eval-result receipt contracts, and latest-sibling canary support
+- proof validation, portable-eval expectations, and compact proof lineage readers are hardened across the public corpus
+- `aoa-evals` remains the bounded proof and audit layer rather than turning into generic runtime QA ownership
+
+### Validation
+
+- `python scripts/release_check.py`
+
+### Notes
+
+- detailed bundle, report, generated-surface, and operating-surface coverage for this release remains enumerated below under `Added`, `Changed`, and `Included in this release`
+
 ### Added
 
 - local-text and ring-discipline eval bundles plus antifragility posture and

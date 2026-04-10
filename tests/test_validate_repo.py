@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 import jsonschema
+import pytest
 import yaml
 
 
@@ -2364,6 +2365,94 @@ def test_approval_boundary_schema_allows_missing_fallback_move() -> None:
     jsonschema.validate(trimmed_example, schema)
 
 
+def test_antifragility_schema_requires_stressor_class() -> None:
+    schema_path = REPO_ROOT / "schemas" / "antifragility_eval_report_v1.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    payload = {
+        "schema_version": "antifragility_eval_report_v1",
+        "report_id": "anti-001",
+        "generated_at_utc": "2026-04-09T12:00:00Z",
+        "scope": {
+            "repo": "aoa-evals",
+            "surface": "bundles/aoa-antifragility-posture/reports/example-report.json",
+        },
+        "inputs": {
+            "receipt_refs": ["repo:aoa-evals/reports/receipt-001.json"],
+            "adaptation_refs": [],
+            "evidence_refs": ["repo:aoa-evals/reports/evidence-001.md"],
+        },
+        "axes": {
+            axis: {"status": "pass"}
+            for axis in (
+                "containment",
+                "fallback_fidelity",
+                "false_action_prevention",
+                "recovery_latency",
+                "adaptation_gain",
+                "operator_burden",
+                "trust_calibration",
+            )
+        },
+        "blind_spots": ["single-window read only"],
+        "verdict_summary": "bounded antifragility posture remains intact",
+    }
+
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(payload, schema)
+
+
+def test_antifragility_schema_requires_non_empty_receipt_refs() -> None:
+    schema_path = REPO_ROOT / "schemas" / "antifragility_eval_report_v1.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    payload = {
+        "schema_version": "antifragility_eval_report_v1",
+        "report_id": "anti-002",
+        "generated_at_utc": "2026-04-09T12:00:00Z",
+        "scope": {
+            "repo": "aoa-evals",
+            "surface": "bundles/aoa-antifragility-posture/reports/example-report.json",
+            "stressor_class": "latency-spike",
+        },
+        "inputs": {
+            "receipt_refs": [],
+            "adaptation_refs": [],
+            "evidence_refs": ["repo:aoa-evals/reports/evidence-001.md"],
+        },
+        "axes": {
+            axis: {"status": "pass"}
+            for axis in (
+                "containment",
+                "fallback_fidelity",
+                "false_action_prevention",
+                "recovery_latency",
+                "adaptation_gain",
+                "operator_burden",
+                "trust_calibration",
+            )
+        },
+        "blind_spots": ["single-window read only"],
+        "verdict_summary": "bounded antifragility posture remains intact",
+    }
+
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(payload, schema)
+
+
+def test_longitudinal_growth_overclaim_detection_requires_real_negation() -> None:
+    assert validate_repo.claim_boundary_overclaims_longitudinal_growth(
+        "this report demonstrates broad capability growth rather than workflow-only movement"
+    )
+    assert validate_repo.claim_boundary_overclaims_longitudinal_growth(
+        "this report demonstrates broad capability growth even though it does not prove general capability growth"
+    )
+    assert not validate_repo.claim_boundary_overclaims_longitudinal_growth(
+        "this report does not prove broad capability growth"
+    )
+    assert not validate_repo.claim_boundary_overclaims_longitudinal_growth(
+        "broad capability growth is not proven here"
+    )
+
+
 def test_validate_repo_allows_missing_initial_longitudinal_transition_note(tmp_path: Path) -> None:
     make_eval_bundle(
         tmp_path,
@@ -3589,6 +3678,111 @@ def test_validate_repo_allows_return_anchor_integrity_as_public_non_starter_bund
     )
 
     assert run_validation(tmp_path, eval_name="aoa-return-anchor-integrity") == []
+
+
+def test_validate_runtime_evidence_selection_uses_repo_local_schema(tmp_path: Path) -> None:
+    write_runtime_evidence_selection_example(
+        tmp_path,
+        filename="runtime_evidence_selection.return-anchor-integrity.example.json",
+        source_schema_ref="repo:abyss-stack/schemas/runtime-return-event.schema.json",
+        candidate_eval_refs=["candidate:aoa-return-anchor-integrity"],
+    )
+    schema_path = tmp_path / "schemas" / "runtime-evidence-selection.schema.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    schema["required"].append("repo_local_only")
+    schema["properties"]["repo_local_only"] = {"type": "string"}
+    write_json_payload(schema_path, schema)
+
+    issues = validate_repo.validate_runtime_evidence_selection_surfaces(
+        tmp_path,
+        records=[],
+        target_eval_names={"aoa-return-anchor-integrity"},
+    )
+
+    assert any(
+        issue.location == "examples/runtime_evidence_selection.return-anchor-integrity.example.json"
+        and "repo_local_only" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_runtime_evidence_selection_reports_missing_expected_examples_in_full_run(tmp_path: Path) -> None:
+    write_text(
+        tmp_path / "schemas" / "runtime-evidence-selection.schema.json",
+        """
+        {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object"
+        }
+        """,
+    )
+
+    issues = validate_repo.validate_runtime_evidence_selection_surfaces(tmp_path, records=[])
+
+    assert any(
+        issue.location.endswith("runtime_evidence_selection.workhorse-local.example.json")
+        and "file is missing" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_trace_eval_bridge_surfaces_keeps_local_example_checks_when_playbooks_missing(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    write_text(
+        tmp_path / "schemas" / validate_repo.ARTIFACT_VERDICT_HOOK_SCHEMA_NAME,
+        """
+        {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "required": ["repo_local_only"],
+          "properties": {
+            "repo_local_only": {"type": "string"}
+          }
+        }
+        """,
+    )
+    write_json_payload(tmp_path / "generated" / "eval_catalog.min.json", {"evals": []})
+    write_json_payload(
+        tmp_path / "examples" / "artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
+        {},
+    )
+    monkeypatch.setattr(validate_repo, "AOA_PLAYBOOKS_ROOT", tmp_path / "missing-playbooks")
+    monkeypatch.setattr(
+        validate_repo,
+        "ARTIFACT_VERDICT_HOOK_EXAMPLES",
+        {"AOA-P-0006": "artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json"},
+    )
+
+    issues = validate_repo.validate_trace_eval_bridge_surfaces(tmp_path, [])
+
+    assert any(
+        issue.location == "examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json"
+        and "repo_local_only" in issue.message
+        for issue in issues
+    )
+
+
+def test_duplicate_eval_headings_are_detected_before_dict_normalization(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-duplicate-headings")
+    eval_md_path = tmp_path / "bundles" / "aoa-duplicate-headings" / "EVAL.md"
+    eval_md_text = eval_md_path.read_text(encoding="utf-8")
+    eval_md_path.write_text(
+        eval_md_text.replace(
+            "## Object under evaluation",
+            "## Intent\nSecond intent block.\n\n## Object under evaluation",
+            1,
+        ),
+        encoding="utf-8",
+    )
+
+    issues, records = collect_catalog_records(tmp_path)
+    sections, section_issues = eval_section_contract.build_sections_payload(tmp_path, records)
+
+    assert sections["evals"] == []
+    assert any("duplicate top-level section 'Intent'" in issue.message for issue in issues)
+    assert any("duplicate top-level section 'Intent'" in issue.message for issue in section_issues)
 
 
 def test_real_repo_has_expected_non_local_shaped_portability_bundles() -> None:

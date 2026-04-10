@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import Counter
 from pathlib import Path
+import re
 from typing import Any
 
 import eval_catalog_contract
@@ -33,6 +34,7 @@ SECTION_SOURCE_OF_TRUTH = {
     ],
 }
 CANONICAL_HEADINGS = tuple(SECTION_SOURCE_OF_TRUTH["sections"])
+TOP_LEVEL_SECTION_RE = re.compile(r"^##\s+(.+?)\s*$")
 SECTION_KEY_BY_HEADING = {
     "Intent": "intent",
     "Object under evaluation": "object_under_evaluation",
@@ -54,13 +56,51 @@ SECTION_KEY_BY_HEADING = {
 }
 
 
+def extract_section_pairs(
+    eval_md_path: Path,
+    *,
+    location: str,
+) -> tuple[list[tuple[str, str]], list[eval_catalog_contract.ContractIssue]]:
+    issues: list[eval_catalog_contract.ContractIssue] = []
+    try:
+        text = eval_md_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        issues.append(eval_catalog_contract.ContractIssue(location, "file is missing"))
+        return [], issues
+
+    lines = text.splitlines()
+    body_lines = lines
+    if lines and lines[0].strip() == "---":
+        for index in range(1, len(lines)):
+            if lines[index].strip() == "---":
+                body_lines = lines[index + 1 :]
+                break
+
+    section_pairs: list[tuple[str, str]] = []
+    current_heading: str | None = None
+    current_lines: list[str] = []
+    for line in body_lines:
+        heading_match = TOP_LEVEL_SECTION_RE.match(line)
+        if heading_match:
+            if current_heading is not None:
+                section_pairs.append((current_heading, "\n".join(current_lines).strip()))
+            current_heading = heading_match.group(1).strip()
+            current_lines = []
+            continue
+        if current_heading is not None:
+            current_lines.append(line)
+    if current_heading is not None:
+        section_pairs.append((current_heading, "\n".join(current_lines).strip()))
+
+    return section_pairs, issues
+
+
 def collect_section_contract_issues(
-    sections: dict[str, str],
+    section_pairs: list[tuple[str, str]],
     *,
     location: str,
 ) -> list[eval_catalog_contract.ContractIssue]:
     issues: list[eval_catalog_contract.ContractIssue] = []
-    section_pairs = list(sections.items())
     headings = [heading for heading, _content in section_pairs]
     heading_counts = Counter(headings)
 
@@ -109,21 +149,22 @@ def collect_section_contract_issues(
     return issues
 
 
-def build_section_entries(sections: dict[str, str]) -> list[dict[str, str]]:
+def build_section_entries(section_pairs: list[tuple[str, str]]) -> list[dict[str, str]]:
     return [
         {
             "key": SECTION_KEY_BY_HEADING[heading],
             "heading": heading,
             "content_markdown": content_markdown,
         }
-        for heading, content_markdown in sections.items()
+        for heading, content_markdown in section_pairs
         if heading in SECTION_KEY_BY_HEADING
     ]
 
 
 def build_sections_entry(repo_root: Path, record: Any) -> tuple[dict[str, Any] | None, list[eval_catalog_contract.ContractIssue]]:
     location = eval_catalog_contract.relative_location(record.eval_md_path, repo_root)
-    issues = collect_section_contract_issues(record.sections, location=location)
+    section_pairs, issues = extract_section_pairs(record.eval_md_path, location=location)
+    issues.extend(collect_section_contract_issues(section_pairs, location=location))
     if issues:
         return None, issues
 
@@ -134,7 +175,7 @@ def build_sections_entry(repo_root: Path, record: Any) -> tuple[dict[str, Any] |
             "status": record.metadata["status"],
             "verdict_shape": record.manifest["verdict_shape"],
             "eval_path": eval_catalog_contract.relative_location(record.eval_md_path, repo_root),
-            "sections": build_section_entries(record.sections),
+            "sections": build_section_entries(section_pairs),
         },
         [],
     )
@@ -160,4 +201,3 @@ def build_sections_payload(
         },
         issues,
     )
-

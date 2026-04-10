@@ -230,21 +230,11 @@ PHASE_ALPHA_EVAL_MATRIX_SCHEMA_NAME = "phase-alpha-eval-matrix.schema.json"
 PHASE_ALPHA_EVAL_MATRIX_NAME = "generated/phase_alpha_eval_matrix.min.json"
 NORMALIZED_RUNTIME_ARTIFACT_RE = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
 ARTIFACT_VERDICT_HOOK_EXAMPLES = {
-    "AOA-P-0014": REPO_ROOT
-    / EXAMPLES_DIR_NAME
-    / "artifact_to_verdict_hook.local-stack-diagnosis.example.json",
-    "AOA-P-0006": REPO_ROOT
-    / EXAMPLES_DIR_NAME
-    / "artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
-    "AOA-P-0018": REPO_ROOT
-    / EXAMPLES_DIR_NAME
-    / "artifact_to_verdict_hook.validation-driven-remediation.example.json",
-    "AOA-P-0008": REPO_ROOT
-    / EXAMPLES_DIR_NAME
-    / "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
-    "AOA-P-0009": REPO_ROOT
-    / EXAMPLES_DIR_NAME
-    / "artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
+    "AOA-P-0014": "artifact_to_verdict_hook.local-stack-diagnosis.example.json",
+    "AOA-P-0006": "artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
+    "AOA-P-0018": "artifact_to_verdict_hook.validation-driven-remediation.example.json",
+    "AOA-P-0008": "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
+    "AOA-P-0009": "artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
 }
 RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
     "runtime_evidence_selection.workhorse-local.example.json": {
@@ -469,10 +459,12 @@ def validate_against_schema(
     schema_name: str,
     location: str,
     issues: list[ValidationIssue],
+    *,
+    validator: Draft202012Validator | None = None,
 ) -> bool:
-    validator = get_schema_validator(schema_name)
+    active_validator = validator or get_schema_validator(schema_name)
     schema_errors = sorted(
-        validator.iter_errors(data),
+        active_validator.iter_errors(data),
         key=lambda error: (list(error.absolute_path), error.message),
     )
     for error in schema_errors:
@@ -2284,13 +2276,17 @@ def validate_eval_headings(
     issues: list[ValidationIssue],
 ) -> None:
     location = relative_location(eval_md_path)
+    section_pairs, pair_issues = eval_section_contract.extract_section_pairs(
+        eval_md_path,
+        location=location,
+    )
     contract_issues = eval_section_contract.collect_section_contract_issues(
-        sections,
+        section_pairs or list(sections.items()),
         location=location,
     )
     issues.extend(
         ValidationIssue(issue.location, issue.message)
-        for issue in contract_issues
+        for issue in [*pair_issues, *contract_issues]
     )
 
 
@@ -2614,7 +2610,7 @@ LONGITUDINAL_GROWTH_CLAIM_PHRASES = (
     "broad capability growth",
     "general capability growth",
 )
-LONGITUDINAL_GROWTH_DISCLAIMER_MARKERS = (
+LONGITUDINAL_GROWTH_NEGATION_CUES = (
     "does not",
     "do not",
     "did not",
@@ -2632,8 +2628,14 @@ LONGITUDINAL_GROWTH_DISCLAIMER_MARKERS = (
     "not implied",
     "without proving",
     "without implying",
-    "weaker than",
-    "rather than",
+)
+LONGITUDINAL_GROWTH_POST_NEGATION_CUES = (
+    "is not proven",
+    "is not supported",
+    "is not implied",
+    "not proven",
+    "not supported",
+    "not implied",
 )
 
 
@@ -2644,12 +2646,29 @@ def claim_boundary_overclaims_longitudinal_growth(claim_boundary: str) -> bool:
         if clause.strip()
     ]
     for clause in clauses:
-        if not any(phrase in clause for phrase in LONGITUDINAL_GROWTH_CLAIM_PHRASES):
-            continue
-        if any(marker in clause for marker in LONGITUDINAL_GROWTH_DISCLAIMER_MARKERS):
-            continue
-        return True
+        for phrase in LONGITUDINAL_GROWTH_CLAIM_PHRASES:
+            if phrase not in clause:
+                continue
+            if clause_negates_longitudinal_growth_phrase(clause, phrase):
+                continue
+            return True
     return False
+
+
+def clause_negates_longitudinal_growth_phrase(clause: str, phrase: str) -> bool:
+    phrase_index = clause.find(phrase)
+    if phrase_index == -1:
+        return False
+
+    for cue in LONGITUDINAL_GROWTH_NEGATION_CUES:
+        cue_index = clause.find(cue)
+        if cue_index == -1:
+            continue
+        if cue_index <= phrase_index <= cue_index + len(cue) + 80:
+            return True
+
+    trailing_window = clause[phrase_index : phrase_index + len(phrase) + 80]
+    return any(cue in trailing_window for cue in LONGITUDINAL_GROWTH_POST_NEGATION_CUES)
 
 
 def validate_longitudinal_report_example(
@@ -4411,20 +4430,20 @@ def validate_trace_eval_bridge_surfaces(
         return issues
     if not validate_inline_schema(schema, location=schema_location, issues=issues):
         return issues
+    schema_validator = Draft202012Validator(schema)
 
-    if not AOA_PLAYBOOKS_ROOT.exists():
-        return issues
-
-    playbook_registry_path = AOA_PLAYBOOKS_ROOT / "generated" / "playbook_registry.min.json"
-    playbook_registry_location = display_location(playbook_registry_path)
-    playbook_registry = load_json_payload(playbook_registry_path, issues)
-    playbooks_by_id = load_mapping_entries(
-        playbook_registry,
-        array_key="playbooks",
-        key_name="id",
-        location=playbook_registry_location,
-        issues=issues,
-    )
+    playbooks_by_id: dict[str, dict[str, Any]] | None = None
+    if AOA_PLAYBOOKS_ROOT.exists():
+        playbook_registry_path = AOA_PLAYBOOKS_ROOT / "generated" / "playbook_registry.min.json"
+        playbook_registry_location = display_location(playbook_registry_path)
+        playbook_registry = load_json_payload(playbook_registry_path, issues)
+        playbooks_by_id = load_mapping_entries(
+            playbook_registry,
+            array_key="playbooks",
+            key_name="id",
+            location=playbook_registry_location,
+            issues=issues,
+        )
 
     eval_catalog_path = repo_root / GENERATED_DIR_NAME / MIN_CATALOG_NAME
     eval_catalog_location = relative_location(eval_catalog_path, repo_root)
@@ -4439,7 +4458,8 @@ def validate_trace_eval_bridge_surfaces(
 
     records_by_name = {record.name: record for record in records}
 
-    for playbook_id, example_path in ARTIFACT_VERDICT_HOOK_EXAMPLES.items():
+    for playbook_id, example_name in ARTIFACT_VERDICT_HOOK_EXAMPLES.items():
+        example_path = repo_root / EXAMPLES_DIR_NAME / example_name
         location = relative_location(example_path, repo_root)
         payload = load_json_payload(example_path, issues)
         if payload is None:
@@ -4453,19 +4473,13 @@ def validate_trace_eval_bridge_surfaces(
             ARTIFACT_VERDICT_HOOK_SCHEMA_NAME,
             location,
             issues,
+            validator=schema_validator,
         )
 
         if payload.get("playbook_id") != playbook_id:
             issues.append(
                 ValidationIssue(location, f"playbook_id must be '{playbook_id}'")
             )
-
-        playbook_entry = playbooks_by_id.get(playbook_id)
-        if playbook_entry is None:
-            issues.append(
-                ValidationIssue(location, f"playbook_id '{playbook_id}' does not resolve in aoa-playbooks")
-            )
-            continue
 
         expected_hook = TRACE_EVAL_HOOK_EXPECTATIONS[playbook_id]
         if payload.get("eval_anchor") != expected_hook["eval_anchor"]:
@@ -4489,23 +4503,38 @@ def validate_trace_eval_bridge_surfaces(
             )
             continue
 
-        playbook_eval_anchors = playbook_entry.get("eval_anchors")
-        if not isinstance(playbook_eval_anchors, list) or eval_anchor not in playbook_eval_anchors:
-            issues.append(
-                ValidationIssue(
-                    location,
-                    f"eval_anchor '{eval_anchor}' is not present in aoa-playbooks eval_anchors for {playbook_id}",
+        playbook_entry = playbooks_by_id.get(playbook_id) if playbooks_by_id is not None else None
+        if playbooks_by_id is not None:
+            if playbook_entry is None:
+                issues.append(
+                    ValidationIssue(location, f"playbook_id '{playbook_id}' does not resolve in aoa-playbooks")
                 )
-            )
+                continue
 
-        expected_artifacts = playbook_entry.get("expected_artifacts")
-        if payload.get("artifact_inputs") != expected_artifacts:
-            issues.append(
-                ValidationIssue(
-                    location,
-                    "artifact_inputs must exactly match aoa-playbooks expected_artifacts",
+            playbook_eval_anchors = playbook_entry.get("eval_anchors")
+            if not isinstance(playbook_eval_anchors, list) or eval_anchor not in playbook_eval_anchors:
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        f"eval_anchor '{eval_anchor}' is not present in aoa-playbooks eval_anchors for {playbook_id}",
+                    )
                 )
-            )
+
+            expected_artifacts = playbook_entry.get("expected_artifacts")
+            if payload.get("artifact_inputs") != expected_artifacts:
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        "artifact_inputs must exactly match aoa-playbooks expected_artifacts",
+                    )
+                )
+            if not isinstance(expected_artifacts, list) or payload.get("verification_surface") not in expected_artifacts:
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        "verification_surface must resolve inside the playbook artifact input set",
+                    )
+                )
 
         if payload.get("artifact_contract_refs") != expected_hook["artifact_contract_refs"]:
             issues.append(
@@ -4528,14 +4557,6 @@ def validate_trace_eval_bridge_surfaces(
                 ValidationIssue(
                     location,
                     f"verification_surface must be '{expected_hook['verification_surface']}'",
-                )
-            )
-
-        if not isinstance(expected_artifacts, list) or payload.get("verification_surface") not in expected_artifacts:
-            issues.append(
-                ValidationIssue(
-                    location,
-                    "verification_surface must resolve inside the playbook artifact input set",
                 )
             )
 
@@ -4643,8 +4664,7 @@ def validate_runtime_evidence_selection_surfaces(
         target_eval = expectations.get("target_eval")
         example_path = repo_root / EXAMPLES_DIR_NAME / example_name
         if target_eval_names is None:
-            if example_path.exists():
-                selected_examples.append((example_path, expectations))
+            selected_examples.append((example_path, expectations))
             continue
         if target_eval in target_eval_names:
             selected_examples.append((example_path, expectations))
@@ -4659,6 +4679,7 @@ def validate_runtime_evidence_selection_surfaces(
         return issues
     if not validate_inline_schema(schema, location=schema_location, issues=issues):
         return issues
+    schema_validator = Draft202012Validator(schema)
 
     record_names = {record.name for record in records}
 
@@ -4677,6 +4698,7 @@ def validate_runtime_evidence_selection_surfaces(
             RUNTIME_EVIDENCE_SELECTION_SCHEMA_NAME,
             location,
             issues,
+            validator=schema_validator,
         )
 
         expected_schema_ref = expectations["source_schema_ref"]

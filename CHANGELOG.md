@@ -25,6 +25,18 @@ Tracking starts with the community-docs baseline for this repository.
 - clarified proof-route, validator, and AGENTS guidance around the next-wave
   bounded proof posture
 
+### Included in this release
+
+- proof-corpus expansions across `bundles/`, `docs/`, `generated/`,
+  `examples/`, `fixtures/`, `schemas/`, and `reports/`, including Phase Alpha
+  routing surfaces, RPG unlock proof, runtime candidate hardening, and new
+  bounded audit posture
+- repo-local operating and follow-through surfaces under `.agents/`, `.github/`,
+  `AGENTS.md`, `AUDIT.md`, `README.md`, `EVAL_INDEX.md`, `EVAL_SELECTION.md`,
+  `QUESTBOOK.md`, `quests/`, `scripts/`, and `tests/`, including quest and
+  automation harvest installs, latest-sibling canary support, and route
+  clarifications
+
 ## [0.2.0] - 2026-04-01
 
 Second public release of `aoa-evals`.

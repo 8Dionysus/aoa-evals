@@ -175,5 +175,20 @@
     "state": "triaged",
     "theme_ref": "",
     "title": "Add unlock-proof doctrine for the RPG bridge wave"
+  },
+  {
+    "band": "latent",
+    "difficulty": "d2_slice",
+    "id": "AOA-EV-Q-0010",
+    "kind": "proof",
+    "milestone_ref": "",
+    "owner_surface": "docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md",
+    "public_safe": true,
+    "repo": "aoa-evals",
+    "risk": "r2_contract",
+    "source_path": "quests/AOA-EV-Q-0010.yaml",
+    "state": "captured",
+    "theme_ref": "",
+    "title": "Capture checkpoint automation proof-pressure as early eval evidence"
   }
 ]

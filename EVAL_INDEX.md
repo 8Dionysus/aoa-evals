@@ -17,6 +17,7 @@ This file is the repository-wide map of public eval bundles.
 | aoa-stress-recovery-window | longitudinal | draft | Checks whether ordered windows on one named stressor family show healthier handling without letting proof, stats, routing, or memo outrank owner evidence. |
 | aoa-candidate-lineage-integrity | capability | draft | Checks whether a growth-refinery lineage chain stays internally coherent across checkpoint carry, reviewed candidate, seed staging, and downstream owner evidence without inferring stronger landing than the artifacts support. |
 | aoa-owner-fit-routing-quality | boundary | draft | Checks whether a reviewed growth-refinery candidate is routed to the right owner layer with one clear owner hypothesis, honest nearest-wrong-target reasoning, and no first-authoring drift into derivative repos. |
+| aoa-diagnosis-cause-discipline | workflow | draft | Checks whether a diagnosis or self-diagnosis move names causal hypotheses, evidence limits, and unknowns without confusing symptoms, owner ambiguity, or repair success with cause proof. |
 | aoa-repair-boundedness | workflow | draft | Checks whether a reanchor or self-repair move stays bounded, preserves owner boundaries, and leaves a reviewable trail instead of smearing scope inflation across layers. |
 | aoa-witness-trace-integrity | workflow | draft | Checks whether a public witness trace for a bounded run keeps meaningful steps, tool visibility, state deltas, failures, redaction posture, and the markdown summary aligned enough for review. |
 | aoa-regression-same-task | regression | baseline | Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth. |
@@ -68,16 +69,18 @@ Public discipline:
 
 ## Growth Refinery Layer
 
-The current growth-refinery layer is a bounded doctrine triad rather than a loose pack of adjacent draft bundles.
+The current growth-refinery layer is a bounded doctrine quartet rather than a loose pack of adjacent draft bundles.
 
 Read it as:
 - `aoa-candidate-lineage-integrity` for whether the lineage chain itself stays structurally coherent
 - `aoa-owner-fit-routing-quality` for whether a reviewed candidate is routed to the right owner layer
+- `aoa-diagnosis-cause-discipline` for whether diagnosis keeps symptoms, causes, unknowns, and repair proof separate
 - `aoa-repair-boundedness` for whether reanchor and repair moves stay bounded without scope smear
 
 Public discipline:
 - lineage coherence does not prove owner fit
 - owner-fit routing does not prove final object quality
+- diagnosis-cause discipline does not prove repair success or final cause truth
 - repair boundedness does not retroactively prove the first route was correct
 - derivative repos do not become first-authoring homes by passing a routing or repair read
 
@@ -118,6 +121,9 @@ Public discipline:
 - `aoa-owner-fit-routing-quality` is the current draft growth-refinery routing starter:
   is one reviewed candidate routed to the right owner layer with a real owner hypothesis, an honest nearest-wrong target, and no first-authoring drift into derivative repos?
   It should not be read as lineage-chain proof, final object-quality proof, or a license to move first-authoring meaning into `aoa-routing` or `aoa-kag`.
+- `aoa-diagnosis-cause-discipline` is the current draft growth-refinery diagnosis starter:
+  did one diagnosis or self-diagnosis move keep symptoms, probable causes, owner ambiguity, unknowns, and repair handoff language reviewably separate?
+  It should not be read as repair-success proof, final cause truth, final object quality, or proof that owner routing was correct.
 - `aoa-repair-boundedness` is the current draft growth-refinery repair starter:
   did one repair or reanchor move stay bounded, preserve owner boundaries, and reduce ambiguity without scope inflation?
   It should not be read as proof of permanent stability, final object quality, or retroactive proof that the initial route was correct.

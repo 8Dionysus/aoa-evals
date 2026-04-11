@@ -299,6 +299,47 @@
       "what_this_does_not_prove": "proof that the resulting principle is canon; proof that all contradictions have been resolved; proof that operational ownership moved into ToS"
     },
     {
+      "blind_spot_short": "the cause is ultimately correct; the repair worked; the final object is high quality",
+      "bounded_claim_short": "under these conditions, the diagnosis named plausible causal hypotheses and evidence limits without collapsing symptoms, owner ambiguity, repair success, or later cleanup into cause proof.",
+      "category": "workflow",
+      "comparison_surface": null,
+      "do_not_use_short": "the main question is whether the repair stayed bounded; the main question is whether the chosen owner layer was correct",
+      "eval_path": "bundles/aoa-diagnosis-cause-discipline/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-diagnosis-cause-discipline",
+      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_surface_kinds": [],
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether a diagnosis or self-diagnosis move names causal hypotheses, evidence limits, and unknowns without confusing symptoms, owner ambiguity, or repair success with cause proof.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "use_when_short": "a diagnosis or self-diagnosis artifact exists before repair; the main question is whether causal hypotheses stayed honest",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof of repair success; proof of final object quality; proof that no later cause revision is needed"
+    },
+    {
       "blind_spot_short": "direct agent-behavior quality; hidden fixture realism; scorer calibration beyond the public bundle contract",
       "bounded_claim_short": "under these conditions, the repository can review whether a starter eval bundle remains internally coherent enough to support only its stated bounded claim on the public corpus.",
       "category": "capability",

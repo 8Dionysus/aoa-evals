@@ -658,6 +658,96 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "category": "workflow",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "bundles/aoa-diagnosis-cause-discipline/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/diagnosis-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": true,
+      "maturity_score": 2,
+      "name": "aoa-diagnosis-cause-discipline",
+      "object_under_evaluation": "diagnosis and cause-hypothesis discipline on growth-refinery follow-through moves",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
+      "proof_surface_kinds": [],
+      "relations": [
+        {
+          "target": "aoa-candidate-lineage-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-owner-fit-routing-quality",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-repair-boundedness",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-ambiguity-handling",
+          "type": "complements"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether a diagnosis or self-diagnosis move names causal hypotheses, evidence limits, and unknowns without confusing symptoms, owner ambiguity, or repair success with cause proof.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "validation_strength": "baseline",
+      "verdict_shape": "categorical"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
       "category": "capability",
       "claim_type": "bounded",
       "comparison_surface": null,

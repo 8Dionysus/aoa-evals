@@ -1,0 +1,48 @@
+name: aoa-diagnosis-cause-discipline
+category: workflow
+status: draft
+object_under_evaluation: diagnosis and cause-hypothesis discipline on growth-refinery follow-through moves
+claim_type: bounded
+baseline_mode: none
+verdict_shape: categorical
+report_format: summary
+maturity_score: 2
+rigor_level: bounded
+repeatability: moderate
+portability_level: local-shaped
+review_required: true
+validation_strength: baseline
+export_ready: true
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+
+technique_dependencies:
+  - id: AOA-T-0001
+    repo: 8Dionysus/aoa-techniques
+    path: techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md
+
+skill_dependencies:
+  - name: aoa-change-protocol
+    repo: 8Dionysus/aoa-skills
+    path: skills/aoa-change-protocol/SKILL.md
+  - name: aoa-session-self-diagnose
+    repo: 8Dionysus/aoa-skills
+    path: skills/aoa-session-self-diagnose/SKILL.md
+
+relations:
+  - type: complements
+    target: aoa-candidate-lineage-integrity
+  - type: complements
+    target: aoa-owner-fit-routing-quality
+  - type: complements
+    target: aoa-repair-boundedness
+  - type: complements
+    target: aoa-ambiguity-handling
+
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: support_note
+    path: notes/diagnosis-contract.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md

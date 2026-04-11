@@ -659,6 +659,100 @@
       "verdict_shape": "mixed"
     },
     {
+      "category": "workflow",
+      "eval_path": "bundles/aoa-diagnosis-cause-discipline/EVAL.md",
+      "name": "aoa-diagnosis-cause-discipline",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to judge whether a diagnosis or self-diagnosis move preserved\ncause discipline before repair.\n\nThis draft bundle is a `workflow` proof surface.\nIt does not prove repair success, owner fit, or final object quality.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks diagnosis and cause-hypothesis discipline on\ngrowth-refinery follow-through moves.\n\nPrimary surfaces under evaluation:\n\n- symptom refs\n- probable cause hypotheses\n- owner ambiguity notes\n- explicit unknowns and confidence limits\n- repair handoff language\n\nNearby surfaces intentionally excluded:\n\n- repair boundedness by itself\n- final planted object quality\n- owner-fit routing quality by itself\n- proof that the named cause is ultimately correct",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions,\nthe diagnosis named plausible causal hypotheses and evidence limits without\ncollapsing symptoms, owner ambiguity, repair success, or later cleanup into\ncause proof.\n\nThis eval does not support claims such as:\n\n- the named cause is definitely correct\n- the repair worked because the diagnosis was tidy\n- owner ambiguity can be treated as a cause without evidence",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a diagnosis or self-diagnosis artifact exists before repair\n- the main question is whether causal hypotheses stayed honest\n- symptom evidence and probable cause evidence can be inspected separately\n- unknowns or confidence limits matter to the follow-through path\n\nDo not use this eval when:\n\n- the main question is whether the repair stayed bounded\n- the main question is whether the chosen owner layer was correct\n- no diagnosis or self-diagnosis artifact exists",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- one diagnosis or self-diagnosis artifact\n- symptom refs\n- probable cause hypotheses\n- confidence and unknowns\n- owner ambiguity notes when present\n- one repair or follow-through handoff",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "Strong bounded cases should include:\n\n- one honest cause-hypothesis diagnosis\n- one symptom-as-cause failure\n- one repair-success-overclaim failure",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a categorical verdict with explicit diagnosis notes.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nKey review checks:\n\n- symptoms stay separated from probable causes\n- unknowns and confidence limits remain visible\n- owner ambiguity is not flattened into cause language\n- repair handoff does not prove the diagnosis true\n- evidence limits are not stronger than the reviewed artifact supports",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This starter bundle uses `none`.\n\nIt is a standalone cause-discipline read for one diagnosis family.\nIt does not compare diagnoses over time, and it does not assign a growth score.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. gather the diagnosis or self-diagnosis artifact\n2. separate symptom refs from probable cause hypotheses\n3. inspect owner ambiguity, unknowns, and confidence limits\n4. check whether repair handoff language overclaims cause proof\n5. publish one bounded cause-discipline read",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bounded verdict\n- one diagnosis note per reviewed artifact\n- one explicit claim-limit note",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "Main ways this eval can fail as an instrument:\n\n- tidy diagnosis prose hides a symptom-as-cause jump\n- repair success is treated as proof that the cause was correct\n- owner ambiguity is mislabeled as a cause without evidence",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- the cause is ultimately correct\n- the repair worked\n- the final object is high quality\n- the chosen owner route is correct",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe diagnosis kept symptom, cause, owner ambiguity, and unknowns reviewably\nseparate on this surface.\n\nDo not treat a positive result as:\n\n- proof of repair success\n- proof of final object quality\n- proof that no later cause revision is needed",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- review one honest cause-hypothesis diagnosis\n- review one symptom-as-cause failure\n- review one repair-success-overclaim failure",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "- AOA-T-0001",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "- aoa-change-protocol\n- aoa-session-self-diagnose",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "- add real diagnosis fixtures after the proving run\n- keep this bundle weaker than repair proof and owner proof",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "categorical"
+    },
+    {
       "category": "capability",
       "eval_path": "bundles/aoa-eval-integrity-check/EVAL.md",
       "name": "aoa-eval-integrity-check",

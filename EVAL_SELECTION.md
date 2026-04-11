@@ -40,6 +40,8 @@ Current starter posture:
   use it when the main question is whether one bounded lineage chain stays coherent across checkpoint carry, reviewed candidate, seed staging, and owner evidence.
 - `aoa-owner-fit-routing-quality` is the current draft growth-refinery routing starter:
   use it when the main question is whether a reviewed growth candidate is routed to the right owner layer with an honest nearest-wrong target and no derivative-repo first-authoring drift.
+- `aoa-diagnosis-cause-discipline` is the current draft growth-refinery diagnosis starter:
+  use it when the main question is whether a diagnosis or self-diagnosis move kept symptoms, probable causes, owner ambiguity, unknowns, and repair proof separate.
 - `aoa-repair-boundedness` is the current draft growth-refinery repair starter:
   use it when the main question is whether a repair or reanchor move stayed bounded, preserved owner boundaries, and left a reviewable trail.
 - `aoa-witness-trace-integrity` is the current draft witness workflow starter:
@@ -75,6 +77,7 @@ See also:
 - Need to judge the tool path itself on path-sensitive tasks? Use `aoa-tool-trajectory-discipline`.
 - Need to know whether a growth-refinery lineage chain itself stayed coherent? Use `aoa-candidate-lineage-integrity`.
 - Need to know whether a reviewed growth candidate is routed to the right owner layer? Use `aoa-owner-fit-routing-quality`.
+- Need to know whether a diagnosis preserved cause discipline without overclaiming? Use `aoa-diagnosis-cause-discipline`.
 - Need to know whether a repair or reanchor move stayed bounded instead of smearing scope? Use `aoa-repair-boundedness`.
 
 ## Pick by question
@@ -110,6 +113,10 @@ See also:
 ### I need to know whether a reviewed growth candidate is routed to the right owner layer
 - `aoa-owner-fit-routing-quality`
   Use this when the question is owner hypothesis, owner shape, nearest-wrong-target quality, and derivative-repo exclusion rather than chain integrity or final object quality.
+
+### I need to know whether a diagnosis named causes without overclaiming
+- `aoa-diagnosis-cause-discipline`
+  Use this when the question is whether symptoms, probable causes, owner ambiguity, unknowns, confidence limits, and repair handoff language stayed separate before repair, not whether the repair worked or owner fit is correct.
 
 ### I need to know whether a repair or reanchor move stayed bounded
 - `aoa-repair-boundedness`
@@ -177,7 +184,7 @@ See also:
 
 | category | use when | starter bundles |
 |---|---|---|
-| `workflow` | You care about multi-step execution quality, repair boundedness on follow-through moves, verification truthfulness, outcome-vs-path separation, tool-path quality where path matters, or public witness-trace reviewability. | `aoa-bounded-change-quality`, `aoa-repair-boundedness`, `aoa-verification-honesty`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, `aoa-witness-trace-integrity` |
+| `workflow` | You care about multi-step execution quality, diagnosis-cause discipline, repair boundedness on follow-through moves, verification truthfulness, outcome-vs-path separation, tool-path quality where path matters, or public witness-trace reviewability. | `aoa-bounded-change-quality`, `aoa-diagnosis-cause-discipline`, `aoa-repair-boundedness`, `aoa-verification-honesty`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, `aoa-witness-trace-integrity` |
 | `boundary` | You care about authority, approval, permission adherence, requested-scope alignment, or owner-fit routing boundaries. | `aoa-scope-drift-detection`, `aoa-approval-boundary-adherence`, `aoa-owner-fit-routing-quality` |
 | `stress` | You care about incomplete, conflicting, or underspecified task meaning, or about one bounded owner-local stressor family and whether degraded continuation stayed reviewable, source-owned, and weaker than the normal path. | `aoa-ambiguity-handling`, `aoa-antifragility-posture` |
 | `regression` | You care about frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
@@ -236,6 +243,7 @@ Trace-aware split and tool-path workflow starters are also public, but they shou
 | outcome-vs-path split | You want separate readings for final outcome and execution path before any combined workflow verdict. | `aoa-trace-outcome-separation` |
 | tool trajectory discipline | You want to judge tool-use path quality only where the tool path itself matters. | `aoa-tool-trajectory-discipline` |
 | witness trace integrity | You want to know whether a bounded run left a reviewable public witness trace before memo or compost reuse. | `aoa-witness-trace-integrity` |
+| diagnosis-cause discipline | You want to know whether a diagnosis kept symptoms, probable causes, owner ambiguity, unknowns, and repair proof separate. | `aoa-diagnosis-cause-discipline` |
 | same-task regression comparison | You want a frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | artifact review | You want to judge the produced artifact itself on the visible task surface. | `aoa-artifact-review-rubric` |
 | compost provenance preservation | You want to know whether a witness-derived note or principle candidate kept provenance, review state, and demotion posture visible. | `aoa-compost-provenance-preservation` |
@@ -278,6 +286,7 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-stress-recovery-window` is a draft fourth-wave longitudinal stress surface; it stays on one named stressor family and should not be over-read as federation-wide resilience or live health authority.
 - `aoa-candidate-lineage-integrity` is a draft growth-refinery capability surface; it stays on structural lineage coherence and should not be over-read as owner-fit proof, final object quality, or permission to skip owner-local evidence.
 - `aoa-owner-fit-routing-quality` is a draft growth-refinery boundary surface; it stays on reviewed owner choice and nearest-wrong-target quality and should not be over-read as lineage proof, final object quality, or derivative-repo first-authoring permission.
+- `aoa-diagnosis-cause-discipline` is a draft growth-refinery workflow surface; it stays on diagnosis-cause discipline and should not be over-read as repair success, final cause truth, final object quality, or owner-fit proof.
 - `aoa-repair-boundedness` is a draft growth-refinery workflow surface; it stays on bounded repair and reanchor quality and should not be over-read as permanent stability, final owner proof, or retroactive validation of the first route.
 - `aoa-long-horizon-depth` is now a materialized draft recurrence workflow surface; it stays on checkpoint-based restart fidelity and does not imply final-answer quality, broad long-horizon capability, or starter status.
 - `aoa-memo-recall-integrity` is now a materialized draft memo workflow surface; it stays on inspect/capsule/expand recall integrity and does not imply contradiction coverage, permission safety, or starter status.

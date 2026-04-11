@@ -227,6 +227,47 @@
       "what_this_does_not_prove": "proof of overall software engineering quality; proof of safety in operationally sensitive contexts; proof that the produced artifact is optimal"
     },
     {
+      "blind_spot_short": "correct owner selection by itself; final planted object quality; that owner receipts are unnecessary",
+      "bounded_claim_short": "under these conditions, the bounded lineage chain clusterref -> candidateref -> seedref -> objectref stays internally consistent and reviewable enough for downstream proof and stats to read...",
+      "category": "capability",
+      "comparison_surface": null,
+      "do_not_use_short": "the main question is owner-fit routing quality; the main question is final planted object quality",
+      "eval_path": "bundles/aoa-candidate-lineage-integrity/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-candidate-lineage-integrity",
+      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_surface_kinds": [],
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether a growth-refinery lineage chain stays internally coherent across checkpoint carry, reviewed candidate, seed staging, and downstream owner evidence without inferring stronger landing than the artifacts support.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "use_when_short": "lineage artifacts span more than one owner layer; the main question is chain integrity rather than owner choice",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof of final owner quality; proof of correct owner-fit routing; permission to skip owner-local evidence"
+    },
+    {
       "blind_spot_short": "philosophical correctness of the resulting idea; final canon readiness; quality of the original run that produced the witness",
       "bounded_claim_short": "under these conditions, a witness-derived compost artifact can move from raw input toward note, synthesis, or principle candidate without losing provenance, review posture, or the ability to...",
       "category": "artifact",
@@ -527,6 +568,47 @@
       "what_this_does_not_prove": "proof that one side matters more in all contexts; proof that the stronger-looking side explains the whole story; proof of general capability growth or decline"
     },
     {
+      "blind_spot_short": "final planted object quality; long-term adoption or usefulness; lineage-chain integrity by itself",
+      "bounded_claim_short": "under these conditions, the reviewed candidate is routed to one bounded owner layer with one clear owner hypothesis, one honest nearest-wrong target, and one reviewable reason set.",
+      "category": "boundary",
+      "comparison_surface": null,
+      "do_not_use_short": "the main question is lineage-chain integrity; the main question is final object quality",
+      "eval_path": "bundles/aoa-owner-fit-routing-quality/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-owner-fit-routing-quality",
+      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_surface_kinds": [],
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether a reviewed growth-refinery candidate is routed to the right owner layer with one clear owner hypothesis, honest nearest-wrong-target reasoning, and no first-authoring drift into derivative repos.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "use_when_short": "the candidate is already reviewed; the main question is owner choice rather than chain integrity",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof of final object quality; proof that the chosen owner will never need revision; permission to skip later proof on the final owner object"
+    },
+    {
       "blind_spot_short": "general capability growth; long-term trend movement across windows; improvement outside the frozen case family",
       "bounded_claim_short": "under these conditions, the candidate does not materially regress against the frozen baseline on this same-task bounded workflow surface.",
       "category": "regression",
@@ -582,6 +664,47 @@
       "use_when_short": "you need a fixed baseline comparison on the same bounded task family; the main question is regression rather than one-run workflow quality",
       "verdict_shape": "comparative",
       "what_this_does_not_prove": "proof of general capability growth; proof that the candidate is universally better than the baseline; proof that no nearby diagnostic regression exists"
+    },
+    {
+      "blind_spot_short": "permanent stability of the repaired object; final owner-object quality; that the first routing choice was correct",
+      "bounded_claim_short": "under these conditions, the repair or reanchor move stayed bounded, preserved ownership boundaries, and reduced ambiguity without smearing scope inflation across layers.",
+      "category": "workflow",
+      "comparison_surface": null,
+      "do_not_use_short": "the main question is first-owner routing quality; the main question is final object quality",
+      "eval_path": "bundles/aoa-repair-boundedness/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-repair-boundedness",
+      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_surface_kinds": [],
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether a reanchor or self-repair move stays bounded, preserves owner boundaries, and leaves a reviewable trail instead of smearing scope inflation across layers.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "use_when_short": "a misroute, diagnosis, or repair move changed the follow-through path; the main question is whether the repair stayed bounded",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof of final object quality; proof that no further proof is needed; permission to widen future repair scope silently"
     },
     {
       "blind_spot_short": "final task correctness; general long-horizon depth; approval correctness on mutation routes",

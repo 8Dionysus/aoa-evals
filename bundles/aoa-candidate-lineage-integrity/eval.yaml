@@ -1,0 +1,41 @@
+name: aoa-candidate-lineage-integrity
+category: capability
+status: draft
+object_under_evaluation: growth-refinery lineage-chain coherence across checkpoint, reviewed harvest, seed staging, and owner evidence surfaces
+claim_type: bounded
+baseline_mode: none
+verdict_shape: categorical
+report_format: summary
+maturity_score: 2
+rigor_level: bounded
+repeatability: moderate
+portability_level: local-shaped
+review_required: true
+validation_strength: baseline
+export_ready: true
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+
+technique_dependencies:
+  - id: AOA-T-0001
+    repo: 8Dionysus/aoa-techniques
+    path: techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md
+
+skill_dependencies:
+  - name: aoa-change-protocol
+    repo: 8Dionysus/aoa-skills
+    path: skills/aoa-change-protocol/SKILL.md
+
+relations:
+  - type: complements
+    target: aoa-owner-fit-routing-quality
+  - type: complements
+    target: aoa-repair-boundedness
+
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: support_note
+    path: notes/lineage-contract.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md

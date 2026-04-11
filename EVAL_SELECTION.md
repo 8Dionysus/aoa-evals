@@ -36,6 +36,12 @@ Current starter posture:
 - `aoa-stress-recovery-window` is the current draft longitudinal stress-recovery starter:
   use it when the main question is whether ordered windows on one named stressor family show healthier handling without letting proof, stats, routing, or memo outrank owner evidence.
   Its current materialized proof flow uses a shared stress-recovery window family, runner contract, schema-backed report, and paired readout, but the bundle remains draft.
+- `aoa-candidate-lineage-integrity` is the current draft growth-refinery lineage starter:
+  use it when the main question is whether one bounded lineage chain stays coherent across checkpoint carry, reviewed candidate, seed staging, and owner evidence.
+- `aoa-owner-fit-routing-quality` is the current draft growth-refinery routing starter:
+  use it when the main question is whether a reviewed growth candidate is routed to the right owner layer with an honest nearest-wrong target and no derivative-repo first-authoring drift.
+- `aoa-repair-boundedness` is the current draft growth-refinery repair starter:
+  use it when the main question is whether a repair or reanchor move stayed bounded, preserved owner boundaries, and left a reviewable trail.
 - `aoa-witness-trace-integrity` is the current draft witness workflow starter:
   use it when the main question is whether a bounded run left a reviewable witness trace before any downstream memo or compost use.
   Its current draft proof flow is already materialized through a shared witness case family, bundle-local runner contract, and schema-backed report example.
@@ -67,6 +73,9 @@ See also:
 - Need incomplete or conflicting task meaning rather than permission classification? Switch to `aoa-ambiguity-handling`.
 - Need final outcome and execution path kept separate before any combined reading? Use `aoa-trace-outcome-separation`.
 - Need to judge the tool path itself on path-sensitive tasks? Use `aoa-tool-trajectory-discipline`.
+- Need to know whether a growth-refinery lineage chain itself stayed coherent? Use `aoa-candidate-lineage-integrity`.
+- Need to know whether a reviewed growth candidate is routed to the right owner layer? Use `aoa-owner-fit-routing-quality`.
+- Need to know whether a repair or reanchor move stayed bounded instead of smearing scope? Use `aoa-repair-boundedness`.
 
 ## Pick by question
 
@@ -93,6 +102,18 @@ See also:
 ### I need to read repeated-window stress recovery on one named family without letting derived layers outrank owner evidence
 - `aoa-stress-recovery-window`
   Use this when the question is repeated-window recovery posture for one named stressor family, not one-run owner-local posture and not federation-wide resilience.
+
+### I need to know whether a growth-refinery lineage chain stays internally coherent
+- `aoa-candidate-lineage-integrity`
+  Use this when the question is chain coherence across checkpoint carry, reviewed candidate, seed staging, and owner evidence rather than owner choice or final object quality.
+
+### I need to know whether a reviewed growth candidate is routed to the right owner layer
+- `aoa-owner-fit-routing-quality`
+  Use this when the question is owner hypothesis, owner shape, nearest-wrong-target quality, and derivative-repo exclusion rather than chain integrity or final object quality.
+
+### I need to know whether a repair or reanchor move stayed bounded
+- `aoa-repair-boundedness`
+  Use this when the question is whether a follow-through correction preserved owner boundaries, reduced ambiguity, and stayed reviewable rather than widening scope under repair language.
 
 ### I need to split final outcome judgment from path judgment without assuming one correct trace
 - `aoa-trace-outcome-separation`
@@ -156,13 +177,13 @@ See also:
 
 | category | use when | starter bundles |
 |---|---|---|
-| `workflow` | You care about multi-step execution quality, verification truthfulness, outcome-vs-path separation, tool-path quality where path matters, or public witness-trace reviewability. | `aoa-bounded-change-quality`, `aoa-verification-honesty`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, `aoa-witness-trace-integrity` |
-| `boundary` | You care about authority, approval, permission adherence, or requested-scope alignment. | `aoa-scope-drift-detection`, `aoa-approval-boundary-adherence` |
+| `workflow` | You care about multi-step execution quality, repair boundedness on follow-through moves, verification truthfulness, outcome-vs-path separation, tool-path quality where path matters, or public witness-trace reviewability. | `aoa-bounded-change-quality`, `aoa-repair-boundedness`, `aoa-verification-honesty`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, `aoa-witness-trace-integrity` |
+| `boundary` | You care about authority, approval, permission adherence, requested-scope alignment, or owner-fit routing boundaries. | `aoa-scope-drift-detection`, `aoa-approval-boundary-adherence`, `aoa-owner-fit-routing-quality` |
 | `stress` | You care about incomplete, conflicting, or underspecified task meaning, or about one bounded owner-local stressor family and whether degraded continuation stayed reviewable, source-owned, and weaker than the normal path. | `aoa-ambiguity-handling`, `aoa-antifragility-posture` |
 | `regression` | You care about frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | `artifact` | You care about the produced artifact itself or about provenance-preserving compost artifacts derived from witness-facing inputs. | `aoa-artifact-review-rubric`, `aoa-compost-provenance-preservation` |
 | `comparative` | You care about cross-surface divergence such as polished output versus process discipline. | `aoa-output-vs-process-gap` |
-| `capability` | You care about whether a bounded eval-side review surface is present, such as integrity checking of public eval bundles. | `aoa-eval-integrity-check` |
+| `capability` | You care about whether a bounded eval-side review surface is present, such as integrity checking of public eval bundles or growth-refinery lineage coherence as a distinct bounded ability. | `aoa-eval-integrity-check`, `aoa-candidate-lineage-integrity` |
 | `longitudinal` | You care about ordered repeated-window movement on the same bounded surface, or about repeated-window stress recovery posture on one named stressor family rather than one-run or one-baseline comparison. | `aoa-longitudinal-growth-snapshot`, `aoa-stress-recovery-window` |
 
 Guardrails:
@@ -255,6 +276,9 @@ pick a narrower eval or defer strong conclusions.
 - `aoa-tool-trajectory-discipline` is now a bounded one-run tool-path surface; it applies only where tool path materially matters and should not be used to grade process for its own sake or to replace the broader outcome-versus-path split.
 - `aoa-antifragility-posture` is a draft first-wave stress-family surface; it stays on one owner-local receipt family and should not be over-read as broad resilience, repeated-window improvement, or stats authority.
 - `aoa-stress-recovery-window` is a draft fourth-wave longitudinal stress surface; it stays on one named stressor family and should not be over-read as federation-wide resilience or live health authority.
+- `aoa-candidate-lineage-integrity` is a draft growth-refinery capability surface; it stays on structural lineage coherence and should not be over-read as owner-fit proof, final object quality, or permission to skip owner-local evidence.
+- `aoa-owner-fit-routing-quality` is a draft growth-refinery boundary surface; it stays on reviewed owner choice and nearest-wrong-target quality and should not be over-read as lineage proof, final object quality, or derivative-repo first-authoring permission.
+- `aoa-repair-boundedness` is a draft growth-refinery workflow surface; it stays on bounded repair and reanchor quality and should not be over-read as permanent stability, final owner proof, or retroactive validation of the first route.
 - `aoa-long-horizon-depth` is now a materialized draft recurrence workflow surface; it stays on checkpoint-based restart fidelity and does not imply final-answer quality, broad long-horizon capability, or starter status.
 - `aoa-memo-recall-integrity` is now a materialized draft memo workflow surface; it stays on inspect/capsule/expand recall integrity and does not imply contradiction coverage, permission safety, or starter status.
 - `aoa-memo-contradiction-integrity` is now a materialized draft memo workflow surface; it stays on lifecycle-aware contradiction visibility and does not imply contradiction resolution, permission safety, promotion discipline, or starter status.

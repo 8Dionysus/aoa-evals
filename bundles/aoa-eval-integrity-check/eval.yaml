@@ -44,6 +44,12 @@ relations:
   - type: checks_integrity_of
     target: aoa-longitudinal-growth-snapshot
   - type: checks_integrity_of
+    target: aoa-candidate-lineage-integrity
+  - type: checks_integrity_of
+    target: aoa-owner-fit-routing-quality
+  - type: checks_integrity_of
+    target: aoa-repair-boundedness
+  - type: checks_integrity_of
     target: aoa-witness-trace-integrity
   - type: checks_integrity_of
     target: aoa-compost-provenance-preservation
@@ -55,4 +61,3 @@ evidence:
     path: notes/review-contract.md
   - kind: integrity_check
     path: checks/eval-integrity-check.md
-

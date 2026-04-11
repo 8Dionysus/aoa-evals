@@ -471,6 +471,100 @@
       "verdict_shape": "categorical"
     },
     {
+      "category": "capability",
+      "eval_path": "bundles/aoa-candidate-lineage-integrity/EVAL.md",
+      "name": "aoa-candidate-lineage-integrity",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to check whether one bounded growth-refinery lineage remains\ninternally coherent and reviewable.\n\nThis draft bundle is a `capability` proof surface.\nIt does not decide owner fit, and it does not grade final object quality.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks growth-refinery lineage-chain coherence across checkpoint,\nreviewed harvest, seed staging, and owner evidence surfaces.\n\nPrimary surfaces under evaluation:\n\n- provisional `cluster_ref` carry\n- reviewed `candidate_ref` identity\n- staged `seed_ref`\n- downstream `object_ref` when it exists\n- dropped or superseded branch markers\n\nNearby surfaces intentionally excluded:\n\n- owner-fit doctrine by itself\n- final planted object quality\n- broad route health or growth scores",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions,\nthe bounded lineage chain\n`cluster_ref -> candidate_ref -> seed_ref -> object_ref`\nstays internally consistent and reviewable enough for downstream proof and\nstats to read honestly.\n\nThis eval does not support claims such as:\n\n- the candidate belongs in one specific owner repo\n- the final planted object is high quality\n- owner receipts may be replaced by lineage structure alone",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- lineage artifacts span more than one owner layer\n- the main question is chain integrity rather than owner choice\n- dropped or superseded branches must stay visible\n- proof or stats would overread the chain without a bounded integrity pass\n\nDo not use this eval when:\n\n- the main question is owner-fit routing quality\n- the main question is final planted object quality\n- only one layer exists and there is no real lineage chain to test",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- one bounded lineage bundle\n- checkpoint carry artifact or example\n- reviewed candidate artifact or receipt\n- staged seed artifact or receipt when present\n- downstream owner object ref when present\n- explicit drop or supersession markers when present",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "Start with synthetic lineage bundles and one real reviewed lineage later.\n\nStrong bounded cases should include:\n\n- one clean forward lineage\n- one dropped branch\n- one superseded branch\n- one case where a required stage is missing and the chain should fail",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a categorical verdict with explicit integrity notes.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nKey review checks:\n\n- no stage appears before its prerequisite\n- `candidate_ref` does not appear before reviewed harvest\n- `seed_ref` does not appear before seed staging\n- `object_ref` does not appear before owner landing\n- dropped and superseded paths stay explicit\n- `nearest_wrong_target` and owner-shaping context do not disappear without\n  explanation",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This starter bundle uses `none`.\n\nIt is a standalone integrity check for one bounded lineage bundle.\nIt does not compare one lineage against another, and it does not assign a\ngrowth score.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. collect the bounded lineage bundle\n2. verify stage order and required field presence\n3. inspect dropped and superseded paths for honest representation\n4. publish a bounded integrity read with explicit claim limits",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bounded verdict\n- one concise integrity note per reviewed lineage\n- explicit missing-stage or overclaim flags",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "Main ways this eval can fail as an instrument:\n\n- structural coherence is mistaken for owner-fit proof\n- final object quality is inferred from a clean lineage chain\n- dropped or superseded branches disappear from the public read",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- correct owner selection by itself\n- final planted object quality\n- that owner receipts are unnecessary",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe lineage chain is structurally coherent enough to review honestly.\n\nDo not treat a positive result as:\n\n- proof of final owner quality\n- proof of correct owner-fit routing\n- permission to skip owner-local evidence",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- review one clean chain and one failure-shaped chain\n- confirm dropped and superseded branches stay visible\n- confirm claim limits remain explicit in the report",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "- AOA-T-0001",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "- aoa-change-protocol",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "- add a real reviewed lineage family once the proving run exists\n- keep later fixtures subordinate to owner receipts and proof",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "categorical"
+    },
+    {
       "category": "artifact",
       "eval_path": "bundles/aoa-compost-provenance-preservation/EVAL.md",
       "name": "aoa-compost-provenance-preservation",
@@ -1223,6 +1317,100 @@
       "verdict_shape": "comparative"
     },
     {
+      "category": "boundary",
+      "eval_path": "bundles/aoa-owner-fit-routing-quality/EVAL.md",
+      "name": "aoa-owner-fit-routing-quality",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to judge whether a reviewed growth-refinery candidate is being\nrouted to the right owner layer for bounded reasons.\n\nThis draft bundle is a `boundary` proof surface.\nIt does not replace lineage integrity, and it does not replace final owner\nproof.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks reviewed owner-fit routing quality for growth-refinery\ncandidates.\n\nPrimary surfaces under evaluation:\n\n- chosen `owner_hypothesis`\n- chosen `owner_shape`\n- rejected `nearest_wrong_target`\n- bounded evidence that explains the chosen owner layer\n\nNearby surfaces intentionally excluded:\n\n- final planted object quality\n- broad long-term usefulness\n- derivative repos acting as first-authoring homes",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions,\nthe reviewed candidate is routed to one bounded owner layer with one clear\nowner hypothesis, one honest nearest-wrong target, and one reviewable reason\nset.\n\nThis eval does not support claims such as:\n\n- the final planted object is high quality\n- the owner choice will remain optimal forever\n- derivative repos may absorb first-authoring meaning",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- the candidate is already reviewed\n- the main question is owner choice rather than chain integrity\n- nearby owner layers are plausible enough to cause drift\n- nearest-wrong-target reasoning matters to the rollout\n\nDo not use this eval when:\n\n- the main question is lineage-chain integrity\n- the main question is final object quality\n- no reviewed candidate exists yet",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- one reviewed candidate\n- bounded evidence refs\n- chosen owner hypothesis\n- chosen owner shape\n- rejected nearest-wrong target\n- route doctrine for derivative-repo exclusions",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "Strong bounded cases should include:\n\n- one clearly correct owner target\n- one ambiguous candidate that still resolves cleanly\n- one case where `aoa-routing` or `aoa-kag` looks tempting but should stay\n  derivative",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a categorical verdict with explicit routing notes.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nKey review checks:\n\n- one clear owner target exists\n- nearest-wrong target is plausible, not perfunctory\n- routing does not drift first-authoring meaning into `aoa-routing` or\n  `aoa-kag`\n- explanation quality stays specific and bounded",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This starter bundle uses `none`.\n\nIt is a standalone owner-fit read for one reviewed candidate family.\nIt does not compare routes over time, and it does not assign a score.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. gather the reviewed candidate dossier\n2. inspect chosen owner and nearest-wrong target\n3. verify derivative repos remain derivative\n4. publish one bounded routing-quality read",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bounded verdict\n- one owner-fit note per reviewed candidate\n- one explicit nearest-wrong-target note",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "Main ways this eval can fail as an instrument:\n\n- owner-fit is inferred from thin rhetoric instead of bounded evidence\n- derivative repos become stealth first-authoring homes\n- final object quality is inferred from a clean routing note",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- final planted object quality\n- long-term adoption or usefulness\n- lineage-chain integrity by itself",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe owner-fit reasoning is reviewably strong on this candidate surface.\n\nDo not treat a positive result as:\n\n- proof of final object quality\n- proof that the chosen owner will never need revision\n- permission to skip later proof on the final owner object",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- review one clearly correct owner case\n- review one ambiguous case with a real nearest-wrong target\n- confirm derivative-repo drift is rejected explicitly",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "- AOA-T-0001",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "- aoa-change-protocol",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "- add owner-local doctrine fixtures after the proving run\n- keep owner-fit proof weaker than final owner-object proof",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "categorical"
+    },
+    {
       "category": "regression",
       "eval_path": "bundles/aoa-regression-same-task/EVAL.md",
       "name": "aoa-regression-same-task",
@@ -1315,6 +1503,100 @@
       ],
       "status": "baseline",
       "verdict_shape": "comparative"
+    },
+    {
+      "category": "workflow",
+      "eval_path": "bundles/aoa-repair-boundedness/EVAL.md",
+      "name": "aoa-repair-boundedness",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to judge whether a self-repair or reanchor move preserved\nboundedness and did not quietly widen authority or scope.\n\nThis draft bundle is a `workflow` proof surface.\nIt does not replace final proof on the repaired owner object.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks bounded repair and reanchor quality on growth-refinery\nfollow-through moves.\n\nPrimary surfaces under evaluation:\n\n- repair target seam\n- explicit owner-boundary preservation\n- bounded ambiguity reduction\n- reviewable artifact trail left by the repair move\n\nNearby surfaces intentionally excluded:\n\n- final planted object quality\n- permanent stability of the repaired object\n- broad route-health stories",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions,\nthe repair or reanchor move stayed bounded, preserved ownership boundaries,\nand reduced ambiguity without smearing scope inflation across layers.\n\nThis eval does not support claims such as:\n\n- the repaired object will stay stable forever\n- the repair move replaces later proof on the final owner object\n- any widening disguised as repair is acceptable because the result improved",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a misroute, diagnosis, or repair move changed the follow-through path\n- the main question is whether the repair stayed bounded\n- scope or authority drift is a plausible failure mode\n- a reviewable artifact trail exists\n\nDo not use this eval when:\n\n- the main question is first-owner routing quality\n- the main question is final object quality\n- there is no concrete repair or reanchor move to inspect",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- one repair or reanchor artifact trail\n- one named target seam\n- owner-boundary notes\n- ambiguity before and after the repair move\n- downstream follow-through artifact refs",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "Strong bounded cases should include:\n\n- one honest bounded repair\n- one scope-inflating repair that should fail\n- one reanchor move that correctly narrows owner ambiguity",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a categorical verdict with explicit repair notes.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nKey review checks:\n\n- the repair move states its target seam clearly\n- ownership boundaries remain explicit\n- ambiguity is reduced rather than smeared across layers\n- the artifact trail remains reviewable enough for follow-up proof",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This starter bundle uses `none`.\n\nIt is a standalone bounded-repair read.\nIt does not compare repairs over time, and it does not assign a growth score.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. gather the repair or reanchor artifact trail\n2. inspect the named target seam\n3. verify owner-boundary preservation\n4. confirm the move reduced ambiguity without widening scope\n5. publish one bounded repair-quality read",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bounded verdict\n- one repair note per reviewed move\n- one explicit ambiguity-reduction note",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "Main ways this eval can fail as an instrument:\n\n- scope inflation hides behind successful-looking repair prose\n- owner boundaries smear across adjacent layers\n- a reviewable trail is missing but the bundle still reads as strong",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- permanent stability of the repaired object\n- final owner-object quality\n- that the first routing choice was correct",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe repair or reanchor move stayed reviewably bounded on this surface.\n\nDo not treat a positive result as:\n\n- proof of final object quality\n- proof that no further proof is needed\n- permission to widen future repair scope silently",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- review one honest bounded repair\n- review one widening-shaped failure\n- confirm the artifact trail remains reviewable",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "- AOA-T-0001",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "- aoa-change-protocol",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "- add real repair-trail fixtures after the proving run\n- keep this bundle weaker than final owner proof",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "categorical"
     },
     {
       "category": "workflow",

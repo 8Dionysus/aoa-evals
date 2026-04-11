@@ -11,7 +11,6 @@ technique_dependencies:
   - AOA-T-0001
 skill_dependencies:
   - aoa-change-protocol
-  - aoa-session-self-diagnose
 ---
 
 # aoa-diagnosis-cause-discipline
@@ -176,7 +175,6 @@ Do not treat a positive result as:
 ## Skill traceability
 
 - aoa-change-protocol
-- aoa-session-self-diagnose
 
 ## Adaptation points
 

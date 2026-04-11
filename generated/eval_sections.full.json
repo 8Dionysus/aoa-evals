@@ -739,7 +739,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "- aoa-change-protocol\n- aoa-session-self-diagnose",
+          "content_markdown": "- aoa-change-protocol",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },

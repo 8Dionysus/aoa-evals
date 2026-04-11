@@ -721,18 +721,12 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "skill_dependencies": [
-        "aoa-change-protocol",
-        "aoa-session-self-diagnose"
+        "aoa-change-protocol"
       ],
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
           "path": "skills/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        },
-        {
-          "name": "aoa-session-self-diagnose",
-          "path": "skills/aoa-session-self-diagnose/SKILL.md",
           "repo": "aoa-skills"
         }
       ],

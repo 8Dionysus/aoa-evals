@@ -314,18 +314,12 @@
       "proof_artifact_short": "bundle-local notes and examples only",
       "proof_surface_kinds": [],
       "skill_dependencies": [
-        "aoa-change-protocol",
-        "aoa-session-self-diagnose"
+        "aoa-change-protocol"
       ],
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
           "path": "skills/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        },
-        {
-          "name": "aoa-session-self-diagnose",
-          "path": "skills/aoa-session-self-diagnose/SKILL.md",
           "repo": "aoa-skills"
         }
       ],

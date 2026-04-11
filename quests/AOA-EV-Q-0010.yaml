@@ -1,0 +1,56 @@
+schema_version: work_quest_v1
+id: AOA-EV-Q-0010
+title: Capture checkpoint automation proof-pressure as early eval evidence
+summary: Track the reviewed checkpoint automation proof candidate as bounded eval follow-through without turning a runtime template hint into proof canon.
+repo: aoa-evals
+owner_surface: docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md
+theme_ref: ''
+milestone_ref: ''
+kind: proof
+state: captured
+band: latent
+difficulty: d2_slice
+risk: r2_contract
+control_mode: human_codex_copilot
+delegate_tier: verifier
+fallback_tier: planner
+wrapper_class: codex_primary
+write_scope: repo_local
+split_required: false
+complexity_basis:
+  scope: 1
+  ambiguity: 2
+  boundary: 2
+  verification: 2
+parent: null
+depends_on:
+  - AOA-EV-Q-0004
+activation:
+  mode: on_review_of
+  ref: session:2026-04-10T19-59-19-444382Z-aoa-sdk-checkpoint-growth-228d9e46-6c8
+  note: open when checkpoint closeout preserves a proof-shaped hint that needs bounded eval-side triage
+anchor_ref:
+  artifact: self_agent_checkpoint_eval_posture
+  ref: docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md
+  note: proof pressure should remain an eval-side input, not a checkpoint ontology or final verdict
+handoff_role: proof-maintainer
+evidence:
+  - candidate:proof:aoa-evals-runtime-candidate-template-index-min survived reviewed closeout with medium confidence
+  - the candidate had 1 checkpoint hit and remained owner-ambiguous
+  - proof_discipline and review_sharpness stayed hold-shaped rather than promotion-ready
+harvest:
+  target: eval
+  trigger_count: 1
+  note: consider a bounded eval bundle only if the same proof pressure recurs across reviewed sessions
+opened_at: '2026-04-11'
+touched_at: '2026-04-11'
+tags:
+  - checkpoint
+  - proof
+  - review-sharpness
+  - latent
+notes: >
+  This quest is the early public-safe status marker for the proof candidate.
+  It keeps the signal findable for the next session while preserving the
+  current caution: one runtime-template hint is not proof canon.
+public_safe: true

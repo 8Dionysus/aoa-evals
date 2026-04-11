@@ -210,5 +210,28 @@
     "state": "triaged",
     "wrapper_class": "codex_primary",
     "write_scope": "repo_local"
+  },
+  {
+    "activation_mode": "on_review_of",
+    "band": "latent",
+    "control_mode": "human_codex_copilot",
+    "delegate_tier": "verifier",
+    "difficulty": "d2_slice",
+    "fallback_tier": "planner",
+    "id": "AOA-EV-Q-0010",
+    "public_safe": true,
+    "repo": "aoa-evals",
+    "requires_artifacts": [
+      "bounded_plan",
+      "work_result",
+      "verification_result"
+    ],
+    "risk": "r2_contract",
+    "schema_version": "quest_dispatch_v1",
+    "source_path": "quests/AOA-EV-Q-0010.yaml",
+    "split_required": false,
+    "state": "captured",
+    "wrapper_class": "codex_primary",
+    "write_scope": "repo_local"
   }
 ]

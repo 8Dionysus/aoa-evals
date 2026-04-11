@@ -15,6 +15,9 @@ This file is the repository-wide map of public eval bundles.
 | aoa-tool-trajectory-discipline | workflow | bounded | Checks whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself is part of the bounded claim, rather than acting as a general outcome-versus-path splitter. |
 | aoa-antifragility-posture | stress | draft | Checks whether one owner-local surface handles a named stressor family through bounded degraded continuation, source-owned receipts, and split-axis readout without collapsing source ownership into proof or stats layers. |
 | aoa-stress-recovery-window | longitudinal | draft | Checks whether ordered windows on one named stressor family show healthier handling without letting proof, stats, routing, or memo outrank owner evidence. |
+| aoa-candidate-lineage-integrity | capability | draft | Checks whether a growth-refinery lineage chain stays internally coherent across checkpoint carry, reviewed candidate, seed staging, and downstream owner evidence without inferring stronger landing than the artifacts support. |
+| aoa-owner-fit-routing-quality | boundary | draft | Checks whether a reviewed growth-refinery candidate is routed to the right owner layer with one clear owner hypothesis, honest nearest-wrong-target reasoning, and no first-authoring drift into derivative repos. |
+| aoa-repair-boundedness | workflow | draft | Checks whether a reanchor or self-repair move stays bounded, preserves owner boundaries, and leaves a reviewable trail instead of smearing scope inflation across layers. |
 | aoa-witness-trace-integrity | workflow | draft | Checks whether a public witness trace for a bounded run keeps meaningful steps, tool visibility, state deltas, failures, redaction posture, and the markdown summary aligned enough for review. |
 | aoa-regression-same-task | regression | baseline | Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth. |
 | aoa-artifact-review-rubric | artifact | portable | Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating artifact quality as proof of workflow discipline or as an artifact/process bridge. |
@@ -63,6 +66,21 @@ Public discipline:
 - witness integrity does not replace workflow discipline
 - compost provenance does not replace artifact review
 
+## Growth Refinery Layer
+
+The current growth-refinery layer is a bounded doctrine triad rather than a loose pack of adjacent draft bundles.
+
+Read it as:
+- `aoa-candidate-lineage-integrity` for whether the lineage chain itself stays structurally coherent
+- `aoa-owner-fit-routing-quality` for whether a reviewed candidate is routed to the right owner layer
+- `aoa-repair-boundedness` for whether reanchor and repair moves stay bounded without scope smear
+
+Public discipline:
+- lineage coherence does not prove owner fit
+- owner-fit routing does not prove final object quality
+- repair boundedness does not retroactively prove the first route was correct
+- derivative repos do not become first-authoring homes by passing a routing or repair read
+
 ## Bundle Distinctness Notes
 
 - `aoa-bounded-change-quality` is the current portable composite workflow anchor:
@@ -94,6 +112,15 @@ Public discipline:
 - `aoa-stress-recovery-window` is the current draft longitudinal stress starter:
   do ordered windows on one named stressor family show healthier handling without letting proof, stats, routing, or memo outrank owner evidence?
   Its current machine-readable comparison surface is anchored in `aoa-antifragility-posture` and its materialized proof flow runs through `fixtures/stress-recovery-window-bounded-v1/README.md`, `reports/example-report.json`, and `reports/stress-recovery-window-proof-flow-v1.md`, but the bundle remains draft.
+- `aoa-candidate-lineage-integrity` is the current draft growth-refinery lineage starter:
+  does one bounded lineage chain stay coherent across checkpoint carry, reviewed candidate, seed staging, and owner evidence without claiming stronger landing than the artifacts support?
+  It should not be read as owner-fit proof, final object-quality proof, or permission to replace owner receipts with structure alone.
+- `aoa-owner-fit-routing-quality` is the current draft growth-refinery routing starter:
+  is one reviewed candidate routed to the right owner layer with a real owner hypothesis, an honest nearest-wrong target, and no first-authoring drift into derivative repos?
+  It should not be read as lineage-chain proof, final object-quality proof, or a license to move first-authoring meaning into `aoa-routing` or `aoa-kag`.
+- `aoa-repair-boundedness` is the current draft growth-refinery repair starter:
+  did one repair or reanchor move stay bounded, preserve owner boundaries, and reduce ambiguity without scope inflation?
+  It should not be read as proof of permanent stability, final object quality, or retroactive proof that the initial route was correct.
 - `aoa-witness-trace-integrity` is the current draft witness workflow starter:
   did a bounded run leave a reviewable witness trace with meaningful steps, visible tool use, explicit external effects, preserved failures, and an honest markdown summary?
   Its materialized draft proof flow now anchors on `fixtures/witness-trace-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.

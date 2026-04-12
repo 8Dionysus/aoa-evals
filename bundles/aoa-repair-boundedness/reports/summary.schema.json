@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-repair-boundedness summary report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "repair_breakdown",
+    "case_notes",
+    "major_review_flags"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-repair-boundedness"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "bounded repair and reanchor quality on growth-refinery follow-through moves"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "repair_breakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_seam_clarity",
+        "boundary_preservation",
+        "ambiguity_reduction",
+        "trail_reviewability",
+        "scope_control"
+      ],
+      "properties": {
+        "target_seam_clarity": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        },
+        "boundary_preservation": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        },
+        "ambiguity_reduction": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        },
+        "trail_reviewability": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        },
+        "scope_control": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        }
+      }
+    },
+    "case_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "move_type",
+          "reading",
+          "repair_note",
+          "trail_limit",
+          "next_inspection_target"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "move_type": {
+            "type": "string",
+            "minLength": 3
+          },
+          "reading": {
+            "type": "string",
+            "enum": [
+              "supports bounded claim",
+              "mixed support",
+              "does not support bounded claim"
+            ]
+          },
+          "repair_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "trail_limit": {
+            "type": "string",
+            "minLength": 10
+          },
+          "next_inspection_target": {
+            "type": "string",
+            "minLength": 5
+          }
+        }
+      }
+    },
+    "major_review_flags": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-candidate-lineage-integrity summary report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "stage_integrity_breakdown",
+    "case_notes",
+    "major_review_flags"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-candidate-lineage-integrity"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "growth-refinery lineage-chain coherence across checkpoint, reviewed harvest, seed staging, and owner evidence surfaces"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "stage_integrity_breakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stage_order",
+        "candidate_gate",
+        "seed_gate",
+        "object_gate",
+        "terminal_branch_traceability",
+        "lineage_context_retention"
+      ],
+      "properties": {
+        "stage_order": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        },
+        "candidate_gate": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        },
+        "seed_gate": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        },
+        "object_gate": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        },
+        "terminal_branch_traceability": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        },
+        "lineage_context_retention": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        }
+      }
+    },
+    "case_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "chain_shape",
+          "reading",
+          "integrity_note",
+          "overread_boundary",
+          "next_inspection_target"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "chain_shape": {
+            "type": "string",
+            "enum": [
+              "clean-forward",
+              "dropped-branch",
+              "superseded-branch",
+              "missing-stage"
+            ]
+          },
+          "reading": {
+            "type": "string",
+            "enum": [
+              "supports bounded claim",
+              "mixed support",
+              "does not support bounded claim"
+            ]
+          },
+          "integrity_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "overread_boundary": {
+            "type": "string",
+            "minLength": 10
+          },
+          "next_inspection_target": {
+            "type": "string",
+            "minLength": 5
+          }
+        }
+      }
+    },
+    "major_review_flags": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    }
+  }
+}

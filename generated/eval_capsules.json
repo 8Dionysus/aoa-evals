@@ -239,8 +239,14 @@
         "integrity_check"
       ],
       "name": "aoa-candidate-lineage-integrity",
-      "proof_artifact_short": "bundle-local notes and examples only",
-      "proof_surface_kinds": [],
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -621,8 +627,14 @@
         "integrity_check"
       ],
       "name": "aoa-owner-fit-routing-quality",
-      "proof_artifact_short": "bundle-local notes and examples only",
-      "proof_surface_kinds": [],
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -719,8 +731,14 @@
         "integrity_check"
       ],
       "name": "aoa-repair-boundedness",
-      "proof_artifact_short": "bundle-local notes and examples only",
-      "proof_surface_kinds": [],
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "skill_dependencies": [
         "aoa-change-protocol"
       ],

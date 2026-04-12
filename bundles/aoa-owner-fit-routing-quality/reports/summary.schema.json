@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-owner-fit-routing-quality summary report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "routing_breakdown",
+    "case_notes",
+    "major_review_flags"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-owner-fit-routing-quality"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "reviewed owner-fit routing quality for growth-refinery candidates"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "routing_breakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "clear_owner_target",
+        "nearest_wrong_quality",
+        "owner_evidence_specificity",
+        "derivative_boundary_preservation",
+        "explanation_boundedness"
+      ],
+      "properties": {
+        "clear_owner_target": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        },
+        "nearest_wrong_quality": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        },
+        "owner_evidence_specificity": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        },
+        "derivative_boundary_preservation": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        },
+        "explanation_boundedness": {
+          "type": "string",
+          "enum": ["strong", "mixed", "weak"]
+        }
+      }
+    },
+    "case_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "chosen_owner",
+          "nearest_wrong_target",
+          "reading",
+          "routing_note",
+          "boundary_limit",
+          "next_inspection_target"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "chosen_owner": {
+            "type": "string",
+            "minLength": 3
+          },
+          "nearest_wrong_target": {
+            "type": "string",
+            "minLength": 3
+          },
+          "reading": {
+            "type": "string",
+            "enum": [
+              "supports bounded claim",
+              "mixed support",
+              "does not support bounded claim"
+            ]
+          },
+          "routing_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "boundary_limit": {
+            "type": "string",
+            "minLength": 10
+          },
+          "next_inspection_target": {
+            "type": "string",
+            "minLength": 5
+          }
+        }
+      }
+    },
+    "major_review_flags": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    }
+  }
+}

@@ -11,9 +11,12 @@ A shared fixture family should:
 - remain weaker than the bundle-local `EVAL.md` meaning it serves
 
 Current shared families:
+- `candidate-lineage-v1` for bounded growth-refinery lineage-chain coherence
 - `bounded-change-paired-v1` for artifact/process pairing on the bounded change corpus
 - `bounded-change-paired-v2` for a second matched artifact/process pairing slice on the same bounded change corpus
 - `frozen-same-task-v1` for frozen same-task regression against one named baseline target
+- `owner-fit-routing-v1` for bounded reviewed owner-fit routing on growth-refinery candidates
+- `repair-boundedness-v1` for bounded repair and reanchor follow-through on growth-refinery moves
 - `repeated-window-bounded-v1` for ordered repeated-window movement on one named workflow surface
 
 Shared fixture naming discipline:

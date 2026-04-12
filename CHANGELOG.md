@@ -7,6 +7,31 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-04-12
+
+### Summary
+
+- this patch adds continuity-oriented eval bundles, diagnosis-cause-discipline
+  coverage, and checkpoint proof follow-through
+- proof publication and catalog surfaces are refreshed for the current wave
+  without widening eval ownership
+- `aoa-evals` remains the bounded proof and audit layer
+
+### Added
+
+- checkpoint proof follow-through quest capture, growth-refinery lineage eval
+  bundles, diagnosis-cause-discipline coverage, and self-agency continuity
+  eval bundles.
+
+### Changed
+
+- proof-artifact publication, catalog surfaces, and dependency alignment are
+  refreshed for the current continuity wave.
+
+### Validation
+
+- `python scripts/release_check.py`
+
 ## [0.3.0] - 2026-04-10
 
 ### Summary

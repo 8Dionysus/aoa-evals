@@ -19,6 +19,9 @@ This file is the repository-wide map of public eval bundles.
 | aoa-owner-fit-routing-quality | boundary | draft | Checks whether a reviewed growth-refinery candidate is routed to the right owner layer with one clear owner hypothesis, honest nearest-wrong-target reasoning, and no first-authoring drift into derivative repos. |
 | aoa-diagnosis-cause-discipline | workflow | draft | Checks whether a diagnosis or self-diagnosis move names causal hypotheses, evidence limits, and unknowns without confusing symptoms, owner ambiguity, or repair success with cause proof. |
 | aoa-repair-boundedness | workflow | draft | Checks whether a reanchor or self-repair move stays bounded, preserves owner boundaries, and leaves a reviewable trail instead of smearing scope inflation across layers. |
+| aoa-continuity-anchor-integrity | capability | draft | Checks whether a bounded self-agency continuity window keeps an inspectable anchor chain across continuity, revision, reanchor, and anchor refs without letting memo, stats, or chat residue become continuity truth. |
+| aoa-reflective-revision-boundedness | workflow | draft | Checks whether reflective revision stays inside one named revision window, keeps stop-lines visible, and does not widen into vague continuity or hidden autonomy. |
+| aoa-self-reanchor-correctness | boundary | draft | Checks whether a bounded self-agency continuity route reanchors to the last valid artifact, keeps return mode explicit, and refuses chat-residue continuity when anchor integrity is lost. |
 | aoa-witness-trace-integrity | workflow | draft | Checks whether a public witness trace for a bounded run keeps meaningful steps, tool visibility, state deltas, failures, redaction posture, and the markdown summary aligned enough for review. |
 | aoa-regression-same-task | regression | baseline | Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth. |
 | aoa-artifact-review-rubric | artifact | portable | Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating artifact quality as proof of workflow discipline or as an artifact/process bridge. |
@@ -83,6 +86,25 @@ Public discipline:
 - diagnosis-cause discipline does not prove repair success or final cause truth
 - repair boundedness does not retroactively prove the first route was correct
 - derivative repos do not become first-authoring homes by passing a routing or repair read
+
+## Self-Agency Continuity Layer
+
+The current self-agency continuity layer is a bounded doctrine triad rather
+than a mythic autonomy program.
+
+Read it as:
+- `aoa-continuity-anchor-integrity` for whether the route still has one
+  inspectable anchor chain
+- `aoa-reflective-revision-boundedness` for whether reflective revision stayed
+  inside one named revision window
+- `aoa-self-reanchor-correctness` for whether reanchor returned to the last
+  valid artifact rather than to remembered chat continuity
+
+Public discipline:
+- anchor integrity does not prove bounded revision quality
+- bounded revision does not prove reanchor correctness
+- correct reanchor does not prove the whole route stayed healthy
+- none of the three bundles imply autonomy, selfhood, or a total continuity score
 
 ## Bundle Distinctness Notes
 

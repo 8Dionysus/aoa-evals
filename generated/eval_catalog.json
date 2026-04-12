@@ -666,6 +666,98 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "category": "capability",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "bundles/aoa-continuity-anchor-integrity/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/anchor-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": true,
+      "maturity_score": 2,
+      "name": "aoa-continuity-anchor-integrity",
+      "object_under_evaluation": "anchor-chain integrity on bounded self-agency continuity windows",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
+      "proof_surface_kinds": [],
+      "relations": [
+        {
+          "target": "aoa-return-anchor-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-reflective-revision-boundedness",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-self-reanchor-correctness",
+          "type": "complements"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [
+        "aoa-change-protocol",
+        "aoa-bounded-context-map"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        },
+        {
+          "name": "aoa-bounded-context-map",
+          "path": "skills/aoa-bounded-context-map/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether a bounded self-agency continuity window keeps an inspectable anchor chain across continuity, revision, reanchor, and anchor refs without letting memo, stats, or chat residue become continuity truth.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "validation_strength": "baseline",
+      "verdict_shape": "categorical"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -1529,6 +1621,98 @@
       "verdict_shape": "categorical"
     },
     {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
+      "category": "workflow",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "bundles/aoa-reflective-revision-boundedness/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/revision-window-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": true,
+      "maturity_score": 2,
+      "name": "aoa-reflective-revision-boundedness",
+      "object_under_evaluation": "reflective revision boundedness on self-agency continuity windows",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
+      "proof_surface_kinds": [],
+      "relations": [
+        {
+          "target": "aoa-continuity-anchor-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-self-reanchor-correctness",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-repair-boundedness",
+          "type": "complements"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [
+        "aoa-change-protocol",
+        "aoa-bounded-context-map"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        },
+        {
+          "name": "aoa-bounded-context-map",
+          "path": "skills/aoa-bounded-context-map/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether reflective revision stays inside one named revision window, keeps stop-lines visible, and does not widen into vague continuity or hidden autonomy.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "validation_strength": "baseline",
+      "verdict_shape": "categorical"
+    },
+    {
       "baseline_mode": "fixed-baseline",
       "blind_spot_disclosure": "required-and-present",
       "category": "regression",
@@ -1992,6 +2176,98 @@
       ],
       "status": "bounded",
       "summary": "Checks whether an agent keeps requested scope aligned with executed scope on bounded change tasks, or explicitly discloses deviation.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "validation_strength": "baseline",
+      "verdict_shape": "categorical"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
+      "category": "boundary",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "bundles/aoa-self-reanchor-correctness/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/reanchor-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": true,
+      "maturity_score": 2,
+      "name": "aoa-self-reanchor-correctness",
+      "object_under_evaluation": "reanchor correctness on bounded self-agency continuity routes",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
+      "proof_surface_kinds": [],
+      "relations": [
+        {
+          "target": "aoa-return-anchor-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-continuity-anchor-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-reflective-revision-boundedness",
+          "type": "complements"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [
+        "aoa-change-protocol",
+        "aoa-bounded-context-map"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        },
+        {
+          "name": "aoa-bounded-context-map",
+          "path": "skills/aoa-bounded-context-map/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether a bounded self-agency continuity route reanchors to the last valid artifact, keeps return mode explicit, and refuses chat-residue continuity when anchor integrity is lost.",
       "technique_dependencies": [
         "AOA-T-0001"
       ],

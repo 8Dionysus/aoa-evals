@@ -1,0 +1,51 @@
+{
+  "eval_name": "aoa-candidate-lineage-integrity",
+  "bundle_status": "draft",
+  "object_under_evaluation": "growth-refinery lineage-chain coherence across checkpoint, reviewed harvest, seed staging, and owner evidence surfaces",
+  "verdict": "mixed support",
+  "claim_boundary": "This report speaks only to whether one bounded growth-refinery lineage stays structurally coherent enough for later owner proof and stats to read honestly.",
+  "limitations": [
+    "It does not prove that the chosen owner layer is correct.",
+    "It does not grade final object quality.",
+    "It does not let lineage structure replace owner-local evidence."
+  ],
+  "case_family": "candidate-lineage-v1 bounded growth-refinery lineage family",
+  "stage_integrity_breakdown": {
+    "stage_order": "strong",
+    "candidate_gate": "strong",
+    "seed_gate": "mixed",
+    "object_gate": "mixed",
+    "terminal_branch_traceability": "strong",
+    "lineage_context_retention": "mixed"
+  },
+  "case_notes": [
+    {
+      "case_id": "CL-01",
+      "chain_shape": "clean-forward",
+      "reading": "supports bounded claim",
+      "integrity_note": "The chain keeps cluster, reviewed candidate, staged seed, and downstream owner evidence in order without inventing extra continuity.",
+      "overread_boundary": "This clean chain still does not prove that the chosen owner or planted object is high quality.",
+      "next_inspection_target": "Review whether the owner evidence remains as specific as the lineage makes it look."
+    },
+    {
+      "case_id": "CL-02",
+      "chain_shape": "superseded-branch",
+      "reading": "mixed support",
+      "integrity_note": "The superseded branch stays explicit and points to its replacement seed, but one owner-shape note is thinner than the rest of the trail.",
+      "overread_boundary": "Visible supersession is structural traceability, not proof that the replacement route was optimal.",
+      "next_inspection_target": "Tighten the owner-shaping note before reusing this branch in downstream stats or proof."
+    },
+    {
+      "case_id": "CL-03",
+      "chain_shape": "missing-stage",
+      "reading": "does not support bounded claim",
+      "integrity_note": "The case introduces staged seed identity before a reviewed candidate exists, so the chain collapses at the candidate gate.",
+      "overread_boundary": "A tidy seed note cannot repair a missing reviewed-candidate prerequisite.",
+      "next_inspection_target": "Restore the reviewed candidate seam before any seed or owner evidence is reused."
+    }
+  ],
+  "major_review_flags": [
+    "One lineage branch keeps structural continuity but still carries thin owner-shaping context.",
+    "A downstream-looking seed artifact can still overrun the reviewed-candidate gate if the stage chain is not checked explicitly."
+  ]
+}

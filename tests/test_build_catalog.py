@@ -428,6 +428,96 @@ def test_real_repo_ambiguity_handling_keeps_bounded_status_while_exposing_materi
     assert all(entry["name"] != "aoa-ambiguity-handling" for entry in comparison_spine["evals"])
 
 
+def test_real_repo_candidate_lineage_integrity_exposes_materialized_proof_artifacts() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+    capsules = build_capsule_payload(REPO_ROOT, records, full_catalog)
+    sections, section_issues = eval_section_contract.build_sections_payload(REPO_ROOT, records)
+    comparison_spine = build_comparison_spine_payload(REPO_ROOT, records, full_catalog)
+
+    assert section_issues == []
+    entry = next(
+        item for item in full_catalog["evals"] if item["name"] == "aoa-candidate-lineage-integrity"
+    )
+
+    assert entry["status"] == "draft"
+    assert entry["portability_level"] == "local-shaped"
+    assert entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/candidate-lineage-v1/README.md"
+    assert entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-candidate-lineage-integrity/fixtures/contract.json"
+    assert entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-candidate-lineage-integrity/runners/contract.json"
+    assert entry["proof_artifacts"]["runner_surface_path"] == "runners/reportable_proof_contract.md"
+    assert entry["proof_artifacts"]["scorer_helper_paths"] == ["scorers/bounded_rubric_breakdown.py"]
+    assert entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-candidate-lineage-integrity/reports/summary.schema.json"
+    assert entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-candidate-lineage-integrity/reports/example-report.json"
+    assert entry["proof_artifacts"]["paired_readout_path"] is None
+
+    assert any(item["name"] == "aoa-candidate-lineage-integrity" for item in capsules["evals"])
+    assert any(item["name"] == "aoa-candidate-lineage-integrity" for item in sections["evals"])
+    assert all(item["name"] != "aoa-candidate-lineage-integrity" for item in comparison_spine["evals"])
+
+
+def test_real_repo_owner_fit_routing_quality_exposes_materialized_proof_artifacts() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+    capsules = build_capsule_payload(REPO_ROOT, records, full_catalog)
+    sections, section_issues = eval_section_contract.build_sections_payload(REPO_ROOT, records)
+    comparison_spine = build_comparison_spine_payload(REPO_ROOT, records, full_catalog)
+
+    assert section_issues == []
+    entry = next(
+        item for item in full_catalog["evals"] if item["name"] == "aoa-owner-fit-routing-quality"
+    )
+
+    assert entry["status"] == "draft"
+    assert entry["portability_level"] == "local-shaped"
+    assert entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/owner-fit-routing-v1/README.md"
+    assert entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-owner-fit-routing-quality/fixtures/contract.json"
+    assert entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-owner-fit-routing-quality/runners/contract.json"
+    assert entry["proof_artifacts"]["runner_surface_path"] == "runners/reportable_proof_contract.md"
+    assert entry["proof_artifacts"]["scorer_helper_paths"] == ["scorers/bounded_rubric_breakdown.py"]
+    assert entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-owner-fit-routing-quality/reports/summary.schema.json"
+    assert entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-owner-fit-routing-quality/reports/example-report.json"
+    assert entry["proof_artifacts"]["paired_readout_path"] is None
+
+    assert any(item["name"] == "aoa-owner-fit-routing-quality" for item in capsules["evals"])
+    assert any(item["name"] == "aoa-owner-fit-routing-quality" for item in sections["evals"])
+    assert all(item["name"] != "aoa-owner-fit-routing-quality" for item in comparison_spine["evals"])
+
+
+def test_real_repo_repair_boundedness_exposes_materialized_proof_artifacts() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+    capsules = build_capsule_payload(REPO_ROOT, records, full_catalog)
+    sections, section_issues = eval_section_contract.build_sections_payload(REPO_ROOT, records)
+    comparison_spine = build_comparison_spine_payload(REPO_ROOT, records, full_catalog)
+
+    assert section_issues == []
+    entry = next(
+        item for item in full_catalog["evals"] if item["name"] == "aoa-repair-boundedness"
+    )
+
+    assert entry["status"] == "draft"
+    assert entry["portability_level"] == "local-shaped"
+    assert entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/repair-boundedness-v1/README.md"
+    assert entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-repair-boundedness/fixtures/contract.json"
+    assert entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-repair-boundedness/runners/contract.json"
+    assert entry["proof_artifacts"]["runner_surface_path"] == "runners/reportable_proof_contract.md"
+    assert entry["proof_artifacts"]["scorer_helper_paths"] == ["scorers/bounded_rubric_breakdown.py"]
+    assert entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-repair-boundedness/reports/summary.schema.json"
+    assert entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-repair-boundedness/reports/example-report.json"
+    assert entry["proof_artifacts"]["paired_readout_path"] is None
+
+    assert any(item["name"] == "aoa-repair-boundedness" for item in capsules["evals"])
+    assert any(item["name"] == "aoa-repair-boundedness" for item in sections["evals"])
+    assert all(item["name"] != "aoa-repair-boundedness" for item in comparison_spine["evals"])
+
+
 def test_real_repo_approval_boundary_adherence_keeps_bounded_status_while_exposing_materialized_proof_artifacts() -> None:
     issues, records = collect_catalog_records(REPO_ROOT)
 

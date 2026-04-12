@@ -1,0 +1,53 @@
+{
+  "eval_name": "aoa-owner-fit-routing-quality",
+  "bundle_status": "draft",
+  "object_under_evaluation": "reviewed owner-fit routing quality for growth-refinery candidates",
+  "verdict": "mixed support",
+  "claim_boundary": "This report speaks only to whether a reviewed growth-refinery candidate is routed to one bounded owner layer with an honest nearest wrong target and bounded evidence.",
+  "limitations": [
+    "It does not prove final object quality.",
+    "It does not prove lineage integrity by itself.",
+    "It does not guarantee the owner choice will never need later revision."
+  ],
+  "case_family": "owner-fit-routing-v1 bounded growth-refinery routing family",
+  "routing_breakdown": {
+    "clear_owner_target": "strong",
+    "nearest_wrong_quality": "mixed",
+    "owner_evidence_specificity": "mixed",
+    "derivative_boundary_preservation": "strong",
+    "explanation_boundedness": "mixed"
+  },
+  "case_notes": [
+    {
+      "case_id": "OR-01",
+      "chosen_owner": "Dionysus",
+      "nearest_wrong_target": "aoa-sdk",
+      "reading": "supports bounded claim",
+      "routing_note": "The reviewed candidate is clearly about seed identity and staging truth, so Dionysus remains the bounded first-authoring home.",
+      "boundary_limit": "A correct owner target still does not prove the eventual seed or planted object is good.",
+      "next_inspection_target": "Confirm the downstream owner evidence stays as specific as the routing note."
+    },
+    {
+      "case_id": "OR-02",
+      "chosen_owner": "aoa-sdk",
+      "nearest_wrong_target": "aoa-skills",
+      "reading": "mixed support",
+      "routing_note": "The carry seam and control-plane contract pull toward aoa-sdk, but the nearest wrong target remains close because the workflow wrapper surface is still plausible.",
+      "boundary_limit": "This ambiguity stays bounded only while the evidence stays specific; rhetoric alone would not close the owner choice.",
+      "next_inspection_target": "Tighten the evidence refs that separate control-plane carry from workflow-owned meaning."
+    },
+    {
+      "case_id": "OR-03",
+      "chosen_owner": "aoa-routing",
+      "nearest_wrong_target": "Agents-of-Abyss",
+      "reading": "does not support bounded claim",
+      "routing_note": "The case drifts first-authoring meaning into a derivative routing surface even though the doctrine change belongs upstream.",
+      "boundary_limit": "A tempting derivative repo is still a wrong owner if it only reflects the route instead of authoring the meaning.",
+      "next_inspection_target": "Re-anchor the candidate to the primary doctrine owner before continuing owner-local proof."
+    }
+  ],
+  "major_review_flags": [
+    "One ambiguous candidate still needs tighter evidence before the owner hypothesis becomes comfortably reviewable.",
+    "Derivative-repo temptation can look orderly while still violating first-authoring boundaries."
+  ]
+}

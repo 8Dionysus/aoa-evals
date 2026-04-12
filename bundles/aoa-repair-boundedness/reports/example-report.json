@@ -1,0 +1,50 @@
+{
+  "eval_name": "aoa-repair-boundedness",
+  "bundle_status": "draft",
+  "object_under_evaluation": "bounded repair and reanchor quality on growth-refinery follow-through moves",
+  "verdict": "mixed support",
+  "claim_boundary": "This report speaks only to whether one bounded repair or reanchor move preserved owner boundaries, reduced ambiguity, and left a reviewable trail on this case family.",
+  "limitations": [
+    "It does not prove the repaired object will stay stable.",
+    "It does not prove final owner-object quality.",
+    "It does not retroactively prove the first route was correct."
+  ],
+  "case_family": "repair-boundedness-v1 bounded growth-refinery repair family",
+  "repair_breakdown": {
+    "target_seam_clarity": "strong",
+    "boundary_preservation": "mixed",
+    "ambiguity_reduction": "strong",
+    "trail_reviewability": "mixed",
+    "scope_control": "mixed"
+  },
+  "case_notes": [
+    {
+      "case_id": "RB-01",
+      "move_type": "repair",
+      "reading": "supports bounded claim",
+      "repair_note": "The move names one failing seam, keeps ownership boundaries explicit, and leaves enough trail to replay the repair logic honestly.",
+      "trail_limit": "A bounded repair still needs later owner proof on the final object.",
+      "next_inspection_target": "Verify that the downstream owner receipt stays aligned with the same repair seam."
+    },
+    {
+      "case_id": "RB-02",
+      "move_type": "widening-repair",
+      "reading": "does not support bounded claim",
+      "repair_note": "The repair narrative looks successful, but it quietly spreads across adjacent layers and no longer reads as one bounded seam fix.",
+      "trail_limit": "Apparent local improvement does not excuse undisclosed scope inflation.",
+      "next_inspection_target": "Split the widening move back into bounded owner-local repairs before reuse."
+    },
+    {
+      "case_id": "RB-03",
+      "move_type": "reanchor",
+      "reading": "mixed support",
+      "repair_note": "The reanchor move narrows owner ambiguity correctly, but one follow-through artifact is still too thin for a strong replay.",
+      "trail_limit": "Ambiguity reduction is visible, yet the trail is not strong enough to stand in for later proof.",
+      "next_inspection_target": "Strengthen the missing follow-through artifact before promoting this repair pattern."
+    }
+  ],
+  "major_review_flags": [
+    "One repair-looking move still hides widening across adjacent layers.",
+    "Trail quality can lag behind ambiguity reduction and should be checked separately."
+  ]
+}

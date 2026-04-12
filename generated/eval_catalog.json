@@ -527,16 +527,24 @@
       "object_under_evaluation": "growth-refinery lineage-chain coherence across checkpoint, reviewed harvest, seed staging, and owner evidence surfaces",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": null,
+        "fixture_contract_path": "bundles/aoa-candidate-lineage-integrity/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": null,
-        "report_schema_path": null,
-        "runner_contract_path": null,
-        "runner_surface_path": null,
-        "scorer_helper_paths": [],
-        "shared_fixture_family_path": null
+        "report_example_path": "bundles/aoa-candidate-lineage-integrity/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-candidate-lineage-integrity/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-candidate-lineage-integrity/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/candidate-lineage-v1/README.md"
       },
-      "proof_surface_kinds": [],
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-owner-fit-routing-quality",
@@ -1458,16 +1466,24 @@
       "object_under_evaluation": "reviewed owner-fit routing quality for growth-refinery candidates",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": null,
+        "fixture_contract_path": "bundles/aoa-owner-fit-routing-quality/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": null,
-        "report_schema_path": null,
-        "runner_contract_path": null,
-        "runner_surface_path": null,
-        "scorer_helper_paths": [],
-        "shared_fixture_family_path": null
+        "report_example_path": "bundles/aoa-owner-fit-routing-quality/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-owner-fit-routing-quality/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-owner-fit-routing-quality/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/owner-fit-routing-v1/README.md"
       },
-      "proof_surface_kinds": [],
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-candidate-lineage-integrity",
@@ -1660,16 +1676,24 @@
       "object_under_evaluation": "bounded repair and reanchor quality on growth-refinery follow-through moves",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": null,
+        "fixture_contract_path": "bundles/aoa-repair-boundedness/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": null,
-        "report_schema_path": null,
-        "runner_contract_path": null,
-        "runner_surface_path": null,
-        "scorer_helper_paths": [],
-        "shared_fixture_family_path": null
+        "report_example_path": "bundles/aoa-repair-boundedness/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-repair-boundedness/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-repair-boundedness/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/repair-boundedness-v1/README.md"
       },
-      "proof_surface_kinds": [],
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
       "relations": [
         {
           "target": "aoa-candidate-lineage-integrity",

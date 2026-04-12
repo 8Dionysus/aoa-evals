@@ -1,0 +1,23 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "repair or reanchor trail",
+    "named target seam",
+    "owner-boundary preservation note",
+    "ambiguity before and after the move",
+    "downstream follow-through artifact refs",
+    "bundle-level repair summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-repair-boundedness/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-repair-boundedness/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-repair-boundedness/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-repair-boundedness"
+  ]
+}

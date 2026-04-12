@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/candidate-lineage-v1/README.md",
+  "shared_case_surface": "bounded lineage cases that keep cluster_ref, reviewed candidate_ref, staged seed_ref, optional downstream object_ref, terminal branch markers, and owner-shaping context inspectable on the same structural lineage surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same lineage-integrity question, keeps stage order and stage-gate prerequisites jointly inspectable, and still covers clean forward continuity, dropped visibility, superseded replacement traceability, and missing-stage failure without collapsing the bundle into owner-fit or final object quality review.",
+  "public_safe_requirements": [
+    "a bounded outside reviewer can inspect stage order without private owner-local context",
+    "dropped and superseded paths remain visible enough to review honestly",
+    "owner-shaping context stays visible without being inflated into owner proof",
+    "the public readout stays weaker than later owner and final object proof"
+  ]
+}

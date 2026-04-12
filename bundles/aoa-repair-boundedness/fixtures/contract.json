@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/repair-boundedness-v1/README.md",
+  "shared_case_surface": "bounded repair and reanchor cases that keep target seam, owner-boundary preservation, ambiguity reduction, scope control, and trail reviewability inspectable on the same follow-through surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same bounded-repair question, keeps the target seam and repair trail jointly inspectable, and still covers honest bounded repair, widening-shaped failure, ambiguity-reducing reanchor, and trail-gap pressure without collapsing the bundle into final object quality or retrospective route-justification review.",
+  "public_safe_requirements": [
+    "a bounded outside reviewer can inspect the named repair seam before reading the final repair note",
+    "owner-boundary preservation remains visible without private operational context",
+    "ambiguity reduction stays distinct from final quality proof",
+    "the public repair read stays weaker than final owner proof"
+  ]
+}

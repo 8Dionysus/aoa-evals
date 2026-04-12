@@ -1,0 +1,24 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "bounded lineage dossier",
+    "checkpoint lineage carry artifact",
+    "reviewed candidate receipt",
+    "seed lineage entry when present",
+    "downstream owner evidence when present",
+    "terminal branch markers when present",
+    "bundle-level integrity summary"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-candidate-lineage-integrity/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-candidate-lineage-integrity/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-candidate-lineage-integrity/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-candidate-lineage-integrity"
+  ]
+}

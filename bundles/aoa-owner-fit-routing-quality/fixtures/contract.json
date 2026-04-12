@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/owner-fit-routing-v1/README.md",
+  "shared_case_surface": "bounded reviewed-candidate cases that keep chosen owner_hypothesis, owner_shape, nearest_wrong_target, derivative-repo exclusions, and bounded evidence specificity inspectable on the same routing surface",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same owner-fit question, keeps the chosen owner and nearest wrong target jointly inspectable, and still covers clearly correct routing, honest ambiguity, derivative-repo temptation, and thin-evidence pressure without collapsing the bundle into final object quality or general usefulness review.",
+  "public_safe_requirements": [
+    "a bounded outside reviewer can inspect the chosen owner and nearest wrong target on the same case surface",
+    "derivative-repo boundaries remain visible without private governance context",
+    "the evidence note stays specific enough to review the owner hypothesis honestly",
+    "the public routing read stays weaker than final owner-object proof"
+  ]
+}

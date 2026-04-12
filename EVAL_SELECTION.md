@@ -44,6 +44,12 @@ Current starter posture:
   use it when the main question is whether a diagnosis or self-diagnosis move kept symptoms, probable causes, owner ambiguity, unknowns, and repair proof separate.
 - `aoa-repair-boundedness` is the current draft growth-refinery repair starter:
   use it when the main question is whether a repair or reanchor move stayed bounded, preserved owner boundaries, and left a reviewable trail.
+- `aoa-continuity-anchor-integrity` is the current draft self-agency continuity anchor starter:
+  use it when the main question is whether a continuity route still keeps one inspectable anchor chain instead of drifting into memo, stats, or chat residue.
+- `aoa-reflective-revision-boundedness` is the current draft self-agency continuity revision starter:
+  use it when the main question is whether reflective revision stayed inside one named revision window instead of widening by convenience.
+- `aoa-self-reanchor-correctness` is the current draft self-agency continuity reanchor starter:
+  use it when the main question is whether reanchor returned to the last valid artifact rather than to remembered continuity.
 - `aoa-witness-trace-integrity` is the current draft witness workflow starter:
   use it when the main question is whether a bounded run left a reviewable witness trace before any downstream memo or compost use.
   Its current draft proof flow is already materialized through a shared witness case family, bundle-local runner contract, and schema-backed report example.
@@ -79,6 +85,9 @@ See also:
 - Need to know whether a reviewed growth candidate is routed to the right owner layer? Use `aoa-owner-fit-routing-quality`.
 - Need to know whether a diagnosis preserved cause discipline without overclaiming? Use `aoa-diagnosis-cause-discipline`.
 - Need to know whether a repair or reanchor move stayed bounded instead of smearing scope? Use `aoa-repair-boundedness`.
+- Need to know whether a continuity route still has one inspectable anchor chain? Use `aoa-continuity-anchor-integrity`.
+- Need to know whether reflective revision stayed inside one named revision window? Use `aoa-reflective-revision-boundedness`.
+- Need to know whether reanchor returned to the last valid artifact? Use `aoa-self-reanchor-correctness`.
 
 ## Pick by question
 
@@ -121,6 +130,18 @@ See also:
 ### I need to know whether a repair or reanchor move stayed bounded
 - `aoa-repair-boundedness`
   Use this when the question is whether a follow-through correction preserved owner boundaries, reduced ambiguity, and stayed reviewable rather than widening scope under repair language.
+
+### I need to know whether a continuity route still has one inspectable anchor chain
+- `aoa-continuity-anchor-integrity`
+  Use this when the question is whether `continuity_ref`, `revision_window_ref`, `reanchor_ref`, and `anchor_artifact_ref` still form one honest chain rather than dissolving into memo, stats, or chat residue.
+
+### I need to know whether reflective revision stayed inside one named revision window
+- `aoa-reflective-revision-boundedness`
+  Use this when the question is whether reflective revision kept explicit stop-lines and stayed inside the named window rather than widening by convenience.
+
+### I need to know whether reanchor returned to the last valid artifact
+- `aoa-self-reanchor-correctness`
+  Use this when the question is whether a route returned to the last valid artifact with explicit return posture rather than narrating continuity from memory.
 
 ### I need to split final outcome judgment from path judgment without assuming one correct trace
 - `aoa-trace-outcome-separation`
@@ -184,13 +205,13 @@ See also:
 
 | category | use when | starter bundles |
 |---|---|---|
-| `workflow` | You care about multi-step execution quality, diagnosis-cause discipline, repair boundedness on follow-through moves, verification truthfulness, outcome-vs-path separation, tool-path quality where path matters, or public witness-trace reviewability. | `aoa-bounded-change-quality`, `aoa-diagnosis-cause-discipline`, `aoa-repair-boundedness`, `aoa-verification-honesty`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, `aoa-witness-trace-integrity` |
-| `boundary` | You care about authority, approval, permission adherence, requested-scope alignment, or owner-fit routing boundaries. | `aoa-scope-drift-detection`, `aoa-approval-boundary-adherence`, `aoa-owner-fit-routing-quality` |
+| `workflow` | You care about multi-step execution quality, diagnosis-cause discipline, repair boundedness, reflective revision boundedness on continuity routes, verification truthfulness, outcome-vs-path separation, tool-path quality where path matters, or public witness-trace reviewability. | `aoa-bounded-change-quality`, `aoa-diagnosis-cause-discipline`, `aoa-repair-boundedness`, `aoa-reflective-revision-boundedness`, `aoa-verification-honesty`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, `aoa-witness-trace-integrity` |
+| `boundary` | You care about authority, approval, permission adherence, requested-scope alignment, owner-fit routing boundaries, or whether a continuity route reanchored to the right artifact. | `aoa-scope-drift-detection`, `aoa-approval-boundary-adherence`, `aoa-owner-fit-routing-quality`, `aoa-self-reanchor-correctness` |
 | `stress` | You care about incomplete, conflicting, or underspecified task meaning, or about one bounded owner-local stressor family and whether degraded continuation stayed reviewable, source-owned, and weaker than the normal path. | `aoa-ambiguity-handling`, `aoa-antifragility-posture` |
 | `regression` | You care about frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | `artifact` | You care about the produced artifact itself or about provenance-preserving compost artifacts derived from witness-facing inputs. | `aoa-artifact-review-rubric`, `aoa-compost-provenance-preservation` |
 | `comparative` | You care about cross-surface divergence such as polished output versus process discipline. | `aoa-output-vs-process-gap` |
-| `capability` | You care about whether a bounded eval-side review surface is present, such as integrity checking of public eval bundles or growth-refinery lineage coherence as a distinct bounded ability. | `aoa-eval-integrity-check`, `aoa-candidate-lineage-integrity` |
+| `capability` | You care about whether a bounded eval-side review surface is present, such as integrity checking of public eval bundles, growth-refinery lineage coherence, or continuity-anchor integrity as distinct bounded abilities. | `aoa-eval-integrity-check`, `aoa-candidate-lineage-integrity`, `aoa-continuity-anchor-integrity` |
 | `longitudinal` | You care about ordered repeated-window movement on the same bounded surface, or about repeated-window stress recovery posture on one named stressor family rather than one-run or one-baseline comparison. | `aoa-longitudinal-growth-snapshot`, `aoa-stress-recovery-window` |
 
 Guardrails:

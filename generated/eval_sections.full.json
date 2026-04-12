@@ -659,6 +659,100 @@
       "verdict_shape": "mixed"
     },
     {
+      "category": "capability",
+      "eval_path": "bundles/aoa-continuity-anchor-integrity/EVAL.md",
+      "name": "aoa-continuity-anchor-integrity",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to judge whether a bounded self-agency continuity route keeps one\ninspectable anchor chain rather than narrating continuity from residue.\n\nThis draft bundle is a `capability` proof surface.\nIt does not prove autonomy, final object quality, or long-term route health.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks anchor-chain integrity on bounded self-agency continuity\nwindows.\n\nPrimary surfaces under evaluation:\n\n- `continuity_ref`\n- `revision_window_ref`\n- `reanchor_ref`\n- `anchor_artifact_ref`\n- explicit return mode and anchor-trace wording\n\nNearby surfaces intentionally excluded:\n\n- memo writeback quality by itself\n- derived stats quality by itself\n- final owner-object quality\n- broad self-agency claims",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions,\nthe continuity route kept one inspectable anchor chain across continuity,\nrevision, reanchor, and anchor refs without letting chat residue, memo, or\nstats replace the anchor.\n\nThis eval does not support claims such as:\n\n- the route is autonomous\n- the route is permanently stable\n- any downstream summary proves anchor integrity by association",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a continuity window is already named\n- the main question is whether anchor continuity stayed inspectable\n- explicit reanchor and return posture matter to the route\n- memo or stats drift is a plausible failure mode\n\nDo not use this eval when:\n\n- there is no named continuity chain\n- the main question is bounded revision quality rather than chain integrity\n- the main question is whether reanchor chose the right return target",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- one continuity window artifact\n- one anchor trace\n- one named anchor artifact\n- any explicit reanchor decision\n- memo or stats citations when present",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "Strong bounded cases should include:\n\n- one clean continuity chain\n- one missing-anchor failure\n- one chat-residue-overreach failure",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a categorical verdict with explicit anchor notes.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nKey review checks:\n\n- the anchor chain is complete and inspectable\n- reanchor remains explicit when the route needed return\n- memo or stats citations stay weaker than the anchor artifact\n- continuity language does not float free from named artifacts",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This starter bundle uses `none`.\n\nIt is a standalone anchor-integrity read.\nIt does not compare continuity windows over time, and it does not assign a\nself-agency score.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. gather the named continuity window and anchor trace\n2. inspect continuity, revision, reanchor, and anchor refs separately\n3. confirm the anchor artifact is inspectable\n4. check whether any memo or stats surface is overread as anchor truth\n5. publish one bounded anchor-integrity read",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bounded verdict\n- one anchor-chain note per reviewed route\n- one explicit claim-limit note",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "Main ways this eval can fail as an instrument:\n\n- continuity prose hides a missing anchor link\n- reanchor is implied but not named\n- downstream memo or stats wording is treated as stronger than the anchor",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- reflective revision stayed bounded\n- reanchor chose the right last valid artifact\n- the final owner artifact is good",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe route kept an inspectable anchor chain on this surface.\n\nDo not treat a positive result as:\n\n- proof of autonomy\n- proof of permanent route health\n- proof that memo or stats may speak more strongly than the anchor",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- review one clean anchor chain\n- review one missing-anchor failure\n- review one memo-or-chat-overreach failure",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "- AOA-T-0001",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "- aoa-change-protocol\n- aoa-bounded-context-map",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "- add real continuity-chain fixtures after the first reviewed run\n- keep this bundle weaker than bounded revision and reanchor proof",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "categorical"
+    },
+    {
       "category": "workflow",
       "eval_path": "bundles/aoa-diagnosis-cause-discipline/EVAL.md",
       "name": "aoa-diagnosis-cause-discipline",
@@ -1505,6 +1599,100 @@
       "verdict_shape": "categorical"
     },
     {
+      "category": "workflow",
+      "eval_path": "bundles/aoa-reflective-revision-boundedness/EVAL.md",
+      "name": "aoa-reflective-revision-boundedness",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to judge whether reflective revision stayed inside one named\nrevision window instead of widening until the route merely felt coherent.\n\nThis draft bundle is a `workflow` proof surface.\nIt does not prove anchor integrity by itself, and it does not prove the route\nearned a broader self-agency claim.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks reflective revision boundedness on self-agency continuity\nwindows.\n\nPrimary surfaces under evaluation:\n\n- `revision_window_ref`\n- revision stop-lines\n- revision-scope notes\n- explicit defer or reanchor boundary\n- continuity artifact trail after the revision move\n\nNearby surfaces intentionally excluded:\n\n- the anchor chain by itself\n- final owner-object quality\n- broad narrative coherence\n- permanent route health",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions,\nreflective revision stayed inside the named revision window, preserved explicit\nstop-lines, and did not widen into generic continuity drift.\n\nThis eval does not support claims such as:\n\n- the route is autonomous\n- any successful revision is acceptable because it sounds coherent\n- later reanchor or memo success retroactively proves bounded revision",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a named revision window already exists\n- the main question is whether revision stayed bounded\n- the route has explicit stop-lines or reanchor boundaries\n- widening by convenience is a plausible failure mode\n\nDo not use this eval when:\n\n- no named revision window exists\n- the main question is anchor-chain integrity instead\n- the main question is whether reanchor returned to the right artifact",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- one revision window artifact\n- revision notes or decisions\n- explicit stop-lines\n- any reanchor trigger or defer note\n- downstream continuity artifacts",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "Strong bounded cases should include:\n\n- one honest bounded revision window\n- one widening-by-convenience failure\n- one reanchor-before-overreach case",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a categorical verdict with explicit revision notes.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nKey review checks:\n\n- the revision window is named and stable\n- explicit stop-lines remained visible\n- revision did not widen into generic route memory\n- reanchor or defer remained available before the window lost boundedness",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This starter bundle uses `none`.\n\nIt is a standalone reflective-revision read.\nIt does not compare windows over time, and it does not assign growth or\nautonomy scores.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. gather the named revision window and revision artifacts\n2. inspect explicit stop-lines and reanchor boundaries\n3. check whether revision widened beyond the named window\n4. confirm the route still had an honest defer or reanchor option\n5. publish one bounded revision-boundedness read",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bounded verdict\n- one revision note per reviewed route\n- one explicit stop-line note",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "Main ways this eval can fail as an instrument:\n\n- the revision window exists in name only\n- stop-lines disappear once revision begins\n- coherent-looking revision prose hides widened scope",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- the anchor chain stayed intact\n- reanchor returned to the right artifact\n- the final owner object is high quality",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe reflective revision stayed inside the named window on this surface.\n\nDo not treat a positive result as:\n\n- proof of autonomy\n- proof of anchor integrity\n- permission to widen the next revision window silently",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- review one honest bounded revision window\n- review one widening-by-convenience failure\n- review one reanchor-before-overreach case",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "- AOA-T-0001",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "- aoa-change-protocol\n- aoa-bounded-context-map",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "- add real revision-window fixtures after the first reviewed run\n- keep this bundle weaker than final owner proof and broader continuity claims",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "categorical"
+    },
+    {
       "category": "regression",
       "eval_path": "bundles/aoa-regression-same-task/EVAL.md",
       "name": "aoa-regression-same-task",
@@ -1972,6 +2160,100 @@
         }
       ],
       "status": "bounded",
+      "verdict_shape": "categorical"
+    },
+    {
+      "category": "boundary",
+      "eval_path": "bundles/aoa-self-reanchor-correctness/EVAL.md",
+      "name": "aoa-self-reanchor-correctness",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to judge whether a bounded continuity route returned to the last\nvalid artifact rather than widening scope or pretending that conversational\ncontinuity is enough.\n\nThis draft bundle is a `boundary` proof surface.\nIt does not prove anchor integrity by itself, and it does not prove the whole\nroute stayed healthy.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks reanchor correctness on bounded self-agency continuity routes.\n\nPrimary surfaces under evaluation:\n\n- `reanchor_ref`\n- `anchor_artifact_ref`\n- explicit return mode\n- reason for reanchor\n- post-reanchor continuity wording\n\nNearby surfaces intentionally excluded:\n\n- whether the earlier revision window was bounded\n- the full anchor chain by itself\n- final owner-object quality\n- broad autonomy or selfhood claims",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions,\nthe route reanchored to the last valid artifact, kept return posture explicit,\nand refused chat-residue continuity once boundedness or anchor clarity was\nlost.\n\nThis eval does not support claims such as:\n\n- reanchor guarantees future success\n- any return to an older artifact is automatically correct\n- downstream memo or stats surfaces may stand in for the return anchor",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a route actually issued or should have issued a `reanchor_ref`\n- the main question is whether return posture chose the right anchor class\n- chat residue or vague continuity is a plausible failure mode\n- explicit return mode matters to the route\n\nDo not use this eval when:\n\n- there is no reanchor decision or trigger to inspect\n- the main question is whether the continuity chain existed at all\n- the main question is whether revision stayed bounded before reanchor",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- one reanchor decision\n- one named anchor artifact\n- one anchor trace or continuity window\n- return-mode notes\n- any downstream continuity, memo, or stats wording after reanchor",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "Strong bounded cases should include:\n\n- one correct reanchor to the last valid artifact\n- one stale-anchor failure\n- one chat-residue-continuity failure",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a categorical verdict with explicit reanchor notes.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nKey review checks:\n\n- the return target is a named inspectable artifact\n- reanchor naming is explicit rather than implied\n- the chosen anchor is the last valid one still supported by the route\n- downstream continuity wording does not smuggle in chat-residue return",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This starter bundle uses `none`.\n\nIt is a standalone reanchor-correctness read.\nIt does not compare reanchors over time, and it does not assign a continuity\nor autonomy score.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. gather the reanchor decision and named anchor artifact\n2. inspect why the route needed return\n3. verify the chosen anchor is inspectable and still valid\n4. check whether post-reanchor wording overreads chat continuity\n5. publish one bounded reanchor-correctness read",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bounded verdict\n- one reanchor note per reviewed route\n- one explicit claim-limit note",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "Main ways this eval can fail as an instrument:\n\n- the route returns to a stale or weak artifact\n- reanchor is implied but never named\n- post-reanchor wording quietly treats remembered context as enough",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- the whole anchor chain was intact before reanchor\n- reflective revision was bounded\n- the final owner object is high quality",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe route returned to the last valid artifact on this surface.\n\nDo not treat a positive result as:\n\n- proof of autonomy\n- proof that the route is now healthy forever\n- permission to let memo or stats stand in for reanchor truth",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- review one correct reanchor\n- review one stale-anchor failure\n- review one chat-residue-continuity failure",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "- AOA-T-0001",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "- aoa-change-protocol\n- aoa-bounded-context-map",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "- add real reanchor fixtures after the first reviewed continuity run\n- keep this bundle weaker than final owner proof and route-health claims",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
       "verdict_shape": "categorical"
     },
     {

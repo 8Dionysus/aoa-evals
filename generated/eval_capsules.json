@@ -305,6 +305,53 @@
       "what_this_does_not_prove": "proof that the resulting principle is canon; proof that all contradictions have been resolved; proof that operational ownership moved into ToS"
     },
     {
+      "blind_spot_short": "reflective revision stayed bounded; reanchor chose the right last valid artifact; the final owner artifact is good",
+      "bounded_claim_short": "under these conditions, the continuity route kept one inspectable anchor chain across continuity, revision, reanchor, and anchor refs without letting chat residue, memo, or stats replace the...",
+      "category": "capability",
+      "comparison_surface": null,
+      "do_not_use_short": "there is no named continuity chain; the main question is bounded revision quality rather than chain integrity",
+      "eval_path": "bundles/aoa-continuity-anchor-integrity/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-continuity-anchor-integrity",
+      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_surface_kinds": [],
+      "skill_dependencies": [
+        "aoa-change-protocol",
+        "aoa-bounded-context-map"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        },
+        {
+          "name": "aoa-bounded-context-map",
+          "path": "skills/aoa-bounded-context-map/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether a bounded self-agency continuity window keeps an inspectable anchor chain across continuity, revision, reanchor, and anchor refs without letting memo, stats, or chat residue become continuity truth.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "use_when_short": "a continuity window is already named; the main question is whether anchor continuity stayed inspectable",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof of autonomy; proof of permanent route health; proof that memo or stats may speak more strongly than the anchor"
+    },
+    {
       "blind_spot_short": "the cause is ultimately correct; the repair worked; the final object is high quality",
       "bounded_claim_short": "under these conditions, the diagnosis named plausible causal hypotheses and evidence limits without collapsing symptoms, owner ambiguity, repair success, or later cleanup into cause proof.",
       "category": "workflow",
@@ -662,6 +709,53 @@
       "what_this_does_not_prove": "proof of final object quality; proof that the chosen owner will never need revision; permission to skip later proof on the final owner object"
     },
     {
+      "blind_spot_short": "the anchor chain stayed intact; reanchor returned to the right artifact; the final owner object is high quality",
+      "bounded_claim_short": "under these conditions, reflective revision stayed inside the named revision window, preserved explicit stop-lines, and did not widen into generic continuity drift.",
+      "category": "workflow",
+      "comparison_surface": null,
+      "do_not_use_short": "no named revision window exists; the main question is anchor-chain integrity instead",
+      "eval_path": "bundles/aoa-reflective-revision-boundedness/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-reflective-revision-boundedness",
+      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_surface_kinds": [],
+      "skill_dependencies": [
+        "aoa-change-protocol",
+        "aoa-bounded-context-map"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        },
+        {
+          "name": "aoa-bounded-context-map",
+          "path": "skills/aoa-bounded-context-map/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether reflective revision stays inside one named revision window, keeps stop-lines visible, and does not widen into vague continuity or hidden autonomy.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "use_when_short": "a named revision window already exists; the main question is whether revision stayed bounded",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof of autonomy; proof of anchor integrity; permission to widen the next revision window silently"
+    },
+    {
       "blind_spot_short": "general capability growth; long-term trend movement across windows; improvement outside the frozen case family",
       "bounded_claim_short": "under these conditions, the candidate does not materially regress against the frozen baseline on this same-task bounded workflow surface.",
       "category": "regression",
@@ -874,6 +968,53 @@
       "use_when_short": "the task is a bounded change with a reviewable requested scope; the main question is silent widening, narrowing, or reshaping",
       "verdict_shape": "categorical",
       "what_this_does_not_prove": "proof that the whole workflow was strong; proof that verification was honest or sufficient; proof that the authority boundary was handled correctly"
+    },
+    {
+      "blind_spot_short": "the whole anchor chain was intact before reanchor; reflective revision was bounded; the final owner object is high quality",
+      "bounded_claim_short": "under these conditions, the route reanchored to the last valid artifact, kept return posture explicit, and refused chat-residue continuity once boundedness or anchor clarity was lost.",
+      "category": "boundary",
+      "comparison_surface": null,
+      "do_not_use_short": "there is no reanchor decision or trigger to inspect; the main question is whether the continuity chain existed at all",
+      "eval_path": "bundles/aoa-self-reanchor-correctness/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-self-reanchor-correctness",
+      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_surface_kinds": [],
+      "skill_dependencies": [
+        "aoa-change-protocol",
+        "aoa-bounded-context-map"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        },
+        {
+          "name": "aoa-bounded-context-map",
+          "path": "skills/aoa-bounded-context-map/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether a bounded self-agency continuity route reanchors to the last valid artifact, keeps return mode explicit, and refuses chat-residue continuity when anchor integrity is lost.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "use_when_short": "a route actually issued or should have issued a reanchorref; the main question is whether return posture chose the right anchor class",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "proof of autonomy; proof that the route is now healthy forever; permission to let memo or stats stand in for reanchor truth"
     },
     {
       "blind_spot_short": "long-horizon health across unrelated stressor families; repo-global readiness for mutation; that future KAG projection families will follow the same re-entry discipline",

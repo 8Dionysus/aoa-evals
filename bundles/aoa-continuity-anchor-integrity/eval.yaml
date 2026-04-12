@@ -1,0 +1,46 @@
+name: aoa-continuity-anchor-integrity
+category: capability
+status: draft
+object_under_evaluation: anchor-chain integrity on bounded self-agency continuity windows
+claim_type: bounded
+baseline_mode: none
+verdict_shape: categorical
+report_format: summary
+maturity_score: 2
+rigor_level: bounded
+repeatability: moderate
+portability_level: local-shaped
+review_required: true
+validation_strength: baseline
+export_ready: true
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+
+technique_dependencies:
+  - id: AOA-T-0001
+    repo: 8Dionysus/aoa-techniques
+    path: techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md
+
+skill_dependencies:
+  - name: aoa-change-protocol
+    repo: 8Dionysus/aoa-skills
+    path: skills/aoa-change-protocol/SKILL.md
+  - name: aoa-bounded-context-map
+    repo: 8Dionysus/aoa-skills
+    path: skills/aoa-bounded-context-map/SKILL.md
+
+relations:
+  - type: complements
+    target: aoa-return-anchor-integrity
+  - type: complements
+    target: aoa-reflective-revision-boundedness
+  - type: complements
+    target: aoa-self-reanchor-correctness
+
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: support_note
+    path: notes/anchor-contract.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md

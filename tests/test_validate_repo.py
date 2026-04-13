@@ -561,7 +561,7 @@ def make_roadmap(
     )
 
     write_text(
-        repo_root / "docs" / "ROADMAP.md",
+        repo_root / "ROADMAP.md",
         f"""
         # Roadmap
 

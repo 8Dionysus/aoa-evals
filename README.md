@@ -14,6 +14,7 @@ Use the shortest route by need:
 
 - first concrete source-owned proof surface: `bundles/aoa-bounded-change-quality/EVAL.md`
 - docs map: `docs/README.md`
+- current direction: `ROADMAP.md`
 - repeated-window stress recovery proof surface: `bundles/aoa-stress-recovery-window/EVAL.md` and `docs/STRESS_RECOVERY_WINDOW_EVALS.md`
 - self-agency continuity proof surfaces: `bundles/aoa-continuity-anchor-integrity/EVAL.md`, `bundles/aoa-reflective-revision-boundedness/EVAL.md`, and `bundles/aoa-self-reanchor-correctness/EVAL.md`
 - proof posture and limits: `docs/EVAL_PHILOSOPHY.md`

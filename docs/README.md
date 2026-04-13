@@ -18,6 +18,8 @@ Choose the path that matches your question:
 - I need to understand what this repository means by evaluation:
   - [Eval Philosophy](EVAL_PHILOSOPHY.md)
   - [Architecture](ARCHITECTURE.md)
+- I need the current proof-layer direction and next growth lanes:
+  - [Roadmap](../ROADMAP.md)
 - I need to pick or inspect an eval bundle by routing surface:
   - [Eval Selection](../EVAL_SELECTION.md)
   - [Eval Index](../EVAL_INDEX.md)

@@ -64,6 +64,7 @@ class RoadmapParityTestCase(unittest.TestCase):
         for relative_path in (
             "bundles/aoa-memo-recall-integrity/EVAL.md",
             "bundles/aoa-memo-contradiction-integrity/EVAL.md",
+            "bundles/aoa-memo-writeback-act-integrity/EVAL.md",
         ):
             bundle_text = (REPO_ROOT / relative_path).read_text(encoding="utf-8")
             with self.subTest(bundle=relative_path):

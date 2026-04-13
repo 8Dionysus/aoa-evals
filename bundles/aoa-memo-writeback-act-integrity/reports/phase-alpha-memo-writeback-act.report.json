@@ -1,0 +1,64 @@
+{
+  "eval_name": "aoa-memo-writeback-act-integrity",
+  "bundle_status": "draft",
+  "object_under_evaluation": "integrity of runtime-to-memo writeback on bounded owner-local adoption paths",
+  "verdict": "supports bounded claim",
+  "claim_boundary": "On the selected Phase Alpha writeback path, runtime evidence, the reviewed Alpha rerun, the adopted memo decision, and the tracked receipt-facing publication mirror keep one concrete runtime-to-memo writeback act inspectable from runtime closure into memo recall. This supports the bundle claim only for this confirmed memo_surviving_event decision path, not for reviewed-candidate promotion, future scar or retention readiness, or live memory-ledger behavior.",
+  "limitations": [
+    "This report reads one selected Phase Alpha runtime path plus its reviewed adoption and receipt-facing visibility only.",
+    "This report does not prove reviewed_candidate claim, pattern, or bridge promotion.",
+    "This report does not prove contradiction handling or KAG activation.",
+    "This report does not prove permission or authority safety from memo fields.",
+    "This report does not prove future scar or retention readiness.",
+    "This report does not prove live memory-ledger behavior.",
+    "This report does not prove generic receipt automation.",
+    "This report does not replace recall, return-anchor, or verification evals."
+  ],
+  "case_family": "phase-alpha-memo-writeback-act-v1 selected runtime evidence over memo-writeback-act-guardrail-v1",
+  "breakdown": {
+    "runtime_boundary_honesty": "strong",
+    "review_to_adoption_alignment": "strong",
+    "receipt_visibility": "strong",
+    "recall_surface_alignment": "strong"
+  },
+  "strongest_writeback_signal": "The same bounded closure story stays visible across remediation_decision.json, the Alpha reviewed rerun, the adopted memo decision, the catalog and sections surfaces, the tracked memo_writeback_receipts.example.jsonl mirror, and the reviewed federated-live-publisher-activation summary.",
+  "strongest_writeback_risk": "This result proves one confirmed decision writeback path only and still must not be read as generic reviewed-candidate promotion, future scar or retention readiness, or live memory-ledger proof.",
+  "case_notes": [
+    {
+      "case_id": "PWA-01",
+      "read_path": "runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json -> remediation_decision.json -> 2026-04-02.validation-driven-remediation-recall-rerun.md",
+      "writeback_reading": "supports bounded claim",
+      "candidate_note": "The runtime evidence keeps failure_map.json, revalidation_pack.json, remediation_decision.json, and handoff_record.json on one bounded writeback path.",
+      "review_note": "The reviewed Alpha rerun explicitly names memo writeback outputs and keeps the writeback act subordinate to the reviewed route boundary.",
+      "receipt_note": "Receipt visibility is not yet the primary pressure on this first boundary case.",
+      "recall_note": "The later memo decision stays tied to the same reviewed source anchor rather than to chat residue or hidden scratchpad."
+    },
+    {
+      "case_id": "PWA-02",
+      "read_path": "2026-04-02.validation-driven-remediation-recall-rerun.md -> decision.phase-alpha-validation-remediation-rerun.example.json -> memory_object_catalog.min.json -> memory_object_sections.full.json",
+      "writeback_reading": "supports bounded claim",
+      "candidate_note": "The closure decision remains narrow: close remediation recurrence as proven under memo-only recall.",
+      "review_note": "The reviewed run and the adopted memo decision keep the same route capsule and source refs visible.",
+      "receipt_note": "This case is about adopted memo visibility before the receipt-facing mirror is consulted directly.",
+      "recall_note": "The adopted decision stays preferred and recallable without widening into general memory doctrine."
+    },
+    {
+      "case_id": "PWA-03",
+      "read_path": "memo_writeback_receipts.example.jsonl -> 2026-04-07.federated-live-publisher-activation.md",
+      "writeback_reading": "supports bounded claim",
+      "candidate_note": "The tracked receipt mirror preserves the exact adopted object id, target_kind=decision, review_state=confirmed, and the reviewed Alpha writeback anchor.",
+      "review_note": "The reviewed live-publisher activation summary names owner_change_set and publication_verification_pack instead of hiding live publication behind consumer-side inference.",
+      "receipt_note": "Receipt visibility is strong for this bounded path because the tracked mirror and the reviewed publication summary point to the same writeback act.",
+      "recall_note": "The receipt-facing visibility remains downstream from the adopted memo object rather than replacing it."
+    },
+    {
+      "case_id": "PWA-04",
+      "read_path": "revalidation_pack.json -> handoff_record.json -> decision.phase-alpha-validation-remediation-rerun.example.json -> memory_object_sections.full.json",
+      "writeback_reading": "supports bounded claim",
+      "candidate_note": "The runtime path closes on memo-only rerun success and preserves the same bounded closure reason through handoff.",
+      "review_note": "The handoff record keeps eval readout -> memo writeback -> recall-driven rerun explicit as one closed circle.",
+      "receipt_note": "Receipt visibility stays downstream from the act and does not become the sole source of truth for adoption.",
+      "recall_note": "The memo sections surface keeps provenance and current recall posture visible after the writeback act lands."
+    }
+  ]
+}

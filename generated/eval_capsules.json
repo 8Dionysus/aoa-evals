@@ -603,6 +603,37 @@
       "what_this_does_not_prove": "proof that memo recall is generally authoritative; proof that all memo guardrail risks are now covered; proof that downstream routing or runtime behavior is fully solved"
     },
     {
+      "blind_spot_short": "contradiction handling quality; reviewed-candidate promotion discipline; future scar or retention readiness",
+      "bounded_claim_short": "under these conditions, one concrete runtime-to-memo writeback act remained review-gated, provenance-visible, and recall-aligned from runtime closure into adopted memo visibility.",
+      "category": "workflow",
+      "comparison_surface": null,
+      "do_not_use_short": "no adopted memo object exists yet; the main question is contradiction handling or recall precision",
+      "eval_path": "bundles/aoa-memo-writeback-act-integrity/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-memo-writeback-act-integrity",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether one bounded runtime-to-memo writeback act stays review-gated, receipt-visible, and recall-aligned from runtime closure into adopted memo surfaces.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "use_when_short": "a bounded route already has a reviewed runtime closure and adopted memo",
+      "verdict_shape": "mixed",
+      "what_this_does_not_prove": "proof that memo writeback is generally solved; proof that reviewed-candidate promotion is ready; proof of future scar or retention readiness"
+    },
+    {
       "blind_spot_short": "root-cause diagnosis for why one side outran the other; one-run artifact quality by itself; one-run workflow quality by itself",
       "bounded_claim_short": "under these conditions, artifact-side and process-side readings on the same bounded cases can be compared honestly enough to show whether one materially outruns the other or whether the...",
       "category": "comparative",

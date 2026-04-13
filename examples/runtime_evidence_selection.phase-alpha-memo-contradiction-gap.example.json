@@ -1,0 +1,58 @@
+{
+  "surface_type": "runtime_evidence_selection",
+  "selection_id": "phase-alpha-memo-contradiction-gap-v1",
+  "source_repo": "abyss-stack",
+  "source_schema_ref": "repo:abyss-stack/schemas/runtime-memo-export-candidate.schema.json",
+  "source_manifests": [
+    "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/contradiction_map.json",
+    "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/memory_delta.json"
+  ],
+  "bounded_claim": "On the existing Phase Alpha runtime surfaces, selected evidence can show why aoa-memo-contradiction-integrity remains blocked: alpha-05 preserved a general contradiction map and memo delta, but no lifecycle-aware object recall rerun exercised superseded, retracted, or still-open memo objects. This is gap evidence only.",
+  "promotion_target": "local-only",
+  "comparison_mode": "none",
+  "candidate_eval_refs": [
+    "candidate:aoa-memo-contradiction-integrity"
+  ],
+  "selected_evidence": [
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/contradiction_map.json",
+      "evidence_role": "summary",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/memory_delta.json",
+      "evidence_role": "case-breakdown",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/next_pass_brief.md",
+      "evidence_role": "environment-note",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/failure_map.json",
+      "evidence_role": "integrity-sidecar",
+      "summary_only": true
+    }
+  ],
+  "environment_invariants": [
+    "same Phase Alpha checkpoint and memo-only rerun family",
+    "same memo-first rerun posture: inspect then capsule then expand",
+    "same human-review requirement before treating memo evidence as proof"
+  ],
+  "environment_deltas": [
+    "the contradiction map exists on alpha-05, while the alpha-06 memo-only rerun did not become a lifecycle-aware contradiction recall run"
+  ],
+  "do_not_overread": [
+    "does not prove contradiction handling quality",
+    "does not prove contradiction resolution",
+    "does not prove lifecycle-aware object recall over superseded or retracted memo objects",
+    "does not make aoa-memo-contradiction-integrity export-ready",
+    "does not replace a future contradiction rerun with explicit memo object evidence"
+  ],
+  "review_posture": {
+    "portable_enough": false,
+    "comparison_hygiene_named": true,
+    "human_review_required": true
+  }
+}

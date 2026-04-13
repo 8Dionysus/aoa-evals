@@ -2,7 +2,10 @@
 
 ## Purpose
 
-This roadmap describes how `aoa-evals` should grow from a strong public bootstrap into a trustworthy proof layer for agents.
+This roadmap describes how `aoa-evals` should keep hardening as the bounded
+proof layer for agents.
+It has moved beyond public bootstrap into `v0.3.1` proof-surface and
+continuity-wave alignment.
 
 The center of gravity is agent evaluation first.
 Human readability remains mandatory.
@@ -17,6 +20,41 @@ The strongest current external signal is that the next durable layer of agent ev
 
 This roadmap is not about maximizing bundle count quickly.
 It is about building a proof canon that can support honest growth.
+
+## Current release contour
+
+For `v0.3.1`, the current contour is proof-surface hardening, not a claim that
+`aoa-evals` owns runtime truth, memory truth, role policy, or broad autonomy
+proof:
+
+- continuity and self-agency proof bundles:
+  `bundles/aoa-continuity-anchor-integrity/EVAL.md`,
+  `bundles/aoa-reflective-revision-boundedness/EVAL.md`,
+  and `bundles/aoa-self-reanchor-correctness/EVAL.md`
+- checkpoint, diagnosis, and growth-refinery follow-through bundles:
+  `bundles/aoa-candidate-lineage-integrity/EVAL.md`,
+  `bundles/aoa-diagnosis-cause-discipline/EVAL.md`,
+  and `bundles/aoa-repair-boundedness/EVAL.md`
+- current reader and runtime-candidate proof surfaces:
+  `generated/eval_catalog.min.json`,
+  `generated/eval_capsules.json`,
+  `generated/eval_sections.full.json`,
+  `generated/runtime_candidate_template_index.min.json`,
+  `generated/runtime_candidate_intake.min.json`,
+  and `generated/phase_alpha_eval_matrix.min.json`
+- proof posture and runtime-artifact bridge docs:
+  `docs/PROGRESSION_EVIDENCE_MODEL.md`,
+  `docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`,
+  `docs/RECURRENCE_PROOF_PROGRAM.md`,
+  `docs/TRACE_EVAL_BRIDGE.md`,
+  `docs/EVAL_RESULT_RECEIPT_GUIDE.md`,
+  and `docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
+
+Roadmap drift is an eval-layer risk: if this file falls back to bootstrap-only
+language while the repository publishes continuity, checkpoint, diagnosis, and
+catalog surfaces, readers may over- or under-read the proof boundary. Keep the
+roadmap current while preserving the rule that `aoa-evals` proves only bounded
+claims.
 
 ## Guiding priorities
 

@@ -603,6 +603,37 @@
       "what_this_does_not_prove": "proof that memo recall is generally authoritative; proof that all memo guardrail risks are now covered; proof that downstream routing or runtime behavior is fully solved"
     },
     {
+      "blind_spot_short": "contradiction handling quality; confirmed memo-surviving-event writeback quality; final promotion discipline",
+      "bounded_claim_short": "under these conditions, a reviewed distillation candidate can move from runtime candidate mapping through reviewed memo adoption into live receipt visibility and object-facing recall without...",
+      "category": "workflow",
+      "comparison_surface": null,
+      "do_not_use_short": "no candidate-facing memo object exists yet; the main question is contradiction handling or recall precision",
+      "eval_path": "bundles/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-memo-reviewed-candidate-adoption-integrity",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether reviewed distillation candidates can reach adopted memo visibility, live receipt visibility, and recall surfaces without flattening candidate posture into settled truth.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "use_when_short": "the main question is reviewed-candidate adoption rather than confirmed",
+      "verdict_shape": "mixed",
+      "what_this_does_not_prove": "proof that reviewed-candidate promotion is ready; proof that all three distillation target kinds have equal support; proof of KAG-lift readiness"
+    },
+    {
       "blind_spot_short": "contradiction handling quality; reviewed-candidate promotion discipline; future scar or retention readiness",
       "bounded_claim_short": "under these conditions, one concrete runtime-to-memo writeback act remained review-gated, provenance-visible, and recall-aligned from runtime closure into adopted memo visibility.",
       "category": "workflow",

@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-memo-reviewed-candidate-adoption-integrity summary-with-breakdown report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "breakdown",
+    "strongest_adoption_signal",
+    "strongest_adoption_risk",
+    "case_notes"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-memo-reviewed-candidate-adoption-integrity"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "integrity of reviewed-candidate adoption on runtime-to-memo distillation paths"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 10
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 10
+    },
+    "breakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_mapping_integrity",
+        "review_to_adoption_alignment",
+        "receipt_visibility",
+        "candidate_posture_honesty",
+        "recall_surface_alignment"
+      ],
+      "properties": {
+        "target_mapping_integrity": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "review_to_adoption_alignment": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "receipt_visibility": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "candidate_posture_honesty": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "recall_surface_alignment": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        }
+      }
+    },
+    "strongest_adoption_signal": {
+      "type": "string",
+      "minLength": 20
+    },
+    "strongest_adoption_risk": {
+      "type": "string",
+      "minLength": 20
+    },
+    "case_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "read_path",
+          "adoption_reading",
+          "candidate_note",
+          "review_note",
+          "receipt_note",
+          "recall_note"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "read_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "adoption_reading": {
+            "type": "string",
+            "enum": [
+              "supports bounded claim",
+              "mixed support",
+              "does not support bounded claim"
+            ]
+          },
+          "candidate_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "review_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "receipt_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "recall_note": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "eval_name": "aoa-memo-reviewed-candidate-adoption-integrity",
+  "bundle_status": "draft",
+  "object_under_evaluation": "integrity of reviewed-candidate adoption on runtime-to-memo distillation paths",
+  "verdict": "supports bounded claim",
+  "claim_boundary": "On the currently inspected public memo surfaces, reviewed-candidate adoption now supports one bounded claim/pattern/bridge path from runtime mapping through review anchor, live receipt publication, and object-facing recall without silently upgrading the bridge leg into final lift or settled graph truth.",
+  "limitations": [
+    "This report does not prove reviewed-candidate promotion quality.",
+    "This report does not prove contradiction handling quality.",
+    "This report does not prove confirmed memo-surviving-event writeback quality.",
+    "This report does not prove KAG-lift completion or bridge promotion.",
+    "This report does not prove generic live memory-ledger behavior."
+  ],
+  "case_family": "memo-reviewed-candidate-adoption-guardrail-v1 current public adopted-receipt dossier",
+  "breakdown": {
+    "target_mapping_integrity": "strong",
+    "review_to_adoption_alignment": "strong",
+    "receipt_visibility": "strong",
+    "candidate_posture_honesty": "strong",
+    "recall_surface_alignment": "strong"
+  },
+  "strongest_adoption_signal": "The memo layer now publishes explicit reviewed-candidate receipts for claim, pattern, and bridge paths, and each receipt ties runtime_surface, adopted object, review anchor, and recall catalog visibility together on one public lane.",
+  "strongest_adoption_risk": "The bridge leg remains candidate-shaped and must still be read as adopted memo visibility only, not as bridge promotion, KAG lift completion, or downstream graph truth.",
+  "case_notes": [
+    {
+      "case_id": "RCA-CLAIM-01",
+      "read_path": "checkpoint_to_memory_contract.example.json -> runtime_writeback_targets.min.json -> claim.phase-alpha-runtime-history-later-infra-track.example.json -> memo-writeback-receipts.jsonl -> memory_object_catalog.min.json -> memory_object_sections.full.json",
+      "adoption_reading": "supports bounded claim",
+      "candidate_note": "The claim leg keeps explicit distillation candidate posture through the runtime mapping and the published reviewed-candidate receipt.",
+      "review_note": "The receipt names the reviewed validation-driven-remediation anchor while preserving the adopted claim's confirmed lifecycle and contradiction-aware recall posture.",
+      "receipt_note": "The live receipt log and tracked fixture now publish this claim as a reviewed-candidate adoption event with runtime_surface and writeback anchor refs.",
+      "recall_note": "The adopted claim remains inspectable downstream with explicit review state, provenance, and current-recall posture."
+    },
+    {
+      "case_id": "RCA-PATTERN-01",
+      "read_path": "checkpoint_to_memory_contract.example.json -> phase_alpha_writeback_map.min.json -> pattern.phase-alpha-remediation-recurrence.example.json -> memo-writeback-receipts.jsonl -> memory_object_catalog.min.json -> memory_object_sections.full.json",
+      "adoption_reading": "supports bounded claim",
+      "candidate_note": "The pattern leg now has one public reviewed-candidate receipt that isolates the adoption path instead of leaving the pattern leg implied by adjacent recurrence evidence alone.",
+      "review_note": "The receipt keeps the rerun review anchor explicit and preserves the adopted pattern's bounded recurrence posture without widening it into general technique canon.",
+      "receipt_note": "The live receipt log and tracked fixture now publish the pattern leg as a reviewed-candidate adoption event with aligned runtime_surface and adopted source-path refs.",
+      "recall_note": "The pattern remains recallable through the object-facing catalog, capsules, and sections with lifecycle posture intact."
+    },
+    {
+      "case_id": "RCA-BRIDGE-01",
+      "read_path": "checkpoint_to_memory_contract.example.json -> runtime_writeback_targets.min.json -> bridge.kag-lift.example.json -> memo-writeback-receipts.jsonl -> memory_object_catalog.min.json -> kag_export.min.json",
+      "adoption_reading": "supports bounded claim",
+      "candidate_note": "The bridge leg remains visibly candidate-shaped while now also carrying one explicit reviewed-candidate receipt that separates adoption from later lift stories.",
+      "review_note": "The receipt points back to the memo-side bridge contract anchor and preserves the bridge object's proposed review_state and candidate-only KAG posture.",
+      "receipt_note": "The live receipt log and tracked fixture now publish the bridge leg as a reviewed-candidate adoption event instead of leaving the bridge path receipt-silent.",
+      "recall_note": "Recall posture stays honest because the bridge remains inspectable as a proposed candidate on memo surfaces rather than being flattened into finalized bridge truth."
+    }
+  ]
+}

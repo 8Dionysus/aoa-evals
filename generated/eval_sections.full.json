@@ -1283,7 +1283,7 @@
           "key": "failure_modes"
         },
         {
-          "content_markdown": "This eval does not prove:\n\n- contradiction resolution quality outside public memo surfaces\n- permission leakage resistance\n- over-promotion discipline\n- hallucinated merge resistance\n- general runtime quality outside lifecycle-aware memo consumption\n\nLikely false-pass path:\n\n- the consumer keeps lifecycle labels on the chosen cases, but broader\n  cross-trace contradictions would still be smoothed away in a wider guardrail\n  wave.\n\nLikely misleading-result path:\n\n- the route defers honestly to audit or provenance walkback, and the result\n  looks less decisive even though contradiction posture stayed truthful.",
+          "content_markdown": "This eval does not prove:\n\n- contradiction resolution quality outside public memo surfaces\n- permission leakage resistance\n- over-promotion discipline\n- hallucinated merge resistance\n- pre-Agon scar or retention readiness\n- live Agon memory ledger behavior\n- general runtime quality outside lifecycle-aware memo consumption\n\nLikely false-pass path:\n\n- the consumer keeps lifecycle labels on the chosen cases, but broader\n  cross-trace contradictions would still be smoothed away in a wider guardrail\n  wave.\n\nLikely misleading-result path:\n\n- the route defers honestly to audit or provenance walkback, and the result\n  looks less decisive even though contradiction posture stayed truthful.",
           "heading": "Blind spots",
           "key": "blind_spots"
         },
@@ -1377,7 +1377,7 @@
           "key": "failure_modes"
         },
         {
-          "content_markdown": "This eval does not prove:\n\n- contradiction handling quality\n- permission leakage resistance\n- over-promotion discipline\n- hallucinated merge resistance\n- general runtime quality outside the memo recall path\n\nLikely false-pass path:\n\n- the consumer stays tidy on one compact case, but the broader guardrail program\n  would still fail on contradiction or promotion posture.\n\nLikely misleading-result path:\n\n- the route escalates honestly to a stronger source, and the result looks\n  weaker even though the memo reading stayed truthful.",
+          "content_markdown": "This eval does not prove:\n\n- contradiction handling quality\n- permission leakage resistance\n- over-promotion discipline\n- hallucinated merge resistance\n- pre-Agon scar or retention readiness\n- live Agon memory ledger behavior\n- general runtime quality outside the memo recall path\n\nLikely false-pass path:\n\n- the consumer stays tidy on one compact case, but the broader guardrail program\n  would still fail on contradiction or promotion posture.\n\nLikely misleading-result path:\n\n- the route escalates honestly to a stronger source, and the result looks\n  weaker even though the memo reading stayed truthful.",
           "heading": "Blind spots",
           "key": "blind_spots"
         },

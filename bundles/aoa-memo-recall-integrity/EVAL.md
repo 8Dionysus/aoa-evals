@@ -234,6 +234,8 @@ This eval does not prove:
 - permission leakage resistance
 - over-promotion discipline
 - hallucinated merge resistance
+- pre-Agon scar or retention readiness
+- live Agon memory ledger behavior
 - general runtime quality outside the memo recall path
 
 Likely false-pass path:

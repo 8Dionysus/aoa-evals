@@ -59,10 +59,11 @@ Do not let movement evidence widen into mythology.
 Before making changes, read in this order:
 
 1. `README.md`
-2. `docs/ARCHITECTURE.md`
-3. `docs/EVAL_PHILOSOPHY.md`
-4. the target `bundles/*/EVAL.md`
-5. any generated catalogs, capsules, comparison surfaces, or section surfaces tied to that bundle
+2. `ROADMAP.md`
+3. `docs/ARCHITECTURE.md`
+4. `docs/EVAL_PHILOSOPHY.md`
+5. the target `bundles/*/EVAL.md`
+6. any generated catalogs, capsules, comparison surfaces, or section surfaces tied to that bundle
 
 Then branch by task:
 

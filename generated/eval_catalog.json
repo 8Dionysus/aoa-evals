@@ -1352,7 +1352,7 @@
         "support_note",
         "integrity_check"
       ],
-      "export_ready": false,
+      "export_ready": true,
       "maturity_score": 2,
       "name": "aoa-memo-recall-integrity",
       "object_under_evaluation": "integrity of memo recall on explicit inspect/capsule/expand consumer paths",

@@ -50,14 +50,14 @@ class RoadmapParityTestCase(unittest.TestCase):
                 self.assertTrue((REPO_ROOT / surface).is_file())
                 self.assertIn(surface, roadmap)
 
-    def test_memo_pilot_surfaces_do_not_overclaim_pre_agon_readiness(self) -> None:
+    def test_memo_pilot_surfaces_do_not_overclaim_memory_readiness(self) -> None:
         roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")
         eval_index = (REPO_ROOT / "EVAL_INDEX.md").read_text(encoding="utf-8")
         eval_selection = (REPO_ROOT / "EVAL_SELECTION.md").read_text(encoding="utf-8")
 
         for text in (roadmap, eval_index, eval_selection):
             with self.subTest(surface=text[:20]):
-                self.assertIn("pre-Agon scar", text)
+                self.assertIn("future scar", text)
                 self.assertIn("retention", text)
                 self.assertIn("live memory-ledger readiness", text)
 
@@ -67,8 +67,8 @@ class RoadmapParityTestCase(unittest.TestCase):
         ):
             bundle_text = (REPO_ROOT / relative_path).read_text(encoding="utf-8")
             with self.subTest(bundle=relative_path):
-                self.assertIn("pre-Agon scar or retention readiness", bundle_text)
-                self.assertIn("live Agon memory ledger behavior", bundle_text)
+                self.assertIn("future scar or retention readiness", bundle_text)
+                self.assertIn("live memory-ledger behavior", bundle_text)
 
 
 if __name__ == "__main__":

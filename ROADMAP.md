@@ -468,7 +468,7 @@ Highest-priority additions:
 - keep `aoa-trace-outcome-separation` conservative as a materialized bounded diagnostic starter rather than promoting it by association
 - keep `aoa-tool-trajectory-discipline` conservative as a materialized bounded diagnostic starter rather than promoting it by association
 - field-test the newly materialized recurrence-aware proof surfaces without inflating them into broad safety or capability claims, and keep them outside the current starter set while their case families and report artifacts mature
-- field-test the newly materialized memo recall and contradiction pilot surfaces without inflating them into general memory quality, permission policy, canon-promotion claims, pre-Agon scar proof, retention proof, or live memory-ledger readiness
+- field-test the newly materialized memo recall and contradiction pilot surfaces without inflating them into general memory quality, permission policy, canon-promotion claims, future scar proof, retention proof, or live memory-ledger readiness
 
 Next likely cross-surface candidate after the current public starter set:
 - `aoa-return-anchor-integrity`, `aoa-long-horizon-depth`, `aoa-memo-recall-integrity`, and `aoa-memo-contradiction-integrity` as the materialized draft recurrence-and-memo pilot layer
@@ -490,7 +490,7 @@ Recent repo hardening now in place:
 
 Next repository hardening steps:
 - keep docs, index, selection, and template aligned to the canonical docs spine
-- field-test the materialized memo recall and contradiction pilots against wider `aoa-memo` guardrail surfaces before naming promotion, permissions, merge bundles, pre-Agon scar proof, retention proof, or live memory-ledger readiness
+- field-test the materialized memo recall and contradiction pilots against wider `aoa-memo` guardrail surfaces before naming promotion, permissions, merge bundles, future scar proof, retention proof, or live memory-ledger readiness
 - keep distinctness notes ready whenever a newly named starter bundle is introduced so nearby evals do not collapse semantically before they ship
 
 ---

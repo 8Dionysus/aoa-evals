@@ -1,0 +1,47 @@
+{
+  "eval_name": "aoa-memo-contradiction-integrity",
+  "bundle_status": "draft",
+  "object_under_evaluation": "integrity of contradiction-visible memo consumption on lifecycle-aware object recall paths",
+  "verdict": "does not support bounded claim",
+  "claim_boundary": "On the selected Phase Alpha runtime evidence path, the contradiction lane remains a gap finding: contradiction_map.json and memory_delta.json preserve general contradiction and memo-delta evidence, but no lifecycle-aware object recall rerun exercised superseded, retracted, or still-open memo objects. This report records the blocker only, not contradiction readiness.",
+  "limitations": [
+    "This report reads the selected Phase Alpha runtime evidence only.",
+    "This report does not prove contradiction handling quality.",
+    "This report does not prove contradiction resolution.",
+    "This report does not prove lifecycle-aware object recall over superseded or retracted memo objects.",
+    "This report does not make aoa-memo-contradiction-integrity export-ready.",
+    "This report does not replace a future contradiction rerun with explicit memo object evidence.",
+    "This report does not prove permission or authority safety from memo fields.",
+    "This report does not prove promotion discipline or merge-hallucination resistance."
+  ],
+  "case_family": "phase-alpha-memo-contradiction-gap-v1 selected runtime gap evidence over memo-contradiction-guardrail-v1",
+  "breakdown": {
+    "lifecycle_visibility": "weak",
+    "current_recall_honesty": "weak",
+    "contradiction_linkage": "mixed",
+    "replacement_vs_withdrawal_clarity": "weak",
+    "audit_trace_visibility": "weak"
+  },
+  "strongest_contradiction_signal": "The Phase Alpha runtime evidence keeps contradiction_map.json and memory_delta.json visible, so the gap is inspectable instead of silently disappearing behind the recall rerun.",
+  "strongest_contradiction_risk": "The evidence path never becomes a lifecycle-aware object recall run, so superseded, retracted, and still-open memo contradiction posture remains untested.",
+  "case_notes": [
+    {
+      "case_id": "PACG-01",
+      "read_path": "contradiction_map.json -> memory_delta.json",
+      "contradiction_reading": "does not support bounded claim",
+      "lifecycle_note": "The runtime contradiction map is useful gap evidence, but it does not expose lifecycle review_state over selected memo objects.",
+      "current_recall_note": "No current_recall status over superseded, withdrawn, or still-open memo objects was exercised on this path.",
+      "contradiction_note": "Contradiction posture stays visible only as a general runtime contradiction map, not as object-level contradiction_refs.",
+      "audit_or_replacement_note": "No replacement, withdrawal, audit-event, or provenance-thread walkback was run for this contradiction lane."
+    },
+    {
+      "case_id": "PACG-02",
+      "read_path": "next_pass_brief.md -> failure_map.json",
+      "contradiction_reading": "does not support bounded claim",
+      "lifecycle_note": "The next_pass_brief.md and failure_map.json sidecar keep the memo-only rerun context visible but do not add lifecycle-aware contradiction cases.",
+      "current_recall_note": "The sidecar records the recall rerun boundary, not current recall honesty under contradiction pressure.",
+      "contradiction_note": "The alpha-06 memo rerun did not become a contradiction rerun, so contradiction_map.json remains a blocker signal rather than proof evidence.",
+      "audit_or_replacement_note": "The evidence does not include an audit walkback or replacement-vs-withdrawal read over memo objects."
+    }
+  ]
+}

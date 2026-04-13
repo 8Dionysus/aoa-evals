@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-memo-writeback-act-integrity summary-with-breakdown report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "breakdown",
+    "strongest_writeback_signal",
+    "strongest_writeback_risk",
+    "case_notes"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-memo-writeback-act-integrity"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "integrity of runtime-to-memo writeback on bounded owner-local adoption paths"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 10
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 10
+    },
+    "breakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_boundary_honesty",
+        "review_to_adoption_alignment",
+        "receipt_visibility",
+        "recall_surface_alignment"
+      ],
+      "properties": {
+        "runtime_boundary_honesty": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "review_to_adoption_alignment": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "receipt_visibility": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "recall_surface_alignment": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        }
+      }
+    },
+    "strongest_writeback_signal": {
+      "type": "string",
+      "minLength": 20
+    },
+    "strongest_writeback_risk": {
+      "type": "string",
+      "minLength": 20
+    },
+    "case_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "read_path",
+          "writeback_reading",
+          "candidate_note",
+          "review_note",
+          "receipt_note",
+          "recall_note"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "read_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "writeback_reading": {
+            "type": "string",
+            "enum": [
+              "supports bounded claim",
+              "mixed support",
+              "does not support bounded claim"
+            ]
+          },
+          "candidate_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "review_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "receipt_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "recall_note": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    }
+  }
+}

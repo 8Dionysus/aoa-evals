@@ -1405,6 +1405,88 @@
       "verdict_shape": "mixed"
     },
     {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
+      "category": "workflow",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "bundles/aoa-memo-writeback-act-integrity/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/writeback-act-pilot.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/proof-surface-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": true,
+      "maturity_score": 2,
+      "name": "aoa-memo-writeback-act-integrity",
+      "object_under_evaluation": "integrity of runtime-to-memo writeback on bounded owner-local adoption paths",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-memo-writeback-act-integrity/fixtures/contract.json",
+        "paired_readout_path": null,
+        "report_example_path": "bundles/aoa-memo-writeback-act-integrity/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-memo-writeback-act-integrity/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-memo-writeback-act-integrity/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/memo-writeback-act-guardrail-v1/README.md"
+      },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "relations": [
+        {
+          "target": "aoa-memo-recall-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-memo-contradiction-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether one bounded runtime-to-memo writeback act stays review-gated, receipt-visible, and recall-aligned from runtime closure into adopted memo surfaces.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "validation_strength": "baseline",
+      "verdict_shape": "mixed"
+    },
+    {
       "baseline_mode": "peer-compare",
       "blind_spot_disclosure": "required-and-present",
       "category": "comparative",

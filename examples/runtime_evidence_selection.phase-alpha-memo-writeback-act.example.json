@@ -1,0 +1,61 @@
+{
+  "surface_type": "runtime_evidence_selection",
+  "selection_id": "phase-alpha-memo-writeback-act-v1",
+  "source_repo": "abyss-stack",
+  "source_schema_ref": "repo:abyss-stack/schemas/runtime-memo-export-candidate.schema.json",
+  "source_manifests": [
+    "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/failure_map.json",
+    "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/revalidation_pack.json",
+    "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/remediation_decision.json",
+    "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/handoff_record.json"
+  ],
+  "bounded_claim": "On the bounded Phase Alpha writeback seam, selected runtime evidence can anchor one concrete runtime-to-memo writeback act from rerun closure into later memo adoption visibility. This is writeback-act evidence only.",
+  "promotion_target": "evidence-sidecar",
+  "comparison_mode": "none",
+  "target_eval": "aoa-memo-writeback-act-integrity",
+  "candidate_eval_refs": [
+    "candidate:aoa-memo-writeback-act-integrity"
+  ],
+  "selected_evidence": [
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/revalidation_pack.json",
+      "evidence_role": "summary",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/failure_map.json",
+      "evidence_role": "case-breakdown",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/remediation_decision.json",
+      "evidence_role": "environment-note",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/handoff_record.json",
+      "evidence_role": "integrity-sidecar",
+      "summary_only": true
+    }
+  ],
+  "environment_invariants": [
+    "same owner-local writeback boundary for Phase Alpha",
+    "same reviewed Alpha rerun remains the adoption source anchor",
+    "same memo-only rerun posture closed before the writeback act was claimed"
+  ],
+  "environment_deltas": [
+    "selected evidence now traces runtime closure into adopted memo decision visibility instead of staying on recall-only or contradiction-only reads"
+  ],
+  "do_not_overread": [
+    "does not prove reviewed_candidate claim, pattern, or bridge promotion",
+    "does not prove future scar or retention readiness",
+    "does not prove live memory-ledger behavior",
+    "does not prove contradiction handling or KAG activation",
+    "does not replace recall, return-anchor, or verification evals"
+  ],
+  "review_posture": {
+    "portable_enough": false,
+    "comparison_hygiene_named": true,
+    "human_review_required": true
+  }
+}

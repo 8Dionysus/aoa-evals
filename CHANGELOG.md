@@ -7,6 +7,18 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+### Added
+
+- `aoa-memo-writeback-act-integrity` as a bounded draft proof surface for one
+  real Phase Alpha runtime-to-memo writeback act
+- `runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json`
+  plus schema-backed report artifacts for the new writeback-act lane
+
+### Changed
+
+- refreshed memo-pilot roadmap, selector, and runtime-promotion guidance so the
+  writeback-act lane sits beside recall and contradiction without overclaiming
+
 ## [0.3.1] - 2026-04-12
 
 ### Summary

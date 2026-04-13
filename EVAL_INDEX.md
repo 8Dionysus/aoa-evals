@@ -197,7 +197,10 @@ Public discipline:
 - `aoa-memo-contradiction-integrity` should stay on lifecycle-aware contradiction visibility across object-facing memo recall:
   its materialized draft proof flow now anchors on `fixtures/memo-contradiction-guardrail-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
   it should not drift into contradiction resolution, permission inference, canon promotion, merge-hallucination review, or broad memory-quality claims.
-  Neither memo pilot proves future scar, retention, or live memory-ledger readiness.
+- `aoa-memo-writeback-act-integrity` should stay on one bounded runtime-to-memo writeback act:
+  its materialized draft proof flow now anchors on `fixtures/memo-writeback-act-guardrail-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  it should not drift into reviewed-candidate promotion, contradiction handling, future scar proof, retention proof, or broad live-ledger claims.
+  The memo pilot layer does not prove future scar, retention, or live memory-ledger readiness.
 
 ## Planned public states
 
@@ -239,7 +242,8 @@ Public discipline:
 - return-aware anchor fidelity now has its first materialized draft public bundle in `aoa-return-anchor-integrity`, anchored by `fixtures/return-anchor-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
 - memo recall integrity now has a materialized draft public bundle in `aoa-memo-recall-integrity`, anchored by `fixtures/memo-recall-guardrail-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
 - memo contradiction integrity now has a materialized draft public bundle in `aoa-memo-contradiction-integrity`, anchored by `fixtures/memo-contradiction-guardrail-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
-  These two memo pilots do not yet cover future scar or retention proof.
+- memo writeback-act integrity now has a materialized draft public bundle in `aoa-memo-writeback-act-integrity`, anchored by `fixtures/memo-writeback-act-guardrail-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
+  These three memo pilots do not yet cover future scar or retention proof.
 - the first materialized paired proof flow now sits across `aoa-artifact-review-rubric`, `aoa-bounded-change-quality`, and `aoa-output-vs-process-gap` using shared fixtures, runner contracts, and schema-backed report examples.
 - the artifact/process layer now also carries a second matched family and second paired dossier so the bridge can deepen without changing `peer_surfaces` or promoting by association.
 - the comparison spine now also has materialized proof flows for `aoa-regression-same-task`, `aoa-output-vs-process-gap`, `aoa-longitudinal-growth-snapshot`, and `aoa-stress-recovery-window` through shared fixture families, runner contracts, schema-backed report examples, and the shared read-order artifact `reports/comparison-spine-proof-flow-v1.md`.

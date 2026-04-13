@@ -1411,6 +1411,100 @@
       "verdict_shape": "mixed"
     },
     {
+      "category": "workflow",
+      "eval_path": "bundles/aoa-memo-writeback-act-integrity/EVAL.md",
+      "name": "aoa-memo-writeback-act-integrity",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to check whether one concrete runtime-to-memo writeback act stays\nhonest about what the current public memo seam can and cannot claim.\n\nThis draft bundle is a narrow diagnostic workflow eval.\n\nIt focuses on four nearby questions only:\n\n- does the runtime closure keep the writeback boundary explicit?\n- does the reviewed run keep the adoption step inspectable?\n- does the adopted memo object stay provenance-visible and recall-aligned?\n- does receipt visibility remain reviewable without pretending that generic\n  live memory-ledger behavior is solved?\n\nIt is not a general memory-quality bundle.\nIt is not a contradiction bundle.\nIt is not a reviewed-candidate promotion bundle.\nIt is not a permissions-from-memory bundle.\nIts current materialized draft proof flow runs through\n`fixtures/memo-writeback-act-guardrail-v1/README.md`, bundle-local fixture and\nrunner contracts, and the schema-backed companion report artifact.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks integrity of runtime-to-memo writeback on bounded owner-local\nadoption paths.\n\nPrimary surfaces under evaluation:\n\n- runtime closure as the bounded writeback source\n- reviewed run posture as the adoption anchor\n- adopted memo object visibility in public memo surfaces\n- receipt-facing visibility that keeps the act inspectable downstream\n\nNearby surfaces intentionally excluded:\n\n- contradiction handling as its own proof surface\n- reviewed-candidate claim, pattern, or bridge promotion\n- future scar or retention readiness\n- generic live memory-ledger behavior",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions, one concrete runtime-to-memo writeback act remained\nreview-gated, provenance-visible, and recall-aligned from runtime closure into\nadopted memo visibility.\n\nThis eval does not support claims such as:\n\n- generic memo automation readiness\n- reviewed-candidate claim, pattern, or bridge promotion readiness\n- contradiction handling or contradiction resolution\n- future scar or retention readiness\n- live memory-ledger behavior\n- broad permission or authority safety from memo fields",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a bounded route already has a reviewed runtime closure and adopted memo\n  object\n- the main question is whether the writeback act itself stayed inspectable\n- receipt or publication visibility matters to the claim being made\n- the route needs proof of a concrete writeback act rather than a broad memo\n  readiness story\n\nDo not use this eval when:\n\n- no adopted memo object exists yet\n- the main question is contradiction handling or recall precision\n- the main question is reviewed-candidate promotion rather than a confirmed\n  memo-surviving event\n- the case depends on hidden runtime stores or private receipt logs",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- `repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/failure_map.json`\n- `repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/revalidation_pack.json`\n- `repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/remediation_decision.json`\n- `repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/handoff_record.json`\n- `repo:aoa-playbooks/docs/alpha-reviewed-runs/2026-04-02.validation-driven-remediation-recall-rerun.md`\n- `repo:aoa-memo/examples/decision.phase-alpha-validation-remediation-rerun.example.json`\n- `repo:aoa-memo/generated/memory_object_catalog.min.json`\n- `repo:aoa-memo/generated/memory_object_sections.full.json`\n- `repo:aoa-memo/tests/fixtures/memo_writeback_receipts.example.jsonl`\n- `repo:aoa-playbooks/docs/real-runs/2026-04-07.federated-live-publisher-activation.md`",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "A strong starter case surface should include:\n\n- one runtime closure case where the writeback reason is explicit\n- one reviewed adoption case where the Alpha route keeps writeback outputs\n  human-readable\n- one adopted memo object case where provenance and recall posture remain\n  inspectable\n- one receipt-facing visibility case where the later publication step is named\n  without replacing the adopted object\n\nFixtures should avoid:\n\n- hidden live logs as the only proof surface\n- cases that really belong to contradiction handling or recall precision\n- reviewed-candidate promotion cases that are still `proposed`\n- generic automation stories wider than one bounded writeback act\n\nThe current materialized shared family is\n`fixtures/memo-writeback-act-guardrail-v1/README.md`.\nWhen the machine-readable proof surface is in use, local replacements should\npreserve the same writeback-act pressures through the bounded replacement rule\nin `fixtures/contract.json`.",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a summary-with-breakdown verdict.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nSuggested breakdown axes:\n\n- `runtime_boundary_honesty`\n- `review_to_adoption_alignment`\n- `receipt_visibility`\n- `recall_surface_alignment`\n\nPer-case review should ask:\n\n- did the runtime closure keep the writeback boundary explicit?\n- did the reviewed run keep adoption subordinate to the route boundary?\n- did receipt visibility stay inspectable without replacing the memo object?\n- did the adopted memo surface remain provenance-visible and recall-aligned?\n\n### Approve signals\n\nSignals toward `supports bounded claim`:\n\n- runtime closure names the writeback reason directly\n- the reviewed run keeps writeback outputs explicit\n- the adopted memo object preserves the same source refs and recall posture\n- receipt-facing visibility points back to the same adopted object and reviewed\n  anchor\n- the act stays bounded to a confirmed memo-surviving event\n\n### Degrade signals\n\nSignals toward `mixed support` or `does not support bounded claim`:\n\n- runtime closure and adoption reason drift apart\n- receipt visibility becomes the only evidence of adoption\n- adopted memo surfaces lose provenance or current recall posture\n- the case widens into reviewed-candidate promotion or generic ledger claims",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`.\n\nIt is the first narrow diagnostic writeback-act pilot.\n\nA later stronger form may compare:\n\n- two writeback paths over the same runtime-to-memo seam\n- confirmed memo-surviving events against reviewed-candidate adoption\n- owner-local receipt visibility before and after stronger publication hardening\n\nWithout a baseline, this bundle supports only modest claims about one bounded\nruntime-to-memo writeback act.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. select a bounded runtime closure path with explicit reviewed anchors\n2. keep the runtime evidence selection visible through the Phase Alpha sidecar\n3. review runtime boundary, adoption, receipt visibility, and recall alignment\n   separately before any top-line read\n4. publish a summary-with-breakdown artifact with explicit interpretation\n   limits\n\nExecution expectations:\n\n- do not treat receipt visibility as stronger than the adopted memo object\n- do not widen the bundle into contradiction, retention, or promotion proof\n- do not rely on hidden owner-local logs when a tracked reviewed mirror exists\n- when shipping a machine-readable report, validate it against\n  `reports/summary.schema.json`\n- keep the shared case-family contract in\n  `fixtures/memo-writeback-act-guardrail-v1/README.md` visible when that\n  public family is in use\n- keep the runner contract aligned with `runners/contract.json` so runtime\n  closure, reviewed adoption, receipt visibility, and recall alignment do not\n  collapse into one vague success story",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bundle-level verdict\n- one breakdown across the four writeback-act axes\n- one note on the strongest writeback success\n- one note on the strongest writeback risk\n- one explicit interpretation boundary\n- an optional schema-backed companion report artifact at\n  `reports/example-report.json`",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "This eval can fail as an instrument when:\n\n- the route is really about recall precision rather than writeback integrity\n- receipt visibility is mistaken for total writeback proof\n- hidden runtime state is smuggled in instead of reviewed surfaces\n- one confirmed path is over-read as generic automation readiness",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- contradiction handling quality\n- reviewed-candidate promotion discipline\n- future scar or retention readiness\n- live memory-ledger behavior\n- broad permission or authority safety from memo fields\n- general runtime quality outside the bounded writeback-act path\n\nLikely false-pass path:\n\n- one confirmed decision path stays tidy while reviewed-candidate adoption would\n  still fail on review or receipt visibility.\n\nLikely misleading-result path:\n\n- the publication mirror is thinner than a reviewer expects, even though the\n  adopted memo object and reviewed run remain honest.",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe current public seam can keep one runtime-to-memo writeback act inspectable\nfrom runtime closure into adopted memo visibility.\n\nDo not treat a positive result as:\n\n- proof that memo writeback is generally solved\n- proof that reviewed-candidate promotion is ready\n- proof of future scar or retention readiness\n- proof of live memory-ledger behavior",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- confirm the bounded claim is explicit\n- confirm fixtures match the stated scope\n- confirm scoring logic is reviewable\n- confirm blind spots are named\n- confirm the output does not imply stronger conclusions than the eval supports\n- confirm manifest evidence is explicit and resolves publicly\n- confirm `EVAL_INDEX.md` and `EVAL_SELECTION.md` stay aligned with the memo\n  pilot layer posture",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "List upstream techniques that shaped this eval design.",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "List skills this eval checks directly, uses as reference behavior, or compares.",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "Project overlays may add:\n- local fixtures\n- local runners\n- local reviewed anchors\n- local receipt mirrors",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "mixed"
+    },
+    {
       "category": "comparative",
       "eval_path": "bundles/aoa-output-vs-process-gap/EVAL.md",
       "name": "aoa-output-vs-process-gap",

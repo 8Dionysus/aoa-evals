@@ -1,0 +1,43 @@
+{
+  "eval_name": "aoa-memo-writeback-act-integrity",
+  "bundle_status": "draft",
+  "object_under_evaluation": "integrity of runtime-to-memo writeback on bounded owner-local adoption paths",
+  "verdict": "mixed support",
+  "claim_boundary": "On this bounded memo writeback-act family, the path can often keep runtime closure, reviewed adoption, and adopted memo visibility on one inspectable chain, but support weakens when receipt visibility is thinner than the surrounding adoption story.",
+  "limitations": [
+    "This report does not prove reviewed-candidate promotion quality.",
+    "This report does not prove contradiction handling quality.",
+    "This report does not prove future scar or retention readiness.",
+    "This report does not prove live memory-ledger behavior.",
+    "This report does not prove general memory quality."
+  ],
+  "case_family": "memo-writeback-act-guardrail-v1 bounded owner-local adoption family",
+  "breakdown": {
+    "runtime_boundary_honesty": "strong",
+    "review_to_adoption_alignment": "mixed",
+    "receipt_visibility": "mixed",
+    "recall_surface_alignment": "strong"
+  },
+  "strongest_writeback_signal": "The reviewed source anchor and the adopted memo object keep the same writeback reason visible instead of hiding it in runtime residue.",
+  "strongest_writeback_risk": "Receipt visibility can still look stronger than it is when one confirmed path is mistaken for general live writeback readiness.",
+  "case_notes": [
+    {
+      "case_id": "MWA-01",
+      "read_path": "runtime closure -> reviewed run",
+      "writeback_reading": "supports bounded claim",
+      "candidate_note": "The runtime decision names the bounded writeback act directly.",
+      "review_note": "The reviewed run keeps the closure reason explicit instead of treating it as hidden state.",
+      "receipt_note": "Receipt visibility is not yet the deciding pressure on this case.",
+      "recall_note": "The later adopted memo object can remain aligned to the same closure reason."
+    },
+    {
+      "case_id": "MWA-02",
+      "read_path": "reviewed run -> adopted memo object -> receipt mirror",
+      "writeback_reading": "mixed support",
+      "candidate_note": "The writeback boundary stays explicit across the adopted path.",
+      "review_note": "The adoption reason remains readable through the reviewed source anchor.",
+      "receipt_note": "One tracked receipt mirror supports visibility, but it is not generic ledger proof.",
+      "recall_note": "The adopted memo object remains recallable without becoming broader doctrine."
+    }
+  ]
+}

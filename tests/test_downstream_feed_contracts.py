@@ -121,6 +121,12 @@ class DownstreamFeedContractsTests(unittest.TestCase):
             workhorse["required_runtime_artifacts"],
             ["summary", "environment-note", "comparison-note"],
         )
+        memo_writeback = by_name[("runtime_evidence_selection", "phase-alpha-memo-writeback-act-v1")]
+        self.assertEqual(memo_writeback["eval_anchor"], "aoa-memo-writeback-act-integrity")
+        self.assertEqual(
+            memo_writeback["required_runtime_artifacts"],
+            ["summary", "case-breakdown", "environment-note", "integrity-sidecar"],
+        )
 
         checkpoint_hook = by_name[("artifact_to_verdict_hook", "aoa-p-0006-approval-boundary-hook")]
         self.assertEqual(checkpoint_hook["playbook_id"], "AOA-P-0006")
@@ -170,6 +176,12 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         hook = by_name[("artifact_to_verdict_hook", "aoa-p-0006-approval-boundary-hook")]
         self.assertEqual(hook["review_guide_ref"], "docs/TRACE_EVAL_BRIDGE.md")
         self.assertEqual(hook["candidate_acceptance_posture"], "candidate_until_eval_review")
+        memo_writeback = by_name[("runtime_evidence_selection", "phase-alpha-memo-writeback-act-v1")]
+        self.assertEqual(memo_writeback["review_guide_ref"], "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md")
+        self.assertIn(
+            "examples/runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json",
+            memo_writeback["owner_review_refs"],
+        )
 
     def test_phase_alpha_eval_matrix_is_generator_backed_and_tracks_required_evals(self) -> None:
         current = load_json("generated/phase_alpha_eval_matrix.min.json")

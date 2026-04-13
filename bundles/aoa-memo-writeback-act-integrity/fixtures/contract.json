@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/memo-writeback-act-guardrail-v1/README.md",
+  "shared_case_surface": "memo writeback-act cases that keep runtime closure, reviewed adoption, adopted memo visibility, receipt-facing publication evidence, and recall alignment reviewable on the same bounded owner-local path",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same memo writeback-act integrity question, keeps runtime closure, review, adoption, receipt visibility, and recall alignment explicit, and still covers boundary honesty, review-to-adoption linkage, receipt visibility, and closed-circle recall without turning the bundle into contradiction handling, reviewed-candidate promotion, future scar proof, retention proof, or broad memory-quality grading.",
+  "public_safe_requirements": [
+    "a bounded outside reviewer can inspect runtime closure, reviewed anchor, adopted memo surface, and receipt-facing visibility directly",
+    "the adopted memo object remains provenance-visible and lifecycle-explicit",
+    "receipt or publication visibility stays reviewable when the act is claimed",
+    "the writeback act remains weaker than reviewed-candidate promotion or generic live ledger claims"
+  ]
+}

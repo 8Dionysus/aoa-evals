@@ -725,3 +725,33 @@ def test_real_repo_memo_contradiction_integrity_enters_generated_surfaces_withou
     assert any(entry["name"] == "aoa-memo-contradiction-integrity" for entry in capsules["evals"])
     assert any(entry["name"] == "aoa-memo-contradiction-integrity" for entry in sections["evals"])
     assert all(entry["name"] != "aoa-memo-contradiction-integrity" for entry in comparison_spine["evals"])
+
+
+def test_real_repo_memo_writeback_act_integrity_enters_generated_surfaces_without_expanding_comparison_spine() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+    capsules = build_capsule_payload(REPO_ROOT, records, full_catalog)
+    sections, section_issues = eval_section_contract.build_sections_payload(REPO_ROOT, records)
+    comparison_spine = build_comparison_spine_payload(REPO_ROOT, records, full_catalog)
+
+    assert section_issues == []
+    memo_entry = next(
+        entry for entry in full_catalog["evals"] if entry["name"] == "aoa-memo-writeback-act-integrity"
+    )
+
+    assert memo_entry["status"] == "draft"
+    assert memo_entry["portability_level"] == "local-shaped"
+    assert memo_entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/memo-writeback-act-guardrail-v1/README.md"
+    assert memo_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-memo-writeback-act-integrity/fixtures/contract.json"
+    assert memo_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-memo-writeback-act-integrity/runners/contract.json"
+    assert memo_entry["proof_artifacts"]["runner_surface_path"] == "runners/reportable_proof_contract.md"
+    assert memo_entry["proof_artifacts"]["scorer_helper_paths"] == ["scorers/bounded_rubric_breakdown.py"]
+    assert memo_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-memo-writeback-act-integrity/reports/summary.schema.json"
+    assert memo_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-memo-writeback-act-integrity/reports/example-report.json"
+    assert memo_entry["proof_artifacts"]["paired_readout_path"] is None
+
+    assert any(entry["name"] == "aoa-memo-writeback-act-integrity" for entry in capsules["evals"])
+    assert any(entry["name"] == "aoa-memo-writeback-act-integrity" for entry in sections["evals"])
+    assert all(entry["name"] != "aoa-memo-writeback-act-integrity" for entry in comparison_spine["evals"])

@@ -12,7 +12,7 @@ repeatability: moderate
 portability_level: local-shaped
 review_required: true
 validation_strength: baseline
-export_ready: false
+export_ready: true
 blind_spot_disclosure: required-and-present
 score_interpretation_bound: explicit
 technique_dependencies: []

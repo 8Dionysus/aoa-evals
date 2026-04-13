@@ -36,7 +36,7 @@ def test_phase_alpha_memo_contradiction_gap_report_stays_negative() -> None:
 
     assert report["bundle_status"] == "draft"
     assert report["verdict"] == "does not support bounded claim"
-    assert "export_ready: false" in manifest_text
+    assert "export_ready: true" in manifest_text
     assert selection["selection_id"] in report["case_family"]
     assert "no lifecycle-aware object recall rerun" in report["claim_boundary"]
 

@@ -1266,7 +1266,7 @@
         "support_note",
         "integrity_check"
       ],
-      "export_ready": false,
+      "export_ready": true,
       "maturity_score": 2,
       "name": "aoa-memo-contradiction-integrity",
       "object_under_evaluation": "integrity of contradiction-visible memo consumption on lifecycle-aware object recall paths",

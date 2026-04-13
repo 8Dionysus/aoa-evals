@@ -1,0 +1,62 @@
+{
+  "eval_name": "aoa-memo-contradiction-integrity",
+  "bundle_status": "draft",
+  "object_under_evaluation": "integrity of contradiction-visible memo consumption on lifecycle-aware object recall paths",
+  "verdict": "supports bounded claim",
+  "claim_boundary": "On the selected Phase Alpha evidence path, the runtime sidecar consumed the log-backed contradiction rerun selection and the generated aoa-memo object surfaces. It verified that preferred, historical, withdrawn, and still-open lifecycle posture, contradiction refs, replacement refs, and audit walkback all remain inspectable on the bounded object-facing path. This supports the bundle claim only for this Phase Alpha runtime sidecar path, not for broad memo readiness.",
+  "limitations": [
+    "This report reads the selected Phase Alpha runtime evidence and generated memo object surfaces only.",
+    "This report proves a bounded runtime sidecar consumer path, not broad memo readiness.",
+    "This report does not prove contradiction resolution.",
+    "This report does not prove permission or authority safety from memo fields.",
+    "This report does not replace approval, return-anchor, or verification evals."
+  ],
+  "case_family": "phase-alpha-memo-contradiction-rerun-v1 runtime sidecar run over memo-contradiction-guardrail-v1",
+  "breakdown": {
+    "lifecycle_visibility": "strong",
+    "current_recall_honesty": "strong",
+    "contradiction_linkage": "strong",
+    "replacement_vs_withdrawal_clarity": "strong",
+    "audit_trace_visibility": "strong"
+  },
+  "strongest_contradiction_signal": "The runtime sidecar verified the generated memo object catalog and sections for memo.claim.2026-04-03.phase-alpha-closure-with-residual-runtime-history, memo.claim.2026-04-03.phase-alpha-rerun-pending-handoff, memo.claim.2026-04-03.phase-alpha-runtime-history-fully-retired, memo.claim.2026-04-03.phase-alpha-runtime-history-later-infra-track, memo.audit.2026-04-03.phase-alpha-rerun-pending-supersession, and memo.audit.2026-04-03.phase-alpha-runtime-history-overread-retraction while preserving log-backed Phase Alpha evidence refs.",
+  "strongest_contradiction_risk": "The result is bounded to one Phase Alpha sidecar run and still must not be read as contradiction resolution or full memo readiness.",
+  "case_notes": [
+    {
+      "case_id": "PACR-01",
+      "read_path": "runtime_evidence_selection.phase-alpha-memo-contradiction-rerun.example.json -> memory_object_catalog.min.json -> memory_object_sections.full.json",
+      "contradiction_reading": "supports bounded claim",
+      "lifecycle_note": "The sidecar checks confirmed/preferred closure and confirmed/allowed later-track posture from generated memo object surfaces.",
+      "current_recall_note": "The current closure reading and still-open later-track reading remain distinct in current_recall_status.",
+      "contradiction_note": "The closure and later-track claim retain contradiction refs to each other and to the withdrawn overread.",
+      "audit_or_replacement_note": "This case verifies open tension without treating it as contradiction resolution."
+    },
+    {
+      "case_id": "PACR-02",
+      "read_path": "memory_object_catalog.min.json -> memory_object_sections.full.json -> handoff_record.json",
+      "contradiction_reading": "supports bounded claim",
+      "lifecycle_note": "The sidecar checks historical superseded posture for the rerun-pending handoff claim.",
+      "current_recall_note": "The pending handoff stays historical and points to the preferred closure claim by replacement ref.",
+      "contradiction_note": "The case constrains replacement clarity rather than open contradiction.",
+      "audit_or_replacement_note": "The supersession audit keeps the replacement walkback inspectable."
+    },
+    {
+      "case_id": "PACR-03",
+      "read_path": "memory_object_catalog.min.json -> memory_object_sections.full.json -> contradiction_map.json",
+      "contradiction_reading": "supports bounded claim",
+      "lifecycle_note": "The sidecar checks withdrawn posture for the overread that residual runtime history had been fully retired.",
+      "current_recall_note": "The withdrawn overread cannot pass as preferred or allowed current meaning.",
+      "contradiction_note": "The withdrawn overread points back to the current closure claim and still-open later-track claim.",
+      "audit_or_replacement_note": "The retraction audit keeps the smoothing-pressure walkback inspectable."
+    },
+    {
+      "case_id": "PACR-04",
+      "read_path": "next_pass_brief.md -> failure_map.json -> remediation_decision.json -> handoff_record.json",
+      "contradiction_reading": "supports bounded claim",
+      "lifecycle_note": "The runtime sidecar confirms the memo-only inspect-capsule-expand boundary before trusting the memo object surfaces.",
+      "current_recall_note": "Runtime logs anchor the sidecar to the bounded Phase Alpha rerun rather than free-text recall.",
+      "contradiction_note": "The runtime contradiction map keeps the residual historical-script lineage risk explicit.",
+      "audit_or_replacement_note": "The handoff record keeps eval readout, memo writeback, and recall-driven rerun in the same evidence chain."
+    }
+  ]
+}

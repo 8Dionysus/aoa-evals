@@ -1,0 +1,13 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md",
+  "shared_case_surface": "reviewed-candidate adoption cases that keep runtime mapping, reviewed anchor, adopted memo object, live receipt visibility, and object-facing recall posture reviewable on one bounded candidate path",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same reviewed-candidate adoption question, keeps runtime mapping, review, adopted memo visibility, receipt visibility, and recall posture explicit, and still covers claim, pattern, and bridge adoption pressure without turning the bundle into contradiction handling, confirmed-decision writeback, promotion proof, graph-lift proof, or broad memory-quality grading.",
+  "public_safe_requirements": [
+    "a bounded outside reviewer can inspect runtime mapping, reviewed anchor, adopted memo object, and live receipt evidence directly",
+    "adopted candidate objects remain provenance-visible and lifecycle-explicit",
+    "candidate posture stays visible on recall surfaces when adoption is claimed",
+    "receipt visibility remains reviewable when adoption is claimed",
+    "the path remains weaker than reviewed-candidate promotion or live-ledger claims"
+  ]
+}

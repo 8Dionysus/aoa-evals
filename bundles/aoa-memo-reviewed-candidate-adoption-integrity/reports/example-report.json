@@ -1,0 +1,53 @@
+{
+  "eval_name": "aoa-memo-reviewed-candidate-adoption-integrity",
+  "bundle_status": "draft",
+  "object_under_evaluation": "integrity of reviewed-candidate adoption on runtime-to-memo distillation paths",
+  "verdict": "does not support bounded claim",
+  "claim_boundary": "On this bounded reviewed-candidate adoption family, runtime mapping and some adopted memo objects are already visible, but the current public surfaces still do not keep claim, pattern, and bridge adoption equally inspectable through reviewed anchors, live receipts, and recall surfaces.",
+  "limitations": [
+    "This report does not prove reviewed-candidate promotion quality.",
+    "This report does not prove contradiction handling quality.",
+    "This report does not prove confirmed memo-surviving-event writeback quality.",
+    "This report does not prove KAG-lift completion or bridge promotion.",
+    "This report does not prove generic live memory-ledger behavior."
+  ],
+  "case_family": "memo-reviewed-candidate-adoption-guardrail-v1 bounded current-gap family",
+  "breakdown": {
+    "target_mapping_integrity": "strong",
+    "review_to_adoption_alignment": "mixed",
+    "receipt_visibility": "weak",
+    "candidate_posture_honesty": "mixed",
+    "recall_surface_alignment": "mixed"
+  },
+  "strongest_adoption_signal": "The owner-local memo seam already maps all three reviewed distillation target kinds, and claim plus bridge objects are visible on object-facing recall surfaces with explicit lifecycle posture.",
+  "strongest_adoption_risk": "The current public lane can still overread object visibility as completed reviewed adoption because live receipt coverage remains decision-heavy and the pattern and bridge legs stay asymmetrical.",
+  "case_notes": [
+    {
+      "case_id": "RCA-CLAIM-01",
+      "read_path": "checkpoint_to_memory_contract.example.json -> runtime_writeback_targets.min.json -> claim.phase-alpha-runtime-history-later-infra-track.example.json -> memory_object_catalog.min.json -> memory_object_sections.full.json",
+      "adoption_reading": "mixed support",
+      "candidate_note": "The runtime mapping explicitly routes distillation claim candidates into memo claim objects, and the selected claim keeps distillation-pack provenance visible.",
+      "review_note": "Reviewed Phase Alpha anchors exist, but the public lane still reads as contradiction curation first rather than a dedicated reviewed-candidate adoption proof.",
+      "receipt_note": "No tracked reviewed-candidate live receipt currently publishes this claim path.",
+      "recall_note": "The claim is visible on object-facing recall surfaces with explicit contradiction posture and review state."
+    },
+    {
+      "case_id": "RCA-PATTERN-01",
+      "read_path": "checkpoint_to_memory_contract.example.json -> phase_alpha_writeback_map.min.json -> pattern.phase-alpha-remediation-recurrence.example.json -> memory_object_catalog.min.json",
+      "adoption_reading": "does not support bounded claim",
+      "candidate_note": "The runtime seam names a pattern target kind, and Phase Alpha allows pattern writeback after bounded recurrence.",
+      "review_note": "The current public pattern object is recurrence-shaped and reviewed, but it is not yet a clearly isolated distillation-pattern adoption proof surface.",
+      "receipt_note": "No live reviewed-candidate receipt publishes a pattern adoption path.",
+      "recall_note": "The pattern recalls cleanly, but that recall path alone does not prove reviewed distillation adoption."
+    },
+    {
+      "case_id": "RCA-BRIDGE-01",
+      "read_path": "checkpoint_to_memory_contract.example.json -> runtime_writeback_targets.min.json -> bridge.kag-lift.example.json -> memory_object_catalog.min.json -> kag_export.min.json",
+      "adoption_reading": "mixed support",
+      "candidate_note": "The runtime seam names bridge-candidate mapping explicitly, and the bridge object is already visible on recall and export-facing memo surfaces.",
+      "review_note": "The bridge still carries proposed candidate posture rather than a separately verified reviewed-adoption readout.",
+      "receipt_note": "No tracked reviewed-candidate live receipt currently publishes this bridge path.",
+      "recall_note": "Recall visibility remains honest because the bridge stays candidate-shaped instead of being smoothed into a finalized lift."
+    }
+  ]
+}

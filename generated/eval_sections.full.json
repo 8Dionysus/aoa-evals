@@ -1412,6 +1412,100 @@
     },
     {
       "category": "workflow",
+      "eval_path": "bundles/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md",
+      "name": "aoa-memo-reviewed-candidate-adoption-integrity",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to check whether the next memo gap after the base writeback-act\npilot is actually solved on the current public surfaces.\n\nThis draft bundle is a narrow diagnostic workflow eval.\n\nIt focuses on five nearby questions only:\n\n- do runtime writeback mappings stay explicit for\n  `distillation_claim_candidate`,\n  `distillation_pattern_candidate`, and\n  `distillation_bridge_candidate`?\n- does reviewed adoption remain visible instead of collapsing into one vague\n  memo object?\n- does live receipt publication actually exist for the adopted candidate path?\n- does candidate posture stay honest instead of being flattened into settled\n  truth?\n- do object-facing recall surfaces keep the adopted candidate inspectable\n  downstream?\n\nIt is not a general memory-quality bundle.\nIt is not a contradiction bundle.\nIt is not a confirmed-decision writeback-act bundle.\nIt is not a promotion-readiness bundle.\nIt is not a permissions-from-memory bundle.\nIts current materialized draft proof flow runs through\n`fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md`,\nbundle-local fixture and runner contracts, and the schema-backed companion\nreport artifacts.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks integrity of reviewed-candidate adoption on runtime-to-memo\ndistillation paths.\n\nPrimary surfaces under evaluation:\n\n- runtime writeback target, intake, and governance alignment for reviewed\n  candidate mappings\n- reviewed-to-adopted linkage for claim, pattern, and bridge candidate paths\n- live receipt visibility for adopted candidate paths\n- candidate-posture honesty on object-facing recall surfaces\n- recall-path inspectability after candidate adoption\n\nNearby surfaces intentionally excluded:\n\n- confirmed memo-surviving-event writeback acts\n- contradiction handling as its own proof surface\n- final promotion from candidate posture into settled doctrine or lifted graph\n  truth\n- future scar or retention readiness\n- generic live memory-ledger behavior",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions, a reviewed distillation candidate can move from runtime\ncandidate mapping through reviewed memo adoption into live receipt visibility\nand object-facing recall without silently upgrading candidate posture into\nsettled truth.\n\nThis eval does not support claims such as:\n\n- reviewed-candidate promotion is generally solved\n- all claim, pattern, and bridge adoption paths are already complete\n- candidate visibility on recall surfaces is the same thing as live receipt\n  completeness\n- bridge-ready or KAG-facing exports imply final bridge promotion\n- generic memory automation readiness",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- the main question is reviewed-candidate adoption rather than confirmed\n  decision writeback\n- a route names distillation claim, pattern, or bridge candidates explicitly\n- reviewed adoption, live receipt visibility, and recall surfaces all matter to\n  the claim being made\n- the honest question is whether the current public path works end to end or\n  still has a real memo gap\n\nDo not use this eval when:\n\n- no candidate-facing memo object exists yet\n- the main question is contradiction handling or recall precision\n- the main question is final promotion into settled doctrine or downstream graph\n  truth\n- the case depends on hidden runtime stores or private receipt logs",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- `repo:aoa-memo/examples/checkpoint_to_memory_contract.example.json`\n- `repo:aoa-memo/generated/runtime_writeback_targets.min.json`\n- `repo:aoa-memo/generated/runtime_writeback_intake.min.json`\n- `repo:aoa-memo/generated/runtime_writeback_governance.min.json`\n- `repo:aoa-memo/generated/phase_alpha_writeback_map.min.json`\n- `repo:aoa-memo/examples/claim.phase-alpha-runtime-history-later-infra-track.example.json`\n- `repo:aoa-memo/examples/pattern.phase-alpha-remediation-recurrence.example.json`\n- `repo:aoa-memo/examples/bridge.kag-lift.example.json`\n- `repo:aoa-memo/generated/memory_object_catalog.min.json`\n- `repo:aoa-memo/generated/memory_object_capsules.json`\n- `repo:aoa-memo/generated/memory_object_sections.full.json`\n- `repo:aoa-memo/.aoa/live_receipts/memo-writeback-receipts.jsonl`\n- `repo:aoa-memo/tests/fixtures/memo_writeback_receipts.example.jsonl`\n- `repo:aoa-memo/scripts/publish_live_receipts.py`",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "A strong starter case surface should include:\n\n- one claim candidate case where runtime writeback mapping, reviewed adoption,\n  and recall visibility all exist on the same bounded path\n- one pattern candidate case where the real adoption pressure can be tested\n  honestly rather than narrated from adjacent recurrence evidence\n- one bridge candidate case where candidate-only posture remains visible and is\n  not mistaken for final lift\n- one receipt-gap case where adoption looks plausible but live publication is\n  still missing or asymmetric\n\nFixtures should avoid:\n\n- hidden runtime stores as the only evidence of candidate adoption\n- cases that are really about contradiction handling or recall precision\n- treating KAG export presence as proof of bridge promotion\n- generic growth stories wider than the current reviewed-candidate adoption\n  path\n\nThe current materialized shared family is\n`fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md`.\nWhen the machine-readable proof surface is in use, local replacements should\npreserve the same reviewed-candidate adoption pressures through the bounded\nreplacement rule in `fixtures/contract.json`.",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a summary-with-breakdown verdict.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nSuggested breakdown axes:\n\n- `target_mapping_integrity`\n- `review_to_adoption_alignment`\n- `receipt_visibility`\n- `candidate_posture_honesty`\n- `recall_surface_alignment`\n\nPer-case review should ask:\n\n- do runtime mapping surfaces still name the reviewed-candidate target kind\n  explicitly?\n- is the adopted memo object actually linked to reviewed evidence rather than\n  merely coexisting nearby?\n- does a live receipt exist and point back to the adopted object and review\n  anchor?\n- does candidate posture remain visible instead of being over-read as settled\n  truth?\n- can a downstream reader inspect the adopted candidate through object-facing\n  recall surfaces without losing lifecycle posture?\n\n### Approve signals\n\nSignals toward `supports bounded claim`:\n\n- reviewed-candidate mappings remain explicit for claim, pattern, and bridge\n- the adopted memo object preserves reviewed evidence refs and candidate posture\n- a live receipt points back to the adopted object and review anchor\n- recall surfaces expose the same object with lifecycle and provenance posture\n  intact\n- the path stays weaker than promotion or generic live-ledger claims\n\n### Degrade signals\n\nSignals toward `mixed support` or `does not support bounded claim`:\n\n- target mapping exists, but the adopted object cannot be tied to a real\n  reviewed candidate path\n- a candidate object is visible, but no live receipt publishes it\n- bridge or pattern visibility is mistaken for completed reviewed adoption\n- recall surfaces smooth over `proposed`, `candidate`, or open-risk posture\n- one successful claim leg is over-read as proof that the whole triad is ready",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`.\n\nIt is the first narrow reviewed-candidate adoption pilot.\n\nA later stronger form may compare:\n\n- one claim, pattern, and bridge family before and after live receipt hardening\n- reviewed-candidate adoption against confirmed memo-surviving-event writeback\n- candidate-only recall visibility against later owner-confirmed adoption\n\nWithout a baseline, this bundle supports only modest claims about the current\nreviewed-candidate adoption path.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. select one bounded claim, pattern, and bridge candidate family from current\n   public memo surfaces\n2. review runtime mapping, reviewed adoption, receipt visibility,\n   candidate-posture honesty, and recall alignment separately before any\n   top-line read\n3. keep live receipt evidence weaker than the adopted memo object and reviewed\n   anchors\n4. publish a summary-with-breakdown artifact with explicit interpretation\n   limits\n\nExecution expectations:\n\n- do not treat object visibility alone as receipt-complete adoption\n- do not widen the bundle into contradiction, promotion, or graph-lift proof\n- do not rely on hidden runtime traces when public reviewed anchors exist\n- when shipping a machine-readable report, validate it against\n  `reports/summary.schema.json`\n- keep the shared case-family contract in\n  `fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md` visible\n  when that public family is in use\n- keep the runner contract aligned with `runners/contract.json` so mapping,\n  review, receipt, candidate posture, and recall alignment do not collapse into\n  one vague readiness story",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bundle-level verdict\n- one breakdown across the five adoption axes\n- one note on the strongest adoption signal\n- one note on the strongest adoption risk\n- one explicit interpretation boundary\n- an optional schema-backed companion report artifact at\n  `reports/example-report.json`",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "This eval can fail as an instrument when:\n\n- candidate visibility is mistaken for final promotion\n- the reviewer treats one stronger claim leg as proof that pattern and bridge\n  legs are equally ready\n- hidden runtime context is smuggled in to repair missing receipt evidence\n- bridge export posture is mistaken for reviewed writeback completion",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- contradiction handling quality\n- confirmed memo-surviving-event writeback quality\n- final promotion discipline\n- future scar or retention readiness\n- live memory-ledger behavior\n- general runtime quality outside the reviewed-candidate adoption path\n\nLikely false-pass path:\n\n- one reviewed claim object looks healthy while pattern or bridge adoption still\n  lacks live receipt coverage or reviewed-writeback evidence.\n\nLikely misleading-result path:\n\n- candidate posture remains honestly `proposed`, which can look weak even when\n  the recall surface is correctly preserving bounded adoption.",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe current public seam can keep one reviewed-candidate adoption path\ninspectable from runtime mapping through memo recall without silently upgrading\ncandidate posture into settled truth.\n\nDo not treat a positive result as:\n\n- proof that reviewed-candidate promotion is ready\n- proof that all three distillation target kinds have equal support\n- proof of KAG-lift readiness\n- proof of generic live writeback readiness",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- review at least one claim, pattern, and bridge candidate family\n- confirm mapping, receipt visibility, and recall posture stay distinct\n- confirm the report names current asymmetry instead of smoothing it away\n- confirm claim limits remain explicit in the report",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "- none currently declared",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "- none currently declared",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "- add a real reviewed-candidate live receipt family once claim, pattern, and\n  bridge publication is grounded on owner-local evidence\n- compare reviewed-candidate adoption against the already-landed confirmed\n  writeback-act lane once the receipt gap is materially tighter",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "mixed"
+    },
+    {
+      "category": "workflow",
       "eval_path": "bundles/aoa-memo-writeback-act-integrity/EVAL.md",
       "name": "aoa-memo-writeback-act-integrity",
       "sections": [

@@ -1,0 +1,70 @@
+{
+  "surface_type": "runtime_evidence_selection",
+  "selection_id": "phase-alpha-memo-contradiction-rerun-v1",
+  "source_repo": "abyss-stack",
+  "source_schema_ref": "repo:abyss-stack/schemas/runtime-memo-export-candidate.schema.json",
+  "source_manifests": [
+    "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/contradiction_map.json",
+    "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/memory_delta.json",
+    "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/failure_map.json",
+    "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/handoff_record.json"
+  ],
+  "bounded_claim": "On the bounded Phase Alpha contradiction seam, selected runtime evidence can identify the Phase Alpha memo object family that must be reread for contradiction handling: the rerun closure, the earlier handoff posture, the residual-risk naming, and the runtime sidecars that kept the tension explicit. This is object-facing contradiction hygiene evidence only.",
+  "promotion_target": "evidence-sidecar",
+  "comparison_mode": "none",
+  "candidate_eval_refs": [
+    "candidate:aoa-memo-contradiction-integrity"
+  ],
+  "selected_evidence": [
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/next_pass_brief.md",
+      "evidence_role": "summary",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/memory_delta.json",
+      "evidence_role": "case-breakdown",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/failure_map.json",
+      "evidence_role": "case-breakdown",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/contradiction_map.json",
+      "evidence_role": "environment-note",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/handoff_record.json",
+      "evidence_role": "integrity-sidecar",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/remediation_decision.json",
+      "evidence_role": "integrity-sidecar",
+      "summary_only": true
+    }
+  ],
+  "environment_invariants": [
+    "same Phase Alpha route family and memo-first rerun posture",
+    "same inspect then capsule then expand object-facing recall contract",
+    "same human-review requirement before treating selected memo objects as proof"
+  ],
+  "environment_deltas": [
+    "selected evidence now includes lifecycle-aware memo objects and audit walkback, but no live runtime contradiction consumer executed these objects on the worker path"
+  ],
+  "do_not_overread": [
+    "does not prove a live runtime contradiction consumer exists",
+    "does not prove contradiction resolution",
+    "does not prove full memo readiness",
+    "does not replace approval, return-anchor, or verification evals",
+    "does not imply broader export beyond the bounded bundle claim"
+  ],
+  "review_posture": {
+    "portable_enough": false,
+    "comparison_hygiene_named": true,
+    "human_review_required": true
+  }
+}

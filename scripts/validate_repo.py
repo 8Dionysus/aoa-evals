@@ -257,6 +257,11 @@ RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
         "source_schema_ref": "repo:abyss-stack/schemas/runtime-memo-export-candidate.schema.json",
         "candidate_eval_refs": ["candidate:aoa-memo-contradiction-integrity"],
     },
+    "runtime_evidence_selection.phase-alpha-memo-contradiction-rerun.example.json": {
+        "target_eval": "aoa-memo-contradiction-integrity",
+        "source_schema_ref": "repo:abyss-stack/schemas/runtime-memo-export-candidate.schema.json",
+        "candidate_eval_refs": ["candidate:aoa-memo-contradiction-integrity"],
+    },
 }
 TRACE_EVAL_HOOK_EXPECTATIONS = {
     "AOA-P-0014": {

@@ -14,8 +14,11 @@
         "integrity_check"
       ],
       "name": "aoa-a2a-summon-return-checkpoint",
-      "proof_artifact_short": "bundle-local notes and examples only",
-      "proof_surface_kinds": [],
+      "proof_artifact_short": "fixture contract; shared fixture family",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family"
+      ],
       "skill_dependencies": [
         "aoa-checkpoint-closeout-bridge",
         "aoa-contract-test"

@@ -1,0 +1,13 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/a2a-summon-return-checkpoint-v1/README.md",
+  "shared_case_surface": "reviewed A2A summon child-return routes that keep summon request and result, SDK decision, Codex-local target, reviewed child result, checkpoint bridge, memo writeback candidate, runtime dry-run receipt contract, and routing re-entry visible on one bounded chain",
+  "bounded_replacement_rule": "A local repo may replace the concrete case only if it preserves the same A2A summon return checkpoint question, keeps the request/result schemas, reviewed child result, checkpoint bridge, memo candidate, dry-run runtime contract, and routing re-entry inspectable, and still refuses hidden raw traces, live automation, memo canon promotion, or eval verdict promotion.",
+  "public_safe_requirements": [
+    "the fixture contains no private raw traces or secret-bearing runtime logs",
+    "summon_request and summon_result remain schema-checkable against aoa-summon v3",
+    "the child result is explicitly reviewed before checkpoint bridge use",
+    "runtime receipt language keeps dry_run true and live_automation false",
+    "memo and eval outputs remain candidates rather than owner truth"
+  ]
+}

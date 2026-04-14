@@ -126,10 +126,15 @@ Fixtures should avoid:
 - runtime receipts that were produced by live automation
 - memo writebacks that claim canon status before review
 
-The current materialized proof surface is intentionally light: a support note,
-an integrity check, and an artifact-to-verdict hook. A later fixture family may
-add machine-readable cases only if it preserves the same owner-boundary and
-dry-run limits.
+The current materialized proof surface includes a support note, an integrity
+check, an artifact-to-verdict hook, and the shared fixture family
+`fixtures/a2a-summon-return-checkpoint-v1/README.md`.
+
+The canonical machine-readable case currently lives in `aoa-sdk` at
+`examples/a2a/summon_return_checkpoint_e2e.fixture.json` because `aoa-sdk` owns
+the A2A control-plane assembly. This eval may inspect that fixture, but it does
+not turn the SDK payload into proof by itself and does not enable live runtime
+execution.
 
 ## Scoring or verdict logic
 

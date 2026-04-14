@@ -1,0 +1,41 @@
+{
+  "surface_type": "artifact_to_verdict_hook",
+  "hook_id": "aoa-p-0031-a2a-summon-return-checkpoint-hook",
+  "playbook_id": "AOA-P-0031",
+  "eval_anchor": "aoa-a2a-summon-return-checkpoint",
+  "verdict_bundle_ref": "repo:aoa-evals/bundles/aoa-a2a-summon-return-checkpoint/EVAL.md",
+  "artifact_inputs": [
+    "summon_request",
+    "summon_decision",
+    "codex_local_target",
+    "child_task_result",
+    "return_plan",
+    "checkpoint_bridge_plan",
+    "a2a_return_eval_packet",
+    "memo_writeback_ref",
+    "runtime_closeout_dry_run_receipt"
+  ],
+  "artifact_contract_refs": [
+    "repo:aoa-playbooks/playbooks/a2a-summon-return-checkpoint/PLAYBOOK.md#expected-artifacts",
+    "repo:aoa-skills/skills/aoa-summon/references/summon-request-v3.schema.json",
+    "repo:aoa-skills/skills/aoa-summon/references/summon-result-v3.schema.json",
+    "repo:aoa-sdk/docs/A2A_WAVE5_CODEX_RETURN_CHECKPOINT.md",
+    "repo:aoa-sdk/examples/a2a/codex_local_target.example.json",
+    "repo:aoa-sdk/examples/a2a/return_transition_decision.example.json",
+    "repo:aoa-sdk/examples/a2a/checkpoint_bridge_plan.example.json",
+    "repo:aoa-sdk/examples/a2a/reviewed_closeout_request.example.json",
+    "repo:aoa-memo/docs/A2A_CHILD_RETURN_WRITEBACK.md",
+    "repo:abyss-stack/docs/A2A_RETURN_DRY_RUN.md"
+  ],
+  "trace_surfaces": [],
+  "verification_surface": "runtime_closeout_dry_run_receipt",
+  "contract_test_refs": [
+    "repo:aoa-evals/bundles/aoa-a2a-summon-return-checkpoint/checks/eval-integrity-check.md",
+    "repo:aoa-evals/bundles/aoa-a2a-summon-return-checkpoint/notes/proof-surface-contract.md"
+  ],
+  "report_expectation": {
+    "report_format": "summary-with-breakdown",
+    "verdict_shape": "mixed",
+    "review_required": true
+  }
+}

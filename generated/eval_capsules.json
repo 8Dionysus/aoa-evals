@@ -2,6 +2,45 @@
   "capsule_version": 1,
   "evals": [
     {
+      "blind_spot_short": "final parent-route correctness; child-agent quality; live runtime readiness",
+      "bounded_claim_short": "under these conditions, a reviewed summon child route preserved its parent anchor, A2A control-plane decision, reviewed child result, checkpoint bridge, proof packet, memo writeback...",
+      "category": "workflow",
+      "comparison_surface": null,
+      "do_not_use_short": "no child route was actually summoned or planned; the route lacks a reviewed child result",
+      "eval_path": "bundles/aoa-a2a-summon-return-checkpoint/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-a2a-summon-return-checkpoint",
+      "proof_artifact_short": "bundle-local notes and examples only",
+      "proof_surface_kinds": [],
+      "skill_dependencies": [
+        "aoa-checkpoint-closeout-bridge",
+        "aoa-contract-test"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-checkpoint-closeout-bridge",
+          "path": "skills/aoa-checkpoint-closeout-bridge/SKILL.md",
+          "repo": "aoa-skills"
+        },
+        {
+          "name": "aoa-contract-test",
+          "path": "skills/aoa-contract-test/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether a reviewed summon child route preserves the contract from aoa-summon request through sdk.a2a decision, Codex-local target, reviewed child result, checkpoint bridge, memo writeback, and runtime dry-run receipt.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "use_when_short": "a route has a reviewed parent anchor and summonrequest; the child route has a summondecision",
+      "verdict_shape": "mixed",
+      "what_this_does_not_prove": "proof that aoa-summon is governance-ready; proof that live runtime automation is enabled or safe; proof that memo writeback has become canonical memory"
+    },
+    {
       "blind_spot_short": "overall workflow quality; authority handling quality; scope alignment after execution begins",
       "bounded_claim_short": "under these conditions, the agent can handle bounded task-meaning ambiguity without silently collapsing the ambiguity into one unearned interpretation.",
       "category": "stress",

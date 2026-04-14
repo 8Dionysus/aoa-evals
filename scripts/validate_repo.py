@@ -67,6 +67,7 @@ AOA_PLAYBOOKS_ROOT = repo_root_from_env(
     "AOA_PLAYBOOKS_ROOT", REPO_ROOT.parent / "aoa-playbooks"
 )
 AOA_MEMO_ROOT = repo_root_from_env("AOA_MEMO_ROOT", REPO_ROOT.parent / "aoa-memo")
+AOA_SDK_ROOT = repo_root_from_env("AOA_SDK_ROOT", REPO_ROOT.parent / "aoa-sdk")
 AOA_STATS_ROOT = repo_root_from_env("AOA_STATS_ROOT", REPO_ROOT.parent / "aoa-stats")
 ABYSS_STACK_ROOT = resolve_abyss_stack_root(REPO_ROOT.parent / "abyss-stack")
 BUNDLES_DIR_NAME = "bundles"
@@ -197,6 +198,7 @@ VISIBLE_ROOTS = (
     AOA_AGENTS_ROOT,
     AOA_PLAYBOOKS_ROOT,
     AOA_MEMO_ROOT,
+    AOA_SDK_ROOT,
     ABYSS_STACK_ROOT,
 )
 REPO_REF_PREFIX = "repo:"
@@ -207,6 +209,7 @@ REPO_REF_ROOTS = {
     "aoa-agents": AOA_AGENTS_ROOT,
     "aoa-playbooks": AOA_PLAYBOOKS_ROOT,
     "aoa-memo": AOA_MEMO_ROOT,
+    "aoa-sdk": AOA_SDK_ROOT,
     "abyss-stack": ABYSS_STACK_ROOT,
 }
 ARTIFACT_VERDICT_HOOK_SCHEMA_NAME = "artifact-to-verdict-hook.schema.json"
@@ -235,6 +238,7 @@ ARTIFACT_VERDICT_HOOK_EXAMPLES = {
     "AOA-P-0018": "artifact_to_verdict_hook.validation-driven-remediation.example.json",
     "AOA-P-0008": "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
     "AOA-P-0009": "artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
+    "AOA-P-0031": "artifact_to_verdict_hook.a2a-summon-return-checkpoint.example.json",
 }
 RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
     "runtime_evidence_selection.workhorse-local.example.json": {
@@ -332,6 +336,23 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
         ],
         "trace_surfaces": [],
         "verification_surface": "inquiry_checkpoint",
+    },
+    "AOA-P-0031": {
+        "eval_anchor": "aoa-a2a-summon-return-checkpoint",
+        "artifact_contract_refs": [
+            "repo:aoa-playbooks/playbooks/a2a-summon-return-checkpoint/PLAYBOOK.md#expected-artifacts",
+            "repo:aoa-skills/skills/aoa-summon/references/summon-request-v3.schema.json",
+            "repo:aoa-skills/skills/aoa-summon/references/summon-result-v3.schema.json",
+            "repo:aoa-sdk/docs/A2A_WAVE5_CODEX_RETURN_CHECKPOINT.md",
+            "repo:aoa-sdk/examples/a2a/codex_local_target.example.json",
+            "repo:aoa-sdk/examples/a2a/return_transition_decision.example.json",
+            "repo:aoa-sdk/examples/a2a/checkpoint_bridge_plan.example.json",
+            "repo:aoa-sdk/examples/a2a/reviewed_closeout_request.example.json",
+            "repo:aoa-memo/docs/A2A_CHILD_RETURN_WRITEBACK.md",
+            "repo:abyss-stack/docs/A2A_RETURN_DRY_RUN.md",
+        ],
+        "trace_surfaces": [],
+        "verification_surface": "runtime_closeout_dry_run_receipt",
     },
 }
 COMPARISON_SURFACE_COMMON_KEYS = (

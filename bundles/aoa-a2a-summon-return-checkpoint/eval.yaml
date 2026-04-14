@@ -1,0 +1,39 @@
+name: aoa-a2a-summon-return-checkpoint
+category: workflow
+status: draft
+object_under_evaluation: reviewed A2A summon child-return checkpoint route
+claim_type: bounded
+baseline_mode: none
+verdict_shape: mixed
+report_format: summary-with-breakdown
+maturity_score: 1
+rigor_level: bounded
+repeatability: moderate
+portability_level: local-shaped
+review_required: true
+validation_strength: baseline
+export_ready: false
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+technique_dependencies: []
+skill_dependencies:
+  - name: aoa-checkpoint-closeout-bridge
+    repo: 8Dionysus/aoa-skills
+    path: skills/aoa-checkpoint-closeout-bridge/SKILL.md
+  - name: aoa-contract-test
+    repo: 8Dionysus/aoa-skills
+    path: skills/aoa-contract-test/SKILL.md
+relations:
+  - type: complements
+    target: aoa-return-anchor-integrity
+  - type: complements
+    target: aoa-repair-boundedness
+  - type: used_together_for
+    target: aoa-eval-integrity-check
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: support_note
+    path: notes/proof-surface-contract.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md

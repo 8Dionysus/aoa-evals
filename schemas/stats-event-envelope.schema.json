@@ -28,6 +28,7 @@
         "diagnosis_packet_receipt",
         "eval_result_receipt",
         "harvest_packet_receipt",
+        "memo_growth_writeback_receipt",
         "memo_writeback_receipt",
         "playbook_publication_receipt",
         "playbook_review_harvest_receipt",

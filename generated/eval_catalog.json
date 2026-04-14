@@ -4,6 +4,90 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "category": "workflow",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "bundles/aoa-a2a-summon-return-checkpoint/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/proof-surface-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": false,
+      "maturity_score": 1,
+      "name": "aoa-a2a-summon-return-checkpoint",
+      "object_under_evaluation": "reviewed A2A summon child-return checkpoint route",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": null,
+        "report_schema_path": null,
+        "runner_contract_path": null,
+        "runner_surface_path": null,
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
+      "proof_surface_kinds": [],
+      "relations": [
+        {
+          "target": "aoa-return-anchor-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-repair-boundedness",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "skill_dependencies": [
+        "aoa-checkpoint-closeout-bridge",
+        "aoa-contract-test"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-checkpoint-closeout-bridge",
+          "path": "skills/aoa-checkpoint-closeout-bridge/SKILL.md",
+          "repo": "aoa-skills"
+        },
+        {
+          "name": "aoa-contract-test",
+          "path": "skills/aoa-contract-test/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether a reviewed summon child route preserves the contract from aoa-summon request through sdk.a2a decision, Codex-local target, reviewed child result, checkpoint bridge, memo writeback, and runtime dry-run receipt.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "validation_strength": "baseline",
+      "verdict_shape": "mixed"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
       "category": "stress",
       "claim_type": "bounded",
       "comparison_surface": null,

@@ -37,5 +37,7 @@ evidence:
     path: notes/origin-need.md
   - kind: support_note
     path: notes/lineage-contract.md
+  - kind: support_note
+    path: notes/session-survivor-placement.md
   - kind: integrity_check
     path: checks/eval-integrity-check.md

@@ -182,4 +182,6 @@ Do not treat a positive result as:
 ## Adaptation points
 
 - add a real reviewed lineage family once the proving run exists
+- keep `notes/session-survivor-placement.md` as bounded survivor carry until a
+  second reviewed closeout route justifies stronger fixture or report updates
 - keep later fixtures subordinate to owner receipts and proof

@@ -176,4 +176,6 @@ Do not treat a positive result as:
 ## Adaptation points
 
 - add owner-local doctrine fixtures after the proving run
+- keep `notes/session-survivor-placement.md` as bounded owner-fit carry until a
+  second reviewed closeout route justifies stronger fixture or report updates
 - keep owner-fit proof weaker than final owner-object proof

@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 
+import pytest
 from jsonschema import Draft202012Validator
 
 
@@ -42,6 +43,14 @@ PUBLISHER_RUN_PATH = (
     / "real-runs"
     / "2026-04-07.federated-live-publisher-activation.md"
 )
+EXTERNAL_EVIDENCE_PATHS = (
+    DECISION_PATH,
+    CATALOG_PATH,
+    SECTIONS_PATH,
+    RECEIPT_FIXTURE_PATH,
+    REVIEWED_RUN_PATH,
+    PUBLISHER_RUN_PATH,
+)
 
 
 def load_json(path: Path) -> dict[str, object]:
@@ -51,6 +60,13 @@ def load_json(path: Path) -> dict[str, object]:
 def load_jsonl_first(path: Path) -> dict[str, object]:
     first_line = path.read_text(encoding="utf-8").splitlines()[0]
     return json.loads(first_line)
+
+
+def require_external_evidence() -> None:
+    missing_paths = [path for path in EXTERNAL_EVIDENCE_PATHS if not path.exists()]
+    if missing_paths:
+        missing_list = ", ".join(str(path) for path in missing_paths)
+        pytest.skip(f"external sibling evidence unavailable: {missing_list}")
 
 
 def test_phase_alpha_memo_writeback_act_report_matches_bundle_schema() -> None:
@@ -89,6 +105,8 @@ def test_phase_alpha_memo_writeback_act_report_stays_bounded_to_selected_path() 
 
 
 def test_phase_alpha_memo_writeback_act_report_keeps_adoption_and_receipt_chain_visible() -> None:
+    require_external_evidence()
+
     report = load_json(REPORT_PATH)
     decision = load_json(DECISION_PATH)
     catalog = load_json(CATALOG_PATH)

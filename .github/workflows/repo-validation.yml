@@ -24,35 +24,35 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: 8Dionysus/aoa-techniques
-          ref: 77610ceae53eea70524bfb25e06b93ce94ebc26b
+          ref: feb395527897c1829d13fa17b911aa82b66611f7
           path: .deps/aoa-techniques
 
       - name: Checkout aoa-skills
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: 8Dionysus/aoa-skills
-          ref: 79c6811a049c41eba73f3f60a393e1611e505d96
+          ref: da85c9aac59edd081e1a3cc8ee921dcb7bf8b800
           path: .deps/aoa-skills
 
       - name: Checkout aoa-agents
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: 8Dionysus/aoa-agents
-          ref: bf974accbf426a0574c3e63e2c13fef76057e190
+          ref: 07bca3e91bca485334ae9664eecbf250102008af
           path: .deps/aoa-agents
 
       - name: Checkout aoa-playbooks
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: 8Dionysus/aoa-playbooks
-          ref: d36651f070e01363db690ae273dc47155a109fcf
+          ref: 24a4526648013ed80a9f806e5e3f06cf8c8a62d6
           path: .deps/aoa-playbooks
 
       - name: Checkout aoa-memo
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: 8Dionysus/aoa-memo
-          ref: 15f071dbec306ddee34909e32fd8f16a7d159360
+          ref: 1dd85f6beb66fb8c518c4aac1727dee7c4055b29
           path: .deps/aoa-memo
 
       - name: Setup Python

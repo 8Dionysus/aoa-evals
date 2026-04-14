@@ -599,6 +599,10 @@
           "path": "notes/lineage-contract.md"
         },
         {
+          "kind": "support_note",
+          "path": "notes/session-survivor-placement.md"
+        },
+        {
           "kind": "integrity_check",
           "path": "checks/eval-integrity-check.md"
         }
@@ -1796,6 +1800,10 @@
         {
           "kind": "support_note",
           "path": "notes/routing-boundary.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/session-survivor-placement.md"
         },
         {
           "kind": "integrity_check",

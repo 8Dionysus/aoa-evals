@@ -650,7 +650,7 @@
           "key": "skill_traceability"
         },
         {
-          "content_markdown": "- add a real reviewed lineage family once the proving run exists\n- keep later fixtures subordinate to owner receipts and proof",
+          "content_markdown": "- add a real reviewed lineage family once the proving run exists\n- keep `notes/session-survivor-placement.md` as bounded survivor carry until a\n  second reviewed closeout route justifies stronger fixture or report updates\n- keep later fixtures subordinate to owner receipts and proof",
           "heading": "Adaptation points",
           "key": "adaptation_points"
         }
@@ -1872,7 +1872,7 @@
           "key": "skill_traceability"
         },
         {
-          "content_markdown": "- add owner-local doctrine fixtures after the proving run\n- keep owner-fit proof weaker than final owner-object proof",
+          "content_markdown": "- add owner-local doctrine fixtures after the proving run\n- keep `notes/session-survivor-placement.md` as bounded owner-fit carry until a\n  second reviewed closeout route justifies stronger fixture or report updates\n- keep owner-fit proof weaker than final owner-object proof",
           "heading": "Adaptation points",
           "key": "adaptation_points"
         }

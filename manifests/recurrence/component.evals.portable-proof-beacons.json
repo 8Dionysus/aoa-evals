@@ -1,0 +1,272 @@
+{
+  "schema_version": "aoa_recurrence_component_v2",
+  "component_ref": "component:evals:portable-proof-beacons",
+  "owner_repo": "aoa-evals",
+  "description": "Portable proof surfaces, runtime bridge guidance, progression evidence, and anti-overclaim beacons.",
+  "source_inputs": [
+    "bundles/**/*.md",
+    "docs/TRACE_EVAL_BRIDGE.md",
+    "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+    "docs/PROGRESSION_EVIDENCE_MODEL.md",
+    "docs/RECURRENCE_PROOF_PROGRAM.md",
+    "docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md"
+  ],
+  "generated_surfaces": [
+    "generated/eval_catalog.min.json",
+    "generated/eval_capsules.json",
+    "generated/comparison_spine.json"
+  ],
+  "contract_surfaces": [
+    "docs/TRACE_EVAL_BRIDGE.md",
+    "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+    "docs/PROGRESSION_EVIDENCE_MODEL.md",
+    "docs/RECURRENCE_PROOF_PROGRAM.md",
+    "docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md"
+  ],
+  "documentation_surfaces": [
+    "README.md",
+    "EVAL_INDEX.md"
+  ],
+  "proof_surfaces": [
+    "python scripts/validate_repo.py",
+    "python scripts/build_catalog.py --check",
+    "python scripts/generate_runtime_candidate_template_index.py --check",
+    "python scripts/generate_runtime_candidate_intake.py --check",
+    "python scripts/generate_phase_alpha_eval_matrix.py --check",
+    "python -m pytest -q tests"
+  ],
+  "refresh_routes": [
+    {
+      "action": "revalidate",
+      "commands": [
+        "python scripts/validate_repo.py",
+        "python scripts/build_catalog.py --check",
+        "python scripts/generate_runtime_candidate_template_index.py --check",
+        "python scripts/generate_runtime_candidate_intake.py --check",
+        "python scripts/generate_phase_alpha_eval_matrix.py --check",
+        "python -m pytest -q tests"
+      ],
+      "notes": "keep portable proof surfaces, runtime bridge notes, and adjunct matrices aligned"
+    },
+    {
+      "action": "repair",
+      "commands": [
+        "python scripts/validate_repo.py",
+        "python scripts/build_catalog.py --check"
+      ],
+      "notes": "repair bounded claim wording or generated reader drift"
+    }
+  ],
+  "consumer_edges": [
+    {
+      "kind": "handoff_home",
+      "target": "playbooks/component-refresh-cycle/PLAYBOOK.md",
+      "target_repo": "aoa-playbooks",
+      "required": true,
+      "suggested_action": "handoff",
+      "suggested_commands": [],
+      "notes": "owner follow-through stays explicit when portable proof boundaries shift"
+    }
+  ],
+  "drift_signals": [
+    {
+      "signal": "runtime_bridge_changed_without_boundary_refresh",
+      "recommended_action": "revalidate",
+      "severity": "medium"
+    },
+    {
+      "signal": "progression_model_changed_without_verdict_review",
+      "recommended_action": "repair",
+      "severity": "medium"
+    }
+  ],
+  "freshness": {
+    "stale_after_days": 14,
+    "repeat_trigger_threshold": 2,
+    "open_window_days": 10
+  },
+  "rollback_anchors": [
+    "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+    "docs/PROGRESSION_EVIDENCE_MODEL.md",
+    "docs/RECURRENCE_PROOF_PROGRAM.md"
+  ],
+  "tags": [
+    "evals",
+    "portable-proof",
+    "beacons"
+  ],
+  "signal_edges": [
+    {
+      "kind": "documents_decision",
+      "target": "component:skills:bundle-and-activation-beacons",
+      "target_repo": "aoa-skills",
+      "notes": "portable proof may constrain skill claims without owning skill workflow meaning"
+    },
+    {
+      "kind": "documents_decision",
+      "target": "component:techniques:canon-and-intake-beacons",
+      "target_repo": "aoa-techniques",
+      "notes": "portable evidence may harden technique pressure without owning technique canon"
+    },
+    {
+      "kind": "composed_by_playbook",
+      "target": "component:playbooks:scenario-composition-beacons",
+      "target_repo": "aoa-playbooks",
+      "notes": "recurring scenario evidence may donate eval-candidate pressure"
+    }
+  ],
+  "observation_inputs": [
+    {
+      "input_ref": "trace-eval-bridge",
+      "kind": "runtime_artifact",
+      "path_globs": [
+        "docs/TRACE_EVAL_BRIDGE.md"
+      ],
+      "notes": "bridge from runtime artifact shapes into bounded proof inputs"
+    },
+    {
+      "input_ref": "runtime-candidate-guide",
+      "kind": "runtime_artifact",
+      "path_globs": [
+        "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md"
+      ],
+      "notes": "guide for when runtime evidence starts hardening into portable proof"
+    },
+    {
+      "input_ref": "progression-evidence",
+      "kind": "evaluation_matrix",
+      "path_globs": [
+        "docs/PROGRESSION_EVIDENCE_MODEL.md"
+      ],
+      "notes": "route-scoped progression proof surface"
+    }
+  ],
+  "beacon_rules": [
+    {
+      "beacon_ref": "evals.portable_eval.runtime_pressure",
+      "kind": "portable_eval_candidate",
+      "decision_surface": "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+      "target_repo": "aoa-evals",
+      "observation_inputs": [
+        "change_signal",
+        "trace-eval-bridge",
+        "runtime-candidate-guide"
+      ],
+      "match_signals": [
+        "portable_claim_repeat",
+        "trace_bridge_receipt_ready",
+        "runtime_candidate_selected",
+        "source_changed"
+      ],
+      "match_categories": [
+        "repeat_pattern",
+        "evidence_pressure",
+        "change_pressure"
+      ],
+      "thresholds": {
+        "watch_observations": 1,
+        "candidate_observations": 2,
+        "review_ready_observations": 3,
+        "min_unique_sources": 2,
+        "min_unique_evidence_refs": 2
+      },
+      "status_ladder": [
+        "hint",
+        "watch",
+        "candidate",
+        "review_ready"
+      ],
+      "suppress_when": [],
+      "recommended_actions": [
+        "open portable eval boundary review",
+        "check trace bridge and runner/report contracts"
+      ],
+      "notes": "runtime artifacts may donate bounded evidence without making local tests portable by magic"
+    },
+    {
+      "beacon_ref": "evals.progression.route_scoped_pressure",
+      "kind": "progression_evidence_candidate",
+      "decision_surface": "docs/PROGRESSION_EVIDENCE_MODEL.md",
+      "target_repo": "aoa-evals",
+      "observation_inputs": [
+        "change_signal",
+        "progression-evidence"
+      ],
+      "match_signals": [
+        "progression_delta_seen",
+        "route_scoped_proof_ready",
+        "reanchor_signal_seen"
+      ],
+      "match_categories": [
+        "evidence_pressure",
+        "review_signal"
+      ],
+      "thresholds": {
+        "watch_observations": 1,
+        "candidate_observations": 2,
+        "review_ready_observations": 3,
+        "min_unique_sources": 1,
+        "min_unique_evidence_refs": 1
+      },
+      "status_ladder": [
+        "hint",
+        "watch",
+        "candidate",
+        "review_ready"
+      ],
+      "suppress_when": [],
+      "recommended_actions": [
+        "restate the claim as route-scoped progression evidence"
+      ],
+      "notes": "bounded route-scoped evidence should replace reputation fog, not create one number"
+    },
+    {
+      "beacon_ref": "evals.overclaim.guard",
+      "kind": "overclaim_alarm",
+      "decision_surface": "docs/RECURRENCE_PROOF_PROGRAM.md",
+      "target_repo": "aoa-evals",
+      "observation_inputs": [
+        "change_signal",
+        "trace-eval-bridge",
+        "progression-evidence"
+      ],
+      "match_signals": [
+        "overclaim_detected",
+        "boundary_loss_detected",
+        "one_number_claim_detected"
+      ],
+      "match_categories": [
+        "overclaim_risk",
+        "review_signal"
+      ],
+      "thresholds": {
+        "watch_observations": 1,
+        "candidate_observations": 2,
+        "review_ready_observations": 3,
+        "min_unique_sources": 1,
+        "min_unique_evidence_refs": 1
+      },
+      "status_ladder": [
+        "hint",
+        "watch",
+        "candidate",
+        "review_ready"
+      ],
+      "suppress_when": [],
+      "recommended_actions": [
+        "tighten claim wording and reanchor proof boundaries"
+      ],
+      "notes": "anti-overclaim posture is a first-class signal, not an afterthought"
+    }
+  ],
+  "decision_surfaces": [
+    "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+    "docs/PROGRESSION_EVIDENCE_MODEL.md",
+    "docs/RECURRENCE_PROOF_PROGRAM.md",
+    "docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md"
+  ],
+  "candidate_targets": [
+    "generated/eval_catalog.min.json",
+    "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": "aoa_hook_binding_set_v1",
+  "component_ref": "component:evals:portable-proof-beacons",
+  "owner_repo": "aoa-evals",
+  "notes": "Session-stop runtime-evidence bridge for bounded portable-proof pressure.",
+  "bindings": [
+    {
+      "binding_ref": "evals.runtime_candidate.session_stop",
+      "event": "session_stop",
+      "producer": "runtime_candidate_watch",
+      "component_ref": "component:evals:portable-proof-beacons",
+      "owner_repo": "aoa-evals",
+      "input_ref": "runtime-candidate-guide",
+      "path_globs": [
+        "examples/runtime_evidence_selection*.json",
+        "examples/runtime_evidence_selection*.jsonl",
+        "examples/runtime/*.json",
+        "docs/real-runs/*runtime*"
+      ],
+      "config": {
+        "claim_fields": [
+          "claim_family",
+          "claim",
+          "bounded_claim"
+        ],
+        "candidate_class_field": "target_class",
+        "candidate_class_values": [
+          "bundle-candidate",
+          "evidence-sidecar"
+        ],
+        "evidence_fields": [
+          "selected_evidence",
+          "evidence_refs",
+          "trace_refs"
+        ],
+        "record_id_field": "artifact_ref",
+        "overclaim_phrases": [
+          " is the best",
+          " proves general reasoning growth",
+          " proves better agent quality",
+          " is smarter"
+        ]
+      },
+      "signal_rules": [],
+      "notes": "Treat runtime artifacts as candidate evidence, never as portable proof authority by themselves."
+    }
+  ]
+}

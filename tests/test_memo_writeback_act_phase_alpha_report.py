@@ -1,12 +1,17 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+AOA_MEMO_ROOT = Path(os.environ.get("AOA_MEMO_ROOT", REPO_ROOT.parent / "aoa-memo"))
+AOA_PLAYBOOKS_ROOT = Path(
+    os.environ.get("AOA_PLAYBOOKS_ROOT", REPO_ROOT.parent / "aoa-playbooks")
+)
 REPORT_DIR = REPO_ROOT / "bundles" / "aoa-memo-writeback-act-integrity" / "reports"
 REPORT_PATH = REPORT_DIR / "phase-alpha-memo-writeback-act.report.json"
 SCHEMA_PATH = REPORT_DIR / "summary.schema.json"
@@ -16,26 +21,23 @@ SELECTION_PATH = (
     / "runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json"
 )
 DECISION_PATH = (
-    REPO_ROOT.parent
-    / "aoa-memo"
+    AOA_MEMO_ROOT
     / "examples"
     / "decision.phase-alpha-validation-remediation-rerun.example.json"
 )
-CATALOG_PATH = REPO_ROOT.parent / "aoa-memo" / "generated" / "memory_object_catalog.min.json"
-SECTIONS_PATH = REPO_ROOT.parent / "aoa-memo" / "generated" / "memory_object_sections.full.json"
+CATALOG_PATH = AOA_MEMO_ROOT / "generated" / "memory_object_catalog.min.json"
+SECTIONS_PATH = AOA_MEMO_ROOT / "generated" / "memory_object_sections.full.json"
 RECEIPT_FIXTURE_PATH = (
-    REPO_ROOT.parent / "aoa-memo" / "tests" / "fixtures" / "memo_writeback_receipts.example.jsonl"
+    AOA_MEMO_ROOT / "tests" / "fixtures" / "memo_writeback_receipts.example.jsonl"
 )
 REVIEWED_RUN_PATH = (
-    REPO_ROOT.parent
-    / "aoa-playbooks"
+    AOA_PLAYBOOKS_ROOT
     / "docs"
     / "alpha-reviewed-runs"
     / "2026-04-02.validation-driven-remediation-recall-rerun.md"
 )
 PUBLISHER_RUN_PATH = (
-    REPO_ROOT.parent
-    / "aoa-playbooks"
+    AOA_PLAYBOOKS_ROOT
     / "docs"
     / "real-runs"
     / "2026-04-07.federated-live-publisher-activation.md"

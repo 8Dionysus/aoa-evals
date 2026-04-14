@@ -33,16 +33,19 @@
       "object_under_evaluation": "reviewed A2A summon child-return checkpoint route",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": null,
+        "fixture_contract_path": "bundles/aoa-a2a-summon-return-checkpoint/fixtures/contract.json",
         "paired_readout_path": null,
         "report_example_path": null,
         "report_schema_path": null,
         "runner_contract_path": null,
         "runner_surface_path": null,
         "scorer_helper_paths": [],
-        "shared_fixture_family_path": null
+        "shared_fixture_family_path": "fixtures/a2a-summon-return-checkpoint-v1/README.md"
       },
-      "proof_surface_kinds": [],
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family"
+      ],
       "relations": [
         {
           "target": "aoa-return-anchor-integrity",

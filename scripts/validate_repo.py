@@ -348,6 +348,7 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
             "repo:aoa-sdk/examples/a2a/return_transition_decision.example.json",
             "repo:aoa-sdk/examples/a2a/checkpoint_bridge_plan.example.json",
             "repo:aoa-sdk/examples/a2a/reviewed_closeout_request.example.json",
+            "repo:aoa-sdk/examples/a2a/summon_return_checkpoint_e2e.fixture.json",
             "repo:aoa-memo/docs/A2A_CHILD_RETURN_WRITEBACK.md",
             "repo:abyss-stack/docs/A2A_RETURN_DRY_RUN.md",
         ],

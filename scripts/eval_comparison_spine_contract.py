@@ -27,15 +27,21 @@ def build_comparison_spine_entry(
     catalog_entry: dict[str, Any],
 ) -> dict[str, Any]:
     comparison_surface = catalog_entry.get("comparison_surface")
-    selection_question = ""
-    if isinstance(comparison_surface, dict):
+    selection_summary = catalog_entry.get("selection_summary", "")
+    if not isinstance(selection_summary, str):
+        selection_summary = ""
+    if not selection_summary and isinstance(comparison_surface, dict):
         raw_question = comparison_surface.get("selection_question")
         if isinstance(raw_question, str):
-            selection_question = raw_question
+            selection_summary = raw_question
 
-    interpretation_boundary = eval_capsule_contract.summarize_interpretation_limits(
-        record.sections["Interpretation guidance"]
-    )
+    interpretation_boundary = catalog_entry.get("interpretation_boundary", "")
+    if not isinstance(interpretation_boundary, str):
+        interpretation_boundary = ""
+    if not interpretation_boundary:
+        interpretation_boundary = eval_capsule_contract.summarize_interpretation_limits(
+            record.sections["Interpretation guidance"]
+        )
 
     return {
         "name": record.metadata["name"],
@@ -44,7 +50,7 @@ def build_comparison_spine_entry(
         "comparison_surface": comparison_surface,
         "proof_artifacts": catalog_entry["proof_artifacts"],
         "relations": catalog_entry["relations"],
-        "selection_summary": selection_question,
+        "selection_summary": selection_summary,
         "interpretation_boundary": interpretation_boundary,
         "eval_path": eval_catalog_contract.relative_location(record.eval_md_path, repo_root),
     }
@@ -132,6 +138,8 @@ def validate_comparison_spine_alignment(
         "comparison_surface",
         "proof_artifacts",
         "relations",
+        "selection_summary",
+        "interpretation_boundary",
         "eval_path",
     )
     for name in sorted(comparison_catalog_names & spine_names):

@@ -53,6 +53,8 @@ Current machine-readable contract should keep explicit:
 - baseline target label
 - paired readout path
 - integrity sidecar
+- selection summary
+- interpretation boundary
 
 ### `peer-compare`
 
@@ -70,6 +72,8 @@ Current machine-readable contract should keep explicit:
 - matched surface
 - paired readout path
 - integrity sidecar
+- selection summary
+- interpretation boundary
 
 ### `longitudinal-window`
 
@@ -89,6 +93,8 @@ Current machine-readable contract should keep explicit:
 - paired readout path
 - integrity sidecar
 - the owner-first evidence rule whenever the repeated-window surface is stress-shaped
+- selection summary
+- interpretation boundary
 
 ## Read order
 
@@ -141,3 +147,4 @@ Use these generated surfaces when routing or local runtime selection needs expli
 
 `generated/comparison_spine.json` is the minimal filtered projection for comparison bundles only.
 It should stay aligned with bundle manifests, bundle-local proof artifacts, and public reader wording.
+Its `selection_summary` and `interpretation_boundary` fields should stay source-derived rather than hand-composed drift.

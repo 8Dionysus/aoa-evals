@@ -94,11 +94,13 @@ def make_runtime_candidate_template_index_surface(repo_root: Path) -> None:
         "examples/runtime_evidence_selection.phase-alpha-memo-contradiction-gap.example.json",
         "examples/runtime_evidence_selection.phase-alpha-memo-contradiction-rerun.example.json",
         "examples/runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json",
+        "examples/runtime_evidence_selection.runtime-chaos-window.example.json",
         "examples/artifact_to_verdict_hook.local-stack-diagnosis.example.json",
         "examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
         "examples/artifact_to_verdict_hook.validation-driven-remediation.example.json",
         "examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
         "examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
+        "examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json",
         "scripts/generate_runtime_candidate_template_index.py",
     ]:
         copy_repo_text(repo_root, relative_path)
@@ -117,11 +119,13 @@ def make_runtime_candidate_intake_surface(repo_root: Path) -> None:
         "examples/runtime_evidence_selection.phase-alpha-memo-contradiction-gap.example.json",
         "examples/runtime_evidence_selection.phase-alpha-memo-contradiction-rerun.example.json",
         "examples/runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json",
+        "examples/runtime_evidence_selection.runtime-chaos-window.example.json",
         "examples/artifact_to_verdict_hook.local-stack-diagnosis.example.json",
         "examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
         "examples/artifact_to_verdict_hook.validation-driven-remediation.example.json",
         "examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
         "examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
+        "examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json",
         "scripts/generate_runtime_candidate_intake.py",
     ]:
         copy_repo_text(repo_root, relative_path)
@@ -601,6 +605,7 @@ def make_eval_bundle(
     support_files: dict[str, str] | None = None,
     section_overrides: dict[str, str] | None = None,
     comparison_surface: dict[str, object] | None = None,
+    public_safety_reviewed_at: str | None = None,
 ) -> None:
     bundle_dir = repo_root / "bundles" / name
     support_files = dict(support_files or {
@@ -856,6 +861,8 @@ def make_eval_bundle(
         "relations": relations,
         "evidence": evidence_entries,
     }
+    if public_safety_reviewed_at is not None:
+        manifest["public_safety_reviewed_at"] = public_safety_reviewed_at
     write_text(bundle_dir / "eval.yaml", yaml.safe_dump(manifest, sort_keys=False))
 
     for relative_path, content in support_files.items():
@@ -1722,6 +1729,7 @@ def test_validate_repo_requires_broad_portability_for_canonical_status(tmp_path:
         tmp_path,
         name="aoa-canonical-portability-drift",
         status="canonical",
+        public_safety_reviewed_at="2026-04-16",
         portability_level="portable",
     )
 
@@ -1730,6 +1738,37 @@ def test_validate_repo_requires_broad_portability_for_canonical_status(tmp_path:
     assert any(
         "status 'canonical' requires portability_level 'broad' but found 'portable'"
         in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_requires_public_safety_review_date_for_canonical_status(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-canonical-missing-public-safety-review",
+        status="canonical",
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "status 'canonical' requires public_safety_reviewed_at" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_requires_valid_calendar_public_safety_review_date(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-canonical-invalid-public-safety-review",
+        status="canonical",
+        public_safety_reviewed_at="2026-99-99",
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "public_safety_reviewed_at must be a valid calendar date" in issue.message
         for issue in issues
     )
 
@@ -3729,6 +3768,20 @@ def test_validate_runtime_evidence_selection_reports_missing_expected_examples_i
         issue.location.endswith("runtime_evidence_selection.workhorse-local.example.json")
         and "file is missing" in issue.message
         for issue in issues
+    )
+
+
+def test_validate_runtime_evidence_selection_accepts_example_backed_runtime_chaos_window() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    assert (
+        validate_repo.validate_runtime_evidence_selection_surfaces(
+            REPO_ROOT,
+            records,
+            target_eval_names={"aoa-stress-recovery-window"},
+        )
+        == []
     )
 
 

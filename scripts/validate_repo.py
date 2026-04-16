@@ -11,6 +11,7 @@ import re
 import sys
 from collections import Counter
 from dataclasses import dataclass
+from datetime import date
 from functools import lru_cache
 from pathlib import Path, PurePosixPath
 from typing import Any, Iterable, Sequence
@@ -67,6 +68,8 @@ AOA_PLAYBOOKS_ROOT = repo_root_from_env(
     "AOA_PLAYBOOKS_ROOT", REPO_ROOT.parent / "aoa-playbooks"
 )
 AOA_MEMO_ROOT = repo_root_from_env("AOA_MEMO_ROOT", REPO_ROOT.parent / "aoa-memo")
+AOA_ROUTING_ROOT = repo_root_from_env("AOA_ROUTING_ROOT", REPO_ROOT.parent / "aoa-routing")
+AOA_KAG_ROOT = repo_root_from_env("AOA_KAG_ROOT", REPO_ROOT.parent / "aoa-kag")
 AOA_SDK_ROOT = repo_root_from_env("AOA_SDK_ROOT", REPO_ROOT.parent / "aoa-sdk")
 AOA_STATS_ROOT = repo_root_from_env("AOA_STATS_ROOT", REPO_ROOT.parent / "aoa-stats")
 ABYSS_STACK_ROOT = resolve_abyss_stack_root(REPO_ROOT.parent / "abyss-stack")
@@ -198,6 +201,8 @@ VISIBLE_ROOTS = (
     AOA_AGENTS_ROOT,
     AOA_PLAYBOOKS_ROOT,
     AOA_MEMO_ROOT,
+    AOA_ROUTING_ROOT,
+    AOA_KAG_ROOT,
     AOA_SDK_ROOT,
     ABYSS_STACK_ROOT,
 )
@@ -209,6 +214,8 @@ REPO_REF_ROOTS = {
     "aoa-agents": AOA_AGENTS_ROOT,
     "aoa-playbooks": AOA_PLAYBOOKS_ROOT,
     "aoa-memo": AOA_MEMO_ROOT,
+    "aoa-routing": AOA_ROUTING_ROOT,
+    "aoa-kag": AOA_KAG_ROOT,
     "aoa-sdk": AOA_SDK_ROOT,
     "abyss-stack": ABYSS_STACK_ROOT,
 }
@@ -218,6 +225,7 @@ STATS_EVENT_ENVELOPE_SCHEMA_NAME = "stats-event-envelope.schema.json"
 EVAL_RESULT_RECEIPT_SCHEMA_NAME = "eval-result-receipt.schema.json"
 EVAL_RESULT_RECEIPT_GUIDE_NAME = "docs/EVAL_RESULT_RECEIPT_GUIDE.md"
 EVAL_RESULT_RECEIPT_EXAMPLE_NAME = "examples/eval_result_receipt.example.json"
+LIVE_EVAL_RECEIPT_LOG_NAME = ".aoa/live_receipts/eval-result-receipts.jsonl"
 EVAL_RESULT_RECEIPT_REQUIRED_TOKENS = (
     "## Core rule",
     "`eval_result_receipt`",
@@ -239,6 +247,7 @@ ARTIFACT_VERDICT_HOOK_EXAMPLES = {
     "AOA-P-0008": "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
     "AOA-P-0009": "artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
     "AOA-P-0031": "artifact_to_verdict_hook.a2a-summon-return-checkpoint.example.json",
+    "AOA-P-0032": "artifact_to_verdict_hook.trace-integrity-chaos.example.json",
 }
 RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
     "runtime_evidence_selection.workhorse-local.example.json": {
@@ -270,6 +279,12 @@ RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
         "target_eval": "aoa-memo-writeback-act-integrity",
         "source_schema_ref": "repo:abyss-stack/schemas/runtime-memo-export-candidate.schema.json",
         "candidate_eval_refs": ["candidate:aoa-memo-writeback-act-integrity"],
+    },
+    "runtime_evidence_selection.runtime-chaos-window.example.json": {
+        "target_eval": "aoa-stress-recovery-window",
+        "source_schema_ref": "repo:abyss-stack/schemas/service_degradation_receipt_v1.json",
+        "candidate_eval_refs": ["candidate:aoa-stress-recovery-window"],
+        "allowed_ref_roots": ["examples"],
     },
 }
 TRACE_EVAL_HOOK_EXPECTATIONS = {
@@ -354,6 +369,23 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
         ],
         "trace_surfaces": [],
         "verification_surface": "runtime_closeout_dry_run_receipt",
+    },
+    "AOA-P-0032": {
+        "eval_anchor": "aoa-witness-trace-integrity",
+        "artifact_contract_refs": [
+            "repo:aoa-playbooks/playbooks/runtime-chaos-recovery/PLAYBOOK.md#expected-artifacts",
+            "repo:aoa-playbooks/examples/playbook_stress_lane.runtime-timeout-chaos.example.json",
+            "repo:aoa-playbooks/examples/playbook_reentry_gate.retrieval-outage-honesty.example.json",
+            "repo:aoa-routing/examples/composite_stress_route_hint.retrieval-outage-honesty.example.json",
+            "repo:aoa-kag/examples/regrounding_ticket.retrieval-outage-honesty.example.json",
+            "repo:abyss-stack/schemas/service_degradation_receipt_v1.json",
+            "repo:aoa-memo/docs/WITNESS_TRACE_CONTRACT.md",
+        ],
+        "trace_surfaces": [
+            "repo:aoa-memo/docs/WITNESS_TRACE_CONTRACT.md",
+            "repo:aoa-memo/examples/provenance_thread.self-agency-continuity.example.json",
+        ],
+        "verification_surface": "proof_handoff_candidate",
     },
 }
 COMPARISON_SURFACE_COMMON_KEYS = (
@@ -1556,6 +1588,176 @@ def validate_eval_result_receipt_surfaces(repo_root: Path) -> list[ValidationIss
     return issues
 
 
+def validate_live_receipt_log(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    log_path = repo_root / LIVE_EVAL_RECEIPT_LOG_NAME
+    log_location = relative_location(log_path, repo_root)
+    try:
+        raw_lines = log_path.read_text(encoding="utf-8").splitlines()
+    except FileNotFoundError:
+        return [ValidationIssue(log_location, "file is missing")]
+
+    receipt_count = 0
+    seen_event_ids: set[str] = set()
+    for line_number, raw_line in enumerate(raw_lines, start=1):
+        line = raw_line.strip()
+        if not line:
+            continue
+
+        receipt_count += 1
+        entry_location = f"{log_location}:{line_number}"
+        try:
+            receipt = json.loads(line)
+        except json.JSONDecodeError as exc:
+            issues.append(ValidationIssue(entry_location, f"invalid JSON: {exc.msg}"))
+            continue
+        if not isinstance(receipt, dict):
+            issues.append(
+                ValidationIssue(entry_location, "live eval receipt log entry must be a JSON object")
+            )
+            continue
+
+        validate_against_schema(
+            receipt,
+            STATS_EVENT_ENVELOPE_SCHEMA_NAME,
+            entry_location,
+            issues,
+        )
+        if receipt.get("event_kind") != "eval_result_receipt":
+            issues.append(
+                ValidationIssue(
+                    entry_location,
+                    "live eval receipt log entry must keep event_kind as 'eval_result_receipt'",
+                )
+            )
+
+        event_id = receipt.get("event_id")
+        if isinstance(event_id, str) and event_id:
+            if event_id in seen_event_ids:
+                issues.append(
+                    ValidationIssue(
+                        entry_location,
+                        f"duplicate event_id '{event_id}' is not allowed in the live eval receipt log",
+                    )
+                )
+            seen_event_ids.add(event_id)
+
+        object_ref = receipt.get("object_ref")
+        if isinstance(object_ref, dict):
+            if object_ref.get("repo") != "aoa-evals":
+                issues.append(
+                    ValidationIssue(
+                        entry_location,
+                        "live eval receipt log object_ref.repo must be 'aoa-evals'",
+                    )
+                )
+            if object_ref.get("kind") != "eval_bundle":
+                issues.append(
+                    ValidationIssue(
+                        entry_location,
+                        "live eval receipt log object_ref.kind must be 'eval_bundle'",
+                    )
+                )
+
+        evidence_refs = receipt.get("evidence_refs")
+        seen_primary = False
+        evidence_ref_values: set[str] = set()
+        if isinstance(evidence_refs, list):
+            for index, evidence_ref in enumerate(evidence_refs):
+                if not isinstance(evidence_ref, dict):
+                    continue
+                raw_ref = evidence_ref.get("ref")
+                if isinstance(raw_ref, str):
+                    evidence_ref_values.add(raw_ref)
+                    parse_repo_ref(
+                        raw_ref,
+                        location=f"{entry_location}.evidence_refs[{index}].ref",
+                        issues=issues,
+                    )
+                if evidence_ref.get("role") == "primary":
+                    seen_primary = True
+            if not seen_primary:
+                issues.append(
+                    ValidationIssue(
+                        entry_location,
+                        "live eval receipt log entry must include one primary evidence ref",
+                    )
+                )
+
+        payload = receipt.get("payload")
+        if isinstance(payload, dict):
+            validate_against_schema(
+                payload,
+                EVAL_RESULT_RECEIPT_SCHEMA_NAME,
+                f"{entry_location}.payload",
+                issues,
+            )
+
+            bundle_ref = payload.get("bundle_ref")
+            if isinstance(bundle_ref, str):
+                parse_repo_ref(
+                    bundle_ref,
+                    location=f"{entry_location}.payload.bundle_ref",
+                    issues=issues,
+                )
+                if bundle_ref not in evidence_ref_values:
+                    issues.append(
+                        ValidationIssue(
+                            entry_location,
+                            "live eval receipt log payload.bundle_ref must also appear in evidence_refs",
+                        )
+                    )
+
+            report_ref = payload.get("report_ref")
+            if isinstance(report_ref, str):
+                parse_repo_ref(
+                    report_ref,
+                    location=f"{entry_location}.payload.report_ref",
+                    issues=issues,
+                )
+                if report_ref not in evidence_ref_values:
+                    issues.append(
+                        ValidationIssue(
+                            entry_location,
+                            "live eval receipt log payload.report_ref must also appear in evidence_refs",
+                        )
+                    )
+
+            if (
+                isinstance(object_ref, dict)
+                and isinstance(payload.get("eval_name"), str)
+                and payload["eval_name"] != object_ref.get("id")
+            ):
+                issues.append(
+                    ValidationIssue(
+                        entry_location,
+                        "live eval receipt log payload.eval_name must match object_ref.id",
+                    )
+                )
+
+            if (
+                isinstance(object_ref, dict)
+                and isinstance(object_ref.get("version"), str)
+                and isinstance(payload.get("bundle_status"), str)
+                and payload["bundle_status"] != object_ref["version"]
+            ):
+                issues.append(
+                    ValidationIssue(
+                        entry_location,
+                        "live eval receipt log payload.bundle_status must match object_ref.version when version is present",
+                    )
+                )
+
+    if receipt_count == 0:
+        issues.append(
+            ValidationIssue(
+                log_location,
+                "live eval receipt log must contain at least one receipt entry",
+            )
+        )
+    return issues
+
+
 def load_mapping_entries(
     payload: Any,
     *,
@@ -1668,12 +1870,23 @@ def parse_repo_ref(
     return repo_name, target, anchor or None
 
 
-def validate_abyss_stack_logs_ref(
+def _abyss_stack_ref_boundary_message(allowed_roots: Sequence[str]) -> str:
+    if tuple(allowed_roots) == ("Logs",):
+        return "reference must stay inside 'repo:abyss-stack/Logs/'"
+    if len(allowed_roots) == 1:
+        return f"reference must stay inside 'repo:abyss-stack/{allowed_roots[0]}/'"
+    allowed_text = " or ".join(f"'repo:abyss-stack/{root}/'" for root in allowed_roots)
+    return f"reference must stay inside {allowed_text}"
+
+
+def validate_abyss_stack_ref(
     raw_ref: Any,
     *,
+    allowed_roots: Sequence[str] = ("Logs",),
     location: str,
     issues: list[ValidationIssue],
 ) -> PurePosixPath | None:
+    boundary_message = _abyss_stack_ref_boundary_message(allowed_roots)
     if not isinstance(raw_ref, str) or not raw_ref:
         issues.append(ValidationIssue(location, "reference must be a non-empty string"))
         return None
@@ -1684,7 +1897,7 @@ def validate_abyss_stack_logs_ref(
         issues.append(ValidationIssue(location, "reference must use forward slashes"))
         return None
     if not raw_ref.startswith("repo:abyss-stack/"):
-        issues.append(ValidationIssue(location, "reference must stay inside 'repo:abyss-stack/Logs/'"))
+        issues.append(ValidationIssue(location, boundary_message))
         return None
 
     path_text = raw_ref[len("repo:abyss-stack/") :]
@@ -1699,11 +1912,25 @@ def validate_abyss_stack_logs_ref(
     if any(part in {"", ".", ".."} for part in ref_path.parts):
         issues.append(ValidationIssue(location, "reference path must not contain empty, '.' or '..' segments"))
         return None
-    if len(ref_path.parts) < 2 or ref_path.parts[0] != "Logs":
-        issues.append(ValidationIssue(location, "reference must stay inside 'repo:abyss-stack/Logs/'"))
+    if len(ref_path.parts) < 2 or ref_path.parts[0] not in set(allowed_roots):
+        issues.append(ValidationIssue(location, boundary_message))
         return None
 
     return ref_path
+
+
+def validate_abyss_stack_logs_ref(
+    raw_ref: Any,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+) -> PurePosixPath | None:
+    return validate_abyss_stack_ref(
+        raw_ref,
+        allowed_roots=("Logs",),
+        location=location,
+        issues=issues,
+    )
 
 
 def validate_json_against_inline_schema(
@@ -2208,6 +2435,52 @@ def validate_status_portability_monotonicity(
         )
 
 
+def validate_public_safety_reviewed_at(
+    manifest: dict[str, Any],
+    location: str,
+    issues: list[ValidationIssue],
+) -> None:
+    status = manifest.get("status")
+    raw_value = manifest.get("public_safety_reviewed_at")
+    if raw_value is None:
+        if status == "canonical":
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "status 'canonical' requires public_safety_reviewed_at with a fresh YYYY-MM-DD review date",
+                )
+            )
+        return
+
+    if not isinstance(raw_value, str) or not raw_value:
+        issues.append(
+            ValidationIssue(
+                location,
+                "public_safety_reviewed_at must be a non-empty string",
+            )
+        )
+        return
+
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw_value):
+        issues.append(
+            ValidationIssue(
+                location,
+                "public_safety_reviewed_at must use YYYY-MM-DD format",
+            )
+        )
+        return
+
+    try:
+        date.fromisoformat(raw_value)
+    except ValueError:
+        issues.append(
+            ValidationIssue(
+                location,
+                "public_safety_reviewed_at must be a valid calendar date",
+            )
+        )
+
+
 def validate_comparative_summary_contract(
     manifest: dict[str, Any],
     bundle_dir: Path,
@@ -2383,6 +2656,7 @@ def validate_manifest_evidence(
 
     validate_status_portability_monotonicity(manifest, location, issues)
     validate_status_specific_evidence(manifest, bundle_dir, location, evidence, issues)
+    validate_public_safety_reviewed_at(manifest, location, issues)
     validate_comparative_summary_contract(
         manifest,
         bundle_dir,
@@ -4722,6 +4996,7 @@ def validate_runtime_evidence_selection_surfaces(
 
     for example_path, expectations in selected_examples:
         target_eval = expectations.get("target_eval")
+        allowed_ref_roots = tuple(expectations.get("allowed_ref_roots", ["Logs"]))
         location = relative_location(example_path, repo_root)
         payload = load_json_payload(example_path, issues)
         if payload is None:
@@ -4794,8 +5069,9 @@ def validate_runtime_evidence_selection_surfaces(
                 issues.append(ValidationIssue(f"{location}.{field_name}", f"{field_name} must be a list"))
                 continue
             for index, ref in enumerate(refs):
-                validate_abyss_stack_logs_ref(
+                validate_abyss_stack_ref(
                     ref,
+                    allowed_roots=allowed_ref_roots,
                     location=f"{location}.{field_name}[{index}]",
                     issues=issues,
                 )
@@ -4811,8 +5087,9 @@ def validate_runtime_evidence_selection_surfaces(
             if not isinstance(item, dict):
                 issues.append(ValidationIssue(item_location, "selected evidence entry must be an object"))
                 continue
-            validate_abyss_stack_logs_ref(
+            validate_abyss_stack_ref(
                 item.get("artifact_ref"),
+                allowed_roots=allowed_ref_roots,
                 location=f"{item_location}.artifact_ref",
                 issues=issues,
             )
@@ -5426,6 +5703,7 @@ def run_validation(
         if not all_source_issues:
             issues.extend(validate_trace_eval_bridge_surfaces(repo_root, all_records))
             issues.extend(validate_eval_result_receipt_surfaces(repo_root))
+            issues.extend(validate_live_receipt_log(repo_root))
             issues.extend(
                 validate_runtime_evidence_selection_surfaces(
                     repo_root,

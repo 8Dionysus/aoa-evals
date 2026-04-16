@@ -225,6 +225,7 @@ Current starter posture is still intentionally modest, but the portable-and-boun
 
 ### If you need a stable public default now
 There is no `canonical` eval yet.
+Promotion still requires broad portability, explicit `canonical_readiness`, and a fresh public-safety recheck.
 
 ### If you need a bounded comparison surface
 Prefer `aoa-regression-same-task` when you need the first public `baseline` same-task comparison surface.

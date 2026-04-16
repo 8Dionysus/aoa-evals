@@ -31,6 +31,7 @@ Choose the path that matches your question:
   - [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md)
 - I need to understand how runtime artifacts and trace surfaces become eval evidence:
   - [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md)
+  - [Trace Eval Bridge Chaos Wave 1](TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md)
   - [Eval Result Receipt Guide](EVAL_RESULT_RECEIPT_GUIDE.md)
   - [Runtime Bench Promotion Guide](RUNTIME_BENCH_PROMOTION_GUIDE.md)
   - [Self-Agent Checkpoint Eval Posture](SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md)
@@ -99,6 +100,7 @@ These surfaces explain how neighboring runtime artifacts and trace inputs can
 feed existing eval bundles without creating a second proof canon.
 
 - [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md)
+- [Trace Eval Bridge Chaos Wave 1](TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md)
 - [Eval Result Receipt Guide](EVAL_RESULT_RECEIPT_GUIDE.md)
 - [Self-Agent Checkpoint Eval Posture](SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md)
 - [Recurrence Proof Program](RECURRENCE_PROOF_PROGRAM.md)

@@ -1,0 +1,39 @@
+{
+  "surface_type": "artifact_to_verdict_hook",
+  "hook_id": "trace-integrity-chaos",
+  "playbook_id": "AOA-P-0032",
+  "eval_anchor": "aoa-witness-trace-integrity",
+  "verdict_bundle_ref": "repo:aoa-evals/bundles/aoa-witness-trace-integrity/EVAL.md",
+  "artifact_inputs": [
+    "runtime_stress_lane",
+    "runtime_reentry_gate",
+    "owner_runtime_receipt",
+    "runtime_closeout_receipt",
+    "regrounding_ticket_ref",
+    "proof_handoff_candidate"
+  ],
+  "artifact_contract_refs": [
+    "repo:aoa-playbooks/playbooks/runtime-chaos-recovery/PLAYBOOK.md#expected-artifacts",
+    "repo:aoa-playbooks/examples/playbook_stress_lane.runtime-timeout-chaos.example.json",
+    "repo:aoa-playbooks/examples/playbook_reentry_gate.retrieval-outage-honesty.example.json",
+    "repo:aoa-routing/examples/composite_stress_route_hint.retrieval-outage-honesty.example.json",
+    "repo:aoa-kag/examples/regrounding_ticket.retrieval-outage-honesty.example.json",
+    "repo:abyss-stack/schemas/service_degradation_receipt_v1.json",
+    "repo:aoa-memo/docs/WITNESS_TRACE_CONTRACT.md"
+  ],
+  "trace_surfaces": [
+    "repo:aoa-memo/docs/WITNESS_TRACE_CONTRACT.md",
+    "repo:aoa-memo/examples/provenance_thread.self-agency-continuity.example.json"
+  ],
+  "verification_surface": "proof_handoff_candidate",
+  "contract_test_refs": [
+    "repo:aoa-evals/bundles/aoa-witness-trace-integrity/checks/eval-integrity-check.md",
+    "repo:aoa-evals/bundles/aoa-witness-trace-integrity/notes/trace-contract.md",
+    "repo:aoa-evals/bundles/aoa-witness-trace-integrity/notes/proof-surface-contract.md"
+  ],
+  "report_expectation": {
+    "report_format": "summary-with-breakdown",
+    "verdict_shape": "mixed",
+    "review_required": true
+  }
+}

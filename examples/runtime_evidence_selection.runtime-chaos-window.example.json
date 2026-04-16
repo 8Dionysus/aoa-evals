@@ -1,0 +1,64 @@
+{
+  "surface_type": "runtime_evidence_selection",
+  "selection_id": "runtime-chaos-window",
+  "source_repo": "abyss-stack",
+  "source_schema_ref": "repo:abyss-stack/schemas/service_degradation_receipt_v1.json",
+  "source_manifests": [
+    "repo:abyss-stack/examples/service_degradation_receipt.timeout-chaos.example.json",
+    "repo:abyss-stack/examples/service_degradation_receipt.honest-degradation.example.json",
+    "repo:abyss-stack/examples/service_degradation_receipt.retrieval-outage-honesty.example.json",
+    "repo:abyss-stack/examples/repair_safe_closeout_receipt.timeout-chaos.example.json",
+    "repo:abyss-stack/examples/repair_safe_closeout_receipt.retrieval-outage-honesty.example.json"
+  ],
+  "bounded_claim": "Under bounded runtime chaos, selected example receipts can show operator-visible containment, blocked repair fan-out, explicit degraded continuation, and reviewed closeout posture without turning curated examples into live-health truth or verdict authority. This is recovery-legibility evidence only.",
+  "promotion_target": "evidence-sidecar",
+  "comparison_mode": "none",
+  "target_eval": "aoa-stress-recovery-window",
+  "candidate_eval_refs": [
+    "candidate:aoa-stress-recovery-window"
+  ],
+  "selected_evidence": [
+    {
+      "artifact_ref": "repo:abyss-stack/examples/service_degradation_receipt.timeout-chaos.example.json",
+      "evidence_role": "summary",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/examples/service_degradation_receipt.retrieval-outage-honesty.example.json",
+      "evidence_role": "case-breakdown",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/examples/repair_safe_closeout_receipt.timeout-chaos.example.json",
+      "evidence_role": "environment-note",
+      "summary_only": true
+    },
+    {
+      "artifact_ref": "repo:abyss-stack/examples/repair_safe_closeout_receipt.retrieval-outage-honesty.example.json",
+      "evidence_role": "integrity-sidecar",
+      "summary_only": true
+    }
+  ],
+  "environment_invariants": [
+    "same bounded runtime owner repo: abyss-stack",
+    "same source schema family: service_degradation_receipt_v1 plus repair_safe_closeout_receipt_v1",
+    "selected evidence only, no raw live logs or rendered config snapshots",
+    "reviewed closeout remains required before stronger claims"
+  ],
+  "environment_deltas": [
+    "incident class varies across timeout chaos, honest degradation, and retrieval-outage honesty",
+    "this candidate stays example-backed and therefore weaker than live diagnostic windows"
+  ],
+  "do_not_overread": [
+    "does not prove better agent quality",
+    "does not prove global runtime health",
+    "does not replace an eval verdict",
+    "does not rank capability",
+    "does not turn example packets into live operations truth"
+  ],
+  "review_posture": {
+    "portable_enough": false,
+    "comparison_hygiene_named": true,
+    "human_review_required": true
+  }
+}

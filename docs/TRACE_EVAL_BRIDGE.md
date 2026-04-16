@@ -153,10 +153,12 @@ The first derived examples are:
 - `examples/artifact_to_verdict_hook.validation-driven-remediation.example.json`
 - `examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json`
 - `examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json`
+- `examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json`
 
 Runtime benchmark evidence selection is adjacent to this bridge, not a replacement for it.
 See [RUNTIME_BENCH_PROMOTION_GUIDE.md](RUNTIME_BENCH_PROMOTION_GUIDE.md) when `abyss-stack` latency, load, recovery, or context-stress artifacts need bounded promotion discipline before they travel upward as selected proof inputs.
 See [RECURRENCE_PROOF_PROGRAM.md](RECURRENCE_PROOF_PROGRAM.md) when the question is whether return-aware artifacts and runtime sidecars support a narrower anchor-integrity read.
+See [TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md](TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md) for the bounded chaos-wave variant where runtime stress lanes, re-entry gates, and witness sidecars remain weaker than owner-local receipts and later verdict review.
 
 These hook surfaces bind together:
 

@@ -31,7 +31,7 @@ Use the shortest route by need:
 - bounded self-agency continuity reading: `bundles/aoa-continuity-anchor-integrity/EVAL.md`, `bundles/aoa-reflective-revision-boundedness/EVAL.md`, and `bundles/aoa-self-reanchor-correctness/EVAL.md`
 - via negativa pruning checklist: `docs/VIA_NEGATIVA_CHECKLIST.md`
 - artifact-side versus process-side reading: `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
-- runtime-artifact to verdict bridge: `docs/TRACE_EVAL_BRIDGE.md`, `docs/EVAL_RESULT_RECEIPT_GUIDE.md`, and `docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
+- runtime-artifact to verdict bridge: `docs/TRACE_EVAL_BRIDGE.md`, `docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md`, `docs/EVAL_RESULT_RECEIPT_GUIDE.md`, and `docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
 - local shared-envelope mirror and eval publication seam:
   `docs/EVAL_RESULT_RECEIPT_GUIDE.md`
 - portability, fixtures, and baseline-boundary guides: `docs/FIXTURE_SURFACE_GUIDE.md`, `docs/BLIND_SPOT_DISCLOSURE_GUIDE.md`, `docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md`, and `docs/BASELINE_COMPARISON_GUIDE.md`

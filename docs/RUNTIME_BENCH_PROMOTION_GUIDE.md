@@ -114,6 +114,7 @@ Use `../examples/runtime_evidence_selection.workhorse-local.example.json` as the
 Use `../examples/runtime_evidence_selection.return-anchor-integrity.example.json` when selected `runtime_return_event` summaries and return-policy notes need to travel upward as a bounded evidence sidecar for `aoa-return-anchor-integrity`.
 Use `../examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json` when selected runtime memo-export packets need to travel upward as a bounded evidence sidecar for `aoa-memo-recall-integrity` on the Phase Alpha rerun seam.
 Use `../examples/runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json` when selected Phase Alpha runtime closure packets need to travel upward as a bounded evidence sidecar for `aoa-memo-writeback-act-integrity` on the runtime-to-memo writeback seam.
+Use `../examples/runtime_evidence_selection.runtime-chaos-window.example.json` when curated chaos-wave receipts and reviewed closeout examples should travel upward only as example-backed sidecar evidence for `aoa-stress-recovery-window`.
 
 ## Boundary to preserve
 Runtime posture can become evidence.

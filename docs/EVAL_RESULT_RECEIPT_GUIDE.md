@@ -31,12 +31,16 @@ The shared schema-backed surfaces for this seam are:
 - `schemas/stats-event-envelope.schema.json`
 - `schemas/eval-result-receipt.schema.json`
 - `examples/eval_result_receipt.example.json`
+- owner-local append-only log:
+  `.aoa/live_receipts/eval-result-receipts.jsonl`
 
 Use the shared `stats-event-envelope` for event facts.
 Treat the local `aoa-evals` copy as a mirror of the canonical `aoa-stats`
 schema rather than as a competing source of ownership.
 Use `eval-result-receipt.schema.json` only for the bounded proof payload that
 travels inside that envelope.
+Use `scripts/publish_live_receipts.py` to append validated owner-local receipts
+to the live JSONL log.
 
 ## What the receipt may say
 

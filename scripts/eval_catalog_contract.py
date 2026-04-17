@@ -68,6 +68,72 @@ def format_issues(issues: list[ContractIssue]) -> str:
     return "\n".join(f"- {issue.location}: {issue.message}" for issue in issues)
 
 
+def normalize_markdown_text(text: str) -> str:
+    normalized = text.replace("\r\n", "\n")
+    normalized = re.sub(r"\[(.*?)\]\((.*?)\)", r"\1", normalized)
+    normalized = re.sub(r"`([^`]+)`", r"\1", normalized)
+    normalized = normalized.replace("**", "")
+    normalized = normalized.replace("__", "")
+    normalized = normalized.replace("*", "")
+    normalized = normalized.replace("_", "")
+    normalized = re.sub(r"\s+", " ", normalized)
+    return normalized.strip()
+
+
+def trim_summary(
+    text: str,
+    *,
+    max_words: int,
+    max_chars: int,
+) -> str:
+    words = text.split()
+    trimmed = " ".join(words[:max_words])
+    if len(trimmed) > max_chars:
+        trimmed = trimmed[: max_chars + 1].rsplit(" ", 1)[0].rstrip(" ,;:")
+    if len(words) > max_words or len(text) > len(trimmed):
+        return f"{trimmed}..."
+    return trimmed
+
+
+def collect_bullets_after_label(
+    text: str,
+    *,
+    label_matcher: Any,
+) -> list[str]:
+    lines = text.splitlines()
+    collecting = False
+    bullets: list[str] = []
+    for line in lines:
+        stripped = line.strip()
+        if not collecting:
+            if label_matcher(stripped):
+                collecting = True
+            continue
+
+        if stripped.startswith("- "):
+            bullets.append(normalize_markdown_text(stripped[2:]))
+            continue
+        if not stripped:
+            if bullets:
+                break
+            continue
+        if bullets:
+            break
+    return bullets
+
+
+def extract_interpretation_limit_bullets(section_text: str) -> list[str]:
+    return collect_bullets_after_label(
+        section_text,
+        label_matcher=lambda line: line.startswith("Do not treat ") and line.endswith(":"),
+    )
+
+
+def summarize_interpretation_limits(section_text: str) -> str:
+    limits = extract_interpretation_limit_bullets(section_text)
+    return trim_summary("; ".join(limits[:3]), max_words=28, max_chars=190)
+
+
 def normalize_repo_name(raw: str) -> str:
     text = raw.strip()
     if not text:
@@ -351,8 +417,17 @@ def full_catalog_entry(repo_root: Path, record: Any) -> dict[str, Any]:
 
     evidence_entries = list(manifest["evidence"])
     proof_artifacts = build_proof_artifacts_entry(repo_root, record)
+    comparison_surface = normalize_comparison_surface(manifest)
+    selection_summary = ""
+    if isinstance(comparison_surface, dict):
+        raw_question = comparison_surface.get("selection_question")
+        if isinstance(raw_question, str):
+            selection_summary = raw_question
+    interpretation_boundary = summarize_interpretation_limits(
+        record.sections["Interpretation guidance"]
+    )
 
-    return {
+    entry = {
         "name": metadata["name"],
         "category": metadata["category"],
         "status": metadata["status"],
@@ -372,7 +447,9 @@ def full_catalog_entry(repo_root: Path, record: Any) -> dict[str, Any]:
         "blind_spot_disclosure": manifest["blind_spot_disclosure"],
         "score_interpretation_bound": manifest["score_interpretation_bound"],
         "eval_path": relative_location(record.eval_md_path, repo_root),
-        "comparison_surface": normalize_comparison_surface(manifest),
+        "comparison_surface": comparison_surface,
+        "selection_summary": selection_summary,
+        "interpretation_boundary": interpretation_boundary,
         "technique_dependencies": list(metadata["technique_dependencies"]),
         "technique_refs": technique_refs,
         "skill_dependencies": list(metadata["skill_dependencies"]),
@@ -383,6 +460,9 @@ def full_catalog_entry(repo_root: Path, record: Any) -> dict[str, Any]:
         "proof_artifacts": proof_artifacts,
         "proof_surface_kinds": compact_proof_surface_kinds(proof_artifacts),
     }
+    if "public_safety_reviewed_at" in manifest:
+        entry["public_safety_reviewed_at"] = manifest["public_safety_reviewed_at"]
+    return entry
 
 
 def project_min_catalog(full_catalog: dict[str, Any]) -> dict[str, Any]:

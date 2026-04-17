@@ -2,11 +2,21 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import sys
 import unittest
 from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS_DIR = REPO_ROOT / "scripts"
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
+
+from validate_repo import (
+    build_catalog_payloads,
+    build_comparison_spine_payload,
+    collect_catalog_records,
+)
 
 
 def load_module(script_name: str):
@@ -96,6 +106,20 @@ class DownstreamFeedContractsTests(unittest.TestCase):
             self.assertIn("comparison_surface", entry)
             self.assertIn("proof_artifacts", entry)
             self.assertIn("selection_summary", entry)
+            self.assertIn("interpretation_boundary", entry)
+
+    def test_generated_comparison_spine_is_generator_backed_and_keeps_public_reading_fields(self) -> None:
+        issues, records = collect_catalog_records(REPO_ROOT)
+
+        self.assertEqual(issues, [])
+        full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
+        expected = build_comparison_spine_payload(REPO_ROOT, records, full_catalog)
+        current = load_json("generated/comparison_spine.json")
+
+        self.assertEqual(current, expected)
+        for entry in current["evals"]:
+            self.assertTrue(entry["selection_summary"])
+            self.assertTrue(entry["interpretation_boundary"])
 
     def test_runtime_candidate_template_index_is_generator_backed_and_complete(self) -> None:
         current = load_json("generated/runtime_candidate_template_index.min.json")
@@ -127,11 +151,21 @@ class DownstreamFeedContractsTests(unittest.TestCase):
             memo_writeback["required_runtime_artifacts"],
             ["summary", "case-breakdown", "environment-note", "integrity-sidecar"],
         )
+        chaos_window = by_name[("runtime_evidence_selection", "runtime-chaos-window")]
+        self.assertEqual(chaos_window["eval_anchor"], "aoa-stress-recovery-window")
+        self.assertEqual(
+            chaos_window["required_runtime_artifacts"],
+            ["summary", "case-breakdown", "environment-note", "integrity-sidecar"],
+        )
 
         checkpoint_hook = by_name[("artifact_to_verdict_hook", "aoa-p-0006-approval-boundary-hook")]
         self.assertEqual(checkpoint_hook["playbook_id"], "AOA-P-0006")
         self.assertEqual(checkpoint_hook["eval_anchor"], "aoa-approval-boundary-adherence")
         self.assertTrue(checkpoint_hook["review_required"])
+        chaos_hook = by_name[("artifact_to_verdict_hook", "trace-integrity-chaos")]
+        self.assertEqual(chaos_hook["playbook_id"], "AOA-P-0032")
+        self.assertEqual(chaos_hook["eval_anchor"], "aoa-witness-trace-integrity")
+        self.assertTrue(chaos_hook["review_required"])
         for entry in current["templates"]:
             self.assertEqual(
                 entry["required_runtime_artifacts"],
@@ -181,6 +215,17 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         self.assertIn(
             "examples/runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json",
             memo_writeback["owner_review_refs"],
+        )
+        chaos_window = by_name[("runtime_evidence_selection", "runtime-chaos-window")]
+        self.assertIn(
+            "examples/runtime_evidence_selection.runtime-chaos-window.example.json",
+            chaos_window["owner_review_refs"],
+        )
+        chaos_hook = by_name[("artifact_to_verdict_hook", "trace-integrity-chaos")]
+        self.assertEqual(chaos_hook["review_guide_ref"], "docs/TRACE_EVAL_BRIDGE.md")
+        self.assertIn(
+            "examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json",
+            chaos_hook["owner_review_refs"],
         )
 
     def test_phase_alpha_eval_matrix_is_generator_backed_and_tracks_required_evals(self) -> None:

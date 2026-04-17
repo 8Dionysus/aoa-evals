@@ -28,6 +28,7 @@
         "integrity_check"
       ],
       "export_ready": false,
+      "interpretation_boundary": "proof that aoa-summon is governance-ready; proof that live runtime automation is enabled or safe; proof that memo writeback has become canonical memory",
       "maturity_score": 1,
       "name": "aoa-a2a-summon-return-checkpoint",
       "object_under_evaluation": "reviewed A2A summon child-return checkpoint route",
@@ -65,6 +66,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-checkpoint-closeout-bridge",
         "aoa-contract-test"
@@ -119,6 +121,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that the overall workflow was strong; proof that the agent handled authority correctly; proof that execution stayed perfectly scoped after the ambiguity was resolved",
       "maturity_score": 2,
       "name": "aoa-ambiguity-handling",
       "object_under_evaluation": "task-meaning ambiguity handling in bounded agent change workflows",
@@ -161,6 +164,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -213,6 +217,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that the whole repo is resilient; permission for derived stats or eval layers to take source ownership; justification for automatic recovery or mutation widening",
       "maturity_score": 2,
       "name": "aoa-antifragility-posture",
       "object_under_evaluation": "owner-local antifragility posture for one surface and stressor family",
@@ -245,6 +250,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "draft",
@@ -303,6 +309,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that the agent is safe in all environments; proof that the agent understands all policy systems; proof that refusal behavior is always calibrated correctly outside this surface",
       "maturity_score": 2,
       "name": "aoa-approval-boundary-adherence",
       "object_under_evaluation": "authority and approval boundary handling in agent behavior",
@@ -337,6 +344,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-approval-gate-check"
       ],
@@ -390,6 +398,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that the workflow was disciplined; proof that verification was honest; proof that the agent handled authority or scope well",
       "maturity_score": 3,
       "name": "aoa-artifact-review-rubric",
       "object_under_evaluation": "produced artifact quality on bounded agent change tasks",
@@ -433,6 +442,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -494,6 +504,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof of overall software engineering quality; proof of safety in operationally sensitive contexts; proof that the produced artifact is optimal",
       "maturity_score": 3,
       "name": "aoa-bounded-change-quality",
       "object_under_evaluation": "bounded agent change workflow",
@@ -557,6 +568,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -613,6 +625,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof of final owner quality; proof of correct owner-fit routing; permission to skip owner-local evidence",
       "maturity_score": 2,
       "name": "aoa-candidate-lineage-integrity",
       "object_under_evaluation": "growth-refinery lineage-chain coherence across checkpoint, reviewed harvest, seed staging, and owner evidence surfaces",
@@ -651,6 +664,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -707,6 +721,7 @@
         "integrity_check"
       ],
       "export_ready": false,
+      "interpretation_boundary": "proof that the resulting principle is canon; proof that all contradictions have been resolved; proof that operational ownership moved into ToS",
       "maturity_score": 2,
       "name": "aoa-compost-provenance-preservation",
       "object_under_evaluation": "provenance-preserving compost artifacts derived from witness-facing inputs",
@@ -745,6 +760,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "draft",
@@ -781,6 +797,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof of autonomy; proof of permanent route health; proof that memo or stats may speak more strongly than the anchor",
       "maturity_score": 2,
       "name": "aoa-continuity-anchor-integrity",
       "object_under_evaluation": "anchor-chain integrity on bounded self-agency continuity windows",
@@ -815,6 +832,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-change-protocol",
         "aoa-bounded-context-map"
@@ -873,6 +891,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof of repair success; proof of final object quality; proof that no later cause revision is needed",
       "maturity_score": 2,
       "name": "aoa-diagnosis-cause-discipline",
       "object_under_evaluation": "diagnosis and cause-hypothesis discipline on growth-refinery follow-through moves",
@@ -911,6 +930,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -963,6 +983,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that the starter corpus is canonical; proof that every bundle is equally mature; proof that the underlying evaluated agents are strong",
       "maturity_score": 2,
       "name": "aoa-eval-integrity-check",
       "object_under_evaluation": "public starter eval bundle integrity on the current aoa-evals corpus",
@@ -1055,6 +1076,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "bounded",
@@ -1100,6 +1122,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof of broad model quality; proof of rich-answer usefulness; proof of tool or agent readiness",
       "maturity_score": 3,
       "name": "aoa-local-text-contract-fit",
       "object_under_evaluation": "local text lane contract-fit on compact control and structure prompts",
@@ -1129,6 +1152,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "portable",
@@ -1169,6 +1193,7 @@
         "integrity_check"
       ],
       "export_ready": false,
+      "interpretation_boundary": "proof that the inquiry reached the right conclusion; proof of broad long-horizon capability; proof that runtime instrumentation is solved",
       "maturity_score": 2,
       "name": "aoa-long-horizon-depth",
       "object_under_evaluation": "restart fidelity of checkpoint-based long-horizon inquiry routes",
@@ -1207,6 +1232,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "draft",
@@ -1255,6 +1281,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof of general capability growth; proof that all nearby workflow diagnostics improved; proof that the movement is stable outside this window sequence",
       "maturity_score": 2,
       "name": "aoa-longitudinal-growth-snapshot",
       "object_under_evaluation": "ordered repeated-window movement on a bounded workflow surface",
@@ -1302,6 +1329,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "Do you need ordered repeated-window movement on one named bounded workflow surface?",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -1358,6 +1386,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that contradictions are resolved; proof that memo is authoritative on its own; proof that permission, promotion, or merge risks are already covered",
       "maturity_score": 2,
       "name": "aoa-memo-contradiction-integrity",
       "object_under_evaluation": "integrity of contradiction-visible memo consumption on lifecycle-aware object recall paths",
@@ -1404,6 +1433,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "draft",
@@ -1444,6 +1474,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that memo recall is generally authoritative; proof that all memo guardrail risks are now covered; proof that downstream routing or runtime behavior is fully solved",
       "maturity_score": 2,
       "name": "aoa-memo-recall-integrity",
       "object_under_evaluation": "integrity of memo recall on explicit inspect/capsule/expand consumer paths",
@@ -1486,6 +1517,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "draft",
@@ -1526,6 +1558,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that reviewed-candidate promotion is ready; proof that all three distillation target kinds have equal support; proof of KAG-lift readiness",
       "maturity_score": 2,
       "name": "aoa-memo-reviewed-candidate-adoption-integrity",
       "object_under_evaluation": "integrity of reviewed-candidate adoption on runtime-to-memo distillation paths",
@@ -1572,6 +1605,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "draft",
@@ -1612,6 +1646,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that memo writeback is generally solved; proof that reviewed-candidate promotion is ready; proof of future scar or retention readiness",
       "maturity_score": 2,
       "name": "aoa-memo-writeback-act-integrity",
       "object_under_evaluation": "integrity of runtime-to-memo writeback on bounded owner-local adoption paths",
@@ -1654,6 +1689,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "draft",
@@ -1705,6 +1741,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that one side matters more in all contexts; proof that the stronger-looking side explains the whole story; proof of general capability growth or decline",
       "maturity_score": 2,
       "name": "aoa-output-vs-process-gap",
       "object_under_evaluation": "artifact-versus-process divergence on the same bounded change cases",
@@ -1760,6 +1797,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -1816,6 +1854,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof of final object quality; proof that the chosen owner will never need revision; permission to skip later proof on the final owner object",
       "maturity_score": 2,
       "name": "aoa-owner-fit-routing-quality",
       "object_under_evaluation": "reviewed owner-fit routing quality for growth-refinery candidates",
@@ -1858,6 +1897,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -1910,6 +1950,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof of autonomy; proof of anchor integrity; permission to widen the next revision window silently",
       "maturity_score": 2,
       "name": "aoa-reflective-revision-boundedness",
       "object_under_evaluation": "reflective revision boundedness on self-agency continuity windows",
@@ -1944,6 +1985,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-change-protocol",
         "aoa-bounded-context-map"
@@ -2019,6 +2061,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof of general capability growth; proof that the candidate is universally better than the baseline; proof that no nearby diagnostic regression exists",
       "maturity_score": 4,
       "name": "aoa-regression-same-task",
       "object_under_evaluation": "same-task bounded workflow regression against a frozen baseline",
@@ -2066,6 +2109,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "Do you need a frozen-baseline comparison on the same bounded task family?",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -2118,6 +2162,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof of final object quality; proof that no further proof is needed; permission to widen future repair scope silently",
       "maturity_score": 2,
       "name": "aoa-repair-boundedness",
       "object_under_evaluation": "bounded repair and reanchor quality on growth-refinery follow-through moves",
@@ -2160,6 +2205,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -2212,6 +2258,7 @@
         "integrity_check"
       ],
       "export_ready": false,
+      "interpretation_boundary": "proof that the full task outcome is strong; proof that the route is broadly safe; proof that long-horizon reasoning is solved",
       "maturity_score": 2,
       "name": "aoa-return-anchor-integrity",
       "object_under_evaluation": "anchor fidelity and honest re-entry of return-capable agent routes",
@@ -2262,6 +2309,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "draft",
@@ -2307,6 +2355,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that the best possible skills were chosen; proof that the task outcome is strong overall; proof that every harvest decision is globally correct",
       "maturity_score": 3,
       "name": "aoa-ring-application-discipline",
       "object_under_evaluation": "ring-application discipline in multi-skill agent orchestration",
@@ -2345,6 +2394,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "portable",
@@ -2385,6 +2435,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that the whole workflow was strong; proof that verification was honest or sufficient; proof that the authority boundary was handled correctly",
       "maturity_score": 2,
       "name": "aoa-scope-drift-detection",
       "object_under_evaluation": "scope-alignment behavior in bounded agent change workflows",
@@ -2427,6 +2478,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -2479,6 +2531,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof of autonomy; proof that the route is now healthy forever; permission to let memo or stats stand in for reanchor truth",
       "maturity_score": 2,
       "name": "aoa-self-reanchor-correctness",
       "object_under_evaluation": "reanchor correctness on bounded self-agency continuity routes",
@@ -2513,6 +2566,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-change-protocol",
         "aoa-bounded-context-map"
@@ -2583,6 +2637,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that the whole federation is resilient; permission to bypass owner receipts, playbook gates, or KAG quarantine posture; justification for direct mutation widening",
       "maturity_score": 2,
       "name": "aoa-stress-recovery-window",
       "object_under_evaluation": "ordered stress recovery posture on one named owner surface and adjacent evidence family",
@@ -2630,6 +2685,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "Do you need ordered repeated-window proof for one named stress recovery family?",
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "draft",
@@ -2684,6 +2740,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that the overall workflow was strong; proof that the final artifact is excellent; proof that one exact tool sequence is required",
       "maturity_score": 2,
       "name": "aoa-tool-trajectory-discipline",
       "object_under_evaluation": "tool-use trajectory discipline in bounded agent change workflows",
@@ -2726,6 +2783,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -2782,6 +2840,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that the workflow was strong on every nearby diagnostic surface; proof that one exact trace is required; proof that the final artifact is excellent overall",
       "maturity_score": 2,
       "name": "aoa-trace-outcome-separation",
       "object_under_evaluation": "outcome-vs-path separation in bounded agent change workflows",
@@ -2832,6 +2891,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -2893,6 +2953,7 @@
         "integrity_check"
       ],
       "export_ready": true,
+      "interpretation_boundary": "proof that the change is correct; proof that the workflow stayed fully disciplined; proof that the agent handled scope correctly",
       "maturity_score": 3,
       "name": "aoa-verification-honesty",
       "object_under_evaluation": "verification-truthfulness behavior in bounded agent change workflows",
@@ -2935,6 +2996,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [
         "aoa-change-protocol"
       ],
@@ -2991,6 +3053,7 @@
         "integrity_check"
       ],
       "export_ready": false,
+      "interpretation_boundary": "proof that the run outcome was correct; proof that all internal reasoning is transparent; proof that abyss-stack runtime instrumentation is already solved",
       "maturity_score": 2,
       "name": "aoa-witness-trace-integrity",
       "object_under_evaluation": "reviewable integrity of witness trace exports on bounded runs",
@@ -3033,6 +3096,7 @@
       "review_required": true,
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
+      "selection_summary": "",
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "draft",

@@ -3,13 +3,19 @@ from __future__ import annotations
 
 import argparse
 import json
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
+
+from jsonschema import Draft202012Validator
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_LOG_PATH = REPO_ROOT / ".aoa" / "live_receipts" / "eval-result-receipts.jsonl"
 ALLOWED_EVENT_KINDS = {"eval_result_receipt"}
+SCHEMAS_DIR = REPO_ROOT / "schemas"
+ENVELOPE_SCHEMA_PATH = SCHEMAS_DIR / "stats-event-envelope.schema.json"
+PAYLOAD_SCHEMA_PATH = SCHEMAS_DIR / "eval-result-receipt.schema.json"
 
 
 class ReceiptPublishError(ValueError):
@@ -34,6 +40,50 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
+def format_error_path(path_parts: list[object]) -> str:
+    parts: list[str] = []
+    for part in path_parts:
+        if isinstance(part, int):
+            parts.append(f"[{part}]")
+        elif parts:
+            parts.append(f".{part}")
+        else:
+            parts.append(str(part))
+    return "".join(parts)
+
+
+@lru_cache(maxsize=None)
+def load_validator(schema_path: Path) -> Draft202012Validator:
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    return Draft202012Validator(
+        schema,
+        format_checker=Draft202012Validator.FORMAT_CHECKER,
+    )
+
+
+def validate_with_schema(
+    validator: Draft202012Validator,
+    payload: Any,
+    *,
+    location: str,
+) -> None:
+    errors = sorted(
+        validator.iter_errors(payload),
+        key=lambda error: (list(error.absolute_path), error.message),
+    )
+    if not errors:
+        return
+
+    rendered: list[str] = []
+    for error in errors:
+        error_path = format_error_path(list(error.absolute_path))
+        if error_path:
+            rendered.append(f"{location}: schema violation at '{error_path}': {error.message}")
+        else:
+            rendered.append(f"{location}: schema violation: {error.message}")
+    raise ReceiptPublishError("; ".join(rendered))
+
+
 def validate_receipt(receipt: dict[str, Any], *, location: str) -> None:
     required_fields = (
         "event_kind",
@@ -49,11 +99,17 @@ def validate_receipt(receipt: dict[str, Any], *, location: str) -> None:
     for field in required_fields:
         if field not in receipt:
             raise ReceiptPublishError(f"{location}: missing field {field!r}")
+    validate_with_schema(load_validator(ENVELOPE_SCHEMA_PATH), receipt, location=location)
     event_kind = receipt["event_kind"]
     if event_kind not in ALLOWED_EVENT_KINDS:
         raise ReceiptPublishError(
             f"{location}.event_kind: unsupported eval receipt kind {event_kind!r}"
         )
+    validate_with_schema(
+        load_validator(PAYLOAD_SCHEMA_PATH),
+        receipt["payload"],
+        location=f"{location}.payload",
+    )
     if not isinstance(receipt["event_id"], str) or not receipt["event_id"]:
         raise ReceiptPublishError(f"{location}.event_id: must be a non-empty string")
     if not isinstance(receipt["object_ref"], dict):
@@ -72,13 +128,19 @@ def load_receipts(paths: list[Path]) -> list[dict[str, Any]]:
                 line = raw_line.strip()
                 if not line:
                     continue
-                item = json.loads(line)
+                try:
+                    item = json.loads(line)
+                except json.JSONDecodeError as exc:
+                    raise ReceiptPublishError(f"{path}:{line_number}: invalid JSON: {exc.msg}") from exc
                 if not isinstance(item, dict):
                     raise ReceiptPublishError(f"{path}:{line_number}: receipt must be an object")
                 validate_receipt(item, location=f"{path}:{line_number}")
                 receipts.append(item)
             continue
-        payload = json.loads(path.read_text(encoding="utf-8"))
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise ReceiptPublishError(f"{path}: invalid JSON: {exc.msg}") from exc
         if isinstance(payload, dict):
             validate_receipt(payload, location=str(path))
             receipts.append(payload)

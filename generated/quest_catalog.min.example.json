@@ -190,5 +190,20 @@
     "state": "captured",
     "theme_ref": "",
     "title": "Capture checkpoint automation proof-pressure as early eval evidence"
+  },
+  {
+    "band": "latent",
+    "difficulty": "d2_slice",
+    "id": "AOA-EV-Q-0011",
+    "kind": "proof",
+    "milestone_ref": "",
+    "owner_surface": "docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md",
+    "public_safe": true,
+    "repo": "aoa-evals",
+    "risk": "r2_contract",
+    "source_path": "quests/AOA-EV-Q-0011.yaml",
+    "state": "captured",
+    "theme_ref": "",
+    "title": "Capture chaos-wave1 proof-pressure as early eval evidence"
   }
 ]

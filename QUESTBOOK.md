@@ -27,10 +27,12 @@ Do not use it for:
 ## Latent / parked
 - `AOA-EV-Q-0004` - harvest repeated blind-spot and caution-language repairs into reusable eval patterns and rubrics
 - `AOA-EV-Q-0010` - capture checkpoint automation proof-pressure as early eval evidence
+- `AOA-EV-Q-0011` - capture chaos-wave1 proof-pressure as early eval evidence
 
 ## Harvest candidates
 - `AOA-EV-Q-0004` - harvest repeated blind-spot and caution-language repairs into reusable eval patterns and rubrics
 - `AOA-EV-Q-0010` - capture checkpoint automation proof-pressure as early eval evidence
+- `AOA-EV-Q-0011` - capture chaos-wave1 proof-pressure as early eval evidence
 
 ## Quest-harvest posture
 

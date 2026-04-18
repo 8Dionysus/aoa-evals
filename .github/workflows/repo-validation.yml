@@ -45,7 +45,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: 8Dionysus/aoa-playbooks
-          ref: d622427ed4c32b41885f3b9cfe00074a258143e8
+          ref: 6bf68e95e59f0d646f9ca8eb2edcc617a816d689
           path: .deps/aoa-playbooks
 
       - name: Checkout aoa-memo

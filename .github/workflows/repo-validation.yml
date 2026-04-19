@@ -18,45 +18,45 @@ jobs:
       AOA_MEMO_ROOT: ${{ github.workspace }}/.deps/aoa-memo
     steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
       - name: Checkout aoa-techniques
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: 8Dionysus/aoa-techniques
           ref: feb395527897c1829d13fa17b911aa82b66611f7
           path: .deps/aoa-techniques
 
       - name: Checkout aoa-skills
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: 8Dionysus/aoa-skills
           ref: da85c9aac59edd081e1a3cc8ee921dcb7bf8b800
           path: .deps/aoa-skills
 
       - name: Checkout aoa-agents
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: 8Dionysus/aoa-agents
           ref: 07bca3e91bca485334ae9664eecbf250102008af
           path: .deps/aoa-agents
 
       - name: Checkout aoa-playbooks
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: 8Dionysus/aoa-playbooks
           ref: 6bf68e95e59f0d646f9ca8eb2edcc617a816d689
           path: .deps/aoa-playbooks
 
       - name: Checkout aoa-memo
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: 8Dionysus/aoa-memo
           ref: 1dd85f6beb66fb8c518c4aac1727dee7c4055b29
           path: .deps/aoa-memo
 
       - name: Setup Python
-        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
         with:
           python-version: "3.12"
 

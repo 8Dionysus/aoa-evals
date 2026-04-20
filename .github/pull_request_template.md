@@ -1,28 +1,42 @@
-## What Changed
-<!-- 1-3 short bullets. Keep it concrete; do not restate the whole diff. -->
-- ...
-
-## Why
-<!-- State the reason for the change, bug, gap, or opportunity. -->
-- ...
-
-## Validation
-<!-- List only checks that actually ran. If none, say Not run. -->
-- ...
-
-## Boundary / Direction Impact
-<!-- Optional.
-Use this section only when the change shifts a boundary, owner-fit, route, contract, provenance posture, proof semantics, runtime posture, or recurring composition logic.
-Allowed short answers:
-- None.
-- No boundary shift.
-- Exposed a new owner-fit: ...
-- Tightens/loosens the boundary between ... and ...
-- Changes the route from ... to ...
-Note proof-surface changes, verdict or scoring semantics, derived-vs-source boundary shifts, or observability contract changes.
+## PLAN
+<!--
+- restate the task
+- list touched or inspected bundles or public surfaces
+- name the main risk: overclaiming, chooser drift, comparison semantics, shared proof infra, or trace/evidence seam
 -->
 - ...
 
-## Risk / Follow-ups
-<!-- Note remaining risk, deliberate non-goals, or next follow-up work. -->
+## DIFF
+<!--
+- say what changed
+- say whether bounded claim meaning changed or only metadata/docs/generated surfaces changed
+- say whether category, status, baseline mode, or report posture changed
+-->
+- ...
+
+## VERIFY
+<!--
+- `python scripts/validate_repo.py` status
+- `python scripts/build_catalog.py` status when relevant
+- `pytest` modules actually run
+- comparison or chooser surfaces manually re-read
+- what was not run
+-->
+- ...
+
+## REPORT
+<!--
+- current bounded claim after the change
+- what the changed surface still does not prove
+- whether chooser, comparison, or integrity-sidecar posture changed
+- downstream follow-up likely needed in `aoa-skills` or neighboring layer repos
+-->
+- ...
+
+## RESIDUAL RISK
+<!--
+- thin evidence or support artifacts not refreshed
+- neighboring bundles not yet re-read for distinctness drift
+- comparison or routing surfaces not fully re-audited
+-->
 - ...

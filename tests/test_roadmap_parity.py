@@ -36,9 +36,9 @@ class RoadmapParityTestCase(unittest.TestCase):
         changelog = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
         normalized_roadmap = " ".join(roadmap.split())
 
-        self.assertIn("Current release: `v0.3.1`", readme)
-        self.assertIn("## [0.3.1]", changelog)
-        self.assertIn("`v0.3.1`", roadmap)
+        self.assertIn("Current release: `v0.3.2`", readme)
+        self.assertIn("## [0.3.2]", changelog)
+        self.assertIn("`v0.3.2`", roadmap)
         self.assertIn("Current release contour", roadmap)
         self.assertIn("Roadmap drift", roadmap)
         self.assertIn("proves only bounded claims", normalized_roadmap)

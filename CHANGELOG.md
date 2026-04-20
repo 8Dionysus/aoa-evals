@@ -7,17 +7,44 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-04-19
+
+### Summary
+
+- this patch adds chaos-wave trace and proof lanes, A2A summon return
+  coverage, and a bounded memo writeback-act proof surface
+- proof gates, receipt loops, playbook pinning, and sibling-root-aware memo
+  evidence handling are tightened across the eval layer
+- `aoa-evals` remains the bounded proof and audit layer without absorbing
+  owner truth
+
 ### Added
 
 - `aoa-memo-writeback-act-integrity` as a bounded draft proof surface for one
   real Phase Alpha runtime-to-memo writeback act
 - `runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json`
   plus schema-backed report artifacts for the new writeback-act lane
+- chaos wave 1 trace eval bridge surfaces, early proof-pressure evidence,
+  A2A summon return checkpoint coverage, and reviewed candidate adoption eval
+  lanes
 
 ### Changed
 
 - refreshed memo-pilot roadmap, selector, and runtime-promotion guidance so the
   writeback-act lane sits beside recall and contradiction without overclaiming
+- eval proof gates, receipt loops, release-audit playbooks pinning, memo
+  report sibling-root handling, and proof-carry notes are tightened for the
+  current wave
+
+### Validation
+
+- `python scripts/release_check.py`
+
+### Notes
+
+- this patch keeps the release line focused on bounded proof surfaces for
+  memo, playbook, A2A, and chaos-wave follow-through
+
 
 ## [0.3.1] - 2026-04-12
 

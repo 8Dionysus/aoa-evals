@@ -1,0 +1,66 @@
+schema_version: work_quest_v1
+id: AOA-EV-Q-0012
+title: Capture reviewed workspace closeout proof-pressure as early eval evidence
+summary: Track the reviewed workspace closeout proof handoff candidate as
+  bounded eval follow-through without turning one owner handoff cue into proof
+  canon.
+repo: aoa-evals
+owner_surface: docs/TRACE_EVAL_BRIDGE.md
+theme_ref: ''
+milestone_ref: ''
+kind: proof
+state: captured
+band: latent
+difficulty: d2_slice
+risk: r2_contract
+control_mode: human_codex_copilot
+delegate_tier: verifier
+fallback_tier: planner
+wrapper_class: codex_primary
+write_scope: repo_local
+split_required: false
+complexity_basis:
+  scope: 1
+  ambiguity: 2
+  boundary: 2
+  verification: 2
+parent: null
+depends_on:
+  - AOA-EV-Q-0011
+activation:
+  mode: on_review_of
+  ref: session:2026-04-17T15-28-42-371944Z-workspace-checkpoint-growth-74c888d1-3a8
+  note: open when the reviewed workspace closeout preserves a bounded proof cue
+    that still belongs below new eval-bundle authority
+anchor_ref:
+  artifact: trace_eval_bridge
+  ref: docs/TRACE_EVAL_BRIDGE.md
+  note: workspace closeout proof pressure should stay an eval-side bridge cue,
+    not a new portable verdict canon
+handoff_role: proof-maintainer
+evidence:
+  - candidate:proof:aoa-evals-runtime-candidate-template-index-min survived the
+    reviewed workspace closeout as a bounded owner handoff
+  - proof_discipline and review_sharpness remained hold-shaped while the wider
+    session reanchored on boundary_integrity
+  - owner handoff routed the cue to aoa-evals without opening a new eval bundle
+    or treating runtime candidate templates as proof truth
+harvest:
+  target: eval
+  trigger_count: 1
+  note: consider a bounded eval bundle only if another reviewed workspace
+    closeout preserves the same proof cue or an owner repo makes the handoff
+    schema real
+opened_at: '2026-04-20'
+touched_at: '2026-04-20'
+tags:
+  - workspace
+  - proof
+  - trace-bridge
+  - latent
+notes: >
+  Keep this weaker than the closeout handoff itself and weaker than the
+  playbook-owned continuity surface. The honest eval-side job here is to keep
+  the proof cue findable without letting one reviewed owner handoff impersonate
+  proof canon.
+public_safe: true

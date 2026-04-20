@@ -205,5 +205,20 @@
     "state": "captured",
     "theme_ref": "",
     "title": "Capture chaos-wave1 proof-pressure as early eval evidence"
+  },
+  {
+    "band": "latent",
+    "difficulty": "d2_slice",
+    "id": "AOA-EV-Q-0012",
+    "kind": "proof",
+    "milestone_ref": "",
+    "owner_surface": "docs/TRACE_EVAL_BRIDGE.md",
+    "public_safe": true,
+    "repo": "aoa-evals",
+    "risk": "r2_contract",
+    "source_path": "quests/AOA-EV-Q-0012.yaml",
+    "state": "captured",
+    "theme_ref": "",
+    "title": "Capture reviewed workspace closeout proof-pressure as early eval evidence"
   }
 ]

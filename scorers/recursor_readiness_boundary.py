@@ -16,13 +16,25 @@ REQUIRED_GLOBAL_FORBIDDEN = {
     "mutate_rank",
     "hidden_scheduler_action",
 }
+REQUIRED_ROLE_IDS = {"recursor.witness", "recursor.executor"}
 PROJECTION_REQUIRED_FORBIDDEN = {
-    "agent_spawn",
-    "arena_session",
-    "verdict",
-    "scar_write",
-    "hidden_scheduler",
+    "global": {
+        "agent_spawn",
+        "arena_session",
+        "verdict",
+        "scar_write",
+        "rank_mutation",
+        "hidden_scheduler",
+    },
+    "recursor.witness": {
+        "workspace_write",
+    },
+    "recursor.executor": {
+        "execute_without_plan",
+        "self_verify_as_final",
+    },
 }
+PROJECTION_REQUIRED_ACTIVATION = {"explicit_main_codex_call", "no_agonic_runtime_claim"}
 
 
 def _role_by_id(roles: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
@@ -44,14 +56,22 @@ def score(payload: Dict[str, Any]) -> Dict[str, Any]:
         notes.append({"axis": "role_candidate_only", "message": "All roles must stay candidate."})
 
     # Axis: projection candidate only and no install by default.
+    projection_agents = [agent for agent in projection.get("candidate_agents", []) if isinstance(agent, dict)]
+    projection_ids = {agent.get("recursor_id") for agent in projection_agents}
     axis_results["candidate_only_projection"] = (
         projection.get("projection_status") == "candidate_only"
         and projection.get("install_by_default") is False
         and projection.get("requires_owner_review") is True
-        and all(agent.get("activation_status") == "candidate_only" for agent in projection.get("candidate_agents", []))
+        and projection_ids == REQUIRED_ROLE_IDS
+        and len(projection_agents) == len(REQUIRED_ROLE_IDS)
+        and all(agent.get("activation_status") == "candidate_only" for agent in projection_agents)
+        and all(
+            PROJECTION_REQUIRED_ACTIVATION.issubset(set(agent.get("activation_requires", [])))
+            for agent in projection_agents
+        )
     )
     if not axis_results["candidate_only_projection"]:
-        notes.append({"axis": "candidate_only_projection", "message": "Projection must remain candidate_only and disabled by default."})
+        notes.append({"axis": "candidate_only_projection", "message": "Projection must remain candidate_only, disabled by default, two-role, and guarded against Agon runtime claims."})
 
     # Axis: assistants are not arena eligible.
     axis_results["assistant_arena_exclusion"] = all(
@@ -69,10 +89,13 @@ def score(payload: Dict[str, Any]) -> Dict[str, Any]:
         if not REQUIRED_GLOBAL_FORBIDDEN.issubset(forbidden):
             axis_results["no_spawn"] = False
             notes.append({"axis": "no_spawn", "recursor_id": role.get("recursor_id"), "message": "Role lacks global forbidden actions."})
-    for agent in projection.get("candidate_agents", []):
-        if not PROJECTION_REQUIRED_FORBIDDEN.issubset(set(agent.get("forbidden", []))):
+    for agent in projection_agents:
+        rid = agent.get("recursor_id")
+        required_projection_forbidden = set(PROJECTION_REQUIRED_FORBIDDEN["global"])
+        required_projection_forbidden |= PROJECTION_REQUIRED_FORBIDDEN.get(rid, set())
+        if not required_projection_forbidden.issubset(set(agent.get("forbidden", []))):
             axis_results["no_spawn"] = False
-            notes.append({"axis": "no_spawn", "recursor_id": agent.get("recursor_id"), "message": "Projection candidate lacks no-spawn/no-arena forbidden tokens."})
+            notes.append({"axis": "no_spawn", "recursor_id": rid, "message": "Projection candidate lacks required forbidden tokens."})
 
     # Axis: no scar/verdict/rank.
     axis_results["no_scar_verdict_rank"] = True
@@ -84,7 +107,13 @@ def score(payload: Dict[str, Any]) -> Dict[str, Any]:
 
     # Axis: pair separation.
     required_separation = set(pair.get("required_separation", []))
-    axis_results["pair_separation"] = pair.get("activation_status") == "readiness_only" and {
+    pair_roles = pair.get("roles", {})
+    pair_binds_required_roles = (
+        pair_roles.get("witness") == "recursor.witness"
+        and pair_roles.get("executor") == "recursor.executor"
+        and REQUIRED_ROLE_IDS.issubset(set(by_id))
+    )
+    axis_results["pair_separation"] = pair.get("activation_status") == "readiness_only" and pair_binds_required_roles and {
         "witness_cannot_apply_mutations",
         "executor_cannot_close_review",
         "executor_cannot_self_verify_without_external_check",
@@ -120,7 +149,12 @@ def check_expected(result: Dict[str, Any], expected: Dict[str, Any]) -> Tuple[bo
     for axis in expected.get("must_pass_axes", []):
         if not result.get("axis_results", {}).get(axis, False):
             errors.append(f"Expected axis to pass: {axis}.")
-    for axis in expected.get("expected_failed_axes", []):
+    expected_failed_axes = sorted(expected.get("expected_failed_axes", []))
+    for axis in expected_failed_axes:
         if axis not in result.get("failed_axes", []):
             errors.append(f"Expected axis to fail: {axis}.")
+    if expected_failed_axes:
+        failed_axes = sorted(result.get("failed_axes", []))
+        if failed_axes != expected_failed_axes:
+            errors.append(f"Expected failed axes exactly {expected_failed_axes}, got {failed_axes}.")
     return not errors, errors

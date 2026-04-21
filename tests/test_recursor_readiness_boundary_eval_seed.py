@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import unittest
+from copy import deepcopy
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,6 +18,18 @@ def load_scorer():
     return module
 
 
+def load_positive_input():
+    return json.loads(
+        (
+            ROOT
+            / "fixtures"
+            / "recursor-readiness-boundary-v1"
+            / "cases"
+            / "RRB-001.no-spawn-readiness.json"
+        ).read_text(encoding="utf-8")
+    )["input"]
+
+
 class RecursorReadinessBoundaryEvalSeedTest(unittest.TestCase):
     def test_all_fixture_expectations_hold(self):
         scorer = load_scorer()
@@ -29,8 +42,7 @@ class RecursorReadinessBoundaryEvalSeedTest(unittest.TestCase):
 
     def test_positive_case_passes(self):
         scorer = load_scorer()
-        case = json.loads((ROOT / "fixtures" / "recursor-readiness-boundary-v1" / "cases" / "RRB-001.no-spawn-readiness.json").read_text(encoding="utf-8"))
-        result = scorer.score(case["input"])
+        result = scorer.score(load_positive_input())
         self.assertEqual(result["verdict"], "pass")
         self.assertFalse(result["failed_axes"])
 
@@ -40,6 +52,43 @@ class RecursorReadinessBoundaryEvalSeedTest(unittest.TestCase):
         result = scorer.score(case["input"])
         self.assertEqual(result["verdict"], "fail")
         self.assertIn("candidate_only_projection", result["failed_axes"])
+
+    def test_pair_separation_requires_present_witness_and_executor(self):
+        scorer = load_scorer()
+        payload = load_positive_input()
+        payload["roles"] = [
+            role for role in payload["roles"] if role["recursor_id"] != "recursor.witness"
+        ]
+        result = scorer.score(payload)
+        self.assertEqual(result["verdict"], "fail")
+        self.assertIn("pair_separation", result["failed_axes"])
+
+    def test_projection_requires_no_agonic_runtime_guard(self):
+        scorer = load_scorer()
+        payload = load_positive_input()
+        broken = deepcopy(payload)
+        broken["projection"]["candidate_agents"][0]["activation_requires"].remove(
+            "no_agonic_runtime_claim"
+        )
+        result = scorer.score(broken)
+        self.assertEqual(result["verdict"], "fail")
+        self.assertIn("candidate_only_projection", result["failed_axes"])
+
+    def test_expected_checks_reject_extra_failed_axes(self):
+        scorer = load_scorer()
+        result = {
+            "verdict": "fail",
+            "axis_results": {
+                "candidate_only_projection": False,
+                "pair_separation": False,
+            },
+            "failed_axes": ["candidate_only_projection", "pair_separation"],
+        }
+        ok, errors = scorer.check_expected(
+            result, {"verdict": "fail", "expected_failed_axes": ["candidate_only_projection"]}
+        )
+        self.assertFalse(ok)
+        self.assertTrue(any("Expected failed axes exactly" in error for error in errors))
 
 
 if __name__ == "__main__":

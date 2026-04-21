@@ -226,6 +226,7 @@
           "activation_requires": [
             "approved_plan",
             "explicit_main_codex_call",
+            "no_agonic_runtime_claim",
             "witness_preflight",
             "owner_or_human_review_boundary"
           ],

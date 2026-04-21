@@ -1,13 +1,73 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "additionalProperties": true,
+  "additionalProperties": false,
   "properties": {
-    "registry_id": {
+    "allowed_outputs": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "durable_scar_write": {
+      "const": false
+    },
+    "expected_terminal_candidate": {
       "type": "string"
     },
-    "wave": {
+    "id": {
+      "type": "string"
+    },
+    "input_surfaces": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "live_protocol": {
+      "const": false
+    },
+    "live_verdict_authority": {
+      "const": false
+    },
+    "playbook_id": {
+      "type": "string"
+    },
+    "rank_mutation": {
+      "const": false
+    },
+    "required_prechecks": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "retention_execution": {
+      "const": false
+    },
+    "runtime_effect": {
+      "type": "string"
+    },
+    "tos_promotion": {
+      "const": false
+    },
+    "trial_id": {
       "type": "string"
     }
   },
+  "required": [
+    "id",
+    "trial_id",
+    "required_prechecks",
+    "allowed_outputs",
+    "live_protocol",
+    "runtime_effect",
+    "live_verdict_authority",
+    "durable_scar_write",
+    "rank_mutation",
+    "retention_execution",
+    "tos_promotion"
+  ],
   "type": "object"
 }

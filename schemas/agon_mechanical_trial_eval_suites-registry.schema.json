@@ -1,13 +1,38 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "additionalProperties": true,
+  "additionalProperties": false,
   "properties": {
+    "count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "eval_suites": {
+      "items": {
+        "$ref": "./agon_mechanical_trial_eval_suites.schema.json"
+      },
+      "type": "array"
+    },
     "registry_id": {
+      "const": "agon.mechanical_trial_eval_suite.registry.v0"
+    },
+    "runtime_posture": {
       "type": "string"
     },
     "wave": {
-      "type": "string"
+      "const": "XIII"
     }
   },
+  "required": [
+    "registry_id",
+    "wave",
+    "runtime_posture",
+    "count",
+    "eval_suites",
+    "digest"
+  ],
   "type": "object"
 }

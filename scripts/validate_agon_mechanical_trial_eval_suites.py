@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import json, pathlib, sys
+import hashlib, json, pathlib, sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SRC = ROOT / 'config/agon_mechanical_trial_eval_suites.seed.json'
 OUT = ROOT / 'generated/agon_mechanical_trial_eval_suite_registry.min.json'
@@ -12,6 +12,19 @@ EXPECTED_COUNT = 7
 def fail(msg):
     print(msg, file=sys.stderr)
     return 1
+
+def digest_obj(obj):
+    return hashlib.sha256(json.dumps(obj, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+
+def expected_registry(data, items):
+    return {
+        'registry_id': data.get('registry_id', 'agon.mechanical_trial_eval_suite.registry.v0'),
+        'wave': data.get('wave', 'XIII'),
+        'runtime_posture': data.get('runtime_posture', 'candidate_only'),
+        'count': len(items),
+        ITEM_KEY: items,
+        'digest': digest_obj(items),
+    }
 
 def validate_item(item):
     for field in REQUIRED_FIELDS:
@@ -44,10 +57,11 @@ def main():
         err = validate_item(item)
         if err:
             return fail(err)
-    if OUT.exists():
-        reg = json.loads(OUT.read_text(encoding='utf-8'))
-        if reg.get('count') != len(items):
-            return fail('generated count does not match source item count')
+    if not OUT.exists():
+        return fail(f'missing generated registry {OUT}')
+    reg = json.loads(OUT.read_text(encoding='utf-8'))
+    if reg != expected_registry(data, items):
+        return fail('generated registry does not match source rebuild')
     print(json.dumps({'ok': True, 'item_key': ITEM_KEY, 'count': len(items)}, sort_keys=True))
     return 0
 if __name__ == '__main__':

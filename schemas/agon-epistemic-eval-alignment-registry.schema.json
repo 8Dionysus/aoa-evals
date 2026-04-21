@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "alignments": {
+      "items": {
+        "$ref": "agon-epistemic-eval-alignment.schema.json"
+      },
+      "maxItems": 8,
+      "minItems": 8,
+      "type": "array"
+    },
+    "count": {
+      "const": 8
+    },
+    "digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "registry_id": {
+      "const": "agon.epistemic_eval_alignment.registry.v1"
+    },
+    "runtime_posture": {
+      "const": "candidate_only"
+    },
+    "wave": {
+      "const": "XV"
+    }
+  },
+  "required": [
+    "registry_id",
+    "wave",
+    "runtime_posture",
+    "count",
+    "alignments",
+    "digest"
+  ],
+  "title": "Agon Epistemic Eval Alignment Registry",
+  "type": "object"
+}

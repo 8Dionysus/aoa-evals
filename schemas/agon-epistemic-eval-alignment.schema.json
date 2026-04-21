@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "alignment_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "candidate_outputs": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "checks": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "forbidden_effects": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 10,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "live_protocol": {
+      "const": false
+    },
+    "owner_repo": {
+      "const": "aoa-evals"
+    },
+    "runtime_effect": {
+      "enum": [
+        "none",
+        "candidate_only",
+        "local_dry_run_candidate_only",
+        "local_rehearsal_candidate_only"
+      ]
+    },
+    "status": {
+      "const": "alignment_candidate"
+    }
+  },
+  "required": [
+    "alignment_id",
+    "candidate_outputs",
+    "checks",
+    "forbidden_effects",
+    "live_protocol",
+    "owner_repo",
+    "runtime_effect",
+    "status"
+  ],
+  "title": "Agon Epistemic Eval Alignment",
+  "type": "object"
+}

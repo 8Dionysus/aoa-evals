@@ -57,7 +57,7 @@
       "output_candidate": "trace_integrity_assessment_candidate"
     },
     {
-      "alignment_id": "agon.eval.align_assistant_boundary_supports_closure",
+      "alignment_id": "agon.eval.align.assistant_boundary_supports_closure",
       "authority": "precheck_only_no_actor_recharter",
       "center_law_ids": [
         "agon.law.closure.earned_jurisdiction",

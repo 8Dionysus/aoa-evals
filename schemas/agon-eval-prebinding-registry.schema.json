@@ -5,12 +5,27 @@
     "live_protocol": {
       "type": "boolean"
     },
+    "notes": {
+      "type": "string"
+    },
     "owner_repo": {
       "type": "string"
     },
-    "prebindings": {
+    "record_count": {
+      "type": "integer"
+    },
+    "record_key": {
+      "const": "prebindings"
+    },
+    "record_refs": {
       "items": {
-        "type": "object"
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "records": {
+      "items": {
+        "$ref": "./agon-eval-prebinding.schema.json"
       },
       "type": "array"
     },
@@ -24,6 +39,9 @@
       "type": "string"
     },
     "schema_version": {
+      "type": "string"
+    },
+    "source": {
       "type": "string"
     },
     "status": {
@@ -40,7 +58,10 @@
     "status",
     "live_protocol",
     "runtime_effect",
-    "prebindings",
+    "record_key",
+    "record_count",
+    "record_refs",
+    "records",
     "required_stop_lines"
   ],
   "title": "Agon Eval Prebinding Registry",

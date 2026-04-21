@@ -49,6 +49,55 @@ class RecurrenceControlPlaneIntegritySeedTest(unittest.TestCase):
         self.assertEqual(compare_expected(report, case["expected_axis_status"]), [])
         self.assertEqual(report["verdict"], "does not support bounded claim")
 
+    def test_hook_no_mutation_requires_written_path_evidence(self):
+        from scorers.recurrence_control_plane_integrity import (
+            MIXED,
+            SUPPORTS,
+            score_hook_no_mutation,
+        )
+
+        incomplete = score_hook_no_mutation(
+            {"hook_run": {"emitted_observation_count": 1}}
+        )
+        self.assertEqual(incomplete.status, MIXED)
+
+        complete = score_hook_no_mutation(
+            {
+                "hook_run": {
+                    "emitted_observation_count": 1,
+                    "written_paths": [".aoa/recurrence/live-observation.json"],
+                }
+            }
+        )
+        self.assertEqual(complete.status, SUPPORTS)
+
+    def test_beacon_forbidden_status_false_boolean_does_not_fail(self):
+        from scorers.recurrence_control_plane_integrity import (
+            FAILS,
+            SUPPORTS,
+            score_beacon_boundary,
+        )
+
+        valid = score_beacon_boundary(
+            {
+                "beacons": {
+                    "items": [{"status": "watch", "auto_promoted": False}],
+                    "forbidden_statuses_present": False,
+                }
+            }
+        )
+        self.assertEqual(valid.status, SUPPORTS)
+
+        invalid = score_beacon_boundary(
+            {
+                "beacons": {
+                    "items": [{"status": "watch", "auto_promoted": False}],
+                    "forbidden_statuses_present": True,
+                }
+            }
+        )
+        self.assertEqual(invalid.status, FAILS)
+
     def test_runner_check_expected_passes(self):
         case = (
             ROOT

@@ -1,0 +1,93 @@
+{
+  "manifest_kind": "recurrence_component",
+  "schema_version": "aoa_recurrence_component_v3",
+  "component_ref": "component:evals:recurrence-control-plane-integrity",
+  "owner_repo": "aoa-evals",
+  "description": "Draft bounded eval bundle for recurrence control-plane integrity, including registry robustness, graph closure, observation-only hooks, review closure, downstream thinness, and Agon stop-lines.",
+  "source_inputs": [
+    "bundles/aoa-recurrence-control-plane-integrity/EVAL.md",
+    "bundles/aoa-recurrence-control-plane-integrity/eval.yaml",
+    "fixtures/recurrence-control-plane-integrity-v1/README.md",
+    "fixtures/recurrence-control-plane-integrity-v1/cases/*.json",
+    "scorers/recurrence_control_plane_integrity.py",
+    "scripts/run_recurrence_control_plane_integrity_eval.py"
+  ],
+  "contract_surfaces": [
+    "bundles/aoa-recurrence-control-plane-integrity/fixtures/contract.json",
+    "bundles/aoa-recurrence-control-plane-integrity/runners/contract.json",
+    "bundles/aoa-recurrence-control-plane-integrity/reports/summary.schema.json",
+    "schemas/recurrence-control-plane-integrity-dossier.schema.json"
+  ],
+  "documentation_surfaces": [
+    "docs/RECURRENCE_CONTROL_PLANE_EVALS.md",
+    "EVAL_INDEX.md",
+    "EVAL_SELECTION.md"
+  ],
+  "generated_surfaces": [
+    "generated/eval_catalog.min.json",
+    "generated/eval_capsules.json",
+    "generated/eval_sections.full.json"
+  ],
+  "proof_surfaces": [
+    "python -m py_compile scorers/recurrence_control_plane_integrity.py scripts/run_recurrence_control_plane_integrity_eval.py",
+    "python scripts/run_recurrence_control_plane_integrity_eval.py --case fixtures/recurrence-control-plane-integrity-v1/cases/RCPI-001.registry-mixed-manifests.json --check-expected --json",
+    "python -m unittest -q tests/test_recurrence_control_plane_integrity_eval_seed.py",
+    "python scripts/validate_repo.py --eval aoa-recurrence-control-plane-integrity",
+    "python scripts/build_catalog.py --check"
+  ],
+  "test_surfaces": [
+    "tests/test_recurrence_control_plane_integrity_eval_seed.py"
+  ],
+  "refresh_routes": [
+    {
+      "action": "revalidate",
+      "commands": [
+        "python scripts/validate_repo.py --eval aoa-recurrence-control-plane-integrity",
+        "python scripts/build_catalog.py --check",
+        "python -m unittest -q tests/test_recurrence_control_plane_integrity_eval_seed.py"
+      ],
+      "notes": "keep the recurrence integrity bundle, generated reader surfaces, and seeded fixture cases aligned"
+    },
+    {
+      "action": "repair",
+      "commands": [
+        "python scripts/validate_repo.py --eval aoa-recurrence-control-plane-integrity"
+      ],
+      "notes": "repair bounded claim wording or proof contract drift without turning the eval into promotion authority"
+    }
+  ],
+  "drift_signals": [
+    {
+      "signal": "recurrence_artifact_schema_changed_without_eval_fixture_update",
+      "recommended_action": "revalidate",
+      "severity": "medium"
+    },
+    {
+      "signal": "downstream_projection_authority_changed_without_eval_update",
+      "recommended_action": "repair",
+      "severity": "medium"
+    },
+    {
+      "signal": "agon_stop_line_changed_without_eval_update",
+      "recommended_action": "repair",
+      "severity": "medium"
+    }
+  ],
+  "freshness": {
+    "stale_after_days": 45,
+    "repeat_trigger_threshold": 2,
+    "open_window_days": 14
+  },
+  "rollback_anchors": [
+    "bundles/aoa-recurrence-control-plane-integrity/EVAL.md",
+    "bundles/aoa-recurrence-control-plane-integrity/eval.yaml",
+    "scorers/recurrence_control_plane_integrity.py",
+    "fixtures/recurrence-control-plane-integrity-v1/README.md"
+  ],
+  "tags": [
+    "evals",
+    "recurrence",
+    "boundary-integrity",
+    "proof"
+  ]
+}

@@ -813,6 +813,37 @@
       "what_this_does_not_prove": "proof of final object quality; proof that the chosen owner will never need revision; permission to skip later proof on the final owner object"
     },
     {
+      "blind_spot_short": "full recurrence maturity; all owner surfaces are fresh; final artifact quality",
+      "bounded_claim_short": "This eval can support a claim like:",
+      "category": "boundary",
+      "comparison_surface": null,
+      "do_not_use_short": "the main question is produced artifact quality; the main question is return-anchor fidelity",
+      "eval_path": "bundles/aoa-recurrence-control-plane-integrity/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-recurrence-control-plane-integrity",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether recurrence control-plane artifacts preserve typed propagation, observation-only hooks, owner review boundaries, thin downstream projections, and Agon stop-lines.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "use_when_short": "a recurrence run has public-safe artifact summaries; the main question is boundary integrity across recurrence surfaces",
+      "verdict_shape": "mixed",
+      "what_this_does_not_prove": "permission to promote an owner artifact; permission to publish downstream generated surfaces; permission to activate Agon runtime machinery"
+    },
+    {
       "blind_spot_short": "the anchor chain stayed intact; reanchor returned to the right artifact; the final owner object is high quality",
       "bounded_claim_short": "under these conditions, reflective revision stayed inside the named revision window, preserved explicit stop-lines, and did not widen into generic continuity drift.",
       "category": "workflow",

@@ -40,6 +40,8 @@ Current starter posture:
   use it when the main question is whether one bounded lineage chain stays coherent across checkpoint carry, reviewed candidate, seed staging, and owner evidence.
 - `aoa-owner-fit-routing-quality` is the current draft growth-refinery routing starter:
   use it when the main question is whether a reviewed growth candidate is routed to the right owner layer with an honest nearest-wrong target and no derivative-repo first-authoring drift.
+- `aoa-recurrence-control-plane-integrity` is the current draft recurrence boundary starter:
+  use it when the main question is whether one recurrence control-plane dossier preserved registry robustness, graph closure, observation-only hooks, review closure, downstream thinness, and Agon stop-lines without overclaiming.
 - `aoa-diagnosis-cause-discipline` is the current draft growth-refinery diagnosis starter:
   use it when the main question is whether a diagnosis or self-diagnosis move kept symptoms, probable causes, owner ambiguity, unknowns, and repair proof separate.
 - `aoa-repair-boundedness` is the current draft growth-refinery repair starter:
@@ -83,6 +85,7 @@ See also:
 - Need to judge the tool path itself on path-sensitive tasks? Use `aoa-tool-trajectory-discipline`.
 - Need to know whether a growth-refinery lineage chain itself stayed coherent? Use `aoa-candidate-lineage-integrity`.
 - Need to know whether a reviewed growth candidate is routed to the right owner layer? Use `aoa-owner-fit-routing-quality`.
+- Need to know whether recurrence control-plane artifacts stayed bounded? Use `aoa-recurrence-control-plane-integrity`.
 - Need to know whether a diagnosis preserved cause discipline without overclaiming? Use `aoa-diagnosis-cause-discipline`.
 - Need to know whether a repair or reanchor move stayed bounded instead of smearing scope? Use `aoa-repair-boundedness`.
 - Need to know whether a continuity route still has one inspectable anchor chain? Use `aoa-continuity-anchor-integrity`.
@@ -122,6 +125,10 @@ See also:
 ### I need to know whether a reviewed growth candidate is routed to the right owner layer
 - `aoa-owner-fit-routing-quality`
   Use this when the question is owner hypothesis, owner shape, nearest-wrong-target quality, and derivative-repo exclusion rather than chain integrity or final object quality.
+
+### I need to know whether recurrence control-plane artifacts stayed bounded
+- `aoa-recurrence-control-plane-integrity`
+  Use this when the inspected object is the recurrence control-plane run itself: manifest scan, graph closure, hooks, beacons, review decisions, downstream projections, and Agon diagnostics. Use neighboring evals for verification honesty, candidate lineage, or return-anchor fidelity.
 
 ### I need to know whether a diagnosis named causes without overclaiming
 - `aoa-diagnosis-cause-discipline`

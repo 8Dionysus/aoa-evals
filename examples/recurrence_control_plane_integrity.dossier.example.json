@@ -1,0 +1,35 @@
+{
+  "case_id": "RCPI-004",
+  "title": "beacons remain signals and decisions close with owner packets",
+  "evidence": {
+    "beacons": {
+      "items": [
+        {
+          "status": "candidate",
+          "auto_promoted": false
+        },
+        {
+          "status": "review_ready",
+          "auto_promoted": false
+        }
+      ],
+      "forbidden_statuses_present": []
+    },
+    "review_decisions": {
+      "owner_authored": true,
+      "decisions": [
+        {
+          "decision": "defer",
+          "owner_repo": "aoa-skills"
+        }
+      ],
+      "sdk_minted_owner_refs": []
+    },
+    "report_claim": "Beacons entered review without becoming verdicts; owner decision packet closed one item."
+  },
+  "expected_axis_status": {
+    "beacon_boundary": "supports",
+    "review_decision_closure": "supports",
+    "anti_overclaim_report_posture": "supports"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "case_id": "RCPI-007",
+  "title": "overstrong recurrence report fails",
+  "evidence": {
+    "beacons": {
+      "items": [
+        {
+          "status": "canonical",
+          "auto_promoted": true
+        }
+      ]
+    },
+    "downstream_projection": {
+      "routing": {
+        "contains_full_graph": true,
+        "authority_claim": "routing_graph_authority"
+      },
+      "guard_report": {
+        "authority_transfer_violations": [
+          "routing_full_graph"
+        ]
+      }
+    },
+    "agon_guard": {
+      "observation_only": false,
+      "allowed_forbidden_actions": [
+        "write_scar"
+      ]
+    },
+    "report_claim": "This proves recurrence is complete and all canonical upgrades are safe."
+  },
+  "expected_axis_status": {
+    "beacon_boundary": "fails",
+    "downstream_thinness": "fails",
+    "agon_stop_lines": "fails",
+    "anti_overclaim_report_posture": "fails"
+  }
+}

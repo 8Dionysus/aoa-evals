@@ -1,0 +1,291 @@
+{
+  "live_protocol": false,
+  "notes": "Court prebindings prepare proof checks over recurrence review surfaces. They do not issue live verdicts.",
+  "owner_repo": "aoa-evals",
+  "prebindings": [
+    {
+      "gate_triggers": [
+        "contested_closure",
+        "open_material_contradiction",
+        "broken_trace_or_trace_gap",
+        "evidence_floor_collapse"
+      ],
+      "lawful_moves": [
+        "deny_closure",
+        "request_closure_review",
+        "probe_trace",
+        "mark_contradiction"
+      ],
+      "live_authority": false,
+      "live_protocol": false,
+      "must_not": [
+        "grant_closure",
+        "issue_verdict",
+        "mutate_rank"
+      ],
+      "mutates_rank": false,
+      "opens_arena_session": false,
+      "prebinding_ref": "agon.eval.closure_legality_precheck",
+      "produces": [
+        "closure_legality_review_candidate"
+      ],
+      "promotes_to_tos": false,
+      "recurrence_review_inputs": [
+        "review_queue",
+        "candidate_dossier",
+        "owner_summary"
+      ],
+      "runs_hidden_scheduler": false,
+      "runtime_effect": "none",
+      "status": "seeded_pre_protocol_eval_prebinding",
+      "title": "Closure legality precheck",
+      "trial_playbooks": [
+        "agon-costly-closure-trial",
+        "agon-contradiction-endurance-trial",
+        "agon-broken-trace-trial"
+      ],
+      "writes_durable_state": false
+    },
+    {
+      "gate_triggers": [
+        "broken_trace_or_trace_gap",
+        "evidence_floor_collapse"
+      ],
+      "lawful_moves": [
+        "probe_trace",
+        "deny_trace_closure",
+        "request_evidence"
+      ],
+      "live_authority": false,
+      "live_protocol": false,
+      "must_not": [
+        "write_scar",
+        "open_arena_session"
+      ],
+      "mutates_rank": false,
+      "opens_arena_session": false,
+      "prebinding_ref": "agon.eval.trace_integrity_precheck",
+      "produces": [
+        "trace_integrity_review_candidate"
+      ],
+      "promotes_to_tos": false,
+      "recurrence_review_inputs": [
+        "review_queue",
+        "candidate_dossier"
+      ],
+      "runs_hidden_scheduler": false,
+      "runtime_effect": "none",
+      "status": "seeded_pre_protocol_eval_prebinding",
+      "title": "Trace integrity precheck",
+      "trial_playbooks": [
+        "agon-broken-trace-trial",
+        "agon-fallback-honor-trial"
+      ],
+      "writes_durable_state": false
+    },
+    {
+      "gate_triggers": [
+        "evidence_floor_collapse",
+        "canonical_risk"
+      ],
+      "lawful_moves": [
+        "request_evidence",
+        "offer_evidence_reference",
+        "challenge_claim"
+      ],
+      "live_authority": false,
+      "live_protocol": false,
+      "must_not": [
+        "decide_truth",
+        "promote_to_tos"
+      ],
+      "mutates_rank": false,
+      "opens_arena_session": false,
+      "prebinding_ref": "agon.eval.evidence_floor_precheck",
+      "produces": [
+        "evidence_floor_review_candidate"
+      ],
+      "promotes_to_tos": false,
+      "recurrence_review_inputs": [
+        "review_queue",
+        "candidate_dossier"
+      ],
+      "runs_hidden_scheduler": false,
+      "runtime_effect": "none",
+      "status": "seeded_pre_protocol_eval_prebinding",
+      "title": "Evidence floor precheck",
+      "trial_playbooks": [
+        "agon-fallback-honor-trial",
+        "agon-costly-closure-trial"
+      ],
+      "writes_durable_state": false
+    },
+    {
+      "gate_triggers": [
+        "open_material_contradiction",
+        "model_divergence_above_threshold"
+      ],
+      "lawful_moves": [
+        "mark_contradiction",
+        "localize_contradiction",
+        "deny_closure",
+        "defer_with_cost"
+      ],
+      "live_authority": false,
+      "live_protocol": false,
+      "must_not": [
+        "resolve_contradiction_without_protocol",
+        "grant_closure"
+      ],
+      "mutates_rank": false,
+      "opens_arena_session": false,
+      "prebinding_ref": "agon.eval.contradiction_status_precheck",
+      "produces": [
+        "contradiction_status_review_candidate"
+      ],
+      "promotes_to_tos": false,
+      "recurrence_review_inputs": [
+        "review_queue",
+        "candidate_dossier",
+        "owner_summary"
+      ],
+      "runs_hidden_scheduler": false,
+      "runtime_effect": "none",
+      "status": "seeded_pre_protocol_eval_prebinding",
+      "title": "Contradiction status precheck",
+      "trial_playbooks": [
+        "agon-contradiction-endurance-trial",
+        "agon-prediction-trial"
+      ],
+      "writes_durable_state": false
+    },
+    {
+      "gate_triggers": [
+        "assistant_scope_breach",
+        "assistant_anti_drift_alarm",
+        "actor_kind_mismatch"
+      ],
+      "lawful_moves": [
+        "flag_scope_breach",
+        "escalate_to_agon_gate",
+        "request_witness"
+      ],
+      "live_authority": false,
+      "live_protocol": false,
+      "must_not": [
+        "make_assistant_contestant",
+        "self_recharter_assistant"
+      ],
+      "mutates_rank": false,
+      "opens_arena_session": false,
+      "prebinding_ref": "agon.eval.assistant_boundary_precheck",
+      "produces": [
+        "assistant_boundary_review_candidate"
+      ],
+      "promotes_to_tos": false,
+      "recurrence_review_inputs": [
+        "review_queue",
+        "owner_summary"
+      ],
+      "runs_hidden_scheduler": false,
+      "runtime_effect": "none",
+      "status": "seeded_pre_protocol_eval_prebinding",
+      "title": "Assistant boundary precheck",
+      "trial_playbooks": [
+        "agon-assistant-escalation-trial"
+      ],
+      "writes_durable_state": false
+    },
+    {
+      "gate_triggers": [
+        "repeated_failure_without_delta",
+        "model_divergence_above_threshold"
+      ],
+      "lawful_moves": [
+        "revise_position",
+        "stand_fast",
+        "concede",
+        "defer_with_cost"
+      ],
+      "live_authority": false,
+      "live_protocol": false,
+      "must_not": [
+        "claim_learning_without_future_delta_receipt"
+      ],
+      "mutates_rank": false,
+      "opens_arena_session": false,
+      "prebinding_ref": "agon.eval.delta_legitimacy_precheck",
+      "produces": [
+        "delta_legitimacy_review_candidate"
+      ],
+      "promotes_to_tos": false,
+      "recurrence_review_inputs": [
+        "candidate_dossier",
+        "owner_summary"
+      ],
+      "runs_hidden_scheduler": false,
+      "runtime_effect": "none",
+      "status": "seeded_pre_protocol_eval_prebinding",
+      "title": "Delta legitimacy precheck",
+      "trial_playbooks": [
+        "agon-prediction-trial",
+        "agon-contradiction-endurance-trial"
+      ],
+      "writes_durable_state": false
+    },
+    {
+      "gate_triggers": [
+        "summon_intent_requires_review",
+        "novelty_above_service_threshold"
+      ],
+      "lawful_moves": [
+        "request_summon_intent",
+        "request_witness"
+      ],
+      "live_authority": false,
+      "live_protocol": false,
+      "must_not": [
+        "initiate_summon",
+        "spend_summon_budget"
+      ],
+      "mutates_rank": false,
+      "opens_arena_session": false,
+      "prebinding_ref": "agon.eval.summon_intent_precheck",
+      "produces": [
+        "summon_intent_review_candidate"
+      ],
+      "promotes_to_tos": false,
+      "recurrence_review_inputs": [
+        "review_queue",
+        "candidate_dossier"
+      ],
+      "runs_hidden_scheduler": false,
+      "runtime_effect": "none",
+      "status": "seeded_pre_protocol_eval_prebinding",
+      "title": "Summon intent precheck",
+      "trial_playbooks": [
+        "agon-expensive-summon-intent-trial"
+      ],
+      "writes_durable_state": false
+    }
+  ],
+  "required_stop_lines": [
+    "no_arena_session_creation",
+    "no_sealed_commit_runtime",
+    "no_live_verdict_authority",
+    "no_durable_scar_write",
+    "no_retention_schedule_execution",
+    "no_rank_mutation",
+    "no_tree_of_sophia_promotion",
+    "no_hidden_scheduler_action",
+    "no_stats_as_authority",
+    "no_eval_as_sovereign",
+    "no_memo_as_truth",
+    "evals_prepare_checks_only",
+    "evals_do_not_govern_arena"
+  ],
+  "runtime_effect": "none",
+  "schema_version": "agon_eval_prebinding_seed_v1",
+  "status": "seeded_pre_protocol_court_prebinding",
+  "wave": "VII"
+}

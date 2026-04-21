@@ -1,0 +1,43 @@
+{
+  "gate_triggers": [
+    "contested_closure",
+    "open_material_contradiction",
+    "broken_trace_or_trace_gap",
+    "evidence_floor_collapse"
+  ],
+  "lawful_moves": [
+    "deny_closure",
+    "request_closure_review",
+    "probe_trace",
+    "mark_contradiction"
+  ],
+  "live_authority": false,
+  "live_protocol": false,
+  "must_not": [
+    "grant_closure",
+    "issue_verdict",
+    "mutate_rank"
+  ],
+  "mutates_rank": false,
+  "opens_arena_session": false,
+  "prebinding_ref": "agon.eval.closure_legality_precheck",
+  "produces": [
+    "closure_legality_review_candidate"
+  ],
+  "promotes_to_tos": false,
+  "recurrence_review_inputs": [
+    "review_queue",
+    "candidate_dossier",
+    "owner_summary"
+  ],
+  "runs_hidden_scheduler": false,
+  "runtime_effect": "none",
+  "status": "seeded_pre_protocol_eval_prebinding",
+  "title": "Closure legality precheck",
+  "trial_playbooks": [
+    "agon-costly-closure-trial",
+    "agon-contradiction-endurance-trial",
+    "agon-broken-trace-trial"
+  ],
+  "writes_durable_state": false
+}

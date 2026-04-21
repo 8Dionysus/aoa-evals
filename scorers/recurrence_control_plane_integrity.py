@@ -40,6 +40,12 @@ def L(x):
     return x if isinstance(x, list) else ([] if x is None else [x])
 
 
+def has_signal(x) -> bool:
+    if isinstance(x, bool):
+        return x
+    return bool(L(x))
+
+
 def G(d, *path, default=None):
     cur = d
     for k in path:
@@ -140,7 +146,7 @@ def score_hook_no_mutation(e):
             ["forbidden_write"],
         )
     written = L(h.get("written_paths"))
-    ok = h.get("emitted_observation_count", 0) > 0 and all(
+    ok = h.get("emitted_observation_count", 0) > 0 and bool(written) and all(
         ".aoa/recurrence" in str(p) for p in written
     )
     return AxisResult(
@@ -167,7 +173,7 @@ def score_beacon_boundary(e):
         if isinstance(i, Mapping)
         and (i.get("auto_promoted") or i.get("status") not in allowed)
     ]
-    if bad or L(b.get("forbidden_statuses_present")):
+    if bad or has_signal(b.get("forbidden_statuses_present")):
         return AxisResult(
             "beacon_boundary",
             FAILS,

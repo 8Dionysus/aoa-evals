@@ -1,0 +1,62 @@
+{
+  "bindings": [
+    {
+      "binding_ref": "court-prebinding-surfaces.generated.watch",
+      "component_ref": "component:agon:court-prebinding-surfaces",
+      "config": {
+        "json_field_signals": [
+          {
+            "category": "overclaim_risk",
+            "field": "live_protocol",
+            "match": "equals",
+            "signal": "live_protocol_claim_present",
+            "value": true
+          },
+          {
+            "category": "overclaim_risk",
+            "field": "runtime_effect",
+            "match": "not_equals",
+            "signal": "runtime_effect_claim_present",
+            "value": "none"
+          }
+        ],
+        "phrase_signals": [
+          {
+            "category": "repeat_pattern",
+            "mode": "any",
+            "phrases": [
+              "no verdict",
+              "no scar",
+              "do not reign",
+              "pre-protocol"
+            ],
+            "signal": "wave7_stop_line_repeated"
+          }
+        ],
+        "record_id_field": "prebinding_ref"
+      },
+      "event": "generated_surface_refreshed",
+      "input_ref": "court-prebinding-surfaces.generated",
+      "notes": "Observation only; no owner mutation.",
+      "owner_repo": "aoa-evals",
+      "path_globs": [
+        "generated/agon_eval_prebinding_registry.min.json"
+      ],
+      "producer": "runtime_candidate_watch",
+      "signal_rules": [
+        {
+          "category": "change_pressure",
+          "match": "always",
+          "signal": "wave7_prebinding_surface_changed",
+          "source_inputs": [
+            "court-prebinding-surfaces.generated"
+          ]
+        }
+      ]
+    }
+  ],
+  "component_ref": "component:agon:court-prebinding-surfaces",
+  "notes": "Wave VII hook bindings produce recurrence observations only.",
+  "owner_repo": "aoa-evals",
+  "schema_version": "aoa_hook_binding_set_v1"
+}

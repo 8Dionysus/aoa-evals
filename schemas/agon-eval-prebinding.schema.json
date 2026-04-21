@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "live_protocol": {
+      "type": "boolean"
+    },
+    "owner_repo": {
+      "type": "string"
+    },
+    "required_stop_lines": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "runtime_effect": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "wave": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "prebinding_ref",
+    "status",
+    "live_protocol",
+    "runtime_effect",
+    "lawful_moves",
+    "gate_triggers"
+  ],
+  "title": "Agon Eval Prebinding",
+  "type": "object"
+}

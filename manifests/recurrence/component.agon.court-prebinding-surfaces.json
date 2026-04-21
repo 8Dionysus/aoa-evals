@@ -1,0 +1,135 @@
+{
+  "beacon_rules": [
+    {
+      "beacon_ref": "component.agon.court-prebinding-surfaces.review_pressure",
+      "kind": "review_signal",
+      "match_categories": [
+        "change_pressure",
+        "review_signal",
+        "repeat_pattern"
+      ],
+      "match_signals": [
+        "closure_legality_pressure",
+        "trace_integrity_pressure",
+        "evidence_floor_pressure",
+        "contradiction_status_pressure",
+        "assistant_boundary_pressure",
+        "delta_legitimacy_pressure",
+        "summon_intent_pressure"
+      ],
+      "notes": "Wave VII recurrence pressure is review-only.",
+      "observation_inputs": [
+        "court-prebinding-surfaces.generated",
+        "court-prebinding-surfaces.docs"
+      ],
+      "recommended_actions": [
+        "open owner review dossier",
+        "do not execute live protocol action"
+      ],
+      "status_ladder": [
+        "hint",
+        "watch",
+        "candidate",
+        "review_ready"
+      ],
+      "suppress_when": [
+        "live_verdict_authority_claim_present",
+        "durable_scar_write_claim_present",
+        "stats_authority_claim_present"
+      ],
+      "target_repo": "aoa-evals",
+      "thresholds": {
+        "candidate_observations": 2,
+        "min_unique_evidence_refs": 2,
+        "min_unique_sources": 2,
+        "review_ready_observations": 3,
+        "watch_observations": 1
+      }
+    }
+  ],
+  "candidate_targets": [
+    "generated/agon_eval_prebinding_registry.min.json"
+  ],
+  "component_ref": "component:agon:court-prebinding-surfaces",
+  "contract_surfaces": [
+    "docs/AGON_COURT_PREBINDING.md",
+    "docs/AGON_EVAL_PREBINDING_MODEL.md",
+    "docs/AGON_EVAL_RECURRENCE_REVIEW_BOUNDARY.md"
+  ],
+  "decision_surfaces": [
+    "docs/AGON_COURT_PREBINDING.md"
+  ],
+  "description": "Court prebinding surfaces for future Agon proof checks.",
+  "documentation_surfaces": [
+    "docs/AGON_COURT_PREBINDING.md",
+    "docs/AGON_EVAL_PREBINDING_MODEL.md",
+    "docs/AGON_EVAL_RECURRENCE_REVIEW_BOUNDARY.md"
+  ],
+  "freshness": {
+    "open_window_days": 7,
+    "repeat_trigger_threshold": 2,
+    "stale_after_days": 14
+  },
+  "generated_surfaces": [
+    "generated/agon_eval_prebinding_registry.min.json"
+  ],
+  "observation_inputs": [
+    {
+      "input_ref": "court-prebinding-surfaces.generated",
+      "kind": "other",
+      "notes": "Wave VII generated prebinding surface.",
+      "path_globs": [
+        "generated/agon_eval_prebinding_registry.min.json"
+      ]
+    },
+    {
+      "input_ref": "court-prebinding-surfaces.docs",
+      "kind": "review_note",
+      "notes": "Wave VII prebinding documentation.",
+      "path_globs": [
+        "docs/AGON_*.md"
+      ]
+    }
+  ],
+  "owner_repo": "aoa-evals",
+  "proof_surfaces": [
+    "python scripts/validate_agon_eval_prebindings.py"
+  ],
+  "refresh_routes": [
+    {
+      "action": "revalidate",
+      "commands": [
+        "python scripts/validate_agon_eval_prebindings.py"
+      ],
+      "notes": "Owner-local validation only."
+    }
+  ],
+  "rollback_anchors": [
+    "docs/AGON_COURT_PREBINDING.md"
+  ],
+  "schema_version": "aoa_recurrence_component_v2",
+  "signal_edges": [
+    {
+      "kind": "memory_candidate_output",
+      "notes": "Eval candidates can later feed memory candidates.",
+      "target": "component:agon:memory-prebinding-surfaces",
+      "target_repo": "aoa-memo"
+    },
+    {
+      "kind": "observed_by_stats",
+      "notes": "Stats may derive summaries from eval candidates.",
+      "target": "component:agon:stats-prebinding-surfaces",
+      "target_repo": "aoa-stats"
+    }
+  ],
+  "source_inputs": [
+    "config/agon_eval_prebindings.seed.json"
+  ],
+  "tags": [
+    "agon",
+    "wave7",
+    "evals",
+    "court",
+    "recurrence"
+  ]
+}

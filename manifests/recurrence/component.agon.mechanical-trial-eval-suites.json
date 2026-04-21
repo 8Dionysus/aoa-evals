@@ -1,0 +1,10 @@
+{
+  "authority": "observation_only",
+  "component_id": "component.agon.mechanical-trial-eval-suites",
+  "observation_intent": "Detect drift in mechanical trial eval suites.",
+  "repo": "aoa-evals",
+  "surfaces": [
+    "generated/agon_mechanical_trial_eval_suite_registry.min.json"
+  ],
+  "wave": "XIII"
+}

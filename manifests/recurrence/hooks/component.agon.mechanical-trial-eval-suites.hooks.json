@@ -1,0 +1,11 @@
+{
+  "component_id": "component.agon.mechanical-trial-eval-suites",
+  "hook_set_id": "hooks.component.agon.mechanical-trial-eval-suites",
+  "hooks": [
+    {
+      "action": "emit_review_observation",
+      "event": "generated_surface_changed",
+      "hook_id": "component.agon.mechanical-trial-eval-suites.drift"
+    }
+  ]
+}

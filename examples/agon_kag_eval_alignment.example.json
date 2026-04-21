@@ -1,0 +1,63 @@
+{
+  "alignment_id": "agon.eval.kag.repetition_floor_alignment",
+  "assistant_contestant_allowed": false,
+  "authority_posture": "non_authority",
+  "canonical_status": "not_canon",
+  "checks": [
+    "repetition",
+    "retention",
+    "owner_boundary",
+    "non_canon"
+  ],
+  "eval_status": "promotion_alignment_candidate_only",
+  "forbidden_effects": [
+    "live_verdict_authority",
+    "durable_scar_write",
+    "retention_execution",
+    "rank_mutation",
+    "trust_mutation",
+    "tree_of_sophia_promotion",
+    "direct_tos_promotion",
+    "kag_canonization",
+    "kag_source_truth_claim",
+    "hidden_scheduler_action",
+    "assistant_contestant_drift",
+    "auto_doctrine_rewrite",
+    "center_takeover_of_owner_truth",
+    "unreviewed_kag_promotion",
+    "single_event_promotion",
+    "stats_promotion_authority",
+    "eval_promotion_authority"
+  ],
+  "kag_status": "candidate_only",
+  "live_protocol": false,
+  "promotion_requires": [
+    "owner_review",
+    "memo_evidence_package",
+    "eval_alignment",
+    "recurrence_or_retention_support"
+  ],
+  "purpose": "Check that a candidate is supported by repeated use, recurrence, or campaign continuity.",
+  "review_status": "candidate_only",
+  "runtime_effect": "none",
+  "source_truth_posture": "owner_retained",
+  "stop_lines": [
+    "no_live_verdict_authority",
+    "no_durable_scar_write",
+    "no_retention_execution",
+    "no_rank_or_trust_mutation",
+    "no_tree_of_sophia_promotion",
+    "no_direct_tos_promotion",
+    "no_kag_as_canon",
+    "no_kag_as_source_truth",
+    "no_hidden_scheduler_action",
+    "no_assistant_contestant_drift",
+    "no_auto_doctrine_rewrite",
+    "no_center_takeover_of_owner_truth",
+    "no_kag_promotion_without_owner_review",
+    "no_promotion_from_single_event",
+    "no_stats_as_promotion_authority",
+    "no_eval_as_promotion_authority"
+  ],
+  "wave": "XVII"
+}

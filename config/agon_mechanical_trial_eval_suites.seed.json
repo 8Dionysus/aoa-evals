@@ -1,0 +1,190 @@
+{
+  "eval_suites": [
+    {
+      "allowed_outputs": [
+        "eval_observation_candidate",
+        "breach_candidate",
+        "legitimacy_note_candidate"
+      ],
+      "durable_scar_write": false,
+      "expected_terminal_candidate": "failed_honorably",
+      "id": "agon.eval.trial_suite.broken_trace.candidate",
+      "input_surfaces": [
+        "abyss-stack/generated/agon_mechanical_trial_run_registry.min.json",
+        "Agents-of-Abyss/generated/agon_mechanical_trial_suite_registry.min.json"
+      ],
+      "live_protocol": false,
+      "live_verdict_authority": false,
+      "playbook_id": "AOA-P-0033",
+      "rank_mutation": false,
+      "required_prechecks": [
+        "agon.eval.trace_integrity_precheck",
+        "agon.eval.closure_legality_precheck"
+      ],
+      "retention_execution": false,
+      "runtime_effect": "none",
+      "tos_promotion": false,
+      "trial_id": "agon.trial.mechanical.broken_trace.v0"
+    },
+    {
+      "allowed_outputs": [
+        "eval_observation_candidate",
+        "breach_candidate",
+        "legitimacy_note_candidate"
+      ],
+      "durable_scar_write": false,
+      "expected_terminal_candidate": "deferred_with_cost",
+      "id": "agon.eval.trial_suite.fallback_honor.candidate",
+      "input_surfaces": [
+        "abyss-stack/generated/agon_mechanical_trial_run_registry.min.json",
+        "Agents-of-Abyss/generated/agon_mechanical_trial_suite_registry.min.json"
+      ],
+      "live_protocol": false,
+      "live_verdict_authority": false,
+      "playbook_id": "AOA-P-0034",
+      "rank_mutation": false,
+      "required_prechecks": [
+        "agon.eval.evidence_floor_precheck",
+        "agon.eval.delta_legitimacy_precheck"
+      ],
+      "retention_execution": false,
+      "runtime_effect": "none",
+      "tos_promotion": false,
+      "trial_id": "agon.trial.mechanical.fallback_honor.v0"
+    },
+    {
+      "allowed_outputs": [
+        "eval_observation_candidate",
+        "breach_candidate",
+        "legitimacy_note_candidate"
+      ],
+      "durable_scar_write": false,
+      "expected_terminal_candidate": "deferred_with_cost",
+      "id": "agon.eval.trial_suite.contradiction_endurance.candidate",
+      "input_surfaces": [
+        "abyss-stack/generated/agon_mechanical_trial_run_registry.min.json",
+        "Agents-of-Abyss/generated/agon_mechanical_trial_suite_registry.min.json"
+      ],
+      "live_protocol": false,
+      "live_verdict_authority": false,
+      "playbook_id": "AOA-P-0035",
+      "rank_mutation": false,
+      "required_prechecks": [
+        "agon.eval.contradiction_status_precheck",
+        "agon.eval.closure_legality_precheck"
+      ],
+      "retention_execution": false,
+      "runtime_effect": "none",
+      "tos_promotion": false,
+      "trial_id": "agon.trial.mechanical.contradiction_endurance.v0"
+    },
+    {
+      "allowed_outputs": [
+        "eval_observation_candidate",
+        "breach_candidate",
+        "legitimacy_note_candidate"
+      ],
+      "durable_scar_write": false,
+      "expected_terminal_candidate": "invalidated",
+      "id": "agon.eval.trial_suite.costly_closure.candidate",
+      "input_surfaces": [
+        "abyss-stack/generated/agon_mechanical_trial_run_registry.min.json",
+        "Agents-of-Abyss/generated/agon_mechanical_trial_suite_registry.min.json"
+      ],
+      "live_protocol": false,
+      "live_verdict_authority": false,
+      "playbook_id": "AOA-P-0036",
+      "rank_mutation": false,
+      "required_prechecks": [
+        "agon.eval.closure_legality_precheck",
+        "agon.eval.trace_integrity_precheck",
+        "agon.eval.assistant_boundary_precheck"
+      ],
+      "retention_execution": false,
+      "runtime_effect": "none",
+      "tos_promotion": false,
+      "trial_id": "agon.trial.mechanical.costly_closure.v0"
+    },
+    {
+      "allowed_outputs": [
+        "eval_observation_candidate",
+        "breach_candidate",
+        "legitimacy_note_candidate"
+      ],
+      "durable_scar_write": false,
+      "expected_terminal_candidate": "deferred_with_cost",
+      "id": "agon.eval.trial_suite.assistant_escalation.candidate",
+      "input_surfaces": [
+        "abyss-stack/generated/agon_mechanical_trial_run_registry.min.json",
+        "Agents-of-Abyss/generated/agon_mechanical_trial_suite_registry.min.json"
+      ],
+      "live_protocol": false,
+      "live_verdict_authority": false,
+      "playbook_id": "AOA-P-0037",
+      "rank_mutation": false,
+      "required_prechecks": [
+        "agon.eval.assistant_boundary_precheck",
+        "agon.eval.closure_legality_precheck"
+      ],
+      "retention_execution": false,
+      "runtime_effect": "none",
+      "tos_promotion": false,
+      "trial_id": "agon.trial.mechanical.assistant_escalation.v0"
+    },
+    {
+      "allowed_outputs": [
+        "eval_observation_candidate",
+        "breach_candidate",
+        "legitimacy_note_candidate"
+      ],
+      "durable_scar_write": false,
+      "expected_terminal_candidate": "revised_and_resolved",
+      "id": "agon.eval.trial_suite.prediction.candidate",
+      "input_surfaces": [
+        "abyss-stack/generated/agon_mechanical_trial_run_registry.min.json",
+        "Agents-of-Abyss/generated/agon_mechanical_trial_suite_registry.min.json"
+      ],
+      "live_protocol": false,
+      "live_verdict_authority": false,
+      "playbook_id": "AOA-P-0038",
+      "rank_mutation": false,
+      "required_prechecks": [
+        "agon.eval.delta_legitimacy_precheck",
+        "agon.eval.evidence_floor_precheck"
+      ],
+      "retention_execution": false,
+      "runtime_effect": "none",
+      "tos_promotion": false,
+      "trial_id": "agon.trial.mechanical.prediction.v0"
+    },
+    {
+      "allowed_outputs": [
+        "eval_observation_candidate",
+        "breach_candidate",
+        "legitimacy_note_candidate"
+      ],
+      "durable_scar_write": false,
+      "expected_terminal_candidate": "deferred_with_cost",
+      "id": "agon.eval.trial_suite.expensive_summon_intent.candidate",
+      "input_surfaces": [
+        "abyss-stack/generated/agon_mechanical_trial_run_registry.min.json",
+        "Agents-of-Abyss/generated/agon_mechanical_trial_suite_registry.min.json"
+      ],
+      "live_protocol": false,
+      "live_verdict_authority": false,
+      "playbook_id": "AOA-P-0039",
+      "rank_mutation": false,
+      "required_prechecks": [
+        "agon.eval.summon_intent_precheck",
+        "agon.eval.assistant_boundary_precheck"
+      ],
+      "retention_execution": false,
+      "runtime_effect": "none",
+      "tos_promotion": false,
+      "trial_id": "agon.trial.mechanical.expensive_summon_intent.v0"
+    }
+  ],
+  "registry_id": "agon.mechanical_trial_eval_suite.registry.v0",
+  "runtime_posture": "candidate_only",
+  "wave": "XIII"
+}

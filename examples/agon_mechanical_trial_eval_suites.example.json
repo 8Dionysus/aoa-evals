@@ -1,0 +1,26 @@
+{
+  "allowed_outputs": [
+    "eval_observation_candidate",
+    "breach_candidate",
+    "legitimacy_note_candidate"
+  ],
+  "durable_scar_write": false,
+  "expected_terminal_candidate": "failed_honorably",
+  "id": "agon.eval.trial_suite.broken_trace.candidate",
+  "input_surfaces": [
+    "abyss-stack/generated/agon_mechanical_trial_run_registry.min.json",
+    "Agents-of-Abyss/generated/agon_mechanical_trial_suite_registry.min.json"
+  ],
+  "live_protocol": false,
+  "live_verdict_authority": false,
+  "playbook_id": "AOA-P-0033",
+  "rank_mutation": false,
+  "required_prechecks": [
+    "agon.eval.trace_integrity_precheck",
+    "agon.eval.closure_legality_precheck"
+  ],
+  "retention_execution": false,
+  "runtime_effect": "none",
+  "tos_promotion": false,
+  "trial_id": "agon.trial.mechanical.broken_trace.v0"
+}

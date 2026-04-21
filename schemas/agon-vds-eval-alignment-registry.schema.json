@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": true,
+  "properties": {
+    "alignments": {
+      "minItems": 5,
+      "type": "array"
+    },
+    "live_protocol": {
+      "const": false
+    },
+    "registry_id": {
+      "const": "agon.vds_eval_alignment.registry.v1"
+    },
+    "runtime_effect": {
+      "const": "none"
+    },
+    "wave": {
+      "const": "XI"
+    }
+  },
+  "required": [
+    "registry_id",
+    "wave",
+    "live_protocol",
+    "runtime_effect",
+    "alignments"
+  ],
+  "title": "Agon VDS Eval Alignment Registry",
+  "type": "object"
+}

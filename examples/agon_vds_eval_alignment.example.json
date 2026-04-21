@@ -1,0 +1,22 @@
+{
+  "alignment_class": "verdict_draft_legitimacy",
+  "alignment_id": "agon.eval.vds.verdict_draft_legitimacy_alignment",
+  "checks": [
+    "terminal_outcome_allowed",
+    "applied_laws_present",
+    "closure_decision_explained",
+    "contradiction_state_accounted",
+    "prohibited_orders_present"
+  ],
+  "may_emit": [
+    "eval_alignment_candidate",
+    "review_finding_candidate"
+  ],
+  "must_not_emit": [
+    "live_verdict",
+    "closure_grant",
+    "rank_mutation",
+    "memory_write"
+  ],
+  "supports_bridge_component": "agon.bridge.verdict_draft.v1"
+}

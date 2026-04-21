@@ -1,0 +1,119 @@
+{
+  "alignments": [
+    {
+      "alignment_class": "verdict_draft_legitimacy",
+      "alignment_id": "agon.eval.vds.verdict_draft_legitimacy_alignment",
+      "checks": [
+        "terminal_outcome_allowed",
+        "applied_laws_present",
+        "closure_decision_explained",
+        "contradiction_state_accounted",
+        "prohibited_orders_present"
+      ],
+      "may_emit": [
+        "eval_alignment_candidate",
+        "review_finding_candidate"
+      ],
+      "must_not_emit": [
+        "live_verdict",
+        "closure_grant",
+        "rank_mutation",
+        "memory_write"
+      ],
+      "supports_bridge_component": "agon.bridge.verdict_draft.v1"
+    },
+    {
+      "alignment_class": "delta_legitimacy",
+      "alignment_id": "agon.eval.vds.delta_legitimacy_alignment",
+      "checks": [
+        "before_refs_present",
+        "after_claims_explicit",
+        "rupture_cause_refs_present",
+        "future_effects_are_candidates",
+        "retention_need_declared"
+      ],
+      "may_emit": [
+        "delta_legitimacy_candidate"
+      ],
+      "must_not_emit": [
+        "actor_mutation",
+        "trust_mutation",
+        "rank_mutation",
+        "persistent_policy_rewrite"
+      ],
+      "supports_bridge_component": "agon.bridge.delta_receipt_candidate.v1"
+    },
+    {
+      "alignment_class": "scar_request_legitimacy",
+      "alignment_id": "agon.eval.vds.scar_request_legitimacy_alignment",
+      "checks": [
+        "memory_owner_is_aoa_memo",
+        "durable_write_false",
+        "linked_verdict_present",
+        "linked_delta_optional_or_present",
+        "scar_class_allowed"
+      ],
+      "may_emit": [
+        "scar_request_legitimacy_candidate"
+      ],
+      "must_not_emit": [
+        "durable_scar_write",
+        "memory_truth_decision",
+        "retention_execution"
+      ],
+      "supports_bridge_component": "agon.bridge.scar_request.v1"
+    },
+    {
+      "alignment_class": "retention_request_legitimacy",
+      "alignment_id": "agon.eval.vds.retention_request_alignment",
+      "checks": [
+        "check_after_cycles_present",
+        "question_present",
+        "hidden_scheduler_false",
+        "scheduler_authority_not_granted"
+      ],
+      "may_emit": [
+        "retention_request_legitimacy_candidate"
+      ],
+      "must_not_emit": [
+        "scheduler_action",
+        "retention_execution",
+        "rank_mutation"
+      ],
+      "supports_bridge_component": "agon.bridge.retention_request.v1"
+    },
+    {
+      "alignment_class": "inscription_bundle_legitimacy",
+      "alignment_id": "agon.eval.vds.inscription_bundle_alignment",
+      "checks": [
+        "owner_routes_present",
+        "canon_promotion_false",
+        "verdict_ref_present",
+        "bundle_outputs_are_candidates"
+      ],
+      "may_emit": [
+        "inscription_bundle_alignment_candidate"
+      ],
+      "must_not_emit": [
+        "durable_inscription",
+        "kag_promotion",
+        "tos_promotion"
+      ],
+      "supports_bridge_component": "agon.bridge.inscription_bundle_candidate.v1"
+    }
+  ],
+  "home_repo": "aoa-evals",
+  "live_protocol": false,
+  "registry_id": "agon.vds_eval_alignment.registry.v1",
+  "runtime_effect": "none",
+  "status": "seeded_pre_runtime_alignment",
+  "stop_lines": [
+    "no_live_verdict",
+    "no_closure_grant",
+    "no_memory_write",
+    "no_rank_mutation",
+    "no_tos_promotion"
+  ],
+  "version": "0.1.0",
+  "wave": "XI"
+}

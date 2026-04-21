@@ -1,0 +1,17 @@
+{
+  "bindings": [
+    {
+      "decision_authority": false,
+      "emits": "recurrence.observation.retention_rank_pressure",
+      "source": "generated/agon_retention_rank_eval_alignment_registry.min.json"
+    },
+    {
+      "decision_authority": false,
+      "emits": "recurrence.observation.owner_review_needed",
+      "source": "config/agon_retention_rank_eval_alignment.seed.json"
+    }
+  ],
+  "hidden_scheduler_allowed": false,
+  "hook_binding_set_id": "hooks:agon.retention-rank-eval-alignment",
+  "wave": "XIV"
+}

@@ -1,0 +1,17 @@
+{
+  "component_id": "component:agon:ccs-eval-alignment",
+  "forbidden_actions": [
+    "issue_verdict",
+    "grant_closure",
+    "write_memory",
+    "mutate_rank"
+  ],
+  "hook_binding_set_id": "hooks:agon:ccs-eval-alignment",
+  "hook_mode": "observe_only",
+  "observation_producers": [
+    "alignment_count",
+    "precheck_coverage",
+    "authority_stop_lines"
+  ],
+  "owner_repo": "aoa-evals"
+}

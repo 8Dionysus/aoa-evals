@@ -1,0 +1,21 @@
+{
+  "beacon_rules": [
+    "ccs_eval_alignment_drift",
+    "precheck_authority_leak"
+  ],
+  "component_id": "component:agon:ccs-eval-alignment",
+  "observed_surfaces": [
+    "config/agon_ccs_eval_alignment.seed.json",
+    "generated/agon_ccs_eval_alignment_registry.min.json"
+  ],
+  "owner_repo": "aoa-evals",
+  "status": "seeded_pre_protocol_recurrence_component",
+  "stop_lines": [
+    "no_live_verdict",
+    "no_closure_grant",
+    "no_live_summon",
+    "no_durable_memory_write",
+    "no_rank_mutation",
+    "no_tree_of_sophia_promotion"
+  ]
+}

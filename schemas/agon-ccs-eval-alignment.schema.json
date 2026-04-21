@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "alignment_id": {
+      "pattern": "^agon\\.eval\\.align\\.",
+      "type": "string"
+    },
+    "authority": {
+      "pattern": "^precheck_only",
+      "type": "string"
+    },
+    "center_law_ids": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "eval_prebinding_id": {
+      "pattern": "^agon\\.eval\\.",
+      "type": "string"
+    },
+    "law_family": {
+      "enum": [
+        "contradiction",
+        "closure",
+        "summon"
+      ]
+    }
+  },
+  "required": [
+    "alignment_id",
+    "eval_prebinding_id",
+    "law_family",
+    "center_law_ids",
+    "input_candidates",
+    "output_candidate",
+    "authority"
+  ],
+  "title": "Agon CCS Eval Alignment",
+  "type": "object"
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "home_repo": {
+      "const": "aoa-evals"
+    },
+    "live_protocol": {
+      "const": false
+    },
+    "registry_id": {
+      "const": "agon.ccs_eval_alignment.registry.v1"
+    },
+    "runtime_effect": {
+      "const": "none"
+    },
+    "wave": {
+      "const": "X"
+    }
+  },
+  "required": [
+    "registry_id",
+    "wave",
+    "home_repo",
+    "live_protocol",
+    "runtime_effect",
+    "alignments",
+    "stop_lines"
+  ],
+  "title": "Agon CCS Eval Alignment Registry",
+  "type": "object"
+}

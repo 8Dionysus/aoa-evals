@@ -1,0 +1,14 @@
+{
+  "alignment_id": "agon.eval.align.closure_legality_to_law",
+  "authority": "precheck_only_no_closure_grant",
+  "center_law_ids": [
+    "agon.law.closure.earned_jurisdiction"
+  ],
+  "eval_prebinding_id": "agon.eval.closure_legality_precheck",
+  "input_candidates": [
+    "agon.closeout_candidate",
+    "future.closure_predicate_set"
+  ],
+  "law_family": "closure",
+  "output_candidate": "closure_legality_assessment_candidate"
+}

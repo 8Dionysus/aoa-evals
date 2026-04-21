@@ -1,0 +1,26 @@
+{
+  "alignment_id": "agon.eval.epistemic.model_prediction_accuracy_alignment",
+  "candidate_outputs": [
+    "eval_alignment_candidate",
+    "legitimacy_review_candidate"
+  ],
+  "checks": [
+    "model_prediction_accuracy"
+  ],
+  "forbidden_effects": [
+    "live_verdict_authority",
+    "durable_scar_write",
+    "retention_execution",
+    "rank_mutation",
+    "trust_mutation",
+    "tree_of_sophia_promotion",
+    "kag_promotion",
+    "hidden_scheduler_action",
+    "assistant_contestant_drift",
+    "auto_doctrine_rewrite"
+  ],
+  "live_protocol": false,
+  "owner_repo": "aoa-evals",
+  "runtime_effect": "candidate_only",
+  "status": "alignment_candidate"
+}

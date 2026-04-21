@@ -1,0 +1,215 @@
+{
+  "alignments": [
+    {
+      "alignment_id": "agon.eval.epistemic.model_prediction_accuracy_alignment",
+      "candidate_outputs": [
+        "eval_alignment_candidate",
+        "legitimacy_review_candidate"
+      ],
+      "checks": [
+        "model_prediction_accuracy"
+      ],
+      "forbidden_effects": [
+        "live_verdict_authority",
+        "durable_scar_write",
+        "retention_execution",
+        "rank_mutation",
+        "trust_mutation",
+        "tree_of_sophia_promotion",
+        "kag_promotion",
+        "hidden_scheduler_action",
+        "assistant_contestant_drift",
+        "auto_doctrine_rewrite"
+      ],
+      "live_protocol": false,
+      "owner_repo": "aoa-evals",
+      "runtime_effect": "candidate_only",
+      "status": "alignment_candidate"
+    },
+    {
+      "alignment_id": "agon.eval.epistemic.inference_chain_validity_alignment",
+      "candidate_outputs": [
+        "eval_alignment_candidate",
+        "legitimacy_review_candidate"
+      ],
+      "checks": [
+        "inference_chain_validity"
+      ],
+      "forbidden_effects": [
+        "live_verdict_authority",
+        "durable_scar_write",
+        "retention_execution",
+        "rank_mutation",
+        "trust_mutation",
+        "tree_of_sophia_promotion",
+        "kag_promotion",
+        "hidden_scheduler_action",
+        "assistant_contestant_drift",
+        "auto_doctrine_rewrite"
+      ],
+      "live_protocol": false,
+      "owner_repo": "aoa-evals",
+      "runtime_effect": "candidate_only",
+      "status": "alignment_candidate"
+    },
+    {
+      "alignment_id": "agon.eval.epistemic.concept_delta_legitimacy_alignment",
+      "candidate_outputs": [
+        "eval_alignment_candidate",
+        "legitimacy_review_candidate"
+      ],
+      "checks": [
+        "concept_delta_legitimacy"
+      ],
+      "forbidden_effects": [
+        "live_verdict_authority",
+        "durable_scar_write",
+        "retention_execution",
+        "rank_mutation",
+        "trust_mutation",
+        "tree_of_sophia_promotion",
+        "kag_promotion",
+        "hidden_scheduler_action",
+        "assistant_contestant_drift",
+        "auto_doctrine_rewrite"
+      ],
+      "live_protocol": false,
+      "owner_repo": "aoa-evals",
+      "runtime_effect": "candidate_only",
+      "status": "alignment_candidate"
+    },
+    {
+      "alignment_id": "agon.eval.epistemic.bifurcation_legitimacy_alignment",
+      "candidate_outputs": [
+        "eval_alignment_candidate",
+        "legitimacy_review_candidate"
+      ],
+      "checks": [
+        "bifurcation_legitimacy"
+      ],
+      "forbidden_effects": [
+        "live_verdict_authority",
+        "durable_scar_write",
+        "retention_execution",
+        "rank_mutation",
+        "trust_mutation",
+        "tree_of_sophia_promotion",
+        "kag_promotion",
+        "hidden_scheduler_action",
+        "assistant_contestant_drift",
+        "auto_doctrine_rewrite"
+      ],
+      "live_protocol": false,
+      "owner_repo": "aoa-evals",
+      "runtime_effect": "candidate_only",
+      "status": "alignment_candidate"
+    },
+    {
+      "alignment_id": "agon.eval.epistemic.epistemic_rupture_legitimacy_alignment",
+      "candidate_outputs": [
+        "eval_alignment_candidate",
+        "legitimacy_review_candidate"
+      ],
+      "checks": [
+        "epistemic_rupture_legitimacy"
+      ],
+      "forbidden_effects": [
+        "live_verdict_authority",
+        "durable_scar_write",
+        "retention_execution",
+        "rank_mutation",
+        "trust_mutation",
+        "tree_of_sophia_promotion",
+        "kag_promotion",
+        "hidden_scheduler_action",
+        "assistant_contestant_drift",
+        "auto_doctrine_rewrite"
+      ],
+      "live_protocol": false,
+      "owner_repo": "aoa-evals",
+      "runtime_effect": "candidate_only",
+      "status": "alignment_candidate"
+    },
+    {
+      "alignment_id": "agon.eval.epistemic.doctrine_revision_evidence_floor_alignment",
+      "candidate_outputs": [
+        "eval_alignment_candidate",
+        "legitimacy_review_candidate"
+      ],
+      "checks": [
+        "doctrine_revision_evidence_floor"
+      ],
+      "forbidden_effects": [
+        "live_verdict_authority",
+        "durable_scar_write",
+        "retention_execution",
+        "rank_mutation",
+        "trust_mutation",
+        "tree_of_sophia_promotion",
+        "kag_promotion",
+        "hidden_scheduler_action",
+        "assistant_contestant_drift",
+        "auto_doctrine_rewrite"
+      ],
+      "live_protocol": false,
+      "owner_repo": "aoa-evals",
+      "runtime_effect": "candidate_only",
+      "status": "alignment_candidate"
+    },
+    {
+      "alignment_id": "agon.eval.epistemic.false_consensus_resistance_alignment",
+      "candidate_outputs": [
+        "eval_alignment_candidate",
+        "legitimacy_review_candidate"
+      ],
+      "checks": [
+        "false_consensus_resistance"
+      ],
+      "forbidden_effects": [
+        "live_verdict_authority",
+        "durable_scar_write",
+        "retention_execution",
+        "rank_mutation",
+        "trust_mutation",
+        "tree_of_sophia_promotion",
+        "kag_promotion",
+        "hidden_scheduler_action",
+        "assistant_contestant_drift",
+        "auto_doctrine_rewrite"
+      ],
+      "live_protocol": false,
+      "owner_repo": "aoa-evals",
+      "runtime_effect": "candidate_only",
+      "status": "alignment_candidate"
+    },
+    {
+      "alignment_id": "agon.eval.epistemic.explanatory_power_comparison_alignment",
+      "candidate_outputs": [
+        "eval_alignment_candidate",
+        "legitimacy_review_candidate"
+      ],
+      "checks": [
+        "explanatory_power_comparison"
+      ],
+      "forbidden_effects": [
+        "live_verdict_authority",
+        "durable_scar_write",
+        "retention_execution",
+        "rank_mutation",
+        "trust_mutation",
+        "tree_of_sophia_promotion",
+        "kag_promotion",
+        "hidden_scheduler_action",
+        "assistant_contestant_drift",
+        "auto_doctrine_rewrite"
+      ],
+      "live_protocol": false,
+      "owner_repo": "aoa-evals",
+      "runtime_effect": "candidate_only",
+      "status": "alignment_candidate"
+    }
+  ],
+  "registry_id": "agon.epistemic_eval_alignment.registry.v1",
+  "runtime_posture": "candidate_only",
+  "wave": "XV"
+}

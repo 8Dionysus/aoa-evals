@@ -1,0 +1,15 @@
+{
+  "allowed_effect": "legitimacy_check_candidate_only",
+  "candidate_only": true,
+  "description": "Checks whether a retention result candidate has enough evidence to be reviewed.",
+  "forbidden_effects": [
+    "rank_mutation",
+    "memory_write",
+    "live_verdict"
+  ],
+  "id": "agon.eval.retention.result_legitimacy",
+  "kind": "eval_alignment_candidate",
+  "live_authority": false,
+  "owner": "aoa-evals",
+  "status": "seeded_eval_alignment"
+}

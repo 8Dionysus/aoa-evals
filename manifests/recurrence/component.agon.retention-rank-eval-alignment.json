@@ -1,0 +1,16 @@
+{
+  "component_id": "component:agon.retention-rank-eval-alignment",
+  "hidden_scheduler_allowed": false,
+  "observes": [
+    "generated/agon_retention_rank_eval_alignment_registry.min.json",
+    "config/agon_retention_rank_eval_alignment.seed.json"
+  ],
+  "owner_review_required": true,
+  "recurrence_role": "observe_retention_rank_pressure_without_authority",
+  "stop_lines": [
+    "no_hidden_scheduler_action",
+    "no_rank_or_trust_mutation",
+    "no_assistant_contestant_drift"
+  ],
+  "wave": "XIV"
+}

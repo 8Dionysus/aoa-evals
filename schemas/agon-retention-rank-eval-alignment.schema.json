@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agon retention rank eval alignment entry",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "candidate_only": {
+      "const": true
+    },
+    "live_authority": {
+      "const": false
+    },
+    "allowed_effect": {
+      "type": "string",
+      "minLength": 1
+    },
+    "forbidden_effects": {
+      "$ref": "#/$defs/nonEmptyStringArray"
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "assistant_rank_mode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "depends_on": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "eligible_jurisdiction_candidates": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "forbidden_jurisdictions_without_future_review": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "handoffs": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "inputs": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "notes": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "offices": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "outputs": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "review_required": {
+      "type": "boolean"
+    },
+    "standing_floor": {
+      "type": "string",
+      "minLength": 1
+    },
+    "retention_check_types": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "windows": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "statuses": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "mutation_candidate_types": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "triggers": {
+      "$ref": "#/$defs/stringArray"
+    },
+    "rank_ladder": {
+      "$ref": "#/$defs/namedItemArray"
+    },
+    "earned_jurisdictions": {
+      "$ref": "#/$defs/namedItemArray"
+    },
+    "interlocks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/interlock"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "owner",
+    "status",
+    "description",
+    "candidate_only",
+    "live_authority",
+    "allowed_effect",
+    "forbidden_effects"
+  ],
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "namedItemArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/namedItem"
+      }
+    },
+    "namedItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "description"
+      ]
+    },
+    "interlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "when": {
+          "type": "string",
+          "minLength": 1
+        },
+        "may_emit": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "when",
+        "may_emit"
+      ]
+    }
+  }
+}

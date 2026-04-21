@@ -1,0 +1,106 @@
+{
+  "entries": [
+    {
+      "allowed_effect": "legitimacy_check_candidate_only",
+      "candidate_only": true,
+      "description": "Checks whether a retention result candidate has enough evidence to be reviewed.",
+      "forbidden_effects": [
+        "rank_mutation",
+        "memory_write",
+        "live_verdict"
+      ],
+      "id": "agon.eval.retention.result_legitimacy",
+      "kind": "eval_alignment_candidate",
+      "live_authority": false,
+      "owner": "aoa-evals",
+      "status": "seeded_eval_alignment"
+    },
+    {
+      "allowed_effect": "similarity_check_candidate_only",
+      "candidate_only": true,
+      "description": "Checks whether a repeated failure is materially similar to the prior rupture.",
+      "forbidden_effects": [
+        "punishment",
+        "quarantine"
+      ],
+      "id": "agon.eval.retention.repeat_error_detection",
+      "kind": "eval_alignment_candidate",
+      "live_authority": false,
+      "owner": "aoa-evals",
+      "status": "seeded_eval_alignment"
+    },
+    {
+      "allowed_effect": "evidence_floor_check_candidate_only",
+      "candidate_only": true,
+      "description": "Checks evidence floor for rank mutation candidates.",
+      "forbidden_effects": [
+        "rank_mutation",
+        "trust_mutation"
+      ],
+      "id": "agon.eval.rank.mutation_evidence_floor",
+      "kind": "eval_alignment_candidate",
+      "live_authority": false,
+      "owner": "aoa-evals",
+      "status": "seeded_eval_alignment"
+    },
+    {
+      "allowed_effect": "jurisdiction_review_candidate_only",
+      "candidate_only": true,
+      "description": "Checks whether jurisdiction grant candidate has passed retention and review inputs.",
+      "forbidden_effects": [
+        "jurisdiction_grant"
+      ],
+      "id": "agon.eval.rank.jurisdiction_grant_review",
+      "kind": "eval_alignment_candidate",
+      "live_authority": false,
+      "owner": "aoa-evals",
+      "status": "seeded_eval_alignment"
+    },
+    {
+      "allowed_effect": "revocation_review_candidate_only",
+      "candidate_only": true,
+      "description": "Checks whether revocation pressure is supported without applying revocation.",
+      "forbidden_effects": [
+        "automatic_revocation"
+      ],
+      "id": "agon.eval.rank.jurisdiction_revocation_review",
+      "kind": "eval_alignment_candidate",
+      "live_authority": false,
+      "owner": "aoa-evals",
+      "status": "seeded_eval_alignment"
+    },
+    {
+      "allowed_effect": "boundary_check_candidate_only",
+      "candidate_only": true,
+      "description": "Checks assistant anti-drift violations observed during retention pressure.",
+      "forbidden_effects": [
+        "assistant_recharter",
+        "rank_mutation"
+      ],
+      "id": "agon.eval.assistant.drift_retention_boundary",
+      "kind": "eval_alignment_candidate",
+      "live_authority": false,
+      "owner": "aoa-evals",
+      "status": "seeded_eval_alignment"
+    }
+  ],
+  "live_protocol": false,
+  "registry_id": "agon.eval.retention_rank_alignment.registry.v1",
+  "runtime_effect": "candidate_only",
+  "source_config": "config/agon_retention_rank_eval_alignment.seed.json",
+  "status": "seeded_wave14_eval_alignment",
+  "stop_lines": [
+    "no_live_verdict_authority",
+    "no_durable_scar_write",
+    "no_retention_execution_without_owner_review",
+    "no_rank_or_trust_mutation",
+    "no_closure_grant",
+    "no_live_summon",
+    "no_tree_of_sophia_promotion",
+    "no_kag_promotion",
+    "no_hidden_scheduler_action",
+    "no_assistant_contestant_drift",
+    "no_center_takeover_of_agent_eval_memo_stats_truth"
+  ],
+  "wave": "XIV"
+}

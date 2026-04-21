@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/recurrence-control-plane-integrity-v1/README.md",
+  "shared_case_surface": "public-safe recurrence run dossiers covering registry, graph, hooks, beacons, review closure, downstream projections, and Agon stop-lines",
+  "bounded_replacement_rule": "Local replacements must preserve public-safe summaries, explicit missing-axis handling, and the same authority-boundary pressure points.",
+  "public_safe_requirements": [
+    "no private raw logs",
+    "no secret-bearing rendered config",
+    "owner decisions remain distinguishable from SDK hints",
+    "Agon forbidden actions remain diagnostic-only"
+  ]
+}

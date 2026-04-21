@@ -1,0 +1,94 @@
+{
+  "eval_name": "aoa-recurrence-control-plane-integrity",
+  "bundle_status": "draft",
+  "object_under_evaluation": "bounded recurrence control-plane run dossier",
+  "verdict": "supports bounded claim",
+  "claim_boundary": "The sampled recurrence run preserved typed propagation, observation-only hooks, owner review closure, thin downstream projections, and Agon stop-lines on the inspected artifact families. This does not prove full federation completeness.",
+  "limitations": [
+    "Only public-safe summarized artifacts were inspected.",
+    "Missing sibling repos or omitted artifact families would lower the verdict.",
+    "This report does not promote any technique, skill, eval, playbook, or Agon surface."
+  ],
+  "axis_results": [
+    {
+      "axis": "registry_robustness",
+      "status": "supports",
+      "evidence_note": "Mixed manifest shapes were accepted, adapted, or quarantined without fatal errors.",
+      "signals": [
+        "adapter_required",
+        "quarantine_visible"
+      ]
+    },
+    {
+      "axis": "propagation_closure",
+      "status": "supports",
+      "evidence_note": "Graph closure reported ordered batches, depth, lineage, and cycle diagnostics.",
+      "signals": [
+        "batch_order",
+        "cycle_reported"
+      ]
+    },
+    {
+      "axis": "hook_no_mutation",
+      "status": "supports",
+      "evidence_note": "Hook run emitted observations and did not write owner canon surfaces.",
+      "signals": [
+        "observations_only"
+      ]
+    },
+    {
+      "axis": "beacon_boundary",
+      "status": "supports",
+      "evidence_note": "Beacons stayed in hint/watch/candidate/review_ready posture and did not promote.",
+      "signals": [
+        "no_auto_promotion"
+      ]
+    },
+    {
+      "axis": "review_decision_closure",
+      "status": "supports",
+      "evidence_note": "Owner decision packets closed review items; SDK hints did not mint owner candidate refs.",
+      "signals": [
+        "owner_authored_decision"
+      ]
+    },
+    {
+      "axis": "downstream_thinness",
+      "status": "supports",
+      "evidence_note": "Routing/stats/KAG projections stayed advisory or derived and omitted full graph authority.",
+      "signals": [
+        "thin_projection"
+      ]
+    },
+    {
+      "axis": "agon_stop_lines",
+      "status": "supports",
+      "evidence_note": "Agon-shaped forbidden actions were blocked and preserved as diagnostics only.",
+      "signals": [
+        "forbidden_actions_blocked"
+      ]
+    },
+    {
+      "axis": "anti_overclaim_report_posture",
+      "status": "supports",
+      "evidence_note": "Report wording stayed bounded and named limitations.",
+      "signals": [
+        "bounded_claim"
+      ]
+    }
+  ],
+  "case_notes": [
+    {
+      "case_id": "RCPI-example",
+      "readout": "supports",
+      "note": "Example only; not a live workspace result."
+    }
+  ],
+  "anti_overclaim_notes": [
+    "Do not read this as full recurrence maturity across the federation.",
+    "Do not read beacons as owner decisions."
+  ],
+  "followthrough": [
+    "Run on real CI artifacts once recurrence emits the full dossier shape."
+  ]
+}

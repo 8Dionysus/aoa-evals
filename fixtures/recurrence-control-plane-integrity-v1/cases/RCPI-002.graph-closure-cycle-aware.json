@@ -1,0 +1,37 @@
+{
+  "case_id": "RCPI-002",
+  "title": "graph closure is ordered and cycle-aware",
+  "evidence": {
+    "graph_closure": {
+      "max_depth": 4,
+      "edges": [
+        {
+          "kind": "proved_by_eval",
+          "strength": "required"
+        },
+        {
+          "kind": "routes_via",
+          "strength": "advisory"
+        }
+      ],
+      "cycles": [
+        {
+          "handled": true
+        }
+      ],
+      "propagation_batches": [
+        {
+          "batch_order": 0
+        },
+        {
+          "batch_order": 1
+        }
+      ]
+    },
+    "report_claim": "Closure was typed and depth-bounded on this sample, with cycle diagnostics visible."
+  },
+  "expected_axis_status": {
+    "propagation_closure": "supports",
+    "anti_overclaim_report_posture": "supports"
+  }
+}

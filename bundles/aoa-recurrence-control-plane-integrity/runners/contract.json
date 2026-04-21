@@ -1,0 +1,21 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "scripts/run_recurrence_control_plane_integrity_eval.py",
+  "inputs": [
+    "recurrence run dossier or fixture case json",
+    "public-safe artifact summaries",
+    "optional expected axis outcomes"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-recurrence-control-plane-integrity/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/recurrence_control_plane_integrity.py"
+  ],
+  "report_schema_path": "bundles/aoa-recurrence-control-plane-integrity/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-recurrence-control-plane-integrity/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/run_recurrence_control_plane_integrity_eval.py --case fixtures/recurrence-control-plane-integrity-v1/cases/RCPI-001.registry-mixed-manifests.json --check-expected --json",
+    "python -m unittest -q tests/test_recurrence_control_plane_integrity_eval_seed.py"
+  ]
+}

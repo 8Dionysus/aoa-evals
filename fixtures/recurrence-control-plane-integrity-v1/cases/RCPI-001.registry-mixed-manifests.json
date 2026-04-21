@@ -1,0 +1,30 @@
+{
+  "case_id": "RCPI-001",
+  "title": "mixed manifests are diagnostic, not fatal",
+  "evidence": {
+    "manifest_scan": {
+      "fatal_errors": [],
+      "accepted": [
+        {
+          "manifest_kind": "recurrence_component"
+        }
+      ],
+      "adapter_required": [
+        {
+          "manifest_kind": "agon_recurrence_adapter",
+          "observation_only": true
+        }
+      ],
+      "quarantined": [
+        {
+          "reason": "unknown_manifest_kind"
+        }
+      ]
+    },
+    "report_claim": "Mixed recurrence-adjacent manifests were accepted, adapted, or quarantined without claiming full registry completeness."
+  },
+  "expected_axis_status": {
+    "registry_robustness": "supports",
+    "anti_overclaim_report_posture": "supports"
+  }
+}

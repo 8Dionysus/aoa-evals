@@ -17,6 +17,7 @@ This file is the repository-wide map of public eval bundles.
 | aoa-stress-recovery-window | longitudinal | draft | Checks whether ordered windows on one named stressor family show healthier handling without letting proof, stats, routing, or memo outrank owner evidence. |
 | aoa-candidate-lineage-integrity | capability | draft | Checks whether a growth-refinery lineage chain stays internally coherent across checkpoint carry, reviewed candidate, seed staging, and downstream owner evidence without inferring stronger landing than the artifacts support. |
 | aoa-owner-fit-routing-quality | boundary | draft | Checks whether a reviewed growth-refinery candidate is routed to the right owner layer with one clear owner hypothesis, honest nearest-wrong-target reasoning, and no first-authoring drift into derivative repos. |
+| aoa-recurrence-control-plane-integrity | boundary | draft | Checks whether recurrence control-plane artifacts preserve typed propagation, observation-only hooks, owner review boundaries, thin downstream projections, and Agon stop-lines without becoming a global recurrence score. |
 | aoa-diagnosis-cause-discipline | workflow | draft | Checks whether a diagnosis or self-diagnosis move names causal hypotheses, evidence limits, and unknowns without confusing symptoms, owner ambiguity, or repair success with cause proof. |
 | aoa-repair-boundedness | workflow | draft | Checks whether a reanchor or self-repair move stays bounded, preserves owner boundaries, and leaves a reviewable trail instead of smearing scope inflation across layers. |
 | aoa-continuity-anchor-integrity | capability | draft | Checks whether a bounded self-agency continuity window keeps an inspectable anchor chain across continuity, revision, reanchor, and anchor refs without letting memo, stats, or chat residue become continuity truth. |
@@ -79,10 +80,12 @@ Read it as:
 - `aoa-owner-fit-routing-quality` for whether a reviewed candidate is routed to the right owner layer
 - `aoa-diagnosis-cause-discipline` for whether diagnosis keeps symptoms, causes, unknowns, and repair proof separate
 - `aoa-repair-boundedness` for whether reanchor and repair moves stay bounded without scope smear
+- `aoa-recurrence-control-plane-integrity` for whether recurrence run artifacts stayed inside control-plane, owner-review, downstream-thinness, and Agon stop-line boundaries
 
 Public discipline:
 - lineage coherence does not prove owner fit
 - owner-fit routing does not prove final object quality
+- recurrence control-plane integrity does not prove owner artifact quality, promotion readiness, or federation-wide recurrence completeness
 - diagnosis-cause discipline does not prove repair success or final cause truth
 - repair boundedness does not retroactively prove the first route was correct
 - derivative repos do not become first-authoring homes by passing a routing or repair read
@@ -143,6 +146,9 @@ Public discipline:
 - `aoa-owner-fit-routing-quality` is the current draft growth-refinery routing starter:
   is one reviewed candidate routed to the right owner layer with a real owner hypothesis, an honest nearest-wrong target, and no first-authoring drift into derivative repos?
   It should not be read as lineage-chain proof, final object-quality proof, or a license to move first-authoring meaning into `aoa-routing` or `aoa-kag`.
+- `aoa-recurrence-control-plane-integrity` is the current draft recurrence boundary starter:
+  did one supplied recurrence dossier preserve manifest tolerance, graph closure, observation-only hooks, review closure, downstream thinness, and Agon stop-lines?
+  It should not be read as global recurrence completeness, owner promotion readiness, downstream authority, or live Agon runtime activation.
 - `aoa-diagnosis-cause-discipline` is the current draft growth-refinery diagnosis starter:
   did one diagnosis or self-diagnosis move keep symptoms, probable causes, owner ambiguity, unknowns, and repair handoff language reviewably separate?
   It should not be read as repair-success proof, final cause truth, final object quality, or proof that owner routing was correct.

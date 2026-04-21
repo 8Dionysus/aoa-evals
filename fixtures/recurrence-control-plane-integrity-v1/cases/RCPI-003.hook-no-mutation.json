@@ -1,0 +1,20 @@
+{
+  "case_id": "RCPI-003",
+  "title": "hook run writes observations only",
+  "evidence": {
+    "hook_run": {
+      "emitted_observation_count": 3,
+      "written_paths": [
+        ".aoa/recurrence/observations/session_stop.latest.json",
+        ".aoa/recurrence/hooks/session_stop.latest.json"
+      ],
+      "forbidden_writes": [],
+      "mutated_owner_surfaces": []
+    },
+    "report_claim": "Hooks emitted observation packets only."
+  },
+  "expected_axis_status": {
+    "hook_no_mutation": "supports",
+    "anti_overclaim_report_posture": "supports"
+  }
+}

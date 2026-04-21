@@ -1,0 +1,28 @@
+{
+  "case_id": "RCPI-005",
+  "title": "downstream projections stay narrow",
+  "evidence": {
+    "downstream_projection": {
+      "routing": {
+        "contains_full_graph": false,
+        "authority_claim": "advisory_hints_only"
+      },
+      "stats": {
+        "contains_verdicts": false,
+        "authority_claim": "derived_observability_only"
+      },
+      "kag": {
+        "claims_authored_truth": false,
+        "authority_claim": "regrounding_inputs_only"
+      },
+      "guard_report": {
+        "authority_transfer_violations": []
+      }
+    },
+    "report_claim": "Downstream projections remained advisory/derived/regrounding surfaces."
+  },
+  "expected_axis_status": {
+    "downstream_thinness": "supports",
+    "anti_overclaim_report_posture": "supports"
+  }
+}

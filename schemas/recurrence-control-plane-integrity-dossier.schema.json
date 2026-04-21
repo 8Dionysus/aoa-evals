@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.dev/schemas/evals/recurrence-control-plane-integrity-dossier.schema.json",
+  "title": "Recurrence Control Plane Integrity Dossier",
+  "type": "object",
+  "required": [
+    "case_id",
+    "evidence"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "object"
+    },
+    "expected_axis_status": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

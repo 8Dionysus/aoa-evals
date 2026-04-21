@@ -1926,6 +1926,90 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "category": "boundary",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "bundles/aoa-recurrence-control-plane-integrity/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/proof-boundary.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": false,
+      "interpretation_boundary": "permission to promote an owner artifact; permission to publish downstream generated surfaces; permission to activate Agon runtime machinery",
+      "maturity_score": 2,
+      "name": "aoa-recurrence-control-plane-integrity",
+      "object_under_evaluation": "recurrence control-plane run artifacts",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-recurrence-control-plane-integrity/fixtures/contract.json",
+        "paired_readout_path": null,
+        "report_example_path": "bundles/aoa-recurrence-control-plane-integrity/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-recurrence-control-plane-integrity/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-recurrence-control-plane-integrity/runners/contract.json",
+        "runner_surface_path": "scripts/run_recurrence_control_plane_integrity_eval.py",
+        "scorer_helper_paths": [
+          "scorers/recurrence_control_plane_integrity.py"
+        ],
+        "shared_fixture_family_path": "fixtures/recurrence-control-plane-integrity-v1/README.md"
+      },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "relations": [
+        {
+          "target": "aoa-candidate-lineage-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-return-anchor-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-verification-honesty",
+          "type": "complements"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "selection_summary": "",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether recurrence control-plane artifacts preserve typed propagation, observation-only hooks, owner review boundaries, thin downstream projections, and Agon stop-lines.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "validation_strength": "baseline",
+      "verdict_shape": "mixed"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,

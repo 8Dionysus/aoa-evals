@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.dev/schemas/evals/recurrence-control-plane-integrity-summary.schema.json",
+  "title": "Recurrence Control Plane Integrity Summary",
+  "type": "object",
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "axis_results",
+    "limitations"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-recurrence-control-plane-integrity"
+    },
+    "bundle_status": {
+      "type": "string"
+    },
+    "object_under_evaluation": {
+      "type": "string"
+    },
+    "verdict": {
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim",
+        "insufficient evidence"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string"
+    },
+    "axis_results": {
+      "type": "array"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "anti_overclaim_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "followthrough": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

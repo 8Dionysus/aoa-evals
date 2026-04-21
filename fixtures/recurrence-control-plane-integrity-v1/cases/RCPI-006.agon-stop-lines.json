@@ -1,0 +1,26 @@
+{
+  "case_id": "RCPI-006",
+  "title": "Agon stop-lines block forbidden actions",
+  "evidence": {
+    "agon_guard": {
+      "observation_only": true,
+      "requested_actions": [
+        "create_arena_session",
+        "write_scar",
+        "rank_agent"
+      ],
+      "blocked_actions": [
+        "create_arena_session",
+        "write_scar",
+        "rank_agent"
+      ],
+      "allowed_forbidden_actions": [],
+      "spawn_pressure": false
+    },
+    "report_claim": "Agon-shaped recurrence input remained observation-only and forbidden actions were blocked."
+  },
+  "expected_axis_status": {
+    "agon_stop_lines": "supports",
+    "anti_overclaim_report_posture": "supports"
+  }
+}

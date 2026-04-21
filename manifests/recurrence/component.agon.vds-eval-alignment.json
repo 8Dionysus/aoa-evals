@@ -1,0 +1,20 @@
+{
+  "component_id": "component.agon.vds-eval-alignment",
+  "may_emit": [
+    "eval_alignment_review_queue",
+    "owner_summary_candidate"
+  ],
+  "must_not_emit": [
+    "live_verdict",
+    "scar_write",
+    "retention_execution",
+    "rank_mutation",
+    "tos_promotion"
+  ],
+  "observation_intent": "Detect drift in VDS Eval Alignment without granting runtime authority.",
+  "observed_surfaces": [
+    "generated/agon_vds_eval_alignment_registry.min.json"
+  ],
+  "owner_repo": "aoa-evals",
+  "status": "seeded_recurrence_observation_component"
+}

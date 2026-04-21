@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": true,
+  "properties": {
+    "alignment_class": {
+      "type": "string"
+    },
+    "alignment_id": {
+      "pattern": "^agon\\.eval\\.vds\\.",
+      "type": "string"
+    },
+    "checks": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "may_emit": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "must_not_emit": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "supports_bridge_component": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "alignment_id",
+    "alignment_class",
+    "supports_bridge_component",
+    "checks",
+    "may_emit",
+    "must_not_emit"
+  ],
+  "title": "Agon VDS Eval Alignment",
+  "type": "object"
+}

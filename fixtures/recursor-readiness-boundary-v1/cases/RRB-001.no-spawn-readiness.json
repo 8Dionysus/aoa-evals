@@ -1,0 +1,256 @@
+{
+  "schema_version": "recursor-readiness-boundary-case/v1",
+  "case_id": "RRB-001",
+  "name": "no-spawn-readiness",
+  "input": {
+    "roles": [
+      {
+        "schema_version": "recursor-role-contract/v1",
+        "recursor_id": "recursor.witness",
+        "owner_repo": "aoa-agents",
+        "readiness_status": "candidate",
+        "default_form": {
+          "kind": "assistant",
+          "base_role_gravity": [
+            "reviewer.assistant",
+            "memory-keeper.assistant"
+          ],
+          "service_offices": [
+            "monitor",
+            "librarian_handoff"
+          ],
+          "arena_eligible": false
+        },
+        "future_agonic_candidate": {
+          "enabled": false,
+          "candidate_seats": [
+            "witness"
+          ],
+          "live_authority": false
+        },
+        "allowed_inputs": [
+          "change_signal",
+          "graph_closure_report",
+          "observation_packet",
+          "beacon_packet",
+          "review_queue",
+          "owner_review_decision",
+          "hook_run_report",
+          "boundary_scan_report"
+        ],
+        "allowed_outputs": [
+          "recursor_handoff_ledger",
+          "boundary_gap_note",
+          "observation_summary",
+          "return_handoff_candidate"
+        ],
+        "forbidden_actions": [
+          "spawn_agent",
+          "open_arena_session",
+          "issue_verdict",
+          "write_scar",
+          "mutate_rank",
+          "promote_to_tree_of_sophia",
+          "rewrite_owner_repo",
+          "hidden_scheduler_action",
+          "assistant_contestant_drift",
+          "close_review_decision",
+          "apply_patch"
+        ],
+        "memory_policy": {
+          "direct_durable_write_allowed": false,
+          "may_prepare_memo_candidate": true,
+          "memo_owner_repo": "aoa-memo",
+          "notes": "Witness may prepare memo candidates but cannot mint scars, retention ledgers, or durable memory truth."
+        },
+        "codex_projection": {
+          "status": "candidate_only",
+          "install_by_default": false,
+          "requires_owner_review": true
+        },
+        "receipts_required": true,
+        "stop_lines": [
+          "readiness_is_not_runtime",
+          "witness_is_not_scar_owner",
+          "assistant_is_not_contestant",
+          "projection_candidate_is_not_install",
+          "no_hidden_scheduler"
+        ]
+      },
+      {
+        "schema_version": "recursor-role-contract/v1",
+        "recursor_id": "recursor.executor",
+        "owner_repo": "aoa-agents",
+        "readiness_status": "candidate",
+        "default_form": {
+          "kind": "assistant",
+          "base_role_gravity": [
+            "coder.assistant"
+          ],
+          "service_offices": [
+            "notary"
+          ],
+          "arena_eligible": false
+        },
+        "future_agonic_candidate": {
+          "enabled": false,
+          "candidate_seats": [
+            "executor",
+            "contestant_candidate_later"
+          ],
+          "live_authority": false
+        },
+        "allowed_inputs": [
+          "approved_propagation_plan",
+          "owner_review_decision",
+          "wiring_plan",
+          "rollout_bundle",
+          "bounded_task_slice",
+          "witness_preflight"
+        ],
+        "allowed_outputs": [
+          "execution_receipt",
+          "patch_summary",
+          "blocked_action_report",
+          "verification_request"
+        ],
+        "forbidden_actions": [
+          "execute_without_approved_plan",
+          "bypass_witness",
+          "spawn_agent",
+          "open_arena_session",
+          "issue_verdict",
+          "write_scar",
+          "mutate_rank",
+          "promote_to_tree_of_sophia",
+          "auto_rewrite_owner_repo",
+          "hidden_scheduler_action",
+          "self_verify_final_truth"
+        ],
+        "memory_policy": {
+          "direct_durable_write_allowed": false,
+          "may_prepare_memo_candidate": false,
+          "memo_owner_repo": "aoa-memo",
+          "notes": "Executor may report execution state; it does not own durable memory."
+        },
+        "codex_projection": {
+          "status": "candidate_only",
+          "install_by_default": false,
+          "requires_owner_review": true
+        },
+        "receipts_required": true,
+        "stop_lines": [
+          "readiness_is_not_runtime",
+          "executor_requires_approved_plan",
+          "executor_is_not_self_verifier",
+          "assistant_is_not_contestant",
+          "projection_candidate_is_not_install",
+          "no_hidden_scheduler"
+        ]
+      }
+    ],
+    "pair": {
+      "schema_version": "recursor-pair-contract/v1",
+      "pair_ref": "recursor_pair:witness_executor:v1",
+      "roles": {
+        "witness": "recursor.witness",
+        "executor": "recursor.executor"
+      },
+      "required_separation": [
+        "witness_cannot_apply_mutations",
+        "executor_cannot_close_review",
+        "executor_cannot_self_verify_without_external_check",
+        "neither_can_spawn_additional_agents",
+        "neither_can_open_arena",
+        "owner_decisions_outrank_recursor_pair",
+        "main_codex_or_human_keeps_supervisory_lane"
+      ],
+      "handoff_order": [
+        "witness_preflight",
+        "executor_bounded_work",
+        "witness_trace_check",
+        "owner_or_main_codex_review"
+      ],
+      "activation_status": "readiness_only",
+      "notes": "This pair prepares future role boundaries; it does not create live execution."
+    },
+    "projection": {
+      "schema_version": "codex-recursor-projection-candidate/v1",
+      "projection_status": "candidate_only",
+      "install_by_default": false,
+      "requires_owner_review": true,
+      "must_not_modify": [
+        "config/codex_subagent_wiring.v2.json",
+        "generated/codex_agents/agents/*.toml",
+        "generated/codex_agents/config.subagents.generated.toml",
+        ".codex/agents/"
+      ],
+      "candidate_agents": [
+        {
+          "recursor_id": "recursor.witness",
+          "suggested_codex_name": "aoa-recursor-witness",
+          "sandbox_mode": "read-only",
+          "activation_status": "candidate_only",
+          "allowed_summary_outputs": [
+            "recursor_handoff_ledger",
+            "boundary_gap_note",
+            "observation_summary",
+            "return_handoff_candidate"
+          ],
+          "activation_requires": [
+            "owner_reviewed_projection_law",
+            "explicit_main_codex_call",
+            "no_agonic_runtime_claim"
+          ],
+          "forbidden": [
+            "workspace_write",
+            "agent_spawn",
+            "arena_session",
+            "verdict",
+            "scar_write",
+            "rank_mutation",
+            "hidden_scheduler"
+          ]
+        },
+        {
+          "recursor_id": "recursor.executor",
+          "suggested_codex_name": "aoa-recursor-executor",
+          "sandbox_mode": "workspace-write-candidate",
+          "activation_status": "candidate_only",
+          "allowed_summary_outputs": [
+            "execution_receipt",
+            "patch_summary",
+            "blocked_action_report",
+            "verification_request"
+          ],
+          "activation_requires": [
+            "approved_plan",
+            "explicit_main_codex_call",
+            "witness_preflight",
+            "owner_or_human_review_boundary"
+          ],
+          "forbidden": [
+            "execute_without_plan",
+            "self_verify_as_final",
+            "agent_spawn",
+            "arena_session",
+            "verdict",
+            "scar_write",
+            "rank_mutation",
+            "hidden_scheduler"
+          ]
+        }
+      ]
+    }
+  },
+  "expected": {
+    "verdict": "pass",
+    "must_pass_axes": [
+      "no_spawn",
+      "candidate_only_projection",
+      "assistant_arena_exclusion",
+      "pair_separation",
+      "no_scar_verdict_rank"
+    ]
+  }
+}

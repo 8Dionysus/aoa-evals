@@ -1,0 +1,272 @@
+{
+  "$defs": {
+    "entry": {
+      "additionalProperties": false,
+      "properties": {
+        "alignment_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "assistant_contestant_allowed": {
+          "const": false
+        },
+        "authority_posture": {
+          "const": "non_authority"
+        },
+        "canonical_status": {
+          "enum": [
+            "non_canonical_candidate",
+            "not_canon",
+            "not_applicable"
+          ]
+        },
+        "checks": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "eval_status": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "forbidden_effects": {
+          "allOf": [
+            {
+              "contains": {
+                "const": "live_verdict_authority"
+              }
+            },
+            {
+              "contains": {
+                "const": "durable_scar_write"
+              }
+            },
+            {
+              "contains": {
+                "const": "retention_execution"
+              }
+            },
+            {
+              "contains": {
+                "const": "rank_mutation"
+              }
+            },
+            {
+              "contains": {
+                "const": "trust_mutation"
+              }
+            },
+            {
+              "contains": {
+                "const": "tree_of_sophia_promotion"
+              }
+            },
+            {
+              "contains": {
+                "const": "kag_promotion"
+              }
+            },
+            {
+              "contains": {
+                "const": "hidden_scheduler_action"
+              }
+            },
+            {
+              "contains": {
+                "const": "assistant_contestant_drift"
+              }
+            },
+            {
+              "contains": {
+                "const": "auto_doctrine_rewrite"
+              }
+            },
+            {
+              "contains": {
+                "const": "school_authority"
+              }
+            },
+            {
+              "contains": {
+                "const": "lineage_canonization"
+              }
+            },
+            {
+              "contains": {
+                "const": "live_campaign_arena"
+              }
+            }
+          ],
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 13,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "live_protocol": {
+          "const": false
+        },
+        "purpose": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "review_status": {
+          "const": "candidate_only"
+        },
+        "runtime_effect": {
+          "enum": [
+            "none",
+            "candidate_only",
+            "local_dry_run_candidate_only",
+            "local_rehearsal_candidate_only"
+          ]
+        },
+        "stop_lines": {
+          "allOf": [
+            {
+              "contains": {
+                "const": "no_live_verdict_authority"
+              }
+            },
+            {
+              "contains": {
+                "const": "no_durable_scar_write"
+              }
+            },
+            {
+              "contains": {
+                "const": "no_retention_execution"
+              }
+            },
+            {
+              "contains": {
+                "const": "no_rank_or_trust_mutation"
+              }
+            },
+            {
+              "contains": {
+                "const": "no_tree_of_sophia_promotion"
+              }
+            },
+            {
+              "contains": {
+                "const": "no_kag_promotion"
+              }
+            },
+            {
+              "contains": {
+                "const": "no_hidden_scheduler_action"
+              }
+            },
+            {
+              "contains": {
+                "const": "no_assistant_contestant_drift"
+              }
+            },
+            {
+              "contains": {
+                "const": "no_auto_doctrine_rewrite"
+              }
+            },
+            {
+              "contains": {
+                "const": "no_school_as_authority"
+              }
+            },
+            {
+              "contains": {
+                "const": "no_lineage_as_canon"
+              }
+            },
+            {
+              "contains": {
+                "const": "no_campaign_as_live_arena"
+              }
+            },
+            {
+              "contains": {
+                "const": "no_center_takeover_of_owner_truth"
+              }
+            }
+          ],
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 13,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "wave": {
+          "const": "XVI"
+        }
+      },
+      "required": [
+        "alignment_id",
+        "assistant_contestant_allowed",
+        "authority_posture",
+        "canonical_status",
+        "checks",
+        "eval_status",
+        "forbidden_effects",
+        "live_protocol",
+        "purpose",
+        "review_status",
+        "runtime_effect",
+        "stop_lines",
+        "wave"
+      ],
+      "title": "agon-slc-eval-alignment.schema.json",
+      "type": "object"
+    }
+  },
+  "$id": "https://aoa.local/aoa-evals/schemas/agon-slc-eval-alignment-registry.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "count": {
+      "const": 8
+    },
+    "digest": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "eval_alignments": {
+      "items": {
+        "$ref": "#/$defs/entry"
+      },
+      "maxItems": 8,
+      "minItems": 8,
+      "type": "array"
+    },
+    "registry_id": {
+      "const": "agon.slc_eval_alignment.registry.v1"
+    },
+    "runtime_posture": {
+      "const": "candidate_only"
+    },
+    "wave": {
+      "const": "XVI"
+    },
+    "wave_name": {
+      "const": "Schools / Lineages / Campaigns"
+    }
+  },
+  "required": [
+    "registry_id",
+    "wave",
+    "wave_name",
+    "runtime_posture",
+    "count",
+    "eval_alignments",
+    "digest"
+  ],
+  "title": "agon-slc-eval-alignment-registry.schema.json",
+  "type": "object"
+}

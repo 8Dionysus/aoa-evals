@@ -1,0 +1,23 @@
+{
+  "component_id": "component.agon.wave16.aoa_evals",
+  "forbidden_actions": [
+    "open_arena_session",
+    "issue_verdict",
+    "write_scar",
+    "mutate_rank",
+    "promote_to_tree_of_sophia",
+    "auto_rewrite_owner_repo",
+    "hidden_scheduler_action"
+  ],
+  "observation_only": true,
+  "repo": "aoa-evals",
+  "surfaces": [
+    "generated/agon_slc_eval_alignment_registry.min.json",
+    "config/agon_slc_eval_alignment.seed.json",
+    "docs/AGON_SLC_EVAL_ALIGNMENT.md",
+    "docs/AGON_SLC_EVAL_BOUNDARY.md",
+    "docs/AGON_WAVE16_EVALS_LANDING.md"
+  ],
+  "title": "Wave XVI aoa-evals surfaces",
+  "wave": "XVI"
+}

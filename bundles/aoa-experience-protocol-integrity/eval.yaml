@@ -4,7 +4,7 @@ status: draft
 object_under_evaluation: experience verdict bundle
 claim_type: bounded
 baseline_mode: none
-verdict_shape: mixed
+verdict_shape: categorical
 report_format: summary-with-breakdown
 maturity_score: 2
 rigor_level: bounded

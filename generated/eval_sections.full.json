@@ -1126,7 +1126,7 @@
         }
       ],
       "status": "draft",
-      "verdict_shape": "mixed"
+      "verdict_shape": "categorical"
     },
     {
       "category": "boundary",
@@ -1220,7 +1220,7 @@
         }
       ],
       "status": "draft",
-      "verdict_shape": "mixed"
+      "verdict_shape": "categorical"
     },
     {
       "category": "boundary",

@@ -37,3 +37,4 @@ def test_stats_regrounding_boundary_report_example_matches_schema() -> None:
     assert example["verdict"] == "mixed support"
     assert "aoa-stats.summary_surface_catalog.min" in example["stats_signals_observed"]
     assert "aoa-skills owner-local receipts" in example["owner_truth_targets"]
+    assert example["followthrough"]

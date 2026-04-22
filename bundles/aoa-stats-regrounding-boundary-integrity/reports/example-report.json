@@ -51,5 +51,9 @@
     "Stats coverage is not proof of owner health.",
     "Routing advice is not route approval.",
     "SDK policy is not an eval verdict."
+  ],
+  "followthrough": [
+    "Read the named owner truth target before treating the re-grounding hint as actionable.",
+    "Run an eval only when the consumer path needs a bounded proof verdict rather than advisory routing."
   ]
 }

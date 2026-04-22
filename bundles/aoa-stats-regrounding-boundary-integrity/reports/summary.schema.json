@@ -14,7 +14,8 @@
     "axis_breakdown",
     "stats_signals_observed",
     "owner_truth_targets",
-    "anti_overclaim_notes"
+    "anti_overclaim_notes",
+    "followthrough"
   ],
   "properties": {
     "eval_name": {
@@ -104,6 +105,14 @@
       }
     },
     "anti_overclaim_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "followthrough": {
       "type": "array",
       "minItems": 1,
       "items": {

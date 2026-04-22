@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-evals/schemas/runtime_integrity_verdict_v1.json",
+  "title": "runtime_integrity_verdict_v1",
+  "description": "Seed schema for runtime_integrity_verdict_v1 in Experience Constitution Runtime v0.9.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "reason",
+    "verdict",
+    "verdict_id"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verdict": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "pass"
+      ]
+    },
+    "verdict_id": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

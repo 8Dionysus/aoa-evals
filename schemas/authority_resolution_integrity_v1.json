@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-evals/schemas/authority_resolution_integrity_v1.json",
+  "title": "authority_resolution_integrity_v1",
+  "description": "Seed schema for authority_resolution_integrity_v1 in Experience Constitution Runtime v0.9.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "checked_rule",
+    "resolution_id",
+    "verdict",
+    "verdict_id"
+  ],
+  "properties": {
+    "checked_rule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resolution_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verdict": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "pass"
+      ]
+    },
+    "verdict_id": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

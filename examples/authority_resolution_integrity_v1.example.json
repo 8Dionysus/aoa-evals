@@ -1,0 +1,6 @@
+{
+  "checked_rule": "codex_cannot_seal",
+  "resolution_id": "authres_001",
+  "verdict": "pass",
+  "verdict_id": "auth_eval_001"
+}

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-evals/schemas/tos_dossier_governance_verdict_v1.json",
+  "title": "Tos Dossier Governance Verdict V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "authority",
+    "created_at",
+    "decision_refs",
+    "direct_write_allowed",
+    "dossier_ref",
+    "evidence_refs",
+    "id",
+    "kind",
+    "notes",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor",
+        "mode"
+      ],
+      "properties": {
+        "actor": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "type": "string",
+          "minLength": 1,
+          "enum": [
+            "reviewed"
+          ]
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "direct_write_allowed": {
+      "type": "boolean",
+      "const": false
+    },
+    "dossier_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "minLength": 1,
+      "const": "eval.tos_dossier_governance_verdict"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "schema_version": {
+      "type": "string",
+      "minLength": 1,
+      "const": "v1"
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "proposed"
+      ]
+    }
+  }
+}

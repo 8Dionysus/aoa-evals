@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-evals/schemas/sealed_vote_integrity_verdict_v1.json",
+  "title": "sealed_vote_integrity_verdict_v1",
+  "description": "Seed schema for sealed_vote_integrity_verdict_v1 in Experience Constitution Runtime v0.9.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "hash_match",
+    "verdict",
+    "verdict_id",
+    "vote_id"
+  ],
+  "properties": {
+    "hash_match": {
+      "type": "boolean",
+      "const": true
+    },
+    "verdict": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "pass"
+      ]
+    },
+    "verdict_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "vote_id": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

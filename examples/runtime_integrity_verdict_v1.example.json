@@ -1,0 +1,6 @@
+{
+  "case_id": "case_runtime_001",
+  "reason": "sealed vote and replay chain valid",
+  "verdict": "pass",
+  "verdict_id": "eval_runtime_001"
+}

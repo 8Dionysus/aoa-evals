@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-evals/schemas/appeal_review_verdict_v1.json",
+  "title": "Appeal Review Verdict V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "appeal_ref",
+    "authority",
+    "created_at",
+    "decision_refs",
+    "evidence_refs",
+    "id",
+    "kind",
+    "notes",
+    "outcome",
+    "schema_version",
+    "status"
+  ],
+  "properties": {
+    "appeal_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor",
+        "mode"
+      ],
+      "properties": {
+        "actor": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "type": "string",
+          "minLength": 1,
+          "enum": [
+            "reviewed"
+          ]
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "minLength": 1,
+      "const": "eval.appeal_review_verdict"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "outcome": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "remand"
+      ]
+    },
+    "schema_version": {
+      "type": "string",
+      "minLength": 1,
+      "const": "v1"
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "proposed"
+      ]
+    }
+  }
+}

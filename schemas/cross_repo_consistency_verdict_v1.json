@@ -71,10 +71,16 @@
           "type": "boolean"
         },
         "conflicts": {
-          "type": "array"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "owner_disagreements": {
-          "type": "array"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     }

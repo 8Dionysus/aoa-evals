@@ -67,10 +67,12 @@
       "additionalProperties": false,
       "properties": {
         "direct_write_blocked": {
-          "type": "boolean"
+          "type": "boolean",
+          "const": true
         },
         "dossier_allowed": {
-          "type": "boolean"
+          "type": "boolean",
+          "const": true
         }
       }
     }

@@ -70,7 +70,8 @@
           "type": "boolean"
         },
         "dissent_count": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         }
       }
     }

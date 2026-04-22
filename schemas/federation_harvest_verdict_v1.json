@@ -75,10 +75,14 @@
           "type": "boolean"
         },
         "source_theft": {
-          "type": "boolean"
+          "type": "boolean",
+          "const": false
         },
         "blockers": {
-          "type": "array"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     }

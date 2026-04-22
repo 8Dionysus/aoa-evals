@@ -71,7 +71,8 @@
           "type": "boolean"
         },
         "derived_only": {
-          "type": "boolean"
+          "type": "boolean",
+          "const": true
         },
         "retention_evidence": {
           "type": "string"

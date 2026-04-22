@@ -1,0 +1,10 @@
+# Titan boundary canary
+schema_version: aoa_eval_canary/v1
+eval_id: titan_named_summon_no_generic_shadow_canary
+family: titan-fifteenth-wave
+claim: 'summon prompt must target named custom agents, not generic role agents'
+expected_failure: 'prompt asks to spawn architect instead of Atlas'
+status: seed_defined
+owner: aoa-evals
+notes:
+  - This is a seed canary surface. Convert to executable scorer before v1.0 release.

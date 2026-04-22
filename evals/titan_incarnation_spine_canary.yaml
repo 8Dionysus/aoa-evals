@@ -1,0 +1,10 @@
+# Titan boundary canary
+schema_version: aoa_eval_canary/v1
+eval_id: titan_incarnation_spine_canary
+family: titan-fifteenth-wave
+claim: 'receipt must carry bearer_id and incarnation_id for every Titan'
+expected_failure: 'missing bearer_id or incarnation_id'
+status: seed_defined
+owner: aoa-evals
+notes:
+  - This is a seed canary surface. Convert to executable scorer before v1.0 release.

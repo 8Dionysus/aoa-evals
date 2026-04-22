@@ -1,0 +1,3 @@
+id: titan_bridge_approval_loom_canary
+kind: titan-appserver-bridge-canary
+expected_result: pass

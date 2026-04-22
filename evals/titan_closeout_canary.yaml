@@ -1,0 +1,13 @@
+id: titan_closeout_canary
+version: 1
+purpose: Ensure Titan sessions close with receipt and memory-candidate posture.
+checks:
+  - name: closed_receipt_has_closed_at
+    assert: closed receipt includes closed_at.
+  - name: closed_receipt_has_summary
+    assert: closed receipt includes non-empty summary.
+  - name: memory_candidates_not_final_memory
+    assert: memory_candidates are candidates only.
+failure_examples:
+  - session ends with no closeout event.
+  - Mneme writes final memory without owner acceptance.

@@ -1,0 +1,5 @@
+id: titan_console_no_hidden_lane_canary
+version: 1
+program: titan_operator_console
+description: No event or prompt implies hidden autospawn.
+status: seed

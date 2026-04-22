@@ -1,0 +1,5 @@
+id: titan_console_appserver_plan_canary
+version: 1
+program: titan_operator_console
+description: App-server plan includes initialize, initialized, thread/start, turn/start.
+status: seed

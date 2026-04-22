@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "kind": "owner_consent_verdict",
+  "id": "owner_consent_verdict.example",
+  "status": "approved",
+  "summary": "Example owner_consent_verdict object for v0.6 federation harvest seed.",
+  "owner_repo": "aoa-evals",
+  "evidence_refs": [
+    "receipt://v0.6/owner_consent_verdict/example"
+  ],
+  "payload": {
+    "consent_sufficient": true,
+    "dissent_count": 0
+  }
+}

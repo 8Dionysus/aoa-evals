@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "kind": "cross_repo_consistency_verdict",
+  "id": "cross_repo_consistency_verdict.example",
+  "status": "approved",
+  "summary": "Example cross_repo_consistency_verdict object for v0.6 federation harvest seed.",
+  "owner_repo": "aoa-evals",
+  "evidence_refs": [
+    "receipt://v0.6/cross_repo_consistency_verdict/example"
+  ],
+  "payload": {
+    "consistent": true,
+    "conflicts": [],
+    "owner_disagreements": []
+  }
+}

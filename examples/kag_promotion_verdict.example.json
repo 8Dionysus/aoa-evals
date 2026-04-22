@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "kind": "kag_promotion_verdict",
+  "id": "kag_promotion_verdict.example",
+  "status": "approved",
+  "summary": "Example kag_promotion_verdict object for v0.6 federation harvest seed.",
+  "owner_repo": "aoa-evals",
+  "evidence_refs": [
+    "receipt://v0.6/kag_promotion_verdict/example"
+  ],
+  "payload": {
+    "allowed": true,
+    "derived_only": true,
+    "retention_evidence": "held"
+  }
+}

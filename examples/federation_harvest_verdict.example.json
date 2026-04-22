@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "kind": "federation_harvest_verdict",
+  "id": "federation_harvest_verdict.example",
+  "status": "approved",
+  "summary": "Example federation_harvest_verdict object for v0.6 federation harvest seed.",
+  "owner_repo": "aoa-evals",
+  "evidence_refs": [
+    "receipt://v0.6/federation_harvest_verdict/example"
+  ],
+  "payload": {
+    "assessment": "approved",
+    "material": true,
+    "source_theft": false,
+    "blockers": []
+  }
+}

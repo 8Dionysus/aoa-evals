@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "kind": "tos_boundary_verdict",
+  "id": "tos_boundary_verdict.example",
+  "status": "approved",
+  "summary": "Example tos_boundary_verdict object for v0.6 federation harvest seed.",
+  "owner_repo": "aoa-evals",
+  "evidence_refs": [
+    "receipt://v0.6/tos_boundary_verdict/example"
+  ],
+  "payload": {
+    "direct_write_blocked": true,
+    "dossier_allowed": true
+  }
+}

@@ -1036,6 +1036,100 @@
     },
     {
       "category": "boundary",
+      "eval_path": "bundles/aoa-experience-protocol-integrity/EVAL.md",
+      "name": "aoa-experience-protocol-integrity",
+      "sections": [
+        {
+          "content_markdown": "Use this eval when the question is whether an experience verdict bundle stays\ninside its protocol contract instead of drifting into runtime authority,\ngovernance authority, or vague proof theater.\n\nThe route keeps four things explicit:\n\n- what the experience verdict bundle is actually evaluating\n- what protocol integrity means on this surface\n- what the bundle does not prove\n- what evidence still has to remain weaker than owner-local truth",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks experience verdict bundles.\n\nPrimary surfaces under evaluation:\n\n- bundle metadata and claims wording\n- report schema shape\n- example report wording\n- protocol boundary notes\n\nNearby surfaces intentionally excluded:\n\n- runtime execution authority\n- governance or certification authority\n- bundle-free experience claims\n- broad quality claims detached from the bundle contract",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions, an experience verdict bundle can keep protocol\nintegrity explicit, stay bounded to its own contract, and avoid implying\nruntime or governance authority.\n\nThis eval does not support claims such as:\n\n- the bundle proves the underlying experience was good\n- the bundle owns runtime truth\n- the bundle can certify future protocol behavior\n- the bundle replaces owner-local evidence or review",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a new experience verdict bundle needs a bounded integrity read\n- protocol wording could otherwise drift into overclaim\n- the report surface needs a compact verdict contract\n\nDo not use this eval when:\n\n- the task is only about artifact style\n- the task is only about runtime behavior\n- the task is a broader comparison between artifact and process surfaces",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- the bundle `eval.yaml`\n- the bundle `EVAL.md`\n- the bundle report schema\n- the bundle example report\n- any boundary note or fixture contract file",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "A strong starter case set should include:\n\n- one clean bounded packet that stays within protocol wording\n- one packet where boundary language weakens\n- one packet where runtime or governance authority is implied by mistake\n\nFixture families should avoid:\n\n- private operational payloads\n- hidden telemetry\n- broad claims without bounded evidence",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a categorical verdict with explicit boundary notes.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nKey review checks:\n\n- protocol integrity is named clearly\n- the bundle does not imply authority it does not own\n- the report wording stays below runtime or governance truth\n- blind spots remain visible",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`.\n\nIt is a standalone bounded integrity read for one bundle family.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. inspect the bundle metadata and source docs\n2. inspect the report schema and example report\n3. check the boundary notes and fixture contract\n4. publish one bounded verdict with explicit limits",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bounded verdict\n- one boundary note for each reviewed case\n- one explicit claim-limit note",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "Main ways this eval can fail as an instrument:\n\n- protocol wording expands into authority wording\n- the report example becomes stronger than the bundle contract\n- boundary notes disappear behind polished phrasing",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- the underlying experience was successful\n- the bundle is broadly reusable across all protocol families\n- the bundle can substitute for runtime, governance, or owner-local review",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe bundle kept protocol integrity explicit on this surface.\n\nDo not treat a positive result as:\n\n- proof of runtime authority\n- proof of governance authority\n- proof that the underlying experience itself was successful\n- a substitute for owner-local review",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- review the bundle metadata and report schema\n- review one clean packet\n- review one boundary-leak packet\n- review one authority-overreach packet",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "- AOA-T-0001",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "- aoa-change-protocol",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "- add real experience verdict cases after the first reviewed run\n- keep the protocol contract weaker than runtime or governance surfaces\n- reuse the same claim boundary if another experience bundle needs a sibling\n  integrity read",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "mixed"
+    },
+    {
+      "category": "boundary",
       "eval_path": "bundles/aoa-local-text-contract-fit/EVAL.md",
       "name": "aoa-local-text-contract-fit",
       "sections": [

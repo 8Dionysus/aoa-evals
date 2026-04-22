@@ -1092,6 +1092,95 @@
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
+      "eval_path": "bundles/aoa-experience-protocol-integrity/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/protocol-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": false,
+      "interpretation_boundary": "proof of runtime authority; proof of governance authority; proof that the underlying experience itself was successful",
+      "maturity_score": 2,
+      "name": "aoa-experience-protocol-integrity",
+      "object_under_evaluation": "experience verdict bundle",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-experience-protocol-integrity/fixtures/contract.json",
+        "paired_readout_path": null,
+        "report_example_path": "bundles/aoa-experience-protocol-integrity/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-experience-protocol-integrity/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-experience-protocol-integrity/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": "fixtures/experience-verdict-protocol-integrity-v1/README.md"
+      },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "report_schema"
+      ],
+      "relations": [
+        {
+          "target": "aoa-artifact-review-rubric",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "complements"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "selection_summary": "",
+      "skill_dependencies": [
+        "aoa-change-protocol"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-change-protocol",
+          "path": "skills/aoa-change-protocol/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether an experience verdict bundle keeps protocol integrity explicit, bounded, and weaker than runtime or governance authority.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "validation_strength": "baseline",
+      "verdict_shape": "mixed"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
+      "category": "boundary",
+      "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-local-text-contract-fit/EVAL.md",
       "evidence": [
         {

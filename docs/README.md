@@ -31,6 +31,8 @@ Choose the path that matches your question:
 - I need to understand score and verdict boundaries:
   - [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md)
   - [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md)
+- I need one protocol integrity verdict for an experience bundle:
+  - [Experience Protocol Integrity](../bundles/aoa-experience-protocol-integrity/EVAL.md)
 - I need to understand how runtime artifacts and trace surfaces become eval evidence:
   - [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md)
   - [Trace Eval Bridge Chaos Wave 1](TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md)

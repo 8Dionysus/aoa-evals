@@ -1,0 +1,19 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "experience verdict bundle metadata",
+    "bundle report schema",
+    "bundle example report",
+    "boundary notes"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-experience-protocol-integrity/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [],
+  "report_schema_path": "bundles/aoa-experience-protocol-integrity/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-experience-protocol-integrity/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-experience-protocol-integrity"
+  ]
+}

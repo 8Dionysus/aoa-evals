@@ -1,0 +1,11 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/experience-verdict-protocol-integrity-v1/README.md",
+  "shared_case_surface": "public-safe experience verdict packets covering clean bounded, boundary-leak, and authority-overreach cases",
+  "bounded_replacement_rule": "A local repo may replace the cases only if the replacement preserves the same bounded protocol-integrity ask class, keeps the bundle inspectable without private house style, and still supports a bounded verdict read on the same family.",
+  "public_safe_requirements": [
+    "bundle surface remains directly inspectable",
+    "visible contract language is sufficient for bounded review",
+    "boundary notes remain weaker than runtime or governance authority"
+  ]
+}

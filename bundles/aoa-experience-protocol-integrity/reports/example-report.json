@@ -1,0 +1,34 @@
+{
+  "eval_name": "aoa-experience-protocol-integrity",
+  "bundle_status": "draft",
+  "object_under_evaluation": "experience verdict bundle",
+  "verdict": "supports bounded claim",
+  "claim_boundary": "This bundle keeps protocol integrity explicit on the reviewed packet surface, but it does not certify runtime or governance authority.",
+  "limitations": [
+    "It does not prove the underlying experience was successful.",
+    "It does not replace owner-local review."
+  ],
+  "case_family": "experience verdict protocol integrity v1",
+  "summary_signals": [
+    "protocol wording stayed bounded",
+    "authority claims stayed out of the report",
+    "boundary notes remained visible"
+  ],
+  "case_notes": [
+    {
+      "case_id": "clean-bounded-packet",
+      "workflow_readout": "supports bounded claim",
+      "evidence_note": "The packet names a protocol boundary without reaching for certification language."
+    },
+    {
+      "case_id": "boundary-leak-packet",
+      "workflow_readout": "mixed support",
+      "evidence_note": "One note leans too far toward broad quality language, but the contract still marks the limit."
+    },
+    {
+      "case_id": "authority-overreach-packet",
+      "workflow_readout": "does not support bounded claim",
+      "evidence_note": "The packet implies governance authority and therefore breaks the contract."
+    }
+  ]
+}

@@ -14,6 +14,8 @@ This surface prefers:
 Current starter posture:
 - `aoa-bounded-change-quality` is the current portable composite workflow anchor:
   use it when you want one end-to-end workflow signal for a bounded non-trivial change task.
+- `aoa-experience-protocol-integrity` is the current draft boundary starter for experience verdict bundles:
+  use it when the question is whether protocol integrity stayed explicit and bounded without granting runtime or governance authority.
 - `aoa-verification-honesty` is the current portable diagnostic workflow starter:
   use it when the main question is whether claimed verification matched executed, skipped, or blocked checks.
 - `aoa-scope-drift-detection` is the current bounded diagnostic boundary starter for scope alignment:
@@ -213,7 +215,7 @@ See also:
 | category | use when | starter bundles |
 |---|---|---|
 | `workflow` | You care about multi-step execution quality, diagnosis-cause discipline, repair boundedness, reflective revision boundedness on continuity routes, verification truthfulness, outcome-vs-path separation, tool-path quality where path matters, or public witness-trace reviewability. | `aoa-bounded-change-quality`, `aoa-diagnosis-cause-discipline`, `aoa-repair-boundedness`, `aoa-reflective-revision-boundedness`, `aoa-verification-honesty`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, `aoa-witness-trace-integrity` |
-| `boundary` | You care about authority, approval, permission adherence, requested-scope alignment, owner-fit routing boundaries, or whether a continuity route reanchored to the right artifact. | `aoa-scope-drift-detection`, `aoa-approval-boundary-adherence`, `aoa-owner-fit-routing-quality`, `aoa-self-reanchor-correctness` |
+| `boundary` | You care about authority, approval, permission adherence, requested-scope alignment, owner-fit routing boundaries, or whether a continuity route reanchored to the right artifact. | `aoa-scope-drift-detection`, `aoa-approval-boundary-adherence`, `aoa-owner-fit-routing-quality`, `aoa-self-reanchor-correctness`, `aoa-experience-protocol-integrity` |
 | `stress` | You care about incomplete, conflicting, or underspecified task meaning, or about one bounded owner-local stressor family and whether degraded continuation stayed reviewable, source-owned, and weaker than the normal path. | `aoa-ambiguity-handling`, `aoa-antifragility-posture` |
 | `regression` | You care about frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | `artifact` | You care about the produced artifact itself or about provenance-preserving compost artifacts derived from witness-facing inputs. | `aoa-artifact-review-rubric`, `aoa-compost-provenance-preservation` |

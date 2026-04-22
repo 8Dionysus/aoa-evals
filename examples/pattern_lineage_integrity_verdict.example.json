@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "kind": "pattern_lineage_integrity_verdict",
+  "id": "pattern_lineage_integrity_verdict.example",
+  "status": "approved",
+  "summary": "Example pattern_lineage_integrity_verdict object for v0.6 federation harvest seed.",
+  "owner_repo": "aoa-evals",
+  "evidence_refs": [
+    "receipt://v0.6/pattern_lineage_integrity_verdict/example"
+  ],
+  "payload": {
+    "lineage_intact": true,
+    "merge_allowed": true,
+    "split_allowed": false
+  }
+}

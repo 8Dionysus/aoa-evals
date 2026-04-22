@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "kind": "shared_pattern_regression_verdict",
+  "id": "shared_pattern_regression_verdict.example",
+  "status": "approved",
+  "summary": "Example shared_pattern_regression_verdict object for v0.6 federation harvest seed.",
+  "owner_repo": "aoa-evals",
+  "evidence_refs": [
+    "receipt://v0.6/shared_pattern_regression_verdict/example"
+  ],
+  "payload": {
+    "regression_safe": true,
+    "affected_repos": [
+      "aoa-agents",
+      "aoa-routing"
+    ]
+  }
+}

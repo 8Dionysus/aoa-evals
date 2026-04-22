@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "kind": "federation_noise_verdict",
+  "id": "federation_noise_verdict.example",
+  "status": "approved",
+  "summary": "Example federation_noise_verdict object for v0.6 federation harvest seed.",
+  "owner_repo": "aoa-evals",
+  "evidence_refs": [
+    "receipt://v0.6/federation_noise_verdict/example"
+  ],
+  "payload": {
+    "noise_class": "not_noise",
+    "suppression_allowed": false
+  }
+}

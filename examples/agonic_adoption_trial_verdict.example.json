@@ -1,0 +1,31 @@
+{
+  "schema_id": "agonic_adoption_trial_verdict_v1",
+  "kind": "agonic_adoption_trial_verdict",
+  "version": "1.0",
+  "status": "proposed",
+  "summary": "Example agonic_adoption_trial_verdict object for Experience Adoption Forge v0.7.",
+  "refs": {
+    "source": "experience.shared_pattern_registry",
+    "owner": "aoa-evals",
+    "related": [
+      "experience.v0.6.federation_harvest",
+      "experience.v0.7.adoption_forge"
+    ]
+  },
+  "payload": {
+    "wave": "v0.7",
+    "repo": "aoa-evals",
+    "pattern_ref": "pattern.shared.wrong_surface_to_owner_landing.v1",
+    "owner_surface": "aoa-evals",
+    "requires_owner_consent": true,
+    "rollback_required": true,
+    "retention_cycles": 3,
+    "kind_boundary": "agonic",
+    "required_trial": true,
+    "allowed_effects": [
+      "scar_candidate",
+      "rank_delta",
+      "pressure_bias"
+    ]
+  }
+}

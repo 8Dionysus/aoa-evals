@@ -20,6 +20,7 @@ Use the shortest route by need:
 - proof posture and limits: `docs/EVAL_PHILOSOPHY.md`
 - architecture: `docs/ARCHITECTURE.md`
 - current eval surface and chooser: `EVAL_INDEX.md` and `EVAL_SELECTION.md`
+- Titan incarnation boundary canaries: `docs/TITAN_INCARNATION_CANARIES.md` and `evals/titan_*_canary.yaml`
 - authoring template: `templates/EVAL.template.md`
 
 ## Route by need
@@ -33,6 +34,7 @@ Use the shortest route by need:
 - via negativa pruning checklist: `docs/VIA_NEGATIVA_CHECKLIST.md`
 - artifact-side versus process-side reading: `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
 - runtime-artifact to verdict bridge: `docs/TRACE_EVAL_BRIDGE.md`, `docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md`, `docs/EVAL_RESULT_RECEIPT_GUIDE.md`, and `docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
+- Titan incarnation proof seeds: `docs/TITAN_INCARNATION_CANARIES.md`, `evals/titan_incarnation_spine_canary.yaml`, `evals/titan_named_summon_no_generic_shadow_canary.yaml`, `evals/titan_forge_gate_payload_canary.yaml`, `evals/titan_delta_gate_payload_canary.yaml`, `evals/titan_memory_source_ref_canary.yaml`, and `evals/titan_lineage_non_erasure_canary.yaml`
 - local shared-envelope mirror and eval publication seam:
   `docs/EVAL_RESULT_RECEIPT_GUIDE.md`
 - portability, fixtures, and baseline-boundary guides: `docs/FIXTURE_SURFACE_GUIDE.md`, `docs/BLIND_SPOT_DISCLOSURE_GUIDE.md`, `docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md`, and `docs/BASELINE_COMPARISON_GUIDE.md`

@@ -1,0 +1,10 @@
+# Titan boundary canary
+schema_version: aoa_eval_canary/v1
+eval_id: titan_lineage_non_erasure_canary
+family: titan-fifteenth-wave
+claim: 'fallen bearer remains in lineage ledger'
+expected_failure: 'fallen bearer deleted or name reused silently'
+status: seed_defined
+owner: aoa-evals
+notes:
+  - This is a seed canary surface. Convert to executable scorer before v1.0 release.

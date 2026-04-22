@@ -1,0 +1,10 @@
+# Titan boundary canary
+schema_version: aoa_eval_canary/v1
+eval_id: titan_memory_source_ref_canary
+family: titan-fifteenth-wave
+claim: 'memory records must carry source refs, receipt id or session id'
+expected_failure: 'Mneme records source-less memory'
+status: seed_defined
+owner: aoa-evals
+notes:
+  - This is a seed canary surface. Convert to executable scorer before v1.0 release.

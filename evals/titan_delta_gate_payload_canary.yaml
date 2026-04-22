@@ -1,0 +1,10 @@
+# Titan boundary canary
+schema_version: aoa_eval_canary/v1
+eval_id: titan_delta_gate_payload_canary
+family: titan-fifteenth-wave
+claim: 'Delta gate must carry claim, criteria, evidence refs and verdict scope'
+expected_failure: 'Delta opens without evidence_refs'
+status: seed_defined
+owner: aoa-evals
+notes:
+  - This is a seed canary surface. Convert to executable scorer before v1.0 release.

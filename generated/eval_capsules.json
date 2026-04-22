@@ -464,6 +464,52 @@
       "what_this_does_not_prove": "proof that the starter corpus is canonical; proof that every bundle is equally mature; proof that the underlying evaluated agents are strong"
     },
     {
+      "blind_spot_short": "the release candidate is certified; the candidate is safe for deployment; the rollout can promote rings",
+      "bounded_claim_short": "under these conditions, a certification gate bundle can show that a release candidate is ready for authorized operator review while keeping certification authority outside the eval.",
+      "category": "boundary",
+      "comparison_surface": null,
+      "do_not_use_short": "the task is to certify the candidate; the task is to promote a rollout ring",
+      "eval_path": "bundles/aoa-experience-certification-gate-integrity/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-experience-certification-gate-integrity",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "report_schema"
+      ],
+      "skill_dependencies": [
+        "aoa-contract-test"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-contract-test",
+          "path": "skills/aoa-contract-test/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether an experience-derived release candidate has bounded evidence for authorized operator certification review without letting the eval certify.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "use_when_short": "a release candidate needs a bounded pre-certification evidence read; an experience-derived patch is moving toward versioned assistant release",
+      "verdict_shape": "mixed",
+      "what_this_does_not_prove": "certification; release approval; deployment approval"
+    },
+    {
       "blind_spot_short": "the underlying experience was successful; the bundle is broadly reusable across all protocol families; the bundle can substitute for runtime, governance, or owner-local...",
       "bounded_claim_short": "under these conditions, an experience verdict bundle can keep protocol integrity explicit, stay bounded to its own contract, and avoid implying runtime or governance authority.",
       "category": "boundary",

@@ -1,0 +1,7 @@
+{
+  "verdict_id": "rollback.verdict.001",
+  "trigger_id": "rollback.trigger.001",
+  "rollback_justified": true,
+  "authority_required": true,
+  "action": "execute_rollback"
+}

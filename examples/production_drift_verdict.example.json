@@ -1,0 +1,7 @@
+{
+  "verdict_id": "prod.drift.verdict.001",
+  "release_id": "assistant.notary.1.1.0",
+  "drift_family": "scope_drift",
+  "drift_confirmed": false,
+  "severity": "none"
+}

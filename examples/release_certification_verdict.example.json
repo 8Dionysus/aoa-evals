@@ -1,0 +1,9 @@
+{
+  "id": "verdict.cert.notary.001",
+  "kind": "release_certification_verdict",
+  "candidate": "rc.notary.1.1.0.001",
+  "outcome": "certifiable_with_operator_review",
+  "authority_valid": false,
+  "why_authority_valid_false": "operator review still pending",
+  "blocked_until": "operator_review"
+}

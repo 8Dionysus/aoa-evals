@@ -1036,6 +1036,100 @@
     },
     {
       "category": "boundary",
+      "eval_path": "bundles/aoa-experience-certification-gate-integrity/EVAL.md",
+      "name": "aoa-experience-certification-gate-integrity",
+      "sections": [
+        {
+          "content_markdown": "Use this eval when the question is whether an experience-derived\nassistant/service release candidate has enough bounded evidence to proceed to\nauthorized operator certification review.\n\nThe route keeps four things explicit:\n\n- the eval checks evidence sufficiency, not certification authority\n- regression evidence and rollback evidence are both required\n- compatibility breaks must route to recharter or explicit operator review\n- Codex and `aoa-evals` must not emit a certified release verdict",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks experience certification gate bundles.\n\nPrimary surfaces under evaluation:\n\n- evidence bundle references\n- regression pack coverage\n- rollback drill evidence\n- compatibility or recharter signal\n- operator review requirement\n\nNearby surfaces intentionally excluded:\n\n- operator certification authority\n- deployment ring promotion\n- durable rollback execution\n- stats dashboard approval\n\nThis bundle is diagnostic. It isolates the certification-gate integrity\nquestion and does not claim to exercise the release or deployment workflow.",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions, a certification gate bundle can show that a release\ncandidate is ready for authorized operator review while keeping certification\nauthority outside the eval.\n\nThis eval does not support claims such as:\n\n- the candidate is certified\n- Codex can certify, approve, or promote the release\n- deployment may proceed automatically\n- runtime, stats, routing, memo, or SDK surfaces can replace operator review",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a release candidate needs a bounded pre-certification evidence read\n- an experience-derived patch is moving toward versioned assistant release\n- regression, rollback, or compatibility evidence might be missing\n\nDo not use this eval when:\n\n- the task is to certify the candidate\n- the task is to promote a rollout ring\n- the task is to execute durable rollback\n- the task is only a stats or routing summary review",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- the candidate evidence bundle\n- regression pack coverage notes\n- rollback drill evidence\n- compatibility or recharter note\n- operator review reference or required-review marker\n- the bundle report schema and example report",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "A strong starter case set should include:\n\n- one candidate with reviewed experience evidence, regression coverage,\n  rollback evidence, and required operator review\n- one candidate missing certification authority\n- one candidate missing regression evidence\n- one candidate missing rollback evidence\n- one candidate whose compatibility break requires recharter\n\nFixture families should avoid:\n\n- private operational payloads\n- hidden production telemetry\n- release approval language\n- deployment ring state that would imply live rollout authority",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval uses a categorical verdict with an explicit authority ceiling.\n\nAllowed verdict classes:\n\n- `certifiable_with_operator_review`\n- `denied_authority`\n- `denied_regression`\n- `denied_rollback`\n- `recharter_required`\n\nThe eval must not emit `certified`.\n\nKey review checks:\n\n- reviewed experience evidence is present\n- regression evidence is present\n- rollback drill evidence is present\n- operator review remains required\n- compatibility breakage routes to recharter or explicit review",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`.\n\nIt is a standalone bounded integrity read for one certification-gate family.\nWithout a baseline, it can support a bounded readiness-for-review claim, not a\ncomparative quality or improvement claim.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. inspect the candidate evidence bundle\n2. inspect regression pack coverage\n3. inspect rollback drill evidence\n4. check compatibility or recharter notes\n5. confirm the operator review requirement\n6. publish one bounded verdict with explicit limits\n\nThe bundle-local runner contract is `runners/contract.json`.\nThe bundle-local report schema is `reports/summary.schema.json`.\nThe example report is `reports/example-report.json`.",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bounded verdict\n- one authority-ceiling note\n- one list of missing inputs when the verdict is denied or requires recharter\n- one summary of the evidence checks that were present or absent\n\nStarter support artifacts:\n\n- `notes/origin-need.md`\n- `notes/certification-contract.md`\n- `checks/eval-integrity-check.md`\n- `examples/example-report.md`",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "Main ways this eval can fail as an instrument:\n\n- the report wording drifts into certification authority\n- missing regression evidence is treated as a warning instead of a denial\n- missing rollback evidence is treated as a warning instead of a denial\n- compatibility breakage is hidden behind a positive verdict\n- operator review becomes optional by implication",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- the release candidate is certified\n- the candidate is safe for deployment\n- the rollout can promote rings\n- runtime health will remain stable after activation\n- retention watch will pass after release\n- operator review can be skipped",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat `certifiable_with_operator_review` as support for a bounded claim:\nthe evidence packet may proceed to authorized operator review.\n\nDo not treat a positive result as:\n\n- certification\n- release approval\n- deployment approval\n- ring promotion\n- rollback permission\n- owner-local truth outside the evaluated bundle",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- review the bundle metadata and report schema\n- review one clean candidate packet\n- review one missing-authority packet\n- review one missing-regression packet\n- review one missing-rollback packet\n- review one recharter-required packet\n- confirm the output never contains `certified`",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "- AOA-T-0001",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "- aoa-contract-test",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "- add real release-candidate cases after the first reviewed run\n- keep the verdict weaker than certification authority\n- keep deployment watchtower evidence in a separate downstream eval when runtime\n  activation is explicitly approved",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "mixed"
+    },
+    {
+      "category": "boundary",
       "eval_path": "bundles/aoa-experience-protocol-integrity/EVAL.md",
       "name": "aoa-experience-protocol-integrity",
       "sections": [

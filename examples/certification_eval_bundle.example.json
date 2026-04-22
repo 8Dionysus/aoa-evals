@@ -1,0 +1,13 @@
+{
+  "id": "eval.bundle.certification.assistant.001",
+  "kind": "certification_eval_bundle",
+  "checks": [
+    "authority",
+    "regression",
+    "rollback",
+    "compatibility",
+    "evidence_completeness"
+  ],
+  "verdict_output": "release_certification_verdict_v1",
+  "scope": "assistant_service_release"
+}

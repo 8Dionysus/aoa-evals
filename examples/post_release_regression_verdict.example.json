@@ -1,0 +1,7 @@
+{
+  "verdict_id": "postrel.regression.001",
+  "release_id": "assistant.notary.1.1.0",
+  "regression_detected": false,
+  "families": [],
+  "recommended_action": "continue_watch"
+}

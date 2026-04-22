@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "experience_certification_gate_integrity_summary_v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "bundle",
+    "verdict",
+    "authority_ceiling",
+    "evidence_checks",
+    "missing_inputs"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "experience_certification_gate_integrity_summary_v1"
+    },
+    "bundle": {
+      "type": "string",
+      "const": "aoa-experience-certification-gate-integrity"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "certifiable_with_operator_review",
+        "denied_authority",
+        "denied_regression",
+        "denied_rollback",
+        "recharter_required"
+      ]
+    },
+    "authority_ceiling": {
+      "type": "string",
+      "const": "bounded_eval_not_certification"
+    },
+    "evidence_checks": {
+      "type": "object",
+      "required": [
+        "reviewed_experience",
+        "regression_pack",
+        "rollback_drill",
+        "operator_review"
+      ],
+      "properties": {
+        "reviewed_experience": {
+          "type": "string"
+        },
+        "regression_pack": {
+          "type": "string"
+        },
+        "rollback_drill": {
+          "type": "string"
+        },
+        "operator_review": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "missing_inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

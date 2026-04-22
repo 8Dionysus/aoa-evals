@@ -1,0 +1,7 @@
+{
+  "verdict_id": "canary.verdict.001",
+  "probe_id": "canary.scope.001",
+  "passed": true,
+  "failure_material": false,
+  "notes": "scope guard intact"
+}

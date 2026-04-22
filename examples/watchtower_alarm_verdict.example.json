@@ -1,0 +1,7 @@
+{
+  "verdict_id": "alarm.verdict.001",
+  "alarm_id": "alarm.drift.001",
+  "classification": "material",
+  "material": true,
+  "recommended_action": "pause_and_route"
+}

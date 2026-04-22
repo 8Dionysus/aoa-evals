@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "deployment_integrity_verdict",
+  "type": "object",
+  "description": "deployment_integrity_verdict schema for AoA experience deployment watchtower v0.5.",
+  "required": [
+    "verdict_id",
+    "release_id",
+    "lawful",
+    "breaches",
+    "outcome"
+  ],
+  "properties": {
+    "verdict_id": {
+      "type": "string"
+    },
+    "release_id": {
+      "type": "string"
+    },
+    "lawful": {
+      "type": "boolean"
+    },
+    "breaches": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outcome": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

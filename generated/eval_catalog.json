@@ -1092,6 +1092,91 @@
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
+      "eval_path": "bundles/aoa-experience-certification-gate-integrity/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/certification-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": false,
+      "interpretation_boundary": "certification; release approval; deployment approval",
+      "maturity_score": 2,
+      "name": "aoa-experience-certification-gate-integrity",
+      "object_under_evaluation": "experience certification gate bundle",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-experience-certification-gate-integrity/fixtures/contract.json",
+        "paired_readout_path": null,
+        "report_example_path": "bundles/aoa-experience-certification-gate-integrity/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-experience-certification-gate-integrity/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-experience-certification-gate-integrity/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": "fixtures/experience-certification-gate-integrity-v1/README.md"
+      },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "report_schema"
+      ],
+      "relations": [
+        {
+          "target": "aoa-experience-protocol-integrity",
+          "type": "derived_from"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "selection_summary": "",
+      "skill_dependencies": [
+        "aoa-contract-test"
+      ],
+      "skill_refs": [
+        {
+          "name": "aoa-contract-test",
+          "path": "skills/aoa-contract-test/SKILL.md",
+          "repo": "aoa-skills"
+        }
+      ],
+      "status": "draft",
+      "summary": "Checks whether an experience-derived release candidate has bounded evidence for authorized operator certification review without letting the eval certify.",
+      "technique_dependencies": [
+        "AOA-T-0001"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0001",
+          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "validation_strength": "baseline",
+      "verdict_shape": "mixed"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
+      "category": "boundary",
+      "claim_type": "bounded",
+      "comparison_surface": null,
       "eval_path": "bundles/aoa-experience-protocol-integrity/EVAL.md",
       "evidence": [
         {

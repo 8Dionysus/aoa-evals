@@ -506,7 +506,7 @@
         }
       ],
       "use_when_short": "a release candidate needs a bounded pre-certification evidence read; an experience-derived patch is moving toward versioned assistant release",
-      "verdict_shape": "mixed",
+      "verdict_shape": "categorical",
       "what_this_does_not_prove": "certification; release approval; deployment approval"
     },
     {
@@ -552,7 +552,7 @@
         }
       ],
       "use_when_short": "a new experience verdict bundle needs a bounded integrity read; protocol wording could otherwise drift into overclaim",
-      "verdict_shape": "mixed",
+      "verdict_shape": "categorical",
       "what_this_does_not_prove": "proof of runtime authority; proof of governance authority; proof that the underlying experience itself was successful"
     },
     {

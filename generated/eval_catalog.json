@@ -1169,7 +1169,7 @@
         }
       ],
       "validation_strength": "baseline",
-      "verdict_shape": "mixed"
+      "verdict_shape": "categorical"
     },
     {
       "baseline_mode": "none",
@@ -1258,7 +1258,7 @@
         }
       ],
       "validation_strength": "baseline",
-      "verdict_shape": "mixed"
+      "verdict_shape": "categorical"
     },
     {
       "baseline_mode": "none",

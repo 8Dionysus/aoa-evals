@@ -1,0 +1,59 @@
+{
+  "eval_name": "aoa-stats-regrounding-boundary-integrity",
+  "bundle_status": "draft",
+  "object_under_evaluation": "stats-driven re-grounding consumer boundary across aoa-stats, aoa-sdk, aoa-routing, and aoa-evals",
+  "verdict": "mixed support",
+  "claim_boundary": "This report speaks only to whether one consumer path used stats-derived profile and coverage signals to re-ground without moving authority out of owner repos.",
+  "limitations": [
+    "It does not prove the owner-local artifact is correct.",
+    "It does not prove every stats summary has healthy intake.",
+    "It does not approve a route or workflow activation."
+  ],
+  "case_family": "stats-regrounding-boundary-v1 split-model consumer path",
+  "axis_breakdown": {
+    "stats_signal_integrity": {
+      "status": "strong",
+      "evidence_note": "The case names catalog profile fields and source coverage flags as derived signals only."
+    },
+    "coverage_thinness_handling": {
+      "status": "strong",
+      "evidence_note": "Thin coverage prompts owner-local inspection rather than a proof claim."
+    },
+    "sdk_policy_ownership": {
+      "status": "mixed",
+      "evidence_note": "The SDK policy decision is present, but the case still needs a richer mutation-surface example."
+    },
+    "routing_advisory_boundary": {
+      "status": "strong",
+      "evidence_note": "Routing hints are described as next-read advice, not route approval."
+    },
+    "eval_verdict_boundary": {
+      "status": "strong",
+      "evidence_note": "The report limits the verdict to the consumer path under review."
+    },
+    "owner_truth_regrounding_target": {
+      "status": "mixed",
+      "evidence_note": "One owner truth target is named, but the followthrough read is not included."
+    },
+    "anti_overclaim_report_posture": {
+      "status": "strong",
+      "evidence_note": "The report rejects health, route, proof, and workflow-authority overclaims."
+    }
+  },
+  "stats_signals_observed": [
+    "aoa-stats.summary_surface_catalog.min",
+    "aoa-stats.source_coverage_summary.min"
+  ],
+  "owner_truth_targets": [
+    "aoa-skills owner-local receipts"
+  ],
+  "anti_overclaim_notes": [
+    "Stats coverage is not proof of owner health.",
+    "Routing advice is not route approval.",
+    "SDK policy is not an eval verdict."
+  ],
+  "followthrough": [
+    "Read the named owner truth target before treating the re-grounding hint as actionable.",
+    "Run an eval only when the consumer path needs a bounded proof verdict rather than advisory routing."
+  ]
+}

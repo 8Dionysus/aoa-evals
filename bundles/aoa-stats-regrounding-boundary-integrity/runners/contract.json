@@ -1,0 +1,23 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "stats surface profile",
+    "source coverage summary",
+    "SDK re-grounding signal",
+    "routing advisory hint",
+    "owner-local truth target",
+    "consumer report wording"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-stats-regrounding-boundary-integrity/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "bundles/aoa-stats-regrounding-boundary-integrity/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-stats-regrounding-boundary-integrity/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-stats-regrounding-boundary-integrity"
+  ]
+}

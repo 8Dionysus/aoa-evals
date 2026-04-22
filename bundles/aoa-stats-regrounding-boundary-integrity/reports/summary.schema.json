@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-stats-regrounding-boundary-integrity summary-with-breakdown report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "axis_breakdown",
+    "stats_signals_observed",
+    "owner_truth_targets",
+    "anti_overclaim_notes",
+    "followthrough"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-stats-regrounding-boundary-integrity"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "stats-driven re-grounding consumer boundary across aoa-stats, aoa-sdk, aoa-routing, and aoa-evals"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim",
+        "insufficient evidence"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "axis_breakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stats_signal_integrity",
+        "coverage_thinness_handling",
+        "sdk_policy_ownership",
+        "routing_advisory_boundary",
+        "eval_verdict_boundary",
+        "owner_truth_regrounding_target",
+        "anti_overclaim_report_posture"
+      ],
+      "properties": {
+        "stats_signal_integrity": {
+          "$ref": "#/$defs/axis_status"
+        },
+        "coverage_thinness_handling": {
+          "$ref": "#/$defs/axis_status"
+        },
+        "sdk_policy_ownership": {
+          "$ref": "#/$defs/axis_status"
+        },
+        "routing_advisory_boundary": {
+          "$ref": "#/$defs/axis_status"
+        },
+        "eval_verdict_boundary": {
+          "$ref": "#/$defs/axis_status"
+        },
+        "owner_truth_regrounding_target": {
+          "$ref": "#/$defs/axis_status"
+        },
+        "anti_overclaim_report_posture": {
+          "$ref": "#/$defs/axis_status"
+        }
+      }
+    },
+    "stats_signals_observed": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "owner_truth_targets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "anti_overclaim_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "followthrough": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    }
+  },
+  "$defs": {
+    "axis_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "evidence_note"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak",
+            "not_observed"
+          ]
+        },
+        "evidence_note": {
+          "type": "string",
+          "minLength": 5
+        }
+      }
+    }
+  }
+}

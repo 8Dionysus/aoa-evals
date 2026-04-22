@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-evals/schemas/office_train_smoke_verdict_v1.json",
+  "title": "Office Train Smoke Verdict V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "created_at",
+    "evidence_refs",
+    "gates",
+    "id",
+    "kind",
+    "notes",
+    "owner_repo",
+    "passed",
+    "status",
+    "version"
+  ],
+  "properties": {
+    "created_at": {
+      "type": "string",
+      "minLength": 1,
+      "format": "date-time"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "escalation_accuracy",
+        "handoff_integrity",
+        "output_variance",
+        "schema_fidelity",
+        "scope_boundary"
+      ],
+      "properties": {
+        "escalation_accuracy": {
+          "type": "boolean"
+        },
+        "handoff_integrity": {
+          "type": "boolean"
+        },
+        "output_variance": {
+          "type": "boolean"
+        },
+        "schema_fidelity": {
+          "type": "boolean"
+        },
+        "scope_boundary": {
+          "type": "boolean"
+        }
+      }
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "minLength": 1,
+      "const": "office_train_smoke_verdict_v1"
+    },
+    "notes": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner_repo": {
+      "type": "string",
+      "minLength": 1,
+      "const": "aoa-evals"
+    },
+    "passed": {
+      "type": "boolean"
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "active",
+        "allowed",
+        "applied",
+        "blocked",
+        "completed",
+        "draft",
+        "failed",
+        "held",
+        "passed",
+        "proposed",
+        "rejected",
+        "rolled_back",
+        "sealed"
+      ]
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "const": "1.1.0"
+    }
+  }
+}

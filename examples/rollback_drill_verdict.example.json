@@ -1,0 +1,8 @@
+{
+  "id": "verdict.rollback.notary.001",
+  "kind": "rollback_drill_verdict",
+  "drill_id": "rollback.drill.notary.001",
+  "outcome": "passed",
+  "restoration_verified": true,
+  "golden_cases_replayed": true
+}

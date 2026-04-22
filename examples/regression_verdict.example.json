@@ -1,0 +1,9 @@
+{
+  "id": "verdict.regression.notary.001",
+  "kind": "regression_verdict",
+  "run_id": "reg.run.notary.001",
+  "outcome": "passed",
+  "failed_cases": [],
+  "coverage_sufficient": true,
+  "notes": "golden, boundary, degradation and negative cases passed"
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": "experience_certification_gate_integrity_summary_v1",
+  "bundle": "aoa-experience-certification-gate-integrity",
+  "verdict": "certifiable_with_operator_review",
+  "authority_ceiling": "bounded_eval_not_certification",
+  "evidence_checks": {
+    "reviewed_experience": "present",
+    "regression_pack": "present",
+    "rollback_drill": "present",
+    "operator_review": "required"
+  },
+  "missing_inputs": []
+}

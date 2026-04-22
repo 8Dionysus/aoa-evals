@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "verdict_output": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "checks",
+    "verdict_output",
+    "scope"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Certification Eval Bundle V1"
+}

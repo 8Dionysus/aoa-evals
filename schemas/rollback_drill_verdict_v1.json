@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "drill_id": {
+      "type": "string"
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "restoration_verified": {
+      "type": "boolean"
+    },
+    "golden_cases_replayed": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "drill_id",
+    "outcome",
+    "restoration_verified",
+    "golden_cases_replayed"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rollback Drill Verdict V1"
+}

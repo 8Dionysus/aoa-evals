@@ -1,0 +1,20 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "inputs": [
+    "candidate evidence bundle",
+    "regression pack coverage notes",
+    "rollback drill evidence",
+    "compatibility or recharter note",
+    "operator review reference or required-review marker"
+  ],
+  "fixture_contract_paths": [
+    "bundles/aoa-experience-certification-gate-integrity/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [],
+  "report_schema_path": "bundles/aoa-experience-certification-gate-integrity/reports/summary.schema.json",
+  "report_example_path": "bundles/aoa-experience-certification-gate-integrity/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-experience-certification-gate-integrity"
+  ]
+}

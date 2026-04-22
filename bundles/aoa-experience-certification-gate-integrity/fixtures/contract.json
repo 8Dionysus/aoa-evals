@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "fixtures/experience-certification-gate-integrity-v1/README.md",
+  "shared_case_surface": "public-safe experience certification gate packets covering clean review-ready, missing authority, missing regression, missing rollback, and recharter-required cases",
+  "bounded_replacement_rule": "A local repo may replace the cases only if the replacement preserves the same certification-gate ask class, keeps the bundle inspectable without private release details, and still supports a bounded verdict read that cannot certify the candidate.",
+  "public_safe_requirements": [
+    "candidate evidence remains public-safe or redacted",
+    "regression and rollback evidence are visible enough for bounded review",
+    "operator review remains required",
+    "reports never emit certified, codex_certified, or auto_release_approved"
+  ]
+}

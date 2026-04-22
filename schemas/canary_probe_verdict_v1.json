@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "canary_probe_verdict",
+  "type": "object",
+  "description": "canary_probe_verdict schema for AoA experience deployment watchtower v0.5.",
+  "required": [
+    "verdict_id",
+    "probe_id",
+    "passed",
+    "failure_material",
+    "notes"
+  ],
+  "properties": {
+    "verdict_id": {
+      "type": "string"
+    },
+    "probe_id": {
+      "type": "string"
+    },
+    "passed": {
+      "type": "boolean"
+    },
+    "failure_material": {
+      "type": "boolean"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "candidate": {
+      "type": "string"
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "authority_valid": {
+      "type": "boolean"
+    },
+    "why_authority_valid_false": {
+      "type": "string"
+    },
+    "blocked_until": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "candidate",
+    "outcome",
+    "authority_valid",
+    "why_authority_valid_false",
+    "blocked_until"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Release Certification Verdict V1"
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "rollback_trigger_verdict",
+  "type": "object",
+  "description": "rollback_trigger_verdict schema for AoA experience deployment watchtower v0.5.",
+  "required": [
+    "verdict_id",
+    "trigger_id",
+    "rollback_justified",
+    "authority_required",
+    "action"
+  ],
+  "properties": {
+    "verdict_id": {
+      "type": "string"
+    },
+    "trigger_id": {
+      "type": "string"
+    },
+    "rollback_justified": {
+      "type": "boolean"
+    },
+    "authority_required": {
+      "type": "boolean"
+    },
+    "action": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

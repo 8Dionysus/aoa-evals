@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "production_drift_verdict",
+  "type": "object",
+  "description": "production_drift_verdict schema for AoA experience deployment watchtower v0.5.",
+  "required": [
+    "verdict_id",
+    "release_id",
+    "drift_family",
+    "drift_confirmed",
+    "severity"
+  ],
+  "properties": {
+    "verdict_id": {
+      "type": "string"
+    },
+    "release_id": {
+      "type": "string"
+    },
+    "drift_family": {
+      "type": "string"
+    },
+    "drift_confirmed": {
+      "type": "boolean"
+    },
+    "severity": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

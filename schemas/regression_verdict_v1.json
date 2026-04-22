@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "failed_cases": {
+      "type": "array"
+    },
+    "coverage_sufficient": {
+      "type": "boolean"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "run_id",
+    "outcome",
+    "failed_cases",
+    "coverage_sufficient",
+    "notes"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Regression Verdict V1"
+}

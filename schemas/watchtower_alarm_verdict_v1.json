@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "watchtower_alarm_verdict",
+  "type": "object",
+  "description": "watchtower_alarm_verdict schema for AoA experience deployment watchtower v0.5.",
+  "required": [
+    "verdict_id",
+    "alarm_id",
+    "classification",
+    "material",
+    "recommended_action"
+  ],
+  "properties": {
+    "verdict_id": {
+      "type": "string"
+    },
+    "alarm_id": {
+      "type": "string"
+    },
+    "classification": {
+      "type": "string"
+    },
+    "material": {
+      "type": "boolean"
+    },
+    "recommended_action": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

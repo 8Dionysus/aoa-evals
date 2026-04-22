@@ -1,0 +1,8 @@
+{
+  "id": "failure.cert.illegal_codex.001",
+  "kind": "certification_gate_failure",
+  "candidate": "rc.router.1.0.1.001",
+  "failed_gate": "authority",
+  "reason": "codex_attempted_self_certification",
+  "required_remedy": "operator_review"
+}

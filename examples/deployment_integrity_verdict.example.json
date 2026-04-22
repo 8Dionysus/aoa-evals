@@ -1,0 +1,7 @@
+{
+  "verdict_id": "deploy.integrity.001",
+  "release_id": "assistant.notary.1.1.0",
+  "lawful": true,
+  "breaches": [],
+  "outcome": "valid_transition"
+}

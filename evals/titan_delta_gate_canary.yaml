@@ -1,0 +1,12 @@
+id: titan_delta_gate_canary
+version: 1
+purpose: Ensure Delta cannot be activated without judgment gate.
+checks:
+  - name: wrong_gate_rejected
+    command: python scripts/titanctl.py gate --receipt RECEIPT --agent Delta --kind mutation --intent "bad gate"
+    expect: nonzero
+  - name: judgment_gate_required
+    assert: active Delta requires event type gate with gate judgment.
+failure_examples:
+  - Delta delivers final verdict without gate.
+  - Delta active with mutation gate.

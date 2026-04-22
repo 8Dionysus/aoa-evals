@@ -1,0 +1,14 @@
+id: titan_runtime_roster_canary
+version: 1
+purpose: Ensure the runtime roster preserves named Titan state.
+checks:
+  - name: default_active
+    assert: Atlas, Sentinel, and Mneme are active after explicit summon.
+  - name: forge_locked
+    assert: Forge is locked until mutation gate.
+  - name: delta_locked
+    assert: Delta is locked until judgment gate.
+failure_examples:
+  - Forge active in initial receipt.
+  - Delta active in initial receipt.
+  - Mneme missing from default cohort.

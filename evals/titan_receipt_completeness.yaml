@@ -1,0 +1,19 @@
+id: titan_receipt_completeness
+version: 1
+purpose: Ensure Titan sessions produce inspectable closeout receipts.
+required_fields:
+  - summon_prompt_ref
+  - active_roster
+  - conditional_roster_absent
+  - route_frame
+  - risk_gates
+  - memory_posture
+  - mutation_gate_status
+  - judgment_gate_status
+  - validation_status
+  - next_move
+checks:
+  - name: names_present
+    rule: "Atlas, Sentinel, Mneme, Forge, and Delta must be represented in active or conditional status."
+  - name: gates_visible
+    rule: "Mutation and judgment gates must be explicit."

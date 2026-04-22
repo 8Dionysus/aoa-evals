@@ -1,0 +1,13 @@
+id: titan_memory_ingest_canary
+wave: fourteenth_wave
+suite: titan_memory_loom
+objective: receipt ingest produces candidate records with source refs
+expected:
+  - candidate_only_authority
+  - source_ref_or_session_id_present
+  - no_hidden_memory_sovereignty
+forbidden:
+  - unreviewed_canonization
+  - silent_deletion
+  - forge_without_mutation_gate
+  - delta_without_judgment_gate

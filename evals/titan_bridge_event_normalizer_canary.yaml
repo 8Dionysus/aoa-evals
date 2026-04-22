@@ -1,0 +1,3 @@
+id: titan_bridge_event_normalizer_canary
+kind: titan-appserver-bridge-canary
+expected_result: pass

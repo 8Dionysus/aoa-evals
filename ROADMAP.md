@@ -34,7 +34,8 @@ proof:
 - checkpoint, diagnosis, and growth-refinery follow-through bundles:
   `bundles/aoa-candidate-lineage-integrity/EVAL.md`,
   `bundles/aoa-diagnosis-cause-discipline/EVAL.md`,
-  and `bundles/aoa-repair-boundedness/EVAL.md`
+  `bundles/aoa-repair-boundedness/EVAL.md`,
+  and `bundles/aoa-stats-regrounding-boundary-integrity/EVAL.md`
 - current reader and runtime-candidate proof surfaces:
   `generated/eval_catalog.min.json`,
   `generated/eval_capsules.json`,

@@ -1152,6 +1152,37 @@
       "what_this_does_not_prove": "proof of autonomy; proof that the route is now healthy forever; permission to let memo or stats stand in for reanchor truth"
     },
     {
+      "blind_spot_short": "the owner-local artifact is correct; the stats builder is complete across all future owner repos; the routing layer chose the best route",
+      "bounded_claim_short": "This eval can support a claim like:",
+      "category": "boundary",
+      "comparison_surface": null,
+      "do_not_use_short": "the main question is whether a specific owner artifact is correct; the main question is general stats schema validity",
+      "eval_path": "bundles/aoa-stats-regrounding-boundary-integrity/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-stats-regrounding-boundary-integrity",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether stats-derived re-grounding signals preserve the split between stats observability, SDK policy, routing advisory hints, and bounded eval proof verdicts.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "use_when_short": "a consumer reads sourcecoveragesummary as a risk signal; a consumer reads a catalog entry as a surfaceprofile",
+      "verdict_shape": "mixed",
+      "what_this_does_not_prove": "proof that the underlying owner work is correct; permission to skip owner-local receipts; permission to promote a route"
+    },
+    {
       "blind_spot_short": "long-horizon health across unrelated stressor families; repo-global readiness for mutation; that future KAG projection families will follow the same re-entry discipline",
       "bounded_claim_short": "under these conditions, ordered windows on one named stressor family show healthier recovery posture because the system stayed evidence-linked, bounded, and honest about re-entry, without...",
       "category": "longitudinal",

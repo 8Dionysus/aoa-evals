@@ -28,6 +28,7 @@ Use the shortest route by need:
 - derived reader surfaces: `generated/eval_catalog.min.json`, `generated/eval_capsules.json`, and `generated/eval_sections.full.json`
 - regression, peer comparison, and repeated-window reading: `docs/COMPARISON_SPINE_GUIDE.md`, `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`, and `generated/comparison_spine.json`
 - bounded stress recovery longitudinal reading: `docs/STRESS_RECOVERY_WINDOW_EVALS.md` and `bundles/aoa-stress-recovery-window/EVAL.md`
+- stats-driven re-grounding boundary proof: `bundles/aoa-stats-regrounding-boundary-integrity/EVAL.md`
 - bounded self-agency continuity reading: `bundles/aoa-continuity-anchor-integrity/EVAL.md`, `bundles/aoa-reflective-revision-boundedness/EVAL.md`, and `bundles/aoa-self-reanchor-correctness/EVAL.md`
 - via negativa pruning checklist: `docs/VIA_NEGATIVA_CHECKLIST.md`
 - artifact-side versus process-side reading: `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`

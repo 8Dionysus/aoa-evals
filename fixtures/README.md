@@ -18,6 +18,7 @@ Current shared families:
 - `owner-fit-routing-v1` for bounded reviewed owner-fit routing on growth-refinery candidates
 - `repair-boundedness-v1` for bounded repair and reanchor follow-through on growth-refinery moves
 - `repeated-window-bounded-v1` for ordered repeated-window movement on one named workflow surface
+- `stats-regrounding-boundary-v1` for stats-derived consumer re-grounding boundary checks
 
 Shared fixture naming discipline:
 - keep the primary family path in `shared_fixture_family_path`

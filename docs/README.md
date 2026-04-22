@@ -15,6 +15,8 @@ Choose the path that matches your question:
 - I need one repeated-window stress recovery proof surface without turning routing or memo into stronger truth:
   - [AoA Stress Recovery Window](../bundles/aoa-stress-recovery-window/EVAL.md)
   - [Stress Recovery Window Evals](STRESS_RECOVERY_WINDOW_EVALS.md)
+- I need one proof surface for stats-derived re-grounding without turning stats into proof:
+  - [Stats Re-Grounding Boundary Integrity](../bundles/aoa-stats-regrounding-boundary-integrity/EVAL.md)
 - I need to understand what this repository means by evaluation:
   - [Eval Philosophy](EVAL_PHILOSOPHY.md)
   - [Architecture](ARCHITECTURE.md)

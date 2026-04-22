@@ -2683,6 +2683,90 @@
       "verdict_shape": "categorical"
     },
     {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
+      "category": "boundary",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "bundles/aoa-stats-regrounding-boundary-integrity/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/split-model-boundary.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": false,
+      "interpretation_boundary": "proof that the underlying owner work is correct; permission to skip owner-local receipts; permission to promote a route",
+      "maturity_score": 2,
+      "name": "aoa-stats-regrounding-boundary-integrity",
+      "object_under_evaluation": "stats-driven re-grounding consumer boundary across aoa-stats, aoa-sdk, aoa-routing, and aoa-evals",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": "bundles/aoa-stats-regrounding-boundary-integrity/fixtures/contract.json",
+        "paired_readout_path": null,
+        "report_example_path": "bundles/aoa-stats-regrounding-boundary-integrity/reports/example-report.json",
+        "report_schema_path": "bundles/aoa-stats-regrounding-boundary-integrity/reports/summary.schema.json",
+        "runner_contract_path": "bundles/aoa-stats-regrounding-boundary-integrity/runners/contract.json",
+        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "fixtures/stats-regrounding-boundary-v1/README.md"
+      },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "relations": [
+        {
+          "target": "aoa-owner-fit-routing-quality",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-recurrence-control-plane-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-verification-honesty",
+          "type": "complements"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "selection_summary": "",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether stats-derived re-grounding signals preserve the split between stats observability, SDK policy, routing advisory hints, and bounded eval proof verdicts.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "validation_strength": "baseline",
+      "verdict_shape": "mixed"
+    },
+    {
       "baseline_mode": "longitudinal-window",
       "blind_spot_disclosure": "required-and-present",
       "category": "longitudinal",

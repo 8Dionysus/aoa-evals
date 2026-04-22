@@ -1,34 +1,126 @@
 {
-  "type": "object",
-  "properties": {
-    "id": {
-      "type": "string"
-    },
-    "kind": {
-      "type": "string"
-    },
-    "drill_id": {
-      "type": "string"
-    },
-    "outcome": {
-      "type": "string"
-    },
-    "restoration_verified": {
-      "type": "boolean"
-    },
-    "golden_cases_replayed": {
-      "type": "boolean"
-    }
-  },
-  "required": [
-    "id",
-    "kind",
-    "drill_id",
-    "outcome",
-    "restoration_verified",
-    "golden_cases_replayed"
-  ],
-  "additionalProperties": false,
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Rollback Drill Verdict V1"
+  "$id": "https://aoa.local/aoa-evals/schemas/rollback_drill_verdict_v1.json",
+  "title": "Rollback Drill Verdict V1",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "const": "rollback_drill_verdict"
+        },
+        "drill_id": {
+          "type": "string"
+        },
+        "outcome": {
+          "type": "string"
+        },
+        "restoration_verified": {
+          "type": "boolean"
+        },
+        "golden_cases_replayed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "drill_id",
+        "outcome",
+        "restoration_verified",
+        "golden_cases_replayed"
+      ],
+      "additionalProperties": false,
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "Rollback Drill Verdict V1"
+    },
+    {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://aoa.local/aoa-evals/schemas/rollback_drill_verdict_v1.json",
+      "title": "Rollback Drill Verdict V1",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed",
+        "created_at",
+        "evidence_refs",
+        "id",
+        "kind",
+        "notes",
+        "owner_repo",
+        "status",
+        "surface",
+        "version"
+      ],
+      "properties": {
+        "allowed": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "type": "string",
+          "minLength": 1,
+          "format": "date-time"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1,
+          "const": "rollback_drill_verdict_v1"
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_repo": {
+          "type": "string",
+          "minLength": 1,
+          "const": "aoa-evals"
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1,
+          "enum": [
+            "active",
+            "allowed",
+            "applied",
+            "blocked",
+            "completed",
+            "draft",
+            "failed",
+            "held",
+            "passed",
+            "proposed",
+            "rejected",
+            "rolled_back",
+            "sealed"
+          ]
+        },
+        "surface": {
+          "type": "string",
+          "minLength": 1,
+          "const": "rollback_drill_verdict_v1"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "const": "1.0.0"
+        }
+      }
+    }
+  ]
 }

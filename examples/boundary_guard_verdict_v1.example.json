@@ -1,0 +1,14 @@
+{
+  "allowed": true,
+  "created_at": "2026-04-22T00:00:00Z",
+  "evidence_refs": [
+    "generated/sovereign_release_clean_flow/release_candidate.json"
+  ],
+  "id": "boundary_guard_verdict_example",
+  "kind": "boundary_guard_verdict_v1",
+  "notes": "Example artifact for boundary_guard_verdict_v1.",
+  "owner_repo": "aoa-evals",
+  "status": "draft",
+  "surface": "boundary_guard_verdict_v1",
+  "version": "1.0.0"
+}

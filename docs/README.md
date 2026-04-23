@@ -36,6 +36,7 @@ Choose the path that matches your question:
 - I need to understand how runtime artifacts and trace surfaces become eval evidence:
   - [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md)
   - [Trace Eval Bridge Chaos Wave 1](TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md)
+  - [Runtime Integrity Review](RUNTIME_INTEGRITY_REVIEW.md)
   - [Eval Result Receipt Guide](EVAL_RESULT_RECEIPT_GUIDE.md)
   - [Runtime Bench Promotion Guide](RUNTIME_BENCH_PROMOTION_GUIDE.md)
   - [Self-Agent Checkpoint Eval Posture](SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md)
@@ -194,6 +195,7 @@ These are outside `docs/` but matter when navigating the repo:
 - Prefer [Shared Proof Infra Guide](SHARED_PROOF_INFRA_GUIDE.md) when the question is "how do fixture, runner, scorer, and dossier contracts stay reusable without hiding meaning?"
 - Prefer [Runtime Bench Promotion Guide](RUNTIME_BENCH_PROMOTION_GUIDE.md) when the question is "how can `abyss-stack` latency, load, recovery, or context-stress artifacts travel upward without becoming a fake capability ranking?"
 - Prefer [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md) when the question is "how do playbook artifacts, verification artifacts, or `WitnessTrace` sidecars become bounded eval evidence?"
+- Prefer [Runtime Integrity Review](RUNTIME_INTEGRITY_REVIEW.md) when the question is "how should W10 runtime continuity evidence stay candidate-only and replay-bound before any later owner handoff?"
 - Prefer [Eval Result Receipt Guide](EVAL_RESULT_RECEIPT_GUIDE.md) when the question is "how can one bounded eval publication be emitted as a machine-readable receipt without turning receipts into verdict authority or repo-global scoring?"
 - It also explains why `aoa-evals` keeps a local mirror of the canonical shared envelope owned by `aoa-stats`.
 - Prefer [Self-Agent Checkpoint Eval Posture](SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md) when the question is "how does `AOA-P-0006` close on the eval layer without inventing a new checkpoint-only proof canon?"

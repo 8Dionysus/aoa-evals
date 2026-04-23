@@ -1,0 +1,29 @@
+{
+  "schema_version": "runtime_integrity_review_v1",
+  "owner_repo": "aoa-evals",
+  "surface_kind": "runtime_integrity_review",
+  "status": "candidate_only",
+  "budget_ref": "Agents-of-Abyss:docs/EXPERIENCE_V2_0_LIVING_WORKSPACE_CONTINUITY_RUNTIME.md#owner-split",
+  "evidence_refs": [
+    "repo:aoa-evals/docs/TRACE_EVAL_BRIDGE.md",
+    "repo:aoa-evals/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+    "repo:aoa-routing/docs/LIVE_SESSION_REENTRY_ROUTE_REVIEW.md",
+    "repo:aoa-agents/docs/SELF_AGENCY_CONTINUITY_LANE.md",
+    "repo:aoa-memo/schemas/inquiry_checkpoint.schema.json",
+    "repo:aoa-memo/docs/SELF_AGENCY_CONTINUITY_WRITEBACK.md"
+  ],
+  "replay_requirements": {
+    "selected_evidence_only": true,
+    "owner_local_replay_required": true,
+    "fail_closed": true,
+    "publication_requires_review": true
+  },
+  "human_review_needed": true,
+  "forbidden_claims": [
+    "sealed_verdict",
+    "activation_authority",
+    "owner_override",
+    "canon_write"
+  ],
+  "notes": "Candidate only. Owner-local runtime integrity review remains weaker than proof canon and does not activate runtime continuity."
+}

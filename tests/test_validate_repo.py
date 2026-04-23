@@ -3785,6 +3785,215 @@ def test_validate_runtime_evidence_selection_accepts_example_backed_runtime_chao
     )
 
 
+def test_validate_runtime_integrity_review_surface_accepts_repo_contract() -> None:
+    assert validate_repo.validate_runtime_integrity_review_surface(REPO_ROOT) == []
+
+
+def test_validate_runtime_integrity_review_surface_requires_all_declared_doc_fields(tmp_path: Path) -> None:
+    for relative_path in (
+        "docs/README.md",
+        "docs/AGON_WAVE10_EVAL_LANDING.md",
+        "docs/RUNTIME_INTEGRITY_REVIEW.md",
+        "schemas/runtime-integrity-review.schema.json",
+        "examples/runtime_integrity_review.example.json",
+    ):
+        copy_repo_text(tmp_path, relative_path)
+
+    doc_path = tmp_path / "docs" / "RUNTIME_INTEGRITY_REVIEW.md"
+    doc_text = doc_path.read_text(encoding="utf-8").replace("`evidence_refs`", "evidence refs", 1)
+    doc_path.write_text(doc_text, encoding="utf-8")
+
+    issues = validate_repo.validate_runtime_integrity_review_surface(tmp_path)
+
+    assert any(
+        issue.location == "docs/RUNTIME_INTEGRITY_REVIEW.md"
+        and "runtime integrity review guide must mention '`evidence_refs`'" == issue.message
+        for issue in issues
+    )
+
+
+def test_validate_runtime_integrity_review_surface_uses_repo_local_schema(tmp_path: Path) -> None:
+    for relative_path in (
+        "docs/README.md",
+        "docs/AGON_WAVE10_EVAL_LANDING.md",
+        "docs/RUNTIME_INTEGRITY_REVIEW.md",
+        "schemas/runtime-integrity-review.schema.json",
+        "examples/runtime_integrity_review.example.json",
+    ):
+        copy_repo_text(tmp_path, relative_path)
+
+    schema_path = tmp_path / "schemas" / "runtime-integrity-review.schema.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    schema["required"].append("repo_local_only")
+    schema["properties"]["repo_local_only"] = {"type": "string"}
+    write_json_payload(schema_path, schema)
+
+    issues = validate_repo.validate_runtime_integrity_review_surface(tmp_path)
+
+    assert any(
+        issue.location == "examples/runtime_integrity_review.example.json"
+        and "repo_local_only" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_runtime_integrity_review_surface_rejects_weakened_schema_contract(tmp_path: Path) -> None:
+    for relative_path in (
+        "docs/README.md",
+        "docs/AGON_WAVE10_EVAL_LANDING.md",
+        "docs/RUNTIME_INTEGRITY_REVIEW.md",
+        "schemas/runtime-integrity-review.schema.json",
+        "examples/runtime_integrity_review.example.json",
+    ):
+        copy_repo_text(tmp_path, relative_path)
+
+    schema_path = tmp_path / "schemas" / "runtime-integrity-review.schema.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    schema["properties"]["evidence_refs"]["minItems"] = 1
+    write_json_payload(schema_path, schema)
+
+    issues = validate_repo.validate_runtime_integrity_review_surface(tmp_path)
+
+    assert any(
+        issue.location == "schemas/runtime-integrity-review.schema.json"
+        and "evidence_refs as an exact-count unique repo-ref array" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_runtime_integrity_review_surface_rejects_open_top_level_schema(tmp_path: Path) -> None:
+    for relative_path in (
+        "docs/README.md",
+        "docs/AGON_WAVE10_EVAL_LANDING.md",
+        "docs/RUNTIME_INTEGRITY_REVIEW.md",
+        "schemas/runtime-integrity-review.schema.json",
+        "examples/runtime_integrity_review.example.json",
+    ):
+        copy_repo_text(tmp_path, relative_path)
+
+    schema_path = tmp_path / "schemas" / "runtime-integrity-review.schema.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    schema["additionalProperties"] = True
+    write_json_payload(schema_path, schema)
+
+    issues = validate_repo.validate_runtime_integrity_review_surface(tmp_path)
+
+    assert any(
+        issue.location == "schemas/runtime-integrity-review.schema.json"
+        and "top-level additionalProperties set to false" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_runtime_integrity_review_surface_rejects_missing_center_anchor(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    repo_root = tmp_path / "aoa-evals"
+    for relative_path in (
+        "docs/README.md",
+        "docs/AGON_WAVE10_EVAL_LANDING.md",
+        "docs/RUNTIME_INTEGRITY_REVIEW.md",
+        "schemas/runtime-integrity-review.schema.json",
+        "examples/runtime_integrity_review.example.json",
+    ):
+        copy_repo_text(repo_root, relative_path)
+
+    routing_root = tmp_path / "aoa-routing"
+    write_text(routing_root / "docs" / "LIVE_SESSION_REENTRY_ROUTE_REVIEW.md", "# Live Session Reentry Route Review\n")
+    agents_root = tmp_path / "aoa-agents"
+    write_text(agents_root / "docs" / "SELF_AGENCY_CONTINUITY_LANE.md", "# Self-Agency Continuity Lane\n")
+    memo_root = tmp_path / "aoa-memo"
+    write_text(memo_root / "schemas" / "inquiry_checkpoint.schema.json", "{\n  \"type\": \"object\"\n}\n")
+    write_text(
+        memo_root / "docs" / "SELF_AGENCY_CONTINUITY_WRITEBACK.md",
+        "# Self-Agency Continuity Writeback\n",
+    )
+    center_root = tmp_path / "Agents-of-Abyss"
+    write_text(
+        center_root / "docs" / "EXPERIENCE_V2_0_LIVING_WORKSPACE_CONTINUITY_RUNTIME.md",
+        "# Living Workspace Continuity Runtime\n",
+    )
+
+    monkeypatch.setattr(validate_repo, "AGENTS_OF_ABYSS_ROOT", center_root)
+    monkeypatch.setattr(
+        validate_repo,
+        "REPO_REF_ROOTS",
+        {
+            "aoa-evals": repo_root,
+            "aoa-routing": routing_root,
+            "aoa-agents": agents_root,
+            "aoa-memo": memo_root,
+        },
+    )
+
+    issues = validate_repo.validate_runtime_integrity_review_surface(repo_root)
+
+    assert any(
+        issue.location == "examples/runtime_integrity_review.example.json.budget_ref"
+        and "anchor 'owner-split' was not found" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_runtime_integrity_review_surface_rejects_anchor_drift_in_evidence_refs(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    repo_root = tmp_path / "aoa-evals"
+    for relative_path in (
+        "docs/README.md",
+        "docs/AGON_WAVE10_EVAL_LANDING.md",
+        "docs/RUNTIME_INTEGRITY_REVIEW.md",
+        "docs/TRACE_EVAL_BRIDGE.md",
+        "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+        "schemas/runtime-integrity-review.schema.json",
+        "examples/runtime_integrity_review.example.json",
+    ):
+        copy_repo_text(repo_root, relative_path)
+
+    example_path = repo_root / "examples" / "runtime_integrity_review.example.json"
+    payload = json.loads(example_path.read_text(encoding="utf-8"))
+    payload["evidence_refs"][0] = "repo:aoa-evals/docs/TRACE_EVAL_BRIDGE.md#purpose"
+    write_json_payload(example_path, payload)
+
+    routing_root = tmp_path / "aoa-routing"
+    write_text(routing_root / "docs" / "LIVE_SESSION_REENTRY_ROUTE_REVIEW.md", "# Live Session Reentry Route Review\n")
+    agents_root = tmp_path / "aoa-agents"
+    write_text(agents_root / "docs" / "SELF_AGENCY_CONTINUITY_LANE.md", "# Self-Agency Continuity Lane\n")
+    memo_root = tmp_path / "aoa-memo"
+    write_text(memo_root / "schemas" / "inquiry_checkpoint.schema.json", "{\n  \"type\": \"object\"\n}\n")
+    write_text(
+        memo_root / "docs" / "SELF_AGENCY_CONTINUITY_WRITEBACK.md",
+        "# Self-Agency Continuity Writeback\n",
+    )
+    center_root = tmp_path / "Agents-of-Abyss"
+    write_text(
+        center_root / "docs" / "EXPERIENCE_V2_0_LIVING_WORKSPACE_CONTINUITY_RUNTIME.md",
+        "# Living Workspace Continuity Runtime\n\n## Owner Split\n",
+    )
+
+    monkeypatch.setattr(validate_repo, "AGENTS_OF_ABYSS_ROOT", center_root)
+    monkeypatch.setattr(
+        validate_repo,
+        "REPO_REF_ROOTS",
+        {
+            "aoa-evals": repo_root,
+            "aoa-routing": routing_root,
+            "aoa-agents": agents_root,
+            "aoa-memo": memo_root,
+        },
+    )
+
+    issues = validate_repo.validate_runtime_integrity_review_surface(repo_root)
+
+    assert any(
+        issue.location == "examples/runtime_integrity_review.example.json"
+        and "bounded W10 runtime integrity review surfaces" in issue.message
+        for issue in issues
+    )
+
+
 def test_validate_trace_eval_bridge_surfaces_keeps_local_example_checks_when_playbooks_missing(
     tmp_path: Path,
     monkeypatch,

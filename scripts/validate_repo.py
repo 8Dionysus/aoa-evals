@@ -72,6 +72,9 @@ AOA_ROUTING_ROOT = repo_root_from_env("AOA_ROUTING_ROOT", REPO_ROOT.parent / "ao
 AOA_KAG_ROOT = repo_root_from_env("AOA_KAG_ROOT", REPO_ROOT.parent / "aoa-kag")
 AOA_SDK_ROOT = repo_root_from_env("AOA_SDK_ROOT", REPO_ROOT.parent / "aoa-sdk")
 AOA_STATS_ROOT = repo_root_from_env("AOA_STATS_ROOT", REPO_ROOT.parent / "aoa-stats")
+AGENTS_OF_ABYSS_ROOT = repo_root_from_env(
+    "AGENTS_OF_ABYSS_ROOT", REPO_ROOT.parent / "Agents-of-Abyss"
+)
 ABYSS_STACK_ROOT = resolve_abyss_stack_root(REPO_ROOT.parent / "abyss-stack")
 BUNDLES_DIR_NAME = "bundles"
 EVAL_INDEX_NAME = "EVAL_INDEX.md"
@@ -233,6 +236,53 @@ EVAL_RESULT_RECEIPT_REQUIRED_TOKENS = (
     "`supersedes`",
     "bundle-local verdict meaning",
     "repo-global score",
+)
+RUNTIME_INTEGRITY_REVIEW_DOC_NAME = "docs/RUNTIME_INTEGRITY_REVIEW.md"
+RUNTIME_INTEGRITY_REVIEW_SCHEMA_NAME = "runtime-integrity-review.schema.json"
+RUNTIME_INTEGRITY_REVIEW_EXAMPLE_NAME = "examples/runtime_integrity_review.example.json"
+RUNTIME_INTEGRITY_REVIEW_BUDGET_REF = (
+    "Agents-of-Abyss:docs/EXPERIENCE_V2_0_LIVING_WORKSPACE_CONTINUITY_RUNTIME.md#owner-split"
+)
+RUNTIME_INTEGRITY_REVIEW_REQUIRED_TOKENS = (
+    "`candidate_only`",
+    "`human_review_needed`",
+    "`budget_ref`",
+    "`evidence_refs`",
+    "`replay_requirements`",
+    "`forbidden_claims`",
+    "`sealed_verdict`",
+    "`activation_authority`",
+    "`owner_override`",
+    "`canon_write`",
+    "It does not become proof canon.",
+    "It does not activate runtime continuity.",
+)
+RUNTIME_INTEGRITY_REVIEW_LANDING_TOKENS = (
+    "docs/RUNTIME_INTEGRITY_REVIEW.md",
+    "schemas/runtime-integrity-review.schema.json",
+    "examples/runtime_integrity_review.example.json",
+    "`candidate_only`",
+    "`human_review_needed`",
+)
+RUNTIME_INTEGRITY_REVIEW_EVIDENCE_REFS = (
+    "repo:aoa-evals/docs/TRACE_EVAL_BRIDGE.md",
+    "repo:aoa-evals/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+    "repo:aoa-routing/docs/LIVE_SESSION_REENTRY_ROUTE_REVIEW.md",
+    "repo:aoa-agents/docs/SELF_AGENCY_CONTINUITY_LANE.md",
+    "repo:aoa-memo/schemas/inquiry_checkpoint.schema.json",
+    "repo:aoa-memo/docs/SELF_AGENCY_CONTINUITY_WRITEBACK.md",
+)
+RUNTIME_INTEGRITY_REVIEW_REPLAY_KEYS = (
+    "selected_evidence_only",
+    "owner_local_replay_required",
+    "fail_closed",
+    "publication_requires_review",
+)
+RUNTIME_INTEGRITY_REVIEW_FORBIDDEN_CLAIMS = (
+    "sealed_verdict",
+    "activation_authority",
+    "owner_override",
+    "canon_write",
 )
 RUNTIME_CANDIDATE_TEMPLATE_INDEX_SCHEMA_NAME = "runtime-candidate-template-index.schema.json"
 RUNTIME_CANDIDATE_TEMPLATE_INDEX_NAME = "generated/runtime_candidate_template_index.min.json"
@@ -1868,6 +1918,57 @@ def parse_repo_ref(
             return None
 
     return repo_name, target, anchor or None
+
+
+def parse_named_surface_ref(
+    raw_ref: Any,
+    *,
+    prefix_name: str,
+    repo_root: Path,
+    location: str,
+    issues: list[ValidationIssue],
+) -> tuple[Path, str | None] | None:
+    if not isinstance(raw_ref, str) or not raw_ref:
+        issues.append(ValidationIssue(location, "reference must be a non-empty string"))
+        return None
+
+    prefix = f"{prefix_name}:"
+    if not raw_ref.startswith(prefix):
+        issues.append(ValidationIssue(location, f"reference must start with '{prefix}'"))
+        return None
+
+    path_text, _, anchor = raw_ref[len(prefix) :].partition("#")
+    if not path_text:
+        issues.append(ValidationIssue(location, "reference path must not be empty"))
+        return None
+
+    target = repo_root / path_text
+    if not repo_root.exists():
+        return target, anchor or None
+    if not target.exists():
+        issues.append(
+            ValidationIssue(
+                location,
+                f"reference target does not exist: {prefix_name}/{path_text}",
+            )
+        )
+        return None
+    if anchor:
+        if target.suffix.lower() != ".md":
+            issues.append(
+                ValidationIssue(location, f"markdown anchor refs must target a .md file: '{raw_ref}'")
+            )
+            return None
+        if anchor not in markdown_anchors(target):
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"anchor '{anchor}' was not found in {prefix_name}/{path_text}",
+                )
+            )
+            return None
+
+    return target, anchor or None
 
 
 def _abyss_stack_ref_boundary_message(allowed_roots: Sequence[str]) -> str:
@@ -4713,6 +4814,342 @@ def validate_generated_comparison_spine(
     return issues
 
 
+def validate_runtime_integrity_review_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    doc_path = repo_root / RUNTIME_INTEGRITY_REVIEW_DOC_NAME
+    docs_map_path = repo_root / "docs" / "README.md"
+    landing_path = repo_root / "docs" / "AGON_WAVE10_EVAL_LANDING.md"
+    schema_path = repo_root / SCHEMAS_DIR_NAME / RUNTIME_INTEGRITY_REVIEW_SCHEMA_NAME
+    example_path = repo_root / RUNTIME_INTEGRITY_REVIEW_EXAMPLE_NAME
+
+    doc_text = read_text_or_issue(doc_path, issues, root=repo_root)
+    if doc_text:
+        for token in RUNTIME_INTEGRITY_REVIEW_REQUIRED_TOKENS:
+            if token not in doc_text:
+                issues.append(
+                    ValidationIssue(
+                        relative_location(doc_path, repo_root),
+                        f"runtime integrity review guide must mention '{token}'",
+                    )
+                )
+
+    docs_map_text = read_text_or_issue(docs_map_path, issues, root=repo_root)
+    if docs_map_text and "RUNTIME_INTEGRITY_REVIEW.md" not in docs_map_text:
+        issues.append(
+            ValidationIssue(
+                relative_location(docs_map_path, repo_root),
+                "docs/README.md must route docs/RUNTIME_INTEGRITY_REVIEW.md",
+            )
+        )
+
+    landing_text = read_text_or_issue(landing_path, issues, root=repo_root)
+    if landing_text:
+        for token in RUNTIME_INTEGRITY_REVIEW_LANDING_TOKENS:
+            if token not in landing_text:
+                issues.append(
+                    ValidationIssue(
+                        relative_location(landing_path, repo_root),
+                        f"Agon Wave X landing note must mention '{token}'",
+                    )
+                )
+
+    schema = load_json_payload(schema_path, issues)
+    if schema is None:
+        return issues
+    schema_location = relative_location(schema_path, repo_root)
+    if not validate_inline_schema(schema, location=schema_location, issues=issues):
+        return issues
+    if schema.get("title") != "aoa-evals runtime integrity review":
+        issues.append(
+            ValidationIssue(
+                schema_location,
+                "runtime integrity review schema title must be 'aoa-evals runtime integrity review'",
+            )
+        )
+    if schema.get("additionalProperties") is not False:
+        issues.append(
+            ValidationIssue(
+                schema_location,
+                "runtime integrity review schema must keep top-level additionalProperties set to false",
+            )
+        )
+    required_fields = schema.get("required")
+    expected_required_fields = {
+        "schema_version",
+        "owner_repo",
+        "surface_kind",
+        "status",
+        "budget_ref",
+        "evidence_refs",
+        "replay_requirements",
+        "human_review_needed",
+        "forbidden_claims",
+        "notes",
+    }
+    if not isinstance(required_fields, list) or set(required_fields) != expected_required_fields:
+        issues.append(
+            ValidationIssue(
+                schema_location,
+                "runtime integrity review schema must require the full owner-local contract field set",
+            )
+        )
+    properties = schema.get("properties")
+    if not isinstance(properties, dict):
+        issues.append(
+            ValidationIssue(
+                schema_location,
+                "runtime integrity review schema must define object properties",
+            )
+        )
+    else:
+        const_fields = {
+            "schema_version": "runtime_integrity_review_v1",
+            "owner_repo": "aoa-evals",
+            "surface_kind": "runtime_integrity_review",
+            "status": "candidate_only",
+            "budget_ref": RUNTIME_INTEGRITY_REVIEW_BUDGET_REF,
+            "human_review_needed": True,
+        }
+        for field_name, expected_value in const_fields.items():
+            field_schema = properties.get(field_name)
+            if not isinstance(field_schema, dict) or field_schema.get("const") != expected_value:
+                issues.append(
+                    ValidationIssue(
+                        schema_location,
+                        f"runtime integrity review schema must keep '{field_name}' bound to its owner-local constant",
+                    )
+                )
+
+        evidence_schema = properties.get("evidence_refs")
+        if (
+            not isinstance(evidence_schema, dict)
+            or evidence_schema.get("type") != "array"
+            or evidence_schema.get("uniqueItems") is not True
+            or evidence_schema.get("minItems") != len(RUNTIME_INTEGRITY_REVIEW_EVIDENCE_REFS)
+            or evidence_schema.get("maxItems") != len(RUNTIME_INTEGRITY_REVIEW_EVIDENCE_REFS)
+        ):
+            issues.append(
+                ValidationIssue(
+                    schema_location,
+                    "runtime integrity review schema must keep evidence_refs as an exact-count unique repo-ref array",
+                )
+            )
+        else:
+            evidence_items = evidence_schema.get("items")
+            if (
+                not isinstance(evidence_items, dict)
+                or evidence_items.get("type") != "string"
+                or evidence_items.get("pattern") != r"^repo:[^\s]+/.+$"
+            ):
+                issues.append(
+                    ValidationIssue(
+                        schema_location,
+                        "runtime integrity review schema must keep evidence_refs items constrained to repo-qualified refs",
+                    )
+                )
+
+        replay_schema = properties.get("replay_requirements")
+        if (
+            not isinstance(replay_schema, dict)
+            or replay_schema.get("type") != "object"
+            or replay_schema.get("additionalProperties") is not False
+        ):
+            issues.append(
+                ValidationIssue(
+                    schema_location,
+                    "runtime integrity review schema must keep replay_requirements as a closed object",
+                )
+            )
+        else:
+            replay_required = replay_schema.get("required")
+            if not isinstance(replay_required, list) or set(replay_required) != set(
+                RUNTIME_INTEGRITY_REVIEW_REPLAY_KEYS
+            ):
+                issues.append(
+                    ValidationIssue(
+                        schema_location,
+                        "runtime integrity review schema must require the full replay_requirements key set",
+                    )
+                )
+            replay_properties = replay_schema.get("properties")
+            if not isinstance(replay_properties, dict):
+                issues.append(
+                    ValidationIssue(
+                        schema_location,
+                        "runtime integrity review schema must define replay_requirements properties",
+                    )
+                )
+            else:
+                for field_name in RUNTIME_INTEGRITY_REVIEW_REPLAY_KEYS:
+                    field_schema = replay_properties.get(field_name)
+                    if not isinstance(field_schema, dict) or field_schema.get("const") is not True:
+                        issues.append(
+                            ValidationIssue(
+                                schema_location,
+                                f"runtime integrity review schema must keep replay_requirements.{field_name} bound to true",
+                            )
+                        )
+
+        forbidden_schema = properties.get("forbidden_claims")
+        if (
+            not isinstance(forbidden_schema, dict)
+            or forbidden_schema.get("type") != "array"
+            or forbidden_schema.get("uniqueItems") is not True
+            or forbidden_schema.get("minItems") != len(RUNTIME_INTEGRITY_REVIEW_FORBIDDEN_CLAIMS)
+            or forbidden_schema.get("maxItems") != len(RUNTIME_INTEGRITY_REVIEW_FORBIDDEN_CLAIMS)
+        ):
+            issues.append(
+                ValidationIssue(
+                    schema_location,
+                    "runtime integrity review schema must keep forbidden_claims as an exact-count unique array",
+                )
+            )
+        else:
+            forbidden_items = forbidden_schema.get("items")
+            forbidden_enum = forbidden_items.get("enum") if isinstance(forbidden_items, dict) else None
+            if not isinstance(forbidden_enum, list) or set(forbidden_enum) != set(
+                RUNTIME_INTEGRITY_REVIEW_FORBIDDEN_CLAIMS
+            ):
+                issues.append(
+                    ValidationIssue(
+                        schema_location,
+                        "runtime integrity review schema must keep forbidden_claims bound to the no-authority guard set",
+                    )
+                )
+
+        notes_schema = properties.get("notes")
+        if (
+            not isinstance(notes_schema, dict)
+            or notes_schema.get("type") != "string"
+            or notes_schema.get("minLength") != 1
+        ):
+            issues.append(
+                ValidationIssue(
+                    schema_location,
+                    "runtime integrity review schema must keep notes as a non-empty string",
+                )
+            )
+    schema_validator = Draft202012Validator(schema)
+
+    payload = load_json_payload(example_path, issues)
+    if payload is None:
+        return issues
+    location = relative_location(example_path, repo_root)
+    if not isinstance(payload, dict):
+        issues.append(ValidationIssue(location, "runtime integrity review example must be an object"))
+        return issues
+
+    validate_against_schema(
+        payload,
+        RUNTIME_INTEGRITY_REVIEW_SCHEMA_NAME,
+        location,
+        issues,
+        validator=schema_validator,
+    )
+
+    if payload.get("schema_version") != "runtime_integrity_review_v1":
+        issues.append(
+            ValidationIssue(
+                location,
+                "runtime integrity review example schema_version must be 'runtime_integrity_review_v1'",
+            )
+        )
+    if payload.get("owner_repo") != "aoa-evals":
+        issues.append(ValidationIssue(location, "owner_repo must remain aoa-evals"))
+    if payload.get("surface_kind") != "runtime_integrity_review":
+        issues.append(ValidationIssue(location, "surface_kind must remain runtime_integrity_review"))
+    if payload.get("status") != "candidate_only":
+        issues.append(ValidationIssue(location, "status must remain candidate_only"))
+
+    if payload.get("budget_ref") != RUNTIME_INTEGRITY_REVIEW_BUDGET_REF:
+        issues.append(
+            ValidationIssue(
+                location,
+                "budget_ref must stay bound to the W10 center owner split surface",
+            )
+        )
+    else:
+        parse_named_surface_ref(
+            payload.get("budget_ref"),
+            prefix_name="Agents-of-Abyss",
+            repo_root=AGENTS_OF_ABYSS_ROOT,
+            location=f"{location}.budget_ref",
+            issues=issues,
+        )
+
+    evidence_refs = payload.get("evidence_refs")
+    resolved_evidence_refs: set[str] = set()
+    if not isinstance(evidence_refs, list):
+        issues.append(ValidationIssue(f"{location}.evidence_refs", "evidence_refs must be a list"))
+    else:
+        for index, ref in enumerate(evidence_refs):
+            resolution = parse_repo_ref(
+                ref,
+                location=f"{location}.evidence_refs[{index}]",
+                issues=issues,
+            )
+            if resolution is None:
+                continue
+            repo_name, target_path, anchor = resolution
+            normalized_ref = f"repo:{repo_name}/{target_path.relative_to(REPO_REF_ROOTS[repo_name]).as_posix()}"
+            if anchor:
+                normalized_ref = f"{normalized_ref}#{anchor}"
+            resolved_evidence_refs.add(normalized_ref)
+        if resolved_evidence_refs and resolved_evidence_refs != set(RUNTIME_INTEGRITY_REVIEW_EVIDENCE_REFS):
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "evidence_refs must resolve to the bounded W10 runtime integrity review surfaces",
+                )
+            )
+
+    expected_replay_requirements = {field_name: True for field_name in RUNTIME_INTEGRITY_REVIEW_REPLAY_KEYS}
+    if payload.get("replay_requirements") != expected_replay_requirements:
+        issues.append(
+            ValidationIssue(
+                location,
+                "replay_requirements must keep selected-evidence, owner-local replay, fail-closed, and review-required posture",
+            )
+        )
+
+    if payload.get("human_review_needed") is not True:
+        issues.append(ValidationIssue(location, "human_review_needed must remain true"))
+
+    forbidden_claims = payload.get("forbidden_claims")
+    if not isinstance(forbidden_claims, list):
+        issues.append(
+            ValidationIssue(
+                f"{location}.forbidden_claims",
+                "forbidden_claims must be a list",
+            )
+        )
+    elif set(forbidden_claims) != set(RUNTIME_INTEGRITY_REVIEW_FORBIDDEN_CLAIMS):
+        issues.append(
+            ValidationIssue(
+                location,
+                "forbidden_claims must exactly preserve the bounded no-authority guard",
+            )
+        )
+
+    notes = payload.get("notes")
+    if not isinstance(notes, str) or "Candidate only." not in notes:
+        issues.append(
+            ValidationIssue(
+                location,
+                "runtime integrity review example notes must keep candidate-only posture explicit",
+            )
+        )
+    elif "does not activate runtime continuity" not in notes:
+        issues.append(
+            ValidationIssue(
+                location,
+                "runtime integrity review example notes must keep non-activation posture explicit",
+            )
+        )
+
+    return issues
+
+
 def expected_contract_test_refs(record: EvalBundleRecord) -> set[str]:
     refs: set[str] = set()
     for item in record.manifest.get("evidence", []):
@@ -5702,6 +6139,7 @@ def run_validation(
         all_source_issues, all_records = collect_catalog_records(repo_root)
         if not all_source_issues:
             issues.extend(validate_trace_eval_bridge_surfaces(repo_root, all_records))
+            issues.extend(validate_runtime_integrity_review_surface(repo_root))
             issues.extend(validate_eval_result_receipt_surfaces(repo_root))
             issues.extend(validate_live_receipt_log(repo_root))
             issues.extend(

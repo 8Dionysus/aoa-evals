@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-evals runtime integrity review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "owner_repo",
+    "surface_kind",
+    "status",
+    "budget_ref",
+    "evidence_refs",
+    "replay_requirements",
+    "human_review_needed",
+    "forbidden_claims",
+    "notes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "runtime_integrity_review_v1"
+    },
+    "owner_repo": {
+      "const": "aoa-evals"
+    },
+    "surface_kind": {
+      "const": "runtime_integrity_review"
+    },
+    "status": {
+      "const": "candidate_only"
+    },
+    "budget_ref": {
+      "const": "Agents-of-Abyss:docs/EXPERIENCE_V2_0_LIVING_WORKSPACE_CONTINUITY_RUNTIME.md#owner-split"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^repo:[^\\s]+/.+$"
+      },
+      "minItems": 6,
+      "maxItems": 6,
+      "uniqueItems": true
+    },
+    "replay_requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selected_evidence_only",
+        "owner_local_replay_required",
+        "fail_closed",
+        "publication_requires_review"
+      ],
+      "properties": {
+        "selected_evidence_only": {
+          "const": true
+        },
+        "owner_local_replay_required": {
+          "const": true
+        },
+        "fail_closed": {
+          "const": true
+        },
+        "publication_requires_review": {
+          "const": true
+        }
+      }
+    },
+    "human_review_needed": {
+      "const": true
+    },
+    "forbidden_claims": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "sealed_verdict",
+          "activation_authority",
+          "owner_override",
+          "canon_write"
+        ]
+      },
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true
+    },
+    "notes": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

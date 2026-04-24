@@ -1,0 +1,7 @@
+schema_version: aoa_eval_canary/v1
+eval_id: titan_agent_report_source_refs_canary
+family: titan-swarm-ledger
+claim: Every Titan report and finding must carry source refs.
+expected_failure: source-less report or evidence-less finding.
+status: seed_defined
+owner: aoa-evals

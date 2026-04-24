@@ -1,0 +1,7 @@
+schema_version: aoa_eval_canary/v1
+eval_id: titan_closeout_overclaim_canary
+family: titan-closeout
+claim: Closeout reports must not claim owner truth from seed lineage alone.
+expected_failure: landed owner truth is asserted without owner evidence.
+status: seed_defined
+owner: aoa-evals

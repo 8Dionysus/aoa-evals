@@ -1,0 +1,7 @@
+schema_version: aoa_eval_canary/v1
+eval_id: titan_delta_verdict_frame_canary
+family: titan-summon-discipline
+claim: Delta judgment tasks must include claim, evidence refs and residual-risk question.
+expected_failure: Delta receives exploratory task or evidence-free verdict request.
+status: seed_defined
+owner: aoa-evals

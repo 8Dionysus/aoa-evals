@@ -7,6 +7,48 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+## [0.3.3] - 2026-04-23
+
+### Summary
+
+- this patch expands proof coverage across reviewed closeout carry, Agon
+  prebindings, contradiction closure, verdict-delta scars, mechanical trials,
+  retention rank, schools/lineages/campaigns, KAG/Sophian alignment, and
+  Wave XV epistemic evals
+- recurrence control-plane integrity, recursor readiness, stats re-grounding,
+  Titan canaries/incarnation checks, Experience protocol integrity,
+  certification gates, adoption verdicts, governance refs, and post-W10
+  runtime integrity review surfaces are added or tightened
+- `aoa-evals` remains the bounded proof layer: it carries verdict and
+  integrity evidence without becoming owner truth for runtime, memory, roles,
+  routing, or source-authored meaning
+
+### Added
+
+- reviewed workspace closeout proof-pressure and carry-note surfaces
+- Agon eval prebindings and alignment surfaces across contradiction closure,
+  verdict-delta scar, mechanical trial, retention rank, schools/lineages,
+  campaigns, KAG/Sophian, and epistemic waves
+- recurrence integrity, recursor readiness, stats re-grounding boundary,
+  Titan runtime and incarnation canaries, Experience protocol integrity,
+  certification gates, adoption verdicts, governance verdict refs, and
+  post-W10 runtime integrity proof surfaces
+
+### Changed
+
+- eval review follow-up drift, validator follow-ups, recurrence scorer
+  evidence checks, Experience verdict metadata, adoption/gateway metadata, and
+  wave4 governance verdict references were tightened
+
+### Validation
+
+- `python scripts/release_check.py`
+
+### Notes
+
+- this patch adds proof and integrity surfaces only; it does not promote evals
+  into source, runtime, memory, routing, or role authority
+
 ## [0.3.2] - 2026-04-19
 
 ### Summary

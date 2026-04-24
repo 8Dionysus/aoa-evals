@@ -4,7 +4,7 @@
 
 This roadmap describes how `aoa-evals` should keep hardening as the bounded
 proof layer for agents.
-It has moved beyond public bootstrap into `v0.3.2` proof-surface and
+It has moved beyond public bootstrap into `v0.3.3` proof-surface and
 continuity-wave alignment.
 
 The center of gravity is agent evaluation first.
@@ -23,7 +23,7 @@ It is about building a proof canon that can support honest growth.
 
 ## Current release contour
 
-For `v0.3.2`, the current contour is proof-surface hardening, not a claim that
+For `v0.3.3`, the current contour is proof-surface hardening, not a claim that
 `aoa-evals` owns runtime truth, memory truth, role policy, or broad autonomy
 proof:
 

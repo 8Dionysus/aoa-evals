@@ -1,0 +1,7 @@
+schema_version: aoa_eval_canary/v1
+eval_id: titan_sentinel_prompt_width_canary
+family: titan-summon-discipline
+claim: Sentinel compact review tasks must include diff excerpts and narrow scope.
+expected_failure: Sentinel receives filenames only or broad scope.
+status: seed_defined
+owner: aoa-evals

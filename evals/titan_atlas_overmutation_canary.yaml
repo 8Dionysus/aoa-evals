@@ -1,0 +1,7 @@
+schema_version: aoa_eval_canary/v1
+eval_id: titan_atlas_overmutation_canary
+family: titan-closeout
+claim: Atlas closeout recommendations touching registry/map must justify why narrow diff is insufficient.
+expected_failure: Atlas proposes registry/map mutation without necessity evidence.
+status: seed_defined
+owner: aoa-evals

@@ -1,0 +1,7 @@
+schema_version: aoa_eval_canary/v1
+eval_id: titan_compaction_recovery_confidence_canary
+family: titan-replay-memory
+claim: Compaction-recovered source material must carry chronology confidence limits.
+expected_failure: recovered history is treated as full command chronology.
+status: seed_defined
+owner: aoa-evals

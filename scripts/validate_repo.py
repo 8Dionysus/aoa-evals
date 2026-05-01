@@ -241,7 +241,7 @@ RUNTIME_INTEGRITY_REVIEW_DOC_NAME = "docs/RUNTIME_INTEGRITY_REVIEW.md"
 RUNTIME_INTEGRITY_REVIEW_SCHEMA_NAME = "runtime-integrity-review.schema.json"
 RUNTIME_INTEGRITY_REVIEW_EXAMPLE_NAME = "examples/runtime_integrity_review.example.json"
 RUNTIME_INTEGRITY_REVIEW_BUDGET_REF = (
-    "Agents-of-Abyss:docs/EXPERIENCE_V2_0_LIVING_WORKSPACE_CONTINUITY_RUNTIME.md#owner-split"
+    "Agents-of-Abyss:mechanics/experience/parts/continuity-context/CONTRACT.md#stronger-owner-split"
 )
 RUNTIME_INTEGRITY_REVIEW_REQUIRED_TOKENS = (
     "`candidate_only`",
@@ -5065,7 +5065,7 @@ def validate_runtime_integrity_review_surface(repo_root: Path) -> list[Validatio
         issues.append(
             ValidationIssue(
                 location,
-                "budget_ref must stay bound to the W10 center owner split surface",
+                "budget_ref must stay bound to the Experience continuity-context owner split surface",
             )
         )
     else:

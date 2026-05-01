@@ -3,7 +3,7 @@
   "owner_repo": "aoa-evals",
   "surface_kind": "runtime_integrity_review",
   "status": "candidate_only",
-  "budget_ref": "Agents-of-Abyss:docs/EXPERIENCE_V2_0_LIVING_WORKSPACE_CONTINUITY_RUNTIME.md#owner-split",
+  "budget_ref": "Agents-of-Abyss:mechanics/experience/parts/continuity-context/CONTRACT.md#stronger-owner-split",
   "evidence_refs": [
     "repo:aoa-evals/docs/TRACE_EVAL_BRIDGE.md",
     "repo:aoa-evals/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",

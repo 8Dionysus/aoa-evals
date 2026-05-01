@@ -220,5 +220,20 @@
     "state": "captured",
     "theme_ref": "",
     "title": "Capture reviewed workspace closeout proof-pressure as early eval evidence"
+  },
+  {
+    "band": "latent",
+    "difficulty": "d2_slice",
+    "id": "AOA-EV-Q-0013",
+    "kind": "proof",
+    "milestone_ref": "",
+    "owner_surface": "docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md",
+    "public_safe": true,
+    "repo": "aoa-evals",
+    "risk": "r2_contract",
+    "source_path": "quests/AOA-EV-Q-0013.yaml",
+    "state": "captured",
+    "theme_ref": "",
+    "title": "Capture Agents-of-Abyss v0.4.0 proof-pressure as early eval evidence"
   }
 ]

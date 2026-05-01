@@ -1,0 +1,69 @@
+schema_version: work_quest_v1
+id: AOA-EV-Q-0013
+title: Capture Agents-of-Abyss v0.4.0 proof-pressure as early eval evidence
+summary: Track the Agents-of-Abyss v0.4.0 closeout proof handoff as bounded
+  eval follow-through without turning one center release into a new proof
+  bundle or generic eval.
+repo: aoa-evals
+owner_surface: docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md
+theme_ref: ''
+milestone_ref: ''
+kind: proof
+state: captured
+band: latent
+difficulty: d2_slice
+risk: r2_contract
+control_mode: human_codex_copilot
+delegate_tier: verifier
+fallback_tier: planner
+wrapper_class: codex_primary
+write_scope: repo_local
+split_required: false
+complexity_basis:
+  scope: 1
+  ambiguity: 2
+  boundary: 2
+  verification: 2
+parent: null
+depends_on:
+  - AOA-EV-Q-0012
+activation:
+  mode: on_review_of
+  ref: session:2026-04-24T00-40-24-854570Z-Agents-of-Abyss-checkpoint-growth-6737c0da-e58
+  note: open when the AoA v0.4.0 release closeout preserves the runtime
+    candidate proof cue and eval commit-growth trail as owner-local proof
+    pressure rather than portable verdict authority
+anchor_ref:
+  artifact: reviewed_closeout_writeback_proof_ingress
+  ref: docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md
+  note: keep the AoA release closeout proof pressure as repeated ingress
+    evidence, not as a fresh eval bundle
+handoff_role: proof-maintainer
+evidence:
+  - candidate:proof:aoa-evals-runtime-candidate-template-index-min survived the
+    AoA v0.4.0 reviewed release closeout as eval-shaped owner handoff evidence
+  - candidate:growth:aoa-evals-commit-code remained a growth trail, not a
+    portable verdict or standalone eval bundle
+  - the closeout handoff also named sibling owners, so evals should only keep
+    the proof-pressure readout and leave route, recall, role, skill, and
+    technique follow-through in their owner repos
+harvest:
+  target: eval
+  trigger_count: 2
+  note: consider a bounded eval bundle only if another reviewed center release
+    or owner follow-through route proves the same proof cue with a concrete
+    claim, fixture, and verdict boundary
+opened_at: '2026-05-01'
+touched_at: '2026-05-01'
+tags:
+  - agents-of-abyss
+  - release
+  - proof
+  - closeout
+  - latent
+notes: >
+  This quest deliberately keeps the generic generated surfaces out of canon.
+  The owner-local move is to preserve repeated proof pressure at the existing
+  reviewed-closeout ingress boundary until the next proof claim is specific
+  enough for a real eval bundle.
+public_safe: true

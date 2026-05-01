@@ -78,3 +78,12 @@ source of truth.
 - preserve this note as the re-read anchor while the bundle deepens
 - treat the next stricter gap as reviewed-candidate and distillation adoption,
   not as the already-landed base writeback act
+
+## 2026-05-01 Reinforcement
+
+The `Agents-of-Abyss` v0.4.0 release closeout preserved
+`candidate:proof:aoa-evals-runtime-candidate-template-index-min` again, this
+time beside `candidate:growth:aoa-evals-commit-code`.
+That repeat strengthens the ingress lane but still does not name a new bundle.
+The active owner move is tracked as `AOA-EV-Q-0013` until a later proof claim
+arrives with a concrete fixture, verdict boundary, and acceptance surface.

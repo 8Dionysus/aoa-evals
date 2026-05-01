@@ -19,7 +19,7 @@ See also:
 
 Its status stays `candidate_only`.
 Its `human_review_needed` flag stays `true`.
-Its `budget_ref` points upward to the W10 center owner split rather than
+Its `budget_ref` points upward to the Experience continuity-context owner split rather than
 defining new budget law locally.
 
 It does not become proof canon.

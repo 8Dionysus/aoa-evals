@@ -3911,8 +3911,8 @@ def test_validate_runtime_integrity_review_surface_rejects_missing_center_anchor
     )
     center_root = tmp_path / "Agents-of-Abyss"
     write_text(
-        center_root / "docs" / "EXPERIENCE_V2_0_LIVING_WORKSPACE_CONTINUITY_RUNTIME.md",
-        "# Living Workspace Continuity Runtime\n",
+        center_root / "mechanics" / "experience" / "parts" / "continuity-context" / "CONTRACT.md",
+        "# Continuity Context Contract\n",
     )
 
     monkeypatch.setattr(validate_repo, "AGENTS_OF_ABYSS_ROOT", center_root)
@@ -3931,7 +3931,7 @@ def test_validate_runtime_integrity_review_surface_rejects_missing_center_anchor
 
     assert any(
         issue.location == "examples/runtime_integrity_review.example.json.budget_ref"
-        and "anchor 'owner-split' was not found" in issue.message
+        and "anchor 'stronger-owner-split' was not found" in issue.message
         for issue in issues
     )
 
@@ -3969,8 +3969,8 @@ def test_validate_runtime_integrity_review_surface_rejects_anchor_drift_in_evide
     )
     center_root = tmp_path / "Agents-of-Abyss"
     write_text(
-        center_root / "docs" / "EXPERIENCE_V2_0_LIVING_WORKSPACE_CONTINUITY_RUNTIME.md",
-        "# Living Workspace Continuity Runtime\n\n## Owner Split\n",
+        center_root / "mechanics" / "experience" / "parts" / "continuity-context" / "CONTRACT.md",
+        "# Continuity Context Contract\n\n## Stronger Owner Split\n",
     )
 
     monkeypatch.setattr(validate_repo, "AGENTS_OF_ABYSS_ROOT", center_root)

@@ -219,8 +219,8 @@ Verify the bundle by confirming that:
 
 ## Technique traceability
 
-- `AOA-T-0097` from `8Dionysus/aoa-techniques` at `techniques/system-recovery/degrade-reground-recover/TECHNIQUE.md`
-- `AOA-T-0098` from `8Dionysus/aoa-techniques` at `techniques/validation-patterns/receipt-first-failure-analysis/TECHNIQUE.md`
+- `AOA-T-0097` from `8Dionysus/aoa-techniques` at `techniques/recovery/antifragility-recovery/degrade-reground-recover/TECHNIQUE.md`
+- `AOA-T-0098` from `8Dionysus/aoa-techniques` at `techniques/recovery/antifragility-recovery/receipt-first-failure-analysis/TECHNIQUE.md`
 
 ## Skill traceability
 

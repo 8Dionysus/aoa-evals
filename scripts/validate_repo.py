@@ -406,8 +406,8 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
         "eval_anchor": "aoa-a2a-summon-return-checkpoint",
         "artifact_contract_refs": [
             "repo:aoa-playbooks/playbooks/a2a-summon-return-checkpoint/PLAYBOOK.md#expected-artifacts",
-            "repo:aoa-skills/skills/aoa-summon/references/summon-request-v3.schema.json",
-            "repo:aoa-skills/skills/aoa-summon/references/summon-result-v3.schema.json",
+            "repo:aoa-skills/skills/core/session-growth/aoa-summon/references/summon-request-v3.schema.json",
+            "repo:aoa-skills/skills/core/session-growth/aoa-summon/references/summon-result-v3.schema.json",
             "repo:aoa-sdk/docs/A2A_WAVE5_CODEX_RETURN_CHECKPOINT.md",
             "repo:aoa-sdk/examples/a2a/codex_local_target.example.json",
             "repo:aoa-sdk/examples/a2a/return_transition_decision.example.json",

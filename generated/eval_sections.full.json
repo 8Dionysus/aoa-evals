@@ -264,7 +264,7 @@
           "key": "verification"
         },
         {
-          "content_markdown": "- `AOA-T-0097` from `8Dionysus/aoa-techniques` at `techniques/system-recovery/degrade-reground-recover/TECHNIQUE.md`\n- `AOA-T-0098` from `8Dionysus/aoa-techniques` at `techniques/validation-patterns/receipt-first-failure-analysis/TECHNIQUE.md`",
+          "content_markdown": "- `AOA-T-0097` from `8Dionysus/aoa-techniques` at `techniques/recovery/antifragility-recovery/degrade-reground-recover/TECHNIQUE.md`\n- `AOA-T-0098` from `8Dionysus/aoa-techniques` at `techniques/recovery/antifragility-recovery/receipt-first-failure-analysis/TECHNIQUE.md`",
           "heading": "Technique traceability",
           "key": "technique_traceability"
         },

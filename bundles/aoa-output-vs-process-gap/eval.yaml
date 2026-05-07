@@ -28,12 +28,12 @@ score_interpretation_bound: explicit
 technique_dependencies:
   - id: AOA-T-0001
     repo: 8Dionysus/aoa-techniques
-    path: techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md
+    path: techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md
 
 skill_dependencies:
   - name: aoa-change-protocol
     repo: 8Dionysus/aoa-skills
-    path: skills/aoa-change-protocol/SKILL.md
+    path: skills/core/engineering/aoa-change-protocol/SKILL.md
 
 relations:
   - type: complements

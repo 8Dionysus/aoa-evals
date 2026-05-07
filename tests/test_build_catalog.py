@@ -49,14 +49,14 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
         {
             "id": "AOA-T-0001",
             "repo": "aoa-techniques",
-            "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+            "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
         }
     ]
     assert entry["skill_refs"] == [
         {
             "name": "aoa-change-protocol",
             "repo": "aoa-skills",
-            "path": "skills/aoa-change-protocol/SKILL.md",
+            "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
         }
     ]
     assert entry["relations"] == [{"type": "complements", "target": "aoa-catalog-shape-2"}]
@@ -128,7 +128,7 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
             {
                 "id": "AOA-T-0001",
                 "repo": "aoa-techniques",
-                "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+                "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
             }
         ],
         "skill_dependencies": ["aoa-change-protocol"],
@@ -136,7 +136,7 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
             {
                 "name": "aoa-change-protocol",
                 "repo": "aoa-skills",
-                "path": "skills/aoa-change-protocol/SKILL.md",
+                "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
             }
         ],
         "evidence_kinds": ["origin_need", "integrity_check"],

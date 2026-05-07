@@ -19,10 +19,10 @@ technique_dependencies: []
 skill_dependencies:
   - name: aoa-checkpoint-closeout-bridge
     repo: 8Dionysus/aoa-skills
-    path: skills/aoa-checkpoint-closeout-bridge/SKILL.md
+    path: skills/core/session-growth/aoa-checkpoint-closeout-bridge/SKILL.md
   - name: aoa-contract-test
     repo: 8Dionysus/aoa-skills
-    path: skills/aoa-contract-test/SKILL.md
+    path: skills/core/engineering/aoa-contract-test/SKILL.md
 relations:
   - type: complements
     target: aoa-return-anchor-integrity

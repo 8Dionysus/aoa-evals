@@ -1,4 +1,5 @@
 # Narrow ownership map for governance-critical eval surfaces.
+/.agents/ @8Dionysus
 /.github/ @8Dionysus
 /scripts/ @8Dionysus
 /docs/ @8Dionysus

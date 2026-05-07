@@ -17,6 +17,7 @@ def _env() -> dict[str, str]:
         "AOA_AGENTS_ROOT": "aoa-agents",
         "AOA_PLAYBOOKS_ROOT": "aoa-playbooks",
         "AOA_MEMO_ROOT": "aoa-memo",
+        "ABYSS_STACK_ROOT": "abyss-stack",
     }
     for env_var, repo_name in deps.items():
         candidates = [

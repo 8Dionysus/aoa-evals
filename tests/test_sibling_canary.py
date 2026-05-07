@@ -95,6 +95,7 @@ def test_sibling_canary_prefers_source_checkout_for_abyss_stack(tmp_path: Path, 
     (source_root / "scripts" / "validate_stack.py").write_text("print('ok')\n", encoding="utf-8")
     (source_root / "schemas" / "runtime-return-event.schema.json").write_text("{}\n", encoding="utf-8")
     monkeypatch.setenv("HOME", str(home_root))
+    monkeypatch.delenv("ABYSS_STACK_ROOT", raising=False)
 
     matrix_path = repo_root / "scripts" / "sibling_canary_matrix.json"
     write_matrix(

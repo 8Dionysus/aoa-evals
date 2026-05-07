@@ -21,7 +21,7 @@ technique_dependencies: []
 skill_dependencies:
   - name: aoa-approval-gate-check
     repo: 8Dionysus/aoa-skills
-    path: skills/aoa-approval-gate-check/SKILL.md
+    path: skills/risk/aoa-approval-gate-check/SKILL.md
 
 relations:
   - type: complements

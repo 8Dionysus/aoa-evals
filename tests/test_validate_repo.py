@@ -617,14 +617,14 @@ def make_eval_bundle(
         {
             "id": "AOA-T-0001",
             "repo": "8Dionysus/aoa-techniques",
-            "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+            "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
         }
     ]
     skill_dependencies = skill_dependencies or [
         {
             "name": "aoa-change-protocol",
             "repo": "8Dionysus/aoa-skills",
-            "path": "skills/aoa-change-protocol/SKILL.md",
+            "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
         }
     ]
     relations = relations or []
@@ -2980,7 +2980,7 @@ def test_validate_repo_rejects_technique_dependency_order_mismatch(tmp_path: Pat
         {
             "id": "AOA-T-0001",
             "repo": "8Dionysus/aoa-techniques",
-            "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+            "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
         },
         {
             "id": "AOA-T-0002",
@@ -3019,7 +3019,7 @@ def test_validate_repo_rejects_skill_dependency_order_mismatch(tmp_path: Path) -
         {
             "name": "aoa-change-protocol",
             "repo": "8Dionysus/aoa-skills",
-            "path": "skills/aoa-change-protocol/SKILL.md",
+            "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
         },
         {
             "name": "aoa-approval-gate-check",
@@ -3091,11 +3091,16 @@ def test_validate_repo_accepts_dependency_targets_when_roots_exist(
     techniques_root = tmp_path / ".deps" / "aoa-techniques"
     skills_root = tmp_path / ".deps" / "aoa-skills"
     write_text(
-        techniques_root / "techniques" / "agent-workflows" / "plan-diff-apply-verify-report" / "TECHNIQUE.md",
+        techniques_root
+        / "techniques"
+        / "execution"
+        / "agent-workflows-core"
+        / "plan-diff-apply-verify-report"
+        / "TECHNIQUE.md",
         "# Technique\n",
     )
     write_text(
-        skills_root / "skills" / "aoa-change-protocol" / "SKILL.md",
+        skills_root / "skills" / "core" / "engineering" / "aoa-change-protocol" / "SKILL.md",
         "# Skill\n",
     )
 
@@ -3126,7 +3131,7 @@ def test_validate_repo_rejects_missing_dependency_target_when_root_exists(
     issues = run_validation(tmp_path, eval_name="aoa-missing-dependency-target")
 
     assert any(
-        "dependency target does not exist: aoa-techniques/techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md"
+        "dependency target does not exist: aoa-techniques/techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md"
         in issue.message
         for issue in issues
     )

@@ -19,10 +19,10 @@ score_interpretation_bound: explicit
 technique_dependencies:
   - id: AOA-T-0097
     repo: 8Dionysus/aoa-techniques
-    path: techniques/system-recovery/degrade-reground-recover/TECHNIQUE.md
+    path: techniques/recovery/antifragility-recovery/degrade-reground-recover/TECHNIQUE.md
   - id: AOA-T-0098
     repo: 8Dionysus/aoa-techniques
-    path: techniques/validation-patterns/receipt-first-failure-analysis/TECHNIQUE.md
+    path: techniques/recovery/antifragility-recovery/receipt-first-failure-analysis/TECHNIQUE.md
 
 skill_dependencies: []
 

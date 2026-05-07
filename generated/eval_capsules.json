@@ -26,12 +26,12 @@
       "skill_refs": [
         {
           "name": "aoa-checkpoint-closeout-bridge",
-          "path": "skills/aoa-checkpoint-closeout-bridge/SKILL.md",
+          "path": "skills/core/session-growth/aoa-checkpoint-closeout-bridge/SKILL.md",
           "repo": "aoa-skills"
         },
         {
           "name": "aoa-contract-test",
-          "path": "skills/aoa-contract-test/SKILL.md",
+          "path": "skills/core/engineering/aoa-contract-test/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -70,7 +70,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -82,7 +82,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -118,12 +118,12 @@
       "technique_refs": [
         {
           "id": "AOA-T-0097",
-          "path": "techniques/system-recovery/degrade-reground-recover/TECHNIQUE.md",
+          "path": "techniques/recovery/antifragility-recovery/degrade-reground-recover/TECHNIQUE.md",
           "repo": "aoa-techniques"
         },
         {
           "id": "AOA-T-0098",
-          "path": "techniques/validation-patterns/receipt-first-failure-analysis/TECHNIQUE.md",
+          "path": "techniques/recovery/antifragility-recovery/receipt-first-failure-analysis/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -158,7 +158,7 @@
       "skill_refs": [
         {
           "name": "aoa-approval-gate-check",
-          "path": "skills/aoa-approval-gate-check/SKILL.md",
+          "path": "skills/risk/aoa-approval-gate-check/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -199,7 +199,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -211,7 +211,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -248,7 +248,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -260,7 +260,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -295,7 +295,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -307,7 +307,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -368,12 +368,12 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         },
         {
           "name": "aoa-bounded-context-map",
-          "path": "skills/aoa-bounded-context-map/SKILL.md",
+          "path": "skills/core/engineering/aoa-bounded-context-map/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -385,7 +385,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -414,7 +414,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -426,7 +426,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -489,7 +489,7 @@
       "skill_refs": [
         {
           "name": "aoa-contract-test",
-          "path": "skills/aoa-contract-test/SKILL.md",
+          "path": "skills/core/engineering/aoa-contract-test/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -501,7 +501,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -535,7 +535,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -547,7 +547,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -654,7 +654,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -666,7 +666,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -837,7 +837,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -849,7 +849,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -884,7 +884,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -896,7 +896,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -957,12 +957,12 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         },
         {
           "name": "aoa-bounded-context-map",
-          "path": "skills/aoa-bounded-context-map/SKILL.md",
+          "path": "skills/core/engineering/aoa-bounded-context-map/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -974,7 +974,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -1019,7 +1019,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -1031,7 +1031,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -1066,7 +1066,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -1078,7 +1078,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -1176,7 +1176,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -1188,7 +1188,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -1218,12 +1218,12 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         },
         {
           "name": "aoa-bounded-context-map",
-          "path": "skills/aoa-bounded-context-map/SKILL.md",
+          "path": "skills/core/engineering/aoa-bounded-context-map/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -1235,7 +1235,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -1315,12 +1315,12 @@
       "technique_refs": [
         {
           "id": "AOA-T-0097",
-          "path": "techniques/system-recovery/degrade-reground-recover/TECHNIQUE.md",
+          "path": "techniques/recovery/antifragility-recovery/degrade-reground-recover/TECHNIQUE.md",
           "repo": "aoa-techniques"
         },
         {
           "id": "AOA-T-0098",
-          "path": "techniques/validation-patterns/receipt-first-failure-analysis/TECHNIQUE.md",
+          "path": "techniques/recovery/antifragility-recovery/receipt-first-failure-analysis/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -1355,7 +1355,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -1367,7 +1367,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -1402,7 +1402,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -1414,7 +1414,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],
@@ -1450,7 +1450,7 @@
       "skill_refs": [
         {
           "name": "aoa-change-protocol",
-          "path": "skills/aoa-change-protocol/SKILL.md",
+          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
           "repo": "aoa-skills"
         }
       ],
@@ -1462,7 +1462,7 @@
       "technique_refs": [
         {
           "id": "AOA-T-0001",
-          "path": "techniques/agent-workflows/plan-diff-apply-verify-report/TECHNIQUE.md",
+          "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
           "repo": "aoa-techniques"
         }
       ],

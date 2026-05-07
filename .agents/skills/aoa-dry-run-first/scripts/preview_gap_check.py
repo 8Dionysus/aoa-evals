@@ -18,10 +18,14 @@ def _load_payload(path: str | None) -> dict[str, Any]:
 
 
 def check_gaps(payload: dict[str, Any]) -> dict[str, Any]:
-    raw_preview_steps = payload.get("preview_steps") or []
-    preview_steps = [step for step in raw_preview_steps if isinstance(step, dict)]
-    apply_step = payload.get("apply_step") or {}
-    limitations = payload.get("limitations") or payload.get("honest_boundaries") or []
+    raw_preview_steps = payload["preview_steps"] if "preview_steps" in payload else []
+    apply_step = payload["apply_step"] if "apply_step" in payload else {}
+    if "limitations" in payload:
+        raw_limitations = payload["limitations"]
+    elif "honest_boundaries" in payload:
+        raw_limitations = payload["honest_boundaries"]
+    else:
+        raw_limitations = []
 
     gaps: list[str] = []
     notes: list[str] = []
@@ -29,7 +33,7 @@ def check_gaps(payload: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(raw_preview_steps, list):
         gaps.append("preview-steps-not-list")
         raw_preview_steps = []
-        preview_steps = []
+    preview_steps = [step for step in raw_preview_steps if isinstance(step, dict)]
     malformed_preview_count = len(raw_preview_steps) - len(preview_steps)
     if malformed_preview_count:
         gaps.append("preview-step-not-object")
@@ -37,6 +41,10 @@ def check_gaps(payload: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(apply_step, dict):
         gaps.append("apply-step-not-object")
         apply_step = {}
+    if not isinstance(raw_limitations, list):
+        gaps.append("limitations-not-list")
+        raw_limitations = []
+    limitations = raw_limitations
 
     apply_command = str(apply_step.get("command", "")).strip()
     if not preview_steps:

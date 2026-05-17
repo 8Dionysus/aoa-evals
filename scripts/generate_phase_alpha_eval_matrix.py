@@ -9,9 +9,28 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 EXAMPLE_PATH = REPO_ROOT / "examples" / "phase_alpha_eval_matrix.example.json"
-PLAYBOOKS_ROOT = Path(
-    os.environ.get("AOA_PLAYBOOKS_ROOT", REPO_ROOT.parent / "aoa-playbooks")
-).expanduser().resolve()
+
+
+def candidate_playbooks_roots() -> list[Path]:
+    candidates = [REPO_ROOT.parent / "aoa-playbooks"]
+    for ancestor in REPO_ROOT.parents:
+        candidate = ancestor / "aoa-playbooks"
+        if candidate not in candidates:
+            candidates.append(candidate)
+    return candidates
+
+
+def resolve_playbooks_root() -> Path:
+    env_root = os.environ.get("AOA_PLAYBOOKS_ROOT")
+    if env_root:
+        return Path(env_root).expanduser().resolve()
+    for candidate in candidate_playbooks_roots():
+        if (candidate / "generated" / "phase_alpha_run_matrix.min.json").is_file():
+            return candidate.resolve()
+    return candidate_playbooks_roots()[0].expanduser().resolve()
+
+
+PLAYBOOKS_ROOT = resolve_playbooks_root()
 PLAYBOOK_MATRIX_PATH = PLAYBOOKS_ROOT / "generated" / "phase_alpha_run_matrix.min.json"
 OUTPUT_PATH = REPO_ROOT / "generated" / "phase_alpha_eval_matrix.min.json"
 
@@ -137,6 +156,12 @@ def build_phase_alpha_eval_matrix_payload() -> dict[str, object]:
                 }
             )
 
+        optional_control_path_rerun = example_run.get("optional_control_path_rerun", False)
+        if not isinstance(optional_control_path_rerun, bool):
+            raise SystemExit(
+                f"[error] {run_id} optional_control_path_rerun must be a boolean when present"
+            )
+
         entries.append(
             {
                 "run_id": run_id,
@@ -144,7 +169,7 @@ def build_phase_alpha_eval_matrix_payload() -> dict[str, object]:
                 "playbook_id": run.get("playbook_id"),
                 "playbook_name": run.get("playbook_name"),
                 "runtime_lane": run.get("runtime_path_key"),
-                "optional_control_path_rerun": bool(example_run.get("optional_control_path_rerun")),
+                "optional_control_path_rerun": optional_control_path_rerun,
                 "required_evals": required_evals,
             }
         )

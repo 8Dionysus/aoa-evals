@@ -38,13 +38,15 @@ def test_phase_alpha_memo_contradiction_rerun_report_stays_bounded_and_non_expor
     assert report["verdict"] == "supports bounded claim"
     assert "export_ready: true" in manifest_text
     assert selection["selection_id"] in report["case_family"]
-    assert "runtime sidecar consumed" in report["claim_boundary"]
+    assert "selected Phase Alpha evidence path" in report["claim_boundary"]
+    assert "not a live contradiction-consumer execution claim" in report["claim_boundary"]
+    assert "broad memo readiness" in report["claim_boundary"]
 
     limitations = " ".join(report["limitations"])
     for bounded_limit in (
-        "not broad memo readiness",
         "does not prove contradiction resolution",
         "does not prove permission or authority safety",
+        "does not prove that a live runtime contradiction consumer executed",
     ):
         assert bounded_limit in limitations
     assert "does not make aoa-memo-contradiction-integrity export-ready" not in limitations

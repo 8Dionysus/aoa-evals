@@ -229,6 +229,11 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         )
 
     def test_phase_alpha_eval_matrix_is_generator_backed_and_tracks_required_evals(self) -> None:
+        if not phase_alpha_eval_matrix_builder.PLAYBOOK_MATRIX_PATH.is_file():
+            self.skipTest(
+                f"aoa-playbooks phase alpha matrix is unavailable: "
+                f"{phase_alpha_eval_matrix_builder.PLAYBOOK_MATRIX_PATH}"
+            )
         current = load_json("generated/phase_alpha_eval_matrix.min.json")
         expected = phase_alpha_eval_matrix_builder.build_phase_alpha_eval_matrix_payload()
 

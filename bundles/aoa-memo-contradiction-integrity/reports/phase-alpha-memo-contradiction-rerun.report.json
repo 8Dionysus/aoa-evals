@@ -3,15 +3,15 @@
   "bundle_status": "draft",
   "object_under_evaluation": "integrity of contradiction-visible memo consumption on lifecycle-aware object recall paths",
   "verdict": "supports bounded claim",
-  "claim_boundary": "On the selected Phase Alpha evidence path, the runtime sidecar consumed the log-backed contradiction rerun selection and the generated aoa-memo object surfaces. It verified that preferred, historical, withdrawn, and still-open lifecycle posture, contradiction refs, replacement refs, and audit walkback all remain inspectable on the bounded object-facing path. This supports the bundle claim only for this Phase Alpha runtime sidecar path, not for broad memo readiness.",
+  "claim_boundary": "On the selected Phase Alpha evidence path, the log-backed contradiction rerun selection points to generated aoa-memo object surfaces where preferred, historical, withdrawn, and still-open lifecycle posture, contradiction refs, replacement refs, and audit walkback remain inspectable. This supports only a bounded evidence-selection and object-readability claim for the Phase Alpha path, not a live contradiction-consumer execution claim or broad memo readiness.",
   "limitations": [
     "This report reads the selected Phase Alpha runtime evidence and generated memo object surfaces only.",
-    "This report proves a bounded runtime sidecar consumer path, not broad memo readiness.",
+    "This report does not prove that a live runtime contradiction consumer executed these memo objects on the worker path.",
     "This report does not prove contradiction resolution.",
     "This report does not prove permission or authority safety from memo fields.",
     "This report does not replace approval, return-anchor, or verification evals."
   ],
-  "case_family": "phase-alpha-memo-contradiction-rerun-v1 runtime sidecar run over memo-contradiction-guardrail-v1",
+  "case_family": "phase-alpha-memo-contradiction-rerun-v1 selected evidence over memo-contradiction-guardrail-v1",
   "breakdown": {
     "lifecycle_visibility": "strong",
     "current_recall_honesty": "strong",
@@ -19,7 +19,7 @@
     "replacement_vs_withdrawal_clarity": "strong",
     "audit_trace_visibility": "strong"
   },
-  "strongest_contradiction_signal": "The runtime sidecar verified the generated memo object catalog and sections for memo.claim.2026-04-03.phase-alpha-closure-with-residual-runtime-history, memo.claim.2026-04-03.phase-alpha-rerun-pending-handoff, memo.claim.2026-04-03.phase-alpha-runtime-history-fully-retired, memo.claim.2026-04-03.phase-alpha-runtime-history-later-infra-track, memo.audit.2026-04-03.phase-alpha-rerun-pending-supersession, and memo.audit.2026-04-03.phase-alpha-runtime-history-overread-retraction while preserving log-backed Phase Alpha evidence refs.",
+  "strongest_contradiction_signal": "The selected evidence points to generated memo object catalog and section records for memo.claim.2026-04-03.phase-alpha-closure-with-residual-runtime-history, memo.claim.2026-04-03.phase-alpha-rerun-pending-handoff, memo.claim.2026-04-03.phase-alpha-runtime-history-fully-retired, memo.claim.2026-04-03.phase-alpha-runtime-history-later-infra-track, memo.audit.2026-04-03.phase-alpha-rerun-pending-supersession, and memo.audit.2026-04-03.phase-alpha-runtime-history-overread-retraction while preserving log-backed Phase Alpha evidence refs.",
   "strongest_contradiction_risk": "The result is bounded to one Phase Alpha sidecar run and still must not be read as contradiction resolution or full memo readiness.",
   "case_notes": [
     {
@@ -53,7 +53,7 @@
       "case_id": "PACR-04",
       "read_path": "next_pass_brief.md -> failure_map.json -> remediation_decision.json -> handoff_record.json",
       "contradiction_reading": "supports bounded claim",
-      "lifecycle_note": "The runtime sidecar confirms the memo-only inspect-capsule-expand boundary before trusting the memo object surfaces.",
+      "lifecycle_note": "The selected evidence records the memo-only inspect-capsule-expand boundary before any broader trust in the memo object surfaces.",
       "current_recall_note": "Runtime logs anchor the sidecar to the bounded Phase Alpha rerun rather than free-text recall.",
       "contradiction_note": "The runtime contradiction map keeps the residual historical-script lineage risk explicit.",
       "audit_or_replacement_note": "The handoff record keeps eval readout, memo writeback, and recall-driven rerun in the same evidence chain."

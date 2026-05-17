@@ -49,19 +49,20 @@ def make_questbook_surface(repo_root: Path) -> None:
     for relative_path in [
         "QUESTBOOK.md",
         "docs/QUESTBOOK_EVAL_INTEGRATION.md",
+        "docs/ORCHESTRATOR_PROOF_ALIGNMENT.md",
+        "docs/UNLOCK_PROOF_BRIDGE.md",
         "schemas/quest.schema.json",
         "schemas/quest_dispatch.schema.json",
+        "schemas/unlock_proof_catalog.schema.json",
         "generated/quest_catalog.min.json",
         "generated/quest_dispatch.min.json",
         "generated/quest_catalog.min.example.json",
         "generated/quest_dispatch.min.example.json",
-        "quests/AOA-EV-Q-0001.yaml",
-        "quests/AOA-EV-Q-0002.yaml",
-        "quests/AOA-EV-Q-0003.yaml",
-        "quests/AOA-EV-Q-0004.yaml",
-        "quests/AOA-EV-Q-0005.yaml",
+        "generated/unlock_proof_cards.min.example.json",
     ]:
         copy_repo_text(repo_root, relative_path)
+    for quest_path in sorted((REPO_ROOT / "quests").glob("AOA-EV-Q-*.yaml")):
+        copy_repo_text(repo_root, f"quests/{quest_path.name}")
 
 
 def rewrite_questbook_projections(repo_root: Path) -> None:
@@ -146,6 +147,18 @@ def make_phase_alpha_eval_matrix_surface(repo_root: Path) -> None:
         "scripts/generate_phase_alpha_eval_matrix.py",
     ]:
         copy_repo_text(repo_root, relative_path)
+
+
+def phase_alpha_playbooks_root_or_skip() -> Path:
+    candidates = [
+        validate_repo.AOA_PLAYBOOKS_ROOT,
+        REPO_ROOT.parent / "aoa-playbooks",
+        Path("/srv/AbyssOS/aoa-playbooks"),
+    ]
+    for candidate in candidates:
+        if (candidate / "generated" / "phase_alpha_run_matrix.min.json").is_file():
+            return candidate
+    pytest.skip("aoa-playbooks phase alpha matrix is unavailable")
 
 
 def write_yaml_payload(path: Path, payload: object) -> None:
@@ -1769,6 +1782,23 @@ def test_validate_repo_requires_valid_calendar_public_safety_review_date(tmp_pat
 
     assert any(
         "public_safety_reviewed_at must be a valid calendar date" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_rejects_future_public_safety_review_date(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-canonical-future-public-safety-review",
+        status="canonical",
+        public_safety_reviewed_at="2099-01-01",
+        portability_level="broad",
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        "public_safety_reviewed_at must not be in the future" in issue.message
         for issue in issues
     )
 
@@ -4150,13 +4180,9 @@ class TestValidateQuestbookSurface:
     def test_discover_quest_names_includes_additive_quests(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
 
-        assert validate_repo.discover_quest_names(tmp_path) == [
-            "AOA-EV-Q-0001",
-            "AOA-EV-Q-0002",
-            "AOA-EV-Q-0003",
-            "AOA-EV-Q-0004",
-            "AOA-EV-Q-0005",
-        ]
+        expected_quest_names = [path.stem for path in sorted((REPO_ROOT / "quests").glob("AOA-EV-Q-*.yaml"))]
+
+        assert validate_repo.discover_quest_names(tmp_path) == expected_quest_names
 
     def test_missing_tracked_id_in_questbook_fails(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
@@ -4347,9 +4373,10 @@ class TestValidateQuestbookSurface:
 
         catalog_projection = validate_repo.build_quest_catalog_projection(tmp_path)
         dispatch_projection = validate_repo.build_quest_dispatch_projection(tmp_path)
+        expected_quest_names = [path.stem for path in sorted((REPO_ROOT / "quests").glob("AOA-EV-Q-*.yaml"))]
 
-        assert [entry["id"] for entry in catalog_projection][-1] == "AOA-EV-Q-0005"
-        assert [entry["id"] for entry in dispatch_projection][-1] == "AOA-EV-Q-0005"
+        assert [entry["id"] for entry in catalog_projection] == expected_quest_names
+        assert [entry["id"] for entry in dispatch_projection] == expected_quest_names
 
     def test_runtime_candidate_template_index_validates_for_current_repo(self) -> None:
         issues = validate_repo.validate_runtime_candidate_template_index(REPO_ROOT)
@@ -4469,6 +4496,44 @@ class TestValidateQuestbookSurface:
             )
         ]
 
+    def test_quest_projection_records_validate_full_quest_schema(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        quest_path = tmp_path / "quests" / "AOA-EV-Q-0001.yaml"
+        quest = yaml.safe_load(quest_path.read_text(encoding="utf-8"))
+        quest.pop("title", None)
+        write_yaml_payload(quest_path, quest)
+
+        with pytest.raises(ValueError, match=r"violates .*quest\.schema\.json"):
+            validate_repo.build_quest_catalog_projection(tmp_path)
+
+    def test_questbook_validation_ignores_missing_agents_checkout_for_orchestrator_refs(
+        self, tmp_path: Path, monkeypatch
+    ) -> None:
+        make_questbook_surface(tmp_path)
+        monkeypatch.setattr(validate_repo, "AOA_AGENTS_ROOT", tmp_path / "missing-aoa-agents")
+
+        issues = validate_repo.validate_questbook_surface(tmp_path)
+
+        assert not any("orchestrator class catalog" in issue.message for issue in issues)
+
+    def test_questbook_validation_rejects_unexpected_catalog_ids(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        rewrite_questbook_projections(tmp_path)
+        catalog_path = tmp_path / "generated" / "quest_catalog.min.json"
+        catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+        catalog.append(
+            {
+                **catalog[0],
+                "id": "AOA-EV-Q-9999",
+                "source_path": "quests/AOA-EV-Q-9999.yaml",
+            }
+        )
+        write_json_payload(catalog_path, catalog)
+
+        issues = validate_repo.validate_questbook_surface(tmp_path)
+
+        assert any("unexpected quest id" in issue.message for issue in issues)
+
     def test_phase_alpha_eval_matrix_validates_for_current_repo(self) -> None:
         issues = validate_repo.validate_phase_alpha_eval_matrix(REPO_ROOT)
 
@@ -4481,7 +4546,9 @@ class TestValidateQuestbookSurface:
         payload["runs"][0]["required_evals"][0]["eval_anchor"] = "aoa-bounded-change-quality"
         write_json_payload(matrix_path, payload)
 
-        monkeypatch.setenv("AOA_PLAYBOOKS_ROOT", str(validate_repo.AOA_PLAYBOOKS_ROOT))
+        playbooks_root = phase_alpha_playbooks_root_or_skip()
+        monkeypatch.setattr(validate_repo, "AOA_PLAYBOOKS_ROOT", playbooks_root)
+        monkeypatch.setenv("AOA_PLAYBOOKS_ROOT", str(playbooks_root))
         issues = validate_repo.validate_phase_alpha_eval_matrix(tmp_path)
 
         assert any(
@@ -4489,3 +4556,33 @@ class TestValidateQuestbookSurface:
             and "out of date or mismatched" in issue.message
             for issue in issues
         )
+
+    def test_phase_alpha_eval_matrix_rejects_non_bool_optional_rerun(
+        self, tmp_path: Path, monkeypatch
+    ) -> None:
+        make_phase_alpha_eval_matrix_surface(tmp_path)
+        playbooks_root = phase_alpha_playbooks_root_or_skip()
+        monkeypatch.setenv("AOA_PLAYBOOKS_ROOT", str(playbooks_root))
+        example_path = tmp_path / "examples" / "phase_alpha_eval_matrix.example.json"
+        payload = json.loads(example_path.read_text(encoding="utf-8"))
+        payload["runs"][0]["optional_control_path_rerun"] = "false"
+        write_json_payload(example_path, payload)
+        builder = validate_repo.load_phase_alpha_eval_matrix_builder(tmp_path)
+
+        with pytest.raises(SystemExit, match="optional_control_path_rerun must be a boolean"):
+            builder.build_phase_alpha_eval_matrix_payload()
+
+    def test_live_receipt_log_enforces_datetime_format(self, tmp_path: Path) -> None:
+        copy_repo_text(tmp_path, "schemas/stats-event-envelope.schema.json")
+        receipt = json.loads((REPO_ROOT / "examples" / "eval_result_receipt.example.json").read_text(encoding="utf-8"))
+        receipt["observed_at"] = "not-a-date-time"
+        log_path = tmp_path / ".aoa" / "live_receipts" / "eval-result-receipts.jsonl"
+        log_path.parent.mkdir(parents=True)
+        log_path.write_text(json.dumps(receipt) + "\n", encoding="utf-8")
+
+        issues = validate_repo.validate_live_receipt_log(tmp_path)
+
+        assert any("date-time" in issue.message for issue in issues)
+
+    def test_titan_canary_surfaces_validate_current_seed_set(self) -> None:
+        assert validate_repo.validate_titan_canary_surfaces(REPO_ROOT) == []

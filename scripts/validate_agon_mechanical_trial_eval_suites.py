@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 import hashlib, json, pathlib, sys
+from jsonschema import Draft202012Validator
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SRC = ROOT / 'config/agon_mechanical_trial_eval_suites.seed.json'
 OUT = ROOT / 'generated/agon_mechanical_trial_eval_suite_registry.min.json'
+ITEM_SCHEMA = ROOT / 'schemas/agon_mechanical_trial_eval_suites.schema.json'
+REGISTRY_SCHEMA = ROOT / 'schemas/agon_mechanical_trial_eval_suites-registry.schema.json'
 ITEM_KEY = 'eval_suites'
 REGISTRY_ID = 'agon.mechanical_trial_eval_suite.registry.v0'
 WAVE = 'XIII'
@@ -19,6 +22,28 @@ def fail(msg):
 def digest_obj(obj):
     return hashlib.sha256(json.dumps(obj, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
+def load_schema(path):
+    return json.loads(path.read_text(encoding='utf-8'))
+
+def load_registry_schema():
+    schema = load_schema(REGISTRY_SCHEMA)
+    schema = json.loads(json.dumps(schema))
+    schema['properties'][ITEM_KEY]['items'] = load_schema(ITEM_SCHEMA)
+    return schema
+
+def schema_error(schema, payload):
+    errors = sorted(
+        Draft202012Validator(schema).iter_errors(payload),
+        key=lambda error: (list(error.absolute_path), error.message),
+    )
+    if not errors:
+        return None
+    error = errors[0]
+    path = '.'.join(str(part) for part in error.absolute_path)
+    if path:
+        return f'schema violation at {path}: {error.message}'
+    return f'schema violation: {error.message}'
+
 def expected_registry(data, items):
     return {
         'registry_id': REGISTRY_ID,
@@ -30,6 +55,10 @@ def expected_registry(data, items):
     }
 
 def validate_item(item):
+    item_schema = load_schema(ITEM_SCHEMA)
+    item_schema_error = schema_error(item_schema, item)
+    if item_schema_error:
+        return item_schema_error
     for field in REQUIRED_FIELDS:
         if field not in item:
             return f'missing required field {field} in {item}'
@@ -69,6 +98,10 @@ def main():
     if not OUT.exists():
         return fail(f'missing generated registry {OUT}')
     reg = json.loads(OUT.read_text(encoding='utf-8'))
+    registry_schema = load_registry_schema()
+    registry_schema_error = schema_error(registry_schema, reg)
+    if registry_schema_error:
+        return fail(registry_schema_error)
     if reg != expected_registry(data, items):
         return fail('generated registry does not match source rebuild')
     print(json.dumps({'ok': True, 'item_key': ITEM_KEY, 'count': len(items)}, sort_keys=True))

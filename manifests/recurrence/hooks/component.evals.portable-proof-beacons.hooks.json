@@ -23,7 +23,7 @@
           "claim",
           "bounded_claim"
         ],
-        "candidate_class_field": "target_class",
+        "candidate_class_field": "promotion_target",
         "candidate_class_values": [
           "bundle-candidate",
           "evidence-sidecar"

@@ -29,3 +29,12 @@ def test_validator_rejects_stale_generated_registry(tmp_path):
     out.write_text(json.dumps(stale), encoding='utf-8')
     validator.OUT = out
     assert validator.main() == 1
+
+def test_validator_rejects_schema_invalid_suite_item(tmp_path):
+    validator = load('validator', 'scripts/validate_agon_mechanical_trial_eval_suites.py')
+    source = json.loads(validator.SRC.read_text(encoding='utf-8'))
+    source['eval_suites'][0].pop('live_verdict_authority')
+    src = tmp_path / 'seed.json'
+    src.write_text(json.dumps(source), encoding='utf-8')
+    validator.SRC = src
+    assert validator.main() == 1

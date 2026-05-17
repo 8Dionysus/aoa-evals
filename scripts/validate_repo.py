@@ -11,7 +11,7 @@ import re
 import sys
 from collections import Counter
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, datetime
 from functools import lru_cache
 from pathlib import Path, PurePosixPath
 from typing import Any, Iterable, Sequence
@@ -27,6 +27,15 @@ import eval_proof_contract_helpers
 import validate_nested_agents
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+FORMAT_CHECKER = Draft202012Validator.FORMAT_CHECKER
+
+
+@FORMAT_CHECKER.checks("date-time", raises=(ValueError,))
+def _is_date_time(value: object) -> bool:
+    if not isinstance(value, str):
+        return True
+    datetime.fromisoformat(value.replace("Z", "+00:00"))
+    return True
 
 
 def repo_root_from_env(env_name: str, default: Path) -> Path:
@@ -501,6 +510,13 @@ def get_schema_validator(schema_name: str) -> Draft202012Validator:
     return Draft202012Validator(load_schema(schema_name))
 
 
+def get_schema_validator_with_format(schema: dict[str, Any]) -> Draft202012Validator:
+    return Draft202012Validator(
+        schema,
+        format_checker=FORMAT_CHECKER,
+    )
+
+
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Validate local aoa-evals bundles.")
     parser.add_argument(
@@ -619,8 +635,10 @@ def load_json_payload(path: Path, issues: list[ValidationIssue]) -> Any | None:
         return None
 
 
-def load_live_orchestrator_class_ids(issues: list[ValidationIssue]) -> set[str]:
+def load_live_orchestrator_class_ids(issues: list[ValidationIssue]) -> set[str] | None:
     catalog_path = AOA_AGENTS_ROOT / ORCHESTRATOR_CLASS_CATALOG_NAME
+    if not AOA_AGENTS_ROOT.exists():
+        return None
     payload = load_json_payload(catalog_path, issues)
     if not isinstance(payload, dict):
         issues.append(
@@ -667,7 +685,7 @@ def validate_orchestrator_class_ref(
     *,
     location: str,
     issues: list[ValidationIssue],
-    live_class_ids: set[str],
+    live_class_ids: set[str] | None,
 ) -> str | None:
     if not isinstance(orchestrator_class_ref, str):
         issues.append(ValidationIssue(location, "quest orchestrator_class_ref must be a string"))
@@ -681,7 +699,7 @@ def validate_orchestrator_class_ref(
             )
         )
         return None
-    if class_id not in live_class_ids:
+    if live_class_ids is not None and class_id not in live_class_ids:
         issues.append(
             ValidationIssue(
                 location,
@@ -690,6 +708,31 @@ def validate_orchestrator_class_ref(
         )
         return None
     return class_id
+
+
+def validate_quest_projection_record(
+    repo_root: Path,
+    quest_path: Path,
+    quest_data: dict[str, Any],
+) -> None:
+    schema_path = repo_root / QUEST_SCHEMA_NAME
+    try:
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError) as exc:
+        raise ValueError(
+            f"{schema_path.relative_to(repo_root).as_posix()} could not be loaded for quest projection: {exc}"
+        ) from exc
+    errors = sorted(
+        Draft202012Validator(schema).iter_errors(quest_data),
+        key=lambda error: (list(error.absolute_path), error.message),
+    )
+    if errors:
+        error = errors[0]
+        error_path = format_schema_path(error.absolute_path)
+        detail = f" at '{error_path}'" if error_path else ""
+        raise ValueError(
+            f"{quest_path.relative_to(repo_root).as_posix()} violates {QUEST_SCHEMA_NAME}{detail}: {error.message}"
+        )
 
 def quest_sort_key(quest_name: str) -> tuple[int, str]:
     suffix = quest_name.rsplit("-", 1)[-1]
@@ -877,6 +920,7 @@ def load_quest_projection_records(repo_root: Path) -> list[tuple[str, dict[str, 
             raise ValueError(f"{quest_path.relative_to(repo_root).as_posix()} is invalid YAML: {exc}") from exc
         if not isinstance(quest_data, dict):
             raise ValueError(f"{quest_path.relative_to(repo_root).as_posix()} must be a YAML mapping")
+        validate_quest_projection_record(repo_root, quest_path, quest_data)
         if quest_data.get("schema_version") != QUEST_SCHEMA_VERSION:
             raise ValueError(f"{quest_path.relative_to(repo_root).as_posix()} must keep schema_version '{QUEST_SCHEMA_VERSION}'")
         if quest_data.get("repo") != "aoa-evals":
@@ -1127,11 +1171,21 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
     actual_live_catalog = load_json_payload(quest_catalog_path, issues)
     actual_live_catalog_by_id: dict[str, dict[str, Any]] = {}
     if isinstance(actual_live_catalog, list):
+        unexpected_ids: list[str] = []
         for item in actual_live_catalog:
             if isinstance(item, dict):
                 item_id = item.get("id")
                 if isinstance(item_id, str) and item_id in expected_catalog_by_id:
                     actual_live_catalog_by_id[item_id] = item
+                elif isinstance(item_id, str):
+                    unexpected_ids.append(item_id)
+        if unexpected_ids:
+            issues.append(
+                ValidationIssue(
+                    relative_location(quest_catalog_path, repo_root),
+                    f"generated quest catalog has unexpected quest id(s): {', '.join(sorted(unexpected_ids))}",
+                )
+            )
         if any(
             actual_live_catalog_by_id.get(quest_id) != expected_catalog_by_id[quest_id]
             for quest_id in valid_quest_ids
@@ -1152,11 +1206,21 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
     actual_catalog = load_json_payload(quest_catalog_example_path, issues)
     if isinstance(actual_catalog, list):
         actual_catalog_by_id: dict[str, dict[str, Any]] = {}
+        unexpected_ids: list[str] = []
         for item in actual_catalog:
             if isinstance(item, dict):
                 item_id = item.get("id")
                 if isinstance(item_id, str) and item_id in expected_catalog_by_id:
                     actual_catalog_by_id[item_id] = item
+                elif isinstance(item_id, str):
+                    unexpected_ids.append(item_id)
+        if unexpected_ids:
+            issues.append(
+                ValidationIssue(
+                    relative_location(quest_catalog_example_path, repo_root),
+                    f"generated quest catalog example has unexpected quest id(s): {', '.join(sorted(unexpected_ids))}",
+                )
+            )
         if any(
             actual_catalog_by_id.get(quest_id) != expected_catalog_by_id[quest_id]
             for quest_id in valid_quest_ids
@@ -1191,6 +1255,7 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
     actual_live_dispatch_by_id: dict[str, dict[str, Any]] = {}
     invalid_live_dispatch_ids: set[str] = set()
     if isinstance(actual_live_dispatch, list):
+        unexpected_ids: list[str] = []
         for index, item in enumerate(actual_live_dispatch):
             location = f"{relative_location(quest_dispatch_path, repo_root)}[{index}]"
             if not isinstance(item, dict):
@@ -1206,6 +1271,15 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                 invalid_live_dispatch_ids.add(item_id)
             if item_valid and isinstance(item_id, str) and item_id in expected_dispatch_by_id:
                 actual_live_dispatch_by_id[item_id] = item
+            elif item_valid and isinstance(item_id, str):
+                unexpected_ids.append(item_id)
+        if unexpected_ids:
+            issues.append(
+                ValidationIssue(
+                    relative_location(quest_dispatch_path, repo_root),
+                    f"generated quest dispatch has unexpected quest id(s): {', '.join(sorted(unexpected_ids))}",
+                )
+            )
         comparable_live_dispatch_ids = [
             quest_id
             for quest_id in valid_quest_ids
@@ -1232,6 +1306,7 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
     if isinstance(actual_dispatch, list):
         actual_dispatch_by_id: dict[str, dict[str, Any]] = {}
         invalid_example_dispatch_ids: set[str] = set()
+        unexpected_ids: list[str] = []
         for index, item in enumerate(actual_dispatch):
             location = f"{relative_location(quest_dispatch_example_path, repo_root)}[{index}]"
             if not isinstance(item, dict):
@@ -1247,6 +1322,15 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                 invalid_example_dispatch_ids.add(item_id)
             if item_valid and isinstance(item_id, str) and item_id in expected_dispatch_by_id:
                 actual_dispatch_by_id[item_id] = item
+            elif item_valid and isinstance(item_id, str):
+                unexpected_ids.append(item_id)
+        if unexpected_ids:
+            issues.append(
+                ValidationIssue(
+                    relative_location(quest_dispatch_example_path, repo_root),
+                    f"generated quest dispatch example has unexpected quest id(s): {', '.join(sorted(unexpected_ids))}",
+                )
+            )
         comparable_example_dispatch_ids = [
             quest_id
             for quest_id in valid_quest_ids
@@ -1427,7 +1511,9 @@ def validate_eval_result_receipt_surfaces(repo_root: Path) -> list[ValidationIss
                 )
 
     envelope_schema = load_json_payload(envelope_schema_path, issues)
+    envelope_validator: Draft202012Validator | None = None
     if isinstance(envelope_schema, dict):
+        envelope_schema_valid = True
         if envelope_schema.get("title") != "aoa-evals stats event envelope":
             issues.append(
                 ValidationIssue(
@@ -1435,6 +1521,7 @@ def validate_eval_result_receipt_surfaces(repo_root: Path) -> list[ValidationIss
                     "stats event envelope schema title must be 'aoa-evals stats event envelope'",
                 )
             )
+            envelope_schema_valid = False
         canonical_schema_ref = envelope_schema.get("x-canonical_schema_ref")
         if canonical_schema_ref != "repo:aoa-stats/schemas/stats-event-envelope.schema.json":
             issues.append(
@@ -1443,6 +1530,7 @@ def validate_eval_result_receipt_surfaces(repo_root: Path) -> list[ValidationIss
                     "stats event envelope mirror must point to repo:aoa-stats/schemas/stats-event-envelope.schema.json",
                 )
             )
+            envelope_schema_valid = False
         canonical_envelope_path = AOA_STATS_ROOT / SCHEMAS_DIR_NAME / STATS_EVENT_ENVELOPE_SCHEMA_NAME
         if canonical_envelope_path.exists():
             canonical_envelope = load_json_payload(canonical_envelope_path, issues)
@@ -1473,6 +1561,9 @@ def validate_eval_result_receipt_surfaces(repo_root: Path) -> list[ValidationIss
                     f"invalid JSON schema: {exc.message}",
                 )
             )
+            envelope_schema_valid = False
+        if envelope_schema_valid:
+            envelope_validator = get_schema_validator_with_format(envelope_schema)
     elif envelope_schema is not None:
         issues.append(
             ValidationIssue(
@@ -1482,7 +1573,9 @@ def validate_eval_result_receipt_surfaces(repo_root: Path) -> list[ValidationIss
         )
 
     payload_schema = load_json_payload(payload_schema_path, issues)
+    payload_validator: Draft202012Validator | None = None
     if isinstance(payload_schema, dict):
+        payload_schema_valid = True
         if payload_schema.get("title") != "aoa-evals eval result receipt":
             issues.append(
                 ValidationIssue(
@@ -1490,6 +1583,7 @@ def validate_eval_result_receipt_surfaces(repo_root: Path) -> list[ValidationIss
                     "eval result receipt schema title must be 'aoa-evals eval result receipt'",
                 )
             )
+            payload_schema_valid = False
         try:
             Draft202012Validator.check_schema(payload_schema)
         except SchemaError as exc:
@@ -1499,6 +1593,9 @@ def validate_eval_result_receipt_surfaces(repo_root: Path) -> list[ValidationIss
                     f"invalid JSON schema: {exc.message}",
                 )
             )
+            payload_schema_valid = False
+        if payload_schema_valid:
+            payload_validator = get_schema_validator_with_format(payload_schema)
     elif payload_schema is not None:
         issues.append(
             ValidationIssue(
@@ -1509,12 +1606,14 @@ def validate_eval_result_receipt_surfaces(repo_root: Path) -> list[ValidationIss
 
     example_payload = load_json_payload(example_path, issues)
     if isinstance(example_payload, dict):
-        validate_against_schema(
-            example_payload,
-            STATS_EVENT_ENVELOPE_SCHEMA_NAME,
-            relative_location(example_path, repo_root),
-            issues,
-        )
+        if envelope_validator is not None:
+            validate_against_schema(
+                example_payload,
+                STATS_EVENT_ENVELOPE_SCHEMA_NAME,
+                relative_location(example_path, repo_root),
+                issues,
+                validator=envelope_validator,
+            )
         if example_payload.get("event_kind") != "eval_result_receipt":
             issues.append(
                 ValidationIssue(
@@ -1565,12 +1664,14 @@ def validate_eval_result_receipt_surfaces(repo_root: Path) -> list[ValidationIss
 
         payload = example_payload.get("payload")
         if isinstance(payload, dict):
-            validate_against_schema(
-                payload,
-                EVAL_RESULT_RECEIPT_SCHEMA_NAME,
-                f"{relative_location(example_path, repo_root)}.payload",
-                issues,
-            )
+            if payload_validator is not None:
+                validate_against_schema(
+                    payload,
+                    EVAL_RESULT_RECEIPT_SCHEMA_NAME,
+                    f"{relative_location(example_path, repo_root)}.payload",
+                    issues,
+                    validator=payload_validator,
+                )
             bundle_ref = payload.get("bundle_ref")
             if isinstance(bundle_ref, str):
                 parse_repo_ref(
@@ -1642,6 +1743,21 @@ def validate_live_receipt_log(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     log_path = repo_root / LIVE_EVAL_RECEIPT_LOG_NAME
     log_location = relative_location(log_path, repo_root)
+    envelope_schema_path = repo_root / SCHEMAS_DIR_NAME / STATS_EVENT_ENVELOPE_SCHEMA_NAME
+    envelope_schema_location = relative_location(envelope_schema_path, repo_root)
+    if envelope_schema_path.exists():
+        envelope_schema = load_json_payload(envelope_schema_path, issues)
+    elif repo_root != REPO_ROOT:
+        envelope_schema = load_schema(STATS_EVENT_ENVELOPE_SCHEMA_NAME)
+    else:
+        envelope_schema = load_json_payload(envelope_schema_path, issues)
+    if not isinstance(envelope_schema, dict):
+        if envelope_schema is not None:
+            issues.append(ValidationIssue(envelope_schema_location, "stats event envelope schema must be a JSON object"))
+        return issues
+    if not validate_inline_schema(envelope_schema, location=envelope_schema_location, issues=issues):
+        return issues
+    envelope_validator = get_schema_validator_with_format(envelope_schema)
     try:
         raw_lines = log_path.read_text(encoding="utf-8").splitlines()
     except FileNotFoundError:
@@ -1672,6 +1788,7 @@ def validate_live_receipt_log(repo_root: Path) -> list[ValidationIssue]:
             STATS_EVENT_ENVELOPE_SCHEMA_NAME,
             entry_location,
             issues,
+            validator=envelope_validator,
         )
         if receipt.get("event_kind") != "eval_result_receipt":
             issues.append(
@@ -2572,12 +2689,20 @@ def validate_public_safety_reviewed_at(
         return
 
     try:
-        date.fromisoformat(raw_value)
+        reviewed_date = date.fromisoformat(raw_value)
     except ValueError:
         issues.append(
             ValidationIssue(
                 location,
                 "public_safety_reviewed_at must be a valid calendar date",
+            )
+        )
+        return
+    if reviewed_date > date.today():
+        issues.append(
+            ValidationIssue(
+                location,
+                "public_safety_reviewed_at must not be in the future",
             )
         )
 
@@ -6035,6 +6160,93 @@ def validate_phase_alpha_eval_matrix(repo_root: Path) -> list[ValidationIssue]:
     return issues
 
 
+def validate_titan_canary_surfaces(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    canary_dir = repo_root / "evals"
+    canary_paths = sorted(canary_dir.glob("titan_*_canary.yaml"))
+    if not canary_paths:
+        issues.append(
+            ValidationIssue(
+                "evals",
+                "Titan canary evals must be present under evals/titan_*_canary.yaml",
+            )
+        )
+        return issues
+
+    for canary_path in canary_paths:
+        location = relative_location(canary_path, repo_root)
+        payload = load_yaml_file(canary_path, issues)
+        if not isinstance(payload, dict):
+            if payload is not None:
+                issues.append(ValidationIssue(location, "Titan canary must be a YAML mapping"))
+            continue
+        canary_id = payload.get("id") or payload.get("eval_id")
+        if canary_id != canary_path.stem:
+            issues.append(ValidationIssue(location, "Titan canary id must match the filename stem"))
+        if "version" in payload and not isinstance(payload.get("version"), int):
+            issues.append(ValidationIssue(location, "Titan canary version must be an integer"))
+        if not any(
+            isinstance(payload.get(field), str) and payload[field].strip()
+            for field in ("purpose", "claim", "kind", "description", "objective")
+        ):
+            issues.append(ValidationIssue(location, "Titan canary must expose purpose, claim, kind, description, or objective"))
+        checks = payload.get("checks")
+        if checks is not None:
+            if not isinstance(checks, list) or not checks:
+                issues.append(ValidationIssue(location, "Titan canary checks must be a non-empty list when present"))
+                continue
+            for index, check in enumerate(checks):
+                check_location = f"{location}.checks[{index}]"
+                if not isinstance(check, dict):
+                    issues.append(ValidationIssue(check_location, "Titan canary check must be an object"))
+                    continue
+                if not isinstance(check.get("name"), str) or not check["name"].strip():
+                    issues.append(
+                        ValidationIssue(
+                            check_location,
+                            "Titan canary check name must be a non-empty string",
+                        )
+                    )
+                if not any(
+                    isinstance(check.get(field), str) and check[field].strip()
+                    for field in ("assert", "command", "expect")
+                ):
+                    issues.append(
+                        ValidationIssue(
+                            check_location,
+                            "Titan canary check must expose assert, command, or expect",
+                        )
+                    )
+        failure_examples = payload.get("failure_examples")
+        if failure_examples is None:
+            if not any(
+                key in payload
+                for key in ("expected_failure", "expected_result", "expected", "forbidden", "description")
+            ):
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        "Titan canary must expose failure_examples, expected_failure, expected_result, expected, or forbidden",
+                    )
+                )
+        elif not isinstance(failure_examples, list) or not failure_examples:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "Titan canary failure_examples must be a non-empty list when present",
+                )
+            )
+        elif not all(isinstance(item, str) and item.strip() for item in failure_examples):
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "Titan canary failure_examples must be non-empty strings",
+                )
+            )
+
+    return issues
+
+
 def format_issues(issues: Sequence[ValidationIssue]) -> str:
     lines = [f"- {issue.location}: {issue.message}" for issue in issues]
     return "\n".join(lines)
@@ -6151,6 +6363,7 @@ def run_validation(
             issues.extend(validate_runtime_candidate_template_index(repo_root))
             issues.extend(validate_runtime_candidate_intake(repo_root))
             issues.extend(validate_phase_alpha_eval_matrix(repo_root))
+            issues.extend(validate_titan_canary_surfaces(repo_root))
             issues.extend(validate_generated_catalogs(repo_root, all_records))
             issues.extend(validate_generated_capsules(repo_root, all_records))
             issues.extend(validate_generated_sections(repo_root, all_records))

@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import argparse
+from datetime import datetime
 import json
+import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -16,6 +18,21 @@ ALLOWED_EVENT_KINDS = {"eval_result_receipt"}
 SCHEMAS_DIR = REPO_ROOT / "schemas"
 ENVELOPE_SCHEMA_PATH = SCHEMAS_DIR / "stats-event-envelope.schema.json"
 PAYLOAD_SCHEMA_PATH = SCHEMAS_DIR / "eval-result-receipt.schema.json"
+FORMAT_CHECKER = Draft202012Validator.FORMAT_CHECKER
+RFC3339_DATE_TIME_RE = re.compile(
+    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$"
+)
+
+
+@FORMAT_CHECKER.checks("date-time", raises=(ValueError,))
+def _is_date_time(value: object) -> bool:
+    if not isinstance(value, str):
+        return True
+    if RFC3339_DATE_TIME_RE.fullmatch(value) is None:
+        return False
+    normalized = value[:-1] + "+00:00" if value.endswith("Z") else value
+    parsed = datetime.fromisoformat(normalized)
+    return parsed.tzinfo is not None and parsed.utcoffset() is not None
 
 
 class ReceiptPublishError(ValueError):
@@ -57,7 +74,7 @@ def load_validator(schema_path: Path) -> Draft202012Validator:
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     return Draft202012Validator(
         schema,
-        format_checker=Draft202012Validator.FORMAT_CHECKER,
+        format_checker=FORMAT_CHECKER,
     )
 
 

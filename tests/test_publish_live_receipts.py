@@ -50,6 +50,20 @@ def test_publish_live_receipts_rejects_schema_invalid_payload(tmp_path: Path) ->
         publish_live_receipts.load_receipts([bad_path])
 
 
+@pytest.mark.parametrize("observed_at", ["2026-05-17", "2026-05-17T12:00:00"])
+def test_publish_live_receipts_rejects_non_rfc3339_datetimes(
+    tmp_path: Path, observed_at: str
+) -> None:
+    example_path = REPO_ROOT / "examples" / "eval_result_receipt.example.json"
+    payload = json.loads(example_path.read_text(encoding="utf-8"))
+    payload["observed_at"] = observed_at
+    bad_path = tmp_path / "bad-receipt.json"
+    bad_path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(publish_live_receipts.ReceiptPublishError, match="date-time"):
+        publish_live_receipts.load_receipts([bad_path])
+
+
 def test_publish_live_receipts_rejects_malformed_jsonl_line(tmp_path: Path) -> None:
     malformed_path = tmp_path / "bad-receipts.jsonl"
     malformed_path.write_text("{\n", encoding="utf-8")

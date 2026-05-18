@@ -90,10 +90,25 @@ def test_sibling_canary_prefers_source_checkout_for_abyss_stack(tmp_path: Path, 
     home_root = tmp_path / "home" / "dionysus"
     source_root = home_root / "src" / "abyss-stack"
     (source_root / "scripts").mkdir(parents=True)
-    (source_root / "schemas").mkdir(parents=True)
     (source_root / "README.md").write_text("# abyss-stack\n", encoding="utf-8")
     (source_root / "scripts" / "validate_stack.py").write_text("print('ok')\n", encoding="utf-8")
-    (source_root / "schemas" / "runtime-return-event.schema.json").write_text("{}\n", encoding="utf-8")
+    (
+        source_root
+        / "mechanics"
+        / "governed-execution"
+        / "parts"
+        / "return-policy"
+        / "schemas"
+    ).mkdir(parents=True)
+    (
+        source_root
+        / "mechanics"
+        / "governed-execution"
+        / "parts"
+        / "return-policy"
+        / "schemas"
+        / "runtime-return-event.schema.json"
+    ).write_text("{}\n", encoding="utf-8")
     monkeypatch.setenv("HOME", str(home_root))
     monkeypatch.delenv("ABYSS_STACK_ROOT", raising=False)
 

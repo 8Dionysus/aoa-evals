@@ -2,13 +2,13 @@
   "surface_type": "runtime_evidence_selection",
   "selection_id": "runtime-chaos-window",
   "source_repo": "abyss-stack",
-  "source_schema_ref": "repo:abyss-stack/schemas/service_degradation_receipt_v1.json",
+  "source_schema_ref": "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/schemas/service-degradation-receipt.schema.json",
   "source_manifests": [
-    "repo:abyss-stack/examples/service_degradation_receipt.timeout-chaos.example.json",
-    "repo:abyss-stack/examples/service_degradation_receipt.honest-degradation.example.json",
-    "repo:abyss-stack/examples/service_degradation_receipt.retrieval-outage-honesty.example.json",
-    "repo:abyss-stack/examples/repair_safe_closeout_receipt.timeout-chaos.example.json",
-    "repo:abyss-stack/examples/repair_safe_closeout_receipt.retrieval-outage-honesty.example.json"
+    "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/examples/service-degradation-receipt.timeout-chaos.example.json",
+    "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/examples/service-degradation-receipt.honest-degradation.example.json",
+    "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/examples/service-degradation-receipt.retrieval-outage-honesty.example.json",
+    "repo:abyss-stack/mechanics/runtime-repair/parts/repair-safe-closeout/examples/repair-safe-closeout-receipt.timeout-chaos.example.json",
+    "repo:abyss-stack/mechanics/runtime-repair/parts/repair-safe-closeout/examples/repair-safe-closeout-receipt.retrieval-outage-honesty.example.json"
   ],
   "bounded_claim": "Under bounded runtime chaos, selected example receipts can show operator-visible containment, blocked repair fan-out, explicit degraded continuation, and reviewed closeout posture without turning curated examples into live-health truth or verdict authority. This is recovery-legibility evidence only.",
   "promotion_target": "evidence-sidecar",
@@ -19,22 +19,22 @@
   ],
   "selected_evidence": [
     {
-      "artifact_ref": "repo:abyss-stack/examples/service_degradation_receipt.timeout-chaos.example.json",
+      "artifact_ref": "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/examples/service-degradation-receipt.timeout-chaos.example.json",
       "evidence_role": "summary",
       "summary_only": true
     },
     {
-      "artifact_ref": "repo:abyss-stack/examples/service_degradation_receipt.retrieval-outage-honesty.example.json",
+      "artifact_ref": "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/examples/service-degradation-receipt.retrieval-outage-honesty.example.json",
       "evidence_role": "case-breakdown",
       "summary_only": true
     },
     {
-      "artifact_ref": "repo:abyss-stack/examples/repair_safe_closeout_receipt.timeout-chaos.example.json",
+      "artifact_ref": "repo:abyss-stack/mechanics/runtime-repair/parts/repair-safe-closeout/examples/repair-safe-closeout-receipt.timeout-chaos.example.json",
       "evidence_role": "environment-note",
       "summary_only": true
     },
     {
-      "artifact_ref": "repo:abyss-stack/examples/repair_safe_closeout_receipt.retrieval-outage-honesty.example.json",
+      "artifact_ref": "repo:abyss-stack/mechanics/runtime-repair/parts/repair-safe-closeout/examples/repair-safe-closeout-receipt.retrieval-outage-honesty.example.json",
       "evidence_role": "integrity-sidecar",
       "summary_only": true
     }

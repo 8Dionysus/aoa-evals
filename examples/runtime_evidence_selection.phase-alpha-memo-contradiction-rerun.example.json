@@ -2,7 +2,7 @@
   "surface_type": "runtime_evidence_selection",
   "selection_id": "phase-alpha-memo-contradiction-rerun-v1",
   "source_repo": "abyss-stack",
-  "source_schema_ref": "repo:abyss-stack/schemas/runtime-memo-export-candidate.schema.json",
+  "source_schema_ref": "repo:abyss-stack/mechanics/governed-execution/parts/candidate-exports/schemas/runtime-memo-export-candidate.schema.json",
   "source_manifests": [
     "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/contradiction_map.json",
     "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/memory_delta.json",

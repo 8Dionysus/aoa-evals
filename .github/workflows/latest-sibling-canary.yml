@@ -47,6 +47,24 @@ jobs:
           repository: 8Dionysus/aoa-memo
           path: workspace/aoa-memo
 
+      - name: Checkout aoa-routing
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          repository: 8Dionysus/aoa-routing
+          path: workspace/aoa-routing
+
+      - name: Checkout aoa-kag
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          repository: 8Dionysus/aoa-kag
+          path: workspace/aoa-kag
+
+      - name: Checkout aoa-sdk
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          repository: 8Dionysus/aoa-sdk
+          path: workspace/aoa-sdk
+
       - name: Checkout aoa-stats
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:

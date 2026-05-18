@@ -2,7 +2,7 @@
   "surface_type": "runtime_evidence_selection",
   "selection_id": "return-anchor-integrity-wrapper-v1",
   "source_repo": "abyss-stack",
-  "source_schema_ref": "repo:abyss-stack/schemas/runtime-return-event.schema.json",
+  "source_schema_ref": "repo:abyss-stack/mechanics/governed-execution/parts/return-policy/schemas/runtime-return-event.schema.json",
   "source_manifests": [
     "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/inquiry_checkpoint.json",
     "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/next_pass_brief.md"

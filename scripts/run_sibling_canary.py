@@ -18,6 +18,9 @@ ROOT_VARIABLE_NAMES = {
     "AOA_AGENTS_ROOT",
     "AOA_PLAYBOOKS_ROOT",
     "AOA_MEMO_ROOT",
+    "AOA_ROUTING_ROOT",
+    "AOA_KAG_ROOT",
+    "AOA_SDK_ROOT",
     "AOA_STATS_ROOT",
     "ABYSS_STACK_ROOT",
 }
@@ -150,6 +153,10 @@ def override_validate_repo_roots(
             validate_repo.AOA_AGENTS_ROOT,
             validate_repo.AOA_PLAYBOOKS_ROOT,
             validate_repo.AOA_MEMO_ROOT,
+            validate_repo.AOA_ROUTING_ROOT,
+            validate_repo.AOA_KAG_ROOT,
+            validate_repo.AOA_SDK_ROOT,
+            validate_repo.AOA_STATS_ROOT,
             validate_repo.ABYSS_STACK_ROOT,
         )
         validate_repo.REPO_REF_ROOTS = {
@@ -159,6 +166,10 @@ def override_validate_repo_roots(
             "aoa-agents": validate_repo.AOA_AGENTS_ROOT,
             "aoa-playbooks": validate_repo.AOA_PLAYBOOKS_ROOT,
             "aoa-memo": validate_repo.AOA_MEMO_ROOT,
+            "aoa-routing": validate_repo.AOA_ROUTING_ROOT,
+            "aoa-kag": validate_repo.AOA_KAG_ROOT,
+            "aoa-sdk": validate_repo.AOA_SDK_ROOT,
+            "aoa-stats": validate_repo.AOA_STATS_ROOT,
             "abyss-stack": validate_repo.ABYSS_STACK_ROOT,
         }
         yield

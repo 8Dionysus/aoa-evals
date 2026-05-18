@@ -29,7 +29,7 @@ import validate_nested_agents
 REPO_ROOT = Path(__file__).resolve().parents[1]
 FORMAT_CHECKER = Draft202012Validator.FORMAT_CHECKER
 RFC3339_DATE_TIME_RE = re.compile(
-    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$"
+    r"^\d{4}-\d{2}-\d{2}[Tt]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:[Zz]|[+-]\d{2}:\d{2})$"
 )
 
 
@@ -39,7 +39,8 @@ def _is_date_time(value: object) -> bool:
         return True
     if RFC3339_DATE_TIME_RE.fullmatch(value) is None:
         return False
-    normalized = value[:-1] + "+00:00" if value.endswith("Z") else value
+    normalized = value[:-1] + "+00:00" if value[-1:].lower() == "z" else value
+    normalized = normalized.replace("t", "T", 1)
     parsed = datetime.fromisoformat(normalized)
     return parsed.tzinfo is not None and parsed.utcoffset() is not None
 
@@ -55,7 +56,15 @@ def is_abyss_stack_source_root(path: Path) -> bool:
     return (
         path.exists()
         and (path / "README.md").is_file()
-        and (path / "schemas" / "runtime-return-event.schema.json").is_file()
+        and (
+            path
+            / "mechanics"
+            / "governed-execution"
+            / "parts"
+            / "return-policy"
+            / "schemas"
+            / "runtime-return-event.schema.json"
+        ).is_file()
         and (path / "scripts" / "validate_stack.py").is_file()
     )
 
@@ -284,8 +293,8 @@ RUNTIME_INTEGRITY_REVIEW_EVIDENCE_REFS = (
     "repo:aoa-evals/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
     "repo:aoa-routing/docs/LIVE_SESSION_REENTRY_ROUTE_REVIEW.md",
     "repo:aoa-agents/docs/SELF_AGENCY_CONTINUITY_LANE.md",
-    "repo:aoa-memo/schemas/inquiry_checkpoint.schema.json",
-    "repo:aoa-memo/docs/SELF_AGENCY_CONTINUITY_WRITEBACK.md",
+    "repo:aoa-memo/mechanics/checkpoint/schemas/inquiry_checkpoint.schema.json",
+    "repo:aoa-memo/mechanics/writeback/docs/SELF_AGENCY_CONTINUITY_WRITEBACK.md",
 )
 RUNTIME_INTEGRITY_REVIEW_REPLAY_KEYS = (
     "selected_evidence_only",
@@ -317,39 +326,39 @@ ARTIFACT_VERDICT_HOOK_EXAMPLES = {
 RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
     "runtime_evidence_selection.workhorse-local.example.json": {
         "target_eval": None,
-        "source_schema_ref": "repo:abyss-stack/schemas/runtime-benchmark.schema.json",
+        "source_schema_ref": "repo:abyss-stack/mechanics/inference-pilots/parts/local-trials/schemas/runtime-benchmark.schema.json",
         "candidate_eval_refs": ["candidate:fixed-baseline-runtime-latency-tradeoff"],
     },
     "runtime_evidence_selection.return-anchor-integrity.example.json": {
         "target_eval": "aoa-return-anchor-integrity",
-        "source_schema_ref": "repo:abyss-stack/schemas/runtime-return-event.schema.json",
+        "source_schema_ref": "repo:abyss-stack/mechanics/governed-execution/parts/return-policy/schemas/runtime-return-event.schema.json",
         "candidate_eval_refs": ["candidate:aoa-return-anchor-integrity"],
     },
     "runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json": {
         "target_eval": "aoa-memo-recall-integrity",
-        "source_schema_ref": "repo:abyss-stack/schemas/runtime-memo-export-candidate.schema.json",
+        "source_schema_ref": "repo:abyss-stack/mechanics/governed-execution/parts/candidate-exports/schemas/runtime-memo-export-candidate.schema.json",
         "candidate_eval_refs": ["candidate:aoa-memo-recall-integrity"],
     },
     "runtime_evidence_selection.phase-alpha-memo-contradiction-gap.example.json": {
         "target_eval": "aoa-memo-contradiction-integrity",
-        "source_schema_ref": "repo:abyss-stack/schemas/runtime-memo-export-candidate.schema.json",
+        "source_schema_ref": "repo:abyss-stack/mechanics/governed-execution/parts/candidate-exports/schemas/runtime-memo-export-candidate.schema.json",
         "candidate_eval_refs": ["candidate:aoa-memo-contradiction-integrity"],
     },
     "runtime_evidence_selection.phase-alpha-memo-contradiction-rerun.example.json": {
         "target_eval": "aoa-memo-contradiction-integrity",
-        "source_schema_ref": "repo:abyss-stack/schemas/runtime-memo-export-candidate.schema.json",
+        "source_schema_ref": "repo:abyss-stack/mechanics/governed-execution/parts/candidate-exports/schemas/runtime-memo-export-candidate.schema.json",
         "candidate_eval_refs": ["candidate:aoa-memo-contradiction-integrity"],
     },
     "runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json": {
         "target_eval": "aoa-memo-writeback-act-integrity",
-        "source_schema_ref": "repo:abyss-stack/schemas/runtime-memo-export-candidate.schema.json",
+        "source_schema_ref": "repo:abyss-stack/mechanics/governed-execution/parts/candidate-exports/schemas/runtime-memo-export-candidate.schema.json",
         "candidate_eval_refs": ["candidate:aoa-memo-writeback-act-integrity"],
     },
     "runtime_evidence_selection.runtime-chaos-window.example.json": {
         "target_eval": "aoa-stress-recovery-window",
-        "source_schema_ref": "repo:abyss-stack/schemas/service_degradation_receipt_v1.json",
+        "source_schema_ref": "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/schemas/service-degradation-receipt.schema.json",
         "candidate_eval_refs": ["candidate:aoa-stress-recovery-window"],
-        "allowed_ref_roots": ["examples"],
+        "allowed_ref_roots": ["mechanics"],
     },
 }
 TRACE_EVAL_HOOK_EXPECTATIONS = {
@@ -372,9 +381,9 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
             "repo:aoa-agents/schemas/self-agent-checkpoint.schema.json",
             "repo:aoa-playbooks/playbooks/self-agent-checkpoint-rollout/PLAYBOOK.md#expected-artifacts",
             "repo:aoa-memo/docs/MEMORY_MODEL.md#checkpoint-route-writeback",
-            "repo:aoa-memo/examples/checkpoint_approval_record.example.json",
-            "repo:aoa-memo/examples/checkpoint_health_check.example.json",
-            "repo:aoa-memo/examples/checkpoint_improvement_thread.example.json",
+            "repo:aoa-memo/mechanics/checkpoint/examples/checkpoint_approval_record.example.json",
+            "repo:aoa-memo/mechanics/checkpoint/examples/checkpoint_health_check.example.json",
+            "repo:aoa-memo/mechanics/checkpoint/examples/checkpoint_improvement_thread.example.json",
         ],
         "trace_surfaces": [],
         "verification_surface": "approval_record",
@@ -402,15 +411,15 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
             "repo:aoa-agents/schemas/artifact.distillation_pack.schema.json",
         ],
         "trace_surfaces": [
-            "repo:aoa-memo/docs/WITNESS_TRACE_CONTRACT.md",
+            "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md",
         ],
         "verification_surface": "verification_result",
     },
     "AOA-P-0009": {
         "eval_anchor": "aoa-long-horizon-depth",
         "artifact_contract_refs": [
-            "repo:aoa-memo/schemas/inquiry_checkpoint.schema.json",
-            "repo:aoa-memo/schemas/checkpoint-to-memory-contract.schema.json",
+            "repo:aoa-memo/mechanics/checkpoint/schemas/inquiry_checkpoint.schema.json",
+            "repo:aoa-memo/mechanics/checkpoint/schemas/checkpoint-to-memory-contract.schema.json",
             "repo:aoa-playbooks/playbooks/restartable-inquiry-loop/PLAYBOOK.md#expected-artifacts",
             "repo:aoa-playbooks/generated/playbook_registry.min.json",
         ],
@@ -429,8 +438,8 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
             "repo:aoa-sdk/examples/a2a/checkpoint_bridge_plan.example.json",
             "repo:aoa-sdk/examples/a2a/reviewed_closeout_request.example.json",
             "repo:aoa-sdk/examples/a2a/summon_return_checkpoint_e2e.fixture.json",
-            "repo:aoa-memo/docs/A2A_CHILD_RETURN_WRITEBACK.md",
-            "repo:abyss-stack/docs/A2A_RETURN_DRY_RUN.md",
+            "repo:aoa-memo/mechanics/writeback/docs/A2A_CHILD_RETURN_WRITEBACK.md",
+            "repo:abyss-stack/mechanics/runtime-repair/parts/a2a-return-dry-run/docs/A2A_RETURN_DRY_RUN.md",
         ],
         "trace_surfaces": [],
         "verification_surface": "runtime_closeout_dry_run_receipt",
@@ -443,12 +452,12 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
             "repo:aoa-playbooks/examples/playbook_reentry_gate.retrieval-outage-honesty.example.json",
             "repo:aoa-routing/examples/composite_stress_route_hint.retrieval-outage-honesty.example.json",
             "repo:aoa-kag/examples/regrounding_ticket.retrieval-outage-honesty.example.json",
-            "repo:abyss-stack/schemas/service_degradation_receipt_v1.json",
-            "repo:aoa-memo/docs/WITNESS_TRACE_CONTRACT.md",
+            "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/schemas/service-degradation-receipt.schema.json",
+            "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md",
         ],
         "trace_surfaces": [
-            "repo:aoa-memo/docs/WITNESS_TRACE_CONTRACT.md",
-            "repo:aoa-memo/examples/provenance_thread.self-agency-continuity.example.json",
+            "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md",
+            "repo:aoa-memo/mechanics/writeback/examples/provenance_thread.self-agency-continuity.example.json",
         ],
         "verification_surface": "proof_handoff_candidate",
     },

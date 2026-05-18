@@ -101,6 +101,7 @@ def make_runtime_candidate_template_index_surface(repo_root: Path) -> None:
         "examples/artifact_to_verdict_hook.validation-driven-remediation.example.json",
         "examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
         "examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
+        "examples/artifact_to_verdict_hook.a2a-summon-return-checkpoint.example.json",
         "examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json",
         "scripts/generate_runtime_candidate_template_index.py",
     ]:
@@ -126,6 +127,7 @@ def make_runtime_candidate_intake_surface(repo_root: Path) -> None:
         "examples/artifact_to_verdict_hook.validation-driven-remediation.example.json",
         "examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
         "examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
+        "examples/artifact_to_verdict_hook.a2a-summon-return-checkpoint.example.json",
         "examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json",
         "scripts/generate_runtime_candidate_intake.py",
     ]:
@@ -918,7 +920,37 @@ def write_catalogs(repo_root: Path) -> None:
 
 
 def make_abyss_stack_schema(tmp_path: Path, schema_name: str) -> Path:
-    schema_path = tmp_path / "abyss-stack" / "schemas" / schema_name
+    schema_roots = {
+        "runtime-return-event.schema.json": (
+            "mechanics",
+            "governed-execution",
+            "parts",
+            "return-policy",
+            "schemas",
+        ),
+        "runtime-memo-export-candidate.schema.json": (
+            "mechanics",
+            "governed-execution",
+            "parts",
+            "candidate-exports",
+            "schemas",
+        ),
+        "runtime-benchmark.schema.json": (
+            "mechanics",
+            "inference-pilots",
+            "parts",
+            "local-trials",
+            "schemas",
+        ),
+        "service-degradation-receipt.schema.json": (
+            "mechanics",
+            "runtime-repair",
+            "parts",
+            "degradation-receipts",
+            "schemas",
+        ),
+    }
+    schema_path = tmp_path / "abyss-stack" / Path(*schema_roots.get(schema_name, ("schemas",))) / schema_name
     write_text(
         schema_path,
         """
@@ -3580,7 +3612,16 @@ def test_resolve_abyss_stack_root_prefers_source_checkout_over_runtime_tree(
     source_root = home_root / "src" / "abyss-stack"
     write_text(source_root / "README.md", "# abyss-stack\n")
     write_text(source_root / "scripts" / "validate_stack.py", "print('ok')\n")
-    write_text(source_root / "schemas" / "runtime-return-event.schema.json", "{}\n")
+    write_text(
+        source_root
+        / "mechanics"
+        / "governed-execution"
+        / "parts"
+        / "return-policy"
+        / "schemas"
+        / "runtime-return-event.schema.json",
+        "{}\n",
+    )
 
     monkeypatch.setenv("HOME", str(home_root))
     monkeypatch.delenv("ABYSS_STACK_ROOT", raising=False)
@@ -3616,7 +3657,7 @@ def test_validate_repo_accepts_return_runtime_evidence_selection_for_non_starter
     write_runtime_evidence_selection_example(
         tmp_path,
         filename="runtime_evidence_selection.return-anchor-integrity.example.json",
-        source_schema_ref="repo:abyss-stack/schemas/runtime-return-event.schema.json",
+        source_schema_ref="repo:abyss-stack/mechanics/governed-execution/parts/return-policy/schemas/runtime-return-event.schema.json",
         candidate_eval_refs=["candidate:aoa-return-anchor-integrity"],
     )
     write_catalogs(tmp_path)
@@ -3677,7 +3718,7 @@ def test_validate_repo_rejects_return_runtime_evidence_selection_outside_tracked
     issues = run_validation(tmp_path, eval_name="aoa-return-anchor-integrity")
 
     assert any(
-        "source_schema_ref must equal 'repo:abyss-stack/schemas/runtime-return-event.schema.json'"
+        "source_schema_ref must equal 'repo:abyss-stack/mechanics/governed-execution/parts/return-policy/schemas/runtime-return-event.schema.json'"
         in issue.message
         for issue in issues
     )
@@ -3696,7 +3737,7 @@ def test_validate_repo_accepts_non_tracked_abyss_stack_logs_refs_for_return_runt
     write_runtime_evidence_selection_example(
         tmp_path,
         filename="runtime_evidence_selection.return-anchor-integrity.example.json",
-        source_schema_ref="repo:abyss-stack/schemas/runtime-return-event.schema.json",
+        source_schema_ref="repo:abyss-stack/mechanics/governed-execution/parts/return-policy/schemas/runtime-return-event.schema.json",
         candidate_eval_refs=["candidate:aoa-return-anchor-integrity"],
     )
     write_catalogs(tmp_path)
@@ -3737,7 +3778,7 @@ def test_validate_repo_allows_return_anchor_integrity_as_public_non_starter_bund
     write_runtime_evidence_selection_example(
         tmp_path,
         filename="runtime_evidence_selection.return-anchor-integrity.example.json",
-        source_schema_ref="repo:abyss-stack/schemas/runtime-return-event.schema.json",
+        source_schema_ref="repo:abyss-stack/mechanics/governed-execution/parts/return-policy/schemas/runtime-return-event.schema.json",
         candidate_eval_refs=["candidate:aoa-return-anchor-integrity"],
     )
     write_catalogs(tmp_path)
@@ -3764,7 +3805,7 @@ def test_validate_runtime_evidence_selection_uses_repo_local_schema(tmp_path: Pa
     write_runtime_evidence_selection_example(
         tmp_path,
         filename="runtime_evidence_selection.return-anchor-integrity.example.json",
-        source_schema_ref="repo:abyss-stack/schemas/runtime-return-event.schema.json",
+        source_schema_ref="repo:abyss-stack/mechanics/governed-execution/parts/return-policy/schemas/runtime-return-event.schema.json",
         candidate_eval_refs=["candidate:aoa-return-anchor-integrity"],
     )
     schema_path = tmp_path / "schemas" / "runtime-evidence-selection.schema.json"
@@ -4594,6 +4635,21 @@ class TestValidateQuestbookSurface:
         issues = validate_repo.validate_live_receipt_log(tmp_path)
 
         assert any("date-time" in issue.message for issue in issues)
+
+    @pytest.mark.parametrize("observed_at", ["2026-05-17t12:00:00z", "2026-05-17t12:00:00Z"])
+    def test_live_receipt_log_accepts_lowercase_rfc3339_designators(
+        self, tmp_path: Path, observed_at: str
+    ) -> None:
+        copy_repo_text(tmp_path, "schemas/stats-event-envelope.schema.json")
+        receipt = json.loads((REPO_ROOT / "examples" / "eval_result_receipt.example.json").read_text(encoding="utf-8"))
+        receipt["observed_at"] = observed_at
+        log_path = tmp_path / ".aoa" / "live_receipts" / "eval-result-receipts.jsonl"
+        log_path.parent.mkdir(parents=True)
+        log_path.write_text(json.dumps(receipt) + "\n", encoding="utf-8")
+
+        issues = validate_repo.validate_live_receipt_log(tmp_path)
+
+        assert not any("date-time" in issue.message for issue in issues)
 
     def test_titan_canary_surfaces_validate_current_seed_set(self) -> None:
         assert validate_repo.validate_titan_canary_surfaces(REPO_ROOT) == []

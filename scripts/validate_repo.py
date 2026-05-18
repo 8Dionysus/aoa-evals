@@ -28,14 +28,20 @@ import validate_nested_agents
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 FORMAT_CHECKER = Draft202012Validator.FORMAT_CHECKER
+RFC3339_DATE_TIME_RE = re.compile(
+    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$"
+)
 
 
 @FORMAT_CHECKER.checks("date-time", raises=(ValueError,))
 def _is_date_time(value: object) -> bool:
     if not isinstance(value, str):
         return True
-    datetime.fromisoformat(value.replace("Z", "+00:00"))
-    return True
+    if RFC3339_DATE_TIME_RE.fullmatch(value) is None:
+        return False
+    normalized = value[:-1] + "+00:00" if value.endswith("Z") else value
+    parsed = datetime.fromisoformat(normalized)
+    return parsed.tzinfo is not None and parsed.utcoffset() is not None
 
 
 def repo_root_from_env(env_name: str, default: Path) -> Path:

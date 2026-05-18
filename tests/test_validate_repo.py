@@ -4572,10 +4572,21 @@ class TestValidateQuestbookSurface:
         with pytest.raises(SystemExit, match="optional_control_path_rerun must be a boolean"):
             builder.build_phase_alpha_eval_matrix_payload()
 
-    def test_live_receipt_log_enforces_datetime_format(self, tmp_path: Path) -> None:
+    @pytest.mark.parametrize(
+        "observed_at",
+        [
+            "not-a-date-time",
+            "2026-05-17",
+            "2026-05-17 12:00:00",
+            "2026-05-17T12:00:00",
+        ],
+    )
+    def test_live_receipt_log_enforces_datetime_format(
+        self, tmp_path: Path, observed_at: str
+    ) -> None:
         copy_repo_text(tmp_path, "schemas/stats-event-envelope.schema.json")
         receipt = json.loads((REPO_ROOT / "examples" / "eval_result_receipt.example.json").read_text(encoding="utf-8"))
-        receipt["observed_at"] = "not-a-date-time"
+        receipt["observed_at"] = observed_at
         log_path = tmp_path / ".aoa" / "live_receipts" / "eval-result-receipts.jsonl"
         log_path.parent.mkdir(parents=True)
         log_path.write_text(json.dumps(receipt) + "\n", encoding="utf-8")

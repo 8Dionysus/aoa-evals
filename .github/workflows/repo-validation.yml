@@ -53,14 +53,14 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: 8Dionysus/aoa-memo
-          ref: e4c84b41ea58571fda5815d2d20bc2968cd184d3
+          ref: 4fec12fb54a5a332587139000a6a98a4c76357bd
           path: .deps/aoa-memo
 
       - name: Checkout abyss-stack
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: 8Dionysus/abyss-stack
-          ref: 10323e2e868f80be089a1ffee43d0f422a7f1628
+          ref: 1186ba924fbec5b6590aa32581baadef7c912c80
           path: .deps/abyss-stack
 
       - name: Setup Python

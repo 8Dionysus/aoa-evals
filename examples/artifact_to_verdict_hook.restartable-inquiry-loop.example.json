@@ -13,8 +13,8 @@
     "next_pass_brief"
   ],
   "artifact_contract_refs": [
-    "repo:aoa-memo/schemas/inquiry_checkpoint.schema.json",
-    "repo:aoa-memo/schemas/checkpoint-to-memory-contract.schema.json",
+    "repo:aoa-memo/mechanics/checkpoint/schemas/inquiry_checkpoint.schema.json",
+    "repo:aoa-memo/mechanics/checkpoint/schemas/checkpoint-to-memory-contract.schema.json",
     "repo:aoa-playbooks/playbooks/restartable-inquiry-loop/PLAYBOOK.md#expected-artifacts",
     "repo:aoa-playbooks/generated/playbook_registry.min.json"
   ],

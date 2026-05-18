@@ -18,12 +18,12 @@
     "repo:aoa-playbooks/examples/playbook_reentry_gate.retrieval-outage-honesty.example.json",
     "repo:aoa-routing/examples/composite_stress_route_hint.retrieval-outage-honesty.example.json",
     "repo:aoa-kag/examples/regrounding_ticket.retrieval-outage-honesty.example.json",
-    "repo:abyss-stack/schemas/service_degradation_receipt_v1.json",
-    "repo:aoa-memo/docs/WITNESS_TRACE_CONTRACT.md"
+    "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/schemas/service-degradation-receipt.schema.json",
+    "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md"
   ],
   "trace_surfaces": [
-    "repo:aoa-memo/docs/WITNESS_TRACE_CONTRACT.md",
-    "repo:aoa-memo/examples/provenance_thread.self-agency-continuity.example.json"
+    "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md",
+    "repo:aoa-memo/mechanics/writeback/examples/provenance_thread.self-agency-continuity.example.json"
   ],
   "verification_surface": "proof_handoff_candidate",
   "contract_test_refs": [

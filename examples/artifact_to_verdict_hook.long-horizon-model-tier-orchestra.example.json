@@ -19,7 +19,7 @@
     "repo:aoa-agents/schemas/artifact.distillation_pack.schema.json"
   ],
   "trace_surfaces": [
-    "repo:aoa-memo/docs/WITNESS_TRACE_CONTRACT.md"
+    "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md"
   ],
   "verification_surface": "verification_result",
   "contract_test_refs": [

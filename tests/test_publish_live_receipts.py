@@ -64,6 +64,21 @@ def test_publish_live_receipts_rejects_non_rfc3339_datetimes(
         publish_live_receipts.load_receipts([bad_path])
 
 
+@pytest.mark.parametrize("observed_at", ["2026-05-17t12:00:00z", "2026-05-17t12:00:00Z"])
+def test_publish_live_receipts_accepts_lowercase_rfc3339_designators(
+    tmp_path: Path, observed_at: str
+) -> None:
+    example_path = REPO_ROOT / "examples" / "eval_result_receipt.example.json"
+    payload = json.loads(example_path.read_text(encoding="utf-8"))
+    payload["observed_at"] = observed_at
+    input_path = tmp_path / "receipt.json"
+    input_path.write_text(json.dumps(payload), encoding="utf-8")
+
+    receipts = publish_live_receipts.load_receipts([input_path])
+
+    assert receipts[0]["observed_at"] == observed_at
+
+
 def test_publish_live_receipts_rejects_malformed_jsonl_line(tmp_path: Path) -> None:
     malformed_path = tmp_path / "bad-receipts.jsonl"
     malformed_path.write_text("{\n", encoding="utf-8")

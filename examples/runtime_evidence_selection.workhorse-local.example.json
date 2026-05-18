@@ -2,7 +2,7 @@
   "surface_type": "runtime_evidence_selection",
   "selection_id": "workhorse-q4-vs-q6-latency-tradeoff",
   "source_repo": "abyss-stack",
-  "source_schema_ref": "repo:abyss-stack/schemas/runtime-benchmark.schema.json",
+  "source_schema_ref": "repo:abyss-stack/mechanics/inference-pilots/parts/local-trials/schemas/runtime-benchmark.schema.json",
   "source_manifests": [
     "repo:abyss-stack/Logs/runtime-benchmarks/runs/2026-03-24T154200Z__latency-single-turn__workhorse-local-q4/benchmark.manifest.json",
     "repo:abyss-stack/Logs/runtime-benchmarks/runs/2026-03-24T161000Z__latency-single-turn__workhorse-local-q6/benchmark.manifest.json"

@@ -20,10 +20,15 @@ def _env() -> dict[str, str]:
         "ABYSS_STACK_ROOT": "abyss-stack",
     }
     for env_var, repo_name in deps.items():
-        candidates = [
-            env.get(env_var),
+        fallback_roots = [
             str((REPO_ROOT / ".deps" / repo_name).resolve()),
             str((REPO_ROOT.parent / repo_name).resolve()),
+        ]
+        if env_var == "ABYSS_STACK_ROOT":
+            fallback_roots.insert(1, str((Path.home() / "src" / "abyss-stack").resolve()))
+        candidates = [
+            env.get(env_var),
+            *fallback_roots,
         ]
         for candidate in candidates:
             if candidate and Path(candidate).exists():

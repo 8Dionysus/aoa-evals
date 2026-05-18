@@ -37,6 +37,27 @@
       "resolver": "direct"
     },
     {
+      "repo": "aoa-routing",
+      "root_variable": "AOA_ROUTING_ROOT",
+      "path": "../aoa-routing",
+      "purpose": "prove runtime integrity route evidence refs against the latest sibling checkout",
+      "resolver": "direct"
+    },
+    {
+      "repo": "aoa-kag",
+      "root_variable": "AOA_KAG_ROOT",
+      "path": "../aoa-kag",
+      "purpose": "prove runtime chaos regrounding refs against the latest sibling checkout",
+      "resolver": "direct"
+    },
+    {
+      "repo": "aoa-sdk",
+      "root_variable": "AOA_SDK_ROOT",
+      "path": "../aoa-sdk",
+      "purpose": "prove A2A checkpoint bridge refs against the latest sibling checkout",
+      "resolver": "direct"
+    },
+    {
       "repo": "aoa-stats",
       "root_variable": "AOA_STATS_ROOT",
       "path": "../aoa-stats",

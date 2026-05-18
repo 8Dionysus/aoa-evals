@@ -20,7 +20,7 @@ ENVELOPE_SCHEMA_PATH = SCHEMAS_DIR / "stats-event-envelope.schema.json"
 PAYLOAD_SCHEMA_PATH = SCHEMAS_DIR / "eval-result-receipt.schema.json"
 FORMAT_CHECKER = Draft202012Validator.FORMAT_CHECKER
 RFC3339_DATE_TIME_RE = re.compile(
-    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$"
+    r"^\d{4}-\d{2}-\d{2}[Tt]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:[Zz]|[+-]\d{2}:\d{2})$"
 )
 
 
@@ -30,7 +30,8 @@ def _is_date_time(value: object) -> bool:
         return True
     if RFC3339_DATE_TIME_RE.fullmatch(value) is None:
         return False
-    normalized = value[:-1] + "+00:00" if value.endswith("Z") else value
+    normalized = value[:-1] + "+00:00" if value[-1:].lower() == "z" else value
+    normalized = normalized.replace("t", "T", 1)
     parsed = datetime.fromisoformat(normalized)
     return parsed.tzinfo is not None and parsed.utcoffset() is not None
 

@@ -36,13 +36,18 @@ Recommended local release loop:
 When you need the latest-sibling canary rather than the pinned repo-validation lane, run:
 - `python scripts/run_sibling_canary.py --repo-root . --matrix scripts/sibling_canary_matrix.json`
 
-If `aoa-techniques` or `aoa-skills` are not available locally,
-the validator will stay permissive about dependency-target existence.
-CI is the strict path-existence gate because it checks those sibling repos out into `.deps/`
-and exports `AOA_TECHNIQUES_ROOT` plus `AOA_SKILLS_ROOT`.
+If pinned sibling repos are not available locally, the validator will stay
+permissive about dependency-target existence. CI is the strict path-existence
+gate because it checks sibling repos out into `.deps/` and exports the matching
+`AOA_*_ROOT` variables, including `AOA_MEMO_ROOT`.
 If `abyss-stack` is not checked out beside `aoa-evals` and not under `~/src/abyss-stack`,
 export `ABYSS_STACK_ROOT` to the source checkout so runtime-evidence example refs resolve against tracked schemas.
 The canary follows the same source-checkout rule and will prefer `~/src/abyss-stack` over a runtime-like sibling mirror when both exist.
+
+The latest-sibling canary and GitHub `Repo Validation` answer different
+questions: the canary checks current local sibling truth, while GitHub `Repo
+Validation` checks the pinned public landing lane in
+`.github/workflows/repo-validation.yml`.
 
 ## Docs-only release
 
@@ -122,6 +127,21 @@ Before finalizing a change:
 - confirm starter-bundle integrity artifacts still match current manifest and chooser wording
 - confirm `generated/eval_catalog.json` and `generated/eval_catalog.min.json` were rebuilt from current markdown and manifest sources
 - confirm release scope is small enough that reviewers can reason about it directly
+
+For a large accumulated refactor, read
+`reports/proof-release-readiness-audit-v1.json` before publication. That audit
+may prove local release-prep reviewability, but it is not a tag, GitHub
+Release, GitHub `Repo Validation`, PR approval, or goal-completion proof.
+If the change is also part of the long strategic refactor, read
+`reports/strategic-closeout-audit-v1.json` as the wider requirement-by-
+requirement handoff audit. It may show local handoff readiness, but it still is
+not goal completion.
+When preparing the actual PR route, read
+`reports/release-prep-pr-handoff-v1.json` as a pre-PR snapshot for candidate
+branch, commit, PR title/body, validation, and landing steps. That handoff is
+not a branch, commit, push, PR, GitHub `Repo Validation`, merge, tag, GitHub
+Release, or goal completion; after branch or PR creation, current git and
+GitHub state supersedes it for live status.
 
 ## Publication record
 

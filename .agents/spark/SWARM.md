@@ -1,12 +1,17 @@
 # Spark Swarm Recipe — aoa-evals
 
-Рекомендуемый путь назначения: `Spark/SWARM.md`
+Рекомендуемый путь назначения: `.agents/spark/SWARM.md`
 
 ## Для чего этот рой
 Используй Spark здесь для одного bounded eval bundle или одного eval seam за раз: fixtures, scorers, verdict/report contracts, regression/comparison surfaces. Рой должен строить форму доказательства, а не делать театр тотального IQ-скора.
 
+Use this swarm for one bounded eval bundle or one eval seam at a time.
+
 ## Читать перед стартом
 - `README.md`
+- `DESIGN.AGENTS.md`
+- `.agents/AGENTS.md`
+- `.agents/spark/AGENTS.md`
 - `docs/ARCHITECTURE.md`
 - `docs/EVAL_PHILOSOPHY.md`
 - `EVAL_INDEX.md`

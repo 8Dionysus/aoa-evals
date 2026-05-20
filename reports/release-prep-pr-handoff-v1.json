@@ -1,0 +1,221 @@
+{
+  "artifact_kind": "release_prep_pr_handoff",
+  "schema_version": 1,
+  "handoff_id": "release-prep-pr-handoff-v1",
+  "prepared_at": "2026-05-19",
+  "scope_kind": "accumulated_strategic_refactor_diff",
+  "status_snapshot_kind": "pre_pr_handoff_snapshot",
+  "pre_landing_worktree_posture": "dirty_uncommitted_local_diff",
+  "source_readiness_audit_ref": "repo:aoa-evals/reports/proof-release-readiness-audit-v1.json",
+  "source_strategic_closeout_audit_ref": "repo:aoa-evals/reports/strategic-closeout-audit-v1.json",
+  "decision_ref": "repo:aoa-evals/docs/decisions/0027-release-prep-pr-handoff.md",
+  "candidate_branch_name": "codex/aoa-evals-strategic-refactor",
+  "candidate_commit_message": "Refactor aoa-evals proof topology and active loop",
+  "candidate_pr_title": "Refactor aoa-evals proof topology and active loop",
+  "handoff_verdict": "ready_for_owner_landing_route_with_open_pr",
+  "pre_handoff_github_status": {
+    "branch_status": "not_created_by_this_handoff",
+    "commit_status": "not_created_by_this_handoff",
+    "push_status": "not_attempted",
+    "pr_status": "not_opened",
+    "repo_validation_status": "not_observed_for_this_uncommitted_diff",
+    "merge_status": "not_attempted",
+    "tag_status": "not_created",
+    "github_release_status": "not_published"
+  },
+  "changed_surface_groups": [
+    {
+      "group_id": "root_design_and_route",
+      "summary": "Root design, agent guidance, root route card, and public entry routing for the bounded proof organ.",
+      "evidence_refs": [
+        "repo:aoa-evals/DESIGN.md",
+        "repo:aoa-evals/DESIGN.AGENTS.md",
+        "repo:aoa-evals/AGENTS.md",
+        "repo:aoa-evals/README.md"
+      ]
+    },
+    {
+      "group_id": "decision_memory",
+      "summary": "Durable decision lane for topology, validation, mechanics, reports, receipts, release readiness, and strategic closeout.",
+      "evidence_refs": [
+        "repo:aoa-evals/docs/decisions/README.md",
+        "repo:aoa-evals/docs/decisions/0026-strategic-closeout-audit.md",
+        "repo:aoa-evals/docs/decisions/0027-release-prep-pr-handoff.md"
+      ]
+    },
+    {
+      "group_id": "roadmap_changelog_quests",
+      "summary": "Separated direction, release narrative, quest source layout, lifecycle states, and generated quest readers.",
+      "evidence_refs": [
+        "repo:aoa-evals/ROADMAP.md",
+        "repo:aoa-evals/CHANGELOG.md",
+        "repo:aoa-evals/QUESTBOOK.md",
+        "repo:aoa-evals/quests/README.md",
+        "repo:aoa-evals/quests/LIFECYCLE.md",
+        "repo:aoa-evals/generated/quest_catalog.min.json",
+        "repo:aoa-evals/generated/quest_dispatch.min.json"
+      ]
+    },
+    {
+      "group_id": "proof_topology_legacy_mechanics",
+      "summary": "Convex proof topology, legacy naming containment, mechanics atlas, and package route cards.",
+      "evidence_refs": [
+        "repo:aoa-evals/docs/PROOF_TOPOLOGY.md",
+        "repo:aoa-evals/docs/LEGACY_NAMING.md",
+        "repo:aoa-evals/mechanics/README.md",
+        "repo:aoa-evals/mechanics/proof-object/README.md",
+        "repo:aoa-evals/mechanics/proof-loop/README.md",
+        "repo:aoa-evals/mechanics/proof-release/README.md"
+      ]
+    },
+    {
+      "group_id": "active_proof_loop",
+      "summary": "First local proof-loop smoke, bundle-local report, report index, receipt-intake dry review, release readiness, and strategic closeout reports.",
+      "evidence_refs": [
+        "repo:aoa-evals/reports/proof-loop-local-route-smoke-v1.md",
+        "repo:aoa-evals/bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+        "repo:aoa-evals/generated/eval_report_index.min.json",
+        "repo:aoa-evals/reports/eval-result-receipt-intake-dry-review-v1.json",
+        "repo:aoa-evals/reports/proof-release-readiness-audit-v1.json",
+        "repo:aoa-evals/reports/strategic-closeout-audit-v1.json"
+      ]
+    },
+    {
+      "group_id": "agent_lane_and_generated_readers",
+      "summary": "Maintained Spark lane under .agents, nested AGENTS coverage, generated catalogs, runtime candidate readers, and phase-alpha matrix freshness.",
+      "evidence_refs": [
+        "repo:aoa-evals/.agents/AGENTS.md",
+        "repo:aoa-evals/.agents/spark/AGENTS.md",
+        "repo:aoa-evals/.agents/spark/SWARM.md",
+        "repo:aoa-evals/generated/eval_catalog.min.json",
+        "repo:aoa-evals/generated/eval_capsules.json",
+        "repo:aoa-evals/generated/eval_sections.full.json",
+        "repo:aoa-evals/generated/runtime_candidate_template_index.min.json",
+        "repo:aoa-evals/generated/runtime_candidate_intake.min.json",
+        "repo:aoa-evals/generated/phase_alpha_eval_matrix.min.json"
+      ]
+    },
+    {
+      "group_id": "validators_and_tests",
+      "summary": "Repository validation, release check, nested AGENTS validation, generated-surface checks, and regression tests for new proof boundaries.",
+      "evidence_refs": [
+        "repo:aoa-evals/scripts/validate_repo.py",
+        "repo:aoa-evals/scripts/release_check.py",
+        "repo:aoa-evals/scripts/validate_nested_agents.py",
+        "repo:aoa-evals/tests/test_validate_repo.py",
+        "repo:aoa-evals/tests/test_release_prep_pr_handoff.py",
+        "repo:aoa-evals/tests/test_strategic_closeout_audit.py"
+      ]
+    }
+  ],
+  "draft_pr_body": [
+    "## Summary",
+    "- add the aoa-evals root design spine, agent route mesh, proof topology map, legacy naming map, and decision lane",
+    "- restructure quest source routing into lane/state paths with lifecycle docs and generated-reader parity",
+    "- add mechanics packages for proof-object, proof-loop, proof-release, runtime-evidence, sibling-proof-refs, questbook, proof-infra, comparison-spine, publication-receipts, Titan canaries, and Agon proof",
+    "- materialize the first local proof-loop path through route-smoke, bundle-local report, report index, receipt-intake dry review, release-readiness audit, strategic closeout audit, and this PR handoff",
+    "- move the maintained Spark lane from root Spark/ into .agents/spark/ while preserving proof-boundary limits",
+    "",
+    "## Validation",
+    "- python -m pytest -q tests/test_release_prep_pr_handoff.py tests/test_validate_repo.py -k release_prep_pr_handoff",
+    "- python scripts/validate_repo.py",
+    "- python scripts/validate_semantic_agents.py",
+    "- python scripts/validate_nested_agents.py",
+    "- git diff --check",
+    "- python scripts/build_catalog.py --check",
+    "- python scripts/generate_eval_report_index.py --check",
+    "- python scripts/generate_runtime_candidate_template_index.py --check",
+    "- python scripts/generate_runtime_candidate_intake.py --check",
+    "- python scripts/generate_phase_alpha_eval_matrix.py --check",
+    "- python scripts/run_sibling_canary.py --repo-root . --format json",
+    "- python -m pytest -q tests",
+    "- python scripts/release_check.py",
+    "",
+    "## Boundaries",
+    "- no tag or GitHub Release in this PR",
+    "- no live eval-result receipt publication",
+    "- no bundle status promotion by changelog wording alone",
+    "- no runtime evidence acceptance",
+    "- no sibling repository mutation",
+    "- goal completion remains open until landing, GitHub Repo Validation, clean main, and final owner-visible completion audit"
+  ],
+  "verification_snapshot": [
+    {
+      "command": "python -m pytest -q tests/test_release_prep_pr_handoff.py tests/test_validate_repo.py -k release_prep_pr_handoff",
+      "result": "passed",
+      "claim_limit": "Focused handoff tests constrain this PR handoff artifact; they do not create the PR."
+    },
+    {
+      "command": "python scripts/validate_repo.py",
+      "result": "passed",
+      "claim_limit": "Validates repository invariants for the current local checkout; it does not prove GitHub Repo Validation for an unmerged PR."
+    },
+    {
+      "command": "python scripts/validate_semantic_agents.py",
+      "result": "passed",
+      "claim_limit": "Checks shaped semantic AGENTS docs; it does not prove every future agent route is complete."
+    },
+    {
+      "command": "python scripts/validate_nested_agents.py",
+      "result": "passed",
+      "claim_limit": "Checks nested route-card coverage; it does not prove source proof meaning."
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed",
+      "claim_limit": "Whitespace diff hygiene passed; it does not prove semantic completion."
+    },
+    {
+      "command": "python scripts/build_catalog.py --check",
+      "result": "passed",
+      "claim_limit": "Checks generated catalog freshness; generated output remains subordinate to source bundles."
+    },
+    {
+      "command": "python scripts/generate_eval_report_index.py --check",
+      "result": "passed",
+      "claim_limit": "Checks report index freshness; the report index is not receipt or verdict authority."
+    },
+    {
+      "command": "python scripts/generate_runtime_candidate_template_index.py --check",
+      "result": "passed",
+      "claim_limit": "Checks runtime candidate template index freshness; runtime candidates remain candidate evidence."
+    },
+    {
+      "command": "python scripts/generate_runtime_candidate_intake.py --check",
+      "result": "passed",
+      "claim_limit": "Checks runtime candidate intake freshness; intake does not accept runtime verdict authority."
+    },
+    {
+      "command": "python scripts/generate_phase_alpha_eval_matrix.py --check",
+      "result": "passed",
+      "claim_limit": "Checks phase-alpha matrix freshness; phase-alpha naming remains legacy or projection posture where applicable."
+    },
+    {
+      "command": "python scripts/run_sibling_canary.py --repo-root . --format json",
+      "result": "passed",
+      "claim_limit": "Latest-sibling canary is local compatibility evidence; it is not sibling release approval."
+    },
+    {
+      "command": "python -m pytest -q tests",
+      "result": "passed",
+      "claim_limit": "Full local tests passed for this checkout; tests do not prove GitHub Repo Validation or goal completion."
+    },
+    {
+      "command": "python scripts/release_check.py",
+      "result": "passed",
+      "claim_limit": "Local release audit passed; it is not a tag, GitHub Release, PR approval, or proof that eval claims grew stronger."
+    }
+  ],
+  "landing_steps": [
+    "create a branch from current origin/main using the candidate branch name or another owner-approved branch name",
+    "commit the intended accumulated diff with the candidate commit message or an owner-approved equivalent",
+    "push the branch",
+    "open a PR using the draft PR body and preserve validation, skipped checks, and boundary notes",
+    "watch GitHub Repo Validation and any required checks until the final state is green or a concrete failure is available",
+    "fix any failing check on the branch rather than weakening validation",
+    "merge only after required checks are green and owner route permits it",
+    "return to main, fast-forward from origin/main, and confirm the worktree is clean",
+    "run the final owner-visible completion audit before marking the long goal complete"
+  ],
+  "claim_limit": "This pre-PR handoff snapshot prepares a release-prep PR route for owner landing. At the snapshot time it did not create a branch, did not create a commit, did not push, did not open a PR, did not observe GitHub Repo Validation, did not merge, did not publish a release, did not create a tag, did not publish a GitHub Release, did not publish an eval result receipt, did not promote any bundle, did not accept runtime evidence, did not mutate sibling repos, and did not mark the goal complete. Once a branch or PR exists, current git and GitHub state supersedes this snapshot for branch, commit, push, PR, CI, and merge status."
+}

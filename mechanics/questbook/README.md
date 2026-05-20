@@ -1,0 +1,114 @@
+# Questbook Mechanic
+
+## Role
+
+`mechanics/questbook/` routes the recurring operation that keeps proof
+obligations visible, reviewable, and returnable across long `aoa-evals` work.
+
+It is not an eval bundle home, not the roadmap, not a playbook, and not a live
+verdict authority.
+
+## Owned Operation
+
+The owned operation is:
+
+`source quest record -> human open-obligation index -> generated quest reader -> deferred return or reviewed promotion`
+
+This package keeps that operation coherent while quest source paths use the
+lane/state layout.
+
+## Source Surfaces
+
+- `QUESTBOOK.md`
+- `quests/README.md`
+- `quests/AGENTS.md`
+- `quests/LIFECYCLE.md`
+- `quests/<lane>/<state>/AOA-EV-Q-*.yaml`
+- `quests/agon/captured/AOE-Q-AGON-*.md`
+- `schemas/quest.schema.json`
+- `schemas/quest_dispatch.schema.json`
+- `generated/quest_catalog.min.json`
+- `generated/quest_dispatch.min.json`
+- `.agents/skills/aoa-quest-harvest/SKILL.md`
+- `docs/decisions/0004-questbook-topology.md`
+
+## Inputs
+
+- unresolved proof obligations;
+- regression or verdict-bridge gaps;
+- repeated blind spots that should return later;
+- proof-pressure harvest candidates;
+- reviewed post-session promotion packets when the active route is closed.
+
+## Outputs
+
+- source quest records;
+- human open-obligation index entries;
+- generated quest catalog and dispatch readers;
+- deferred return routes;
+- reviewed promotion targets when repetition is isolated and owner-fit is clear.
+- lifecycle state posture that keeps open obligations, closed provenance,
+  proof-loop defer, and handoff routes distinct.
+
+## Stronger Owner Split
+
+`aoa-evals` owns proof obligations and proof-surface promotion targets.
+
+`aoa-skills`, `aoa-playbooks`, `aoa-agents`, `aoa-memo`, and sibling owners keep
+their own stronger meaning when a quest outcome points outside proof work.
+
+The installed `aoa-quest-harvest` skill may support post-session promotion
+triage. It does not become quest source truth and it does not authorize
+promotion during an active route.
+
+## Boundaries
+
+- Quests are not eval bundles.
+- `QUESTBOOK.md` is not roadmap direction.
+- Generated quest readers are not live portable verdict authority.
+- Closed quests stay out of the open-obligation index.
+- Old top-level quest paths are legacy path vocabulary, not active source
+  files.
+- Source path changes must update validators and generated projections in the
+  same slice.
+- A promotion verdict is smaller than downstream owner acceptance.
+
+## Legacy Posture
+
+Agon markdown notes remain accepted legacy/source-compatible inputs under
+`quests/agon/captured/`.
+
+Current IDs stay stable. Old top-level paths remain documented as historical
+accepted-input vocabulary, while generated readers emit the current route.
+
+## Validation
+
+After changing quest source records, quest route docs, or this mechanic, run:
+
+```bash
+python scripts/build_catalog.py --check
+python scripts/validate_repo.py
+python scripts/validate_semantic_agents.py
+```
+
+If generated quest readers are stale, rebuild them with:
+
+```bash
+python scripts/build_catalog.py
+```
+
+Then rerun the checks.
+
+## Next Route
+
+The next honest questbook movement is lifecycle tightening with:
+
+- stable ID preservation;
+- generated projection proof;
+- validator proof;
+- legacy path mapping review;
+- no loss of active/open quest visibility.
+
+That lifecycle tightening now starts in `quests/LIFECYCLE.md`. Future state
+movement should update the source record, path, human index, generated readers,
+and lifecycle contract together.

@@ -15,9 +15,9 @@
     "repo:aoa-playbooks/playbooks/local-stack-diagnosis/PLAYBOOK.md#expected-artifacts",
     "repo:aoa-playbooks/docs/alpha-readiness/local-stack-diagnosis.md",
     "repo:aoa-agents/examples/alpha_reference_routes/local-stack-diagnosis.example.json",
-    "repo:aoa-memo/examples/state_capsule.phase-alpha-local-stack.example.json",
-    "repo:aoa-memo/examples/episode.phase-alpha-local-stack.example.json",
-    "repo:aoa-memo/examples/decision.phase-alpha-local-stack.example.json"
+    "repo:aoa-memo/examples/phase-alpha/state_capsule.phase-alpha-local-stack.example.json",
+    "repo:aoa-memo/examples/phase-alpha/episode.phase-alpha-local-stack.example.json",
+    "repo:aoa-memo/examples/phase-alpha/decision.phase-alpha-local-stack.example.json"
   ],
   "trace_surfaces": [],
   "verification_surface": "verification_pack",

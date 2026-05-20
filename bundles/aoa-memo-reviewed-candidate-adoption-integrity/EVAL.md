@@ -107,14 +107,14 @@ Do not use this eval when:
 
 ## Inputs
 
-- `repo:aoa-memo/examples/checkpoint_to_memory_contract.example.json`
+- `repo:aoa-memo/mechanics/checkpoint/parts/checkpoint-to-memory-mapping/examples/checkpoint_to_memory_contract.example.json`
 - `repo:aoa-memo/generated/runtime_writeback_targets.min.json`
 - `repo:aoa-memo/generated/runtime_writeback_intake.min.json`
 - `repo:aoa-memo/generated/runtime_writeback_governance.min.json`
 - `repo:aoa-memo/generated/phase_alpha_writeback_map.min.json`
-- `repo:aoa-memo/examples/claim.phase-alpha-runtime-history-later-infra-track.example.json`
-- `repo:aoa-memo/examples/pattern.phase-alpha-remediation-recurrence.example.json`
-- `repo:aoa-memo/examples/bridge.kag-lift.example.json`
+- `repo:aoa-memo/examples/phase-alpha/claim.phase-alpha-runtime-history-later-infra-track.example.json`
+- `repo:aoa-memo/examples/phase-alpha/pattern.phase-alpha-remediation-recurrence.example.json`
+- `repo:aoa-memo/mechanics/consumer-handoff/parts/kag-tos-bridge-handoff/examples/bridge.kag-lift.example.json`
 - `repo:aoa-memo/generated/memory_object_catalog.min.json`
 - `repo:aoa-memo/generated/memory_object_capsules.json`
 - `repo:aoa-memo/generated/memory_object_sections.full.json`

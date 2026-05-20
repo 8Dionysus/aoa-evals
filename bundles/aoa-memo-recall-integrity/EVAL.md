@@ -85,14 +85,14 @@ Do not use this eval when:
 
 ## Inputs
 
-- `repo:aoa-memo/examples/memory_eval_guardrail_pack.example.json`
-- `repo:aoa-memo/examples/recall_contract.router.semantic.json`
+- `repo:aoa-memo/mechanics/consumer-handoff/parts/eval-guardrail-handoff/examples/memory_eval_guardrail_pack.example.json`
+- `repo:aoa-memo/examples/recall/recall_contract.router.semantic.json`
 - `repo:aoa-memo/generated/memory_catalog.min.json`
 - `repo:aoa-memo/generated/memory_capsules.json`
 - `repo:aoa-memo/generated/memory_sections.full.json`
-- `repo:aoa-memo/examples/provenance_thread.kag-lift.example.json`
-- `repo:aoa-memo/examples/claim.superseded.example.json`
-- `repo:aoa-memo/examples/claim.retracted.example.json`
+- `repo:aoa-memo/mechanics/consumer-handoff/parts/kag-tos-bridge-handoff/examples/provenance_thread.kag-lift.example.json`
+- `repo:aoa-memo/examples/lifecycle/claim.superseded.example.json`
+- `repo:aoa-memo/examples/lifecycle/claim.retracted.example.json`
 
 ## Fixtures and case surface
 

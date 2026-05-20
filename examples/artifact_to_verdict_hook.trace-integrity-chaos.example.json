@@ -23,7 +23,7 @@
   ],
   "trace_surfaces": [
     "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md",
-    "repo:aoa-memo/mechanics/writeback/examples/provenance_thread.self-agency-continuity.example.json"
+    "repo:aoa-memo/mechanics/writeback/parts/growth-and-continuity/examples/provenance_thread.self-agency-continuity.example.json"
   ],
   "verification_surface": "proof_handoff_candidate",
   "contract_test_refs": [

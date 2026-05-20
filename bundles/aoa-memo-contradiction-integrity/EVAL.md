@@ -95,17 +95,17 @@ Do not use this eval when:
 
 ## Inputs
 
-- `repo:aoa-memo/examples/memory_eval_guardrail_pack.example.json`
-- `repo:aoa-memo/examples/recall_contract.object.working.json`
+- `repo:aoa-memo/mechanics/consumer-handoff/parts/eval-guardrail-handoff/examples/memory_eval_guardrail_pack.example.json`
+- `repo:aoa-memo/examples/recall/recall_contract.object.working.json`
 - `repo:aoa-memo/generated/memory_object_catalog.min.json`
 - `repo:aoa-memo/generated/memory_object_capsules.json`
 - `repo:aoa-memo/generated/memory_object_sections.full.json`
-- `repo:aoa-memo/examples/claim.current-entrypoint.example.json`
-- `repo:aoa-memo/examples/claim.superseded.example.json`
-- `repo:aoa-memo/examples/claim.retracted.example.json`
-- `repo:aoa-memo/examples/provenance_thread.lifecycle.example.json`
-- `repo:aoa-memo/examples/audit_event.supersession.example.json`
-- `repo:aoa-memo/examples/audit_event.retraction.example.json`
+- `repo:aoa-memo/examples/lifecycle/claim.current-entrypoint.example.json`
+- `repo:aoa-memo/examples/lifecycle/claim.superseded.example.json`
+- `repo:aoa-memo/examples/lifecycle/claim.retracted.example.json`
+- `repo:aoa-memo/examples/lifecycle/provenance_thread.lifecycle.example.json`
+- `repo:aoa-memo/examples/lifecycle/audit_event.supersession.example.json`
+- `repo:aoa-memo/examples/lifecycle/audit_event.retraction.example.json`
 
 ## Fixtures and case surface
 
@@ -294,7 +294,7 @@ Do not treat a positive result as:
 ## Verification
 
 - confirm the case surface stays anchored to
-  `repo:aoa-memo/examples/memory_eval_guardrail_pack.example.json`
+  `repo:aoa-memo/mechanics/consumer-handoff/parts/eval-guardrail-handoff/examples/memory_eval_guardrail_pack.example.json`
 - validate any machine-readable report against `reports/summary.schema.json`
 - confirm the fixture family, fixture contract, and runner contract keep
   contradiction visibility narrower than recall precision, permission, or

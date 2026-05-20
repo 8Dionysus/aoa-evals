@@ -9,7 +9,7 @@
     "repo:aoa-evals/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
     "repo:aoa-routing/docs/LIVE_SESSION_REENTRY_ROUTE_REVIEW.md",
     "repo:aoa-agents/docs/SELF_AGENCY_CONTINUITY_LANE.md",
-    "repo:aoa-memo/mechanics/checkpoint/schemas/inquiry_checkpoint.schema.json",
+    "repo:aoa-memo/mechanics/checkpoint/parts/checkpoint-carry-contract/schemas/inquiry_checkpoint.schema.json",
     "repo:aoa-memo/mechanics/writeback/docs/SELF_AGENCY_CONTINUITY_WRITEBACK.md"
   ],
   "replay_requirements": {

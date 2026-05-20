@@ -42,6 +42,17 @@ travels inside that envelope.
 Use `scripts/publish_live_receipts.py` to append validated owner-local receipts
 to the live JSONL log.
 
+## Dry review boundary
+
+`reports/eval-result-receipt-intake-dry-review-v1.json` is the first
+report-to-receipt intake dry review. It may show a schema-valid
+`candidate_payload_preview`, but it is not an `eval_result_receipt`, not a
+`stats-event-envelope`, and not live log content.
+
+Use the dry review when checking whether a reviewed report can derive the
+payload fields. Use the publisher only when a later slice intentionally emits a
+receipt.
+
 ## What the receipt may say
 
 An `eval_result_receipt` may name:

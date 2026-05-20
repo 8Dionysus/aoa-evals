@@ -45,9 +45,17 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
     destination.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
 
 
+def quest_fixture_path(repo_root: Path, quest_id: str) -> Path:
+    matches = sorted((repo_root / "quests").rglob(f"{quest_id}.yaml"))
+    if len(matches) != 1:
+        raise AssertionError(f"expected one source path for {quest_id}, found {len(matches)}")
+    return matches[0]
+
+
 def make_questbook_surface(repo_root: Path) -> None:
     for relative_path in [
         "QUESTBOOK.md",
+        "quests/LIFECYCLE.md",
         "docs/QUESTBOOK_EVAL_INTEGRATION.md",
         "docs/ORCHESTRATOR_PROOF_ALIGNMENT.md",
         "docs/UNLOCK_PROOF_BRIDGE.md",
@@ -61,8 +69,8 @@ def make_questbook_surface(repo_root: Path) -> None:
         "generated/unlock_proof_cards.min.example.json",
     ]:
         copy_repo_text(repo_root, relative_path)
-    for quest_path in sorted((REPO_ROOT / "quests").glob("AOA-EV-Q-*.yaml")):
-        copy_repo_text(repo_root, f"quests/{quest_path.name}")
+    for quest_path in sorted((REPO_ROOT / "quests").rglob("AOA-EV-Q-*.yaml")):
+        copy_repo_text(repo_root, quest_path.relative_to(REPO_ROOT).as_posix())
 
 
 def rewrite_questbook_projections(repo_root: Path) -> None:
@@ -130,6 +138,206 @@ def make_runtime_candidate_intake_surface(repo_root: Path) -> None:
         "examples/artifact_to_verdict_hook.a2a-summon-return-checkpoint.example.json",
         "examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json",
         "scripts/generate_runtime_candidate_intake.py",
+    ]:
+        copy_repo_text(repo_root, relative_path)
+
+
+def make_eval_report_index_surface(repo_root: Path) -> None:
+    for relative_path in [
+        "generated/eval_report_index.min.json",
+        "scripts/generate_eval_report_index.py",
+    ]:
+        copy_repo_text(repo_root, relative_path)
+    for report_path in sorted((REPO_ROOT / "bundles").glob("*/reports/*.report.json")):
+        bundle_dir = report_path.parents[1]
+        for source_path in [
+            bundle_dir / "EVAL.md",
+            bundle_dir / "eval.yaml",
+            bundle_dir / "reports" / "summary.schema.json",
+            report_path,
+        ]:
+            copy_repo_text(repo_root, source_path.relative_to(REPO_ROOT).as_posix())
+
+
+def make_receipt_intake_dry_review_surface(repo_root: Path) -> None:
+    for relative_path in [
+        "reports/eval-result-receipt-intake-dry-review-v1.json",
+        "docs/decisions/0024-receipt-intake-dry-review.md",
+        "docs/decisions/README.md",
+        "mechanics/proof-loop/README.md",
+        "mechanics/publication-receipts/README.md",
+        "reports/README.md",
+        "README.md",
+        "docs/README.md",
+        "ROADMAP.md",
+        "CHANGELOG.md",
+        "generated/eval_report_index.min.json",
+        "schemas/eval-result-receipt.schema.json",
+        "schemas/stats-event-envelope.schema.json",
+        "scripts/publish_live_receipts.py",
+        ".aoa/live_receipts/eval-result-receipts.jsonl",
+        "bundles/aoa-verification-honesty/EVAL.md",
+        "bundles/aoa-verification-honesty/eval.yaml",
+        "bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+    ]:
+        copy_repo_text(repo_root, relative_path)
+
+
+def make_proof_release_readiness_audit_surface(repo_root: Path) -> None:
+    for relative_path in [
+        "reports/proof-release-readiness-audit-v1.json",
+        "docs/decisions/0025-proof-release-readiness-audit.md",
+        "docs/decisions/README.md",
+        "mechanics/proof-release/README.md",
+        "mechanics/proof-release/AGENTS.md",
+        "docs/RELEASING.md",
+        "reports/README.md",
+        "README.md",
+        "docs/README.md",
+        "ROADMAP.md",
+        "CHANGELOG.md",
+        "DESIGN.md",
+        "DESIGN.AGENTS.md",
+        "AGENTS.md",
+        "QUESTBOOK.md",
+        "quests/README.md",
+        "quests/LIFECYCLE.md",
+        "generated/quest_catalog.min.json",
+        "generated/quest_dispatch.min.json",
+        "docs/PROOF_TOPOLOGY.md",
+        "docs/LEGACY_NAMING.md",
+        "mechanics/README.md",
+        "mechanics/proof-object/README.md",
+        "mechanics/proof-loop/README.md",
+        "reports/proof-loop-local-route-smoke-v1.md",
+        "bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+        "generated/eval_report_index.min.json",
+        "reports/eval-result-receipt-intake-dry-review-v1.json",
+        "generated/eval_catalog.min.json",
+        "generated/eval_capsules.json",
+        "generated/eval_sections.full.json",
+        "generated/runtime_candidate_template_index.min.json",
+        "generated/runtime_candidate_intake.min.json",
+        "generated/phase_alpha_eval_matrix.min.json",
+        "scripts/release_check.py",
+        "scripts/validate_repo.py",
+        "tests/test_validate_repo.py",
+        "tests/test_downstream_feed_contracts.py",
+        "tests/test_receipt_intake_dry_review.py",
+        "docs/SIBLING_PROOF_REFS.md",
+        "mechanics/sibling-proof-refs/README.md",
+        "scripts/sibling_canary_matrix.json",
+    ]:
+        copy_repo_text(repo_root, relative_path)
+
+
+def make_strategic_closeout_audit_surface(repo_root: Path) -> None:
+    for relative_path in [
+        "reports/strategic-closeout-audit-v1.json",
+        "docs/decisions/0026-strategic-closeout-audit.md",
+        "reports/proof-release-readiness-audit-v1.json",
+        "docs/decisions/0025-proof-release-readiness-audit.md",
+        "docs/decisions/README.md",
+        "docs/decisions/TEMPLATE.md",
+        "README.md",
+        "docs/README.md",
+        "reports/README.md",
+        "docs/RELEASING.md",
+        "ROADMAP.md",
+        "CHANGELOG.md",
+        "DESIGN.md",
+        "DESIGN.AGENTS.md",
+        "AGENTS.md",
+        "docs/PROOF_TOPOLOGY.md",
+        "docs/LEGACY_NAMING.md",
+        "docs/SIBLING_PROOF_REFS.md",
+        "QUESTBOOK.md",
+        "quests/README.md",
+        "quests/LIFECYCLE.md",
+        "generated/quest_catalog.min.json",
+        "generated/quest_dispatch.min.json",
+        "mechanics/README.md",
+        "mechanics/proof-object/README.md",
+        "mechanics/proof-loop/README.md",
+        "mechanics/proof-release/README.md",
+        "mechanics/runtime-evidence/README.md",
+        "mechanics/sibling-proof-refs/README.md",
+        ".agents/AGENTS.md",
+        ".agents/spark/AGENTS.md",
+        ".agents/spark/SWARM.md",
+        "scripts/validate_repo.py",
+        "scripts/release_check.py",
+        "scripts/sibling_canary_matrix.json",
+        "tests/test_validate_repo.py",
+        "tests/test_proof_release_readiness_audit.py",
+        "tests/test_strategic_closeout_audit.py",
+        "reports/proof-loop-local-route-smoke-v1.md",
+        "bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+        "generated/eval_report_index.min.json",
+        "reports/eval-result-receipt-intake-dry-review-v1.json",
+        "generated/eval_catalog.min.json",
+        "generated/eval_capsules.json",
+        "generated/eval_sections.full.json",
+        "generated/runtime_candidate_template_index.min.json",
+        "generated/runtime_candidate_intake.min.json",
+        "generated/phase_alpha_eval_matrix.min.json",
+    ]:
+        copy_repo_text(repo_root, relative_path)
+
+
+def make_release_prep_pr_handoff_surface(repo_root: Path) -> None:
+    for relative_path in [
+        "reports/release-prep-pr-handoff-v1.json",
+        "docs/decisions/0027-release-prep-pr-handoff.md",
+        "docs/decisions/0028-repo-validation-aoa-memo-pin-refresh.md",
+        "reports/proof-release-readiness-audit-v1.json",
+        "reports/strategic-closeout-audit-v1.json",
+        "docs/decisions/0025-proof-release-readiness-audit.md",
+        "docs/decisions/0026-strategic-closeout-audit.md",
+        "docs/decisions/README.md",
+        "README.md",
+        "docs/README.md",
+        "reports/README.md",
+        "docs/RELEASING.md",
+        "ROADMAP.md",
+        "CHANGELOG.md",
+        "DESIGN.md",
+        "DESIGN.AGENTS.md",
+        "AGENTS.md",
+        "docs/PROOF_TOPOLOGY.md",
+        "docs/LEGACY_NAMING.md",
+        "QUESTBOOK.md",
+        "quests/README.md",
+        "quests/LIFECYCLE.md",
+        "generated/quest_catalog.min.json",
+        "generated/quest_dispatch.min.json",
+        "mechanics/README.md",
+        "mechanics/proof-object/README.md",
+        "mechanics/proof-loop/README.md",
+        "mechanics/proof-release/README.md",
+        "mechanics/proof-release/AGENTS.md",
+        "mechanics/runtime-evidence/README.md",
+        "mechanics/sibling-proof-refs/README.md",
+        ".agents/AGENTS.md",
+        ".agents/spark/AGENTS.md",
+        ".agents/spark/SWARM.md",
+        "scripts/validate_repo.py",
+        "scripts/release_check.py",
+        "scripts/validate_nested_agents.py",
+        "scripts/sibling_canary_matrix.json",
+        "tests/test_validate_repo.py",
+        "tests/test_release_prep_pr_handoff.py",
+        "tests/test_strategic_closeout_audit.py",
+        "reports/proof-loop-local-route-smoke-v1.md",
+        "bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+        "generated/eval_report_index.min.json",
+        "reports/eval-result-receipt-intake-dry-review-v1.json",
+        "generated/eval_catalog.min.json",
+        "generated/eval_capsules.json",
+        "generated/eval_sections.full.json",
+        "generated/runtime_candidate_template_index.min.json",
+        "generated/runtime_candidate_intake.min.json",
+        "generated/phase_alpha_eval_matrix.min.json",
     ]:
         copy_repo_text(repo_root, relative_path)
 
@@ -2446,6 +2654,129 @@ def test_validate_repo_rejects_report_example_that_violates_bundle_schema(tmp_pa
     assert any("report violation" in issue.message and "limitations" in issue.message for issue in issues)
 
 
+def test_validate_repo_rejects_actual_report_that_violates_bundle_schema(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-invalid-actual-report")
+    write_catalogs(tmp_path)
+    add_materialized_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-invalid-actual-report",
+        report_schema={
+            "type": "object",
+            "additionalProperties": False,
+            "required": [
+                "eval_name",
+                "bundle_status",
+                "object_under_evaluation",
+                "verdict",
+                "claim_boundary",
+                "limitations",
+            ],
+            "properties": {
+                "eval_name": {"const": "aoa-invalid-actual-report"},
+                "bundle_status": {"const": "draft"},
+                "object_under_evaluation": {"const": "bounded test surface"},
+                "verdict": {"type": "string"},
+                "claim_boundary": {"type": "string"},
+                "limitations": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "minItems": 1,
+                },
+            },
+        },
+        report_example={
+            "eval_name": "aoa-invalid-actual-report",
+            "bundle_status": "draft",
+            "object_under_evaluation": "bounded test surface",
+            "verdict": "supports bounded claim",
+            "claim_boundary": "example includes limitations and should pass",
+            "limitations": ["example remains bounded"],
+        },
+    )
+    write_text(
+        tmp_path / "bundles" / "aoa-invalid-actual-report" / "reports" / "local-run.report.json",
+        json.dumps(
+            {
+                "eval_name": "aoa-invalid-actual-report",
+                "bundle_status": "draft",
+                "object_under_evaluation": "bounded test surface",
+                "verdict": "supports bounded claim",
+                "claim_boundary": "missing limitations should fail for actual reports",
+            },
+            indent=2,
+        ),
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        issue.location.endswith("reports/local-run.report.json")
+        and "report violation" in issue.message
+        and "limitations" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_repo_rejects_actual_report_with_manifest_drift(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-drifted-actual-report")
+    write_catalogs(tmp_path)
+    add_materialized_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-drifted-actual-report",
+        report_schema={
+            "type": "object",
+            "additionalProperties": False,
+            "required": [
+                "eval_name",
+                "bundle_status",
+                "object_under_evaluation",
+                "verdict",
+                "claim_boundary",
+                "limitations",
+            ],
+            "properties": {
+                "eval_name": {"type": "string"},
+                "bundle_status": {"type": "string"},
+                "object_under_evaluation": {"const": "bounded test surface"},
+                "verdict": {"type": "string"},
+                "claim_boundary": {"type": "string"},
+                "limitations": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "minItems": 1,
+                },
+            },
+        },
+        report_example={
+            "eval_name": "aoa-drifted-actual-report",
+            "bundle_status": "draft",
+            "object_under_evaluation": "bounded test surface",
+            "verdict": "supports bounded claim",
+            "claim_boundary": "example includes manifest-aligned fields",
+            "limitations": ["example remains bounded"],
+        },
+    )
+    write_text(
+        tmp_path / "bundles" / "aoa-drifted-actual-report" / "reports" / "local-run.report.json",
+        json.dumps(
+            {
+                "eval_name": "wrong-eval-name",
+                "bundle_status": "portable",
+                "object_under_evaluation": "bounded test surface",
+                "verdict": "supports bounded claim",
+                "claim_boundary": "schema accepts this but manifest drift should fail",
+                "limitations": ["actual report remains bounded"],
+            },
+            indent=2,
+        ),
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any("eval_name must match manifest name" in issue.message for issue in issues)
+    assert any("bundle_status must match manifest status" in issue.message for issue in issues)
+
+
 def test_approval_boundary_schema_allows_missing_fallback_move() -> None:
     schema_path = (
         REPO_ROOT
@@ -4197,6 +4528,34 @@ class TestValidateQuestbookSurface:
 
         assert validate_questbook_surface(tmp_path) == []
 
+    def test_quest_lifecycle_surface_validates_current_state_contract(self) -> None:
+        quest_schema = json.loads((REPO_ROOT / "schemas" / "quest.schema.json").read_text(encoding="utf-8"))
+
+        assert validate_repo.validate_quest_lifecycle_surface(REPO_ROOT, quest_schema) == []
+
+    def test_quest_lifecycle_surface_rejects_missing_state_matrix_entry(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "quests/LIFECYCLE.md")
+        copy_repo_text(tmp_path, "schemas/quest.schema.json")
+        lifecycle_path = tmp_path / "quests" / "LIFECYCLE.md"
+        lifecycle_path.write_text(
+            lifecycle_path.read_text(encoding="utf-8").replace(
+                "| `reanchor` | listed in `QUESTBOOK.md` |",
+                "| `return-anchor` | listed in `QUESTBOOK.md` |",
+            ),
+            encoding="utf-8",
+        )
+        quest_schema = json.loads((tmp_path / "schemas" / "quest.schema.json").read_text(encoding="utf-8"))
+
+        issues = validate_repo.validate_quest_lifecycle_surface(tmp_path, quest_schema)
+
+        assert any(
+            issue.location == "quests/LIFECYCLE.md"
+            and "state 'reanchor'" in issue.message
+            for issue in issues
+        )
+
     def test_missing_orchestrator_catalog_is_ignored_until_needed(
         self,
         tmp_path: Path,
@@ -4221,7 +4580,13 @@ class TestValidateQuestbookSurface:
     def test_discover_quest_names_includes_additive_quests(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
 
-        expected_quest_names = [path.stem for path in sorted((REPO_ROOT / "quests").glob("AOA-EV-Q-*.yaml"))]
+        expected_quest_names = [
+            path.stem
+            for path in sorted(
+                (REPO_ROOT / "quests").rglob("AOA-EV-Q-*.yaml"),
+                key=lambda path: validate_repo.quest_sort_key(path.stem),
+            )
+        ]
 
         assert validate_repo.discover_quest_names(tmp_path) == expected_quest_names
 
@@ -4256,7 +4621,7 @@ class TestValidateQuestbookSurface:
 
     def test_missing_quest_yaml_fails(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
-        (tmp_path / "quests" / "AOA-EV-Q-0002.yaml").unlink()
+        quest_fixture_path(tmp_path, "AOA-EV-Q-0002").unlink()
 
         issues = validate_questbook_surface(tmp_path)
 
@@ -4265,7 +4630,7 @@ class TestValidateQuestbookSurface:
 
     def test_quest_id_filename_mismatch_fails(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
-        quest_path = tmp_path / "quests" / "AOA-EV-Q-0003.yaml"
+        quest_path = quest_fixture_path(tmp_path, "AOA-EV-Q-0003")
         quest_data = yaml.safe_load(quest_path.read_text(encoding="utf-8"))
         quest_data["id"] = "AOA-EV-Q-9999"
         write_yaml_payload(quest_path, quest_data)
@@ -4274,9 +4639,40 @@ class TestValidateQuestbookSurface:
 
         assert any("quest id must match filename 'AOA-EV-Q-0003'" in issue.message for issue in issues)
 
+    def test_top_level_quest_source_path_fails(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        quest_path = quest_fixture_path(tmp_path, "AOA-EV-Q-0004")
+        stale_path = tmp_path / "quests" / quest_path.name
+        stale_path.write_text(quest_path.read_text(encoding="utf-8"), encoding="utf-8")
+        quest_path.unlink()
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any(
+            issue.location == "quests/AOA-EV-Q-0004.yaml"
+            and "quests/<lane>/<state>/<quest-id>.yaml" in issue.message
+            for issue in issues
+        )
+
+    def test_quest_state_directory_mismatch_fails(self, tmp_path: Path) -> None:
+        make_questbook_surface(tmp_path)
+        quest_path = quest_fixture_path(tmp_path, "AOA-EV-Q-0005")
+        wrong_state_path = tmp_path / "quests" / "proof" / "triaged" / quest_path.name
+        wrong_state_path.parent.mkdir(parents=True, exist_ok=True)
+        wrong_state_path.write_text(quest_path.read_text(encoding="utf-8"), encoding="utf-8")
+        quest_path.unlink()
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any(
+            issue.location == "quests/proof/triaged/AOA-EV-Q-0005.yaml"
+            and "must match state 'captured'" in issue.message
+            for issue in issues
+        )
+
     def test_wrong_repo_value_fails(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
-        quest_path = tmp_path / "quests" / "AOA-EV-Q-0001.yaml"
+        quest_path = quest_fixture_path(tmp_path, "AOA-EV-Q-0001")
         quest_data = yaml.safe_load(quest_path.read_text(encoding="utf-8"))
         quest_data["repo"] = "aoa-techniques"
         write_yaml_payload(quest_path, quest_data)
@@ -4287,7 +4683,7 @@ class TestValidateQuestbookSurface:
 
     def test_missing_public_safe_fails(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
-        quest_path = tmp_path / "quests" / "AOA-EV-Q-0005.yaml"
+        quest_path = quest_fixture_path(tmp_path, "AOA-EV-Q-0005")
         quest_data = yaml.safe_load(quest_path.read_text(encoding="utf-8"))
         quest_data["public_safe"] = False
         write_yaml_payload(quest_path, quest_data)
@@ -4353,7 +4749,7 @@ class TestValidateQuestbookSurface:
             "docs/UNLOCK_PROOF_BRIDGE.md",
             "schemas/unlock_proof_catalog.schema.json",
             "generated/unlock_proof_cards.min.example.json",
-            "quests/AOA-EV-Q-0009.yaml",
+            "quests/unlock/triaged/AOA-EV-Q-0009.yaml",
         ]:
             copy_repo_text(tmp_path, relative_path)
         rewrite_questbook_projections(tmp_path)
@@ -4369,7 +4765,7 @@ class TestValidateQuestbookSurface:
             "docs/UNLOCK_PROOF_BRIDGE.md",
             "schemas/unlock_proof_catalog.schema.json",
             "generated/unlock_proof_cards.min.example.json",
-            "quests/AOA-EV-Q-0009.yaml",
+            "quests/unlock/triaged/AOA-EV-Q-0009.yaml",
         ]:
             copy_repo_text(tmp_path, relative_path)
         example_path = tmp_path / "generated" / "unlock_proof_cards.min.example.json"
@@ -4414,7 +4810,13 @@ class TestValidateQuestbookSurface:
 
         catalog_projection = validate_repo.build_quest_catalog_projection(tmp_path)
         dispatch_projection = validate_repo.build_quest_dispatch_projection(tmp_path)
-        expected_quest_names = [path.stem for path in sorted((REPO_ROOT / "quests").glob("AOA-EV-Q-*.yaml"))]
+        expected_quest_names = [
+            path.stem
+            for path in sorted(
+                (REPO_ROOT / "quests").rglob("AOA-EV-Q-*.yaml"),
+                key=lambda path: validate_repo.quest_sort_key(path.stem),
+            )
+        ]
 
         assert [entry["id"] for entry in catalog_projection] == expected_quest_names
         assert [entry["id"] for entry in dispatch_projection] == expected_quest_names
@@ -4537,9 +4939,69 @@ class TestValidateQuestbookSurface:
             )
         ]
 
+    def test_eval_report_index_validates_for_current_repo(self) -> None:
+        issues = validate_repo.validate_eval_report_index(REPO_ROOT)
+
+        assert issues == []
+
+    def test_eval_report_index_drift_fails(self, tmp_path: Path) -> None:
+        make_eval_report_index_surface(tmp_path)
+        index_path = tmp_path / "generated" / "eval_report_index.min.json"
+        payload = json.loads(index_path.read_text(encoding="utf-8"))
+        payload["reports"][0]["verdict"] = "drifted verdict"
+        write_json_payload(index_path, payload)
+
+        issues = validate_repo.validate_eval_report_index(tmp_path)
+
+        assert any(
+            issue.location == "generated/eval_report_index.min.json"
+            and "out of date or mismatched" in issue.message
+            for issue in issues
+        )
+        assert any(
+            issue.location.startswith("generated/eval_report_index.min.json.reports[")
+            and "verdict must match source_report_path" in issue.message
+            for issue in issues
+        )
+
+    def test_eval_report_index_rejects_receipt_posture(self, tmp_path: Path) -> None:
+        make_eval_report_index_surface(tmp_path)
+        index_path = tmp_path / "generated" / "eval_report_index.min.json"
+        payload = json.loads(index_path.read_text(encoding="utf-8"))
+        payload["reports"][0]["receipt_status"] = "published_receipt"
+        write_json_payload(index_path, payload)
+
+        issues = validate_repo.validate_eval_report_index(tmp_path)
+
+        assert any(
+            issue.location.startswith("generated/eval_report_index.min.json.reports[")
+            and "receipt_status must stay 'not_a_receipt'" in issue.message
+            for issue in issues
+        )
+
+    def test_eval_report_index_reports_builder_system_exit(self, monkeypatch) -> None:
+        class FailingBuilder:
+            def build_eval_report_index_payload(self) -> dict[str, object]:
+                raise SystemExit("builder-exit")
+
+        monkeypatch.setattr(
+            validate_repo,
+            "load_eval_report_index_builder",
+            lambda repo_root: FailingBuilder(),
+        )
+
+        issues = validate_repo.validate_eval_report_index(REPO_ROOT)
+
+        assert issues == [
+            validate_repo.ValidationIssue(
+                "generated/eval_report_index.min.json",
+                "builder-exit",
+            )
+        ]
+
     def test_quest_projection_records_validate_full_quest_schema(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
-        quest_path = tmp_path / "quests" / "AOA-EV-Q-0001.yaml"
+        quest_path = quest_fixture_path(tmp_path, "AOA-EV-Q-0001")
         quest = yaml.safe_load(quest_path.read_text(encoding="utf-8"))
         quest.pop("title", None)
         write_yaml_payload(quest_path, quest)
@@ -4653,3 +5115,404 @@ class TestValidateQuestbookSurface:
 
     def test_titan_canary_surfaces_validate_current_seed_set(self) -> None:
         assert validate_repo.validate_titan_canary_surfaces(REPO_ROOT) == []
+
+    def test_agent_lane_surfaces_validate_current_routes(self) -> None:
+        assert validate_repo.validate_agent_lane_surfaces(REPO_ROOT) == []
+
+    def test_repo_validation_workflow_surface_validates_current_pin(self) -> None:
+        assert validate_repo.validate_repo_validation_workflow_surface(REPO_ROOT) == []
+
+    def test_repo_validation_workflow_rejects_stale_aoa_memo_pin(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, ".github/workflows/repo-validation.yml")
+        workflow_path = tmp_path / ".github" / "workflows" / "repo-validation.yml"
+        workflow_path.write_text(
+            workflow_path.read_text(encoding="utf-8").replace(
+                validate_repo.REPO_VALIDATION_AOA_MEMO_REF,
+                "4fec12fb54a5a332587139000a6a98a4c76357bd",
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_repo_validation_workflow_surface(tmp_path)
+
+        assert any(
+            issue.location == ".github/workflows/repo-validation.yml"
+            and "aoa-memo checkout ref must be" in issue.message
+            for issue in issues
+        )
+
+    def test_proof_loop_mechanic_surfaces_validate_current_routes(self) -> None:
+        assert not any(
+            issue.location.startswith("mechanics/proof-loop/")
+            or issue.location == "docs/decisions/0019-proof-loop-mechanic-package.md"
+            or issue.location == "docs/decisions/0020-proof-loop-local-smoke-report.md"
+            or issue.location == "reports/proof-loop-local-route-smoke-v1.md"
+            for issue in validate_repo.validate_mechanics_surfaces(REPO_ROOT)
+        )
+
+    def test_proof_loop_smoke_report_surfaces_validate_current_route(self) -> None:
+        assert validate_repo.validate_proof_loop_smoke_report_surfaces(REPO_ROOT) == []
+
+    def test_proof_loop_local_report_surfaces_validate_current_route(self) -> None:
+        assert validate_repo.validate_proof_loop_local_report_surfaces(REPO_ROOT) == []
+
+    def test_receipt_intake_dry_review_surface_validates_current_route(self) -> None:
+        assert validate_repo.validate_receipt_intake_dry_review_surface(REPO_ROOT) == []
+
+    def test_receipt_intake_dry_review_rejects_published_posture(
+        self, tmp_path: Path
+    ) -> None:
+        make_receipt_intake_dry_review_surface(tmp_path)
+        review_path = tmp_path / "reports" / "eval-result-receipt-intake-dry-review-v1.json"
+        payload = json.loads(review_path.read_text(encoding="utf-8"))
+        payload["publication_boundary"]["receipt_status"] = "published"
+        write_json_payload(review_path, payload)
+
+        issues = validate_repo.validate_receipt_intake_dry_review_surface(tmp_path)
+
+        assert any(
+            issue.location == "reports/eval-result-receipt-intake-dry-review-v1.json.publication_boundary"
+            and "receipt_status must be 'not_published'" in issue.message
+            for issue in issues
+        )
+
+    def test_receipt_intake_dry_review_rejects_publishable_envelope_shape(
+        self, tmp_path: Path
+    ) -> None:
+        make_receipt_intake_dry_review_surface(tmp_path)
+        review_path = tmp_path / "reports" / "eval-result-receipt-intake-dry-review-v1.json"
+        payload = json.loads(review_path.read_text(encoding="utf-8"))
+        payload["event_kind"] = "eval_result_receipt"
+        write_json_payload(review_path, payload)
+
+        issues = validate_repo.validate_receipt_intake_dry_review_surface(tmp_path)
+
+        assert any(
+            issue.location == "reports/eval-result-receipt-intake-dry-review-v1.json"
+            and "must not contain publishable receipt field 'event_kind'" in issue.message
+            for issue in issues
+        )
+
+    def test_proof_release_readiness_audit_surface_validates_current_route(self) -> None:
+        assert validate_repo.validate_proof_release_readiness_audit_surface(REPO_ROOT) == []
+
+    def test_proof_release_readiness_audit_rejects_goal_completion_claim(
+        self, tmp_path: Path
+    ) -> None:
+        make_proof_release_readiness_audit_surface(tmp_path)
+        audit_path = tmp_path / "reports" / "proof-release-readiness-audit-v1.json"
+        payload = json.loads(audit_path.read_text(encoding="utf-8"))
+        payload["publication_boundary"]["goal_completion_status"] = "complete"
+        write_json_payload(audit_path, payload)
+
+        issues = validate_repo.validate_proof_release_readiness_audit_surface(tmp_path)
+
+        assert any(
+            issue.location == "reports/proof-release-readiness-audit-v1.json.publication_boundary"
+            and "goal_completion_status must be 'not_complete'" in issue.message
+            for issue in issues
+        )
+
+    def test_proof_release_readiness_audit_rejects_missing_release_gate(
+        self, tmp_path: Path
+    ) -> None:
+        make_proof_release_readiness_audit_surface(tmp_path)
+        audit_path = tmp_path / "reports" / "proof-release-readiness-audit-v1.json"
+        payload = json.loads(audit_path.read_text(encoding="utf-8"))
+        payload["verification_snapshot"] = [
+            entry
+            for entry in payload["verification_snapshot"]
+            if entry["command"] != "python scripts/release_check.py"
+        ]
+        write_json_payload(audit_path, payload)
+
+        issues = validate_repo.validate_proof_release_readiness_audit_surface(tmp_path)
+
+        assert any(
+            issue.location == "reports/proof-release-readiness-audit-v1.json.verification_snapshot"
+            and "python scripts/release_check.py" in issue.message
+            for issue in issues
+        )
+
+    def test_strategic_closeout_audit_surface_validates_current_route(self) -> None:
+        assert validate_repo.validate_strategic_closeout_audit_surface(REPO_ROOT) == []
+
+    def test_strategic_closeout_audit_rejects_goal_completion_claim(
+        self, tmp_path: Path
+    ) -> None:
+        make_strategic_closeout_audit_surface(tmp_path)
+        audit_path = tmp_path / "reports" / "strategic-closeout-audit-v1.json"
+        payload = json.loads(audit_path.read_text(encoding="utf-8"))
+        payload["goal_completion_status"] = "complete"
+        write_json_payload(audit_path, payload)
+
+        issues = validate_repo.validate_strategic_closeout_audit_surface(tmp_path)
+
+        assert any(
+            issue.location == "reports/strategic-closeout-audit-v1.json"
+            and "goal_completion_status must be 'not_complete'" in issue.message
+            for issue in issues
+        )
+
+    def test_strategic_closeout_audit_rejects_missing_requirement_id(
+        self, tmp_path: Path
+    ) -> None:
+        make_strategic_closeout_audit_surface(tmp_path)
+        audit_path = tmp_path / "reports" / "strategic-closeout-audit-v1.json"
+        payload = json.loads(audit_path.read_text(encoding="utf-8"))
+        payload["requirements_review"] = [
+            entry
+            for entry in payload["requirements_review"]
+            if entry["requirement_id"] != "phase_8_active_proof_loop"
+        ]
+        write_json_payload(audit_path, payload)
+
+        issues = validate_repo.validate_strategic_closeout_audit_surface(tmp_path)
+
+        assert any(
+            issue.location == "reports/strategic-closeout-audit-v1.json.requirements_review"
+            and "phase_8_active_proof_loop" in issue.message
+            for issue in issues
+        )
+
+    def test_strategic_closeout_audit_rejects_missing_focused_gate(
+        self, tmp_path: Path
+    ) -> None:
+        make_strategic_closeout_audit_surface(tmp_path)
+        audit_path = tmp_path / "reports" / "strategic-closeout-audit-v1.json"
+        payload = json.loads(audit_path.read_text(encoding="utf-8"))
+        payload["verification_snapshot"] = [
+            entry
+            for entry in payload["verification_snapshot"]
+            if entry["command"]
+            != "python -m pytest -q tests/test_strategic_closeout_audit.py tests/test_validate_repo.py -k strategic_closeout"
+        ]
+        write_json_payload(audit_path, payload)
+
+        issues = validate_repo.validate_strategic_closeout_audit_surface(tmp_path)
+
+        assert any(
+            issue.location == "reports/strategic-closeout-audit-v1.json.verification_snapshot"
+            and "tests/test_strategic_closeout_audit.py" in issue.message
+            for issue in issues
+        )
+
+    def test_strategic_closeout_audit_rejects_absolute_plan_path(
+        self, tmp_path: Path
+    ) -> None:
+        make_strategic_closeout_audit_surface(tmp_path)
+        audit_path = tmp_path / "reports" / "strategic-closeout-audit-v1.json"
+        payload = json.loads(audit_path.read_text(encoding="utf-8"))
+        payload["source_plan_ref"] = "/home/dionysus/private-note.md"
+        write_json_payload(audit_path, payload)
+
+        issues = validate_repo.validate_strategic_closeout_audit_surface(tmp_path)
+
+        assert any(
+            issue.location == "reports/strategic-closeout-audit-v1.json"
+            and "must not expose an absolute host path" in issue.message
+            for issue in issues
+        )
+
+    def test_release_prep_pr_handoff_surface_validates_current_route(self) -> None:
+        assert validate_repo.validate_release_prep_pr_handoff_surface(REPO_ROOT) == []
+
+    def test_release_prep_pr_handoff_rejects_open_pr_claim(
+        self, tmp_path: Path
+    ) -> None:
+        make_release_prep_pr_handoff_surface(tmp_path)
+        handoff_path = tmp_path / "reports" / "release-prep-pr-handoff-v1.json"
+        payload = json.loads(handoff_path.read_text(encoding="utf-8"))
+        payload["pre_handoff_github_status"]["pr_status"] = "opened"
+        write_json_payload(handoff_path, payload)
+
+        issues = validate_repo.validate_release_prep_pr_handoff_surface(tmp_path)
+
+        assert any(
+            issue.location == "reports/release-prep-pr-handoff-v1.json.pre_handoff_github_status"
+            and "pre_handoff pr_status must be 'not_opened'" in issue.message
+            for issue in issues
+        )
+
+    def test_release_prep_pr_handoff_rejects_missing_surface_group(
+        self, tmp_path: Path
+    ) -> None:
+        make_release_prep_pr_handoff_surface(tmp_path)
+        handoff_path = tmp_path / "reports" / "release-prep-pr-handoff-v1.json"
+        payload = json.loads(handoff_path.read_text(encoding="utf-8"))
+        payload["changed_surface_groups"] = [
+            entry
+            for entry in payload["changed_surface_groups"]
+            if entry["group_id"] != "active_proof_loop"
+        ]
+        write_json_payload(handoff_path, payload)
+
+        issues = validate_repo.validate_release_prep_pr_handoff_surface(tmp_path)
+
+        assert any(
+            issue.location == "reports/release-prep-pr-handoff-v1.json.changed_surface_groups"
+            and "active_proof_loop" in issue.message
+            for issue in issues
+        )
+
+    def test_release_prep_pr_handoff_rejects_missing_landing_step(
+        self, tmp_path: Path
+    ) -> None:
+        make_release_prep_pr_handoff_surface(tmp_path)
+        handoff_path = tmp_path / "reports" / "release-prep-pr-handoff-v1.json"
+        payload = json.loads(handoff_path.read_text(encoding="utf-8"))
+        payload["landing_steps"] = [
+            item for item in payload["landing_steps"] if "watch GitHub Repo Validation" not in item
+        ]
+        write_json_payload(handoff_path, payload)
+
+        issues = validate_repo.validate_release_prep_pr_handoff_surface(tmp_path)
+
+        assert any(
+            issue.location == "reports/release-prep-pr-handoff-v1.json.landing_steps"
+            and "watch GitHub Repo Validation" in issue.message
+            for issue in issues
+        )
+
+    def test_release_prep_pr_handoff_rejects_missing_focused_gate(
+        self, tmp_path: Path
+    ) -> None:
+        make_release_prep_pr_handoff_surface(tmp_path)
+        handoff_path = tmp_path / "reports" / "release-prep-pr-handoff-v1.json"
+        payload = json.loads(handoff_path.read_text(encoding="utf-8"))
+        payload["verification_snapshot"] = [
+            entry
+            for entry in payload["verification_snapshot"]
+            if entry["command"]
+            != "python -m pytest -q tests/test_release_prep_pr_handoff.py tests/test_validate_repo.py -k release_prep_pr_handoff"
+        ]
+        write_json_payload(handoff_path, payload)
+
+        issues = validate_repo.validate_release_prep_pr_handoff_surface(tmp_path)
+
+        assert any(
+            issue.location == "reports/release-prep-pr-handoff-v1.json.verification_snapshot"
+            and "tests/test_release_prep_pr_handoff.py" in issue.message
+            for issue in issues
+        )
+
+    def test_proof_loop_smoke_report_rejects_missing_receipt_boundary(
+        self, tmp_path: Path
+    ) -> None:
+        for relative_path in [
+            "mechanics/proof-loop/README.md",
+            "reports/README.md",
+            "reports/proof-loop-local-route-smoke-v1.md",
+            "docs/decisions/README.md",
+            "docs/decisions/0020-proof-loop-local-smoke-report.md",
+        ]:
+            copy_repo_text(tmp_path, relative_path)
+
+        report_path = tmp_path / "reports" / "proof-loop-local-route-smoke-v1.md"
+        report_path.write_text(
+            report_path.read_text(encoding="utf-8").replace(
+                "no eval result receipt",
+                "receipt publication handled elsewhere",
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_proof_loop_smoke_report_surfaces(tmp_path)
+
+        assert any(
+            issue.location == "reports/proof-loop-local-route-smoke-v1.md"
+            and "no eval result receipt" in issue.message
+            for issue in issues
+        )
+
+    def test_agent_lane_surfaces_reject_root_local_spark_lane(
+        self, tmp_path: Path
+    ) -> None:
+        write_text(
+            tmp_path / ".agents" / "AGENTS.md",
+            """
+            # AGENTS.md
+
+            `.agents/<lane>/` route. `.agents/skills/` support. `.agents/spark/`
+            lane. This is not proof canon.
+
+            python scripts/validate_repo.py
+            python scripts/validate_nested_agents.py
+            """,
+        )
+        write_text(
+            tmp_path / ".agents" / "spark" / "AGENTS.md",
+            """
+            # AGENTS.md
+
+            `.agents/spark/` fast-loop lane for one bounded claim.
+            Bundle-local `EVAL.md` and eval.yaml stay stronger.
+            Do not edit generated surfaces by hand.
+
+            python scripts/validate_nested_agents.py
+            """,
+        )
+        write_text(
+            tmp_path / ".agents" / "spark" / "SWARM.md",
+            """
+            # Spark Swarm
+
+            `.agents/spark/SWARM.md`
+            Use this for one bounded eval bundle.
+            Boundary Keeper checks repo validation and build catalog.
+            """,
+        )
+        write_text(
+            tmp_path / "docs" / "decisions" / "0017-spark-agent-lane-placement.md",
+            """
+            # 0017 Spark Agent Lane Placement
+
+            Spark/ moves to .agents/spark/ with .agents/AGENTS.md.
+            This does not let Spark widen proof claims and does not make
+            `.agents/` a doctrine center.
+            `Spark/` is absent.
+            """,
+        )
+        write_text(
+            tmp_path / "README.md",
+            """
+            # README
+
+            .agents/AGENTS.md
+            .agents/spark/AGENTS.md
+            """,
+        )
+        write_text(
+            tmp_path / "docs" / "PROOF_TOPOLOGY.md",
+            """
+            # Proof Topology
+
+            Agent guidance uses .agents/ and .agents/spark/.
+            """,
+        )
+        write_text(
+            tmp_path / "docs" / "LEGACY_NAMING.md",
+            """
+            # Legacy Naming
+
+            .agents/spark/
+            old `Spark/`
+            """,
+        )
+        write_text(
+            tmp_path / "Spark" / "AGENTS.md",
+            """
+            # AGENTS.md
+
+            stale root lane
+            """,
+        )
+
+        issues = validate_repo.validate_agent_lane_surfaces(tmp_path)
+
+        assert validate_repo.ValidationIssue(
+            "Spark/",
+            "root-local Spark lane must stay moved to .agents/spark/",
+        ) in issues

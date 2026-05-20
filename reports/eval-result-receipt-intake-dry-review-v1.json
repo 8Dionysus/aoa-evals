@@ -1,0 +1,75 @@
+{
+  "artifact_kind": "receipt_intake_dry_review",
+  "schema_version": 1,
+  "review_id": "eval-result-receipt-intake-dry-review-v1",
+  "reviewed_at": "2026-05-19",
+  "source_report_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+  "source_bundle_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/EVAL.md",
+  "source_manifest_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/eval.yaml",
+  "report_index_ref": "repo:aoa-evals/generated/eval_report_index.min.json",
+  "receipt_payload_schema_ref": "repo:aoa-evals/schemas/eval-result-receipt.schema.json",
+  "event_envelope_schema_ref": "repo:aoa-evals/schemas/stats-event-envelope.schema.json",
+  "publisher_ref": "repo:aoa-evals/scripts/publish_live_receipts.py",
+  "owner_local_log_ref": "repo:aoa-evals/.aoa/live_receipts/eval-result-receipts.jsonl",
+  "candidate_payload_preview": {
+    "eval_name": "aoa-verification-honesty",
+    "bundle_status": "portable",
+    "report_format": "summary-with-breakdown",
+    "verdict": "supports bounded claim",
+    "claim_scope": "bundle_scoped",
+    "comparison_mode": "none",
+    "bundle_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/EVAL.md",
+    "report_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+    "case_count": 1,
+    "score": null,
+    "interpretation_bound": "Dry review only. This payload preview is derivable from the reviewed bundle-local report and does not publish an eval result receipt, does not append to `.aoa/live_receipts/`, and does not replace bundle-local verdict meaning."
+  },
+  "source_alignment": {
+    "eval_name_matches_report": true,
+    "bundle_status_matches_manifest": true,
+    "report_format_matches_manifest": true,
+    "verdict_matches_report": true,
+    "case_count_source": "per_case_breakdown length"
+  },
+  "intake_checks": [
+    {
+      "check_id": "source_report_exists",
+      "result": "pass",
+      "evidence_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json"
+    },
+    {
+      "check_id": "source_report_is_indexed",
+      "result": "pass",
+      "evidence_ref": "repo:aoa-evals/generated/eval_report_index.min.json"
+    },
+    {
+      "check_id": "candidate_payload_preview_validates_against_payload_schema",
+      "result": "pass",
+      "evidence_ref": "repo:aoa-evals/schemas/eval-result-receipt.schema.json"
+    },
+    {
+      "check_id": "stats_event_envelope_created",
+      "result": "not_attempted",
+      "evidence_ref": "repo:aoa-evals/schemas/stats-event-envelope.schema.json"
+    },
+    {
+      "check_id": "receipt_publisher_run",
+      "result": "not_attempted",
+      "evidence_ref": "repo:aoa-evals/scripts/publish_live_receipts.py"
+    },
+    {
+      "check_id": "owner_local_live_log_append",
+      "result": "not_attempted",
+      "evidence_ref": "repo:aoa-evals/.aoa/live_receipts/eval-result-receipts.jsonl"
+    }
+  ],
+  "publication_boundary": {
+    "publication_status": "dry_review_only",
+    "receipt_status": "not_published",
+    "event_envelope_status": "not_created",
+    "live_log_append_status": "not_attempted",
+    "publisher_execution_status": "not_attempted",
+    "boundary": "This artifact is not an eval_result_receipt, not a stats-event-envelope sidecar, not live receipt log content, not proof promotion, not bundle promotion, and not runtime acceptance."
+  },
+  "claim_limit": "This dry review proves only that a subordinate receipt payload preview can be derived from the first bundle-local proof-loop report. It does not publish an eval result receipt, append live receipt memory, accept runtime evidence, close a quest, promote a bundle, or complete the aoa-evals strategic refactor."
+}

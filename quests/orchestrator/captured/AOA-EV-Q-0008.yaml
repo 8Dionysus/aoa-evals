@@ -42,7 +42,7 @@ proof_surface_refs:
   - docs/ORCHESTRATOR_PROOF_ALIGNMENT.md#bounded-execution
 memory_surface_refs:
   - repo:aoa-memo/generated/memory_object_capsules.json
-  - repo:aoa-memo/examples/recall_contract.object.working.phase-alpha.json
+  - repo:aoa-memo/examples/recall/recall_contract.object.working.phase-alpha.json
 evidence:
   - bounded-execution proof names smallest-step quality explicitly
   - scope discipline remains reviewable

@@ -7,6 +7,115 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+### Added
+
+- root design spine for the bounded proof organ:
+  `DESIGN.md`, `DESIGN.AGENTS.md`, and route-card links from `AGENTS.md`
+- durable decision lane under `docs/decisions/`, including initial decisions
+  for root design, proof-object authority, and sibling proof-reference
+  compatibility
+- quest route surfaces in `quests/README.md` and `quests/AGENTS.md`, plus a
+  questbook topology decision
+- proof topology map in `docs/PROOF_TOPOLOGY.md`, plus a decision recording why
+  topology mapping precedes mechanics creation and file movement
+- mechanics atlas plus the first live `questbook` package for quest source law,
+  human open-obligation indexing, generated readers, and deferred promotion
+  routing
+- `proof-object` mechanic package for source proof-object completeness,
+  bundle lifecycle posture, generated-reader derivation, and bundle-local
+  review boundaries without moving `bundles/`
+- `comparison-spine` mechanic package for fixed-baseline, peer-compare,
+  longitudinal-window, generated comparison reader, report route, and
+  anti-overread boundaries without moving bundles, reports, fixtures, or
+  generated readers
+- `proof-infra` mechanic package for shared fixture, runner, scorer, schema,
+  report, template, and generated proof-artifact contract routing without
+  moving shared infrastructure directories
+- `publication-receipts` mechanic package for optional eval-result receipt
+  publication, stats-envelope mirroring, live publisher, report subordination,
+  and owner-local live receipt boundaries without moving receipt data surfaces
+- `proof-release` mechanic package for bounded release scope, changelog
+  narrative, release audit, GitHub `Repo Validation`, tag/release-note posture,
+  and post-release proof boundaries without moving release or source proof
+  surfaces
+- `titan-canaries` mechanic package plus `evals/AGENTS.md` for Titan seed
+  canary shape, incarnation and summon discipline guide routing, and
+  validator-backed boundaries without moving canary YAML files or claiming full
+  incarnation proof
+- `agon-proof` mechanic package for Agon pre-protocol proof alignment, seed
+  configs, generated registries, observe-only recurrence components and hooks,
+  quest notes, recurrence-control-plane stop-line review, and owner handoffs
+  without moving source surfaces or granting live verdict authority
+- `runtime-evidence` mechanic package for runtime evidence selection,
+  artifact-to-verdict hooks, generated candidate readers, and bundle-local
+  review boundaries
+- sibling proof-reference compatibility map plus `sibling-proof-refs` mechanic
+  package for current, legacy, rejected, and unresolved sibling ref posture
+- legacy naming map for active, historical, accepted-input,
+  generated-projection, candidate-only, and retire-after posture around old
+  Agon, wave, phase-alpha, runtime-candidate, artifact-to-verdict,
+  bundle-family, Titan canary, historical Spark root-path, or quest path names
+  before they are moved or retired
+- Spark maintained agent lane placement under `.agents/spark/`, plus
+  `.agents/AGENTS.md`, decision memory, and validator coverage for the agent
+  district
+- quest lane/state source layout under `quests/<lane>/<state>/`, generated
+  quest-reader path parity, legacy top-level path mapping, and validator
+  coverage rejecting stale root quest files
+- quest lifecycle contract in `quests/LIFECYCLE.md` for state meaning,
+  open-index visibility, return posture, proof-loop defer or handoff routing,
+  and validator coverage across all schema states
+- `proof-loop` mechanic package for the active pick-inspect-expand-candidate
+  review-report-receipt route, keeping source bundles, generated readers,
+  candidate evidence, sibling refs, reports, and receipts in their existing
+  owner lanes
+- first proof-loop local route-smoke report, validating that one
+  `aoa-verification-honesty` path can land in a bounded report without receipt
+  emission, bundle promotion, runtime intake, or sibling-owner transfer
+- first schema-backed bundle-local proof-loop report at
+  `bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`,
+  plus bundle-local report validation for real `*.report.json` artifacts
+  without receipt publication or bundle promotion
+- generated eval report index at `generated/eval_report_index.min.json`, plus
+  `scripts/generate_eval_report_index.py`, validator coverage, and
+  release-check coverage so real bundle-local reports are routeable without
+  becoming receipt or verdict authority
+- receipt-intake dry review at
+  `reports/eval-result-receipt-intake-dry-review-v1.json`, plus decision and
+  validator coverage proving the first report-to-receipt payload preview stays
+  `not_published` with no envelope, publisher run, or live receipt append
+- proof-release readiness audit at
+  `reports/proof-release-readiness-audit-v1.json`, plus decision and validator
+  coverage proving local release-prep reviewability without claiming tag,
+  GitHub Release, PR approval, GitHub `Repo Validation`, or goal completion
+- strategic closeout audit at `reports/strategic-closeout-audit-v1.json`,
+  plus decision and validator coverage mapping the original refactor plan to
+  repo-local evidence while keeping goal completion, PR, GitHub `Repo
+  Validation`, tag, release, receipt, runtime acceptance, and sibling mutation
+  open
+- release-prep PR handoff at `reports/release-prep-pr-handoff-v1.json`, plus
+  decision and validator coverage preparing candidate branch, commit, PR
+  title/body, changed surfaces, validation, and landing steps as a pre-PR
+  snapshot that current git and GitHub state supersede after branch or PR
+  creation
+- decision `docs/decisions/0028-repo-validation-aoa-memo-pin-refresh.md` for
+  the pinned public CI lane after GitHub `Repo Validation` exposed stale
+  `aoa-memo` checkout drift
+- validator coverage that keeps the new root design and decision surfaces
+  discoverable, including the proof topology and mechanics surfaces
+
+### Changed
+
+- refreshed `aoa-memo` proof-reference paths to the current sibling topology
+  while keeping `aoa-evals` as the local bounded proof owner
+- refreshed GitHub `Repo Validation`'s pinned `aoa-memo` checkout to
+  `97f19698c94ebbebabe8b1b6f22e5ccff3bc5f1f` without weakening validation or
+  mutating the sibling repo
+- reframed `reports/release-prep-pr-handoff-v1.json` as a pre-PR snapshot so
+  local git and GitHub state supersede it after branch or PR creation
+- rebuilt `ROADMAP.md` and `QUESTBOOK.md` around active proof-organ direction,
+  open obligations, source quest records, and generated quest readers
+
 ## [0.3.3] - 2026-04-23
 
 ### Summary

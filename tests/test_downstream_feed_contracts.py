@@ -31,6 +31,7 @@ def load_module(script_name: str):
 
 runtime_template_index_builder = load_module("generate_runtime_candidate_template_index.py")
 runtime_candidate_intake_builder = load_module("generate_runtime_candidate_intake.py")
+eval_report_index_builder = load_module("generate_eval_report_index.py")
 phase_alpha_eval_matrix_builder = load_module("generate_phase_alpha_eval_matrix.py")
 
 
@@ -45,6 +46,7 @@ class DownstreamFeedContractsTests(unittest.TestCase):
             "generated/eval_capsules.json",
             "generated/eval_sections.full.json",
             "generated/comparison_spine.json",
+            "generated/eval_report_index.min.json",
         ):
             with self.subTest(path=relative_path):
                 self.assertTrue((REPO_ROOT / relative_path).is_file())
@@ -228,6 +230,38 @@ class DownstreamFeedContractsTests(unittest.TestCase):
             chaos_hook["owner_review_refs"],
         )
 
+    def test_eval_report_index_is_generator_backed_and_keeps_reports_subordinate(self) -> None:
+        current = load_json("generated/eval_report_index.min.json")
+        expected = eval_report_index_builder.build_eval_report_index_payload()
+
+        self.assertEqual(current, expected)
+        self.assertEqual(
+            set(current.keys()),
+            {"schema_version", "layer", "source_of_truth", "interpretation_boundary", "reports"},
+        )
+        self.assertEqual(current["schema_version"], 1)
+        self.assertEqual(current["layer"], "aoa-evals")
+        self.assertIn("not a receipt", current["interpretation_boundary"])
+        self.assertIn("verdict authority", current["interpretation_boundary"])
+
+        by_report = {
+            (entry["eval_name"], entry["report_id"]): entry
+            for entry in current["reports"]
+        }
+        local_report = by_report[
+            ("aoa-verification-honesty", "aoa-evals-slice-19-lifecycle-contract")
+        ]
+        self.assertEqual(local_report["report_posture"], "bounded_report_output")
+        self.assertEqual(local_report["receipt_status"], "not_a_receipt")
+        self.assertIn("derived index only", local_report["authority_boundary"])
+        self.assertEqual(
+            local_report["source_report_path"],
+            "bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+        )
+        self.assertTrue(
+            all(entry["source_report_path"].endswith(".report.json") for entry in current["reports"])
+        )
+
     def test_phase_alpha_eval_matrix_is_generator_backed_and_tracks_required_evals(self) -> None:
         if not phase_alpha_eval_matrix_builder.PLAYBOOK_MATRIX_PATH.is_file():
             self.skipTest(
@@ -261,7 +295,7 @@ class DownstreamFeedContractsTests(unittest.TestCase):
             memo_recall["evidence_refs"],
         )
         self.assertIn(
-            "repo:aoa-memo/examples/recall_contract.object.working.phase-alpha.json",
+            "repo:aoa-memo/examples/recall/recall_contract.object.working.phase-alpha.json",
             memo_recall["evidence_refs"],
         )
 

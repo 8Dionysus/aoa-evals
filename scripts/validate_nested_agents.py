@@ -12,6 +12,21 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 Issue = tuple[str, str]
 
 REQUIRED_AGENTS: dict[str, tuple[str, ...]] = {
+    ".agents/AGENTS.md": (
+        "agent-facing lanes",
+        ".agents/<lane>/",
+        ".agents/skills/",
+        ".agents/spark/",
+        "proof authority",
+        "validate_repo.py",
+    ),
+    ".agents/spark/AGENTS.md": (
+        "fast-loop lane",
+        "one bounded claim",
+        "Bundle-local `EVAL.md`",
+        "generated surfaces",
+        "validate_nested_agents.py",
+    ),
     "bundles/AGENTS.md": (
         "EVAL.md",
         "eval.yaml",

@@ -1530,7 +1530,7 @@
           "key": "trigger_boundary"
         },
         {
-          "content_markdown": "- `repo:aoa-memo/examples/memory_eval_guardrail_pack.example.json`\n- `repo:aoa-memo/examples/recall_contract.object.working.json`\n- `repo:aoa-memo/generated/memory_object_catalog.min.json`\n- `repo:aoa-memo/generated/memory_object_capsules.json`\n- `repo:aoa-memo/generated/memory_object_sections.full.json`\n- `repo:aoa-memo/examples/claim.current-entrypoint.example.json`\n- `repo:aoa-memo/examples/claim.superseded.example.json`\n- `repo:aoa-memo/examples/claim.retracted.example.json`\n- `repo:aoa-memo/examples/provenance_thread.lifecycle.example.json`\n- `repo:aoa-memo/examples/audit_event.supersession.example.json`\n- `repo:aoa-memo/examples/audit_event.retraction.example.json`",
+          "content_markdown": "- `repo:aoa-memo/mechanics/consumer-handoff/parts/eval-guardrail-handoff/examples/memory_eval_guardrail_pack.example.json`\n- `repo:aoa-memo/examples/recall/recall_contract.object.working.json`\n- `repo:aoa-memo/generated/memory_object_catalog.min.json`\n- `repo:aoa-memo/generated/memory_object_capsules.json`\n- `repo:aoa-memo/generated/memory_object_sections.full.json`\n- `repo:aoa-memo/examples/lifecycle/claim.current-entrypoint.example.json`\n- `repo:aoa-memo/examples/lifecycle/claim.superseded.example.json`\n- `repo:aoa-memo/examples/lifecycle/claim.retracted.example.json`\n- `repo:aoa-memo/examples/lifecycle/provenance_thread.lifecycle.example.json`\n- `repo:aoa-memo/examples/lifecycle/audit_event.supersession.example.json`\n- `repo:aoa-memo/examples/lifecycle/audit_event.retraction.example.json`",
           "heading": "Inputs",
           "key": "inputs"
         },
@@ -1575,7 +1575,7 @@
           "key": "interpretation_guidance"
         },
         {
-          "content_markdown": "- confirm the case surface stays anchored to\n  `repo:aoa-memo/examples/memory_eval_guardrail_pack.example.json`\n- validate any machine-readable report against `reports/summary.schema.json`\n- confirm the fixture family, fixture contract, and runner contract keep\n  contradiction visibility narrower than recall precision, permission, or\n  promotion claims\n- confirm public docs keep the bundle distinct from `aoa-memo-recall-integrity`\n  and `aoa-compost-provenance-preservation`",
+          "content_markdown": "- confirm the case surface stays anchored to\n  `repo:aoa-memo/mechanics/consumer-handoff/parts/eval-guardrail-handoff/examples/memory_eval_guardrail_pack.example.json`\n- validate any machine-readable report against `reports/summary.schema.json`\n- confirm the fixture family, fixture contract, and runner contract keep\n  contradiction visibility narrower than recall precision, permission, or\n  promotion claims\n- confirm public docs keep the bundle distinct from `aoa-memo-recall-integrity`\n  and `aoa-compost-provenance-preservation`",
           "heading": "Verification",
           "key": "verification"
         },
@@ -1624,7 +1624,7 @@
           "key": "trigger_boundary"
         },
         {
-          "content_markdown": "- `repo:aoa-memo/examples/memory_eval_guardrail_pack.example.json`\n- `repo:aoa-memo/examples/recall_contract.router.semantic.json`\n- `repo:aoa-memo/generated/memory_catalog.min.json`\n- `repo:aoa-memo/generated/memory_capsules.json`\n- `repo:aoa-memo/generated/memory_sections.full.json`\n- `repo:aoa-memo/examples/provenance_thread.kag-lift.example.json`\n- `repo:aoa-memo/examples/claim.superseded.example.json`\n- `repo:aoa-memo/examples/claim.retracted.example.json`",
+          "content_markdown": "- `repo:aoa-memo/mechanics/consumer-handoff/parts/eval-guardrail-handoff/examples/memory_eval_guardrail_pack.example.json`\n- `repo:aoa-memo/examples/recall/recall_contract.router.semantic.json`\n- `repo:aoa-memo/generated/memory_catalog.min.json`\n- `repo:aoa-memo/generated/memory_capsules.json`\n- `repo:aoa-memo/generated/memory_sections.full.json`\n- `repo:aoa-memo/mechanics/consumer-handoff/parts/kag-tos-bridge-handoff/examples/provenance_thread.kag-lift.example.json`\n- `repo:aoa-memo/examples/lifecycle/claim.superseded.example.json`\n- `repo:aoa-memo/examples/lifecycle/claim.retracted.example.json`",
           "heading": "Inputs",
           "key": "inputs"
         },
@@ -1718,7 +1718,7 @@
           "key": "trigger_boundary"
         },
         {
-          "content_markdown": "- `repo:aoa-memo/examples/checkpoint_to_memory_contract.example.json`\n- `repo:aoa-memo/generated/runtime_writeback_targets.min.json`\n- `repo:aoa-memo/generated/runtime_writeback_intake.min.json`\n- `repo:aoa-memo/generated/runtime_writeback_governance.min.json`\n- `repo:aoa-memo/generated/phase_alpha_writeback_map.min.json`\n- `repo:aoa-memo/examples/claim.phase-alpha-runtime-history-later-infra-track.example.json`\n- `repo:aoa-memo/examples/pattern.phase-alpha-remediation-recurrence.example.json`\n- `repo:aoa-memo/examples/bridge.kag-lift.example.json`\n- `repo:aoa-memo/generated/memory_object_catalog.min.json`\n- `repo:aoa-memo/generated/memory_object_capsules.json`\n- `repo:aoa-memo/generated/memory_object_sections.full.json`\n- `repo:aoa-memo/.aoa/live_receipts/memo-writeback-receipts.jsonl`\n- `repo:aoa-memo/tests/fixtures/memo_writeback_receipts.example.jsonl`\n- `repo:aoa-memo/scripts/publish_live_receipts.py`",
+          "content_markdown": "- `repo:aoa-memo/mechanics/checkpoint/parts/checkpoint-to-memory-mapping/examples/checkpoint_to_memory_contract.example.json`\n- `repo:aoa-memo/generated/runtime_writeback_targets.min.json`\n- `repo:aoa-memo/generated/runtime_writeback_intake.min.json`\n- `repo:aoa-memo/generated/runtime_writeback_governance.min.json`\n- `repo:aoa-memo/generated/phase_alpha_writeback_map.min.json`\n- `repo:aoa-memo/examples/phase-alpha/claim.phase-alpha-runtime-history-later-infra-track.example.json`\n- `repo:aoa-memo/examples/phase-alpha/pattern.phase-alpha-remediation-recurrence.example.json`\n- `repo:aoa-memo/mechanics/consumer-handoff/parts/kag-tos-bridge-handoff/examples/bridge.kag-lift.example.json`\n- `repo:aoa-memo/generated/memory_object_catalog.min.json`\n- `repo:aoa-memo/generated/memory_object_capsules.json`\n- `repo:aoa-memo/generated/memory_object_sections.full.json`\n- `repo:aoa-memo/.aoa/live_receipts/memo-writeback-receipts.jsonl`\n- `repo:aoa-memo/tests/fixtures/memo_writeback_receipts.example.jsonl`\n- `repo:aoa-memo/scripts/publish_live_receipts.py`",
           "heading": "Inputs",
           "key": "inputs"
         },
@@ -1812,7 +1812,7 @@
           "key": "trigger_boundary"
         },
         {
-          "content_markdown": "- `repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/failure_map.json`\n- `repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/revalidation_pack.json`\n- `repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/remediation_decision.json`\n- `repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/handoff_record.json`\n- `repo:aoa-playbooks/docs/alpha-reviewed-runs/2026-04-02.validation-driven-remediation-recall-rerun.md`\n- `repo:aoa-memo/examples/decision.phase-alpha-validation-remediation-rerun.example.json`\n- `repo:aoa-memo/generated/memory_object_catalog.min.json`\n- `repo:aoa-memo/generated/memory_object_sections.full.json`\n- `repo:aoa-memo/tests/fixtures/memo_writeback_receipts.example.jsonl`\n- `repo:aoa-playbooks/docs/real-runs/2026-04-07.federated-live-publisher-activation.md`",
+          "content_markdown": "- `repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/failure_map.json`\n- `repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/revalidation_pack.json`\n- `repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/remediation_decision.json`\n- `repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/handoff_record.json`\n- `repo:aoa-playbooks/docs/alpha-reviewed-runs/2026-04-02.validation-driven-remediation-recall-rerun.md`\n- `repo:aoa-memo/examples/phase-alpha/decision.phase-alpha-validation-remediation-rerun.example.json`\n- `repo:aoa-memo/generated/memory_object_catalog.min.json`\n- `repo:aoa-memo/generated/memory_object_sections.full.json`\n- `repo:aoa-memo/tests/fixtures/memo_writeback_receipts.example.jsonl`\n- `repo:aoa-playbooks/docs/real-runs/2026-04-07.federated-live-publisher-activation.md`",
           "heading": "Inputs",
           "key": "inputs"
         },

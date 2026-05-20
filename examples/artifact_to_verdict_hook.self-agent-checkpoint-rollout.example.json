@@ -13,10 +13,10 @@
   "artifact_contract_refs": [
     "repo:aoa-agents/schemas/self-agent-checkpoint.schema.json",
     "repo:aoa-playbooks/playbooks/self-agent-checkpoint-rollout/PLAYBOOK.md#expected-artifacts",
-    "repo:aoa-memo/docs/MEMORY_MODEL.md#checkpoint-route-writeback",
-    "repo:aoa-memo/mechanics/checkpoint/examples/checkpoint_approval_record.example.json",
-    "repo:aoa-memo/mechanics/checkpoint/examples/checkpoint_health_check.example.json",
-    "repo:aoa-memo/mechanics/checkpoint/examples/checkpoint_improvement_thread.example.json"
+    "repo:aoa-memo/docs/memory/MEMORY_MODEL.md#checkpoint-route-writeback",
+    "repo:aoa-memo/mechanics/checkpoint/parts/approval-and-health-records/examples/checkpoint_approval_record.example.json",
+    "repo:aoa-memo/mechanics/checkpoint/parts/approval-and-health-records/examples/checkpoint_health_check.example.json",
+    "repo:aoa-memo/mechanics/checkpoint/parts/approval-and-health-records/examples/checkpoint_improvement_thread.example.json"
   ],
   "trace_surfaces": [],
   "verification_surface": "approval_record",

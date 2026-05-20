@@ -1,7 +1,7 @@
 # Memo Guardrail Pilot
 
 This bundle is the first narrow downstream pilot for
-`repo:aoa-memo/examples/memory_eval_guardrail_pack.example.json`.
+`repo:aoa-memo/mechanics/consumer-handoff/parts/eval-guardrail-handoff/examples/memory_eval_guardrail_pack.example.json`.
 
 It treats memo recall as supportable only when the consumer preserves, at
 minimum:

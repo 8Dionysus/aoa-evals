@@ -104,6 +104,777 @@ BUNDLES_DIR_NAME = "bundles"
 EVAL_INDEX_NAME = "EVAL_INDEX.md"
 EVAL_SELECTION_NAME = "EVAL_SELECTION.md"
 ROADMAP_NAME = "ROADMAP.md"
+DESIGN_NAME = "DESIGN.md"
+DESIGN_AGENTS_NAME = "DESIGN.AGENTS.md"
+AGENTS_DISTRICT_NAME = ".agents/AGENTS.md"
+SPARK_LANE_AGENTS_NAME = ".agents/spark/AGENTS.md"
+SPARK_LANE_SWARM_NAME = ".agents/spark/SWARM.md"
+PROOF_TOPOLOGY_NAME = "docs/PROOF_TOPOLOGY.md"
+LEGACY_NAMING_NAME = "docs/LEGACY_NAMING.md"
+ROOT_DESIGN_REQUIRED_TOKENS = (
+    "bounded proof organ",
+    "proof object",
+    "generated surface helps navigation",
+    "runtime candidates",
+    "docs/ARCHITECTURE.md",
+    "docs/EVAL_PHILOSOPHY.md",
+    "docs/decisions/",
+)
+DESIGN_AGENTS_REQUIRED_TOKENS = (
+    "agent-facing guidance",
+    "nearest card",
+    "bundle-local review",
+    "source proof object",
+    "generated companions",
+    "Maintained agent lanes",
+    ".agents/spark/",
+    "closeout",
+)
+ROOT_AGENTS_DESIGN_REQUIRED_TOKENS = (
+    "DESIGN.md",
+    "DESIGN.AGENTS.md",
+    "docs/decisions/",
+)
+DECISION_SURFACE_REQUIRED_TOKENS = (
+    "bounded proof",
+    "source surface",
+    "generated",
+    "runtime",
+    "sibling",
+)
+DECISION_TEMPLATE_REQUIRED_TOKENS = (
+    "## Context",
+    "## Options Considered",
+    "## Decision",
+    "## Consequences",
+    "## Validation",
+)
+AGENTS_DISTRICT_REQUIRED_TOKENS = (
+    ".agents/<lane>/",
+    ".agents/skills/",
+    ".agents/spark/",
+    "not proof canon",
+    "python scripts/validate_repo.py",
+    "python scripts/validate_nested_agents.py",
+)
+SPARK_LANE_AGENTS_REQUIRED_TOKENS = (
+    ".agents/spark/",
+    "fast-loop lane",
+    "one bounded claim",
+    "Bundle-local `EVAL.md`",
+    "eval.yaml",
+    "Do not edit generated surfaces by hand",
+    "python scripts/validate_nested_agents.py",
+)
+SPARK_LANE_SWARM_REQUIRED_TOKENS = (
+    ".agents/spark/SWARM.md",
+    "one bounded eval bundle",
+    "Boundary Keeper",
+    "repo validation",
+    "build catalog",
+)
+SPARK_LANE_DECISION_REQUIRED_TOKENS = (
+    "Spark/",
+    ".agents/spark/",
+    ".agents/AGENTS.md",
+    "does not let Spark",
+    "does not make `.agents/` a doctrine center",
+    "`Spark/` is absent",
+)
+PROOF_TOPOLOGY_REQUIRED_TOKENS = (
+    "Convex topology",
+    "source proof objects",
+    "derived readers",
+    "candidate evidence",
+    "receipts",
+    "quest obligations",
+    "decisions",
+    "legacy lineage",
+    "mechanic-ready operations",
+    "Root Technical Districts",
+    "generated surfaces are companions",
+)
+PROOF_TOPOLOGY_DECISION_REQUIRED_TOKENS = (
+    "docs/PROOF_TOPOLOGY.md",
+    "mechanics",
+    "source proof objects",
+    "candidate evidence",
+    "legacy lineage",
+)
+LEGACY_NAMING_REQUIRED_TOKENS = (
+    "active",
+    "historical",
+    "accepted-input",
+    "generated-projection",
+    "candidate-only",
+    "retire-after",
+    "Agon",
+    "wave",
+    "phase-alpha",
+    "runtime-candidate",
+    "artifact-to-verdict",
+    "bundle-family",
+    "Titan canary",
+    "Spark",
+    ".agents/spark/",
+    "mechanics/runtime-evidence/",
+    "mechanics/sibling-proof-refs/",
+    "mechanics/questbook/",
+)
+LEGACY_NAMING_DECISION_REQUIRED_TOKENS = (
+    "docs/LEGACY_NAMING.md",
+    "Agon",
+    "wave",
+    "phase-alpha",
+    "accepted-input",
+    "active topology",
+    "generated projections",
+)
+MECHANICS_README_NAME = "mechanics/README.md"
+MECHANICS_AGENTS_NAME = "mechanics/AGENTS.md"
+PROOF_OBJECT_MECHANIC_README_NAME = "mechanics/proof-object/README.md"
+PROOF_OBJECT_MECHANIC_AGENTS_NAME = "mechanics/proof-object/AGENTS.md"
+PROOF_LOOP_MECHANIC_README_NAME = "mechanics/proof-loop/README.md"
+PROOF_LOOP_MECHANIC_AGENTS_NAME = "mechanics/proof-loop/AGENTS.md"
+PROOF_LOOP_SMOKE_REPORT_NAME = "reports/proof-loop-local-route-smoke-v1.md"
+PROOF_LOOP_SMOKE_DECISION_NAME = "docs/decisions/0020-proof-loop-local-smoke-report.md"
+PROOF_LOOP_LOCAL_REPORT_NAME = (
+    "bundles/aoa-verification-honesty/reports/"
+    "aoa-evals-slice-19-lifecycle-contract.report.json"
+)
+PROOF_LOOP_LOCAL_REPORT_DECISION_NAME = (
+    "docs/decisions/0022-proof-loop-bundle-local-report.md"
+)
+RECEIPT_INTAKE_DRY_REVIEW_NAME = (
+    "reports/eval-result-receipt-intake-dry-review-v1.json"
+)
+RECEIPT_INTAKE_DRY_REVIEW_DECISION_NAME = (
+    "docs/decisions/0024-receipt-intake-dry-review.md"
+)
+PROOF_RELEASE_READINESS_AUDIT_NAME = "reports/proof-release-readiness-audit-v1.json"
+PROOF_RELEASE_READINESS_AUDIT_DECISION_NAME = (
+    "docs/decisions/0025-proof-release-readiness-audit.md"
+)
+STRATEGIC_CLOSEOUT_AUDIT_NAME = "reports/strategic-closeout-audit-v1.json"
+STRATEGIC_CLOSEOUT_AUDIT_DECISION_NAME = (
+    "docs/decisions/0026-strategic-closeout-audit.md"
+)
+RELEASE_PREP_PR_HANDOFF_NAME = "reports/release-prep-pr-handoff-v1.json"
+RELEASE_PREP_PR_HANDOFF_DECISION_NAME = (
+    "docs/decisions/0027-release-prep-pr-handoff.md"
+)
+REPO_VALIDATION_WORKFLOW_NAME = ".github/workflows/repo-validation.yml"
+REPO_VALIDATION_AOA_MEMO_REF = "97f19698c94ebbebabe8b1b6f22e5ccff3bc5f1f"
+REPO_VALIDATION_AOA_MEMO_PIN_DECISION_NAME = (
+    "docs/decisions/0028-repo-validation-aoa-memo-pin-refresh.md"
+)
+COMPARISON_SPINE_MECHANIC_README_NAME = "mechanics/comparison-spine/README.md"
+COMPARISON_SPINE_MECHANIC_AGENTS_NAME = "mechanics/comparison-spine/AGENTS.md"
+PROOF_INFRA_MECHANIC_README_NAME = "mechanics/proof-infra/README.md"
+PROOF_INFRA_MECHANIC_AGENTS_NAME = "mechanics/proof-infra/AGENTS.md"
+PUBLICATION_RECEIPTS_MECHANIC_README_NAME = "mechanics/publication-receipts/README.md"
+PUBLICATION_RECEIPTS_MECHANIC_AGENTS_NAME = "mechanics/publication-receipts/AGENTS.md"
+PROOF_RELEASE_MECHANIC_README_NAME = "mechanics/proof-release/README.md"
+PROOF_RELEASE_MECHANIC_AGENTS_NAME = "mechanics/proof-release/AGENTS.md"
+TITAN_CANARIES_MECHANIC_README_NAME = "mechanics/titan-canaries/README.md"
+TITAN_CANARIES_MECHANIC_AGENTS_NAME = "mechanics/titan-canaries/AGENTS.md"
+AGON_PROOF_MECHANIC_README_NAME = "mechanics/agon-proof/README.md"
+AGON_PROOF_MECHANIC_AGENTS_NAME = "mechanics/agon-proof/AGENTS.md"
+EVALS_AGENTS_NAME = "evals/AGENTS.md"
+QUESTBOOK_MECHANIC_README_NAME = "mechanics/questbook/README.md"
+QUESTBOOK_MECHANIC_AGENTS_NAME = "mechanics/questbook/AGENTS.md"
+RUNTIME_EVIDENCE_MECHANIC_README_NAME = "mechanics/runtime-evidence/README.md"
+RUNTIME_EVIDENCE_MECHANIC_AGENTS_NAME = "mechanics/runtime-evidence/AGENTS.md"
+SIBLING_PROOF_REFS_NAME = "docs/SIBLING_PROOF_REFS.md"
+SIBLING_PROOF_REFS_MECHANIC_README_NAME = "mechanics/sibling-proof-refs/README.md"
+SIBLING_PROOF_REFS_MECHANIC_AGENTS_NAME = "mechanics/sibling-proof-refs/AGENTS.md"
+MECHANICS_REQUIRED_TOKENS = (
+    "operation atlas",
+    "proof-object",
+    "proof-loop",
+    "comparison-spine",
+    "proof-infra",
+    "publication-receipts",
+    "proof-release",
+    "titan-canaries",
+    "agon-proof",
+    "questbook",
+    "runtime-evidence",
+    "sibling-proof-refs",
+    "Candidate families",
+    "no empty package taxonomy",
+    "proof-layer operation",
+)
+MECHANICS_AGENTS_REQUIRED_TOKENS = (
+    "repeatable proof-layer operations",
+    "docs/PROOF_TOPOLOGY.md",
+    "source proof objects",
+    "generated readers",
+    "runtime candidates",
+)
+PROOF_OBJECT_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "bundles/*/EVAL.md",
+    "bundles/*/eval.yaml",
+    "templates/EVAL.template.md",
+    "generated/eval_catalog.min.json",
+    "generated/eval_capsules.json",
+    "generated/eval_sections.full.json",
+    "proof-object completeness review",
+    "bundle-local review",
+    "Do not move `bundles/`",
+    "python scripts/build_catalog.py --check",
+    "python scripts/validate_repo.py",
+)
+PROOF_OBJECT_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "source proof objects",
+    "bundles/*/EVAL.md",
+    "bundles/*/eval.yaml",
+    "EVAL.md and eval.yaml",
+    "bundle-local review",
+    "python scripts/build_catalog.py --check",
+)
+PROOF_OBJECT_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/proof-object/",
+    "bundles/*/EVAL.md",
+    "bundles/*/eval.yaml",
+    "proof-object completeness review",
+    "does not move `bundles/`",
+    "generated readers",
+    "bundle-local review",
+)
+PROOF_LOOP_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "proof question -> selection route -> source proof object",
+    "candidate evidence packet",
+    "bundle-local review",
+    "optional receipt",
+    "Step Owners",
+    "EVAL_SELECTION.md",
+    "mechanics/proof-object/",
+    "mechanics/proof-infra/",
+    "mechanics/runtime-evidence/",
+    "mechanics/publication-receipts/",
+    "mechanics/sibling-proof-refs/",
+    "Do not use this package to promote generated readers into proof authority",
+    "python scripts/validate_repo.py",
+)
+PROOF_LOOP_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "active proof-loop route",
+    "source proof object",
+    "candidate evidence packet",
+    "bundle-local review",
+    "optional receipt",
+    "Keep generated readers subordinate",
+    "Keep receipts below reviewed reports",
+    "python scripts/validate_repo.py",
+)
+PROOF_LOOP_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/proof-loop/",
+    "pick proof question",
+    "existing mechanics",
+    "does not own bundle meaning",
+    "does not create runtime dispatch",
+    "does not allow receipts",
+)
+PROOF_LOOP_SMOKE_REPORT_REQUIRED_TOKENS = (
+    "bounded route-smoke",
+    "proof question -> selection route -> source proof object",
+    "candidate evidence packet",
+    "bundle-local review",
+    "aoa-verification-honesty",
+    "no eval result receipt",
+    "no bundle promotion",
+    "defer/handoff",
+    "No runtime candidate packet is accepted by this smoke",
+    "No sibling proof ref is required by this smoke",
+)
+PROOF_LOOP_SMOKE_DECISION_REQUIRED_TOKENS = (
+    "reports/proof-loop-local-route-smoke-v1.md",
+    "aoa-verification-honesty",
+    "bounded route-smoke",
+    "no eval result receipt",
+    "no bundle promotion",
+    "no runtime dispatch",
+    "no sibling-owner approval",
+)
+PROOF_LOOP_LOCAL_REPORT_REQUIRED_TOKENS = (
+    "aoa-verification-honesty",
+    "aoa-evals slice 19 quest lifecycle contract",
+    "No receipt publisher run was attempted",
+    "No runtime mutation or machine maintenance check was attempted",
+    "`python scripts/release_check.py`",
+)
+PROOF_LOOP_LOCAL_REPORT_DECISION_REQUIRED_TOKENS = (
+    PROOF_LOOP_LOCAL_REPORT_NAME,
+    "bundle-local report",
+    "reports/summary.schema.json",
+    "validate every bundle-local `*.report.json`",
+    "no eval result receipt",
+    "no bundle status is promoted",
+)
+RECEIPT_INTAKE_DRY_REVIEW_REQUIRED_TOKENS = (
+    "receipt_intake_dry_review",
+    "candidate_payload_preview",
+    "eval-result-receipt.schema.json",
+    "stats-event-envelope.schema.json",
+    "publish_live_receipts.py",
+    ".aoa/live_receipts/eval-result-receipts.jsonl",
+    "dry_review_only",
+    "not_published",
+    "not_created",
+    "not_attempted",
+    "does not publish an eval result receipt",
+    "not runtime acceptance",
+)
+RECEIPT_INTAKE_DRY_REVIEW_DECISION_REQUIRED_TOKENS = (
+    RECEIPT_INTAKE_DRY_REVIEW_NAME,
+    "eval_result_receipt",
+    "stats-event-envelope",
+    ".aoa/live_receipts/",
+    "candidate_payload_preview",
+    "event_id",
+    "dry review is weaker than a receipt",
+    "Do not infer that an eval result receipt was published",
+)
+PROOF_RELEASE_READINESS_AUDIT_REQUIRED_TOKENS = (
+    "proof_release_readiness_audit",
+    "local_release_prep_review_ready_with_open_landing",
+    "accumulated_strategic_refactor_diff",
+    "ready_for_release_prep_review",
+    "not_published",
+    "not_created",
+    "not_opened",
+    "not_observed_for_this_uncommitted_diff",
+    "not_complete",
+    "not_attempted",
+    "not a release",
+    "not a tag",
+    "not GitHub Repo Validation",
+    "not goal completion",
+)
+PROOF_RELEASE_READINESS_AUDIT_DECISION_REQUIRED_TOKENS = (
+    PROOF_RELEASE_READINESS_AUDIT_NAME,
+    "scripts/release_check.py",
+    "GitHub `Repo Validation`",
+    "not the same as a bounded release-prep review",
+    "no tag",
+    "no GitHub Release",
+    "no PR approval",
+    "no goal completion",
+)
+STRATEGIC_CLOSEOUT_AUDIT_REQUIRED_TOKENS = (
+    "strategic_closeout_audit",
+    "local_strategic_refactor_handoff_ready_with_open_landing",
+    "not_complete",
+    "satisfied_for_local_refactor",
+    "meta_truth_and_positive_boundary",
+    "codex_maxxing_durable_loop",
+    "phase_8_active_proof_loop",
+    "trap_audit_and_open_landing",
+    "does not mark the goal complete",
+    "does not open a PR",
+    "does not observe GitHub Repo Validation",
+    "does not publish an eval result receipt",
+    "does not mutate sibling repos",
+)
+STRATEGIC_CLOSEOUT_AUDIT_DECISION_REQUIRED_TOKENS = (
+    STRATEGIC_CLOSEOUT_AUDIT_NAME,
+    "requirement-by-requirement",
+    "handoff ready locally",
+    "goal not complete",
+    "GitHub `Repo Validation`",
+    "live eval-result receipt",
+    "mutate sibling repos",
+)
+RELEASE_PREP_PR_HANDOFF_REQUIRED_TOKENS = (
+    "release_prep_pr_handoff",
+    "ready_for_owner_landing_route_with_open_pr",
+    "pre_pr_handoff_snapshot",
+    "pre_landing_worktree_posture",
+    "dirty_uncommitted_local_diff",
+    "pre_handoff_github_status",
+    "not_created_by_this_handoff",
+    "not_opened",
+    "not_observed_for_this_uncommitted_diff",
+    "candidate_branch_name",
+    "candidate_pr_title",
+    "draft_pr_body",
+    "At the snapshot time",
+    "did not create a branch",
+    "did not create a commit",
+    "did not push",
+    "did not open a PR",
+    "did not observe GitHub Repo Validation",
+    "did not mark the goal complete",
+    "supersedes this snapshot",
+)
+RELEASE_PREP_PR_HANDOFF_DECISION_REQUIRED_TOKENS = (
+    RELEASE_PREP_PR_HANDOFF_NAME,
+    "PR shape prepared",
+    "this artifact alone is not PR evidence",
+    "GitHub `Repo Validation`",
+    "not an explicit commit/push/merge instruction",
+    "Do not infer from this artifact alone that a branch was created",
+    "After a branch or PR exists",
+    "mutate sibling repos",
+    "mark the goal complete",
+)
+REPO_VALIDATION_AOA_MEMO_PIN_DECISION_REQUIRED_TOKENS = (
+    REPO_VALIDATION_WORKFLOW_NAME,
+    REPO_VALIDATION_AOA_MEMO_REF,
+    "pinned CI-lane update",
+    "latest-sibling canary",
+    "GitHub `Repo Validation`",
+    "does not mutate `aoa-memo`",
+    "does not weaken path validation",
+)
+COMPARISON_SPINE_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "docs/COMPARISON_SPINE_GUIDE.md",
+    "docs/BASELINE_COMPARISON_GUIDE.md",
+    "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
+    "generated/comparison_spine.json",
+    "comparison_surface",
+    "fixed-baseline",
+    "peer-compare",
+    "longitudinal-window",
+    "style-only movement",
+    "python scripts/build_catalog.py --check",
+    "python scripts/validate_repo.py",
+)
+COMPARISON_SPINE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "baseline_mode",
+    "comparison_surface",
+    "generated/comparison_spine.json",
+    "fixed-baseline",
+    "peer-compare",
+    "longitudinal-window",
+    "python scripts/build_catalog.py --check",
+)
+COMPARISON_SPINE_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/comparison-spine/",
+    "generated/comparison_spine.json",
+    "comparison_surface",
+    "fixed-baseline",
+    "peer-compare",
+    "longitudinal-window",
+    "does not make `generated/comparison_spine.json` source truth",
+)
+PROOF_INFRA_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "docs/SHARED_PROOF_INFRA_GUIDE.md",
+    "fixtures/README.md",
+    "runners/reportable_proof_contract.md",
+    "scorers/bounded_rubric_breakdown.py",
+    "schemas/fixture-contract.schema.json",
+    "schemas/runner-contract.schema.json",
+    "schemas/report-summary.schema.json",
+    "reports/README.md",
+    "templates/EVAL.template.md",
+    "generated catalog `proof_artifacts`",
+    "shared_fixture_family_path",
+    "runner_surface_path",
+    "scorer_helper_paths",
+    "report_schema_path",
+    "Do not move `fixtures/`",
+    "python scripts/build_catalog.py --check",
+    "python scripts/validate_repo.py",
+)
+PROOF_INFRA_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "shared proof infrastructure",
+    "fixtures/contract.json",
+    "runners/contract.json",
+    "reports/summary.schema.json",
+    "generated catalog `proof_artifacts`",
+    "bundle-local interpretation",
+    "python scripts/build_catalog.py --check",
+)
+PROOF_INFRA_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/proof-infra/",
+    "shared proof contract",
+    "generated proof_artifacts",
+    "does not move `fixtures/`",
+    "bundle-local `EVAL.md`",
+    "schema weakening",
+    "repo-global scoring",
+)
+PUBLICATION_RECEIPTS_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "docs/EVAL_RESULT_RECEIPT_GUIDE.md",
+    "schemas/eval-result-receipt.schema.json",
+    "schemas/stats-event-envelope.schema.json",
+    "examples/eval_result_receipt.example.json",
+    "scripts/publish_live_receipts.py",
+    ".aoa/live_receipts/eval-result-receipts.jsonl",
+    "eval_result_receipt",
+    "stats-event-envelope",
+    "optional receipt",
+    "bundle-local verdict meaning",
+    "repo-global score",
+    "python scripts/validate_repo.py",
+    "python scripts/validate_semantic_agents.py",
+)
+PUBLICATION_RECEIPTS_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "eval-result receipt",
+    "stats-event-envelope",
+    ".aoa/live_receipts/",
+    "bundle-local report",
+    "aoa-stats",
+    "append-only",
+    "public-safe",
+    "python scripts/validate_repo.py",
+)
+PUBLICATION_RECEIPTS_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/publication-receipts/",
+    "eval-result receipt",
+    "stats-event-envelope",
+    "aoa-stats",
+    "does not move `.aoa/live_receipts/`",
+    "bundle-local report",
+    "repo-global score",
+)
+PROOF_RELEASE_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "docs/RELEASING.md",
+    "CHANGELOG.md",
+    "scripts/release_check.py",
+    ".github/workflows/repo-validation.yml",
+    "Repo Validation",
+    "pre-PR owner landing handoff",
+    "bounded release scope",
+    "changelog narrative",
+    "GitHub release notes",
+    "does not strengthen eval claims",
+    "python scripts/validate_repo.py",
+    "python scripts/validate_semantic_agents.py",
+    "python scripts/release_check.py",
+)
+PROOF_RELEASE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "bounded `aoa-evals` release",
+    "CHANGELOG.md",
+    "scripts/release_check.py",
+    "Repo Validation",
+    "plain tag-shaped",
+    "bundle-local review",
+    "python scripts/release_check.py",
+)
+PROOF_RELEASE_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/proof-release/",
+    "bounded release scope",
+    "changelog narrative",
+    "release audit",
+    "Repo Validation",
+    "does not create a tag",
+    "release notes",
+    "bundle-local `EVAL.md`",
+)
+TITAN_CANARIES_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "docs/TITAN_INCARNATION_CANARIES.md",
+    "docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md",
+    "evals/titan_*_canary.yaml",
+    "evals/AGENTS.md",
+    "validate_titan_canary_surfaces",
+    "seed canary",
+    "future executable scorer",
+    "full incarnation proof",
+    "hidden arena",
+    "mutation gate",
+    "judgment gate",
+    "python scripts/validate_repo.py",
+)
+TITAN_CANARIES_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "Titan seed canaries",
+    "evals/titan_*_canary.yaml",
+    "not full incarnation proof",
+    "mutation gate",
+    "judgment gate",
+    "validate_titan_canary_surfaces",
+    "python scripts/validate_repo.py",
+)
+TITAN_CANARIES_DECISION_REQUIRED_TOKENS = (
+    "mechanics/titan-canaries/",
+    "evals/titan_*_canary.yaml",
+    "validate_titan_canary_surfaces",
+    "does not move `evals/`",
+    "full incarnation proof",
+    "future executable scorer",
+)
+TITAN_INCARNATION_CANARIES_REQUIRED_TOKENS = (
+    "mechanics/titan-canaries/README.md",
+    "evals/titan_*_canary.yaml",
+    "seed canaries",
+    "full incarnation proof",
+    "runtime cohort",
+    "summon authority",
+    "memory sovereignty",
+    "python scripts/validate_repo.py",
+)
+TITAN_SUMMON_DISCIPLINE_REQUIRED_TOKENS = (
+    "mechanics/titan-canaries/README.md",
+    "seed-defined",
+    "named Titan targets",
+    "generic role",
+    "hidden background arena",
+    "full incarnation",
+)
+EVALS_AGENTS_REQUIRED_TOKENS = (
+    "Titan seed canaries",
+    "evals/titan_*_canary.yaml",
+    "full incarnation proof",
+    "runtime activation",
+    "validate_titan_canary_surfaces",
+    "python scripts/validate_repo.py",
+)
+AGON_PROOF_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "docs/AGON_EVAL_PREBINDING_MODEL.md",
+    "config/agon_eval_prebindings.seed.json",
+    "generated/agon_eval_prebinding_registry.min.json",
+    "manifests/recurrence/component.agon",
+    "observe-only recurrence component",
+    "no_live_verdict",
+    "bundle-local proof",
+    "python scripts/build_agon_eval_prebinding_registry.py --check",
+    "python scripts/validate_agon_eval_prebindings.py",
+    "python -m pytest -q tests/test_agon*.py",
+    "live verdict authority",
+)
+AGON_PROOF_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "Agon pre-protocol proof alignment",
+    "seed config",
+    "generated registry",
+    "observe-only recurrence component",
+    "no_live_verdict",
+    "bundle-local review",
+)
+AGON_PROOF_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/agon-proof/",
+    "seed prebindings",
+    "generated registries",
+    "observe-only hooks",
+    "does not move",
+    "live verdict",
+    "Tree of Sophia promotion",
+)
+QUESTBOOK_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "QUESTBOOK.md",
+    "quests/",
+    "quests/LIFECYCLE.md",
+    "generated/quest_catalog.min.json",
+    "generated/quest_dispatch.min.json",
+    "lane/state",
+    "not eval bundles",
+    "python scripts/build_catalog.py --check",
+    "python scripts/validate_repo.py",
+)
+QUESTBOOK_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "source quest record",
+    "QUESTBOOK.md",
+    "quests/LIFECYCLE.md",
+    "generated quest reader",
+    "lane/state",
+    "python scripts/build_catalog.py --check",
+)
+QUEST_LIFECYCLE_DECISION_REQUIRED_TOKENS = (
+    "quests/LIFECYCLE.md",
+    "captured",
+    "triaged",
+    "ready",
+    "active",
+    "blocked",
+    "reanchor",
+    "done",
+    "dropped",
+    "proof-loop",
+    "route-smoke",
+)
+QUESTBOOK_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/questbook/",
+    "source quest records",
+    "generated quest",
+    "lane/state",
+    "no empty taxonomy",
+)
+RUNTIME_EVIDENCE_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+    "docs/RUNTIME_INTEGRITY_REVIEW.md",
+    "generated/runtime_candidate_template_index.min.json",
+    "generated/runtime_candidate_intake.min.json",
+    "examples/runtime_evidence_selection.*.example.json",
+    "examples/artifact_to_verdict_hook.*.example.json",
+    "candidate-only",
+    "bundle-local review",
+    "python scripts/generate_runtime_candidate_template_index.py --check",
+    "python scripts/generate_runtime_candidate_intake.py --check",
+)
+RUNTIME_EVIDENCE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "runtime or trace artifact",
+    "selected evidence packet",
+    "runtime candidate reader",
+    "bundle-local review",
+    "python scripts/generate_runtime_candidate_template_index.py --check",
+)
+RUNTIME_EVIDENCE_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/runtime-evidence/",
+    "runtime evidence selection",
+    "artifact-to-verdict",
+    "generated readers",
+    "bundle-local review",
+    "does not turn runtime evidence into proof canon",
+)
+SIBLING_PROOF_REFS_REQUIRED_TOKENS = (
+    "compatibility map",
+    "repo-qualified ref",
+    "current/legacy/rejected/unresolved",
+    "latest-sibling canary",
+    "pinned `Repo Validation` ref",
+    REPO_VALIDATION_AOA_MEMO_REF,
+    "scripts/sibling_canary_matrix.json",
+    "python scripts/run_sibling_canary.py --repo-root . --format json",
+    "not an authority transfer",
+)
+SIBLING_PROOF_REFS_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "docs/SIBLING_PROOF_REFS.md",
+    "scripts/sibling_canary_matrix.json",
+    "scripts/run_sibling_canary.py",
+    REPO_VALIDATION_WORKFLOW_NAME,
+    "latest-sibling canary",
+    "pinned public-lane refresh",
+    "current/legacy/rejected/unresolved",
+    "Do not edit sibling repositories",
+    "bundle-local review",
+)
+SIBLING_PROOF_REFS_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "repo-qualified ref",
+    "sibling owner route",
+    "compatibility posture",
+    "latest-sibling canary",
+    "python scripts/run_sibling_canary.py --repo-root . --format json",
+)
+SIBLING_PROOF_REFS_DECISION_REQUIRED_TOKENS = (
+    "mechanics/sibling-proof-refs/",
+    "docs/SIBLING_PROOF_REFS.md",
+    "latest-sibling canary",
+    "current, legacy, rejected, or unresolved",
+    "does not authorize editing sibling repositories",
+)
+SIBLING_CANARY_EXPECTED_REPOS = (
+    "aoa-techniques",
+    "aoa-skills",
+    "aoa-agents",
+    "aoa-playbooks",
+    "aoa-memo",
+    "aoa-routing",
+    "aoa-kag",
+    "aoa-sdk",
+    "aoa-stats",
+    "abyss-stack",
+)
 SCHEMAS_DIR_NAME = "schemas"
 GENERATED_DIR_NAME = "generated"
 EXAMPLES_DIR_NAME = "examples"
@@ -124,6 +895,9 @@ ARTIFACT_PROCESS_GUIDE_NAME = "docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md"
 REPEATED_WINDOW_GUIDE_NAME = "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md"
 SHARED_PROOF_INFRA_GUIDE_NAME = "docs/SHARED_PROOF_INFRA_GUIDE.md"
 QUESTBOOK_NAME = "QUESTBOOK.md"
+QUESTS_README_NAME = "quests/README.md"
+QUESTS_AGENTS_NAME = "quests/AGENTS.md"
+QUEST_LIFECYCLE_NAME = "quests/LIFECYCLE.md"
 QUESTBOOK_INTEGRATION_NAME = "docs/QUESTBOOK_EVAL_INTEGRATION.md"
 QUEST_SCHEMA_NAME = "schemas/quest.schema.json"
 QUEST_DISPATCH_SCHEMA_NAME = "schemas/quest_dispatch.schema.json"
@@ -131,6 +905,27 @@ QUEST_CATALOG_NAME = "generated/quest_catalog.min.json"
 QUEST_DISPATCH_NAME = "generated/quest_dispatch.min.json"
 QUEST_CATALOG_EXAMPLE_NAME = "generated/quest_catalog.min.example.json"
 QUEST_DISPATCH_EXAMPLE_NAME = "generated/quest_dispatch.min.example.json"
+QUEST_SOURCE_LANES = (
+    "proof",
+    "trace",
+    "orchestrator",
+    "unlock",
+    "runtime",
+    "closeout",
+    "agon",
+    "harvest",
+    "questbook",
+)
+QUEST_SOURCE_STATES = (
+    "captured",
+    "triaged",
+    "ready",
+    "active",
+    "blocked",
+    "reanchor",
+    "done",
+    "dropped",
+)
 FOUNDATION_QUEST_NAMES = (
     "AOA-EV-Q-0001",
     "AOA-EV-Q-0002",
@@ -149,6 +944,36 @@ QUESTBOOK_NOTE_REQUIRED_TOKENS = (
     "proof",
     "regression",
     "verdict-bridge",
+)
+QUESTS_README_REQUIRED_TOKENS = (
+    "source quest records",
+    "QUESTBOOK.md",
+    "quests/LIFECYCLE.md",
+    "generated/quest_catalog.min.json",
+    "quests/<lane>/<state>/",
+    "legacy path vocabulary",
+    "not eval bundles",
+)
+QUESTS_AGENTS_REQUIRED_TOKENS = (
+    "source quest records",
+    "QUESTBOOK.md",
+    "quests/LIFECYCLE.md",
+    "generated/quest_catalog.min.json",
+    "quests/<lane>/<state>/",
+    "legacy path vocabulary",
+    "validate_repo.py",
+)
+QUEST_LIFECYCLE_REQUIRED_TOKENS = (
+    "State Matrix",
+    "Open-index posture",
+    "Return posture",
+    "Promotion posture",
+    "Proof-Loop Return Use",
+    "reports/proof-loop-local-route-smoke-v1.md",
+    "does not create an eval result receipt",
+    "Open states",
+    "Closed states",
+    "`QUESTBOOK.md` must list open quest IDs",
 )
 QUEST_SCHEMA_TITLE = "work_quest_v1"
 QUEST_SCHEMA_VERSION = "work_quest_v1"
@@ -293,7 +1118,7 @@ RUNTIME_INTEGRITY_REVIEW_EVIDENCE_REFS = (
     "repo:aoa-evals/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
     "repo:aoa-routing/docs/LIVE_SESSION_REENTRY_ROUTE_REVIEW.md",
     "repo:aoa-agents/docs/SELF_AGENCY_CONTINUITY_LANE.md",
-    "repo:aoa-memo/mechanics/checkpoint/schemas/inquiry_checkpoint.schema.json",
+    "repo:aoa-memo/mechanics/checkpoint/parts/checkpoint-carry-contract/schemas/inquiry_checkpoint.schema.json",
     "repo:aoa-memo/mechanics/writeback/docs/SELF_AGENCY_CONTINUITY_WRITEBACK.md",
 )
 RUNTIME_INTEGRITY_REVIEW_REPLAY_KEYS = (
@@ -311,6 +1136,8 @@ RUNTIME_INTEGRITY_REVIEW_FORBIDDEN_CLAIMS = (
 RUNTIME_CANDIDATE_TEMPLATE_INDEX_SCHEMA_NAME = "runtime-candidate-template-index.schema.json"
 RUNTIME_CANDIDATE_TEMPLATE_INDEX_NAME = "generated/runtime_candidate_template_index.min.json"
 RUNTIME_CANDIDATE_INTAKE_NAME = "generated/runtime_candidate_intake.min.json"
+EVAL_REPORT_INDEX_NAME = "generated/eval_report_index.min.json"
+EVAL_REPORT_INDEX_DECISION_NAME = "docs/decisions/0023-eval-report-index-reader.md"
 PHASE_ALPHA_EVAL_MATRIX_SCHEMA_NAME = "phase-alpha-eval-matrix.schema.json"
 PHASE_ALPHA_EVAL_MATRIX_NAME = "generated/phase_alpha_eval_matrix.min.json"
 NORMALIZED_RUNTIME_ARTIFACT_RE = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
@@ -368,9 +1195,9 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
             "repo:aoa-playbooks/playbooks/local-stack-diagnosis/PLAYBOOK.md#expected-artifacts",
             "repo:aoa-playbooks/docs/alpha-readiness/local-stack-diagnosis.md",
             "repo:aoa-agents/examples/alpha_reference_routes/local-stack-diagnosis.example.json",
-            "repo:aoa-memo/examples/state_capsule.phase-alpha-local-stack.example.json",
-            "repo:aoa-memo/examples/episode.phase-alpha-local-stack.example.json",
-            "repo:aoa-memo/examples/decision.phase-alpha-local-stack.example.json",
+            "repo:aoa-memo/examples/phase-alpha/state_capsule.phase-alpha-local-stack.example.json",
+            "repo:aoa-memo/examples/phase-alpha/episode.phase-alpha-local-stack.example.json",
+            "repo:aoa-memo/examples/phase-alpha/decision.phase-alpha-local-stack.example.json",
         ],
         "trace_surfaces": [],
         "verification_surface": "verification_pack",
@@ -380,10 +1207,10 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
         "artifact_contract_refs": [
             "repo:aoa-agents/schemas/self-agent-checkpoint.schema.json",
             "repo:aoa-playbooks/playbooks/self-agent-checkpoint-rollout/PLAYBOOK.md#expected-artifacts",
-            "repo:aoa-memo/docs/MEMORY_MODEL.md#checkpoint-route-writeback",
-            "repo:aoa-memo/mechanics/checkpoint/examples/checkpoint_approval_record.example.json",
-            "repo:aoa-memo/mechanics/checkpoint/examples/checkpoint_health_check.example.json",
-            "repo:aoa-memo/mechanics/checkpoint/examples/checkpoint_improvement_thread.example.json",
+            "repo:aoa-memo/docs/memory/MEMORY_MODEL.md#checkpoint-route-writeback",
+            "repo:aoa-memo/mechanics/checkpoint/parts/approval-and-health-records/examples/checkpoint_approval_record.example.json",
+            "repo:aoa-memo/mechanics/checkpoint/parts/approval-and-health-records/examples/checkpoint_health_check.example.json",
+            "repo:aoa-memo/mechanics/checkpoint/parts/approval-and-health-records/examples/checkpoint_improvement_thread.example.json",
         ],
         "trace_surfaces": [],
         "verification_surface": "approval_record",
@@ -394,9 +1221,9 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
             "repo:aoa-playbooks/playbooks/validation-driven-remediation/PLAYBOOK.md#expected-artifacts",
             "repo:aoa-playbooks/docs/alpha-readiness/validation-driven-remediation.md",
             "repo:aoa-agents/examples/alpha_reference_routes/validation-driven-remediation.example.json",
-            "repo:aoa-memo/examples/episode.phase-alpha-validation-remediation.example.json",
-            "repo:aoa-memo/examples/decision.phase-alpha-validation-remediation.example.json",
-            "repo:aoa-memo/examples/recall_contract.object.working.phase-alpha.json",
+            "repo:aoa-memo/examples/phase-alpha/episode.phase-alpha-validation-remediation.example.json",
+            "repo:aoa-memo/examples/phase-alpha/decision.phase-alpha-validation-remediation.example.json",
+            "repo:aoa-memo/examples/recall/recall_contract.object.working.phase-alpha.json",
         ],
         "trace_surfaces": [],
         "verification_surface": "revalidation_pack",
@@ -418,8 +1245,8 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
     "AOA-P-0009": {
         "eval_anchor": "aoa-long-horizon-depth",
         "artifact_contract_refs": [
-            "repo:aoa-memo/mechanics/checkpoint/schemas/inquiry_checkpoint.schema.json",
-            "repo:aoa-memo/mechanics/checkpoint/schemas/checkpoint-to-memory-contract.schema.json",
+            "repo:aoa-memo/mechanics/checkpoint/parts/checkpoint-carry-contract/schemas/inquiry_checkpoint.schema.json",
+            "repo:aoa-memo/mechanics/checkpoint/parts/checkpoint-to-memory-mapping/schemas/checkpoint-to-memory-contract.schema.json",
             "repo:aoa-playbooks/playbooks/restartable-inquiry-loop/PLAYBOOK.md#expected-artifacts",
             "repo:aoa-playbooks/generated/playbook_registry.min.json",
         ],
@@ -457,7 +1284,7 @@ TRACE_EVAL_HOOK_EXPECTATIONS = {
         ],
         "trace_surfaces": [
             "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md",
-            "repo:aoa-memo/mechanics/writeback/examples/provenance_thread.self-agency-continuity.example.json",
+            "repo:aoa-memo/mechanics/writeback/parts/growth-and-continuity/examples/provenance_thread.self-agency-continuity.example.json",
         ],
         "verification_surface": "proof_handoff_candidate",
     },
@@ -757,14 +1584,23 @@ def quest_sort_key(quest_name: str) -> tuple[int, str]:
         return (sys.maxsize, quest_name)
 
 
-def discover_quest_names(repo_root: Path) -> list[str]:
+def discover_quest_paths(repo_root: Path) -> list[Path]:
     quests_dir = repo_root / "quests"
-    quest_names = sorted(
+    if not quests_dir.is_dir():
+        return []
+    return sorted(
         {
-            path.stem
-            for path in quests_dir.glob("AOA-EV-Q-*.yaml")
+            path
+            for path in quests_dir.rglob("AOA-EV-Q-*.yaml")
             if path.is_file()
         },
+        key=lambda path: quest_sort_key(path.stem),
+    )
+
+
+def discover_quest_names(repo_root: Path) -> list[str]:
+    quest_names = sorted(
+        {path.stem for path in discover_quest_paths(repo_root)},
         key=quest_sort_key,
     )
     if not quest_names:
@@ -788,7 +1624,34 @@ def should_validate_questbook_surface(repo_root: Path) -> bool:
     )
     if any(path.exists() for path in questbook_paths):
         return True
-    return any((repo_root / "quests" / f"{quest_name}.yaml").exists() for quest_name in discover_quest_names(repo_root))
+    return bool(discover_quest_paths(repo_root))
+
+
+def quest_source_path_shape_issue(
+    repo_root: Path,
+    quest_path: Path,
+    quest_data: dict[str, Any],
+) -> str | None:
+    relative_path = quest_path.relative_to(repo_root).as_posix()
+    parts = quest_path.relative_to(repo_root).parts
+    if len(parts) != 4 or parts[0] != "quests" or not parts[3].endswith(".yaml"):
+        return "quest source path must use quests/<lane>/<state>/<quest-id>.yaml"
+    lane = parts[1]
+    state = parts[2]
+    if lane not in QUEST_SOURCE_LANES:
+        allowed = ", ".join(QUEST_SOURCE_LANES)
+        return f"quest lane '{lane}' is not allowed; expected one of: {allowed}"
+    if state not in QUEST_SOURCE_STATES:
+        allowed = ", ".join(QUEST_SOURCE_STATES)
+        return f"quest state directory '{state}' is not allowed; expected one of: {allowed}"
+    quest_state = quest_data.get("state")
+    if isinstance(quest_state, str) and state != quest_state:
+        return f"quest state directory '{state}' must match state '{quest_state}'"
+    if quest_path.stem != quest_data.get("id"):
+        return f"quest source filename in {relative_path} must match quest id"
+    return None
+
+
 def validate_quest_schema_envelope(
     schema: Any,
     *,
@@ -841,6 +1704,72 @@ def validate_quest_schema_envelope(
                 )
                 ok = False
     return ok
+
+
+def validate_quest_lifecycle_surface(
+    repo_root: Path,
+    quest_schema: dict[str, Any] | None = None,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    lifecycle_text = require_tokens(
+        repo_root=repo_root,
+        path_name=QUEST_LIFECYCLE_NAME,
+        tokens=QUEST_LIFECYCLE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    if not lifecycle_text:
+        return issues
+
+    schema_states: list[str] = []
+    if isinstance(quest_schema, dict):
+        properties = quest_schema.get("properties")
+        if isinstance(properties, dict):
+            state_schema = properties.get("state")
+            if isinstance(state_schema, dict):
+                raw_enum = state_schema.get("enum")
+                if isinstance(raw_enum, list):
+                    schema_states = [item for item in raw_enum if isinstance(item, str)]
+    if not schema_states:
+        schema_states = list(QUEST_SOURCE_STATES)
+
+    if tuple(schema_states) != QUEST_SOURCE_STATES:
+        issues.append(
+            ValidationIssue(
+                QUEST_SCHEMA_NAME,
+                "quest state enum must match the lifecycle state order",
+            )
+        )
+
+    for state in schema_states:
+        table_token = f"| `{state}` |"
+        if table_token not in lifecycle_text:
+            issues.append(
+                ValidationIssue(
+                    QUEST_LIFECYCLE_NAME,
+                    f"quest lifecycle matrix must include state '{state}'",
+                )
+            )
+
+    for state in sorted(CLOSED_QUEST_STATES):
+        if f"`{state}` | closed; not listed as open" not in lifecycle_text:
+            issues.append(
+                ValidationIssue(
+                    QUEST_LIFECYCLE_NAME,
+                    f"closed state '{state}' must be marked closed in the lifecycle matrix",
+                )
+            )
+    for state in QUEST_SOURCE_STATES:
+        if (
+            state not in CLOSED_QUEST_STATES
+            and f"| `{state}` | listed in `QUESTBOOK.md`" not in lifecycle_text
+        ):
+            issues.append(
+                ValidationIssue(
+                    QUEST_LIFECYCLE_NAME,
+                    f"open state '{state}' must be marked listed in QUESTBOOK.md",
+                )
+            )
+    return issues
 
 
 def build_expected_quest_catalog_entry(
@@ -920,13 +1849,24 @@ def build_expected_quest_dispatch_entry(
 
 def load_quest_projection_records(repo_root: Path) -> list[tuple[str, dict[str, Any], str]]:
     records: list[tuple[str, dict[str, Any], str]] = []
-    quest_names = discover_quest_names(repo_root)
+    quest_paths = discover_quest_paths(repo_root)
+    if not quest_paths:
+        quest_paths = [
+            repo_root / "quests" / f"{quest_name}.yaml"
+            for quest_name in FOUNDATION_QUEST_NAMES
+        ]
+    quest_names = [path.stem for path in quest_paths]
+    duplicate_names = sorted(
+        name for name, count in Counter(quest_names).items() if count > 1
+    )
+    if duplicate_names:
+        raise ValueError(f"duplicate quest source id(s): {', '.join(duplicate_names)}")
     missing_foundation = missing_foundation_quest_names(quest_names)
     if missing_foundation:
         missing_display = ", ".join(missing_foundation)
         raise ValueError(f"missing required foundation quest files: {missing_display}")
-    for quest_name in quest_names:
-        quest_path = repo_root / "quests" / f"{quest_name}.yaml"
+    for quest_path in quest_paths:
+        quest_name = quest_path.stem
         try:
             quest_data = yaml.safe_load(quest_path.read_text(encoding="utf-8"))
         except FileNotFoundError as exc:
@@ -936,6 +1876,9 @@ def load_quest_projection_records(repo_root: Path) -> list[tuple[str, dict[str, 
         if not isinstance(quest_data, dict):
             raise ValueError(f"{quest_path.relative_to(repo_root).as_posix()} must be a YAML mapping")
         validate_quest_projection_record(repo_root, quest_path, quest_data)
+        shape_issue = quest_source_path_shape_issue(repo_root, quest_path, quest_data)
+        if shape_issue is not None:
+            raise ValueError(f"{quest_path.relative_to(repo_root).as_posix()}: {shape_issue}")
         if quest_data.get("schema_version") != QUEST_SCHEMA_VERSION:
             raise ValueError(f"{quest_path.relative_to(repo_root).as_posix()} must keep schema_version '{QUEST_SCHEMA_VERSION}'")
         if quest_data.get("repo") != "aoa-evals":
@@ -977,8 +1920,25 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
     quest_dispatch_path = repo_root / QUEST_DISPATCH_NAME
     quest_catalog_example_path = repo_root / QUEST_CATALOG_EXAMPLE_NAME
     quest_dispatch_example_path = repo_root / QUEST_DISPATCH_EXAMPLE_NAME
-    quest_names = discover_quest_names(repo_root)
-    quest_paths = [repo_root / "quests" / f"{quest_name}.yaml" for quest_name in quest_names]
+    quest_paths = discover_quest_paths(repo_root)
+    if quest_paths:
+        quest_names = [path.stem for path in quest_paths]
+    else:
+        quest_names = list(FOUNDATION_QUEST_NAMES)
+        quest_paths = [
+            repo_root / "quests" / f"{quest_name}.yaml"
+            for quest_name in quest_names
+        ]
+    duplicate_names = sorted(
+        name for name, count in Counter(quest_names).items() if count > 1
+    )
+    for quest_name in duplicate_names:
+        issues.append(
+            ValidationIssue(
+                "quests",
+                f"duplicate quest source id '{quest_name}'",
+            )
+        )
     for quest_name in missing_foundation_quest_names(quest_names):
         issues.append(
             ValidationIssue(
@@ -999,6 +1959,7 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
             expected_title=QUEST_SCHEMA_TITLE,
             expected_schema_version=QUEST_SCHEMA_VERSION,
         )
+    issues.extend(validate_quest_lifecycle_surface(repo_root, quest_schema))
     quest_dispatch_schema = load_json_payload(quest_dispatch_schema_path, issues)
     if quest_dispatch_schema is not None:
         validate_quest_schema_envelope(
@@ -1043,6 +2004,9 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
         location = relative_location(quest_path, repo_root)
         if not validate_against_schema(quest_data, "quest.schema.json", location, issues):
             continue
+        shape_issue = quest_source_path_shape_issue(repo_root, quest_path, quest_data)
+        if shape_issue is not None:
+            issues.append(ValidationIssue(location, shape_issue))
         if quest_data.get("schema_version") != QUEST_SCHEMA_VERSION:
             issues.append(
                 ValidationIssue(location, f"schema_version must be '{QUEST_SCHEMA_VERSION}'")
@@ -3157,6 +4121,57 @@ def validate_bundle_report_artifacts(
             issues=issues,
         )
 
+    for report_path in sorted(schema_path.parent.glob("*.report.json")):
+        validate_actual_bundle_report_artifact(
+            report_path,
+            schema,
+            repo_root=repo_root,
+            manifest=manifest,
+            issues=issues,
+        )
+
+
+def validate_actual_bundle_report_artifact(
+    report_path: Path,
+    schema: dict[str, Any],
+    *,
+    repo_root: Path,
+    manifest: dict[str, Any] | None,
+    issues: list[ValidationIssue],
+) -> None:
+    report_location = relative_location(report_path, repo_root)
+    report_payload = load_json_payload(report_path, issues)
+    if report_payload is None:
+        return
+
+    validate_json_against_inline_schema(
+        report_payload,
+        schema,
+        location=report_location,
+        issues=issues,
+    )
+
+    if not isinstance(report_payload, dict) or not isinstance(manifest, dict):
+        return
+
+    expected_name = manifest.get("name")
+    if isinstance(expected_name, str) and report_payload.get("eval_name") != expected_name:
+        issues.append(
+            ValidationIssue(
+                report_location,
+                f"actual bundle report eval_name must match manifest name '{expected_name}'",
+            )
+        )
+
+    expected_status = manifest.get("status")
+    if isinstance(expected_status, str) and report_payload.get("bundle_status") != expected_status:
+        issues.append(
+            ValidationIssue(
+                report_location,
+                f"actual bundle report bundle_status must match manifest status '{expected_status}'",
+            )
+        )
+
 
 LONGITUDINAL_GROWTH_CLAIM_PHRASES = (
     "broad capability growth",
@@ -3779,6 +4794,1880 @@ def validate_roadmap_parity(
                 f"absence note '{NO_ADDITIONAL_STARTER_BUNDLES_TEXT}' must stay synchronized with {EVAL_INDEX_NAME}",
             )
         )
+
+    return issues
+
+
+def require_tokens(
+    *,
+    repo_root: Path,
+    path_name: str,
+    tokens: Sequence[str],
+    issues: list[ValidationIssue],
+) -> str:
+    text = read_text_or_issue(repo_root / path_name, issues, root=repo_root)
+    if not text:
+        return text
+    for token in tokens:
+        if token not in text:
+            issues.append(
+                ValidationIssue(path_name, f"file must mention '{token}'")
+            )
+    return text
+
+
+def validate_root_design_surfaces(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    require_tokens(
+        repo_root=repo_root,
+        path_name=DESIGN_NAME,
+        tokens=ROOT_DESIGN_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=DESIGN_AGENTS_NAME,
+        tokens=DESIGN_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="AGENTS.md",
+        tokens=ROOT_AGENTS_DESIGN_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=DECISION_SURFACE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/TEMPLATE.md",
+        tokens=DECISION_TEMPLATE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/AGENTS.md",
+        tokens=("source surface", "validate_repo.py", "sibling"),
+        issues=issues,
+    )
+    return issues
+
+
+def validate_agent_lane_surfaces(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    require_tokens(
+        repo_root=repo_root,
+        path_name=AGENTS_DISTRICT_NAME,
+        tokens=AGENTS_DISTRICT_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=SPARK_LANE_AGENTS_NAME,
+        tokens=SPARK_LANE_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=SPARK_LANE_SWARM_NAME,
+        tokens=SPARK_LANE_SWARM_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0017-spark-agent-lane-placement.md",
+        tokens=SPARK_LANE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="README.md",
+        tokens=(AGENTS_DISTRICT_NAME, SPARK_LANE_AGENTS_NAME),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/PROOF_TOPOLOGY.md",
+        tokens=(".agents/", ".agents/spark/", "Agent guidance"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/LEGACY_NAMING.md",
+        tokens=(".agents/spark/", "old `Spark/`"),
+        issues=issues,
+    )
+    if (repo_root / "Spark").exists():
+        issues.append(
+            ValidationIssue(
+                "Spark/",
+                "root-local Spark lane must stay moved to .agents/spark/",
+            )
+        )
+    return issues
+
+
+def validate_quest_route_surfaces(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    require_tokens(
+        repo_root=repo_root,
+        path_name=QUESTS_README_NAME,
+        tokens=QUESTS_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=QUESTS_AGENTS_NAME,
+        tokens=QUESTS_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=QUEST_LIFECYCLE_NAME,
+        tokens=QUEST_LIFECYCLE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0004-questbook-topology.md",
+        tokens=("QUESTBOOK.md", "generated quest", "lane/state", "eval bundles"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0018-quest-lane-state-source-layout.md",
+        tokens=(
+            "quests/<lane>/<state>/",
+            "generated quest readers",
+            "legacy path vocabulary",
+            "stale top-level quest source files",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0021-quest-lifecycle-contract.md",
+        tokens=QUEST_LIFECYCLE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    for stale_path in sorted((repo_root / "quests").glob("AOA-EV-Q-*.yaml")):
+        issues.append(
+            ValidationIssue(
+                relative_location(stale_path, repo_root),
+                "top-level quest source files must stay moved to quests/<lane>/<state>/",
+            )
+        )
+    for stale_path in sorted((repo_root / "quests").glob("AOE-Q-AGON-*.md")):
+        issues.append(
+            ValidationIssue(
+                relative_location(stale_path, repo_root),
+                "top-level Agon quest notes must stay moved to quests/agon/captured/",
+            )
+        )
+    if not list((repo_root / "quests" / "agon" / "captured").glob("AOE-Q-AGON-*.md")):
+        issues.append(
+            ValidationIssue(
+                "quests/agon/captured",
+                "Agon quest notes must remain under quests/agon/captured/",
+            )
+        )
+    return issues
+
+
+def validate_proof_topology_surfaces(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=PROOF_TOPOLOGY_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0005-proof-topology-map.md",
+        tokens=PROOF_TOPOLOGY_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="ROADMAP.md",
+        tokens=(PROOF_TOPOLOGY_NAME, "Proof Topology Map"),
+        issues=issues,
+    )
+    return issues
+
+
+def validate_legacy_naming_surfaces(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    require_tokens(
+        repo_root=repo_root,
+        path_name=LEGACY_NAMING_NAME,
+        tokens=LEGACY_NAMING_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0009-legacy-naming-containment.md",
+        tokens=LEGACY_NAMING_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="README.md",
+        tokens=(LEGACY_NAMING_NAME, "accepted-input"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/PROOF_TOPOLOGY.md",
+        tokens=(LEGACY_NAMING_NAME, "generated-projection", "retire-after"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="ROADMAP.md",
+        tokens=(LEGACY_NAMING_NAME, "Legacy and Naming Containment"),
+        issues=issues,
+    )
+    return issues
+
+
+def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_README_NAME,
+        tokens=MECHANICS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_AGENTS_NAME,
+        tokens=MECHANICS_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_OBJECT_MECHANIC_README_NAME,
+        tokens=PROOF_OBJECT_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_OBJECT_MECHANIC_AGENTS_NAME,
+        tokens=PROOF_OBJECT_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0010-proof-object-mechanic-package.md",
+        tokens=PROOF_OBJECT_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_MECHANIC_README_NAME,
+        tokens=PROOF_LOOP_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_MECHANIC_AGENTS_NAME,
+        tokens=PROOF_LOOP_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0019-proof-loop-mechanic-package.md",
+        tokens=PROOF_LOOP_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    issues.extend(validate_proof_loop_smoke_report_surfaces(repo_root))
+    issues.extend(validate_proof_loop_local_report_surfaces(repo_root))
+    require_tokens(
+        repo_root=repo_root,
+        path_name=COMPARISON_SPINE_MECHANIC_README_NAME,
+        tokens=COMPARISON_SPINE_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=COMPARISON_SPINE_MECHANIC_AGENTS_NAME,
+        tokens=COMPARISON_SPINE_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0011-comparison-spine-mechanic-package.md",
+        tokens=COMPARISON_SPINE_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_INFRA_MECHANIC_README_NAME,
+        tokens=PROOF_INFRA_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_INFRA_MECHANIC_AGENTS_NAME,
+        tokens=PROOF_INFRA_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0012-proof-infra-mechanic-package.md",
+        tokens=PROOF_INFRA_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PUBLICATION_RECEIPTS_MECHANIC_README_NAME,
+        tokens=PUBLICATION_RECEIPTS_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PUBLICATION_RECEIPTS_MECHANIC_AGENTS_NAME,
+        tokens=PUBLICATION_RECEIPTS_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0013-publication-receipts-mechanic-package.md",
+        tokens=PUBLICATION_RECEIPTS_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_RELEASE_MECHANIC_README_NAME,
+        tokens=PROOF_RELEASE_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_RELEASE_MECHANIC_AGENTS_NAME,
+        tokens=PROOF_RELEASE_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0014-proof-release-mechanic-package.md",
+        tokens=PROOF_RELEASE_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=TITAN_CANARIES_MECHANIC_README_NAME,
+        tokens=TITAN_CANARIES_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=TITAN_CANARIES_MECHANIC_AGENTS_NAME,
+        tokens=TITAN_CANARIES_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0015-titan-canaries-mechanic-package.md",
+        tokens=TITAN_CANARIES_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/TITAN_INCARNATION_CANARIES.md",
+        tokens=TITAN_INCARNATION_CANARIES_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md",
+        tokens=TITAN_SUMMON_DISCIPLINE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EVALS_AGENTS_NAME,
+        tokens=EVALS_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=AGON_PROOF_MECHANIC_README_NAME,
+        tokens=AGON_PROOF_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=AGON_PROOF_MECHANIC_AGENTS_NAME,
+        tokens=AGON_PROOF_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0016-agon-proof-mechanic-package.md",
+        tokens=AGON_PROOF_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=QUESTBOOK_MECHANIC_README_NAME,
+        tokens=QUESTBOOK_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=QUESTBOOK_MECHANIC_AGENTS_NAME,
+        tokens=QUESTBOOK_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0006-questbook-mechanic-package.md",
+        tokens=QUESTBOOK_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0021-quest-lifecycle-contract.md",
+        tokens=QUEST_LIFECYCLE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RUNTIME_EVIDENCE_MECHANIC_README_NAME,
+        tokens=RUNTIME_EVIDENCE_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RUNTIME_EVIDENCE_MECHANIC_AGENTS_NAME,
+        tokens=RUNTIME_EVIDENCE_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0007-runtime-evidence-mechanic-package.md",
+        tokens=RUNTIME_EVIDENCE_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=SIBLING_PROOF_REFS_NAME,
+        tokens=SIBLING_PROOF_REFS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=SIBLING_PROOF_REFS_MECHANIC_README_NAME,
+        tokens=SIBLING_PROOF_REFS_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=SIBLING_PROOF_REFS_MECHANIC_AGENTS_NAME,
+        tokens=SIBLING_PROOF_REFS_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0008-sibling-proof-refs-mechanic-package.md",
+        tokens=SIBLING_PROOF_REFS_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=REPO_VALIDATION_AOA_MEMO_PIN_DECISION_NAME,
+        tokens=REPO_VALIDATION_AOA_MEMO_PIN_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    issues.extend(validate_repo_validation_workflow_surface(repo_root))
+    matrix_path = repo_root / "scripts/sibling_canary_matrix.json"
+    try:
+        matrix = json.loads(matrix_path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        issues.append(ValidationIssue("scripts/sibling_canary_matrix.json", "file is missing"))
+    except json.JSONDecodeError as exc:
+        issues.append(
+            ValidationIssue(
+                "scripts/sibling_canary_matrix.json",
+                f"invalid JSON: {exc}",
+            )
+        )
+    else:
+        entries = matrix.get("entries") if isinstance(matrix, dict) else None
+        if not isinstance(entries, list):
+            issues.append(
+                ValidationIssue(
+                    "scripts/sibling_canary_matrix.json",
+                    "entries must be a list",
+                )
+            )
+        else:
+            repos = {
+                entry.get("repo")
+                for entry in entries
+                if isinstance(entry, dict) and isinstance(entry.get("repo"), str)
+            }
+            for repo_name in SIBLING_CANARY_EXPECTED_REPOS:
+                if repo_name not in repos:
+                    issues.append(
+                        ValidationIssue(
+                            "scripts/sibling_canary_matrix.json",
+                            f"missing sibling canary entry for {repo_name}",
+                        )
+                    )
+            for entry in entries:
+                if (
+                    isinstance(entry, dict)
+                    and entry.get("repo") == "abyss-stack"
+                    and entry.get("resolver") != "abyss-stack-source"
+                ):
+                    issues.append(
+                        ValidationIssue(
+                            "scripts/sibling_canary_matrix.json",
+                            "abyss-stack sibling canary entry must use resolver 'abyss-stack-source'",
+                        )
+                    )
+    return issues
+
+
+def validate_repo_validation_workflow_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    workflow_path = repo_root / REPO_VALIDATION_WORKFLOW_NAME
+    try:
+        workflow_text = workflow_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        issues.append(ValidationIssue(REPO_VALIDATION_WORKFLOW_NAME, "file is missing"))
+        return issues
+
+    memo_checkout = re.search(
+        r"(?ms)^\s+- name: Checkout aoa-memo\b(?P<block>.*?)(?=^\s+- name: |\Z)",
+        workflow_text,
+    )
+    if memo_checkout is None:
+        issues.append(
+            ValidationIssue(
+                REPO_VALIDATION_WORKFLOW_NAME,
+                "missing Checkout aoa-memo step",
+            )
+        )
+        return issues
+
+    memo_block = memo_checkout.group("block")
+    if "repository: 8Dionysus/aoa-memo" not in memo_block:
+        issues.append(
+            ValidationIssue(
+                REPO_VALIDATION_WORKFLOW_NAME,
+                "Checkout aoa-memo step must use repository 8Dionysus/aoa-memo",
+            )
+        )
+    if f"ref: {REPO_VALIDATION_AOA_MEMO_REF}" not in memo_block:
+        issues.append(
+            ValidationIssue(
+                REPO_VALIDATION_WORKFLOW_NAME,
+                f"aoa-memo checkout ref must be {REPO_VALIDATION_AOA_MEMO_REF}",
+            )
+        )
+    return issues
+
+
+def validate_proof_loop_smoke_report_surfaces(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_SMOKE_REPORT_NAME,
+        tokens=PROOF_LOOP_SMOKE_REPORT_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_SMOKE_DECISION_NAME,
+        tokens=PROOF_LOOP_SMOKE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_MECHANIC_README_NAME,
+        tokens=(PROOF_LOOP_SMOKE_REPORT_NAME, "bounded route-smoke", "no eval result receipt"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="reports/README.md",
+        tokens=(PROOF_LOOP_SMOKE_REPORT_NAME, "route-smoke report"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(PROOF_LOOP_SMOKE_DECISION_NAME, "Further proof-loop examples"),
+        issues=issues,
+    )
+    return issues
+
+
+def validate_proof_loop_local_report_surfaces(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_LOCAL_REPORT_NAME,
+        tokens=PROOF_LOOP_LOCAL_REPORT_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_LOCAL_REPORT_DECISION_NAME,
+        tokens=PROOF_LOOP_LOCAL_REPORT_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_MECHANIC_README_NAME,
+        tokens=(PROOF_LOOP_LOCAL_REPORT_NAME, "First Bundle-Local Report", "no eval result receipt"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_INFRA_MECHANIC_README_NAME,
+        tokens=("`*.report.json`", "bundle-local `reports/summary.schema.json`"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="README.md",
+        tokens=(PROOF_LOOP_LOCAL_REPORT_NAME, "first bundle-local proof-loop report"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="ROADMAP.md",
+        tokens=(PROOF_LOOP_LOCAL_REPORT_NAME, "schema-backed bundle-local report"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="CHANGELOG.md",
+        tokens=(PROOF_LOOP_LOCAL_REPORT_NAME, "bundle-local report validation"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(PROOF_LOOP_LOCAL_REPORT_DECISION_NAME, "Further proof-loop examples"),
+        issues=issues,
+    )
+    return issues
+
+
+def validate_receipt_intake_dry_review_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    review_path = repo_root / RECEIPT_INTAKE_DRY_REVIEW_NAME
+    location = RECEIPT_INTAKE_DRY_REVIEW_NAME
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECEIPT_INTAKE_DRY_REVIEW_NAME,
+        tokens=RECEIPT_INTAKE_DRY_REVIEW_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECEIPT_INTAKE_DRY_REVIEW_DECISION_NAME,
+        tokens=RECEIPT_INTAKE_DRY_REVIEW_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    for path_name, tokens in (
+        (
+            PROOF_LOOP_MECHANIC_README_NAME,
+            (
+                RECEIPT_INTAKE_DRY_REVIEW_NAME,
+                "Receipt Intake Dry Review",
+                "`receipt_status` stays `not_published`",
+            ),
+        ),
+        (
+            PUBLICATION_RECEIPTS_MECHANIC_README_NAME,
+            (
+                RECEIPT_INTAKE_DRY_REVIEW_NAME,
+                "dry review",
+                "`receipt_status` as `not_published`",
+            ),
+        ),
+        (
+            "reports/README.md",
+            (
+                RECEIPT_INTAKE_DRY_REVIEW_NAME,
+                "receipt-intake",
+                "`not_published`",
+            ),
+        ),
+        ("README.md", (RECEIPT_INTAKE_DRY_REVIEW_NAME, "receipt-intake dry review")),
+        ("docs/README.md", (RECEIPT_INTAKE_DRY_REVIEW_NAME, "Receipt Intake Dry Review")),
+        ("ROADMAP.md", (RECEIPT_INTAKE_DRY_REVIEW_NAME, "`not_published`")),
+        ("CHANGELOG.md", (RECEIPT_INTAKE_DRY_REVIEW_NAME, "validator coverage")),
+        (
+            "docs/decisions/README.md",
+            (RECEIPT_INTAKE_DRY_REVIEW_DECISION_NAME, "real eval-result receipt publication"),
+        ),
+    ):
+        require_tokens(repo_root=repo_root, path_name=path_name, tokens=tokens, issues=issues)
+
+    payload = load_json_payload(review_path, issues)
+    if not isinstance(payload, dict):
+        if payload is not None:
+            issues.append(ValidationIssue(location, "receipt intake dry review must be a JSON object"))
+        return issues
+
+    for field in (
+        "event_kind",
+        "event_id",
+        "observed_at",
+        "run_ref",
+        "session_ref",
+        "actor_ref",
+        "object_ref",
+        "evidence_refs",
+        "payload",
+    ):
+        if field in payload:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"receipt intake dry review must not contain publishable receipt field {field!r}",
+                )
+            )
+
+    expected_refs = {
+        "source_report_ref": f"repo:aoa-evals/{PROOF_LOOP_LOCAL_REPORT_NAME}",
+        "source_bundle_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/EVAL.md",
+        "source_manifest_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/eval.yaml",
+        "report_index_ref": "repo:aoa-evals/generated/eval_report_index.min.json",
+        "receipt_payload_schema_ref": "repo:aoa-evals/schemas/eval-result-receipt.schema.json",
+        "event_envelope_schema_ref": "repo:aoa-evals/schemas/stats-event-envelope.schema.json",
+        "publisher_ref": "repo:aoa-evals/scripts/publish_live_receipts.py",
+        "owner_local_log_ref": f"repo:aoa-evals/{LIVE_EVAL_RECEIPT_LOG_NAME}",
+    }
+    for key, expected in expected_refs.items():
+        value = payload.get(key)
+        if value != expected:
+            issues.append(ValidationIssue(location, f"{key} must be {expected!r}"))
+            continue
+        local_path = repo_root / expected.removeprefix("repo:aoa-evals/")
+        if not local_path.exists():
+            issues.append(ValidationIssue(location, f"{key} target is missing: {expected}"))
+
+    expected_top_level = {
+        "artifact_kind": "receipt_intake_dry_review",
+        "schema_version": 1,
+        "review_id": "eval-result-receipt-intake-dry-review-v1",
+        "reviewed_at": "2026-05-19",
+    }
+    for key, expected in expected_top_level.items():
+        if payload.get(key) != expected:
+            issues.append(ValidationIssue(location, f"{key} must be {expected!r}"))
+
+    source_report_path = repo_root / PROOF_LOOP_LOCAL_REPORT_NAME
+    source_report = load_json_payload(source_report_path, issues)
+    manifest = load_yaml_file(repo_root / "bundles" / "aoa-verification-honesty" / "eval.yaml", issues)
+    report_index = load_json_payload(repo_root / EVAL_REPORT_INDEX_NAME, issues)
+    preview = payload.get("candidate_payload_preview")
+
+    payload_schema = load_json_payload(
+        repo_root / SCHEMAS_DIR_NAME / EVAL_RESULT_RECEIPT_SCHEMA_NAME,
+        issues,
+    )
+    payload_validator: Draft202012Validator | None = None
+    if isinstance(payload_schema, dict):
+        try:
+            Draft202012Validator.check_schema(payload_schema)
+        except SchemaError as exc:
+            issues.append(
+                ValidationIssue(
+                    f"{SCHEMAS_DIR_NAME}/{EVAL_RESULT_RECEIPT_SCHEMA_NAME}",
+                    f"invalid JSON schema: {exc.message}",
+                )
+            )
+        else:
+            payload_validator = get_schema_validator_with_format(payload_schema)
+
+    if isinstance(preview, dict):
+        if payload_validator is not None:
+            validate_against_schema(
+                preview,
+                EVAL_RESULT_RECEIPT_SCHEMA_NAME,
+                f"{location}.candidate_payload_preview",
+                issues,
+                validator=payload_validator,
+            )
+
+        if isinstance(source_report, dict):
+            expected_report_values = {
+                "eval_name": source_report.get("eval_name"),
+                "bundle_status": source_report.get("bundle_status"),
+                "verdict": source_report.get("verdict"),
+            }
+            for key, expected in expected_report_values.items():
+                if preview.get(key) != expected:
+                    issues.append(
+                        ValidationIssue(
+                            f"{location}.candidate_payload_preview",
+                            f"{key} must match source report value {expected!r}",
+                        )
+                    )
+            case_count = len(source_report.get("per_case_breakdown", []))
+            if preview.get("case_count") != case_count:
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.candidate_payload_preview",
+                        "case_count must match source report per_case_breakdown length",
+                    )
+                )
+
+        if isinstance(manifest, dict):
+            if preview.get("report_format") != manifest.get("report_format"):
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.candidate_payload_preview",
+                        "report_format must match source manifest report_format",
+                    )
+                )
+            if preview.get("bundle_status") != manifest.get("status"):
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.candidate_payload_preview",
+                        "bundle_status must match source manifest status",
+                    )
+                )
+            if manifest.get("baseline_mode") == "none" and preview.get("comparison_mode") != "none":
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.candidate_payload_preview",
+                        "comparison_mode must stay 'none' when the source manifest baseline_mode is 'none'",
+                    )
+                )
+
+        if preview.get("claim_scope") != "bundle_scoped":
+            issues.append(
+                ValidationIssue(
+                    f"{location}.candidate_payload_preview",
+                    "claim_scope must stay 'bundle_scoped' for this dry review",
+                )
+            )
+        if preview.get("bundle_ref") != expected_refs["source_bundle_ref"]:
+            issues.append(
+                ValidationIssue(
+                    f"{location}.candidate_payload_preview",
+                    "bundle_ref must match the dry review source_bundle_ref",
+                )
+            )
+        if preview.get("report_ref") != expected_refs["source_report_ref"]:
+            issues.append(
+                ValidationIssue(
+                    f"{location}.candidate_payload_preview",
+                    "report_ref must match the dry review source_report_ref",
+                )
+            )
+        interpretation_bound = preview.get("interpretation_bound")
+        if not isinstance(interpretation_bound, str):
+            issues.append(
+                ValidationIssue(
+                    f"{location}.candidate_payload_preview",
+                    "interpretation_bound must be a string",
+                )
+            )
+        else:
+            for token in (
+                "Dry review only.",
+                "does not publish an eval result receipt",
+                ".aoa/live_receipts/",
+                "does not replace bundle-local verdict meaning",
+            ):
+                if token not in interpretation_bound:
+                    issues.append(
+                        ValidationIssue(
+                            f"{location}.candidate_payload_preview.interpretation_bound",
+                            f"interpretation_bound must mention '{token}'",
+                        )
+                    )
+    else:
+        issues.append(
+            ValidationIssue(location, "candidate_payload_preview must be a JSON object")
+        )
+
+    if isinstance(report_index, dict):
+        reports = report_index.get("reports")
+        indexed_paths = {
+            entry.get("source_report_path")
+            for entry in reports
+            if isinstance(entry, dict)
+        } if isinstance(reports, list) else set()
+        if PROOF_LOOP_LOCAL_REPORT_NAME not in indexed_paths:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"report_index_ref must index {PROOF_LOOP_LOCAL_REPORT_NAME}",
+                )
+            )
+
+    source_alignment = payload.get("source_alignment")
+    if isinstance(source_alignment, dict):
+        for key in (
+            "eval_name_matches_report",
+            "bundle_status_matches_manifest",
+            "report_format_matches_manifest",
+            "verdict_matches_report",
+        ):
+            if source_alignment.get(key) is not True:
+                issues.append(ValidationIssue(f"{location}.source_alignment", f"{key} must be true"))
+        if source_alignment.get("case_count_source") != "per_case_breakdown length":
+            issues.append(
+                ValidationIssue(
+                    f"{location}.source_alignment",
+                    "case_count_source must stay 'per_case_breakdown length'",
+                )
+            )
+    else:
+        issues.append(ValidationIssue(location, "source_alignment must be a JSON object"))
+
+    checks = payload.get("intake_checks")
+    if isinstance(checks, list):
+        by_id = {entry.get("check_id"): entry for entry in checks if isinstance(entry, dict)}
+        expected_check_results = {
+            "source_report_exists": "pass",
+            "source_report_is_indexed": "pass",
+            "candidate_payload_preview_validates_against_payload_schema": "pass",
+            "stats_event_envelope_created": "not_attempted",
+            "receipt_publisher_run": "not_attempted",
+            "owner_local_live_log_append": "not_attempted",
+        }
+        for check_id, expected_result in expected_check_results.items():
+            entry = by_id.get(check_id)
+            if not isinstance(entry, dict):
+                issues.append(ValidationIssue(f"{location}.intake_checks", f"missing check_id {check_id!r}"))
+                continue
+            if entry.get("result") != expected_result:
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.intake_checks.{check_id}",
+                        f"result must be {expected_result!r}",
+                    )
+                )
+            evidence_ref = entry.get("evidence_ref")
+            if not isinstance(evidence_ref, str) or not evidence_ref.startswith("repo:aoa-evals/"):
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.intake_checks.{check_id}",
+                        "evidence_ref must point at a repo:aoa-evals/ surface",
+                    )
+                )
+    else:
+        issues.append(ValidationIssue(location, "intake_checks must be a list"))
+
+    publication_boundary = payload.get("publication_boundary")
+    if isinstance(publication_boundary, dict):
+        expected_boundary_values = {
+            "publication_status": "dry_review_only",
+            "receipt_status": "not_published",
+            "event_envelope_status": "not_created",
+            "live_log_append_status": "not_attempted",
+            "publisher_execution_status": "not_attempted",
+        }
+        for key, expected in expected_boundary_values.items():
+            if publication_boundary.get(key) != expected:
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.publication_boundary",
+                        f"{key} must be {expected!r}",
+                    )
+                )
+        boundary = publication_boundary.get("boundary")
+        if not isinstance(boundary, str):
+            issues.append(
+                ValidationIssue(
+                    f"{location}.publication_boundary",
+                    "boundary must be a string",
+                )
+            )
+        else:
+            for token in (
+                "not an eval_result_receipt",
+                "not a stats-event-envelope sidecar",
+                "not live receipt log content",
+                "not proof promotion",
+                "not runtime acceptance",
+            ):
+                if token not in boundary:
+                    issues.append(
+                        ValidationIssue(
+                            f"{location}.publication_boundary.boundary",
+                            f"boundary must mention '{token}'",
+                        )
+                    )
+    else:
+        issues.append(ValidationIssue(location, "publication_boundary must be a JSON object"))
+
+    claim_limit = payload.get("claim_limit")
+    if not isinstance(claim_limit, str):
+        issues.append(ValidationIssue(location, "claim_limit must be a string"))
+    else:
+        for token in (
+            "does not publish an eval result receipt",
+            "append live receipt memory",
+            "accept runtime evidence",
+            "promote a bundle",
+            "complete the aoa-evals strategic refactor",
+        ):
+            if token not in claim_limit:
+                issues.append(
+                    ValidationIssue(location, f"claim_limit must mention '{token}'")
+                )
+
+    return issues
+
+
+def validate_proof_release_readiness_audit_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    audit_path = repo_root / PROOF_RELEASE_READINESS_AUDIT_NAME
+    location = PROOF_RELEASE_READINESS_AUDIT_NAME
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_RELEASE_READINESS_AUDIT_NAME,
+        tokens=PROOF_RELEASE_READINESS_AUDIT_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_RELEASE_READINESS_AUDIT_DECISION_NAME,
+        tokens=PROOF_RELEASE_READINESS_AUDIT_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    for path_name, tokens in (
+        (
+            PROOF_RELEASE_MECHANIC_README_NAME,
+            (
+                PROOF_RELEASE_READINESS_AUDIT_NAME,
+                "Readiness Audit",
+                "no tag",
+                "GitHub `Repo Validation`",
+            ),
+        ),
+        (
+            PROOF_RELEASE_MECHANIC_AGENTS_NAME,
+            (
+                PROOF_RELEASE_READINESS_AUDIT_NAME,
+                "readiness audits",
+                "GitHub `Repo Validation`",
+            ),
+        ),
+        (
+            "docs/RELEASING.md",
+            (
+                PROOF_RELEASE_READINESS_AUDIT_NAME,
+                "not a tag",
+                "goal-completion proof",
+            ),
+        ),
+        (
+            "reports/README.md",
+            (
+                PROOF_RELEASE_READINESS_AUDIT_NAME,
+                "goal completion",
+                "GitHub `Repo Validation`",
+            ),
+        ),
+        ("README.md", (PROOF_RELEASE_READINESS_AUDIT_NAME, "proof-release readiness audit")),
+        (
+            "docs/README.md",
+            (PROOF_RELEASE_READINESS_AUDIT_NAME, "Proof Release Readiness Audit"),
+        ),
+        ("ROADMAP.md", (PROOF_RELEASE_READINESS_AUDIT_NAME, "goal completion")),
+        ("CHANGELOG.md", (PROOF_RELEASE_READINESS_AUDIT_NAME, "goal completion")),
+        (
+            "docs/decisions/README.md",
+            (PROOF_RELEASE_READINESS_AUDIT_DECISION_NAME, "release-prep PR handoff"),
+        ),
+    ):
+        require_tokens(repo_root=repo_root, path_name=path_name, tokens=tokens, issues=issues)
+
+    payload = load_json_payload(audit_path, issues)
+    if not isinstance(payload, dict):
+        if payload is not None:
+            issues.append(ValidationIssue(location, "proof-release readiness audit must be a JSON object"))
+        return issues
+
+    expected_top_level = {
+        "artifact_kind": "proof_release_readiness_audit",
+        "schema_version": 1,
+        "audit_id": "proof-release-readiness-audit-v1",
+        "audited_at": "2026-05-19",
+        "scope_kind": "accumulated_strategic_refactor_diff",
+        "readiness_verdict": "local_release_prep_review_ready_with_open_landing",
+        "changelog_anchor_ref": "repo:aoa-evals/CHANGELOG.md",
+        "proof_release_mechanic_ref": f"repo:aoa-evals/{PROOF_RELEASE_MECHANIC_README_NAME}",
+        "release_check_ref": "repo:aoa-evals/scripts/release_check.py",
+    }
+    for key, expected in expected_top_level.items():
+        if payload.get(key) != expected:
+            issues.append(ValidationIssue(location, f"{key} must be {expected!r}"))
+
+    release_scope = payload.get("release_scope")
+    if not isinstance(release_scope, str):
+        issues.append(ValidationIssue(location, "release_scope must be a string"))
+    else:
+        for token in (
+            "Unreleased",
+            "strategic refactor",
+            "root design",
+            "proof topology",
+            "proof-loop reports",
+            "receipt-intake dry review",
+            "validators",
+        ):
+            if token not in release_scope:
+                issues.append(ValidationIssue(location, f"release_scope must mention '{token}'"))
+
+    required_requirement_ids = {
+        "root_design_spine",
+        "decision_memory",
+        "roadmap_quest_and_lifecycle_route",
+        "proof_topology_legacy_and_mechanics",
+        "proof_loop_materialization",
+        "generated_reader_freshness",
+        "local_release_gate_coverage",
+        "sibling_boundary_and_canary",
+    }
+    requirements = payload.get("requirements_review")
+    if isinstance(requirements, list):
+        seen_requirement_ids: set[str] = set()
+        for index, requirement in enumerate(requirements):
+            req_location = f"{location}.requirements_review[{index}]"
+            if not isinstance(requirement, dict):
+                issues.append(ValidationIssue(req_location, "requirement entry must be an object"))
+                continue
+            requirement_id = requirement.get("requirement_id")
+            if isinstance(requirement_id, str):
+                seen_requirement_ids.add(requirement_id)
+            else:
+                issues.append(ValidationIssue(req_location, "requirement_id must be a string"))
+            if requirement.get("status") != "ready_for_release_prep_review":
+                issues.append(
+                    ValidationIssue(
+                        req_location,
+                        "status must stay 'ready_for_release_prep_review'",
+                    )
+                )
+            evidence_refs = requirement.get("evidence_refs")
+            if not isinstance(evidence_refs, list) or not evidence_refs:
+                issues.append(ValidationIssue(req_location, "evidence_refs must be a non-empty list"))
+            else:
+                for ref_index, evidence_ref in enumerate(evidence_refs):
+                    parse_repo_ref(
+                        evidence_ref,
+                        location=f"{req_location}.evidence_refs[{ref_index}]",
+                        issues=issues,
+                    )
+            claim_limit = requirement.get("claim_limit")
+            if not isinstance(claim_limit, str) or len(claim_limit) < 20:
+                issues.append(ValidationIssue(req_location, "claim_limit must be a meaningful string"))
+        missing_requirement_ids = required_requirement_ids - seen_requirement_ids
+        for requirement_id in sorted(missing_requirement_ids):
+            issues.append(
+                ValidationIssue(
+                    f"{location}.requirements_review",
+                    f"missing requirement_id {requirement_id!r}",
+                )
+            )
+    else:
+        issues.append(ValidationIssue(location, "requirements_review must be a list"))
+
+    required_commands = {
+        "python scripts/validate_repo.py",
+        "python scripts/validate_semantic_agents.py",
+        "python scripts/validate_nested_agents.py",
+        "python scripts/build_catalog.py --check",
+        "python scripts/generate_eval_report_index.py --check",
+        "python scripts/generate_runtime_candidate_template_index.py --check",
+        "python scripts/generate_runtime_candidate_intake.py --check",
+        "python scripts/generate_phase_alpha_eval_matrix.py --check",
+        "python scripts/run_sibling_canary.py --repo-root . --format json",
+        "python -m pytest -q tests",
+        "python scripts/release_check.py",
+        "git diff --check",
+    }
+    verification_snapshot = payload.get("verification_snapshot")
+    if isinstance(verification_snapshot, list):
+        seen_commands: set[str] = set()
+        for index, entry in enumerate(verification_snapshot):
+            entry_location = f"{location}.verification_snapshot[{index}]"
+            if not isinstance(entry, dict):
+                issues.append(ValidationIssue(entry_location, "verification entry must be an object"))
+                continue
+            command = entry.get("command")
+            if isinstance(command, str):
+                seen_commands.add(command)
+            else:
+                issues.append(ValidationIssue(entry_location, "command must be a string"))
+            if entry.get("result") != "passed":
+                issues.append(ValidationIssue(entry_location, "result must stay 'passed'"))
+            claim_limit = entry.get("claim_limit")
+            if not isinstance(claim_limit, str) or len(claim_limit) < 20:
+                issues.append(ValidationIssue(entry_location, "claim_limit must be a meaningful string"))
+        for command in sorted(required_commands - seen_commands):
+            issues.append(
+                ValidationIssue(
+                    f"{location}.verification_snapshot",
+                    f"missing verification command {command!r}",
+                )
+            )
+    else:
+        issues.append(ValidationIssue(location, "verification_snapshot must be a list"))
+
+    publication_boundary = payload.get("publication_boundary")
+    if isinstance(publication_boundary, dict):
+        expected_boundary_values = {
+            "release_publication_status": "not_published",
+            "tag_status": "not_created",
+            "github_release_status": "not_published",
+            "github_pr_status": "not_opened",
+            "github_repo_validation_status": "not_observed_for_this_uncommitted_diff",
+            "goal_completion_status": "not_complete",
+            "live_receipt_publication_status": "not_attempted",
+        }
+        for key, expected in expected_boundary_values.items():
+            if publication_boundary.get(key) != expected:
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.publication_boundary",
+                        f"{key} must be {expected!r}",
+                    )
+                )
+        boundary = publication_boundary.get("boundary")
+        if not isinstance(boundary, str):
+            issues.append(ValidationIssue(f"{location}.publication_boundary", "boundary must be a string"))
+        else:
+            for token in (
+                "not a release",
+                "not a tag",
+                "not GitHub Repo Validation",
+                "not a GitHub Release",
+                "not PR approval",
+                "not an eval result receipt",
+                "not goal completion",
+            ):
+                if token not in boundary:
+                    issues.append(
+                        ValidationIssue(
+                            f"{location}.publication_boundary.boundary",
+                            f"boundary must mention '{token}'",
+                        )
+                    )
+    else:
+        issues.append(ValidationIssue(location, "publication_boundary must be a JSON object"))
+
+    open_requirements = payload.get("open_requirements_before_publication")
+    if isinstance(open_requirements, list):
+        joined_open_requirements = "\n".join(
+            item for item in open_requirements if isinstance(item, str)
+        )
+        for token in (
+            "review the accumulated diff",
+            "open a PR",
+            "observe GitHub Repo Validation",
+            "merge only after required checks are green",
+            "create any tag or GitHub Release only after",
+            "goal completion audit",
+        ):
+            if token not in joined_open_requirements:
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.open_requirements_before_publication",
+                        f"open requirements must mention '{token}'",
+                    )
+                )
+    else:
+        issues.append(ValidationIssue(location, "open_requirements_before_publication must be a list"))
+
+    claim_limit = payload.get("claim_limit")
+    if not isinstance(claim_limit, str):
+        issues.append(ValidationIssue(location, "claim_limit must be a string"))
+    else:
+        for token in (
+            "does not publish a release",
+            "create a tag",
+            "open or approve a PR",
+            "observe GitHub Repo Validation",
+            "publish an eval result receipt",
+            "mutate sibling repos",
+            "mark the aoa-evals strategic goal complete",
+        ):
+            if token not in claim_limit:
+                issues.append(ValidationIssue(location, f"claim_limit must mention '{token}'"))
+
+    return issues
+
+
+def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    audit_path = repo_root / STRATEGIC_CLOSEOUT_AUDIT_NAME
+    location = STRATEGIC_CLOSEOUT_AUDIT_NAME
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=STRATEGIC_CLOSEOUT_AUDIT_NAME,
+        tokens=STRATEGIC_CLOSEOUT_AUDIT_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=STRATEGIC_CLOSEOUT_AUDIT_DECISION_NAME,
+        tokens=STRATEGIC_CLOSEOUT_AUDIT_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    for path_name, tokens in (
+        ("README.md", (STRATEGIC_CLOSEOUT_AUDIT_NAME, "strategic closeout audit")),
+        (
+            "docs/README.md",
+            (STRATEGIC_CLOSEOUT_AUDIT_NAME, "Strategic Closeout Audit"),
+        ),
+        (
+            "reports/README.md",
+            (
+                STRATEGIC_CLOSEOUT_AUDIT_NAME,
+                "goal completion",
+                "runtime acceptance",
+                "sibling mutation",
+            ),
+        ),
+        (
+            "docs/RELEASING.md",
+            (STRATEGIC_CLOSEOUT_AUDIT_NAME, "not goal completion"),
+        ),
+        (
+            PROOF_RELEASE_MECHANIC_README_NAME,
+            (
+                STRATEGIC_CLOSEOUT_AUDIT_NAME,
+                "Strategic Closeout Audit",
+                "goal is not complete",
+            ),
+        ),
+        (
+            "ROADMAP.md",
+            (STRATEGIC_CLOSEOUT_AUDIT_NAME, "long goal not complete"),
+        ),
+        ("CHANGELOG.md", (STRATEGIC_CLOSEOUT_AUDIT_NAME, "goal completion")),
+        (
+            "docs/decisions/README.md",
+            (STRATEGIC_CLOSEOUT_AUDIT_DECISION_NAME, "Goal completion"),
+        ),
+    ):
+        require_tokens(repo_root=repo_root, path_name=path_name, tokens=tokens, issues=issues)
+
+    payload = load_json_payload(audit_path, issues)
+    if not isinstance(payload, dict):
+        if payload is not None:
+            issues.append(ValidationIssue(location, "strategic closeout audit must be a JSON object"))
+        return issues
+
+    expected_top_level = {
+        "artifact_kind": "strategic_closeout_audit",
+        "schema_version": 1,
+        "audit_id": "strategic-closeout-audit-v1",
+        "audited_at": "2026-05-19",
+        "scope_kind": "local_strategic_refactor_diff",
+        "completion_verdict": "local_strategic_refactor_handoff_ready_with_open_landing",
+        "goal_completion_status": "not_complete",
+        "proof_release_readiness_audit_ref": f"repo:aoa-evals/{PROOF_RELEASE_READINESS_AUDIT_NAME}",
+        "decision_ref": f"repo:aoa-evals/{STRATEGIC_CLOSEOUT_AUDIT_DECISION_NAME}",
+    }
+    for key, expected in expected_top_level.items():
+        if payload.get(key) != expected:
+            issues.append(ValidationIssue(location, f"{key} must be {expected!r}"))
+
+    source_plan_ref = payload.get("source_plan_ref")
+    if not isinstance(source_plan_ref, str):
+        issues.append(ValidationIssue(location, "source_plan_ref must be a string"))
+    else:
+        for token in ("operator working note", "outside the repository"):
+            if token not in source_plan_ref:
+                issues.append(ValidationIssue(location, f"source_plan_ref must mention '{token}'"))
+        if "/home/" in source_plan_ref:
+            issues.append(ValidationIssue(location, "source_plan_ref must not expose an absolute host path"))
+
+    required_requirement_ids = {
+        "meta_truth_and_positive_boundary",
+        "codex_maxxing_durable_loop",
+        "aoa_law_and_sibling_meta_examples",
+        "phase_0_truth_map",
+        "phase_1_root_design_spine",
+        "phase_2_decision_lane",
+        "phase_3_roadmap_changelog_questbook_quests",
+        "phase_4_proof_topology",
+        "phase_5_mechanics_atlas_and_packages",
+        "phase_6_legacy_provenance",
+        "phase_7_validator_invariants",
+        "phase_8_active_proof_loop",
+        "runtime_machine_boundary",
+        "spark_agent_lane_cleanup",
+        "release_readiness",
+        "trap_audit_and_open_landing",
+    }
+    requirements = payload.get("requirements_review")
+    if isinstance(requirements, list):
+        seen_requirement_ids: set[str] = set()
+        for index, requirement in enumerate(requirements):
+            req_location = f"{location}.requirements_review[{index}]"
+            if not isinstance(requirement, dict):
+                issues.append(ValidationIssue(req_location, "requirement entry must be an object"))
+                continue
+            requirement_id = requirement.get("requirement_id")
+            if isinstance(requirement_id, str):
+                seen_requirement_ids.add(requirement_id)
+            else:
+                issues.append(ValidationIssue(req_location, "requirement_id must be a string"))
+            if requirement.get("status") != "satisfied_for_local_refactor":
+                issues.append(
+                    ValidationIssue(
+                        req_location,
+                        "status must stay 'satisfied_for_local_refactor'",
+                    )
+                )
+            evidence_refs = requirement.get("evidence_refs")
+            if not isinstance(evidence_refs, list) or not evidence_refs:
+                issues.append(ValidationIssue(req_location, "evidence_refs must be a non-empty list"))
+            else:
+                for ref_index, evidence_ref in enumerate(evidence_refs):
+                    parse_repo_ref(
+                        evidence_ref,
+                        location=f"{req_location}.evidence_refs[{ref_index}]",
+                        issues=issues,
+                    )
+            claim_limit = requirement.get("claim_limit")
+            if not isinstance(claim_limit, str) or len(claim_limit) < 40:
+                issues.append(ValidationIssue(req_location, "claim_limit must be a meaningful string"))
+        missing_requirement_ids = required_requirement_ids - seen_requirement_ids
+        for requirement_id in sorted(missing_requirement_ids):
+            issues.append(
+                ValidationIssue(
+                    f"{location}.requirements_review",
+                    f"missing requirement_id {requirement_id!r}",
+                )
+            )
+    else:
+        issues.append(ValidationIssue(location, "requirements_review must be a list"))
+
+    required_trap_ids = {
+        "durable_note_trap",
+        "root_design_overreach",
+        "decision_lane_ceremony",
+        "questbook_gravity",
+        "mechanics_explosion",
+        "sibling_compatibility_swamp",
+        "machine_gravity",
+        "positive_boundary_erosion",
+        "legacy_permanence",
+        "validation_theatre",
+        "release_check_spiral",
+        "active_use_premature_connection",
+    }
+    trap_review = payload.get("trap_review")
+    if isinstance(trap_review, list):
+        seen_trap_ids: set[str] = set()
+        for index, trap in enumerate(trap_review):
+            trap_location = f"{location}.trap_review[{index}]"
+            if not isinstance(trap, dict):
+                issues.append(ValidationIssue(trap_location, "trap entry must be an object"))
+                continue
+            trap_id = trap.get("trap_id")
+            if isinstance(trap_id, str):
+                seen_trap_ids.add(trap_id)
+            else:
+                issues.append(ValidationIssue(trap_location, "trap_id must be a string"))
+            mitigation = trap.get("mitigation")
+            if not isinstance(mitigation, str) or len(mitigation) < 40:
+                issues.append(ValidationIssue(trap_location, "mitigation must be a meaningful string"))
+        missing_trap_ids = required_trap_ids - seen_trap_ids
+        for trap_id in sorted(missing_trap_ids):
+            issues.append(
+                ValidationIssue(
+                    f"{location}.trap_review",
+                    f"missing trap_id {trap_id!r}",
+                )
+            )
+    else:
+        issues.append(ValidationIssue(location, "trap_review must be a list"))
+
+    required_commands = {
+        "python -m pytest -q tests/test_strategic_closeout_audit.py tests/test_validate_repo.py -k strategic_closeout",
+        "python scripts/validate_repo.py",
+        "python scripts/validate_semantic_agents.py",
+        "python scripts/validate_nested_agents.py",
+        "git diff --check",
+        "python scripts/build_catalog.py --check",
+        "python scripts/generate_eval_report_index.py --check",
+        "python scripts/generate_runtime_candidate_template_index.py --check",
+        "python scripts/generate_runtime_candidate_intake.py --check",
+        "python scripts/generate_phase_alpha_eval_matrix.py --check",
+        "python scripts/run_sibling_canary.py --repo-root . --format json",
+        "python -m pytest -q tests",
+        "python scripts/release_check.py",
+    }
+    verification_snapshot = payload.get("verification_snapshot")
+    if isinstance(verification_snapshot, list):
+        seen_commands: set[str] = set()
+        for index, entry in enumerate(verification_snapshot):
+            entry_location = f"{location}.verification_snapshot[{index}]"
+            if not isinstance(entry, dict):
+                issues.append(ValidationIssue(entry_location, "verification entry must be an object"))
+                continue
+            command = entry.get("command")
+            if isinstance(command, str):
+                seen_commands.add(command)
+            else:
+                issues.append(ValidationIssue(entry_location, "command must be a string"))
+            if entry.get("result") != "passed":
+                issues.append(ValidationIssue(entry_location, "result must stay 'passed'"))
+            claim_limit = entry.get("claim_limit")
+            if not isinstance(claim_limit, str) or len(claim_limit) < 20:
+                issues.append(ValidationIssue(entry_location, "claim_limit must be a meaningful string"))
+        for command in sorted(required_commands - seen_commands):
+            issues.append(
+                ValidationIssue(
+                    f"{location}.verification_snapshot",
+                    f"missing verification command {command!r}",
+                )
+            )
+    else:
+        issues.append(ValidationIssue(location, "verification_snapshot must be a list"))
+
+    open_items = payload.get("open_items_before_goal_completion")
+    if isinstance(open_items, list):
+        joined_open_items = "\n".join(item for item in open_items if isinstance(item, str))
+        for token in (
+            "open a PR",
+            "observe GitHub Repo Validation",
+            "clean worktree",
+            "tag or GitHub Release",
+            "live eval-result receipt",
+            "final owner-visible goal completion audit",
+        ):
+            if token not in joined_open_items:
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.open_items_before_goal_completion",
+                        f"open items must mention '{token}'",
+                    )
+                )
+    else:
+        issues.append(ValidationIssue(location, "open_items_before_goal_completion must be a list"))
+
+    claim_limit = payload.get("claim_limit")
+    if not isinstance(claim_limit, str):
+        issues.append(ValidationIssue(location, "claim_limit must be a string"))
+    else:
+        for token in (
+            "does not mark the goal complete",
+            "does not open a PR",
+            "does not observe GitHub Repo Validation",
+            "does not publish a release",
+            "does not create a tag",
+            "does not publish a GitHub Release",
+            "does not publish an eval result receipt",
+            "does not promote any bundle",
+            "does not accept runtime evidence",
+            "does not mutate sibling repos",
+        ):
+            if token not in claim_limit:
+                issues.append(ValidationIssue(location, f"claim_limit must mention '{token}'"))
+
+    return issues
+
+
+def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    handoff_path = repo_root / RELEASE_PREP_PR_HANDOFF_NAME
+    location = RELEASE_PREP_PR_HANDOFF_NAME
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RELEASE_PREP_PR_HANDOFF_NAME,
+        tokens=RELEASE_PREP_PR_HANDOFF_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RELEASE_PREP_PR_HANDOFF_DECISION_NAME,
+        tokens=RELEASE_PREP_PR_HANDOFF_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    for path_name, tokens in (
+        ("README.md", (RELEASE_PREP_PR_HANDOFF_NAME, "release-prep PR handoff")),
+        (
+            "docs/README.md",
+            (RELEASE_PREP_PR_HANDOFF_NAME, "Release Prep PR Handoff"),
+        ),
+        (
+            "reports/README.md",
+            (
+                RELEASE_PREP_PR_HANDOFF_NAME,
+                "branch creation",
+                "GitHub `Repo Validation`",
+                "goal completion",
+            ),
+        ),
+        (
+            "docs/RELEASING.md",
+            (
+                RELEASE_PREP_PR_HANDOFF_NAME,
+                "not a branch",
+                "not a branch, commit",
+            ),
+        ),
+        (
+            PROOF_RELEASE_MECHANIC_README_NAME,
+            (
+                RELEASE_PREP_PR_HANDOFF_NAME,
+                "Release Prep PR Handoff",
+                "snapshot time no branch, commit, push",
+            ),
+        ),
+        (
+            PROOF_RELEASE_MECHANIC_AGENTS_NAME,
+            (
+                RELEASE_PREP_PR_HANDOFF_NAME,
+                "live PR or GitHub `Repo Validation` state",
+            ),
+        ),
+        (
+            "ROADMAP.md",
+            (RELEASE_PREP_PR_HANDOFF_NAME, "owner landing handoff"),
+        ),
+        ("CHANGELOG.md", (RELEASE_PREP_PR_HANDOFF_NAME, "goal completion")),
+        (
+            "docs/decisions/README.md",
+            (RELEASE_PREP_PR_HANDOFF_DECISION_NAME, "live PR status"),
+        ),
+    ):
+        require_tokens(repo_root=repo_root, path_name=path_name, tokens=tokens, issues=issues)
+
+    payload = load_json_payload(handoff_path, issues)
+    if not isinstance(payload, dict):
+        if payload is not None:
+            issues.append(ValidationIssue(location, "release-prep PR handoff must be a JSON object"))
+        return issues
+
+    expected_top_level = {
+        "artifact_kind": "release_prep_pr_handoff",
+        "schema_version": 1,
+        "handoff_id": "release-prep-pr-handoff-v1",
+        "prepared_at": "2026-05-19",
+        "scope_kind": "accumulated_strategic_refactor_diff",
+        "status_snapshot_kind": "pre_pr_handoff_snapshot",
+        "pre_landing_worktree_posture": "dirty_uncommitted_local_diff",
+        "source_readiness_audit_ref": f"repo:aoa-evals/{PROOF_RELEASE_READINESS_AUDIT_NAME}",
+        "source_strategic_closeout_audit_ref": f"repo:aoa-evals/{STRATEGIC_CLOSEOUT_AUDIT_NAME}",
+        "decision_ref": f"repo:aoa-evals/{RELEASE_PREP_PR_HANDOFF_DECISION_NAME}",
+        "handoff_verdict": "ready_for_owner_landing_route_with_open_pr",
+    }
+    for key, expected in expected_top_level.items():
+        if payload.get(key) != expected:
+            issues.append(ValidationIssue(location, f"{key} must be {expected!r}"))
+
+    for key in ("candidate_branch_name", "candidate_commit_message", "candidate_pr_title"):
+        value = payload.get(key)
+        if not isinstance(value, str) or len(value) < 10:
+            issues.append(ValidationIssue(location, f"{key} must be a meaningful string"))
+
+    github_status = payload.get("pre_handoff_github_status")
+    if isinstance(github_status, dict):
+        expected_status = {
+            "branch_status": "not_created_by_this_handoff",
+            "commit_status": "not_created_by_this_handoff",
+            "push_status": "not_attempted",
+            "pr_status": "not_opened",
+            "repo_validation_status": "not_observed_for_this_uncommitted_diff",
+            "merge_status": "not_attempted",
+            "tag_status": "not_created",
+            "github_release_status": "not_published",
+        }
+        for key, expected in expected_status.items():
+            if github_status.get(key) != expected:
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.pre_handoff_github_status",
+                        f"pre_handoff {key} must be {expected!r}",
+                    )
+                )
+    else:
+        issues.append(ValidationIssue(location, "pre_handoff_github_status must be a JSON object"))
+
+    required_group_ids = {
+        "root_design_and_route",
+        "decision_memory",
+        "roadmap_changelog_quests",
+        "proof_topology_legacy_mechanics",
+        "active_proof_loop",
+        "agent_lane_and_generated_readers",
+        "validators_and_tests",
+    }
+    changed_groups = payload.get("changed_surface_groups")
+    if isinstance(changed_groups, list):
+        seen_group_ids: set[str] = set()
+        for index, group in enumerate(changed_groups):
+            group_location = f"{location}.changed_surface_groups[{index}]"
+            if not isinstance(group, dict):
+                issues.append(ValidationIssue(group_location, "changed surface group must be an object"))
+                continue
+            group_id = group.get("group_id")
+            if isinstance(group_id, str):
+                seen_group_ids.add(group_id)
+            else:
+                issues.append(ValidationIssue(group_location, "group_id must be a string"))
+            summary = group.get("summary")
+            if not isinstance(summary, str) or len(summary) < 30:
+                issues.append(ValidationIssue(group_location, "summary must be a meaningful string"))
+            evidence_refs = group.get("evidence_refs")
+            if not isinstance(evidence_refs, list) or not evidence_refs:
+                issues.append(ValidationIssue(group_location, "evidence_refs must be a non-empty list"))
+            else:
+                for ref_index, evidence_ref in enumerate(evidence_refs):
+                    parse_repo_ref(
+                        evidence_ref,
+                        location=f"{group_location}.evidence_refs[{ref_index}]",
+                        issues=issues,
+                    )
+        missing_group_ids = required_group_ids - seen_group_ids
+        for group_id in sorted(missing_group_ids):
+            issues.append(
+                ValidationIssue(
+                    f"{location}.changed_surface_groups",
+                    f"missing group_id {group_id!r}",
+                )
+            )
+    else:
+        issues.append(ValidationIssue(location, "changed_surface_groups must be a list"))
+
+    draft_pr_body = payload.get("draft_pr_body")
+    if isinstance(draft_pr_body, list):
+        joined_pr_body = "\n".join(item for item in draft_pr_body if isinstance(item, str))
+        for token in (
+            "## Summary",
+            "## Validation",
+            "## Boundaries",
+            "python scripts/validate_repo.py",
+            "python scripts/release_check.py",
+            "no tag or GitHub Release",
+            "no live eval-result receipt publication",
+            "no runtime evidence acceptance",
+            "no sibling repository mutation",
+            "goal completion remains open",
+        ):
+            if token not in joined_pr_body:
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.draft_pr_body",
+                        f"draft PR body must mention '{token}'",
+                    )
+                )
+    else:
+        issues.append(ValidationIssue(location, "draft_pr_body must be a list"))
+
+    required_commands = {
+        "python -m pytest -q tests/test_release_prep_pr_handoff.py tests/test_validate_repo.py -k release_prep_pr_handoff",
+        "python scripts/validate_repo.py",
+        "python scripts/validate_semantic_agents.py",
+        "python scripts/validate_nested_agents.py",
+        "git diff --check",
+        "python scripts/build_catalog.py --check",
+        "python scripts/generate_eval_report_index.py --check",
+        "python scripts/generate_runtime_candidate_template_index.py --check",
+        "python scripts/generate_runtime_candidate_intake.py --check",
+        "python scripts/generate_phase_alpha_eval_matrix.py --check",
+        "python scripts/run_sibling_canary.py --repo-root . --format json",
+        "python -m pytest -q tests",
+        "python scripts/release_check.py",
+    }
+    verification_snapshot = payload.get("verification_snapshot")
+    if isinstance(verification_snapshot, list):
+        seen_commands: set[str] = set()
+        for index, entry in enumerate(verification_snapshot):
+            entry_location = f"{location}.verification_snapshot[{index}]"
+            if not isinstance(entry, dict):
+                issues.append(ValidationIssue(entry_location, "verification entry must be an object"))
+                continue
+            command = entry.get("command")
+            if isinstance(command, str):
+                seen_commands.add(command)
+            else:
+                issues.append(ValidationIssue(entry_location, "command must be a string"))
+            if entry.get("result") != "passed":
+                issues.append(ValidationIssue(entry_location, "result must stay 'passed'"))
+            claim_limit = entry.get("claim_limit")
+            if not isinstance(claim_limit, str) or len(claim_limit) < 20:
+                issues.append(ValidationIssue(entry_location, "claim_limit must be a meaningful string"))
+        for command in sorted(required_commands - seen_commands):
+            issues.append(
+                ValidationIssue(
+                    f"{location}.verification_snapshot",
+                    f"missing verification command {command!r}",
+                )
+            )
+    else:
+        issues.append(ValidationIssue(location, "verification_snapshot must be a list"))
+
+    landing_steps = payload.get("landing_steps")
+    if isinstance(landing_steps, list):
+        joined_landing_steps = "\n".join(item for item in landing_steps if isinstance(item, str))
+        for token in (
+            "create a branch",
+            "commit the intended accumulated diff",
+            "push the branch",
+            "open a PR",
+            "watch GitHub Repo Validation",
+            "merge only after required checks are green",
+            "worktree is clean",
+            "final owner-visible completion audit",
+        ):
+            if token not in joined_landing_steps:
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.landing_steps",
+                        f"landing steps must mention '{token}'",
+                    )
+                )
+    else:
+        issues.append(ValidationIssue(location, "landing_steps must be a list"))
+
+    claim_limit = payload.get("claim_limit")
+    if not isinstance(claim_limit, str):
+        issues.append(ValidationIssue(location, "claim_limit must be a string"))
+    else:
+        for token in (
+            "At the snapshot time",
+            "did not create a branch",
+            "did not create a commit",
+            "did not push",
+            "did not open a PR",
+            "did not observe GitHub Repo Validation",
+            "did not merge",
+            "did not publish a release",
+            "did not create a tag",
+            "did not publish a GitHub Release",
+            "did not publish an eval result receipt",
+            "did not promote any bundle",
+            "did not accept runtime evidence",
+            "did not mutate sibling repos",
+            "did not mark the goal complete",
+            "supersedes this snapshot",
+        ):
+            if token not in claim_limit:
+                issues.append(ValidationIssue(location, f"claim_limit must mention '{token}'"))
 
     return issues
 
@@ -5891,6 +8780,19 @@ def load_phase_alpha_eval_matrix_builder(repo_root: Path):
     return module
 
 
+def load_eval_report_index_builder(repo_root: Path):
+    module_path = repo_root / "scripts" / "generate_eval_report_index.py"
+    spec = importlib.util.spec_from_file_location(
+        "generate_eval_report_index",
+        module_path,
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError("unable to load eval report index generator")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def validate_runtime_candidate_intake(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     generated_path = repo_root / RUNTIME_CANDIDATE_INTAKE_NAME
@@ -6028,6 +8930,175 @@ def validate_runtime_candidate_intake(repo_root: Path) -> list[ValidationIssue]:
         if entry.get("candidate_acceptance_posture") != "candidate_until_eval_review":
             issues.append(ValidationIssue(location, "candidate_acceptance_posture must stay 'candidate_until_eval_review'"))
 
+    return issues
+
+
+def validate_eval_report_index(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    generated_path = repo_root / EVAL_REPORT_INDEX_NAME
+    generated_location = relative_location(generated_path, repo_root)
+
+    try:
+        builder = load_eval_report_index_builder(repo_root)
+        expected = builder.build_eval_report_index_payload()
+    except (Exception, SystemExit) as exc:
+        issues.append(ValidationIssue(generated_location, str(exc)))
+        return issues
+
+    payload = load_json_payload(generated_path, issues)
+    if payload is None:
+        return issues
+    if not isinstance(payload, dict):
+        issues.append(ValidationIssue(generated_location, "generated eval report index must be an object"))
+        return issues
+    if payload != expected:
+        issues.append(
+            ValidationIssue(
+                generated_location,
+                "generated eval report index is out of date or mismatched",
+            )
+        )
+    if payload.get("schema_version") != 1:
+        issues.append(ValidationIssue(generated_location, "schema_version must equal 1"))
+    if payload.get("layer") != "aoa-evals":
+        issues.append(ValidationIssue(generated_location, "layer must equal 'aoa-evals'"))
+    expected_source_of_truth = {
+        "bundle_reports": "bundles/*/reports/*.report.json",
+        "bundle_report_schema": "bundles/*/reports/summary.schema.json",
+        "bundle_manifest": "bundles/*/eval.yaml",
+        "eval_review_guide": "docs/EVAL_REVIEW_GUIDE.md",
+    }
+    if payload.get("source_of_truth") != expected_source_of_truth:
+        issues.append(ValidationIssue(generated_location, "source_of_truth must stay stable"))
+    boundary = payload.get("interpretation_boundary")
+    if not isinstance(boundary, str) or not all(
+        token in boundary
+        for token in ("not a receipt", "promotion signal", "runtime acceptance", "verdict authority")
+    ):
+        issues.append(
+            ValidationIssue(
+                generated_location,
+                "interpretation_boundary must keep receipt, promotion, runtime, and verdict authority limits explicit",
+            )
+        )
+
+    reports = payload.get("reports")
+    if not isinstance(reports, list):
+        issues.append(ValidationIssue(generated_location, "reports must be a list"))
+        return issues
+
+    keys: list[tuple[str, str]] = []
+    source_paths: list[str] = []
+    for index, entry in enumerate(reports):
+        location = f"{generated_location}.reports[{index}]"
+        if not isinstance(entry, dict):
+            issues.append(ValidationIssue(location, "report entry must be an object"))
+            continue
+
+        eval_name = entry.get("eval_name")
+        report_id = entry.get("report_id")
+        source_report_path = entry.get("source_report_path")
+        if not isinstance(eval_name, str) or not eval_name:
+            issues.append(ValidationIssue(location, "eval_name must be a non-empty string"))
+            continue
+        if not isinstance(report_id, str) or not report_id:
+            issues.append(ValidationIssue(location, "report_id must be a non-empty string"))
+            continue
+        if not isinstance(source_report_path, str) or not source_report_path.endswith(".report.json"):
+            issues.append(ValidationIssue(location, "source_report_path must point to a bundle-local .report.json"))
+            continue
+
+        keys.append((eval_name, report_id))
+        source_paths.append(source_report_path)
+        report_path = repo_root / source_report_path
+        if not report_path.is_file():
+            issues.append(ValidationIssue(location, f"source_report_path does not exist: {source_report_path}"))
+            continue
+
+        report_payload = load_json_payload(report_path, issues)
+        if not isinstance(report_payload, dict):
+            continue
+        for field_name in ("eval_name", "bundle_status", "verdict", "case_family", "claim_boundary"):
+            if entry.get(field_name) != report_payload.get(field_name):
+                issues.append(
+                    ValidationIssue(location, f"{field_name} must match source_report_path")
+                )
+        limitations = report_payload.get("limitations")
+        expected_limitations_count = len(limitations) if isinstance(limitations, list) else 0
+        if entry.get("limitations_count") != expected_limitations_count:
+            issues.append(ValidationIssue(location, "limitations_count must match source_report_path"))
+
+        if entry.get("source_bundle_ref") != f"bundles/{eval_name}/EVAL.md":
+            issues.append(ValidationIssue(location, "source_bundle_ref must point to the owning bundle EVAL.md"))
+        if entry.get("manifest_ref") != f"bundles/{eval_name}/eval.yaml":
+            issues.append(ValidationIssue(location, "manifest_ref must point to the owning bundle eval.yaml"))
+        if entry.get("report_schema_ref") != f"bundles/{eval_name}/reports/summary.schema.json":
+            issues.append(ValidationIssue(location, "report_schema_ref must point to the owning bundle report schema"))
+        for ref_field in ("source_bundle_ref", "manifest_ref", "report_schema_ref"):
+            ref_value = entry.get(ref_field)
+            if isinstance(ref_value, str) and not (repo_root / ref_value).exists():
+                issues.append(ValidationIssue(location, f"{ref_field} does not exist: {ref_value}"))
+
+        if entry.get("report_posture") != "bounded_report_output":
+            issues.append(ValidationIssue(location, "report_posture must stay 'bounded_report_output'"))
+        authority_boundary = entry.get("authority_boundary")
+        if not isinstance(authority_boundary, str) or "derived index only" not in authority_boundary:
+            issues.append(ValidationIssue(location, "authority_boundary must keep derived-index posture explicit"))
+        if entry.get("receipt_status") != "not_a_receipt":
+            issues.append(ValidationIssue(location, "receipt_status must stay 'not_a_receipt'"))
+
+    if keys != sorted(keys):
+        issues.append(ValidationIssue(generated_location, "reports must stay ordered by eval_name and report_id"))
+    if len(keys) != len(set(keys)):
+        issues.append(ValidationIssue(generated_location, "reports must not duplicate eval_name/report_id entries"))
+    if len(source_paths) != len(set(source_paths)):
+        issues.append(ValidationIssue(generated_location, "reports must not duplicate source_report_path entries"))
+
+    return issues
+
+
+def validate_eval_report_index_route_surfaces(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EVAL_REPORT_INDEX_DECISION_NAME,
+        tokens=(
+            EVAL_REPORT_INDEX_NAME,
+            "derived reader",
+            "not_a_receipt",
+            "no report verdict is promoted into generated authority",
+            "scripts/generate_eval_report_index.py",
+        ),
+        issues=issues,
+    )
+    for path_name in (
+        "README.md",
+        "docs/README.md",
+        "ROADMAP.md",
+        "CHANGELOG.md",
+        "generated/AGENTS.md",
+        "mechanics/proof-loop/README.md",
+        "mechanics/proof-infra/README.md",
+        "reports/README.md",
+    ):
+        require_tokens(
+            repo_root=repo_root,
+            path_name=path_name,
+            tokens=(EVAL_REPORT_INDEX_NAME,),
+            issues=issues,
+        )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(EVAL_REPORT_INDEX_DECISION_NAME,),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="scripts/release_check.py",
+        tokens=("scripts/generate_eval_report_index.py", "--check"),
+        issues=issues,
+    )
     return issues
 
 
@@ -6272,6 +9343,14 @@ def run_validation(
     eval_name: str | None = None,
 ) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
+    if repo_root.resolve() == REPO_ROOT.resolve() and eval_name is None:
+        issues.extend(validate_root_design_surfaces(repo_root))
+        issues.extend(validate_agent_lane_surfaces(repo_root))
+        issues.extend(validate_quest_route_surfaces(repo_root))
+        issues.extend(validate_proof_topology_surfaces(repo_root))
+        issues.extend(validate_legacy_naming_surfaces(repo_root))
+        issues.extend(validate_mechanics_surfaces(repo_root))
+        issues.extend(validate_eval_report_index_route_surfaces(repo_root))
     bundles_dir_exists = (repo_root / BUNDLES_DIR_NAME).is_dir()
     try:
         all_eval_names = discover_eval_names(repo_root)
@@ -6368,6 +9447,10 @@ def run_validation(
             issues.extend(validate_trace_eval_bridge_surfaces(repo_root, all_records))
             issues.extend(validate_runtime_integrity_review_surface(repo_root))
             issues.extend(validate_eval_result_receipt_surfaces(repo_root))
+            issues.extend(validate_receipt_intake_dry_review_surface(repo_root))
+            issues.extend(validate_proof_release_readiness_audit_surface(repo_root))
+            issues.extend(validate_strategic_closeout_audit_surface(repo_root))
+            issues.extend(validate_release_prep_pr_handoff_surface(repo_root))
             issues.extend(validate_live_receipt_log(repo_root))
             issues.extend(
                 validate_runtime_evidence_selection_surfaces(
@@ -6377,6 +9460,7 @@ def run_validation(
             )
             issues.extend(validate_runtime_candidate_template_index(repo_root))
             issues.extend(validate_runtime_candidate_intake(repo_root))
+            issues.extend(validate_eval_report_index(repo_root))
             issues.extend(validate_phase_alpha_eval_matrix(repo_root))
             issues.extend(validate_titan_canary_surfaces(repo_root))
             issues.extend(validate_generated_catalogs(repo_root, all_records))

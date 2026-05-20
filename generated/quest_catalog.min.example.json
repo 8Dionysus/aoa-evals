@@ -9,7 +9,7 @@
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r1_repo_local",
-    "source_path": "quests/AOA-EV-Q-0001.yaml",
+    "source_path": "quests/questbook/done/AOA-EV-Q-0001.yaml",
     "state": "done",
     "theme_ref": "",
     "title": "Land repo-local questbook surface for proof and regression obligations"
@@ -24,7 +24,7 @@
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r1_repo_local",
-    "source_path": "quests/AOA-EV-Q-0002.yaml",
+    "source_path": "quests/proof/done/AOA-EV-Q-0002.yaml",
     "state": "done",
     "theme_ref": "",
     "title": "Track missing proof bundles and regression-surface gaps named by the eval index or comparison spine"
@@ -39,7 +39,7 @@
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r2_contract",
-    "source_path": "quests/AOA-EV-Q-0003.yaml",
+    "source_path": "quests/trace/captured/AOA-EV-Q-0003.yaml",
     "state": "captured",
     "theme_ref": "",
     "title": "Tighten the trace-eval bridge and artifact-process separation for portable verdicts"
@@ -54,7 +54,7 @@
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r1_repo_local",
-    "source_path": "quests/AOA-EV-Q-0004.yaml",
+    "source_path": "quests/harvest/captured/AOA-EV-Q-0004.yaml",
     "state": "captured",
     "theme_ref": "",
     "title": "Harvest repeated blind-spot and caution-language repairs into reusable eval patterns and rubrics"
@@ -69,7 +69,7 @@
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r2_contract",
-    "source_path": "quests/AOA-EV-Q-0005.yaml",
+    "source_path": "quests/proof/captured/AOA-EV-Q-0005.yaml",
     "state": "captured",
     "theme_ref": "",
     "title": "Define a multi-axis progression evidence contract for reviewed advancement"
@@ -98,7 +98,7 @@
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r1_repo_local",
-    "source_path": "quests/AOA-EV-Q-0006.yaml",
+    "source_path": "quests/orchestrator/captured/AOA-EV-Q-0006.yaml",
     "state": "captured",
     "theme_ref": "",
     "title": "Define router orchestrator proof anchors for boundary adherence and source-of-truth selection"
@@ -127,7 +127,7 @@
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r1_repo_local",
-    "source_path": "quests/AOA-EV-Q-0007.yaml",
+    "source_path": "quests/orchestrator/captured/AOA-EV-Q-0007.yaml",
     "state": "captured",
     "theme_ref": "",
     "title": "Define review orchestrator proof anchors for evidence completeness and honest closure"
@@ -140,7 +140,7 @@
     "kind": "proof",
     "memory_surface_refs": [
       "repo:aoa-memo/generated/memory_object_capsules.json",
-      "repo:aoa-memo/examples/recall_contract.object.working.phase-alpha.json"
+      "repo:aoa-memo/examples/recall/recall_contract.object.working.phase-alpha.json"
     ],
     "milestone_ref": "",
     "orchestrator_class_ref": "aoa-agents:bounded_execution",
@@ -156,7 +156,7 @@
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r1_repo_local",
-    "source_path": "quests/AOA-EV-Q-0008.yaml",
+    "source_path": "quests/orchestrator/captured/AOA-EV-Q-0008.yaml",
     "state": "captured",
     "theme_ref": "",
     "title": "Define bounded-execution orchestrator proof anchors for smallest-step quality and scope discipline"
@@ -171,7 +171,7 @@
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r2_contract",
-    "source_path": "quests/AOA-EV-Q-0009.yaml",
+    "source_path": "quests/unlock/triaged/AOA-EV-Q-0009.yaml",
     "state": "triaged",
     "theme_ref": "",
     "title": "Add unlock-proof doctrine for the RPG bridge wave"
@@ -186,7 +186,7 @@
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r2_contract",
-    "source_path": "quests/AOA-EV-Q-0010.yaml",
+    "source_path": "quests/closeout/captured/AOA-EV-Q-0010.yaml",
     "state": "captured",
     "theme_ref": "",
     "title": "Capture checkpoint automation proof-pressure as early eval evidence"
@@ -201,7 +201,7 @@
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r2_contract",
-    "source_path": "quests/AOA-EV-Q-0011.yaml",
+    "source_path": "quests/trace/captured/AOA-EV-Q-0011.yaml",
     "state": "captured",
     "theme_ref": "",
     "title": "Capture chaos-wave1 proof-pressure as early eval evidence"
@@ -216,7 +216,7 @@
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r2_contract",
-    "source_path": "quests/AOA-EV-Q-0012.yaml",
+    "source_path": "quests/trace/captured/AOA-EV-Q-0012.yaml",
     "state": "captured",
     "theme_ref": "",
     "title": "Capture reviewed workspace closeout proof-pressure as early eval evidence"
@@ -231,7 +231,7 @@
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r2_contract",
-    "source_path": "quests/AOA-EV-Q-0013.yaml",
+    "source_path": "quests/closeout/captured/AOA-EV-Q-0013.yaml",
     "state": "captured",
     "theme_ref": "",
     "title": "Capture Agents-of-Abyss v0.4.0 proof-pressure as early eval evidence"

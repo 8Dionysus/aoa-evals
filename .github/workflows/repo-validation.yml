@@ -53,7 +53,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           repository: 8Dionysus/aoa-memo
-          ref: 4fec12fb54a5a332587139000a6a98a4c76357bd
+          ref: 97f19698c94ebbebabe8b1b6f22e5ccff3bc5f1f
           path: .deps/aoa-memo
 
       - name: Checkout abyss-stack

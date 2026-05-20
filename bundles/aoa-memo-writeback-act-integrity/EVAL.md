@@ -98,7 +98,7 @@ Do not use this eval when:
 - `repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/remediation_decision.json`
 - `repo:abyss-stack/Logs/phase-alpha/alpha-06-validation-driven-remediation-recall-rerun/handoff_record.json`
 - `repo:aoa-playbooks/docs/alpha-reviewed-runs/2026-04-02.validation-driven-remediation-recall-rerun.md`
-- `repo:aoa-memo/examples/decision.phase-alpha-validation-remediation-rerun.example.json`
+- `repo:aoa-memo/examples/phase-alpha/decision.phase-alpha-validation-remediation-rerun.example.json`
 - `repo:aoa-memo/generated/memory_object_catalog.min.json`
 - `repo:aoa-memo/generated/memory_object_sections.full.json`
 - `repo:aoa-memo/tests/fixtures/memo_writeback_receipts.example.jsonl`

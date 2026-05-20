@@ -23,13 +23,18 @@ It does not own:
 ## Start here
 
 1. `README.md`
-2. `ROADMAP.md`
-3. `docs/ARCHITECTURE.md`
-4. `docs/EVAL_PHILOSOPHY.md`
-5. the target `bundles/*/EVAL.md`
-6. affected generated catalogs, capsules, comparison, receipt, or section surfaces
-7. upstream skill or technique docs if the claim depends on them
-8. `docs/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
+2. `DESIGN.md`
+3. `DESIGN.AGENTS.md` when agent-facing guidance, lane topology, or route cards change
+4. `ROADMAP.md`
+5. `docs/PROOF_TOPOLOGY.md` when artifact classes, legacy, mechanics, or root districts change
+6. `mechanics/README.md` when a repeatable proof operation or package changes
+7. `docs/ARCHITECTURE.md`
+8. `docs/EVAL_PHILOSOPHY.md`
+9. the target `bundles/*/EVAL.md`
+10. affected generated catalogs, capsules, comparison, receipt, or section surfaces
+11. upstream skill or technique docs if the claim depends on them
+12. `docs/decisions/` when a structural, topology, validation, or workflow route changes
+13. `docs/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
 
 
 ## AGENTS stack law
@@ -46,6 +51,16 @@ It does not own:
 - wording turns bounded proof into broad intelligence, trust, general safety, or autonomous-self claims
 - the change rewrites upstream skill or technique meaning
 - a stats surface, trace, or comparison becomes stronger than the evidence it carries
+
+## Decision memory
+
+After a meaningful structural, topology, workflow, validation, public-contract,
+legacy, runtime-candidate, sibling-reference, or agent-route change, review
+`docs/decisions/`.
+
+Add or update a decision note when future agents need to know why the route was
+chosen. Do not use decisions as release notes, generated output, runtime logs,
+or replacements for bundle-local proof meaning.
 
 ## GitHub landing workflow
 

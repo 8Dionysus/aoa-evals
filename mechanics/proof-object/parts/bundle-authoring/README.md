@@ -1,4 +1,4 @@
-# Bundle Authoring
+# Proof Object / Bundle Authoring Part
 
 ## Role
 
@@ -13,8 +13,8 @@ It is not a proof bundle, doctrine essay, generated reader, or example report.
 ## Source Surfaces
 
 - `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
-- `bundles/*/EVAL.md`
-- `bundles/*/eval.yaml`
+- `evals/**/EVAL.md`
+- `evals/**/eval.yaml`
 - `mechanics/proof-object/parts/bundle-contracts/`
 
 ## Inputs
@@ -32,7 +32,7 @@ It is not a proof bundle, doctrine essay, generated reader, or example report.
 
 ## Stronger Owner Split
 
-`bundles/*/EVAL.md` and `bundles/*/eval.yaml` own the actual source proof
+`evals/**/EVAL.md` and `evals/**/eval.yaml` own the actual source proof
 claim, object under evaluation, status, evidence posture, verdict logic,
 blind spots, and manifest metadata.
 
@@ -60,10 +60,4 @@ form that helps a future bundle expose source truth without hiding limits.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/proof-object/parts/bundle-authoring/`.
-
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

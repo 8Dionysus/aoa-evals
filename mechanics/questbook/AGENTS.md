@@ -61,6 +61,13 @@ python scripts/validate_repo.py
 python scripts/validate_semantic_agents.py
 ```
 
+If source quest records changed intentionally and generated readers must be
+refreshed, rebuild them before rerunning the checks:
+
+```bash
+python scripts/build_catalog.py
+```
+
 ## Closeout
 
 Report whether the change touched source quest records, `QUESTBOOK.md`,

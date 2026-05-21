@@ -29,14 +29,14 @@ evidence, receipt publication, or a repo-global score.
 9. `docs/SHARED_PROOF_INFRA_GUIDE.md`
 10. affected `parts/fixture-families/`, `parts/reportable-contracts/`, or
    root route-card local `AGENTS.md`
-11. affected `bundles/*/EVAL.md` and `bundles/*/eval.yaml`
+11. affected `evals/**/EVAL.md` and `evals/**/eval.yaml`
 
 ## Local Law
 
 - Keep shared proof infrastructure weaker than the source proof object.
-- Keep bundle-local `bundles/<bundle>/fixtures/contract.json`,
-  `bundles/<bundle>/runners/contract.json`, and
-  `bundles/<bundle>/reports/summary.schema.json` aligned with the bundle
+- Keep bundle-local `evals/<family>/<eval>/fixtures/contract.json`,
+  `evals/<family>/<eval>/runners/contract.json`, and
+  `evals/<family>/<eval>/reports/summary.schema.json` aligned with the bundle
   claim.
 - Keep `shared_fixture_family_path` primary and use
   `additional_shared_fixture_family_paths` only for real secondary families.
@@ -73,11 +73,16 @@ Run the narrow package route checks:
 ```bash
 python scripts/validate_repo.py
 python scripts/build_catalog.py --check
+python scripts/generate_eval_report_index.py --check
 python scripts/validate_semantic_agents.py
 ```
 
-Run `python -m pytest -q` when scorer, schema, catalog, or validator logic
-changes; use part-local pytest paths for focused checks.
+When scorer, schema, catalog, or validator logic changes, run the focused
+part-local scorer route:
+
+```bash
+python -m pytest -q mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py
+```
 
 ## Closeout
 

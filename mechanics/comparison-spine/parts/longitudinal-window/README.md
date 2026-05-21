@@ -1,4 +1,4 @@
-# Longitudinal Window Part
+# Comparison Spine / Longitudinal Window Part
 
 ## Role
 
@@ -59,9 +59,4 @@ vivid stress-recovery window into broad growth proof.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/comparison-spine/parts/longitudinal-window/`.
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

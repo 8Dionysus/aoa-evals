@@ -14,7 +14,7 @@ exist.
 - Do not add new proof work here.
 - Do not treat legacy placement as the active route.
 - Do not recreate moved root or adjacent fixture paths.
-- Keep source proof bundles under `bundles/`.
+- Keep source proof bundles under `evals/`.
 
 ## Validation
 

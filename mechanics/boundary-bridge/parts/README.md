@@ -1,4 +1,4 @@
-# Boundary Bridge Parts
+# Boundary Bridge / Parts Route
 
 This directory holds package-local parts for the sibling-reference compatibility
 and proof-anchor boundary operation.
@@ -18,8 +18,6 @@ bounded claim.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py
-python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json
-python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-```
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+parts index names the active parts and their roles; the parts route card owns
+the command lane.

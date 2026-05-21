@@ -64,7 +64,7 @@ Do not turn repeated-window evaluation into a floating federation-wide vibe chec
 
 The wave-4 landing publishes:
 
-- one bundle at `bundles/aoa-stress-recovery-window/`
+- one bundle at `evals/comparison/longitudinal-window/aoa-stress-recovery-window/`
 - one schema-backed report
 - one small input manifest example
 - one narrow example report

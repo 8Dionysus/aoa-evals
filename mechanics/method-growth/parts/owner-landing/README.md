@@ -1,4 +1,4 @@
-# Owner Landing Part
+# Method-growth / Owner Landing Part
 
 ## Role
 
@@ -8,16 +8,16 @@ through `aoa-owner-fit-routing-quality`.
 It keeps the shared owner-fit fixture family under the Method-growth mechanic
 because AoA method-growth routes reviewed candidates toward owner-local
 acceptance, landing, pruning, or handoff. The source proof bundle stays under
-`bundles/`.
+`evals/`.
 
 ## Source Surfaces
 
-- `bundles/aoa-owner-fit-routing-quality/EVAL.md`
-- `bundles/aoa-owner-fit-routing-quality/eval.yaml`
-- `bundles/aoa-owner-fit-routing-quality/fixtures/contract.json`
-- `bundles/aoa-owner-fit-routing-quality/runners/contract.json`
-- `bundles/aoa-owner-fit-routing-quality/reports/summary.schema.json`
-- `bundles/aoa-owner-fit-routing-quality/reports/example-report.json`
+- `evals/boundary/aoa-owner-fit-routing-quality/EVAL.md`
+- `evals/boundary/aoa-owner-fit-routing-quality/eval.yaml`
+- `evals/boundary/aoa-owner-fit-routing-quality/fixtures/contract.json`
+- `evals/boundary/aoa-owner-fit-routing-quality/runners/contract.json`
+- `evals/boundary/aoa-owner-fit-routing-quality/reports/summary.schema.json`
+- `evals/boundary/aoa-owner-fit-routing-quality/reports/example-report.json`
 - `mechanics/method-growth/parts/owner-landing/fixtures/owner-fit-routing-v1/README.md`
 
 ## Inputs
@@ -71,8 +71,4 @@ by the owner, or ready for derivative first-authoring.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-owner-fit-routing-quality
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

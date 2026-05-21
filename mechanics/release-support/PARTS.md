@@ -1,4 +1,4 @@
-# Release Support Parts
+# Release Support / Part Index
 
 `mechanics/release-support/` owns the release-publication proof route as a
 mechanic, not as a flat list of root reports.
@@ -37,5 +37,5 @@ own bundle claims.
 Stop-lines forbid treating audits or handoffs as tags, GitHub Releases, PR
 approval, observed GitHub `Repo Validation`, or goal completion.
 
-Validation is `python scripts/release_check.py`,
-`python scripts/validate_repo.py`, and `python scripts/validate_semantic_agents.py`.
+Validation routes through [AGENTS](AGENTS.md#validation), including release
+check, repo validation, and semantic AGENTS lanes.

@@ -134,7 +134,8 @@ class RecurrenceControlPlaneIntegritySeedTest(unittest.TestCase):
         schema = json.loads(
             (
                 REPO_ROOT
-                / "bundles"
+                / "evals"
+                / "boundary"
                 / "aoa-recurrence-control-plane-integrity"
                 / "reports"
                 / "summary.schema.json"
@@ -143,7 +144,8 @@ class RecurrenceControlPlaneIntegritySeedTest(unittest.TestCase):
         example = json.loads(
             (
                 REPO_ROOT
-                / "bundles"
+                / "evals"
+                / "boundary"
                 / "aoa-recurrence-control-plane-integrity"
                 / "reports"
                 / "example-report.json"

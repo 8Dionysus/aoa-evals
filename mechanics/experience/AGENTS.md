@@ -31,7 +31,7 @@ playbook choreography, ToS-authored meaning, or owner-local adoption.
 
 ## Boundaries
 
-- Keep source proof bundles under `bundles/`.
+- Keep source proof bundles under `evals/`.
 - Keep verdict support surfaces part-local when they have schema/example/test
   contracts.
 - Keep adoption, certification, office, governance, runtime, KAG, ToS, and
@@ -45,6 +45,11 @@ playbook choreography, ToS-authored meaning, or owner-local adoption.
 Run the part-local tests for the touched part and then:
 
 ```bash
+python -m pytest -q mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py
+python -m pytest -q mechanics/experience/parts/certification-gate/tests
+python -m pytest -q mechanics/experience/parts/adoption-federation/tests
+python -m pytest -q mechanics/experience/parts/governance-runtime-boundary/tests
+python -m pytest -q mechanics/experience/parts/office-release-train/tests
 python scripts/build_catalog.py --check
 python scripts/validate_repo.py
 python scripts/validate_semantic_agents.py

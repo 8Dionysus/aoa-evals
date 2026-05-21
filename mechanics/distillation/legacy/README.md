@@ -19,7 +19,7 @@ Legacy files here are not active contracts and are not a place for new work.
   changes.
 
 No raw source bundle moved here in this slice. Source proof bundles remain
-under `bundles/`.
+under `evals/`.
 
 ## Required Route
 

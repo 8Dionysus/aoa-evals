@@ -31,7 +31,7 @@ Tracking starts with the community-docs baseline for this repository.
 - `proof-object` mechanic package for source proof-object completeness,
   bundle lifecycle posture, generated-reader derivation, part-local
   bundle-authoring/template and bundle-contract/schema support, and
-  bundle-local review boundaries without moving `bundles/`
+  bundle-local review boundaries without moving `evals/`
 - proof-object part owner-split contract guard, keeping bundle-authoring as
   scaffold support and bundle-contracts as schema validation support below
   source bundle meaning, bundle-local review, evidence acceptance, generated
@@ -121,7 +121,7 @@ Tracking starts with the community-docs baseline for this repository.
   classes, and unexpected part-root files
 - the payload inventory guard now also covers bundle-backed thin support
   routes, requiring any part with no part-local payload subdirectories to say
-  why the source proof bundle stays under `bundles/`
+  why the source proof bundle stays under `evals/`
 - Mechanic Part Source Surface Reference Guard, with validator coverage and a
   decision record requiring path-like `Source Surfaces` refs in concrete part
   README files to resolve as repo-relative paths, matching globs,
@@ -179,12 +179,12 @@ Tracking starts with the community-docs baseline for this repository.
 - `recurrence` mechanic package for eval-side recurrence proof, including the
   recurrence proof program, control-plane integrity docs, fixtures, schema,
   example dossier, runner, scorer, tests, manifest, provenance bridge, and
-  legacy index while source proof bundles stay under `bundles/`
+  legacy index while source proof bundles stay under `evals/`
 - `checkpoint` mechanic package for eval-side checkpoint proof, including A2A
   summon return, restartable inquiry, and self-agent posture parts, with
   part-local fixture families, checkpoint-specific hook examples, validation
   tests, provenance bridge, and legacy index while source proof bundles stay
-  under `bundles/`
+  under `evals/`
 - checkpoint part-level contract guard for A2A summon return, restartable
   inquiry, and self-agent posture, updating source-surface lists to current
   part-local payload homes and keeping checkpoint proof below implementation,
@@ -194,7 +194,7 @@ Tracking starts with the community-docs baseline for this repository.
   protocol integrity, certification gate, adoption federation,
   governance/runtime-boundary, and office release-train parts, with part-local
   docs, fixtures, examples, schemas, tests, provenance bridge, and legacy index
-  while source proof bundles stay under `bundles/`
+  while source proof bundles stay under `evals/`
 - Experience part-level contract guard for protocol integrity, certification
   gate, adoption federation, governance/runtime-boundary, and office
   release-train, keeping verdict support below live runtime, certification,
@@ -208,7 +208,7 @@ Tracking starts with the community-docs baseline for this repository.
 - `antifragility` mechanic package for eval-side Antifragility proof, including
   posture review, stress-recovery window, and repair-proof parts, with
   part-local docs, fixture families, schemas, provenance bridge, and legacy
-  index while source proof bundles stay under `bundles/`, comparison readouts
+  index while source proof bundles stay under `evals/`, comparison readouts
   stay under `comparison-spine`, and runtime evidence selection stays under
   `audit`
 - antifragility part-level contract guard for posture review,
@@ -218,7 +218,7 @@ Tracking starts with the community-docs baseline for this repository.
 - `method-growth` mechanic package for eval-side Method-growth proof,
   including candidate-lineage and owner-landing parts, with part-local shared
   fixture families, provenance bridge, and legacy index while source proof
-  bundles stay under `bundles/` while diagnosis, repair, and distillation
+  bundles stay under `evals/` while diagnosis, repair, and distillation
   surfaces stay outside the package until separate evidence passes prove those
   routes
 - Method-growth part owner-split contract guard, keeping candidate-lineage as
@@ -232,7 +232,7 @@ Tracking starts with the community-docs baseline for this repository.
   and stats truth stay with stronger owners
 - `growth-cycle` mechanic package for eval-side Growth Cycle diagnosis proof,
   including the `diagnosis-gate` part, provenance bridge, and legacy index
-  while source proof bundles stay under `bundles/` and repair, longitudinal
+  while source proof bundles stay under `evals/` and repair, longitudinal
   movement, RPG progression, closeout, harvest, quest promotion, and
   owner-followthrough pressure stay with their current owner routes until
   separate evidence passes prove active parts
@@ -242,7 +242,7 @@ Tracking starts with the community-docs baseline for this repository.
   memory canon, runtime activation, and owner-local landing
 - `distillation` mechanic package for eval-side Distillation proof, including
   `compost-provenance` and `runtime-candidate-adoption` parts, provenance
-  bridge, and legacy index while source proof bundles stay under `bundles/`,
+  bridge, and legacy index while source proof bundles stay under `evals/`,
   runtime-pack hook metadata stays under `audit`, generic adoption stays under
   `experience`, memo recall routes through `recurrence/memory-recall`, and
   nearby contradiction, base writeback-act, and witness trace proof stay outside
@@ -254,7 +254,7 @@ Tracking starts with the community-docs baseline for this repository.
   memory-ledger claims
 - recurrence support parts for `anchor-return`, `memory-recall`,
   `recursor-boundary`, and `stats-regrounding-boundary`, keeping source proof
-  bundles under `bundles/` while moving support fixtures, report tests, scorer,
+  bundles under `evals/` while moving support fixtures, report tests, scorer,
   runner, and part route cards into `mechanics/recurrence/parts/`
 - recurrence control-plane-integrity contract guard, updating source-surface
   lists to current part-local payload homes and keeping recurrence dossiers
@@ -309,7 +309,7 @@ Tracking starts with the community-docs baseline for this repository.
   routeability evidence only with explicit inputs, outputs, stronger-owner
   split, stop-lines, and validation
 - first schema-backed bundle-local proof-loop report at
-  `bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`,
+  `evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`,
   plus bundle-local report validation for real `*.report.json` artifacts
   without receipt publication or bundle promotion
 - generated eval report index at `generated/eval_report_index.min.json`, plus
@@ -391,12 +391,12 @@ Tracking starts with the community-docs baseline for this repository.
   `docs/decisions/0077-root-authored-route-residue-guard.md`, and validator
   coverage that rejects stale root-facing guide references to route-card-only
   root payload paths without blocking root route cards, historical context, or
-  active `bundles/<bundle>/...` and `mechanics/...` routes
+  active `evals/<family>/<eval>/...` and `mechanics/...` routes
 - decision route residue guard, decision
   `docs/decisions/0078-decision-route-residue-guard.md`, and validator coverage
   that rejects unmarked current-looking decision references to former root
   payload paths without blocking historical context, root route cards, or
-  active `bundles/<bundle>/...` and `mechanics/...` routes
+  active `evals/<family>/<eval>/...` and `mechanics/...` routes
 - repo config route residue guard, decision
   `docs/decisions/0079-repo-config-route-residue-guard.md`, `.gitignore`
   migration from the rejected `mechanics/titan-canaries/seeds/` unignore to
@@ -609,7 +609,7 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Included in this release
 
-- proof-corpus expansions across `bundles/`, `docs/`, `generated/`,
+- proof-corpus expansions across `evals/`, `docs/`, `generated/`,
   `examples/`, `fixtures/`, `schemas/`, and `reports/`, including Phase Alpha
   routing surfaces, RPG unlock proof, runtime candidate hardening, and new
   bounded audit posture
@@ -647,7 +647,7 @@ This changelog entry uses the release-prep merge date.
 
 ### Included in this release
 
-- `18` public eval bundles under `bundles/`
+- `18` public eval bundles under `evals/`
 - current generated reader and comparison surfaces under `generated/`, including the runtime candidate template/index families
 
 ### Validation
@@ -694,7 +694,7 @@ This changelog entry uses the release-prep merge date.
 
 ### Included in this release
 
-- eval bundles under `bundles/` plus the current repository-wide chooser and index in `EVAL_SELECTION.md` and `EVAL_INDEX.md`
+- eval bundles under `evals/` plus the current repository-wide chooser and index in `EVAL_SELECTION.md` and `EVAL_INDEX.md`
 - shared fixtures, scorers, runner contracts, schemas, templates, examples, and report artifacts that keep the current eval corpus reviewable and portable
 - the current comparison-spine layer anchored by:
   - `aoa-regression-same-task` as the only public `baseline` starter

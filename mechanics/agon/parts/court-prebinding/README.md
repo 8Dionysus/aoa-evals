@@ -1,4 +1,4 @@
-# Court Prebinding
+# Agon / Court Prebinding Part
 
 ## Role
 
@@ -57,8 +57,4 @@ and any future live verdict route.
 
 ## Validation
 
-```bash
-python mechanics/agon/parts/court-prebinding/scripts/build_agon_eval_prebinding_registry.py --check
-python mechanics/agon/parts/court-prebinding/scripts/validate_agon_eval_prebindings.py
-python -m pytest -q mechanics/agon/parts/court-prebinding/tests/test_agon_eval_prebindings.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

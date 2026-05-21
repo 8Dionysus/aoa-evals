@@ -50,6 +50,40 @@ Do not put legacy archive details in this file.
 | `candidate-only` | runtime, machine, trace, or evidence-intake vocabulary below bundle-local review | route through candidate evidence and review boundaries |
 | `provenance-bridge` | a package-local bridge from active surfaces to historical archive context | enter only after active route surfaces are insufficient |
 
+## Naming Depth
+
+Directory names should reveal topology at first glance:
+
+| Layer | Name should describe | Example shape |
+| --- | --- | --- |
+| mechanic parent | repeatable proof operation | `mechanics/<operation>/` |
+| mechanic part | bounded sub-operation or support contract | `mechanics/<operation>/parts/<part>/` |
+| payload directory | artifact class owned by that part | `docs/`, `examples/`, `fixtures/`, `schemas/`, `scripts/`, `tests`, `reports/`, `generated/` |
+| payload file | concrete proof-support object, report, schema, fixture, or generated readout | part-local, bundle-local, or repo-qualified by owner |
+
+When a name looks like an artifact form, evidence class, release stage, old root
+placement, or stronger-owner doctrine, first ask whether it belongs below an
+existing parent as a part or payload. Promote it to a parent name only through
+the evidence-backed mechanics route.
+
+## Rename Gate
+
+A rename is a topology change, not a cosmetic cleanup.
+
+Before changing a public path, parent name, part name, payload directory, schema
+field, generated file name, or accepted input vocabulary, gather the owning
+chain:
+
+1. active route and nearest `AGENTS.md`;
+2. source surface that owns the meaning;
+3. `PROVENANCE.md` or legacy archive bridge when old placement matters;
+4. generated reader or builder impact;
+5. validator constant and regression test impact;
+6. decision record when future agents need the rationale.
+
+If that chain is not available, keep the active name and document the ambiguity
+in the owning roadmap, quest, or decision queue instead of renaming by impulse.
+
 ## Active Owner Lookup
 
 This guide intentionally does not list legacy names, old parent forms, old root
@@ -106,7 +140,6 @@ These phrases name validation guard domains, not archive contents.
 
 ## Validation
 
-```bash
-python -m pytest -q tests/test_validate_repo.py -k legacy_naming
-python scripts/validate_repo.py
-```
+Executable checks for legacy naming posture live in
+[docs/AGENTS.md#validation](AGENTS.md#validation) and root
+[AGENTS.md#verify](../AGENTS.md#verify).

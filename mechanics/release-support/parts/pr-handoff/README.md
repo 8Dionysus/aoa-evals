@@ -1,4 +1,4 @@
-# PR Handoff
+# Release Support / PR Handoff Part
 
 ## Role
 
@@ -54,12 +54,7 @@ readiness/strategic closeout artifacts remain stronger than PR-body wording.
 
 ## Validation
 
-```bash
-python -m pytest -q mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py tests/test_validate_repo.py -k release_prep_pr_handoff
-python scripts/validate_repo.py
-python scripts/release_check.py
-```
-
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.
 ## Next Route
 
 Use this part when updating the owner landing handoff. Do not use it to infer

@@ -3,7 +3,7 @@
   "hook_id": "aoa-p-0008-tool-trajectory-hook",
   "playbook_id": "AOA-P-0008",
   "eval_anchor": "aoa-tool-trajectory-discipline",
-  "verdict_bundle_ref": "repo:aoa-evals/bundles/aoa-tool-trajectory-discipline/EVAL.md",
+  "verdict_bundle_ref": "repo:aoa-evals/evals/workflow/aoa-tool-trajectory-discipline/EVAL.md",
   "artifact_inputs": [
     "route_decision",
     "bounded_plan",
@@ -23,9 +23,9 @@
   ],
   "verification_surface": "verification_result",
   "contract_test_refs": [
-    "repo:aoa-evals/bundles/aoa-tool-trajectory-discipline/checks/eval-integrity-check.md",
-    "repo:aoa-evals/bundles/aoa-tool-trajectory-discipline/notes/bounded-promotion-review.md",
-    "repo:aoa-evals/bundles/aoa-tool-trajectory-discipline/notes/proof-surface-contract.md"
+    "repo:aoa-evals/evals/workflow/aoa-tool-trajectory-discipline/checks/eval-integrity-check.md",
+    "repo:aoa-evals/evals/workflow/aoa-tool-trajectory-discipline/notes/bounded-promotion-review.md",
+    "repo:aoa-evals/evals/workflow/aoa-tool-trajectory-discipline/notes/proof-surface-contract.md"
   ],
   "report_expectation": {
     "report_format": "summary-with-breakdown",

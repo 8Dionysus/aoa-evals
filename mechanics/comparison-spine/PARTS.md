@@ -1,4 +1,4 @@
-# Comparison Spine Parts
+# Comparison Spine / Part Index
 
 `mechanics/comparison-spine/parts/` contains the active parts of the
 comparison-spine operation.
@@ -19,8 +19,8 @@ The mechanic owns the route:
 ## Boundary
 
 Parts are not standalone mechanics. They carry comparison-spine fixture and readout surfaces
-while source claim meaning stays in `bundles/*/EVAL.md` and
-`bundles/*/eval.yaml`, and generated comparison readers stay derived.
+while source claim meaning stays in `evals/**/EVAL.md` and
+`evals/**/eval.yaml`, and generated comparison readers stay derived.
 
 ## Part Contract
 
@@ -36,5 +36,5 @@ comparison posture and read order; generated readers remain derived.
 Stop-lines forbid style-only movement, repo-global scoring, broad growth proof,
 or treating a shared dossier as stronger than the source proof object.
 
-Validation is `python scripts/build_catalog.py --check` plus
-`python scripts/validate_repo.py`.
+Validation routes through [AGENTS](AGENTS.md#validation), including generated
+comparison-spine and repo validation lanes.

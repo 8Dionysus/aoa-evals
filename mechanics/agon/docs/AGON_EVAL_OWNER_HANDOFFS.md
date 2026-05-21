@@ -60,7 +60,6 @@ Output owners:
 
 ## Validation
 
-```bash
-python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_guidance_boundary
-python scripts/validate_repo.py
-```
+Use `mechanics/agon/AGENTS.md#validation` for executable validation commands.
+This mechanic-wide guide names owner handoff boundaries; the route card owns
+command execution.

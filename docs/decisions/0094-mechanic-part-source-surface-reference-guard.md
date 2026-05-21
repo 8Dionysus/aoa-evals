@@ -53,7 +53,7 @@ evidence. It does require the reference to be honest and current.
 ## Boundaries
 
 This decision does not create a new mechanic parent, move source proof bundles
-out of `bundles/`, or make `Source Surfaces` stronger than the owning bundle,
+out of `evals/`, or make `Source Surfaces` stronger than the owning bundle,
 decision, sibling repository, generated builder, or live operator surface.
 
 It does not execute all part validation commands. Validation command

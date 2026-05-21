@@ -1,4 +1,4 @@
-# Mechanics
+# Mechanics Operation Atlas
 
 ## Role
 
@@ -10,6 +10,34 @@ proof bundle directory. A mechanic exists only when a recurring operation has
 source surfaces, inputs, outputs, boundaries, and validation.
 
 The rule for this atlas is simple: no empty package taxonomy.
+
+## Traversal Index
+
+Use mechanics as a lower proof index, not as a flat directory list.
+
+Top-down route:
+
+`mechanics/README.md -> mechanics/<parent>/README.md -> DIRECTION.md -> PARTS.md -> parts/<part>/README.md -> payload subdirectory -> validation command`
+
+Bottom-up route:
+
+`payload file -> nearest part README -> parent PARTS.md -> parent DIRECTION.md -> parent README -> mechanics/EVIDENCE_CLUSTERS.md -> docs/PROOF_TOPOLOGY.md`
+
+| Layer | Primary route | What it answers |
+| --- | --- | --- |
+| parent operation | `mechanics/<parent>/README.md` | what repeatable proof operation this parent owns |
+| current contour | `mechanics/<parent>/DIRECTION.md` | what is active now, what is deferred, and what stop-lines apply |
+| part set | `mechanics/<parent>/PARTS.md` | which parts exist and how they relate to inputs, outputs, owner split, stop-lines, and validation |
+| local part contract | `mechanics/<parent>/parts/<part>/README.md` | source surfaces, payload classes, local validation, and part-specific boundaries |
+| payload | `docs/`, `examples/`, `fixtures/`, `schemas/`, `scripts/`, `tests/`, `reports/`, `generated/`, or other part-local payload homes | the actual proof-support material owned by the part |
+| route law | nearest `AGENTS.md` | how an agent may edit the surface and what to verify before closeout |
+| evidence class | `mechanics/EVIDENCE_CLUSTERS.md` and `docs/PROOF_TOPOLOGY.md` | why the parent exists and what authority class the artifact belongs to |
+
+When starting from a payload, recover the nearest part first. When starting from
+a parent, read `DIRECTION.md` before part details. When a path looks legacy,
+enter through `PROVENANCE.md` before opening archive internals.
+
+## Evidence Atlas
 
 Use [`mechanics/EVIDENCE_CLUSTERS.md`](EVIDENCE_CLUSTERS.md) before moving
 root-district artifacts into or between packages. It records which parent names
@@ -49,19 +77,21 @@ unexpected part-root files are rejected so part-local proof material cannot
 hide behind a plausible part name.
 A part with no payload subdirectories is allowed only as a bundle-backed thin
 support route: the README must say there are no part-local payload
-subdirectories and that the source proof bundle stays under `bundles/`.
+subdirectories and that the source proof bundle stays under `evals/`.
 Every concrete part README must expose a plural `## Source Surfaces` section
 with at least one path-like source ref. That section must keep path-like
 references reachable as an existing repo-relative path, a matching
 repo-relative glob, a repo-qualified sibling ref, or an explicit placeholder
 route. A stale source surface ref is rejected so old root payload names cannot
 keep steering active part work after a mechanics move.
-Every part `## Validation` section must list at least one python command with a
-repo-relative reachable path. A stale validation path or absolute local path is
-rejected because validation is part of the mechanic part boundary, not a
-decorative afterthought. If a part has local payload subdirectories, its
-validation section must also carry a payload coverage anchor: a part-local path
-or a specific `python scripts/validate_repo.py --eval ...` route. Naked
+Every part `## Validation` section must route to part-local `VALIDATION.md`.
+Every part `VALIDATION.md` must route to the parent `parts/AGENTS.md` validation
+lane, where centralized child validation blocks own the executable python
+commands. Each command must name a repo-relative reachable path. A stale validation path
+or absolute local path is rejected because validation is part of
+the mechanic part boundary, not a decorative afterthought. If a part has local
+payload subdirectories, the combined validation route must also carry a payload coverage anchor:
+a part-local path or a bundle-targeted validation route. Naked
 route-wide commands are not enough for payload-bearing parts.
 Every parent `PARTS.md` must keep its declared part route set synchronized with
 the actual `parts/` directories it owns. A stale local part route is rejected,
@@ -135,10 +165,10 @@ complete, bounded, and stronger than generated or emitted companions:
 
 `origin proof pressure -> source proof bundle -> proof-object completeness review -> generated reader derivation -> bundle-local report or downstream route`
 
-It routes `bundles/*/EVAL.md`, `bundles/*/eval.yaml`, the
+It routes `evals/**/EVAL.md`, `evals/**/eval.yaml`, the
 `bundle-authoring` template part, the `bundle-contracts` schema part, proof
 review guides, generated catalog readers, and lifecycle posture without moving
-`bundles/`.
+`evals/`.
 
 ### `proof-loop`
 
@@ -238,7 +268,7 @@ return-anchor fixtures, memo-recall fixtures and phase-alpha report checks,
 recursor readiness boundary fixture, scorer, runner, and test surfaces, stats
 re-grounding fixture/report checks, recurrence component manifests, and
 portable-proof beacon hook bindings while keeping source proof bundles under
-`bundles/`.
+`evals/`.
 
 ### `checkpoint`
 
@@ -250,7 +280,7 @@ bounded on the eval side:
 It routes A2A summon return checkpoint support, restartable-inquiry checkpoint
 support, self-agent checkpoint posture, checkpoint-specific hook examples, and
 part-local fixture/test surfaces while keeping source proof bundles under
-`bundles/` and hook schema/readers under `mechanics/audit/`.
+`evals/` and hook schema/readers under `mechanics/audit/`.
 
 ### `experience`
 
@@ -262,7 +292,7 @@ bounded on the eval side:
 It routes experience protocol integrity, certification gate, adoption
 federation, governance/runtime-boundary, and office release-train support
 surfaces through active parts while keeping source proof bundles under
-`bundles/` and stronger owner truth in its owning repositories.
+`evals/` and stronger owner truth in its owning repositories.
 
 ### `antifragility`
 
@@ -273,7 +303,7 @@ work bounded on the eval side:
 
 It routes first-wave posture review, repeated-window stress recovery support,
 and bounded repair-proof support through active parts while keeping source
-proof bundles under `bundles/`, comparison readout discipline under
+proof bundles under `evals/`, comparison readout discipline under
 `comparison-spine`, runtime-chaos selected evidence under `audit`, and
 diagnosis-cause discipline routed through `growth-cycle/diagnosis-gate`.
 
@@ -285,7 +315,7 @@ work bounded on the eval side:
 `growth-refinery pressure -> lineage or owner-landing proof question -> part-local fixture family -> bundle-local review -> bounded verdict or owner handoff`
 
 It routes candidate-lineage and owner-landing support through active parts while
-keeping source proof bundles under `bundles/`, final object truth with owner
+keeping source proof bundles under `evals/`, final object truth with owner
 repositories, repair proof under `antifragility`, and diagnosis-cause
 discipline routed through `growth-cycle/diagnosis-gate`.
 
@@ -325,7 +355,7 @@ bounded on the eval side:
 It routes `aoa-compost-provenance-preservation` through
 `compost-provenance` and `aoa-memo-reviewed-candidate-adoption-integrity`
 through `runtime-candidate-adoption` while keeping source proof bundles under
-`bundles/`, runtime-pack bridge metadata under `audit`, generic Experience
+`evals/`, runtime-pack bridge metadata under `audit`, generic Experience
 adoption under `experience`, and memo recall, memo contradiction, and base
 writeback-act proof outside this package until separate evidence proves a
 Distillation part.
@@ -397,15 +427,9 @@ bundles, decision records, generated builders, or sibling-owner truth.
 
 ## Validation
 
-After editing mechanics surfaces, run:
+Executable commands for this mechanics atlas live in
+[mechanics/AGENTS.md#validation](AGENTS.md#validation).
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
-
-If the changed package touches generated quest readers, also run:
-
-```bash
-python scripts/build_catalog.py --check
-```
+For package-local work, start with the nearest package `AGENTS.md` and add the
+central mechanics lane only when registry, parent topology, part topology,
+generated readers, public route surfaces, or release-bound proof claims move.

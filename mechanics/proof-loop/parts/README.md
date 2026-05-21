@@ -1,4 +1,4 @@
-# Proof Loop Parts
+# Proof Loop / Parts Route
 
 `parts/` contains proof-loop-owned artifacts that are narrower than the parent
 mechanic but too operational to stay in root districts.

@@ -3,9 +3,9 @@
   "schema_version": 1,
   "review_id": "eval-result-receipt-intake-dry-review-v1",
   "reviewed_at": "2026-05-19",
-  "source_report_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
-  "source_bundle_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/EVAL.md",
-  "source_manifest_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/eval.yaml",
+  "source_report_ref": "repo:aoa-evals/evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+  "source_bundle_ref": "repo:aoa-evals/evals/workflow/aoa-verification-honesty/EVAL.md",
+  "source_manifest_ref": "repo:aoa-evals/evals/workflow/aoa-verification-honesty/eval.yaml",
   "report_index_ref": "repo:aoa-evals/generated/eval_report_index.min.json",
   "receipt_payload_schema_ref": "repo:aoa-evals/mechanics/publication-receipts/parts/receipt-payload/schemas/eval-result-receipt.schema.json",
   "event_envelope_schema_ref": "repo:aoa-evals/mechanics/publication-receipts/parts/stats-envelope-mirror/schemas/stats-event-envelope.schema.json",
@@ -18,8 +18,8 @@
     "verdict": "supports bounded claim",
     "claim_scope": "bundle_scoped",
     "comparison_mode": "none",
-    "bundle_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/EVAL.md",
-    "report_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+    "bundle_ref": "repo:aoa-evals/evals/workflow/aoa-verification-honesty/EVAL.md",
+    "report_ref": "repo:aoa-evals/evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
     "case_count": 1,
     "score": null,
     "interpretation_bound": "Dry review only. This payload preview is derivable from the reviewed bundle-local report and does not publish an eval result receipt, does not append to `.aoa/live_receipts/`, and does not replace bundle-local verdict meaning."
@@ -35,7 +35,7 @@
     {
       "check_id": "source_report_exists",
       "result": "pass",
-      "evidence_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json"
+      "evidence_ref": "repo:aoa-evals/evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json"
     },
     {
       "check_id": "source_report_is_indexed",

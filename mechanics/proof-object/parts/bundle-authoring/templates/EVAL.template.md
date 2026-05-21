@@ -166,8 +166,8 @@ Describe how to run the eval reproducibly:
 
 If the bundle ships a machine-readable public report artifact,
 also note:
-- the bundle-local runner contract at `bundles/<bundle>/runners/contract.json`
-- the bundle-local report schema at `bundles/<bundle>/reports/summary.schema.json`
+- the bundle-local runner contract at `evals/<family>/<eval>/runners/contract.json`
+- the bundle-local report schema at `evals/<family>/<eval>/reports/summary.schema.json`
 - how local fixture replacement stays bounded
 - if the bundle participates in more than one shared proof flow, keep the primary family and dossier in the primary contract fields and record any additional shared family or dossier paths in bundle-local contract arrays
 
@@ -181,16 +181,16 @@ also note:
 
 For public starter bundles, also ship:
 - `notes/origin-need.md` or another tracked `origin_need` evidence note
-- `bundles/<bundle>/examples/example-report.md`
+- `evals/<family>/<eval>/examples/example-report.md`
 - explicit manifest evidence entries for public support artifacts
 - an integrity-review artifact such as `checks/eval-integrity-check.md`
 
 If the bundle is starting to act as a reusable proof instrument,
 also consider shipping:
-- `bundles/<bundle>/fixtures/contract.json`
-- `bundles/<bundle>/runners/contract.json`
-- `bundles/<bundle>/reports/summary.schema.json`
-- `bundles/<bundle>/reports/example-report.json`
+- `evals/<family>/<eval>/fixtures/contract.json`
+- `evals/<family>/<eval>/runners/contract.json`
+- `evals/<family>/<eval>/reports/summary.schema.json`
+- `evals/<family>/<eval>/reports/example-report.json`
 
 ## Failure modes
 

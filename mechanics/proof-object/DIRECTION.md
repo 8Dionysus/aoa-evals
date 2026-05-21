@@ -15,11 +15,11 @@ bridge.
 - `parts/`: bundle-authoring and bundle-contract support.
 - `PROVENANCE.md`: controlled bridge from active route to old template and schema placement.
 - `legacy/`: lineage only; not a template alias.
-- `bundles/`: source proof objects and stronger claim meaning.
+- `evals/`: source proof objects and stronger claim meaning.
 
 ## Current contour
 
-- Keep `bundles/*/EVAL.md` and `bundles/*/eval.yaml` as bundle meaning.
+- Keep `evals/**/EVAL.md` and `evals/**/eval.yaml` as bundle meaning.
 - Keep authoring templates and schemas under parts as support, not source
   replacement.
 - Keep generated catalogs derived from source bundles.
@@ -29,7 +29,7 @@ bridge.
 
 Add proof-object parts only when they improve source bundle completeness,
 contract validation, authoring discipline, or generated derivation without
-moving bundle meaning out of `bundles/`.
+moving bundle meaning out of `evals/`.
 
 ## Stop-lines
 

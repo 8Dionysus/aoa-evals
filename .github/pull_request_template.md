@@ -16,9 +16,9 @@
 
 ## VERIFY
 <!--
-- `python scripts/validate_repo.py` status
-- `python scripts/build_catalog.py` status when relevant
-- `pytest` modules actually run
+- root `AGENTS.md#verify` status
+- generated/readout parity status when relevant
+- pytest modules actually run
 - comparison or chooser surfaces manually re-read
 - what was not run
 -->

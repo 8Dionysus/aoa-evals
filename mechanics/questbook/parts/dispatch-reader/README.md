@@ -1,4 +1,4 @@
-# Quest Dispatch Reader
+# Questbook / Quest Dispatch Reader Part
 
 ## Role
 
@@ -62,10 +62,4 @@ for generated quest navigation.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/questbook/parts/dispatch-reader/`.
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

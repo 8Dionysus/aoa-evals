@@ -12,7 +12,7 @@ deferred-stage question:
 5. this legacy directory
 
 There are no raw files moved into this legacy directory in the first
-`growth-cycle` slice. The source proof bundle remains under `bundles/`, and
+`growth-cycle` slice. The source proof bundle remains under `evals/`, and
 deferred closeout, harvest, repair, progression, and quest pressure remains in
 its current owner routes.
 

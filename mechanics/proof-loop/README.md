@@ -50,7 +50,7 @@ does not replace the packages that own each step.
 | Step | Owner route | Output |
 | --- | --- | --- |
 | pick proof question | `EVAL_SELECTION.md`, `EVAL_INDEX.md`, `generated/eval_catalog.min.json` | one bounded eval candidate |
-| inspect source bundle | `mechanics/proof-object/` and `bundles/*/EVAL.md` | bounded claim and proof-object boundary |
+| inspect source bundle | `mechanics/proof-object/` and `evals/**/EVAL.md` | bounded claim and proof-object boundary |
 | expand support contract | `mechanics/proof-infra/` plus bundle-local fixtures, runners, schemas, reports, or examples | reviewable evidence contract |
 | select candidate evidence | `mechanics/audit/` or `mechanics/boundary-bridge/` | candidate packet or cited owner ref |
 | review against bundle | `docs/EVAL_REVIEW_GUIDE.md` and bundle-local report contract | bounded review result |
@@ -105,7 +105,7 @@ Current parts:
 ## First Bundle-Local Report
 
 The first schema-backed bundle-local proof-loop report is
-`bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`.
+`evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`.
 
 It evaluates the verification-truthfulness closeout for the slice 19 quest
 lifecycle contract. It is a real `aoa-verification-honesty` report, not a
@@ -150,15 +150,12 @@ This package only coordinates the loop between them.
 
 ## Validation
 
-After changing proof-loop route surfaces, run:
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
-
-If generated readers, runtime candidate readers, quest readers, or receipt
-surfaces change, also run their owning builders or tests.
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.
 
 ## Next Route
 

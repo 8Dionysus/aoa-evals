@@ -7,7 +7,7 @@ from jsonschema import Draft202012Validator
 
 
 REPO_ROOT = Path(__file__).resolve().parents[5]
-REPORT_DIR = REPO_ROOT / "bundles" / "aoa-memo-recall-integrity" / "reports"
+REPORT_DIR = REPO_ROOT / "evals" / "workflow" / "aoa-memo-recall-integrity" / "reports"
 REPORT_PATH = REPORT_DIR / "phase-alpha-memo-recall-rerun.report.json"
 SCHEMA_PATH = REPORT_DIR / "summary.schema.json"
 SELECTION_PATH = (

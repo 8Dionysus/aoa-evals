@@ -81,7 +81,7 @@
       "summary": "First local proof-loop smoke, bundle-local report, report index, receipt-intake dry review, release readiness, and strategic closeout reports.",
       "evidence_refs": [
         "repo:aoa-evals/mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
-        "repo:aoa-evals/bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+        "repo:aoa-evals/evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
         "repo:aoa-evals/generated/eval_report_index.min.json",
         "repo:aoa-evals/mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json",
         "repo:aoa-evals/mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json",

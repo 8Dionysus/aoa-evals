@@ -17,12 +17,12 @@ operation materializes the center recurrence mechanic on the proof side.
 
 - `mechanics/recurrence/docs/RECURRENCE_PROOF_PROGRAM.md`
 - `mechanics/recurrence/parts/control-plane-integrity/docs/RECURRENCE_CONTROL_PLANE_EVALS.md`
-- `bundles/aoa-recurrence-control-plane-integrity/EVAL.md`
-- `bundles/aoa-return-anchor-integrity/EVAL.md`
-- `bundles/aoa-memo-recall-integrity/EVAL.md`
-- `bundles/aoa-stats-regrounding-boundary-integrity/EVAL.md`
-- `bundles/aoa-continuity-anchor-integrity/EVAL.md`
-- `bundles/aoa-self-reanchor-correctness/EVAL.md`
+- `evals/boundary/aoa-recurrence-control-plane-integrity/EVAL.md`
+- `evals/workflow/aoa-return-anchor-integrity/EVAL.md`
+- `evals/workflow/aoa-memo-recall-integrity/EVAL.md`
+- `evals/boundary/aoa-stats-regrounding-boundary-integrity/EVAL.md`
+- `evals/capability/aoa-continuity-anchor-integrity/EVAL.md`
+- `evals/boundary/aoa-self-reanchor-correctness/EVAL.md`
 - `mechanics/recurrence/parts/control-plane-integrity/fixtures/recurrence-control-plane-integrity-v1/README.md`
 - `mechanics/recurrence/parts/control-plane-integrity/scripts/run_recurrence_control_plane_integrity_eval.py`
 - `mechanics/recurrence/parts/control-plane-integrity/scorers/recurrence_control_plane_integrity.py`
@@ -43,7 +43,7 @@ See [PARTS.md](PARTS.md).
 The current active parts are `control-plane-integrity`, `anchor-return`,
 `memory-recall`, `recursor-boundary`, `stats-regrounding-boundary`, and
 `portable-proof-beacons`. Continuity-anchor and self-reanchor bundles remain
-source proof objects under `bundles/` until their support artifacts justify a
+source proof objects under `evals/` until their support artifacts justify a
 narrower part.
 
 ## Inputs
@@ -105,10 +105,9 @@ work starts from this README, [PARTS.md](PARTS.md), and the active part.
 
 ## Validation
 
-```bash
-python mechanics/recurrence/parts/control-plane-integrity/scripts/run_recurrence_control_plane_integrity_eval.py --case mechanics/recurrence/parts/control-plane-integrity/fixtures/recurrence-control-plane-integrity-v1/cases/RCPI-001.registry-mixed-manifests.json --check-expected --json
-python -m pytest -q mechanics/recurrence/parts/control-plane-integrity/tests/test_recurrence_control_plane_integrity_eval_seed.py
-python mechanics/recurrence/parts/recursor-boundary/scripts/run_recursor_readiness_boundary_eval.py --case mechanics/recurrence/parts/recursor-boundary/fixtures/recursor-readiness-boundary-v1/cases/RRB-001.no-spawn-readiness.json --check-expected --json
-python -m pytest -q mechanics/recurrence/parts/recursor-boundary/tests/test_recursor_readiness_boundary_eval_seed.py mechanics/recurrence/parts/memory-recall/tests/test_memo_recall_phase_alpha_report.py mechanics/recurrence/parts/stats-regrounding-boundary/tests/test_stats_regrounding_boundary_eval.py
-python scripts/validate_repo.py
-```
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
+
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.

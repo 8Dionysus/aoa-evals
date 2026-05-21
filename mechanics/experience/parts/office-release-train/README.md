@@ -1,4 +1,4 @@
-# Office Release Train Part
+# Experience / Office Release Train Part
 
 ## Role
 
@@ -57,7 +57,4 @@ execution, or release-support publication.
 
 ## Validation
 
-```bash
-python -m pytest -q mechanics/experience/parts/office-release-train/tests
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

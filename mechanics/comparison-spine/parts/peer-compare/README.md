@@ -1,4 +1,4 @@
-# Peer Compare Part
+# Comparison Spine / Peer Compare Part
 
 ## Role
 
@@ -57,9 +57,4 @@ draft bridge by association.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/comparison-spine/parts/peer-compare/`.
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

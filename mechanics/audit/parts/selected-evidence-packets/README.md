@@ -1,4 +1,4 @@
-# Selected Evidence Packets
+# Audit / Selected Evidence Packets Part
 
 ## Role
 
@@ -54,10 +54,4 @@ bundle-local review confirms how the owning eval may read it.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/audit/parts/selected-evidence-packets/`.
-
-```bash
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

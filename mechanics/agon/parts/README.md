@@ -1,4 +1,4 @@
-# Agon Parts
+# Agon / Parts Route
 
 `parts/` contains the artifact-owning families of the Agon mechanic.
 

@@ -1,4 +1,4 @@
-# Growth-cycle Parts
+# Growth-cycle / Part Index
 
 `mechanics/growth-cycle/parts/` contains the active parts of the eval-side
 Growth Cycle proof operation.

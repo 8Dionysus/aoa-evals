@@ -17,7 +17,7 @@ bridge.
   readers, and integrity-review support.
 - `PROVENANCE.md`: controlled bridge from active route to old runtime-evidence placement.
 - `legacy/`: lineage only; not an evidence dump.
-- `bundles/`: source proof objects that decide whether candidate evidence is
+- `evals/`: source proof objects that decide whether candidate evidence is
   accepted.
 
 ## Current contour

@@ -18,7 +18,7 @@ bridge.
 - `PROVENANCE.md`: controlled bridge from active route to historical Agon placement and wave
   accounting.
 - `legacy/`: lineage only; not a new-work entrypoint.
-- `bundles/`: source proof objects that remain stronger than alignment support.
+- `evals/`: source proof objects that remain stronger than alignment support.
 
 ## Current contour
 

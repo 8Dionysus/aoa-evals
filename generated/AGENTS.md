@@ -8,26 +8,16 @@ Local guidance for `generated/`.
 generated companions live under their mechanic part and follow the same
 derived-surface posture. No generated file is source-owned doctrine.
 
-## Current surfaces
+Use [README.md](README.md) for the generated reader index. This card owns edit
+law and validation posture.
 
-- `generated/eval_catalog.json`
-- `generated/eval_catalog.min.json`
-- `generated/eval_capsules.json`
-- `generated/comparison_spine.json`
-- `generated/eval_sections.full.json`
-- `generated/eval_report_index.min.json`
-- `mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json`
-- `mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json`
-- `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated/phase_alpha_eval_matrix.min.json`
-- `generated/quest_catalog.min.json`
-- `generated/quest_catalog.min.example.json`
-- `generated/quest_dispatch.min.json`
-- `generated/quest_dispatch.min.example.json`
-- Agon generated registries now live under `mechanics/agon/parts/*/generated/`
-- RPG unlock proof generated/example cards now live under
-  `mechanics/rpg/parts/progression-unlocks/generated/`
-- Phase Alpha eval matrix generated output now lives under
-  `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated/`
+The root reader names guarded here are `generated/eval_catalog.json`,
+`generated/eval_catalog.min.json`, `generated/eval_capsules.json`,
+`generated/comparison_spine.json`, `generated/eval_sections.full.json`, and
+`generated/eval_report_index.min.json`, plus the quest reader pair
+`generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`,
+`generated/quest_catalog.min.example.json`, and
+`generated/quest_dispatch.min.example.json`.
 
 ## Rules
 
@@ -47,6 +37,22 @@ Keep catalogs, capsules, sections, comparison spine, report index, runtime
 candidate readers, quest readers, part-local Agon registries, part-local RPG
 unlock proof cards, and the part-local Phase Alpha eval matrix aligned with
 their source surfaces.
+
+## Validation
+
+For generated-reader freshness, run the matching non-mutating checks:
+
+```bash
+python scripts/build_catalog.py --check
+python scripts/generate_eval_report_index.py --check
+python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
+python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
+python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
+python scripts/validate_repo.py
+```
+
+Use source-owner checks as well when generated drift comes from bundle, quest,
+report, or mechanic payload changes.
 
 ## Do not store
 

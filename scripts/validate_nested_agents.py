@@ -27,7 +27,7 @@ REQUIRED_AGENTS: dict[str, tuple[str, ...]] = {
         "generated surfaces",
         "validate_nested_agents.py",
     ),
-    "bundles/AGENTS.md": (
+    "evals/AGENTS.md": (
         "EVAL.md",
         "eval.yaml",
         "bounded claim",

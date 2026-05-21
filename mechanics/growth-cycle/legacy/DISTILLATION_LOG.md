@@ -7,11 +7,11 @@ The first eval-side Growth Cycle package was created with only
 
 Distilled into active route:
 
-- `bundles/aoa-diagnosis-cause-discipline/EVAL.md`
-- `bundles/aoa-diagnosis-cause-discipline/eval.yaml`
-- `bundles/aoa-diagnosis-cause-discipline/notes/diagnosis-contract.md`
-- `bundles/aoa-diagnosis-cause-discipline/examples/example-report.md`
-- `bundles/aoa-diagnosis-cause-discipline/checks/eval-integrity-check.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/EVAL.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/eval.yaml`
+- `evals/workflow/aoa-diagnosis-cause-discipline/notes/diagnosis-contract.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/examples/example-report.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/checks/eval-integrity-check.md`
 - the method-growth deferral that named `growth-cycle/diagnosis-gate`
 
 Intentionally left outside active route:
@@ -24,4 +24,4 @@ Intentionally left outside active route:
   eval-side proof operation
 
 No root files were moved in this slice. The source bundle remained under
-`bundles/` because bundle meaning is stronger than the mechanic route card.
+`evals/` because bundle meaning is stronger than the mechanic route card.

@@ -1,4 +1,4 @@
-# Adoption Federation Part
+# Experience / Adoption Federation Part
 
 ## Role
 
@@ -6,7 +6,7 @@ This part owns the support route for Experience adoption proof.
 
 It keeps adoption, consent, shadow, agonic adoption, compatibility,
 federation-harvest, KAG/ToS boundary, and owner adoption support together
-while source proof bundles stay under `bundles/`.
+while source proof bundles stay under `evals/`.
 
 ## Source Surfaces
 
@@ -61,8 +61,4 @@ This part must not claim:
 
 ## Validation
 
-```bash
-python -m pytest -q mechanics/experience/parts/adoption-federation/tests
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

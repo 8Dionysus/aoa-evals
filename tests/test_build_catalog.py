@@ -20,7 +20,7 @@ from validate_repo import (
     collect_catalog_records,
 )
 
-from test_validate_repo import add_peer_compare_proof_artifacts, make_eval_bundle
+from test_validate_repo import add_peer_compare_proof_artifacts, make_eval_bundle, eval_dir_for_test
 
 
 def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None:
@@ -41,8 +41,8 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
 
     assert full_catalog["catalog_version"] == 1
     assert full_catalog["source_of_truth"] == {
-        "eval_markdown": "bundles/*/EVAL.md",
-        "eval_manifest": "bundles/*/eval.yaml",
+        "eval_markdown": "evals/**/EVAL.md",
+        "eval_manifest": "evals/**/eval.yaml",
     }
     entry = next(item for item in full_catalog["evals"] if item["name"] == "aoa-catalog-shape")
     assert entry["technique_refs"] == [
@@ -141,7 +141,7 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
         ],
         "evidence_kinds": ["origin_need", "integrity_check"],
         "proof_surface_kinds": [],
-        "eval_path": "bundles/aoa-catalog-shape/EVAL.md",
+        "eval_path": "evals/workflow/aoa-catalog-shape/EVAL.md",
     }
 
     section_entry = next(item for item in sections["evals"] if item["name"] == "aoa-catalog-shape")
@@ -205,7 +205,7 @@ def test_build_catalog_keeps_primary_proof_artifact_paths_when_additional_paths_
 def test_build_catalog_rejects_invalid_dependency_contract(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-invalid-contract")
 
-    manifest_path = tmp_path / "bundles" / "aoa-invalid-contract" / "eval.yaml"
+    manifest_path = eval_dir_for_test(tmp_path, "aoa-invalid-contract") / "eval.yaml"
     manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
     manifest["technique_dependencies"][0]["repo"] = "example/other-repo"
     manifest["technique_dependencies"][0]["path"] = "../bad/path.md"
@@ -226,7 +226,7 @@ def test_build_catalog_rejects_invalid_dependency_contract(tmp_path: Path) -> No
 def test_build_catalog_rejects_missing_required_section_contract(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-missing-section")
 
-    eval_md_path = tmp_path / "bundles" / "aoa-missing-section" / "EVAL.md"
+    eval_md_path = eval_dir_for_test(tmp_path, "aoa-missing-section") / "EVAL.md"
     eval_md_path.write_text(
         eval_md_path.read_text(encoding="utf-8").replace(
             "## Skill traceability\n- aoa-change-protocol\n\n",
@@ -257,18 +257,18 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     stress_recovery_artifacts = entries["aoa-stress-recovery-window"]["proof_artifacts"]
 
     assert regression_artifacts["shared_fixture_family_path"] == "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
-    assert regression_artifacts["runner_contract_path"] == "bundles/aoa-regression-same-task/runners/contract.json"
-    assert regression_artifacts["report_schema_path"] == "bundles/aoa-regression-same-task/reports/summary.schema.json"
+    assert regression_artifacts["runner_contract_path"] == "evals/comparison/fixed-baseline/aoa-regression-same-task/runners/contract.json"
+    assert regression_artifacts["report_schema_path"] == "evals/comparison/fixed-baseline/aoa-regression-same-task/reports/summary.schema.json"
     assert regression_artifacts["paired_readout_path"] == "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md"
 
     assert longitudinal_artifacts["shared_fixture_family_path"] == "mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md"
-    assert longitudinal_artifacts["runner_contract_path"] == "bundles/aoa-longitudinal-growth-snapshot/runners/contract.json"
-    assert longitudinal_artifacts["report_schema_path"] == "bundles/aoa-longitudinal-growth-snapshot/reports/summary.schema.json"
+    assert longitudinal_artifacts["runner_contract_path"] == "evals/comparison/longitudinal-window/aoa-longitudinal-growth-snapshot/runners/contract.json"
+    assert longitudinal_artifacts["report_schema_path"] == "evals/comparison/longitudinal-window/aoa-longitudinal-growth-snapshot/reports/summary.schema.json"
     assert longitudinal_artifacts["paired_readout_path"] == "mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md"
 
     assert stress_recovery_artifacts["shared_fixture_family_path"] == "mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md"
-    assert stress_recovery_artifacts["runner_contract_path"] == "bundles/aoa-stress-recovery-window/runners/contract.json"
-    assert stress_recovery_artifacts["report_schema_path"] == "bundles/aoa-stress-recovery-window/reports/summary.schema.json"
+    assert stress_recovery_artifacts["runner_contract_path"] == "evals/comparison/longitudinal-window/aoa-stress-recovery-window/runners/contract.json"
+    assert stress_recovery_artifacts["report_schema_path"] == "evals/comparison/longitudinal-window/aoa-stress-recovery-window/reports/summary.schema.json"
     assert stress_recovery_artifacts["paired_readout_path"] == "mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md"
 
     assert entries["aoa-regression-same-task"]["comparison_surface"]["baseline_target_label"] == "RS-v1 frozen bounded workflow reference"
@@ -299,12 +299,12 @@ def test_real_repo_verification_honesty_exposes_materialized_proof_artifacts() -
     verification_artifacts = entries["aoa-verification-honesty"]["proof_artifacts"]
 
     assert verification_artifacts["shared_fixture_family_path"] == "mechanics/proof-infra/parts/fixture-families/fixtures/verification-honesty-v1/README.md"
-    assert verification_artifacts["fixture_contract_path"] == "bundles/aoa-verification-honesty/fixtures/contract.json"
-    assert verification_artifacts["runner_contract_path"] == "bundles/aoa-verification-honesty/runners/contract.json"
+    assert verification_artifacts["fixture_contract_path"] == "evals/workflow/aoa-verification-honesty/fixtures/contract.json"
+    assert verification_artifacts["runner_contract_path"] == "evals/workflow/aoa-verification-honesty/runners/contract.json"
     assert verification_artifacts["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert verification_artifacts["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert verification_artifacts["report_schema_path"] == "bundles/aoa-verification-honesty/reports/summary.schema.json"
-    assert verification_artifacts["report_example_path"] == "bundles/aoa-verification-honesty/reports/example-report.json"
+    assert verification_artifacts["report_schema_path"] == "evals/workflow/aoa-verification-honesty/reports/summary.schema.json"
+    assert verification_artifacts["report_example_path"] == "evals/workflow/aoa-verification-honesty/reports/example-report.json"
     assert verification_artifacts["paired_readout_path"] is None
 
 
@@ -325,12 +325,12 @@ def test_real_repo_witness_trace_integrity_enters_generated_surfaces_with_materi
     assert witness_entry["status"] == "draft"
     assert witness_entry["portability_level"] == "local-shaped"
     assert witness_entry["proof_artifacts"]["shared_fixture_family_path"] == "mechanics/proof-infra/parts/fixture-families/fixtures/witness-trace-v1/README.md"
-    assert witness_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-witness-trace-integrity/fixtures/contract.json"
-    assert witness_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-witness-trace-integrity/runners/contract.json"
+    assert witness_entry["proof_artifacts"]["fixture_contract_path"] == "evals/workflow/aoa-witness-trace-integrity/fixtures/contract.json"
+    assert witness_entry["proof_artifacts"]["runner_contract_path"] == "evals/workflow/aoa-witness-trace-integrity/runners/contract.json"
     assert witness_entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert witness_entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert witness_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-witness-trace-integrity/reports/summary.schema.json"
-    assert witness_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-witness-trace-integrity/reports/example-report.json"
+    assert witness_entry["proof_artifacts"]["report_schema_path"] == "evals/workflow/aoa-witness-trace-integrity/reports/summary.schema.json"
+    assert witness_entry["proof_artifacts"]["report_example_path"] == "evals/workflow/aoa-witness-trace-integrity/reports/example-report.json"
     assert witness_entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(entry["name"] == "aoa-witness-trace-integrity" for entry in capsules["evals"])
@@ -355,12 +355,12 @@ def test_real_repo_compost_provenance_preservation_enters_generated_surfaces_wit
     assert compost_entry["status"] == "draft"
     assert compost_entry["portability_level"] == "local-shaped"
     assert compost_entry["proof_artifacts"]["shared_fixture_family_path"] == "mechanics/distillation/parts/compost-provenance/fixtures/compost-provenance-v1/README.md"
-    assert compost_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-compost-provenance-preservation/fixtures/contract.json"
-    assert compost_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-compost-provenance-preservation/runners/contract.json"
+    assert compost_entry["proof_artifacts"]["fixture_contract_path"] == "evals/artifact/aoa-compost-provenance-preservation/fixtures/contract.json"
+    assert compost_entry["proof_artifacts"]["runner_contract_path"] == "evals/artifact/aoa-compost-provenance-preservation/runners/contract.json"
     assert compost_entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert compost_entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert compost_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-compost-provenance-preservation/reports/summary.schema.json"
-    assert compost_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-compost-provenance-preservation/reports/example-report.json"
+    assert compost_entry["proof_artifacts"]["report_schema_path"] == "evals/artifact/aoa-compost-provenance-preservation/reports/summary.schema.json"
+    assert compost_entry["proof_artifacts"]["report_example_path"] == "evals/artifact/aoa-compost-provenance-preservation/reports/example-report.json"
     assert compost_entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(entry["name"] == "aoa-compost-provenance-preservation" for entry in capsules["evals"])
@@ -385,12 +385,12 @@ def test_real_repo_scope_drift_detection_keeps_bounded_status_while_exposing_mat
     assert scope_entry["status"] == "bounded"
     assert scope_entry["portability_level"] == "local-shaped"
     assert scope_entry["proof_artifacts"]["shared_fixture_family_path"] == "mechanics/proof-infra/parts/fixture-families/fixtures/scope-drift-bounded-v1/README.md"
-    assert scope_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-scope-drift-detection/fixtures/contract.json"
-    assert scope_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-scope-drift-detection/runners/contract.json"
+    assert scope_entry["proof_artifacts"]["fixture_contract_path"] == "evals/boundary/aoa-scope-drift-detection/fixtures/contract.json"
+    assert scope_entry["proof_artifacts"]["runner_contract_path"] == "evals/boundary/aoa-scope-drift-detection/runners/contract.json"
     assert scope_entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert scope_entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert scope_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-scope-drift-detection/reports/summary.schema.json"
-    assert scope_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-scope-drift-detection/reports/example-report.json"
+    assert scope_entry["proof_artifacts"]["report_schema_path"] == "evals/boundary/aoa-scope-drift-detection/reports/summary.schema.json"
+    assert scope_entry["proof_artifacts"]["report_example_path"] == "evals/boundary/aoa-scope-drift-detection/reports/example-report.json"
     assert scope_entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(entry["name"] == "aoa-scope-drift-detection" for entry in capsules["evals"])
@@ -415,12 +415,12 @@ def test_real_repo_ambiguity_handling_keeps_bounded_status_while_exposing_materi
     assert ambiguity_entry["status"] == "bounded"
     assert ambiguity_entry["portability_level"] == "local-shaped"
     assert ambiguity_entry["proof_artifacts"]["shared_fixture_family_path"] == "mechanics/proof-infra/parts/fixture-families/fixtures/ambiguity-bounded-v1/README.md"
-    assert ambiguity_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-ambiguity-handling/fixtures/contract.json"
-    assert ambiguity_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-ambiguity-handling/runners/contract.json"
+    assert ambiguity_entry["proof_artifacts"]["fixture_contract_path"] == "evals/stress/aoa-ambiguity-handling/fixtures/contract.json"
+    assert ambiguity_entry["proof_artifacts"]["runner_contract_path"] == "evals/stress/aoa-ambiguity-handling/runners/contract.json"
     assert ambiguity_entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert ambiguity_entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert ambiguity_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-ambiguity-handling/reports/summary.schema.json"
-    assert ambiguity_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-ambiguity-handling/reports/example-report.json"
+    assert ambiguity_entry["proof_artifacts"]["report_schema_path"] == "evals/stress/aoa-ambiguity-handling/reports/summary.schema.json"
+    assert ambiguity_entry["proof_artifacts"]["report_example_path"] == "evals/stress/aoa-ambiguity-handling/reports/example-report.json"
     assert ambiguity_entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(entry["name"] == "aoa-ambiguity-handling" for entry in capsules["evals"])
@@ -447,12 +447,12 @@ def test_real_repo_candidate_lineage_integrity_exposes_materialized_proof_artifa
     assert entry["proof_artifacts"]["shared_fixture_family_path"] == (
         "mechanics/method-growth/parts/candidate-lineage/fixtures/candidate-lineage-v1/README.md"
     )
-    assert entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-candidate-lineage-integrity/fixtures/contract.json"
-    assert entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-candidate-lineage-integrity/runners/contract.json"
+    assert entry["proof_artifacts"]["fixture_contract_path"] == "evals/capability/aoa-candidate-lineage-integrity/fixtures/contract.json"
+    assert entry["proof_artifacts"]["runner_contract_path"] == "evals/capability/aoa-candidate-lineage-integrity/runners/contract.json"
     assert entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-candidate-lineage-integrity/reports/summary.schema.json"
-    assert entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-candidate-lineage-integrity/reports/example-report.json"
+    assert entry["proof_artifacts"]["report_schema_path"] == "evals/capability/aoa-candidate-lineage-integrity/reports/summary.schema.json"
+    assert entry["proof_artifacts"]["report_example_path"] == "evals/capability/aoa-candidate-lineage-integrity/reports/example-report.json"
     assert entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(item["name"] == "aoa-candidate-lineage-integrity" for item in capsules["evals"])
@@ -479,12 +479,12 @@ def test_real_repo_owner_fit_routing_quality_exposes_materialized_proof_artifact
     assert entry["proof_artifacts"]["shared_fixture_family_path"] == (
         "mechanics/method-growth/parts/owner-landing/fixtures/owner-fit-routing-v1/README.md"
     )
-    assert entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-owner-fit-routing-quality/fixtures/contract.json"
-    assert entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-owner-fit-routing-quality/runners/contract.json"
+    assert entry["proof_artifacts"]["fixture_contract_path"] == "evals/boundary/aoa-owner-fit-routing-quality/fixtures/contract.json"
+    assert entry["proof_artifacts"]["runner_contract_path"] == "evals/boundary/aoa-owner-fit-routing-quality/runners/contract.json"
     assert entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-owner-fit-routing-quality/reports/summary.schema.json"
-    assert entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-owner-fit-routing-quality/reports/example-report.json"
+    assert entry["proof_artifacts"]["report_schema_path"] == "evals/boundary/aoa-owner-fit-routing-quality/reports/summary.schema.json"
+    assert entry["proof_artifacts"]["report_example_path"] == "evals/boundary/aoa-owner-fit-routing-quality/reports/example-report.json"
     assert entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(item["name"] == "aoa-owner-fit-routing-quality" for item in capsules["evals"])
@@ -509,12 +509,12 @@ def test_real_repo_repair_boundedness_exposes_materialized_proof_artifacts() -> 
     assert entry["status"] == "draft"
     assert entry["portability_level"] == "local-shaped"
     assert entry["proof_artifacts"]["shared_fixture_family_path"] == "mechanics/antifragility/parts/repair-proof/fixtures/repair-boundedness-v1/README.md"
-    assert entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-repair-boundedness/fixtures/contract.json"
-    assert entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-repair-boundedness/runners/contract.json"
+    assert entry["proof_artifacts"]["fixture_contract_path"] == "evals/workflow/aoa-repair-boundedness/fixtures/contract.json"
+    assert entry["proof_artifacts"]["runner_contract_path"] == "evals/workflow/aoa-repair-boundedness/runners/contract.json"
     assert entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-repair-boundedness/reports/summary.schema.json"
-    assert entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-repair-boundedness/reports/example-report.json"
+    assert entry["proof_artifacts"]["report_schema_path"] == "evals/workflow/aoa-repair-boundedness/reports/summary.schema.json"
+    assert entry["proof_artifacts"]["report_example_path"] == "evals/workflow/aoa-repair-boundedness/reports/example-report.json"
     assert entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(item["name"] == "aoa-repair-boundedness" for item in capsules["evals"])
@@ -540,12 +540,12 @@ def test_real_repo_approval_boundary_adherence_keeps_bounded_status_while_exposi
     assert approval_entry["portability_level"] == "local-shaped"
     assert approval_entry["report_format"] == "summary-with-breakdown"
     assert approval_entry["proof_artifacts"]["shared_fixture_family_path"] == "mechanics/proof-infra/parts/fixture-families/fixtures/approval-boundary-bounded-v1/README.md"
-    assert approval_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-approval-boundary-adherence/fixtures/contract.json"
-    assert approval_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-approval-boundary-adherence/runners/contract.json"
+    assert approval_entry["proof_artifacts"]["fixture_contract_path"] == "evals/boundary/aoa-approval-boundary-adherence/fixtures/contract.json"
+    assert approval_entry["proof_artifacts"]["runner_contract_path"] == "evals/boundary/aoa-approval-boundary-adherence/runners/contract.json"
     assert approval_entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert approval_entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert approval_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-approval-boundary-adherence/reports/summary.schema.json"
-    assert approval_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-approval-boundary-adherence/reports/example-report.json"
+    assert approval_entry["proof_artifacts"]["report_schema_path"] == "evals/boundary/aoa-approval-boundary-adherence/reports/summary.schema.json"
+    assert approval_entry["proof_artifacts"]["report_example_path"] == "evals/boundary/aoa-approval-boundary-adherence/reports/example-report.json"
     assert approval_entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(entry["name"] == "aoa-approval-boundary-adherence" for entry in capsules["evals"])
@@ -570,12 +570,12 @@ def test_real_repo_trace_outcome_separation_keeps_bounded_status_while_exposing_
     assert trace_entry["status"] == "bounded"
     assert trace_entry["portability_level"] == "local-shaped"
     assert trace_entry["proof_artifacts"]["shared_fixture_family_path"] == "mechanics/proof-infra/parts/fixture-families/fixtures/trace-outcome-bounded-v1/README.md"
-    assert trace_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-trace-outcome-separation/fixtures/contract.json"
-    assert trace_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-trace-outcome-separation/runners/contract.json"
+    assert trace_entry["proof_artifacts"]["fixture_contract_path"] == "evals/workflow/aoa-trace-outcome-separation/fixtures/contract.json"
+    assert trace_entry["proof_artifacts"]["runner_contract_path"] == "evals/workflow/aoa-trace-outcome-separation/runners/contract.json"
     assert trace_entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert trace_entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert trace_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-trace-outcome-separation/reports/summary.schema.json"
-    assert trace_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-trace-outcome-separation/reports/example-report.json"
+    assert trace_entry["proof_artifacts"]["report_schema_path"] == "evals/workflow/aoa-trace-outcome-separation/reports/summary.schema.json"
+    assert trace_entry["proof_artifacts"]["report_example_path"] == "evals/workflow/aoa-trace-outcome-separation/reports/example-report.json"
     assert trace_entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(entry["name"] == "aoa-trace-outcome-separation" for entry in capsules["evals"])
@@ -600,12 +600,12 @@ def test_real_repo_tool_trajectory_discipline_keeps_bounded_status_while_exposin
     assert tool_entry["status"] == "bounded"
     assert tool_entry["portability_level"] == "local-shaped"
     assert tool_entry["proof_artifacts"]["shared_fixture_family_path"] == "mechanics/proof-infra/parts/fixture-families/fixtures/tool-trajectory-bounded-v1/README.md"
-    assert tool_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-tool-trajectory-discipline/fixtures/contract.json"
-    assert tool_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-tool-trajectory-discipline/runners/contract.json"
+    assert tool_entry["proof_artifacts"]["fixture_contract_path"] == "evals/workflow/aoa-tool-trajectory-discipline/fixtures/contract.json"
+    assert tool_entry["proof_artifacts"]["runner_contract_path"] == "evals/workflow/aoa-tool-trajectory-discipline/runners/contract.json"
     assert tool_entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert tool_entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert tool_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-tool-trajectory-discipline/reports/summary.schema.json"
-    assert tool_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-tool-trajectory-discipline/reports/example-report.json"
+    assert tool_entry["proof_artifacts"]["report_schema_path"] == "evals/workflow/aoa-tool-trajectory-discipline/reports/summary.schema.json"
+    assert tool_entry["proof_artifacts"]["report_example_path"] == "evals/workflow/aoa-tool-trajectory-discipline/reports/example-report.json"
     assert tool_entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(entry["name"] == "aoa-tool-trajectory-discipline" for entry in capsules["evals"])
@@ -630,12 +630,12 @@ def test_real_repo_long_horizon_depth_enters_generated_surfaces_without_expandin
     assert long_horizon_entry["status"] == "draft"
     assert long_horizon_entry["portability_level"] == "local-shaped"
     assert long_horizon_entry["proof_artifacts"]["shared_fixture_family_path"] == "mechanics/checkpoint/parts/restartable-inquiry/fixtures/long-horizon-restart-v1/README.md"
-    assert long_horizon_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-long-horizon-depth/fixtures/contract.json"
-    assert long_horizon_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-long-horizon-depth/runners/contract.json"
+    assert long_horizon_entry["proof_artifacts"]["fixture_contract_path"] == "evals/workflow/aoa-long-horizon-depth/fixtures/contract.json"
+    assert long_horizon_entry["proof_artifacts"]["runner_contract_path"] == "evals/workflow/aoa-long-horizon-depth/runners/contract.json"
     assert long_horizon_entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert long_horizon_entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert long_horizon_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-long-horizon-depth/reports/summary.schema.json"
-    assert long_horizon_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-long-horizon-depth/reports/example-report.json"
+    assert long_horizon_entry["proof_artifacts"]["report_schema_path"] == "evals/workflow/aoa-long-horizon-depth/reports/summary.schema.json"
+    assert long_horizon_entry["proof_artifacts"]["report_example_path"] == "evals/workflow/aoa-long-horizon-depth/reports/example-report.json"
     assert long_horizon_entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(entry["name"] == "aoa-long-horizon-depth" for entry in capsules["evals"])
@@ -658,12 +658,12 @@ def test_real_repo_return_anchor_integrity_enters_generated_surfaces_without_exp
     )
 
     assert return_anchor_entry["proof_artifacts"]["shared_fixture_family_path"] == "mechanics/recurrence/parts/anchor-return/fixtures/return-anchor-v1/README.md"
-    assert return_anchor_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-return-anchor-integrity/fixtures/contract.json"
-    assert return_anchor_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-return-anchor-integrity/runners/contract.json"
+    assert return_anchor_entry["proof_artifacts"]["fixture_contract_path"] == "evals/workflow/aoa-return-anchor-integrity/fixtures/contract.json"
+    assert return_anchor_entry["proof_artifacts"]["runner_contract_path"] == "evals/workflow/aoa-return-anchor-integrity/runners/contract.json"
     assert return_anchor_entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert return_anchor_entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert return_anchor_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-return-anchor-integrity/reports/summary.schema.json"
-    assert return_anchor_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-return-anchor-integrity/reports/example-report.json"
+    assert return_anchor_entry["proof_artifacts"]["report_schema_path"] == "evals/workflow/aoa-return-anchor-integrity/reports/summary.schema.json"
+    assert return_anchor_entry["proof_artifacts"]["report_example_path"] == "evals/workflow/aoa-return-anchor-integrity/reports/example-report.json"
     assert return_anchor_entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(entry["name"] == "aoa-return-anchor-integrity" for entry in capsules["evals"])
@@ -688,12 +688,12 @@ def test_real_repo_memo_recall_integrity_enters_generated_surfaces_without_expan
     assert memo_entry["status"] == "draft"
     assert memo_entry["portability_level"] == "local-shaped"
     assert memo_entry["proof_artifacts"]["shared_fixture_family_path"] == "mechanics/recurrence/parts/memory-recall/fixtures/memo-recall-guardrail-v1/README.md"
-    assert memo_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-memo-recall-integrity/fixtures/contract.json"
-    assert memo_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-memo-recall-integrity/runners/contract.json"
+    assert memo_entry["proof_artifacts"]["fixture_contract_path"] == "evals/workflow/aoa-memo-recall-integrity/fixtures/contract.json"
+    assert memo_entry["proof_artifacts"]["runner_contract_path"] == "evals/workflow/aoa-memo-recall-integrity/runners/contract.json"
     assert memo_entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert memo_entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert memo_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-memo-recall-integrity/reports/summary.schema.json"
-    assert memo_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-memo-recall-integrity/reports/example-report.json"
+    assert memo_entry["proof_artifacts"]["report_schema_path"] == "evals/workflow/aoa-memo-recall-integrity/reports/summary.schema.json"
+    assert memo_entry["proof_artifacts"]["report_example_path"] == "evals/workflow/aoa-memo-recall-integrity/reports/example-report.json"
     assert memo_entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(entry["name"] == "aoa-memo-recall-integrity" for entry in capsules["evals"])
@@ -718,12 +718,12 @@ def test_real_repo_memo_contradiction_integrity_enters_generated_surfaces_withou
     assert memo_entry["status"] == "draft"
     assert memo_entry["portability_level"] == "local-shaped"
     assert memo_entry["proof_artifacts"]["shared_fixture_family_path"] == "mechanics/proof-infra/parts/fixture-families/fixtures/memo-contradiction-guardrail-v1/README.md"
-    assert memo_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-memo-contradiction-integrity/fixtures/contract.json"
-    assert memo_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-memo-contradiction-integrity/runners/contract.json"
+    assert memo_entry["proof_artifacts"]["fixture_contract_path"] == "evals/workflow/aoa-memo-contradiction-integrity/fixtures/contract.json"
+    assert memo_entry["proof_artifacts"]["runner_contract_path"] == "evals/workflow/aoa-memo-contradiction-integrity/runners/contract.json"
     assert memo_entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert memo_entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert memo_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-memo-contradiction-integrity/reports/summary.schema.json"
-    assert memo_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-memo-contradiction-integrity/reports/example-report.json"
+    assert memo_entry["proof_artifacts"]["report_schema_path"] == "evals/workflow/aoa-memo-contradiction-integrity/reports/summary.schema.json"
+    assert memo_entry["proof_artifacts"]["report_example_path"] == "evals/workflow/aoa-memo-contradiction-integrity/reports/example-report.json"
     assert memo_entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(entry["name"] == "aoa-memo-contradiction-integrity" for entry in capsules["evals"])
@@ -748,12 +748,12 @@ def test_real_repo_memo_writeback_act_integrity_enters_generated_surfaces_withou
     assert memo_entry["status"] == "draft"
     assert memo_entry["portability_level"] == "local-shaped"
     assert memo_entry["proof_artifacts"]["shared_fixture_family_path"] == "mechanics/proof-infra/parts/fixture-families/fixtures/memo-writeback-act-guardrail-v1/README.md"
-    assert memo_entry["proof_artifacts"]["fixture_contract_path"] == "bundles/aoa-memo-writeback-act-integrity/fixtures/contract.json"
-    assert memo_entry["proof_artifacts"]["runner_contract_path"] == "bundles/aoa-memo-writeback-act-integrity/runners/contract.json"
+    assert memo_entry["proof_artifacts"]["fixture_contract_path"] == "evals/workflow/aoa-memo-writeback-act-integrity/fixtures/contract.json"
+    assert memo_entry["proof_artifacts"]["runner_contract_path"] == "evals/workflow/aoa-memo-writeback-act-integrity/runners/contract.json"
     assert memo_entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
     assert memo_entry["proof_artifacts"]["scorer_helper_paths"] == ["mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"]
-    assert memo_entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-memo-writeback-act-integrity/reports/summary.schema.json"
-    assert memo_entry["proof_artifacts"]["report_example_path"] == "bundles/aoa-memo-writeback-act-integrity/reports/example-report.json"
+    assert memo_entry["proof_artifacts"]["report_schema_path"] == "evals/workflow/aoa-memo-writeback-act-integrity/reports/summary.schema.json"
+    assert memo_entry["proof_artifacts"]["report_example_path"] == "evals/workflow/aoa-memo-writeback-act-integrity/reports/example-report.json"
     assert memo_entry["proof_artifacts"]["paired_readout_path"] is None
 
     assert any(entry["name"] == "aoa-memo-writeback-act-integrity" for entry in capsules["evals"])

@@ -1,4 +1,4 @@
-# Boundary Bridge Parts
+# Boundary Bridge / Part Index
 
 `mechanics/boundary-bridge/parts/` contains the active parts of the
 sibling-reference compatibility operation.
@@ -40,6 +40,5 @@ Stop-lines forbid editing sibling repositories, treating compatibility as
 sibling approval, treating orchestrator proof anchors as class identity, or
 turning a canary into proof acceptance.
 
-Validation is `python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json`,
-`python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check`,
-plus `python scripts/validate_repo.py`.
+Validation routes through [AGENTS](AGENTS.md#validation), including the
+latest-sibling canary, Phase Alpha matrix check, and repo validation lanes.

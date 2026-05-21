@@ -1,4 +1,4 @@
-# Receipt Payload Part
+# Publication Receipts / Receipt Payload Part
 
 ## Role
 
@@ -60,9 +60,4 @@ boundary.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/publication-receipts/parts/receipt-payload/`.
-
-```bash
-python scripts/validate_repo.py
-python -m pytest -q mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py tests/test_validate_repo.py -k publication_receipts
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

@@ -7,7 +7,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "no child route was actually summoned or planned; the route lacks a reviewed child result",
-      "eval_path": "bundles/aoa-a2a-summon-return-checkpoint/EVAL.md",
+      "eval_path": "evals/workflow/aoa-a2a-summon-return-checkpoint/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -49,7 +49,7 @@
       "category": "stress",
       "comparison_surface": null,
       "do_not_use_short": "the main question is authority handling or permission classification; the requested scope is already clear and the main question is later scope drift",
-      "eval_path": "bundles/aoa-ambiguity-handling/EVAL.md",
+      "eval_path": "evals/stress/aoa-ambiguity-handling/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -96,7 +96,7 @@
       "category": "stress",
       "comparison_surface": null,
       "do_not_use_short": "no trustworthy source-owned receipt exists yet; the question is broad project quality rather than one bounded stressor family",
-      "eval_path": "bundles/aoa-antifragility-posture/EVAL.md",
+      "eval_path": "evals/stress/aoa-antifragility-posture/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "portable_review",
@@ -137,7 +137,7 @@
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "no meaningful authority boundary exists; the task is purely analytical and no action classification is needed",
-      "eval_path": "bundles/aoa-approval-boundary-adherence/EVAL.md",
+      "eval_path": "evals/boundary/aoa-approval-boundary-adherence/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -176,7 +176,7 @@
       "category": "artifact",
       "comparison_surface": null,
       "do_not_use_short": "the main question is workflow discipline rather than artifact quality; the main question is whether polished output is outrunning process discipline",
-      "eval_path": "bundles/aoa-artifact-review-rubric/EVAL.md",
+      "eval_path": "evals/artifact/aoa-artifact-review-rubric/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "portable_review",
@@ -225,7 +225,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the task is too tiny to meaningfully expose scope or verification behavior; the task is so broad that no bounded workflow claim can reasonably...",
-      "eval_path": "bundles/aoa-bounded-change-quality/EVAL.md",
+      "eval_path": "evals/workflow/aoa-bounded-change-quality/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "portable_review",
@@ -274,7 +274,7 @@
       "category": "capability",
       "comparison_surface": null,
       "do_not_use_short": "the main question is owner-fit routing quality; the main question is final planted object quality",
-      "eval_path": "bundles/aoa-candidate-lineage-integrity/EVAL.md",
+      "eval_path": "evals/capability/aoa-candidate-lineage-integrity/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -321,7 +321,7 @@
       "category": "artifact",
       "comparison_surface": null,
       "do_not_use_short": "no witness-facing input is available; the artifact is not part of a compost route",
-      "eval_path": "bundles/aoa-compost-provenance-preservation/EVAL.md",
+      "eval_path": "evals/artifact/aoa-compost-provenance-preservation/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -352,7 +352,7 @@
       "category": "capability",
       "comparison_surface": null,
       "do_not_use_short": "there is no named continuity chain; the main question is bounded revision quality rather than chain integrity",
-      "eval_path": "bundles/aoa-continuity-anchor-integrity/EVAL.md",
+      "eval_path": "evals/capability/aoa-continuity-anchor-integrity/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -399,7 +399,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the main question is whether the repair stayed bounded; the main question is whether the chosen owner layer was correct",
-      "eval_path": "bundles/aoa-diagnosis-cause-discipline/EVAL.md",
+      "eval_path": "evals/workflow/aoa-diagnosis-cause-discipline/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -440,7 +440,7 @@
       "category": "capability",
       "comparison_surface": null,
       "do_not_use_short": "the main question is direct agent performance; the main question is hidden fixture realism rather than public coherence",
-      "eval_path": "bundles/aoa-eval-integrity-check/EVAL.md",
+      "eval_path": "evals/capability/aoa-eval-integrity-check/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -469,7 +469,7 @@
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the task is to certify the candidate; the task is to promote a rollout ring",
-      "eval_path": "bundles/aoa-experience-certification-gate-integrity/EVAL.md",
+      "eval_path": "evals/boundary/aoa-experience-certification-gate-integrity/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -515,7 +515,7 @@
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the task is only about artifact style; the task is only about runtime behavior",
-      "eval_path": "bundles/aoa-experience-protocol-integrity/EVAL.md",
+      "eval_path": "evals/boundary/aoa-experience-protocol-integrity/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -561,7 +561,7 @@
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the main question is rich answer quality or long-form usefulness; the main question is broad workflow quality rather than reply contract-fit",
-      "eval_path": "bundles/aoa-local-text-contract-fit/EVAL.md",
+      "eval_path": "evals/boundary/aoa-local-text-contract-fit/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "portable_review",
@@ -593,7 +593,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the route ends in one bounded pass and never needs relaunch; no checkpoint artifact exists to inspect",
-      "eval_path": "bundles/aoa-long-horizon-depth/EVAL.md",
+      "eval_path": "evals/workflow/aoa-long-horizon-depth/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -631,7 +631,7 @@
         "window_family_label": "repeated-window-bounded-v1 bounded workflow sequence"
       },
       "do_not_use_short": "you only need a one-run workflow judgment; you need a frozen same-task baseline comparison rather than repeated-window movement",
-      "eval_path": "bundles/aoa-longitudinal-growth-snapshot/EVAL.md",
+      "eval_path": "evals/comparison/longitudinal-window/aoa-longitudinal-growth-snapshot/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -680,7 +680,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "no lifecycle-aware memo surface was consumed; the main question is smallest-surface recall precision",
-      "eval_path": "bundles/aoa-memo-contradiction-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-memo-contradiction-integrity/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -711,7 +711,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "no memo recall surface was consumed; the main question is contradiction handling or rights policy",
-      "eval_path": "bundles/aoa-memo-recall-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-memo-recall-integrity/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -742,7 +742,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "no candidate-facing memo object exists yet; the main question is contradiction handling or recall precision",
-      "eval_path": "bundles/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -773,7 +773,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "no adopted memo object exists yet; the main question is contradiction handling or recall precision",
-      "eval_path": "bundles/aoa-memo-writeback-act-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-memo-writeback-act-integrity/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -814,7 +814,7 @@
         "shared_family_path": "mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md"
       },
       "do_not_use_short": "the main question is the artifact itself rather than the gap; the main question is end-to-end workflow quality rather than the gap",
-      "eval_path": "bundles/aoa-output-vs-process-gap/EVAL.md",
+      "eval_path": "evals/comparison/peer-compare/aoa-output-vs-process-gap/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -863,7 +863,7 @@
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the main question is lineage-chain integrity; the main question is final object quality",
-      "eval_path": "bundles/aoa-owner-fit-routing-quality/EVAL.md",
+      "eval_path": "evals/boundary/aoa-owner-fit-routing-quality/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -910,7 +910,7 @@
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the main question is produced artifact quality; the main question is return-anchor fidelity",
-      "eval_path": "bundles/aoa-recurrence-control-plane-integrity/EVAL.md",
+      "eval_path": "evals/boundary/aoa-recurrence-control-plane-integrity/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -941,7 +941,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "no named revision window exists; the main question is anchor-chain integrity instead",
-      "eval_path": "bundles/aoa-reflective-revision-boundedness/EVAL.md",
+      "eval_path": "evals/workflow/aoa-reflective-revision-boundedness/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -995,7 +995,7 @@
         "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
       },
       "do_not_use_short": "you only need one-run workflow quality and no baseline exists yet; the task family is still changing underneath the comparison",
-      "eval_path": "bundles/aoa-regression-same-task/EVAL.md",
+      "eval_path": "evals/comparison/fixed-baseline/aoa-regression-same-task/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "portable_review",
@@ -1045,7 +1045,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the main question is first-owner routing quality; the main question is final object quality",
-      "eval_path": "bundles/aoa-repair-boundedness/EVAL.md",
+      "eval_path": "evals/workflow/aoa-repair-boundedness/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -1092,7 +1092,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "no return actually occurred; the question is final-answer quality rather than return discipline",
-      "eval_path": "bundles/aoa-return-anchor-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-return-anchor-integrity/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -1123,7 +1123,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the task clearly needs only one bounded skill; the task has no meaningful skill-selection ambiguity",
-      "eval_path": "bundles/aoa-ring-application-discipline/EVAL.md",
+      "eval_path": "evals/workflow/aoa-ring-application-discipline/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "portable_review",
@@ -1155,7 +1155,7 @@
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the main question is overall workflow quality rather than scope alignment; the main question is claimed-vs-actual verification evidence",
-      "eval_path": "bundles/aoa-scope-drift-detection/EVAL.md",
+      "eval_path": "evals/boundary/aoa-scope-drift-detection/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -1202,7 +1202,7 @@
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "there is no reanchor decision or trigger to inspect; the main question is whether the continuity chain existed at all",
-      "eval_path": "bundles/aoa-self-reanchor-correctness/EVAL.md",
+      "eval_path": "evals/boundary/aoa-self-reanchor-correctness/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -1249,7 +1249,7 @@
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the main question is whether a specific owner artifact is correct; the main question is general stats schema validity",
-      "eval_path": "bundles/aoa-stats-regrounding-boundary-integrity/EVAL.md",
+      "eval_path": "evals/boundary/aoa-stats-regrounding-boundary-integrity/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -1287,7 +1287,7 @@
         "window_family_label": "stress-recovery-window-bounded-v1 bounded stress recovery sequence"
       },
       "do_not_use_short": "no trustworthy owner receipt family exists yet; the windows are too inconsistent to compare honestly",
-      "eval_path": "bundles/aoa-stress-recovery-window/EVAL.md",
+      "eval_path": "evals/comparison/longitudinal-window/aoa-stress-recovery-window/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -1334,7 +1334,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the main question is overall workflow quality rather than tool path quality; the main question is outcome-vs-path separation at a broader level",
-      "eval_path": "bundles/aoa-tool-trajectory-discipline/EVAL.md",
+      "eval_path": "evals/workflow/aoa-tool-trajectory-discipline/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -1381,7 +1381,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the main question is tool trajectory only and path matters only at the tool-use level; the main question is verification truthfulness alone",
-      "eval_path": "bundles/aoa-trace-outcome-separation/EVAL.md",
+      "eval_path": "evals/workflow/aoa-trace-outcome-separation/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -1428,7 +1428,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the main question is overall workflow quality rather than verification truthfulness; the task has no meaningful verification surface at all",
-      "eval_path": "bundles/aoa-verification-honesty/EVAL.md",
+      "eval_path": "evals/workflow/aoa-verification-honesty/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "portable_review",
@@ -1476,7 +1476,7 @@
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the run is trivial and no meaningful witness surface is needed; there was no material route to reconstruct beyond a simple answer",
-      "eval_path": "bundles/aoa-witness-trace-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-witness-trace-integrity/EVAL.md",
       "evidence_kinds": [
         "origin_need",
         "support_note",
@@ -1504,6 +1504,6 @@
   ],
   "source_of_truth": {
     "eval_catalog": "generated/eval_catalog.json",
-    "eval_markdown": "bundles/*/EVAL.md"
+    "eval_markdown": "evals/**/EVAL.md"
   }
 }

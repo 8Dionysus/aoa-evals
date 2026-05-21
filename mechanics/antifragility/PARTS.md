@@ -1,4 +1,4 @@
-# Antifragility Parts
+# Antifragility / Part Index
 
 `mechanics/antifragility/parts/` contains the active parts of the eval-side
 antifragility proof operation.

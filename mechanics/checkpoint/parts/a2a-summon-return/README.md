@@ -1,4 +1,4 @@
-# A2A Summon Return Part
+# Checkpoint / A2A Summon Return Part
 
 ## Role
 
@@ -7,11 +7,11 @@ This part owns the support route for
 
 It keeps the public-safe fixture family, artifact-to-verdict hook example, and
 seeded validation test together under the checkpoint mechanic while the source
-proof bundle stays under `bundles/`.
+proof bundle stays under `evals/`.
 
 ## Source Surfaces
 
-- `bundles/aoa-a2a-summon-return-checkpoint/EVAL.md`
+- `evals/workflow/aoa-a2a-summon-return-checkpoint/EVAL.md`
 - `mechanics/checkpoint/parts/a2a-summon-return/fixtures/a2a-summon-return-checkpoint-v1/README.md`
 - `mechanics/checkpoint/parts/a2a-summon-return/examples/artifact_to_verdict_hook.a2a-summon-return-checkpoint.example.json`
 - `mechanics/checkpoint/parts/a2a-summon-return/tests/test_a2a_summon_return_checkpoint_fixture.py`
@@ -57,9 +57,4 @@ This part must not claim:
 
 ## Validation
 
-```bash
-python -m pytest -q mechanics/checkpoint/parts/a2a-summon-return/tests/test_a2a_summon_return_checkpoint_fixture.py
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

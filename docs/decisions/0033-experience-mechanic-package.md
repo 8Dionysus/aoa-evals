@@ -54,7 +54,7 @@ The active parts are:
 - `office-release-train` for office scope, multi-office, governed-release,
   handoff, installation, replay, rollback, and train-release verdict support.
 
-Source proof bundles stay under `bundles/`. Former root docs, fixtures,
+Source proof bundles stay under `evals/`. Former root docs, fixtures,
 examples, schemas, and tests are mapped inside the owning legacy archive after
 the active `PROVENANCE.md` bridge.
 

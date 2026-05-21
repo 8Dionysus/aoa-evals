@@ -1,4 +1,4 @@
-# CCS Alignment
+# Agon / CCS Alignment Part
 
 ## Role
 
@@ -51,8 +51,4 @@ ref that this part cites.
 
 ## Validation
 
-```bash
-python mechanics/agon/parts/ccs-alignment/scripts/build_agon_ccs_eval_alignment_registry.py --check
-python mechanics/agon/parts/ccs-alignment/scripts/validate_agon_ccs_eval_alignment.py
-python -m pytest -q mechanics/agon/parts/ccs-alignment/tests/test_agon_ccs_eval_alignment.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

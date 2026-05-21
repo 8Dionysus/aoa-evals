@@ -18,7 +18,7 @@ payloads:
 
 These surfaces are not independent parent mechanics. They are shared
 reportable proof contract support. Bundle-local
-`bundles/<bundle>/runners/contract.json` files
+`evals/<family>/<eval>/runners/contract.json` files
 consume them through `runner_surface_path` and `scorer_helper_paths`, validators
 load their schemas, and generated catalog `proof_artifacts` exposes their paths
 without making them proof authority.
@@ -89,7 +89,7 @@ or `schemas/`.
 - `mechanics/proof-infra/parts/reportable-contracts/README.md`
 - `mechanics/proof-infra/PROVENANCE.md`
 - owning proof-infra legacy archive for former root contract placement
-- affected bundle `bundles/<bundle>/runners/contract.json` paths
+- affected bundle `evals/<family>/<eval>/runners/contract.json` paths
 - generated catalog `proof_artifacts`
 - `python scripts/validate_repo.py`
 - `python scripts/build_catalog.py --check`

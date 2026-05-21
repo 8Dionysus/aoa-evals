@@ -17,7 +17,7 @@ bridge.
   support.
 - `PROVENANCE.md`: controlled bridge from active route to old checkpoint placement.
 - `legacy/`: lineage only; not a checkpoint implementation backlog.
-- `bundles/`: source proof objects that remain stronger than support parts.
+- `evals/`: source proof objects that remain stronger than support parts.
 
 ## Current contour
 

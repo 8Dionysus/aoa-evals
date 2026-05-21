@@ -1,4 +1,4 @@
-# Self-Agent Posture Part
+# Checkpoint / Self-Agent Posture Part
 
 ## Role
 
@@ -11,8 +11,8 @@ the checkpoint mechanic without creating a new checkpoint-only proof canon.
 
 - `mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`
 - `mechanics/checkpoint/parts/self-agent-posture/examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json`
-- `bundles/aoa-approval-boundary-adherence/EVAL.md`
-- `bundles/aoa-bounded-change-quality/EVAL.md`
+- `evals/boundary/aoa-approval-boundary-adherence/EVAL.md`
+- `evals/workflow/aoa-bounded-change-quality/EVAL.md`
 
 ## Inputs
 
@@ -54,9 +54,4 @@ This part must not claim:
 
 ## Validation
 
-Payload coverage anchor: `mechanics/checkpoint/parts/self-agent-posture/`.
-
-```bash
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

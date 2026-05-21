@@ -1,4 +1,4 @@
-# Certification Gate Part
+# Experience / Certification Gate Part
 
 ## Role
 
@@ -6,11 +6,11 @@ This part owns the support route for experience certification gate proof.
 
 It keeps certification, release-gate, deployment-integrity, rollback,
 watchtower, and certification-adjacent verdict support together while the
-source proof bundle stays under `bundles/`.
+source proof bundle stays under `evals/`.
 
 ## Source Surfaces
 
-- `bundles/aoa-experience-certification-gate-integrity/EVAL.md`
+- `evals/boundary/aoa-experience-certification-gate-integrity/EVAL.md`
 - `mechanics/experience/parts/certification-gate/docs/`
 - `mechanics/experience/parts/certification-gate/examples/`
 - `mechanics/experience/parts/certification-gate/schemas/`
@@ -55,8 +55,4 @@ acceptance, or runtime health.
 
 ## Validation
 
-```bash
-python -m pytest -q mechanics/experience/parts/certification-gate/tests
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

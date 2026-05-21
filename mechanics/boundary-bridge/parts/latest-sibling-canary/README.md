@@ -1,4 +1,4 @@
-# Latest Sibling Canary Part
+# Boundary Bridge / Latest Sibling Canary Part
 
 ## Role
 
@@ -49,8 +49,4 @@ public pinned-lane check when workflow pins change.
 
 ## Validation
 
-```bash
-python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json
-python -m pytest -q mechanics/boundary-bridge/parts/latest-sibling-canary/tests/test_sibling_canary.py
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

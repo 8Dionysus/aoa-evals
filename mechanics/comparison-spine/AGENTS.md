@@ -30,14 +30,14 @@ authority, or a repo-global score.
 10. `docs/COMPARISON_SPINE_GUIDE.md`
 11. `docs/BASELINE_COMPARISON_GUIDE.md`
 12. `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
-13. affected `bundles/*/EVAL.md` and `bundles/*/eval.yaml`
+13. affected `evals/**/EVAL.md` and `evals/**/eval.yaml`
 
 ## Local Law
 
 - Keep comparison claim meaning in the source proof object.
 - Keep `baseline_mode` and `comparison_surface` aligned across frontmatter and
   `eval.yaml`.
-- Keep bundle-local `bundles/<bundle>/fixtures/contract.json` paths aligned
+- Keep bundle-local `evals/<family>/<eval>/fixtures/contract.json` paths aligned
   with the part-local comparison fixture family paths.
 - Keep `generated/comparison_spine.json` derived from source via
   `python scripts/build_catalog.py`.

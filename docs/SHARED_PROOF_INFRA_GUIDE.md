@@ -36,7 +36,7 @@ Use these path shapes:
 - shared runner, fixture-contract, and report-summary schemas:
   `mechanics/proof-infra/parts/reportable-contracts/schemas/<schema-name>.json`
 - shared dossier: `mechanics/<mechanic>/parts/<part>/reports/<readout-name>-vN.md`
-  when a mechanic owns it, or `bundles/<bundle>/reports/<artifact>.json` when
+  when a mechanic owns it, or `evals/<family>/<eval>/reports/<artifact>.json` when
   the bundle owns it
 
 Do not use shared names to imply stronger truth than the bundle already supports.

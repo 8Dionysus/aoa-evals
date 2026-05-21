@@ -40,7 +40,7 @@ Please make sure:
 - public-safety concerns are checked
 - status is set honestly
 - any technique or skill traceability is stated clearly
-- current public starters ship `bundles/<bundle>/examples/example-report.md`
+- current public starters ship `evals/<family>/<eval>/examples/example-report.md`
 - current public starters carry explicit manifest evidence for their public support artifacts
 - current public starters carry an integrity-review artifact such as `checks/eval-integrity-check.md`
 - `EVAL_INDEX.md` and `EVAL_SELECTION.md` stay aligned when starter posture changes
@@ -58,15 +58,15 @@ Before opening a PR, run local validation and bundle checks for:
 Local note:
 - if `aoa-techniques` or `aoa-skills` are not checked out beside `aoa-evals`, local validation will skip dependency-target existence checks for those sibling repos
 - CI performs the strict dependency-path existence check by exporting `AOA_TECHNIQUES_ROOT` and `AOA_SKILLS_ROOT` after checking those repos out into `.deps/`
-- if `abyss-stack` is present locally only as a deployed runtime tree, export `ABYSS_STACK_ROOT` to the source checkout before running `python scripts/validate_repo.py`
+- if `abyss-stack` is present locally only as a deployed runtime tree, export
+  `ABYSS_STACK_ROOT` to the source checkout before using the repository
+  validation route
 
 ## Local development setup
 
-Recommended local setup:
-- `python -m pip install -r requirements-dev.txt`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
-- `python -m pytest`
+Use root `AGENTS.md#verify` for local setup and validation commands. Use the
+nearest nested `AGENTS.md` when a contribution only touches one district such as
+`docs/`, `evals/`, `mechanics/`, `scripts/`, or `tests/`.
 
 ## Preferred PR scope
 

@@ -16,7 +16,7 @@ bridge.
 - `parts/`: candidate-lineage and owner-landing support.
 - `PROVENANCE.md`: controlled bridge from active route to old fixture placement.
 - `legacy/`: lineage only; not a growth archive.
-- `bundles/`: source proof objects that remain stronger than support parts.
+- `evals/`: source proof objects that remain stronger than support parts.
 
 ## Current contour
 

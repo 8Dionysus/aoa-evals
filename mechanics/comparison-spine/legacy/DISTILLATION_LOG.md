@@ -13,5 +13,5 @@ the active comparison-spine parts:
 - `fixtures/repeated-window-bounded-v1/` became
   `mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/`.
 
-Source proof bundles stayed under `bundles/`. Generated comparison readers
+Source proof bundles stayed under `evals/`. Generated comparison readers
 remain derived from bundle frontmatter, `eval.yaml`, and bundle-local contracts.

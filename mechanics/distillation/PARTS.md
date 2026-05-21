@@ -1,4 +1,4 @@
-# Distillation Parts
+# Distillation / Part Index
 
 `mechanics/distillation/parts/` contains the active parts of the eval-side
 Distillation proof operation.
@@ -42,8 +42,8 @@ readiness, treating memo recall as Distillation after it routes through
 `recurrence/memory-recall`, or treating nearby contradiction or base writeback
 proof as Distillation just because the names are adjacent.
 
-Validation is the two bundle-local eval checks, generated catalog check, and
-`python scripts/validate_repo.py`.
+Validation routes through [AGENTS](AGENTS.md#validation), including the two
+bundle-local eval checks, generated catalog check, and repo validation lane.
 
 ## Deferred Part Families
 

@@ -36,7 +36,7 @@ It rejects unmarked paths under root route-card-only districts and permits:
 
 - root route cards such as `reports/README.md` and `schemas/AGENTS.md`;
 - real existing paths;
-- `bundles/<bundle>/...` paths;
+- `evals/<family>/<eval>/...` paths;
 - active `mechanics/...` routes;
 - explicitly historical context such as former root, historical root, legacy,
   provenance, mapped through, or route-card wording.

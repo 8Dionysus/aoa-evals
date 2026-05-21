@@ -46,7 +46,7 @@ traceable.
 This keeps topology convex. Template and eval schemas are proof-object parts,
 not parent mechanics and not generic root contracts.
 
-The source bundles stay under `bundles/`, and generated readers stay under
+The source bundles stay under `evals/`, and generated readers stay under
 `generated/`. The part-local contracts support those surfaces without stealing
 their authority.
 
@@ -61,7 +61,7 @@ their authority.
 
 ## Boundaries
 
-This decision does not move source proof bundles out of `bundles/`.
+This decision does not move source proof bundles out of `evals/`.
 
 It does not move generated catalog, capsule, section, or comparison readers out
 of `generated/`.

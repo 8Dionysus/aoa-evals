@@ -32,7 +32,7 @@ Move comparison-spine-owned shared dossiers into package-local parts:
 - `peer-compare`
 - `longitudinal-window`
 
-Bundle source truth stays in `bundles/*/EVAL.md` and `bundles/*/eval.yaml`.
+Bundle source truth stays in `evals/**/EVAL.md` and `evals/**/eval.yaml`.
 The generated `proof_artifacts` and comparison readers stay derived from source
 bundle metadata and runner contracts.
 

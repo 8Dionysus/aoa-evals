@@ -1,4 +1,4 @@
-# Questbook Parts
+# Questbook / Parts Route
 
 ## Role
 
@@ -17,8 +17,6 @@ verdicts.
 
 ## Validation
 
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+parts index names the active parts and their roles; the parts route card owns
+the command lane.

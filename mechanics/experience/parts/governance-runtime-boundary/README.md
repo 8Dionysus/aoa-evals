@@ -1,4 +1,4 @@
-# Governance Runtime Boundary Part
+# Experience / Governance Runtime Boundary Part
 
 ## Role
 
@@ -55,7 +55,4 @@ authority, stay-order execution, or replay acceptance.
 
 ## Validation
 
-```bash
-python -m pytest -q mechanics/experience/parts/governance-runtime-boundary/tests
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

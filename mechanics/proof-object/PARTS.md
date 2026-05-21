@@ -1,4 +1,4 @@
-# Proof Object Parts
+# Proof Object / Part Index
 
 ## Role
 
@@ -40,21 +40,20 @@ Outputs are bounded source proof bundle scaffolds, schema-backed frontmatter and
 manifest contracts, and validation routes that keep generated readers derived
 from authored proof objects.
 
-Owner split stays explicit: `bundles/*/EVAL.md` and `eval.yaml` own bundle
+Owner split stays explicit: `evals/**/EVAL.md` and `eval.yaml` own bundle
 meaning; proof-object parts own authoring and contract support; generated
 catalogs and reports stay weaker than source bundles.
 
-Stop-lines forbid moving `bundles/` into this mechanic, turning templates into
+Stop-lines forbid moving `evals/` into this mechanic, turning templates into
 doctrine, weakening schemas for convenience, or treating generated readers as
 proof authority.
 
-Validation is `python scripts/validate_repo.py`,
-`python scripts/build_catalog.py --check`, and
-`python scripts/validate_semantic_agents.py`.
+Validation routes through [AGENTS](AGENTS.md#validation) and the affected part
+route cards.
 
 ## Stop-Lines
 
-- Do not move `bundles/` into `mechanics/proof-object/`.
+- Do not move `evals/` into `mechanics/proof-object/`.
 - Do not make the template a doctrine essay or example bundle.
 - Do not weaken schemas to pass an under-specified bundle.
 - Do not hand-edit generated readers as proof authority.
@@ -63,10 +62,5 @@ Validation is `python scripts/validate_repo.py`,
 
 ## Validation
 
-After part movement or proof-object contract changes, run:
-
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-```
+After part movement or proof-object contract changes, use
+[AGENTS](AGENTS.md#validation) for executable validation commands.

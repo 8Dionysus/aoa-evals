@@ -7,7 +7,7 @@ from jsonschema import Draft202012Validator
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-REPORT_DIR = REPO_ROOT / "bundles" / "aoa-memo-contradiction-integrity" / "reports"
+REPORT_DIR = REPO_ROOT / "evals" / "workflow" / "aoa-memo-contradiction-integrity" / "reports"
 REPORT_PATH = REPORT_DIR / "phase-alpha-memo-contradiction-rerun.report.json"
 SCHEMA_PATH = REPORT_DIR / "summary.schema.json"
 SELECTION_PATH = (
@@ -19,7 +19,7 @@ SELECTION_PATH = (
     / "examples"
     / "runtime_evidence_selection.phase-alpha-memo-contradiction-rerun.example.json"
 )
-EVAL_MANIFEST_PATH = REPO_ROOT / "bundles" / "aoa-memo-contradiction-integrity" / "eval.yaml"
+EVAL_MANIFEST_PATH = REPO_ROOT / "evals" / "workflow" / "aoa-memo-contradiction-integrity" / "eval.yaml"
 
 
 def load_json(path: Path) -> dict[str, object]:

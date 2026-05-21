@@ -1,4 +1,4 @@
-# Repair Proof Part
+# Antifragility / Repair Proof Part
 
 ## Role
 
@@ -8,16 +8,16 @@ This part owns the support route for bounded repair proof through
 This repair-proof route keeps the shared repair fixture family under the
 Antifragility mechanic
 because AoA antifragility routes repair proof and regression evidence to
-`aoa-evals`. The source proof bundle stays under `bundles/`.
+`aoa-evals`. The source proof bundle stays under `evals/`.
 
 ## Source Surfaces
 
-- `bundles/aoa-repair-boundedness/EVAL.md`
-- `bundles/aoa-repair-boundedness/eval.yaml`
-- `bundles/aoa-repair-boundedness/fixtures/contract.json`
-- `bundles/aoa-repair-boundedness/runners/contract.json`
-- `bundles/aoa-repair-boundedness/reports/summary.schema.json`
-- `bundles/aoa-repair-boundedness/reports/example-report.json`
+- `evals/workflow/aoa-repair-boundedness/EVAL.md`
+- `evals/workflow/aoa-repair-boundedness/eval.yaml`
+- `evals/workflow/aoa-repair-boundedness/fixtures/contract.json`
+- `evals/workflow/aoa-repair-boundedness/runners/contract.json`
+- `evals/workflow/aoa-repair-boundedness/reports/summary.schema.json`
+- `evals/workflow/aoa-repair-boundedness/reports/example-report.json`
 - `mechanics/antifragility/parts/repair-proof/fixtures/repair-boundedness-v1/README.md`
 
 ## Inputs
@@ -61,8 +61,4 @@ This part must not claim:
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-repair-boundedness
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

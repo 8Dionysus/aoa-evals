@@ -1,4 +1,4 @@
-# Quest Lifecycle
+# Quest Lifecycle Contract
 
 ## Role
 
@@ -97,10 +97,5 @@ they do not turn closed records into active obligations.
 
 ## Validation
 
-After changing lifecycle meaning, quest states, or source quest records, run:
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+After changing lifecycle meaning, quest states, or source quest records, use
+[AGENTS](AGENTS.md#validation) for executable validation commands.

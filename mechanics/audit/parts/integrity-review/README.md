@@ -1,4 +1,4 @@
-# Integrity Review
+# Audit / Integrity Review Part
 
 ## Role
 
@@ -50,9 +50,4 @@ owner override, or canon write permission.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/audit/parts/integrity-review/`.
-
-```bash
-python scripts/validate_repo.py
-python -m pytest -q tests/test_validate_repo.py -k runtime_integrity_review
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

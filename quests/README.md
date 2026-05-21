@@ -1,7 +1,10 @@
-# Quests
+# Quest Source Records
 
-`quests/` contains schema-backed source quest records for `aoa-evals` proof
+`quests/` is the source quest record district for `aoa-evals` proof
 obligations.
+
+It is not `QUESTBOOK.md`, not `mechanics/questbook/`, not a generated dispatch
+queue, and not a proof verdict surface.
 
 Quests are not eval bundles. A quest is an obligation to return: a missing proof
 surface, regression gap, verdict-bridge debt, repeated blind spot, proof-pressure
@@ -92,7 +95,4 @@ which return posture applies when a proof-loop route defers or hands off.
 
 ## Verify
 
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [AGENTS](AGENTS.md#validation) for executable validation commands.

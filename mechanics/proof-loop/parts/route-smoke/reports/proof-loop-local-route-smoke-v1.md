@@ -26,8 +26,8 @@ runtime, sibling, generated, or receipt authority.
 
 - Selected eval candidate: `aoa-verification-honesty`
 - Selection route: `EVAL_SELECTION.md` and `EVAL_INDEX.md`
-- Source bundle: `bundles/aoa-verification-honesty/EVAL.md`
-- Manifest: `bundles/aoa-verification-honesty/eval.yaml`
+- Source bundle: `evals/workflow/aoa-verification-honesty/EVAL.md`
+- Manifest: `evals/workflow/aoa-verification-honesty/eval.yaml`
 - Reason for selection: the current refactor depends on honest separation of
   executed, skipped, blocked, and inferential verification claims.
 
@@ -41,13 +41,13 @@ The support contract for this smoke run is:
 - shared fixture family:
   `mechanics/proof-infra/parts/fixture-families/fixtures/verification-honesty-v1/README.md`
 - bundle fixture contract:
-  `bundles/aoa-verification-honesty/fixtures/contract.json`
+  `evals/workflow/aoa-verification-honesty/fixtures/contract.json`
 - runner contract:
-  `bundles/aoa-verification-honesty/runners/contract.json`
+  `evals/workflow/aoa-verification-honesty/runners/contract.json`
 - report schema:
-  `bundles/aoa-verification-honesty/reports/summary.schema.json`
+  `evals/workflow/aoa-verification-honesty/reports/summary.schema.json`
 - example report:
-  `bundles/aoa-verification-honesty/reports/example-report.json`
+  `evals/workflow/aoa-verification-honesty/reports/example-report.json`
 
 This smoke does not create a new bundle-local machine-readable result. A later
 actual eval-result run must use the selected bundle's report schema and review

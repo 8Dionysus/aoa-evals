@@ -77,21 +77,12 @@ meaning and `aoa-evals` keeps only the bounded check surface.
 
 ## Validation
 
-After changing Titan canary route surfaces, run:
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
-
-For a narrow canary-shape check, run:
-
-```bash
-python -m pytest -q tests/test_validate_repo.py -k titan_canary
-```
-
-When canary seeds are later converted into executable scorer surfaces, add the
-new scorer, fixture, and report checks before calling them executable proof.
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.
 
 ## Next Route
 

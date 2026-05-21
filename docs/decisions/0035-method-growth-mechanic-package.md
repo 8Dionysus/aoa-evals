@@ -9,8 +9,8 @@ Accepted.
 The method-growth evidence cluster was already present across local root
 districts:
 
-- `bundles/aoa-candidate-lineage-integrity/EVAL.md`
-- `bundles/aoa-owner-fit-routing-quality/EVAL.md`
+- `evals/capability/aoa-candidate-lineage-integrity/EVAL.md`
+- `evals/boundary/aoa-owner-fit-routing-quality/EVAL.md`
 - former root shared fixture families `fixtures/candidate-lineage-v1/` and
   `fixtures/owner-fit-routing-v1/`
 - bundle-local fixture contracts, runner contracts, report schemas, and
@@ -32,12 +32,12 @@ parts:
 - `candidate-lineage`
 - `owner-landing`
 
-Source proof bundles stay under `bundles/`. The shared fixture families move
+Source proof bundles stay under `evals/`. The shared fixture families move
 behind the active parts, and bundle-local contracts point at the part-local
 fixture paths.
 
 `aoa-diagnosis-cause-discipline` remains a source proof bundle under
-`bundles/` and later decision `0037` routes it through active
+`evals/` and later decision `0037` routes it through active
 `growth-cycle/diagnosis-gate`. `aoa-repair-boundedness` remains under
 `mechanics/antifragility/parts/repair-proof/`. RPG progression and unlock
 surfaces later route through `mechanics/rpg/parts/progression-unlocks/`.

@@ -31,7 +31,7 @@ playbook choreography, stats visibility, or owner artifact promotion.
 
 ## Boundaries
 
-- Keep source proof bundles under `bundles/`.
+- Keep source proof bundles under `evals/`.
 - Keep checkpoint support artifacts part-local when a checkpoint part owns their
   fixture, hook example, posture doc, or validation route.
 - Keep artifact-to-verdict hook schema and generated candidate readers under
@@ -47,6 +47,7 @@ playbook choreography, stats visibility, or owner artifact promotion.
 python -m pytest -q mechanics/checkpoint/parts/a2a-summon-return/tests/test_a2a_summon_return_checkpoint_fixture.py
 python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
 python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
+python scripts/build_catalog.py --check
 python scripts/validate_repo.py
 ```
 

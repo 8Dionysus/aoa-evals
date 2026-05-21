@@ -17,16 +17,16 @@ schema-backed report under the selected source proof object.
 ## Decision
 
 Add the first real proof-loop bundle-local report at
-`bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`.
+`evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`.
 
 The report evaluates the verification-truthfulness closeout for the slice 19
 quest lifecycle contract. It is an actual `aoa-verification-honesty` report
 validated against the bundle-local
-`bundles/aoa-verification-honesty/reports/summary.schema.json`.
+`evals/workflow/aoa-verification-honesty/reports/summary.schema.json`.
 
 Also validate every bundle-local `*.report.json` file against its local
-`bundles/<bundle>/reports/summary.schema.json`, not only
-`bundles/<bundle>/reports/example-report.json`.
+`evals/<family>/<eval>/reports/summary.schema.json`, not only
+`evals/<family>/<eval>/reports/example-report.json`.
 
 ## Non-Goals
 

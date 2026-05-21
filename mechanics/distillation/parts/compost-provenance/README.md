@@ -1,4 +1,4 @@
-# Compost Provenance Part
+# Distillation / Compost Provenance Part
 
 ## Role
 
@@ -6,11 +6,11 @@ This part owns support surfaces for provenance-preserving compost proof.
 
 It keeps witness-derived input, downstream note or principle candidate,
 source refs, review state, limits, promotion boundary, and contradiction or
-demotion posture visible while source proof bundles stay under `bundles/`.
+demotion posture visible while source proof bundles stay under `evals/`.
 
 ## Source Surfaces
 
-- `bundles/aoa-compost-provenance-preservation/EVAL.md`
+- `evals/artifact/aoa-compost-provenance-preservation/EVAL.md`
 - `mechanics/distillation/parts/compost-provenance/fixtures/compost-provenance-v1/README.md`
 
 ## Inputs
@@ -59,7 +59,4 @@ This part must not claim:
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-compost-provenance-preservation
-python scripts/build_catalog.py --check
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

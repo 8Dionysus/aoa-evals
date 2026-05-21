@@ -7,7 +7,7 @@
 ## Context
 
 The proof loop now has a first schema-backed bundle-local report at
-`bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`
+`evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`
 and a generated report reader at `generated/eval_report_index.min.json`.
 
 The next pressure is receipt intake: can a reviewed report yield the bounded

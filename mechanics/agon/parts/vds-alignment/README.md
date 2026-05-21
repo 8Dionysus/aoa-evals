@@ -1,4 +1,4 @@
-# VDS Alignment
+# Agon / VDS Alignment Part
 
 ## Role
 
@@ -52,8 +52,4 @@ any future live verdict bridge.
 
 ## Validation
 
-```bash
-python mechanics/agon/parts/vds-alignment/scripts/build_agon_vds_eval_alignment_registry.py --check
-python mechanics/agon/parts/vds-alignment/scripts/validate_agon_vds_eval_alignment.py
-python -m pytest -q mechanics/agon/parts/vds-alignment/tests/test_agon_vds_eval_alignment.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

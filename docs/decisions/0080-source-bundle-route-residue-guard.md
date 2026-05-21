@@ -2,7 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-05-20
-- Owner surface: `bundles/`
+- Owner surface: `evals/`
 
 ## Context
 
@@ -20,7 +20,7 @@ inside bundles themselves. Two stale authored path examples exposed the risk:
   stronger owner is `aoa-sdk`;
 - stale authored path example: `aoa-eval-integrity-check` used generic `fixtures/contract.json` checklist
   wording for target bundles, which looked like a local root or owning-bundle
-  path instead of `bundles/<target>/fixtures/contract.json`.
+  path instead of `evals/<family>/<target>/fixtures/contract.json`.
 
 ## Options Considered
 
@@ -33,14 +33,14 @@ inside bundles themselves. Two stale authored path examples exposed the risk:
 
 `scripts/validate_repo.py` validates source proof bundles for route residue.
 
-The guard scans authored files under `bundles/` with `.md`, `.json`, `.yaml`,
+The guard scans authored files under `evals/` with `.md`, `.json`, `.yaml`,
 `.yml`, and `.txt` suffixes.
 
 It permits:
 
 - bundle-local paths when the path exists under the owning bundle root;
 - repo-root paths that currently exist;
-- `bundles/<target>/...` paths;
+- `evals/<family>/<target>/...` paths;
 - repo-qualified sibling refs such as `repo:aoa-sdk/...`;
 - root route cards such as `examples/README.md`.
 
@@ -56,7 +56,7 @@ It rejects:
 Bundles should remain self-contained proof objects, but self-contained does not
 mean pretending sibling-owned evidence is local. Sibling evidence should be
 repo-qualified. Local support artifacts should resolve under the owning bundle.
-Target-bundle checklist wording should name `bundles/<target>/...` instead of a
+Target-bundle checklist wording should name `evals/<family>/<target>/...` instead of a
 bare root-looking path.
 
 ## Consequences

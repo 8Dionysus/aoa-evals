@@ -11,11 +11,11 @@ nearby deferred pressures.
 
 The active operation is diagnosis-cause discipline:
 
-- `bundles/aoa-diagnosis-cause-discipline/EVAL.md`
-- `bundles/aoa-diagnosis-cause-discipline/eval.yaml`
-- `bundles/aoa-diagnosis-cause-discipline/notes/diagnosis-contract.md`
-- `bundles/aoa-diagnosis-cause-discipline/examples/example-report.md`
-- `bundles/aoa-diagnosis-cause-discipline/checks/eval-integrity-check.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/EVAL.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/eval.yaml`
+- `evals/workflow/aoa-diagnosis-cause-discipline/notes/diagnosis-contract.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/examples/example-report.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/checks/eval-integrity-check.md`
 - `mechanics/method-growth/PARTS.md` already deferred this bundle toward
   `growth-cycle/diagnosis-gate`
 
@@ -42,7 +42,7 @@ part:
 
 - `diagnosis-gate`
 
-Source proof bundles stay under `bundles/`. No root file movement is performed
+Source proof bundles stay under `evals/`. No root file movement is performed
 in this slice.
 
 Repair, progression-lift, reviewed-closeout-chain, donor-harvest,

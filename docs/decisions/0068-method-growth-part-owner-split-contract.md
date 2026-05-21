@@ -31,7 +31,7 @@ their stop-lines part-specific:
 - `mechanics/method-growth/parts/owner-landing/README.md`
 
 `candidate-lineage` remains lineage proof only. `owner-landing` remains
-owner-fit routing proof only. Source proof bundles stay under `bundles/`, and
+owner-fit routing proof only. Source proof bundles stay under `evals/`, and
 final owner truth stays with the owning repositories.
 
 ## Consequences

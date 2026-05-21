@@ -14,12 +14,12 @@
   "evidence_refs": [
     {
       "kind": "bundle_report",
-      "ref": "repo:aoa-evals/bundles/aoa-bounded-change-quality/reports/example-report.json",
+      "ref": "repo:aoa-evals/evals/workflow/aoa-bounded-change-quality/reports/example-report.json",
       "role": "primary"
     },
     {
       "kind": "bundle_contract",
-      "ref": "repo:aoa-evals/bundles/aoa-bounded-change-quality/EVAL.md",
+      "ref": "repo:aoa-evals/evals/workflow/aoa-bounded-change-quality/EVAL.md",
       "role": "verdict-meaning"
     }
   ],
@@ -29,8 +29,8 @@
     "report_format": "summary",
     "verdict": "supports bounded claim",
     "claim_scope": "bundle_scoped",
-    "bundle_ref": "repo:aoa-evals/bundles/aoa-bounded-change-quality/EVAL.md",
-    "report_ref": "repo:aoa-evals/bundles/aoa-bounded-change-quality/reports/example-report.json",
+    "bundle_ref": "repo:aoa-evals/evals/workflow/aoa-bounded-change-quality/EVAL.md",
+    "report_ref": "repo:aoa-evals/evals/workflow/aoa-bounded-change-quality/reports/example-report.json",
     "case_count": 3,
     "score": null,
     "interpretation_bound": "Example only. This receipt records one bounded proof publication and does not replace bundle-local verdict meaning, limitations, or cross-bundle interpretation."

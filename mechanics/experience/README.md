@@ -15,8 +15,8 @@ operation materializes the center Experience mechanic on the proof side.
 
 ## Source Surfaces
 
-- `bundles/aoa-experience-protocol-integrity/EVAL.md`
-- `bundles/aoa-experience-certification-gate-integrity/EVAL.md`
+- `evals/boundary/aoa-experience-protocol-integrity/EVAL.md`
+- `evals/boundary/aoa-experience-certification-gate-integrity/EVAL.md`
 - `mechanics/experience/parts/protocol-integrity/README.md`
 - `mechanics/experience/parts/certification-gate/README.md`
 - `mechanics/experience/parts/adoption-federation/README.md`
@@ -101,12 +101,9 @@ from this README, [PARTS.md](PARTS.md), and the active parts.
 
 ## Validation
 
-```bash
-python -m pytest -q mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py
-python -m pytest -q mechanics/experience/parts/certification-gate/tests
-python -m pytest -q mechanics/experience/parts/adoption-federation/tests
-python -m pytest -q mechanics/experience/parts/governance-runtime-boundary/tests
-python -m pytest -q mechanics/experience/parts/office-release-train/tests
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
+
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.

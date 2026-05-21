@@ -35,9 +35,6 @@ Each seed must keep:
 
 ## Validation
 
-Run:
-
-```bash
-python scripts/validate_repo.py
-python -m pytest -q tests/test_validate_repo.py -k titan_canary
-```
+Use [AGENTS.md](AGENTS.md#validation) for executable validation commands. This
+README names the seed family and boundaries; the route card owns command
+execution.

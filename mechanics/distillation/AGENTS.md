@@ -31,7 +31,7 @@ playbook scenario truth.
 
 ## Boundaries
 
-- Keep source proof bundles under `bundles/`.
+- Keep source proof bundles under `evals/`.
 - Keep runtime-pack bridge metadata under `mechanics/audit/` unless a
   distillation proof part owns a narrower support surface.
 - Keep generic adoption, consent, compatibility, and KAG/ToS boundary verdict

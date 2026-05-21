@@ -7,7 +7,7 @@ from jsonschema import Draft202012Validator
 
 
 ROOT = Path(__file__).resolve().parents[5]
-BUNDLE = ROOT / "bundles" / "aoa-experience-certification-gate-integrity"
+BUNDLE = ROOT / "evals" / "boundary" / "aoa-experience-certification-gate-integrity"
 
 
 def _load_json(path: Path) -> object:

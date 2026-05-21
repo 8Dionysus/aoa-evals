@@ -1,4 +1,4 @@
-# RPG Parts
+# RPG / Part Index
 
 `mechanics/rpg/parts/` contains the active parts of the eval-side RPG proof
 operation.

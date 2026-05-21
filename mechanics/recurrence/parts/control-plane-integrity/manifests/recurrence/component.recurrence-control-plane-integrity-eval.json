@@ -5,17 +5,17 @@
   "owner_repo": "aoa-evals",
   "description": "Draft bounded eval bundle for recurrence control-plane integrity, including registry robustness, graph closure, observation-only hooks, review closure, downstream thinness, and Agon stop-lines.",
   "source_inputs": [
-    "bundles/aoa-recurrence-control-plane-integrity/EVAL.md",
-    "bundles/aoa-recurrence-control-plane-integrity/eval.yaml",
+    "evals/boundary/aoa-recurrence-control-plane-integrity/EVAL.md",
+    "evals/boundary/aoa-recurrence-control-plane-integrity/eval.yaml",
     "mechanics/recurrence/parts/control-plane-integrity/fixtures/recurrence-control-plane-integrity-v1/README.md",
     "mechanics/recurrence/parts/control-plane-integrity/fixtures/recurrence-control-plane-integrity-v1/cases/*.json",
     "mechanics/recurrence/parts/control-plane-integrity/scorers/recurrence_control_plane_integrity.py",
     "mechanics/recurrence/parts/control-plane-integrity/scripts/run_recurrence_control_plane_integrity_eval.py"
   ],
   "contract_surfaces": [
-    "bundles/aoa-recurrence-control-plane-integrity/fixtures/contract.json",
-    "bundles/aoa-recurrence-control-plane-integrity/runners/contract.json",
-    "bundles/aoa-recurrence-control-plane-integrity/reports/summary.schema.json",
+    "evals/boundary/aoa-recurrence-control-plane-integrity/fixtures/contract.json",
+    "evals/boundary/aoa-recurrence-control-plane-integrity/runners/contract.json",
+    "evals/boundary/aoa-recurrence-control-plane-integrity/reports/summary.schema.json",
     "mechanics/recurrence/parts/control-plane-integrity/schemas/recurrence-control-plane-integrity-dossier.schema.json"
   ],
   "documentation_surfaces": [
@@ -79,8 +79,8 @@
     "open_window_days": 14
   },
   "rollback_anchors": [
-    "bundles/aoa-recurrence-control-plane-integrity/EVAL.md",
-    "bundles/aoa-recurrence-control-plane-integrity/eval.yaml",
+    "evals/boundary/aoa-recurrence-control-plane-integrity/EVAL.md",
+    "evals/boundary/aoa-recurrence-control-plane-integrity/eval.yaml",
     "mechanics/recurrence/parts/control-plane-integrity/scorers/recurrence_control_plane_integrity.py",
     "mechanics/recurrence/parts/control-plane-integrity/fixtures/recurrence-control-plane-integrity-v1/README.md"
   ],

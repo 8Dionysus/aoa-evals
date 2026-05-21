@@ -13,7 +13,7 @@ AOA_MEMO_ROOT = Path(os.environ.get("AOA_MEMO_ROOT", REPO_ROOT.parent / "aoa-mem
 AOA_PLAYBOOKS_ROOT = Path(
     os.environ.get("AOA_PLAYBOOKS_ROOT", REPO_ROOT.parent / "aoa-playbooks")
 )
-REPORT_DIR = REPO_ROOT / "bundles" / "aoa-memo-writeback-act-integrity" / "reports"
+REPORT_DIR = REPO_ROOT / "evals" / "workflow" / "aoa-memo-writeback-act-integrity" / "reports"
 REPORT_PATH = REPORT_DIR / "phase-alpha-memo-writeback-act.report.json"
 SCHEMA_PATH = REPORT_DIR / "summary.schema.json"
 SELECTION_PATH = (

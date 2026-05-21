@@ -29,7 +29,7 @@ owner artifact promotion.
 
 ## Boundaries
 
-- Keep source proof bundles under `bundles/`.
+- Keep source proof bundles under `evals/`.
 - Keep recurrence support artifacts part-local when a recurrence part owns
   their scorer, runner, schema, fixture, manifest, or example route.
 - Keep runtime return evidence candidate-only until a bundle accepts it.

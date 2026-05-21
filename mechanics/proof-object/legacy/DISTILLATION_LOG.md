@@ -27,7 +27,7 @@ The template and schemas constrain source proof-object authoring and validation.
 They are not generic root infrastructure and not separate parent mechanics.
 Moving them behind `proof-object` keeps bundle contracts close to the operation
 that owns proof-object completeness while source bundle meaning remains under
-`bundles/`.
+`evals/`.
 
 Validation route:
 

@@ -1,4 +1,4 @@
-# Audit Parts
+# Audit / Part Index
 
 ## Part Topology
 
@@ -85,8 +85,8 @@ Stop-lines keep every part candidate-only. No audit part accepts a verdict,
 activates runtime state, rewrites sibling truth, or bypasses bundle-local
 review.
 
-Validation lives in the candidate-reader builders, schema checks, example
-tests, and `python scripts/validate_repo.py`.
+Validation routes through [AGENTS](AGENTS.md#validation), candidate-reader
+builders, schema checks, and example tests.
 
 ## Stop Lines
 

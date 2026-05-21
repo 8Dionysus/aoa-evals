@@ -9,9 +9,9 @@ Accepted.
 The antifragility evidence cluster was already present across local root
 districts:
 
-- `bundles/aoa-antifragility-posture/EVAL.md`
-- `bundles/aoa-stress-recovery-window/EVAL.md`
-- `bundles/aoa-repair-boundedness/EVAL.md`
+- `evals/stress/aoa-antifragility-posture/EVAL.md`
+- `evals/comparison/longitudinal-window/aoa-stress-recovery-window/EVAL.md`
+- `evals/workflow/aoa-repair-boundedness/EVAL.md`
 - former root stress-window docs, shared fixture families, and repo-level
   schemas
 - runtime-chaos selected evidence under `mechanics/audit/`
@@ -31,10 +31,10 @@ parts:
 - `stress-recovery-window`
 - `repair-proof`
 
-Source proof bundles stay under `bundles/`. The stress-recovery comparison
+Source proof bundles stay under `evals/`. The stress-recovery comparison
 readout remains under `mechanics/comparison-spine/`. Runtime-chaos selected
 evidence remains under `mechanics/audit/`. `aoa-diagnosis-cause-discipline`
-stays a source proof bundle under `bundles/` and later decision `0037` routes
+stays a source proof bundle under `evals/` and later decision `0037` routes
 it through active `growth-cycle/diagnosis-gate`.
 
 Former root docs, fixtures, and schemas move behind the active package route

@@ -1,4 +1,4 @@
-# Orchestrator Proof Anchors
+# Boundary Bridge / Orchestrator Proof Anchors Part
 
 ## Role
 
@@ -45,7 +45,4 @@ capability targets into sibling-owner acceptance.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/boundary-bridge/parts/orchestrator-proof-anchors/`.
-
-Validation is `python scripts/build_catalog.py --check` plus
-`python scripts/validate_repo.py`.
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

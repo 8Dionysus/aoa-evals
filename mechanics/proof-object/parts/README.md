@@ -1,11 +1,11 @@
-# Proof Object Parts
+# Proof Object / Parts Route
 
 ## Role
 
 `mechanics/proof-object/parts/` holds support parts for source proof-object
 authoring and validation.
 
-Parts support `bundles/*/EVAL.md` and `bundles/*/eval.yaml`. They do not own
+Parts support `evals/**/EVAL.md` and `evals/**/eval.yaml`. They do not own
 bundle meaning and do not replace generated readers.
 
 ## Active Parts
@@ -15,8 +15,6 @@ bundle meaning and do not replace generated readers.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-```
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+parts index names the active parts and their roles; the parts route card owns
+the command lane.

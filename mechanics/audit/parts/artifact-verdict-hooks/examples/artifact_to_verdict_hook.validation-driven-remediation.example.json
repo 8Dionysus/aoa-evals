@@ -3,7 +3,7 @@
   "hook_id": "aoa-p-0018-scope-drift-hook",
   "playbook_id": "AOA-P-0018",
   "eval_anchor": "aoa-scope-drift-detection",
-  "verdict_bundle_ref": "repo:aoa-evals/bundles/aoa-scope-drift-detection/EVAL.md",
+  "verdict_bundle_ref": "repo:aoa-evals/evals/boundary/aoa-scope-drift-detection/EVAL.md",
   "artifact_inputs": [
     "failure_map",
     "boundary_map",
@@ -23,9 +23,9 @@
   "trace_surfaces": [],
   "verification_surface": "revalidation_pack",
   "contract_test_refs": [
-    "repo:aoa-evals/bundles/aoa-scope-drift-detection/checks/eval-integrity-check.md",
-    "repo:aoa-evals/bundles/aoa-scope-drift-detection/notes/bounded-promotion-review.md",
-    "repo:aoa-evals/bundles/aoa-scope-drift-detection/notes/proof-surface-contract.md"
+    "repo:aoa-evals/evals/boundary/aoa-scope-drift-detection/checks/eval-integrity-check.md",
+    "repo:aoa-evals/evals/boundary/aoa-scope-drift-detection/notes/bounded-promotion-review.md",
+    "repo:aoa-evals/evals/boundary/aoa-scope-drift-detection/notes/proof-surface-contract.md"
   ],
   "report_expectation": {
     "report_format": "summary-with-breakdown",

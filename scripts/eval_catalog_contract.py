@@ -14,8 +14,8 @@ FULL_CATALOG_NAME = "eval_catalog.json"
 MIN_CATALOG_NAME = "eval_catalog.min.json"
 CATALOG_VERSION = 1
 CATALOG_SOURCE_OF_TRUTH = {
-    "eval_markdown": "bundles/*/EVAL.md",
-    "eval_manifest": "bundles/*/eval.yaml",
+    "eval_markdown": "evals/**/EVAL.md",
+    "eval_manifest": "evals/**/eval.yaml",
 }
 MIN_ENTRY_KEYS = (
     "name",

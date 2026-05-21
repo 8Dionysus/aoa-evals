@@ -1,4 +1,4 @@
-# Retention Rank Alignment
+# Agon / Retention Rank Alignment Part
 
 ## Role
 
@@ -52,8 +52,4 @@ rank truth, trust truth, retention execution, and durable state authority.
 
 ## Validation
 
-```bash
-python mechanics/agon/parts/retention-rank-alignment/scripts/build_agon_retention_rank_eval_alignment_registry.py --check
-python mechanics/agon/parts/retention-rank-alignment/scripts/validate_agon_retention_rank_eval_alignment.py
-python -m pytest -q mechanics/agon/parts/retention-rank-alignment/tests/test_agon_retention_rank_eval_alignment.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

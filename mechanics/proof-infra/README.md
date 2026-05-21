@@ -18,7 +18,7 @@ proof bundle source.
 `bundle proof need -> shared proof contract -> bundle-local contract -> generated proof_artifacts -> bounded review`
 
 This package routes shared proof infrastructure. Source proof meaning stays in
-`bundles/*/EVAL.md` and `bundles/*/eval.yaml`.
+`evals/**/EVAL.md` and `evals/**/eval.yaml`.
 
 ## Source Surfaces
 
@@ -49,13 +49,13 @@ This package routes shared proof infrastructure. Source proof meaning stays in
 - a shared fixture family such as
   `mechanics/proof-infra/parts/fixture-families/fixtures/<family>/README.md`
   when no narrower AoA-aligned mechanic owns the family
-- a bundle-local `bundles/<bundle>/fixtures/contract.json`
-- a bundle-local `bundles/<bundle>/runners/contract.json`
-- a bundle-local `bundles/<bundle>/reports/summary.schema.json` and example
+- a bundle-local `evals/<family>/<eval>/fixtures/contract.json`
+- a bundle-local `evals/<family>/<eval>/runners/contract.json`
+- a bundle-local `evals/<family>/<eval>/reports/summary.schema.json` and example
   report when the bundle ships a machine-readable report
 - bundle-local `*.report.json` files only when a real reviewed run exists;
   these must validate against the bundle-local
-  `bundles/<bundle>/reports/summary.schema.json`
+  `evals/<family>/<eval>/reports/summary.schema.json`
 - optional shared scorer helpers such as `mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py`
 - shared contract schemas under
   `mechanics/proof-infra/parts/reportable-contracts/schemas/`
@@ -114,32 +114,21 @@ not a stronger claim.
 
 ## Validation
 
-After changing proof-infra route surfaces, run:
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
 
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/generate_eval_report_index.py --check
-python scripts/validate_semantic_agents.py
-```
-
-If scorer code changes, also run:
-
-```bash
-python -m pytest -q mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py
-```
-
-If generated runtime, quest, comparison, or receipt surfaces change, run their
-owning builders or validators too.
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.
 
 ## Next Route
 
 Use this package before:
 
 - adding or changing a shared fixture family;
-- changing bundle-local `bundles/<bundle>/fixtures/contract.json`;
-- changing bundle-local `bundles/<bundle>/runners/contract.json`;
-- changing bundle-local `bundles/<bundle>/reports/summary.schema.json`;
+- changing bundle-local `evals/<family>/<eval>/fixtures/contract.json`;
+- changing bundle-local `evals/<family>/<eval>/runners/contract.json`;
+- changing bundle-local `evals/<family>/<eval>/reports/summary.schema.json`;
 - adding or changing bundle-local `*.report.json` run artifacts;
 - changing shared scorer helper behavior;
 - changing top-level report dossiers;

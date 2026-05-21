@@ -7,7 +7,7 @@ from jsonschema import Draft202012Validator
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-REPORT_DIR = REPO_ROOT / "bundles" / "aoa-verification-honesty" / "reports"
+REPORT_DIR = REPO_ROOT / "evals" / "workflow" / "aoa-verification-honesty" / "reports"
 REPORT_PATH = REPORT_DIR / "aoa-evals-slice-19-lifecycle-contract.report.json"
 SCHEMA_PATH = REPORT_DIR / "summary.schema.json"
 

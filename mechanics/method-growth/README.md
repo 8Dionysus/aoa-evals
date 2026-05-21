@@ -15,17 +15,17 @@ the operation materializes the center Method-growth mechanic on the proof side.
 
 ## Source Surfaces
 
-- `bundles/aoa-candidate-lineage-integrity/EVAL.md`
-- `bundles/aoa-candidate-lineage-integrity/fixtures/contract.json`
-- `bundles/aoa-candidate-lineage-integrity/runners/contract.json`
-- `bundles/aoa-candidate-lineage-integrity/reports/summary.schema.json`
-- `bundles/aoa-candidate-lineage-integrity/reports/example-report.json`
+- `evals/capability/aoa-candidate-lineage-integrity/EVAL.md`
+- `evals/capability/aoa-candidate-lineage-integrity/fixtures/contract.json`
+- `evals/capability/aoa-candidate-lineage-integrity/runners/contract.json`
+- `evals/capability/aoa-candidate-lineage-integrity/reports/summary.schema.json`
+- `evals/capability/aoa-candidate-lineage-integrity/reports/example-report.json`
 - `mechanics/method-growth/parts/candidate-lineage/fixtures/candidate-lineage-v1/README.md`
-- `bundles/aoa-owner-fit-routing-quality/EVAL.md`
-- `bundles/aoa-owner-fit-routing-quality/fixtures/contract.json`
-- `bundles/aoa-owner-fit-routing-quality/runners/contract.json`
-- `bundles/aoa-owner-fit-routing-quality/reports/summary.schema.json`
-- `bundles/aoa-owner-fit-routing-quality/reports/example-report.json`
+- `evals/boundary/aoa-owner-fit-routing-quality/EVAL.md`
+- `evals/boundary/aoa-owner-fit-routing-quality/fixtures/contract.json`
+- `evals/boundary/aoa-owner-fit-routing-quality/runners/contract.json`
+- `evals/boundary/aoa-owner-fit-routing-quality/reports/summary.schema.json`
+- `evals/boundary/aoa-owner-fit-routing-quality/reports/example-report.json`
 - `mechanics/method-growth/parts/owner-landing/fixtures/owner-fit-routing-v1/README.md`
 
 ## Parts
@@ -33,7 +33,7 @@ the operation materializes the center Method-growth mechanic on the proof side.
 See [PARTS.md](PARTS.md).
 
 The active parts are `candidate-lineage` and `owner-landing`. Diagnosis-cause
-discipline remains a source proof bundle under `bundles/` and now routes
+discipline remains a source proof bundle under `evals/` and now routes
 through `growth-cycle/diagnosis-gate`. Bounded repair proof remains under
 `mechanics/antifragility/parts/repair-proof/`.
 
@@ -90,9 +90,9 @@ proof work starts from this README, [PARTS.md](PARTS.md), and the active parts.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-candidate-lineage-integrity
-python scripts/validate_repo.py --eval aoa-owner-fit-routing-quality
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
+
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.

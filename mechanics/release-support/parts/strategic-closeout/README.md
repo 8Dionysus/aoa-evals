@@ -1,4 +1,4 @@
-# Strategic Closeout
+# Release Support / Strategic Closeout Part
 
 ## Role
 
@@ -73,12 +73,7 @@ keep their own stronger truth.
 
 ## Validation
 
-```bash
-python -m pytest -q mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py tests/test_validate_repo.py -k strategic_closeout
-python scripts/validate_repo.py
-python scripts/release_check.py
-```
-
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.
 ## Next Route
 
 Use this part when updating strategic closeout evidence, trap review,

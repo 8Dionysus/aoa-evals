@@ -1,4 +1,4 @@
-# Fixed Baseline Part
+# Comparison Spine / Fixed Baseline Part
 
 ## Role
 
@@ -54,9 +54,4 @@ do not make one baseline result a repo-global score or broad capability proof.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/comparison-spine/parts/fixed-baseline/`.
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

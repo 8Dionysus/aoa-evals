@@ -13,13 +13,13 @@ The mechanics refactor made root infrastructure districts route-card-only:
 Guards already protect physical root payloads, generated/readout routes, and
 authored mechanics route cards. A remaining risk is root-facing authored
 surfaces: `AUDIT.md`, `EVAL_INDEX.md`, `docs/*.md`, `.agents/spark/SWARM.md`,
-root route cards, and `bundles/AGENTS.md` can accidentally keep examples such
+root route cards, and `evals/AGENTS.md` can accidentally keep examples such
 as `reports/summary.schema.json` or `templates/EVAL.template.md` as if those
 were still active root payload routes.
 
 Historical context is different from active navigation. Decision notes and
 provenance can name former paths, but current entry guidance should route to
-`bundles/<bundle>/...`, active `mechanics/...` surfaces, or root route cards.
+`evals/<family>/<eval>/...`, active `mechanics/...` surfaces, or root route cards.
 
 ## Decision
 
@@ -27,7 +27,7 @@ provenance can name former paths, but current entry guidance should route to
 route-card-only root district payload references.
 
 The guard scans root entry docs, root route cards, `docs/*.md`,
-`.agents/spark/SWARM.md`, and `bundles/AGENTS.md`. It does not scan
+`.agents/spark/SWARM.md`, and `evals/AGENTS.md`. It does not scan
 `docs/decisions/` because decisions preserve historical context and already
 serve a different authority role.
 
@@ -35,7 +35,7 @@ The guard permits:
 
 - root route cards such as `reports/README.md` and `templates/AGENTS.md`;
 - real existing paths;
-- active `mechanics/...` routes and `bundles/<bundle>/...` paths, because the
+- active `mechanics/...` routes and `evals/<family>/<eval>/...` paths, because the
   residue token no longer begins at a root route-card-only district;
 - explicitly historical lines that say former root, historical root, mapped
   through, or route-card context.

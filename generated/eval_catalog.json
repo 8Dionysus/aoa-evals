@@ -7,7 +7,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-a2a-summon-return-checkpoint/EVAL.md",
+      "eval_path": "evals/workflow/aoa-a2a-summon-return-checkpoint/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -34,7 +34,7 @@
       "object_under_evaluation": "reviewed A2A summon child-return checkpoint route",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-a2a-summon-return-checkpoint/fixtures/contract.json",
+        "fixture_contract_path": "evals/workflow/aoa-a2a-summon-return-checkpoint/fixtures/contract.json",
         "paired_readout_path": null,
         "report_example_path": null,
         "report_schema_path": null,
@@ -96,7 +96,7 @@
       "category": "stress",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-ambiguity-handling/EVAL.md",
+      "eval_path": "evals/stress/aoa-ambiguity-handling/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -127,11 +127,11 @@
       "object_under_evaluation": "task-meaning ambiguity handling in bounded agent change workflows",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-ambiguity-handling/fixtures/contract.json",
+        "fixture_contract_path": "evals/stress/aoa-ambiguity-handling/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-ambiguity-handling/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-ambiguity-handling/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-ambiguity-handling/runners/contract.json",
+        "report_example_path": "evals/stress/aoa-ambiguity-handling/reports/example-report.json",
+        "report_schema_path": "evals/stress/aoa-ambiguity-handling/reports/summary.schema.json",
+        "runner_contract_path": "evals/stress/aoa-ambiguity-handling/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -196,7 +196,7 @@
       "category": "stress",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-antifragility-posture/EVAL.md",
+      "eval_path": "evals/stress/aoa-antifragility-posture/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -225,8 +225,8 @@
       "proof_artifacts": {
         "fixture_contract_path": null,
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-antifragility-posture/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-antifragility-posture/reports/summary.schema.json",
+        "report_example_path": "evals/stress/aoa-antifragility-posture/reports/example-report.json",
+        "report_schema_path": "evals/stress/aoa-antifragility-posture/reports/summary.schema.json",
         "runner_contract_path": null,
         "runner_surface_path": null,
         "scorer_helper_paths": [],
@@ -280,7 +280,7 @@
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-approval-boundary-adherence/EVAL.md",
+      "eval_path": "evals/boundary/aoa-approval-boundary-adherence/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -315,11 +315,11 @@
       "object_under_evaluation": "authority and approval boundary handling in agent behavior",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-approval-boundary-adherence/fixtures/contract.json",
+        "fixture_contract_path": "evals/boundary/aoa-approval-boundary-adherence/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-approval-boundary-adherence/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-approval-boundary-adherence/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-approval-boundary-adherence/runners/contract.json",
+        "report_example_path": "evals/boundary/aoa-approval-boundary-adherence/reports/example-report.json",
+        "report_schema_path": "evals/boundary/aoa-approval-boundary-adherence/reports/summary.schema.json",
+        "runner_contract_path": "evals/boundary/aoa-approval-boundary-adherence/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -368,7 +368,7 @@
       "category": "artifact",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-artifact-review-rubric/EVAL.md",
+      "eval_path": "evals/artifact/aoa-artifact-review-rubric/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -404,11 +404,11 @@
       "object_under_evaluation": "produced artifact quality on bounded agent change tasks",
       "portability_level": "portable",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-artifact-review-rubric/fixtures/contract.json",
+        "fixture_contract_path": "evals/artifact/aoa-artifact-review-rubric/fixtures/contract.json",
         "paired_readout_path": "mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md",
-        "report_example_path": "bundles/aoa-artifact-review-rubric/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-artifact-review-rubric/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-artifact-review-rubric/runners/contract.json",
+        "report_example_path": "evals/artifact/aoa-artifact-review-rubric/reports/example-report.json",
+        "report_schema_path": "evals/artifact/aoa-artifact-review-rubric/reports/summary.schema.json",
+        "runner_contract_path": "evals/artifact/aoa-artifact-review-rubric/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -474,7 +474,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-bounded-change-quality/EVAL.md",
+      "eval_path": "evals/workflow/aoa-bounded-change-quality/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -510,11 +510,11 @@
       "object_under_evaluation": "bounded agent change workflow",
       "portability_level": "portable",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-bounded-change-quality/fixtures/contract.json",
+        "fixture_contract_path": "evals/workflow/aoa-bounded-change-quality/fixtures/contract.json",
         "paired_readout_path": "mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md",
-        "report_example_path": "bundles/aoa-bounded-change-quality/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-bounded-change-quality/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-bounded-change-quality/runners/contract.json",
+        "report_example_path": "evals/workflow/aoa-bounded-change-quality/reports/example-report.json",
+        "report_schema_path": "evals/workflow/aoa-bounded-change-quality/reports/summary.schema.json",
+        "runner_contract_path": "evals/workflow/aoa-bounded-change-quality/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -600,7 +600,7 @@
       "category": "capability",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-candidate-lineage-integrity/EVAL.md",
+      "eval_path": "evals/capability/aoa-candidate-lineage-integrity/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -631,11 +631,11 @@
       "object_under_evaluation": "growth-refinery lineage-chain coherence across checkpoint, reviewed harvest, seed staging, and owner evidence surfaces",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-candidate-lineage-integrity/fixtures/contract.json",
+        "fixture_contract_path": "evals/capability/aoa-candidate-lineage-integrity/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-candidate-lineage-integrity/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-candidate-lineage-integrity/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-candidate-lineage-integrity/runners/contract.json",
+        "report_example_path": "evals/capability/aoa-candidate-lineage-integrity/reports/example-report.json",
+        "report_schema_path": "evals/capability/aoa-candidate-lineage-integrity/reports/summary.schema.json",
+        "runner_contract_path": "evals/capability/aoa-candidate-lineage-integrity/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -696,7 +696,7 @@
       "category": "artifact",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-compost-provenance-preservation/EVAL.md",
+      "eval_path": "evals/artifact/aoa-compost-provenance-preservation/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -727,11 +727,11 @@
       "object_under_evaluation": "provenance-preserving compost artifacts derived from witness-facing inputs",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-compost-provenance-preservation/fixtures/contract.json",
+        "fixture_contract_path": "evals/artifact/aoa-compost-provenance-preservation/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-compost-provenance-preservation/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-compost-provenance-preservation/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-compost-provenance-preservation/runners/contract.json",
+        "report_example_path": "evals/artifact/aoa-compost-provenance-preservation/reports/example-report.json",
+        "report_schema_path": "evals/artifact/aoa-compost-provenance-preservation/reports/summary.schema.json",
+        "runner_contract_path": "evals/artifact/aoa-compost-provenance-preservation/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -776,7 +776,7 @@
       "category": "capability",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-continuity-anchor-integrity/EVAL.md",
+      "eval_path": "evals/capability/aoa-continuity-anchor-integrity/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -870,7 +870,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-diagnosis-cause-discipline/EVAL.md",
+      "eval_path": "evals/workflow/aoa-diagnosis-cause-discipline/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -962,7 +962,7 @@
       "category": "capability",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-eval-integrity-check/EVAL.md",
+      "eval_path": "evals/capability/aoa-eval-integrity-check/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -991,9 +991,9 @@
       "proof_artifacts": {
         "fixture_contract_path": null,
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-eval-integrity-check/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-eval-integrity-check/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-eval-integrity-check/runners/contract.json",
+        "report_example_path": "evals/capability/aoa-eval-integrity-check/reports/example-report.json",
+        "report_schema_path": "evals/capability/aoa-eval-integrity-check/reports/summary.schema.json",
+        "runner_contract_path": "evals/capability/aoa-eval-integrity-check/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -1092,7 +1092,7 @@
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-experience-certification-gate-integrity/EVAL.md",
+      "eval_path": "evals/boundary/aoa-experience-certification-gate-integrity/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -1119,11 +1119,11 @@
       "object_under_evaluation": "experience certification gate bundle",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-experience-certification-gate-integrity/fixtures/contract.json",
+        "fixture_contract_path": "evals/boundary/aoa-experience-certification-gate-integrity/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-experience-certification-gate-integrity/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-experience-certification-gate-integrity/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-experience-certification-gate-integrity/runners/contract.json",
+        "report_example_path": "evals/boundary/aoa-experience-certification-gate-integrity/reports/example-report.json",
+        "report_schema_path": "evals/boundary/aoa-experience-certification-gate-integrity/reports/summary.schema.json",
+        "runner_contract_path": "evals/boundary/aoa-experience-certification-gate-integrity/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [],
         "shared_fixture_family_path": "mechanics/experience/parts/certification-gate/fixtures/experience-certification-gate-integrity-v1/README.md"
@@ -1177,7 +1177,7 @@
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-experience-protocol-integrity/EVAL.md",
+      "eval_path": "evals/boundary/aoa-experience-protocol-integrity/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -1204,11 +1204,11 @@
       "object_under_evaluation": "experience verdict bundle",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-experience-protocol-integrity/fixtures/contract.json",
+        "fixture_contract_path": "evals/boundary/aoa-experience-protocol-integrity/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-experience-protocol-integrity/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-experience-protocol-integrity/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-experience-protocol-integrity/runners/contract.json",
+        "report_example_path": "evals/boundary/aoa-experience-protocol-integrity/reports/example-report.json",
+        "report_schema_path": "evals/boundary/aoa-experience-protocol-integrity/reports/summary.schema.json",
+        "runner_contract_path": "evals/boundary/aoa-experience-protocol-integrity/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [],
         "shared_fixture_family_path": "mechanics/experience/parts/protocol-integrity/fixtures/experience-verdict-protocol-integrity-v1/README.md"
@@ -1266,7 +1266,7 @@
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-local-text-contract-fit/EVAL.md",
+      "eval_path": "evals/boundary/aoa-local-text-contract-fit/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -1302,11 +1302,11 @@
       "object_under_evaluation": "local text lane contract-fit on compact control and structure prompts",
       "portability_level": "portable",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-local-text-contract-fit/fixtures/contract.json",
+        "fixture_contract_path": "evals/boundary/aoa-local-text-contract-fit/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-local-text-contract-fit/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-local-text-contract-fit/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-local-text-contract-fit/runners/contract.json",
+        "report_example_path": "evals/boundary/aoa-local-text-contract-fit/reports/example-report.json",
+        "report_schema_path": "evals/boundary/aoa-local-text-contract-fit/reports/summary.schema.json",
+        "runner_contract_path": "evals/boundary/aoa-local-text-contract-fit/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -1342,7 +1342,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-long-horizon-depth/EVAL.md",
+      "eval_path": "evals/workflow/aoa-long-horizon-depth/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -1373,11 +1373,11 @@
       "object_under_evaluation": "restart fidelity of checkpoint-based long-horizon inquiry routes",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-long-horizon-depth/fixtures/contract.json",
+        "fixture_contract_path": "evals/workflow/aoa-long-horizon-depth/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-long-horizon-depth/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-long-horizon-depth/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-long-horizon-depth/runners/contract.json",
+        "report_example_path": "evals/workflow/aoa-long-horizon-depth/reports/example-report.json",
+        "report_schema_path": "evals/workflow/aoa-long-horizon-depth/reports/summary.schema.json",
+        "runner_contract_path": "evals/workflow/aoa-long-horizon-depth/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -1429,7 +1429,7 @@
         "shared_family_path": "mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md",
         "window_family_label": "repeated-window-bounded-v1 bounded workflow sequence"
       },
-      "eval_path": "bundles/aoa-longitudinal-growth-snapshot/EVAL.md",
+      "eval_path": "evals/comparison/longitudinal-window/aoa-longitudinal-growth-snapshot/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -1461,11 +1461,11 @@
       "object_under_evaluation": "ordered repeated-window movement on a bounded workflow surface",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-longitudinal-growth-snapshot/fixtures/contract.json",
+        "fixture_contract_path": "evals/comparison/longitudinal-window/aoa-longitudinal-growth-snapshot/fixtures/contract.json",
         "paired_readout_path": "mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md",
-        "report_example_path": "bundles/aoa-longitudinal-growth-snapshot/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-longitudinal-growth-snapshot/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-longitudinal-growth-snapshot/runners/contract.json",
+        "report_example_path": "evals/comparison/longitudinal-window/aoa-longitudinal-growth-snapshot/reports/example-report.json",
+        "report_schema_path": "evals/comparison/longitudinal-window/aoa-longitudinal-growth-snapshot/reports/summary.schema.json",
+        "runner_contract_path": "evals/comparison/longitudinal-window/aoa-longitudinal-growth-snapshot/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -1535,7 +1535,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-memo-contradiction-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-memo-contradiction-integrity/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -1566,11 +1566,11 @@
       "object_under_evaluation": "integrity of contradiction-visible memo consumption on lifecycle-aware object recall paths",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-memo-contradiction-integrity/fixtures/contract.json",
+        "fixture_contract_path": "evals/workflow/aoa-memo-contradiction-integrity/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-memo-contradiction-integrity/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-memo-contradiction-integrity/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-memo-contradiction-integrity/runners/contract.json",
+        "report_example_path": "evals/workflow/aoa-memo-contradiction-integrity/reports/example-report.json",
+        "report_schema_path": "evals/workflow/aoa-memo-contradiction-integrity/reports/summary.schema.json",
+        "runner_contract_path": "evals/workflow/aoa-memo-contradiction-integrity/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -1623,7 +1623,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-memo-recall-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-memo-recall-integrity/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -1654,11 +1654,11 @@
       "object_under_evaluation": "integrity of memo recall on explicit inspect/capsule/expand consumer paths",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-memo-recall-integrity/fixtures/contract.json",
+        "fixture_contract_path": "evals/workflow/aoa-memo-recall-integrity/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-memo-recall-integrity/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-memo-recall-integrity/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-memo-recall-integrity/runners/contract.json",
+        "report_example_path": "evals/workflow/aoa-memo-recall-integrity/reports/example-report.json",
+        "report_schema_path": "evals/workflow/aoa-memo-recall-integrity/reports/summary.schema.json",
+        "runner_contract_path": "evals/workflow/aoa-memo-recall-integrity/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -1707,7 +1707,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -1738,11 +1738,11 @@
       "object_under_evaluation": "integrity of reviewed-candidate adoption on runtime-to-memo distillation paths",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-memo-reviewed-candidate-adoption-integrity/fixtures/contract.json",
+        "fixture_contract_path": "evals/workflow/aoa-memo-reviewed-candidate-adoption-integrity/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-memo-reviewed-candidate-adoption-integrity/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-memo-reviewed-candidate-adoption-integrity/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-memo-reviewed-candidate-adoption-integrity/runners/contract.json",
+        "report_example_path": "evals/workflow/aoa-memo-reviewed-candidate-adoption-integrity/reports/example-report.json",
+        "report_schema_path": "evals/workflow/aoa-memo-reviewed-candidate-adoption-integrity/reports/summary.schema.json",
+        "runner_contract_path": "evals/workflow/aoa-memo-reviewed-candidate-adoption-integrity/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -1795,7 +1795,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-memo-writeback-act-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-memo-writeback-act-integrity/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -1826,11 +1826,11 @@
       "object_under_evaluation": "integrity of runtime-to-memo writeback on bounded owner-local adoption paths",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-memo-writeback-act-integrity/fixtures/contract.json",
+        "fixture_contract_path": "evals/workflow/aoa-memo-writeback-act-integrity/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-memo-writeback-act-integrity/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-memo-writeback-act-integrity/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-memo-writeback-act-integrity/runners/contract.json",
+        "report_example_path": "evals/workflow/aoa-memo-writeback-act-integrity/reports/example-report.json",
+        "report_schema_path": "evals/workflow/aoa-memo-writeback-act-integrity/reports/summary.schema.json",
+        "runner_contract_path": "evals/workflow/aoa-memo-writeback-act-integrity/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -1889,7 +1889,7 @@
         "selection_question": "Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?",
         "shared_family_path": "mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md"
       },
-      "eval_path": "bundles/aoa-output-vs-process-gap/EVAL.md",
+      "eval_path": "evals/comparison/peer-compare/aoa-output-vs-process-gap/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -1921,11 +1921,11 @@
       "object_under_evaluation": "artifact-versus-process divergence on the same bounded change cases",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-output-vs-process-gap/fixtures/contract.json",
+        "fixture_contract_path": "evals/comparison/peer-compare/aoa-output-vs-process-gap/fixtures/contract.json",
         "paired_readout_path": "mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md",
-        "report_example_path": "bundles/aoa-output-vs-process-gap/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-output-vs-process-gap/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-output-vs-process-gap/runners/contract.json",
+        "report_example_path": "evals/comparison/peer-compare/aoa-output-vs-process-gap/reports/example-report.json",
+        "report_schema_path": "evals/comparison/peer-compare/aoa-output-vs-process-gap/reports/summary.schema.json",
+        "runner_contract_path": "evals/comparison/peer-compare/aoa-output-vs-process-gap/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -2003,7 +2003,7 @@
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-owner-fit-routing-quality/EVAL.md",
+      "eval_path": "evals/boundary/aoa-owner-fit-routing-quality/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -2034,11 +2034,11 @@
       "object_under_evaluation": "reviewed owner-fit routing quality for growth-refinery candidates",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-owner-fit-routing-quality/fixtures/contract.json",
+        "fixture_contract_path": "evals/boundary/aoa-owner-fit-routing-quality/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-owner-fit-routing-quality/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-owner-fit-routing-quality/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-owner-fit-routing-quality/runners/contract.json",
+        "report_example_path": "evals/boundary/aoa-owner-fit-routing-quality/reports/example-report.json",
+        "report_schema_path": "evals/boundary/aoa-owner-fit-routing-quality/reports/summary.schema.json",
+        "runner_contract_path": "evals/boundary/aoa-owner-fit-routing-quality/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -2103,7 +2103,7 @@
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-recurrence-control-plane-integrity/EVAL.md",
+      "eval_path": "evals/boundary/aoa-recurrence-control-plane-integrity/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -2130,11 +2130,11 @@
       "object_under_evaluation": "recurrence control-plane run artifacts",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-recurrence-control-plane-integrity/fixtures/contract.json",
+        "fixture_contract_path": "evals/boundary/aoa-recurrence-control-plane-integrity/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-recurrence-control-plane-integrity/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-recurrence-control-plane-integrity/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-recurrence-control-plane-integrity/runners/contract.json",
+        "report_example_path": "evals/boundary/aoa-recurrence-control-plane-integrity/reports/example-report.json",
+        "report_schema_path": "evals/boundary/aoa-recurrence-control-plane-integrity/reports/summary.schema.json",
+        "runner_contract_path": "evals/boundary/aoa-recurrence-control-plane-integrity/runners/contract.json",
         "runner_surface_path": "mechanics/recurrence/parts/control-plane-integrity/scripts/run_recurrence_control_plane_integrity_eval.py",
         "scorer_helper_paths": [
           "mechanics/recurrence/parts/control-plane-integrity/scorers/recurrence_control_plane_integrity.py"
@@ -2187,7 +2187,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-reflective-revision-boundedness/EVAL.md",
+      "eval_path": "evals/workflow/aoa-reflective-revision-boundedness/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -2288,7 +2288,7 @@
         "selection_question": "Do you need a frozen-baseline comparison on the same bounded task family?",
         "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
       },
-      "eval_path": "bundles/aoa-regression-same-task/EVAL.md",
+      "eval_path": "evals/comparison/fixed-baseline/aoa-regression-same-task/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -2325,11 +2325,11 @@
       "object_under_evaluation": "same-task bounded workflow regression against a frozen baseline",
       "portability_level": "portable",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-regression-same-task/fixtures/contract.json",
+        "fixture_contract_path": "evals/comparison/fixed-baseline/aoa-regression-same-task/fixtures/contract.json",
         "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
-        "report_example_path": "bundles/aoa-regression-same-task/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-regression-same-task/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-regression-same-task/runners/contract.json",
+        "report_example_path": "evals/comparison/fixed-baseline/aoa-regression-same-task/reports/example-report.json",
+        "report_schema_path": "evals/comparison/fixed-baseline/aoa-regression-same-task/reports/summary.schema.json",
+        "runner_contract_path": "evals/comparison/fixed-baseline/aoa-regression-same-task/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -2399,7 +2399,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-repair-boundedness/EVAL.md",
+      "eval_path": "evals/workflow/aoa-repair-boundedness/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -2426,11 +2426,11 @@
       "object_under_evaluation": "bounded repair and reanchor quality on growth-refinery follow-through moves",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-repair-boundedness/fixtures/contract.json",
+        "fixture_contract_path": "evals/workflow/aoa-repair-boundedness/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-repair-boundedness/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-repair-boundedness/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-repair-boundedness/runners/contract.json",
+        "report_example_path": "evals/workflow/aoa-repair-boundedness/reports/example-report.json",
+        "report_schema_path": "evals/workflow/aoa-repair-boundedness/reports/summary.schema.json",
+        "runner_contract_path": "evals/workflow/aoa-repair-boundedness/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -2495,7 +2495,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-return-anchor-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-return-anchor-integrity/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -2522,11 +2522,11 @@
       "object_under_evaluation": "anchor fidelity and honest re-entry of return-capable agent routes",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-return-anchor-integrity/fixtures/contract.json",
+        "fixture_contract_path": "evals/workflow/aoa-return-anchor-integrity/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-return-anchor-integrity/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-return-anchor-integrity/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-return-anchor-integrity/runners/contract.json",
+        "report_example_path": "evals/workflow/aoa-return-anchor-integrity/reports/example-report.json",
+        "report_schema_path": "evals/workflow/aoa-return-anchor-integrity/reports/summary.schema.json",
+        "runner_contract_path": "evals/workflow/aoa-return-anchor-integrity/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -2583,7 +2583,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-ring-application-discipline/EVAL.md",
+      "eval_path": "evals/workflow/aoa-ring-application-discipline/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -2619,11 +2619,11 @@
       "object_under_evaluation": "ring-application discipline in multi-skill agent orchestration",
       "portability_level": "portable",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-ring-application-discipline/fixtures/contract.json",
+        "fixture_contract_path": "evals/workflow/aoa-ring-application-discipline/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-ring-application-discipline/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-ring-application-discipline/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-ring-application-discipline/runners/contract.json",
+        "report_example_path": "evals/workflow/aoa-ring-application-discipline/reports/example-report.json",
+        "report_schema_path": "evals/workflow/aoa-ring-application-discipline/reports/summary.schema.json",
+        "runner_contract_path": "evals/workflow/aoa-ring-application-discipline/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -2668,7 +2668,7 @@
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-scope-drift-detection/EVAL.md",
+      "eval_path": "evals/boundary/aoa-scope-drift-detection/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -2699,11 +2699,11 @@
       "object_under_evaluation": "scope-alignment behavior in bounded agent change workflows",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-scope-drift-detection/fixtures/contract.json",
+        "fixture_contract_path": "evals/boundary/aoa-scope-drift-detection/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-scope-drift-detection/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-scope-drift-detection/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-scope-drift-detection/runners/contract.json",
+        "report_example_path": "evals/boundary/aoa-scope-drift-detection/reports/example-report.json",
+        "report_schema_path": "evals/boundary/aoa-scope-drift-detection/reports/summary.schema.json",
+        "runner_contract_path": "evals/boundary/aoa-scope-drift-detection/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -2768,7 +2768,7 @@
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-self-reanchor-correctness/EVAL.md",
+      "eval_path": "evals/boundary/aoa-self-reanchor-correctness/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -2862,7 +2862,7 @@
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-stats-regrounding-boundary-integrity/EVAL.md",
+      "eval_path": "evals/boundary/aoa-stats-regrounding-boundary-integrity/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -2889,11 +2889,11 @@
       "object_under_evaluation": "stats-driven re-grounding consumer boundary across aoa-stats, aoa-sdk, aoa-routing, and aoa-evals",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-stats-regrounding-boundary-integrity/fixtures/contract.json",
+        "fixture_contract_path": "evals/boundary/aoa-stats-regrounding-boundary-integrity/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-stats-regrounding-boundary-integrity/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-stats-regrounding-boundary-integrity/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-stats-regrounding-boundary-integrity/runners/contract.json",
+        "report_example_path": "evals/boundary/aoa-stats-regrounding-boundary-integrity/reports/example-report.json",
+        "report_schema_path": "evals/boundary/aoa-stats-regrounding-boundary-integrity/reports/summary.schema.json",
+        "runner_contract_path": "evals/boundary/aoa-stats-regrounding-boundary-integrity/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -2953,7 +2953,7 @@
         "shared_family_path": "mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md",
         "window_family_label": "stress-recovery-window-bounded-v1 bounded stress recovery sequence"
       },
-      "eval_path": "bundles/aoa-stress-recovery-window/EVAL.md",
+      "eval_path": "evals/comparison/longitudinal-window/aoa-stress-recovery-window/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -2985,11 +2985,11 @@
       "object_under_evaluation": "ordered stress recovery posture on one named owner surface and adjacent evidence family",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-stress-recovery-window/fixtures/contract.json",
+        "fixture_contract_path": "evals/comparison/longitudinal-window/aoa-stress-recovery-window/fixtures/contract.json",
         "paired_readout_path": "mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md",
-        "report_example_path": "bundles/aoa-stress-recovery-window/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-stress-recovery-window/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-stress-recovery-window/runners/contract.json",
+        "report_example_path": "evals/comparison/longitudinal-window/aoa-stress-recovery-window/reports/example-report.json",
+        "report_schema_path": "evals/comparison/longitudinal-window/aoa-stress-recovery-window/reports/summary.schema.json",
+        "runner_contract_path": "evals/comparison/longitudinal-window/aoa-stress-recovery-window/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -3057,7 +3057,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-tool-trajectory-discipline/EVAL.md",
+      "eval_path": "evals/workflow/aoa-tool-trajectory-discipline/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -3088,11 +3088,11 @@
       "object_under_evaluation": "tool-use trajectory discipline in bounded agent change workflows",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-tool-trajectory-discipline/fixtures/contract.json",
+        "fixture_contract_path": "evals/workflow/aoa-tool-trajectory-discipline/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-tool-trajectory-discipline/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-tool-trajectory-discipline/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-tool-trajectory-discipline/runners/contract.json",
+        "report_example_path": "evals/workflow/aoa-tool-trajectory-discipline/reports/example-report.json",
+        "report_schema_path": "evals/workflow/aoa-tool-trajectory-discipline/reports/summary.schema.json",
+        "runner_contract_path": "evals/workflow/aoa-tool-trajectory-discipline/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -3157,7 +3157,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-trace-outcome-separation/EVAL.md",
+      "eval_path": "evals/workflow/aoa-trace-outcome-separation/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -3188,11 +3188,11 @@
       "object_under_evaluation": "outcome-vs-path separation in bounded agent change workflows",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-trace-outcome-separation/fixtures/contract.json",
+        "fixture_contract_path": "evals/workflow/aoa-trace-outcome-separation/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-trace-outcome-separation/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-trace-outcome-separation/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-trace-outcome-separation/runners/contract.json",
+        "report_example_path": "evals/workflow/aoa-trace-outcome-separation/reports/example-report.json",
+        "report_schema_path": "evals/workflow/aoa-trace-outcome-separation/reports/summary.schema.json",
+        "runner_contract_path": "evals/workflow/aoa-trace-outcome-separation/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -3265,7 +3265,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-verification-honesty/EVAL.md",
+      "eval_path": "evals/workflow/aoa-verification-honesty/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -3301,11 +3301,11 @@
       "object_under_evaluation": "verification-truthfulness behavior in bounded agent change workflows",
       "portability_level": "portable",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-verification-honesty/fixtures/contract.json",
+        "fixture_contract_path": "evals/workflow/aoa-verification-honesty/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-verification-honesty/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-verification-honesty/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-verification-honesty/runners/contract.json",
+        "report_example_path": "evals/workflow/aoa-verification-honesty/reports/example-report.json",
+        "report_schema_path": "evals/workflow/aoa-verification-honesty/reports/summary.schema.json",
+        "runner_contract_path": "evals/workflow/aoa-verification-honesty/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -3370,7 +3370,7 @@
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
-      "eval_path": "bundles/aoa-witness-trace-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-witness-trace-integrity/EVAL.md",
       "evidence": [
         {
           "kind": "origin_need",
@@ -3401,11 +3401,11 @@
       "object_under_evaluation": "reviewable integrity of witness trace exports on bounded runs",
       "portability_level": "local-shaped",
       "proof_artifacts": {
-        "fixture_contract_path": "bundles/aoa-witness-trace-integrity/fixtures/contract.json",
+        "fixture_contract_path": "evals/workflow/aoa-witness-trace-integrity/fixtures/contract.json",
         "paired_readout_path": null,
-        "report_example_path": "bundles/aoa-witness-trace-integrity/reports/example-report.json",
-        "report_schema_path": "bundles/aoa-witness-trace-integrity/reports/summary.schema.json",
-        "runner_contract_path": "bundles/aoa-witness-trace-integrity/runners/contract.json",
+        "report_example_path": "evals/workflow/aoa-witness-trace-integrity/reports/example-report.json",
+        "report_schema_path": "evals/workflow/aoa-witness-trace-integrity/reports/summary.schema.json",
+        "runner_contract_path": "evals/workflow/aoa-witness-trace-integrity/runners/contract.json",
         "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
           "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
@@ -3450,7 +3450,7 @@
     }
   ],
   "source_of_truth": {
-    "eval_manifest": "bundles/*/eval.yaml",
-    "eval_markdown": "bundles/*/EVAL.md"
+    "eval_manifest": "evals/**/eval.yaml",
+    "eval_markdown": "evals/**/EVAL.md"
   }
 }

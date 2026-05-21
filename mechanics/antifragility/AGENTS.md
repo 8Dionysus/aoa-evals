@@ -29,7 +29,7 @@ authority.
 
 ## Boundaries
 
-- Keep source proof bundles under `bundles/`.
+- Keep source proof bundles under `evals/`.
 - Keep comparison readout discipline under `mechanics/comparison-spine/`.
 - Keep runtime-chaos selected evidence under `mechanics/audit/` until a
   bundle-local review accepts it.

@@ -1,4 +1,4 @@
-# Reportable Contracts
+# Proof Infra / Reportable Contracts Part
 
 ## Role
 
@@ -27,16 +27,16 @@ bundle-local reportable proof artifacts readable and checkable.
 
 Each bundle-local runner contract cites the active paths through
 `runner_surface_path` and `scorer_helper_paths`. Bundle-local reports still
-cite their own `bundles/<bundle>/reports/summary.schema.json` and
-`bundles/<bundle>/reports/example-report.json`. The bundle-local
-`bundles/<bundle>/EVAL.md` remains the interpretation boundary.
+cite their own `evals/<family>/<eval>/reports/summary.schema.json` and
+`evals/<family>/<eval>/reports/example-report.json`. The bundle-local
+`evals/<family>/<eval>/EVAL.md` remains the interpretation boundary.
 
 ## Inputs
 
 - a source proof bundle with a bounded claim;
-- a bundle-local `bundles/<bundle>/fixtures/contract.json` when shared fixture
+- a bundle-local `evals/<family>/<eval>/fixtures/contract.json` when shared fixture
   support is used;
-- a bundle-local `bundles/<bundle>/runners/contract.json` that names this part
+- a bundle-local `evals/<family>/<eval>/runners/contract.json` that names this part
   through `runner_surface_path`;
 - optional `scorer_helper_paths` for shared bounded breakdown payloads;
 - a bundle-local report schema and example report.
@@ -53,7 +53,7 @@ cite their own `bundles/<bundle>/reports/summary.schema.json` and
 
 This part is weaker than:
 
-- `bundles/*/EVAL.md` and `bundles/*/eval.yaml`;
+- `evals/**/EVAL.md` and `evals/**/eval.yaml`;
 - bundle-local report schemas, examples, and reviewed reports;
 - comparison-spine semantics;
 - audit candidate-evidence interpretation;
@@ -73,11 +73,4 @@ This part is weaker than:
 
 ## Validation
 
-Run:
-
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-python -m pytest -q mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py tests/test_build_catalog.py tests/test_validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

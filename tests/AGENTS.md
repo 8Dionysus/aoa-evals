@@ -5,9 +5,19 @@
 `tests/` protects repo-wide eval contracts, catalogs, generated readers,
 validators, semantic route cards, and anti-overread posture.
 
-mechanic-owned tests live beside the owning part under
+Repo-wide tests live here; mechanic-owned tests live beside the owning part under
 `mechanics/<mechanic>/parts/<part>/tests/`. Do not move a part-local test back
 to root `tests/` just because pytest can collect it from either place.
+
+## Validator regression role
+
+`tests/test_validate_repo.py` is the root validator regression mesh. It protects
+cross-surface contracts in `scripts/validate_repo.py`; it is not generic unit
+test overflow.
+
+A test in this root district should name the repository-wide invariant it
+protects. If a check only constrains one mechanic part payload, keep or move the
+test beside that part instead.
 
 Tests should prove bounded behavior, not freeze incidental prose. Prefer cases around claim limits, fixture coverage, status drift, report validation, and comparison-spine integrity.
 

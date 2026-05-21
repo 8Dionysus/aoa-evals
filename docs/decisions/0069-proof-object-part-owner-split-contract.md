@@ -13,7 +13,7 @@ source proof objects. Its active parts are support surfaces:
 - `bundle-contracts` owns schema-backed frontmatter and manifest validation.
 
 Neither part is the source proof object. The source proof object remains
-`bundles/*/EVAL.md`, `bundles/*/eval.yaml`, and bundle-local support artifacts.
+`evals/**/EVAL.md`, `evals/**/eval.yaml`, and bundle-local support artifacts.
 Without explicit stronger-owner split, templates and schemas can accidentally
 be read as doctrine, accepted proof meaning, bundle maturity, generated-reader
 authority, or registry approval.
@@ -27,7 +27,7 @@ and `## Stop-Lines`:
 - `mechanics/proof-object/parts/bundle-contracts/README.md`
 
 `bundle-authoring` remains scaffold support. `bundle-contracts` remains schema
-validation support. Source proof bundle meaning stays under `bundles/`, and
+validation support. Source proof bundle meaning stays under `evals/`, and
 generated readers, reports, receipts, runtime candidates, sibling refs, quests,
 and release surfaces stay weaker than bundle-local review.
 

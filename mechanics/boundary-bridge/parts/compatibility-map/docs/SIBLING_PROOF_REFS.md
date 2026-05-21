@@ -45,11 +45,10 @@ make `aoa-evals` pass.
 
 The canary matrix source is `mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`.
 
-The runner is:
-
-```bash
-python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json
-```
+The runner source is
+`mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py`.
+Use `mechanics/boundary-bridge/parts/AGENTS.md#validation` for the executable
+canary command.
 
 GitHub `Repo Validation` is the stricter pinned public lane. For `aoa-memo`,
 that lane currently checks out `97f19698c94ebbebabe8b1b6f22e5ccff3bc5f1f` in
@@ -79,9 +78,10 @@ When a sibling proof reference fails:
 4. Repair the local `aoa-evals` reference or add a local compatibility note.
 5. Do not edit sibling repositories unless the user explicitly routes that owner
    work.
-6. Run `python scripts/validate_repo.py`.
-7. Run `python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json` when
-   latest sibling checkout truth matters.
+6. Use `mechanics/boundary-bridge/parts/AGENTS.md#validation` for local
+   validation.
+7. Add the latest-sibling canary from that route when current sibling checkout
+   truth matters.
 8. If GitHub `Repo Validation` fails because a pinned sibling checkout is stale,
    refresh the pin only after comparing it to current sibling truth and record
    the decision.
@@ -101,12 +101,8 @@ It does not prove:
 
 ## Validation
 
-Use the narrow compatibility checks:
-
-```bash
-python scripts/validate_repo.py
-python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json
-```
+Use `mechanics/boundary-bridge/parts/AGENTS.md#validation` for executable
+compatibility checks.
 
 Use the full repo battery when sibling references affect generated readers,
 runtime candidate surfaces, quest projections, or bundle-local reports.

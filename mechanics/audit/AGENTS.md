@@ -55,6 +55,14 @@ python scripts/validate_repo.py
 python scripts/validate_semantic_agents.py
 ```
 
+If source examples changed and generated readers are intentionally refreshed,
+rebuild them before rerunning the checks:
+
+```bash
+python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py
+python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py
+```
+
 ## Closeout
 
 Report whether the change touched runtime evidence examples, artifact hooks,

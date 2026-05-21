@@ -60,7 +60,7 @@ Some parts legitimately cite source bundles, generated readers, root release
 entrypoints, quest records, or repo-qualified sibling refs.
 
 It does not create new parent mechanics, move source proof bundles out of
-`bundles/`, or make `Source Surfaces` active legacy archive routing.
+`evals/`, or make `Source Surfaces` active legacy archive routing.
 
 ## Validation
 

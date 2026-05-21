@@ -4,7 +4,7 @@
   "owner_repo": "aoa-evals",
   "description": "Portable proof surfaces, runtime bridge guidance, progression evidence, and anti-overclaim beacons.",
   "source_inputs": [
-    "bundles/**/*.md",
+    "evals/***/*.md",
     "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md",
     "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
     "mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md",

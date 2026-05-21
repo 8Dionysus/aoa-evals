@@ -8,9 +8,9 @@ This note is the owner-local landing for the eval-shaped survivor from
 It keeps the surviving proof question tracked inside `aoa-evals` instead of
 leaving it as closeout residue or chat memory.
 The bounded bundle now lives in
-`bundles/aoa-memo-writeback-act-integrity/EVAL.md` with a real Phase Alpha
+`evals/workflow/aoa-memo-writeback-act-integrity/EVAL.md` with a real Phase Alpha
 report in
-`bundles/aoa-memo-writeback-act-integrity/reports/phase-alpha-memo-writeback-act.report.json`.
+`evals/workflow/aoa-memo-writeback-act-integrity/reports/phase-alpha-memo-writeback-act.report.json`.
 This note stays as the ingress anchor for that lane rather than as a second
 source of truth.
 

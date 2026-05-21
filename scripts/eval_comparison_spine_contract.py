@@ -11,8 +11,8 @@ GENERATED_DIR_NAME = eval_catalog_contract.GENERATED_DIR_NAME
 COMPARISON_SPINE_NAME = "comparison_spine.json"
 COMPARISON_SPINE_VERSION = 1
 COMPARISON_SPINE_SOURCE_OF_TRUTH = {
-    "eval_markdown": "bundles/*/EVAL.md",
-    "eval_manifest": "bundles/*/eval.yaml",
+    "eval_markdown": "evals/**/EVAL.md",
+    "eval_manifest": "evals/**/eval.yaml",
     "eval_catalog": f"{GENERATED_DIR_NAME}/{eval_catalog_contract.FULL_CATALOG_NAME}",
 }
 

@@ -1,4 +1,4 @@
-# Titan Parts
+# Titan / Parts Route
 
 `parts/` contains Titan proof-seed artifacts that are narrower than the parent
 mechanic but too operational to stay at package root.

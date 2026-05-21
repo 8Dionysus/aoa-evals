@@ -15,15 +15,15 @@ the operation materializes the center antifragility mechanic on the proof side.
 
 ## Source Surfaces
 
-- `bundles/aoa-antifragility-posture/EVAL.md`
+- `evals/stress/aoa-antifragility-posture/EVAL.md`
 - `mechanics/antifragility/parts/posture-review/schemas/antifragility_eval_report_v1.json`
-- `bundles/aoa-stress-recovery-window/EVAL.md`
+- `evals/comparison/longitudinal-window/aoa-stress-recovery-window/EVAL.md`
 - `mechanics/antifragility/parts/stress-recovery-window/docs/STRESS_RECOVERY_WINDOW_EVALS.md`
 - `mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md`
 - `mechanics/antifragility/parts/stress-recovery-window/schemas/stress_recovery_window_eval_report_v1.json`
 - `mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md`
 - `mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.runtime-chaos-window.example.json`
-- `bundles/aoa-repair-boundedness/EVAL.md`
+- `evals/workflow/aoa-repair-boundedness/EVAL.md`
 - `mechanics/antifragility/parts/repair-proof/fixtures/repair-boundedness-v1/README.md`
 
 ## Parts
@@ -88,10 +88,9 @@ active parts.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-antifragility-posture
-python scripts/validate_repo.py --eval aoa-stress-recovery-window
-python scripts/validate_repo.py --eval aoa-repair-boundedness
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
+
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.

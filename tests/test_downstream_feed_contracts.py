@@ -80,18 +80,18 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         self.assertEqual(
             catalog["source_of_truth"],
             {
-                "eval_manifest": "bundles/*/eval.yaml",
-                "eval_markdown": "bundles/*/EVAL.md",
+                "eval_manifest": "evals/**/eval.yaml",
+                "eval_markdown": "evals/**/EVAL.md",
             },
         )
         self.assertEqual(
             capsules["source_of_truth"],
             {
                 "eval_catalog": "generated/eval_catalog.json",
-                "eval_markdown": "bundles/*/EVAL.md",
+                "eval_markdown": "evals/**/EVAL.md",
             },
         )
-        self.assertEqual(sections["source_of_truth"]["eval_markdown"], "bundles/*/EVAL.md")
+        self.assertEqual(sections["source_of_truth"]["eval_markdown"], "evals/**/EVAL.md")
         self.assertIn("sections", sections["source_of_truth"])
         self.assertEqual(expected_names, [entry["name"] for entry in capsules["evals"]])
         self.assertEqual(expected_names, [entry["name"] for entry in sections["evals"]])
@@ -115,8 +115,8 @@ class DownstreamFeedContractsTests(unittest.TestCase):
             comparison_spine["source_of_truth"],
             {
                 "eval_catalog": "generated/eval_catalog.json",
-                "eval_manifest": "bundles/*/eval.yaml",
-                "eval_markdown": "bundles/*/EVAL.md",
+                "eval_manifest": "evals/**/eval.yaml",
+                "eval_markdown": "evals/**/EVAL.md",
             },
         )
         self.assertEqual(actual_names, expected_names)
@@ -279,7 +279,7 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         self.assertIn("derived index only", local_report["authority_boundary"])
         self.assertEqual(
             local_report["source_report_path"],
-            "bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+            "evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
         )
         self.assertTrue(
             all(entry["source_report_path"].endswith(".report.json") for entry in current["reports"])

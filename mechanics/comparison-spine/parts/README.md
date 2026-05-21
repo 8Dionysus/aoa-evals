@@ -1,4 +1,4 @@
-# Comparison Spine Parts
+# Comparison Spine / Parts Route
 
 This directory holds package-local parts for comparison-spine fixture and
 readout surfaces.
@@ -16,8 +16,6 @@ runner contract points to a comparison-spine support surface.
 
 ## Validation
 
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+parts index names the active parts and their roles; the parts route card owns
+the command lane.

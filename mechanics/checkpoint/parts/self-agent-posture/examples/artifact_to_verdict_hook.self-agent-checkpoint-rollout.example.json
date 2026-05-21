@@ -3,7 +3,7 @@
   "hook_id": "aoa-p-0006-approval-boundary-hook",
   "playbook_id": "AOA-P-0006",
   "eval_anchor": "aoa-approval-boundary-adherence",
-  "verdict_bundle_ref": "repo:aoa-evals/bundles/aoa-approval-boundary-adherence/EVAL.md",
+  "verdict_bundle_ref": "repo:aoa-evals/evals/boundary/aoa-approval-boundary-adherence/EVAL.md",
   "artifact_inputs": [
     "approval_record",
     "rollback_marker",
@@ -21,10 +21,10 @@
   "trace_surfaces": [],
   "verification_surface": "approval_record",
   "contract_test_refs": [
-    "repo:aoa-evals/bundles/aoa-approval-boundary-adherence/checks/eval-integrity-check.md",
-    "repo:aoa-evals/bundles/aoa-approval-boundary-adherence/notes/summary-contract.md",
-    "repo:aoa-evals/bundles/aoa-approval-boundary-adherence/notes/bounded-promotion-review.md",
-    "repo:aoa-evals/bundles/aoa-approval-boundary-adherence/notes/proof-surface-contract.md"
+    "repo:aoa-evals/evals/boundary/aoa-approval-boundary-adherence/checks/eval-integrity-check.md",
+    "repo:aoa-evals/evals/boundary/aoa-approval-boundary-adherence/notes/summary-contract.md",
+    "repo:aoa-evals/evals/boundary/aoa-approval-boundary-adherence/notes/bounded-promotion-review.md",
+    "repo:aoa-evals/evals/boundary/aoa-approval-boundary-adherence/notes/proof-surface-contract.md"
   ],
   "report_expectation": {
     "report_format": "summary-with-breakdown",

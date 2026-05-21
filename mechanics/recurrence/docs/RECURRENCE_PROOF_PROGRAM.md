@@ -28,8 +28,8 @@ under the owning recurrence part or bundle route.
 - `mechanics/recurrence/DIRECTION.md`
 - `mechanics/recurrence/PARTS.md`
 - `mechanics/recurrence/parts/`
-- `bundles/aoa-return-anchor-integrity/EVAL.md`
-- `bundles/aoa-recurrence-control-plane-integrity/EVAL.md`
+- `evals/workflow/aoa-return-anchor-integrity/EVAL.md`
+- `evals/boundary/aoa-recurrence-control-plane-integrity/EVAL.md`
 - `mechanics/EVIDENCE_CLUSTERS.md`
 
 ## Stronger Owner Split
@@ -108,10 +108,10 @@ It checks whether a return-capable route:
 This bundle stays on anchor fidelity and honest re-entry.
 Its current materialized draft proof flow runs through
 `mechanics/recurrence/parts/anchor-return/fixtures/return-anchor-v1/README.md`,
-`bundles/aoa-return-anchor-integrity/fixtures/contract.json`,
-`bundles/aoa-return-anchor-integrity/runners/contract.json`, and the
+`evals/workflow/aoa-return-anchor-integrity/fixtures/contract.json`,
+`evals/workflow/aoa-return-anchor-integrity/runners/contract.json`, and the
 schema-backed companion report in
-`bundles/aoa-return-anchor-integrity/reports/example-report.json`.
+`evals/workflow/aoa-return-anchor-integrity/reports/example-report.json`.
 
 It does not replace:
 
@@ -128,10 +128,10 @@ surface.
 
 Its current materialized draft proof flow runs through
 `mechanics/checkpoint/parts/restartable-inquiry/fixtures/long-horizon-restart-v1/README.md`,
-`bundles/aoa-long-horizon-depth/fixtures/contract.json`,
-`bundles/aoa-long-horizon-depth/runners/contract.json`, and the schema-backed
+`evals/workflow/aoa-long-horizon-depth/fixtures/contract.json`,
+`evals/workflow/aoa-long-horizon-depth/runners/contract.json`, and the schema-backed
 companion report in
-`bundles/aoa-long-horizon-depth/reports/example-report.json`.
+`evals/workflow/aoa-long-horizon-depth/reports/example-report.json`.
 
 Use it when the main question is:
 
@@ -258,8 +258,6 @@ It does not own the route home itself.
 
 ## Validation
 
-```bash
-python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_guidance_boundary
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-```
+Use `mechanics/recurrence/AGENTS.md#validation` for executable validation
+commands. This mechanic-wide guide names the recurrence proof program; the
+route card owns command execution.

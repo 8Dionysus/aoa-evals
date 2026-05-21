@@ -3,7 +3,7 @@
   "hook_id": "aoa-p-0031-a2a-summon-return-checkpoint-hook",
   "playbook_id": "AOA-P-0031",
   "eval_anchor": "aoa-a2a-summon-return-checkpoint",
-  "verdict_bundle_ref": "repo:aoa-evals/bundles/aoa-a2a-summon-return-checkpoint/EVAL.md",
+  "verdict_bundle_ref": "repo:aoa-evals/evals/workflow/aoa-a2a-summon-return-checkpoint/EVAL.md",
   "artifact_inputs": [
     "summon_request",
     "summon_decision",
@@ -31,8 +31,8 @@
   "trace_surfaces": [],
   "verification_surface": "runtime_closeout_dry_run_receipt",
   "contract_test_refs": [
-    "repo:aoa-evals/bundles/aoa-a2a-summon-return-checkpoint/checks/eval-integrity-check.md",
-    "repo:aoa-evals/bundles/aoa-a2a-summon-return-checkpoint/notes/proof-surface-contract.md"
+    "repo:aoa-evals/evals/workflow/aoa-a2a-summon-return-checkpoint/checks/eval-integrity-check.md",
+    "repo:aoa-evals/evals/workflow/aoa-a2a-summon-return-checkpoint/notes/proof-surface-contract.md"
   ],
   "report_expectation": {
     "report_format": "summary-with-breakdown",

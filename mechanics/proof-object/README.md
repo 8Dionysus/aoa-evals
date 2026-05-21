@@ -18,8 +18,8 @@ or doctrine center.
 
 The source proof object remains:
 
-- `bundles/*/EVAL.md`
-- `bundles/*/eval.yaml`
+- `evals/**/EVAL.md`
+- `evals/**/eval.yaml`
 - bundle-local notes, fixtures, runners, schemas, reports, and examples when
   they exist
 
@@ -27,8 +27,8 @@ This package routes the operation around those objects. It does not move them.
 
 ## Source Surfaces
 
-- `bundles/*/EVAL.md`
-- `bundles/*/eval.yaml`
+- `evals/**/EVAL.md`
+- `evals/**/eval.yaml`
 - `mechanics/proof-object/PARTS.md`
 - `mechanics/proof-object/PROVENANCE.md`
 - `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
@@ -86,7 +86,7 @@ bounded claim that local evidence and verdict logic can support.
 
 ## Boundaries
 
-- Do not move `bundles/` into this package.
+- Do not move `evals/` into this package.
 - Do not treat this package as permission to promote or deprecate bundles by
   route-card edit alone.
 - Do not make generated catalogs, capsules, sections, receipts, runtime
@@ -115,16 +115,12 @@ in source bundle metadata and must pass repository validation.
 
 ## Validation
 
-After changing proof-object route surfaces, run:
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
 
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-```
-
-When generated catalog, capsule, section, comparison, runtime candidate, quest,
-or receipt surfaces change, run their owning builders or checks too.
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.
 
 ## Next Route
 

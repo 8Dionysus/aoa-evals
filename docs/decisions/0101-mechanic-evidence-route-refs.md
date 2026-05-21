@@ -70,7 +70,7 @@ objects. It only proves that the parent row points at living local evidence.
 
 ## Boundaries
 
-This decision does not move source proof bundles out of `bundles/`, promote
+This decision does not move source proof bundles out of `evals/`, promote
 generated surfaces into proof authority, make runtime candidates verdicts, or
 absorb sibling owner truth.
 

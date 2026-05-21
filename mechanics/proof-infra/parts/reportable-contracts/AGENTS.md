@@ -23,9 +23,9 @@ truth.
 5. `mechanics/proof-infra/README.md`
 6. `mechanics/proof-infra/PARTS.md`
 7. `mechanics/proof-infra/parts/reportable-contracts/README.md`
-8. affected `bundles/*/EVAL.md`
-9. affected `bundles/*/runners/contract.json`
-10. affected `bundles/*/reports/summary.schema.json`
+8. affected `evals/**/EVAL.md`
+9. affected `evals/**/runners/contract.json`
+10. affected `evals/**/reports/summary.schema.json`
 
 ## Boundaries
 

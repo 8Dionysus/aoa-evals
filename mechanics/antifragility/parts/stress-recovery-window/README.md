@@ -1,4 +1,4 @@
-# Stress Recovery Window Part
+# Antifragility / Stress Recovery Window Part
 
 ## Role
 
@@ -11,8 +11,8 @@ stays under `mechanics/comparison-spine/`.
 
 ## Source Surfaces
 
-- `bundles/aoa-stress-recovery-window/EVAL.md`
-- `bundles/aoa-stress-recovery-window/eval.yaml`
+- `evals/comparison/longitudinal-window/aoa-stress-recovery-window/EVAL.md`
+- `evals/comparison/longitudinal-window/aoa-stress-recovery-window/eval.yaml`
 - `mechanics/antifragility/parts/stress-recovery-window/docs/STRESS_RECOVERY_WINDOW_EVALS.md`
 - `mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md`
 - `mechanics/antifragility/parts/stress-recovery-window/schemas/stress_recovery_window_eval_report_v1.json`
@@ -59,8 +59,4 @@ This part must not claim:
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-stress-recovery-window
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

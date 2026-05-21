@@ -6,7 +6,9 @@
 
 ## Role
 
-This lane holds source quest records for deferred proof obligations.
+This lane holds source quest records for deferred proof obligations. Treat
+`quests/` as the source quest record district, not as `QUESTBOOK.md`, not as the
+`mechanics/questbook/` operation package, and not as generated dispatch.
 
 Quests are obligation-return surfaces. They track missing proof, regression
 gaps, verdict-bridge debt, proof-pressure harvest candidates, and owner
@@ -30,7 +32,7 @@ handoffs that are not yet eval bundles.
 - `QUESTBOOK.md` is the human index of open obligations.
 - `generated/quest_catalog.min.json` and `generated/quest_dispatch.min.json`
   are derived readers.
-- Eval bundle meaning stays in `bundles/*/EVAL.md` and `eval.yaml`.
+- Eval bundle meaning stays in `evals/**/EVAL.md` and `eval.yaml`.
 - Roadmap direction stays in `ROADMAP.md`.
 - Former Agon markdown quest notes live behind
   `mechanics/agon/PROVENANCE.md` as Agon lineage, not active quest lifecycle
@@ -53,6 +55,7 @@ After editing source quest records or quest route docs, run:
 ```bash
 python scripts/build_catalog.py --check
 python scripts/validate_repo.py
+python scripts/validate_semantic_agents.py
 ```
 
 If generated quest outputs are stale, rebuild them through:

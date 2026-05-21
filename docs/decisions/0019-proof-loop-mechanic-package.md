@@ -60,7 +60,7 @@ This decision does not create runtime dispatch, live scheduling, benchmark
 ranking, global trust scoring, autonomous-self proof, or hidden proof
 acceptance.
 
-It does not move `bundles/`, generated readers, runtime candidate readers,
+It does not move `evals/`, generated readers, runtime candidate readers,
 reports, receipts, sibling refs, or quest source records.
 
 It does not allow receipts, generated readers, candidate evidence, or sibling

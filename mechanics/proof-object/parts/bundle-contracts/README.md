@@ -1,4 +1,4 @@
-# Bundle Contracts
+# Proof Object / Bundle Contracts Part
 
 ## Role
 
@@ -16,8 +16,8 @@ It is not a bundle registry and not generated reader authority.
 - `mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json`
 - `mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json`
 - `scripts/validate_repo.py`
-- `bundles/*/EVAL.md`
-- `bundles/*/eval.yaml`
+- `evals/**/EVAL.md`
+- `evals/**/eval.yaml`
 
 ## Inputs
 
@@ -34,7 +34,7 @@ It is not a bundle registry and not generated reader authority.
 
 ## Stronger Owner Split
 
-`bundles/*/EVAL.md` and `bundles/*/eval.yaml` own source proof meaning,
+`evals/**/EVAL.md` and `evals/**/eval.yaml` own source proof meaning,
 lifecycle status, bounded claim text, evidence posture, baseline mode,
 dependencies, and report expectations.
 
@@ -60,10 +60,4 @@ of approved proof truth.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/proof-object/parts/bundle-contracts/`.
-
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

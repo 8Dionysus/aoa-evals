@@ -1,4 +1,4 @@
-# Candidate Lineage Part
+# Method-growth / Candidate Lineage Part
 
 ## Role
 
@@ -7,16 +7,16 @@ This part owns the support route for bounded method-growth lineage proof through
 
 It keeps the shared lineage fixture family under the Method-growth mechanic
 because AoA method-growth routes repeated work through readable lineage before
-owner landing. The source proof bundle stays under `bundles/`.
+owner landing. The source proof bundle stays under `evals/`.
 
 ## Source Surfaces
 
-- `bundles/aoa-candidate-lineage-integrity/EVAL.md`
-- `bundles/aoa-candidate-lineage-integrity/eval.yaml`
-- `bundles/aoa-candidate-lineage-integrity/fixtures/contract.json`
-- `bundles/aoa-candidate-lineage-integrity/runners/contract.json`
-- `bundles/aoa-candidate-lineage-integrity/reports/summary.schema.json`
-- `bundles/aoa-candidate-lineage-integrity/reports/example-report.json`
+- `evals/capability/aoa-candidate-lineage-integrity/EVAL.md`
+- `evals/capability/aoa-candidate-lineage-integrity/eval.yaml`
+- `evals/capability/aoa-candidate-lineage-integrity/fixtures/contract.json`
+- `evals/capability/aoa-candidate-lineage-integrity/runners/contract.json`
+- `evals/capability/aoa-candidate-lineage-integrity/reports/summary.schema.json`
+- `evals/capability/aoa-candidate-lineage-integrity/reports/example-report.json`
 - `mechanics/method-growth/parts/candidate-lineage/fixtures/candidate-lineage-v1/README.md`
 
 ## Inputs
@@ -67,8 +67,4 @@ the object is mature, or that owner receipts are optional.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-candidate-lineage-integrity
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

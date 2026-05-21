@@ -17,7 +17,7 @@ bridge.
 - `PROVENANCE.md`: controlled bridge from active route to old root fixture, runner, scorer, and
   schema placement.
 - `legacy/`: lineage only; not a support-file dump.
-- `bundles/`: source proof objects that apply shared contracts locally.
+- `evals/`: source proof objects that apply shared contracts locally.
 
 ## Current contour
 

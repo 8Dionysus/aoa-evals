@@ -1,4 +1,4 @@
-# Stats Re-Grounding Boundary
+# Recurrence / Stats Re-Grounding Boundary Part
 
 ## Role
 
@@ -11,10 +11,10 @@ eval wording into owner truth.
 
 ## Source Surfaces
 
-- `bundles/aoa-stats-regrounding-boundary-integrity/EVAL.md`
-- `bundles/aoa-stats-regrounding-boundary-integrity/fixtures/contract.json`
-- `bundles/aoa-stats-regrounding-boundary-integrity/reports/summary.schema.json`
-- `bundles/aoa-stats-regrounding-boundary-integrity/reports/example-report.json`
+- `evals/boundary/aoa-stats-regrounding-boundary-integrity/EVAL.md`
+- `evals/boundary/aoa-stats-regrounding-boundary-integrity/fixtures/contract.json`
+- `evals/boundary/aoa-stats-regrounding-boundary-integrity/reports/summary.schema.json`
+- `evals/boundary/aoa-stats-regrounding-boundary-integrity/reports/example-report.json`
 - `mechanics/recurrence/parts/stats-regrounding-boundary/fixtures/stats-regrounding-boundary-v1/README.md`
 - `mechanics/recurrence/parts/stats-regrounding-boundary/tests/test_stats_regrounding_boundary_eval.py`
 
@@ -46,8 +46,4 @@ project health, SDK optimality, routing authority, or stats-as-proof.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-stats-regrounding-boundary-integrity
-python -m pytest -q mechanics/recurrence/parts/stats-regrounding-boundary/tests/test_stats_regrounding_boundary_eval.py
-python scripts/build_catalog.py --check
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

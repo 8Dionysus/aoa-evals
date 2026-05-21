@@ -30,10 +30,10 @@ Tracking starts with the community-docs baseline for this repository.
   proof-surface promotion in separate authority lanes
 - `proof-object` mechanic package for source proof-object completeness,
   bundle lifecycle posture, generated-reader derivation, part-local
-  bundle-authoring/template and bundle-contract/schema support, and
+  eval-authoring/template and eval-contract/schema support, and
   bundle-local review boundaries without moving `evals/`
-- proof-object part owner-split contract guard, keeping bundle-authoring as
-  scaffold support and bundle-contracts as schema validation support below
+- proof-object part owner-split contract guard, keeping eval-authoring as
+  scaffold support and eval-contracts as schema validation support below
   source bundle meaning, bundle-local review, evidence acceptance, generated
   readers, receipts, runtime candidates, sibling refs, quests, and release
   readiness
@@ -119,9 +119,9 @@ Tracking starts with the community-docs baseline for this repository.
   record requiring each concrete part README to route every actual payload
   subdirectory while rejecting empty payload directories, unexpected payload
   classes, and unexpected part-root files
-- the payload inventory guard now also covers bundle-backed thin support
+- the payload inventory guard now also covers eval-backed thin support
   routes, requiring any part with no part-local payload subdirectories to say
-  why the source proof bundle stays under `evals/`
+  why the source eval package stays under `evals/`
 - Mechanic Part Source Surface Reference Guard, with validator coverage and a
   decision record requiring path-like `Source Surfaces` refs in concrete part
   README files to resolve as repo-relative paths, matching globs,

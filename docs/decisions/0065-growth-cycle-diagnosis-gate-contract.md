@@ -19,7 +19,7 @@ explicit `Stronger Owner Split` and `Stop-Lines`.
 
 Require `mechanics/growth-cycle/parts/diagnosis-gate/README.md` to expose:
 
-- a bundle-backed thin support route statement when it has no part-local
+- an eval-backed thin support route statement when it has no part-local
   payload subdirectories;
 - `## Inputs`
 - `## Outputs`

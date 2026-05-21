@@ -10,9 +10,9 @@ It is not a bundle source list and not a compatibility alias set.
 
 | Former path | Current active route | Posture |
 | --- | --- | --- |
-| `templates/EVAL.template.md` | `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md` | historical root template placement |
-| `schemas/eval-frontmatter.schema.json` | `mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json` | historical root schema placement |
-| `schemas/eval-manifest.schema.json` | `mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json` | historical root schema placement |
+| `templates/EVAL.template.md` | `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md` | historical root template placement |
+| `schemas/eval-frontmatter.schema.json` | `mechanics/proof-object/parts/eval-contracts/schemas/eval-frontmatter.schema.json` | historical root schema placement |
+| `schemas/eval-manifest.schema.json` | `mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json` | historical root schema placement |
 
 ## Stop-Lines
 

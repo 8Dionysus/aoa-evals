@@ -55,9 +55,9 @@ Legacy, provenance, and accepted-input vocabulary are kept explicit in
 
 ## Proof Support
 
-For authoring and bundle contracts, start with
+For eval authoring and eval contracts, start with
 `mechanics/proof-object/README.md` and
-`mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`.
+`mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md`.
 
 For interpretation and support layers, use
 [docs/SCORE_SEMANTICS_GUIDE.md](docs/SCORE_SEMANTICS_GUIDE.md),

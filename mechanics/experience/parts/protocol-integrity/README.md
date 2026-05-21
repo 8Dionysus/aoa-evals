@@ -5,7 +5,7 @@
 This part owns the support route for `aoa-experience-protocol-integrity`.
 
 It keeps the public-safe fixture family and validation test under the
-Experience mechanic while the source proof bundle stays under `evals/`.
+Experience mechanic while the source eval package stays under `evals/`.
 
 ## Source Surfaces
 

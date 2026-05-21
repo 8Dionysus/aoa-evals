@@ -5,7 +5,7 @@
 This part owns the support route for `aoa-antifragility-posture`.
 
 It keeps the repo-level report schema under the Antifragility mechanic while
-the source proof bundle stays under `evals/`.
+the source eval package stays under `evals/`.
 
 ## Source Surfaces
 

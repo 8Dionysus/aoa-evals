@@ -6,7 +6,7 @@
 `aoa-evals`.
 
 It is not the doctrine center, roadmap, decision log, generated catalog, or
-proof bundle directory. A mechanic exists only when a recurring operation has
+source eval package directory. A mechanic exists only when a recurring operation has
 source surfaces, inputs, outputs, boundaries, and validation.
 
 The rule for this atlas is simple: no empty package taxonomy.
@@ -77,7 +77,7 @@ unexpected part-root files are rejected so part-local proof material cannot
 hide behind a plausible part name.
 A part with no payload subdirectories is allowed only as a bundle-backed thin
 support route: the README must say there are no part-local payload
-subdirectories and that the source proof bundle stays under `evals/`.
+subdirectories and that the source eval package stays under `evals/`.
 Every concrete part README must expose a plural `## Source Surfaces` section
 with at least one path-like source ref. That section must keep path-like
 references reachable as an existing repo-relative path, a matching
@@ -166,7 +166,7 @@ complete, bounded, and stronger than generated or emitted companions:
 `origin proof pressure -> source proof bundle -> proof-object completeness review -> generated reader derivation -> bundle-local report or downstream route`
 
 It routes `evals/**/EVAL.md`, `evals/**/eval.yaml`, the
-`bundle-authoring` template part, the `bundle-contracts` schema part, proof
+`eval-authoring` template part, the `eval-contracts` schema part, proof
 review guides, generated catalog readers, and lifecycle posture without moving
 `evals/`.
 

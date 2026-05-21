@@ -146,6 +146,7 @@ family without promoting decisions above the source surfaces they describe.
 | 0102 | [Mechanic Part Validation Command Ownership](0102-mechanic-part-validation-command-ownership.md) | `docs/decisions/0102-mechanic-part-validation-command-ownership.md` | mechanic part, validation guard | active guard rationale |
 | 0103 | [Agent Index Chain Surface](0103-agent-index-chain-surface.md) | `docs/decisions/0103-agent-index-chain-surface.md` | root/topology | active rationale |
 | 0104 | [Source Eval Tree Topology](0104-source-eval-tree-topology.md) | `docs/decisions/0104-source-eval-tree-topology.md` | proof topology, root/topology | active rationale |
+| 0105 | [Proof-object Eval Part Names](0105-proof-object-eval-part-names.md) | `docs/decisions/0105-proof-object-eval-part-names.md` | proof topology, mechanic part | active rationale |
 
 ## Index By Surface Class
 
@@ -179,6 +180,7 @@ family without promoting decisions above the source surfaces they describe.
 - [0097 Mechanic Parent Guidance Boundary](0097-mechanic-parent-guidance-boundary.md) (`docs/decisions/0097-mechanic-parent-guidance-boundary.md`)
 - [0099 Repair Diagnosis Route Boundary](0099-repair-diagnosis-route-boundary.md) (`docs/decisions/0099-repair-diagnosis-route-boundary.md`)
 - [0104 Source Eval Tree Topology](0104-source-eval-tree-topology.md) (`docs/decisions/0104-source-eval-tree-topology.md`)
+- [0105 Proof-object Eval Part Names](0105-proof-object-eval-part-names.md) (`docs/decisions/0105-proof-object-eval-part-names.md`)
 
 ### Mechanic Package
 
@@ -334,6 +336,7 @@ family without promoting decisions above the source surfaces they describe.
 - [0010 Proof Object Mechanic Package](0010-proof-object-mechanic-package.md) (`docs/decisions/0010-proof-object-mechanic-package.md`)
 - [0048 Proof Object Contract Parts](0048-proof-object-contract-parts.md) (`docs/decisions/0048-proof-object-contract-parts.md`)
 - [0069 Proof-object Part Owner-split Contract](0069-proof-object-part-owner-split-contract.md) (`docs/decisions/0069-proof-object-part-owner-split-contract.md`)
+- [0105 Proof-object Eval Part Names](0105-proof-object-eval-part-names.md) (`docs/decisions/0105-proof-object-eval-part-names.md`)
 
 ### `proof-loop`
 
@@ -518,6 +521,7 @@ family without promoting decisions above the source surfaces they describe.
 - [0094 Mechanic Part Source Surface Reference Guard](0094-mechanic-part-source-surface-reference-guard.md) (`docs/decisions/0094-mechanic-part-source-surface-reference-guard.md`)
 - [0095 Mechanic Part Source Surfaces Section Contract](0095-mechanic-part-source-surfaces-section-contract.md) (`docs/decisions/0095-mechanic-part-source-surfaces-section-contract.md`)
 - [0102 Mechanic Part Validation Command Ownership](0102-mechanic-part-validation-command-ownership.md) (`docs/decisions/0102-mechanic-part-validation-command-ownership.md`)
+- [0105 Proof-object Eval Part Names](0105-proof-object-eval-part-names.md) (`docs/decisions/0105-proof-object-eval-part-names.md`)
 
 ### Legacy and provenance guards
 

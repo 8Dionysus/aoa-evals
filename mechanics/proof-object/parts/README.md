@@ -6,12 +6,12 @@
 authoring and validation.
 
 Parts support `evals/**/EVAL.md` and `evals/**/eval.yaml`. They do not own
-bundle meaning and do not replace generated readers.
+source eval meaning and do not replace generated readers.
 
 ## Active Parts
 
-- `bundle-authoring/`: starter template for bounded eval bundle authoring.
-- `bundle-contracts/`: schema-backed frontmatter and manifest contracts.
+- `eval-authoring/`: starter template for bounded eval package authoring.
+- `eval-contracts/`: schema-backed frontmatter and manifest contracts.
 
 ## Validation
 

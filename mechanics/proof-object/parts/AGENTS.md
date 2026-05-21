@@ -8,7 +8,7 @@ This card applies to `mechanics/proof-object/parts/` and every descendant active
 
 `mechanics/proof-object/parts/` holds active part contracts for the Proof Object proof mechanic.
 
-Parts are operation nodes. They are not root docs, generated authority, release ledgers, runtime facts, sibling-owner truth, or bundle-local proof meaning unless the owning source surface says so.
+Parts are operation nodes. They are not root docs, generated authority, release ledgers, runtime facts, sibling-owner truth, or source eval proof meaning unless the owning source surface says so.
 
 ## Read Before Editing
 
@@ -17,7 +17,7 @@ Read root `AGENTS.md`, `mechanics/AGENTS.md`, the parent `AGENTS.md`, parent `DI
 ## Boundaries
 
 - Keep each part tied to one row in the parent `PARTS.md`.
-- Keep source proof meaning in bundles or source docs, not in validation text.
+- Keep source proof meaning in eval packages or source docs, not in validation text.
 - Keep executable child validation commands in this card so README files stay route maps and contracts.
 - Route legacy placement through parent `PROVENANCE.md` and `legacy/` rather than recreating old root payload paths.
 
@@ -36,7 +36,7 @@ python scripts/validate_semantic_agents.py
 
 Executable validation commands from child part routes live here. Child README and VALIDATION files route to this section instead of carrying command blocks.
 
-### `mechanics/proof-object/parts/bundle-authoring/VALIDATION.md`
+### `mechanics/proof-object/parts/eval-authoring/VALIDATION.md`
 
 ```bash
 python scripts/validate_repo.py
@@ -44,7 +44,7 @@ python scripts/build_catalog.py --check
 python scripts/validate_semantic_agents.py
 ```
 
-### `mechanics/proof-object/parts/bundle-contracts/VALIDATION.md`
+### `mechanics/proof-object/parts/eval-contracts/VALIDATION.md`
 
 ```bash
 python scripts/validate_repo.py

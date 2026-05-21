@@ -215,7 +215,7 @@ ROOT_ROUTE_CARD_README_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
     "schemas/README.md": (
         "compatibility route card",
         "No active root schema payload",
-        "mechanics/proof-object/parts/bundle-contracts/schemas/",
+        "mechanics/proof-object/parts/eval-contracts/schemas/",
         "mechanics/proof-infra/parts/reportable-contracts/schemas/",
         "mechanics/questbook/parts/",
     ),
@@ -227,7 +227,7 @@ ROOT_ROUTE_CARD_README_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
     "templates/README.md": (
         "compatibility route card",
         "No active root template payload",
-        "mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md",
+        "mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md",
     ),
 }
 ROOT_ROUTE_CARD_README_FORBIDDEN_TOKENS = (
@@ -880,7 +880,7 @@ MECHANIC_ROOT_DISTRICT_RECON_ROW_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
     "docs": ("source guidance", "mechanic-owned docs"),
     "evals": ("source proof object", "source eval packages stay out of mechanics"),
     "fixtures": ("route-card-only", "mechanics/proof-infra/parts/fixture-families/fixtures/"),
-    "schemas": ("route-card-only", "mechanics/proof-object/parts/bundle-contracts/schemas/"),
+    "schemas": ("route-card-only", "mechanics/proof-object/parts/eval-contracts/schemas/"),
     "examples": ("route-card-only", "evals/**/examples/"),
     "scripts": ("repo-wide", "mechanic-owned scripts"),
     "tests": ("repo-wide", "mechanics/<mechanic>/parts/<part>/tests/"),
@@ -890,7 +890,7 @@ MECHANIC_ROOT_DISTRICT_RECON_ROW_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
     "reports": ("route-card-only", "mechanics/release-support/parts/"),
     "runners": ("route-card-only", "mechanics/proof-infra/parts/reportable-contracts/runners/"),
     "scorers": ("route-card-only", "mechanics/proof-infra/parts/reportable-contracts/scorers/"),
-    "templates": ("route-card-only", "mechanics/proof-object/parts/bundle-authoring/templates/"),
+    "templates": ("route-card-only", "mechanics/proof-object/parts/eval-authoring/templates/"),
     "quests": ("source quest records", "mechanics/questbook/parts/"),
     "mechanics": ("operation atlas", "mechanics/EVIDENCE_CLUSTERS.md"),
 }
@@ -1275,9 +1275,9 @@ MECHANIC_PART_ALLOWED_PAYLOAD_DIRS = (
     "tests",
 )
 MECHANIC_THIN_PART_REQUIRED_TOKENS = (
-    "bundle-backed thin support route",
+    "eval-backed thin support route",
     "no part-local payload subdirectories",
-    "source proof bundle stays under `evals/`",
+    "source eval package stays under `evals/`",
 )
 MECHANIC_PARENT_ROOT_ALLOWED_FILES = frozenset(
     {
@@ -1323,7 +1323,7 @@ MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_REQUIRED_TOKENS = (
     "Mechanic Part Payload Inventory",
     "`mechanics/<parent>/parts/<part>/`",
     "payload subdirectory",
-    "bundle-backed thin support route",
+    "eval-backed thin support route",
     "part README",
     "unexpected payload class",
     "empty payload subdirectory",
@@ -1760,17 +1760,20 @@ PROOF_OBJECT_MECHANIC_README_NAME = "mechanics/proof-object/README.md"
 PROOF_OBJECT_MECHANIC_AGENTS_NAME = "mechanics/proof-object/AGENTS.md"
 PROOF_OBJECT_MECHANIC_PARTS_NAME = "mechanics/proof-object/PARTS.md"
 PROOF_OBJECT_MECHANIC_PROVENANCE_NAME = "mechanics/proof-object/PROVENANCE.md"
-PROOF_OBJECT_BUNDLE_AUTHORING_PART_README_NAME = (
-    "mechanics/proof-object/parts/bundle-authoring/README.md"
+PROOF_OBJECT_EVAL_AUTHORING_PART_README_NAME = (
+    "mechanics/proof-object/parts/eval-authoring/README.md"
 )
-PROOF_OBJECT_BUNDLE_CONTRACTS_PART_README_NAME = (
-    "mechanics/proof-object/parts/bundle-contracts/README.md"
+PROOF_OBJECT_EVAL_CONTRACTS_PART_README_NAME = (
+    "mechanics/proof-object/parts/eval-contracts/README.md"
 )
 PROOF_OBJECT_CONTRACT_PART_DECISION_NAME = (
     "docs/decisions/0048-proof-object-contract-parts.md"
 )
 PROOF_OBJECT_PART_OWNER_SPLIT_DECISION_NAME = (
     "docs/decisions/0069-proof-object-part-owner-split-contract.md"
+)
+PROOF_OBJECT_EVAL_PART_NAMES_DECISION_NAME = (
+    "docs/decisions/0105-proof-object-eval-part-names.md"
 )
 PROOF_LOOP_MECHANIC_README_NAME = "mechanics/proof-loop/README.md"
 PROOF_LOOP_MECHANIC_AGENTS_NAME = "mechanics/proof-loop/AGENTS.md"
@@ -2325,9 +2328,9 @@ PROOF_OBJECT_MECHANIC_REQUIRED_TOKENS = (
     "evals/**/eval.yaml",
     "mechanics/proof-object/PARTS.md",
     "mechanics/proof-object/PROVENANCE.md",
-    "mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md",
-    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json",
-    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json",
+    "mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md",
+    "mechanics/proof-object/parts/eval-contracts/schemas/eval-frontmatter.schema.json",
+    "mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json",
     "generated/eval_catalog.min.json",
     "generated/eval_capsules.json",
     "generated/eval_sections.full.json",
@@ -2344,46 +2347,46 @@ PROOF_OBJECT_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "mechanics/proof-object/PARTS.md",
     "mechanics/proof-object/PROVENANCE.md",
     "EVAL.md and eval.yaml",
-    "bundle-local review",
+    "eval-local support artifacts",
     "python scripts/build_catalog.py --check",
 )
 PROOF_OBJECT_MECHANIC_PARTS_REQUIRED_TOKENS = (
-    "bundle-authoring",
-    "bundle-contracts",
-    "mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md",
-    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json",
-    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json",
+    "eval-authoring",
+    "eval-contracts",
+    "mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md",
+    "mechanics/proof-object/parts/eval-contracts/schemas/eval-frontmatter.schema.json",
+    "mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json",
     "Do not move `evals/`",
     "AGENTS.md#validation",
 )
-PROOF_OBJECT_BUNDLE_AUTHORING_PART_REQUIRED_TOKENS = (
-    "Bundle Authoring",
+PROOF_OBJECT_EVAL_AUTHORING_PART_REQUIRED_TOKENS = (
+    "Eval Authoring",
     "## Inputs",
     "## Outputs",
     "## Stronger Owner Split",
     "## Stop-Lines",
-    "mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md",
+    "mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md",
     "evals/**/EVAL.md",
     "evals/**/eval.yaml",
     "actual source proof",
     "template",
     "doctrine or accepted proof meaning",
-    "sibling refs outrank source bundles",
+    "sibling refs outrank source eval packages",
     "python scripts/build_catalog.py --check",
 )
-PROOF_OBJECT_BUNDLE_CONTRACTS_PART_REQUIRED_TOKENS = (
-    "Bundle Contracts",
+PROOF_OBJECT_EVAL_CONTRACTS_PART_REQUIRED_TOKENS = (
+    "Eval Contracts",
     "## Inputs",
     "## Outputs",
     "## Stronger Owner Split",
     "## Stop-Lines",
-    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json",
-    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json",
+    "mechanics/proof-object/parts/eval-contracts/schemas/eval-frontmatter.schema.json",
+    "mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json",
     "evals/**/EVAL.md",
     "evals/**/eval.yaml",
     "schema-backed contract validation",
-    "does not invent bundle",
-    "schema acceptance as bundle-local review",
+    "does not invent eval",
+    "schema acceptance as eval-local review",
     "python scripts/build_catalog.py --check",
 )
 PROOF_OBJECT_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
@@ -2397,22 +2400,32 @@ PROOF_OBJECT_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "bundle-local review",
 )
 PROOF_OBJECT_CONTRACT_PART_DECISION_REQUIRED_TOKENS = (
-    "mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md",
-    "mechanics/proof-object/parts/bundle-contracts/schemas/",
+    "mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md",
+    "mechanics/proof-object/parts/eval-contracts/schemas/",
     "source bundles stay under `evals/`",
     "generated readers stay",
     "python scripts/validate_repo.py",
 )
 PROOF_OBJECT_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS = (
     "Proof-object Part Owner-split Contract",
-    "mechanics/proof-object/parts/bundle-authoring/README.md",
-    "mechanics/proof-object/parts/bundle-contracts/README.md",
+    "mechanics/proof-object/parts/eval-authoring/README.md",
+    "mechanics/proof-object/parts/eval-contracts/README.md",
     "`## Stronger Owner Split`",
     "source proof object remains",
     "Source proof bundle meaning stays under `evals/`",
     "generated readers, reports, receipts, runtime candidates, sibling refs, quests",
     "Schema acceptance may prove metadata shape",
     "python -m pytest -q tests/test_validate_repo.py -k proof_object_part_owner_split",
+)
+PROOF_OBJECT_EVAL_PART_NAMES_DECISION_REQUIRED_TOKENS = (
+    "Proof-object Eval Part Names",
+    "bundle-authoring",
+    "eval-authoring",
+    "bundle-contracts",
+    "eval-contracts",
+    "active directory topology",
+    "source eval packages into mechanics",
+    "python scripts/validate_repo.py",
 )
 PROOF_LOOP_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
@@ -2826,7 +2839,7 @@ PROOF_INFRA_MECHANIC_REQUIRED_TOKENS = (
     RUNNER_CONTRACT_SCHEMA_NAME,
     REPORT_SUMMARY_SCHEMA_NAME,
     "reports/README.md",
-    "mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md",
+    "mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md",
     "generated catalog `proof_artifacts`",
     "shared_fixture_family_path",
     "mechanics/proof-infra/parts/fixture-families/fixtures/",
@@ -3882,7 +3895,7 @@ ANTIFRAGILITY_PART_README_COMMON_REQUIRED_TOKENS = (
 ANTIFRAGILITY_POSTURE_PART_REQUIRED_TOKENS = (
     "aoa-antifragility-posture",
     "mechanics/antifragility/parts/posture-review/schemas/antifragility_eval_report_v1.json",
-    "source proof bundle stays under `evals/`",
+    "source eval package stays under `evals/`",
     "owner repository owns the local",
     "global resilience",
     "python scripts/build_catalog.py --check",
@@ -4129,7 +4142,7 @@ GROWTH_CYCLE_MECHANIC_PARTS_REQUIRED_TOKENS = (
 )
 GROWTH_CYCLE_DIAGNOSIS_GATE_PART_REQUIRED_TOKENS = (
     "Diagnosis Gate Part",
-    "bundle-backed thin support route",
+    "eval-backed thin support route",
     "no part-local payload subdirectories",
     "evals/workflow/aoa-diagnosis-cause-discipline/EVAL.md",
     "## Inputs",
@@ -4161,7 +4174,7 @@ GROWTH_CYCLE_MECHANIC_DECISION_REQUIRED_TOKENS = (
 GROWTH_CYCLE_DIAGNOSIS_GATE_CONTRACT_DECISION_REQUIRED_TOKENS = (
     "Growth-cycle Diagnosis-gate Contract",
     "mechanics/growth-cycle/parts/diagnosis-gate/README.md",
-    "bundle-backed thin support route",
+    "eval-backed thin support route",
     "cause-hypothesis discipline",
     "repair parent",
     "owner-fit proof",
@@ -4627,10 +4640,10 @@ SIBLING_CANARY_EXPECTED_REPOS = (
 )
 SCHEMAS_DIR_NAME = "schemas"
 EVAL_FRONTMATTER_SCHEMA_NAME = (
-    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json"
+    "mechanics/proof-object/parts/eval-contracts/schemas/eval-frontmatter.schema.json"
 )
 EVAL_MANIFEST_SCHEMA_NAME = (
-    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json"
+    "mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json"
 )
 GENERATED_DIR_NAME = "generated"
 EXAMPLES_DIR_NAME = "examples"
@@ -8492,7 +8505,10 @@ def validate_bundle(
 
     if not bundle_dir.is_dir():
         issues.append(
-            ValidationIssue(relative_location(bundle_dir, repo_root), "bundle directory is missing")
+            ValidationIssue(
+                relative_location(bundle_dir, repo_root),
+                "source eval package directory is missing",
+            )
         )
         return issues, None
 
@@ -8620,7 +8636,7 @@ def validate_eval_index(
             issues.append(
                 ValidationIssue(
                     location,
-                    f"starter eval '{extra}' has no matching bundle directory",
+                    f"starter eval '{extra}' has no matching source eval package directory",
                 )
             )
     else:
@@ -8777,7 +8793,8 @@ def validate_roadmap_parity(
             issues.append(
                 ValidationIssue(
                     location,
-                    f"roadmap 'Current public surface' eval '{name}' has no matching bundle directory",
+                    "roadmap 'Current public surface' eval "
+                    f"'{name}' has no matching source eval package directory",
                 )
             )
             continue
@@ -9741,14 +9758,14 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=PROOF_OBJECT_BUNDLE_AUTHORING_PART_README_NAME,
-        tokens=PROOF_OBJECT_BUNDLE_AUTHORING_PART_REQUIRED_TOKENS,
+        path_name=PROOF_OBJECT_EVAL_AUTHORING_PART_README_NAME,
+        tokens=PROOF_OBJECT_EVAL_AUTHORING_PART_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=PROOF_OBJECT_BUNDLE_CONTRACTS_PART_README_NAME,
-        tokens=PROOF_OBJECT_BUNDLE_CONTRACTS_PART_REQUIRED_TOKENS,
+        path_name=PROOF_OBJECT_EVAL_CONTRACTS_PART_README_NAME,
+        tokens=PROOF_OBJECT_EVAL_CONTRACTS_PART_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
@@ -9773,6 +9790,12 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         repo_root=repo_root,
         path_name=PROOF_OBJECT_PART_OWNER_SPLIT_DECISION_NAME,
         tokens=PROOF_OBJECT_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_OBJECT_EVAL_PART_NAMES_DECISION_NAME,
+        tokens=PROOF_OBJECT_EVAL_PART_NAMES_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
@@ -16638,7 +16661,7 @@ def validate_mechanic_part_readme_contract_surfaces(
                         ValidationIssue(
                             readme_name,
                             "mechanic part with no payload subdirectories must "
-                            "declare a bundle-backed thin support route; missing "
+                            "declare an eval-backed thin support route; missing "
                             + ", ".join(repr(token) for token in missing_thin_tokens),
                         )
                     )

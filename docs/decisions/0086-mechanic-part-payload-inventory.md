@@ -38,7 +38,7 @@ actual payload subdirectory that exists under that part.
 - a payload subdirectory that exists on disk but is not named by the part
   README.
 - a part with no payload subdirectories unless the README declares a
-  bundle-backed thin support route where the source proof bundle stays under
+  eval-backed thin support route where the source eval package stays under
   `evals/`.
 
 Allowed payload classes are intentionally generic proof-support classes:
@@ -52,7 +52,7 @@ the broad mechanic, but the part README must expose the concrete proof material
 that makes the part operable.
 
 The only acceptable no-payload shape is not an empty future slot. It is a
-bundle-backed thin support route: the part routes a real source proof bundle
+eval-backed thin support route: the part routes a real source eval package
 that deliberately stays under `evals/` because bundle-local proof meaning is
 stronger than mechanics support. That posture must be visible in the part
 README.

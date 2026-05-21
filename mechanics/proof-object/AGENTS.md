@@ -10,11 +10,11 @@ Start with the package README. Then read `mechanics/proof-object/DIRECTION.md` f
 
 ## Role
 
-This package routes source proof-object work for eval bundles.
+This package routes source proof-object work for source eval packages.
 
-It does not own the actual bundle meaning. Bundle meaning stays in
-`evals/**/EVAL.md` and `evals/**/eval.yaml`, with bundle-local support
-artifacts where present.
+It does not own the actual source eval meaning. Source eval meaning stays in
+`evals/**/EVAL.md` and `evals/**/eval.yaml`, with eval-local support artifacts
+where present.
 
 ## Read before editing
 
@@ -28,9 +28,9 @@ artifacts where present.
 8. `mechanics/proof-object/PARTS.md`
 9. `mechanics/proof-object/PROVENANCE.md`
 10. affected `evals/**/EVAL.md` and `evals/**/eval.yaml`
-11. `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md` when authoring or reshaping bundle anatomy
-12. `mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json`
-13. `mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json`
+11. `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md` when authoring or reshaping eval anatomy
+12. `mechanics/proof-object/parts/eval-contracts/schemas/eval-frontmatter.schema.json`
+13. `mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json`
 14. `docs/decisions/0048-proof-object-contract-parts.md`
 
 ## Local Law
@@ -54,7 +54,7 @@ artifacts where present.
 - Do not hand-edit generated reader surfaces as proof authority.
 - Do not promote a candidate, receipt, or report into accepted verdict meaning
   without bundle-local review.
-- Do not make this package a bundle registry or release note surface.
+- Do not make this package an eval registry or release note surface.
 - Do not use one proof object as a universal agent ranking.
 
 ## Validation
@@ -72,7 +72,7 @@ or phase-alpha surfaces, also run the owning builder or validator.
 
 ## Closeout
 
-Report which proof-object route changed, which source bundle or source class it
+Report which proof-object route changed, which source eval package or source class it
 routes, whether `EVAL.md` and `eval.yaml` alignment changed, which generated
 readers were checked, what validation ran, and what proof claim remains
 bounded.

@@ -7,7 +7,7 @@ This part owns the support route for bounded method-growth lineage proof through
 
 It keeps the shared lineage fixture family under the Method-growth mechanic
 because AoA method-growth routes repeated work through readable lineage before
-owner landing. The source proof bundle stays under `evals/`.
+owner landing. The source eval package stays under `evals/`.
 
 ## Source Surfaces
 

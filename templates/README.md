@@ -2,10 +2,10 @@
 
 `templates/` is a compatibility route card, not the active template source.
 
-No active root template payload should live here. The active eval bundle
-authoring template lives at:
+No active root template payload should live here. The active eval authoring
+template lives at:
 
-`mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
+`mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md`
 
 Template changes are proof-object contract changes. Route them through
 `mechanics/proof-object/README.md`, `mechanics/proof-object/PARTS.md`, and

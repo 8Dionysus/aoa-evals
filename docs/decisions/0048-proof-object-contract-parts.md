@@ -31,11 +31,11 @@ are authored and validated.
 
 Move the authoring template to:
 
-`mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
+`mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md`
 
 Move the eval frontmatter and manifest schemas to:
 
-`mechanics/proof-object/parts/bundle-contracts/schemas/`
+`mechanics/proof-object/parts/eval-contracts/schemas/`
 
 Add `mechanics/proof-object/PARTS.md`, `PROVENANCE.md`, and legacy index/log
 surfaces so active parts come first and former root placement remains

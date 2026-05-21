@@ -6,8 +6,8 @@ district.
 No active root schema payload should live here. Current schema owners are
 mechanic-local:
 
-- bundle frontmatter and manifest schemas live under
-  `mechanics/proof-object/parts/bundle-contracts/schemas/`;
+- eval frontmatter and manifest schemas live under
+  `mechanics/proof-object/parts/eval-contracts/schemas/`;
 - shared fixture, runner, and report-summary schemas live under
   `mechanics/proof-infra/parts/reportable-contracts/schemas/`;
 - quest source and dispatch schemas live under `mechanics/questbook/parts/`;

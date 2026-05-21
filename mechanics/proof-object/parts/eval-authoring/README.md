@@ -1,8 +1,8 @@
-# Proof Object / Bundle Authoring Part
+# Proof Object / Eval Authoring Part
 
 ## Role
 
-This part owns the starter authoring scaffold for source proof bundles.
+This part owns the starter authoring scaffold for source eval packages.
 
 It is not a proof bundle, doctrine essay, generated reader, or example report.
 
@@ -12,10 +12,10 @@ It is not a proof bundle, doctrine essay, generated reader, or example report.
 
 ## Source Surfaces
 
-- `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
+- `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md`
 - `evals/**/EVAL.md`
 - `evals/**/eval.yaml`
-- `mechanics/proof-object/parts/bundle-contracts/`
+- `mechanics/proof-object/parts/eval-contracts/`
 
 ## Inputs
 
@@ -41,12 +41,13 @@ guides, score guides, and verdict guides own repo-level proof vocabulary. The
 template borrows that vocabulary for a starter shape; it does not become
 doctrine or accepted proof meaning.
 
-`mechanics/proof-object/parts/bundle-contracts/` owns schema-backed contract
+`mechanics/proof-object/parts/eval-contracts/` owns schema-backed contract
 checks. Generated catalogs, capsules, sections, reports, receipts, runtime
-candidates, and sibling refs stay weaker than source bundles.
+candidates, and sibling refs stay weaker than source eval packages.
 
 `aoa-evals` owns only the bounded authoring scaffold in this part: a starter
-form that helps a future bundle expose source truth without hiding limits.
+form that helps a future eval package expose source truth without hiding
+limits.
 
 ## Stop-Lines
 
@@ -54,9 +55,9 @@ form that helps a future bundle expose source truth without hiding limits.
 - Do not use placeholder text as evidence.
 - Do not hide comparison posture in prose when frontmatter or `eval.yaml`
   must carry it.
-- Do not move source bundles into this part.
+- Do not move source eval packages into this part.
 - Do not let generated readers, reports, receipts, runtime candidates, or
-  sibling refs outrank source bundles.
+  sibling refs outrank source eval packages.
 
 ## Validation
 

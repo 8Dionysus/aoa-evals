@@ -11,8 +11,8 @@ proof bundle stays under `evals/`.
 
 ## Thin Support Posture
 
-This is a bundle-backed thin support route with no part-local payload subdirectories.
-The source proof bundle stays under `evals/` because
+This is an eval-backed thin support route with no part-local payload subdirectories.
+The source eval package stays under `evals/` because
 `evals/workflow/aoa-diagnosis-cause-discipline/` owns the strongest local proof
 meaning: claim wording, source notes, example report, and integrity check.
 

@@ -7345,8 +7345,8 @@ class TestValidateQuestRouteSurfaces:
 
     def test_proof_object_part_owner_split_readmes_validate_current_contracts(self) -> None:
         protected_locations = {
-            validate_repo.PROOF_OBJECT_BUNDLE_AUTHORING_PART_README_NAME,
-            validate_repo.PROOF_OBJECT_BUNDLE_CONTRACTS_PART_README_NAME,
+            validate_repo.PROOF_OBJECT_EVAL_AUTHORING_PART_README_NAME,
+            validate_repo.PROOF_OBJECT_EVAL_CONTRACTS_PART_README_NAME,
         }
 
         assert not any(
@@ -8738,7 +8738,7 @@ class TestValidateQuestRouteSurfaces:
 
         assert any(
             issue.location == readme_name
-            and "bundle-backed thin support route" in issue.message
+            and "eval-backed thin support route" in issue.message
             for issue in issues
         )
 
@@ -9924,7 +9924,7 @@ class TestValidateQuestRouteSurfaces:
     def test_proof_object_part_owner_split_rejects_missing_source_bundle_boundary(
         self, tmp_path: Path
     ) -> None:
-        readme_name = validate_repo.PROOF_OBJECT_BUNDLE_CONTRACTS_PART_README_NAME
+        readme_name = validate_repo.PROOF_OBJECT_EVAL_CONTRACTS_PART_README_NAME
         copy_repo_text(tmp_path, readme_name)
         readme_path = tmp_path / readme_name
         readme_path.write_text(

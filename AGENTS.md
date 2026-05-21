@@ -6,7 +6,8 @@ Root route card for `aoa-evals`.
 
 `aoa-evals` is the bounded proof canon of AoA.
 It stores portable evaluation bundles for bounded claims about workflow quality, boundaries, regressions, artifact quality, comparison posture, repeated-window movement, and framed progression or checkpoint evidence.
-It is not a universal score or proof of metaphysical selfhood.
+Claim limit: evals here prove only the bounded claim their source bundle,
+evidence, verdict logic, and validation route can support.
 
 ## Owner lane
 
@@ -16,9 +17,20 @@ This repository owns:
 - doctrine about what an eval proves and what it does not prove
 - progression, recurrence, and checkpoint proof posture only when explicitly defined here
 
-It does not own:
+Route outward for:
 
 - skill workflow meaning, technique practice meaning, role policy, routing, playbooks, memory objects, stats dashboards, or hidden private benchmark truth
+
+## Operational map
+
+| Field | Route |
+| --- | --- |
+| entry | `README.md`, then the nearest nested `AGENTS.md` for the touched path |
+| source proof meaning | `evals/**/EVAL.md` and `evals/**/eval.yaml` |
+| authority class | `docs/PROOF_TOPOLOGY.md` and `docs/AGENT_INDEX.md` |
+| proof operation | `mechanics/README.md`, then parent `README.md`, `DIRECTION.md`, `PARTS.md`, and part `README.md` |
+| output | bounded reports, receipts, generated readers, or owner handoffs only through their owning surface |
+| tools and checks | this card's `Verify` section and the nearest nested `AGENTS.md` |
 
 ## Start here
 

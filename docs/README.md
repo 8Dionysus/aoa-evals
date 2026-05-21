@@ -6,6 +6,18 @@ reader choose the next source without guessing from filenames.
 Operational edit law belongs in the nearest `AGENTS.md`. This map explains where
 meaning lives and which surface to open next.
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | docs entrypoint and source-of-truth chooser |
+| entry | choose by question in `First Route` |
+| input | proof questions, route questions, topology questions, and guide lookup |
+| output | the next source surface, index, proof guide, or owner route |
+| owner | `docs/AGENTS.md` for docs edits; target source files own their meaning |
+| next route | `docs/AGENT_INDEX.md`, `docs/PROOF_TOPOLOGY.md`, mechanics, decisions, or bundle-local proof |
+| validation | [docs/AGENTS.md#validation](AGENTS.md#validation) and the nearest owner route card |
+
 ## First Route
 
 Choose by question:

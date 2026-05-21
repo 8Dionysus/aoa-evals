@@ -5,11 +5,24 @@
 `mechanics/` is the operation atlas for repeatable proof-layer operations in
 `aoa-evals`.
 
-It is not the doctrine center, roadmap, decision log, generated catalog, or
-source eval package directory. A mechanic exists only when a recurring operation has
-source surfaces, inputs, outputs, boundaries, and validation.
+It receives recurring proof pressure and routes it to the parent operation,
+part contract, payload home, and validation lane that owns the work. A mechanic
+exists only when a recurring operation has source surfaces, inputs, outputs,
+boundaries, and validation.
 
 The rule for this atlas is simple: no empty package taxonomy.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | operation atlas for repeatable proof-layer work |
+| entry | choose a parent from `Active Packages`, or recover it bottom-up from a payload |
+| input | source proof pressure, support artifact movement, route-card drift, or mechanic-owned payload work |
+| output | parent route, part contract, payload location, validation lane, or stronger-owner handoff |
+| owner | mechanic parent `README.md`, `DIRECTION.md`, `PARTS.md`, part `README.md`, and nearest `AGENTS.md` |
+| next route | `mechanics/EVIDENCE_CLUSTERS.md` for parent evidence, `docs/PROOF_TOPOLOGY.md` for authority class |
+| validation | [mechanics/AGENTS.md#validation](AGENTS.md#validation) and the nearest package card |
 
 ## Traversal Index
 
@@ -40,21 +53,20 @@ enter through `PROVENANCE.md` before opening archive internals.
 ## Evidence Atlas
 
 Use [`mechanics/EVIDENCE_CLUSTERS.md`](EVIDENCE_CLUSTERS.md) before moving
-root-district artifacts into or between packages. It records which parent names
-are AoA-aligned, which are evals-native, and which artifact forms must stay
-parts instead of becoming package names. It also carries the Root District Reconnaissance Ledger:
-each goal-listed root-district and current proof-infra route-card root must
-name its current root posture, mechanics relationship, and validation guard
-before files move from root placement into mechanic-owned payload routes. Its Residual
-Root-authored Surface Classification ledger keeps top-level `docs/`, `scripts/`,
-and `tests/` files explicit as root-owned guidance, builders, validators, or
-tests, and states where mechanic-owned payload belongs instead. It also carries the
-Active Parent Evidence Dimension Ledger: every active parent must be backed by visible
-meaning/doctrine, proof pressure, contracts/payloads, builders/readouts,
-quest/deferred pressure, owner split and stop-lines, and legacy/provenance.
-The companion Active Parent Evidence Route Refs ledger must keep concrete local
-route refs for every parent: at least one active parent route and at least one
-living non-mechanics evidence route ref that resolves in the current worktree.
+root-district artifacts into or between packages. It owns the parent evidence
+gate for this atlas:
+
+- parent class: which parent names are AoA-aligned and which are evals-native;
+- Root District Reconnaissance Ledger: which root districts remain
+  route-card-only and where their active payload moved;
+- residual root-authored surfaces: which top-level `docs/`, `scripts/`, and
+  `tests/` files stay root-owned;
+- Active Parent Evidence Dimension Ledger: meaning/doctrine, proof pressure,
+  contracts/payloads, builders/readouts, quest/deferred pressure, owner split,
+  stop-lines, and legacy/provenance;
+- Active Parent Evidence Route Refs: at least one active parent route and at
+  least one living non-mechanics evidence route for every parent.
+
 A generic root validator file and a rationale-only decision ref are not enough
 parent evidence by themselves.
 

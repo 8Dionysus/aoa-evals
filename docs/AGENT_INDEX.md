@@ -2,12 +2,23 @@
 
 This is the pass-through index for agents entering `aoa-evals`.
 
-It is not source truth, route law, a generated reader, a decision record, or a
-validation ledger. It tells an agent where it is in the repository shape, which
-authority class the current file belongs to, and which stronger surface to open
-next.
+It tells an agent where it is in the repository shape, which authority class
+the current file belongs to, and which stronger surface to open next. Source
+truth, route law, generated readers, decisions, and validators keep their own
+authority; this index connects them.
 
 Use this index when the path name is not enough by itself.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | agent-facing pass-through index for agents |
+| entry | start from the current path or from `README.md` |
+| output | next owner surface and validation route |
+| owner | `docs/` source guidance; executable commands stay in the nearest `AGENTS.md` |
+| next route | `docs/PROOF_TOPOLOGY.md`, `mechanics/README.md`, or a bundle-local source file |
+| validation | `docs/AGENTS.md#validation` and root `AGENTS.md#verify` |
 
 ## Canonical Chain
 

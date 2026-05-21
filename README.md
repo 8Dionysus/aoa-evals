@@ -10,10 +10,22 @@ make quality, boundary, regression, artifact, comparison, and repeated-window
 claims reviewable outside the original project.
 
 An eval here is a bounded proof surface. It carries a claim, fixtures or cases,
-scoring or verdict logic, known limits, and a local validation route. It is not
-a universal intelligence score, general safety claim, or proof of selfhood.
+scoring or verdict logic, known limits, and a local validation route. Its proof
+strength stays inside that local claim, evidence, and validation boundary.
 
 Current release: `v0.3.3`. See [CHANGELOG.md](CHANGELOG.md).
+
+## Operational Map
+
+| Field | Start here |
+| --- | --- |
+| role | portable proof surfaces for bounded eval claims |
+| entry | [docs/AGENT_INDEX.md](docs/AGENT_INDEX.md) for repo to authority class routing |
+| source input | `evals/**/EVAL.md`, `evals/**/eval.yaml`, fixtures, reports, and support artifacts |
+| output | bounded verdicts, reports, receipts, generated readers, and owner handoffs |
+| owner | bundle-local source files for proof meaning; nearest `AGENTS.md` for route law |
+| next route | [docs/PROOF_TOPOLOGY.md](docs/PROOF_TOPOLOGY.md) for class, [mechanics/README.md](mechanics/README.md) for operation |
+| validation | [AGENTS.md#verify](AGENTS.md#verify) and the nearest nested route card |
 
 ## First Route
 
@@ -22,7 +34,8 @@ For first orientation, read:
 1. [DESIGN.md](DESIGN.md) for the system form.
 2. [DESIGN.AGENTS.md](DESIGN.AGENTS.md) for agent-facing route shape.
 3. [docs/AGENT_INDEX.md](docs/AGENT_INDEX.md) for the pass-through chain from
-   repo to authority class, operation, part, payload, and validation.
+   repo to authority class, operation, mechanic parent, part, payload, and
+   validation.
 4. [docs/PROOF_TOPOLOGY.md](docs/PROOF_TOPOLOGY.md) for source, generated,
    runtime-candidate, receipt, sibling, legacy, and mechanic authority classes.
 5. [mechanics/README.md](mechanics/README.md) for repeatable proof operations.

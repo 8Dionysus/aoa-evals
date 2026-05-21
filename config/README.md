@@ -1,9 +1,20 @@
 # Config Route
 
-`config/` is a compatibility route card, not an active config payload district.
+`config/` is the root compatibility route card for historical config paths.
 
-No active root config payload should live here. Mechanic-owned configuration now
-lives with the operation that owns it:
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | compatibility route card for root config path routing |
+| entry | open when an old root config path appears or a repo-wide config payload is proposed |
+| input | config payload, seed input, registry input, or old root config reference |
+| output | owning mechanic part route or documented repo-wide config decision |
+| owner | `config/AGENTS.md` for route law; owning mechanic or bundle for payload meaning |
+| next route | Agon part config, boundary-bridge sibling canary config, or `docs/PROOF_TOPOLOGY.md` for a new repo-wide class |
+| validation | `config/AGENTS.md` and the owning mechanic route card |
+
+Active root config payloads route to the operation that owns them:
 
 - Agon seed and registry inputs live under `mechanics/agon/parts/*/config/`.
 - Boundary-bridge sibling canary config lives under

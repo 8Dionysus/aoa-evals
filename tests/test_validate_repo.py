@@ -8070,7 +8070,7 @@ class TestValidateQuestRouteSurfaces:
         evidence_path = tmp_path / validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
         evidence_path.write_text(
             evidence_path.read_text(encoding="utf-8").replace(
-                "route-card-only root posture; no active fixture family remains in root `fixtures/`",
+                "route-card-only compatibility posture; active fixture families live under proof-infra or domain mechanic parts",
                 "compatibility root posture; no active fixture family remains in root `fixtures/`",
                 1,
             ),

@@ -1,6 +1,19 @@
 # Runners Route
 
-This directory is a compatibility route card for shared runner contracts.
+This directory is the compatibility route card for historical shared runner
+contract paths.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | compatibility route card for root runner contract routing |
+| entry | open when an old root runner path appears or a shared runner contract needs an owner |
+| input | runner contract, bundle-local runner pointer, or old root runner reference |
+| output | proof-infra reportable-contract runner route or bundle-local pointer review |
+| owner | `runners/AGENTS.md` for route law; proof-infra reportable-contracts for the active shared runner |
+| next route | `mechanics/proof-infra/parts/reportable-contracts/runners/` |
+| validation | `runners/AGENTS.md` and proof-infra route checks |
 
 The active shared reportable proof runner surface now lives at:
 

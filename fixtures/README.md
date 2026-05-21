@@ -3,8 +3,19 @@
 This directory is the compatibility route card for former root shared fixture
 families in `aoa-evals`.
 
-No active fixture family remains in root `fixtures/` after the proof-infra
-fixture-family slice. Active families now live under the owning mechanic part.
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | compatibility route card for root fixture family routing |
+| entry | open when an old root fixture path appears or a shared fixture family needs an owner |
+| input | fixture family, old root fixture reference, replacement case set, or shared family path |
+| output | proof-infra fixture family, comparison-spine fixture, recurrence fixture, method-growth fixture, or owning mechanic part |
+| owner | `fixtures/AGENTS.md` for route law; owning mechanic part for active fixture meaning |
+| next route | `mechanics/proof-infra/parts/fixture-families/fixtures/` or the domain mechanic part named below |
+| validation | `fixtures/AGENTS.md` and the owning part route card |
+
+Active fixture families live under the owning mechanic part.
 
 Use [AGENTS.md](AGENTS.md) for replacement, naming, and safety rules. This
 README is the route map.

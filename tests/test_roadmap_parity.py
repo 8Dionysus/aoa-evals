@@ -7,30 +7,21 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
-CURRENT_RELEASE_SURFACES = (
-    "evals/capability/aoa-continuity-anchor-integrity/EVAL.md",
-    "evals/workflow/aoa-reflective-revision-boundedness/EVAL.md",
-    "evals/boundary/aoa-self-reanchor-correctness/EVAL.md",
-    "evals/capability/aoa-candidate-lineage-integrity/EVAL.md",
-    "evals/workflow/aoa-diagnosis-cause-discipline/EVAL.md",
-    "evals/workflow/aoa-repair-boundedness/EVAL.md",
-    "generated/eval_catalog.min.json",
-    "generated/eval_capsules.json",
-    "generated/eval_sections.full.json",
-    "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json",
-    "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json",
-    "mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated/phase_alpha_eval_matrix.min.json",
-    "mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md",
-    "mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md",
-    "mechanics/recurrence/docs/RECURRENCE_PROOF_PROGRAM.md",
-    "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md",
-    "mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md",
-    "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+DIRECTIONAL_ANCHORS = (
+    "docs/AGENT_INDEX.md",
+    "docs/PROOF_TOPOLOGY.md",
+    "docs/LEGACY_NAMING.md",
+    "mechanics/EVIDENCE_CLUSTERS.md",
+    "evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+    "mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json",
+    "mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json",
+    "mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json",
+    "mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json",
 )
 
 
 class RoadmapParityTestCase(unittest.TestCase):
-    def test_roadmap_matches_current_v0_3_1_release_contour(self) -> None:
+    def test_roadmap_keeps_current_directional_public_contour(self) -> None:
         roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
         changelog = (REPO_ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
@@ -39,16 +30,19 @@ class RoadmapParityTestCase(unittest.TestCase):
         self.assertIn("Current release: `v0.3.3`", readme)
         self.assertIn("## [0.3.3]", changelog)
         self.assertIn("`v0.3.3`", roadmap)
-        self.assertIn("Current release contour", roadmap)
-        self.assertIn("Roadmap drift", roadmap)
+        self.assertIn("Current Public Contour", roadmap)
+        self.assertIn("Directional Anchors", roadmap)
+        self.assertIn("release history: [CHANGELOG.md](CHANGELOG.md)", roadmap)
         self.assertIn("proves only bounded claims", normalized_roadmap)
-        self.assertIn("not a claim that", roadmap)
+        self.assertIn("Executable commands live in route cards", roadmap)
         self.assertNotIn("grow from a strong public bootstrap", roadmap)
+        self.assertNotIn("Current Checked Contour", roadmap)
+        self.assertNotIn("It is not the changelog", roadmap)
 
-        for surface in CURRENT_RELEASE_SURFACES:
-            with self.subTest(surface=surface):
-                self.assertTrue((REPO_ROOT / surface).is_file())
-                self.assertIn(surface, roadmap)
+        for anchor in DIRECTIONAL_ANCHORS:
+            with self.subTest(anchor=anchor):
+                self.assertTrue((REPO_ROOT / anchor).is_file())
+                self.assertIn(anchor, roadmap)
 
     def test_memo_pilot_surfaces_do_not_overclaim_memory_readiness(self) -> None:
         roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")

@@ -1070,7 +1070,7 @@ ROADMAP_DIRECTION_SURFACE_REQUIRED_TOKENS = (
     "# Proof Direction Roadmap",
     "active direction surface for `aoa-evals`",
     "roadmap owns direction and sequencing",
-    "It is not the changelog",
+    "release history: [CHANGELOG.md](CHANGELOG.md)",
     "## Current Direction",
     "## Horizons",
 )

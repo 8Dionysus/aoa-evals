@@ -1,7 +1,20 @@
 # Reports Route
 
 This is a compatibility route card for former top-level shared report artifacts.
-No active root reports payload should live here.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | compatibility route card for root report path routing |
+| entry | open when an old root report path appears or a report artifact needs a stronger owner |
+| input | report artifact, dossier, receipt preview, generated report reader reference, or old root report path |
+| output | bundle-local report, proof-loop report, comparison-spine report, release-support report, or publication-receipt part |
+| owner | `reports/AGENTS.md` for route law; owning bundle or mechanic part for report meaning |
+| next route | bundle-local `reports/`, `mechanics/*/parts/*/reports/`, or `generated/eval_report_index.min.json` |
+| validation | `reports/AGENTS.md` and the owning route card |
+
+Active root reports payloads route to the owning bundle or mechanic part.
 
 Historically this directory stored top-level public report artifacts that were
 shared across more than one bundle. Active reports now need a narrower owner:
@@ -18,8 +31,8 @@ Real bundle-local run artifacts also stay under the owning bundle as
 Use [AGENTS.md](AGENTS.md) for report safety, proof-strength, and route-card
 rules. This README is the route map.
 
-Shared machine-readable publication receipts that span more than one bundle do
-not live under `reports/`.
+Shared machine-readable publication receipts that span more than one bundle
+route through publication-receipts parts.
 Keep those shared receipt seams under
 `mechanics/publication-receipts/parts/` so bundle-local report artifacts remain
 the stronger proof contract.
@@ -70,5 +83,5 @@ mechanic-owned state artifacts:
 
 Current generated report reader:
 - `generated/eval_report_index.min.json` routes to real bundle-local
-  `*.report.json` artifacts; it is not receipt authority and does not replace
-  the source reports.
+  `*.report.json` artifacts; receipt authority and source report meaning stay
+  with their owning surfaces.

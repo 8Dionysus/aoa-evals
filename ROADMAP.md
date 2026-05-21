@@ -4,319 +4,155 @@
 
 `ROADMAP.md` is the active direction surface for `aoa-evals`.
 
-It is not the changelog, questbook, architecture reference, design form,
-decision log, validator ledger, or generated catalog. It names where the
-bounded proof organ is trying to go next and which phase gates make that
-movement honest.
+It names the current proof-organ direction, horizon order, public contour, and
+phase gates that keep movement honest. This roadmap owns direction and sequencing.
 
-Detailed release history stays in [CHANGELOG.md](CHANGELOG.md).
-Durable rationale stays in [docs/decisions/](docs/decisions/).
-Deferred obligations stay in [QUESTBOOK.md](QUESTBOOK.md) and `quests/`.
-Eval meaning stays in `evals/**/EVAL.md` and `evals/**/eval.yaml`.
+Use the stronger owner surface when the work needs detail:
 
-## Authority
+- release history: [CHANGELOG.md](CHANGELOG.md)
+- tracked obligations: [QUESTBOOK.md](QUESTBOOK.md) and `quests/`
+- route law and executable checks: [AGENTS.md](AGENTS.md) and nearest nested
+  `AGENTS.md`
+- durable rationale: [docs/decisions/](docs/decisions/)
+- source proof meaning: `evals/**/EVAL.md` and `evals/**/eval.yaml`
+- proof topology: [docs/PROOF_TOPOLOGY.md](docs/PROOF_TOPOLOGY.md)
+- mechanics operations: [mechanics/README.md](mechanics/README.md),
+  parent `README.md`, parent `DIRECTION.md`, parent `PARTS.md`, and part
+  `README.md`
+- validator contracts: `scripts/validate_repo.py` and
+  `tests/test_validate_repo.py`
 
-The roadmap owns direction and sequencing.
+## Operating Card
 
-It does not own source proof meaning, route law, validation implementation,
-legacy archive accounting, runtime evidence acceptance, generated reader truth,
-or sibling owner truth.
-
-Use it to answer:
-
-- what is the current contour of the proof organ?
-- which horizon should be worked next?
-- what must remain visible while implementation slices move detail elsewhere?
-
-Use stronger surfaces for detail:
-
-- root proof shape: `DESIGN.md`, `DESIGN.AGENTS.md`, and `docs/ARCHITECTURE.md`;
-- agent pass-through index: `docs/AGENT_INDEX.md`;
-- topology and authority classes: `docs/PROOF_TOPOLOGY.md`;
-- durable rationale: `docs/decisions/README.md` and numbered decisions;
-- mechanics evidence and package posture: `mechanics/EVIDENCE_CLUSTERS.md` and
-  `mechanics/README.md`;
-- validation contracts: `scripts/validate_repo.py` and `tests/test_validate_repo.py`.
-
-## Update Rule
-
-Update this file when the current direction, horizon order, public contour, or
-standing verification posture changes.
-
-Do not use this file as a status ledger for each guard added, each part exposed,
-or each report recorded. Put those details in the owning decision, mechanic
-index, generated/readout builder, report, receipt, or changelog surface.
+| Field | Route |
+| --- | --- |
+| input | proof-organ pressure, public contour shifts, horizon changes, or verification posture changes |
+| output | direction, horizon order, current public contour, and exit gates |
+| owner | root roadmap for sequencing; owner surfaces above for detail |
+| next route | `docs/AGENT_INDEX.md`, `docs/PROOF_TOPOLOGY.md`, `mechanics/README.md`, then nearest local route card |
+| validation | [AGENTS.md#verify](AGENTS.md#verify), `tests/test_roadmap_parity.py`, and roadmap contracts in `scripts/validate_repo.py` |
 
 ## Current Direction
 
-`aoa-evals` has moved beyond public bootstrap. The repository already carries
-36 eval bundles, generated proof readers, runtime-candidate templates, trace and
-receipt bridges, phase-alpha matrices, Agon alignment surfaces, mechanics
-packages, and public-safe proof references into sibling owners.
+`aoa-evals` is past bootstrap. The repository now carries 36 eval bundles,
+generated proof readers, runtime-candidate templates, trace and receipt
+bridges, phase-alpha matrices, Agon alignment surfaces, mechanics packages, and
+public-safe proof references into sibling owners.
 
-The next work is structural maturity:
+The current movement is structural maturity:
 
 - keep entry surfaces short enough to trust;
-- keep `docs/AGENT_INDEX.md` as the visible chain from repo root to payload
-  validation;
-- keep decisions as rationale crosswalks rather than generated dumps;
-- keep roadmap direction separate from changelog and validator chronology;
-- keep AGENTS law local to the nearest route card while preserving source
-  meaning in authored design/topology docs;
-- preserve mechanics topology without flattening active parent/part routes;
-- split validation only after source and index surfaces make the domain
-  boundaries obvious.
+- keep the Agent index chain in `docs/AGENT_INDEX.md` visible from repo root to
+  authority class, operation, mechanic parent, part, payload, and validation;
+- keep decision records as rationale crosswalks, not generated dumps;
+- keep roadmap direction separate from release history and validator chronology;
+- keep route commands in local `AGENTS.md` cards while authored docs carry proof
+  meaning, topology, and read models;
+- preserve mechanics topology before splitting the validator mesh;
+- use active names for living proof operations and keep legacy names behind
+  provenance bridges.
 
-## Current Release Contour
-
-Current release contour remains compact here so the roadmap keeps direction
-instead of becoming a changelog.
+## Current Public Contour
 
 Current release marker: `v0.3.3`.
 
-Roadmap drift is controlled by keeping release anchors visible without turning
-this file into release notes. This contour proves only bounded claims; it is not a claim that memo, runtime, release, sibling, or generated-reader surfaces are stronger than their owning proof objects.
+The public proof contour stays bounded: this roadmap keeps release anchors
+visible while source bundles, reports, receipts, generated readers, runtime
+candidates, and sibling references remain under their owning proof objects.
+This contour proves only bounded claims.
 
-The current release contour keeps these public anchors visible:
+Current public surface:
 
-- `evals/capability/aoa-continuity-anchor-integrity/EVAL.md`
-- `evals/workflow/aoa-reflective-revision-boundedness/EVAL.md`
-- `evals/boundary/aoa-self-reanchor-correctness/EVAL.md`
-- `evals/capability/aoa-candidate-lineage-integrity/EVAL.md`
-- `evals/workflow/aoa-diagnosis-cause-discipline/EVAL.md`
-- `evals/workflow/aoa-repair-boundedness/EVAL.md`
-- `generated/eval_catalog.min.json`
-- `generated/eval_capsules.json`
-- `generated/eval_sections.full.json`
-- `mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json`
-- `mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json`
-- `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated/phase_alpha_eval_matrix.min.json`
-- `mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md`
-- `mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`
-- `mechanics/recurrence/docs/RECURRENCE_PROOF_PROGRAM.md`
-- `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md`
-- `mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md`
-- `mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
+- No additional planned starter bundles are currently named publicly.
 
-Memo pilot surfaces may describe future scar or retention readiness, but they do
-not claim live memory-ledger readiness.
+Use [EVAL_INDEX.md](EVAL_INDEX.md) and [EVAL_SELECTION.md](EVAL_SELECTION.md)
+for the public eval map and starter selection route.
 
-## Current Checked Contour
+Memo pilot claim limit: future scar and retention remain outside current proof;
+live memory-ledger readiness stays outside the public contour until a
+bundle-local review accepts that claim.
 
-The following anchors must remain visible while roadmap, README, docs, decision,
-mechanics, and validator cleanup proceeds. This is an anchor ledger, not a
-history log.
+## Directional Anchors
 
-| Anchor family | Current owner | Roadmap contour |
+These anchors keep direction recoverable without turning the roadmap into a
+history ledger.
+
+| Anchor | Owner surface | Directional use |
 | --- | --- | --- |
-| Root proof spine | `DESIGN.md`, `DESIGN.AGENTS.md`, `docs/ARCHITECTURE.md` | Root design stays compact, proof-bundle meaning remains bounded, and architecture describes mechanics as support rather than replacing source proof objects. |
-| Agent index chain | `docs/AGENT_INDEX.md` | The pass-through index keeps the path from repo to authority class, operation, mechanic parent, part, payload, and validation visible without owning source truth or route law. |
-| Proof topology | `docs/PROOF_TOPOLOGY.md`, `docs/decisions/0005-proof-topology-map.md` | The Proof Topology Map keeps source, generated, candidate, receipt, sibling, legacy, and active mechanic classes separate. |
-| Decision memory | `docs/decisions/README.md` | Decision records explain durable rationale; decision-route residue keeps decision records from presenting former root payload paths as current routes. |
-| Mechanics evidence | `mechanics/EVIDENCE_CLUSTERS.md` | Active Parent Evidence Dimension Ledger and Mechanic Evidence Route Refs keep parent evidence tied to contracts/payloads and living route refs. |
-| Root district posture | `mechanics/EVIDENCE_CLUSTERS.md` | Root District Reconnaissance Ledger keeps route-card-only districts visible before mechanic-owned payload movement. |
-| Residual root-authored surfaces | `mechanics/EVIDENCE_CLUSTERS.md` | Residual Root-authored Surface Classification keeps top-level docs, scripts, and tests explicit while mechanic-owned payload drift is rejected. |
-| Generated/readout residue | validator and generated readers | generated/readout route residue keeps root generated readers away from route-card-only active paths while part-local generated readers may use same part paths. |
-| Active route residues | validator and route cards | active mechanic route residue protects authored route cards; root-authored route residue protects root-facing authored surfaces. |
-| Repo config and source bundle residues | `.gitignore`, `pytest.ini`, workflows, bundles | repo-config route residue includes `.gitignore`; source-bundle route residue keeps source proof bundles on bundle-local or repo-qualified sibling paths. |
-| Mechanic payload residue | mechanics parts | mechanic-payload route residue keeps active mechanics payload references part-local, active, or repo-qualified. |
-| Parent direction | parent `DIRECTION.md` files | mechanic parent direction keeps current operating direction visible between parent README, PARTS, PROVENANCE, and part contracts. |
-| Part payload inventory | part READMEs and `PARTS.md` | Mechanic Part Payload Inventory names every payload subdirectory and rejects unexpected payload classes. |
-| Part source and validation shape | part README, `VALIDATION.md`, parent `parts/AGENTS.md` | Mechanic Part Source Surface Reference Guard rejects a stale source surface ref; Mechanic Part Source Surfaces Section Contract requires the plural section; Mechanic Part Validation Command Reachability requires a payload coverage anchor; Mechanic Part Validation Command Ownership keeps executable commands in route cards. |
-| Parent part map | parent `PARTS.md` | Mechanic PARTS Index Synchronization rejects a stale local part route while allowing cross-parent handoff references. |
-| Legacy route | `docs/LEGACY_NAMING.md`, parent `PROVENANCE.md`, `legacy/` | Legacy and Naming Containment, Legacy Naming Single-Bridge Language, and Legacy Naming Posture Guide keep old names behind active routes. Mechanic Legacy Single Bridge keeps a single controlled bridge from active mechanic surfaces. Mechanic Provenance Bridge Posture says `PROVENANCE.md` is a bridge, not an active route. Active Legacy Parent Wording Boundary keeps runtime evidence from becoming a legacy parent route. |
-| Proof loop reports | proof-loop and release-support mechanics | `mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md` remains routeability evidence, and `evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json` remains the first schema-backed bundle-local report. |
-| Generated report index | `generated/eval_report_index.min.json` | The report index is a derived reader for reports and receipts; it routes to source reports without adding verdict authority. |
-| Receipt dry review | `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json` | The dry-review receipt stays at `not_published` posture and remains publication-boundary evidence, not proof-strengthening evidence. |
-| Release readiness | `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json` | Readiness audit evidence may inform release preparation, while goal completion remains governed by the active goal, validation, and owner review. |
-| Strategic closeout | `mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json` | The strategic closeout audit records that the long goal not complete posture can be explicit until all required owner gates land. |
-| PR handoff | `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json` | The PR handoff report carries owner landing handoff context without becoming live PR or GitHub status authority. |
+| Root proof spine | `DESIGN.md`, `DESIGN.AGENTS.md`, `docs/ARCHITECTURE.md` | Keep root design compact and proof-bundle meaning bounded. |
+| Agent index chain | `docs/AGENT_INDEX.md` | Keep the pass-through route from repo to authority class, operation, mechanic parent, part, payload, and validation visible. |
+| Proof Topology Map | `docs/PROOF_TOPOLOGY.md` | Keep source, generated, candidate, receipt, sibling, legacy, and active mechanic authority classes separate. |
+| Decision memory | `docs/decisions/README.md` | Keep decision records as rationale and decision-route residue crosswalks. |
+| Legacy naming | `docs/LEGACY_NAMING.md` | Preserve Legacy and Naming Containment, Legacy Naming Single-Bridge Language, and Legacy Naming Posture Guide as active-name support. |
+| Mechanics evidence | `mechanics/EVIDENCE_CLUSTERS.md` | Keep the Active Parent Evidence Dimension Ledger and Mechanic Evidence Route Refs tied to contracts/payloads. |
+| Root district posture | `mechanics/EVIDENCE_CLUSTERS.md` | Keep the Root District Reconnaissance Ledger visible for route-card-only districts before mechanic-owned payload movement. |
+| Root residual classes | `mechanics/EVIDENCE_CLUSTERS.md` | Keep Residual Root-authored Surface Classification explicit for mechanic-owned payload boundaries. |
+| Route residue guards | validator and route cards | Keep generated/readout route residue on the same part, active mechanic route residue on authored route cards, root-authored route residue on root-facing authored surfaces, decision-route residue on decision records, repo-config route residue on `.gitignore`, source-bundle route residue on source proof bundles, and mechanic-payload route residue on active mechanics payload. |
+| Mechanic lower index | parent `DIRECTION.md`, parent `PARTS.md`, part `README.md` | Keep mechanic parent direction, Mechanic Part Payload Inventory, payload subdirectory inventory, Mechanic Part Source Surface Reference Guard, stale source surface ref detection, Mechanic Part Source Surfaces Section Contract, plural section checks, Mechanic PARTS Index Synchronization, and stale local part route checks visible before validator decomposition. |
+| Legacy bridge | parent `PROVENANCE.md` and `legacy/` | Keep Mechanic Legacy Single Bridge, Mechanic Provenance Bridge Posture, bridge, not an active route, single controlled bridge, active mechanic surfaces, and Active Legacy Parent Wording Boundary tied to runtime evidence limits. |
+| Part validation route | part `VALIDATION.md` and parent `parts/AGENTS.md` | Keep Mechanic Part Validation Command Reachability and payload coverage anchor visible while commands stay in route cards. |
+| Proof loop report | `evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json` | Keep the first schema-backed bundle-local report visible as proof-loop evidence. |
+| Generated report index | `generated/eval_report_index.min.json` | Keep report and receipt readers derived from source reports. |
+| Publication receipt dry review | `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json` | Keep the dry-review receipt at `not_published` posture. |
+| Release-support readouts | `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json`, `mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json`, `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json` | Keep release readiness tied to goal completion, strategic closeout tied to long goal not complete posture, and PR handoff tied to owner landing handoff context. |
 
 ## Horizons
 
-### Horizon: Index Chain And Decision Memory
+### Horizon: Entry Surfaces
 
-Goal: make the agent index chain reliable before slimming entry surfaces.
+| Field | Direction |
+| --- | --- |
+| Current posture | `README.md`, `docs/README.md`, and `docs/AGENT_INDEX.md` now carry clearer entry and pass-through roles. |
+| Next movement | Keep the root README public-readable while moving dense route matrices into docs and mechanics indexes. |
+| Exit gate | A low-context agent can tell where to start, where detail lives, and which file owns validation commands. |
 
-Current contour:
+### Horizon: Decision Memory
 
-- `docs/decisions/README.md` is the decision crosswalk by number, surface
-  class, mechanic parent, validation guard family, and active posture.
-- Decisions stay weaker than source surfaces, generated readers, runtime facts,
-  receipts, and sibling owner truth.
-
-Next work:
-
-- keep the decision index compact as new decisions are added;
-- add a decision only when a future agent needs rationale, not when a diff is
-  self-explanatory.
-
-Exit gate:
-
-- a future agent can find why a route exists without reading a changelog or
-  validator token list.
+| Field | Direction |
+| --- | --- |
+| Current posture | `docs/decisions/README.md` acts as a decision crosswalk by number, surface class, mechanic parent, validation guard family, and active posture. |
+| Next movement | Add decisions only when future agents need rationale; keep decision records weaker than source surfaces and generated/runtime facts. |
+| Exit gate | A future agent can find why a route exists without reading a changelog or validator token list. |
 
 ### Horizon: Roadmap, Questbook, And Quest Route
 
-Goal: separate direction, obligations, source quest records, and generated quest
-readers.
-
-Current contour:
-
-- `ROADMAP.md` is this active direction surface.
-- `QUESTBOOK.md` is the human tracked surface for open proof obligations.
-- `quests/<lane>/<state>/*.yaml` are source quest records.
-- generated quest readers remain derived navigation.
-
-Next work:
-
-- keep old quest-note lineage behind owning provenance bridges;
-- keep lane/state source records aligned with generated projections;
-- keep quest obligations from becoming eval bundle meaning or roadmap direction.
-
-Exit gate:
-
-- a low-context agent can distinguish direction, obligation, source quest, and
-  generated quest reader without chat memory.
-
-### Horizon: Root README And Docs Map
-
-Goal: make entry and docs maps concise, beautiful, and route-safe.
-
-Current contour:
-
-- `README.md` introduces the proof organ but still carries too much dispatcher
-  detail.
-- `docs/README.md` maps docs but still contains validation placement noise.
-
-Next work:
-
-- rewrite the root README as a short public proof-organ entry;
-- move detailed route matrices to docs or mechanics indexes;
-- relocate `docs/README.md` validation guidance so reader paths remain clean.
-
-Exit gate:
-
-- public entry is readable without becoming shallow;
-- detailed navigation remains recoverable from canonical index surfaces.
+| Field | Direction |
+| --- | --- |
+| Current posture | `ROADMAP.md` owns direction, `QUESTBOOK.md` owns tracked proof obligations, `quests/<lane>/<state>/*.yaml` own source quest records, and generated quest readers remain derived navigation. |
+| Next movement | Keep lane/state quest records aligned with generated projections without turning obligations into eval meaning or roadmap direction. |
+| Exit gate | Direction, obligation, source quest, and generated quest reader are visibly separate. |
 
 ### Horizon: AGENTS Law And Source Meaning
 
-Goal: distinguish operating law from authored source meaning.
-
-Current contour:
-
-- root and nested `AGENTS.md` cards already cover root, docs, decisions,
-  route-card-only districts, mechanics parents, legacy, selected parts,
-  `.agents`, `.aoa`, and `.github`.
-- ordinary docs still legitimately carry authority-class and topology meaning.
-
-Next work:
-
-- audit law-like text by nearest owner rather than moving every boundary phrase
-  into root `AGENTS.md`;
-- keep route commands and mutation/validation posture in local route cards;
-- keep proof meaning in design, topology, bundle, and mechanic source surfaces.
-
-Exit gate:
-
-- a future edit can tell whether to read AGENTS, README, DESIGN, topology,
-  decisions, mechanics, or validator first.
+| Field | Direction |
+| --- | --- |
+| Current posture | Root and nested `AGENTS.md` cards own commands, mutation gates, and local risk while authored docs own proof meaning and topology. |
+| Next movement | Audit law-like text by nearest owner and route executable validation posture into route cards. |
+| Exit gate | A future edit can tell whether to read `AGENTS.md`, `README.md`, `DESIGN.md`, topology, decisions, mechanics, or validator first. |
 
 ### Horizon: Mechanics Atlas And Lower Index
 
-Goal: keep `mechanics/` as an operation atlas, not a taxonomy attic.
-
-Current contour:
-
-- 19 active parent mechanics exist because each owns a repeatable proof-layer
-  operation.
-- Parent `README.md`, `DIRECTION.md`, `PARTS.md`, `PROVENANCE.md`, local
-  `AGENTS.md`, part READMEs, payload homes, and legacy bridges form the lower
-  index.
-
-Next work:
-
-- improve wayfinding before any parent split or removal;
-- preserve valid legacy archives and generated/readout surfaces as subordinate
-  route supports;
-- add no new parent without evidence cluster, decision, route cards, topology,
-  and validator movement in the same slice.
-
-Exit gate:
-
-- a future agent can start at one payload and recover parent operation,
-  authority class, rationale, and validation route.
-
-### Horizon: Legacy And Naming Containment
-
-Goal: keep old names traceable without letting them steer active topology.
-
-Current contour:
-
-- `docs/LEGACY_NAMING.md` is a posture guide, not a global archive map.
-- Parent `PROVENANCE.md` files open the active-to-archive bridge.
-- Archive detail stays inside owning `legacy/` routes.
-
-Next work:
-
-- use active names for living proof operations;
-- preserve old names as lineage, accepted input, generated projection, or
-  provenance bridge context;
-- update active owner routes before archive accounting.
-
-Exit gate:
-
-- a reader can tell whether a name is active topology, historical lineage,
-  accepted input, generated projection, or archive vocabulary.
+| Field | Direction |
+| --- | --- |
+| Current posture | Nineteen active parent mechanics own repeatable proof-layer operations through parent route cards, `DIRECTION.md`, `PARTS.md`, part READMEs, payload homes, and legacy bridges. |
+| Next movement | Improve wayfinding before parent splits, removals, or validator decomposition. |
+| Exit gate | A future agent can start at one payload and recover parent operation, authority class, rationale, and validation route. |
 
 ### Horizon: Validator Domain Split
 
-Goal: make validation easier to maintain without weakening proof topology.
-
-Current contour:
-
-- `scripts/validate_repo.py` is still the central contract mesh.
-- `tests/test_validate_repo.py` protects many domain invariants and should not
-  be split before source/index owners are clearer.
-
-Next work:
-
-- group validator responsibilities by authority domain after README, roadmap,
-  docs, decisions, AGENTS, mechanics, and naming surfaces are clear;
-- update validator tokens and tests in lockstep with wording changes.
-
-Exit gate:
-
-- validators can name the invariant they protect;
-- green validation means more than file presence;
-- proof topology remains constrained after decomposition.
+| Field | Direction |
+| --- | --- |
+| Current posture | `scripts/validate_repo.py` and `tests/test_validate_repo.py` still carry the central contract mesh. |
+| Next movement | Split guard classes by authority domain only after entry, roadmap, docs, decisions, AGENTS, mechanics, and naming surfaces make the owner boundaries obvious. |
+| Exit gate | Validators can name the invariant they protect and green validation still constrains proof topology. |
 
 ### Horizon: Active Proof Loop
 
-Goal: make the repository actively usable for bounded proof work without
-requiring runtime, stack, or sibling authority.
-
-Target route:
-
-`pick proof question -> inspect source bundle -> expand fixture/report contract -> select candidate evidence -> review against bundle -> publish bounded report -> emit optional receipt`
-
-Exit gate:
-
-- this route can be followed locally from `aoa-evals`;
-- receipts, runtime candidates, generated summaries, and sibling refs remain
-  subordinate to bundle-local review;
-- release-support reports remain handoff and readiness artifacts, not GitHub
-  status, tag authority, or goal-completion authority.
-
-## Current Public Surface
-
-Use [EVAL_INDEX.md](EVAL_INDEX.md) and [EVAL_SELECTION.md](EVAL_SELECTION.md)
-for the current public eval map and selection route.
-
-No additional planned starter bundles are currently named publicly.
-
-The current roadmap focus is structural maturity, not bundle-count expansion.
+| Field | Direction |
+| --- | --- |
+| Current posture | The local proof loop already has source bundles, report schemas, generated readers, receipt dry review, and release-support readouts. |
+| Next movement | Make the route usable locally: pick proof question -> inspect source bundle -> expand fixture/report contract -> select candidate evidence -> review against bundle -> publish bounded report -> emit optional receipt. |
+| Exit gate | Receipts, runtime candidates, generated summaries, and sibling refs remain subordinate to bundle-local review. |
 
 ## Standing Direction
 
@@ -324,21 +160,21 @@ Keep the proof organ honest and legible:
 
 - source proof bundles own bounded claims;
 - generated readers route back to authored sources;
-- runtime, machine, trace, and sibling artifacts remain candidate evidence
-  until bundle-local review accepts a bounded interpretation;
-- receipts record publication after review; they do not strengthen proof;
-- quests track return obligations; they do not become verdicts;
-- decisions explain why; they do not replace source truth;
-- mechanics route repeatable operations; they do not steal bundle meaning;
+- runtime, machine, trace, and sibling artifacts remain candidate evidence until
+  bundle-local review accepts a bounded interpretation;
+- receipts record publication after review;
+- quests track return obligations;
+- decisions explain why;
+- mechanics route repeatable operations;
 - legacy preserves lineage behind active owner routes.
 
 ## Verification Posture
 
-This roadmap names when a change should trigger proof-surface verification. It
-does not own the command list.
+This roadmap names when a change should trigger proof-surface verification.
+Executable commands live in route cards.
 
-For roadmap, questbook, decision, source quest, generated-reader, runtime
-candidate, or broader proof-surface changes, follow
+For roadmap, questbook, decision, source quest, generated-reader,
+runtime-candidate, or broader proof-surface changes, follow
 [AGENTS.md#verify](AGENTS.md#verify) and the nearest local route card. When the
-verification posture itself changes, update this section only to preserve the
-directional gate, not to mirror every executable command.
+verification posture itself changes, update this section as the directional
+gate, then keep command detail in `AGENTS.md`.

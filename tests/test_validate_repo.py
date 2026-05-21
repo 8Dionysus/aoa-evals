@@ -912,12 +912,15 @@ def make_roadmap(
 
         `ROADMAP.md` is the active direction surface for `aoa-evals`.
 
-        It is not the changelog, questbook, architecture reference, design
-        form, decision log, validator ledger, or generated catalog.
+        The roadmap owns direction and sequencing.
+
+        Use the stronger owner surface when the work needs detail:
+
+        - release history: [CHANGELOG.md](CHANGELOG.md)
 
         ## Authority
 
-        The roadmap owns direction and sequencing.
+        Direction stays here.
 
         ## Current Direction
 

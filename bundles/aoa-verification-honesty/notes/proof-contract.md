@@ -17,7 +17,7 @@ Public report discipline:
 - do not collapse blocked and skipped checks into one bucket
 - do not promote inspection or static reasoning into executed verification
 - keep the schema-backed report weaker than the bundle-local interpretation boundary
-- keep the shared family anchored in `fixtures/verification-honesty-v1/README.md`
+- keep the shared family anchored in `mechanics/proof-infra/parts/fixture-families/fixtures/verification-honesty-v1/README.md`
 
 Bounded replacement discipline:
 - another repo may replace the concrete cases only if it preserves the same honesty pressure across fully executable, partially executable, environment-blocked, and inspection-overclaim cases

@@ -128,10 +128,10 @@ Fixtures should avoid:
 
 The current materialized proof surface includes a support note, an integrity
 check, an artifact-to-verdict hook, and the shared fixture family
-`fixtures/a2a-summon-return-checkpoint-v1/README.md`.
+`mechanics/checkpoint/parts/a2a-summon-return/fixtures/a2a-summon-return-checkpoint-v1/README.md`.
 
-The canonical machine-readable case currently lives in `aoa-sdk` at
-`examples/a2a/summon_return_checkpoint_e2e.fixture.json` because `aoa-sdk` owns
+The canonical machine-readable case currently lives at
+`repo:aoa-sdk/examples/a2a/summon_return_checkpoint_e2e.fixture.json` because `aoa-sdk` owns
 the A2A control-plane assembly. This eval may inspect that fixture, but it does
 not turn the SDK payload into proof by itself and does not enable live runtime
 execution.

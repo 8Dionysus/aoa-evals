@@ -1,5 +1,9 @@
 # Proof Loop Mechanic
 
+## Entry Route
+
+Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
+
 ## Role
 
 `mechanics/proof-loop/` routes the active proof operation that lets a reader
@@ -29,16 +33,17 @@ does not replace the packages that own each step.
 - `generated/eval_capsules.json`
 - `generated/eval_sections.full.json`
 - `generated/eval_report_index.min.json`
-- `generated/runtime_candidate_intake.min.json`
+- `mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json`
 - `docs/EVAL_REVIEW_GUIDE.md`
-- `docs/EVAL_RESULT_RECEIPT_GUIDE.md`
-- `docs/TRACE_EVAL_BRIDGE.md`
-- `docs/SIBLING_PROOF_REFS.md`
+- `mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md`
+- `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md`
+- `mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md`
 - `mechanics/proof-object/README.md`
 - `mechanics/proof-infra/README.md`
-- `mechanics/runtime-evidence/README.md`
+- `mechanics/audit/README.md`
 - `mechanics/publication-receipts/README.md`
-- `mechanics/sibling-proof-refs/README.md`
+- `mechanics/boundary-bridge/README.md`
+- `mechanics/proof-loop/PARTS.md`
 
 ## Step Owners
 
@@ -47,11 +52,11 @@ does not replace the packages that own each step.
 | pick proof question | `EVAL_SELECTION.md`, `EVAL_INDEX.md`, `generated/eval_catalog.min.json` | one bounded eval candidate |
 | inspect source bundle | `mechanics/proof-object/` and `bundles/*/EVAL.md` | bounded claim and proof-object boundary |
 | expand support contract | `mechanics/proof-infra/` plus bundle-local fixtures, runners, schemas, reports, or examples | reviewable evidence contract |
-| select candidate evidence | `mechanics/runtime-evidence/` or `mechanics/sibling-proof-refs/` | candidate packet or cited owner ref |
+| select candidate evidence | `mechanics/audit/` or `mechanics/boundary-bridge/` | candidate packet or cited owner ref |
 | review against bundle | `docs/EVAL_REVIEW_GUIDE.md` and bundle-local report contract | bounded review result |
-| publish bounded report | bundle-local reports or `reports/` | reviewed report artifact |
+| publish bounded report | bundle-local reports, proof-loop part-local route-smoke reports, or future root reports only when no narrower owner exists | reviewed report artifact |
 | route existing reports | `generated/eval_report_index.min.json` | derived reader pointing back to source reports |
-| dry-review receipt intake | `reports/eval-result-receipt-intake-dry-review-v1.json` and `mechanics/publication-receipts/` | payload preview with no publication |
+| dry-review receipt intake | `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json` and `mechanics/publication-receipts/` | payload preview with no publication |
 | emit optional receipt | `mechanics/publication-receipts/` | subordinate receipt sidecar |
 
 ## Inputs
@@ -80,7 +85,7 @@ emit an eval result receipt by itself.
 ## Pilot Report
 
 The first reviewed local route-smoke is
-`reports/proof-loop-local-route-smoke-v1.md`.
+`mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md`.
 
 It selects `aoa-verification-honesty`, follows the local proof-loop route, and
 ends in a bounded route-smoke only: no eval result receipt, no bundle promotion,
@@ -88,6 +93,14 @@ and no runtime or sibling evidence acceptance.
 
 Use it as evidence that the route can be followed locally. Do not use it as a
 generic eval-result example.
+
+## Parts
+
+The active proof-loop parts map lives in [PARTS.md](PARTS.md).
+
+Current parts:
+
+- `route-smoke`: owns the first public-safe proof-loop route-smoke report.
 
 ## First Bundle-Local Report
 
@@ -103,7 +116,7 @@ approval.
 ## Receipt Intake Dry Review
 
 The first receipt-intake dry review is
-`reports/eval-result-receipt-intake-dry-review-v1.json`.
+`mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`.
 
 It derives a schema-valid `candidate_payload_preview` from the first
 bundle-local proof-loop report, then stops before receipt publication. Its
@@ -118,8 +131,8 @@ bundle and reviewed report.
 
 `mechanics/proof-object/` owns proof-object completeness routing.
 `mechanics/proof-infra/` owns reusable support contracts.
-`mechanics/runtime-evidence/` owns candidate evidence intake.
-`mechanics/sibling-proof-refs/` owns sibling reference compatibility.
+`mechanics/audit/` owns candidate evidence intake.
+`mechanics/boundary-bridge/` owns sibling reference compatibility.
 `mechanics/publication-receipts/` owns optional receipt publication.
 
 This package only coordinates the loop between them.

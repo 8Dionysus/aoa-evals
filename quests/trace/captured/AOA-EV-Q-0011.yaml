@@ -5,7 +5,7 @@ summary: Track the reviewed chaos-wave1 proof handoff candidate as bounded eval
   follow-through without turning a runtime evidence-selection hint into proof
   canon.
 repo: aoa-evals
-owner_surface: docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md
+owner_surface: mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md
 theme_ref: ''
 milestone_ref: ''
 kind: proof
@@ -34,7 +34,7 @@ activation:
     that still belongs below new eval-bundle authority
 anchor_ref:
   artifact: trace_eval_bridge_chaos_wave1
-  ref: docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md
+  ref: mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md
   note: chaos-wave proof pressure should stay an eval-side input and witness
     hook cue, not a new runtime verdict canon
 handoff_role: proof-maintainer

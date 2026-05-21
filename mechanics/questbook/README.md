@@ -1,5 +1,9 @@
 # Questbook Mechanic
 
+## Entry Route
+
+Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
+
 ## Role
 
 `mechanics/questbook/` routes the recurring operation that keeps proof
@@ -23,10 +27,11 @@ lane/state layout.
 - `quests/README.md`
 - `quests/AGENTS.md`
 - `quests/LIFECYCLE.md`
+- `mechanics/questbook/PARTS.md`
+- `mechanics/questbook/PROVENANCE.md`
 - `quests/<lane>/<state>/AOA-EV-Q-*.yaml`
-- `quests/agon/captured/AOE-Q-AGON-*.md`
-- `schemas/quest.schema.json`
-- `schemas/quest_dispatch.schema.json`
+- `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`
+- `mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json`
 - `generated/quest_catalog.min.json`
 - `generated/quest_dispatch.min.json`
 - `.agents/skills/aoa-quest-harvest/SKILL.md`
@@ -49,6 +54,12 @@ lane/state layout.
 - reviewed promotion targets when repetition is isolated and owner-fit is clear.
 - lifecycle state posture that keeps open obligations, closed provenance,
   proof-loop defer, and handoff routes distinct.
+
+## Active Parts
+
+- `source-record-contract`: source quest schema, lane/state source records, and
+  lifecycle state posture.
+- `dispatch-reader`: generated quest catalog and dispatch projection contract.
 
 ## Stronger Owner Split
 
@@ -75,11 +86,17 @@ promotion during an active route.
 
 ## Legacy Posture
 
-Agon markdown notes remain accepted legacy/source-compatible inputs under
-`quests/agon/captured/`.
+Former Agon markdown quest notes are no longer active quest lifecycle source
+records. They are preserved as Agon lineage behind `mechanics/agon/PROVENANCE.md`.
 
-Current IDs stay stable. Old top-level paths remain documented as historical
-accepted-input vocabulary, while generated readers emit the current route.
+Current IDs stay stable. Old top-level paths and former root schema placement
+remain documented as historical accepted-input vocabulary, while generated
+readers emit the current route.
+
+Use `mechanics/questbook/PROVENANCE.md` for old questbook path lookup. Use
+`mechanics/agon/PROVENANCE.md` for former Agon note lineage. Do not recreate
+old root schema aliases, old top-level quest source files, or markdown quest
+notes under active lifecycle directories.
 
 ## Validation
 

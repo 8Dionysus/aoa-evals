@@ -6,7 +6,7 @@
 - bundle shape: `comparative`
 - verdict: `mixed regression signal`
 - machine-readable companion: `reports/example-report.json`
-- shared proof dossier: `reports/same-task-baseline-proof-flow-v1.md`
+- shared proof dossier: `mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md`
 
 ## Frozen Baseline Target
 

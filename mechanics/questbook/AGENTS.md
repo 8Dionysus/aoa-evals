@@ -1,5 +1,9 @@
 # AGENTS.md
 
+## Entry Route
+
+Start with the package README. Then read `mechanics/questbook/DIRECTION.md` for current operating direction, `mechanics/questbook/PARTS.md` for active parts, and `mechanics/questbook/PROVENANCE.md` only when legacy or former placement matters.
+
 ## Applies to
 
 `mechanics/questbook/` and the questbook operation route.
@@ -18,14 +22,17 @@ This package protects the quest obligation loop:
 4. `docs/PROOF_TOPOLOGY.md`
 5. `mechanics/README.md`
 6. `mechanics/questbook/README.md`
-7. `QUESTBOOK.md`
-8. `quests/README.md`
-9. `quests/AGENTS.md`
-10. `quests/LIFECYCLE.md`
-11. `schemas/quest.schema.json`
-12. `schemas/quest_dispatch.schema.json`
-13. `docs/decisions/0004-questbook-topology.md`
-14. `docs/decisions/0006-questbook-mechanic-package.md`
+7. `mechanics/questbook/PARTS.md`
+8. `mechanics/questbook/PROVENANCE.md`
+9. `QUESTBOOK.md`
+10. `quests/README.md`
+11. `quests/AGENTS.md`
+12. `quests/LIFECYCLE.md`
+13. `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`
+14. `mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json`
+15. `docs/decisions/0004-questbook-topology.md`
+16. `docs/decisions/0006-questbook-mechanic-package.md`
+17. `docs/decisions/0047-questbook-schema-parts.md`
 
 ## Boundaries
 
@@ -33,6 +40,9 @@ This package protects the quest obligation loop:
   projection and validator support in the same slice.
 - Do not reintroduce old top-level quest paths except as legacy path vocabulary
   in route docs.
+- Keep former root quest-schema aliases as historical compatibility
+  vocabulary; the active schema contracts are part-local under
+  `mechanics/questbook/parts/`.
 - Keep the state directory aligned with the source record `state`.
 - Keep lifecycle meaning aligned with `quests/LIFECYCLE.md`.
 - Do not list closed quests as active obligations.

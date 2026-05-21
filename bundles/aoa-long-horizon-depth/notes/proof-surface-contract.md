@@ -10,7 +10,7 @@ The draft bundle remains narrow:
 - it is not a replacement for `aoa-return-anchor-integrity`
 
 The materialized proof flow keeps these surfaces explicit:
-- shared case-family pressure in `fixtures/long-horizon-restart-v1/README.md`
+- shared case-family pressure in `mechanics/checkpoint/parts/restartable-inquiry/fixtures/long-horizon-restart-v1/README.md`
 - bounded local replacement rules in `fixtures/contract.json`
 - reportable runner inputs in `runners/contract.json`
 - schema-backed restart readout in `reports/summary.schema.json`

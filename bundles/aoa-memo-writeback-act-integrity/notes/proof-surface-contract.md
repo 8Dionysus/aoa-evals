@@ -12,7 +12,7 @@ The draft bundle remains narrow:
 - it is not live memory-ledger behavior
 
 The materialized proof flow keeps these surfaces explicit:
-- shared case-family pressure in `fixtures/memo-writeback-act-guardrail-v1/README.md`
+- shared case-family pressure in `mechanics/proof-infra/parts/fixture-families/fixtures/memo-writeback-act-guardrail-v1/README.md`
 - bounded local replacement rules in `fixtures/contract.json`
 - reportable runner inputs in `runners/contract.json`
 - schema-backed writeback readout in `reports/summary.schema.json`

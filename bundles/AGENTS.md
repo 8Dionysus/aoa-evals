@@ -17,9 +17,12 @@ This layer owns:
 ## Does not own
 
 Do not treat this layer as the place to redefine:
-- top-level shared fixture families in `fixtures/`
-- shared scorer helpers in `scorers/`
-- top-level runner contracts in `runners/`
+- shared fixture families owned by mechanic-local proof-infra or narrower
+  mechanic parts
+- shared scorer helpers owned by
+  `mechanics/proof-infra/parts/reportable-contracts/`
+- shared runner contracts owned by
+  `mechanics/proof-infra/parts/reportable-contracts/`
 - generated catalogs and capsules in `generated/`
 - repository doctrine in `docs/`
 

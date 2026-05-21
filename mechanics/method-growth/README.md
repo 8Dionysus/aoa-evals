@@ -1,0 +1,98 @@
+# Method-growth Mechanic
+
+## Entry Route
+
+Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
+
+## Owned Operation
+
+`mechanics/method-growth/` owns the eval-side method-growth proof operation:
+
+`growth-refinery pressure -> lineage or owner-landing proof question -> part-local fixture family -> bundle-local review -> bounded verdict or owner handoff`
+
+This package is AoA-aligned. It keeps the parent name `method-growth` because
+the operation materializes the center Method-growth mechanic on the proof side.
+
+## Source Surfaces
+
+- `bundles/aoa-candidate-lineage-integrity/EVAL.md`
+- `bundles/aoa-candidate-lineage-integrity/fixtures/contract.json`
+- `bundles/aoa-candidate-lineage-integrity/runners/contract.json`
+- `bundles/aoa-candidate-lineage-integrity/reports/summary.schema.json`
+- `bundles/aoa-candidate-lineage-integrity/reports/example-report.json`
+- `mechanics/method-growth/parts/candidate-lineage/fixtures/candidate-lineage-v1/README.md`
+- `bundles/aoa-owner-fit-routing-quality/EVAL.md`
+- `bundles/aoa-owner-fit-routing-quality/fixtures/contract.json`
+- `bundles/aoa-owner-fit-routing-quality/runners/contract.json`
+- `bundles/aoa-owner-fit-routing-quality/reports/summary.schema.json`
+- `bundles/aoa-owner-fit-routing-quality/reports/example-report.json`
+- `mechanics/method-growth/parts/owner-landing/fixtures/owner-fit-routing-v1/README.md`
+
+## Parts
+
+See [PARTS.md](PARTS.md).
+
+The active parts are `candidate-lineage` and `owner-landing`. Diagnosis-cause
+discipline remains a source proof bundle under `bundles/` and now routes
+through `growth-cycle/diagnosis-gate`. Bounded repair proof remains under
+`mechanics/antifragility/parts/repair-proof/`.
+
+## Inputs
+
+- checkpoint carry, reviewed candidate, staged seed, owner evidence, dropped
+  branch, or supersession markers;
+- reviewed owner hypothesis, owner shape, nearest-wrong target, and
+  derivative-repo exclusion evidence;
+- bundle-local fixture and runner contracts;
+- generated catalog and capsule readers as derived navigation only.
+
+## Outputs
+
+- bounded lineage-integrity verdicts;
+- bounded owner-fit routing reads;
+- missing-stage, dropped-branch, supersession, nearest-wrong-target, and
+  derivative-drift notes;
+- proof requests or owner handoffs;
+- no final object truth, owner acceptance, hidden promotion, or broad growth
+  score.
+
+## Stronger Owner Split
+
+`Agents-of-Abyss` owns method-growth law, lineage vocabulary, owner landing and
+pruning discipline, and the center route from repeated work into owner-shaped
+objects.
+
+Owner repositories own the final object truth. `aoa-skills` owns
+skill-shaped candidate identity, `Dionysus` owns seed staging, `aoa-techniques`
+owns reusable practice, `aoa-playbooks` owns recurring method, `aoa-memo` owns
+memory lessons, and `aoa-stats` owns derived summaries.
+
+`aoa-evals` owns bounded proof wording, verdict logic, fixture/report
+contracts, and claim limits for lineage integrity and owner-fit routing.
+
+## Stop-Lines
+
+Do not use this package to claim:
+
+- final owner-object quality;
+- owner-local acceptance or activation;
+- proof that lineage coherence implies owner fit;
+- proof that owner-fit routing implies final quality;
+- derivative repos may become first-authoring homes;
+- one universal growth score;
+- diagnosis-cause discipline, repair success, memory canon, or seed truth.
+
+## Legacy
+
+Use [PROVENANCE.md](PROVENANCE.md) only when old root shared-fixture placement
+or former growth-refinery path vocabulary must be audited. New method-growth
+proof work starts from this README, [PARTS.md](PARTS.md), and the active parts.
+
+## Validation
+
+```bash
+python scripts/validate_repo.py --eval aoa-candidate-lineage-integrity
+python scripts/validate_repo.py --eval aoa-owner-fit-routing-quality
+python scripts/build_catalog.py --check
+python scripts/validate_repo.py
+```

@@ -108,12 +108,12 @@ Good fixture families for this eval include:
 - a repo task where unrelated cleanup temptation is high
 
 For the current artifact/process paired proof flow,
-this bundle can also reuse the shared family in `fixtures/bounded-change-paired-v1/README.md`
+this bundle can also reuse the shared family in `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md`
 when the same cases need to stay readable on:
 - the workflow surface
 - the artifact surface
 - the paired bridge surface
-The second matched family `fixtures/bounded-change-paired-v2/README.md`
+The second matched family `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v2/README.md`
 may deepen the same bridge layer without changing this bundle into an artifact-quality surface.
 
 Fixture families should avoid:
@@ -272,7 +272,7 @@ For artifact-versus-process divergence on the same bounded cases,
 pair this bundle with `aoa-output-vs-process-gap`.
 
 For the first materialized paired read,
-use the shared dossier `reports/artifact-process-paired-proof-flow-v1.md`
+use the shared dossier `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md`
 so the workflow, artifact, and bridge readings stay distinct.
 
 For ordered repeated-window movement on the same bounded workflow surface,

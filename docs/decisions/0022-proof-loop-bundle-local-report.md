@@ -7,7 +7,7 @@ Accepted.
 ## Context
 
 `mechanics/proof-loop/` now has a local route and
-`reports/proof-loop-local-route-smoke-v1.md` proves that the route can be
+`mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md` proves that the route can be
 followed without importing runtime, sibling, generated, or receipt authority.
 
 That smoke report is intentionally weaker than a real bundle-local eval result.
@@ -21,10 +21,12 @@ Add the first real proof-loop bundle-local report at
 
 The report evaluates the verification-truthfulness closeout for the slice 19
 quest lifecycle contract. It is an actual `aoa-verification-honesty` report
-validated against the bundle-local `reports/summary.schema.json`.
+validated against the bundle-local
+`bundles/aoa-verification-honesty/reports/summary.schema.json`.
 
 Also validate every bundle-local `*.report.json` file against its local
-`reports/summary.schema.json`, not only `reports/example-report.json`.
+`bundles/<bundle>/reports/summary.schema.json`, not only
+`bundles/<bundle>/reports/example-report.json`.
 
 ## Non-Goals
 
@@ -39,7 +41,7 @@ Also validate every bundle-local `*.report.json` file against its local
 
 The active proof loop now has a second materialized rung:
 
-1. route-smoke report in top-level `reports/`;
+1. route-smoke report in `mechanics/proof-loop/parts/route-smoke/reports/`;
 2. schema-backed bundle-local report under the selected bundle.
 
 This makes `pick -> inspect -> expand -> review -> bounded report` more real

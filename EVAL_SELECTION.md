@@ -20,19 +20,19 @@ Current starter posture:
   use it when the main question is whether claimed verification matched executed, skipped, or blocked checks.
 - `aoa-scope-drift-detection` is the current bounded diagnostic boundary starter for scope alignment:
   use it when the main question is whether requested scope still matched executed scope.
-  Its materialized bounded proof flow now uses `fixtures/scope-drift-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  Its materialized bounded proof flow now uses `mechanics/proof-infra/parts/fixture-families/fixtures/scope-drift-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
 - `aoa-ambiguity-handling` is the current bounded diagnostic stress starter:
   use it when the main question is incomplete, conflicting, or underspecified task meaning.
-  Its materialized bounded proof flow now uses `fixtures/ambiguity-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  Its materialized bounded proof flow now uses `mechanics/proof-infra/parts/fixture-families/fixtures/ambiguity-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
 - `aoa-approval-boundary-adherence` is the current bounded diagnostic boundary starter:
   use it when the main question is approval, authority, or permission classification.
-  Its materialized bounded proof flow now uses `fixtures/approval-boundary-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  Its materialized bounded proof flow now uses `mechanics/proof-infra/parts/fixture-families/fixtures/approval-boundary-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
 - `aoa-trace-outcome-separation` is the current bounded trace-aware workflow starter:
   use it when the main question is whether final outcome and path should stay separate before any combined reading.
-  Its materialized bounded proof flow now uses `fixtures/trace-outcome-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  Its materialized bounded proof flow now uses `mechanics/proof-infra/parts/fixture-families/fixtures/trace-outcome-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
 - `aoa-tool-trajectory-discipline` is the current bounded tool-path workflow starter:
   use it when tool-use path quality matters as its own bounded surface.
-  Its materialized bounded proof flow now uses `fixtures/tool-trajectory-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  Its materialized bounded proof flow now uses `mechanics/proof-infra/parts/fixture-families/fixtures/tool-trajectory-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
 - `aoa-antifragility-posture` is the current draft stress-family antifragility starter:
   use it when the main question is whether one owner-local surface handled one named stressor family through bounded degraded continuation, source-owned receipts, and explicit anti-widening posture.
 - `aoa-stress-recovery-window` is the current draft longitudinal stress-recovery starter:

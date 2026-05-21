@@ -7,8 +7,8 @@ baseline_mode: fixed-baseline
 verdict_shape: comparative
 report_format: comparative-summary
 comparison_surface:
-  shared_family_path: fixtures/frozen-same-task-v1/README.md
-  paired_readout_path: reports/same-task-baseline-proof-flow-v1.md
+  shared_family_path: mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md
+  paired_readout_path: mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md
   integrity_sidecar: aoa-eval-integrity-check
   selection_question: Do you need a frozen-baseline comparison on the same bounded task family?
   anchor_surface: aoa-bounded-change-quality

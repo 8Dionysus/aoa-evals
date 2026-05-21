@@ -3,7 +3,7 @@ id: AOA-EV-Q-0008
 title: Define bounded-execution orchestrator proof anchors for smallest-step quality and scope discipline
 summary: Add bounded proof anchors for smallest-step execution work without collapsing execution quality into a universal score.
 repo: aoa-evals
-owner_surface: docs/ORCHESTRATOR_PROOF_ALIGNMENT.md
+owner_surface: mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md
 theme_ref: ''
 milestone_ref: ''
 kind: proof
@@ -30,7 +30,7 @@ activation:
   note: open when bounded-execution class proof needs a public eval-side anchor map
 anchor_ref:
   artifact: orchestrator_proof_alignment
-  ref: docs/ORCHESTRATOR_PROOF_ALIGNMENT.md
+  ref: mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md
 handoff_role: eval-maintainer
 orchestrator_class_ref: aoa-agents:bounded_execution
 capability_target: bounded_next_step
@@ -39,7 +39,7 @@ playbook_family_refs:
   - repo:aoa-playbooks/generated/playbook_review_intake.min.json
 proof_surface_refs:
   - generated/eval_catalog.min.json
-  - docs/ORCHESTRATOR_PROOF_ALIGNMENT.md#bounded-execution
+  - mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md#bounded-execution
 memory_surface_refs:
   - repo:aoa-memo/generated/memory_object_capsules.json
   - repo:aoa-memo/examples/recall/recall_contract.object.working.phase-alpha.json

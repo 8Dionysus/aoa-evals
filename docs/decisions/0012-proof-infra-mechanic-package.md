@@ -32,8 +32,17 @@ Create `mechanics/proof-infra/` for the operation:
 The package routes shared fixture families, runner surfaces, scorer helpers,
 schemas, report dossiers, templates, and generated proof-artifact entries.
 
-It does not move `fixtures/`, `runners/`, `scorers/`, `schemas/`, `reports/`,
-or `templates/`.
+This first decision did not move `fixtures/`, `runners/`, `scorers/`,
+`schemas/`, `reports/`, or `templates/`. Decision 0041 narrows that posture:
+whole infrastructure districts still do not move by theme, but generic shared
+fixture families may live under a `proof-infra` part when no narrower active
+mechanic owns them.
+
+Decision 0049 narrows the same posture for reportable contracts: the shared
+runner surface, bounded scorer helper, and shared fixture/runner/report-summary
+schemas may live under `mechanics/proof-infra/parts/reportable-contracts/`
+when they are consumed by bundle-local runner contracts and generated
+`proof_artifacts`.
 
 ## Rationale
 
@@ -49,16 +58,21 @@ to make a report pass.
 
 - Positive: shared proof contract work now has a package route and
   validator-backed discovery surface.
-- Tradeoff: the package is intentionally a route layer, not a directory move.
-  Future maintainers must keep the existing local AGENTS cards authoritative
-  for their exact directories.
+- Tradeoff: the package began as a route layer, not a directory move. Later
+  part movement must remain evidence-backed and must not turn `proof-infra`
+  into a support-file junk drawer.
 - Follow-up: later validators can tighten shared fixture, runner, scorer,
   schema, report, and generated proof-artifact invariants where real drift
   appears.
 
 ## Boundaries
 
-This decision does not move shared infrastructure directories.
+This decision does not move shared infrastructure directories by theme.
+
+Decision 0041 may move generic shared fixture families into a `proof-infra`
+part, and Decision 0049 may move shared reportable contracts into a
+`proof-infra` part, but neither decision moves whole infrastructure districts
+or domain-owned support surfaces by theme.
 
 It does not make shared fixtures, runners, scorers, schemas, reports,
 templates, or generated proof_artifacts stronger than bundle-local `EVAL.md`

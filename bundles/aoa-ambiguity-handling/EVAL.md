@@ -28,7 +28,7 @@ This bounded bundle is a `diagnostic` stress eval.
 It isolates incomplete, conflicting, or underspecified task meaning.
 It is not meant to stand in for a broader eval of authority boundaries, scope drift, or overall workflow quality.
 Its current materialized bounded proof flow runs through
-`fixtures/ambiguity-bounded-v1/README.md`, bundle-local fixture and runner
+`mechanics/proof-infra/parts/fixture-families/fixtures/ambiguity-bounded-v1/README.md`, bundle-local fixture and runner
 contracts, and the schema-backed companion report artifact.
 
 The goal is not to prove total reasoning quality.
@@ -115,7 +115,7 @@ The fixture surface is public-safe when:
 - another repo could replace the cases with comparable bounded change tasks that preserve the same ambiguity classes
 
 The current materialized shared family is
-`fixtures/ambiguity-bounded-v1/README.md`.
+`mechanics/proof-infra/parts/fixture-families/fixtures/ambiguity-bounded-v1/README.md`.
 When the machine-readable proof surface is in use, local replacements should
 preserve the same five ambiguity pressures through the bounded replacement rule
 in `fixtures/contract.json`.
@@ -200,7 +200,7 @@ Execution expectations:
 - when shipping a machine-readable report, validate it against
   `reports/summary.schema.json`
 - keep the shared case-family contract in
-  `fixtures/ambiguity-bounded-v1/README.md` visible when that public family is
+  `mechanics/proof-infra/parts/fixture-families/fixtures/ambiguity-bounded-v1/README.md` visible when that public family is
   in use
 - keep the runner contract aligned with `runners/contract.json` so ambiguity
   class, handling move, assumption boundary, and failure-versus-readout do not

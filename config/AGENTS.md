@@ -2,11 +2,17 @@
 
 ## Guidance for `config/`
 
-`config/` holds eval publication, selection, and validation-support inputs.
+`config/` is a compatibility route card, not an active config payload district.
 
-Config can influence which surfaces are built or selected, but it must not silently upgrade a draft, bounded, or sidecar eval into canonical proof.
+No active root config payload should live here. Agon-owned seed/config payloads
+live under `mechanics/agon/parts/*/config/`; latest-sibling canary config lives
+under `mechanics/boundary-bridge/parts/latest-sibling-canary/config/`.
 
-Keep status, baseline, comparison, and public-selection posture aligned with bundle-local `EVAL.md`, `eval.yaml`, `EVAL_INDEX.md`, and `EVAL_SELECTION.md`.
+Config can influence which surfaces are built or selected, but it must not
+silently upgrade a draft, bounded, or sidecar eval into canonical proof.
+
+Keep status, baseline, comparison, and public-selection posture aligned with
+bundle-local `EVAL.md`, `eval.yaml`, `EVAL_INDEX.md`, and `EVAL_SELECTION.md`.
 
 No secrets, hidden datasets, private telemetry, or local-only absolute paths.
 

@@ -19,7 +19,7 @@ Public summary discipline:
 - treat style-only or presentation-only changes as noisy variation unless the bounded workflow evidence also moved
 - do not let a single improved case erase a material regression somewhere else in the frozen set
 - do not overread one same-task comparison as proof of broad capability growth or decline
-- keep the frozen case-family contract aligned with `fixtures/frozen-same-task-v1/README.md`
-- keep the paired readout aligned with `reports/same-task-baseline-proof-flow-v1.md`
+- keep the frozen case-family contract aligned with `mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md`
+- keep the paired readout aligned with `mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md`
 - carry `aoa-eval-integrity-check` as the integrity sidecar when public baseline wording, routing, or maturity posture changes materially
-- keep any schema-backed companion report and shared dossier aligned with `reports/example-report.json` and `reports/same-task-baseline-proof-flow-v1.md`
+- keep any schema-backed companion report and shared dossier aligned with `reports/example-report.json` and `mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md`

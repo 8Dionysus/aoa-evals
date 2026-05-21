@@ -1,5 +1,9 @@
 # AGENTS.md
 
+## Entry Route
+
+Start with the package README. Then read `mechanics/comparison-spine/DIRECTION.md` for current operating direction, `mechanics/comparison-spine/PARTS.md` for active parts, and `mechanics/comparison-spine/PROVENANCE.md` only when legacy or former placement matters.
+
 ## Applies to
 
 `mechanics/comparison-spine/` and comparison-spine route guidance.
@@ -21,16 +25,20 @@ authority, or a repo-global score.
 5. `mechanics/README.md`
 6. `mechanics/proof-object/README.md`
 7. `mechanics/comparison-spine/README.md`
-8. `docs/COMPARISON_SPINE_GUIDE.md`
-9. `docs/BASELINE_COMPARISON_GUIDE.md`
-10. `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
-11. affected `bundles/*/EVAL.md` and `bundles/*/eval.yaml`
+8. `mechanics/comparison-spine/PARTS.md`
+9. `mechanics/comparison-spine/parts/README.md`
+10. `docs/COMPARISON_SPINE_GUIDE.md`
+11. `docs/BASELINE_COMPARISON_GUIDE.md`
+12. `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
+13. affected `bundles/*/EVAL.md` and `bundles/*/eval.yaml`
 
 ## Local Law
 
 - Keep comparison claim meaning in the source proof object.
 - Keep `baseline_mode` and `comparison_surface` aligned across frontmatter and
   `eval.yaml`.
+- Keep bundle-local `bundles/<bundle>/fixtures/contract.json` paths aligned
+  with the part-local comparison fixture family paths.
 - Keep `generated/comparison_spine.json` derived from source via
   `python scripts/build_catalog.py`.
 - Keep fixed-baseline, peer-compare, and longitudinal-window semantics
@@ -63,5 +71,6 @@ schemas, or phase-alpha matrices, also run the owning builder or validator.
 ## Closeout
 
 Report which comparison mode changed, which source bundle or generated reader
-was affected, whether `baseline_mode` and `comparison_surface` stayed aligned,
-which anti-overread boundary was preserved, and which validation ran.
+was affected, whether `baseline_mode`, `comparison_surface`, and fixture
+contracts stayed aligned, which anti-overread boundary was preserved, and
+which validation ran.

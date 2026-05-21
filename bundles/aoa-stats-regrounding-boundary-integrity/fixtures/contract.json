@@ -1,6 +1,6 @@
 {
   "contract_version": 1,
-  "shared_fixture_family_path": "fixtures/stats-regrounding-boundary-v1/README.md",
+  "shared_fixture_family_path": "mechanics/recurrence/parts/stats-regrounding-boundary/fixtures/stats-regrounding-boundary-v1/README.md",
   "shared_case_surface": "bounded consumer-path cases that keep stats surface profiles, source-coverage thinness, SDK policy decisions, routing advisory hints, owner-truth targets, and final report wording separately reviewable",
   "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same split-model question, keeps stats-derived signals weaker than owner truth, and still covers healthy coverage, thin coverage, advisory routing, SDK required re-grounding, and negative overclaim pressure.",
   "public_safe_requirements": [

@@ -11,7 +11,7 @@ The strategic plan names Phase 8 as the active proof loop:
 `pick proof question -> inspect source bundle -> expand fixture/report contract -> select candidate evidence -> review against bundle -> publish bounded report -> emit optional receipt`
 
 Earlier slices created the topology needed for this route: proof-object,
-proof-infra, runtime-evidence, sibling-proof-refs, publication-receipts,
+proof-infra, audit, boundary-bridge, publication-receipts,
 questbook, generated readers, decisions, and route cards. The loop is now
 real enough to route locally, but still easy to misread as a new proof
 authority above those packages.

@@ -1,0 +1,27 @@
+{
+  "bindings": [
+    {
+      "does_not_emit": [
+        "verdict",
+        "scar",
+        "rank_mutation",
+        "tos_promotion"
+      ],
+      "emits": [
+        "recurrence_observation",
+        "owner_review_candidate"
+      ],
+      "hook_id": "component.agon.wave16.aoa_evals.drift_watch",
+      "surface_globs": [
+        "mechanics/agon/parts/slc-alignment/generated/agon_slc_eval_alignment_registry.min.json",
+        "mechanics/agon/parts/slc-alignment/config/agon_slc_eval_alignment.seed.json",
+        "mechanics/agon/parts/slc-alignment/docs/AGON_SLC_EVAL_ALIGNMENT.md",
+        "mechanics/agon/parts/slc-alignment/docs/AGON_SLC_EVAL_BOUNDARY.md",
+        "mechanics/agon/PROVENANCE.md"
+      ]
+    }
+  ],
+  "component_id": "component.agon.wave16.aoa_evals",
+  "hook_binding_set_id": "component.agon.wave16.aoa_evals.hooks",
+  "wave": "XVI"
+}

@@ -25,29 +25,31 @@ Choose the path that matches your question:
   - [Mechanics](../mechanics/README.md)
   - [Proof Object Mechanic](../mechanics/proof-object/README.md)
   - [Proof Loop Mechanic](../mechanics/proof-loop/README.md)
-  - [Proof Loop Local Route Smoke](../reports/proof-loop-local-route-smoke-v1.md)
+  - [Proof Loop Local Route Smoke](../mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md)
   - [First Proof Loop Bundle-Local Report](../bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json)
-  - [Receipt Intake Dry Review](../reports/eval-result-receipt-intake-dry-review-v1.json)
+  - [Receipt Intake Dry Review](../mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json)
   - [Generated Eval Report Index](../generated/eval_report_index.min.json)
   - [Comparison Spine Mechanic](../mechanics/comparison-spine/README.md)
   - [Proof Infra Mechanic](../mechanics/proof-infra/README.md)
   - [Publication Receipts Mechanic](../mechanics/publication-receipts/README.md)
-  - [Proof Release Mechanic](../mechanics/proof-release/README.md)
-  - [Proof Release Readiness Audit](../reports/proof-release-readiness-audit-v1.json)
-  - [Strategic Closeout Audit](../reports/strategic-closeout-audit-v1.json)
-  - [Release Prep PR Handoff](../reports/release-prep-pr-handoff-v1.json)
-  - [Titan Canaries Mechanic](../mechanics/titan-canaries/README.md)
-  - [Agon Proof Mechanic](../mechanics/agon-proof/README.md)
+  - [Release Support Mechanic](../mechanics/release-support/README.md)
+  - [Release Support Readiness Audit](../mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json)
+  - [Strategic Closeout Audit](../mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json)
+  - [Release Prep PR Handoff](../mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json)
+  - [Titan Mechanic](../mechanics/titan/README.md)
+  - [Agon Mechanic](../mechanics/agon/README.md)
+  - [Antifragility Mechanic](../mechanics/antifragility/README.md)
   - [Questbook Mechanic](../mechanics/questbook/README.md)
-  - [Runtime Evidence Mechanic](../mechanics/runtime-evidence/README.md)
+  - [Audit Mechanic](../mechanics/audit/README.md)
 - I need sibling proof-reference compatibility:
-  - [Sibling Proof References](SIBLING_PROOF_REFS.md)
-  - [Sibling Proof Refs Mechanic](../mechanics/sibling-proof-refs/README.md)
+  - [Sibling Proof References](../mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md)
+  - [Orchestrator Proof Anchors](../mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md)
+  - [Boundary Bridge Mechanic](../mechanics/boundary-bridge/README.md)
 - I need one bounded antifragility family read backed by owner-local receipts:
   - [AoA Antifragility Posture](../bundles/aoa-antifragility-posture/EVAL.md)
 - I need one repeated-window stress recovery proof surface without turning routing or memo into stronger truth:
   - [AoA Stress Recovery Window](../bundles/aoa-stress-recovery-window/EVAL.md)
-  - [Stress Recovery Window Evals](STRESS_RECOVERY_WINDOW_EVALS.md)
+  - [Stress Recovery Window Evals](../mechanics/antifragility/parts/stress-recovery-window/docs/STRESS_RECOVERY_WINDOW_EVALS.md)
 - I need one proof surface for stats-derived re-grounding without turning stats into proof:
   - [Stats Re-Grounding Boundary Integrity](../bundles/aoa-stats-regrounding-boundary-integrity/EVAL.md)
 - I need to understand what this repository means by evaluation:
@@ -71,13 +73,13 @@ Choose the path that matches your question:
 - I need one protocol integrity verdict for an experience bundle:
   - [Experience Protocol Integrity](../bundles/aoa-experience-protocol-integrity/EVAL.md)
 - I need to understand how runtime artifacts and trace surfaces become eval evidence:
-  - [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md)
-  - [Trace Eval Bridge Chaos Wave 1](TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md)
-  - [Runtime Integrity Review](RUNTIME_INTEGRITY_REVIEW.md)
-  - [Eval Result Receipt Guide](EVAL_RESULT_RECEIPT_GUIDE.md)
-  - [Runtime Bench Promotion Guide](RUNTIME_BENCH_PROMOTION_GUIDE.md)
-  - [Self-Agent Checkpoint Eval Posture](SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md)
-  - [Recurrence Proof Program](RECURRENCE_PROOF_PROGRAM.md)
+  - [Trace Eval Bridge](../mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md)
+  - [Trace Eval Bridge Chaos Wave 1](../mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md)
+  - [Runtime Integrity Review](../mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md)
+  - [Eval Result Receipt Guide](../mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md)
+  - [Runtime Bench Promotion Guide](../mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md)
+  - [Self-Agent Checkpoint Eval Posture](../mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md)
+  - [Recurrence Proof Program](../mechanics/recurrence/docs/RECURRENCE_PROOF_PROGRAM.md)
 - I need to understand portability, fixtures, blind spots, or baseline comparison:
   - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
   - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
@@ -89,14 +91,14 @@ Choose the path that matches your question:
   - [Shared Proof Infra Guide](SHARED_PROOF_INFRA_GUIDE.md)
 - I need release process guidance:
   - [Releasing `aoa-evals`](RELEASING.md)
-  - [Proof Release Readiness Audit](../reports/proof-release-readiness-audit-v1.json)
-  - [Strategic Closeout Audit](../reports/strategic-closeout-audit-v1.json)
-  - [Release Prep PR Handoff](../reports/release-prep-pr-handoff-v1.json)
+  - [Release Support Readiness Audit](../mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json)
+  - [Strategic Closeout Audit](../mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json)
+  - [Release Prep PR Handoff](../mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json)
 - I need Agon pre-protocol proof alignment or stop-line routing:
-  - [Agon Proof Mechanic](../mechanics/agon-proof/README.md)
-  - [Agon Eval Prebinding Model](AGON_EVAL_PREBINDING_MODEL.md)
-  - [Agon Eval Owner Handoffs](AGON_EVAL_OWNER_HANDOFFS.md)
-  - [Agon Eval Recurrence Review Boundary](AGON_EVAL_RECURRENCE_REVIEW_BOUNDARY.md)
+  - [Agon Mechanic](../mechanics/agon/README.md)
+  - [Agon Eval Prebinding Model](../mechanics/agon/parts/court-prebinding/docs/AGON_EVAL_PREBINDING_MODEL.md)
+  - [Agon Eval Owner Handoffs](../mechanics/agon/docs/AGON_EVAL_OWNER_HANDOFFS.md)
+  - [Agon Eval Recurrence Review Boundary](../mechanics/agon/docs/AGON_EVAL_RECURRENCE_REVIEW_BOUNDARY.md)
 - I need durable rationale for a topology, workflow, authority, or validation
   decision:
   - [Decisions](decisions/README.md)
@@ -166,30 +168,31 @@ surface.
 - [Comparison Spine Mechanic](../mechanics/comparison-spine/README.md)
 - [Proof Infra Mechanic](../mechanics/proof-infra/README.md)
 - [Publication Receipts Mechanic](../mechanics/publication-receipts/README.md)
-- [Proof Release Mechanic](../mechanics/proof-release/README.md)
-- `../reports/proof-release-readiness-audit-v1.json`
-- `../reports/strategic-closeout-audit-v1.json`
-- `../reports/release-prep-pr-handoff-v1.json`
-- [Titan Canaries Mechanic](../mechanics/titan-canaries/README.md)
-- [Agon Proof Mechanic](../mechanics/agon-proof/README.md)
-- [Runtime Evidence Mechanic](../mechanics/runtime-evidence/README.md)
-- [Sibling Proof References](SIBLING_PROOF_REFS.md)
-- [Sibling Proof Refs Mechanic](../mechanics/sibling-proof-refs/README.md)
+- [Release Support Mechanic](../mechanics/release-support/README.md)
+- `../mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json`
+- `../mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json`
+- `../mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json`
+- [Titan Mechanic](../mechanics/titan/README.md)
+- [Agon Mechanic](../mechanics/agon/README.md)
+- [Audit Mechanic](../mechanics/audit/README.md)
+- [Sibling Proof References](../mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md)
+- [Orchestrator Proof Anchors](../mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md)
+- [Boundary Bridge Mechanic](../mechanics/boundary-bridge/README.md)
 
 ### Derived bridge surfaces
 
 These surfaces explain how neighboring runtime artifacts and trace inputs can
 feed existing eval bundles without creating a second proof canon.
 
-- [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md)
-- [Trace Eval Bridge Chaos Wave 1](TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md)
-- [Eval Result Receipt Guide](EVAL_RESULT_RECEIPT_GUIDE.md)
-- `../reports/eval-result-receipt-intake-dry-review-v1.json`
-- [Self-Agent Checkpoint Eval Posture](SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md)
-- [Recurrence Proof Program](RECURRENCE_PROOF_PROGRAM.md)
-- `../examples/artifact_to_verdict_hook.*.example.json`
-- `../examples/runtime_evidence_selection.*.example.json`
-- `../examples/eval_result_receipt.example.json`
+- [Trace Eval Bridge](../mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md)
+- [Trace Eval Bridge Chaos Wave 1](../mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md)
+- [Eval Result Receipt Guide](../mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md)
+- `../mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`
+- [Self-Agent Checkpoint Eval Posture](../mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md)
+- [Recurrence Proof Program](../mechanics/recurrence/docs/RECURRENCE_PROOF_PROGRAM.md)
+- `../mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.*.example.json`
+- `../mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.*.example.json`
+- `../mechanics/publication-receipts/parts/receipt-payload/examples/eval_result_receipt.example.json`
 
 ## Recommended Reading Paths
 
@@ -210,10 +213,10 @@ Use this non-mutating check path when you need to confirm current public and adj
 python scripts/validate_repo.py
 python scripts/build_catalog.py --check
 python scripts/generate_eval_report_index.py --check
-python scripts/generate_runtime_candidate_template_index.py --check
-python scripts/generate_runtime_candidate_intake.py --check
-python scripts/generate_phase_alpha_eval_matrix.py --check
-python -m pytest -q tests
+python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
+python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
+python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
+python -m pytest -q
 ```
 
 ### Reviewer path
@@ -256,12 +259,13 @@ These are outside `docs/` but matter when navigating the repo:
 - [Comparison Spine Mechanic](../mechanics/comparison-spine/README.md)
 - [Proof Infra Mechanic](../mechanics/proof-infra/README.md)
 - [Publication Receipts Mechanic](../mechanics/publication-receipts/README.md)
-- [Proof Release Mechanic](../mechanics/proof-release/README.md)
-- [Titan Canaries Mechanic](../mechanics/titan-canaries/README.md)
-- [Agon Proof Mechanic](../mechanics/agon-proof/README.md)
-- [Runtime Evidence Mechanic](../mechanics/runtime-evidence/README.md)
-- [Sibling Proof References](SIBLING_PROOF_REFS.md)
-- [Sibling Proof Refs Mechanic](../mechanics/sibling-proof-refs/README.md)
+- [Release Support Mechanic](../mechanics/release-support/README.md)
+- [Titan Mechanic](../mechanics/titan/README.md)
+- [Agon Mechanic](../mechanics/agon/README.md)
+- [Audit Mechanic](../mechanics/audit/README.md)
+- [Sibling Proof References](../mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md)
+- [Orchestrator Proof Anchors](../mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md)
+- [Boundary Bridge Mechanic](../mechanics/boundary-bridge/README.md)
 - [EVAL_INDEX](../EVAL_INDEX.md)
 - [EVAL_SELECTION](../EVAL_SELECTION.md)
 - [Questbook](../QUESTBOOK.md)
@@ -271,13 +275,13 @@ These are outside `docs/` but matter when navigating the repo:
 - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
 - [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md)
 - [Shared Proof Infra Guide](SHARED_PROOF_INFRA_GUIDE.md)
-- `../reports/same-task-baseline-proof-flow-v1.md`
-- `../reports/comparison-spine-proof-flow-v1.md`
-- `../reports/artifact-process-paired-proof-flow-v2.md`
-- `../reports/repeated-window-proof-flow-v1.md`
-- `../reports/repeated-window-proof-flow-v2.md`
+- `../mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md`
+- `../mechanics/comparison-spine/parts/spine-overview/reports/comparison-spine-proof-flow-v1.md`
+- `../mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v2.md`
+- `../mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md`
+- `../mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v2.md`
 - [CONTRIBUTING](../CONTRIBUTING.md)
-- [Eval Template](../templates/EVAL.template.md)
+- [Eval Template](../mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md)
 
 ## Notes
 
@@ -289,10 +293,10 @@ These are outside `docs/` but matter when navigating the repo:
 - Prefer [Comparison Spine Mechanic](../mechanics/comparison-spine/README.md) when the question is "how should fixed-baseline, peer-compare, or longitudinal-window evidence stay bounded without turning into broad growth or global ranking?"
 - Prefer [Proof Infra Mechanic](../mechanics/proof-infra/README.md) when the question is "how should shared fixtures, runners, scorers, schemas, reports, templates, and generated proof_artifacts support bundle proof without hiding bundle-local meaning?"
 - Prefer [Publication Receipts Mechanic](../mechanics/publication-receipts/README.md) when the question is "how should one reviewed bounded report emit an optional eval-result receipt inside a stats-event-envelope without turning receipts into proof authority?"
-- Prefer [Proof Release Mechanic](../mechanics/proof-release/README.md) when the question is "how should a bounded release scope, changelog narrative, release audit, Repo Validation, tag, and release notes stay coherent without strengthening eval claims?"
-- Prefer `../reports/proof-release-readiness-audit-v1.json` when the question is "is the accumulated strategic refactor locally ready for release-prep review, and what remains unpublished or unapproved?"
-- Prefer [Titan Canaries Mechanic](../mechanics/titan-canaries/README.md) when the question is "how should Titan seed canaries stay shaped, falsifiable, and visibly weaker than full incarnation proof?"
-- Prefer [Agon Proof Mechanic](../mechanics/agon-proof/README.md) when the question is "how should Agon seed configs, generated registries, observe-only recurrence hooks, and stop-line review stay candidate-only before owner handoff?"
+- Prefer [Release Support Mechanic](../mechanics/release-support/README.md) when the question is "how should a bounded release scope, changelog narrative, release audit, Repo Validation, tag, and release notes stay coherent without strengthening eval claims?"
+- Prefer `../mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json` when the question is "is the accumulated strategic refactor locally ready for release-prep review, and what remains unpublished or unapproved?"
+- Prefer [Titan Mechanic](../mechanics/titan/README.md) when the question is "how should Titan seed canaries stay shaped, falsifiable, and visibly weaker than full incarnation proof?"
+- Prefer [Agon Mechanic](../mechanics/agon/README.md) when the question is "how should Agon seed configs, generated registries, observe-only recurrence hooks, and stop-line review stay candidate-only before owner handoff?"
 - Prefer `generated/eval_catalog*.json` when the question is "what is the deterministic machine-readable eval surface right now?"
 - Prefer `generated/eval_capsules.json` when the question is "what is the smallest local runtime card for this eval?"
 - Prefer `generated/comparison_spine.json` when the question is "which comparison surface in the current ladder should I inspect next?"
@@ -303,14 +307,14 @@ These are outside `docs/` but matter when navigating the repo:
 - Prefer [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md) when the question is "what makes repeated windows comparable enough for a bounded movement read?"
 - Prefer [Shared Proof Infra Guide](SHARED_PROOF_INFRA_GUIDE.md) when the question is "how do fixture, runner, scorer, and dossier contracts stay reusable without hiding meaning?"
 - Prefer [Legacy Naming](LEGACY_NAMING.md) when the question is "is this name active topology, historical lineage, accepted input, generated projection, or candidate-only vocabulary?"
-- Prefer [Runtime Bench Promotion Guide](RUNTIME_BENCH_PROMOTION_GUIDE.md) when the question is "how can `abyss-stack` latency, load, recovery, or context-stress artifacts travel upward without becoming a fake capability ranking?"
-- Prefer [Trace Eval Bridge](TRACE_EVAL_BRIDGE.md) when the question is "how do playbook artifacts, verification artifacts, or `WitnessTrace` sidecars become bounded eval evidence?"
-- Prefer [Runtime Integrity Review](RUNTIME_INTEGRITY_REVIEW.md) when the question is "how should W10 runtime continuity evidence stay candidate-only and replay-bound before any later owner handoff?"
-- Prefer [Eval Result Receipt Guide](EVAL_RESULT_RECEIPT_GUIDE.md) when the question is "how can one bounded eval publication be emitted as a machine-readable receipt without turning receipts into verdict authority or repo-global scoring?"
+- Prefer [Runtime Bench Promotion Guide](../mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md) when the question is "how can `abyss-stack` latency, load, recovery, or context-stress artifacts travel upward without becoming a fake capability ranking?"
+- Prefer [Trace Eval Bridge](../mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md) when the question is "how do playbook artifacts, verification artifacts, or `WitnessTrace` sidecars become bounded eval evidence?"
+- Prefer [Runtime Integrity Review](../mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md) when the question is "how should W10 runtime continuity evidence stay candidate-only and replay-bound before any later owner handoff?"
+- Prefer [Eval Result Receipt Guide](../mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md) when the question is "how can one bounded eval publication be emitted as a machine-readable receipt without turning receipts into verdict authority or repo-global scoring?"
 - It also explains why `aoa-evals` keeps a local mirror of the canonical shared envelope owned by `aoa-stats`.
-- Prefer `../reports/eval-result-receipt-intake-dry-review-v1.json` when the question is "can the first bundle-local proof-loop report derive a subordinate receipt payload preview without publishing a receipt?"
-- Prefer [Self-Agent Checkpoint Eval Posture](SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md) when the question is "how does `AOA-P-0006` close on the eval layer without inventing a new checkpoint-only proof canon?"
-- Prefer [Recurrence Proof Program](RECURRENCE_PROOF_PROGRAM.md) when the question is "how does explicit return behavior become bounded proof without replacing scope, approval, verification, or restart-fidelity surfaces?"
+- Prefer `../mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json` when the question is "can the first bundle-local proof-loop report derive a subordinate receipt payload preview without publishing a receipt?"
+- Prefer [Self-Agent Checkpoint Eval Posture](../mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md) when the question is "how does `AOA-P-0006` close on the eval layer without inventing a new checkpoint-only proof canon?"
+- Prefer [Recurrence Proof Program](../mechanics/recurrence/docs/RECURRENCE_PROOF_PROGRAM.md) when the question is "how does explicit return behavior become bounded proof without replacing scope, approval, verification, or restart-fidelity surfaces?"
 - Treat the docs listed here as the canonical wording layer for future public bundle authoring.
 
 The current runtime path is:

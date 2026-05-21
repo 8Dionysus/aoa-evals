@@ -54,7 +54,8 @@ REQUIRED_AGENTS: dict[str, tuple[str, ...]] = {
         "bundle-local EVAL.md",
     ),
     "runners/AGENTS.md": (
-        "reportable_proof_contract.md",
+        "compatibility route card",
+        "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "bounded inputs",
         "shared fixture replacement",
         "report schema validation",
@@ -62,7 +63,8 @@ REQUIRED_AGENTS: dict[str, tuple[str, ...]] = {
         "additional_paired_readout_paths",
     ),
     "scorers/AGENTS.md": (
-        "bounded_rubric_breakdown.py",
+        "compatibility route card",
+        "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py",
         "bundle-local meaning in EVAL.md",
         "generic score",
         "transition-note",

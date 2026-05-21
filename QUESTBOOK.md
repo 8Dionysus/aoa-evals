@@ -88,8 +88,8 @@ surfaces after review. They are not promotions by themselves.
 Current source placement is lane/state based:
 
 - `quests/<lane>/<state>/AOA-EV-Q-*.yaml` are source quest records;
-- `quests/agon/captured/AOE-Q-AGON-*.md` are legacy/source-compatible Agon
-  alignment notes;
+- former Agon markdown quest notes are Agon lineage behind
+  `mechanics/agon/PROVENANCE.md`, not active quest lifecycle source records;
 - old top-level quest paths are legacy path vocabulary, not active source
   files.
 
@@ -140,9 +140,8 @@ Allowed verdicts:
 ## Backing Files
 
 - `quests/<lane>/<state>/*.yaml`
-- `quests/<lane>/<state>/*.md`
-- `schemas/quest.schema.json`
-- `schemas/quest_dispatch.schema.json`
+- `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`
+- `mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json`
 - `generated/quest_catalog.min.json`
 - `generated/quest_dispatch.min.json`
 - `generated/quest_catalog.min.example.json`

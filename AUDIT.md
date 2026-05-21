@@ -37,16 +37,16 @@ Default reading order for audits:
 7. `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
 8. `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
 9. `docs/SHARED_PROOF_INFRA_GUIDE.md`
-10. `docs/TRACE_EVAL_BRIDGE.md`
+10. `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md`
 11. the target `bundles/*/EVAL.md`
 12. the target `bundles/*/eval.yaml`
 13. bundle-local support artifacts when present:
-   - `notes/blind-spots.md`
-   - `reports/summary.schema.json`
-   - `reports/example-report.json`
-   - `runners/contract.json`
-   - `fixtures/contract.json`
-   - `checks/` or `examples/`
+   - `bundles/<bundle>/notes/blind-spots.md`
+   - `bundles/<bundle>/reports/summary.schema.json`
+   - `bundles/<bundle>/reports/example-report.json`
+   - `bundles/<bundle>/runners/contract.json`
+   - `bundles/<bundle>/fixtures/contract.json`
+   - `bundles/<bundle>/checks/` or `bundles/<bundle>/examples/`
 14. the matching generated surfaces as **derived routing aids only**:
    - `generated/eval_catalog.json`
    - `generated/eval_catalog.min.json`
@@ -86,18 +86,18 @@ Also apply the nearest nested `AGENTS.md` when working in subdirectories.
 
 ### Shared proof infrastructure
 
-- `fixtures/`
-- `scorers/`
-- `runners/`
-- `reports/`
-- `schemas/`
+- root route cards such as `fixtures/README.md`, `runners/README.md`,
+  `scorers/README.md`, `reports/README.md`, and `schemas/README.md`
+- active mechanic-local proof-infra parts under
+  `mechanics/proof-infra/parts/fixture-families/` and
+  `mechanics/proof-infra/parts/reportable-contracts/`
 - `docs/SHARED_PROOF_INFRA_GUIDE.md`
 - any path or helper naming that implies shared infra is stronger than bundle-local meaning
 
 ### Trace / evidence seam
 
-- `docs/TRACE_EVAL_BRIDGE.md`
-- `examples/artifact_to_verdict_hook.*.example.json`
+- `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md`
+- `mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.*.example.json`
 - anything that could shift verdict ownership out of `aoa-evals`
 
 ## Hard boundaries
@@ -153,7 +153,7 @@ Re-read and reconcile all of the following against the changed bundle:
 Run the nearest `pytest` modules for the affected surfaces, for example:
 
 ```bash
-python -m pytest tests/test_bounded_rubric_breakdown.py tests/test_build_catalog.py
+python -m pytest mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py tests/test_build_catalog.py
 ```
 
 ### When touching AGENTS or instruction-layering docs

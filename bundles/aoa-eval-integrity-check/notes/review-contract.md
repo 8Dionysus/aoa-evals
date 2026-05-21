@@ -13,7 +13,7 @@ Required target dossier:
 - `examples/example-report.md`
 - `reports/example-report.json` when a bundle ships a schema-backed report artifact
 - `runners/contract.json` when a bundle ships a bundle-local runner contract
-- `fixtures/contract.json` when a bundle names a shared fixture family
+- `bundles/<target>/fixtures/contract.json` when a bundle names a shared fixture family
 - support notes and checks
 - `EVAL_INDEX.md` starter row and distinctness note
 - `EVAL_SELECTION.md` posture and chooser wording
@@ -55,4 +55,3 @@ Treat this bundle as the bounded integrity sidecar for:
 The resulting note should name one integrity risk class directly.
 If the dossier is mixed,
 prefer `mixed support` over a cleaner-looking pass.
-

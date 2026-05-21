@@ -41,7 +41,7 @@
         "runner_contract_path": null,
         "runner_surface_path": null,
         "scorer_helper_paths": [],
-        "shared_fixture_family_path": "fixtures/a2a-summon-return-checkpoint-v1/README.md"
+        "shared_fixture_family_path": "mechanics/checkpoint/parts/a2a-summon-return/fixtures/a2a-summon-return-checkpoint-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -132,11 +132,11 @@
         "report_example_path": "bundles/aoa-ambiguity-handling/reports/example-report.json",
         "report_schema_path": "bundles/aoa-ambiguity-handling/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-ambiguity-handling/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/ambiguity-bounded-v1/README.md"
+        "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/ambiguity-bounded-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -320,11 +320,11 @@
         "report_example_path": "bundles/aoa-approval-boundary-adherence/reports/example-report.json",
         "report_schema_path": "bundles/aoa-approval-boundary-adherence/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-approval-boundary-adherence/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/approval-boundary-bounded-v1/README.md"
+        "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/approval-boundary-bounded-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -405,15 +405,15 @@
       "portability_level": "portable",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-artifact-review-rubric/fixtures/contract.json",
-        "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md",
         "report_example_path": "bundles/aoa-artifact-review-rubric/reports/example-report.json",
         "report_schema_path": "bundles/aoa-artifact-review-rubric/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-artifact-review-rubric/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/bounded-change-paired-v1/README.md"
+        "shared_fixture_family_path": "mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -511,15 +511,15 @@
       "portability_level": "portable",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-bounded-change-quality/fixtures/contract.json",
-        "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md",
         "report_example_path": "bundles/aoa-bounded-change-quality/reports/example-report.json",
         "report_schema_path": "bundles/aoa-bounded-change-quality/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-bounded-change-quality/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/bounded-change-paired-v1/README.md"
+        "shared_fixture_family_path": "mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -636,11 +636,11 @@
         "report_example_path": "bundles/aoa-candidate-lineage-integrity/reports/example-report.json",
         "report_schema_path": "bundles/aoa-candidate-lineage-integrity/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-candidate-lineage-integrity/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/candidate-lineage-v1/README.md"
+        "shared_fixture_family_path": "mechanics/method-growth/parts/candidate-lineage/fixtures/candidate-lineage-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -732,11 +732,11 @@
         "report_example_path": "bundles/aoa-compost-provenance-preservation/reports/example-report.json",
         "report_schema_path": "bundles/aoa-compost-provenance-preservation/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-compost-provenance-preservation/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/compost-provenance-v1/README.md"
+        "shared_fixture_family_path": "mechanics/distillation/parts/compost-provenance/fixtures/compost-provenance-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -994,9 +994,9 @@
         "report_example_path": "bundles/aoa-eval-integrity-check/reports/example-report.json",
         "report_schema_path": "bundles/aoa-eval-integrity-check/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-eval-integrity-check/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
         "shared_fixture_family_path": null
       },
@@ -1124,9 +1124,9 @@
         "report_example_path": "bundles/aoa-experience-certification-gate-integrity/reports/example-report.json",
         "report_schema_path": "bundles/aoa-experience-certification-gate-integrity/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-experience-certification-gate-integrity/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [],
-        "shared_fixture_family_path": "fixtures/experience-certification-gate-integrity-v1/README.md"
+        "shared_fixture_family_path": "mechanics/experience/parts/certification-gate/fixtures/experience-certification-gate-integrity-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -1209,9 +1209,9 @@
         "report_example_path": "bundles/aoa-experience-protocol-integrity/reports/example-report.json",
         "report_schema_path": "bundles/aoa-experience-protocol-integrity/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-experience-protocol-integrity/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [],
-        "shared_fixture_family_path": "fixtures/experience-verdict-protocol-integrity-v1/README.md"
+        "shared_fixture_family_path": "mechanics/experience/parts/protocol-integrity/fixtures/experience-verdict-protocol-integrity-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -1307,11 +1307,11 @@
         "report_example_path": "bundles/aoa-local-text-contract-fit/reports/example-report.json",
         "report_schema_path": "bundles/aoa-local-text-contract-fit/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-local-text-contract-fit/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/local-text-contract-v1/README.md"
+        "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/local-text-contract-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -1378,11 +1378,11 @@
         "report_example_path": "bundles/aoa-long-horizon-depth/reports/example-report.json",
         "report_schema_path": "bundles/aoa-long-horizon-depth/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-long-horizon-depth/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/long-horizon-restart-v1/README.md"
+        "shared_fixture_family_path": "mechanics/checkpoint/parts/restartable-inquiry/fixtures/long-horizon-restart-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -1424,9 +1424,9 @@
       "comparison_surface": {
         "anchor_surface": "aoa-bounded-change-quality",
         "integrity_sidecar": "aoa-eval-integrity-check",
-        "paired_readout_path": "reports/repeated-window-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md",
         "selection_question": "Do you need ordered repeated-window movement on one named bounded workflow surface?",
-        "shared_family_path": "fixtures/repeated-window-bounded-v1/README.md",
+        "shared_family_path": "mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md",
         "window_family_label": "repeated-window-bounded-v1 bounded workflow sequence"
       },
       "eval_path": "bundles/aoa-longitudinal-growth-snapshot/EVAL.md",
@@ -1462,15 +1462,15 @@
       "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-longitudinal-growth-snapshot/fixtures/contract.json",
-        "paired_readout_path": "reports/repeated-window-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md",
         "report_example_path": "bundles/aoa-longitudinal-growth-snapshot/reports/example-report.json",
         "report_schema_path": "bundles/aoa-longitudinal-growth-snapshot/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-longitudinal-growth-snapshot/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/repeated-window-bounded-v1/README.md"
+        "shared_fixture_family_path": "mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -1571,11 +1571,11 @@
         "report_example_path": "bundles/aoa-memo-contradiction-integrity/reports/example-report.json",
         "report_schema_path": "bundles/aoa-memo-contradiction-integrity/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-memo-contradiction-integrity/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/memo-contradiction-guardrail-v1/README.md"
+        "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/memo-contradiction-guardrail-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -1659,11 +1659,11 @@
         "report_example_path": "bundles/aoa-memo-recall-integrity/reports/example-report.json",
         "report_schema_path": "bundles/aoa-memo-recall-integrity/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-memo-recall-integrity/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/memo-recall-guardrail-v1/README.md"
+        "shared_fixture_family_path": "mechanics/recurrence/parts/memory-recall/fixtures/memo-recall-guardrail-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -1743,11 +1743,11 @@
         "report_example_path": "bundles/aoa-memo-reviewed-candidate-adoption-integrity/reports/example-report.json",
         "report_schema_path": "bundles/aoa-memo-reviewed-candidate-adoption-integrity/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-memo-reviewed-candidate-adoption-integrity/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md"
+        "shared_fixture_family_path": "mechanics/distillation/parts/runtime-candidate-adoption/fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -1831,11 +1831,11 @@
         "report_example_path": "bundles/aoa-memo-writeback-act-integrity/reports/example-report.json",
         "report_schema_path": "bundles/aoa-memo-writeback-act-integrity/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-memo-writeback-act-integrity/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/memo-writeback-act-guardrail-v1/README.md"
+        "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/memo-writeback-act-guardrail-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -1881,13 +1881,13 @@
       "comparison_surface": {
         "integrity_sidecar": "aoa-eval-integrity-check",
         "matched_surface": "same bounded change case family under matched artifact and workflow review conditions",
-        "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md",
         "peer_surfaces": [
           "aoa-artifact-review-rubric",
           "aoa-bounded-change-quality"
         ],
         "selection_question": "Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?",
-        "shared_family_path": "fixtures/bounded-change-paired-v1/README.md"
+        "shared_family_path": "mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md"
       },
       "eval_path": "bundles/aoa-output-vs-process-gap/EVAL.md",
       "evidence": [
@@ -1922,15 +1922,15 @@
       "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-output-vs-process-gap/fixtures/contract.json",
-        "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md",
         "report_example_path": "bundles/aoa-output-vs-process-gap/reports/example-report.json",
         "report_schema_path": "bundles/aoa-output-vs-process-gap/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-output-vs-process-gap/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/bounded-change-paired-v1/README.md"
+        "shared_fixture_family_path": "mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -2039,11 +2039,11 @@
         "report_example_path": "bundles/aoa-owner-fit-routing-quality/reports/example-report.json",
         "report_schema_path": "bundles/aoa-owner-fit-routing-quality/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-owner-fit-routing-quality/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/owner-fit-routing-v1/README.md"
+        "shared_fixture_family_path": "mechanics/method-growth/parts/owner-landing/fixtures/owner-fit-routing-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -2135,11 +2135,11 @@
         "report_example_path": "bundles/aoa-recurrence-control-plane-integrity/reports/example-report.json",
         "report_schema_path": "bundles/aoa-recurrence-control-plane-integrity/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-recurrence-control-plane-integrity/runners/contract.json",
-        "runner_surface_path": "scripts/run_recurrence_control_plane_integrity_eval.py",
+        "runner_surface_path": "mechanics/recurrence/parts/control-plane-integrity/scripts/run_recurrence_control_plane_integrity_eval.py",
         "scorer_helper_paths": [
-          "scorers/recurrence_control_plane_integrity.py"
+          "mechanics/recurrence/parts/control-plane-integrity/scorers/recurrence_control_plane_integrity.py"
         ],
-        "shared_fixture_family_path": "fixtures/recurrence-control-plane-integrity-v1/README.md"
+        "shared_fixture_family_path": "mechanics/recurrence/parts/control-plane-integrity/fixtures/recurrence-control-plane-integrity-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -2284,9 +2284,9 @@
         "anchor_surface": "aoa-bounded-change-quality",
         "baseline_target_label": "RS-v1 frozen bounded workflow reference",
         "integrity_sidecar": "aoa-eval-integrity-check",
-        "paired_readout_path": "reports/same-task-baseline-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
         "selection_question": "Do you need a frozen-baseline comparison on the same bounded task family?",
-        "shared_family_path": "fixtures/frozen-same-task-v1/README.md"
+        "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
       },
       "eval_path": "bundles/aoa-regression-same-task/EVAL.md",
       "evidence": [
@@ -2326,15 +2326,15 @@
       "portability_level": "portable",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-regression-same-task/fixtures/contract.json",
-        "paired_readout_path": "reports/same-task-baseline-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
         "report_example_path": "bundles/aoa-regression-same-task/reports/example-report.json",
         "report_schema_path": "bundles/aoa-regression-same-task/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-regression-same-task/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/frozen-same-task-v1/README.md"
+        "shared_fixture_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -2431,11 +2431,11 @@
         "report_example_path": "bundles/aoa-repair-boundedness/reports/example-report.json",
         "report_schema_path": "bundles/aoa-repair-boundedness/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-repair-boundedness/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/repair-boundedness-v1/README.md"
+        "shared_fixture_family_path": "mechanics/antifragility/parts/repair-proof/fixtures/repair-boundedness-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -2527,11 +2527,11 @@
         "report_example_path": "bundles/aoa-return-anchor-integrity/reports/example-report.json",
         "report_schema_path": "bundles/aoa-return-anchor-integrity/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-return-anchor-integrity/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/return-anchor-v1/README.md"
+        "shared_fixture_family_path": "mechanics/recurrence/parts/anchor-return/fixtures/return-anchor-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -2624,11 +2624,11 @@
         "report_example_path": "bundles/aoa-ring-application-discipline/reports/example-report.json",
         "report_schema_path": "bundles/aoa-ring-application-discipline/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-ring-application-discipline/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/ring-application-discipline-v1/README.md"
+        "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/ring-application-discipline-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -2704,11 +2704,11 @@
         "report_example_path": "bundles/aoa-scope-drift-detection/reports/example-report.json",
         "report_schema_path": "bundles/aoa-scope-drift-detection/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-scope-drift-detection/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/scope-drift-bounded-v1/README.md"
+        "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/scope-drift-bounded-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -2894,11 +2894,11 @@
         "report_example_path": "bundles/aoa-stats-regrounding-boundary-integrity/reports/example-report.json",
         "report_schema_path": "bundles/aoa-stats-regrounding-boundary-integrity/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-stats-regrounding-boundary-integrity/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/stats-regrounding-boundary-v1/README.md"
+        "shared_fixture_family_path": "mechanics/recurrence/parts/stats-regrounding-boundary/fixtures/stats-regrounding-boundary-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -2948,9 +2948,9 @@
       "comparison_surface": {
         "anchor_surface": "aoa-antifragility-posture",
         "integrity_sidecar": "aoa-eval-integrity-check",
-        "paired_readout_path": "reports/stress-recovery-window-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md",
         "selection_question": "Do you need ordered repeated-window proof for one named stress recovery family?",
-        "shared_family_path": "fixtures/stress-recovery-window-bounded-v1/README.md",
+        "shared_family_path": "mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md",
         "window_family_label": "stress-recovery-window-bounded-v1 bounded stress recovery sequence"
       },
       "eval_path": "bundles/aoa-stress-recovery-window/EVAL.md",
@@ -2986,15 +2986,15 @@
       "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-stress-recovery-window/fixtures/contract.json",
-        "paired_readout_path": "reports/stress-recovery-window-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md",
         "report_example_path": "bundles/aoa-stress-recovery-window/reports/example-report.json",
         "report_schema_path": "bundles/aoa-stress-recovery-window/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-stress-recovery-window/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/stress-recovery-window-bounded-v1/README.md"
+        "shared_fixture_family_path": "mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -3093,11 +3093,11 @@
         "report_example_path": "bundles/aoa-tool-trajectory-discipline/reports/example-report.json",
         "report_schema_path": "bundles/aoa-tool-trajectory-discipline/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-tool-trajectory-discipline/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/tool-trajectory-bounded-v1/README.md"
+        "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/tool-trajectory-bounded-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -3193,11 +3193,11 @@
         "report_example_path": "bundles/aoa-trace-outcome-separation/reports/example-report.json",
         "report_schema_path": "bundles/aoa-trace-outcome-separation/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-trace-outcome-separation/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/trace-outcome-bounded-v1/README.md"
+        "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/trace-outcome-bounded-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -3306,11 +3306,11 @@
         "report_example_path": "bundles/aoa-verification-honesty/reports/example-report.json",
         "report_schema_path": "bundles/aoa-verification-honesty/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-verification-honesty/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/verification-honesty-v1/README.md"
+        "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/verification-honesty-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",
@@ -3406,11 +3406,11 @@
         "report_example_path": "bundles/aoa-witness-trace-integrity/reports/example-report.json",
         "report_schema_path": "bundles/aoa-witness-trace-integrity/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-witness-trace-integrity/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/witness-trace-v1/README.md"
+        "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/witness-trace-v1/README.md"
       },
       "proof_surface_kinds": [
         "fixture_contract",

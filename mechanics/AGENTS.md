@@ -17,14 +17,21 @@ truth, runtime authority, or sibling owner truth.
 2. `DESIGN.md`
 3. `DESIGN.AGENTS.md`
 4. `docs/PROOF_TOPOLOGY.md`
-5. `mechanics/README.md`
-6. the target package `README.md`
-7. the target package `AGENTS.md`
-8. `docs/decisions/` for package-creation or package-boundary changes
+5. `mechanics/EVIDENCE_CLUSTERS.md`
+6. `mechanics/README.md`
+7. the target package `README.md`
+8. the target package `DIRECTION.md` for current operating direction
+9. the target package `AGENTS.md`
+10. `docs/decisions/` for package-creation or package-boundary changes
 
 ## Boundaries
 
 - Create packages for live operations, not for decoration.
+- Use `mechanics/EVIDENCE_CLUSTERS.md` before turning a form, report, canary,
+  or old path family into a parent mechanic.
+- Top-level parent directories are validator allowlisted. Do not add
+  `mechanics/<new-parent>/` without updating the evidence cluster, package
+  route cards, topology docs, decision record, and validator in the same slice.
 - Keep source proof objects in `bundles/`.
 - Keep quest source records in `quests/<lane>/<state>/` and keep generated
   readers aligned with current source paths.

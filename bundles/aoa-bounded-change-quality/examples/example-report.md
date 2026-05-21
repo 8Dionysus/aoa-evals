@@ -6,7 +6,7 @@ Bundle-level verdict: `supports bounded claim`
 This is the composite workflow surface, not the narrower verification, scope, or ambiguity diagnostics.
 
 Machine-readable companion: `reports/example-report.json`
-Shared paired dossier when artifact/process comparison also matters: `reports/artifact-process-paired-proof-flow-v1.md`
+Shared paired dossier when artifact/process comparison also matters: `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md`
 
 ## Summary
 

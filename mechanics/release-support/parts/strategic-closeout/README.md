@@ -1,0 +1,86 @@
+# Strategic Closeout
+
+## Role
+
+This part owns the local strategic closeout audit artifact as an
+owner-visible final audit gate for the accumulated refactor route.
+
+## Source Surfaces
+
+- `mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json`
+- `mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py`
+- `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json`
+- `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json`
+- `ROADMAP.md`
+- `CHANGELOG.md`
+- `docs/PROOF_TOPOLOGY.md`
+- `docs/LEGACY_NAMING.md`
+
+The artifact reviews the long refactor goal requirement by requirement. It may
+state local handoff readiness, but it must keep the goal open until a current
+objective audit proves the mechanics-refactor definition of done from the
+worktree and the requested landing route completes. Commit, push, PR review,
+GitHub `Repo Validation`, merge, fast-forward `main`, and a clean worktree are
+landing proof for this route, not substitutes for the objective audit. Short
+form: goal open until the current objective audit proves completion and the
+requested landing route lands cleanly.
+
+## Inputs
+
+- the strategic working-note requirements as repo-local evidence refs rather
+  than private-note authority;
+- release-support readiness audit evidence;
+- routeable proof for design, agent guidance, decisions, roadmap, changelog,
+  quests, proof topology, legacy, mechanics, active proof loop, validators, and
+  release-support surfaces;
+- explicit trap review, objective-completion boundaries, and release landing
+  boundaries;
+- validation snapshots that prove local gates only for the current checkout.
+
+## Outputs
+
+- `strategic_closeout_audit` JSON report;
+- requirement-by-requirement handoff readiness claims;
+- trap-review entries that keep known failure modes visible;
+- `goal_completion_status` fixed as `not_complete` until the current
+  requirement-by-requirement objective audit proves the requested mechanics
+  end state and the requested landing route lands cleanly;
+- validation failures when strategic readiness becomes completion ceremony.
+
+## Stronger Owner Split
+
+This part owns the local strategic handoff audit.
+
+The active goal is stronger than this artifact: only the current objective
+audit plus the requested landing route can close it. Source proof objects and
+their bundle-local reports remain stronger than the closeout narrative.
+
+GitHub, release publication, live receipts, runtime evidence, and sibling repos
+keep their own stronger truth.
+
+## Stop-Lines
+
+- Do not mark the long goal complete from local handoff readiness.
+- Do not infer branch, PR, merge, tag, GitHub Release, live receipt, runtime
+  acceptance, sibling mutation, or bundle promotion.
+- Do not treat PR or GitHub landing alone as objective completion.
+- Do not treat the outside working note as repository authority.
+- Do not let a strategic audit replace source proof objects, bundle-local
+  reports, or release-support readiness boundaries.
+- Do not remove open objective-audit requirements to make closeout look
+  cleaner.
+- Do not remove open landing requirements to make closeout look cleaner.
+
+## Validation
+
+```bash
+python -m pytest -q mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py tests/test_validate_repo.py -k strategic_closeout
+python scripts/validate_repo.py
+python scripts/release_check.py
+```
+
+## Next Route
+
+Use this part when updating strategic closeout evidence, trap review,
+objective-completion boundaries, release landing boundaries, or validator
+coverage for the long-goal handoff.

@@ -1,6 +1,6 @@
 {
   "contract_version": 1,
-  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
   "inputs": [
     "compact local text case dossier",
     "one local text lane or API-compatible reply surface",
@@ -12,7 +12,7 @@
     "bundles/aoa-local-text-contract-fit/fixtures/contract.json"
   ],
   "scorer_helper_paths": [
-    "scorers/bounded_rubric_breakdown.py"
+    "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
   ],
   "report_schema_path": "bundles/aoa-local-text-contract-fit/reports/summary.schema.json",
   "report_example_path": "bundles/aoa-local-text-contract-fit/reports/example-report.json",

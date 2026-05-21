@@ -1,0 +1,79 @@
+# 0100 Active Mechanics Topology Wording
+
+- Status: Accepted
+- Date: 2026-05-21
+- Owner surface: `DESIGN.md`, `DESIGN.AGENTS.md`, `docs/PROOF_TOPOLOGY.md`, `ROADMAP.md`, `docs/decisions/0005-proof-topology-map.md`
+
+## Context
+
+The mechanics refactor made `mechanics/` an active operation atlas, but several
+source-of-truth surfaces still used preparatory language such as future
+packages, readiness-only operation labels, and pre-movement topology mapping.
+
+That wording is dangerous after the movement has happened. It can make an
+active mechanic look provisional, invite new work to start from old route
+vocabulary, and let legacy feel like a second active map instead of a
+package-local archive behind `PROVENANCE.md`.
+
+## Options Considered
+
+- Leave the old wording as historical texture:
+  this preserves chronology but keeps the wrong route visible to future agents.
+- Move the explanation into legacy:
+  this would put active topology authority inside the archive and invert the
+  intended route.
+- Update active source-of-truth surfaces and validate against stale
+  preparatory wording:
+  this keeps the current topology active-first while leaving archive details
+  inside legacy.
+
+## Decision
+
+Active design and topology surfaces describe active mechanics.
+
+`DESIGN.AGENTS.md` says active mechanic packages carry route cards and that new
+parents require evidence, decisions, and validators. `docs/PROOF_TOPOLOGY.md`
+names mechanic operations as an active authority class and treats further file
+movement as additional movement after the mechanics refactor, not as a future
+Phase 4 precondition. `DESIGN.md` names active mechanic authority classes.
+`ROADMAP.md` and the proof-topology decision use the same current route.
+
+Validators reject stale preparatory wording in these source-of-truth surfaces.
+
+## Rationale
+
+The current route must be readable without mentally replaying the refactor.
+Active topology should point to current mechanics, current parts, current
+validators, and the single `PROVENANCE.md` bridge when old lineage is needed.
+
+Legacy details belong inside the owning `legacy/` archive. The active side may
+state the bridge and the stop-line, but it must not keep enough archive detail
+to make legacy behave like an active route.
+
+## Consequences
+
+- Positive: future agents see mechanics as active operation packages, not as
+  speculative package candidates.
+- Tradeoff: historical preparatory phrasing is no longer available in root
+  source-of-truth prose; decision history preserves why it changed.
+- Follow-up: if another source-of-truth surface reintroduces future-package or
+  readiness-only wording, extend the same validator guard there.
+
+## Boundaries
+
+This does not authorize adding new parent mechanics by naming them active.
+New parents still require `mechanics/EVIDENCE_CLUSTERS.md`, route cards,
+decisions, owner split, parts, and validation.
+
+This does not move legacy archive details into active design surfaces. Active
+surfaces may name the `PROVENANCE.md` bridge and the rule that archive details
+stay inside legacy.
+
+## Validation
+
+- `python -m pytest -q tests/test_validate_repo.py -k 'root_design or design_agents or proof_topology'`
+- `python scripts/validate_repo.py`
+- `python scripts/build_catalog.py --check`
+- `python scripts/validate_semantic_agents.py`
+- `python -m pytest -q tests/test_validate_repo.py`
+- `python scripts/release_check.py`

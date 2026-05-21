@@ -208,11 +208,20 @@ model and bundle layering.
 [`docs/EVAL_PHILOSOPHY.md`](docs/EVAL_PHILOSOPHY.md) explains the epistemic
 posture and limits of evaluation.
 [`docs/PROOF_TOPOLOGY.md`](docs/PROOF_TOPOLOGY.md) maps source, derived,
-candidate, receipt, quest, decision, sibling, legacy, and mechanic-ready
+candidate, receipt, quest, decision, sibling, legacy, and active mechanic
 authority classes.
 [`docs/LEGACY_NAMING.md`](docs/LEGACY_NAMING.md) maps active, historical,
-accepted-input, generated-projection, candidate-only, and retire-after naming
-postures before old names are moved or retired.
+accepted-input, generated-projection, candidate-only, and provenance-bridge
+naming postures. It is a posture guide, not an archive map: old names route
+through active surfaces and the `PROVENANCE.md` single controlled bridge from
+active mechanic surfaces into the legacy archive. `PROVENANCE.md` is a bridge,
+not an active route; archive details stay inside the archive. In short:
+`PROVENANCE.md` is a bridge, not an active route.
+[`mechanics/EVIDENCE_CLUSTERS.md`](mechanics/EVIDENCE_CLUSTERS.md) records the
+root-district reconnaissance and cross-root evidence standard for parent
+mechanics before files move into or between mechanic packages; it also classifies
+residual top-level `docs/`, `scripts/`, and `tests/` surfaces that remain
+root-owned after mechanic-owned payload movement.
 [`mechanics/README.md`](mechanics/README.md) routes repeatable proof-layer
 operations once they have real source surfaces and validation.
 [`mechanics/proof-loop/README.md`](mechanics/proof-loop/README.md) routes the

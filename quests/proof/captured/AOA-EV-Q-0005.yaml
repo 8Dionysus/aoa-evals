@@ -3,7 +3,7 @@ id: AOA-EV-Q-0005
 title: Define a multi-axis progression evidence contract for reviewed advancement
 summary: Add a bounded proof surface for advancement verdicts and axis deltas without collapsing evaluation into one score.
 repo: aoa-evals
-owner_surface: proof/progression-evidence
+owner_surface: mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md
 theme_ref: ''
 milestone_ref: ''
 kind: proof
@@ -29,7 +29,7 @@ activation:
   note: open when the first adjunct progression proof surface is ready to land
 anchor_ref:
   artifact: progression_evidence_model
-  ref: docs/PROGRESSION_EVIDENCE_MODEL.md
+  ref: mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md
   note: advancement must stay proof-shaped and multi-axis
 handoff_role: eval-maintainer
 evidence:

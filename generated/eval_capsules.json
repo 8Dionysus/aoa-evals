@@ -625,9 +625,9 @@
       "comparison_surface": {
         "anchor_surface": "aoa-bounded-change-quality",
         "integrity_sidecar": "aoa-eval-integrity-check",
-        "paired_readout_path": "reports/repeated-window-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md",
         "selection_question": "Do you need ordered repeated-window movement on one named bounded workflow surface?",
-        "shared_family_path": "fixtures/repeated-window-bounded-v1/README.md",
+        "shared_family_path": "mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md",
         "window_family_label": "repeated-window-bounded-v1 bounded workflow sequence"
       },
       "do_not_use_short": "you only need a one-run workflow judgment; you need a frozen same-task baseline comparison rather than repeated-window movement",
@@ -805,13 +805,13 @@
       "comparison_surface": {
         "integrity_sidecar": "aoa-eval-integrity-check",
         "matched_surface": "same bounded change case family under matched artifact and workflow review conditions",
-        "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md",
         "peer_surfaces": [
           "aoa-artifact-review-rubric",
           "aoa-bounded-change-quality"
         ],
         "selection_question": "Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?",
-        "shared_family_path": "fixtures/bounded-change-paired-v1/README.md"
+        "shared_family_path": "mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md"
       },
       "do_not_use_short": "the main question is the artifact itself rather than the gap; the main question is end-to-end workflow quality rather than the gap",
       "eval_path": "bundles/aoa-output-vs-process-gap/EVAL.md",
@@ -990,9 +990,9 @@
         "anchor_surface": "aoa-bounded-change-quality",
         "baseline_target_label": "RS-v1 frozen bounded workflow reference",
         "integrity_sidecar": "aoa-eval-integrity-check",
-        "paired_readout_path": "reports/same-task-baseline-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
         "selection_question": "Do you need a frozen-baseline comparison on the same bounded task family?",
-        "shared_family_path": "fixtures/frozen-same-task-v1/README.md"
+        "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
       },
       "do_not_use_short": "you only need one-run workflow quality and no baseline exists yet; the task family is still changing underneath the comparison",
       "eval_path": "bundles/aoa-regression-same-task/EVAL.md",
@@ -1281,9 +1281,9 @@
       "comparison_surface": {
         "anchor_surface": "aoa-antifragility-posture",
         "integrity_sidecar": "aoa-eval-integrity-check",
-        "paired_readout_path": "reports/stress-recovery-window-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md",
         "selection_question": "Do you need ordered repeated-window proof for one named stress recovery family?",
-        "shared_family_path": "fixtures/stress-recovery-window-bounded-v1/README.md",
+        "shared_family_path": "mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md",
         "window_family_label": "stress-recovery-window-bounded-v1 bounded stress recovery sequence"
       },
       "do_not_use_short": "no trustworthy owner receipt family exists yet; the windows are too inconsistent to compare honestly",

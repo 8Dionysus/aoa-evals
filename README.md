@@ -20,33 +20,35 @@ Use the shortest route by need:
 - agent lane district: `.agents/AGENTS.md` and `.agents/spark/AGENTS.md`
 - active proof operations atlas: `mechanics/README.md`
 - active proof-loop route: `mechanics/proof-loop/README.md`
+- active antifragility proof route: `mechanics/antifragility/README.md`
+- active method-growth proof route: `mechanics/method-growth/README.md`
 - first proof-loop route-smoke report:
-  `reports/proof-loop-local-route-smoke-v1.md`
+  `mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md`
 - first bundle-local proof-loop report:
   `bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`
 - first receipt-intake dry review:
-  `reports/eval-result-receipt-intake-dry-review-v1.json`
-- proof-release readiness audit:
-  `reports/proof-release-readiness-audit-v1.json`
+  `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`
+- release-support readiness audit:
+  `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json`
 - strategic closeout audit:
-  `reports/strategic-closeout-audit-v1.json`
+  `mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json`
 - release-prep PR handoff:
-  `reports/release-prep-pr-handoff-v1.json`
+  `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json`
 - docs map: `docs/README.md`
 - current direction: `ROADMAP.md`
 - proof obligations: `QUESTBOOK.md` and lane/state source records routed by
   `quests/README.md` and `quests/LIFECYCLE.md`
-- repeated-window stress recovery proof surface: `bundles/aoa-stress-recovery-window/EVAL.md` and `docs/STRESS_RECOVERY_WINDOW_EVALS.md`
+- repeated-window stress recovery proof surface: `bundles/aoa-stress-recovery-window/EVAL.md` and `mechanics/antifragility/parts/stress-recovery-window/docs/STRESS_RECOVERY_WINDOW_EVALS.md`
 - self-agency continuity proof surfaces: `bundles/aoa-continuity-anchor-integrity/EVAL.md`, `bundles/aoa-reflective-revision-boundedness/EVAL.md`, and `bundles/aoa-self-reanchor-correctness/EVAL.md`
 - proof posture and limits: `docs/EVAL_PHILOSOPHY.md`
 - architecture: `docs/ARCHITECTURE.md`
 - durable decisions: `docs/decisions/`
 - current eval surface and chooser: `EVAL_INDEX.md` and `EVAL_SELECTION.md`
-- Titan incarnation boundary canaries: `docs/TITAN_INCARNATION_CANARIES.md`, `mechanics/titan-canaries/README.md`, and `evals/titan_*_canary.yaml`
-- Agon pre-protocol proof alignment: `mechanics/agon-proof/README.md`,
-  `docs/AGON_EVAL_PREBINDING_MODEL.md`, and
-  `docs/AGON_EVAL_OWNER_HANDOFFS.md`
-- authoring template: `templates/EVAL.template.md`
+- Titan incarnation boundary canaries: `mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md`, `mechanics/titan/README.md`, and `mechanics/titan/parts/seed-boundary/seeds/titan*.yaml`
+- Agon pre-protocol proof alignment: `mechanics/agon/README.md`,
+  `mechanics/agon/parts/court-prebinding/docs/AGON_EVAL_PREBINDING_MODEL.md`, and
+  `mechanics/agon/docs/AGON_EVAL_OWNER_HANDOFFS.md`
+- authoring template: `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
 
 ## Route by need
 
@@ -63,10 +65,16 @@ Use the shortest route by need:
   `mechanics/comparison-spine/README.md`
 - shared proof infrastructure operation:
   `mechanics/proof-infra/README.md`
+- antifragility proof operation:
+  `mechanics/antifragility/README.md`
+- method-growth proof operation:
+  `mechanics/method-growth/README.md`
 - active proof-loop operation: `mechanics/proof-loop/README.md`
 - quest obligation operation: `mechanics/questbook/README.md`
-- runtime candidate evidence operation: `mechanics/runtime-evidence/README.md`
-- sibling proof-reference compatibility: `docs/SIBLING_PROOF_REFS.md` and `mechanics/sibling-proof-refs/README.md`
+- runtime candidate evidence operation: `mechanics/audit/README.md`
+- sibling proof-reference compatibility: `mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md` and `mechanics/boundary-bridge/README.md`
+- orchestrator proof-anchor alignment:
+  `mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md`
 - maintained Spark fast-loop lane: `.agents/spark/AGENTS.md` and
   `.agents/spark/SWARM.md`
 - regression, peer comparison, and repeated-window reading:
@@ -74,41 +82,44 @@ Use the shortest route by need:
   `mechanics/comparison-spine/README.md`,
   `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`, and
   `generated/comparison_spine.json`
-- bounded stress recovery longitudinal reading: `docs/STRESS_RECOVERY_WINDOW_EVALS.md` and `bundles/aoa-stress-recovery-window/EVAL.md`
+- bounded stress recovery longitudinal reading: `mechanics/antifragility/parts/stress-recovery-window/docs/STRESS_RECOVERY_WINDOW_EVALS.md` and `bundles/aoa-stress-recovery-window/EVAL.md`
 - stats-driven re-grounding boundary proof: `bundles/aoa-stats-regrounding-boundary-integrity/EVAL.md`
 - bounded self-agency continuity reading: `bundles/aoa-continuity-anchor-integrity/EVAL.md`, `bundles/aoa-reflective-revision-boundedness/EVAL.md`, and `bundles/aoa-self-reanchor-correctness/EVAL.md`
 - via negativa pruning checklist: `docs/VIA_NEGATIVA_CHECKLIST.md`
 - artifact-side versus process-side reading: `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
-- runtime-artifact to verdict bridge: `docs/TRACE_EVAL_BRIDGE.md`, `docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md`, `docs/EVAL_RESULT_RECEIPT_GUIDE.md`, and `docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
-- Titan incarnation proof seeds: `docs/TITAN_INCARNATION_CANARIES.md`,
-  `mechanics/titan-canaries/README.md`,
-  `evals/titan_incarnation_spine_canary.yaml`,
-  `evals/titan_named_summon_no_generic_shadow_canary.yaml`,
-  `evals/titan_forge_gate_payload_canary.yaml`,
-  `evals/titan_delta_gate_payload_canary.yaml`,
-  `evals/titan_memory_source_ref_canary.yaml`, and
-  `evals/titan_lineage_non_erasure_canary.yaml`
+- runtime-artifact to verdict bridge: `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md`, `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md`, `mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md`, and `mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
+- Titan incarnation proof seeds: `mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md`,
+  `mechanics/titan/README.md`,
+  `mechanics/titan/parts/seed-boundary/seeds/titan_incarnation_spine_canary.yaml`,
+  `mechanics/titan/parts/seed-boundary/seeds/titan_named_summon_no_generic_shadow_canary.yaml`,
+  `mechanics/titan/parts/seed-boundary/seeds/titan_forge_gate_payload_canary.yaml`,
+  `mechanics/titan/parts/seed-boundary/seeds/titan_delta_gate_payload_canary.yaml`,
+  `mechanics/titan/parts/seed-boundary/seeds/titan_memory_source_ref_canary.yaml`, and
+  `mechanics/titan/parts/seed-boundary/seeds/titan_lineage_non_erasure_canary.yaml`
 - Agon pre-protocol proof alignment:
-  `mechanics/agon-proof/README.md`, `docs/AGON_COURT_PREBINDING.md`,
-  `docs/AGON_EVAL_PREBINDING_MODEL.md`,
-  `docs/AGON_EVAL_RECURRENCE_REVIEW_BOUNDARY.md`,
-  `config/agon_eval_prebindings.seed.json`, and
-  `generated/agon_eval_prebinding_registry.min.json`
+  `mechanics/agon/README.md`, `mechanics/agon/parts/court-prebinding/docs/AGON_COURT_PREBINDING.md`,
+  `mechanics/agon/parts/court-prebinding/docs/AGON_EVAL_PREBINDING_MODEL.md`,
+  `mechanics/agon/docs/AGON_EVAL_RECURRENCE_REVIEW_BOUNDARY.md`,
+  `mechanics/agon/parts/court-prebinding/config/agon_eval_prebindings.seed.json`, and
+  `mechanics/agon/parts/court-prebinding/generated/agon_eval_prebinding_registry.min.json`
 - local shared-envelope mirror and eval publication seam:
-  `docs/EVAL_RESULT_RECEIPT_GUIDE.md`,
-  `reports/eval-result-receipt-intake-dry-review-v1.json`, and
+  `mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md`,
+  `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`, and
   `mechanics/publication-receipts/README.md`
 - portability, fixtures, and baseline-boundary guides: `docs/FIXTURE_SURFACE_GUIDE.md`, `docs/BLIND_SPOT_DISCLOSURE_GUIDE.md`, `docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md`, and `docs/BASELINE_COMPARISON_GUIDE.md`
 - shared proof infra and portable report surfaces:
   `docs/SHARED_PROOF_INFRA_GUIDE.md`,
-  `mechanics/proof-infra/README.md`, `fixtures/`, `runners/`, `scorers/`,
-  `reports/`, and `schemas/`
-- adjunct progression, self-agent, and recurrence seams: `docs/PROGRESSION_EVIDENCE_MODEL.md`, `docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`, and `docs/RECURRENCE_PROOF_PROGRAM.md`
+  `mechanics/proof-infra/README.md`,
+  `mechanics/proof-infra/parts/fixture-families/`,
+  `mechanics/proof-infra/parts/reportable-contracts/`, `fixtures/`,
+  `runners/`, `scorers/`, `reports/`, and `schemas/`
+- adjunct progression, self-agent, and recurrence seams: `mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md`, `mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`, and `mechanics/recurrence/docs/RECURRENCE_PROOF_PROGRAM.md`
+- growth-refinery lineage and owner-landing proof support: `mechanics/method-growth/parts/candidate-lineage/README.md` and `mechanics/method-growth/parts/owner-landing/README.md`
 - selection and release surfaces: `EVAL_SELECTION.md`, `docs/RELEASING.md`,
-  `reports/proof-release-readiness-audit-v1.json`,
-  `reports/strategic-closeout-audit-v1.json`, and
-  `reports/release-prep-pr-handoff-v1.json`, and
-  `mechanics/proof-release/README.md`
+  `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json`,
+  `mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json`, and
+  `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json`, and
+  `mechanics/release-support/README.md`
 
 ## What belongs here
 
@@ -177,10 +188,10 @@ Run the current full non-mutating proof-surface battery when you need parity acr
 ```bash
 python scripts/build_catalog.py --check
 python scripts/generate_eval_report_index.py --check
-python scripts/generate_runtime_candidate_template_index.py --check
-python scripts/generate_runtime_candidate_intake.py --check
-python scripts/generate_phase_alpha_eval_matrix.py --check
-python -m pytest -q tests
+python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
+python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
+python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
+python -m pytest -q
 ```
 
 Refresh the derived reader catalogs only when you intentionally need to rewrite them:

@@ -22,13 +22,13 @@ It was to test the route once.
 
 - Add a generic proof-loop checklist under `mechanics/proof-loop/`.
 - Add a reusable example that pretends to be an eval result.
-- Add one public-safe local route-smoke report under `reports/` and validate
-  that it remains bounded.
+- Add one public-safe local route-smoke report and validate that it remains
+  bounded.
 
 ## Decision
 
-Add `reports/proof-loop-local-route-smoke-v1.md` as the first reviewed local
-proof-loop route-smoke report.
+Add `mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md`
+as the first reviewed local proof-loop route-smoke report.
 
 The report selects `aoa-verification-honesty` as the source proof object,
 walks the local proof-loop route through support contracts and candidate
@@ -56,8 +56,10 @@ bundle's report schema and review guide.
   report artifact.
 - Positive: future proof-loop examples or checklists have a reviewed report to
   route back to.
-- Tradeoff: `reports/` now carries a route-smoke report that is not itself a
-  cross-bundle comparison dossier.
+- Positive: the active report path now lives in the proof-loop route-smoke
+  part, so root `reports/` no longer needs a proof-loop exception.
+- Tradeoff: route-smoke provenance now depends on the proof-loop parts map
+  added by `docs/decisions/0030-proof-loop-route-smoke-part.md`.
 - Follow-up: if a later run wants an eval result, it must produce a
   bundle-local report and only then consider an optional receipt.
 
@@ -72,9 +74,11 @@ Use this pattern only when the route itself is the object under evaluation.
 
 ## Validation
 
-- `reports/proof-loop-local-route-smoke-v1.md`
+- `mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md`
 - `mechanics/proof-loop/README.md`
+- `mechanics/proof-loop/PARTS.md`
 - `reports/README.md`
 - `docs/decisions/README.md`
+- `docs/decisions/0030-proof-loop-route-smoke-part.md`
 - `scripts/validate_repo.py`
 - `python scripts/validate_semantic_agents.py`

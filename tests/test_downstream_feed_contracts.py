@@ -9,6 +9,17 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = REPO_ROOT / "scripts"
+RUNTIME_CANDIDATE_READERS_SCRIPTS_DIR = (
+    REPO_ROOT / "mechanics" / "audit" / "parts" / "candidate-readers" / "scripts"
+)
+PHASE_ALPHA_EVAL_MATRIX_SCRIPTS_DIR = (
+    REPO_ROOT
+    / "mechanics"
+    / "boundary-bridge"
+    / "parts"
+    / "phase-alpha-eval-matrix"
+    / "scripts"
+)
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
@@ -20,7 +31,12 @@ from validate_repo import (
 
 
 def load_module(script_name: str):
-    path = REPO_ROOT / "scripts" / script_name
+    package_scripts = {
+        "generate_runtime_candidate_template_index.py": RUNTIME_CANDIDATE_READERS_SCRIPTS_DIR / script_name,
+        "generate_runtime_candidate_intake.py": RUNTIME_CANDIDATE_READERS_SCRIPTS_DIR / script_name,
+        "generate_phase_alpha_eval_matrix.py": PHASE_ALPHA_EVAL_MATRIX_SCRIPTS_DIR / script_name,
+    }
+    path = package_scripts.get(script_name, SCRIPTS_DIR / script_name)
     spec = importlib.util.spec_from_file_location(script_name.replace(".py", ""), path)
     if spec is None or spec.loader is None:
         raise RuntimeError(f"unable to load module from {path}")
@@ -124,7 +140,7 @@ class DownstreamFeedContractsTests(unittest.TestCase):
             self.assertTrue(entry["interpretation_boundary"])
 
     def test_runtime_candidate_template_index_is_generator_backed_and_complete(self) -> None:
-        current = load_json("generated/runtime_candidate_template_index.min.json")
+        current = load_json("mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json")
         expected = runtime_template_index_builder.build_runtime_candidate_template_index_payload()
 
         self.assertEqual(current, expected)
@@ -173,7 +189,14 @@ class DownstreamFeedContractsTests(unittest.TestCase):
                 entry["required_runtime_artifacts"],
                 list(dict.fromkeys(entry["required_runtime_artifacts"])),
             )
-            self.assertTrue(entry["source_example_ref"].startswith("examples/"))
+            self.assertTrue(
+                entry["source_example_ref"].startswith(
+                    (
+                        "mechanics/audit/parts/",
+                        "mechanics/checkpoint/parts/",
+                    )
+                )
+            )
             self.assertTrue(
                 all(
                     runtime_artifact
@@ -184,7 +207,7 @@ class DownstreamFeedContractsTests(unittest.TestCase):
             )
 
     def test_runtime_candidate_intake_is_generator_backed_and_keeps_review_refs(self) -> None:
-        current = load_json("generated/runtime_candidate_intake.min.json")
+        current = load_json("mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json")
         expected = runtime_candidate_intake_builder.build_runtime_candidate_intake_payload()
 
         self.assertEqual(current, expected)
@@ -200,33 +223,33 @@ class DownstreamFeedContractsTests(unittest.TestCase):
             for entry in current["templates"]
         }
         workhorse = by_name[("runtime_evidence_selection", "workhorse-q4-vs-q6-latency-tradeoff")]
-        self.assertEqual(workhorse["review_guide_ref"], "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md")
+        self.assertEqual(workhorse["review_guide_ref"], "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md")
         self.assertEqual(
             workhorse["owner_review_refs"],
             [
-                "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+                "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
                 "docs/EVAL_REVIEW_GUIDE.md",
-                "examples/runtime_evidence_selection.workhorse-local.example.json",
+                "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.workhorse-local.example.json",
             ],
         )
         hook = by_name[("artifact_to_verdict_hook", "aoa-p-0006-approval-boundary-hook")]
-        self.assertEqual(hook["review_guide_ref"], "docs/TRACE_EVAL_BRIDGE.md")
+        self.assertEqual(hook["review_guide_ref"], "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md")
         self.assertEqual(hook["candidate_acceptance_posture"], "candidate_until_eval_review")
         memo_writeback = by_name[("runtime_evidence_selection", "phase-alpha-memo-writeback-act-v1")]
-        self.assertEqual(memo_writeback["review_guide_ref"], "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md")
+        self.assertEqual(memo_writeback["review_guide_ref"], "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md")
         self.assertIn(
-            "examples/runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json",
+            "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json",
             memo_writeback["owner_review_refs"],
         )
         chaos_window = by_name[("runtime_evidence_selection", "runtime-chaos-window")]
         self.assertIn(
-            "examples/runtime_evidence_selection.runtime-chaos-window.example.json",
+            "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.runtime-chaos-window.example.json",
             chaos_window["owner_review_refs"],
         )
         chaos_hook = by_name[("artifact_to_verdict_hook", "trace-integrity-chaos")]
-        self.assertEqual(chaos_hook["review_guide_ref"], "docs/TRACE_EVAL_BRIDGE.md")
+        self.assertEqual(chaos_hook["review_guide_ref"], "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md")
         self.assertIn(
-            "examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json",
+            "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json",
             chaos_hook["owner_review_refs"],
         )
 
@@ -268,7 +291,7 @@ class DownstreamFeedContractsTests(unittest.TestCase):
                 f"aoa-playbooks phase alpha matrix is unavailable: "
                 f"{phase_alpha_eval_matrix_builder.PLAYBOOK_MATRIX_PATH}"
             )
-        current = load_json("generated/phase_alpha_eval_matrix.min.json")
+        current = load_json("mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated/phase_alpha_eval_matrix.min.json")
         expected = phase_alpha_eval_matrix_builder.build_phase_alpha_eval_matrix_payload()
 
         self.assertEqual(current, expected)
@@ -291,7 +314,7 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         )
         memo_recall = recall_rerun["required_evals"][0]
         self.assertIn(
-            "examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json",
+            "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json",
             memo_recall["evidence_refs"],
         )
         self.assertIn(

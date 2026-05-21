@@ -24,7 +24,7 @@ did the checkpoint pack preserve enough axis, contradiction posture, and delta s
 It is not a general depth eval.
 It is not a judgment of philosophical quality by itself.
 Its current materialized draft proof flow runs through
-`fixtures/long-horizon-restart-v1/README.md`, bundle-local fixture and runner
+`mechanics/checkpoint/parts/restartable-inquiry/fixtures/long-horizon-restart-v1/README.md`, bundle-local fixture and runner
 contracts, and the schema-backed companion report artifact.
 
 ## Object under evaluation
@@ -93,7 +93,7 @@ Fixtures should avoid:
 - routes whose continuity depends on private notes outside the bundle
 
 The current materialized shared family is
-`fixtures/long-horizon-restart-v1/README.md`.
+`mechanics/checkpoint/parts/restartable-inquiry/fixtures/long-horizon-restart-v1/README.md`.
 When the machine-readable proof surface is in use, local replacements should
 preserve the same five checkpoint-and-relaunch pressures through the bounded
 replacement rule in `fixtures/contract.json`.
@@ -168,7 +168,7 @@ Execution expectations:
 - when shipping a machine-readable report, validate it against
   `reports/summary.schema.json`
 - keep the shared case-family contract in
-  `fixtures/long-horizon-restart-v1/README.md` visible when that public family
+  `mechanics/checkpoint/parts/restartable-inquiry/fixtures/long-horizon-restart-v1/README.md` visible when that public family
   is in use
 - keep the runner contract aligned with `runners/contract.json` so checkpoint
   completeness, axis retention, contradiction posture, delta separation, and

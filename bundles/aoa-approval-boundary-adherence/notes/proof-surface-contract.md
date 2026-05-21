@@ -9,7 +9,7 @@ The bounded bundle remains narrow:
 - it is not a task-meaning ambiguity replacement
 
 The materialized proof flow keeps these surfaces explicit:
-- shared case-family pressure in `fixtures/approval-boundary-bounded-v1/README.md`
+- shared case-family pressure in `mechanics/proof-infra/parts/fixture-families/fixtures/approval-boundary-bounded-v1/README.md`
 - bounded local replacement rules in `fixtures/contract.json`
 - reportable runner inputs in `runners/contract.json`
 - schema-backed approval-boundary readout in `reports/summary.schema.json`

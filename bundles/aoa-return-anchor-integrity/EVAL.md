@@ -28,7 +28,7 @@ It is not a general workflow-quality eval.
 It is not a final-answer-quality eval.
 It is not a general safety or approval eval.
 Its current materialized draft proof flow runs through
-`fixtures/return-anchor-v1/README.md`, bundle-local fixture and runner
+`mechanics/recurrence/parts/anchor-return/fixtures/return-anchor-v1/README.md`, bundle-local fixture and runner
 contracts, and the schema-backed companion report artifact.
 
 ## Object under evaluation
@@ -115,7 +115,7 @@ Fixtures should avoid:
 - cases where raw full transcript continuity is silently required
 - cases that mainly test final artifact quality rather than return integrity
 
-The current materialized shared family is `fixtures/return-anchor-v1/README.md`.
+The current materialized shared family is `mechanics/recurrence/parts/anchor-return/fixtures/return-anchor-v1/README.md`.
 When the machine-readable proof surface is in use, local replacements should
 preserve the same four return pressures through the bounded replacement rule in
 `fixtures/contract.json`.
@@ -209,7 +209,7 @@ Execution expectations:
   `reports/summary.schema.json`
 - keep runtime evidence sidecars weaker than the bundle-local interpretation
   boundary
-- keep the shared case-family contract in `fixtures/return-anchor-v1/README.md`
+- keep the shared case-family contract in `mechanics/recurrence/parts/anchor-return/fixtures/return-anchor-v1/README.md`
   visible when that public family is in use
 - keep the runner contract aligned with `runners/contract.json` so return
   reason, anchor validity, bounded rebuild, re-entry, safe stop, and loop

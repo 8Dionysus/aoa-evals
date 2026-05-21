@@ -6,7 +6,7 @@
 - bundle shape: `comparative`
 - verdict: `mixed comparison signal`
 - machine-readable companion: `reports/example-report.json`
-- paired proof dossier: `reports/artifact-process-paired-proof-flow-v1.md`
+- paired proof dossier: `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md`
 
 This is the bridge surface, not the standalone artifact or workflow review.
 Read `aoa-artifact-review-rubric` and `aoa-bounded-change-quality` first.

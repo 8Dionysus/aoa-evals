@@ -34,14 +34,14 @@ Recommended local release loop:
 - `python -m pytest`
 
 When you need the latest-sibling canary rather than the pinned repo-validation lane, run:
-- `python scripts/run_sibling_canary.py --repo-root . --matrix scripts/sibling_canary_matrix.json`
+- `python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --matrix mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`
 
 If pinned sibling repos are not available locally, the validator will stay
 permissive about dependency-target existence. CI is the strict path-existence
 gate because it checks sibling repos out into `.deps/` and exports the matching
 `AOA_*_ROOT` variables, including `AOA_MEMO_ROOT`.
 If `abyss-stack` is not checked out beside `aoa-evals` and not under `~/src/abyss-stack`,
-export `ABYSS_STACK_ROOT` to the source checkout so runtime-evidence example refs resolve against tracked schemas.
+export `ABYSS_STACK_ROOT` to the source checkout so runtime evidence example refs resolve against tracked schemas.
 The canary follows the same source-checkout rule and will prefer `~/src/abyss-stack` over a runtime-like sibling mirror when both exist.
 
 The latest-sibling canary and GitHub `Repo Validation` answer different
@@ -67,10 +67,15 @@ Before shipping a new public draft bundle:
 - blind spots should be named clearly
 - the bundle should include explicit manifest evidence for its public support artifacts
 - the bundle should include a tracked `origin_need` evidence note
-- current public starters should ship `examples/example-report.md`
+- current public starters should ship `bundles/<bundle>/examples/example-report.md`
 - current public starters should ship an integrity-review artifact such as `checks/eval-integrity-check.md`
-- when a bundle claims machine-readable report artifacts, ship `reports/summary.schema.json` and `reports/example-report.json` together
-- when a bundle claims reusable execution artifacts, ship bundle-local `fixtures/contract.json` and/or `runners/contract.json` together with the top-level shared surfaces they reference
+- when a bundle claims machine-readable report artifacts, ship
+  `bundles/<bundle>/reports/summary.schema.json` and
+  `bundles/<bundle>/reports/example-report.json` together
+- when a bundle claims reusable execution artifacts, ship bundle-local
+  `bundles/<bundle>/fixtures/contract.json` and/or
+  `bundles/<bundle>/runners/contract.json` together with the active
+  mechanic-local shared surfaces they reference
 - `EVAL_INDEX.md` should include the new public bundle
 - `EVAL_SELECTION.md` should be updated if the chooser meaningfully changes
 
@@ -129,15 +134,15 @@ Before finalizing a change:
 - confirm release scope is small enough that reviewers can reason about it directly
 
 For a large accumulated refactor, read
-`reports/proof-release-readiness-audit-v1.json` before publication. That audit
+`mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json` before publication. That audit
 may prove local release-prep reviewability, but it is not a tag, GitHub
 Release, GitHub `Repo Validation`, PR approval, or goal-completion proof.
 If the change is also part of the long strategic refactor, read
-`reports/strategic-closeout-audit-v1.json` as the wider requirement-by-
+`mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json` as the wider requirement-by-
 requirement handoff audit. It may show local handoff readiness, but it still is
 not goal completion.
 When preparing the actual PR route, read
-`reports/release-prep-pr-handoff-v1.json` as a pre-PR snapshot for candidate
+`mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json` as a pre-PR snapshot for candidate
 branch, commit, PR title/body, validation, and landing steps. That handoff is
 not a branch, commit, push, PR, GitHub `Repo Validation`, merge, tag, GitHub
 Release, or goal completion; after branch or PR creation, current git and

@@ -24,7 +24,7 @@ It isolates outcome-vs-path separation.
 It is not meant to stand in for a pure tool-trajectory eval, a one-score summary of overall workflow quality, or artifact-versus-process comparison.
 If the main question is whether tool use itself stayed disciplined, switch to `aoa-tool-trajectory-discipline`.
 Its current materialized bounded proof flow runs through
-`fixtures/trace-outcome-bounded-v1/README.md`, bundle-local fixture and runner
+`mechanics/proof-infra/parts/fixture-families/fixtures/trace-outcome-bounded-v1/README.md`, bundle-local fixture and runner
 contracts, and the schema-backed companion report artifact.
 
 The goal is not to prove one correct trace.
@@ -111,7 +111,7 @@ The fixture surface is public-safe when:
 - another repo could replace the cases with comparable bounded change tasks that preserve the same outcome-vs-path split question
 
 The current materialized shared family is
-`fixtures/trace-outcome-bounded-v1/README.md`.
+`mechanics/proof-infra/parts/fixture-families/fixtures/trace-outcome-bounded-v1/README.md`.
 When the machine-readable proof surface is in use, local replacements should
 preserve the same five split pressures through the bounded replacement rule in
 `fixtures/contract.json`.
@@ -196,7 +196,7 @@ Execution expectations:
 - when shipping a machine-readable report, validate it against
   `reports/summary.schema.json`
 - keep the shared case-family contract in
-  `fixtures/trace-outcome-bounded-v1/README.md` visible when that public
+  `mechanics/proof-infra/parts/fixture-families/fixtures/trace-outcome-bounded-v1/README.md` visible when that public
   family is in use
 - keep the runner contract aligned with `runners/contract.json` so outcome
   reading, path reading, combined reading, and failure-versus-readout do not

@@ -40,7 +40,7 @@ Please make sure:
 - public-safety concerns are checked
 - status is set honestly
 - any technique or skill traceability is stated clearly
-- current public starters ship `examples/example-report.md`
+- current public starters ship `bundles/<bundle>/examples/example-report.md`
 - current public starters carry explicit manifest evidence for their public support artifacts
 - current public starters carry an integrity-review artifact such as `checks/eval-integrity-check.md`
 - `EVAL_INDEX.md` and `EVAL_SELECTION.md` stay aligned when starter posture changes

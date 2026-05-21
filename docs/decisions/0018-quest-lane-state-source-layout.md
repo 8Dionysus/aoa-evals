@@ -4,6 +4,10 @@
 - Date: 2026-05-19
 - Owner surface: `quests/` and `mechanics/questbook/`
 
+Supersession note: `docs/decisions/0098-agon-quest-note-provenance-route.md`
+supersedes the Agon markdown note placement from this decision. The lane/state
+layout remains current for schema-backed `AOA-EV-Q-*` quest records.
+
 ## Context
 
 `aoa-evals` had already separated `QUESTBOOK.md`, source quest records,

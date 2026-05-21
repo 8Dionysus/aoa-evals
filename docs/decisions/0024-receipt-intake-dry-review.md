@@ -21,14 +21,14 @@ the bundle?
   needs one dry route review before owner-local live receipt memory is touched.
 - Add another report only: rejected because it would not exercise the receipt
   payload seam.
-- Add `reports/eval-result-receipt-intake-dry-review-v1.json`: accepted because
+- Add `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`: accepted because
   it tests the derivation path while keeping the artifact visibly outside the
   receipt, envelope, and live-log classes.
 
 ## Decision
 
 `aoa-evals` keeps a public-safe receipt-intake dry review at
-`reports/eval-result-receipt-intake-dry-review-v1.json`.
+`mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`.
 
 The artifact may contain a schema-valid `candidate_payload_preview` derived from
 the reviewed bundle-local report. It must not contain a publishable receipt

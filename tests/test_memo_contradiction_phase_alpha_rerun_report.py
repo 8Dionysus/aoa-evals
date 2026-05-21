@@ -12,6 +12,10 @@ REPORT_PATH = REPORT_DIR / "phase-alpha-memo-contradiction-rerun.report.json"
 SCHEMA_PATH = REPORT_DIR / "summary.schema.json"
 SELECTION_PATH = (
     REPO_ROOT
+    / "mechanics"
+    / "audit"
+    / "parts"
+    / "selected-evidence-packets"
     / "examples"
     / "runtime_evidence_selection.phase-alpha-memo-contradiction-rerun.example.json"
 )

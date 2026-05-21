@@ -2,11 +2,11 @@
 
 - Status: Accepted
 - Date: 2026-05-19
-- Owner surface: `reports/`
+- Owner surface: `mechanics/release-support/parts/pr-handoff/`
 
 ## Context
 
-The local strategic refactor now has a proof-release readiness audit and a
+The local strategic refactor now has a release-support readiness audit and a
 strategic closeout audit. Both say the local diff is reviewable, and both keep
 publication, GitHub `Repo Validation`, and goal completion open.
 
@@ -25,13 +25,13 @@ pretending that any GitHub action has happened at handoff-preparation time.
   to continue the goal, not an explicit commit/push/merge instruction.
 - Leave the PR shape only in chat: rejected because a long-running refactor
   needs file-backed re-entry evidence.
-- Add `reports/release-prep-pr-handoff-v1.json`: accepted because it prepares a
+- Add `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json`: accepted because it prepares a
   concrete landing route while recording all GitHub and publication statuses as
   a pre-PR snapshot.
 
 ## Decision
 
-`aoa-evals` keeps `reports/release-prep-pr-handoff-v1.json` as the first pre-PR
+`aoa-evals` keeps `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json` as the first pre-PR
 release-prep handoff snapshot for the accumulated strategic refactor.
 
 The artifact may name a candidate branch, commit message, PR title, PR body,
@@ -60,8 +60,8 @@ after a branch or PR exists.
   list, and boundary list.
 - Positive: the handoff is weaker than the actual GitHub route and its status
   block cannot be mistaken for live PR state after PR creation.
-- Tradeoff: one more top-level report must remain validator-covered and
-  subordinate to actual branch/PR/CI evidence.
+- Tradeoff: one more release-support part artifact must remain validator-covered
+  and subordinate to actual branch/PR/CI evidence.
 - Follow-up: if the owner asks to land, reread this handoff as a pre-PR
   snapshot, rerun the broad gates, create the branch/commit/PR, wait for GitHub
   `Repo Validation`, and only then consider merge and final completion audit.

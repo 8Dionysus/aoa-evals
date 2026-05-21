@@ -20,7 +20,7 @@ retention readiness, live-ledger claims, permission leakage, or graph-lift
 completion checks.
 
 Its current materialized draft proof flow runs through
-`fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md`,
+`mechanics/distillation/parts/runtime-candidate-adoption/fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md`,
 `bundles/aoa-memo-reviewed-candidate-adoption-integrity/fixtures/contract.json`,
 `bundles/aoa-memo-reviewed-candidate-adoption-integrity/runners/contract.json`,
 and the schema-backed companion reports under `reports/`.

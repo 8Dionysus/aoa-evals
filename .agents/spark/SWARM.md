@@ -16,7 +16,7 @@ Use this swarm for one bounded eval bundle or one eval seam at a time.
 - `docs/EVAL_PHILOSOPHY.md`
 - `EVAL_INDEX.md`
 - `bundles/aoa-bounded-change-quality/EVAL.md`
-- `templates/EVAL.template.md`
+- `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
 
 ## Форма роя
 - **Coordinator**: выбирает один bounded claim
@@ -64,7 +64,8 @@ portable, bounded, reviewable, explicit about blind spots.
 Map only. Do not edit.
 Return:
 - nearest existing eval bundle(s)
-- fixtures/scorers/runners/schemas likely affected
+- bundle-local fixtures, mechanic-local scorer helpers, runner contracts, and
+  schemas likely affected
 - current blind spots
 - whether this is capability/workflow/boundary/artifact/regression/comparative/longitudinal/stress
 - what would make this overclaim if done badly

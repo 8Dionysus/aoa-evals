@@ -16,9 +16,9 @@ Minimum readiness for this surface:
   - mixed or unstable movement
 - each window uses `context_note` as a comparability disclosure rather than filler summary prose
 - each non-initial window uses `transition_note` to explain why movement relative to the previous window is real, flat, unstable, or regressive
-- the shared window-family contract remains `fixtures/repeated-window-bounded-v1/README.md`
-- the paired readout remains `reports/repeated-window-proof-flow-v1.md`
-- the schema-backed report and dossiers remain aligned with `reports/example-report.json`, `reports/repeated-window-proof-flow-v1.md`, and `reports/repeated-window-proof-flow-v2.md`
+- the shared window-family contract remains `mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md`
+- the paired readout remains `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md`
+- the schema-backed report and dossiers remain aligned with `reports/example-report.json`, `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md`, and `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v2.md`
 - `aoa-eval-integrity-check` remains the integrity sidecar whenever the public longitudinal wording or maturity posture changes materially
 
 If those conditions do not hold,

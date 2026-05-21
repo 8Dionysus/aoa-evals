@@ -24,7 +24,7 @@ It isolates tool-use trajectory discipline.
 It is not meant to stand in for a broader end-to-end workflow eval, a general outcome-quality judgment, or the broader outcome-vs-path split.
 If the main question is whether final outcome and execution path should be judged separately, switch to `aoa-trace-outcome-separation`.
 Its current materialized bounded proof flow runs through
-`fixtures/tool-trajectory-bounded-v1/README.md`, bundle-local fixture and
+`mechanics/proof-infra/parts/fixture-families/fixtures/tool-trajectory-bounded-v1/README.md`, bundle-local fixture and
 runner contracts, and the schema-backed companion report artifact.
 
 The goal is not to prove one ideal tool sequence.
@@ -110,7 +110,7 @@ The fixture surface is public-safe when:
 - another repo could replace the cases with comparable bounded tasks where tool trajectory materially affects the same claim
 
 The current materialized shared family is
-`fixtures/tool-trajectory-bounded-v1/README.md`.
+`mechanics/proof-infra/parts/fixture-families/fixtures/tool-trajectory-bounded-v1/README.md`.
 When the machine-readable proof surface is in use, local replacements should
 preserve the same five path-sensitive pressures through the bounded replacement
 rule in `fixtures/contract.json`.
@@ -195,7 +195,7 @@ Execution expectations:
 - when shipping a machine-readable report, validate it against
   `reports/summary.schema.json`
 - keep the shared case-family contract in
-  `fixtures/tool-trajectory-bounded-v1/README.md` visible when that public
+  `mechanics/proof-infra/parts/fixture-families/fixtures/tool-trajectory-bounded-v1/README.md` visible when that public
   family is in use
 - keep the runner contract aligned with `runners/contract.json` so
   why-path-matters, trajectory reading, omission-or-churn, and

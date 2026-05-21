@@ -16,15 +16,28 @@ Keep these public rules:
 - `additional_shared_fixture_family_paths` records extra reusable families without replacing the primary one
 - `paired_readout_path` is the primary shared dossier for the bundle
 - `additional_paired_readout_paths` records extra dossiers without replacing the primary one
-- `scorer_helper_paths` may reference shared payload builders, but bundle-local schema and `EVAL.md` stay authoritative
+- `runner_surface_path` should reference the active reportable-contract runner
+  surface when a bundle exposes machine-readable report artifacts
+- `scorer_helper_paths` may reference shared payload builders under the active
+  reportable-contract part, but bundle-local schema and `EVAL.md` stay
+  authoritative
 
 ## Naming discipline
 
 Use these path shapes:
-- fixture family: `fixtures/<family-name>/README.md`
-- shared dossier: `reports/<readout-name>-vN.md`
-- shared scorer helper: `scorers/<helper_name>.py`
-- shared runner surface: `runners/<surface_name>.md`
+- generic fixture family:
+  `mechanics/proof-infra/parts/fixture-families/fixtures/<family-name>/README.md`
+- mechanic-owned fixture family:
+  `mechanics/<mechanic>/parts/<part>/fixtures/<family-name>/README.md`
+- shared reportable runner surface:
+  `mechanics/proof-infra/parts/reportable-contracts/runners/<surface-name>.md`
+- shared scorer helper:
+  `mechanics/proof-infra/parts/reportable-contracts/scorers/<helper_name>.py`
+- shared runner, fixture-contract, and report-summary schemas:
+  `mechanics/proof-infra/parts/reportable-contracts/schemas/<schema-name>.json`
+- shared dossier: `mechanics/<mechanic>/parts/<part>/reports/<readout-name>-vN.md`
+  when a mechanic owns it, or `bundles/<bundle>/reports/<artifact>.json` when
+  the bundle owns it
 
 Do not use shared names to imply stronger truth than the bundle already supports.
 

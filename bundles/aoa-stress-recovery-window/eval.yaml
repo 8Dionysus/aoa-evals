@@ -7,8 +7,8 @@ baseline_mode: longitudinal-window
 verdict_shape: comparative
 report_format: comparative-summary
 comparison_surface:
-  shared_family_path: fixtures/stress-recovery-window-bounded-v1/README.md
-  paired_readout_path: reports/stress-recovery-window-proof-flow-v1.md
+  shared_family_path: mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md
+  paired_readout_path: mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md
   integrity_sidecar: aoa-eval-integrity-check
   selection_question: Do you need ordered repeated-window proof for one named stress recovery family?
   anchor_surface: aoa-antifragility-posture

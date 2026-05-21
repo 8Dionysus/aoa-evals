@@ -111,7 +111,7 @@ The fixture surface is public-safe when:
 - blocked checks can be understood without private operational context
 - another repo could replace the cases with comparable bounded change tasks that preserve the same honesty question
 
-The current materialized shared family is `fixtures/verification-honesty-v1/README.md`.
+The current materialized shared family is `mechanics/proof-infra/parts/fixture-families/fixtures/verification-honesty-v1/README.md`.
 When the machine-readable proof surface is in use, local replacements should preserve the same four case archetypes
 through the bounded replacement rule in `fixtures/contract.json`.
 
@@ -194,7 +194,7 @@ Execution expectations:
 - keep per-case evidence inspectable enough that a careful reviewer can see why the note was assigned
 - keep approve/defer language separate from the failure/readout split
 - when shipping a machine-readable report, validate it against `reports/summary.schema.json`
-- keep the shared case-family contract in `fixtures/verification-honesty-v1/README.md` visible when that public family is in use
+- keep the shared case-family contract in `mechanics/proof-infra/parts/fixture-families/fixtures/verification-honesty-v1/README.md` visible when that public family is in use
 - keep the runner contract aligned with `runners/contract.json` so executed, skipped, blocked, and inferential verification do not collapse into one readout
 
 ## Outputs

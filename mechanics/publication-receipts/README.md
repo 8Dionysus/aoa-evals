@@ -1,5 +1,9 @@
 # Publication Receipts Mechanic
 
+## Entry Route
+
+Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
+
 ## Role
 
 `mechanics/publication-receipts/` routes the operation that turns one reviewed
@@ -18,16 +22,33 @@ being published.
 
 An optional receipt is valid only after that stronger report path exists.
 
+## Part Topology
+
+See `PARTS.md` for the package-local part map.
+
+- `parts/receipt-payload/` owns the eval-result receipt guide, payload schema,
+  and public example.
+- `parts/stats-envelope-mirror/` owns the local validation mirror of the
+  canonical `aoa-stats` event envelope.
+- `parts/live-publisher/` owns the owner-local append tool.
+- `parts/intake-dry-review/` owns the non-publishing receipt-intake dry review.
+
+`.aoa/live_receipts/` remains the owner-local live receipt log path. It is
+routed here but not moved into `parts/`.
+
 ## Source Surfaces
 
-- `docs/EVAL_RESULT_RECEIPT_GUIDE.md`
-- `schemas/eval-result-receipt.schema.json`
-- `schemas/stats-event-envelope.schema.json`
-- `examples/eval_result_receipt.example.json`
-- `reports/eval-result-receipt-intake-dry-review-v1.json`
-- `scripts/publish_live_receipts.py`
-- `reports/README.md`
-- `reports/AGENTS.md`
+- `mechanics/publication-receipts/PARTS.md`
+- `mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md`
+- `mechanics/publication-receipts/parts/receipt-payload/schemas/eval-result-receipt.schema.json`
+- `mechanics/publication-receipts/parts/stats-envelope-mirror/schemas/stats-event-envelope.schema.json`
+- `mechanics/publication-receipts/parts/receipt-payload/examples/eval_result_receipt.example.json`
+- `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`
+- `mechanics/publication-receipts/parts/live-publisher/scripts/publish_live_receipts.py`
+- `mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py`
+- `mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py`
+- `mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py`
+- root route cards `reports/README.md` and `reports/AGENTS.md`
 - `.aoa/live_receipts/AGENTS.md`
 - `.aoa/live_receipts/eval-result-receipts.jsonl` as an owner-local append-only
   log path
@@ -46,10 +67,10 @@ An optional receipt is valid only after that stronger report path exists.
 
 - one schema-valid `eval_result_receipt` payload
 - one `stats-event-envelope` sidecar around that payload
-- optional append through `scripts/publish_live_receipts.py`
+- optional append through `mechanics/publication-receipts/parts/live-publisher/scripts/publish_live_receipts.py`
 - downstream-readable publication facts that remain weaker than the report
 
-Dry-review output is weaker: `reports/eval-result-receipt-intake-dry-review-v1.json`
+Dry-review output is weaker: `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`
 may contain a schema-valid payload preview, but it must keep
 `receipt_status` as `not_published` and must not create an envelope, event id,
 publisher run, or live log append.
@@ -96,7 +117,7 @@ python scripts/validate_semantic_agents.py
 If schemas, examples, or publisher behavior change, also run:
 
 ```bash
-python -m pytest -q tests/test_publish_live_receipts.py tests/test_live_receipt_log.py tests/test_validate_repo.py
+python -m pytest -q mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py tests/test_validate_repo.py
 ```
 
 If generated readers or catalogs change, run their owning builders in `--check`
@@ -106,10 +127,10 @@ mode rather than hand-editing generated output.
 
 Use this package before:
 
-- changing `docs/EVAL_RESULT_RECEIPT_GUIDE.md`;
-- changing `schemas/eval-result-receipt.schema.json`;
-- refreshing the local `schemas/stats-event-envelope.schema.json` mirror;
-- changing `examples/eval_result_receipt.example.json`;
-- changing `scripts/publish_live_receipts.py`;
+- changing `mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md`;
+- changing `mechanics/publication-receipts/parts/receipt-payload/schemas/eval-result-receipt.schema.json`;
+- refreshing the local `mechanics/publication-receipts/parts/stats-envelope-mirror/schemas/stats-event-envelope.schema.json` mirror;
+- changing `mechanics/publication-receipts/parts/receipt-payload/examples/eval_result_receipt.example.json`;
+- changing `mechanics/publication-receipts/parts/live-publisher/scripts/publish_live_receipts.py`;
 - publishing or correcting owner-local eval result receipts.
 - dry-reviewing receipt intake from a reviewed report without publication.

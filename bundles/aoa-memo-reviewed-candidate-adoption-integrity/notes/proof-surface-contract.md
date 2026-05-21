@@ -16,7 +16,7 @@ The draft bundle remains narrow:
 The materialized proof flow keeps these surfaces explicit:
 
 - shared case-family pressure in
-  `fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md`
+  `mechanics/distillation/parts/runtime-candidate-adoption/fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md`
 - bounded local replacement rules in `fixtures/contract.json`
 - reportable runner inputs in `runners/contract.json`
 - schema-backed adoption readout in `reports/summary.schema.json`

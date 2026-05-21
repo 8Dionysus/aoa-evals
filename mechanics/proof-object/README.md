@@ -1,5 +1,9 @@
 # Proof Object Mechanic
 
+## Entry Route
+
+Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
+
 ## Role
 
 `mechanics/proof-object/` routes the operation that keeps eval bundle source
@@ -25,7 +29,11 @@ This package routes the operation around those objects. It does not move them.
 
 - `bundles/*/EVAL.md`
 - `bundles/*/eval.yaml`
-- `templates/EVAL.template.md`
+- `mechanics/proof-object/PARTS.md`
+- `mechanics/proof-object/PROVENANCE.md`
+- `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
+- `mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json`
+- `mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json`
 - `docs/ARCHITECTURE.md`
 - `docs/EVAL_PHILOSOPHY.md`
 - `docs/EVAL_RUBRIC.md`
@@ -60,6 +68,12 @@ This package routes the operation around those objects. It does not move them.
 - report contract or support artifact route when needed
 - generated reader entries derived from source
 - bundle-local review boundary for candidate evidence, reports, and receipts
+
+## Active Parts
+
+- `bundle-authoring`: starter scaffold for bounded `EVAL.md` authoring.
+- `bundle-contracts`: frontmatter and `eval.yaml` schema contracts for source
+  proof objects.
 
 ## Stronger Owner Split
 

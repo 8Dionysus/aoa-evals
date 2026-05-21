@@ -1,6 +1,7 @@
 # Quests
 
-`quests/` contains source quest records for `aoa-evals` proof obligations.
+`quests/` contains schema-backed source quest records for `aoa-evals` proof
+obligations.
 
 Quests are not eval bundles. A quest is an obligation to return: a missing proof
 surface, regression gap, verdict-bridge debt, repeated blind spot, proof-pressure
@@ -11,12 +12,12 @@ mechanic, or release item.
 
 The current source layout is lane/state based:
 
-`quests/<lane>/<state>/<quest-id>.*`
+`quests/<lane>/<state>/<quest-id>.yaml`
 
 - `quests/<lane>/<state>/AOA-EV-Q-*.yaml` are schema-backed source quest
   records.
-- `quests/agon/captured/AOE-Q-AGON-*.md` are legacy/source-compatible Agon
-  alignment notes.
+- Markdown note forms are not active quest source records. Former Agon
+  markdown quest notes are preserved behind `mechanics/agon/PROVENANCE.md`.
 
 Old top-level quest paths are legacy path vocabulary, not active source files.
 Do not reintroduce them as duplicate aliases; source IDs stay stable and
@@ -25,7 +26,6 @@ generated readers expose the current source path.
 ## Surface Roles
 
 - `quests/<lane>/<state>/*.yaml`: source quest records.
-- `quests/<lane>/<state>/*.md`: legacy or source-compatible notes.
 - `quests/LIFECYCLE.md`: lifecycle contract for state meaning, return posture,
   open-index visibility, and proof-loop defer or handoff endings.
 - `QUESTBOOK.md`: human index of open proof, regression, and verdict-bridge
@@ -34,8 +34,8 @@ generated readers expose the current source path.
 - `generated/quest_dispatch.min.json`: derived dispatch reader.
 - `generated/quest_catalog.min.example.json` and
   `generated/quest_dispatch.min.example.json`: example mirrors.
-- `schemas/quest.schema.json`: source quest record schema.
-- `schemas/quest_dispatch.schema.json`: generated dispatch schema.
+- `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`: source quest record schema.
+- `mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json`: generated dispatch schema.
 
 Generated quest readers do not replace source quest records and do not become
 live portable verdict authority.
@@ -54,7 +54,7 @@ Candidate lanes:
 - `harvest`
 - `questbook`
 
-Allowed lifecycle states are defined by `schemas/quest.schema.json`:
+Allowed lifecycle states are defined by `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`:
 
 - `captured`
 - `triaged`
@@ -76,11 +76,13 @@ which return posture applies when a proof-loop route defers or hands off.
 
 - Keep `id` equal to the filename stem for
   `quests/<lane>/<state>/AOA-EV-Q-*.yaml`.
+- Keep active quest source records schema-backed YAML. Do not add markdown note
+  forms under lifecycle directories.
 - Keep `repo: aoa-evals`.
 - Keep `public_safe: true`.
 - Keep the state directory equal to the source record `state`.
 - Keep `quests/LIFECYCLE.md` aligned with every state accepted by
-  `schemas/quest.schema.json`.
+  `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`.
 - Keep closed quests out of the open-obligation list in `QUESTBOOK.md`.
 - Keep active, captured, triaged, ready, blocked, and reanchor quests visible in
   `QUESTBOOK.md`.

@@ -2,7 +2,12 @@
 
 ## Guidance for `scripts/`
 
-`scripts/` contains builders, validators, publishers, catalog tools, and proof-surface helpers.
+`scripts/` contains repo-wide builders, validators, catalog tools, and
+proof-surface helpers.
+
+Mechanic-owned scripts live under the owning part. For example, publication
+receipt publishing belongs to `mechanics/publication-receipts/parts/`, and
+candidate-reader or sibling-canary builders live under their mechanic parts.
 
 Keep scripts deterministic and repo-relative unless an explicit command says otherwise. Avoid hidden network calls, private data, and ambient credentials.
 

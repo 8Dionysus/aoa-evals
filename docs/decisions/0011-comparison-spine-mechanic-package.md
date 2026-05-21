@@ -37,7 +37,10 @@ Create `mechanics/comparison-spine/` for the operation:
 `comparison claim -> bundle comparison_surface -> shared proof artifacts -> generated comparison spine -> bounded comparison read`
 
 The package routes fixed-baseline, peer-compare, and longitudinal-window
-semantics without moving bundles, reports, fixtures, or generated readers.
+semantics. The initial package did not move bundles, reports, fixtures, or
+generated readers; decision `0029` later moved comparison-spine-owned shared
+dossiers into package-local parts, and decision `0040` later moved
+comparison-spine-owned fixture families into the same active parts.
 
 ## Rationale
 
@@ -64,8 +67,13 @@ source truth in the proof object and generated truth in deterministic builders.
 This decision does not move, rename, promote, deprecate, or rewrite any eval
 bundle.
 
-It does not move reports, fixtures, schemas, generated readers, or comparison
-bundles into `mechanics/comparison-spine/`.
+It does not move fixtures, schemas, generated readers, or comparison bundles
+into `mechanics/comparison-spine/`.
+
+Comparison-spine report movement is governed by
+`docs/decisions/0029-comparison-spine-report-parts.md`.
+Comparison-spine fixture family movement is governed by
+`docs/decisions/0040-comparison-spine-fixture-parts.md`.
 
 It does not make `generated/comparison_spine.json` source truth.
 

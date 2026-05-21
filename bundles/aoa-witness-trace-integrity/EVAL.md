@@ -24,7 +24,7 @@ and it is not a substitute for full runtime instrumentation in `abyss-stack`.
 It may sit upstream of artifact/process pairing as adjacent witness context,
 but it does not replace `aoa-bounded-change-quality` as the process-side reading.
 Its current materialized draft proof flow runs through
-`fixtures/witness-trace-v1/README.md`, bundle-local fixture and runner
+`mechanics/proof-infra/parts/fixture-families/fixtures/witness-trace-v1/README.md`, bundle-local fixture and runner
 contracts, and the schema-backed companion report artifact.
 
 The goal is not to prove total transparency.
@@ -110,7 +110,7 @@ Fixture families should avoid:
 - perfectly clean happy-path traces only
 - cases where the trace can pass without saying anything meaningful
 
-The current materialized shared family is `fixtures/witness-trace-v1/README.md`.
+The current materialized shared family is `mechanics/proof-infra/parts/fixture-families/fixtures/witness-trace-v1/README.md`.
 When the machine-readable proof surface is in use, local replacements should
 preserve the same five witness pressures through the bounded replacement rule in
 `fixtures/contract.json`.
@@ -189,7 +189,7 @@ Execution expectations:
 - do not upgrade partial visibility into total transparency
 - when shipping a machine-readable report, validate it against
   `reports/summary.schema.json`
-- keep the shared case-family contract in `fixtures/witness-trace-v1/README.md`
+- keep the shared case-family contract in `mechanics/proof-infra/parts/fixture-families/fixtures/witness-trace-v1/README.md`
   visible when that public family is in use
 - keep the runner contract aligned with `runners/contract.json` so meaningful
   steps, tool visibility, `state_delta`, failures, redaction posture, and

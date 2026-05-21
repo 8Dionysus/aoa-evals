@@ -7,7 +7,7 @@
 - comparison mode: `longitudinal-window`
 - posture: `mixed`
 - machine-readable companion: `reports/example-report.json`
-- paired readout: `reports/stress-recovery-window-proof-flow-v1.md`
+- paired readout: `mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md`
 
 ## Window Summary
 

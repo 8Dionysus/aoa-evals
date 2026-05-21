@@ -3,7 +3,7 @@ id: AOA-EV-Q-0007
 title: Define review orchestrator proof anchors for evidence completeness and honest closure
 summary: Add bounded proof anchors for review-oriented work without letting closure posture drift into execution planning.
 repo: aoa-evals
-owner_surface: docs/ORCHESTRATOR_PROOF_ALIGNMENT.md
+owner_surface: mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md
 theme_ref: ''
 milestone_ref: ''
 kind: proof
@@ -30,7 +30,7 @@ activation:
   note: open when review-facing class proof needs a public eval-side anchor map
 anchor_ref:
   artifact: orchestrator_proof_alignment
-  ref: docs/ORCHESTRATOR_PROOF_ALIGNMENT.md
+  ref: mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md
 handoff_role: eval-maintainer
 orchestrator_class_ref: aoa-agents:review
 capability_target: evidence_closure
@@ -39,7 +39,7 @@ playbook_family_refs:
   - repo:aoa-playbooks/generated/playbook_review_status.min.json
 proof_surface_refs:
   - generated/eval_catalog.min.json
-  - docs/ORCHESTRATOR_PROOF_ALIGNMENT.md#review
+  - mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md#review
 memory_surface_refs:
   - repo:aoa-memo/generated/memory_object_capsules.json
   - repo:aoa-memo/docs/ORCHESTRATOR_MEMORY_ALIGNMENT.md

@@ -89,14 +89,14 @@ Then branch by task:
   `docs/EVAL_REVIEW_GUIDE.md`
 - repeated-window, stress recovery, progression, recurrence, or self-agent checkpoint seams:
   `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`,
-  `docs/STRESS_RECOVERY_WINDOW_EVALS.md`,
-  `docs/PROGRESSION_EVIDENCE_MODEL.md`,
-  `docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`, and
-  `docs/RECURRENCE_PROOF_PROGRAM.md`
+  `mechanics/antifragility/parts/stress-recovery-window/docs/STRESS_RECOVERY_WINDOW_EVALS.md`,
+  `mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md`,
+  `mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`, and
+  `mechanics/recurrence/docs/RECURRENCE_PROOF_PROGRAM.md`
 - runtime artifact to verdict bridge:
-  `docs/TRACE_EVAL_BRIDGE.md`,
-  `docs/EVAL_RESULT_RECEIPT_GUIDE.md`, and
-  `docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
+  `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md`,
+  `mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md`, and
+  `mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
 - comparison spine, baselines, or blind-spot handling:
   `docs/COMPARISON_SPINE_GUIDE.md`,
   `docs/BASELINE_COMPARISON_GUIDE.md`, and
@@ -167,9 +167,9 @@ python scripts/build_catalog.py --check
 For the current full non-mutating repo integrity battery, also run:
 
 ```bash
-python scripts/generate_runtime_candidate_template_index.py --check
-python scripts/generate_runtime_candidate_intake.py --check
-python scripts/generate_phase_alpha_eval_matrix.py --check
+python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
+python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
+python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
 python -m pytest -q tests
 ```
 

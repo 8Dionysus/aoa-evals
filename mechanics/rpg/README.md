@@ -4,6 +4,14 @@
 
 Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
 
+## Role
+
+`mechanics/rpg/` routes bounded proof work for progression evidence and unlock
+support inside `aoa-evals`.
+
+It receives RPG-shaped pressure as route-scoped evidence, axis deltas, cautions,
+unlock candidates, quest refs, generated cards, and owner handoff context.
+
 ## Owned Operation
 
 `mechanics/rpg/` owns the eval-side RPG proof operation:
@@ -95,3 +103,13 @@ owns command execution.
 
 When generated or source-support surfaces change, follow the same AGENTS
 validation lane before closeout.
+
+## Next Route
+
+Use this mechanic before changing progression-unlocks support, progression
+evidence schemas, unlock proof bridge docs, generated unlock cards, or
+quest-facing RPG evidence routes.
+
+For role truth, skill truth, technique truth, playbook campaign truth, quest
+acceptance, runtime equip state, or derived stats summaries, follow the
+stronger owner route before changing eval-side proof support.

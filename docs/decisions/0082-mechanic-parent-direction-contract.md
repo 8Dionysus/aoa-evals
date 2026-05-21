@@ -19,6 +19,11 @@ Every active mechanic parent must expose `DIRECTION.md`.
 current contour, growth rule, stop-lines, and validation posture for the
 parent. It is not `PARTS.md`, not a part map, and not provenance.
 
+Parent `README.md` must expose `## Role`, `## Owned Operation`, `## Validation`,
+and `## Next Route` around the entry route. The README is the short package
+entry card: it names the operation, points validation to `AGENTS.md#validation`,
+and tells the next agent which proof pressure belongs here next.
+
 Parent `README.md` and parent `AGENTS.md` must route `DIRECTION.md` from their
 entry route before part growth or legacy lookup.
 

@@ -4,6 +4,15 @@
 
 Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
 
+## Role
+
+`mechanics/method-growth/` routes bounded proof work for candidate lineage and
+owner landing inside `aoa-evals`.
+
+It receives method-growth pressure when staged candidates, owner hypotheses,
+supersession markers, dropped branches, or nearest-wrong targets need a
+reviewable eval-side proof route.
+
 ## Owned Operation
 
 `mechanics/method-growth/` owns the eval-side method-growth proof operation:
@@ -96,3 +105,13 @@ owns command execution.
 
 When generated or source-support surfaces change, follow the same AGENTS
 validation lane before closeout.
+
+## Next Route
+
+Use this mechanic before changing candidate-lineage support, owner-landing
+support, fixture families, bundle contracts, or reports that feed method-growth
+proof review.
+
+For diagnosis, repair, progression, unlock, distillation, memory lessons, seed
+truth, or final owner-object acceptance, follow the stronger owner or narrower
+mechanic route before changing eval-side proof support.

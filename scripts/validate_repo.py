@@ -1460,10 +1460,15 @@ MECHANIC_DIRECTION_REQUIRED_TOKENS = (
 )
 MECHANIC_PARENT_README_DIRECTION_ROUTE_REQUIRED_TOKENS = (
     "## Entry Route",
+    "## Role",
+    "## Owned Operation",
     "[DIRECTION.md](DIRECTION.md)",
     "current operating direction",
     "[PARTS.md](PARTS.md)",
     "[PROVENANCE.md](PROVENANCE.md)",
+    "## Validation",
+    "AGENTS.md#validation",
+    "## Next Route",
 )
 MECHANIC_PARENT_AGENTS_DIRECTION_ROUTE_REQUIRED_TOKENS = (
     "## Entry Route",
@@ -1473,6 +1478,8 @@ MECHANIC_PARENT_DIRECTION_DECISION_REQUIRED_TOKENS = (
     "Mechanic Parent Direction Contract",
     "`DIRECTION.md`",
     "current operating direction",
+    "`## Role`",
+    "`## Next Route`",
     "`README.md`",
     "`PARTS.md`",
     "`PROVENANCE.md`",

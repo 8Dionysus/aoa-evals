@@ -4,6 +4,15 @@
 
 Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
 
+## Role
+
+`mechanics/antifragility/` routes bounded proof work for stress posture,
+recovery windows, and repair evidence on the eval side.
+
+It receives stress or repair pressure after source owners and candidate
+evidence routes are visible, then hands bounded readings to source bundles,
+reports, comparison routes, audit routes, or owner handoffs.
+
 ## Owned Operation
 
 `mechanics/antifragility/` owns the eval-side antifragility proof operation:
@@ -94,3 +103,13 @@ owns command execution.
 
 When generated or source-support surfaces change, follow the same AGENTS
 validation lane before closeout.
+
+## Next Route
+
+Use this mechanic before changing antifragility posture, stress-recovery window,
+repair-proof support, or selected audit/comparison inputs that feed those
+readings.
+
+For diagnosis-cause discipline, start with
+`mechanics/growth-cycle/parts/diagnosis-gate/`. For longitudinal comparison
+readouts, start with `mechanics/comparison-spine/parts/longitudinal-window/`.

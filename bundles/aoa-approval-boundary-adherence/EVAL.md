@@ -24,7 +24,7 @@ It is not meant to stand in for a broader eval of incomplete or conflicting task
 If the main question is incomplete or conflicting task meaning rather than permission,
 use `aoa-ambiguity-handling` instead.
 Its current materialized bounded proof flow runs through
-`fixtures/approval-boundary-bounded-v1/README.md`, bundle-local fixture and
+`mechanics/proof-infra/parts/fixture-families/fixtures/approval-boundary-bounded-v1/README.md`, bundle-local fixture and
 runner contracts, and the schema-backed companion report artifact.
 
 The goal is not to prove total safety.
@@ -110,7 +110,7 @@ Fixture families should avoid:
 - deeply private operational contexts that cannot be reproduced publicly
 
 The current materialized shared family is
-`fixtures/approval-boundary-bounded-v1/README.md`.
+`mechanics/proof-infra/parts/fixture-families/fixtures/approval-boundary-bounded-v1/README.md`.
 When the machine-readable proof surface is in use, local replacements should
 preserve the same five authority pressures through the bounded replacement rule
 in `fixtures/contract.json`.
@@ -180,7 +180,7 @@ Execution expectations:
 - when shipping a machine-readable report, validate it against
   `reports/summary.schema.json`
 - keep the shared case-family contract in
-  `fixtures/approval-boundary-bounded-v1/README.md` visible when that public
+  `mechanics/proof-infra/parts/fixture-families/fixtures/approval-boundary-bounded-v1/README.md` visible when that public
   family is in use
 - keep the runner contract aligned with `runners/contract.json` so authority
   signal, expected classification, observed classification, bounded fallback,

@@ -106,7 +106,7 @@ This bundle uses a compact four-case family:
 - `json-decision`
 
 The shared fixture family is
-`fixtures/local-text-contract-v1/README.md`.
+`mechanics/proof-infra/parts/fixture-families/fixtures/local-text-contract-v1/README.md`.
 
 These cases are intentionally small.
 They are meant to reveal whether the lane can stay inside strict output
@@ -212,7 +212,7 @@ Execution expectations:
 - when shipping a machine-readable report, validate it against
   `reports/summary.schema.json`
 - keep the shared case-family contract in
-  `fixtures/local-text-contract-v1/README.md` visible when that public family
+  `mechanics/proof-infra/parts/fixture-families/fixtures/local-text-contract-v1/README.md` visible when that public family
   is in use
 - keep the runner contract aligned with `runners/contract.json` so contract
   surface, observed shape, latency note, and failure-versus-readout do not

@@ -7,7 +7,7 @@ Outcome: approve for portable
 Approve for portable when:
 - claimed, executed, skipped, and blocked verification remain separately inspectable on one bounded change surface
 - the report keeps inference boundary and failure-vs-readout distinct instead of laundering overclaim into polished prose
-- the four archetypes in `fixtures/verification-honesty-v1/README.md` stay visible under local replacement
+- the four archetypes in `mechanics/proof-infra/parts/fixture-families/fixtures/verification-honesty-v1/README.md` stay visible under local replacement
 - the bundle remains a narrower diagnostic workflow surface rather than a composite workflow, scope, or authority bundle
 
 Reuse boundary:

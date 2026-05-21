@@ -8,7 +8,7 @@
 
 Decision `0002` established the source proof object as the authority for one
 bounded eval claim. Since then, `aoa-evals` has added a proof topology map,
-mechanics atlas, runtime-evidence package, sibling-proof-refs package, and
+mechanics atlas, audit package, boundary-bridge package, and
 legacy naming map.
 
 The source proof object is now the recurring operation that all those surfaces
@@ -34,7 +34,7 @@ The package routes existing source surfaces:
 
 - `bundles/*/EVAL.md`
 - `bundles/*/eval.yaml`
-- `templates/EVAL.template.md`
+- `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
 - architecture, philosophy, rubric, review, score, verdict, blind spot,
   portability, and comparison guides
 - generated catalog, capsule, and section readers

@@ -29,7 +29,7 @@ and it is not a replacement for general artifact-quality review.
 It may sit downstream of artifact/process pairing as adjacent compost context,
 but it does not replace `aoa-artifact-review-rubric` as the artifact-side reading.
 Its current materialized draft proof flow runs through
-`fixtures/compost-provenance-v1/README.md`, bundle-local fixture and runner
+`mechanics/distillation/parts/compost-provenance/fixtures/compost-provenance-v1/README.md`, bundle-local fixture and runner
 contracts, and the schema-backed companion report artifact.
 
 The goal is not to prove that a composted insight is final.
@@ -119,7 +119,7 @@ Fixture families should avoid:
 - cases that depend on hidden private source references
 
 The current materialized shared family is
-`fixtures/compost-provenance-v1/README.md`.
+`mechanics/distillation/parts/compost-provenance/fixtures/compost-provenance-v1/README.md`.
 When the machine-readable proof surface is in use, local replacements should
 preserve the same five provenance pressures through the bounded replacement rule
 in `fixtures/contract.json`.
@@ -204,7 +204,7 @@ Execution expectations:
 - when shipping a machine-readable report, validate it against
   `reports/summary.schema.json`
 - keep the shared case-family contract in
-  `fixtures/compost-provenance-v1/README.md` visible when that public family is
+  `mechanics/distillation/parts/compost-provenance/fixtures/compost-provenance-v1/README.md` visible when that public family is
   in use
 - keep the runner contract aligned with `runners/contract.json` so source refs,
   review state, limits, promotion boundaries, and contradiction posture do not

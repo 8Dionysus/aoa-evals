@@ -30,7 +30,7 @@ It is not a general memory-quality bundle.
 It is not a contradiction bundle.
 It is not a permissions-from-memory bundle.
 Its current materialized draft proof flow runs through
-`fixtures/memo-recall-guardrail-v1/README.md`, bundle-local fixture and runner
+`mechanics/recurrence/parts/memory-recall/fixtures/memo-recall-guardrail-v1/README.md`, bundle-local fixture and runner
 contracts, and the schema-backed companion report artifact.
 
 ## Object under evaluation
@@ -114,7 +114,7 @@ Fixtures should avoid:
 - permission or authority cases that are really owned by `aoa-agents`
 
 The current materialized shared family is
-`fixtures/memo-recall-guardrail-v1/README.md`.
+`mechanics/recurrence/parts/memory-recall/fixtures/memo-recall-guardrail-v1/README.md`.
 When the machine-readable proof surface is in use, local replacements should
 preserve the same five memo-recall pressures through the bounded replacement
 rule in `fixtures/contract.json`.
@@ -199,7 +199,7 @@ Execution expectations:
 - when shipping a machine-readable report, validate it against
   `reports/summary.schema.json`
 - keep the shared case-family contract in
-  `fixtures/memo-recall-guardrail-v1/README.md` visible when that public family
+  `mechanics/recurrence/parts/memory-recall/fixtures/memo-recall-guardrail-v1/README.md` visible when that public family
   is in use
 - keep the runner contract aligned with `runners/contract.json` so read path,
   provenance posture, lifecycle honesty, and stronger-source escalation do not

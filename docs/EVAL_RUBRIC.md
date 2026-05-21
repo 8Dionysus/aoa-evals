@@ -70,7 +70,8 @@ This rubric does not introduce graph inference, automatic ranking, or fully auto
 
 Current public expectations should stay small but explicit:
 
-- public starter bundles should carry `origin_need`, `integrity_check`, and `examples/example-report.md`
+- public starter bundles should carry `origin_need`, `integrity_check`, and
+  `bundles/<bundle>/examples/example-report.md`
 - status `bounded` should carry a `support_note` that records the bounded review outcome plus failure and readout distinctions
 - status `portable`, `baseline`, and `canonical` should carry `portable_review`; baseline promotions should use this as the public review trail
 - status `canonical` should also carry `canonical_readiness`

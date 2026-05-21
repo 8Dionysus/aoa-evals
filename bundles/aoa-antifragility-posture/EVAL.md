@@ -154,7 +154,7 @@ A careful run should:
 If shipping a machine-readable report, use:
 - `reports/summary.schema.json` for the bundle-local report contract
 - `reports/example-report.json` for the example readout
-- `schemas/antifragility_eval_report_v1.json` for the repo-level schema surface
+- `mechanics/antifragility/parts/posture-review/schemas/antifragility_eval_report_v1.json` for the mechanic-local schema surface
 
 ## Outputs
 

@@ -1,5 +1,9 @@
 # Comparison Spine Mechanic
 
+## Entry Route
+
+Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
+
 ## Role
 
 `mechanics/comparison-spine/` routes the operation that keeps baseline,
@@ -17,28 +21,36 @@ This package routes the comparison operation. Source claim meaning stays in
 
 ## Source Surfaces
 
+- `mechanics/comparison-spine/PARTS.md`
+- `mechanics/comparison-spine/parts/README.md`
 - `docs/COMPARISON_SPINE_GUIDE.md`
 - `docs/BASELINE_COMPARISON_GUIDE.md`
 - `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
 - `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
-- `templates/EVAL.template.md`
+- `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
 - `generated/comparison_spine.json`
 - `generated/eval_catalog.json`
-- `reports/comparison-spine-proof-flow-v1.md`
-- `reports/same-task-baseline-proof-flow-v1.md`
-- `reports/repeated-window-proof-flow-v1.md`
-- `reports/repeated-window-proof-flow-v2.md`
-- `reports/artifact-process-paired-proof-flow-v1.md`
-- `reports/artifact-process-paired-proof-flow-v2.md`
-- shared fixture families under `fixtures/`
-- bundle-local `fixtures/contract.json`, `runners/contract.json`, and
-  `reports/summary.schema.json` when a comparison bundle ships them
+- `mechanics/comparison-spine/parts/spine-overview/reports/comparison-spine-proof-flow-v1.md`
+- `mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md`
+- `mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md`
+- `mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md`
+- `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md`
+- `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v2.md`
+- `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md`
+- `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v2/README.md`
+- `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md`
+- `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v2.md`
+- `mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md`
+- bundle-local `bundles/<bundle>/fixtures/contract.json`,
+  `bundles/<bundle>/runners/contract.json`, and
+  `bundles/<bundle>/reports/summary.schema.json` when a comparison bundle
+  ships them
 
 ## Inputs
 
 - a bundle with `baseline_mode` other than `none`
 - a machine-readable `comparison_surface`
-- a shared fixture family path
+- a part-local shared fixture family path
 - a paired readout path
 - an integrity sidecar
 - a selection question
@@ -90,6 +102,8 @@ Repeated-window movement is not broad growth by association.
 ## Boundaries
 
 - Do not move comparison bundles into this package.
+- Do not move bundle-local fixture, runner, or report contracts into this
+  package.
 - Do not hand-edit `generated/comparison_spine.json` as source truth.
 - Do not treat one clean comparison as broad capability growth.
 - Do not let style-only movement become capability movement.
@@ -97,6 +111,12 @@ Repeated-window movement is not broad growth by association.
 - Do not let `aoa-eval-integrity-check` become a promotion shortcut.
 - Do not collapse fixed baseline, peer comparison, and longitudinal movement
   into one score.
+
+## Provenance
+
+Use `mechanics/comparison-spine/PROVENANCE.md` only when auditing former root
+comparison fixture family placement. New comparison work starts from this
+README, `PARTS.md`, and the active part.
 
 ## Validation
 

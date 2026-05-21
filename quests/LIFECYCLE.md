@@ -20,7 +20,7 @@ The source record still lives at:
 
 The source schema still lives at:
 
-`schemas/quest.schema.json`
+`mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`
 
 This lifecycle contract explains what each schema state means for return,
 promotion, and `QUESTBOOK.md` visibility. It does not replace the schema or the
@@ -69,7 +69,7 @@ optional receipt, return through this lifecycle contract:
 - use `blocked` when a public-safe blocker prevents proof review;
 - use `reanchor` when the route must return to a prior valid source anchor.
 
-`reports/proof-loop-local-route-smoke-v1.md` is route evidence, not quest
+`mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md` is route evidence, not quest
 closure. It does not create an eval result receipt and does not close or promote
 any quest by itself.
 

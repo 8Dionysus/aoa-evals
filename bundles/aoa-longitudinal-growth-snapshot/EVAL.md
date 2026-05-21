@@ -8,8 +8,8 @@ claim_type: longitudinal
 baseline_mode: longitudinal-window
 report_format: comparative-summary
 comparison_surface:
-  shared_family_path: fixtures/repeated-window-bounded-v1/README.md
-  paired_readout_path: reports/repeated-window-proof-flow-v1.md
+  shared_family_path: mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md
+  paired_readout_path: mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md
   integrity_sidecar: aoa-eval-integrity-check
   selection_question: Do you need ordered repeated-window movement on one named bounded workflow surface?
   anchor_surface: aoa-bounded-change-quality
@@ -119,7 +119,7 @@ The evidence surface is public-safe when:
 - context changes are disclosed where they matter materially
 - another repo could replace the reports with comparable bounded window artifacts and preserve the same movement question
 
-The current materialized shared family is `fixtures/repeated-window-bounded-v1/README.md`.
+The current materialized shared family is `mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md`.
 
 ## Scoring or verdict logic
 
@@ -166,8 +166,8 @@ Signals toward `mixed or unstable movement` or `bounded regression signal`:
 
 This starter bundle uses `longitudinal-window`.
 Its machine-readable comparison surface is anchored in `aoa-bounded-change-quality`,
-uses the shared family `fixtures/repeated-window-bounded-v1/README.md`,
-publishes through `reports/repeated-window-proof-flow-v1.md`,
+uses the shared family `mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md`,
+publishes through `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md`,
 and should carry `aoa-eval-integrity-check` whenever a public wording or maturity wave could otherwise turn ordered windows into growth myth.
 
 In this surface:
@@ -197,7 +197,7 @@ Execution expectations:
 - keep enough evidence that a careful reviewer can see why the directional reading was assigned
 - keep the bundle-level verdict weaker than the weakest comparability note or transition note in the sequence
 - when shipping a machine-readable report, validate it against `reports/summary.schema.json`
-- keep the repeated-window read compatible with `reports/repeated-window-proof-flow-v1.md` and `reports/repeated-window-proof-flow-v2.md`
+- keep the repeated-window read compatible with `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md` and `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v2.md`
 
 ## Outputs
 

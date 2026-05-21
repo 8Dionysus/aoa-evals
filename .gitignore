@@ -1,4 +1,8 @@
 seeds/
+!mechanics/titan/parts/seed-boundary/seeds/
+!mechanics/titan/parts/seed-boundary/seeds/AGENTS.md
+!mechanics/titan/parts/seed-boundary/seeds/README.md
+!mechanics/titan/parts/seed-boundary/seeds/*.yaml
 TODO.local.md
 PLANS.local.md
 __pycache__/

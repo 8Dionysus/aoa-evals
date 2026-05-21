@@ -2,7 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-05-19
-- Owner surface: `reports/`
+- Owner surface: `mechanics/release-support/parts/strategic-closeout/`
 
 ## Context
 
@@ -12,37 +12,45 @@ mechanics packages, generated readers, proof-loop reports, receipt-intake dry
 review, release-readiness audit, validators, and tests.
 
 That is enough local evidence for a strategic handoff audit, but it is not the
-same as completing the long goal. The accumulated diff is still unlanded: no
-branch/PR review, GitHub `Repo Validation`, merge, tag, GitHub Release, or live
-eval-result receipt has occurred for this change.
+same as completing the long goal. Goal completion needs a current
+requirement-by-requirement audit against the mechanics-refactor objective and,
+for the active operator route, a landed GitHub path: commit, push, PR review,
+GitHub `Repo Validation`, merge, fast-forward `main`, and a clean worktree. Tag,
+GitHub Release, and live eval-result receipts remain publication conditions
+beyond this mechanics-refactor closeout.
 
 The repository needs a closeout artifact that can say what the local refactor
-now satisfies while preserving every open landing boundary.
+now satisfies while preserving both objective-completion boundaries and release
+landing boundaries.
 
 ## Options Considered
 
-- Treat `reports/proof-release-readiness-audit-v1.json` as the final strategic
+- Treat `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json` as the final strategic
   audit: rejected because release-prep reviewability is narrower than the
   original plan, which also asked for meta-truth, topology, legacy, quest,
   mechanics, active-use, and trap-audit coverage.
-- Mark the long goal complete after broad local checks: rejected because a
-  dirty uncommitted worktree, absent PR, absent GitHub `Repo Validation`, and
-  absent publication route remain open.
-- Add `reports/strategic-closeout-audit-v1.json`: accepted because it maps the
-  original strategic requirements to repo-local evidence and names the exact
-  open items before goal completion.
+- Mark the long goal complete after broad local checks: rejected because broad
+  checks are not the same as a current objective audit. PR/GitHub landing also
+  cannot substitute for the audit, but the current operator route makes landing
+  required after the audit.
+- Add `mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json`: accepted because it maps the
+  original strategic requirements to repo-local evidence and names the current
+  open objective-audit items before goal completion.
 
 ## Decision
 
-`aoa-evals` keeps `reports/strategic-closeout-audit-v1.json` as the first
+`aoa-evals` keeps `mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json` as the first
 strategic closeout audit for the local accumulated refactor.
 
 The artifact may state local strategic refactor handoff readiness. It must also
-state `goal_completion_status` as `not_complete` and preserve open landing,
-GitHub `Repo Validation`, tag, GitHub Release, live receipt, runtime evidence,
-bundle-promotion, and sibling-mutation boundaries.
+state `goal_completion_status` as not complete until a current objective audit
+proves the mechanics-refactor definition of done and the requested GitHub
+landing route lands cleanly. It must preserve tag, GitHub Release, live
+receipt, runtime evidence, bundle-promotion, and sibling-mutation boundaries
+without making those publication boundaries part of this goal completion.
 
-Short boundary form: handoff ready locally, goal not complete.
+Short boundary form: handoff evidence is useful locally; goal completion
+requires a current objective audit plus the requested landing route, not a PR ritual alone.
 
 ## Rationale
 
@@ -62,14 +70,17 @@ review.
   evidence instead of inferring completion from scattered docs and green tests.
 - Positive: release-readiness and strategic-readiness are now separate
   artifacts with different claim limits.
-- Tradeoff: another report surface must stay validated and subordinate to the
-  actual source proof objects, landing route, and owner decision.
-- Follow-up: the next landing route should reread this audit, rerun the broad
-  gates, and only then decide whether the long goal can be completed.
+- Tradeoff: another release-support part artifact must stay validated and
+  subordinate to the actual source proof objects, objective audit, release
+  landing route, and owner decision.
+- Follow-up: the next closeout route should reread this audit, rerun the broad
+  gates, complete commit/push/PR/checks/merge, fast-forward `main`, and only
+  then decide whether the long goal can be completed.
 
 ## Boundaries
 
 Do not infer that the long goal is complete.
+Do not treat PR or GitHub landing alone as objective completion.
 Do not infer that a PR has been opened or approved.
 Do not infer that GitHub `Repo Validation` has approved this diff.
 Do not infer that a tag or GitHub Release exists.
@@ -81,4 +92,4 @@ sibling repositories, mutate sibling repos, or strengthen any eval verdict.
 
 The route is protected by `scripts/validate_repo.py`, targeted tests for the
 strategic closeout audit, `python scripts/release_check.py`, and the broad
-generated/sibling/full-test battery before any later landing route.
+generated/sibling/full-test battery before the requested landing route.

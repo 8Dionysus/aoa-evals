@@ -2,7 +2,7 @@
 
 ## Applies to
 
-`quests/` source quest records and legacy quest notes.
+`quests/` source quest records.
 
 ## Role
 
@@ -20,8 +20,8 @@ handoffs that are not yet eval bundles.
 4. `QUESTBOOK.md`
 5. `quests/README.md`
 6. `quests/LIFECYCLE.md`
-7. `schemas/quest.schema.json`
-8. `schemas/quest_dispatch.schema.json`
+7. `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`
+8. `mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json`
 9. `docs/decisions/0004-questbook-topology.md`
 
 ## Boundaries
@@ -32,10 +32,13 @@ handoffs that are not yet eval bundles.
   are derived readers.
 - Eval bundle meaning stays in `bundles/*/EVAL.md` and `eval.yaml`.
 - Roadmap direction stays in `ROADMAP.md`.
-- Agon markdown notes live under `quests/agon/captured/` as
-  legacy/source-compatible inputs.
+- Former Agon markdown quest notes live behind
+  `mechanics/agon/PROVENANCE.md` as Agon lineage, not active quest lifecycle
+  source records.
 - Old top-level quest paths are legacy path vocabulary, not active source
   files.
+- Do not add markdown note forms under `quests/<lane>/<state>/`; active quest
+  records are schema-backed YAML.
 - Do not change source quest paths without updating validators, generated
   projections, and compatibility posture in the same slice.
 - Keep each state directory aligned with the source record `state`.

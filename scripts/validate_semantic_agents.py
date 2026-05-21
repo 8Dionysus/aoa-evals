@@ -39,7 +39,9 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
     AgentsDocSpec(
         Path('config/AGENTS.md'),
         (
-            'publication',
+            'compatibility route card',
+            'No active root config payload',
+            'mechanics/agon/parts',
             'draft',
             'bounded',
             'EVAL_SELECTION.md',
@@ -63,6 +65,16 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'public-safe',
             'not prove',
             'schemas',
+            'validate_repo.py',
+        ),
+    ),
+    AgentsDocSpec(
+        Path('manifests/AGENTS.md'),
+        (
+            'compatibility route card',
+            'No active root manifest payload',
+            'mechanics/agon/parts',
+            'mechanics/recurrence/parts/control-plane-integrity/manifests/',
             'validate_repo.py',
         ),
     ),
@@ -99,7 +111,8 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
     AgentsDocSpec(
         Path('tests/AGENTS.md'),
         (
-            'eval contracts',
+            'repo-wide eval contracts',
+            'mechanic-owned tests',
             'anti-overread posture',
             'public-safe',
             'python -m pytest -q tests',

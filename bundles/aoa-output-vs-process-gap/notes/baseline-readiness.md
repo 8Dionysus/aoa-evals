@@ -11,10 +11,10 @@ Minimum v1 peer-comparison conditions:
 - neither side is treated as the automatic default truth source
 - the comparative summary preserves divergence, alignment, and mixed cases honestly
 - style-only polish is not treated as proof of stronger process discipline
-- the shared family remains `fixtures/bounded-change-paired-v1/README.md`
-- the paired readout remains `reports/artifact-process-paired-proof-flow-v1.md`
-- the second matched family `fixtures/bounded-change-paired-v2/README.md` may deepen the bridge without changing the peer surfaces
-- the second paired readout `reports/artifact-process-paired-proof-flow-v2.md` may deepen the bridge without promoting it by association
+- the shared family remains `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md`
+- the paired readout remains `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md`
+- the second matched family `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v2/README.md` may deepen the bridge without changing the peer surfaces
+- the second paired readout `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v2.md` may deepen the bridge without promoting it by association
 - `aoa-eval-integrity-check` remains the integrity sidecar whenever the public bridge wording or maturity posture changes materially
 
 This note does **not** claim that the bundle is a broad mature baseline.
@@ -23,5 +23,5 @@ including mixed or noise-limited cases that should not be turned into a winner.
 It also does **not** treat the bridge as proof of general capability growth or decline.
 
 For the current public pairing shape,
-the shared case-family contract is `fixtures/bounded-change-paired-v1/README.md`
-and the paired readout dossier is `reports/artifact-process-paired-proof-flow-v1.md`.
+the shared case-family contract is `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md`
+and the paired readout dossier is `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md`.

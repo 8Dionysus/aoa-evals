@@ -30,12 +30,12 @@ Keep these terms stable across the layer:
 - `style-over-substance risk`
 
 The current materialized paired families are:
-- `fixtures/bounded-change-paired-v1/README.md`
-- `fixtures/bounded-change-paired-v2/README.md`
+- `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md`
+- `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v2/README.md`
 
 The current shared bridge dossiers are:
-- `reports/artifact-process-paired-proof-flow-v1.md`
-- `reports/artifact-process-paired-proof-flow-v2.md`
+- `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md`
+- `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v2.md`
 
 ## Anti-collapse rules
 

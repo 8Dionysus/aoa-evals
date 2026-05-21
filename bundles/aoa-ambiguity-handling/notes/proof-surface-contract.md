@@ -9,7 +9,7 @@ The bounded bundle remains narrow:
 - it is not a composite workflow grade
 
 The materialized proof flow keeps these surfaces explicit:
-- shared case-family pressure in `fixtures/ambiguity-bounded-v1/README.md`
+- shared case-family pressure in `mechanics/proof-infra/parts/fixture-families/fixtures/ambiguity-bounded-v1/README.md`
 - bounded local replacement rules in `fixtures/contract.json`
 - reportable runner inputs in `runners/contract.json`
 - schema-backed ambiguity readout in `reports/summary.schema.json`

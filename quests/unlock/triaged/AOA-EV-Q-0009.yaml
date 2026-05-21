@@ -3,7 +3,7 @@ id: AOA-EV-Q-0009
 title: Add unlock-proof doctrine for the RPG bridge wave
 summary: Define a bounded proof surface that can justify, gate, hold, or revoke unlock candidates without replacing progression evidence or source quest authority.
 repo: aoa-evals
-owner_surface: docs/UNLOCK_PROOF_BRIDGE.md
+owner_surface: mechanics/rpg/parts/progression-unlocks/docs/UNLOCK_PROOF_BRIDGE.md
 theme_ref: ''
 milestone_ref: ''
 kind: proof
@@ -30,7 +30,7 @@ activation:
   note: open when bridge-wave unlocks need bounded proof beyond generic progression evidence
 anchor_ref:
   artifact: unlock_proof_bridge
-  ref: docs/UNLOCK_PROOF_BRIDGE.md
+  ref: mechanics/rpg/parts/progression-unlocks/docs/UNLOCK_PROOF_BRIDGE.md
   note: unlock proof must stay smaller than quest state and smaller than a global rank
 handoff_role: proof-maintainer
 evidence:

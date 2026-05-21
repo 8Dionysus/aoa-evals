@@ -104,7 +104,7 @@ This bundle uses bounded ring-application cases that preserve five pressures:
 - a visible harvest-check or explicit no-harvest decision
 
 The shared fixture family is
-`fixtures/ring-application-discipline-v1/README.md`.
+`mechanics/proof-infra/parts/fixture-families/fixtures/ring-application-discipline-v1/README.md`.
 
 The case family should stay public-safe and should avoid:
 
@@ -189,7 +189,7 @@ Execution expectations:
 - when shipping a machine-readable report, validate it against
   `reports/summary.schema.json`
 - keep the shared case-family contract in
-  `fixtures/ring-application-discipline-v1/README.md` visible when that public
+  `mechanics/proof-infra/parts/fixture-families/fixtures/ring-application-discipline-v1/README.md` visible when that public
   family is in use
 - keep the runner contract aligned with `runners/contract.json` so map signal,
   plane split, harvest check, and failure-versus-readout do not collapse into

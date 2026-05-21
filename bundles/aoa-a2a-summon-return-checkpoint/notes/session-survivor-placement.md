@@ -28,7 +28,7 @@ runtime runner.
 - `repo:aoa-evals/commit:7e4bfb3a559aa67d3df2fcca92e1d7389961dfc8`
 - `repo:aoa-evals/bundles/aoa-a2a-summon-return-checkpoint/EVAL.md`
 - `repo:aoa-evals/bundles/aoa-a2a-summon-return-checkpoint/fixtures/contract.json`
-- `repo:aoa-evals/fixtures/a2a-summon-return-checkpoint-v1/README.md`
+- `repo:aoa-evals/mechanics/checkpoint/parts/a2a-summon-return/fixtures/a2a-summon-return-checkpoint-v1/README.md`
 
 ## Next honest move
 

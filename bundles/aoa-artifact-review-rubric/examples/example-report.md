@@ -6,7 +6,7 @@
 - bundle shape: `diagnostic`
 - verdict: `mixed support`
 - machine-readable companion: `reports/example-report.json`
-- shared paired dossier: `reports/artifact-process-paired-proof-flow-v1.md`
+- shared paired dossier: `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md`
 
 This is the standalone artifact review surface.
 For the paired bridge read, use `aoa-output-vs-process-gap` after the artifact surface is clear.

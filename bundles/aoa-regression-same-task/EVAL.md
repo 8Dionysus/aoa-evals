@@ -8,8 +8,8 @@ claim_type: regression
 baseline_mode: fixed-baseline
 report_format: comparative-summary
 comparison_surface:
-  shared_family_path: fixtures/frozen-same-task-v1/README.md
-  paired_readout_path: reports/same-task-baseline-proof-flow-v1.md
+  shared_family_path: mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md
+  paired_readout_path: mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md
   integrity_sidecar: aoa-eval-integrity-check
   selection_question: Do you need a frozen-baseline comparison on the same bounded task family?
   anchor_surface: aoa-bounded-change-quality
@@ -111,7 +111,7 @@ The fixture surface is public-safe when:
 - the candidate and baseline are compared on the same visible cases
 - another repo could replace the case family with a comparable frozen bounded set and preserve the same regression question
 
-The current materialized shared family is `fixtures/frozen-same-task-v1/README.md`.
+The current materialized shared family is `mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md`.
 
 ## Scoring or verdict logic
 
@@ -168,8 +168,8 @@ Signals toward `mixed regression signal` or `regression present`:
 
 This baseline bundle uses `fixed-baseline`.
 Its machine-readable comparison surface is anchored in `aoa-bounded-change-quality`,
-uses the shared family `fixtures/frozen-same-task-v1/README.md`,
-publishes through `reports/same-task-baseline-proof-flow-v1.md`,
+uses the shared family `mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md`,
+publishes through `mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md`,
 and should carry `aoa-eval-integrity-check` whenever a public maturity, wording, or baseline-contract wave could otherwise turn the same-task read theatrical.
 
 The baseline should be frozen before candidate comparison begins.
@@ -203,7 +203,7 @@ Execution expectations:
 - keep the named frozen baseline target visible in the public report
 - keep enough evidence that a careful reviewer can see why each comparative note was assigned
 - when shipping a machine-readable report, validate it against `reports/summary.schema.json`
-- keep the same-task baseline read compatible with `reports/same-task-baseline-proof-flow-v1.md`
+- keep the same-task baseline read compatible with `mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md`
 
 ## Outputs
 

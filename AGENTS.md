@@ -27,14 +27,15 @@ It does not own:
 3. `DESIGN.AGENTS.md` when agent-facing guidance, lane topology, or route cards change
 4. `ROADMAP.md`
 5. `docs/PROOF_TOPOLOGY.md` when artifact classes, legacy, mechanics, or root districts change
-6. `mechanics/README.md` when a repeatable proof operation or package changes
-7. `docs/ARCHITECTURE.md`
-8. `docs/EVAL_PHILOSOPHY.md`
-9. the target `bundles/*/EVAL.md`
-10. affected generated catalogs, capsules, comparison, receipt, or section surfaces
-11. upstream skill or technique docs if the claim depends on them
-12. `docs/decisions/` when a structural, topology, validation, or workflow route changes
-13. `docs/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
+6. `mechanics/EVIDENCE_CLUSTERS.md` before moving root-district artifacts into or between mechanics
+7. `mechanics/README.md` when a repeatable proof operation or package changes
+8. `docs/ARCHITECTURE.md`
+9. `docs/EVAL_PHILOSOPHY.md`
+10. the target `bundles/*/EVAL.md`
+11. affected generated catalogs, capsules, comparison, receipt, or section surfaces
+12. upstream skill or technique docs if the claim depends on them
+13. `docs/decisions/` when a structural, topology, validation, or workflow route changes
+14. `docs/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
 
 
 ## AGENTS stack law

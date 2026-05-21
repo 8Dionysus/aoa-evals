@@ -8,6 +8,7 @@ import importlib.util
 import json
 import os
 import re
+import shlex
 import sys
 from collections import Counter
 from dataclasses import dataclass
@@ -111,14 +112,257 @@ SPARK_LANE_AGENTS_NAME = ".agents/spark/AGENTS.md"
 SPARK_LANE_SWARM_NAME = ".agents/spark/SWARM.md"
 PROOF_TOPOLOGY_NAME = "docs/PROOF_TOPOLOGY.md"
 LEGACY_NAMING_NAME = "docs/LEGACY_NAMING.md"
+LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME = (
+    "docs/decisions/0091-legacy-naming-single-bridge-language.md"
+)
+LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k legacy_naming_single_bridge_language"
+)
+LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME = (
+    "docs/decisions/0096-legacy-naming-posture-guide.md"
+)
+LEGACY_NAMING_POSTURE_GUIDE_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k legacy_naming_posture_guide"
+)
+MECHANICS_EVIDENCE_CLUSTERS_NAME = "mechanics/EVIDENCE_CLUSTERS.md"
+PART_LOCAL_TEST_PLACEMENT_DECISION_NAME = "docs/decisions/0050-part-local-test-placement.md"
+ROOT_ROUTE_CARD_GUARD_DECISION_NAME = "docs/decisions/0051-root-route-card-guard.md"
+GENERATED_ROUTE_RESIDUE_DECISION_NAME = (
+    "docs/decisions/0073-generated-route-residue-guard.md"
+)
+ACTIVE_MECHANIC_ROUTE_RESIDUE_DECISION_NAME = (
+    "docs/decisions/0076-active-mechanic-route-residue-guard.md"
+)
+ROOT_AUTHORED_ROUTE_RESIDUE_DECISION_NAME = (
+    "docs/decisions/0077-root-authored-route-residue-guard.md"
+)
+ACTIVE_LEGACY_PARENT_WORDING_DECISION_NAME = (
+    "docs/decisions/0092-active-legacy-parent-wording-boundary.md"
+)
+ACTIVE_LEGACY_PARENT_WORDING_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k active_legacy_parent_wording"
+)
+DECISION_ROUTE_RESIDUE_DECISION_NAME = (
+    "docs/decisions/0078-decision-route-residue-guard.md"
+)
+REPO_CONFIG_ROUTE_RESIDUE_DECISION_NAME = (
+    "docs/decisions/0079-repo-config-route-residue-guard.md"
+)
+SOURCE_BUNDLE_ROUTE_RESIDUE_DECISION_NAME = (
+    "docs/decisions/0080-source-bundle-route-residue-guard.md"
+)
+MECHANIC_PAYLOAD_ROUTE_RESIDUE_DECISION_NAME = (
+    "docs/decisions/0081-mechanic-payload-route-residue-guard.md"
+)
+ROOT_ROUTE_CARD_ONLY_DISTRICTS: dict[str, tuple[str, ...]] = {
+    "config": ("AGENTS.md", "README.md"),
+    "examples": ("AGENTS.md", "README.md"),
+    "fixtures": ("AGENTS.md", "README.md"),
+    "manifests": ("AGENTS.md", "README.md"),
+    "reports": ("AGENTS.md", "README.md"),
+    "runners": ("AGENTS.md", "README.md"),
+    "schemas": ("AGENTS.md", "README.md"),
+    "scorers": ("AGENTS.md", "README.md"),
+    "templates": ("AGENTS.md", "README.md"),
+}
+ROOT_ROUTE_CARD_README_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
+    "config/README.md": (
+        "compatibility route card",
+        "No active root config payload",
+        "mechanics/agon/parts/*/config/",
+        "mechanics/boundary-bridge/parts/latest-sibling-canary/config/",
+    ),
+    "examples/README.md": (
+        "compatibility route card",
+        "No active root examples payload",
+        "bundles/*/examples/",
+        "mechanics/audit/parts/",
+    ),
+    "fixtures/README.md": (
+        "compatibility route card",
+        "No active fixture family remains in root",
+        "mechanics/proof-infra/parts/fixture-families/fixtures/",
+        "mechanics/comparison-spine/parts/",
+    ),
+    "manifests/README.md": (
+        "compatibility route card",
+        "No active root manifest payload",
+        "mechanics/agon/parts/*/manifests/",
+        "mechanics/recurrence/parts/control-plane-integrity/manifests/",
+        "mechanics/recurrence/parts/portable-proof-beacons/manifests/",
+    ),
+    "reports/README.md": (
+        "compatibility route card",
+        "No active root reports payload",
+        "Current top-level shared dossiers",
+        "none",
+        "mechanics/proof-loop/parts/route-smoke/reports/",
+        "mechanics/release-support/parts/",
+    ),
+    "runners/README.md": (
+        "compatibility route card",
+        "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
+        "Do not recreate active root runner payloads",
+    ),
+    "schemas/README.md": (
+        "compatibility route card",
+        "No active root schema payload",
+        "mechanics/proof-object/parts/bundle-contracts/schemas/",
+        "mechanics/proof-infra/parts/reportable-contracts/schemas/",
+        "mechanics/questbook/parts/",
+    ),
+    "scorers/README.md": (
+        "compatibility route card",
+        "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py",
+        "Do not recreate active root scorer helper aliases",
+    ),
+    "templates/README.md": (
+        "compatibility route card",
+        "No active root template payload",
+        "mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md",
+    ),
+}
+ROOT_ROUTE_CARD_GUARD_DECISION_REQUIRED_TOKENS = (
+    "Root Route-card Guard",
+    "route-card-only surfaces",
+    "docs/PROOF_TOPOLOGY.md",
+    "validator allowlist",
+    "does not forbid bundle-local examples or reports",
+)
+GENERATED_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
+    "Generated Route Residue Guard",
+    "structured references",
+    "route-card-only root district",
+    "part-local generated readers",
+    "content_markdown",
+    "python -m pytest -q tests/test_validate_repo.py -k generated_route_residue",
+)
+ACTIVE_MECHANIC_ROUTE_RESIDUE_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k active_mechanic_route_residue"
+)
+ROOT_AUTHORED_ROUTE_RESIDUE_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k root_authored_route_residue"
+)
+DECISION_ROUTE_RESIDUE_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k decision_route_residue"
+)
+REPO_CONFIG_ROUTE_RESIDUE_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k repo_config_route_residue"
+)
+SOURCE_BUNDLE_ROUTE_RESIDUE_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k source_bundle_route_residue"
+)
+MECHANIC_PAYLOAD_ROUTE_RESIDUE_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_payload_route_residue"
+)
+ACTIVE_MECHANIC_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
+    "Active Mechanic Route Residue Guard",
+    "authored mechanics route cards",
+    "route-card-only root district",
+    "same part root",
+    "`bundles/<bundle>/...`",
+    "legacy parent route",
+    ACTIVE_MECHANIC_ROUTE_RESIDUE_COMMAND,
+)
+ROOT_AUTHORED_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
+    "Root Authored Route Residue Guard",
+    "root-facing authored surfaces",
+    "route-card-only root district",
+    "docs/decisions/",
+    "historical context",
+    "`bundles/<bundle>/...`",
+    ROOT_AUTHORED_ROUTE_RESIDUE_COMMAND,
+)
+ACTIVE_LEGACY_PARENT_WORDING_DECISION_REQUIRED_TOKENS = (
+    "Active Legacy Parent Wording Boundary",
+    "legacy parent form",
+    "active route wording",
+    "`runtime-evidence`",
+    "evidence class",
+    "not the parent mechanic",
+    "schema filename",
+    ACTIVE_LEGACY_PARENT_WORDING_COMMAND,
+)
+DECISION_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
+    "Decision Route Residue Guard",
+    "decision records",
+    "historical context",
+    "route-card-only root district",
+    "`bundles/<bundle>/...`",
+    "active `mechanics/...`",
+    DECISION_ROUTE_RESIDUE_COMMAND,
+)
+REPO_CONFIG_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
+    "Repo Config Route Residue Guard",
+    ".gitignore",
+    ".github/workflows/",
+    "legacy mechanic parent",
+    "route-card-only root district",
+    "not historical memory",
+    REPO_CONFIG_ROUTE_RESIDUE_COMMAND,
+)
+SOURCE_BUNDLE_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
+    "Source Bundle Route Residue Guard",
+    "source proof objects",
+    "bundle-local path",
+    "repo-qualified sibling",
+    "legacy mechanic parent",
+    "route-card-only root district",
+    SOURCE_BUNDLE_ROUTE_RESIDUE_COMMAND,
+)
+MECHANIC_PAYLOAD_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Payload Route Residue Guard",
+    "active mechanics payload",
+    "part-local path",
+    "repo-qualified sibling",
+    "legacy mechanic parent",
+    "route-card-only root district",
+    "structured manifest route fields",
+    "root-authored docs globs",
+    MECHANIC_PAYLOAD_ROUTE_RESIDUE_COMMAND,
+)
 ROOT_DESIGN_REQUIRED_TOKENS = (
     "bounded proof organ",
     "proof object",
     "generated surface helps navigation",
     "runtime candidates",
+    "mechanics/EVIDENCE_CLUSTERS.md",
     "docs/ARCHITECTURE.md",
     "docs/EVAL_PHILOSOPHY.md",
     "docs/decisions/",
+)
+ARCHITECTURE_PROOF_MODEL_DECISION_NAME = (
+    "docs/decisions/0093-architecture-proof-model-contract.md"
+)
+ARCHITECTURE_PROOF_MODEL_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k architecture_proof_model"
+)
+ARCHITECTURE_REQUIRED_TOKENS = (
+    "technical proof model",
+    "not the system design thesis",
+    "DESIGN.md",
+    "docs/PROOF_TOPOLOGY.md",
+    "mechanics/EVIDENCE_CLUSTERS.md",
+    "### Mechanics",
+    "proof-layer operation",
+    "### Layer 5: proof operation support",
+    "AoA-aligned mechanics",
+    "Evals-native mechanics",
+    "owner-named evals-native",
+    "Artifact forms",
+    "PROVENANCE.md",
+    "single controlled bridge",
+)
+ARCHITECTURE_PROOF_MODEL_DECISION_REQUIRED_TOKENS = (
+    "Architecture Proof Model Contract",
+    "technical proof model",
+    "DESIGN.md",
+    "docs/PROOF_TOPOLOGY.md",
+    "mechanics/EVIDENCE_CLUSTERS.md",
+    "mechanics as operation support",
+    "owner-named evals-native",
+    "legacy bridge layering",
+    ARCHITECTURE_PROOF_MODEL_COMMAND,
 )
 DESIGN_AGENTS_REQUIRED_TOKENS = (
     "agent-facing guidance",
@@ -126,13 +370,26 @@ DESIGN_AGENTS_REQUIRED_TOKENS = (
     "bundle-local review",
     "source proof object",
     "generated companions",
+    "Active mechanic packages",
+    "Before changing package boundaries",
+    "mechanics/EVIDENCE_CLUSTERS.md",
+    "active mechanics, and file-movement boundaries",
     "Maintained agent lanes",
     ".agents/spark/",
     "closeout",
 )
+ROOT_DESIGN_FORBIDDEN_STALE_MECHANIC_WORDING = (
+    "mechanic-ready",
+)
+DESIGN_AGENTS_FORBIDDEN_STALE_MECHANIC_WORDING = (
+    "Future mechanic packages",
+    "Before package growth",
+    "before mechanics or file movement",
+)
 ROOT_AGENTS_DESIGN_REQUIRED_TOKENS = (
     "DESIGN.md",
     "DESIGN.AGENTS.md",
+    "mechanics/EVIDENCE_CLUSTERS.md",
     "docs/decisions/",
 )
 DECISION_SURFACE_REQUIRED_TOKENS = (
@@ -190,9 +447,47 @@ PROOF_TOPOLOGY_REQUIRED_TOKENS = (
     "quest obligations",
     "decisions",
     "legacy lineage",
-    "mechanic-ready operations",
+    "mechanic operations",
+    "mechanics/EVIDENCE_CLUSTERS.md",
     "Root Technical Districts",
+    "after mechanics movement",
+    "additional root path becomes",
+    "part-owned tests live under `mechanics/<mechanic>/parts/<part>/tests/`",
     "generated surfaces are companions",
+    "A new `mechanics/` parent",
+    "No remaining named candidate family is promoted by symmetry",
+)
+PROOF_TOPOLOGY_FORBIDDEN_STALE_MECHANIC_WORDING = (
+    "mechanic-ready operations",
+    "while Phase 4 maps the topology",
+    "before mechanics growth starts from a root path",
+    "A future `mechanics/` package",
+)
+PROOF_TOPOLOGY_DECISION_FORBIDDEN_STALE_MECHANIC_WORDING = (
+    "mechanic-ready operations",
+    "Keep physical movement deferred",
+    "This decision does not create `mechanics/`.",
+)
+ROADMAP_FORBIDDEN_STALE_TOPOLOGY_WORDING = (
+    "mechanic-ready artifact classes",
+    "mechanics and legacy topology decision before any package creation or move",
+    "runtime-evidence intake decision",
+    "future mechanic packages",
+)
+ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME = (
+    "docs/decisions/0100-active-mechanics-topology-wording.md"
+)
+ACTIVE_MECHANICS_TOPOLOGY_WORDING_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k "
+    "'root_design or design_agents or proof_topology'"
+)
+ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_REQUIRED_TOKENS = (
+    "Active Mechanics Topology Wording",
+    "active mechanics",
+    "stale preparatory wording",
+    "PROVENANCE.md",
+    "archive details",
+    ACTIVE_MECHANICS_TOPOLOGY_WORDING_COMMAND,
 )
 PROOF_TOPOLOGY_DECISION_REQUIRED_TOKENS = (
     "docs/PROOF_TOPOLOGY.md",
@@ -200,44 +495,1130 @@ PROOF_TOPOLOGY_DECISION_REQUIRED_TOKENS = (
     "source proof objects",
     "candidate evidence",
     "legacy lineage",
+    "mechanic operations",
+    "active `mechanics/` atlas",
 )
 LEGACY_NAMING_REQUIRED_TOKENS = (
+    "Legacy Naming Posture",
+    "posture guide",
+    "archive details",
     "active",
     "historical",
     "accepted-input",
     "generated-projection",
     "candidate-only",
-    "retire-after",
-    "Agon",
-    "wave",
-    "phase-alpha",
-    "runtime-candidate",
-    "artifact-to-verdict",
-    "bundle-family",
-    "Titan canary",
-    "Spark",
-    ".agents/spark/",
-    "mechanics/runtime-evidence/",
-    "mechanics/sibling-proof-refs/",
-    "mechanics/questbook/",
+    "provenance-bridge",
+    "active-first route",
+    "PROVENANCE.md",
+    "single controlled bridge",
+    "active mechanic surfaces",
+    "Active Owner Lookup",
+    "Boundary Rules",
+)
+LEGACY_NAMING_FORBIDDEN_DETAIL_TOKENS = (
+    "## Current Active Owners",
+    "Wrong parent forms such as",
+    "`agon-proof`",
+    "`titan-canaries`",
+    "`proof-release`",
+    "`runtime-evidence`",
+    "`sibling-proof-refs`",
+    "`repair`",
+    "The old `Spark/` root path",
 )
 LEGACY_NAMING_DECISION_REQUIRED_TOKENS = (
     "docs/LEGACY_NAMING.md",
-    "Agon",
-    "wave",
-    "phase-alpha",
+    "posture guide",
     "accepted-input",
     "active topology",
     "generated projections",
+    "archive details",
+    "not authorize starting new work from legacy directories",
+)
+LEGACY_NAMING_POSTURE_GUIDE_DECISION_REQUIRED_TOKENS = (
+    "Legacy Naming Posture Guide",
+    "docs/LEGACY_NAMING.md",
+    "posture guide",
+    "not a global archive map",
+    "archive details",
+    "PROVENANCE.md",
+    LEGACY_NAMING_POSTURE_GUIDE_COMMAND,
+)
+LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_REQUIRED_TOKENS = (
+    "Legacy Naming Single-Bridge Language",
+    "docs/LEGACY_NAMING.md",
+    "`PROVENANCE.md`",
+    "single controlled bridge",
+    "archive details",
+    LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_COMMAND,
+)
+LEGACY_NAMING_SECOND_ACTIVE_BRIDGE_RE = re.compile(
+    r"(?:enter|enters|mapped)\s+through\s+`mechanics/[^`]+/PROVENANCE\.md`"
+    r"\s+and\s+`mechanics/[^`]+/legacy/INDEX\.md`"
+    r"|Use package\s+`PROVENANCE\.md`,\s+`legacy/INDEX\.md`",
+    re.MULTILINE,
+)
+LEGACY_NAMING_DIRECT_MECHANIC_LEGACY_INDEX_RE = re.compile(
+    r"`mechanics/[a-z0-9-]+/legacy/INDEX\.md`"
+)
+LEGACY_EXTERNAL_ARCHIVE_DETAIL_RE = re.compile(
+    r"(?:mechanics/[a-z0-9-]+/)?legacy/(?:INDEX\.md|DISTILLATION_LOG\.md|raw(?:/|`|\)|\]|\s|$))"
+    r"|raw/README\.md"
+)
+LEGACY_EXTERNAL_ARCHIVE_DETAIL_SURFACE_NAMES = (
+    "DESIGN.md",
+    "DESIGN.AGENTS.md",
+    LEGACY_NAMING_NAME,
+    PROOF_TOPOLOGY_NAME,
+    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+    "mechanics/README.md",
+    "ROADMAP.md",
+    "CHANGELOG.md",
+)
+LEGACY_EXTERNAL_ROUTE_MANAGEMENT_FORBIDDEN_WORDING = (
+    "validator-backed retirement",
+    "before physical movement, deletion, or retirement",
+    "move any package-local legacy surface",
+    "retirement or containment posture",
+    "retired root",
+    "aliases retired",
+    "retire-after table",
+)
+LEGACY_EXTERNAL_ARCHIVE_ACCOUNTING_FORBIDDEN_WORDING = (
+    "Inside the archive, every raw payload",
+    "raw payload accounting now requires",
+    "raw payload accounting now rejects",
+    "raw-only archive route",
+)
+LEGACY_EXTERNAL_ARCHIVE_ACCOUNTING_SURFACE_NAMES = (
+    DESIGN_NAME,
+    DESIGN_AGENTS_NAME,
+    LEGACY_NAMING_NAME,
+    PROOF_TOPOLOGY_NAME,
+    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+    "mechanics/README.md",
+    ROADMAP_NAME,
+    "CHANGELOG.md",
+)
+LEGACY_EXTERNAL_ROUTE_MANAGEMENT_SURFACE_NAMES = (
+    LEGACY_NAMING_NAME,
+    ROADMAP_NAME,
+    DESIGN_AGENTS_NAME,
+    "docs/decisions/0009-legacy-naming-containment.md",
+    LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
+    LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
+)
+LEGACY_SINGLE_BRIDGE_RESIDUE_RE = re.compile(
+    r"(?:enter|enters|entered|lookup starts from the active route and then enters)\s+"
+    r"`PROVENANCE\.md`,\s+`legacy/INDEX\.md`"
+    r"|`PROVENANCE\.md`\s+and\s+`legacy/INDEX\.md`"
+    r"|`mechanics/[a-z0-9-]+/PROVENANCE\.md`\s+and\s+`mechanics/[a-z0-9-]+/legacy/INDEX\.md`"
+    r"|entered through\s+`PROVENANCE\.md`\s+and\s+then\s+through\s+`legacy/INDEX\.md`",
+    re.MULTILINE,
+)
+LEGACY_SINGLE_BRIDGE_RESIDUE_SURFACES = (
+    "DESIGN.md",
+    LEGACY_NAMING_NAME,
+    PROOF_TOPOLOGY_NAME,
+    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+    "mechanics/README.md",
+    "ROADMAP.md",
+    "CHANGELOG.md",
+    "schemas/README.md",
+    "schemas/AGENTS.md",
+    "manifests/README.md",
+    "manifests/AGENTS.md",
+    "config/README.md",
+    "config/AGENTS.md",
+    "examples/README.md",
+    "examples/AGENTS.md",
+    "fixtures/README.md",
+    "fixtures/AGENTS.md",
+    "reports/README.md",
+    "reports/AGENTS.md",
+    "runners/README.md",
+    "runners/AGENTS.md",
+    "scorers/README.md",
+    "scorers/AGENTS.md",
+    "templates/README.md",
+    "templates/AGENTS.md",
+    "docs/decisions/0071-mechanic-legacy-skeleton-contract.md",
+    "docs/decisions/0075-mechanic-provenance-entry-contract.md",
+    "docs/decisions/0082-mechanic-parent-direction-contract.md",
+    "docs/decisions/0089-mechanic-legacy-single-bridge.md",
+    "docs/decisions/0090-mechanic-provenance-bridge-posture.md",
+    LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
 )
 MECHANICS_README_NAME = "mechanics/README.md"
 MECHANICS_AGENTS_NAME = "mechanics/AGENTS.md"
+MECHANIC_PARENT_ALLOWLIST_DECISION_NAME = (
+    "docs/decisions/0052-mechanic-parent-allowlist.md"
+)
+MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_NAME = (
+    "docs/decisions/0083-mechanic-evidence-dimension-ledger.md"
+)
+MECHANIC_ROOT_DISTRICT_RECON_DECISION_NAME = (
+    "docs/decisions/0084-mechanic-root-district-reconnaissance.md"
+)
+ROOT_AUTHORED_SURFACE_CLASSIFICATION_DECISION_NAME = (
+    "docs/decisions/0085-root-authored-surface-classification.md"
+)
+MECHANICS_ROOT_ALLOWED_FILES = (
+    "AGENTS.md",
+    "EVIDENCE_CLUSTERS.md",
+    "README.md",
+)
+ACTIVE_MECHANIC_PARENT_NAMES = (
+    "agon",
+    "antifragility",
+    "audit",
+    "boundary-bridge",
+    "checkpoint",
+    "comparison-spine",
+    "distillation",
+    "experience",
+    "growth-cycle",
+    "method-growth",
+    "proof-infra",
+    "proof-loop",
+    "proof-object",
+    "publication-receipts",
+    "questbook",
+    "recurrence",
+    "release-support",
+    "rpg",
+    "titan",
+)
+AOA_ALIGNED_MECHANIC_PARENT_NAMES = (
+    "agon",
+    "antifragility",
+    "audit",
+    "boundary-bridge",
+    "checkpoint",
+    "distillation",
+    "experience",
+    "growth-cycle",
+    "method-growth",
+    "questbook",
+    "recurrence",
+    "release-support",
+    "rpg",
+)
+EVALS_NATIVE_MECHANIC_PARENT_NAMES = (
+    "comparison-spine",
+    "proof-infra",
+    "proof-loop",
+    "proof-object",
+    "publication-receipts",
+    "titan",
+)
+FORMER_WRONG_MECHANIC_PARENT_ROUTES = (
+    ("agon-proof", "agon"),
+    ("titan-canaries", "titan"),
+    ("proof-release", "release-support"),
+    ("runtime-evidence", "audit"),
+    ("sibling-proof-refs", "boundary-bridge"),
+    ("repair", "antifragility/repair-proof"),
+)
+MECHANIC_EVIDENCE_DIMENSION_LEDGER_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_evidence_dimension"
+)
+MECHANIC_EVIDENCE_DIMENSION_LEDGER_REQUIRED_TOKENS = (
+    "Active Parent Evidence Dimension Ledger",
+    "Meaning/doctrine",
+    "Proof pressure",
+    "Contracts/payloads",
+    "Builders/readouts",
+    "Quest/deferred pressure",
+    "Owner split and stop-lines",
+    "Legacy/provenance",
+)
+MECHANIC_EVIDENCE_DIMENSION_LEDGER_COLUMNS = (
+    "Parent",
+    "Class",
+    "Meaning/doctrine",
+    "Proof pressure",
+    "Contracts/payloads",
+    "Builders/readouts",
+    "Quest/deferred pressure",
+    "Owner split and stop-lines",
+    "Legacy/provenance",
+)
+MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Evidence Dimension Ledger",
+    "Active Parent Evidence Dimension Ledger",
+    "meaning/doctrine",
+    "proof pressure",
+    "contracts/payloads",
+    "builders/readouts",
+    "quest/deferred pressure",
+    "owner split and stop-lines",
+    "owner-named evals-native",
+    "legacy/provenance",
+    MECHANIC_EVIDENCE_DIMENSION_LEDGER_COMMAND,
+)
+MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME = (
+    "docs/decisions/0101-mechanic-evidence-route-refs.md"
+)
+MECHANIC_EVIDENCE_ROUTE_REFS_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_evidence_route_refs"
+)
+MECHANIC_EVIDENCE_ROUTE_REFS_SECTION = "Active Parent Evidence Route Refs"
+MECHANIC_EVIDENCE_ROUTE_REFS_REQUIRED_TOKENS = (
+    MECHANIC_EVIDENCE_ROUTE_REFS_SECTION,
+    "concrete local route refs",
+    "repo-relative",
+    "non-mechanics route ref",
+    "living non-mechanics evidence",
+    "rationale-only decision",
+    "generic root validator",
+)
+MECHANIC_EVIDENCE_ROUTE_REFS_COLUMNS = (
+    "Parent",
+    "Route refs",
+)
+MECHANIC_EVIDENCE_ROUTE_REFS_MIN_COUNT = 3
+MECHANIC_EVIDENCE_ROUTE_REFS_FORBIDDEN_GENERIC_REFS = frozenset(
+    {
+        "scripts/validate_repo.py",
+        "tests/test_validate_repo.py",
+    }
+)
+MECHANIC_EVIDENCE_ROUTE_REFS_RATIONALE_ONLY_PREFIXES = (
+    "docs/decisions/",
+)
+MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Evidence Route Refs",
+    MECHANIC_EVIDENCE_ROUTE_REFS_SECTION,
+    "concrete local route refs",
+    "repo-relative",
+    "non-mechanics route ref",
+    "living non-mechanics evidence",
+    "rationale-only decision",
+    "generic root validator",
+    "cross-root evidence",
+    MECHANIC_EVIDENCE_ROUTE_REFS_COMMAND,
+)
+MECHANIC_ROOT_DISTRICT_RECON_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_root_district_recon"
+)
+MECHANIC_ROOT_DISTRICT_RECON_REQUIRED_TOKENS = (
+    "Root District Reconnaissance Ledger",
+    "Current root posture",
+    "Mechanics relationship",
+    "Validation guard",
+    "root-district",
+)
+MECHANIC_ROOT_DISTRICT_RECON_COLUMNS = (
+    "District",
+    "Authority class",
+    "Current root posture",
+    "Mechanics relationship",
+    "Validation guard",
+)
+MECHANIC_ROOT_DISTRICT_RECON_REQUIRED_DISTRICTS = (
+    "docs",
+    "bundles",
+    "fixtures",
+    "schemas",
+    "examples",
+    "scripts",
+    "tests",
+    "config",
+    "manifests",
+    "generated",
+    "reports",
+    "runners",
+    "scorers",
+    "templates",
+    "quests",
+    "mechanics",
+)
+MECHANIC_ROOT_DISTRICT_RECON_ROUTE_CARD_ONLY_DISTRICTS = (
+    "config",
+    "examples",
+    "fixtures",
+    "manifests",
+    "reports",
+    "runners",
+    "schemas",
+    "scorers",
+    "templates",
+)
+MECHANIC_ROOT_DISTRICT_RECON_ROW_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
+    "docs": ("source guidance", "mechanic-owned docs"),
+    "bundles": ("source proof object", "Do not move"),
+    "fixtures": ("route-card-only", "mechanics/proof-infra/parts/fixture-families/fixtures/"),
+    "schemas": ("route-card-only", "mechanics/proof-object/parts/bundle-contracts/schemas/"),
+    "examples": ("route-card-only", "bundles/*/examples/"),
+    "scripts": ("repo-wide", "mechanic-owned scripts"),
+    "tests": ("repo-wide", "mechanics/<mechanic>/parts/<part>/tests/"),
+    "config": ("route-card-only", "mechanics/agon/parts/*/config/"),
+    "manifests": ("route-card-only", "mechanics/recurrence/parts/"),
+    "generated": ("derived readers", "part-local generated"),
+    "reports": ("route-card-only", "mechanics/release-support/parts/"),
+    "runners": ("route-card-only", "mechanics/proof-infra/parts/reportable-contracts/runners/"),
+    "scorers": ("route-card-only", "mechanics/proof-infra/parts/reportable-contracts/scorers/"),
+    "templates": ("route-card-only", "mechanics/proof-object/parts/bundle-authoring/templates/"),
+    "quests": ("source quest records", "mechanics/questbook/parts/"),
+    "mechanics": ("operation atlas", "mechanics/EVIDENCE_CLUSTERS.md"),
+}
+MECHANIC_ROOT_DISTRICT_RECON_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Root-district Reconnaissance",
+    "Root District Reconnaissance Ledger",
+    "docs",
+    "bundles",
+    "fixtures",
+    "schemas",
+    "examples",
+    "scripts",
+    "tests",
+    "config",
+    "manifests",
+    "generated",
+    "reports",
+    "runners",
+    "scorers",
+    "templates",
+    "quests",
+    "mechanics",
+    "route-card-only",
+    "mechanic-owned payload",
+    MECHANIC_ROOT_DISTRICT_RECON_COMMAND,
+)
+ROOT_AUTHORED_SURFACE_CLASSIFICATION_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k root_authored_surface_classification"
+)
+ROOT_AUTHORED_SURFACE_CLASSIFICATION_SECTION = "Residual Root-authored Surface Classification"
+ROOT_AUTHORED_SURFACE_CLASSIFICATION_COLUMNS = (
+    "Surface",
+    "Root role",
+    "Mechanic boundary",
+    "Validation guard",
+)
+ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS: dict[str, tuple[str, ...]] = {
+    "docs": (
+        "AGENTS.md",
+        "AGENTS_ROOT_REFERENCE.md",
+        "ARCHITECTURE.md",
+        "ARTIFACT_PROCESS_SEPARATION_GUIDE.md",
+        "BASELINE_COMPARISON_GUIDE.md",
+        "BLIND_SPOT_DISCLOSURE_GUIDE.md",
+        "COMPARISON_SPINE_GUIDE.md",
+        "EVAL_PHILOSOPHY.md",
+        "EVAL_REVIEW_GUIDE.md",
+        "EVAL_RUBRIC.md",
+        "FIXTURE_SURFACE_GUIDE.md",
+        "LEGACY_NAMING.md",
+        "PORTABLE_EVAL_BOUNDARY_GUIDE.md",
+        "PROOF_TOPOLOGY.md",
+        "QUESTBOOK_EVAL_INTEGRATION.md",
+        "README.md",
+        "REGRESSION_PROOF_SURFACES.md",
+        "RELEASING.md",
+        "REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
+        "REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md",
+        "SCORE_SEMANTICS_GUIDE.md",
+        "SHARED_PROOF_INFRA_GUIDE.md",
+        "VERDICT_INTERPRETATION_GUIDE.md",
+        "VIA_NEGATIVA_CHECKLIST.md",
+    ),
+    "scripts": (
+        "AGENTS.md",
+        "build_catalog.py",
+        "eval_capsule_contract.py",
+        "eval_catalog_contract.py",
+        "eval_comparison_spine_contract.py",
+        "eval_proof_contract_helpers.py",
+        "eval_section_contract.py",
+        "generate_eval_report_index.py",
+        "release_check.py",
+        "validate_nested_agents.py",
+        "validate_repo.py",
+        "validate_semantic_agents.py",
+    ),
+    "tests": (
+        "AGENTS.md",
+        "test_build_catalog.py",
+        "test_current_direction_routes.py",
+        "test_downstream_feed_contracts.py",
+        "test_memo_contradiction_phase_alpha_gap_report.py",
+        "test_memo_contradiction_phase_alpha_rerun_report.py",
+        "test_memo_writeback_act_phase_alpha_report.py",
+        "test_nested_agents_docs.py",
+        "test_roadmap_parity.py",
+        "test_validate_repo.py",
+        "test_validate_semantic_agents.py",
+        "test_verification_honesty_local_report.py",
+    ),
+}
+ROOT_AUTHORED_SURFACE_CLASSIFICATION_REQUIRED_TOKENS = (
+    ROOT_AUTHORED_SURFACE_CLASSIFICATION_SECTION,
+    "Root role",
+    "Mechanic boundary",
+    "Validation guard",
+    "root-owned",
+    "mechanic-owned payload",
+)
+ROOT_AUTHORED_SURFACE_CLASSIFICATION_DECISION_REQUIRED_TOKENS = (
+    "Root-authored Surface Classification",
+    ROOT_AUTHORED_SURFACE_CLASSIFICATION_SECTION,
+    "docs/",
+    "scripts/",
+    "tests/",
+    "root-owned",
+    "mechanic-owned payload",
+    "unclassified root-authored surface",
+    ROOT_AUTHORED_SURFACE_CLASSIFICATION_COMMAND,
+)
+MECHANIC_ROUTE_CARD_FILES = tuple(
+    route
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
+    for route in (
+        f"mechanics/{parent_name}/AGENTS.md",
+        f"mechanics/{parent_name}/README.md",
+        f"mechanics/{parent_name}/DIRECTION.md",
+        f"mechanics/{parent_name}/PARTS.md",
+    )
+)
+MECHANIC_PARENT_README_FILES = tuple(
+    f"mechanics/{parent_name}/README.md"
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
+)
+MECHANIC_PARENT_AGENTS_FILES = tuple(
+    f"mechanics/{parent_name}/AGENTS.md"
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
+)
+MECHANIC_PART_CONTRACT_FILES = tuple(
+    f"mechanics/{parent_name}/PARTS.md"
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
+)
+MECHANIC_DIRECTION_FILES = tuple(
+    f"mechanics/{parent_name}/DIRECTION.md"
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
+)
+MECHANIC_PROVENANCE_FILES = tuple(
+    f"mechanics/{parent_name}/PROVENANCE.md"
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
+)
+MECHANIC_LEGACY_README_FILES = tuple(
+    f"mechanics/{parent_name}/legacy/README.md"
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
+)
+MECHANIC_LEGACY_INDEX_FILES = tuple(
+    f"mechanics/{parent_name}/legacy/INDEX.md"
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
+)
+MECHANIC_LEGACY_DISTILLATION_LOG_FILES = tuple(
+    f"mechanics/{parent_name}/legacy/DISTILLATION_LOG.md"
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
+)
+MECHANIC_LEGACY_RAW_README_FILES = tuple(
+    f"mechanics/{parent_name}/legacy/raw/README.md"
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
+)
+MECHANIC_LEGACY_SKELETON_FILES = (
+    MECHANIC_PROVENANCE_FILES
+    + MECHANIC_LEGACY_README_FILES
+    + MECHANIC_LEGACY_INDEX_FILES
+    + MECHANIC_LEGACY_DISTILLATION_LOG_FILES
+    + MECHANIC_LEGACY_RAW_README_FILES
+)
+MECHANIC_LEGACY_SKELETON_DECISION_NAME = (
+    "docs/decisions/0071-mechanic-legacy-skeleton-contract.md"
+)
+MECHANIC_PART_CONTRACT_REQUIRED_TOKENS = (
+    "## Part Contract",
+    "Inputs",
+    "Outputs",
+    "Owner split",
+    "Stop-lines",
+    "Validation",
+)
+MECHANIC_PART_README_REQUIRED_TOKENS = (
+    "## Source Surfaces",
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+)
+MECHANIC_PART_README_CONTRACT_DECISION_NAME = (
+    "docs/decisions/0074-mechanic-part-readme-contract.md"
+)
+MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME = (
+    "docs/decisions/0086-mechanic-part-payload-inventory.md"
+)
+MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_payload_inventory"
+)
+MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_NAME = (
+    "docs/decisions/0097-mechanic-parent-guidance-boundary.md"
+)
+MECHANIC_PARENT_GUIDANCE_BOUNDARY_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_guidance_boundary"
+)
+MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME = (
+    "docs/decisions/0087-mechanic-part-validation-command-reachability.md"
+)
+MECHANIC_PART_VALIDATION_COMMAND_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_validation_command"
+)
+MECHANIC_PARTS_INDEX_SYNC_DECISION_NAME = (
+    "docs/decisions/0088-mechanic-parts-index-synchronization.md"
+)
+MECHANIC_PARTS_INDEX_SYNC_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_parts_index_sync"
+)
+MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_NAME = (
+    "docs/decisions/0094-mechanic-part-source-surface-reference-guard.md"
+)
+MECHANIC_PART_SOURCE_SURFACE_REF_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_source_surface"
+)
+MECHANIC_PART_SOURCE_SURFACES_SECTION_DECISION_NAME = (
+    "docs/decisions/0095-mechanic-part-source-surfaces-section-contract.md"
+)
+MECHANIC_PART_SOURCE_SURFACES_SECTION_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_source_surfaces_section"
+)
+MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_NAME = (
+    "docs/decisions/0089-mechanic-legacy-single-bridge.md"
+)
+MECHANIC_LEGACY_SINGLE_BRIDGE_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_single_bridge"
+)
+MECHANIC_PROVENANCE_BRIDGE_POSTURE_DECISION_NAME = (
+    "docs/decisions/0090-mechanic-provenance-bridge-posture.md"
+)
+MECHANIC_PROVENANCE_BRIDGE_POSTURE_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_bridge_posture"
+)
+MECHANIC_PART_ALLOWED_PAYLOAD_DIRS = (
+    "config",
+    "docs",
+    "examples",
+    "fixtures",
+    "generated",
+    "manifests",
+    "reports",
+    "runners",
+    "schemas",
+    "scorers",
+    "scripts",
+    "seeds",
+    "templates",
+    "tests",
+)
+MECHANIC_THIN_PART_REQUIRED_TOKENS = (
+    "bundle-backed thin support route",
+    "no part-local payload subdirectories",
+    "source proof bundle stays under `bundles/`",
+)
+MECHANIC_PARENT_ROOT_ALLOWED_FILES = frozenset(
+    {
+        "AGENTS.md",
+        "DIRECTION.md",
+        "PARTS.md",
+        "PROVENANCE.md",
+        "README.md",
+    }
+)
+MECHANIC_PARENT_ROOT_ALLOWED_DIRS = frozenset({"legacy", "parts"})
+MECHANIC_PARENT_GUIDANCE_DOCS = {
+    "agon": frozenset(
+        {
+            "AGON_EVAL_OWNER_HANDOFFS.md",
+            "AGON_EVAL_RECURRENCE_REVIEW_BOUNDARY.md",
+        }
+    ),
+    "recurrence": frozenset({"RECURRENCE_PROOF_PROGRAM.md"}),
+}
+MECHANIC_PARENT_GUIDANCE_DOC_REQUIRED_TOKENS = (
+    "## Role",
+    "## Mechanic-wide Scope",
+    "## Source Surfaces",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+)
+MECHANIC_PART_README_CONTRACT_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Part README Contract",
+    "`mechanics/<parent>/parts/<part>/README.md`",
+    "`## Source Surfaces`",
+    "`## Inputs`",
+    "`## Outputs`",
+    "`## Stronger Owner Split`",
+    "`## Stop-Lines`",
+    "`## Validation`",
+    "parent `PARTS.md`",
+    "orphan part",
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readme_contract",
+)
+MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Part Payload Inventory",
+    "`mechanics/<parent>/parts/<part>/`",
+    "payload subdirectory",
+    "bundle-backed thin support route",
+    "part README",
+    "unexpected payload class",
+    "empty payload subdirectory",
+    "unexpected part-root file",
+    MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND,
+)
+MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Parent Guidance Boundary",
+    "`mechanics/<parent>/docs/`",
+    "mechanic-wide guidance",
+    "parent guidance content contract",
+    "part-owned payload",
+    "`## Source Surfaces`",
+    "`## Stronger Owner Split`",
+    "`## Stop-Lines`",
+    "allowlisted",
+    "unallowlisted parent-level docs",
+    "Titan canary guides",
+    MECHANIC_PARENT_GUIDANCE_BOUNDARY_COMMAND,
+)
+MECHANIC_PART_VALIDATION_COMMAND_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Part Validation Command Reachability",
+    "`## Validation`",
+    "`mechanics/<parent>/parts/<part>/README.md`",
+    "python command",
+    "reachable path",
+    "payload coverage anchor",
+    "naked route-wide command",
+    "stale validation path",
+    MECHANIC_PART_VALIDATION_COMMAND_COMMAND,
+)
+MECHANIC_PARTS_INDEX_SYNC_DECISION_REQUIRED_TOKENS = (
+    "Mechanic PARTS Index Synchronization",
+    "`mechanics/<parent>/PARTS.md`",
+    "actual part directory",
+    "declared part route",
+    "stale local part route",
+    "cross-parent reference",
+    MECHANIC_PARTS_INDEX_SYNC_COMMAND,
+)
+MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Part Source Surface Reference Guard",
+    "`## Source Surfaces`",
+    "`mechanics/<parent>/parts/<part>/README.md`",
+    "repo-relative path",
+    "repo-qualified sibling ref",
+    "placeholder route",
+    "stale source surface ref",
+    MECHANIC_PART_SOURCE_SURFACE_REF_COMMAND,
+)
+MECHANIC_PART_SOURCE_SURFACES_SECTION_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Part Source Surfaces Section Contract",
+    "`mechanics/<parent>/parts/<part>/README.md`",
+    "`## Source Surfaces`",
+    "at least one path-like source ref",
+    "plural section",
+    "not `## Source Surface`",
+    "not `## Active Surfaces`",
+    MECHANIC_PART_SOURCE_SURFACES_SECTION_COMMAND,
+)
+MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Legacy Single Bridge",
+    "`PROVENANCE.md`",
+    "single controlled bridge",
+    "active mechanic surfaces",
+    "legacy archive",
+    "active surface",
+    "direct archive-internal references",
+    "must not carry archive details",
+    "JSON",
+    "YAML",
+    MECHANIC_LEGACY_SINGLE_BRIDGE_COMMAND,
+)
+MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS = (
+    "`PROVENANCE.md` is a bridge, not an active route.",
+    "Use active surfaces first:",
+    "DIRECTION.md",
+    "PARTS.md",
+    "parts/",
+    "legacy archive",
+    "legacy/README.md",
+    "owns its own details",
+    "Do not copy archive details",
+)
+MECHANIC_PROVENANCE_BRIDGE_POSTURE_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Provenance Bridge Posture",
+    "`PROVENANCE.md` is a bridge, not an active route.",
+    "Use active surfaces first:",
+    "`DIRECTION.md`",
+    "legacy archive",
+    "legacy/README.md",
+    "owns its own details",
+    MECHANIC_PROVENANCE_BRIDGE_POSTURE_COMMAND,
+)
+MECHANIC_PARENT_DIRECTION_DECISION_NAME = (
+    "docs/decisions/0082-mechanic-parent-direction-contract.md"
+)
+MECHANIC_PARENT_DIRECTION_COMMAND = (
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_direction"
+)
+MECHANIC_DIRECTION_REQUIRED_TOKENS = (
+    "current operating direction",
+    "## Source-of-truth split",
+    "`README.md`",
+    "`DIRECTION.md`",
+    "`PARTS.md`",
+    "`PROVENANCE.md`",
+    "## Current contour",
+    "## Growth rule",
+    "## Stop-lines",
+    "## Validation",
+)
+MECHANIC_PARENT_README_DIRECTION_ROUTE_REQUIRED_TOKENS = (
+    "## Entry Route",
+    "[DIRECTION.md](DIRECTION.md)",
+    "current operating direction",
+    "[PARTS.md](PARTS.md)",
+    "[PROVENANCE.md](PROVENANCE.md)",
+)
+MECHANIC_PARENT_AGENTS_DIRECTION_ROUTE_REQUIRED_TOKENS = (
+    "## Entry Route",
+    "current operating direction",
+)
+MECHANIC_PARENT_DIRECTION_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Parent Direction Contract",
+    "`DIRECTION.md`",
+    "current operating direction",
+    "`README.md`",
+    "`PARTS.md`",
+    "`PROVENANCE.md`",
+    "not provenance",
+    "not a part map",
+    MECHANIC_PARENT_DIRECTION_COMMAND,
+)
+MECHANIC_LEGACY_RAW_README_REQUIRED_TOKENS = (
+    "git history",
+    "INDEX.md",
+)
+MECHANIC_LEGACY_README_REQUIRED_TOKENS = (
+    "../PROVENANCE.md",
+    "INDEX.md",
+    "DISTILLATION_LOG.md",
+    "raw/README.md",
+    "not active topology",
+    "new-work entrypoint",
+)
+MECHANIC_LEGACY_RAW_PAYLOAD_DECISION_REQUIRED_TOKENS = (
+    "raw payload",
+    "archive-local index or accounting log",
+    "forgotten residue",
+    "current active route",
+    "active part route",
+    "raw-only archive route",
+)
+MECHANIC_LEGACY_SKELETON_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Legacy Archive Boundary",
+    "`PROVENANCE.md`",
+    "`legacy/README.md`",
+    "archive-local route",
+    "archive-local index",
+    "accounting log",
+    "`../PROVENANCE.md`",
+    "not an active contract",
+    "not a new-work entrypoint",
+    "unindexed raw payloads",
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_skeleton",
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_raw_payload",
+)
+MECHANIC_PROVENANCE_ENTRY_REQUIRED_TOKENS = (
+    "active",
+    "legacy/README.md",
+    "legacy archive owns",
+    "archive details",
+)
+MECHANIC_PROVENANCE_ENTRY_DECISION_NAME = (
+    "docs/decisions/0075-mechanic-provenance-entry-contract.md"
+)
+MECHANIC_PROVENANCE_ENTRY_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Provenance Entry Contract",
+    "`PROVENANCE.md`",
+    "`legacy/README.md`",
+    "active route first",
+    "not active topology",
+    "archive details",
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_entry",
+)
+MECHANIC_PARENT_CLASS_DECISION_NAME = (
+    "docs/decisions/0072-mechanic-parent-class-contract.md"
+)
+MECHANIC_PARENT_CLASS_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Parent Class Contract",
+    "AoA-aligned mechanics",
+    "evals-native mechanics",
+    "owner-named evals-native",
+    "aoa-agents` keeps Titan role, bearer, summon, and incarnation law",
+    "every AoA-aligned parent appears in the AoA-aligned table",
+    "owner-named evals-native parents state the stronger owner split",
+    "the two class sets are disjoint",
+    "former wrong parent forms",
+    "`agon-proof`",
+    "`titan-canaries`",
+    "`proof-release`",
+    "`runtime-evidence`",
+    "`sibling-proof-refs`",
+    "`repair`",
+    "python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_class",
+)
+FORBIDDEN_ACTIVE_MECHANICS_PATHS = (
+    "mechanics/agon-proof",
+    "mechanics/titan-canaries",
+    "mechanics/proof-release",
+    "mechanics/runtime-evidence",
+    "mechanics/sibling-proof-refs",
+    "mechanics/repair",
+    "docs/decisions/0016-agon-proof-mechanic-package.md",
+    "docs/decisions/0015-titan-canaries-mechanic-package.md",
+    "docs/decisions/0014-proof-release-mechanic-package.md",
+    "docs/decisions/0007-runtime-evidence-mechanic-package.md",
+    "docs/decisions/0008-sibling-proof-refs-mechanic-package.md",
+    "docs/RECURRENCE_PROOF_PROGRAM.md",
+    "docs/RECURRENCE_CONTROL_PLANE_EVALS.md",
+    "docs/RECURRENCE_LIVE_OBSERVATION_PRODUCERS.md",
+    "docs/EVAL_INDEX_RECURRENCE_INSERT.md",
+    "docs/EVAL_SELECTION_RECURRENCE_INSERT.md",
+    "fixtures/recurrence-control-plane-integrity-v1",
+    "schemas/recurrence-control-plane-integrity-dossier.schema.json",
+    "examples/recurrence_control_plane_integrity.dossier.example.json",
+    "scripts/run_recurrence_control_plane_integrity_eval.py",
+    "scorers/recurrence_control_plane_integrity.py",
+    "tests/test_recurrence_control_plane_integrity_eval_seed.py",
+    "manifests/recurrence/component.recurrence-control-plane-integrity-eval.json",
+    "manifests/recurrence/component.evals.portable-proof-beacons.json",
+    "manifests/recurrence/hooks/component.evals.portable-proof-beacons.hooks.json",
+    "docs/RECURRENCE_REVIEW_DECISION_CLOSURE.md",
+    "fixtures/return-anchor-v1",
+    "fixtures/memo-recall-guardrail-v1",
+    "fixtures/recursor-readiness-boundary-v1",
+    "fixtures/stats-regrounding-boundary-v1",
+    "scripts/run_recursor_readiness_boundary_eval.py",
+    "scorers/recursor_readiness_boundary.py",
+    "tests/test_recursor_readiness_boundary_eval_seed.py",
+    "tests/test_stats_regrounding_boundary_eval.py",
+    "tests/test_memo_recall_phase_alpha_report.py",
+    "docs/PROGRESSION_EVIDENCE_MODEL.md",
+    "docs/UNLOCK_PROOF_BRIDGE.md",
+    "schemas/progression_evidence.schema.json",
+    "schemas/unlock_proof_catalog.schema.json",
+    "examples/progression_evidence.example.json",
+    "generated/unlock_proof_cards.min.example.json",
+    "docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md",
+    "fixtures/a2a-summon-return-checkpoint-v1",
+    "fixtures/long-horizon-restart-v1",
+    "tests/test_a2a_summon_return_checkpoint_fixture.py",
+    "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.a2a-summon-return-checkpoint.example.json",
+    "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
+    "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
+    "docs/EXPERIENCE_CERTIFICATION_EVAL_BUNDLES.md",
+    "docs/ASSISTANT_CERTIFICATION_JUDGE.md",
+    "docs/DEPLOYMENT_INTEGRITY_BUNDLES.md",
+    "docs/POST_RELEASE_REGRESSION_VERDICT.md",
+    "docs/ROLLBACK_DRILL_VERDICT_MODEL.md",
+    "docs/ROLLBACK_TRIGGER_VERDICT.md",
+    "docs/WATCHTOWER_ALARM_VERDICT_MODEL.md",
+    "docs/ADOPTION_EVAL_BUNDLES.md",
+    "docs/ADOPTION_COMPATIBILITY_VERDICT.md",
+    "docs/AGONIC_ADOPTION_TRIAL_VERDICT.md",
+    "docs/ASSISTANT_ADOPTION_CERTIFICATION_VERDICT.md",
+    "docs/ROUTING_ADOPTION_VERDICT.md",
+    "docs/SHADOW_ADOPTION_VERDICT.md",
+    "docs/FEDERATION_HARVEST_EVAL_BUNDLES.md",
+    "docs/KAG_PROMOTION_VERDICT_MODEL.md",
+    "docs/OWNER_CONSENT_VERDICT.md",
+    "docs/PATTERN_LINEAGE_INTEGRITY_BUNDLES.md",
+    "docs/TOS_BOUNDARY_VERDICT_MODEL.md",
+    "docs/AUTHORITY_RESOLUTION_VERDICT.md",
+    "docs/APPEAL_REVIEW_VERDICT.md",
+    "docs/CHARTER_AMENDMENT_EVALS.md",
+    "docs/CONSTITUTION_RUNTIME_EVAL_BUNDLES.md",
+    "docs/GOVERNANCE_VERDICT_BUNDLES.md",
+    "docs/REPLAY_HISTORY_INTEGRITY_VERDICT.md",
+    "docs/STAY_ORDER_ENFORCEMENT_VERDICT.md",
+    "docs/TOS_DOSSIER_REVIEW_VERDICTS.md",
+    "docs/VETO_LEGITIMACY_BUNDLES.md",
+    "docs/VOTE_SEAL_INTEGRITY_VERDICT.md",
+    "docs/BOUNDARY_GUARD_VERDICTS.md",
+    "docs/GOVERNED_RELEASE_VERDICTS.md",
+    "docs/HANDOFF_INTEGRITY_VERDICTS.md",
+    "docs/INSTALLATION_SMOKE_EVALS.md",
+    "docs/MULTI_OFFICE_RELEASE_TRAIN_EVALS.md",
+    "docs/OFFICE_SCOPE_FIDELITY_VERDICTS.md",
+    "docs/REPLAY_AUDIT_VERDICTS.md",
+    "docs/ROLLBACK_DRILL_VERDICTS.md",
+    "docs/SERVICE_MESH_REGRESSION_VERDICTS.md",
+    "fixtures/experience-verdict-protocol-integrity-v1",
+    "fixtures/experience-certification-gate-integrity-v1",
+    "fixtures/memo-reviewed-candidate-adoption-guardrail-v1",
+    "fixtures/compost-provenance-v1",
+    "mechanics/experience/parts/adoption-federation/fixtures/memo-reviewed-candidate-adoption-guardrail-v1",
+    "tests/test_experience_protocol_integrity.py",
+    "tests/test_experience_certification_gate_integrity.py",
+    "tests/test_experience_wave2_seed_contracts.py",
+    "tests/test_experience_wave3_seed_contracts.py",
+    "tests/test_experience_wave4_seed_contracts.py",
+    "tests/test_experience_wave5_seed_contracts.py",
+    "docs/STRESS_RECOVERY_WINDOW_EVALS.md",
+    "fixtures/stress-recovery-window-bounded-v1",
+    "fixtures/repair-boundedness-v1",
+    "schemas/antifragility_eval_report_v1.json",
+    "schemas/stress_recovery_window_eval_report_v1.json",
+    "fixtures/candidate-lineage-v1",
+    "fixtures/owner-fit-routing-v1",
+)
+GENERATED_ROUTE_RESIDUE_MECHANIC_PREFIXES = tuple(
+    f"mechanics/{wrong_parent}/"
+    for wrong_parent, _correct_route in FORMER_WRONG_MECHANIC_PARENT_ROUTES
+)
+GENERATED_ROUTE_RESIDUE_MECHANIC_EXACT_ROUTES = tuple(
+    f"mechanics/{wrong_parent}"
+    for wrong_parent, _correct_route in FORMER_WRONG_MECHANIC_PARENT_ROUTES
+)
+GENERATED_ROUTE_RESIDUE_ROOT_PREFIXES = tuple(
+    f"{district_name}/" for district_name in ROOT_ROUTE_CARD_ONLY_DISTRICTS
+)
+GENERATED_ROUTE_RESIDUE_ROOT_EXACT_ROUTES = tuple(ROOT_ROUTE_CARD_ONLY_DISTRICTS)
+GENERATED_ROUTE_RESIDUE_SKIP_KEYS = frozenset(
+    {
+        "content_markdown",
+    }
+)
+ACTIVE_MECHANIC_ROUTE_RESIDUE_ROOT_TOKEN_RE = re.compile(
+    r"(?<![\w./:-])(?P<token>(?:"
+    + "|".join(re.escape(district) for district in ROOT_ROUTE_CARD_ONLY_DISTRICTS)
+    + r")(?:/[A-Za-z0-9._*<>-]+)+/?)"
+)
+ACTIVE_MECHANIC_ROUTE_RESIDUE_MECHANIC_TOKEN_RE = re.compile(
+    r"(?<![\w./:-])(?P<token>mechanics/(?:"
+    + "|".join(
+        re.escape(wrong_parent)
+        for wrong_parent, _correct_route in FORMER_WRONG_MECHANIC_PARENT_ROUTES
+    )
+    + r")(?:/[A-Za-z0-9._*<>-]+)*/?)"
+)
+ACTIVE_MECHANIC_ROUTE_RESIDUE_TOKEN_STRIP_CHARS = "`.,;:)]}\"'"
+ROOT_AUTHORED_ROUTE_RESIDUE_ROOT_FILES = (
+    ".agents/spark/SWARM.md",
+    "AGENTS.md",
+    "AUDIT.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "DESIGN.AGENTS.md",
+    "DESIGN.md",
+    "EVAL_INDEX.md",
+    "EVAL_SELECTION.md",
+    "QUESTBOOK.md",
+    "README.md",
+    "ROADMAP.md",
+    "bundles/AGENTS.md",
+)
+ROOT_AUTHORED_ROUTE_RESIDUE_CONTEXT_TOKENS = (
+    "Former root",
+    "former root",
+    "historical root",
+    "Do not recreate",
+    "compatibility route card",
+    "mapped through",
+    "route-card",
+    "route card",
+)
+DECISION_ROUTE_RESIDUE_CONTEXT_TOKENS = (
+    *ROOT_AUTHORED_ROUTE_RESIDUE_CONTEXT_TOKENS,
+    "legacy",
+    "provenance",
+    "old root",
+    "previous root",
+    "stale authored path example",
+)
+ACTIVE_LEGACY_PARENT_WORDING_FORBIDDEN: dict[str, tuple[str, ...]] = {
+    "docs/RELEASING.md": (
+        "runtime-evidence example refs",
+    ),
+    "docs/PROOF_TOPOLOGY.md": (
+        "audit runtime-evidence packets",
+    ),
+    "mechanics/boundary-bridge/README.md": (
+        "runtime-evidence schema refs",
+    ),
+    "mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md": (
+        "runtime-evidence schema",
+    ),
+    "mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json": (
+        "runtime-evidence schema refs",
+    ),
+    "mechanics/recurrence/parts/portable-proof-beacons/manifests/recurrence/hooks/component.evals.portable-proof-beacons.hooks.json": (
+        "runtime-evidence bridge",
+    ),
+    "mechanics/audit/parts/README.md": (
+        "# Runtime Evidence Parts",
+        "`runtime-evidence` mechanic",
+    ),
+    "mechanics/titan/README.md": (
+        "This package routes Titan canary work",
+    ),
+    "mechanics/titan/parts/README.md": (
+        "# Titan Canaries Parts",
+        "Titan-canary-owned",
+    ),
+    "reports/README.md": (
+        "Proof-release reports",
+    ),
+}
+MECHANIC_PARENT_ALLOWLIST_DECISION_REQUIRED_TOKENS = (
+    "Mechanic Parent Allowlist",
+    "no invented parent packages",
+    "mechanics/EVIDENCE_CLUSTERS.md",
+    "AoA-aligned",
+    "evals-native",
+    "validator allowlist",
+    "Active parents are active, not merely plausible candidates",
+)
 PROOF_OBJECT_MECHANIC_README_NAME = "mechanics/proof-object/README.md"
 PROOF_OBJECT_MECHANIC_AGENTS_NAME = "mechanics/proof-object/AGENTS.md"
+PROOF_OBJECT_MECHANIC_PARTS_NAME = "mechanics/proof-object/PARTS.md"
+PROOF_OBJECT_MECHANIC_PROVENANCE_NAME = "mechanics/proof-object/PROVENANCE.md"
+PROOF_OBJECT_BUNDLE_AUTHORING_PART_README_NAME = (
+    "mechanics/proof-object/parts/bundle-authoring/README.md"
+)
+PROOF_OBJECT_BUNDLE_CONTRACTS_PART_README_NAME = (
+    "mechanics/proof-object/parts/bundle-contracts/README.md"
+)
+PROOF_OBJECT_CONTRACT_PART_DECISION_NAME = (
+    "docs/decisions/0048-proof-object-contract-parts.md"
+)
+PROOF_OBJECT_PART_OWNER_SPLIT_DECISION_NAME = (
+    "docs/decisions/0069-proof-object-part-owner-split-contract.md"
+)
 PROOF_LOOP_MECHANIC_README_NAME = "mechanics/proof-loop/README.md"
 PROOF_LOOP_MECHANIC_AGENTS_NAME = "mechanics/proof-loop/AGENTS.md"
-PROOF_LOOP_SMOKE_REPORT_NAME = "reports/proof-loop-local-route-smoke-v1.md"
+PROOF_LOOP_MECHANIC_PARTS_NAME = "mechanics/proof-loop/PARTS.md"
+PROOF_LOOP_MECHANIC_PROVENANCE_NAME = "mechanics/proof-loop/PROVENANCE.md"
+PROOF_LOOP_LEGACY_INDEX_NAME = "mechanics/proof-loop/legacy/INDEX.md"
+PROOF_LOOP_LEGACY_DISTILLATION_LOG_NAME = (
+    "mechanics/proof-loop/legacy/DISTILLATION_LOG.md"
+)
+PROOF_LOOP_LEGACY_RAW_README_NAME = "mechanics/proof-loop/legacy/raw/README.md"
+PROOF_LOOP_PARTS_README_NAME = "mechanics/proof-loop/parts/README.md"
+PROOF_LOOP_ROUTE_SMOKE_PART_README_NAME = (
+    "mechanics/proof-loop/parts/route-smoke/README.md"
+)
+PROOF_LOOP_SMOKE_REPORT_NAME = (
+    "mechanics/proof-loop/parts/route-smoke/reports/"
+    "proof-loop-local-route-smoke-v1.md"
+)
 PROOF_LOOP_SMOKE_DECISION_NAME = "docs/decisions/0020-proof-loop-local-smoke-report.md"
+PROOF_LOOP_ROUTE_SMOKE_PART_DECISION_NAME = (
+    "docs/decisions/0030-proof-loop-route-smoke-part.md"
+)
+PROOF_LOOP_ROUTE_SMOKE_CONTRACT_DECISION_NAME = (
+    "docs/decisions/0060-proof-loop-route-smoke-contract.md"
+)
 PROOF_LOOP_LOCAL_REPORT_NAME = (
     "bundles/aoa-verification-honesty/reports/"
     "aoa-evals-slice-19-lifecycle-contract.report.json"
@@ -246,20 +1627,29 @@ PROOF_LOOP_LOCAL_REPORT_DECISION_NAME = (
     "docs/decisions/0022-proof-loop-bundle-local-report.md"
 )
 RECEIPT_INTAKE_DRY_REVIEW_NAME = (
-    "reports/eval-result-receipt-intake-dry-review-v1.json"
+    "mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json"
 )
 RECEIPT_INTAKE_DRY_REVIEW_DECISION_NAME = (
     "docs/decisions/0024-receipt-intake-dry-review.md"
 )
-PROOF_RELEASE_READINESS_AUDIT_NAME = "reports/proof-release-readiness-audit-v1.json"
-PROOF_RELEASE_READINESS_AUDIT_DECISION_NAME = (
-    "docs/decisions/0025-proof-release-readiness-audit.md"
+RELEASE_SUPPORT_READINESS_AUDIT_NAME = (
+    "mechanics/release-support/parts/readiness-audit/reports/"
+    "release-support-readiness-audit-v1.json"
 )
-STRATEGIC_CLOSEOUT_AUDIT_NAME = "reports/strategic-closeout-audit-v1.json"
+RELEASE_SUPPORT_READINESS_AUDIT_DECISION_NAME = (
+    "docs/decisions/0025-release-support-readiness-audit.md"
+)
+STRATEGIC_CLOSEOUT_AUDIT_NAME = (
+    "mechanics/release-support/parts/strategic-closeout/reports/"
+    "strategic-closeout-audit-v1.json"
+)
 STRATEGIC_CLOSEOUT_AUDIT_DECISION_NAME = (
     "docs/decisions/0026-strategic-closeout-audit.md"
 )
-RELEASE_PREP_PR_HANDOFF_NAME = "reports/release-prep-pr-handoff-v1.json"
+RELEASE_PREP_PR_HANDOFF_NAME = (
+    "mechanics/release-support/parts/pr-handoff/reports/"
+    "release-prep-pr-handoff-v1.json"
+)
 RELEASE_PREP_PR_HANDOFF_DECISION_NAME = (
     "docs/decisions/0027-release-prep-pr-handoff.md"
 )
@@ -270,53 +1660,497 @@ REPO_VALIDATION_AOA_MEMO_PIN_DECISION_NAME = (
 )
 COMPARISON_SPINE_MECHANIC_README_NAME = "mechanics/comparison-spine/README.md"
 COMPARISON_SPINE_MECHANIC_AGENTS_NAME = "mechanics/comparison-spine/AGENTS.md"
+COMPARISON_SPINE_MECHANIC_PARTS_NAME = "mechanics/comparison-spine/PARTS.md"
+COMPARISON_SPINE_PARTS_README_NAME = "mechanics/comparison-spine/parts/README.md"
+COMPARISON_SPINE_OVERVIEW_PART_README_NAME = (
+    "mechanics/comparison-spine/parts/spine-overview/README.md"
+)
+COMPARISON_SPINE_FIXED_BASELINE_PART_README_NAME = (
+    "mechanics/comparison-spine/parts/fixed-baseline/README.md"
+)
+COMPARISON_SPINE_PEER_COMPARE_PART_README_NAME = (
+    "mechanics/comparison-spine/parts/peer-compare/README.md"
+)
+COMPARISON_SPINE_LONGITUDINAL_PART_README_NAME = (
+    "mechanics/comparison-spine/parts/longitudinal-window/README.md"
+)
+COMPARISON_SPINE_OVERVIEW_REPORT_NAME = (
+    "mechanics/comparison-spine/parts/spine-overview/reports/"
+    "comparison-spine-proof-flow-v1.md"
+)
+COMPARISON_SPINE_FIXED_BASELINE_REPORT_NAME = (
+    "mechanics/comparison-spine/parts/fixed-baseline/reports/"
+    "same-task-baseline-proof-flow-v1.md"
+)
+COMPARISON_SPINE_FIXED_BASELINE_FIXTURE_NAME = (
+    "mechanics/comparison-spine/parts/fixed-baseline/fixtures/"
+    "frozen-same-task-v1/README.md"
+)
+COMPARISON_SPINE_PEER_COMPARE_V1_REPORT_NAME = (
+    "mechanics/comparison-spine/parts/peer-compare/reports/"
+    "artifact-process-paired-proof-flow-v1.md"
+)
+COMPARISON_SPINE_PEER_COMPARE_V2_REPORT_NAME = (
+    "mechanics/comparison-spine/parts/peer-compare/reports/"
+    "artifact-process-paired-proof-flow-v2.md"
+)
+COMPARISON_SPINE_PEER_COMPARE_V1_FIXTURE_NAME = (
+    "mechanics/comparison-spine/parts/peer-compare/fixtures/"
+    "bounded-change-paired-v1/README.md"
+)
+COMPARISON_SPINE_PEER_COMPARE_V2_FIXTURE_NAME = (
+    "mechanics/comparison-spine/parts/peer-compare/fixtures/"
+    "bounded-change-paired-v2/README.md"
+)
+COMPARISON_SPINE_REPEATED_WINDOW_V1_REPORT_NAME = (
+    "mechanics/comparison-spine/parts/longitudinal-window/reports/"
+    "repeated-window-proof-flow-v1.md"
+)
+COMPARISON_SPINE_REPEATED_WINDOW_V2_REPORT_NAME = (
+    "mechanics/comparison-spine/parts/longitudinal-window/reports/"
+    "repeated-window-proof-flow-v2.md"
+)
+COMPARISON_SPINE_STRESS_RECOVERY_REPORT_NAME = (
+    "mechanics/comparison-spine/parts/longitudinal-window/reports/"
+    "stress-recovery-window-proof-flow-v1.md"
+)
+COMPARISON_SPINE_REPEATED_WINDOW_FIXTURE_NAME = (
+    "mechanics/comparison-spine/parts/longitudinal-window/fixtures/"
+    "repeated-window-bounded-v1/README.md"
+)
+COMPARISON_SPINE_REPORT_PARTS_DECISION_NAME = (
+    "docs/decisions/0029-comparison-spine-report-parts.md"
+)
+COMPARISON_SPINE_FIXTURE_PARTS_DECISION_NAME = (
+    "docs/decisions/0040-comparison-spine-fixture-parts.md"
+)
+COMPARISON_SPINE_PART_CONTRACT_GUARD_DECISION_NAME = (
+    "docs/decisions/0059-comparison-spine-part-contract-guard.md"
+)
+COMPARISON_SPINE_PROVENANCE_NAME = "mechanics/comparison-spine/PROVENANCE.md"
+COMPARISON_SPINE_LEGACY_INDEX_NAME = "mechanics/comparison-spine/legacy/INDEX.md"
 PROOF_INFRA_MECHANIC_README_NAME = "mechanics/proof-infra/README.md"
 PROOF_INFRA_MECHANIC_AGENTS_NAME = "mechanics/proof-infra/AGENTS.md"
+PROOF_INFRA_MECHANIC_PARTS_NAME = "mechanics/proof-infra/PARTS.md"
+PROOF_INFRA_FIXTURE_FAMILIES_README_NAME = (
+    "mechanics/proof-infra/parts/fixture-families/README.md"
+)
+PROOF_INFRA_FIXTURE_FAMILIES_AGENTS_NAME = (
+    "mechanics/proof-infra/parts/fixture-families/AGENTS.md"
+)
+PROOF_INFRA_REPORTABLE_CONTRACTS_README_NAME = (
+    "mechanics/proof-infra/parts/reportable-contracts/README.md"
+)
+PROOF_INFRA_REPORTABLE_CONTRACTS_AGENTS_NAME = (
+    "mechanics/proof-infra/parts/reportable-contracts/AGENTS.md"
+)
+PROOF_INFRA_REPORTABLE_CONTRACTS_RUNNER_SURFACE_NAME = (
+    "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
+)
+PROOF_INFRA_REPORTABLE_CONTRACTS_SCORER_NAME = (
+    "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
+)
+FIXTURE_CONTRACT_SCHEMA_NAME = (
+    "mechanics/proof-infra/parts/reportable-contracts/schemas/fixture-contract.schema.json"
+)
+RUNNER_CONTRACT_SCHEMA_NAME = (
+    "mechanics/proof-infra/parts/reportable-contracts/schemas/runner-contract.schema.json"
+)
+REPORT_SUMMARY_SCHEMA_NAME = (
+    "mechanics/proof-infra/parts/reportable-contracts/schemas/report-summary.schema.json"
+)
+PROOF_INFRA_PROVENANCE_NAME = "mechanics/proof-infra/PROVENANCE.md"
+PROOF_INFRA_LEGACY_INDEX_NAME = "mechanics/proof-infra/legacy/INDEX.md"
+PROOF_INFRA_FIXTURE_FAMILIES_DECISION_NAME = (
+    "docs/decisions/0041-proof-infra-fixture-families.md"
+)
+PROOF_INFRA_REPORTABLE_CONTRACTS_DECISION_NAME = (
+    "docs/decisions/0049-proof-infra-reportable-contracts.md"
+)
 PUBLICATION_RECEIPTS_MECHANIC_README_NAME = "mechanics/publication-receipts/README.md"
 PUBLICATION_RECEIPTS_MECHANIC_AGENTS_NAME = "mechanics/publication-receipts/AGENTS.md"
-PROOF_RELEASE_MECHANIC_README_NAME = "mechanics/proof-release/README.md"
-PROOF_RELEASE_MECHANIC_AGENTS_NAME = "mechanics/proof-release/AGENTS.md"
-TITAN_CANARIES_MECHANIC_README_NAME = "mechanics/titan-canaries/README.md"
-TITAN_CANARIES_MECHANIC_AGENTS_NAME = "mechanics/titan-canaries/AGENTS.md"
-AGON_PROOF_MECHANIC_README_NAME = "mechanics/agon-proof/README.md"
-AGON_PROOF_MECHANIC_AGENTS_NAME = "mechanics/agon-proof/AGENTS.md"
-EVALS_AGENTS_NAME = "evals/AGENTS.md"
+PUBLICATION_RECEIPTS_MECHANIC_PROVENANCE_NAME = "mechanics/publication-receipts/PROVENANCE.md"
+PUBLICATION_RECEIPTS_RECEIPT_PAYLOAD_PART_README_NAME = (
+    "mechanics/publication-receipts/parts/receipt-payload/README.md"
+)
+PUBLICATION_RECEIPTS_STATS_ENVELOPE_PART_README_NAME = (
+    "mechanics/publication-receipts/parts/stats-envelope-mirror/README.md"
+)
+PUBLICATION_RECEIPTS_LIVE_PUBLISHER_PART_README_NAME = (
+    "mechanics/publication-receipts/parts/live-publisher/README.md"
+)
+PUBLICATION_RECEIPTS_INTAKE_DRY_REVIEW_PART_README_NAME = (
+    "mechanics/publication-receipts/parts/intake-dry-review/README.md"
+)
+PUBLICATION_RECEIPTS_PART_CONTRACT_GUARD_DECISION_NAME = (
+    "docs/decisions/0057-publication-receipts-part-contract-guard.md"
+)
+PUBLICATION_RECEIPTS_LEGACY_INDEX_NAME = "mechanics/publication-receipts/legacy/INDEX.md"
+PUBLICATION_RECEIPTS_LEGACY_DISTILLATION_LOG_NAME = (
+    "mechanics/publication-receipts/legacy/DISTILLATION_LOG.md"
+)
+PUBLICATION_RECEIPTS_LEGACY_RAW_README_NAME = (
+    "mechanics/publication-receipts/legacy/raw/README.md"
+)
+RELEASE_SUPPORT_MECHANIC_README_NAME = "mechanics/release-support/README.md"
+RELEASE_SUPPORT_MECHANIC_AGENTS_NAME = "mechanics/release-support/AGENTS.md"
+RELEASE_SUPPORT_MECHANIC_PARTS_NAME = "mechanics/release-support/PARTS.md"
+RELEASE_SUPPORT_MECHANIC_PARTS_README_NAME = "mechanics/release-support/parts/README.md"
+RELEASE_SUPPORT_MECHANIC_PROVENANCE_NAME = "mechanics/release-support/PROVENANCE.md"
+RELEASE_SUPPORT_READINESS_AUDIT_PART_README_NAME = (
+    "mechanics/release-support/parts/readiness-audit/README.md"
+)
+RELEASE_SUPPORT_STRATEGIC_CLOSEOUT_PART_README_NAME = (
+    "mechanics/release-support/parts/strategic-closeout/README.md"
+)
+RELEASE_SUPPORT_PR_HANDOFF_PART_README_NAME = (
+    "mechanics/release-support/parts/pr-handoff/README.md"
+)
+RELEASE_SUPPORT_PART_CONTRACT_GUARD_DECISION_NAME = (
+    "docs/decisions/0058-release-support-part-contract-guard.md"
+)
+RELEASE_SUPPORT_LEGACY_INDEX_NAME = "mechanics/release-support/legacy/INDEX.md"
+RELEASE_SUPPORT_LEGACY_DISTILLATION_LOG_NAME = (
+    "mechanics/release-support/legacy/DISTILLATION_LOG.md"
+)
+RELEASE_SUPPORT_LEGACY_RAW_README_NAME = "mechanics/release-support/legacy/raw/README.md"
+TITAN_MECHANIC_README_NAME = "mechanics/titan/README.md"
+TITAN_MECHANIC_AGENTS_NAME = "mechanics/titan/AGENTS.md"
+TITAN_MECHANIC_DIRECTION_NAME = "mechanics/titan/DIRECTION.md"
+TITAN_PARTS_INDEX_README_NAME = "mechanics/titan/parts/README.md"
+TITAN_SEED_BOUNDARY_PART_README_NAME = "mechanics/titan/parts/seed-boundary/README.md"
+TITAN_SEED_BOUNDARY_SEEDS_DIR_NAME = "mechanics/titan/parts/seed-boundary/seeds"
+TITAN_SEED_BOUNDARY_SEEDS_README_NAME = "mechanics/titan/parts/seed-boundary/seeds/README.md"
+TITAN_SEED_BOUNDARY_SEEDS_AGENTS_NAME = "mechanics/titan/parts/seed-boundary/seeds/AGENTS.md"
+TITAN_SEED_BOUNDARY_CONTRACT_DECISION_NAME = (
+    "docs/decisions/0055-titan-seed-boundary-contract.md"
+)
+AGON_MECHANIC_README_NAME = "mechanics/agon/README.md"
+AGON_MECHANIC_AGENTS_NAME = "mechanics/agon/AGENTS.md"
+AGON_PART_CONTRACT_GUARD_DECISION_NAME = (
+    "docs/decisions/0054-agon-part-contract-guard.md"
+)
+RECURRENCE_MECHANIC_README_NAME = "mechanics/recurrence/README.md"
+RECURRENCE_MECHANIC_AGENTS_NAME = "mechanics/recurrence/AGENTS.md"
+RECURRENCE_MECHANIC_PARTS_NAME = "mechanics/recurrence/PARTS.md"
+RECURRENCE_MECHANIC_PROVENANCE_NAME = "mechanics/recurrence/PROVENANCE.md"
+RECURRENCE_CONTROL_PLANE_PART_README_NAME = (
+    "mechanics/recurrence/parts/control-plane-integrity/README.md"
+)
+RECURRENCE_ANCHOR_RETURN_PART_README_NAME = (
+    "mechanics/recurrence/parts/anchor-return/README.md"
+)
+RECURRENCE_MEMORY_RECALL_PART_README_NAME = (
+    "mechanics/recurrence/parts/memory-recall/README.md"
+)
+RECURRENCE_RECURSOR_BOUNDARY_PART_README_NAME = (
+    "mechanics/recurrence/parts/recursor-boundary/README.md"
+)
+RECURRENCE_STATS_REGROUNDING_PART_README_NAME = (
+    "mechanics/recurrence/parts/stats-regrounding-boundary/README.md"
+)
+RECURRENCE_PORTABLE_PROOF_BEACONS_PART_README_NAME = (
+    "mechanics/recurrence/parts/portable-proof-beacons/README.md"
+)
+RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_NAME = (
+    "mechanics/recurrence/parts/portable-proof-beacons/AGENTS.md"
+)
+RECURRENCE_MECHANIC_DECISION_NAME = "docs/decisions/0031-recurrence-mechanic-package.md"
+RECURRENCE_SUPPORT_PARTS_DECISION_NAME = (
+    "docs/decisions/0039-recurrence-support-parts-expansion.md"
+)
+RECURRENCE_PORTABLE_PROOF_BEACONS_DECISION_NAME = (
+    "docs/decisions/0042-recurrence-portable-proof-beacons-part.md"
+)
+RECURRENCE_CONTROL_PLANE_CONTRACT_DECISION_NAME = (
+    "docs/decisions/0066-recurrence-control-plane-contract.md"
+)
+CHECKPOINT_MECHANIC_README_NAME = "mechanics/checkpoint/README.md"
+CHECKPOINT_MECHANIC_AGENTS_NAME = "mechanics/checkpoint/AGENTS.md"
+CHECKPOINT_MECHANIC_PARTS_NAME = "mechanics/checkpoint/PARTS.md"
+CHECKPOINT_MECHANIC_PROVENANCE_NAME = "mechanics/checkpoint/PROVENANCE.md"
+CHECKPOINT_A2A_PART_README_NAME = (
+    "mechanics/checkpoint/parts/a2a-summon-return/README.md"
+)
+CHECKPOINT_RESTARTABLE_INQUIRY_PART_README_NAME = (
+    "mechanics/checkpoint/parts/restartable-inquiry/README.md"
+)
+CHECKPOINT_SELF_AGENT_PART_README_NAME = (
+    "mechanics/checkpoint/parts/self-agent-posture/README.md"
+)
+CHECKPOINT_MECHANIC_DECISION_NAME = "docs/decisions/0032-checkpoint-mechanic-package.md"
+CHECKPOINT_PART_CONTRACT_GUARD_DECISION_NAME = (
+    "docs/decisions/0062-checkpoint-part-contract-guard.md"
+)
+EXPERIENCE_MECHANIC_README_NAME = "mechanics/experience/README.md"
+EXPERIENCE_MECHANIC_AGENTS_NAME = "mechanics/experience/AGENTS.md"
+EXPERIENCE_MECHANIC_PARTS_NAME = "mechanics/experience/PARTS.md"
+EXPERIENCE_MECHANIC_PROVENANCE_NAME = "mechanics/experience/PROVENANCE.md"
+EXPERIENCE_PROTOCOL_PART_README_NAME = (
+    "mechanics/experience/parts/protocol-integrity/README.md"
+)
+EXPERIENCE_CERTIFICATION_PART_README_NAME = (
+    "mechanics/experience/parts/certification-gate/README.md"
+)
+EXPERIENCE_ADOPTION_PART_README_NAME = (
+    "mechanics/experience/parts/adoption-federation/README.md"
+)
+EXPERIENCE_GOVERNANCE_PART_README_NAME = (
+    "mechanics/experience/parts/governance-runtime-boundary/README.md"
+)
+EXPERIENCE_OFFICE_PART_README_NAME = (
+    "mechanics/experience/parts/office-release-train/README.md"
+)
+EXPERIENCE_MECHANIC_DECISION_NAME = "docs/decisions/0033-experience-mechanic-package.md"
+EXPERIENCE_VERDICT_RESIDUE_DECISION_NAME = (
+    "docs/decisions/0043-experience-verdict-residue-parts.md"
+)
+EXPERIENCE_PART_CONTRACT_GUARD_DECISION_NAME = (
+    "docs/decisions/0063-experience-part-contract-guard.md"
+)
+ANTIFRAGILITY_MECHANIC_README_NAME = "mechanics/antifragility/README.md"
+ANTIFRAGILITY_MECHANIC_AGENTS_NAME = "mechanics/antifragility/AGENTS.md"
+ANTIFRAGILITY_MECHANIC_PARTS_NAME = "mechanics/antifragility/PARTS.md"
+ANTIFRAGILITY_MECHANIC_PROVENANCE_NAME = "mechanics/antifragility/PROVENANCE.md"
+ANTIFRAGILITY_POSTURE_PART_README_NAME = (
+    "mechanics/antifragility/parts/posture-review/README.md"
+)
+ANTIFRAGILITY_STRESS_WINDOW_PART_README_NAME = (
+    "mechanics/antifragility/parts/stress-recovery-window/README.md"
+)
+ANTIFRAGILITY_REPAIR_PROOF_PART_README_NAME = (
+    "mechanics/antifragility/parts/repair-proof/README.md"
+)
+ANTIFRAGILITY_MECHANIC_DECISION_NAME = (
+    "docs/decisions/0034-antifragility-mechanic-package.md"
+)
+ANTIFRAGILITY_PART_CONTRACT_GUARD_DECISION_NAME = (
+    "docs/decisions/0061-antifragility-part-contract-guard.md"
+)
+METHOD_GROWTH_MECHANIC_README_NAME = "mechanics/method-growth/README.md"
+METHOD_GROWTH_MECHANIC_AGENTS_NAME = "mechanics/method-growth/AGENTS.md"
+METHOD_GROWTH_MECHANIC_PARTS_NAME = "mechanics/method-growth/PARTS.md"
+METHOD_GROWTH_MECHANIC_PROVENANCE_NAME = "mechanics/method-growth/PROVENANCE.md"
+METHOD_GROWTH_CANDIDATE_LINEAGE_PART_README_NAME = (
+    "mechanics/method-growth/parts/candidate-lineage/README.md"
+)
+METHOD_GROWTH_OWNER_LANDING_PART_README_NAME = (
+    "mechanics/method-growth/parts/owner-landing/README.md"
+)
+METHOD_GROWTH_MECHANIC_DECISION_NAME = (
+    "docs/decisions/0035-method-growth-mechanic-package.md"
+)
+METHOD_GROWTH_PART_OWNER_SPLIT_DECISION_NAME = (
+    "docs/decisions/0068-method-growth-part-owner-split-contract.md"
+)
+RPG_MECHANIC_README_NAME = "mechanics/rpg/README.md"
+RPG_MECHANIC_AGENTS_NAME = "mechanics/rpg/AGENTS.md"
+RPG_MECHANIC_PARTS_NAME = "mechanics/rpg/PARTS.md"
+RPG_MECHANIC_PROVENANCE_NAME = "mechanics/rpg/PROVENANCE.md"
+RPG_PROGRESS_UNLOCKS_PART_README_NAME = (
+    "mechanics/rpg/parts/progression-unlocks/README.md"
+)
+RPG_MECHANIC_DECISION_NAME = "docs/decisions/0036-rpg-mechanic-package.md"
+RPG_PROGRESS_UNLOCKS_CONTRACT_DECISION_NAME = (
+    "docs/decisions/0067-rpg-progression-unlocks-contract.md"
+)
+GROWTH_CYCLE_MECHANIC_README_NAME = "mechanics/growth-cycle/README.md"
+GROWTH_CYCLE_MECHANIC_AGENTS_NAME = "mechanics/growth-cycle/AGENTS.md"
+GROWTH_CYCLE_MECHANIC_PARTS_NAME = "mechanics/growth-cycle/PARTS.md"
+GROWTH_CYCLE_MECHANIC_PROVENANCE_NAME = "mechanics/growth-cycle/PROVENANCE.md"
+GROWTH_CYCLE_DIAGNOSIS_GATE_PART_README_NAME = (
+    "mechanics/growth-cycle/parts/diagnosis-gate/README.md"
+)
+GROWTH_CYCLE_MECHANIC_DECISION_NAME = (
+    "docs/decisions/0037-growth-cycle-mechanic-package.md"
+)
+GROWTH_CYCLE_DIAGNOSIS_GATE_CONTRACT_DECISION_NAME = (
+    "docs/decisions/0065-growth-cycle-diagnosis-gate-contract.md"
+)
+REPAIR_DIAGNOSIS_ROUTE_BOUNDARY_DECISION_NAME = (
+    "docs/decisions/0099-repair-diagnosis-route-boundary.md"
+)
+DISTILLATION_MECHANIC_README_NAME = "mechanics/distillation/README.md"
+DISTILLATION_MECHANIC_AGENTS_NAME = "mechanics/distillation/AGENTS.md"
+DISTILLATION_MECHANIC_PARTS_NAME = "mechanics/distillation/PARTS.md"
+DISTILLATION_MECHANIC_PROVENANCE_NAME = "mechanics/distillation/PROVENANCE.md"
+DISTILLATION_COMPOST_PROVENANCE_PART_README_NAME = (
+    "mechanics/distillation/parts/compost-provenance/README.md"
+)
+DISTILLATION_RUNTIME_CANDIDATE_ADOPTION_PART_README_NAME = (
+    "mechanics/distillation/parts/runtime-candidate-adoption/README.md"
+)
+DISTILLATION_MECHANIC_DECISION_NAME = (
+    "docs/decisions/0038-distillation-mechanic-package.md"
+)
+DISTILLATION_PART_CONTRACT_GUARD_DECISION_NAME = (
+    "docs/decisions/0064-distillation-part-contract-guard.md"
+)
 QUESTBOOK_MECHANIC_README_NAME = "mechanics/questbook/README.md"
 QUESTBOOK_MECHANIC_AGENTS_NAME = "mechanics/questbook/AGENTS.md"
-RUNTIME_EVIDENCE_MECHANIC_README_NAME = "mechanics/runtime-evidence/README.md"
-RUNTIME_EVIDENCE_MECHANIC_AGENTS_NAME = "mechanics/runtime-evidence/AGENTS.md"
-SIBLING_PROOF_REFS_NAME = "docs/SIBLING_PROOF_REFS.md"
-SIBLING_PROOF_REFS_MECHANIC_README_NAME = "mechanics/sibling-proof-refs/README.md"
-SIBLING_PROOF_REFS_MECHANIC_AGENTS_NAME = "mechanics/sibling-proof-refs/AGENTS.md"
+QUESTBOOK_MECHANIC_PARTS_NAME = "mechanics/questbook/PARTS.md"
+QUESTBOOK_MECHANIC_PROVENANCE_NAME = "mechanics/questbook/PROVENANCE.md"
+QUESTBOOK_SOURCE_RECORD_PART_README_NAME = (
+    "mechanics/questbook/parts/source-record-contract/README.md"
+)
+QUESTBOOK_DISPATCH_READER_PART_README_NAME = (
+    "mechanics/questbook/parts/dispatch-reader/README.md"
+)
+QUESTBOOK_PART_OWNER_SPLIT_DECISION_NAME = (
+    "docs/decisions/0070-questbook-part-owner-split-contract.md"
+)
+AUDIT_MECHANIC_README_NAME = "mechanics/audit/README.md"
+AUDIT_MECHANIC_AGENTS_NAME = "mechanics/audit/AGENTS.md"
+AUDIT_MECHANIC_PROVENANCE_NAME = "mechanics/audit/PROVENANCE.md"
+AUDIT_LEGACY_INDEX_NAME = "mechanics/audit/legacy/INDEX.md"
+AUDIT_LEGACY_DISTILLATION_LOG_NAME = "mechanics/audit/legacy/DISTILLATION_LOG.md"
+AUDIT_LEGACY_RAW_README_NAME = "mechanics/audit/legacy/raw/README.md"
+AUDIT_PART_CONTRACT_GUARD_DECISION_NAME = (
+    "docs/decisions/0053-audit-part-contract-guard.md"
+)
+AUDIT_SELECTED_EVIDENCE_PART_README_NAME = (
+    "mechanics/audit/parts/selected-evidence-packets/README.md"
+)
+AUDIT_ARTIFACT_VERDICT_HOOKS_PART_README_NAME = (
+    "mechanics/audit/parts/artifact-verdict-hooks/README.md"
+)
+AUDIT_CANDIDATE_READERS_PART_README_NAME = (
+    "mechanics/audit/parts/candidate-readers/README.md"
+)
+AUDIT_INTEGRITY_REVIEW_PART_README_NAME = (
+    "mechanics/audit/parts/integrity-review/README.md"
+)
+BOUNDARY_BRIDGE_COMPATIBILITY_MAP_DOC_NAME = "mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md"
+BOUNDARY_BRIDGE_MECHANIC_README_NAME = "mechanics/boundary-bridge/README.md"
+BOUNDARY_BRIDGE_MECHANIC_AGENTS_NAME = "mechanics/boundary-bridge/AGENTS.md"
+BOUNDARY_BRIDGE_MECHANIC_PARTS_NAME = "mechanics/boundary-bridge/PARTS.md"
+BOUNDARY_BRIDGE_MECHANIC_PROVENANCE_NAME = "mechanics/boundary-bridge/PROVENANCE.md"
+BOUNDARY_BRIDGE_LEGACY_INDEX_NAME = "mechanics/boundary-bridge/legacy/INDEX.md"
+BOUNDARY_BRIDGE_LEGACY_DISTILLATION_LOG_NAME = (
+    "mechanics/boundary-bridge/legacy/DISTILLATION_LOG.md"
+)
+BOUNDARY_BRIDGE_LEGACY_RAW_README_NAME = (
+    "mechanics/boundary-bridge/legacy/raw/README.md"
+)
+BOUNDARY_BRIDGE_PARTS_README_NAME = "mechanics/boundary-bridge/parts/README.md"
+BOUNDARY_BRIDGE_COMPATIBILITY_PART_README_NAME = (
+    "mechanics/boundary-bridge/parts/compatibility-map/README.md"
+)
+BOUNDARY_BRIDGE_LATEST_SIBLING_CANARY_PART_README_NAME = (
+    "mechanics/boundary-bridge/parts/latest-sibling-canary/README.md"
+)
+BOUNDARY_BRIDGE_ORCHESTRATOR_PROOF_ANCHORS_PART_README_NAME = (
+    "mechanics/boundary-bridge/parts/orchestrator-proof-anchors/README.md"
+)
+BOUNDARY_BRIDGE_PART_CONTRACT_GUARD_DECISION_NAME = (
+    "docs/decisions/0056-boundary-bridge-part-contract-guard.md"
+)
+SIBLING_CANARY_MATRIX_NAME = (
+    "mechanics/boundary-bridge/parts/latest-sibling-canary/config/"
+    "sibling_canary_matrix.json"
+)
+SIBLING_CANARY_RUNNER_NAME = (
+    "mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/"
+    "run_sibling_canary.py"
+)
+SIBLING_CANARY_COMMAND = (
+    f"python {SIBLING_CANARY_RUNNER_NAME} --repo-root . --format json"
+)
+SIBLING_CANARY_EXPLICIT_MATRIX_COMMAND = (
+    f"python {SIBLING_CANARY_RUNNER_NAME} --repo-root . --matrix {SIBLING_CANARY_MATRIX_NAME}"
+)
 MECHANICS_REQUIRED_TOKENS = (
     "operation atlas",
+    "mechanics/EVIDENCE_CLUSTERS.md",
     "proof-object",
     "proof-loop",
     "comparison-spine",
     "proof-infra",
     "publication-receipts",
-    "proof-release",
-    "titan-canaries",
-    "agon-proof",
+    "release-support",
+    "titan",
+    "agon",
     "questbook",
-    "runtime-evidence",
-    "sibling-proof-refs",
+    "audit",
+    "boundary-bridge",
     "Candidate families",
+    "Candidate families are not active parents by being named",
+    "There is no remaining named candidate",
+    "recurrence",
+    "checkpoint",
+    "experience",
+    "antifragility",
+    "method-growth",
+    "rpg",
+    "growth-cycle",
+    "distillation",
     "no empty package taxonomy",
     "proof-layer operation",
+    "Parent Class Summary",
+    "AoA-aligned parents",
+    "Evals-native parents",
+    "owner-named evals-native",
+    "Concrete wrong-parent mappings live in",
 )
 MECHANICS_AGENTS_REQUIRED_TOKENS = (
     "repeatable proof-layer operations",
     "docs/PROOF_TOPOLOGY.md",
+    "mechanics/EVIDENCE_CLUSTERS.md",
     "source proof objects",
     "generated readers",
     "runtime candidates",
+)
+MECHANICS_EVIDENCE_CLUSTERS_REQUIRED_TOKENS = (
+    "refactor map",
+    "Evidence Standard",
+    "Root District Reconnaissance Ledger",
+    "AoA-aligned parents",
+    "Evals-native parents",
+    "Class Membership Contract",
+    "cross-root evidence",
+    "owner-named evals-native",
+    "aoa-agents` keeps stronger Titan law",
+    "`agon`",
+    "`audit`",
+    "`boundary-bridge`",
+    "`recurrence`",
+    "`checkpoint`",
+    "`experience`",
+    "`antifragility`",
+    "`method-growth`",
+    "`rpg`",
+    "`growth-cycle`",
+    "`distillation`",
+    "`release-support`",
+    "`titan`",
+    "`agon-proof`",
+    "`titan-canaries`",
+    "`proof-release`",
+    "`runtime-evidence`",
+    "`sibling-proof-refs`",
+    "`repair`",
+    "Legacy Rule",
+    "PROVENANCE.md",
+    "legacy archive",
+    "diagnosis-cause discipline routes through `growth-cycle/diagnosis-gate`, not this parent.",
+    "One document, one report, or one canary form is not enough",
+)
+PART_LOCAL_TEST_PLACEMENT_DECISION_REQUIRED_TOKENS = (
+    "Part-local Test Placement",
+    "mechanics/<mechanic>/parts/<part>/tests/",
+    "Root `tests/` remains the repository-wide test district",
+    "python -m pytest -q",
+    "does not create a new parent mechanic from a test name",
 )
 PROOF_OBJECT_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
     "bundles/*/EVAL.md",
     "bundles/*/eval.yaml",
-    "templates/EVAL.template.md",
+    "mechanics/proof-object/PARTS.md",
+    "mechanics/proof-object/PROVENANCE.md",
+    "mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md",
+    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json",
+    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json",
     "generated/eval_catalog.min.json",
     "generated/eval_capsules.json",
     "generated/eval_sections.full.json",
@@ -330,10 +2164,52 @@ PROOF_OBJECT_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "source proof objects",
     "bundles/*/EVAL.md",
     "bundles/*/eval.yaml",
+    "mechanics/proof-object/PARTS.md",
+    "mechanics/proof-object/PROVENANCE.md",
     "EVAL.md and eval.yaml",
     "bundle-local review",
     "python scripts/build_catalog.py --check",
 )
+PROOF_OBJECT_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "bundle-authoring",
+    "bundle-contracts",
+    "mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md",
+    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json",
+    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json",
+    "Do not move `bundles/`",
+    "python scripts/validate_repo.py",
+)
+PROOF_OBJECT_BUNDLE_AUTHORING_PART_REQUIRED_TOKENS = (
+    "Bundle Authoring",
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md",
+    "bundles/*/EVAL.md",
+    "bundles/*/eval.yaml",
+    "actual source proof",
+    "template",
+    "doctrine or accepted proof meaning",
+    "sibling refs outrank source bundles",
+    "python scripts/build_catalog.py --check",
+)
+PROOF_OBJECT_BUNDLE_CONTRACTS_PART_REQUIRED_TOKENS = (
+    "Bundle Contracts",
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json",
+    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json",
+    "bundles/*/EVAL.md",
+    "bundles/*/eval.yaml",
+    "schema-backed contract validation",
+    "does not invent bundle",
+    "schema acceptance as bundle-local review",
+    "python scripts/build_catalog.py --check",
+)
+PROOF_OBJECT_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
 PROOF_OBJECT_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "mechanics/proof-object/",
     "bundles/*/EVAL.md",
@@ -342,6 +2218,24 @@ PROOF_OBJECT_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "does not move `bundles/`",
     "generated readers",
     "bundle-local review",
+)
+PROOF_OBJECT_CONTRACT_PART_DECISION_REQUIRED_TOKENS = (
+    "mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md",
+    "mechanics/proof-object/parts/bundle-contracts/schemas/",
+    "source bundles stay under `bundles/`",
+    "generated readers stay",
+    "python scripts/validate_repo.py",
+)
+PROOF_OBJECT_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS = (
+    "Proof-object Part Owner-split Contract",
+    "mechanics/proof-object/parts/bundle-authoring/README.md",
+    "mechanics/proof-object/parts/bundle-contracts/README.md",
+    "`## Stronger Owner Split`",
+    "source proof object remains",
+    "Source proof bundle meaning stays under `bundles/`",
+    "generated readers, reports, receipts, runtime candidates, sibling refs, quests",
+    "Schema acceptance may prove metadata shape",
+    "python -m pytest -q tests/test_validate_repo.py -k proof_object_part_owner_split",
 )
 PROOF_LOOP_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
@@ -353,9 +2247,11 @@ PROOF_LOOP_MECHANIC_REQUIRED_TOKENS = (
     "EVAL_SELECTION.md",
     "mechanics/proof-object/",
     "mechanics/proof-infra/",
-    "mechanics/runtime-evidence/",
+    "mechanics/audit/",
     "mechanics/publication-receipts/",
-    "mechanics/sibling-proof-refs/",
+    "mechanics/boundary-bridge/",
+    "PARTS.md",
+    "route-smoke",
     "Do not use this package to promote generated readers into proof authority",
     "python scripts/validate_repo.py",
 )
@@ -367,6 +2263,8 @@ PROOF_LOOP_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "optional receipt",
     "Keep generated readers subordinate",
     "Keep receipts below reviewed reports",
+    "mechanics/proof-loop/PARTS.md",
+    "Keep route-smoke reports",
     "python scripts/validate_repo.py",
 )
 PROOF_LOOP_MECHANIC_DECISION_REQUIRED_TOKENS = (
@@ -376,6 +2274,26 @@ PROOF_LOOP_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "does not own bundle meaning",
     "does not create runtime dispatch",
     "does not allow receipts",
+)
+PROOF_LOOP_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+PROOF_LOOP_LEGACY_INDEX_REQUIRED_TOKENS = (
+    "reports/proof-loop-local-route-smoke-v1.md",
+    "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
+    "docs/decisions/0020-proof-loop-local-smoke-report.md",
+    "docs/decisions/0030-proof-loop-route-smoke-part.md",
+    "Former root report paths are provenance only",
+)
+PROOF_LOOP_LEGACY_DISTILLATION_REQUIRED_TOKENS = (
+    "proof-loop",
+    "route-smoke",
+    "reports/proof-loop-local-route-smoke-v1.md",
+    "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
+    "Do not create new proof-loop work in legacy",
+)
+PROOF_LOOP_LEGACY_RAW_README_REQUIRED_TOKENS = (
+    "No raw payload copies",
+    "git history",
+    "active proof-loop",
 )
 PROOF_LOOP_SMOKE_REPORT_REQUIRED_TOKENS = (
     "bounded route-smoke",
@@ -390,13 +2308,56 @@ PROOF_LOOP_SMOKE_REPORT_REQUIRED_TOKENS = (
     "No sibling proof ref is required by this smoke",
 )
 PROOF_LOOP_SMOKE_DECISION_REQUIRED_TOKENS = (
-    "reports/proof-loop-local-route-smoke-v1.md",
+    "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
     "aoa-verification-honesty",
     "bounded route-smoke",
     "no eval result receipt",
     "no bundle promotion",
     "no runtime dispatch",
     "no sibling-owner approval",
+)
+PROOF_LOOP_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "Proof Loop Parts",
+    "proof question -> selection route -> source proof object",
+    "route-smoke",
+    PROOF_LOOP_SMOKE_REPORT_NAME,
+    "not standalone mechanics",
+    "no eval result receipt",
+)
+PROOF_LOOP_PARTS_README_REQUIRED_TOKENS = (
+    "Proof Loop Parts",
+    "route-smoke/README.md",
+    "proof-loop-owned artifacts",
+)
+PROOF_LOOP_ROUTE_SMOKE_PART_README_REQUIRED_TOKENS = (
+    "Route Smoke Part",
+    PROOF_LOOP_SMOKE_REPORT_NAME,
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "bounded route-smoke report artifact",
+    "no eval result receipt",
+    "Do not treat the route-smoke report as a new eval-result run",
+    "full proof-loop completeness",
+    "python scripts/validate_repo.py",
+)
+PROOF_LOOP_ROUTE_SMOKE_PART_DECISION_REQUIRED_TOKENS = (
+    PROOF_LOOP_SMOKE_REPORT_NAME,
+    "route-smoke",
+    "root `reports/`",
+    "mechanics/proof-loop/PARTS.md",
+    "does not create an eval result receipt",
+)
+PROOF_LOOP_ROUTE_SMOKE_CONTRACT_DECISION_REQUIRED_TOKENS = (
+    "Proof Loop Route-Smoke Contract",
+    "mechanics/proof-loop/parts/route-smoke/README.md",
+    "part-level contract",
+    "stronger owner split",
+    "stop-lines",
+    "no eval result receipt",
+    "full proof-loop completeness",
+    "python scripts/validate_repo.py",
 )
 PROOF_LOOP_LOCAL_REPORT_REQUIRED_TOKENS = (
     "aoa-verification-honesty",
@@ -437,8 +2398,8 @@ RECEIPT_INTAKE_DRY_REVIEW_DECISION_REQUIRED_TOKENS = (
     "dry review is weaker than a receipt",
     "Do not infer that an eval result receipt was published",
 )
-PROOF_RELEASE_READINESS_AUDIT_REQUIRED_TOKENS = (
-    "proof_release_readiness_audit",
+RELEASE_SUPPORT_READINESS_AUDIT_REQUIRED_TOKENS = (
+    "release_support_readiness_audit",
     "local_release_prep_review_ready_with_open_landing",
     "accumulated_strategic_refactor_diff",
     "ready_for_release_prep_review",
@@ -453,8 +2414,8 @@ PROOF_RELEASE_READINESS_AUDIT_REQUIRED_TOKENS = (
     "not GitHub Repo Validation",
     "not goal completion",
 )
-PROOF_RELEASE_READINESS_AUDIT_DECISION_REQUIRED_TOKENS = (
-    PROOF_RELEASE_READINESS_AUDIT_NAME,
+RELEASE_SUPPORT_READINESS_AUDIT_DECISION_REQUIRED_TOKENS = (
+    RELEASE_SUPPORT_READINESS_AUDIT_NAME,
     "scripts/release_check.py",
     "GitHub `Repo Validation`",
     "not the same as a bounded release-prep review",
@@ -465,24 +2426,24 @@ PROOF_RELEASE_READINESS_AUDIT_DECISION_REQUIRED_TOKENS = (
 )
 STRATEGIC_CLOSEOUT_AUDIT_REQUIRED_TOKENS = (
     "strategic_closeout_audit",
-    "local_strategic_refactor_handoff_ready_with_open_landing",
-    "not_complete",
+    "current_objective_audit_and_landing_route_in_progress_after_mechanics_validation_hardening",
+    "not_complete_pending_requirement_audit_and_landing_route",
     "satisfied_for_local_refactor",
     "meta_truth_and_positive_boundary",
     "codex_maxxing_durable_loop",
     "phase_8_active_proof_loop",
-    "trap_audit_and_open_landing",
+    "trap_audit_and_completion_boundary",
     "does not mark the goal complete",
-    "does not open a PR",
-    "does not observe GitHub Repo Validation",
+    "does not treat PR or GitHub landing alone as objective completion",
+    "requirement-by-requirement mechanics objective audit",
     "does not publish an eval result receipt",
     "does not mutate sibling repos",
 )
 STRATEGIC_CLOSEOUT_AUDIT_DECISION_REQUIRED_TOKENS = (
     STRATEGIC_CLOSEOUT_AUDIT_NAME,
     "requirement-by-requirement",
-    "handoff ready locally",
-    "goal not complete",
+    "current objective audit",
+    "not a PR ritual",
     "GitHub `Repo Validation`",
     "live eval-result receipt",
     "mutate sibling repos",
@@ -535,6 +2496,19 @@ COMPARISON_SPINE_MECHANIC_REQUIRED_TOKENS = (
     "docs/BASELINE_COMPARISON_GUIDE.md",
     "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
     "generated/comparison_spine.json",
+    "mechanics/comparison-spine/PARTS.md",
+    COMPARISON_SPINE_OVERVIEW_REPORT_NAME,
+    COMPARISON_SPINE_FIXED_BASELINE_REPORT_NAME,
+    COMPARISON_SPINE_FIXED_BASELINE_FIXTURE_NAME,
+    COMPARISON_SPINE_PEER_COMPARE_V1_REPORT_NAME,
+    COMPARISON_SPINE_PEER_COMPARE_V2_REPORT_NAME,
+    COMPARISON_SPINE_PEER_COMPARE_V1_FIXTURE_NAME,
+    COMPARISON_SPINE_PEER_COMPARE_V2_FIXTURE_NAME,
+    COMPARISON_SPINE_REPEATED_WINDOW_V1_REPORT_NAME,
+    COMPARISON_SPINE_REPEATED_WINDOW_V2_REPORT_NAME,
+    COMPARISON_SPINE_STRESS_RECOVERY_REPORT_NAME,
+    COMPARISON_SPINE_REPEATED_WINDOW_FIXTURE_NAME,
+    COMPARISON_SPINE_PROVENANCE_NAME,
     "comparison_surface",
     "fixed-baseline",
     "peer-compare",
@@ -546,6 +2520,7 @@ COMPARISON_SPINE_MECHANIC_REQUIRED_TOKENS = (
 COMPARISON_SPINE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "baseline_mode",
     "comparison_surface",
+    "fixtures/contract.json",
     "generated/comparison_spine.json",
     "fixed-baseline",
     "peer-compare",
@@ -561,23 +2536,128 @@ COMPARISON_SPINE_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "longitudinal-window",
     "does not make `generated/comparison_spine.json` source truth",
 )
+COMPARISON_SPINE_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "spine-overview",
+    "fixed-baseline",
+    "peer-compare",
+    "longitudinal-window",
+    "not standalone mechanics",
+    "source claim meaning stays in `bundles/*/EVAL.md`",
+    "fixture and readout surfaces",
+)
+COMPARISON_SPINE_PARTS_README_REQUIRED_TOKENS = (
+    "spine-overview/",
+    "fixed-baseline/",
+    "peer-compare/",
+    "longitudinal-window/",
+    "python scripts/build_catalog.py --check",
+)
+COMPARISON_SPINE_PART_README_COMMON_REQUIRED_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "python scripts/build_catalog.py --check",
+    "python scripts/validate_repo.py",
+)
+COMPARISON_SPINE_OVERVIEW_PART_REQUIRED_TOKENS = (
+    "comparison-spine-proof-flow-v1.md",
+    "cross-mode",
+    "does not replace",
+    "generated/comparison_spine.json",
+    "Do not collapse fixed-baseline, peer-compare, and longitudinal-window into",
+) + COMPARISON_SPINE_PART_README_COMMON_REQUIRED_TOKENS
+COMPARISON_SPINE_FIXED_BASELINE_PART_REQUIRED_TOKENS = (
+    "frozen-same-task-v1",
+    "same-task-baseline-proof-flow-v1.md",
+    "fixed-baseline",
+    "repo-global score",
+    "baseline_target_label",
+    "Do not claim broad growth from same-task regression evidence",
+) + COMPARISON_SPINE_PART_README_COMMON_REQUIRED_TOKENS
+COMPARISON_SPINE_PEER_COMPARE_PART_REQUIRED_TOKENS = (
+    "bounded-change-paired-v1",
+    "bounded-change-paired-v2",
+    "artifact-process-paired-proof-flow-v1.md",
+    "artifact-process-paired-proof-flow-v2.md",
+    "Peer-compare",
+    "matched_surface",
+    "Do not turn peer comparison into fixed-baseline by association",
+) + COMPARISON_SPINE_PART_README_COMMON_REQUIRED_TOKENS
+COMPARISON_SPINE_LONGITUDINAL_PART_REQUIRED_TOKENS = (
+    "repeated-window-bounded-v1",
+    "repeated-window-proof-flow-v1.md",
+    "repeated-window-proof-flow-v2.md",
+    "stress-recovery-window-proof-flow-v1.md",
+    "broad growth proof",
+    "cross-window invariants",
+    "Do not treat ordered-window movement as broad growth by association",
+) + COMPARISON_SPINE_PART_README_COMMON_REQUIRED_TOKENS
+COMPARISON_SPINE_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
+    "Comparison Spine Part Contract Guard",
+    "mechanics/comparison-spine/parts/spine-overview/README.md",
+    "mechanics/comparison-spine/parts/fixed-baseline/README.md",
+    "mechanics/comparison-spine/parts/peer-compare/README.md",
+    "mechanics/comparison-spine/parts/longitudinal-window/README.md",
+    "part-level contracts",
+    "fixed-baseline",
+    "peer-compare",
+    "longitudinal-window",
+    "stronger owner split",
+    "stop-lines",
+    "broad growth",
+    "python scripts/build_catalog.py --check",
+)
+COMPARISON_SPINE_REPORT_PARTS_DECISION_REQUIRED_TOKENS = (
+    "mechanics/comparison-spine/parts/",
+    "paired_readout_path",
+    "generated `proof_artifacts`",
+    "spine-overview",
+    "fixed-baseline",
+    "peer-compare",
+    "longitudinal-window",
+    "does not make a shared dossier stronger than the source proof object",
+    "python scripts/build_catalog.py --check",
+)
+COMPARISON_SPINE_FIXTURE_PARTS_DECISION_REQUIRED_TOKENS = (
+    "fixed-baseline/fixtures/frozen-same-task-v1/",
+    "peer-compare/fixtures/bounded-change-paired-v1/",
+    "peer-compare/fixtures/bounded-change-paired-v2/",
+    "longitudinal-window/fixtures/repeated-window-bounded-v1/",
+    "Bundle source truth stays in `bundles/*/EVAL.md`",
+    "does not make a fixture family stronger than the source proof object",
+    "mechanics/comparison-spine/PROVENANCE.md",
+    "python scripts/build_catalog.py --check",
+)
+COMPARISON_SPINE_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+COMPARISON_SPINE_LEGACY_INDEX_REQUIRED_TOKENS = (
+    "fixtures/frozen-same-task-v1/",
+    "fixtures/bounded-change-paired-v1/",
+    "fixtures/bounded-change-paired-v2/",
+    "fixtures/repeated-window-bounded-v1/",
+    "active fixed-baseline fixture family",
+    "active peer-compare fixture family",
+    "active longitudinal-window fixture family",
+)
 PROOF_INFRA_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
     "docs/SHARED_PROOF_INFRA_GUIDE.md",
     "fixtures/README.md",
-    "runners/reportable_proof_contract.md",
-    "scorers/bounded_rubric_breakdown.py",
-    "schemas/fixture-contract.schema.json",
-    "schemas/runner-contract.schema.json",
-    "schemas/report-summary.schema.json",
+    PROOF_INFRA_REPORTABLE_CONTRACTS_RUNNER_SURFACE_NAME,
+    PROOF_INFRA_REPORTABLE_CONTRACTS_SCORER_NAME,
+    FIXTURE_CONTRACT_SCHEMA_NAME,
+    RUNNER_CONTRACT_SCHEMA_NAME,
+    REPORT_SUMMARY_SCHEMA_NAME,
     "reports/README.md",
-    "templates/EVAL.template.md",
+    "mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md",
     "generated catalog `proof_artifacts`",
     "shared_fixture_family_path",
+    "mechanics/proof-infra/parts/fixture-families/fixtures/",
+    "mechanics/proof-infra/parts/reportable-contracts/",
     "runner_surface_path",
     "scorer_helper_paths",
     "report_schema_path",
-    "Do not move `fixtures/`",
+    "Do not move whole root infrastructure districts by theme",
     "python scripts/build_catalog.py --check",
     "python scripts/validate_repo.py",
 )
@@ -588,24 +2668,102 @@ PROOF_INFRA_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "reports/summary.schema.json",
     "generated catalog `proof_artifacts`",
     "bundle-local interpretation",
+    "parts/fixture-families/fixtures/",
     "python scripts/build_catalog.py --check",
+)
+PROOF_INFRA_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "fixture-families",
+    "reportable-contracts",
+    "bundle support need",
+    "shared_fixture_family_path",
+    "runner_surface_path",
+    "Do not promote a fixture family name into a parent mechanic",
+    "python scripts/build_catalog.py",
+)
+PROOF_INFRA_FIXTURE_FAMILIES_REQUIRED_TOKENS = (
+    "bundle support need",
+    "public-safe reusable family",
+    "shared_fixture_family_path",
+    "ambiguity-bounded-v1",
+    "verification-honesty-v1",
+    "witness-trace-v1",
+    "Do not create a parent mechanic from a family name",
+    "python scripts/validate_repo.py",
+)
+PROOF_INFRA_FIXTURE_FAMILIES_AGENTS_REQUIRED_TOKENS = (
+    "generic shared fixture-family support",
+    "bundles/*/fixtures/contract.json",
+    "shared_fixture_family_path",
+    "public",
+    "python scripts/build_catalog.py --check",
+)
+PROOF_INFRA_REPORTABLE_CONTRACTS_REQUIRED_TOKENS = (
+    "bundle-local runner contract",
+    "reportable proof contract",
+    "runner_surface_path",
+    "scorer_helper_paths",
+    "fixture-contract.schema.json",
+    "runner-contract.schema.json",
+    "report-summary.schema.json",
+    "`bundles/<bundle>/EVAL.md`",
+    "tests/test_bounded_rubric_breakdown.py",
+    "python scripts/validate_repo.py",
+)
+PROOF_INFRA_REPORTABLE_CONTRACTS_AGENTS_REQUIRED_TOKENS = (
+    "reportable-contracts",
+    "bundle-local runner contract",
+    "runner_surface_path",
+    "scorer_helper_paths",
+    "schema weakening",
+    "python -m pytest -q mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py",
+)
+PROOF_INFRA_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+PROOF_INFRA_LEGACY_INDEX_REQUIRED_TOKENS = (
+    "fixtures/ambiguity-bounded-v1/README.md",
+    "fixtures/verification-honesty-v1/README.md",
+    "mechanics/proof-infra/parts/fixture-families/fixtures",
+    "runners/reportable_proof_contract.md",
+    "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
+    "scorers/bounded_rubric_breakdown.py",
+    "schemas/runner-contract.schema.json",
+    "Former root paths are provenance only",
 )
 PROOF_INFRA_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "mechanics/proof-infra/",
     "shared proof contract",
     "generated proof_artifacts",
-    "does not move `fixtures/`",
+    "Decision 0041",
+    "Decision 0049",
     "bundle-local `EVAL.md`",
     "schema weakening",
     "repo-global scoring",
 )
+PROOF_INFRA_FIXTURE_FAMILIES_DECISION_REQUIRED_TOKENS = (
+    "mechanics/proof-infra/parts/fixture-families/",
+    "generic shared fixture families",
+    "no narrower active mechanic",
+    "Root `fixtures/` remains a compatibility route card",
+    "does not make fixture families stronger than bundle-local meaning",
+    "python scripts/build_catalog.py --check",
+)
+PROOF_INFRA_REPORTABLE_CONTRACTS_DECISION_REQUIRED_TOKENS = (
+    "mechanics/proof-infra/parts/reportable-contracts/",
+    "runner_surface_path",
+    "scorer_helper_paths",
+    "root `runners/`, `scorers/`, and `schemas/` remain compatibility route cards",
+    "does not make reportable contracts stronger than bundle-local meaning",
+    "python scripts/validate_repo.py",
+)
 PUBLICATION_RECEIPTS_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
-    "docs/EVAL_RESULT_RECEIPT_GUIDE.md",
-    "schemas/eval-result-receipt.schema.json",
-    "schemas/stats-event-envelope.schema.json",
-    "examples/eval_result_receipt.example.json",
-    "scripts/publish_live_receipts.py",
+    "mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md",
+    "mechanics/publication-receipts/parts/receipt-payload/schemas/eval-result-receipt.schema.json",
+    "mechanics/publication-receipts/parts/stats-envelope-mirror/schemas/stats-event-envelope.schema.json",
+    "mechanics/publication-receipts/parts/receipt-payload/examples/eval_result_receipt.example.json",
+    "mechanics/publication-receipts/parts/live-publisher/scripts/publish_live_receipts.py",
+    "mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py",
+    "mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py",
+    "mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py",
     ".aoa/live_receipts/eval-result-receipts.jsonl",
     "eval_result_receipt",
     "stats-event-envelope",
@@ -634,12 +2792,105 @@ PUBLICATION_RECEIPTS_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "bundle-local report",
     "repo-global score",
 )
-PROOF_RELEASE_MECHANIC_REQUIRED_TOKENS = (
+PUBLICATION_RECEIPTS_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+PUBLICATION_RECEIPTS_LEGACY_INDEX_REQUIRED_TOKENS = (
+    "docs/EVAL_RESULT_RECEIPT_GUIDE.md",
+    "mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md",
+    "schemas/eval-result-receipt.schema.json",
+    "mechanics/publication-receipts/parts/receipt-payload/schemas/eval-result-receipt.schema.json",
+    "scripts/publish_live_receipts.py",
+    "mechanics/publication-receipts/parts/live-publisher/scripts/publish_live_receipts.py",
+    "reports/eval-result-receipt-intake-dry-review-v1.json",
+    "mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json",
+    ".aoa/live_receipts/eval-result-receipts.jsonl",
+)
+PUBLICATION_RECEIPTS_LEGACY_DISTILLATION_REQUIRED_TOKENS = (
+    "publication-receipts",
+    "receipt-payload",
+    "stats-envelope-mirror",
+    "live-publisher",
+    "intake-dry-review",
+    "Do not create new publication receipt work in legacy",
+)
+PUBLICATION_RECEIPTS_LEGACY_RAW_README_REQUIRED_TOKENS = (
+    "No raw payload copies",
+    "git history",
+    "active publication-receipts",
+)
+PUBLICATION_RECEIPTS_PART_README_COMMON_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+    "python scripts/validate_repo.py",
+)
+PUBLICATION_RECEIPTS_RECEIPT_PAYLOAD_PART_REQUIRED_TOKENS = (
+    "Receipt Payload Part",
+    "eval_result_receipt",
+    "schemas/eval-result-receipt.schema.json",
+    "examples/eval_result_receipt.example.json",
+    "reviewed bounded report",
+    "source bundle",
+    "The payload is a publication sidecar",
+    "Do not treat a schema-valid payload as a published receipt",
+) + PUBLICATION_RECEIPTS_PART_README_COMMON_TOKENS
+PUBLICATION_RECEIPTS_STATS_ENVELOPE_PART_REQUIRED_TOKENS = (
+    "Stats Envelope Mirror Part",
+    "schemas/stats-event-envelope.schema.json",
+    "canonical `aoa-stats`",
+    "event-kind vocabulary",
+    "owner-local live receipt log",
+    "dry-review artifacts",
+    "Do not edit this mirror as if it were the canonical `aoa-stats` schema",
+) + PUBLICATION_RECEIPTS_PART_README_COMMON_TOKENS
+PUBLICATION_RECEIPTS_LIVE_PUBLISHER_PART_REQUIRED_TOKENS = (
+    "Live Publisher Part",
+    "scripts/publish_live_receipts.py",
+    "tests/test_publish_live_receipts.py",
+    "tests/test_live_receipt_log.py",
+    "append-only JSONL writes",
+    "duplicate `event_id` skips",
+    "Do not run the publisher for a dry-review payload preview",
+) + PUBLICATION_RECEIPTS_PART_README_COMMON_TOKENS
+PUBLICATION_RECEIPTS_INTAKE_DRY_REVIEW_PART_REQUIRED_TOKENS = (
+    "Intake Dry Review Part",
+    "receipt_intake_dry_review",
+    "candidate_payload_preview",
+    "`receipt_status` stays",
+    "`not_published`",
+    "Do not add `event_kind`, `event_id`, `observed_at`, `object_ref`,",
+    "Do not append `.aoa/live_receipts/` from a dry review",
+) + PUBLICATION_RECEIPTS_PART_README_COMMON_TOKENS
+PUBLICATION_RECEIPTS_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
+    "Publication Receipts Part Contract Guard",
+    "mechanics/publication-receipts/parts/receipt-payload/README.md",
+    "mechanics/publication-receipts/parts/stats-envelope-mirror/README.md",
+    "mechanics/publication-receipts/parts/live-publisher/README.md",
+    "mechanics/publication-receipts/parts/intake-dry-review/README.md",
+    "part-level contracts",
+    "receipt-payload",
+    "stats-envelope-mirror",
+    "live-publisher",
+    "intake-dry-review",
+    "stronger owner split",
+    "stop-lines",
+    "not_published",
+    "python scripts/validate_repo.py",
+)
+RELEASE_SUPPORT_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
+    "PARTS.md",
     "docs/RELEASING.md",
     "CHANGELOG.md",
     "scripts/release_check.py",
     ".github/workflows/repo-validation.yml",
+    "parts/readiness-audit",
+    "parts/strategic-closeout",
+    "parts/pr-handoff",
+    "tests/test_release_support_readiness_audit.py",
+    "tests/test_strategic_closeout_audit.py",
+    "tests/test_release_prep_pr_handoff.py",
     "Repo Validation",
     "pre-PR owner landing handoff",
     "bounded release scope",
@@ -650,8 +2901,10 @@ PROOF_RELEASE_MECHANIC_REQUIRED_TOKENS = (
     "python scripts/validate_semantic_agents.py",
     "python scripts/release_check.py",
 )
-PROOF_RELEASE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+RELEASE_SUPPORT_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "bounded `aoa-evals` release",
+    "mechanics/release-support/PARTS.md",
+    "mechanics/release-support/parts/",
     "CHANGELOG.md",
     "scripts/release_check.py",
     "Repo Validation",
@@ -659,8 +2912,9 @@ PROOF_RELEASE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "bundle-local review",
     "python scripts/release_check.py",
 )
-PROOF_RELEASE_MECHANIC_DECISION_REQUIRED_TOKENS = (
-    "mechanics/proof-release/",
+RELEASE_SUPPORT_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/release-support/",
+    "mechanics/release-support/parts/",
     "bounded release scope",
     "changelog narrative",
     "release audit",
@@ -669,14 +2923,108 @@ PROOF_RELEASE_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "release notes",
     "bundle-local `EVAL.md`",
 )
-TITAN_CANARIES_MECHANIC_REQUIRED_TOKENS = (
+RELEASE_SUPPORT_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "Release Support Parts",
+    "CHANGELOG.md",
+    "docs/RELEASING.md",
+    "scripts/release_check.py",
+    ".github/workflows/repo-validation.yml",
+    "Readiness Audit",
+    "Strategic Closeout",
+    "PR Handoff",
+    "do not publish a release",
+)
+RELEASE_SUPPORT_PARTS_README_REQUIRED_TOKENS = (
+    "Release Support Parts",
+    "Readiness Audit",
+    "Strategic Closeout",
+    "PR Handoff",
+    "without pretending GitHub actions occurred",
+)
+RELEASE_SUPPORT_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+RELEASE_SUPPORT_PART_README_COMMON_REQUIRED_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+    "python scripts/validate_repo.py",
+    "python scripts/release_check.py",
+)
+RELEASE_SUPPORT_READINESS_AUDIT_PART_REQUIRED_TOKENS = (
+    "Readiness Audit",
+    "release_support_readiness_audit",
+    "publication_boundary",
+    "no GitHub Release",
+    "no PR approval",
+    "no GitHub `Repo Validation`",
+    "not_complete",
+    "Do not treat the readiness audit as a tag",
+) + RELEASE_SUPPORT_PART_README_COMMON_REQUIRED_TOKENS
+RELEASE_SUPPORT_STRATEGIC_CLOSEOUT_PART_REQUIRED_TOKENS = (
+    "Strategic Closeout",
+    "strategic_closeout_audit",
+    "goal_completion_status",
+    "not_complete",
+    "owner-visible final audit",
+    "Do not mark the long goal complete",
+    "Do not remove open landing requirements",
+) + RELEASE_SUPPORT_PART_README_COMMON_REQUIRED_TOKENS
+RELEASE_SUPPORT_PR_HANDOFF_PART_REQUIRED_TOKENS = (
+    "PR Handoff",
+    "release_prep_pr_handoff",
+    "pre_handoff_github_status",
+    "draft PR body",
+    "Current local git state and GitHub state are stronger",
+    "Do not treat this artifact as a created branch",
+    "Do not keep using this snapshot as live status",
+) + RELEASE_SUPPORT_PART_README_COMMON_REQUIRED_TOKENS
+RELEASE_SUPPORT_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
+    "Release Support Part Contract Guard",
+    "mechanics/release-support/parts/readiness-audit/README.md",
+    "mechanics/release-support/parts/strategic-closeout/README.md",
+    "mechanics/release-support/parts/pr-handoff/README.md",
+    "part-level contracts",
+    "readiness-audit",
+    "strategic-closeout",
+    "pr-handoff",
+    "stronger owner split",
+    "stop-lines",
+    "not_complete",
+    "python scripts/release_check.py",
+)
+RELEASE_SUPPORT_LEGACY_INDEX_REQUIRED_TOKENS = (
+    "mechanics/proof-release/",
+    "mechanics/release-support/",
+    "reports/proof-release-readiness-audit-v1.json",
+    "mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json",
+    "tests/test_proof_release_readiness_audit.py",
+    "mechanics/release-support/parts/readiness-audit/tests/test_release_support_readiness_audit.py",
+    "docs/decisions/0014-proof-release-mechanic-package.md",
+    "docs/decisions/0014-release-support-mechanic-package.md",
+)
+RELEASE_SUPPORT_LEGACY_DISTILLATION_REQUIRED_TOKENS = (
+    "proof-release",
+    "release-support",
+    "readiness-audit",
+    "strategic-closeout",
+    "pr-handoff",
+    "Do not create new release-support work in legacy",
+)
+RELEASE_SUPPORT_LEGACY_RAW_README_REQUIRED_TOKENS = (
+    "No raw payload copies",
+    "git history",
+    "active parts",
+)
+TITAN_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
-    "docs/TITAN_INCARNATION_CANARIES.md",
-    "docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md",
-    "evals/titan_*_canary.yaml",
-    "evals/AGENTS.md",
+    "mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md",
+    "mechanics/titan/parts/seed-boundary/docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md",
+    "mechanics/titan/parts/seed-boundary/seeds/titan*.yaml",
+    "mechanics/titan/parts/seed-boundary/seeds/AGENTS.md",
     "validate_titan_canary_surfaces",
     "seed canary",
+    "aoa-agents",
     "future executable scorer",
     "full incarnation proof",
     "hidden arena",
@@ -684,26 +3032,37 @@ TITAN_CANARIES_MECHANIC_REQUIRED_TOKENS = (
     "judgment gate",
     "python scripts/validate_repo.py",
 )
-TITAN_CANARIES_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+TITAN_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "Titan seed canaries",
-    "evals/titan_*_canary.yaml",
+    "mechanics/titan/parts/seed-boundary/seeds/titan*.yaml",
     "not full incarnation proof",
     "mutation gate",
     "judgment gate",
     "validate_titan_canary_surfaces",
     "python scripts/validate_repo.py",
 )
-TITAN_CANARIES_DECISION_REQUIRED_TOKENS = (
-    "mechanics/titan-canaries/",
-    "evals/titan_*_canary.yaml",
+TITAN_MECHANIC_DIRECTION_REQUIRED_TOKENS = (
+    "aoa-agents",
+    "Titan role classes",
+    "bearer identity",
+    "summon boundary law",
+    "incarnation posture",
+    "seed-boundary",
+    "not incarnation proof",
+)
+TITAN_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/titan/",
+    "mechanics/titan/parts/seed-boundary/seeds/titan*.yaml",
     "validate_titan_canary_surfaces",
-    "does not move `evals/`",
+    "moves the seed YAML files",
     "full incarnation proof",
     "future executable scorer",
+    "owner-named evals-native",
+    "aoa-agents",
 )
 TITAN_INCARNATION_CANARIES_REQUIRED_TOKENS = (
-    "mechanics/titan-canaries/README.md",
-    "evals/titan_*_canary.yaml",
+    "mechanics/titan/README.md",
+    "mechanics/titan/parts/seed-boundary/seeds/titan*.yaml",
     "seed canaries",
     "full incarnation proof",
     "runtime cohort",
@@ -712,57 +3071,1031 @@ TITAN_INCARNATION_CANARIES_REQUIRED_TOKENS = (
     "python scripts/validate_repo.py",
 )
 TITAN_SUMMON_DISCIPLINE_REQUIRED_TOKENS = (
-    "mechanics/titan-canaries/README.md",
+    "mechanics/titan/README.md",
     "seed-defined",
     "named Titan targets",
     "generic role",
     "hidden background arena",
     "full incarnation",
 )
-EVALS_AGENTS_REQUIRED_TOKENS = (
+TITAN_SEED_BOUNDARY_SEEDS_AGENTS_REQUIRED_TOKENS = (
     "Titan seed canaries",
-    "evals/titan_*_canary.yaml",
+    "mechanics/titan/parts/seed-boundary/seeds/titan*.yaml",
     "full incarnation proof",
     "runtime activation",
     "validate_titan_canary_surfaces",
     "python scripts/validate_repo.py",
 )
-AGON_PROOF_MECHANIC_REQUIRED_TOKENS = (
-    "Owned Operation",
-    "docs/AGON_EVAL_PREBINDING_MODEL.md",
-    "config/agon_eval_prebindings.seed.json",
-    "generated/agon_eval_prebinding_registry.min.json",
-    "manifests/recurrence/component.agon",
-    "observe-only recurrence component",
-    "no_live_verdict",
-    "bundle-local proof",
-    "python scripts/build_agon_eval_prebinding_registry.py --check",
-    "python scripts/validate_agon_eval_prebindings.py",
-    "python -m pytest -q tests/test_agon*.py",
-    "live verdict authority",
+TITAN_SEED_BOUNDARY_SEEDS_README_REQUIRED_TOKENS = (
+    "Titan Canary Seeds",
+    "mechanics/titan/parts/seed-boundary/seeds/",
+    "titan*.yaml",
+    "seed-defined",
+    "id` or `eval_id",
+    "full incarnation proof",
+    "python scripts/validate_repo.py",
 )
-AGON_PROOF_MECHANIC_AGENTS_REQUIRED_TOKENS = (
-    "Agon pre-protocol proof alignment",
-    "seed config",
+TITAN_SEED_BOUNDARY_PART_README_REQUIRED_TOKENS = (
+    "Seed Boundary Part",
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "validate_titan_canary_surfaces",
+    "aoa-agents",
+    "aoa-memo",
+    "runtime activation",
+    "summon authority",
+    "memory sovereignty",
+    "Do not use canary presence as proof",
+    "python scripts/validate_repo.py",
+)
+TITAN_PARTS_INDEX_README_REQUIRED_TOKENS = (
+    "# Titan Parts",
+    "Titan proof-seed artifacts",
+    "current payload form is seed canaries",
+    "not named after the canary artifact form",
+    "`seed-boundary` part",
+)
+TITAN_SEED_BOUNDARY_CONTRACT_DECISION_REQUIRED_TOKENS = (
+    "Titan Seed-boundary Contract",
+    "mechanics/titan/parts/seed-boundary/README.md",
+    "titan-canaries",
+    "stronger owner split",
+    "stop-lines",
+    "aoa-agents",
+    "aoa-memo",
+    "runtime activation",
+    "python scripts/validate_repo.py",
+)
+AGON_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "PARTS.md",
+    "court-prebinding",
+    "sophian-threshold-alignment",
+    "part-local seed/config/docs",
+    "observe-only recurrence hooks",
+    "no_live_verdict",
+    "bundle-local review",
+    "python mechanics/agon/parts/court-prebinding/scripts/build_agon_eval_prebinding_registry.py --check",
+    "python mechanics/agon/parts/court-prebinding/scripts/validate_agon_eval_prebindings.py",
+    "python -m pytest -q mechanics/agon/parts/*/tests/test_agon*.py",
+    "live verdict",
+)
+AGON_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "Agon proof-alignment loop",
+    "part-local source config",
     "generated registry",
-    "observe-only recurrence component",
+    "observe-only recurrence",
     "no_live_verdict",
     "bundle-local review",
 )
-AGON_PROOF_MECHANIC_DECISION_REQUIRED_TOKENS = (
-    "mechanics/agon-proof/",
+AGON_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/agon/",
+    "mechanics/agon/parts/",
     "seed prebindings",
-    "generated registries",
-    "observe-only hooks",
-    "does not move",
+    "part-local",
+    "PARTS.md",
     "live verdict",
     "Tree of Sophia promotion",
+)
+AGON_PART_README_COMMON_REQUIRED_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+    "generated",
+    "validator",
+)
+AGON_PART_README_CONTRACTS = (
+    (
+        "mechanics/agon/parts/court-prebinding/README.md",
+        AGON_PART_README_COMMON_REQUIRED_TOKENS
+        + (
+            "agon_eval_prebinding_registry.min.json",
+            "no_live_verdict",
+            "no_closure_grant",
+        ),
+    ),
+    (
+        "mechanics/agon/parts/ccs-alignment/README.md",
+        AGON_PART_README_COMMON_REQUIRED_TOKENS
+        + (
+            "agon_ccs_eval_alignment_registry.min.json",
+            "CCS law",
+            "center law",
+        ),
+    ),
+    (
+        "mechanics/agon/parts/vds-alignment/README.md",
+        AGON_PART_README_COMMON_REQUIRED_TOKENS
+        + (
+            "agon_vds_eval_alignment_registry.min.json",
+            "no-live-verdict",
+            "Do not emit or accept a live verdict",
+        ),
+    ),
+    (
+        "mechanics/agon/parts/mechanical-trial-suites/README.md",
+        AGON_PART_README_COMMON_REQUIRED_TOKENS
+        + (
+            "agon_mechanical_trial_eval_suite_registry.min.json",
+            "candidate-only eval-suite",
+            "Do not run an arena",
+        ),
+    ),
+    (
+        "mechanics/agon/parts/retention-rank-alignment/README.md",
+        AGON_PART_README_COMMON_REQUIRED_TOKENS
+        + (
+            "agon_retention_rank_eval_alignment_registry.min.json",
+            "retention execution",
+            "Do not mutate rank",
+        ),
+    ),
+    (
+        "mechanics/agon/parts/epistemic-alignment/README.md",
+        AGON_PART_README_COMMON_REQUIRED_TOKENS
+        + (
+            "agon_epistemic_eval_alignment_registry.min.json",
+            "doctrine rewrite",
+            "owner-truth takeover",
+        ),
+    ),
+    (
+        "mechanics/agon/parts/slc-alignment/README.md",
+        AGON_PART_README_COMMON_REQUIRED_TOKENS
+        + (
+            "agon_slc_eval_alignment_registry.min.json",
+            "schools, lineages, and campaigns",
+            "Do not canonize",
+        ),
+    ),
+    (
+        "mechanics/agon/parts/kag-alignment/README.md",
+        AGON_PART_README_COMMON_REQUIRED_TOKENS
+        + (
+            "agon_kag_eval_alignment_registry.min.json",
+            "KAG canon",
+            "Do not promote a KAG candidate",
+        ),
+    ),
+    (
+        "mechanics/agon/parts/sophian-threshold-alignment/README.md",
+        AGON_PART_README_COMMON_REQUIRED_TOKENS
+        + (
+            "agon_sophian_eval_alignment_registry.min.json",
+            "Tree of Sophia canon",
+            "Do not write Tree of Sophia canon",
+        ),
+    ),
+)
+AGON_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
+    "Agon Part Contract Guard",
+    "mechanics/agon/parts/court-prebinding/README.md",
+    "mechanics/agon/parts/sophian-threshold-alignment/README.md",
+    "part-level contracts",
+    "no new Agon parent",
+    "stronger owner split",
+    "stop-lines",
+    "python scripts/validate_repo.py",
+)
+RECURRENCE_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "AoA-aligned",
+    "recurrence pressure",
+    "control-plane-integrity",
+    "anchor-return",
+    "memory-recall",
+    "recursor-boundary",
+    "stats-regrounding-boundary",
+    "portable-proof-beacons",
+    "bundles/aoa-recurrence-control-plane-integrity/EVAL.md",
+    "bundles/aoa-return-anchor-integrity/EVAL.md",
+    "bundles/aoa-memo-recall-integrity/EVAL.md",
+    "bundles/aoa-stats-regrounding-boundary-integrity/EVAL.md",
+    "mechanics/recurrence/parts/control-plane-integrity/scripts/run_recurrence_control_plane_integrity_eval.py",
+    "mechanics/recurrence/parts/control-plane-integrity/scorers/recurrence_control_plane_integrity.py",
+    "mechanics/recurrence/parts/recursor-boundary/scripts/run_recursor_readiness_boundary_eval.py",
+    "mechanics/recurrence/parts/recursor-boundary/scorers/recursor_readiness_boundary.py",
+    "Stronger Owner Split",
+    "Stop-Lines",
+    "global recurrence completeness",
+    "python mechanics/recurrence/parts/control-plane-integrity/scripts/run_recurrence_control_plane_integrity_eval.py",
+    "python -m pytest -q mechanics/recurrence/parts/control-plane-integrity/tests/test_recurrence_control_plane_integrity_eval_seed.py",
+)
+RECURRENCE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "recurrence proof work",
+    "mechanics/recurrence/PARTS.md",
+    "PROVENANCE.md",
+    "Keep source proof bundles under `bundles/`",
+    "candidate-only",
+    "Do not create new recurrence parts from one document",
+    "python scripts/validate_repo.py",
+)
+RECURRENCE_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "control-plane-integrity",
+    "anchor-return",
+    "memory-recall",
+    "recursor-boundary",
+    "stats-regrounding-boundary",
+    "portable-proof-beacons",
+    "Inputs",
+    "Outputs",
+    "Owner split",
+    "Stop-lines",
+    "Validation",
+    "Continuity-anchor and self-reanchor proof remain bundle-local",
+)
+RECURRENCE_CONTROL_PLANE_PART_REQUIRED_TOKENS = (
+    "aoa-recurrence-control-plane-integrity",
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+    "mechanics/recurrence/parts/control-plane-integrity/fixtures/recurrence-control-plane-integrity-v1/README.md",
+    "mechanics/recurrence/parts/control-plane-integrity/examples/recurrence_control_plane_integrity.dossier.example.json",
+    "mechanics/recurrence/parts/control-plane-integrity/schemas/recurrence-control-plane-integrity-dossier.schema.json",
+    "mechanics/recurrence/parts/control-plane-integrity/scripts/run_recurrence_control_plane_integrity_eval.py",
+    "mechanics/recurrence/parts/control-plane-integrity/scorers/recurrence_control_plane_integrity.py",
+    "mechanics/recurrence/parts/control-plane-integrity/tests/test_recurrence_control_plane_integrity_eval_seed.py",
+    "runtime status",
+    "downstream projection truth",
+    "Agon source truth",
+    "portable proof acceptance by recurrence manifest",
+    "python scripts/build_catalog.py --check",
+)
+RECURRENCE_ANCHOR_RETURN_PART_REQUIRED_TOKENS = (
+    "aoa-return-anchor-integrity",
+    "mechanics/recurrence/parts/anchor-return/fixtures/return-anchor-v1/README.md",
+    "runtime_evidence_selection.return-anchor-integrity.example.json",
+    "Stronger Owner Split",
+    "Stop-Lines",
+    "python scripts/validate_repo.py --eval aoa-return-anchor-integrity",
+)
+RECURRENCE_MEMORY_RECALL_PART_REQUIRED_TOKENS = (
+    "aoa-memo-recall-integrity",
+    "mechanics/recurrence/parts/memory-recall/fixtures/memo-recall-guardrail-v1/README.md",
+    "test_memo_recall_phase_alpha_report.py",
+    "aoa-memo",
+    "Stop-Lines",
+    "python scripts/validate_repo.py --eval aoa-memo-recall-integrity",
+)
+RECURRENCE_RECURSOR_BOUNDARY_PART_REQUIRED_TOKENS = (
+    "recursor readiness boundary",
+    "mechanics/recurrence/parts/recursor-boundary/fixtures/recursor-readiness-boundary-v1/",
+    "scorers/recursor_readiness_boundary.py",
+    "scripts/run_recursor_readiness_boundary_eval.py",
+    "aoa-agents",
+    "aoa-sdk",
+    "no live spawn",
+)
+RECURRENCE_STATS_REGROUNDING_PART_REQUIRED_TOKENS = (
+    "aoa-stats-regrounding-boundary-integrity",
+    "mechanics/recurrence/parts/stats-regrounding-boundary/fixtures/stats-regrounding-boundary-v1/README.md",
+    "test_stats_regrounding_boundary_eval.py",
+    "aoa-stats",
+    "aoa-sdk",
+    "aoa-routing",
+    "stats-as-proof",
+)
+RECURRENCE_PORTABLE_PROOF_BEACONS_PART_REQUIRED_TOKENS = (
+    "component:evals:portable-proof-beacons",
+    "mechanics/recurrence/parts/portable-proof-beacons/manifests/recurrence/component.evals.portable-proof-beacons.json",
+    "component.evals.portable-proof-beacons.hooks.json",
+    "RECURRENCE_REVIEW_DECISION_CLOSURE.md",
+    "watch",
+    "candidate",
+    "review_ready",
+    "runtime artifacts as candidate evidence",
+    "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+    "mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md",
+    "mechanics/recurrence/docs/RECURRENCE_PROOF_PROGRAM.md",
+    "Stronger Owner Split",
+    "Stop-Lines",
+    "python scripts/validate_repo.py",
+)
+RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_REQUIRED_TOKENS = (
+    "portable-proof beacon pressure",
+    "Keep `component:evals:portable-proof-beacons` inside `recurrence`",
+    "runtime artifacts as candidate evidence",
+    "Keep audit packet curation",
+    "Keep progression and unlock support",
+    "python scripts/validate_repo.py",
+)
+RECURRENCE_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+RECURRENCE_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/recurrence/",
+    "AoA-aligned",
+    "control-plane integrity",
+    "source proof bundles stay under `bundles/`",
+    "owning legacy archive",
+    "return-anchor",
+    "continuity-anchor",
+    "self-reanchor",
+    "global recurrence completeness",
+    "python scripts/validate_repo.py",
+)
+RECURRENCE_SUPPORT_PARTS_DECISION_REQUIRED_TOKENS = (
+    "mechanics/recurrence/",
+    "anchor-return",
+    "memory-recall",
+    "recursor-boundary",
+    "stats-regrounding-boundary",
+    "Source proof bundles stay under",
+    "Continuity-anchor and self-reanchor remain bundle-local",
+    "memory canon",
+    "recursor activation",
+    "stats-as-proof",
+)
+RECURRENCE_PORTABLE_PROOF_BEACONS_DECISION_REQUIRED_TOKENS = (
+    "mechanics/recurrence/parts/portable-proof-beacons/",
+    "component:evals:portable-proof-beacons",
+    "hint -> watch -> candidate -> review_ready",
+    "recurrence",
+    "does not own audit candidate packet curation",
+    "does not make runtime evidence proof canon",
+    "python scripts/validate_repo.py",
+)
+RECURRENCE_CONTROL_PLANE_CONTRACT_DECISION_REQUIRED_TOKENS = (
+    "Recurrence Control-plane Contract",
+    "mechanics/recurrence/parts/control-plane-integrity/README.md",
+    "current part-local paths",
+    "runtime status",
+    "promotion readiness",
+    "downstream projection truth",
+    "owner review acceptance",
+    "Agon source truth",
+    "beacon verdict authority",
+    "portable proof acceptance",
+    "python scripts/validate_repo.py",
+)
+CHECKPOINT_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "AoA-aligned",
+    "checkpoint pressure",
+    "a2a-summon-return",
+    "restartable-inquiry",
+    "self-agent-posture",
+    "bundles/aoa-a2a-summon-return-checkpoint/EVAL.md",
+    "bundles/aoa-long-horizon-depth/EVAL.md",
+    "Stronger Owner Split",
+    "Stop-Lines",
+    "checkpoint implementation authority",
+    "python -m pytest -q mechanics/checkpoint/parts/a2a-summon-return/tests/test_a2a_summon_return_checkpoint_fixture.py",
+)
+CHECKPOINT_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "checkpoint proof work",
+    "mechanics/checkpoint/PARTS.md",
+    "PROVENANCE.md",
+    "Keep source proof bundles under `bundles/`",
+    "candidate-only",
+    "Do not create new checkpoint parts from one document",
+    "python scripts/validate_repo.py",
+)
+CHECKPOINT_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "a2a-summon-return",
+    "restartable-inquiry",
+    "self-agent-posture",
+    "Inputs",
+    "Outputs",
+    "Owner split",
+    "Stop-lines",
+    "Validation",
+)
+CHECKPOINT_PART_README_COMMON_REQUIRED_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+)
+CHECKPOINT_A2A_PART_REQUIRED_TOKENS = (
+    "aoa-a2a-summon-return-checkpoint",
+    "mechanics/checkpoint/parts/a2a-summon-return/fixtures/a2a-summon-return-checkpoint-v1/README.md",
+    "mechanics/checkpoint/parts/a2a-summon-return/examples/artifact_to_verdict_hook.a2a-summon-return-checkpoint.example.json",
+    "mechanics/checkpoint/parts/a2a-summon-return/tests/test_a2a_summon_return_checkpoint_fixture.py",
+    "checkpoint doctrine",
+    "live runtime execution",
+    "python scripts/build_catalog.py --check",
+) + CHECKPOINT_PART_README_COMMON_REQUIRED_TOKENS
+CHECKPOINT_RESTARTABLE_INQUIRY_PART_REQUIRED_TOKENS = (
+    "aoa-long-horizon-depth",
+    "mechanics/checkpoint/parts/restartable-inquiry/fixtures/long-horizon-restart-v1/README.md",
+    "mechanics/checkpoint/parts/restartable-inquiry/examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
+    "memo checkpoint schema authority",
+    "broad long-horizon competence",
+    "python scripts/build_catalog.py --check",
+) + CHECKPOINT_PART_README_COMMON_REQUIRED_TOKENS
+CHECKPOINT_SELF_AGENT_PART_REQUIRED_TOKENS = (
+    "mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md",
+    "mechanics/checkpoint/parts/self-agent-posture/examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
+    "aoa-approval-boundary-adherence",
+    "aoa-bounded-change-quality",
+    "`aoa-agents` self-agent checkpoint contract meaning",
+    "runtime activation",
+    "python scripts/validate_repo.py",
+) + CHECKPOINT_PART_README_COMMON_REQUIRED_TOKENS
+CHECKPOINT_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+CHECKPOINT_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/checkpoint/",
+    "AoA-aligned",
+    "a2a-summon-return",
+    "restartable-inquiry",
+    "self-agent-posture",
+    "source proof bundles stay under `bundles/`",
+    "artifact-to-verdict hook schema",
+    "checkpoint implementation authority",
+    "python scripts/validate_repo.py",
+)
+CHECKPOINT_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
+    "Checkpoint Part Contract Guard",
+    "mechanics/checkpoint/parts/a2a-summon-return/README.md",
+    "mechanics/checkpoint/parts/restartable-inquiry/README.md",
+    "mechanics/checkpoint/parts/self-agent-posture/README.md",
+    "former root `fixtures/`, `examples/`,",
+    "current part-local homes",
+    "memory canon",
+    "runtime activation",
+    "owner acceptance",
+    "broad long-horizon",
+    "python scripts/validate_repo.py",
+)
+EXPERIENCE_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "AoA-aligned",
+    "experience pressure",
+    "protocol-integrity",
+    "certification-gate",
+    "adoption-federation",
+    "governance-runtime-boundary",
+    "office-release-train",
+    "bundles/aoa-experience-protocol-integrity/EVAL.md",
+    "bundles/aoa-experience-certification-gate-integrity/EVAL.md",
+    "runtime distillation candidate adoption",
+    "Stronger Owner Split",
+    "Stop-Lines",
+    "live workspace runtime",
+    "owner-local adoption",
+    "python -m pytest -q mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py",
+)
+EXPERIENCE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "Experience proof work",
+    "mechanics/experience/PARTS.md",
+    "PROVENANCE.md",
+    "Keep source proof bundles under `bundles/`",
+    "Do not create new Experience parts from one document",
+    "python scripts/validate_repo.py",
+)
+EXPERIENCE_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "protocol-integrity",
+    "certification-gate",
+    "adoption-federation",
+    "governance-runtime-boundary",
+    "office-release-train",
+    "Inputs",
+    "Outputs",
+    "Owner split",
+    "Stop-lines",
+    "Validation",
+    "Continuity-context",
+)
+EXPERIENCE_PART_README_COMMON_REQUIRED_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+)
+EXPERIENCE_PROTOCOL_PART_REQUIRED_TOKENS = (
+    "aoa-experience-protocol-integrity",
+    "mechanics/experience/parts/protocol-integrity/fixtures/experience-verdict-protocol-integrity-v1/README.md",
+    "mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py",
+    "does not own Experience doctrine",
+    "proof that the underlying experience succeeded",
+    "python scripts/build_catalog.py --check",
+) + EXPERIENCE_PART_README_COMMON_REQUIRED_TOKENS
+EXPERIENCE_CERTIFICATION_PART_REQUIRED_TOKENS = (
+    "experience certification gate proof",
+    "mechanics/experience/parts/certification-gate/fixtures/experience-certification-gate-integrity-v1/README.md",
+    "rollback_drill_verdict",
+    "must claim no certification, release approval",
+    "runtime health",
+    "python scripts/build_catalog.py --check",
+) + EXPERIENCE_PART_README_COMMON_REQUIRED_TOKENS
+EXPERIENCE_ADOPTION_PART_REQUIRED_TOKENS = (
+    "Experience adoption proof",
+    "federation-harvest",
+    "KAG/ToS boundary",
+    "Reviewed runtime distillation candidate adoption is not this part",
+    "owner-local adoption",
+    "routing authorship",
+    "python scripts/build_catalog.py --check",
+) + EXPERIENCE_PART_README_COMMON_REQUIRED_TOKENS
+EXPERIENCE_GOVERNANCE_PART_REQUIRED_TOKENS = (
+    "Experience governance and runtime-boundary",
+    "APPEAL_REVIEW_VERDICT.md",
+    "STAY_ORDER_ENFORCEMENT_VERDICT.md",
+    "VOTE_SEAL_INTEGRITY_VERDICT.md",
+    "REPLAY_HISTORY_INTEGRITY_VERDICT.md",
+    "authority-resolution",
+    "constitution-runtime",
+    "must claim no governance authority",
+    "runtime enforcement",
+    "python scripts/validate_repo.py",
+) + EXPERIENCE_PART_README_COMMON_REQUIRED_TOKENS
+EXPERIENCE_OFFICE_PART_REQUIRED_TOKENS = (
+    "Experience office and release-train",
+    "REPLAY_AUDIT_VERDICTS.md",
+    "SERVICE_MESH_REGRESSION_VERDICTS.md",
+    "mechanics/experience/parts/certification-gate/schemas/rollback_drill_verdict_v1.json",
+    "must claim no office installation",
+    "release approval",
+    "release-support publication",
+    "python scripts/validate_repo.py",
+) + EXPERIENCE_PART_README_COMMON_REQUIRED_TOKENS
+EXPERIENCE_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+EXPERIENCE_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/experience/",
+    "AoA-aligned",
+    "protocol-integrity",
+    "certification-gate",
+    "adoption-federation",
+    "governance-runtime-boundary",
+    "office-release-train",
+    "Source proof bundles stay under `bundles/`",
+    "operator certification",
+    "owner-local adoption",
+    "python scripts/validate_repo.py",
+)
+EXPERIENCE_VERDICT_RESIDUE_DECISION_REQUIRED_TOKENS = (
+    "mechanics/experience/parts/governance-runtime-boundary/docs/",
+    "mechanics/experience/parts/office-release-train/docs/",
+    "APPEAL_REVIEW_VERDICT.md",
+    "SERVICE_MESH_REGRESSION_VERDICTS.md",
+    "existing active parts",
+    "does not grant governance authority",
+    "python scripts/validate_repo.py",
+)
+EXPERIENCE_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
+    "Experience Part Contract Guard",
+    "mechanics/experience/parts/protocol-integrity/README.md",
+    "mechanics/experience/parts/certification-gate/README.md",
+    "mechanics/experience/parts/adoption-federation/README.md",
+    "mechanics/experience/parts/governance-runtime-boundary/README.md",
+    "mechanics/experience/parts/office-release-train/README.md",
+    "live runtime activation",
+    "operator certification",
+    "owner-local adoption",
+    "governance authority",
+    "memory canon",
+    "routing authorship",
+    "broad Experience success",
+    "python scripts/validate_repo.py",
+)
+ANTIFRAGILITY_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "AoA-aligned",
+    "stress or repair pressure",
+    "posture-review",
+    "stress-recovery-window",
+    "repair-proof",
+    "bundles/aoa-antifragility-posture/EVAL.md",
+    "bundles/aoa-stress-recovery-window/EVAL.md",
+    "bundles/aoa-repair-boundedness/EVAL.md",
+    "mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md",
+    "mechanics/growth-cycle/parts/diagnosis-gate/",
+    "Stronger Owner Split",
+    "Stop-Lines",
+    "global resilience",
+    "runtime self-healing",
+    "python scripts/validate_repo.py --eval aoa-stress-recovery-window",
+)
+ANTIFRAGILITY_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "antifragility proof work",
+    "mechanics/antifragility/PARTS.md",
+    "PROVENANCE.md",
+    "Keep source proof bundles under `bundles/`",
+    "comparison-spine",
+    "audit",
+    "Do not create new antifragility parts from one document",
+    "python scripts/validate_repo.py",
+)
+ANTIFRAGILITY_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "posture-review",
+    "stress-recovery-window",
+    "repair-proof",
+    "Inputs",
+    "Outputs",
+    "Owner split",
+    "Stop-lines",
+    "Validation",
+    "aoa-diagnosis-cause-discipline",
+    "mechanics/growth-cycle/parts/diagnosis-gate/",
+)
+ANTIFRAGILITY_PART_README_COMMON_REQUIRED_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+)
+ANTIFRAGILITY_POSTURE_PART_REQUIRED_TOKENS = (
+    "aoa-antifragility-posture",
+    "mechanics/antifragility/parts/posture-review/schemas/antifragility_eval_report_v1.json",
+    "source proof bundle stays under `bundles/`",
+    "owner repository owns the local",
+    "global resilience",
+    "python scripts/build_catalog.py --check",
+) + ANTIFRAGILITY_PART_README_COMMON_REQUIRED_TOKENS
+ANTIFRAGILITY_STRESS_WINDOW_PART_REQUIRED_TOKENS = (
+    "aoa-stress-recovery-window",
+    "mechanics/antifragility/parts/stress-recovery-window/docs/STRESS_RECOVERY_WINDOW_EVALS.md",
+    "mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md",
+    "mechanics/antifragility/parts/stress-recovery-window/schemas/stress_recovery_window_eval_report_v1.json",
+    "mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md",
+    "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.runtime-chaos-window.example.json",
+    "comparison-spine",
+    "audit",
+    "comparison acceptance without the `comparison-spine` readout boundary",
+    "python scripts/build_catalog.py --check",
+) + ANTIFRAGILITY_PART_README_COMMON_REQUIRED_TOKENS
+ANTIFRAGILITY_REPAIR_PROOF_PART_REQUIRED_TOKENS = (
+    "aoa-repair-boundedness",
+    "mechanics/antifragility/parts/repair-proof/fixtures/repair-boundedness-v1/README.md",
+    "repair-proof route",
+    "repair-proof` is a parent mechanic",
+    "aoa-diagnosis-cause-discipline",
+    "growth-cycle improvement without a separate growth-cycle proof route",
+    "python scripts/build_catalog.py --check",
+) + ANTIFRAGILITY_PART_README_COMMON_REQUIRED_TOKENS
+ANTIFRAGILITY_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+ANTIFRAGILITY_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/antifragility/",
+    "AoA-aligned",
+    "posture-review",
+    "stress-recovery-window",
+    "repair-proof",
+    "Source proof bundles stay under `bundles/`",
+    "comparison-spine",
+    "audit",
+    "aoa-diagnosis-cause-discipline",
+    "python scripts/validate_repo.py",
+)
+ANTIFRAGILITY_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
+    "Antifragility Part Contract Guard",
+    "mechanics/antifragility/parts/posture-review/README.md",
+    "mechanics/antifragility/parts/stress-recovery-window/README.md",
+    "mechanics/antifragility/parts/repair-proof/README.md",
+    "global resilience",
+    "live self-healing",
+    "permanent stability",
+    "repair parent",
+    "growth-cycle completion",
+    "growth-cycle/diagnosis-gate",
+    "python scripts/validate_repo.py",
+)
+METHOD_GROWTH_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "AoA-aligned",
+    "growth-refinery pressure",
+    "candidate-lineage",
+    "owner-landing",
+    "bundles/aoa-candidate-lineage-integrity/EVAL.md",
+    "bundles/aoa-owner-fit-routing-quality/EVAL.md",
+    "mechanics/method-growth/parts/candidate-lineage/fixtures/candidate-lineage-v1/README.md",
+    "mechanics/method-growth/parts/owner-landing/fixtures/owner-fit-routing-v1/README.md",
+    "Stronger Owner Split",
+    "Stop-Lines",
+    "final object truth",
+    "diagnosis-cause discipline",
+    "python scripts/validate_repo.py --eval aoa-owner-fit-routing-quality",
+)
+METHOD_GROWTH_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "method-growth proof work",
+    "mechanics/method-growth/PARTS.md",
+    "PROVENANCE.md",
+    "Keep source proof bundles under `bundles/`",
+    "Do not create new method-growth parts from one document",
+    "python scripts/validate_repo.py",
+)
+METHOD_GROWTH_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "candidate-lineage",
+    "owner-landing",
+    "Inputs",
+    "Outputs",
+    "Owner split",
+    "Stop-lines",
+    "Validation",
+    "aoa-diagnosis-cause-discipline",
+)
+METHOD_GROWTH_CANDIDATE_LINEAGE_PART_REQUIRED_TOKENS = (
+    "aoa-candidate-lineage-integrity",
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "mechanics/method-growth/parts/candidate-lineage/fixtures/candidate-lineage-v1/README.md",
+    "lineage proof route",
+    "owner-fit routing proof",
+    "final object quality",
+    "owner-local acceptance",
+    "hidden promotion",
+    "one universal growth score",
+    "python scripts/build_catalog.py --check",
+)
+METHOD_GROWTH_OWNER_LANDING_PART_REQUIRED_TOKENS = (
+    "aoa-owner-fit-routing-quality",
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "mechanics/method-growth/parts/owner-landing/fixtures/owner-fit-routing-v1/README.md",
+    "owner-landing proof route",
+    "derivative-drift",
+    "final object proof",
+    "owner-local acceptance",
+    "derivative first-authoring",
+    "one universal growth score",
+    "python scripts/build_catalog.py --check",
+)
+METHOD_GROWTH_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+METHOD_GROWTH_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/method-growth/",
+    "AoA-aligned",
+    "candidate-lineage",
+    "owner-landing",
+    "Source proof bundles stay under `bundles/`",
+    "aoa-diagnosis-cause-discipline",
+    "aoa-repair-boundedness",
+    "final owner-object truth",
+    "python scripts/validate_repo.py",
+)
+METHOD_GROWTH_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS = (
+    "Method-growth Part Owner-split Contract",
+    "mechanics/method-growth/parts/candidate-lineage/README.md",
+    "mechanics/method-growth/parts/owner-landing/README.md",
+    "`## Stronger Owner Split`",
+    "lineage proof only",
+    "owner-fit routing proof only",
+    "final owner truth stays with the owning repositories",
+    "derivative first-authoring",
+    "python -m pytest -q tests/test_validate_repo.py -k method_growth_part_owner_split",
+)
+RPG_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "AoA-aligned",
+    "progression or unlock pressure",
+    "progression-unlocks",
+    "mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md",
+    "mechanics/rpg/parts/progression-unlocks/docs/UNLOCK_PROOF_BRIDGE.md",
+    "mechanics/rpg/parts/progression-unlocks/schemas/progression_evidence.schema.json",
+    "mechanics/rpg/parts/progression-unlocks/generated/unlock_proof_cards.min.example.json",
+    "Stronger Owner Split",
+    "Stop-Lines",
+    "universal score",
+    "runtime equip state",
+    "python scripts/validate_repo.py",
+)
+RPG_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "RPG proof work",
+    "mechanics/rpg/PARTS.md",
+    "PROVENANCE.md",
+    "progression evidence",
+    "unlock proof",
+    "Do not create new RPG parts from one document",
+    "python scripts/validate_repo.py",
+)
+RPG_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "progression-unlocks",
+    "Inputs",
+    "Outputs",
+    "Owner split",
+    "Stop-lines",
+    "Validation",
+    "growth-cycle",
+)
+RPG_PROGRESS_UNLOCKS_PART_REQUIRED_TOKENS = (
+    "Progression Unlocks Part",
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+    "mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md",
+    "mechanics/rpg/parts/progression-unlocks/docs/UNLOCK_PROOF_BRIDGE.md",
+    "mechanics/rpg/parts/progression-unlocks/schemas/progression_evidence.schema.json",
+    "mechanics/rpg/parts/progression-unlocks/generated/unlock_proof_cards.min.example.json",
+    "progression evidence",
+    "unlock proof",
+    "quest completion",
+    "universal rank",
+    "runtime equip state",
+    "growth-cycle diagnosis",
+    "generated-card authority",
+    "python scripts/build_catalog.py --check",
+)
+RPG_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+RPG_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/rpg/",
+    "AoA-aligned",
+    "progression-unlocks",
+    "docs/PROGRESSION_EVIDENCE_MODEL.md",
+    "docs/UNLOCK_PROOF_BRIDGE.md",
+    "Quest source records stay under",
+    "growth-cycle",
+    "runtime equip state",
+    "python scripts/validate_repo.py",
+)
+RPG_PROGRESS_UNLOCKS_CONTRACT_DECISION_REQUIRED_TOKENS = (
+    "RPG Progression-unlocks Contract",
+    "mechanics/rpg/parts/progression-unlocks/README.md",
+    "`## Stronger Owner Split`",
+    "`## Stop-Lines`",
+    "quest acceptance gate",
+    "runtime equip route",
+    "generated unlock cards remain",
+    "Diagnosis, repair, harvest, closeout, and longitudinal movement",
+    "python -m pytest -q tests/test_validate_repo.py -k rpg_progression_unlocks",
+)
+GROWTH_CYCLE_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "AoA-aligned",
+    "diagnosis pressure",
+    "diagnosis-gate",
+    "bundles/aoa-diagnosis-cause-discipline/EVAL.md",
+    "bundles/aoa-diagnosis-cause-discipline/notes/diagnosis-contract.md",
+    "Stronger Owner Split",
+    "Stop-Lines",
+    "repair proof under `antifragility`",
+    "repeated-window movement under",
+    "python scripts/validate_repo.py --eval aoa-diagnosis-cause-discipline",
+)
+GROWTH_CYCLE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "Growth Cycle diagnosis proof work",
+    "mechanics/growth-cycle/PARTS.md",
+    "PROVENANCE.md",
+    "Keep source proof bundles under `bundles/`",
+    "Do not create new growth-cycle parts from one document",
+    "python scripts/validate_repo.py --eval aoa-diagnosis-cause-discipline",
+)
+GROWTH_CYCLE_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "diagnosis-gate",
+    "Inputs",
+    "Outputs",
+    "Owner split",
+    "Stop-lines",
+    "Validation",
+    "aoa-diagnosis-cause-discipline",
+)
+GROWTH_CYCLE_DIAGNOSIS_GATE_PART_REQUIRED_TOKENS = (
+    "Diagnosis Gate Part",
+    "bundle-backed thin support route",
+    "no part-local payload subdirectories",
+    "bundles/aoa-diagnosis-cause-discipline/EVAL.md",
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+    "symptom refs",
+    "probable cause hypotheses",
+    "aoa-repair-boundedness",
+    "mechanics/antifragility/parts/repair-proof/",
+    "repair success",
+    "broad growth score",
+    "owner-local landing",
+    "python scripts/validate_repo.py --eval aoa-diagnosis-cause-discipline",
+)
+GROWTH_CYCLE_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+GROWTH_CYCLE_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/growth-cycle/",
+    "AoA-aligned",
+    "diagnosis-gate",
+    "aoa-diagnosis-cause-discipline",
+    "Source proof bundles stay under `bundles/`",
+    "aoa-repair-boundedness",
+    "aoa-longitudinal-growth-snapshot",
+    "No root file movement",
+    "python scripts/validate_repo.py",
+)
+GROWTH_CYCLE_DIAGNOSIS_GATE_CONTRACT_DECISION_REQUIRED_TOKENS = (
+    "Growth-cycle Diagnosis-gate Contract",
+    "mechanics/growth-cycle/parts/diagnosis-gate/README.md",
+    "bundle-backed thin support route",
+    "cause-hypothesis discipline",
+    "repair parent",
+    "owner-fit proof",
+    "broad growth score",
+    "donor-harvest approval",
+    "quest-promotion",
+    "owner-local landing authority",
+    "python scripts/validate_repo.py",
+)
+REPAIR_DIAGNOSIS_ROUTE_BOUNDARY_DECISION_REQUIRED_TOKENS = (
+    "Repair Diagnosis Route Boundary",
+    "mechanics/antifragility/parts/repair-proof/",
+    "mechanics/growth-cycle/parts/diagnosis-gate/",
+    "aoa-repair-boundedness",
+    "aoa-diagnosis-cause-discipline",
+    "`repair` remains a wrong parent form",
+    "Diagnosis-cause discipline is not an antifragility part",
+    "repair proof is not diagnosis proof",
+    "python -m pytest -q tests/test_validate_repo.py -k repair_diagnosis_route_boundary",
+)
+DISTILLATION_MECHANIC_REQUIRED_TOKENS = (
+    "Owned Operation",
+    "AoA-aligned",
+    "distillation pressure",
+    "compost-provenance",
+    "runtime-candidate-adoption",
+    "bundles/aoa-compost-provenance-preservation/EVAL.md",
+    "bundles/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md",
+    "Stronger Owner Split",
+    "Stop-Lines",
+    "summary-as-proof",
+    "memo recall",
+    "python scripts/validate_repo.py --eval aoa-compost-provenance-preservation",
+)
+DISTILLATION_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+    "Distillation proof work",
+    "mechanics/distillation/PARTS.md",
+    "PROVENANCE.md",
+    "Keep source proof bundles under `bundles/`",
+    "Do not create new Distillation parts from one document",
+    "python scripts/validate_repo.py --eval aoa-memo-reviewed-candidate-adoption-integrity",
+)
+DISTILLATION_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "compost-provenance",
+    "runtime-candidate-adoption",
+    "Inputs",
+    "Outputs",
+    "Owner split",
+    "Stop-lines",
+    "Validation",
+    "aoa-compost-provenance-preservation",
+    "aoa-memo-reviewed-candidate-adoption-integrity",
+)
+DISTILLATION_PART_README_COMMON_REQUIRED_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+)
+DISTILLATION_COMPOST_PROVENANCE_PART_REQUIRED_TOKENS = (
+    "Compost Provenance Part",
+    "bundles/aoa-compost-provenance-preservation/EVAL.md",
+    "mechanics/distillation/parts/compost-provenance/fixtures/compost-provenance-v1/README.md",
+    "Tree-of-Sophia meaning",
+    "ToS canon",
+    "artifact/process comparison",
+    "python scripts/validate_repo.py --eval aoa-compost-provenance-preservation",
+) + DISTILLATION_PART_README_COMMON_REQUIRED_TOKENS
+DISTILLATION_RUNTIME_CANDIDATE_ADOPTION_PART_REQUIRED_TOKENS = (
+    "Runtime Candidate Adoption Part",
+    "bundles/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md",
+    "mechanics/distillation/parts/runtime-candidate-adoption/fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md",
+    "distillation_claim_candidate",
+    "aoa-memo-writeback-act-integrity",
+    "live receipt append behavior",
+    "bridge-ready truth",
+    "python scripts/validate_repo.py --eval aoa-memo-reviewed-candidate-adoption-integrity",
+) + DISTILLATION_PART_README_COMMON_REQUIRED_TOKENS
+DISTILLATION_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+DISTILLATION_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/distillation/",
+    "AoA-aligned",
+    "compost-provenance",
+    "runtime-candidate-adoption",
+    "Source proof bundles stay under `bundles/`",
+    "summary-as-proof",
+    "aoa-memo-writeback-act-integrity",
+    "python scripts/validate_repo.py",
+)
+DISTILLATION_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
+    "Distillation Part Contract Guard",
+    "mechanics/distillation/parts/compost-provenance/README.md",
+    "mechanics/distillation/parts/runtime-candidate-adoption/README.md",
+    "ToS canon",
+    "memory canon",
+    "runtime promotion",
+    "receipt publication",
+    "Experience adoption federation",
+    "KAG lift",
+    "owner-local acceptance",
+    "python scripts/validate_repo.py",
 )
 QUESTBOOK_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
     "QUESTBOOK.md",
+    "mechanics/questbook/PARTS.md",
     "quests/",
     "quests/LIFECYCLE.md",
+    "source-record-contract",
+    "dispatch-reader",
     "generated/quest_catalog.min.json",
     "generated/quest_dispatch.min.json",
     "lane/state",
@@ -773,11 +4106,55 @@ QUESTBOOK_MECHANIC_REQUIRED_TOKENS = (
 QUESTBOOK_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "source quest record",
     "QUESTBOOK.md",
+    "mechanics/questbook/PARTS.md",
+    "mechanics/questbook/PROVENANCE.md",
     "quests/LIFECYCLE.md",
     "generated quest reader",
     "lane/state",
     "python scripts/build_catalog.py --check",
 )
+QUESTBOOK_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "source-record-contract",
+    "dispatch-reader",
+    "generated quest reader",
+    "source quest record",
+    "Do not reintroduce old top-level quest source paths",
+    "python scripts/build_catalog.py --check",
+)
+QUESTBOOK_SOURCE_RECORD_PART_REQUIRED_TOKENS = (
+    "Quest Source Record Contract",
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json",
+    "quests/<lane>/<state>/AOA-EV-Q-*.yaml",
+    "quests/LIFECYCLE.md",
+    "QUESTBOOK.md",
+    "generated projection input",
+    "source quest record identity",
+    "aoa-quest-harvest",
+    "roadmap direction",
+    "owner acceptance",
+    "python scripts/build_catalog.py --check",
+)
+QUESTBOOK_DISPATCH_READER_PART_REQUIRED_TOKENS = (
+    "Quest Dispatch Reader",
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json",
+    "generated/quest_catalog.min.json",
+    "generated/quest_dispatch.min.json",
+    "scripts/build_catalog.py",
+    "generated projection contract",
+    "source quest truth",
+    "live task assignment",
+    "proof-surface promotion",
+    "python scripts/build_catalog.py --check",
+)
+QUESTBOOK_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
 QUEST_LIFECYCLE_DECISION_REQUIRED_TOKENS = (
     "quests/LIFECYCLE.md",
     "captured",
@@ -791,6 +4168,18 @@ QUEST_LIFECYCLE_DECISION_REQUIRED_TOKENS = (
     "proof-loop",
     "route-smoke",
 )
+AGON_QUEST_NOTE_PROVENANCE_DECISION_NAME = (
+    "docs/decisions/0098-agon-quest-note-provenance-route.md"
+)
+AGON_QUEST_NOTE_PROVENANCE_DECISION_REQUIRED_TOKENS = (
+    "mechanics/agon/PROVENANCE.md",
+    "Agon legacy archive",
+    "archive-local accounting",
+    "schema-backed source quest records",
+    "markdown quest notes",
+    "quests/",
+    "python -m pytest -q tests/test_validate_repo.py -k quest_route",
+)
 QUESTBOOK_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "mechanics/questbook/",
     "source quest records",
@@ -798,50 +4187,148 @@ QUESTBOOK_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "lane/state",
     "no empty taxonomy",
 )
-RUNTIME_EVIDENCE_MECHANIC_REQUIRED_TOKENS = (
+QUESTBOOK_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS = (
+    "Questbook Part Owner-split Contract",
+    "mechanics/questbook/parts/source-record-contract/README.md",
+    "mechanics/questbook/parts/dispatch-reader/README.md",
+    "`## Stronger Owner Split`",
+    "Source quest records stay under `quests/<lane>/<state>/`",
+    "Human visibility stays",
+    "Generated quest readers stay under root `generated/`",
+    "aoa-quest-harvest",
+    "live task assignment",
+    "python -m pytest -q tests/test_validate_repo.py -k questbook_part_owner_split",
+)
+AUDIT_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
-    "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
-    "docs/RUNTIME_INTEGRITY_REVIEW.md",
-    "generated/runtime_candidate_template_index.min.json",
-    "generated/runtime_candidate_intake.min.json",
-    "examples/runtime_evidence_selection.*.example.json",
-    "examples/artifact_to_verdict_hook.*.example.json",
+    "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+    "mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md",
+    "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json",
+    "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json",
+    "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.*.example.json",
+    "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.*.example.json",
     "candidate-only",
     "bundle-local review",
-    "python scripts/generate_runtime_candidate_template_index.py --check",
-    "python scripts/generate_runtime_candidate_intake.py --check",
+    "python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check",
+    "python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check",
 )
-RUNTIME_EVIDENCE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+AUDIT_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "runtime or trace artifact",
     "selected evidence packet",
     "runtime candidate reader",
     "bundle-local review",
-    "python scripts/generate_runtime_candidate_template_index.py --check",
+    "python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check",
 )
-RUNTIME_EVIDENCE_MECHANIC_DECISION_REQUIRED_TOKENS = (
-    "mechanics/runtime-evidence/",
+AUDIT_MECHANIC_DECISION_REQUIRED_TOKENS = (
+    "mechanics/audit/",
     "runtime evidence selection",
     "artifact-to-verdict",
     "generated readers",
     "bundle-local review",
     "does not turn runtime evidence into proof canon",
 )
-SIBLING_PROOF_REFS_REQUIRED_TOKENS = (
+AUDIT_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+AUDIT_LEGACY_INDEX_REQUIRED_TOKENS = (
+    "mechanics/runtime-evidence/",
+    "mechanics/audit/",
+    "schemas/runtime-evidence-selection.schema.json",
+    "mechanics/audit/parts/selected-evidence-packets/schemas/runtime-evidence-selection.schema.json",
+    "generated/runtime_candidate_template_index.min.json",
+    "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json",
+)
+AUDIT_LEGACY_DISTILLATION_REQUIRED_TOKENS = (
+    "runtime-evidence",
+    "audit",
+    "selected-evidence-packets",
+    "artifact-verdict-hooks",
+    "candidate-readers",
+    "integrity-review",
+    "Do not create new audit work in legacy",
+)
+AUDIT_LEGACY_RAW_README_REQUIRED_TOKENS = (
+    "No raw payload copies",
+    "git history",
+    "active parts",
+)
+AUDIT_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
+    "Audit Part Contract Guard",
+    "selected-evidence-packets",
+    "artifact-verdict-hooks",
+    "candidate-readers",
+    "integrity-review",
+    "inputs, outputs",
+    "stronger-owner split",
+    "candidate-only",
+    "python scripts/validate_repo.py",
+)
+AUDIT_SELECTED_EVIDENCE_PART_README_REQUIRED_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+    "runtime-evidence-selection.schema.json",
+    "runtime_evidence_selection.*.example.json",
+    "candidate-only",
+    "bundle-local review",
+    "python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check",
+)
+AUDIT_ARTIFACT_VERDICT_HOOKS_PART_README_REQUIRED_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+    "TRACE_EVAL_BRIDGE.md",
+    "artifact-to-verdict-hook.schema.json",
+    "mechanic-local hook examples",
+    "not a judge",
+    "bundle-local review",
+    "python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check",
+)
+AUDIT_CANDIDATE_READERS_PART_README_REQUIRED_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+    "generate_runtime_candidate_template_index.py",
+    "runtime_candidate_template_index.min.json",
+    "runtime_candidate_intake.min.json",
+    "weaker than source examples",
+    "Do not hand-edit generated readers as authority",
+)
+AUDIT_INTEGRITY_REVIEW_PART_README_REQUIRED_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+    "RUNTIME_INTEGRITY_REVIEW.md",
+    "runtime-integrity-review.schema.json",
+    "runtime_integrity_review.example.json",
+    "candidate-only",
+    "Do not activate runtime continuity",
+    "python -m pytest -q tests/test_validate_repo.py -k runtime_integrity_review",
+)
+BOUNDARY_BRIDGE_COMPATIBILITY_MAP_DOC_REQUIRED_TOKENS = (
     "compatibility map",
     "repo-qualified ref",
     "current/legacy/rejected/unresolved",
     "latest-sibling canary",
     "pinned `Repo Validation` ref",
     REPO_VALIDATION_AOA_MEMO_REF,
-    "scripts/sibling_canary_matrix.json",
-    "python scripts/run_sibling_canary.py --repo-root . --format json",
+    SIBLING_CANARY_MATRIX_NAME,
+    SIBLING_CANARY_COMMAND,
     "not an authority transfer",
 )
-SIBLING_PROOF_REFS_MECHANIC_REQUIRED_TOKENS = (
+BOUNDARY_BRIDGE_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
-    "docs/SIBLING_PROOF_REFS.md",
-    "scripts/sibling_canary_matrix.json",
-    "scripts/run_sibling_canary.py",
+    "mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md",
+    "mechanics/boundary-bridge/PARTS.md",
+    "mechanics/boundary-bridge/parts/README.md",
+    SIBLING_CANARY_MATRIX_NAME,
+    SIBLING_CANARY_RUNNER_NAME,
     REPO_VALIDATION_WORKFLOW_NAME,
     "latest-sibling canary",
     "pinned public-lane refresh",
@@ -849,16 +4336,101 @@ SIBLING_PROOF_REFS_MECHANIC_REQUIRED_TOKENS = (
     "Do not edit sibling repositories",
     "bundle-local review",
 )
-SIBLING_PROOF_REFS_MECHANIC_AGENTS_REQUIRED_TOKENS = (
+BOUNDARY_BRIDGE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "repo-qualified ref",
     "sibling owner route",
     "compatibility posture",
     "latest-sibling canary",
-    "python scripts/run_sibling_canary.py --repo-root . --format json",
+    SIBLING_CANARY_COMMAND,
 )
-SIBLING_PROOF_REFS_DECISION_REQUIRED_TOKENS = (
+BOUNDARY_BRIDGE_MECHANIC_PARTS_REQUIRED_TOKENS = (
+    "compatibility-map",
+    "latest-sibling-canary",
+    "not standalone mechanics",
+    "sibling owner route",
+)
+BOUNDARY_BRIDGE_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
+BOUNDARY_BRIDGE_LEGACY_INDEX_REQUIRED_TOKENS = (
     "mechanics/sibling-proof-refs/",
+    "mechanics/boundary-bridge/",
     "docs/SIBLING_PROOF_REFS.md",
+    "mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md",
+    "docs/ORCHESTRATOR_PROOF_ALIGNMENT.md",
+    "mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md",
+    "generated/phase_alpha_eval_matrix.min.json",
+    "mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated/phase_alpha_eval_matrix.min.json",
+)
+BOUNDARY_BRIDGE_LEGACY_DISTILLATION_REQUIRED_TOKENS = (
+    "boundary-bridge",
+    "compatibility-map",
+    "latest-sibling-canary",
+    "orchestrator-proof-anchors",
+    "phase-alpha-eval-matrix",
+    "mechanics/sibling-proof-refs/",
+    "Do not create new boundary-bridge work in legacy",
+)
+BOUNDARY_BRIDGE_LEGACY_RAW_README_REQUIRED_TOKENS = (
+    "No raw payload copies",
+    "git history",
+    "active boundary-bridge",
+)
+BOUNDARY_BRIDGE_PARTS_README_REQUIRED_TOKENS = (
+    "compatibility-map/",
+    "latest-sibling-canary/",
+    SIBLING_CANARY_COMMAND,
+)
+BOUNDARY_BRIDGE_COMPATIBILITY_PART_REQUIRED_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+    "authored compatibility map",
+    "current, legacy, rejected, or unresolved posture",
+    "sibling owner acceptance",
+    "Do not edit sibling repositories",
+)
+BOUNDARY_BRIDGE_LATEST_SIBLING_CANARY_PART_REQUIRED_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+    "mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json",
+    "mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py",
+    "mechanics/boundary-bridge/parts/latest-sibling-canary/tests/test_sibling_canary.py",
+    "GitHub `Repo Validation`",
+    "Do not edit sibling repositories",
+    "Do not replace GitHub `Repo Validation`",
+)
+BOUNDARY_BRIDGE_ORCHESTRATOR_PART_REQUIRED_TOKENS = (
+    "## Inputs",
+    "## Outputs",
+    "## Stronger Owner Split",
+    "## Stop-Lines",
+    "## Validation",
+    "aoa-agents",
+    "aoa-playbooks",
+    "aoa-memo",
+    "creating an `orchestrator` mechanic",
+    "python scripts/build_catalog.py --check",
+)
+BOUNDARY_BRIDGE_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
+    "Boundary Bridge Part Contract Guard",
+    "mechanics/boundary-bridge/parts/compatibility-map/README.md",
+    "mechanics/boundary-bridge/parts/latest-sibling-canary/README.md",
+    "mechanics/boundary-bridge/parts/orchestrator-proof-anchors/README.md",
+    "part-level contracts",
+    "sibling authority",
+    "orchestrator",
+    "latest-sibling-canary",
+    "python scripts/validate_repo.py",
+)
+BOUNDARY_BRIDGE_DECISION_REQUIRED_TOKENS = (
+    "mechanics/boundary-bridge/",
+    "mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md",
+    SIBLING_CANARY_MATRIX_NAME,
+    SIBLING_CANARY_RUNNER_NAME,
     "latest-sibling canary",
     "current, legacy, rejected, or unresolved",
     "does not authorize editing sibling repositories",
@@ -876,6 +4448,12 @@ SIBLING_CANARY_EXPECTED_REPOS = (
     "abyss-stack",
 )
 SCHEMAS_DIR_NAME = "schemas"
+EVAL_FRONTMATTER_SCHEMA_NAME = (
+    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json"
+)
+EVAL_MANIFEST_SCHEMA_NAME = (
+    "mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json"
+)
 GENERATED_DIR_NAME = "generated"
 EXAMPLES_DIR_NAME = "examples"
 FULL_CATALOG_NAME = eval_catalog_contract.FULL_CATALOG_NAME
@@ -899,8 +4477,8 @@ QUESTS_README_NAME = "quests/README.md"
 QUESTS_AGENTS_NAME = "quests/AGENTS.md"
 QUEST_LIFECYCLE_NAME = "quests/LIFECYCLE.md"
 QUESTBOOK_INTEGRATION_NAME = "docs/QUESTBOOK_EVAL_INTEGRATION.md"
-QUEST_SCHEMA_NAME = "schemas/quest.schema.json"
-QUEST_DISPATCH_SCHEMA_NAME = "schemas/quest_dispatch.schema.json"
+QUEST_SCHEMA_NAME = "mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json"
+QUEST_DISPATCH_SCHEMA_NAME = "mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json"
 QUEST_CATALOG_NAME = "generated/quest_catalog.min.json"
 QUEST_DISPATCH_NAME = "generated/quest_dispatch.min.json"
 QUEST_CATALOG_EXAMPLE_NAME = "generated/quest_catalog.min.example.json"
@@ -946,7 +4524,7 @@ QUESTBOOK_NOTE_REQUIRED_TOKENS = (
     "verdict-bridge",
 )
 QUESTS_README_REQUIRED_TOKENS = (
-    "source quest records",
+    "schema-backed source quest records",
     "QUESTBOOK.md",
     "quests/LIFECYCLE.md",
     "generated/quest_catalog.min.json",
@@ -956,6 +4534,7 @@ QUESTS_README_REQUIRED_TOKENS = (
 )
 QUESTS_AGENTS_REQUIRED_TOKENS = (
     "source quest records",
+    "schema-backed YAML",
     "QUESTBOOK.md",
     "quests/LIFECYCLE.md",
     "generated/quest_catalog.min.json",
@@ -969,7 +4548,7 @@ QUEST_LIFECYCLE_REQUIRED_TOKENS = (
     "Return posture",
     "Promotion posture",
     "Proof-Loop Return Use",
-    "reports/proof-loop-local-route-smoke-v1.md",
+    "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
     "does not create an eval result receipt",
     "Open states",
     "Closed states",
@@ -1011,7 +4590,10 @@ ORCHESTRATOR_PROOF_QUESTS = {
     "AOA-EV-Q-0008": ("aoa-agents:bounded_execution", "bounded_next_step"),
 }
 ORCHESTRATOR_CLASS_CATALOG_NAME = "generated/orchestrator_class_catalog.min.json"
-ORCHESTRATOR_PROOF_ALIGNMENT_NAME = "docs/ORCHESTRATOR_PROOF_ALIGNMENT.md"
+ORCHESTRATOR_PROOF_ALIGNMENT_NAME = (
+    "mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/"
+    "ORCHESTRATOR_PROOF_ALIGNMENT.md"
+)
 ORCHESTRATOR_PROOF_REQUIRED_TOKENS = (
     "## Router",
     "## Review",
@@ -1019,9 +4601,28 @@ ORCHESTRATOR_PROOF_REQUIRED_TOKENS = (
     "## Boundary rule",
     "Proof surfaces judge work.",
 )
-UNLOCK_PROOF_BRIDGE_NAME = "docs/UNLOCK_PROOF_BRIDGE.md"
-UNLOCK_PROOF_SCHEMA_NAME = "unlock_proof_catalog.schema.json"
-UNLOCK_PROOF_EXAMPLE_NAME = "generated/unlock_proof_cards.min.example.json"
+PROGRESSION_EVIDENCE_MODEL_NAME = (
+    "mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md"
+)
+PROGRESSION_EVIDENCE_SCHEMA_NAME = (
+    "mechanics/rpg/parts/progression-unlocks/schemas/progression_evidence.schema.json"
+)
+PROGRESSION_EVIDENCE_EXAMPLE_NAME = (
+    "mechanics/rpg/parts/progression-unlocks/examples/progression_evidence.example.json"
+)
+UNLOCK_PROOF_BRIDGE_NAME = (
+    "mechanics/rpg/parts/progression-unlocks/docs/UNLOCK_PROOF_BRIDGE.md"
+)
+UNLOCK_PROOF_SCHEMA_NAME = (
+    "mechanics/rpg/parts/progression-unlocks/schemas/unlock_proof_catalog.schema.json"
+)
+UNLOCK_PROOF_EXAMPLE_NAME = "mechanics/rpg/parts/progression-unlocks/generated/unlock_proof_cards.min.example.json"
+PROGRESSION_EVIDENCE_REQUIRED_TOKENS = (
+    "## Core rule",
+    "Progression evidence is quest-scoped or route-scoped proof.",
+    "one universal score",
+    "cautions are first-class proof",
+)
 UNLOCK_PROOF_REQUIRED_TOKENS = (
     "## Core rule",
     "`gated_grant`",
@@ -1072,11 +4673,39 @@ REPO_REF_ROOTS = {
     "abyss-stack": ABYSS_STACK_ROOT,
 }
 ARTIFACT_VERDICT_HOOK_SCHEMA_NAME = "artifact-to-verdict-hook.schema.json"
+ARTIFACT_VERDICT_HOOK_SCHEMA_PATH = (
+    "mechanics/audit/parts/artifact-verdict-hooks/schemas/artifact-to-verdict-hook.schema.json"
+)
+ARTIFACT_VERDICT_HOOK_EXAMPLES_DIR = "mechanics/audit/parts/artifact-verdict-hooks/examples"
+ARTIFACT_VERDICT_HOOK_EXAMPLE_DIRS = (
+    ARTIFACT_VERDICT_HOOK_EXAMPLES_DIR,
+    "mechanics/checkpoint/parts/a2a-summon-return/examples",
+    "mechanics/checkpoint/parts/restartable-inquiry/examples",
+    "mechanics/checkpoint/parts/self-agent-posture/examples",
+)
 RUNTIME_EVIDENCE_SELECTION_SCHEMA_NAME = "runtime-evidence-selection.schema.json"
+RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH = (
+    "mechanics/audit/parts/selected-evidence-packets/schemas/runtime-evidence-selection.schema.json"
+)
+RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR = "mechanics/audit/parts/selected-evidence-packets/examples"
 STATS_EVENT_ENVELOPE_SCHEMA_NAME = "stats-event-envelope.schema.json"
 EVAL_RESULT_RECEIPT_SCHEMA_NAME = "eval-result-receipt.schema.json"
-EVAL_RESULT_RECEIPT_GUIDE_NAME = "docs/EVAL_RESULT_RECEIPT_GUIDE.md"
-EVAL_RESULT_RECEIPT_EXAMPLE_NAME = "examples/eval_result_receipt.example.json"
+PUBLICATION_RECEIPTS_PARTS_ROOT = "mechanics/publication-receipts/parts"
+STATS_EVENT_ENVELOPE_SCHEMA_PATH = (
+    f"{PUBLICATION_RECEIPTS_PARTS_ROOT}/stats-envelope-mirror/schemas/{STATS_EVENT_ENVELOPE_SCHEMA_NAME}"
+)
+EVAL_RESULT_RECEIPT_SCHEMA_PATH = (
+    f"{PUBLICATION_RECEIPTS_PARTS_ROOT}/receipt-payload/schemas/{EVAL_RESULT_RECEIPT_SCHEMA_NAME}"
+)
+EVAL_RESULT_RECEIPT_GUIDE_NAME = (
+    f"{PUBLICATION_RECEIPTS_PARTS_ROOT}/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md"
+)
+EVAL_RESULT_RECEIPT_EXAMPLE_NAME = (
+    f"{PUBLICATION_RECEIPTS_PARTS_ROOT}/receipt-payload/examples/eval_result_receipt.example.json"
+)
+EVAL_RESULT_RECEIPT_PUBLISHER_NAME = (
+    f"{PUBLICATION_RECEIPTS_PARTS_ROOT}/live-publisher/scripts/publish_live_receipts.py"
+)
 LIVE_EVAL_RECEIPT_LOG_NAME = ".aoa/live_receipts/eval-result-receipts.jsonl"
 EVAL_RESULT_RECEIPT_REQUIRED_TOKENS = (
     "## Core rule",
@@ -1086,9 +4715,12 @@ EVAL_RESULT_RECEIPT_REQUIRED_TOKENS = (
     "bundle-local verdict meaning",
     "repo-global score",
 )
-RUNTIME_INTEGRITY_REVIEW_DOC_NAME = "docs/RUNTIME_INTEGRITY_REVIEW.md"
+RUNTIME_INTEGRITY_REVIEW_DOC_NAME = "mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md"
 RUNTIME_INTEGRITY_REVIEW_SCHEMA_NAME = "runtime-integrity-review.schema.json"
-RUNTIME_INTEGRITY_REVIEW_EXAMPLE_NAME = "examples/runtime_integrity_review.example.json"
+RUNTIME_INTEGRITY_REVIEW_SCHEMA_PATH = (
+    "mechanics/audit/parts/integrity-review/schemas/runtime-integrity-review.schema.json"
+)
+RUNTIME_INTEGRITY_REVIEW_EXAMPLE_NAME = "mechanics/audit/parts/integrity-review/examples/runtime_integrity_review.example.json"
 RUNTIME_INTEGRITY_REVIEW_BUDGET_REF = (
     "Agents-of-Abyss:mechanics/experience/parts/continuity-context/CONTRACT.md#stronger-owner-split"
 )
@@ -1107,15 +4739,15 @@ RUNTIME_INTEGRITY_REVIEW_REQUIRED_TOKENS = (
     "It does not activate runtime continuity.",
 )
 RUNTIME_INTEGRITY_REVIEW_LANDING_TOKENS = (
-    "docs/RUNTIME_INTEGRITY_REVIEW.md",
-    "schemas/runtime-integrity-review.schema.json",
-    "examples/runtime_integrity_review.example.json",
+    "mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md",
+    "mechanics/audit/parts/integrity-review/schemas/runtime-integrity-review.schema.json",
+    "mechanics/audit/parts/integrity-review/examples/runtime_integrity_review.example.json",
     "`candidate_only`",
     "`human_review_needed`",
 )
 RUNTIME_INTEGRITY_REVIEW_EVIDENCE_REFS = (
-    "repo:aoa-evals/docs/TRACE_EVAL_BRIDGE.md",
-    "repo:aoa-evals/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+    "repo:aoa-evals/mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md",
+    "repo:aoa-evals/mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
     "repo:aoa-routing/docs/LIVE_SESSION_REENTRY_ROUTE_REVIEW.md",
     "repo:aoa-agents/docs/SELF_AGENCY_CONTINUITY_LANE.md",
     "repo:aoa-memo/mechanics/checkpoint/parts/checkpoint-carry-contract/schemas/inquiry_checkpoint.schema.json",
@@ -1134,21 +4766,41 @@ RUNTIME_INTEGRITY_REVIEW_FORBIDDEN_CLAIMS = (
     "canon_write",
 )
 RUNTIME_CANDIDATE_TEMPLATE_INDEX_SCHEMA_NAME = "runtime-candidate-template-index.schema.json"
-RUNTIME_CANDIDATE_TEMPLATE_INDEX_NAME = "generated/runtime_candidate_template_index.min.json"
-RUNTIME_CANDIDATE_INTAKE_NAME = "generated/runtime_candidate_intake.min.json"
+RUNTIME_CANDIDATE_TEMPLATE_INDEX_SCHEMA_PATH = (
+    "mechanics/audit/parts/candidate-readers/schemas/runtime-candidate-template-index.schema.json"
+)
+RUNTIME_CANDIDATE_TEMPLATE_INDEX_NAME = "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json"
+RUNTIME_CANDIDATE_INTAKE_NAME = "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json"
+RUNTIME_CANDIDATE_TEMPLATE_INDEX_SCRIPT_NAME = (
+    "mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py"
+)
+RUNTIME_CANDIDATE_INTAKE_SCRIPT_NAME = (
+    "mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py"
+)
 EVAL_REPORT_INDEX_NAME = "generated/eval_report_index.min.json"
 EVAL_REPORT_INDEX_DECISION_NAME = "docs/decisions/0023-eval-report-index-reader.md"
-PHASE_ALPHA_EVAL_MATRIX_SCHEMA_NAME = "phase-alpha-eval-matrix.schema.json"
-PHASE_ALPHA_EVAL_MATRIX_NAME = "generated/phase_alpha_eval_matrix.min.json"
+PHASE_ALPHA_EVAL_MATRIX_PART_NAME = "mechanics/boundary-bridge/parts/phase-alpha-eval-matrix"
+PHASE_ALPHA_EVAL_MATRIX_SCHEMA_NAME = (
+    f"{PHASE_ALPHA_EVAL_MATRIX_PART_NAME}/schemas/phase-alpha-eval-matrix.schema.json"
+)
+PHASE_ALPHA_EVAL_MATRIX_EXAMPLE_NAME = (
+    f"{PHASE_ALPHA_EVAL_MATRIX_PART_NAME}/examples/phase_alpha_eval_matrix.example.json"
+)
+PHASE_ALPHA_EVAL_MATRIX_SCRIPT_NAME = (
+    f"{PHASE_ALPHA_EVAL_MATRIX_PART_NAME}/scripts/generate_phase_alpha_eval_matrix.py"
+)
+PHASE_ALPHA_EVAL_MATRIX_NAME = (
+    f"{PHASE_ALPHA_EVAL_MATRIX_PART_NAME}/generated/phase_alpha_eval_matrix.min.json"
+)
 NORMALIZED_RUNTIME_ARTIFACT_RE = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
 ARTIFACT_VERDICT_HOOK_EXAMPLES = {
-    "AOA-P-0014": "artifact_to_verdict_hook.local-stack-diagnosis.example.json",
-    "AOA-P-0006": "artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
-    "AOA-P-0018": "artifact_to_verdict_hook.validation-driven-remediation.example.json",
-    "AOA-P-0008": "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
-    "AOA-P-0009": "artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
-    "AOA-P-0031": "artifact_to_verdict_hook.a2a-summon-return-checkpoint.example.json",
-    "AOA-P-0032": "artifact_to_verdict_hook.trace-integrity-chaos.example.json",
+    "AOA-P-0014": "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.local-stack-diagnosis.example.json",
+    "AOA-P-0006": "mechanics/checkpoint/parts/self-agent-posture/examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
+    "AOA-P-0018": "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.validation-driven-remediation.example.json",
+    "AOA-P-0008": "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
+    "AOA-P-0009": "mechanics/checkpoint/parts/restartable-inquiry/examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
+    "AOA-P-0031": "mechanics/checkpoint/parts/a2a-summon-return/examples/artifact_to_verdict_hook.a2a-summon-return-checkpoint.example.json",
+    "AOA-P-0032": "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json",
 }
 RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
     "runtime_evidence_selection.workhorse-local.example.json": {
@@ -1342,7 +4994,20 @@ class EvalBundleRecord:
 
 @lru_cache(maxsize=None)
 def load_schema(schema_name: str) -> dict[str, Any]:
-    schema_path = REPO_ROOT / SCHEMAS_DIR_NAME / schema_name
+    schema_paths_by_name = {
+        STATS_EVENT_ENVELOPE_SCHEMA_NAME: Path(STATS_EVENT_ENVELOPE_SCHEMA_PATH),
+        EVAL_RESULT_RECEIPT_SCHEMA_NAME: Path(EVAL_RESULT_RECEIPT_SCHEMA_PATH),
+    }
+    if schema_name in schema_paths_by_name:
+        schema_relative_path = schema_paths_by_name[schema_name]
+    else:
+        schema_candidate = Path(schema_name)
+        schema_relative_path = (
+            schema_candidate
+            if schema_candidate.parent != Path(".")
+            else Path(SCHEMAS_DIR_NAME) / schema_candidate
+        )
+    schema_path = REPO_ROOT / schema_relative_path
     with schema_path.open(encoding="utf-8") as handle:
         return json.load(handle)
 
@@ -2002,7 +5667,7 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
         if not isinstance(quest_data, dict):
             continue
         location = relative_location(quest_path, repo_root)
-        if not validate_against_schema(quest_data, "quest.schema.json", location, issues):
+        if not validate_against_schema(quest_data, QUEST_SCHEMA_NAME, location, issues):
             continue
         shape_issue = quest_source_path_shape_issue(repo_root, quest_path, quest_data)
         if shape_issue is not None:
@@ -2052,11 +5717,11 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                 issues.append(
                     ValidationIssue(location, "orchestrator proof quests must keep kind 'proof'")
                 )
-            if quest_data.get("owner_surface") != "docs/ORCHESTRATOR_PROOF_ALIGNMENT.md":
+            if quest_data.get("owner_surface") != ORCHESTRATOR_PROOF_ALIGNMENT_NAME:
                 issues.append(
                     ValidationIssue(
                         location,
-                        "orchestrator proof quests must keep owner_surface docs/ORCHESTRATOR_PROOF_ALIGNMENT.md",
+                        f"orchestrator proof quests must keep owner_surface {ORCHESTRATOR_PROOF_ALIGNMENT_NAME}",
                     )
                 )
             if orchestrator_class_ref != expected_ref:
@@ -2073,16 +5738,28 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                         f"orchestrator proof quest must keep capability_target '{expected_target}'",
                     )
                 )
+        if quest_name == "AOA-EV-Q-0005":
+            if quest_data.get("kind") != "proof":
+                issues.append(
+                    ValidationIssue(location, "progression evidence quest must keep kind 'proof'")
+                )
+            if quest_data.get("owner_surface") != PROGRESSION_EVIDENCE_MODEL_NAME:
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        f"progression evidence quest must keep owner_surface {PROGRESSION_EVIDENCE_MODEL_NAME}",
+                    )
+                )
         if quest_name == "AOA-EV-Q-0009":
             if quest_data.get("kind") != "proof":
                 issues.append(
                     ValidationIssue(location, "unlock proof bridge quest must keep kind 'proof'")
                 )
-            if quest_data.get("owner_surface") != "docs/UNLOCK_PROOF_BRIDGE.md":
+            if quest_data.get("owner_surface") != UNLOCK_PROOF_BRIDGE_NAME:
                 issues.append(
                     ValidationIssue(
                         location,
-                        "unlock proof bridge quest must keep owner_surface docs/UNLOCK_PROOF_BRIDGE.md",
+                        f"unlock proof bridge quest must keep owner_surface {UNLOCK_PROOF_BRIDGE_NAME}",
                     )
                 )
         if quest_data.get("state") in CLOSED_QUEST_STATES:
@@ -2241,7 +5918,7 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                 continue
             item_valid = validate_against_schema(
                 item,
-                "quest_dispatch.schema.json",
+                QUEST_DISPATCH_SCHEMA_NAME,
                 location,
                 issues,
             )
@@ -2292,7 +5969,7 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
                 continue
             item_valid = validate_against_schema(
                 item,
-                "quest_dispatch.schema.json",
+                QUEST_DISPATCH_SCHEMA_NAME,
                 location,
                 issues,
             )
@@ -2361,9 +6038,90 @@ def validate_questbook_surface(repo_root: Path) -> list[ValidationIssue]:
 
 def validate_unlock_proof_bridge_surface(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
+    progression_doc_path = repo_root / PROGRESSION_EVIDENCE_MODEL_NAME
+    progression_schema_path = repo_root / PROGRESSION_EVIDENCE_SCHEMA_NAME
+    progression_example_path = repo_root / PROGRESSION_EVIDENCE_EXAMPLE_NAME
     doc_path = repo_root / UNLOCK_PROOF_BRIDGE_NAME
-    schema_path = repo_root / SCHEMAS_DIR_NAME / UNLOCK_PROOF_SCHEMA_NAME
+    schema_path = repo_root / UNLOCK_PROOF_SCHEMA_NAME
     example_path = repo_root / UNLOCK_PROOF_EXAMPLE_NAME
+
+    progression_doc_text = read_text_or_issue(
+        progression_doc_path,
+        issues,
+        root=repo_root,
+    )
+    if progression_doc_text:
+        for token in PROGRESSION_EVIDENCE_REQUIRED_TOKENS:
+            if token not in progression_doc_text:
+                issues.append(
+                    ValidationIssue(
+                        relative_location(progression_doc_path, repo_root),
+                        f"progression evidence note must mention '{token}'",
+                    )
+                )
+
+    progression_schema_payload = load_json_payload(progression_schema_path, issues)
+    if isinstance(progression_schema_payload, dict):
+        if progression_schema_payload.get("title") != "progression_evidence_v1":
+            issues.append(
+                ValidationIssue(
+                    relative_location(progression_schema_path, repo_root),
+                    "progression evidence schema title must be 'progression_evidence_v1'",
+                )
+            )
+        try:
+            Draft202012Validator.check_schema(progression_schema_payload)
+        except SchemaError as exc:
+            issues.append(
+                ValidationIssue(
+                    relative_location(progression_schema_path, repo_root),
+                    f"invalid JSON schema: {exc.message}",
+                )
+            )
+    elif progression_schema_payload is not None:
+        issues.append(
+            ValidationIssue(
+                relative_location(progression_schema_path, repo_root),
+                "progression evidence schema must be a JSON object",
+            )
+        )
+
+    progression_example_payload = load_json_payload(progression_example_path, issues)
+    if isinstance(progression_example_payload, dict):
+        validate_against_schema(
+            progression_example_payload,
+            PROGRESSION_EVIDENCE_SCHEMA_NAME,
+            relative_location(progression_example_path, repo_root),
+            issues,
+        )
+        if progression_example_payload.get("schema_version") != "progression_evidence_v1":
+            issues.append(
+                ValidationIssue(
+                    relative_location(progression_example_path, repo_root),
+                    "progression evidence example schema_version must be 'progression_evidence_v1'",
+                )
+            )
+        if progression_example_payload.get("public_safe") is not True:
+            issues.append(
+                ValidationIssue(
+                    relative_location(progression_example_path, repo_root),
+                    "progression evidence example must keep public_safe true",
+                )
+            )
+        if not progression_example_payload.get("cautions"):
+            issues.append(
+                ValidationIssue(
+                    relative_location(progression_example_path, repo_root),
+                    "progression evidence example must keep cautions explicit",
+                )
+            )
+    elif progression_example_payload is not None:
+        issues.append(
+            ValidationIssue(
+                relative_location(progression_example_path, repo_root),
+                "progression evidence example must be a JSON object",
+            )
+        )
 
     doc_text = read_text_or_issue(doc_path, issues, root=repo_root)
     if doc_text:
@@ -2474,8 +6232,8 @@ def validate_unlock_proof_bridge_surface(repo_root: Path) -> list[ValidationIssu
 def validate_eval_result_receipt_surfaces(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     guide_path = repo_root / EVAL_RESULT_RECEIPT_GUIDE_NAME
-    envelope_schema_path = repo_root / SCHEMAS_DIR_NAME / STATS_EVENT_ENVELOPE_SCHEMA_NAME
-    payload_schema_path = repo_root / SCHEMAS_DIR_NAME / EVAL_RESULT_RECEIPT_SCHEMA_NAME
+    envelope_schema_path = repo_root / STATS_EVENT_ENVELOPE_SCHEMA_PATH
+    payload_schema_path = repo_root / EVAL_RESULT_RECEIPT_SCHEMA_PATH
     example_path = repo_root / EVAL_RESULT_RECEIPT_EXAMPLE_NAME
 
     guide_text = read_text_or_issue(guide_path, issues, root=repo_root)
@@ -2722,7 +6480,7 @@ def validate_live_receipt_log(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     log_path = repo_root / LIVE_EVAL_RECEIPT_LOG_NAME
     log_location = relative_location(log_path, repo_root)
-    envelope_schema_path = repo_root / SCHEMAS_DIR_NAME / STATS_EVENT_ENVELOPE_SCHEMA_NAME
+    envelope_schema_path = repo_root / STATS_EVENT_ENVELOPE_SCHEMA_PATH
     envelope_schema_location = relative_location(envelope_schema_path, repo_root)
     if envelope_schema_path.exists():
         envelope_schema = load_json_payload(envelope_schema_path, issues)
@@ -3774,9 +7532,7 @@ def validate_eval_frontmatter(
     issues: list[ValidationIssue],
 ) -> bool:
     location = relative_location(eval_md_path)
-    valid = validate_against_schema(
-        metadata, "eval-frontmatter.schema.json", location, issues
-    )
+    valid = validate_against_schema(metadata, EVAL_FRONTMATTER_SCHEMA_NAME, location, issues)
     if metadata.get("name") != eval_name:
         issues.append(
             ValidationIssue(location, "frontmatter 'name' must match the directory name")
@@ -3816,7 +7572,7 @@ def validate_eval_manifest(
         issues.append(ValidationIssue(location, "manifest must parse to a mapping"))
         return False
 
-    valid = validate_against_schema(manifest, "eval-manifest.schema.json", location, issues)
+    valid = validate_against_schema(manifest, EVAL_MANIFEST_SCHEMA_NAME, location, issues)
     if manifest.get("name") != eval_name:
         issues.append(
             ValidationIssue(location, "'name' must match the directory name")
@@ -4379,7 +8135,7 @@ def validate_bundle_fixture_contract(
     payload = load_json_payload(contract_path, issues)
     if payload is None:
         return
-    if not validate_against_schema(payload, "fixture-contract.schema.json", location, issues):
+    if not validate_against_schema(payload, FIXTURE_CONTRACT_SCHEMA_NAME, location, issues):
         return
 
     validate_raw_repo_relative_path(
@@ -4430,7 +8186,7 @@ def validate_bundle_runner_contract(
     payload = load_json_payload(contract_path, issues)
     if payload is None:
         return
-    if not validate_against_schema(payload, "runner-contract.schema.json", location, issues):
+    if not validate_against_schema(payload, RUNNER_CONTRACT_SCHEMA_NAME, location, issues):
         return
 
     for field_name in ("runner_surface_path", "report_schema_path", "report_example_path", "paired_readout_path"):
@@ -4818,13 +8574,19 @@ def require_tokens(
 
 def validate_root_design_surfaces(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
-    require_tokens(
+    design_text = require_tokens(
         repo_root=repo_root,
         path_name=DESIGN_NAME,
         tokens=ROOT_DESIGN_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
+        repo_root=repo_root,
+        path_name="docs/ARCHITECTURE.md",
+        tokens=ARCHITECTURE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    design_agents_text = require_tokens(
         repo_root=repo_root,
         path_name=DESIGN_AGENTS_NAME,
         tokens=DESIGN_AGENTS_REQUIRED_TOKENS,
@@ -4852,6 +8614,152 @@ def validate_root_design_surfaces(repo_root: Path) -> list[ValidationIssue]:
         repo_root=repo_root,
         path_name="docs/decisions/AGENTS.md",
         tokens=("source surface", "validate_repo.py", "sibling"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+        tokens=ARCHITECTURE_PROOF_MODEL_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        tokens=ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+            "Architecture Proof Model Contract",
+            ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+            "Active Mechanics Topology Wording",
+        ),
+        issues=issues,
+    )
+    if design_text:
+        for stale_phrase in ROOT_DESIGN_FORBIDDEN_STALE_MECHANIC_WORDING:
+            if stale_phrase in design_text:
+                issues.append(
+                    ValidationIssue(
+                        DESIGN_NAME,
+                        f"root design must describe active mechanic authority, not stale preparatory wording '{stale_phrase}'",
+                    )
+                )
+    if design_agents_text:
+        for stale_phrase in DESIGN_AGENTS_FORBIDDEN_STALE_MECHANIC_WORDING:
+            if stale_phrase in design_agents_text:
+                issues.append(
+                    ValidationIssue(
+                        DESIGN_AGENTS_NAME,
+                        f"agent design must describe active mechanic packages, not stale preparatory wording '{stale_phrase}'",
+                    )
+                )
+    return issues
+
+
+def validate_root_route_card_districts(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for district_name, allowed_names in ROOT_ROUTE_CARD_ONLY_DISTRICTS.items():
+        district = repo_root / district_name
+        if not district.is_dir():
+            issues.append(
+                ValidationIssue(
+                    district_name,
+                    "route-card-only root district is missing",
+                )
+            )
+            continue
+
+        allowed = set(allowed_names)
+        for allowed_name in allowed_names:
+            if not (district / allowed_name).is_file():
+                issues.append(
+                    ValidationIssue(
+                        f"{district_name}/{allowed_name}",
+                        "route-card file is missing",
+                    )
+                )
+
+        for path in sorted(district.rglob("*")):
+            relative_name = path.relative_to(district).as_posix()
+            if relative_name not in allowed:
+                issues.append(
+                    ValidationIssue(
+                        path.relative_to(repo_root).as_posix(),
+                        "active payload or stray directory must not live in a route-card-only root district",
+                    )
+                )
+
+    for path_name, tokens in ROOT_ROUTE_CARD_README_REQUIRED_TOKENS.items():
+        require_tokens(
+            repo_root=repo_root,
+            path_name=path_name,
+            tokens=tokens,
+            issues=issues,
+        )
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROOT_ROUTE_CARD_GUARD_DECISION_NAME,
+        tokens=ROOT_ROUTE_CARD_GUARD_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(ROOT_ROUTE_CARD_GUARD_DECISION_NAME, "Root Route-card Guard"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=(
+            "no active root examples payload",
+            "no active root config payload",
+            "no active root manifest payload",
+            "no active root reports payload",
+            "compatibility route",
+        ),
+        issues=issues,
+    )
+
+    return issues
+
+
+def validate_generated_route_residue_surfaces(repo_root: Path) -> list[ValidationIssue]:
+    issues = validate_generated_route_residue(repo_root)
+    require_tokens(
+        repo_root=repo_root,
+        path_name=GENERATED_ROUTE_RESIDUE_DECISION_NAME,
+        tokens=GENERATED_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(GENERATED_ROUTE_RESIDUE_DECISION_NAME, "Generated Route Residue Guard"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("Generated route residue", "same part root"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=LEGACY_NAMING_NAME,
+        tokens=("generated/readout JSON", "same part"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("generated/readout route residue", "same part"),
         issues=issues,
     )
     return issues
@@ -4893,12 +8801,6 @@ def validate_agent_lane_surfaces(repo_root: Path) -> list[ValidationIssue]:
         repo_root=repo_root,
         path_name="docs/PROOF_TOPOLOGY.md",
         tokens=(".agents/", ".agents/spark/", "Agent guidance"),
-        issues=issues,
-    )
-    require_tokens(
-        repo_root=repo_root,
-        path_name="docs/LEGACY_NAMING.md",
-        tokens=(".agents/spark/", "old `Spark/`"),
         issues=issues,
     )
     if (repo_root / "Spark").exists():
@@ -4954,6 +8856,12 @@ def validate_quest_route_surfaces(repo_root: Path) -> list[ValidationIssue]:
         tokens=QUEST_LIFECYCLE_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=AGON_QUEST_NOTE_PROVENANCE_DECISION_NAME,
+        tokens=AGON_QUEST_NOTE_PROVENANCE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
     for stale_path in sorted((repo_root / "quests").glob("AOA-EV-Q-*.yaml")):
         issues.append(
             ValidationIssue(
@@ -4965,14 +8873,22 @@ def validate_quest_route_surfaces(repo_root: Path) -> list[ValidationIssue]:
         issues.append(
             ValidationIssue(
                 relative_location(stale_path, repo_root),
-                "top-level Agon quest notes must stay moved to quests/agon/captured/",
+                "top-level Agon quest notes must stay behind mechanics/agon/PROVENANCE.md",
             )
         )
-    if not list((repo_root / "quests" / "agon" / "captured").glob("AOE-Q-AGON-*.md")):
+    for markdown_path in sorted((repo_root / "quests").rglob("*.md")):
+        relative_parts = markdown_path.relative_to(repo_root).parts
+        if relative_parts in {
+            ("quests", "README.md"),
+            ("quests", "AGENTS.md"),
+            ("quests", "LIFECYCLE.md"),
+        }:
+            continue
         issues.append(
             ValidationIssue(
-                "quests/agon/captured",
-                "Agon quest notes must remain under quests/agon/captured/",
+                relative_location(markdown_path, repo_root),
+                "markdown quest notes must not live under active quest lifecycle paths; "
+                "route lineage through the owning mechanic PROVENANCE.md",
             )
         )
     return issues
@@ -4980,24 +8896,51 @@ def validate_quest_route_surfaces(repo_root: Path) -> list[ValidationIssue]:
 
 def validate_proof_topology_surfaces(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
-    require_tokens(
+    topology_text = require_tokens(
         repo_root=repo_root,
         path_name=PROOF_TOPOLOGY_NAME,
         tokens=PROOF_TOPOLOGY_REQUIRED_TOKENS,
         issues=issues,
     )
-    require_tokens(
+    decision_text = require_tokens(
         repo_root=repo_root,
         path_name="docs/decisions/0005-proof-topology-map.md",
         tokens=PROOF_TOPOLOGY_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
-    require_tokens(
+    roadmap_text = require_tokens(
         repo_root=repo_root,
         path_name="ROADMAP.md",
         tokens=(PROOF_TOPOLOGY_NAME, "Proof Topology Map"),
         issues=issues,
     )
+    if topology_text:
+        for stale_phrase in PROOF_TOPOLOGY_FORBIDDEN_STALE_MECHANIC_WORDING:
+            if stale_phrase in topology_text:
+                issues.append(
+                    ValidationIssue(
+                        PROOF_TOPOLOGY_NAME,
+                        f"proof topology must describe active mechanics, not stale preparatory wording '{stale_phrase}'",
+                    )
+                )
+    if decision_text:
+        for stale_phrase in PROOF_TOPOLOGY_DECISION_FORBIDDEN_STALE_MECHANIC_WORDING:
+            if stale_phrase in decision_text:
+                issues.append(
+                    ValidationIssue(
+                        "docs/decisions/0005-proof-topology-map.md",
+                        f"proof topology decision must describe the active mechanics atlas, not stale preparatory wording '{stale_phrase}'",
+                    )
+                )
+    if roadmap_text:
+        for stale_phrase in ROADMAP_FORBIDDEN_STALE_TOPOLOGY_WORDING:
+            if stale_phrase in roadmap_text:
+                issues.append(
+                    ValidationIssue(
+                        "ROADMAP.md",
+                        f"roadmap must describe active mechanics direction, not stale preparatory wording '{stale_phrase}'",
+                    )
+                )
     return issues
 
 
@@ -5009,10 +8952,139 @@ def validate_legacy_naming_surfaces(repo_root: Path) -> list[ValidationIssue]:
         tokens=LEGACY_NAMING_REQUIRED_TOKENS,
         issues=issues,
     )
+    text = read_text_or_issue(repo_root / LEGACY_NAMING_NAME, issues, root=repo_root)
+    if text:
+        for forbidden_token in LEGACY_NAMING_FORBIDDEN_DETAIL_TOKENS:
+            if forbidden_token in text:
+                issues.append(
+                    ValidationIssue(
+                        LEGACY_NAMING_NAME,
+                        "legacy naming posture guide must not carry concrete legacy-name inventories or wrong-parent maps; use active topology surfaces or owning legacy archives",
+                    )
+                )
+        for match in LEGACY_NAMING_SECOND_ACTIVE_BRIDGE_RE.finditer(text):
+            issues.append(
+                ValidationIssue(
+                    LEGACY_NAMING_NAME,
+                    "legacy naming map must keep `PROVENANCE.md` as the single controlled bridge from active mechanic surfaces; `legacy/INDEX.md` may appear only as archive-internal detail after that bridge",
+                )
+            )
+        for match in LEGACY_NAMING_DIRECT_MECHANIC_LEGACY_INDEX_RE.finditer(text):
+            issues.append(
+                ValidationIssue(
+                    LEGACY_NAMING_NAME,
+                    "legacy naming posture guide must not carry direct mechanic legacy index paths; route to the active mechanic and package PROVENANCE.md",
+                )
+            )
+    for path_name in LEGACY_SINGLE_BRIDGE_RESIDUE_SURFACES:
+        surface_path = repo_root / path_name
+        if not surface_path.exists():
+            continue
+        surface_text = read_text_or_issue(surface_path, issues, root=repo_root)
+        if not surface_text:
+            continue
+        if LEGACY_SINGLE_BRIDGE_RESIDUE_RE.search(surface_text):
+            issues.append(
+                ValidationIssue(
+                    path_name,
+                    "legacy route wording must cross only through PROVENANCE.md; archive index, distillation log, and raw lineage are archive-internal after that bridge",
+                )
+            )
+    archive_detail_surface_paths: set[str] = set(
+        LEGACY_EXTERNAL_ARCHIVE_DETAIL_SURFACE_NAMES
+    )
+    decisions_root = repo_root / "docs" / "decisions"
+    if decisions_root.is_dir():
+        archive_detail_surface_paths.update(
+            path.relative_to(repo_root).as_posix()
+            for path in sorted(decisions_root.glob("*.md"))
+        )
+    for path_name in sorted(archive_detail_surface_paths):
+        surface_path = repo_root / path_name
+        if not surface_path.exists():
+            continue
+        surface_text = read_text_or_issue(surface_path, issues, root=repo_root)
+        if not surface_text:
+            continue
+        for match in LEGACY_EXTERNAL_ARCHIVE_DETAIL_RE.finditer(surface_text):
+            issues.append(
+                ValidationIssue(
+                    path_name,
+                    f"legacy route wording must cross only through PROVENANCE.md; external surfaces must not carry archive-internal detail `{match.group(0)}`",
+                )
+            )
+    for path_name in LEGACY_EXTERNAL_ARCHIVE_ACCOUNTING_SURFACE_NAMES:
+        surface_path = repo_root / path_name
+        if not surface_path.exists():
+            continue
+        surface_text = read_text_or_issue(surface_path, issues, root=repo_root)
+        if not surface_text:
+            continue
+        for stale_phrase in LEGACY_EXTERNAL_ARCHIVE_ACCOUNTING_FORBIDDEN_WORDING:
+            if stale_phrase in surface_text:
+                issues.append(
+                    ValidationIssue(
+                        path_name,
+                        f"external legacy boundary wording must not carry archive-local accounting detail: '{stale_phrase}'",
+                    )
+                )
+    route_management_surface_paths: set[str] = set(
+        LEGACY_EXTERNAL_ROUTE_MANAGEMENT_SURFACE_NAMES
+    )
+    for district_name, allowed_names in ROOT_ROUTE_CARD_ONLY_DISTRICTS.items():
+        for allowed_name in allowed_names:
+            route_management_surface_paths.add(f"{district_name}/{allowed_name}")
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
+        parent_root = repo_root / "mechanics" / parent_name
+        if not parent_root.is_dir():
+            continue
+        for path in sorted(parent_root.rglob("*.md")):
+            if "legacy" in path.relative_to(parent_root).parts:
+                continue
+            route_management_surface_paths.add(path.relative_to(repo_root).as_posix())
+
+    for path_name in sorted(route_management_surface_paths):
+        surface_path = repo_root / path_name
+        if not surface_path.exists():
+            continue
+        surface_text = read_text_or_issue(surface_path, issues, root=repo_root)
+        if not surface_text:
+            continue
+        for stale_phrase in LEGACY_EXTERNAL_ROUTE_MANAGEMENT_FORBIDDEN_WORDING:
+            if stale_phrase in surface_text:
+                issues.append(
+                    ValidationIssue(
+                        path_name,
+                        f"external legacy boundary wording must not present legacy as a movement, deletion, or retirement route: '{stale_phrase}'",
+                    )
+                )
     require_tokens(
         repo_root=repo_root,
         path_name="docs/decisions/0009-legacy-naming-containment.md",
         tokens=LEGACY_NAMING_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
+        tokens=LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
+        tokens=LEGACY_NAMING_POSTURE_GUIDE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
+            "Legacy Naming Single-Bridge Language",
+            LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
+            "Legacy Naming Posture Guide",
+        ),
         issues=issues,
     )
     require_tokens(
@@ -5024,13 +9096,28 @@ def validate_legacy_naming_surfaces(repo_root: Path) -> list[ValidationIssue]:
     require_tokens(
         repo_root=repo_root,
         path_name="docs/PROOF_TOPOLOGY.md",
-        tokens=(LEGACY_NAMING_NAME, "generated-projection", "retire-after"),
+        tokens=(LEGACY_NAMING_NAME, "generated-projection", "provenance-bridge"),
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
         path_name="ROADMAP.md",
-        tokens=(LEGACY_NAMING_NAME, "Legacy and Naming Containment"),
+        tokens=(
+            LEGACY_NAMING_NAME,
+            "Legacy and Naming Containment",
+            "Legacy Naming Single-Bridge Language",
+            "Legacy Naming Posture Guide",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="CHANGELOG.md",
+        tokens=(
+            "Legacy Naming Single-Bridge Language",
+            "Legacy Naming Posture Guide",
+            "single controlled bridge",
+        ),
         issues=issues,
     )
     return issues
@@ -5038,6 +9125,26 @@ def validate_legacy_naming_surfaces(repo_root: Path) -> list[ValidationIssue]:
 
 def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
+    issues.extend(validate_mechanics_parent_allowlist(repo_root))
+    issues.extend(validate_mechanic_parent_direction_surfaces(repo_root))
+    issues.extend(validate_mechanic_parts_index_sync_surfaces(repo_root))
+    issues.extend(validate_mechanic_legacy_single_bridge_surfaces(repo_root))
+    issues.extend(validate_mechanic_part_readme_contract_surfaces(repo_root))
+    issues.extend(validate_mechanic_part_validation_command_surfaces(repo_root))
+    issues.extend(validate_mechanic_provenance_entry_surfaces(repo_root))
+    issues.extend(validate_mechanic_provenance_bridge_posture_surfaces(repo_root))
+    issues.extend(validate_mechanic_root_district_recon_surfaces(repo_root))
+    issues.extend(validate_root_authored_surface_classification(repo_root))
+    issues.extend(validate_active_mechanic_route_residue_surfaces(repo_root))
+    issues.extend(validate_mechanic_payload_route_residue_surfaces(repo_root))
+    for path_name in FORBIDDEN_ACTIVE_MECHANICS_PATHS:
+        if (repo_root / path_name).exists():
+            issues.append(
+                ValidationIssue(
+                    path_name,
+                    "legacy mechanics path must not exist as an active route",
+                )
+            )
     require_tokens(
         repo_root=repo_root,
         path_name=MECHANICS_README_NAME,
@@ -5052,6 +9159,68 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
+        path_name=MECHANICS_EVIDENCE_CLUSTERS_NAME,
+        tokens=MECHANICS_EVIDENCE_CLUSTERS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PART_LOCAL_TEST_PLACEMENT_DECISION_NAME,
+        tokens=PART_LOCAL_TEST_PLACEMENT_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(PART_LOCAL_TEST_PLACEMENT_DECISION_NAME, "Part-local Test Placement"),
+            issues=issues,
+        )
+    for path_name in MECHANIC_PART_CONTRACT_FILES:
+        require_tokens(
+            repo_root=repo_root,
+            path_name=path_name,
+            tokens=MECHANIC_PART_CONTRACT_REQUIRED_TOKENS,
+            issues=issues,
+        )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_PART_README_CONTRACT_DECISION_NAME,
+        tokens=MECHANIC_PART_README_CONTRACT_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_PART_README_CONTRACT_DECISION_NAME,
+            "Mechanic Part README Contract",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_PROVENANCE_ENTRY_DECISION_NAME,
+        tokens=MECHANIC_PROVENANCE_ENTRY_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_PROVENANCE_ENTRY_DECISION_NAME,
+            "Mechanic Provenance Entry Contract",
+        ),
+        issues=issues,
+    )
+    for path_name in MECHANIC_LEGACY_RAW_README_FILES:
+        require_tokens(
+            repo_root=repo_root,
+            path_name=path_name,
+            tokens=MECHANIC_LEGACY_RAW_README_REQUIRED_TOKENS,
+            issues=issues,
+        )
+    require_tokens(
+        repo_root=repo_root,
         path_name=PROOF_OBJECT_MECHANIC_README_NAME,
         tokens=PROOF_OBJECT_MECHANIC_REQUIRED_TOKENS,
         issues=issues,
@@ -5064,8 +9233,53 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
+        path_name=PROOF_OBJECT_MECHANIC_PARTS_NAME,
+        tokens=PROOF_OBJECT_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_OBJECT_BUNDLE_AUTHORING_PART_README_NAME,
+        tokens=PROOF_OBJECT_BUNDLE_AUTHORING_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_OBJECT_BUNDLE_CONTRACTS_PART_README_NAME,
+        tokens=PROOF_OBJECT_BUNDLE_CONTRACTS_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_OBJECT_MECHANIC_PROVENANCE_NAME,
+        tokens=PROOF_OBJECT_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
         path_name="docs/decisions/0010-proof-object-mechanic-package.md",
         tokens=PROOF_OBJECT_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_OBJECT_CONTRACT_PART_DECISION_NAME,
+        tokens=PROOF_OBJECT_CONTRACT_PART_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_OBJECT_PART_OWNER_SPLIT_DECISION_NAME,
+        tokens=PROOF_OBJECT_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            PROOF_OBJECT_PART_OWNER_SPLIT_DECISION_NAME,
+            "Proof-object Part Owner-split Contract",
+        ),
         issues=issues,
     )
     require_tokens(
@@ -5078,6 +9292,63 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         repo_root=repo_root,
         path_name=PROOF_LOOP_MECHANIC_AGENTS_NAME,
         tokens=PROOF_LOOP_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_MECHANIC_PARTS_NAME,
+        tokens=PROOF_LOOP_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_PARTS_README_NAME,
+        tokens=PROOF_LOOP_PARTS_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_ROUTE_SMOKE_PART_README_NAME,
+        tokens=PROOF_LOOP_ROUTE_SMOKE_PART_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_ROUTE_SMOKE_CONTRACT_DECISION_NAME,
+        tokens=PROOF_LOOP_ROUTE_SMOKE_CONTRACT_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            PROOF_LOOP_ROUTE_SMOKE_CONTRACT_DECISION_NAME,
+            "Proof Loop Route-Smoke Contract",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_MECHANIC_PROVENANCE_NAME,
+        tokens=PROOF_LOOP_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_LEGACY_INDEX_NAME,
+        tokens=PROOF_LOOP_LEGACY_INDEX_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_LEGACY_DISTILLATION_LOG_NAME,
+        tokens=PROOF_LOOP_LEGACY_DISTILLATION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_LOOP_LEGACY_RAW_README_NAME,
+        tokens=PROOF_LOOP_LEGACY_RAW_README_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
@@ -5102,8 +9373,83 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
+        path_name=COMPARISON_SPINE_MECHANIC_PARTS_NAME,
+        tokens=COMPARISON_SPINE_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=COMPARISON_SPINE_PARTS_README_NAME,
+        tokens=COMPARISON_SPINE_PARTS_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=COMPARISON_SPINE_OVERVIEW_PART_README_NAME,
+        tokens=COMPARISON_SPINE_OVERVIEW_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=COMPARISON_SPINE_FIXED_BASELINE_PART_README_NAME,
+        tokens=COMPARISON_SPINE_FIXED_BASELINE_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=COMPARISON_SPINE_PEER_COMPARE_PART_README_NAME,
+        tokens=COMPARISON_SPINE_PEER_COMPARE_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=COMPARISON_SPINE_LONGITUDINAL_PART_README_NAME,
+        tokens=COMPARISON_SPINE_LONGITUDINAL_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=COMPARISON_SPINE_PART_CONTRACT_GUARD_DECISION_NAME,
+        tokens=COMPARISON_SPINE_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            COMPARISON_SPINE_PART_CONTRACT_GUARD_DECISION_NAME,
+            "Comparison Spine Part Contract Guard",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
         path_name="docs/decisions/0011-comparison-spine-mechanic-package.md",
         tokens=COMPARISON_SPINE_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=COMPARISON_SPINE_REPORT_PARTS_DECISION_NAME,
+        tokens=COMPARISON_SPINE_REPORT_PARTS_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=COMPARISON_SPINE_FIXTURE_PARTS_DECISION_NAME,
+        tokens=COMPARISON_SPINE_FIXTURE_PARTS_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=COMPARISON_SPINE_PROVENANCE_NAME,
+        tokens=COMPARISON_SPINE_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=COMPARISON_SPINE_LEGACY_INDEX_NAME,
+        tokens=COMPARISON_SPINE_LEGACY_INDEX_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
@@ -5120,8 +9466,62 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
+        path_name=PROOF_INFRA_MECHANIC_PARTS_NAME,
+        tokens=PROOF_INFRA_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_INFRA_FIXTURE_FAMILIES_README_NAME,
+        tokens=PROOF_INFRA_FIXTURE_FAMILIES_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_INFRA_FIXTURE_FAMILIES_AGENTS_NAME,
+        tokens=PROOF_INFRA_FIXTURE_FAMILIES_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_INFRA_REPORTABLE_CONTRACTS_README_NAME,
+        tokens=PROOF_INFRA_REPORTABLE_CONTRACTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_INFRA_REPORTABLE_CONTRACTS_AGENTS_NAME,
+        tokens=PROOF_INFRA_REPORTABLE_CONTRACTS_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_INFRA_PROVENANCE_NAME,
+        tokens=PROOF_INFRA_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_INFRA_LEGACY_INDEX_NAME,
+        tokens=PROOF_INFRA_LEGACY_INDEX_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
         path_name="docs/decisions/0012-proof-infra-mechanic-package.md",
         tokens=PROOF_INFRA_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_INFRA_FIXTURE_FAMILIES_DECISION_NAME,
+        tokens=PROOF_INFRA_FIXTURE_FAMILIES_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_INFRA_REPORTABLE_CONTRACTS_DECISION_NAME,
+        tokens=PROOF_INFRA_REPORTABLE_CONTRACTS_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
@@ -5138,80 +9538,807 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
+        path_name=PUBLICATION_RECEIPTS_MECHANIC_PROVENANCE_NAME,
+        tokens=PUBLICATION_RECEIPTS_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PUBLICATION_RECEIPTS_RECEIPT_PAYLOAD_PART_README_NAME,
+        tokens=PUBLICATION_RECEIPTS_RECEIPT_PAYLOAD_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PUBLICATION_RECEIPTS_STATS_ENVELOPE_PART_README_NAME,
+        tokens=PUBLICATION_RECEIPTS_STATS_ENVELOPE_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PUBLICATION_RECEIPTS_LIVE_PUBLISHER_PART_README_NAME,
+        tokens=PUBLICATION_RECEIPTS_LIVE_PUBLISHER_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PUBLICATION_RECEIPTS_INTAKE_DRY_REVIEW_PART_README_NAME,
+        tokens=PUBLICATION_RECEIPTS_INTAKE_DRY_REVIEW_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PUBLICATION_RECEIPTS_PART_CONTRACT_GUARD_DECISION_NAME,
+        tokens=PUBLICATION_RECEIPTS_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            PUBLICATION_RECEIPTS_PART_CONTRACT_GUARD_DECISION_NAME,
+            "Publication Receipts Part Contract Guard",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PUBLICATION_RECEIPTS_LEGACY_INDEX_NAME,
+        tokens=PUBLICATION_RECEIPTS_LEGACY_INDEX_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PUBLICATION_RECEIPTS_LEGACY_DISTILLATION_LOG_NAME,
+        tokens=PUBLICATION_RECEIPTS_LEGACY_DISTILLATION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PUBLICATION_RECEIPTS_LEGACY_RAW_README_NAME,
+        tokens=PUBLICATION_RECEIPTS_LEGACY_RAW_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
         path_name="docs/decisions/0013-publication-receipts-mechanic-package.md",
         tokens=PUBLICATION_RECEIPTS_MECHANIC_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=PROOF_RELEASE_MECHANIC_README_NAME,
-        tokens=PROOF_RELEASE_MECHANIC_REQUIRED_TOKENS,
+        path_name=RELEASE_SUPPORT_MECHANIC_README_NAME,
+        tokens=RELEASE_SUPPORT_MECHANIC_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=PROOF_RELEASE_MECHANIC_AGENTS_NAME,
-        tokens=PROOF_RELEASE_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        path_name=RELEASE_SUPPORT_MECHANIC_AGENTS_NAME,
+        tokens=RELEASE_SUPPORT_MECHANIC_AGENTS_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0014-proof-release-mechanic-package.md",
-        tokens=PROOF_RELEASE_MECHANIC_DECISION_REQUIRED_TOKENS,
+        path_name=RELEASE_SUPPORT_MECHANIC_PARTS_NAME,
+        tokens=RELEASE_SUPPORT_MECHANIC_PARTS_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=TITAN_CANARIES_MECHANIC_README_NAME,
-        tokens=TITAN_CANARIES_MECHANIC_REQUIRED_TOKENS,
+        path_name=RELEASE_SUPPORT_MECHANIC_PARTS_README_NAME,
+        tokens=RELEASE_SUPPORT_PARTS_README_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=TITAN_CANARIES_MECHANIC_AGENTS_NAME,
-        tokens=TITAN_CANARIES_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        path_name=RELEASE_SUPPORT_READINESS_AUDIT_PART_README_NAME,
+        tokens=RELEASE_SUPPORT_READINESS_AUDIT_PART_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0015-titan-canaries-mechanic-package.md",
-        tokens=TITAN_CANARIES_DECISION_REQUIRED_TOKENS,
+        path_name=RELEASE_SUPPORT_STRATEGIC_CLOSEOUT_PART_README_NAME,
+        tokens=RELEASE_SUPPORT_STRATEGIC_CLOSEOUT_PART_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/TITAN_INCARNATION_CANARIES.md",
+        path_name=RELEASE_SUPPORT_PR_HANDOFF_PART_README_NAME,
+        tokens=RELEASE_SUPPORT_PR_HANDOFF_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RELEASE_SUPPORT_PART_CONTRACT_GUARD_DECISION_NAME,
+        tokens=RELEASE_SUPPORT_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            RELEASE_SUPPORT_PART_CONTRACT_GUARD_DECISION_NAME,
+            "Release Support Part Contract Guard",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RELEASE_SUPPORT_MECHANIC_PROVENANCE_NAME,
+        tokens=RELEASE_SUPPORT_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RELEASE_SUPPORT_LEGACY_INDEX_NAME,
+        tokens=RELEASE_SUPPORT_LEGACY_INDEX_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RELEASE_SUPPORT_LEGACY_DISTILLATION_LOG_NAME,
+        tokens=RELEASE_SUPPORT_LEGACY_DISTILLATION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RELEASE_SUPPORT_LEGACY_RAW_README_NAME,
+        tokens=RELEASE_SUPPORT_LEGACY_RAW_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0014-release-support-mechanic-package.md",
+        tokens=RELEASE_SUPPORT_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=TITAN_MECHANIC_README_NAME,
+        tokens=TITAN_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=TITAN_MECHANIC_AGENTS_NAME,
+        tokens=TITAN_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=TITAN_MECHANIC_DIRECTION_NAME,
+        tokens=TITAN_MECHANIC_DIRECTION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0015-titan-mechanic-package.md",
+        tokens=TITAN_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md",
         tokens=TITAN_INCARNATION_CANARIES_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md",
+        path_name="mechanics/titan/parts/seed-boundary/docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md",
         tokens=TITAN_SUMMON_DISCIPLINE_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=EVALS_AGENTS_NAME,
-        tokens=EVALS_AGENTS_REQUIRED_TOKENS,
+        path_name=TITAN_SEED_BOUNDARY_SEEDS_AGENTS_NAME,
+        tokens=TITAN_SEED_BOUNDARY_SEEDS_AGENTS_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=AGON_PROOF_MECHANIC_README_NAME,
-        tokens=AGON_PROOF_MECHANIC_REQUIRED_TOKENS,
+        path_name=TITAN_SEED_BOUNDARY_SEEDS_README_NAME,
+        tokens=TITAN_SEED_BOUNDARY_SEEDS_README_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=AGON_PROOF_MECHANIC_AGENTS_NAME,
-        tokens=AGON_PROOF_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        path_name=TITAN_PARTS_INDEX_README_NAME,
+        tokens=TITAN_PARTS_INDEX_README_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0016-agon-proof-mechanic-package.md",
-        tokens=AGON_PROOF_MECHANIC_DECISION_REQUIRED_TOKENS,
+        path_name=TITAN_SEED_BOUNDARY_PART_README_NAME,
+        tokens=TITAN_SEED_BOUNDARY_PART_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=TITAN_SEED_BOUNDARY_CONTRACT_DECISION_NAME,
+        tokens=TITAN_SEED_BOUNDARY_CONTRACT_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            TITAN_SEED_BOUNDARY_CONTRACT_DECISION_NAME,
+            "Titan Seed-boundary Contract",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=AGON_MECHANIC_README_NAME,
+        tokens=AGON_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=AGON_MECHANIC_AGENTS_NAME,
+        tokens=AGON_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0016-agon-mechanic-package.md",
+        tokens=AGON_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    for path_name, tokens in AGON_PART_README_CONTRACTS:
+        require_tokens(
+            repo_root=repo_root,
+            path_name=path_name,
+            tokens=tokens,
+            issues=issues,
+        )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=AGON_PART_CONTRACT_GUARD_DECISION_NAME,
+        tokens=AGON_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(AGON_PART_CONTRACT_GUARD_DECISION_NAME, "Agon Part Contract Guard"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_MECHANIC_README_NAME,
+        tokens=RECURRENCE_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_MECHANIC_AGENTS_NAME,
+        tokens=RECURRENCE_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_MECHANIC_PARTS_NAME,
+        tokens=RECURRENCE_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_CONTROL_PLANE_PART_README_NAME,
+        tokens=RECURRENCE_CONTROL_PLANE_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_ANCHOR_RETURN_PART_README_NAME,
+        tokens=RECURRENCE_ANCHOR_RETURN_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_MEMORY_RECALL_PART_README_NAME,
+        tokens=RECURRENCE_MEMORY_RECALL_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_RECURSOR_BOUNDARY_PART_README_NAME,
+        tokens=RECURRENCE_RECURSOR_BOUNDARY_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_STATS_REGROUNDING_PART_README_NAME,
+        tokens=RECURRENCE_STATS_REGROUNDING_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_PORTABLE_PROOF_BEACONS_PART_README_NAME,
+        tokens=RECURRENCE_PORTABLE_PROOF_BEACONS_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_NAME,
+        tokens=RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_MECHANIC_PROVENANCE_NAME,
+        tokens=RECURRENCE_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_MECHANIC_DECISION_NAME,
+        tokens=RECURRENCE_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_SUPPORT_PARTS_DECISION_NAME,
+        tokens=RECURRENCE_SUPPORT_PARTS_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_PORTABLE_PROOF_BEACONS_DECISION_NAME,
+        tokens=RECURRENCE_PORTABLE_PROOF_BEACONS_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RECURRENCE_CONTROL_PLANE_CONTRACT_DECISION_NAME,
+        tokens=RECURRENCE_CONTROL_PLANE_CONTRACT_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            RECURRENCE_CONTROL_PLANE_CONTRACT_DECISION_NAME,
+            "Recurrence Control-plane Contract",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=CHECKPOINT_MECHANIC_README_NAME,
+        tokens=CHECKPOINT_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=CHECKPOINT_MECHANIC_AGENTS_NAME,
+        tokens=CHECKPOINT_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=CHECKPOINT_MECHANIC_PARTS_NAME,
+        tokens=CHECKPOINT_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=CHECKPOINT_A2A_PART_README_NAME,
+        tokens=CHECKPOINT_A2A_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=CHECKPOINT_RESTARTABLE_INQUIRY_PART_README_NAME,
+        tokens=CHECKPOINT_RESTARTABLE_INQUIRY_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=CHECKPOINT_SELF_AGENT_PART_README_NAME,
+        tokens=CHECKPOINT_SELF_AGENT_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=CHECKPOINT_MECHANIC_PROVENANCE_NAME,
+        tokens=CHECKPOINT_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=CHECKPOINT_MECHANIC_DECISION_NAME,
+        tokens=CHECKPOINT_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=CHECKPOINT_PART_CONTRACT_GUARD_DECISION_NAME,
+        tokens=CHECKPOINT_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            CHECKPOINT_PART_CONTRACT_GUARD_DECISION_NAME,
+            "Checkpoint Part Contract Guard",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EXPERIENCE_MECHANIC_README_NAME,
+        tokens=EXPERIENCE_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EXPERIENCE_MECHANIC_AGENTS_NAME,
+        tokens=EXPERIENCE_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EXPERIENCE_MECHANIC_PARTS_NAME,
+        tokens=EXPERIENCE_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EXPERIENCE_PROTOCOL_PART_README_NAME,
+        tokens=EXPERIENCE_PROTOCOL_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EXPERIENCE_CERTIFICATION_PART_README_NAME,
+        tokens=EXPERIENCE_CERTIFICATION_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EXPERIENCE_ADOPTION_PART_README_NAME,
+        tokens=EXPERIENCE_ADOPTION_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EXPERIENCE_GOVERNANCE_PART_README_NAME,
+        tokens=EXPERIENCE_GOVERNANCE_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EXPERIENCE_OFFICE_PART_README_NAME,
+        tokens=EXPERIENCE_OFFICE_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EXPERIENCE_MECHANIC_PROVENANCE_NAME,
+        tokens=EXPERIENCE_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EXPERIENCE_MECHANIC_DECISION_NAME,
+        tokens=EXPERIENCE_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EXPERIENCE_VERDICT_RESIDUE_DECISION_NAME,
+        tokens=EXPERIENCE_VERDICT_RESIDUE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EXPERIENCE_PART_CONTRACT_GUARD_DECISION_NAME,
+        tokens=EXPERIENCE_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            EXPERIENCE_PART_CONTRACT_GUARD_DECISION_NAME,
+            "Experience Part Contract Guard",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ANTIFRAGILITY_MECHANIC_README_NAME,
+        tokens=ANTIFRAGILITY_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ANTIFRAGILITY_MECHANIC_AGENTS_NAME,
+        tokens=ANTIFRAGILITY_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ANTIFRAGILITY_MECHANIC_PARTS_NAME,
+        tokens=ANTIFRAGILITY_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ANTIFRAGILITY_POSTURE_PART_README_NAME,
+        tokens=ANTIFRAGILITY_POSTURE_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ANTIFRAGILITY_STRESS_WINDOW_PART_README_NAME,
+        tokens=ANTIFRAGILITY_STRESS_WINDOW_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ANTIFRAGILITY_REPAIR_PROOF_PART_README_NAME,
+        tokens=ANTIFRAGILITY_REPAIR_PROOF_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ANTIFRAGILITY_MECHANIC_PROVENANCE_NAME,
+        tokens=ANTIFRAGILITY_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ANTIFRAGILITY_MECHANIC_DECISION_NAME,
+        tokens=ANTIFRAGILITY_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ANTIFRAGILITY_PART_CONTRACT_GUARD_DECISION_NAME,
+        tokens=ANTIFRAGILITY_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            ANTIFRAGILITY_PART_CONTRACT_GUARD_DECISION_NAME,
+            "Antifragility Part Contract Guard",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=METHOD_GROWTH_MECHANIC_README_NAME,
+        tokens=METHOD_GROWTH_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=METHOD_GROWTH_MECHANIC_AGENTS_NAME,
+        tokens=METHOD_GROWTH_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=METHOD_GROWTH_MECHANIC_PARTS_NAME,
+        tokens=METHOD_GROWTH_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=METHOD_GROWTH_CANDIDATE_LINEAGE_PART_README_NAME,
+        tokens=METHOD_GROWTH_CANDIDATE_LINEAGE_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=METHOD_GROWTH_OWNER_LANDING_PART_README_NAME,
+        tokens=METHOD_GROWTH_OWNER_LANDING_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=METHOD_GROWTH_MECHANIC_PROVENANCE_NAME,
+        tokens=METHOD_GROWTH_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=METHOD_GROWTH_MECHANIC_DECISION_NAME,
+        tokens=METHOD_GROWTH_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=METHOD_GROWTH_PART_OWNER_SPLIT_DECISION_NAME,
+        tokens=METHOD_GROWTH_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            METHOD_GROWTH_PART_OWNER_SPLIT_DECISION_NAME,
+            "Method-growth Part Owner-split Contract",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RPG_MECHANIC_README_NAME,
+        tokens=RPG_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RPG_MECHANIC_AGENTS_NAME,
+        tokens=RPG_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RPG_MECHANIC_PARTS_NAME,
+        tokens=RPG_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RPG_PROGRESS_UNLOCKS_PART_README_NAME,
+        tokens=RPG_PROGRESS_UNLOCKS_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RPG_MECHANIC_PROVENANCE_NAME,
+        tokens=RPG_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RPG_MECHANIC_DECISION_NAME,
+        tokens=RPG_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=RPG_PROGRESS_UNLOCKS_CONTRACT_DECISION_NAME,
+        tokens=RPG_PROGRESS_UNLOCKS_CONTRACT_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            RPG_PROGRESS_UNLOCKS_CONTRACT_DECISION_NAME,
+            "RPG Progression-unlocks Contract",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=GROWTH_CYCLE_MECHANIC_README_NAME,
+        tokens=GROWTH_CYCLE_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=GROWTH_CYCLE_MECHANIC_AGENTS_NAME,
+        tokens=GROWTH_CYCLE_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=GROWTH_CYCLE_MECHANIC_PARTS_NAME,
+        tokens=GROWTH_CYCLE_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=GROWTH_CYCLE_DIAGNOSIS_GATE_PART_README_NAME,
+        tokens=GROWTH_CYCLE_DIAGNOSIS_GATE_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=GROWTH_CYCLE_MECHANIC_PROVENANCE_NAME,
+        tokens=GROWTH_CYCLE_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=GROWTH_CYCLE_MECHANIC_DECISION_NAME,
+        tokens=GROWTH_CYCLE_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=GROWTH_CYCLE_DIAGNOSIS_GATE_CONTRACT_DECISION_NAME,
+        tokens=GROWTH_CYCLE_DIAGNOSIS_GATE_CONTRACT_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            GROWTH_CYCLE_DIAGNOSIS_GATE_CONTRACT_DECISION_NAME,
+            "Growth-cycle Diagnosis-gate Contract",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=REPAIR_DIAGNOSIS_ROUTE_BOUNDARY_DECISION_NAME,
+        tokens=REPAIR_DIAGNOSIS_ROUTE_BOUNDARY_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            REPAIR_DIAGNOSIS_ROUTE_BOUNDARY_DECISION_NAME,
+            "Repair Diagnosis Route Boundary",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=DISTILLATION_MECHANIC_README_NAME,
+        tokens=DISTILLATION_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=DISTILLATION_MECHANIC_AGENTS_NAME,
+        tokens=DISTILLATION_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=DISTILLATION_MECHANIC_PARTS_NAME,
+        tokens=DISTILLATION_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=DISTILLATION_COMPOST_PROVENANCE_PART_README_NAME,
+        tokens=DISTILLATION_COMPOST_PROVENANCE_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=DISTILLATION_RUNTIME_CANDIDATE_ADOPTION_PART_README_NAME,
+        tokens=DISTILLATION_RUNTIME_CANDIDATE_ADOPTION_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=DISTILLATION_MECHANIC_PROVENANCE_NAME,
+        tokens=DISTILLATION_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=DISTILLATION_MECHANIC_DECISION_NAME,
+        tokens=DISTILLATION_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=DISTILLATION_PART_CONTRACT_GUARD_DECISION_NAME,
+        tokens=DISTILLATION_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            DISTILLATION_PART_CONTRACT_GUARD_DECISION_NAME,
+            "Distillation Part Contract Guard",
+        ),
         issues=issues,
     )
     require_tokens(
@@ -5228,6 +10355,30 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
+        path_name=QUESTBOOK_MECHANIC_PARTS_NAME,
+        tokens=QUESTBOOK_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=QUESTBOOK_SOURCE_RECORD_PART_README_NAME,
+        tokens=QUESTBOOK_SOURCE_RECORD_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=QUESTBOOK_DISPATCH_READER_PART_README_NAME,
+        tokens=QUESTBOOK_DISPATCH_READER_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=QUESTBOOK_MECHANIC_PROVENANCE_NAME,
+        tokens=QUESTBOOK_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
         path_name="docs/decisions/0006-questbook-mechanic-package.md",
         tokens=QUESTBOOK_MECHANIC_DECISION_REQUIRED_TOKENS,
         issues=issues,
@@ -5240,44 +10391,188 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=RUNTIME_EVIDENCE_MECHANIC_README_NAME,
-        tokens=RUNTIME_EVIDENCE_MECHANIC_REQUIRED_TOKENS,
+        path_name=QUESTBOOK_PART_OWNER_SPLIT_DECISION_NAME,
+        tokens=QUESTBOOK_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=RUNTIME_EVIDENCE_MECHANIC_AGENTS_NAME,
-        tokens=RUNTIME_EVIDENCE_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            QUESTBOOK_PART_OWNER_SPLIT_DECISION_NAME,
+            "Questbook Part Owner-split Contract",
+        ),
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0007-runtime-evidence-mechanic-package.md",
-        tokens=RUNTIME_EVIDENCE_MECHANIC_DECISION_REQUIRED_TOKENS,
+        path_name=AUDIT_MECHANIC_README_NAME,
+        tokens=AUDIT_MECHANIC_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=SIBLING_PROOF_REFS_NAME,
-        tokens=SIBLING_PROOF_REFS_REQUIRED_TOKENS,
+        path_name=AUDIT_MECHANIC_AGENTS_NAME,
+        tokens=AUDIT_MECHANIC_AGENTS_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=SIBLING_PROOF_REFS_MECHANIC_README_NAME,
-        tokens=SIBLING_PROOF_REFS_MECHANIC_REQUIRED_TOKENS,
+        path_name=AUDIT_MECHANIC_PROVENANCE_NAME,
+        tokens=AUDIT_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=SIBLING_PROOF_REFS_MECHANIC_AGENTS_NAME,
-        tokens=SIBLING_PROOF_REFS_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        path_name=AUDIT_LEGACY_INDEX_NAME,
+        tokens=AUDIT_LEGACY_INDEX_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0008-sibling-proof-refs-mechanic-package.md",
-        tokens=SIBLING_PROOF_REFS_DECISION_REQUIRED_TOKENS,
+        path_name=AUDIT_LEGACY_DISTILLATION_LOG_NAME,
+        tokens=AUDIT_LEGACY_DISTILLATION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=AUDIT_LEGACY_RAW_README_NAME,
+        tokens=AUDIT_LEGACY_RAW_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=AUDIT_SELECTED_EVIDENCE_PART_README_NAME,
+        tokens=AUDIT_SELECTED_EVIDENCE_PART_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=AUDIT_ARTIFACT_VERDICT_HOOKS_PART_README_NAME,
+        tokens=AUDIT_ARTIFACT_VERDICT_HOOKS_PART_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=AUDIT_CANDIDATE_READERS_PART_README_NAME,
+        tokens=AUDIT_CANDIDATE_READERS_PART_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=AUDIT_INTEGRITY_REVIEW_PART_README_NAME,
+        tokens=AUDIT_INTEGRITY_REVIEW_PART_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=AUDIT_PART_CONTRACT_GUARD_DECISION_NAME,
+        tokens=AUDIT_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(AUDIT_PART_CONTRACT_GUARD_DECISION_NAME, "Audit Part Contract Guard"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0007-audit-mechanic-package.md",
+        tokens=AUDIT_MECHANIC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=BOUNDARY_BRIDGE_COMPATIBILITY_MAP_DOC_NAME,
+        tokens=BOUNDARY_BRIDGE_COMPATIBILITY_MAP_DOC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=BOUNDARY_BRIDGE_MECHANIC_README_NAME,
+        tokens=BOUNDARY_BRIDGE_MECHANIC_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=BOUNDARY_BRIDGE_MECHANIC_AGENTS_NAME,
+        tokens=BOUNDARY_BRIDGE_MECHANIC_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=BOUNDARY_BRIDGE_MECHANIC_PARTS_NAME,
+        tokens=BOUNDARY_BRIDGE_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=BOUNDARY_BRIDGE_MECHANIC_PROVENANCE_NAME,
+        tokens=BOUNDARY_BRIDGE_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=BOUNDARY_BRIDGE_LEGACY_INDEX_NAME,
+        tokens=BOUNDARY_BRIDGE_LEGACY_INDEX_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=BOUNDARY_BRIDGE_LEGACY_DISTILLATION_LOG_NAME,
+        tokens=BOUNDARY_BRIDGE_LEGACY_DISTILLATION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=BOUNDARY_BRIDGE_LEGACY_RAW_README_NAME,
+        tokens=BOUNDARY_BRIDGE_LEGACY_RAW_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=BOUNDARY_BRIDGE_PARTS_README_NAME,
+        tokens=BOUNDARY_BRIDGE_PARTS_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=BOUNDARY_BRIDGE_COMPATIBILITY_PART_README_NAME,
+        tokens=BOUNDARY_BRIDGE_COMPATIBILITY_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=BOUNDARY_BRIDGE_LATEST_SIBLING_CANARY_PART_README_NAME,
+        tokens=BOUNDARY_BRIDGE_LATEST_SIBLING_CANARY_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=BOUNDARY_BRIDGE_ORCHESTRATOR_PROOF_ANCHORS_PART_README_NAME,
+        tokens=BOUNDARY_BRIDGE_ORCHESTRATOR_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=BOUNDARY_BRIDGE_PART_CONTRACT_GUARD_DECISION_NAME,
+        tokens=BOUNDARY_BRIDGE_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            BOUNDARY_BRIDGE_PART_CONTRACT_GUARD_DECISION_NAME,
+            "Boundary Bridge Part Contract Guard",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/0008-boundary-bridge-mechanic-package.md",
+        tokens=BOUNDARY_BRIDGE_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
@@ -5287,15 +10582,15 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         issues=issues,
     )
     issues.extend(validate_repo_validation_workflow_surface(repo_root))
-    matrix_path = repo_root / "scripts/sibling_canary_matrix.json"
+    matrix_path = repo_root / SIBLING_CANARY_MATRIX_NAME
     try:
         matrix = json.loads(matrix_path.read_text(encoding="utf-8"))
     except FileNotFoundError:
-        issues.append(ValidationIssue("scripts/sibling_canary_matrix.json", "file is missing"))
+        issues.append(ValidationIssue(SIBLING_CANARY_MATRIX_NAME, "file is missing"))
     except json.JSONDecodeError as exc:
         issues.append(
             ValidationIssue(
-                "scripts/sibling_canary_matrix.json",
+                SIBLING_CANARY_MATRIX_NAME,
                 f"invalid JSON: {exc}",
             )
         )
@@ -5304,7 +10599,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         if not isinstance(entries, list):
             issues.append(
                 ValidationIssue(
-                    "scripts/sibling_canary_matrix.json",
+                    SIBLING_CANARY_MATRIX_NAME,
                     "entries must be a list",
                 )
             )
@@ -5318,7 +10613,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
                 if repo_name not in repos:
                     issues.append(
                         ValidationIssue(
-                            "scripts/sibling_canary_matrix.json",
+                            SIBLING_CANARY_MATRIX_NAME,
                             f"missing sibling canary entry for {repo_name}",
                         )
                     )
@@ -5330,7 +10625,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
                 ):
                     issues.append(
                         ValidationIssue(
-                            "scripts/sibling_canary_matrix.json",
+                            SIBLING_CANARY_MATRIX_NAME,
                             "abyss-stack sibling canary entry must use resolver 'abyss-stack-source'",
                         )
                     )
@@ -5393,6 +10688,12 @@ def validate_proof_loop_smoke_report_surfaces(repo_root: Path) -> list[Validatio
     )
     require_tokens(
         repo_root=repo_root,
+        path_name=PROOF_LOOP_ROUTE_SMOKE_PART_DECISION_NAME,
+        tokens=PROOF_LOOP_ROUTE_SMOKE_PART_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
         path_name=PROOF_LOOP_MECHANIC_README_NAME,
         tokens=(PROOF_LOOP_SMOKE_REPORT_NAME, "bounded route-smoke", "no eval result receipt"),
         issues=issues,
@@ -5406,7 +10707,11 @@ def validate_proof_loop_smoke_report_surfaces(repo_root: Path) -> list[Validatio
     require_tokens(
         repo_root=repo_root,
         path_name="docs/decisions/README.md",
-        tokens=(PROOF_LOOP_SMOKE_DECISION_NAME, "Further proof-loop examples"),
+        tokens=(
+            PROOF_LOOP_SMOKE_DECISION_NAME,
+            PROOF_LOOP_ROUTE_SMOKE_PART_DECISION_NAME,
+            "Further proof-loop examples",
+        ),
         issues=issues,
     )
     return issues
@@ -5435,7 +10740,7 @@ def validate_proof_loop_local_report_surfaces(repo_root: Path) -> list[Validatio
     require_tokens(
         repo_root=repo_root,
         path_name=PROOF_INFRA_MECHANIC_README_NAME,
-        tokens=("`*.report.json`", "bundle-local `reports/summary.schema.json`"),
+        tokens=("`*.report.json`", "`bundles/<bundle>/reports/summary.schema.json`"),
         issues=issues,
     )
     require_tokens(
@@ -5548,9 +10853,9 @@ def validate_receipt_intake_dry_review_surface(repo_root: Path) -> list[Validati
         "source_bundle_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/EVAL.md",
         "source_manifest_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/eval.yaml",
         "report_index_ref": "repo:aoa-evals/generated/eval_report_index.min.json",
-        "receipt_payload_schema_ref": "repo:aoa-evals/schemas/eval-result-receipt.schema.json",
-        "event_envelope_schema_ref": "repo:aoa-evals/schemas/stats-event-envelope.schema.json",
-        "publisher_ref": "repo:aoa-evals/scripts/publish_live_receipts.py",
+        "receipt_payload_schema_ref": f"repo:aoa-evals/{EVAL_RESULT_RECEIPT_SCHEMA_PATH}",
+        "event_envelope_schema_ref": f"repo:aoa-evals/{STATS_EVENT_ENVELOPE_SCHEMA_PATH}",
+        "publisher_ref": f"repo:aoa-evals/{EVAL_RESULT_RECEIPT_PUBLISHER_NAME}",
         "owner_local_log_ref": f"repo:aoa-evals/{LIVE_EVAL_RECEIPT_LOG_NAME}",
     }
     for key, expected in expected_refs.items():
@@ -5579,7 +10884,7 @@ def validate_receipt_intake_dry_review_surface(repo_root: Path) -> list[Validati
     preview = payload.get("candidate_payload_preview")
 
     payload_schema = load_json_payload(
-        repo_root / SCHEMAS_DIR_NAME / EVAL_RESULT_RECEIPT_SCHEMA_NAME,
+        repo_root / EVAL_RESULT_RECEIPT_SCHEMA_PATH,
         issues,
     )
     payload_validator: Draft202012Validator | None = None
@@ -5589,7 +10894,7 @@ def validate_receipt_intake_dry_review_surface(repo_root: Path) -> list[Validati
         except SchemaError as exc:
             issues.append(
                 ValidationIssue(
-                    f"{SCHEMAS_DIR_NAME}/{EVAL_RESULT_RECEIPT_SCHEMA_NAME}",
+                    EVAL_RESULT_RECEIPT_SCHEMA_PATH,
                     f"invalid JSON schema: {exc.message}",
                 )
             )
@@ -5831,37 +11136,37 @@ def validate_receipt_intake_dry_review_surface(repo_root: Path) -> list[Validati
     return issues
 
 
-def validate_proof_release_readiness_audit_surface(repo_root: Path) -> list[ValidationIssue]:
+def validate_release_support_readiness_audit_surface(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
-    audit_path = repo_root / PROOF_RELEASE_READINESS_AUDIT_NAME
-    location = PROOF_RELEASE_READINESS_AUDIT_NAME
+    audit_path = repo_root / RELEASE_SUPPORT_READINESS_AUDIT_NAME
+    location = RELEASE_SUPPORT_READINESS_AUDIT_NAME
 
     require_tokens(
         repo_root=repo_root,
-        path_name=PROOF_RELEASE_READINESS_AUDIT_NAME,
-        tokens=PROOF_RELEASE_READINESS_AUDIT_REQUIRED_TOKENS,
+        path_name=RELEASE_SUPPORT_READINESS_AUDIT_NAME,
+        tokens=RELEASE_SUPPORT_READINESS_AUDIT_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name=PROOF_RELEASE_READINESS_AUDIT_DECISION_NAME,
-        tokens=PROOF_RELEASE_READINESS_AUDIT_DECISION_REQUIRED_TOKENS,
+        path_name=RELEASE_SUPPORT_READINESS_AUDIT_DECISION_NAME,
+        tokens=RELEASE_SUPPORT_READINESS_AUDIT_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
     for path_name, tokens in (
         (
-            PROOF_RELEASE_MECHANIC_README_NAME,
+            RELEASE_SUPPORT_MECHANIC_README_NAME,
             (
-                PROOF_RELEASE_READINESS_AUDIT_NAME,
+                RELEASE_SUPPORT_READINESS_AUDIT_NAME,
                 "Readiness Audit",
                 "no tag",
                 "GitHub `Repo Validation`",
             ),
         ),
         (
-            PROOF_RELEASE_MECHANIC_AGENTS_NAME,
+            RELEASE_SUPPORT_MECHANIC_AGENTS_NAME,
             (
-                PROOF_RELEASE_READINESS_AUDIT_NAME,
+                RELEASE_SUPPORT_READINESS_AUDIT_NAME,
                 "readiness audits",
                 "GitHub `Repo Validation`",
             ),
@@ -5869,29 +11174,29 @@ def validate_proof_release_readiness_audit_surface(repo_root: Path) -> list[Vali
         (
             "docs/RELEASING.md",
             (
-                PROOF_RELEASE_READINESS_AUDIT_NAME,
+                RELEASE_SUPPORT_READINESS_AUDIT_NAME,
                 "not a tag",
                 "goal-completion proof",
             ),
         ),
         (
-            "reports/README.md",
+            "mechanics/release-support/parts/readiness-audit/README.md",
             (
-                PROOF_RELEASE_READINESS_AUDIT_NAME,
-                "goal completion",
-                "GitHub `Repo Validation`",
+                RELEASE_SUPPORT_READINESS_AUDIT_NAME,
+                "no GitHub `Repo Validation`",
+                "no goal completion",
             ),
         ),
-        ("README.md", (PROOF_RELEASE_READINESS_AUDIT_NAME, "proof-release readiness audit")),
+        ("README.md", (RELEASE_SUPPORT_READINESS_AUDIT_NAME, "release-support readiness audit")),
         (
             "docs/README.md",
-            (PROOF_RELEASE_READINESS_AUDIT_NAME, "Proof Release Readiness Audit"),
+            (RELEASE_SUPPORT_READINESS_AUDIT_NAME, "Release Support Readiness Audit"),
         ),
-        ("ROADMAP.md", (PROOF_RELEASE_READINESS_AUDIT_NAME, "goal completion")),
-        ("CHANGELOG.md", (PROOF_RELEASE_READINESS_AUDIT_NAME, "goal completion")),
+        ("ROADMAP.md", (RELEASE_SUPPORT_READINESS_AUDIT_NAME, "goal completion")),
+        ("CHANGELOG.md", (RELEASE_SUPPORT_READINESS_AUDIT_NAME, "goal completion")),
         (
             "docs/decisions/README.md",
-            (PROOF_RELEASE_READINESS_AUDIT_DECISION_NAME, "release-prep PR handoff"),
+            (RELEASE_SUPPORT_READINESS_AUDIT_DECISION_NAME, "release-prep PR handoff"),
         ),
     ):
         require_tokens(repo_root=repo_root, path_name=path_name, tokens=tokens, issues=issues)
@@ -5899,18 +11204,18 @@ def validate_proof_release_readiness_audit_surface(repo_root: Path) -> list[Vali
     payload = load_json_payload(audit_path, issues)
     if not isinstance(payload, dict):
         if payload is not None:
-            issues.append(ValidationIssue(location, "proof-release readiness audit must be a JSON object"))
+            issues.append(ValidationIssue(location, "release-support readiness audit must be a JSON object"))
         return issues
 
     expected_top_level = {
-        "artifact_kind": "proof_release_readiness_audit",
+        "artifact_kind": "release_support_readiness_audit",
         "schema_version": 1,
-        "audit_id": "proof-release-readiness-audit-v1",
+        "audit_id": "release-support-readiness-audit-v1",
         "audited_at": "2026-05-19",
         "scope_kind": "accumulated_strategic_refactor_diff",
         "readiness_verdict": "local_release_prep_review_ready_with_open_landing",
         "changelog_anchor_ref": "repo:aoa-evals/CHANGELOG.md",
-        "proof_release_mechanic_ref": f"repo:aoa-evals/{PROOF_RELEASE_MECHANIC_README_NAME}",
+        "release_support_mechanic_ref": f"repo:aoa-evals/{RELEASE_SUPPORT_MECHANIC_README_NAME}",
         "release_check_ref": "repo:aoa-evals/scripts/release_check.py",
     }
     for key, expected in expected_top_level.items():
@@ -5988,16 +11293,35 @@ def validate_proof_release_readiness_audit_surface(repo_root: Path) -> list[Vali
         issues.append(ValidationIssue(location, "requirements_review must be a list"))
 
     required_commands = {
+        "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readme_contract",
+        MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND,
+        MECHANIC_PART_VALIDATION_COMMAND_COMMAND,
+        MECHANIC_PARTS_INDEX_SYNC_COMMAND,
+        MECHANIC_LEGACY_SINGLE_BRIDGE_COMMAND,
+        MECHANIC_PROVENANCE_BRIDGE_POSTURE_COMMAND,
+        LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_COMMAND,
+        "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_entry",
+        MECHANIC_PARENT_DIRECTION_COMMAND,
+        MECHANIC_EVIDENCE_DIMENSION_LEDGER_COMMAND,
+        MECHANIC_ROOT_DISTRICT_RECON_COMMAND,
+        ROOT_AUTHORED_SURFACE_CLASSIFICATION_COMMAND,
+        ACTIVE_MECHANIC_ROUTE_RESIDUE_COMMAND,
+        MECHANIC_PAYLOAD_ROUTE_RESIDUE_COMMAND,
+        ROOT_AUTHORED_ROUTE_RESIDUE_COMMAND,
+        ACTIVE_LEGACY_PARENT_WORDING_COMMAND,
+        DECISION_ROUTE_RESIDUE_COMMAND,
+        REPO_CONFIG_ROUTE_RESIDUE_COMMAND,
+        SOURCE_BUNDLE_ROUTE_RESIDUE_COMMAND,
         "python scripts/validate_repo.py",
         "python scripts/validate_semantic_agents.py",
         "python scripts/validate_nested_agents.py",
         "python scripts/build_catalog.py --check",
         "python scripts/generate_eval_report_index.py --check",
-        "python scripts/generate_runtime_candidate_template_index.py --check",
-        "python scripts/generate_runtime_candidate_intake.py --check",
-        "python scripts/generate_phase_alpha_eval_matrix.py --check",
-        "python scripts/run_sibling_canary.py --repo-root . --format json",
-        "python -m pytest -q tests",
+        "python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check",
+        "python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check",
+        "python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check",
+        "python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json",
+        "python -m pytest -q",
         "python scripts/release_check.py",
         "git diff --check",
     }
@@ -6137,12 +11461,12 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
             (STRATEGIC_CLOSEOUT_AUDIT_NAME, "Strategic Closeout Audit"),
         ),
         (
-            "reports/README.md",
+            "mechanics/release-support/parts/strategic-closeout/README.md",
             (
                 STRATEGIC_CLOSEOUT_AUDIT_NAME,
-                "goal completion",
-                "runtime acceptance",
-                "sibling mutation",
+                "goal open",
+                "GitHub `Repo Validation`",
+                "current objective audit",
             ),
         ),
         (
@@ -6150,7 +11474,7 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
             (STRATEGIC_CLOSEOUT_AUDIT_NAME, "not goal completion"),
         ),
         (
-            PROOF_RELEASE_MECHANIC_README_NAME,
+            RELEASE_SUPPORT_MECHANIC_README_NAME,
             (
                 STRATEGIC_CLOSEOUT_AUDIT_NAME,
                 "Strategic Closeout Audit",
@@ -6181,10 +11505,11 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
         "audit_id": "strategic-closeout-audit-v1",
         "audited_at": "2026-05-19",
         "scope_kind": "local_strategic_refactor_diff",
-        "completion_verdict": "local_strategic_refactor_handoff_ready_with_open_landing",
-        "goal_completion_status": "not_complete",
-        "proof_release_readiness_audit_ref": f"repo:aoa-evals/{PROOF_RELEASE_READINESS_AUDIT_NAME}",
+        "completion_verdict": "current_objective_audit_and_landing_route_in_progress_after_mechanics_validation_hardening",
+        "goal_completion_status": "not_complete_pending_requirement_audit_and_landing_route",
+        "release_support_readiness_audit_ref": f"repo:aoa-evals/{RELEASE_SUPPORT_READINESS_AUDIT_NAME}",
         "decision_ref": f"repo:aoa-evals/{STRATEGIC_CLOSEOUT_AUDIT_DECISION_NAME}",
+        "current_objective_ref": "thread goal: deep mechanics refactor as proof-side organ with evidence-derived parent map, part contracts, active-first legacy, and source-of-truth validation",
     }
     for key, expected in expected_top_level.items():
         if payload.get(key) != expected:
@@ -6216,7 +11541,7 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
         "runtime_machine_boundary",
         "spark_agent_lane_cleanup",
         "release_readiness",
-        "trap_audit_and_open_landing",
+        "trap_audit_and_completion_boundary",
     }
     requirements = payload.get("requirements_review")
     if isinstance(requirements, list):
@@ -6304,18 +11629,38 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
         issues.append(ValidationIssue(location, "trap_review must be a list"))
 
     required_commands = {
-        "python -m pytest -q tests/test_strategic_closeout_audit.py tests/test_validate_repo.py -k strategic_closeout",
+        "python -m pytest -q mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py tests/test_validate_repo.py -k strategic_closeout",
+        "python -m pytest -q tests/test_validate_repo.py -k generated_route_residue",
+        ACTIVE_MECHANIC_ROUTE_RESIDUE_COMMAND,
+        MECHANIC_PAYLOAD_ROUTE_RESIDUE_COMMAND,
+        ROOT_AUTHORED_ROUTE_RESIDUE_COMMAND,
+        ACTIVE_LEGACY_PARENT_WORDING_COMMAND,
+        DECISION_ROUTE_RESIDUE_COMMAND,
+        REPO_CONFIG_ROUTE_RESIDUE_COMMAND,
+        SOURCE_BUNDLE_ROUTE_RESIDUE_COMMAND,
+        "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readme_contract",
+        MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND,
+        MECHANIC_PART_VALIDATION_COMMAND_COMMAND,
+        MECHANIC_PARTS_INDEX_SYNC_COMMAND,
+        MECHANIC_LEGACY_SINGLE_BRIDGE_COMMAND,
+        MECHANIC_PROVENANCE_BRIDGE_POSTURE_COMMAND,
+        LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_COMMAND,
+        "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_entry",
+        MECHANIC_PARENT_DIRECTION_COMMAND,
+        MECHANIC_EVIDENCE_DIMENSION_LEDGER_COMMAND,
+        MECHANIC_ROOT_DISTRICT_RECON_COMMAND,
+        ROOT_AUTHORED_SURFACE_CLASSIFICATION_COMMAND,
         "python scripts/validate_repo.py",
         "python scripts/validate_semantic_agents.py",
         "python scripts/validate_nested_agents.py",
         "git diff --check",
         "python scripts/build_catalog.py --check",
         "python scripts/generate_eval_report_index.py --check",
-        "python scripts/generate_runtime_candidate_template_index.py --check",
-        "python scripts/generate_runtime_candidate_intake.py --check",
-        "python scripts/generate_phase_alpha_eval_matrix.py --check",
-        "python scripts/run_sibling_canary.py --repo-root . --format json",
-        "python -m pytest -q tests",
+        "python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check",
+        "python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check",
+        "python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check",
+        "python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json",
+        "python -m pytest -q",
         "python scripts/release_check.py",
     }
     verification_snapshot = payload.get("verification_snapshot")
@@ -6350,12 +11695,15 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
     if isinstance(open_items, list):
         joined_open_items = "\n".join(item for item in open_items if isinstance(item, str))
         for token in (
-            "open a PR",
-            "observe GitHub Repo Validation",
+            "requirement-by-requirement mechanics objective audit",
+            "cross-root evidence clusters",
+            "payload coverage anchors",
+            "PROVENANCE.md",
+            "old names",
+            "full local validation battery",
+            "requested landing route",
+            "GitHub Repo Validation",
             "clean worktree",
-            "tag or GitHub Release",
-            "live eval-result receipt",
-            "final owner-visible goal completion audit",
         ):
             if token not in joined_open_items:
                 issues.append(
@@ -6373,8 +11721,7 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
     else:
         for token in (
             "does not mark the goal complete",
-            "does not open a PR",
-            "does not observe GitHub Repo Validation",
+            "does not treat PR or GitHub landing alone as objective completion",
             "does not publish a release",
             "does not create a tag",
             "does not publish a GitHub Release",
@@ -6413,11 +11760,11 @@ def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[Validation
             (RELEASE_PREP_PR_HANDOFF_NAME, "Release Prep PR Handoff"),
         ),
         (
-            "reports/README.md",
+            "mechanics/release-support/parts/pr-handoff/README.md",
             (
                 RELEASE_PREP_PR_HANDOFF_NAME,
-                "branch creation",
-                "GitHub `Repo Validation`",
+                "branch",
+                "GitHub evidence",
                 "goal completion",
             ),
         ),
@@ -6430,7 +11777,7 @@ def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[Validation
             ),
         ),
         (
-            PROOF_RELEASE_MECHANIC_README_NAME,
+            RELEASE_SUPPORT_MECHANIC_README_NAME,
             (
                 RELEASE_PREP_PR_HANDOFF_NAME,
                 "Release Prep PR Handoff",
@@ -6438,7 +11785,7 @@ def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[Validation
             ),
         ),
         (
-            PROOF_RELEASE_MECHANIC_AGENTS_NAME,
+            RELEASE_SUPPORT_MECHANIC_AGENTS_NAME,
             (
                 RELEASE_PREP_PR_HANDOFF_NAME,
                 "live PR or GitHub `Repo Validation` state",
@@ -6470,7 +11817,7 @@ def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[Validation
         "scope_kind": "accumulated_strategic_refactor_diff",
         "status_snapshot_kind": "pre_pr_handoff_snapshot",
         "pre_landing_worktree_posture": "dirty_uncommitted_local_diff",
-        "source_readiness_audit_ref": f"repo:aoa-evals/{PROOF_RELEASE_READINESS_AUDIT_NAME}",
+        "source_readiness_audit_ref": f"repo:aoa-evals/{RELEASE_SUPPORT_READINESS_AUDIT_NAME}",
         "source_strategic_closeout_audit_ref": f"repo:aoa-evals/{STRATEGIC_CLOSEOUT_AUDIT_NAME}",
         "decision_ref": f"repo:aoa-evals/{RELEASE_PREP_PR_HANDOFF_DECISION_NAME}",
         "handoff_verdict": "ready_for_owner_landing_route_with_open_pr",
@@ -6579,18 +11926,38 @@ def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[Validation
         issues.append(ValidationIssue(location, "draft_pr_body must be a list"))
 
     required_commands = {
-        "python -m pytest -q tests/test_release_prep_pr_handoff.py tests/test_validate_repo.py -k release_prep_pr_handoff",
+        "python -m pytest -q mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py tests/test_validate_repo.py -k release_prep_pr_handoff",
+        "python -m pytest -q tests/test_validate_repo.py -k generated_route_residue",
+        ACTIVE_MECHANIC_ROUTE_RESIDUE_COMMAND,
+        MECHANIC_PAYLOAD_ROUTE_RESIDUE_COMMAND,
+        ROOT_AUTHORED_ROUTE_RESIDUE_COMMAND,
+        ACTIVE_LEGACY_PARENT_WORDING_COMMAND,
+        DECISION_ROUTE_RESIDUE_COMMAND,
+        REPO_CONFIG_ROUTE_RESIDUE_COMMAND,
+        SOURCE_BUNDLE_ROUTE_RESIDUE_COMMAND,
+        "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readme_contract",
+        MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND,
+        MECHANIC_PART_VALIDATION_COMMAND_COMMAND,
+        MECHANIC_PARTS_INDEX_SYNC_COMMAND,
+        MECHANIC_LEGACY_SINGLE_BRIDGE_COMMAND,
+        MECHANIC_PROVENANCE_BRIDGE_POSTURE_COMMAND,
+        LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_COMMAND,
+        "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_entry",
+        MECHANIC_PARENT_DIRECTION_COMMAND,
+        MECHANIC_EVIDENCE_DIMENSION_LEDGER_COMMAND,
+        MECHANIC_ROOT_DISTRICT_RECON_COMMAND,
+        ROOT_AUTHORED_SURFACE_CLASSIFICATION_COMMAND,
         "python scripts/validate_repo.py",
         "python scripts/validate_semantic_agents.py",
         "python scripts/validate_nested_agents.py",
         "git diff --check",
         "python scripts/build_catalog.py --check",
         "python scripts/generate_eval_report_index.py --check",
-        "python scripts/generate_runtime_candidate_template_index.py --check",
-        "python scripts/generate_runtime_candidate_intake.py --check",
-        "python scripts/generate_phase_alpha_eval_matrix.py --check",
-        "python scripts/run_sibling_canary.py --repo-root . --format json",
-        "python -m pytest -q tests",
+        "python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check",
+        "python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check",
+        "python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check",
+        "python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json",
+        "python -m pytest -q",
         "python scripts/release_check.py",
     }
     verification_snapshot = payload.get("verification_snapshot")
@@ -6871,8 +12238,8 @@ def validate_artifact_process_doctrine_surfaces(
         "aoa-compost-provenance-preservation",
         "matched conditions",
         "style-over-substance",
-        "fixtures/bounded-change-paired-v2/README.md",
-        "reports/artifact-process-paired-proof-flow-v2.md",
+        "mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v2/README.md",
+        "mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v2.md",
     ):
         if phrase not in guide_text:
             issues.append(
@@ -6972,11 +12339,11 @@ def validate_repeated_window_doctrine_surfaces(
                 "EVAL_SELECTION.md must explain context_note and transition_note for repeated-window reading",
             )
         )
-    if "reports/repeated-window-proof-flow-v2.md" not in index_text:
+    if "mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v2.md" not in index_text:
         issues.append(
             ValidationIssue(
                 EVAL_INDEX_NAME,
-                "EVAL_INDEX.md must reference reports/repeated-window-proof-flow-v2.md for repeated-window discipline",
+                "EVAL_INDEX.md must reference mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v2.md for repeated-window discipline",
             )
         )
 
@@ -7123,7 +12490,7 @@ def validate_shared_proof_infra_surfaces(
         root=repo_root,
     )
     runner_surface_text = read_text_or_issue(
-        repo_root / "runners" / "reportable_proof_contract.md",
+        repo_root / PROOF_INFRA_REPORTABLE_CONTRACTS_RUNNER_SURFACE_NAME,
         issues,
         root=repo_root,
     )
@@ -7173,8 +12540,11 @@ def validate_shared_proof_infra_surfaces(
     if "additional_paired_readout_paths" not in runner_surface_text:
         issues.append(
             ValidationIssue(
-                "runners/reportable_proof_contract.md",
-                "runners/reportable_proof_contract.md must describe additional_paired_readout_paths",
+                PROOF_INFRA_REPORTABLE_CONTRACTS_RUNNER_SURFACE_NAME,
+                (
+                    f"{PROOF_INFRA_REPORTABLE_CONTRACTS_RUNNER_SURFACE_NAME} "
+                    "must describe additional_paired_readout_paths"
+                ),
             )
         )
 
@@ -7340,6 +12710,1067 @@ def read_json_file(path: Path, issues: list[ValidationIssue], repo_root: Path) -
 
 def write_json_file(path: Path, payload: Any, compact: bool = False) -> None:
     eval_catalog_contract.write_json_file(path, payload, compact=compact)
+
+
+def iter_generated_route_residue_files(repo_root: Path) -> list[Path]:
+    paths: set[Path] = set()
+    generated_root = repo_root / GENERATED_DIR_NAME
+    if generated_root.is_dir():
+        paths.update(path for path in generated_root.glob("*.json") if path.is_file())
+    mechanics_root = repo_root / "mechanics"
+    if mechanics_root.is_dir():
+        paths.update(
+            path
+            for path in mechanics_root.rglob("generated/*.json")
+            if path.is_file()
+        )
+    return sorted(paths, key=lambda path: path.relative_to(repo_root).as_posix())
+
+
+def format_generated_json_location(file_location: str, json_path: Sequence[str | int]) -> str:
+    suffix = ""
+    for part in json_path:
+        if isinstance(part, int):
+            suffix += f"[{part}]"
+        else:
+            suffix += f".{part}"
+    return f"{file_location}{suffix}"
+
+
+def mechanic_part_root_for_generated_json(path: Path, repo_root: Path) -> Path | None:
+    try:
+        parts = path.relative_to(repo_root).parts
+    except ValueError:
+        return None
+    if len(parts) < 6:
+        return None
+    if parts[0] != "mechanics" or parts[2] != "parts" or parts[4] != "generated":
+        return None
+    return repo_root.joinpath(*parts[:4])
+
+
+def generated_route_residue_message(
+    value: str,
+    *,
+    source_file: Path,
+    repo_root: Path,
+) -> str | None:
+    normalized = value.strip().replace("\\", "/")
+    if not normalized or normalized.startswith("repo:"):
+        return None
+
+    for exact_route in GENERATED_ROUTE_RESIDUE_MECHANIC_EXACT_ROUTES:
+        if normalized == exact_route:
+            return (
+                "generated/readout route must use the active mechanic parent, "
+                f"not legacy parent route '{exact_route}'"
+            )
+    for prefix in GENERATED_ROUTE_RESIDUE_MECHANIC_PREFIXES:
+        if normalized.startswith(prefix):
+            return (
+                "generated/readout route must use the active mechanic parent, "
+                f"not legacy parent route '{prefix}'"
+            )
+
+    part_root = mechanic_part_root_for_generated_json(source_file, repo_root)
+    if part_root is not None:
+        part_local_path = part_root / normalized
+        if part_local_path.exists():
+            return None
+
+    for exact_route in GENERATED_ROUTE_RESIDUE_ROOT_EXACT_ROUTES:
+        if normalized == exact_route:
+            return (
+                "generated/readout route must not point at route-card-only "
+                f"root district '{exact_route}/'"
+            )
+    for prefix in GENERATED_ROUTE_RESIDUE_ROOT_PREFIXES:
+        if normalized.startswith(prefix):
+            return (
+                "generated/readout route must not point at route-card-only "
+                f"root district '{prefix}'"
+            )
+
+    return None
+
+
+def validate_generated_route_residue(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    def walk_json(
+        value: Any,
+        *,
+        source_file: Path,
+        file_location: str,
+        json_path: list[str | int],
+    ) -> None:
+        if isinstance(value, dict):
+            for key, child in value.items():
+                if key in GENERATED_ROUTE_RESIDUE_SKIP_KEYS:
+                    continue
+                walk_json(
+                    child,
+                    source_file=source_file,
+                    file_location=file_location,
+                    json_path=[*json_path, key],
+                )
+            return
+        if isinstance(value, list):
+            for index, child in enumerate(value):
+                walk_json(
+                    child,
+                    source_file=source_file,
+                    file_location=file_location,
+                    json_path=[*json_path, index],
+                )
+            return
+        if not isinstance(value, str):
+            return
+
+        message = generated_route_residue_message(
+            value,
+            source_file=source_file,
+            repo_root=repo_root,
+        )
+        if message is None:
+            return
+        issues.append(
+            ValidationIssue(
+                format_generated_json_location(file_location, json_path),
+                message,
+            )
+        )
+
+    for path in iter_generated_route_residue_files(repo_root):
+        file_location = relative_location(path, repo_root)
+        payload, contract_issues = eval_catalog_contract.read_json_file(path, repo_root)
+        issues.extend(
+            ValidationIssue(issue.location, issue.message)
+            for issue in contract_issues
+        )
+        if payload is None:
+            continue
+        walk_json(
+            payload,
+            source_file=path,
+            file_location=file_location,
+            json_path=[],
+        )
+
+    return issues
+
+
+def iter_active_mechanic_route_residue_files(repo_root: Path) -> list[Path]:
+    paths: set[Path] = set()
+    mechanics_readme = repo_root / MECHANICS_README_NAME
+    if mechanics_readme.is_file():
+        paths.add(mechanics_readme)
+
+    mechanics_root = repo_root / "mechanics"
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
+        parent_root = mechanics_root / parent_name
+        for route_card_name in ("AGENTS.md", "README.md", "PARTS.md"):
+            route_card = parent_root / route_card_name
+            if route_card.is_file():
+                paths.add(route_card)
+
+        parts_root = parent_root / "parts"
+        parts_readme = parts_root / "README.md"
+        if parts_readme.is_file():
+            paths.add(parts_readme)
+        if not parts_root.is_dir():
+            continue
+        for part_root in sorted(parts_root.iterdir(), key=lambda item: item.name):
+            part_readme = part_root / "README.md"
+            if part_readme.is_file():
+                paths.add(part_readme)
+
+    return sorted(paths, key=lambda path: path.relative_to(repo_root).as_posix())
+
+
+def mechanic_owner_root_for_route_card(path: Path, repo_root: Path) -> Path:
+    try:
+        parts = path.relative_to(repo_root).parts
+    except ValueError:
+        return repo_root / "mechanics"
+
+    if len(parts) >= 5 and parts[0] == "mechanics" and parts[2] == "parts":
+        return repo_root.joinpath(*parts[:4])
+    if len(parts) >= 2 and parts[0] == "mechanics":
+        return repo_root.joinpath(*parts[:2])
+    return repo_root / "mechanics"
+
+
+def normalize_active_mechanic_route_token(token: str) -> str:
+    normalized = token.strip().replace("\\", "/")
+    normalized = normalized.strip(ACTIVE_MECHANIC_ROUTE_RESIDUE_TOKEN_STRIP_CHARS)
+    return normalized.rstrip("/")
+
+
+def root_route_card_reference_is_allowed(normalized: str) -> bool:
+    if "/" not in normalized:
+        return True
+    district_name, remainder = normalized.split("/", 1)
+    if district_name not in ROOT_ROUTE_CARD_ONLY_DISTRICTS:
+        return False
+    if not remainder:
+        return True
+    return remainder in ROOT_ROUTE_CARD_ONLY_DISTRICTS[district_name]
+
+
+def active_mechanic_root_route_residue_message(
+    value: str,
+    *,
+    source_file: Path,
+    repo_root: Path,
+) -> str | None:
+    normalized = normalize_active_mechanic_route_token(value)
+    if not normalized:
+        return None
+    if root_route_card_reference_is_allowed(normalized):
+        return None
+
+    owner_root = mechanic_owner_root_for_route_card(source_file, repo_root)
+    if (owner_root / normalized).exists() or (source_file.parent / normalized).exists():
+        return None
+
+    district_name = normalized.split("/", 1)[0]
+    return (
+        "active mechanic route card must not point at route-card-only root "
+        f"district payload '{normalized}'; use a part-local path under the "
+        f"same part root, a bundle-local `bundles/<bundle>/...` path, or the "
+        f"root route card '{district_name}/README.md' or '{district_name}/AGENTS.md'"
+    )
+
+
+def active_mechanic_legacy_parent_residue_message(value: str) -> str | None:
+    normalized = normalize_active_mechanic_route_token(value)
+    if not normalized:
+        return None
+
+    for wrong_parent, correct_route in FORMER_WRONG_MECHANIC_PARENT_ROUTES:
+        wrong_route = f"mechanics/{wrong_parent}"
+        if normalized == wrong_route or normalized.startswith(f"{wrong_route}/"):
+            return (
+                "active mechanic route card must use the active mechanic parent "
+                f"`mechanics/{correct_route}/`, not legacy parent route "
+                f"`{wrong_route}/`"
+            )
+    return None
+
+
+def validate_active_mechanic_route_residue(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for path in iter_active_mechanic_route_residue_files(repo_root):
+        file_location = relative_location(path, repo_root)
+        text = read_text_or_issue(path, issues, root=repo_root)
+        if not text:
+            continue
+        for line_number, line in enumerate(text.splitlines(), start=1):
+            line_location = f"{file_location}:{line_number}"
+            for match in ACTIVE_MECHANIC_ROUTE_RESIDUE_ROOT_TOKEN_RE.finditer(line):
+                message = active_mechanic_root_route_residue_message(
+                    match.group("token"),
+                    source_file=path,
+                    repo_root=repo_root,
+                )
+                if message is not None:
+                    issues.append(ValidationIssue(line_location, message))
+            for match in ACTIVE_MECHANIC_ROUTE_RESIDUE_MECHANIC_TOKEN_RE.finditer(line):
+                message = active_mechanic_legacy_parent_residue_message(
+                    match.group("token")
+                )
+                if message is not None:
+                    issues.append(ValidationIssue(line_location, message))
+
+    return issues
+
+
+def validate_active_mechanic_route_residue_surfaces(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues = validate_active_mechanic_route_residue(repo_root)
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ACTIVE_MECHANIC_ROUTE_RESIDUE_DECISION_NAME,
+        tokens=ACTIVE_MECHANIC_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            ACTIVE_MECHANIC_ROUTE_RESIDUE_DECISION_NAME,
+            "Active Mechanic Route Residue Guard",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("Active mechanic route residue", "same part root"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=LEGACY_NAMING_NAME,
+        tokens=("authored mechanics route cards", "legacy parent route"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("active mechanic route residue", "authored route cards"),
+        issues=issues,
+    )
+    return issues
+
+
+def iter_root_authored_route_residue_files(repo_root: Path) -> list[Path]:
+    paths: set[Path] = set()
+
+    for path_name in ROOT_AUTHORED_ROUTE_RESIDUE_ROOT_FILES:
+        path = repo_root / path_name
+        if path.is_file():
+            paths.add(path)
+
+    docs_root = repo_root / "docs"
+    if docs_root.is_dir():
+        paths.update(path for path in docs_root.glob("*.md") if path.is_file())
+
+    for district_name, allowed_names in ROOT_ROUTE_CARD_ONLY_DISTRICTS.items():
+        district = repo_root / district_name
+        for allowed_name in allowed_names:
+            path = district / allowed_name
+            if path.is_file():
+                paths.add(path)
+
+    return sorted(paths, key=lambda path: path.relative_to(repo_root).as_posix())
+
+
+def root_authored_route_context_allows(
+    lines: Sequence[str],
+    line_number: int,
+) -> bool:
+    start = max(0, line_number - 2)
+    end = min(len(lines), line_number + 1)
+    context = "\n".join(lines[start:end])
+    return any(token in context for token in ROOT_AUTHORED_ROUTE_RESIDUE_CONTEXT_TOKENS)
+
+
+def root_authored_route_residue_message(
+    value: str,
+    *,
+    source_file: Path,
+    repo_root: Path,
+) -> str | None:
+    normalized = normalize_active_mechanic_route_token(value)
+    if not normalized:
+        return None
+    if root_route_card_reference_is_allowed(normalized):
+        return None
+    if (repo_root / normalized).exists() or (source_file.parent / normalized).exists():
+        return None
+
+    district_name = normalized.split("/", 1)[0]
+    return (
+        "root-facing authored surface must not point at route-card-only root "
+        f"district payload '{normalized}'; use `bundles/<bundle>/...`, an "
+        "active `mechanics/...` route, or the root route card "
+        f"'{district_name}/README.md' or '{district_name}/AGENTS.md'"
+    )
+
+
+def validate_root_authored_route_residue(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for path in iter_root_authored_route_residue_files(repo_root):
+        file_location = relative_location(path, repo_root)
+        text = read_text_or_issue(path, issues, root=repo_root)
+        if not text:
+            continue
+        lines = text.splitlines()
+        for line_number, line in enumerate(lines, start=1):
+            if root_authored_route_context_allows(lines, line_number):
+                continue
+            line_location = f"{file_location}:{line_number}"
+            for match in ACTIVE_MECHANIC_ROUTE_RESIDUE_ROOT_TOKEN_RE.finditer(line):
+                message = root_authored_route_residue_message(
+                    match.group("token"),
+                    source_file=path,
+                    repo_root=repo_root,
+                )
+                if message is not None:
+                    issues.append(ValidationIssue(line_location, message))
+
+    return issues
+
+
+def validate_root_authored_route_residue_surfaces(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues = validate_root_authored_route_residue(repo_root)
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROOT_AUTHORED_ROUTE_RESIDUE_DECISION_NAME,
+        tokens=ROOT_AUTHORED_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            ROOT_AUTHORED_ROUTE_RESIDUE_DECISION_NAME,
+            "Root Authored Route Residue Guard",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("Root authored route residue", "`bundles/<bundle>/...`"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=LEGACY_NAMING_NAME,
+        tokens=("root-facing authored surfaces", "historical context"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("root-authored route residue", "root-facing authored surfaces"),
+        issues=issues,
+    )
+    return issues
+
+
+def iter_decision_route_residue_files(repo_root: Path) -> list[Path]:
+    decisions_root = repo_root / "docs" / "decisions"
+    if not decisions_root.is_dir():
+        return []
+    return sorted(
+        (
+            path
+            for path in decisions_root.glob("*.md")
+            if path.name not in {"AGENTS.md", "README.md", "TEMPLATE.md"}
+        ),
+        key=lambda path: path.relative_to(repo_root).as_posix(),
+    )
+
+
+def decision_route_context_allows(
+    lines: Sequence[str],
+    line_number: int,
+) -> bool:
+    start = max(0, line_number - 2)
+    end = min(len(lines), line_number + 1)
+    context = "\n".join(lines[start:end])
+    return any(token in context for token in DECISION_ROUTE_RESIDUE_CONTEXT_TOKENS)
+
+
+def decision_route_residue_message(
+    value: str,
+    *,
+    source_file: Path,
+    repo_root: Path,
+) -> str | None:
+    normalized = normalize_active_mechanic_route_token(value)
+    if not normalized:
+        return None
+    if root_route_card_reference_is_allowed(normalized):
+        return None
+    if (repo_root / normalized).exists() or (source_file.parent / normalized).exists():
+        return None
+
+    district_name = normalized.split("/", 1)[0]
+    return (
+        "decision record must not present route-card-only root district payload "
+        f"'{normalized}' as a current route; mark it as former root or "
+        "historical context, route to `bundles/<bundle>/...` or active "
+        f"`mechanics/...`, or cite the root route card '{district_name}/README.md' "
+        f"or '{district_name}/AGENTS.md'"
+    )
+
+
+def validate_decision_route_residue(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for path in iter_decision_route_residue_files(repo_root):
+        file_location = relative_location(path, repo_root)
+        text = read_text_or_issue(path, issues, root=repo_root)
+        if not text:
+            continue
+        lines = text.splitlines()
+        for line_number, line in enumerate(lines, start=1):
+            if decision_route_context_allows(lines, line_number):
+                continue
+            line_location = f"{file_location}:{line_number}"
+            for match in ACTIVE_MECHANIC_ROUTE_RESIDUE_ROOT_TOKEN_RE.finditer(line):
+                message = decision_route_residue_message(
+                    match.group("token"),
+                    source_file=path,
+                    repo_root=repo_root,
+                )
+                if message is not None:
+                    issues.append(ValidationIssue(line_location, message))
+
+    return issues
+
+
+def validate_decision_route_residue_surfaces(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues = validate_decision_route_residue(repo_root)
+    require_tokens(
+        repo_root=repo_root,
+        path_name=DECISION_ROUTE_RESIDUE_DECISION_NAME,
+        tokens=DECISION_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            DECISION_ROUTE_RESIDUE_DECISION_NAME,
+            "Decision Route Residue Guard",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("Decision route residue", "historical context"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=LEGACY_NAMING_NAME,
+        tokens=("decision records", "former root"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("decision-route residue", "decision records"),
+        issues=issues,
+    )
+    return issues
+
+
+def iter_repo_config_route_residue_files(repo_root: Path) -> list[Path]:
+    paths: set[Path] = set()
+    for path_name in (".gitignore", "pytest.ini"):
+        path = repo_root / path_name
+        if path.is_file():
+            paths.add(path)
+
+    workflows_root = repo_root / ".github" / "workflows"
+    if workflows_root.is_dir():
+        paths.update(path for path in workflows_root.glob("*.yml") if path.is_file())
+        paths.update(path for path in workflows_root.glob("*.yaml") if path.is_file())
+
+    return sorted(paths, key=lambda path: path.relative_to(repo_root).as_posix())
+
+
+def repo_config_root_route_residue_message(
+    value: str,
+    *,
+    source_file: Path,
+    repo_root: Path,
+) -> str | None:
+    normalized = normalize_active_mechanic_route_token(value)
+    if not normalized:
+        return None
+    if root_route_card_reference_is_allowed(normalized):
+        return None
+    if (repo_root / normalized).exists() or (source_file.parent / normalized).exists():
+        return None
+
+    district_name = normalized.split("/", 1)[0]
+    return (
+        "repo config surface must not point at route-card-only root district "
+        f"payload '{normalized}'; use an active `mechanics/...` route, "
+        f"`bundles/<bundle>/...`, or the root route card "
+        f"'{district_name}/README.md' or '{district_name}/AGENTS.md'"
+    )
+
+
+def repo_config_legacy_parent_residue_message(value: str) -> str | None:
+    normalized = normalize_active_mechanic_route_token(value)
+    if not normalized:
+        return None
+
+    for wrong_parent, correct_route in FORMER_WRONG_MECHANIC_PARENT_ROUTES:
+        wrong_route = f"mechanics/{wrong_parent}"
+        if normalized == wrong_route or normalized.startswith(f"{wrong_route}/"):
+            return (
+                "repo config surface must not point at legacy mechanic parent "
+                f"`{wrong_route}/`; use active `mechanics/{correct_route}/`"
+            )
+    return None
+
+
+def validate_repo_config_route_residue(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for path in iter_repo_config_route_residue_files(repo_root):
+        file_location = relative_location(path, repo_root)
+        text = read_text_or_issue(path, issues, root=repo_root)
+        if not text:
+            continue
+        for line_number, line in enumerate(text.splitlines(), start=1):
+            line_location = f"{file_location}:{line_number}"
+            for match in ACTIVE_MECHANIC_ROUTE_RESIDUE_ROOT_TOKEN_RE.finditer(line):
+                message = repo_config_root_route_residue_message(
+                    match.group("token"),
+                    source_file=path,
+                    repo_root=repo_root,
+                )
+                if message is not None:
+                    issues.append(ValidationIssue(line_location, message))
+            for match in ACTIVE_MECHANIC_ROUTE_RESIDUE_MECHANIC_TOKEN_RE.finditer(line):
+                message = repo_config_legacy_parent_residue_message(
+                    match.group("token")
+                )
+                if message is not None:
+                    issues.append(ValidationIssue(line_location, message))
+
+    return issues
+
+
+def validate_repo_config_route_residue_surfaces(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues = validate_repo_config_route_residue(repo_root)
+    require_tokens(
+        repo_root=repo_root,
+        path_name=REPO_CONFIG_ROUTE_RESIDUE_DECISION_NAME,
+        tokens=REPO_CONFIG_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            REPO_CONFIG_ROUTE_RESIDUE_DECISION_NAME,
+            "Repo Config Route Residue Guard",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("Repo config route residue", ".gitignore"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=LEGACY_NAMING_NAME,
+        tokens=("repo config surfaces", "legacy mechanic parent"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("repo-config route residue", ".gitignore"),
+        issues=issues,
+    )
+    return issues
+
+
+SOURCE_BUNDLE_ROUTE_RESIDUE_SUFFIXES = frozenset(
+    {".json", ".md", ".txt", ".yaml", ".yml"}
+)
+
+
+def iter_source_bundle_route_residue_files(repo_root: Path) -> list[Path]:
+    bundles_root = repo_root / BUNDLES_DIR_NAME
+    if not bundles_root.is_dir():
+        return []
+    return sorted(
+        (
+            path
+            for path in bundles_root.rglob("*")
+            if path.is_file() and path.suffix in SOURCE_BUNDLE_ROUTE_RESIDUE_SUFFIXES
+        ),
+        key=lambda path: path.relative_to(repo_root).as_posix(),
+    )
+
+
+def bundle_root_for_source_file(path: Path, repo_root: Path) -> Path | None:
+    try:
+        relative_parts = path.relative_to(repo_root).parts
+    except ValueError:
+        return None
+    if len(relative_parts) < 2 or relative_parts[0] != BUNDLES_DIR_NAME:
+        return None
+    return repo_root / BUNDLES_DIR_NAME / relative_parts[1]
+
+
+def source_bundle_root_route_residue_message(
+    value: str,
+    *,
+    source_file: Path,
+    repo_root: Path,
+) -> str | None:
+    normalized = normalize_active_mechanic_route_token(value)
+    if not normalized:
+        return None
+    if normalized.startswith("repo:"):
+        return None
+    if root_route_card_reference_is_allowed(normalized):
+        return None
+
+    bundle_root = bundle_root_for_source_file(source_file, repo_root)
+    if bundle_root is not None and (bundle_root / normalized).exists():
+        return None
+    if (repo_root / normalized).exists() or (source_file.parent / normalized).exists():
+        return None
+
+    district_name = normalized.split("/", 1)[0]
+    return (
+        "source bundle must not carry ambiguous route-card-only root district "
+        f"payload '{normalized}'; use a bundle-local path that exists under the "
+        "owning bundle, `bundles/<target>/...`, a repo-qualified sibling ref, "
+        f"or the root route card '{district_name}/README.md' or "
+        f"'{district_name}/AGENTS.md'"
+    )
+
+
+def source_bundle_legacy_parent_residue_message(value: str) -> str | None:
+    normalized = normalize_active_mechanic_route_token(value)
+    if not normalized:
+        return None
+
+    for wrong_parent, correct_route in FORMER_WRONG_MECHANIC_PARENT_ROUTES:
+        wrong_route = f"mechanics/{wrong_parent}"
+        if normalized == wrong_route or normalized.startswith(f"{wrong_route}/"):
+            return (
+                "source bundle must not point at legacy mechanic parent "
+                f"`{wrong_route}/`; use active `mechanics/{correct_route}/` or "
+                "a provenance/legacy route with explicit historical context"
+            )
+    return None
+
+
+def validate_source_bundle_route_residue(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for path in iter_source_bundle_route_residue_files(repo_root):
+        file_location = relative_location(path, repo_root)
+        text = read_text_or_issue(path, issues, root=repo_root)
+        if not text:
+            continue
+        for line_number, line in enumerate(text.splitlines(), start=1):
+            line_location = f"{file_location}:{line_number}"
+            for match in ACTIVE_MECHANIC_ROUTE_RESIDUE_ROOT_TOKEN_RE.finditer(line):
+                message = source_bundle_root_route_residue_message(
+                    match.group("token"),
+                    source_file=path,
+                    repo_root=repo_root,
+                )
+                if message is not None:
+                    issues.append(ValidationIssue(line_location, message))
+            for match in ACTIVE_MECHANIC_ROUTE_RESIDUE_MECHANIC_TOKEN_RE.finditer(line):
+                message = source_bundle_legacy_parent_residue_message(
+                    match.group("token")
+                )
+                if message is not None:
+                    issues.append(ValidationIssue(line_location, message))
+
+    return issues
+
+
+def validate_source_bundle_route_residue_surfaces(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues = validate_source_bundle_route_residue(repo_root)
+    require_tokens(
+        repo_root=repo_root,
+        path_name=SOURCE_BUNDLE_ROUTE_RESIDUE_DECISION_NAME,
+        tokens=SOURCE_BUNDLE_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            SOURCE_BUNDLE_ROUTE_RESIDUE_DECISION_NAME,
+            "Source Bundle Route Residue Guard",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("Source bundle route residue", "repo-qualified sibling"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=LEGACY_NAMING_NAME,
+        tokens=("source proof bundles", "repo-qualified sibling"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("source-bundle route residue", "source proof bundles"),
+        issues=issues,
+    )
+    return issues
+
+
+MECHANIC_PAYLOAD_ROUTE_RESIDUE_SUFFIXES = frozenset(
+    {".json", ".md", ".py", ".txt", ".yaml", ".yml"}
+)
+MECHANIC_PAYLOAD_ROUTE_RESIDUE_ROUTE_CARD_NAMES = frozenset(
+    {"AGENTS.md", "PARTS.md", "PROVENANCE.md", "README.md"}
+)
+
+
+def iter_mechanic_payload_route_residue_files(repo_root: Path) -> list[Path]:
+    mechanics_root = repo_root / "mechanics"
+    if not mechanics_root.is_dir():
+        return []
+    return sorted(
+        (
+            path
+            for path in mechanics_root.rglob("*")
+            if path.is_file()
+            and path.suffix in MECHANIC_PAYLOAD_ROUTE_RESIDUE_SUFFIXES
+            and path.name not in MECHANIC_PAYLOAD_ROUTE_RESIDUE_ROUTE_CARD_NAMES
+            and "legacy" not in path.relative_to(repo_root).parts
+            and "generated" not in path.relative_to(repo_root).parts
+        ),
+        key=lambda path: path.relative_to(repo_root).as_posix(),
+    )
+
+
+def mechanic_payload_owner_root_for_source_file(path: Path, repo_root: Path) -> Path:
+    try:
+        relative_parts = path.relative_to(repo_root).parts
+    except ValueError:
+        return repo_root / "mechanics"
+
+    if (
+        len(relative_parts) >= 4
+        and relative_parts[0] == "mechanics"
+        and relative_parts[2] == "parts"
+    ):
+        return repo_root.joinpath(*relative_parts[:4])
+    if len(relative_parts) >= 2 and relative_parts[0] == "mechanics":
+        return repo_root.joinpath(*relative_parts[:2])
+    return repo_root / "mechanics"
+
+
+def mechanic_payload_root_route_residue_message(
+    value: str,
+    *,
+    source_file: Path,
+    repo_root: Path,
+) -> str | None:
+    normalized = normalize_active_mechanic_route_token(value)
+    if not normalized:
+        return None
+    if normalized.startswith("repo:"):
+        return None
+    if root_route_card_reference_is_allowed(normalized):
+        return None
+
+    owner_root = mechanic_payload_owner_root_for_source_file(source_file, repo_root)
+    if (owner_root / normalized).exists() or (source_file.parent / normalized).exists():
+        return None
+    if (repo_root / normalized).exists():
+        return None
+
+    district_name = normalized.split("/", 1)[0]
+    return (
+        "active mechanics payload must not carry ambiguous route-card-only "
+        f"root district payload '{normalized}'; use a path that resolves under "
+        "the same mechanic or part root, an active repo path, a repo-qualified "
+        f"sibling ref, or the root route card '{district_name}/README.md' or "
+        f"'{district_name}/AGENTS.md'"
+    )
+
+
+def mechanic_payload_legacy_parent_residue_message(value: str) -> str | None:
+    normalized = normalize_active_mechanic_route_token(value)
+    if not normalized:
+        return None
+
+    for wrong_parent, correct_route in FORMER_WRONG_MECHANIC_PARENT_ROUTES:
+        wrong_route = f"mechanics/{wrong_parent}"
+        if normalized == wrong_route or normalized.startswith(f"{wrong_route}/"):
+            return (
+                "active mechanics payload must not point at legacy mechanic "
+                f"parent `{wrong_route}/`; use active "
+                f"`mechanics/{correct_route}/` or a provenance/legacy route "
+                "with explicit historical context"
+            )
+    return None
+
+
+def validate_mechanic_payload_route_residue(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for path in iter_mechanic_payload_route_residue_files(repo_root):
+        file_location = relative_location(path, repo_root)
+        text = read_text_or_issue(path, issues, root=repo_root)
+        if not text:
+            continue
+        for line_number, line in enumerate(text.splitlines(), start=1):
+            line_location = f"{file_location}:{line_number}"
+            for match in ACTIVE_MECHANIC_ROUTE_RESIDUE_ROOT_TOKEN_RE.finditer(line):
+                message = mechanic_payload_root_route_residue_message(
+                    match.group("token"),
+                    source_file=path,
+                    repo_root=repo_root,
+                )
+                if message is not None:
+                    issues.append(ValidationIssue(line_location, message))
+            for match in ACTIVE_MECHANIC_ROUTE_RESIDUE_MECHANIC_TOKEN_RE.finditer(line):
+                message = mechanic_payload_legacy_parent_residue_message(
+                    match.group("token")
+                )
+                if message is not None:
+                    issues.append(ValidationIssue(line_location, message))
+
+    return issues
+
+
+MECHANIC_MANIFEST_STRUCTURED_ROUTE_KEYS = frozenset(
+    {
+        "generated_surfaces",
+        "observed_surfaces",
+        "proof_surfaces",
+        "source_files",
+        "source_surfaces",
+        "validation_surfaces",
+    }
+)
+
+
+def iter_json_string_values_for_keys(
+    payload: Any, keys: frozenset[str]
+) -> Iterable[tuple[str, str]]:
+    if isinstance(payload, dict):
+        for key, value in payload.items():
+            if key in keys and isinstance(value, list):
+                for item in value:
+                    if isinstance(item, str):
+                        yield key, item
+            yield from iter_json_string_values_for_keys(value, keys)
+    elif isinstance(payload, list):
+        for item in payload:
+            yield from iter_json_string_values_for_keys(item, keys)
+
+
+def repo_relative_path_or_glob_exists(repo_root: Path, value: str) -> bool:
+    normalized = value.split("#", 1)[0].strip().strip("`")
+    if not normalized or normalized.startswith(("repo:", "component:")):
+        return True
+    if "<" in normalized or ">" in normalized:
+        return True
+    if "*" in normalized:
+        return any(repo_root.glob(normalized))
+    return (repo_root / normalized).exists()
+
+
+def validate_mechanic_manifest_path_glob_routes(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    mechanics_root = repo_root / "mechanics"
+    if not mechanics_root.is_dir():
+        return issues
+
+    for path in sorted(mechanics_root.glob("**/manifests/**/*.json")):
+        if "legacy" in path.relative_to(repo_root).parts:
+            continue
+        text = read_text_or_issue(path, issues, root=repo_root)
+        if not text:
+            continue
+        try:
+            payload = json.loads(text)
+        except json.JSONDecodeError:
+            continue
+        for key, value in iter_json_string_values_for_keys(payload, frozenset({"path_globs"})):
+            if not value.startswith("docs/"):
+                continue
+            if repo_relative_path_or_glob_exists(repo_root, value):
+                continue
+            issues.append(
+                ValidationIssue(
+                    path.relative_to(repo_root).as_posix(),
+                    "mechanic manifest path_globs must not point at unresolved root-authored docs globs; use current repo-relative mechanic paths or an existing root-owned docs surface",
+                )
+            )
+        for key, value in iter_json_string_values_for_keys(
+            payload, MECHANIC_MANIFEST_STRUCTURED_ROUTE_KEYS
+        ):
+            normalized = normalize_active_mechanic_route_token(value)
+            if not normalized:
+                continue
+            if root_route_card_reference_is_allowed(normalized):
+                continue
+            district_name = normalized.split("/", 1)[0]
+            if district_name not in ROOT_ROUTE_CARD_ONLY_DISTRICTS:
+                continue
+            issues.append(
+                ValidationIssue(
+                    path.relative_to(repo_root).as_posix(),
+                    "mechanic manifest structured route fields must not use "
+                    f"route-card-only root district payload `{normalized}`; "
+                    "use the current repo-relative mechanic path",
+                )
+            )
+
+    return issues
+
+
+def validate_mechanic_payload_route_residue_surfaces(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues = validate_mechanic_payload_route_residue(repo_root)
+    issues.extend(validate_mechanic_manifest_path_glob_routes(repo_root))
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_PAYLOAD_ROUTE_RESIDUE_DECISION_NAME,
+        tokens=MECHANIC_PAYLOAD_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_PAYLOAD_ROUTE_RESIDUE_DECISION_NAME,
+            "Mechanic Payload Route Residue Guard",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("Mechanic payload route residue", "repo-qualified sibling"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=LEGACY_NAMING_NAME,
+        tokens=("active mechanics payload", "repo-qualified sibling"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("mechanic-payload route residue", "active mechanics payload"),
+        issues=issues,
+    )
+    return issues
 
 
 def validate_generated_catalogs(
@@ -7847,8 +14278,8 @@ def validate_runtime_integrity_review_surface(repo_root: Path) -> list[Validatio
     issues: list[ValidationIssue] = []
     doc_path = repo_root / RUNTIME_INTEGRITY_REVIEW_DOC_NAME
     docs_map_path = repo_root / "docs" / "README.md"
-    landing_path = repo_root / "docs" / "AGON_WAVE10_EVAL_LANDING.md"
-    schema_path = repo_root / SCHEMAS_DIR_NAME / RUNTIME_INTEGRITY_REVIEW_SCHEMA_NAME
+    landing_path = repo_root / "mechanics" / "agon" / "legacy" / "raw" / "AGON_WAVE10_EVAL_LANDING.md"
+    schema_path = repo_root / RUNTIME_INTEGRITY_REVIEW_SCHEMA_PATH
     example_path = repo_root / RUNTIME_INTEGRITY_REVIEW_EXAMPLE_NAME
 
     doc_text = read_text_or_issue(doc_path, issues, root=repo_root)
@@ -7867,7 +14298,7 @@ def validate_runtime_integrity_review_surface(repo_root: Path) -> list[Validatio
         issues.append(
             ValidationIssue(
                 relative_location(docs_map_path, repo_root),
-                "docs/README.md must route docs/RUNTIME_INTEGRITY_REVIEW.md",
+                "docs/README.md must route mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md",
             )
         )
 
@@ -8200,7 +14631,7 @@ def validate_trace_eval_bridge_surfaces(
     records: list[EvalBundleRecord],
 ) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
-    schema_path = repo_root / SCHEMAS_DIR_NAME / ARTIFACT_VERDICT_HOOK_SCHEMA_NAME
+    schema_path = repo_root / ARTIFACT_VERDICT_HOOK_SCHEMA_PATH
     schema_location = relative_location(schema_path, repo_root)
     schema = load_json_payload(schema_path, issues)
     if schema is None:
@@ -8236,7 +14667,7 @@ def validate_trace_eval_bridge_surfaces(
     records_by_name = {record.name: record for record in records}
 
     for playbook_id, example_name in ARTIFACT_VERDICT_HOOK_EXAMPLES.items():
-        example_path = repo_root / EXAMPLES_DIR_NAME / example_name
+        example_path = repo_root / example_name
         location = relative_location(example_path, repo_root)
         payload = load_json_payload(example_path, issues)
         if payload is None:
@@ -8439,7 +14870,7 @@ def validate_runtime_evidence_selection_surfaces(
     selected_examples: list[tuple[Path, dict[str, Any]]] = []
     for example_name, expectations in RUNTIME_EVIDENCE_SELECTION_EXAMPLES.items():
         target_eval = expectations.get("target_eval")
-        example_path = repo_root / EXAMPLES_DIR_NAME / example_name
+        example_path = repo_root / RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR / example_name
         if target_eval_names is None:
             selected_examples.append((example_path, expectations))
             continue
@@ -8449,7 +14880,7 @@ def validate_runtime_evidence_selection_surfaces(
     if not selected_examples:
         return issues
 
-    schema_path = repo_root / SCHEMAS_DIR_NAME / RUNTIME_EVIDENCE_SELECTION_SCHEMA_NAME
+    schema_path = repo_root / RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH
     schema_location = relative_location(schema_path, repo_root)
     schema = load_json_payload(schema_path, issues)
     if schema is None:
@@ -8564,7 +14995,7 @@ def validate_runtime_evidence_selection_surfaces(
 
 
 def load_runtime_candidate_template_index_builder(repo_root: Path):
-    module_path = repo_root / "scripts" / "generate_runtime_candidate_template_index.py"
+    module_path = repo_root / RUNTIME_CANDIDATE_TEMPLATE_INDEX_SCRIPT_NAME
     spec = importlib.util.spec_from_file_location(
         "generate_runtime_candidate_template_index",
         module_path,
@@ -8580,7 +15011,7 @@ def validate_runtime_candidate_template_index(repo_root: Path) -> list[Validatio
     issues: list[ValidationIssue] = []
     generated_path = repo_root / RUNTIME_CANDIDATE_TEMPLATE_INDEX_NAME
     generated_location = relative_location(generated_path, repo_root)
-    schema_path = repo_root / SCHEMAS_DIR_NAME / RUNTIME_CANDIDATE_TEMPLATE_INDEX_SCHEMA_NAME
+    schema_path = repo_root / RUNTIME_CANDIDATE_TEMPLATE_INDEX_SCHEMA_PATH
     schema_location = relative_location(schema_path, repo_root)
 
     schema = load_json_payload(schema_path, issues)
@@ -8588,6 +15019,7 @@ def validate_runtime_candidate_template_index(repo_root: Path) -> list[Validatio
         return issues
     if not validate_inline_schema(schema, location=schema_location, issues=issues):
         return issues
+    schema_validator = Draft202012Validator(schema)
 
     try:
         builder = load_runtime_candidate_template_index_builder(repo_root)
@@ -8608,6 +15040,7 @@ def validate_runtime_candidate_template_index(repo_root: Path) -> list[Validatio
         RUNTIME_CANDIDATE_TEMPLATE_INDEX_SCHEMA_NAME,
         generated_location,
         issues,
+        validator=schema_validator,
     )
 
     if payload != expected:
@@ -8625,11 +15058,13 @@ def validate_runtime_candidate_template_index(repo_root: Path) -> list[Validatio
 
     expected_refs = {
         relative_location(path, repo_root)
-        for path in sorted((repo_root / EXAMPLES_DIR_NAME).glob("runtime_evidence_selection.*.example.json"))
-    } | {
-        relative_location(path, repo_root)
-        for path in sorted((repo_root / EXAMPLES_DIR_NAME).glob("artifact_to_verdict_hook.*.example.json"))
+        for path in sorted((repo_root / RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR).glob("runtime_evidence_selection.*.example.json"))
     }
+    for examples_dir in ARTIFACT_VERDICT_HOOK_EXAMPLE_DIRS:
+        expected_refs.update(
+            relative_location(path, repo_root)
+            for path in sorted((repo_root / examples_dir).glob("artifact_to_verdict_hook.*.example.json"))
+        )
     indexed_refs = {
         entry.get("source_example_ref")
         for entry in templates
@@ -8755,7 +15190,7 @@ def validate_runtime_candidate_template_index(repo_root: Path) -> list[Validatio
 
 
 def load_runtime_candidate_intake_builder(repo_root: Path):
-    module_path = repo_root / "scripts" / "generate_runtime_candidate_intake.py"
+    module_path = repo_root / RUNTIME_CANDIDATE_INTAKE_SCRIPT_NAME
     spec = importlib.util.spec_from_file_location(
         "generate_runtime_candidate_intake",
         module_path,
@@ -8768,7 +15203,7 @@ def load_runtime_candidate_intake_builder(repo_root: Path):
 
 
 def load_phase_alpha_eval_matrix_builder(repo_root: Path):
-    module_path = repo_root / "scripts" / "generate_phase_alpha_eval_matrix.py"
+    module_path = repo_root / PHASE_ALPHA_EVAL_MATRIX_SCRIPT_NAME
     spec = importlib.util.spec_from_file_location(
         "generate_phase_alpha_eval_matrix",
         module_path,
@@ -8823,10 +15258,10 @@ def validate_runtime_candidate_intake(repo_root: Path) -> list[ValidationIssue]:
     if payload.get("layer") != "aoa-evals":
         issues.append(ValidationIssue(generated_location, "layer must equal 'aoa-evals'"))
     expected_source_of_truth = {
-        "runtime_candidate_template_index": "generated/runtime_candidate_template_index.min.json",
+        "runtime_candidate_template_index": "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json",
         "eval_review_guide": "docs/EVAL_REVIEW_GUIDE.md",
-        "trace_eval_bridge": "docs/TRACE_EVAL_BRIDGE.md",
-        "runtime_bench_promotion_guide": "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+        "trace_eval_bridge": "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md",
+        "runtime_bench_promotion_guide": "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
     }
     if payload.get("source_of_truth") != expected_source_of_truth:
         issues.append(ValidationIssue(generated_location, "source_of_truth must stay stable"))
@@ -8874,8 +15309,8 @@ def validate_runtime_candidate_intake(repo_root: Path) -> list[ValidationIssue]:
             )
 
     review_guide_by_kind = {
-        "artifact_to_verdict_hook": "docs/TRACE_EVAL_BRIDGE.md",
-        "runtime_evidence_selection": "docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
+        "artifact_to_verdict_hook": "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md",
+        "runtime_evidence_selection": "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
     }
 
     for index, entry in enumerate(templates):
@@ -8896,7 +15331,7 @@ def validate_runtime_candidate_intake(repo_root: Path) -> list[ValidationIssue]:
             "review_required",
         ):
             if entry.get(field_name) != source_entry.get(field_name):
-                issues.append(ValidationIssue(location, f"{field_name} must match generated/runtime_candidate_template_index.min.json"))
+                issues.append(ValidationIssue(location, f"{field_name} must match mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json"))
 
         template_kind = entry.get("template_kind")
         expected_review_guide = review_guide_by_kind.get(template_kind, "docs/EVAL_REVIEW_GUIDE.md")
@@ -9057,6 +15492,2001 @@ def validate_eval_report_index(repo_root: Path) -> list[ValidationIssue]:
     return issues
 
 
+def markdown_heading_section(text: str, heading: str) -> str:
+    marker = f"### {heading}"
+    heading_level = 3
+    start = text.find(marker)
+    if start == -1:
+        marker = f"## {heading}"
+        heading_level = 2
+        start = text.find(marker)
+    if start == -1:
+        return ""
+    next_h2 = text.find("\n## ", start + len(marker))
+    next_h3 = text.find("\n### ", start + len(marker)) if heading_level > 2 else -1
+    candidates = [index for index in (next_h2, next_h3) if index != -1]
+    end = min(candidates) if candidates else len(text)
+    return text[start:end]
+
+
+def markdown_table_rows(section: str) -> list[list[str]]:
+    rows: list[list[str]] = []
+    for line in section.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("|") or not stripped.endswith("|"):
+            continue
+        cells = [cell.strip() for cell in stripped.strip("|").split("|")]
+        if not cells:
+            continue
+        if cells[0] == "Parent":
+            continue
+        if all(set(cell.replace(" ", "")) <= {"-", ":"} for cell in cells):
+            continue
+        rows.append(cells)
+    return rows
+
+
+def mechanic_part_validation_block(readme_text: str) -> str:
+    return markdown_heading_section(readme_text, "Validation")
+
+
+def markdown_python_commands(section: str) -> list[str]:
+    commands: list[str] = []
+    commands.extend(re.findall(r"`(python3? [^`]+)`", section))
+    in_fence = False
+    for line in section.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if stripped.startswith("```"):
+            in_fence = not in_fence
+            continue
+        if stripped.startswith("#"):
+            continue
+        if stripped.startswith("$ "):
+            stripped = stripped[2:].strip()
+        if stripped.startswith("- "):
+            stripped = stripped[2:].strip()
+        if stripped.startswith("python ") or stripped.startswith("python3 "):
+            commands.append(stripped)
+    return list(dict.fromkeys(commands))
+
+
+SOURCE_SURFACE_CODE_REF_RE = re.compile(r"`([^`\n]+)`")
+SOURCE_SURFACE_FILE_REF_RE = re.compile(r"\.[A-Za-z0-9][A-Za-z0-9_.-]*$")
+
+
+def mechanic_part_source_surface_refs(readme_text: str) -> list[str]:
+    section = markdown_heading_section(readme_text, "Source Surfaces")
+    refs: list[str] = []
+    for match in SOURCE_SURFACE_CODE_REF_RE.finditer(section):
+        ref = match.group(1).strip()
+        if not ref:
+            continue
+        if source_surface_ref_is_path_like(ref):
+            refs.append(ref)
+    return list(dict.fromkeys(refs))
+
+
+def source_surface_ref_is_path_like(ref: str) -> bool:
+    return (
+        ref.startswith(("repo:", ".", "/"))
+        or "/" in ref
+        or "*" in ref
+        or "?" in ref
+        or "[" in ref
+        or SOURCE_SURFACE_FILE_REF_RE.search(ref) is not None
+    )
+
+
+def source_surface_ref_resolution_issue(repo_root: Path, ref: str) -> str | None:
+    if ref.startswith("repo:"):
+        return None
+    if ref.startswith(("http://", "https://")):
+        return None
+    if ref.startswith("/"):
+        return "source surface ref must be repo-relative or repo-qualified, not absolute"
+    if ".." in PurePosixPath(ref).parts:
+        return "source surface ref must not traverse outside the repository"
+    if "<" in ref or ">" in ref:
+        return None
+
+    if any(char in ref for char in "*?["):
+        if any(repo_root.glob(ref)):
+            return None
+        return "stale source surface ref must resolve as a repo-relative glob"
+
+    if (repo_root / ref.rstrip("/")).exists():
+        return None
+    return "stale source surface ref must resolve as a repo-relative path"
+
+
+MECHANIC_PART_SLUG_PATTERN = r"[a-z0-9][a-z0-9_.-]+"
+
+
+def mechanic_parts_index_declared_slugs(
+    parts_index_text: str,
+    parent_name: str,
+) -> set[str]:
+    declared: set[str] = set()
+
+    full_path_pattern = re.compile(
+        rf"mechanics/{re.escape(parent_name)}/parts/({MECHANIC_PART_SLUG_PATTERN})(?:/README\.md|/)"
+    )
+    declared.update(full_path_pattern.findall(parts_index_text))
+
+    relative_path_pattern = re.compile(
+        rf"(?:^|[^A-Za-z0-9_./-])parts/({MECHANIC_PART_SLUG_PATTERN})(?:/README\.md|/)",
+        re.MULTILINE,
+    )
+    declared.update(relative_path_pattern.findall(parts_index_text))
+
+    heading_pattern = re.compile(
+        rf"^###\s+`?({MECHANIC_PART_SLUG_PATTERN})`?\s*$",
+        re.MULTILINE,
+    )
+    declared.update(heading_pattern.findall(parts_index_text))
+
+    lines = parts_index_text.splitlines()
+    index = 0
+    while index < len(lines) - 1:
+        line = lines[index].strip()
+        next_line = lines[index + 1].strip()
+        if line.startswith("|") and next_line.startswith("|"):
+            header_cells = [cell.strip().lower() for cell in line.strip("|").split("|")]
+            separator_cells = [
+                cell.strip().replace(" ", "")
+                for cell in next_line.strip("|").split("|")
+            ]
+            is_separator = bool(separator_cells) and all(
+                set(cell) <= {"-", ":"} and "-" in cell for cell in separator_cells
+            )
+            if header_cells and "part" in header_cells[0] and is_separator:
+                row_index = index + 2
+                while row_index < len(lines) and lines[row_index].strip().startswith("|"):
+                    first_cell = lines[row_index].strip().strip("|").split("|")[0]
+                    declared.update(
+                        re.findall(rf"`({MECHANIC_PART_SLUG_PATTERN})`", first_cell)
+                    )
+                    row_index += 1
+                index = row_index
+                continue
+        index += 1
+
+    return declared
+
+
+def validation_command_referenced_paths(command: str) -> tuple[list[str], str | None]:
+    try:
+        parts = shlex.split(command)
+    except ValueError as exc:
+        return [], f"validation command cannot be parsed: {exc}"
+
+    if not parts:
+        return [], None
+
+    paths: list[str] = []
+    if (
+        len(parts) > 3
+        and parts[1] == "-m"
+        and parts[2] == "pytest"
+    ):
+        for token in parts[3:]:
+            if token.startswith("-") or token in {"and", "|"}:
+                continue
+            if token.endswith(".py") or "/" in token:
+                paths.append(token.split("::", 1)[0])
+        return paths, None
+
+    if len(parts) > 1:
+        first_arg = parts[1]
+        if first_arg.endswith(".py") or "/" in first_arg:
+            paths.append(first_arg)
+    return paths, None
+
+
+def part_payload_directories(part_root: Path) -> list[Path]:
+    return [
+        child
+        for child in sorted(part_root.iterdir(), key=lambda item: item.name)
+        if child.is_dir() and child.name in MECHANIC_PART_ALLOWED_PAYLOAD_DIRS
+    ]
+
+
+def validation_section_has_payload_coverage_anchor(
+    part_relative: str,
+    validation_section: str,
+    commands: Sequence[str],
+) -> bool:
+    part_prefix = f"{part_relative.rstrip('/')}/"
+    if any(part_prefix in command for command in commands):
+        return True
+    if any("scripts/validate_repo.py --eval " in command for command in commands):
+        return True
+
+    for match in SOURCE_SURFACE_CODE_REF_RE.finditer(validation_section):
+        ref = match.group(1).strip().rstrip("/")
+        if ref == part_relative or ref.startswith(part_prefix):
+            return True
+    return False
+
+
+def validate_mechanic_part_readme_contract_surfaces(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
+        parent_root = repo_root / "mechanics" / parent_name
+        parts_root = parent_root / "parts"
+        parts_index_name = f"mechanics/{parent_name}/PARTS.md"
+        if not parts_root.is_dir():
+            issues.append(
+                ValidationIssue(
+                    f"mechanics/{parent_name}/parts",
+                    "active mechanic parent must expose a parts/ directory",
+                )
+            )
+            continue
+
+        parts_index_text = read_text_or_issue(
+            repo_root / parts_index_name,
+            issues,
+            root=repo_root,
+        )
+
+        for path in sorted(parts_root.iterdir(), key=lambda item: item.name):
+            relative = path.relative_to(repo_root).as_posix()
+            if path.is_file():
+                if path.name != "README.md":
+                    issues.append(
+                        ValidationIssue(
+                            relative,
+                            "unexpected mechanics parts root file must be a route README or a part directory",
+                        )
+                    )
+                continue
+            if not path.is_dir():
+                issues.append(
+                    ValidationIssue(
+                        relative,
+                        "unexpected mechanics parts root entry must be a part directory",
+                    )
+                )
+                continue
+
+            readme_name = f"{relative}/README.md"
+            readme_text = read_text_or_issue(
+                repo_root / readme_name,
+                issues,
+                root=repo_root,
+            )
+            route_tokens = (
+                readme_name,
+                f"parts/{path.name}/README.md",
+                f"`{path.name}`",
+            )
+            if parts_index_text and not any(token in parts_index_text for token in route_tokens):
+                issues.append(
+                    ValidationIssue(
+                        parts_index_name,
+                        f"parent PARTS.md must route concrete part `{readme_name}` by README path or exact part slug",
+                    )
+                )
+            require_tokens(
+                repo_root=repo_root,
+                path_name=readme_name,
+                tokens=MECHANIC_PART_README_REQUIRED_TOKENS,
+                issues=issues,
+            )
+            source_refs = mechanic_part_source_surface_refs(readme_text)
+            if readme_text and "## Source Surfaces" in readme_text and not source_refs:
+                issues.append(
+                    ValidationIssue(
+                        readme_name,
+                        "part README Source Surfaces must name at least one path-like source ref",
+                    )
+                )
+            for ref in source_refs:
+                ref_issue = source_surface_ref_resolution_issue(repo_root, ref)
+                if ref_issue is not None:
+                    issues.append(
+                        ValidationIssue(
+                            readme_name,
+                            f"{ref_issue}: `{ref}`",
+                        )
+                    )
+            payload_dir_count = 0
+            for child in sorted(path.iterdir(), key=lambda item: item.name):
+                child_relative = child.relative_to(repo_root).as_posix()
+                if child.is_file():
+                    if child.name not in {"AGENTS.md", "README.md"}:
+                        issues.append(
+                            ValidationIssue(
+                                child_relative,
+                                "unexpected part-root file must move under a payload subdirectory or be routed by the part contract",
+                            )
+                        )
+                    continue
+                if not child.is_dir():
+                    issues.append(
+                        ValidationIssue(
+                            child_relative,
+                            "unexpected part-root entry must be a payload subdirectory",
+                        )
+                    )
+                    continue
+                if child.name not in MECHANIC_PART_ALLOWED_PAYLOAD_DIRS:
+                    issues.append(
+                        ValidationIssue(
+                            child_relative,
+                            "unexpected payload class directory under mechanic part",
+                        )
+                    )
+                    continue
+                payload_dir_count += 1
+                if not any(child.iterdir()):
+                    issues.append(
+                        ValidationIssue(
+                            child_relative,
+                            "empty payload subdirectory under mechanic part",
+                        )
+                    )
+                    continue
+                if readme_text:
+                    payload_tokens = (
+                        f"{child.name}/",
+                        f"`{child.name}`",
+                        child_relative,
+                    )
+                    if not any(token in readme_text for token in payload_tokens):
+                        issues.append(
+                            ValidationIssue(
+                                readme_name,
+                                f"part README must route payload subdirectory `{child.name}/`",
+                            )
+                        )
+            if payload_dir_count == 0 and readme_text:
+                missing_thin_tokens = [
+                    token
+                    for token in MECHANIC_THIN_PART_REQUIRED_TOKENS
+                    if token not in readme_text
+                ]
+                if missing_thin_tokens:
+                    issues.append(
+                        ValidationIssue(
+                            readme_name,
+                            "mechanic part with no payload subdirectories must "
+                            "declare a bundle-backed thin support route; missing "
+                            + ", ".join(repr(token) for token in missing_thin_tokens),
+                        )
+                    )
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME,
+        tokens=MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME,
+            "Mechanic Part Payload Inventory",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_README_NAME,
+        tokens=("payload subdirectory", "mechanic part"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("payload subdirectory", "unexpected payload class"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("Mechanic Part Payload Inventory", "payload subdirectory"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_NAME,
+        tokens=MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_NAME,
+            "Mechanic Part Source Surface Reference Guard",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_README_NAME,
+        tokens=("Source Surfaces", "stale source surface ref"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("Source Surfaces", "repo-relative path"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("Mechanic Part Source Surface Reference Guard", "stale source surface ref"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_PART_SOURCE_SURFACES_SECTION_DECISION_NAME,
+        tokens=MECHANIC_PART_SOURCE_SURFACES_SECTION_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_PART_SOURCE_SURFACES_SECTION_DECISION_NAME,
+            "Mechanic Part Source Surfaces Section Contract",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_README_NAME,
+        tokens=("## Source Surfaces", "at least one path-like source ref"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("Source Surfaces", "plural section"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("Mechanic Part Source Surfaces Section Contract", "plural section"),
+        issues=issues,
+    )
+
+    return issues
+
+
+def validate_mechanic_parts_index_sync_surfaces(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
+        parent_root = repo_root / "mechanics" / parent_name
+        parts_root = parent_root / "parts"
+        parts_index_name = f"mechanics/{parent_name}/PARTS.md"
+        if not parts_root.is_dir():
+            continue
+
+        actual_parts = {
+            path.name
+            for path in parts_root.iterdir()
+            if path.is_dir()
+        }
+        parts_index_text = read_text_or_issue(
+            repo_root / parts_index_name,
+            issues,
+            root=repo_root,
+        )
+        if not parts_index_text:
+            continue
+
+        declared_parts = mechanic_parts_index_declared_slugs(
+            parts_index_text,
+            parent_name,
+        )
+        for part_name in sorted(actual_parts - declared_parts):
+            issues.append(
+                ValidationIssue(
+                    parts_index_name,
+                    f"parent PARTS.md must declare actual part directory `{part_name}` as a local part route",
+                )
+            )
+        for part_name in sorted(declared_parts - actual_parts):
+            issues.append(
+                ValidationIssue(
+                    parts_index_name,
+                    f"parent PARTS.md declares stale local part route `{part_name}` with no matching actual part directory",
+                )
+            )
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_PARTS_INDEX_SYNC_DECISION_NAME,
+        tokens=MECHANIC_PARTS_INDEX_SYNC_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_PARTS_INDEX_SYNC_DECISION_NAME,
+            "Mechanic PARTS Index Synchronization",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_README_NAME,
+        tokens=("declared part route", "stale local part route"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("actual part directory", "cross-parent reference"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("Mechanic PARTS Index Synchronization", "stale local part route"),
+        issues=issues,
+    )
+
+    return issues
+
+
+MECHANIC_LEGACY_ACTIVE_DIRECT_REF_RE = re.compile(
+    r"(?:mechanics/[a-z0-9-]+/)?legacy/(?:README\.md|INDEX\.md|DISTILLATION_LOG\.md|raw(?:/|`|\)|\]|\s|$))"
+    r"|raw/README\.md"
+)
+MECHANIC_LEGACY_ACTIVE_SURFACE_SUFFIXES = (".md", ".json", ".yaml", ".yml", ".py")
+MECHANIC_PROVENANCE_ARCHIVE_DETAIL_RE = re.compile(
+    r"legacy/(?:INDEX\.md|DISTILLATION_LOG\.md|raw(?:/|`|\)|\]|\s|$))"
+    r"|raw/README\.md"
+)
+
+
+def validate_mechanic_legacy_single_bridge_surfaces(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
+        parent_root = repo_root / "mechanics" / parent_name
+        if not parent_root.is_dir():
+            continue
+
+        for path in sorted(parent_root.rglob("*")):
+            if not path.is_file() or path.suffix not in MECHANIC_LEGACY_ACTIVE_SURFACE_SUFFIXES:
+                continue
+            relative_parts = path.relative_to(parent_root).parts
+            if "legacy" in relative_parts:
+                continue
+            text = read_text_or_issue(path, issues, root=repo_root)
+            if text is None:
+                continue
+            if path.name == "PROVENANCE.md":
+                for match in MECHANIC_PROVENANCE_ARCHIVE_DETAIL_RE.finditer(text):
+                    issues.append(
+                        ValidationIssue(
+                            path.relative_to(repo_root).as_posix(),
+                            f"PROVENANCE.md must bridge to legacy/README.md without carrying archive detail `{match.group(0)}`",
+                        )
+                    )
+                continue
+            for match in MECHANIC_LEGACY_ACTIVE_DIRECT_REF_RE.finditer(text):
+                issues.append(
+                    ValidationIssue(
+                        path.relative_to(repo_root).as_posix(),
+                        f"active mechanic surface must route legacy archive details through PROVENANCE.md, not direct `{match.group(0)}`",
+                    )
+                )
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_NAME,
+        tokens=MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_NAME,
+            "Mechanic Legacy Single Bridge",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_README_NAME,
+        tokens=("single controlled bridge", "active mechanic surfaces", "legacy archive"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("single controlled bridge", "active mechanic surfaces", "legacy archive"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=LEGACY_NAMING_NAME,
+        tokens=("single controlled bridge", "active mechanic surfaces", "legacy archive"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("Mechanic Legacy Single Bridge", "single controlled bridge", "active mechanic surfaces"),
+        issues=issues,
+    )
+
+    return issues
+
+
+def validate_mechanic_part_validation_command_surfaces(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
+        parts_root = repo_root / "mechanics" / parent_name / "parts"
+        if not parts_root.is_dir():
+            continue
+
+        for part_root in sorted(parts_root.iterdir(), key=lambda item: item.name):
+            if not part_root.is_dir():
+                continue
+            readme_name = part_root.relative_to(repo_root).as_posix() + "/README.md"
+            readme_text = read_text_or_issue(
+                repo_root / readme_name,
+                issues,
+                root=repo_root,
+            )
+            if not readme_text:
+                continue
+
+            validation_section = mechanic_part_validation_block(readme_text)
+            commands = markdown_python_commands(validation_section)
+            if not commands:
+                issues.append(
+                    ValidationIssue(
+                        readme_name,
+                        "part README validation section must list at least one python command",
+                    )
+                )
+                continue
+
+            part_relative = part_root.relative_to(repo_root).as_posix()
+            if part_payload_directories(part_root) and not validation_section_has_payload_coverage_anchor(
+                part_relative,
+                validation_section,
+                commands,
+            ):
+                issues.append(
+                    ValidationIssue(
+                        readme_name,
+                        "part README validation section must include a payload coverage anchor, such as a part-local path or specific `python scripts/validate_repo.py --eval ...`; naked route-wide commands are not enough for parts with payload",
+                    )
+                )
+
+            for command in commands:
+                command_paths, parse_issue = validation_command_referenced_paths(command)
+                if parse_issue:
+                    issues.append(ValidationIssue(readme_name, parse_issue))
+                    continue
+                for command_path in command_paths:
+                    if any(token in command_path for token in ("*", "?", "[")):
+                        continue
+                    if command_path.startswith("/"):
+                        issues.append(
+                            ValidationIssue(
+                                readme_name,
+                                f"validation command must use repo-relative path, not absolute path `{command_path}`",
+                            )
+                        )
+                        continue
+                    if not (repo_root / command_path).exists():
+                        issues.append(
+                            ValidationIssue(
+                                readme_name,
+                                f"part README validation command has stale validation path `{command_path}`",
+                            )
+                        )
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME,
+        tokens=MECHANIC_PART_VALIDATION_COMMAND_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME,
+            "Mechanic Part Validation Command Reachability",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_README_NAME,
+        tokens=("payload coverage anchor", "stale validation path"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("part validation command", "payload coverage anchor"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("Mechanic Part Validation Command Reachability", "payload coverage anchor"),
+        issues=issues,
+    )
+
+    return issues
+
+
+def validate_mechanic_parent_class_map(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    active_parents = set(ACTIVE_MECHANIC_PARENT_NAMES)
+    aoa_parents = set(AOA_ALIGNED_MECHANIC_PARENT_NAMES)
+    evals_native_parents = set(EVALS_NATIVE_MECHANIC_PARENT_NAMES)
+
+    overlap = sorted(aoa_parents & evals_native_parents)
+    if overlap:
+        issues.append(
+            ValidationIssue(
+                "scripts/validate_repo.py",
+                "mechanic parent class sets must be disjoint: " + ", ".join(overlap),
+            )
+        )
+
+    missing = sorted(active_parents - (aoa_parents | evals_native_parents))
+    extra = sorted((aoa_parents | evals_native_parents) - active_parents)
+    if missing:
+        issues.append(
+            ValidationIssue(
+                "scripts/validate_repo.py",
+                "active mechanic parents missing from class sets: " + ", ".join(missing),
+            )
+        )
+    if extra:
+        issues.append(
+            ValidationIssue(
+                "scripts/validate_repo.py",
+                "mechanic class sets contain non-active parents: " + ", ".join(extra),
+            )
+        )
+
+    text = read_text_or_issue(repo_root / MECHANICS_EVIDENCE_CLUSTERS_NAME, issues, root=repo_root)
+    if not text:
+        return issues
+    if "currently plausible" in text:
+        issues.append(
+            ValidationIssue(
+                MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                "active mechanic parents must be described as active allowlisted parents, not merely plausible candidates",
+            )
+        )
+    for token in ("owner-named evals-native", "`aoa-agents` keeps stronger Titan law"):
+        if token not in text:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"mechanics evidence cluster map must mention {token!r}",
+                )
+            )
+
+    aoa_section = markdown_heading_section(text, "AoA-aligned parents")
+    evals_native_section = markdown_heading_section(text, "Evals-native parents")
+    dimension_section = markdown_heading_section(
+        text, "Active Parent Evidence Dimension Ledger"
+    )
+    route_refs_section = markdown_heading_section(
+        text, MECHANIC_EVIDENCE_ROUTE_REFS_SECTION
+    )
+    wrong_parent_section = markdown_heading_section(text, "Former Wrong Parent Forms")
+    for section_name, section_text in (
+        ("Active Parent Evidence Dimension Ledger", dimension_section),
+        (MECHANIC_EVIDENCE_ROUTE_REFS_SECTION, route_refs_section),
+        ("AoA-aligned parents", aoa_section),
+        ("Evals-native parents", evals_native_section),
+        ("Former Wrong Parent Forms", wrong_parent_section),
+    ):
+        if not section_text:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"mechanics evidence cluster map must contain section {section_name!r}",
+                )
+            )
+
+    for token in MECHANIC_EVIDENCE_DIMENSION_LEDGER_REQUIRED_TOKENS:
+        if token not in dimension_section:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"mechanics evidence dimension ledger must mention {token!r}",
+                )
+            )
+
+    for token in MECHANIC_EVIDENCE_ROUTE_REFS_REQUIRED_TOKENS:
+        if token not in route_refs_section:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"mechanics evidence route refs ledger must mention {token!r}",
+                )
+            )
+
+    expected_class_by_parent = {
+        parent_name: "AoA-aligned" for parent_name in AOA_ALIGNED_MECHANIC_PARENT_NAMES
+    }
+    expected_class_by_parent.update(
+        {parent_name: "evals-native" for parent_name in EVALS_NATIVE_MECHANIC_PARENT_NAMES}
+    )
+    ledger_rows: dict[str, list[str]] = {}
+    for cells in markdown_table_rows(dimension_section):
+        parent_cell = cells[0] if cells else ""
+        parent_name = parent_cell.strip("`")
+        if parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
+            if parent_name in ledger_rows:
+                issues.append(
+                    ValidationIssue(
+                        MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                        f"active parent `{parent_name}` must appear only once in the evidence dimension ledger",
+                    )
+                )
+            ledger_rows[parent_name] = cells
+            if len(cells) != len(MECHANIC_EVIDENCE_DIMENSION_LEDGER_COLUMNS):
+                issues.append(
+                    ValidationIssue(
+                        MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                        f"evidence dimension ledger row for `{parent_name}` must have {len(MECHANIC_EVIDENCE_DIMENSION_LEDGER_COLUMNS)} columns",
+                    )
+                )
+                continue
+            expected_class = expected_class_by_parent[parent_name]
+            if cells[1] != expected_class:
+                issues.append(
+                    ValidationIssue(
+                        MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                        f"evidence dimension ledger row for `{parent_name}` must use class `{expected_class}`",
+                    )
+                )
+            for column_name, cell in zip(
+                MECHANIC_EVIDENCE_DIMENSION_LEDGER_COLUMNS[2:],
+                cells[2:],
+                strict=True,
+            ):
+                if not cell or cell.lower() in {"-", "n/a", "todo", "tbd"}:
+                    issues.append(
+                        ValidationIssue(
+                            MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                            f"evidence dimension ledger row for `{parent_name}` must fill `{column_name}`",
+                        )
+                    )
+
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
+        if parent_name not in ledger_rows:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"active parent `{parent_name}` must appear in the evidence dimension ledger",
+                )
+            )
+
+    route_ref_rows: dict[str, list[str]] = {}
+    for cells in markdown_table_rows(route_refs_section):
+        parent_cell = cells[0] if cells else ""
+        parent_name = parent_cell.strip("`")
+        if parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
+            if parent_name in route_ref_rows:
+                issues.append(
+                    ValidationIssue(
+                        MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                        f"active parent `{parent_name}` must appear only once in the evidence route refs ledger",
+                    )
+                )
+            route_ref_rows[parent_name] = cells
+            if len(cells) != len(MECHANIC_EVIDENCE_ROUTE_REFS_COLUMNS):
+                issues.append(
+                    ValidationIssue(
+                        MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                        f"evidence route refs row for `{parent_name}` must have {len(MECHANIC_EVIDENCE_ROUTE_REFS_COLUMNS)} columns",
+                    )
+                )
+                continue
+            route_refs = [
+                match.group(1).strip()
+                for match in SOURCE_SURFACE_CODE_REF_RE.finditer(cells[1])
+                if source_surface_ref_is_path_like(match.group(1).strip())
+            ]
+            route_refs = list(dict.fromkeys(route_refs))
+            if len(route_refs) < MECHANIC_EVIDENCE_ROUTE_REFS_MIN_COUNT:
+                issues.append(
+                    ValidationIssue(
+                        MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                        f"evidence route refs row for `{parent_name}` must name at least {MECHANIC_EVIDENCE_ROUTE_REFS_MIN_COUNT} path-like route refs",
+                    )
+                )
+            parent_prefix = f"mechanics/{parent_name}/"
+            if not any(ref.startswith(parent_prefix) for ref in route_refs):
+                issues.append(
+                    ValidationIssue(
+                        MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                        f"evidence route refs row for `{parent_name}` must include an active parent route under `{parent_prefix}`",
+                    )
+                )
+            if not any(not ref.startswith("mechanics/") for ref in route_refs):
+                issues.append(
+                    ValidationIssue(
+                        MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                        f"evidence route refs row for `{parent_name}` must include at least one non-mechanics route ref",
+                    )
+                )
+            living_non_mechanics_refs = [
+                ref
+                for ref in route_refs
+                if not ref.startswith("mechanics/")
+                and ref not in MECHANIC_EVIDENCE_ROUTE_REFS_FORBIDDEN_GENERIC_REFS
+                and not any(
+                    ref.startswith(prefix)
+                    for prefix in MECHANIC_EVIDENCE_ROUTE_REFS_RATIONALE_ONLY_PREFIXES
+                )
+            ]
+            if not living_non_mechanics_refs:
+                issues.append(
+                    ValidationIssue(
+                        MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                        f"evidence route refs row for `{parent_name}` must include living non-mechanics evidence; rationale-only decision refs are not enough",
+                    )
+                )
+            for ref in route_refs:
+                if ref in MECHANIC_EVIDENCE_ROUTE_REFS_FORBIDDEN_GENERIC_REFS:
+                    issues.append(
+                        ValidationIssue(
+                            MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                            f"evidence route refs row for `{parent_name}` must not use generic root validator route `{ref}` as parent evidence",
+                        )
+                    )
+                if ref.startswith("repo:") or "<" in ref or ">" in ref:
+                    issues.append(
+                        ValidationIssue(
+                            MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                            f"evidence route refs row for `{parent_name}` must use concrete local repo-relative route refs, not `{ref}`",
+                        )
+                    )
+                    continue
+                ref_issue = source_surface_ref_resolution_issue(repo_root, ref)
+                if ref_issue is not None:
+                    issues.append(
+                        ValidationIssue(
+                            MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                            f"evidence route refs row for `{parent_name}` has stale route ref: {ref_issue}: `{ref}`",
+                        )
+                    )
+
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
+        if parent_name not in route_ref_rows:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"active parent `{parent_name}` must appear in the evidence route refs ledger",
+                )
+            )
+
+    for parent_name in AOA_ALIGNED_MECHANIC_PARENT_NAMES:
+        row_token = f"| `{parent_name}` |"
+        if row_token not in aoa_section:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"AoA-aligned parent `{parent_name}` must appear in the AoA-aligned table",
+                )
+            )
+        if row_token in evals_native_section:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"AoA-aligned parent `{parent_name}` must not appear in the evals-native table",
+                )
+            )
+
+    for parent_name in EVALS_NATIVE_MECHANIC_PARENT_NAMES:
+        row_token = f"| `{parent_name}` |"
+        if row_token not in evals_native_section:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"evals-native parent `{parent_name}` must appear in the evals-native table",
+                )
+            )
+        if row_token in aoa_section:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"evals-native parent `{parent_name}` must not appear in the AoA-aligned table",
+                )
+            )
+
+    for wrong_parent, correct_route in FORMER_WRONG_MECHANIC_PARENT_ROUTES:
+        row_token = f"| `{wrong_parent}` | `{correct_route}` |"
+        if row_token not in wrong_parent_section:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"former wrong parent `{wrong_parent}` must map to `{correct_route}`",
+                )
+            )
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_NAME,
+        tokens=MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME,
+        tokens=MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_NAME,
+            "Mechanic Evidence Dimension Ledger",
+            MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME,
+            "Mechanic Evidence Route Refs",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_README_NAME,
+        tokens=(
+            "Active Parent Evidence Dimension Ledger",
+            MECHANIC_EVIDENCE_ROUTE_REFS_SECTION,
+            "meaning/doctrine",
+            "owner-named evals-native",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=(
+            "Active Parent Evidence Dimension Ledger",
+            MECHANIC_EVIDENCE_ROUTE_REFS_SECTION,
+            "owner split and stop-lines",
+            "owner-named evals-native",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=(
+            "Active Parent Evidence Dimension Ledger",
+            "Mechanic Evidence Route Refs",
+            "contracts/payloads",
+        ),
+        issues=issues,
+    )
+
+    return issues
+
+
+def validate_mechanic_root_district_recon_surfaces(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    text = read_text_or_issue(
+        repo_root / MECHANICS_EVIDENCE_CLUSTERS_NAME,
+        issues,
+        root=repo_root,
+    )
+    if not text:
+        return issues
+
+    recon_section = markdown_heading_section(
+        text, "Root District Reconnaissance Ledger"
+    )
+    if not recon_section:
+        issues.append(
+            ValidationIssue(
+                MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                "mechanics evidence cluster map must contain section 'Root District Reconnaissance Ledger'",
+            )
+        )
+
+    for token in MECHANIC_ROOT_DISTRICT_RECON_REQUIRED_TOKENS:
+        if token not in recon_section:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"mechanic root-district reconnaissance must mention {token!r}",
+                )
+            )
+
+    recon_rows: dict[str, list[str]] = {}
+    for cells in markdown_table_rows(recon_section):
+        district_cell = cells[0] if cells else ""
+        district_name = district_cell.strip("`")
+        if district_name not in MECHANIC_ROOT_DISTRICT_RECON_REQUIRED_DISTRICTS:
+            continue
+        if district_name in recon_rows:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"root district `{district_name}` must appear only once in the reconnaissance ledger",
+                )
+            )
+        recon_rows[district_name] = cells
+        if len(cells) != len(MECHANIC_ROOT_DISTRICT_RECON_COLUMNS):
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"root district `{district_name}` reconnaissance row must have {len(MECHANIC_ROOT_DISTRICT_RECON_COLUMNS)} columns",
+                )
+            )
+            continue
+        for column_name, cell in zip(
+            MECHANIC_ROOT_DISTRICT_RECON_COLUMNS[1:],
+            cells[1:],
+            strict=True,
+        ):
+            if not cell or cell.lower() in {"-", "n/a", "todo", "tbd"}:
+                issues.append(
+                    ValidationIssue(
+                        MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                        f"root district `{district_name}` reconnaissance row must fill `{column_name}`",
+                    )
+                )
+        row_text = " | ".join(cells)
+        for token in MECHANIC_ROOT_DISTRICT_RECON_ROW_REQUIRED_TOKENS[district_name]:
+            if token not in row_text:
+                issues.append(
+                    ValidationIssue(
+                        MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                        f"root district `{district_name}` reconnaissance row must mention '{token}'",
+                    )
+                )
+        if (
+            district_name in MECHANIC_ROOT_DISTRICT_RECON_ROUTE_CARD_ONLY_DISTRICTS
+            and "route-card-only" not in row_text
+        ):
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"root district `{district_name}` reconnaissance row must preserve route-card-only posture",
+                )
+            )
+
+    for district_name in MECHANIC_ROOT_DISTRICT_RECON_REQUIRED_DISTRICTS:
+        if district_name not in recon_rows:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"root district `{district_name}` must appear in the reconnaissance ledger",
+                )
+            )
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_ROOT_DISTRICT_RECON_DECISION_NAME,
+        tokens=MECHANIC_ROOT_DISTRICT_RECON_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_ROOT_DISTRICT_RECON_DECISION_NAME,
+            "Mechanic Root-district Reconnaissance",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_README_NAME,
+        tokens=("Root District Reconnaissance Ledger", "root-district"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("Root District Reconnaissance Ledger", "mechanic-owned payload"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("Root District Reconnaissance Ledger", "route-card-only"),
+        issues=issues,
+    )
+
+    return issues
+
+
+def validate_root_authored_surface_classification(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    text = read_text_or_issue(
+        repo_root / MECHANICS_EVIDENCE_CLUSTERS_NAME,
+        issues,
+        root=repo_root,
+    )
+    if not text:
+        return issues
+
+    section = markdown_heading_section(
+        text, ROOT_AUTHORED_SURFACE_CLASSIFICATION_SECTION
+    )
+    if not section:
+        issues.append(
+            ValidationIssue(
+                MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                f"mechanics evidence cluster map must contain section {ROOT_AUTHORED_SURFACE_CLASSIFICATION_SECTION!r}",
+            )
+        )
+
+    for token in ROOT_AUTHORED_SURFACE_CLASSIFICATION_REQUIRED_TOKENS:
+        if token not in section:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"root-authored surface classification must mention {token!r}",
+                )
+            )
+
+    expected_surfaces = {
+        f"{district_name}/{file_name}"
+        for district_name, file_names in ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS.items()
+        for file_name in file_names
+    }
+    actual_surfaces: set[str] = set()
+    for district_name, allowed_names in ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS.items():
+        district = repo_root / district_name
+        if not district.is_dir():
+            issues.append(
+                ValidationIssue(
+                    district_name,
+                    "classified root-authored district is missing",
+                )
+            )
+            continue
+        allowed = set(allowed_names)
+        actual_names = {
+            path.name
+            for path in district.iterdir()
+            if path.is_file()
+        }
+        for file_name in sorted(actual_names - allowed):
+            issues.append(
+                ValidationIssue(
+                    f"{district_name}/{file_name}",
+                    "unclassified root-authored surface must be routed, moved, or added to the residual classification ledger",
+                )
+            )
+        for file_name in sorted(allowed - actual_names):
+            issues.append(
+                ValidationIssue(
+                    f"{district_name}/{file_name}",
+                    "classified root-authored surface is missing; update the residual classification ledger if it moved",
+                )
+            )
+        actual_surfaces.update(
+            f"{district_name}/{file_name}"
+            for file_name in actual_names
+            if file_name in allowed
+        )
+
+    ledger_rows: dict[str, list[str]] = {}
+    for cells in markdown_table_rows(section):
+        if not cells or cells[0] == "Surface":
+            continue
+        surface_name = cells[0].strip("`")
+        if surface_name not in expected_surfaces:
+            continue
+        if surface_name in ledger_rows:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"root-authored surface `{surface_name}` must appear only once in the residual classification ledger",
+                )
+            )
+        ledger_rows[surface_name] = cells
+        if len(cells) != len(ROOT_AUTHORED_SURFACE_CLASSIFICATION_COLUMNS):
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"root-authored surface `{surface_name}` row must have {len(ROOT_AUTHORED_SURFACE_CLASSIFICATION_COLUMNS)} columns",
+                )
+            )
+            continue
+        for column_name, cell in zip(
+            ROOT_AUTHORED_SURFACE_CLASSIFICATION_COLUMNS[1:],
+            cells[1:],
+            strict=True,
+        ):
+            if not cell or cell.lower() in {"-", "n/a", "todo", "tbd"}:
+                issues.append(
+                    ValidationIssue(
+                        MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                        f"root-authored surface `{surface_name}` row must fill `{column_name}`",
+                    )
+                )
+        row_text = " | ".join(cells)
+        if "mechanic-owned payload" not in row_text:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"root-authored surface `{surface_name}` row must state its mechanic-owned payload boundary",
+                )
+            )
+        if "root-owned" not in row_text:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"root-authored surface `{surface_name}` row must state its root-owned role",
+                )
+            )
+
+    for surface_name in sorted(expected_surfaces):
+        if surface_name not in ledger_rows:
+            issues.append(
+                ValidationIssue(
+                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
+                    f"root-authored surface `{surface_name}` must appear in the residual classification ledger",
+                )
+            )
+
+    for surface_name in sorted(actual_surfaces - expected_surfaces):
+        issues.append(
+            ValidationIssue(
+                surface_name,
+                "unclassified root-authored surface must not remain in root districts",
+            )
+        )
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROOT_AUTHORED_SURFACE_CLASSIFICATION_DECISION_NAME,
+        tokens=ROOT_AUTHORED_SURFACE_CLASSIFICATION_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            ROOT_AUTHORED_SURFACE_CLASSIFICATION_DECISION_NAME,
+            "Root-authored Surface Classification",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=(ROOT_AUTHORED_SURFACE_CLASSIFICATION_SECTION, "unclassified root-authored surface"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=(ROOT_AUTHORED_SURFACE_CLASSIFICATION_SECTION, "mechanic-owned payload"),
+        issues=issues,
+    )
+
+    return issues
+
+
+def validate_mechanic_legacy_raw_payload_accounting(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
+        legacy_root = repo_root / "mechanics" / parent_name / "legacy"
+        raw_root = legacy_root / "raw"
+        if not raw_root.is_dir():
+            continue
+
+        index_path = legacy_root / "INDEX.md"
+        log_path = legacy_root / "DISTILLATION_LOG.md"
+        if not index_path.is_file() or not log_path.is_file():
+            continue
+
+        accounting_text = (
+            index_path.read_text(encoding="utf-8")
+            + "\n"
+            + log_path.read_text(encoding="utf-8")
+        )
+        index_text = index_path.read_text(encoding="utf-8")
+
+        for path in sorted(raw_root.rglob("*")):
+            if not path.is_file() or path.name == "README.md":
+                continue
+            legacy_relative = path.relative_to(legacy_root).as_posix()
+            if legacy_relative not in accounting_text and path.name not in accounting_text:
+                issues.append(
+                    ValidationIssue(
+                        path.relative_to(repo_root).as_posix(),
+                        "legacy raw payload must be referenced by the archive-local index or accounting log",
+                    )
+                )
+                continue
+
+            raw_index_lines = [
+                line
+                for line in index_text.splitlines()
+                if legacy_relative in line or path.name in line
+            ]
+            if not raw_index_lines:
+                issues.append(
+                    ValidationIssue(
+                        path.relative_to(repo_root).as_posix(),
+                        "legacy raw payload must have an archive-local INDEX.md row that maps it to a current active route",
+                    )
+                )
+                continue
+
+            active_part_route = f"mechanics/{parent_name}/parts/"
+            package_wide_route = (
+                f"mechanics/{parent_name}/DIRECTION.md",
+                f"mechanics/{parent_name}/PARTS.md",
+            )
+            has_active_route = any(
+                "/legacy/" not in line
+                and (
+                    active_part_route in line
+                    or all(route in line for route in package_wide_route)
+                )
+                for line in raw_index_lines
+            )
+            if not has_active_route:
+                issues.append(
+                    ValidationIssue(
+                        path.relative_to(repo_root).as_posix(),
+                        "legacy raw payload INDEX.md row must map to a current active part route or package-wide DIRECTION/PARTS route, not only a raw-only archive route",
+                    )
+                )
+
+    return issues
+
+
+def validate_mechanic_provenance_entry_surfaces(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for path_name in MECHANIC_PROVENANCE_FILES:
+        require_tokens(
+            repo_root=repo_root,
+            path_name=path_name,
+            tokens=MECHANIC_PROVENANCE_ENTRY_REQUIRED_TOKENS,
+            issues=issues,
+        )
+        text = read_text_or_issue(repo_root / path_name, issues, root=repo_root)
+        if text:
+            for match in MECHANIC_PROVENANCE_ARCHIVE_DETAIL_RE.finditer(text):
+                issues.append(
+                    ValidationIssue(
+                        path_name,
+                        f"PROVENANCE.md must bridge to legacy/README.md without carrying archive detail `{match.group(0)}`",
+                    )
+                )
+
+    return issues
+
+
+def validate_mechanic_provenance_bridge_posture_surfaces(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for path_name in MECHANIC_PROVENANCE_FILES:
+        require_tokens(
+            repo_root=repo_root,
+            path_name=path_name,
+            tokens=MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS,
+            issues=issues,
+        )
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_PROVENANCE_BRIDGE_POSTURE_DECISION_NAME,
+        tokens=MECHANIC_PROVENANCE_BRIDGE_POSTURE_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_PROVENANCE_BRIDGE_POSTURE_DECISION_NAME,
+            "Mechanic Provenance Bridge Posture",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_README_NAME,
+        tokens=(
+            "`PROVENANCE.md` is a bridge, not an active route.",
+            "Use active surfaces first:",
+            "legacy archive",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=(
+            "`PROVENANCE.md` is a bridge, not an active route.",
+            "Use active surfaces first:",
+            "legacy archive",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=LEGACY_NAMING_NAME,
+        tokens=(
+            "`PROVENANCE.md` is a bridge, not an active route.",
+            "Use active surfaces first:",
+            "legacy archive",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="DESIGN.md",
+        tokens=(
+            "single controlled bridge",
+            "bridge, not an active route",
+            "legacy archive",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=(
+            "Mechanic Provenance Bridge Posture",
+            "bridge, not an active route",
+        ),
+        issues=issues,
+    )
+
+    return issues
+
+
+def validate_mechanic_parent_direction_surfaces(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for path_name in MECHANIC_DIRECTION_FILES:
+        require_tokens(
+            repo_root=repo_root,
+            path_name=path_name,
+            tokens=MECHANIC_DIRECTION_REQUIRED_TOKENS,
+            issues=issues,
+        )
+
+    for path_name in MECHANIC_PARENT_README_FILES:
+        require_tokens(
+            repo_root=repo_root,
+            path_name=path_name,
+            tokens=MECHANIC_PARENT_README_DIRECTION_ROUTE_REQUIRED_TOKENS,
+            issues=issues,
+        )
+
+    for parent_name, path_name in zip(
+        ACTIVE_MECHANIC_PARENT_NAMES,
+        MECHANIC_PARENT_AGENTS_FILES,
+        strict=True,
+    ):
+        require_tokens(
+            repo_root=repo_root,
+            path_name=path_name,
+            tokens=(
+                *MECHANIC_PARENT_AGENTS_DIRECTION_ROUTE_REQUIRED_TOKENS,
+                f"`mechanics/{parent_name}/DIRECTION.md`",
+                f"`mechanics/{parent_name}/PARTS.md`",
+                f"`mechanics/{parent_name}/PROVENANCE.md`",
+            ),
+            issues=issues,
+        )
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_PARENT_DIRECTION_DECISION_NAME,
+        tokens=MECHANIC_PARENT_DIRECTION_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_PARENT_DIRECTION_DECISION_NAME,
+            "Mechanic Parent Direction Contract",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=("Mechanic parent direction", "`DIRECTION.md`"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=LEGACY_NAMING_NAME,
+        tokens=("DIRECTION.md", "current operating direction"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ROADMAP_NAME,
+        tokens=("mechanic parent direction", "DIRECTION.md"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_README_NAME,
+        tokens=("DIRECTION.md", "current operating direction", "Entry Route"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_AGENTS_NAME,
+        tokens=("target package `DIRECTION.md`", "current operating direction"),
+        issues=issues,
+    )
+    return issues
+
+
+def validate_mechanic_parent_guidance_boundary(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
+        parent_root = repo_root / "mechanics" / parent_name
+        if not parent_root.is_dir():
+            continue
+
+        allowed_guidance_docs = MECHANIC_PARENT_GUIDANCE_DOCS.get(
+            parent_name,
+            frozenset(),
+        )
+        for child in sorted(parent_root.iterdir(), key=lambda item: item.name):
+            child_relative = child.relative_to(repo_root).as_posix()
+            if child.is_file():
+                if child.name not in MECHANIC_PARENT_ROOT_ALLOWED_FILES:
+                    issues.append(
+                        ValidationIssue(
+                            child_relative,
+                            "unexpected mechanic parent-root file must move under an owning part payload directory",
+                        )
+                    )
+                continue
+            if not child.is_dir():
+                issues.append(
+                    ValidationIssue(
+                        child_relative,
+                        "unexpected mechanic parent-root entry must be a route file, parts/, legacy/, or explicit guidance docs/",
+                    )
+                )
+                continue
+            if child.name in MECHANIC_PARENT_ROOT_ALLOWED_DIRS:
+                continue
+            if child.name != "docs":
+                issues.append(
+                    ValidationIssue(
+                        child_relative,
+                        "unexpected mechanic parent-root directory must move under parts/<part>/ or be declared as parent guidance",
+                    )
+                )
+                continue
+            if not allowed_guidance_docs:
+                issues.append(
+                    ValidationIssue(
+                        child_relative,
+                        "parent-level docs/ is only for explicit mechanic-wide guidance; part-owned payload docs must live under parts/<part>/docs/",
+                    )
+                )
+            entries = sorted(child.iterdir(), key=lambda item: item.name)
+            if not entries:
+                issues.append(
+                    ValidationIssue(
+                        child_relative,
+                        "empty parent-level docs/ directory must not be kept as future payload space",
+                    )
+                )
+                continue
+            for entry in entries:
+                entry_relative = entry.relative_to(repo_root).as_posix()
+                if not entry.is_file():
+                    issues.append(
+                        ValidationIssue(
+                            entry_relative,
+                            "parent-level docs/ may contain only explicitly allowlisted mechanic-wide guidance files",
+                        )
+                    )
+                    continue
+                if entry.name not in allowed_guidance_docs:
+                    issues.append(
+                        ValidationIssue(
+                            entry_relative,
+                            "unallowlisted parent-level docs must move under the owning part payload route",
+                        )
+                    )
+                    continue
+                guidance_text = read_text_or_issue(entry, issues, root=repo_root)
+                if guidance_text is None:
+                    continue
+                for token in MECHANIC_PARENT_GUIDANCE_DOC_REQUIRED_TOKENS:
+                    if token not in guidance_text:
+                        issues.append(
+                            ValidationIssue(
+                                entry_relative,
+                                f"mechanic-wide guidance doc must expose parent guidance content contract token {token!r}",
+                            )
+                        )
+            for doc_name in allowed_guidance_docs:
+                if not (child / doc_name).is_file():
+                    issues.append(
+                        ValidationIssue(
+                            f"mechanics/{parent_name}/docs/{doc_name}",
+                            "allowlisted mechanic-wide guidance doc is missing",
+                        )
+                    )
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_NAME,
+        tokens=MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_NAME,
+            "Mechanic Parent Guidance Boundary",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_README_NAME,
+        tokens=("parent-level `docs/`", "part-owned payload"),
+        issues=issues,
+    )
+    return issues
+
+
+def validate_mechanics_parent_allowlist(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    mechanics_root = repo_root / "mechanics"
+    if not mechanics_root.is_dir():
+        issues.append(ValidationIssue("mechanics", "mechanics directory is missing"))
+        return issues
+
+    allowed_files = set(MECHANICS_ROOT_ALLOWED_FILES)
+    allowed_parents = set(ACTIVE_MECHANIC_PARENT_NAMES)
+    issues.extend(validate_mechanic_parent_class_map(repo_root))
+    issues.extend(validate_mechanic_legacy_raw_payload_accounting(repo_root))
+    issues.extend(validate_mechanic_parent_guidance_boundary(repo_root))
+
+    for path in sorted(mechanics_root.iterdir(), key=lambda item: item.name):
+        relative = path.relative_to(repo_root).as_posix()
+        if path.is_file():
+            if path.name not in allowed_files:
+                issues.append(
+                    ValidationIssue(
+                        relative,
+                        "unexpected mechanics root file must be routed through an allowed source surface",
+                    )
+                )
+            continue
+        if not path.is_dir():
+            issues.append(
+                ValidationIssue(
+                    relative,
+                    "unexpected mechanics root entry must be a file route card or parent directory",
+                )
+            )
+            continue
+        if path.name not in allowed_parents:
+            issues.append(
+                ValidationIssue(
+                    relative,
+                    "mechanic parent must be declared in the evidence-cluster allowlist",
+                )
+            )
+
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
+        if not (mechanics_root / parent_name).is_dir():
+            issues.append(
+                ValidationIssue(
+                    f"mechanics/{parent_name}",
+                    "declared mechanic parent directory is missing",
+                )
+            )
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_README_NAME,
+        tokens=(
+            "Active Packages",
+            "no empty package taxonomy",
+            "Provenance Bridge And Archive Boundary",
+            "`PROVENANCE.md`",
+            "legacy archive",
+            "archive-local accounting",
+            "archive internals",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_EVIDENCE_CLUSTERS_NAME,
+        tokens=tuple(f"`{parent_name}`" for parent_name in ACTIVE_MECHANIC_PARENT_NAMES),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_PARENT_ALLOWLIST_DECISION_NAME,
+        tokens=MECHANIC_PARENT_ALLOWLIST_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    for path_name in MECHANIC_ROUTE_CARD_FILES:
+        if not (repo_root / path_name).is_file():
+            issues.append(
+                ValidationIssue(
+                    path_name,
+                    "active mechanic parent must expose AGENTS.md, README.md, DIRECTION.md, and PARTS.md",
+                )
+            )
+    for path_name in MECHANIC_LEGACY_SKELETON_FILES:
+        if not (repo_root / path_name).is_file():
+            issues.append(
+                ValidationIssue(
+                    path_name,
+                    "active mechanic parent must expose PROVENANCE.md and archive-local legacy entry/accounting surfaces",
+                )
+            )
+    for path_name in MECHANIC_LEGACY_README_FILES:
+        require_tokens(
+            repo_root=repo_root,
+            path_name=path_name,
+            tokens=MECHANIC_LEGACY_README_REQUIRED_TOKENS,
+            issues=issues,
+        )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=(
+            "top-level mechanics parents are validator allowlisted",
+            "mechanics/EVIDENCE_CLUSTERS.md",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(MECHANIC_PARENT_ALLOWLIST_DECISION_NAME, "Mechanic Parent Allowlist"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_LEGACY_SKELETON_DECISION_NAME,
+        tokens=MECHANIC_LEGACY_SKELETON_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_LEGACY_SKELETON_DECISION_NAME,
+        tokens=MECHANIC_LEGACY_RAW_PAYLOAD_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_LEGACY_SKELETON_DECISION_NAME,
+            "Mechanic Legacy Archive Boundary",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANIC_PARENT_CLASS_DECISION_NAME,
+        tokens=MECHANIC_PARENT_CLASS_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MECHANIC_PARENT_CLASS_DECISION_NAME,
+            "Mechanic Parent Class Contract",
+        ),
+        issues=issues,
+    )
+
+    return issues
+
+
+def validate_active_legacy_parent_wording(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    for path_name, forbidden_tokens in ACTIVE_LEGACY_PARENT_WORDING_FORBIDDEN.items():
+        text = read_text_or_issue(repo_root / path_name, issues, root=repo_root)
+        if not text:
+            continue
+        for token in forbidden_tokens:
+            if token in text:
+                issues.append(
+                    ValidationIssue(
+                        path_name,
+                        f"active route wording must not use legacy parent form {token!r}",
+                    )
+                )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ACTIVE_LEGACY_PARENT_WORDING_DECISION_NAME,
+        tokens=ACTIVE_LEGACY_PARENT_WORDING_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            ACTIVE_LEGACY_PARENT_WORDING_DECISION_NAME,
+            "Active Legacy Parent Wording Boundary",
+        ),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="ROADMAP.md",
+        tokens=("Active Legacy Parent Wording Boundary", "runtime evidence"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="CHANGELOG.md",
+        tokens=("Active Legacy Parent Wording Boundary", "runtime evidence"),
+        issues=issues,
+    )
+    return issues
+
+
 def validate_eval_report_index_route_surfaces(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     require_tokens(
@@ -9106,7 +17536,7 @@ def validate_phase_alpha_eval_matrix(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     generated_path = repo_root / PHASE_ALPHA_EVAL_MATRIX_NAME
     generated_location = relative_location(generated_path, repo_root)
-    schema_path = repo_root / SCHEMAS_DIR_NAME / PHASE_ALPHA_EVAL_MATRIX_SCHEMA_NAME
+    schema_path = repo_root / PHASE_ALPHA_EVAL_MATRIX_SCHEMA_NAME
     schema_location = relative_location(schema_path, repo_root)
 
     schema = load_json_payload(schema_path, issues)
@@ -9248,13 +17678,13 @@ def validate_phase_alpha_eval_matrix(repo_root: Path) -> list[ValidationIssue]:
 
 def validate_titan_canary_surfaces(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
-    canary_dir = repo_root / "evals"
-    canary_paths = sorted(canary_dir.glob("titan_*_canary.yaml"))
+    canary_dir = repo_root / TITAN_SEED_BOUNDARY_SEEDS_DIR_NAME
+    canary_paths = sorted(canary_dir.glob("titan*.yaml"))
     if not canary_paths:
         issues.append(
             ValidationIssue(
-                "evals",
-                "Titan canary evals must be present under evals/titan_*_canary.yaml",
+                TITAN_SEED_BOUNDARY_SEEDS_DIR_NAME,
+                "Titan seed YAML files must be present under mechanics/titan/parts/seed-boundary/seeds/titan*.yaml",
             )
         )
         return issues
@@ -9295,24 +17725,32 @@ def validate_titan_canary_surfaces(repo_root: Path) -> list[ValidationIssue]:
                     )
                 if not any(
                     isinstance(check.get(field), str) and check[field].strip()
-                    for field in ("assert", "command", "expect")
+                    for field in ("assert", "command", "expect", "rule")
                 ):
                     issues.append(
                         ValidationIssue(
                             check_location,
-                            "Titan canary check must expose assert, command, or expect",
+                            "Titan canary check must expose assert, command, expect, or rule",
                         )
                     )
         failure_examples = payload.get("failure_examples")
         if failure_examples is None:
             if not any(
                 key in payload
-                for key in ("expected_failure", "expected_result", "expected", "forbidden", "description")
+                for key in (
+                    "expected_failure",
+                    "expected_result",
+                    "expected",
+                    "forbidden",
+                    "description",
+                    "checks",
+                    "required_fields",
+                )
             ):
                 issues.append(
                     ValidationIssue(
                         location,
-                        "Titan canary must expose failure_examples, expected_failure, expected_result, expected, or forbidden",
+                        "Titan canary must expose failure_examples, expected_failure, expected_result, expected, forbidden, checks, or required_fields",
                     )
                 )
         elif not isinstance(failure_examples, list) or not failure_examples:
@@ -9345,11 +17783,18 @@ def run_validation(
     issues: list[ValidationIssue] = []
     if repo_root.resolve() == REPO_ROOT.resolve() and eval_name is None:
         issues.extend(validate_root_design_surfaces(repo_root))
+        issues.extend(validate_root_route_card_districts(repo_root))
+        issues.extend(validate_root_authored_route_residue_surfaces(repo_root))
+        issues.extend(validate_decision_route_residue_surfaces(repo_root))
+        issues.extend(validate_repo_config_route_residue_surfaces(repo_root))
+        issues.extend(validate_source_bundle_route_residue_surfaces(repo_root))
         issues.extend(validate_agent_lane_surfaces(repo_root))
         issues.extend(validate_quest_route_surfaces(repo_root))
         issues.extend(validate_proof_topology_surfaces(repo_root))
         issues.extend(validate_legacy_naming_surfaces(repo_root))
         issues.extend(validate_mechanics_surfaces(repo_root))
+        issues.extend(validate_active_legacy_parent_wording(repo_root))
+        issues.extend(validate_generated_route_residue_surfaces(repo_root))
         issues.extend(validate_eval_report_index_route_surfaces(repo_root))
     bundles_dir_exists = (repo_root / BUNDLES_DIR_NAME).is_dir()
     try:
@@ -9448,7 +17893,7 @@ def run_validation(
             issues.extend(validate_runtime_integrity_review_surface(repo_root))
             issues.extend(validate_eval_result_receipt_surfaces(repo_root))
             issues.extend(validate_receipt_intake_dry_review_surface(repo_root))
-            issues.extend(validate_proof_release_readiness_audit_surface(repo_root))
+            issues.extend(validate_release_support_readiness_audit_surface(repo_root))
             issues.extend(validate_strategic_closeout_audit_surface(repo_root))
             issues.extend(validate_release_prep_pr_handoff_surface(repo_root))
             issues.extend(validate_live_receipt_log(repo_root))

@@ -116,30 +116,30 @@ Public discipline:
   It should not be treated as the precise diagnostic surface for verification truthfulness, scope drift, or task-meaning ambiguity.
 - `aoa-verification-honesty` is the current portable diagnostic workflow starter for verification truthfulness:
   did the agent claim checks it did not run, overstate coverage, or hide missing verification?
-  Its materialized one-run proof flow now anchors on `fixtures/verification-honesty-v1/README.md`, a bundle-local runner contract, a schema-backed report example, and a portable review that preserves its narrower diagnostic boundary.
+  Its materialized one-run proof flow now anchors on `mechanics/proof-infra/parts/fixture-families/fixtures/verification-honesty-v1/README.md`, a bundle-local runner contract, a schema-backed report example, and a portable review that preserves its narrower diagnostic boundary.
 - `aoa-scope-drift-detection` is the current diagnostic boundary starter for scope alignment:
   did the agent silently widen, narrow, or reshape the requested task surface?
-  Its materialized bounded proof flow now anchors on `fixtures/scope-drift-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example while staying narrower than workflow, verification, or ambiguity reads.
+  Its materialized bounded proof flow now anchors on `mechanics/proof-infra/parts/fixture-families/fixtures/scope-drift-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example while staying narrower than workflow, verification, or ambiguity reads.
 - `aoa-ambiguity-handling` is the current diagnostic stress starter for task-meaning ambiguity:
   did the agent ask, bound assumptions, or explicitly branch when requirements were incomplete or conflicting?
-  Its materialized bounded proof flow now anchors on `fixtures/ambiguity-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example while staying narrower than authority, scope, or workflow reads.
+  Its materialized bounded proof flow now anchors on `mechanics/proof-infra/parts/fixture-families/fixtures/ambiguity-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example while staying narrower than authority, scope, or workflow reads.
 - `aoa-approval-boundary-adherence` is the current diagnostic boundary starter for authority ambiguity:
   did the agent classify safe, approval-gated, and out-of-bounds actions correctly without treating uncertainty as permission?
-  Its materialized bounded proof flow now anchors on `fixtures/approval-boundary-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example while staying narrower than task-meaning ambiguity or broader workflow quality.
+  Its materialized bounded proof flow now anchors on `mechanics/proof-infra/parts/fixture-families/fixtures/approval-boundary-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example while staying narrower than task-meaning ambiguity or broader workflow quality.
 - `aoa-trace-outcome-separation` is the current bounded trace-aware workflow starter:
   are final outcome and execution path being judged separately before any combined reading?
-  Its materialized bounded proof flow now anchors on `fixtures/trace-outcome-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  Its materialized bounded proof flow now anchors on `mechanics/proof-infra/parts/fixture-families/fixtures/trace-outcome-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
   Use it when the main question is the split itself, not when the tool path must be graded as its own bounded surface.
 - `aoa-tool-trajectory-discipline` is the current bounded narrower tool-path workflow starter:
   did tool use stay disciplined on cases where the tool path itself matters to the claim?
-  Its materialized bounded proof flow now anchors on `fixtures/tool-trajectory-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  Its materialized bounded proof flow now anchors on `mechanics/proof-infra/parts/fixture-families/fixtures/tool-trajectory-bounded-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
   It should not be read as the general outcome-versus-path split surface.
 - `aoa-antifragility-posture` is the current draft stress-family antifragility starter:
   did one owner-local surface handle one named stressor family in a bounded, source-owned, anti-widening way?
   Its current first-wave proof flow anchors on source-owned receipt references, a schema-backed report example, and explicit split-axis blind-spot language.
 - `aoa-stress-recovery-window` is the current draft longitudinal stress starter:
   do ordered windows on one named stressor family show healthier handling without letting proof, stats, routing, or memo outrank owner evidence?
-  Its current machine-readable comparison surface is anchored in `aoa-antifragility-posture` and its materialized proof flow runs through `fixtures/stress-recovery-window-bounded-v1/README.md`, `reports/example-report.json`, and `reports/stress-recovery-window-proof-flow-v1.md`, but the bundle remains draft.
+  Its current machine-readable comparison surface is anchored in `aoa-antifragility-posture` and its materialized proof flow runs through `mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md`, `bundles/aoa-stress-recovery-window/reports/example-report.json`, and `mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md`, but the bundle remains draft.
 - `aoa-candidate-lineage-integrity` is the current draft growth-refinery lineage starter:
   does one bounded lineage chain stay coherent across checkpoint carry, reviewed candidate, seed staging, and owner evidence without claiming stronger landing than the artifacts support?
   It should not be read as owner-fit proof, final object-quality proof, or permission to replace owner receipts with structure alone.
@@ -157,29 +157,29 @@ Public discipline:
   It should not be read as proof of permanent stability, final object quality, or retroactive proof that the initial route was correct.
 - `aoa-witness-trace-integrity` is the current draft witness workflow starter:
   did a bounded run leave a reviewable witness trace with meaningful steps, visible tool use, explicit external effects, preserved failures, and an honest markdown summary?
-  Its materialized draft proof flow now anchors on `fixtures/witness-trace-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  Its materialized draft proof flow now anchors on `mechanics/proof-infra/parts/fixture-families/fixtures/witness-trace-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
   It should not be read as proof of outcome quality, as a substitute for future runtime instrumentation, or as the default process-side read in the artifact/process layer.
 - `aoa-regression-same-task` is the current baseline regression starter:
   did the candidate materially regress against a frozen baseline on the same bounded task family?
-  Its current machine-readable comparison surface is anchored in `aoa-bounded-change-quality` and its materialized proof flow runs through `fixtures/frozen-same-task-v1/README.md`, `reports/example-report.json`, and `reports/same-task-baseline-proof-flow-v1.md`.
+  Its current machine-readable comparison surface is anchored in `aoa-bounded-change-quality` and its materialized proof flow runs through `mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md`, `bundles/aoa-regression-same-task/reports/example-report.json`, and `mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md`.
 - `aoa-artifact-review-rubric` is the current portable artifact anchor:
   did the produced artifact itself look strong on the visible task surface without implying a strong workflow?
   Start here when the question is artifact quality itself; do not skip straight to the bridge surface.
-  Its shared paired families now include `fixtures/bounded-change-paired-v1/README.md` and `fixtures/bounded-change-paired-v2/README.md`, but the bundle remains the standalone artifact-side read rather than the bridge.
+  Its shared paired families now include `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md` and `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v2/README.md`, but the bundle remains the standalone artifact-side read rather than the bridge.
 - `aoa-compost-provenance-preservation` is the current draft compost artifact starter:
   did a witness-derived note, synthesis, or principle candidate preserve provenance, review state, current limits, and demotion posture?
-  Its materialized draft proof flow now anchors on `fixtures/compost-provenance-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  Its materialized draft proof flow now anchors on `mechanics/distillation/parts/compost-provenance/fixtures/compost-provenance-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
   It should not be read as proof of canon-readiness, as a replacement for general artifact review, or as the default artifact-side read in the artifact/process layer.
 - `aoa-output-vs-process-gap` is the current artifact/process bridge starter:
   is polished output outrunning process discipline, is process outrunning artifact strength, or are the two broadly aligned?
   It should be read after the standalone artifact and workflow surfaces, not as a replacement for them, and not as a baseline-by-association surface.
-  Its materialized bridge now spans `fixtures/bounded-change-paired-v1/README.md`, `fixtures/bounded-change-paired-v2/README.md`, `reports/artifact-process-paired-proof-flow-v1.md`, and `reports/artifact-process-paired-proof-flow-v2.md`, but the bundle remains draft.
+  Its materialized bridge now spans `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md`, `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v2/README.md`, `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md`, and `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v2.md`, but the bundle remains draft.
 - `aoa-eval-integrity-check` is the current bounded integrity sidecar starter:
   do the public starter bundles remain coherent across manifest contract, evidence coverage, public routing, and semantic anti-theater risks, especially across the comparison spine?
   It is a meta-eval for public starter bundles, not a direct agent-behavior starter and not proof of canonical readiness.
 - `aoa-longitudinal-growth-snapshot` is the current longitudinal starter:
   do ordered comparable windows on the same bounded workflow surface show modest directional movement without turning that movement into broad capability growth?
-  Its current machine-readable comparison surface is anchored in `aoa-bounded-change-quality` and its materialized proof flow runs through `fixtures/repeated-window-bounded-v1/README.md`, `reports/example-report.json`, `reports/repeated-window-proof-flow-v1.md`, and `reports/repeated-window-proof-flow-v2.md`, but the bundle remains draft.
+  Its current machine-readable comparison surface is anchored in `aoa-bounded-change-quality` and its materialized proof flow runs through `mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md`, `bundles/aoa-longitudinal-growth-snapshot/reports/example-report.json`, `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md`, and `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v2.md`, but the bundle remains draft.
 - `aoa-artifact-review-rubric` should stay on artifact quality:
   it should not drift into workflow-proof claims already covered by workflow starters.
 - `aoa-witness-trace-integrity` should stay on public witness reviewability:
@@ -191,20 +191,20 @@ Public discipline:
 - `aoa-eval-integrity-check` should inspect starter-bundle coherence and semantic overreach:
   it should not be read as a direct agent-behavior starter bundle or as proof of canonical readiness.
 - `aoa-long-horizon-depth` should stay on checkpoint-based restart fidelity:
-  its materialized draft proof flow now anchors on `fixtures/long-horizon-restart-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  its materialized draft proof flow now anchors on `mechanics/checkpoint/parts/restartable-inquiry/fixtures/long-horizon-restart-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
   it should not drift into final-answer grading, runtime-instrumentation completeness, or general philosophical depth claims.
 - `aoa-return-anchor-integrity` should stay on return-anchor fidelity and honest re-entry:
   it should not drift into final-answer grading, checkpoint-only restart fidelity, scope diagnosis, approval classification, or post-return verification claims.
 - `aoa-longitudinal-growth-snapshot` should stay on repeated-window bounded workflow movement:
   it should not be read as a same-task regression surface or as proof of broad capability growth.
 - `aoa-memo-recall-integrity` should stay on bounded inspect/capsule/expand memo recall:
-  its materialized draft proof flow now anchors on `fixtures/memo-recall-guardrail-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  its materialized draft proof flow now anchors on `mechanics/recurrence/parts/memory-recall/fixtures/memo-recall-guardrail-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
   it should not drift into contradiction handling, permission inference, canon promotion, or broad memory-quality claims.
 - `aoa-memo-contradiction-integrity` should stay on lifecycle-aware contradiction visibility across object-facing memo recall:
-  its materialized draft proof flow now anchors on `fixtures/memo-contradiction-guardrail-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  its materialized draft proof flow now anchors on `mechanics/proof-infra/parts/fixture-families/fixtures/memo-contradiction-guardrail-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
   it should not drift into contradiction resolution, permission inference, canon promotion, merge-hallucination review, or broad memory-quality claims.
 - `aoa-memo-writeback-act-integrity` should stay on one bounded runtime-to-memo writeback act:
-  its materialized draft proof flow now anchors on `fixtures/memo-writeback-act-guardrail-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
+  its materialized draft proof flow now anchors on `mechanics/proof-infra/parts/fixture-families/fixtures/memo-writeback-act-guardrail-v1/README.md`, a bundle-local runner contract, and a schema-backed report example.
   it should not drift into reviewed-candidate promotion, contradiction handling, future scar proof, retention proof, or broad live-ledger claims.
   The memo pilot layer does not prove future scar, retention, or live memory-ledger readiness.
 
@@ -236,23 +236,23 @@ Public discipline:
 - `bounded` means the bundle now has a repeatable bounded review path, explicit failure-versus-readout support notes, and a stronger public example readout.
 - the current portable one-run anchors are `aoa-bounded-change-quality` and `aoa-artifact-review-rubric`, and the current portable diagnostic workflow starter is `aoa-verification-honesty`.
 - the current bounded one-run diagnostics remain `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, and `aoa-eval-integrity-check`.
-- `aoa-scope-drift-detection` now also has a materialized bounded proof flow in `fixtures/scope-drift-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
-- `aoa-ambiguity-handling` now also has a materialized bounded proof flow in `fixtures/ambiguity-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
-- `aoa-approval-boundary-adherence` now also has a materialized bounded proof flow in `fixtures/approval-boundary-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
-- `aoa-trace-outcome-separation` now also has a materialized bounded proof flow in `fixtures/trace-outcome-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
-- `aoa-tool-trajectory-discipline` now also has a materialized bounded proof flow in `fixtures/tool-trajectory-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
+- `aoa-scope-drift-detection` now also has a materialized bounded proof flow in `mechanics/proof-infra/parts/fixture-families/fixtures/scope-drift-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
+- `aoa-ambiguity-handling` now also has a materialized bounded proof flow in `mechanics/proof-infra/parts/fixture-families/fixtures/ambiguity-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
+- `aoa-approval-boundary-adherence` now also has a materialized bounded proof flow in `mechanics/proof-infra/parts/fixture-families/fixtures/approval-boundary-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
+- `aoa-trace-outcome-separation` now also has a materialized bounded proof flow in `mechanics/proof-infra/parts/fixture-families/fixtures/trace-outcome-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
+- `aoa-tool-trajectory-discipline` now also has a materialized bounded proof flow in `mechanics/proof-infra/parts/fixture-families/fixtures/tool-trajectory-bounded-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts while staying `bounded` and `local-shaped`.
 - `aoa-antifragility-posture` now has a first-wave draft proof flow for one owner-local stressor family using source-owned receipts, schema-backed report artifacts, and split-axis readout without claiming baseline or canonical status.
 - `aoa-stress-recovery-window` now has a fourth-wave draft proof flow for one named stressor family using a shared repeated-window family, bundle-local runner contract, schema-backed report artifacts, and a paired readout without claiming baseline or live-health authority.
 - the witness/compost pilot pair now has materialized draft proof surfaces in `aoa-witness-trace-integrity` and `aoa-compost-provenance-preservation`.
-- checkpoint-based restart fidelity now has a materialized draft public bundle in `aoa-long-horizon-depth`, anchored by `fixtures/long-horizon-restart-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
-- return-aware anchor fidelity now has its first materialized draft public bundle in `aoa-return-anchor-integrity`, anchored by `fixtures/return-anchor-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
-- memo recall integrity now has a materialized draft public bundle in `aoa-memo-recall-integrity`, anchored by `fixtures/memo-recall-guardrail-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
-- memo contradiction integrity now has a materialized draft public bundle in `aoa-memo-contradiction-integrity`, anchored by `fixtures/memo-contradiction-guardrail-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
-- memo writeback-act integrity now has a materialized draft public bundle in `aoa-memo-writeback-act-integrity`, anchored by `fixtures/memo-writeback-act-guardrail-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
+- checkpoint-based restart fidelity now has a materialized draft public bundle in `aoa-long-horizon-depth`, anchored by `mechanics/checkpoint/parts/restartable-inquiry/fixtures/long-horizon-restart-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
+- return-aware anchor fidelity now has its first materialized draft public bundle in `aoa-return-anchor-integrity`, anchored by `mechanics/recurrence/parts/anchor-return/fixtures/return-anchor-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
+- memo recall integrity now has a materialized draft public bundle in `aoa-memo-recall-integrity`, anchored by `mechanics/recurrence/parts/memory-recall/fixtures/memo-recall-guardrail-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
+- memo contradiction integrity now has a materialized draft public bundle in `aoa-memo-contradiction-integrity`, anchored by `mechanics/proof-infra/parts/fixture-families/fixtures/memo-contradiction-guardrail-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
+- memo writeback-act integrity now has a materialized draft public bundle in `aoa-memo-writeback-act-integrity`, anchored by `mechanics/proof-infra/parts/fixture-families/fixtures/memo-writeback-act-guardrail-v1/README.md`, bundle-local fixture and runner contracts, and schema-backed report artifacts, but it is not part of the current starter set.
   These three memo pilots do not yet cover future scar or retention proof.
 - the first materialized paired proof flow now sits across `aoa-artifact-review-rubric`, `aoa-bounded-change-quality`, and `aoa-output-vs-process-gap` using shared fixtures, runner contracts, and schema-backed report examples.
 - the artifact/process layer now also carries a second matched family and second paired dossier so the bridge can deepen without changing `peer_surfaces` or promoting by association.
-- the comparison spine now also has materialized proof flows for `aoa-regression-same-task`, `aoa-output-vs-process-gap`, `aoa-longitudinal-growth-snapshot`, and `aoa-stress-recovery-window` through shared fixture families, runner contracts, schema-backed report examples, and the shared read-order artifact `reports/comparison-spine-proof-flow-v1.md`.
+- the comparison spine now also has materialized proof flows for `aoa-regression-same-task`, `aoa-output-vs-process-gap`, `aoa-longitudinal-growth-snapshot`, and `aoa-stress-recovery-window` through shared fixture families, runner contracts, schema-backed report examples, and the shared read-order artifact `mechanics/comparison-spine/parts/spine-overview/reports/comparison-spine-proof-flow-v1.md`.
 - the repeated-window layer now also carries a second shared dossier with explicit transition-note discipline so comparability stays visible before any top-line movement story.
 - the current first public `baseline` starter is `aoa-regression-same-task`; other comparative and longitudinal starters remain draft.
 - `aoa-eval-integrity-check` is now bounded as the public integrity sidecar for semantic overreach and public-surface drift.

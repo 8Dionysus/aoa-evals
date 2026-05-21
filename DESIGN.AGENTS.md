@@ -97,9 +97,14 @@ nearby docs that keep candidate evidence below bundle-local review.
 
 ### Mechanic package cards
 
-Future mechanic packages should carry package cards that name the owned
-operation, source surfaces, inputs, outputs, stop-lines, validators, legacy
-bridges, and closeout requirements.
+Active mechanic packages carry package cards that name the owned operation,
+source surfaces, inputs, outputs, stop-lines, validators, legacy bridges, and
+closeout requirements. A new package may be added only after the evidence map,
+route cards, decisions, and validators prove the parent.
+Before changing package boundaries, agents should read
+`mechanics/EVIDENCE_CLUSTERS.md` for the root-district reconnaissance ledger,
+residual root-authored surface classification, and active parent evidence
+dimensions.
 
 ### Maintained agent lanes
 
@@ -110,8 +115,9 @@ proof-surface work.
 
 ### Legacy cards
 
-Legacy or provenance homes should explain old accepted names, source lineage,
-current owner routes, and retirement or containment posture.
+`PROVENANCE.md` names the bridge and current owner route. Legacy homes explain
+old accepted names, source lineage, and archive-local accounting after that
+bridge is crossed.
 
 ## Design as Operation
 
@@ -235,7 +241,9 @@ model.
 [`docs/EVAL_PHILOSOPHY.md`](docs/EVAL_PHILOSOPHY.md) explains evaluation
 posture and epistemic limits.
 [`docs/PROOF_TOPOLOGY.md`](docs/PROOF_TOPOLOGY.md) maps proof authority
-classes before mechanics or file movement.
+classes, active mechanics, and file-movement boundaries.
+[`mechanics/EVIDENCE_CLUSTERS.md`](mechanics/EVIDENCE_CLUSTERS.md) records why
+a mechanic parent is allowed and whether it is AoA-aligned or evals-native.
 [`.agents/AGENTS.md`](.agents/AGENTS.md) routes maintained agent lanes and
 support surfaces.
 [`mechanics/README.md`](mechanics/README.md) is the operation atlas for active

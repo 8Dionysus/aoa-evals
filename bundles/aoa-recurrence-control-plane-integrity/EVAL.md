@@ -93,7 +93,7 @@ Missing axes are `not_observed`, not passes.
 ## Fixtures and case surface
 
 The shared fixture family is
-`fixtures/recurrence-control-plane-integrity-v1/README.md`.
+`mechanics/recurrence/parts/control-plane-integrity/fixtures/recurrence-control-plane-integrity-v1/README.md`.
 
 The current seed cases cover:
 - mixed manifest registry robustness
@@ -141,7 +141,7 @@ changes, but that comparison is not part of the current claim.
 
 A careful run should:
 1. build or select one public-safe recurrence dossier
-2. run `scripts/run_recurrence_control_plane_integrity_eval.py`
+2. run `mechanics/recurrence/parts/control-plane-integrity/scripts/run_recurrence_control_plane_integrity_eval.py`
 3. validate expected axis status when a fixture provides it
 4. write a compact summary-with-breakdown report
 5. keep observed axes separate from missing axes

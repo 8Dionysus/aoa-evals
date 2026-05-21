@@ -1,0 +1,245 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-evals/mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json",
+  "title": "aoa-evals EVAL.md frontmatter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "category",
+    "status",
+    "summary",
+    "object_under_evaluation",
+    "claim_type",
+    "baseline_mode",
+    "report_format",
+    "technique_dependencies",
+    "skill_dependencies"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^aoa-[a-z0-9-]+$"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "capability",
+        "workflow",
+        "boundary",
+        "artifact",
+        "regression",
+        "comparative",
+        "longitudinal",
+        "stress"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "bounded",
+        "portable",
+        "baseline",
+        "canonical",
+        "deprecated"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10
+    },
+    "object_under_evaluation": {
+      "type": "string",
+      "minLength": 3
+    },
+    "claim_type": {
+      "type": "string",
+      "enum": [
+        "bounded",
+        "comparative",
+        "regression",
+        "longitudinal"
+      ]
+    },
+    "baseline_mode": {
+      "type": "string",
+      "enum": [
+        "none",
+        "fixed-baseline",
+        "previous-version",
+        "peer-compare",
+        "longitudinal-window"
+      ]
+    },
+    "report_format": {
+      "type": "string",
+      "enum": [
+        "summary",
+        "summary-with-breakdown",
+        "comparative-summary"
+      ]
+    },
+    "comparison_surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "shared_family_path": {
+          "type": "string",
+          "minLength": 3
+        },
+        "paired_readout_path": {
+          "type": "string",
+          "minLength": 3
+        },
+        "integrity_sidecar": {
+          "type": "string",
+          "pattern": "^aoa-[a-z0-9-]+$"
+        },
+        "selection_question": {
+          "type": "string",
+          "minLength": 10
+        },
+        "anchor_surface": {
+          "type": "string",
+          "pattern": "^aoa-[a-z0-9-]+$"
+        },
+        "baseline_target_label": {
+          "type": "string",
+          "minLength": 5
+        },
+        "peer_surfaces": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^aoa-[a-z0-9-]+$"
+          }
+        },
+        "matched_surface": {
+          "type": "string",
+          "minLength": 5
+        },
+        "window_family_label": {
+          "type": "string",
+          "minLength": 5
+        }
+      }
+    },
+    "technique_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^AOA-T-(?:[0-9]{4}|PENDING-[A-Z0-9-]+)$"
+      }
+    },
+    "skill_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(aoa|abyss|atm10)-[a-z0-9-]+$"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "baseline_mode": {
+            "const": "none"
+          }
+        }
+      },
+      "then": {
+        "not": {
+          "required": [
+            "comparison_surface"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "baseline_mode": {
+            "enum": [
+              "fixed-baseline",
+              "previous-version"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "comparison_surface"
+        ],
+        "properties": {
+          "comparison_surface": {
+            "required": [
+              "shared_family_path",
+              "paired_readout_path",
+              "integrity_sidecar",
+              "selection_question",
+              "anchor_surface",
+              "baseline_target_label"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "baseline_mode": {
+            "const": "peer-compare"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "comparison_surface"
+        ],
+        "properties": {
+          "comparison_surface": {
+            "required": [
+              "shared_family_path",
+              "paired_readout_path",
+              "integrity_sidecar",
+              "selection_question",
+              "peer_surfaces",
+              "matched_surface"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "baseline_mode": {
+            "const": "longitudinal-window"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "comparison_surface"
+        ],
+        "properties": {
+          "comparison_surface": {
+            "required": [
+              "shared_family_path",
+              "paired_readout_path",
+              "integrity_sidecar",
+              "selection_question",
+              "anchor_surface",
+              "window_family_label"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

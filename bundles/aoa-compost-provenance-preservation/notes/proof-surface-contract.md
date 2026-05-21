@@ -9,7 +9,7 @@ The draft bundle remains narrow:
 - it is not a replacement for general artifact review
 
 The materialized proof flow keeps these surfaces explicit:
-- shared case-family pressure in `fixtures/compost-provenance-v1/README.md`
+- shared case-family pressure in `mechanics/distillation/parts/compost-provenance/fixtures/compost-provenance-v1/README.md`
 - bounded local replacement rules in `fixtures/contract.json`
 - reportable runner inputs in `runners/contract.json`
 - schema-backed provenance readout in `reports/summary.schema.json`

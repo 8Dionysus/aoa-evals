@@ -19,11 +19,12 @@ stronger.
 
 ## Options Considered
 
-- Leave publication receipts only as a guide, schemas, example, script, and
+- Leave publication receipts only as root guide, schemas, example, script, and
   `.aoa/live_receipts/` card.
-- Move receipt surfaces under one package directory.
-- Create `mechanics/publication-receipts/` as a route package while leaving the
-  guide, schemas, examples, publisher, reports, and live receipt log in place.
+- Move every receipt surface under one package directory without naming parts.
+- Create `mechanics/publication-receipts/` as a route package and keep its
+  authored receipt artifacts under named `parts/`, while leaving the owner-local
+  live receipt log in `.aoa/live_receipts/`.
 
 ## Decision
 
@@ -31,9 +32,14 @@ Create `mechanics/publication-receipts/` for the operation:
 
 `reviewed bounded report -> eval-result receipt payload -> stats-event-envelope sidecar -> owner-local live receipt log -> downstream derived reader`
 
-The package routes receipt publication work without moving
-`docs/EVAL_RESULT_RECEIPT_GUIDE.md`, `schemas/`, `examples/`,
-`scripts/publish_live_receipts.py`, `reports/`, or `.aoa/live_receipts/`.
+The package routes receipt publication work through part-local homes:
+
+- `parts/receipt-payload/` for the guide, payload schema, and public example;
+- `parts/stats-envelope-mirror/` for the local `aoa-stats` envelope mirror;
+- `parts/live-publisher/` for the owner-local append tool;
+- `parts/intake-dry-review/` for the non-publishing intake review artifact.
+
+The package still does not move `.aoa/live_receipts/`.
 
 ## Rationale
 
@@ -48,19 +54,23 @@ reports remain the stronger machine-readable proof contract.
 
 ## Consequences
 
-- Positive: receipt publication now has a package route and validator-backed
-  discovery surface.
-- Tradeoff: the package is intentionally a route layer, not a data move. Future
-  maintainers must still read the guide, schemas, publisher, report cards, and
-  live receipt card for exact local law.
+- Positive: receipt publication now has a package route, part-local source
+  surfaces, and validator-backed discovery surface.
+- Tradeoff: `.aoa/live_receipts/` remains outside the package parts. Future
+  maintainers must still respect the live receipt card for append-only local
+  memory.
 - Follow-up: later validators can tighten cross-checks between reports,
   receipt payloads, `evidence_refs`, and append-only correction posture if real
   drift appears.
 
 ## Boundaries
 
-This decision does not move `.aoa/live_receipts/`, `reports/`, `schemas/`,
-`examples/`, or the receipt publisher.
+This decision does not move `.aoa/live_receipts/`.
+
+It does move the receipt payload guide/schema/example, local envelope mirror,
+publisher script, and dry-review artifact into package-local parts because
+those surfaces are publication-receipt mechanics rather than general root
+district source truth.
 
 It does not make receipts stronger than a bundle-local report, source
 `EVAL.md`, or `eval.yaml`.
@@ -74,6 +84,7 @@ receipt-count quality claims.
 - `mechanics/publication-receipts/README.md` names the owned operation, source
   surfaces, inputs, outputs, stronger-owner split, boundaries, validation, and
   next route.
+- `mechanics/publication-receipts/PARTS.md` names the part topology.
 - `mechanics/publication-receipts/AGENTS.md` names local editing law.
 - `mechanics/README.md`, `docs/PROOF_TOPOLOGY.md`, `README.md`,
   `docs/README.md`, `ROADMAP.md`, `CHANGELOG.md`, and

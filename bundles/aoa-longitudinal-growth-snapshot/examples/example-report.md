@@ -6,7 +6,7 @@
 - bundle shape: `diagnostic`
 - verdict: `mixed or unstable movement`
 - machine-readable companion: `reports/example-report.json`
-- shared proof dossier: `reports/repeated-window-proof-flow-v1.md`
+- shared proof dossier: `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md`
 
 ## Ordered Window Breakdown
 

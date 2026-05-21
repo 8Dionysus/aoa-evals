@@ -8,8 +8,8 @@ claim_type: comparative
 baseline_mode: peer-compare
 report_format: comparative-summary
 comparison_surface:
-  shared_family_path: fixtures/bounded-change-paired-v1/README.md
-  paired_readout_path: reports/artifact-process-paired-proof-flow-v1.md
+  shared_family_path: mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md
+  paired_readout_path: mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md
   integrity_sidecar: aoa-eval-integrity-check
   selection_question: Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?
   peer_surfaces:
@@ -122,8 +122,8 @@ The fixture surface is public-safe when:
 - the shared case family remains visible and stable enough for peer comparison
 - another repo could replace the cases with comparable bounded change tasks and preserve the same comparison posture
 
-The current materialized shared family is `fixtures/bounded-change-paired-v1/README.md`.
-The second matched family `fixtures/bounded-change-paired-v2/README.md` may deepen the same bridge surface without changing the peer surfaces.
+The current materialized shared family is `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md`.
+The second matched family `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v2/README.md` may deepen the same bridge surface without changing the peer surfaces.
 
 ## Scoring or verdict logic
 
@@ -174,10 +174,10 @@ In v1, the peer surfaces are:
 - artifact side: `aoa-artifact-review-rubric`
 - process side: `aoa-bounded-change-quality`
 
-Its machine-readable comparison surface uses the shared family `fixtures/bounded-change-paired-v1/README.md`,
-publishes through `reports/artifact-process-paired-proof-flow-v1.md`,
+Its machine-readable comparison surface uses the shared family `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md`,
+publishes through `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md`,
 and should carry `aoa-eval-integrity-check` when a public wording or maturity wave risks turning the bridge into a baseline-by-association surface.
-The second dossier `reports/artifact-process-paired-proof-flow-v2.md`
+The second dossier `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v2.md`
 may deepen the same bridge read order without changing the current `peer_surfaces`.
 
 Neither side is the default truth source.
@@ -208,7 +208,7 @@ Execution expectations:
 - keep enough side-by-side evidence that a careful reviewer can see why each gap reading was assigned
 - make `side_by_side_note` name matched request, reviewer frame, or evidence-window facts when those facts shape the bridge verdict
 - when shipping a machine-readable report, validate it against `reports/summary.schema.json`
-- keep the paired read compatible with `reports/artifact-process-paired-proof-flow-v1.md` and `reports/artifact-process-paired-proof-flow-v2.md`
+- keep the paired read compatible with `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md` and `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v2.md`
 
 ## Outputs
 
@@ -279,7 +279,7 @@ Do not treat this bridge as a baseline-default comparator.
 It remains a draft side-by-side surface even when the paired workflow or artifact starters are stronger individually.
 
 For the first materialized artifact/process pairing,
-use `reports/artifact-process-paired-proof-flow-v1.md`
+use `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md`
 after the standalone artifact and workflow bundles have already been read.
 This bridge does not replace either standalone surface.
 

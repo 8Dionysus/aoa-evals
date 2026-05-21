@@ -17,7 +17,7 @@ reviewed-candidate promotion, future scar readiness, retention readiness,
 live-ledger claims, permission leakage, or hallucinated merge checks.
 
 Its current materialized draft proof flow runs through
-`fixtures/memo-writeback-act-guardrail-v1/README.md`,
+`mechanics/proof-infra/parts/fixture-families/fixtures/memo-writeback-act-guardrail-v1/README.md`,
 `bundles/aoa-memo-writeback-act-integrity/fixtures/contract.json`,
 `bundles/aoa-memo-writeback-act-integrity/runners/contract.json`, and the
 schema-backed companion report in

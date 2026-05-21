@@ -14,7 +14,7 @@ This pilot intentionally does not absorb contradiction handling, permission
 leakage, over-promotion, or hallucinated merge checks.
 
 Its current materialized draft proof flow runs through
-`fixtures/memo-recall-guardrail-v1/README.md`,
+`mechanics/recurrence/parts/memory-recall/fixtures/memo-recall-guardrail-v1/README.md`,
 `bundles/aoa-memo-recall-integrity/fixtures/contract.json`,
 `bundles/aoa-memo-recall-integrity/runners/contract.json`, and the
 schema-backed companion report in

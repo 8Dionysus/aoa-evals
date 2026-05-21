@@ -65,7 +65,7 @@
     "id": "AOA-EV-Q-0005",
     "kind": "proof",
     "milestone_ref": "",
-    "owner_surface": "proof/progression-evidence",
+    "owner_surface": "mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md",
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r2_contract",
@@ -86,14 +86,14 @@
     ],
     "milestone_ref": "",
     "orchestrator_class_ref": "aoa-agents:router",
-    "owner_surface": "docs/ORCHESTRATOR_PROOF_ALIGNMENT.md",
+    "owner_surface": "mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md",
     "playbook_family_refs": [
       "repo:aoa-playbooks/generated/playbook_activation_surfaces.min.json",
       "repo:aoa-playbooks/generated/playbook_federation_surfaces.min.json"
     ],
     "proof_surface_refs": [
       "generated/eval_catalog.min.json",
-      "docs/ORCHESTRATOR_PROOF_ALIGNMENT.md#router"
+      "mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md#router"
     ],
     "public_safe": true,
     "repo": "aoa-evals",
@@ -115,14 +115,14 @@
     ],
     "milestone_ref": "",
     "orchestrator_class_ref": "aoa-agents:review",
-    "owner_surface": "docs/ORCHESTRATOR_PROOF_ALIGNMENT.md",
+    "owner_surface": "mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md",
     "playbook_family_refs": [
       "repo:aoa-playbooks/generated/playbook_review_packet_contracts.min.json",
       "repo:aoa-playbooks/generated/playbook_review_status.min.json"
     ],
     "proof_surface_refs": [
       "generated/eval_catalog.min.json",
-      "docs/ORCHESTRATOR_PROOF_ALIGNMENT.md#review"
+      "mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md#review"
     ],
     "public_safe": true,
     "repo": "aoa-evals",
@@ -144,14 +144,14 @@
     ],
     "milestone_ref": "",
     "orchestrator_class_ref": "aoa-agents:bounded_execution",
-    "owner_surface": "docs/ORCHESTRATOR_PROOF_ALIGNMENT.md",
+    "owner_surface": "mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md",
     "playbook_family_refs": [
       "repo:aoa-playbooks/generated/playbook_registry.min.json",
       "repo:aoa-playbooks/generated/playbook_review_intake.min.json"
     ],
     "proof_surface_refs": [
       "generated/eval_catalog.min.json",
-      "docs/ORCHESTRATOR_PROOF_ALIGNMENT.md#bounded-execution"
+      "mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md#bounded-execution"
     ],
     "public_safe": true,
     "repo": "aoa-evals",
@@ -167,7 +167,7 @@
     "id": "AOA-EV-Q-0009",
     "kind": "proof",
     "milestone_ref": "",
-    "owner_surface": "docs/UNLOCK_PROOF_BRIDGE.md",
+    "owner_surface": "mechanics/rpg/parts/progression-unlocks/docs/UNLOCK_PROOF_BRIDGE.md",
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r2_contract",
@@ -182,7 +182,7 @@
     "id": "AOA-EV-Q-0010",
     "kind": "proof",
     "milestone_ref": "",
-    "owner_surface": "docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md",
+    "owner_surface": "mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md",
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r2_contract",
@@ -197,7 +197,7 @@
     "id": "AOA-EV-Q-0011",
     "kind": "proof",
     "milestone_ref": "",
-    "owner_surface": "docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md",
+    "owner_surface": "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md",
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r2_contract",
@@ -212,7 +212,7 @@
     "id": "AOA-EV-Q-0012",
     "kind": "proof",
     "milestone_ref": "",
-    "owner_surface": "docs/TRACE_EVAL_BRIDGE.md",
+    "owner_surface": "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md",
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r2_contract",

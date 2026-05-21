@@ -1,6 +1,6 @@
 {
   "contract_version": 1,
-  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
   "inputs": [
     "candidate evidence bundle",
     "regression pack coverage notes",

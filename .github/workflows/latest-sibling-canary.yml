@@ -88,4 +88,4 @@ jobs:
 
       - name: Run sibling canary
         working-directory: workspace/aoa-evals
-        run: python scripts/run_sibling_canary.py --repo-root . --matrix scripts/sibling_canary_matrix.json
+        run: python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --matrix mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json

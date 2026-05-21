@@ -107,7 +107,7 @@ Read the comparison spine in this order:
 5. Add `aoa-eval-integrity-check` when public wording, routing, maturity posture, or generated contracts are moving enough that the comparison read could start implying more than the evidence carries.
 
 Shared public read-order artifact:
-- `../reports/comparison-spine-proof-flow-v1.md`
+- `../mechanics/comparison-spine/parts/spine-overview/reports/comparison-spine-proof-flow-v1.md`
 
 ## Anti-overread rules
 

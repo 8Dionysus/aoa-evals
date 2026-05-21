@@ -33,7 +33,7 @@ It is not a contradiction bundle.
 It is not a reviewed-candidate promotion bundle.
 It is not a permissions-from-memory bundle.
 Its current materialized draft proof flow runs through
-`fixtures/memo-writeback-act-guardrail-v1/README.md`, bundle-local fixture and
+`mechanics/proof-infra/parts/fixture-families/fixtures/memo-writeback-act-guardrail-v1/README.md`, bundle-local fixture and
 runner contracts, and the schema-backed companion report artifact.
 
 ## Object under evaluation
@@ -124,7 +124,7 @@ Fixtures should avoid:
 - generic automation stories wider than one bounded writeback act
 
 The current materialized shared family is
-`fixtures/memo-writeback-act-guardrail-v1/README.md`.
+`mechanics/proof-infra/parts/fixture-families/fixtures/memo-writeback-act-guardrail-v1/README.md`.
 When the machine-readable proof surface is in use, local replacements should
 preserve the same writeback-act pressures through the bounded replacement rule
 in `fixtures/contract.json`.
@@ -207,7 +207,7 @@ Execution expectations:
 - when shipping a machine-readable report, validate it against
   `reports/summary.schema.json`
 - keep the shared case-family contract in
-  `fixtures/memo-writeback-act-guardrail-v1/README.md` visible when that
+  `mechanics/proof-infra/parts/fixture-families/fixtures/memo-writeback-act-guardrail-v1/README.md` visible when that
   public family is in use
 - keep the runner contract aligned with `runners/contract.json` so runtime
   closure, reviewed adoption, receipt visibility, and recall alignment do not

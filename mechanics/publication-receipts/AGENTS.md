@@ -1,5 +1,9 @@
 # AGENTS.md
 
+## Entry Route
+
+Start with the package README. Then read `mechanics/publication-receipts/DIRECTION.md` for current operating direction, `mechanics/publication-receipts/PARTS.md` for active parts, and `mechanics/publication-receipts/PROVENANCE.md` only when legacy or former placement matters.
+
 ## Applies to
 
 `mechanics/publication-receipts/` and publication receipt route guidance.
@@ -20,14 +24,16 @@ or any repo-global score.
 4. `docs/PROOF_TOPOLOGY.md`
 5. `mechanics/README.md`
 6. `mechanics/publication-receipts/README.md`
-7. `docs/EVAL_RESULT_RECEIPT_GUIDE.md`
-8. `schemas/eval-result-receipt.schema.json`
-9. `schemas/stats-event-envelope.schema.json`
-10. `reports/eval-result-receipt-intake-dry-review-v1.json` for dry-review
+7. `mechanics/publication-receipts/PARTS.md`
+8. the affected part `README.md`
+9. `mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md`
+10. `mechanics/publication-receipts/parts/receipt-payload/schemas/eval-result-receipt.schema.json`
+11. `mechanics/publication-receipts/parts/stats-envelope-mirror/schemas/stats-event-envelope.schema.json`
+12. `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json` for dry-review
     intake changes
-11. `reports/AGENTS.md`
-12. `.aoa/live_receipts/AGENTS.md`
-13. affected bundle-local report and source bundle surfaces
+13. `reports/AGENTS.md`
+14. `.aoa/live_receipts/AGENTS.md`
+15. affected bundle-local report and source bundle surfaces
 
 ## Local Law
 
@@ -64,7 +70,7 @@ Run receipt tests when schemas, examples, publisher behavior, or live receipt
 validation changes:
 
 ```bash
-python -m pytest -q tests/test_publish_live_receipts.py tests/test_live_receipt_log.py tests/test_validate_repo.py
+python -m pytest -q mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py tests/test_validate_repo.py
 ```
 
 ## Closeout

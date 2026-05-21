@@ -6,9 +6,9 @@
       "comparison_surface": {
         "anchor_surface": "aoa-bounded-change-quality",
         "integrity_sidecar": "aoa-eval-integrity-check",
-        "paired_readout_path": "reports/repeated-window-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md",
         "selection_question": "Do you need ordered repeated-window movement on one named bounded workflow surface?",
-        "shared_family_path": "fixtures/repeated-window-bounded-v1/README.md",
+        "shared_family_path": "mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md",
         "window_family_label": "repeated-window-bounded-v1 bounded workflow sequence"
       },
       "eval_path": "bundles/aoa-longitudinal-growth-snapshot/EVAL.md",
@@ -16,15 +16,15 @@
       "name": "aoa-longitudinal-growth-snapshot",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-longitudinal-growth-snapshot/fixtures/contract.json",
-        "paired_readout_path": "reports/repeated-window-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md",
         "report_example_path": "bundles/aoa-longitudinal-growth-snapshot/reports/example-report.json",
         "report_schema_path": "bundles/aoa-longitudinal-growth-snapshot/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-longitudinal-growth-snapshot/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/repeated-window-bounded-v1/README.md"
+        "shared_fixture_family_path": "mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md"
       },
       "relations": [
         {
@@ -52,28 +52,28 @@
       "comparison_surface": {
         "integrity_sidecar": "aoa-eval-integrity-check",
         "matched_surface": "same bounded change case family under matched artifact and workflow review conditions",
-        "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md",
         "peer_surfaces": [
           "aoa-artifact-review-rubric",
           "aoa-bounded-change-quality"
         ],
         "selection_question": "Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?",
-        "shared_family_path": "fixtures/bounded-change-paired-v1/README.md"
+        "shared_family_path": "mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md"
       },
       "eval_path": "bundles/aoa-output-vs-process-gap/EVAL.md",
       "interpretation_boundary": "proof that one side matters more in all contexts; proof that the stronger-looking side explains the whole story; proof of general capability growth or decline",
       "name": "aoa-output-vs-process-gap",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-output-vs-process-gap/fixtures/contract.json",
-        "paired_readout_path": "reports/artifact-process-paired-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md",
         "report_example_path": "bundles/aoa-output-vs-process-gap/reports/example-report.json",
         "report_schema_path": "bundles/aoa-output-vs-process-gap/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-output-vs-process-gap/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/bounded-change-paired-v1/README.md"
+        "shared_fixture_family_path": "mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md"
       },
       "relations": [
         {
@@ -110,24 +110,24 @@
         "anchor_surface": "aoa-bounded-change-quality",
         "baseline_target_label": "RS-v1 frozen bounded workflow reference",
         "integrity_sidecar": "aoa-eval-integrity-check",
-        "paired_readout_path": "reports/same-task-baseline-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
         "selection_question": "Do you need a frozen-baseline comparison on the same bounded task family?",
-        "shared_family_path": "fixtures/frozen-same-task-v1/README.md"
+        "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
       },
       "eval_path": "bundles/aoa-regression-same-task/EVAL.md",
       "interpretation_boundary": "proof of general capability growth; proof that the candidate is universally better than the baseline; proof that no nearby diagnostic regression exists",
       "name": "aoa-regression-same-task",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-regression-same-task/fixtures/contract.json",
-        "paired_readout_path": "reports/same-task-baseline-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
         "report_example_path": "bundles/aoa-regression-same-task/reports/example-report.json",
         "report_schema_path": "bundles/aoa-regression-same-task/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-regression-same-task/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/frozen-same-task-v1/README.md"
+        "shared_fixture_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
       },
       "relations": [
         {
@@ -155,9 +155,9 @@
       "comparison_surface": {
         "anchor_surface": "aoa-antifragility-posture",
         "integrity_sidecar": "aoa-eval-integrity-check",
-        "paired_readout_path": "reports/stress-recovery-window-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md",
         "selection_question": "Do you need ordered repeated-window proof for one named stress recovery family?",
-        "shared_family_path": "fixtures/stress-recovery-window-bounded-v1/README.md",
+        "shared_family_path": "mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md",
         "window_family_label": "stress-recovery-window-bounded-v1 bounded stress recovery sequence"
       },
       "eval_path": "bundles/aoa-stress-recovery-window/EVAL.md",
@@ -165,15 +165,15 @@
       "name": "aoa-stress-recovery-window",
       "proof_artifacts": {
         "fixture_contract_path": "bundles/aoa-stress-recovery-window/fixtures/contract.json",
-        "paired_readout_path": "reports/stress-recovery-window-proof-flow-v1.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md",
         "report_example_path": "bundles/aoa-stress-recovery-window/reports/example-report.json",
         "report_schema_path": "bundles/aoa-stress-recovery-window/reports/summary.schema.json",
         "runner_contract_path": "bundles/aoa-stress-recovery-window/runners/contract.json",
-        "runner_surface_path": "runners/reportable_proof_contract.md",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
         "scorer_helper_paths": [
-          "scorers/bounded_rubric_breakdown.py"
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
         ],
-        "shared_fixture_family_path": "fixtures/stress-recovery-window-bounded-v1/README.md"
+        "shared_fixture_family_path": "mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md"
       },
       "relations": [
         {

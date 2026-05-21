@@ -93,7 +93,7 @@ Missing consumer-path pieces are `not_observed`, not passes.
 ## Fixtures and case surface
 
 The shared fixture family is
-`fixtures/stats-regrounding-boundary-v1/README.md`.
+`mechanics/recurrence/parts/stats-regrounding-boundary/fixtures/stats-regrounding-boundary-v1/README.md`.
 
 Seed cases should cover:
 

@@ -3,7 +3,7 @@ id: AOA-EV-Q-0010
 title: Capture checkpoint automation proof-pressure as early eval evidence
 summary: Track the reviewed checkpoint automation proof candidate as bounded eval follow-through without turning a runtime template hint into proof canon.
 repo: aoa-evals
-owner_surface: docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md
+owner_surface: mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md
 theme_ref: ''
 milestone_ref: ''
 kind: proof
@@ -31,7 +31,7 @@ activation:
   note: open when checkpoint closeout preserves a proof-shaped hint that needs bounded eval-side triage
 anchor_ref:
   artifact: self_agent_checkpoint_eval_posture
-  ref: docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md
+  ref: mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md
   note: proof pressure should remain an eval-side input, not a checkpoint ontology or final verdict
 handoff_role: proof-maintainer
 evidence:

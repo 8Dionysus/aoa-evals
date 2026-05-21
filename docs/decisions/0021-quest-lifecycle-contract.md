@@ -63,7 +63,7 @@ This decision does not change any current quest state, create a new quest,
 close a quest, promote a quest into an eval bundle, publish a receipt, or make
 generated quest readers authoritative.
 
-It does not turn `reports/proof-loop-local-route-smoke-v1.md` into quest
+It does not turn `mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md` into quest
 closure or bundle-local proof success.
 
 ## Validation

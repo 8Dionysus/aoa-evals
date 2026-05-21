@@ -49,8 +49,8 @@ rather than from a desire to make the tree look mature.
   route.
 - Tradeoff: `mechanics/` now exists, so future changes must resist filling it
   with candidate directories before they own operations.
-- Follow-up: the next package should be chosen only when `sibling-proof-refs`,
-  `runtime-evidence`, or another candidate has comparable live operation
+- Follow-up: the next package should be chosen only when `boundary-bridge`,
+  `audit`, or another candidate has comparable live operation
   pressure and validation.
 
 ## Boundaries

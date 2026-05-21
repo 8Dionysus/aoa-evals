@@ -1,6 +1,6 @@
 {
   "contract_version": 1,
-  "runner_surface_path": "runners/reportable_proof_contract.md",
+  "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
   "inputs": [
     "writeback act case dossier",
     "runtime boundary note",
@@ -14,7 +14,7 @@
     "bundles/aoa-memo-writeback-act-integrity/fixtures/contract.json"
   ],
   "scorer_helper_paths": [
-    "scorers/bounded_rubric_breakdown.py"
+    "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
   ],
   "report_schema_path": "bundles/aoa-memo-writeback-act-integrity/reports/summary.schema.json",
   "report_example_path": "bundles/aoa-memo-writeback-act-integrity/reports/example-report.json",

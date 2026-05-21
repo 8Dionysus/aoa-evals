@@ -28,7 +28,7 @@ parent: null
 depends_on: []
 activation:
   mode: on_review_of
-  ref: docs/TRACE_EVAL_BRIDGE.md
+  ref: mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md
   note: review when trace or verdict surface changes
 anchor_ref:
   artifact: artifact-process-separation

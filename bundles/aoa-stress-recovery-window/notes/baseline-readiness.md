@@ -15,7 +15,7 @@ Minimum readiness for this surface:
   - mixed movement
   - fragile movement
   - suppressed readout when evidence is too thin
-- the support notes remain aligned with `reports/example-report.json` and `reports/stress-recovery-window-proof-flow-v1.md`
+- the support notes remain aligned with `reports/example-report.json` and `mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md`
 
 If those conditions do not hold,
 the honest result is not a stronger repeated-window claim.

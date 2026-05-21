@@ -5,7 +5,7 @@ summary: Track the reviewed workspace closeout proof handoff candidate as
   bounded eval follow-through without turning one owner handoff cue into proof
   canon.
 repo: aoa-evals
-owner_surface: docs/TRACE_EVAL_BRIDGE.md
+owner_surface: mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md
 theme_ref: ''
 milestone_ref: ''
 kind: proof
@@ -34,7 +34,7 @@ activation:
     that still belongs below new eval-bundle authority
 anchor_ref:
   artifact: trace_eval_bridge
-  ref: docs/TRACE_EVAL_BRIDGE.md
+  ref: mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md
   note: workspace closeout proof pressure should stay an eval-side bridge cue,
     not a new portable verdict canon
 handoff_role: proof-maintainer

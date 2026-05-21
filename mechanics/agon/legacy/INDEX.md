@@ -1,0 +1,28 @@
+# Agon Legacy Index
+
+| Former source | Preserved raw | Current active route | Posture |
+| --- | --- | --- | --- |
+| `docs/AGON_WAVE7_EVALS_LANDING.md` | [raw/AGON_WAVE7_EVALS_LANDING.md](raw/AGON_WAVE7_EVALS_LANDING.md) | `mechanics/agon/parts/court-prebinding/` and `mechanics/agon/docs/` | historical wave landing |
+| `docs/AGON_WAVE10_EVAL_LANDING.md` | [raw/AGON_WAVE10_EVAL_LANDING.md](raw/AGON_WAVE10_EVAL_LANDING.md) | `mechanics/agon/parts/court-prebinding/` and `mechanics/agon/parts/vds-alignment/` | historical wave landing |
+| `docs/AGON_WAVE11_EVAL_LANDING.md` | [raw/AGON_WAVE11_EVAL_LANDING.md](raw/AGON_WAVE11_EVAL_LANDING.md) | `mechanics/agon/parts/ccs-alignment/`, `mechanics/agon/parts/vds-alignment/`, and `mechanics/agon/parts/mechanical-trial-suites/` | historical wave landing |
+| `docs/AGON_WAVE13_EVAL_LANDING.md` | [raw/AGON_WAVE13_EVAL_LANDING.md](raw/AGON_WAVE13_EVAL_LANDING.md) | `mechanics/agon/parts/retention-rank-alignment/` and `mechanics/agon/parts/epistemic-alignment/` | historical wave landing |
+| `docs/AGON_WAVE13_EVAL_STOP_LINES.md` | [raw/AGON_WAVE13_EVAL_STOP_LINES.md](raw/AGON_WAVE13_EVAL_STOP_LINES.md) | `mechanics/agon/DIRECTION.md`, `mechanics/agon/PARTS.md`, and all active Agon parts through package stop-lines | historical stop-line source |
+| `docs/AGON_WAVE14_EVALS_LANDING.md` | [raw/AGON_WAVE14_EVALS_LANDING.md](raw/AGON_WAVE14_EVALS_LANDING.md) | `mechanics/agon/parts/slc-alignment/` | historical wave landing |
+| `docs/AGON_WAVE15_EVALS_LANDING.md` | [raw/AGON_WAVE15_EVALS_LANDING.md](raw/AGON_WAVE15_EVALS_LANDING.md) | `mechanics/agon/parts/retention-rank-alignment/` and `mechanics/agon/parts/ccs-alignment/` | historical wave landing |
+| `docs/AGON_WAVE16_EVALS_LANDING.md` | [raw/AGON_WAVE16_EVALS_LANDING.md](raw/AGON_WAVE16_EVALS_LANDING.md) | `mechanics/agon/parts/slc-alignment/` | historical wave landing |
+| `docs/AGON_WAVE17_EVALS_LANDING.md` | [raw/AGON_WAVE17_EVALS_LANDING.md](raw/AGON_WAVE17_EVALS_LANDING.md) | `mechanics/agon/parts/kag-alignment/` | historical wave landing |
+| `docs/AGON_WAVE18_EVAL_LANDING.md` | [raw/AGON_WAVE18_EVAL_LANDING.md](raw/AGON_WAVE18_EVAL_LANDING.md) | `mechanics/agon/parts/sophian-threshold-alignment/` | historical wave landing |
+| `quests/AOE-Q-AGON-0001-court-prebinding.md` and `quests/agon/captured/AOE-Q-AGON-0001-court-prebinding.md` | [raw/AOE-Q-AGON-0001-court-prebinding.md](raw/AOE-Q-AGON-0001-court-prebinding.md) | `mechanics/agon/parts/court-prebinding/` | historical markdown quest-note lineage |
+| `quests/AOE-Q-AGON-0002-ccs-eval-alignment.md` and `quests/agon/captured/AOE-Q-AGON-0002-ccs-eval-alignment.md` | [raw/AOE-Q-AGON-0002-ccs-eval-alignment.md](raw/AOE-Q-AGON-0002-ccs-eval-alignment.md) | `mechanics/agon/parts/ccs-alignment/` | historical markdown quest-note lineage |
+| `quests/AOE-Q-AGON-0002-mechanical-trial-eval-suites.md` and `quests/agon/captured/AOE-Q-AGON-0002-mechanical-trial-eval-suites.md` | [raw/AOE-Q-AGON-0002-mechanical-trial-eval-suites.md](raw/AOE-Q-AGON-0002-mechanical-trial-eval-suites.md) | `mechanics/agon/parts/mechanical-trial-suites/` | historical markdown quest-note lineage |
+| `quests/AOE-Q-AGON-0002-recurrence-review-integration.md` and `quests/agon/captured/AOE-Q-AGON-0002-recurrence-review-integration.md` | [raw/AOE-Q-AGON-0002-recurrence-review-integration.md](raw/AOE-Q-AGON-0002-recurrence-review-integration.md) | `mechanics/agon/docs/AGON_EVAL_RECURRENCE_REVIEW_BOUNDARY.md`, `mechanics/agon/PARTS.md`, and active part recurrence manifests under `mechanics/agon/parts/<part>/manifests/recurrence/` | historical markdown quest-note lineage |
+| `quests/AOE-Q-AGON-0002-retention-rank-eval-alignment.md` and `quests/agon/captured/AOE-Q-AGON-0002-retention-rank-eval-alignment.md` | [raw/AOE-Q-AGON-0002-retention-rank-eval-alignment.md](raw/AOE-Q-AGON-0002-retention-rank-eval-alignment.md) | `mechanics/agon/parts/retention-rank-alignment/` | historical markdown quest-note lineage |
+| `quests/AOE-Q-AGON-0003-epistemic-eval-alignment.md` and `quests/agon/captured/AOE-Q-AGON-0003-epistemic-eval-alignment.md` | [raw/AOE-Q-AGON-0003-epistemic-eval-alignment.md](raw/AOE-Q-AGON-0003-epistemic-eval-alignment.md) | `mechanics/agon/parts/epistemic-alignment/` | historical markdown quest-note lineage |
+| `quests/AOE-Q-AGON-0003-vds-eval-alignment.md` and `quests/agon/captured/AOE-Q-AGON-0003-vds-eval-alignment.md` | [raw/AOE-Q-AGON-0003-vds-eval-alignment.md](raw/AOE-Q-AGON-0003-vds-eval-alignment.md) | `mechanics/agon/parts/vds-alignment/` | historical markdown quest-note lineage |
+| `quests/AOE-Q-AGON-0004-slc-eval-alignment.md` and `quests/agon/captured/AOE-Q-AGON-0004-slc-eval-alignment.md` | [raw/AOE-Q-AGON-0004-slc-eval-alignment.md](raw/AOE-Q-AGON-0004-slc-eval-alignment.md) | `mechanics/agon/parts/slc-alignment/` | historical markdown quest-note lineage |
+| `quests/AOE-Q-AGON-0004-sophian-eval-alignment.md` and `quests/agon/captured/AOE-Q-AGON-0004-sophian-eval-alignment.md` | [raw/AOE-Q-AGON-0004-sophian-eval-alignment.md](raw/AOE-Q-AGON-0004-sophian-eval-alignment.md) | `mechanics/agon/parts/sophian-threshold-alignment/` | historical markdown quest-note lineage |
+| `quests/AOE-Q-AGON-0005-kag-eval-alignment.md` and `quests/agon/captured/AOE-Q-AGON-0005-kag-eval-alignment.md` | [raw/AOE-Q-AGON-0005-kag-eval-alignment.md](raw/AOE-Q-AGON-0005-kag-eval-alignment.md) | `mechanics/agon/parts/kag-alignment/` | historical markdown quest-note lineage |
+
+Former root technical artifacts now live under the active part that owns their
+builder, validator, generated output, schema, example, and test route. Use
+`mechanics/agon/PARTS.md` for current ownership.

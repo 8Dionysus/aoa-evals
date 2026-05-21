@@ -1,5 +1,14 @@
 # Architecture
 
+## Role
+
+`docs/ARCHITECTURE.md` explains the technical proof model of `aoa-evals`.
+
+It is not the system design thesis, proof topology map, roadmap, decision log,
+generated catalog, or mechanic evidence ledger. Use `DESIGN.md` for the
+repository shape, `docs/PROOF_TOPOLOGY.md` for authority classes, and
+`mechanics/EVIDENCE_CLUSTERS.md` before creating or moving mechanic packages.
+
 ## Purpose
 
 `aoa-evals` is a public repository of portable evaluation bundles for agents and agent-shaped workflows.
@@ -43,6 +52,22 @@ An eval bundle may rely on one technique, several techniques, one skill, several
 Its primary responsibility is not execution and not technique canonization.
 Its primary responsibility is reproducible bounded proof.
 
+### Mechanics
+
+A mechanic is a recurring proof-layer operation with its own inputs, outputs,
+stronger-owner split, stop-lines, and validation.
+
+Mechanics do not replace eval bundles. They organize the reusable proof
+machinery around bundles: authoring contracts, comparison spines, shared proof
+infrastructure, receipt sidecars, quest obligations, audit intake, boundary
+bridges, and AoA-aligned proof support such as Agon, recurrence, checkpoint,
+Experience, antifragility, method-growth, RPG, growth-cycle, and distillation.
+
+Legacy inside a mechanic is provenance behind the active route. Active work
+starts from the parent route, part contracts, and validators; `PROVENANCE.md`
+is the single controlled bridge into the owning legacy archive. Archive details
+stay inside that archive.
+
 ## Layering
 
 ### Layer 1: origin need
@@ -79,6 +104,28 @@ A project-local overlay may add:
 
 These local adaptations should remain outside the public core unless they become general enough to publish safely.
 
+### Layer 5: proof operation support
+
+Once several bundles or support artifacts repeat the same proof operation, the
+support machinery may live under `mechanics/<parent>/parts/<part>/`.
+
+The parent name must come from one of two routes:
+
+- AoA-aligned mechanics keep the center mechanic name when local proof support
+  materializes that operation.
+- Evals-native mechanics are allowed only when `aoa-evals` itself owns the
+  proof-organ operation.
+
+An evals-native parent may keep a stronger-owner subject name only when the
+local proof operation is explicit and the stronger owner split is visible. The
+`titan` parent is this owner-named evals-native case: `aoa-evals` owns seed
+boundary proof shape, while `aoa-agents` keeps Titan role, bearer, summon, and
+incarnation law.
+
+Artifact forms such as canaries, reports, receipts, schemas, runners, scorers,
+generated readers, and verdict models become parts or payloads under the
+owning parent. They do not become parent names by convenience.
+
 ## Design rules
 
 1. eval bundles should make bounded claims, not total claims
@@ -91,6 +138,8 @@ These local adaptations should remain outside the public core unless they become
 8. structured outputs should remain derived, bounded, and inspectable
 9. compact public report artifacts are preferred over massive uncurated dumps
 10. local project-specific evals should not silently masquerade as portable public defaults
+11. mechanics should grow from cross-root evidence, not from one artifact form
+12. legacy should preserve lineage without steering active topology
 
 ## Eval categories
 

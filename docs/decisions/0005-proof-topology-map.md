@@ -15,6 +15,10 @@ Titan canaries, installed skills, and a still-root-local `Spark/` lane. Without
 a topology map, a future mechanics pass could become taxonomy-first or move
 files by analogy with sibling repositories rather than by proof ownership.
 
+Later mechanics decisions created an active `mechanics/` atlas. This decision
+still owns the topology-map reason: classify authority before movement, then
+keep using that map to constrain further movement.
+
 ## Options Considered
 
 - Create `mechanics/` immediately and sort surfaces into packages as they are
@@ -33,17 +37,19 @@ technical districts.
 The map names source proof objects, source guidance, shared proof
 infrastructure, reports and examples, derived readers, candidate evidence,
 receipts, quest obligations, decisions, agent guidance, sibling references,
-legacy lineage, and mechanic-ready operations.
+legacy lineage, and mechanic operations.
 
-Keep physical movement deferred until the map proves a real operation that a
-mechanic package should own.
+Further physical movement or new parent creation stays blocked until the map,
+the mechanics evidence ledger, route cards, decisions, and validators prove a
+real operation that a mechanic package should own.
 
 ## Rationale
 
-This makes the topology more convex without pretending the future layout is
-already built. A future agent can tell whether it is touching source proof
-meaning, a generated companion, candidate evidence, a receipt, a quest
-obligation, a decision, sibling-owned truth, or legacy lineage before editing.
+This makes the topology more convex without pretending package names are enough
+proof. A future agent can tell whether it is touching source proof meaning, a
+generated companion, candidate evidence, a receipt, a quest obligation, a
+decision, sibling-owned truth, legacy lineage, or an active mechanic operation
+before editing.
 
 It also preserves the meta-example lesson from neighboring repositories:
 mechanics are useful when they route live operations, not when they are empty
@@ -51,19 +57,20 @@ taxonomy.
 
 ## Consequences
 
-- Positive: Phase 5 can choose the first mechanic from live pressure instead of
-  repo-shape symmetry.
-- Tradeoff: the repo gains one more docs surface before file movement begins.
-- Follow-up: the first mechanics slice should pick one package only after this
-  map identifies the operation, source artifacts, validation, and legacy
-  posture it will own.
+- Positive: mechanic movement remains tied to authority class, source
+  artifacts, validation, and legacy posture instead of repo-shape symmetry.
+- Tradeoff: topology changes must update both the map and the validator-backed
+  surfaces that depend on it.
+- Follow-up: later mechanics slices must keep using the map and
+  `mechanics/EVIDENCE_CLUSTERS.md` before moving additional payloads.
 
 ## Boundaries
 
-This decision does not create `mechanics/`.
+This decision did not by itself create `mechanics/`; later decisions created
+the active `mechanics/` atlas.
 
-It does not move quests, Agon notes, generated readers, Titan canaries, `Spark/`,
-or receipt logs.
+It does not create new parent mechanics by itself, move quests, move generated
+readers, promote Titan canaries, revive `Spark/`, or publish receipt logs.
 
 It does not let the topology map outrank `DESIGN.md`, source proof bundles,
 bundle-local reports, generated builders, or sibling-owner truth.

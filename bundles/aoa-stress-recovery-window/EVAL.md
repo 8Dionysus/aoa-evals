@@ -8,8 +8,8 @@ claim_type: longitudinal
 baseline_mode: longitudinal-window
 report_format: comparative-summary
 comparison_surface:
-  shared_family_path: fixtures/stress-recovery-window-bounded-v1/README.md
-  paired_readout_path: reports/stress-recovery-window-proof-flow-v1.md
+  shared_family_path: mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md
+  paired_readout_path: mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md
   integrity_sidecar: aoa-eval-integrity-check
   selection_question: Do you need ordered repeated-window proof for one named stress recovery family?
   anchor_surface: aoa-antifragility-posture
@@ -124,7 +124,7 @@ This surface excludes:
 - health claims that are not anchored to owner receipts
 - route-only or memo-only evidence chains
 
-The current shared family is `fixtures/stress-recovery-window-bounded-v1/README.md`.
+The current shared family is `mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md`.
 
 ## Scoring or verdict logic
 
@@ -165,8 +165,8 @@ Ambiguous results should remain `mixed` or `suppressed`.
 This starter bundle uses `longitudinal-window`.
 
 Its machine-readable comparison surface is anchored in `aoa-antifragility-posture`,
-uses the shared family `fixtures/stress-recovery-window-bounded-v1/README.md`,
-publishes through `reports/stress-recovery-window-proof-flow-v1.md`,
+uses the shared family `mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md`,
+publishes through `mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md`,
 and keeps `aoa-eval-integrity-check` as the integrity sidecar whenever public stress wording or maturity posture changes materially.
 
 In this surface:
@@ -198,8 +198,8 @@ This bundle also ships:
 
 - the bundle-local fixture contract at `fixtures/contract.json`
 - the bundle-local runner contract at `runners/contract.json`
-- the shared window family note at `fixtures/stress-recovery-window-bounded-v1/README.md`
-- the paired readout at `reports/stress-recovery-window-proof-flow-v1.md`
+- the shared window family note at `mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md`
+- the paired readout at `mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md`
 
 ## Outputs
 

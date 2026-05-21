@@ -7,8 +7,8 @@ baseline_mode: longitudinal-window
 verdict_shape: comparative
 report_format: comparative-summary
 comparison_surface:
-  shared_family_path: fixtures/repeated-window-bounded-v1/README.md
-  paired_readout_path: reports/repeated-window-proof-flow-v1.md
+  shared_family_path: mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md
+  paired_readout_path: mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md
   integrity_sidecar: aoa-eval-integrity-check
   selection_question: Do you need ordered repeated-window movement on one named bounded workflow surface?
   anchor_surface: aoa-bounded-change-quality

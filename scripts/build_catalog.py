@@ -25,8 +25,8 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 QUESTBOOK_SURFACE_SENTINELS = (
     "QUESTBOOK.md",
     "docs/QUESTBOOK_EVAL_INTEGRATION.md",
-    "schemas/quest.schema.json",
-    "schemas/quest_dispatch.schema.json",
+    "mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json",
+    "mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json",
     "quests",
 )
 

@@ -11,7 +11,7 @@ Each window should preserve:
 - comparable case meaning or declared replacement logic
 - comparable verdict interpretation
 - the same bounded workflow surface even when fixtures rotate within the declared window rules
-- the same shared family `fixtures/repeated-window-bounded-v1/README.md`
+- the same shared family `mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md`
 
 Each window should disclose:
 - reviewer changes if they materially affect reading
@@ -27,9 +27,9 @@ Treat style-only or report-only movement as:
 unless the bounded workflow evidence itself also moved.
 
 Keep the current materialized repeated-window proof flow aligned with:
-- `fixtures/repeated-window-bounded-v1/README.md`
+- `mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md`
 - `reports/example-report.json`
-- `reports/repeated-window-proof-flow-v1.md`
-- `reports/repeated-window-proof-flow-v2.md`
+- `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md`
+- `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v2.md`
 - `aoa-eval-integrity-check` as the integrity sidecar whenever public movement wording, routing, or maturity posture changes materially
 

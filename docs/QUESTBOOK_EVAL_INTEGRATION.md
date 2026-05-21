@@ -17,7 +17,7 @@ This note shows how `QUESTBOOK.md` fits into `aoa-evals` as the public tracked s
 Use stable anchors such as:
 - `EVAL_INDEX.md`
 - `docs/COMPARISON_SPINE_GUIDE.md`
-- `docs/TRACE_EVAL_BRIDGE.md`
+- `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md`
 - `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
 - `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
 

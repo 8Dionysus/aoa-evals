@@ -15,7 +15,7 @@ preserves, at minimum:
 - a visible loop ceiling or loop count posture when repeated returns are
   possible
 
-The shared draft family in `fixtures/return-anchor-v1/README.md` should keep
+The shared draft family in `mechanics/recurrence/parts/anchor-return/fixtures/return-anchor-v1/README.md` should keep
 four pressures visible:
 
 - valid bounded re-entry from a real anchor

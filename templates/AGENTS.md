@@ -1,26 +1,26 @@
 # AGENTS.md
 
-Local guidance for `templates/`.
-
-## Purpose
+## Role
 
 The active eval authoring template now lives at
 `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md`.
 
-This root district is a compatibility route card, not the active template
-source.
-
-No active root template payload should live here.
+`templates/` is a route-card-only compatibility surface for historical template
+paths. Active template payloads route to proof-object eval authoring.
 
 ## Rules
 
 Preserve the required headings, frontmatter keys, and placeholders unless the repository-wide eval contract changes.
 Keep `comparison_surface`, `shared_family_path`, `paired_readout_path`, and `integrity_sidecar` explicit in the template where comparison applies.
 Keep `comparison_mode` guidance aligned with the report-schema contract for comparative evals.
-Do not turn the template into a doctrine essay or a repo-specific example eval.
+Doctrine essays and repo-specific example evals route to their owning docs or
+bundle surfaces.
 Keep placeholders neutral, bounded, and public-safe.
-Do not recreate root `templates/EVAL.template.md`; route authoring work through the proof-object part.
+Historical root template lineage routes through the proof-object part.
 
 ## Validation
 
-After template edits, run `python scripts/validate_repo.py`.
+```bash
+python scripts/validate_repo.py
+python scripts/validate_semantic_agents.py
+```

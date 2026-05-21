@@ -1,22 +1,27 @@
 # AGENTS.md
 
-## Guidance for `config/`
+## Role
 
-`config/` is a compatibility route card, not an active config payload district.
+`config/` is a route-card-only compatibility route card for root config paths.
 
-No active root config payload should live here. Agon-owned seed/config payloads
-live under `mechanics/agon/parts/*/config/`; latest-sibling canary config lives
-under `mechanics/boundary-bridge/parts/latest-sibling-canary/config/`.
+Active root config payloads route to the operation that owns them:
 
-Config can influence which surfaces are built or selected, but it must not
-silently upgrade a draft, bounded, or sidecar eval into canonical proof.
+- Agon-owned seed/config payloads live under `mechanics/agon/parts/*/config/`.
+- Latest-sibling canary config lives under
+  `mechanics/boundary-bridge/parts/latest-sibling-canary/config/`.
+
+## Rules
+
+Config can influence which surfaces are built or selected. draft, bounded, and
+sidecar evals keep their bundle-local proof posture during config selection.
 
 Keep status, baseline, comparison, and public-selection posture aligned with
 bundle-local `EVAL.md`, `eval.yaml`, `EVAL_INDEX.md`, and `EVAL_SELECTION.md`.
 
-No secrets, hidden datasets, private telemetry, or local-only absolute paths.
+Secrets, hidden datasets, private telemetry, and local-only absolute paths stay
+out of this public route.
 
-Verify with:
+## Validation
 
 ```bash
 python scripts/build_catalog.py --check

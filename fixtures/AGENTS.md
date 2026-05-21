@@ -1,14 +1,11 @@
 # AGENTS.md
 
-Local guidance for `fixtures/`.
-
-## Purpose
+## Role
 
 `fixtures/` is the public-safe compatibility route card for former root shared
 fixture families.
 
-No active fixture-family directory should live here after the proof-infra
-fixture-family slice.
+Active fixture-family directories route to the owning mechanic part.
 
 ## Current shared families
 
@@ -29,13 +26,17 @@ Keep each shared family weaker than the bundle-local EVAL.md meaning it supports
 Preserve replacement guidance so another repo can keep the bounded claim surface when cases are swapped.
 When a bundle points here, keep `shared_fixture_family_path` explicit and use `additional_shared_fixture_family_paths` only for real secondary reusable families.
 When a bundle points to a mechanic-local fixture family, keep the part-local
-path explicit and do not recreate a root fixture alias.
+path explicit and route old root path lineage through the owning mechanic.
 Route new generic shared fixture families through `mechanics/proof-infra/`
 first; route domain-specific families through the active owning mechanic.
 Keep reusable fixture families reviewable without private context, and keep
 bundle-local `EVAL.md` meaning stronger than the shared family name.
-Do not add secret-bearing logs, hidden benchmark dumps, or private telemetry.
+Secret-bearing logs, hidden benchmark dumps, and private telemetry stay out of
+this public fixture route.
 
 ## Validation
 
-Run `python scripts/validate_repo.py` after changing shared families or their replacement contract.
+```bash
+python scripts/validate_repo.py
+python scripts/validate_semantic_agents.py
+```

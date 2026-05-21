@@ -2313,7 +2313,7 @@ MECHANICS_EVIDENCE_CLUSTERS_REQUIRED_TOKENS = (
     "PROVENANCE.md",
     "legacy archive",
     "diagnosis-cause discipline routes through `growth-cycle/diagnosis-gate`, not this parent.",
-    "One document, one report, or one canary form is not enough",
+    "Single documents, reports, and canary forms route as parts under the right parent",
 )
 PART_LOCAL_TEST_PLACEMENT_DECISION_REQUIRED_TOKENS = (
     "Part-local Test Placement",

@@ -7649,6 +7649,40 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_mechanic_parent_direction_rejects_missing_readme_role_and_next_route(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in validate_repo.MECHANIC_DIRECTION_FILES:
+            write_text(
+                tmp_path / path_name,
+                "# Direction\n\ncurrent operating direction\n\n## Source-of-truth split\n\n`README.md`\n`DIRECTION.md`\n`PARTS.md`\n`PROVENANCE.md`\n\n## Current contour\n\nNow.\n\n## Growth rule\n\nGrow only with proof.\n\n## Stop-lines\n\nNo overclaim.\n\n## Validation\n\n`python scripts/validate_repo.py`\n",
+            )
+        for path_name in validate_repo.MECHANIC_PARENT_README_FILES:
+            write_text(
+                tmp_path / path_name,
+                "# Parent\n\n## Entry Route\n\n[DIRECTION.md](DIRECTION.md)\ncurrent operating direction\n[PARTS.md](PARTS.md)\n[PROVENANCE.md](PROVENANCE.md)\n\n## Owned Operation\n\nRoute proof work.\n\n## Validation\n\n[AGENTS](AGENTS.md#validation)\n",
+            )
+        for parent_name, path_name in zip(
+            validate_repo.ACTIVE_MECHANIC_PARENT_NAMES,
+            validate_repo.MECHANIC_PARENT_AGENTS_FILES,
+            strict=True,
+        ):
+            write_text(
+                tmp_path / path_name,
+                f"# AGENTS.md\n\n## Entry Route\n\ncurrent operating direction\n`mechanics/{parent_name}/DIRECTION.md`\n`mechanics/{parent_name}/PARTS.md`\n`mechanics/{parent_name}/PROVENANCE.md`\n",
+            )
+
+        issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
+
+        assert any(
+            issue.location == "mechanics/titan/README.md" and "## Role" in issue.message
+            for issue in issues
+        )
+        assert any(
+            issue.location == "mechanics/titan/README.md" and "## Next Route" in issue.message
+            for issue in issues
+        )
+
     def test_mechanic_parent_direction_rejects_missing_agents_entry_route(
         self, tmp_path: Path
     ) -> None:

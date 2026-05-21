@@ -4,6 +4,15 @@
 
 Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
 
+## Role
+
+`mechanics/checkpoint/` routes bounded proof work for checkpoint return,
+restartable inquiry, and self-agent checkpoint posture inside `aoa-evals`.
+
+It receives checkpoint pressure as reviewable evidence, hook examples, bridge
+plans, or support surfaces, then routes the work to a part-local review,
+bundle-local interpretation, or owner handoff.
+
 ## Owned Operation
 
 `mechanics/checkpoint/` owns the eval-side checkpoint proof operation:
@@ -94,3 +103,13 @@ owns command execution.
 
 When generated or source-support surfaces change, follow the same AGENTS
 validation lane before closeout.
+
+## Next Route
+
+Use this mechanic before changing A2A summon-return support, restartable
+inquiry support, self-agent checkpoint posture, checkpoint hook examples, or
+candidate audit bridges that feed checkpoint proof review.
+
+For SDK controls, memory objects, runtime exports, routing behavior, or
+playbook choreography, follow the stronger owner named in this package before
+changing eval-side proof support.

@@ -4,6 +4,16 @@
 
 Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
 
+## Role
+
+`mechanics/recurrence/` routes bounded proof work for recurrence
+control-plane, anchor return, memory recall, recursor boundary,
+stats-regrounding, and portable proof beacons.
+
+It receives recurrence pressure as source bundles, part-local manifests,
+fixtures, scorers, hooks, selected evidence, generated/readout support, and
+owner handoff context.
+
 ## Owned Operation
 
 `mechanics/recurrence/` owns the eval-side recurrence proof operation:
@@ -111,3 +121,14 @@ owns command execution.
 
 When generated or source-support surfaces change, follow the same AGENTS
 validation lane before closeout.
+
+## Next Route
+
+Use this mechanic before changing recurrence control-plane support, return
+anchor support, memo-recall guardrails, recursor-boundary readiness,
+stats-regrounding boundary support, portable-proof beacons, recurrence
+manifests, or observe-only hook posture.
+
+For runtime return behavior, memory canon, live routing, scenario choreography,
+stats truth, Agon source truth, or owner decisions, follow the stronger owner
+route before changing eval-side proof support.

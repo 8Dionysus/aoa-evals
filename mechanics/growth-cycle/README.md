@@ -4,6 +4,15 @@
 
 Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
 
+## Role
+
+`mechanics/growth-cycle/` routes bounded diagnosis proof before repair,
+progression, harvest, closeout, or owner-followthrough claims.
+
+It receives growth-cycle pressure when symptom refs, probable cause
+hypotheses, unknowns, confidence limits, and handoff language need an
+eval-side diagnosis route.
+
 ## Owned Operation
 
 `mechanics/growth-cycle/` owns the eval-side Growth Cycle diagnosis proof
@@ -124,3 +133,13 @@ owns command execution.
 
 When generated or source-support surfaces change, follow the same AGENTS
 validation lane before closeout.
+
+## Next Route
+
+Use this mechanic before changing diagnosis-gate support, diagnosis-cause
+discipline, or deferred-stage context that affects the diagnosis proof route.
+
+For repair proof, start with `mechanics/antifragility/parts/repair-proof/`.
+For progression or unlock proof, start with
+`mechanics/rpg/parts/progression-unlocks/`. For longitudinal movement, start
+with `mechanics/comparison-spine/parts/longitudinal-window/`.

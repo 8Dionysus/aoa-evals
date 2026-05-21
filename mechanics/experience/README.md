@@ -4,6 +4,16 @@
 
 Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
 
+## Role
+
+`mechanics/experience/` routes bounded proof support for Experience protocol,
+certification, adoption, governance-runtime boundaries, and office release
+train posture.
+
+It receives Experience-shaped verdict pressure as schemas, examples, fixtures,
+support docs, and source bundles, then routes the work to part-local review,
+bundle-local interpretation, or owner handoff.
+
 ## Owned Operation
 
 `mechanics/experience/` owns the eval-side Experience proof operation:
@@ -107,3 +117,13 @@ owns command execution.
 
 When generated or source-support surfaces change, follow the same AGENTS
 validation lane before closeout.
+
+## Next Route
+
+Use this mechanic before changing protocol integrity, certification gate,
+adoption federation, governance-runtime boundary, office release-train, or
+Experience verdict support surfaces.
+
+For live runtime, operator certification, release approval, routing behavior,
+memory truth, ToS meaning, KAG promotion, or owner-local adoption, follow the
+stronger owner route before changing eval-side proof support.

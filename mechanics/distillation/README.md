@@ -4,6 +4,15 @@
 
 Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
 
+## Role
+
+`mechanics/distillation/` routes bounded proof work for
+provenance-preserving abstraction and reviewed runtime-candidate adoption.
+
+It receives distillation pressure when source traces, candidate posture,
+receipt visibility, recall inspectability, and promotion boundaries need a
+reviewable eval-side proof route.
+
 ## Owned Operation
 
 `mechanics/distillation/` owns the eval-side Distillation proof operation:
@@ -115,3 +124,13 @@ owns command execution.
 
 When generated or source-support surfaces change, follow the same AGENTS
 validation lane before closeout.
+
+## Next Route
+
+Use this mechanic before changing compost-provenance support,
+runtime-candidate-adoption support, or audit hook routes that feed those bounded
+proof readings.
+
+For memo recall, generic Experience adoption, ToS canon, KAG lift, runtime
+activation, or owner-local adoption, follow the stronger owner route before
+changing eval-side proof support.

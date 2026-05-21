@@ -17,7 +17,7 @@ bundle source, generated catalog, or authority to strengthen eval claims.
 `bounded release scope -> changelog narrative -> release audit -> Repo Validation -> tag and GitHub release notes -> post-release proof posture`
 
 This package routes release proof publication work. Source proof meaning stays
-in `bundles/*/EVAL.md`, `bundles/*/eval.yaml`, reports, schemas, and authored
+in `evals/**/EVAL.md`, `evals/**/eval.yaml`, reports, schemas, and authored
 guides. Release publication carries those surfaces; it does not make them
 stronger.
 
@@ -40,10 +40,10 @@ In shorter form: release publication does not strengthen eval claims.
 - `mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py`
 - `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json`
 - `mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py`
-- generated catalog check through `python scripts/build_catalog.py --check`
-- repository validation through `python scripts/validate_repo.py`
-- full local test gate through `python -m pytest -q`
-- latest sibling canary route through `python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --matrix mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`
+- generated catalog check routed through `AGENTS.md#validation`
+- repository validation routed through `AGENTS.md#validation`
+- full local test gate routed through `AGENTS.md#validation`
+- latest sibling canary route routed through `AGENTS.md#validation`
 
 ## Inputs
 
@@ -152,30 +152,12 @@ PR exists, current git and GitHub state supersedes the snapshot for live status.
 
 ## Validation
 
-After changing release-support route surfaces, run:
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-python scripts/release_check.py
-```
-
-When generated surfaces are changed intentionally, rebuild from source and then
-run:
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/generate_eval_report_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-```
-
-When release scope depends on current sibling refs, run:
-
-```bash
-python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json
-```
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.
 
 ## Next Route
 

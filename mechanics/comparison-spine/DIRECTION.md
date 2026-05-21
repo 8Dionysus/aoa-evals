@@ -16,7 +16,7 @@ bridge.
   window support.
 - `PROVENANCE.md`: controlled bridge from active route to old comparison placement.
 - `legacy/`: lineage only; not a report archive.
-- `bundles/`: source proof objects that state comparison claims.
+- `evals/`: source proof objects that state comparison claims.
 
 ## Current contour
 

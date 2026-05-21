@@ -20,7 +20,8 @@ def load_json(path: Path) -> dict:
 def test_a2a_eval_fixture_contract_points_to_shared_family() -> None:
     contract = load_json(
         REPO_ROOT
-        / "bundles"
+        / "evals"
+        / "workflow"
         / "aoa-a2a-summon-return-checkpoint"
         / "fixtures"
         / "contract.json"

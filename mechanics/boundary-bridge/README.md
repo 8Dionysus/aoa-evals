@@ -121,28 +121,12 @@ failed against stale memo paths.
 
 ## Validation
 
-After changing sibling refs, compatibility docs, canary matrix entries, or this
-mechanic, run:
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
 
-```bash
-python scripts/validate_repo.py
-python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json
-python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-python scripts/validate_semantic_agents.py
-```
-
-After changing orchestrator proof anchors or owner-surface refs, also run:
-
-```bash
-python scripts/build_catalog.py --check
-```
-
-When `.github/workflows/repo-validation.yml` changes, rerun the release route
-and watch GitHub `Repo Validation` rather than treating the local canary as a
-substitute for the pinned public lane.
-
-If generated readers changed because source proof refs changed, run the owning
-builder in `--check` mode too.
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.
 
 ## Next Route
 

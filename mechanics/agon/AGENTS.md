@@ -28,7 +28,7 @@ This package protects the local Agon proof-alignment loop:
 10. the target part docs, config, schemas, scripts, tests, and manifests
 11. `mechanics/agon/docs/AGON_EVAL_OWNER_HANDOFFS.md`
 12. `mechanics/agon/docs/AGON_EVAL_RECURRENCE_REVIEW_BOUNDARY.md`
-13. `bundles/aoa-recurrence-control-plane-integrity/EVAL.md` when recurrence
+13. `evals/boundary/aoa-recurrence-control-plane-integrity/EVAL.md` when recurrence
     review posture changes
 14. `docs/decisions/0016-agon-mechanic-package.md`
 

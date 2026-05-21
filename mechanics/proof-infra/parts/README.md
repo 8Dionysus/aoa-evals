@@ -1,4 +1,4 @@
-# Proof Infra Parts
+# Proof Infra / Parts Route
 
 This directory contains active parts owned by `mechanics/proof-infra/`.
 

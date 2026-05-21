@@ -17,7 +17,7 @@ bridge.
   governance-runtime boundary, and office release-train support.
 - `PROVENANCE.md`: controlled bridge from active route to old Experience placement.
 - `legacy/`: lineage only; not a release queue.
-- `bundles/`: source proof objects that remain stronger than support parts.
+- `evals/`: source proof objects that remain stronger than support parts.
 
 ## Current contour
 

@@ -1,4 +1,4 @@
-# Readiness Audit
+# Release Support / Readiness Audit Part
 
 ## Role
 
@@ -63,12 +63,7 @@ than readiness audit claims.
 
 ## Validation
 
-```bash
-python -m pytest -q mechanics/release-support/parts/readiness-audit/tests/test_release_support_readiness_audit.py tests/test_validate_repo.py -k release_support_readiness
-python scripts/validate_repo.py
-python scripts/release_check.py
-```
-
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.
 ## Next Route
 
 Use this part when updating release-prep readiness evidence or its validator

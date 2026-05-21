@@ -22,7 +22,7 @@ behind the active proof-object mechanic.
 - Do not start new bundle authoring here.
 - Do not recreate old root template or eval schema aliases.
 - Do not use legacy path vocabulary as source proof meaning.
-- Keep source bundle meaning in `bundles/*/EVAL.md` and `eval.yaml`.
+- Keep source bundle meaning in `evals/**/EVAL.md` and `eval.yaml`.
 
 ## Validation
 

@@ -1,4 +1,4 @@
-# Method-growth Parts
+# Method-growth / Part Index
 
 `mechanics/method-growth/parts/` contains the active parts of the eval-side
 method-growth proof operation.
@@ -42,7 +42,7 @@ repository validation, and the method-growth mechanic route checks in
 
 ## Deferred Part Families
 
-`aoa-diagnosis-cause-discipline` remains a source proof bundle in `bundles/`
+`aoa-diagnosis-cause-discipline` remains a source proof bundle in `evals/`
 and is not a method-growth part in this slice. It currently points more toward
 `growth-cycle/diagnosis-gate`.
 

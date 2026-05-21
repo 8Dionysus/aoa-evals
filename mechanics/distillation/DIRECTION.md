@@ -16,7 +16,7 @@ bridge.
 - `parts/`: compost provenance and runtime-candidate adoption support.
 - `PROVENANCE.md`: controlled bridge from active route to old distillation-adjacent placement.
 - `legacy/`: lineage only; not a summary archive.
-- `bundles/`: source proof objects that remain stronger than part support.
+- `evals/`: source proof objects that remain stronger than part support.
 
 ## Current contour
 

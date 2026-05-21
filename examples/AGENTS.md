@@ -6,7 +6,7 @@
 district.
 
 No active root examples payload should live here. Bundle-local examples stay in
-`bundles/*/examples/`; mechanic-owned examples stay under the owning
+`evals/**/examples/`; mechanic-owned examples stay under the owning
 `mechanics/*/parts/*/examples/`.
 
 Examples are illustrative. They should support schemas and docs without becoming the verdict or bundle-local claim.

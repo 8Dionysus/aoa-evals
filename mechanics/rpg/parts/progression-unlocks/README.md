@@ -1,4 +1,4 @@
-# Progression Unlocks Part
+# RPG / Progression Unlocks Part
 
 ## Role
 
@@ -71,10 +71,4 @@ proves a route.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/rpg/parts/progression-unlocks/`.
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

@@ -1,4 +1,4 @@
-# Questbook Parts
+# Questbook / Part Index
 
 ## Role
 
@@ -58,10 +58,9 @@ truth.
 Stop-lines forbid treating quests as eval bundles, verdicts, roadmap direction,
 release items, generated authority, or owner acceptance.
 
-Validation is `python scripts/build_catalog.py --check`,
-`python scripts/validate_repo.py`, and
-`python scripts/validate_semantic_agents.py`; rebuild generated quest readers
-with `python scripts/build_catalog.py` when source quest records move.
+Validation routes through [AGENTS](AGENTS.md#validation) and the affected part
+route cards. Rebuild generated quest readers through the AGENTS route when
+source quest records move.
 
 ## Stop-Lines
 
@@ -77,16 +76,6 @@ with `python scripts/build_catalog.py` when source quest records move.
 
 ## Validation
 
-After changing these parts, run:
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
-
-If generated quest readers are stale, rebuild them with:
-
-```bash
-python scripts/build_catalog.py
-```
+After changing these parts, use [AGENTS](AGENTS.md#validation) for executable
+validation commands. If generated quest readers are stale, rebuild them through
+the same route before rerunning checks.

@@ -1,4 +1,4 @@
-# Candidate Readers
+# Audit / Candidate Readers Part
 
 ## Role
 
@@ -52,8 +52,4 @@ examples and must be regenerated when source examples move or change.
 
 ## Validation
 
-```bash
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

@@ -16,7 +16,7 @@ Distilled root Experience support surfaces into the active
 - `office-release-train` received office, multi-office, governed release,
   handoff, installation, replay, rollback, and train release verdict surfaces.
 
-Source proof bundles stayed under `bundles/`.
+Source proof bundles stayed under `evals/`.
 Old root names now route through `legacy/INDEX.md`.
 
 Later the reviewed runtime distillation candidate adoption fixture moved to

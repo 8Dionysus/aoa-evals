@@ -13,7 +13,7 @@ Start with the package README. Then read `mechanics/proof-object/DIRECTION.md` f
 This package routes source proof-object work for eval bundles.
 
 It does not own the actual bundle meaning. Bundle meaning stays in
-`bundles/*/EVAL.md` and `bundles/*/eval.yaml`, with bundle-local support
+`evals/**/EVAL.md` and `evals/**/eval.yaml`, with bundle-local support
 artifacts where present.
 
 ## Read before editing
@@ -27,7 +27,7 @@ artifacts where present.
 7. `mechanics/proof-object/README.md`
 8. `mechanics/proof-object/PARTS.md`
 9. `mechanics/proof-object/PROVENANCE.md`
-10. affected `bundles/*/EVAL.md` and `bundles/*/eval.yaml`
+10. affected `evals/**/EVAL.md` and `evals/**/eval.yaml`
 11. `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md` when authoring or reshaping bundle anatomy
 12. `mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json`
 13. `mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json`
@@ -48,7 +48,7 @@ artifacts where present.
 
 ## Boundaries
 
-- Do not move `bundles/` into `mechanics/proof-object/`.
+- Do not move `evals/` into `mechanics/proof-object/`.
 - Keep former root template and schema aliases as historical compatibility
   vocabulary; the active template and schema surfaces are mechanic-local.
 - Do not hand-edit generated reader surfaces as proof authority.

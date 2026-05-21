@@ -1,4 +1,4 @@
-# Compatibility Map Part
+# Boundary Bridge / Compatibility Map Part
 
 ## Role
 
@@ -52,8 +52,4 @@ and whether a path or concept is accepted in their owner lane.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/boundary-bridge/parts/compatibility-map/`.
-
-```bash
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

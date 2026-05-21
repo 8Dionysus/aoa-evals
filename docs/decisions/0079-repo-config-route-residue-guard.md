@@ -45,7 +45,7 @@ It rejects:
 - route-card-only root district payload paths such as
   `reports/summary.schema.json`.
 
-Config surfaces must use active `mechanics/...` routes, `bundles/<bundle>/...`
+Config surfaces must use active `mechanics/...` routes, `evals/<family>/<eval>/...`
 paths, or root route cards where a root district is intentionally only a route
 card.
 

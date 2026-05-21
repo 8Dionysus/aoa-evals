@@ -38,7 +38,7 @@ The active parts are:
 - `self-agent-posture` for the self-agent checkpoint eval posture and
   approval-boundary hook route.
 
-source proof bundles stay under `bundles/`. The artifact-to-verdict hook schema
+source proof bundles stay under `evals/`. The artifact-to-verdict hook schema
 and generated audit candidate readers stay under `mechanics/audit/`, but
 checkpoint-specific hook examples live under the checkpoint parts that own
 their proof route.

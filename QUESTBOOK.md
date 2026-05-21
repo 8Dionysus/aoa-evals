@@ -1,8 +1,8 @@
-# QUESTBOOK.md - aoa-evals
+# Questbook Obligation Index
 
 ## Role
 
-`QUESTBOOK.md` is the public human index for deferred proof, regression, and
+`QUESTBOOK.md` is the public human obligation index for deferred proof, regression, and
 verdict-bridge obligations that belong to `aoa-evals`.
 
 It is not the roadmap, not an eval bundle, not a generated dispatch surface, and
@@ -15,7 +15,7 @@ not a live verdict authority.
 - Quest lifecycle meaning lives in `quests/LIFECYCLE.md`.
 - Generated quest readers live in `generated/quest_catalog.min.json` and
   `generated/quest_dispatch.min.json`.
-- Proof meaning lives in `bundles/*/EVAL.md` and `bundles/*/eval.yaml`.
+- Proof meaning lives in `evals/**/EVAL.md` and `evals/**/eval.yaml`.
 
 ## Use It For
 

@@ -28,7 +28,7 @@ return-aware bundles.
 - Move every recurrence-named bundle into `mechanics/recurrence/`.
 - Create `mechanics/recurrence/` as the AoA-aligned parent, move only
   control-plane support machinery into a part, and leave source proof bundles
-  under `bundles/`.
+  under `evals/`.
 
 ## Decision
 
@@ -42,7 +42,7 @@ Move the control-plane integrity support surfaces into
 `mechanics/recurrence/parts/control-plane-integrity/`: docs, fixtures, schema,
 example dossier, runner, scorer, tests, and recurrence component manifest.
 
-The source proof bundles stay under `bundles/`. Return-anchor,
+The source proof bundles stay under `evals/`. Return-anchor,
 continuity-anchor, and self-reanchor proof remain bundle-local until their
 support artifacts justify narrower recurrence parts.
 

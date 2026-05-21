@@ -1,4 +1,4 @@
-# Fixture Families
+# Proof Infra / Fixture Families Part
 
 ## Role
 
@@ -20,7 +20,7 @@ bundle say which public-safe case pressure it uses.
 ## Source Surfaces
 
 - `mechanics/proof-infra/parts/fixture-families/fixtures/<family>/README.md`
-- `bundles/*/fixtures/contract.json`
+- `evals/**/fixtures/contract.json`
 - `generated/eval_catalog.json`
 - `scripts/build_catalog.py`
 - `scripts/validate_repo.py`
@@ -29,24 +29,24 @@ bundle say which public-safe case pressure it uses.
 
 | Family | Primary source bundle |
 | --- | --- |
-| `ambiguity-bounded-v1` | `bundles/aoa-ambiguity-handling/` |
-| `approval-boundary-bounded-v1` | `bundles/aoa-approval-boundary-adherence/` |
-| `local-text-contract-v1` | `bundles/aoa-local-text-contract-fit/` |
-| `memo-contradiction-guardrail-v1` | `bundles/aoa-memo-contradiction-integrity/` |
-| `memo-writeback-act-guardrail-v1` | `bundles/aoa-memo-writeback-act-integrity/` |
-| `ring-application-discipline-v1` | `bundles/aoa-ring-application-discipline/` |
-| `scope-drift-bounded-v1` | `bundles/aoa-scope-drift-detection/` |
-| `tool-trajectory-bounded-v1` | `bundles/aoa-tool-trajectory-discipline/` |
-| `trace-outcome-bounded-v1` | `bundles/aoa-trace-outcome-separation/` |
-| `verification-honesty-v1` | `bundles/aoa-verification-honesty/` |
-| `witness-trace-v1` | `bundles/aoa-witness-trace-integrity/` |
+| `ambiguity-bounded-v1` | `evals/stress/aoa-ambiguity-handling/` |
+| `approval-boundary-bounded-v1` | `evals/boundary/aoa-approval-boundary-adherence/` |
+| `local-text-contract-v1` | `evals/boundary/aoa-local-text-contract-fit/` |
+| `memo-contradiction-guardrail-v1` | `evals/workflow/aoa-memo-contradiction-integrity/` |
+| `memo-writeback-act-guardrail-v1` | `evals/workflow/aoa-memo-writeback-act-integrity/` |
+| `ring-application-discipline-v1` | `evals/workflow/aoa-ring-application-discipline/` |
+| `scope-drift-bounded-v1` | `evals/boundary/aoa-scope-drift-detection/` |
+| `tool-trajectory-bounded-v1` | `evals/workflow/aoa-tool-trajectory-discipline/` |
+| `trace-outcome-bounded-v1` | `evals/workflow/aoa-trace-outcome-separation/` |
+| `verification-honesty-v1` | `evals/workflow/aoa-verification-honesty/` |
+| `witness-trace-v1` | `evals/workflow/aoa-witness-trace-integrity/` |
 
 ## Inputs
 
 - a source bundle that needs a reusable public-safe family;
 - the family `README.md` under
   `mechanics/proof-infra/parts/fixture-families/fixtures/<family>/`;
-- a bundle-local `bundles/<bundle>/fixtures/contract.json` that names this
+- a bundle-local `evals/<family>/<eval>/fixtures/contract.json` that names this
   family through `shared_fixture_family_path`;
 - optional bundle-local runner, report schema, example, or reviewed report
   surfaces.
@@ -89,16 +89,4 @@ here by habit.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/proof-infra/parts/fixture-families/`.
-
-Run:
-
-```bash
-python scripts/build_catalog.py
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
-
-Run targeted bundle validation for each bundle whose fixture contract points to
-this part.
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

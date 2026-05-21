@@ -20,9 +20,9 @@ is needed.
 ## Options Considered
 
 - Keep `proof-object` as a candidate family until after more file movement.
-- Create a package only when `bundles/` is reorganized.
+- Create a package only when `evals/` is reorganized.
 - Create `mechanics/proof-object/` now as a route package, while keeping
-  `bundles/` in place.
+  `evals/` in place.
 
 ## Decision
 
@@ -32,14 +32,14 @@ Create `mechanics/proof-object/` as the package for the operation:
 
 The package routes existing source surfaces:
 
-- `bundles/*/EVAL.md`
-- `bundles/*/eval.yaml`
+- `evals/**/EVAL.md`
+- `evals/**/eval.yaml`
 - `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
 - architecture, philosophy, rubric, review, score, verdict, blind spot,
   portability, and comparison guides
 - generated catalog, capsule, and section readers
 
-It does not move `bundles/`.
+It does not move `evals/`.
 
 ## Rationale
 
@@ -64,8 +64,8 @@ runtime evidence as stronger truth.
 This decision does not move, rename, promote, deprecate, or rewrite any eval
 bundle.
 
-It does not make `mechanics/proof-object/` stronger than `bundles/*/EVAL.md`
-and `bundles/*/eval.yaml`.
+It does not make `mechanics/proof-object/` stronger than `evals/**/EVAL.md`
+and `evals/**/eval.yaml`.
 
 It does not make generated readers, runtime candidates, receipts, reports, or
 sibling references verdict authority.

@@ -1,18 +1,18 @@
-# Posture Review Part
+# Antifragility / Posture Review Part
 
 ## Role
 
 This part owns the support route for `aoa-antifragility-posture`.
 
 It keeps the repo-level report schema under the Antifragility mechanic while
-the source proof bundle stays under `bundles/`.
+the source proof bundle stays under `evals/`.
 
 ## Source Surfaces
 
-- `bundles/aoa-antifragility-posture/EVAL.md`
-- `bundles/aoa-antifragility-posture/eval.yaml`
-- `bundles/aoa-antifragility-posture/reports/summary.schema.json`
-- `bundles/aoa-antifragility-posture/reports/example-report.json`
+- `evals/stress/aoa-antifragility-posture/EVAL.md`
+- `evals/stress/aoa-antifragility-posture/eval.yaml`
+- `evals/stress/aoa-antifragility-posture/reports/summary.schema.json`
+- `evals/stress/aoa-antifragility-posture/reports/example-report.json`
 - `mechanics/antifragility/parts/posture-review/schemas/antifragility_eval_report_v1.json`
 
 ## Inputs
@@ -53,8 +53,4 @@ This part must not claim:
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-antifragility-posture
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

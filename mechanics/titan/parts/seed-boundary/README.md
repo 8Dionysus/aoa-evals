@@ -1,4 +1,4 @@
-# Seed Boundary Part
+# Titan / Seed Boundary Part
 
 ## Role
 
@@ -68,10 +68,4 @@ or owner-law change.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/titan/parts/seed-boundary/`.
-
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-python -m pytest -q tests/test_validate_repo.py -k titan_canary
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

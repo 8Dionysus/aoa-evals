@@ -1,4 +1,4 @@
-# Recursor Boundary
+# Recurrence / Recursor Boundary Part
 
 ## Role
 
@@ -11,8 +11,8 @@ authority, no executor self-certification, and no hidden scheduler.
 
 ## Source Surfaces
 
-- `bundles/aoa-recurrence-control-plane-integrity/EVAL.md`
-- `bundles/aoa-recurrence-control-plane-integrity/RECURSOR_READINESS_BOUNDARY_EXTENSION.md`
+- `evals/boundary/aoa-recurrence-control-plane-integrity/EVAL.md`
+- `evals/boundary/aoa-recurrence-control-plane-integrity/RECURSOR_READINESS_BOUNDARY_EXTENSION.md`
 - `mechanics/recurrence/parts/recursor-boundary/fixtures/recursor-readiness-boundary-v1/`
 - `mechanics/recurrence/parts/recursor-boundary/scorers/recursor_readiness_boundary.py`
 - `mechanics/recurrence/parts/recursor-boundary/scripts/run_recursor_readiness_boundary_eval.py`
@@ -47,7 +47,4 @@ scheduling, or runtime readiness.
 
 ## Validation
 
-```bash
-python mechanics/recurrence/parts/recursor-boundary/scripts/run_recursor_readiness_boundary_eval.py --case mechanics/recurrence/parts/recursor-boundary/fixtures/recursor-readiness-boundary-v1/cases/RRB-001.no-spawn-readiness.json --check-expected --json
-python -m pytest -q mechanics/recurrence/parts/recursor-boundary/tests/test_recursor_readiness_boundary_eval_seed.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

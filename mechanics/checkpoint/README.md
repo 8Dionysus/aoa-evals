@@ -15,8 +15,8 @@ operation materializes the center checkpoint mechanic on the proof side.
 
 ## Source Surfaces
 
-- `bundles/aoa-a2a-summon-return-checkpoint/EVAL.md`
-- `bundles/aoa-long-horizon-depth/EVAL.md`
+- `evals/workflow/aoa-a2a-summon-return-checkpoint/EVAL.md`
+- `evals/workflow/aoa-long-horizon-depth/EVAL.md`
 - `mechanics/checkpoint/parts/a2a-summon-return/README.md`
 - `mechanics/checkpoint/parts/restartable-inquiry/README.md`
 - `mechanics/checkpoint/parts/self-agent-posture/README.md`
@@ -88,10 +88,9 @@ README, [PARTS.md](PARTS.md), and the active parts.
 
 ## Validation
 
-```bash
-python -m pytest -q mechanics/checkpoint/parts/a2a-summon-return/tests/test_a2a_summon_return_checkpoint_fixture.py
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
+
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.

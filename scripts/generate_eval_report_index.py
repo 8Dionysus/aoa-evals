@@ -12,6 +12,7 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_PATH = REPO_ROOT / "generated" / "eval_report_index.min.json"
 REPORT_SUFFIX = ".report.json"
+SOURCE_EVALS_DIR_NAME = "evals"
 
 
 def read_text(path: Path) -> str:
@@ -87,7 +88,7 @@ def build_report_entry(report_path: Path) -> dict[str, object]:
         "eval_name": eval_name,
         "bundle_status": bundle_status,
         "source_report_path": location,
-        "source_bundle_ref": f"bundles/{eval_name}/EVAL.md",
+        "source_bundle_ref": repo_path(bundle_dir / "EVAL.md"),
         "manifest_ref": repo_path(manifest_path),
         "report_schema_ref": repo_path(report_schema_path),
         "verdict": string_value(report_payload, "verdict", location=location),
@@ -101,7 +102,7 @@ def build_report_entry(report_path: Path) -> dict[str, object]:
 
 
 def build_eval_report_index_payload() -> dict[str, object]:
-    report_paths = sorted((REPO_ROOT / "bundles").glob(f"*/reports/*{REPORT_SUFFIX}"))
+    report_paths = sorted((REPO_ROOT / SOURCE_EVALS_DIR_NAME).glob(f"**/reports/*{REPORT_SUFFIX}"))
     reports = [build_report_entry(path) for path in report_paths]
     reports.sort(key=lambda item: (str(item["eval_name"]), str(item["report_id"])))
 
@@ -109,9 +110,9 @@ def build_eval_report_index_payload() -> dict[str, object]:
         "schema_version": 1,
         "layer": "aoa-evals",
         "source_of_truth": {
-            "bundle_reports": "bundles/*/reports/*.report.json",
-            "bundle_report_schema": "bundles/*/reports/summary.schema.json",
-            "bundle_manifest": "bundles/*/eval.yaml",
+            "bundle_reports": "evals/**/reports/*.report.json",
+            "bundle_report_schema": "evals/**/reports/summary.schema.json",
+            "bundle_manifest": "evals/**/eval.yaml",
             "eval_review_guide": "docs/EVAL_REVIEW_GUIDE.md",
         },
         "interpretation_boundary": (

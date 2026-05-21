@@ -1,4 +1,4 @@
-# SLC Alignment
+# Agon / SLC Alignment Part
 
 ## Role
 
@@ -52,8 +52,4 @@ Agents-of-Abyss law keep their own source truth and promotion authority.
 
 ## Validation
 
-```bash
-python mechanics/agon/parts/slc-alignment/scripts/build_agon_slc_eval_alignment_registry.py --check
-python mechanics/agon/parts/slc-alignment/scripts/validate_agon_slc_eval_alignment_registry.py
-python -m pytest -q mechanics/agon/parts/slc-alignment/tests/test_agon_slc_eval_alignment_registry.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

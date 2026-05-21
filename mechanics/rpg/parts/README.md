@@ -1,4 +1,4 @@
-# RPG Parts
+# RPG / Parts Route
 
 This directory holds active parts of the eval-side RPG proof mechanic.
 

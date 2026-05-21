@@ -1,4 +1,4 @@
-# Stats Envelope Mirror Part
+# Publication Receipts / Stats Envelope Mirror Part
 
 ## Role
 
@@ -52,9 +52,4 @@ subordination checks.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/publication-receipts/parts/stats-envelope-mirror/`.
-
-```bash
-python scripts/validate_repo.py
-python -m pytest -q mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py tests/test_validate_repo.py -k live_receipt
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

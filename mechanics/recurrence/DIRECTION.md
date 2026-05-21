@@ -17,7 +17,7 @@ bridge.
   stats-regrounding, and portable-proof-beacon support.
 - `PROVENANCE.md`: controlled bridge from active route to old recurrence placement.
 - `legacy/`: lineage only; not a control plane.
-- `bundles/`: source proof objects that remain stronger than support parts.
+- `evals/`: source proof objects that remain stronger than support parts.
 
 ## Current contour
 

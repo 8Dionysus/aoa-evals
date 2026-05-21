@@ -1,4 +1,4 @@
-# Publication Receipts Parts
+# Publication Receipts / Part Index
 
 ## Role
 
@@ -44,5 +44,5 @@ eval-result receipt sidecar route.
 Stop-lines forbid dry review from implying publication, receipt presence from
 implying proof authority, or local envelope mirrors from owning `aoa-stats`.
 
-Validation is `python scripts/validate_repo.py`,
-`python scripts/validate_semantic_agents.py`, and receipt-specific tests.
+Validation routes through [AGENTS](AGENTS.md#validation), including repo,
+semantic AGENTS, and receipt-specific test lanes.

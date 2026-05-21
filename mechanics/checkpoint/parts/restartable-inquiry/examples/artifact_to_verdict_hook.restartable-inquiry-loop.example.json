@@ -3,7 +3,7 @@
   "hook_id": "aoa-p-0009-long-horizon-depth-hook",
   "playbook_id": "AOA-P-0009",
   "eval_anchor": "aoa-long-horizon-depth",
-  "verdict_bundle_ref": "repo:aoa-evals/bundles/aoa-long-horizon-depth/EVAL.md",
+  "verdict_bundle_ref": "repo:aoa-evals/evals/workflow/aoa-long-horizon-depth/EVAL.md",
   "artifact_inputs": [
     "inquiry_checkpoint",
     "decision_ledger",
@@ -21,9 +21,9 @@
   "trace_surfaces": [],
   "verification_surface": "inquiry_checkpoint",
   "contract_test_refs": [
-    "repo:aoa-evals/bundles/aoa-long-horizon-depth/checks/eval-integrity-check.md",
-    "repo:aoa-evals/bundles/aoa-long-horizon-depth/notes/restart-contract.md",
-    "repo:aoa-evals/bundles/aoa-long-horizon-depth/notes/proof-surface-contract.md"
+    "repo:aoa-evals/evals/workflow/aoa-long-horizon-depth/checks/eval-integrity-check.md",
+    "repo:aoa-evals/evals/workflow/aoa-long-horizon-depth/notes/restart-contract.md",
+    "repo:aoa-evals/evals/workflow/aoa-long-horizon-depth/notes/proof-surface-contract.md"
   ],
   "report_expectation": {
     "report_format": "summary-with-breakdown",

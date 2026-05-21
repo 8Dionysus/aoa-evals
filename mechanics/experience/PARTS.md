@@ -1,4 +1,4 @@
-# Experience Parts
+# Experience / Part Index
 
 `mechanics/experience/parts/` contains the active parts of the eval-side
 Experience proof operation.
@@ -42,8 +42,8 @@ or broad Experience success claims.
 Runtime distillation candidate adoption stays outside this part and routes
 through `mechanics/distillation/parts/runtime-candidate-adoption/`.
 
-Validation is the part-local test battery, generated catalog check, and
-`python scripts/validate_repo.py`.
+Validation routes through [AGENTS](AGENTS.md#validation), including the
+part-local test battery, generated catalog check, and repo validation lane.
 
 ## Deferred Part Families
 

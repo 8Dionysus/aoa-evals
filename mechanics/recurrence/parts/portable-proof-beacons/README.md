@@ -1,4 +1,4 @@
-# Portable Proof Beacons Part
+# Recurrence / Portable Proof Beacons Part
 
 ## Role
 
@@ -67,12 +67,4 @@ Do not use this part to claim:
 
 ## Validation
 
-Payload coverage anchor: `mechanics/recurrence/parts/portable-proof-beacons/`.
-
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

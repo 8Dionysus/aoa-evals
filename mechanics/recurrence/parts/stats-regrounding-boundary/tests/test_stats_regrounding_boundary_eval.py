@@ -29,7 +29,7 @@ def test_stats_regrounding_boundary_eval_is_cataloged() -> None:
 
 
 def test_stats_regrounding_boundary_report_example_matches_schema() -> None:
-    report_dir = REPO_ROOT / "bundles" / BUNDLE_NAME / "reports"
+    report_dir = REPO_ROOT / "evals" / "boundary" / BUNDLE_NAME / "reports"
     schema = json.loads((report_dir / "summary.schema.json").read_text(encoding="utf-8"))
     example = json.loads((report_dir / "example-report.json").read_text(encoding="utf-8"))
 

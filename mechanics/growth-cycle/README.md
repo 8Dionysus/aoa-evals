@@ -22,11 +22,11 @@ Route guard: repair proof under `antifragility`; repeated-window movement under
 
 ## Active Source Surfaces
 
-- `bundles/aoa-diagnosis-cause-discipline/EVAL.md`
-- `bundles/aoa-diagnosis-cause-discipline/eval.yaml`
-- `bundles/aoa-diagnosis-cause-discipline/notes/diagnosis-contract.md`
-- `bundles/aoa-diagnosis-cause-discipline/examples/example-report.md`
-- `bundles/aoa-diagnosis-cause-discipline/checks/eval-integrity-check.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/EVAL.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/eval.yaml`
+- `evals/workflow/aoa-diagnosis-cause-discipline/notes/diagnosis-contract.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/examples/example-report.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/checks/eval-integrity-check.md`
 - `mechanics/growth-cycle/parts/diagnosis-gate/README.md`
 
 ## Boundary And Deferred Context
@@ -118,9 +118,9 @@ and the active part.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-diagnosis-cause-discipline
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
+
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.

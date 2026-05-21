@@ -1,4 +1,4 @@
-# Proof Loop Parts
+# Proof Loop / Part Index
 
 `mechanics/proof-loop/parts/` contains the active parts of the local
 proof-loop operation.
@@ -35,4 +35,4 @@ audit, boundary-bridge, and publication-receipts without owning their meaning.
 Stop-lines forbid bundle promotion, receipt publication, runtime acceptance,
 sibling approval, or making the coordinator stronger than step owners.
 
-Validation is `python scripts/validate_repo.py`.
+Validation routes through [AGENTS](AGENTS.md#validation).

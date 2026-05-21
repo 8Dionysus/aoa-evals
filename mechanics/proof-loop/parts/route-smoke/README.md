@@ -1,4 +1,4 @@
-# Route Smoke Part
+# Proof Loop / Route Smoke Part
 
 ## Role
 
@@ -55,10 +55,4 @@ intake, sibling-owner approval, or full proof-loop completeness proof.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/proof-loop/parts/route-smoke/`.
-
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-python -m pytest -q tests/test_validate_repo.py -k proof_loop
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

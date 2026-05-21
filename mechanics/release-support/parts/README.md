@@ -1,4 +1,4 @@
-# Release Support Parts
+# Release Support / Parts Route
 
 The parts in this directory hold release-support-owned artifacts that were too
 specific for root `reports/` once the mechanic became active.

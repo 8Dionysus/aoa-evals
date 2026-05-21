@@ -1,4 +1,4 @@
-# Intake Dry Review Part
+# Publication Receipts / Intake Dry Review Part
 
 ## Role
 
@@ -15,9 +15,9 @@ publisher execution, or live receipt append.
 
 ## Inputs
 
-- `bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`;
-- `bundles/aoa-verification-honesty/EVAL.md`;
-- `bundles/aoa-verification-honesty/eval.yaml`;
+- `evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`;
+- `evals/workflow/aoa-verification-honesty/EVAL.md`;
+- `evals/workflow/aoa-verification-honesty/eval.yaml`;
 - `generated/eval_report_index.min.json`;
 - receipt payload schema, stats envelope mirror, publisher path, and owner-local
   log path as referenced boundaries.
@@ -59,7 +59,4 @@ from it.
 
 ## Validation
 
-```bash
-python -m pytest -q mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py tests/test_validate_repo.py -k receipt_intake_dry_review
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

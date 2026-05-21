@@ -1,4 +1,4 @@
-# Shared Fixtures
+# Fixtures Route
 
 This directory is the compatibility route card for former root shared fixture
 families in `aoa-evals`.
@@ -6,14 +6,8 @@ families in `aoa-evals`.
 No active fixture family remains in root `fixtures/` after the proof-infra
 fixture-family slice. Active families now live under the owning mechanic part.
 
-These fixture families are reusable proof artifacts, not hidden benchmark
-dumps.
-
-A shared fixture family should:
-- preserve the bounded claim surface it supports
-- explain what another repo must keep when replacing cases locally
-- stay reviewable without private context
-- remain weaker than the bundle-local `EVAL.md` meaning it serves
+Use [AGENTS.md](AGENTS.md) for replacement, naming, and safety rules. This
+README is the route map.
 
 Generic shared fixture families now live under the proof-infra part:
 
@@ -56,9 +50,3 @@ Method-growth shared fixture families now live under their active parts:
   for bounded growth-refinery lineage-chain coherence
 - `mechanics/method-growth/parts/owner-landing/fixtures/owner-fit-routing-v1/README.md`
   for bounded reviewed owner-fit routing on growth-refinery candidates
-
-Shared fixture naming discipline:
-- keep the primary family path in `shared_fixture_family_path`
-- record any additional reusable family paths in `additional_shared_fixture_family_paths`
-- keep bundle-local `EVAL.md` meaning stronger than the shared family name
-- Do not recreate root `fixtures/<family>/` directories for active families

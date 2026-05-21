@@ -31,11 +31,12 @@ It does not own:
 7. `mechanics/README.md` when a repeatable proof operation or package changes
 8. `docs/ARCHITECTURE.md`
 9. `docs/EVAL_PHILOSOPHY.md`
-10. the target `bundles/*/EVAL.md`
-11. affected generated catalogs, capsules, comparison, receipt, or section surfaces
-12. upstream skill or technique docs if the claim depends on them
-13. `docs/decisions/` when a structural, topology, validation, or workflow route changes
-14. `docs/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
+10. `AUDIT.md` when auditing or reviewing proof claims
+11. the target `evals/**/EVAL.md`
+12. affected generated catalogs, capsules, comparison, receipt, or section surfaces
+13. upstream skill or technique docs if the claim depends on them
+14. `docs/decisions/` when a structural, topology, validation, or workflow route changes
+15. `docs/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
 
 
 ## AGENTS stack law
@@ -47,11 +48,64 @@ It does not own:
 - Self-agency, recurrence, quest, progression, checkpoint, or growth language must stay bounded, reviewable, evidence-linked, and reversible.
 - Report what changed, what was verified, what was not verified, and where the next agent should resume.
 
+## Memory route
+
+For recall, continuity, compaction recovery, comparison with past work, or
+preserved lessons, start with `aoa_memo` and the workspace memory map. Session
+grounding routes through `.aoa`; local candidate writing routes through this
+repository's `memo/` port when that port exists; durable reviewed memory lands
+through `aoa-memo`.
+
 ## Route away when
 
 - wording turns bounded proof into broad intelligence, trust, general safety, or autonomous-self claims
 - the change rewrites upstream skill or technique meaning
 - a stats surface, trace, or comparison becomes stronger than the evidence it carries
+
+## Audit and review route
+
+`AUDIT.md` is the audit surface map. This route card owns the mandatory audit
+law: boundaries, approval gates, verification routes, review severity, and
+report shape.
+
+Treat these as high-risk surfaces:
+
+- `evals/**/EVAL.md`, `evals/**/eval.yaml`, and fields such as
+  `object_under_evaluation`, `claim_type`, `category`, `status`,
+  `baseline_mode`, and `report_format`
+- `EVAL_INDEX.md`, `EVAL_SELECTION.md`, generated catalogs, comparison-spine
+  readers, and public chooser wording
+- comparison, repeated-window, anti-overread, shared proof-infra, trace bridge,
+  receipt, runtime-candidate, sibling-reference, and release-support surfaces
+
+Hard boundaries:
+
+- bounded evals must not become total intelligence scores, global safety claims,
+  canonical readiness proofs, or direct agent-behavior verdicts
+- generated readers, chooser docs, and indexes must not outrank bundle-local
+  `EVAL.md` or `eval.yaml`
+- draft, bounded, baseline, or growth language must not strengthen by
+  association
+- private datasets, secret-bearing fixtures, hidden telemetry, and validation
+  that was not run must not be presented as public proof
+
+Get explicit human confirmation before changing category, status, baseline
+mode, report format, claim type, object under evaluation, default public
+baseline or comparison-ladder wording, shared fixture/scorer/runner/report
+shape, a new eval bundle, starter-selection posture, or bundle-local support
+artifact shape that affects public interpretation.
+
+Review severity:
+
+- P0: secret-bearing or private evidence presented as public proof; bounded eval
+  wording converted into broad intelligence, safety, or trust claims; public
+  chooser/comparison wording silently changing baseline or maturity meaning
+- P1: `EVAL.md` and `eval.yaml` semantic drift; verdict wording stronger than
+  support artifacts; erased blind spots; generated or comparison drift; shared
+  infra names implying stronger proof; trace/eval bridge ownership drift;
+  claimed validation that was not run
+
+Ignore low-value wording nits unless the task explicitly requests copyediting.
 
 ## Decision memory
 
@@ -81,24 +135,55 @@ If GitHub status or merge permissions cannot be observed, stop the landing route
 
 ## Verify
 
-Minimum bundle or generated-surface validation:
+Install local dependencies when the environment lacks the development tools:
+
+```bash
+python -m pip install -r requirements-dev.txt
+```
+
+Minimum repository validation:
 
 ```bash
 python scripts/validate_repo.py
+python scripts/validate_semantic_agents.py
 ```
 
-If catalogs or capsules change:
+Use the non-mutating proof-surface battery when authored sources, generated
+readers, runtime-candidate readers, or mechanic readouts need parity:
+
+```bash
+python scripts/build_catalog.py --check
+python scripts/generate_eval_report_index.py --check
+python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
+python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
+python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
+python -m pytest -q
+```
+
+Refresh generated readers only when the change intentionally rewrites them:
 
 ```bash
 python scripts/build_catalog.py
-python scripts/build_catalog.py --check
+python scripts/generate_eval_report_index.py
 ```
 
-Use the full integrity battery in `docs/AGENTS_ROOT_REFERENCE.md` when runtime candidate, matrix, comparison, or broader generated outputs change.
+Use the narrower route card first when the change is local to `evals/`,
+`generated/`, `docs/`, `mechanics/`, `scripts/`, or `tests/`.
 
 ## Report
 
-State the bounded claim changed, what it supports, what it does not prove, whether verdict shape or dependencies changed, and what validation ran.
+For audits, reviews, and non-trivial patches, report:
+
+- plan: task restatement, touched or inspected bundles or public surfaces, and
+  main risk
+- diff: what changed, whether bounded claim meaning changed, and whether
+  category, status, baseline mode, or report posture changed
+- verify: exact checks run, comparison or chooser surfaces re-read, and checks
+  not run
+- report: current bounded claim, what it still does not prove, public chooser
+  or comparison impact, and downstream follow-up if needed
+- residual risk: thin evidence, stale support artifacts, neighboring bundles
+  not re-read, or comparison/routing surfaces not fully re-audited
 
 ## Full reference
 

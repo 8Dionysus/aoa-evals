@@ -31,7 +31,7 @@ memory canon, or derived stats summaries.
 
 ## Boundaries
 
-- Keep source proof bundles under `bundles/`.
+- Keep source proof bundles under `evals/`.
 - Keep fixture families part-local only when they support this method-growth
   route.
 - Do not create new method-growth parts from one document, one report, or one

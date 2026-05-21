@@ -11,7 +11,7 @@ GENERATED_DIR_NAME = eval_catalog_contract.GENERATED_DIR_NAME
 CAPSULE_NAME = "eval_capsules.json"
 CAPSULE_VERSION = 1
 CAPSULE_SOURCE_OF_TRUTH = {
-    "eval_markdown": "bundles/*/EVAL.md",
+    "eval_markdown": "evals/**/EVAL.md",
     "eval_catalog": f"{GENERATED_DIR_NAME}/{eval_catalog_contract.FULL_CATALOG_NAME}",
 }
 CAPSULE_ENTRY_KEYS = (

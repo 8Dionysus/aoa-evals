@@ -35,7 +35,7 @@ Keep `mechanics/recurrence/` as the AoA-aligned parent and add active parts:
 - `stats-regrounding-boundary`
 
 Move only support artifacts into those parts. Source proof bundles stay under
-`bundles/`, and selected runtime evidence stays under `mechanics/audit/`.
+`evals/`, and selected runtime evidence stays under `mechanics/audit/`.
 
 Continuity-anchor and self-reanchor remain bundle-local because they do not yet
 have the same support-artifact depth.

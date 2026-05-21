@@ -15,7 +15,7 @@ Use this swarm for one bounded eval bundle or one eval seam at a time.
 - `docs/ARCHITECTURE.md`
 - `docs/EVAL_PHILOSOPHY.md`
 - `EVAL_INDEX.md`
-- `bundles/aoa-bounded-change-quality/EVAL.md`
+- `evals/workflow/aoa-bounded-change-quality/EVAL.md`
 - `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
 
 ## Форма роя
@@ -86,9 +86,9 @@ Rules:
 ```text
 Run the repo validation loop and report actual results.
 Required:
-- python -m pip install -r requirements-dev.txt
-- python scripts/validate_repo.py
-- python scripts/build_catalog.py
+- follow .agents/spark/AGENTS.md#validation for lane checks
+- follow root AGENTS.md#verify for repository-wide checks
+- follow the touched district AGENTS.md for local checks
 Return:
 - commands run
 - whether generated surfaces changed
@@ -108,11 +108,8 @@ Check:
 ```
 
 ## Verify
-```bash
-python -m pip install -r requirements-dev.txt
-python scripts/validate_repo.py
-python scripts/build_catalog.py
-```
+Use `.agents/spark/AGENTS.md#validation` for executable lane commands and root
+`AGENTS.md#verify` when the swarm touches repository-wide proof surfaces.
 
 ## Done when
 - один bounded claim оформлен как portable proof surface

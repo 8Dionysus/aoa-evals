@@ -32,6 +32,8 @@ When a bundle points to a mechanic-local fixture family, keep the part-local
 path explicit and do not recreate a root fixture alias.
 Route new generic shared fixture families through `mechanics/proof-infra/`
 first; route domain-specific families through the active owning mechanic.
+Keep reusable fixture families reviewable without private context, and keep
+bundle-local `EVAL.md` meaning stronger than the shared family name.
 Do not add secret-bearing logs, hidden benchmark dumps, or private telemetry.
 
 ## Validation

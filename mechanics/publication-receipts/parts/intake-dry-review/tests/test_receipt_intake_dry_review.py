@@ -33,12 +33,13 @@ PUBLISHER_PATH = (
 )
 SOURCE_REPORT_PATH = (
     REPO_ROOT
-    / "bundles"
+    / "evals"
+    / "workflow"
     / "aoa-verification-honesty"
     / "reports"
     / "aoa-evals-slice-19-lifecycle-contract.report.json"
 )
-SOURCE_MANIFEST_PATH = REPO_ROOT / "bundles" / "aoa-verification-honesty" / "eval.yaml"
+SOURCE_MANIFEST_PATH = REPO_ROOT / "evals" / "workflow" / "aoa-verification-honesty" / "eval.yaml"
 
 
 def load_script(path: Path):
@@ -93,7 +94,7 @@ def test_receipt_intake_dry_review_matches_first_bundle_local_report() -> None:
     preview = artifact["candidate_payload_preview"]
 
     assert artifact["source_report_ref"] == (
-        "repo:aoa-evals/bundles/aoa-verification-honesty/reports/"
+        "repo:aoa-evals/evals/workflow/aoa-verification-honesty/reports/"
         "aoa-evals-slice-19-lifecycle-contract.report.json"
     )
     assert preview["eval_name"] == source_report["eval_name"] == manifest["name"]

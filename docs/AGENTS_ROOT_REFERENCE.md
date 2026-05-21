@@ -77,7 +77,7 @@ Before making changes, read in this order:
 2. `ROADMAP.md`
 3. `docs/ARCHITECTURE.md`
 4. `docs/EVAL_PHILOSOPHY.md`
-5. the target `bundles/*/EVAL.md`
+5. the target `evals/**/EVAL.md`
 6. any generated catalogs, capsules, comparison surfaces, or section surfaces tied to that bundle
 
 Then branch by task:
@@ -111,7 +111,7 @@ If a deeper directory defines its own `AGENTS.md`, follow the nearest one.
 
 The most important objects in this repository are:
 
-- canonical eval bundles under `bundles/*/EVAL.md`
+- canonical eval bundles under `evals/**/EVAL.md`
 - bundle manifests and metadata inputs
 - generated catalogs, capsules, comparison surfaces, and section surfaces under `generated/`
 - proof infra families under `fixtures/`, `runners/`, `scorers/`, `reports/`, and `schemas/`
@@ -151,27 +151,9 @@ necessary for repository integrity.
 
 ### VERIFY
 
-Minimum validation for bundle or generated-surface changes:
-
-```bash
-python scripts/validate_repo.py
-```
-
-If catalogs or capsules changed, also run:
-
-```bash
-python scripts/build_catalog.py
-python scripts/build_catalog.py --check
-```
-
-For the current full non-mutating repo integrity battery, also run:
-
-```bash
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-python -m pytest -q tests
-```
+Current executable validation commands live in root `AGENTS.md#verify` and the
+nearest nested `AGENTS.md`. This preserved reference keeps the old contribution
+shape, not a competing command ledger.
 
 Confirm that:
 

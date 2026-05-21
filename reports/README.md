@@ -1,4 +1,4 @@
-# Shared Reports Route Card
+# Reports Route
 
 This is a compatibility route card for former top-level shared report artifacts.
 No active root reports payload should live here.
@@ -8,17 +8,15 @@ shared across more than one bundle. Active reports now need a narrower owner:
 bundle-local reports stay with their bundle, and mechanic-owned reports stay
 with the mechanic part that owns the operation.
 
-Bundle-local report contracts should live under:
-- `bundles/<name>/reports/summary.schema.json`
-- `bundles/<name>/reports/example-report.json`
+Bundle-local report contracts live under:
+- `evals/<family>/<eval>/reports/summary.schema.json`
+- `evals/<family>/<eval>/reports/example-report.json`
 
-Real bundle-local run artifacts should also stay under the owning bundle, using
-`bundles/<name>/reports/*.report.json`, and must validate against that bundle's
-local report schema.
+Real bundle-local run artifacts also stay under the owning bundle as
+`evals/<family>/<eval>/reports/*.report.json`.
 
-Top-level report artifacts may return here only through an explicit topology
-decision and validator allowlist update. Until then, this root directory remains
-route-card-only.
+Use [AGENTS.md](AGENTS.md) for report safety, proof-strength, and route-card
+rules. This README is the route map.
 
 Shared machine-readable publication receipts that span more than one bundle do
 not live under `reports/`.
@@ -49,7 +47,7 @@ mechanic-owned route artifacts or bundle-local reports:
 
 - `mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md`
   for the first bounded proof-loop route-smoke report
-- `bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`
+- `evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`
   for the first schema-backed bundle-local proof-loop report
 
 Comparison-spine shared dossiers no longer live in this root report district.
@@ -74,8 +72,3 @@ Current generated report reader:
 - `generated/eval_report_index.min.json` routes to real bundle-local
   `*.report.json` artifacts; it is not receipt authority and does not replace
   the source reports.
-
-Shared dossier naming discipline for comparison-spine paired readouts:
-- keep the primary bundle-local dossier path in `paired_readout_path`
-- record any additional shared dossiers in `additional_paired_readout_paths`
-- keep top-level dossiers weaker than bundle-local interpretation guidance

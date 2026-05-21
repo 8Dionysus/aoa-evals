@@ -1,4 +1,4 @@
-# Live Publisher Part
+# Publication Receipts / Live Publisher Part
 
 ## Role
 
@@ -62,7 +62,4 @@ docs-only changes.
 
 ## Validation
 
-```bash
-python -m pytest -q mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

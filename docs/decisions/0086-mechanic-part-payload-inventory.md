@@ -39,7 +39,7 @@ actual payload subdirectory that exists under that part.
   README.
 - a part with no payload subdirectories unless the README declares a
   bundle-backed thin support route where the source proof bundle stays under
-  `bundles/`.
+  `evals/`.
 
 Allowed payload classes are intentionally generic proof-support classes:
 `config`, `docs`, `examples`, `fixtures`, `generated`, `manifests`, `reports`,
@@ -53,7 +53,7 @@ that makes the part operable.
 
 The only acceptable no-payload shape is not an empty future slot. It is a
 bundle-backed thin support route: the part routes a real source proof bundle
-that deliberately stays under `bundles/` because bundle-local proof meaning is
+that deliberately stays under `evals/` because bundle-local proof meaning is
 stronger than mechanics support. That posture must be visible in the part
 README.
 
@@ -74,7 +74,7 @@ Both would make the mechanics atlas look more complete than it is.
 This decision does not create new parent mechanics and does not make payload
 classes active by themselves.
 
-It does not move source proof bundles out of `bundles/`, does not promote
+It does not move source proof bundles out of `evals/`, does not promote
 generated readers into authority, and does not let a part-local payload outrank
 the stronger owner named by the part contract.
 

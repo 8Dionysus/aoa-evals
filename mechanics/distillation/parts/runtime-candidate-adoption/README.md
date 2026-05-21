@@ -1,4 +1,4 @@
-# Runtime Candidate Adoption Part
+# Distillation / Runtime Candidate Adoption Part
 
 ## Role
 
@@ -7,11 +7,11 @@ adoption proof.
 
 It keeps runtime writeback target mapping, reviewed adoption, live receipt
 visibility, candidate posture, and object-facing recall inspectable while source
-proof bundles stay under `bundles/`.
+proof bundles stay under `evals/`.
 
 ## Source Surfaces
 
-- `bundles/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md`
+- `evals/workflow/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md`
 - `mechanics/distillation/parts/runtime-candidate-adoption/fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md`
 
 ## Related Ingress
@@ -76,7 +76,4 @@ their own bundle until a later evidence pass proves an active parent route.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-memo-reviewed-candidate-adoption-integrity
-python scripts/build_catalog.py --check
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

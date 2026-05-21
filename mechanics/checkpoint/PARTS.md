@@ -1,4 +1,4 @@
-# Checkpoint Parts
+# Checkpoint / Part Index
 
 `mechanics/checkpoint/parts/` contains the active parts of the eval-side
 checkpoint proof operation.
@@ -34,8 +34,9 @@ Stop-lines forbid checkpoint implementation authority, memory canon, live
 runtime activation, owner acceptance, hidden scheduling, autonomous self-repair,
 final child-output quality grading, or broad long-horizon competence claims.
 
-Validation is the part-local test, audit candidate-reader builders, generated
-catalog check, and `python scripts/validate_repo.py`.
+Validation routes through [AGENTS](AGENTS.md#validation), including the
+part-local test, audit candidate-reader builders, generated catalog check, and
+repo validation lanes.
 
 ## Deferred Part Families
 

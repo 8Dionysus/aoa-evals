@@ -62,7 +62,7 @@ are not the first place to put a new mechanic artifact.
 
 ## Boundaries
 
-This decision does not move `bundles/`, root repo-wide `scripts/`, root
+This decision does not move `evals/`, root repo-wide `scripts/`, root
 repo-wide `tests/`, root `generated/` readers, `quests/`, or source guidance in
 `docs/`.
 

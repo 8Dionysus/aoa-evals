@@ -1,4 +1,4 @@
-# KAG Alignment
+# Agon / KAG Alignment Part
 
 ## Role
 
@@ -58,8 +58,4 @@ authority.
 
 ## Validation
 
-```bash
-python mechanics/agon/parts/kag-alignment/scripts/build_agon_kag_eval_alignment_registry.py --check
-python mechanics/agon/parts/kag-alignment/scripts/validate_agon_kag_eval_alignment_registry.py
-python -m pytest -q mechanics/agon/parts/kag-alignment/tests/test_agon_kag_eval_alignment_registry.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

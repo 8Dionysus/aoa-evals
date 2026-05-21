@@ -33,7 +33,7 @@ The sibling owner keeps its stronger truth.
 A healthy proof layer has:
 
 - a compact public entry route;
-- source proof bundles under `bundles/`;
+- source proof bundles under `evals/`;
 - human-readable guides for verdicts, scores, comparison, portability, and
   blind spots;
 - shared proof infrastructure for fixtures, runners, scorers, schemas, reports,
@@ -55,7 +55,7 @@ artifacts.
 `aoa-evals` is composed of different source classes:
 
 - root public entry and owner-boundary surfaces;
-- source-authored eval bundles under `bundles/`;
+- source-authored eval bundles under `evals/`;
 - proof philosophy, architecture, review, score, verdict, comparison,
   portability, and bridge docs under `docs/`;
 - shared fixtures, examples, reports, runners, scorers, schemas, and templates;
@@ -126,7 +126,7 @@ that shape is theater.
 
 ### 2. Source bundle before generated reader
 
-`bundles/*/EVAL.md` and `bundles/*/eval.yaml` own bundle meaning. Generated
+`evals/**/EVAL.md` and `evals/**/eval.yaml` own bundle meaning. Generated
 catalogs, capsules, section indexes, dispatch views, and runtime selectors help
 readers orient.
 

@@ -32,7 +32,7 @@ truth, runtime authority, or sibling owner truth.
 - Top-level parent directories are validator allowlisted. Do not add
   `mechanics/<new-parent>/` without updating the evidence cluster, package
   route cards, topology docs, decision record, and validator in the same slice.
-- Keep source proof objects in `bundles/`.
+- Keep source proof objects in `evals/`.
 - Keep quest source records in `quests/<lane>/<state>/` and keep generated
   readers aligned with current source paths.
 - Keep generated readers weaker than their builders and source surfaces.
@@ -49,7 +49,17 @@ python scripts/validate_repo.py
 python scripts/validate_semantic_agents.py
 ```
 
-Run the package-specific builder or check named in the package card.
+If the changed package touches generated quest readers, catalogs, report
+indexes, runtime-candidate readers, or boundary-bridge matrices, add the owning
+builder check named by the package card, commonly:
+
+```bash
+python scripts/build_catalog.py --check
+python scripts/generate_eval_report_index.py --check
+```
+
+Run package-specific builders or checks named in the package card before the
+broader mechanics lane.
 
 ## Closeout
 

@@ -29,7 +29,7 @@ Agon verdicts.
 - `mechanics/agon/PARTS.md`
 - `mechanics/agon/parts/`
 - `mechanics/recurrence/README.md`
-- `bundles/aoa-recurrence-control-plane-integrity/EVAL.md`
+- `evals/boundary/aoa-recurrence-control-plane-integrity/EVAL.md`
 - `mechanics/EVIDENCE_CLUSTERS.md`
 
 ## Stronger Owner Split
@@ -50,7 +50,6 @@ support. Recurrence owners own recurrence law and control-plane truth.
 
 ## Validation
 
-```bash
-python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_guidance_boundary
-python scripts/validate_repo.py
-```
+Use `mechanics/agon/AGENTS.md#validation` for executable validation commands.
+This mechanic-wide guide names recurrence review boundaries; the route card
+owns command execution.

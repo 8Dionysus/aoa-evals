@@ -15,7 +15,7 @@ bridge.
 - `parts/`: posture, stress-window, and repair-proof support contracts.
 - `PROVENANCE.md`: controlled bridge from active route to old placement and fixture accounting.
 - `legacy/`: lineage only; not a repair backlog.
-- `bundles/`: source proof objects that remain stronger than support parts.
+- `evals/`: source proof objects that remain stronger than support parts.
 
 ## Current contour
 

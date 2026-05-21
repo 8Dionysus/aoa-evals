@@ -1,4 +1,4 @@
-# Anchor Return
+# Recurrence / Anchor Return Part
 
 ## Role
 
@@ -10,9 +10,9 @@ honestly.
 
 ## Source Surfaces
 
-- `bundles/aoa-return-anchor-integrity/EVAL.md`
-- `bundles/aoa-return-anchor-integrity/fixtures/contract.json`
-- `bundles/aoa-return-anchor-integrity/runners/contract.json`
+- `evals/workflow/aoa-return-anchor-integrity/EVAL.md`
+- `evals/workflow/aoa-return-anchor-integrity/fixtures/contract.json`
+- `evals/workflow/aoa-return-anchor-integrity/runners/contract.json`
 - `mechanics/recurrence/docs/RECURRENCE_PROOF_PROGRAM.md`
 - `mechanics/recurrence/parts/anchor-return/fixtures/return-anchor-v1/README.md`
 - `mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.return-anchor-integrity.example.json`
@@ -45,7 +45,4 @@ continuity, automatic runtime recovery, or general long-horizon competence.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-return-anchor-integrity
-python scripts/build_catalog.py --check
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

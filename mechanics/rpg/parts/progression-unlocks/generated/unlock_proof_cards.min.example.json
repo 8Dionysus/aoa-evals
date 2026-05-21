@@ -26,7 +26,7 @@
           "disposition": "grant",
           "confidence": "medium",
           "evidence_refs": [
-            "bundles/aoa-bounded-change-quality/EVAL.md",
+            "evals/workflow/aoa-bounded-change-quality/EVAL.md",
             "repo:aoa-playbooks/playbooks/bounded-change-safe/PLAYBOOK.md",
             "mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md"
           ],
@@ -46,7 +46,7 @@
           "evidence_refs": [
             "repo:aoa-playbooks/playbooks/bounded-change-safe/PLAYBOOK.md",
             "repo:aoa-playbooks/generated/playbook_review_status.min.json#AOA-P-0011",
-            "bundles/aoa-bounded-change-quality/EVAL.md"
+            "evals/workflow/aoa-bounded-change-quality/EVAL.md"
           ],
           "conditions": [
             "reviewer slot must remain filled",
@@ -62,7 +62,7 @@
           "disposition": "hold",
           "confidence": "low",
           "evidence_refs": [
-            "bundles/aoa-bounded-change-quality/EVAL.md",
+            "evals/workflow/aoa-bounded-change-quality/EVAL.md",
             "mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md"
           ],
           "conditions": [
@@ -74,7 +74,7 @@
         }
       ],
       "evidence_refs": [
-        "bundles/aoa-bounded-change-quality/EVAL.md",
+        "evals/workflow/aoa-bounded-change-quality/EVAL.md",
         "repo:aoa-playbooks/playbooks/bounded-change-safe/PLAYBOOK.md",
         "mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md"
       ],

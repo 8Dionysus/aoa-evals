@@ -15,7 +15,7 @@ bridge.
 - `parts/`: diagnosis-gate support.
 - `PROVENANCE.md`: controlled bridge from active route to deferred-stage accounting.
 - `legacy/`: lineage only; not a generic growth backlog.
-- `bundles/`: source proof objects that remain stronger than support parts.
+- `evals/`: source proof objects that remain stronger than support parts.
 
 ## Current contour
 
@@ -31,7 +31,7 @@ bridge.
 Add a new growth-cycle part only when the stage is repeatable, has support
 payload, and can name what it proves without claiming the next stage. A
 bundle-backed thin support route is allowed only when the source proof bundle
-stays under `bundles/` and the part README explicitly says there are no
+stays under `evals/` and the part README explicitly says there are no
 part-local payload subdirectories yet.
 
 ## Stop-lines

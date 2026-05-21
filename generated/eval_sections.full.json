@@ -2,7 +2,7 @@
   "evals": [
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-a2a-summon-return-checkpoint/EVAL.md",
+      "eval_path": "evals/workflow/aoa-a2a-summon-return-checkpoint/EVAL.md",
       "name": "aoa-a2a-summon-return-checkpoint",
       "sections": [
         {
@@ -96,7 +96,7 @@
     },
     {
       "category": "stress",
-      "eval_path": "bundles/aoa-ambiguity-handling/EVAL.md",
+      "eval_path": "evals/stress/aoa-ambiguity-handling/EVAL.md",
       "name": "aoa-ambiguity-handling",
       "sections": [
         {
@@ -190,7 +190,7 @@
     },
     {
       "category": "stress",
-      "eval_path": "bundles/aoa-antifragility-posture/EVAL.md",
+      "eval_path": "evals/stress/aoa-antifragility-posture/EVAL.md",
       "name": "aoa-antifragility-posture",
       "sections": [
         {
@@ -284,7 +284,7 @@
     },
     {
       "category": "boundary",
-      "eval_path": "bundles/aoa-approval-boundary-adherence/EVAL.md",
+      "eval_path": "evals/boundary/aoa-approval-boundary-adherence/EVAL.md",
       "name": "aoa-approval-boundary-adherence",
       "sections": [
         {
@@ -378,7 +378,7 @@
     },
     {
       "category": "artifact",
-      "eval_path": "bundles/aoa-artifact-review-rubric/EVAL.md",
+      "eval_path": "evals/artifact/aoa-artifact-review-rubric/EVAL.md",
       "name": "aoa-artifact-review-rubric",
       "sections": [
         {
@@ -472,7 +472,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-bounded-change-quality/EVAL.md",
+      "eval_path": "evals/workflow/aoa-bounded-change-quality/EVAL.md",
       "name": "aoa-bounded-change-quality",
       "sections": [
         {
@@ -566,7 +566,7 @@
     },
     {
       "category": "capability",
-      "eval_path": "bundles/aoa-candidate-lineage-integrity/EVAL.md",
+      "eval_path": "evals/capability/aoa-candidate-lineage-integrity/EVAL.md",
       "name": "aoa-candidate-lineage-integrity",
       "sections": [
         {
@@ -660,7 +660,7 @@
     },
     {
       "category": "artifact",
-      "eval_path": "bundles/aoa-compost-provenance-preservation/EVAL.md",
+      "eval_path": "evals/artifact/aoa-compost-provenance-preservation/EVAL.md",
       "name": "aoa-compost-provenance-preservation",
       "sections": [
         {
@@ -754,7 +754,7 @@
     },
     {
       "category": "capability",
-      "eval_path": "bundles/aoa-continuity-anchor-integrity/EVAL.md",
+      "eval_path": "evals/capability/aoa-continuity-anchor-integrity/EVAL.md",
       "name": "aoa-continuity-anchor-integrity",
       "sections": [
         {
@@ -848,7 +848,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-diagnosis-cause-discipline/EVAL.md",
+      "eval_path": "evals/workflow/aoa-diagnosis-cause-discipline/EVAL.md",
       "name": "aoa-diagnosis-cause-discipline",
       "sections": [
         {
@@ -942,7 +942,7 @@
     },
     {
       "category": "capability",
-      "eval_path": "bundles/aoa-eval-integrity-check/EVAL.md",
+      "eval_path": "evals/capability/aoa-eval-integrity-check/EVAL.md",
       "name": "aoa-eval-integrity-check",
       "sections": [
         {
@@ -1036,7 +1036,7 @@
     },
     {
       "category": "boundary",
-      "eval_path": "bundles/aoa-experience-certification-gate-integrity/EVAL.md",
+      "eval_path": "evals/boundary/aoa-experience-certification-gate-integrity/EVAL.md",
       "name": "aoa-experience-certification-gate-integrity",
       "sections": [
         {
@@ -1130,7 +1130,7 @@
     },
     {
       "category": "boundary",
-      "eval_path": "bundles/aoa-experience-protocol-integrity/EVAL.md",
+      "eval_path": "evals/boundary/aoa-experience-protocol-integrity/EVAL.md",
       "name": "aoa-experience-protocol-integrity",
       "sections": [
         {
@@ -1224,7 +1224,7 @@
     },
     {
       "category": "boundary",
-      "eval_path": "bundles/aoa-local-text-contract-fit/EVAL.md",
+      "eval_path": "evals/boundary/aoa-local-text-contract-fit/EVAL.md",
       "name": "aoa-local-text-contract-fit",
       "sections": [
         {
@@ -1318,7 +1318,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-long-horizon-depth/EVAL.md",
+      "eval_path": "evals/workflow/aoa-long-horizon-depth/EVAL.md",
       "name": "aoa-long-horizon-depth",
       "sections": [
         {
@@ -1412,7 +1412,7 @@
     },
     {
       "category": "longitudinal",
-      "eval_path": "bundles/aoa-longitudinal-growth-snapshot/EVAL.md",
+      "eval_path": "evals/comparison/longitudinal-window/aoa-longitudinal-growth-snapshot/EVAL.md",
       "name": "aoa-longitudinal-growth-snapshot",
       "sections": [
         {
@@ -1506,7 +1506,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-memo-contradiction-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-memo-contradiction-integrity/EVAL.md",
       "name": "aoa-memo-contradiction-integrity",
       "sections": [
         {
@@ -1600,7 +1600,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-memo-recall-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-memo-recall-integrity/EVAL.md",
       "name": "aoa-memo-recall-integrity",
       "sections": [
         {
@@ -1694,7 +1694,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md",
       "name": "aoa-memo-reviewed-candidate-adoption-integrity",
       "sections": [
         {
@@ -1788,7 +1788,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-memo-writeback-act-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-memo-writeback-act-integrity/EVAL.md",
       "name": "aoa-memo-writeback-act-integrity",
       "sections": [
         {
@@ -1882,7 +1882,7 @@
     },
     {
       "category": "comparative",
-      "eval_path": "bundles/aoa-output-vs-process-gap/EVAL.md",
+      "eval_path": "evals/comparison/peer-compare/aoa-output-vs-process-gap/EVAL.md",
       "name": "aoa-output-vs-process-gap",
       "sections": [
         {
@@ -1976,7 +1976,7 @@
     },
     {
       "category": "boundary",
-      "eval_path": "bundles/aoa-owner-fit-routing-quality/EVAL.md",
+      "eval_path": "evals/boundary/aoa-owner-fit-routing-quality/EVAL.md",
       "name": "aoa-owner-fit-routing-quality",
       "sections": [
         {
@@ -2070,7 +2070,7 @@
     },
     {
       "category": "boundary",
-      "eval_path": "bundles/aoa-recurrence-control-plane-integrity/EVAL.md",
+      "eval_path": "evals/boundary/aoa-recurrence-control-plane-integrity/EVAL.md",
       "name": "aoa-recurrence-control-plane-integrity",
       "sections": [
         {
@@ -2164,7 +2164,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-reflective-revision-boundedness/EVAL.md",
+      "eval_path": "evals/workflow/aoa-reflective-revision-boundedness/EVAL.md",
       "name": "aoa-reflective-revision-boundedness",
       "sections": [
         {
@@ -2258,7 +2258,7 @@
     },
     {
       "category": "regression",
-      "eval_path": "bundles/aoa-regression-same-task/EVAL.md",
+      "eval_path": "evals/comparison/fixed-baseline/aoa-regression-same-task/EVAL.md",
       "name": "aoa-regression-same-task",
       "sections": [
         {
@@ -2352,7 +2352,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-repair-boundedness/EVAL.md",
+      "eval_path": "evals/workflow/aoa-repair-boundedness/EVAL.md",
       "name": "aoa-repair-boundedness",
       "sections": [
         {
@@ -2446,7 +2446,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-return-anchor-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-return-anchor-integrity/EVAL.md",
       "name": "aoa-return-anchor-integrity",
       "sections": [
         {
@@ -2540,7 +2540,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-ring-application-discipline/EVAL.md",
+      "eval_path": "evals/workflow/aoa-ring-application-discipline/EVAL.md",
       "name": "aoa-ring-application-discipline",
       "sections": [
         {
@@ -2634,7 +2634,7 @@
     },
     {
       "category": "boundary",
-      "eval_path": "bundles/aoa-scope-drift-detection/EVAL.md",
+      "eval_path": "evals/boundary/aoa-scope-drift-detection/EVAL.md",
       "name": "aoa-scope-drift-detection",
       "sections": [
         {
@@ -2728,7 +2728,7 @@
     },
     {
       "category": "boundary",
-      "eval_path": "bundles/aoa-self-reanchor-correctness/EVAL.md",
+      "eval_path": "evals/boundary/aoa-self-reanchor-correctness/EVAL.md",
       "name": "aoa-self-reanchor-correctness",
       "sections": [
         {
@@ -2822,7 +2822,7 @@
     },
     {
       "category": "boundary",
-      "eval_path": "bundles/aoa-stats-regrounding-boundary-integrity/EVAL.md",
+      "eval_path": "evals/boundary/aoa-stats-regrounding-boundary-integrity/EVAL.md",
       "name": "aoa-stats-regrounding-boundary-integrity",
       "sections": [
         {
@@ -2916,7 +2916,7 @@
     },
     {
       "category": "longitudinal",
-      "eval_path": "bundles/aoa-stress-recovery-window/EVAL.md",
+      "eval_path": "evals/comparison/longitudinal-window/aoa-stress-recovery-window/EVAL.md",
       "name": "aoa-stress-recovery-window",
       "sections": [
         {
@@ -3010,7 +3010,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-tool-trajectory-discipline/EVAL.md",
+      "eval_path": "evals/workflow/aoa-tool-trajectory-discipline/EVAL.md",
       "name": "aoa-tool-trajectory-discipline",
       "sections": [
         {
@@ -3104,7 +3104,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-trace-outcome-separation/EVAL.md",
+      "eval_path": "evals/workflow/aoa-trace-outcome-separation/EVAL.md",
       "name": "aoa-trace-outcome-separation",
       "sections": [
         {
@@ -3198,7 +3198,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-verification-honesty/EVAL.md",
+      "eval_path": "evals/workflow/aoa-verification-honesty/EVAL.md",
       "name": "aoa-verification-honesty",
       "sections": [
         {
@@ -3292,7 +3292,7 @@
     },
     {
       "category": "workflow",
-      "eval_path": "bundles/aoa-witness-trace-integrity/EVAL.md",
+      "eval_path": "evals/workflow/aoa-witness-trace-integrity/EVAL.md",
       "name": "aoa-witness-trace-integrity",
       "sections": [
         {
@@ -3387,7 +3387,7 @@
   ],
   "section_version": 1,
   "source_of_truth": {
-    "eval_markdown": "bundles/*/EVAL.md",
+    "eval_markdown": "evals/**/EVAL.md",
     "sections": [
       "Intent",
       "Object under evaluation",

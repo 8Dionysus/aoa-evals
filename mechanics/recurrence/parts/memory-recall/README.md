@@ -1,4 +1,4 @@
-# Memory Recall
+# Recurrence / Memory Recall Part
 
 ## Role
 
@@ -10,10 +10,10 @@ consumer paths.
 
 ## Source Surfaces
 
-- `bundles/aoa-memo-recall-integrity/EVAL.md`
-- `bundles/aoa-memo-recall-integrity/fixtures/contract.json`
-- `bundles/aoa-memo-recall-integrity/runners/contract.json`
-- `bundles/aoa-memo-recall-integrity/reports/phase-alpha-memo-recall-rerun.report.json`
+- `evals/workflow/aoa-memo-recall-integrity/EVAL.md`
+- `evals/workflow/aoa-memo-recall-integrity/fixtures/contract.json`
+- `evals/workflow/aoa-memo-recall-integrity/runners/contract.json`
+- `evals/workflow/aoa-memo-recall-integrity/reports/phase-alpha-memo-recall-rerun.report.json`
 - `mechanics/recurrence/parts/memory-recall/fixtures/memo-recall-guardrail-v1/README.md`
 - `mechanics/recurrence/parts/memory-recall/tests/test_memo_recall_phase_alpha_report.py`
 - `mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json`
@@ -45,8 +45,4 @@ writeback acceptance.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-memo-recall-integrity
-python -m pytest -q mechanics/recurrence/parts/memory-recall/tests/test_memo_recall_phase_alpha_report.py
-python scripts/build_catalog.py --check
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

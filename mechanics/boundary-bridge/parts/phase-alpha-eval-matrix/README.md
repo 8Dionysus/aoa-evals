@@ -1,4 +1,4 @@
-# Phase Alpha Eval Matrix Part
+# Boundary Bridge / Phase Alpha Eval Matrix Part
 
 ## Role
 
@@ -65,8 +65,4 @@ Do not use this part to claim:
 
 ## Validation
 
-```bash
-python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

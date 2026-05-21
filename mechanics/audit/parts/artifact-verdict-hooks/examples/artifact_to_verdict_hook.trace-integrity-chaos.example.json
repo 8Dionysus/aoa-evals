@@ -3,7 +3,7 @@
   "hook_id": "trace-integrity-chaos",
   "playbook_id": "AOA-P-0032",
   "eval_anchor": "aoa-witness-trace-integrity",
-  "verdict_bundle_ref": "repo:aoa-evals/bundles/aoa-witness-trace-integrity/EVAL.md",
+  "verdict_bundle_ref": "repo:aoa-evals/evals/workflow/aoa-witness-trace-integrity/EVAL.md",
   "artifact_inputs": [
     "runtime_stress_lane",
     "runtime_reentry_gate",
@@ -27,9 +27,9 @@
   ],
   "verification_surface": "proof_handoff_candidate",
   "contract_test_refs": [
-    "repo:aoa-evals/bundles/aoa-witness-trace-integrity/checks/eval-integrity-check.md",
-    "repo:aoa-evals/bundles/aoa-witness-trace-integrity/notes/trace-contract.md",
-    "repo:aoa-evals/bundles/aoa-witness-trace-integrity/notes/proof-surface-contract.md"
+    "repo:aoa-evals/evals/workflow/aoa-witness-trace-integrity/checks/eval-integrity-check.md",
+    "repo:aoa-evals/evals/workflow/aoa-witness-trace-integrity/notes/trace-contract.md",
+    "repo:aoa-evals/evals/workflow/aoa-witness-trace-integrity/notes/proof-surface-contract.md"
   ],
   "report_expectation": {
     "report_format": "summary-with-breakdown",

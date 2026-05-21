@@ -6,7 +6,7 @@ district.
 No active root examples payload should live here. Examples should stay beside
 the source that owns their interpretation:
 
-- bundle-local examples stay under `bundles/*/examples/`;
+- bundle-local examples stay under `evals/**/examples/`;
 - audit candidate packets and artifact-to-verdict examples live under
   `mechanics/audit/parts/`;
 - mechanic-owned examples live under the owning `mechanics/*/parts/*/examples/`;

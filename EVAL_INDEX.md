@@ -1,6 +1,6 @@
-# EVAL_INDEX
+# Eval Bundle Index
 
-This file is the repository-wide map of public eval bundles.
+This file is the repository-wide agent-facing index of public eval bundles.
 
 ## Starter eval bundles
 
@@ -139,7 +139,7 @@ Public discipline:
   Its current first-wave proof flow anchors on source-owned receipt references, a schema-backed report example, and explicit split-axis blind-spot language.
 - `aoa-stress-recovery-window` is the current draft longitudinal stress starter:
   do ordered windows on one named stressor family show healthier handling without letting proof, stats, routing, or memo outrank owner evidence?
-  Its current machine-readable comparison surface is anchored in `aoa-antifragility-posture` and its materialized proof flow runs through `mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md`, `bundles/aoa-stress-recovery-window/reports/example-report.json`, and `mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md`, but the bundle remains draft.
+  Its current machine-readable comparison surface is anchored in `aoa-antifragility-posture` and its materialized proof flow runs through `mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md`, `evals/comparison/longitudinal-window/aoa-stress-recovery-window/reports/example-report.json`, and `mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md`, but the bundle remains draft.
 - `aoa-candidate-lineage-integrity` is the current draft growth-refinery lineage starter:
   does one bounded lineage chain stay coherent across checkpoint carry, reviewed candidate, seed staging, and owner evidence without claiming stronger landing than the artifacts support?
   It should not be read as owner-fit proof, final object-quality proof, or permission to replace owner receipts with structure alone.
@@ -161,7 +161,7 @@ Public discipline:
   It should not be read as proof of outcome quality, as a substitute for future runtime instrumentation, or as the default process-side read in the artifact/process layer.
 - `aoa-regression-same-task` is the current baseline regression starter:
   did the candidate materially regress against a frozen baseline on the same bounded task family?
-  Its current machine-readable comparison surface is anchored in `aoa-bounded-change-quality` and its materialized proof flow runs through `mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md`, `bundles/aoa-regression-same-task/reports/example-report.json`, and `mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md`.
+  Its current machine-readable comparison surface is anchored in `aoa-bounded-change-quality` and its materialized proof flow runs through `mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md`, `evals/comparison/fixed-baseline/aoa-regression-same-task/reports/example-report.json`, and `mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md`.
 - `aoa-artifact-review-rubric` is the current portable artifact anchor:
   did the produced artifact itself look strong on the visible task surface without implying a strong workflow?
   Start here when the question is artifact quality itself; do not skip straight to the bridge surface.
@@ -179,7 +179,7 @@ Public discipline:
   It is a meta-eval for public starter bundles, not a direct agent-behavior starter and not proof of canonical readiness.
 - `aoa-longitudinal-growth-snapshot` is the current longitudinal starter:
   do ordered comparable windows on the same bounded workflow surface show modest directional movement without turning that movement into broad capability growth?
-  Its current machine-readable comparison surface is anchored in `aoa-bounded-change-quality` and its materialized proof flow runs through `mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md`, `bundles/aoa-longitudinal-growth-snapshot/reports/example-report.json`, `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md`, and `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v2.md`, but the bundle remains draft.
+  Its current machine-readable comparison surface is anchored in `aoa-bounded-change-quality` and its materialized proof flow runs through `mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md`, `evals/comparison/longitudinal-window/aoa-longitudinal-growth-snapshot/reports/example-report.json`, `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md`, and `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v2.md`, but the bundle remains draft.
 - `aoa-artifact-review-rubric` should stay on artifact quality:
   it should not drift into workflow-proof claims already covered by workflow starters.
 - `aoa-witness-trace-integrity` should stay on public witness reviewability:

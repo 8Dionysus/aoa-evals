@@ -17,7 +17,7 @@ claim, fixture, and verdict boundary.
 
 Nearby active surfaces exist, but they are narrower:
 
-- `bundles/aoa-memo-writeback-act-integrity/` owns the confirmed base
+- `evals/workflow/aoa-memo-writeback-act-integrity/` owns the confirmed base
   writeback-act proof bundle.
 - `mechanics/proof-infra/parts/fixture-families/fixtures/memo-writeback-act-guardrail-v1/`
   owns the shared writeback-act fixture family.

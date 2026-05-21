@@ -39,8 +39,8 @@ Move the remaining generic shared fixture families to:
 This route applies only when there is no narrower active mechanic that owns the
 family operation.
 
-Keep source proof bundles under `bundles/`. Keep bundle-local
-`bundles/<bundle>/fixtures/contract.json` as the contract surface that names each active family
+Keep source proof bundles under `evals/`. Keep bundle-local
+`evals/<family>/<eval>/fixtures/contract.json` as the contract surface that names each active family
 path. Keep generated catalog `proof_artifacts` derived from those contracts.
 
 Root `fixtures/` remains a compatibility route card and must not regain active
@@ -71,7 +71,7 @@ mechanics.
 
 ## Boundaries
 
-This decision does not move `bundles/`, bundle-local contracts, runner
+This decision does not move `evals/`, bundle-local contracts, runner
 contracts, report schemas, reviewed reports, schemas, scorers, templates, or
 generated readers into `proof-infra`.
 
@@ -87,7 +87,7 @@ It does not authorize route-card-only root `fixtures/<family>/` aliases.
 - `mechanics/proof-infra/parts/fixture-families/README.md`
 - `mechanics/proof-infra/PROVENANCE.md`
 - owning proof-infra legacy archive for former root fixture placement
-- affected bundle `bundles/<bundle>/fixtures/contract.json` paths
+- affected bundle `evals/<family>/<eval>/fixtures/contract.json` paths
 - generated catalog `proof_artifacts`
 - `python scripts/build_catalog.py`
 - `python scripts/build_catalog.py --check`

@@ -1,4 +1,4 @@
-# Spine Overview Part
+# Comparison Spine / Spine Overview Part
 
 ## Role
 
@@ -50,9 +50,4 @@ surfaces or `generated/comparison_spine.json`.
 
 ## Validation
 
-Payload coverage anchor: `mechanics/comparison-spine/parts/spine-overview/`.
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

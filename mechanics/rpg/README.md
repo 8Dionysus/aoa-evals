@@ -89,8 +89,9 @@ the active part.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-```
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
+
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.

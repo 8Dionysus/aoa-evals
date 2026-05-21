@@ -1,4 +1,4 @@
-# Eval Selection
+# Eval Bundle Selection Chooser
 
 This file is the repository-wide chooser for public eval bundles.
 

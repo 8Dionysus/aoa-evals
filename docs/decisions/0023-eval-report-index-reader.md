@@ -17,7 +17,7 @@ source bundle.
 ## Decision
 
 Add `generated/eval_report_index.min.json` as a derived reader over
-`bundles/*/reports/*.report.json`.
+`evals/**/reports/*.report.json`.
 
 Build it with `scripts/generate_eval_report_index.py`. The index records report
 location, bundle, schema, verdict string, case family, claim boundary,

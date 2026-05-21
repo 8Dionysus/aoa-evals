@@ -9,8 +9,8 @@
 - Moved
   `mechanics/experience/parts/adoption-federation/fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md`
   behind `mechanics/distillation/parts/runtime-candidate-adoption/`.
-- Kept `bundles/aoa-compost-provenance-preservation/` and
-  `bundles/aoa-memo-reviewed-candidate-adoption-integrity/` under `bundles/`
+- Kept `evals/artifact/aoa-compost-provenance-preservation/` and
+  `evals/workflow/aoa-memo-reviewed-candidate-adoption-integrity/` under `evals/`
   because bundle-local proof meaning remains stronger than the mechanic route.
 - Kept memo recall outside this package and routed it later through
   `mechanics/recurrence/parts/memory-recall/`.

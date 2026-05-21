@@ -16,8 +16,8 @@ side.
 
 ## Source Surfaces
 
-- `bundles/aoa-compost-provenance-preservation/EVAL.md`
-- `bundles/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md`
+- `evals/artifact/aoa-compost-provenance-preservation/EVAL.md`
+- `evals/workflow/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md`
 - `mechanics/distillation/parts/compost-provenance/README.md`
 - `mechanics/distillation/parts/runtime-candidate-adoption/README.md`
 - `mechanics/distillation/parts/compost-provenance/fixtures/compost-provenance-v1/README.md`
@@ -109,9 +109,9 @@ active part.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-compost-provenance-preservation
-python scripts/validate_repo.py --eval aoa-memo-reviewed-candidate-adoption-integrity
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
+
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.

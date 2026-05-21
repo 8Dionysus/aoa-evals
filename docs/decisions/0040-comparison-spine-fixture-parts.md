@@ -22,7 +22,7 @@ generic fixture inventory:
 - former root `fixtures/repeated-window-bounded-v1/` feeds longitudinal-window movement.
 
 The paths are referenced by bundle frontmatter, `eval.yaml`, bundle
-`bundles/<bundle>/fixtures/contract.json`, generated comparison readers, tests, validators, and
+`evals/<family>/<eval>/fixtures/contract.json`, generated comparison readers, tests, validators, and
 comparison readout dossiers.
 
 ## Options Considered
@@ -41,7 +41,7 @@ Move comparison-spine-owned fixture families into package-local parts:
 - `peer-compare/fixtures/bounded-change-paired-v2/`
 - `longitudinal-window/fixtures/repeated-window-bounded-v1/`
 
-Bundle source truth stays in `bundles/*/EVAL.md` and `bundles/*/eval.yaml`.
+Bundle source truth stays in `evals/**/EVAL.md` and `evals/**/eval.yaml`.
 Bundle-local fixture contracts keep pointing at the part-local fixture family
 paths. Generated readers remain derived from bundle source and contracts.
 
@@ -78,7 +78,7 @@ archive maps the historical placement internally.
 
 - Bundle `comparison_surface.shared_family_path` fields point to part-local
   fixture paths.
-- Bundle `bundles/<bundle>/fixtures/contract.json` paths match the same part-local fixture
+- Bundle `evals/<family>/<eval>/fixtures/contract.json` paths match the same part-local fixture
   paths.
 - `mechanics/comparison-spine/PARTS.md` names the fixture and report surfaces
   for each active part.

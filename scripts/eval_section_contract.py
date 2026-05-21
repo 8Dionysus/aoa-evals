@@ -12,7 +12,7 @@ GENERATED_DIR_NAME = eval_catalog_contract.GENERATED_DIR_NAME
 SECTIONS_NAME = "eval_sections.full.json"
 SECTION_VERSION = 1
 SECTION_SOURCE_OF_TRUTH = {
-    "eval_markdown": "bundles/*/EVAL.md",
+    "eval_markdown": "evals/**/EVAL.md",
     "sections": [
         "Intent",
         "Object under evaluation",

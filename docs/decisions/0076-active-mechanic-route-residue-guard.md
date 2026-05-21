@@ -42,7 +42,7 @@ The guard permits:
 
 - root route cards such as `fixtures/README.md` and `reports/AGENTS.md`;
 - local sibling paths that resolve inside the same part root;
-- bundle-local routes written as `bundles/<bundle>/...` instead of pretending a
+- bundle-local routes written as `evals/<family>/<eval>/...` instead of pretending a
   former root payload district is active.
 
 ## Consequences

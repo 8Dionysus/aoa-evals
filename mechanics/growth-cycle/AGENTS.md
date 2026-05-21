@@ -33,7 +33,7 @@ promotion, or derived stats summaries.
 
 ## Boundaries
 
-- Keep source proof bundles under `bundles/`.
+- Keep source proof bundles under `evals/`.
 - Keep `diagnosis-gate` as the only active part until another stage has its own
   cross-root proof operation and validator coverage.
 - Do not move repair proof from `antifragility`, progression/unlock proof from

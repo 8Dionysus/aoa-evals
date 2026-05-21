@@ -39,7 +39,7 @@ The closeout returns the work to review.
 Agent guidance should look like a readable route network:
 
 - a compact root `AGENTS.md`;
-- local cards for durable districts such as `bundles/`, `docs/`, `generated/`,
+- local cards for durable districts such as `evals/`, `docs/`, `generated/`,
   `examples/`, `reports/`, `schemas/`, `scripts/`, `tests/`, `quests/`,
   `.agents/`, and `mechanics/`;
 - deep cards for high-risk surfaces such as decisions, generated read models,
@@ -73,7 +73,7 @@ protects deterministic builders and validators.
 
 ### Proof bundle cards
 
-`bundles/AGENTS.md` and any future bundle-local cards should remind agents that
+`evals/AGENTS.md` and any future bundle-local cards should remind agents that
 bundle-local `EVAL.md` and `eval.yaml` own the specific bounded claim, object
 under evaluation, verdict shape, evidence posture, blind spots, and adaptation
 rules.

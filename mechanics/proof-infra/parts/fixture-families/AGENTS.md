@@ -23,8 +23,8 @@ context.
 5. `mechanics/proof-infra/README.md`
 6. `mechanics/proof-infra/PARTS.md`
 7. `mechanics/proof-infra/parts/fixture-families/README.md`
-8. affected `bundles/*/EVAL.md`
-9. affected `bundles/*/fixtures/contract.json`
+8. affected `evals/**/EVAL.md`
+9. affected `evals/**/fixtures/contract.json`
 
 ## Boundaries
 

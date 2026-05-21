@@ -8,12 +8,12 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 CURRENT_RELEASE_SURFACES = (
-    "bundles/aoa-continuity-anchor-integrity/EVAL.md",
-    "bundles/aoa-reflective-revision-boundedness/EVAL.md",
-    "bundles/aoa-self-reanchor-correctness/EVAL.md",
-    "bundles/aoa-candidate-lineage-integrity/EVAL.md",
-    "bundles/aoa-diagnosis-cause-discipline/EVAL.md",
-    "bundles/aoa-repair-boundedness/EVAL.md",
+    "evals/capability/aoa-continuity-anchor-integrity/EVAL.md",
+    "evals/workflow/aoa-reflective-revision-boundedness/EVAL.md",
+    "evals/boundary/aoa-self-reanchor-correctness/EVAL.md",
+    "evals/capability/aoa-candidate-lineage-integrity/EVAL.md",
+    "evals/workflow/aoa-diagnosis-cause-discipline/EVAL.md",
+    "evals/workflow/aoa-repair-boundedness/EVAL.md",
     "generated/eval_catalog.min.json",
     "generated/eval_capsules.json",
     "generated/eval_sections.full.json",
@@ -62,9 +62,9 @@ class RoadmapParityTestCase(unittest.TestCase):
                 self.assertIn("live memory-ledger readiness", text)
 
         for relative_path in (
-            "bundles/aoa-memo-recall-integrity/EVAL.md",
-            "bundles/aoa-memo-contradiction-integrity/EVAL.md",
-            "bundles/aoa-memo-writeback-act-integrity/EVAL.md",
+            "evals/workflow/aoa-memo-recall-integrity/EVAL.md",
+            "evals/workflow/aoa-memo-contradiction-integrity/EVAL.md",
+            "evals/workflow/aoa-memo-writeback-act-integrity/EVAL.md",
         ):
             bundle_text = (REPO_ROOT / relative_path).read_text(encoding="utf-8")
             with self.subTest(bundle=relative_path):

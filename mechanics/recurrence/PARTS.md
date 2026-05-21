@@ -1,4 +1,4 @@
-# Recurrence Parts
+# Recurrence / Part Index
 
 `mechanics/recurrence/parts/` contains the active parts of the eval-side
 recurrence proof operation.
@@ -41,8 +41,9 @@ self-healing, automatic recursor spawn, beacon verdicts, owner promotion, or
 source-truth transfer to generated projections. Portable-proof beacons must not
 be read as accepted portable proof.
 
-Validation is the part-local runner, part-local tests, generated catalog check,
-and `python scripts/validate_repo.py`.
+Validation routes through [AGENTS](AGENTS.md#validation), including the
+part-local runner, part-local tests, generated catalog check, and repo
+validation lane.
 
 ## Deferred Part Families
 

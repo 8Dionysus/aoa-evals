@@ -17,7 +17,7 @@ telemetry dashboard, proof bundle source, or repo-global score.
 `reviewed bounded report -> eval-result receipt payload -> stats-event-envelope sidecar -> owner-local live receipt log -> downstream derived reader`
 
 This package routes publication receipt work. The bundle-local verdict meaning stays
-in `bundles/*/EVAL.md`, `bundles/*/eval.yaml`, and the concrete report artifact
+in `evals/**/EVAL.md`, `evals/**/eval.yaml`, and the concrete report artifact
 being published.
 
 An optional receipt is valid only after that stronger report path exists.
@@ -107,21 +107,12 @@ source of truth for bundle acceptance, report meaning, or proof quality.
 
 ## Validation
 
-After changing publication receipt route surfaces, run:
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
-
-If schemas, examples, or publisher behavior change, also run:
-
-```bash
-python -m pytest -q mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py tests/test_validate_repo.py
-```
-
-If generated readers or catalogs change, run their owning builders in `--check`
-mode rather than hand-editing generated output.
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.
 
 ## Next Route
 

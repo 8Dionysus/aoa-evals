@@ -84,7 +84,7 @@ This decision does not forbid mechanic-wide guidance.
 It does not let parent guidance replace `DIRECTION.md`, `PARTS.md`,
 part-local `README.md`, or part-local validation.
 
-It does not move source proof bundles from `bundles/` and does not make a guide
+It does not move source proof bundles from `evals/` and does not make a guide
 stronger than the proof objects or stronger owners it routes.
 
 ## Validation

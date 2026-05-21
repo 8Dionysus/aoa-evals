@@ -3,7 +3,7 @@
   "hook_id": "aoa-p-0014-verification-honesty-hook",
   "playbook_id": "AOA-P-0014",
   "eval_anchor": "aoa-verification-honesty",
-  "verdict_bundle_ref": "repo:aoa-evals/bundles/aoa-verification-honesty/EVAL.md",
+  "verdict_bundle_ref": "repo:aoa-evals/evals/workflow/aoa-verification-honesty/EVAL.md",
   "artifact_inputs": [
     "startup_canon_map",
     "preview_evidence",
@@ -22,9 +22,9 @@
   "trace_surfaces": [],
   "verification_surface": "verification_pack",
   "contract_test_refs": [
-    "repo:aoa-evals/bundles/aoa-verification-honesty/checks/eval-integrity-check.md",
-    "repo:aoa-evals/bundles/aoa-verification-honesty/notes/bounded-promotion-review.md",
-    "repo:aoa-evals/bundles/aoa-verification-honesty/notes/proof-contract.md"
+    "repo:aoa-evals/evals/workflow/aoa-verification-honesty/checks/eval-integrity-check.md",
+    "repo:aoa-evals/evals/workflow/aoa-verification-honesty/notes/bounded-promotion-review.md",
+    "repo:aoa-evals/evals/workflow/aoa-verification-honesty/notes/proof-contract.md"
   ],
   "report_expectation": {
     "report_format": "summary-with-breakdown",

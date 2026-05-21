@@ -206,8 +206,8 @@ These artifacts remain subordinate to the authored markdown and manifest surface
 
 `generated/eval_catalog.json` and `generated/eval_catalog.min.json` are deterministic
 reader surfaces derived from:
-- `bundles/*/EVAL.md`
-- `bundles/*/eval.yaml`
+- `evals/**/EVAL.md`
+- `evals/**/eval.yaml`
 
 They exist to support routing, navigation, and read-heavy consumers.
 They do not replace the authored bundle meaning in markdown and manifest files.

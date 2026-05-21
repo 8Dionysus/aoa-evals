@@ -36,6 +36,29 @@ def write_text(path: Path, content: str) -> None:
     path.write_text(textwrap.dedent(content).lstrip(), encoding="utf-8")
 
 
+def eval_family_for_test(category: str = "workflow", baseline_mode: str = "none") -> Path:
+    if baseline_mode == "fixed-baseline":
+        return Path("comparison") / "fixed-baseline"
+    if baseline_mode == "peer-compare":
+        return Path("comparison") / "peer-compare"
+    if baseline_mode == "longitudinal-window":
+        return Path("comparison") / "longitudinal-window"
+    return Path(category)
+
+
+def eval_dir_for_test(
+    repo_root: Path,
+    name: str,
+    *,
+    category: str = "workflow",
+    baseline_mode: str = "none",
+) -> Path:
+    matches = sorted((repo_root / "evals").glob(f"**/{name}/eval.yaml"))
+    if matches:
+        return matches[0].parent
+    return repo_root / "evals" / eval_family_for_test(category, baseline_mode) / name
+
+
 def copy_repo_text(repo_root: Path, relative_path: str) -> None:
     source = REPO_ROOT / relative_path
     if not source.exists():
@@ -164,7 +187,7 @@ def make_eval_report_index_surface(repo_root: Path) -> None:
         "scripts/generate_eval_report_index.py",
     ]:
         copy_repo_text(repo_root, relative_path)
-    for report_path in sorted((REPO_ROOT / "bundles").glob("*/reports/*.report.json")):
+    for report_path in sorted((REPO_ROOT / "evals").glob("**/reports/*.report.json")):
         bundle_dir = report_path.parents[1]
         for source_path in [
             bundle_dir / "EVAL.md",
@@ -192,9 +215,9 @@ def make_receipt_intake_dry_review_surface(repo_root: Path) -> None:
         "mechanics/publication-receipts/parts/stats-envelope-mirror/schemas/stats-event-envelope.schema.json",
         "mechanics/publication-receipts/parts/live-publisher/scripts/publish_live_receipts.py",
         ".aoa/live_receipts/eval-result-receipts.jsonl",
-        "bundles/aoa-verification-honesty/EVAL.md",
-        "bundles/aoa-verification-honesty/eval.yaml",
-        "bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+        "evals/workflow/aoa-verification-honesty/EVAL.md",
+        "evals/workflow/aoa-verification-honesty/eval.yaml",
+        "evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
     ]:
         copy_repo_text(repo_root, relative_path)
 
@@ -229,7 +252,7 @@ def make_release_support_readiness_audit_surface(repo_root: Path) -> None:
         "mechanics/proof-object/README.md",
         "mechanics/proof-loop/README.md",
         "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
-        "bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+        "evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
         "generated/eval_report_index.min.json",
         "mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json",
         "generated/eval_catalog.min.json",
@@ -305,7 +328,7 @@ def make_strategic_closeout_audit_surface(repo_root: Path) -> None:
         "mechanics/release-support/parts/readiness-audit/tests/test_release_support_readiness_audit.py",
         "mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py",
         "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
-        "bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+        "evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
         "generated/eval_report_index.min.json",
         "mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json",
         "generated/eval_catalog.min.json",
@@ -372,7 +395,7 @@ def make_release_prep_pr_handoff_surface(repo_root: Path) -> None:
         "mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py",
         "mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py",
         "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
-        "bundles/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
+        "evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
         "generated/eval_report_index.min.json",
         "mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json",
         "generated/eval_catalog.min.json",
@@ -454,7 +477,7 @@ def write_integrity_example_report(path: Path) -> None:
 
 
 def ensure_support_bundle(repo_root: Path, name: str, *, category: str = "workflow") -> None:
-    bundle_dir = repo_root / "bundles" / name
+    bundle_dir = eval_dir_for_test(repo_root, name, category=category)
     if bundle_dir.exists():
         return
 
@@ -771,7 +794,9 @@ def make_repo_docs(
     write_text(
         repo_root / "EVAL_SELECTION.md",
         f"""
-        # Eval Selection
+        # Eval Bundle Selection Chooser
+
+        This file is the repository-wide chooser for public eval bundles.
 
         Current starter posture:
         {"".join(f"- `{name}`\n" for name in starter_names)}
@@ -844,7 +869,9 @@ def make_selection(
     write_text(
         repo_root / "EVAL_SELECTION.md",
         f"""
-        # Eval Selection
+        # Eval Bundle Selection Chooser
+
+        This file is the repository-wide chooser for public eval bundles.
 
         Current starter posture:
         {lines}
@@ -879,12 +906,25 @@ def make_roadmap(
     write_text(
         repo_root / "ROADMAP.md",
         f"""
-        # Roadmap
+        # Proof Direction Roadmap
 
-        ## What should happen next
+        ## Role
+
+        `ROADMAP.md` is the active direction surface for `aoa-evals`.
+
+        It is not the changelog, questbook, architecture reference, design
+        form, decision log, validator ledger, or generated catalog.
+
+        ## Authority
+
+        The roadmap owns direction and sequencing.
+
+        ## Current Direction
 
         Highest-priority additions:
         - placeholder
+
+        ## Horizons
 
         Next likely cross-surface candidate after the current public starter set:
         {next_candidate_line}
@@ -913,7 +953,12 @@ def make_eval_bundle(
     comparison_surface: dict[str, object] | None = None,
     public_safety_reviewed_at: str | None = None,
 ) -> None:
-    bundle_dir = repo_root / "bundles" / name
+    bundle_dir = eval_dir_for_test(
+        repo_root,
+        name,
+        category=category,
+        baseline_mode=baseline_mode,
+    )
     support_files = dict(support_files or {
         "notes/origin-need.md": "# Origin Need\n",
         "examples/example-report.md": "# Example Report\n",
@@ -1398,6 +1443,8 @@ def add_materialized_proof_artifacts(
     additional_fixture_family_paths: list[str] | None = None,
     additional_paired_readout_paths: list[str] | None = None,
 ) -> None:
+    bundle_dir = eval_dir_for_test(repo_root, bundle_name)
+    bundle_rel = bundle_dir.relative_to(repo_root).as_posix()
     write_text(
         repo_root
         / "mechanics"
@@ -1431,7 +1478,7 @@ def add_materialized_proof_artifacts(
         for extra_path in additional_fixture_family_paths or []:
             write_text(repo_root / Path(extra_path), "# Shared Fixture Family\n")
         write_text(
-            repo_root / "bundles" / bundle_name / "fixtures" / "contract.json",
+            bundle_dir / "fixtures" / "contract.json",
             json.dumps(
                 {
                     "contract_version": 1,
@@ -1445,8 +1492,8 @@ def add_materialized_proof_artifacts(
             ),
         )
 
-    schema_path = f"bundles/{bundle_name}/reports/summary.schema.json"
-    example_path = f"bundles/{bundle_name}/reports/example-report.json"
+    schema_path = f"{bundle_rel}/reports/summary.schema.json"
+    example_path = f"{bundle_rel}/reports/example-report.json"
     if comparison_mode is not None:
         schema_required = list(report_schema.get("required", []))
         if "comparison_mode" not in schema_required:
@@ -1458,11 +1505,11 @@ def add_materialized_proof_artifacts(
         report_schema["properties"] = schema_properties
         report_example["comparison_mode"] = comparison_mode
     write_text(
-        repo_root / "bundles" / bundle_name / "reports" / "summary.schema.json",
+        bundle_dir / "reports" / "summary.schema.json",
         json.dumps(report_schema, indent=2),
     )
     write_text(
-        repo_root / "bundles" / bundle_name / "reports" / "example-report.json",
+        bundle_dir / "reports" / "example-report.json",
         json.dumps(report_example, indent=2),
     )
 
@@ -1477,7 +1524,7 @@ def add_materialized_proof_artifacts(
         }
         if include_fixture_contract:
             runner_contract["fixture_contract_paths"] = [
-                f"bundles/{bundle_name}/fixtures/contract.json"
+                f"{bundle_rel}/fixtures/contract.json"
             ]
         if include_paired_readout:
             runner_contract["paired_readout_path"] = paired_readout_path
@@ -1485,7 +1532,7 @@ def add_materialized_proof_artifacts(
             runner_contract["additional_paired_readout_paths"] = additional_paired_readout_paths
 
         write_text(
-            repo_root / "bundles" / bundle_name / "runners" / "contract.json",
+            bundle_dir / "runners" / "contract.json",
             json.dumps(runner_contract, indent=2),
         )
 
@@ -1876,6 +1923,28 @@ def test_build_catalog_preserves_same_kind_relations_in_full_catalog(tmp_path: P
     assert alpha_entry["skill_refs"][0]["repo"] == "aoa-skills"
 
 
+def test_eval_selection_rejects_generic_heading(tmp_path: Path) -> None:
+    write_text(
+        tmp_path / "EVAL_SELECTION.md",
+        """
+        # Eval Selection
+
+        This file is the repository-wide chooser for public eval bundles.
+
+        Current starter posture:
+        - `aoa-alpha`
+        """,
+    )
+
+    issues = validate_repo.validate_eval_selection(tmp_path, ["aoa-alpha"])
+
+    assert any(
+        issue.location == "EVAL_SELECTION.md"
+        and "# Eval Bundle Selection Chooser" in issue.message
+        for issue in issues
+    )
+
+
 def test_build_catalog_records_materialized_proof_artifacts(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-materialized-proof")
     add_materialized_proof_artifacts(
@@ -1923,7 +1992,7 @@ def test_build_catalog_records_materialized_proof_artifacts(tmp_path: Path) -> N
 
     assert entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/shared-bounded-family/README.md"
     assert entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
-    assert entry["proof_artifacts"]["report_schema_path"] == "bundles/aoa-materialized-proof/reports/summary.schema.json"
+    assert entry["proof_artifacts"]["report_schema_path"] == "evals/workflow/aoa-materialized-proof/reports/summary.schema.json"
 
 
 def test_validate_repo_rejects_missing_evidence_path(tmp_path: Path) -> None:
@@ -2440,7 +2509,7 @@ def test_validate_repo_requires_comparison_surface_for_non_none_baseline(tmp_pat
         verdict_shape="comparative",
         report_format="comparative-summary",
     )
-    manifest_path = tmp_path / "bundles" / "aoa-missing-comparison-surface" / "eval.yaml"
+    manifest_path = eval_dir_for_test(tmp_path, "aoa-missing-comparison-surface") / "eval.yaml"
     manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
     manifest.pop("comparison_surface", None)
     manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
@@ -2461,12 +2530,12 @@ def test_validate_repo_requires_comparison_mode_in_comparative_report_artifacts(
         report_format="comparative-summary",
     )
     add_fixed_baseline_proof_artifacts(tmp_path, bundle_name="aoa-missing-comparison-mode")
-    schema_path = tmp_path / "bundles" / "aoa-missing-comparison-mode" / "reports" / "summary.schema.json"
+    schema_path = eval_dir_for_test(tmp_path, "aoa-missing-comparison-mode") / "reports" / "summary.schema.json"
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     schema["required"] = [item for item in schema["required"] if item != "comparison_mode"]
     schema["properties"].pop("comparison_mode", None)
     schema_path.write_text(json.dumps(schema, indent=2), encoding="utf-8")
-    example_path = tmp_path / "bundles" / "aoa-missing-comparison-mode" / "reports" / "example-report.json"
+    example_path = eval_dir_for_test(tmp_path, "aoa-missing-comparison-mode") / "reports" / "example-report.json"
     example = json.loads(example_path.read_text(encoding="utf-8"))
     example.pop("comparison_mode", None)
     example_path.write_text(json.dumps(example, indent=2), encoding="utf-8")
@@ -2487,7 +2556,7 @@ def test_validate_repo_rejects_peer_compare_with_wrong_peer_surface_count(tmp_pa
         verdict_shape="comparative",
         report_format="comparative-summary",
     )
-    manifest_path = tmp_path / "bundles" / "aoa-invalid-peer-surface-count" / "eval.yaml"
+    manifest_path = eval_dir_for_test(tmp_path, "aoa-invalid-peer-surface-count") / "eval.yaml"
     manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
     manifest["comparison_surface"]["peer_surfaces"] = ["aoa-peer-left"]
     manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
@@ -2509,7 +2578,7 @@ def test_validate_repo_rejects_mismatched_comparison_surface_shared_family_path(
     )
     add_fixed_baseline_proof_artifacts(tmp_path, bundle_name="aoa-mismatched-shared-family")
     write_text(tmp_path / "fixtures" / "alt-family" / "README.md", "# Shared Fixture Family\n")
-    manifest_path = tmp_path / "bundles" / "aoa-mismatched-shared-family" / "eval.yaml"
+    manifest_path = eval_dir_for_test(tmp_path, "aoa-mismatched-shared-family") / "eval.yaml"
     manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
     manifest["comparison_surface"]["shared_family_path"] = "fixtures/alt-family/README.md"
     manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
@@ -2532,7 +2601,7 @@ def test_validate_repo_rejects_mismatched_comparison_surface_paired_readout_path
     )
     add_longitudinal_proof_artifacts(tmp_path, bundle_name="aoa-mismatched-paired-readout")
     write_text(tmp_path / "reports" / "alt-proof-flow.md", "# Paired Proof\n")
-    manifest_path = tmp_path / "bundles" / "aoa-mismatched-paired-readout" / "eval.yaml"
+    manifest_path = eval_dir_for_test(tmp_path, "aoa-mismatched-paired-readout") / "eval.yaml"
     manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
     manifest["comparison_surface"]["paired_readout_path"] = "reports/alt-proof-flow.md"
     manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
@@ -2554,7 +2623,7 @@ def test_validate_repo_rejects_invalid_additional_fixture_family_path(tmp_path: 
         report_format="comparative-summary",
     )
     add_peer_compare_proof_artifacts(tmp_path, bundle_name="aoa-output-vs-process-gap")
-    contract_path = tmp_path / "bundles" / "aoa-output-vs-process-gap" / "fixtures" / "contract.json"
+    contract_path = eval_dir_for_test(tmp_path, "aoa-output-vs-process-gap") / "fixtures" / "contract.json"
     payload = json.loads(contract_path.read_text(encoding="utf-8"))
     payload["additional_shared_fixture_family_paths"] = ["fixtures/missing-v2/README.md"]
     contract_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -2576,7 +2645,7 @@ def test_validate_repo_rejects_blank_shared_fixture_family_path(tmp_path: Path) 
         report_format="comparative-summary",
     )
     add_peer_compare_proof_artifacts(tmp_path, bundle_name="aoa-output-vs-process-gap")
-    contract_path = tmp_path / "bundles" / "aoa-output-vs-process-gap" / "fixtures" / "contract.json"
+    contract_path = eval_dir_for_test(tmp_path, "aoa-output-vs-process-gap") / "fixtures" / "contract.json"
     payload = json.loads(contract_path.read_text(encoding="utf-8"))
     payload["shared_fixture_family_path"] = "   "
     contract_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -2602,7 +2671,7 @@ def test_validate_repo_rejects_blank_additional_paired_readout_path(tmp_path: Pa
         report_format="comparative-summary",
     )
     add_peer_compare_proof_artifacts(tmp_path, bundle_name="aoa-output-vs-process-gap")
-    contract_path = tmp_path / "bundles" / "aoa-output-vs-process-gap" / "runners" / "contract.json"
+    contract_path = eval_dir_for_test(tmp_path, "aoa-output-vs-process-gap") / "runners" / "contract.json"
     payload = json.loads(contract_path.read_text(encoding="utf-8"))
     payload["additional_paired_readout_paths"] = ["   "]
     contract_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -2632,7 +2701,9 @@ def test_validate_repo_requires_comparison_doctrine_selection_parity(tmp_path: P
     write_text(
         tmp_path / "EVAL_SELECTION.md",
         """
-        # Eval Selection
+        # Eval Bundle Selection Chooser
+
+        This file is the repository-wide chooser for public eval bundles.
 
         Current starter posture:
         - `aoa-selection-drift`
@@ -2693,7 +2764,7 @@ def test_validate_repo_rejects_missing_shared_fixture_family_path(tmp_path: Path
     make_eval_bundle(tmp_path, name="aoa-missing-shared-fixture")
     write_catalogs(tmp_path)
     write_text(
-        tmp_path / "bundles" / "aoa-missing-shared-fixture" / "fixtures" / "contract.json",
+        eval_dir_for_test(tmp_path, "aoa-missing-shared-fixture") / "fixtures" / "contract.json",
         json.dumps(
             {
                 "contract_version": 1,
@@ -2795,7 +2866,7 @@ def test_validate_repo_rejects_actual_report_that_violates_bundle_schema(tmp_pat
         },
     )
     write_text(
-        tmp_path / "bundles" / "aoa-invalid-actual-report" / "reports" / "local-run.report.json",
+        eval_dir_for_test(tmp_path, "aoa-invalid-actual-report") / "reports" / "local-run.report.json",
         json.dumps(
             {
                 "eval_name": "aoa-invalid-actual-report",
@@ -2858,7 +2929,7 @@ def test_validate_repo_rejects_actual_report_with_manifest_drift(tmp_path: Path)
         },
     )
     write_text(
-        tmp_path / "bundles" / "aoa-drifted-actual-report" / "reports" / "local-run.report.json",
+        eval_dir_for_test(tmp_path, "aoa-drifted-actual-report") / "reports" / "local-run.report.json",
         json.dumps(
             {
                 "eval_name": "wrong-eval-name",
@@ -2879,17 +2950,14 @@ def test_validate_repo_rejects_actual_report_with_manifest_drift(tmp_path: Path)
 
 
 def test_approval_boundary_schema_allows_missing_fallback_move() -> None:
+    bundle_dir = eval_dir_for_test(REPO_ROOT, "aoa-approval-boundary-adherence")
     schema_path = (
-        REPO_ROOT
-        / "bundles"
-        / "aoa-approval-boundary-adherence"
+        bundle_dir
         / "reports"
         / "summary.schema.json"
     )
     example_path = (
-        REPO_ROOT
-        / "bundles"
-        / "aoa-approval-boundary-adherence"
+        bundle_dir
         / "reports"
         / "example-report.json"
     )
@@ -2921,7 +2989,7 @@ def test_antifragility_schema_requires_stressor_class() -> None:
         "generated_at_utc": "2026-04-09T12:00:00Z",
         "scope": {
             "repo": "aoa-evals",
-            "surface": "bundles/aoa-antifragility-posture/reports/example-report.json",
+            "surface": "evals/stress/aoa-antifragility-posture/reports/example-report.json",
         },
         "inputs": {
             "receipt_refs": ["repo:aoa-evals/reports/receipt-001.json"],
@@ -2965,7 +3033,7 @@ def test_antifragility_schema_requires_non_empty_receipt_refs() -> None:
         "generated_at_utc": "2026-04-09T12:00:00Z",
         "scope": {
             "repo": "aoa-evals",
-            "surface": "bundles/aoa-antifragility-posture/reports/example-report.json",
+            "surface": "evals/stress/aoa-antifragility-posture/reports/example-report.json",
             "stressor_class": "latency-spike",
         },
         "inputs": {
@@ -3269,7 +3337,7 @@ def test_validate_repo_requires_integrity_risk_taxonomy_enum(tmp_path: Path) -> 
         },
     )
     write_text(
-        tmp_path / "bundles" / "aoa-eval-integrity-check" / "notes" / "review-contract.md",
+        eval_dir_for_test(tmp_path, "aoa-eval-integrity-check") / "notes" / "review-contract.md",
         "\n".join(
             [
                 "# Review Contract",
@@ -3287,7 +3355,7 @@ def test_validate_repo_requires_integrity_risk_taxonomy_enum(tmp_path: Path) -> 
         ),
     )
     write_integrity_example_report(
-        tmp_path / "bundles" / "aoa-eval-integrity-check" / "examples" / "example-report.md"
+        eval_dir_for_test(tmp_path, "aoa-eval-integrity-check") / "examples" / "example-report.md"
     )
     write_catalogs(tmp_path)
 
@@ -3376,7 +3444,7 @@ def test_validate_repo_requires_integrity_taxonomy_in_example_report(tmp_path: P
         },
     )
     write_text(
-        tmp_path / "bundles" / "aoa-eval-integrity-check" / "notes" / "review-contract.md",
+        eval_dir_for_test(tmp_path, "aoa-eval-integrity-check") / "notes" / "review-contract.md",
         "\n".join(
             [
                 "# Review Contract",
@@ -3394,7 +3462,7 @@ def test_validate_repo_requires_integrity_taxonomy_in_example_report(tmp_path: P
         ),
     )
     write_text(
-        tmp_path / "bundles" / "aoa-eval-integrity-check" / "examples" / "example-report.md",
+        eval_dir_for_test(tmp_path, "aoa-eval-integrity-check") / "examples" / "example-report.md",
         "# Example Report\n",
     )
     write_catalogs(tmp_path)
@@ -3402,7 +3470,7 @@ def test_validate_repo_requires_integrity_taxonomy_in_example_report(tmp_path: P
     issues = run_validation(tmp_path, eval_name="aoa-eval-integrity-check")
 
     assert any(
-        issue.location == "bundles/aoa-eval-integrity-check/examples/example-report.md"
+        issue.location == "evals/capability/aoa-eval-integrity-check/examples/example-report.md"
         and "integrity example report must mention" in issue.message
         for issue in issues
     )
@@ -3419,6 +3487,34 @@ def test_validate_repo_requires_roadmap_current_public_surface_to_be_a_starter_b
     issues = run_validation(tmp_path)
 
     assert any("roadmap 'Current public surface' eval 'aoa-beta' must appear in EVAL_INDEX.md starter bundles" in issue.message for issue in issues)
+
+
+def test_validate_roadmap_parity_rejects_generic_heading(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-starter-alpha")
+    make_index(tmp_path, "aoa-starter-alpha", "workflow")
+    make_selection(tmp_path, ["aoa-starter-alpha"])
+    make_roadmap(tmp_path, ["aoa-starter-alpha"])
+    roadmap_path = tmp_path / "ROADMAP.md"
+    roadmap_path.write_text(
+        roadmap_path.read_text(encoding="utf-8").replace(
+            "# Proof Direction Roadmap",
+            "# Roadmap",
+            1,
+        ),
+        encoding="utf-8",
+    )
+    write_catalogs(tmp_path)
+
+    issues = validate_repo.validate_roadmap_parity(
+        tmp_path,
+        starter_names=["aoa-starter-alpha"],
+    )
+
+    assert any(
+        issue.location == "ROADMAP.md"
+        and "# Proof Direction Roadmap" in issue.message
+        for issue in issues
+    )
 
 
 def test_validate_repo_allows_public_bundle_outside_starter_surface(tmp_path: Path) -> None:
@@ -3475,7 +3571,7 @@ def test_validate_repo_rejects_mirrored_field_drift(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-field-drift")
     write_catalogs(tmp_path)
 
-    manifest_path = tmp_path / "bundles" / "aoa-field-drift" / "eval.yaml"
+    manifest_path = eval_dir_for_test(tmp_path, "aoa-field-drift") / "eval.yaml"
     manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
     manifest["category"] = "artifact"
     manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
@@ -3505,7 +3601,7 @@ def test_validate_repo_rejects_technique_dependency_order_mismatch(tmp_path: Pat
     )
     write_catalogs(tmp_path)
 
-    eval_md_path = tmp_path / "bundles" / "aoa-technique-order-drift" / "EVAL.md"
+    eval_md_path = eval_dir_for_test(tmp_path, "aoa-technique-order-drift") / "EVAL.md"
     text = eval_md_path.read_text(encoding="utf-8")
     _opening, frontmatter_text, body = text.split("---", 2)
     frontmatter = yaml.safe_load(frontmatter_text)
@@ -3544,7 +3640,7 @@ def test_validate_repo_rejects_skill_dependency_order_mismatch(tmp_path: Path) -
     )
     write_catalogs(tmp_path)
 
-    eval_md_path = tmp_path / "bundles" / "aoa-skill-order-drift" / "EVAL.md"
+    eval_md_path = eval_dir_for_test(tmp_path, "aoa-skill-order-drift") / "EVAL.md"
     text = eval_md_path.read_text(encoding="utf-8")
     _opening, frontmatter_text, body = text.split("---", 2)
     frontmatter = yaml.safe_load(frontmatter_text)
@@ -3567,7 +3663,7 @@ def test_validate_repo_rejects_repo_mismatch(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-repo-mismatch")
     write_catalogs(tmp_path)
 
-    manifest_path = tmp_path / "bundles" / "aoa-repo-mismatch" / "eval.yaml"
+    manifest_path = eval_dir_for_test(tmp_path, "aoa-repo-mismatch") / "eval.yaml"
     manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
     manifest["technique_dependencies"][0]["repo"] = "example/other-repo"
     manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
@@ -3581,7 +3677,7 @@ def test_validate_repo_rejects_non_repo_relative_dependency_path(tmp_path: Path)
     make_eval_bundle(tmp_path, name="aoa-path-mismatch")
     write_catalogs(tmp_path)
 
-    manifest_path = tmp_path / "bundles" / "aoa-path-mismatch" / "eval.yaml"
+    manifest_path = eval_dir_for_test(tmp_path, "aoa-path-mismatch") / "eval.yaml"
     manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
     manifest["technique_dependencies"][0]["path"] = "../techniques/test/TECHNIQUE.md"
     manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
@@ -3673,7 +3769,7 @@ def test_validate_repo_stale_generated_catalogs_fail(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-stale-generated")
     write_catalogs(tmp_path)
 
-    eval_md_path = tmp_path / "bundles" / "aoa-stale-generated" / "EVAL.md"
+    eval_md_path = eval_dir_for_test(tmp_path, "aoa-stale-generated") / "EVAL.md"
     text = eval_md_path.read_text(encoding="utf-8")
     eval_md_path.write_text(text.replace("Minimal summary for validation.", "Changed without rebuilding catalog.", 1), encoding="utf-8")
 
@@ -3689,7 +3785,7 @@ def test_validate_repo_stale_generated_capsules_fail(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-stale-capsules")
     write_catalogs(tmp_path)
 
-    eval_md_path = tmp_path / "bundles" / "aoa-stale-capsules" / "EVAL.md"
+    eval_md_path = eval_dir_for_test(tmp_path, "aoa-stale-capsules") / "EVAL.md"
     text = eval_md_path.read_text(encoding="utf-8")
     eval_md_path.write_text(
         text.replace(
@@ -3712,7 +3808,7 @@ def test_targeted_validation_catches_stale_generated_catalog_for_selected_eval(t
     make_eval_bundle(tmp_path, name="aoa-targeted-stale-generated")
     write_catalogs(tmp_path)
 
-    eval_md_path = tmp_path / "bundles" / "aoa-targeted-stale-generated" / "EVAL.md"
+    eval_md_path = eval_dir_for_test(tmp_path, "aoa-targeted-stale-generated") / "EVAL.md"
     text = eval_md_path.read_text(encoding="utf-8")
     eval_md_path.write_text(
         text.replace("Minimal summary for validation.", "Changed without rebuilding catalog.", 1),
@@ -3737,7 +3833,7 @@ def test_targeted_validation_catches_stale_generated_capsule_for_selected_eval(t
     make_eval_bundle(tmp_path, name="aoa-targeted-stale-capsule")
     write_catalogs(tmp_path)
 
-    eval_md_path = tmp_path / "bundles" / "aoa-targeted-stale-capsule" / "EVAL.md"
+    eval_md_path = eval_dir_for_test(tmp_path, "aoa-targeted-stale-capsule") / "EVAL.md"
     text = eval_md_path.read_text(encoding="utf-8")
     eval_md_path.write_text(
         text.replace(
@@ -3832,7 +3928,7 @@ def test_validate_repo_rejects_stale_generated_sections(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-stale-sections-surface")
     write_catalogs(tmp_path)
 
-    eval_md_path = tmp_path / "bundles" / "aoa-stale-sections-surface" / "EVAL.md"
+    eval_md_path = eval_dir_for_test(tmp_path, "aoa-stale-sections-surface") / "EVAL.md"
     eval_md_path.write_text(
         eval_md_path.read_text(encoding="utf-8").replace(
             "## Adaptation points\n- point\n",
@@ -3870,6 +3966,42 @@ def test_validate_repo_rejects_section_catalog_alignment_drift(tmp_path: Path) -
 
 def test_generated_route_residue_accepts_current_generated_readouts() -> None:
     assert validate_repo.validate_generated_route_residue(REPO_ROOT) == []
+
+
+def test_generated_route_residue_surfaces_validate_current_reader_index() -> None:
+    assert validate_repo.validate_generated_route_residue_surfaces(REPO_ROOT) == []
+
+
+def test_generated_route_residue_surfaces_reject_missing_quest_reader_route(
+    tmp_path: Path,
+) -> None:
+    for path_name in (
+        "generated/README.md",
+        "generated/AGENTS.md",
+        validate_repo.GENERATED_ROUTE_RESIDUE_DECISION_NAME,
+        "docs/decisions/README.md",
+        validate_repo.PROOF_TOPOLOGY_NAME,
+        validate_repo.LEGACY_NAMING_NAME,
+        validate_repo.ROADMAP_NAME,
+    ):
+        copy_repo_text(tmp_path, path_name)
+    agents_path = tmp_path / "generated" / "AGENTS.md"
+    agents_path.write_text(
+        agents_path.read_text(encoding="utf-8").replace(
+            "`generated/quest_catalog.min.json`, ",
+            "",
+            1,
+        ),
+        encoding="utf-8",
+    )
+
+    issues = validate_repo.validate_generated_route_residue_surfaces(tmp_path)
+
+    assert any(
+        issue.location == "generated/AGENTS.md"
+        and "generated/quest_catalog.min.json" in issue.message
+        for issue in issues
+    )
 
 
 def test_generated_route_residue_rejects_root_route_card_structural_reference(
@@ -3958,7 +4090,7 @@ def test_targeted_validation_catches_stale_generated_section_for_selected_eval(t
     make_eval_bundle(tmp_path, name="aoa-targeted-stale-sections")
     write_catalogs(tmp_path)
 
-    eval_md_path = tmp_path / "bundles" / "aoa-targeted-stale-sections" / "EVAL.md"
+    eval_md_path = eval_dir_for_test(tmp_path, "aoa-targeted-stale-sections") / "EVAL.md"
     eval_md_path.write_text(
         eval_md_path.read_text(encoding="utf-8").replace(
             "## Adaptation points\n- point\n",
@@ -4645,7 +4777,7 @@ def test_validate_trace_eval_bridge_surfaces_keeps_local_example_checks_when_pla
 
 def test_duplicate_eval_headings_are_detected_before_dict_normalization(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-duplicate-headings")
-    eval_md_path = tmp_path / "bundles" / "aoa-duplicate-headings" / "EVAL.md"
+    eval_md_path = eval_dir_for_test(tmp_path, "aoa-duplicate-headings") / "EVAL.md"
     eval_md_text = eval_md_path.read_text(encoding="utf-8")
     eval_md_path.write_text(
         eval_md_text.replace(
@@ -4732,12 +4864,60 @@ class TestValidateQuestbookSurface:
 
         assert validate_questbook_surface(tmp_path) == []
 
+    def test_questbook_surface_rejects_generic_obligation_heading(
+        self, tmp_path: Path
+    ) -> None:
+        make_questbook_surface(tmp_path)
+        questbook_path = tmp_path / "QUESTBOOK.md"
+        questbook_path.write_text(
+            questbook_path.read_text(encoding="utf-8").replace(
+                "# Questbook Obligation Index",
+                "# QUESTBOOK.md - aoa-evals",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any(
+            issue.location == "QUESTBOOK.md"
+            and "# Questbook Obligation Index" in issue.message
+            for issue in issues
+        )
+
     def test_quest_lifecycle_surface_validates_current_state_contract(self) -> None:
         quest_schema = json.loads(
             (REPO_ROOT / validate_repo.QUEST_SCHEMA_NAME).read_text(encoding="utf-8")
         )
 
         assert validate_repo.validate_quest_lifecycle_surface(REPO_ROOT, quest_schema) == []
+
+    def test_quest_lifecycle_surface_rejects_generic_heading(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "quests/LIFECYCLE.md")
+        copy_repo_text(tmp_path, "mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json")
+        lifecycle_path = tmp_path / "quests" / "LIFECYCLE.md"
+        lifecycle_path.write_text(
+            lifecycle_path.read_text(encoding="utf-8").replace(
+                "# Quest Lifecycle Contract",
+                "# Quest Lifecycle",
+                1,
+            ),
+            encoding="utf-8",
+        )
+        quest_schema = json.loads(
+            (tmp_path / validate_repo.QUEST_SCHEMA_NAME).read_text(encoding="utf-8")
+        )
+
+        issues = validate_repo.validate_quest_lifecycle_surface(tmp_path, quest_schema)
+
+        assert any(
+            issue.location == "quests/LIFECYCLE.md"
+            and "# Quest Lifecycle Contract" in issue.message
+            for issue in issues
+        )
 
     def test_quest_lifecycle_surface_rejects_missing_state_matrix_entry(
         self, tmp_path: Path
@@ -5041,6 +5221,28 @@ class TestValidateQuestbookSurface:
 class TestValidateQuestRouteSurfaces:
     def test_quest_route_surfaces_validate_current_schema_backed_layout(self) -> None:
         assert validate_repo.validate_quest_route_surfaces(REPO_ROOT) == []
+
+    def test_quest_route_surfaces_reject_generic_readme_heading(
+        self, tmp_path: Path
+    ) -> None:
+        make_quest_route_surface(tmp_path)
+        readme_path = tmp_path / "quests" / "README.md"
+        readme_path.write_text(
+            readme_path.read_text(encoding="utf-8").replace(
+                "# Quest Source Records",
+                "# Quests",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_quest_route_surfaces(tmp_path)
+
+        assert any(
+            issue.location == "quests/README.md"
+            and "# Quest Source Records" in issue.message
+            for issue in issues
+        )
 
     def test_quest_route_surfaces_reject_markdown_notes_in_lifecycle_path(
         self, tmp_path: Path
@@ -5428,7 +5630,7 @@ class TestValidateQuestRouteSurfaces:
         parts_readme = tmp_path / validate_repo.TITAN_PARTS_INDEX_README_NAME
         parts_readme.write_text(
             parts_readme.read_text(encoding="utf-8").replace(
-                "# Titan Parts", "# Titan Canaries Parts"
+                "# Titan / Parts Route", "# Titan Canaries Parts"
             ),
             encoding="utf-8",
         )
@@ -5437,7 +5639,7 @@ class TestValidateQuestRouteSurfaces:
 
         assert any(
             issue.location == validate_repo.TITAN_PARTS_INDEX_README_NAME
-            and "# Titan Parts" in issue.message
+            and "# Titan / Parts Route" in issue.message
             for issue in issues
         )
 
@@ -6000,6 +6202,401 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_agent_index_surface_validates_current_route(self) -> None:
+        assert validate_repo.validate_agent_index_surface(REPO_ROOT) == []
+
+    def test_agent_index_surface_rejects_missing_chain(self, tmp_path: Path) -> None:
+        for path_name in (
+            validate_repo.AGENT_INDEX_NAME,
+            validate_repo.AGENT_INDEX_CHAIN_DECISION_NAME,
+            "README.md",
+            "docs/README.md",
+            validate_repo.PROOF_TOPOLOGY_NAME,
+            "ROADMAP.md",
+            validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME,
+            "docs/decisions/README.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        index_path = tmp_path / validate_repo.AGENT_INDEX_NAME
+        index_path.write_text(
+            index_path.read_text(encoding="utf-8").replace(
+                "repo -> authority class -> operation -> mechanic parent -> part -> payload -> validation",
+                "repo -> file",
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_agent_index_surface(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.AGENT_INDEX_NAME
+            and "repo -> authority class -> operation" in issue.message
+            for issue in issues
+        )
+
+    def test_root_readme_surface_role_validates_current_entry(self) -> None:
+        assert validate_repo.validate_root_readme_surface_role(REPO_ROOT) == []
+
+    def test_root_readme_surface_role_rejects_generic_heading(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in ("README.md", "docs/README.md"):
+            copy_repo_text(tmp_path, path_name)
+        readme_path = tmp_path / "README.md"
+        readme_path.write_text(
+            readme_path.read_text(encoding="utf-8").replace(
+                "# aoa-evals Bounded Proof Canon",
+                "# aoa-evals",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_root_readme_surface_role(tmp_path)
+
+        assert any(
+            issue.location == "README.md"
+            and "# aoa-evals Bounded Proof Canon" in issue.message
+            for issue in issues
+        )
+
+    def test_root_readme_surface_role_rejects_generic_docs_map_eval_labels(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in ("README.md", "docs/README.md"):
+            copy_repo_text(tmp_path, path_name)
+        docs_readme_path = tmp_path / "docs" / "README.md"
+        docs_readme_path.write_text(
+            docs_readme_path.read_text(encoding="utf-8").replace(
+                "Eval Bundle Selection Chooser",
+                "EVAL_SELECTION",
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_root_readme_surface_role(tmp_path)
+
+        assert any(
+            issue.location == "docs/README.md"
+            and "Eval Bundle Selection Chooser" in issue.message
+            for issue in issues
+        )
+
+    def test_docs_readme_route_map_validates_current_map(self) -> None:
+        assert validate_repo.validate_docs_readme_route_map(REPO_ROOT) == []
+
+    def test_docs_readme_route_map_rejects_generic_mechanics_label(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "docs/README.md")
+        docs_readme_path = tmp_path / "docs" / "README.md"
+        docs_readme_path.write_text(
+            docs_readme_path.read_text(encoding="utf-8").replace(
+                "Mechanics Operation Atlas",
+                "Mechanics",
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_docs_readme_route_map(tmp_path)
+
+        assert any(
+            issue.location == "docs/README.md"
+            and "Mechanics Operation Atlas" in issue.message
+            for issue in issues
+        )
+
+    def test_docs_readme_route_map_rejects_validation_block_in_reader_paths(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "docs/README.md")
+        docs_readme_path = tmp_path / "docs" / "README.md"
+        docs_readme_path.write_text(
+            docs_readme_path.read_text(encoding="utf-8").replace(
+                "### Reviewer Path",
+                "## Verify Current Surfaces\n\nUse docs/AGENTS.md.\n\n### Reviewer Path",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_docs_readme_route_map(tmp_path)
+
+        assert any(
+            issue.location == "docs/README.md"
+            and "Verify Current Surfaces" in issue.message
+            for issue in issues
+        )
+
+    def test_docs_readme_route_map_rejects_command_block(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "docs/README.md")
+        docs_readme_path = tmp_path / "docs" / "README.md"
+        docs_readme_path.write_text(
+            docs_readme_path.read_text(encoding="utf-8")
+            + "\n```bash\npython scripts/validate_repo.py\n```\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_docs_readme_route_map(tmp_path)
+
+        assert any(
+            issue.location == "docs/README.md"
+            and "executable validation commands" in issue.message
+            for issue in issues
+        )
+
+    def test_read_model_command_ownership_validates_current_routes(self) -> None:
+        assert validate_repo.validate_read_model_command_ownership(REPO_ROOT) == []
+
+    def test_read_model_command_ownership_rejects_command_block(
+        self, tmp_path: Path
+    ) -> None:
+        readme_name = "docs/PROOF_TOPOLOGY.md"
+        write_text(
+            tmp_path / readme_name,
+            """
+            # Proof Topology
+
+            ## Validation
+
+            ```bash
+            python scripts/validate_repo.py
+            ```
+            """,
+        )
+
+        issues = validate_repo.validate_read_model_command_ownership(tmp_path)
+
+        assert any(
+            issue.location == readme_name
+            and "route executable validation commands to the nearest AGENTS.md"
+            in issue.message
+            for issue in issues
+        )
+
+    def test_read_model_command_ownership_rejects_bullet_command(
+        self, tmp_path: Path
+    ) -> None:
+        readme_name = "docs/RELEASING.md"
+        write_text(
+            tmp_path / readme_name,
+            """
+            # Releasing
+
+            ## Local release checks
+
+            - `python scripts/release_check.py`
+            """,
+        )
+
+        issues = validate_repo.validate_read_model_command_ownership(tmp_path)
+
+        assert any(
+            issue.location == readme_name
+            and "python command lines" in issue.message
+            for issue in issues
+        )
+
+    def test_audit_surface_role_validates_current_route(self) -> None:
+        assert validate_repo.validate_audit_surface_role(REPO_ROOT) == []
+
+    def test_audit_surface_role_rejects_audit_as_route_law(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "AGENTS.md")
+        write_text(
+            tmp_path / "AUDIT.md",
+            "# AUDIT.md\n\nThis file is the repo-local audit contract.\n",
+        )
+
+        issues = validate_repo.validate_audit_surface_role(tmp_path)
+
+        assert any(
+            issue.location == "AUDIT.md"
+            and "Audit Surface Map" in issue.message
+            for issue in issues
+        )
+
+    def test_audit_surface_role_rejects_missing_agents_audit_route(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "AUDIT.md")
+        write_text(
+            tmp_path / "AGENTS.md",
+            "# AGENTS.md\n\n## Verify\n\nUse local validation.\n",
+        )
+
+        issues = validate_repo.validate_audit_surface_role(tmp_path)
+
+        assert any(
+            issue.location == "AGENTS.md"
+            and "## Audit and review route" in issue.message
+            for issue in issues
+        )
+
+    def test_index_surface_roles_validate_current_headings(self) -> None:
+        assert validate_repo.validate_index_surface_roles(REPO_ROOT) == []
+
+    def test_index_surface_roles_reject_generic_decision_heading(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in validate_repo.INDEX_SURFACE_ROLE_REQUIRED_TOKENS:
+            copy_repo_text(tmp_path, path_name)
+        decision_index_path = tmp_path / "docs" / "decisions" / "README.md"
+        decision_index_path.write_text(
+            decision_index_path.read_text(encoding="utf-8").replace(
+                "# Decision Records Index",
+                "# Decisions",
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_index_surface_roles(tmp_path)
+
+        assert any(
+            issue.location == "docs/decisions/README.md"
+            and "# Decision Records Index" in issue.message
+            for issue in issues
+        )
+
+    def test_index_surface_roles_reject_generic_mechanics_heading(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in validate_repo.INDEX_SURFACE_ROLE_REQUIRED_TOKENS:
+            copy_repo_text(tmp_path, path_name)
+        mechanics_index_path = tmp_path / "mechanics" / "README.md"
+        mechanics_index_path.write_text(
+            mechanics_index_path.read_text(encoding="utf-8").replace(
+                "# Mechanics Operation Atlas",
+                "# Mechanics",
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_index_surface_roles(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.MECHANICS_README_NAME
+            and "# Mechanics Operation Atlas" in issue.message
+            for issue in issues
+        )
+
+    def test_index_surface_roles_reject_generic_eval_index_heading(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in validate_repo.INDEX_SURFACE_ROLE_REQUIRED_TOKENS:
+            copy_repo_text(tmp_path, path_name)
+        eval_index_path = tmp_path / validate_repo.EVAL_INDEX_NAME
+        eval_index_path.write_text(
+            eval_index_path.read_text(encoding="utf-8").replace(
+                "# Eval Bundle Index",
+                "# EVAL_INDEX",
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_index_surface_roles(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.EVAL_INDEX_NAME
+            and "# Eval Bundle Index" in issue.message
+            for issue in issues
+        )
+
+    def test_mechanic_index_surface_roles_validate_current_headings(self) -> None:
+        assert validate_repo.validate_mechanic_index_surface_roles(REPO_ROOT) == []
+
+    def test_mechanic_index_surface_roles_reject_generic_parts_heading(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            "mechanics/proof-object/PARTS.md",
+            "mechanics/proof-object/parts/README.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        parts_index_path = tmp_path / "mechanics" / "proof-object" / "PARTS.md"
+        parts_index_path.write_text(
+            parts_index_path.read_text(encoding="utf-8").replace(
+                "# Proof Object / Part Index",
+                "# Proof Object Parts",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanic_index_surface_roles(tmp_path)
+
+        assert any(
+            issue.location == "mechanics/proof-object/PARTS.md"
+            and "Index" in issue.message
+            for issue in issues
+        )
+
+    def test_mechanic_index_surface_roles_reject_generic_parts_route_heading(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            "mechanics/proof-object/PARTS.md",
+            "mechanics/proof-object/parts/README.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        parts_route_path = tmp_path / "mechanics" / "proof-object" / "parts" / "README.md"
+        parts_route_path.write_text(
+            parts_route_path.read_text(encoding="utf-8").replace(
+                "# Proof Object / Parts Route",
+                "# Proof Object Parts",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanic_index_surface_roles(tmp_path)
+
+        assert any(
+            issue.location == "mechanics/proof-object/parts/README.md"
+            and "Route" in issue.message
+            for issue in issues
+        )
+
+    def test_validator_surface_role_validates_current_route(self) -> None:
+        assert validate_repo.validate_validator_surface_role(REPO_ROOT) == []
+
+    def test_validator_surface_role_rejects_generic_scripts_guidance(
+        self, tmp_path: Path
+    ) -> None:
+        write_text(
+            tmp_path / "scripts" / "AGENTS.md",
+            "# AGENTS.md\n\nScripts are helper utilities.\n",
+        )
+        copy_repo_text(tmp_path, "tests/AGENTS.md")
+
+        issues = validate_repo.validate_validator_surface_role(tmp_path)
+
+        assert any(
+            issue.location == "scripts/AGENTS.md"
+            and "root contract mesh" in issue.message
+            for issue in issues
+        )
+
+    def test_validator_surface_role_rejects_generic_test_guidance(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "scripts/AGENTS.md")
+        write_text(
+            tmp_path / "tests" / "AGENTS.md",
+            "# AGENTS.md\n\nTests cover helpers.\n",
+        )
+
+        issues = validate_repo.validate_validator_surface_role(tmp_path)
+
+        assert any(
+            issue.location == "tests/AGENTS.md"
+            and "root validator regression mesh" in issue.message
+            for issue in issues
+        )
+
     def test_root_route_card_districts_validate_current_routes(self) -> None:
         assert validate_repo.validate_root_route_card_districts(REPO_ROOT) == []
 
@@ -6052,6 +6649,57 @@ class TestValidateQuestRouteSurfaces:
         assert any(
             issue.location == "manifests/recurrence"
             and "stray directory" in issue.message
+            for issue in issues
+        )
+
+    def test_root_route_card_districts_reject_unclear_readme_heading(
+        self, tmp_path: Path
+    ) -> None:
+        for district_name, allowed_names in validate_repo.ROOT_ROUTE_CARD_ONLY_DISTRICTS.items():
+            for allowed_name in allowed_names:
+                copy_repo_text(tmp_path, f"{district_name}/{allowed_name}")
+        copy_repo_text(tmp_path, validate_repo.ROOT_ROUTE_CARD_GUARD_DECISION_NAME)
+        copy_repo_text(tmp_path, "docs/decisions/README.md")
+        copy_repo_text(tmp_path, validate_repo.PROOF_TOPOLOGY_NAME)
+        fixtures_readme = tmp_path / "fixtures" / "README.md"
+        fixtures_readme.write_text(
+            fixtures_readme.read_text(encoding="utf-8").replace(
+                "# Fixtures Route",
+                "# Shared Fixtures",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_root_route_card_districts(tmp_path)
+
+        assert any(
+            issue.location == "fixtures/README.md"
+            and "must name itself as a Route surface" in issue.message
+            for issue in issues
+        )
+
+    def test_root_route_card_districts_reject_readme_operational_discipline(
+        self, tmp_path: Path
+    ) -> None:
+        for district_name, allowed_names in validate_repo.ROOT_ROUTE_CARD_ONLY_DISTRICTS.items():
+            for allowed_name in allowed_names:
+                copy_repo_text(tmp_path, f"{district_name}/{allowed_name}")
+        copy_repo_text(tmp_path, validate_repo.ROOT_ROUTE_CARD_GUARD_DECISION_NAME)
+        copy_repo_text(tmp_path, "docs/decisions/README.md")
+        copy_repo_text(tmp_path, validate_repo.PROOF_TOPOLOGY_NAME)
+        runners_readme = tmp_path / "runners" / "README.md"
+        runners_readme.write_text(
+            runners_readme.read_text(encoding="utf-8")
+            + "\nDo not recreate active root runner payloads here.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_root_route_card_districts(tmp_path)
+
+        assert any(
+            issue.location == "runners/README.md"
+            and "operational discipline in AGENTS.md" in issue.message
             for issue in issues
         )
 
@@ -6152,7 +6800,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         write_text(
             tmp_path / "AUDIT.md",
-            "# Audit\n\nRead `bundles/aoa-demo/reports/summary.schema.json`.\n",
+            "# Audit\n\nRead `evals/workflow/aoa-demo/reports/summary.schema.json`.\n",
         )
 
         assert validate_repo.validate_root_authored_route_residue(tmp_path) == []
@@ -6212,7 +6860,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         write_text(
             tmp_path / "docs" / "decisions" / "0099-bundle-route.md",
-            "# Bundle Route\n\nUse `bundles/aoa-demo/reports/summary.schema.json`.\n",
+            "# Bundle Route\n\nUse `evals/workflow/aoa-demo/reports/summary.schema.json`.\n",
         )
 
         assert validate_repo.validate_decision_route_residue(tmp_path) == []
@@ -6281,14 +6929,14 @@ class TestValidateQuestRouteSurfaces:
         self, tmp_path: Path
     ) -> None:
         write_text(
-            tmp_path / "bundles" / "aoa-demo" / "EVAL.md",
+            eval_dir_for_test(tmp_path, "aoa-demo") / "EVAL.md",
             "# Demo\n\nRead `examples/a2a/external.fixture.json` from aoa-sdk.\n",
         )
 
         issues = validate_repo.validate_source_bundle_route_residue(tmp_path)
 
         assert any(
-            issue.location == "bundles/aoa-demo/EVAL.md:3"
+            issue.location == "evals/workflow/aoa-demo/EVAL.md:3"
             and "route-card-only root district payload 'examples/a2a/external.fixture.json'"
             in issue.message
             for issue in issues
@@ -6298,14 +6946,14 @@ class TestValidateQuestRouteSurfaces:
         self, tmp_path: Path
     ) -> None:
         write_text(
-            tmp_path / "bundles" / "aoa-demo" / "EVAL.md",
+            eval_dir_for_test(tmp_path, "aoa-demo") / "EVAL.md",
             "# Demo\n\nUse `mechanics/agon-proof/README.md` as the owner.\n",
         )
 
         issues = validate_repo.validate_source_bundle_route_residue(tmp_path)
 
         assert any(
-            issue.location == "bundles/aoa-demo/EVAL.md:3"
+            issue.location == "evals/workflow/aoa-demo/EVAL.md:3"
             and "legacy mechanic parent `mechanics/agon-proof/`" in issue.message
             for issue in issues
         )
@@ -6313,9 +6961,9 @@ class TestValidateQuestRouteSurfaces:
     def test_source_bundle_route_residue_allows_bundle_local_path(
         self, tmp_path: Path
     ) -> None:
-        write_text(tmp_path / "bundles" / "aoa-demo" / "fixtures" / "contract.json", "{}")
+        write_text(eval_dir_for_test(tmp_path, "aoa-demo") / "fixtures" / "contract.json", "{}")
         write_text(
-            tmp_path / "bundles" / "aoa-demo" / "EVAL.md",
+            eval_dir_for_test(tmp_path, "aoa-demo") / "EVAL.md",
             "# Demo\n\nUse `fixtures/contract.json` as this bundle's local fixture contract.\n",
         )
 
@@ -6325,7 +6973,7 @@ class TestValidateQuestRouteSurfaces:
         self, tmp_path: Path
     ) -> None:
         write_text(
-            tmp_path / "bundles" / "aoa-demo" / "EVAL.md",
+            eval_dir_for_test(tmp_path, "aoa-demo") / "EVAL.md",
             "# Demo\n\nUse `repo:aoa-sdk/examples/a2a/external.fixture.json` as sibling evidence.\n",
         )
 
@@ -7449,7 +8097,7 @@ class TestValidateQuestRouteSurfaces:
         evidence_path = tmp_path / validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
         evidence_path.write_text(
             evidence_path.read_text(encoding="utf-8").replace(
-                "quest route validation, generated quest catalog checks, and `python scripts/build_catalog.py --check`",
+                "quest route validation, generated quest catalog checks, and catalog-check route",
                 "TBD",
                 1,
             ),
@@ -7567,6 +8215,62 @@ class TestValidateQuestRouteSurfaces:
 
     def test_mechanic_part_readme_contract_validates_current_routes(self) -> None:
         assert validate_repo.validate_mechanic_part_readme_contract_surfaces(REPO_ROOT) == []
+
+    def test_mechanic_part_readme_contract_rejects_heading_without_parent(
+        self, tmp_path: Path
+    ) -> None:
+        readme_name = "mechanics/proof-loop/parts/route-smoke/README.md"
+        for path_name in (
+            "mechanics/proof-loop/PARTS.md",
+            readme_name,
+            "mechanics/proof-loop/parts/route-smoke/VALIDATION.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        readme_path = tmp_path / readme_name
+        readme_path.write_text(
+            readme_path.read_text(encoding="utf-8").replace(
+                "# Proof Loop / Route Smoke Part",
+                "# Route Smoke Part",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+
+        assert any(
+            issue.location == readme_name
+            and "parent mechanic" in issue.message
+            for issue in issues
+        )
+
+    def test_mechanic_part_readme_contract_rejects_validation_heading_without_parent(
+        self, tmp_path: Path
+    ) -> None:
+        validation_name = "mechanics/proof-loop/parts/route-smoke/VALIDATION.md"
+        for path_name in (
+            "mechanics/proof-loop/PARTS.md",
+            "mechanics/proof-loop/parts/route-smoke/README.md",
+            validation_name,
+        ):
+            copy_repo_text(tmp_path, path_name)
+        validation_path = tmp_path / validation_name
+        validation_path.write_text(
+            validation_path.read_text(encoding="utf-8").replace(
+                "# Proof Loop / Route Smoke Validation",
+                "# Route Smoke Validation",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+
+        assert any(
+            issue.location == validation_name
+            and "parent mechanic" in issue.message
+            for issue in issues
+        )
 
     def test_mechanic_part_payload_inventory_validates_current_routes(self) -> None:
         assert validate_repo.validate_mechanic_part_readme_contract_surfaces(REPO_ROOT) == []
@@ -7994,7 +8698,7 @@ class TestValidateQuestRouteSurfaces:
         self, tmp_path: Path
     ) -> None:
         readme_name = "mechanics/agon/parts/new-proof/README.md"
-        write_text(tmp_path / "bundles" / "aoa-demo" / "EVAL.md", "# Demo\n")
+        write_text(eval_dir_for_test(tmp_path, "aoa-demo") / "EVAL.md", "# Demo\n")
         write_text(
             tmp_path / "mechanics" / "agon" / "PARTS.md",
             f"# Agon Parts\n\n- `{readme_name}`\n",
@@ -8006,7 +8710,7 @@ class TestValidateQuestRouteSurfaces:
 
             ## Source Surfaces
 
-            - `bundles/aoa-demo/EVAL.md`
+            - `evals/workflow/aoa-demo/EVAL.md`
 
             ## Inputs
 
@@ -8086,7 +8790,56 @@ class TestValidateQuestRouteSurfaces:
 
         assert any(
             issue.location == readme_name
-            and "must list at least one python command" in issue.message
+            and "part validation route must list at least one python command"
+            in issue.message
+            for issue in issues
+        )
+
+    def test_mechanic_part_validation_command_rejects_readme_command_blocks(
+        self, tmp_path: Path
+    ) -> None:
+        readme_name = "mechanics/agon/parts/new-proof/README.md"
+        write_text(
+            tmp_path / readme_name,
+            """
+            # New Proof
+
+            ## Validation
+
+            ```bash
+            python scripts/validate_repo.py
+            ```
+            """,
+        )
+        write_text(
+            tmp_path / "mechanics/agon/parts/new-proof/VALIDATION.md",
+            """
+            # New Proof Validation
+
+            Use the `new-proof` child validation block in parent parts AGENTS.
+            """,
+        )
+        write_text(
+            tmp_path / "mechanics/agon/parts/AGENTS.md",
+            """
+            # AGENTS.md
+
+            ## Validation
+
+            ### `mechanics/agon/parts/new-proof/VALIDATION.md`
+
+            ```bash
+            python scripts/validate_repo.py
+            ```
+            """,
+        )
+        write_text(tmp_path / "scripts/validate_repo.py", "# validator\n")
+
+        issues = validate_repo.validate_mechanic_part_validation_command_surfaces(tmp_path)
+
+        assert any(
+            issue.location == readme_name
+            and "README validation section must route executable commands" in issue.message
             for issue in issues
         )
 
@@ -8156,6 +8909,35 @@ class TestValidateQuestRouteSurfaces:
 
     def test_mechanic_parts_index_sync_validates_current_routes(self) -> None:
         assert validate_repo.validate_mechanic_parts_index_sync_surfaces(REPO_ROOT) == []
+
+    def test_mechanic_index_command_ownership_validates_current_routes(self) -> None:
+        assert validate_repo.validate_mechanic_index_command_ownership(REPO_ROOT) == []
+
+    def test_mechanic_index_command_ownership_rejects_parts_index_commands(
+        self, tmp_path: Path
+    ) -> None:
+        parts_index_name = "mechanics/proof-object/PARTS.md"
+        write_text(
+            tmp_path / parts_index_name,
+            """
+            # Proof Object Parts
+
+            ## Validation
+
+            ```bash
+            python scripts/validate_repo.py
+            ```
+            """,
+        )
+
+        issues = validate_repo.validate_mechanic_index_command_ownership(tmp_path)
+
+        assert any(
+            issue.location == parts_index_name
+            and "route executable validation commands to the nearest AGENTS.md"
+            in issue.message
+            for issue in issues
+        )
 
     def test_mechanic_parts_index_sync_rejects_unlisted_actual_part(
         self, tmp_path: Path
@@ -9082,7 +9864,7 @@ class TestValidateQuestRouteSurfaces:
         parts_path.write_text(
             parts_path.read_text(encoding="utf-8").replace(
                 "`mechanics/growth-cycle/parts/diagnosis-gate/`",
-                "`bundles/aoa-diagnosis-cause-discipline` deferred route",
+                "`evals/workflow/aoa-diagnosis-cause-discipline` deferred route",
             ),
             encoding="utf-8",
         )
@@ -9534,7 +10316,8 @@ class TestValidateQuestRouteSurfaces:
 
             `.agents/spark/SWARM.md`
             Use this for one bounded eval bundle.
-            Boundary Keeper checks repo validation and build catalog.
+            Boundary Keeper checks repo validation and build catalog through
+            .agents/spark/AGENTS.md#validation.
             """,
         )
         write_text(
@@ -9589,3 +10372,37 @@ class TestValidateQuestRouteSurfaces:
             "Spark/",
             "root-local Spark lane must stay moved to .agents/spark/",
         ) in issues
+
+    def test_agent_lane_surfaces_reject_spark_swarm_command_lines(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            ".agents/AGENTS.md",
+            ".agents/spark/AGENTS.md",
+            "docs/decisions/0017-spark-agent-lane-placement.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        write_text(
+            tmp_path / ".agents" / "spark" / "SWARM.md",
+            """
+            # Spark Swarm
+
+            `.agents/spark/SWARM.md`
+            Use this for one bounded eval bundle.
+            Boundary Keeper checks repo validation and build catalog through
+            .agents/spark/AGENTS.md#validation.
+
+            ```bash
+            python scripts/validate_repo.py
+            ```
+            """,
+        )
+
+        issues = validate_repo.validate_agent_lane_surfaces(tmp_path)
+
+        assert any(
+            issue.location == ".agents/spark/SWARM.md"
+            and "route executable commands to .agents/spark/AGENTS.md"
+            in issue.message
+            for issue in issues
+        )

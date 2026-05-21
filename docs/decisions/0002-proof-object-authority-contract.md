@@ -28,8 +28,8 @@ spots. The root design spine turns that into the organizing authority contract.
 `aoa-evals` treats the proof object as the source authority for a bounded eval
 claim.
 
-For an existing bundle, that proof object is primarily `bundles/*/EVAL.md` plus
-`bundles/*/eval.yaml`, supported by bundle-local notes, fixtures, runners,
+For an existing bundle, that proof object is primarily `evals/**/EVAL.md` plus
+`evals/**/eval.yaml`, supported by bundle-local notes, fixtures, runners,
 schemas, reports, and examples when present.
 
 Generated readers, runtime candidates, machine evidence, sibling references,
@@ -56,7 +56,7 @@ authored claim, evidence boundary, verdict logic, and blind spots they describe.
 
 This decision does not freeze the current bundle schema forever.
 
-It does not prevent future proof-object drafts outside `bundles/` during
+It does not prevent future proof-object drafts outside `evals/` during
 mechanics work, but those drafts must name their authority and promotion route
 before being read as accepted eval bundles.
 

@@ -34,7 +34,7 @@ Create `mechanics/agon/` for the operation:
 The package moves Agon-owned artifact families under `mechanics/agon/parts/`
 when the part owns the source, generated output, validation, and recurrence
 route. Quest source records stay under `quests/` for the questbook route, and
-the recurrence-control-plane bundle stays under `bundles/`.
+the recurrence-control-plane bundle stays under `evals/`.
 
 ## Rationale
 

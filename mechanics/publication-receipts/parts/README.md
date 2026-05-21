@@ -1,4 +1,4 @@
-# Publication Receipts Parts
+# Publication Receipts / Parts Route
 
 Part-local homes for publication receipt artifacts.
 

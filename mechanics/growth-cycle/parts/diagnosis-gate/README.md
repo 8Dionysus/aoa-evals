@@ -1,4 +1,4 @@
-# Diagnosis Gate Part
+# Growth-cycle / Diagnosis Gate Part
 
 ## Role
 
@@ -7,13 +7,13 @@ This part owns the support route for cause-hypothesis discipline through
 
 It keeps diagnosis under the Growth Cycle mechanic because AoA Growth Cycle
 requires diagnosis before repair and separates symptoms from causes. The source
-proof bundle stays under `bundles/`.
+proof bundle stays under `evals/`.
 
 ## Thin Support Posture
 
 This is a bundle-backed thin support route with no part-local payload subdirectories.
-The source proof bundle stays under `bundles/` because
-`bundles/aoa-diagnosis-cause-discipline/` owns the strongest local proof
+The source proof bundle stays under `evals/` because
+`evals/workflow/aoa-diagnosis-cause-discipline/` owns the strongest local proof
 meaning: claim wording, source notes, example report, and integrity check.
 
 Do not add empty placeholder payload directories here. Add part-local payload
@@ -22,11 +22,11 @@ proof bundle and can name its own owner split, stop-lines, and validation.
 
 ## Source Surfaces
 
-- `bundles/aoa-diagnosis-cause-discipline/EVAL.md`
-- `bundles/aoa-diagnosis-cause-discipline/eval.yaml`
-- `bundles/aoa-diagnosis-cause-discipline/notes/diagnosis-contract.md`
-- `bundles/aoa-diagnosis-cause-discipline/examples/example-report.md`
-- `bundles/aoa-diagnosis-cause-discipline/checks/eval-integrity-check.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/EVAL.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/eval.yaml`
+- `evals/workflow/aoa-diagnosis-cause-discipline/notes/diagnosis-contract.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/examples/example-report.md`
+- `evals/workflow/aoa-diagnosis-cause-discipline/checks/eval-integrity-check.md`
 
 ## Inputs
 
@@ -84,8 +84,4 @@ and unlock proof remains under `mechanics/rpg/parts/progression-unlocks/`.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-diagnosis-cause-discipline
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

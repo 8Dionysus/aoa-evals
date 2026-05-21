@@ -100,21 +100,12 @@ notes under active lifecycle directories.
 
 ## Validation
 
-After changing quest source records, quest route docs, or this mechanic, run:
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
 
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
-
-If generated quest readers are stale, rebuild them with:
-
-```bash
-python scripts/build_catalog.py
-```
-
-Then rerun the checks.
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.
 
 ## Next Route
 

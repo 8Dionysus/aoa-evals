@@ -5,13 +5,13 @@
 Distilled recurrence support surfaces from root districts into the active
 `mechanics/recurrence/parts/control-plane-integrity/` route.
 
-Active source proof bundles stayed under `bundles/`.
+Active source proof bundles stayed under `evals/`.
 
 Historical insertion notes moved to `legacy/raw/` because they record how the
 recurrence bundle entered `EVAL_INDEX.md` and `EVAL_SELECTION.md`; they are not
 active route law. The archive index now maps each raw insertion note back to
 `mechanics/recurrence/parts/control-plane-integrity/README.md` and the source
-bundle `bundles/aoa-recurrence-control-plane-integrity/EVAL.md`, so raw
+bundle `evals/boundary/aoa-recurrence-control-plane-integrity/EVAL.md`, so raw
 placement history does not become a self-contained archive route.
 
 Later in the same refactor, a second evidence pass promoted only proven support

@@ -17,7 +17,7 @@ owner, or promotion authority.
 `comparison claim -> bundle comparison_surface -> shared proof artifacts -> generated comparison spine -> bounded comparison read`
 
 This package routes the comparison operation. Source claim meaning stays in
-`bundles/*/EVAL.md` and `bundles/*/eval.yaml`.
+`evals/**/EVAL.md` and `evals/**/eval.yaml`.
 
 ## Source Surfaces
 
@@ -41,9 +41,9 @@ This package routes the comparison operation. Source claim meaning stays in
 - `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md`
 - `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v2.md`
 - `mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md`
-- bundle-local `bundles/<bundle>/fixtures/contract.json`,
-  `bundles/<bundle>/runners/contract.json`, and
-  `bundles/<bundle>/reports/summary.schema.json` when a comparison bundle
+- bundle-local `evals/<family>/<eval>/fixtures/contract.json`,
+  `evals/<family>/<eval>/runners/contract.json`, and
+  `evals/<family>/<eval>/reports/summary.schema.json` when a comparison bundle
   ships them
 
 ## Inputs
@@ -120,16 +120,12 @@ README, `PARTS.md`, and the active part.
 
 ## Validation
 
-After changing comparison-spine route surfaces, run:
+Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+README names the mechanic role, routes, and boundaries; the nearest route card
+owns command execution.
 
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-```
-
-If comparison examples, reports, schemas, runtime candidate readers, or
-phase-alpha matrices also change, run their owning checks too.
+When generated or source-support surfaces change, follow the same AGENTS
+validation lane before closeout.
 
 ## Next Route
 

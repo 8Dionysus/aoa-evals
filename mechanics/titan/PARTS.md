@@ -1,4 +1,4 @@
-# Titan Parts
+# Titan / Part Index
 
 `mechanics/titan/parts/` contains the active parts of the Titan
 proof-seed operation.
@@ -40,5 +40,5 @@ Stop-lines forbid treating canary presence as incarnation, summon authority,
 runtime cohort proof, memory sovereignty, mutation-gate bypass, or
 judgment-gate bypass.
 
-Validation is `validate_titan_canary_surfaces` through
-`python scripts/validate_repo.py`.
+Validation routes through [AGENTS](AGENTS.md#validation), including the
+`validate_titan_canary_surfaces` repo validation lane.

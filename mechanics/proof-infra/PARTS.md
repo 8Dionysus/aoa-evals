@@ -1,4 +1,4 @@
-# Proof Infra Parts
+# Proof Infra / Part Index
 
 ## Role
 
@@ -70,10 +70,9 @@ Stop-lines forbid promoting fixture family names into parent mechanics,
 recreating active root infrastructure aliases, or absorbing bundle-local proof
 objects and reviewed reports.
 
-Validation is `python scripts/build_catalog.py --check`,
-`python scripts/validate_repo.py`, and
-`python scripts/validate_semantic_agents.py`, plus targeted bundle checks when
-shared fixture or reportable paths move.
+Validation routes through [AGENTS](AGENTS.md#validation) and the affected part
+route cards, plus targeted bundle checks when shared fixture or reportable
+paths move.
 
 ## Stop-Lines
 
@@ -94,14 +93,7 @@ shared fixture or reportable paths move.
 ## Validation
 
 After part movement, fixture-family path changes, or reportable contract path
-changes, run:
-
-```bash
-python scripts/build_catalog.py
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+changes, use [AGENTS](AGENTS.md#validation) for executable validation commands.
 
 Run targeted bundle validation for every bundle whose
 `shared_fixture_family_path`, `runner_surface_path`, or `scorer_helper_paths`

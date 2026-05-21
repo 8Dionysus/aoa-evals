@@ -13,8 +13,8 @@ polish.
 
 The evidence cluster spans:
 
-- `bundles/aoa-compost-provenance-preservation/EVAL.md`
-- `bundles/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md`
+- `evals/artifact/aoa-compost-provenance-preservation/EVAL.md`
+- `evals/workflow/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md`
 - former root `fixtures/compost-provenance-v1/README.md`
 - former Experience-adjacent
   `mechanics/experience/parts/adoption-federation/fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md`
@@ -52,7 +52,7 @@ The active parts are:
 - `runtime-candidate-adoption` for
   `aoa-memo-reviewed-candidate-adoption-integrity` support.
 
-Source proof bundles stay under `bundles/`. Runtime-pack hook metadata stays
+Source proof bundles stay under `evals/`. Runtime-pack hook metadata stays
 under `mechanics/audit/`. Generic adoption, consent, compatibility,
 federation, KAG/ToS boundary, and shadow adoption support stay under
 `mechanics/experience/`.

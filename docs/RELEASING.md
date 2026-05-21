@@ -26,15 +26,14 @@ Prefer bounded releases over mixed large batches.
 Recommended local release loop:
 - confirm the bounded release scope first
 - update `CHANGELOG.md` with the release section that will anchor the human release narrative
-- `python scripts/release_check.py`
-- `python -m pip install -r requirements-dev.txt`
-- `python scripts/build_catalog.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
-- `python -m pytest`
+- follow `mechanics/release-support/AGENTS.md#validation` for release-route
+  commands
+- follow root `AGENTS.md#verify` when the release touches generated readers or
+  repository-wide proof topology
 
-When you need the latest-sibling canary rather than the pinned repo-validation lane, run:
-- `python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --matrix mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`
+When you need the latest-sibling canary rather than the pinned repo-validation
+lane, use the boundary-bridge validation route in
+`mechanics/boundary-bridge/AGENTS.md#validation`.
 
 If pinned sibling repos are not available locally, the validator will stay
 permissive about dependency-target existence. CI is the strict path-existence
@@ -67,14 +66,14 @@ Before shipping a new public draft bundle:
 - blind spots should be named clearly
 - the bundle should include explicit manifest evidence for its public support artifacts
 - the bundle should include a tracked `origin_need` evidence note
-- current public starters should ship `bundles/<bundle>/examples/example-report.md`
+- current public starters should ship `evals/<family>/<eval>/examples/example-report.md`
 - current public starters should ship an integrity-review artifact such as `checks/eval-integrity-check.md`
 - when a bundle claims machine-readable report artifacts, ship
-  `bundles/<bundle>/reports/summary.schema.json` and
-  `bundles/<bundle>/reports/example-report.json` together
+  `evals/<family>/<eval>/reports/summary.schema.json` and
+  `evals/<family>/<eval>/reports/example-report.json` together
 - when a bundle claims reusable execution artifacts, ship bundle-local
-  `bundles/<bundle>/fixtures/contract.json` and/or
-  `bundles/<bundle>/runners/contract.json` together with the active
+  `evals/<family>/<eval>/fixtures/contract.json` and/or
+  `evals/<family>/<eval>/runners/contract.json` together with the active
   mechanic-local shared surfaces they reference
 - `EVAL_INDEX.md` should include the new public bundle
 - `EVAL_SELECTION.md` should be updated if the chooser meaningfully changes
@@ -130,7 +129,9 @@ Before finalizing a change:
 - confirm summaries do not overstate the evidence
 - confirm blind spots and interpretation notes still match the current wording
 - confirm starter-bundle integrity artifacts still match current manifest and chooser wording
-- confirm `generated/eval_catalog.json` and `generated/eval_catalog.min.json` were rebuilt from current markdown and manifest sources
+- confirm `generated/eval_catalog.json` and `generated/eval_catalog.min.json`
+  were rebuilt from current markdown and manifest sources when the release route
+  intentionally changes generated readers
 - confirm release scope is small enough that reviewers can reason about it directly
 
 For a large accumulated refactor, read

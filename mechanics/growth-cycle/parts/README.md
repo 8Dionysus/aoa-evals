@@ -1,4 +1,4 @@
-# Growth-cycle Parts
+# Growth-cycle / Parts Route
 
 This directory contains active Growth Cycle parts only after local eval-side
 evidence proves the part.

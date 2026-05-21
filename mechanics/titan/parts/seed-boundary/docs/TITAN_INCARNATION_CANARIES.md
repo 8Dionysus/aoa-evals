@@ -57,9 +57,6 @@ The validator expects:
 
 ## Validation
 
-Run:
-
-```bash
-python scripts/validate_repo.py
-python -m pytest -q tests/test_validate_repo.py -k titan_canary
-```
+Use `mechanics/titan/parts/AGENTS.md#validation` for executable validation
+commands. This guide names incarnation canary boundaries; the route card owns
+command execution.

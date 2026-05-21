@@ -16,7 +16,7 @@ def resolve_repo_root() -> Path:
         if (expected_repo_root / "mechanics").is_dir():
             return expected_repo_root
     for candidate in Path(__file__).resolve().parents:
-        if (candidate / "bundles").is_dir() and (candidate / "AGENTS.md").is_file():
+        if (candidate / "evals").is_dir() and (candidate / "AGENTS.md").is_file():
             return candidate
     raise SystemExit("[error] unable to locate aoa-evals repository root")
 

@@ -1,15 +1,15 @@
-# Protocol Integrity Part
+# Experience / Protocol Integrity Part
 
 ## Role
 
 This part owns the support route for `aoa-experience-protocol-integrity`.
 
 It keeps the public-safe fixture family and validation test under the
-Experience mechanic while the source proof bundle stays under `bundles/`.
+Experience mechanic while the source proof bundle stays under `evals/`.
 
 ## Source Surfaces
 
-- `bundles/aoa-experience-protocol-integrity/EVAL.md`
+- `evals/boundary/aoa-experience-protocol-integrity/EVAL.md`
 - `mechanics/experience/parts/protocol-integrity/fixtures/experience-verdict-protocol-integrity-v1/README.md`
 - `mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py`
 
@@ -47,8 +47,4 @@ This part does not own Experience doctrine and must not claim:
 
 ## Validation
 
-```bash
-python -m pytest -q mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

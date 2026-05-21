@@ -1,4 +1,4 @@
-# Agon Parts
+# Agon / Part Index
 
 ## Purpose
 
@@ -11,17 +11,17 @@ builder or validator code, tests, and recurrence surfaces when present.
 
 ## Part Map
 
-| Part | Owns | Main Check |
+| Part | Owns | Main validation surface |
 | --- | --- | --- |
-| `court-prebinding` | court prebinding model, court prebinding docs, seed config, generated prebinding registry, schemas, examples, recurrence component, hooks | `python mechanics/agon/parts/court-prebinding/scripts/validate_agon_eval_prebindings.py` |
-| `ccs-alignment` | Agon CCS law alignment seed and registry | `python mechanics/agon/parts/ccs-alignment/scripts/validate_agon_ccs_eval_alignment.py` |
-| `vds-alignment` | verdict draft status alignment and verdict draft checks | `python mechanics/agon/parts/vds-alignment/scripts/validate_agon_vds_eval_alignment.py` |
-| `mechanical-trial-suites` | candidate trial-suite alignment against mechanical trial surfaces | `python mechanics/agon/parts/mechanical-trial-suites/scripts/validate_agon_mechanical_trial_eval_suites.py` |
-| `retention-rank-alignment` | retention and rank pressure alignment without rank or trust mutation | `python mechanics/agon/parts/retention-rank-alignment/scripts/validate_agon_retention_rank_eval_alignment.py` |
-| `epistemic-alignment` | epistemic boundary alignment without doctrine rewrite or live judgment | `python mechanics/agon/parts/epistemic-alignment/scripts/validate_agon_epistemic_eval_alignment.py` |
-| `slc-alignment` | schools, lineages, and campaigns alignment without canon or arena authority | `python mechanics/agon/parts/slc-alignment/scripts/validate_agon_slc_eval_alignment_registry.py` |
-| `kag-alignment` | KAG promotion-path alignment without KAG canon or source-truth transfer | `python mechanics/agon/parts/kag-alignment/scripts/validate_agon_kag_eval_alignment_registry.py` |
-| `sophian-threshold-alignment` | Sophian threshold alignment without Tree of Sophia canon write | `python mechanics/agon/parts/sophian-threshold-alignment/scripts/validate_agon_sophian_eval_alignment_registry.py` |
+| `court-prebinding` | court prebinding model, court prebinding docs, seed config, generated prebinding registry, schemas, examples, recurrence component, hooks | `mechanics/agon/parts/court-prebinding/scripts/validate_agon_eval_prebindings.py` through `mechanics/agon/AGENTS.md#validation` |
+| `ccs-alignment` | Agon CCS law alignment seed and registry | `mechanics/agon/parts/ccs-alignment/scripts/validate_agon_ccs_eval_alignment.py` through `mechanics/agon/AGENTS.md#validation` |
+| `vds-alignment` | verdict draft status alignment and verdict draft checks | `mechanics/agon/parts/vds-alignment/scripts/validate_agon_vds_eval_alignment.py` through `mechanics/agon/AGENTS.md#validation` |
+| `mechanical-trial-suites` | candidate trial-suite alignment against mechanical trial surfaces | `mechanics/agon/parts/mechanical-trial-suites/scripts/validate_agon_mechanical_trial_eval_suites.py` through `mechanics/agon/AGENTS.md#validation` |
+| `retention-rank-alignment` | retention and rank pressure alignment without rank or trust mutation | `mechanics/agon/parts/retention-rank-alignment/scripts/validate_agon_retention_rank_eval_alignment.py` through `mechanics/agon/AGENTS.md#validation` |
+| `epistemic-alignment` | epistemic boundary alignment without doctrine rewrite or live judgment | `mechanics/agon/parts/epistemic-alignment/scripts/validate_agon_epistemic_eval_alignment.py` through `mechanics/agon/AGENTS.md#validation` |
+| `slc-alignment` | schools, lineages, and campaigns alignment without canon or arena authority | `mechanics/agon/parts/slc-alignment/scripts/validate_agon_slc_eval_alignment_registry.py` through `mechanics/agon/AGENTS.md#validation` |
+| `kag-alignment` | KAG promotion-path alignment without KAG canon or source-truth transfer | `mechanics/agon/parts/kag-alignment/scripts/validate_agon_kag_eval_alignment_registry.py` through `mechanics/agon/AGENTS.md#validation` |
+| `sophian-threshold-alignment` | Sophian threshold alignment without Tree of Sophia canon write | `mechanics/agon/parts/sophian-threshold-alignment/scripts/validate_agon_sophian_eval_alignment_registry.py` through `mechanics/agon/AGENTS.md#validation` |
 
 ## Part Contract
 
@@ -52,8 +52,8 @@ keep their doctrine, canon, and live authority.
 Stop-lines are part of the contract: no Agon part grants live verdict,
 promotion, arena, rank, trust, doctrine rewrite, or sibling-owner acceptance.
 
-Validation is the part-local builder, validator, and test path named in the
-part map.
+Validation routes through [AGENTS](AGENTS.md#validation). This part map names
+the primary validation surfaces without owning executable commands.
 
 ## Routing Rules
 

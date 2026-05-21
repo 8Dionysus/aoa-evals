@@ -1,4 +1,4 @@
-# Restartable Inquiry Part
+# Checkpoint / Restartable Inquiry Part
 
 ## Role
 
@@ -7,11 +7,11 @@ This part owns the support route for checkpoint-and-relaunch proof in
 
 It keeps the long-horizon restart fixture family and restartable-inquiry hook
 example under the checkpoint mechanic while the source proof bundle stays under
-`bundles/`.
+`evals/`.
 
 ## Source Surfaces
 
-- `bundles/aoa-long-horizon-depth/EVAL.md`
+- `evals/workflow/aoa-long-horizon-depth/EVAL.md`
 - `mechanics/checkpoint/parts/restartable-inquiry/fixtures/long-horizon-restart-v1/README.md`
 - `mechanics/checkpoint/parts/restartable-inquiry/examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json`
 
@@ -56,10 +56,4 @@ This part must not claim:
 
 ## Validation
 
-Payload coverage anchor: `mechanics/checkpoint/parts/restartable-inquiry/`.
-
-```bash
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.

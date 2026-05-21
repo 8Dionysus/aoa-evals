@@ -1,8 +1,6 @@
 # AGENTS.md
 
-Local guidance for `scorers/`.
-
-## Purpose
+## Role
 
 `scorers/` is a compatibility route card for shared bounded helpers for
 reportable proof artifacts.
@@ -16,7 +14,15 @@ Active scorer payload:
 ## Rules
 
 Shared helpers may format or normalize bounded breakdowns, but they must remain reviewable enough for outside inspection.
-Never let a scorer outrank the bundle-local meaning in EVAL.md.
-Do not flatten a bounded proof surface into one generic score without explicit bundle-level interpretation.
+Bundle-local meaning in EVAL.md stays stronger than scorer helper output.
+Generic score output requires explicit bundle-level interpretation.
 Preserve helper support for transition-note and integrity-risk payloads when editing repeated-window or sidecar-related logic.
-Do not recreate active root scorer helper aliases here.
+Active root scorer helper aliases route through proof-infra provenance and the
+active part-local surface.
+
+## Validation
+
+```bash
+python scripts/validate_repo.py
+python scripts/validate_semantic_agents.py
+```

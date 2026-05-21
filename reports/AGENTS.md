@@ -1,20 +1,29 @@
 # AGENTS.md
 
-## Guidance for `reports/`
+## Role
 
 `reports/` is a route-card-only compatibility surface for former root report
-payloads. Do not add active report files here without an explicit topology
-decision and validator allowlist update.
+payloads.
 
-Active reports are bounded outputs, not broad trust claims. They must name the
+Active report payloads route to the owning bundle or mechanic part unless an
+explicit topology decision and validator allowlist update establishes a new
+root route.
+
+## Rules
+
+Active reports are bounded outputs. They must name the
 object under evaluation, the fixture or case coverage, blind spots, scoring
-posture, and what was not measured.
+posture, and measured boundary.
 
-Do not strengthen a verdict in a report beyond the bundle-local `EVAL.md`, `eval.yaml`, runner contract, and schema-backed output.
+Verdict strength stays within the bundle-local `EVAL.md`, `eval.yaml`, runner
+contract, and schema-backed output.
 
-Keep reports public-safe. Do not include secrets, private datasets, hidden telemetry, or raw unreduced operator traces.
+Keep reports public-safe: secrets, private datasets, hidden telemetry, and raw
+unreduced operator traces stay out of this route.
 Top-level report artifacts may return to `reports/` only through an explicit
 topology decision and validator allowlist update.
+
+## Current Routes
 
 Current owner routes:
 
@@ -29,7 +38,9 @@ bundle-local dossier path in `paired_readout_path`, record additional shared
 dossiers in `additional_paired_readout_paths`, and keep top-level dossiers
 weaker than bundle-local interpretation guidance.
 
-Verify with the touched runner or scorer plus:
+## Validation
+
+Use the touched runner or scorer route plus:
 
 ```bash
 python scripts/validate_repo.py

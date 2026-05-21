@@ -1,25 +1,29 @@
 # AGENTS.md
 
-## Guidance for `manifests/`
+## Role
 
-`manifests/` is a compatibility route card, not an active manifest payload
-district.
+`manifests/` is a route-card-only compatibility route card for root manifest
+paths.
 
-No active root manifest payload should live here. Recurrence manifests now live
-with the mechanic part whose lifecycle they describe, such as
-`mechanics/agon/parts/*/manifests/`,
-`mechanics/recurrence/parts/control-plane-integrity/manifests/`, and
-`mechanics/recurrence/parts/portable-proof-beacons/manifests/`.
+Active root manifest payloads route with the mechanic part whose lifecycle they
+describe:
 
-Do not recreate root recurrence manifest aliases to make old paths convenient.
-Route old root path lineage through the owning mechanic `PROVENANCE.md`; the
-owning legacy archive explains itself after that bridge.
+- Agon recurrence manifests live under `mechanics/agon/parts/*/manifests/`.
+- Recurrence control-plane manifests live under
+  `mechanics/recurrence/parts/control-plane-integrity/manifests/`.
+- Portable proof beacon manifests live under
+  `mechanics/recurrence/parts/portable-proof-beacons/manifests/`.
+
+## Rules
+
+Root recurrence manifest aliases route through the owning mechanic
+`PROVENANCE.md`; the owning legacy archive explains itself after that bridge.
 
 Manifest edits are topology edits. Pair them with the owning mechanic docs,
 decision record, and validation that explains why the component belongs to that
 part.
 
-Verify with:
+## Validation
 
 ```bash
 python scripts/validate_repo.py

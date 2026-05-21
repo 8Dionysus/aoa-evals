@@ -40,7 +40,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
         Path('config/AGENTS.md'),
         (
             'compatibility route card',
-            'No active root config payload',
+            'Active root config payloads route to the operation that owns them',
             'mechanics/agon/parts',
             'draft',
             'bounded',
@@ -63,7 +63,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
         (
             'artifact-to-verdict',
             'public-safe',
-            'not prove',
+            'proof limits',
             'schemas',
             'validate_repo.py',
         ),
@@ -72,7 +72,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
         Path('manifests/AGENTS.md'),
         (
             'compatibility route card',
-            'No active root manifest payload',
+            'Active root manifest payloads route with the mechanic part',
             'mechanics/agon/parts',
             'mechanics/recurrence/parts/control-plane-integrity/manifests/',
             'validate_repo.py',

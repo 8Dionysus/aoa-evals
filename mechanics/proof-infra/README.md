@@ -38,7 +38,7 @@ This package routes shared proof infrastructure. Source proof meaning stays in
 - root route cards `scorers/README.md` and `scorers/AGENTS.md`
 - root route card `schemas/AGENTS.md`
 - root route cards `reports/README.md` and `reports/AGENTS.md`
-- `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
+- `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md`
 - `generated/eval_report_index.min.json`
 - generated catalog `proof_artifacts` entries derived from bundle-local
   contracts

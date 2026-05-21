@@ -6,7 +6,7 @@ This part owns the support route for experience certification gate proof.
 
 It keeps certification, release-gate, deployment-integrity, rollback,
 watchtower, and certification-adjacent verdict support together while the
-source proof bundle stays under `evals/`.
+source eval package stays under `evals/`.
 
 ## Source Surfaces
 

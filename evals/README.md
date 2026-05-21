@@ -91,9 +91,9 @@ through their builders rather than hand-edited.
 
 ## Mechanic Links
 
-Mechanics support bundles without stealing bundle meaning.
+Mechanics support source eval packages without stealing eval meaning.
 
-- Proof-object owns bundle authoring and bundle contract support.
+- Proof-object owns eval authoring and eval contract support.
 - Proof-infra owns reusable fixture, runner, scorer, and reportable-contract
   support.
 - Comparison-spine owns fixed-baseline, peer-compare, and repeated-window
@@ -101,8 +101,9 @@ Mechanics support bundles without stealing bundle meaning.
 - Audit owns selected runtime evidence and artifact-to-verdict bridge support.
 - Release-support owns release readiness, closeout, and handoff report support.
 
-When a bundle needs narrower operation support, route to the owning mechanic
-part from the bundle-local evidence path or from [Mechanics](../mechanics/README.md).
+When an eval package needs narrower operation support, route to the owning
+mechanic part from the eval-local evidence path or from
+[Mechanics](../mechanics/README.md).
 
 ## Validation
 

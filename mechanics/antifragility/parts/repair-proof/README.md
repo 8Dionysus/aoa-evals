@@ -8,7 +8,7 @@ This part owns the support route for bounded repair proof through
 This repair-proof route keeps the shared repair fixture family under the
 Antifragility mechanic
 because AoA antifragility routes repair proof and regression evidence to
-`aoa-evals`. The source proof bundle stays under `evals/`.
+`aoa-evals`. The source eval package stays under `evals/`.
 
 ## Source Surfaces
 

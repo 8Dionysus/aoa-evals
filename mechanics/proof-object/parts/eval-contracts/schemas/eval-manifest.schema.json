@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://aoa-evals/mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json",
+  "$id": "https://aoa-evals/mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json",
   "title": "aoa-evals eval.yaml manifest",
   "type": "object",
   "additionalProperties": false,

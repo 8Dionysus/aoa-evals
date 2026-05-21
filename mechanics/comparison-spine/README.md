@@ -27,7 +27,7 @@ This package routes the comparison operation. Source claim meaning stays in
 - `docs/BASELINE_COMPARISON_GUIDE.md`
 - `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
 - `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
-- `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
+- `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md`
 - `generated/comparison_spine.json`
 - `generated/eval_catalog.json`
 - `mechanics/comparison-spine/parts/spine-overview/reports/comparison-spine-proof-flow-v1.md`
@@ -63,7 +63,7 @@ This package routes the comparison operation. Source claim meaning stays in
 ## Outputs
 
 - one bounded comparison read
-- source-aligned comparison metadata in bundle frontmatter and `eval.yaml`
+- source-aligned comparison metadata in eval frontmatter and `eval.yaml`
 - generated `generated/comparison_spine.json` entries derived from source
 - report routes that preserve the comparison mode
 - explicit anti-overread language for baseline drift, peer-compare blur,

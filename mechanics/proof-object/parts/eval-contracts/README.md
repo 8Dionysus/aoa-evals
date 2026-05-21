@@ -1,11 +1,11 @@
-# Proof Object / Bundle Contracts Part
+# Proof Object / Eval Contracts Part
 
 ## Role
 
-This part owns the schema-backed source contracts for eval bundle frontmatter
-and manifests.
+This part owns the schema-backed source contracts for eval frontmatter and
+manifests.
 
-It is not a bundle registry and not generated reader authority.
+It is not an eval registry and not generated reader authority.
 
 ## Owned Operation
 
@@ -13,8 +13,8 @@ It is not a bundle registry and not generated reader authority.
 
 ## Source Surfaces
 
-- `mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json`
-- `mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json`
+- `mechanics/proof-object/parts/eval-contracts/schemas/eval-frontmatter.schema.json`
+- `mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json`
 - `scripts/validate_repo.py`
 - `evals/**/EVAL.md`
 - `evals/**/eval.yaml`
@@ -28,7 +28,7 @@ It is not a bundle registry and not generated reader authority.
 
 ## Outputs
 
-- schema validation errors when source bundle contracts drift;
+- schema validation errors when source eval contracts drift;
 - bounded metadata accepted by generated catalog, capsule, section, and
   comparison readers.
 
@@ -39,23 +39,23 @@ lifecycle status, bounded claim text, evidence posture, baseline mode,
 dependencies, and report expectations.
 
 This part owns schema-backed contract validation for frontmatter and manifests.
-It can reject missing or malformed metadata, but it does not invent bundle
-claims, mature a bundle, accept evidence, or rewrite verdict meaning.
+It can reject missing or malformed metadata, but it does not invent eval
+claims, mature an eval package, accept evidence, or rewrite verdict meaning.
 
 Generated catalog, capsule, section, comparison, runtime candidate, quest,
 receipt, and sibling-reference readers consume validated metadata as derived
-navigation. They stay weaker than source bundles and bundle-local review.
+navigation. They stay weaker than source eval packages and eval-local review.
 
 `aoa-evals` owns the schema contract and validation route here, not a registry
 of approved proof truth.
 
 ## Stop-Lines
 
-- Do not loosen schemas to make weak bundles pass.
+- Do not loosen schemas to make weak eval packages pass.
 - Do not encode generated catalog convenience as source proof meaning.
-- Do not make status movement stronger than bundle evidence.
-- Do not move source bundles into this part.
-- Do not treat schema acceptance as bundle-local review, evidence acceptance,
+- Do not make status movement stronger than eval evidence.
+- Do not move source eval packages into this part.
+- Do not treat schema acceptance as eval-local review, evidence acceptance,
   publication, or release readiness.
 
 ## Validation

@@ -6,15 +6,15 @@ Start with this README for role and owned operation. Then read [DIRECTION.md](DI
 
 ## Role
 
-`mechanics/proof-object/` routes the operation that keeps eval bundle source
+`mechanics/proof-object/` routes the operation that keeps source eval package
 meaning complete, bounded, and stronger than generated or emitted companions.
 
-It is not the bundle directory, generated catalog, report sink, release gate,
-or doctrine center.
+It is not the source eval package directory, generated catalog, report sink,
+release gate, or doctrine center.
 
 ## Owned Operation
 
-`origin proof pressure -> source proof bundle -> proof-object completeness review -> generated reader derivation -> bundle-local report or downstream route`
+`origin proof pressure -> source eval package -> proof-object completeness review -> generated reader derivation -> bundle-local report or downstream route`
 
 The source proof object remains:
 
@@ -31,9 +31,9 @@ This package routes the operation around those objects. It does not move them.
 - `evals/**/eval.yaml`
 - `mechanics/proof-object/PARTS.md`
 - `mechanics/proof-object/PROVENANCE.md`
-- `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
-- `mechanics/proof-object/parts/bundle-contracts/schemas/eval-frontmatter.schema.json`
-- `mechanics/proof-object/parts/bundle-contracts/schemas/eval-manifest.schema.json`
+- `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md`
+- `mechanics/proof-object/parts/eval-contracts/schemas/eval-frontmatter.schema.json`
+- `mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json`
 - `docs/ARCHITECTURE.md`
 - `docs/EVAL_PHILOSOPHY.md`
 - `docs/EVAL_RUBRIC.md`
@@ -51,11 +51,11 @@ This package routes the operation around those objects. It does not move them.
 
 - an origin need, regression pressure, sibling proof reference, runtime
   candidate, quest obligation, or review finding
-- one existing bundle or a clearly marked proof-object draft
+- one existing eval package or a clearly marked proof-object draft
 - manifest metadata from `eval.yaml`
 - bounded claim text from `EVAL.md`
 - evidence entries, fixtures, examples, reports, schemas, runners, or scorers
-  when the bundle claims them
+  when the eval package claims them
 - baseline or comparison posture when the claim depends on comparison
 
 ## Outputs
@@ -71,8 +71,8 @@ This package routes the operation around those objects. It does not move them.
 
 ## Active Parts
 
-- `bundle-authoring`: starter scaffold for bounded `EVAL.md` authoring.
-- `bundle-contracts`: frontmatter and `eval.yaml` schema contracts for source
+- `eval-authoring`: starter scaffold for bounded `EVAL.md` authoring.
+- `eval-contracts`: frontmatter and `eval.yaml` schema contracts for source
   proof objects.
 
 ## Stronger Owner Split
@@ -87,7 +87,7 @@ bounded claim that local evidence and verdict logic can support.
 ## Boundaries
 
 - Do not move `evals/` into this package.
-- Do not treat this package as permission to promote or deprecate bundles by
+- Do not treat this package as permission to promote or deprecate evals by
   route-card edit alone.
 - Do not make generated catalogs, capsules, sections, receipts, runtime
   candidates, or sibling refs stronger than bundle-local meaning.
@@ -110,8 +110,8 @@ The current public maturity vocabulary remains:
 Status movement must be backed by source evidence, public-safety posture,
 portability expectations, comparison contract where relevant, and validation.
 
-This package records the route for lifecycle work. Actual bundle status remains
-in source bundle metadata and must pass repository validation.
+This package records the route for lifecycle work. Actual eval status remains
+in source eval metadata and must pass repository validation.
 
 ## Validation
 

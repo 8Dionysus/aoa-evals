@@ -8,7 +8,7 @@ active root schema payload district.
 Mechanic-owned schemas live with their owning part. Quest source and dispatch
 schemas live under `mechanics/questbook/parts/`, not this root district.
 Eval frontmatter and manifest schemas live under
-`mechanics/proof-object/parts/bundle-contracts/`, not this root district.
+`mechanics/proof-object/parts/eval-contracts/`, not this root district.
 Shared fixture, runner, and report-summary contract schemas live under
 `mechanics/proof-infra/parts/reportable-contracts/schemas/`, not this root
 district.

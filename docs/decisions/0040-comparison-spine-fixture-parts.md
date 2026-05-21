@@ -21,7 +21,7 @@ generic fixture inventory:
   reading.
 - former root `fixtures/repeated-window-bounded-v1/` feeds longitudinal-window movement.
 
-The paths are referenced by bundle frontmatter, `eval.yaml`, bundle
+The paths are referenced by eval frontmatter, `eval.yaml`, bundle
 `evals/<family>/<eval>/fixtures/contract.json`, generated comparison readers, tests, validators, and
 comparison readout dossiers.
 

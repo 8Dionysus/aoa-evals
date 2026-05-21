@@ -30,7 +30,7 @@ bridge.
 
 Add a new growth-cycle part only when the stage is repeatable, has support
 payload, and can name what it proves without claiming the next stage. A
-bundle-backed thin support route is allowed only when the source proof bundle
+eval-backed thin support route is allowed only when the source eval package
 stays under `evals/` and the part README explicitly says there are no
 part-local payload subdirectories yet.
 

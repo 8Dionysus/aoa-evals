@@ -34,7 +34,7 @@ The package routes existing source surfaces:
 
 - `evals/**/EVAL.md`
 - `evals/**/eval.yaml`
-- `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`
+- `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md`
 - architecture, philosophy, rubric, review, score, verdict, blind spot,
   portability, and comparison guides
 - generated catalog, capsule, and section readers

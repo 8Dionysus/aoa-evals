@@ -18,8 +18,8 @@ Former root placement:
 
 Active parts:
 
-- `mechanics/proof-object/parts/bundle-authoring/`
-- `mechanics/proof-object/parts/bundle-contracts/`
+- `mechanics/proof-object/parts/eval-authoring/`
+- `mechanics/proof-object/parts/eval-contracts/`
 
 Reason:
 

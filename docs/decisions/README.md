@@ -7,8 +7,20 @@ agent-facing guidance, proof-object contracts, quest posture, mechanics, legacy,
 validation, runtime-candidate intake, receipt posture, or sibling reference
 compatibility.
 
-Do not use it for ordinary edit summaries, generated output, release notes,
-runtime logs, private evidence, or one-off planning thoughts.
+Ordinary edit summaries, generated output, release notes, runtime logs, private
+evidence, and one-off planning thoughts route to their owning surfaces instead.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | durable decision rationale index |
+| entry | use when a structural, topology, validation, public-contract, legacy, runtime-candidate, sibling-reference, or agent-route change needs recoverable rationale |
+| input | changed source surface, owner boundary, rejected option, validation guard, or cross-surface route pressure |
+| output | numbered decision note, index row, surface-class lookup, mechanic-parent lookup, and validation-guard lookup |
+| owner | `docs/decisions/AGENTS.md` for lane law; this README for the agent-facing index; numbered decisions for the rationale |
+| next route | source surface first, then local route card, `docs/PROOF_TOPOLOGY.md`, `mechanics/EVIDENCE_CLUSTERS.md`, or the affected generated/runtime/sibling owner |
+| validation | `python scripts/validate_repo.py`, `python scripts/validate_semantic_agents.py`, and any owning builder named by the changed surface |
 
 ## Authority
 
@@ -27,7 +39,7 @@ They are weaker than the source surface they describe:
 
 ## Index Shape
 
-This README is an agent-facing index, not a generated reader or validator dump.
+This README is the agent-facing index for decision rationale.
 
 Use it in both directions:
 

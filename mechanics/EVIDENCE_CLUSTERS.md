@@ -2,19 +2,29 @@
 
 ## Role
 
-This file is the refactor map for `aoa-evals/mechanics`.
+`mechanics/EVIDENCE_CLUSTERS.md` is the refactor map for
+`aoa-evals/mechanics`.
 
-It is not a second roadmap, generated catalog, decision log, or package README.
-It records why a parent mechanic is allowed to exist, which root districts prove
-the cluster, and whether the parent name must follow an AoA mechanic or can be
-evals-native.
+It answers whether a top-level mechanic parent has enough evidence to exist,
+which root districts prove the cluster, and whether the parent name routes as
+AoA-aligned or evals-native.
 
-Use it before moving root-district artifacts into or between mechanics.
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | parent-mechanic evidence gate and cross-root evidence map |
+| entry | use before moving root-district artifacts into or between mechanics |
+| input | proposed parent name, old root path family, artifact class, report/canary/form cluster, or payload movement pressure |
+| output | allowed parent class, evidence dimensions, root-district posture, mechanic boundary, and validation guard |
+| owner | `mechanics/AGENTS.md` for mutation law; this map for parent evidence; parent `README.md`/`DIRECTION.md`/`PARTS.md` for local operation |
+| next route | `docs/PROOF_TOPOLOGY.md`, `mechanics/README.md`, parent route cards, part READMEs, and `docs/decisions/` |
+| validation | `scripts/validate_repo.py`, `tests/test_validate_repo.py`, and the nearest mechanics route card |
 
 ## Evidence Standard
 
-A mechanic parent is valid only when a recurring proof-side operation has enough
-cross-root evidence to name:
+Create or keep a mechanic parent when a recurring proof-side operation has
+enough cross-root evidence to name:
 
 - meaning or doctrine;
 - proof claim or bounded evaluation pressure;
@@ -23,14 +33,14 @@ cross-root evidence to name:
 - stronger-owner split and stop-lines;
 - legacy or provenance posture when old names remain.
 
-One document, one report, or one canary form is not enough to create a parent
-mechanic. Those forms become parts under the right parent unless they prove an
-independent operation.
+Single documents, reports, and canary forms route as parts under the right parent.
+They justify a parent only when the surrounding evidence proves an independent
+operation.
 
-A stronger-owner subject name may be kept as a parent only when the local
-proof operation is real, the artifact form stays below the parent as a part,
-and the stronger-owner split is explicit. That keeps an owner-named proof
-boundary from becoming a proof-organ-invented doctrine route.
+Owner-named parents stay valid when the local proof operation is real, artifact
+forms stay below the parent as parts, and the stronger-owner split is explicit.
+That keeps an owner-named proof boundary from becoming a proof-organ-invented
+doctrine route.
 
 ## Root District Reconnaissance Ledger
 

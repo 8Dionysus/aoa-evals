@@ -4049,6 +4049,38 @@ def test_generated_route_residue_surfaces_reject_missing_quest_reader_route(
     )
 
 
+def test_generated_reader_index_requires_source_truth_return(
+    tmp_path: Path,
+) -> None:
+    for path_name in (
+        "generated/README.md",
+        "generated/AGENTS.md",
+        validate_repo.GENERATED_ROUTE_RESIDUE_DECISION_NAME,
+        "docs/decisions/README.md",
+        validate_repo.PROOF_TOPOLOGY_NAME,
+        validate_repo.LEGACY_NAMING_NAME,
+        validate_repo.ROADMAP_NAME,
+    ):
+        copy_repo_text(tmp_path, path_name)
+    readme_path = tmp_path / "generated" / "README.md"
+    readme_path.write_text(
+        readme_path.read_text(encoding="utf-8").replace(
+            'Source surfaces answer\n"what is true?"',
+            "Generated readers decide truth",
+            1,
+        ),
+        encoding="utf-8",
+    )
+
+    issues = validate_repo.validate_generated_route_residue_surfaces(tmp_path)
+
+    assert any(
+        issue.location == "generated/README.md"
+        and "Source surfaces answer" in issue.message
+        for issue in issues
+    )
+
+
 def test_generated_route_residue_rejects_root_route_card_structural_reference(
     tmp_path: Path,
 ) -> None:

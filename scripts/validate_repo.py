@@ -265,7 +265,7 @@ GENERATED_READER_INDEX_REQUIRED_TOKENS = (
     "generated/quest_catalog.min.json",
     "generated/quest_dispatch.min.example.json",
     "source owner surface",
-    "not answer \"what\nis true?\"",
+    'Source surfaces answer\n"what is true?"',
 )
 GENERATED_AGENTS_REQUIRED_TOKENS = (
     "repo-wide derived reader surfaces only",

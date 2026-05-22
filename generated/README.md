@@ -6,6 +6,18 @@ These files help agents and tooling navigate source proof objects, quest
 records, reports, capsules, sections, and comparison metadata without replacing
 the authored sources.
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | repo-wide generated reader index |
+| input | source eval packages, quest records, reports, mechanic payloads, and builder outputs |
+| output | reader family route, source owner route, builder route, or validation route |
+| owner | source surfaces and builders own truth; `generated/AGENTS.md` owns edit law |
+| next route | source bundle, quest record, report, mechanic part, builder, or route card |
+| tools | catalog builder, report-index builder, quest readers, candidate-reader builders, and phase-alpha matrix builder |
+| validation | [generated/AGENTS.md#validation](AGENTS.md#validation) and source-owner checks |
+
 ## Current Root Readers
 
 | Reader | Source shape | Builder or guard |
@@ -49,8 +61,8 @@ question or tool route
 -> validator or builder check
 ```
 
-Generated readers answer "where should I look next?" They do not answer "what
-is true?" without returning to the source surface.
+Generated readers answer "where should I look next?" Source surfaces answer
+"what is true?" after the reader returns the agent to the owner path.
 
 ## Validation
 

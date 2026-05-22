@@ -4,8 +4,18 @@
 
 `DESIGN.md` describes the system form of `aoa-evals`.
 
-It is not the README, roadmap, architecture reference, eval bundle, decision
-record, generated catalog, or agent instruction card.
+Use it when the question is the bounded proof organ's shape, authority classes,
+growth constraints, or how proof bundles, reports, receipts, generated readers,
+mechanics, and legacy bridges cooperate.
+
+Adjacent routes:
+
+- public entry: `README.md`
+- repo direction: `ROADMAP.md`
+- technical proof model: `docs/ARCHITECTURE.md`
+- eval-package meaning: `evals/**/EVAL.md` and `evals/**/eval.yaml`
+- durable rationale: `docs/decisions/`
+- agent-facing route shape: `DESIGN.AGENTS.md` and `AGENTS.md`
 
 It answers one question:
 

@@ -1081,10 +1081,10 @@ DOCS_README_ROUTE_MAP_FORBIDDEN_TOKENS = (
 )
 AUDIT_SURFACE_ROLE_REQUIRED_TOKENS = (
     "Audit Surface Map",
-    "not the route law",
     "AGENTS.md#audit-and-review-route",
+    "owns route law",
     "AGENTS.md#verify",
-    "route cards own the commands",
+    "Route cards own the commands",
 )
 ROADMAP_DIRECTION_SURFACE_REQUIRED_TOKENS = (
     "# Proof Direction Roadmap",

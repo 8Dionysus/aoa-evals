@@ -5,8 +5,18 @@
 `DESIGN.AGENTS.md` describes the desired form of agent-facing guidance within
 `aoa-evals`.
 
-It is not an `AGENTS.md` route card, prompt library, roadmap, proof bundle,
-decision record, validator, or generated index.
+Use it when the question is agent-facing shape: card placement, nearest-card
+authority, source truth, generated companions, validation posture, closeout, and
+return routes for low-context agents.
+
+Adjacent routes:
+
+- executable local law: root `AGENTS.md`, then the nearest nested `AGENTS.md`
+- repo direction: `ROADMAP.md`
+- proof-object meaning: bundle-local `EVAL.md` and `eval.yaml`
+- durable rationale: `docs/decisions/`
+- validator contracts: `scripts/validate_repo.py` and owning test surfaces
+- generated navigation: `generated/` and its builders
 
 It answers one question:
 

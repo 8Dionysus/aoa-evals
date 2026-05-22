@@ -6599,7 +6599,7 @@ class TestValidateQuestRouteSurfaces:
         copy_repo_text(tmp_path, "AGENTS.md")
         write_text(
             tmp_path / "AUDIT.md",
-            "# AUDIT.md\n\nThis file is the repo-local audit contract.\n",
+            "# AUDIT.md\n\nThis file maps audit surfaces without naming AGENTS ownership.\n",
         )
 
         issues = validate_repo.validate_audit_surface_role(tmp_path)

@@ -80,7 +80,14 @@ the stronger owner named by the part contract.
 
 ## Validation
 
-```bash
-python -m pytest -q tests/test_validate_repo.py -k mechanic_part_payload_inventory
-python scripts/validate_repo.py
-```
+### Superseded Original Route
+
+- ~~python -m pytest -q tests/test_validate_repo.py -k mechanic_part_payload_inventory~~
+- ~~python scripts/validate_repo.py~~
+
+### 2026-05-21 Update
+
+Validation routes through
+[mechanics/AGENTS.md#validation](../../mechanics/AGENTS.md#validation).
+Use the focused mechanic part payload-inventory guard there when changing this
+decision, part README payload routing, or part payload topology validators.

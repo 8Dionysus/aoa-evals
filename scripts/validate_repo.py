@@ -1407,7 +1407,10 @@ MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_REQUIRED_TOKENS = (
     "unexpected payload class",
     "empty payload subdirectory",
     "unexpected part-root file",
-    MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND,
+    "Superseded Original Route",
+    "2026-05-21 Update",
+    "mechanics/AGENTS.md#validation",
+    "focused mechanic part payload-inventory guard",
 )
 MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_REQUIRED_TOKENS = (
     "Mechanic Parent Guidance Boundary",
@@ -1432,7 +1435,10 @@ MECHANIC_PART_VALIDATION_COMMAND_DECISION_REQUIRED_TOKENS = (
     "payload coverage anchor",
     "naked route-wide command",
     "stale validation path",
-    MECHANIC_PART_VALIDATION_COMMAND_COMMAND,
+    "Superseded Original Route",
+    "2026-05-21 Update",
+    "mechanics/AGENTS.md#validation",
+    "focused mechanic part validation-command guard",
 )
 MECHANIC_PART_VALIDATION_COMMAND_OWNERSHIP_DECISION_REQUIRED_TOKENS = (
     "Mechanic Part Validation Command Ownership",
@@ -16307,13 +16313,17 @@ def validate_eval_report_index(repo_root: Path) -> list[ValidationIssue]:
 
 
 def markdown_heading_section(text: str, heading: str) -> str:
-    marker = f"### {heading}"
-    heading_level = 3
-    start = text.find(marker)
-    if start == -1:
-        marker = f"## {heading}"
-        heading_level = 2
-        start = text.find(marker)
+    marker = ""
+    heading_level = 0
+    start = -1
+    for level in (3, 2):
+        pattern = re.compile(rf"(?m)^{'#' * level} {re.escape(heading)}\s*$")
+        match = pattern.search(text)
+        if match:
+            marker = match.group(0)
+            heading_level = level
+            start = match.start()
+            break
     if start == -1:
         return ""
     next_h2 = text.find("\n## ", start + len(marker))
@@ -16865,6 +16875,29 @@ def validate_mechanic_part_readme_contract_surfaces(
         tokens=MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
+    payload_decision_text = read_text_or_issue(
+        repo_root / MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME,
+        issues,
+        root=repo_root,
+    )
+    if payload_decision_text and markdown_python_commands(
+        markdown_heading_section(payload_decision_text, "Validation")
+    ):
+        issues.append(
+            ValidationIssue(
+                MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME,
+                "decision validation must route executable commands to mechanics/AGENTS.md#validation",
+            )
+        )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_AGENTS_NAME,
+        tokens=(
+            "Focused mechanic topology checks",
+            MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND,
+        ),
+        issues=issues,
+    )
     require_tokens(
         repo_root=repo_root,
         path_name="docs/decisions/README.md",
@@ -17236,10 +17269,33 @@ def validate_mechanic_part_validation_command_surfaces(
         tokens=MECHANIC_PART_VALIDATION_COMMAND_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
+    validation_command_decision_text = read_text_or_issue(
+        repo_root / MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME,
+        issues,
+        root=repo_root,
+    )
+    if validation_command_decision_text and markdown_python_commands(
+        markdown_heading_section(validation_command_decision_text, "Validation")
+    ):
+        issues.append(
+            ValidationIssue(
+                MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME,
+                "decision validation must route executable commands to mechanics/AGENTS.md#validation",
+            )
+        )
     require_tokens(
         repo_root=repo_root,
         path_name=MECHANIC_PART_VALIDATION_COMMAND_OWNERSHIP_DECISION_NAME,
         tokens=MECHANIC_PART_VALIDATION_COMMAND_OWNERSHIP_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_AGENTS_NAME,
+        tokens=(
+            "Focused mechanic topology checks",
+            MECHANIC_PART_VALIDATION_COMMAND_COMMAND,
+        ),
         issues=issues,
     )
     require_tokens(

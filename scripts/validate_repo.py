@@ -11436,7 +11436,13 @@ def validate_proof_loop_local_report_surfaces(repo_root: Path) -> list[Validatio
     require_tokens(
         repo_root=repo_root,
         path_name="README.md",
-        tokens=(PROOF_LOOP_LOCAL_REPORT_NAME, "first bundle-local proof-loop report"),
+        tokens=("Evidence And Handoff", "docs/README.md#mechanic-and-evidence-anchors"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/README.md",
+        tokens=(PROOF_LOOP_LOCAL_REPORT_NAME, "First Proof Loop Bundle-Local Report"),
         issues=issues,
     )
     require_tokens(
@@ -11502,7 +11508,10 @@ def validate_receipt_intake_dry_review_surface(repo_root: Path) -> list[Validati
                 "`not_published`",
             ),
         ),
-        ("README.md", (RECEIPT_INTAKE_DRY_REVIEW_NAME, "receipt-intake dry review")),
+        (
+            "README.md",
+            ("Evidence And Handoff", "docs/README.md#mechanic-and-evidence-anchors"),
+        ),
         ("docs/README.md", (RECEIPT_INTAKE_DRY_REVIEW_NAME, "Receipt Intake Dry Review")),
         ("ROADMAP.md", (RECEIPT_INTAKE_DRY_REVIEW_NAME, "`not_published`")),
         ("CHANGELOG.md", (RECEIPT_INTAKE_DRY_REVIEW_NAME, "validator coverage")),
@@ -11877,7 +11886,10 @@ def validate_release_support_readiness_audit_surface(repo_root: Path) -> list[Va
                 "no goal completion",
             ),
         ),
-        ("README.md", (RELEASE_SUPPORT_READINESS_AUDIT_NAME, "release-support readiness audit")),
+        (
+            "README.md",
+            ("Evidence And Handoff", "docs/README.md#mechanic-and-evidence-anchors"),
+        ),
         (
             "docs/README.md",
             (RELEASE_SUPPORT_READINESS_AUDIT_NAME, "Release Support Readiness Audit"),
@@ -12145,7 +12157,10 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
         issues=issues,
     )
     for path_name, tokens in (
-        ("README.md", (STRATEGIC_CLOSEOUT_AUDIT_NAME, "strategic closeout audit")),
+        (
+            "README.md",
+            ("Evidence And Handoff", "docs/README.md#mechanic-and-evidence-anchors"),
+        ),
         (
             "docs/README.md",
             (STRATEGIC_CLOSEOUT_AUDIT_NAME, "Strategic Closeout Audit"),
@@ -12444,7 +12459,10 @@ def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[Validation
         issues=issues,
     )
     for path_name, tokens in (
-        ("README.md", (RELEASE_PREP_PR_HANDOFF_NAME, "release-prep PR handoff")),
+        (
+            "README.md",
+            ("Evidence And Handoff", "docs/README.md#mechanic-and-evidence-anchors"),
+        ),
         (
             "docs/README.md",
             (RELEASE_PREP_PR_HANDOFF_NAME, "Release Prep PR Handoff"),

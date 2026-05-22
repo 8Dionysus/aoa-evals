@@ -1145,6 +1145,7 @@ INDEX_SURFACE_ROLE_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
         "# Decision Records Index",
         "agent-facing index",
         "decision rationale",
+        "docs/decisions/AGENTS.md#validation",
     ),
     MECHANICS_README_NAME: (
         "# Mechanics Operation Atlas",

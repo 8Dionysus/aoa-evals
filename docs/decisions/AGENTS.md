@@ -56,6 +56,23 @@ sibling-owner authority stays with the owning source surface.
 - Avoid decision clutter for ordinary implementation details that are already
   obvious from the diff and validation.
 
+## Amendment Route
+
+When an accepted decision needs a current-route update, preserve the original
+record and add the change as a dated update near the affected section.
+
+Use this shape:
+
+- keep the original rationale readable;
+- strike through the superseded line or block when the old wording would mislead
+  the next agent;
+- add `### YYYY-MM-DD Update` with the current route, owner surface, and
+  validation lane;
+- update the source surface that owns active behavior in the same slice.
+
+Closeout and pull request text should state the active route, owner surface, and
+validation evidence.
+
 ## Validation
 
 Run the narrow docs checks after editing this lane:

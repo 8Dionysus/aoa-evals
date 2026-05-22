@@ -6164,6 +6164,37 @@ class TestValidateQuestRouteSurfaces:
     def test_architecture_proof_model_contract_validates_current_route(self) -> None:
         assert validate_repo.validate_root_design_surfaces(REPO_ROOT) == []
 
+    def test_decision_agents_requires_amendment_route(self, tmp_path: Path) -> None:
+        for path_name in (
+            "DESIGN.md",
+            "DESIGN.AGENTS.md",
+            "AGENTS.md",
+            "docs/ARCHITECTURE.md",
+            "docs/decisions/README.md",
+            "docs/decisions/TEMPLATE.md",
+            "docs/decisions/AGENTS.md",
+            validate_repo.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+            validate_repo.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        ):
+            copy_repo_text(tmp_path, path_name)
+        agents_path = tmp_path / "docs" / "decisions" / "AGENTS.md"
+        agents_path.write_text(
+            agents_path.read_text(encoding="utf-8").replace(
+                "## Amendment Route",
+                "## Decision Updates",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_root_design_surfaces(tmp_path)
+
+        assert any(
+            issue.location == "docs/decisions/AGENTS.md"
+            and "Amendment Route" in issue.message
+            for issue in issues
+        )
+
     def test_architecture_proof_model_contract_rejects_bundle_only_model(
         self, tmp_path: Path
     ) -> None:

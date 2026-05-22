@@ -9238,7 +9238,18 @@ def validate_root_design_surfaces(repo_root: Path) -> list[ValidationIssue]:
     require_tokens(
         repo_root=repo_root,
         path_name="docs/decisions/AGENTS.md",
-        tokens=("source surface", "validate_repo.py", "sibling"),
+        tokens=(
+            "source surface",
+            "validate_repo.py",
+            "sibling",
+            "Amendment Route",
+            "dated update",
+            "strike through",
+            "### YYYY-MM-DD Update",
+            "active route",
+            "owner surface",
+            "validation evidence",
+        ),
         issues=issues,
     )
     require_tokens(

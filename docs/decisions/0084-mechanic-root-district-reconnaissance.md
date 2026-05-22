@@ -85,7 +85,7 @@ other cleaned compatibility roots remain enforced by `scripts/validate_repo.py`.
 
 ## Validation
 
-```bash
-python -m pytest -q tests/test_validate_repo.py -k mechanic_root_district_recon
-python scripts/validate_repo.py
-```
+Validation routes through [mechanics/AGENTS.md#validation](../../mechanics/AGENTS.md#validation).
+Use the focused root-district reconnaissance guard there when changing this
+decision, `mechanics/EVIDENCE_CLUSTERS.md`, or the root-district posture
+validator.

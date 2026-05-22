@@ -8313,6 +8313,7 @@ class TestValidateQuestRouteSurfaces:
         )
         copy_repo_text(tmp_path, "docs/decisions/README.md")
         copy_repo_text(tmp_path, "mechanics/README.md")
+        copy_repo_text(tmp_path, validate_repo.MECHANICS_AGENTS_NAME)
         copy_repo_text(tmp_path, validate_repo.PROOF_TOPOLOGY_NAME)
         copy_repo_text(tmp_path, "ROADMAP.md")
         decision_path = tmp_path / validate_repo.MECHANIC_ROOT_DISTRICT_RECON_DECISION_NAME
@@ -8332,6 +8333,36 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_mechanic_root_district_recon_requires_agents_command_route(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME)
+        copy_repo_text(
+            tmp_path, validate_repo.MECHANIC_ROOT_DISTRICT_RECON_DECISION_NAME
+        )
+        copy_repo_text(tmp_path, "docs/decisions/README.md")
+        copy_repo_text(tmp_path, "mechanics/README.md")
+        copy_repo_text(tmp_path, validate_repo.MECHANICS_AGENTS_NAME)
+        copy_repo_text(tmp_path, validate_repo.PROOF_TOPOLOGY_NAME)
+        copy_repo_text(tmp_path, "ROADMAP.md")
+        agents_path = tmp_path / validate_repo.MECHANICS_AGENTS_NAME
+        agents_path.write_text(
+            agents_path.read_text(encoding="utf-8").replace(
+                validate_repo.MECHANIC_ROOT_DISTRICT_RECON_COMMAND,
+                "python -m pytest -q tests/test_validate_repo.py -k wrong_route",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanic_root_district_recon_surfaces(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.MECHANICS_AGENTS_NAME
+            and validate_repo.MECHANIC_ROOT_DISTRICT_RECON_COMMAND in issue.message
+            for issue in issues
+        )
+
     def test_mechanic_root_district_recon_rejects_missing_district_row(
         self, tmp_path: Path
     ) -> None:
@@ -8341,6 +8372,7 @@ class TestValidateQuestRouteSurfaces:
         )
         copy_repo_text(tmp_path, "docs/decisions/README.md")
         copy_repo_text(tmp_path, "mechanics/README.md")
+        copy_repo_text(tmp_path, validate_repo.MECHANICS_AGENTS_NAME)
         copy_repo_text(tmp_path, validate_repo.PROOF_TOPOLOGY_NAME)
         copy_repo_text(tmp_path, "ROADMAP.md")
         evidence_path = tmp_path / validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
@@ -8369,6 +8401,7 @@ class TestValidateQuestRouteSurfaces:
         )
         copy_repo_text(tmp_path, "docs/decisions/README.md")
         copy_repo_text(tmp_path, "mechanics/README.md")
+        copy_repo_text(tmp_path, validate_repo.MECHANICS_AGENTS_NAME)
         copy_repo_text(tmp_path, validate_repo.PROOF_TOPOLOGY_NAME)
         copy_repo_text(tmp_path, "ROADMAP.md")
         evidence_path = tmp_path / validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
@@ -8399,6 +8432,7 @@ class TestValidateQuestRouteSurfaces:
         )
         copy_repo_text(tmp_path, "docs/decisions/README.md")
         copy_repo_text(tmp_path, "mechanics/README.md")
+        copy_repo_text(tmp_path, validate_repo.MECHANICS_AGENTS_NAME)
         copy_repo_text(tmp_path, validate_repo.PROOF_TOPOLOGY_NAME)
         copy_repo_text(tmp_path, "ROADMAP.md")
         evidence_path = tmp_path / validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME

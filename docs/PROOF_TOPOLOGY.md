@@ -85,7 +85,7 @@ before any additional root path becomes mechanic-owned payload:
 | `.agents/skills/` | installed local skills that support repo work | supports agent operation; not proof canon |
 | `.agents/spark/` | maintained Spark fast-loop lane | routes narrow proof-surface work without owning proof meaning |
 | `.aoa/live_receipts/` | owner-local live receipt log | receipt sidecar only; not a verdict source |
-| `mechanics/` | operation atlas for repeatable proof-layer operations | active only where a package owns a real operation; top-level mechanics parents are validator allowlisted from `mechanics/EVIDENCE_CLUSTERS.md`, every parent must expose `AGENTS.md`, `README.md`, `DIRECTION.md`, `PARTS.md`, and part-contract wording, parent-level `docs/` is limited to explicit mechanic-wide guidance with role, scope, source surfaces, owner split, stop-lines, and validation, and every concrete part README must expose inputs, outputs, stronger owner split, stop-lines, validation, and a parent `PARTS.md` route; currently `proof-object`, `proof-loop`, `comparison-spine`, `proof-infra`, `publication-receipts`, `release-support`, `titan`, `agon`, `recurrence`, `checkpoint`, `experience`, `antifragility`, `method-growth`, `rpg`, `growth-cycle`, `distillation`, `questbook`, `audit`, and `boundary-bridge`; proof-object eval-authoring and eval-contracts parts, proof-loop route-smoke, proof-infra generic fixture families and reportable contracts, comparison fixture families and reports, Agon-owned surfaces, recurrence control-plane/anchor-return/memory-recall/recursor-boundary/stats-regrounding/portable-proof-beacons support machinery, checkpoint fixture/hook/posture support, Experience verdict support, Antifragility posture/stress-window/repair-proof support, Method-growth candidate-lineage/owner-landing fixture support, RPG progression/unlock support, Growth Cycle diagnosis-gate support, Distillation compost-provenance/runtime-candidate-adoption support, questbook source-record and dispatch-reader schemas, audit runtime evidence packets/hook schema/readers/review surfaces, publication receipt surfaces, release-support audit/handoff reports, and boundary-bridge compatibility map/canary/orchestrator-proof-anchor/phase-alpha-eval-matrix surfaces live under mechanic-local parts; Titan seed YAML files and canary guides currently live under `mechanics/titan/parts/seed-boundary/` |
+| `mechanics/` | operation atlas for repeatable proof-layer operations | active where a package owns a real operation; top-level mechanics parents are validator allowlisted from `mechanics/EVIDENCE_CLUSTERS.md`; parent and part routes are owned by `mechanics/README.md`, parent `README.md`, `DIRECTION.md`, `PARTS.md`, part README, part `VALIDATION.md`, and nearest `AGENTS.md`; part-owned tests live under `mechanics/<mechanic>/parts/<part>/tests/`; parent-level `docs/` is only for explicit mechanic-wide guidance, while part-owned payload docs live under `parts/<part>/docs/` |
 
 Generated route residue is part of this topology contract. Root generated
 readers must not carry structured links to route-card-only root districts or
@@ -181,26 +181,16 @@ A new `mechanics/` parent is ready only when the operation has all of these:
 - parent `DIRECTION.md` for current operating direction;
 - at least one validator, builder, or review check that constrains the route.
 
-Use `mechanics/EVIDENCE_CLUSTERS.md` as the refactor map before creating or
-renaming a parent. It separates AoA-aligned mechanics from evals-native
-mechanics and keeps artifact forms such as canaries, reports, receipts,
-schemas, examples, and validators as parts unless a real cross-root operation
-proves parent status. Its Active Parent Evidence Dimension Ledger must keep
-each parent tied to meaning/doctrine, proof pressure, contracts/payloads,
-builders/readouts, quest/deferred pressure, owner split and stop-lines, and
-legacy/provenance.
-Its Active Parent Evidence Route Refs ledger must keep concrete local route
-refs for every active parent: an active parent route plus at least one
-living non-mechanics evidence route ref that resolves in the current worktree.
-A generic root validator file and a rationale-only decision ref are not enough
-parent evidence by themselves.
-Its Root District Reconnaissance Ledger must keep the goal-listed root
-districts and current proof-infra route-card roots visible as source, derived,
-route-card-only, repo-wide validation, or mechanic-owned payload routes before
-new package movement begins.
-Its Residual Root-authored Surface Classification ledger must keep remaining
-top-level `docs/`, `scripts/`, and `tests/` files classified as root-owned
-surfaces, with an explicit boundary against mechanic-owned payload drift.
+Use `mechanics/EVIDENCE_CLUSTERS.md` as the parent evidence gate before
+creating or renaming a parent. The topology map needs only the gate shape; the
+ledger detail lives in mechanics:
+
+| Evidence gate | Lives in | Topology use |
+| --- | --- | --- |
+| Active Parent Evidence Dimension Ledger | `mechanics/EVIDENCE_CLUSTERS.md` | keeps every parent tied to meaning/doctrine, proof pressure, contracts/payloads, builders/readouts, quest/deferred pressure, owner split and stop-lines, and legacy/provenance |
+| Active Parent Evidence Route Refs | `mechanics/EVIDENCE_CLUSTERS.md` | keeps every parent tied to concrete local route refs, including at least one living non-mechanics evidence route; a generic root validator file and a rationale-only decision ref are not enough |
+| Root District Reconnaissance Ledger | `mechanics/EVIDENCE_CLUSTERS.md` | keeps root districts visible as source, derived, route-card-only, repo-wide validation, or mechanic-owned payload routes before another root path becomes mechanic-owned payload |
+| Residual Root-authored Surface Classification | `mechanics/EVIDENCE_CLUSTERS.md` | keeps remaining top-level `docs/`, `scripts/`, and `tests/` files classified as root-owned surfaces so an unclassified root-authored surface cannot drift into hidden mechanic payload |
 
 The parent-class split is validator-backed. AoA-aligned parents keep the named
 AoA mechanic form; evals-native parents name proof-organ operations that belong
@@ -231,47 +221,11 @@ Active mechanic packages:
 - `audit`
 - `boundary-bridge`
 
-The current `proof-object` package activates `eval-authoring` and
-`eval-contracts`. Source eval packages stay under `evals/`; generated
-catalog, capsule, section, and comparison readers stay under root `generated/`;
-former root template and eval schema paths are legacy path vocabulary behind
-`mechanics/proof-object/PROVENANCE.md`.
-
-The current `questbook` package activates `source-record-contract` and
-`dispatch-reader`. Source quest records stay under `quests/`; generated quest
-readers stay under root `generated/`; former root quest schema paths are legacy
-path vocabulary behind `mechanics/questbook/PROVENANCE.md`.
-
 No remaining named candidate family is promoted by symmetry in this slice. The
-current `growth-cycle` package activates only `diagnosis-gate`; other center
-Growth Cycle stages stay deferred until local proof pressure, active parts,
-owner split, stop-lines, and validation are strong enough to avoid empty
-taxonomy.
-
-The current `comparison-spine` package activates fixed-baseline,
-peer-compare, and longitudinal-window fixture/readout parts. Source proof
-bundles stay under `evals/`; generated comparison readers remain derived from
-bundle metadata and bundle-local contracts.
-
-The current `proof-infra` package activates `fixture-families` for generic
-shared fixture-family support that no narrower active mechanic owns and
-`reportable-contracts` for shared runner, scorer, and schema contracts consumed
-by bundle-local runner/report contracts. Root `fixtures/`, `runners/`,
-`scorers/`, and `schemas/` remain compatibility route cards; source proof
-bundles and bundle-local contracts stay stronger.
-
-The current `recurrence` package activates `control-plane-integrity`,
-`anchor-return`, `memory-recall`, `recursor-boundary`,
-`stats-regrounding-boundary`, and `portable-proof-beacons`. Continuity-anchor
-and self-reanchor remain bundle-local until a later evidence pass proves active
-support parts.
-
-The current `distillation` package activates only `compost-provenance` and
-`runtime-candidate-adoption`. Memo recall now routes through
-`recurrence/memory-recall`; memo contradiction, confirmed writeback-act proof,
-witness trace integrity, audit hook metadata, and generic Experience adoption
-remain outside it unless a later evidence pass proves a narrow Distillation
-operation.
+mechanics atlas names active packages, but package-specific activations,
+deferred stages, part contracts, payload homes, and validation routes belong in
+`mechanics/README.md`, parent route cards, `PARTS.md`, part READMEs, and
+`mechanics/EVIDENCE_CLUSTERS.md`.
 
 ## Legacy and Naming
 

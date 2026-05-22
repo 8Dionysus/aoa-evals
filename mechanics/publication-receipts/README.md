@@ -9,8 +9,10 @@ Start with this README for role and owned operation. Then read [DIRECTION.md](DI
 `mechanics/publication-receipts/` routes the operation that turns one reviewed
 bounded eval report into an optional machine-readable publication receipt.
 
-It is not the reports directory, live receipt log, shared stats envelope owner,
-telemetry dashboard, proof bundle source, or repo-global score.
+Bundle reports, live receipt logs, stats envelopes, telemetry owners, and proof
+bundles keep their meaning. This package keeps optional receipt payloads,
+stats-envelope mirror checks, live-publisher posture, and intake dry-review
+shape below reviewed reports.
 
 ## Owned Operation
 

@@ -10,8 +10,10 @@ Start with this README for role and owned operation. Then read [DIRECTION.md](DI
 repo-qualified proof references and sibling-owned proof anchors current,
 compatibility-aware, and bounded by owner truth.
 
-It is not a sibling repo owner, migration tool, generated catalog, or proof
-bundle.
+Sibling repositories keep owner truth, migration authority, and source proof
+meaning. This package keeps compatibility maps, sibling references, canary
+matrices, orchestrator proof anchors, and Phase Alpha bridge readouts current
+for local review.
 
 ## Owned Operation
 

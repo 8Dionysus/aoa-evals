@@ -9,8 +9,10 @@ Start with this README for role and owned operation. Then read [DIRECTION.md](DI
 `mechanics/proof-object/` routes the operation that keeps source eval package
 meaning complete, bounded, and stronger than generated or emitted companions.
 
-It is not the source eval package directory, generated catalog, report sink,
-release gate, or doctrine center.
+Source eval packages stay under `evals/`; generated catalogs, reports, release
+gates, and doctrine surfaces keep their own roles. This package keeps the
+authoring, contract, completeness, lifecycle, and generated-reader derivation
+route clear around source proof objects.
 
 ## Owned Operation
 

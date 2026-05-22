@@ -9,8 +9,10 @@ Start with this README for role and owned operation. Then read [DIRECTION.md](DI
 `mechanics/questbook/` routes the recurring operation that keeps proof
 obligations visible, reviewable, and returnable across long `aoa-evals` work.
 
-It is not an eval bundle home, not the roadmap, not a playbook, and not a live
-verdict authority.
+Source quest records stay in `quests/`, while roadmaps, playbooks, eval
+bundles, and verdict owners keep their own roles. This package keeps quest
+schema, lifecycle, dispatch-reader, and return-route support visible for
+eval-side obligations.
 
 ## Owned Operation
 

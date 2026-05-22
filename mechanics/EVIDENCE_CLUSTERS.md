@@ -2,11 +2,11 @@
 
 ## Role
 
-`mechanics/EVIDENCE_CLUSTERS.md` is the refactor map for
-`aoa-evals/mechanics`.
+`mechanics/EVIDENCE_CLUSTERS.md` is the parent-mechanic evidence gate for
+the `aoa-evals` mechanics atlas.
 
-It answers whether a top-level mechanic parent has enough evidence to exist,
-which root districts prove the cluster, and whether the parent name routes as
+It lets an agent decide whether a proposed top-level mechanic parent is
+allowed, which root districts prove the cluster, and how the parent routes as
 AoA-aligned or evals-native.
 
 ## Operating Card
@@ -19,7 +19,7 @@ AoA-aligned or evals-native.
 | output | allowed parent class, evidence dimensions, root-district posture, mechanic boundary, and validation guard |
 | owner | `mechanics/AGENTS.md` for mutation law; this map for parent evidence; parent `README.md`/`DIRECTION.md`/`PARTS.md` for local operation |
 | next route | `docs/PROOF_TOPOLOGY.md`, `mechanics/README.md`, parent route cards, part READMEs, and `docs/decisions/` |
-| validation | `scripts/validate_repo.py`, `tests/test_validate_repo.py`, and the nearest mechanics route card |
+| validation | [mechanics/AGENTS.md#validation](AGENTS.md#validation) and the nearest mechanics route card |
 
 ## Evidence Standard
 

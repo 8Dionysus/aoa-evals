@@ -54,7 +54,8 @@ interpretation, and bundle-local review for
 
 ## Stop-Lines
 
-This part must not claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - recurrence doctrine;
 - global recurrence completeness;

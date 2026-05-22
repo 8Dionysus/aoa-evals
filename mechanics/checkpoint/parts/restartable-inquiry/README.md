@@ -45,7 +45,8 @@ part-local restart fixture, hook example, and bundle-local interpretation for
 
 ## Stop-Lines
 
-This part must not claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - memo checkpoint schema authority;
 - playbook choreography ownership;

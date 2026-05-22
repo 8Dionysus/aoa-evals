@@ -57,7 +57,8 @@ fixture support, report expectations, and bundle-local interpretation for
 
 ## Stop-Lines
 
-This part must not claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - final promotion;
 - memory canon or memo object truth;

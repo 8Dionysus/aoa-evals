@@ -56,7 +56,8 @@ beacon route that notices repeated proof pressure.
 
 ## Stop-Lines
 
-Do not use this part to claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - runtime artifacts as candidate evidence are proof canon;
 - portable proof is accepted without bundle-local review;

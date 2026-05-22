@@ -43,7 +43,8 @@ example.
 
 ## Stop-Lines
 
-This part must not claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - `aoa-agents` self-agent checkpoint contract meaning;
 - `aoa-playbooks` scenario composition;

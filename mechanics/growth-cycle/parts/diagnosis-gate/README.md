@@ -63,7 +63,8 @@ for `aoa-diagnosis-cause-discipline`.
 
 ## Stop-Lines
 
-This part must not claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - the named cause is proven true;
 - repair success;

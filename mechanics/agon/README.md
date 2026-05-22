@@ -9,9 +9,10 @@ Start with this README for role and owned operation. Then read [DIRECTION.md](DI
 `mechanics/agon/` owns the local `aoa-evals` operation that turns Agon
 pressure into bounded proof-alignment artifacts.
 
-It is not the Agon court, arena runtime, verdict authority, rank system,
-memory writer, Tree of Sophia canon route, or replacement for
-Agents-of-Abyss law.
+Agents-of-Abyss and sibling repositories keep the stronger Agon, runtime,
+memory, stats, KAG, ToS, SDK, routing, and playbook truth. This package keeps
+candidate-only alignment shape, registry derivation, observe-only recurrence
+bindings, stop-line review, and bundle-local interpretation.
 
 ## Owned Operation
 

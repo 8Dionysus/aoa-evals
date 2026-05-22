@@ -10,8 +10,10 @@ Start with this README for role and owned operation. Then read [DIRECTION.md](DI
 machine, and stack artifacts enter `aoa-evals` as candidate evidence without
 becoming proof canon.
 
-It is not a runtime implementation, benchmark leaderboard, machine-health
-dashboard, receipt publisher, or hidden judge.
+Runtime, trace, machine, benchmark, dashboard, and publication owners keep
+source facts and acceptance authority. This package keeps selected evidence
+packet shape, artifact-to-verdict hook contracts, candidate-reader routes, and
+integrity-review support visible for bundle-local review.
 
 ## Owned Operation
 

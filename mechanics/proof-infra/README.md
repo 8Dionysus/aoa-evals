@@ -10,8 +10,9 @@ Start with this README for role and owned operation. Then read [DIRECTION.md](DI
 runner, scorer, schema, report, and template contracts reusable without hiding
 bundle-local meaning.
 
-It is not a junk drawer for every support file, a generated catalog, or a
-proof bundle source.
+Source bundles and domain mechanics keep proof meaning. This package keeps
+reusable support contracts visible, versioned, reachable, and weaker than
+bundle-local interpretation.
 
 ## Owned Operation
 

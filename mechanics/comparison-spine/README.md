@@ -9,8 +9,9 @@ Start with this README for role and owned operation. Then read [DIRECTION.md](DI
 `mechanics/comparison-spine/` routes the operation that keeps baseline,
 peer-compare, and longitudinal-window proof claims bounded.
 
-It is not the comparison result, generated catalog, report directory, bundle
-owner, or promotion authority.
+Source bundles and reports keep result meaning, status, and promotion posture.
+This package keeps comparison claim posture, shared comparison artifacts,
+generated spine derivation, and bounded comparison reading visible.
 
 ## Owned Operation
 

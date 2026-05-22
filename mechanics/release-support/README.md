@@ -9,8 +9,10 @@ Start with this README for role and owned operation. Then read [DIRECTION.md](DI
 `mechanics/release-support/` owns the operation that prepares and checks one
 bounded `aoa-evals` release publication.
 
-It is not the changelog, release automation, GitHub workflow owner, proof
-bundle source, generated catalog, or authority to strengthen eval claims.
+Changelog, GitHub workflow, generated catalog, and source proof bundle owners
+keep their own authority. This package keeps release readiness, audit, PR
+handoff, release-check posture, and publication checks bounded to one
+`aoa-evals` release.
 
 ## Owned Operation
 

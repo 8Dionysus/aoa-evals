@@ -9,9 +9,10 @@ Start with this README for role and owned operation. Then read [DIRECTION.md](DI
 `mechanics/titan/` routes the operation that keeps Titan seed canary
 surfaces shaped, bounded, and visibly weaker than full incarnation proof.
 
-It is not the Titan doctrine owner, runtime roster owner, summon runtime,
-executable scorer suite, memory authority, or proof that Titan incarnation is
-complete.
+`aoa-agents`, `aoa-memo`, and runtime owners keep Titan law, memory, roster,
+summon, activation, and incarnation truth. This package keeps public-safe seed
+canary shape, validation visibility, and future scorer routes below those
+owners.
 
 ## Owned Operation
 

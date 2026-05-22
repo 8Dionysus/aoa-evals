@@ -10,8 +10,10 @@ Start with this README for role and owned operation. Then read [DIRECTION.md](DI
 move from one proof question to one bounded result without importing machine,
 runtime, sibling, or receipt authority.
 
-It is not a proof bundle, generated catalog, runtime intake, report directory,
-receipt publisher, questbook, or release process.
+Each proof-loop step keeps its owning surface. This package coordinates source
+selection, support contracts, candidate evidence, bundle-local review, bounded
+reporting, optional receipt routing, quest pressure, and release handoff without
+strengthening those owners.
 
 ## Owned Operation
 

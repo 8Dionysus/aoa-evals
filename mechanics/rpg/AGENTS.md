@@ -12,8 +12,21 @@ Start with the package README. Then read `mechanics/rpg/DIRECTION.md` for curren
 
 This package routes eval-side RPG proof work for `aoa-evals`.
 
-It does not own role truth, skill truth, technique truth, playbook campaign
-truth, quest acceptance, runtime equip state, or derived stats summaries.
+It maps progression evidence and unlock proof pressure to part-local support
+surfaces, generated projections, source bundle review, or stronger-owner
+handoffs for role, skill, technique, playbook, quest, runtime, and stats truth.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | RPG proof work route on the eval side |
+| input | progression evidence, unlock proof, schema/example change, quest or generated card pressure, or RPG owner question |
+| output | progression-unlocks route, source bundle review, generated projection check, provenance route, or stronger-owner handoff |
+| owner | `aoa-evals` owns bounded RPG proof support; stronger owners keep role, skill, technique, playbook, quest acceptance, runtime equip, and stats truth |
+| next route | `mechanics/rpg/README.md`, `DIRECTION.md`, `PARTS.md`, target part README, affected schema/example/quest/generated card, and source owner route |
+| tools | root validator, catalog builder, semantic AGENTS validator |
+| validation | this card's `Validation` section |
 
 ## Read before editing
 
@@ -28,15 +41,14 @@ truth, quest acceptance, runtime equip state, or derived stats summaries.
 9. affected schema, example, quest, generated card, or validator
 10. `mechanics/rpg/PROVENANCE.md` only for old root progression/unlock paths
 
-## Boundaries
+## Route Rules
 
-- Keep RPG proof work under the active `rpg` parent, not `rpg-proof`,
-  `unlock-proof`, or `progression-proof` parent packages.
+- Keep RPG proof work under the active `rpg` parent; `rpg-proof`,
+  `unlock-proof`, and `progression-proof` stay legacy parent vocabulary.
 - Keep progression evidence and unlock proof as parts and support surfaces.
-- Do not create new RPG parts from one document, one generated card, or one
-  attractive center word.
-- Do not move growth-cycle diagnosis, harvest, repair, or closeout surfaces
-  into this package without a separate evidence pass.
+- Create RPG parts from a recurring proof operation with validator coverage.
+- Route growth-cycle diagnosis, harvest, repair, and closeout surfaces through
+  their current owners until a separate evidence pass moves them.
 - Keep generated readers weaker than schemas, docs, quests, and part-local
   source surfaces.
 

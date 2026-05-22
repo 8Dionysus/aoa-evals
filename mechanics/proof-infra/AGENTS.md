@@ -85,7 +85,7 @@ routes shared contract pressure to the narrowest active owner.
 - Route fixture families to narrower active mechanics when they own the
   operation.
 - Check generated `proof_artifacts` from source contracts and builders.
-- Strengthen reports by fixing evidence or schema fit, not by loosening the
+- Strengthen reports by fixing evidence or schema fit instead of loosening the
   shared contract.
 - Keep shared fixture families and scorer helpers below bundle-local
   interpretation.

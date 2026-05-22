@@ -14,6 +14,18 @@ This package protects the quest obligation loop:
 
 `source quest record -> human index -> generated quest reader -> deferred return or reviewed promotion`
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | questbook operation route for source quest records and generated quest readers |
+| input | source quest record, `QUESTBOOK.md` obligation, lane/state change, generated quest reader drift, lifecycle posture, or post-session harvest pressure |
+| output | source quest record update, human index route, generated reader check, deferred return, reviewed promotion route, or owner handoff |
+| owner | quest source records own quest state; this package owns the questbook route and generated reader bridge |
+| next route | `mechanics/questbook/README.md`, `DIRECTION.md`, `PARTS.md`, `QUESTBOOK.md`, `quests/AGENTS.md`, `quests/LIFECYCLE.md`, and affected source quest record |
+| tools | catalog builder, root validator, semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
 ## Read before editing
 
 1. root `AGENTS.md`
@@ -34,22 +46,21 @@ This package protects the quest obligation loop:
 16. `docs/decisions/0006-questbook-mechanic-package.md`
 17. `docs/decisions/0047-questbook-schema-parts.md`
 
-## Boundaries
+## Route Rules
 
-- Do not change `quests/<lane>/<state>/*.yaml` paths without generated
+- Change `quests/<lane>/<state>/*.yaml` paths together with generated
   projection and validator support in the same slice.
-- Do not reintroduce old top-level quest paths except as legacy path vocabulary
-  in route docs.
+- Keep old top-level quest paths as legacy path vocabulary in route docs.
 - Keep former root quest-schema aliases as historical compatibility
   vocabulary; the active schema contracts are part-local under
   `mechanics/questbook/parts/`.
 - Keep the state directory aligned with the source record `state`.
 - Keep lifecycle meaning aligned with `quests/LIFECYCLE.md`.
-- Do not list closed quests as active obligations.
-- Do not treat quest harvest output as proof authority or owner acceptance.
-- Do not use active-route evidence as a post-session promotion verdict.
-- Do not create sibling-owner tasks from quest metadata without routing to that
-  owner.
+- List closed quests through their closed-state route below active obligations.
+- Treat quest harvest output as review input below proof authority and owner
+  acceptance.
+- Route post-session promotion through the owning review path.
+- Create sibling-owner tasks from quest metadata only through that owner route.
 
 ## Validation
 

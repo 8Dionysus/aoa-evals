@@ -3549,7 +3549,7 @@ RECURRENCE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "PROVENANCE.md",
     "Keep source proof bundles under `evals/`",
     "candidate-only",
-    "Do not create new recurrence parts from one document",
+    "Create recurrence parts from a multi-surface proof operation",
     "python scripts/validate_repo.py",
 )
 RECURRENCE_MECHANIC_PARTS_REQUIRED_TOKENS = (
@@ -3710,7 +3710,7 @@ CHECKPOINT_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "PROVENANCE.md",
     "Keep source proof bundles under `evals/`",
     "candidate-only",
-    "Do not create new checkpoint parts from one document",
+    "Create checkpoint parts from a multi-surface checkpoint proof operation",
     "python scripts/validate_repo.py",
 )
 CHECKPOINT_MECHANIC_PARTS_REQUIRED_TOKENS = (
@@ -3804,7 +3804,7 @@ EXPERIENCE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "mechanics/experience/PARTS.md",
     "PROVENANCE.md",
     "Keep source proof bundles under `evals/`",
-    "Do not create new Experience parts from one document",
+    "Create Experience parts from a recurring proof operation",
     "python scripts/validate_repo.py",
 )
 EXPERIENCE_MECHANIC_PARTS_REQUIRED_TOKENS = (
@@ -3938,7 +3938,7 @@ ANTIFRAGILITY_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "Keep source proof bundles under `evals/`",
     "comparison-spine",
     "audit",
-    "Do not create new antifragility parts from one document",
+    "Create antifragility parts from a recurring proof operation",
     "python scripts/validate_repo.py",
 )
 ANTIFRAGILITY_MECHANIC_PARTS_REQUIRED_TOKENS = (
@@ -4036,7 +4036,7 @@ METHOD_GROWTH_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "mechanics/method-growth/PARTS.md",
     "PROVENANCE.md",
     "Keep source proof bundles under `evals/`",
-    "Do not create new method-growth parts from one document",
+    "Create method-growth parts from a recurring proof operation",
     "python scripts/validate_repo.py",
 )
 METHOD_GROWTH_MECHANIC_PARTS_REQUIRED_TOKENS = (
@@ -4123,7 +4123,7 @@ RPG_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "PROVENANCE.md",
     "progression evidence",
     "unlock proof",
-    "Do not create new RPG parts from one document",
+    "Create RPG parts from a recurring proof operation",
     "python scripts/validate_repo.py",
 )
 RPG_MECHANIC_PARTS_REQUIRED_TOKENS = (
@@ -4196,7 +4196,7 @@ GROWTH_CYCLE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "mechanics/growth-cycle/PARTS.md",
     "PROVENANCE.md",
     "Keep source proof bundles under `evals/`",
-    "Do not create new growth-cycle parts from one document",
+    "Create growth-cycle parts from a recurring proof operation",
     "python scripts/validate_repo.py --eval aoa-diagnosis-cause-discipline",
 )
 GROWTH_CYCLE_MECHANIC_PARTS_REQUIRED_TOKENS = (
@@ -4282,7 +4282,7 @@ DISTILLATION_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "mechanics/distillation/PARTS.md",
     "PROVENANCE.md",
     "Keep source proof bundles under `evals/`",
-    "Do not create new Distillation parts from one document",
+    "Create Distillation parts from a recurring proof operation",
     "python scripts/validate_repo.py --eval aoa-memo-reviewed-candidate-adoption-integrity",
 )
 DISTILLATION_MECHANIC_PARTS_REQUIRED_TOKENS = (

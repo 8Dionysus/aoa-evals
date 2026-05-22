@@ -13,9 +13,21 @@ Start with the package README. Then read `mechanics/release-support/DIRECTION.md
 This package routes bounded `aoa-evals` release preparation and release audit
 work.
 
-It does not own bundle meaning, changelog authority over source proof,
-GitHub-native workflow law, release approval for sibling repos, or status
-promotion by tag.
+It maps release-prep pressure to changelog narrative, release audit,
+readiness/closeout/handoff parts, GitHub validation posture, or stronger-owner
+handoff routes.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | bounded `aoa-evals` release preparation and release audit route |
+| input | release scope, `CHANGELOG.md` narrative, release audit, GitHub `Repo Validation` posture, PR handoff, readiness report, or sibling compatibility pressure |
+| output | release-support part route, changelog route, release check, generated/sibling check, PR handoff, or stronger-owner handoff |
+| owner | `aoa-evals` owns bounded release support; source bundles keep proof meaning, GitHub-native surfaces keep workflow law, and sibling repos keep release approval |
+| next route | `mechanics/release-support/README.md`, `DIRECTION.md`, `PARTS.md`, affected part README, `CHANGELOG.md`, `docs/RELEASING.md`, `scripts/release_check.py`, and `.github/AGENTS.md` when GitHub surfaces move |
+| tools | root validator, semantic AGENTS validator, `scripts/release_check.py`, generated builders, latest-sibling canary runner |
+| validation | this card's `Validation` section |
 
 ## Read before editing
 
@@ -44,9 +56,9 @@ promotion by tag.
 ## Local Law
 
 - Keep release scope bounded and reviewable.
-- Keep `CHANGELOG.md` as public narrative, not proof authority.
-- Keep `scripts/release_check.py` as release audit glue, not a replacement for
-  bundle-local review.
+- Keep `CHANGELOG.md` as public narrative below proof authority.
+- Keep `scripts/release_check.py` as release audit glue below bundle-local
+  review.
 - Keep GitHub `Repo Validation` aligned with the root landing route.
 - Keep release titles plain tag-shaped when publishing, for example `v0.3.3`.
 - Keep sibling compatibility claims tied to CI or latest-sibling canary
@@ -58,18 +70,18 @@ promotion by tag.
   `docs/RELEASING.md`, `scripts/release_check.py`, and GitHub workflows in
   their root or GitHub-native lanes.
 
-## Boundaries
+## Route Rules
 
-- Do not tag, publish, or edit GitHub Releases from a docs-only mechanics
-  update.
-- Do not weaken validation to land a release.
-- Do not treat a green release audit as proof that every eval claim grew
-  stronger.
-- Do not treat a readiness audit as GitHub `Repo Validation` or release
-  publication.
-- Do not hide skipped checks in a release handoff.
-- Do not mutate sibling repositories during an `aoa-evals` release route.
-- Do not promote bundle status by changelog wording alone.
+- Tag, publish, or edit GitHub Releases only through an explicit release route.
+- Fix evidence, scope, or checks rather than weakening validation to land a
+  release.
+- Treat a green release audit as release-support evidence below eval claim
+  growth.
+- Keep readiness audits below GitHub `Repo Validation` and release publication.
+- Surface skipped checks explicitly in release handoffs.
+- Mutate sibling repositories only through their owner routes.
+- Promote bundle status through bundle-local review, with changelog wording as
+  narrative evidence only.
 
 ## Validation
 

@@ -2952,7 +2952,7 @@ PROOF_INFRA_MECHANIC_REQUIRED_TOKENS = (
     "runner_surface_path",
     "scorer_helper_paths",
     "report_schema_path",
-    "Do not move whole root infrastructure districts by theme",
+    "root infrastructure districts stay route-card districts unless a part-local owner exists",
     "python scripts/build_catalog.py --check",
     "python scripts/validate_repo.py",
 )

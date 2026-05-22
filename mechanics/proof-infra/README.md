@@ -93,25 +93,19 @@ not a stronger claim.
 
 ## Boundaries
 
-- Do not move whole root infrastructure districts by theme or convenience.
-- Generic shared fixture families may live under
-  `parts/fixture-families/fixtures/` only when they are reusable proof support,
-  no narrower active mechanic owns them, and bundle-local meaning remains
-  stronger.
-- Shared reportable proof contracts may live under
-  `parts/reportable-contracts/` only when they are reusable contract support
-  consumed by bundle-local runner contracts and generated `proof_artifacts`.
-- Keep domain-specific or AoA-aligned fixture families in the owning mechanic
-  part, such as `comparison-spine`, `recurrence`, `checkpoint`,
-  `experience`, `antifragility`, `method-growth`, or `distillation`.
-- Do not hand-edit generated catalog `proof_artifacts` as source truth.
-- Do not weaken schemas to make a report pass.
-- Do not let a shared fixture family replace bundle-local interpretation.
-- Do not let scorer helpers become a repo-global score.
-- Do not recreate active root `runners/`, `scorers/`, or `schemas/` payload
-  aliases after reportable contracts have an active part-local route.
-- Do not force one shared report shape across unrelated bundles.
-- Do not promote draft bundles by giving them nicer shared infrastructure.
+| Pressure | Route |
+| --- | --- |
+| whole root infrastructure district wants to move by theme | root infrastructure districts stay route-card districts unless a part-local owner exists |
+| generic fixture family needs a shared support home | use `parts/fixture-families/fixtures/` when it is reusable proof support, no narrower active mechanic owns it, and bundle-local meaning remains stronger |
+| shared reportable proof contract needs a support home | use `parts/reportable-contracts/` when bundle-local runner contracts and generated `proof_artifacts` consume it |
+| domain-specific or AoA-aligned fixture family appears | route it to the owning mechanic part, such as `comparison-spine`, `recurrence`, `checkpoint`, `experience`, `antifragility`, `method-growth`, or `distillation` |
+| generated catalog `proof_artifacts` drifts | fix the source contract or builder and rerun the generated check |
+| report fails schema validation | fix evidence or schema fit through the owning route |
+| shared fixture family starts carrying interpretation | return interpretation to the bundle-local proof object |
+| scorer helper looks like a repo-global score | keep it as bounded scoring support for the consuming bundle contract |
+| root `runners/`, `scorers/`, or `schemas/` wants active payload aliases | keep active payloads in the reportable-contracts part-local route |
+| one shared report shape spreads across unrelated bundles | keep each bundle bound to its local report schema and reviewed report route |
+| draft bundle gains polish through shared infrastructure | route promotion through bundle-local review and release surfaces |
 
 ## Validation
 

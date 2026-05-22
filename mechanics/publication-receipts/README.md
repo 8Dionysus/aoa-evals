@@ -94,18 +94,17 @@ source of truth for bundle acceptance, report meaning, or proof quality.
 
 ## Boundaries
 
-- Do not publish a receipt without a reviewed bounded report.
-- Do not treat a receipt-intake dry review as a published receipt.
-- Do not treat receipt volume as proof quality.
-- Do not create a repo-global score.
-- Do not replace bundle-local report artifacts with one receipt payload.
-- Do not hand-edit the canonical `aoa-stats` envelope from this repo.
-- Do not read, paste, or publish raw live receipt logs when a route summary is
-  enough.
-- Do not silently rewrite old receipts; use `supersedes` and append a later
-  receipt.
-- Do not put secrets, hidden telemetry, private logs, or unreduced operator
-  traces into examples or receipt payloads.
+| Pressure | Publication-receipts route |
+| --- | --- |
+| receipt publication | start from a reviewed bounded report and keep the bundle-local report stronger than the receipt |
+| receipt-intake dry review | keep it as non-published payload derivation evidence below the receipt envelope and live log |
+| receipt volume or event count | treat it as publication count only; proof quality stays with bundle-local review |
+| scoring pressure | route away from this mechanic; no repo-global score is created here |
+| compact receipt payload | keep bundle-local report artifacts as the stronger source path |
+| canonical envelope change | route canonical `aoa-stats` schema and event-kind ownership to `aoa-stats`; keep the local mirror for validation |
+| raw live receipt logs | use route summaries for ordinary review and inspect raw JSONL only when the live publication route requires it |
+| receipt correction | use `supersedes` and append a later receipt so publication history remains auditable |
+| sensitive material | keep secrets, hidden telemetry, private logs, and unreduced operator traces out of examples and receipt payloads |
 
 ## Validation
 

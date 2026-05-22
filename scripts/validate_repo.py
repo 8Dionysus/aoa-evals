@@ -1078,7 +1078,8 @@ ROOT_README_SURFACE_REQUIRED_TOKENS = (
     "Eval Bundle Index",
     "generated/eval_report_index.min.json",
     "public proof-organ entry",
-    "not the command ledger",
+    "Agent route law and local checks",
+    "Executable validation routes live in",
     "practice canon -> workflow canon -> proof canon",
 )
 DOCS_README_ROUTE_MAP_REQUIRED_TOKENS = (

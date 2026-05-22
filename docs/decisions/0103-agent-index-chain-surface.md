@@ -46,6 +46,33 @@ part routes flowing through part `VALIDATION.md` into the parent
   commands, source truth, or decision rationale, it should be trimmed and routed
   back to the owning surface.
 
+## Current Applicability
+
+As of 2026-05-22:
+
+- Still valid: `docs/AGENT_INDEX.md` remains the pass-through chain from repo to
+  authority class, operation, mechanic parent, part, payload, and validation.
+- Changed: the root README now follows the public front-door pattern used by
+  the neighboring AoA repositories: it names what the proof canon does, routes
+  questions to owner surfaces, and points validation to `AGENTS.md` with
+  positive operational wording.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-22 - Root entry route clarified
+
+- Previous assumption: the root README only needed to stay compact and point at
+  the agent index.
+- New reality: the README is also the public proof-organ entry, so it needs a
+  clear question-to-route map while leaving the full pass-through chain in
+  `docs/AGENT_INDEX.md`.
+- Reason: low-context agents orient better from role, route, owner, output, and
+  validation cues than from repeated negative self-description.
+- Source surfaces updated: `README.md`, `scripts/validate_repo.py`, and
+  `tests/test_validate_repo.py`.
+- Validation: use root validation and the focused root README surface-role test.
+
 ## Validation
 
 Use the root and docs validation lanes in `AGENTS.md` and `docs/AGENTS.md`.

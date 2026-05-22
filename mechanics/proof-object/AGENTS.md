@@ -12,9 +12,33 @@ Start with the package README. Then read `mechanics/proof-object/DIRECTION.md` f
 
 This package routes source proof-object work for source eval packages.
 
-It does not own the actual source eval meaning. Source eval meaning stays in
-`evals/**/EVAL.md` and `evals/**/eval.yaml`, with eval-local support artifacts
-where present.
+It maps authoring pressure, schema contracts, generated catalog checks, and
+bundle-local review back to the source proof objects in `evals/**/EVAL.md` and
+`evals/**/eval.yaml`. Eval-local support artifacts stay with the bundle where
+present.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | source proof-object route for eval packages |
+| input | eval authoring changes, claim or metadata movement, schema pressure, generated catalog drift, and eval-local support artifacts |
+| output | source eval update, template/schema route, generated catalog check, or bundle-local review handoff |
+| owner | source proof bundle owns meaning; this package owns proof-object authoring and contract routes |
+| next route | `mechanics/proof-object/README.md`, `DIRECTION.md`, `PARTS.md`, `PROVENANCE.md`, affected `evals/**/EVAL.md`, and affected `evals/**/eval.yaml` |
+| tools | `validate_repo.py`, `build_catalog.py --check`, semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
+## Owner Routes
+
+| Need | Owner route |
+| --- | --- |
+| source proof object meaning | `evals/**/EVAL.md` and `evals/**/eval.yaml` |
+| authoring template | `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md` |
+| schema-backed eval contract | `mechanics/proof-object/parts/eval-contracts/schemas/` |
+| generated catalog or capsule drift | source bundle plus `python scripts/build_catalog.py --check` |
+| historical aliases or former placement | `mechanics/proof-object/PROVENANCE.md` and archive-local legacy surfaces |
+| reports, receipts, runtime candidates, or sibling refs | the stronger owner named by the affected surface before proof adoption |
 
 ## Read before editing
 
@@ -46,16 +70,17 @@ where present.
 - Route skill, technique, memory, runtime, routing, stats, role, playbook, and
   AoA law meaning back to stronger owners.
 
-## Boundaries
+## Route Rules
 
-- Do not move `evals/` into `mechanics/proof-object/`.
+- Source eval packages stay under `evals/`.
 - Keep former root template and schema aliases as historical compatibility
   vocabulary; the active template and schema surfaces are mechanic-local.
-- Do not hand-edit generated reader surfaces as proof authority.
-- Do not promote a candidate, receipt, or report into accepted verdict meaning
-  without bundle-local review.
-- Do not make this package an eval registry or release note surface.
-- Do not use one proof object as a universal agent ranking.
+- Check generated reader surfaces against source proof objects and builders.
+- Promote candidate, receipt, or report meaning only through bundle-local
+  review.
+- Route eval registry and release-note questions to their owning surfaces.
+- Treat one proof object as bounded evidence for its claim and comparison
+  posture.
 
 ## Validation
 

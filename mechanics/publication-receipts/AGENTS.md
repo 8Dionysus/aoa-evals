@@ -12,9 +12,32 @@ Start with the package README. Then read `mechanics/publication-receipts/DIRECTI
 
 This package routes eval-result receipt publication work.
 
-It does not own bundle meaning, bundle-local report interpretation, the
-canonical `stats-event-envelope`, `.aoa/live_receipts/` as verdict authority,
-or any repo-global score.
+It routes receipt payloads, stats-envelope mirror pressure, live publisher
+behavior, and intake dry review back to bundle-local reports, `aoa-stats`
+ownership, and append-only publication boundaries.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | eval-result receipt route for publication payloads and dry-review seams |
+| input | eval-result receipt payload, stats-event-envelope mirror, live publisher change, intake dry-review artifact, or `.aoa/live_receipts/` boundary question |
+| output | payload/schema route, publisher test route, dry-review handoff, append-only publication route, or stronger-owner handoff |
+| owner | bundle-local report owns verdict meaning; publication-receipts owns receipt shape and local publication route |
+| next route | `mechanics/publication-receipts/README.md`, `DIRECTION.md`, `PARTS.md`, affected part README, affected bundle-local report, and `.aoa/live_receipts/AGENTS.md` when append behavior moves |
+| tools | root validator, semantic AGENTS validator, receipt tests, publisher tests |
+| validation | this card's `Validation` section |
+
+## Owner Routes
+
+| Need | Owner route |
+| --- | --- |
+| bundle-local verdict meaning | affected bundle-local report and source bundle |
+| eval-result receipt payload | `mechanics/publication-receipts/parts/receipt-payload/` |
+| canonical stats envelope meaning | `aoa-stats`; local mirror stays under `stats-envelope-mirror` |
+| live append behavior | `mechanics/publication-receipts/parts/live-publisher/` and `.aoa/live_receipts/AGENTS.md` |
+| intake dry review | `mechanics/publication-receipts/parts/intake-dry-review/` |
+| report index or release posture | report/release owner route before claim strengthening |
 
 ## Read before editing
 
@@ -45,17 +68,16 @@ or any repo-global score.
 - Use `supersedes` for correction instead of rewriting old publication facts.
 - Keep evidence refs pointed back to source bundles and report artifacts.
 
-## Boundaries
+## Route Rules
 
-- Do not read raw live JSONL log content for a docs-only route change.
-- Do not publish secrets, private telemetry, hidden benchmark data, or
-  unreduced operator traces.
-- Do not turn receipt count into proof quality.
-- Do not let a receipt replace report review.
-- Do not let a dry-review payload preview become a publishable receipt
-  envelope.
-- Do not edit canonical `aoa-stats` schema ownership from this repo.
-- Do not strengthen a receipt beyond the bundle-local verdict boundary.
+- Inspect raw live JSONL only when the live publication route requires it.
+- Publish only public-safe, reduced receipt material.
+- Treat receipt count as publication evidence, with proof quality staying in
+  bundle-local review.
+- Keep receipts below report review.
+- Keep dry-review payload previews outside the publishable receipt envelope.
+- Route canonical `aoa-stats` schema ownership through `aoa-stats`.
+- Keep receipt strength bounded by the bundle-local verdict boundary.
 
 ## Validation
 

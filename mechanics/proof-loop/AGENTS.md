@@ -14,7 +14,31 @@ This package routes one local proof loop:
 
 `proof question -> selection route -> source proof object -> support contract -> candidate evidence packet -> bundle-local review -> bounded report -> optional receipt`
 
-It coordinates existing mechanics. It does not own their source truth.
+It coordinates existing mechanics. Source truth stays with the step owner for
+the current loop segment.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | active proof-loop route across existing proof mechanics |
+| input | proof question, selection route, source proof object, support contract, candidate evidence packet, bundle-local review, bounded report, or optional receipt |
+| output | next loop step, stronger-owner handoff, bounded report, defer, quest, or receipt-intake route |
+| owner | proof-loop owns loop order; each step owner owns its source truth |
+| next route | `mechanics/proof-loop/README.md`, `DIRECTION.md`, `PARTS.md`, step-owner mechanics, and bundle-local source surfaces |
+| tools | root validator, semantic AGENTS validator, generated-surface builders when loop inputs move |
+| validation | this card's `Validation` section |
+
+## Owner Routes
+
+| Loop pressure | Owner route |
+| --- | --- |
+| source proof object | `mechanics/proof-object/` plus affected `evals/**/EVAL.md` and `evals/**/eval.yaml` |
+| support contract | `mechanics/proof-infra/` |
+| candidate evidence packet | `mechanics/audit/` |
+| optional receipt | `mechanics/publication-receipts/` |
+| sibling reference | `mechanics/boundary-bridge/` and the sibling owner route |
+| legacy or former route | `mechanics/proof-loop/PROVENANCE.md` |
 
 ## Read before editing
 
@@ -37,7 +61,7 @@ It coordinates existing mechanics. It does not own their source truth.
 16. `docs/decisions/0019-proof-loop-mechanic-package.md`
 17. `docs/decisions/0030-proof-loop-route-smoke-part.md`
 
-## Boundaries
+## Route Rules
 
 - Keep bundle-local `EVAL.md` and `eval.yaml` stronger than the loop route.
 - Keep generated readers subordinate to source bundles.
@@ -46,8 +70,8 @@ It coordinates existing mechanics. It does not own their source truth.
 - Keep receipt-intake dry reviews below actual receipt publication.
 - Keep sibling refs below sibling owner truth.
 - Keep route-smoke reports in their proof-loop part, not root `reports/`.
-- Do not treat this package as runtime dispatch, hidden scheduling, global
-  scoring, or proof acceptance.
+- Route runtime dispatch, hidden scheduling, global scoring, and proof
+  acceptance to stronger owners before adoption.
 
 ## Validation
 

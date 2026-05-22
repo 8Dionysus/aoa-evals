@@ -918,14 +918,28 @@ def make_roadmap(
 
         - release history: [CHANGELOG.md](CHANGELOG.md)
 
-        ## Authority
+        ## Update Rule
 
-        Direction stays here.
+        Update this roadmap when a change moves repo-level proof direction.
+
+        Before closeout, ask whether the change moved proof-organ direction or
+        only landed a local surface.
 
         ## Current Direction
 
         Highest-priority additions:
         - placeholder
+
+        ## Direction Anchors
+
+        | Anchor | Owner surface | Directional use |
+        | --- | --- | --- |
+        | Agent index chain | `docs/AGENT_INDEX.md` | Keep the pass-through route visible. |
+        | Route residue guard family | `scripts/validate_repo.py`, route cards, and `docs/decisions/` | Keep generated/readout, active mechanic, root-authored, decision, repo-config, source-bundle, and mechanic-payload residue guards routed to their owner contracts. |
+        | Legacy naming | `docs/LEGACY_NAMING.md` | Keep active names and legacy bridge posture visible. |
+        | Mechanics evidence | `mechanics/EVIDENCE_CLUSTERS.md` | Keep parent evidence, root district posture, and residual root-authored surface classification outside roadmap body detail. |
+        | Mechanic lower index | `mechanics/README.md`, parent `DIRECTION.md`, parent `PARTS.md`, part `README.md`, part `VALIDATION.md`, and parent `parts/AGENTS.md` | Keep part/payload source surfaces, parts index synchronization, and payload coverage recoverable. |
+        | Legacy bridge | parent `PROVENANCE.md` and `legacy/` | Keep single controlled bridge posture, active mechanic surfaces, and runtime evidence limits behind the active route. |
 
         ## Horizons
 
@@ -3516,6 +3530,34 @@ def test_validate_roadmap_parity_rejects_generic_heading(tmp_path: Path) -> None
     assert any(
         issue.location == "ROADMAP.md"
         and "# Proof Direction Roadmap" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_roadmap_parity_rejects_missing_update_rule(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-starter-alpha")
+    make_index(tmp_path, "aoa-starter-alpha", "workflow")
+    make_selection(tmp_path, ["aoa-starter-alpha"])
+    make_roadmap(tmp_path, ["aoa-starter-alpha"])
+    roadmap_path = tmp_path / "ROADMAP.md"
+    roadmap_path.write_text(
+        roadmap_path.read_text(encoding="utf-8").replace(
+            "## Update Rule",
+            "## Local Log",
+            1,
+        ),
+        encoding="utf-8",
+    )
+    write_catalogs(tmp_path)
+
+    issues = validate_repo.validate_roadmap_parity(
+        tmp_path,
+        starter_names=["aoa-starter-alpha"],
+    )
+
+    assert any(
+        issue.location == "ROADMAP.md"
+        and "## Update Rule" in issue.message
         for issue in issues
     )
 

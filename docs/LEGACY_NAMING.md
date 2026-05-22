@@ -5,9 +5,10 @@
 `docs/LEGACY_NAMING.md` is a thin posture guide for old and overloaded names
 that may still appear in `aoa-evals`.
 
-It is not an archive map, not a route index, not a distillation log, and not a
-place to list legacy internals. Details of legacy live only inside the owning
-`legacy/` archive.
+Use this guide to classify old vocabulary, then route through the active owner.
+Archive maps, route indexes, distillation logs, and legacy internals stay with
+the owning active surface, `PROVENANCE.md`, and the package-local `legacy/`
+archive.
 
 It answers one question:
 
@@ -37,7 +38,8 @@ Use active surfaces first:
 `PROVENANCE.md` is the single controlled bridge from active mechanic surfaces
 into the legacy archive.
 
-Do not put legacy archive details in this file.
+Legacy archive details stay inside the owning archive after the active
+`PROVENANCE.md` bridge.
 
 ## Name Postures
 
@@ -86,8 +88,9 @@ in the owning roadmap, quest, or decision queue instead of renaming by impulse.
 
 ## Active Owner Lookup
 
-This guide intentionally does not list legacy names, old parent forms, old root
-paths, archive files, or active mechanic parents.
+This guide classifies naming posture. Concrete legacy names, old parent forms,
+old root paths, archive files, and active mechanic parents are resolved through
+the active owner lookup below.
 
 When a concrete current owner is needed, use the active topology surfaces:
 

@@ -4,8 +4,12 @@
 
 `docs/PROOF_TOPOLOGY.md` maps the authority classes inside `aoa-evals`.
 
-It is not the roadmap, architecture reference, eval bundle, decision log,
-generated catalog, or mechanics atlas. It answers a narrower question:
+Use this map for authority-class routing. Use `ROADMAP.md` for sequencing,
+`docs/ARCHITECTURE.md` for the proof model, source eval packages for bundle
+meaning, `docs/decisions/` for rationale, generated readers for compact
+projections, and `mechanics/README.md` for the operation atlas.
+
+This topology map answers one question:
 
 Which kind of proof surface am I touching, and what may that surface own,
 receive, transform, emit, or route onward?
@@ -19,8 +23,8 @@ reader can tell source proof objects, derived readers, candidate evidence,
 receipts, quest obligations, decisions, sibling references, legacy lineage, and
 mechanic operations apart before editing.
 
-The goal is not a decorative tree. The goal is a repository shape where correct
-route choice is easier than overclaiming.
+The goal is a repository shape where correct route choice is easier than
+overclaiming.
 
 ## Authority Classes
 

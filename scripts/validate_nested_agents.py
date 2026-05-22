@@ -31,9 +31,11 @@ REQUIRED_AGENTS: dict[str, tuple[str, ...]] = {
         "EVAL.md",
         "eval.yaml",
         "bounded claim",
+        "Operating Card",
+        "Owner Routes",
         "technique_dependencies",
         "skill_dependencies",
-        "Do not add bundle-local AGENTS.md by default",
+        "Bundle-local `AGENTS.md` overrides are exceptional",
     ),
     "generated/AGENTS.md": (
         "generated/eval_catalog.json",

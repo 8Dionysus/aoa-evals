@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Local guidance for contributors working under `evals/`.
+Local route card for contributors working under `evals/`.
 
 ## Purpose
 
@@ -10,6 +10,18 @@ The authoritative objects remain each bundle's `EVAL.md` and `eval.yaml`.
 Use [README.md](README.md) as the bundle source index before treating short
 `notes/`, `checks/`, or `examples/` artifacts as debris.
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | source eval package tree |
+| input | proof pressure, claim wording, eval metadata, and bundle-local evidence refs |
+| output | bounded source eval claim plus local support artifacts |
+| owner | bundle-local `EVAL.md` and `eval.yaml` for claim meaning |
+| next route | `evals/README.md`, `mechanics/proof-object/README.md`, generated readers, or the nearest mechanic support part |
+| tools | `scripts/validate_repo.py`, catalog builders, report-index builder |
+| validation | this card's `Validation` section |
+
 ## Owns
 
 This layer owns:
@@ -18,17 +30,17 @@ This layer owns:
 - bundle-local dependency fields such as `technique_dependencies` and `skill_dependencies`
 - bundle-local evidence references, including `support_note` when a comparative bundle requires it
 
-## Does not own
+## Owner Routes
 
-Do not treat this layer as the place to redefine:
-- shared fixture families owned by mechanic-local proof-infra or narrower
-  mechanic parts
-- shared scorer helpers owned by
-  `mechanics/proof-infra/parts/reportable-contracts/`
-- shared runner contracts owned by
-  `mechanics/proof-infra/parts/reportable-contracts/`
-- generated catalogs and capsules in `generated/`
-- repository doctrine in `docs/`
+Use the owning surface when the change is outside bundle-local claim meaning:
+
+| Need | Owner route |
+| --- | --- |
+| shared fixture families | mechanic-local proof-infra or the narrower mechanic part |
+| shared scorer helpers | `mechanics/proof-infra/parts/reportable-contracts/` |
+| shared runner contracts | `mechanics/proof-infra/parts/reportable-contracts/` |
+| generated catalogs and capsules | `generated/` plus the builder and source inputs |
+| repository doctrine or topology | `docs/`, especially `docs/PROOF_TOPOLOGY.md` and `docs/AGENT_INDEX.md` |
 
 ## Editing rules
 
@@ -41,7 +53,9 @@ When editing a bundle:
 - preserve `technique_dependencies` and `skill_dependencies` unless the task explicitly changes dependency meaning
 - treat evidence entries as part of claim hygiene, not decoration
 
-Do not add bundle-local AGENTS.md by default. Use a deeper override only when one bundle genuinely needs stronger local rules than the repository and `evals/` layer already provide.
+Bundle-local `AGENTS.md` overrides are exceptional. Use one only when a bundle
+genuinely needs stronger local rules than the repository and `evals/` layer
+already provide.
 
 ## Validation
 

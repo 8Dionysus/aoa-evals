@@ -2380,7 +2380,7 @@ MECHANICS_EVIDENCE_CLUSTERS_REQUIRED_TOKENS = (
     "Legacy Rule",
     "PROVENANCE.md",
     "legacy archive",
-    "diagnosis-cause discipline routes through `growth-cycle/diagnosis-gate`, not this parent.",
+    "diagnosis-cause discipline routes through `growth-cycle/diagnosis-gate` as the active diagnosis lane.",
     "Single documents, reports, and canary forms route as parts under the right parent",
 )
 PART_LOCAL_TEST_PLACEMENT_DECISION_REQUIRED_TOKENS = (

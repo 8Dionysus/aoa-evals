@@ -59,16 +59,50 @@ sibling-owner authority stays with the owning source surface.
 ## Amendment Route
 
 When an accepted decision needs a current-route update, preserve the original
-record and add the change as a dated update near the affected section.
+record and add the change as review history.
 
-Use this shape:
+Use `## Review Log` for dated reviews:
 
-- keep the original rationale readable;
-- strike through the superseded line or block when the old wording would mislead
-  the next agent;
-- add `### YYYY-MM-DD Update` with the current route, owner surface, and
-  validation lane;
-- update the source surface that owns active behavior in the same slice.
+```markdown
+## Review Log
+
+### YYYY-MM-DD - Route or behavior changed
+
+- Previous assumption:
+- New reality:
+- Reason:
+- Source surfaces updated:
+- Validation:
+```
+
+Use `## Current Applicability` when the decision still matters but its active
+route narrowed, moved, or was partly superseded:
+
+```markdown
+## Current Applicability
+
+As of YYYY-MM-DD:
+
+- Still valid:
+- Changed:
+- Superseded by:
+```
+
+Use this decision maintenance route:
+
+- small clarification of the same decision: add a dated `Review Log` entry;
+- application changed while the rationale still holds: add `Review Log` and
+  `Current Applicability`;
+- direction replaced by a new route: create the next numbered decision, set the
+  old record `Status` to `Superseded`, and add `Superseded by: NNNN-...`;
+- material made obsolete: record what aged out, why, and what replaces it in a
+  dated review entry.
+
+Use strikethrough only on the old operational line or block that would misroute the
+next agent. Keep the original `Context`, `Options Considered`, `Decision`, and
+`Rationale` readable as historical cause.
+
+Update the source surface that owns active behavior in the same slice.
 
 Closeout and pull request text should state the active route, owner surface, and
 validation evidence.

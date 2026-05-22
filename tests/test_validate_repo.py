@@ -6164,7 +6164,7 @@ class TestValidateQuestRouteSurfaces:
     def test_architecture_proof_model_contract_validates_current_route(self) -> None:
         assert validate_repo.validate_root_design_surfaces(REPO_ROOT) == []
 
-    def test_decision_agents_requires_amendment_route(self, tmp_path: Path) -> None:
+    def test_decision_agents_requires_review_log_route(self, tmp_path: Path) -> None:
         for path_name in (
             "DESIGN.md",
             "DESIGN.AGENTS.md",
@@ -6192,6 +6192,37 @@ class TestValidateQuestRouteSurfaces:
         assert any(
             issue.location == "docs/decisions/AGENTS.md"
             and "Amendment Route" in issue.message
+            for issue in issues
+        )
+
+    def test_decision_template_requires_review_log_shape(self, tmp_path: Path) -> None:
+        for path_name in (
+            "DESIGN.md",
+            "DESIGN.AGENTS.md",
+            "AGENTS.md",
+            "docs/ARCHITECTURE.md",
+            "docs/decisions/README.md",
+            "docs/decisions/TEMPLATE.md",
+            "docs/decisions/AGENTS.md",
+            validate_repo.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+            validate_repo.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        ):
+            copy_repo_text(tmp_path, path_name)
+        template_path = tmp_path / "docs" / "decisions" / "TEMPLATE.md"
+        template_path.write_text(
+            template_path.read_text(encoding="utf-8").replace(
+                "## Review Log",
+                "## Review Notes",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_root_design_surfaces(tmp_path)
+
+        assert any(
+            issue.location == "docs/decisions/TEMPLATE.md"
+            and "Review Log" in issue.message
             for issue in issues
         )
 

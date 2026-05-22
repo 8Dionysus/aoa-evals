@@ -30,6 +30,24 @@ reviewability, and future return better than the alternatives?
 - Tradeoff:
 - Follow-up:
 
+## Current Applicability
+
+As of YYYY-MM-DD:
+
+- Still valid:
+- Changed:
+- Superseded by:
+
+## Review Log
+
+### YYYY-MM-DD - Review reason
+
+- Previous assumption:
+- New reality:
+- Reason:
+- Source surfaces updated:
+- Validation:
+
 ## Boundaries
 
 What must future agents not infer from this decision?

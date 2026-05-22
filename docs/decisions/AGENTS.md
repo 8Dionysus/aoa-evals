@@ -9,9 +9,21 @@
 This lane preserves structural, workflow, topology, authority, validation, and
 compatibility decisions for `aoa-evals`.
 
-Decision notes explain why a route was chosen. They do not replace proof
-bundles, root design, architecture docs, validators, generated readers, runtime
-candidates, receipts, or sibling owner truth.
+Decision notes explain why a route was chosen. Current proof, design,
+architecture, validation, generated-reader, runtime-candidate, receipt, and
+sibling-owner authority stays with the owning source surface.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | durable decision rationale lane |
+| input | structural choices, owner splits, topology changes, validation authority, workflow route changes, and compatibility decisions |
+| output | accepted rationale that points back to current source surfaces |
+| owner | decision record for why; source surface for what |
+| next route | decision index, decision template, source surface being explained, or root/docs/mechanics route card |
+| tools | root validator and semantic AGENTS validator |
+| validation | this card's `Validation` section |
 
 ## Read before editing
 
@@ -22,7 +34,18 @@ candidates, receipts, or sibling owner truth.
 5. `docs/decisions/TEMPLATE.md`
 6. the source surface whose route or authority the decision records
 
-## Boundaries
+## Owner Routes
+
+| Need | Owner route |
+| --- | --- |
+| current proof claim | bundle-local `EVAL.md` and `eval.yaml` |
+| root design or architecture meaning | `DESIGN.md`, `DESIGN.AGENTS.md`, or `docs/ARCHITECTURE.md` |
+| validator behavior | `scripts/AGENTS.md`, validator source, and focused tests |
+| generated reader meaning | source surface, builder, generated reader, and validator |
+| runtime candidate, receipt, or sibling truth | owning mechanic, receipt surface, runtime owner, or sibling repository |
+| decision rationale | this lane plus `docs/decisions/TEMPLATE.md` |
+
+## Route Rules
 
 - Record a decision only when future contributors need the rationale.
 - Keep evidence, working notes, generated output, and runtime facts as context;

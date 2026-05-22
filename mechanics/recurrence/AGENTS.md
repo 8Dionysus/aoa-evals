@@ -12,9 +12,21 @@ Start with the package README. Then read `mechanics/recurrence/DIRECTION.md` for
 
 This package routes recurrence proof work inside `aoa-evals`.
 
-It does not own recurrence doctrine, runtime return behavior, memory anchors,
-routing implementation, scenario choreography, Agon runtime authority, or
-owner artifact promotion.
+It maps recurrence proof pressure to control-plane integrity, anchor return,
+memory recall, recursor boundary, stats regrounding, portable-proof beacons,
+bundle-local review, or stronger-owner handoff routes.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | recurrence proof work route inside `aoa-evals` |
+| input | recurrence support artifact, scorer/runner/schema/fixture/manifest/example change, candidate-only runtime evidence, beacon, or owner-routing question |
+| output | active part route, bundle-local review, generated surface check, or stronger-owner handoff |
+| owner | `aoa-evals` owns bounded recurrence proof support; stronger owners keep doctrine, runtime return, memory anchors, routing, scenario choreography, Agon runtime authority, and artifact promotion |
+| next route | `mechanics/recurrence/README.md`, `DIRECTION.md`, `PARTS.md`, target part README, and source proof bundle |
+| tools | part-local execution checks, root validator, semantic AGENTS validator |
+| validation | this card's `Validation` section |
 
 ## Read before editing
 
@@ -27,7 +39,7 @@ owner artifact promotion.
 7. target part `README.md`
 8. `mechanics/recurrence/PROVENANCE.md` only for old placement or raw lineage
 
-## Boundaries
+## Route Rules
 
 - Keep source proof bundles under `evals/`.
 - Keep recurrence support artifacts part-local when a recurrence part owns
@@ -35,8 +47,8 @@ owner artifact promotion.
 - Keep runtime return evidence candidate-only until a bundle accepts it.
 - Keep beacons, downstream projections, and Agon diagnostics weaker than owner
   decisions and source truth.
-- Do not create new recurrence parts from one document, one report, or one
-  canary form.
+- Create recurrence parts from a multi-surface proof operation with validator
+  coverage.
 
 ## Validation
 

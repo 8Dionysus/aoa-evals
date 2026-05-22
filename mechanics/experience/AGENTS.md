@@ -12,9 +12,21 @@ Start with the package README. Then read `mechanics/experience/DIRECTION.md` for
 
 This package routes checkpointed Experience proof work on the eval side.
 
-It does not own Experience center law, live runtime, office installation,
-operator certification, release approval, memory truth, routing behavior,
-playbook choreography, ToS-authored meaning, or owner-local adoption.
+It maps Experience proof pressure to protocol integrity, certification gate,
+adoption federation, governance/runtime boundary, office release train,
+bundle-local review, or stronger-owner handoff routes.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | Experience proof work route on the eval side |
+| input | protocol-integrity evidence, certification-gate evidence, adoption pressure, governance/runtime boundary evidence, office release-train evidence, or Experience owner question |
+| output | active part route, source bundle review, generated reader check, or stronger-owner handoff |
+| owner | `aoa-evals` owns bounded Experience proof support; stronger owners keep center law, live runtime, office installation, certification, release approval, memory, routing, playbooks, ToS meaning, and owner-local adoption |
+| next route | `mechanics/experience/README.md`, `DIRECTION.md`, `PARTS.md`, affected part README, affected source proof bundle, and source owner route |
+| tools | part-local pytest, catalog builder, root validator, semantic AGENTS validator |
+| validation | this card's `Validation` section |
 
 ## Read before editing
 
@@ -29,16 +41,17 @@ playbook choreography, ToS-authored meaning, or owner-local adoption.
 9. `mechanics/experience/PROVENANCE.md` when old root path or wave naming is involved
 10. the target part `README.md`
 
-## Boundaries
+## Route Rules
 
 - Keep source proof bundles under `evals/`.
 - Keep verdict support surfaces part-local when they have schema/example/test
   contracts.
 - Keep adoption, certification, office, governance, runtime, KAG, ToS, and
   release language bounded to proof interpretation.
-- Do not create new Experience parts from one document or one example.
-- Do not turn old wave names into active topology.
-- Do not treat generated readers as source truth.
+- Create Experience parts from a recurring proof operation with validator
+  coverage.
+- Keep old wave names as provenance or compatibility vocabulary.
+- Check generated readers from source surfaces and builders.
 
 ## Validation
 

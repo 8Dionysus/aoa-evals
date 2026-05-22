@@ -12,9 +12,21 @@ Start with the package README. Then read `mechanics/checkpoint/DIRECTION.md` for
 
 This package routes checkpoint proof work inside `aoa-evals`.
 
-It does not own checkpoint doctrine, SDK controls, skill workflow truth,
-self-agent role policy, memory objects, runtime exports, routing behavior,
-playbook choreography, stats visibility, or owner artifact promotion.
+It maps eval-side checkpoint pressure to part-local fixtures, hook examples,
+posture docs, generated candidate readers, bundle-local review, or
+stronger-owner handoff routes.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | checkpoint proof work route inside `aoa-evals` |
+| input | checkpoint fixture, hook example, posture doc, candidate-only evidence, generated reader change, or checkpoint owner question |
+| output | active part route, audit hook/candidate route, bundle-local review, or stronger-owner handoff |
+| owner | `aoa-evals` owns bounded checkpoint proof support; stronger owners keep doctrine, SDK controls, skill workflows, role policy, memory, runtime exports, routing, playbooks, stats, and artifact promotion |
+| next route | `mechanics/checkpoint/README.md`, `DIRECTION.md`, `PARTS.md`, affected part README, `mechanics/audit/`, and source proof bundle |
+| tools | part-local pytest, runtime candidate builders, catalog builder, root validator |
+| validation | this card's `Validation` section |
 
 ## Read before editing
 
@@ -29,7 +41,7 @@ playbook choreography, stats visibility, or owner artifact promotion.
 9. `mechanics/audit/parts/artifact-verdict-hooks/README.md` when hook examples
    or candidate readers change
 
-## Boundaries
+## Route Rules
 
 - Keep source proof bundles under `evals/`.
 - Keep checkpoint support artifacts part-local when a checkpoint part owns their
@@ -38,8 +50,8 @@ playbook choreography, stats visibility, or owner artifact promotion.
   `mechanics/audit/`.
 - Keep checkpoint hook examples candidate-only until bundle-local review
   accepts the evidence.
-- Do not create new checkpoint parts from one document, one report, or one
-  hook form.
+- Create checkpoint parts from a multi-surface checkpoint proof operation with
+  validator coverage.
 
 ## Validation
 

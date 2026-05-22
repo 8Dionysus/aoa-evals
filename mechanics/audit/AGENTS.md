@@ -14,6 +14,18 @@ This package protects the candidate-evidence loop:
 
 `runtime or trace artifact -> selected evidence packet -> runtime candidate reader -> bundle-local review`
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | audit candidate-evidence loop for runtime and trace artifacts |
+| input | runtime or trace artifact, selected evidence packet, artifact-to-verdict hook, runtime candidate reader drift, schema change, or stronger-owner evidence question |
+| output | selected evidence route, generated reader check, bundle-local review handoff, integrity review, or stronger-owner handoff |
+| owner | `aoa-evals` owns candidate evidence routing; runtime owners keep runtime truth and bundle-local review owns accepted proof |
+| next route | `mechanics/audit/README.md`, `DIRECTION.md`, `PARTS.md`, affected part docs/schemas/scripts, and affected source bundle |
+| tools | candidate reader builders, root validator, semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
 ## Read before editing
 
 1. root `AGENTS.md`
@@ -33,16 +45,16 @@ This package protects the candidate-evidence loop:
 15. `mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py`
 16. `docs/decisions/0007-audit-mechanic-package.md`
 
-## Boundaries
+## Route Rules
 
-- Do not treat runtime evidence as accepted proof before bundle-local review.
-- Do not hand-edit generated runtime candidate readers.
-- Do not include raw private logs, secrets, or host fingerprints in public
-  examples.
-- Do not let `abyss-stack` evidence become eval verdict authority.
-- Do not turn artifact-to-verdict hooks into a runtime judge implementation.
-- Do not widen candidate evidence into global capability, safety, intelligence,
-  or agent-quality ranking.
+- Keep runtime evidence candidate-scoped until bundle-local review accepts it.
+- Rebuild generated runtime candidate readers from their source surfaces.
+- Keep raw private logs, secrets, and host fingerprints out of public examples.
+- Route `abyss-stack` evidence through eval review before verdict adoption.
+- Keep artifact-to-verdict hooks as review metadata, below runtime judge
+  implementation.
+- Keep candidate evidence bounded to its local claim instead of global
+  capability, safety, intelligence, or agent-quality ranking.
 
 ## Validation
 

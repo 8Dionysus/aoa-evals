@@ -100,4 +100,4 @@ python -m pytest -q mechanics/publication-receipts/parts/live-publisher/tests/te
 Report which receipt seam changed, which bundle-local report remains stronger,
 whether `aoa-stats` envelope ownership stayed mirrored rather than absorbed,
 whether any owner-local append happened, what validation ran, and what raw or
-private receipt material was intentionally not inspected.
+private receipt material stayed outside scope.

@@ -23,6 +23,18 @@ It also protects the Phase Alpha eval matrix bridge:
 
 `aoa-playbooks run matrix -> local eval-surface plan -> generated eval matrix -> release or recurrence verification`
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | boundary-bridge route for sibling refs, orchestrator proof anchors, and Phase Alpha eval matrix bridges |
+| input | repo-qualified ref, sibling owner route, compatibility posture, latest-sibling canary, orchestrator proof anchor, generated quest reader, or Phase Alpha eval matrix pressure |
+| output | compatibility map update, sibling canary check, generated bridge check, bundle-local review handoff, or sibling-owner handoff |
+| owner | `aoa-evals` owns local compatibility/readout posture; sibling repos and stronger owners keep their source truth and acceptance |
+| next route | `mechanics/boundary-bridge/README.md`, `DIRECTION.md`, `PARTS.md`, affected part docs/config/scripts, and sibling owner route |
+| tools | root validator, catalog builder, latest-sibling canary runner, phase-alpha matrix generator, semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
 ## Read before editing
 
 1. root `AGENTS.md`
@@ -42,19 +54,22 @@ It also protects the Phase Alpha eval matrix bridge:
 15. `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/README.md`
 16. `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py`
 
-## Boundaries
+## Route Rules
 
-- Do not edit sibling repos unless the user explicitly routes that owner work.
-- Do not treat sibling path existence as proof authority or owner acceptance.
-- Do not repair generated readers by hand.
-- Do not keep old sibling paths as active topology without legacy posture.
-- Do not use latest-sibling canary output as a bundle verdict.
-- Do not create an `orchestrator` parent mechanic from class-facing proof
-  anchors.
-- Do not use orchestrator proof anchors as role identity, playbook authority,
-  memo truth, or quest verdict authority.
-- Do not use Phase Alpha eval matrix entries as playbook approval, runtime
-  verdicts, bundle-local eval results, or sibling-owner acceptance.
+- Edit sibling repos only through an explicit sibling-owner route.
+- Treat sibling path existence as compatibility evidence below proof authority
+  and owner acceptance.
+- Repair generated readers through their builders and source surfaces.
+- Keep old sibling paths in legacy posture unless a current route adopts them.
+- Use latest-sibling canary output as compatibility evidence below bundle
+  verdicts.
+- Keep class-facing proof anchors under `boundary-bridge`; the active parent
+  remains `boundary-bridge`.
+- Route role identity, playbook authority, memo truth, and quest verdict
+  authority to their stronger owners.
+- Treat Phase Alpha eval matrix entries as planning/verification bridges below
+  playbook approval, runtime verdicts, bundle-local eval results, and
+  sibling-owner acceptance.
 
 ## Validation
 

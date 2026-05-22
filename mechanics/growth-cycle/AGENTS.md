@@ -13,9 +13,21 @@ Start with the package README. Then read `mechanics/growth-cycle/DIRECTION.md` f
 This package routes eval-side Growth Cycle diagnosis proof work for
 `aoa-evals`.
 
-It does not own executable diagnosis skills, repair workflows, checkpoint or
-closeout control, owner acceptance, memory canon, runtime repair, quest
-promotion, or derived stats summaries.
+It maps diagnosis-gate proof pressure to source bundle review, nearby mechanic
+routes, or stronger-owner handoffs for skills, repair, checkpoint, memory,
+runtime, quest, and stats truth.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | Growth Cycle diagnosis proof work route |
+| input | diagnosis-gate evidence, symptom/cause pressure, deferred growth-stage pressure, source bundle movement, or generated reader drift |
+| output | diagnosis-gate route, source bundle review, nearby mechanic handoff, or stronger-owner handoff |
+| owner | `aoa-evals` owns bounded diagnosis proof support; stronger owners keep executable skills, repair workflows, closeout control, owner acceptance, memory, runtime, quest promotion, and stats summaries |
+| next route | `mechanics/growth-cycle/README.md`, `DIRECTION.md`, `PARTS.md`, target part README, affected bundle `EVAL.md`, and affected bundle `eval.yaml` |
+| tools | eval-specific validator, catalog builder, root validator, semantic AGENTS validator |
+| validation | this card's `Validation` section |
 
 ## Read before editing
 
@@ -31,17 +43,16 @@ promotion, or derived stats summaries.
 10. `mechanics/growth-cycle/PROVENANCE.md` only for old deferred-placement
     questions
 
-## Boundaries
+## Route Rules
 
 - Keep source proof bundles under `evals/`.
 - Keep `diagnosis-gate` as the only active part until another stage has its own
   cross-root proof operation and validator coverage.
-- Do not move repair proof from `antifragility`, progression/unlock proof from
-  `rpg`, longitudinal-window readouts from `comparison-spine`, or quest source
-  records from `questbook` merely because center Growth Cycle names those
-  stages.
-- Do not create new growth-cycle parts from one document, one quest, one
-  closeout note, or one attractive center stage.
+- Route repair proof through `antifragility`, progression/unlock proof through
+  `rpg`, longitudinal-window readouts through `comparison-spine`, and quest
+  source records through `questbook` until a separate evidence pass moves them.
+- Create growth-cycle parts from a recurring proof operation with validator
+  coverage.
 - Keep generated readers weaker than bundle and part-local source surfaces.
 
 ## Validation

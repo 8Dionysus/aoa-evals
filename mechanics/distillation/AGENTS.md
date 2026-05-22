@@ -12,9 +12,21 @@ Start with the package README. Then read `mechanics/distillation/DIRECTION.md` f
 
 This package routes eval-side Distillation proof work.
 
-It does not own ToS canon, memo truth, runtime artifact contracts, KAG lift,
-owner-local adoption, reusable technique truth, executable skill truth, or
-playbook scenario truth.
+It maps distillation proof pressure to compost-provenance,
+runtime-candidate-adoption, bundle-local proof review, or stronger-owner
+handoff routes.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | Distillation proof work route on the eval side |
+| input | compost provenance evidence, runtime-candidate adoption pressure, memo-reviewed candidate signal, or distillation owner question |
+| output | active part route, source bundle review, audit/experience/proof-infra route, or stronger-owner handoff |
+| owner | `aoa-evals` owns bounded distillation proof support; stronger owners keep ToS canon, memo truth, runtime contracts, KAG lift, adoption, technique, skill, and playbook truth |
+| next route | `mechanics/distillation/README.md`, `DIRECTION.md`, `PARTS.md`, affected part README, affected bundle `EVAL.md`, and source owner route |
+| tools | eval-specific validators, catalog builder, root validator |
+| validation | this card's `Validation` section |
 
 ## Read before editing
 
@@ -29,7 +41,7 @@ playbook scenario truth.
 9. `mechanics/distillation/PROVENANCE.md` only for old placement or raw lineage
 10. the affected bundle `EVAL.md`
 
-## Boundaries
+## Route Rules
 
 - Keep source proof bundles under `evals/`.
 - Keep runtime-pack bridge metadata under `mechanics/audit/` unless a
@@ -38,8 +50,8 @@ playbook scenario truth.
   packets under `mechanics/experience/`.
 - Keep memo recall, memo contradiction, and base writeback-act proof outside
   this package unless a later pass proves a Distillation part.
-- Do not create new Distillation parts from one document, one report, or one
-  attractive word.
+- Create Distillation parts from a recurring proof operation with validator
+  coverage.
 
 ## Validation
 

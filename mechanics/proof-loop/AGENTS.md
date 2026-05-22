@@ -69,7 +69,8 @@ the current loop segment.
 - Keep receipts below reviewed reports.
 - Keep receipt-intake dry reviews below actual receipt publication.
 - Keep sibling refs below sibling owner truth.
-- Keep route-smoke reports in their proof-loop part, not root `reports/`.
+- Keep route-smoke reports inside their proof-loop part rather than root
+  `reports/`.
 - Route runtime dispatch, hidden scheduling, global scoring, and proof
   acceptance to stronger owners before adoption.
 

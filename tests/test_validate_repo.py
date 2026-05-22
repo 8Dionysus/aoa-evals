@@ -8363,6 +8363,57 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_source_eval_tree_topology_validates_current_route(self) -> None:
+        assert validate_repo.validate_source_eval_tree_topology_surfaces(REPO_ROOT) == []
+
+    def test_source_eval_tree_topology_rejects_decision_command_list(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, validate_repo.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME)
+        copy_repo_text(tmp_path, validate_repo.EVALS_AGENTS_NAME)
+        copy_repo_text(tmp_path, "docs/decisions/README.md")
+        decision_path = tmp_path / validate_repo.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME
+        decision_path.write_text(
+            decision_path.read_text(encoding="utf-8").replace(
+                "Validation routes through",
+                "Run:\n\n- `python scripts/validate_repo.py`\n\nValidation routes through",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_source_eval_tree_topology_surfaces(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME
+            and "evals/AGENTS.md#validation" in issue.message
+            for issue in issues
+        )
+
+    def test_source_eval_tree_topology_requires_agents_command_route(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, validate_repo.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME)
+        copy_repo_text(tmp_path, validate_repo.EVALS_AGENTS_NAME)
+        copy_repo_text(tmp_path, "docs/decisions/README.md")
+        agents_path = tmp_path / validate_repo.EVALS_AGENTS_NAME
+        agents_path.write_text(
+            agents_path.read_text(encoding="utf-8").replace(
+                "python scripts/build_catalog.py --check",
+                "python scripts/build_wrong_catalog.py --check",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_source_eval_tree_topology_surfaces(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.EVALS_AGENTS_NAME
+            and "python scripts/build_catalog.py --check" in issue.message
+            for issue in issues
+        )
+
     def test_mechanic_root_district_recon_rejects_missing_district_row(
         self, tmp_path: Path
     ) -> None:

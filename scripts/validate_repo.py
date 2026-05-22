@@ -158,6 +158,23 @@ REPO_CONFIG_ROUTE_RESIDUE_DECISION_NAME = (
 SOURCE_BUNDLE_ROUTE_RESIDUE_DECISION_NAME = (
     "docs/decisions/0080-source-bundle-route-residue-guard.md"
 )
+SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME = (
+    "docs/decisions/0104-source-eval-tree-topology.md"
+)
+EVALS_AGENTS_NAME = "evals/AGENTS.md"
+SOURCE_EVAL_TREE_TOPOLOGY_COMMANDS = (
+    "python scripts/validate_repo.py",
+    "python scripts/build_catalog.py --check",
+    "python scripts/generate_eval_report_index.py --check",
+    "python -m pytest -q",
+)
+SOURCE_EVAL_TREE_TOPOLOGY_DECISION_REQUIRED_TOKENS = (
+    "Source Eval Tree Topology",
+    "`evals/<claim-family>/<eval-name>/`",
+    "recursive",
+    "evals/AGENTS.md#validation",
+    "source-tree topology path",
+)
 MECHANIC_PAYLOAD_ROUTE_RESIDUE_DECISION_NAME = (
     "docs/decisions/0081-mechanic-payload-route-residue-guard.md"
 )
@@ -9001,6 +9018,47 @@ def validate_read_model_command_ownership(repo_root: Path) -> list[ValidationIss
                     "guidance surface must route executable validation commands to the nearest AGENTS.md instead of carrying python command lines",
                 )
             )
+
+    return issues
+
+
+def validate_source_eval_tree_topology_surfaces(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME,
+        tokens=SOURCE_EVAL_TREE_TOPOLOGY_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+
+    decision_text = read_text_or_issue(
+        repo_root / SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME,
+        issues,
+        root=repo_root,
+    )
+    if decision_text and markdown_python_commands(
+        markdown_heading_section(decision_text, "Validation")
+    ):
+        issues.append(
+            ValidationIssue(
+                SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME,
+                "decision validation must route executable commands to evals/AGENTS.md#validation",
+            )
+        )
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name=EVALS_AGENTS_NAME,
+        tokens=("source-tree topology", *SOURCE_EVAL_TREE_TOPOLOGY_COMMANDS),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME, "Source Eval Tree Topology"),
+        issues=issues,
+    )
 
     return issues
 
@@ -18774,6 +18832,7 @@ def run_validation(
         issues.extend(validate_root_readme_surface_role(repo_root))
         issues.extend(validate_docs_readme_route_map(repo_root))
         issues.extend(validate_read_model_command_ownership(repo_root))
+        issues.extend(validate_source_eval_tree_topology_surfaces(repo_root))
         issues.extend(validate_audit_surface_role(repo_root))
         issues.extend(validate_index_surface_roles(repo_root))
         issues.extend(validate_validator_surface_role(repo_root))

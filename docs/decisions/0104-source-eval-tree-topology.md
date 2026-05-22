@@ -53,9 +53,8 @@ shape.
 
 ## Validation
 
-Run:
-
-- `python scripts/validate_repo.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/generate_eval_report_index.py --check`
-- `python -m pytest -q`
+Validation routes through
+[evals/AGENTS.md#validation](../../evals/AGENTS.md#validation).
+Use the source-tree topology path there when changing this decision, recursive
+eval discovery, generated catalog/report readers, or eval-source package
+placement validators.

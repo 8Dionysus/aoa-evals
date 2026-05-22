@@ -18905,35 +18905,199 @@ def format_issues(issues: Sequence[ValidationIssue]) -> str:
     return "\n".join(lines)
 
 
+def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    issues.extend(validate_agent_index_surface(repo_root))
+    issues.extend(validate_root_readme_surface_role(repo_root))
+    issues.extend(validate_docs_readme_route_map(repo_root))
+    issues.extend(validate_read_model_command_ownership(repo_root))
+    issues.extend(validate_source_eval_tree_topology_surfaces(repo_root))
+    issues.extend(validate_audit_surface_role(repo_root))
+    issues.extend(validate_index_surface_roles(repo_root))
+    issues.extend(validate_validator_surface_role(repo_root))
+    issues.extend(validate_mechanic_index_surface_roles(repo_root))
+    issues.extend(validate_root_design_surfaces(repo_root))
+    issues.extend(validate_root_route_card_districts(repo_root))
+    issues.extend(validate_root_authored_route_residue_surfaces(repo_root))
+    issues.extend(validate_decision_route_residue_surfaces(repo_root))
+    issues.extend(validate_repo_config_route_residue_surfaces(repo_root))
+    issues.extend(validate_source_bundle_route_residue_surfaces(repo_root))
+    issues.extend(validate_agent_lane_surfaces(repo_root))
+    issues.extend(validate_quest_route_surfaces(repo_root))
+    issues.extend(validate_proof_topology_surfaces(repo_root))
+    issues.extend(validate_legacy_naming_surfaces(repo_root))
+    issues.extend(validate_mechanics_surfaces(repo_root))
+    issues.extend(validate_active_legacy_parent_wording(repo_root))
+    issues.extend(validate_generated_route_residue_surfaces(repo_root))
+    issues.extend(validate_eval_report_index_route_surfaces(repo_root))
+    return issues
+
+
+def validate_source_eval_entry_domain(
+    repo_root: Path,
+    *,
+    starter_names: Sequence[str],
+    selected_evals: set[str] | None,
+    selected_starter_evals: set[str] | None,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    issues.extend(
+        validate_eval_index(
+            repo_root,
+            starter_names=starter_names,
+            selected_evals=selected_starter_evals,
+        )
+    )
+    issues.extend(
+        validate_eval_selection(
+            repo_root,
+            starter_names=starter_names,
+            selected_evals=selected_starter_evals,
+        )
+    )
+    issues.extend(
+        validate_starter_bundle_contract(
+            repo_root,
+            starter_names=starter_names,
+            selected_evals=selected_starter_evals,
+        )
+    )
+    issues.extend(
+        validate_roadmap_parity(
+            repo_root,
+            starter_names=starter_names,
+            selected_evals=selected_evals,
+        )
+    )
+    return issues
+
+
+def validate_source_eval_doctrine_domain(
+    repo_root: Path,
+    records: Sequence[EvalBundleRecord],
+    *,
+    selected_evals: set[str] | None,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    issues.extend(
+        validate_comparison_doctrine_surfaces(
+            repo_root,
+            records,
+            selected_evals=selected_evals,
+        )
+    )
+    issues.extend(
+        validate_artifact_process_doctrine_surfaces(
+            repo_root,
+            records,
+            selected_evals=selected_evals,
+        )
+    )
+    issues.extend(
+        validate_repeated_window_doctrine_surfaces(
+            repo_root,
+            records,
+            selected_evals=selected_evals,
+        )
+    )
+    issues.extend(
+        validate_integrity_taxonomy_surfaces(
+            repo_root,
+            selected_evals=selected_evals,
+        )
+    )
+    issues.extend(
+        validate_shared_proof_infra_surfaces(
+            repo_root,
+            selected_evals=selected_evals,
+        )
+    )
+    return issues
+
+
+def validate_repo_wide_evidence_readout_domain(
+    repo_root: Path,
+    records: Sequence[EvalBundleRecord],
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    issues.extend(validate_trace_eval_bridge_surfaces(repo_root, records))
+    issues.extend(validate_runtime_integrity_review_surface(repo_root))
+    issues.extend(validate_eval_result_receipt_surfaces(repo_root))
+    issues.extend(validate_receipt_intake_dry_review_surface(repo_root))
+    issues.extend(validate_release_support_readiness_audit_surface(repo_root))
+    issues.extend(validate_strategic_closeout_audit_surface(repo_root))
+    issues.extend(validate_release_prep_pr_handoff_surface(repo_root))
+    issues.extend(validate_live_receipt_log(repo_root))
+    issues.extend(
+        validate_runtime_evidence_selection_surfaces(
+            repo_root,
+            records,
+        )
+    )
+    issues.extend(validate_runtime_candidate_template_index(repo_root))
+    issues.extend(validate_runtime_candidate_intake(repo_root))
+    issues.extend(validate_eval_report_index(repo_root))
+    issues.extend(validate_phase_alpha_eval_matrix(repo_root))
+    issues.extend(validate_titan_canary_surfaces(repo_root))
+    issues.extend(validate_generated_catalogs(repo_root, records))
+    issues.extend(validate_generated_capsules(repo_root, records))
+    issues.extend(validate_generated_sections(repo_root, records))
+    issues.extend(validate_generated_comparison_spine(repo_root, records))
+    return issues
+
+
+def validate_target_eval_readout_domain(
+    repo_root: Path,
+    records: Sequence[EvalBundleRecord],
+    *,
+    target_evals: Sequence[str],
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    issues.extend(
+        validate_runtime_evidence_selection_surfaces(
+            repo_root,
+            records,
+            target_eval_names=set(target_evals),
+        )
+    )
+    issues.extend(
+        validate_generated_catalogs(
+            repo_root,
+            records,
+            target_eval_names=target_evals,
+        )
+    )
+    issues.extend(
+        validate_generated_capsules(
+            repo_root,
+            records,
+            target_eval_names=target_evals,
+        )
+    )
+    issues.extend(
+        validate_generated_sections(
+            repo_root,
+            records,
+            target_eval_names=target_evals,
+        )
+    )
+    issues.extend(
+        validate_generated_comparison_spine(
+            repo_root,
+            records,
+            target_eval_names=target_evals,
+        )
+    )
+    return issues
+
+
 def run_validation(
     repo_root: Path,
     eval_name: str | None = None,
 ) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     if repo_root.resolve() == REPO_ROOT.resolve() and eval_name is None:
-        issues.extend(validate_agent_index_surface(repo_root))
-        issues.extend(validate_root_readme_surface_role(repo_root))
-        issues.extend(validate_docs_readme_route_map(repo_root))
-        issues.extend(validate_read_model_command_ownership(repo_root))
-        issues.extend(validate_source_eval_tree_topology_surfaces(repo_root))
-        issues.extend(validate_audit_surface_role(repo_root))
-        issues.extend(validate_index_surface_roles(repo_root))
-        issues.extend(validate_validator_surface_role(repo_root))
-        issues.extend(validate_mechanic_index_surface_roles(repo_root))
-        issues.extend(validate_root_design_surfaces(repo_root))
-        issues.extend(validate_root_route_card_districts(repo_root))
-        issues.extend(validate_root_authored_route_residue_surfaces(repo_root))
-        issues.extend(validate_decision_route_residue_surfaces(repo_root))
-        issues.extend(validate_repo_config_route_residue_surfaces(repo_root))
-        issues.extend(validate_source_bundle_route_residue_surfaces(repo_root))
-        issues.extend(validate_agent_lane_surfaces(repo_root))
-        issues.extend(validate_quest_route_surfaces(repo_root))
-        issues.extend(validate_proof_topology_surfaces(repo_root))
-        issues.extend(validate_legacy_naming_surfaces(repo_root))
-        issues.extend(validate_mechanics_surfaces(repo_root))
-        issues.extend(validate_active_legacy_parent_wording(repo_root))
-        issues.extend(validate_generated_route_residue_surfaces(repo_root))
-        issues.extend(validate_eval_report_index_route_surfaces(repo_root))
+        issues.extend(validate_root_topology_domain(repo_root))
     source_evals_dir_exists = (repo_root / SOURCE_EVALS_DIR_NAME).is_dir()
     try:
         all_eval_names = discover_eval_names(repo_root)
@@ -18962,64 +19126,18 @@ def run_validation(
 
     if source_evals_dir_exists:
         issues.extend(
-            validate_eval_index(
-                repo_root,
-                starter_names=starter_names,
-                selected_evals=selected_starter_evals,
-            )
-        )
-        issues.extend(
-            validate_eval_selection(
-                repo_root,
-                starter_names=starter_names,
-                selected_evals=selected_starter_evals,
-            )
-        )
-        issues.extend(
-            validate_starter_bundle_contract(
-                repo_root,
-                starter_names=starter_names,
-                selected_evals=selected_starter_evals,
-            )
-        )
-        issues.extend(
-            validate_roadmap_parity(
+            validate_source_eval_entry_domain(
                 repo_root,
                 starter_names=starter_names,
                 selected_evals=selected_evals,
+                selected_starter_evals=selected_starter_evals,
             )
         )
     if source_evals_dir_exists and not source_issues:
         issues.extend(
-            validate_comparison_doctrine_surfaces(
+            validate_source_eval_doctrine_domain(
                 repo_root,
                 records,
-                selected_evals=selected_evals,
-            )
-        )
-        issues.extend(
-            validate_artifact_process_doctrine_surfaces(
-                repo_root,
-                records,
-                selected_evals=selected_evals,
-            )
-        )
-        issues.extend(
-            validate_repeated_window_doctrine_surfaces(
-                repo_root,
-                records,
-                selected_evals=selected_evals,
-            )
-        )
-        issues.extend(
-            validate_integrity_taxonomy_surfaces(
-                repo_root,
-                selected_evals=selected_evals,
-            )
-        )
-        issues.extend(
-            validate_shared_proof_infra_surfaces(
-                repo_root,
                 selected_evals=selected_evals,
             )
         )
@@ -19027,63 +19145,18 @@ def run_validation(
     if source_evals_dir_exists and eval_name is None and not source_issues:
         all_source_issues, all_records = collect_catalog_records(repo_root)
         if not all_source_issues:
-            issues.extend(validate_trace_eval_bridge_surfaces(repo_root, all_records))
-            issues.extend(validate_runtime_integrity_review_surface(repo_root))
-            issues.extend(validate_eval_result_receipt_surfaces(repo_root))
-            issues.extend(validate_receipt_intake_dry_review_surface(repo_root))
-            issues.extend(validate_release_support_readiness_audit_surface(repo_root))
-            issues.extend(validate_strategic_closeout_audit_surface(repo_root))
-            issues.extend(validate_release_prep_pr_handoff_surface(repo_root))
-            issues.extend(validate_live_receipt_log(repo_root))
             issues.extend(
-                validate_runtime_evidence_selection_surfaces(
+                validate_repo_wide_evidence_readout_domain(
                     repo_root,
                     all_records,
                 )
             )
-            issues.extend(validate_runtime_candidate_template_index(repo_root))
-            issues.extend(validate_runtime_candidate_intake(repo_root))
-            issues.extend(validate_eval_report_index(repo_root))
-            issues.extend(validate_phase_alpha_eval_matrix(repo_root))
-            issues.extend(validate_titan_canary_surfaces(repo_root))
-            issues.extend(validate_generated_catalogs(repo_root, all_records))
-            issues.extend(validate_generated_capsules(repo_root, all_records))
-            issues.extend(validate_generated_sections(repo_root, all_records))
-            issues.extend(validate_generated_comparison_spine(repo_root, all_records))
     elif source_evals_dir_exists and eval_name is not None and not source_issues:
         issues.extend(
-            validate_runtime_evidence_selection_surfaces(
+            validate_target_eval_readout_domain(
                 repo_root,
                 records,
-                target_eval_names=set(target_evals),
-            )
-        )
-        issues.extend(
-            validate_generated_catalogs(
-                repo_root,
-                records,
-                target_eval_names=target_evals,
-            )
-        )
-        issues.extend(
-            validate_generated_capsules(
-                repo_root,
-                records,
-                target_eval_names=target_evals,
-            )
-        )
-        issues.extend(
-            validate_generated_sections(
-                repo_root,
-                records,
-                target_eval_names=target_evals,
-            )
-        )
-        issues.extend(
-            validate_generated_comparison_spine(
-                repo_root,
-                records,
-                target_eval_names=target_evals,
+                target_evals=target_evals,
             )
         )
 

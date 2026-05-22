@@ -11448,7 +11448,7 @@ def validate_proof_loop_local_report_surfaces(repo_root: Path) -> list[Validatio
     require_tokens(
         repo_root=repo_root,
         path_name="ROADMAP.md",
-        tokens=(PROOF_LOOP_LOCAL_REPORT_NAME, "schema-backed bundle-local report"),
+        tokens=("Proof loop route", "mechanics/proof-loop/README.md"),
         issues=issues,
     )
     require_tokens(
@@ -11513,7 +11513,10 @@ def validate_receipt_intake_dry_review_surface(repo_root: Path) -> list[Validati
             ("Evidence And Handoff", "docs/README.md#mechanic-and-evidence-anchors"),
         ),
         ("docs/README.md", (RECEIPT_INTAKE_DRY_REVIEW_NAME, "Receipt Intake Dry Review")),
-        ("ROADMAP.md", (RECEIPT_INTAKE_DRY_REVIEW_NAME, "`not_published`")),
+        (
+            "ROADMAP.md",
+            ("Publication receipt posture", "mechanics/publication-receipts/README.md"),
+        ),
         ("CHANGELOG.md", (RECEIPT_INTAKE_DRY_REVIEW_NAME, "validator coverage")),
         (
             "docs/decisions/README.md",
@@ -11894,7 +11897,10 @@ def validate_release_support_readiness_audit_surface(repo_root: Path) -> list[Va
             "docs/README.md",
             (RELEASE_SUPPORT_READINESS_AUDIT_NAME, "Release Support Readiness Audit"),
         ),
-        ("ROADMAP.md", (RELEASE_SUPPORT_READINESS_AUDIT_NAME, "goal completion")),
+        (
+            "ROADMAP.md",
+            ("Release-support posture", "mechanics/release-support/README.md"),
+        ),
         ("CHANGELOG.md", (RELEASE_SUPPORT_READINESS_AUDIT_NAME, "goal completion")),
         (
             "docs/decisions/README.md",
@@ -12188,7 +12194,7 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
         ),
         (
             "ROADMAP.md",
-            (STRATEGIC_CLOSEOUT_AUDIT_NAME, "long goal not complete"),
+            ("Release-support posture", "mechanics/release-support/README.md"),
         ),
         ("CHANGELOG.md", (STRATEGIC_CLOSEOUT_AUDIT_NAME, "goal completion")),
         (
@@ -12501,7 +12507,7 @@ def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[Validation
         ),
         (
             "ROADMAP.md",
-            (RELEASE_PREP_PR_HANDOFF_NAME, "owner landing handoff"),
+            ("Release-support posture", "mechanics/release-support/README.md"),
         ),
         ("CHANGELOG.md", (RELEASE_PREP_PR_HANDOFF_NAME, "goal completion")),
         (
@@ -18474,7 +18480,6 @@ def validate_eval_report_index_route_surfaces(repo_root: Path) -> list[Validatio
     for path_name in (
         "README.md",
         "docs/README.md",
-        "ROADMAP.md",
         "CHANGELOG.md",
         "generated/AGENTS.md",
         "mechanics/proof-loop/README.md",
@@ -18487,6 +18492,12 @@ def validate_eval_report_index_route_surfaces(repo_root: Path) -> list[Validatio
             tokens=(EVAL_REPORT_INDEX_NAME,),
             issues=issues,
         )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="ROADMAP.md",
+        tokens=("Generated report readers", "generated/README.md"),
+        issues=issues,
+    )
     require_tokens(
         repo_root=repo_root,
         path_name="docs/decisions/README.md",

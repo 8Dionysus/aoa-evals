@@ -4629,7 +4629,7 @@ BOUNDARY_BRIDGE_MECHANIC_REQUIRED_TOKENS = (
     "latest-sibling canary",
     "pinned public-lane refresh",
     "current/legacy/rejected/unresolved",
-    "Do not edit sibling repositories",
+    "route through the sibling owner before changing it",
     "bundle-local review",
 )
 BOUNDARY_BRIDGE_MECHANIC_AGENTS_REQUIRED_TOKENS = (

@@ -2349,7 +2349,7 @@ MECHANICS_AGENTS_REQUIRED_TOKENS = (
     "runtime candidates",
 )
 MECHANICS_EVIDENCE_CLUSTERS_REQUIRED_TOKENS = (
-    "refactor map",
+    "parent-mechanic evidence gate",
     "Evidence Standard",
     "Root District Reconnaissance Ledger",
     "AoA-aligned parents",

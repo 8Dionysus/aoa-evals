@@ -8018,7 +8018,7 @@ class TestValidateQuestRouteSurfaces:
         evidence_path = tmp_path / validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
         evidence_text = evidence_path.read_text(encoding="utf-8")
         evidence_text = evidence_text.replace(
-            "| `titan` | evals-native | owner-named Titan proof-seed boundary, not proof-organ doctrine | incarnation, summon, memory, gate, runtime roster, bridge, and closeout seed pressure | Titan canary YAML seeds and seed AGENTS route | canary shape validator and tests; future scorer route is not active | Titan boundary pressure stays seed-level until executable proof exists | `aoa-agents` owns Titan role/bearer/summon/incarnation law; `aoa-memo` and runtime owners keep memory and activation truth | old `titan-canaries` parent and root `evals/` placement route through provenance |\n",
+            "| `titan` | evals-native | owner-named Titan proof-seed boundary with proof-organ claim limits | incarnation, summon, memory, gate, runtime roster, bridge, and closeout seed pressure | Titan canary YAML seeds and seed AGENTS route | canary shape validator and tests; future scorer route remains deferred | Titan boundary pressure stays seed-level until executable proof exists | `aoa-agents` owns Titan role/bearer/summon/incarnation law; `aoa-memo` and runtime owners keep memory and activation truth | old `titan-canaries` parent and root `evals/` placement route through provenance |\n",
             "",
         )
         evidence_path.write_text(evidence_text, encoding="utf-8")
@@ -10164,7 +10164,7 @@ class TestValidateQuestRouteSurfaces:
         evidence_path = tmp_path / evidence_name
         evidence_path.write_text(
             evidence_path.read_text(encoding="utf-8").replace(
-                "diagnosis-cause discipline routes through `growth-cycle/diagnosis-gate`, not this parent.",
+                "diagnosis-cause discipline routes through `growth-cycle/diagnosis-gate` as the active diagnosis lane.",
                 "diagnosis-cause discipline remains deferred.",
             ),
             encoding="utf-8",
@@ -10174,7 +10174,7 @@ class TestValidateQuestRouteSurfaces:
 
         assert any(
             issue.location == evidence_name
-            and "diagnosis-cause discipline routes through `growth-cycle/diagnosis-gate`, not this parent."
+            and "diagnosis-cause discipline routes through `growth-cycle/diagnosis-gate` as the active diagnosis lane."
             in issue.message
             for issue in issues
         )

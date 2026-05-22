@@ -78,7 +78,8 @@ interpretation, and local support-surface validation.
 
 ## Stop-Lines
 
-Do not use this package to claim:
+This package supports bounded eval-side proof only. Keep these claims outside
+this package:
 
 - checkpoint implementation authority;
 - memory canon or recall sovereignty;

@@ -90,7 +90,8 @@ boundary proof support.
 
 ## Stop-Lines
 
-Do not use this package to claim:
+This package supports bounded eval-side proof only. Keep these claims outside
+this package:
 
 - live workspace runtime or service dispatch;
 - office installation or assistant operational authority;

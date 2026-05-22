@@ -96,7 +96,8 @@ readout posture, claim limits, and validation for diagnosis-cause discipline.
 
 ## Stop-Lines
 
-Do not use this package to claim:
+This package supports bounded eval-side proof only. Keep these claims outside
+this package:
 
 - the named cause is proven true;
 - repair worked because the diagnosis was tidy;

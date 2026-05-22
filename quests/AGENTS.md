@@ -7,12 +7,13 @@
 ## Role
 
 This lane holds source quest records for deferred proof obligations. Treat
-`quests/` as the source quest record district, not as `QUESTBOOK.md`, not as the
-`mechanics/questbook/` operation package, and not as generated dispatch.
+`quests/` as the source quest record district, with `QUESTBOOK.md` as the human
+open-obligation index, `mechanics/questbook/` as the operation package, and
+generated quest files as dispatch readers.
 
 Quests are obligation-return surfaces. They track missing proof, regression
 gaps, verdict-bridge debt, proof-pressure harvest candidates, and owner
-handoffs that are not yet eval bundles.
+handoffs that still need a bounded next route.
 
 ## Read before editing
 
@@ -35,18 +36,18 @@ handoffs that are not yet eval bundles.
 - Eval bundle meaning stays in `evals/**/EVAL.md` and `eval.yaml`.
 - Roadmap direction stays in `ROADMAP.md`.
 - Former Agon markdown quest notes live behind
-  `mechanics/agon/PROVENANCE.md` as Agon lineage, not active quest lifecycle
-  source records.
-- Old top-level quest paths are legacy path vocabulary, not active source
-  files.
-- Do not add markdown note forms under `quests/<lane>/<state>/`; active quest
-  records are schema-backed YAML.
-- Do not change source quest paths without updating validators, generated
-  projections, and compatibility posture in the same slice.
+  `mechanics/agon/PROVENANCE.md` as Agon lineage while active lifecycle source
+  records stay schema-backed YAML.
+- Old top-level quest paths are legacy path vocabulary; active source files use
+  lane/state placement.
+- Keep markdown note forms out of `quests/<lane>/<state>/`; active quest
+  records use schema-backed YAML.
+- Source quest path changes require validators, generated projections, and
+  compatibility posture in the same slice.
 - Keep each state directory aligned with the source record `state`.
 - Use `quests/LIFECYCLE.md` for open-index, closed-state, return, and
   promotion posture before changing `state`.
-- Do not treat a quest as proof verdict authority.
+- Proof verdict authority remains with source eval and reviewed proof surfaces.
 
 ## Validation
 

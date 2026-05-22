@@ -3,13 +3,13 @@
 `quests/` is the source quest record district for `aoa-evals` proof
 obligations.
 
-It is not `QUESTBOOK.md`, not `mechanics/questbook/`, not a generated dispatch
-queue, and not a proof verdict surface.
+A quest is an obligation-return source record: a missing proof surface,
+regression gap, verdict-bridge debt, repeated blind spot, proof-pressure
+ingress, or owner handoff that still needs a bounded next route.
 
-Quests are not eval bundles. A quest is an obligation to return: a missing proof
-surface, regression gap, verdict-bridge debt, repeated blind spot, proof-pressure
-ingress, or owner handoff that has not yet matured into a bundle, decision,
-mechanic, or release item.
+Open this surface for lane/state source layout, lifecycle routing, and the
+split between source records, the human questbook index, generated dispatch
+readers, questbook mechanic support, and eval proof meaning.
 
 ## Current Source Layout
 
@@ -19,12 +19,12 @@ The current source layout is lane/state based:
 
 - `quests/<lane>/<state>/AOA-EV-Q-*.yaml` are schema-backed source quest
   records.
-- Markdown note forms are not active quest source records. Former Agon
-  markdown quest notes are preserved behind `mechanics/agon/PROVENANCE.md`.
+- Active source records use schema-backed YAML. Former Agon markdown quest
+  notes are preserved behind `mechanics/agon/PROVENANCE.md`.
 
-Old top-level quest paths are legacy path vocabulary, not active source files.
-Do not reintroduce them as duplicate aliases; source IDs stay stable and
-generated readers expose the current source path.
+Old top-level quest paths are legacy path vocabulary. Active aliases stay out
+of the tree so source IDs stay stable and generated readers expose the current
+source path.
 
 ## Surface Roles
 
@@ -37,11 +37,17 @@ generated readers expose the current source path.
 - `generated/quest_dispatch.min.json`: derived dispatch reader.
 - `generated/quest_catalog.min.example.json` and
   `generated/quest_dispatch.min.example.json`: example mirrors.
-- `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`: source quest record schema.
-- `mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json`: generated dispatch schema.
+- `mechanics/questbook/`: operation package for source-record contracts,
+  lifecycle support, and generated dispatch readers.
+- `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`:
+  source quest record schema.
+- `mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json`:
+  generated dispatch schema.
+- `evals/**/EVAL.md` and `evals/**/eval.yaml`: source proof meaning when an
+  obligation matures into bounded eval work.
 
-Generated quest readers do not replace source quest records and do not become
-live portable verdict authority.
+Generated quest readers derive from source quest records. Live portable verdict
+authority remains with reviewed proof surfaces and bundle-local eval meaning.
 
 ## Lanes
 
@@ -75,12 +81,12 @@ Use `quests/LIFECYCLE.md` before changing a quest state. It defines which
 states remain open in `QUESTBOOK.md`, which states are closed provenance, and
 which return posture applies when a proof-loop route defers or hands off.
 
-## Editing Rules
+## Record Discipline
 
 - Keep `id` equal to the filename stem for
   `quests/<lane>/<state>/AOA-EV-Q-*.yaml`.
-- Keep active quest source records schema-backed YAML. Do not add markdown note
-  forms under lifecycle directories.
+- Keep active quest source records schema-backed YAML and keep markdown note
+  forms in provenance or legacy routes.
 - Keep `repo: aoa-evals`.
 - Keep `public_safe: true`.
 - Keep the state directory equal to the source record `state`.
@@ -91,7 +97,7 @@ which return posture applies when a proof-loop route defers or hands off.
   `QUESTBOOK.md`.
 - Route broad direction to `ROADMAP.md`.
 - Route durable rationale to `docs/decisions/`.
-- Route proof meaning to eval bundles.
+- Route proof meaning to source eval packages under `evals/`.
 
 ## Verify
 

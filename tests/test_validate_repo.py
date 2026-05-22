@@ -6523,6 +6523,28 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_root_readme_surface_role_requires_positive_validation_route(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in ("README.md", "docs/README.md"):
+            copy_repo_text(tmp_path, path_name)
+        readme_path = tmp_path / "README.md"
+        readme_path.write_text(
+            readme_path.read_text(encoding="utf-8").replace(
+                "Executable validation routes live in",
+                "Validation is elsewhere",
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_root_readme_surface_role(tmp_path)
+
+        assert any(
+            issue.location == "README.md"
+            and "Executable validation routes live in" in issue.message
+            for issue in issues
+        )
+
     def test_root_readme_surface_role_rejects_generic_docs_map_eval_labels(
         self, tmp_path: Path
     ) -> None:

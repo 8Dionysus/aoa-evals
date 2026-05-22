@@ -11,6 +11,18 @@ Open this surface for lane/state source layout, lifecycle routing, and the
 split between source records, the human questbook index, generated dispatch
 readers, questbook mechanic support, and eval proof meaning.
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | source quest record route map |
+| entry | open when deferred proof pressure, regression debt, verdict-bridge debt, or owner handoff needs a durable source record |
+| input | proof obligation, lifecycle state, owner route, evidence gap, or generated quest reader ref |
+| output | lane/state source record, `QUESTBOOK.md` open-obligation entry, generated quest reader route, or source eval package route |
+| owner | `quests/AGENTS.md` for editing law; `quests/LIFECYCLE.md` for state meaning; quest schema for record shape |
+| next route | `quests/<lane>/<state>/`, `QUESTBOOK.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, or source eval packages under `evals/` |
+| validation | `quests/AGENTS.md` and the owning questbook mechanic route |
+
 ## Current Source Layout
 
 The current source layout is lane/state based:
@@ -81,23 +93,16 @@ Use `quests/LIFECYCLE.md` before changing a quest state. It defines which
 states remain open in `QUESTBOOK.md`, which states are closed provenance, and
 which return posture applies when a proof-loop route defers or hands off.
 
-## Record Discipline
+## Change Routes
 
-- Keep `id` equal to the filename stem for
-  `quests/<lane>/<state>/AOA-EV-Q-*.yaml`.
-- Keep active quest source records schema-backed YAML and keep markdown note
-  forms in provenance or legacy routes.
-- Keep `repo: aoa-evals`.
-- Keep `public_safe: true`.
-- Keep the state directory equal to the source record `state`.
-- Keep `quests/LIFECYCLE.md` aligned with every state accepted by
-  `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`.
-- Keep closed quests out of the open-obligation list in `QUESTBOOK.md`.
-- Keep active, captured, triaged, ready, blocked, and reanchor quests visible in
-  `QUESTBOOK.md`.
-- Route broad direction to `ROADMAP.md`.
-- Route durable rationale to `docs/decisions/`.
-- Route proof meaning to source eval packages under `evals/`.
+| Change pressure | Source route |
+| --- | --- |
+| Record shape or path | `quests/AGENTS.md`, then `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json` |
+| State meaning or open-index visibility | `quests/LIFECYCLE.md` and `QUESTBOOK.md` |
+| Generated quest lookup | `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and the catalog builder |
+| Broad repo direction | `ROADMAP.md` |
+| Durable rationale | `docs/decisions/` |
+| Matured proof work | source eval packages under `evals/` |
 
 ## Verify
 

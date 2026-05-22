@@ -8,8 +8,33 @@
 
 Mechanics route repeatable proof-layer operations.
 
-They do not own eval bundle meaning, root design, roadmap direction, generated
-truth, runtime authority, or sibling owner truth.
+They receive recurring proof pressure and route it to the parent operation,
+part contract, payload home, validation lane, or stronger-owner handoff that
+can carry the work.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | operation-package route law for repeatable proof-layer work |
+| input | proof pressure, artifact movement, package boundary changes, parent evidence, part payload work, and validation route changes |
+| output | parent route, part contract, payload owner, validation lane, or stronger-owner handoff |
+| owner | mechanics root for operation topology; parent package for local operation law; part for payload contract |
+| next route | `mechanics/EVIDENCE_CLUSTERS.md`, `mechanics/README.md`, target parent `README.md`, target `DIRECTION.md`, target `PARTS.md`, and nearest `AGENTS.md` |
+| tools | root validator, semantic AGENTS validator, catalog/report builders when generated readers move |
+| validation | this card's `Validation` section |
+
+## Owner Routes
+
+| Need | Owner route |
+| --- | --- |
+| source proof object meaning | `evals/**/EVAL.md` and `evals/**/eval.yaml` |
+| root design or roadmap direction | root design surfaces or `ROADMAP.md` |
+| generated reader truth | source surface, builder, generated reader, and `generated/AGENTS.md` |
+| runtime authority | runtime owner or audit intake route before proof adoption |
+| sibling owner truth | owning sibling repository |
+| package-local operation law | `mechanics/<parent>/AGENTS.md`, `README.md`, `DIRECTION.md`, and `PARTS.md` |
+| part payload contract | `mechanics/<parent>/parts/<part>/README.md` and `VALIDATION.md` |
 
 ## Read before editing
 
@@ -24,21 +49,22 @@ truth, runtime authority, or sibling owner truth.
 9. the target package `AGENTS.md`
 10. `docs/decisions/` for package-creation or package-boundary changes
 
-## Boundaries
+## Route Rules
 
-- Create packages for live operations, not for decoration.
+- Create packages for live operations with evidence cluster support and a
+  validation route.
 - Use `mechanics/EVIDENCE_CLUSTERS.md` before turning a form, report, canary,
   or old path family into a parent mechanic.
-- Top-level parent directories are validator allowlisted. Do not add
-  `mechanics/<new-parent>/` without updating the evidence cluster, package
-  route cards, topology docs, decision record, and validator in the same slice.
+- Top-level parent directories are validator allowlisted. A new
+  `mechanics/<new-parent>/` slice updates the evidence cluster, package route
+  cards, topology docs, decision record, and validator together.
 - Keep source proof objects in `evals/`.
 - Keep quest source records in `quests/<lane>/<state>/` and keep generated
   readers aligned with current source paths.
 - Keep generated readers weaker than their builders and source surfaces.
 - Keep runtime candidates, receipts, and sibling refs below bundle-local review.
-- Preserve legacy names as provenance or accepted inputs, not active topology by
-  habit.
+- Preserve legacy names as provenance or accepted inputs; active topology
+  follows current parent and part names.
 
 ## Validation
 

@@ -141,14 +141,14 @@ This package only coordinates the loop between them.
 
 ## Boundaries
 
-- Do not use this package to promote generated readers into proof authority.
-- Do not accept runtime, machine, trace, or sibling artifacts without the
-  candidate evidence or sibling-ref route.
-- Do not publish a receipt without a reviewed bounded report.
-- Do not turn one loop into a global benchmark, score, rank, trust signal, or
-  autonomy claim.
-- Do not bypass bundle-local `EVAL.md` and `eval.yaml`.
-- Do not create hidden live dispatch behavior.
+| Pressure | Route |
+| --- | --- |
+| generated reader wants proof authority | generated readers remain derived readers below bundle-local proof authority |
+| runtime, machine, trace, or sibling artifact enters the loop | use the candidate evidence route or sibling-ref route before local review |
+| receipt pressure appears before review | produce the reviewed bounded report first, then route optional receipt publication |
+| one loop is read as a global benchmark, score, rank, trust signal, or autonomy claim | return to the selected bundle claim and report scope |
+| loop step skips source bundle review | read bundle-local `EVAL.md` and `eval.yaml` before the step closes |
+| hidden live dispatch appears | route runtime dispatch to the stronger runtime owner before adoption |
 
 ## Validation
 

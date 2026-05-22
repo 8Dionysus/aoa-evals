@@ -2547,7 +2547,7 @@ PROOF_LOOP_MECHANIC_REQUIRED_TOKENS = (
     "mechanics/boundary-bridge/",
     "PARTS.md",
     "route-smoke",
-    "Do not use this package to promote generated readers into proof authority",
+    "generated readers remain derived readers below bundle-local proof authority",
     "python scripts/validate_repo.py",
 )
 PROOF_LOOP_MECHANIC_AGENTS_REQUIRED_TOKENS = (

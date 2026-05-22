@@ -11,8 +11,20 @@ decision records unless a deeper `AGENTS.md` applies.
 repeated-window discipline, shared proof infrastructure, proof topology, legacy
 naming posture, and documentation wayfinding.
 
-It may clarify proof meaning. It must not outrank bundle-local `EVAL.md` and
-`eval.yaml` for a specific eval claim.
+It may clarify proof meaning. Specific eval claims keep authority in
+bundle-local `EVAL.md` and `eval.yaml`.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | docs guidance, topology, proof-guide, and wayfinding district |
+| input | proof questions, route questions, topology changes, guide lookup, and durable docs edits |
+| output | next source surface, topology explanation, proof guide, or decision route |
+| owner | target doc for its meaning; nearest `AGENTS.md` for edit and validation route |
+| next route | `docs/README.md`, `docs/AGENT_INDEX.md`, `docs/PROOF_TOPOLOGY.md`, `docs/decisions/`, mechanics, or bundle-local proof |
+| tools | root validator, semantic AGENTS validator, and generated-reader builders when route maps touch derived surfaces |
+| validation | this card's `Validation` section |
 
 ## Surface Split
 
@@ -35,7 +47,18 @@ It may clarify proof meaning. It must not outrank bundle-local `EVAL.md` and
 5. `EVAL_INDEX.md` and `EVAL_SELECTION.md` when public routing changes
 6. the affected bundle when a doc changes bundle interpretation
 
-## Boundaries
+## Owner Routes
+
+| Need | Owner route |
+| --- | --- |
+| specific eval claim | bundle-local `EVAL.md` and `eval.yaml` |
+| generated reader truth | `generated/AGENTS.md`, builder, and source inputs |
+| runtime, trace, receipt, sibling, recurrence, or checkpoint interpretation | owning mechanic, source surface, or sibling owner before bundle-local review |
+| decision rationale | `docs/decisions/AGENTS.md` and the source surface being explained |
+| roadmap direction | root `ROADMAP.md` |
+| mechanics topology | `mechanics/AGENTS.md`, `mechanics/README.md`, and the target package card |
+
+## Route Rules
 
 - Keep anti-overread language sharp: bounded evals are not total intelligence
   scores, general safety claims, or universal readiness proofs.

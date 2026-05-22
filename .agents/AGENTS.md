@@ -9,15 +9,25 @@
 `.agents/` is the durable home for maintained agent-facing lanes and exported
 support skills in `aoa-evals`.
 
-It routes agents that operate on proof surfaces. It does not own eval bundle
-meaning, generated proof truth, runtime authority, receipt authority, sibling
-owner truth, or repo doctrine.
+It routes agents that operate on proof surfaces. Proof authority stays with the
+source bundle, generated reader, runtime owner, receipt owner, sibling owner,
+or repo doctrine surface named by the task.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | maintained agent-facing lane district |
+| input | agent-lane guidance, support-skill exports, Spark lane work, and proof-surface route pressure |
+| output | scoped agent route, support guidance, or handoff toward the proof owner |
+| owner | `.agents/AGENTS.md` for lane placement; lane-local `AGENTS.md` for local posture |
+| next route | `.agents/spark/AGENTS.md`, `.agents/skills/AGENTS.md`, or the proof owner surface |
+| tools | root validation, semantic AGENTS validation, nested AGENTS validation |
+| validation | this card's `Validation` section |
 
 Current maintained lanes:
 
 - `.agents/spark/` for the Spark fast-loop lane.
-
-This district is not proof canon.
 
 ## Read before editing
 
@@ -29,16 +39,23 @@ This district is not proof canon.
 6. `docs/decisions/0017-spark-agent-lane-placement.md` for Spark lane
    placement changes
 
-## Boundaries
+## Owner Routes
 
 - Keep maintained lanes under `.agents/<lane>/`.
 - Keep exported skill guidance under `.agents/skills/`.
-- Do not move bundle, generated, receipt, runtime, or sibling-owner truth into
-  `.agents/`.
-- Do not hand-edit generated readers from an agent lane.
-- Do not let fast-loop lane guidance strengthen a bounded proof claim.
-- Preserve public-safe wording; no private logs, hidden benchmark data, or
-  host-local secrets.
+
+| Need | Owner route |
+| --- | --- |
+| bundle proof meaning | bundle-local `EVAL.md` and `eval.yaml` |
+| generated reader updates | `generated/AGENTS.md` and the owning builder |
+| receipt authority | publication-receipts mechanic or bundle-local report surface |
+| runtime authority | runtime owner or audit intake route |
+| sibling-owner truth | owning sibling repository |
+| repo doctrine or topology | root/docs source surfaces |
+
+Fast-loop lane guidance stays below bounded proof claims. Public-safe wording is
+the lane standard; private logs, hidden benchmark data, and host-local secrets
+stay outside checked-in agent lanes.
 
 ## Validation
 

@@ -453,7 +453,7 @@ AGENTS_DISTRICT_REQUIRED_TOKENS = (
     ".agents/<lane>/",
     ".agents/skills/",
     ".agents/spark/",
-    "not proof canon",
+    "Proof authority stays",
     "python scripts/validate_repo.py",
     "python scripts/validate_nested_agents.py",
 )
@@ -463,7 +463,7 @@ SPARK_LANE_AGENTS_REQUIRED_TOKENS = (
     "one bounded claim",
     "Bundle-local `EVAL.md`",
     "eval.yaml",
-    "Do not edit generated surfaces by hand",
+    "generated/AGENTS.md",
     "python scripts/validate_nested_agents.py",
 )
 SPARK_LANE_SWARM_REQUIRED_TOKENS = (

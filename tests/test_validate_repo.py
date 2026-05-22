@@ -10570,7 +10570,7 @@ class TestValidateQuestRouteSurfaces:
             # AGENTS.md
 
             `.agents/<lane>/` route. `.agents/skills/` support. `.agents/spark/`
-            lane. This is not proof canon.
+            lane. Proof authority stays with the source bundle.
 
             python scripts/validate_repo.py
             python scripts/validate_nested_agents.py
@@ -10583,7 +10583,7 @@ class TestValidateQuestRouteSurfaces:
 
             `.agents/spark/` fast-loop lane for one bounded claim.
             Bundle-local `EVAL.md` and eval.yaml stay stronger.
-            Do not edit generated surfaces by hand.
+            generated/AGENTS.md routes generated reader changes.
 
             python scripts/validate_nested_agents.py
             """,

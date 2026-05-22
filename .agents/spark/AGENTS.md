@@ -17,6 +17,18 @@ GPT-5.3-Codex-Spark should behave when used as the fast-loop lane.
 If `SWARM.md` exists in this directory, treat it as queue or swarm context.
 This `AGENTS.md` is the operating policy for Spark work.
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | fast-loop agent lane for small proof-surface changes |
+| input | one bounded claim, one eval seam, or one route/validation repair |
+| output | done bounded patch or handoff to a slower owner route |
+| owner | `.agents/spark/AGENTS.md` for lane posture; proof meaning stays with the target source surface |
+| next route | target bundle, mechanic package, generated route, or root `AGENTS.md` |
+| tools | root validation, semantic AGENTS validation, nested AGENTS validation, catalog check when generated readers move |
+| validation | this card's `Validation` section |
+
 ## Read before editing
 
 1. root `AGENTS.md`
@@ -44,15 +56,16 @@ This `AGENTS.md` is the operating policy for Spark work.
 - targeted regression-surface improvements
 - metadata and generated-catalog alignment
 
-## Boundaries
+## Route Boundaries
 
-- Do not widen Spark into scoring-philosophy overhaul.
-- Do not rewrite verdict logic across many bundles in one fast-loop pass.
-- Do not combine runner, fixture, and report migration all at once.
-- Do not polish wording in a way that makes a claim stronger than the evidence.
-- Do not treat this lane as proof authority. Bundle-local `EVAL.md` and
-  `eval.yaml` own the proof claim.
-- Do not edit generated surfaces by hand.
+| Pressure | Route |
+| --- | --- |
+| scoring-philosophy overhaul | slower root/design or comparison-spine route |
+| verdict logic across many bundles | proof-object route plus bundle-local review |
+| runner, fixture, and report migration together | proof-infra and owning mechanic part route |
+| wording that changes evidence strength | bundle-local `EVAL.md` and `eval.yaml` review |
+| proof authority question | Bundle-local `EVAL.md` and `eval.yaml` |
+| generated reader change | `generated/AGENTS.md` and the owning builder |
 
 ## Validation
 

@@ -934,7 +934,7 @@ MECHANIC_ROOT_DISTRICT_RECON_DECISION_REQUIRED_TOKENS = (
     "mechanics",
     "route-card-only",
     "mechanic-owned payload",
-    MECHANIC_ROOT_DISTRICT_RECON_COMMAND,
+    "mechanics/AGENTS.md#validation",
 )
 ROOT_AUTHORED_SURFACE_CLASSIFICATION_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k root_authored_surface_classification"
@@ -17681,6 +17681,12 @@ def validate_mechanic_root_district_recon_surfaces(
         repo_root=repo_root,
         path_name=MECHANICS_README_NAME,
         tokens=("Root District Reconnaissance Ledger", "root-district"),
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MECHANICS_AGENTS_NAME,
+        tokens=("Focused mechanic topology checks", MECHANIC_ROOT_DISTRICT_RECON_COMMAND),
         issues=issues,
     )
     require_tokens(

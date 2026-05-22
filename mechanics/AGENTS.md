@@ -87,6 +87,13 @@ python scripts/generate_eval_report_index.py --check
 Run package-specific builders or checks named in the package card before the
 broader mechanics lane.
 
+Focused mechanic topology checks live in this lane when the changed source
+surface names a narrower guard:
+
+```bash
+python -m pytest -q tests/test_validate_repo.py -k mechanic_root_district_recon
+```
+
 ## Closeout
 
 Report which package operation changed, which source surfaces it routes, which

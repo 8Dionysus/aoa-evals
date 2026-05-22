@@ -1,0 +1,26 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
+  "inputs": [
+    "local memo candidate packet",
+    "local memo receipt packet",
+    "local memo export packet",
+    "reviewed intake copy",
+    "landing receipt",
+    "reviewed corpus object",
+    "generated memory read-model entry",
+    "write-path guardrail source docs",
+    "MCP or local port authority-split note"
+  ],
+  "fixture_contract_paths": [
+    "evals/boundary/aoa-memo-write-path-guardrails/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "evals/boundary/aoa-memo-write-path-guardrails/reports/summary.schema.json",
+  "report_example_path": "evals/boundary/aoa-memo-write-path-guardrails/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-memo-write-path-guardrails"
+  ]
+}

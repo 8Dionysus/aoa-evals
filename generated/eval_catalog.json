@@ -1792,6 +1792,94 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "category": "boundary",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "evals/boundary/aoa-memo-write-path-guardrails/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/write-path-guardrail-pilot.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/proof-surface-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": true,
+      "interpretation_boundary": "proof that memory poisoning is solved; proof that source content is true; permission to skip reviewed intake",
+      "maturity_score": 2,
+      "name": "aoa-memo-write-path-guardrails",
+      "object_under_evaluation": "integrity of aoa-memo write-path guardrails on local candidate to reviewed corpus landing routes",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": "evals/boundary/aoa-memo-write-path-guardrails/fixtures/contract.json",
+        "paired_readout_path": null,
+        "report_example_path": "evals/boundary/aoa-memo-write-path-guardrails/reports/example-report.json",
+        "report_schema_path": "evals/boundary/aoa-memo-write-path-guardrails/reports/summary.schema.json",
+        "runner_contract_path": "evals/boundary/aoa-memo-write-path-guardrails/runners/contract.json",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/memo-write-path-guardrail-v1/README.md"
+      },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "relations": [
+        {
+          "target": "aoa-memo-recall-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-memo-reviewed-candidate-adoption-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-approval-boundary-adherence",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "selection_summary": "",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether aoa-memo write-path candidates preserve source trust, ingestion risk, derivation lineage, action-safety separation, and reviewed landing gates before durable memory.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "validation_strength": "baseline",
+      "verdict_shape": "mixed"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,

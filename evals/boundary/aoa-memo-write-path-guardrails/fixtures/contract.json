@@ -1,0 +1,13 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/memo-write-path-guardrail-v1/README.md",
+  "shared_case_surface": "aoa-memo write-path cases that keep local candidate, receipt, export, reviewed intake, landing receipt, durable object, and generated read model posture separately reviewable",
+  "bounded_replacement_rule": "A local repo may replace the concrete cases only if it preserves the same write-path guardrail question, keeps source trust, ingestion risk, derivation lineage, action-safety separation, durable landing gate, and authority split explicit, and does not turn this bundle into recall precision, contradiction handling, KAG lift, role authorization, or broad memory-safety grading.",
+  "public_safe_requirements": [
+    "a bounded outside reviewer can inspect candidate, receipt, export, reviewed intake, landing receipt, object, and generated read model refs directly",
+    "untrusted, unknown, candidate-only, missing-evidence, or missing-receipt inputs remain blocked from durable landing",
+    "risk marking and derivation lineage remain visible before summarization or promotion",
+    "action-bearing source text remains data unless an owning runtime or operator route separately authorizes action",
+    "MCP and local memo ports stay access or forwarding planes rather than durable memory authority"
+  ]
+}

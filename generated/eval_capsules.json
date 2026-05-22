@@ -768,6 +768,37 @@
       "what_this_does_not_prove": "proof that reviewed-candidate promotion is ready; proof that all three distillation target kinds have equal support; proof of KAG-lift readiness"
     },
     {
+      "blind_spot_short": "general memory poisoning resistance; full indirect prompt-injection defense; final truth of any memory object",
+      "bounded_claim_short": "under these conditions, one aoa-memo write path keeps source trust, ingestion risk, derivation lineage, action-safety separation, and reviewed landing gates visible enough that a candidate...",
+      "category": "boundary",
+      "comparison_surface": null,
+      "do_not_use_short": "the main question is recall precision or stale recall after landing; the main question is contradiction handling among existing memory objects",
+      "eval_path": "evals/boundary/aoa-memo-write-path-guardrails/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-memo-write-path-guardrails",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether aoa-memo write-path candidates preserve source trust, ingestion risk, derivation lineage, action-safety separation, and reviewed landing gates before durable memory.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "use_when_short": "a local memo candidate, export, or receipt is being prepared for reviewed",
+      "verdict_shape": "mixed",
+      "what_this_does_not_prove": "proof that memory poisoning is solved; proof that source content is true; permission to skip reviewed intake"
+    },
+    {
       "blind_spot_short": "contradiction handling quality; reviewed-candidate promotion discipline; future scar or retention readiness",
       "bounded_claim_short": "under these conditions, one concrete runtime-to-memo writeback act remained review-gated, provenance-visible, and recall-aligned from runtime closure into adopted memo visibility.",
       "category": "workflow",

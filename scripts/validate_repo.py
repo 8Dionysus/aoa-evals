@@ -1009,6 +1009,8 @@ AGENT_INDEX_REQUIRED_TOKENS = (
 AGENT_INDEX_DECISION_REQUIRED_TOKENS = (
     "Agent Index Chain Surface",
     "docs/AGENT_INDEX.md",
+    "docs/README.md",
+    "active mechanic parent",
     "repo -> authority class -> operation -> mechanic parent -> part -> payload -> validation",
     "route-card-only root districts",
     "Executable validation commands remain in the nearest `AGENTS.md`",
@@ -9010,6 +9012,18 @@ def validate_docs_readme_route_map(repo_root: Path) -> list[ValidationIssue]:
                 "Validation Route must stay after Recommended Reading Paths so reader paths remain contiguous",
             )
         )
+
+    topology_section = markdown_heading_section(text, "Topology And Route Maps")
+    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
+        token = f"../mechanics/{parent_name}/README.md"
+        if token not in topology_section:
+            issues.append(
+                ValidationIssue(
+                    "docs/README.md",
+                    "docs route map must include every active mechanic parent in Topology And Route Maps; "
+                    f"missing {token}",
+                )
+            )
 
     return issues
 

@@ -13,9 +13,32 @@ Start with the package README. Then read `mechanics/titan/DIRECTION.md` for curr
 This package routes Titan proof-seed boundary work. The current payloads are
 Titan seed canaries.
 
-It does not own Titan doctrine, runtime activation, summon authority, memory
-truth, executable scorer behavior, or full incarnation proof. In short, these
-route cards are not full incarnation proof.
+It keeps owner-named Titan boundary pressure seed-defined, falsifiable, and
+ready for later scorer or stronger-owner review. The current proof claim is
+seed-boundary only: not full incarnation proof.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | Titan proof-seed boundary route for Titan seed canaries |
+| input | seed canary YAML, mutation gate change, judgment gate change, canary docs, or `validate_titan_canary_surfaces` pressure |
+| output | seed-boundary update, validation route, scorer-readiness handoff, or stronger-owner Titan route |
+| owner | this package owns eval-side seed-boundary proof; stronger Titan doctrine and runtime owners keep summon, memory, incarnation, and activation law |
+| next route | `mechanics/titan/README.md`, `DIRECTION.md`, `PARTS.md`, seed-boundary docs, `mechanics/titan/parts/seed-boundary/seeds/AGENTS.md`, and affected `mechanics/titan/parts/seed-boundary/seeds/titan*.yaml` |
+| tools | root validator, semantic AGENTS validator, titan canary tests, `validate_titan_canary_surfaces` |
+| validation | this card's `Validation` section |
+
+## Owner Routes
+
+| Need | Owner route |
+| --- | --- |
+| seed canary payload | `mechanics/titan/parts/seed-boundary/seeds/titan*.yaml` |
+| mutation gate or judgment gate posture | seed-boundary docs and canary validation |
+| executable scorer behavior | later scorer contract before proof strengthening |
+| Titan doctrine, summon, incarnation, or runtime activation | stronger owner route outside `aoa-evals` |
+| memory truth | memory owner route before adoption |
+| legacy canary vocabulary | `mechanics/titan/PROVENANCE.md` and validator-backed compatibility path |
 
 ## Read before editing
 
@@ -44,14 +67,14 @@ route cards are not full incarnation proof.
 - Keep memory canaries candidate-only and source-ref oriented.
 - Keep named Titan language from collapsing into generic role shadows.
 
-## Boundaries
+## Route Rules
 
 - Keep seed YAML files inside this package unless a later decision creates a
   stronger source home.
-- Do not claim full incarnation proof from seed canaries.
-- Do not activate runtime, hidden arena, or live summon behavior.
-- Do not let Titan canaries override stronger owner law.
-- Do not change legacy canary vocabulary compatibility without a decision and
+- Keep seed canaries framed as not full incarnation proof.
+- Route runtime, hidden arena, and live summon behavior to stronger owners.
+- Keep Titan canaries below stronger owner law.
+- Change legacy canary vocabulary compatibility through a decision and
   validator-backed compatibility path.
 
 ## Validation

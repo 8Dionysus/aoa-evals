@@ -13,8 +13,32 @@ Start with the package README. Then read `mechanics/comparison-spine/DIRECTION.m
 This package routes baseline, peer-compare, and longitudinal-window proof
 operations.
 
-It does not own bundle meaning, generated truth, report results, promotion
-authority, or a repo-global score.
+It keeps comparison evidence aligned with source proof objects, fixture
+contracts, paired readouts, and generated comparison readers while preserving
+bundle-local interpretation.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | comparison route for baseline, peer-compare, and longitudinal-window proof operations |
+| input | `baseline_mode`, `comparison_surface`, fixture contract changes, paired readouts, and generated comparison reader drift |
+| output | source bundle alignment, part-local comparison fixture/readout route, generated reader check, or bundle-local review handoff |
+| owner | source proof bundle owns claim meaning; comparison-spine owns comparison shape and anti-overread route |
+| next route | `mechanics/comparison-spine/README.md`, `DIRECTION.md`, `PARTS.md`, affected part README, and affected source bundle |
+| tools | `build_catalog.py --check`, root validator, semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
+## Owner Routes
+
+| Need | Owner route |
+| --- | --- |
+| source claim meaning | affected `evals/**/EVAL.md` and `evals/**/eval.yaml` |
+| fixed baseline fixture/readout | `mechanics/comparison-spine/parts/fixed-baseline/` |
+| peer comparison fixture/readout | `mechanics/comparison-spine/parts/peer-compare/` |
+| longitudinal-window fixture/readout | `mechanics/comparison-spine/parts/longitudinal-window/` |
+| generated comparison reader | source bundle plus `python scripts/build_catalog.py --check` |
+| promotion, deprecation, or report interpretation | bundle-local review and release/report owner route |
 
 ## Read before editing
 
@@ -44,16 +68,18 @@ authority, or a repo-global score.
 - Keep fixed-baseline, peer-compare, and longitudinal-window semantics
   separate.
 - Keep style-only movement weaker than capability movement.
-- Keep `aoa-eval-integrity-check` as an integrity sidecar, not a promotion
-  shortcut.
+- Keep `aoa-eval-integrity-check` as an integrity sidecar below promotion
+  routes.
 
-## Boundaries
+## Route Rules
 
-- Do not hand-edit generated comparison readers as source truth.
-- Do not use one comparison result as broad growth proof.
-- Do not turn peer comparison into baseline by association.
-- Do not turn repeated-window movement into general capability growth.
-- Do not promote or deprecate bundles by editing this package.
+- Check generated comparison readers from source and builder output.
+- Treat one comparison result as bounded evidence for its declared comparison
+  posture.
+- Keep peer comparison, fixed baseline, and longitudinal-window semantics
+  distinct.
+- Route bundle promotion or deprecation through bundle-local review and release
+  surfaces.
 
 ## Validation
 

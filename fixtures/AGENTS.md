@@ -20,7 +20,19 @@ Comparison-spine fixture families now live under their active parts:
 - `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v2/`
 - `mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/`
 
-## Rules
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | compatibility route card for former root shared fixture families |
+| input | shared fixture lookup, old root fixture reference, or bundle support need |
+| output | owning mechanic fixture-family route |
+| owner | proof-infra fixture-family part or comparison-spine part |
+| next route | `mechanics/proof-infra/parts/fixture-families/fixtures/` or comparison-spine fixture parts |
+| tools | root validator and semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
+## Route Rules
 
 Keep each shared family weaker than the bundle-local EVAL.md meaning it supports.
 Preserve replacement guidance so another repo can keep the bounded claim surface when cases are swapped.

@@ -13,7 +13,19 @@ Active runner payload:
 
 - `mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md`
 
-## Rules
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | compatibility route card for shared runner contract paths |
+| input | runner contract lookup, old root runner reference, or bundle runner support need |
+| output | proof-infra reportable-contract runner route |
+| owner | `mechanics/proof-infra/parts/reportable-contracts/` |
+| next route | `mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md` |
+| tools | root validator and semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
+## Route Rules
 
 Keep runner contracts explicit about bounded inputs, shared fixture replacement, scorer helper use, and report schema validation.
 Bundle-local `evals/<family>/<eval>/runners/contract.json` files should point to the active

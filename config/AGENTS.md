@@ -10,7 +10,19 @@ Active root config payloads route to the operation that owns them:
 - Latest-sibling canary config lives under
   `mechanics/boundary-bridge/parts/latest-sibling-canary/config/`.
 
-## Rules
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | compatibility route card for root config paths |
+| input | root config lookup, historical config references, and selection posture questions |
+| output | owning mechanic config route |
+| owner | mechanic part that owns the config payload |
+| next route | `mechanics/agon/parts/*/config/` or `mechanics/boundary-bridge/parts/latest-sibling-canary/config/` |
+| tools | catalog builder, root validator, semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
+## Route Rules
 
 Config can influence which surfaces are built or selected. draft, bounded, and
 sidecar evals keep their bundle-local proof posture during config selection.

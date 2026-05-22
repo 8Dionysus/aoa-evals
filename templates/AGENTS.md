@@ -8,7 +8,19 @@ The active eval authoring template now lives at
 `templates/` is a route-card-only compatibility surface for historical template
 paths. Active template payloads route to proof-object eval authoring.
 
-## Rules
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | compatibility route card for historical template paths |
+| input | template lookup, old root template reference, or eval authoring scaffold change |
+| output | proof-object eval-authoring template route |
+| owner | `mechanics/proof-object/parts/eval-authoring/` |
+| next route | `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md` |
+| tools | root validator and semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
+## Route Rules
 
 Preserve the required headings, frontmatter keys, and placeholders unless the repository-wide eval contract changes.
 Keep `comparison_surface`, `shared_family_path`, `paired_readout_path`, and `integrity_sidecar` explicit in the template where comparison applies.

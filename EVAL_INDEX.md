@@ -114,7 +114,11 @@ Non-starter public bundles stay discoverable through
 their bundle-local source directories until they are intentionally promoted into
 the starter table.
 
-Memo pilot boundary: current memo starter and readout routes stay below future scar, retention, and live memory-ledger readiness.
+Memo pilot boundary: current memo starter and readout routes include recall,
+contradiction, writeback-act, reviewed-candidate adoption, and write-path
+guardrail surfaces. They stay below future scar, retention,
+live memory-ledger readiness, KAG/RAG/vector readiness, and broad memory-safety
+readiness.
 
 ## Planned public states
 

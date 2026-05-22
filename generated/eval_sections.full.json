@@ -1787,6 +1787,100 @@
       "verdict_shape": "mixed"
     },
     {
+      "category": "boundary",
+      "eval_path": "evals/boundary/aoa-memo-write-path-guardrails/EVAL.md",
+      "name": "aoa-memo-write-path-guardrails",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to check whether the memo write path is actually protected before\ncandidate material can become durable reviewed memory.\n\nThis draft bundle is a narrow diagnostic boundary eval.\n\nIt focuses on six nearby questions only:\n\n- are source trust and source refs visible before review?\n- are ingestion risks such as untrusted text, indirect prompt injection,\n  sleeper memory, poisoned experience, stale context, and permission leakage\n  marked before promotion?\n- is derivation lineage preserved when source text is rewritten into a memory\n  candidate?\n- is action-bearing source text kept as data rather than executable action?\n- does reviewed landing reject candidate-only, untrusted, missing-evidence, or\n  missing-receipt packets?\n- does MCP or a local memo port remain an access or forwarding plane rather\n  than becoming durable memory authority?\n\nIt is not a general memory-safety proof.\nIt is not a recall-quality bundle.\nIt is not a KAG, RAG, vector, or graph-truth bundle.\nIt is not an authorization or role-rights bundle outside memo write posture.\nIts current proof flow runs through `aoa-memo` write-path guardrail docs,\nreviewed-intake landing code and tests, local memo port packets, and the\nschema-backed companion report artifacts in this bundle.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks integrity of aoa-memo write-path guardrails on local candidate\nto reviewed corpus landing routes.\n\nPrimary surfaces under evaluation:\n\n- local memo candidate, receipt, and export posture before reviewed intake\n- write-path guardrail contract fields\n- reviewed-intake landing checks\n- durable reviewed corpus object creation\n- MCP and local port authority split\n- receipt and generated read-model visibility after landing\n\nNearby surfaces intentionally excluded:\n\n- recall precision after memory already exists\n- contradiction resolution after memory already exists\n- final truth of the source claim\n- role permission grants outside memo operation mode\n- KAG lift completion or vector retrieval quality\n- broad platform security claims",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these conditions, one aoa-memo write path keeps source trust, ingestion\nrisk, derivation lineage, action-safety separation, and reviewed landing gates\nvisible enough that a candidate cannot silently become durable reviewed memory.\n\nThis eval does not support claims such as:\n\n- memory poisoning is solved in general\n- every future local memo port is safe by default\n- MCP search, KAG edges, or vector retrieval can promote memory\n- source refs prove source truth\n- review receipts grant role authority\n- untrusted text may be executed because it appeared in a memory candidate",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a local memo candidate, export, or receipt is being prepared for reviewed\n  intake\n- the main question is whether a write path stayed bounded before durable\n  landing\n- source trust, ingestion risk, derivation lineage, or action-safety posture\n  matters to the claim being made\n- MCP, local memo ports, or landing scripts are involved in memory movement\n\nDo not use this eval when:\n\n- the main question is recall precision or stale recall after landing\n- the main question is contradiction handling among existing memory objects\n- the main question is final truth of the source claim\n- the case depends on private runtime evidence that cannot be inspected",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- `repo:aoa-memo/docs/boundaries/MEMORY_WRITE_PATH_GUARDRAILS.md`\n- `repo:aoa-memo/mechanics/operational-gate/docs/MEMORY_WRITE_PATH_GUARDRAILS.md`\n- `repo:aoa-memo/docs/posture/MEMORY_OPERATION_MODES.md`\n- `repo:aoa-memo/docs/memory/MEMORY_OPERATION_CYCLE.md`\n- `repo:aoa-memo/scripts/memory/land_reviewed_memo_intake.py`\n- `repo:aoa-memo/tests/memory/test_reviewed_intake_landing.py`\n- `repo:aoa-memo/memo/objects/audit-events/2026/reviewed-intake-evidence-guard/object.json`\n- `repo:aoa-memo/memo/intake/reviewed/abyss-stack.20260522T021004Z.aoa-memo-mcp-access-plane.reviewed-intake.json`\n- `repo:aoa-memo/memo/intake/receipts/20260522T021004Z.abyss-stack.abyss-stack-aoa-memo-mcp-access-plane.landing-receipt.json`\n- `repo:abyss-stack/mcp/services/aoa-memo-mcp/docs/THREAT_MODEL.md`",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "A strong starter case surface should include:\n\n- one reviewed-intake case where source refs, evidence refs, and receipt refs\n  remain inspectable\n- one blocked case where `candidate_only`, `untrusted`, missing evidence, or\n  missing receipt cannot land as corpus memory\n- one derivation-lineage case where rewritten candidate text stays tied to\n  source refs\n- one action-safety case where embedded instructions remain data\n- one authority-split case where MCP prepares, validates, or searches but does\n  not land durable memory directly\n\nFixtures should avoid:\n\n- hidden review logs that cannot be inspected\n- source truth claims stronger than the write-path evidence supports\n- treating absence of a poisoned payload as proof that poisoning is solved\n- turning local port validation into central memory authority\n\nThe current materialized local family is described in `fixtures/contract.json`.\nWhen a machine-readable proof surface is in use, local replacements should\npreserve the same six guardrail pressures: source trust, ingestion risk,\nderivation lineage, action-safety separation, durable landing gate, and\nauthority split.",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This eval prefers a summary-with-breakdown verdict.\n\nSuggested verdict classes:\n\n- `supports bounded claim`\n- `mixed support`\n- `does not support bounded claim`\n\nSuggested breakdown axes:\n\n- `source_trust_classification`\n- `ingestion_risk_marking`\n- `derivation_lineage`\n- `action_safety_separation`\n- `durable_landing_gate`\n- `authority_split`\n\nPer-case review should ask:\n\n- did the packet name its source and source trust before review?\n- did risky source text stay marked as data before any summary or rewrite?\n- did rewritten candidate material preserve derivation refs?\n- did the route keep action text separate from executable action?\n- did landing require reviewed-write posture, receipts, source refs, evidence\n  refs, and non-untrusted source trust?\n- did MCP or local port behavior stay weaker than aoa-memo durable authority?\n\n### Approve signals\n\nSignals toward `supports bounded claim`:\n\n- reviewed landing rejects untrusted, candidate-only, missing-source,\n  missing-evidence, and missing-receipt packets\n- source refs and evidence refs stay portable and inspectable\n- operation mode and review route are visible before write\n- action-bearing text is represented as source data, not executed\n- MCP surfaces only prepare, validate, search, or dry-run\n- durable memory appears only as aoa-memo source change plus validators\n\n### Degrade signals\n\nSignals toward `mixed support` or `does not support bounded claim`:\n\n- risk markers are prose-only and cannot be checked on packets\n- source refs disappear after summarization\n- local port or MCP receipt language sounds like durable review authority\n- action-bearing text can be copied into a candidate without a safety split\n- landing succeeds from untrusted or missing-evidence packets\n- generated read models are treated as write authority",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`.\n\nIt is the first narrow diagnostic write-path guardrail pilot.\n\nA later stronger form may compare:\n\n- two reviewed-intake landing revisions on the same poisoned and safe packet\n  family\n- MCP-only dry-run versus aoa-memo source landing on the same candidate\n- guardrail coverage before and after schema-backed risk markers become\n  required packet fields\n\nWithout a baseline, this bundle supports only modest claims about the current\nwrite-path guardrail surface.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n\n1. select one local memo port packet family and one aoa-memo landing path\n2. keep candidate, receipt, export, landing receipt, object, and generated read\n   model surfaces separately readable\n3. review the six guardrail axes before any top-line verdict\n4. publish a summary-with-breakdown artifact with explicit interpretation\n   limits\n\nExecution expectations:\n\n- do not judge final source truth\n- do not treat absence of adversarial input as poisoning resistance\n- do not let MCP review language replace aoa-memo reviewed landing\n- do not rely on hidden runtime stores when tracked packet or object surfaces\n  exist\n- when shipping a machine-readable report, validate it against\n  `reports/summary.schema.json`\n- keep the runner contract aligned with `runners/contract.json` so risk\n  marking, derivation lineage, landing gates, and authority split do not\n  collapse into one vague memory-safety story",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The eval should produce:\n\n- one bundle-level verdict\n- one breakdown across the six write-path axes\n- one note on the strongest current guardrail\n- one note on the strongest remaining write-path risk\n- one explicit interpretation boundary\n- an optional schema-backed companion report artifact at\n  `reports/example-report.json`",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "This eval can fail as an instrument when:\n\n- the case is really about recall precision instead of write-path safety\n- the reviewer treats source refs as source truth\n- a local validation receipt is read as durable memory review\n- a clean happy-path packet is used to imply poisoning resistance\n- KAG, RAG, vector, or generated retrieval surfaces are treated as memory\n  authority",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- general memory poisoning resistance\n- full indirect prompt-injection defense\n- final truth of any memory object\n- authorization safety outside memo operation mode\n- KAG, graph, RAG, or vector retrieval correctness\n- long-term forgetting or consolidation quality\n- live runtime memory safety outside tracked packet routes",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim:\nthe supplied memory write path preserved source trust, risk marking,\nderivation, action-safety posture, landing gates, and access-plane authority\nsplit on the inspected packet family.\n\nDo not treat a positive result as:\n\n- proof that memory poisoning is solved\n- proof that source content is true\n- permission to skip reviewed intake\n- permission to let MCP or generated read models promote memory\n- a general safety score for `aoa-memo`\n\nPair this bundle with `aoa-memo-recall-integrity`,\n`aoa-memo-contradiction-integrity`, or\n`aoa-memo-reviewed-candidate-adoption-integrity` when the main question moves\nfrom write-path guardrails into recall, contradiction posture, or adoption\nvisibility.",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "For this bundle:\n\n```bash\npython scripts/validate_repo.py --eval aoa-memo-write-path-guardrails\n```\n\nFor generated readers:\n\n```bash\npython scripts/build_catalog.py --check\npython scripts/generate_eval_report_index.py --check\n```",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "No source-owned technique dependency is claimed yet.\n\nFuture technique extraction, if any, should land in `aoa-techniques` before it\nis referenced here.",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "No agent-facing skill dependency is claimed yet.\n\nThis bundle may be used beside change, contract-test, or security-review\nskills, but it does not define or activate those skills.",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "Project overlays may add:\n\n- concrete local memo candidate, receipt, and export packets\n- poisoned, sleeper-memory, stale-context, and prompt-injection fixture cases\n- stricter packet schemas for risk markers and derivation lineage\n- reviewed landing dry-run outputs from `aoa_memo`\n- KAG or RAG bridge handoff cases that remain downstream of reviewed memory\n- comparison baselines for future guardrail revisions",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "mixed"
+    },
+    {
       "category": "workflow",
       "eval_path": "evals/workflow/aoa-memo-writeback-act-integrity/EVAL.md",
       "name": "aoa-memo-writeback-act-integrity",

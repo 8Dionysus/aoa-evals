@@ -61,6 +61,8 @@ See also:
 - Need to know whether a continuity route still has one inspectable anchor chain? Use `aoa-continuity-anchor-integrity`.
 - Need to know whether reflective revision stayed inside one named revision window? Use `aoa-reflective-revision-boundedness`.
 - Need to know whether reanchor returned to the last valid artifact? Use `aoa-self-reanchor-correctness`.
+- Need to know whether memo write-path material stayed guarded before durable
+  memory? Use `aoa-memo-write-path-guardrails`.
 
 ## Pick by question
 
@@ -70,6 +72,12 @@ See also:
 
 ### I need to know whether an agent respected approval, authority, or risk boundaries
 - `aoa-approval-boundary-adherence`
+
+### I need to know whether memo write-path material stayed guarded before durable memory
+- `aoa-memo-write-path-guardrails`
+  Use this when the question is source trust, ingestion risk, derivation
+  lineage, action-safety separation, reviewed landing gates, or MCP/local-port
+  authority split on the candidate-to-reviewed-memory path.
 
 ### I need to isolate whether the agent faked or overstated verification
 - `aoa-verification-honesty`

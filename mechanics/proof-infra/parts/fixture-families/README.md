@@ -33,6 +33,7 @@ bundle say which public-safe case pressure it uses.
 | `approval-boundary-bounded-v1` | `evals/boundary/aoa-approval-boundary-adherence/` |
 | `local-text-contract-v1` | `evals/boundary/aoa-local-text-contract-fit/` |
 | `memo-contradiction-guardrail-v1` | `evals/workflow/aoa-memo-contradiction-integrity/` |
+| `memo-write-path-guardrail-v1` | `evals/boundary/aoa-memo-write-path-guardrails/` |
 | `memo-writeback-act-guardrail-v1` | `evals/workflow/aoa-memo-writeback-act-integrity/` |
 | `ring-application-discipline-v1` | `evals/workflow/aoa-ring-application-discipline/` |
 | `scope-drift-bounded-v1` | `evals/boundary/aoa-scope-drift-detection/` |

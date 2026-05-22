@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-memo-write-path-guardrails summary-with-breakdown report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "breakdown",
+    "strongest_guardrail_signal",
+    "strongest_write_path_risk",
+    "case_notes"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-memo-write-path-guardrails"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "integrity of aoa-memo write-path guardrails on local candidate to reviewed corpus landing routes"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 10
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 10
+    },
+    "breakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_trust_classification",
+        "ingestion_risk_marking",
+        "derivation_lineage",
+        "action_safety_separation",
+        "durable_landing_gate",
+        "authority_split"
+      ],
+      "properties": {
+        "source_trust_classification": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "ingestion_risk_marking": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "derivation_lineage": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "action_safety_separation": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "durable_landing_gate": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        },
+        "authority_split": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak"
+          ]
+        }
+      }
+    },
+    "strongest_guardrail_signal": {
+      "type": "string",
+      "minLength": 20
+    },
+    "strongest_write_path_risk": {
+      "type": "string",
+      "minLength": 20
+    },
+    "case_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "read_path",
+          "guardrail_reading",
+          "trust_note",
+          "risk_note",
+          "lineage_note",
+          "action_note",
+          "result_note"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "read_path": {
+            "type": "string",
+            "minLength": 10
+          },
+          "guardrail_reading": {
+            "type": "string",
+            "enum": [
+              "supports bounded claim",
+              "mixed support",
+              "does not support bounded claim"
+            ]
+          },
+          "trust_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "risk_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "lineage_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "action_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "result_note": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    }
+  }
+}

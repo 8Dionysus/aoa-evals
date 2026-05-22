@@ -15,6 +15,30 @@ Quests are obligation-return surfaces. They track missing proof, regression
 gaps, verdict-bridge debt, proof-pressure harvest candidates, and owner
 handoffs that still need a bounded next route.
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | source quest record district for deferred proof obligations |
+| input | missing proof, regression gap, verdict-bridge debt, proof-pressure harvest candidate, lifecycle state change, or owner handoff |
+| output | schema-backed YAML source record, `QUESTBOOK.md` open-obligation route, generated quest dispatch reader, or source eval package route |
+| owner | `quests/` owns source quest records; `QUESTBOOK.md` owns the human open-obligation index; `mechanics/questbook/` owns the operation package |
+| next route | `quests/<lane>/<state>/`, `QUESTBOOK.md`, `quests/LIFECYCLE.md`, `mechanics/questbook/`, generated quest readers, or source eval packages under `evals/` |
+| tools | catalog builder, root validator, semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
+## Owner Routes
+
+| Need | Owner route |
+| --- | --- |
+| source quest records | `quests/<lane>/<state>/*.yaml` |
+| lifecycle meaning | `quests/LIFECYCLE.md` |
+| open-obligation index | `QUESTBOOK.md` |
+| source-record contract | `mechanics/questbook/parts/source-record-contract/` |
+| generated quest files as dispatch readers | `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, and the catalog builder |
+| source eval meaning | `evals/**/EVAL.md` and `eval.yaml` |
+| legacy path vocabulary | provenance or decision surfaces named by the affected route |
+
 ## Read before editing
 
 1. root `AGENTS.md`
@@ -27,7 +51,7 @@ handoffs that still need a bounded next route.
 8. `mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json`
 9. `docs/decisions/0004-questbook-topology.md`
 
-## Boundaries
+## Route Rules
 
 - `quests/<lane>/<state>/*.yaml` are source quest records.
 - `QUESTBOOK.md` is the human index of open obligations.

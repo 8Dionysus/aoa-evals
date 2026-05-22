@@ -9975,6 +9975,38 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_mechanic_part_readmes_reject_stale_stop_line_lead_ins(
+        self, tmp_path: Path
+    ) -> None:
+        readme_name = validate_repo.ANTIFRAGILITY_REPAIR_PROOF_PART_README_NAME
+        copy_repo_text(tmp_path, readme_name)
+        readme_path = tmp_path / readme_name
+
+        for stale_lead_in in validate_repo.MECHANIC_PART_README_STALE_STOP_LINE_LEAD_INS:
+            readme_path.write_text(
+                readme_path.read_text(encoding="utf-8").replace(
+                    validate_repo.MECHANIC_PART_README_STOP_LINE_LEAD_IN,
+                    stale_lead_in,
+                ),
+                encoding="utf-8",
+            )
+
+            issues = validate_repo.validate_mechanics_surfaces(tmp_path)
+
+            assert any(
+                issue.location == readme_name
+                and "old part-claim scaffold" in issue.message
+                for issue in issues
+            )
+
+            readme_path.write_text(
+                readme_path.read_text(encoding="utf-8").replace(
+                    stale_lead_in,
+                    validate_repo.MECHANIC_PART_README_STOP_LINE_LEAD_IN,
+                ),
+                encoding="utf-8",
+            )
+
     def test_checkpoint_part_readmes_reject_stale_root_fixture_path(
         self, tmp_path: Path
     ) -> None:

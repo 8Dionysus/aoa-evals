@@ -46,7 +46,8 @@ bundle-local interpretation for `aoa-a2a-summon-return-checkpoint`.
 
 ## Stop-Lines
 
-This part must not claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - checkpoint doctrine;
 - A2A control-plane implementation;

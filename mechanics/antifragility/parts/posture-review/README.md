@@ -42,7 +42,8 @@ shape, blind spots, and bundle-local interpretation for
 
 ## Stop-Lines
 
-This part must not claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - repo-global resilience;
 - repeated-window improvement;

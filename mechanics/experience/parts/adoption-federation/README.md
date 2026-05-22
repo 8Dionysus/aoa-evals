@@ -48,7 +48,8 @@ fixture family anymore; it routes through
 
 ## Stop-Lines
 
-This part must not claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - owner-local adoption;
 - owner consent;

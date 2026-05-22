@@ -51,7 +51,8 @@ claim limits for `aoa-candidate-lineage-integrity`.
 
 ## Stop-Lines
 
-This part must not claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - owner-fit routing proof;
 - final object quality or final owner-object quality;

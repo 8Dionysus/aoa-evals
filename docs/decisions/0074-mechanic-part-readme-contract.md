@@ -38,6 +38,11 @@ Each part README must contain:
 - `## Stop-Lines`
 - `## Validation`
 
+The `## Stop-Lines` section uses the active lead-in
+`Boundary: this part supports its local proof operation. These claims stay outside the part:`.
+This keeps the section as an operational proof boundary instead of a bare
+prohibition scaffold.
+
 The same guard also rejects an orphan part by requiring the parent `PARTS.md` to
 route each concrete part by README path or exact backticked part slug.
 
@@ -53,6 +58,8 @@ evals-native growth without recreating wrong parent forms.
 ## Consequences
 
 - Positive: new parts cannot silently appear as unreviewed topology.
+- Positive: part stop-lines now open with the local proof-operation boundary
+  they protect, so low-context agents can read the role before the exclusions.
 - Tradeoff: experimental part directories need a README contract before they can
   live under active mechanics.
 - Follow-up: part-specific validators still add stronger local invariants where
@@ -68,5 +75,6 @@ surfaces.
 
 ## Validation
 
+- `python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readmes_reject_stale_stop_line_lead_ins`
 - `python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readme_contract`
 - `python scripts/validate_repo.py`

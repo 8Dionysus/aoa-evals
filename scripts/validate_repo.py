@@ -1224,6 +1224,14 @@ MECHANIC_PART_README_REQUIRED_TOKENS = (
     "## Stop-Lines",
     "## Validation",
 )
+MECHANIC_PART_README_STOP_LINE_LEAD_IN = (
+    "Boundary: this part supports its local proof operation. These claims stay outside\n"
+    "the part:"
+)
+MECHANIC_PART_README_STALE_STOP_LINE_LEAD_INS = (
+    "This part must not claim:",
+    "Do not use this part to claim:",
+)
 MECHANIC_PART_README_CONTRACT_DECISION_NAME = (
     "docs/decisions/0074-mechanic-part-readme-contract.md"
 )
@@ -16649,6 +16657,14 @@ def validate_mechanic_part_readme_contract_surfaces(
                 tokens=MECHANIC_PART_README_REQUIRED_TOKENS,
                 issues=issues,
             )
+            for stale_lead_in in MECHANIC_PART_README_STALE_STOP_LINE_LEAD_INS:
+                if readme_text and stale_lead_in in readme_text:
+                    issues.append(
+                        ValidationIssue(
+                            readme_name,
+                            "mechanic part README must introduce Stop-Lines as a local proof-operation boundary, not the old part-claim scaffold",
+                        )
+                    )
             source_refs = mechanic_part_source_surface_refs(readme_text)
             if readme_text and "## Source Surfaces" in readme_text and not source_refs:
                 issues.append(

@@ -54,7 +54,8 @@ refs should be reviewed for each sibling-owned Phase Alpha run.
 
 ## Stop-Lines
 
-Do not use this part to claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - a Phase Alpha run passed an eval;
 - `aoa-playbooks` accepted local eval interpretation;

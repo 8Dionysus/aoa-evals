@@ -49,7 +49,8 @@ repair quality evidence and owner-object quality.
 
 ## Stop-Lines
 
-This part must not claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - final owner-object quality proof;
 - permanent stability;

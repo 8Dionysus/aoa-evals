@@ -55,7 +55,8 @@ claim limits for `aoa-owner-fit-routing-quality`.
 
 ## Stop-Lines
 
-This part must not claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - final owner-object quality;
 - owner-local acceptance, activation, or future maintenance;

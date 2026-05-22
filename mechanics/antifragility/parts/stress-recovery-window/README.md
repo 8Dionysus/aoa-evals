@@ -48,7 +48,8 @@ for `aoa-stress-recovery-window`.
 
 ## Stop-Lines
 
-This part must not claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - federation-wide resilience;
 - live health or runtime recovery authority;

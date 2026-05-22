@@ -52,7 +52,8 @@ example posture, unlock-card interpretation, cautions, and claim limits.
 
 ## Stop-Lines
 
-This part must not claim:
+Boundary: this part supports its local proof operation. These claims stay outside
+the part:
 
 - quest completion or quest acceptance;
 - universal rank or one global score;

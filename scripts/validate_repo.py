@@ -269,7 +269,7 @@ GENERATED_READER_INDEX_REQUIRED_TOKENS = (
 )
 GENERATED_AGENTS_REQUIRED_TOKENS = (
     "repo-wide derived reader surfaces only",
-    "No generated file is source-owned doctrine",
+    "Authored source surfaces keep doctrine",
     "generated/quest_catalog.min.json",
     "generated/quest_dispatch.min.json",
     "generated/quest_catalog.min.example.json",

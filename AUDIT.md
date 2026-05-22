@@ -2,8 +2,10 @@
 
 This file maps the repo-local audit surfaces for `aoa-evals`.
 
-It is not the route law, approval gate, validation command lane, review severity
-contract, or report-shape contract. Those live in [AGENTS.md](AGENTS.md).
+The audit route in [`AGENTS.md#audit-and-review-route`](AGENTS.md#audit-and-review-route) owns route law,
+approval gates, review severity, and report shape.
+[`AGENTS.md#verify`](AGENTS.md#verify) owns the shortest executable validation
+lane. Route cards own the commands.
 
 Read it after `AGENTS.md` when the work needs audit or review orientation.
 

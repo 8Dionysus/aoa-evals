@@ -5,17 +5,16 @@
 `QUESTBOOK.md` is the public human obligation index for deferred proof, regression, and
 verdict-bridge obligations that belong to `aoa-evals`.
 
-It is not the roadmap, not an eval bundle, not a generated dispatch surface, and
-not a live verdict authority.
+Adjacent routes:
 
-- Direction lives in [ROADMAP.md](ROADMAP.md).
-- Source quest records live in `quests/<lane>/<state>/*.yaml`.
-- Quest topology guidance lives in `quests/README.md` and
-  `quests/AGENTS.md`.
-- Quest lifecycle meaning lives in `quests/LIFECYCLE.md`.
-- Generated quest readers live in `generated/quest_catalog.min.json` and
-  `generated/quest_dispatch.min.json`.
-- Proof meaning lives in `evals/**/EVAL.md` and `evals/**/eval.yaml`.
+| Concern | Owner route |
+| --- | --- |
+| Direction | [ROADMAP.md](ROADMAP.md) |
+| Source quest records | `quests/<lane>/<state>/*.yaml` |
+| Quest topology guidance | `quests/README.md` and `quests/AGENTS.md` |
+| Quest lifecycle meaning | `quests/LIFECYCLE.md` |
+| Generated quest readers | `generated/quest_catalog.min.json` and `generated/quest_dispatch.min.json` |
+| Proof meaning | `evals/**/EVAL.md` and `evals/**/eval.yaml` |
 
 ## Use It For
 
@@ -27,13 +26,13 @@ not a live verdict authority.
 - proof-pressure ingress that needs a return route before it becomes an eval
   bundle, decision, mechanic, or release item.
 
-Do not use it for:
+Route elsewhere for:
 
-- a pile of one-off benchmark ideas;
+- one-off benchmark ideas;
 - private evaluator notes;
-- replacing the meaning of an eval bundle;
-- turning every local test tweak into a tracked quest;
-- treating generated quest readers as portable verdict authority.
+- bundle-local proof meaning;
+- local test tweaks without durable proof pressure;
+- generated dispatch or portable verdict authority.
 
 ## Current Open Obligations
 

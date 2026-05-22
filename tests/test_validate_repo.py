@@ -5835,6 +5835,36 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_legacy_naming_rejects_negative_role_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            validate_repo.LEGACY_NAMING_NAME,
+            "docs/decisions/0009-legacy-naming-containment.md",
+            validate_repo.LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
+            validate_repo.LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
+            "docs/decisions/README.md",
+            "README.md",
+            validate_repo.PROOF_TOPOLOGY_NAME,
+            "ROADMAP.md",
+            "CHANGELOG.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        legacy_path = tmp_path / validate_repo.LEGACY_NAMING_NAME
+        legacy_path.write_text(
+            legacy_path.read_text(encoding="utf-8")
+            + "\nIt is not an archive map.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_legacy_naming_surfaces(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.LEGACY_NAMING_NAME
+            and "concrete legacy-name inventories" in issue.message
+            for issue in issues
+        )
+
     def test_legacy_naming_rejects_external_archive_accounting_detail(
         self, tmp_path: Path
     ) -> None:
@@ -6134,6 +6164,37 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_root_design_surfaces_reject_negative_architecture_role_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            "DESIGN.md",
+            "DESIGN.AGENTS.md",
+            "AGENTS.md",
+            "docs/ARCHITECTURE.md",
+            "docs/decisions/README.md",
+            "docs/decisions/TEMPLATE.md",
+            "docs/decisions/AGENTS.md",
+            validate_repo.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+            validate_repo.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        ):
+            copy_repo_text(tmp_path, path_name)
+        architecture_path = tmp_path / "docs" / "ARCHITECTURE.md"
+        architecture_path.write_text(
+            architecture_path.read_text(encoding="utf-8")
+            + "\nIt is not the system design thesis.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_root_design_surfaces(tmp_path)
+
+        assert any(
+            issue.location == "docs/ARCHITECTURE.md"
+            and "positive" in issue.message
+            and "It is not the system design thesis" in issue.message
+            for issue in issues
+        )
+
     def test_design_agents_rejects_future_mechanic_package_wording(
         self, tmp_path: Path
     ) -> None:
@@ -6190,6 +6251,31 @@ class TestValidateQuestRouteSurfaces:
             issue.location == validate_repo.PROOF_TOPOLOGY_NAME
             and "active mechanics" in issue.message
             and "mechanic-ready operations" in issue.message
+            for issue in issues
+        )
+
+    def test_proof_topology_rejects_negative_role_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            validate_repo.PROOF_TOPOLOGY_NAME,
+            "docs/decisions/0005-proof-topology-map.md",
+            "ROADMAP.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        topology_path = tmp_path / validate_repo.PROOF_TOPOLOGY_NAME
+        topology_path.write_text(
+            topology_path.read_text(encoding="utf-8")
+            + "\nIt is not the roadmap.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_proof_topology_surfaces(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.PROOF_TOPOLOGY_NAME
+            and "active mechanics" in issue.message
+            and "It is not the roadmap" in issue.message
             for issue in issues
         )
 

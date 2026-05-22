@@ -378,7 +378,7 @@ ARCHITECTURE_PROOF_MODEL_COMMAND = (
 )
 ARCHITECTURE_REQUIRED_TOKENS = (
     "technical proof model",
-    "not the system design thesis",
+    "Use this file for the proof model",
     "DESIGN.md",
     "docs/PROOF_TOPOLOGY.md",
     "mechanics/EVIDENCE_CLUSTERS.md",
@@ -391,6 +391,11 @@ ARCHITECTURE_REQUIRED_TOKENS = (
     "Artifact forms",
     "PROVENANCE.md",
     "single controlled bridge",
+)
+ARCHITECTURE_FORBIDDEN_NEGATIVE_ROLE_TOKENS = (
+    "It is not the system design thesis",
+    "but they are not themselves eval bundles",
+    "but they are not themselves proof surfaces",
 )
 ARCHITECTURE_PROOF_MODEL_DECISION_REQUIRED_TOKENS = (
     "Architecture Proof Model Contract",
@@ -502,6 +507,8 @@ PROOF_TOPOLOGY_FORBIDDEN_STALE_MECHANIC_WORDING = (
     "while Phase 4 maps the topology",
     "before mechanics growth starts from a root path",
     "A future `mechanics/` package",
+    "It is not the roadmap",
+    "The goal is not a decorative tree",
 )
 PROOF_TOPOLOGY_DECISION_FORBIDDEN_STALE_MECHANIC_WORDING = (
     "mechanic-ready operations",
@@ -556,6 +563,8 @@ LEGACY_NAMING_REQUIRED_TOKENS = (
     "Boundary Rules",
 )
 LEGACY_NAMING_FORBIDDEN_DETAIL_TOKENS = (
+    "It is not an archive map",
+    "Do not put legacy archive details in this file",
     "## Current Active Owners",
     "Wrong parent forms such as",
     "`agon-proof`",
@@ -9089,7 +9098,7 @@ def validate_root_design_surfaces(repo_root: Path) -> list[ValidationIssue]:
         tokens=ROOT_DESIGN_REQUIRED_TOKENS,
         issues=issues,
     )
-    require_tokens(
+    architecture_text = require_tokens(
         repo_root=repo_root,
         path_name="docs/ARCHITECTURE.md",
         tokens=ARCHITECTURE_REQUIRED_TOKENS,
@@ -9155,6 +9164,16 @@ def validate_root_design_surfaces(repo_root: Path) -> list[ValidationIssue]:
                     ValidationIssue(
                         DESIGN_NAME,
                         f"root design must describe active mechanic authority, not stale preparatory wording '{stale_phrase}'",
+                    )
+                )
+    if architecture_text:
+        for stale_phrase in ARCHITECTURE_FORBIDDEN_NEGATIVE_ROLE_TOKENS:
+            if stale_phrase in architecture_text:
+                issues.append(
+                    ValidationIssue(
+                        "docs/ARCHITECTURE.md",
+                        "architecture should route related surfaces positively instead of stale negative role scaffold "
+                        f"'{stale_phrase}'",
                     )
                 )
     if design_agents_text:

@@ -4,10 +4,11 @@
 
 `docs/ARCHITECTURE.md` explains the technical proof model of `aoa-evals`.
 
-It is not the system design thesis, proof topology map, roadmap, decision log,
-generated catalog, or mechanic evidence ledger. Use `DESIGN.md` for the
-repository shape, `docs/PROOF_TOPOLOGY.md` for authority classes, and
-`mechanics/EVIDENCE_CLUSTERS.md` before creating or moving mechanic packages.
+Use this file for the proof model. Use `DESIGN.md` for repository shape,
+`docs/PROOF_TOPOLOGY.md` for authority classes, `ROADMAP.md` for sequencing,
+`docs/decisions/` for rationale, generated catalogs for compact projections,
+and `mechanics/EVIDENCE_CLUSTERS.md` before creating or moving mechanic
+packages.
 
 ## Purpose
 
@@ -26,13 +27,15 @@ It is the proof layer in the AOA public surface.
 A technique is a minimal reproducible unit of engineering practice.
 
 Techniques may inform evaluation design, scoring discipline, rollout posture, or interpretation,
-but they are not themselves eval bundles.
+while eval bundles carry the portable proof claim.
 
 ### Skills
 
 A skill is an agent-facing execution bundle.
 
-Skills may be one object under evaluation, but they are not themselves proof surfaces.
+Skills may be one object under evaluation. Their execution meaning stays with
+the skill owner; `aoa-evals` reviews only the bounded proof claim it can
+support.
 
 ### Eval bundles
 
@@ -49,19 +52,19 @@ It packages:
 - blind spots and interpretation limits
 
 An eval bundle may rely on one technique, several techniques, one skill, several skills, or none of them directly.
-Its primary responsibility is not execution and not technique canonization.
-Its primary responsibility is reproducible bounded proof.
+Its primary responsibility is reproducible bounded proof. Execution and
+technique canonization stay with the owning skill and technique layers.
 
 ### Mechanics
 
 A mechanic is a recurring proof-layer operation with its own inputs, outputs,
 stronger-owner split, stop-lines, and validation.
 
-Mechanics do not replace eval bundles. They organize the reusable proof
-machinery around bundles: authoring contracts, comparison spines, shared proof
-infrastructure, receipt sidecars, quest obligations, audit intake, boundary
-bridges, and AoA-aligned proof support such as Agon, recurrence, checkpoint,
-Experience, antifragility, method-growth, RPG, growth-cycle, and distillation.
+Mechanics organize reusable proof machinery around source eval packages:
+authoring contracts, comparison spines, shared proof infrastructure, receipt
+sidecars, quest obligations, audit intake, boundary bridges, and AoA-aligned
+proof support such as Agon, recurrence, checkpoint, Experience,
+antifragility, method-growth, RPG, growth-cycle, and distillation.
 
 Legacy inside a mechanic is provenance behind the active route. Active work
 starts from the parent route, part contracts, and validators; `PROVENANCE.md`

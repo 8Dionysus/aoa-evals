@@ -4,9 +4,9 @@ Checkpoint in `aoa-evals` should make return, restart, and self-agent
 checkpoint pressure reviewable as bounded proof without implementing checkpoint
 runtime or memory canon.
 
-This file owns the current operating direction only. It does not replace the
-entry card, part map, part contracts, source bundles, decisions, or provenance
-bridge.
+Use this file for the package's current operating direction: read it after the
+parent entry card and before `PARTS.md`, part contracts, source bundles,
+decision records, and `PROVENANCE.md`.
 
 ## Source-of-truth split
 

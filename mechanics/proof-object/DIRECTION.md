@@ -3,9 +3,9 @@
 Proof Object in `aoa-evals` should keep source eval bundles complete, bounded,
 and stronger than generated readers, reports, receipts, and release language.
 
-This file owns the current operating direction only. It does not replace the
-entry card, part map, part contracts, source eval packages, decisions, or provenance
-bridge.
+Use this file for the package's current operating direction: read it after the
+parent entry card and before `PARTS.md`, part contracts, source eval packages,
+decision records, and `PROVENANCE.md`.
 
 ## Source-of-truth split
 

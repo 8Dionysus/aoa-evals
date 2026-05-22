@@ -43,7 +43,9 @@ REQUIRED_AGENTS: dict[str, tuple[str, ...]] = {
         "generated/eval_capsules.json",
         "generated/comparison_spine.json",
         "generated/eval_sections.full.json",
-        "Do not hand-edit",
+        "Operating Card",
+        "Regenerate files with the owning builder",
+        "Storage Route",
         "python scripts/build_catalog.py",
     ),
     "fixtures/AGENTS.md": (

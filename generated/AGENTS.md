@@ -1,12 +1,13 @@
 # AGENTS.md
 
-Local guidance for `generated/`.
+Local route card for `generated/`.
 
 ## Purpose
 
 `generated/` stores repo-wide derived reader surfaces only. Package-owned
 generated companions live under their mechanic part and follow the same
-derived-surface posture. No generated file is source-owned doctrine.
+derived-surface posture. Authored source surfaces keep doctrine; generated
+files remain derived readers.
 
 Use [README.md](README.md) for the generated reader index. This card owns edit
 law and validation posture.
@@ -19,10 +20,21 @@ The root reader names guarded here are `generated/eval_catalog.json`,
 `generated/quest_catalog.min.example.json`, and
 `generated/quest_dispatch.min.example.json`.
 
-## Rules
+## Operating Card
 
-Do not hand-edit files in this directory.
-Regenerate them with the owning builder:
+| Field | Route |
+| --- | --- |
+| role | repo-wide derived reader district |
+| input | source eval packages, quest source records, reports, mechanic payloads, and builder inputs |
+| output | compact reader surfaces for agents, validators, and tools |
+| owner | source surfaces and builders named in `generated/README.md` |
+| next route | source bundle, quest record, report, mechanic part, or builder check |
+| tools | catalog builder, report-index builder, candidate-reader builders, phase-alpha matrix builder |
+| validation | this card's `Validation` section |
+
+## Edit Route
+
+Regenerate files with the owning builder:
 
 - `python scripts/build_catalog.py`
 - `python scripts/generate_eval_report_index.py`
@@ -54,10 +66,14 @@ python scripts/validate_repo.py
 Use source-owner checks as well when generated drift comes from bundle, quest,
 report, or mechanic payload changes.
 
-## Do not store
+## Storage Route
 
-- new claim wording
-- hidden provenance
-- repo-local scratch notes
-- receipt authority
-- runtime acceptance
+Store only derived reader payloads and public-safe examples here.
+
+| Need | Owner route |
+| --- | --- |
+| new claim wording | bundle-local `EVAL.md` and `eval.yaml` |
+| provenance | owning mechanic `PROVENANCE.md`, `legacy/`, or decision record |
+| scratch notes | local task workspace, not checked-in generated readers |
+| receipt authority | publication-receipts mechanic or bundle-local report surface |
+| runtime acceptance | runtime owner or audit intake surface before proof adoption |

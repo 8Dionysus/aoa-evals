@@ -139,18 +139,17 @@ PR exists, current git and GitHub state supersedes the snapshot for live status.
 
 ## Boundaries
 
-- Do not batch unrelated proof changes into one release because the audit is
-  green.
-- Do not let `scripts/release_check.py` replace bundle-local review.
-- Do not publish a tag or GitHub release from this package route alone.
-- Do not treat a readiness audit as a published release.
-- Do not turn release notes into eval verdict authority.
-- Do not use `CHANGELOG.md` to rewrite source proof meaning.
-- Do not weaken validation to make a release pass.
-- Do not claim current sibling compatibility unless the relevant canary or CI
-  path was run.
-- Do not use repo-prefixed release titles when the repo's human-facing release
-  convention expects a plain tag such as `v0.3.3`.
+| Pressure | Release-support route |
+| --- | --- |
+| green local audit with unrelated proof changes | keep the release scope bounded; route unrelated proof work through its owning bundle, mechanic, or PR |
+| `scripts/release_check.py` result | use it as release audit evidence below bundle-local review |
+| tag or GitHub release publication | use the explicit release route after the release-prep change lands on `main` |
+| readiness audit | read it as local release-prep evidence, with live publication status owned by current git, GitHub, tag, and release state |
+| release notes | carry public narrative while source proof objects keep verdict authority |
+| `CHANGELOG.md` | carry release narrative without rewriting source proof meaning |
+| failing release gate | repair evidence, scope, generated freshness, or checks before publication |
+| sibling compatibility claim | cite the current relevant CI or latest-sibling canary evidence |
+| release title | use the human-facing plain tag shape, for example `v0.3.3` |
 
 ## Validation
 

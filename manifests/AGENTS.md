@@ -14,7 +14,19 @@ describe:
 - Portable proof beacon manifests live under
   `mechanics/recurrence/parts/portable-proof-beacons/manifests/`.
 
-## Rules
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | compatibility route card for root manifest paths |
+| input | manifest lookup, component lifecycle route, or historical root manifest reference |
+| output | owning mechanic part manifest route |
+| owner | mechanic part whose lifecycle the manifest describes |
+| next route | Agon part manifests or recurrence part manifests |
+| tools | root validator and semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
+## Route Rules
 
 Root recurrence manifest aliases route through the owning mechanic
 `PROVENANCE.md`; the owning legacy archive explains itself after that bridge.

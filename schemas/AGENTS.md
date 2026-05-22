@@ -13,7 +13,19 @@ Active schema payloads route to mechanic-local owners:
 - Shared fixture, runner, and report-summary contract schemas live under
   `mechanics/proof-infra/parts/reportable-contracts/schemas/`.
 
-## Rules
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | compatibility route card for root schema contract paths |
+| input | schema lookup, old root schema reference, or proof contract edit |
+| output | mechanic-local schema owner route |
+| owner | questbook, proof-object eval-contracts, or proof-infra reportable-contracts part |
+| next route | owning mechanic part schema directory |
+| tools | examples, validator updates, docs, root validator, semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
+## Route Rules
 
 Schema edits are proof contract edits. Preserve `$schema`, stable identifier posture, required fields, enums, and descriptions that keep verdict interpretation bounded.
 

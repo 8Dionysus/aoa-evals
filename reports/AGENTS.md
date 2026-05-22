@@ -9,7 +9,19 @@ Active report payloads route to the owning bundle or mechanic part unless an
 explicit topology decision and validator allowlist update establishes a new
 root route.
 
-## Rules
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | compatibility route card for former root report payloads |
+| input | report lookup, historical root report reference, or report placement question |
+| output | bundle-local, mechanic-part, or explicit root-allowlisted report route |
+| owner | bundle, mechanic part, or topology decision plus validator allowlist |
+| next route | bundle-local `reports/`, mechanic part `reports/`, or allowlisted root route |
+| tools | touched runner/scorer route, root validator, semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
+## Route Rules
 
 Active reports are bounded outputs. They must name the
 object under evaluation, the fixture or case coverage, blind spots, scoring

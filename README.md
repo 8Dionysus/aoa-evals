@@ -87,23 +87,16 @@ The active public runtime path remains:
 
 `pick -> inspect -> expand -> object use`
 
-## Evidence Anchors
+## Evidence And Handoff
 
-These anchors are entry points, not replacements for their owning mechanics:
+Root entry stays route-level. Detailed evidence anchors live in
+[docs/README.md#mechanic-and-evidence-anchors](docs/README.md#mechanic-and-evidence-anchors)
+and in the owning mechanic cards.
 
-- first bundle-local proof-loop report:
-  `evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json`
-- receipt-intake dry review:
-  `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`
-- release-support readiness audit:
-  `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json`
-- strategic closeout audit:
-  `mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json`
-- release-prep PR handoff:
-  `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json`
-
-Receipt, runtime, sibling, trace, and release-support artifacts remain evidence
-or handoff surfaces until a bundle-local review accepts a bounded interpretation.
+Use [generated/README.md](generated/README.md) for compact readers,
+[mechanics/README.md](mechanics/README.md) for operation-owned reports,
+receipts, runtime candidates, sibling refs, and release support, and
+bundle-local `reports/` only after the source eval claim is clear.
 
 ## Validation
 

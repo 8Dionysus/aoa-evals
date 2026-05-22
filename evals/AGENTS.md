@@ -65,7 +65,8 @@ For one touched bundle:
 python scripts/validate_repo.py --eval <bundle-name>
 ```
 
-For bundle index, generated reader, or cross-bundle wording changes:
+For bundle index, generated reader, source-tree topology, or cross-bundle
+wording changes:
 
 ```bash
 python scripts/validate_repo.py
@@ -73,5 +74,9 @@ python scripts/build_catalog.py --check
 python scripts/generate_eval_report_index.py --check
 ```
 
-Run the full test suite when bundle changes also touch validators, generated
-contracts, report schemas, or shared proof infrastructure.
+For validator, generated contract, report schema, source-tree topology
+validator, or shared proof infrastructure changes:
+
+```bash
+python -m pytest -q
+```

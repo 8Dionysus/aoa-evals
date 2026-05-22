@@ -67,56 +67,22 @@ gate for this atlas:
 - Active Parent Evidence Route Refs: at least one active parent route and at
   least one living non-mechanics evidence route for every parent.
 
-A generic root validator file and a rationale-only decision ref are not enough
-parent evidence by themselves.
+Use the evidence gate as an operating checklist:
 
-Top-level parent directories are validator allowlisted from that evidence map.
-New parent mechanics require a cross-root cluster, a package contract, topology
-updates, and a decision before `mechanics/<new-parent>/` may become active.
-Every active parent must expose `AGENTS.md`, `README.md`, `DIRECTION.md`, and
-`PARTS.md`; `DIRECTION.md` owns the current operating direction, growth rule,
-stop-lines, source-of-truth split, and validation posture, while every
-`PARTS.md` must name inputs, outputs, owner split, stop-lines, and validation.
-Each parent `README.md` and `AGENTS.md` must route `DIRECTION.md` from its
-Entry Route so the active current operating direction is visible before parts
-or legacy.
-Every concrete `mechanics/<parent>/parts/<part>/README.md` must expose its own
-inputs, outputs, stronger owner split, stop-lines, and validation, and the
-parent `PARTS.md` must route that part by README path or exact part slug.
-Every mechanic part README must also route every actual payload subdirectory
-under that part. Unknown payload classes, empty payload subdirectories, and
-unexpected part-root files are rejected so part-local proof material cannot
-hide behind a plausible part name.
-A part with no payload subdirectories is allowed only as a bundle-backed thin
-support route: the README must say there are no part-local payload
-subdirectories and that the source eval package stays under `evals/`.
-Every concrete part README must expose a plural `## Source Surfaces` section
-with at least one path-like source ref. That section must keep path-like
-references reachable as an existing repo-relative path, a matching
-repo-relative glob, a repo-qualified sibling ref, or an explicit placeholder
-route. A stale source surface ref is rejected so old root payload names cannot
-keep steering active part work after a mechanics move.
-Every part `## Validation` section must route to part-local `VALIDATION.md`.
-Every part `VALIDATION.md` must route to the parent `parts/AGENTS.md` validation
-lane, where centralized child validation blocks own the executable python
-commands. Each command must name a repo-relative reachable path. A stale validation path
-or absolute local path is rejected because validation is part of
-the mechanic part boundary, not a decorative afterthought. If a part has local
-payload subdirectories, the combined validation route must also carry a payload coverage anchor:
-a part-local path or a bundle-targeted validation route. Naked
-route-wide commands are not enough for payload-bearing parts.
-Every parent `PARTS.md` must keep its declared part route set synchronized with
-the actual `parts/` directories it owns. A stale local part route is rejected,
-while cross-parent references remain allowed when they are owner-split,
-stop-line, or handoff routes rather than local part declarations.
-Parent-level `docs/` is reserved for explicitly allowlisted mechanic-wide
-guidance. The rule for part-owned payload docs is that they must live under the
-owning `parts/<part>/docs/` route. Empty parent-level `docs/` directories and
-unallowlisted parent docs are rejected so artifact forms cannot regain
-parent-level authority by sitting beside the route cards. Allowlisted
-mechanic-wide guidance docs must also expose role, mechanic-wide scope, source
-surfaces, stronger owner split, stop-lines, and validation so a parent-level
-guide cannot become vague authority by being allowlisted.
+| Need | Required route |
+| --- | --- |
+| parent activation | `mechanics/<new-parent>/` starts from a cross-root cluster, package contract, topology update, decision record, and validator allowlist entry |
+| parent route shape | every active parent exposes `AGENTS.md`, `README.md`, `DIRECTION.md`, and `PARTS.md`; `DIRECTION.md` owns the current operating direction, growth rule, stop-lines, source split, and validation posture; each parent `README.md` and `AGENTS.md` routes `DIRECTION.md` from its Entry Route |
+| part contract | each part README names inputs, outputs, stronger owner split, stop-lines, validation, payload homes, and the source surfaces that make the part real |
+| parent part map | parent `PARTS.md` keeps the declared part route set synchronized with actual `parts/` directories; stale local part route checks keep removed parts from staying active by name; cross-parent references stay owner-split, stop-line, or handoff routes |
+| payload coverage | every actual payload subdirectory is routed from the part README; a bundle-backed thin support route states that it has no part-local payload subdirectories and that the source eval package stays under `evals/` |
+| source refs | every concrete mechanic part README exposes plural `## Source Surfaces` with at least one path-like source ref that resolves as an existing repo-relative path, matching repo-relative glob, repo-qualified sibling ref, or explicit placeholder route; stale source surface ref checks keep old root payload names from steering current work |
+| validation route | every part `## Validation` section routes to part-local `VALIDATION.md`; every `VALIDATION.md` routes to the parent `parts/AGENTS.md` centralized child validation block; executable commands use reachable repo-relative paths; stale validation path checks keep commands current, and payload-bearing parts carry a payload coverage anchor |
+| parent-level docs | parent-level `docs/` carries explicitly allowlisted mechanic-wide guidance; part-owned payload docs live under `parts/<part>/docs/`; allowed parent guides expose role, mechanic-wide scope, source surfaces, stronger owner split, stop-lines, and validation |
+
+Rationale-only decisions and generic root validator refs can support context.
+The Active Parent Evidence Route Refs ledger supplies the living route evidence
+that makes a parent operational.
 
 ## Provenance Bridge And Archive Boundary
 

@@ -914,6 +914,8 @@ MECHANIC_ROOT_DISTRICT_RECON_ROW_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
 MECHANIC_ROOT_DISTRICT_RECON_DECISION_REQUIRED_TOKENS = (
     "Mechanic Root-district Reconnaissance",
     "Root District Reconnaissance Ledger",
+    "Source Eval Tree Topology",
+    "`evals/<claim-family>/<eval-name>/`",
     "docs",
     "evals",
     "fixtures",

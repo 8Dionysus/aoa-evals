@@ -137,7 +137,7 @@ family without promoting decisions above the source surfaces they describe.
 | 0081 | [Mechanic Payload Route Residue Guard](0081-mechanic-payload-route-residue-guard.md) | `docs/decisions/0081-mechanic-payload-route-residue-guard.md` | mechanic part, validation guard | active guard rationale |
 | 0082 | [Mechanic Parent Direction Contract](0082-mechanic-parent-direction-contract.md) | `docs/decisions/0082-mechanic-parent-direction-contract.md` | proof topology | active rationale |
 | 0083 | [Mechanic Evidence Dimension Ledger](0083-mechanic-evidence-dimension-ledger.md) | `docs/decisions/0083-mechanic-evidence-dimension-ledger.md` | root/topology | active rationale |
-| 0084 | [Mechanic Root-district Reconnaissance](0084-mechanic-root-district-reconnaissance.md) | `docs/decisions/0084-mechanic-root-district-reconnaissance.md` | root/topology | active rationale |
+| 0084 | [Mechanic Root-district Reconnaissance](0084-mechanic-root-district-reconnaissance.md) | `docs/decisions/0084-mechanic-root-district-reconnaissance.md` | root/topology | active rationale; source tree routed by 0104 |
 | 0085 | [Root-authored Surface Classification](0085-root-authored-surface-classification.md) | `docs/decisions/0085-root-authored-surface-classification.md` | root/topology | active rationale |
 | 0086 | [Mechanic Part Payload Inventory](0086-mechanic-part-payload-inventory.md) | `docs/decisions/0086-mechanic-part-payload-inventory.md` | mechanic part | active rationale |
 | 0087 | [Mechanic Part Validation Command Reachability](0087-mechanic-part-validation-command-reachability.md) | `docs/decisions/0087-mechanic-part-validation-command-reachability.md` | mechanic part, validation guard | active guard rationale |

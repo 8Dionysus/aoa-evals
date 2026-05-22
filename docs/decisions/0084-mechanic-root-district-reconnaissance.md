@@ -1,19 +1,26 @@
 # Mechanic Root-district Reconnaissance
 
-- Status: Accepted
+- Status: Accepted; source-district name superseded by 0104
 - Date: 2026-05-20
 - Owner surface: `mechanics/EVIDENCE_CLUSTERS.md`
+- Current source eval route:
+  [0104 Source Eval Tree Topology](0104-source-eval-tree-topology.md)
+  owns the active `evals/<claim-family>/<eval-name>/` source tree.
 
 ## Context
 
 The mechanics refactor depends on more than parent-name correctness. The root
 districts of `aoa-evals` already contain the evidence that shows which
-mechanics exist: `docs`, `bundles`, `fixtures`, `schemas`, `examples`,
+mechanics exist: `docs`, `evals`, `fixtures`, `schemas`, `examples`,
 `scripts`, `tests`, `config`, `manifests`, `generated`, `reports`, `quests`,
 and `mechanics`. The later root route-card guard also made `runners`,
 `scorers`, and `templates` explicit compatibility districts, so this
 reconnaissance ledger must include them as first-class proof-infra root
 districts instead of leaving them implicit.
+
+The original reconnaissance pressure still used the old `bundles/` source
+district name. Decision 0104 supersedes that placement language for current
+work: source eval packages route through `evals/<claim-family>/<eval-name>/`.
 
 Without an explicit reconnaissance pass, future agents can repeat the original
 failure mode: creating a parent from an artifact form, moving one file because
@@ -32,7 +39,7 @@ topology after the payload has moved behind a mechanic-owned payload route.
 `mechanics/EVIDENCE_CLUSTERS.md` owns a Root District Reconnaissance Ledger.
 
 The ledger must include one row for each required root district from the
-mechanics refactor goal: `docs`, `bundles`, `fixtures`, `schemas`, `examples`,
+mechanics refactor goal: `docs`, `evals`, `fixtures`, `schemas`, `examples`,
 `scripts`, `tests`, `config`, `manifests`, `generated`, `reports`, `quests`,
 and `mechanics`; it also includes the current route-card-only proof-infra
 districts `runners`, `scorers`, and `templates`.
@@ -55,25 +62,26 @@ movement or parent package growth occurs.
 ## Consequences
 
 - Positive: the mechanics map now proves that the goal-listed root districts
-  and current proof-infra route-card districts were inspected as a topology,
-  not as isolated filenames.
-- Positive: route-card-only districts cannot silently appear as active payload
-  homes inside the mechanics evidence map.
+  and current proof-infra route-card districts were inspected as a connected
+  topology.
+- Positive: route-card-only districts remain visible as compatibility roots
+  inside the mechanics evidence map.
 - Positive: future parent growth has a local checklist for source, support,
   generated/readout, quest, and validation surfaces.
 - Tradeoff: `mechanics/EVIDENCE_CLUSTERS.md` becomes longer, but it replaces
   ambiguous file-placement intuition with reviewable reconnaissance.
 
-## Boundaries
+## Route Boundaries
 
-The ledger does not move payloads by itself. It does not turn root docs into
-mechanic-owned docs, does not move source bundles into mechanics, and does not
-promote generated readers into proof authority.
+The ledger is a read model for root-district posture. Payload movement still
+routes through the owning source surface, route card, decision review, and
+validator update.
 
-It also does not weaken existing route-card-only guards for `config`,
-`examples`, `fixtures`, `manifests`, `reports`, `runners`, `schemas`,
-`scorers`, `templates`, or the other cleaned compatibility roots guarded by
-`scripts/validate_repo.py`.
+Root docs stay guidance, source bundles stay under `evals/`, generated readers
+stay derived, and mechanic-owned payloads stay under the owning active part.
+Existing route-card-only guards for `config`, `examples`, `fixtures`,
+`manifests`, `reports`, `runners`, `schemas`, `scorers`, `templates`, and the
+other cleaned compatibility roots remain enforced by `scripts/validate_repo.py`.
 
 ## Validation
 

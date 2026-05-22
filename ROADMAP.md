@@ -104,10 +104,10 @@ history ledger or validator-token ledger.
 | Route residue guard family | `scripts/validate_repo.py`, route cards, and `docs/decisions/` | Keep generated/readout, active mechanic, root-authored, decision, repo-config, source-bundle, and mechanic-payload residue guards routed to their owner contracts. |
 | Mechanic lower index | `mechanics/README.md`, parent `DIRECTION.md`, parent `PARTS.md`, part `README.md`, part `VALIDATION.md`, and parent `parts/AGENTS.md` | Keep parent direction, part/payload source surfaces, parts index synchronization, local validation routes, and payload coverage recoverable through owner surfaces instead of copied guard text. |
 | Legacy bridge | parent `PROVENANCE.md` and `legacy/` | Keep single controlled bridge posture, active mechanic surfaces, and runtime evidence limits behind the active route. |
-| Proof loop report | `evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json` | Keep the first schema-backed bundle-local report visible as proof-loop evidence. |
-| Generated report index | `generated/eval_report_index.min.json` | Keep report and receipt readers derived from source reports. |
-| Publication receipt dry review | `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json` | Keep the dry-review receipt at `not_published` posture. |
-| Release-support readouts | `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json`, `mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json`, `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json` | Keep release readiness tied to goal completion, strategic closeout tied to long goal not complete posture, and PR handoff tied to owner landing handoff context. |
+| Proof loop route | `mechanics/proof-loop/README.md` and bundle-local `reports/` | Keep schema-backed proof-loop evidence discoverable through the owning route instead of copying report paths into roadmap direction. |
+| Generated report readers | `generated/README.md` | Keep report and receipt readers derived from source reports. |
+| Publication receipt posture | `mechanics/publication-receipts/README.md` | Keep receipt publication status under the receipt mechanic and bundle-local review route. |
+| Release-support posture | `mechanics/release-support/README.md` | Keep readiness, strategic closeout, and PR handoff under release-support ownership while roadmap carries only direction. |
 
 ## Horizons
 

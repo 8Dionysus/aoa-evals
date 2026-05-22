@@ -12,6 +12,14 @@ DIRECTION_ANCHORS = (
     "docs/PROOF_TOPOLOGY.md",
     "docs/LEGACY_NAMING.md",
     "mechanics/EVIDENCE_CLUSTERS.md",
+    "mechanics/proof-loop/README.md",
+    "generated/README.md",
+    "mechanics/publication-receipts/README.md",
+    "mechanics/release-support/README.md",
+)
+
+
+DETAILED_EVIDENCE_ANCHORS = (
     "evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json",
     "mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json",
     "mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json",
@@ -43,6 +51,12 @@ class RoadmapParityTestCase(unittest.TestCase):
             with self.subTest(anchor=anchor):
                 self.assertTrue((REPO_ROOT / anchor).is_file())
                 self.assertIn(anchor, roadmap)
+
+        docs_readme = (REPO_ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        for anchor in DETAILED_EVIDENCE_ANCHORS:
+            with self.subTest(detailed_anchor=anchor):
+                self.assertTrue((REPO_ROOT / anchor).is_file())
+                self.assertIn(anchor, docs_readme)
 
     def test_memo_pilot_surfaces_do_not_overclaim_memory_readiness(self) -> None:
         roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")

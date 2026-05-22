@@ -78,16 +78,32 @@ It does not move source proof bundles out of `evals/`, does not promote
 generated readers into authority, and does not let a part-local payload outrank
 the stronger owner named by the part contract.
 
+## Current Applicability
+
+As of 2026-05-22:
+
+- Still valid: mechanic part README files route actual payload
+  subdirectories, and `scripts/validate_repo.py` rejects hidden, empty, or
+  unexpected payload homes.
+- Changed: executable validation commands for this guard route through
+  [mechanics/AGENTS.md#validation](../../mechanics/AGENTS.md#validation).
+- Superseded by: active command ownership in `mechanics/AGENTS.md`.
+
+## Review Log
+
+### 2026-05-22 - Validation command ownership aligned
+
+- Previous assumption: the decision could carry its focused validation command
+  list directly.
+- New reality: `mechanics/AGENTS.md` owns the focused mechanic part payload-inventory guard.
+- Reason: accepted decisions preserve why; AGENTS route cards carry executable
+  validation lanes for agents.
+- Source surfaces updated: `mechanics/AGENTS.md`, `scripts/validate_repo.py`,
+  and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  mechanic_part_payload_inventory`; `python scripts/validate_repo.py`.
+
 ## Validation
 
-### Superseded Original Route
-
-- ~~python -m pytest -q tests/test_validate_repo.py -k mechanic_part_payload_inventory~~
-- ~~python scripts/validate_repo.py~~
-
-### 2026-05-21 Update
-
-Validation routes through
-[mechanics/AGENTS.md#validation](../../mechanics/AGENTS.md#validation).
-Use the focused mechanic part payload-inventory guard there when changing this
-decision, part README payload routing, or part payload topology validators.
+Use [mechanics/AGENTS.md#validation](../../mechanics/AGENTS.md#validation) for
+the current command lane.

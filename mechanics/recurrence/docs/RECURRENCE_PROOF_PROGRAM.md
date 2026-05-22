@@ -2,12 +2,19 @@
 
 ## Role
 
-This is mechanic-wide guidance for the recurrence proof program in
-`aoa-evals`.
+Use this guide as the mechanic-wide route map for recurrence-aware proof work
+inside `aoa-evals`.
 
-It is not a recurrence control plane, not a source proof bundle, not a part
-payload, and not owner authority for runtime return, memory canon, stats truth,
-or recursor activation.
+It helps an agent choose the right recurrence part, source proof bundle,
+bounded review route, or stronger-owner handoff when return, memory, recursor,
+stats, beacon, or overclaim pressure appears.
+
+| Pressure | Owner route |
+| --- | --- |
+| recurrence control-plane proof | recurrence part or source proof bundle |
+| source proof meaning | bundle-local `evals/**/EVAL.md` and `eval.yaml` |
+| concrete fixture, runner, scorer, manifest, hook, or test payload | owning recurrence part or bundle route |
+| runtime return, memory canon, stats truth, or recursor activation | stronger owner before eval-side proof adoption |
 
 ## Mechanic-wide Scope
 
@@ -43,13 +50,13 @@ own truth.
 
 ## Stop-Lines
 
-- Do not claim global recurrence completeness or hidden continuity.
-- Do not activate recursors, mutate runtime owners, or accept portable proof by
-  beacon or manifest.
-- Do not treat stats, generated projections, recurrence hooks, or owner refs as
-  source truth.
-- Do not merge distinct recurrence claim families into one broad capability
-  score.
+| Pressure | Route |
+| --- | --- |
+| global recurrence completeness or hidden continuity | keep the claim at the bounded recurrence proof question |
+| recursor activation or runtime owner mutation | route to the runtime or role owner before eval-side adoption |
+| portable proof by beacon or manifest | keep beacon and manifest evidence below bundle-local review |
+| stats, generated projections, recurrence hooks, or owner refs as source truth | route to the source owner and cite them as evidence sidecars only |
+| broad capability score from multiple recurrence families | keep claim families split by active part or source bundle |
 
 ## Purpose
 
@@ -66,14 +73,16 @@ It remains the owner of:
 - bundle distinctness
 - anti-overclaim posture
 
-It does not become the owner of:
+Stronger owner routes stay outside this proof program:
 
-- recurrence doctrine in `Agents-of-Abyss`
-- return policy in `abyss-stack`
-- runtime artifact contracts in `aoa-agents`
-- scenario composition in `aoa-playbooks`
-- checkpoint memory objects in `aoa-memo`
-- navigation hints in `aoa-routing`
+| Concern | Stronger owner |
+| --- | --- |
+| recurrence doctrine | `Agents-of-Abyss` |
+| return policy | `abyss-stack` |
+| runtime artifact contracts | `aoa-agents` |
+| scenario composition | `aoa-playbooks` |
+| checkpoint memory objects | `aoa-memo` |
+| navigation hints | `aoa-routing` |
 
 ## Core rule
 
@@ -113,13 +122,15 @@ Its current materialized draft proof flow runs through
 schema-backed companion report in
 `evals/workflow/aoa-return-anchor-integrity/reports/example-report.json`.
 
-It does not replace:
+Keep adjacent questions on their own routes:
 
-- final-answer grading
-- broad long-horizon competence
-- approval classification
-- general scope drift diagnosis
-- runtime benchmark ranking
+| Adjacent question | Route |
+| --- | --- |
+| final-answer grading | evaluation surface that owns answer quality |
+| broad long-horizon competence | `aoa-long-horizon-depth` or another explicit bundle |
+| approval classification | `aoa-approval-boundary-adherence` |
+| general scope drift diagnosis | `aoa-scope-drift-detection` |
+| runtime benchmark ranking | runtime or comparison owner before eval-side adoption |
 
 ### `aoa-long-horizon-depth`
 
@@ -140,8 +151,7 @@ Use it when the main question is:
 - `memory_delta` versus `canon_delta` separation
 - resistance to false continuity in checkpoint-based inquiry
 
-Do not use `aoa-return-anchor-integrity` to replace that narrower
-restart-fidelity job.
+Use `aoa-long-horizon-depth` for that narrower restart-fidelity job.
 
 ### `aoa-scope-drift-detection`
 
@@ -190,7 +200,7 @@ the first model-tier path.
 When the route emits an explicit return decision and return-aware runtime
 sidecar, `aoa-return-anchor-integrity` may travel as an adjacent diagnostic
 surface.
-It does not replace the primary tool-path or verification read.
+Keep the primary tool-path or verification read as the owning route.
 
 ### `AOA-P-0009 restartable-inquiry-loop`
 
@@ -230,7 +240,7 @@ Optional helpful sidecars:
 - selected runtime return event summaries
 - integrity sidecars that state what not to overread
 
-## Future candidates, not current defaults
+## Future Candidates
 
 The proof program may later split further into distinct surfaces such as:
 
@@ -238,23 +248,24 @@ The proof program may later split further into distinct surfaces such as:
 - safe-stop honesty
 - anchor provenance preservation
 
-Do not name those as separate public defaults until case families show that the
+Name those as separate public defaults only after case families show that the
 split is real and useful.
 
-## Non-goals
+## External Routes
 
-This program does not:
-
-- make return into a global intelligence score
-- rank models by how elegant their re-entry prose sounds
-- replace existing workflow, boundary, or restart bundles
-- move runtime governance into `aoa-evals`
-- turn raw runtime logs into public proof by themselves
+| Pressure | Route |
+| --- | --- |
+| return read as a global intelligence score | keep the verdict to the bounded bundle claim |
+| model ranking by re-entry prose | use a comparison or benchmark owner that explicitly owns ranking |
+| existing workflow, boundary, or restart bundle replacement | keep the existing bundle as the owning proof route |
+| runtime governance | route to the runtime owner before eval-side proof use |
+| raw runtime logs as public proof | select public-safe candidate evidence, then review through the bundle |
 
 ## Boundary to preserve
 
-`aoa-evals` owns bounded proof meaning.
-It does not own the route home itself.
+`aoa-evals` owns bounded proof meaning for recurrence evidence.
+The route home stays with the owner that creates or governs the returning
+runtime, memory, routing, stats, scenario, or role surface.
 
 ## Validation
 

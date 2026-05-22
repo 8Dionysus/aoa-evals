@@ -91,16 +91,15 @@ deployed `Configs` mirror.
 
 ## Boundaries
 
-- Do not edit sibling repositories from this package.
-- Do not treat path existence as sibling owner acceptance.
-- Do not treat generated readers as the source of sibling truth.
-- Do not use legacy refs as active topology without a current owner route.
-- Do not treat orchestrator proof anchors as orchestrator identity, role
-  policy, playbook authority, or memo truth.
-- Do not treat Phase Alpha eval matrix entries as playbook approval, runtime
-  verdicts, or bundle-local eval results.
-- Do not let a sibling ref promote a bundle, receipt, runtime candidate, or
-  quest by itself.
+| Pressure | Route |
+| --- | --- |
+| sibling repository needs an edit | route through the sibling owner before changing it |
+| path existence looks like sibling owner acceptance | keep it as compatibility evidence below owner acceptance |
+| generated reader carries a sibling ref | trace back to source surfaces and the sibling owner route |
+| legacy ref appears in active topology | pair it with a current owner route before proof use |
+| orchestrator proof anchor reads as orchestrator identity, role policy, playbook authority, or memo truth | route identity, role, playbook, and memo meaning to their stronger owners |
+| Phase Alpha eval matrix entry reads as playbook approval, runtime verdict, or bundle-local eval result | keep it as a bridge entry below those owner surfaces |
+| sibling ref appears to promote a bundle, receipt, runtime candidate, or quest | route promotion through bundle-local review, receipt, runtime-candidate, or quest owner surfaces |
 
 ## Legacy Posture
 

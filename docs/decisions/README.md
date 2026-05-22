@@ -20,7 +20,7 @@ evidence, and one-off planning thoughts route to their owning surfaces instead.
 | output | numbered decision note, index row, surface-class lookup, mechanic-parent lookup, and validation-guard lookup |
 | owner | `docs/decisions/AGENTS.md` for lane law; this README for the agent-facing index; numbered decisions for the rationale |
 | next route | source surface first, then local route card, `docs/PROOF_TOPOLOGY.md`, `mechanics/EVIDENCE_CLUSTERS.md`, or the affected generated/runtime/sibling owner |
-| validation | `python scripts/validate_repo.py`, `python scripts/validate_semantic_agents.py`, and any owning builder named by the changed surface |
+| validation | [docs/decisions/AGENTS.md#validation](AGENTS.md#validation) and the owning route card for the changed surface |
 
 ## Authority
 

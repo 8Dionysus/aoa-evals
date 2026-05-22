@@ -8667,6 +8667,31 @@ class TestValidateQuestRouteSurfaces:
     def test_mechanic_part_payload_inventory_validates_current_routes(self) -> None:
         assert validate_repo.validate_mechanic_part_readme_contract_surfaces(REPO_ROOT) == []
 
+    def test_mechanic_part_payload_inventory_rejects_active_decision_command_list(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(
+            tmp_path, validate_repo.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
+        )
+        copy_repo_text(tmp_path, validate_repo.MECHANICS_AGENTS_NAME)
+        decision_path = tmp_path / validate_repo.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
+        decision_path.write_text(
+            decision_path.read_text(encoding="utf-8").replace(
+                "### Superseded Original Route",
+                "- python scripts/validate_repo.py\n\n### Superseded Original Route",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
+            and "mechanics/AGENTS.md#validation" in issue.message
+            for issue in issues
+        )
+
     def test_mechanic_part_source_surface_refs_validate_current_routes(self) -> None:
         assert validate_repo.validate_mechanic_part_readme_contract_surfaces(REPO_ROOT) == []
 
@@ -9136,6 +9161,35 @@ class TestValidateQuestRouteSurfaces:
 
     def test_mechanic_part_validation_command_validates_current_routes(self) -> None:
         assert validate_repo.validate_mechanic_part_validation_command_surfaces(REPO_ROOT) == []
+
+    def test_mechanic_part_validation_command_rejects_active_decision_command_list(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(
+            tmp_path, validate_repo.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME
+        )
+        copy_repo_text(
+            tmp_path,
+            validate_repo.MECHANIC_PART_VALIDATION_COMMAND_OWNERSHIP_DECISION_NAME,
+        )
+        copy_repo_text(tmp_path, validate_repo.MECHANICS_AGENTS_NAME)
+        decision_path = tmp_path / validate_repo.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME
+        decision_path.write_text(
+            decision_path.read_text(encoding="utf-8").replace(
+                "### Superseded Original Route",
+                "- python scripts/validate_repo.py\n\n### Superseded Original Route",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanic_part_validation_command_surfaces(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME
+            and "mechanics/AGENTS.md#validation" in issue.message
+            for issue in issues
+        )
 
     def test_mechanic_part_validation_command_rejects_stale_path(
         self, tmp_path: Path

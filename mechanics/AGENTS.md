@@ -92,6 +92,8 @@ surface names a narrower guard:
 
 ```bash
 python -m pytest -q tests/test_validate_repo.py -k mechanic_root_district_recon
+python -m pytest -q tests/test_validate_repo.py -k mechanic_part_payload_inventory
+python -m pytest -q tests/test_validate_repo.py -k mechanic_part_validation_command
 ```
 
 ## Closeout

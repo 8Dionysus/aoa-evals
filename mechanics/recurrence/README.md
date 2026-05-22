@@ -96,7 +96,8 @@ and recurrence evidence review.
 
 ## Stop-Lines
 
-Do not use this package to claim:
+This package supports bounded eval-side proof only. Keep these claims outside
+this package:
 
 - global recurrence completeness;
 - hidden continuity;

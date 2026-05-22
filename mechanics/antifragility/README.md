@@ -78,7 +78,8 @@ evidence.
 
 ## Stop-Lines
 
-Do not use this package to claim:
+This package supports bounded eval-side proof only. Keep these claims outside
+this package:
 
 - global resilience or federation health;
 - live runtime self-healing;

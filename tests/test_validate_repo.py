@@ -7829,6 +7829,28 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_mechanic_parent_readme_rejects_stale_stop_line_lead_in(
+        self, tmp_path: Path
+    ) -> None:
+        readme_name = "mechanics/recurrence/README.md"
+        copy_repo_text(tmp_path, readme_name)
+        readme_path = tmp_path / readme_name
+        readme_path.write_text(
+            readme_path.read_text(encoding="utf-8").replace(
+                "This package supports bounded eval-side proof only. Keep these claims outside\nthis package:",
+                validate_repo.MECHANIC_PARENT_README_STALE_STOP_LINE_LEAD_IN,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
+
+        assert any(
+            issue.location == readme_name
+            and "old package-claim scaffold" in issue.message
+            for issue in issues
+        )
+
     def test_mechanic_parent_direction_rejects_missing_agents_entry_route(
         self, tmp_path: Path
     ) -> None:

@@ -77,7 +77,8 @@ surface.
 
 ## Stop-Lines
 
-Do not use this package to claim:
+This package supports bounded eval-side proof only. Keep these claims outside
+this package:
 
 - one universal agent score;
 - automatic rank assignment from one event;

@@ -94,7 +94,8 @@ boundaries stayed visible enough for review under the source bundle.
 
 ## Stop-Lines
 
-Do not use this package to claim:
+This package supports bounded eval-side proof only. Keep these claims outside
+this package:
 
 - summary-as-proof or summarization as distillation proof;
 - raw deletion authority;

@@ -1481,6 +1481,7 @@ MECHANIC_PARENT_README_DIRECTION_ROUTE_REQUIRED_TOKENS = (
     "AGENTS.md#validation",
     "## Next Route",
 )
+MECHANIC_PARENT_README_STALE_STOP_LINE_LEAD_IN = "Do not use this package to claim:"
 MECHANIC_PARENT_AGENTS_DIRECTION_ROUTE_REQUIRED_TOKENS = (
     "## Entry Route",
     "current operating direction",
@@ -18007,6 +18008,16 @@ def validate_mechanic_parent_direction_surfaces(
             tokens=MECHANIC_PARENT_README_DIRECTION_ROUTE_REQUIRED_TOKENS,
             issues=issues,
         )
+        text = read_text_or_issue(repo_root / path_name, issues, root=repo_root)
+        if text is None:
+            continue
+        if MECHANIC_PARENT_README_STALE_STOP_LINE_LEAD_IN in text:
+            issues.append(
+                ValidationIssue(
+                    path_name,
+                    "mechanic parent README must introduce Stop-Lines as a bounded eval-side proof boundary, not the old package-claim scaffold",
+                )
+            )
 
     for parent_name, path_name in zip(
         ACTIVE_MECHANIC_PARENT_NAMES,

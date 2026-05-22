@@ -81,7 +81,8 @@ contracts, and claim limits for lineage integrity and owner-fit routing.
 
 ## Stop-Lines
 
-Do not use this package to claim:
+This package supports bounded eval-side proof only. Keep these claims outside
+this package:
 
 - final owner-object quality;
 - owner-local acceptance or activation;

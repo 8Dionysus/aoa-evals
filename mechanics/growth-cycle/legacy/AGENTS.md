@@ -6,17 +6,42 @@
 
 ## Role
 
-This directory preserves Growth Cycle provenance. It is not an active work
-surface.
+This district preserves Growth Cycle provenance behind the active
+`mechanics/growth-cycle/` package.
 
-## Rules
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | Provenance and lineage route for former Growth Cycle closeout, harvest, repair, progression, and quest pressure. |
+| input | Old Growth Cycle path, deferred closeout note, harvest or repair note, progression residue, quest pressure, or historical lookup question. |
+| output | Active Growth Cycle parent or part route plus any needed `PROVENANCE.md`, `legacy/INDEX.md`, `legacy/DISTILLATION_LOG.md`, or raw accounting update. |
+| owner | `mechanics/growth-cycle/` owns current Growth Cycle proof work; this legacy district owns archive-local lookup and lineage accounting. |
+| next route | `../AGENTS.md`, `../README.md`, `../DIRECTION.md`, `../PARTS.md`, `../PROVENANCE.md`, then `INDEX.md` and `DISTILLATION_LOG.md` for archive detail. |
+| tools | Root validators and semantic-agent validator listed below. |
+| validation | Run the Validation commands after route-card, provenance, index, log, or raw changes. |
+
+## Read before editing
+
+1. repository root `AGENTS.md`
+2. `mechanics/AGENTS.md`
+3. `../AGENTS.md`
+4. `../README.md`
+5. `../DIRECTION.md`
+6. `../PARTS.md`
+7. `../PROVENANCE.md`
+8. `docs/LEGACY_NAMING.md`
+9. `INDEX.md`
+10. `DISTILLATION_LOG.md`
+
+## Route Rules
 
 - Start from `../README.md`, `../PARTS.md`, and `../PROVENANCE.md`.
-- Do not begin new Growth Cycle work here.
-- Do not treat deferred closeout, harvest, repair, progression, or quest
-  pressure as active just because it is listed in legacy.
-- Do not move raw files here without updating `../PROVENANCE.md`, `INDEX.md`,
-  and validation.
+- Place current Growth Cycle work in the active parent or owning part.
+- Treat deferred closeout, harvest, repair, progression, and quest pressure as
+  historical input that maps back to active topology.
+- Move raw files here with a matching `../PROVENANCE.md` bridge, index row,
+  distillation accounting, and validation.
 
 ## Validation
 
@@ -24,4 +49,10 @@ Run root validation after editing:
 
 ```bash
 python scripts/validate_repo.py
+python scripts/validate_semantic_agents.py
 ```
+
+## Closeout
+
+Report which Growth Cycle legacy source was mapped, which active parent or part
+owns the current route, which archive accounting changed, and which checks ran.

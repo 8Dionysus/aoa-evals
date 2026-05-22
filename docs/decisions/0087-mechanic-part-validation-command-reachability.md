@@ -91,17 +91,32 @@ It does not replace part-local tests, generated `--check` commands,
 It does not allow validation commands to strengthen bundle claims, sibling
 truth, runtime authority, or generated reader authority.
 
+## Current Applicability
+
+As of 2026-05-22:
+
+- Still valid: validation command routes must stay reachable, repo-relative,
+  and anchored to payload coverage.
+- Changed: executable validation commands route through
+  [mechanics/AGENTS.md#validation](../../mechanics/AGENTS.md#validation) and
+  parent `parts/AGENTS.md` lanes.
+- Superseded by: active command ownership in nearest AGENTS route cards.
+
+## Review Log
+
+### 2026-05-22 - Validation command ownership aligned
+
+- Previous assumption: this decision could carry the focused validation-command
+  guard list directly.
+- New reality: `mechanics/AGENTS.md` owns the focused mechanic part validation-command guard.
+- Reason: accepted decisions preserve why; AGENTS route cards carry executable
+  validation lanes for agents.
+- Source surfaces updated: `mechanics/AGENTS.md`, `scripts/validate_repo.py`,
+  and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  mechanic_part_validation_command`; `python scripts/validate_repo.py`.
+
 ## Validation
 
-### Superseded Original Route
-
-- ~~python -m pytest -q tests/test_validate_repo.py -k mechanic_part_validation_command~~
-- ~~python scripts/validate_repo.py~~
-
-### 2026-05-21 Update
-
-Validation routes through
-[mechanics/AGENTS.md#validation](../../mechanics/AGENTS.md#validation).
-Use the focused mechanic part validation-command guard there when changing this
-decision, part `VALIDATION.md` routing, parent `parts/AGENTS.md` command
-ownership, or validation command reachability validators.
+Use [mechanics/AGENTS.md#validation](../../mechanics/AGENTS.md#validation) for
+the current command lane.

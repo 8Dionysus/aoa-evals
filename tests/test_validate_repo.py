@@ -8739,8 +8739,8 @@ class TestValidateQuestRouteSurfaces:
         decision_path = tmp_path / validate_repo.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
         decision_path.write_text(
             decision_path.read_text(encoding="utf-8").replace(
-                "### Superseded Original Route",
-                "- python scripts/validate_repo.py\n\n### Superseded Original Route",
+                "## Validation\n\nUse",
+                "## Validation\n\n- python scripts/validate_repo.py\n\nUse",
                 1,
             ),
             encoding="utf-8",
@@ -9238,8 +9238,8 @@ class TestValidateQuestRouteSurfaces:
         decision_path = tmp_path / validate_repo.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME
         decision_path.write_text(
             decision_path.read_text(encoding="utf-8").replace(
-                "### Superseded Original Route",
-                "- python scripts/validate_repo.py\n\n### Superseded Original Route",
+                "## Validation\n\nUse",
+                "## Validation\n\n- python scripts/validate_repo.py\n\nUse",
                 1,
             ),
             encoding="utf-8",

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Local validator and catalog builder helpers for aoa-evals bundles."""
+"""Local validator and catalog builder helpers for aoa-evals source packages."""
 
 from __future__ import annotations
 
@@ -102,7 +102,6 @@ AGENTS_OF_ABYSS_ROOT = repo_root_from_env(
 )
 ABYSS_STACK_ROOT = resolve_abyss_stack_root(REPO_ROOT.parent / "abyss-stack")
 SOURCE_EVALS_DIR_NAME = "evals"
-BUNDLES_DIR_NAME = SOURCE_EVALS_DIR_NAME
 COMPARISON_FAMILY_BY_BASELINE_MODE = {
     "fixed-baseline": ("comparison", "fixed-baseline"),
     "peer-compare": ("comparison", "peer-compare"),
@@ -5294,7 +5293,7 @@ def get_schema_validator_with_format(schema: dict[str, Any]) -> Draft202012Valid
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Validate local aoa-evals bundles.")
+    parser = argparse.ArgumentParser(description="Validate local aoa-evals source packages.")
     parser.add_argument(
         "--eval",
         help="Validate a single eval bundle by directory name.",
@@ -8569,7 +8568,7 @@ def validate_bundle(
 ) -> tuple[list[ValidationIssue], EvalBundleRecord | None]:
     issues: list[ValidationIssue] = []
     eval_dirs = eval_dirs or discover_eval_dirs(repo_root)
-    bundle_dir = eval_dirs.get(eval_name, repo_root / BUNDLES_DIR_NAME / eval_name)
+    bundle_dir = eval_dirs.get(eval_name, repo_root / SOURCE_EVALS_DIR_NAME / eval_name)
     eval_md_path = bundle_dir / "EVAL.md"
     eval_yaml_path = bundle_dir / "eval.yaml"
 
@@ -8773,7 +8772,7 @@ def validate_starter_bundle_contract(
     eval_dirs = discover_eval_dirs(repo_root)
 
     for name in sorted(names_to_check):
-        bundle_dir = eval_dirs.get(name, repo_root / BUNDLES_DIR_NAME / name)
+        bundle_dir = eval_dirs.get(name, repo_root / SOURCE_EVALS_DIR_NAME / name)
         manifest_path = bundle_dir / "eval.yaml"
         location = relative_location(bundle_dir, repo_root)
 
@@ -18785,11 +18784,11 @@ def run_validation(
         issues.extend(validate_active_legacy_parent_wording(repo_root))
         issues.extend(validate_generated_route_residue_surfaces(repo_root))
         issues.extend(validate_eval_report_index_route_surfaces(repo_root))
-    bundles_dir_exists = (repo_root / BUNDLES_DIR_NAME).is_dir()
+    source_evals_dir_exists = (repo_root / SOURCE_EVALS_DIR_NAME).is_dir()
     try:
         all_eval_names = discover_eval_names(repo_root)
     except FileNotFoundError:
-        issues.append(ValidationIssue(BUNDLES_DIR_NAME, "directory is missing"))
+        issues.append(ValidationIssue(SOURCE_EVALS_DIR_NAME, "directory is missing"))
         all_eval_names = []
     starter_names = load_starter_eval_names(repo_root, issues)
     starter_set = set(starter_names)
@@ -18811,7 +18810,7 @@ def run_validation(
         source_issues, records = [], []
     issues.extend(source_issues)
 
-    if bundles_dir_exists:
+    if source_evals_dir_exists:
         issues.extend(
             validate_eval_index(
                 repo_root,
@@ -18840,7 +18839,7 @@ def run_validation(
                 selected_evals=selected_evals,
             )
         )
-    if bundles_dir_exists and not source_issues:
+    if source_evals_dir_exists and not source_issues:
         issues.extend(
             validate_comparison_doctrine_surfaces(
                 repo_root,
@@ -18875,7 +18874,7 @@ def run_validation(
             )
         )
 
-    if bundles_dir_exists and eval_name is None and not source_issues:
+    if source_evals_dir_exists and eval_name is None and not source_issues:
         all_source_issues, all_records = collect_catalog_records(repo_root)
         if not all_source_issues:
             issues.extend(validate_trace_eval_bridge_surfaces(repo_root, all_records))
@@ -18901,7 +18900,7 @@ def run_validation(
             issues.extend(validate_generated_capsules(repo_root, all_records))
             issues.extend(validate_generated_sections(repo_root, all_records))
             issues.extend(validate_generated_comparison_spine(repo_root, all_records))
-    elif bundles_dir_exists and eval_name is not None and not source_issues:
+    elif source_evals_dir_exists and eval_name is not None and not source_issues:
         issues.extend(
             validate_runtime_evidence_selection_surfaces(
                 repo_root,

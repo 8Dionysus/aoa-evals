@@ -102,16 +102,16 @@ Repeated-window movement is not broad growth by association.
 
 ## Boundaries
 
-- Do not move comparison bundles into this package.
-- Do not move bundle-local fixture, runner, or report contracts into this
-  package.
-- Do not hand-edit `generated/comparison_spine.json` as source truth.
-- Do not treat one clean comparison as broad capability growth.
-- Do not let style-only movement become capability movement.
-- Do not promote a draft comparison bundle by improving generated metadata.
-- Do not let `aoa-eval-integrity-check` become a promotion shortcut.
-- Do not collapse fixed baseline, peer comparison, and longitudinal movement
-  into one score.
+| Pressure | Route |
+| --- | --- |
+| comparison bundle placement | keep source comparison bundles under `evals/` |
+| bundle-local fixture, runner, or report contract placement | keep contracts under the owning bundle unless a part-local shared artifact owns the route |
+| `generated/comparison_spine.json` drift | fix the source bundle, builder, or part-local readout and rerun the generated check |
+| one clean comparison read as broad capability growth | return to the declared comparison mode and bounded bundle claim |
+| style-only movement read as capability movement | keep style-only movement below capability movement |
+| draft comparison bundle looks promoted by generated metadata | route promotion through bundle-local review and release surfaces |
+| `aoa-eval-integrity-check` used as a promotion shortcut | keep it as an integrity sidecar below promotion routes |
+| fixed baseline, peer comparison, and longitudinal movement collapse into one score | keep the three comparison modes separate |
 
 ## Provenance
 

@@ -4737,18 +4737,19 @@ QUESTBOOK_NOTE_REQUIRED_TOKENS = (
 QUESTS_README_REQUIRED_TOKENS = (
     "# Quest Source Records",
     "source quest record district",
-    "not `mechanics/questbook/`",
+    "human questbook index",
+    "mechanics/questbook/",
     "QUESTBOOK.md",
     "quests/LIFECYCLE.md",
     "generated/quest_catalog.min.json",
     "quests/<lane>/<state>/",
     "legacy path vocabulary",
-    "not eval bundles",
+    "source eval packages under `evals/`",
 )
 QUESTS_AGENTS_REQUIRED_TOKENS = (
     "source quest record district",
     "mechanics/questbook/",
-    "not as generated dispatch",
+    "generated quest files as dispatch readers",
     "source quest records",
     "schema-backed YAML",
     "QUESTBOOK.md",
@@ -4766,10 +4767,10 @@ QUEST_LIFECYCLE_REQUIRED_TOKENS = (
     "Promotion posture",
     "Proof-Loop Return Use",
     "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
-    "does not create an eval result receipt",
+    "below eval result receipt",
     "Open states",
     "Closed states",
-    "`QUESTBOOK.md` must list open quest IDs",
+    "`QUESTBOOK.md` must list open quest IDs and leave closed quest IDs out",
 )
 QUEST_SCHEMA_TITLE = "work_quest_v1"
 QUEST_SCHEMA_VERSION = "work_quest_v1"
@@ -9381,6 +9382,21 @@ def validate_quest_route_surfaces(repo_root: Path) -> list[ValidationIssue]:
         tokens=QUEST_LIFECYCLE_REQUIRED_TOKENS,
         issues=issues,
     )
+    for path_name, stale_token in (
+        (QUESTS_README_NAME, "It is not `QUESTBOOK.md`"),
+        (QUESTS_README_NAME, "Quests are not eval bundles."),
+        (QUEST_LIFECYCLE_NAME, "It is not `QUESTBOOK.md`"),
+        (QUEST_LIFECYCLE_NAME, "does not create an eval result receipt"),
+    ):
+        text = read_text_or_issue(repo_root / path_name, issues, root=repo_root)
+        if stale_token in text:
+            issues.append(
+                ValidationIssue(
+                    path_name,
+                    "quest route surfaces should use positive role routing instead of stale negative scaffold "
+                    f"'{stale_token}'",
+                )
+            )
     require_tokens(
         repo_root=repo_root,
         path_name="docs/decisions/0004-questbook-topology.md",

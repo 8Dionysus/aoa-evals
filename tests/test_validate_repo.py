@@ -5247,6 +5247,44 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_quest_route_surfaces_reject_stale_negative_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        make_quest_route_surface(tmp_path)
+        readme_path = tmp_path / "quests" / "README.md"
+        readme_path.write_text(
+            readme_path.read_text(encoding="utf-8").replace(
+                "A quest is an obligation-return source record:",
+                "Quests are not eval bundles.\n\nA quest is an obligation-return source record:",
+                1,
+            ),
+            encoding="utf-8",
+        )
+        lifecycle_path = tmp_path / "quests" / "LIFECYCLE.md"
+        lifecycle_path.write_text(
+            lifecycle_path.read_text(encoding="utf-8").replace(
+                "below eval result receipt\ncreation",
+                "below eval result receipt\ncreation. It does not create an eval result receipt",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_quest_route_surfaces(tmp_path)
+
+        assert any(
+            issue.location == "quests/README.md"
+            and "positive role routing" in issue.message
+            and "Quests are not eval bundles." in issue.message
+            for issue in issues
+        )
+        assert any(
+            issue.location == "quests/LIFECYCLE.md"
+            and "positive role routing" in issue.message
+            and "does not create an eval result receipt" in issue.message
+            for issue in issues
+        )
+
     def test_quest_route_surfaces_reject_markdown_notes_in_lifecycle_path(
         self, tmp_path: Path
     ) -> None:

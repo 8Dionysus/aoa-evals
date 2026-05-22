@@ -559,7 +559,7 @@ LEGACY_NAMING_REQUIRED_TOKENS = (
     "single controlled bridge",
     "active mechanic surfaces",
     "Active Owner Lookup",
-    "Boundary Rules",
+    "Route Rules",
 )
 LEGACY_NAMING_FORBIDDEN_DETAIL_TOKENS = (
     "It is not an archive map",

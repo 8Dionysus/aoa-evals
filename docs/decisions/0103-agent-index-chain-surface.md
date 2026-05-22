@@ -26,6 +26,10 @@ readers, validators, and bundle-local proof meaning. It names where to go next
 from a path shape and keeps route-card-only root districts explicit as
 compatibility districts.
 
+`docs/README.md` remains the human and agent docs map. Its topology route map
+must list every active mechanic parent so agents can enter the operation layer
+from docs without silently seeing only a partial parent set.
+
 Executable validation commands remain in the nearest `AGENTS.md`, with mechanic
 part routes flowing through part `VALIDATION.md` into the parent
 `parts/AGENTS.md` centralized child validation lane.

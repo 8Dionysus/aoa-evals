@@ -90,6 +90,15 @@ ownership:
 - [Boundary Bridge Mechanic](../mechanics/boundary-bridge/README.md)
 - [Audit Mechanic](../mechanics/audit/README.md)
 - [Agon Mechanic](../mechanics/agon/README.md)
+- [Antifragility Mechanic](../mechanics/antifragility/README.md)
+- [Checkpoint Mechanic](../mechanics/checkpoint/README.md)
+- [Distillation Mechanic](../mechanics/distillation/README.md)
+- [Experience Mechanic](../mechanics/experience/README.md)
+- [Growth-cycle Mechanic](../mechanics/growth-cycle/README.md)
+- [Method-growth Mechanic](../mechanics/method-growth/README.md)
+- [Questbook Mechanic](../mechanics/questbook/README.md)
+- [Recurrence Mechanic](../mechanics/recurrence/README.md)
+- [RPG Mechanic](../mechanics/rpg/README.md)
 - [Titan Mechanic](../mechanics/titan/README.md)
 
 ### Portability And Boundary Guides

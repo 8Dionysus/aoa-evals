@@ -6350,6 +6350,28 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_docs_readme_route_map_rejects_missing_active_mechanic_parent(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "docs/README.md")
+        docs_readme_path = tmp_path / "docs" / "README.md"
+        docs_readme_path.write_text(
+            docs_readme_path.read_text(encoding="utf-8").replace(
+                "- [Recurrence Mechanic](../mechanics/recurrence/README.md)\n",
+                "",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_docs_readme_route_map(tmp_path)
+
+        assert any(
+            issue.location == "docs/README.md"
+            and "../mechanics/recurrence/README.md" in issue.message
+            for issue in issues
+        )
+
     def test_read_model_command_ownership_validates_current_routes(self) -> None:
         assert validate_repo.validate_read_model_command_ownership(REPO_ROOT) == []
 

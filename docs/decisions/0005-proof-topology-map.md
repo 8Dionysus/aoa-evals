@@ -64,6 +64,33 @@ taxonomy.
 - Follow-up: later mechanics slices must keep using the map and
   `mechanics/EVIDENCE_CLUSTERS.md` before moving additional payloads.
 
+## Current Applicability
+
+As of 2026-05-22:
+
+- Still valid: `docs/PROOF_TOPOLOGY.md` owns authority-class routing and the
+  convex topology frame.
+- Changed: detailed mechanic activation, parent evidence, payload home, and
+  validation lane detail now routes through `mechanics/README.md`, parent
+  route cards, part maps, and `mechanics/EVIDENCE_CLUSTERS.md`.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-22 - Mechanics detail routed to mechanics surfaces
+
+- Previous assumption: the proof topology map could carry active mechanic
+  package detail alongside authority-class routing.
+- New reality: the active mechanics atlas and evidence gate now provide the
+  clearer owner surfaces for parent evidence, part contracts, payload homes,
+  and validation lanes.
+- Reason: low-context agents should use `docs/PROOF_TOPOLOGY.md` to classify a
+  surface, then descend into mechanics through the operation atlas instead of
+  reading duplicated package detail in the topology map.
+- Source surfaces updated: `docs/PROOF_TOPOLOGY.md` and this decision.
+- Validation: use root validation and the focused proof-topology validator
+  tests.
+
 ## Boundaries
 
 This decision did not by itself create `mechanics/`; later decisions created

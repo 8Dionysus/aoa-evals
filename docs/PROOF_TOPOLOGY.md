@@ -14,6 +14,18 @@ This topology map answers one question:
 Which kind of proof surface am I touching, and what may that surface own,
 receive, transform, emit, or route onward?
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | authority-class topology map for the bounded proof organ |
+| entry | use when a path, payload, generated reader, receipt, quest, decision, legacy name, or mechanic operation needs authority classification |
+| input | touched surface, old root path, proposed mechanic parent, generated ref, receipt, candidate evidence packet, or route residue |
+| output | authority class, stronger owner route, allowed transformation, next route, and validation guard |
+| owner | `docs/AGENTS.md` for docs law; this map for authority classes; `mechanics/EVIDENCE_CLUSTERS.md` for parent evidence |
+| next route | `docs/AGENT_INDEX.md`, `mechanics/README.md`, parent route cards, source eval packages, generated builders, or `docs/decisions/` |
+| validation | `docs/AGENTS.md#validation` and the nearest route card for the touched authority class |
+
 ## Topology Thesis
 
 `aoa-evals` becomes safer to refactor when its topology is convex.
@@ -47,21 +59,16 @@ overclaiming.
 
 ## Root Technical Districts
 
-The current root districts remain valid after mechanics movement.
-Further movement should happen only when a district has a clearer owner route,
-a provenance plan, and a validator that can detect drift.
-`mechanics/EVIDENCE_CLUSTERS.md` now carries the Root District Reconnaissance
-Ledger for this movement: it records root posture, mechanic-owned payload
-routes, and validation guards before any additional root path becomes
-mechanic-owned payload.
-It also carries the Residual Root-authored Surface Classification ledger for
-top-level `docs/`, `scripts/`, and `tests/` files so an unclassified root-authored surface
-cannot masquerade as legitimate root-owned guidance,
-builder, validator, or test coverage.
-`docs/AGENT_INDEX.md` is the pass-through reader for this map: it helps an
-agent move from path name to authority class and then onward to the stronger
-owner surface. It does not replace this topology map, route cards, or source
-proof objects.
+Root districts remain valid after mechanics movement when their owner route,
+provenance posture, and drift validator are visible. Use these companion routes
+before any additional root path becomes mechanic-owned payload:
+
+| Companion route | Owner | Use |
+| --- | --- | --- |
+| `mechanics/EVIDENCE_CLUSTERS.md` | mechanics evidence gate | Root District Reconnaissance Ledger, residual root-authored surface classification for every unclassified root-authored surface, mechanic-owned payload routes, and validation guards |
+| `docs/AGENT_INDEX.md` | agent-facing pass-through reader | path name -> authority class -> stronger owner surface |
+| nearest `AGENTS.md` | route law | editing law, command lane, validation posture, and closeout route |
+| source eval package or mechanic part | stronger owner surface | bundle meaning, payload ownership, part-local contracts, and proof interpretation |
 
 | District | Current role | Current posture |
 | --- | --- | --- |

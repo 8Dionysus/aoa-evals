@@ -7,7 +7,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
-DIRECTIONAL_ANCHORS = (
+DIRECTION_ANCHORS = (
     "docs/AGENT_INDEX.md",
     "docs/PROOF_TOPOLOGY.md",
     "docs/LEGACY_NAMING.md",
@@ -31,7 +31,7 @@ class RoadmapParityTestCase(unittest.TestCase):
         self.assertIn("## [0.3.3]", changelog)
         self.assertIn("`v0.3.3`", roadmap)
         self.assertIn("Current Public Contour", roadmap)
-        self.assertIn("Directional Anchors", roadmap)
+        self.assertIn("Direction Anchors", roadmap)
         self.assertIn("release history: [CHANGELOG.md](CHANGELOG.md)", roadmap)
         self.assertIn("proves only bounded claims", normalized_roadmap)
         self.assertIn("Executable commands live in route cards", roadmap)
@@ -39,7 +39,7 @@ class RoadmapParityTestCase(unittest.TestCase):
         self.assertNotIn("Current Checked Contour", roadmap)
         self.assertNotIn("It is not the changelog", roadmap)
 
-        for anchor in DIRECTIONAL_ANCHORS:
+        for anchor in DIRECTION_ANCHORS:
             with self.subTest(anchor=anchor):
                 self.assertTrue((REPO_ROOT / anchor).is_file())
                 self.assertIn(anchor, roadmap)

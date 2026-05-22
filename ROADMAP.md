@@ -22,6 +22,21 @@ Use the stronger owner surface when the work needs detail:
 - validator contracts: `scripts/validate_repo.py` and
   `tests/test_validate_repo.py`
 
+## Update Rule
+
+Update this roadmap when a change moves repo-level proof direction, horizon
+order, public contour, agent-entry posture, roadmap or quest route split,
+mechanics atlas direction, validator-decomposition posture, or active proof-loop
+direction.
+
+Route local mechanic landings, release notes, quest lifecycle moves, decision
+records, generated refreshes, payload relocations, and validator-token
+maintenance to their owning surfaces unless the local change alters one of
+those repo-level directions.
+
+Before closeout, ask: did this change move proof-organ direction, or did it
+only land a local surface?
+
 ## Operating Card
 
 | Field | Route |
@@ -39,13 +54,14 @@ generated proof readers, runtime-candidate templates, trace and receipt
 bridges, phase-alpha matrices, Agon alignment surfaces, mechanics packages, and
 public-safe proof references into sibling owners.
 
-The current movement is structural maturity:
+The current movement is proof-organ maturity:
 
 - keep entry surfaces short enough to trust;
-- keep the Agent index chain in `docs/AGENT_INDEX.md` visible from repo root to
-  authority class, operation, mechanic parent, part, payload, and validation;
-- keep decision records as rationale crosswalks, not generated dumps;
-- keep roadmap direction separate from release history and validator chronology;
+- keep the Agent index chain visible without making the roadmap the index;
+- keep decision records as rationale crosswalks, not release notes or generated
+  dumps;
+- keep roadmap direction separate from release history, quest obligations, and
+  validator chronology;
 - keep route commands in local `AGENTS.md` cards while authored docs carry proof
   meaning, topology, and read models;
 - preserve mechanics topology before splitting the validator mesh;
@@ -72,25 +88,22 @@ Memo pilot claim limit: future scar and retention remain outside current proof;
 live memory-ledger readiness stays outside the public contour until a
 bundle-local review accepts that claim.
 
-## Directional Anchors
+## Direction Anchors
 
 These anchors keep direction recoverable without turning the roadmap into a
-history ledger.
+history ledger or validator-token ledger.
 
 | Anchor | Owner surface | Directional use |
 | --- | --- | --- |
 | Root proof spine | `DESIGN.md`, `DESIGN.AGENTS.md`, `docs/ARCHITECTURE.md` | Keep root design compact and proof-bundle meaning bounded. |
 | Agent index chain | `docs/AGENT_INDEX.md` | Keep the pass-through route from repo to authority class, operation, mechanic parent, part, payload, and validation visible. |
 | Proof Topology Map | `docs/PROOF_TOPOLOGY.md` | Keep source, generated, candidate, receipt, sibling, legacy, and active mechanic authority classes separate. |
-| Decision memory | `docs/decisions/README.md` | Keep decision records as rationale and decision-route residue crosswalks. |
-| Legacy naming | `docs/LEGACY_NAMING.md` | Preserve Legacy and Naming Containment, Legacy Naming Single-Bridge Language, and Legacy Naming Posture Guide as active-name support. |
-| Mechanics evidence | `mechanics/EVIDENCE_CLUSTERS.md` | Keep the Active Parent Evidence Dimension Ledger and Mechanic Evidence Route Refs tied to contracts/payloads. |
-| Root district posture | `mechanics/EVIDENCE_CLUSTERS.md` | Keep the Root District Reconnaissance Ledger visible for route-card-only districts before mechanic-owned payload movement. |
-| Root residual classes | `mechanics/EVIDENCE_CLUSTERS.md` | Keep Residual Root-authored Surface Classification explicit for mechanic-owned payload boundaries. |
-| Route residue guards | validator and route cards | Keep generated/readout route residue on the same part, active mechanic route residue on authored route cards, root-authored route residue on root-facing authored surfaces, decision-route residue on decision records, repo-config route residue on `.gitignore`, source-bundle route residue on source proof bundles, and mechanic-payload route residue on active mechanics payload. |
-| Mechanic lower index | parent `DIRECTION.md`, parent `PARTS.md`, part `README.md` | Keep mechanic parent direction, Mechanic Part Payload Inventory, payload subdirectory inventory, Mechanic Part Source Surface Reference Guard, stale source surface ref detection, Mechanic Part Source Surfaces Section Contract, plural section checks, Mechanic PARTS Index Synchronization, and stale local part route checks visible before validator decomposition. |
-| Legacy bridge | parent `PROVENANCE.md` and `legacy/` | Keep Mechanic Legacy Single Bridge, Mechanic Provenance Bridge Posture, bridge, not an active route, single controlled bridge, active mechanic surfaces, and Active Legacy Parent Wording Boundary tied to runtime evidence limits. |
-| Part validation route | part `VALIDATION.md` and parent `parts/AGENTS.md` | Keep Mechanic Part Validation Command Reachability and payload coverage anchor visible while commands stay in route cards. |
+| Decision memory | `docs/decisions/README.md` | Keep decision records as rationale and crosswalks by surface class, mechanic parent, and validation guard family. |
+| Legacy naming | `docs/LEGACY_NAMING.md` | Keep active names and legacy bridge posture explicit so active topology stays the first route. |
+| Mechanics evidence | `mechanics/EVIDENCE_CLUSTERS.md` | Keep parent evidence, root district posture, and residual root-authored surface classification outside roadmap body detail. |
+| Route residue guard family | `scripts/validate_repo.py`, route cards, and `docs/decisions/` | Keep generated/readout, active mechanic, root-authored, decision, repo-config, source-bundle, and mechanic-payload residue guards routed to their owner contracts. |
+| Mechanic lower index | `mechanics/README.md`, parent `DIRECTION.md`, parent `PARTS.md`, part `README.md`, part `VALIDATION.md`, and parent `parts/AGENTS.md` | Keep parent direction, part/payload source surfaces, parts index synchronization, local validation routes, and payload coverage recoverable through owner surfaces instead of copied guard text. |
+| Legacy bridge | parent `PROVENANCE.md` and `legacy/` | Keep single controlled bridge posture, active mechanic surfaces, and runtime evidence limits behind the active route. |
 | Proof loop report | `evals/workflow/aoa-verification-honesty/reports/aoa-evals-slice-19-lifecycle-contract.report.json` | Keep the first schema-backed bundle-local report visible as proof-loop evidence. |
 | Generated report index | `generated/eval_report_index.min.json` | Keep report and receipt readers derived from source reports. |
 | Publication receipt dry review | `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json` | Keep the dry-review receipt at `not_published` posture. |

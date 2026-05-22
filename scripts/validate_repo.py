@@ -1091,8 +1091,40 @@ ROADMAP_DIRECTION_SURFACE_REQUIRED_TOKENS = (
     "active direction surface for `aoa-evals`",
     "roadmap owns direction and sequencing",
     "release history: [CHANGELOG.md](CHANGELOG.md)",
+    "## Update Rule",
     "## Current Direction",
+    "## Direction Anchors",
     "## Horizons",
+)
+ROADMAP_ROUTE_RESIDUE_GUARD_FAMILY_TOKENS = (
+    "Route residue guard family",
+    "generated/readout, active mechanic, root-authored, decision, repo-config, source-bundle, and mechanic-payload residue guards",
+    "owner contracts",
+)
+ROADMAP_LEGACY_NAMING_DIRECTION_TOKENS = (
+    LEGACY_NAMING_NAME,
+    "Legacy naming",
+    "active names",
+    "legacy bridge posture",
+)
+ROADMAP_MECHANICS_EVIDENCE_DIRECTION_TOKENS = (
+    "Mechanics evidence",
+    "parent evidence",
+    "root district posture",
+    "residual root-authored surface classification",
+)
+ROADMAP_MECHANIC_LOWER_INDEX_DIRECTION_TOKENS = (
+    "Mechanic lower index",
+    "DIRECTION.md",
+    "part/payload source surfaces",
+    "parts index synchronization",
+    "payload coverage",
+)
+ROADMAP_LEGACY_BRIDGE_DIRECTION_TOKENS = (
+    "Legacy bridge",
+    "single controlled bridge posture",
+    "active mechanic surfaces",
+    "runtime evidence limits",
 )
 AGENTS_AUDIT_ROUTE_REQUIRED_TOKENS = (
     "## Audit and review route",
@@ -9328,7 +9360,7 @@ def validate_generated_route_residue_surfaces(repo_root: Path) -> list[Validatio
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("generated/readout route residue", "same part"),
+        tokens=ROADMAP_ROUTE_RESIDUE_GUARD_FAMILY_TOKENS,
         issues=issues,
     )
     return issues
@@ -9694,12 +9726,7 @@ def validate_legacy_naming_surfaces(repo_root: Path) -> list[ValidationIssue]:
     require_tokens(
         repo_root=repo_root,
         path_name="ROADMAP.md",
-        tokens=(
-            LEGACY_NAMING_NAME,
-            "Legacy and Naming Containment",
-            "Legacy Naming Single-Bridge Language",
-            "Legacy Naming Posture Guide",
-        ),
+        tokens=ROADMAP_LEGACY_NAMING_DIRECTION_TOKENS,
         issues=issues,
     )
     require_tokens(
@@ -13715,7 +13742,7 @@ def validate_active_mechanic_route_residue_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("active mechanic route residue", "authored route cards"),
+        tokens=ROADMAP_ROUTE_RESIDUE_GUARD_FAMILY_TOKENS,
         issues=issues,
     )
     return issues
@@ -13835,7 +13862,7 @@ def validate_root_authored_route_residue_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("root-authored route residue", "root-facing authored surfaces"),
+        tokens=ROADMAP_ROUTE_RESIDUE_GUARD_FAMILY_TOKENS,
         issues=issues,
     )
     return issues
@@ -13948,7 +13975,7 @@ def validate_decision_route_residue_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("decision-route residue", "decision records"),
+        tokens=ROADMAP_ROUTE_RESIDUE_GUARD_FAMILY_TOKENS,
         issues=issues,
     )
     return issues
@@ -14069,7 +14096,7 @@ def validate_repo_config_route_residue_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("repo-config route residue", ".gitignore"),
+        tokens=ROADMAP_ROUTE_RESIDUE_GUARD_FAMILY_TOKENS,
         issues=issues,
     )
     return issues
@@ -14220,7 +14247,7 @@ def validate_source_bundle_route_residue_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("source-bundle route residue", "source proof bundles"),
+        tokens=ROADMAP_ROUTE_RESIDUE_GUARD_FAMILY_TOKENS,
         issues=issues,
     )
     return issues
@@ -14469,7 +14496,7 @@ def validate_mechanic_payload_route_residue_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("mechanic-payload route residue", "active mechanics payload"),
+        tokens=ROADMAP_ROUTE_RESIDUE_GUARD_FAMILY_TOKENS,
         issues=issues,
     )
     return issues
@@ -16778,7 +16805,7 @@ def validate_mechanic_part_readme_contract_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("Mechanic Part Payload Inventory", "payload subdirectory"),
+        tokens=ROADMAP_MECHANIC_LOWER_INDEX_DIRECTION_TOKENS,
         issues=issues,
     )
     require_tokens(
@@ -16811,7 +16838,7 @@ def validate_mechanic_part_readme_contract_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("Mechanic Part Source Surface Reference Guard", "stale source surface ref"),
+        tokens=ROADMAP_MECHANIC_LOWER_INDEX_DIRECTION_TOKENS,
         issues=issues,
     )
     require_tokens(
@@ -16844,7 +16871,7 @@ def validate_mechanic_part_readme_contract_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("Mechanic Part Source Surfaces Section Contract", "plural section"),
+        tokens=ROADMAP_MECHANIC_LOWER_INDEX_DIRECTION_TOKENS,
         issues=issues,
     )
 
@@ -16925,7 +16952,7 @@ def validate_mechanic_parts_index_sync_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("Mechanic PARTS Index Synchronization", "stale local part route"),
+        tokens=ROADMAP_MECHANIC_LOWER_INDEX_DIRECTION_TOKENS,
         issues=issues,
     )
 
@@ -17015,7 +17042,7 @@ def validate_mechanic_legacy_single_bridge_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("Mechanic Legacy Single Bridge", "single controlled bridge", "active mechanic surfaces"),
+        tokens=ROADMAP_LEGACY_BRIDGE_DIRECTION_TOKENS,
         issues=issues,
     )
 
@@ -17157,7 +17184,7 @@ def validate_mechanic_part_validation_command_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("Mechanic Part Validation Command Reachability", "payload coverage anchor"),
+        tokens=ROADMAP_MECHANIC_LOWER_INDEX_DIRECTION_TOKENS,
         issues=issues,
     )
 
@@ -17506,11 +17533,7 @@ def validate_mechanic_parent_class_map(repo_root: Path) -> list[ValidationIssue]
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=(
-            "Active Parent Evidence Dimension Ledger",
-            "Mechanic Evidence Route Refs",
-            "contracts/payloads",
-        ),
+        tokens=ROADMAP_MECHANICS_EVIDENCE_DIRECTION_TOKENS,
         issues=issues,
     )
 
@@ -17643,7 +17666,7 @@ def validate_mechanic_root_district_recon_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("Root District Reconnaissance Ledger", "route-card-only"),
+        tokens=ROADMAP_MECHANICS_EVIDENCE_DIRECTION_TOKENS,
         issues=issues,
     )
 
@@ -17817,7 +17840,7 @@ def validate_root_authored_surface_classification(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=(ROOT_AUTHORED_SURFACE_CLASSIFICATION_SECTION, "mechanic-owned payload"),
+        tokens=ROADMAP_MECHANICS_EVIDENCE_DIRECTION_TOKENS,
         issues=issues,
     )
 
@@ -17994,10 +18017,7 @@ def validate_mechanic_provenance_bridge_posture_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=(
-            "Mechanic Provenance Bridge Posture",
-            "bridge, not an active route",
-        ),
+        tokens=ROADMAP_LEGACY_BRIDGE_DIRECTION_TOKENS,
         issues=issues,
     )
 
@@ -18082,7 +18102,7 @@ def validate_mechanic_parent_direction_surfaces(
     require_tokens(
         repo_root=repo_root,
         path_name=ROADMAP_NAME,
-        tokens=("mechanic parent direction", "DIRECTION.md"),
+        tokens=ROADMAP_MECHANIC_LOWER_INDEX_DIRECTION_TOKENS,
         issues=issues,
     )
     require_tokens(
@@ -18406,7 +18426,7 @@ def validate_active_legacy_parent_wording(repo_root: Path) -> list[ValidationIss
     require_tokens(
         repo_root=repo_root,
         path_name="ROADMAP.md",
-        tokens=("Active Legacy Parent Wording Boundary", "runtime evidence"),
+        tokens=ROADMAP_LEGACY_BRIDGE_DIRECTION_TOKENS,
         issues=issues,
     )
     require_tokens(

@@ -4,9 +4,10 @@
 
 `PARTS.md` lists the active parts inside `mechanics/proof-object/`.
 
-It is not the source eval package directory and not a generated catalog. A
-proof-object part is active only when it keeps source eval meaning complete,
-bounded, and stronger than derived readers or emitted companions.
+Source eval packages stay under `evals/`, and generated catalogs stay derived
+from source packages. A proof-object part is active only when it keeps source
+eval meaning complete, bounded, and stronger than derived readers or emitted
+companions.
 
 ## Active Parts
 
@@ -44,21 +45,22 @@ Owner split stays explicit: `evals/**/EVAL.md` and `eval.yaml` own source eval
 meaning; proof-object parts own authoring and contract support; generated
 catalogs and reports stay weaker than source eval packages.
 
-Stop-lines forbid moving `evals/` into this mechanic, turning templates into
-doctrine, weakening schemas for convenience, or treating generated readers as
-proof authority.
+Stop-lines route source-package movement, template doctrine pressure, schema
+weakening pressure, and generated-reader authority pressure back to their
+owning surfaces.
 
 Validation routes through [AGENTS](AGENTS.md#validation) and the affected part
 route cards.
 
 ## Stop-Lines
 
-- Do not move `evals/` into `mechanics/proof-object/`.
-- Do not make the template a doctrine essay or example eval.
-- Do not weaken schemas to pass an under-specified eval package.
-- Do not hand-edit generated readers as proof authority.
-- Do not turn status, maturity, or catalog entries into stronger proof than
-  `EVAL.md` and `eval.yaml`.
+| Pressure | Route |
+| --- | --- |
+| source eval package movement appears | keep source eval packages under `evals/` |
+| template reads as doctrine essay or example eval | route meaning to repo proof guides or the source proof package |
+| schema loosening would make an under-specified eval pass | route back to source package completeness |
+| generated reader needs a proof change | edit the source package and rebuild the reader |
+| status, maturity, or catalog entry reads stronger than source proof | return to `EVAL.md`, `eval.yaml`, and bundle-local review |
 
 ## Validation
 

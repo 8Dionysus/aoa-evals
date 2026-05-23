@@ -14,7 +14,8 @@ decision records, and `PROVENANCE.md`.
 - `PARTS.md`: active proof-object part map.
 - `parts/`: eval-authoring and eval-contract support.
 - `PROVENANCE.md`: controlled bridge from active route to old template and schema placement.
-- `legacy/`: lineage only; not a template alias.
+- `legacy/`: lineage only; active template and schema routes stay in parts and
+  `PROVENANCE.md`.
 - `evals/`: source proof objects and stronger claim meaning.
 
 ## Current contour
@@ -33,10 +34,10 @@ moving proof meaning out of `evals/`.
 
 ## Stop-lines
 
-- Do not move source eval packages into mechanics.
-- Do not treat templates, schemas, generated readers, reports, receipts,
-  runtime candidates, sibling refs, quests, or release readiness as stronger
-  than source proof objects.
+| Pressure | Route |
+| --- | --- |
+| source eval package movement appears | keep source eval packages under `evals/`; route support through mechanics |
+| template, schema, generated reader, report, receipt, runtime candidate, sibling ref, quest, or release-readiness surface reads as stronger truth | return to the source proof object and its bundle-local review |
 
 ## Validation
 

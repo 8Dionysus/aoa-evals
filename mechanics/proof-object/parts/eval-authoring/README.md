@@ -4,7 +4,8 @@
 
 This part owns the starter authoring scaffold for source eval packages.
 
-It is not a proof bundle, doctrine essay, generated reader, or example report.
+Proof bundle, doctrine essay, generated reader, and example report meaning
+route to their owning source surfaces.
 
 ## Owned Operation
 
@@ -37,9 +38,10 @@ claim, object under evaluation, status, evidence posture, verdict logic,
 blind spots, and manifest metadata.
 
 `docs/ARCHITECTURE.md`, `docs/EVAL_PHILOSOPHY.md`, review guides, comparison
-guides, score guides, and verdict guides own repo-level proof vocabulary. The
-template borrows that vocabulary for a starter shape; it does not become
-doctrine or accepted proof meaning.
+guides, score guides, and verdict guides own repo-level proof vocabulary.
+The template borrows that vocabulary for a starter shape. When it reads as
+doctrine or accepted proof meaning, route back to the source package and proof
+guides.
 
 `mechanics/proof-object/parts/eval-contracts/` owns schema-backed contract
 checks. Generated catalogs, capsules, sections, reports, receipts, runtime
@@ -51,13 +53,13 @@ limits.
 
 ## Stop-Lines
 
-- Do not turn the template into active proof meaning.
-- Do not use placeholder text as evidence.
-- Do not hide comparison posture in prose when frontmatter or `eval.yaml`
-  must carry it.
-- Do not move source eval packages into this part.
-- Do not let generated readers, reports, receipts, runtime candidates, or
-  sibling refs outrank source eval packages.
+| Pressure | Route |
+| --- | --- |
+| template reads as active proof meaning | route proof meaning to `evals/**/EVAL.md`, `evals/**/eval.yaml`, and repo proof guides |
+| placeholder text reads as evidence | route to real evidence entries, fixtures, reports, or examples |
+| comparison posture hides in prose | carry it in frontmatter, `eval.yaml`, and comparison guidance |
+| source eval package movement appears | keep source eval packages under `evals/` |
+| generated readers, reports, receipts, runtime candidates, or sibling refs outrank source eval packages | return to source eval packages and bundle-local review |
 
 ## Validation
 

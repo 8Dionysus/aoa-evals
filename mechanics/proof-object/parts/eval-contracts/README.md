@@ -5,7 +5,8 @@
 This part owns the schema-backed source contracts for eval frontmatter and
 manifests.
 
-It is not an eval registry and not generated reader authority.
+Eval registry meaning and generated reader authority route to their owning
+source surfaces.
 
 ## Owned Operation
 
@@ -39,24 +40,26 @@ lifecycle status, bounded claim text, evidence posture, baseline mode,
 dependencies, and report expectations.
 
 This part owns schema-backed contract validation for frontmatter and manifests.
-It can reject missing or malformed metadata, but it does not invent eval
-claims, mature an eval package, accept evidence, or rewrite verdict meaning.
+It can reject missing or malformed metadata while claim invention, maturity
+movement, evidence acceptance, and verdict meaning stay with source eval
+packages and bundle-local review.
 
 Generated catalog, capsule, section, comparison, runtime candidate, quest,
 receipt, and sibling-reference readers consume validated metadata as derived
 navigation. They stay weaker than source eval packages and eval-local review.
 
-`aoa-evals` owns the schema contract and validation route here, not a registry
-of approved proof truth.
+`aoa-evals` owns the schema contract and validation route here. Approved proof
+truth remains in source eval packages and their review evidence.
 
 ## Stop-Lines
 
-- Do not loosen schemas to make weak eval packages pass.
-- Do not encode generated catalog convenience as source proof meaning.
-- Do not make status movement stronger than eval evidence.
-- Do not move source eval packages into this part.
-- Do not treat schema acceptance as eval-local review, evidence acceptance,
-  publication, or release readiness.
+| Pressure | Route |
+| --- | --- |
+| schema loosening would make a weak eval package pass | route back to source package completeness |
+| generated catalog convenience wants source meaning | keep generated convenience below source proof meaning |
+| status movement reads stronger than eval evidence | route to eval evidence, lifecycle posture, and validation |
+| source eval package movement appears | keep source eval packages under `evals/` |
+| schema acceptance reads as eval-local review, evidence acceptance, publication, or release readiness | route those claims to bundle-local review, evidence review, publication, or release-support surfaces |
 
 ## Validation
 

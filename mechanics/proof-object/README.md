@@ -25,7 +25,8 @@ The source proof object remains:
 - bundle-local notes, fixtures, runners, schemas, reports, and examples when
   they exist
 
-This package routes the operation around those objects. It does not move them.
+This package routes the operation around those objects. Source eval packages
+stay under `evals/`.
 
 ## Source Surfaces
 
@@ -88,15 +89,14 @@ bounded claim that local evidence and verdict logic can support.
 
 ## Boundaries
 
-- Do not move `evals/` into this package.
-- Do not treat this package as permission to promote or deprecate evals by
-  route-card edit alone.
-- Do not make generated catalogs, capsules, sections, receipts, runtime
-  candidates, or sibling refs stronger than bundle-local meaning.
-- Do not use one proof object as a universal agent ranking.
-- Do not let `status` imply more maturity than the evidence and portability
-  checks support.
-- Do not hide blind spots behind compact generated readers.
+| Pressure | Route |
+| --- | --- |
+| source eval package movement appears | keep source eval packages under `evals/` and route support work through this package |
+| route-card edit appears to promote or deprecate an eval | route lifecycle movement through source metadata, review evidence, and validation |
+| generated catalog, capsule, section, receipt, runtime candidate, or sibling ref appears stronger than bundle meaning | return to bundle-local `EVAL.md`, `eval.yaml`, and review evidence |
+| one proof object reads like a universal agent ranking | narrow it to the bounded claim and comparison posture named by the source package |
+| `status` reads stronger than evidence or portability checks | route status movement through source evidence, public-safety posture, portability, comparison, and validation |
+| compact generated reader hides blind spots | return to source blind spots and interpretation guidance |
 
 ## Lifecycle Posture
 

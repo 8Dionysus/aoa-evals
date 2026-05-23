@@ -2441,7 +2441,7 @@ PROOF_OBJECT_MECHANIC_REQUIRED_TOKENS = (
     "generated/eval_sections.full.json",
     "proof-object completeness review",
     "bundle-local review",
-    "Do not move `evals/`",
+    "Source eval packages stay under `evals/`",
     "python scripts/build_catalog.py --check",
     "AGENTS.md#validation",
 )
@@ -2461,7 +2461,7 @@ PROOF_OBJECT_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md",
     "mechanics/proof-object/parts/eval-contracts/schemas/eval-frontmatter.schema.json",
     "mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json",
-    "Do not move `evals/`",
+    "Source eval packages stay under `evals/`",
     "AGENTS.md#validation",
 )
 PROOF_OBJECT_EVAL_AUTHORING_PART_REQUIRED_TOKENS = (
@@ -2490,8 +2490,8 @@ PROOF_OBJECT_EVAL_CONTRACTS_PART_REQUIRED_TOKENS = (
     "evals/**/EVAL.md",
     "evals/**/eval.yaml",
     "schema-backed contract validation",
-    "does not invent eval",
-    "schema acceptance as eval-local review",
+    "claim invention",
+    "schema acceptance reads as eval-local review",
     "python scripts/build_catalog.py --check",
 )
 PROOF_OBJECT_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS

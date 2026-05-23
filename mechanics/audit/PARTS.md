@@ -21,9 +21,9 @@ It answers:
 - which runtime artifacts may travel upward;
 - which source owner and schema still own the evidence;
 - what the packet may support;
-- what the packet must not overread.
+- where overread pressure routes.
 
-It does not accept the evidence as proof canon.
+Proof acceptance happens later through bundle-local review.
 
 ### `artifact-verdict-hooks`
 
@@ -37,7 +37,7 @@ It answers:
 - which eval bundle can read them;
 - which contract refs and report shape constrain the reading.
 
-It does not become a runtime judge and does not move verdict logic out of
+Runtime judging stays with the runtime owner, and verdict logic stays with
 `aoa-evals`. Mechanic-specific hook examples may live under the mechanic part
 that owns the proof route.
 
@@ -67,7 +67,8 @@ It answers:
 - what replay requirements remain mandatory;
 - which authority jumps are forbidden.
 
-It does not activate runtime continuity, write canon, or seal a verdict.
+Runtime continuity activation, canon write, and sealed verdict authority route
+to their owning surfaces.
 
 ## Part Contract
 
@@ -81,18 +82,18 @@ Owner split stays explicit: runtime and sibling repositories keep stronger
 truth; `aoa-evals` owns only the candidate-evidence route and the proof review
 boundary.
 
-Stop-lines keep every part candidate-only. No audit part accepts a verdict,
-activates runtime state, rewrites sibling truth, or bypasses bundle-local
-review.
+Stop-lines keep every part candidate-only. Verdict acceptance, runtime
+activation, sibling truth changes, and proof adoption route through their
+owning surfaces before audit output can support a bundle.
 
 Validation routes through [AGENTS](AGENTS.md#validation), candidate-reader
 builders, schema checks, and example tests.
 
 ## Stop Lines
 
-- Raw runtime logs stay out unless selected into public-safe packet shape.
-- `abyss-stack` remains runtime authority.
-- `aoa-playbooks`, `aoa-agents`, `aoa-memo`, and `aoa-stats` keep their owner
-  truth.
-- Bundle-local review is the first place candidate evidence can become accepted
-  proof support.
+| Pressure | Route |
+| --- | --- |
+| raw runtime log enters the conversation | select it into public-safe packet shape or leave it with the source owner |
+| `abyss-stack` fact needs implementation or acceptance | route to `abyss-stack` for runtime authority |
+| playbook, agent, memo, or stats meaning appears | route owner truth to `aoa-playbooks`, `aoa-agents`, `aoa-memo`, or `aoa-stats` |
+| candidate evidence looks ready for proof support | route to bundle-local review first |

@@ -86,22 +86,19 @@ runtime implementation. `aoa-playbooks` owns scenario composition.
 `aoa-agents` owns agent artifact contracts. `aoa-memo` owns memory and
 checkpoint meaning. `aoa-stats` owns shared event envelope vocabulary.
 
-This package may route selected evidence from those owners. It does not absorb
-their authority.
+This package may route selected evidence from those owners while their
+authority remains with the stronger owner surfaces above.
 
 ## Boundaries
 
-- Runtime evidence stays candidate-only until bundle-local review.
-- Generated runtime candidate readers are navigation and intake surfaces, not
-  proof authority.
-- Do not ingest raw uncurated dumps, secrets, private host fingerprints, or
-  unreduced operator traces.
-- Do not read latency, load, recovery, or context-stress evidence as global
-  intelligence, safety, capability, or agent-quality ranking.
-- Do not let a receipt, hook packet, or candidate intake entry promote a bundle
-  by itself.
-- Do not repair `abyss-stack` or machine maintenance from this package unless
-  the current proof gate explicitly requires it.
+| Pressure | Route |
+| --- | --- |
+| runtime evidence looks proof-ready | keep it candidate-only until bundle-local review accepts a specific eval reading |
+| generated runtime candidate reader points at an artifact | use it as navigation and intake, then return to source examples, schemas, and bundle-local review |
+| raw dump, secret, private host fingerprint, or unreduced operator trace appears | route it back to the source owner or reduce it into a public-safe selected evidence packet |
+| latency, load, recovery, or context-stress evidence sounds like a broad ranking | read it only as bounded local evidence for the named claim |
+| receipt, hook packet, or candidate intake entry appears to promote a bundle | route promotion through bundle-local review and the owning report or receipt surface |
+| `abyss-stack` repair or machine maintenance pressure appears | route implementation work to the runtime or machine owner; audit carries only selected evidence when the proof gate needs it |
 
 ## Legacy Posture
 
@@ -111,8 +108,8 @@ docs, or generated readers use them.
 
 The active package name is `audit` because the living operation is evidence
 intake, risk routing, and proof-boundary review. `runtime-evidence` remains an
-accepted evidence-class and schema vocabulary inside the package; it is not the
-parent mechanic.
+accepted evidence-class and schema vocabulary inside the package; parent
+navigation routes through `audit`.
 
 ## Validation
 

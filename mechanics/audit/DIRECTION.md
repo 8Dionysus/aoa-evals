@@ -32,16 +32,18 @@ decision records, and `PROVENANCE.md`.
 ## Growth rule
 
 Add audit parts only when a repeated intake or review operation has a clear
-candidate-evidence contract and validation. Do not create new audit surfaces
-just to store raw logs, private traces, or broad benchmark claims.
+candidate-evidence contract and validation. Raw logs, private traces, and broad
+benchmark claims route to the source owner, selected-evidence reduction, or
+rejected-overclaim posture before they can shape an audit part.
 
 ## Stop-lines
 
-- Do not treat selected evidence as proof acceptance.
-- Do not ingest secrets, raw private logs, or host fingerprints.
-- Do not let generated candidate readers outrank source packets.
-- Do not turn audit into release support, receipt publication, or runtime
-  monitoring.
+| Pressure | Route |
+| --- | --- |
+| selected evidence reads as proof acceptance | route to bundle-local review before proof support |
+| secret, raw private log, or host fingerprint appears | keep it with the source owner or reduce it into public-safe packet shape |
+| generated candidate reader looks stronger than its source | return to source packets, hook examples, schemas, and the builder |
+| audit drifts toward release support, receipt publication, or runtime monitoring | route to `release-support`, `publication-receipts`, or the runtime owner |
 
 ## Validation
 

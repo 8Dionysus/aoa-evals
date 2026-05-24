@@ -35,7 +35,7 @@
             "local-adapter posture must remain visible when infra bindings are active"
           ],
           "cautions": [
-            "Portable ability grant does not widen local adapter rights by itself."
+            "Portable ability grant keeps local adapter rights owner-gated."
           ]
         },
         {
@@ -53,7 +53,7 @@
             "proof-first verification pass required before merge or handoff"
           ],
           "cautions": [
-            "One clean pair route is not proof for larger orchestrated cohorts."
+            "Larger orchestrated cohorts need their own reviewed proof."
           ]
         },
         {
@@ -69,7 +69,7 @@
             "Need one more reviewed cross-repo bounded-change route with clean reanchor posture"
           ],
           "cautions": [
-            "Current evidence is enough for repo-local contract work, not broader risk widening."
+            "Current evidence supports repo-local contract work; broader risk widening needs another reviewed route."
           ]
         }
       ],
@@ -132,7 +132,7 @@
             "use only in validation/remediation scenarios with explicit evaluator participation"
           ],
           "cautions": [
-            "Triad posture is scenario-shaped, not a universal default for all routes."
+            "Triad posture stays scenario-shaped; other routes need their own fit review."
           ]
         },
         {
@@ -158,7 +158,7 @@
         "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md"
       ],
       "evaluator_ref": "AOA-A-EXAMPLE-EVALUATOR",
-      "notes": "Example only. Granting a party lane still does not auto-equip or auto-route it.",
+      "notes": "Example only. Granting a party lane leaves equip and routing with owner gates.",
       "reviewed_at": "2026-04-04",
       "public_safe": true
     }

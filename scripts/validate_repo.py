@@ -4383,8 +4383,8 @@ RPG_MECHANIC_REQUIRED_TOKENS = (
     "mechanics/rpg/parts/progression-unlocks/generated/unlock_proof_cards.min.example.json",
     "Stronger Owner Split",
     "Stop-Lines",
-    "universal score",
-    "runtime equip state",
+    "| universal agent score or broad capability growth | `mechanics/rpg/parts/progression-unlocks/` can hold bounded evidence; broad growth reading routes through `mechanics/comparison-spine/parts/longitudinal-window/` and owner review |",
+    "| runtime equip state, activation, reward logic, or penalties | `abyss-stack` runtime route after owner gates and proof review |",
     "python scripts/validate_repo.py",
 )
 RPG_MECHANIC_AGENTS_REQUIRED_TOKENS = (
@@ -4404,6 +4404,8 @@ RPG_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "Stop-lines",
     "Validation",
     "growth-cycle",
+    "| universal score, automatic rank, or broad capability growth | bounded progression evidence plus comparison/growth owner review |",
+    "| generated-card authority | source support plus generated-reader route before citation |",
 )
 RPG_PROGRESS_UNLOCKS_PART_REQUIRED_TOKENS = (
     "Progression Unlocks Part",
@@ -4418,11 +4420,11 @@ RPG_PROGRESS_UNLOCKS_PART_REQUIRED_TOKENS = (
     "mechanics/rpg/parts/progression-unlocks/generated/unlock_proof_cards.min.example.json",
     "progression evidence",
     "unlock proof",
-    "quest completion",
-    "universal rank",
-    "runtime equip state",
-    "growth-cycle diagnosis",
-    "generated-card authority",
+    "| quest completion or quest acceptance | quest source owner and questbook lifecycle route with proof refs |",
+    "| universal rank, one global score, automatic rank assignment, or broad capability growth | bounded progression evidence plus `mechanics/comparison-spine/parts/longitudinal-window/` and owner review |",
+    "| runtime equip state, runtime activation, reward logic, or penalties | `abyss-stack` runtime route after owner gates |",
+    "| growth-cycle diagnosis, repair, harvest, closeout, or longitudinal movement | `mechanics/growth-cycle/`, `mechanics/antifragility/`, closeout, and comparison owner routes |",
+    "| generated-card authority | generated support source, schema/example review, and bundle-local proof citation route |",
     "python scripts/build_catalog.py --check",
 )
 RPG_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
@@ -4434,7 +4436,8 @@ RPG_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "docs/UNLOCK_PROOF_BRIDGE.md",
     "Quest source records stay under",
     "growth-cycle",
-    "runtime equip state",
+    "pressure-to-owner route map",
+    "runtime equip",
     "python scripts/validate_repo.py",
 )
 RPG_PROGRESS_UNLOCKS_CONTRACT_DECISION_REQUIRED_TOKENS = (
@@ -4442,8 +4445,9 @@ RPG_PROGRESS_UNLOCKS_CONTRACT_DECISION_REQUIRED_TOKENS = (
     "mechanics/rpg/parts/progression-unlocks/README.md",
     "`## Stronger Owner Split`",
     "`## Stop-Lines`",
-    "quest acceptance gate",
-    "runtime equip route",
+    "pressure-to-owner route map",
+    "quest source owner and questbook lifecycle route",
+    "runtime route after owner gates",
     "generated unlock cards remain",
     "Diagnosis, repair, harvest, closeout, and longitudinal movement",
     "python -m pytest -q tests/test_validate_repo.py -k rpg_progression_unlocks",
@@ -5208,16 +5212,18 @@ UNLOCK_PROOF_SCHEMA_NAME = (
 )
 UNLOCK_PROOF_EXAMPLE_NAME = "mechanics/rpg/parts/progression-unlocks/generated/unlock_proof_cards.min.example.json"
 PROGRESSION_EVIDENCE_REQUIRED_TOKENS = (
-    "## Core rule",
+    "## Core route",
     "Progression evidence is quest-scoped or route-scoped proof.",
-    "one universal score",
+    "| one universal score or broad capability growth | keep multi-axis deltas here; route broad comparison through comparison/growth owner review |",
+    "| quest acceptance or state-transition pressure | quest owner route plus cited evidence |",
     "cautions are first-class proof",
 )
 UNLOCK_PROOF_REQUIRED_TOKENS = (
-    "## Core rule",
+    "## Core route",
     "`gated_grant`",
     "It interprets reviewed evidence",
-    "using one proof object as a universal agent ranking",
+    "| runtime equip or activation pressure | `abyss-stack` runtime route plus owner gates |",
+    "| one proof object as a universal agent ranking | multi-axis progression evidence plus owner review |",
 )
 
 MIRRORED_FIELDS = (

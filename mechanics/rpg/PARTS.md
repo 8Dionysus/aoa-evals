@@ -11,7 +11,7 @@ The mechanic owns the route:
 
 | Part | Role | Active surfaces |
 | --- | --- | --- |
-| `progression-unlocks` | Maintains route-scoped progression evidence and unlock proof support without turning RPG language into rank, quest, playbook, or runtime authority. | `mechanics/rpg/parts/progression-unlocks/README.md` |
+| `progression-unlocks` | Maintains route-scoped progression evidence and unlock proof support while routing rank, quest, playbook, runtime, and stats pressure to stronger owners. | `mechanics/rpg/parts/progression-unlocks/README.md` |
 
 ## Part Contract
 
@@ -28,9 +28,16 @@ Owner split stays explicit: `Agents-of-Abyss` owns RPG reflection grammar;
 quest, runtime, and summary truths; `aoa-evals` owns proof wording, schemas,
 examples, unlock-card posture, and claim limits.
 
-Stop-lines forbid universal scores, automatic rank assignment, quest
-acceptance, role/skill/technique/playbook/runtime authority, hidden reward
-logic, generated-card authority, and broad capability growth.
+Stop-lines are pressure routes:
+
+| Pressure | Route |
+| --- | --- |
+| universal score, automatic rank, or broad capability growth | bounded progression evidence plus comparison/growth owner review |
+| quest acceptance or completion | quest source owner and questbook lifecycle route |
+| role, skill, technique, playbook, party, or campaign authority | stronger owner repository route with eval evidence as support |
+| runtime equip state, activation, reward logic, or penalties | `abyss-stack` runtime route after owner gates |
+| generated-card authority | source support plus generated-reader route before citation |
+| derived stats summary | `aoa-stats` derived route with proof refs |
 
 Validation is the root repository validation, generated quest projection
 freshness, semantic agent validation, and the RPG route checks in
@@ -39,8 +46,8 @@ freshness, semantic agent validation, and the RPG route checks in
 ## Deferred Part Families
 
 `growth-cycle` diagnosis, repair, harvest, closeout, and progression-lift
-surfaces remain outside this package until a separate evidence pass proves
-their active route.
+surfaces keep their current owners until a separate evidence pass proves an
+RPG route.
 
 Repeated-window movement stays under `comparison-spine` unless a later
 growth-cycle package routes it as a stage input without stealing comparison

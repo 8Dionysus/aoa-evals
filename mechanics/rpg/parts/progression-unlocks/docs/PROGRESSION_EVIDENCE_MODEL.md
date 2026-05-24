@@ -6,21 +6,25 @@ This note defines the first portable proof surface for RPG-style advancement in 
 
 It exists so that agent progression can be updated through bounded, reviewable evidence rather than through vague reputation or one universal score.
 
-## Core rule
+## Core route
 
 Progression evidence is quest-scoped or route-scoped proof.
 
-It may:
+Supported readings:
+
 - award axis deltas
 - hold advancement with no delta
 - reanchor advancement after drift
 - record a downgrade or caution
 
-It must not:
-- pretend one number explains all capability
-- replace the underlying eval bundle meaning
-- replace repo-owned quest acceptance
-- invent rank or unlock doctrine by itself
+Pressure routes:
+
+| Pressure | Route |
+| --- | --- |
+| one universal score or broad capability growth | keep multi-axis deltas here; route broad comparison through comparison/growth owner review |
+| eval bundle meaning | bundle-local `EVAL.md`, `eval.yaml`, and verdict logic |
+| quest acceptance or state-transition pressure | quest owner route plus cited evidence |
+| rank, role, or unlock doctrine | `aoa-agents` role route and unlock proof bridge route |
 
 ## Verdict posture
 
@@ -31,7 +35,8 @@ Recommended first-wave verdicts:
 - `reanchor`
 - `downgrade`
 
-A verdict is not the same thing as a quest state transition. It is a progression interpretation of reviewed evidence.
+A verdict is a progression interpretation of reviewed evidence. Quest state
+transitions route to the quest owner.
 
 ## Review scope
 
@@ -61,17 +66,19 @@ Use them for:
 - unresolved tradeoffs
 - success with sharp boundary warnings
 - partial correctness
-- proof that is strong enough to inform progression but not strong enough to justify a clean unlock
+- proof that informs progression while the clean unlock stays gated
 
 ## Upstream refs
 
 Example progression evidence may cite upstream read-only refs such as `AOA-SK-Q-0003`.
-Those refs stay source-owned in their home repos and do not widen this rollout into `aoa-skills`.
+Those refs stay source-owned in their home repos; this rollout remains inside
+`aoa-evals`.
 
-## Anti-patterns
+## Route Checks
 
-- a universal intelligence score
-- automatic rank assignment from one event
-- progression evidence with no quest or artifact refs
-- treating a routing hint as proof
-- treating memo witness alone as progression authority
+| Pressure | Route |
+| --- | --- |
+| universal intelligence score or automatic rank assignment from one event | multi-axis evidence plus owner review |
+| progression evidence without quest or artifact refs | add cited source refs before review |
+| routing hint as proof | bundle-local proof review |
+| memo witness as progression authority | `aoa-memo` witness route plus proof evidence |

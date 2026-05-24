@@ -22,9 +22,9 @@
   "evaluator_ref": "AOA-A-EXAMPLE-EVALUATOR",
   "confidence": "medium",
   "cautions": [
-    "Example only. One reviewed event should not auto-grant wider authority."
+    "Example only. Wider authority needs owner review beyond one event."
   ],
-  "notes": "Portable layer contract tightened with bounded verification and no source-ownership drift.",
+  "notes": "Portable layer contract tightened with bounded verification and source ownership preserved.",
   "reviewed_at": "2026-04-01",
   "public_safe": true
 }

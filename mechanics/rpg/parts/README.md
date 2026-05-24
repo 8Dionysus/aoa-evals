@@ -7,5 +7,5 @@ Current parts:
 - `progression-unlocks`: route-scoped progression evidence and unlock proof
   support.
 
-Do not add a part until the evidence cluster has source surfaces, examples or
-schemas, quest or proof pressure, and validation.
+Add a part after the evidence cluster has source surfaces, examples or schemas,
+quest or proof pressure, and validation.

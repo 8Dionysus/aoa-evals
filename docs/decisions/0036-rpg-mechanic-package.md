@@ -59,6 +59,39 @@ archive after the active `mechanics/rpg/PROVENANCE.md` bridge.
 - Validators can reject recreation of old root progression/unlock support
   paths.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `mechanics/rpg/` remains the AoA-aligned eval-side parent for
+  bounded progression evidence and unlock proof support.
+- Changed: active RPG route surfaces now express rank, quest, generated-card,
+  runtime, stats, and broad-growth pressure as a pressure-to-owner route map
+  instead of relying on exclusion prose.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - RPG boundary routes
+
+- Previous assumption: the parent and part surfaces could keep RPG authority
+  limits readable as explicit stop-line prose.
+- New reality: the active route now uses owner-route rows so an agent can move
+  from pressure to owner, source surface, and validation path in one pass.
+- Reason: RPG terms cross center reflection, proof, roles, skills, techniques,
+  playbooks, quests, runtime, and stats; pressure-to-owner routing keeps the
+  eval-side proof operation legible without turning the decision into a live
+  route article.
+- Source surfaces updated: `mechanics/rpg/README.md`,
+  `mechanics/rpg/DIRECTION.md`, `mechanics/rpg/PARTS.md`,
+  `mechanics/rpg/parts/progression-unlocks/README.md`,
+  `mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md`,
+  `mechanics/rpg/parts/progression-unlocks/docs/UNLOCK_PROOF_BRIDGE.md`, and
+  `scripts/validate_repo.py`.
+- Validation: RPG validator focus, unlock/progression surface validation,
+  catalog check, semantic AGENTS validation, diff whitespace check, and full
+  pytest are the expected checks for this slice.
+
 ## Validation
 
 Expected validation route:

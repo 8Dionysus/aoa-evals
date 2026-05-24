@@ -52,23 +52,21 @@ example posture, unlock-card interpretation, cautions, and claim limits.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Use this section as a pressure-to-owner route map for claims that exceed the
+local progression/unlock proof operation.
 
-- quest completion or quest acceptance;
-- universal rank or one global score;
-- automatic rank assignment from one event;
-- role, skill, technique, playbook, party, or campaign authority;
-- runtime equip state or runtime activation;
-- hidden reward logic or penalties;
-- generated-card authority;
-- broad capability growth;
-- growth-cycle diagnosis, repair, harvest, closeout, or longitudinal movement.
+| Pressure | Route |
+| --- | --- |
+| quest completion or quest acceptance | quest source owner and questbook lifecycle route with proof refs |
+| universal rank, one global score, automatic rank assignment, or broad capability growth | bounded progression evidence plus `mechanics/comparison-spine/parts/longitudinal-window/` and owner review |
+| role, skill, technique, playbook, party, or campaign authority | `aoa-agents`, `aoa-skills`, `aoa-techniques`, and `aoa-playbooks` owner routes |
+| runtime equip state, runtime activation, reward logic, or penalties | `abyss-stack` runtime route after owner gates |
+| generated-card authority | generated support source, schema/example review, and bundle-local proof citation route |
+| growth-cycle diagnosis, repair, harvest, closeout, or longitudinal movement | `mechanics/growth-cycle/`, `mechanics/antifragility/`, closeout, and comparison owner routes |
 
-This part is a progression/unlock proof route, not an RPG parent substitute and
-not a growth-cycle claim. Diagnosis, repair, harvest, closeout, and
-longitudinal movement remain outside this part until their own evidence pass
-proves a route.
+This part is the progression/unlock proof route. RPG parent questions route to
+`mechanics/rpg/`; growth-cycle, repair, closeout, and longitudinal movement
+route through their owning mechanics.
 
 ## Validation
 

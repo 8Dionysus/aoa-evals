@@ -73,4 +73,4 @@ python scripts/build_catalog.py --check
 
 Report which RPG part changed, which old root paths were mapped through
 provenance, which generated projections were rebuilt, which validators ran, and
-which stronger-owner boundaries stayed outside this package.
+which stronger-owner boundaries kept their owner route.

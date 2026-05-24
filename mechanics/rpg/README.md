@@ -20,8 +20,9 @@ unlock candidates, quest refs, generated cards, and owner handoff context.
 
 This package is AoA-aligned. It keeps the parent name `rpg` because the
 operation materializes the center RPG mechanic on the proof side. The proof
-forms are parts; `progression-unlocks`, schemas, examples, generated cards, and
-quest records are not parent mechanics by themselves.
+forms stay as parts and source-support surfaces: `progression-unlocks`,
+schemas, examples, generated cards, and quest records route through the active
+part and source owners.
 
 ## Source Surfaces
 
@@ -39,8 +40,9 @@ quest records are not parent mechanics by themselves.
 See [PARTS.md](PARTS.md).
 
 The active part is `progression-unlocks`. It owns route-scoped progression
-evidence and unlock proof support. It does not own role truth, skill truth,
-playbook truth, quest acceptance, runtime equip state, or derived stats.
+evidence and unlock proof support. Role, skill, technique, playbook, quest,
+runtime, and stats pressure route through the owner map below before any
+eval-side proof wording widens.
 
 ## Inputs
 
@@ -57,8 +59,8 @@ playbook truth, quest acceptance, runtime equip state, or derived stats.
 - bounded unlock proof cards with `grant`, `gated_grant`, `hold`, or `revoke`
   posture;
 - explicit cautions, conditions, and owner handoff routes;
-- no global rank, universal score, quest acceptance, runtime equip state, or
-  owner-local authority widening.
+- bounded owner-route statements for rank, score, quest, runtime, and
+  owner-local authority pressure.
 
 ## Stronger Owner Split
 
@@ -77,17 +79,18 @@ surface.
 
 ## Stop-Lines
 
-This package supports bounded eval-side proof only. Keep these claims outside
-this package:
+Use this section as a pressure-to-owner route map for claims that exceed the
+eval-side progression/unlock proof operation.
 
-- one universal agent score;
-- automatic rank assignment from one event;
-- quest acceptance or completion;
-- skill, technique, role, party, campaign, or runtime authority;
-- hidden reward logic, penalties, or runtime equip state;
-- proof that a routing hint, memo witness, or generated card is enough by
-  itself;
-- broad capability growth.
+| Pressure | Route |
+| --- | --- |
+| universal agent score or broad capability growth | `mechanics/rpg/parts/progression-unlocks/` can hold bounded evidence; broad growth reading routes through `mechanics/comparison-spine/parts/longitudinal-window/` and owner review |
+| rank, persona, or role assignment | `aoa-agents` role and actor-contract route with eval evidence as support |
+| skill, technique, feat, party, or campaign authority | `aoa-skills`, `aoa-techniques`, and `aoa-playbooks` owner routes with cited proof refs |
+| quest acceptance or completion | quest source owner route plus questbook lifecycle review |
+| runtime equip state, activation, reward logic, or penalties | `abyss-stack` runtime route after owner gates and proof review |
+| routing hint, memo witness, or generated unlock card as proof | bundle-local proof review plus `aoa-memo` or generated-source route before the card is cited |
+| derived stats or progression summary | `aoa-stats` derived summary route with source proof refs |
 
 ## Legacy
 

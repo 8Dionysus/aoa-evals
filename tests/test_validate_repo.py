@@ -7129,6 +7129,28 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_proof_object_parts_route_validates_current_operating_card(self) -> None:
+        assert validate_repo.validate_proof_object_parts_route_surface(REPO_ROOT) == []
+
+    def test_proof_object_parts_route_rejects_stale_negative_boundary_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, validate_repo.PROOF_OBJECT_PARTS_README_NAME)
+        parts_path = tmp_path / validate_repo.PROOF_OBJECT_PARTS_README_NAME
+        parts_path.write_text(
+            parts_path.read_text(encoding="utf-8")
+            + "\nThey do not own source eval meaning and do not replace generated readers.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_proof_object_parts_route_surface(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.PROOF_OBJECT_PARTS_README_NAME
+            and "positive operating card" in issue.message
+            for issue in issues
+        )
+
     def test_validator_surface_role_validates_current_route(self) -> None:
         assert validate_repo.validate_validator_surface_role(REPO_ROOT) == []
 

@@ -75,9 +75,40 @@ It does not make eval schemas stronger than bundle-local meaning.
 
 - `mechanics/proof-object/PARTS.md` names active parts, stop-lines, and
   validation.
+- `mechanics/proof-object/parts/README.md` routes the lower part index and
+  part-admission posture.
 - `mechanics/proof-object/PROVENANCE.md` bridges former root placement
   questions into the owning legacy archive.
 - `scripts/validate_repo.py` uses the part-local schema paths.
 - `python scripts/validate_repo.py`
 - `python scripts/build_catalog.py --check`
 - `python scripts/validate_semantic_agents.py`
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `eval-authoring` and `eval-contracts` remain support parts for
+  source proof-object authoring and validation.
+- Clarified: `mechanics/proof-object/parts/README.md` is the lower index and
+  part-admission route for proof-object support operations.
+- Source surfaces updated: `mechanics/proof-object/parts/README.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: proof-object parts route helper, full repository validation, and
+  generated catalog freshness check.
+
+## Review Log
+
+### 2026-05-24 - Parts route lower index clarified
+
+- Previous assumption: the lower parts README could state the source-bundle and
+  generated-reader boundary in prose after listing active parts.
+- New reality: the lower index is clearer as an operating card plus
+  part-admission route: input, output, owner, next route, validation, source
+  surface, operation, and owner boundary.
+- Reason: source eval meaning stays with `evals/**/EVAL.md` and
+  `evals/**/eval.yaml`; the parts index should route support work to the right
+  part without becoming a second proof-object contract.
+- Source surfaces updated: `mechanics/proof-object/parts/README.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: focused proof-object parts route tests plus full repo validation.

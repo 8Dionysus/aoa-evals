@@ -2015,6 +2015,7 @@ PROOF_OBJECT_MECHANIC_README_NAME = "mechanics/proof-object/README.md"
 PROOF_OBJECT_MECHANIC_AGENTS_NAME = "mechanics/proof-object/AGENTS.md"
 PROOF_OBJECT_MECHANIC_PARTS_NAME = "mechanics/proof-object/PARTS.md"
 PROOF_OBJECT_MECHANIC_PROVENANCE_NAME = "mechanics/proof-object/PROVENANCE.md"
+PROOF_OBJECT_PARTS_README_NAME = "mechanics/proof-object/parts/README.md"
 PROOF_OBJECT_EVAL_AUTHORING_PART_README_NAME = (
     "mechanics/proof-object/parts/eval-authoring/README.md"
 )
@@ -2620,6 +2621,22 @@ PROOF_OBJECT_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json",
     "Source eval packages stay under `evals/`",
     "AGENTS.md#validation",
+)
+PROOF_OBJECT_PARTS_README_REQUIRED_TOKENS = (
+    "## Operating Card",
+    "lower index for proof-object authoring and contract support parts",
+    "source eval bundle for proof meaning",
+    "source `evals/**/EVAL.md` and `evals/**/eval.yaml`",
+    "## Part Admission Route",
+    "`eval-authoring/`",
+    "`eval-contracts/`",
+    "stronger-owner split",
+    "mechanics/proof-object/AGENTS.md#validation",
+    "generated-reader check",
+    "generated-reader freshness checks",
+)
+PROOF_OBJECT_PARTS_README_FORBIDDEN_TOKENS = (
+    "They do not own source eval meaning and do not replace generated readers",
 )
 PROOF_OBJECT_EVAL_AUTHORING_PART_REQUIRED_TOKENS = (
     "Eval Authoring",
@@ -3246,6 +3263,26 @@ PUBLICATION_RECEIPTS_MECHANIC_REQUIRED_TOKENS = (
     "python scripts/validate_repo.py",
     "python scripts/validate_semantic_agents.py",
 )
+
+
+def validate_proof_object_parts_route_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    text = require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_OBJECT_PARTS_README_NAME,
+        tokens=PROOF_OBJECT_PARTS_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    if text:
+        for forbidden_token in PROOF_OBJECT_PARTS_README_FORBIDDEN_TOKENS:
+            if forbidden_token in text:
+                issues.append(
+                    ValidationIssue(
+                        PROOF_OBJECT_PARTS_README_NAME,
+                        "proof-object parts route should use a positive operating card",
+                    )
+                )
+    return issues
 PUBLICATION_RECEIPTS_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "eval-result receipt",
     "stats-event-envelope",
@@ -10591,6 +10628,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         tokens=PROOF_OBJECT_MECHANIC_PARTS_REQUIRED_TOKENS,
         issues=issues,
     )
+    issues.extend(validate_proof_object_parts_route_surface(repo_root))
     require_tokens(
         repo_root=repo_root,
         path_name=PROOF_OBJECT_EVAL_AUTHORING_PART_README_NAME,

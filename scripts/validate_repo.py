@@ -1509,6 +1509,27 @@ CLOSEOUT_WRITEBACK_INGRESS_DECISION_REQUIRED_TOKENS = (
     "owner-local re-read anchor",
     "traceable proof ingress",
 )
+CONTRIBUTING_ROUTE_REQUIRED_TOKENS = (
+    "Operating Card",
+    "public contribution route",
+    "AGENTS.md` owns agent workflow",
+    "validation evidence",
+    "security handoff",
+    "outputs that preserve claim limits",
+    "fixtures and scoring expose public setup",
+    "Canonical promotion needs evidence",
+    "Hidden intuition routes to a written judgment rule",
+    "A good eval bundle proves one bounded thing honestly",
+)
+CONTRIBUTING_FORBIDDEN_ROUTE_SCAFFOLD = (
+    "outputs that do not overstate what was learned",
+    "fixtures and scoring do not depend on hidden local assumptions",
+    "Do not mark an eval `canonical`",
+    "what does the eval still fail to prove?",
+    "If the answer depends on hidden intuition, the bundle is not ready.",
+    "do not open a public issue or PR",
+    "A good eval bundle does not try to prove everything.",
+)
 MECHANIC_ROUTE_CARD_FILES = tuple(
     route
     for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
@@ -10182,6 +10203,27 @@ def validate_closeout_writeback_ingress_surface(repo_root: Path) -> list[Validat
         tokens=CLOSEOUT_WRITEBACK_INGRESS_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
+    return issues
+
+
+def validate_contributing_route_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    contributing_text = require_tokens(
+        repo_root=repo_root,
+        path_name="CONTRIBUTING.md",
+        tokens=CONTRIBUTING_ROUTE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    if contributing_text:
+        for stale_phrase in CONTRIBUTING_FORBIDDEN_ROUTE_SCAFFOLD:
+            if stale_phrase in contributing_text:
+                issues.append(
+                    ValidationIssue(
+                        "CONTRIBUTING.md",
+                        "contributing guide should name owner routes and proof criteria "
+                        f"instead of stale scaffold '{stale_phrase}'",
+                    )
+                )
     return issues
 
 
@@ -20236,6 +20278,7 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_docs_readme_route_map(repo_root))
     issues.extend(validate_portable_eval_boundary_guide_surface(repo_root))
     issues.extend(validate_closeout_writeback_ingress_surface(repo_root))
+    issues.extend(validate_contributing_route_surface(repo_root))
     issues.extend(validate_read_model_command_ownership(repo_root))
     issues.extend(validate_releasing_route_map_surface(repo_root))
     issues.extend(validate_source_eval_tree_topology_surfaces(repo_root))

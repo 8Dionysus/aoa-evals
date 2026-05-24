@@ -53,3 +53,32 @@ The guard permits:
 
 - `python -m pytest -q tests/test_validate_repo.py -k root_authored_route_residue`
 - `python scripts/validate_repo.py`
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: root-facing authored guidance stays current by routing readers
+  to active source surfaces, mechanics routes, or root route cards.
+- Changed: `CONTRIBUTING.md` now has an operating card and positive proof
+  criteria for contribution intake, validation evidence, and security handoff.
+- Source surfaces updated: `CONTRIBUTING.md`, `scripts/validate_repo.py`, and
+  `tests/test_validate_repo.py`.
+- Validation route: `python -m pytest -q tests/test_validate_repo.py -k contributing_route`
+  and `python scripts/validate_repo.py`.
+
+## Review Log
+
+### 2026-05-24 - Contributing route card clarified
+
+- Previous assumption: the public contribution guide could rely on checklist
+  wording and several negative readiness warnings.
+- New reality: contributors and low-context agents need the owner route,
+  validation route, review evidence route, and security handoff visible before
+  the checklist.
+- Reason: `CONTRIBUTING.md` is root-facing authored guidance; it should route
+  public proof work to the right owner without duplicating agent workflow law.
+- Source surfaces updated: `CONTRIBUTING.md`, `scripts/validate_repo.py`, and
+  `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k contributing_route`
+  and `python scripts/validate_repo.py`.

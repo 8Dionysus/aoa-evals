@@ -1,9 +1,9 @@
 # Portable Eval Boundary Guide
 
 This guide defines the portability route for evaluation bundles within the
-`aoa-evals` bounded proof canon. It keeps public proof claims movable without
-letting local context, copied files, or broad benchmark language outrun the
-bundle's bounded contract.
+`aoa-evals` bounded proof canon. It gives agents the route for moving public
+proof claims while local context, copied files, and broad benchmark pressure
+stay bounded by the bundle's contract.
 
 Use this guide when a bundle demonstrates utility in a specific context and now
 needs review as a public proof surface.
@@ -52,11 +52,11 @@ Use these routes when a portability pressure appears:
 
 A bundle is closer to portable when:
 - the bounded claim remains clear outside the origin project
-- the fixture surface can be recreated or replaced without changing the claim class
-- the scorer or verdict logic does not depend on hidden reviewer intuition
+- the fixture surface has a replacement contract that preserves the claim class
+- the scorer or verdict logic exposes the reviewer judgment it depends on
 - public readers can understand how the result should be interpreted
 - local environment details remain subordinate to the proof surface
-- the bundle names what it still cannot prove
+- the bundle names its remaining proof limits
 
 ## Local-Shaped Pressure Routes
 
@@ -77,12 +77,12 @@ public portable posture:
 Before calling a bundle portable, ask:
 
 1. Could a careful outsider understand the bounded claim?
-2. Could they tell what the eval measures and what it does not measure?
-3. Could they run or adapt the bundle without hidden private knowledge?
+2. Could they tell what the eval measures and what proof limits remain?
+3. Could they run or adapt the bundle with public setup and replacement rules?
 4. Would the verdict still mean roughly the same thing after bounded adaptation?
 5. Would the bundle still resist false certainty outside the birth project?
 
-If several answers are no, the bundle is still local-shaped.
+Several weak answers keep the bundle local-shaped.
 
 ## Fixture portability
 
@@ -132,12 +132,12 @@ Verdicts become less portable when:
 ## Environment portability
 
 Portable bundles may still require bounded environment setup,
-but they should not depend on:
-- private infrastructure
-- unpublished services
-- secret tool policies
-- undocumented local scripts
-- hidden scoring sinks
+with public boundaries for:
+- infrastructure assumptions
+- service availability
+- tool policies
+- script entrypoints
+- scoring sinks
 
 If local infrastructure is necessary,
 the bundle should publish the proof contract and adaptation points clearly enough
@@ -166,13 +166,14 @@ A bundle is usually ready for public portable posture when:
 - a bounded outsider could reproduce the main meaning of the result
 
 That is enough.
-Full universality is not required.
+The target is bounded portable meaning; universal coverage belongs outside the
+portability claim.
 
 ## Final note
 
-Do not confuse portability with scale.
+Portability means durable bounded meaning at a new site.
 
-A small honest eval bundle that travels well is more valuable
-than a grand benchmark surface that collapses outside one project.
+Prefer a small honest eval bundle whose claim, fixture contract, verdict logic,
+and interpretation boundary travel together.
 
 Portable truth beats local spectacle.

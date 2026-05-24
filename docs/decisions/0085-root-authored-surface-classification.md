@@ -104,3 +104,17 @@ As of 2026-05-24:
   root-authored classification ledger, and validator allowlist.
 - Validation: root-authored classification tests, root repository validation,
   and semantic AGENTS validation stayed green.
+
+### 2026-05-24 - Portable boundary guide route language clarified
+
+- Previous assumption: portability guidance could rely on shorthand such as
+  hidden-context warnings and universality disclaimers.
+- New reality: low-context agents need the guide to name the review criteria:
+  replacement contract, public setup route, bounded portable meaning, and
+  travel-together proof surfaces.
+- Reason: `docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md` is a root-owned guide; its
+  first-pass route should expose the proof route before local-shaped deferral.
+- Source surfaces updated: `docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k portable_eval_boundary`
+  and `python scripts/validate_repo.py`.

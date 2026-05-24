@@ -2,8 +2,8 @@
 
 This guide defines how the current public comparison and regression surfaces fit together as one bounded program layer inside `aoa-evals`.
 
-Use it when the question is no longer "what is a baseline?" in the abstract,
-but rather:
+Use it when the question has moved from abstract baseline definition to route
+selection:
 - which comparison surface should I read first?
 - what kind of bounded claim does each comparison mode support?
 - when does `aoa-eval-integrity-check` need to travel as the integrity sidecar?
@@ -14,6 +14,17 @@ See also:
 - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
 - [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md)
 - [Eval Bundle Selection Chooser](../EVAL_SELECTION.md)
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | comparison-spine reading guide for current public comparison surfaces |
+| input | one-run anchor pressure, fixed-baseline pressure, peer-compare pressure, longitudinal-window pressure, integrity-sidecar pressure, status pressure, or generated-spine routing pressure |
+| output | read order, comparison-mode route, anti-overread route, status discipline route, or generated-spine source route |
+| owner | this guide owns docs-level comparison reading discipline; bundle-local `EVAL.md` and `eval.yaml`, comparison-spine parts, and generated builders own concrete evidence |
+| next route | `mechanics/comparison-spine/`, mode-specific part, affected bundle, `EVAL_SELECTION.md`, `generated/comparison_spine.json`, or `aoa-eval-integrity-check` |
+| validation | `docs/AGENTS.md#validation` |
 
 ## Current public comparison ladder
 
@@ -33,7 +44,7 @@ This ladder is intentionally asymmetric:
 - `aoa-output-vs-process-gap` remains a draft peer-comparison bridge
 - `aoa-longitudinal-growth-snapshot` remains a draft repeated-window movement surface
 - `aoa-stress-recovery-window` remains a draft repeated-window stress recovery surface
-- `aoa-eval-integrity-check` remains the bounded integrity sidecar, not a promotion shortcut
+- `aoa-eval-integrity-check` remains the bounded integrity sidecar; promotion pressure routes through bundle-local review and release surfaces
 
 ## Comparison modes
 
@@ -45,7 +56,7 @@ Current bundle:
 Use when:
 - one candidate is being compared against one frozen baseline target
 - the same bounded task family remains visible and stable
-- the question is regression detection, not broad growth
+- the question stays focused on regression detection and leaves broad growth to growth/progression owner review
 
 Current machine-readable contract should keep explicit:
 - anchor surface
@@ -64,7 +75,7 @@ Current bundle:
 Use when:
 - two peer readings are being compared side by side on the same bounded cases
 - neither side is the automatic default truth source
-- the question is divergence or alignment, not default baseline comparison
+- the question stays focused on divergence or alignment while baseline pressure routes through a fixed-baseline surface
 
 Current machine-readable contract should keep explicit:
 - shared family path
@@ -109,20 +120,19 @@ Read the comparison spine in this order:
 Shared public read-order artifact:
 - `../mechanics/comparison-spine/parts/spine-overview/reports/comparison-spine-proof-flow-v1.md`
 
-## Anti-overread rules
+## Anti-overread routes
 
-Do not collapse the current comparison spine into:
-- one global score
-- proof of broad capability growth
-- proof that one clean same-task comparison explains every nearby diagnostic change
-- proof that a draft bridge or longitudinal surface inherited baseline status by association
-
-Default honesty rules:
-- style-only movement is not capability movement by default
-- peer-comparison is not baseline by association
-- repeated-window movement is not general growth by association
-- repeated-window stress recovery is not live health authority by association
-- integrity sidecar success is not direct agent-quality proof
+| Pressure | Route |
+| --- | --- |
+| one global score | mode-specific comparison route plus bundle-local review |
+| broad capability growth | growth/progression owner review with bounded comparison evidence |
+| one clean same-task comparison explains every nearby diagnostic change | affected diagnostic bundle or proof-loop owner route |
+| draft bridge or longitudinal surface inherits baseline status by association | bundle-local review plus source `baseline_mode` |
+| style-only movement as capability movement | source bundle support note plus mode-specific readout route |
+| peer-comparison as baseline by association | source bundle `baseline_mode` and fixed-baseline part route |
+| repeated-window movement as general growth | longitudinal-window evidence plus growth/progression owner review |
+| repeated-window stress recovery as live health authority | stress-recovery owner route and runtime owner route |
+| integrity sidecar success as direct agent-quality proof | underlying comparison bundle plus integrity sidecar route |
 
 ## Status discipline
 
@@ -135,7 +145,7 @@ Status remains intentionally conservative:
 
 This means:
 - hardening contracts may advance faster than public status
-- richer machine-readable surfaces do not imply promotion by themselves
+- richer machine-readable surfaces route promotion pressure through bundle-local review
 - promotion review remains separate from comparison-surface hardening
 
 ## Machine-readable surfaces
@@ -146,5 +156,5 @@ Use these generated surfaces when routing or local runtime selection needs expli
 - `../generated/comparison_spine.json`
 
 `generated/comparison_spine.json` is the minimal filtered projection for comparison bundles only.
-It should stay aligned with bundle manifests, bundle-local proof artifacts, and public reader wording.
-Its `selection_summary` and `interpretation_boundary` fields should stay source-derived rather than hand-composed drift.
+It stays aligned with bundle manifests, bundle-local proof artifacts, and public reader wording.
+Its `selection_summary` and `interpretation_boundary` fields stay source-derived.

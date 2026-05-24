@@ -6898,6 +6898,43 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_agent_index_surface_rejects_old_negative_route_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            validate_repo.AGENT_INDEX_NAME,
+            validate_repo.AGENT_INDEX_CHAIN_DECISION_NAME,
+            "README.md",
+            "docs/README.md",
+            validate_repo.PROOF_TOPOLOGY_NAME,
+            "ROADMAP.md",
+            validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME,
+            "docs/decisions/README.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        index_path = tmp_path / validate_repo.AGENT_INDEX_NAME
+        index_path.write_text(
+            index_path.read_text(encoding="utf-8")
+            + "\nUse this index when the path name is not enough by itself.\n"
+            + "An agent should expect only route cards here.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_agent_index_surface(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.AGENT_INDEX_NAME
+            and "explicit owner routes" in issue.message
+            and "path name is not enough" in issue.message
+            for issue in issues
+        )
+        assert any(
+            issue.location == validate_repo.AGENT_INDEX_NAME
+            and "explicit owner routes" in issue.message
+            and "An agent should expect only" in issue.message
+            for issue in issues
+        )
+
     def test_root_readme_surface_role_validates_current_entry(self) -> None:
         assert validate_repo.validate_root_readme_surface_role(REPO_ROOT) == []
 

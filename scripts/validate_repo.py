@@ -1173,6 +1173,7 @@ ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS: dict[str, tuple[str, ...]] = {
 }
 AGENT_INDEX_REQUIRED_TOKENS = (
     "pass-through index for agents",
+    "path needs an explicit owner route",
     "repo -> authority class -> operation -> mechanic parent -> part -> payload -> validation",
     "nearest `AGENTS.md`",
     "docs/PROOF_TOPOLOGY.md",
@@ -1183,6 +1184,11 @@ AGENT_INDEX_REQUIRED_TOKENS = (
     "mechanics/<parent>/parts/<part>/VALIDATION.md",
     "mechanics/<parent>/parts/AGENTS.md",
     "Executable validation commands belong in the nearest `AGENTS.md`",
+)
+AGENT_INDEX_FORBIDDEN_ROUTE_SCAFFOLD = (
+    "path name is not enough",
+    "An agent should expect only",
+    "should it be part-local",
 )
 AGENT_INDEX_DECISION_REQUIRED_TOKENS = (
     "Agent Index Chain Surface",
@@ -9763,6 +9769,20 @@ def validate_agent_index_surface(repo_root: Path) -> list[ValidationIssue]:
         tokens=AGENT_INDEX_REQUIRED_TOKENS,
         issues=issues,
     )
+    try:
+        index_text = (repo_root / AGENT_INDEX_NAME).read_text(encoding="utf-8")
+    except FileNotFoundError:
+        index_text = ""
+    if index_text:
+        for stale_phrase in AGENT_INDEX_FORBIDDEN_ROUTE_SCAFFOLD:
+            if stale_phrase in index_text:
+                issues.append(
+                    ValidationIssue(
+                        AGENT_INDEX_NAME,
+                        "agent index should name explicit owner routes before old "
+                        f"negative scaffold '{stale_phrase}'",
+                    )
+                )
     require_tokens(
         repo_root=repo_root,
         path_name=AGENT_INDEX_CHAIN_DECISION_NAME,

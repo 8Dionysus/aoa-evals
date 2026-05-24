@@ -73,6 +73,18 @@ As of 2026-05-22:
   `tests/test_validate_repo.py`.
 - Validation: use root validation and the focused root README surface-role test.
 
+### 2026-05-24 - Index owner-route language clarified
+
+- Previous assumption: the agent index could describe its trigger as a path name
+  being insufficient.
+- New reality: the index should state the positive route: use it when a path
+  needs an explicit owner route.
+- Reason: the index is an operating map for low-context agents, so it should
+  begin from owner-route recovery rather than absence or insufficiency.
+- Source surfaces updated: `docs/AGENT_INDEX.md`, `scripts/validate_repo.py`,
+  and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k agent_index`.
+
 ## Validation
 
 Use the root and docs validation lanes in `AGENTS.md` and `docs/AGENTS.md`.

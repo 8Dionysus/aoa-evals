@@ -31,19 +31,23 @@ Experience mechanic while the source eval package stays under `evals/`.
 proof bundle owns the bounded claim. Owner repositories own local review and
 the underlying experience being evaluated.
 
-`aoa-evals` owns only the protocol-integrity proof wording, fixture contract,
+`aoa-evals` owns this part's protocol-integrity proof wording, fixture contract,
 validation test, blind spots, and bundle-local interpretation for
-`aoa-experience-protocol-integrity`.
+`aoa-experience-protocol-integrity`. Authority beyond those proof readings
+routes through the stronger owner split above.
 
 ## Stop-Lines
 
-This part does not own Experience doctrine and must not claim:
+Boundary routes keep protocol-integrity pressure with the owner that can act on it:
 
-- runtime authority;
-- governance authority;
-- certification authority;
-- owner-local review acceptance;
-- proof that the underlying experience succeeded.
+| Pressure | Owner route |
+| --- | --- |
+| Experience doctrine pressure | Agents-of-Abyss center route |
+| runtime authority pressure | `abyss-stack` runtime route |
+| governance authority pressure | Agents-of-Abyss governance route |
+| certification authority pressure | certification gate and owner operator route |
+| owner-local review acceptance pressure | owner repository review route |
+| underlying-experience success pressure | owner evidence and source-review route |
 
 ## Validation
 

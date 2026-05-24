@@ -95,3 +95,32 @@ It does not move sibling owner meaning into `aoa-evals`.
   active mechanic part.
 - `python scripts/validate_repo.py`
 - `python scripts/validate_semantic_agents.py`
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` remains the
+  root owner-local ingress anchor for the closeout/writeback survivor.
+- Changed: the active note now names its positive route as traceable proof ingress,
+  owner-local re-read anchor, and source-bundle handoff.
+- Source surfaces updated: `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation route: `python -m pytest -q tests/test_validate_repo.py -k closeout_writeback_ingress`
+  and `python scripts/validate_repo.py`.
+
+## Review Log
+
+### 2026-05-24 - Ingress route language clarified
+
+- Previous assumption: the note could describe its role by saying it was not a
+  second source, not a shadow copy, and not a new bundle.
+- New reality: low-context agents need the active route first: re-read anchor,
+  bundle source surface, neighboring proof context, and deferred new-bundle
+  authority.
+- Reason: the file is still active root ingress, so its first read should route
+  the agent to the source bundle and future evidence pass.
+- Source surfaces updated: `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k closeout_writeback_ingress`
+  and `python scripts/validate_repo.py`.

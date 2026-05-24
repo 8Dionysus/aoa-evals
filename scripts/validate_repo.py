@@ -1461,6 +1461,23 @@ ROOT_AUTHORED_SURFACE_CLASSIFICATION_DECISION_REQUIRED_TOKENS = (
     "unclassified root-authored surface",
     ROOT_AUTHORED_SURFACE_CLASSIFICATION_COMMAND,
 )
+PORTABLE_EVAL_BOUNDARY_GUIDE_NAME = "docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md"
+PORTABLE_EVAL_BOUNDARY_GUIDE_REQUIRED_TOKENS = (
+    "portability route for evaluation bundles",
+    "Operating Card",
+    "replacement contract that preserves the claim class",
+    "public setup and replacement rules",
+    "bounded portable meaning",
+    "claim, fixture contract, verdict logic",
+)
+PORTABLE_EVAL_BOUNDARY_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD = (
+    "movable without letting local context",
+    "what it does not measure",
+    "without hidden private knowledge",
+    "but they should not depend on",
+    "Full universality is not required",
+    "Do not confuse portability with scale",
+)
 MECHANIC_ROUTE_CARD_FILES = tuple(
     route
     for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
@@ -10086,6 +10103,27 @@ def validate_docs_readme_route_map(repo_root: Path) -> list[ValidationIssue]:
                 )
             )
 
+    return issues
+
+
+def validate_portable_eval_boundary_guide_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    guide_text = require_tokens(
+        repo_root=repo_root,
+        path_name=PORTABLE_EVAL_BOUNDARY_GUIDE_NAME,
+        tokens=PORTABLE_EVAL_BOUNDARY_GUIDE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    if guide_text:
+        for stale_phrase in PORTABLE_EVAL_BOUNDARY_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD:
+            if stale_phrase in guide_text:
+                issues.append(
+                    ValidationIssue(
+                        PORTABLE_EVAL_BOUNDARY_GUIDE_NAME,
+                        "portable eval boundary guide should route portability "
+                        f"through positive review criteria instead of stale scaffold '{stale_phrase}'",
+                    )
+                )
     return issues
 
 
@@ -20138,6 +20176,7 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_memory_consumer_proof_boundary_surfaces(repo_root))
     issues.extend(validate_eval_philosophy_route_map_surface(repo_root))
     issues.extend(validate_docs_readme_route_map(repo_root))
+    issues.extend(validate_portable_eval_boundary_guide_surface(repo_root))
     issues.extend(validate_read_model_command_ownership(repo_root))
     issues.extend(validate_releasing_route_map_surface(repo_root))
     issues.extend(validate_source_eval_tree_topology_surfaces(repo_root))

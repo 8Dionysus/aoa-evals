@@ -86,9 +86,12 @@ As of 2026-05-24:
 - Changed: `scripts/validate_repo.py` requires route-table stop-line tokens for
   affected Agon part READMEs and rejects stale imperative stop-line phrases on
   those part surfaces.
+- Clarified: the Agon parent part map now describes sensitive part roles as
+  positive owner routes for rank, trust, doctrine, canon, KAG, ToS, arena, and
+  live-judgment pressure.
 - Source surfaces updated: `mechanics/agon/README.md`,
-  `mechanics/agon/parts/*/README.md`, `scripts/validate_repo.py`, and
-  `tests/test_validate_repo.py`.
+  `mechanics/agon/PARTS.md`, `mechanics/agon/parts/*/README.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
 
 ## Review Log
 
@@ -107,3 +110,16 @@ As of 2026-05-24:
   `python scripts/validate_repo.py`, `python scripts/validate_semantic_agents.py`,
   generated-surface `--check` commands, `python -m pytest -q`, and
   `git diff --check`.
+
+### 2026-05-24 - Parent part map owner-route wording
+
+- Previous assumption: Agon `PARTS.md` could summarize sensitive part roles by
+  saying which authority they did not mutate.
+- New reality: the parent part map should let a low-context agent choose the
+  correct route directly: each sensitive alignment part names its local
+  alignment output and the stronger owner route for rank, trust, doctrine,
+  canon, KAG, ToS, arena, and live-judgment pressure.
+- Reason: `PARTS.md` is an active lower index, not an anti-claim appendix.
+- Source surfaces updated: `mechanics/agon/PARTS.md`.
+- Validation: package-local and repo-wide checks described in the closeout for
+  the implementing slice.

@@ -18,30 +18,30 @@ This file is the repository-wide agent-facing index of public eval bundles.
 
 | name | category | status | summary |
 |---|---|---|---|
-| aoa-bounded-change-quality | workflow | portable | Checks whether a non-trivial agent change holds together as one bounded end-to-end workflow signal without treating that composite read as a precise diagnostic surface. |
+| aoa-bounded-change-quality | workflow | portable | Checks whether a non-trivial agent change holds together as one bounded end-to-end workflow signal, with precise diagnostic questions routed to narrower surfaces. |
 | aoa-verification-honesty | workflow | portable | Checks whether an agent truthfully reports which verification steps on a bounded change task were executed, skipped, or blocked. |
 | aoa-scope-drift-detection | boundary | bounded | Checks whether an agent keeps requested scope aligned with executed scope on bounded change tasks, or explicitly discloses deviation. |
-| aoa-ambiguity-handling | stress | bounded | Checks whether an agent handles incomplete, conflicting, or underspecified task meaning on bounded change tasks without silently choosing an unearned path. |
+| aoa-ambiguity-handling | stress | bounded | Checks whether an agent handles incomplete, conflicting, or underspecified task meaning on bounded change tasks with earned ask, branch, or bounded-assumption behavior visible. |
 | aoa-approval-boundary-adherence | boundary | bounded | Checks whether an agent correctly distinguishes safe action, explicit-approval-required action, and out-of-bounds action. |
-| aoa-trace-outcome-separation | workflow | bounded | Checks whether bounded change workflows remain reviewable when final outcome and execution-path quality stay separately readable before any combined reading, rather than grading the tool path itself. |
-| aoa-tool-trajectory-discipline | workflow | bounded | Checks whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself is part of the bounded claim, rather than acting as a general outcome-versus-path splitter. |
-| aoa-antifragility-posture | stress | draft | Checks whether one owner-local surface handles a named stressor family through bounded degraded continuation, source-owned receipts, and split-axis readout without collapsing source ownership into proof or stats layers. |
-| aoa-stress-recovery-window | longitudinal | draft | Checks whether ordered windows on one named stressor family show healthier handling without letting proof, stats, routing, or memo outrank owner evidence. |
-| aoa-candidate-lineage-integrity | capability | draft | Checks whether a growth-refinery lineage chain stays internally coherent across checkpoint carry, reviewed candidate, seed staging, and downstream owner evidence without inferring stronger landing than the artifacts support. |
+| aoa-trace-outcome-separation | workflow | bounded | Checks whether bounded change workflows remain reviewable when final outcome and execution-path quality stay separately readable before any combined reading; tool-path grading routes to its own bounded surface. |
+| aoa-tool-trajectory-discipline | workflow | bounded | Checks whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself is the bounded claim. |
+| aoa-antifragility-posture | stress | draft | Checks whether one owner-local surface handles a named stressor family through bounded degraded continuation, source-owned receipts, and split-axis readout while source ownership stays visible below proof and stats layers. |
+| aoa-stress-recovery-window | longitudinal | draft | Checks whether ordered windows on one named stressor family show healthier handling with owner evidence outranking proof, stats, routing, and memo. |
+| aoa-candidate-lineage-integrity | capability | draft | Checks whether a growth-refinery lineage chain stays internally coherent across checkpoint carry, reviewed candidate, seed staging, and downstream owner evidence while landing strength stays bounded by the artifacts. |
 | aoa-owner-fit-routing-quality | boundary | draft | Checks whether a reviewed growth-refinery candidate is routed to the right owner layer with one clear owner hypothesis, honest nearest-wrong-target reasoning, and no first-authoring drift into derivative repos. |
-| aoa-recurrence-control-plane-integrity | boundary | draft | Checks whether recurrence control-plane artifacts preserve typed propagation, observation-only hooks, owner review boundaries, thin downstream projections, and Agon stop-lines without becoming a global recurrence score. |
-| aoa-diagnosis-cause-discipline | workflow | draft | Checks whether a diagnosis or self-diagnosis move names causal hypotheses, evidence limits, and unknowns without confusing symptoms, owner ambiguity, or repair success with cause proof. |
-| aoa-repair-boundedness | workflow | draft | Checks whether a reanchor or self-repair move stays bounded, preserves owner boundaries, and leaves a reviewable trail instead of smearing scope inflation across layers. |
-| aoa-continuity-anchor-integrity | capability | draft | Checks whether a bounded self-agency continuity window keeps an inspectable anchor chain across continuity, revision, reanchor, and anchor refs without letting memo, stats, or chat residue become continuity truth. |
-| aoa-reflective-revision-boundedness | workflow | draft | Checks whether reflective revision stays inside one named revision window, keeps stop-lines visible, and does not widen into vague continuity or hidden autonomy. |
+| aoa-recurrence-control-plane-integrity | boundary | draft | Checks whether recurrence control-plane artifacts preserve typed propagation, observation-only hooks, owner review boundaries, thin downstream projections, and Agon stop-lines with global recurrence scoring outside the verdict. |
+| aoa-diagnosis-cause-discipline | workflow | draft | Checks whether a diagnosis or self-diagnosis move names causal hypotheses, evidence limits, and unknowns while symptoms, owner ambiguity, repair success, and cause proof stay separate. |
+| aoa-repair-boundedness | workflow | draft | Checks whether a reanchor or self-repair move stays bounded, preserves owner boundaries, and leaves a reviewable trail with scope-inflation pressure explicit. |
+| aoa-continuity-anchor-integrity | capability | draft | Checks whether a bounded self-agency continuity window keeps an inspectable anchor chain across continuity, revision, reanchor, and anchor refs while memo, stats, and chat residue stay subordinate to the anchor. |
+| aoa-reflective-revision-boundedness | workflow | draft | Checks whether reflective revision stays inside one named revision window, keeps stop-lines visible, and keeps vague continuity or hidden autonomy outside the claim. |
 | aoa-self-reanchor-correctness | boundary | draft | Checks whether a bounded self-agency continuity route reanchors to the last valid artifact, keeps return mode explicit, and refuses chat-residue continuity when anchor integrity is lost. |
 | aoa-witness-trace-integrity | workflow | draft | Checks whether a public witness trace for a bounded run keeps meaningful steps, tool visibility, state deltas, failures, redaction posture, and the markdown summary aligned enough for review. |
-| aoa-regression-same-task | regression | baseline | Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth. |
-| aoa-artifact-review-rubric | artifact | portable | Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating artifact quality as proof of workflow discipline or as an artifact/process bridge. |
+| aoa-regression-same-task | regression | baseline | Compares a candidate against a frozen baseline on the same bounded task family to detect material regression while claim scope stays on same-task movement. |
+| aoa-artifact-review-rubric | artifact | portable | Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface, with workflow-discipline and bridge claims routed to their own surfaces. |
 | aoa-compost-provenance-preservation | artifact | draft | Checks whether witness-derived compost artifacts preserve provenance, review state, limits, and contradiction posture as they move toward note, principle, or canon-candidate surfaces. |
 | aoa-output-vs-process-gap | comparative | draft | Compares artifact-side and process-side readings on the same bounded cases after standalone artifact review, standalone workflow review, or baseline comparison is already visible. |
 | aoa-eval-integrity-check | capability | bounded | Checks whether current public starter bundles stay coherent as eval surfaces across manifest contract, verdict wording, evidence coverage, and public routing; this bounded integrity sidecar now travels with comparison-spine wording waves. |
-| aoa-longitudinal-growth-snapshot | longitudinal | draft | Checks whether ordered, comparable windows on the same bounded workflow surface show modest directional movement without upgrading that movement into broad capability growth. |
+| aoa-longitudinal-growth-snapshot | longitudinal | draft | Checks whether ordered, comparable windows on the same bounded workflow surface show modest directional movement with broad capability-growth claims outside the verdict. |
 
 ## Planned starter bundles
 
@@ -136,9 +136,9 @@ readiness.
 
 | status | meaning |
 |---|---|
-| `draft` | The eval idea exists and is documented, but the bundle is not yet stable enough for strong portable claims. |
+| `draft` | The eval idea exists, is documented, and awaits stability evidence for strong portable claims. |
 | `bounded` | The eval has a repeatable execution path, clear boundaries, and a reviewable verdict surface. |
-| `portable` | The eval can be reused outside its birth context without losing its main meaning. |
+| `portable` | The eval can be reused outside its birth context while keeping its main meaning. |
 | `baseline` | The eval is stable enough to serve as a comparison surface across changes. |
 | `canonical` | The eval is recommended by default for its bounded claim class. |
 | `deprecated` | The eval is historically preserved but no longer preferred as the main proof surface. |
@@ -146,7 +146,7 @@ readiness.
 ## Category notes
 
 - `capability` checks whether a bounded ability is present.
-- `workflow` checks multi-step behavior rather than isolated answers.
+- `workflow` checks multi-step behavior across a bounded execution path.
 - `boundary` checks scope, authority, safety, or approval adherence.
 - `artifact` checks the quality or provenance-preserving integrity of produced outputs.
 - `regression` checks whether a change made behavior worse.

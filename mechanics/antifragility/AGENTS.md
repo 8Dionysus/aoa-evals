@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/antifragility/DIRECTION.md` for current operating direction, `mechanics/antifragility/PARTS.md` for active parts, and `mechanics/antifragility/PROVENANCE.md` only when legacy or former placement matters.
+Start with the package README. Then read `mechanics/antifragility/DIRECTION.md` for current operating direction, `mechanics/antifragility/PARTS.md` for active parts, and `mechanics/antifragility/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
 
 ## Applies to
 
@@ -36,7 +36,7 @@ window, repair-proof, comparison-spine, audit, or stronger-owner handoff routes.
 5. `mechanics/README.md`
 6. `mechanics/antifragility/README.md`
 7. `mechanics/antifragility/PARTS.md`
-8. `mechanics/antifragility/PROVENANCE.md` only when old placement matters
+8. `mechanics/antifragility/PROVENANCE.md` as the active-to-archive bridge when old placement matters
 
 ## Route Rules
 

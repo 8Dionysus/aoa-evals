@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
+Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) as the active-to-archive bridge for legacy or former-placement lookup.
 
 ## Role
 
@@ -115,7 +115,7 @@ Repeated-window movement is not broad growth by association.
 
 ## Provenance
 
-Use `mechanics/comparison-spine/PROVENANCE.md` only when auditing former root
+Use `mechanics/comparison-spine/PROVENANCE.md` as the active-to-archive bridge when auditing former root
 comparison fixture family placement. New comparison work starts from this
 README, `PARTS.md`, and the active part.
 

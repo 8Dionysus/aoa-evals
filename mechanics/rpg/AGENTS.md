@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/rpg/DIRECTION.md` for current operating direction, `mechanics/rpg/PARTS.md` for active parts, and `mechanics/rpg/PROVENANCE.md` only when legacy or former placement matters.
+Start with the package README. Then read `mechanics/rpg/DIRECTION.md` for current operating direction, `mechanics/rpg/PARTS.md` for active parts, and `mechanics/rpg/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
 
 ## Applies to
 
@@ -39,7 +39,7 @@ handoffs for role, skill, technique, playbook, quest, runtime, and stats truth.
 7. `mechanics/rpg/PARTS.md`
 8. the target part README
 9. affected schema, example, quest, generated card, or validator
-10. `mechanics/rpg/PROVENANCE.md` only for old root progression/unlock paths
+10. `mechanics/rpg/PROVENANCE.md` as the active-to-archive bridge for old root progression/unlock paths
 
 ## Route Rules
 

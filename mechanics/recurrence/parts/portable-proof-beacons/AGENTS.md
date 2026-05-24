@@ -20,7 +20,7 @@ meaning, portable proof acceptance, or recurrence doctrine.
 5. `mechanics/recurrence/README.md`
 6. `mechanics/recurrence/PARTS.md`
 7. `mechanics/recurrence/parts/portable-proof-beacons/README.md`
-8. `mechanics/recurrence/PROVENANCE.md` only for old root placement
+8. `mechanics/recurrence/PROVENANCE.md` as the active-to-archive bridge for old root placement
 
 ## Boundaries
 

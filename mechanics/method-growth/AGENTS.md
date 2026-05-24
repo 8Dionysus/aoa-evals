@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/method-growth/DIRECTION.md` for current operating direction, `mechanics/method-growth/PARTS.md` for active parts, and `mechanics/method-growth/PROVENANCE.md` only when legacy or former placement matters.
+Start with the package README. Then read `mechanics/method-growth/DIRECTION.md` for current operating direction, `mechanics/method-growth/PARTS.md` for active parts, and `mechanics/method-growth/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
 
 ## Applies to
 
@@ -39,7 +39,7 @@ skill, technique, playbook, memory, and stats truth.
 7. `mechanics/method-growth/PARTS.md`
 8. the target part README
 9. affected bundle `EVAL.md` and `eval.yaml`
-10. `mechanics/method-growth/PROVENANCE.md` only for old root fixture paths
+10. `mechanics/method-growth/PROVENANCE.md` as the active-to-archive bridge for old root fixture paths
 
 ## Route Rules
 

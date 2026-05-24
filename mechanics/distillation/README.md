@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.
+Start with this README for role and owned operation. Then read [DIRECTION.md](DIRECTION.md) for current operating direction, [PARTS.md](PARTS.md) for active parts, and [PROVENANCE.md](PROVENANCE.md) as the active-to-archive bridge for legacy or former-placement lookup.
 
 ## Role
 
@@ -112,7 +112,7 @@ this package:
 
 ## Legacy
 
-Use [PROVENANCE.md](PROVENANCE.md) only when old root fixture placement,
+Use [PROVENANCE.md](PROVENANCE.md) as the active-to-archive bridge when old root fixture placement,
 experience placement, or distillation accounting must be audited. New
 Distillation proof work starts from this README, [PARTS.md](PARTS.md), and the
 active part.

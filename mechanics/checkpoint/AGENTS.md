@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/checkpoint/DIRECTION.md` for current operating direction, `mechanics/checkpoint/PARTS.md` for active parts, and `mechanics/checkpoint/PROVENANCE.md` only when legacy or former placement matters.
+Start with the package README. Then read `mechanics/checkpoint/DIRECTION.md` for current operating direction, `mechanics/checkpoint/PARTS.md` for active parts, and `mechanics/checkpoint/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
 
 ## Applies to
 
@@ -37,7 +37,7 @@ stronger-owner handoff routes.
 5. `mechanics/checkpoint/README.md`
 6. `mechanics/checkpoint/PARTS.md`
 7. target part `README.md`
-8. `mechanics/checkpoint/PROVENANCE.md` only for old placement or raw lineage
+8. `mechanics/checkpoint/PROVENANCE.md` as the active-to-archive bridge for old placement or raw lineage
 9. `mechanics/audit/parts/artifact-verdict-hooks/README.md` when hook examples
    or candidate readers change
 

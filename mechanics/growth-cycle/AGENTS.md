@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/growth-cycle/DIRECTION.md` for current operating direction, `mechanics/growth-cycle/PARTS.md` for active parts, and `mechanics/growth-cycle/PROVENANCE.md` only when legacy or former placement matters.
+Start with the package README. Then read `mechanics/growth-cycle/DIRECTION.md` for current operating direction, `mechanics/growth-cycle/PARTS.md` for active parts, and `mechanics/growth-cycle/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
 
 ## Applies to
 
@@ -40,7 +40,7 @@ runtime, quest, and stats truth.
 7. `mechanics/growth-cycle/PARTS.md`
 8. the target part README
 9. affected bundle `EVAL.md` and `eval.yaml`
-10. `mechanics/growth-cycle/PROVENANCE.md` only for old deferred-placement
+10. `mechanics/growth-cycle/PROVENANCE.md` as the active-to-archive bridge for old deferred-placement
     questions
 
 ## Route Rules

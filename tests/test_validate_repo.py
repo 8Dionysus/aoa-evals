@@ -9936,7 +9936,7 @@ class TestValidateQuestRouteSurfaces:
         copy_repo_text(tmp_path, validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME)
         evidence_path = tmp_path / validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
         evidence_text = evidence_path.read_text(encoding="utf-8").replace(
-            "| `repair` | `antifragility/repair-proof` | Names a stage or artifact pressure instead of the active bounded repair-proof part; future Growth Cycle repair stages still need separate evidence. |\n",
+            "| `repair` | `antifragility/repair-proof` | Active route sends bounded repair pressure through the repair-proof part; future Growth Cycle repair stages still need separate evidence. |\n",
             "",
         )
         evidence_path.write_text(evidence_text, encoding="utf-8")

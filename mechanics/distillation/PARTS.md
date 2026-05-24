@@ -36,11 +36,19 @@ contracts; `abyss-stack` owns runtime plumbing; KAG and owner repositories keep
 their local truth; `aoa-evals` owns bounded proof interpretation and local
 validation.
 
-Stop-lines forbid summary-as-proof, raw deletion authority, memory canon,
-runtime activation, owner acceptance, ToS canon, KAG lift, generic adoption
-readiness, treating memo recall as Distillation after it routes through
-`recurrence/memory-recall`, or treating nearby contradiction or base writeback
-proof as Distillation just because the names are adjacent.
+Stop-lines route stronger-owner pressure through the boundary routes below.
+
+| Pressure | Owner route |
+| --- | --- |
+| summary-as-proof or raw deletion authority | source trace, source bundle, owner source-retention route |
+| memory canon or live memory-ledger behavior | `aoa-memo` memory route |
+| runtime activation or hidden runtime-store truth | `abyss-stack` runtime route |
+| owner acceptance, owner-local adoption, or final promotion | owner repository acceptance route |
+| ToS canon or compost authority | Tree-of-Sophia canon route |
+| KAG bridge promotion or graph lift | `aoa-kag` graph-lift route |
+| generic adoption readiness | `mechanics/experience/parts/adoption-federation/` route |
+| memo recall after active recurrence routing | `mechanics/recurrence/parts/memory-recall/` route |
+| nearby contradiction or base writeback proof | owning eval bundle or mechanic part route |
 
 Validation routes through [AGENTS](AGENTS.md#validation), including the two
 bundle-local eval checks, generated catalog check, and repo validation lane.

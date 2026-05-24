@@ -75,6 +75,17 @@ As of 2026-05-22:
   route cards, part maps, and `mechanics/EVIDENCE_CLUSTERS.md`.
 - Superseded by: none.
 
+As of 2026-05-24:
+
+- Still valid: authority-class routing remains the topology map's job.
+- Changed: boundary cells now name the stronger owner route for source
+  guidance, candidate evidence, memory context, receipts, release publication,
+  decisions, agent guidance, and legacy lineage in positive route language.
+- Reason: low-context agents should see the next owner and validation posture
+  directly from the authority table, instead of decoding repeated negative
+  caveats.
+- Superseded by: none.
+
 ## Review Log
 
 ### 2026-05-22 - Mechanics detail routed to mechanics surfaces
@@ -90,6 +101,20 @@ As of 2026-05-22:
 - Source surfaces updated: `docs/PROOF_TOPOLOGY.md` and this decision.
 - Validation: use root validation and the focused proof-topology validator
   tests.
+
+### 2026-05-24 - Authority boundaries use route-positive language
+
+- Previous assumption: boundary cells could preserve proof limits by saying
+  what each authority class does not own.
+- New reality: the active topology table now preserves the same proof limits by
+  naming the stronger owner route and next review posture.
+- Reason: agent-facing topology is more durable when the table gives role,
+  input, output, owner, next route, and validation pressure without repeated
+  negative self-description.
+- Source surfaces updated: `docs/PROOF_TOPOLOGY.md`, `docs/README.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: root validation, semantic AGENTS validation, and focused proof
+  topology tests.
 
 ## Boundaries
 

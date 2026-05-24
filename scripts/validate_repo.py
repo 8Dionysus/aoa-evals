@@ -537,6 +537,10 @@ PROOF_TOPOLOGY_REQUIRED_TOKENS = (
     "additional root path becomes",
     "part-owned tests live under `mechanics/<mechanic>/parts/<part>/tests/`",
     "generated surfaces are companions",
+    "candidate packets enter bundle-local review before verdict meaning",
+    "source truth stays with the source surface; decisions preserve route rationale",
+    "source proof surfaces keep verdict meaning; guidance owns edit route and validation",
+    "active topology starts at the current owner route",
     "A new `mechanics/` parent",
     "No remaining named candidate family is promoted by symmetry",
 )
@@ -564,8 +568,9 @@ MEMORY_CONSUMER_PROOF_BOUNDARY_TOPOLOGY_TOKENS = (
     "Memory evidence context",
     "reviewed `aoa-memo` object ids, provenance, lifecycle, generated memory read models",
     "`aoa_memo` MCP access-plane dry-runs",
-    "memory is not proof; `aoa-evals` stays route_only until a local memo port exists",
-    "MCP output is inspection evidence only",
+    "reviewed memory provides recall context; local proof authority stays with the eval bundle or owning mechanic",
+    "`aoa-evals` stays route_only until a local memo port exists",
+    "MCP output remains inspection evidence",
     "durable memory lands only in `aoa-memo`",
 )
 MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_REQUIRED_TOKENS = (

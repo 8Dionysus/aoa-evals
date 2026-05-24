@@ -6518,6 +6518,65 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_proof_topology_requires_positive_authority_boundary_routes(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            validate_repo.PROOF_TOPOLOGY_NAME,
+            "docs/decisions/0005-proof-topology-map.md",
+            "ROADMAP.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        topology_path = tmp_path / validate_repo.PROOF_TOPOLOGY_NAME
+        topology_path.write_text(
+            topology_path.read_text(encoding="utf-8").replace(
+                "candidate packets enter bundle-local review before verdict meaning",
+                "candidate evidence is only a loose input",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_proof_topology_surfaces(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.PROOF_TOPOLOGY_NAME
+            and "candidate packets enter bundle-local review before verdict meaning"
+            in issue.message
+            for issue in issues
+        )
+
+    def test_memory_consumer_topology_requires_positive_source_authority_route(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            "README.md",
+            "docs/EVAL_PHILOSOPHY.md",
+            validate_repo.PROOF_TOPOLOGY_NAME,
+            validate_repo.MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME,
+            "docs/decisions/README.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        topology_path = tmp_path / validate_repo.PROOF_TOPOLOGY_NAME
+        topology_path.write_text(
+            topology_path.read_text(encoding="utf-8").replace(
+                "reviewed memory provides recall context; local proof authority stays with the eval bundle or owning mechanic",
+                "reviewed memory can settle proof",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_memory_consumer_proof_boundary_surfaces(
+            tmp_path
+        )
+
+        assert any(
+            issue.location == validate_repo.PROOF_TOPOLOGY_NAME
+            and "reviewed memory provides recall context" in issue.message
+            for issue in issues
+        )
+
     def test_proof_topology_decision_rejects_deferred_movement_wording(
         self, tmp_path: Path
     ) -> None:

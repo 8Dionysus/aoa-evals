@@ -102,7 +102,7 @@ belongs.
 | `docs/SCORE_SEMANTICS_GUIDE.md` | root-owned score semantics guide | mechanic-owned payload scorers live under proof-infra or owning parts | scorer and schema validation |
 | `docs/SHARED_PROOF_INFRA_GUIDE.md` | root-owned shared proof infrastructure guide | mechanic-owned payload shared contracts live under `mechanics/proof-infra/parts/` | proof-infra validation |
 | `docs/VERDICT_INTERPRETATION_GUIDE.md` | root-owned verdict interpretation guide | mechanic-owned payload verdict models live under source bundles or owning mechanic parts | bundle and root-authored route validation |
-| `docs/VIA_NEGATIVA_CHECKLIST.md` | root-owned negative-boundary checklist | mechanic-owned payload stop-lines live in parent `DIRECTION.md`, `PARTS.md`, and part READMEs | direction and part README validators |
+| `docs/BOUNDARY_ROUTE_CHECKLIST.md` | root-owned boundary route checklist | mechanic-owned payload stop-lines live in parent `DIRECTION.md`, `PARTS.md`, and part READMEs | direction and part README validators |
 | `scripts/AGENTS.md` | root-owned scripts route card | mechanic-owned payload scripts live under owning `mechanics/*/parts/*/scripts/` | semantic AGENTS and script route validation |
 | `scripts/build_catalog.py` | root-owned catalog builder | mechanic-owned payload builders live part-local and feed generated companions; root catalog truth stays with the root builder | catalog check and repo validation |
 | `scripts/eval_capsule_contract.py` | root-owned generated capsule contract helper | mechanic-owned payload capsule logic moves into a mechanic part only when the part owns that generated reader | downstream feed tests |

@@ -9744,7 +9744,7 @@ class TestValidateQuestRouteSurfaces:
 
         assert any(
             issue.location == broken_path
-            and "bridge, not an active route" in issue.message
+            and "active-to-archive bridge" in issue.message
             for issue in issues
         )
 

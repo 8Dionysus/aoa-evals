@@ -243,7 +243,7 @@ Use `docs/LEGACY_NAMING.md` as a thin posture guide for naming posture and
 provenance routing. It separates `active`, `historical`, `accepted-input`,
 `generated-projection`, `candidate-only`, and `provenance-bridge` names, then
 routes old names through current active routes and package `PROVENANCE.md`.
-Each mechanic `PROVENANCE.md` is a bridge, not an active route.
+Each mechanic `PROVENANCE.md` is the active-to-archive bridge for its mechanic.
 
 Use active surfaces first: parent `README.md`, `DIRECTION.md`, `PARTS.md`, and
 part-local `parts/` contracts. `PROVENANCE.md` is the single controlled bridge

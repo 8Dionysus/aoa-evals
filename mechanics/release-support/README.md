@@ -20,10 +20,10 @@ handoff, release-check posture, and publication checks bounded to one
 
 This package routes release proof publication work. Source proof meaning stays
 in `evals/**/EVAL.md`, `evals/**/eval.yaml`, reports, schemas, and authored
-guides. Release publication carries those surfaces; it does not make them
-stronger.
+guides. Release publication carries those surfaces; eval claim strength stays with source proof surfaces.
 
-In shorter form: release publication does not strengthen eval claims.
+In shorter form: release publication carries proof surfaces; source proof
+objects own claim strength.
 
 ## Source Surfaces
 
@@ -85,8 +85,8 @@ Git tag records a published state; it does not promote draft, baseline, or
 canonical status by itself.
 
 Sibling repositories keep their own stronger truth. Latest-sibling canary
-results may prove compatibility posture for release review, but they do not
-transfer sibling authority into `aoa-evals`.
+results may prove compatibility posture for release review; sibling authority
+stays with the sibling repository.
 
 ## Parts
 
@@ -108,22 +108,21 @@ entrypoints or execution gates: `CHANGELOG.md`, `docs/RELEASING.md`,
 `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json` is a local readiness audit for
 the accumulated strategic refactor diff.
 
-It may say the diff is ready for release-prep review after local gates pass. It
-must also say that no tag, GitHub Release, PR approval, GitHub `Repo
-Validation`, eval result receipt, sibling mutation, or long-goal completion has
-occurred.
+It routes local readiness to release-prep review after local gates pass.
+Tag and GitHub Release evidence, PR approval, GitHub `Repo Validation`, eval
+result receipt publication, sibling mutation, and long-goal completion stay
+with live owner evidence.
 
 ## Strategic Closeout Audit
 
 `mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json` is a wider local handoff audit for
 the accumulated strategic refactor plan.
 
-It may say the local refactor is ready for owner/landing review. It must also
-say that the long goal is not complete until a current objective audit proves
-the mechanics-refactor definition of done and the requested GitHub landing
-route completes: commit, push, PR, GitHub `Repo Validation`, merge,
-fast-forward `main`, and clean worktree. PR landing is required for this
-operator route, but it cannot substitute for the objective audit.
+It routes local refactor readiness to owner/landing review. Goal completion routes
+through a current objective audit proving the mechanics-refactor definition of
+done plus the requested GitHub landing route: commit, push, PR, GitHub `Repo
+Validation`, merge, fast-forward `main`, and clean worktree. PR landing is
+required for this operator route and feeds the objective audit.
 
 ## Release Prep PR Handoff
 
@@ -131,11 +130,11 @@ operator route, but it cannot substitute for the objective audit.
 snapshot for the accumulated strategic refactor.
 
 It may prepare a candidate branch, commit message, PR title, PR body, changed
-surface groups, validation list, and landing steps. It must also say that at
-snapshot time no branch, commit, push, PR had occurred: no branch, commit, push,
-PR, GitHub `Repo Validation`, merge, tag, GitHub Release, live receipt, runtime
-acceptance, sibling mutation, or goal completion had occurred. After a branch or
-PR exists, current git and GitHub state supersedes the snapshot for live status.
+surface groups, validation list, and landing steps. It records snapshot status for branch,
+commit, push, PR, GitHub `Repo Validation`, merge, tag, GitHub Release, live
+receipt, runtime acceptance, sibling mutation, and goal completion. After a
+branch or PR exists, current git and GitHub state supersedes the snapshot for
+live status.
 
 ## Boundaries
 
@@ -146,7 +145,7 @@ PR exists, current git and GitHub state supersedes the snapshot for live status.
 | tag or GitHub release publication | use the explicit release route after the release-prep change lands on `main` |
 | readiness audit | read it as local release-prep evidence, with live publication status owned by current git, GitHub, tag, and release state |
 | release notes | carry public narrative while source proof objects keep verdict authority |
-| `CHANGELOG.md` | carry release narrative without rewriting source proof meaning |
+| `CHANGELOG.md` | carry release narrative; source proof meaning changes only in source proof surfaces |
 | failing release gate | repair evidence, scope, generated freshness, or checks before publication |
 | sibling compatibility claim | cite the current relevant CI or latest-sibling canary evidence |
 | release title | use the human-facing plain tag shape, for example `v0.3.3` |

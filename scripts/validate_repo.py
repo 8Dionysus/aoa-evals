@@ -3191,7 +3191,7 @@ RELEASE_SUPPORT_MECHANIC_REQUIRED_TOKENS = (
     "bounded release scope",
     "changelog narrative",
     "GitHub release notes",
-    "does not strengthen eval claims",
+    "eval claim strength stays with source proof surfaces",
     "python scripts/validate_repo.py",
     "python scripts/validate_semantic_agents.py",
     "python scripts/release_check.py",
@@ -11953,7 +11953,7 @@ def validate_release_support_readiness_audit_surface(repo_root: Path) -> list[Va
             (
                 RELEASE_SUPPORT_READINESS_AUDIT_NAME,
                 "Readiness Audit",
-                "no tag",
+                "GitHub Release evidence",
                 "GitHub `Repo Validation`",
             ),
         ),
@@ -12281,7 +12281,7 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
             (
                 STRATEGIC_CLOSEOUT_AUDIT_NAME,
                 "Strategic Closeout Audit",
-                "goal is not complete",
+                "Goal completion routes",
             ),
         ),
         (
@@ -12587,7 +12587,7 @@ def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[Validation
             (
                 RELEASE_PREP_PR_HANDOFF_NAME,
                 "Release Prep PR Handoff",
-                "snapshot time no branch, commit, push",
+                "snapshot status for branch",
             ),
         ),
         (

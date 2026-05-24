@@ -1,38 +1,52 @@
 # Portable Eval Boundary Guide
 
-This guide defines the portability requirements for evaluation bundles within the `aoa-evals` bounded proof canon, ensuring they represent bounded claims about workflow quality suitable for the public proof surface.
+This guide defines the portability route for evaluation bundles within the
+`aoa-evals` bounded proof canon. It keeps public proof claims movable without
+letting local context, copied files, or broad benchmark language outrun the
+bundle's bounded contract.
 
-Use this guide when a bundle demonstrates utility in a specific context but requires verification that it survives as a public proof surface rather than remaining a local testing artifact.
+Use this guide when a bundle demonstrates utility in a specific context and now
+needs review as a public proof surface.
 
 See also:
 - [Documentation Map](README.md)
 - [Eval Philosophy](EVAL_PHILOSOPHY.md)
 - [Eval Review Guide](EVAL_REVIEW_GUIDE.md)
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | portability boundary guide for eval bundles that may leave their origin context |
+| input | bundle claim, fixtures, runner or harness assumptions, scorer/verdict logic, report shape, and public interpretation pressure |
+| output | portable posture, local-shaped posture, bounded adaptation route, or reviewer deferral |
+| owner | bundle-local `EVAL.md` and `eval.yaml` own the proof claim; this guide owns portability criteria |
+| next route | [Fixture Surface Guide](FIXTURE_SURFACE_GUIDE.md), [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md), [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md), [Eval Review Guide](EVAL_REVIEW_GUIDE.md), or the affected bundle |
+| validation | [docs/AGENTS.md#validation](AGENTS.md#validation) and the affected bundle route |
+
 ## Core question
 
-A portable eval is not merely one that can be copied.
+A portable eval is one whose claim, verdict logic, fixture replacement story,
+and interpretation boundary survive a move into another bounded context.
 
-A portable eval is one that can be moved into another bounded context
-without losing the main meaning of its claim, verdict logic, and interpretation.
+Ask one core question:
 
-The question is not:
-- can another repo run these files somehow?
+| Question | Review route |
+| --- | --- |
+| Does the bundle still tell the same bounded truth after reasonable adaptation? | inspect the invariant claim, replaceable inputs, harness assumptions, and interpretation boundary together |
 
-The real question is:
-- does the bundle still tell the truth in a bounded way after reasonable adaptation?
+## Portability Boundary Routes
 
-## What portability does not mean
+Use these routes when a portability pressure appears:
 
-Portability does not mean:
-- zero adaptation
-- zero environment assumptions
-- universal use
-- total generality
-- identical scores across all contexts
-- immunity to judgment
-
-Portability means the bundle's core proof contract survives bounded adaptation.
+| Pressure | Route |
+| --- | --- |
+| copied files look runnable | check whether the claim, verdict logic, and interpretation boundary still travel |
+| adaptation is required | distinguish invariant core from replaceable fixtures, runner details, and local report sinks |
+| environment assumptions appear | publish the setup boundary and adaptation points needed to recreate the proof surface |
+| a wider audience wants to reuse the bundle | keep the public claim bounded to the proof contract that survived review |
+| scores move across contexts | read score movement through score semantics and verdict interpretation, not raw number continuity |
+| reviewer judgment remains part of the surface | expose the judgment rule, failure modes, and gaming risks |
 
 ## Signs of good portability
 
@@ -44,15 +58,19 @@ A bundle is closer to portable when:
 - local environment details remain subordinate to the proof surface
 - the bundle names what it still cannot prove
 
-## Signs of false portability
+## Local-Shaped Pressure Routes
 
-A bundle is not truly portable when:
-- it only works because one project's naming, folder layout, or secret context is silently assumed
-- the fixtures depend on private data that cannot be replaced cleanly
-- the scorer uses local taste disguised as objective logic
-- the verdict only makes sense to the original authors
-- the bundle's claim becomes vague or inflated once removed from the origin context
-- public readers would over-read the result because the interpretation boundary is missing
+When these pressures appear, route the bundle back to local-shaped review before
+public portable posture:
+
+| Pressure | Route |
+| --- | --- |
+| one project's naming, folder layout, or secret context carries the result | publish replacement rules or keep the bundle local-shaped |
+| private data carries the fixtures | replace it with public or contract-backed fixture material |
+| local taste drives the scorer | make the judgment rule reviewable or keep the scorer qualitative and bounded |
+| only the original authors can read the verdict | rewrite the verdict boundary through the bundle and verdict guide |
+| the claim inflates after leaving the origin context | narrow the claim before publication or defer portability |
+| public readers can over-read the result | strengthen the interpretation boundary before the bundle is promoted |
 
 ## The portability test
 

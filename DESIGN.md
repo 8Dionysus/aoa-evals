@@ -38,7 +38,8 @@ The sibling owner keeps its stronger truth.
 
 ## Design as Appearance
 
-`aoa-evals` should appear as a proof atlas, not a flat benchmark attic.
+`aoa-evals` should appear as a proof atlas: a navigable map of bounded proof
+objects, support mechanics, generated companions, and owner-return paths.
 
 A healthy proof layer has:
 
@@ -77,8 +78,7 @@ artifacts.
 - mechanics packages for repeatable proof-layer operations;
 - legacy and provenance bridges when old names remain accepted inputs.
 
-Each class supports the others. No class should silently steal authority from
-another class.
+Each class supports the others while its owner boundary remains visible.
 
 ## Design as Operation
 

@@ -69,6 +69,10 @@ As of 2026-05-24:
 - Changed: active design wording now favors owner routes, source refs,
   bundle-local review, generated parity, and route-card coverage over terse
   negative guard phrasing.
+- Clarified: root design appearance wording now names the desired proof atlas
+  and guidance mesh directly: bounded proof objects, support mechanics,
+  generated companions, owner-return paths, local cards, validation routes, and
+  closeout paths.
 - Source surfaces updated: `DESIGN.md`, `DESIGN.AGENTS.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k
@@ -89,3 +93,16 @@ As of 2026-05-24:
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k
   'root_design or design_agents'`.
+
+### 2026-05-24 - Design appearance route language clarified
+
+- Previous assumption: the design spine could use compact contrast images for
+  the desired system form and agent-facing shape.
+- New reality: low-context agents need the opening design appearance to name
+  the intended map directly: proof atlas, bounded proof objects, support
+  mechanics, generated companions, owner-return paths, local cards, validation
+  routes, and closeout paths.
+- Reason: `DESIGN.md` and `DESIGN.AGENTS.md` are root design entry surfaces;
+  their first appearance cues should express the route the agent follows.
+- Source surfaces updated: `DESIGN.md` and `DESIGN.AGENTS.md`.
+- Validation: root design validation route.

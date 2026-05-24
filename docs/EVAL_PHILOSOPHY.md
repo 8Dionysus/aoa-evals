@@ -53,6 +53,25 @@ An eval is not:
 - proof of general intelligence
 - a replacement for human judgment in all cases
 
+## On memory
+
+Memory is not proof.
+
+Reviewed `aoa-memo` memory can provide recall context only when the eval cites
+object ids, provenance, lifecycle, and generated read models.
+It can help a reviewer find prior decisions, source refs, and session context,
+but it cannot replace fixtures, selected evidence, scoring or verdict logic,
+bundle-local reports, or mechanic-owned proof interpretation.
+
+`aoa-evals` has route_only memory posture until a local memo port exists.
+Session evidence routes through `.aoa` or source proof artifacts before any
+later `aoa-memo` reviewed intake.
+Do not write durable memory, local memo candidates, or export packets through
+hidden eval-side paths.
+Treat `aoa_memo` MCP brief/search/status/validation/landing-plan dry-runs as
+access-plane evidence for inspection and review, not as proof authority or a
+direct durable memory write path.
+
 ## Artifacts, processes, and proof
 
 Artifacts matter.

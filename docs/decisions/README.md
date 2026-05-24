@@ -159,6 +159,7 @@ family without promoting decisions above the source surfaces they describe.
 | 0103 | [Agent Index Chain Surface](0103-agent-index-chain-surface.md) | `docs/decisions/0103-agent-index-chain-surface.md` | root/topology | active rationale |
 | 0104 | [Source Eval Tree Topology](0104-source-eval-tree-topology.md) | `docs/decisions/0104-source-eval-tree-topology.md` | proof topology, root/topology | active rationale |
 | 0105 | [Proof-object Eval Part Names](0105-proof-object-eval-part-names.md) | `docs/decisions/0105-proof-object-eval-part-names.md` | proof topology, mechanic part | active rationale |
+| 0106 | [Memory Consumer Proof Boundary](0106-memory-consumer-proof-boundary.md) | `docs/decisions/0106-memory-consumer-proof-boundary.md` | proof topology, boundary/runtime/sibling | active rationale |
 
 ## Index By Surface Class
 
@@ -193,6 +194,7 @@ family without promoting decisions above the source surfaces they describe.
 - [0099 Repair Diagnosis Route Boundary](0099-repair-diagnosis-route-boundary.md) (`docs/decisions/0099-repair-diagnosis-route-boundary.md`)
 - [0104 Source Eval Tree Topology](0104-source-eval-tree-topology.md) (`docs/decisions/0104-source-eval-tree-topology.md`)
 - [0105 Proof-object Eval Part Names](0105-proof-object-eval-part-names.md) (`docs/decisions/0105-proof-object-eval-part-names.md`)
+- [0106 Memory Consumer Proof Boundary](0106-memory-consumer-proof-boundary.md) (`docs/decisions/0106-memory-consumer-proof-boundary.md`)
 
 ### Mechanic Package
 
@@ -339,6 +341,7 @@ family without promoting decisions above the source surfaces they describe.
 - [0090 Mechanic Provenance Bridge Posture](0090-mechanic-provenance-bridge-posture.md) (`docs/decisions/0090-mechanic-provenance-bridge-posture.md`)
 - [0091 Legacy Naming Single-Bridge Language](0091-legacy-naming-single-bridge-language.md) (`docs/decisions/0091-legacy-naming-single-bridge-language.md`)
 - [0098 Agon Quest-note Provenance Route](0098-agon-quest-note-provenance-route.md) (`docs/decisions/0098-agon-quest-note-provenance-route.md`)
+- [0106 Memory Consumer Proof Boundary](0106-memory-consumer-proof-boundary.md) (`docs/decisions/0106-memory-consumer-proof-boundary.md`)
 
 ## Index By Mechanic Parent
 

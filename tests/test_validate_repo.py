@@ -6500,6 +6500,38 @@ class TestValidateQuestRouteSurfaces:
     def test_root_readme_surface_role_validates_current_entry(self) -> None:
         assert validate_repo.validate_root_readme_surface_role(REPO_ROOT) == []
 
+    def test_memory_consumer_proof_boundary_validates_current_route(self) -> None:
+        assert validate_repo.validate_memory_consumer_proof_boundary_surfaces(REPO_ROOT) == []
+
+    def test_memory_consumer_proof_boundary_rejects_memory_as_proof(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            "README.md",
+            "docs/EVAL_PHILOSOPHY.md",
+            validate_repo.PROOF_TOPOLOGY_NAME,
+            validate_repo.MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME,
+            "docs/decisions/README.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        philosophy_path = tmp_path / "docs" / "EVAL_PHILOSOPHY.md"
+        philosophy_path.write_text(
+            philosophy_path.read_text(encoding="utf-8").replace(
+                "Memory is not proof.",
+                "Memory can be proof.",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_memory_consumer_proof_boundary_surfaces(tmp_path)
+
+        assert any(
+            issue.location == "docs/EVAL_PHILOSOPHY.md"
+            and "Memory is not proof." in issue.message
+            for issue in issues
+        )
+
     def test_root_readme_surface_role_rejects_generic_heading(
         self, tmp_path: Path
     ) -> None:

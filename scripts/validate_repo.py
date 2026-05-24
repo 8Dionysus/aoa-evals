@@ -509,6 +509,7 @@ PROOF_TOPOLOGY_REQUIRED_TOKENS = (
     "source proof objects",
     "derived readers",
     "candidate evidence",
+    "Memory evidence context",
     "receipts",
     "quest obligations",
     "decisions",
@@ -522,6 +523,49 @@ PROOF_TOPOLOGY_REQUIRED_TOKENS = (
     "generated surfaces are companions",
     "A new `mechanics/` parent",
     "No remaining named candidate family is promoted by symmetry",
+)
+MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME = (
+    "docs/decisions/0106-memory-consumer-proof-boundary.md"
+)
+MEMORY_CONSUMER_PROOF_BOUNDARY_README_TOKENS = (
+    "Memory context is recall context, not proof authority",
+    "reviewed `aoa-memo` object ids, provenance, lifecycle, and generated read models",
+    "`aoa-evals` currently has route_only memory posture",
+    "not write local memo candidates, export reviewed-intake packets, or land durable",
+    "`aoa_memo` MCP brief/search/status/validation/landing-plan dry-runs",
+    "access-plane evidence only, not proof authority",
+)
+MEMORY_CONSUMER_PROOF_BOUNDARY_PHILOSOPHY_TOKENS = (
+    "Memory is not proof.",
+    "Reviewed `aoa-memo` memory can provide recall context only when the eval cites",
+    "object ids, provenance, lifecycle, and generated read models",
+    "`aoa-evals` has route_only memory posture until a local memo port exists.",
+    "Session evidence routes through `.aoa` or source proof artifacts before any",
+    "later `aoa-memo` reviewed intake.",
+    "Treat `aoa_memo` MCP brief/search/status/validation/landing-plan dry-runs",
+    "access-plane evidence for inspection and review",
+)
+MEMORY_CONSUMER_PROOF_BOUNDARY_TOPOLOGY_TOKENS = (
+    "Memory evidence context",
+    "reviewed `aoa-memo` object ids, provenance, lifecycle, generated memory read models",
+    "`aoa_memo` MCP access-plane dry-runs",
+    "memory is not proof; `aoa-evals` stays route_only until a local memo port exists",
+    "MCP output is inspection evidence only",
+    "durable memory lands only in `aoa-memo`",
+)
+MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_REQUIRED_TOKENS = (
+    "Memory Consumer Proof Boundary",
+    "route_only memory posture",
+    "object ids, provenance, lifecycle, and generated read models",
+    "Memory is not proof.",
+    "does not create a local memo port",
+    "Durable memory lands only in `aoa-memo`.",
+    "`aoa_memo` MCP brief/search/status/validation/landing-plan dry-runs",
+    "access-plane evidence only",
+    "direct durable",
+    "write authority",
+    "python scripts/validate_repo.py",
+    "python scripts/validate_semantic_agents.py",
 )
 PROOF_TOPOLOGY_FORBIDDEN_STALE_MECHANIC_WORDING = (
     "mechanic-ready operations",
@@ -9097,6 +9141,46 @@ def validate_root_readme_surface_role(repo_root: Path) -> list[ValidationIssue]:
             "aoa-evals Bounded Proof Canon",
             "Eval Bundle Selection Chooser",
             "Eval Bundle Index",
+        ),
+        issues=issues,
+    )
+
+    return issues
+
+
+def validate_memory_consumer_proof_boundary_surfaces(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    require_tokens(
+        repo_root=repo_root,
+        path_name="README.md",
+        tokens=MEMORY_CONSUMER_PROOF_BOUNDARY_README_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/EVAL_PHILOSOPHY.md",
+        tokens=MEMORY_CONSUMER_PROOF_BOUNDARY_PHILOSOPHY_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=PROOF_TOPOLOGY_NAME,
+        tokens=MEMORY_CONSUMER_PROOF_BOUNDARY_TOPOLOGY_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME,
+        tokens=MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name="docs/decisions/README.md",
+        tokens=(
+            MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME,
+            "Memory Consumer Proof Boundary",
         ),
         issues=issues,
     )
@@ -18909,6 +18993,7 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     issues.extend(validate_agent_index_surface(repo_root))
     issues.extend(validate_root_readme_surface_role(repo_root))
+    issues.extend(validate_memory_consumer_proof_boundary_surfaces(repo_root))
     issues.extend(validate_docs_readme_route_map(repo_root))
     issues.extend(validate_read_model_command_ownership(repo_root))
     issues.extend(validate_source_eval_tree_topology_surfaces(repo_root))

@@ -29,14 +29,21 @@ decision records, and `PROVENANCE.md`.
 ## Growth rule
 
 Add a proof-loop part only when a recurring loop step needs proof-side support
-that is not already owned by proof-object, audit, receipts, comparison,
-release-support, or another mechanic.
+whose owner is not already proof-object, audit, receipts, comparison,
+release-support, or another mechanic. Existing-owner pressure routes to that
+owner before proof-loop grows a new part.
 
 ## Stop-lines
 
-- Do not turn proof-loop into a bundle, report directory, runtime intake,
-  questbook, receipt publisher, or release process.
-- Do not claim proof completion from routeability alone.
+| Pressure | Route |
+| --- | --- |
+| bundle authoring pressure | `mechanics/proof-object/` and bundle-local `EVAL.md`/`eval.yaml` |
+| report directory pressure | bundle-local reports, proof-loop route-smoke, or the narrower mechanic report owner |
+| runtime intake pressure | `mechanics/audit/` candidate evidence route before bundle-local review |
+| questbook pressure | `quests/LIFECYCLE.md` and `mechanics/questbook/` |
+| receipt publisher pressure | `mechanics/publication-receipts/` after a reviewed bounded report exists |
+| release process pressure | `mechanics/release-support/` and root release routes |
+| routeability reads like proof completion | source bundle review, evidence contract, bounded report, and optional receipt route |
 
 ## Validation
 

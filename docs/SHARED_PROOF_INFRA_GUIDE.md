@@ -1,6 +1,7 @@
 # Shared Proof Infra Guide
 
-This guide defines how shared fixture, runner, scorer, and dossier contracts should grow without hiding bundle-local meaning.
+This guide routes shared fixture, runner, scorer, and dossier contracts so
+reusable support grows while bundle-local meaning stays in the source bundle.
 
 Use it when the question is:
 - when should a repeated contract become shared infrastructure?
@@ -13,9 +14,9 @@ Use shared infrastructure only when the same pattern is already stable across mo
 
 Keep these public rules:
 - `shared_fixture_family_path` is the primary shared family for the bundle
-- `additional_shared_fixture_family_paths` records extra reusable families without replacing the primary one
+- `additional_shared_fixture_family_paths` records extra reusable families alongside the primary one
 - `paired_readout_path` is the primary shared dossier for the bundle
-- `additional_paired_readout_paths` records extra dossiers without replacing the primary one
+- `additional_paired_readout_paths` records extra dossiers alongside the primary one
 - `runner_surface_path` should reference the active reportable-contract runner
   surface when a bundle exposes machine-readable report artifacts
 - `scorer_helper_paths` may reference shared payload builders under the active
@@ -39,18 +40,20 @@ Use these path shapes:
   when a mechanic owns it, or `evals/<family>/<eval>/reports/<artifact>.json` when
   the bundle owns it
 
-Do not use shared names to imply stronger truth than the bundle already supports.
+Use shared names as support labels. Stronger-truth pressure routes back to
+bundle-local `EVAL.md`, `eval.yaml`, and reviewed reports.
 
 ## Boundary discipline
 
-Shared infrastructure should:
-- reduce duplicated contract plumbing
-- keep replacement rules explicit
-- keep path validation deterministic
-- keep report schemas and example artifacts bundle-local
+Shared infrastructure keeps:
+- duplicated contract plumbing reduced
+- replacement rules explicit
+- path validation deterministic
+- report schemas and example artifacts bundle-local
 
-Shared infrastructure should not:
-- create a repo-global score
-- erase bundle-local interpretation guidance
-- promote draft surfaces by abstraction
-- force a single readout shape across unrelated bundles
+| Pressure | Route |
+| --- | --- |
+| repo-global score pressure | bundle-specific verdict or scoring logic |
+| bundle-local interpretation disappears behind shared plumbing | bundle `EVAL.md`, `eval.yaml`, and report schema |
+| draft surface looks promoted by shared infrastructure | bundle lifecycle review and release-support route |
+| one readout shape spreads across unrelated bundles | bundle-owned report route or mechanic-owned report route |

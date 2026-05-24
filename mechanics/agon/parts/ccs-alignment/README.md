@@ -43,11 +43,11 @@ ref that this part cites.
 
 ## Stop-Lines
 
-- Do not rewrite center law or treat CCS alignment as doctrine.
-- Do not issue live verdicts, closure, arena action, rank mutation, scar write,
-  memory write, or Tree of Sophia promotion.
-- Do not let local registry output outrank the part-local seed or
-  Agents-of-Abyss law.
+| Pressure | Route |
+| --- | --- |
+| center law or CCS law pressure | route to Agents-of-Abyss law owners; local CCS alignment stays precheck-only |
+| live verdict, closure, arena action, rank mutation, scar write, memory write, or Tree of Sophia promotion pressure | route to the stronger live owner; this part records alignment evidence only |
+| local registry output conflicts with the part-local seed or Agents-of-Abyss law | route back to the seed, validator, or cited law-family owner before using the registry |
 
 ## Validation
 

@@ -42,11 +42,11 @@ and federation posture. Any future threshold owner keeps promotion authority.
 
 ## Stop-Lines
 
-- Do not write Tree of Sophia canon or directly promote a candidate.
-- Do not transfer canon authority, decide authored meaning, or use eval output
-  as threshold acceptance.
-- Do not issue live verdicts, arena actions, scars, memory writes, rank
-  mutations, or hidden scheduler actions.
+| Pressure | Route |
+| --- | --- |
+| Tree of Sophia canon write or direct candidate promotion pressure | route to Tree of Sophia or the future threshold owner; this part remains no-canon-write alignment |
+| canon-authority transfer, authored-meaning decision, or threshold acceptance pressure | route to the authored-meaning owner before any acceptance claim exists |
+| live verdict, arena action, scar, memory write, rank mutation, or hidden scheduler pressure | route to the stronger live owner before any durable effect exists |
 
 ## Validation
 

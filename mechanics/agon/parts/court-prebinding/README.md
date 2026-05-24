@@ -48,12 +48,11 @@ and any future live verdict route.
 
 ## Stop-Lines
 
-- Do not grant live verdict, closure, summon, scar, memory write, rank mutation,
-  Tree of Sophia promotion, hidden scheduler action, or arena authority.
-- Do not weaken `no_live_verdict`, `no_closure_grant`, `no_live_summon`,
-  `no_durable_memory_write`, `no_rank_mutation`, or
-  `no_tree_of_sophia_promotion` to make a registry pass.
-- Do not treat generated prebindings as court law or accepted proof.
+| Pressure | Route |
+| --- | --- |
+| live verdict, closure, summon, scar, memory write, rank mutation, Tree of Sophia promotion, hidden scheduler action, or arena authority | route to Agents-of-Abyss or the stronger live owner; this part emits precheck candidates only |
+| registry drift around `no_live_verdict`, `no_closure_grant`, `no_live_summon`, `no_durable_memory_write`, `no_rank_mutation`, or `no_tree_of_sophia_promotion` | fix the seed, builder, or validator while preserving the explicit stop-line token |
+| generated prebinding output reads stronger than court evidence | route through bundle-local review or owner handoff before any accepted-proof claim |
 
 ## Validation
 

@@ -71,3 +71,39 @@ runtime truth, stats truth, or memo truth into `aoa-evals`.
 - `python -m pytest -q tests/test_validate_repo.py -k 'agon_part_readmes or mechanic_parent_allowlist'`
 - part-local Agon builders, validators, and tests before any generated registry
   change
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: each active Agon part README exposes inputs, outputs, stronger
+  owner split, stop-lines, and validation routing.
+- Still valid: Agon remains one parent mechanic; court prebinding, CCS, VDS,
+  mechanical trial suites, retention/rank, epistemic, SLC, KAG, and Sophian
+  threshold alignment remain parts inside `mechanics/agon/`.
+- Changed: `## Stop-Lines` now carries `Pressure | Route` tables instead of
+  imperative boundary bullets.
+- Changed: `scripts/validate_repo.py` requires route-table stop-line tokens for
+  affected Agon part READMEs and rejects stale imperative stop-line phrases on
+  those part surfaces.
+- Source surfaces updated: `mechanics/agon/README.md`,
+  `mechanics/agon/parts/*/README.md`, `scripts/validate_repo.py`, and
+  `tests/test_validate_repo.py`.
+
+## Review Log
+
+### 2026-05-24 - Stop-line route tables
+
+- Previous assumption: direct imperative bullets were enough to preserve Agon
+  stop-lines once the README headings existed.
+- New reality: low-context agents need a route map that names the pressure,
+  owning route, and local output boundary in one place.
+- Reason: the Agon part README is an operational route surface. Its stop-lines
+  should tell the agent where pressure goes, not only what the part declines to
+  do.
+- Source surfaces updated: Agon parent and part README stop-line wording,
+  validator tokens, and validator regression coverage.
+- Validation: Agon builders, Agon validators, Agon part tests,
+  `python scripts/validate_repo.py`, `python scripts/validate_semantic_agents.py`,
+  generated-surface `--check` commands, `python -m pytest -q`, and
+  `git diff --check`.

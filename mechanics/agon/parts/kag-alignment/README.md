@@ -49,12 +49,11 @@ authority.
 
 ## Stop-Lines
 
-- Do not promote a KAG candidate, write KAG canon, mutate rank or trust, execute
-  retention, or promote to Tree of Sophia.
-- Do not issue live verdicts, scars, memory writes, hidden scheduler actions, or
-  owner acceptance from this part.
-- Do not use generated KAG alignment records as proof without owner review or
-  bundle-local review.
+| Pressure | Route |
+| --- | --- |
+| KAG candidate promotion, KAG canon, rank or trust mutation, retention execution, or Tree of Sophia promotion pressure | route to `aoa-kag`, rank/retention, or ToS owners; this part stays candidate-only alignment |
+| live verdict, scar, memory write, hidden scheduler action, or owner acceptance pressure | route to the stronger live owner before any durable effect exists |
+| generated KAG alignment records are needed as proof | route through owner review or bundle-local review before proof use |
 
 ## Validation
 

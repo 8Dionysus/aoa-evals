@@ -3606,7 +3606,7 @@ AGON_PART_README_CONTRACTS = (
         + (
             "agon_vds_eval_alignment_registry.min.json",
             "no-live-verdict",
-            "Do not emit or accept a live verdict",
+            "live verdict emission or acceptance pressure",
         ),
     ),
     (
@@ -3615,7 +3615,7 @@ AGON_PART_README_CONTRACTS = (
         + (
             "agon_mechanical_trial_eval_suite_registry.min.json",
             "candidate-only eval-suite",
-            "Do not run an arena",
+            "arena run, live protocol, or trial execution pressure",
         ),
     ),
     (
@@ -3624,7 +3624,7 @@ AGON_PART_README_CONTRACTS = (
         + (
             "agon_retention_rank_eval_alignment_registry.min.json",
             "retention execution",
-            "Do not mutate rank",
+            "no-mutation alignment evidence",
         ),
     ),
     (
@@ -3642,7 +3642,7 @@ AGON_PART_README_CONTRACTS = (
         + (
             "agon_slc_eval_alignment_registry.min.json",
             "schools, lineages, and campaigns",
-            "Do not canonize",
+            "non-canon alignment",
         ),
     ),
     (
@@ -3651,7 +3651,7 @@ AGON_PART_README_CONTRACTS = (
         + (
             "agon_kag_eval_alignment_registry.min.json",
             "KAG canon",
-            "Do not promote a KAG candidate",
+            "KAG candidate promotion",
         ),
     ),
     (
@@ -3660,9 +3660,35 @@ AGON_PART_README_CONTRACTS = (
         + (
             "agon_sophian_eval_alignment_registry.min.json",
             "Tree of Sophia canon",
-            "Do not write Tree of Sophia canon",
+            "Tree of Sophia canon write",
         ),
     ),
+)
+AGON_PART_README_STALE_STOP_LINE_PHRASES = (
+    "Do not grant live verdict",
+    "Do not weaken `no_live_verdict`",
+    "Do not treat generated prebindings as court law",
+    "Do not rewrite center law",
+    "Do not issue live verdicts",
+    "Do not let local registry output outrank",
+    "Do not emit or accept a live verdict",
+    "Do not turn verdict draft status",
+    "Do not let generated draft-status records outrank",
+    "Do not run an arena",
+    "Do not issue verdicts",
+    "Do not use candidate eval-suite output as proof",
+    "Do not mutate rank",
+    "Do not treat eval alignment as promotion",
+    "Do not let generated rank-pressure records outrank",
+    "Do not rewrite doctrine",
+    "Do not issue live verdict",
+    "Do not let generated epistemic records outrank",
+    "Do not canonize",
+    "Do not treat SLC alignment as owner acceptance",
+    "Do not promote a KAG candidate",
+    "Do not use generated KAG alignment records as proof",
+    "Do not write Tree of Sophia canon",
+    "Do not transfer canon authority",
 )
 AGON_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "Agon Part Contract Guard",
@@ -10953,6 +10979,19 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
             tokens=tokens,
             issues=issues,
         )
+        readme_text = read_text_or_issue(
+            repo_root / path_name,
+            issues,
+            root=repo_root,
+        )
+        for stale_phrase in AGON_PART_README_STALE_STOP_LINE_PHRASES:
+            if readme_text and stale_phrase in readme_text:
+                issues.append(
+                    ValidationIssue(
+                        path_name,
+                        "Agon part README Stop-Lines must route pressure through owner tables instead of stale imperative stop-line phrasing",
+                    )
+                )
     require_tokens(
         repo_root=repo_root,
         path_name=AGON_PART_CONTRACT_GUARD_DECISION_NAME,

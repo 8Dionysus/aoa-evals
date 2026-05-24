@@ -44,10 +44,11 @@ arena state, run truth, and verdict authority.
 
 ## Stop-Lines
 
-- Do not run an arena, open a live protocol, or execute a trial from this part.
-- Do not issue verdicts, write scars, mutate rank or trust, retain candidates,
-  or promote anything into Tree of Sophia canon.
-- Do not use candidate eval-suite output as proof without bundle-local review.
+| Pressure | Route |
+| --- | --- |
+| arena run, live protocol, or trial execution pressure | route to the trial, arena, or runtime owner; this part only shapes candidate eval suites |
+| verdict, scar, rank or trust mutation, retention, or Tree of Sophia canon pressure | route to the stronger owner with authority over that effect |
+| candidate-only eval-suite output is needed as proof | route through bundle-local review before any proof claim leaves the part |
 
 ## Validation
 

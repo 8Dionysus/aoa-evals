@@ -10,6 +10,18 @@ Use this file for the proof model. Use `DESIGN.md` for repository shape,
 and `mechanics/EVIDENCE_CLUSTERS.md` before creating or moving mechanic
 packages.
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | technical proof model for portable eval bundles, mechanic operation support, and generated reader boundaries |
+| input | proof-model question, agent-eval vocabulary, bundle anatomy, mechanic parent pressure, local adaptation pressure, or generated-reader pressure |
+| output | proof-layer route, owner split, bundle/mechanic/generated boundary, and design-rule route |
+| owner | this document for the technical proof model; `DESIGN.md` for repository form; `docs/PROOF_TOPOLOGY.md` for authority classes |
+| next route | source eval package, `docs/PROOF_TOPOLOGY.md`, `mechanics/EVIDENCE_CLUSTERS.md`, `mechanics/README.md`, generated builder, or `docs/decisions/` |
+| tools | nearest `AGENTS.md`, root validator, semantic AGENTS validator, and generated-reader builders when derived surfaces move |
+| validation | `docs/AGENTS.md#validation` and the focused architecture proof-model route in `docs/decisions/0093-architecture-proof-model-contract.md` |
+
 ## Purpose
 
 `aoa-evals` is a public repository of portable evaluation bundles for agents and agent-shaped workflows.
@@ -143,22 +155,24 @@ incarnation law.
 
 Artifact forms such as canaries, reports, receipts, schemas, runners, scorers,
 generated readers, and verdict models become parts or payloads under the
-owning parent. They do not become parent names by convenience.
+owning parent. Parent names come from the recurring operation and owner split.
 
-## Design rules
+## Design Rule Routes
 
-1. eval bundles should make bounded claims, not total claims
-2. proof matters more than impression
-3. reproducibility matters more than anecdotal success
-4. comparison surfaces matter more than isolated wins
-5. blind spots must be named explicitly
-6. raw run volume should not replace clear interpretation
-7. markdown should remain the human-reviewable meaning surface
-8. structured outputs should remain derived, bounded, and inspectable
-9. compact public report artifacts are preferred over massive uncurated dumps
-10. local project-specific evals should not silently masquerade as portable public defaults
-11. mechanics should grow from cross-root evidence, not from one artifact form
-12. legacy should preserve lineage without steering active topology
+| Pressure | Route |
+| --- | --- |
+| broad or total claim pressure | shape one bounded claim with scope, evidence, verdict logic, and blind spots |
+| impression pressure | route to reviewable proof evidence |
+| anecdotal success pressure | route to a reproducible execution or review path |
+| isolated win pressure | add comparison posture when comparison is claimed |
+| hidden-limit pressure | name blind spots as part of the proof contract |
+| raw run volume pressure | route through clear interpretation and report boundaries |
+| human meaning pressure | keep markdown as the human-reviewable meaning surface |
+| structured-output pressure | keep structured outputs derived, bounded, and inspectable |
+| large dump pressure | prefer compact public report artifacts |
+| project-local pressure | keep local adaptations public-safe before promoting them as portable defaults |
+| artifact-form pressure | require cross-root evidence before naming a mechanic parent |
+| legacy pressure | preserve lineage through active owner routes and provenance bridges |
 
 ## Eval categories
 
@@ -229,7 +243,8 @@ reader surfaces derived from:
 - `evals/**/eval.yaml`
 
 They exist to support routing, navigation, and read-heavy consumers.
-They do not replace the authored bundle meaning in markdown and manifest files.
+They route readers back to authored bundle meaning in markdown and manifest
+files.
 
 ## Maturity direction
 

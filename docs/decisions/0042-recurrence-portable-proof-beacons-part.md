@@ -67,6 +67,9 @@ As of 2026-05-24:
 - Changed: the active part README now routes runtime-canon, accepted portable
   proof, universal-score, beacon-verdict, manifest-ownership, and overclaim
   repair pressure to owner routes, with validator tokens guarding those rows.
+- Changed: descendant `AGENTS.md` now exposes an Operating Card and owner route
+  table for low-context agents while routing executable checks to the parent
+  `parts/AGENTS.md` lane.
 - Superseded by: none.
 
 ## Review Log
@@ -86,6 +89,23 @@ As of 2026-05-24:
 - Validation: recurrence validator focus, recurrence part runners and tests,
   catalog check, root validation, semantic AGENTS validation, diff whitespace
   check, and full pytest passed.
+
+### 2026-05-24 - Agent route-card applicability
+
+- Previous assumption: the descendant portable-proof-beacons `AGENTS.md` could
+  repeat authority limits and command blocks locally.
+- New reality: the parent `parts/AGENTS.md` already owns centralized child
+  validation commands, so the descendant card is clearer as an Operating Card
+  plus owner routes.
+- Reason: beacon pressure crosses audit intake, RPG progression, source
+  bundles, runtime truth, recurrence doctrine, and portable eval authoring; a
+  low-context agent needs the next owner route at the file boundary.
+- Source surfaces updated:
+  `mechanics/recurrence/parts/portable-proof-beacons/AGENTS.md`,
+  `scripts/validate_repo.py`,
+  `tests/test_validate_repo.py`.
+- Validation: root validator, semantic AGENTS validation, catalog and generated
+  reader checks, and focused validator tests.
 
 ## Boundaries
 

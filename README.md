@@ -61,18 +61,21 @@ Maintained agent lane routing is under `.agents/AGENTS.md` and
 
 ## Proof Check
 
-Before trusting, publishing, or extending a proof claim, ask the narrowest owner.
+Before trusting, publishing, or extending a proof claim, open the smallest owner
+that can answer it:
 
-| Claim question | Check |
-| --- | --- |
-| What bounded claim is being made? | bundle-local `EVAL.md` |
-| What metadata, status, or baseline supports it? | bundle-local `eval.yaml` |
-| Which authority class owns this artifact? | [docs/PROOF_TOPOLOGY.md](docs/PROOF_TOPOLOGY.md) |
-| Which proof operation routes the work? | [mechanics/README.md](mechanics/README.md) and the parent mechanic |
-| Which comparison, artifact/process, repeated-window, or shared-infra guide applies? | [docs/COMPARISON_SPINE_GUIDE.md](docs/COMPARISON_SPINE_GUIDE.md), [docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md](docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md), [docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md](docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md), [docs/SHARED_PROOF_INFRA_GUIDE.md](docs/SHARED_PROOF_INFRA_GUIDE.md) |
-| Which memory context may a proof cite? | Memory context is recall context, not proof authority; cite reviewed `aoa-memo` object ids, provenance, lifecycle, and generated read models, then keep the verdict in the eval bundle or owning mechanic. |
-| Which report or receipt readout is available? | [docs/README.md#mechanic-and-evidence-anchors](docs/README.md#mechanic-and-evidence-anchors) and `generated/eval_report_index.min.json` |
-| Which checks close the edit? | nearest `AGENTS.md` validation lane |
+- claim and metadata: bundle-local `EVAL.md` and `eval.yaml`;
+- authority class: [docs/PROOF_TOPOLOGY.md](docs/PROOF_TOPOLOGY.md);
+- proof operation: [mechanics/README.md](mechanics/README.md) and the parent
+  mechanic;
+- guide, report, receipt, or memory-context lookup:
+  [docs/README.md](docs/README.md), its
+  [mechanic and evidence anchors](docs/README.md#mechanic-and-evidence-anchors),
+  and `generated/eval_report_index.min.json`;
+- memory boundary: Memory context is recall context, not proof authority. Cite
+  reviewed `aoa-memo` object ids, provenance, lifecycle, and generated read models;
+  keep the verdict in the eval bundle or owning mechanic;
+- closing checks: nearest `AGENTS.md` validation lane.
 
 ## Current Contour
 

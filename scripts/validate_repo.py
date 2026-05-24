@@ -1126,6 +1126,9 @@ ROOT_README_SURFACE_REQUIRED_TOKENS = (
     "Executable validation routes live in",
     "practice canon -> workflow canon -> proof canon",
 )
+ROOT_README_SURFACE_FORBIDDEN_TOKENS = (
+    "Which comparison, artifact/process, repeated-window, or shared-infra guide applies?",
+)
 DOCS_README_ROUTE_MAP_REQUIRED_TOKENS = (
     "# Documentation Map",
     "human and agent entrypoint",
@@ -9142,12 +9145,21 @@ def validate_source_eval_tree_topology_surfaces(repo_root: Path) -> list[Validat
 def validate_root_readme_surface_role(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
 
-    require_tokens(
+    text = require_tokens(
         repo_root=repo_root,
         path_name="README.md",
         tokens=ROOT_README_SURFACE_REQUIRED_TOKENS,
         issues=issues,
     )
+    if text:
+        for token in ROOT_README_SURFACE_FORBIDDEN_TOKENS:
+            if token in text:
+                issues.append(
+                    ValidationIssue(
+                        "README.md",
+                        "root README Proof Check should stay compact; detailed proof-guide catalogs route to docs/README.md",
+                    )
+                )
     require_tokens(
         repo_root=repo_root,
         path_name="docs/README.md",
@@ -12994,13 +13006,6 @@ def validate_comparison_doctrine_surfaces(
         index_text = ""
         issues.append(ValidationIssue(EVAL_INDEX_NAME, "file is missing"))
 
-    if "docs/COMPARISON_SPINE_GUIDE.md" not in readme_text:
-        issues.append(
-            ValidationIssue(
-                "README.md",
-                "README.md must reference docs/COMPARISON_SPINE_GUIDE.md",
-            )
-        )
     if "generated/comparison_spine.json" not in readme_text:
         issues.append(
             ValidationIssue(
@@ -13088,7 +13093,6 @@ def validate_artifact_process_doctrine_surfaces(
         issues,
         root=repo_root,
     )
-    readme_text = read_text_or_issue(repo_root / "README.md", issues, root=repo_root)
     docs_readme_text = read_text_or_issue(
         repo_root / "docs" / "README.md",
         issues,
@@ -13105,13 +13109,6 @@ def validate_artifact_process_doctrine_surfaces(
         root=repo_root,
     )
 
-    if ARTIFACT_PROCESS_GUIDE_NAME not in readme_text:
-        issues.append(
-            ValidationIssue(
-                "README.md",
-                f"README.md must reference {ARTIFACT_PROCESS_GUIDE_NAME}",
-            )
-        )
     if "Artifact Process Separation Guide" not in docs_readme_text:
         issues.append(
             ValidationIssue(
@@ -13191,7 +13188,6 @@ def validate_repeated_window_doctrine_surfaces(
         issues,
         root=repo_root,
     )
-    readme_text = read_text_or_issue(repo_root / "README.md", issues, root=repo_root)
     docs_readme_text = read_text_or_issue(
         repo_root / "docs" / "README.md",
         issues,
@@ -13208,13 +13204,6 @@ def validate_repeated_window_doctrine_surfaces(
         root=repo_root,
     )
 
-    if REPEATED_WINDOW_GUIDE_NAME not in readme_text:
-        issues.append(
-            ValidationIssue(
-                "README.md",
-                f"README.md must reference {REPEATED_WINDOW_GUIDE_NAME}",
-            )
-        )
     if "Repeated Window Discipline Guide" not in docs_readme_text:
         issues.append(
             ValidationIssue(
@@ -13377,7 +13366,6 @@ def validate_shared_proof_infra_surfaces(
         issues,
         root=repo_root,
     )
-    readme_text = read_text_or_issue(repo_root / "README.md", issues, root=repo_root)
     docs_readme_text = read_text_or_issue(
         repo_root / "docs" / "README.md",
         issues,
@@ -13399,13 +13387,6 @@ def validate_shared_proof_infra_surfaces(
         root=repo_root,
     )
 
-    if SHARED_PROOF_INFRA_GUIDE_NAME not in readme_text:
-        issues.append(
-            ValidationIssue(
-                "README.md",
-                f"README.md must reference {SHARED_PROOF_INFRA_GUIDE_NAME}",
-            )
-        )
     if "Shared Proof Infra Guide" not in docs_readme_text:
         issues.append(
             ValidationIssue(

@@ -2,29 +2,35 @@
 
 Thank you for contributing.
 
-## What belongs here
+`aoa-evals` accepts contributions that make a bounded proof claim easier to
+inspect, rerun, compare, review, or route to its owner.
 
-Good contributions:
-- portable eval bundles for agents or agent-shaped workflows
-- bounded comparison surfaces
-- artifact-quality evals
-- regression and longitudinal evals
-- authority, scope, or safety boundary evals
-- reusable scorers, rubrics, and verdict logic
-- portable fixture sets
-- compact report contracts and interpretation guides
-- eval integrity checks
+## Contribution Routes
 
-Bad contributions:
-- random tests without a bounded public evaluation contract
-- private project QA with no generalization path
-- secret-bearing fixtures, logs, or traces
-- giant uncurated run dumps
-- undocumented scoring logic
-- metrics with no interpretation boundary
-- bundles that imply broader claims than they support
-- techniques that should live in `aoa-techniques`
-- execution workflows that should live in `aoa-skills`
+Choose the owner route before opening a PR.
+
+| Contribution pressure | Owner route |
+| --- | --- |
+| portable eval bundle for agents or agent-shaped workflows | source bundle under `evals/` plus bundle-local `EVAL.md` and `eval.yaml` |
+| bounded comparison, regression, longitudinal, artifact-quality, authority, scope, or safety-boundary eval | owning bundle family, comparison guide, boundary guide, and generated reader route when public selection changes |
+| reusable scorer, rubric, verdict logic, fixture set, report contract, or interpretation guide | owning bundle, `docs/` guide, or mechanic part that carries the repeated proof support |
+| eval integrity check or proof-surface validation improvement | owning bundle, `scripts/`, `tests/`, or mechanic route card |
+| repeated proof-operation support | `mechanics/README.md`, then the parent package, part README, and local `AGENTS.md` |
+| contribution whose main meaning is reusable practice | route to `aoa-techniques` |
+| contribution whose main meaning is executable workflow | route to `aoa-skills` |
+
+## Intake Pressure Routes
+
+Route these pressures before they become public proof claims:
+
+| Pressure | Route |
+| --- | --- |
+| loose test or project QA without a bounded public claim | keep it local until it has an eval contract and interpretation boundary |
+| private fixture, log, trace, or sensitive operational detail | security process or owning private surface before public PR |
+| large run dump | selected evidence packet, compact report, or audit candidate route |
+| undocumented scorer or metric | score semantics, verdict interpretation, and bundle-local review |
+| claim wording grows broader than its evidence | bundle-local claim review and blind-spot disclosure |
+| sibling-owner meaning appears | route to the sibling owner and keep the eval contribution to bounded proof support |
 
 ## Before opening a PR
 

@@ -3507,12 +3507,15 @@ TITAN_SUMMON_DISCIPLINE_REQUIRED_TOKENS = (
     "full incarnation",
 )
 TITAN_SEED_BOUNDARY_SEEDS_AGENTS_REQUIRED_TOKENS = (
+    "## Operating Card",
     "Titan seed canaries",
     "mechanics/titan/parts/seed-boundary/seeds/titan*.yaml",
+    "seed-local route card",
     "full incarnation proof",
     "runtime activation",
     "validate_titan_canary_surfaces",
-    "python scripts/validate_repo.py",
+    "Filename or identifier drift",
+    "centralized-child-validation",
 )
 TITAN_SEED_BOUNDARY_SEEDS_README_REQUIRED_TOKENS = (
     "Titan Canary Seeds",
@@ -3522,6 +3525,7 @@ TITAN_SEED_BOUNDARY_SEEDS_README_REQUIRED_TOKENS = (
     "id` or `eval_id",
     "full incarnation proof",
     "Use [AGENTS.md](AGENTS.md#validation)",
+    "parent `mechanics/titan/parts/AGENTS.md` lane",
 )
 TITAN_SEED_BOUNDARY_PART_README_REQUIRED_TOKENS = (
     "Seed Boundary Part",

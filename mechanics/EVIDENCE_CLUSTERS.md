@@ -2,12 +2,14 @@
 
 ## Role
 
-`mechanics/EVIDENCE_CLUSTERS.md` is the parent-mechanic evidence gate for
-the `aoa-evals` mechanics atlas.
+`mechanics/EVIDENCE_CLUSTERS.md` is the parent-mechanic evidence gate for the
+`aoa-evals` mechanics atlas. It answers one routing question:
 
-It lets an agent decide whether a proposed top-level mechanic parent is
-allowed, which root districts prove the cluster, and how the parent routes as
-AoA-aligned or evals-native.
+`proposed parent or moved payload -> evidence class -> parent route -> part route -> validation guard`
+
+Use it when an agent needs to classify root-district pressure, prove that a
+parent operation is real, or recover why an active parent is AoA-aligned or
+evals-native.
 
 ## Operating Card
 
@@ -24,36 +26,32 @@ AoA-aligned or evals-native.
 
 ## Evidence Standard
 
-Create or keep a mechanic parent when a recurring proof-side operation has
-enough cross-root evidence to name:
+Read parent readiness as an operating checklist:
 
-- meaning or doctrine;
-- proof claim or bounded evaluation pressure;
-- schema, contract, example, fixture, or seed input;
-- builder, validator, test, generated reader, report, or receipt output;
-- stronger-owner split and stop-lines;
-- legacy or provenance posture when old names remain.
+| Evidence dimension | Parent-ready route |
+| --- | --- |
+| meaning | the recurring proof-side operation has doctrine, posture, or route language |
+| proof pressure | bounded claims or evaluation pressure repeat across more than one source surface |
+| contracts and payloads | schemas, contracts, examples, fixtures, seeds, reports, receipts, or support docs need a shared operation home |
+| builders and readouts | validators, tests, builders, generated readers, reports, or receipts exercise the operation |
+| owner split | stronger-owner truth and eval-side proof support are named together |
+| lineage | old names have a current provenance bridge and active route |
 
-Single documents, reports, and canary forms route as parts under the right parent.
-They justify a parent only when the surrounding evidence proves an independent
-operation.
-
-Owner-named parents stay valid when the local proof operation is real, artifact
-forms stay below the parent as parts, and the stronger-owner split is explicit.
-That keeps an owner-named proof boundary from becoming a proof-organ-invented
-doctrine route.
+Single documents, reports, and canary forms route as parts under the right parent;
+parent status comes from the repeated operation around them. Owner-named
+parents stay valid when the local proof operation is real, artifact forms stay
+below the parent as parts, and the stronger-owner split is explicit.
 
 ## Root District Reconnaissance Ledger
 
 This root-district ledger is the first gate before package growth. It records
-what each named root district currently owns, which payloads are mechanic-owned
-or bundle-owned, and which guard prevents old root placement from steering
-active topology.
+what each named root district currently owns, where active payloads route, and
+which validation guard keeps the route anchored to current topology.
 
 | District | Authority class | Current root posture | Mechanics relationship | Validation guard |
 | --- | --- | --- | --- | --- |
 | `docs` | source guidance, topology, decisions, and repo-wide proof interpretation | root-owned source guidance stays in `docs/`; mechanic-owned docs live under the owning part when a narrower operation owns the read | mechanics may route docs as evidence, but mechanic-owned docs stay part-local and root docs remain guidance or provenance | `validate_root_authored_route_residue_surfaces`, `validate_proof_topology_surfaces`, and decision-token checks |
-| `evals` | source proof object district | `evals/**/EVAL.md` and `evals/**/eval.yaml` stay root-owned source proof objects; source eval packages stay out of mechanics | mechanics provide proof-object, infra, comparison, audit, quest, or report support around eval packages without stealing eval meaning | per-eval validation, source-eval route residue, catalog builders, and root route-card validation |
+| `evals` | source proof object district | `evals/**/EVAL.md` and `evals/**/eval.yaml` stay root-owned source proof objects; source eval packages stay out of mechanics | mechanics provide proof-object, infra, comparison, audit, quest, or report support around eval packages while eval meaning stays on source proof objects | per-eval validation, source-eval route residue, catalog builders, and root route-card validation |
 | `fixtures` | shared proof infrastructure compatibility district | route-card-only compatibility posture; active fixture families live under proof-infra or domain mechanic parts | generic fixtures route to `mechanics/proof-infra/parts/fixture-families/fixtures/`, while domain fixtures live under owning mechanic parts | root route-card guard plus active-mechanic and mechanic-payload route residue checks |
 | `schemas` | proof contract compatibility district | route-card-only compatibility posture; active schema payloads live under proof-object, proof-infra, questbook, or domain mechanic parts | eval contract schemas route to `mechanics/proof-object/parts/eval-contracts/schemas/`, shared contracts to proof-infra, quest schemas to questbook, and domain schemas to owning parts | root route-card guard plus schema-aware bundle, quest, and mechanic validation |
 | `examples` | public-safe example compatibility district | route-card-only compatibility posture; active example payloads live beside their owning source | bundle examples stay in `evals/**/examples/`; audit, receipt, bridge, and domain examples live under owning mechanic parts | root route-card guard plus active route residue checks |
@@ -66,7 +64,7 @@ active topology.
 | `runners` | shared runner contract compatibility district | route-card-only compatibility posture; active runner contracts live under proof-infra or bundle-local pointers | active shared runner contract lives under `mechanics/proof-infra/parts/reportable-contracts/runners/`, while bundle-local runner contracts point to it through `runner_surface_path` | root route-card guard, bundle runner contract checks, and proof-infra reportable-contract validation |
 | `scorers` | shared scorer helper compatibility district | route-card-only compatibility posture; active scorer helpers live under proof-infra or owning mechanic parts | active shared scorer helper lives under `mechanics/proof-infra/parts/reportable-contracts/scorers/`, while domain scorers live under owning mechanic parts | root route-card guard, scorer helper checks, schema validation, and proof-infra reportable-contract validation |
 | `templates` | eval template compatibility district | route-card-only compatibility posture; active template payloads live under proof-object eval authoring | active eval authoring template lives under `mechanics/proof-object/parts/eval-authoring/templates/` | root route-card guard, proof-object eval-authoring checks, and root repository validation route |
-| `quests` | source quest record district | schema-backed lane/state source quest records stay under `quests/`; generated quest readers remain derived; markdown quest-note lineage belongs behind the owning mechanic `PROVENANCE.md` | `mechanics/questbook/parts/` owns source-record schemas and dispatch-reader contracts without moving source quest records | quest route validation, generated quest catalog checks, and catalog-check route |
+| `quests` | source quest record district | schema-backed lane/state source quest records stay under `quests/`; generated quest readers remain derived; markdown quest-note lineage belongs behind the owning mechanic `PROVENANCE.md` | `mechanics/questbook/parts/` owns source-record schemas and dispatch-reader contracts; source quest records stay under `quests/` | quest route validation, generated quest catalog checks, and catalog-check route |
 | `mechanics` | operation atlas | active only for proven parent operations with route cards, `DIRECTION.md`, parts, provenance, and validation | `mechanics/EVIDENCE_CLUSTERS.md` gates parent names and cross-root evidence before payload movement | parent allowlist, part README contracts, direction/provenance guards, and legacy/accounting checks |
 
 ## Residual Root-authored Surface Classification
@@ -106,7 +104,7 @@ belongs.
 | `docs/VERDICT_INTERPRETATION_GUIDE.md` | root-owned verdict interpretation guide | mechanic-owned payload verdict models live under source bundles or owning mechanic parts | bundle and root-authored route validation |
 | `docs/VIA_NEGATIVA_CHECKLIST.md` | root-owned negative-boundary checklist | mechanic-owned payload stop-lines live in parent `DIRECTION.md`, `PARTS.md`, and part READMEs | direction and part README validators |
 | `scripts/AGENTS.md` | root-owned scripts route card | mechanic-owned payload scripts live under owning `mechanics/*/parts/*/scripts/` | semantic AGENTS and script route validation |
-| `scripts/build_catalog.py` | root-owned catalog builder | mechanic-owned payload builders live part-local and feed generated companions without owning root catalog truth | catalog check and repo validation |
+| `scripts/build_catalog.py` | root-owned catalog builder | mechanic-owned payload builders live part-local and feed generated companions; root catalog truth stays with the root builder | catalog check and repo validation |
 | `scripts/eval_capsule_contract.py` | root-owned generated capsule contract helper | mechanic-owned payload capsule logic moves into a mechanic part only when the part owns that generated reader | downstream feed tests |
 | `scripts/eval_catalog_contract.py` | root-owned catalog contract helper | mechanic-owned payload bundle support remains part-local while root catalog remains repo-wide derived truth | catalog and downstream feed tests |
 | `scripts/eval_comparison_spine_contract.py` | root-owned comparison-spine generated contract helper | mechanic-owned payload comparison reports and fixtures live under comparison-spine parts | comparison spine generated checks |
@@ -125,7 +123,7 @@ belongs.
 | `tests/test_memo_contradiction_phase_alpha_rerun_report.py` | root-owned bundle-report test for selected audit evidence | mechanic-owned payload selected evidence lives under `mechanics/audit/parts/selected-evidence-packets/` | bundle report schema test |
 | `tests/test_memo_writeback_act_phase_alpha_report.py` | root-owned bundle-report test with sibling-evidence gating | mechanic-owned payload selected evidence lives under audit parts; sibling truth remains repo-qualified | bundle report and sibling-evidence skip checks |
 | `tests/test_nested_agents_docs.py` | root-owned nested AGENTS test | mechanic-owned payload route cards are validated through root route tests | nested AGENTS pytest |
-| `tests/test_roadmap_parity.py` | root-owned roadmap parity test | mechanic-owned payload status belongs in mechanics/roadmap surfaces rather than ad hoc root notes | roadmap parity validation |
+| `tests/test_roadmap_parity.py` | root-owned roadmap parity test | mechanic-owned payload status routes through mechanics/roadmap surfaces and current-contour cards | roadmap parity validation |
 | `tests/test_validate_repo.py` | root-owned validator test suite | mechanic-owned payload contracts get focused tests here only when the root validator owns the cross-surface guard | full validator test suite |
 | `tests/test_validate_semantic_agents.py` | root-owned semantic AGENTS test | mechanic-owned payload local cards remain under owning directories | semantic AGENTS pytest |
 | `tests/test_verification_honesty_local_report.py` | root-owned bundle-local report test | mechanic-owned payload proof-loop report artifacts live under proof-loop parts, while this checks a source bundle report | bundle report schema test |
@@ -167,9 +165,9 @@ worktree, include the active parent route, and include at least one
 living non-mechanics route ref, meaning a non-mechanics route ref that points
 at current evidence. This living non-mechanics evidence keeps the parent tied
 to source, bundle, generated readout, quest, workflow/config, root entry, or
-part-local validator routes instead of package-local prose alone. A
-rationale-only decision ref or generic root validator file can support the
-route context, while the parent evidence row still needs living evidence.
+part-local validator routes. Package-local prose, rationale-only decisions, and
+generic root validator files can support route context; the parent evidence row
+still needs living evidence.
 
 | Parent | Route refs |
 | --- | --- |
@@ -255,9 +253,9 @@ forms live below it as parts.
 
 ### Evals-native parents
 
-These parents use proof-organ operation names rather than center AoA mechanic
-names. They are allowed because `aoa-evals` owns the proof organ operation
-itself. Most names are local proof operations such as `proof-object` or
+These parents use proof-organ operation names. They are allowed because
+`aoa-evals` owns the proof organ operation itself. Most names are local proof
+operations such as `proof-object` or
 `comparison-spine`; `titan` is the
 owner-named evals-native exception, where the local operation is the proof-seed
 boundary and the stronger Titan truth stays outside `aoa-evals`.
@@ -279,12 +277,12 @@ pressure:
 
 | Wrong parent | Correct parent | Reason |
 | --- | --- | --- |
-| `agon-proof` | `agon` | Replaces the AoA-aligned Agon mechanic with a proof-organ suffix. |
-| `titan-canaries` | `titan` | Names the artifact form instead of the Titan proof-seed mechanic. |
-| `proof-release` | `release-support` | Replaces the AoA-aligned release-support mechanic with proof-organ adjective. |
-| `runtime-evidence` | `audit` | Names an evidence class instead of the audit mechanic that receives, constrains, and routes it. |
-| `sibling-proof-refs` | `boundary-bridge` | Names one bridge payload instead of the boundary-bridge mechanic. |
-| `repair` | `antifragility/repair-proof` | Names a stage or artifact pressure instead of the active bounded repair-proof part; future Growth Cycle repair stages still need separate evidence. |
+| `agon-proof` | `agon` | Active route keeps the AoA-aligned Agon mechanic name. |
+| `titan-canaries` | `titan` | Active route keeps the Titan proof-seed mechanic; canaries are the artifact form below it. |
+| `proof-release` | `release-support` | Active route keeps the AoA-aligned release-support mechanic name. |
+| `runtime-evidence` | `audit` | Active route sends runtime evidence through the audit mechanic that receives, constrains, and routes it. |
+| `sibling-proof-refs` | `boundary-bridge` | Active route sends sibling proof refs through the boundary-bridge mechanic. |
+| `repair` | `antifragility/repair-proof` | Active route sends bounded repair pressure through the repair-proof part; future Growth Cycle repair stages still need separate evidence. |
 
 The following parents are active and must stay constrained by their package
 cards and validators:
@@ -309,7 +307,8 @@ cards and validators:
 - `publication-receipts`
 - `proof-loop`
 
-This list is an active topology allowlist rather than a brainstorming list.
+This list is an active topology allowlist; candidate brainstorming belongs in a
+future evidence pass until evidence makes a parent route ready.
 `scripts/validate_repo.py` rejects undeclared top-level
 `mechanics/<parent>/` directories. A future parent must first prove an
 AoA-aligned or evals-native cross-root evidence cluster, then update this file,
@@ -329,68 +328,36 @@ inside `legacy/`.
 
 ## Next Evidence Pass
 
-The next package comes from local proof pressure and evidence shape rather than
-symmetry.
-There is no remaining named candidate promoted by this slice.
+Next package growth starts from local proof pressure and evidence shape. Use
+this route table before promoting a new parent or Growth Cycle/Distillation
+part:
 
-Future Growth Cycle parts remain possible, but each must prove its own local
-eval-side operation before entering `mechanics/growth-cycle/parts/`:
+| Pressure | Current route | Activation condition |
+| --- | --- | --- |
+| repair-cycle | `mechanics/antifragility/parts/repair-proof/` | a Growth Cycle repair stage needs its own source surfaces, contracts, stop-lines, and validation before entering `mechanics/growth-cycle/parts/` |
+| progression-lift | `mechanics/rpg/parts/progression-unlocks/` and `mechanics/comparison-spine/parts/longitudinal-window/` | a Growth Cycle progression part needs distinct eval-side operation evidence |
+| reviewed-closeout-chain | `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` plus the relevant closeout, audit, questbook, or distillation route | active part status needs source refs, payload contract, owner split, and validation |
+| donor-harvest | current owner mechanic plus provenance bridge | active part status needs reusable proof operation evidence beyond a one-off harvest note |
+| quest-promotion | `mechanics/questbook/parts/` and source quest records under `quests/` | active part status needs a schema-backed promotion contract and generated-reader route |
+| owner-followthrough | stronger-owner handoff route plus local proof receipt or report | active part status needs owner-visible evidence and bounded eval-side validation |
 
-- `repair-cycle` routes repair proof through `antifragility/repair-proof`;
-- `progression-lift` routes progression and longitudinal movement through
-  `rpg/progression-unlocks` and `comparison-spine/longitudinal-window`;
-- `reviewed-closeout-chain`, `donor-harvest`, `quest-promotion`, and
-  `owner-followthrough` require source surfaces, contracts, stop-lines, and
-  validation before they enter active topology.
+### Current route reading
 
-### Current next-route reading
+| Family | Active route | Current reading |
+| --- | --- | --- |
+| Experience | `mechanics/experience/` | active AoA-aligned package |
+| Antifragility | `mechanics/antifragility/` | active AoA-aligned package; bounded repair proof routes through `repair-proof` |
+| Method Growth | `mechanics/method-growth/` | active AoA-aligned package for candidate lineage and owner landing |
+| RPG | `mechanics/rpg/` | active AoA-aligned package for progression and unlock proof support |
+| Growth Cycle | `mechanics/growth-cycle/parts/diagnosis-gate/` | `aoa-diagnosis-cause-discipline` cause-hypothesis discipline |
+| Distillation | `mechanics/distillation/parts/compost-provenance/` and `mechanics/distillation/parts/runtime-candidate-adoption/` | compost provenance and reviewed runtime-candidate adoption proof support |
+| Memo recall pressure | `mechanics/recurrence/parts/memory-recall/` | memo recall integrity proof |
+| Memo contradiction pressure | lifecycle-aware contradiction visibility proof surfaces | read as contradiction visibility; Distillation adoption needs reviewed-candidate route evidence |
+| Memo writeback-act pressure | confirmed base writeback-act proof surfaces | read as writeback-act proof; reviewed-candidate adoption needs Distillation source refs |
+| witness trace pressure | upstream witness trace integrity surfaces | route through the owning witness/audit boundary before Distillation adoption |
+| artifact-to-verdict `distillation_pack` metadata | audit bridge support | a Distillation part accepts it only through a specific bundle-local read |
 
-`experience`, `antifragility`, `method-growth`, `rpg`, `growth-cycle`, and
-`distillation` are
-no longer next-route candidates; they are active AoA-aligned packages under
-`mechanics/experience/`, `mechanics/antifragility/`,
-`mechanics/method-growth/`, `mechanics/rpg/`, and
-`mechanics/growth-cycle/`, and `mechanics/distillation/`.
-
-The current `growth-cycle` package is deliberately narrow. It activates only:
-
-- `aoa-diagnosis-cause-discipline` as `diagnosis-gate` cause-hypothesis
-  discipline.
-
-It keeps these separations explicit:
-
-- `aoa-repair-boundedness` remains antifragility `repair-proof` support;
-- `aoa-candidate-lineage-integrity` and `aoa-owner-fit-routing-quality` remain
-  active method-growth parts rather than all-purpose growth-cycle evidence;
-- `aoa-longitudinal-growth-snapshot` and repeated-window reports remain
-  longitudinal movement under comparison-spine;
-- `rpg/progression-unlocks` remains RPG progression and unlock proof support,
-  with Growth Cycle reading it as downstream progression evidence;
-- closeout, harvest, and repeated blind-spot quest pressure remain obligations
-  or ingress context until a later pass proves an active part;
-- `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` is one such ingress
-  anchor before any active `reviewed-closeout-chain` or writeback stage part.
-
-The current `distillation` package is deliberately narrow. It activates only:
-
-- `aoa-compost-provenance-preservation` as `compost-provenance`;
-- `aoa-memo-reviewed-candidate-adoption-integrity` as
-  `runtime-candidate-adoption`.
-
-It keeps these separations explicit:
-
-- `aoa-memo-recall-integrity` routes through
-  `recurrence/memory-recall` as memo recall integrity proof;
-- `aoa-memo-contradiction-integrity` remains lifecycle-aware contradiction
-  visibility proof;
-- `aoa-memo-writeback-act-integrity` remains confirmed base writeback-act
-  proof;
-- `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` may explain why the
-  reviewed-candidate gap matters, but it is root ingress rather than an active
-  Distillation source surface;
-- `aoa-witness-trace-integrity` remains upstream witness trace integrity;
-- artifact-to-verdict `distillation_pack` hook metadata remains audit bridge
-  support until a bundle-local Distillation part accepts a specific read.
+Route invariant: diagnosis-cause discipline routes through `growth-cycle/diagnosis-gate` as the active diagnosis lane.
 
 ## Legacy Rule
 

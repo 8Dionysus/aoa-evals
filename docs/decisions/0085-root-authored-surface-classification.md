@@ -71,3 +71,36 @@ owner route proves the move.
 python -m pytest -q tests/test_validate_repo.py -k root_authored_surface_classification
 python scripts/validate_repo.py
 ```
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `mechanics/EVIDENCE_CLUSTERS.md` owns the residual
+  root-authored surface classification ledger for top-level `docs/`,
+  `scripts/`, and `tests/` files.
+- Clarified: the former `docs/VIA_NEGATIVA_CHECKLIST.md` root guide now routes
+  through `docs/BOUNDARY_ROUTE_CHECKLIST.md`, so the file name and content name
+  the agent action directly.
+- Source surfaces updated:
+  - `docs/BOUNDARY_ROUTE_CHECKLIST.md`
+  - `docs/README.md`
+  - `mechanics/EVIDENCE_CLUSTERS.md`
+  - `scripts/validate_repo.py`
+- Validation: root-authored classification tests, root repository validation,
+  and semantic AGENTS validation stayed green.
+
+## Review Log
+
+### 2026-05-24 - Boundary checklist renamed to route action
+
+- Previous assumption: a via-negativa checklist was an acceptable
+  root-authored guide name for bounded-proof safety.
+- New reality: low-context agents need the file name and first screen to say
+  which route action the guide owns.
+- Reason: boundary pressure is handled through owner routes, source proof
+  review, and validation rather than a free-standing negative checklist.
+- Source surfaces updated: checklist file name/content, docs map link,
+  root-authored classification ledger, and validator allowlist.
+- Validation: root-authored classification tests, root repository validation,
+  and semantic AGENTS validation stayed green.

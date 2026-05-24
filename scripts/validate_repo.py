@@ -1038,7 +1038,7 @@ ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS: dict[str, tuple[str, ...]] = {
         "SCORE_SEMANTICS_GUIDE.md",
         "SHARED_PROOF_INFRA_GUIDE.md",
         "VERDICT_INTERPRETATION_GUIDE.md",
-        "VIA_NEGATIVA_CHECKLIST.md",
+        "BOUNDARY_ROUTE_CHECKLIST.md",
     ),
     "scripts": (
         "AGENTS.md",

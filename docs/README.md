@@ -115,6 +115,7 @@ limits:
 - [Regression Proof Surfaces](REGRESSION_PROOF_SURFACES.md)
 - [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
 - [Shared Proof Infra Guide](SHARED_PROOF_INFRA_GUIDE.md)
+- [Boundary Route Checklist](BOUNDARY_ROUTE_CHECKLIST.md)
 
 ### Bridge And Candidate Evidence Surfaces
 

@@ -36,6 +36,5 @@ Each seed must keep:
 
 ## Validation
 
-Use [AGENTS.md](AGENTS.md#validation) for executable validation commands. This
-README names the seed family and boundaries; the route card owns command
-execution.
+Use [AGENTS.md](AGENTS.md#validation) for the seed-local validation route.
+Executable validation commands are centralized in the parent `mechanics/titan/parts/AGENTS.md` lane.

@@ -5780,6 +5780,26 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_titan_seed_boundary_seeds_agents_requires_operating_card(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, validate_repo.TITAN_SEED_BOUNDARY_SEEDS_AGENTS_NAME)
+        agents_path = tmp_path / validate_repo.TITAN_SEED_BOUNDARY_SEEDS_AGENTS_NAME
+        agents_path.write_text(
+            agents_path.read_text(encoding="utf-8").replace(
+                "## Operating Card", "## Route Card"
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanics_surfaces(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.TITAN_SEED_BOUNDARY_SEEDS_AGENTS_NAME
+            and "## Operating Card" in issue.message
+            for issue in issues
+        )
+
     def test_titan_seed_boundary_surfaces_reject_stale_negative_claim_limits(
         self, tmp_path: Path
     ) -> None:

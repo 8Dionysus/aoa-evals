@@ -10,8 +10,20 @@ This directory stores Titan seed canaries under
 `mechanics/titan/parts/seed-boundary/seeds/titan*.yaml`.
 
 These files are public-safe boundary-check seeds. Full eval bundles,
-executable scorer suites, runtime activation receipts, and Titan incarnation
-proof route to later scorer or stronger-owner surfaces.
+executable scorer suites, runtime activation receipts, and full incarnation proof
+route to later scorer or stronger-owner surfaces.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | seed-local route card for Titan seed canary YAML payloads |
+| input | `titan*.yaml` seed canary change, filename/id drift, falsifiability pressure, gate-boundary pressure, or stronger Titan owner pressure |
+| output | seed-defined canary update, validation route, future scorer handoff, or stronger-owner route |
+| owner | this directory owns public-safe seed shape; the seed-boundary part owns the canary contract; stronger owners keep incarnation, summon, memory, runtime, and activation law |
+| next route | parent `parts/AGENTS.md`, seed-boundary README, seed README, Titan canary guides, affected `titan*.yaml`, and `validate_titan_canary_surfaces` |
+| tools | parent centralized child validation, root validator, semantic AGENTS validator, and titan canary tests |
+| validation | [parent parts/AGENTS.md](../../AGENTS.md#centralized-child-validation) |
 
 ## Read before editing
 
@@ -21,36 +33,30 @@ proof route to later scorer or stronger-owner surfaces.
 4. `docs/PROOF_TOPOLOGY.md`
 5. `docs/LEGACY_NAMING.md`
 6. `mechanics/titan/README.md`
-7. `mechanics/titan/parts/seed-boundary/seeds/README.md`
-8. `mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md`
-9. `mechanics/titan/parts/seed-boundary/docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md`
-10. `scripts/validate_repo.py` function `validate_titan_canary_surfaces`
+7. `mechanics/titan/parts/AGENTS.md`
+8. `mechanics/titan/parts/seed-boundary/README.md`
+9. `mechanics/titan/parts/seed-boundary/seeds/README.md`
+10. `mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md`
+11. `mechanics/titan/parts/seed-boundary/docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md`
+12. `scripts/validate_repo.py` function `validate_titan_canary_surfaces`
 
-## Boundaries
+## Boundary Routes
 
-- Keep `id` or `eval_id` equal to the filename stem.
-- Keep each canary public-safe and falsifiable through checks, required fields,
-  expected output, forbidden output, or failure examples.
-- Keep Titan canaries seed-defined unless executable scorer contracts,
-  fixtures, and reports are added.
-- Route full incarnation proof, runtime activation, hidden arena, memory
-  sovereignty, or summon authority pressure to the stronger owner surface.
-- Route mutation gate or judgment gate bypass pressure back to the gate docs and
-  validation surface.
-- Move canary files only with package route docs, decisions, and validators in
-  the same slice.
+| Pressure | Route |
+| --- | --- |
+| Filename or identifier drift | keep `id` or `eval_id` equal to the filename stem. |
+| Falsifiability pressure | express the check through required fields, expected output, forbidden output, failure examples, or equivalent seed fields. |
+| Scorer-backed proof pressure | later executable scorer contracts, fixtures, and reports before claim strengthening. |
+| Full incarnation proof, runtime activation, hidden arena, memory sovereignty, or summon authority pressure | stronger Titan, runtime, memory, or summon owner surface. |
+| Mutation gate or judgment gate bypass pressure | gate docs plus `validate_titan_canary_surfaces`. |
+| Canary file movement pressure | package route docs, decisions, and validators in the same slice. |
 
 ## Validation
 
-Run:
-
-```bash
-python scripts/validate_repo.py
-python -m pytest -q tests/test_validate_repo.py -k titan_canary
-```
-
-Run broader checks when canary edits affect generated, release, or public
-selection surfaces.
+Use the centralized child validation lane in
+[parent parts/AGENTS.md](../../AGENTS.md#centralized-child-validation).
+Run broader checks through the package route when canary edits affect
+generated, release, or public selection surfaces.
 
 ## Closeout
 

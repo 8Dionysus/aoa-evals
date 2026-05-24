@@ -77,6 +77,9 @@ As of 2026-05-24:
 - Changed: `scripts/validate_repo.py` requires the current seed-boundary route
   wording and rejects stale negative claim-limit phrases on the active Titan
   seed-boundary route surfaces.
+- Changed: seed-local `AGENTS.md` now exposes an Operating Card and boundary
+  route table while executable checks route to the parent `parts/AGENTS.md`
+  lane.
 - Source surfaces updated: `mechanics/titan/AGENTS.md`,
   `mechanics/titan/DIRECTION.md`, `mechanics/titan/PARTS.md`,
   `mechanics/titan/parts/README.md`,
@@ -104,3 +107,22 @@ As of 2026-05-24:
   `python scripts/validate_repo.py`, `python scripts/validate_semantic_agents.py`,
   generated-surface `--check` commands, `python -m pytest -q`, and
   `git diff --check`.
+
+### 2026-05-24 - Seed-local agent route card
+
+- Previous assumption: the seed-local `AGENTS.md` could remain a compact
+  boundary list because the parent and part surfaces already carried the
+  stronger owner map.
+- New reality: this was the last mechanics `AGENTS.md` without an Operating
+  Card, so low-context agents still lacked a uniform role/input/output/owner
+  route at the seed payload boundary.
+- Reason: Titan seed canaries are high-pressure payloads; the file that guards
+  `titan*.yaml` must name seed-local input, output, owner, next route, tools,
+  and validation ownership before canary edits begin.
+- Source surfaces updated:
+  `mechanics/titan/parts/seed-boundary/seeds/AGENTS.md`,
+  `mechanics/titan/parts/seed-boundary/seeds/README.md`,
+  `scripts/validate_repo.py`,
+  `tests/test_validate_repo.py`.
+- Validation: root validator, semantic AGENTS validation, titan canary focused
+  tests, generated-surface checks, full pytest, and diff whitespace check.

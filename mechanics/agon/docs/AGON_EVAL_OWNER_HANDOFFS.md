@@ -2,12 +2,12 @@
 
 ## Role
 
-This is mechanic-wide guidance for Agon proof-side owner handoffs in
-`aoa-evals`.
+This guide routes mechanic-wide Agon proof-side owner handoffs in `aoa-evals`.
 
-It is not an Agon part payload, not a source proof bundle, not a decision
-record, and not Agon law. Concrete alignment payloads stay under
-`mechanics/agon/parts/`.
+It sits above the parts as the shared handoff map. Concrete alignment payloads
+stay under `mechanics/agon/parts/`, source proof meaning stays in eval bundles,
+decision rationale stays in `docs/decisions/`, and Agon law stays with
+`Agents-of-Abyss`.
 
 ## Mechanic-wide Scope
 
@@ -51,12 +51,12 @@ Output owners:
 
 ## Stop-Lines
 
-- Do not turn an Agon support part into live Agon judgment.
-- Do not treat generated registries, recurrence hooks, or handoff notes as
-  owner acceptance.
-- Do not write memory, rank, scar, KAG canon, or ToS canon from this repo.
-- Do not route new Agon work through legacy before checking `PARTS.md` and the
-  owning part contract.
+| Boundary pressure | Owner route |
+| --- | --- |
+| live Agon judgment | `Agents-of-Abyss` Agon owner route before eval-side wording changes |
+| owner acceptance from generated registries, recurrence hooks, or handoff notes | accepting owner repository and source bundle review |
+| memory, rank, scar, KAG canon, or ToS canon | `aoa-memo`, `aoa-stats`, `Agents-of-Abyss`, `aoa-kag`, or `Tree-of-Sophia` as applicable |
+| new or legacy Agon work | `PARTS.md` and the owning part contract first; `PROVENANCE.md` opens legacy after the owner route is known |
 
 ## Validation
 

@@ -528,12 +528,11 @@ MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME = (
     "docs/decisions/0106-memory-consumer-proof-boundary.md"
 )
 MEMORY_CONSUMER_PROOF_BOUNDARY_README_TOKENS = (
-    "Memory context is recall context, not proof authority",
-    "reviewed `aoa-memo` object ids, provenance, lifecycle, and generated read models",
-    "`aoa-evals` currently has route_only memory posture",
-    "not write local memo candidates, export reviewed-intake packets, or land durable",
-    "`aoa_memo` MCP brief/search/status/validation/landing-plan dry-runs",
-    "access-plane evidence only, not proof authority",
+    "Use `aoa-memo` for reviewed memory objects and recall posture.",
+    "`aoa-evals`",
+    "can cite reviewed recall as bounded context",
+    "proof authority stays with",
+    "eval bundle or owning mechanic",
 )
 MEMORY_CONSUMER_PROOF_BOUNDARY_PHILOSOPHY_TOKENS = (
     "Memory is not proof.",

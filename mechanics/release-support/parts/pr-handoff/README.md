@@ -10,9 +10,9 @@ This part owns the pre-PR landing handoff artifact.
 - `mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py`
 
 The artifact prepares branch, commit, PR title/body, changed-surface groups,
-validation, and landing steps. It is not live GitHub state. After a branch or
-PR exists, current git and GitHub evidence supersedes this snapshot for branch,
-commit, push, PR, CI, and merge status.
+validation, and landing steps. Live GitHub state is owned by current local git
+and GitHub evidence after a branch or PR exists; that evidence supersedes this
+snapshot for branch, commit, push, PR, CI, and merge status.
 
 ## Inputs
 
@@ -37,26 +37,26 @@ commit, push, PR, CI, and merge status.
 
 This part owns a pre-PR handoff snapshot only.
 
-Current local git state and GitHub state are stronger than the snapshot after a
+Live local git state and GitHub state are stronger than the snapshot after a
 branch or PR exists. GitHub `Repo Validation` remains stronger for remote
 landing. Source proof objects, bundle-local reports, and release-support
 readiness/strategic closeout artifacts remain stronger than PR-body wording.
 
 ## Stop-Lines
 
-- Do not treat this artifact as a created branch, commit, push, PR, merge, tag,
-  GitHub Release, or observed GitHub `Repo Validation`.
-- Do not treat candidate PR wording as owner approval.
-- Do not use handoff validation as proof that eval claims grew stronger.
-- Do not claim live receipt publication, runtime acceptance, sibling mutation,
-  bundle promotion, or goal completion.
-- Do not keep using this snapshot as live status after a branch or PR exists.
+| Pressure | Route |
+| --- | --- |
+| snapshot treated as created branch, commit, push, PR, merge, tag, GitHub Release, or observed GitHub `Repo Validation` | current local git, GitHub, tag, and release evidence |
+| candidate PR wording as owner approval | owner review and GitHub PR state |
+| handoff validation as eval claim growth | bundle-local proof review |
+| live receipt publication, runtime acceptance, sibling mutation, bundle promotion, or goal completion | receipt, runtime, sibling, bundle-owner, or current objective evidence |
+| branch or PR exists after the snapshot | current git and GitHub evidence replace this snapshot |
 
 ## Validation
 
 Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.
 ## Next Route
 
-Use this part when updating the owner landing handoff. Do not use it to infer
-that a branch, commit, push, PR, merge, tag, GitHub Release, live receipt, or
-goal completion already happened.
+Use this part when updating the owner landing handoff. Use current git and
+GitHub evidence when asking whether branch, commit, push, PR, merge, tag,
+GitHub Release, live receipt, or goal completion already happened.

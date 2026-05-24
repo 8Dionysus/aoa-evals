@@ -18,24 +18,19 @@ The mechanic-owned state artifacts live in parts:
 - [Strategic Closeout](parts/strategic-closeout/README.md)
 - [PR Handoff](parts/pr-handoff/README.md)
 
-These parts are release-route artifacts. They do not publish a release, approve
-a PR, create a tag, replace GitHub `Repo Validation`, or strengthen any eval
-claim.
+Read these parts as release-support route artifacts. Live publication state is
+owned by current git, GitHub, tag, and release evidence; eval claim strength is
+owned by bundle-local proof surfaces.
 
 ## Part Contract
 
-Inputs are bounded release scope, changelog narrative, release procedure,
-repository validation posture, and local handoff or audit evidence.
-
-Outputs are readiness audits, strategic closeout audits, PR handoff snapshots,
-and release-route review artifacts.
-
-Owner split stays explicit: root release entrypoints remain where contributors
-expect them; package parts own only release-support state artifacts and do not
-own bundle claims.
-
-Stop-lines forbid treating audits or handoffs as tags, GitHub Releases, PR
-approval, observed GitHub `Repo Validation`, or goal completion.
+| Field | Route |
+| --- | --- |
+| Inputs | bounded release scope, changelog narrative, release procedure, repository validation posture, local handoff or audit evidence |
+| Outputs | readiness audit, strategic closeout audit, PR handoff snapshot, or release-route review artifact |
+| Owner split | root release entrypoints remain where contributors expect them; package parts own release-support state artifacts; bundle claims stay with source proof surfaces |
+| Stop-lines | route tag, GitHub Release, PR approval, observed GitHub `Repo Validation`, merge, and goal completion checks to live owner evidence |
+| Validation | parent `AGENTS.md` and `parts/AGENTS.md` command lanes |
 
 Validation routes through [AGENTS](AGENTS.md#validation), including release
 check, repo validation, and semantic AGENTS lanes.

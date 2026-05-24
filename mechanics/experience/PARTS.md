@@ -12,7 +12,7 @@ The mechanic owns the route:
 | Part | Role | Active surfaces |
 | --- | --- | --- |
 | `protocol-integrity` | Maintains experience verdict protocol integrity support for bundle-local review. | `mechanics/experience/parts/protocol-integrity/README.md` |
-| `certification-gate` | Maintains certification, release-gate, rollback, watchtower, and certification-adjacent verdict support without certifying. | `mechanics/experience/parts/certification-gate/README.md` |
+| `certification-gate` | Maintains certification, release-gate, rollback, watchtower, and certification-adjacent verdict support while certification authority stays with stronger owners. | `mechanics/experience/parts/certification-gate/README.md` |
 | `adoption-federation` | Maintains adoption, consent, shadow, compatibility, KAG/ToS boundary, federation, and owner adoption proof support. | `mechanics/experience/parts/adoption-federation/README.md` |
 | `governance-runtime-boundary` | Maintains governance, authority-resolution, constitution-runtime, sealed-vote, and ToS governance verdict support. | `mechanics/experience/parts/governance-runtime-boundary/README.md` |
 | `office-release-train` | Maintains office scope, multi-office, governed-release, handoff, installation, replay, rollback, and train release verdict support. | `mechanics/experience/parts/office-release-train/README.md` |
@@ -34,13 +34,22 @@ Tree-of-Sophia, and owner repositories keep their local truth; `aoa-evals`
 owns bounded proof interpretation, certification checks, adoption proof,
 regression evidence, and local validation.
 
-Stop-lines forbid live runtime activation, office installation, operator
-certification, release approval, rollout promotion, owner-local adoption,
-memory canon, route activation, KAG forced adoption, direct ToS runtime write,
-or broad Experience success claims.
+Stop-lines route stronger-owner pressure through the boundary routes below.
 
-Runtime distillation candidate adoption stays outside this part and routes
-through `mechanics/distillation/parts/runtime-candidate-adoption/`.
+| Pressure | Owner route |
+| --- | --- |
+| live runtime activation or service dispatch | `abyss-stack` runtime route |
+| office installation or assistant operational authority | `aoa-agents` and owner operator route |
+| operator certification, release approval, deployment approval, or rollout promotion | Agents-of-Abyss, release-support, and owner approval route |
+| owner-local adoption, consent, or acceptance | owner repository adoption route |
+| memory canon, recall authority, or memory sovereignty | `aoa-memo` memory route |
+| route activation or routing-layer authorship | `aoa-routing` route-authority lane |
+| KAG forced adoption into owner repositories | `aoa-kag` graph route plus owner adoption route |
+| direct ToS runtime write or ToS-authored meaning | Tree-of-Sophia authored-meaning route |
+| broad Experience success | bundle-local proof object plus source-owner evidence review |
+
+Runtime distillation candidate adoption routes through
+`mechanics/distillation/parts/runtime-candidate-adoption/`.
 
 Validation routes through [AGENTS](AGENTS.md#validation), including the
 part-local test battery, generated catalog check, and repo validation lane.

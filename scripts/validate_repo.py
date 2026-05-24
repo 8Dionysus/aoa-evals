@@ -3897,8 +3897,15 @@ EXPERIENCE_MECHANIC_REQUIRED_TOKENS = (
     "runtime distillation candidate adoption",
     "Stronger Owner Split",
     "Stop-Lines",
-    "live workspace runtime",
-    "owner-local adoption",
+    "| live workspace runtime or service dispatch pressure | `abyss-stack` runtime route |",
+    "| office installation or assistant operational authority pressure | `aoa-agents` and owner operator route |",
+    "| operator certification, release approval, deployment approval, or rollout promotion pressure | Agents-of-Abyss, release-support, and owner approval route |",
+    "| owner-local adoption, consent, or acceptance pressure | owner repository adoption route |",
+    "| memory sovereignty, recall authority, or memo canon pressure | `aoa-memo` memory route |",
+    "| live router behavior or routing-layer authorship pressure | `aoa-routing` route-authority lane |",
+    "| KAG promotion into owner repositories pressure | `aoa-kag` graph route plus owner adoption route |",
+    "| Tree-of-Sophia runtime write or authored-meaning pressure | Tree-of-Sophia authored-meaning route |",
+    "| broad Experience success pressure | bundle-local proof object plus source-owner evidence review |",
     "python -m pytest -q mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py",
 )
 EXPERIENCE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
@@ -3921,6 +3928,15 @@ EXPERIENCE_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "Stop-lines",
     "Validation",
     "Continuity-context",
+    "| live runtime activation or service dispatch | `abyss-stack` runtime route |",
+    "| office installation or assistant operational authority | `aoa-agents` and owner operator route |",
+    "| operator certification, release approval, deployment approval, or rollout promotion | Agents-of-Abyss, release-support, and owner approval route |",
+    "| owner-local adoption, consent, or acceptance | owner repository adoption route |",
+    "| memory canon, recall authority, or memory sovereignty | `aoa-memo` memory route |",
+    "| route activation or routing-layer authorship | `aoa-routing` route-authority lane |",
+    "| KAG forced adoption into owner repositories | `aoa-kag` graph route plus owner adoption route |",
+    "| direct ToS runtime write or ToS-authored meaning | Tree-of-Sophia authored-meaning route |",
+    "| broad Experience success | bundle-local proof object plus source-owner evidence review |",
 )
 EXPERIENCE_PART_README_COMMON_REQUIRED_TOKENS = (
     "## Inputs",

@@ -1,8 +1,8 @@
 # Experience Direction
 
 Experience in `aoa-evals` should make protocol, certification, adoption,
-governance-runtime, and office release-train proof bounded without becoming
-operator certification or runtime authority.
+governance-runtime, and office release-train proof bounded while operator
+certification and runtime authority pressure route to stronger owners.
 
 Use this file for the package's current operating direction: read it after the
 parent entry card and before `PARTS.md`, part contracts, source bundles,
@@ -22,24 +22,26 @@ decision records, and `PROVENANCE.md`.
 
 ## Current contour
 
-- Keep the parent name `experience`; verdict models and train surfaces are
-  parts, not parents.
+- Keep the parent name `experience`; verdict models and train surfaces route as
+  parts under that parent.
 - Keep deployment, rollback, governance, adoption, and office packets bounded
   to eval-side review.
-- Keep runtime truth, operator acceptance, ToS authorship, routing, memory, and
-  KAG promotion outside this repo.
+- Route runtime truth, operator acceptance, ToS authorship, routing, memory,
+  and KAG promotion through their stronger owners.
 
 ## Growth rule
 
 Add Experience parts only when a recurring proof operation has a claim,
-support payload, owner split, and validation. Do not collect all verdict-shaped
-docs under Experience when a narrower mechanic owns the pressure.
+support payload, owner split, and validation. Verdict-shaped pressure routes to
+the narrower owning mechanic before Experience grows a new part.
 
 ## Stop-lines
 
-- Do not claim live runtime readiness, operator certification, release
-  approval, routing authority, memory canon, KAG promotion, or ToS authorship.
-- Do not let verdict model placement imply real-world adoption.
+- Live runtime readiness, operator certification, release approval, routing
+  authority, memory canon, KAG promotion, and ToS authorship pressure route to
+  the stronger owner split in the parent README.
+- Real-world adoption pressure routes through owner-local adoption and consent
+  before eval-side verdict support.
 
 ## Validation
 

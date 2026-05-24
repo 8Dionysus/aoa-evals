@@ -21,5 +21,5 @@ Old root names now route through `legacy/INDEX.md`.
 
 Later the reviewed runtime distillation candidate adoption fixture moved to
 `mechanics/distillation/parts/runtime-candidate-adoption/` because its active
-function is Distillation candidate preservation, not generic Experience
-adoption.
+function is Distillation candidate preservation. Generic Experience adoption
+continues through the adoption-federation part.

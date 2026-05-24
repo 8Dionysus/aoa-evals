@@ -20,5 +20,7 @@ Still historical:
 - root `reports/` as the placement for proof-loop route-smoke artifacts with a
   narrower mechanic owner.
 
-Do not create new proof-loop work in legacy. Distill into the owning active
-part first.
+Current route:
+
+- new proof-loop route-smoke work starts in the owning active part;
+- legacy changes here account for old root report placement.

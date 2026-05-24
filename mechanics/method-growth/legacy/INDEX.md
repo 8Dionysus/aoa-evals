@@ -10,4 +10,5 @@
 ## Rule
 
 When an old root fixture path appears, route to the current part first. Legacy
-only explains former placement; it does not own the active fixture contract.
+explains former placement and returns active fixture-contract work to the
+owning method-growth part.

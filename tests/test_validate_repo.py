@@ -8594,6 +8594,47 @@ class TestValidateQuestRouteSurfaces:
             for issue in validate_repo.validate_mechanics_parent_allowlist(REPO_ROOT)
         )
 
+    def test_mechanic_legacy_archive_route_language_validates_current_routes(
+        self,
+    ) -> None:
+        assert validate_repo.validate_mechanic_legacy_archive_route_language(REPO_ROOT) == []
+
+    def test_mechanic_legacy_archive_route_language_rejects_command_blocks(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in validate_repo.MECHANIC_LEGACY_ARCHIVE_ROUTE_FILES:
+            write_text(tmp_path / path_name, "# Legacy\n\nCurrent route.\n")
+        target = "mechanics/questbook/legacy/INDEX.md"
+        write_text(
+            tmp_path / target,
+            "# Legacy\n\n```bash\npython scripts/validate_repo.py\n```\n",
+        )
+
+        issues = validate_repo.validate_mechanic_legacy_archive_route_language(tmp_path)
+
+        assert any(
+            issue.location == target and "AGENTS.md" in issue.message
+            for issue in issues
+        )
+
+    def test_mechanic_legacy_archive_route_language_rejects_negative_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in validate_repo.MECHANIC_LEGACY_ARCHIVE_ROUTE_FILES:
+            write_text(tmp_path / path_name, "# Legacy\n\nCurrent route.\n")
+        target = "mechanics/proof-object/legacy/DISTILLATION_LOG.md"
+        write_text(
+            tmp_path / target,
+            "# Legacy\n\nIt is not a changelog.\n",
+        )
+
+        issues = validate_repo.validate_mechanic_legacy_archive_route_language(tmp_path)
+
+        assert any(
+            issue.location == target and "current active route expectations" in issue.message
+            for issue in issues
+        )
+
     def test_mechanic_parent_class_sets_cover_allowed_parents(self) -> None:
         aoa_parents = set(validate_repo.AOA_ALIGNED_MECHANIC_PARENT_NAMES)
         evals_native_parents = set(validate_repo.EVALS_NATIVE_MECHANIC_PARENT_NAMES)

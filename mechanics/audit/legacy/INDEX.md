@@ -2,7 +2,7 @@
 
 | Former or overloaded source | Current active route | Posture |
 | --- | --- | --- |
-| `mechanics/runtime-evidence/` | `mechanics/audit/` | rejected parent naming: runtime-evidence is an evidence class, not the parent mechanic |
+| `mechanics/runtime-evidence/` | `mechanics/audit/` | runtime-evidence is an evidence class mapped to the audit parent |
 | `docs/RUNTIME_BENCH_PROMOTION_GUIDE.md` | `mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md` | former docs-root guide path |
 | `schemas/runtime-evidence-selection.schema.json` | `mechanics/audit/parts/selected-evidence-packets/schemas/runtime-evidence-selection.schema.json` | former root schema path |
 | `examples/runtime_evidence_selection.*.example.json` | `mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.*.example.json` | former root example family |
@@ -14,6 +14,6 @@
 
 ## Boundary
 
-Former root paths are provenance only. Current audit contracts should cite the
-active part-local paths. Generated candidate readers must be rebuilt by the
-part-local builders, not hand-edited through old paths.
+Former root paths are provenance context. Current audit contracts cite the
+active part-local paths. Generated candidate readers rebuild through the
+part-local builders; old paths stay as lookup history.

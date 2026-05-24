@@ -4,7 +4,8 @@
 
 This index maps old questbook path vocabulary to the current active route.
 
-It is not an active quest source list and not a retirement queue.
+It returns schema, quest-source, and former Agon note questions to their active
+owners.
 
 ## Path Map
 
@@ -15,18 +16,15 @@ It is not an active quest source list and not a retirement queue.
 | `quests/AOA-EV-Q-*.yaml` | `quests/<lane>/<state>/AOA-EV-Q-*.yaml` | historical top-level source path vocabulary |
 | `quests/AOE-Q-AGON-*.md` and `quests/agon/captured/AOE-Q-AGON-*.md` | `mechanics/agon/PROVENANCE.md` | former Agon markdown note lineage |
 
-## Stop-Lines
+## Current Route Expectations
 
-- Do not recreate root schema aliases.
-- Do not recreate top-level quest source files.
-- Do not turn former Agon markdown notes into eval bundles or active quest
-  lifecycle records.
-- Do not use legacy lookup as proof authority.
+| Pressure | Route |
+| --- | --- |
+| root quest schema alias | current questbook part schema route |
+| top-level quest source vocabulary | `quests/<lane>/<state>/` source record route |
+| former Agon markdown note | `mechanics/agon/PROVENANCE.md` lineage bridge |
+| proof authority question | source quest record, source eval bundle, and owning review route |
 
 ## Validation
 
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use [AGENTS.md](AGENTS.md#validation).

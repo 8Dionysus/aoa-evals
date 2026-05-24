@@ -8,11 +8,12 @@ Distilled recurrence support surfaces from root districts into the active
 Active source proof bundles stayed under `evals/`.
 
 Historical insertion notes moved to `legacy/raw/` because they record how the
-recurrence bundle entered `EVAL_INDEX.md` and `EVAL_SELECTION.md`; they are not
-active route law. The archive index now maps each raw insertion note back to
+recurrence bundle entered `EVAL_INDEX.md` and `EVAL_SELECTION.md`; active route
+law lives in the active route cards. The archive index now maps each raw
+insertion note back to
 `mechanics/recurrence/parts/control-plane-integrity/README.md` and the source
 bundle `evals/boundary/aoa-recurrence-control-plane-integrity/EVAL.md`, so raw
-placement history does not become a self-contained archive route.
+placement history returns to the active route.
 
 Later in the same refactor, a second evidence pass promoted only proven support
 families into active recurrence parts:
@@ -29,4 +30,4 @@ families into active recurrence parts:
   `mechanics/recurrence/parts/stats-regrounding-boundary/` surfaces.
 
 Continuity-anchor and self-reanchor stayed bundle-local because their support
-depth did not yet prove active parts.
+depth stayed below active-part proof.

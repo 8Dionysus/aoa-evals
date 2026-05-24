@@ -23,4 +23,7 @@ Still historical:
 - old `agon-proof` parent wording;
 - any path that uses a wave name as active topology.
 
-Do not create new work in legacy. Distill into an active part first.
+Current route:
+
+- new Agon proof-alignment work starts in the active parent and owning part;
+- legacy changes here account for old paths, wave labels, and raw lineage.

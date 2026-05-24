@@ -5,15 +5,16 @@
 `mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md` is the compatibility map for proof references that
 point from `aoa-evals` into sibling repositories.
 
-It is not a generated catalog, release note, sibling repo contract, runtime
-mirror, or proof bundle. It names how local proof references stay honest when
-their stronger owner lives outside this repository.
+This map owns local compatibility posture. Generated catalogs, release notes,
+sibling repo contracts, runtime mirrors, and proof bundles keep their own owner
+routes while this map names how local proof references stay honest when their
+stronger owner lives outside this repository.
 
 ## Core Rule
 
 A sibling proof reference is a cited input to bounded proof review.
 
-It is not an authority transfer.
+Authority-transfer pressure routes to the sibling owner.
 
 `aoa-evals` may cite sibling surfaces, validate that current paths still exist,
 and preserve compatibility or legacy posture. The sibling repository keeps the
@@ -63,10 +64,9 @@ Use these terms when a sibling reference changes:
   and remains appropriate for the local proof claim.
 - `legacy`: the reference preserves old source lineage or accepted input, but a
   current path or replacement route should be named nearby.
-- `rejected`: the reference points to a surface that should not feed local proof
-  review.
-- `unresolved`: the owner route or current path is unclear; do not convert it
-  into proof authority until the owner route is checked.
+- `rejected`: the reference is excluded from local proof review.
+- `unresolved`: the owner route or current path needs owner-route review before
+  the reference can carry proof authority.
 
 ## Repair Route
 
@@ -76,8 +76,7 @@ When a sibling proof reference fails:
 2. Identify the sibling owner and stronger owner truth.
 3. Check whether the sibling path is current, legacy, rejected, or unresolved.
 4. Repair the local `aoa-evals` reference or add a local compatibility note.
-5. Do not edit sibling repositories unless the user explicitly routes that owner
-   work.
+5. Route sibling edits through explicit sibling-owner work.
 6. Use `mechanics/boundary-bridge/parts/AGENTS.md#validation` for local
    validation.
 7. Add the latest-sibling canary from that route when current sibling checkout
@@ -91,13 +90,13 @@ When a sibling proof reference fails:
 The latest-sibling canary proves that the current local checkout can resolve the
 referenced sibling surfaces under the configured roots.
 
-It does not prove:
-
-- that the sibling owner accepts an `aoa-evals` interpretation;
-- that a local proof bundle should be promoted;
-- that old path names are active topology;
-- that runtime or machine evidence is accepted verdict meaning;
-- that a generated reader outranks the authored sibling source.
+| Pressure | Route |
+| --- | --- |
+| sibling acceptance | sibling owner route |
+| local proof bundle promotion | bundle-local review |
+| old path names read as active topology | current/legacy/rejected/unresolved posture plus current owner route |
+| runtime or machine evidence read as verdict meaning | runtime owner plus bundle-local review |
+| generated reader read as source authority | authored sibling source and local source surface |
 
 ## Validation
 

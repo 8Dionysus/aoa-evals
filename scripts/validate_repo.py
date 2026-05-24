@@ -4913,7 +4913,7 @@ BOUNDARY_BRIDGE_COMPATIBILITY_MAP_DOC_REQUIRED_TOKENS = (
     SIBLING_CANARY_MATRIX_NAME,
     SIBLING_CANARY_RUNNER_NAME,
     "AGENTS.md#validation",
-    "not an authority transfer",
+    "Authority-transfer pressure routes to the sibling owner",
 )
 BOUNDARY_BRIDGE_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",

@@ -32,7 +32,7 @@ Current top-level shared dossiers:
 | Proof-loop reports | `mechanics/proof-loop/parts/route-smoke/reports/` and bundle-local proof-loop reports | Route-smoke report artifacts stay mechanic-owned; schema-backed bundle-local reports stay under their eval bundle. |
 | Comparison-spine reports | `mechanics/comparison-spine/parts/*/reports/` | Shared dossiers are comparison-spine state/readout artifacts and stay weaker than bundle-local interpretation. |
 | Publication receipt reports | `mechanics/publication-receipts/parts/*/reports/` | Receipt previews and dry reviews stay below reviewed report meaning; `receipt-intake` dry review keeps `receipt_status` as `not_published`. |
-| Release-support reports | `mechanics/release-support/parts/*/reports/` | Readiness, closeout, and PR handoff reports support landing posture without strengthening eval claims. |
+| Release-support reports | `mechanics/release-support/parts/*/reports/` | Readiness, closeout, and PR handoff reports support landing posture; eval-claim strength stays with source bundles and reviewed reports. |
 | Generated report reader | `generated/eval_report_index.min.json` | Derived report lookup points back to source report artifacts and owning proof surfaces. |
 
 Current report anchors:

@@ -228,6 +228,7 @@ ROOT_ROUTE_CARD_README_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
         "none",
         "mechanics/proof-loop/parts/route-smoke/reports/",
         "mechanics/release-support/parts/",
+        "eval-claim strength stays with source bundles and reviewed reports",
     ),
     "runners/README.md": (
         "compatibility route card",

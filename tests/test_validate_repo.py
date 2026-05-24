@@ -7602,6 +7602,34 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_reports_route_card_requires_source_strength_route(
+        self, tmp_path: Path
+    ) -> None:
+        for district_name, allowed_names in validate_repo.ROOT_ROUTE_CARD_ONLY_DISTRICTS.items():
+            for allowed_name in allowed_names:
+                copy_repo_text(tmp_path, f"{district_name}/{allowed_name}")
+        copy_repo_text(tmp_path, validate_repo.ROOT_ROUTE_CARD_GUARD_DECISION_NAME)
+        copy_repo_text(tmp_path, "docs/decisions/README.md")
+        copy_repo_text(tmp_path, validate_repo.PROOF_TOPOLOGY_NAME)
+        reports_readme = tmp_path / "reports" / "README.md"
+        reports_readme.write_text(
+            reports_readme.read_text(encoding="utf-8").replace(
+                "eval-claim strength stays with source bundles and reviewed reports",
+                "handoff route is unclear",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_root_route_card_districts(tmp_path)
+
+        assert any(
+            issue.location == "reports/README.md"
+            and "eval-claim strength stays with source bundles and reviewed reports"
+            in issue.message
+            for issue in issues
+        )
+
     def test_active_mechanic_route_residue_validates_current_route_cards(self) -> None:
         assert validate_repo.validate_active_mechanic_route_residue(REPO_ROOT) == []
 

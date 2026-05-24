@@ -48,15 +48,15 @@ for `aoa-stress-recovery-window`.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Boundary routes keep stress-recovery pressure with the owner that can act on it:
 
-- federation-wide resilience;
-- live health or runtime recovery authority;
-- one-score antifragility movement;
-- route, KAG, memo, playbook, or generated-reader authority over owner
-  evidence;
-- comparison acceptance without the `comparison-spine` readout boundary.
+| Pressure | Owner route |
+| --- | --- |
+| federation-wide resilience pressure | `Agents-of-Abyss` doctrine route plus owner evidence review |
+| live health or runtime recovery authority pressure | runtime owner or `abyss-stack` runtime route |
+| one-score antifragility movement pressure | `aoa-stats` vector-window route plus AoA doctrine review |
+| route, KAG, memo, playbook, or generated-reader authority pressure | owning route, KAG, memo, playbook, generated-source, and owner-evidence routes |
+| comparison acceptance pressure | `mechanics/comparison-spine/parts/longitudinal-window/` readout route |
 
 ## Validation
 

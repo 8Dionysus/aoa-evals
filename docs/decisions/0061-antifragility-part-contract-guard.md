@@ -48,6 +48,43 @@ quality proof, or growth-cycle completion claim.
 - Diagnosis-cause discipline remains outside Antifragility because the active
   `growth-cycle/diagnosis-gate` route owns that proof support.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: the three active Antifragility part READMEs remain protected
+  part contracts with inputs, outputs, stronger-owner split, stop-lines, and
+  validation routes.
+- Changed: part-level stop-line coverage now uses pressure-to-owner route rows,
+  and validator tokens guard each route row for posture review,
+  stress-recovery-window, and repair-proof.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Part boundary route wording
+
+- Previous assumption: Antifragility part READMEs could keep the required
+  stop-line contract as a boundary sentence followed by excluded claims.
+- New reality: the part contracts now expose the same boundaries as direct
+  pressure-to-owner routes.
+- Reason: a low-context agent should see where global resilience, runtime
+  recovery, one-score movement, owner-object quality, diagnosis pressure, and
+  generated or memo overread route next without parsing a prohibition list.
+- Source surfaces updated:
+  `mechanics/antifragility/parts/posture-review/README.md`,
+  `mechanics/antifragility/parts/stress-recovery-window/README.md`,
+  `mechanics/antifragility/parts/stress-recovery-window/docs/STRESS_RECOVERY_WINDOW_EVALS.md`,
+  `mechanics/antifragility/parts/repair-proof/README.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  antifragility`, `python scripts/validate_repo.py --eval
+  aoa-antifragility-posture`, `python scripts/validate_repo.py --eval
+  aoa-stress-recovery-window`, `python scripts/validate_repo.py --eval
+  aoa-repair-boundedness`, `python scripts/validate_repo.py`, `python
+  scripts/validate_semantic_agents.py`, `python scripts/build_catalog.py
+  --check`, `git diff --check`, and `python -m pytest -q`.
+
 ## Validation
 
 Expected validation route:

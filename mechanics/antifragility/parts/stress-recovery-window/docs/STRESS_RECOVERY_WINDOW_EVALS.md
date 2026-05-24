@@ -2,10 +2,10 @@
 
 ## Purpose
 
-Wave 4 adds a repeated-window proof surface for explicit stress handling across owner repos and adjacent AoA layers.
+Wave 4 adds a repeated-window proof surface for explicit stress handling across
+owner repos and adjacent AoA layers.
 
-The point is not to prove that the whole federation is healthy.
-The point is to answer a narrower question:
+It answers a narrow question:
 
 **Given a named stressor family and a bounded window, did handoffs, playbook gates, route posture, and KAG regrounding combine into a healthier handling pattern?**
 
@@ -21,7 +21,8 @@ Wave 4 extends that posture to stress handling that spans multiple explicit obje
 - derived route hints
 - optional memo context as tertiary evidence
 
-This remains proof, not workflow ownership.
+This remains a proof surface. Workflow ownership stays with the owner route
+that produced the stress handling evidence.
 
 ## Input Discipline
 
@@ -30,7 +31,7 @@ Preferred evidence order:
 1. source-owned receipts and owner-local artifacts
 2. wave-3 handoff, lane, gate, projection-health, and regrounding objects
 3. route hints that cite those owner or derived inputs
-4. memo objects only as reviewed context, never as primary evidence
+4. memo objects as reviewed context after owner evidence
 
 The bundle should suppress or narrow its verdict when owner evidence is too thin.
 
@@ -47,7 +48,7 @@ Wave 4 uses split axes that match the objects now in play:
 - `operator_burden`
 - `trust_calibration`
 
-The bundle may add repo-local axes later, but should not hide these behind one total score.
+The bundle may add repo-local axes later; split-axis evidence remains visible.
 
 ## Scope Discipline
 
@@ -58,7 +59,8 @@ A healthy report for this bundle stays bounded by:
 - one owner surface or tightly related surface family
 - a clear list of repos actually involved
 
-Do not turn repeated-window evaluation into a floating federation-wide vibe check.
+Federation-wide vibe-check pressure routes back to named owner evidence,
+explicit windows, and the bounded eval question.
 
 ## Output Posture
 
@@ -71,12 +73,14 @@ The wave-4 landing publishes:
 - repo-native catalog discoverability alongside the existing starter eval families
 
 This surface complements `aoa-antifragility-posture`.
-It does not replace the first-wave family read.
+The first-wave family read remains the posture-review route.
 
 ## Guardrails
 
-- do not let route hints become stronger evidence than the owner receipts they cite
-- do not let memo pattern objects stand in for current-run truth
-- do not score regrounding success if the evidence only proves that a ticket exists
-- do not treat KAG quarantine exit as healthy re-entry without explicit conditions
-- do not collapse all movement into a single number
+| Pressure | Route |
+| --- | --- |
+| route hints outranking owner receipts | owner receipt route before route-hint interpretation |
+| memo pattern objects standing in for current-run truth | owner evidence route before memo context |
+| regrounding success from ticket existence alone | regrounding evidence route with outcome conditions |
+| KAG quarantine exit as healthy re-entry | KAG condition route plus explicit re-entry evidence |
+| single-number movement pressure | split-axis stress-recovery readout route |

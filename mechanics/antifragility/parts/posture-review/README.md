@@ -36,21 +36,22 @@ meaning of owner-request vocabulary. The owner repository owns the local
 surface, source receipts, incident facts, degraded continuation, and safe-stop
 execution.
 
-`aoa-evals` owns only the bounded posture proof wording, split-axis report
-shape, blind spots, and bundle-local interpretation for
-`aoa-antifragility-posture`.
+`aoa-evals` owns the bounded posture proof wording, split-axis report shape,
+blind spots, and bundle-local interpretation for `aoa-antifragility-posture`.
+Authority beyond that proof reading routes through the stronger owner split
+above.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Boundary routes keep posture-review pressure with the owner that can act on it:
 
-- repo-global resilience;
-- repeated-window improvement;
-- runtime repair or live self-healing;
-- source-ownership transfer;
-- proof that route hints, stats, memory, or generated readers outrank owner
-  receipts.
+| Pressure | Owner route |
+| --- | --- |
+| repo-global resilience pressure | `Agents-of-Abyss` doctrine route plus owner evidence review |
+| repeated-window improvement pressure | `stress-recovery-window` and `comparison-spine` longitudinal routes |
+| runtime repair or live self-healing pressure | owner repository or `abyss-stack` runtime route |
+| source-ownership transfer pressure | owner repository receipt route |
+| route hints, stats, memory, or generated-reader authority pressure | owner receipts plus owning route, stats, memo, and generated-source routes |
 
 ## Validation
 

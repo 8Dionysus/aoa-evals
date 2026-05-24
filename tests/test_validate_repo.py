@@ -10403,11 +10403,14 @@ class TestValidateQuestRouteSurfaces:
         readme_name = validate_repo.ANTIFRAGILITY_REPAIR_PROOF_PART_README_NAME
         copy_repo_text(tmp_path, readme_name)
         readme_path = tmp_path / readme_name
+        current_route_lead_in = (
+            "Boundary routes keep repair-proof pressure with the owner that can act on it:"
+        )
 
         for stale_lead_in in validate_repo.MECHANIC_PART_README_STALE_STOP_LINE_LEAD_INS:
             readme_path.write_text(
                 readme_path.read_text(encoding="utf-8").replace(
-                    validate_repo.MECHANIC_PART_README_STOP_LINE_LEAD_IN,
+                    current_route_lead_in,
                     stale_lead_in,
                 ),
                 encoding="utf-8",
@@ -10424,7 +10427,7 @@ class TestValidateQuestRouteSurfaces:
             readme_path.write_text(
                 readme_path.read_text(encoding="utf-8").replace(
                     stale_lead_in,
-                    validate_repo.MECHANIC_PART_README_STOP_LINE_LEAD_IN,
+                    current_route_lead_in,
                 ),
                 encoding="utf-8",
             )

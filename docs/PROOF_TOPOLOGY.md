@@ -125,16 +125,14 @@ companion guard: every path-like `## Source Surfaces` reference must resolve as
 an existing repo-relative path, a matching repo-relative glob, a repo-qualified
 sibling ref, or an explicit placeholder route, so old root payload names cannot
 remain as active part guidance.
-Mechanic part validation command reachability is the command-route companion
-guard: every concrete part validation route must flow from part README to
+Mechanic part validation route reachability is the child-validation companion
+guard: every concrete part validation route flows from part README to
 `VALIDATION.md` to the parent `parts/AGENTS.md` centralized child validation
-block. Every command in that route must name a repo-relative reachable path, so
-a stale validation path cannot make a mechanic part look reviewable after its
-scripts, tests, scorers, or reports have moved. A payload-bearing part must also
-carry a payload coverage anchor in its validation route: either a part-local path
-or a bundle-specific eval validation route named through the nearest route card,
-so naked route-wide checks cannot substitute for operational proof of the part
-payload.
+block. The parent AGENTS child block keeps executable checks reachable and
+repo-relative, so moved scripts, tests, scorers, or reports update through one
+owner lane. A payload-bearing part also carries a payload coverage anchor in
+its validation route: either a part-local path or a bundle-specific eval
+validation route named through the nearest route card.
 Mechanic PARTS index synchronization is the parent-map companion guard:
 `mechanics/<parent>/PARTS.md` must match each actual part directory it owns and
 must not preserve a stale local part route. A cross-parent reference remains

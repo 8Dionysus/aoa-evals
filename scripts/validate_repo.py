@@ -1631,6 +1631,9 @@ MECHANIC_PART_VALIDATION_COMMAND_OWNERSHIP_DECISION_REQUIRED_TOKENS = (
     "python command",
     "payload coverage anchor",
     "stale validation path",
+    "Current Applicability",
+    "Review Log",
+    "validation route",
     "README files remain contract maps",
     "nearest `AGENTS.md`",
 )
@@ -18304,7 +18307,7 @@ def validate_mechanic_part_validation_command_surfaces(
                 issues.append(
                     ValidationIssue(
                         readme_name,
-                        "part validation route must include a payload coverage anchor, such as a part-local path or specific `python scripts/validate_repo.py --eval ...`; naked route-wide commands are not enough for parts with payload",
+                        "part validation route must include a payload coverage anchor, such as a part-local path or specific `python scripts/validate_repo.py --eval ...`; route-wide commands need a part-local or bundle-specific anchor for parts with payload",
                     )
                 )
 

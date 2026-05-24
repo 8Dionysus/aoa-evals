@@ -4,6 +4,37 @@
 - Date: 2026-05-21
 - Owner surface: `mechanics/README.md`
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: executable child validation checks live in parent
+  `mechanics/<parent>/parts/AGENTS.md` route cards, keyed by child
+  `VALIDATION.md` paths.
+- Clarified: active atlas and topology surfaces should describe the route as a
+  validation route, with command ownership staying in AGENTS.
+- Source surfaces updated: `mechanics/README.md`,
+  `docs/PROOF_TOPOLOGY.md`, `scripts/validate_repo.py`, and
+  `tests/test_validate_repo.py`.
+- Validation route: `mechanics/AGENTS.md#validation` and root
+  `AGENTS.md#verify`.
+
+## Review Log
+
+### 2026-05-24 - Active surfaces use validation-route language
+
+- Previous assumption: active topology docs could use command-reachability
+  wording directly because the validator still parses python commands.
+- New reality: low-context agents orient better when active maps name the
+  validation route first and route executable checks to AGENTS-owned lanes.
+- Reason: the active atlas should show `README -> VALIDATION.md -> parts/AGENTS.md`
+  as the route, while validator internals keep checking reachable commands
+  inside the AGENTS owner lane.
+- Source surfaces updated: `mechanics/README.md`,
+  `docs/PROOF_TOPOLOGY.md`, validator message text, and validator tests.
+- Validation: use the mechanic validation route in
+  `mechanics/AGENTS.md#validation`.
+
 ## Context
 
 Decision 0087 made mechanic part validation command reachability a guard: python

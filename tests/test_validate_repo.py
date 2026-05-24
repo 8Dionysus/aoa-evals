@@ -10039,7 +10039,7 @@ class TestValidateQuestRouteSurfaces:
         assert any(
             issue.location == readme_name
             and "payload coverage anchor" in issue.message
-            and "naked route-wide commands" in issue.message
+            and "part-local or bundle-specific anchor" in issue.message
             for issue in issues
         )
 

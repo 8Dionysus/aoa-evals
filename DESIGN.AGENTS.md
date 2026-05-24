@@ -26,8 +26,8 @@ routes?
 
 ## Design Thesis
 
-`aoa-evals` should give agents a proof-aware guidance mesh, not one giant
-instruction wall.
+`aoa-evals` should give agents a proof-aware guidance mesh: compact root route,
+local cards, source surfaces, validation routes, and closeout paths.
 
 The mesh should let a low-context agent answer:
 
@@ -59,7 +59,7 @@ Agent guidance should look like a readable route network:
 - generated companions only when they point back to source cards and authored
   surfaces.
 
-The layer should make correct movement easier than overclaiming.
+The layer should make correct movement the obvious path.
 
 ## Design as Anatomy
 

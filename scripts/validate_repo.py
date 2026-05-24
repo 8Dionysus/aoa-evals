@@ -1022,6 +1022,11 @@ MECHANIC_ROOT_DISTRICT_RECON_DECISION_REQUIRED_TOKENS = (
     "Root District Reconnaissance Ledger",
     "Source Eval Tree Topology",
     "`evals/<claim-family>/<eval-name>/`",
+    "Current Applicability",
+    "Review Log",
+    "Previous assumption",
+    "New reality",
+    "Source surfaces updated",
     "docs",
     "evals",
     "fixtures",
@@ -1042,6 +1047,7 @@ MECHANIC_ROOT_DISTRICT_RECON_DECISION_REQUIRED_TOKENS = (
     "mechanic-owned payload",
     "mechanics/AGENTS.md#validation",
 )
+DECISION_STATUS_DETAIL_MARKERS = (";", "superseded by")
 ROOT_AUTHORED_SURFACE_CLASSIFICATION_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k root_authored_surface_classification"
 )
@@ -9570,6 +9576,35 @@ def require_tokens(
                 ValidationIssue(path_name, f"file must mention '{token}'")
             )
     return text
+
+
+def validate_decision_status_lines(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    decisions_root = repo_root / "docs" / "decisions"
+    if not decisions_root.exists():
+        return issues
+
+    for decision_path in sorted(decisions_root.glob("[0-9][0-9][0-9][0-9]-*.md")):
+        relative_path = decision_path.relative_to(repo_root).as_posix()
+        try:
+            lines = decision_path.read_text(encoding="utf-8").splitlines()
+        except OSError as exc:
+            issues.append(ValidationIssue(relative_path, f"failed to read decision: {exc}"))
+            continue
+        for line_number, line in enumerate(lines, start=1):
+            if not line.startswith("- Status:"):
+                continue
+            status = line.removeprefix("- Status:").strip()
+            normalized_status = status.lower()
+            if any(marker in normalized_status for marker in DECISION_STATUS_DETAIL_MARKERS):
+                issues.append(
+                    ValidationIssue(
+                        f"{relative_path}:{line_number}",
+                        "decision status should stay atomic; put applicability or supersession detail in dated Current Applicability and Review Log",
+                    )
+                )
+            break
+    return issues
 
 
 def validate_agent_index_surface(repo_root: Path) -> list[ValidationIssue]:
@@ -19851,6 +19886,7 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_validator_surface_role(repo_root))
     issues.extend(validate_mechanic_index_surface_roles(repo_root))
     issues.extend(validate_root_design_surfaces(repo_root))
+    issues.extend(validate_decision_status_lines(repo_root))
     issues.extend(validate_root_route_card_districts(repo_root))
     issues.extend(validate_root_authored_route_residue_surfaces(repo_root))
     issues.extend(validate_decision_route_residue_surfaces(repo_root))

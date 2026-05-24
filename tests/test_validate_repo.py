@@ -6276,6 +6276,27 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_decision_status_line_rejects_embedded_supersession_detail(
+        self, tmp_path: Path
+    ) -> None:
+        write_text(
+            tmp_path / "docs" / "decisions" / "0001-example.md",
+            """
+            # Example
+
+            - Status: Accepted; source route superseded by 0002
+            - Date: 2026-05-24
+            """,
+        )
+
+        issues = validate_repo.validate_decision_status_lines(tmp_path)
+
+        assert any(
+            issue.location == "docs/decisions/0001-example.md:3"
+            and "decision status should stay atomic" in issue.message
+            for issue in issues
+        )
+
     def test_architecture_proof_model_contract_rejects_bundle_only_model(
         self, tmp_path: Path
     ) -> None:

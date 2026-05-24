@@ -10,11 +10,23 @@ but the repo still needs one explicit decision about whether the bundle is ready
 - `baseline -> canonical`
 
 This guide is review-first.
-It does not auto-promote eval bundles from frontmatter metadata, generated catalog fields, or validator results.
+Promotion authority routes through explicit review; frontmatter metadata,
+generated catalog fields, and validator results remain supporting evidence.
 
 See also:
 - [Documentation Map](README.md)
 - [Eval Rubric](EVAL_RUBRIC.md)
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | bounded maturity review guide for public eval bundles |
+| input | bounded-promotion pressure, baseline pressure, canonical pressure, metadata evidence, support-note evidence, portability evidence, canonical-readiness evidence, or interpretation-risk pressure |
+| output | approve/defer outcome, remaining-gap route, review-evidence route, promotion route, or integrity-sidecar route |
+| owner | this guide owns docs-level maturity review discipline; bundle-local `EVAL.md`, `eval.yaml`, `support_note`, `portable_review`, and `canonical_readiness` own concrete review evidence |
+| next route | affected bundle, [Eval Rubric](EVAL_RUBRIC.md), [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md), [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md), [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md), or comparison guide |
+| validation | [docs/AGENTS.md#validation](AGENTS.md#validation) |
 
 ## Outcomes
 
@@ -46,10 +58,21 @@ Use `approve for baseline` when the eval already reads as a stable comparison su
 Use `defer for now` when the eval is useful and reusable but still too unstable, too local-shaped, or too weakly interpreted for baseline comparison use.
 
 Record that public approval trail in `portable_review`.
-Do not introduce a separate evidence kind for baseline approval notes.
+Baseline approval notes route through that evidence kind.
 
 When a wave materially deepens pairing, shared infra, longitudinal reading, or canonical candidacy,
 carry `aoa-eval-integrity-check` or an equivalent bounded integrity packet as a sidecar.
+
+## Review Pressure Routes
+
+| Pressure | Route |
+| --- | --- |
+| frontmatter metadata wants to promote a bundle | explicit maturity review with bundle-local evidence |
+| generated catalog fields look stronger than review notes | review the bundle source and keep generated readers derived |
+| baseline approval needs a public trail | record the trail in `portable_review` |
+| bounded approval hides failure-vs-readout ambiguity | defer with the smallest concrete remaining gap |
+| canonical pressure lacks default-use rationale | defer until `canonical_readiness` states the bounded default-use case |
+| comparison, longitudinal, shared-infra, or canonical pressure widens a public reading | carry `aoa-eval-integrity-check` or equivalent bounded integrity sidecar |
 
 ## Bounded Review Axes
 
@@ -58,7 +81,7 @@ carry `aoa-eval-integrity-check` or an equivalent bounded integrity packet as a 
 | execution path clarity | A reviewer can see how the bundle is meant to run and where the bounded read comes from. | The run shape is still too hand-wavy or too dependent on tacit reviewer reconstruction. |
 | verdict and readout discipline | Bundle-level verdicts, per-case notes, and example reports stay legible and bounded. | Public readout still jumps too quickly from thin evidence to strong conclusions. |
 | failure-vs-readout separation | Failure signals are named directly and stay distinct from the summary language used to report them. | Summary wording smooths over concrete failure signals or lets polished readouts hide them. |
-| nearby-bundle distinctness | The bundle clearly says which nearby question it does and does not answer. | The bundle still blurs into composite, diagnostic, artifact, or boundary neighbors. |
+| nearby-bundle distinctness | The bundle clearly says which nearby question belongs here and which routes elsewhere. | The bundle still blurs into composite, diagnostic, artifact, or boundary neighbors. |
 | support evidence | Starter evidence, example report, and support notes make the bounded claim inspectable after publication. | Key bounded-claim support still lives only in implied reviewer intuition or scattered prose. |
 
 ### For `baseline -> canonical`
@@ -79,8 +102,8 @@ Use `defer for now` when the eval is strong, but still reads as an optional comp
 | repeatability | Runs are stable enough that comparison meaningfully tells us something bounded and non-trivial. | Run-to-run or environment-to-environment movement is still too large for stable comparison. |
 | baseline clarity | The bundle clearly states what it compares against and what kind of claim that comparison can support. | The comparison target is muddy, shifting, or easy to over-interpret. |
 | fixture discipline | The fixture surface is clearly bounded and representative enough for the stated claim. | Fixtures still look too ad hoc, too narrow, or too entangled with one local context. |
-| verdict semantics | Scores or verdicts are explained in a way that a reviewer can understand and not over-read. | The bundle still relies on opaque numbers, vague labels, or hidden judgment. |
-| blind-spot disclosure | The bundle honestly names what it does not prove. | The bundle still reads as stronger or broader than its actual surface supports. |
+| verdict semantics | Scores or verdicts are explained with a bounded interpretation route. | The bundle still relies on opaque numbers, vague labels, or hidden judgment. |
+| blind-spot disclosure | The bundle honestly names unsupported readings and routes them elsewhere. | The bundle still reads as stronger or broader than its actual surface supports. |
 | practical reuse | The bundle can be run outside its birth context with bounded adaptation. | Real use still depends too much on one project's private environment, tooling, or habits. |
 
 ## Canonical Review Axes
@@ -94,9 +117,9 @@ Use `defer for now` when the eval is strong, but still reads as an optional comp
 | stronger validation than baseline floor | The bundle has more than mere structural completeness; reviews, integrity checks, or repeated use reinforce its strength. | Evidence still looks too close to the minimum baseline floor. |
 | fresh public-safety recheck | The current public bundle remains safe, bounded, and suitable for broader recommendation. | Public-safety, local leakage, or interpretation risks remain unresolved. |
 
-## Metadata Is Informative, Not Decisive
+## Metadata Supports Explicit Review
 
-Stage 1 metadata can support review, but it does not decide it.
+Stage 1 metadata supports review and routes the reviewer toward the evidence to inspect.
 
 - `maturity_score` can hint that a bundle is approaching baseline or canonical strength.
 - `repeatability` can show whether the result surface is stable enough for disciplined comparison.
@@ -105,8 +128,7 @@ Stage 1 metadata can support review, but it does not decide it.
 - `blind_spot_disclosure` can show whether the bundle names its own limits.
 - `export_ready` only concerns Stage 1 structured catalog publication safety.
 
-None of these fields auto-promote an eval bundle.
-Baseline and canonical decisions still require explicit human review.
+Promotion decisions stay with explicit human review.
 
 ## Tracked Review Evidence
 
@@ -118,17 +140,16 @@ Promotion-shaped reviews should leave a small public trail:
 - bundles using `comparative-summary` should carry a `support_note` that names the comparison contract and its interpretation limits
 - bundles claiming reusable proof artifacts should ship schema-backed report examples and runner/fixture contracts before those artifacts are treated as part of the public proof surface
 
-These notes do not decide the review outcome by themselves.
-They keep the public reasoning inspectable after the decision.
+These notes keep the public reasoning inspectable after the decision.
 
 ## Review Notes
 
 Review should stay bounded and concrete.
 
-- Review the bundle as published today, not an imagined future rewrite.
+- Review the bundle as published today.
 - Name one recommendation only: approve now or defer for now.
 - If deferred, name the smallest concrete remaining gap rather than a broad wish list.
-- If approved, make the bundle's comparison or default-use rationale explicit enough that later reviewers do not have to infer it from scattered notes.
+- If approved, make the bundle's comparison or default-use rationale explicit enough that later reviewers can read it from the review trail.
 - Name the exact boundary of the approved claim.
 - If the bundle uses scores, say how far those scores can be interpreted before they become theater.
 - If the bundle uses categorical verdicts, say what uncertainty remains after the verdict.
@@ -140,7 +161,7 @@ Common reasons to defer include:
 - fixture surface still too local or too thin
 - score semantics still too vague
 - verdict logic still too dependent on hidden reviewer intuition
-- blind spots not named clearly enough
+- blind spots remain unnamed or too generic
 - bundle is useful, but still better as a companion than as a default proof surface
 - repeated use still reveals unstable meaning
 - report summaries imply stronger claims than the bundle truly supports

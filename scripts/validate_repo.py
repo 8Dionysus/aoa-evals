@@ -3448,7 +3448,7 @@ TITAN_MECHANIC_REQUIRED_TOKENS = (
 TITAN_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "Titan seed canaries",
     "mechanics/titan/parts/seed-boundary/seeds/titan*.yaml",
-    "not full incarnation proof",
+    "seed-boundary evidence only",
     "mutation gate",
     "judgment gate",
     "validate_titan_canary_surfaces",
@@ -3461,7 +3461,7 @@ TITAN_MECHANIC_DIRECTION_REQUIRED_TOKENS = (
     "summon boundary law",
     "incarnation posture",
     "seed-boundary",
-    "not incarnation proof",
+    "seed-boundary evidence",
 )
 TITAN_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "mechanics/titan/",
@@ -3520,15 +3520,46 @@ TITAN_SEED_BOUNDARY_PART_README_REQUIRED_TOKENS = (
     "runtime activation",
     "summon authority",
     "memory sovereignty",
-    "Do not use canary presence as proof",
+    "canary presence reads as proof",
     "python scripts/validate_repo.py",
 )
 TITAN_PARTS_INDEX_README_REQUIRED_TOKENS = (
     "# Titan / Parts Route",
     "Titan proof-seed artifacts",
-    "current payload form is seed canaries",
-    "not named after the canary artifact form",
+    "parts district is named by operation",
+    "Current canary YAML payloads",
     "`seed-boundary` part",
+)
+TITAN_SEED_BOUNDARY_ROUTE_SURFACE_NAMES = (
+    TITAN_MECHANIC_AGENTS_NAME,
+    TITAN_MECHANIC_DIRECTION_NAME,
+    "mechanics/titan/PARTS.md",
+    TITAN_PARTS_INDEX_README_NAME,
+    TITAN_SEED_BOUNDARY_PART_README_NAME,
+    "mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md",
+    "mechanics/titan/parts/seed-boundary/docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md",
+    TITAN_SEED_BOUNDARY_SEEDS_AGENTS_NAME,
+    TITAN_SEED_BOUNDARY_SEEDS_README_NAME,
+)
+TITAN_SEED_BOUNDARY_STALE_ROUTE_PHRASES = (
+    "not full incarnation proof",
+    "not incarnation proof",
+    "not full proof by themselves",
+    "not named after the canary artifact form",
+    "Do not split named Titan",
+    "This part is seed-defined only. It does not create",
+    "Do not use canary presence as proof",
+    "These files are boundary-check seeds, not full eval bundles",
+    "These files are seed-defined boundary checks. They are not full eval bundles",
+    "Seed canaries are not full incarnation proof",
+    "Seed canaries do not activate",
+    "Seed canaries do not grant",
+    "Seed canaries do not create",
+    "Seed canaries do not bypass",
+    "They do not grant summon authority",
+    "Do not claim full incarnation proof",
+    "Do not bypass mutation gate",
+    "Do not move canary files",
 )
 TITAN_SEED_BOUNDARY_CONTRACT_DECISION_REQUIRED_TOKENS = (
     "Titan Seed-boundary Contract",
@@ -10939,6 +10970,20 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         tokens=TITAN_SEED_BOUNDARY_PART_README_REQUIRED_TOKENS,
         issues=issues,
     )
+    for path_name in TITAN_SEED_BOUNDARY_ROUTE_SURFACE_NAMES:
+        route_text = read_text_or_issue(
+            repo_root / path_name,
+            issues,
+            root=repo_root,
+        )
+        for stale_phrase in TITAN_SEED_BOUNDARY_STALE_ROUTE_PHRASES:
+            if route_text and stale_phrase in route_text:
+                issues.append(
+                    ValidationIssue(
+                        path_name,
+                        "Titan seed-boundary route surfaces must route pressure through owner maps instead of stale negative claim-limit phrasing",
+                    )
+                )
     require_tokens(
         repo_root=repo_root,
         path_name=TITAN_SEED_BOUNDARY_CONTRACT_DECISION_NAME,

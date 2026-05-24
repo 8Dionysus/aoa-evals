@@ -10,5 +10,10 @@ canaries.
 Summon canaries should keep named Titan targets visible, reject generic role
 shadows, and avoid hidden background arena behavior.
 
-They do not grant summon authority, activate live runtime behavior, or prove
-full incarnation by themselves.
+## Boundary Routes
+
+| Pressure | Route |
+| --- | --- |
+| summon authority | route to Titan summon owners before proof wording changes |
+| live runtime behavior | route to runtime owners before proof wording changes |
+| full incarnation proof | route to `aoa-agents` or later scorer-backed proof review |

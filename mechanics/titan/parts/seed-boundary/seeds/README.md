@@ -5,9 +5,9 @@
 `mechanics/titan/parts/seed-boundary/seeds/` owns the source YAML seed family
 for the Titan mechanic.
 
-These files are seed-defined boundary checks. They are not full eval bundles,
-executable scorer suites, runtime activation receipts, summon authority,
-memory authority, or proof of Titan incarnation.
+These files are seed-defined boundary checks. Full eval bundles, executable
+scorer suites, runtime activation receipts, summon authority, memory authority,
+and Titan incarnation proof route to later scorer or stronger-owner surfaces.
 
 ## Source Shape
 
@@ -28,10 +28,11 @@ Each seed must keep:
   `mechanics/titan/parts/seed-boundary/seeds/`.
 - Keep seed-defined status unless scorer contracts, fixtures, and reports are
   added.
-- Do not claim full incarnation proof, runtime activation, hidden arena, live
-  summon authority, memory sovereignty, mutation-gate bypass, or judgment-gate
-  bypass.
-- Keep stronger Titan owner law outside `aoa-evals`.
+
+| Pressure | Route |
+| --- | --- |
+| full incarnation proof, runtime activation, hidden arena, live summon authority, memory sovereignty, mutation-gate bypass, or judgment-gate bypass | route to stronger Titan, runtime, memory, or later scorer-owner surfaces |
+| stronger Titan owner law appears in a seed change | keep `aoa-evals` on the public-safe seed shape and route law changes to the owner repository |
 
 ## Validation
 

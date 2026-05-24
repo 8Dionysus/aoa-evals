@@ -15,10 +15,10 @@ The mechanic owns the route:
 
 ## Boundary
 
-Parts are not standalone mechanics. The `seed-boundary` part owns the current
-seed-defined canary family because all current Titan canaries share one source
-shape and one validation route. Topic-split pressure waits for a different
-scorer, fixture, report, or validator contract.
+Parts operate inside the Titan mechanic. The `seed-boundary` part owns the
+current seed-defined canary family because all current Titan canaries share one
+source shape and one validation route. Topic-split pressure waits for a
+different scorer, fixture, report, or validator contract.
 
 The part remains seed-defined. Full incarnation proof, runtime activation,
 summon authority, memory sovereignty, mutation-gate bypass, judgment-gate
@@ -31,7 +31,8 @@ Inputs are Titan boundary pressure, seed YAML files, seed-local route law, and
 the incarnation or summon-discipline guide surfaces.
 
 Outputs are validated seed canary shapes and a future executable scorer route,
-not full proof by themselves.
+with full proof claims routed through later scorer contracts and stronger owner
+review.
 
 Owner split stays explicit: `aoa-evals` owns seed-boundary proof shape;
 `aoa-agents`, `aoa-memo`, and runtime owners keep Titan role, memory, and

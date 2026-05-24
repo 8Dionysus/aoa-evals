@@ -1,8 +1,8 @@
 # Titan Direction
 
 Titan in `aoa-evals` should keep Titan boundary seed canaries shaped and
-bounded while making clear that canaries are a part, not the parent mechanic
-and not incarnation proof.
+bounded while keeping canaries as the `seed-boundary` part and routing
+incarnation proof to stronger owners.
 
 Use this file for the package's current operating direction: read it after the
 parent entry card and before `PARTS.md`, part contracts, source bundles,
@@ -40,7 +40,7 @@ and validator-backed replacement paths.
 
 | Pressure | Route |
 | --- | --- |
-| incarnation completion or broad Titan proof | keep seed canaries not incarnation proof; route stronger claims to `aoa-agents` |
+| incarnation completion or broad Titan proof | keep seed canaries as seed-boundary evidence; route stronger claims to `aoa-agents` |
 | summon runtime authority, hidden arena safety, or runtime roster truth | route to runtime and summon owners before proof wording changes |
 | memory authority | route to `aoa-memo` before adoption or proof strengthening |
 | old `evals/` or `titan-canaries` path vocabulary | enter through `PROVENANCE.md` and active `parts/seed-boundary/` routes |

@@ -9,8 +9,9 @@
 This directory stores Titan seed canaries under
 `mechanics/titan/parts/seed-boundary/seeds/titan*.yaml`.
 
-These files are boundary-check seeds, not full eval bundles, executable scorer
-suites, runtime activation receipts, or proof of Titan incarnation.
+These files are public-safe boundary-check seeds. Full eval bundles,
+executable scorer suites, runtime activation receipts, and Titan incarnation
+proof route to later scorer or stronger-owner surfaces.
 
 ## Read before editing
 
@@ -32,11 +33,12 @@ suites, runtime activation receipts, or proof of Titan incarnation.
   expected output, forbidden output, or failure examples.
 - Keep Titan canaries seed-defined unless executable scorer contracts,
   fixtures, and reports are added.
-- Do not claim full incarnation proof, runtime activation, hidden arena,
-  memory sovereignty, or summon authority from these YAML files.
-- Do not bypass mutation gate or judgment gate boundaries.
-- Do not move canary files out of this package without updating package route
-  docs, decisions, and validators.
+- Route full incarnation proof, runtime activation, hidden arena, memory
+  sovereignty, or summon authority pressure to the stronger owner surface.
+- Route mutation gate or judgment gate bypass pressure back to the gate docs and
+  validation surface.
+- Move canary files only with package route docs, decisions, and validators in
+  the same slice.
 
 ## Validation
 

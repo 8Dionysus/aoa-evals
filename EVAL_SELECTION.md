@@ -69,7 +69,7 @@ See also:
 - Need to know whether a reviewed growth candidate is routed to the right owner layer? Use `aoa-owner-fit-routing-quality`.
 - Need to know whether recurrence control-plane artifacts stayed bounded? Use `aoa-recurrence-control-plane-integrity`.
 - Need to know whether a diagnosis preserved explicit cause limits? Use `aoa-diagnosis-cause-discipline`.
-- Need to know whether a repair or reanchor move stayed bounded instead of smearing scope? Use `aoa-repair-boundedness`.
+- Need to know whether a repair or reanchor move preserved bounded scope? Use `aoa-repair-boundedness`.
 - Need to know whether a continuity route still has one inspectable anchor chain? Use `aoa-continuity-anchor-integrity`.
 - Need to know whether reflective revision stayed inside one named revision window? Use `aoa-reflective-revision-boundedness`.
 - Need to know whether reanchor returned to the last valid artifact? Use `aoa-self-reanchor-correctness`.
@@ -80,7 +80,9 @@ See also:
 
 ### I need one bounded end-to-end workflow signal for a non-trivial change task
 - `aoa-bounded-change-quality`
-  Use a narrower neighbor instead when the real question is claimed verification, scope alignment, task-meaning ambiguity, outcome-versus-path split, or tool-path quality itself.
+  Route to a narrower neighbor when the real question is claimed verification,
+  scope alignment, task-meaning ambiguity, outcome-versus-path split, or
+  tool-path quality itself.
 
 ### I need to know whether an agent respected approval, authority, or risk boundaries
 - `aoa-approval-boundary-adherence`
@@ -97,14 +99,14 @@ See also:
 ### I need to isolate whether the agent silently widened, narrowed, or reshaped the task
 - `aoa-scope-drift-detection`
 
-### I need to evaluate incomplete or conflicting task meaning rather than authority ambiguity
+### I need task-meaning ambiguity as the main question
 - `aoa-ambiguity-handling`
 
-### I need to read one owner-local antifragility family without collapsing source ownership
+### I need one owner-local antifragility family with source ownership visible
 - `aoa-antifragility-posture`
   Use this when the question is bounded degraded continuation plus source-owned receipt posture on one named stressor family.
 
-### I need to read repeated-window stress recovery on one named family without letting derived layers outrank owner evidence
+### I need repeated-window stress recovery on one named family with owner evidence first
 - `aoa-stress-recovery-window`
   Use this when the question is repeated-window recovery posture for one named stressor family.
 
@@ -120,7 +122,7 @@ See also:
 - `aoa-recurrence-control-plane-integrity`
   Use this when the inspected object is the recurrence control-plane run itself: manifest scan, graph closure, hooks, beacons, review decisions, downstream projections, and Agon diagnostics. Use neighboring evals for verification honesty, candidate lineage, or return-anchor fidelity.
 
-### I need to know whether a diagnosis named causes without overclaiming
+### I need a diagnosis with explicit cause limits
 - `aoa-diagnosis-cause-discipline`
   Use this when the question is whether symptoms, probable causes, owner ambiguity, unknowns, confidence limits, and repair handoff language stayed separate before repair.
 
@@ -140,13 +142,14 @@ See also:
 - `aoa-self-reanchor-correctness`
   Use this when the question is whether a route returned to the last valid artifact with explicit return posture.
 
-### I need to split final outcome judgment from path judgment without assuming one correct trace
+### I need final outcome and execution path as separate readings
 - `aoa-trace-outcome-separation`
   If the path itself is the bounded surface, switch to `aoa-tool-trajectory-discipline`.
 
 ### I need to judge tool-use path quality only where the tool path itself matters
 - `aoa-tool-trajectory-discipline`
-  If the question is whether outcome and path should stay separately readable before any combined reading, switch to `aoa-trace-outcome-separation`.
+  If the question is outcome/path separation before any combined reading,
+  switch to `aoa-trace-outcome-separation`.
 
 ### I need to know whether a bounded run left a reviewable witness trace
 - `aoa-witness-trace-integrity`
@@ -209,7 +212,7 @@ See also:
 | `artifact` | You care about the produced artifact itself or about provenance-preserving compost artifacts derived from witness-facing inputs. | `aoa-artifact-review-rubric`, `aoa-compost-provenance-preservation` |
 | `comparative` | You care about cross-surface divergence such as polished output versus process discipline. | `aoa-output-vs-process-gap` |
 | `capability` | You care about whether a bounded eval-side review surface is present, such as integrity checking of public eval bundles, growth-refinery lineage coherence, or continuity-anchor integrity as distinct bounded abilities. | `aoa-eval-integrity-check`, `aoa-candidate-lineage-integrity`, `aoa-continuity-anchor-integrity` |
-| `longitudinal` | You care about ordered repeated-window movement on the same bounded surface, or about repeated-window stress recovery posture on one named stressor family rather than one-run or one-baseline comparison. | `aoa-longitudinal-growth-snapshot`, `aoa-stress-recovery-window` |
+| `longitudinal` | You care about ordered repeated-window movement on the same bounded surface, or about repeated-window stress recovery posture on one named stressor family; one-run and baseline questions route to their own surfaces. | `aoa-longitudinal-growth-snapshot`, `aoa-stress-recovery-window` |
 
 Route boundaries:
 - `workflow` here spans both composite and narrower surfaces; if you need a root-cause read, switch from `aoa-bounded-change-quality` to the narrower neighbor.
@@ -250,7 +253,7 @@ These bundles support portable reuse across bounded local adaptation. Use
 ### If you need an early public proof sketch beyond that bounded tranche
 Use `draft` bundles carefully and read their boundaries, blind spots, and interpretation notes before drawing conclusions.
 
-### If you need a narrow diagnostic surface rather than a composite signal
+### If you need a narrow diagnostic surface
 Verification truthfulness, scope alignment, task-meaning ambiguity, and authority or approval classification currently have public diagnostic starters.
 Trace-aware split and tool-path workflow starters are also public; use the narrower diagnostic starters for one-root-cause reads.
 
@@ -262,7 +265,7 @@ Trace-aware split and tool-path workflow starters are also public; use the narro
 | verification honesty | You want to isolate claimed-vs-actual verification evidence. | `aoa-verification-honesty` |
 | authority and approval boundary adherence | You want to know whether the agent classified safe, approval-gated, and out-of-bounds actions correctly. | `aoa-approval-boundary-adherence` |
 | scope alignment | You want to isolate requested-scope vs executed-scope drift. | `aoa-scope-drift-detection` |
-| task-meaning ambiguity handling | You want to isolate incomplete or conflicting requirements rather than permission classification. | `aoa-ambiguity-handling` |
+| task-meaning ambiguity handling | You want to isolate incomplete or conflicting requirements, with permission classification routed to approval-boundary review. | `aoa-ambiguity-handling` |
 | outcome-vs-path split | You want separate readings for final outcome and execution path before any combined workflow verdict. | `aoa-trace-outcome-separation` |
 | tool trajectory discipline | You want to judge tool-use path quality only where the tool path itself matters. | `aoa-tool-trajectory-discipline` |
 | witness trace integrity | You want to know whether a bounded run left a reviewable public witness trace before memo or compost reuse. | `aoa-witness-trace-integrity` |
@@ -273,7 +276,7 @@ Trace-aware split and tool-path workflow starters are also public; use the narro
 | output-vs-process divergence | You want to compare artifact-side and process-side readings on the same bounded cases. | `aoa-output-vs-process-gap` |
 | eval-bundle integrity | You want to inspect whether a public starter bundle remains coherent across its manifest, evidence, and public routing surfaces. | `aoa-eval-integrity-check` |
 | bounded longitudinal movement | You want to inspect ordered repeated-window movement on one named bounded workflow surface. | `aoa-longitudinal-growth-snapshot` |
-| bounded stress recovery longitudinal read | You want to inspect ordered repeated-window recovery posture on one named stressor family without letting downstream derived layers outrank owner evidence. | `aoa-stress-recovery-window` |
+| bounded stress recovery longitudinal read | You want to inspect ordered repeated-window recovery posture on one named stressor family with downstream derived layers subordinate to owner evidence. | `aoa-stress-recovery-window` |
 
 ## Reader guidance
 

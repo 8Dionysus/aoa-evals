@@ -13,6 +13,10 @@ As of 2026-05-24:
 - Clarified: the entry surfaces for that tree are also agent operating cards:
   `EVAL_SELECTION.md`, `EVAL_INDEX.md`, and `evals/README.md` expose role,
   input, output, owner, next route, tools, and validation.
+- Clarified: the root chooser and index now express first-bundle selection,
+  comparison, diagnostic, artifact/process, and repeated-window choices as
+  direct route criteria with neighboring surfaces named where the question
+  belongs elsewhere.
 - Source surfaces updated: `EVAL_SELECTION.md`, `EVAL_INDEX.md`,
   `evals/README.md`, `scripts/validate_repo.py`, and
   `tests/test_validate_repo.py`.
@@ -33,6 +37,21 @@ As of 2026-05-24:
   `evals/README.md`, validator tokens, and validator tests.
 - Validation: use the source-tree topology path in
   `evals/AGENTS.md#validation` plus root `AGENTS.md#verify`.
+
+### 2026-05-24 - Root chooser and index route language clarified
+
+- Previous assumption: the root chooser and public starter index could use
+  contrast phrasing to separate neighboring eval surfaces.
+- New reality: low-context agents select better when the chooser names the
+  active route directly: task-meaning ambiguity, source-owned antifragility,
+  owner-first stress recovery, outcome/path separation, tool-path discipline,
+  narrow diagnostics, same-task regression, artifact review, and longitudinal
+  movement.
+- Reason: `EVAL_SELECTION.md` and `EVAL_INDEX.md` are source-eval entry
+  surfaces; they should send the reader to the right bundle or neighboring
+  route before bundle-local proof meaning is read.
+- Source surfaces updated: root eval selection chooser and public eval index.
+- Validation: source-tree topology and root validation routes.
 
 ## Context
 

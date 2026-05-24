@@ -287,7 +287,7 @@ After choosing a bundle:
    surfaces.
 3. Use `generated/eval_report_index.min.json` when the next question is which
    report or receipt artifact exists.
-4. Validate the selected path with `python scripts/validate_repo.py --eval
-   <bundle-name>` or the broader repository checks named in `AGENTS.md`.
+4. Validate the selected path through [evals/AGENTS.md#validation](evals/AGENTS.md#validation);
+   the broader repository checks live in root [AGENTS.md#verify](AGENTS.md#verify).
 
 Memo pilot boundary: current memo starter and readout routes stay below future scar, retention, and live memory-ledger readiness.

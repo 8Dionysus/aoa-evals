@@ -121,17 +121,10 @@ route can land in a bounded report artifact.
 - This smoke does not run a real `aoa-verification-honesty` case corpus.
 - This smoke does not publish a receipt or test live receipt append behavior.
 - This smoke does not prove that future runtime or sibling packets are valid.
-- This smoke does not replace `python scripts/validate_repo.py` or the full
-  release check.
+- This smoke stays below repository validation and release validation.
 
 ## Validation
 
-The route-smoke surface is guarded by `scripts/validate_repo.py`.
-
-When this report, the proof-loop mechanic, or the decision note changes, run:
-
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-python -m pytest -q tests/test_validate_repo.py -k proof_loop
-```
+Use [route-smoke VALIDATION](../VALIDATION.md) for this report's validation
+route. Executable command ownership is centralized in
+[parts/AGENTS.md#validation](../../AGENTS.md#validation).

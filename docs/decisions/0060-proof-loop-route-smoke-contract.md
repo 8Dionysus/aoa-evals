@@ -42,6 +42,38 @@ This decision does not create a new eval-result run, publish a receipt, promote
 strengthen generated readers, claim full proof-loop completeness, or complete
 the strategic goal.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `route-smoke` remains a bounded proof-loop part for routeability
+  evidence.
+- Clarified: the parent parts index now names proof-loop parts as bounded part
+  contracts inside the parent mechanic, with promotion, publication, runtime
+  acceptance, sibling approval, and coordinator-strength pressure routed back to
+  step owners.
+- Source surfaces updated: `mechanics/proof-loop/PARTS.md` and
+  `scripts/validate_repo.py`.
+- Validation route: proof-loop route-smoke part validation plus root repo
+  validation.
+
+## Review Log
+
+### 2026-05-24 - Proof-loop parts boundary language clarified
+
+- Previous assumption: the parent parts index could state the route-smoke
+  boundary through a standalone-mechanic contrast.
+- New reality: low-context agents need the lower index to name the positive
+  part contract: bounded part contracts inside the parent mechanic, route-smoke
+  report output, owner-routed promotion/publication/runtime/sibling pressure,
+  and step-owner authority.
+- Reason: `mechanics/proof-loop/PARTS.md` is an active index surface for the
+  proof-loop lower tree; it should route part pressure directly before the
+  agent enters the part.
+- Source surfaces updated: proof-loop parent parts index and root validator
+  token.
+- Validation: proof-loop route-smoke part validation and root repo validation.
+
 ## Validation
 
 - `python scripts/validate_repo.py`

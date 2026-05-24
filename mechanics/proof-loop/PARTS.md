@@ -15,24 +15,25 @@ The mechanic owns the route:
 
 ## Boundary
 
-Parts are not standalone mechanics. The `route-smoke` part proves only that one
-local proof-loop route can be followed into a bounded report artifact. It does
-not promote a bundle, publish a receipt, accept runtime evidence, approve
-sibling truth, or make `mechanics/proof-loop/` stronger than the packages it
-coordinates. Its receipt result remains no eval result receipt.
+Proof-loop parts are bounded part contracts inside the parent mechanic. The
+`route-smoke` part proves that one local proof-loop route can be followed into
+a bounded report artifact. Bundle promotion, receipt publication, runtime
+evidence acceptance, sibling-owner approval, and proof-loop authority stay with
+their owners. Its receipt result remains no eval result receipt.
 
 ## Part Contract
 
 Inputs are one proof question, one source proof object, support contracts,
 candidate-evidence posture, and the selected local route-smoke scope.
 
-Outputs are bounded route-smoke reports and deferred/handoff notes, not proof
-promotion.
+Outputs are bounded route-smoke reports and deferred/handoff notes. Proof
+promotion routes to bundle-local review and the owning promotion surfaces.
 
 Owner split stays explicit: proof-loop coordinates proof-object, proof-infra,
-audit, boundary-bridge, and publication-receipts without owning their meaning.
+audit, boundary-bridge, and publication-receipts while their meaning stays with
+those owners.
 
-Stop-lines forbid bundle promotion, receipt publication, runtime acceptance,
-sibling approval, or making the coordinator stronger than step owners.
+Stop-lines route bundle promotion, receipt publication, runtime acceptance,
+sibling approval, and coordinator-strength pressure back to the step owners.
 
 Validation routes through [AGENTS](AGENTS.md#validation).

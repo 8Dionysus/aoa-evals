@@ -78,6 +78,7 @@ As of 2026-05-24:
 - Clarified: the stop-line sections now use pressure-to-route tables so an
   agent sees the next owner action instead of only a blocked action.
 - Source surfaces updated:
+  - `mechanics/audit/parts/README.md`
   - `mechanics/audit/parts/selected-evidence-packets/README.md`
   - `mechanics/audit/parts/artifact-verdict-hooks/README.md`
   - `mechanics/audit/parts/candidate-readers/README.md`
@@ -85,6 +86,8 @@ As of 2026-05-24:
   - `scripts/validate_repo.py`
 - Validation: the audit part README validator tokens now require the route-map
   wording that replaced prohibition-only phrasing.
+- Clarified: `mechanics/audit/parts/README.md` is the lower index and
+  part-admission route for audit suboperations.
 
 ## Review Log
 
@@ -101,3 +104,15 @@ As of 2026-05-24:
 - Source surfaces updated: the four audit part README contracts and their
   validator tokens.
 - Validation: see the landing PR for the exact command battery.
+
+### 2026-05-24 - Part index admission route clarified
+
+- Previous assumption: the parts index could end with a direct warning about
+  creating another part after listing the current audit suboperations.
+- New reality: the index is clearer as an operating card plus part-admission
+  route: source surfaces, operation, validation, owner boundary, and next route.
+- Reason: a low-context agent should know how a new audit suboperation earns a
+  part-local contract without reading the warning as the main instruction.
+- Source surfaces updated: `mechanics/audit/parts/README.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: focused audit parts validator tests plus full repo validation.

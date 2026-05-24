@@ -70,6 +70,37 @@ Deferred pressure is mapped inside the owning legacy archive after the active
 - Validators can require the active `growth-cycle` route and prevent future
   broadening without route cards.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `mechanics/growth-cycle/` remains the AoA-aligned eval-side
+  parent for diagnosis proof support.
+- Changed: parent-level boundary coverage now uses pressure-to-owner routes in
+  `README.md`, `PARTS.md`, and `DIRECTION.md`, with validator tokens guarding
+  the route rows.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Parent boundary route wording
+
+- Previous assumption: parent-level Growth Cycle surfaces expressed boundaries
+  through exclusion prose around cause truth, repair success, owner fit, broad
+  growth, closeout, harvest, quest, memory, runtime, automation, and owner
+  landing.
+- New reality: the parent route keeps the same authority split through
+  pressure-to-owner-route rows.
+- Reason: Agents-of-Abyss owns Growth Cycle law, `aoa-skills` owns executable
+  cycle work, `aoa-playbooks` owns recurring choreography, owner repositories
+  accept local truth, and `aoa-evals` keeps bounded diagnosis proof support.
+- Source surfaces updated: `mechanics/growth-cycle/README.md`,
+  `mechanics/growth-cycle/PARTS.md`, `mechanics/growth-cycle/DIRECTION.md`,
+  and `scripts/validate_repo.py`.
+- Validation: growth-cycle validator focus, diagnosis bundle validation,
+  catalog check, root validation, semantic AGENTS validation, diff whitespace
+  check, and full pytest passed.
+
 ## Validation
 
 Expected validation route:

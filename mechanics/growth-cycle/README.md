@@ -50,16 +50,16 @@ Route guard: repair proof under `antifragility`; repeated-window movement under
 - `quests/closeout/captured/AOA-EV-Q-0013.yaml`
 
 These context surfaces explain why nearby stages stay deferred or route to
-other parents. They are not active Growth Cycle parts by themselves.
+other parents. Active Growth Cycle topology still starts from `diagnosis-gate`.
 
 ## Parts
 
 See [PARTS.md](PARTS.md).
 
 The active part is `diagnosis-gate`. It owns cause-hypothesis discipline before
-repair. It does not own repair success, owner-fit routing, longitudinal growth,
-reviewed closeout promotion, donor harvest, quest promotion, memory canon, or
-runtime repair.
+repair. Repair success, owner-fit routing, longitudinal growth, reviewed
+closeout promotion, donor harvest, quest promotion, memory canon, and runtime
+repair pressure route to the stronger owners below.
 
 ## Inputs
 
@@ -67,8 +67,8 @@ runtime repair.
 - symptom refs and probable cause hypotheses;
 - owner ambiguity notes, explicit unknowns, and confidence limits;
 - repair or follow-through handoff language;
-- nearby deferred pressure from closeout, harvest, repair, or progression only
-  as context, not as active growth-cycle verdict authority.
+- nearby deferred pressure from closeout, harvest, repair, or progression as
+  context; verdict authority routes through the owning proof or owner surface.
 
 ## Outputs
 
@@ -77,8 +77,8 @@ runtime repair.
 - evidence-limit and unknown notes;
 - repair eligibility or proof handoff request;
 - owner handoff route;
-- no repair success proof, final object quality proof, universal growth score,
-  owner acceptance, quest promotion, or memory canon.
+- owner handoff routes for repair success, final object quality, universal
+  growth score, owner acceptance, quest promotion, or memory-canon pressure.
 
 ## Stronger Owner Split
 
@@ -96,15 +96,17 @@ readout posture, claim limits, and validation for diagnosis-cause discipline.
 
 ## Stop-Lines
 
-This package supports bounded eval-side proof only. Keep these claims outside
-this package:
+Boundary routes keep Growth Cycle diagnosis pressure with the owner that can
+act on it:
 
-- the named cause is proven true;
-- repair worked because the diagnosis was tidy;
-- repair boundedness, owner fit, or final object quality;
-- broad capability growth or a universal progression score;
-- reviewed closeout acceptance, donor harvest approval, or quest promotion;
-- memory canon, runtime activation, hidden automation, or owner-local landing.
+| Pressure | Owner route |
+| --- | --- |
+| named cause proven true pressure | source owner diagnosis review plus bundle-local proof evidence |
+| repair success from tidy diagnosis pressure | `mechanics/antifragility/parts/repair-proof/` route plus owner repair acceptance |
+| repair boundedness, owner fit, or final object quality pressure | repair-proof route plus owner repository acceptance route |
+| broad capability growth or universal progression score pressure | `mechanics/rpg/parts/progression-unlocks/` plus `mechanics/comparison-spine/parts/longitudinal-window/` route |
+| reviewed closeout acceptance, donor harvest approval, or quest promotion pressure | closeout, donor, questbook, and target owner routes |
+| memory canon, runtime activation, hidden automation, or owner-local landing pressure | `aoa-memo`, `abyss-stack`, `aoa-skills` or `aoa-playbooks`, and owner repository routes |
 
 ## Deferred Stages
 
@@ -113,8 +115,8 @@ this package:
 - `progression-lift`: current progression and unlock proof routes through
   `mechanics/rpg/parts/progression-unlocks/`; repeated-window movement routes
   through `mechanics/comparison-spine/parts/longitudinal-window/`.
-- `reviewed-closeout-chain` and `donor-harvest`: current local evidence is
-  quest pressure and ingress context, not an active growth-cycle part.
+- `reviewed-closeout-chain` and `donor-harvest`: current local evidence routes
+  as quest pressure and ingress context.
 - `quest-promotion` and `owner-followthrough`: route through questbook and
   target owner repositories until a concrete eval-side proof operation exists.
 

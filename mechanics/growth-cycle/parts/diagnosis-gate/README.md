@@ -11,14 +11,14 @@ proof bundle stays under `evals/`.
 
 ## Thin Support Posture
 
-This is an eval-backed thin support route with no part-local payload subdirectories.
+This is an eval-backed thin support route: payload subdirectories are absent by design.
 The source eval package stays under `evals/` because
 `evals/workflow/aoa-diagnosis-cause-discipline/` owns the strongest local proof
 meaning: claim wording, source notes, example report, and integrity check.
 
-Do not add empty placeholder payload directories here. Add part-local payload
-only when a concrete Growth Cycle support artifact exists outside the source
-proof bundle and can name its own owner split, stop-lines, and validation.
+Part-local payload belongs here only when a concrete Growth Cycle support
+artifact exists outside the source proof bundle and can name its own owner
+split, stop-lines, and validation.
 
 ## Source Surfaces
 
@@ -57,26 +57,28 @@ role posture. `aoa-sdk` owns checkpoint and closeout control surfaces.
 runtime repair and health plumbing. Owner repositories own local repair,
 acceptance, and landing.
 
-`aoa-evals` owns only bounded diagnosis-cause discipline proof wording, support
+`aoa-evals` owns bounded diagnosis-cause discipline proof wording, support
 notes, example readout posture, claim limits, and bundle-local interpretation
-for `aoa-diagnosis-cause-discipline`.
+for `aoa-diagnosis-cause-discipline`. Authority beyond that proof reading
+routes through the stronger owner split above.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Boundary routes keep diagnosis-gate pressure with the owner that can act on it:
 
-- the named cause is proven true;
-- repair success;
-- owner-fit proof;
-- final object quality proof;
-- broad growth score or universal progression score;
-- reviewed closeout acceptance;
-- donor harvest approval;
-- quest promotion;
-- memory canon;
-- runtime activation or hidden automation;
-- owner acceptance or owner-local landing.
+| Pressure | Owner route |
+| --- | --- |
+| named cause proven true pressure | source owner diagnosis review plus bundle-local proof evidence |
+| repair success pressure | `mechanics/antifragility/parts/repair-proof/` route plus owner repair acceptance |
+| owner-fit proof pressure | owner repository acceptance route |
+| final object quality proof pressure | owner repository acceptance route |
+| broad growth score or universal progression score pressure | `mechanics/rpg/parts/progression-unlocks/` plus `mechanics/comparison-spine/parts/longitudinal-window/` route |
+| reviewed closeout acceptance pressure | closeout route plus owner acceptance |
+| donor harvest approval pressure | donor harvest route plus target owner acceptance |
+| quest promotion pressure | `mechanics/questbook/` route plus owner acceptance |
+| memory canon pressure | `aoa-memo` memory route |
+| runtime activation or hidden automation pressure | `abyss-stack` runtime route plus `aoa-skills` or `aoa-playbooks` execution/choreography route |
+| owner acceptance or owner-local landing pressure | owner repository acceptance route |
 
 `aoa-repair-boundedness` remains under
 `mechanics/antifragility/parts/repair-proof/`. Repeated-window movement remains

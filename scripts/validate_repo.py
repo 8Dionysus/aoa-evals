@@ -1408,7 +1408,7 @@ MECHANIC_PART_ALLOWED_PAYLOAD_DIRS = (
 )
 MECHANIC_THIN_PART_REQUIRED_TOKENS = (
     "eval-backed thin support route",
-    "no part-local payload subdirectories",
+    "payload subdirectories are absent by design",
     "source eval package stays under `evals/`",
 )
 MECHANIC_PARENT_ROOT_ALLOWED_FILES = frozenset(
@@ -4430,6 +4430,12 @@ GROWTH_CYCLE_MECHANIC_REQUIRED_TOKENS = (
     "Stop-Lines",
     "repair proof under `antifragility`",
     "repeated-window movement under",
+    "| named cause proven true pressure | source owner diagnosis review plus bundle-local proof evidence |",
+    "| repair success from tidy diagnosis pressure | `mechanics/antifragility/parts/repair-proof/` route plus owner repair acceptance |",
+    "| repair boundedness, owner fit, or final object quality pressure | repair-proof route plus owner repository acceptance route |",
+    "| broad capability growth or universal progression score pressure | `mechanics/rpg/parts/progression-unlocks/` plus `mechanics/comparison-spine/parts/longitudinal-window/` route |",
+    "| reviewed closeout acceptance, donor harvest approval, or quest promotion pressure | closeout, donor, questbook, and target owner routes |",
+    "| memory canon, runtime activation, hidden automation, or owner-local landing pressure | `aoa-memo`, `abyss-stack`, `aoa-skills` or `aoa-playbooks`, and owner repository routes |",
     "python scripts/validate_repo.py --eval aoa-diagnosis-cause-discipline",
 )
 GROWTH_CYCLE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
@@ -4448,11 +4454,19 @@ GROWTH_CYCLE_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "Stop-lines",
     "Validation",
     "aoa-diagnosis-cause-discipline",
+    "| cause certainty | source owner diagnosis review plus bundle-local proof evidence |",
+    "| repair success | `mechanics/antifragility/parts/repair-proof/` route plus owner repair acceptance |",
+    "| owner-fit proof or final object quality | owner repository acceptance route |",
+    "| broad capability growth or universal progression score | `mechanics/rpg/parts/progression-unlocks/` plus `mechanics/comparison-spine/parts/longitudinal-window/` route |",
+    "| reviewed-closeout acceptance, donor harvest approval, or quest promotion | closeout, donor, questbook, and target owner routes |",
+    "| memory canon | `aoa-memo` memory route |",
+    "| runtime activation or hidden automation | `abyss-stack` runtime route plus `aoa-skills` or `aoa-playbooks` execution/choreography route |",
+    "| owner-local landing | owner repository acceptance route |",
 )
 GROWTH_CYCLE_DIAGNOSIS_GATE_PART_REQUIRED_TOKENS = (
     "Diagnosis Gate Part",
     "eval-backed thin support route",
-    "no part-local payload subdirectories",
+    "payload subdirectories are absent by design",
     "evals/workflow/aoa-diagnosis-cause-discipline/EVAL.md",
     "## Inputs",
     "## Outputs",
@@ -4463,9 +4477,17 @@ GROWTH_CYCLE_DIAGNOSIS_GATE_PART_REQUIRED_TOKENS = (
     "probable cause hypotheses",
     "aoa-repair-boundedness",
     "mechanics/antifragility/parts/repair-proof/",
-    "repair success",
-    "broad growth score",
-    "owner-local landing",
+    "| named cause proven true pressure | source owner diagnosis review plus bundle-local proof evidence |",
+    "| repair success pressure | `mechanics/antifragility/parts/repair-proof/` route plus owner repair acceptance |",
+    "| owner-fit proof pressure | owner repository acceptance route |",
+    "| final object quality proof pressure | owner repository acceptance route |",
+    "| broad growth score or universal progression score pressure | `mechanics/rpg/parts/progression-unlocks/` plus `mechanics/comparison-spine/parts/longitudinal-window/` route |",
+    "| reviewed closeout acceptance pressure | closeout route plus owner acceptance |",
+    "| donor harvest approval pressure | donor harvest route plus target owner acceptance |",
+    "| quest promotion pressure | `mechanics/questbook/` route plus owner acceptance |",
+    "| memory canon pressure | `aoa-memo` memory route |",
+    "| runtime activation or hidden automation pressure | `abyss-stack` runtime route plus `aoa-skills` or `aoa-playbooks` execution/choreography route |",
+    "| owner acceptance or owner-local landing pressure | owner repository acceptance route |",
     "python scripts/validate_repo.py --eval aoa-diagnosis-cause-discipline",
 )
 GROWTH_CYCLE_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS

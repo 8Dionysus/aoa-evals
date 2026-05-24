@@ -11,7 +11,7 @@ The mechanic owns the route:
 
 | Part | Role | Active surfaces |
 | --- | --- | --- |
-| `diagnosis-gate` | Maintains cause-hypothesis discipline before repair without turning symptoms, owner ambiguity, or later cleanup into cause proof. | `mechanics/growth-cycle/parts/diagnosis-gate/README.md` |
+| `diagnosis-gate` | Maintains cause-hypothesis discipline before repair while cause-truth and later-stage pressure route to stronger owners. | `mechanics/growth-cycle/parts/diagnosis-gate/README.md` |
 
 ## Part Contract
 
@@ -32,10 +32,18 @@ checkpoint and closeout control surfaces; target owner repositories own local
 repair acceptance; `aoa-evals` owns proof wording, verdict logic, support
 notes, example readout posture, and claim limits.
 
-Stop-lines forbid cause certainty, repair success, owner-fit proof, final
-object quality, broad capability growth, universal progression scores,
-reviewed-closeout acceptance, donor harvest approval, quest promotion, memory
-canon, runtime activation, hidden automation, and owner-local landing.
+Stop-lines route stronger-owner pressure through the boundary routes below.
+
+| Pressure | Owner route |
+| --- | --- |
+| cause certainty | source owner diagnosis review plus bundle-local proof evidence |
+| repair success | `mechanics/antifragility/parts/repair-proof/` route plus owner repair acceptance |
+| owner-fit proof or final object quality | owner repository acceptance route |
+| broad capability growth or universal progression score | `mechanics/rpg/parts/progression-unlocks/` plus `mechanics/comparison-spine/parts/longitudinal-window/` route |
+| reviewed-closeout acceptance, donor harvest approval, or quest promotion | closeout, donor, questbook, and target owner routes |
+| memory canon | `aoa-memo` memory route |
+| runtime activation or hidden automation | `abyss-stack` runtime route plus `aoa-skills` or `aoa-playbooks` execution/choreography route |
+| owner-local landing | owner repository acceptance route |
 
 Validation is the affected bundle validation, generated catalog check, root
 repository validation, semantic agent validation, and the growth-cycle mechanic

@@ -58,6 +58,35 @@ from the recurrence package.
   reports, or audit/RPG parts only after a separate evidence pass proves the
   owning operation.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `portable-proof-beacons` remains a part-local recurrence beacon
+  route under `mechanics/recurrence/`.
+- Changed: the active part README now routes runtime-canon, accepted portable
+  proof, universal-score, beacon-verdict, manifest-ownership, and overclaim
+  repair pressure to owner routes, with validator tokens guarding those rows.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Beacon boundary route wording
+
+- Previous assumption: the beacon part could preserve its authority split as
+  exclusion prose.
+- New reality: the beacon part now exposes the same authority split as direct
+  pressure-to-owner routes.
+- Reason: portable-proof pressure crosses audit, RPG, runtime, source bundles,
+  recurrence manifests, and proof-object repair; the active part should show
+  the handoff route instead of burying it in negative wording.
+- Source surfaces updated:
+  `mechanics/recurrence/parts/portable-proof-beacons/README.md` and
+  `scripts/validate_repo.py`.
+- Validation: recurrence validator focus, recurrence part runners and tests,
+  catalog check, root validation, semantic AGENTS validation, diff whitespace
+  check, and full pytest passed.
+
 ## Boundaries
 
 This decision does not make runtime evidence proof canon. It does not promote a

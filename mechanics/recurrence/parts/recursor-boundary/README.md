@@ -5,9 +5,9 @@
 `recursor-boundary` routes the support surface for recursor readiness boundary
 checks inside recurrence proof work.
 
-It keeps witness/executor recursor seeds readiness-only: no live spawn, no
-Codex install by default, no assistant contestant drift, no scar/verdict/rank
-authority, no executor self-certification, and no hidden scheduler.
+It keeps witness/executor recursor seeds readiness-only by routing spawn,
+Codex-install, contestant-drift, scar/verdict/rank, executor-certification, and
+scheduler pressure to stronger owners.
 
 ## Source Surfaces
 
@@ -37,13 +37,24 @@ authority, no executor self-certification, and no hidden scheduler.
 `repo:aoa-agents/config/codex_subagent_wiring.v2.json`. `aoa-sdk` owns typed read-only
 readiness and boundary scan helpers over those sibling-owned surfaces.
 `Agents-of-Abyss` owns recurrence and recursor boundary law. `aoa-evals` owns
-only the bounded readiness-boundary scorer and proof route.
+the bounded readiness-boundary scorer and proof route. Authority beyond that
+proof reading routes through the stronger owner split above.
 
 ## Stop-Lines
 
-Do not use this part to claim live recursor activation, agent spawn authority,
-arena eligibility, scar ownership, verdict authority, rank mutation, hidden
-scheduling, or runtime readiness.
+Boundary routes keep recursor-boundary pressure with the owner that can act on
+it:
+
+| Pressure | Owner route |
+| --- | --- |
+| live recursor activation pressure | `aoa-agents` role route plus `abyss-stack` runtime route |
+| agent spawn authority pressure | `aoa-agents` approval and role route |
+| arena eligibility pressure | Agon owner surface plus owner acceptance route |
+| scar ownership pressure | Agon owner surface plus source-owner evidence route |
+| verdict authority pressure | bundle-local proof review plus owner verdict route |
+| rank mutation pressure | Agon/ranking owner route |
+| hidden scheduling pressure | `aoa-playbooks` choreography route plus runtime owner route |
+| runtime readiness pressure | `abyss-stack` runtime readiness route after owner gates |
 
 ## Validation
 

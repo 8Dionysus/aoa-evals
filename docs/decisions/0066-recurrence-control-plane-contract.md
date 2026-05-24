@@ -55,6 +55,35 @@ fixtures, examples, schemas, scripts, scorers, tests, and manifests.
 - `control-plane-integrity` stays a part under `recurrence`, not a separate
   proof-adjective parent.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `control-plane-integrity` remains the guarded recurrence
+  control-plane part contract.
+- Changed: the part now expresses its stop-line coverage as
+  pressure-to-owner route rows, and validator tokens guard each row.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Control-plane boundary route wording
+
+- Previous assumption: the control-plane contract required explicit stronger
+  owner split plus stop-line terms for runtime, projection, Agon, beacon, and
+  portable-proof boundaries.
+- New reality: the same contract now guards full route rows that name each
+  pressure and its owner route.
+- Reason: recurrence control-plane evidence touches runtime, routing,
+  projection, owner review, Agon, beacon, and portable-proof surfaces; the
+  active part should make the handoff executable for a low-context agent.
+- Source surfaces updated:
+  `mechanics/recurrence/parts/control-plane-integrity/README.md` and
+  `scripts/validate_repo.py`.
+- Validation: recurrence validator focus, recurrence part runners and tests,
+  catalog check, root validation, semantic AGENTS validation, diff whitespace
+  check, and full pytest passed.
+
 ## Validation
 
 Expected validation route:

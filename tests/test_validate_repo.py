@@ -8048,7 +8048,7 @@ class TestValidateQuestRouteSurfaces:
         readme_path = tmp_path / readme_name
         readme_path.write_text(
             readme_path.read_text(encoding="utf-8").replace(
-                "This package supports bounded eval-side proof only. Keep these claims outside\nthis package:",
+                "Boundary routes keep recurrence proof pressure with the owner that can act on\nit:",
                 validate_repo.MECHANIC_PARENT_README_STALE_STOP_LINE_LEAD_IN,
             ),
             encoding="utf-8",

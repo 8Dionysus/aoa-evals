@@ -72,6 +72,37 @@ one AoA mechanic into future-bug fragments.
   prove a recurring operation. Return-anchor now has a part through decision
   `0039`.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `mechanics/recurrence/` remains the AoA-aligned eval-side parent
+  for recurrence proof support.
+- Changed: parent-level boundary coverage now uses pressure-to-owner routes in
+  `README.md`, `PARTS.md`, and `DIRECTION.md`, with validator tokens guarding
+  the route rows.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Parent boundary route wording
+
+- Previous assumption: parent-level Recurrence surfaces expressed boundaries
+  through exclusion prose around global completeness, hidden continuity,
+  recursor spawn, runtime self-healing, owner promotion, beacon verdicts,
+  portable proof acceptance, and source-truth transfer.
+- New reality: the parent route keeps the same authority split through
+  pressure-to-owner-route rows.
+- Reason: Agents-of-Abyss owns recurrence law, owner repositories accept local
+  truth, and `aoa-evals` keeps bounded proof support; the active package should
+  show the next owner route directly.
+- Source surfaces updated: `mechanics/recurrence/README.md`,
+  `mechanics/recurrence/PARTS.md`, `mechanics/recurrence/DIRECTION.md`, and
+  `scripts/validate_repo.py`.
+- Validation: recurrence validator focus, recurrence part runners and tests,
+  catalog check, root validation, semantic AGENTS validation, diff whitespace
+  check, and full pytest passed.
+
 ## Boundaries
 
 This decision does not move recurrence source proof bundles into

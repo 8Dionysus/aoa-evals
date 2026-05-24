@@ -6788,6 +6788,29 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_releasing_route_map_surface_validates_current_route(self) -> None:
+        assert validate_repo.validate_releasing_route_map_surface(REPO_ROOT) == []
+
+    def test_releasing_route_map_surface_rejects_status_ledger_wording(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "docs/RELEASING.md")
+        releasing = tmp_path / "docs" / "RELEASING.md"
+        releasing.write_text(
+            releasing.read_text(encoding="utf-8")
+            + "\nThis readiness audit is not a branch, commit, push, PR, or tag.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_releasing_route_map_surface(tmp_path)
+
+        assert any(
+            issue.location == "docs/RELEASING.md"
+            and "live-status owners" in issue.message
+            and "not a branch" in issue.message
+            for issue in issues
+        )
+
     def test_audit_surface_role_validates_current_route(self) -> None:
         assert validate_repo.validate_audit_surface_role(REPO_ROOT) == []
 

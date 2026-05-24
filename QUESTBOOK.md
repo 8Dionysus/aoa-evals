@@ -68,13 +68,15 @@ Route elsewhere for:
 
 ## Closed Foundation Records
 
-Closed source records stay in `quests/` and generated projections, but they are
-not listed as open obligations here and are not enumerated in this human index.
+Closed source records stay in `quests/` and generated projections as
+provenance. This human index lists current open obligations; closed IDs remain
+discoverable through source records and generated readers.
 
 ## Harvest Candidates
 
 Harvest candidates are open obligations whose evidence may become proof
-surfaces after review. They are not promotions by themselves.
+surfaces after review. Promotion happens through reviewed owner acceptance,
+target surface update, and the relevant validation route.
 
 - `AOA-EV-Q-0004`
 - `AOA-EV-Q-0010`
@@ -88,9 +90,10 @@ Current source placement is lane/state based:
 
 - `quests/<lane>/<state>/AOA-EV-Q-*.yaml` are source quest records;
 - former Agon markdown quest notes are Agon lineage behind
-  `mechanics/agon/PROVENANCE.md`, not active quest lifecycle source records;
-- old top-level quest paths are legacy path vocabulary, not active source
-  files.
+  `mechanics/agon/PROVENANCE.md`; active quest lifecycle source records stay in
+  lane/state YAML;
+- old top-level quest paths are legacy path vocabulary; active source files use
+  lane/state placement.
 
 Current topology uses paths such as:
 
@@ -113,21 +116,24 @@ generated projections must follow any future path change in the same slice.
 
 State meaning is defined in `quests/LIFECYCLE.md`: `captured`, `triaged`,
 `ready`, `active`, `blocked`, and `reanchor` remain open obligations; `done`
-and `dropped` remain closed provenance and are not listed as current open
-obligations.
+and `dropped` remain closed provenance; current open obligations come from the
+open-state source records.
 
 ## Quest-Harvest Posture
 
 `aoa-quest-harvest` may be installed at `.agents/skills/aoa-quest-harvest` as a
 post-session aid for proof-surface triage in this repo.
 
-- use it only after a reviewed run, closure, or pause;
-- do not use it inside an active route;
-- it does not define orchestrator identity;
-- it does not replace playbook, memo, eval, or source-owned doctrine;
-- do not promote on one anecdotal repeat.
+Quest-harvest route:
 
-Allowed verdicts:
+- run after a reviewed run, closure, or pause;
+- route output into quest source records, owner handoff, or reviewed
+  promotion;
+- keep orchestrator identity with the orchestrator owner;
+- route playbook, memo, eval, and doctrine outcomes to their source owners;
+- promote after reviewed repeat evidence and target-owner acceptance.
+
+Review verdicts:
 
 - `keep/open quest`
 - `promote to skill`
@@ -148,5 +154,5 @@ Allowed verdicts:
 
 The live generated quest pair is a repo-local review and validation projection.
 The example pair is its example mirror.
-Neither pair replaces eval bundle meaning or becomes live portable verdict
-authority.
+Eval bundle meaning stays in source bundles; portable verdict authority stays
+with reviewed eval or report surfaces.

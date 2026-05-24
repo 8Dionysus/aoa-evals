@@ -4995,6 +4995,29 @@ class TestValidateQuestbookSurface:
             for issue in issues
         )
 
+    def test_questbook_surface_requires_reviewed_harvest_route(
+        self, tmp_path: Path
+    ) -> None:
+        make_questbook_surface(tmp_path)
+        questbook_path = tmp_path / "QUESTBOOK.md"
+        questbook_path.write_text(
+            questbook_path.read_text(encoding="utf-8").replace(
+                "Promotion happens through reviewed owner acceptance",
+                "Promotion happens immediately",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any(
+            issue.location == "QUESTBOOK.md"
+            and "Promotion happens through reviewed owner acceptance"
+            in issue.message
+            for issue in issues
+        )
+
     def test_quest_lifecycle_surface_validates_current_state_contract(self) -> None:
         quest_schema = json.loads(
             (REPO_ROOT / validate_repo.QUEST_SCHEMA_NAME).read_text(encoding="utf-8")

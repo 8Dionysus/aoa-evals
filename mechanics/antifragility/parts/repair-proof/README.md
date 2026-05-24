@@ -43,22 +43,23 @@ object, local rollback, and downstream follow-through. `growth-cycle` owns
 diagnosis-gate pressure once cause discipline is being evaluated as growth
 cycle behavior.
 
-`aoa-evals` owns bounded repair proof only: claim wording, evidence review,
-ambiguity-reduction reading, report interpretation, and the stop-line between
-repair quality evidence and owner-object quality.
+`aoa-evals` owns the bounded repair proof reading: claim wording, evidence
+review, ambiguity-reduction reading, report interpretation, and the boundary
+between repair quality evidence and owner-object quality. Authority beyond
+that proof reading routes through the stronger owner split above.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Boundary routes keep repair-proof pressure with the owner that can act on it:
 
-- final owner-object quality proof;
-- permanent stability;
-- authority widening after a repair;
-- that `repair-proof` is a parent mechanic;
-- that `aoa-diagnosis-cause-discipline` has been solved or absorbed by this
-  package;
-- growth-cycle improvement without a separate growth-cycle proof route.
+| Pressure | Owner route |
+| --- | --- |
+| final owner-object quality pressure | owner repository acceptance route |
+| permanent stability pressure | owner repository regression and follow-through route |
+| authority widening after a repair pressure | owner approval and route-law review |
+| repair parent topology pressure | `mechanics/antifragility/` parent route plus evidence-cluster review |
+| `aoa-diagnosis-cause-discipline` pressure | `mechanics/growth-cycle/parts/diagnosis-gate/` route |
+| growth-cycle improvement pressure | growth-cycle proof route |
 
 ## Validation
 

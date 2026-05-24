@@ -1,7 +1,8 @@
 # Antifragility Direction
 
 Antifragility in `aoa-evals` should make stress, recovery, and bounded repair
-proof reviewable without claiming global resilience or runtime self-healing.
+proof reviewable while global resilience and runtime self-healing pressure
+route to stronger owners.
 
 Use this file for the package's current operating direction: read it after the
 parent entry card and before `PARTS.md`, part contracts, source bundles,
@@ -31,16 +32,19 @@ decision records, and `PROVENANCE.md`.
 ## Growth rule
 
 Add detail only when an antifragility proof operation repeats with its own
-claim, evidence shape, support payload, and validation. Do not use
-antifragility as a generic home for any repair-shaped material.
+claim, evidence shape, support payload, and validation. Generic repair-shaped
+pressure routes first to the current owner, repair-proof part, or
+growth-cycle diagnosis lane.
 
 ## Stop-lines
 
-- Do not claim broad resilience, automatic recovery, deletion authority,
-  one-score health, or runtime self-healing.
-- Do not promote selected runtime evidence into proof canon by placement.
-- Do not move diagnosis, growth-cycle, or comparison surfaces here by naming
-  similarity alone.
+- Broad resilience, automatic recovery, deletion authority, one-score health,
+  and runtime self-healing pressure route to the stronger owner split in the
+  parent README.
+- Selected runtime evidence routes through `mechanics/audit/` until
+  bundle-local review accepts a bounded interpretation.
+- Diagnosis, growth-cycle, and comparison pressure route through their current
+  mechanics before Antifragility grows a new part.
 
 ## Validation
 

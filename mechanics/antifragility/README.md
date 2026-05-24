@@ -40,9 +40,9 @@ the operation materializes the center antifragility mechanic on the proof side.
 See [PARTS.md](PARTS.md).
 
 The active parts are `posture-review`, `stress-recovery-window`, and
-`repair-proof`. Diagnosis-cause discipline is not an antifragility part; it
-routes through `mechanics/growth-cycle/parts/diagnosis-gate/` while bounded
-repair proof remains here.
+`repair-proof`. Diagnosis-cause discipline routes through
+`mechanics/growth-cycle/parts/diagnosis-gate/` while bounded repair proof
+remains here.
 
 ## Inputs
 
@@ -60,8 +60,8 @@ repair proof remains here.
 - split-axis stress and recovery readouts;
 - bounded repair-proof notes;
 - owner handoff requests or adjacent bundle routes;
-- no one-score health metric, deletion theater, runtime recovery authority, or
-  global resilience claim.
+- owner handoff routes for one-score-health, deletion/cleanup,
+  runtime-recovery, and global-resilience pressure.
 
 ## Stronger Owner Split
 
@@ -78,16 +78,17 @@ evidence.
 
 ## Stop-Lines
 
-This package supports bounded eval-side proof only. Keep these claims outside
-this package:
+Boundary routes keep Antifragility proof pressure with the owner that can act
+on it:
 
-- global resilience or federation health;
-- live runtime self-healing;
-- deletion, cleanup, or owner-local repair authority;
-- one-score antifragility;
-- proof that route hints, stats, memo context, or generated readers outrank
-  owner receipts;
-- proof that diagnosis-cause discipline or growth-cycle movement is solved.
+| Pressure | Owner route |
+| --- | --- |
+| global resilience or federation-health pressure | `Agents-of-Abyss` doctrine route plus source-owner evidence review |
+| live runtime self-healing pressure | runtime owner or `abyss-stack` runtime route |
+| deletion, cleanup, or owner-local repair authority pressure | owner repository repair and cleanup route |
+| one-score antifragility pressure | `aoa-stats` vector-window route plus AoA doctrine review |
+| route, stats, memo, or generated-reader authority pressure | owning route, stats, memo, generated-source, and owner-receipt routes |
+| diagnosis-cause discipline or growth-cycle movement pressure | `mechanics/growth-cycle/parts/diagnosis-gate/` route |
 
 ## Legacy
 

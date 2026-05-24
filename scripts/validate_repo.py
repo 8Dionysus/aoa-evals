@@ -2264,6 +2264,9 @@ ANTIFRAGILITY_POSTURE_PART_README_NAME = (
 ANTIFRAGILITY_STRESS_WINDOW_PART_README_NAME = (
     "mechanics/antifragility/parts/stress-recovery-window/README.md"
 )
+ANTIFRAGILITY_STRESS_WINDOW_DOC_NAME = (
+    "mechanics/antifragility/parts/stress-recovery-window/docs/STRESS_RECOVERY_WINDOW_EVALS.md"
+)
 ANTIFRAGILITY_REPAIR_PROOF_PART_README_NAME = (
     "mechanics/antifragility/parts/repair-proof/README.md"
 )
@@ -4027,8 +4030,12 @@ ANTIFRAGILITY_MECHANIC_REQUIRED_TOKENS = (
     "mechanics/growth-cycle/parts/diagnosis-gate/",
     "Stronger Owner Split",
     "Stop-Lines",
-    "global resilience",
-    "runtime self-healing",
+    "| global resilience or federation-health pressure | `Agents-of-Abyss` doctrine route plus source-owner evidence review |",
+    "| live runtime self-healing pressure | runtime owner or `abyss-stack` runtime route |",
+    "| deletion, cleanup, or owner-local repair authority pressure | owner repository repair and cleanup route |",
+    "| one-score antifragility pressure | `aoa-stats` vector-window route plus AoA doctrine review |",
+    "| route, stats, memo, or generated-reader authority pressure | owning route, stats, memo, generated-source, and owner-receipt routes |",
+    "| diagnosis-cause discipline or growth-cycle movement pressure | `mechanics/growth-cycle/parts/diagnosis-gate/` route |",
     "python scripts/validate_repo.py --eval aoa-stress-recovery-window",
 )
 ANTIFRAGILITY_MECHANIC_AGENTS_REQUIRED_TOKENS = (
@@ -4052,6 +4059,11 @@ ANTIFRAGILITY_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "Validation",
     "aoa-diagnosis-cause-discipline",
     "mechanics/growth-cycle/parts/diagnosis-gate/",
+    "| global resilience or federation health | `Agents-of-Abyss` doctrine route plus source-owner evidence review |",
+    "| one-score health or antifragility movement | `aoa-stats` vector-window route plus AoA doctrine review |",
+    "| deletion theater, cleanup authority, runtime self-healing, or owner-local repair execution | owner repository or `abyss-stack` runtime route |",
+    "| route, memo, stats, KAG, playbook, or generated-reader truth promotion | owning route, memo, stats, KAG, playbook, generated-source, and owner-receipt routes |",
+    "| diagnosis-cause discipline or growth-cycle movement | `mechanics/growth-cycle/parts/diagnosis-gate/` route |",
 )
 ANTIFRAGILITY_PART_README_COMMON_REQUIRED_TOKENS = (
     "## Inputs",
@@ -4065,7 +4077,11 @@ ANTIFRAGILITY_POSTURE_PART_REQUIRED_TOKENS = (
     "mechanics/antifragility/parts/posture-review/schemas/antifragility_eval_report_v1.json",
     "source eval package stays under `evals/`",
     "owner repository owns the local",
-    "global resilience",
+    "| repo-global resilience pressure | `Agents-of-Abyss` doctrine route plus owner evidence review |",
+    "| repeated-window improvement pressure | `stress-recovery-window` and `comparison-spine` longitudinal routes |",
+    "| runtime repair or live self-healing pressure | owner repository or `abyss-stack` runtime route |",
+    "| source-ownership transfer pressure | owner repository receipt route |",
+    "| route hints, stats, memory, or generated-reader authority pressure | owner receipts plus owning route, stats, memo, and generated-source routes |",
     "python scripts/build_catalog.py --check",
 ) + ANTIFRAGILITY_PART_README_COMMON_REQUIRED_TOKENS
 ANTIFRAGILITY_STRESS_WINDOW_PART_REQUIRED_TOKENS = (
@@ -4077,16 +4093,35 @@ ANTIFRAGILITY_STRESS_WINDOW_PART_REQUIRED_TOKENS = (
     "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.runtime-chaos-window.example.json",
     "comparison-spine",
     "audit",
-    "comparison acceptance without the `comparison-spine` readout boundary",
+    "| federation-wide resilience pressure | `Agents-of-Abyss` doctrine route plus owner evidence review |",
+    "| live health or runtime recovery authority pressure | runtime owner or `abyss-stack` runtime route |",
+    "| one-score antifragility movement pressure | `aoa-stats` vector-window route plus AoA doctrine review |",
+    "| route, KAG, memo, playbook, or generated-reader authority pressure | owning route, KAG, memo, playbook, generated-source, and owner-evidence routes |",
+    "| comparison acceptance pressure | `mechanics/comparison-spine/parts/longitudinal-window/` readout route |",
     "python scripts/build_catalog.py --check",
 ) + ANTIFRAGILITY_PART_README_COMMON_REQUIRED_TOKENS
+ANTIFRAGILITY_STRESS_WINDOW_DOC_REQUIRED_TOKENS = (
+    "It answers a narrow question",
+    "This remains a proof surface",
+    "Workflow ownership stays with the owner route",
+    "Federation-wide vibe-check pressure routes back to named owner evidence",
+    "| route hints outranking owner receipts | owner receipt route before route-hint interpretation |",
+    "| memo pattern objects standing in for current-run truth | owner evidence route before memo context |",
+    "| regrounding success from ticket existence alone | regrounding evidence route with outcome conditions |",
+    "| KAG quarantine exit as healthy re-entry | KAG condition route plus explicit re-entry evidence |",
+    "| single-number movement pressure | split-axis stress-recovery readout route |",
+)
 ANTIFRAGILITY_REPAIR_PROOF_PART_REQUIRED_TOKENS = (
     "aoa-repair-boundedness",
     "mechanics/antifragility/parts/repair-proof/fixtures/repair-boundedness-v1/README.md",
     "repair-proof route",
-    "repair-proof` is a parent mechanic",
     "aoa-diagnosis-cause-discipline",
-    "growth-cycle improvement without a separate growth-cycle proof route",
+    "| final owner-object quality pressure | owner repository acceptance route |",
+    "| permanent stability pressure | owner repository regression and follow-through route |",
+    "| authority widening after a repair pressure | owner approval and route-law review |",
+    "| repair parent topology pressure | `mechanics/antifragility/` parent route plus evidence-cluster review |",
+    "| `aoa-diagnosis-cause-discipline` pressure | `mechanics/growth-cycle/parts/diagnosis-gate/` route |",
+    "| growth-cycle improvement pressure | growth-cycle proof route |",
     "python scripts/build_catalog.py --check",
 ) + ANTIFRAGILITY_PART_README_COMMON_REQUIRED_TOKENS
 ANTIFRAGILITY_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
@@ -10936,6 +10971,12 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         repo_root=repo_root,
         path_name=ANTIFRAGILITY_STRESS_WINDOW_PART_README_NAME,
         tokens=ANTIFRAGILITY_STRESS_WINDOW_PART_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ANTIFRAGILITY_STRESS_WINDOW_DOC_NAME,
+        tokens=ANTIFRAGILITY_STRESS_WINDOW_DOC_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(

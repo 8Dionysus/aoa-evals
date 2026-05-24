@@ -3128,7 +3128,7 @@ PUBLICATION_RECEIPTS_RECEIPT_PAYLOAD_PART_REQUIRED_TOKENS = (
     "reviewed bounded report",
     "source bundle",
     "The payload is a publication sidecar",
-    "Do not treat a schema-valid payload as a published receipt",
+    "schema-valid payload reads as a published receipt",
 ) + PUBLICATION_RECEIPTS_PART_README_COMMON_TOKENS
 PUBLICATION_RECEIPTS_STATS_ENVELOPE_PART_REQUIRED_TOKENS = (
     "Stats Envelope Mirror Part",
@@ -3137,7 +3137,7 @@ PUBLICATION_RECEIPTS_STATS_ENVELOPE_PART_REQUIRED_TOKENS = (
     "event-kind vocabulary",
     "owner-local live receipt log",
     "dry-review artifacts",
-    "Do not edit this mirror as if it were the canonical `aoa-stats` schema",
+    "mirror edit reads as canonical `aoa-stats` schema work",
 ) + PUBLICATION_RECEIPTS_PART_README_COMMON_TOKENS
 PUBLICATION_RECEIPTS_LIVE_PUBLISHER_PART_REQUIRED_TOKENS = (
     "Live Publisher Part",
@@ -3146,7 +3146,7 @@ PUBLICATION_RECEIPTS_LIVE_PUBLISHER_PART_REQUIRED_TOKENS = (
     "tests/test_live_receipt_log.py",
     "append-only JSONL writes",
     "duplicate `event_id` skips",
-    "Do not run the publisher for a dry-review payload preview",
+    "dry-review payload preview looks publishable",
 ) + PUBLICATION_RECEIPTS_PART_README_COMMON_TOKENS
 PUBLICATION_RECEIPTS_INTAKE_DRY_REVIEW_PART_REQUIRED_TOKENS = (
     "Intake Dry Review Part",
@@ -3154,8 +3154,8 @@ PUBLICATION_RECEIPTS_INTAKE_DRY_REVIEW_PART_REQUIRED_TOKENS = (
     "candidate_payload_preview",
     "`receipt_status` stays",
     "`not_published`",
-    "Do not add `event_kind`, `event_id`, `observed_at`, `object_ref`,",
-    "Do not append `.aoa/live_receipts/` from a dry review",
+    "top-level `event_kind`, `event_id`, `observed_at`, `object_ref`,",
+    "`.aoa/live_receipts/` append appears",
 ) + PUBLICATION_RECEIPTS_PART_README_COMMON_TOKENS
 PUBLICATION_RECEIPTS_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "Publication Receipts Part Contract Guard",

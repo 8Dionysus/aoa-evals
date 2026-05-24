@@ -6,8 +6,8 @@ This part owns the `eval_result_receipt` payload contract for one bounded eval
 publication.
 
 It defines the payload that can travel inside a stats event envelope after a
-reviewed bundle-local report exists. It does not own the envelope, the live log,
-the reviewed report, or the bundle verdict.
+reviewed bundle-local report exists. Envelope shape, live-log append, reviewed
+report meaning, and bundle verdict route to their owning surfaces.
 
 ## Source Surfaces
 
@@ -28,7 +28,7 @@ the reviewed report, or the bundle verdict.
 
 - schema-backed `eval_result_receipt` payload fields;
 - a public example payload inside an event envelope;
-- guide wording for what a receipt may say and must not say;
+- guide wording for what a receipt may say and where overclaim pressure routes;
 - validation failures when payload examples or dry-review previews exceed the
   bundle-local report boundary.
 
@@ -49,14 +49,13 @@ boundary.
 
 ## Stop-Lines
 
-- Do not treat a schema-valid payload as a published receipt.
-- Do not let a payload replace the bundle-local report or report schema.
-- Do not invent a repo-global score, universal ranking, or cross-bundle proof
-  claim from receipt fields.
-- Do not duplicate private logs, hidden telemetry, secrets, or unreduced
-  operator traces in examples or payload previews.
-- Do not add payload fields that imply live-log append, stats ownership,
-  runtime acceptance, quest closure, or bundle promotion.
+| Pressure | Route |
+| --- | --- |
+| schema-valid payload reads as a published receipt | route publication through the stats envelope and live-publisher boundary |
+| payload reads as replacement for the bundle-local report or report schema | return to the reviewed report and source bundle |
+| receipt fields imply repo-global score, universal ranking, or cross-bundle proof claim | narrow to one bounded eval publication |
+| private logs, hidden telemetry, secrets, or unreduced operator traces appear | keep them out of public examples and payload previews |
+| payload field implies live-log append, stats ownership, runtime acceptance, quest closure, or bundle promotion | route to live-publisher, `aoa-stats`, runtime owner, quest owner, or bundle-local review |
 
 ## Validation
 

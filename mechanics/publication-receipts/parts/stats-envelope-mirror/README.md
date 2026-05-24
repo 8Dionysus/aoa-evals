@@ -33,22 +33,21 @@ cross-repo event vocabulary with `aoa-stats`.
 The canonical owner remains `aoa-stats` at
 `repo:aoa-stats/schemas/stats-event-envelope.schema.json`.
 
-This local mirror supports `aoa-evals` validation only. It does not define the
-cross-repo event vocabulary.
+This local mirror supports `aoa-evals` validation only. Cross-repo event
+vocabulary routes to the canonical `aoa-stats` owner.
 
 `aoa-evals` owns only the eval-result payload semantics and local receipt
 subordination checks.
 
 ## Stop-Lines
 
-- Do not edit this mirror as if it were the canonical `aoa-stats` schema.
-- Do not add event kinds for local convenience without current canonical owner
-  alignment.
-- Do not use envelope validation as proof acceptance, runtime acceptance, or
-  bundle promotion.
-- Do not turn dry-review artifacts into publishable envelope records.
-- Do not read or publish raw live receipt log content for docs-only or
-  route-card-only changes.
+| Pressure | Route |
+| --- | --- |
+| mirror edit reads as canonical `aoa-stats` schema work | route canonical schema meaning to `aoa-stats` |
+| local convenience wants a new event kind | align with the canonical owner before local mirror changes |
+| envelope validation reads as proof acceptance, runtime acceptance, or bundle promotion | return to bundle-local review, runtime owner, and lifecycle route |
+| dry-review artifacts read as publishable envelope records | route to intake dry review until publication is intentionally invoked |
+| raw live receipt log content appears in docs-only or route-card-only work | leave raw log content outside the docs route |
 
 ## Validation
 

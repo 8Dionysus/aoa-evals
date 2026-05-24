@@ -53,6 +53,39 @@ owner-local acceptance.
 - Runtime candidate evidence remains below bundle-local review and stronger
   owner authority.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: active Distillation part README files expose inputs, outputs,
+  stronger owner split, stop-lines, and validation route markers.
+- Changed: active Distillation part README files express stop-line coverage as
+  owner-route pressure, and part-specific validator tokens guard full
+  pressure-to-owner-route rows.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Distillation part boundary route wording
+
+- Previous assumption: compost-provenance and runtime-candidate-adoption part
+  contracts used direct exclusion prose to keep stronger owner authority outside
+  the part.
+- New reality: those part contracts keep the same authority boundary through
+  pressure-to-owner-route tables whose full owner-route rows are validator
+  guarded.
+- Reason: low-context agents can follow concrete ToS, memo, runtime, receipt,
+  KAG, comparison, and owner handoffs from the table without interpreting dense
+  exclusion prose.
+- Source surfaces updated:
+  `mechanics/distillation/parts/compost-provenance/README.md`,
+  `mechanics/distillation/parts/runtime-candidate-adoption/README.md`, and
+  `scripts/validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  distillation_part_readmes`, bundle-local distillation eval checks,
+  `python scripts/validate_repo.py`, and
+  `python scripts/validate_semantic_agents.py`.
+
 ## Validation
 
 Expected validation route:

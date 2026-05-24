@@ -6919,6 +6919,37 @@ class TestValidateQuestRouteSurfaces:
     def test_audit_surface_role_validates_current_route(self) -> None:
         assert validate_repo.validate_audit_surface_role(REPO_ROOT) == []
 
+    def test_audit_surface_role_rejects_stale_negative_boundary_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "AUDIT.md")
+        copy_repo_text(tmp_path, "AGENTS.md")
+        agents_path = tmp_path / "AGENTS.md"
+
+        for stale_phrase in validate_repo.ROOT_AGENTS_STALE_NEGATIVE_ROUTE_PHRASES:
+            agents_path.write_text(
+                agents_path.read_text(encoding="utf-8")
+                + f"\n\n{stale_phrase}\n",
+                encoding="utf-8",
+            )
+
+            issues = validate_repo.validate_audit_surface_role(tmp_path)
+
+            assert any(
+                issue.location == "AGENTS.md"
+                and "claim pressure routes instead of stale negative boundary scaffold"
+                in issue.message
+                for issue in issues
+            )
+
+            agents_path.write_text(
+                agents_path.read_text(encoding="utf-8").replace(
+                    f"\n\n{stale_phrase}\n",
+                    "",
+                ),
+                encoding="utf-8",
+            )
+
     def test_audit_surface_role_rejects_audit_as_route_law(
         self, tmp_path: Path
     ) -> None:

@@ -55,6 +55,22 @@ An eval bundle may rely on one technique, several techniques, one skill, several
 Its primary responsibility is reproducible bounded proof. Execution and
 technique canonization stay with the owning skill and technique layers.
 
+### Agent eval vocabulary
+
+Modern agent eval language maps into `aoa-evals` through owner routes:
+
+| Agent-eval term | Local proof route |
+| --- | --- |
+| task or case | bundle fixture/case surface and bundle-local fixture contract |
+| trial or run | runner output, report artifact, or receipt preview under its owning bundle or mechanic |
+| grader | scoring or verdict logic in `EVAL.md`, `eval.yaml`, report schema, or bounded scorer helper |
+| transcript or trajectory | selected evidence, trace fixture, or audit candidate packet before bundle-local review |
+| outcome | bounded report verdict or comparative readout under the bundle interpretation boundary |
+| harness or scaffold | bundle-local runner contract, shared runner surface, or stronger execution owner such as `aoa-skills` or `aoa-agents` |
+
+Use this vocabulary as route translation. The owner surfaces above keep the
+proof authority.
+
 ### Mechanics
 
 A mechanic is a recurring proof-layer operation with its own inputs, outputs,

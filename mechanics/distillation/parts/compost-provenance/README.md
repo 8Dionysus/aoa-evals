@@ -39,24 +39,26 @@ repository owns the original run quality and source artifact context.
 `comparison-spine` owns artifact/process comparison when comparison is the
 claim.
 
-`aoa-evals` owns only bounded provenance-preservation proof wording, fixture
-support, report expectations, and bundle-local interpretation for
-`aoa-compost-provenance-preservation`.
+`aoa-evals` owns this part's bounded provenance-preservation proof wording,
+fixture support, report expectations, and bundle-local interpretation for
+`aoa-compost-provenance-preservation`. Authority beyond those proof readings
+routes through the stronger owner split above.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Boundary routes keep compost-provenance pressure with the owner that can act on it:
 
-- ToS canon;
-- principle truth;
-- compost canon;
-- original run quality;
-- witness trace honesty;
-- general artifact-quality verdict;
-- artifact/process comparison;
-- memory canon;
-- operational ownership transfer.
+| Pressure | Owner route |
+| --- | --- |
+| ToS canon pressure | Tree-of-Sophia canon route |
+| principle truth pressure | Tree-of-Sophia authored-meaning route |
+| compost canon pressure | Tree-of-Sophia compost route |
+| original run quality pressure | owner repository source-artifact route |
+| witness trace honesty pressure | witness-source evidence route |
+| artifact-quality verdict pressure | bundle-local artifact review route |
+| artifact/process comparison pressure | `comparison-spine` route |
+| memory canon pressure | `aoa-memo` memory route |
+| operational ownership transfer pressure | owner repository transfer route |
 
 ## Validation
 

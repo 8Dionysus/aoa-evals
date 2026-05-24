@@ -51,24 +51,26 @@ plumbing. `publication-receipts` owns receipt publication posture inside
 `aoa-kag` owns KAG promotion and graph lift. Owner repositories own final
 owner acceptance and owner-local adoption.
 
-`aoa-evals` owns only bounded reviewed-candidate adoption proof wording,
+`aoa-evals` owns this part's bounded reviewed-candidate adoption proof wording,
 fixture support, report expectations, and bundle-local interpretation for
-`aoa-memo-reviewed-candidate-adoption-integrity`.
+`aoa-memo-reviewed-candidate-adoption-integrity`. Authority beyond those proof
+readings routes through the stronger owner split above.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Boundary routes keep runtime-candidate adoption pressure with the owner that can act on it:
 
-- final promotion;
-- memory canon or memo object truth;
-- generic live memory-ledger behavior;
-- memo recall implementation;
-- runtime pack contract authority;
-- live receipt append behavior;
-- Experience adoption federation;
-- KAG lift or bridge-ready truth;
-- owner-local adoption or final owner acceptance.
+| Pressure | Owner route |
+| --- | --- |
+| final promotion pressure | owner approval and durable memory review route |
+| memory canon or memo object truth pressure | `aoa-memo` memory-object route |
+| live memory-ledger behavior pressure | `aoa-memo` and `abyss-stack` runtime route |
+| memo recall implementation pressure | `mechanics/recurrence/parts/memory-recall/` and `aoa-memo` route |
+| runtime pack contract authority pressure | `aoa-agents` runtime artifact route |
+| live receipt append behavior pressure | `publication-receipts` and runtime receipt route |
+| Experience adoption federation pressure | `mechanics/experience/parts/adoption-federation/` |
+| KAG lift or bridge-ready truth pressure | `aoa-kag` graph-lift route |
+| owner-local adoption or final owner acceptance pressure | owner repository route |
 
 Confirmed memo-surviving writeback acts stay with
 `aoa-memo-writeback-act-integrity`; memo recall now routes through

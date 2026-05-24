@@ -9652,6 +9652,30 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_closeout_writeback_ingress_validates_current_route(self) -> None:
+        assert validate_repo.validate_closeout_writeback_ingress_surface(REPO_ROOT) == []
+
+    def test_closeout_writeback_ingress_rejects_route_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, validate_repo.CLOSEOUT_WRITEBACK_INGRESS_NAME)
+        copy_repo_text(tmp_path, validate_repo.CLOSEOUT_WRITEBACK_INGRESS_DECISION_NAME)
+        ingress_path = tmp_path / validate_repo.CLOSEOUT_WRITEBACK_INGRESS_NAME
+        ingress_path.write_text(
+            ingress_path.read_text(encoding="utf-8")
+            + "\nThis note remains the owner-local re-read anchor for the lane, not a shadow copy of bundle truth.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_closeout_writeback_ingress_surface(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.CLOSEOUT_WRITEBACK_INGRESS_NAME
+            and "re-read route" in issue.message
+            and "not a shadow copy" in issue.message
+            for issue in issues
+        )
+
     def test_root_authored_surface_classification_rejects_unclassified_root_doc(
         self, tmp_path: Path
     ) -> None:

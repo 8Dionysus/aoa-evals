@@ -1478,6 +1478,37 @@ PORTABLE_EVAL_BOUNDARY_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD = (
     "Full universality is not required",
     "Do not confuse portability with scale",
 )
+CLOSEOUT_WRITEBACK_INGRESS_NAME = "docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md"
+CLOSEOUT_WRITEBACK_INGRESS_DECISION_NAME = (
+    "docs/decisions/0045-closeout-writeback-ingress-boundary.md"
+)
+CLOSEOUT_WRITEBACK_INGRESS_REQUIRED_TOKENS = (
+    "traceable proof ingress",
+    "owner-local re-read anchor",
+    "bundle remains the source surface",
+    "workflow meaning routes to `aoa-skills`",
+    "neighboring proof context",
+    "bundle truth stays",
+    "new-bundle authority deferred",
+)
+CLOSEOUT_WRITEBACK_INGRESS_FORBIDDEN_ROUTE_SCAFFOLD = (
+    "instead of leaving it as closeout residue or chat memory",
+    "rather than as a second source of truth",
+    "should not absorb this proof lane",
+    "not a rewording of the already-landed recall",
+    "not a shadow copy",
+    "still does not name a new bundle",
+)
+CLOSEOUT_WRITEBACK_INGRESS_DECISION_REQUIRED_TOKENS = (
+    "Closeout Writeback Ingress Boundary",
+    "owner-local ingress anchor",
+    "root ingress",
+    "reviewed-candidate adoption",
+    "Current Applicability",
+    "Review Log",
+    "owner-local re-read anchor",
+    "traceable proof ingress",
+)
 MECHANIC_ROUTE_CARD_FILES = tuple(
     route
     for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
@@ -10124,6 +10155,33 @@ def validate_portable_eval_boundary_guide_surface(repo_root: Path) -> list[Valid
                         f"through positive review criteria instead of stale scaffold '{stale_phrase}'",
                     )
                 )
+    return issues
+
+
+def validate_closeout_writeback_ingress_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    ingress_text = require_tokens(
+        repo_root=repo_root,
+        path_name=CLOSEOUT_WRITEBACK_INGRESS_NAME,
+        tokens=CLOSEOUT_WRITEBACK_INGRESS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    if ingress_text:
+        for stale_phrase in CLOSEOUT_WRITEBACK_INGRESS_FORBIDDEN_ROUTE_SCAFFOLD:
+            if stale_phrase in ingress_text:
+                issues.append(
+                    ValidationIssue(
+                        CLOSEOUT_WRITEBACK_INGRESS_NAME,
+                        "closeout writeback ingress should name the active "
+                        f"re-read route instead of stale scaffold '{stale_phrase}'",
+                    )
+                )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=CLOSEOUT_WRITEBACK_INGRESS_DECISION_NAME,
+        tokens=CLOSEOUT_WRITEBACK_INGRESS_DECISION_REQUIRED_TOKENS,
+        issues=issues,
+    )
     return issues
 
 
@@ -20177,6 +20235,7 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_eval_philosophy_route_map_surface(repo_root))
     issues.extend(validate_docs_readme_route_map(repo_root))
     issues.extend(validate_portable_eval_boundary_guide_surface(repo_root))
+    issues.extend(validate_closeout_writeback_ingress_surface(repo_root))
     issues.extend(validate_read_model_command_ownership(repo_root))
     issues.extend(validate_releasing_route_map_surface(repo_root))
     issues.extend(validate_source_eval_tree_topology_surfaces(repo_root))

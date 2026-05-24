@@ -1565,6 +1565,21 @@ EVAL_REVIEW_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD = (
     "score semantics still too vague",
     "verdict logic still too dependent on hidden reviewer intuition",
 )
+BLIND_SPOT_DISCLOSURE_GUIDE_NAME = "docs/BLIND_SPOT_DISCLOSURE_GUIDE.md"
+BLIND_SPOT_DISCLOSURE_GUIDE_REQUIRED_TOKENS = (
+    "blind-spot disclosure guide",
+    "Disclosure Posture",
+    "Disclosure needs a review gap route",
+    "bundle-shaped specificity",
+    "false-pass paths need exposure",
+    "Review defers through these gap routes",
+)
+BLIND_SPOT_DISCLOSURE_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD = (
+    "Weak disclosure sounds like",
+    "the blind spots are generic rather than bundle-shaped",
+    "the bundle hides likely false-pass paths",
+    "Strong review usually defers when",
+)
 MECHANIC_ROUTE_CARD_FILES = tuple(
     route
     for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
@@ -10299,6 +10314,27 @@ def validate_eval_review_guide_surface(repo_root: Path) -> list[ValidationIssue]
                         EVAL_REVIEW_GUIDE_NAME,
                         "eval review guide should name maturity gap routes "
                         f"instead of stale scaffold '{stale_phrase}'",
+                    )
+                )
+    return issues
+
+
+def validate_blind_spot_disclosure_guide_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    guide_text = require_tokens(
+        repo_root=repo_root,
+        path_name=BLIND_SPOT_DISCLOSURE_GUIDE_NAME,
+        tokens=BLIND_SPOT_DISCLOSURE_GUIDE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    if guide_text:
+        for stale_phrase in BLIND_SPOT_DISCLOSURE_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD:
+            if stale_phrase in guide_text:
+                issues.append(
+                    ValidationIssue(
+                        BLIND_SPOT_DISCLOSURE_GUIDE_NAME,
+                        "blind-spot disclosure guide should name disclosure "
+                        f"gap routes instead of stale scaffold '{stale_phrase}'",
                     )
                 )
     return issues
@@ -20354,6 +20390,7 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_eval_philosophy_route_map_surface(repo_root))
     issues.extend(validate_score_semantics_guide_surface(repo_root))
     issues.extend(validate_eval_review_guide_surface(repo_root))
+    issues.extend(validate_blind_spot_disclosure_guide_surface(repo_root))
     issues.extend(validate_docs_readme_route_map(repo_root))
     issues.extend(validate_portable_eval_boundary_guide_surface(repo_root))
     issues.extend(validate_closeout_writeback_ingress_surface(repo_root))

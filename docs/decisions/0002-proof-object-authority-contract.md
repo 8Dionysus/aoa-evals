@@ -80,11 +80,16 @@ As of 2026-05-24:
 - Clarified: `docs/EVAL_REVIEW_GUIDE.md` now expresses maturity deferral as
   concrete gap routes: explicit review evidence, default-use rationale,
   interpretation bounds, bundle-shaped blind spots, and weaker claim language.
+- Clarified: `docs/BLIND_SPOT_DISCLOSURE_GUIDE.md` now expresses blind-spot
+  disclosure as concrete review gap routes: unsupported claims, false-pass or
+  false-fail paths, local-shape assumptions, nearby-bundle routes, and
+  bundle-shaped specificity.
 - Source surfaces updated: `docs/SCORE_SEMANTICS_GUIDE.md`,
-  `docs/EVAL_REVIEW_GUIDE.md`, `scripts/validate_repo.py`, and
-  `tests/test_validate_repo.py`.
+  `docs/EVAL_REVIEW_GUIDE.md`, `docs/BLIND_SPOT_DISCLOSURE_GUIDE.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
 - Validation route: `python -m pytest -q tests/test_validate_repo.py -k score_semantics`
   or `python -m pytest -q tests/test_validate_repo.py -k eval_review_guide`,
+  or `python -m pytest -q tests/test_validate_repo.py -k blind_spot_disclosure`,
   plus `python scripts/validate_repo.py`.
 
 ## Review Log
@@ -115,4 +120,18 @@ As of 2026-05-24:
 - Source surfaces updated: eval review guide, root validator, and focused
   validator tests.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k eval_review_guide`
+  and `python scripts/validate_repo.py`.
+
+### 2026-05-24 - Blind-spot disclosure routes clarified
+
+- Previous assumption: blind-spot guidance could describe weak disclosure and
+  review blocking cases through broad warning language.
+- New reality: low-context agents need disclosure gaps to route directly to
+  unsupported claims, false-pass or false-fail paths, local-shape assumptions,
+  nearby-bundle routes, and bundle-shaped specificity.
+- Reason: blind spots are part of proof-object honesty; review should defer by
+  naming the missing disclosure route, not by leaving generic caution prose.
+- Source surfaces updated: blind-spot disclosure guide, root validator, and
+  focused validator tests.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k blind_spot_disclosure`
   and `python scripts/validate_repo.py`.

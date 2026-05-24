@@ -68,8 +68,8 @@ The current active parts are `compost-provenance` and
 - bundle-local report expectations and generated proof-artifact paths;
 - owner handoff notes when ToS, aoa-memo, aoa-agents, abyss-stack, KAG, or
   owner-local adoption truth is stronger than the eval claim;
-- no proof verdict from raw summary alone, memory canon, runtime activation,
-  owner acceptance, ToS canon, KAG lift, or generic adoption readiness.
+- owner handoff routes for raw-summary, memory-canon, runtime-activation,
+  owner-acceptance, ToS-canon, KAG-lift, or generic-adoption-readiness pressure.
 
 ## Stronger Owner Split
 
@@ -88,27 +88,27 @@ and durable memory review.
 `aoa-techniques` owns reusable distillation practice.
 Owner repositories accept or reject owner-local adoption.
 
-`aoa-evals` owns only the bounded proof reading: whether provenance,
-candidate posture, receipt visibility, recall inspectability, and promotion
-boundaries stayed visible enough for review under the source bundle.
+`aoa-evals` owns the bounded proof reading: whether provenance, candidate
+posture, receipt visibility, recall inspectability, and promotion boundaries
+stayed visible enough for review under the source bundle. Authority beyond
+that proof reading routes through the stronger owner split above.
 
 ## Stop-Lines
 
-This package supports bounded eval-side proof only. Keep these claims outside
-this package:
+Boundary routes keep Distillation pressure with the owner that can act on it:
 
-- summary-as-proof or summarization as distillation proof;
-- raw deletion authority;
-- proof verdict without bundle-local review;
-- memory canon, recall sovereignty, or generic live memory-ledger behavior;
-- runtime activation or hidden runtime-store truth;
-- owner acceptance, owner-local adoption, or final promotion;
-- Tree-of-Sophia canon or compost authority;
-- KAG bridge promotion or graph lift;
-- that memo contradiction or confirmed writeback-act integrity belongs here
-  merely because the word memo appears nearby;
-- that memo recall belongs here after it has an active
-  `mechanics/recurrence/parts/memory-recall/` route.
+| Pressure | Owner route |
+| --- | --- |
+| summary-as-proof pressure | source trace, source bundle, and bundle-local review route |
+| raw deletion authority pressure | owner repository source-retention route |
+| proof verdict without bundle-local review pressure | bundle-local review route |
+| memory canon, recall sovereignty, or live memory-ledger pressure | `aoa-memo` memory route |
+| runtime activation or hidden runtime-store pressure | `abyss-stack` runtime route |
+| owner acceptance, owner-local adoption, or final promotion pressure | owner repository acceptance route |
+| Tree-of-Sophia canon or compost authority pressure | Tree-of-Sophia canon route |
+| KAG bridge promotion or graph lift pressure | `aoa-kag` graph-lift route |
+| memo contradiction or confirmed writeback-act pressure | owning eval bundle or mechanic part route |
+| memo recall pressure | `mechanics/recurrence/parts/memory-recall/` route |
 
 ## Legacy
 

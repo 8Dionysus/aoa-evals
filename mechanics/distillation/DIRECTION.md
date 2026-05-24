@@ -30,15 +30,17 @@ decision records, and `PROVENANCE.md`.
 
 ## Growth rule
 
-Add a distillation part only when a repeated abstraction or adoption operation
-needs a proof-side support surface. Do not move contradiction, base writeback,
-witness trace, or generic adoption work here without a separate evidence pass.
+Add a distillation part when a repeated abstraction or adoption operation needs
+a proof-side support surface. Contradiction, base writeback, witness trace, and
+generic adoption pressure route first to their existing proof owner; a separate
+evidence pass may promote a recurring operation into this package.
 
 ## Stop-lines
 
-- Do not claim ToS canon, memory canon, KAG lift, runtime activation, owner
-  acceptance, or bridge-ready truth.
-- Do not let summary replace source trace or reviewed candidate evidence.
+- ToS canon, memory canon, KAG lift, runtime activation, owner acceptance, and
+  bridge-ready pressure route to the stronger owner named by the parent README.
+- Summary pressure routes through source trace, reviewed candidate evidence, and
+  bundle-local review.
 
 ## Validation
 

@@ -84,6 +84,41 @@ Distillation merely because they are nearby.
   inputs, outputs, owner split, stop-lines, and validation prove a recurring
   operation.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `mechanics/distillation/` remains the eval-side parent for
+  compost-provenance and runtime-candidate-adoption proof support.
+- Changed: parent-level stop-line coverage now uses pressure-to-owner routes in
+  `README.md`, `PARTS.md`, and `DIRECTION.md`, with validator tokens guarding
+  the parent route rows.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Parent boundary route wording
+
+- Previous assumption: parent-level Distillation surfaces expressed boundaries
+  through exclusion prose around summary-as-proof, memory canon, runtime
+  activation, owner acceptance, ToS canon, KAG lift, memo recall, and adjacent
+  memo proof.
+- New reality: the parent route keeps the same authority boundary through
+  pressure-to-owner-route rows.
+- Reason: the package entry, part index, and direction surface now show the
+  next owner route directly, matching the part-contract route shape introduced
+  for `compost-provenance` and `runtime-candidate-adoption`.
+- Source surfaces updated: `mechanics/distillation/README.md`,
+  `mechanics/distillation/PARTS.md`, `mechanics/distillation/DIRECTION.md`, and
+  `scripts/validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  distillation_mechanic`, `python scripts/validate_repo.py --eval
+  aoa-compost-provenance-preservation`, `python scripts/validate_repo.py --eval
+  aoa-memo-reviewed-candidate-adoption-integrity`, `python
+  scripts/validate_repo.py`, `python scripts/validate_semantic_agents.py`,
+  `python scripts/build_catalog.py --check`, `git diff --check`, and `python
+  -m pytest -q`.
+
 ## Boundaries
 
 This decision does not move source proof bundles into

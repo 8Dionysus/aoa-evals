@@ -24,8 +24,8 @@ decision records, and `PROVENANCE.md`.
 - Keep the parent name `rpg`; progression and unlock support are parts.
 - Keep evidence multi-axis and route-scoped.
 - Keep generated unlock cards derived and example-level until owner review.
-- Keep role truth, skill truth, playbook truth, runtime equip state, and stats
-  outside this mechanic.
+- Route role, skill, playbook, runtime equip, and stats pressure through the
+  stronger owner map before changing eval-side proof wording.
 
 ## Growth rule
 
@@ -35,9 +35,13 @@ and owner split.
 
 ## Stop-lines
 
-- Do not claim universal score, automatic rank, quest acceptance, role/skill/
-  playbook authority, runtime equip state, or broad capability growth.
-- Do not let generated cards become unlock authority.
+| Pressure | Route |
+| --- | --- |
+| universal score, automatic rank, or broad capability growth | bounded progression evidence plus comparison/growth owner review |
+| quest acceptance or completion | quest owner and questbook lifecycle route |
+| role, skill, technique, playbook, party, or campaign authority | `aoa-agents`, `aoa-skills`, `aoa-techniques`, and `aoa-playbooks` owner routes |
+| runtime equip state, activation, reward logic, or penalties | `abyss-stack` runtime route after owner gates |
+| generated-card authority | generated card source route plus bundle-local proof review |
 
 ## Validation
 

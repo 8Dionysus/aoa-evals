@@ -6457,6 +6457,51 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_root_design_surfaces_reject_old_route_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            "DESIGN.md",
+            "DESIGN.AGENTS.md",
+            "AGENTS.md",
+            "docs/ARCHITECTURE.md",
+            "docs/decisions/README.md",
+            "docs/decisions/TEMPLATE.md",
+            "docs/decisions/AGENTS.md",
+            validate_repo.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+            validate_repo.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        ):
+            copy_repo_text(tmp_path, path_name)
+        design_path = tmp_path / "DESIGN.md"
+        design_path.write_text(
+            design_path.read_text(encoding="utf-8")
+            + "\nThe repository should feel useful without requiring a full local AoA deployment.\n"
+            + "\nGreen file presence alone is not proof.\n"
+            + "This file does not override local owner truth.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_root_design_surfaces(tmp_path)
+
+        assert any(
+            issue.location == "DESIGN.md"
+            and "positive owner language" in issue.message
+            and "Green file presence alone is not proof" in issue.message
+            for issue in issues
+        )
+        assert any(
+            issue.location == "DESIGN.md"
+            and "positive owner language" in issue.message
+            and "This file does not override local owner truth" in issue.message
+            for issue in issues
+        )
+        assert any(
+            issue.location == "DESIGN.md"
+            and "positive owner language" in issue.message
+            and "without requiring a full local AoA deployment" in issue.message
+            for issue in issues
+        )
+
     def test_design_agents_rejects_future_mechanic_package_wording(
         self, tmp_path: Path
     ) -> None:
@@ -6486,6 +6531,51 @@ class TestValidateQuestRouteSurfaces:
             issue.location == validate_repo.DESIGN_AGENTS_NAME
             and "active mechanic packages" in issue.message
             and "Future mechanic packages" in issue.message
+            for issue in issues
+        )
+
+    def test_design_agents_rejects_old_negative_route_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            "DESIGN.md",
+            "DESIGN.AGENTS.md",
+            "AGENTS.md",
+            "docs/ARCHITECTURE.md",
+            "docs/decisions/README.md",
+            "docs/decisions/TEMPLATE.md",
+            "docs/decisions/AGENTS.md",
+            validate_repo.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+            validate_repo.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        ):
+            copy_repo_text(tmp_path, path_name)
+        design_agents_path = tmp_path / validate_repo.DESIGN_AGENTS_NAME
+        design_agents_path.write_text(
+            design_agents_path.read_text(encoding="utf-8")
+            + "\nthey do not replace the\nsource surface\n"
+            + "\nPresence-only checks are not enough for proof meaning.\n"
+            + "### Negative boundaries stay narrow\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_root_design_surfaces(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.DESIGN_AGENTS_NAME
+            and "owner routes" in issue.message
+            and "Presence-only checks are not enough" in issue.message
+            for issue in issues
+        )
+        assert any(
+            issue.location == validate_repo.DESIGN_AGENTS_NAME
+            and "owner routes" in issue.message
+            and "Negative boundaries stay narrow" in issue.message
+            for issue in issues
+        )
+        assert any(
+            issue.location == validate_repo.DESIGN_AGENTS_NAME
+            and "owner routes" in issue.message
+            and "they do not replace" in issue.message
             for issue in issues
         )
 

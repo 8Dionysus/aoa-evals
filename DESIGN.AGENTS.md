@@ -21,7 +21,7 @@ Adjacent routes:
 It answers one question:
 
 What shape should agent-facing surfaces take so agents can change proof objects
-without losing source truth, evidence boundaries, reviewability, or return
+while preserving source truth, evidence boundaries, reviewability, and return
 routes?
 
 ## Design Thesis
@@ -91,14 +91,15 @@ rules.
 ### Decision cards
 
 `docs/decisions/AGENTS.md` should protect durable rationale. Decisions explain
-why topology, workflow, authority, or validation moved; they do not replace the
-source surface that was changed.
+why topology, workflow, authority, or validation moved; the changed source
+surface keeps the active route.
 
 ### Quest cards
 
 `quests/AGENTS.md` protects proof obligations and lifecycle state under
-`quests/<lane>/<state>/`. Quests are return routes for missing proof, not eval
-bundles and not roadmap direction.
+`quests/<lane>/<state>/`. Quest source records carry return routes for missing
+proof; eval bundle meaning stays in `evals/**/EVAL.md`, and roadmap direction
+stays in `ROADMAP.md`.
 
 ### Runtime candidate and receipt cards
 
@@ -119,9 +120,9 @@ dimensions.
 ### Maintained agent lanes
 
 Maintained agent lanes should live under `.agents/<lane>/`. They route
-execution posture for agents, but they do not own proof meaning. The current
-Spark lane lives under `.agents/spark/` and stays bounded to narrow
-proof-surface work.
+execution posture for agents. Proof meaning stays with source proof objects and
+bundle-local review. The current Spark lane lives under `.agents/spark/` and
+stays bounded to narrow proof-surface work.
 
 ### Legacy cards
 
@@ -220,14 +221,15 @@ the bundle and its manifest.
 
 Generated freshness checks follow generated changes. Schema checks follow
 contract changes. Sibling-reference checks follow compatibility changes.
-Presence-only checks are not enough for proof meaning.
+Proof-meaning checks need source refs, owner routes, generated parity, and
+route-card coverage beyond presence.
 
-### 5. Negative boundaries stay narrow
+### 5. Route maps before stop-lines
 
 Cards should first say what a surface owns and how to move through it. Stop-lines
 belong where overclaiming would otherwise be easy.
 
-### 6. Legacy is a bridge, not a home base
+### 6. Legacy bridges active route
 
 Old names should stay findable, but active cards should route by the living
 operation whenever possible.
@@ -241,7 +243,7 @@ reviewed.
 ### 8. Closeout is proof memory
 
 A closeout should let the next agent tell what changed, what was checked, what
-remains drifted, and where to resume without reconstructing the whole session.
+remains drifted, and where to resume from the closeout itself.
 
 ## Relationship to Other Root Surfaces
 

@@ -59,3 +59,33 @@ legacy files by analogy alone.
 - `python scripts/validate_repo.py` checks the root design surfaces
 - `python scripts/validate_semantic_agents.py` checks the existing semantic
   AGENTS mesh
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `DESIGN.md` and `DESIGN.AGENTS.md` remain the root design spine
+  for system form and agent-facing form.
+- Changed: active design wording now favors owner routes, source refs,
+  bundle-local review, generated parity, and route-card coverage over terse
+  negative guard phrasing.
+- Source surfaces updated: `DESIGN.md`, `DESIGN.AGENTS.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  'root_design or design_agents'`.
+
+## Review Log
+
+### 2026-05-24 - Design route language clarified
+
+- Previous assumption: compact negative phrases in root design were acceptable
+  as guard shorthand when the proof boundary was visible nearby.
+- New reality: low-context agents orient better when the same guards are
+  expressed as positive routes: owner, input, output, validator, and next
+  surface.
+- Reason: the repo-wide topology cleanup is making active route surfaces carry
+  operating maps instead of local warning ledgers.
+- Source surfaces updated: `DESIGN.md`, `DESIGN.AGENTS.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  'root_design or design_agents'`.

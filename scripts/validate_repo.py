@@ -384,6 +384,9 @@ ROOT_DESIGN_REQUIRED_TOKENS = (
     "proof object",
     "generated surface helps navigation",
     "runtime candidates",
+    "bundle-local review turns candidate help",
+    "proof meaning comes from source refs, owner routes, generated parity",
+    "Local owner truth stays authoritative",
     "mechanics/EVIDENCE_CLUSTERS.md",
     "docs/ARCHITECTURE.md",
     "docs/EVAL_PHILOSOPHY.md",
@@ -433,6 +436,8 @@ DESIGN_AGENTS_REQUIRED_TOKENS = (
     "bundle-local review",
     "source proof object",
     "generated companions",
+    "Quest source records carry return routes",
+    "Proof-meaning checks need source refs, owner routes, generated parity",
     "Active mechanic packages",
     "Before changing package boundaries",
     "mechanics/EVIDENCE_CLUSTERS.md",
@@ -444,10 +449,27 @@ DESIGN_AGENTS_REQUIRED_TOKENS = (
 ROOT_DESIGN_FORBIDDEN_STALE_MECHANIC_WORDING = (
     "mechanic-ready",
 )
+ROOT_DESIGN_FORBIDDEN_ROUTE_SCAFFOLD = (
+    "without requiring a full local AoA deployment",
+    "They do not become proof acceptance without",
+    "A polished single run is not enough",
+    "it is not ready to make a strong claim",
+    "Green file presence alone is not proof",
+    "This file does not override local owner truth",
+    "without a compatibility decision",
+)
 DESIGN_AGENTS_FORBIDDEN_STALE_MECHANIC_WORDING = (
     "Future mechanic packages",
     "Before package growth",
     "before mechanics or file movement",
+)
+DESIGN_AGENTS_FORBIDDEN_ROUTE_SCAFFOLD = (
+    "they do not replace the\nsource surface",
+    "not eval\nbundles and not roadmap direction",
+    "Presence-only checks are not enough for proof meaning",
+    "but they do not own proof meaning",
+    "Negative boundaries stay narrow",
+    "not a home base",
 )
 ROOT_AGENTS_DESIGN_REQUIRED_TOKENS = (
     "DESIGN.md",
@@ -10208,6 +10230,15 @@ def validate_root_design_surfaces(repo_root: Path) -> list[ValidationIssue]:
                         f"root design must describe active mechanic authority, not stale preparatory wording '{stale_phrase}'",
                     )
                 )
+        for stale_phrase in ROOT_DESIGN_FORBIDDEN_ROUTE_SCAFFOLD:
+            if stale_phrase in design_text:
+                issues.append(
+                    ValidationIssue(
+                        DESIGN_NAME,
+                        "root design should route proof pressure through positive owner "
+                        f"language instead of stale scaffold '{stale_phrase}'",
+                    )
+                )
     if architecture_text:
         for stale_phrase in ARCHITECTURE_FORBIDDEN_NEGATIVE_ROLE_TOKENS:
             if stale_phrase in architecture_text:
@@ -10225,6 +10256,15 @@ def validate_root_design_surfaces(repo_root: Path) -> list[ValidationIssue]:
                     ValidationIssue(
                         DESIGN_AGENTS_NAME,
                         f"agent design must describe active mechanic packages, not stale preparatory wording '{stale_phrase}'",
+                    )
+                )
+        for stale_phrase in DESIGN_AGENTS_FORBIDDEN_ROUTE_SCAFFOLD:
+            if stale_phrase in design_agents_text:
+                issues.append(
+                    ValidationIssue(
+                        DESIGN_AGENTS_NAME,
+                        "agent design should name owner routes before old "
+                        f"negative scaffold '{stale_phrase}'",
                     )
                 )
     return issues

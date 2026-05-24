@@ -64,17 +64,16 @@ certify incarnation by itself.
 When a canary depends on external Titan law, the source owner keeps the stronger
 meaning and `aoa-evals` keeps only the bounded check surface.
 
-## Boundaries
+## Boundary Pressure Routes
 
-- Do not treat seed canaries as full incarnation proof.
-- Do not claim runtime activation, hidden arena or hidden background arena, or live summon
-  authority from a YAML seed.
-- Do not let memory canaries create memory sovereignty.
-- Do not bypass mutation gate or judgment gate boundaries.
-- Do not convert seed canaries to executable scorer claims until scorer
-  contracts and fixtures exist.
-- Do not erase historical Titan canary vocabulary before replacement routes and
-  validators can follow.
+| Pressure | Route |
+| --- | --- |
+| seed canary reads like full incarnation proof | keep it as seed-boundary evidence until stronger-owner review accepts a broader claim |
+| YAML seed implies runtime activation, hidden arena, hidden background arena, or live summon authority | route to runtime or Titan summon owners before proof wording changes |
+| memory canary implies memory sovereignty | route to `aoa-memo` and keep the canary source-ref oriented |
+| mutation gate or judgment gate pressure appears | keep the gate explicit in seed-boundary docs and canary validation |
+| executable scorer claim appears | wait for scorer contracts, fixtures, and review evidence |
+| historical Titan canary vocabulary appears | route through `PROVENANCE.md`, legacy indexes, and validator-backed replacement paths |
 
 ## Validation
 

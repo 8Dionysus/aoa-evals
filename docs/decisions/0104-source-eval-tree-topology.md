@@ -4,6 +4,36 @@
 
 Accepted.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `evals/<claim-family>/<eval-name>/` is the active source eval
+  package tree, and recursive discovery remains required.
+- Clarified: the entry surfaces for that tree are also agent operating cards:
+  `EVAL_SELECTION.md`, `EVAL_INDEX.md`, and `evals/README.md` expose role,
+  input, output, owner, next route, tools, and validation.
+- Source surfaces updated: `EVAL_SELECTION.md`, `EVAL_INDEX.md`,
+  `evals/README.md`, `scripts/validate_repo.py`, and
+  `tests/test_validate_repo.py`.
+- Validation route: `evals/AGENTS.md#validation` and root `AGENTS.md#verify`.
+
+## Review Log
+
+### 2026-05-24 - Eval entry surfaces became operating cards
+
+- Previous assumption: the source eval tree path and `evals/AGENTS.md` route
+  card were enough for agents to recover the source eval chain.
+- New reality: low-context agents benefit from the same operating-card fields
+  on root chooser, root index, and source index surfaces.
+- Reason: the source eval chain is now part of the repo-wide agent index path,
+  so the entry route should state role, input, output, owner, next route, tools,
+  and validation before a reader opens a bundle.
+- Source surfaces updated: `EVAL_SELECTION.md`, `EVAL_INDEX.md`,
+  `evals/README.md`, validator tokens, and validator tests.
+- Validation: use the source-tree topology path in
+  `evals/AGENTS.md#validation` plus root `AGENTS.md#verify`.
+
 ## Context
 
 The old `bundles/` source district made every eval package look equivalent at

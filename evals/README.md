@@ -8,6 +8,18 @@ Each bundle owns one bounded eval claim. The strongest local meaning for that
 claim lives in the bundle's `EVAL.md` and `eval.yaml`, with support artifacts
 kept beside the bundle when they help the claim remain reviewable.
 
+## Operating Card
+
+| Field | Route |
+|---|---|
+| role | source eval package tree for bundle-local proof objects |
+| input | source proof question, bundle lookup, claim-family path, manifest question, or support-artifact question |
+| output | source bundle route, generated reader route, mechanic support route, or validation route |
+| owner | bundle-local `EVAL.md` and `eval.yaml` own claim meaning; `evals/AGENTS.md` owns source-tree edit law |
+| next route | `EVAL_SELECTION.md`, `EVAL_INDEX.md`, `generated/README.md`, `mechanics/proof-object/README.md`, or the nearest bundle |
+| tools | eval source validator, catalog builders, report-index builder, and semantic AGENTS validator |
+| validation | [evals/AGENTS.md#validation](AGENTS.md#validation) and root [AGENTS.md#verify](../AGENTS.md#verify) |
+
 ## Source Chain
 
 Read a bundle through this chain:
@@ -21,8 +33,8 @@ evals/<claim-family>/<eval-name>/
 -> docs and mechanics maps only for wider route context
 ```
 
-The root readers, generated catalogs, and mechanics maps route the bundle. They
-do not replace the bundle-local claim wording.
+The root readers, generated catalogs, and mechanics maps route the bundle back
+to its bundle-local claim wording.
 
 ## Required Core
 
@@ -54,8 +66,8 @@ For non-comparison evals, the first family segment mirrors `category` in
 
 ## Support Artifacts
 
-Small support files are allowed when they are evidence atoms rather than hidden
-guides.
+Small support files are evidence atoms with routes recoverable from owner
+surfaces.
 
 Common support atoms:
 
@@ -67,8 +79,8 @@ Common support atoms:
 - local report schemas or runner contracts when the bundle has materialized
   proof artifacts.
 
-These files may be short because they are not the entrypoint. The route should
-remain recoverable from `EVAL.md`, `eval.yaml`, this index, and
+These files may be short. Route recovery comes from `EVAL.md`, `eval.yaml`,
+this index, and
 [EVAL_INDEX](../EVAL_INDEX.md).
 
 ## Selection Surfaces
@@ -86,12 +98,13 @@ Use these generated readers when tooling needs compact projections:
 - `generated/eval_capsules.json`
 - `generated/eval_sections.full.json`
 
-Generated readers are derived from source bundle content and should be rebuilt
-through their builders rather than hand-edited.
+Generated readers are derived from source bundle content and rebuild through
+their builders.
 
 ## Mechanic Links
 
-Mechanics support source eval packages without stealing eval meaning.
+Mechanics support source eval packages while bundle-local files keep eval
+meaning.
 
 - Proof-object owns eval authoring and eval contract support.
 - Proof-infra owns reusable fixture, runner, scorer, and reportable-contract
@@ -110,4 +123,5 @@ mechanic part from the eval-local evidence path or from
 Executable bundle validation routes live in
 [evals/AGENTS.md#validation](AGENTS.md#validation) and the target bundle's
 owning proof-object route. This source index names what bundle artifacts are
-and how they relate; it does not own the command list.
+and how they relate. Executable command ownership stays in the route cards
+named above.

@@ -3079,7 +3079,7 @@ PROOF_LOOP_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "proof question -> selection route -> source proof object",
     "route-smoke",
     PROOF_LOOP_SMOKE_REPORT_NAME,
-    "not standalone mechanics",
+    "bounded part contracts inside the parent mechanic",
     "no eval result receipt",
 )
 PROOF_LOOP_PARTS_README_REQUIRED_TOKENS = (

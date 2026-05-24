@@ -70,6 +70,7 @@ Before trusting, publishing, or extending a proof claim, ask the narrowest owner
 | Which authority class owns this artifact? | [docs/PROOF_TOPOLOGY.md](docs/PROOF_TOPOLOGY.md) |
 | Which proof operation routes the work? | [mechanics/README.md](mechanics/README.md) and the parent mechanic |
 | Which comparison, artifact/process, repeated-window, or shared-infra guide applies? | [docs/COMPARISON_SPINE_GUIDE.md](docs/COMPARISON_SPINE_GUIDE.md), [docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md](docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md), [docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md](docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md), [docs/SHARED_PROOF_INFRA_GUIDE.md](docs/SHARED_PROOF_INFRA_GUIDE.md) |
+| Which memory context may a proof cite? | Memory context is recall context, not proof authority; cite reviewed `aoa-memo` object ids, provenance, lifecycle, and generated read models, then keep the verdict in the eval bundle or owning mechanic. |
 | Which report or receipt readout is available? | [docs/README.md#mechanic-and-evidence-anchors](docs/README.md#mechanic-and-evidence-anchors) and `generated/eval_report_index.min.json` |
 | Which checks close the edit? | nearest `AGENTS.md` validation lane |
 
@@ -161,6 +162,14 @@ Route away by owner:
 - `aoa-playbooks` for scenario composition;
 - `aoa-memo` for reviewed memory objects and recall posture;
 - `abyss-stack` for runtime, deployment, storage, and lifecycle state.
+
+`aoa-evals` currently has route_only memory posture: it can cite reviewed
+`aoa-memo` recall and `.aoa` session evidence as bounded context, but it does
+not write local memo candidates, export reviewed-intake packets, or land durable
+memory unless a local memo port is explicitly added by a future owner decision.
+`aoa_memo` MCP brief/search/status/validation/landing-plan dry-runs may support
+inspection, but they are access-plane evidence only, not proof authority or
+durable memory write authority.
 
 ## Working Rule
 

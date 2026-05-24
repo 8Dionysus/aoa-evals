@@ -7,6 +7,17 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+### Changed
+
+- clarified the eval memory-consumer boundary: reviewed `aoa-memo` memory and
+  `.aoa` session evidence may provide cited recall context, but proof authority
+  stays with eval bundles, selected evidence, reports, mechanics, and validators.
+- added validator coverage and a decision note for the route_only memory
+  posture so `aoa-evals` does not imply local memo candidate/export authority.
+- named the `aoa_memo` MCP access-plane boundary in proof guidance: brief,
+  search, status, validation, and landing-plan dry-runs are inspection evidence,
+  not proof authority or direct durable memory writes.
+
 ### Added
 
 - root design spine for the bounded proof organ:

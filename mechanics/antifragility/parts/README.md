@@ -14,6 +14,7 @@ payload home, owner route, and validation lane.
 | output | part README route, part-local payload surface, source bundle review, comparison/audit route, or owner handoff |
 | owner | `aoa-evals` owns bounded proof support; AoA center, runtime, memo, stats, route, playbook, KAG, and owner repositories keep their own authority |
 | next route | `mechanics/antifragility/PARTS.md`, the selected part README, affected source bundle, and any named stronger-owner route |
+| tools | affected bundle validation, generated catalog check, repo validator, and focused tests through `mechanics/antifragility/AGENTS.md#validation` |
 | validation | `mechanics/antifragility/parts/AGENTS.md#validation` and `mechanics/antifragility/AGENTS.md#validation` |
 
 ## Active Parts

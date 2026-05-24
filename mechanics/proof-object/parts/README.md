@@ -9,6 +9,7 @@
 | output | active part route, source proof-object support surface, validation lane, or bundle-local review handoff |
 | owner | `mechanics/proof-object/parts/AGENTS.md` for part-lane law; part README for local contract; source eval bundle for proof meaning |
 | next route | parent [README](../README.md), [PARTS](../PARTS.md), part README, source `evals/**/EVAL.md` and `evals/**/eval.yaml`, and [proof-object AGENTS validation](../AGENTS.md#validation) |
+| tools | template/schema checks, generated-reader freshness checks, repo validator, and focused tests through `mechanics/proof-object/AGENTS.md#validation` |
 | validation | `mechanics/proof-object/AGENTS.md#validation`, focused validator tests, and generated-reader freshness checks when source or generated readers move |
 
 The proof-object parts support source eval packages. Source proof meaning stays

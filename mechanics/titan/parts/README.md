@@ -14,6 +14,7 @@ stronger-owner route, and validation lane.
 | output | seed-boundary route, seed payload home, validated canary shape, future scorer handoff, or stronger-owner review |
 | owner | `aoa-evals` owns seed-boundary proof shape; `aoa-agents`, `aoa-memo`, runtime owners, and later scorer contracts keep stronger authority |
 | next route | `mechanics/titan/PARTS.md`, selected part README, seed payload AGENTS card, guide surfaces, and stronger-owner route |
+| tools | Titan canary validator lane, seed-boundary focused tests, repo validator, and semantic AGENTS validator through `mechanics/titan/AGENTS.md#validation` |
 | validation | `mechanics/titan/parts/AGENTS.md#validation` and `mechanics/titan/AGENTS.md#validation` |
 
 ## Active Parts

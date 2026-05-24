@@ -14,6 +14,7 @@ source proof bundle, stronger-owner route, and validation lane.
 | output | part README route, source bundle review, repair-proof route, progression route, owner handoff, or deferred part-family note |
 | owner | `aoa-evals` owns diagnosis proof wording and verdict logic; AoA center, skills, agents, SDK, memo, runtime, playbook, and owner repositories keep their authority |
 | next route | `mechanics/growth-cycle/PARTS.md`, selected part README, affected source bundle, deferred family note, and stronger-owner route |
+| tools | diagnosis bundle validation, generated catalog check, repo validator, and focused tests through `mechanics/growth-cycle/AGENTS.md#validation` |
 | validation | `mechanics/growth-cycle/parts/AGENTS.md#validation` and `mechanics/growth-cycle/AGENTS.md#validation` |
 
 ## Active Parts

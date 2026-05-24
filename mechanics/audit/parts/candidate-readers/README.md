@@ -40,15 +40,17 @@ eval contracts. Runtime and sibling owners keep their source truth.
 
 ## Boundary
 
-Generated readers are navigation and intake support. They are weaker than source
-examples and must be regenerated when source examples move or change.
+Generated readers are navigation and intake support. Reader changes start in
+source examples, schemas, or builders, then refresh through the parent
+validation lane.
 
 ## Stop-Lines
 
-- Do not hand-edit generated readers as authority.
-- Do not treat candidate-reader inclusion as proof acceptance.
-- Do not let generated navigation replace source examples, schemas, or
-  bundle-local review.
+| Pressure | Route |
+| --- | --- |
+| generated reader content needs to change | edit the source example, schema, or builder, then regenerate through `parts/AGENTS.md` |
+| reader inclusion is treated as proof acceptance | route to bundle-local review before any proof read |
+| generated navigation conflicts with source examples, schemas, or eval contracts | follow the source surface and rebuild the reader |
 
 ## Validation
 

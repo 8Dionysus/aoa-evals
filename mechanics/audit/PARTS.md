@@ -6,8 +6,8 @@
 
 `runtime or trace artifact -> selected evidence packet or hook -> generated candidate reader -> bundle-local review`
 
-The parts are not independent mechanics. They are suboperations inside the same
-candidate-evidence intake and proof-boundary review loop.
+Each part is an operation node inside the same candidate-evidence intake and
+proof-boundary review loop.
 
 ## Parts
 
@@ -52,14 +52,14 @@ It answers:
 - which examples they came from;
 - which review guide and owner-review refs future review must inspect.
 
-It is weaker than source examples and must be regenerated, not hand-authored as
-truth.
+Generated reader changes start in source examples, schemas, or builders, then
+refresh through the parent validation lane.
 
 ### `integrity-review`
 
 Owns the owner-local W10-shaped review contract for runtime continuity evidence
-that is meaningful enough to inspect but still weaker than proof canon and
-activation authority.
+that is meaningful enough to inspect as a candidate before proof or activation
+owners act.
 
 It answers:
 
@@ -67,8 +67,8 @@ It answers:
 - what replay requirements remain mandatory;
 - which authority jumps are forbidden.
 
-Runtime continuity activation, canon write, and sealed verdict authority route
-to their owning surfaces.
+Runtime continuity activation, canon write, and sealed verdict pressure route to
+their owning surfaces.
 
 ## Part Contract
 
@@ -82,7 +82,7 @@ Owner split stays explicit: runtime and sibling repositories keep stronger
 truth; `aoa-evals` owns only the candidate-evidence route and the proof review
 boundary.
 
-Stop-lines keep every part candidate-only. Verdict acceptance, runtime
+Stop-lines keep every part candidate-scoped. Verdict acceptance, runtime
 activation, sibling truth changes, and proof adoption route through their
 owning surfaces before audit output can support a bundle.
 

@@ -5,9 +5,8 @@
 This part owns bridge metadata for routes where playbook, trace, or runtime
 artifacts need to meet an `aoa-evals` verdict anchor.
 
-It keeps artifact inputs, contract refs, verification surfaces, and report
-expectations visible without moving verdict logic into runtime, playbooks, or
-agent layers.
+It keeps artifact inputs, contract refs, verification surfaces, report
+expectations, and handoff owners visible for later eval review.
 
 ## Source Surfaces
 
@@ -43,17 +42,17 @@ examples stay with the mechanic part that owns the proof route.
 
 ## Boundary
 
-The hook is metadata for review. It is not a judge, scorer, receipt, or proof
-canon. A hook example may live under the mechanic part that owns the proof
-route; this audit part still owns the schema and generated candidate-reader
-intake.
+The hook is review metadata. Verdict execution routes to eval verdict logic,
+receipt publication routes to publication receipts, and mechanic-specific proof
+meaning stays with the mechanic part that owns the proof route.
 
 ## Stop-Lines
 
-- Do not turn hook metadata into verdict execution.
-- Do not move mechanic-specific proof meaning into the audit parent.
-- Do not accept playbook, runtime, trace, or sibling artifacts without
-  bundle-local review.
+| Pressure | Route |
+| --- | --- |
+| hook metadata is asked to execute a verdict | route to the owning eval bundle, scorer, runner, or report contract |
+| mechanic-specific proof meaning appears | keep the example under the mechanic part that owns that proof route |
+| playbook, runtime, trace, or sibling artifact acceptance is requested | send the artifact through owner review and bundle-local eval review |
 
 ## Validation
 

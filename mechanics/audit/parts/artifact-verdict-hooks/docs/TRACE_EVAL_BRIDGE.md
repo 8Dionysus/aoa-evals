@@ -6,8 +6,8 @@ This document defines the bounded trace-and-eval bridge for `aoa-evals`.
 
 It makes runtime artifacts and trace surfaces readable as evidence inputs for
 existing eval bundles.
-It does not move verdict logic into `aoa-agents`, `aoa-playbooks`, or runtime
-implementation.
+Verdict logic routes to `aoa-evals`; artifact production, scenario composition,
+and runtime implementation route to their owning layers.
 
 ## Source seed
 
@@ -26,7 +26,7 @@ It remains the owner of:
 - report interpretation
 - bounded proof wording
 
-It does not take ownership of:
+Neighbor owners retain:
 
 - playbook-level `eval_anchors`
 - agent-layer artifact contracts
@@ -53,7 +53,8 @@ approval-gated checkpoint route.
 
 `aoa-bounded-change-quality` remains the companion workflow reading for the same
 route.
-It does not require a second sovereign checkpoint bundle.
+Additional checkpoint-bundle pressure routes to the checkpoint mechanic and
+bundle-local review.
 
 Primary evidence inputs:
 
@@ -94,13 +95,14 @@ Its current bounded proof flow is anchored in
 contracts, and a schema-backed companion report artifact.
 That sidecar stays on keeping outcome and path readable before any combined
 reading.
-It does not replace `aoa-tool-trajectory-discipline` as the narrower
-tool-path anchor for this route.
+Primary tool-path anchor pressure stays with `aoa-tool-trajectory-discipline`
+for this route.
 
 When a bounded route also exports `WitnessTrace`, that trace may travel as an
 optional sidecar for `aoa-witness-trace-integrity`.
 That sidecar is evidence-only.
-It does not silently add a required playbook artifact.
+Required-playbook-artifact pressure routes to `aoa-playbooks` before the bridge
+can depend on it.
 Its current draft public proof flow is anchored in
 `mechanics/proof-infra/parts/fixture-families/fixtures/witness-trace-v1/README.md`, bundle-local fixture and runner
 contracts, and a schema-backed companion report artifact.
@@ -109,8 +111,7 @@ When the route emits an explicit return decision, anchor refs, and bounded
 re-entry note, `aoa-return-anchor-integrity` may travel as an adjacent
 diagnostic surface.
 That sidecar stays on anchor fidelity and honest re-entry.
-It does not replace `aoa-tool-trajectory-discipline` as the primary
-route-quality anchor.
+Primary route-quality anchor pressure stays with `aoa-tool-trajectory-discipline`.
 
 ### `AOA-P-0009 restartable-inquiry-loop`
 
@@ -137,8 +138,8 @@ answer grading.
 
 When the restart route also emits explicit return-aware artifacts,
 `aoa-return-anchor-integrity` may travel as an adjacent diagnostic surface.
-It remains narrower than `aoa-long-horizon-depth` and does not replace
-checkpoint-and-relaunch reading.
+It remains narrower than `aoa-long-horizon-depth`.
+Primary checkpoint-and-relaunch pressure stays with `aoa-long-horizon-depth`.
 
 ## Hook surface
 
@@ -156,7 +157,8 @@ The first derived examples are:
 - `mechanics/checkpoint/parts/a2a-summon-return/examples/artifact_to_verdict_hook.a2a-summon-return-checkpoint.example.json`
 - `mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json`
 
-Runtime benchmark evidence selection is adjacent to this bridge, not a replacement for it.
+Runtime benchmark evidence selection is adjacent to this bridge; replacement
+pressure routes through selected evidence review.
 See [RUNTIME_BENCH_PROMOTION_GUIDE.md](../../selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md) when `abyss-stack` latency, load, recovery, or context-stress artifacts need bounded promotion discipline before they travel upward as selected proof inputs.
 See [RECURRENCE_PROOF_PROGRAM.md](../../../../../mechanics/recurrence/docs/RECURRENCE_PROOF_PROGRAM.md) when the question is whether return-aware artifacts and runtime sidecars support a narrower anchor-integrity read.
 See [TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md](TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md) for the bounded chaos-wave variant where runtime stress lanes, re-entry gates, and witness sidecars remain weaker than owner-local receipts and later verdict review.
@@ -171,21 +173,24 @@ These hook surfaces bind together:
 - optional trace sidecars
 
 They are derived bridge metadata.
-They are not a second proof canon and not a runtime judge implementation.
 Runtime-produced hook packets remain review candidates until `aoa-evals` confirms their bounded use against the owning eval bundle.
+Proof-canon pressure routes to the owning eval bundle; runtime-judge
+implementation pressure routes to the runtime owner.
 
 When a bounded verdict later needs one machine-readable publication sidecar,
 use [EVAL_RESULT_RECEIPT_GUIDE.md](../../../../../mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md).
 That seam records publication facts and stays weaker than bundle-local proof
 meaning.
 
-## Non-goals
+## Authority Routes
 
-- no secret internal judge
-- no verdict logic in `aoa-agents`
-- no final-text-only grading
-- no MCP or A2A transport commitments
-- no bundle maturity or status promotion
+| Pressure | Route |
+| --- | --- |
+| secret internal judge | public eval bundle, scorer, runner, and report contract |
+| verdict logic in `aoa-agents` | `aoa-evals` verdict owner |
+| final-text-only grading | trace/outcome separated evidence route |
+| MCP or A2A transport commitment | transport owner route before proof adoption |
+| bundle maturity or status promotion | bundle-local review plus root audit gate |
 
 ## Boundary to preserve
 
@@ -194,5 +199,5 @@ meaning.
 - `aoa-memo` remains authoritative for `WitnessTrace` and `inquiry_checkpoint`
 - `aoa-evals` remains authoritative for verdict meaning and interpretation
 
-The bridge exists so those surfaces can meet without collapsing into one hidden
-runtime monolith.
+The bridge lets those surfaces meet through visible handoffs and reviewable
+evidence.

@@ -20,15 +20,13 @@ It remains the owner of:
 - interpretation guidance
 - portability review
 
-It does not ingest:
-- raw uncurated dumps
-- secret-bearing rendered config
-- host-private material that cannot travel safely
-- vague leaderboard claims
+Raw dumps, secret-bearing rendered config, host-private material, and vague
+leaderboard claims stay with the runtime or source owner until curated into a
+public-safe packet.
 
 ## Promotion target classes
 Use one of these target classes:
-- `local-only` — useful inside `abyss-stack`, not ready to travel
+- `local-only` — useful inside `abyss-stack`, stays local until travel-ready
 - `evidence-sidecar` — selected runtime evidence can accompany another bounded eval surface
 - `bundle-candidate` — the runtime claim is stable enough to begin authoring or extending a portable comparative bundle
 
@@ -53,7 +51,7 @@ Before promotion, keep explicit:
 - environment invariants
 - environment deltas
 - selected evidence only
-- do-not-overread notes
+- overread-routing notes
 - human review required
 
 If those surfaces are missing, the evidence is still local-shaped.
@@ -76,7 +74,7 @@ Keep explicit:
 - what is matched
 - what changed
 - what stays noisy
-- why the read is not a ranking claim
+- where ranking pressure routes
 
 ### `longitudinal-window`
 Use when ordered named windows stay on one bounded runtime surface.
@@ -87,25 +85,31 @@ Keep explicit:
 - one stable fixture family or replacement contract
 - environment notes that affect comparability
 
-If the proof job changed between windows, do not call the sequence a clean movement story.
+If the proof job changed between windows, route the sequence through replacement
+contract review before telling a movement story.
 
-## What stays out of `aoa-evals`
-Do not promote:
-- raw dumps
-- secret-bearing rendered config
-- private host fingerprints
-- dashboards with no bounded claim text
-- one flattering prompt or one lucky run
-- metrics with no interpretation boundary
+## Owner Route For Weak Evidence
+
+| Evidence pressure | Route |
+| --- | --- |
+| raw dumps | runtime owner selection first |
+| secret-bearing rendered config | source owner sanitization first |
+| private host fingerprints | operator-owned reduction first |
+| dashboards missing bounded claim text | benchmark owner writes the bounded claim first |
+| one flattering prompt or one lucky run | repeatable fixture or comparison owner review |
+| metrics missing an interpretation boundary | eval interpretation review before promotion |
 
 ## Promotion reading discipline
 Treat promoted runtime evidence as support for bounded runtime posture only.
 
-Do not read it as:
-- a global model ranking
-- a capability ranking
-- proof of reasoning quality
-- proof that an agent workflow improved unless another bounded eval surface says so
+Route broader readings this way:
+
+| Reading pressure | Route |
+| --- | --- |
+| global model ranking | comparison owner and explicit ranking contract |
+| capability ranking | bounded capability eval owner |
+| proof of reasoning quality | reasoning-quality eval surface with its own evidence |
+| agent workflow improvement | workflow eval surface that names the improved behavior |
 
 ## Hook surface
 Use `../schemas/runtime-evidence-selection.schema.json` as the machine-readable selection contract.
@@ -117,7 +121,8 @@ Use `../examples/runtime_evidence_selection.phase-alpha-memo-writeback-act.examp
 Use `../examples/runtime_evidence_selection.runtime-chaos-window.example.json` when curated chaos-wave receipts and reviewed closeout examples should travel upward only as example-backed sidecar evidence for `aoa-stress-recovery-window`.
 
 ## Boundary to preserve
-Runtime posture can become evidence.
+Runtime posture can become evidence after bounded selection.
 
-It does not become proof canon until `aoa-evals` gives it bounded meaning.
-Until that review happens, runtime evidence-selection packets stay candidate surfaces rather than portable verdict authority.
+Proof-canon pressure routes through `aoa-evals` bounded meaning review. Until
+that review happens, runtime evidence-selection packets stay candidate surfaces
+with owner-review refs.

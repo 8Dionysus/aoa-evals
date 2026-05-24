@@ -4860,6 +4860,8 @@ AUDIT_SELECTED_EVIDENCE_PART_README_REQUIRED_TOKENS = (
     "runtime_evidence_selection.*.example.json",
     "candidate-only",
     "bundle-local review",
+    "overread-routing notes",
+    "runtime-owner review and bundle-local eval review",
     "python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check",
 )
 AUDIT_ARTIFACT_VERDICT_HOOKS_PART_README_REQUIRED_TOKENS = (
@@ -4871,7 +4873,8 @@ AUDIT_ARTIFACT_VERDICT_HOOKS_PART_README_REQUIRED_TOKENS = (
     "TRACE_EVAL_BRIDGE.md",
     "artifact-to-verdict-hook.schema.json",
     "mechanic-local hook examples",
-    "not a judge",
+    "review metadata",
+    "route to the owning eval bundle",
     "bundle-local review",
     "python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check",
 )
@@ -4884,8 +4887,8 @@ AUDIT_CANDIDATE_READERS_PART_README_REQUIRED_TOKENS = (
     "generate_runtime_candidate_template_index.py",
     "runtime_candidate_template_index.min.json",
     "runtime_candidate_intake.min.json",
-    "weaker than source examples",
-    "Do not hand-edit generated readers as authority",
+    "Reader changes start in",
+    "generated reader content needs to change",
 )
 AUDIT_INTEGRITY_REVIEW_PART_README_REQUIRED_TOKENS = (
     "## Inputs",
@@ -4897,7 +4900,8 @@ AUDIT_INTEGRITY_REVIEW_PART_README_REQUIRED_TOKENS = (
     "runtime-integrity-review.schema.json",
     "runtime_integrity_review.example.json",
     "candidate-only",
-    "Do not activate runtime continuity",
+    "runtime continuity activation is requested",
+    "route to Experience and runtime-owner gates",
     "python -m pytest -q tests/test_validate_repo.py -k runtime_integrity_review",
 )
 BOUNDARY_BRIDGE_COMPATIBILITY_MAP_DOC_REQUIRED_TOKENS = (
@@ -5336,8 +5340,8 @@ RUNTIME_INTEGRITY_REVIEW_REQUIRED_TOKENS = (
     "`activation_authority`",
     "`owner_override`",
     "`canon_write`",
-    "It does not become proof canon.",
-    "It does not activate runtime continuity.",
+    "Proof-canon pressure routes to bundle-local proof review.",
+    "Runtime-continuity activation pressure routes to Experience and runtime-owner",
 )
 RUNTIME_INTEGRITY_REVIEW_LANDING_TOKENS = (
     "mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md",
@@ -15771,11 +15775,11 @@ def validate_runtime_integrity_review_surface(repo_root: Path) -> list[Validatio
                 "runtime integrity review example notes must keep candidate-only posture explicit",
             )
         )
-    elif "does not activate runtime continuity" not in notes:
+    elif "activation pressure to Experience or runtime-owner gates" not in notes:
         issues.append(
             ValidationIssue(
                 location,
-                "runtime integrity review example notes must keep non-activation posture explicit",
+                "runtime integrity review example notes must keep activation routing explicit",
             )
         )
 

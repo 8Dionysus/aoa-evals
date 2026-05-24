@@ -7,7 +7,7 @@ into `aoa-evals` as candidate evidence.
 
 It keeps `abyss-stack` runtime truth outside eval ownership while allowing a
 public-safe packet to name a bounded claim, source schema, selected artifacts,
-environment invariants, and do-not-overread notes.
+environment invariants, and overread-routing notes.
 
 ## Source Surfaces
 
@@ -21,7 +21,7 @@ environment invariants, and do-not-overread notes.
   systems;
 - source schema refs that still belong to the runtime or sibling owner;
 - candidate eval refs that remain below bundle-local review;
-- do-not-overread notes, environment invariants, and reviewer evidence refs.
+- overread-routing notes, environment invariants, and reviewer evidence refs.
 
 ## Outputs
 
@@ -40,17 +40,17 @@ artifact provenance, live state, and implementation meaning.
 
 ## Boundary
 
-Selected evidence is not accepted proof. It becomes useful only after
-bundle-local review confirms how the owning eval may read it.
+Selected evidence starts as a candidate packet. Bundle-local review decides how
+the owning eval may read it, while the runtime or sibling owner keeps source
+truth.
 
 ## Stop-Lines
 
-- Do not ingest raw logs, secrets, private host fingerprints, or unreduced
-  operator traces.
-- Do not treat selected evidence as runtime health, proof acceptance, or bundle
-  promotion.
-- Do not let a packet override the source bundle, runtime owner, or sibling
-  owner.
+| Pressure | Route |
+| --- | --- |
+| raw logs, secrets, private host fingerprints, or unreduced operator traces appear | keep them with the source owner or curate a public-safe packet first |
+| a selected packet is read as runtime health, proof acceptance, or bundle promotion | send the read to runtime-owner review and bundle-local eval review |
+| packet wording conflicts with a source bundle, runtime owner, or sibling owner | follow the stronger owner surface before using the packet as evidence |
 
 ## Validation
 

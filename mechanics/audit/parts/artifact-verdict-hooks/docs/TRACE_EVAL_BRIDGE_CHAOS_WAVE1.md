@@ -10,12 +10,12 @@ It still owns:
 - bounded claim wording
 - report interpretation
 
-It does not own:
-- runtime execution
-- routing posture
-- playbook scenario composition
-- KAG health truth
-- trace object meaning in `aoa-memo` or `aoa-agents`
+Neighbor ownership stays explicit:
+- runtime execution routes to `abyss-stack`
+- routing posture routes to `aoa-routing`
+- playbook scenario composition routes to `aoa-playbooks`
+- KAG health truth routes to `aoa-kag`
+- trace object meaning routes to `aoa-memo` or `aoa-agents`
 
 ## Artifact-to-verdict hook lane
 
@@ -30,7 +30,7 @@ That hook stays bounded by three rules:
   the handoff honestly
 
 The current hook lands on `aoa-witness-trace-integrity` because the seed needs
-reviewable trace context, not a new runtime judge.
+reviewable trace context. Runtime-judge pressure routes to the runtime owner.
 
 ## Runtime evidence-selection lane
 
@@ -39,12 +39,11 @@ when curated chaos-wave receipts and closeout examples should travel upward only
 as weaker sidecar evidence for `aoa-stress-recovery-window`.
 
 This lane is example-backed on purpose.
-It is not a live-log publication surface and it does not prove global runtime
-health.
+Live-log publication pressure stays with the runtime owner; global runtime
+health pressure routes to runtime review before eval proof can use it.
 
 ## Ownership note
 
 If `trace_integrity_receipt` becomes a first-class schema later, land it in the
 owning runtime, role, or memory repository first.
-`aoa-evals` should only consume that surface after the owner repo makes it
-real.
+`aoa-evals` consumes that surface after the owner repo lands it.

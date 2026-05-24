@@ -77,10 +77,15 @@ As of 2026-05-24:
   positive interpretation-route criteria: distinct axes, one bounded claim part
   per axis, stable comparison semantics, explicit interpretation bounds, and a
   return route to evidence when a score obscures the claim.
+- Clarified: `docs/EVAL_REVIEW_GUIDE.md` now expresses maturity deferral as
+  concrete gap routes: explicit review evidence, default-use rationale,
+  interpretation bounds, bundle-shaped blind spots, and weaker claim language.
 - Source surfaces updated: `docs/SCORE_SEMANTICS_GUIDE.md`,
-  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+  `docs/EVAL_REVIEW_GUIDE.md`, `scripts/validate_repo.py`, and
+  `tests/test_validate_repo.py`.
 - Validation route: `python -m pytest -q tests/test_validate_repo.py -k score_semantics`
-  and `python scripts/validate_repo.py`.
+  or `python -m pytest -q tests/test_validate_repo.py -k eval_review_guide`,
+  plus `python scripts/validate_repo.py`.
 
 ## Review Log
 
@@ -95,4 +100,19 @@ As of 2026-05-24:
 - Source surfaces updated: score semantics guide, root validator, and focused
   validator tests.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k score_semantics`
+  and `python scripts/validate_repo.py`.
+
+### 2026-05-24 - Eval review route language clarified
+
+- Previous assumption: maturity review guidance could rely on broad defer
+  warnings around default-use rationale, broad wish lists, theater risk, and
+  hidden reviewer intuition.
+- New reality: low-context agents need maturity review to name the exact gap
+  route: review evidence, default-use rationale, interpretation bounds,
+  bundle-shaped blind spots, unstable meaning, or weaker claim language.
+- Reason: review guidance supports proof-object authority by deciding when a
+  source bundle is ready for bounded, baseline, or canonical public reading.
+- Source surfaces updated: eval review guide, root validator, and focused
+  validator tests.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k eval_review_guide`
   and `python scripts/validate_repo.py`.

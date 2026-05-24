@@ -44,7 +44,9 @@ Use `approve for bounded promotion` when the eval already reads as a repeatable 
 - visible failure-vs-readout distinctions
 - nearby-bundle boundaries that stay crisp
 
-Use `defer for now` when the bundle is promising, but the public readout still collapses failure classes, hides interpretation limits, or lacks enough support material to justify bounded status.
+Use `defer for now` when one remaining gap blocks bounded status: failure
+classes collapse, interpretation limits stay unexposed, or support material
+needs a reviewable evidence trail.
 
 ### For promotion to `baseline`
 
@@ -55,7 +57,8 @@ Baseline review should end in one of two outcomes only:
 
 Use `approve for baseline` when the eval already reads as a stable comparison surface within its bounded scope.
 
-Use `defer for now` when the eval is useful and reusable but still too unstable, too local-shaped, or too weakly interpreted for baseline comparison use.
+Use `defer for now` when stability, local shape, or interpretation still needs
+baseline-grade support before comparison use.
 
 Record that public approval trail in `portable_review`.
 Baseline approval notes route through that evidence kind.
@@ -78,11 +81,11 @@ carry `aoa-eval-integrity-check` or an equivalent bounded integrity packet as a 
 
 | axis | approve signal | defer signal |
 |---|---|---|
-| execution path clarity | A reviewer can see how the bundle is meant to run and where the bounded read comes from. | The run shape is still too hand-wavy or too dependent on tacit reviewer reconstruction. |
+| execution path clarity | A reviewer can see how the bundle is meant to run and where the bounded read comes from. | The run path still needs explicit reconstruction evidence. |
 | verdict and readout discipline | Bundle-level verdicts, per-case notes, and example reports stay legible and bounded. | Public readout still jumps too quickly from thin evidence to strong conclusions. |
-| failure-vs-readout separation | Failure signals are named directly and stay distinct from the summary language used to report them. | Summary wording smooths over concrete failure signals or lets polished readouts hide them. |
+| failure-vs-readout separation | Failure signals are named directly and stay distinct from the summary language used to report them. | Failure signals blur into summary wording or polished readouts cover them. |
 | nearby-bundle distinctness | The bundle clearly says which nearby question belongs here and which routes elsewhere. | The bundle still blurs into composite, diagnostic, artifact, or boundary neighbors. |
-| support evidence | Starter evidence, example report, and support notes make the bounded claim inspectable after publication. | Key bounded-claim support still lives only in implied reviewer intuition or scattered prose. |
+| support evidence | Starter evidence, example report, and support notes make the bounded claim inspectable after publication. | Key bounded-claim support still needs explicit review evidence. |
 
 ### For `baseline -> canonical`
 
@@ -110,7 +113,7 @@ Use `defer for now` when the eval is strong, but still reads as an optional comp
 
 | axis | approve signal | defer signal |
 |---|---|---|
-| default-use rationale | The bundle clearly reads as the default proof surface for its bounded claim class. | It still reads like one useful option among peers without a crisp default-use rationale. |
+| default-use rationale | The bundle clearly reads as the default proof surface for its bounded claim class. | The default-use rationale is weak or missing. |
 | comparison trustworthiness | The bundle has demonstrated stable enough meaning across review cycles, comparisons, or contexts. | Meaning still shifts too much across contexts or review passes. |
 | interpretation honesty | Scores, verdicts, and summaries already resist false certainty and inflated claims. | The bundle still invites benchmark theater, false ranking, or over-broad conclusions. |
 | portability beyond origin | The eval has shown useful life beyond its birth context or initial local need. | Evidence still comes mostly from one origin, or portability remains too thin. |
@@ -148,23 +151,23 @@ Review should stay bounded and concrete.
 
 - Review the bundle as published today.
 - Name one recommendation only: approve now or defer for now.
-- If deferred, name the smallest concrete remaining gap rather than a broad wish list.
+- If deferred, name the smallest concrete remaining gap and the route that closes it.
 - If approved, make the bundle's comparison or default-use rationale explicit enough that later reviewers can read it from the review trail.
 - Name the exact boundary of the approved claim.
-- If the bundle uses scores, say how far those scores can be interpreted before they become theater.
+- If the bundle uses scores, say the interpretation boundary where those scores stop.
 - If the bundle uses categorical verdicts, say what uncertainty remains after the verdict.
 
-## Strong reasons to defer
+## Deferral Routes
 
-Common reasons to defer include:
+Common deferral routes include:
 
-- fixture surface still too local or too thin
-- score semantics still too vague
-- verdict logic still too dependent on hidden reviewer intuition
-- blind spots remain unnamed or too generic
-- bundle is useful, but still better as a companion than as a default proof surface
-- repeated use still reveals unstable meaning
-- report summaries imply stronger claims than the bundle truly supports
+- fixture surface needs broader or less local evidence
+- score semantics need clearer interpretation bounds
+- verdict logic needs explicit judgment evidence
+- blind spots need bundle-shaped disclosure
+- bundle remains better as a companion than as a default proof surface
+- repeated use reveals unstable meaning
+- report summaries need weaker claim language
 
 ## Recording review outcomes
 

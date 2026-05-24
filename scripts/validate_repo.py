@@ -1546,6 +1546,25 @@ SCORE_SEMANTICS_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD = (
     "explicit caution notes",
     "If it hides that, weaken it.",
 )
+EVAL_REVIEW_GUIDE_NAME = "docs/EVAL_REVIEW_GUIDE.md"
+EVAL_REVIEW_GUIDE_REQUIRED_TOKENS = (
+    "bounded maturity review guide",
+    "remaining-gap route",
+    "explicit review evidence",
+    "The default-use rationale is weak or missing.",
+    "smallest concrete remaining gap and the route that closes it",
+    "Deferral Routes",
+    "score semantics need clearer interpretation bounds",
+    "report summaries need weaker claim language",
+)
+EVAL_REVIEW_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD = (
+    "without a crisp default-use rationale",
+    "rather than a broad wish list",
+    "before they become theater",
+    "Strong reasons to defer",
+    "score semantics still too vague",
+    "verdict logic still too dependent on hidden reviewer intuition",
+)
 MECHANIC_ROUTE_CARD_FILES = tuple(
     route
     for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
@@ -10259,6 +10278,27 @@ def validate_score_semantics_guide_surface(repo_root: Path) -> list[ValidationIs
                         SCORE_SEMANTICS_GUIDE_NAME,
                         "score semantics guide should name interpretation route "
                         f"criteria instead of stale scaffold '{stale_phrase}'",
+                    )
+                )
+    return issues
+
+
+def validate_eval_review_guide_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    guide_text = require_tokens(
+        repo_root=repo_root,
+        path_name=EVAL_REVIEW_GUIDE_NAME,
+        tokens=EVAL_REVIEW_GUIDE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    if guide_text:
+        for stale_phrase in EVAL_REVIEW_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD:
+            if stale_phrase in guide_text:
+                issues.append(
+                    ValidationIssue(
+                        EVAL_REVIEW_GUIDE_NAME,
+                        "eval review guide should name maturity gap routes "
+                        f"instead of stale scaffold '{stale_phrase}'",
                     )
                 )
     return issues
@@ -20313,6 +20353,7 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_memory_consumer_proof_boundary_surfaces(repo_root))
     issues.extend(validate_eval_philosophy_route_map_surface(repo_root))
     issues.extend(validate_score_semantics_guide_surface(repo_root))
+    issues.extend(validate_eval_review_guide_surface(repo_root))
     issues.extend(validate_docs_readme_route_map(repo_root))
     issues.extend(validate_portable_eval_boundary_guide_surface(repo_root))
     issues.extend(validate_closeout_writeback_ingress_surface(repo_root))

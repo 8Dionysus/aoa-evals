@@ -58,7 +58,7 @@ Stage 1 keeps relation semantics intentionally small:
 | type | use |
 |---|---|
 | `requires` | The eval assumes another eval surface, scorer, fixture family, or prerequisite proof contract. |
-| `complements` | The eval is commonly used alongside another without depending on it directly. |
+| `complements` | The eval is commonly used alongside another while direct dependency stays separate. |
 | `supersedes` | The eval replaces another for the same bounded proof job. |
 | `conflicts_with` | The eval and another surface separate compatibility on the same bounded surface. |
 | `used_together_for` | The eval and another bundle often appear in one bounded comparison or review flow. |
@@ -105,16 +105,16 @@ Current intended repo posture:
 - `export_ready` is a publication floor; recommendation signals route through
   bounded review
 - `status` should remain the dominant public maturity signal on thin routing surfaces
-- `portability_level` should stay monotonic with `status` rather than outrun it
+- `portability_level` should stay at or below the strength implied by `status`
 - `maturity_score` should remain coarse and reviewable
 - `repeatability` should describe interpretation risk while uncertainty remains explicit
 - `blind_spot_disclosure` should be taken seriously; missing blind spots should block strong claims
-- `score_interpretation_bound` should prevent score theater and false universality
+- `score_interpretation_bound` should keep score interpretation bounded and reviewable
 
 Concrete reasons a future bundle might be `export_ready: false`:
 
 - the markdown bundle is public-safe, but its structured metadata still needs trust hardening
-- the score semantics are still too unstable for machine-readable publication
+- score semantics need machine-readable interpretation hardening
 - the bundle has unresolved blind-spot or interpretation problems
 - the fixture surface is still too local-shaped for public structured selection output
 

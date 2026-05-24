@@ -99,8 +99,8 @@ it stops being diagnostic and becomes harder to interpret.
 
 ## Fixture representativeness
 
-A fixture surface can be bounded rather than universal.
-It stays representative enough for the exact bounded claim.
+A fixture surface can be bounded, scoped, and representative for the exact
+claim.
 
 Good signs:
 - the included cases match the claim class

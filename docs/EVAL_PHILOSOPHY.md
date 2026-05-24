@@ -111,7 +111,8 @@ A beautiful report may hide shallow reasoning.
 A clean workflow may still produce fragile outcomes.
 A passed test may still miss the real failure surface.
 
-This repository exists to turn artifacts and processes into bounded proof surfaces rather than vague reassurance.
+This repository exists to turn artifacts and processes into bounded proof
+surfaces with explicit evidence, limits, and review routes.
 
 ## On metrics
 
@@ -193,7 +194,7 @@ Evaluation should help us:
 - see what is weak
 - prioritize what matters
 - compare improvement honestly
-- avoid lying to ourselves
+- preserve proof honesty
 
 This repository treats evaluation as a growth organ and proof discipline.
 
@@ -210,7 +211,7 @@ The repository should prefer:
 - clear score semantics
 - explicit interpretation notes
 
-over opaque benchmark spectacle.
+before opaque benchmark spectacle.
 
 ## Final contract
 

@@ -71,7 +71,7 @@ Comparability pressure routes:
 | Pressure | Route |
 | --- | --- |
 | proof job changed between windows | separate comparison family or fresh owner review |
-| case family drifted without disclosure | replacement-contract disclosure before movement verdict |
+| case family drift disclosure is missing | replacement-contract disclosure before movement verdict |
 | report polish is the main visible difference | style-only route and `no clear directional movement` |
 | reviewer or policy changes swamp the bounded surface | context disclosure plus owner review before comparison claim |
 
@@ -79,7 +79,7 @@ If comparability is weakened materially, prefer:
 - `mixed or unstable movement`
 - or `no clear directional movement`
 
-over a cleaner growth story.
+before a cleaner growth story.
 
 ## Improvement, regression, and noisy variation
 
@@ -87,7 +87,7 @@ over a cleaner growth story.
 |---|---|---|
 | improvement | The later result is stronger on the same bounded surface with stable semantics. | Keep nicer summaries below stronger evidence. |
 | regression | The later result is weaker on the same bounded surface in a way the contract can explain. | Name whether the regression is outcome, process, boundary, or comparison noise. |
-| noisy variation | The movement is too small, too unstable, or too style-shaped for a stronger reading. | Prefer this over fake confidence. |
+| noisy variation | The movement is too small, too unstable, or too style-shaped for a stronger reading. | Use this to preserve uncertainty. |
 
 ## Anti-style-drift discipline
 

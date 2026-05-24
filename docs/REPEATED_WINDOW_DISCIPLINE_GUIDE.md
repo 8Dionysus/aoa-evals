@@ -1,7 +1,7 @@
 # Repeated Window Discipline Guide
 
 This guide defines how repeated-window movement stays bounded to a named
-window sequence instead of becoming a broad growth story.
+window sequence with broad growth claims routed to owner review.
 
 Use it when the question is:
 - when is a repeated-window read comparable enough to publish?

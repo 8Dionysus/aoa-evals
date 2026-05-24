@@ -1,6 +1,7 @@
 # Artifact Process Separation Guide
 
-This guide defines how the current artifact/process layer should be read as one bounded program rather than as three unrelated bundle pages.
+This guide defines the current artifact/process layer as one bounded program
+with distinct artifact, workflow, and bridge readings.
 
 Use it when the question is:
 - which surface do I read first: artifact, workflow, or bridge?

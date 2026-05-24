@@ -1,7 +1,8 @@
 # Questbook Direction
 
-Questbook in `aoa-evals` should keep proof obligations visible and returnable
-without replacing roadmap direction, playbook scenarios, or bundle meaning.
+Questbook in `aoa-evals` keeps proof obligations visible and returnable while
+roadmap direction, playbook scenarios, and bundle meaning stay with their owner
+surfaces.
 
 Use this file for the package's current operating direction: read it after the
 parent entry card and before `PARTS.md`, part contracts, source bundles,
@@ -14,7 +15,7 @@ decision records, and `PROVENANCE.md`.
 - `PARTS.md`: active questbook part map.
 - `parts/`: source-record contract and dispatch-reader support.
 - `PROVENANCE.md`: controlled bridge from active route to old quest schema placement.
-- `legacy/`: lineage only; not an open-task queue.
+- `legacy/`: lineage lookup through provenance.
 - `quests/`: active source quest records by lane and state.
 
 ## Current contour
@@ -31,9 +32,10 @@ source-record, dispatch, harvest, promotion, or validation operation.
 
 ## Stop-lines
 
-- Do not use quests as eval bundles, roadmap authority, playbooks, live task
-  assignment, proof verdicts, or owner acceptance.
-- Do not recreate duplicate top-level quest source files.
+| Pressure | Route |
+| --- | --- |
+| quest used as eval bundle, roadmap authority, playbook, live task assignment, proof verdict, or owner acceptance | bundle-local proof surface, `ROADMAP.md`, playbook owner, live owner route, proof mechanic, or sibling-owner evidence |
+| duplicate top-level quest source file | lane/state source record under `quests/<lane>/<state>/` and provenance for old paths |
 
 ## Validation
 

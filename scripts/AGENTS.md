@@ -1,6 +1,11 @@
 # AGENTS.md
 
-## Guidance for `scripts/`
+## Applies to
+
+This card applies to root `scripts/` and repo-wide builder, validator, catalog,
+and proof-surface helper scripts.
+
+## Role
 
 `scripts/` contains repo-wide builders, validators, catalog tools, and
 proof-surface helpers.
@@ -35,11 +40,14 @@ Part-local validators may live under `mechanics/<parent>/parts/<part>/scripts/`
 when the owning part owns the payload. Root validators stay here when the check
 spans multiple authority classes or protects repository-wide topology.
 
-Keep scripts deterministic and repo-relative unless an explicit command says otherwise. Avoid hidden network calls, private data, and ambient credentials.
+Keep scripts deterministic and repo-relative unless an explicit command says
+otherwise. Public-share pressure routes through explicit command contracts
+instead of hidden network calls, private data, or ambient credentials.
 
 Builder changes must preserve source ownership: bundles, schemas, runners, scorers, and docs own meaning; generated catalogs summarize.
 
-Validator changes must not weaken bounded proof posture. Prefer precise failures over permissive silence.
+The bounded proof posture is protected through precise failures that name the owner
+surface, field, and bounded claim being protected.
 Pair validator wording changes with focused tests in `tests/test_validate_repo.py`.
 
 ## Owner Routes

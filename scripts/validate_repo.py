@@ -1261,10 +1261,20 @@ AGENTS_AUDIT_ROUTE_REQUIRED_TOKENS = (
     "## Audit and review route",
     "`AUDIT.md` is the audit surface map",
     "approval gates",
+    "Claim pressure routes",
+    "generated reader, chooser doc, or index outranking source proof",
+    "private dataset, secret-bearing fixture, hidden telemetry, or skipped validation",
     "Review severity",
     "P0",
     "P1",
     "report shape",
+)
+ROOT_AGENTS_STALE_NEGATIVE_ROUTE_PHRASES = (
+    "Hard boundaries:",
+    "bounded evals must not become total intelligence scores",
+    "generated readers, chooser docs, and indexes must not outrank",
+    "validation\n  that was not run must not be presented as public proof",
+    "Do not use decisions as release notes",
 )
 INDEX_SURFACE_ROLE_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
     EVAL_INDEX_NAME: (
@@ -9724,12 +9734,23 @@ def validate_audit_surface_role(repo_root: Path) -> list[ValidationIssue]:
         tokens=AUDIT_SURFACE_ROLE_REQUIRED_TOKENS,
         issues=issues,
     )
-    require_tokens(
+    agents_text = require_tokens(
         repo_root=repo_root,
         path_name="AGENTS.md",
         tokens=AGENTS_AUDIT_ROUTE_REQUIRED_TOKENS,
         issues=issues,
     )
+    if agents_text:
+        for stale_phrase in ROOT_AGENTS_STALE_NEGATIVE_ROUTE_PHRASES:
+            if stale_phrase in agents_text:
+                issues.append(
+                    ValidationIssue(
+                        "AGENTS.md",
+                        "root audit route should expose claim pressure routes "
+                        "instead of stale negative boundary scaffold "
+                        f"'{stale_phrase}'",
+                    )
+                )
 
     return issues
 

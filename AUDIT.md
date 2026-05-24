@@ -108,7 +108,8 @@ Also apply the nearest nested `AGENTS.md` when working in subdirectories.
 ## Route Law
 
 Use [AGENTS.md#audit-and-review-route](AGENTS.md#audit-and-review-route) for
-hard boundaries, approval-required changes, review severity, and report shape.
+claim-pressure routes, approval-required changes, review severity, and report
+shape.
 Use [AGENTS.md#verify](AGENTS.md#verify) plus the nearest nested `AGENTS.md` for
 executable validation routes.
 

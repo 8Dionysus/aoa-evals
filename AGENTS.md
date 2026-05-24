@@ -14,7 +14,7 @@ evidence, verdict logic, and validation route can support.
 This repository owns:
 
 - eval bundle wording, bounded claim framing, verdict shape, categories, baselines, reports, comparisons, caveats, and generated proof surfaces
-- doctrine about what an eval proves and what it does not prove
+- doctrine about claim limits and proof boundaries
 - progression, recurrence, and checkpoint proof posture only when explicitly defined here
 
 Route outward for:
@@ -90,16 +90,15 @@ Treat these as high-risk surfaces:
 - comparison, repeated-window, anti-overread, shared proof-infra, trace bridge,
   receipt, runtime-candidate, sibling-reference, and release-support surfaces
 
-Hard boundaries:
+Claim pressure routes:
 
-- bounded evals must not become total intelligence scores, global safety claims,
-  canonical readiness proofs, or direct agent-behavior verdicts
-- generated readers, chooser docs, and indexes must not outrank bundle-local
-  `EVAL.md` or `eval.yaml`
-- draft, bounded, baseline, or growth language must not strengthen by
-  association
-- private datasets, secret-bearing fixtures, hidden telemetry, and validation
-  that was not run must not be presented as public proof
+| Pressure | Route |
+| --- | --- |
+| broad intelligence, trust, general safety, or autonomous-self claim | keep the eval language scoped to its source bundle, evidence, verdict logic, and validation route; send wider meaning to the owning layer |
+| canonical readiness or direct agent-behavior verdict | route to the source owner or a new bounded proof bundle before public wording changes |
+| generated reader, chooser doc, or index outranking source proof | return to bundle-local `EVAL.md` and `eval.yaml`, then rebuild generated surfaces from source |
+| draft, bounded, baseline, or growth language strengthening by association | keep status, baseline mode, and report posture explicit; use the approval gate before public interpretation changes |
+| private dataset, secret-bearing fixture, hidden telemetry, or skipped validation | route to the private owner, a sanitized fixture, or a rerun validation record before public proof |
 
 Get explicit human confirmation before changing category, status, baseline
 mode, report format, claim type, object under evaluation, default public
@@ -115,7 +114,7 @@ Review severity:
 - P1: `EVAL.md` and `eval.yaml` semantic drift; verdict wording stronger than
   support artifacts; erased blind spots; generated or comparison drift; shared
   infra names implying stronger proof; trace/eval bridge ownership drift;
-  claimed validation that was not run
+  claimed validation lacking evidence
 
 Ignore low-value wording nits unless the task explicitly requests copyediting.
 
@@ -126,8 +125,8 @@ legacy, runtime-candidate, sibling-reference, or agent-route change, review
 `docs/decisions/`.
 
 Add or update a decision note when future agents need to know why the route was
-chosen. Do not use decisions as release notes, generated output, runtime logs,
-or replacements for bundle-local proof meaning.
+chosen. Decision notes preserve rationale; release notes, generated output,
+runtime logs, and bundle-local proof meaning route to their owning surfaces.
 
 ## GitHub landing workflow
 
@@ -190,10 +189,10 @@ For audits, reviews, and non-trivial patches, report:
   main risk
 - diff: what changed, whether bounded claim meaning changed, and whether
   category, status, baseline mode, or report posture changed
-- verify: exact checks run, comparison or chooser surfaces re-read, and checks
-  not run
-- report: current bounded claim, what it still does not prove, public chooser
-  or comparison impact, and downstream follow-up if needed
+- verify: exact checks run, comparison or chooser surfaces re-read, and skipped
+  checks
+- report: current bounded claim, remaining proof limits, public chooser or
+  comparison impact, and downstream follow-up if needed
 - residual risk: thin evidence, stale support artifacts, neighboring bundles
   not re-read, or comparison/routing surfaces not fully re-audited
 

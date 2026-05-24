@@ -55,9 +55,9 @@ A healthy proof layer has:
 - local agent cards that keep low-context changes inside the nearest proof
   owner lane.
 
-The repository should feel useful without requiring a full local AoA deployment.
-AoA federation routes may enrich a proof object, but the public proof surface
-must remain understandable from the authored bundle and its public-safe support
+The repository should feel useful from authored bundles and public-safe support
+artifacts. AoA federation routes may enrich a proof object, while the public
+proof surface stays understandable from the authored bundle and its support
 artifacts.
 
 ## Design as Anatomy
@@ -103,12 +103,12 @@ A good proof operation has:
 - a return route to sibling owners when the claim depends on their truth.
 
 Runtime candidates, machine evidence, sibling references, generated catalogs,
-and receipts may help the operation. They do not become proof acceptance without
-bundle-local review.
+and receipts may help the operation; bundle-local review turns candidate help
+into proof acceptance.
 
 ## Design as Aim
 
-The long aim is a proof canon that helps AoA grow without lying to itself.
+The long aim is a proof canon that helps AoA grow with honest claim limits.
 
 `aoa-evals` should support:
 
@@ -118,10 +118,12 @@ The long aim is a proof canon that helps AoA grow without lying to itself.
 - compact reports that humans can review and agents can consume;
 - disciplined baseline and comparison semantics;
 - proof-pressure quests that can return across long work;
-- runtime and machine evidence intake without runtime authority transfer;
-- sibling compatibility references without absorbing sibling meaning;
-- legacy provenance that keeps old names traceable without steering the active
-  topology.
+- runtime and machine evidence intake with bundle-local review retaining
+  authority;
+- sibling compatibility references that return stronger truth to sibling
+  owners;
+- legacy provenance that keeps old names traceable while active topology follows
+  the living proof operation.
 
 The repository grows well when every new surface makes proof honesty,
 routeability, evidence review, or return clearer than before.
@@ -131,8 +133,8 @@ routeability, evidence review, or return clearer than before.
 ### 1. Bounded proof before confidence
 
 An eval should say what claim is supported, under which conditions, through
-which evidence and verdict logic, with which blind spots. Confidence without
-that shape is theater.
+which evidence and verdict logic, with which blind spots. Confidence earns its
+place through that shape.
 
 ### 2. Source bundle before generated reader
 
@@ -142,8 +144,8 @@ readers orient.
 
 ### 3. Review before receipt
 
-A receipt records that a bounded eval result was emitted. It does not outrank
-the bundle, the report contract, or the review that interprets evidence.
+A receipt records that a bounded eval result was emitted. The bundle, report
+contract, and review keep interpretation authority.
 
 ### 4. Candidate evidence before verdict
 
@@ -152,13 +154,13 @@ a proof object accepts their bounded interpretation.
 
 ### 5. Comparison before growth claims
 
-Growth, regression, baseline, and repeated-window claims need explicit
-comparison posture. A polished single run is not enough.
+Growth, regression, baseline, and repeated-window claims become strong through
+explicit comparison posture across time, variants, or baselines.
 
 ### 6. Blind spots travel with proof
 
-Blind spots are part of the proof contract. If a proof surface cannot name its
-limits, it is not ready to make a strong claim.
+Blind spots are part of the proof contract. A proof surface becomes ready for a
+strong claim when it names its limits.
 
 ### 7. Self-contained before connected
 
@@ -181,7 +183,9 @@ the living proof operation.
 
 Checks should constrain source truth visibility, generated derivation,
 candidate-only posture, sibling-ref status, quest state, receipt subordination,
-and proof-object completeness. Green file presence alone is not proof.
+and proof-object completeness. Green file presence is only a starting signal;
+proof meaning comes from source refs, owner routes, generated parity, and
+route-card coverage.
 
 ## Good Design Feels Like
 
@@ -201,11 +205,11 @@ A future maintainer can find why the topology exists.
 - generated files cited as proof authority;
 - runtime candidates presented as accepted verdicts;
 - receipts treated as stronger than reports;
-- sibling path drift patched without a compatibility decision;
+- sibling path drift patched outside a compatibility decision;
 - quests replacing roadmap direction or bundle meaning;
 - old wave names used as active topology because they are familiar;
-- broad intelligence, safety, autonomy, or selfhood claims without bounded
-  proof objects.
+- broad intelligence, safety, autonomy, or selfhood claims floating outside
+  bounded proof objects.
 
 ## Relationship to Other Root Surfaces
 
@@ -234,7 +238,7 @@ root-owned after mechanic-owned payload movement.
 [`mechanics/README.md`](mechanics/README.md) routes repeatable proof-layer
 operations once they have real source surfaces and validation.
 [`mechanics/proof-loop/README.md`](mechanics/proof-loop/README.md) routes the
-active local proof loop without replacing the packages that own each step.
+active local proof loop while package-local owners keep each step.
 [`ROADMAP.md`](ROADMAP.md) points direction.
 [`QUESTBOOK.md`](QUESTBOOK.md) tracks proof obligations.
 [`docs/decisions/`](docs/decisions/) preserves durable structural and workflow
@@ -257,5 +261,5 @@ Agents should consult this file when a change alters:
 - mechanics package boundaries;
 - agent-facing layer design.
 
-This file does not override local owner truth. It tells agents what kind of
-shape the proof layer is preserving.
+Local owner truth stays authoritative. This file tells agents what kind of shape
+the proof layer is preserving.

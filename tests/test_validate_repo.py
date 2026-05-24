@@ -9878,6 +9878,22 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_mechanic_lower_parts_index_operating_cards_reject_missing_index(
+        self, tmp_path: Path
+    ) -> None:
+        parts_dir = tmp_path / "mechanics" / "missing-parent" / "parts"
+        parts_dir.mkdir(parents=True)
+
+        issues = validate_repo.validate_mechanic_lower_parts_index_operating_cards(
+            tmp_path
+        )
+
+        assert any(
+            issue.location == "mechanics/missing-parent/parts/README.md"
+            and "lower parts index README is missing" in issue.message
+            for issue in issues
+        )
+
     def test_mechanic_index_command_ownership_rejects_parts_index_commands(
         self, tmp_path: Path
     ) -> None:

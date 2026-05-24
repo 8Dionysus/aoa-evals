@@ -10755,6 +10755,39 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_antifragility_parts_route_validates_current_operating_card(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, validate_repo.ANTIFRAGILITY_PARTS_README_NAME)
+
+        issues = validate_repo.validate_mechanics_surfaces(tmp_path)
+
+        assert not any(
+            issue.location == validate_repo.ANTIFRAGILITY_PARTS_README_NAME
+            for issue in issues
+        )
+
+    def test_antifragility_parts_route_rejects_stale_negative_boundary_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, validate_repo.ANTIFRAGILITY_PARTS_README_NAME)
+        parts_path = tmp_path / validate_repo.ANTIFRAGILITY_PARTS_README_NAME
+        parts_path.write_text(
+            parts_path.read_text(encoding="utf-8")
+            + "\n\nThe parts support proof review. They do not own source proof bundle meaning, "
+            "AoA antifragility doctrine, runtime repair, memory truth, stats truth, or "
+            "owner-local cleanup.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanics_surfaces(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.ANTIFRAGILITY_PARTS_README_NAME
+            and "stale negative boundary scaffold" in issue.message
+            for issue in issues
+        )
+
     def test_mechanic_part_readmes_reject_stale_stop_line_lead_ins(
         self, tmp_path: Path
     ) -> None:

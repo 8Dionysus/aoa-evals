@@ -1,11 +1,23 @@
 # Repeated Window Discipline Guide
 
-This guide defines how repeated-window movement should be read without turning a named window sequence into a broad growth story.
+This guide defines how repeated-window movement stays bounded to a named
+window sequence instead of becoming a broad growth story.
 
 Use it when the question is:
 - when is a repeated-window read comparable enough to publish?
-- what should each window disclose before a movement verdict is honest?
-- how should ordered windows stay weaker than same-task baseline and one-run workflow reading?
+- what each window discloses before a movement verdict is honest
+- how ordered windows stay weaker than same-task baseline and one-run workflow reading
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | repeated-window movement reading guide |
+| input | ordered windows, anchor workflow surface, `context_note`, `transition_note`, baseline pressure, or growth-by-association risk |
+| output | read order, comparability disclosure route, movement route, or anti-overread route |
+| owner | this guide owns docs-level reading discipline; `aoa-longitudinal-growth-snapshot`, comparison-spine readouts, and bundle-local metadata own concrete evidence |
+| next route | `mechanics/comparison-spine/parts/longitudinal-window/`, `aoa-longitudinal-growth-snapshot`, fixed-baseline route, or growth/progression owner review |
+| validation | `docs/AGENTS.md#validation` |
 
 ## Read order
 
@@ -31,16 +43,17 @@ The window sequence stays bounded only when:
 - style-only shifts stay weaker than workflow movement
 - context drift is disclosed before the bundle-level verdict
 
-## Anti-overread rules
+## Anti-overread routes
 
-Do not read repeated-window movement as:
-- proof of broad capability growth
-- proof that all nearby workflow diagnostics improved
-- proof that one vivid later window cancels mixed earlier evidence
-- proof that repeated-window movement inherited baseline status
+| Pressure | Route |
+| --- | --- |
+| broad capability growth | growth/progression owner review with repeated-window evidence as support |
+| all nearby workflow diagnostics improved | affected workflow bundle route plus owner evidence |
+| one vivid later window cancels mixed earlier evidence | transition notes and weakest-comparability review |
+| repeated-window movement inherits baseline status | fixed-baseline route and source `baseline_mode` |
 
 Default honesty rules:
-- `context_note` is a comparability disclosure, not filler prose
+- `context_note` names material comparability context
 - `transition_note` must explain movement against the previous named window
 - the bundle-level verdict must stay weaker than the weakest comparability note in the sequence
 - style polish alone should land in `no clear directional movement` or `mixed or unstable movement`
@@ -48,4 +61,5 @@ Default honesty rules:
 ## Current public posture
 
 `aoa-longitudinal-growth-snapshot` remains `draft`.
-It is a cautious movement surface, not a public growth claim.
+It carries cautious movement posture; public growth claims route to the
+growth/progression owner with repeated-window evidence as support.

@@ -8,8 +8,19 @@ Use it when a report, bundle, comparison read, or runtime-adjacent packet claims
 that a candidate preserved a previously promised behavior.
 
 It keeps regression proof bounded: a regression surface may show that selected
-service promises survived the candidate. It does not make the assistant globally
-better, safer, more complete, or generally upgraded.
+service promises survived the candidate. Broader quality, safety, completeness,
+or upgrade pressure routes to the owner that can carry that claim.
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | root regression-proof route map for bounded preservation claims |
+| input | service-promise preservation claim, fixed-baseline pressure, repeated-window pressure, release/closeout regression pressure, runtime-candidate regression pressure, or generated-reader regression pressure |
+| output | regression proof chain, surface-family route, interpretation boundary, or anti-overread route |
+| owner | this guide owns docs-level regression routing; bundle-local proof objects, comparison-spine parts, audit packets, and release-support parts own concrete evidence |
+| next route | [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md), [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md), [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md), [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md), `mechanics/comparison-spine/`, `mechanics/audit/`, `mechanics/release-support/`, or the affected bundle |
+| validation | [docs/AGENTS.md#validation](AGENTS.md#validation) and the nearest owner route card |
 
 ## Owner Split
 
@@ -44,7 +55,7 @@ service promise
 ```
 
 This chain is intentionally narrower than a roadmap. It answers what survived,
-what evidence says so, and what the read still cannot claim.
+what evidence says so, and which stronger readings route elsewhere.
 
 ## Surface Families
 
@@ -60,8 +71,8 @@ Primary routes:
 - `mechanics/comparison-spine/parts/fixed-baseline/`
 - `evals/comparison/fixed-baseline/aoa-regression-same-task/`
 
-The claim shape is candidate-versus-frozen-target preservation, not broad
-growth.
+The claim shape is candidate-versus-frozen-target preservation; broad growth
+routes to growth/progression owner review.
 
 ### Repeated Window
 
@@ -76,8 +87,8 @@ Primary routes:
 - `evals/comparison/longitudinal-window/aoa-stress-recovery-window/`
 
 The claim shape is cautious movement or recovery inside a named window family.
-If the job, fixture, or interpretation boundary changed, the read is no longer a
-clean regression comparison.
+When the job, fixture, or interpretation boundary changes, the read routes
+through repeated-window review before carrying clean regression comparison.
 
 ### Release And Closeout Regression
 
@@ -92,8 +103,8 @@ Primary routes:
 - `mechanics/release-support/parts/strategic-closeout/reports/`
 - `mechanics/release-support/parts/pr-handoff/reports/`
 
-The claim shape is release process integrity. It does not strengthen eval bundle
-claims or GitHub status beyond the evidence that was checked.
+The claim shape is release process integrity. Eval bundle claim strength and
+GitHub status route through their own checked evidence.
 
 ### Runtime Candidate Regression
 
@@ -109,19 +120,19 @@ Primary routes:
 The claim shape is candidate evidence posture. Runtime evidence becomes portable
 regression proof only after `aoa-evals` gives it bounded meaning.
 
-## Anti-Overread
+## Anti-Overread Routes
 
 Regression proof should name the promise, candidate, baseline or window, fixture
 family, report path, and interpretation boundary.
 
-Avoid claims that collapse into:
-
-- one global quality score;
-- broad model ranking;
-- general agent improvement;
-- hidden runtime health authority;
-- release approval without release-owner evidence;
-- proof that a generated reader outranks authored bundle meaning.
+| Pressure | Route |
+| --- | --- |
+| one global quality score | bundle-local verdict and score-semantics review |
+| broad model ranking | comparison owner review with explicit baseline semantics |
+| general agent improvement | growth/progression owner review with bounded regression evidence |
+| hidden runtime health authority | runtime owner route and selected-evidence review |
+| release approval | release-support evidence and GitHub landing route |
+| generated reader outranks authored bundle meaning | source bundle, builder, and generated-reader parity check |
 
 ## Validation
 

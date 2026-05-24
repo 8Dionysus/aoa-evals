@@ -15,8 +15,8 @@ This part owns the first public-safe proof-loop route-smoke report.
   `eval.yaml`;
 - support contract refs from proof-object and proof-infra surfaces;
 - public-safe candidate evidence limited to repo-local route surfaces;
-- explicit no-receipt, no-runtime, no-sibling-approval, and no-bundle-promotion
-  posture.
+- explicit route-smoke-only posture for receipt, runtime, sibling approval,
+  generated reader, and bundle-promotion pressure.
 
 ## Outputs
 
@@ -40,18 +40,19 @@ step contracts and evidence classes.
 ## Boundary
 
 The report records one bounded routeability read for the proof-loop mechanic.
-It records no eval result receipt. It does not create bundle promotion, runtime
-intake, sibling-owner approval, or full proof-loop completeness proof.
+Its recorded posture is no eval result receipt. Bundle promotion, runtime
+intake, sibling-owner approval, generated-reader authority, and full proof-loop
+completeness proof each route to their owning surface before adoption.
 
 ## Stop-Lines
 
-- Do not treat the route-smoke report as a new eval-result run.
-- Do not publish or imply an eval result receipt.
-- Do not promote `aoa-verification-honesty` or any other bundle.
-- Do not accept runtime evidence, live dispatch, sibling-owner approval, or
-  generated-reader authority.
-- Do not use this part to claim full proof-loop completeness or goal
-  completion.
+| Pressure | Route |
+| --- | --- |
+| route-smoke report read as eval-result run | bundle-local eval-result run route |
+| eval-result receipt or publication pressure | `mechanics/publication-receipts/` after a reviewed bounded report exists |
+| `aoa-verification-honesty` or another bundle needs promotion | bundle-local review and promotion route |
+| runtime evidence, live dispatch, sibling-owner approval, or generated-reader authority enters the read | audit/runtime owner, boundary-bridge sibling route, or generated-reader source route |
+| full proof-loop completeness or goal completion pressure | full loop route: source bundle review, evidence contract, bounded report, and optional receipt |
 
 ## Validation
 

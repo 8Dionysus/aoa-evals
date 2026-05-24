@@ -2699,7 +2699,7 @@ PROOF_LOOP_ROUTE_SMOKE_PART_README_REQUIRED_TOKENS = (
     "## Stop-Lines",
     "bounded route-smoke report artifact",
     "no eval result receipt",
-    "Do not treat the route-smoke report as a new eval-result run",
+    "route-smoke report read as eval-result run",
     "full proof-loop completeness",
     "python scripts/validate_repo.py",
 )

@@ -51,12 +51,12 @@ overclaiming.
 | Memory evidence context | reviewed `aoa-memo` object ids, provenance, lifecycle, generated memory read models, `.aoa` session evidence refs, and `aoa_memo` MCP access-plane dry-runs | recall context and source refs used by bounded proof review | receives reviewed memory read models; emits source refs into candidate evidence or bundle-local review | reviewed memory provides recall context; local proof authority stays with the eval bundle or owning mechanic; `aoa-evals` stays route_only until a local memo port exists; MCP output remains inspection evidence; durable memory lands only in `aoa-memo` |
 | Receipts | `mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md`, `mechanics/publication-receipts/parts/receipt-payload/schemas/eval-result-receipt.schema.json`, `mechanics/publication-receipts/parts/stats-envelope-mirror/schemas/stats-event-envelope.schema.json`, `mechanics/publication-receipts/parts/receipt-payload/examples/eval_result_receipt.example.json`, `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`, `.aoa/live_receipts/` | publication facts for one bounded eval result and non-publishing receipt-intake review | receive reviewed report facts; emit sidecar records for downstream readers or dry-review payload previews | reports and bundle-local sources remain the stronger route for verdict meaning |
 | Release publication | `docs/RELEASING.md`, `CHANGELOG.md`, `scripts/release_check.py`, `.github/workflows/repo-validation.yml`, `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json`, `mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json`, `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json`, Git tags and GitHub release notes | bounded release scope, public release narrative, release audit route, readiness review, strategic handoff, and landing gate posture | receives changed proof surfaces and generated checks; emits readiness audit, strategic closeout, release-prep handoff, tag, and release notes | source bundles keep eval-claim strength; readiness and handoff artifacts route landing posture |
-| Quest obligations | `QUESTBOOK.md`, `quests/`, `mechanics/questbook/parts/source-record-contract/`, `mechanics/questbook/parts/dispatch-reader/`, generated quest catalog and dispatch | deferred proof, regression, and verdict-bridge obligations | receive unresolved proof pressure; emit return routes and dispatch hints | quests are obligations, not eval bundles |
+| Quest obligations | `QUESTBOOK.md`, `quests/`, `mechanics/questbook/parts/source-record-contract/`, `mechanics/questbook/parts/dispatch-reader/`, generated quest catalog and dispatch | deferred proof, regression, and verdict-bridge obligations | receive unresolved proof pressure; emit return routes and dispatch hints | quest records carry obligation return routes; eval bundle meaning stays with source proof objects |
 | Decisions | `docs/decisions/` | durable rationale for topology, workflow, validation, compatibility, or authority changes | receive reviewed evidence and alternatives; emit why a route was chosen | source truth stays with the source surface; decisions preserve route rationale |
 | Agent guidance | `AGENTS.md`, local `AGENTS.md` cards, `DESIGN.AGENTS.md`, `.agents/`, `.agents/skills/`, `.agents/spark/` | editing route, local risk, validation, closeout posture | receives topology and source-owner rules; emits bounded operating guidance | source proof surfaces keep verdict meaning; guidance owns edit route and validation |
-| Sibling references | dependency refs and evidence refs into sibling repositories | cited inputs to local proof review | receive stronger owner truth from sibling repos; emit local proof references | no sibling authority transfer |
+| Sibling references | dependency refs and evidence refs into sibling repositories | cited inputs to local proof review | receive stronger owner truth from sibling repos; emit local proof references | sibling owner retains stronger authority |
 | Legacy lineage | old names, old paths, and accepted legacy inputs | provenance, compatibility, and historical routeability | receives historical vocabulary; emits the active owner route and the `PROVENANCE.md` bridge | active topology starts at the current owner route; legacy keeps lineage and the `PROVENANCE.md` bridge |
-| Mechanic operations | `mechanics/*` packages | repeatable proof-layer operations with a real owner, inputs, outputs, and validation | receive recurring operations from root districts or part-local payloads; emit package-local route cards and validators | no empty package taxonomy |
+| Mechanic operations | `mechanics/*` packages | repeatable proof-layer operations with a real owner, inputs, outputs, and validation | receive recurring operations from root districts or part-local payloads; emit package-local route cards and validators | package topology is backed by owned operation, inputs, outputs, and validation |
 
 ## Root Technical Districts
 
@@ -73,19 +73,19 @@ before any additional root path becomes mechanic-owned payload:
 
 | District | Current role | Current posture |
 | --- | --- | --- |
-| `evals/` | source proof object district | stays root-owned; package movement is not planned |
+| `evals/` | source proof object district | stays root-owned; active package routes point back to bundle source meaning |
 | `docs/` | source guidance, topology maps, decisions, and repo-wide guides | stays root technical district unless a live mechanic owns the narrower operation; recurrence proof-program guidance now routes through `mechanics/recurrence/`, and orchestrator proof-anchor alignment now routes through `mechanics/boundary-bridge/parts/orchestrator-proof-anchors/` |
 | `generated/` | deterministic repo-wide derived readers | stays generated-only for repo-wide readers; package-owned generated readers may live under their mechanic part and still rebuild through builders; the Phase Alpha eval matrix now lives under `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated/` |
-| `examples/` | compatibility route card for former root public-safe examples | no active root examples payload should live here; bundle-local examples stay under `evals/**/examples/`, and package-owned candidate packets, hooks, bridge source plans, receipts, and mechanic examples live under their owning mechanic parts |
+| `examples/` | compatibility route card for former root public-safe examples | active examples payloads route to bundle-local `evals/**/examples/` or package-owned candidate packets, hooks, bridge source plans, receipts, and mechanic examples under their owning mechanic parts |
 | `fixtures/`, `runners/`, `scorers/`, `schemas/`, `templates/` | shared proof infrastructure and compatibility route cards | root `fixtures/`, `runners/`, `scorers/`, `schemas/`, and `templates/` are now compatibility route cards where their active payloads have narrower owners; generic active fixture families live under `mechanics/proof-infra/parts/fixture-families/fixtures/`; reportable runner/scorer/schema contracts live under `mechanics/proof-infra/parts/reportable-contracts/`; package-owned fixture families, schemas, builders, templates, or validation helpers may live under mechanic parts; quest source and dispatch schemas now live under `mechanics/questbook/parts/`; eval frontmatter/manifest schemas and `EVAL.template.md` now live under `mechanics/proof-object/parts/` |
-| `reports/` | compatibility route card for former root shared dossiers and reports | no active root reports payload should live here without a topology decision and validator allowlist update; bundle-local reports stay under `evals/**/reports/`, and package-owned proof-loop, comparison, receipt, and release-support reports live under their mechanic parts |
+| `reports/` | compatibility route card for former root shared dossiers and reports | active root reports payload routes require a topology decision and validator allowlist update; bundle-local reports stay under `evals/**/reports/`, and package-owned proof-loop, comparison, receipt, and release-support reports live under their mechanic parts |
 | `tests/` | repo-wide validator, catalog, generated-reader, and semantic route-card tests | stays root-owned for repository-wide checks; part-owned tests live under `mechanics/<mechanic>/parts/<part>/tests/` next to the active operation they constrain |
 | `quests/` | lane/state schema-backed source quest records | uses `quests/<lane>/<state>/` YAML paths; generated quest readers must mirror current source paths; former markdown quest-note lineage belongs behind the owning mechanic `PROVENANCE.md` |
-| `config/` and `manifests/` | compatibility and provenance route for former root recurrence and seed configuration surfaces | no active root config payload and no active root manifest payload should live here without a topology decision; Agon-owned configs, latest-sibling canary config, recurrence control-plane manifests, and portable-proof-beacon recurrence manifests with part-local validation now live under their mechanic parts |
-| `.agents/` | maintained agent lanes and exported support skills | durable agent-facing district; not proof canon |
-| `.agents/skills/` | installed local skills that support repo work | supports agent operation; not proof canon |
-| `.agents/spark/` | maintained Spark fast-loop lane | routes narrow proof-surface work without owning proof meaning |
-| `.aoa/live_receipts/` | owner-local live receipt log | receipt sidecar only; not a verdict source |
+| `config/` and `manifests/` | compatibility and provenance route for former root recurrence and seed configuration surfaces | active root config or manifest payload routes require a topology decision; Agon-owned configs, latest-sibling canary config, recurrence control-plane manifests, and portable-proof-beacon recurrence manifests with part-local validation now live under their mechanic parts |
+| `.agents/` | maintained agent lanes and exported support skills | durable agent-facing district; proof canon stays with source proof objects |
+| `.agents/skills/` | installed local skills that support repo work | supports agent operation; proof canon stays with source proof objects |
+| `.agents/spark/` | maintained Spark fast-loop lane | routes narrow proof-surface work; source proof objects keep proof meaning |
+| `.aoa/live_receipts/` | owner-local live receipt log | receipt sidecar route; verdict meaning stays with reviewed reports and source bundles |
 | `mechanics/` | operation atlas for repeatable proof-layer operations | active where a package owns a real operation; top-level mechanics parents are validator allowlisted from `mechanics/EVIDENCE_CLUSTERS.md`; parent and part routes are owned by `mechanics/README.md`, parent `README.md`, `DIRECTION.md`, `PARTS.md`, part README, part `VALIDATION.md`, and nearest `AGENTS.md`; part-owned tests live under `mechanics/<mechanic>/parts/<part>/tests/`; parent-level `docs/` is only for explicit mechanic-wide guidance, while part-owned payload docs live under `parts/<part>/docs/` |
 
 Generated route residue is part of this topology contract. Root generated
@@ -104,10 +104,10 @@ legacy parent route paths.
 Mechanic payload route residue is the active-payload companion guard. Fixtures,
 schemas, manifests, examples, scripts, tests, and other authored mechanics
 payload may keep part-local paths only when they resolve under the same
-mechanic or part root; sibling-owned evidence must be a repo-qualified sibling
-ref such as `repo:aoa-agents/...`, and old root payload globs such as
-root runtime-example globs must route through active selected-evidence packets
-or explicit sibling refs.
+mechanic or part root; sibling-owned evidence uses a repo-qualified sibling ref
+such as `repo:aoa-agents/...`, and old root payload globs such as root
+runtime-example globs route through active selected-evidence packets or
+explicit sibling refs.
 Mechanic part payload inventory is the part-local companion guard: every actual
 payload subdirectory under `mechanics/<parent>/parts/<part>/` must be named by
 the part README, while an unexpected payload class, an empty payload
@@ -160,20 +160,21 @@ navigation in `docs/decisions/` should use `evals/<family>/<eval>/...`, active
 `mechanics/...` routes, or root route cards instead of bare root payload paths.
 
 Repo config route residue is the executable-routing companion guard. `.gitignore`,
-`pytest.ini`, and `.github/workflows/` are not historical memory; they should
-not point at former mechanic parents or route-card-only root payload paths.
+`pytest.ini`, and `.github/workflows/` are executable routes; they point at
+active owners rather than former mechanic parents or route-card-only root
+payload paths.
 
 Source bundle route residue is the proof-object companion guard. Source bundles
 may use bundle-local paths only when they resolve under the owning bundle, and
-repo-qualified sibling evidence, such as `repo:aoa-sdk/...`, should not look
-like a local route-card-only root payload path.
+repo-qualified sibling evidence, such as `repo:aoa-sdk/...`, stays distinct from
+local route-card-only root payload paths.
 
 ## Mechanic Readiness
 
 A new `mechanics/` parent is ready only when the operation has all of these:
 
 - one recurring proof-layer operation;
-- source artifacts it can route without stealing their authority;
+- source artifacts it can route while source owners keep authority;
 - clear inputs and outputs;
 - a stronger-owner or sibling-owner split when applicable;
 - legacy or accepted-input posture if old names remain;
@@ -188,7 +189,7 @@ ledger detail lives in mechanics:
 | Evidence gate | Lives in | Topology use |
 | --- | --- | --- |
 | Active Parent Evidence Dimension Ledger | `mechanics/EVIDENCE_CLUSTERS.md` | keeps every parent tied to meaning/doctrine, proof pressure, contracts/payloads, builders/readouts, quest/deferred pressure, owner split and stop-lines, and legacy/provenance |
-| Active Parent Evidence Route Refs | `mechanics/EVIDENCE_CLUSTERS.md` | keeps every parent tied to concrete local route refs, including at least one living non-mechanics evidence route; a generic root validator file and a rationale-only decision ref are not enough |
+| Active Parent Evidence Route Refs | `mechanics/EVIDENCE_CLUSTERS.md` | keeps every parent tied to concrete local route refs, including at least one living non-mechanics evidence route in addition to validator and rationale refs |
 | Root District Reconnaissance Ledger | `mechanics/EVIDENCE_CLUSTERS.md` | keeps root districts visible as source, derived, route-card-only, repo-wide validation, or mechanic-owned payload routes before another root path becomes mechanic-owned payload |
 | Residual Root-authored Surface Classification | `mechanics/EVIDENCE_CLUSTERS.md` | keeps remaining top-level `docs/`, `scripts/`, and `tests/` files classified as root-owned surfaces so an unclassified root-authored surface cannot drift into hidden mechanic payload |
 
@@ -275,8 +276,7 @@ strengthening a runtime or receipt seam, answer:
 - what generated, candidate, receipt, sibling, or legacy surface stays weaker?
 - what validator or builder will notice drift?
 
-If those answers are unclear, do not move the file yet. Clarify the topology
-first.
+Unclear answers route back to topology clarification before file movement.
 
 ## Validation
 

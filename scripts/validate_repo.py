@@ -561,8 +561,12 @@ PROOF_TOPOLOGY_REQUIRED_TOKENS = (
     "part-owned tests live under `mechanics/<mechanic>/parts/<part>/tests/`",
     "generated surfaces are companions",
     "candidate packets enter bundle-local review before verdict meaning",
+    "quest records carry obligation return routes",
     "source truth stays with the source surface; decisions preserve route rationale",
     "source proof surfaces keep verdict meaning; guidance owns edit route and validation",
+    "proof canon stays with source proof objects",
+    "verdict meaning stays with reviewed reports and source bundles",
+    "at least one living non-mechanics evidence route in addition to validator and rationale refs",
     "active topology starts at the current owner route",
     "A new `mechanics/` parent",
     "No remaining named candidate family is promoted by symmetry",
@@ -648,6 +652,24 @@ PROOF_TOPOLOGY_FORBIDDEN_STALE_MECHANIC_WORDING = (
     "A future `mechanics/` package",
     "It is not the roadmap",
     "The goal is not a decorative tree",
+)
+PROOF_TOPOLOGY_FORBIDDEN_ROUTE_SCAFFOLD = (
+    "quests are obligations, not eval bundles",
+    "package movement is not planned",
+    "no active root examples payload should live here",
+    "no active root reports payload should live here",
+    "no active root config payload",
+    "not proof canon",
+    "without owning proof meaning",
+    "not a verdict source",
+    "a generic root validator file and a rationale-only decision ref are not enough",
+    "without stealing their authority",
+    "do not move the file yet",
+    "are not historical memory",
+    "should\nnot point",
+    "should not look like",
+    "no sibling authority transfer",
+    "no empty package taxonomy",
 )
 PROOF_TOPOLOGY_DECISION_FORBIDDEN_STALE_MECHANIC_WORDING = (
     "mechanic-ready operations",
@@ -10348,10 +10370,9 @@ def validate_root_route_card_districts(repo_root: Path) -> list[ValidationIssue]
         repo_root=repo_root,
         path_name=PROOF_TOPOLOGY_NAME,
         tokens=(
-            "no active root examples payload",
-            "no active root config payload",
-            "no active root manifest payload",
-            "no active root reports payload",
+            "active examples payloads route",
+            "active root config or manifest payload routes require a topology decision",
+            "active root reports payload routes require a topology decision",
             "compatibility route",
         ),
         issues=issues,
@@ -10586,6 +10607,15 @@ def validate_proof_topology_surfaces(repo_root: Path) -> list[ValidationIssue]:
                     ValidationIssue(
                         PROOF_TOPOLOGY_NAME,
                         f"proof topology must describe active mechanics, not stale preparatory wording '{stale_phrase}'",
+                    )
+                )
+        for stale_phrase in PROOF_TOPOLOGY_FORBIDDEN_ROUTE_SCAFFOLD:
+            if stale_phrase in topology_text:
+                issues.append(
+                    ValidationIssue(
+                        PROOF_TOPOLOGY_NAME,
+                        "proof topology should name owner routes before old "
+                        f"negative scaffold '{stale_phrase}'",
                     )
                 )
     if decision_text:

@@ -2,34 +2,45 @@
 
 This guide defines the minimum blind-spot disclosure expected from public eval bundles in `aoa-evals`.
 
-Use it when a bundle looks useful,
-but you still need to make explicit what the bundle does not prove and where it may mislead.
+Use it when a bundle looks useful and needs explicit unsupported claims,
+likely misleading paths, and nearby-bundle routes before stronger review.
 
 See also:
 - [Documentation Map](README.md)
 - [Eval Philosophy](EVAL_PHILOSOPHY.md)
 - [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md)
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | blind-spot disclosure guide for public eval bundles |
+| input | bundle claim, verdict, summary, likely false-pass path, likely false-fail path, local-shape assumption, or nearby-claim confusion |
+| output | unsupported-claim boundary, blind-spot class, review deferral route, or summary correction route |
+| owner | this guide owns docs-level blind-spot disclosure discipline; bundle-local `EVAL.md`, reports, and review notes own concrete blind-spot evidence |
+| next route | affected bundle, [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md), [Eval Review Guide](EVAL_REVIEW_GUIDE.md), or nearby bundle owner |
+| validation | [docs/AGENTS.md#validation](AGENTS.md#validation) |
+
 ## Why blind spots are mandatory
 
 Blind spots are part of the proof contract.
 
-They are not optional cautions added after the real work.
+They are first-class truth surfaces.
 They are one of the main ways a bundle tells the truth honestly.
 
-A bundle that cannot name its blind spots is not ready for strong claims.
+A bundle names its blind spots before strong claims.
 
 ## Minimum disclosure
 
-Every public bundle should disclose at least:
-- what the eval does not prove
+Every public bundle discloses at least:
+- unsupported claim classes
 - one or more likely false-pass paths
 - one or more likely false-fail or misleading-result paths when relevant
 - any strong local-shape or environment assumptions
-- any nearby claim class that should use a different bundle instead
+- any nearby claim class and its stronger bundle route
 
 The exact wording can vary.
-The minimum truth contract should not.
+The minimum truth contract stays stable.
 
 ## Common blind-spot classes
 
@@ -38,9 +49,9 @@ The minimum truth contract should not.
 | fixture limits | narrow case family, flattering cases, weak coverage, or origin-shaped fixtures |
 | scorer limits | tacit reviewer judgment, opaque thresholds, or score gaming risk |
 | environment limits | missing tools, unstable setup, hidden policy assumptions, or bounded sandbox effects |
-| interpretation limits | what a pass, fail, or mixed result still does not justify saying |
+| interpretation limits | unsupported interpretations after a pass, fail, or mixed result |
 | portability limits | what breaks when the bundle leaves its birth context |
-| nearby-claim confusion | where another bundle should be used for a narrower or different proof job |
+| nearby-claim confusion | narrower or different proof job route |
 
 ## Good disclosure posture
 
@@ -48,40 +59,37 @@ Good blind-spot disclosure is:
 - concrete
 - bounded
 - specific to the bundle
-- visible enough that summaries cannot quietly bypass it
+- visible enough that summaries route through it
 
 Weak disclosure sounds like:
-- "this does not prove everything"
-- "results may vary"
-- "use judgment"
+- generic umbrella caveat
+- vague variance caveat
+- judgment-only instruction
 
 Those statements may be true,
-but they are not enough by themselves.
+but they stay too generic by themselves.
 
 ## Summary and report interaction
 
-Bundle summaries should remain downstream of blind-spot disclosure.
+Bundle summaries remain downstream of blind-spot disclosure.
 
 If the blind spots say:
 - fixture coverage is narrow
 - authority ambiguity is excluded
 - the bundle is composite rather than diagnostic
 
-then the compact summary should not quietly imply the opposite.
+then the compact summary routes through those same limits.
 
 ## Review blocking cases
 
-Strong review should usually defer when:
+Strong review usually defers when:
 - the blind spots are missing
-- the blind spots are generic and not bundle-shaped
+- the blind spots are generic rather than bundle-shaped
 - the summary language is broader than the disclosed limits
 - the bundle hides likely false-pass paths
 
-Missing blind spots do not just weaken style.
-They weaken the truthfulness of the public surface.
+Missing blind spots weaken the truthfulness of the public surface.
 
 ## Final note
 
-Blind spots are not where the bundle becomes weaker.
-
-They are where the bundle becomes honest enough to trust.
+Blind spots are where the bundle becomes honest enough to trust.

@@ -8,17 +8,16 @@ Defines bounded smoke verdicts for schema, queue, replay, rollback, and console 
 
 This document belongs to the v1.0 installation and first sovereign release wave. It turns the experience program from forged seed into installable order: landing, migration, smoke testing, operator review, first live assistant office, governed release, rollback drill, replay audit, and post-release watch.
 
-## Owns
+## Owner Routes
 
-- smoke verdicts
-- evidence floors
-- blocking severity
-
-## Must not do
-
-- mega-verdict truth
-- ignoring evidence refs
-- judge without trace
+| Pressure | Route |
+| --- | --- |
+| smoke verdicts | this bounded installation-smoke proof contract |
+| evidence floors | typed smoke artifact with evidence refs |
+| blocking severity | operator review and fail-closed result route |
+| broad verdict pressure | bounded smoke verdict route |
+| missing evidence pressure | evidence-ref requirement and fail-closed verdict route |
+| trace pressure | replayable trace and evidence route |
 
 ## Flow
 
@@ -31,7 +30,7 @@ owner-local artifact
 
 ## Authority Source
 
-Release authority and cross-layer doctrine live in [Agents-of-Abyss](https://github.com/8Dionysus/Agents-of-Abyss/blob/main/docs/EXPERIENCE_WAVE5_SOVEREIGN_OFFICE.md). The no-direct-write boundary for Tree-of-Sophia lives in [Tree-of-Sophia](https://github.com/8Dionysus/Tree-of-Sophia/blob/main/docs/NO_DIRECT_EXPERIENCE_INSTALL_WRITE.md). This `aoa-evals` surface only defines owner-local contract behavior and consumes those upstream gates.
+Release authority and cross-layer doctrine live in [Agents-of-Abyss](https://github.com/8Dionysus/Agents-of-Abyss/blob/main/docs/EXPERIENCE_WAVE5_SOVEREIGN_OFFICE.md). The no-direct-write boundary for Tree-of-Sophia lives in [Tree-of-Sophia](https://github.com/8Dionysus/Tree-of-Sophia/blob/main/docs/NO_DIRECT_EXPERIENCE_INSTALL_WRITE.md). This `aoa-evals` surface routes owner-local contract behavior through those upstream gates.
 
 ## Exit signal
 

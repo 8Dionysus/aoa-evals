@@ -40,18 +40,22 @@ A strong eval should:
 - make regressions visible
 - name its blind spots
 
-A strong eval should not pretend to measure everything.
+A strong eval keeps its measurement boundary explicit.
 
-## What an eval is not
+## Adjacent routes
 
-An eval is not:
-- a random test
-- a one-off project script
-- a giant run dump
-- a vague confidence score with no interpretation contract
-- a single number standing in for total capability
-- proof of general intelligence
-- a replacement for human judgment in all cases
+When nearby work looks eval-shaped, route the pressure to the owner surface
+before it becomes a proof claim:
+
+| Pressure | Owner route |
+| --- | --- |
+| random test pressure | test suite, bundle-local check, or fixture integrity route |
+| one-off project script pressure | project-local tooling, or a mechanic part only after the operation recurs |
+| giant run dump pressure | selected evidence, compact report, or audit candidate packet |
+| vague confidence score pressure | score semantics, interpretation boundary, and bundle-local verdict logic |
+| total-capability number pressure | bounded report or comparison surface with blind spots attached |
+| general-intelligence proof pressure | route away from `aoa-evals` unless a bounded local claim is explicit |
+| human-judgment replacement pressure | Eval Review Guide, reviewer decision, and recorded interpretation boundary |
 
 ## On memory
 

@@ -16,7 +16,8 @@ decision records, and `PROVENANCE.md`.
 - `parts/`: A2A summon-return, restartable-inquiry, and self-agent posture
   support.
 - `PROVENANCE.md`: controlled bridge from active route to old checkpoint placement.
-- `legacy/`: lineage only; not a checkpoint implementation backlog.
+- `legacy/`: archive-local route for old checkpoint placement after
+  `PROVENANCE.md`.
 - `evals/`: source proof objects that remain stronger than support parts.
 
 ## Current contour

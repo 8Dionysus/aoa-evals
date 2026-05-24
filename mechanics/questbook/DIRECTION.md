@@ -15,7 +15,8 @@ decision records, and `PROVENANCE.md`.
 - `PARTS.md`: active questbook part map.
 - `parts/`: source-record contract and dispatch-reader support.
 - `PROVENANCE.md`: controlled bridge from active route to old quest schema placement.
-- `legacy/`: lineage lookup through provenance.
+- `legacy/`: archive-local route for old quest schema placement after
+  `PROVENANCE.md`.
 - `quests/`: active source quest records by lane and state.
 
 ## Current contour

@@ -15,7 +15,8 @@ decision records, and `PROVENANCE.md`.
 - `PARTS.md`: active RPG part map.
 - `parts/`: progression-unlocks support.
 - `PROVENANCE.md`: controlled bridge from active route to old progression and unlock placement.
-- `legacy/`: lineage only; not a rank ledger.
+- `legacy/`: archive-local route for old progression and unlock placement
+  after `PROVENANCE.md`.
 - `quests/`: source obligations that remain weaker than owner acceptance.
 
 ## Current contour

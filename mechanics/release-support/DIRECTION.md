@@ -14,7 +14,8 @@ decision records, and `PROVENANCE.md`.
 - `PARTS.md`: active release-support part map.
 - `parts/`: readiness-audit, strategic-closeout, and PR-handoff support.
 - `PROVENANCE.md`: controlled bridge from active route to old proof-release placement.
-- `legacy/`: lineage only; not release status.
+- `legacy/`: archive-local route for old proof-release placement after
+  `PROVENANCE.md`.
 - root release surfaces: `CHANGELOG.md`, `docs/RELEASING.md`, CI workflows,
   and release scripts.
 

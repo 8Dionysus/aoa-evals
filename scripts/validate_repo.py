@@ -1587,6 +1587,8 @@ MECHANIC_DIRECTION_REQUIRED_TOKENS = (
     "`DIRECTION.md`",
     "`PARTS.md`",
     "`PROVENANCE.md`",
+    "`legacy/`",
+    "archive-local route",
     "## Current contour",
     "## Growth rule",
     "## Stop-lines",

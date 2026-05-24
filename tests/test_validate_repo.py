@@ -7935,7 +7935,7 @@ class TestValidateQuestRouteSurfaces:
         for path_name in validate_repo.MECHANIC_DIRECTION_FILES:
             write_text(
                 tmp_path / path_name,
-                "# Direction\n\ncurrent operating direction\n\n## Source-of-truth split\n\n`README.md`\n`DIRECTION.md`\n`PARTS.md`\n`PROVENANCE.md`\n\n## Current contour\n\nNow.\n\n## Growth rule\n\nGrow only with proof.\n\n## Stop-lines\n\nNo overclaim.\n\n## Validation\n\n`python scripts/validate_repo.py`\n",
+                "# Direction\n\ncurrent operating direction\n\n## Source-of-truth split\n\n`README.md`\n`DIRECTION.md`\n`PARTS.md`\n`PROVENANCE.md`\n`legacy/`\narchive-local route\n\n## Current contour\n\nNow.\n\n## Growth rule\n\nGrow only with proof.\n\n## Stop-lines\n\nNo overclaim.\n\n## Validation\n\n`python scripts/validate_repo.py`\n",
             )
         direction_path = "mechanics/titan/DIRECTION.md"
         write_text(
@@ -7956,7 +7956,7 @@ class TestValidateQuestRouteSurfaces:
         for path_name in validate_repo.MECHANIC_DIRECTION_FILES:
             write_text(
                 tmp_path / path_name,
-                "# Direction\n\ncurrent operating direction\n\n## Source-of-truth split\n\n`README.md`\n`DIRECTION.md`\n`PARTS.md`\n`PROVENANCE.md`\n\n## Current contour\n\nNow.\n\n## Growth rule\n\nGrow only with proof.\n\n## Stop-lines\n\nNo overclaim.\n\n## Validation\n\n`python scripts/validate_repo.py`\n",
+                "# Direction\n\ncurrent operating direction\n\n## Source-of-truth split\n\n`README.md`\n`DIRECTION.md`\n`PARTS.md`\n`PROVENANCE.md`\n`legacy/`\narchive-local route\n\n## Current contour\n\nNow.\n\n## Growth rule\n\nGrow only with proof.\n\n## Stop-lines\n\nNo overclaim.\n\n## Validation\n\n`python scripts/validate_repo.py`\n",
             )
         for path_name in validate_repo.MECHANIC_PARENT_README_FILES:
             write_text(
@@ -7991,7 +7991,7 @@ class TestValidateQuestRouteSurfaces:
         for path_name in validate_repo.MECHANIC_DIRECTION_FILES:
             write_text(
                 tmp_path / path_name,
-                "# Direction\n\ncurrent operating direction\n\n## Source-of-truth split\n\n`README.md`\n`DIRECTION.md`\n`PARTS.md`\n`PROVENANCE.md`\n\n## Current contour\n\nNow.\n\n## Growth rule\n\nGrow only with proof.\n\n## Stop-lines\n\nNo overclaim.\n\n## Validation\n\n`python scripts/validate_repo.py`\n",
+                "# Direction\n\ncurrent operating direction\n\n## Source-of-truth split\n\n`README.md`\n`DIRECTION.md`\n`PARTS.md`\n`PROVENANCE.md`\n`legacy/`\narchive-local route\n\n## Current contour\n\nNow.\n\n## Growth rule\n\nGrow only with proof.\n\n## Stop-lines\n\nNo overclaim.\n\n## Validation\n\n`python scripts/validate_repo.py`\n",
             )
         for path_name in validate_repo.MECHANIC_PARENT_README_FILES:
             write_text(
@@ -8047,7 +8047,7 @@ class TestValidateQuestRouteSurfaces:
         for path_name in validate_repo.MECHANIC_DIRECTION_FILES:
             write_text(
                 tmp_path / path_name,
-                "# Direction\n\ncurrent operating direction\n\n## Source-of-truth split\n\n`README.md`\n`DIRECTION.md`\n`PARTS.md`\n`PROVENANCE.md`\n\n## Current contour\n\nNow.\n\n## Growth rule\n\nGrow only with proof.\n\n## Stop-lines\n\nNo overclaim.\n\n## Validation\n\n`python scripts/validate_repo.py`\n",
+                "# Direction\n\ncurrent operating direction\n\n## Source-of-truth split\n\n`README.md`\n`DIRECTION.md`\n`PARTS.md`\n`PROVENANCE.md`\n`legacy/`\narchive-local route\n\n## Current contour\n\nNow.\n\n## Growth rule\n\nGrow only with proof.\n\n## Stop-lines\n\nNo overclaim.\n\n## Validation\n\n`python scripts/validate_repo.py`\n",
             )
         for path_name in validate_repo.MECHANIC_PARENT_README_FILES:
             write_text(

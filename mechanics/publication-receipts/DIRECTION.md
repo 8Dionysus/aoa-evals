@@ -15,7 +15,8 @@ decision records, and `PROVENANCE.md`.
 - `parts/`: receipt payload, stats-envelope mirror, live publisher, and intake
   dry-review support.
 - `PROVENANCE.md`: controlled bridge from active route to old receipt placement.
-- `legacy/`: lineage only; live log routing stays under `.aoa/live_receipts/`.
+- `legacy/`: archive-local route for old receipt placement after
+  `PROVENANCE.md`; live log routing stays under `.aoa/live_receipts/`.
 - `.aoa/live_receipts/`: owner-local live receipt log; authored source routing
   stays with the package and its parts.
 

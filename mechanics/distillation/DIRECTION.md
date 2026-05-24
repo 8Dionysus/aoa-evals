@@ -15,7 +15,8 @@ decision records, and `PROVENANCE.md`.
 - `PARTS.md`: active distillation part map.
 - `parts/`: compost provenance and runtime-candidate adoption support.
 - `PROVENANCE.md`: controlled bridge from active route to old distillation-adjacent placement.
-- `legacy/`: lineage only; not a summary archive.
+- `legacy/`: archive-local route for old distillation-adjacent placement after
+  `PROVENANCE.md`.
 - `evals/`: source proof objects that remain stronger than part support.
 
 ## Current contour

@@ -16,7 +16,8 @@ decision records, and `PROVENANCE.md`.
 - `parts/`: protocol integrity, certification gate, adoption federation,
   governance-runtime boundary, and office release-train support.
 - `PROVENANCE.md`: controlled bridge from active route to old Experience placement.
-- `legacy/`: lineage only; not a release queue.
+- `legacy/`: archive-local route for old Experience placement after
+  `PROVENANCE.md`.
 - `evals/`: source proof objects that remain stronger than support parts.
 
 ## Current contour

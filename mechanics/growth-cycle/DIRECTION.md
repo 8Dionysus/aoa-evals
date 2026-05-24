@@ -14,7 +14,8 @@ decision records, and `PROVENANCE.md`.
 - `PARTS.md`: active growth-cycle part map.
 - `parts/`: diagnosis-gate support.
 - `PROVENANCE.md`: controlled bridge from active route to deferred-stage accounting.
-- `legacy/`: lineage only; not a generic growth backlog.
+- `legacy/`: archive-local route for deferred-stage accounting after
+  `PROVENANCE.md`.
 - `evals/`: source proof objects that remain stronger than support parts.
 
 ## Current contour

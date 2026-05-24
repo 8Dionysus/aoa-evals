@@ -16,7 +16,8 @@ decision records, and `PROVENANCE.md`.
 - `parts/`: seed-boundary support and seed YAML route.
 - `PROVENANCE.md`: controlled bridge from active route to old `evals/` placement and historical
   `titan-canaries` parent wording.
-- `legacy/`: lineage only; not an active canary parent.
+- `legacy/`: archive-local route for historical `titan-canaries` parent
+  wording after `PROVENANCE.md`.
 - `aoa-agents`: stronger Titan role classes, bearer identity, summon boundary law, and incarnation posture.
 
 ## Current contour

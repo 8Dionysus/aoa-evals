@@ -85,11 +85,12 @@ own source truth when an Agon part points toward them.
 Active topology uses `mechanics/agon/`.
 
 Old wave names and file stems remain accepted lineage where they are part of
-source artifacts, generated payloads, or historical receipts. They do not define
-the active package name.
+source artifacts, generated payloads, or historical receipts. The active
+package name stays `mechanics/agon/`.
 
 Use [PROVENANCE.md](PROVENANCE.md) before reading legacy files. Legacy is
-preserved lineage behind the active parts, not the route for new Agon work.
+preserved lineage behind the active parts; new Agon proof-alignment work starts
+from this README, [PARTS.md](PARTS.md), and the active part routes.
 
 ## Boundaries
 

@@ -38,9 +38,9 @@ side.
 - `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`
 
 That note remains root ingress and quest pressure for the closeout/writeback
-lane. It is not an active Distillation source surface, not a replacement for
-the source bundles above, and not evidence that confirmed writeback-act proof
-belongs in this package.
+lane. The active Distillation source route stays with the source bundles above;
+confirmed writeback-act proof routes through its owning eval bundle or mechanic
+part before this package claims it.
 
 ## Parts
 

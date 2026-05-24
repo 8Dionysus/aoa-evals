@@ -71,7 +71,7 @@ anchors rather than leaving the matrix builder as a loose root script.
 
 - current local proof refs;
 - compatibility notes for legacy or accepted-input refs;
-- rejected or unresolved posture for refs that should not feed proof;
+- rejected or unresolved posture for refs that route to owner review before proof use;
 - latest-sibling canary evidence;
 - orchestrator proof-anchor guidance and quest owner-surface bindings;
 - generated Phase Alpha eval matrix entries for release and recurrence checks;

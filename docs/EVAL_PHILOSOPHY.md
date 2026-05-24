@@ -84,22 +84,22 @@ before it becomes a proof claim:
 
 ## On memory
 
-Memory is not proof.
+Reviewed memory routes recall into proof review.
 
-Reviewed `aoa-memo` memory can provide recall context only when the eval cites
-object ids, provenance, lifecycle, and generated read models.
-It can help a reviewer find prior decisions, source refs, and session context,
-while proof authority still needs fixtures, selected evidence, scoring or
-verdict logic, bundle-local reports, or mechanic-owned proof interpretation.
+`aoa-evals` can cite reviewed `aoa-memo` object ids, provenance, lifecycle, and
+generated read models as bounded recall context. That context helps reviewers
+find prior decisions, source refs, and session evidence. Proof authority stays
+with fixtures, selected evidence, scoring or verdict logic, bundle-local
+reports, or mechanic-owned proof interpretation.
 
-`aoa-evals` has route_only memory posture until a local memo port exists.
+`aoa-evals` keeps route_only memory posture until a local memo port exists.
 Session evidence routes through `.aoa` or source proof artifacts before any
 later `aoa-memo` reviewed intake.
 Durable memory, local memo candidates, and export packets route through reviewed
-owner surfaces rather than hidden eval-side paths.
-Treat `aoa_memo` MCP brief/search/status/validation/landing-plan dry-runs as
-access-plane evidence for inspection and review; proof authority and durable
-write authority stay with their owner surfaces.
+owner surfaces with visible provenance.
+`aoa_memo` MCP brief/search/status/validation/landing-plan dry-runs are
+access-plane evidence for inspection and review.
+Owner surfaces keep proof authority and durable write authority.
 
 ## Artifacts, processes, and proof
 

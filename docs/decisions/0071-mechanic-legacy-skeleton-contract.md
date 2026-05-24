@@ -65,6 +65,8 @@ As of 2026-05-24:
 - Changed: active legacy README route cards now express the entry as an
   archive-local route that returns historical sources to the current active
   route.
+- Changed: archive indexes, distillation logs, and raw README route files now
+  carry current-route expectations and validation through the nearest legacy `AGENTS.md`.
 - Superseded by: no new decision; this is a route-language amendment of the
   same archive boundary.
 
@@ -82,6 +84,22 @@ As of 2026-05-24:
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k
   mechanic_legacy_skeleton`; `python scripts/validate_repo.py`.
+
+### 2026-05-24 - Archive route files hand validation to AGENTS
+
+- Previous assumption: archive-local `INDEX.md` and `DISTILLATION_LOG.md`
+  files could carry command blocks and negative stop-line phrasing.
+- New reality: archive-local route files describe role, lineage, current active
+  route expectations, and validation pointer; executable commands live in the
+  nearest legacy `AGENTS.md`.
+- Reason: a low-context agent should read the archive map as topology and then
+  follow the route card for tools, instead of treating every archive note as a
+  command surface.
+- Source surfaces updated: archive-local indexes, distillation logs, raw README
+  route files, `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  mechanic_legacy`; `python scripts/validate_repo.py`;
+  `python scripts/validate_semantic_agents.py`.
 
 ## Validation
 

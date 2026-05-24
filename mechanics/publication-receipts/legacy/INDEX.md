@@ -11,10 +11,10 @@
 | `tests/test_live_receipt_log.py` | `mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py` | former root live log test path |
 | `reports/eval-result-receipt-intake-dry-review-v1.json` | `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json` | former root dry-review report path |
 | `tests/test_receipt_intake_dry_review.py` | `mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py` | former root dry-review test path |
-| `.aoa/live_receipts/eval-result-receipts.jsonl` | `.aoa/live_receipts/eval-result-receipts.jsonl` | owner-local live log remains in place and is routed, not moved |
+| `.aoa/live_receipts/eval-result-receipts.jsonl` | `.aoa/live_receipts/eval-result-receipts.jsonl` | owner-local live log remains in place under routed local memory |
 
 ## Boundary
 
-Former root receipt paths are provenance only. Current receipt contracts should
+Former root receipt paths are provenance context. Current receipt contracts
 cite the active part-local paths. The owner-local live receipt log remains
-append-only local memory, not authored mechanic source and not proof authority.
+append-only local memory below authored mechanic source and proof authority.

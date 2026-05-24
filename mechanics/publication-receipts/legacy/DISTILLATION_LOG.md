@@ -16,7 +16,7 @@ Distilled into active route:
   `mechanics/publication-receipts/parts/live-publisher/`;
 - receipt-intake dry review report and test live under
   `mechanics/publication-receipts/parts/intake-dry-review/`;
-- `.aoa/live_receipts/` remains the owner-local live log route, not package
+- `.aoa/live_receipts/` remains the owner-local live log route below package
   source.
 
 Still historical:
@@ -26,5 +26,7 @@ Still historical:
 - any reading where a receipt, dry review, or live log outranks a bundle-local
   reviewed report.
 
-Do not create new publication receipt work in legacy. Distill into the owning
-active part first.
+Current route:
+
+- new publication-receipt work starts in the owning active part;
+- legacy changes here account for old receipt paths and dry-review placement.

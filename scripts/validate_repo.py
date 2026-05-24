@@ -1754,6 +1754,32 @@ MECHANIC_LEGACY_RAW_README_REQUIRED_TOKENS = (
     "git history",
     "INDEX.md",
 )
+MECHANIC_LEGACY_ARCHIVE_ROUTE_FILES = (
+    MECHANIC_LEGACY_README_FILES
+    + MECHANIC_LEGACY_INDEX_FILES
+    + MECHANIC_LEGACY_DISTILLATION_LOG_FILES
+    + MECHANIC_LEGACY_RAW_README_FILES
+)
+MECHANIC_LEGACY_ARCHIVE_COMMAND_RE = re.compile(
+    r"```(?:bash|sh)\b|`python (?:scripts/|-m pytest)|^python (?:scripts/|-m pytest)",
+    re.MULTILINE,
+)
+MECHANIC_LEGACY_ARCHIVE_STALE_ROUTE_PHRASES = (
+    "Do not create new",
+    "Do not begin new",
+    "Do not recreate",
+    "Do not treat",
+    "Do not use",
+    "It is not",
+    "does not own",
+    "Legacy only explains",
+    "legacy only explains",
+    "not the active",
+    "not an active",
+    "not active",
+    "not a changelog",
+    " not ",
+)
 MECHANIC_LEGACY_README_REQUIRED_TOKENS = (
     "../PROVENANCE.md",
     "INDEX.md",
@@ -1782,6 +1808,8 @@ MECHANIC_LEGACY_SKELETON_DECISION_REQUIRED_TOKENS = (
     "Review Log",
     "current active route",
     "unindexed raw payloads",
+    "current-route expectations",
+    "validation through the nearest legacy `AGENTS.md`",
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_skeleton",
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_raw_payload",
 )
@@ -2784,7 +2812,8 @@ PROOF_LOOP_LEGACY_DISTILLATION_REQUIRED_TOKENS = (
     "route-smoke",
     "reports/proof-loop-local-route-smoke-v1.md",
     "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
-    "Do not create new proof-loop work in legacy",
+    "Current route:",
+    "new proof-loop route-smoke work starts in the owning active part",
 )
 PROOF_LOOP_LEGACY_RAW_README_REQUIRED_TOKENS = (
     "No raw payload copies",
@@ -3357,7 +3386,8 @@ PUBLICATION_RECEIPTS_LEGACY_DISTILLATION_REQUIRED_TOKENS = (
     "stats-envelope-mirror",
     "live-publisher",
     "intake-dry-review",
-    "Do not create new publication receipt work in legacy",
+    "Current route:",
+    "new publication-receipt work starts in the owning active part",
 )
 PUBLICATION_RECEIPTS_LEGACY_RAW_README_REQUIRED_TOKENS = (
     "No raw payload copies",
@@ -3556,7 +3586,8 @@ RELEASE_SUPPORT_LEGACY_DISTILLATION_REQUIRED_TOKENS = (
     "readiness-audit",
     "strategic-closeout",
     "pr-handoff",
-    "Do not create new release-support work in legacy",
+    "Current route:",
+    "new release-support work starts in the owning active part",
 )
 RELEASE_SUPPORT_LEGACY_RAW_README_REQUIRED_TOKENS = (
     "No raw payload copies",
@@ -5141,7 +5172,8 @@ AUDIT_LEGACY_DISTILLATION_REQUIRED_TOKENS = (
     "artifact-verdict-hooks",
     "candidate-readers",
     "integrity-review",
-    "Do not create new audit work in legacy",
+    "Current route:",
+    "new audit proof work starts in the owning active part",
 )
 AUDIT_LEGACY_RAW_README_REQUIRED_TOKENS = (
     "No raw payload copies",
@@ -5270,7 +5302,8 @@ BOUNDARY_BRIDGE_LEGACY_DISTILLATION_REQUIRED_TOKENS = (
     "orchestrator-proof-anchors",
     "phase-alpha-eval-matrix",
     "mechanics/sibling-proof-refs/",
-    "Do not create new boundary-bridge work in legacy",
+    "Current route:",
+    "new boundary-bridge work starts in the owning active part",
 )
 BOUNDARY_BRIDGE_LEGACY_RAW_README_REQUIRED_TOKENS = (
     "No raw payload copies",
@@ -18125,6 +18158,35 @@ def validate_mechanic_legacy_single_bridge_surfaces(
     return issues
 
 
+def validate_mechanic_legacy_archive_route_language(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for path_name in MECHANIC_LEGACY_ARCHIVE_ROUTE_FILES:
+        text = read_text_or_issue(repo_root / path_name, issues, root=repo_root)
+        if text is None:
+            continue
+        command_match = MECHANIC_LEGACY_ARCHIVE_COMMAND_RE.search(text)
+        if command_match is not None:
+            issues.append(
+                ValidationIssue(
+                    path_name,
+                    "legacy archive route files must point validation to AGENTS.md instead of carrying executable command blocks",
+                )
+            )
+        for phrase in MECHANIC_LEGACY_ARCHIVE_STALE_ROUTE_PHRASES:
+            if phrase in text:
+                issues.append(
+                    ValidationIssue(
+                        path_name,
+                        f"legacy archive route files must name current active route expectations instead of stale negative scaffold `{phrase}`",
+                    )
+                )
+
+    return issues
+
+
 def validate_mechanic_part_validation_command_surfaces(
     repo_root: Path,
 ) -> list[ValidationIssue]:
@@ -19478,6 +19540,7 @@ def validate_mechanics_parent_allowlist(repo_root: Path) -> list[ValidationIssue
             tokens=MECHANIC_LEGACY_README_REQUIRED_TOKENS,
             issues=issues,
         )
+    issues.extend(validate_mechanic_legacy_archive_route_language(repo_root))
     require_tokens(
         repo_root=repo_root,
         path_name=PROOF_TOPOLOGY_NAME,

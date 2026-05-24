@@ -10,7 +10,6 @@ Why this route:
 - each family is reusable proof support named by bundle-local
   `shared_fixture_family_path`;
 - the source proof bundles still own the bounded claims and verdict logic;
-- no family by itself proves a new parent mechanic;
 - audit, distillation, memo, comparison, recurrence, checkpoint, and other
   nearby routes remain stronger only where their active package already owns
   the operation.
@@ -24,8 +23,7 @@ Accounting:
 - decision:
   `docs/decisions/0041-proof-infra-fixture-families.md`
 - validation route:
-  `python scripts/build_catalog.py`, `python scripts/build_catalog.py --check`,
-  `python scripts/validate_repo.py`, `python scripts/validate_semantic_agents.py`
+  `../AGENTS.md` and this archive's `AGENTS.md`
 
 ## 2026-05-20 Reportable Contracts
 
@@ -41,8 +39,8 @@ Why this route:
   artifact contracts;
 - source proof bundles still own the bounded claims, report schemas, examples,
   and reviewed reports;
-- the root `runners/`, `scorers/`, and `schemas/` districts become route cards,
-  not active payload homes.
+- the current reportable-contracts part owns the payload route for shared
+  runners, scorers, and schemas.
 
 Accounting:
 
@@ -57,6 +55,4 @@ Accounting:
 - decision:
   `docs/decisions/0049-proof-infra-reportable-contracts.md`
 - validation route:
-  `python scripts/validate_repo.py`, `python scripts/build_catalog.py --check`,
-  `python scripts/validate_semantic_agents.py`,
-  `python -m pytest -q mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py tests/test_build_catalog.py tests/test_validate_repo.py`
+  `../AGENTS.md` and this archive's `AGENTS.md`

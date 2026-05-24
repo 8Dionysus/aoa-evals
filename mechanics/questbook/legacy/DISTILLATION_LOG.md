@@ -5,7 +5,7 @@
 This log accounts for questbook lineage that has been distilled into active
 parts.
 
-It is not a changelog, generated output, or active work queue.
+It records former placement, active owner, reason, and validation route pointer.
 
 ## Entries
 
@@ -23,15 +23,11 @@ Active parts:
 
 Reason:
 
-The schemas are not generic shared proof-infra contracts. They constrain the
-quest obligation loop: source quest records, lifecycle state, generated
-dispatch readers, and return routes. Moving them behind `questbook` keeps the
-active route convex while generated readers remain root-derived companions.
+The schemas constrain the quest obligation loop: source quest records,
+lifecycle state, generated dispatch readers, and return routes. Their current
+home is `questbook`, keeping the active route convex while generated readers
+remain root-derived companions.
 
 Validation route:
 
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use [AGENTS.md](AGENTS.md#validation).

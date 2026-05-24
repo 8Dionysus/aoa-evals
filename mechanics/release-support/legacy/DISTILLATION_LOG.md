@@ -13,8 +13,8 @@ Distilled into active route:
   `mechanics/release-support/parts/strategic-closeout/`;
 - PR handoff artifacts live under
   `mechanics/release-support/parts/pr-handoff/`;
-- `mechanics/EVIDENCE_CLUSTERS.md` records why `proof-release` is not a parent
-  mechanic.
+- `mechanics/EVIDENCE_CLUSTERS.md` records `proof-release` as a historical
+  parent name routed to release-support.
 
 Still historical:
 
@@ -22,5 +22,7 @@ Still historical:
 - root release-support report paths under `reports/`;
 - proof-release decision and report naming vocabulary.
 
-Do not create new release-support work in legacy. Distill into the owning
-active part first.
+Current route:
+
+- new release-support work starts in the owning active part;
+- legacy changes here account for old proof-release and root report paths.

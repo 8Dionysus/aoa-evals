@@ -16,7 +16,7 @@ Distilled into active route:
 - Phase Alpha eval matrix source plan, schema, builder, and generated readout
   live under `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/`;
 - `mechanics/EVIDENCE_CLUSTERS.md` records why `sibling-proof-refs`,
-  `orchestrator`, and `phase-alpha` are not parent mechanics here.
+  `orchestrator`, and `phase-alpha` route under boundary-bridge parts.
 
 Still historical:
 
@@ -28,5 +28,7 @@ Still historical:
   placement;
 - any reading where local bridge evidence becomes sibling-owner acceptance.
 
-Do not create new boundary-bridge work in legacy. Distill into the owning
-active part first.
+Current route:
+
+- new boundary-bridge work starts in the owning active part;
+- legacy changes here account for old bridge paths and rejected parent names.

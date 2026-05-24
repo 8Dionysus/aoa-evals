@@ -15,8 +15,8 @@ Distilled into active route:
   `mechanics/audit/parts/candidate-readers/`;
 - runtime integrity review support lives under
   `mechanics/audit/parts/integrity-review/`;
-- `mechanics/EVIDENCE_CLUSTERS.md` records why `runtime-evidence` is not a
-  parent mechanic.
+- `mechanics/EVIDENCE_CLUSTERS.md` records `runtime-evidence` as an evidence
+  class routed to the audit parent.
 
 Still historical:
 
@@ -24,5 +24,7 @@ Still historical:
 - root runtime evidence schemas, examples, generated readers, and guide paths;
 - any reading where candidate runtime evidence outranks bundle-local review.
 
-Do not create new audit work in legacy. Distill into the owning active part
-first.
+Current route:
+
+- new audit proof work starts in the owning active part;
+- legacy changes here account for old runtime-evidence placement and lineage.

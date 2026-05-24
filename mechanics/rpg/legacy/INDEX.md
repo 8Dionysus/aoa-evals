@@ -14,5 +14,5 @@
 ## Rule
 
 When an old root progression or unlock path appears, route to the current part
-first. Legacy only explains former placement; it does not own the active
-contract.
+first. Legacy explains former placement and returns active contract work to
+`mechanics/rpg/parts/progression-unlocks/`.

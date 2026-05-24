@@ -4,7 +4,7 @@
 
 This log accounts for proof-object lineage distilled into active parts.
 
-It is not a changelog, generated output, or source bundle list.
+It records former placement, active owner, reason, and validation route pointer.
 
 ## Entries
 
@@ -24,15 +24,10 @@ Active parts:
 Reason:
 
 The template and schemas constrain source proof-object authoring and validation.
-They are not generic root infrastructure and not separate parent mechanics.
-Moving them behind `proof-object` keeps bundle contracts close to the operation
-that owns proof-object completeness while source bundle meaning remains under
-`evals/`.
+Their current home is `proof-object`, keeping bundle contracts close to the
+operation that owns proof-object completeness while source bundle meaning
+remains under `evals/`.
 
 Validation route:
 
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-```
+Use [AGENTS.md](AGENTS.md#validation).

@@ -2,8 +2,8 @@
 
 ## Slice 34
 
-The active parent is `antifragility`, not `antifragility-proof`,
-`stress-recovery`, or `repair`.
+The active parent is `antifragility`. Former nearby parent names include
+`antifragility-proof`, `stress-recovery`, and `repair`.
 
 Distilled into active parts:
 
@@ -19,5 +19,5 @@ Left in neighboring mechanics:
 Later routed:
 
 - `aoa-diagnosis-cause-discipline` was later routed through
-  `mechanics/growth-cycle/parts/diagnosis-gate/`; it is not an antifragility
-  part, while bounded repair proof remains under `parts/repair-proof/`.
+  `mechanics/growth-cycle/parts/diagnosis-gate/`; bounded repair proof remains
+  under `parts/repair-proof/`.

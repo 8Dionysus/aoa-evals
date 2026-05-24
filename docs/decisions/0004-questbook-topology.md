@@ -50,6 +50,35 @@ dispatch read model, and proof meaning before any file move happens.
   should update validators, generated projections, and legacy path mappings in
   one slice.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `QUESTBOOK.md` is the human open-obligation index, while
+  `quests/` owns source records and generated quest files remain projections.
+- Changed: the active `QUESTBOOK.md` harvest, closed-record, and generated-pair
+  posture now names owner routes, reviewed promotion, and source-bundle
+  authority directly.
+- Historical text: the original topology decision remains the record of why
+  quest surfaces were separated before lane/state movement.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Human quest index harvest route made positive
+
+- Previous assumption: `QUESTBOOK.md` could explain closed records, harvest
+  candidates, and generated quest pairs through negative boundary wording.
+- New reality: the active human index now routes closed records to provenance,
+  harvest output to reviewed owner acceptance, and eval meaning to source
+  bundles.
+- Reason: a low-context agent should see the quest obligation route and target
+  owner without turning the human index into command law or verdict authority.
+- Source surfaces updated: `QUESTBOOK.md`, `scripts/validate_repo.py`,
+  `tests/test_validate_repo.py`, and this decision.
+- Validation: root validation, generated-reader checks, semantic AGENTS
+  validation, and focused questbook tests.
+
 ## Boundaries
 
 This decision does not turn quests into eval bundles, proof verdicts, roadmap

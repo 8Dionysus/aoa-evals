@@ -5502,6 +5502,11 @@ QUESTBOOK_NOTE_REQUIRED_TOKENS = (
     "proof",
     "regression",
     "verdict-bridge",
+    "Closed source records stay in `quests/` and generated projections as",
+    "Promotion happens through reviewed owner acceptance",
+    "Quest-harvest route:",
+    "route output into quest source records, owner handoff, or reviewed",
+    "Eval bundle meaning stays in source bundles",
 )
 QUESTS_README_REQUIRED_TOKENS = (
     "# Quest Source Records",

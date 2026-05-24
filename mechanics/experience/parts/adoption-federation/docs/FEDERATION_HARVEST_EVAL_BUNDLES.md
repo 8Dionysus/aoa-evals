@@ -12,19 +12,18 @@ v0.6 turns the deployment-watchtower loop into a federation harvest loop. It see
 owner-local signals -> cross-repo recurrence -> federation pattern candidate -> harvest gate -> shared pattern registry -> KAG promotion dossier -> ToS candidate dossier boundary -> owner-local adoption quests
 ```
 
-## This surface owns
+## Owner Routes
 
-- aoa-evals v0.6 surface
-- explicit inputs and outputs
-- reviewable artifacts and gates
-- owner-local landing hints where applicable
-
-## This surface does not own
-
-- source ownership of other repos
-- direct Tree-of-Sophia canonization
-- silent assistant or agent self-rewrite
-- proof outside bounded eval verdicts
+| Pressure | Route |
+| --- | --- |
+| local eval surface | this `aoa-evals` adoption-federation support doc |
+| inputs and outputs | the `Inputs` and `Outputs` sections below |
+| reviewable artifacts and gates | `Gates`, `Invariants`, source evidence refs, and bounded eval verdicts |
+| owner-local landing hints | the owning repository named by the evidence refs |
+| source ownership of another repo | that repository's owner route |
+| Tree-of-Sophia canonization pressure | ToS dossier/canonization boundary before authored meaning changes |
+| assistant or agent self-rewrite pressure | release/version review and owner-local adoption routes |
+| proof beyond bounded eval verdicts | source bundle review and stronger owner evidence |
 
 ## Inputs
 
@@ -52,16 +51,16 @@ owner-local signals -> cross-repo recurrence -> federation pattern candidate -> 
 
 ## Invariants
 
-- no new aoa-experience repo; federation harvest is a center-owned program with owner-local landings
-- no direct Tree-of-Sophia write from arena, deployment, Codex, assistants, or federation harvest
+- federation harvest stays a center-owned program with owner-local landings; new repository pressure routes to center governance first
+- ToS write pressure routes through dossier/canonization boundaries; arena, deployment, Codex, assistants, and federation harvest provide evidence only
 - cross-repo pattern promotion requires source-owner evidence and bounded eval verdicts
-- aoa-stats summarizes recurrence; it does not judge meaning or certify patterns
-- aoa-memo stores bounded lessons and lineage memories; it does not become proof
-- aoa-kag receives derived candidates only after evidence, retention, and owner consent gates
-- assistant adoption of shared patterns remains release/version based, never hidden self-rewrite
-- agonic adoption of shared patterns remains scar/retention based, never assistant-service laundering
-- Codex may collect and propose cross-repo harvest; Codex may not approve federation harvest or promote to KAG
+- aoa-stats route: recurrence summaries; meaning and certification route: owner evidence plus bounded eval verdicts
+- aoa-memo route: bounded lessons and lineage memories; proof route: bundle verdicts plus owner evidence
+- aoa-kag receives derived candidates after evidence, retention, and owner consent gates
+- assistant adoption of shared patterns stays release/version based and reviewable
+- agonic adoption of shared patterns stays scar/retention based and reviewable
+- Codex route: collect and propose cross-repo harvest packets; approval and KAG promotion route through owner gates
 
 ## Notes
 
-Federation harvest is not a scoreboard empire. It is a pressure-sensitive loom: it weaves repeated local lessons into shared derived patterns only when evidence, owners, evals, and retention agree. Anything else stays dust or owner-local repair.
+Federation harvest reads repeated local lessons as candidate patterns. Evidence, owners, bounded eval verdicts, and retention decide movement; other material stays owner-local repair.

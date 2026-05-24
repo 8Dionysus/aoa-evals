@@ -15,8 +15,9 @@ decision records, and `PROVENANCE.md`.
 - `parts/`: receipt payload, stats-envelope mirror, live publisher, and intake
   dry-review support.
 - `PROVENANCE.md`: controlled bridge from active route to old receipt placement.
-- `legacy/`: lineage only; not a live log.
-- `.aoa/live_receipts/`: owner-local live receipt log, not authored source.
+- `legacy/`: lineage only; live log routing stays under `.aoa/live_receipts/`.
+- `.aoa/live_receipts/`: owner-local live receipt log; authored source routing
+  stays with the package and its parts.
 
 ## Current contour
 
@@ -29,14 +30,16 @@ decision records, and `PROVENANCE.md`.
 ## Growth rule
 
 Add receipt parts only when a repeated publication operation needs a schema,
-publisher, dry review, mirror, or validation route. Do not create receipt
-surface for unreviewed reports.
+publisher, dry review, mirror, or validation route. Unreviewed report pressure
+routes back to bundle-local review before any receipt surface grows.
 
 ## Stop-lines
 
-- Do not treat receipts as stronger than reports or source bundles.
-- Do not publish live receipts from dry-review work.
-- Do not turn receipt events into telemetry dashboards or repo-global scores.
+| Pressure | Route |
+| --- | --- |
+| receipts read as stronger than reports or source bundles | return proof meaning to the reviewed report and source bundle |
+| dry-review work reads as live publication | route to intake dry review until a real receipt envelope exists |
+| receipt events read as telemetry dashboards or repo-global scores | route dashboard vocabulary and scoring claims to their stronger owners |
 
 ## Validation
 

@@ -19,7 +19,8 @@ practice canon -> workflow canon -> proof canon
 
 Current release: `v0.3.3`. See [CHANGELOG.md](CHANGELOG.md).
 
-This README is the public proof-organ entry.
+This README is the public proof-organ entry. When a question needs detail, route
+to the owner surface instead of expanding this page.
 
 ## What This Repository Does
 
@@ -38,7 +39,7 @@ This README is the public proof-organ entry.
 
 ## Start Here
 
-Read the surface that matches the job.
+Read only what matches the job.
 
 | Need | Route |
 | --- | --- |
@@ -48,14 +49,14 @@ Read the surface that matches the job.
 | Proof operation or mechanic parent | [mechanics/README.md](mechanics/README.md), then parent `README.md`, `DIRECTION.md`, `PARTS.md`, and part `README.md` |
 | Eval bundle selection | [Eval Bundle Selection Chooser](EVAL_SELECTION.md) and [Eval Bundle Index](EVAL_INDEX.md) |
 | First concrete proof object | [aoa-bounded-change-quality](evals/workflow/aoa-bounded-change-quality/EVAL.md) |
-| Generated reader parity | [generated/README.md](generated/README.md) |
+| Full guide and evidence map | [docs/README.md](docs/README.md) |
 | Mechanics or payload movement | [mechanics/EVIDENCE_CLUSTERS.md](mechanics/EVIDENCE_CLUSTERS.md), then the owning mechanic |
 | Legacy, provenance, or accepted-input vocabulary | [docs/LEGACY_NAMING.md](docs/LEGACY_NAMING.md) |
 | Decision rationale | [docs/decisions/README.md](docs/decisions/README.md) |
 | Executable validation route | [AGENTS.md#verify](AGENTS.md#verify), then the nearest nested route card |
 
-Maintained agent lane routing is under `.agents/AGENTS.md` and
-`.agents/spark/AGENTS.md`.
+Maintained agent lane routing is under [.agents/AGENTS.md](.agents/AGENTS.md)
+and [.agents/spark/AGENTS.md](.agents/spark/AGENTS.md).
 
 ## Proof Check
 
@@ -67,8 +68,8 @@ that can answer the question.
 | What exactly is being claimed? | bundle-local `EVAL.md` and `eval.yaml` |
 | What class of proof object is this? | [docs/PROOF_TOPOLOGY.md](docs/PROOF_TOPOLOGY.md) |
 | Which repeatable operation owns the movement? | [mechanics/README.md](mechanics/README.md), then the parent mechanic |
-| Which guide, report, receipt, or evidence anchor explains the route? | [docs/README.md](docs/README.md), its [mechanic and evidence anchors](docs/README.md#mechanic-and-evidence-anchors), and `generated/eval_report_index.min.json` |
-| Is memory context involved? | reviewed `aoa-memo` object ids and provenance can support recall; verdict authority stays with the eval bundle or owning mechanic |
+| Which guide or evidence anchor explains the route? | [docs/README.md](docs/README.md) |
+| Is memory context involved? | `aoa-evals` can cite reviewed recall as bounded context from reviewed `aoa-memo` object ids and provenance; proof authority stays with the eval bundle or owning mechanic |
 | How should the change close? | nearest `AGENTS.md` validation lane |
 
 ## Current Contour
@@ -78,21 +79,11 @@ readers, runtime-candidate templates, trace and receipt bridges, phase-alpha
 matrices, Agon alignment surfaces, mechanics packages, and public-safe proof
 references into sibling owners.
 
-Current public discovery starts here:
+Public discovery starts with the [Eval Bundle Selection Chooser](EVAL_SELECTION.md),
+[Eval Bundle Index](EVAL_INDEX.md), and [generated reader index](generated/README.md).
+Source bundles, mechanics, decisions, and route cards keep meaning.
 
-- [Eval Bundle Selection Chooser](EVAL_SELECTION.md)
-- [Eval Bundle Index](EVAL_INDEX.md)
-- [generated/README.md](generated/README.md)
-- [generated/eval_catalog.min.json](generated/eval_catalog.min.json)
-- [generated/eval_capsules.json](generated/eval_capsules.json)
-- [generated/eval_sections.full.json](generated/eval_sections.full.json)
-- [generated/eval_report_index.min.json](generated/eval_report_index.min.json)
-- [generated/comparison_spine.json](generated/comparison_spine.json)
-
-Generated readers are compact companions. Source bundles, mechanics, decisions,
-and route cards keep meaning.
-
-## Technical Districts
+## Core Districts
 
 | District | Use for |
 | --- | --- |
@@ -101,28 +92,11 @@ and route cards keep meaning.
 | [mechanics](mechanics/README.md) | repeatable proof-layer operations and mechanic-owned payloads |
 | [generated](generated/README.md) | compact derived readers tied back to source inputs |
 | [quests](quests/README.md) | durable proof obligations and source quest records |
-| [reports](reports/README.md) | compatibility route for former root report placement |
-| [fixtures](fixtures/README.md), [runners](runners/README.md), [scorers](scorers/README.md), [schemas](schemas/README.md), [templates](templates/README.md) | route-card-only compatibility districts for shared proof infrastructure whose active payloads live with owning bundles or mechanics |
-| [config](config/README.md), [manifests](manifests/README.md), [examples](examples/README.md) | compatibility districts that route active payloads to the owning proof surface |
 | [scripts](scripts/AGENTS.md) and [tests](tests/AGENTS.md) | root-wide validators, builders, and regression surfaces |
 
-District gates narrow local handling. Source proof meaning stays with bundles;
-mechanic payload meaning stays with the owning part; generated files stay
-derived companions.
-
-## Evidence And Handoff
-
-Use [mechanics/README.md](mechanics/README.md) for operation-owned reports,
-receipts, runtime candidates, sibling refs, and release support. Use
-bundle-local `reports/` after the source eval claim is clear.
-
-Use [docs/README.md#mechanic-and-evidence-anchors](docs/README.md#mechanic-and-evidence-anchors)
-when the question is a reading route across guides, mechanics, generated
-readers, and evidence anchors.
-
-Use `aoa-memo` for reviewed memory objects and recall posture. `aoa-evals`
-can cite reviewed recall as bounded context while proof authority stays with
-the eval bundle or owning mechanic.
+Compatibility districts such as `fixtures/`, `reports/`, `schemas/`,
+`templates/`, `config/`, `manifests/`, and `examples/` are route-card-only
+surfaces. Active payloads live with the owning bundle or mechanic.
 
 ## Validation
 

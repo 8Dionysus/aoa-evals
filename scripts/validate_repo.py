@@ -2400,6 +2400,7 @@ RPG_PROGRESS_UNLOCKS_CONTRACT_DECISION_NAME = (
 GROWTH_CYCLE_MECHANIC_README_NAME = "mechanics/growth-cycle/README.md"
 GROWTH_CYCLE_MECHANIC_AGENTS_NAME = "mechanics/growth-cycle/AGENTS.md"
 GROWTH_CYCLE_MECHANIC_PARTS_NAME = "mechanics/growth-cycle/PARTS.md"
+GROWTH_CYCLE_PARTS_README_NAME = "mechanics/growth-cycle/parts/README.md"
 GROWTH_CYCLE_MECHANIC_PROVENANCE_NAME = "mechanics/growth-cycle/PROVENANCE.md"
 GROWTH_CYCLE_DIAGNOSIS_GATE_PART_README_NAME = (
     "mechanics/growth-cycle/parts/diagnosis-gate/README.md"
@@ -2796,8 +2797,18 @@ PROOF_LOOP_MECHANIC_PARTS_REQUIRED_TOKENS = (
 )
 PROOF_LOOP_PARTS_README_REQUIRED_TOKENS = (
     "Proof Loop / Parts Route",
+    "## Operating Card",
+    "| role | lower index for active proof-loop part artifacts |",
+    "## Active Parts",
     "route-smoke/README.md",
-    "proof-loop-owned artifacts",
+    "## Owner Pressure Routes",
+    "| source proof object meaning | `mechanics/proof-object/` plus affected `evals/**/EVAL.md` and `evals/**/eval.yaml` |",
+    "| support contract pressure | `mechanics/proof-infra/` |",
+    "| candidate evidence packet | `mechanics/audit/` |",
+    "| receipt publication or receipt-intake pressure | `mechanics/publication-receipts/` |",
+    "## Part Admission Route",
+    "| one local loop path needs public-safe routeability proof | bounded route-smoke report with no receipt publication | `route-smoke/README.md` |",
+    "mechanics/proof-loop/parts/AGENTS.md#validation",
 )
 PROOF_LOOP_ROUTE_SMOKE_PART_README_REQUIRED_TOKENS = (
     "Route Smoke Part",
@@ -3627,10 +3638,17 @@ TITAN_SEED_BOUNDARY_PART_README_REQUIRED_TOKENS = (
 )
 TITAN_PARTS_INDEX_README_REQUIRED_TOKENS = (
     "# Titan / Parts Route",
-    "Titan proof-seed artifacts",
-    "parts district is named by operation",
-    "Current canary YAML payloads",
-    "`seed-boundary` part",
+    "## Operating Card",
+    "| role | lower index for active Titan proof-seed parts |",
+    "## Active Parts",
+    "| `seed-boundary/` | seed-defined Titan boundary canary family and seed-local route law | `seed-boundary/README.md` |",
+    "## Owner Pressure Routes",
+    "| canary presence reads as incarnation, summon authority, or runtime cohort proof | keep the part seed-defined and route stronger claims to Titan/runtime owners |",
+    "| canary presence reads as memory sovereignty | route to `aoa-memo` before proof adoption |",
+    "| executable scorer-backed proof pressure appears | wait for scorer, fixture, report, and validator contracts |",
+    "## Part Admission Route",
+    "| seed-defined Titan canary YAML | current source shape and validator lane match the seed-boundary contract | `seed-boundary/README.md` |",
+    "mechanics/titan/parts/AGENTS.md#validation",
 )
 TITAN_SEED_BOUNDARY_ROUTE_SURFACE_NAMES = (
     TITAN_MECHANIC_AGENTS_NAME,
@@ -4734,6 +4752,21 @@ GROWTH_CYCLE_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "| memory canon | `aoa-memo` memory route |",
     "| runtime activation or hidden automation | `abyss-stack` runtime route plus `aoa-skills` or `aoa-playbooks` execution/choreography route |",
     "| owner-local landing | owner repository acceptance route |",
+)
+GROWTH_CYCLE_PARTS_README_REQUIRED_TOKENS = (
+    "# Growth-cycle / Parts Route",
+    "## Operating Card",
+    "| role | lower index for active Growth Cycle proof parts |",
+    "## Active Parts",
+    "| `diagnosis-gate/` | cause-hypothesis discipline before repair, progression, closeout, quest, memory, runtime, or owner acceptance claims | `diagnosis-gate/README.md` |",
+    "## Owner Pressure Routes",
+    "| cause certainty | source owner diagnosis review plus bundle-local proof evidence |",
+    "| repair success | `mechanics/antifragility/parts/repair-proof/` route plus owner repair acceptance |",
+    "| broad capability growth or universal progression score | `mechanics/rpg/parts/progression-unlocks/` plus `mechanics/comparison-spine/parts/longitudinal-window/` route |",
+    "| runtime activation or hidden automation | `abyss-stack` runtime route plus `aoa-skills` or `aoa-playbooks` execution/choreography route |",
+    "## Part Admission Route",
+    "| diagnosis or self-diagnosis evidence needs cause-hypothesis discipline | source bundle and part contract already exist | `diagnosis-gate/README.md` |",
+    "mechanics/growth-cycle/parts/AGENTS.md#validation",
 )
 GROWTH_CYCLE_DIAGNOSIS_GATE_PART_REQUIRED_TOKENS = (
     "Diagnosis Gate Part",
@@ -11737,6 +11770,12 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         repo_root=repo_root,
         path_name=GROWTH_CYCLE_MECHANIC_PARTS_NAME,
         tokens=GROWTH_CYCLE_MECHANIC_PARTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=GROWTH_CYCLE_PARTS_README_NAME,
+        tokens=GROWTH_CYCLE_PARTS_README_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(

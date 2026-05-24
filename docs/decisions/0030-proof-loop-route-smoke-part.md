@@ -64,6 +64,36 @@ make the proof-loop mechanic a proof authority.
 
 It only moves the route-smoke artifact into its mechanic-owned part.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `route-smoke` remains the only active Proof Loop part and owns
+  the first public-safe route-smoke report.
+- Changed: the lower `mechanics/proof-loop/parts/README.md` now exposes an
+  operating card, active part row, owner pressure routes, and part admission
+  route before sending agents into `route-smoke/`.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Lower parts index operating route
+
+- Previous assumption: the lower Proof Loop parts README could stay as a short
+  pointer because the parent `PARTS.md` and route-smoke part README carried the
+  contract.
+- New reality: the lower index now names role, input, output, owner, next
+  route, validation lane, owner pressure routes, and admission tests.
+- Reason: a low-context agent entering `mechanics/proof-loop/parts/` should
+  route source proof, support contracts, candidate evidence, sibling refs,
+  receipts, route-smoke scope, and future proof-loop families without reading a
+  thin placeholder first.
+- Source surfaces updated: `mechanics/proof-loop/parts/README.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: focused lower-index validator tests, root validation, semantic
+  AGENTS validation, generated catalog check, diff whitespace check, and full
+  pytest.
+
 ## Validation
 
 - `python scripts/validate_repo.py`

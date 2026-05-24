@@ -126,3 +126,20 @@ As of 2026-05-24:
   `tests/test_validate_repo.py`.
 - Validation: root validator, semantic AGENTS validation, titan canary focused
   tests, generated-surface checks, full pytest, and diff whitespace check.
+
+### 2026-05-24 - Lower parts index operating route
+
+- Previous assumption: the lower Titan parts README could stay as a short
+  pointer to `seed-boundary` because parent, part, guide, and seed-local route
+  surfaces carried the stronger-owner map.
+- New reality: `mechanics/titan/parts/README.md` now exposes the lower-index
+  operating card for Titan proof-seed parts, including owner pressure routes
+  and admission tests for future scorer or topic-split pressure.
+- Reason: Titan canary edits are high-pressure even before an agent opens the
+  seed files. The lower parts index now names seed payload home, validation
+  lane, stronger-owner route, and the conditions for future part growth.
+- Source surfaces updated: `mechanics/titan/parts/README.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: focused lower-index validator tests, Titan canary validation,
+  root validation, semantic AGENTS validation, generated catalog check, diff
+  whitespace check, and full pytest.

@@ -55,8 +55,8 @@ The current active parts are `a2a-summon-return`,
 - checkpoint fixture family contracts;
 - artifact-to-verdict hook candidates for audit candidate readers;
 - owner handoff notes or adjacent bundle route notes;
-- no checkpoint implementation, memory canon, runtime activation, or owner
-  acceptance.
+- owner handoff routes for implementation, memory, runtime, owner acceptance,
+  scheduler, self-repair, child-output, and long-horizon competence pressure.
 
 ## Stronger Owner Split
 
@@ -78,17 +78,19 @@ interpretation, and local support-surface validation.
 
 ## Stop-Lines
 
-This package supports bounded eval-side proof only. Keep these claims outside
-this package:
+Boundary routes keep checkpoint proof pressure with the owner that can act on
+it:
 
-- checkpoint implementation authority;
-- memory canon or recall sovereignty;
-- live runtime activation;
-- owner acceptance or promotion;
-- hidden scheduler behavior;
-- autonomous self-repair;
-- final child-output quality;
-- broad long-horizon competence.
+| Pressure | Owner route |
+| --- | --- |
+| checkpoint implementation authority pressure | Agents-of-Abyss law route plus `aoa-sdk` checkpoint-control route |
+| memory canon or recall sovereignty pressure | `aoa-memo` memory route |
+| live runtime activation pressure | `abyss-stack` runtime route |
+| owner acceptance or promotion pressure | owner repository acceptance route |
+| hidden scheduler behavior pressure | `aoa-playbooks` choreography route plus `abyss-stack` runtime route |
+| autonomous self-repair pressure | `aoa-agents` role, approval, rollback, and health route |
+| final child-output quality pressure | owner repository child-output acceptance route |
+| broad long-horizon competence pressure | bundle-local proof object plus source-owner evidence review |
 
 ## Legacy
 

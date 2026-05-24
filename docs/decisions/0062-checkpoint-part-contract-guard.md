@@ -56,6 +56,40 @@ maps the historical placement internally.
 - Self-agent checkpoint posture proof remains below `aoa-agents`,
   `aoa-playbooks`, `aoa-memo`, runtime activation, and owner acceptance.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: the three active Checkpoint part READMEs remain protected part
+  contracts with inputs, outputs, stronger-owner split, stop-lines, and
+  validation routes.
+- Changed: part-level stop-line coverage now uses pressure-to-owner route rows,
+  and validator tokens guard each route row for A2A summon return,
+  restartable-inquiry, self-agent-posture, and the self-agent posture note.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Part boundary route wording
+
+- Previous assumption: Checkpoint part READMEs and the self-agent posture note
+  could keep boundaries as a boundary sentence followed by excluded claims.
+- New reality: the part contracts and posture note now expose the same
+  boundaries as direct pressure-to-owner routes.
+- Reason: a low-context agent should see where checkpoint doctrine, SDK
+  control-plane work, memo writeback, runtime execution, owner acceptance,
+  long-horizon truth, self-agent contract meaning, and checkpoint ontology route
+  next without parsing a prohibition list.
+- Source surfaces updated:
+  `mechanics/checkpoint/parts/a2a-summon-return/README.md`,
+  `mechanics/checkpoint/parts/restartable-inquiry/README.md`,
+  `mechanics/checkpoint/parts/self-agent-posture/README.md`,
+  `mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`,
+  and `scripts/validate_repo.py`.
+- Validation: checkpoint validator focus, A2A part-local fixture test,
+  candidate-reader checks, catalog check, root validation, semantic AGENTS
+  validation, diff whitespace check, and full pytest passed.
+
 ## Validation
 
 Expected validation route:

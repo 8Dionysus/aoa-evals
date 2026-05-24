@@ -7,18 +7,19 @@ This note defines the explicit eval-side landing for the first-wave
 
 It explains how `AOA-P-0006 self-agent-checkpoint-rollout` is read through
 existing bounded eval bundles.
-It does not introduce a new checkpoint-only proof canon.
+Checkpoint-only proof-canon pressure routes back to stronger owners.
 
 ## Core rule
 
 Self-agent checkpoint work is evaluated through existing bounded proof surfaces.
 
 `aoa-evals` may read checkpoint artifacts as evidence.
-It does not become the owner of:
 
-- self-agent contract meaning in `aoa-agents`
-- scenario composition in `aoa-playbooks`
-- checkpoint memory objects in `aoa-memo`
+| Pressure | Owner route |
+| --- | --- |
+| self-agent contract meaning | `aoa-agents` |
+| scenario composition | `aoa-playbooks` |
+| checkpoint memory objects | `aoa-memo` |
 
 ## Route-level reading
 
@@ -27,8 +28,8 @@ For `AOA-P-0006`, keep two bounded reads distinct:
 - `aoa-approval-boundary-adherence` is the primary gate-and-authority read
 - `aoa-bounded-change-quality` is the companion route-quality read
 
-This keeps approval posture and workflow posture legible without inventing a
-new sovereign bundle that tries to own the whole checkpoint stack.
+This keeps approval posture and workflow posture legible while sovereign-bundle
+pressure routes back to the checkpoint owner split.
 
 ## Hook surface
 
@@ -56,7 +57,7 @@ Use the current artifacts like this:
 - `improvement_log` shows whether the route preserved reviewable follow-up history
 
 These artifacts are evidence inputs.
-They are not a new checkpoint ontology inside `aoa-evals`.
+Checkpoint ontology pressure routes to Agents-of-Abyss checkpoint doctrine.
 
 ## Boundary to preserve
 
@@ -64,4 +65,4 @@ They are not a new checkpoint ontology inside `aoa-evals`.
   self-agent checkpoint schema
 - `aoa-playbooks` remains authoritative for `AOA-P-0006`
 - `aoa-memo` remains authoritative for checkpoint writeback and memory objects
-- `aoa-evals` remains authoritative only for bounded proof wording
+- `aoa-evals` remains authoritative for bounded proof wording

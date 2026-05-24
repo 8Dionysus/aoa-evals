@@ -13,7 +13,7 @@ The mechanic owns the route:
 | --- | --- | --- |
 | `a2a-summon-return` | Maintains the A2A summon child-return checkpoint fixture and hook route. | `mechanics/checkpoint/parts/a2a-summon-return/README.md` |
 | `restartable-inquiry` | Maintains checkpoint-and-relaunch proof routing for long-horizon inquiry restart fidelity. | `mechanics/checkpoint/parts/restartable-inquiry/README.md` |
-| `self-agent-posture` | Maintains the self-agent checkpoint eval posture and approval-boundary hook route without inventing a checkpoint-only proof canon. | `mechanics/checkpoint/parts/self-agent-posture/README.md` |
+| `self-agent-posture` | Maintains the self-agent checkpoint eval posture and approval-boundary hook route while checkpoint-canon pressure stays with stronger owners. | `mechanics/checkpoint/parts/self-agent-posture/README.md` |
 
 ## Part Contract
 
@@ -30,9 +30,18 @@ Owner split stays explicit: `Agents-of-Abyss` owns checkpoint law; SDK, skills,
 agents, memo, playbooks, routing, stats, runtime, and owner repositories keep
 their local truth; `aoa-evals` owns bounded proof interpretation.
 
-Stop-lines forbid checkpoint implementation authority, memory canon, live
-runtime activation, owner acceptance, hidden scheduling, autonomous self-repair,
-final child-output quality grading, or broad long-horizon competence claims.
+Stop-lines route stronger-owner pressure through the boundary routes below.
+
+| Pressure | Owner route |
+| --- | --- |
+| checkpoint implementation authority | Agents-of-Abyss law route plus `aoa-sdk` checkpoint-control route |
+| memory canon or recall sovereignty | `aoa-memo` memory route |
+| live runtime activation | `abyss-stack` runtime route |
+| owner acceptance or promotion | owner repository acceptance route |
+| hidden scheduling behavior | `aoa-playbooks` choreography route plus `abyss-stack` runtime route |
+| autonomous self-repair | `aoa-agents` role, approval, rollback, and health route |
+| final child-output quality grading | owner repository child-output acceptance route |
+| broad long-horizon competence | bundle-local proof object plus source-owner evidence review |
 
 Validation routes through [AGENTS](AGENTS.md#validation), including the
 part-local test, audit candidate-reader builders, generated catalog check, and

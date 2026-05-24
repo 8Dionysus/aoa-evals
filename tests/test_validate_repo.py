@@ -9743,6 +9743,29 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_blind_spot_disclosure_guide_validates_current_surface(self) -> None:
+        assert validate_repo.validate_blind_spot_disclosure_guide_surface(REPO_ROOT) == []
+
+    def test_blind_spot_disclosure_guide_rejects_stale_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, validate_repo.BLIND_SPOT_DISCLOSURE_GUIDE_NAME)
+        guide_path = tmp_path / validate_repo.BLIND_SPOT_DISCLOSURE_GUIDE_NAME
+        guide_path.write_text(
+            guide_path.read_text(encoding="utf-8")
+            + "\nWeak disclosure sounds like a generic umbrella caveat.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_blind_spot_disclosure_guide_surface(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.BLIND_SPOT_DISCLOSURE_GUIDE_NAME
+            and "disclosure gap routes" in issue.message
+            and "Weak disclosure sounds like" in issue.message
+            for issue in issues
+        )
+
     def test_root_authored_surface_classification_rejects_unclassified_root_doc(
         self, tmp_path: Path
     ) -> None:

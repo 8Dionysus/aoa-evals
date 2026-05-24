@@ -53,7 +53,7 @@ The minimum truth contract stays stable.
 | portability limits | what breaks when the bundle leaves its birth context |
 | nearby-claim confusion | narrower or different proof job route |
 
-## Good disclosure posture
+## Disclosure Posture
 
 Good blind-spot disclosure is:
 - concrete
@@ -61,13 +61,13 @@ Good blind-spot disclosure is:
 - specific to the bundle
 - visible enough that summaries route through it
 
-Weak disclosure sounds like:
+Disclosure needs a review gap route when it stays at:
 - generic umbrella caveat
 - vague variance caveat
 - judgment-only instruction
 
-Those statements may be true,
-but they stay too generic by themselves.
+Route those gaps back to bundle-specific unsupported claims,
+false-pass or false-fail paths, local-shape assumptions, or nearby-bundle routes.
 
 ## Summary and report interaction
 
@@ -80,13 +80,13 @@ If the blind spots say:
 
 then the compact summary routes through those same limits.
 
-## Review blocking cases
+## Review Deferral Routes
 
-Strong review usually defers when:
-- the blind spots are missing
-- the blind spots are generic rather than bundle-shaped
+Review defers through these gap routes:
+- blind-spot section is missing
+- blind spots need bundle-shaped specificity
 - the summary language is broader than the disclosed limits
-- the bundle hides likely false-pass paths
+- likely false-pass paths need exposure
 
 Missing blind spots weaken the truthfulness of the public surface.
 

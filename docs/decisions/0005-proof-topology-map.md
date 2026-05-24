@@ -75,7 +75,7 @@ As of 2026-05-22:
   route cards, part maps, and `mechanics/EVIDENCE_CLUSTERS.md`.
 - Superseded by: none.
 
-As of 2026-05-24:
+As of 2026-05-24 (authority boundary routes):
 
 - Still valid: authority-class routing remains the topology map's job.
 - Changed: boundary cells now name the stronger owner route for source
@@ -84,6 +84,19 @@ As of 2026-05-24:
 - Reason: low-context agents should see the next owner and validation posture
   directly from the authority table, instead of decoding repeated negative
   caveats.
+- Superseded by: none.
+
+As of 2026-05-24 (root district routes):
+
+- Still valid: `docs/PROOF_TOPOLOGY.md` remains the active authority-class and
+  root-district map.
+- Changed: quest, sibling, mechanic-operation, root-district, agent-lane,
+  receipt-sidecar, and parent-evidence rows now route through positive owner
+  language.
+- Source surfaces updated: `docs/PROOF_TOPOLOGY.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  proof_topology`.
 - Superseded by: none.
 
 ## Review Log
@@ -115,6 +128,21 @@ As of 2026-05-24:
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
 - Validation: root validation, semantic AGENTS validation, and focused proof
   topology tests.
+
+### 2026-05-24 - Root district routes clarified
+
+- Previous assumption: root district rows could preserve guard meaning through
+  compact negative phrases such as old payload homes or weak evidence refs.
+- New reality: the topology map is clearer when each row names the live owner
+  route: source proof object, bundle-local payload, mechanic part, receipt
+  sidecar, reviewed report, or evidence gate.
+- Reason: low-context agents use this table as a pass-through map before
+  descending into mechanics, so the table should expose the next route at a
+  glance.
+- Source surfaces updated: `docs/PROOF_TOPOLOGY.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  proof_topology`.
 
 ## Boundaries
 

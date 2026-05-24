@@ -6659,6 +6659,59 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_proof_topology_rejects_old_negative_route_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            validate_repo.PROOF_TOPOLOGY_NAME,
+            "docs/decisions/0005-proof-topology-map.md",
+            "ROADMAP.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        topology_path = tmp_path / validate_repo.PROOF_TOPOLOGY_NAME
+        topology_path.write_text(
+            topology_path.read_text(encoding="utf-8")
+            + "\nquests are obligations, not eval bundles\n"
+            + "no active root reports payload should live here\n"
+            + "not proof canon\n"
+            + "a generic root validator file and a rationale-only decision ref are not enough\n"
+            + "If those answers are unclear, do not move the file yet.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_proof_topology_surfaces(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.PROOF_TOPOLOGY_NAME
+            and "owner routes" in issue.message
+            and "quests are obligations" in issue.message
+            for issue in issues
+        )
+        assert any(
+            issue.location == validate_repo.PROOF_TOPOLOGY_NAME
+            and "owner routes" in issue.message
+            and "no active root reports payload" in issue.message
+            for issue in issues
+        )
+        assert any(
+            issue.location == validate_repo.PROOF_TOPOLOGY_NAME
+            and "owner routes" in issue.message
+            and "not proof canon" in issue.message
+            for issue in issues
+        )
+        assert any(
+            issue.location == validate_repo.PROOF_TOPOLOGY_NAME
+            and "owner routes" in issue.message
+            and "rationale-only decision ref" in issue.message
+            for issue in issues
+        )
+        assert any(
+            issue.location == validate_repo.PROOF_TOPOLOGY_NAME
+            and "owner routes" in issue.message
+            and "do not move the file yet" in issue.message
+            for issue in issues
+        )
+
     def test_memory_consumer_topology_requires_positive_source_authority_route(
         self, tmp_path: Path
     ) -> None:

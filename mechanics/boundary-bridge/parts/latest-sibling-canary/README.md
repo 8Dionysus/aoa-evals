@@ -42,7 +42,7 @@ public pinned-lane check when workflow pins change.
 
 | Pressure | Route |
 | --- | --- |
-| sibling edit pressure appears | route through sibling-owner change paths instead of canary output |
+| sibling edit pressure appears | sibling-owner change path, with canary output kept as local compatibility evidence |
 | GitHub `Repo Validation` replacement pressure appears | keep local canary success below the pinned public validation lane |
 | path resolution reads as sibling owner acceptance, bundle verdict, receipt publication, runtime truth, or proof promotion | return to sibling owner review, bundle-local review, receipt publication, runtime owner, or proof owner |
 | artifact form `latest-sibling-canary` reads as a parent mechanic | keep it under the `boundary-bridge` part map |

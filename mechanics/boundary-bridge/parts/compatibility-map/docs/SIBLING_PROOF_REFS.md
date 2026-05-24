@@ -26,8 +26,8 @@ The owned operation is:
 
 `repo-qualified ref -> sibling owner route -> current/legacy/rejected/unresolved posture -> latest-sibling canary -> bundle-local review`
 
-This keeps local proof references inspectable without editing sibling repos to
-make `aoa-evals` pass.
+This keeps local proof references inspectable while sibling repositories stay
+owner-routed for their own edits and source truth.
 
 ## Current Compatibility Map
 
@@ -42,7 +42,7 @@ make `aoa-evals` pass.
 | `aoa-kag` | runtime chaos regrounding refs | `AOA_KAG_ROOT` | `direct` | derived KAG substrate and regrounding truth | latest-sibling canary |
 | `aoa-sdk` | A2A checkpoint bridge and local target refs | `AOA_SDK_ROOT` | `direct` | SDK control-plane assembly and A2A helper contracts | latest-sibling canary |
 | `aoa-stats` | stats event envelope mirror refs | `AOA_STATS_ROOT` | `direct` | shared event envelope vocabulary and downstream stats derivation | latest-sibling canary plus receipt-envelope checks |
-| `abyss-stack` | runtime evidence schema and selected runtime candidate refs | `ABYSS_STACK_ROOT` | `abyss-stack-source` | runtime source contracts and implementation truth | latest-sibling canary resolves the source checkout, not the deployed mirror |
+| `abyss-stack` | runtime evidence schema and selected runtime candidate refs | `ABYSS_STACK_ROOT` | `abyss-stack-source` | runtime source contracts and implementation truth | latest-sibling canary resolves the source checkout; deployed mirror remains runtime artifact |
 
 The canary matrix source is `mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`.
 

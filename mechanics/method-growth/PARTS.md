@@ -12,7 +12,7 @@ The mechanic owns the route:
 | Part | Role | Active surfaces |
 | --- | --- | --- |
 | `candidate-lineage` | Maintains lineage-chain coherence support across checkpoint carry, reviewed candidate, seed staging, owner evidence, dropped branches, and supersession. | `mechanics/method-growth/parts/candidate-lineage/README.md` |
-| `owner-landing` | Maintains owner-fit routing support for reviewed growth-refinery candidates without replacing final owner acceptance. | `mechanics/method-growth/parts/owner-landing/README.md` |
+| `owner-landing` | Maintains owner-fit routing support for reviewed growth-refinery candidates while final acceptance stays with the owner repository. | `mechanics/method-growth/parts/owner-landing/README.md` |
 
 ## Part Contract
 
@@ -31,10 +31,19 @@ their local candidate, seed, technique, method, memory, and summary truths;
 `aoa-evals` owns proof wording, verdict logic, fixture/report contracts, and
 claim limits.
 
-Stop-lines forbid final owner-object quality claims, owner-local activation,
-lineage-as-owner-fit proof, owner-fit-as-final-quality proof, derivative
-first-authoring drift, universal growth scores, diagnosis-cause ownership,
-repair success, memory canon, and seed truth.
+Stop-lines route stronger-owner pressure through the boundary routes below.
+
+| Pressure | Owner route |
+| --- | --- |
+| final owner-object quality | final owner repository acceptance route |
+| owner-local activation | final owner repository route |
+| lineage-as-owner-fit proof | `owner-landing` route plus owner review |
+| owner-fit-as-final-quality proof | final owner repository acceptance route |
+| derivative first-authoring drift | source owner plus derivative-surface owner route |
+| universal growth score | bundle-local proof review plus owner evidence route |
+| diagnosis-cause ownership or repair success | `growth-cycle/diagnosis-gate` or `antifragility/repair-proof` route |
+| memory canon | `aoa-memo` memory route |
+| seed truth | `Dionysus` seed route |
 
 Validation is the affected bundle validation, generated catalog check, root
 repository validation, and the method-growth mechanic route checks in
@@ -43,11 +52,10 @@ repository validation, and the method-growth mechanic route checks in
 ## Deferred Part Families
 
 `aoa-diagnosis-cause-discipline` remains a source proof bundle in `evals/`
-and is not a method-growth part in this slice. It currently points more toward
-`growth-cycle/diagnosis-gate`.
+and routes through `growth-cycle/diagnosis-gate`.
 
 `aoa-repair-boundedness` remains under
 `mechanics/antifragility/parts/repair-proof/`.
 
 RPG progression and unlock proof support now routes through
-`mechanics/rpg/parts/progression-unlocks/`, not through Method-growth.
+`mechanics/rpg/parts/progression-unlocks/`.

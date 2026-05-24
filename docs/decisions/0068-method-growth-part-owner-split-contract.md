@@ -43,6 +43,36 @@ final owner truth stays with the owning repositories.
 - It must not claim final object quality, owner acceptance, hidden promotion,
   derivative first-authoring, seed truth, memory canon, or universal growth.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `candidate-lineage` and `owner-landing` remain separate guarded
+  part contracts under `mechanics/method-growth/`.
+- Changed: both part READMEs now express stop-line coverage as
+  pressure-to-owner route rows, and validator tokens guard those rows.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Part boundary route wording
+
+- Previous assumption: Method-growth part contracts could keep their stronger
+  owner split plus stop-line terms as exclusion prose.
+- New reality: `candidate-lineage` and `owner-landing` now guard full route
+  rows that name each pressure and its owner route.
+- Reason: lineage, owner fit, final object truth, derivative first-authoring,
+  seed, memory, practice, playbook, and stats pressure each has a different
+  owner; the active parts should make the handoff executable for a low-context
+  agent.
+- Source surfaces updated:
+  `mechanics/method-growth/parts/candidate-lineage/README.md`,
+  `mechanics/method-growth/parts/owner-landing/README.md`, and
+  `scripts/validate_repo.py`.
+- Validation: method-growth validator focus, candidate-lineage and owner-fit
+  eval validation, catalog check, root validation, semantic AGENTS validation,
+  diff whitespace check, and full pytest passed.
+
 ## Validation
 
 Expected validation route:

@@ -45,26 +45,31 @@ acceptance, activation, and landed meaning. `aoa-techniques`, `aoa-playbooks`,
 `aoa-memo`, and `aoa-stats` own their local practice, method, memory, and
 derived-summary truths when lineage evidence points at them.
 
-`aoa-evals` owns only bounded lineage-integrity proof wording, fixture/report
+`aoa-evals` owns bounded lineage-integrity proof wording, fixture/report
 contracts, missing-stage flags, dropped-branch or supersession visibility, and
-claim limits for `aoa-candidate-lineage-integrity`.
+claim limits for `aoa-candidate-lineage-integrity`. Authority beyond that
+proof reading routes through the stronger owner split above.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Boundary routes keep candidate-lineage pressure with the owner that can act on
+it:
 
-- owner-fit routing proof;
-- final object quality or final owner-object quality;
-- owner-local acceptance, activation, or landed meaning;
-- permission to skip owner-local evidence or receipts;
-- seed truth, memory canon, practice canon, or stats truth;
-- hidden promotion from a clean lineage chain;
-- one universal growth score.
+| Pressure | Owner route |
+| --- | --- |
+| owner-fit routing proof pressure | `mechanics/method-growth/parts/owner-landing/` route |
+| final object quality or final owner-object quality pressure | final owner repository acceptance route |
+| owner-local acceptance, activation, or landed meaning pressure | final owner repository route |
+| skip owner-local evidence or receipts pressure | final owner repository evidence route |
+| seed truth pressure | `Dionysus` seed route |
+| memory canon pressure | `aoa-memo` memory route |
+| practice canon pressure | `aoa-techniques` technique route |
+| stats truth pressure | `aoa-stats` derived-summary route |
+| hidden promotion from a clean lineage chain pressure | owner review plus owner-landing route |
+| universal growth score pressure | bundle-local proof review plus owner evidence route |
 
-This part is a lineage proof route, not owner-fit routing and not final object
-quality proof. A clean chain does not prove the chosen owner is correct, that
-the object is mature, or that owner receipts are optional.
+This part is a lineage proof route. Owner-fit routing, final object quality,
+object maturity, and owner receipt acceptance route through their owners.
 
 ## Validation
 

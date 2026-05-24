@@ -49,26 +49,33 @@ activation, quality, and future maintenance. `aoa-skills`, `aoa-techniques`,
 method, memory, and seed truths. `aoa-routing` and `aoa-kag` stay derivative
 unless their owner routes explicitly land meaning.
 
-`aoa-evals` owns only bounded owner-fit proof wording, nearest-wrong-target
+`aoa-evals` owns bounded owner-fit proof wording, nearest-wrong-target
 visibility, derivative-repo exclusion evidence, fixture/report contracts, and
-claim limits for `aoa-owner-fit-routing-quality`.
+claim limits for `aoa-owner-fit-routing-quality`. Authority beyond that proof
+reading routes through the stronger owner split above.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Boundary routes keep owner-landing pressure with the owner that can act on it:
 
-- final owner-object quality;
-- owner-local acceptance, activation, or future maintenance;
-- permanent routing from one owner-fit read;
-- derivative first-authoring for `aoa-routing` or `aoa-kag`;
-- skill, technique, playbook, memory, seed, or stats truth;
-- proof that lineage coherence implies owner fit;
-- one universal growth score.
+| Pressure | Owner route |
+| --- | --- |
+| final owner-object quality pressure | final owner repository acceptance route |
+| owner-local acceptance, activation, or future maintenance pressure | final owner repository route |
+| permanent routing from one owner-fit read pressure | owner repository review plus routing surface review |
+| derivative first-authoring for `aoa-routing` or `aoa-kag` pressure | source owner plus derivative-surface owner route |
+| skill truth pressure | `aoa-skills` skill route |
+| technique truth pressure | `aoa-techniques` technique route |
+| playbook truth pressure | `aoa-playbooks` playbook route |
+| memory truth pressure | `aoa-memo` memory route |
+| seed truth pressure | `Dionysus` seed route |
+| stats truth pressure | `aoa-stats` derived-summary route |
+| lineage coherence implies owner fit pressure | `candidate-lineage` evidence plus owner review |
+| universal growth score pressure | bundle-local proof review plus owner evidence route |
 
-This part is an owner-landing proof route, not final object proof. A clean
-owner-fit read does not prove the object is good, permanently routed, accepted
-by the owner, or ready for derivative first-authoring.
+This part is an owner-landing proof route. Final object quality, permanent
+routing, owner acceptance, and derivative first-authoring route through their
+owners.
 
 ## Validation
 

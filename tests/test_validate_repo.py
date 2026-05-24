@@ -9676,6 +9676,27 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_contributing_route_validates_current_surface(self) -> None:
+        assert validate_repo.validate_contributing_route_surface(REPO_ROOT) == []
+
+    def test_contributing_route_rejects_stale_scaffold(self, tmp_path: Path) -> None:
+        copy_repo_text(tmp_path, "CONTRIBUTING.md")
+        contributing_path = tmp_path / "CONTRIBUTING.md"
+        contributing_path.write_text(
+            contributing_path.read_text(encoding="utf-8")
+            + "\nIf the answer depends on hidden intuition, the bundle is not ready.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_contributing_route_surface(tmp_path)
+
+        assert any(
+            issue.location == "CONTRIBUTING.md"
+            and "owner routes and proof criteria" in issue.message
+            and "hidden intuition" in issue.message
+            for issue in issues
+        )
+
     def test_root_authored_surface_classification_rejects_unclassified_root_doc(
         self, tmp_path: Path
     ) -> None:

@@ -5,6 +5,17 @@ Thank you for contributing.
 `aoa-evals` accepts contributions that make a bounded proof claim easier to
 inspect, rerun, compare, review, or route to its owner.
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | public contribution route for bounded proof work |
+| input | eval bundle, proof guide, scorer, fixture, report contract, mechanic support, validation, or public-safety pressure |
+| output | focused PR, owner route, validation evidence, review evidence, or security handoff |
+| owner | this file owns public contribution posture; `AGENTS.md` owns agent workflow, branch, PR, CI, merge, and verification law |
+| next route | nearest owner surface: bundle `EVAL.md`, `eval.yaml`, docs guide, mechanic route card, `scripts/`, `tests/`, or sibling owner |
+| validation | root `AGENTS.md#verify`, nearest nested `AGENTS.md`, and affected bundle/mechanic route |
+
 ## Contribution Routes
 
 Choose the owner route before opening a PR.
@@ -25,7 +36,7 @@ Route these pressures before they become public proof claims:
 
 | Pressure | Route |
 | --- | --- |
-| loose test or project QA without a bounded public claim | keep it local until it has an eval contract and interpretation boundary |
+| loose test or project QA with no bounded public claim | keep it local until it has an eval contract and interpretation boundary |
 | private fixture, log, trace, or sensitive operational detail | security process or owning private surface before public PR |
 | large run dump | selected evidence packet, compact report, or audit candidate route |
 | undocumented scorer or metric | score semantics, verdict interpretation, and bundle-local review |
@@ -115,13 +126,13 @@ Should usually demonstrate:
 - a repeatable execution path
 - understandable scoring or verdict logic
 - explicit blind spots
-- outputs that do not overstate what was learned
+- outputs that preserve claim limits
 
 ### bounded -> portable
 
 Should usually demonstrate:
 - the bundle survives outside one narrow origin context
-- fixtures and scoring do not depend on hidden local assumptions
+- fixtures and scoring expose public setup, replacement rules, or reviewable assumptions
 - interpretation remains meaningful after bounded adaptation
 - portability notes or review evidence exist
 
@@ -144,7 +155,7 @@ Should usually demonstrate:
 - honest interpretation boundaries
 - a fresh public-safety recheck
 
-Do not mark an eval `canonical` because it feels impressive or produces tidy numbers.
+Canonical promotion needs evidence beyond impressiveness or tidy numbers.
 
 ### canonical -> deprecated
 
@@ -158,22 +169,19 @@ Requires:
 A strong PR should make it easy for reviewers to answer:
 - what claim is being made?
 - what supports that claim?
-- what does the eval still fail to prove?
+- what proof limits remain?
 - what kind of regression would this bundle catch?
 - where could this bundle mislead a careless reader?
 
-If the answer depends on hidden intuition, the bundle is not ready.
+Hidden intuition routes to a written judgment rule or deferred review.
 
 ## Security
 
 If your contribution reveals a leak, secret, private fixture source, or sensitive operational detail,
-do not open a public issue or PR with that material.
-Use the repository security process instead.
+use the repository security process for that material.
 
 ## Final note
 
-A good eval bundle does not try to prove everything.
-
-It should prove one bounded thing honestly.
+A good eval bundle proves one bounded thing honestly.
 That is enough.
 That is the standard this repository exists to protect.

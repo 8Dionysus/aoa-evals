@@ -43,6 +43,38 @@ Keep `docs/ARCHITECTURE.md` as the technical proof model. It must describe:
 - Tradeoff: small Architecture wording edits now need to keep the proof-model
   contract visible.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `docs/ARCHITECTURE.md` owns the technical proof model, while
+  repository form, authority classes, and mechanic-parent evidence route to
+  their owner surfaces.
+- Changed: the long-term direction now names `regression visibility with
+  bounded comparison semantics` and `growth tracking with explicit claim limits`
+  as the desired proof outcomes.
+- Source surfaces updated: `docs/ARCHITECTURE.md`, `scripts/validate_repo.py`,
+  and `tests/test_validate_repo.py`.
+- Validation route: `python -m pytest -q tests/test_validate_repo.py -k architecture`
+  and `python scripts/validate_repo.py`.
+
+## Review Log
+
+### 2026-05-24 — Long-term direction route language clarified
+
+- Previous assumption: `regression visibility without metric theater` and
+  `growth tracking without inflated claims` were sufficient shorthand for the
+  architecture direction.
+- New reality: this active route surface reads better for low-context agents
+  when it names the proof output: bounded comparison semantics and explicit
+  claim limits.
+- Reason: architecture is used as a technical operating map, so its direction
+  bullets should expose the route an agent can follow.
+- Source surfaces updated: `docs/ARCHITECTURE.md`, `scripts/validate_repo.py`,
+  and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k architecture`
+  and `python scripts/validate_repo.py`.
+
 ## Boundaries
 
 This decision does not create a new mechanic parent.

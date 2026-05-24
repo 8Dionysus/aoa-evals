@@ -413,11 +413,17 @@ ARCHITECTURE_REQUIRED_TOKENS = (
     "Artifact forms",
     "PROVENANCE.md",
     "single controlled bridge",
+    "regression visibility with bounded comparison semantics",
+    "growth tracking with explicit claim limits",
 )
 ARCHITECTURE_FORBIDDEN_NEGATIVE_ROLE_TOKENS = (
     "It is not the system design thesis",
     "but they are not themselves eval bundles",
     "but they are not themselves proof surfaces",
+)
+ARCHITECTURE_FORBIDDEN_ROUTE_SCAFFOLD = (
+    "regression visibility without metric theater",
+    "growth tracking without inflated claims",
 )
 ARCHITECTURE_PROOF_MODEL_DECISION_REQUIRED_TOKENS = (
     "Architecture Proof Model Contract",
@@ -428,6 +434,8 @@ ARCHITECTURE_PROOF_MODEL_DECISION_REQUIRED_TOKENS = (
     "mechanics as operation support",
     "owner-named evals-native",
     "legacy bridge layering",
+    "bounded comparison semantics",
+    "explicit claim limits",
     ARCHITECTURE_PROOF_MODEL_COMMAND,
 )
 DESIGN_AGENTS_REQUIRED_TOKENS = (
@@ -10306,6 +10314,15 @@ def validate_root_design_surfaces(repo_root: Path) -> list[ValidationIssue]:
                         "docs/ARCHITECTURE.md",
                         "architecture should route related surfaces positively instead of stale negative role scaffold "
                         f"'{stale_phrase}'",
+                    )
+                )
+        for stale_phrase in ARCHITECTURE_FORBIDDEN_ROUTE_SCAFFOLD:
+            if stale_phrase in architecture_text:
+                issues.append(
+                    ValidationIssue(
+                        "docs/ARCHITECTURE.md",
+                        "architecture long-term direction should name the proof route "
+                        f"instead of stale scaffold '{stale_phrase}'",
                     )
                 )
     if design_agents_text:

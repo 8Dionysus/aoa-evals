@@ -6498,6 +6498,44 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_root_design_surfaces_reject_architecture_direction_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            "DESIGN.md",
+            "DESIGN.AGENTS.md",
+            "AGENTS.md",
+            "docs/ARCHITECTURE.md",
+            "docs/decisions/README.md",
+            "docs/decisions/TEMPLATE.md",
+            "docs/decisions/AGENTS.md",
+            validate_repo.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+            validate_repo.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        ):
+            copy_repo_text(tmp_path, path_name)
+        architecture_path = tmp_path / "docs" / "ARCHITECTURE.md"
+        architecture_path.write_text(
+            architecture_path.read_text(encoding="utf-8")
+            + "\n- regression visibility without metric theater\n"
+            + "- growth tracking without inflated claims\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_root_design_surfaces(tmp_path)
+
+        assert any(
+            issue.location == "docs/ARCHITECTURE.md"
+            and "proof route" in issue.message
+            and "regression visibility without metric theater" in issue.message
+            for issue in issues
+        )
+        assert any(
+            issue.location == "docs/ARCHITECTURE.md"
+            and "proof route" in issue.message
+            and "growth tracking without inflated claims" in issue.message
+            for issue in issues
+        )
+
     def test_root_design_surfaces_reject_old_route_scaffold(
         self, tmp_path: Path
     ) -> None:

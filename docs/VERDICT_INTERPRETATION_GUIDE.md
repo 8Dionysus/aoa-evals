@@ -11,15 +11,26 @@ See also:
 - [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md)
 - [Eval Review Guide](EVAL_REVIEW_GUIDE.md)
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | verdict interpretation guide for bounded eval result surfaces |
+| input | bundle verdict, per-case evidence, one-run pressure, repeated-run pressure, longitudinal pressure, composite/diagnostic pressure, claim-language pressure, or public-summary pressure |
+| output | supported reading, boundary route, stronger-interpretation route, claim-language route, or public-summary correction route |
+| owner | this guide owns docs-level verdict reading discipline; bundle-local `EVAL.md`, `eval.yaml`, reports, and review notes own concrete verdict evidence |
+| next route | affected bundle, [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md), [Eval Review Guide](EVAL_REVIEW_GUIDE.md), comparison guide, repeated-window guide, or diagnostic bundle owner |
+| validation | [docs/AGENTS.md#validation](AGENTS.md#validation) |
+
 ## Canonical Verdict Routes
 
 | verdict | supported reading | boundary route |
 |---|---|---|
-| `supports bounded claim` | The observed evidence supports the exact stated claim on this bounded eval surface. | Keep broader capability, universal safety, and stable-behavior readings outside this verdict unless another owner surface supports them. |
+| `supports bounded claim` | The observed evidence supports the exact stated claim on this bounded eval surface. | Route broader capability, universal safety, and stable-behavior readings to the owner surface that can support them. |
 | `mixed support` | The surface contains meaningful support and meaningful counter-evidence, or the evidence is too split or unstable for a cleaner reading. | Keep the tension visible; route strongest-case enthusiasm and hidden-pass pressure back to case evidence. |
-| `does not support bounded claim` | The current evidence does not support the stated claim on this eval surface. | Keep the failure local to this claim; use nearby bundle review before rejecting other claim classes. |
+| `does not support bounded claim` | The current evidence leaves the stated claim unsupported on this eval surface. | Keep the failure local to this claim; use nearby bundle review before rejecting other claim classes. |
 
-These verdicts should stay tied to the explicit bounded claim in the bundle.
+These verdicts stay tied to the explicit bounded claim in the bundle.
 
 ## When to use `mixed support`
 
@@ -58,10 +69,10 @@ Comparison becomes stronger only when:
 - the verdict or score semantics stay the same
 - the object under evaluation stays comparable
 - environment changes are named
-- style-only movement is not mistaken for substantive change
+- style-only movement routes separately from substantive change
 
 Use repeated runs to support bounded statements such as:
-- version B did not look worse than version A on this surface
+- version B preserved the named-baseline behavior on this surface
 - this policy change reduced visible scope drift on the same case family
 - this diagnostic bundle became more stable across comparable runs
 
@@ -79,7 +90,7 @@ Use longitudinal readings only when:
 - windows are ordered and named
 - the same bounded surface is being read across windows
 - context drift is disclosed
-- style-only movement is not being mistaken for substantive change
+- style-only movement routes separately from substantive change
 
 Canonical longitudinal readings should stay modest:
 
@@ -87,7 +98,7 @@ Canonical longitudinal readings should stay modest:
 |---|---|---|
 | `bounded improvement signal` | Later windows look reviewably stronger on the same bounded surface. | Route general capability growth or durable improvement claims to a broader owner surface. |
 | `mixed or unstable movement` | The sequence shows real movement, but it splits, drifts, or becomes too unstable for a cleaner directional claim. | Preserve the unstable readout instead of smoothing it into a pass or hidden growth story. |
-| `no clear directional movement` | The sequence looks flat, too small, or too style-shaped for a stronger trend reading. | Keep room for local change that this surface did not capture. |
+| `no clear directional movement` | The sequence looks flat, too small, or too style-shaped for a stronger trend reading. | Keep room for local change that remains outside this surface's capture. |
 | `bounded regression signal` | Later windows lost a reviewable strength on the same bounded surface. | Route universal decline claims away from this bounded surface. |
 
 ## Composite vs diagnostic bundles
@@ -112,7 +123,7 @@ Use both shapes together when stronger interpretation needs both.
 | bounded support under named conditions | "under these conditions, this bounded claim is supported" |
 | fixture-family support | "on this fixture family, the result supports a modest workflow-quality claim" |
 | authority-surface behavior | "on this authority surface, the agent classified actions with reasonable caution" |
-| named-baseline comparison | "compared with the named baseline, this surface did not look worse" |
+| named-baseline comparison | "compared with the named baseline, this surface preserved the bounded behavior" |
 | broad quality, safety, reliability, intelligence, or score-sovereignty language | route back to bundle claim, score semantics, and stronger owner review before publication |
 
 ## Public summary discipline
@@ -122,7 +133,7 @@ A public summary should say:
 - the verdict
 - what evidence mainly drove that verdict
 - what remains uncertain
-- what the result still does not prove
+- unsupported readings that route elsewhere
 
 Public-summary pressure routes:
 
@@ -134,8 +145,6 @@ Public-summary pressure routes:
 | outcome quality starts reading as root-cause diagnosis | route to diagnostic bundle or reviewer analysis |
 
 ## Final note
-
-Verdicts are not decorations.
 
 They are the shortest truthful answer the bundle can currently support.
 

@@ -120,8 +120,8 @@ limits:
 ### Bridge And Candidate Evidence Surfaces
 
 Use these when runtime, trace, receipt, sibling, recurrence, or checkpoint
-artifacts need to feed an eval without becoming stronger than bundle-local
-review:
+artifacts should feed bundle-local review as candidate inputs while
+bundle-local review remains the stronger proof route:
 
 - [Trace Eval Bridge](../mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md)
 - [Trace Eval Bridge Chaos Wave 1](../mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md)

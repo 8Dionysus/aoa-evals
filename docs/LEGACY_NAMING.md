@@ -32,14 +32,14 @@ vocabulary?
 
 Start from the active route.
 
-The active-first route is mandatory.
+The active-first route starts with the current owner before archive context.
 
 For historical, old-placement, or source-lineage questions, cross the package
 `PROVENANCE.md` bridge after the active route identifies the owner. The bridge
 opens the owning `legacy/` archive. The archive explains itself.
 
-`PROVENANCE.md` is a bridge, not an active route. It opens historical archive
-context after active surfaces identify the owner.
+`PROVENANCE.md` is the active-to-archive bridge for the mechanic. It opens
+historical archive context after active surfaces identify the owner.
 
 Use active surfaces first:
 

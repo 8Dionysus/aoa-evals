@@ -222,11 +222,10 @@ candidate, receipt, quest, decision, sibling, legacy, and active mechanic
 authority classes.
 [`docs/LEGACY_NAMING.md`](docs/LEGACY_NAMING.md) maps active, historical,
 accepted-input, generated-projection, candidate-only, and provenance-bridge
-naming postures. It is a posture guide, not an archive map: old names route
-through active surfaces and the `PROVENANCE.md` single controlled bridge from
-active mechanic surfaces into the legacy archive. `PROVENANCE.md` is a bridge,
-not an active route; archive details stay inside the archive. In short:
-`PROVENANCE.md` is a bridge, not an active route.
+naming postures. It is a posture guide for routing old names through active
+surfaces and the `PROVENANCE.md` single controlled bridge from active mechanic
+surfaces into the legacy archive. `PROVENANCE.md` is the active-to-archive bridge;
+archive details stay inside the archive.
 [`mechanics/EVIDENCE_CLUSTERS.md`](mechanics/EVIDENCE_CLUSTERS.md) records the
 root-district reconnaissance and cross-root evidence standard for parent
 mechanics before files move into or between mechanic packages; it also classifies

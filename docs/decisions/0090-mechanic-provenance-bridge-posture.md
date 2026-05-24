@@ -38,3 +38,32 @@ insufficient.
 
 This keeps legacy important but archival: one bridge from active mechanics, and
 then detailed accounting inside legacy.
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `PROVENANCE.md` is the only first-hop route from active mechanic
+  surfaces into the owning legacy archive.
+- Changed: active route surfaces now express the contract as an
+  active-to-archive bridge with route, owner, and next-step wording.
+- Superseded by: no new decision; this is a route-language amendment of the
+  same bridge posture.
+
+## Review Log
+
+### 2026-05-24 - Active bridge wording made positive
+
+- Previous assumption: active surfaces and validators carried the sentence
+  "`PROVENANCE.md` is a bridge, not an active route."
+- New reality: active surfaces use active-to-archive bridge wording, keep
+  "Use active surfaces first", and route archive details to the owning legacy
+  archive.
+- Reason: live route surfaces should give low-context agents a route, owner,
+  and next step.
+- Source surfaces updated: `mechanics/*/PROVENANCE.md`,
+  `mechanics/README.md`, `docs/PROOF_TOPOLOGY.md`,
+  `docs/LEGACY_NAMING.md`, `DESIGN.md`, `scripts/validate_repo.py`, and
+  `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  mechanic_provenance_bridge_posture`; `python scripts/validate_repo.py`.

@@ -1552,7 +1552,7 @@ MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_REQUIRED_TOKENS = (
     MECHANIC_LEGACY_SINGLE_BRIDGE_COMMAND,
 )
 MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS = (
-    "`PROVENANCE.md` is a bridge, not an active route.",
+    "`PROVENANCE.md` is the active-to-archive bridge for this mechanic.",
     "Use active surfaces first:",
     "DIRECTION.md",
     "PARTS.md",
@@ -1560,11 +1560,13 @@ MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS = (
     "legacy archive",
     "legacy/README.md",
     "owns its own details",
-    "Do not copy archive details",
+    "archive details stay in the legacy archive",
 )
 MECHANIC_PROVENANCE_BRIDGE_POSTURE_DECISION_REQUIRED_TOKENS = (
     "Mechanic Provenance Bridge Posture",
-    "`PROVENANCE.md` is a bridge, not an active route.",
+    "Current Applicability",
+    "active-to-archive bridge",
+    "Review Log",
     "Use active surfaces first:",
     "`DIRECTION.md`",
     "legacy archive",
@@ -18235,7 +18237,7 @@ def validate_mechanic_provenance_bridge_posture_surfaces(
         repo_root=repo_root,
         path_name=MECHANICS_README_NAME,
         tokens=(
-            "`PROVENANCE.md` is a bridge, not an active route.",
+            "`PROVENANCE.md` is the active-to-archive bridge",
             "Use active surfaces first:",
             "legacy archive",
         ),
@@ -18245,7 +18247,7 @@ def validate_mechanic_provenance_bridge_posture_surfaces(
         repo_root=repo_root,
         path_name=PROOF_TOPOLOGY_NAME,
         tokens=(
-            "`PROVENANCE.md` is a bridge, not an active route.",
+            "`PROVENANCE.md` is the active-to-archive bridge",
             "Use active surfaces first:",
             "legacy archive",
         ),
@@ -18255,7 +18257,7 @@ def validate_mechanic_provenance_bridge_posture_surfaces(
         repo_root=repo_root,
         path_name=LEGACY_NAMING_NAME,
         tokens=(
-            "`PROVENANCE.md` is a bridge, not an active route.",
+            "`PROVENANCE.md` is the active-to-archive bridge",
             "Use active surfaces first:",
             "legacy archive",
         ),
@@ -18266,7 +18268,7 @@ def validate_mechanic_provenance_bridge_posture_surfaces(
         path_name="DESIGN.md",
         tokens=(
             "single controlled bridge",
-            "bridge, not an active route",
+            "active-to-archive bridge",
             "legacy archive",
         ),
         issues=issues,

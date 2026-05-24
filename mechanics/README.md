@@ -98,7 +98,7 @@ Archive boundary route: active work starts from parent `README.md`,
 `DIRECTION.md`, `PARTS.md`, parts, owner split, stop-lines, and validation.
 Legacy explains lineage after the active form exists, and the archive explains
 its own internal route.
-Every `PROVENANCE.md` is a bridge, not an active route.
+Every `PROVENANCE.md` is the active-to-archive bridge for its mechanic.
 
 Use active surfaces first:
 

@@ -6914,6 +6914,57 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_source_eval_command_ownership_validates_current_routes(self) -> None:
+        source_issues, records = validate_repo.collect_catalog_records(REPO_ROOT)
+
+        assert source_issues == []
+        assert validate_repo.validate_source_eval_command_ownership(
+            REPO_ROOT, records
+        ) == []
+
+    def test_source_eval_command_ownership_rejects_eval_command_block(
+        self, tmp_path: Path
+    ) -> None:
+        eval_path = (
+            tmp_path
+            / "evals"
+            / "boundary"
+            / "sample-command-owner"
+            / "EVAL.md"
+        )
+        write_text(
+            eval_path,
+            """
+            # Sample Eval
+
+            ## Verification
+
+            ```bash
+            python scripts/validate_repo.py --eval sample-command-owner
+            ```
+            """,
+        )
+        record = validate_repo.EvalBundleRecord(
+            name="sample-command-owner",
+            bundle_dir=eval_path.parent,
+            eval_md_path=eval_path,
+            eval_yaml_path=eval_path.parent / "eval.yaml",
+            metadata={},
+            manifest={},
+            sections={},
+        )
+
+        issues = validate_repo.validate_source_eval_command_ownership(
+            tmp_path, [record]
+        )
+
+        assert any(
+            issue.location == "evals/boundary/sample-command-owner/EVAL.md"
+            and "route executable validation commands to evals/AGENTS.md"
+            in issue.message
+            for issue in issues
+        )
+
     def test_releasing_route_map_surface_validates_current_route(self) -> None:
         assert validate_repo.validate_releasing_route_map_surface(REPO_ROOT) == []
 

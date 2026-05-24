@@ -1,8 +1,11 @@
 # Agon Direction
 
-Agon in `aoa-evals` should make Agon pressure reviewable as bounded proof
-alignment without pretending to be the Agon court, arena, judge, scar writer,
-rank system, memory owner, KAG canon, or ToS canon.
+Agon in `aoa-evals` turns Agon pressure into bounded proof alignment: visible
+part sources, deterministic registries, candidate-only checks, observe-only
+recurrence signals, bundle-local review, and stronger-owner handoff.
+
+Court, arena, verdict, scar, rank, memory, KAG, and ToS authority stay visible
+as owner routes rather than eval-side claims.
 
 Use this file for the package's current operating direction: read it after the
 parent entry card and before `PARTS.md`, part contracts, source bundles,
@@ -29,23 +32,29 @@ decision records, and `PROVENANCE.md`.
   CCS, VDS, mechanical trials, retention/rank, epistemic, SLC, KAG, or Sophian
   threshold.
 - Keep generated registries below source seed/config/docs and below owner law.
-- Keep observe-only recurrence hooks as signals, never as live Agon runtime.
+- Keep observe-only recurrence hooks as review signals that route runtime
+  pressure back to stronger owners.
 - Route unresolved operational authority back to `Agents-of-Abyss` or the
   stronger sibling owner.
 
 ## Growth rule
 
 Add a new Agon part only when a cross-root cluster has a source surface, support
-payload, validator or test, generated/readout or report need, and a clear
-stop-line. Do not create a parent for a proof adjective such as prebinding,
-candidate, trial, or verdict.
+payload, validator or test, generated/readout or report need, and a clear owner
+boundary.
+
+Proof-adjective pressure such as prebinding, candidate, trial, or verdict grows
+inside the owning part and validator lane until it has a distinct source,
+generated, and validation route.
 
 ## Stop-lines
 
-- Do not claim live arena execution, verdict authority, scar authority, rank
-  mutation, memory mutation, KAG canon, or ToS canon.
-- Do not let old wave docs steer active topology ahead of `PARTS.md`.
-- Do not use Agon proof support to absorb sibling authority.
+| Pressure reaching the stop-line | Route |
+| --- | --- |
+| live arena, verdict, scar, rank, memory, KAG, or ToS authority | stronger owner surface before eval-side wording changes |
+| old wave or former-placement docs | `PROVENANCE.md`, then `legacy/`, after the active `PARTS.md` route identifies the owner |
+| sibling authority or owner acceptance | owner handoff surface rather than local proof-support expansion |
+| proof-adjective parent pressure | existing Agon part, validator lane, or evidence-backed new part route |
 
 ## Validation
 

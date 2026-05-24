@@ -2,11 +2,13 @@
 
 ## Role
 
-This is mechanic-wide guidance for Agon recurrence review boundaries in
+This guide routes mechanic-wide Agon recurrence review boundaries in
 `aoa-evals`.
 
-It is not a recurrence control-plane contract, not an Agon part payload, not a
-source proof bundle, and not permission to activate Agon runtime machinery.
+It sits between recurrence signals and Agon parts. Recurrence control-plane
+contracts stay with recurrence owners, Agon payloads stay in owning Agon parts,
+source proof meaning stays in eval bundles, and runtime activation stays with
+runtime and Agon owners.
 
 ## Mechanic-wide Scope
 
@@ -41,12 +43,12 @@ support. Recurrence owners own recurrence law and control-plane truth.
 
 ## Stop-Lines
 
-- Do not open an arena session from recurrence pressure.
-- Do not write memory, mutate rank, create scars, or promote to Tree of Sophia.
-- Do not read a recurrence hook, manifest, beacon, or generated registry as an
-  owner decision.
-- Do not let recurrence pressure create a new Agon parent or proof-suffix
-  package.
+| Boundary pressure | Owner route |
+| --- | --- |
+| arena session from recurrence pressure | Agon owner and runtime owner route before any activation claim |
+| memory, rank, scars, or Tree of Sophia promotion | `aoa-memo`, `aoa-stats`, `Agents-of-Abyss`, or `Tree-of-Sophia` as applicable |
+| owner decision inferred from hook, manifest, beacon, or generated registry | accepting owner repository and source bundle review |
+| new Agon parent or proof-suffix package pressure | active `PARTS.md`, existing part contract, and evidence-backed parent gate |
 
 ## Validation
 

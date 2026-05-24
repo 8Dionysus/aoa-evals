@@ -58,8 +58,8 @@ Use these when a claim, verdict, fixture, or interpretation boundary matters:
 ### Generated Reader Surfaces
 
 These route back to authored proof sources and generated data. They make
-navigation compact; they do not replace `evals/**/EVAL.md` or
-`evals/**/eval.yaml`.
+navigation compact and route readers back to `evals/**/EVAL.md`,
+`evals/**/eval.yaml`, or the owning source surface.
 
 - [Generated Reader Index](../generated/README.md)
 - [Eval Bundle Selection Chooser](../EVAL_SELECTION.md)

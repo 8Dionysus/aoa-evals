@@ -3,8 +3,8 @@
 `generated/` stores repo-wide derived reader surfaces.
 
 These files help agents and tooling navigate source proof objects, quest
-records, reports, capsules, sections, and comparison metadata without replacing
-the authored sources.
+records, reports, capsules, sections, and comparison metadata while preserving
+authored source ownership.
 
 ## Operating Card
 

@@ -280,6 +280,7 @@ GENERATED_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
 GENERATED_READER_INDEX_REQUIRED_TOKENS = (
     "# Generated Reader Index",
     "repo-wide derived reader surfaces",
+    "authored source ownership",
     "generated/quest_catalog.min.json",
     "generated/quest_dispatch.min.example.json",
     "source owner surface",

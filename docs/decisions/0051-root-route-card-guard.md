@@ -60,6 +60,34 @@ are not the first place to put a new mechanic artifact.
 - Tradeoff: a future real repo-wide shared payload must update the allowlist
   deliberately instead of just adding a file.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: root route-card-only districts remain route signs for old root
+  paths and compatibility lookup.
+- Changed: `reports/README.md` now names source bundles and reviewed reports as
+  the owner route for eval-claim strength when release-support reports appear
+  in the report route map.
+- Historical text: the original decision still explains why root report
+  payloads stay out of the root route-card district.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Reports route card names proof-strength owner
+
+- Previous assumption: the release-support report row could preserve proof
+  limits by saying that handoff reports do not strengthen eval claims.
+- New reality: the route card now names the stronger owner route: source
+  bundles and reviewed reports keep eval-claim strength.
+- Reason: route-card-only README surfaces should show where a report reader
+  goes next rather than carrying prohibition-style proof caveats.
+- Source surfaces updated: `reports/README.md`, `scripts/validate_repo.py`,
+  `tests/test_validate_repo.py`, and this decision.
+- Validation: root validation, generated-reader checks, semantic AGENTS
+  validation, and focused root route-card tests.
+
 ## Boundaries
 
 This decision does not move `evals/`, root repo-wide `scripts/`, root

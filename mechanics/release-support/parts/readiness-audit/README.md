@@ -13,9 +13,10 @@ This part owns the local release-prep readiness audit artifact.
 - `scripts/release_check.py`
 
 The artifact says whether the accumulated strategic refactor is locally ready
-for release-prep review after local gates. It must keep publication open: no
-tag, no GitHub Release, no PR approval, no GitHub `Repo Validation` for the
-uncommitted diff, no live eval-result receipt, and no goal completion.
+for release-prep review after local gates. It routes publication state to live
+owners: current git branch/merge state, GitHub PR approval and Repo Validation,
+tags, GitHub Releases, live eval-result receipt publication, sibling mutation
+evidence, and current goal review.
 
 ## Inputs
 
@@ -25,16 +26,16 @@ uncommitted diff, no live eval-result receipt, and no goal completion.
   full pytest, release check, whitespace check, and sibling canary when relevant;
 - source evidence refs for design, decisions, quests, mechanics, reports,
   generated readers, receipt dry-review, and sibling-boundary surfaces;
-- explicit open publication conditions that still require branch, PR, GitHub
-  `Repo Validation`, merge, tag, release, and final completion review.
+- publication-state fields that route branch, PR, GitHub `Repo Validation`,
+  merge, tag, release, and final completion review to live owner evidence.
 
 ## Outputs
 
 - `release_support_readiness_audit` JSON report;
 - requirement-by-requirement local release-prep readiness claims;
-- `publication_boundary` fields that keep release, tag, GitHub Release, PR,
-  GitHub `Repo Validation`, live receipt, sibling mutation, and goal completion
-  open with `goal_completion_status` as `not_complete`;
+- `publication_boundary` fields for release, tag, GitHub Release, PR, GitHub
+  `Repo Validation`, live receipt, sibling mutation, and goal completion, with
+  `goal_completion_status` as `not_complete`;
 - validator and test failures when readiness language becomes publication,
   approval, or completion language.
 
@@ -52,14 +53,13 @@ than readiness audit claims.
 
 ## Stop-Lines
 
-- Do not treat the readiness audit as a tag, GitHub Release, PR approval,
-  observed GitHub `Repo Validation`, or goal completion.
-- Do not use a green local release audit to strengthen any eval verdict or
-  bundle status.
-- Do not hide skipped checks or unresolved sibling compatibility.
-- Do not claim live eval-result receipt publication, runtime acceptance, or
-  sibling mutation from this artifact.
-- Do not move root release entrypoints into this part.
+| Pressure | Route |
+| --- | --- |
+| readiness audit treated as tag, GitHub Release, PR approval, observed GitHub `Repo Validation`, or goal completion | current git, GitHub, tag/release, and goal-audit evidence |
+| green local release audit used to grow eval verdict or bundle status | bundle-local proof review |
+| skipped checks or unresolved sibling compatibility | explicit verification snapshot and owner handoff |
+| live eval-result receipt publication, runtime acceptance, or sibling mutation claim | receipt, runtime, or sibling-owner evidence |
+| root release entrypoint movement | root or GitHub-native lane |
 
 ## Validation
 

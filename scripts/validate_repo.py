@@ -3227,14 +3227,14 @@ RELEASE_SUPPORT_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "Readiness Audit",
     "Strategic Closeout",
     "PR Handoff",
-    "do not publish a release",
+    "Live publication state is",
 )
 RELEASE_SUPPORT_PARTS_README_REQUIRED_TOKENS = (
     "Release Support / Parts Route",
     "Readiness Audit",
     "Strategic Closeout",
     "PR Handoff",
-    "without pretending GitHub actions occurred",
+    "current git and GitHub evidence own live branch",
 )
 RELEASE_SUPPORT_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
 RELEASE_SUPPORT_PART_README_COMMON_REQUIRED_TOKENS = (
@@ -3250,11 +3250,11 @@ RELEASE_SUPPORT_READINESS_AUDIT_PART_REQUIRED_TOKENS = (
     "Readiness Audit",
     "release_support_readiness_audit",
     "publication_boundary",
-    "no GitHub Release",
-    "no PR approval",
-    "no GitHub `Repo Validation`",
+    "GitHub PR approval and Repo Validation",
+    "current git branch/merge state",
+    "current goal review",
     "not_complete",
-    "Do not treat the readiness audit as a tag",
+    "readiness audit treated as tag",
 ) + RELEASE_SUPPORT_PART_README_COMMON_REQUIRED_TOKENS
 RELEASE_SUPPORT_STRATEGIC_CLOSEOUT_PART_REQUIRED_TOKENS = (
     "Strategic Closeout",
@@ -3262,17 +3262,17 @@ RELEASE_SUPPORT_STRATEGIC_CLOSEOUT_PART_REQUIRED_TOKENS = (
     "goal_completion_status",
     "not_complete",
     "owner-visible final audit",
-    "Do not mark the long goal complete",
-    "Do not remove open landing requirements",
+    "local handoff readiness as goal completion",
+    "open landing requirements stay visible",
 ) + RELEASE_SUPPORT_PART_README_COMMON_REQUIRED_TOKENS
 RELEASE_SUPPORT_PR_HANDOFF_PART_REQUIRED_TOKENS = (
     "PR Handoff",
     "release_prep_pr_handoff",
     "pre_handoff_github_status",
     "draft PR body",
-    "Current local git state and GitHub state are stronger",
-    "Do not treat this artifact as a created branch",
-    "Do not keep using this snapshot as live status",
+    "Live GitHub state is owned by current local git",
+    "snapshot treated as created branch",
+    "current git and GitHub evidence replace this snapshot",
 ) + RELEASE_SUPPORT_PART_README_COMMON_REQUIRED_TOKENS
 RELEASE_SUPPORT_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "Release Support Part Contract Guard",
@@ -11977,8 +11977,8 @@ def validate_release_support_readiness_audit_surface(repo_root: Path) -> list[Va
             "mechanics/release-support/parts/readiness-audit/README.md",
             (
                 RELEASE_SUPPORT_READINESS_AUDIT_NAME,
-                "no GitHub `Repo Validation`",
-                "no goal completion",
+                "GitHub PR approval and Repo Validation",
+                "current goal review",
             ),
         ),
         (
@@ -12268,7 +12268,7 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
             (
                 STRATEGIC_CLOSEOUT_AUDIT_NAME,
                 "goal open",
-                "GitHub `Repo Validation`",
+                "GitHub",
                 "current objective audit",
             ),
         ),

@@ -17,11 +17,11 @@ owner-visible final audit gate for the accumulated refactor route.
 - `docs/LEGACY_NAMING.md`
 
 The artifact reviews the long refactor goal requirement by requirement. It may
-state local handoff readiness, but it must keep the goal open until a current
-objective audit proves the mechanics-refactor definition of done from the
-worktree and the requested landing route completes. Commit, push, PR review,
-GitHub `Repo Validation`, merge, fast-forward `main`, and a clean worktree are
-landing proof for this route, not substitutes for the objective audit. Short
+state local handoff readiness. Goal completion routes through a current
+objective audit proving the mechanics-refactor definition of done from the
+worktree plus the requested landing route: commit, push, PR review, GitHub
+`Repo Validation`, merge, fast-forward `main`, and clean worktree. Those
+landing facts are proof for this route and inputs to the objective audit. Short
 form: goal open until the current objective audit proves completion and the
 requested landing route lands cleanly.
 
@@ -60,16 +60,15 @@ keep their own stronger truth.
 
 ## Stop-Lines
 
-- Do not mark the long goal complete from local handoff readiness.
-- Do not infer branch, PR, merge, tag, GitHub Release, live receipt, runtime
-  acceptance, sibling mutation, or bundle promotion.
-- Do not treat PR or GitHub landing alone as objective completion.
-- Do not treat the outside working note as repository authority.
-- Do not let a strategic audit replace source proof objects, bundle-local
-  reports, or release-support readiness boundaries.
-- Do not remove open objective-audit requirements to make closeout look
-  cleaner.
-- Do not remove open landing requirements to make closeout look cleaner.
+| Pressure | Route |
+| --- | --- |
+| local handoff readiness as goal completion | current objective audit plus landed route evidence |
+| branch, PR, merge, tag, GitHub Release, live receipt, runtime acceptance, sibling mutation, or bundle promotion claim | current git, GitHub, release, receipt, runtime, sibling, or bundle-owner evidence |
+| PR or GitHub landing alone as objective completion | requirement-by-requirement objective audit |
+| outside working note as repository authority | repo-local evidence refs |
+| strategic audit replacing source proof objects, bundle-local reports, or readiness boundaries | source proof and release-support owner surfaces |
+| cleaner closeout by removing open objective-audit requirements | open objective-audit requirements stay visible |
+| cleaner closeout by removing open landing requirements | open landing requirements stay visible |
 
 ## Validation
 

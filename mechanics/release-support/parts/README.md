@@ -10,7 +10,8 @@ Active parts:
 - [Strategic Closeout](strategic-closeout/README.md): requirement-by-
   requirement handoff audit for the long refactor goal.
 - [PR Handoff](pr-handoff/README.md): pre-PR landing snapshot that prepares the
-  owner route without pretending GitHub actions occurred.
+  owner route while current git and GitHub evidence own live branch, PR, CI,
+  and merge status.
 
 Root release entrypoints stay outside this directory when they are public or
 repo-wide control surfaces: `CHANGELOG.md`, `docs/RELEASING.md`,

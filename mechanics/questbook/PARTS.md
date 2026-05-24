@@ -4,9 +4,10 @@
 
 `PARTS.md` lists the active parts inside `mechanics/questbook/`.
 
-It is not the human quest index, generated quest reader, roadmap, or proof
-bundle list. A questbook part is active only when it supports the recurring
-quest obligation loop and keeps source quest records stronger than read models.
+Use it as the part map for the recurring quest obligation loop. Human
+open-obligation visibility routes to `QUESTBOOK.md`, generated quest readers
+route to root `generated/`, roadmap direction routes to `ROADMAP.md`, and proof
+bundle meaning routes to bundle-local proof surfaces.
 
 ## Active Parts
 
@@ -42,21 +43,13 @@ mechanic.
 
 ## Part Contract
 
-Inputs are unresolved proof obligations, lane/state source quest records, quest
-lifecycle state, human open-obligation index entries, and generated reader
-requirements.
-
-Outputs are schema-backed source quest records, `QUESTBOOK.md`
-open-obligation visibility, generated quest catalog and dispatch readers, and
-deferred return routes for later reviewed promotion or closure.
-
-Owner split stays explicit: `quests/<lane>/<state>/` owns source quest records;
-`QUESTBOOK.md` owns human open-obligation visibility; generated quest readers
-stay derived; eval bundles and sibling owners keep stronger proof or owner
-truth.
-
-Stop-lines forbid treating quests as eval bundles, verdicts, roadmap direction,
-release items, generated authority, or owner acceptance.
+| Field | Route |
+| --- | --- |
+| Inputs | unresolved proof obligations, lane/state source quest records, lifecycle state, human open-obligation index entries, and generated reader requirements |
+| Outputs | schema-backed source quest records, `QUESTBOOK.md` open-obligation visibility, generated catalog/dispatch readers, and deferred return routes for later reviewed promotion or closure |
+| Owner split | `quests/<lane>/<state>/` owns source records; `QUESTBOOK.md` owns human open-obligation visibility; generated readers stay derived; eval bundles and sibling owners keep stronger proof or owner truth |
+| Stop-lines | route eval-bundle, verdict, roadmap, release, generated-authority, and owner-acceptance pressure to the stronger owner surface |
+| Validation | parent `AGENTS.md`, affected part route cards, and generated-reader checks when source records move |
 
 Validation routes through [AGENTS](AGENTS.md#validation) and the affected part
 route cards. Rebuild generated quest readers through the AGENTS route when
@@ -64,15 +57,14 @@ source quest records move.
 
 ## Stop-Lines
 
-- Do not treat a quest as an eval bundle, verdict, release item, or roadmap
-  direction.
-- Do not list closed quests as open obligations in `QUESTBOOK.md`.
-- Do not reintroduce old top-level quest source paths as aliases.
-- Do not move generated quest readers into this package unless root generated
-  topology changes for all repo-wide readers.
-- Do not use post-session harvest output as source truth or owner acceptance.
-- Do not promote one repeated pressure note into a proof surface without bundle
-  or mechanic evidence.
+| Pressure | Route |
+| --- | --- |
+| quest treated as eval bundle, verdict, release item, or roadmap direction | bundle-local proof surface, release-support route, or `ROADMAP.md` |
+| closed quest listed as open obligation | closed-state route and `QUESTBOOK.md` open-obligation index |
+| old top-level quest source path revived as alias | `PROVENANCE.md` and legacy path vocabulary |
+| generated quest reader moved into this package | root generated topology review for all repo-wide readers |
+| post-session harvest output as source truth or owner acceptance | source quest record review or owner route |
+| repeated pressure note promoted into proof surface | bundle or mechanic evidence review |
 
 ## Validation
 

@@ -5,8 +5,10 @@
 This part owns the schema-backed source contract for quest records in
 `aoa-evals`.
 
-It is not the human open-obligation index, generated dispatch reader, roadmap,
-or proof bundle source.
+It routes quest record source shape. Human open-obligation visibility routes to
+`QUESTBOOK.md`, generated dispatch routes to the dispatch-reader part, roadmap
+direction routes to `ROADMAP.md`, and proof bundle meaning routes to
+bundle-local proof surfaces.
 
 ## Owned Operation
 
@@ -48,20 +50,20 @@ parts own proof verdicts when a quest pressure becomes a source proof object.
 
 Sibling repositories own downstream owner acceptance when a quest points
 outside `aoa-evals`. The installed `aoa-quest-harvest` skill may support
-triage, but it does not become source quest truth.
+triage; source quest truth stays in reviewed quest records.
 
 `aoa-evals` owns the quest schema contract, lane/state consistency checks, and
 claim limits for source quest records.
 
 ## Stop-Lines
 
-- Do not make quest records proof verdicts.
-- Do not move quest state without matching source path, schema, human index,
-  generated reader, and validation updates.
-- Do not reintroduce old top-level quest paths as active source files.
-- Do not treat `aoa-quest-harvest` output as source truth.
-- Do not use a quest source record as roadmap direction, release readiness,
-  owner acceptance, or live promotion authority.
+| Pressure | Route |
+| --- | --- |
+| quest record used as proof verdict | bundle-local proof surface or owning mechanic evidence |
+| quest state movement | matching source path, schema, human index, generated reader, and validation updates |
+| old top-level quest path revived as active source | `PROVENANCE.md` and legacy path vocabulary |
+| `aoa-quest-harvest` output as source truth | reviewed source quest record |
+| quest source record used as roadmap direction, release readiness, owner acceptance, or live promotion authority | `ROADMAP.md`, release-support route, sibling-owner evidence, or reviewed promotion route |
 
 ## Validation
 

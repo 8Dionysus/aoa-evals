@@ -7190,6 +7190,29 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_audit_surface_role_requires_route_outward_owner_map(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "AUDIT.md")
+        copy_repo_text(tmp_path, "AGENTS.md")
+        audit_path = tmp_path / "AUDIT.md"
+        audit_path.write_text(
+            audit_path.read_text(encoding="utf-8").replace(
+                "Route outward for:",
+                "External boundaries:",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_audit_surface_role(tmp_path)
+
+        assert any(
+            issue.location == "AUDIT.md"
+            and "Route outward for:" in issue.message
+            for issue in issues
+        )
+
     def test_audit_surface_role_rejects_missing_agents_audit_route(
         self, tmp_path: Path
     ) -> None:

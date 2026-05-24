@@ -1238,6 +1238,11 @@ AUDIT_SURFACE_ROLE_REQUIRED_TOKENS = (
     "owns route law",
     "AGENTS.md#verify",
     "Route cards own the commands",
+    "Route outward for:",
+    "reusable technique truth: `aoa-techniques`",
+    "execution workflow meaning: `aoa-skills`",
+    "artifact-contract meaning",
+    "sanitized evidence route",
 )
 ROADMAP_DIRECTION_SURFACE_REQUIRED_TOKENS = (
     "# Proof Direction Roadmap",

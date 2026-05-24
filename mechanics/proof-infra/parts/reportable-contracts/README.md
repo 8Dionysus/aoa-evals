@@ -5,8 +5,9 @@
 `reportable-contracts/` owns the shared reportable proof contract surfaces for
 `aoa-evals`.
 
-It is a part of `proof-infra`, not a parent mechanic. It is not a bundle, a
-repo-global score, a hidden runner implementation, or a report verdict.
+It routes bundle report pressure to shared runner, scorer, and schema surfaces
+that keep reportable proof artifacts readable while bundle-local interpretation
+stays stronger.
 
 ## Owned Operation
 
@@ -51,25 +52,26 @@ cite their own `evals/<family>/<eval>/reports/summary.schema.json` and
 
 ## Stronger Owner Split
 
-This part is weaker than:
+This part supplies reusable report contracts. Stronger meaning routes through:
 
-- `evals/**/EVAL.md` and `evals/**/eval.yaml`;
-- bundle-local report schemas, examples, and reviewed reports;
-- comparison-spine semantics;
-- audit candidate-evidence interpretation;
-- publication receipts;
-- sibling owner truth.
+| Meaning pressure | Stronger route |
+| --- | --- |
+| bounded claim and object under evaluation | `evals/**/EVAL.md` and `evals/**/eval.yaml` |
+| report interpretation | bundle-local report schemas, examples, and reviewed reports |
+| comparison semantics | `mechanics/comparison-spine/` |
+| audit candidate-evidence interpretation | `mechanics/audit/` and bundle-local review |
+| receipt publication | `mechanics/publication-receipts/` after a reviewed report exists |
+| sibling owner truth | the owning sibling repository |
 
 ## Stop-Lines
 
-- Do not turn the scorer helper into a repo-global score.
-- Do not make the shared runner surface stronger than bundle-local
-  interpretation.
-- Do not weaken shared schemas to pass a weak report.
-- Do not recreate root `runners/`, `scorers/`, or `schemas/` active payload
-  aliases.
-- Do not use this part to absorb bundle-local report schemas or reviewed
-  report artifacts.
+| Pressure | Route |
+| --- | --- |
+| Repo-global score pressure | bounded claim review in the source bundle; the scorer helper stays a breakdown payload. |
+| Shared runner authority pressure | bundle-local interpretation boundary and reviewed report route. |
+| Weak report pressure | evidence or schema fit under the source bundle route. |
+| Root `runners/`, `scorers/`, or `schemas` alias pressure | route-card-only root districts plus active part-local paths. |
+| Bundle-local report schema or reviewed report pressure | the source bundle. |
 
 ## Validation
 

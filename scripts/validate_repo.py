@@ -3033,7 +3033,8 @@ PROOF_INFRA_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "bundle support need",
     "shared_fixture_family_path",
     "runner_surface_path",
-    "Do not promote a fixture family name into a parent mechanic",
+    "Fixture-family parent pressure",
+    "Boundary Routes",
     "AGENTS.md#validation",
 )
 PROOF_INFRA_FIXTURE_FAMILIES_REQUIRED_TOKENS = (
@@ -3043,7 +3044,7 @@ PROOF_INFRA_FIXTURE_FAMILIES_REQUIRED_TOKENS = (
     "ambiguity-bounded-v1",
     "verification-honesty-v1",
     "witness-trace-v1",
-    "Do not create a parent mechanic from a family name",
+    "Family-name parent pressure",
     "python scripts/validate_repo.py",
 )
 PROOF_INFRA_FIXTURE_FAMILIES_AGENTS_REQUIRED_TOKENS = (

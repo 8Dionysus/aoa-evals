@@ -81,6 +81,37 @@ owner truth, or AoA center mechanics.
 
 It does not authorize route-card-only root `fixtures/<family>/` aliases.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: generic shared fixture families route through
+  `mechanics/proof-infra/parts/fixture-families/` when no narrower active
+  mechanic owns the family operation.
+- Still valid: bundle-local `EVAL.md`, `eval.yaml`, fixture contracts, and
+  reviewed reports own proof meaning.
+- Changed: active part route text now expresses the family-name and
+  domain-owned pressure as boundary routes instead of a list of prohibitions.
+- Source surfaces updated:
+  `mechanics/proof-infra/PARTS.md`,
+  `mechanics/proof-infra/parts/fixture-families/README.md`,
+  `scripts/validate_repo.py`.
+
+## Review Log
+
+### 2026-05-24 - Boundary-route wording
+
+- Previous assumption: the proof-infra fixture-family contract needed an
+  explicit negative token such as creating a parent mechanic from a family name.
+- New reality: the same invariant is clearer for agents when written as a
+  pressure-to-route map: family-name parent pressure goes first to
+  `mechanics/EVIDENCE_CLUSTERS.md`, while the fixture-family part stays
+  reusable support.
+- Reason: the active topology is now strong enough that owner routes carry the
+  boundary without repeating negative prose at every entry point.
+- Validation: `python scripts/validate_repo.py`, focused validator tests, and
+  semantic AGENTS validation.
+
 ## Validation
 
 - `mechanics/proof-infra/PARTS.md`

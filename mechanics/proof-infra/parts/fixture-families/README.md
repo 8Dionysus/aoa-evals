@@ -5,10 +5,9 @@
 `fixture-families/` owns generic shared fixture-family support for
 `aoa-evals`.
 
-It is a part of `proof-infra`, not a parent mechanic. It is not a replacement
-for bundle-local `EVAL.md`, bundle-local fixture contracts, comparison
-semantics, audit verdicts, memo truth, runtime evidence, or sibling owner
-truth.
+It routes reusable public-safe case pressure from a source bundle to a
+part-local family path while the bundle and any narrower mechanic keep stronger
+proof meaning.
 
 ## Owned Operation
 
@@ -62,16 +61,14 @@ bundle say which public-safe case pressure it uses.
 
 ## Stronger Owner Split
 
-The family path supports the proof object. It does not own:
+The family path supports the proof object. Stronger meaning routes through:
 
-- the bounded claim;
-- the object under evaluation;
-- verdict logic;
-- report interpretation;
-- memo truth;
-- runtime or trace acceptance;
-- AoA center mechanic meaning;
-- sibling owner truth.
+| Meaning pressure | Stronger route |
+| --- | --- |
+| bounded claim and object under evaluation | bundle-local `EVAL.md` and `eval.yaml` |
+| verdict logic and report interpretation | bundle-local report contracts and reviewed reports |
+| comparison, audit, recurrence, checkpoint, experience, antifragility, method-growth, RPG, growth-cycle, or distillation semantics | the owning active mechanic part |
+| memo, runtime, trace, AoA center, or sibling-owner truth | the stronger owner repository or intake route named by the bundle/mechanic |
 
 If a later evidence pass proves that a family belongs to a narrower active
 mechanic, move it with a decision and provenance bridge instead of keeping it
@@ -79,14 +76,13 @@ here by habit.
 
 ## Stop-Lines
 
-- Do not create a parent mechanic from a family name.
-- Do not use this part for domain-owned families already routed through
-  `comparison-spine`, `recurrence`, `checkpoint`, `experience`,
-  `antifragility`, `method-growth`, `rpg`, `growth-cycle`, or `distillation`.
-- Keep former root fixture-family aliases as historical compatibility
-  vocabulary.
-- Do not weaken bundle-local contracts to preserve an old path.
-- Do not treat generated `proof_artifacts` as authority.
+| Pressure | Route |
+| --- | --- |
+| Family-name parent pressure | `mechanics/EVIDENCE_CLUSTERS.md` before any parent proposal; this part stays reusable support. |
+| Domain-owned family pressure | `comparison-spine`, `recurrence`, `checkpoint`, `experience`, `antifragility`, `method-growth`, `rpg`, `growth-cycle`, or `distillation`, whichever owns the operation. |
+| Former root fixture-family alias pressure | `PROVENANCE.md` and `legacy/` as compatibility vocabulary. |
+| Bundle-local contract drift | the bundle-local fixture contract and source claim. |
+| Generated `proof_artifacts` pressure | source contracts plus `scripts/build_catalog.py --check`; generated readers stay derived. |
 
 ## Validation
 

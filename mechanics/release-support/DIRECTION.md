@@ -1,7 +1,7 @@
 # Release Support Direction
 
-Release Support in `aoa-evals` should make release preparation reviewable
-without making release publication strengthen any eval claim.
+Release Support in `aoa-evals` makes release preparation reviewable while eval
+claim strength stays with source proof surfaces.
 
 Use this file for the package's current operating direction: read it after the
 parent entry card and before `PARTS.md`, part contracts, source bundles,
@@ -29,14 +29,15 @@ decision records, and `PROVENANCE.md`.
 ## Growth rule
 
 Add release-support parts only when a repeated release operation needs a
-reviewable artifact and validator coverage. Do not use release-support as a
-parking place for ordinary changelog edits.
+reviewable artifact and validator coverage. Ordinary changelog edits route to
+`CHANGELOG.md`, `docs/RELEASING.md`, or `scripts/release_check.py`.
 
 ## Stop-lines
 
-- Do not claim tag, GitHub Release, PR approval, Repo Validation, publication,
-  or goal completion from a local snapshot.
-- Do not promote bundles or accept runtime evidence through release wording.
+| Pressure | Route |
+| --- | --- |
+| tag, GitHub Release, PR approval, Repo Validation, publication, or goal completion from a local snapshot | current git, GitHub, tag/release, publication, and objective-audit evidence |
+| bundle promotion or runtime acceptance through release wording | bundle-local proof review or runtime owner evidence |
 
 ## Validation
 

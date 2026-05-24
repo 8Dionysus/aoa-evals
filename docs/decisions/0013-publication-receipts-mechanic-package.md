@@ -91,3 +91,36 @@ receipt-count quality claims.
   `docs/decisions/README.md` route to the package.
 - `python scripts/validate_repo.py`
 - `python scripts/validate_semantic_agents.py`
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `mechanics/publication-receipts/` owns the route from reviewed
+  bounded report to optional eval-result receipt, stats-envelope sidecar,
+  owner-local live log, and downstream derived reader.
+- Clarified: the receipt guide now routes proof-canon, report replacement,
+  repo-global score, live-log, and derived-summary pressure to owners instead
+  of framing the seam through prohibition-only prose.
+- Source surfaces updated:
+  - `mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md`
+  - `mechanics/publication-receipts/parts/receipt-payload/examples/eval_result_receipt.example.json`
+  - `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`
+  - `scripts/validate_repo.py`
+- Validation: root repository validation, semantic AGENTS validation, receipt
+  targeted tests, generated surface checks, and full pytest stayed green.
+
+## Review Log
+
+### 2026-05-24 - Receipt guide pressure routes clarified
+
+- Previous assumption: receipt safety needed repeated negative statements about
+  proof canon, report replacement, and receipt misuse.
+- New reality: an agent follows the seam more reliably when each pressure points
+  to the owner route that can carry it.
+- Reason: publication receipts are downstream read models; role, input, output,
+  owner, next route, tool, and validation are the durable operating facts.
+- Source surfaces updated: receipt guide, public example interpretation bound,
+  dry-review boundary strings, and validator tokens.
+- Validation: root repository validation, semantic AGENTS validation, receipt
+  targeted tests, generated surface checks, and full pytest stayed green.

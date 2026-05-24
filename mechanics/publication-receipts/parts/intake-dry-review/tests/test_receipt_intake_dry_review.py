@@ -104,5 +104,5 @@ def test_receipt_intake_dry_review_matches_first_bundle_local_report() -> None:
     assert preview["claim_scope"] == "bundle_scoped"
     assert preview["comparison_mode"] == "none"
     assert preview["case_count"] == len(source_report["per_case_breakdown"])
-    assert "does not publish an eval result receipt" in preview["interpretation_bound"]
-    assert "complete the aoa-evals strategic refactor" in artifact["claim_limit"]
+    assert "publication pressure routes to a receipt envelope" in preview["interpretation_bound"]
+    assert "strategic closeout stays with the goal owner" in artifact["claim_limit"]

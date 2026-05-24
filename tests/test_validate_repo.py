@@ -6561,7 +6561,7 @@ class TestValidateQuestRouteSurfaces:
         topology_path.write_text(
             topology_path.read_text(encoding="utf-8").replace(
                 "reviewed memory provides recall context; local proof authority stays with the eval bundle or owning mechanic",
-                "reviewed memory can settle proof",
+                "reviewed memory route is unclear",
                 1,
             ),
             encoding="utf-8",
@@ -6726,7 +6726,7 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
-    def test_memory_consumer_proof_boundary_rejects_memory_as_proof(
+    def test_memory_consumer_proof_boundary_requires_positive_memory_route(
         self, tmp_path: Path
     ) -> None:
         for path_name in (
@@ -6740,8 +6740,8 @@ class TestValidateQuestRouteSurfaces:
         philosophy_path = tmp_path / "docs" / "EVAL_PHILOSOPHY.md"
         philosophy_path.write_text(
             philosophy_path.read_text(encoding="utf-8").replace(
-                "Memory is not proof.",
-                "Memory can be proof.",
+                "Reviewed memory routes recall into proof review.",
+                "Memory route is unclear.",
                 1,
             ),
             encoding="utf-8",
@@ -6751,7 +6751,7 @@ class TestValidateQuestRouteSurfaces:
 
         assert any(
             issue.location == "docs/EVAL_PHILOSOPHY.md"
-            and "Memory is not proof." in issue.message
+            and "Reviewed memory routes recall into proof review." in issue.message
             for issue in issues
         )
 

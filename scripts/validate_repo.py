@@ -555,14 +555,19 @@ MEMORY_CONSUMER_PROOF_BOUNDARY_README_TOKENS = (
     "eval bundle or owning mechanic",
 )
 MEMORY_CONSUMER_PROOF_BOUNDARY_PHILOSOPHY_TOKENS = (
-    "Memory is not proof.",
-    "Reviewed `aoa-memo` memory can provide recall context only when the eval cites",
-    "object ids, provenance, lifecycle, and generated read models",
-    "`aoa-evals` has route_only memory posture until a local memo port exists.",
+    "Reviewed memory routes recall into proof review.",
+    "`aoa-evals` can cite reviewed `aoa-memo` object ids, provenance, lifecycle, and",
+    "generated read models as bounded recall context",
+    "Proof authority stays",
+    "selected evidence, scoring or verdict logic",
+    "`aoa-evals` keeps route_only memory posture until a local memo port exists.",
     "Session evidence routes through `.aoa` or source proof artifacts before any",
     "later `aoa-memo` reviewed intake.",
-    "Treat `aoa_memo` MCP brief/search/status/validation/landing-plan dry-runs",
+    "Durable memory, local memo candidates, and export packets route through reviewed",
+    "owner surfaces with visible provenance",
+    "`aoa_memo` MCP brief/search/status/validation/landing-plan dry-runs are",
     "access-plane evidence for inspection and review",
+    "Owner surfaces keep proof authority and durable write authority.",
 )
 MEMORY_CONSUMER_PROOF_BOUNDARY_TOPOLOGY_TOKENS = (
     "Memory evidence context",

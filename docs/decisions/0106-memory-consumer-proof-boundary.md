@@ -79,6 +79,17 @@ As of 2026-05-24:
   `docs/PROOF_TOPOLOGY.md`, and this decision.
 - Superseded by: none.
 
+As of 2026-05-24 route-language review:
+
+- Still valid: reviewed memory can enter proof review only as bounded recall
+  context with object ids, provenance, lifecycle, and generated read models.
+- Changed: `docs/EVAL_PHILOSOPHY.md` now expresses the active memory route by
+  naming recall context, source evidence, owner surfaces, and visible
+  provenance directly.
+- Historical text: the original decision, rationale, and boundaries remain as
+  the record of why the consumer boundary was adopted.
+- Superseded by: none.
+
 ## Review Log
 
 ### 2026-05-24 - Memory consumer boundary landed
@@ -112,6 +123,22 @@ As of 2026-05-24:
   `python scripts/build_catalog.py --check`,
   `python scripts/generate_eval_report_index.py --check`,
   `git diff --check`, and `python -m pytest -q`.
+
+### 2026-05-24 - Evaluation philosophy memory route made positive
+
+- Previous assumption: the active philosophy guide needed the short boundary
+  slogan to keep memory outside proof authority.
+- New reality: the guide now gives the operational route directly: reviewed
+  memory supplies recall context, proof authority stays with source evidence
+  and owner surfaces, and durable write authority stays visible.
+- Reason: agent-facing proof philosophy should let a low-context agent know the
+  route, owner, and validation pressure without relying on repeated negative
+  self-description.
+- Source surfaces updated: `docs/EVAL_PHILOSOPHY.md`,
+  `scripts/validate_repo.py`, `tests/test_validate_repo.py`, and this
+  decision.
+- Validation: root validation, semantic AGENTS validation, and focused memory
+  consumer tests.
 
 ## Boundaries
 

@@ -6561,6 +6561,29 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_eval_philosophy_route_map_validates_current_route(self) -> None:
+        assert validate_repo.validate_eval_philosophy_route_map_surface(REPO_ROOT) == []
+
+    def test_eval_philosophy_route_map_rejects_flat_negative_slogan(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "docs/EVAL_PHILOSOPHY.md")
+        philosophy_path = tmp_path / "docs" / "EVAL_PHILOSOPHY.md"
+        philosophy_path.write_text(
+            philosophy_path.read_text(encoding="utf-8")
+            + "\nNeither fact alone proves quality.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_eval_philosophy_route_map_surface(tmp_path)
+
+        assert any(
+            issue.location == "docs/EVAL_PHILOSOPHY.md"
+            and "positive distinctions" in issue.message
+            and "Neither fact alone proves quality." in issue.message
+            for issue in issues
+        )
+
     def test_root_readme_surface_role_rejects_generic_heading(
         self, tmp_path: Path
     ) -> None:

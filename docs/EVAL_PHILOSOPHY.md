@@ -4,7 +4,7 @@
 
 Strong agents create artifacts.
 Stronger agents create convincing artifacts.
-Neither fact alone proves quality.
+Quality requires evidence beyond artifact strength and persuasion.
 
 `aoa-evals` exists because growth without evaluation tends to drift toward narrative, taste, or self-deception.
 
@@ -18,16 +18,41 @@ It asks:
 - what would count as mere style change?
 - what remains unknown even after the eval runs?
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | epistemic posture guide for bounded proof |
+| input | proof claim, confidence pressure, metric pressure, memory evidence, artifact/process evidence, comparison pressure, blind spot, portability question, or growth claim |
+| output | proof distinction, owner route, interpretation boundary, or bundle-local review pressure |
+| owner | this guide for evaluation posture; source eval bundles for proof meaning; `docs/PROOF_TOPOLOGY.md` for authority classes |
+| next route | source eval bundle, `docs/EVAL_REVIEW_GUIDE.md`, `docs/SCORE_SEMANTICS_GUIDE.md`, `docs/VERDICT_INTERPRETATION_GUIDE.md`, `docs/PROOF_TOPOLOGY.md`, or owning mechanic |
+| tools | nearest `AGENTS.md`, root validator, semantic AGENTS validator, generated-reader checks when derived surfaces move |
+| validation | `docs/AGENTS.md#validation` |
+
 ## Core stance
 
-Evaluation is not the same thing as truth.
-
-An eval is a bounded, reproducible way of learning something defensible about quality.
+Evaluation is a bounded, reproducible way of learning something defensible
+about quality.
+Truth remains broader than one eval run.
 
 Good evals reduce self-deception.
 Bad evals create false confidence theater.
 
 This repository prefers explicit limits over inflated certainty.
+
+## Core distinction routes
+
+| Pressure | Route |
+| --- | --- |
+| artifact looks convincing | ask for bounded proof evidence |
+| process looks clean | ask for outcome evidence and interpretation boundary |
+| metric looks authoritative | read it as a proxy, lens, and bounded signal |
+| memory looks relevant | cite it as recall context and route proof authority to source evidence |
+| single run looks strong | compare states across time, variants, or baselines |
+| blind spot feels inconvenient | name it as part of the proof contract |
+| project-local success looks portable | run the portability boundary before public proof claims |
+| growth story looks tempting | keep comparison disciplined and claims bounded |
 
 ## What an eval should do
 
@@ -64,23 +89,23 @@ Memory is not proof.
 Reviewed `aoa-memo` memory can provide recall context only when the eval cites
 object ids, provenance, lifecycle, and generated read models.
 It can help a reviewer find prior decisions, source refs, and session context,
-but it cannot replace fixtures, selected evidence, scoring or verdict logic,
-bundle-local reports, or mechanic-owned proof interpretation.
+while proof authority still needs fixtures, selected evidence, scoring or
+verdict logic, bundle-local reports, or mechanic-owned proof interpretation.
 
 `aoa-evals` has route_only memory posture until a local memo port exists.
 Session evidence routes through `.aoa` or source proof artifacts before any
 later `aoa-memo` reviewed intake.
-Do not write durable memory, local memo candidates, or export packets through
-hidden eval-side paths.
+Durable memory, local memo candidates, and export packets route through reviewed
+owner surfaces rather than hidden eval-side paths.
 Treat `aoa_memo` MCP brief/search/status/validation/landing-plan dry-runs as
-access-plane evidence for inspection and review, not as proof authority or a
-direct durable memory write path.
+access-plane evidence for inspection and review; proof authority and durable
+write authority stay with their owner surfaces.
 
 ## Artifacts, processes, and proof
 
 Artifacts matter.
 Processes matter.
-Neither is enough by itself.
+Bounded proof needs both artifact evidence and process evidence.
 
 A beautiful report may hide shallow reasoning.
 A clean workflow may still produce fragile outcomes.
@@ -98,7 +123,7 @@ A metric should always be understood as:
 - a lens
 - a bounded signal
 
-Never as the whole truth of quality.
+Read every metric as one bounded signal inside a review.
 
 If a metric is used, the bundle should say:
 - why this metric exists
@@ -125,10 +150,9 @@ Growth becomes more defensible when comparison is disciplined.
 
 Every eval has blind spots.
 
-Blind spots are not embarrassing leftovers.
 They are part of the truth contract.
 
-A bundle that cannot name its blind spots is not ready to make strong claims.
+Strong claims require named blind spots.
 
 Common blind spots include:
 - fixture overfitting
@@ -145,8 +169,7 @@ Common blind spots include:
 Portable evals matter because project-local magic is cheap and misleading.
 
 A public eval bundle should be understandable and runnable outside its birth context with reasonable effort.
-If it cannot survive outside one narrow environment, it may still be useful locally,
-but it is not yet a good public proof surface.
+A one-environment bundle can still be useful locally; public proof waits for a portable route.
 
 ## On regression
 
@@ -163,9 +186,7 @@ A good eval should help detect these silent losses.
 
 ## On growth
 
-The goal of evaluation is not humiliation and not performance theater.
-
-The goal is disciplined growth.
+The goal of evaluation is disciplined growth.
 
 Evaluation should help us:
 - see what is real
@@ -174,7 +195,7 @@ Evaluation should help us:
 - compare improvement honestly
 - avoid lying to ourselves
 
-This repository treats evaluation as a growth organ, not a punishment ritual.
+This repository treats evaluation as a growth organ and proof discipline.
 
 ## Human review and structured outputs
 
@@ -195,10 +216,10 @@ over opaque benchmark spectacle.
 
 A public eval bundle should tell the truth in a bounded way.
 
-Not:
+Weak form:
 - "the agent is good"
 
-But something closer to:
+Bounded form:
 - "under these conditions, on this surface, with these fixtures and this scoring logic, this bounded claim is supported to this degree, with these blind spots"
 
 That is enough.

@@ -566,6 +566,32 @@ MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_REQUIRED_TOKENS = (
     "python scripts/validate_repo.py",
     "python scripts/validate_semantic_agents.py",
 )
+EVAL_PHILOSOPHY_ROUTE_MAP_REQUIRED_TOKENS = (
+    "## Operating Card",
+    "epistemic posture guide for bounded proof",
+    "proof distinction, owner route, interpretation boundary",
+    "## Core distinction routes",
+    "artifact looks convincing",
+    "memory looks relevant",
+    "project-local success looks portable",
+    "growth story looks tempting",
+    "Read every metric as one bounded signal inside a review.",
+    "Strong claims require named blind spots.",
+    "public proof waits for a portable route",
+    "growth organ and proof discipline",
+    "Weak form:",
+    "Bounded form:",
+)
+EVAL_PHILOSOPHY_FORBIDDEN_FLAT_NEGATIVE_TOKENS = (
+    "Neither fact alone proves quality.",
+    "Neither is enough by itself.",
+    "Never as the whole truth of quality.",
+    "Blind spots are not embarrassing leftovers.",
+    "not ready to make strong claims",
+    "not humiliation and not performance theater",
+    "not a punishment ritual",
+    "Not:\n- \"the agent is good\"",
+)
 PROOF_TOPOLOGY_FORBIDDEN_STALE_MECHANIC_WORDING = (
     "mechanic-ready operations",
     "while Phase 4 maps the topology",
@@ -9493,6 +9519,29 @@ def validate_memory_consumer_proof_boundary_surfaces(repo_root: Path) -> list[Va
         ),
         issues=issues,
     )
+
+    return issues
+
+
+def validate_eval_philosophy_route_map_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    text = require_tokens(
+        repo_root=repo_root,
+        path_name="docs/EVAL_PHILOSOPHY.md",
+        tokens=EVAL_PHILOSOPHY_ROUTE_MAP_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    if text:
+        for stale_phrase in EVAL_PHILOSOPHY_FORBIDDEN_FLAT_NEGATIVE_TOKENS:
+            if stale_phrase in text:
+                issues.append(
+                    ValidationIssue(
+                        "docs/EVAL_PHILOSOPHY.md",
+                        "eval philosophy should route proof pressure through positive distinctions instead of flat negative slogan wording "
+                        f"'{stale_phrase}'",
+                    )
+                )
 
     return issues
 
@@ -19308,6 +19357,7 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_agent_index_surface(repo_root))
     issues.extend(validate_root_readme_surface_role(repo_root))
     issues.extend(validate_memory_consumer_proof_boundary_surfaces(repo_root))
+    issues.extend(validate_eval_philosophy_route_map_surface(repo_root))
     issues.extend(validate_docs_readme_route_map(repo_root))
     issues.extend(validate_read_model_command_ownership(repo_root))
     issues.extend(validate_releasing_route_map_surface(repo_root))

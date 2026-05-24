@@ -7,8 +7,8 @@ Start with this README for role and owned operation. Then read [DIRECTION.md](DI
 ## Role
 
 `mechanics/proof-infra/` routes the operation that keeps shared fixture,
-runner, scorer, schema, report, and template contracts reusable without hiding
-bundle-local meaning.
+runner, scorer, schema, report, and template contracts reusable while
+bundle-local meaning stays visible.
 
 Source bundles and domain mechanics keep proof meaning. This package keeps
 reusable support contracts visible, versioned, reachable, and weaker than
@@ -49,7 +49,7 @@ This package routes shared proof infrastructure. Source proof meaning stays in
 - a source proof object that needs reusable proof support
 - a shared fixture family such as
   `mechanics/proof-infra/parts/fixture-families/fixtures/<family>/README.md`
-  when no narrower AoA-aligned mechanic owns the family
+  when proof-infra is the narrowest active owner for the family
 - a bundle-local `evals/<family>/<eval>/fixtures/contract.json`
 - a bundle-local `evals/<family>/<eval>/runners/contract.json`
 - a bundle-local `evals/<family>/<eval>/reports/summary.schema.json` and example
@@ -82,21 +82,30 @@ This package routes shared proof infrastructure. Source proof meaning stays in
 
 ## Stronger Owner Split
 
-Shared proof infrastructure supports proof objects. It does not own the proof
-claim, verdict meaning, AoA mechanic truth, comparison semantics, runtime
-evidence interpretation, receipt publication, sibling owner truth, or release
-promotion.
+Proof-infra owns reusable support contracts: shared fixture families,
+reportable runner surfaces, scorer helpers, schemas, report routes, templates,
+and generated `proof_artifacts` derivation.
+
+Stronger owner routes keep interpretation and acceptance:
+
+| Need | Stronger owner route |
+| --- | --- |
+| proof claim or verdict meaning | bundle-local `EVAL.md`, `eval.yaml`, report schema, and reviewed report |
+| AoA mechanic truth or comparison semantics | owning mechanic package |
+| runtime evidence interpretation | runtime owner plus bundle-local proof review |
+| receipt publication or release promotion | `mechanics/publication-receipts/` or `mechanics/release-support/` |
+| sibling owner truth | sibling repository owner route |
 
 When infrastructure points into a bundle, the bundle remains stronger. When a
-bundle points into shared infrastructure, the shared path is reusable support,
-not a stronger claim.
+bundle points into shared infrastructure, the shared path stays reusable
+support.
 
 ## Boundaries
 
 | Pressure | Route |
 | --- | --- |
 | whole root infrastructure district wants to move by theme | root infrastructure districts stay route-card districts unless a part-local owner exists |
-| generic fixture family needs a shared support home | use `parts/fixture-families/fixtures/` when it is reusable proof support, no narrower active mechanic owns it, and bundle-local meaning remains stronger |
+| generic fixture family needs a shared support home | use `parts/fixture-families/fixtures/` when it is reusable proof support, proof-infra is the narrowest active owner, and bundle-local meaning remains stronger |
 | shared reportable proof contract needs a support home | use `parts/reportable-contracts/` when bundle-local runner contracts and generated `proof_artifacts` consume it |
 | domain-specific or AoA-aligned fixture family appears | route it to the owning mechanic part, such as `comparison-spine`, `recurrence`, `checkpoint`, `experience`, `antifragility`, `method-growth`, or `distillation` |
 | generated catalog `proof_artifacts` drifts | fix the source contract or builder and rerun the generated check |

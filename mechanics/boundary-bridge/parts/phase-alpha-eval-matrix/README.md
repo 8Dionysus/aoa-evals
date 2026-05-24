@@ -6,8 +6,8 @@ This part owns the bridge that maps sibling-owned Phase Alpha playbook runs to
 local `aoa-evals` proof anchors.
 
 It is a `boundary-bridge` part because the operation starts from
-`aoa-playbooks` run truth and emits an eval-side matrix without absorbing
-playbook, runtime, audit, checkpoint, or bundle authority.
+`aoa-playbooks` run truth and emits an eval-side matrix while playbook,
+runtime, audit, checkpoint, and bundle authority stay with their owners.
 
 ## Owned Operation
 
@@ -37,8 +37,8 @@ playbook, runtime, audit, checkpoint, or bundle authority.
 - schema-backed drift detection when local eval mappings stop matching the
   sibling playbook matrix;
 - release-support and recurrence-beacon verification commands;
-- no playbook approval, runtime verdict, eval result receipt, bundle promotion,
-  or sibling-owner acceptance.
+- playbook approval, runtime verdict, eval result receipt, bundle promotion,
+  and sibling-owner acceptance pressure routed to stronger owners.
 
 ## Stronger Owner Split
 
@@ -54,15 +54,14 @@ refs should be reviewed for each sibling-owned Phase Alpha run.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
-
-- a Phase Alpha run passed an eval;
-- `aoa-playbooks` accepted local eval interpretation;
-- runtime evidence is proof canon;
-- an eval bundle was promoted;
-- generated matrix entries are stronger than source bundle review;
-- recurrence beacons or release checks are proof verdicts.
+| Pressure | Route |
+| --- | --- |
+| Phase Alpha run reads as having passed an eval | route to bundle-local eval result review |
+| `aoa-playbooks` acceptance of local eval interpretation is inferred | route to `aoa-playbooks` owner review |
+| runtime evidence reads as proof canon | route to runtime owner and bundle-local proof review |
+| eval bundle promotion is inferred | route to bundle lifecycle and proof owner review |
+| generated matrix entries read as stronger than source bundle review | return to source bundle review |
+| recurrence beacons or release checks read as proof verdicts | route to recurrence or release-support verification with verdict authority retained by proof owners |
 
 ## Validation
 

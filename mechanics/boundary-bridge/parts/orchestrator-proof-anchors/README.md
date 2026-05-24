@@ -5,8 +5,8 @@
 This part owns the proof-anchor alignment surface for orchestrator-facing quest
 families.
 
-It is not an `orchestrator` parent mechanic, not role policy, not playbook
-authority, and not memory truth.
+Orchestrator parent topology, role policy, playbook authority, and memory truth
+route to their owning surfaces.
 
 ## Source Surfaces
 
@@ -39,9 +39,12 @@ obligation route.
 
 ## Stop-Lines
 
-Stop-lines forbid creating an `orchestrator` mechanic, treating proof anchors
-as class identity, using quests as verdict authority, or turning local
-capability targets into sibling-owner acceptance.
+| Pressure | Route |
+| --- | --- |
+| creating an `orchestrator` mechanic becomes the apparent next step | route topology pressure through `boundary-bridge` parent review and stronger owner lanes |
+| proof anchors read as class identity | route identity meaning to `aoa-agents` |
+| quests read as verdict authority | route verdict meaning to bundle-local proof review |
+| local capability targets read as sibling-owner acceptance | route acceptance to the referenced sibling owner |
 
 ## Validation
 

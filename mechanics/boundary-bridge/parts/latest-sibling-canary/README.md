@@ -5,8 +5,8 @@
 This part owns the latest-sibling checkout canary for local compatibility
 checks.
 
-It turns sibling path drift into bounded evidence for local repair without
-editing sibling repositories or replacing the pinned public validation lane.
+It turns sibling path drift into bounded evidence for local repair while
+sibling edits and public validation replacement stay in their owner routes.
 
 ## Source Surfaces
 
@@ -28,7 +28,7 @@ editing sibling repositories or replacing the pinned public validation lane.
 - latest-sibling canary readout for local compatibility;
 - missing-path or stale-checkout diagnostics;
 - evidence for local proof-ref repair or GitHub `Repo Validation` pin refresh;
-- no sibling edits and no proof acceptance.
+- sibling edit and proof acceptance pressure routed to stronger owner paths.
 
 ## Stronger Owner Split
 
@@ -40,12 +40,12 @@ public pinned-lane check when workflow pins change.
 
 ## Stop-Lines
 
-- Do not edit sibling repositories from canary output.
-- Do not replace GitHub `Repo Validation` with local canary success.
-- Do not treat path resolution as sibling owner acceptance, bundle verdict,
-  receipt publication, runtime truth, or proof promotion.
-- Do not let the artifact form `latest-sibling-canary` become a parent
-  mechanic.
+| Pressure | Route |
+| --- | --- |
+| sibling edit pressure appears | route through sibling-owner change paths instead of canary output |
+| GitHub `Repo Validation` replacement pressure appears | keep local canary success below the pinned public validation lane |
+| path resolution reads as sibling owner acceptance, bundle verdict, receipt publication, runtime truth, or proof promotion | return to sibling owner review, bundle-local review, receipt publication, runtime owner, or proof owner |
+| artifact form `latest-sibling-canary` reads as a parent mechanic | keep it under the `boundary-bridge` part map |
 
 ## Validation
 

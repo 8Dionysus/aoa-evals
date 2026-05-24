@@ -36,7 +36,7 @@ See `PARTS.md` for the package-local part map.
 - `parts/intake-dry-review/` owns the non-publishing receipt-intake dry review.
 
 `.aoa/live_receipts/` remains the owner-local live receipt log path. It is
-routed here but not moved into `parts/`.
+routed here while the log home stays outside `parts/`.
 
 ## Source Surfaces
 
@@ -73,9 +73,9 @@ routed here but not moved into `parts/`.
 - downstream-readable publication facts that remain weaker than the report
 
 Dry-review output is weaker: `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`
-may contain a schema-valid payload preview, but it must keep
-`receipt_status` as `not_published` and must not create an envelope, event id,
-publisher run, or live log append.
+may contain a schema-valid payload preview. It keeps `receipt_status` as `not_published`;
+envelope creation, event id assignment, publisher runs, and live log appends
+route to real publication work.
 
 ## Stronger Owner Split
 
@@ -84,13 +84,15 @@ limits for `eval_result_receipt`.
 
 `aoa-stats` owns the canonical shared `stats-event-envelope` and active
 cross-repo event-kind vocabulary. The local schema is a mirror for validation,
-not a competing source of ownership.
+with canonical ownership routed to `aoa-stats`.
 
 The bundle-local report is stronger than the receipt. The receipt records that
-a bounded publication happened; it does not reinterpret the evidence.
+a bounded publication happened; evidence interpretation stays with the report
+and source bundle.
 
-The `.aoa/live_receipts/` log is owner-local publication memory. It is not the
-source of truth for bundle acceptance, report meaning, or proof quality.
+The `.aoa/live_receipts/` log is owner-local publication memory. Bundle
+acceptance, report meaning, and proof quality route back to the source bundle
+and reviewed report.
 
 ## Boundaries
 
@@ -99,7 +101,7 @@ source of truth for bundle acceptance, report meaning, or proof quality.
 | receipt publication | start from a reviewed bounded report and keep the bundle-local report stronger than the receipt |
 | receipt-intake dry review | keep it as non-published payload derivation evidence below the receipt envelope and live log |
 | receipt volume or event count | treat it as publication count only; proof quality stays with bundle-local review |
-| scoring pressure | route away from this mechanic; no repo-global score is created here |
+| scoring pressure | route away from this mechanic to the owner that can justify a repo-global score |
 | compact receipt payload | keep bundle-local report artifacts as the stronger source path |
 | canonical envelope change | route canonical `aoa-stats` schema and event-kind ownership to `aoa-stats`; keep the local mirror for validation |
 | raw live receipt logs | use route summaries for ordinary review and inspect raw JSONL only when the live publication route requires it |

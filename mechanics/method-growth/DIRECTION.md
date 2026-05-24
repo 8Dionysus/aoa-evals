@@ -15,7 +15,8 @@ decision records, and `PROVENANCE.md`.
 - `PARTS.md`: active method-growth part map.
 - `parts/`: candidate-lineage and owner-landing support.
 - `PROVENANCE.md`: controlled bridge from active route to old fixture placement.
-- `legacy/`: lineage only; not a growth archive.
+- `legacy/`: archive-local route for old fixture placement after
+  `PROVENANCE.md`.
 - `evals/`: source proof objects that remain stronger than support parts.
 
 ## Current contour

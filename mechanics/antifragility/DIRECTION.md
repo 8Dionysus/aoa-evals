@@ -14,7 +14,8 @@ decision records, and `PROVENANCE.md`.
 - `PARTS.md`: active antifragility part map.
 - `parts/`: posture, stress-window, and repair-proof support contracts.
 - `PROVENANCE.md`: controlled bridge from active route to old placement and fixture accounting.
-- `legacy/`: lineage only; not a repair backlog.
+- `legacy/`: archive-local route for old placement and fixture lineage after
+  `PROVENANCE.md`.
 - `evals/`: source proof objects that remain stronger than support parts.
 
 ## Current contour

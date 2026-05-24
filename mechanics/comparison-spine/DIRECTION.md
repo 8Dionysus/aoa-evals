@@ -15,7 +15,8 @@ decision records, and `PROVENANCE.md`.
 - `parts/`: spine overview, fixed baseline, peer compare, and longitudinal
   window support.
 - `PROVENANCE.md`: controlled bridge from active route to old comparison placement.
-- `legacy/`: lineage only; not a report archive.
+- `legacy/`: archive-local route for old comparison placement after
+  `PROVENANCE.md`.
 - `evals/`: source proof objects that state comparison claims.
 
 ## Current contour

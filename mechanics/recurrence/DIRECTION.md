@@ -16,7 +16,8 @@ decision records, and `PROVENANCE.md`.
 - `parts/`: control-plane, anchor-return, memory-recall, recursor-boundary,
   stats-regrounding, and portable-proof-beacon support.
 - `PROVENANCE.md`: controlled bridge from active route to old recurrence placement.
-- `legacy/`: lineage only; not a control plane.
+- `legacy/`: archive-local route for old recurrence placement after
+  `PROVENANCE.md`.
 - `evals/`: source proof objects that remain stronger than support parts.
 
 ## Current contour

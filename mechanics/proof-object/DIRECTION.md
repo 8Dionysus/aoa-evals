@@ -14,8 +14,8 @@ decision records, and `PROVENANCE.md`.
 - `PARTS.md`: active proof-object part map.
 - `parts/`: eval-authoring and eval-contract support.
 - `PROVENANCE.md`: controlled bridge from active route to old template and schema placement.
-- `legacy/`: lineage only; active template and schema routes stay in parts and
-  `PROVENANCE.md`.
+- `legacy/`: archive-local route for old template and schema placement after
+  `PROVENANCE.md`; active template and schema routes stay in parts.
 - `evals/`: source proof objects and stronger claim meaning.
 
 ## Current contour

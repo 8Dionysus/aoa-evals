@@ -16,7 +16,8 @@ decision records, and `PROVENANCE.md`.
 - `parts/`: compatibility map, latest-sibling canary, orchestrator proof
   anchors, and Phase Alpha eval matrix support.
 - `PROVENANCE.md`: controlled bridge from active route to old sibling-proof-ref placement.
-- `legacy/`: lineage only; not a stale-link backlog.
+- `legacy/`: archive-local route for old sibling-proof-ref placement after
+  `PROVENANCE.md`.
 - sibling repos: stronger owner truth for their own surfaces.
 
 ## Current contour

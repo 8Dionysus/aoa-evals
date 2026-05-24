@@ -17,7 +17,8 @@ decision records, and `PROVENANCE.md`.
   tests, manifests, and hooks.
 - `PROVENANCE.md`: controlled bridge from active route to historical Agon placement and wave
   accounting.
-- `legacy/`: lineage only; not a new-work entrypoint.
+- `legacy/`: archive-local route for historical Agon placement and wave
+  accounting after `PROVENANCE.md`.
 - `evals/`: source proof objects that remain stronger than alignment support.
 
 ## Current contour

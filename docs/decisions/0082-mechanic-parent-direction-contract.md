@@ -41,3 +41,30 @@ python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_direction
 Future edits encounter active direction before part growth or legacy lookup.
 This makes the active route harder to bypass and keeps archive material from
 setting current direction directly.
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `DIRECTION.md` owns the current operating direction,
+  source-of-truth split, current contour, growth rule, stop-lines, and
+  validation posture for each active mechanic parent.
+- Changed: parent direction source splits now name `legacy/` as the
+  archive-local route opened by `PROVENANCE.md`.
+- Superseded by: no new decision; this is a route-language amendment of the
+  same parent direction contract.
+
+## Review Log
+
+### 2026-05-24 - Legacy row made route-positive
+
+- Previous assumption: parent direction files described `legacy/` with
+  lineage-only negative role phrases.
+- New reality: parent direction files route `legacy/` as the archive-local
+  route reached after `PROVENANCE.md`.
+- Reason: low-context agents should see the active-to-archive handoff in the
+  source-of-truth split before opening parts or legacy.
+- Source surfaces updated: `mechanics/*/DIRECTION.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  mechanic_parent_direction`; `python scripts/validate_repo.py`.

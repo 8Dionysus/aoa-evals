@@ -16,7 +16,8 @@ decision records, and `PROVENANCE.md`.
 - `parts/`: selected-evidence packets, artifact-verdict hooks, candidate
   readers, and integrity-review support.
 - `PROVENANCE.md`: controlled bridge from active route to old runtime-evidence placement.
-- `legacy/`: lineage only; not an evidence dump.
+- `legacy/`: archive-local route for old runtime-evidence placement after
+  `PROVENANCE.md`.
 - `evals/`: source proof objects that decide whether candidate evidence is
   accepted.
 

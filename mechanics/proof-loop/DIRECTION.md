@@ -15,7 +15,8 @@ decision records, and `PROVENANCE.md`.
 - `PARTS.md`: active proof-loop part map.
 - `parts/`: route-smoke support and reports.
 - `PROVENANCE.md`: controlled bridge from active route to old proof-loop report placement.
-- `legacy/`: lineage only; not a report sink.
+- `legacy/`: archive-local route for old proof-loop report placement after
+  `PROVENANCE.md`.
 - owning packages: source truth for each step in the loop.
 
 ## Current contour

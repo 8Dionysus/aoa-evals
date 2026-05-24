@@ -16,7 +16,8 @@ decision records, and `PROVENANCE.md`.
 - `parts/`: fixture-family and reportable-contract support.
 - `PROVENANCE.md`: controlled bridge from active route to old root fixture, runner, scorer, and
   schema placement.
-- `legacy/`: lineage only; not a support-file dump.
+- `legacy/`: archive-local route for old root fixture, runner, scorer, and
+  schema placement after `PROVENANCE.md`.
 - `evals/`: source proof objects that apply shared contracts locally.
 
 ## Current contour

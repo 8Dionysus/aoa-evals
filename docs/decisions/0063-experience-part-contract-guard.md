@@ -50,6 +50,37 @@ memo, or routing verdict forms.
 - Experience support surfaces remain parts under `experience`, not
   proof-adjective parent mechanics.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: active Experience part README files expose inputs, outputs,
+  stronger owner split, stop-lines, and validation route markers.
+- Changed: `mechanics/experience/parts/office-release-train/README.md`
+  expresses stop-line coverage as owner-route pressure, and the office-specific
+  validator tokens guard full pressure-to-owner-route rows.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Office release-train boundary route wording
+
+- Previous assumption: the office release-train part contract used a direct
+  "must claim no" sentence to keep installation, release, runtime, actor, and
+  publication authority outside the part.
+- New reality: the part contract keeps the same authority boundary through a
+  pressure-to-owner-route table whose full owner-route rows are validator
+  guarded.
+- Reason: low-context agents orient better from actionable owner routes than
+  from a dense denial sentence, while the validator protects both the same
+  office-release authority pressures and their routed owners.
+- Source surfaces updated:
+  `mechanics/experience/parts/office-release-train/README.md` and
+  `scripts/validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  experience_part_readmes`, `python scripts/validate_repo.py`, and
+  `python scripts/validate_semantic_agents.py`.
+
 ## Validation
 
 Expected validation route:

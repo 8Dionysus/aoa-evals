@@ -10443,6 +10443,36 @@ class TestValidateQuestRouteSurfaces:
                     encoding="utf-8",
                 )
 
+    def test_recurrence_portable_beacon_agents_reject_stale_negative_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        path_name = validate_repo.RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_NAME
+        copy_repo_text(tmp_path, path_name)
+        agents_path = tmp_path / path_name
+
+        for stale_phrase in validate_repo.RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_STALE_ROUTE_PHRASES:
+            agents_path.write_text(
+                agents_path.read_text(encoding="utf-8")
+                + f"\n\n{stale_phrase}.\n",
+                encoding="utf-8",
+            )
+
+            issues = validate_repo.validate_mechanics_surfaces(tmp_path)
+
+            assert any(
+                issue.location == path_name
+                and "operating card and owner route table" in issue.message
+                for issue in issues
+            )
+
+            agents_path.write_text(
+                agents_path.read_text(encoding="utf-8").replace(
+                    f"\n\n{stale_phrase}.\n",
+                    "",
+                ),
+                encoding="utf-8",
+            )
+
     def test_boundary_bridge_part_readmes_reject_missing_outputs_contract(
         self, tmp_path: Path
     ) -> None:

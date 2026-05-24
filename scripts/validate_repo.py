@@ -3914,12 +3914,22 @@ RECURRENCE_PORTABLE_PROOF_BEACONS_PART_REQUIRED_TOKENS = (
     "python scripts/validate_repo.py",
 )
 RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_REQUIRED_TOKENS = (
+    "## Operating Card",
     "portable-proof beacon pressure",
-    "Keep `component:evals:portable-proof-beacons` inside `recurrence`",
-    "runtime artifacts as candidate evidence",
+    "component:evals:portable-proof-beacons",
+    "Runtime artifact evidence pressure",
+    "Accepted portable proof pressure",
+    "Progression or unlock pressure",
+    "Beacon-as-verdict pressure",
+    "centralized-child-validation",
+)
+RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_STALE_ROUTE_PHRASES = (
+    "It does not own runtime evidence intake",
+    "Keep `component:evals:portable-proof-beacons` inside `recurrence`; do not",
+    "Treat runtime artifacts as candidate evidence",
     "Keep audit packet curation",
     "Keep progression and unlock support",
-    "python scripts/validate_repo.py",
+    "python scripts/build_catalog.py --check",
 )
 RECURRENCE_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
 RECURRENCE_MECHANIC_DECISION_REQUIRED_TOKENS = (
@@ -11133,12 +11143,22 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         tokens=RECURRENCE_PORTABLE_PROOF_BEACONS_PART_REQUIRED_TOKENS,
         issues=issues,
     )
-    require_tokens(
+    portable_proof_beacons_agents_text = require_tokens(
         repo_root=repo_root,
         path_name=RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_NAME,
         tokens=RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_REQUIRED_TOKENS,
         issues=issues,
     )
+    if portable_proof_beacons_agents_text:
+        for stale_phrase in RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_STALE_ROUTE_PHRASES:
+            if stale_phrase in portable_proof_beacons_agents_text:
+                issues.append(
+                    ValidationIssue(
+                        RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_NAME,
+                        "recurrence portable-proof-beacons AGENTS card should use an operating card and owner route table instead of stale negative scaffold "
+                        f"'{stale_phrase}'",
+                    )
+                )
     require_tokens(
         repo_root=repo_root,
         path_name=RECURRENCE_MECHANIC_PROVENANCE_NAME,

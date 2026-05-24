@@ -1,13 +1,17 @@
 # AGENTS.md
 
-## Guidance for `tests/`
+## Applies to
+
+This card applies to root `tests/` and repo-wide validator regression tests.
+
+## Role
 
 `tests/` protects repo-wide eval contracts, catalogs, generated readers,
 validators, semantic route cards, and anti-overread posture.
 
-Repo-wide tests live here; mechanic-owned tests live beside the owning part under
-`mechanics/<mechanic>/parts/<part>/tests/`. Do not move a part-local test back
-to root `tests/` just because pytest can collect it from either place.
+Repo-wide tests live here; mechanic-owned tests live beside the owning part
+under `mechanics/<mechanic>/parts/<part>/tests/` when the invariant belongs to
+that part rather than the repository-wide mesh.
 
 ## Operating Card
 
@@ -31,11 +35,16 @@ A test in this root district should name the repository-wide invariant it
 protects. If a check only constrains one mechanic part payload, keep or move the
 test beside that part instead.
 
-Tests should prove bounded behavior, not freeze incidental prose. Prefer cases around claim limits, fixture coverage, status drift, report validation, and comparison-spine integrity.
+Tests should prove bounded behavior, not freeze incidental prose. Prefer cases
+around claim limits, fixture coverage, status drift, report validation, and
+comparison-spine integrity.
 
-Do not update expected outputs without checking the owning bundle, schema, runner, or scorer.
+Expected-output pressure routes first through the owning bundle, schema, runner,
+or scorer.
 
-Keep fixtures public-safe. No private benchmarks, hidden telemetry, secrets, or unreduced operator traces.
+Keep fixtures public-safe and reduced to the checked-in proof contract. Private
+benchmarks, hidden telemetry, secrets, and unreduced operator traces route away
+from this public regression mesh.
 
 ## Owner Routes
 

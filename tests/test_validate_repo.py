@@ -7080,6 +7080,40 @@ class TestValidateQuestRouteSurfaces:
     def test_validator_surface_role_validates_current_route(self) -> None:
         assert validate_repo.validate_validator_surface_role(REPO_ROOT) == []
 
+    def test_validator_surface_role_rejects_stale_negative_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "scripts/AGENTS.md")
+        copy_repo_text(tmp_path, "tests/AGENTS.md")
+
+        for path_name, stale_phrase in (
+            ("scripts/AGENTS.md", "Validator changes must not weaken bounded proof posture"),
+            ("tests/AGENTS.md", "Do not move a part-local test back"),
+            ("tests/AGENTS.md", "Do not update expected outputs"),
+        ):
+            agents_path = tmp_path / path_name
+            agents_path.write_text(
+                agents_path.read_text(encoding="utf-8")
+                + f"\n\n{stale_phrase}.\n",
+                encoding="utf-8",
+            )
+
+            issues = validate_repo.validate_validator_surface_role(tmp_path)
+
+            assert any(
+                issue.location == path_name
+                and "owner maps instead of stale negative scaffold" in issue.message
+                for issue in issues
+            )
+
+            agents_path.write_text(
+                agents_path.read_text(encoding="utf-8").replace(
+                    f"\n\n{stale_phrase}.\n",
+                    "",
+                ),
+                encoding="utf-8",
+            )
+
     def test_validator_surface_role_rejects_generic_scripts_guidance(
         self, tmp_path: Path
     ) -> None:

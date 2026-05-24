@@ -3968,9 +3968,9 @@ EXPERIENCE_OFFICE_PART_REQUIRED_TOKENS = (
     "REPLAY_AUDIT_VERDICTS.md",
     "SERVICE_MESH_REGRESSION_VERDICTS.md",
     "mechanics/experience/parts/certification-gate/schemas/rollback_drill_verdict_v1.json",
-    "must claim no office installation",
-    "release approval",
-    "release-support publication",
+    "| office installation pressure | Agents-of-Abyss, `aoa-agents`, and owner operator route |",
+    "| release approval pressure | Agents-of-Abyss, release-support, and owner approval route |",
+    "| release-support publication pressure | `release-support` publication posture route inside `aoa-evals` |",
     "python scripts/validate_repo.py",
 ) + EXPERIENCE_PART_README_COMMON_REQUIRED_TOKENS
 EXPERIENCE_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS

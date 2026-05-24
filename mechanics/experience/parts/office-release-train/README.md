@@ -45,15 +45,22 @@ Owner repositories own operator approval and release adoption.
 `release-support` owns release-support publication posture inside
 `aoa-evals`.
 
-`aoa-evals` owns only bounded office and release-train proof readings,
-schema/example contracts, and bundle-local interpretation.
+`aoa-evals` owns this part's bounded office and release-train proof readings:
+schema/example contracts and bundle-local interpretation. Authority beyond
+those proof readings routes through the stronger owner split above.
 
 ## Stop-Lines
 
-This part must claim no office installation, assistant operational authority,
-release approval, deployment approval, rollout promotion, live runtime
-activation, office behavior, actor/role truth, operator approval, deployment
-execution, or release-support publication.
+Boundary routes keep office-release pressure with the owner that can act on it:
+
+| Pressure | Owner route |
+| --- | --- |
+| office installation pressure | Agents-of-Abyss, `aoa-agents`, and owner operator route |
+| assistant operational authority pressure | `aoa-agents` and operator review route |
+| release approval pressure | Agents-of-Abyss, release-support, and owner approval route |
+| deployment approval or rollout promotion pressure | `abyss-stack` runtime route and operator review route |
+| office behavior or actor/role truth pressure | `aoa-agents` role and office route |
+| release-support publication pressure | `release-support` publication posture route inside `aoa-evals` |
 
 ## Validation
 

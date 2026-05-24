@@ -7,7 +7,7 @@ the current file belongs to, and which stronger surface to open next. Source
 truth, route law, generated readers, decisions, and validators keep their own
 authority; this index connects them.
 
-Use this index when the path name is not enough by itself.
+Use this index when a path needs an explicit owner route.
 
 ## Operating Card
 
@@ -73,7 +73,7 @@ because old root paths existed, but their current role is route-card-only:
 - `scorers/`
 - `templates/`
 
-An agent should expect only `AGENTS.md` and `README.md` in those directories.
+Agent expectation: those directories carry only `AGENTS.md` and `README.md`.
 Active payloads belong under the owning bundle or mechanic part. The root
 district README tells where that payload moved; the nearest `AGENTS.md` owns
 the executable route.
@@ -108,7 +108,7 @@ When starting from a payload, ask these in order:
 | `generated/` or part-local `generated/` | Which builder and source inputs produced it? |
 | route-card-only root districts | Is this only `AGENTS.md` or `README.md`? Any other payload is drift. |
 | `docs/` | Is this source guidance, topology, decision rationale, or a docs map? |
-| `scripts/` or `tests/` | Is it root-wide infrastructure or should it be part-local? |
+| `scripts/` or `tests/` | Which owner carries it: root-wide infrastructure or part-local route? |
 
 ## Validation Route
 

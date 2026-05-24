@@ -145,9 +145,10 @@ Mechanic parent direction is the active parent contour guard. Every active
 parent mechanic owns a `DIRECTION.md` that states the current operating
 direction between `README.md`, `PARTS.md`, `PROVENANCE.md`, and part-local
 contracts, and each parent `README.md` plus parent `AGENTS.md` routes that
-direction from its Entry Route. `DIRECTION.md` is not the part map, not
-provenance, not a generated reader, and not permission to create new parent
-names by theme.
+direction from its Entry Route. Use `DIRECTION.md` for the parent contour,
+`PARTS.md` for the part map, `PROVENANCE.md` for the active-to-archive bridge,
+generated readers for derived views, and `mechanics/EVIDENCE_CLUSTERS.md` plus
+the decision and validator route before proposing a new parent name.
 
 Root authored route residue is the entry-guidance companion guard. Root-facing
 authored surfaces such as `AUDIT.md`, `EVAL_INDEX.md`, `docs/*.md`,

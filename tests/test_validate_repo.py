@@ -9697,6 +9697,29 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_score_semantics_guide_validates_current_surface(self) -> None:
+        assert validate_repo.validate_score_semantics_guide_surface(REPO_ROOT) == []
+
+    def test_score_semantics_guide_rejects_stale_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, validate_repo.SCORE_SEMANTICS_GUIDE_NAME)
+        guide_path = tmp_path / validate_repo.SCORE_SEMANTICS_GUIDE_NAME
+        guide_path.write_text(
+            guide_path.read_text(encoding="utf-8")
+            + "\nNot valid without stable comparison semantics.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_score_semantics_guide_surface(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.SCORE_SEMANTICS_GUIDE_NAME
+            and "interpretation route criteria" in issue.message
+            and "Not valid without stable comparison semantics" in issue.message
+            for issue in issues
+        )
+
     def test_root_authored_surface_classification_rejects_unclassified_root_doc(
         self, tmp_path: Path
     ) -> None:

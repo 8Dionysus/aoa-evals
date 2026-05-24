@@ -55,6 +55,34 @@ itself without returning to the active mechanic contract.
   a raw-only archive route or parent-only route; it needs a current active part
   route, or package `DIRECTION.md` plus `PARTS.md`, in the archive index.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: each active mechanic parent exposes `PROVENANCE.md` and an
+  archive-local legacy entry with `INDEX.md`, `DISTILLATION_LOG.md`, and
+  raw-lineage entry.
+- Changed: active legacy README route cards now express the entry as an
+  archive-local route that returns historical sources to the current active
+  route.
+- Superseded by: no new decision; this is a route-language amendment of the
+  same archive boundary.
+
+## Review Log
+
+### 2026-05-24 - Archive README wording made route-positive
+
+- Previous assumption: legacy README cards carried the boundary through
+  negative active-topology and new-work-entrypoint tokens.
+- New reality: legacy README cards name the archive-local route, current active
+  route return path, and archive-local accounting surfaces.
+- Reason: low-context agents should see where an old path enters, what the
+  archive owns, and which active route receives current work.
+- Source surfaces updated: `mechanics/*/legacy/README.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  mechanic_legacy_skeleton`; `python scripts/validate_repo.py`.
+
 ## Validation
 
 Expected validation route:

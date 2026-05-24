@@ -1,14 +1,14 @@
 # Recurrence Legacy
 
-Legacy recurrence files preserve old placement and insertion history.
-
-They are not the active recurrence proof route. Start from
-`mechanics/recurrence/README.md` and enter legacy through
-`mechanics/recurrence/PROVENANCE.md` only when old path lineage matters.
+Legacy recurrence files preserve old placement and insertion history. Current
+recurrence proof starts from `mechanics/recurrence/README.md`; old path lineage
+enters through `mechanics/recurrence/PROVENANCE.md`.
 
 ## Required Route
 
-Open `../PROVENANCE.md` before using this directory. Use `INDEX.md` for
+Open `../PROVENANCE.md` before local lookup. Use `INDEX.md` for
 old-path lookup, `DISTILLATION_LOG.md` for raw-to-active accounting, and
-`raw/README.md` for raw lineage. Legacy is not active topology and not a
-new-work entrypoint.
+`raw/README.md` for raw lineage.
+
+This legacy directory is an archive-local route: it returns historical sources
+to the current active route and keeps archive-local accounting in legacy.

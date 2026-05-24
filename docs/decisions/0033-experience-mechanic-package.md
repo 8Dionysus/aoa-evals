@@ -80,6 +80,45 @@ that would fragment one center mechanic into future-bug packages.
   parts only after source artifacts, inputs, outputs, owner split, stop-lines,
   and validation prove a recurring operation.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `mechanics/experience/` remains the AoA-aligned eval-side parent
+  for protocol integrity, certification gate, adoption federation,
+  governance/runtime-boundary, and office release-train proof support.
+- Changed: parent-level boundary coverage now uses pressure-to-owner routes in
+  `README.md`, `PARTS.md`, and `DIRECTION.md`, with validator tokens guarding
+  the parent route rows.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Parent boundary route wording
+
+- Previous assumption: parent-level Experience surfaces expressed boundaries
+  through exclusion prose around live runtime, office installation,
+  certification, release approval, owner adoption, memory canon, routing, KAG,
+  ToS authorship, and broad Experience success.
+- New reality: the parent route keeps the same authority split through
+  pressure-to-owner-route rows.
+- Reason: AoA center Experience owns law and owner-routing grammar, while
+  `aoa-evals` keeps bounded proof support; the active package should show the
+  next owner route directly.
+- Source surfaces updated: `mechanics/experience/README.md`,
+  `mechanics/experience/PARTS.md`, `mechanics/experience/DIRECTION.md`, and
+  `scripts/validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  experience_mechanic`, `python -m pytest -q
+  mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py
+  mechanics/experience/parts/certification-gate/tests
+  mechanics/experience/parts/adoption-federation/tests
+  mechanics/experience/parts/governance-runtime-boundary/tests
+  mechanics/experience/parts/office-release-train/tests`, `python
+  scripts/build_catalog.py --check`, `python scripts/validate_repo.py`,
+  `python scripts/validate_semantic_agents.py`, `git diff --check`, and
+  `python -m pytest -q`.
+
 ## Boundaries
 
 This decision does not move Experience source proof bundles into

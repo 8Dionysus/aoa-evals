@@ -57,8 +57,8 @@ The current active parts are `protocol-integrity`, `certification-gate`,
   verdict support packets;
 - fixture family contracts and schema/example pairs for local validation;
 - owner handoff notes or adjacent bundle route notes;
-- no live workspace runtime, office installation, release approval, operator
-  certification, memory canon, route activation, or owner-local adoption.
+- owner handoff routes for runtime, office, release approval, certification,
+  memory, routing, KAG/ToS, and owner-local adoption pressure.
 
 ## Stronger Owner Split
 
@@ -90,19 +90,20 @@ boundary proof support.
 
 ## Stop-Lines
 
-This package supports bounded eval-side proof only. Keep these claims outside
-this package:
+Boundary routes keep Experience proof pressure with the owner that can act on
+it:
 
-- live workspace runtime or service dispatch;
-- office installation or assistant operational authority;
-- operator certification, release approval, deployment approval, or rollout
-  promotion;
-- owner-local adoption, consent, or acceptance;
-- hidden memory sovereignty, recall authority, or memo canon;
-- live router behavior or routing-layer authorship of meaning;
-- direct KAG promotion into owner repos;
-- direct Tree-of-Sophia runtime write or ToS-authored meaning;
-- broad Experience success beyond the bounded proof object.
+| Pressure | Owner route |
+| --- | --- |
+| live workspace runtime or service dispatch pressure | `abyss-stack` runtime route |
+| office installation or assistant operational authority pressure | `aoa-agents` and owner operator route |
+| operator certification, release approval, deployment approval, or rollout promotion pressure | Agents-of-Abyss, release-support, and owner approval route |
+| owner-local adoption, consent, or acceptance pressure | owner repository adoption route |
+| memory sovereignty, recall authority, or memo canon pressure | `aoa-memo` memory route |
+| live router behavior or routing-layer authorship pressure | `aoa-routing` route-authority lane |
+| KAG promotion into owner repositories pressure | `aoa-kag` graph route plus owner adoption route |
+| Tree-of-Sophia runtime write or authored-meaning pressure | Tree-of-Sophia authored-meaning route |
+| broad Experience success pressure | bundle-local proof object plus source-owner evidence review |
 
 ## Legacy
 

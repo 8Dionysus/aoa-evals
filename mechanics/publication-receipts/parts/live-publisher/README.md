@@ -6,8 +6,8 @@ This part owns the owner-local append tool for already reviewed,
 schema-valid eval-result receipt envelopes.
 
 It performs the optional publication append after a receipt envelope already
-exists. It does not derive verdict meaning, decide proof acceptance, or publish
-dry-review previews.
+exists. Verdict meaning, proof acceptance, and dry-review previews route to the
+reviewed report, bundle-local review, and intake dry-review surfaces.
 
 ## Source Surfaces
 
@@ -45,20 +45,19 @@ canonical shared envelope vocabulary.
 ## Boundary
 
 The publisher appends to `.aoa/live_receipts/eval-result-receipts.jsonl` only
-when explicitly invoked with receipt input. It does not publish dry reviews,
-promote bundles, create verdict authority, or read private log content for
-docs-only changes.
+when explicitly invoked with receipt input. Dry reviews, bundle promotion,
+verdict authority, and private log content route to intake review,
+bundle-local review, proof owners, and private evidence owners.
 
 ## Stop-Lines
 
-- Do not run the publisher for a dry-review payload preview.
-- Do not silently rewrite old log entries; use a later receipt and
-  `supersedes` when correction is needed.
-- Do not let duplicate skipping imply proof review or receipt acceptance.
-- Do not append secrets, private telemetry, hidden benchmark payloads, local
-  credentials, or unreduced operator traces.
-- Do not treat an owner-local append as GitHub release, runtime acceptance,
-  quest closure, bundle promotion, or goal completion.
+| Pressure | Route |
+| --- | --- |
+| dry-review payload preview looks publishable | route to intake dry review until an actual receipt envelope exists |
+| old log entry needs correction | append a later receipt with `supersedes` |
+| duplicate skipping reads as proof review or receipt acceptance | return to reviewed report, receipt validation, and bundle-local review |
+| secret, private telemetry, hidden benchmark payload, local credential, or unreduced operator trace appears | keep it outside owner-local publication |
+| owner-local append reads as GitHub release, runtime acceptance, quest closure, bundle promotion, or goal completion | route to release, runtime, quest, lifecycle, or goal closeout owner |
 
 ## Validation
 

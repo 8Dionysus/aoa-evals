@@ -6,18 +6,18 @@
 mechanic.
 
 The mechanic owns the route from reviewed bounded report to optional
-publication receipt. The parts keep each authority class visible so a dry
-review, payload schema, stats envelope mirror, publisher, and owner-local log
-do not collapse into one false proof surface.
+publication receipt. The parts keep each authority class visible so dry review,
+payload schema, stats envelope mirror, publisher, and owner-local log pressure
+routes to the surface that can carry it.
 
 ## Parts
 
-| Part | Owns | Emits | Must not claim |
+| Part | Owns | Emits | Route pressure |
 | --- | --- | --- | --- |
-| `receipt-payload` | eval-result receipt guide, payload schema, and public example | schema-valid `eval_result_receipt` payload shape | a receipt is proof authority |
-| `stats-envelope-mirror` | local mirror of the canonical `aoa-stats` event envelope | local validation support for eval receipt envelopes | ownership of `aoa-stats` event vocabulary |
-| `live-publisher` | owner-local append tool for already valid receipts | append-only JSONL writes when explicitly invoked | publication from dry review or proof promotion |
-| `intake-dry-review` | non-publishing report-to-receipt derivation artifact | payload preview with `not_published` posture | receipt publication, envelope creation, live-log append, or runtime acceptance |
+| `receipt-payload` | eval-result receipt guide, payload schema, and public example | schema-valid `eval_result_receipt` payload shape | proof authority routes back to the bundle-local report and source bundle |
+| `stats-envelope-mirror` | local mirror of the canonical `aoa-stats` event envelope | local validation support for eval receipt envelopes | canonical event vocabulary routes to `aoa-stats` |
+| `live-publisher` | owner-local append tool for already valid receipts | append-only JSONL writes when explicitly invoked | dry-review publication and proof promotion route through review and receipt boundaries |
+| `intake-dry-review` | non-publishing report-to-receipt derivation artifact | payload preview with `not_published` posture | receipt publication, envelope creation, live-log append, and runtime acceptance route to their owning parts |
 
 ## Boundary
 
@@ -41,8 +41,8 @@ Owner split stays explicit: bundles and reports own verdict meaning;
 `aoa-stats` owns canonical stats event vocabulary; this mechanic owns only the
 eval-result receipt sidecar route.
 
-Stop-lines forbid dry review from implying publication, receipt presence from
-implying proof authority, or local envelope mirrors from owning `aoa-stats`.
+Stop-lines route dry-review publication pressure, receipt proof-authority
+pressure, and local envelope ownership pressure back to their owners.
 
 Validation routes through [AGENTS](AGENTS.md#validation), including repo,
 semantic AGENTS, and receipt-specific test lanes.

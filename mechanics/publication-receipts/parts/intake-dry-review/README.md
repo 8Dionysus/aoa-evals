@@ -49,13 +49,13 @@ from it.
 
 ## Stop-Lines
 
-- Do not add `event_kind`, `event_id`, `observed_at`, `object_ref`,
-  `evidence_refs`, or `payload` at the top level.
-- Do not run the live publisher from this part.
-- Do not append `.aoa/live_receipts/` from a dry review.
-- Do not infer runtime evidence acceptance, quest closure, bundle promotion,
-  GitHub release publication, or goal completion.
-- Do not let payload derivability outrank the reviewed report or source bundle.
+| Pressure | Route |
+| --- | --- |
+| top-level `event_kind`, `event_id`, `observed_at`, `object_ref`, `evidence_refs`, or `payload` appears | route to publishable envelope work instead of dry review |
+| live publisher invocation appears | route to `live-publisher` only after a real receipt envelope exists |
+| `.aoa/live_receipts/` append appears | keep dry review non-publishing and route append work to live publication |
+| runtime evidence acceptance, quest closure, bundle promotion, GitHub release publication, or goal completion is inferred | route to runtime, quest, lifecycle, release, or goal closeout owners |
+| payload derivability outranks the reviewed report or source bundle | return to the reviewed report and source bundle |
 
 ## Validation
 

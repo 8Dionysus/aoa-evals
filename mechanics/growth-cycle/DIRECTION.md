@@ -1,7 +1,8 @@
 # Growth Cycle Direction
 
 Growth Cycle in `aoa-evals` should keep diagnosis proof from collapsing into
-repair success, progression, harvest, or closeout acceptance.
+repair success, progression, harvest, or closeout acceptance by routing those
+pressures to their stronger owners.
 
 Use this file for the package's current operating direction: read it after the
 parent entry card and before `PARTS.md`, part contracts, source bundles,
@@ -30,16 +31,18 @@ decision records, and `PROVENANCE.md`.
 ## Growth rule
 
 Add a new growth-cycle part only when the stage is repeatable, has support
-payload, and can name what it proves without claiming the next stage. A
+payload, and can name what it proves while next-stage pressure routes out. An
 eval-backed thin support route is allowed only when the source eval package
-stays under `evals/` and the part README explicitly says there are no
-part-local payload subdirectories yet.
+stays under `evals/` and the part README explicitly says payload
+subdirectories are absent by design.
 
 ## Stop-lines
 
-- Do not claim repair success from diagnosis proof.
-- Do not claim broad capability growth, universal progression, closeout
-  acceptance, donor harvest approval, memory canon, or runtime activation.
+- Repair success pressure routes to `mechanics/antifragility/parts/repair-proof/`
+  plus owner repair acceptance.
+- Broad capability growth, universal progression, closeout acceptance, donor
+  harvest approval, memory canon, and runtime activation pressure route through
+  their stronger owner split before eval-side diagnosis proof changes.
 
 ## Validation
 

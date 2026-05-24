@@ -45,6 +45,36 @@ The explicit broad growth score stop-line is part of this contract.
 - Closeout, harvest, quest promotion, and owner followthrough remain
   obligations or ingress pressure until separate eval-side operations exist.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `diagnosis-gate` remains the guarded Growth Cycle diagnosis
+  part contract for `aoa-diagnosis-cause-discipline`.
+- Changed: the part now expresses stop-line coverage as pressure-to-owner
+  route rows, and validator tokens guard each row.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Diagnosis-gate boundary route wording
+
+- Previous assumption: the diagnosis-gate contract required explicit stronger
+  owner split plus stop-line terms for repair, owner fit, final quality, broad
+  growth, closeout, harvest, quest, memory, runtime, automation, and owner
+  landing.
+- New reality: the same contract now guards full route rows that name each
+  pressure and its owner route.
+- Reason: diagnosis evidence should help an agent choose the next owner route
+  without making diagnosis proof impersonate repair, progression, closeout,
+  quest, memory, runtime, automation, or owner acceptance.
+- Source surfaces updated:
+  `mechanics/growth-cycle/parts/diagnosis-gate/README.md` and
+  `scripts/validate_repo.py`.
+- Validation: growth-cycle validator focus, diagnosis bundle validation,
+  catalog check, root validation, semantic AGENTS validation, diff whitespace
+  check, and full pytest passed.
+
 ## Validation
 
 Expected validation route:

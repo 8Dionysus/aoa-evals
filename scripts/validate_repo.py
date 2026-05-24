@@ -9626,6 +9626,28 @@ def validate_read_model_command_ownership(repo_root: Path) -> list[ValidationIss
     return issues
 
 
+def validate_source_eval_command_ownership(
+    repo_root: Path,
+    records: Sequence[EvalBundleRecord],
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for record in records:
+        path_name = record.eval_md_path.relative_to(repo_root).as_posix()
+        text = read_text_or_issue(record.eval_md_path, issues, root=repo_root)
+        if not text:
+            continue
+        if markdown_python_commands(text):
+            issues.append(
+                ValidationIssue(
+                    path_name,
+                    "source EVAL.md must route executable validation commands to evals/AGENTS.md or the nearest AGENTS.md",
+                )
+            )
+
+    return issues
+
+
 def validate_releasing_route_map_surface(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
 
@@ -19858,6 +19880,7 @@ def validate_source_eval_doctrine_domain(
     selected_evals: set[str] | None,
 ) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
+    issues.extend(validate_source_eval_command_ownership(repo_root, records))
     issues.extend(
         validate_comparison_doctrine_surfaces(
             repo_root,

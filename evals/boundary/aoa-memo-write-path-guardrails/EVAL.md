@@ -292,18 +292,10 @@ visibility.
 
 ## Verification
 
-For this bundle:
-
-```bash
-python scripts/validate_repo.py --eval aoa-memo-write-path-guardrails
-```
-
-For generated readers:
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/generate_eval_report_index.py --check
-```
+Use the source-eval validation route in
+[evals/AGENTS.md](../../AGENTS.md#validation). Validate this bundle by name,
+then run generated-reader checks when source wording, manifest fields, reports,
+or index inputs move.
 
 ## Technique traceability
 

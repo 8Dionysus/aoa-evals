@@ -1857,7 +1857,7 @@
           "key": "interpretation_guidance"
         },
         {
-          "content_markdown": "For this bundle:\n\n```bash\npython scripts/validate_repo.py --eval aoa-memo-write-path-guardrails\n```\n\nFor generated readers:\n\n```bash\npython scripts/build_catalog.py --check\npython scripts/generate_eval_report_index.py --check\n```",
+          "content_markdown": "Use the source-eval validation route in\n[evals/AGENTS.md](../../AGENTS.md#validation). Validate this bundle by name,\nthen run generated-reader checks when source wording, manifest fields, reports,\nor index inputs move.",
           "heading": "Verification",
           "key": "verification"
         },

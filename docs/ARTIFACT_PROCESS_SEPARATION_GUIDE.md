@@ -7,6 +7,17 @@ Use it when the question is:
 - what keeps artifact polish from collapsing into workflow proof?
 - where do witness and compost pilots sit relative to artifact/process reading?
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | artifact/process layer reading guide |
+| input | artifact-side reading, process-side reading, bridge verdict, witness context, compost context, or style-over-substance risk |
+| output | read order, bridge route, anti-collapse route, or status discipline note |
+| owner | this guide owns layer reading order; bundle-local `EVAL.md`, reports, and comparison-spine artifacts own concrete evidence |
+| next route | `mechanics/comparison-spine/`, the affected bundle, or the paired fixture/report surface named below |
+| validation | `docs/AGENTS.md#validation` |
+
 ## Read order
 
 Read the current artifact/process layer in this order:
@@ -16,8 +27,8 @@ Read the current artifact/process layer in this order:
 4. `aoa-witness-trace-integrity` only as adjacent upstream witness context when needed
 5. `aoa-compost-provenance-preservation` only as adjacent downstream artifact context when needed
 
-The bridge does not replace the standalone surfaces.
-It reports divergence or alignment only after both standalone readings exist.
+The bridge reports divergence or alignment after both standalone readings exist.
+Standalone artifact and workflow surfaces keep their own evidence route.
 
 ## Shared comparison vocabulary
 
@@ -37,20 +48,21 @@ The current shared bridge dossiers are:
 - `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md`
 - `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v2.md`
 
-## Anti-collapse rules
+## Anti-collapse routes
 
-Do not read this layer as:
-- artifact polish proving workflow discipline
-- workflow discipline proving artifact excellence
-- witness integrity replacing workflow review
-- compost provenance replacing artifact review
-- one bridge verdict replacing the standalone artifact or workflow evidence
+| Pressure | Route |
+| --- | --- |
+| artifact polish reads as workflow discipline | process-side reading through `aoa-bounded-change-quality` |
+| workflow discipline reads as artifact excellence | artifact-side reading through `aoa-artifact-review-rubric` |
+| witness integrity reads as workflow review | adjacent upstream witness context through `aoa-witness-trace-integrity` |
+| compost provenance reads as artifact review | adjacent downstream artifact context through `aoa-compost-provenance-preservation` |
+| one bridge verdict reads as standalone artifact or workflow evidence | return to both standalone readings before using the bridge verdict |
 
 Default honesty rules:
 - artifact polish is weaker than workflow proof
 - workflow discipline is weaker than artifact excellence
 - a mixed paired case should stay mixed
-- side-by-side readouts should name matched-condition evidence directly, not stylistic impression alone
+- side-by-side readouts should name matched-condition evidence directly; stylistic impression stays subordinate
 
 ## Status discipline
 

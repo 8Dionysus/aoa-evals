@@ -929,8 +929,15 @@ def make_roadmap(
 
         Highest-priority additions:
         - placeholder
+        - keep the agent index chain visible while `docs/AGENT_INDEX.md` remains the
+          index
+        - grow the active proof loop while bundle-local review keeps bounded claim
+          strength
 
         ## Direction Anchors
+
+        These anchors keep direction recoverable; changelog and validator ledgers carry
+        history/token detail.
 
         | Anchor | Owner surface | Directional use |
         | --- | --- | --- |
@@ -3558,6 +3565,40 @@ def test_validate_roadmap_parity_rejects_missing_update_rule(tmp_path: Path) -> 
     assert any(
         issue.location == "ROADMAP.md"
         and "## Update Rule" in issue.message
+        for issue in issues
+    )
+
+
+def test_validate_roadmap_parity_rejects_old_negative_route_scaffold(
+    tmp_path: Path,
+) -> None:
+    make_eval_bundle(tmp_path, name="aoa-starter-alpha")
+    make_index(tmp_path, "aoa-starter-alpha", "workflow")
+    make_selection(tmp_path, ["aoa-starter-alpha"])
+    make_roadmap(tmp_path, ["aoa-starter-alpha"])
+    roadmap_path = tmp_path / "ROADMAP.md"
+    roadmap_path.write_text(
+        roadmap_path.read_text(encoding="utf-8")
+        + "\nkeep the agent index chain visible without making the roadmap an index\n"
+        + "grow the active proof loop without strengthening the bounded claim\n",
+        encoding="utf-8",
+    )
+
+    issues = validate_repo.validate_roadmap_parity(
+        tmp_path,
+        ["aoa-starter-alpha"],
+    )
+
+    assert any(
+        issue.location == "ROADMAP.md"
+        and "direction owner routes" in issue.message
+        and "without making the roadmap an index" in issue.message
+        for issue in issues
+    )
+    assert any(
+        issue.location == "ROADMAP.md"
+        and "direction owner routes" in issue.message
+        and "without strengthening the bounded claim" in issue.message
         for issue in issues
     )
 

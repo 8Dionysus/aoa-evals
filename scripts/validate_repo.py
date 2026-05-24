@@ -1296,8 +1296,16 @@ ROADMAP_DIRECTION_SURFACE_REQUIRED_TOKENS = (
     "release history: [CHANGELOG.md](CHANGELOG.md)",
     "## Update Rule",
     "## Current Direction",
+    "`docs/AGENT_INDEX.md` remains",
+    "bundle-local review keeps bounded claim",
     "## Direction Anchors",
+    "changelog and validator ledgers carry",
     "## Horizons",
+)
+ROADMAP_FORBIDDEN_ROUTE_SCAFFOLD = (
+    "without making the roadmap an index",
+    "without strengthening the bounded claim",
+    "without turning the roadmap into",
 )
 ROADMAP_ROUTE_RESIDUE_GUARD_FAMILY_TOKENS = (
     "Route residue guard family",
@@ -9623,6 +9631,15 @@ def validate_roadmap_parity(
                 ValidationIssue(
                     location,
                     f"ROADMAP.md must include '{token}'",
+                )
+            )
+    for stale_phrase in ROADMAP_FORBIDDEN_ROUTE_SCAFFOLD:
+        if stale_phrase in roadmap_text:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "ROADMAP.md should name direction owner routes before old "
+                    f"negative scaffold '{stale_phrase}'",
                 )
             )
 

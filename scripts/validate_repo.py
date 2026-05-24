@@ -4394,7 +4394,7 @@ QUESTBOOK_MECHANIC_REQUIRED_TOKENS = (
     "generated/quest_catalog.min.json",
     "generated/quest_dispatch.min.json",
     "lane/state",
-    "not eval bundles",
+    "Quests route eval-bundle",
     "python scripts/build_catalog.py --check",
     "python scripts/validate_repo.py",
 )

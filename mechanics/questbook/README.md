@@ -71,34 +71,35 @@ lane/state layout.
 their own stronger meaning when a quest outcome points outside proof work.
 
 The installed `aoa-quest-harvest` skill may support post-session promotion
-triage. It does not become quest source truth and it does not authorize
-promotion during an active route.
+triage. Quest source truth stays in reviewed source records, and active-route
+promotion stays with the owning review path.
 
 ## Boundaries
 
-- Quests are not eval bundles.
-- `QUESTBOOK.md` is not roadmap direction.
-- Generated quest readers are not live portable verdict authority.
-- Closed quests stay out of the open-obligation index.
-- Old top-level quest paths are legacy path vocabulary, not active source
-  files.
-- Source path changes must update validators and generated projections in the
-  same slice.
-- A promotion verdict is smaller than downstream owner acceptance.
+| Pressure | Route |
+| --- | --- |
+| Quests route eval-bundle, verdict, or proof-promotion pressure | bundle-local proof surface or owning proof mechanic |
+| `QUESTBOOK.md` used as roadmap direction | `ROADMAP.md` |
+| generated quest reader used as live portable verdict authority | source quest record plus bundle/mechanic proof evidence |
+| closed quest appearing as open obligation | closed-state route outside the open-obligation index |
+| old top-level quest path used as active source | `PROVENANCE.md` and legacy path vocabulary |
+| source path change | source record, validator, human index, and generated projection update in the same slice |
+| promotion verdict used as owner acceptance | downstream owner evidence |
 
 ## Legacy Posture
 
-Former Agon markdown quest notes are no longer active quest lifecycle source
-records. They are preserved as Agon lineage behind `mechanics/agon/PROVENANCE.md`.
+Former Agon markdown quest notes are Agon lineage behind
+`mechanics/agon/PROVENANCE.md`. Active quest lifecycle source records live under
+`quests/<lane>/<state>/`.
 
 Current IDs stay stable. Old top-level paths and former root schema placement
 remain documented as historical accepted-input vocabulary, while generated
 readers emit the current route.
 
 Use `mechanics/questbook/PROVENANCE.md` for old questbook path lookup. Use
-`mechanics/agon/PROVENANCE.md` for former Agon note lineage. Do not recreate
-old root schema aliases, old top-level quest source files, or markdown quest
-notes under active lifecycle directories.
+`mechanics/agon/PROVENANCE.md` for former Agon note lineage. Old root schema
+aliases, old top-level quest source files, and markdown quest notes route
+through provenance rather than active lifecycle directories.
 
 ## Validation
 
@@ -117,7 +118,7 @@ The next honest questbook movement is lifecycle tightening with:
 - generated projection proof;
 - validator proof;
 - legacy path mapping review;
-- no loss of active/open quest visibility.
+- preserved active/open quest visibility.
 
 That lifecycle tightening now starts in `quests/LIFECYCLE.md`. Future state
 movement should update the source record, path, human index, generated readers,

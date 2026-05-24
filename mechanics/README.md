@@ -10,7 +10,8 @@ part contract, payload home, and validation lane that owns the work. A mechanic
 exists only when a recurring operation has source surfaces, inputs, outputs,
 boundaries, and validation.
 
-The rule for this atlas is simple: no empty package taxonomy.
+Package taxonomy requires source surfaces, inputs, outputs, boundaries,
+validation, and parent evidence.
 
 ## Operating Card
 
@@ -26,7 +27,8 @@ The rule for this atlas is simple: no empty package taxonomy.
 
 ## Traversal Index
 
-Use mechanics as a lower proof index, not as a flat directory list.
+Use mechanics as a lower proof index that turns parent names and payload paths
+into routeable operations.
 
 Top-down route:
 
@@ -75,7 +77,7 @@ Use the evidence gate as an operating checklist:
 | parent route shape | every active parent exposes `AGENTS.md`, `README.md`, `DIRECTION.md`, and `PARTS.md`; `DIRECTION.md` owns the current operating direction, growth rule, stop-lines, source split, and validation posture; each parent `README.md` and `AGENTS.md` routes `DIRECTION.md` from its Entry Route |
 | part contract | each part README names inputs, outputs, stronger owner split, stop-lines, validation, payload homes, and the source surfaces that make the part real |
 | parent part map | parent `PARTS.md` keeps the declared part route set synchronized with actual `parts/` directories; stale local part route checks keep removed parts from staying active by name; cross-parent references stay owner-split, stop-line, or handoff routes |
-| payload coverage | every actual payload subdirectory is routed from the part README; a bundle-backed thin support route states that it has no part-local payload subdirectories and that the source eval package stays under `evals/` |
+| payload coverage | every actual payload subdirectory is routed from the part README; a bundle-backed thin support route points to the source eval package under `evals/` as its payload |
 | source refs | every concrete mechanic part README exposes plural `## Source Surfaces` with at least one path-like source ref that resolves as an existing repo-relative path, matching repo-relative glob, repo-qualified sibling ref, or explicit placeholder route; stale source surface ref checks keep old root payload names from steering current work |
 | validation route | every part `## Validation` section routes to part-local `VALIDATION.md`; every `VALIDATION.md` routes to the parent `parts/AGENTS.md` centralized child validation block; executable commands use reachable repo-relative paths; stale validation path checks keep commands current, and payload-bearing parts carry a payload coverage anchor |
 | parent-level docs | parent-level `docs/` carries explicitly allowlisted mechanic-wide guidance; part-owned payload docs live under `parts/<part>/docs/`; allowed parent guides expose role, mechanic-wide scope, source surfaces, stronger owner split, stop-lines, and validation |
@@ -92,10 +94,10 @@ Every active parent must expose the same active-to-archive boundary:
 - a legacy archive behind that bridge, with its own route card and
   archive-local accounting.
 
-The archive is not a trash folder and not a new-work entrypoint. Active route
-comes first: parent `README.md`, `DIRECTION.md`, `PARTS.md`, parts, owner
-split, stop-lines, and validation. Legacy explains lineage after the active
-form exists, and the archive explains its own internal route.
+Archive boundary route: active work starts from parent `README.md`,
+`DIRECTION.md`, `PARTS.md`, parts, owner split, stop-lines, and validation.
+Legacy explains lineage after the active form exists, and the archive explains
+its own internal route.
 Every `PROVENANCE.md` is a bridge, not an active route.
 
 Use active surfaces first:
@@ -106,8 +108,8 @@ Use active surfaces first:
 - part-local `parts/` contracts and payloads.
 
 Every `PROVENANCE.md` is the single controlled bridge from active mechanic surfaces into the legacy archive.
-Active mechanic surfaces should not route directly to archive internals; the
-legacy directory explains itself after the reader crosses that bridge.
+Active mechanic surfaces route to archive internals through `PROVENANCE.md`;
+the legacy directory explains itself after the reader crosses that bridge.
 Archive-local indexes, raw lineage, distillation logs, and accounting rules
 belong inside `legacy/`; this active atlas names only the bridge and the
 current owner route.
@@ -130,9 +132,10 @@ Titan; canaries are only the current `seed-boundary` payload form.
 
 Concrete wrong-parent mappings live in
 [`mechanics/EVIDENCE_CLUSTERS.md`](EVIDENCE_CLUSTERS.md), where the validator
-checks them against the active parent-class map. This README keeps the rule:
-legacy, artifact-form, evidence-class, or stage-pressure vocabulary must not
-return as active parent mechanics.
+checks them against the active parent-class map. This README keeps the route:
+legacy, artifact-form, evidence-class, and stage-pressure vocabulary stay in
+the evidence cluster map and provenance bridge until an evidence-backed parent
+route promotes them.
 
 ## Active Packages
 
@@ -145,8 +148,8 @@ complete, bounded, and stronger than generated or emitted companions:
 
 It routes `evals/**/EVAL.md`, `evals/**/eval.yaml`, the
 `eval-authoring` template part, the `eval-contracts` schema part, proof
-review guides, generated catalog readers, and lifecycle posture without moving
-`evals/`.
+review guides, generated catalog readers, and lifecycle posture while `evals/`
+stays the source proof object district.
 
 ### `proof-loop`
 
@@ -155,9 +158,9 @@ followable:
 
 `proof question -> selection route -> source proof object -> support contract -> candidate evidence packet -> bundle-local review -> bounded report -> optional receipt`
 
-It coordinates `proof-object`, `proof-infra`, `audit`,
-`boundary-bridge`, and `publication-receipts` without becoming stronger than
-any of those owner routes. Its first bounded route-smoke report lives in
+It coordinates `proof-object`, `proof-infra`, `audit`, `boundary-bridge`, and
+`publication-receipts` while each step owner stays authoritative for its own
+route. Its first bounded route-smoke report lives in
 `mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md`.
 
 ### `comparison-spine`
@@ -169,12 +172,13 @@ peer-compare, and longitudinal-window proof claims bounded:
 
 It routes comparison guides, `comparison_surface`, part-local comparison
 fixture families and reports, `generated/comparison_spine.json`, and shared
-proof artifact contracts without moving bundles or generated readers.
+proof artifact contracts while source bundles and generated readers stay in
+their owner lanes.
 
 ### `proof-infra`
 
 `mechanics/proof-infra/` owns the operation that keeps shared proof contracts
-reusable without hiding bundle-local meaning:
+reusable and bundle-local meaning visible:
 
 `bundle proof need -> shared proof contract -> bundle-local contract -> generated proof_artifacts -> bounded review`
 
@@ -184,7 +188,7 @@ shared fixture families now live
 under `mechanics/proof-infra/parts/fixture-families/fixtures/`; shared
 reportable runner/scorer/schema contracts now live under
 `mechanics/proof-infra/parts/reportable-contracts/`. Whole infrastructure
-districts are not moved by theme.
+districts move only through owner operation, evidence, and validation.
 
 ### `publication-receipts`
 
@@ -195,20 +199,19 @@ result publication receipts subordinate to reviewed reports:
 
 It keeps the eval result receipt guide, payload schema, local stats envelope
 mirror, public example, live publisher, and intake dry review in package-local
-parts while routing the owner-local live receipt log at `.aoa/live_receipts/`
-without moving that append surface.
+parts while `.aoa/live_receipts/` remains the owner-local append surface.
 
 ### `release-support`
 
 `mechanics/release-support/` owns the operation that keeps bounded release
-publication coherent without strengthening eval claims:
+publication coherent and eval claims bounded:
 
 `bounded release scope -> changelog narrative -> release audit -> Repo Validation -> tag and GitHub release notes -> post-release proof posture`
 
 It routes `docs/RELEASING.md`, `CHANGELOG.md`, `scripts/release_check.py`,
 GitHub `Repo Validation`, generated freshness checks, release-note posture, and
-part-local readiness/closeout/handoff reports without moving root release
-entrypoints, CI, generated surfaces, or source proof bundles.
+part-local readiness/closeout/handoff reports while root release entrypoints,
+CI, generated surfaces, and source proof bundles stay in their owner lanes.
 
 ### `titan`
 
@@ -218,8 +221,10 @@ surfaces shaped and bounded:
 `Titan boundary pressure -> seed canary YAML -> shape validation -> future executable scorer route -> bounded proof or owner handoff`
 
 It routes Titan incarnation and summon discipline guides,
-`mechanics/titan/parts/seed-boundary/seeds/titan*.yaml`, `mechanics/titan/parts/seed-boundary/seeds/AGENTS.md`, legacy naming posture, and
-`validate_titan_canary_surfaces` without claiming full Titan incarnation proof.
+`mechanics/titan/parts/seed-boundary/seeds/titan*.yaml`,
+`mechanics/titan/parts/seed-boundary/seeds/AGENTS.md`, legacy naming posture,
+and `validate_titan_canary_surfaces`. Full Titan incarnation proof routes to
+the stronger Titan owner.
 
 ### `agon`
 
@@ -231,8 +236,8 @@ stop-line bounded:
 
 It routes Agon docs, seed configs, generated registries, schemas, examples,
 scripts, tests, recurrence manifests, observe-only hooks, quest notes, and
-recurrence-control-plane stop-line review without granting live verdict
-authority.
+recurrence-control-plane stop-line review through candidate-only eval support;
+live verdict authority stays outside this package.
 
 ### `recurrence`
 
@@ -359,8 +364,8 @@ artifacts candidate-only until bundle-local review:
 
 It routes runtime evidence selection examples, artifact-to-verdict hooks,
 generated candidate readers, runtime promotion guides, integrity-review
-surfaces, and stronger-owner boundaries through part-local homes without moving
-verdict authority into runtime.
+surfaces, and stronger-owner boundaries through part-local homes. Verdict
+authority stays with bundle-local review.
 
 ### `boundary-bridge`
 
@@ -373,15 +378,16 @@ It routes `mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_
 `mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py`,
 `mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md`,
 `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated/phase_alpha_eval_matrix.min.json`,
-and local proof refs without editing sibling repositories, importing
-orchestrator identity from `aoa-agents`, or treating `aoa-playbooks` run truth
-as eval verdict authority.
+and local proof refs with sibling repositories read as owners, orchestrator
+identity routed to `aoa-agents`, and `aoa-playbooks` run truth kept upstream
+from eval verdict authority.
 
 ## Candidate Families
 
-Candidate families are not active parents by being named.
+Candidate families stay evidence-only until a parent route has source surfaces,
+contracts, owner split, and validation.
 
-There is no remaining named candidate promoted by symmetry in this slice.
+Current candidate promotion state: empty.
 Future candidates must come from
 [`mechanics/EVIDENCE_CLUSTERS.md`](EVIDENCE_CLUSTERS.md), local proof pressure,
 and a validator, builder, or review check that can catch drift.
@@ -400,8 +406,9 @@ Each active package should name:
 - validation;
 - next route.
 
-Package cards route recurring work. They do not replace `DESIGN.md`, eval
-bundles, decision records, generated builders, or sibling-owner truth.
+Package cards route recurring work and hand off to `DESIGN.md`, eval bundles,
+decision records, generated builders, or sibling-owner truth when those
+surfaces own the stronger meaning.
 
 ## Validation
 

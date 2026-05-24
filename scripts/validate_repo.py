@@ -4413,7 +4413,7 @@ QUESTBOOK_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "dispatch-reader",
     "generated quest reader",
     "source quest record",
-    "Do not reintroduce old top-level quest source paths",
+    "old top-level quest source path revived as alias",
     "AGENTS.md#validation",
 )
 QUESTBOOK_SOURCE_RECORD_PART_REQUIRED_TOKENS = (

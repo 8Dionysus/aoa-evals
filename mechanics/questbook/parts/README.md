@@ -5,9 +5,9 @@
 `mechanics/questbook/parts/` holds active support parts for the quest
 obligation loop.
 
-Parts support quest source records and generated readers. They do not own
-roadmap direction, eval bundle meaning, sibling owner acceptance, or proof
-verdicts.
+Parts support quest source records and generated readers. Roadmap direction,
+eval bundle meaning, sibling owner acceptance, and proof verdict pressure route
+to `ROADMAP.md`, bundle-local proof surfaces, or sibling-owner evidence.
 
 ## Active Parts
 

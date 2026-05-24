@@ -4,8 +4,10 @@
 
 This part owns the projection contract for generated quest readers.
 
-It is not the source quest record, human quest index, proof verdict, or portable
-live dispatch authority.
+It routes generated quest navigation. Source quest truth stays in quest source
+records, human open-obligation visibility stays in `QUESTBOOK.md`, proof
+verdicts stay with bundle-local proof surfaces, and live dispatch authority
+stays with the owner route.
 
 ## Owned Operation
 
@@ -44,7 +46,7 @@ lane/state contract. `quests/LIFECYCLE.md` owns lifecycle state vocabulary.
 `QUESTBOOK.md` owns human open-obligation visibility. This part owns the
 generated projection contract and drift detection for quest catalog and
 dispatch readers. `scripts/build_catalog.py` derives those readers from source
-records; generated JSON is not edited as truth.
+records; generated JSON is updated through the builder.
 
 Eval bundles, proof mechanics, sibling repositories, and owner-local surfaces
 own any later proof verdict, promotion, acceptance, or implementation work.
@@ -53,12 +55,13 @@ for generated quest navigation.
 
 ## Stop-Lines
 
-- Generated readers do not replace source quest records.
-- Generated readers do not become eval bundles or portable verdict authority.
-- Do not hand-edit generated quest readers as source truth.
-- Do not hide a missing source quest by patching the projection.
-- Do not treat generated dispatch as live task assignment, owner acceptance,
-  release readiness, or proof-surface promotion.
+| Pressure | Route |
+| --- | --- |
+| generated reader used in place of source quest record | `quests/<lane>/<state>/AOA-EV-Q-*.yaml` |
+| generated reader used as eval bundle or portable verdict authority | bundle-local proof surface |
+| hand edit to generated quest reader | `scripts/build_catalog.py` and source quest record update |
+| missing source quest hidden by projection patch | source quest record repair |
+| generated dispatch used as live task assignment, owner acceptance, release readiness, or proof-surface promotion | owner route, release-support route, or bundle/mechanic proof evidence |
 
 ## Validation
 

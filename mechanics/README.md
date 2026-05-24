@@ -32,7 +32,7 @@ into routeable operations.
 
 Top-down route:
 
-`mechanics/README.md -> mechanics/<parent>/README.md -> DIRECTION.md -> PARTS.md -> parts/<part>/README.md -> payload subdirectory -> validation command`
+`mechanics/README.md -> mechanics/<parent>/README.md -> DIRECTION.md -> PARTS.md -> parts/<part>/README.md -> payload subdirectory -> validation route`
 
 Bottom-up route:
 
@@ -79,7 +79,7 @@ Use the evidence gate as an operating checklist:
 | parent part map | parent `PARTS.md` keeps the declared part route set synchronized with actual `parts/` directories; stale local part route checks keep removed parts from staying active by name; cross-parent references stay owner-split, stop-line, or handoff routes |
 | payload coverage | every actual payload subdirectory is routed from the part README; a bundle-backed thin support route points to the source eval package under `evals/` as its payload |
 | source refs | every concrete mechanic part README exposes plural `## Source Surfaces` with at least one path-like source ref that resolves as an existing repo-relative path, matching repo-relative glob, repo-qualified sibling ref, or explicit placeholder route; stale source surface ref checks keep old root payload names from steering current work |
-| validation route | every part `## Validation` section routes to part-local `VALIDATION.md`; every `VALIDATION.md` routes to the parent `parts/AGENTS.md` centralized child validation block; executable commands use reachable repo-relative paths; stale validation path checks keep commands current, and payload-bearing parts carry a payload coverage anchor |
+| validation route | every part `## Validation` section routes to part-local `VALIDATION.md`; every `VALIDATION.md` routes to the parent `parts/AGENTS.md` centralized child validation block; that block owns reachable repo-relative executable checks, stale validation path checks keep the route current, and payload-bearing parts carry a payload coverage anchor |
 | parent-level docs | parent-level `docs/` carries explicitly allowlisted mechanic-wide guidance; part-owned payload docs live under `parts/<part>/docs/`; allowed parent guides expose role, mechanic-wide scope, source surfaces, stronger owner split, stop-lines, and validation |
 
 Rationale-only decisions and generic root validator refs can support context.

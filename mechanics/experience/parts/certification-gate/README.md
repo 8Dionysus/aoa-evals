@@ -44,14 +44,24 @@ approval, rollout promotion, and durable rollback permission. `abyss-stack`
 owns runtime health and deployment execution. `aoa-stats` owns derived
 observability without approval authority.
 
-`aoa-evals` owns only bounded readiness-for-operator-review proof readings,
-schema/example contracts, regression evidence, and bundle-local interpretation.
+`aoa-evals` owns this part's bounded readiness-for-operator-review proof
+readings, schema/example contracts, regression evidence, and bundle-local
+interpretation. Authority beyond those proof readings routes through the
+stronger owner split above.
 
 ## Stop-Lines
 
-This part must claim no certification, release approval, deployment approval,
-rollout promotion, durable rollback permission, stats approval, owner
-acceptance, or runtime health.
+Boundary routes keep certification-gate pressure with the owner that can act on it:
+
+| Pressure | Owner route |
+| --- | --- |
+| certification authority pressure | Agents-of-Abyss and owner operator certification route |
+| release approval pressure | release-support and owner approval route |
+| deployment approval or rollout promotion pressure | `abyss-stack` runtime route and operator review route |
+| durable rollback permission pressure | owner rollback route and release-support review route |
+| stats approval pressure | `aoa-stats` derived observability route |
+| owner acceptance pressure | owner repository acceptance route |
+| runtime health pressure | `abyss-stack` runtime health route |
 
 ## Validation
 

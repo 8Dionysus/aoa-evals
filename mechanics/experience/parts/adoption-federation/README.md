@@ -39,26 +39,28 @@ activation. `aoa-routing` owns routing behavior. `aoa-kag` owns KAG substrate
 meaning and promotion mechanics. `Tree-of-Sophia` owns authored meaning and
 canon. `aoa-memo` owns memory objects and memo adoption truth.
 
-`aoa-evals` owns only bounded adoption and compatibility proof readings,
-schema/example contracts, and bundle-local interpretation.
+`aoa-evals` owns this part's bounded adoption and compatibility proof readings,
+schema/example contracts, and bundle-local interpretation. Authority beyond
+those proof readings routes through the stronger owner split above.
 
-Reviewed runtime distillation candidate adoption is not this part's active
-fixture family anymore; it routes through
-`mechanics/distillation/parts/runtime-candidate-adoption/`.
+Reviewed runtime distillation candidate adoption routes through
+`mechanics/distillation/parts/runtime-candidate-adoption/`; this part keeps
+adoption-federation proof support.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Boundary routes keep adoption-federation pressure with the owner that can act on it:
 
-- owner-local adoption;
-- owner consent;
-- KAG forced adoption;
-- direct ToS runtime write or Tree-of-Sophia meaning;
-- memory canon or memo adoption truth;
-- routing authorship;
-- automatic activation;
-- reviewed runtime distillation candidate adoption.
+| Pressure | Owner route |
+| --- | --- |
+| owner-local adoption pressure | owner repository adoption route |
+| owner consent pressure | owner repository consent route |
+| KAG adoption pressure | `aoa-kag` substrate route plus owner consent |
+| Tree-of-Sophia meaning or write pressure | Tree-of-Sophia authored-meaning route |
+| memory canon or memo adoption pressure | `aoa-memo` memory route |
+| routing authorship pressure | `aoa-routing` route-authority lane |
+| automatic activation pressure | owner activation and runtime route |
+| runtime distillation candidate adoption pressure | `mechanics/distillation/parts/runtime-candidate-adoption/` |
 
 ## Validation
 

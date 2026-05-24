@@ -56,9 +56,9 @@ As of 2026-05-24:
 
 - Still valid: active Experience part README files expose inputs, outputs,
   stronger owner split, stop-lines, and validation route markers.
-- Changed: `mechanics/experience/parts/office-release-train/README.md`
-  expresses stop-line coverage as owner-route pressure, and the office-specific
-  validator tokens guard full pressure-to-owner-route rows.
+- Changed: active Experience part README files now express stop-line coverage as
+  owner-route pressure, and part-specific validator tokens guard full
+  pressure-to-owner-route rows where this route has been applied.
 - Superseded by: none.
 
 ## Review Log
@@ -79,6 +79,28 @@ As of 2026-05-24:
   `scripts/validate_repo.py`.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k
   experience_part_readmes`, `python scripts/validate_repo.py`, and
+  `python scripts/validate_semantic_agents.py`.
+
+### 2026-05-24 - Remaining Experience part boundary route wording
+
+- Previous assumption: protocol-integrity, certification-gate,
+  adoption-federation, and governance-runtime-boundary part contracts used
+  direct exclusion prose to keep stronger owner authority outside the part.
+- New reality: those part contracts keep the same authority boundary through
+  pressure-to-owner-route tables whose full owner-route rows are validator
+  guarded.
+- Reason: the same route shape now covers all active Experience part README
+  files, so low-context agents can read the owner handoff from the table rather
+  than interpreting dense exclusion prose.
+- Source surfaces updated:
+  `mechanics/experience/parts/protocol-integrity/README.md`,
+  `mechanics/experience/parts/certification-gate/README.md`,
+  `mechanics/experience/parts/adoption-federation/README.md`,
+  `mechanics/experience/parts/governance-runtime-boundary/README.md`, and
+  `scripts/validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  experience_part_readmes`, part-local Experience tests,
+  `python scripts/validate_repo.py`, and
   `python scripts/validate_semantic_agents.py`.
 
 ## Validation

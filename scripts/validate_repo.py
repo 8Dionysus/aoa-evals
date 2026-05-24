@@ -3930,25 +3930,26 @@ EXPERIENCE_PROTOCOL_PART_REQUIRED_TOKENS = (
     "aoa-experience-protocol-integrity",
     "mechanics/experience/parts/protocol-integrity/fixtures/experience-verdict-protocol-integrity-v1/README.md",
     "mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py",
-    "does not own Experience doctrine",
-    "proof that the underlying experience succeeded",
+    "| Experience doctrine pressure | Agents-of-Abyss center route |",
+    "| underlying-experience success pressure | owner evidence and source-review route |",
     "python scripts/build_catalog.py --check",
 ) + EXPERIENCE_PART_README_COMMON_REQUIRED_TOKENS
 EXPERIENCE_CERTIFICATION_PART_REQUIRED_TOKENS = (
     "experience certification gate proof",
     "mechanics/experience/parts/certification-gate/fixtures/experience-certification-gate-integrity-v1/README.md",
     "rollback_drill_verdict",
-    "must claim no certification, release approval",
-    "runtime health",
+    "| certification authority pressure | Agents-of-Abyss and owner operator certification route |",
+    "| release approval pressure | release-support and owner approval route |",
+    "| runtime health pressure | `abyss-stack` runtime health route |",
     "python scripts/build_catalog.py --check",
 ) + EXPERIENCE_PART_README_COMMON_REQUIRED_TOKENS
 EXPERIENCE_ADOPTION_PART_REQUIRED_TOKENS = (
     "Experience adoption proof",
     "federation-harvest",
     "KAG/ToS boundary",
-    "Reviewed runtime distillation candidate adoption is not this part",
-    "owner-local adoption",
-    "routing authorship",
+    "| owner-local adoption pressure | owner repository adoption route |",
+    "| routing authorship pressure | `aoa-routing` route-authority lane |",
+    "| runtime distillation candidate adoption pressure | `mechanics/distillation/parts/runtime-candidate-adoption/` |",
     "python scripts/build_catalog.py --check",
 ) + EXPERIENCE_PART_README_COMMON_REQUIRED_TOKENS
 EXPERIENCE_GOVERNANCE_PART_REQUIRED_TOKENS = (
@@ -3959,8 +3960,8 @@ EXPERIENCE_GOVERNANCE_PART_REQUIRED_TOKENS = (
     "REPLAY_HISTORY_INTEGRITY_VERDICT.md",
     "authority-resolution",
     "constitution-runtime",
-    "must claim no governance authority",
-    "runtime enforcement",
+    "| governance authority pressure | Agents-of-Abyss center governance route |",
+    "| runtime enforcement pressure | `abyss-stack` runtime route |",
     "python scripts/validate_repo.py",
 ) + EXPERIENCE_PART_README_COMMON_REQUIRED_TOKENS
 EXPERIENCE_OFFICE_PART_REQUIRED_TOKENS = (

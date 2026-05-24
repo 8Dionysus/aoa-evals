@@ -1,8 +1,8 @@
 # Method-growth Direction
 
 Method-growth in `aoa-evals` should keep candidate lineage and owner landing
-reviewable without turning growth pressure into a universal score or owner
-acceptance.
+reviewable while universal-score and owner-acceptance pressure route to
+stronger owners.
 
 Use this file for the package's current operating direction: read it after the
 parent entry card and before `PARTS.md`, part contracts, source bundles,
@@ -29,14 +29,16 @@ decision records, and `PROVENANCE.md`.
 ## Growth rule
 
 Add method-growth parts only when a repeated proof operation is about method
-lineage, owner fit, or owner landing itself. Do not place every improvement or
-repair-shaped proof under method-growth.
+lineage, owner fit, or owner landing itself. Improvement and repair-shaped
+proof pressure routes through the current stronger owner split first.
 
 ## Stop-lines
 
-- Do not claim final owner-object truth, owner acceptance, seed truth, memory
-  canon, universal growth score, diagnosis ownership, or repair success.
-- Do not promote candidate lineage to adopted practice without owner review.
+- Final owner-object truth, owner acceptance, seed truth, memory canon,
+  universal growth score, diagnosis ownership, and repair success pressure
+  route through the stronger owner split in the parent README.
+- Candidate-lineage adoption pressure routes through owner review before
+  adopted practice changes.
 
 ## Validation
 

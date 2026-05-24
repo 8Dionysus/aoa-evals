@@ -62,8 +62,8 @@ through `growth-cycle/diagnosis-gate`. Bounded repair proof remains under
 - missing-stage, dropped-branch, supersession, nearest-wrong-target, and
   derivative-drift notes;
 - proof requests or owner handoffs;
-- no final object truth, owner acceptance, hidden promotion, or broad growth
-  score.
+- owner handoff routes for final object truth, owner acceptance, hidden
+  promotion, or broad growth-score pressure.
 
 ## Stronger Owner Split
 
@@ -81,16 +81,19 @@ contracts, and claim limits for lineage integrity and owner-fit routing.
 
 ## Stop-Lines
 
-This package supports bounded eval-side proof only. Keep these claims outside
-this package:
+Boundary routes keep Method-growth proof pressure with the owner that can act
+on it:
 
-- final owner-object quality;
-- owner-local acceptance or activation;
-- proof that lineage coherence implies owner fit;
-- proof that owner-fit routing implies final quality;
-- derivative repos may become first-authoring homes;
-- one universal growth score;
-- diagnosis-cause discipline, repair success, memory canon, or seed truth.
+| Pressure | Owner route |
+| --- | --- |
+| final owner-object quality pressure | final owner repository acceptance route |
+| owner-local acceptance or activation pressure | final owner repository route |
+| lineage coherence implies owner fit pressure | `owner-landing` route plus owner review |
+| owner-fit routing implies final quality pressure | final owner repository acceptance route |
+| derivative first-authoring pressure for `aoa-routing` or `aoa-kag` | source owner plus derivative-surface owner route |
+| universal growth score pressure | bundle-local proof review plus owner evidence route |
+| diagnosis-cause discipline or repair success pressure | `mechanics/growth-cycle/parts/diagnosis-gate/` or `mechanics/antifragility/parts/repair-proof/` route |
+| memory canon or seed truth pressure | `aoa-memo` memory route or `Dionysus` seed route |
 
 ## Legacy
 

@@ -55,6 +55,37 @@ the active `mechanics/method-growth/PROVENANCE.md` bridge.
 - Legacy fixture paths preserve old placement without steering new topology.
 - Validators can reject recreation of the old root fixture paths.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `mechanics/method-growth/` remains the AoA-aligned eval-side
+  parent for candidate-lineage and owner-landing proof support.
+- Changed: parent-level boundary coverage now uses pressure-to-owner routes in
+  `README.md`, `PARTS.md`, and `DIRECTION.md`, with validator tokens guarding
+  the route rows.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Parent boundary route wording
+
+- Previous assumption: parent-level Method-growth surfaces expressed boundaries
+  through exclusion prose around final object truth, owner acceptance, lineage
+  versus owner fit, derivative first-authoring, universal growth, diagnosis,
+  repair, memory, and seed truth.
+- New reality: the parent route keeps the same authority split through
+  pressure-to-owner-route rows.
+- Reason: Agents-of-Abyss owns Method-growth law, owner repositories accept
+  final objects, and `aoa-evals` keeps bounded lineage and owner-fit proof
+  support.
+- Source surfaces updated: `mechanics/method-growth/README.md`,
+  `mechanics/method-growth/PARTS.md`, `mechanics/method-growth/DIRECTION.md`,
+  and `scripts/validate_repo.py`.
+- Validation: method-growth validator focus, candidate-lineage and owner-fit
+  eval validation, catalog check, root validation, semantic AGENTS validation,
+  diff whitespace check, and full pytest passed.
+
 ## Validation
 
 Expected validation route:

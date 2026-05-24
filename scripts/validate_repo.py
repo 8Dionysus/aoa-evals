@@ -2350,6 +2350,7 @@ EXPERIENCE_PART_CONTRACT_GUARD_DECISION_NAME = (
 ANTIFRAGILITY_MECHANIC_README_NAME = "mechanics/antifragility/README.md"
 ANTIFRAGILITY_MECHANIC_AGENTS_NAME = "mechanics/antifragility/AGENTS.md"
 ANTIFRAGILITY_MECHANIC_PARTS_NAME = "mechanics/antifragility/PARTS.md"
+ANTIFRAGILITY_PARTS_README_NAME = "mechanics/antifragility/parts/README.md"
 ANTIFRAGILITY_MECHANIC_PROVENANCE_NAME = "mechanics/antifragility/PROVENANCE.md"
 ANTIFRAGILITY_POSTURE_PART_README_NAME = (
     "mechanics/antifragility/parts/posture-review/README.md"
@@ -4388,6 +4389,26 @@ ANTIFRAGILITY_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "| deletion theater, cleanup authority, runtime self-healing, or owner-local repair execution | owner repository or `abyss-stack` runtime route |",
     "| route, memo, stats, KAG, playbook, or generated-reader truth promotion | owning route, memo, stats, KAG, playbook, generated-source, and owner-receipt routes |",
     "| diagnosis-cause discipline or growth-cycle movement | `mechanics/growth-cycle/parts/diagnosis-gate/` route |",
+)
+ANTIFRAGILITY_PARTS_README_REQUIRED_TOKENS = (
+    "## Operating Card",
+    "| role | lower index for active eval-side Antifragility proof parts |",
+    "## Active Parts",
+    "| `posture-review/` | first-wave owner-local antifragility posture support |",
+    "| `stress-recovery-window/` | repeated-window stress recovery support with comparison-spine readout |",
+    "| `repair-proof/` | bounded repair-proof support with owner acceptance route |",
+    "## Owner Pressure Routes",
+    "| global resilience or federation health | `Agents-of-Abyss` doctrine route plus source-owner evidence review |",
+    "| one-score health or antifragility movement | `aoa-stats` vector-window route plus AoA doctrine review |",
+    "| runtime repair, live self-healing, cleanup authority, or owner-local repair execution | owner repository or `abyss-stack` runtime route |",
+    "| source proof meaning or verdict support | affected `evals/**/EVAL.md`, `evals/**/eval.yaml`, and bundle-local report contract |",
+    "| diagnosis-cause discipline or growth-cycle movement | `mechanics/growth-cycle/parts/diagnosis-gate/` route |",
+    "## Part Admission Route",
+    "| new antifragility pressure | recurring operation with distinct inputs, outputs, owner split, and validation | parent `PARTS.md` update plus decision review |",
+    "mechanics/antifragility/parts/AGENTS.md#validation",
+)
+ANTIFRAGILITY_PARTS_README_FORBIDDEN_TOKENS = (
+    "The parts support proof review. They do not own source proof bundle meaning",
 )
 ANTIFRAGILITY_PART_README_COMMON_REQUIRED_TOKENS = (
     "## Inputs",
@@ -11521,6 +11542,26 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         tokens=ANTIFRAGILITY_MECHANIC_PARTS_REQUIRED_TOKENS,
         issues=issues,
     )
+    require_tokens(
+        repo_root=repo_root,
+        path_name=ANTIFRAGILITY_PARTS_README_NAME,
+        tokens=ANTIFRAGILITY_PARTS_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    antifragility_parts_readme = read_text_or_issue(
+        repo_root / ANTIFRAGILITY_PARTS_README_NAME,
+        issues,
+        root=repo_root,
+    )
+    for forbidden_token in ANTIFRAGILITY_PARTS_README_FORBIDDEN_TOKENS:
+        if antifragility_parts_readme and forbidden_token in antifragility_parts_readme:
+            issues.append(
+                ValidationIssue(
+                    ANTIFRAGILITY_PARTS_README_NAME,
+                    "Antifragility parts lower index should use an operating card and owner pressure routes instead of stale negative boundary scaffold "
+                    f"'{forbidden_token}'",
+                )
+            )
     require_tokens(
         repo_root=repo_root,
         path_name=ANTIFRAGILITY_POSTURE_PART_README_NAME,

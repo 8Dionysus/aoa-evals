@@ -85,6 +85,24 @@ As of 2026-05-24:
   scripts/validate_semantic_agents.py`, `python scripts/build_catalog.py
   --check`, `git diff --check`, and `python -m pytest -q`.
 
+### 2026-05-24 - Lower parts index operating route
+
+- Previous assumption: the parent `PARTS.md` and the three child part READMEs
+  gave enough route shape for the lower `parts/README.md` to stay a compact
+  list.
+- New reality: `mechanics/antifragility/parts/README.md` now acts as the
+  lower-index operating card for choosing a part, payload home, owner pressure
+  route, and validation lane.
+- Reason: a low-context agent should be able to enter the parts directory and
+  immediately route posture, stress-window, repair-proof, source-proof,
+  runtime, memo, stats, KAG, playbook, generated-reader, or growth-cycle
+  pressure without parsing a negative scaffold.
+- Source surfaces updated: `mechanics/antifragility/parts/README.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: focused validator tests for `antifragility_parts_route`,
+  `python scripts/validate_repo.py`, `python scripts/validate_semantic_agents.py`,
+  `python scripts/build_catalog.py --check`, `git diff --check`, and full pytest.
+
 ## Validation
 
 Expected validation route:

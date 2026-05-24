@@ -56,14 +56,16 @@ packages, and public-safe proof references into sibling owners.
 The current movement is proof-organ maturity:
 
 - keep entry surfaces short enough to trust
-- keep the agent index chain visible without making the roadmap an index
+- keep the agent index chain visible while `docs/AGENT_INDEX.md` remains the
+  index
 - keep decisions as rationale crosswalks and release history in the changelog
 - keep executable commands in local `AGENTS.md` cards while authored docs carry
   proof meaning, topology, and read models
 - keep mechanics wayfinding clear before parent splits, removals, or validator
   decomposition
 - grow the active proof loop from source bundle to evidence, review, report,
-  receipt, and generated reader without strengthening the bounded claim
+  receipt, and generated reader while bundle-local review keeps bounded claim
+  strength
 
 ## Current Public Contour
 
@@ -87,8 +89,8 @@ bundle-local review accepts that claim.
 
 ## Direction Anchors
 
-These anchors keep direction recoverable without turning the roadmap into a
-history ledger or validator-token ledger.
+These anchors keep direction recoverable; changelog and validator ledgers carry
+history/token detail.
 
 | Anchor | Owner surface | Directional use |
 | --- | --- | --- |

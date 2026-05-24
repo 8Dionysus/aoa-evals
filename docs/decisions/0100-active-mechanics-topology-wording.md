@@ -59,6 +59,35 @@ to make legacy behave like an active route.
 - Follow-up: if another source-of-truth surface reintroduces future-package or
   readiness-only wording, extend the same validator guard there.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: active roadmap wording should describe current direction and
+  owner routes rather than replaying preparatory mechanics posture.
+- Changed: `ROADMAP.md` now routes agent-index, proof-loop, and direction-anchor
+  details through their owner surfaces instead of carrying ledger-style guard
+  phrasing.
+- Source surfaces updated: `ROADMAP.md`, `scripts/validate_repo.py`, and
+  `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k roadmap`.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Roadmap direction route language clarified
+
+- Previous assumption: roadmap direction could preserve boundaries with compact
+  negative phrases when adjacent owner surfaces were linked nearby.
+- New reality: the roadmap is easier for low-context agents when each boundary
+  points to the active owner: `docs/AGENT_INDEX.md`, bundle-local review,
+  changelog, or validator ledger.
+- Reason: roadmap should set direction and horizon order, while indices,
+  changelog, validators, and proof bundles carry their own detail.
+- Source surfaces updated: `ROADMAP.md`, `scripts/validate_repo.py`, and
+  `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k roadmap`.
+
 ## Boundaries
 
 This does not authorize adding new parent mechanics by naming them active.

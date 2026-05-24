@@ -10875,6 +10875,44 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_audit_parts_index_validates_current_route(self) -> None:
+        assert validate_repo.validate_mechanics_surfaces(REPO_ROOT) == []
+
+    def test_audit_parts_index_rejects_stale_negative_admission_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            validate_repo.AUDIT_MECHANIC_README_NAME,
+            validate_repo.AUDIT_MECHANIC_AGENTS_NAME,
+            validate_repo.AUDIT_MECHANIC_PROVENANCE_NAME,
+            validate_repo.AUDIT_PARTS_README_NAME,
+            validate_repo.AUDIT_LEGACY_INDEX_NAME,
+            validate_repo.AUDIT_LEGACY_DISTILLATION_LOG_NAME,
+            validate_repo.AUDIT_LEGACY_RAW_README_NAME,
+            validate_repo.AUDIT_SELECTED_EVIDENCE_PART_README_NAME,
+            validate_repo.AUDIT_ARTIFACT_VERDICT_HOOKS_PART_README_NAME,
+            validate_repo.AUDIT_CANDIDATE_READERS_PART_README_NAME,
+            validate_repo.AUDIT_INTEGRITY_REVIEW_PART_README_NAME,
+            validate_repo.AUDIT_PART_CONTRACT_GUARD_DECISION_NAME,
+            "docs/decisions/README.md",
+            "docs/decisions/0007-audit-mechanic-package.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        parts_path = tmp_path / validate_repo.AUDIT_PARTS_README_NAME
+        parts_path.write_text(
+            parts_path.read_text(encoding="utf-8")
+            + "\nDo not create another part unless it has source surfaces.\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanics_surfaces(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.AUDIT_PARTS_README_NAME
+            and "positive part-admission route" in issue.message
+            for issue in issues
+        )
+
     def test_repair_diagnosis_route_boundary_rejects_stale_evidence_map_route(
         self, tmp_path: Path
     ) -> None:

@@ -2443,6 +2443,7 @@ QUESTBOOK_PART_OWNER_SPLIT_DECISION_NAME = (
 AUDIT_MECHANIC_README_NAME = "mechanics/audit/README.md"
 AUDIT_MECHANIC_AGENTS_NAME = "mechanics/audit/AGENTS.md"
 AUDIT_MECHANIC_PROVENANCE_NAME = "mechanics/audit/PROVENANCE.md"
+AUDIT_PARTS_README_NAME = "mechanics/audit/parts/README.md"
 AUDIT_LEGACY_INDEX_NAME = "mechanics/audit/legacy/INDEX.md"
 AUDIT_LEGACY_DISTILLATION_LOG_NAME = "mechanics/audit/legacy/DISTILLATION_LOG.md"
 AUDIT_LEGACY_RAW_README_NAME = "mechanics/audit/legacy/raw/README.md"
@@ -4990,6 +4991,23 @@ AUDIT_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "generated readers",
     "bundle-local review",
     "does not turn runtime evidence into proof canon",
+)
+AUDIT_PARTS_README_REQUIRED_TOKENS = (
+    "## Operating Card",
+    "lower index for `audit` part-local candidate-evidence suboperations",
+    "## Part Map",
+    "`selected-evidence-packets/`",
+    "`artifact-verdict-hooks/`",
+    "`candidate-readers/`",
+    "`integrity-review/`",
+    "## Part Admission Route",
+    "source surfaces",
+    "drift-catching validation",
+    "stronger-owner boundary",
+    "mechanics/audit/AGENTS.md#validation",
+)
+AUDIT_PARTS_README_FORBIDDEN_TOKENS = (
+    "Do not create another part unless",
 )
 AUDIT_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
 AUDIT_LEGACY_INDEX_REQUIRED_TOKENS = (
@@ -11828,6 +11846,21 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         tokens=AUDIT_MECHANIC_PROVENANCE_REQUIRED_TOKENS,
         issues=issues,
     )
+    audit_parts_text = require_tokens(
+        repo_root=repo_root,
+        path_name=AUDIT_PARTS_README_NAME,
+        tokens=AUDIT_PARTS_README_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    if audit_parts_text:
+        for forbidden_token in AUDIT_PARTS_README_FORBIDDEN_TOKENS:
+            if forbidden_token in audit_parts_text:
+                issues.append(
+                    ValidationIssue(
+                        AUDIT_PARTS_README_NAME,
+                        "audit parts index should expose a positive part-admission route",
+                    )
+                )
     require_tokens(
         repo_root=repo_root,
         path_name=AUDIT_LEGACY_INDEX_NAME,

@@ -34,14 +34,22 @@ consumer paths.
 ## Stronger Owner Split
 
 `aoa-memo` owns memory objects, lifecycle posture, writeback meaning, and recall
-implementation truth. `aoa-evals` owns only the bounded proof bundle and report
-interpretation.
+implementation truth. `aoa-evals` owns the bounded proof bundle and report
+interpretation. Authority beyond that proof reading routes through the stronger
+owner split above.
 
 ## Stop-Lines
 
-Do not use this part to claim general memory quality, contradiction handling,
-permission inference, memory canon, runtime ranking behavior, or future
-writeback acceptance.
+Boundary routes keep memory-recall pressure with the owner that can act on it:
+
+| Pressure | Owner route |
+| --- | --- |
+| general memory quality pressure | `aoa-memo` recall quality route |
+| contradiction handling pressure | `aoa-memo` provenance and conflict route |
+| permission inference pressure | source owner plus role/approval route |
+| memory canon pressure | `aoa-memo` memory-object route |
+| runtime ranking behavior pressure | runtime owner route |
+| future writeback acceptance pressure | `aoa-memo` writeback acceptance route plus source-owner review |
 
 ## Validation
 

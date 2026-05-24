@@ -37,7 +37,8 @@ instead of turning `portable-proof-beacons` into a parent mechanic.
 - refresh or repair command routes for portable proof surfaces;
 - decision-packet closure guidance for whether evidence stays local, travels as
   sidecar evidence, or begins owner-reviewed portable eval authoring;
-- no accepted portable proof verdict by itself.
+- owner-reviewed portable eval route when accepted portable proof pressure
+  appears.
 
 ## Stronger Owner Split
 
@@ -52,19 +53,22 @@ interpretation.
 `Agents-of-Abyss` owns recurrence doctrine. Runtime owners keep runtime truth.
 
 `aoa-evals` owns only the bounded proof interpretation and the recurrence
-beacon route that notices repeated proof pressure.
+beacon route that notices repeated proof pressure. Authority beyond that proof
+reading routes through the stronger owner split above.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Boundary routes keep portable-proof-beacon pressure with the owner that can act
+on it:
 
-- runtime artifacts as candidate evidence are proof canon;
-- portable proof is accepted without bundle-local review;
-- progression evidence creates a universal score or automatic unlock;
-- a beacon is a verdict;
-- a recurrence manifest owns audit, RPG, runtime, or sibling truth;
-- overclaim detection replaces proof-object repair.
+| Pressure | Owner route |
+| --- | --- |
+| runtime artifact proof-canon pressure | audit-selected evidence route plus source proof bundle review |
+| accepted portable proof pressure | bundle-local review plus owner-reviewed portable eval authoring route |
+| universal score or automatic unlock pressure | `mechanics/rpg/` progression route plus owner acceptance |
+| beacon-as-verdict pressure | recurrence decision closure plus bundle-local proof review |
+| recurrence manifest ownership of audit, RPG, runtime, or sibling truth pressure | owning audit, RPG, runtime, or sibling source surface |
+| overclaim repair pressure | proof-object repair route |
 
 ## Validation
 

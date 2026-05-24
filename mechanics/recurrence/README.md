@@ -80,7 +80,8 @@ narrower part.
 - portable-proof beacon status ladders, drift signals, and decision-packet
   closure guidance that remain below bundle-local review;
 - owner handoff or adjacent bundle route notes;
-- no global recurrence score or runtime activation.
+- owner handoff routes for global recurrence score or runtime activation
+  pressure.
 
 ## Stronger Owner Split
 
@@ -96,17 +97,19 @@ and recurrence evidence review.
 
 ## Stop-Lines
 
-This package supports bounded eval-side proof only. Keep these claims outside
-this package:
+Boundary routes keep recurrence proof pressure with the owner that can act on
+it:
 
-- global recurrence completeness;
-- hidden continuity;
-- automatic recursor or agent spawn;
-- runtime self-healing;
-- owner artifact promotion;
-- beacon verdict authority;
-- portable proof acceptance by recurrence manifest;
-- routing, stats, KAG, or Agon source truth.
+| Pressure | Owner route |
+| --- | --- |
+| global recurrence completeness pressure | Agents-of-Abyss recurrence law route plus source-owner proof review |
+| hidden continuity pressure | `aoa-memo` anchor route plus `aoa-agents` handoff posture route |
+| automatic recursor or agent-spawn pressure | `aoa-agents` role route plus `aoa-sdk` control-plane readiness route |
+| runtime self-healing or runtime activation pressure | `abyss-stack` runtime route after owner gates |
+| owner artifact promotion pressure | owner repository acceptance route |
+| beacon verdict authority pressure | bundle-local proof review plus portable-proof-beacon decision closure |
+| portable proof acceptance by recurrence manifest pressure | source bundle authoring and owner-reviewed portable eval route |
+| routing, stats, KAG, or Agon source-truth pressure | owning route, stats, KAG, or Agon source surface |
 
 ## Legacy
 

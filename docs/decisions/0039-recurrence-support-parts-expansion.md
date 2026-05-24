@@ -51,6 +51,37 @@ return to anchor, memory recall as recurrence recall proof, recursor boundary
 as readiness-only no-spawn proof, and stats re-grounding as return-to-owner
 truth boundary proof.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `anchor-return`, `memory-recall`, `recursor-boundary`, and
+  `stats-regrounding-boundary` remain recurrence support parts.
+- Changed: active part contracts now expose pressure-to-owner route rows, and
+  validator tokens guard those rows.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Support part boundary route wording
+
+- Previous assumption: support part READMEs could keep boundaries as direct
+  claim exclusions.
+- New reality: the part contracts now route each boundary pressure to the
+  owner that can act on it.
+- Reason: a low-context agent should see where return quality, memory canon,
+  recursor activation, stats truth, route approval, runtime behavior, and owner
+  acceptance go next without parsing a prohibition list.
+- Source surfaces updated:
+  `mechanics/recurrence/parts/anchor-return/README.md`,
+  `mechanics/recurrence/parts/memory-recall/README.md`,
+  `mechanics/recurrence/parts/recursor-boundary/README.md`,
+  `mechanics/recurrence/parts/stats-regrounding-boundary/README.md`, and
+  `scripts/validate_repo.py`.
+- Validation: recurrence validator focus, recurrence part runners and tests,
+  catalog check, root validation, semantic AGENTS validation, diff whitespace
+  check, and full pytest passed.
+
 ## Boundaries
 
 This decision does not move source proof bundles into mechanics.

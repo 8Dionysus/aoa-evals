@@ -37,12 +37,22 @@ eval wording into owner truth.
 
 `aoa-stats` owns derived observability. `aoa-sdk` owns policy application.
 `aoa-routing` owns advisory hints. Owner repositories own source truth.
-`aoa-evals` owns only the bounded boundary-proof interpretation.
+`aoa-evals` owns the bounded boundary-proof interpretation. Authority beyond
+that proof reading routes through the stronger owner split above.
 
 ## Stop-Lines
 
-Do not use this part to claim owner artifact correctness, route approval,
-project health, SDK optimality, routing authority, or stats-as-proof.
+Boundary routes keep stats-regrounding pressure with the owner that can act on
+it:
+
+| Pressure | Owner route |
+| --- | --- |
+| owner artifact correctness pressure | owner repository source-truth route |
+| route approval pressure | `aoa-routing` advisory route plus owner acceptance |
+| project health pressure | owner repository review plus derived stats context |
+| SDK optimality pressure | `aoa-sdk` policy and implementation route |
+| routing authority pressure | `aoa-routing` route-authority boundary |
+| stats-as-proof pressure | `aoa-stats` derived-only route plus bundle-local proof review |
 
 ## Validation
 

@@ -47,28 +47,31 @@ self-agent and handoff posture. `aoa-playbooks` owns recurrence choreography.
 Downstream owner repositories own projection truth and owner review
 acceptance. Agon source truth stays with the Agon owner surface.
 
-`aoa-evals` owns only bounded recurrence control-plane proof wording, dossier
-schema expectations, runner/scorer behavior, seeded fixture checks, report
+`aoa-evals` owns bounded recurrence control-plane proof wording, dossier schema
+expectations, runner/scorer behavior, seeded fixture checks, report
 interpretation, and bundle-local review for
-`aoa-recurrence-control-plane-integrity`.
+`aoa-recurrence-control-plane-integrity`. Authority beyond that proof reading
+routes through the stronger owner split above.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Boundary routes keep recurrence control-plane pressure with the owner that can
+act on it:
 
-- recurrence doctrine;
-- global recurrence completeness;
-- hidden continuity;
-- runtime status or runtime activation;
-- runtime self-healing;
-- promotion readiness;
-- owner review acceptance;
-- downstream projection truth;
-- Agon source truth;
-- automatic recursor or agent spawn;
-- beacon verdict authority;
-- portable proof acceptance by recurrence manifest.
+| Pressure | Owner route |
+| --- | --- |
+| recurrence doctrine pressure | Agents-of-Abyss recurrence route |
+| global recurrence completeness pressure | Agents-of-Abyss law plus source-owner proof review |
+| hidden continuity pressure | `aoa-memo` anchor route plus `aoa-agents` handoff posture route |
+| runtime status or runtime activation pressure | `abyss-stack` runtime route |
+| runtime self-healing pressure | `abyss-stack` repair and recovery route after owner gates |
+| promotion readiness pressure | owner repository acceptance route plus bundle-local proof review |
+| owner review acceptance pressure | owner repository review route |
+| downstream projection truth pressure | downstream source owner route |
+| Agon source truth pressure | Agon owner surface |
+| automatic recursor or agent-spawn pressure | `aoa-agents` role route plus `aoa-sdk` readiness route |
+| beacon verdict authority pressure | portable-proof-beacon decision closure plus bundle-local proof review |
+| portable proof acceptance by recurrence manifest pressure | source bundle authoring and owner-reviewed portable eval route |
 
 ## Validation
 

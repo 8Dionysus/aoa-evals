@@ -36,12 +36,20 @@ honestly.
 behavior. `aoa-memo` owns durable memory anchors. Runtime owners own logs and
 runtime return wrappers.
 
-`aoa-evals` owns only the bounded return-anchor proof interpretation.
+`aoa-evals` owns the bounded return-anchor proof interpretation. Authority
+beyond that proof reading routes through the stronger owner split above.
 
 ## Stop-Lines
 
-Do not use this part to claim final task quality, broad workflow safety, hidden
-continuity, automatic runtime recovery, or general long-horizon competence.
+Boundary routes keep anchor-return pressure with the owner that can act on it:
+
+| Pressure | Owner route |
+| --- | --- |
+| final task quality pressure | owner repository acceptance route |
+| broad workflow safety pressure | source-owner review plus relevant skill/playbook route |
+| hidden continuity pressure | `aoa-memo` anchor route plus `aoa-agents` handoff posture route |
+| automatic runtime recovery pressure | `abyss-stack` runtime recovery route after owner gates |
+| general long-horizon competence pressure | bundle-local proof object plus source-owner evidence review |
 
 ## Validation
 

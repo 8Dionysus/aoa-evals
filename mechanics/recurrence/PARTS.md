@@ -36,10 +36,18 @@ Owner split stays explicit: `Agents-of-Abyss` owns recurrence law; runtime,
 memory, routing, playbook, agent, stats, KAG, and Agon owners keep their local
 truth; `aoa-evals` owns bounded proof interpretation.
 
-Stop-lines forbid global recurrence completeness, hidden continuity, runtime
-self-healing, automatic recursor spawn, beacon verdicts, owner promotion, or
-source-truth transfer to generated projections. Portable-proof beacons must not
-be read as accepted portable proof.
+Stop-lines route stronger-owner pressure through the boundary routes below.
+
+| Pressure | Owner route |
+| --- | --- |
+| global recurrence completeness | Agents-of-Abyss recurrence law plus source-owner proof review |
+| hidden continuity | `aoa-memo` anchor route plus `aoa-agents` handoff posture route |
+| runtime self-healing | `abyss-stack` runtime route after owner gates |
+| automatic recursor spawn | `aoa-agents` role route plus `aoa-sdk` control-plane readiness route |
+| beacon verdicts | bundle-local proof review plus portable-proof-beacon decision closure |
+| owner promotion | owner repository acceptance route |
+| source-truth transfer to generated projections | source owner plus generated-surface owner route |
+| accepted portable proof | source bundle authoring and owner-reviewed portable eval route |
 
 Validation routes through [AGENTS](AGENTS.md#validation), including the
 part-local runner, part-local tests, generated catalog check, and repo

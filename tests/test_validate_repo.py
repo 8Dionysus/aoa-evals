@@ -10410,6 +10410,39 @@ class TestValidateQuestRouteSurfaces:
                 encoding="utf-8",
             )
 
+    def test_proof_infra_part_agents_reject_stale_negative_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            validate_repo.PROOF_INFRA_FIXTURE_FAMILIES_AGENTS_NAME,
+            validate_repo.PROOF_INFRA_REPORTABLE_CONTRACTS_AGENTS_NAME,
+        ):
+            copy_repo_text(tmp_path, path_name)
+            agents_path = tmp_path / path_name
+
+            for stale_phrase in validate_repo.PROOF_INFRA_PART_AGENTS_STALE_ROUTE_PHRASES:
+                agents_path.write_text(
+                    agents_path.read_text(encoding="utf-8")
+                    + f"\n\n{stale_phrase}.\n",
+                    encoding="utf-8",
+                )
+
+                issues = validate_repo.validate_mechanics_surfaces(tmp_path)
+
+                assert any(
+                    issue.location == path_name
+                    and "operating cards and owner route tables" in issue.message
+                    for issue in issues
+                )
+
+                agents_path.write_text(
+                    agents_path.read_text(encoding="utf-8").replace(
+                        f"\n\n{stale_phrase}.\n",
+                        "",
+                    ),
+                    encoding="utf-8",
+                )
+
     def test_boundary_bridge_part_readmes_reject_missing_outputs_contract(
         self, tmp_path: Path
     ) -> None:

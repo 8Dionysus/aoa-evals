@@ -3104,11 +3104,14 @@ PROOF_INFRA_FIXTURE_FAMILIES_REQUIRED_TOKENS = (
     "python scripts/validate_repo.py",
 )
 PROOF_INFRA_FIXTURE_FAMILIES_AGENTS_REQUIRED_TOKENS = (
+    "## Operating Card",
     "generic shared fixture-family support",
+    "public-safe reusable support",
+    "bundle-local `EVAL.md`",
     "evals/**/fixtures/contract.json",
     "shared_fixture_family_path",
-    "public",
-    "python scripts/build_catalog.py --check",
+    "Family-name parent pressure",
+    "centralized-child-validation",
 )
 PROOF_INFRA_REPORTABLE_CONTRACTS_REQUIRED_TOKENS = (
     "bundle-local runner contract",
@@ -3123,12 +3126,24 @@ PROOF_INFRA_REPORTABLE_CONTRACTS_REQUIRED_TOKENS = (
     "python scripts/validate_repo.py",
 )
 PROOF_INFRA_REPORTABLE_CONTRACTS_AGENTS_REQUIRED_TOKENS = (
+    "## Operating Card",
     "reportable-contracts",
     "bundle-local runner contract",
     "runner_surface_path",
     "scorer_helper_paths",
-    "schema weakening",
-    "python -m pytest -q mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py",
+    "Schema weakening pressure",
+    "Root alias pressure",
+    "centralized-child-validation",
+    "bounded rubric scorer test",
+)
+PROOF_INFRA_PART_AGENTS_STALE_ROUTE_PHRASES = (
+    "It does not own bundle meaning",
+    "It does not own bundle-local meaning",
+    "Keep the family weaker than the bundle-local claim",
+    "Keep the shared runner surface weaker than bundle-local interpretation",
+    "Do not add hidden benchmark cases",
+    "Do not add hidden harness logic",
+    "Do not recreate active root aliases",
 )
 PROOF_INFRA_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
 PROOF_INFRA_LEGACY_INDEX_REQUIRED_TOKENS = (
@@ -10694,7 +10709,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         tokens=PROOF_INFRA_FIXTURE_FAMILIES_REQUIRED_TOKENS,
         issues=issues,
     )
-    require_tokens(
+    fixture_families_agents_text = require_tokens(
         repo_root=repo_root,
         path_name=PROOF_INFRA_FIXTURE_FAMILIES_AGENTS_NAME,
         tokens=PROOF_INFRA_FIXTURE_FAMILIES_AGENTS_REQUIRED_TOKENS,
@@ -10706,12 +10721,27 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         tokens=PROOF_INFRA_REPORTABLE_CONTRACTS_REQUIRED_TOKENS,
         issues=issues,
     )
-    require_tokens(
+    reportable_contracts_agents_text = require_tokens(
         repo_root=repo_root,
         path_name=PROOF_INFRA_REPORTABLE_CONTRACTS_AGENTS_NAME,
         tokens=PROOF_INFRA_REPORTABLE_CONTRACTS_AGENTS_REQUIRED_TOKENS,
         issues=issues,
     )
+    for path_name, text in (
+        (PROOF_INFRA_FIXTURE_FAMILIES_AGENTS_NAME, fixture_families_agents_text),
+        (PROOF_INFRA_REPORTABLE_CONTRACTS_AGENTS_NAME, reportable_contracts_agents_text),
+    ):
+        if not text:
+            continue
+        for stale_phrase in PROOF_INFRA_PART_AGENTS_STALE_ROUTE_PHRASES:
+            if stale_phrase in text:
+                issues.append(
+                    ValidationIssue(
+                        path_name,
+                        "proof-infra part AGENTS cards should use operating cards and owner route tables instead of stale negative scaffold "
+                        f"'{stale_phrase}'",
+                    )
+                )
     require_tokens(
         repo_root=repo_root,
         path_name=PROOF_INFRA_PROVENANCE_NAME,

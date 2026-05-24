@@ -4642,7 +4642,7 @@ BOUNDARY_BRIDGE_MECHANIC_AGENTS_REQUIRED_TOKENS = (
 BOUNDARY_BRIDGE_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "compatibility-map",
     "latest-sibling-canary",
-    "not standalone mechanics",
+    "Parts stay as limbs of `boundary-bridge`",
     "sibling owner route",
 )
 BOUNDARY_BRIDGE_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
@@ -4684,7 +4684,7 @@ BOUNDARY_BRIDGE_COMPATIBILITY_PART_REQUIRED_TOKENS = (
     "authored compatibility map",
     "current, legacy, rejected, or unresolved posture",
     "sibling owner acceptance",
-    "Do not edit sibling repositories",
+    "sibling edit pressure appears",
 )
 BOUNDARY_BRIDGE_LATEST_SIBLING_CANARY_PART_REQUIRED_TOKENS = (
     "## Inputs",
@@ -4696,8 +4696,8 @@ BOUNDARY_BRIDGE_LATEST_SIBLING_CANARY_PART_REQUIRED_TOKENS = (
     "mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py",
     "mechanics/boundary-bridge/parts/latest-sibling-canary/tests/test_sibling_canary.py",
     "GitHub `Repo Validation`",
-    "Do not edit sibling repositories",
-    "Do not replace GitHub `Repo Validation`",
+    "sibling edit pressure appears",
+    "GitHub `Repo Validation` replacement pressure appears",
 )
 BOUNDARY_BRIDGE_ORCHESTRATOR_PART_REQUIRED_TOKENS = (
     "## Inputs",

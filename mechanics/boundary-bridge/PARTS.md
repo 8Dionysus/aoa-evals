@@ -12,15 +12,15 @@ The mechanic owns the route:
 | Part | Role | Active surfaces |
 | --- | --- | --- |
 | `compatibility-map` | Maintains the human-readable map for proof refs into sibling owners and the allowed posture vocabulary. | `docs/SIBLING_PROOF_REFS.md` |
-| `latest-sibling-canary` | Maintains the current-sibling checkout matrix and runner that validates local compatibility without editing sibling repos. | `mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`, `mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py` |
+| `latest-sibling-canary` | Maintains the current-sibling checkout matrix and runner that validates local compatibility while sibling edits stay in owner routes. | `mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`, `mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py` |
 | `orchestrator-proof-anchors` | Maintains the local proof-anchor map for orchestrator-facing quest obligations while leaving orchestrator identity in `aoa-agents`. | `docs/ORCHESTRATOR_PROOF_ALIGNMENT.md` |
 | `phase-alpha-eval-matrix` | Maintains the bridge from `aoa-playbooks` Phase Alpha run truth to local eval anchors and support refs. | `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/examples/phase_alpha_eval_matrix.example.json`, `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/schemas/phase-alpha-eval-matrix.schema.json`, `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py`, `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated/phase_alpha_eval_matrix.min.json` |
 
 ## Boundary
 
-Parts are not standalone mechanics. They are limbs of `boundary-bridge` and
-should stay subordinate to the mechanic README, local `AGENTS.md`, and the
-stronger owner truth of each referenced sibling repository.
+Parts stay as limbs of `boundary-bridge` and route through the mechanic README,
+local `AGENTS.md`, and the stronger owner truth of each referenced sibling
+repository.
 
 ## Part Contract
 
@@ -36,9 +36,9 @@ Owner split stays explicit: sibling repositories own their source truth;
 `aoa-evals` owns only local reference compatibility, proof-anchor posture, and
 proof-review routing.
 
-Stop-lines forbid editing sibling repositories, treating compatibility as
-sibling approval, treating orchestrator proof anchors as class identity, or
-turning a canary into proof acceptance.
+Stop-lines route sibling edit pressure, sibling approval pressure,
+orchestrator class-identity pressure, and canary proof-acceptance pressure back
+to their stronger owners.
 
 Validation routes through [AGENTS](AGENTS.md#validation), including the
 latest-sibling canary, Phase Alpha matrix check, and repo validation lanes.

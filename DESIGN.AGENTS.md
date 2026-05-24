@@ -160,17 +160,18 @@ Agent guidance may:
 - keep generated, runtime, receipt, sibling, and legacy surfaces subordinate to
   their owners.
 
-Agent guidance must not:
+When guidance pressure touches stronger meaning, route it to the owner surface:
 
-- rewrite bundle claims by repetition;
-- promote generated readers into proof authority;
-- turn runtime candidates into verdicts;
-- turn receipts into reports;
-- absorb sibling owner truth;
-- claim hidden benchmark or private evaluator authority;
-- bury proof semantics under "docs-only" edits;
-- use mythic, quest, progression, or recurrence language as permission to skip
-  evidence.
+| Pressure | Owner route |
+| --- | --- |
+| bundle claim wording | bundle-local `EVAL.md` and `eval.yaml` |
+| generated reader authority | authored source surface and builder |
+| runtime candidate verdict pressure | bundle-local review and candidate-evidence route |
+| receipt publication pressure | reviewed report and receipt mechanic |
+| sibling owner truth | sibling repository and local compatibility surface |
+| hidden benchmark or private evaluator pressure | public-safe evidence review or route-away boundary |
+| "docs-only" semantic pressure | source surface plus nearest `AGENTS.md` validation route |
+| mythic, quest, progression, or recurrence pressure | evidence surface, quest lifecycle, or owning mechanic |
 
 ## Canonical Card Shape
 

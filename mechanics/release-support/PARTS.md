@@ -1,7 +1,8 @@
 # Release Support / Part Index
 
 `mechanics/release-support/` owns the release-publication proof route as a
-mechanic, not as a flat list of root reports.
+mechanic with part-owned artifacts and root entrypoints routed through their
+native lanes.
 
 The package keeps root release entrypoints visible where contributors expect
 them:

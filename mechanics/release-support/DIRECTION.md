@@ -22,8 +22,8 @@ decision records, and `PROVENANCE.md`.
 ## Current contour
 
 - Keep local release readiness, strategic closeout, and PR handoff distinct.
-- Keep GitHub PR, CI, merge, tag, and release status current-state owned, not
-  report-snapshot owned.
+- Keep GitHub PR, CI, merge, tag, and release status current-state owned;
+  report snapshots carry handoff evidence only.
 - Keep validation claims bounded to what each command actually proves.
 - Keep release narrative from strengthening proof claims.
 

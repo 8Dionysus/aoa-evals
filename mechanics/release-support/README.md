@@ -75,14 +75,15 @@ objects own claim strength.
 
 ## Stronger Owner Split
 
-The release route packages and publishes proof surfaces. It does not decide
-whether a proof claim is true.
+The release route packages and publishes proof surfaces. Proof-claim truth
+routes to bundle-local proof objects.
 
-Bundle-local proof objects remain stronger than release notes. `CHANGELOG.md`
-is the human public release narrative, not proof authority. GitHub `Repo
-Validation` is a landing gate, not a substitute for bundle-local review. The
-Git tag records a published state; it does not promote draft, baseline, or
-canonical status by itself.
+| Pressure | Owner route |
+| --- | --- |
+| release notes read as proof authority | bundle-local proof objects and reviewed reports |
+| `CHANGELOG.md` carries proof-claim pressure | human public release narrative, with source proof meaning in source proof surfaces |
+| GitHub `Repo Validation` reads as bundle-local review | landing gate first, then bundle-local review for proof interpretation |
+| Git tag reads as draft, baseline, or canonical promotion | published-state record, with promotion routed through bundle-local review |
 
 Sibling repositories keep their own stronger truth. Latest-sibling canary
 results may prove compatibility posture for release review; sibling authority

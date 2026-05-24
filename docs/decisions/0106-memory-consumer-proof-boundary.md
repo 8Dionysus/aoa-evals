@@ -74,6 +74,9 @@ As of 2026-05-24:
 - Still valid: `aoa-evals` is a route_only memory consumer.
 - Changed: root proof guidance now names memory context as recall context, not
   proof authority.
+- Current root-entry placement: `README.md` carries the concise memory owner
+  route, while detailed memory-consumer law stays in `docs/EVAL_PHILOSOPHY.md`,
+  `docs/PROOF_TOPOLOGY.md`, and this decision.
 - Superseded by: none.
 
 ## Review Log
@@ -91,6 +94,24 @@ As of 2026-05-24:
   `tests/test_validate_repo.py`.
 - Validation: `python scripts/validate_repo.py` and
   `python scripts/validate_semantic_agents.py`.
+
+### 2026-05-24 - Root entry surface slimmed
+
+- Previous assumption: the public README had to carry the full route_only
+  memory posture token set for validation.
+- New reality: the public README carries the memory owner route; detailed
+  memory-proof law remains in the evaluation philosophy, proof topology, and
+  this decision.
+- Reason: root entry surfaces should orient a low-context agent without
+  becoming the detailed boundary atlas.
+- Source surfaces updated: `README.md`, `scripts/validate_repo.py`,
+  `tests/test_validate_repo.py`.
+- Validation: `python scripts/validate_repo.py`,
+  `python scripts/validate_semantic_agents.py`,
+  `python -m pytest -q tests/test_validate_repo.py -k 'root_readme or memory_consumer_proof_boundary'`,
+  `python scripts/build_catalog.py --check`,
+  `python scripts/generate_eval_report_index.py --check`,
+  `git diff --check`, and `python -m pytest -q`.
 
 ## Boundaries
 

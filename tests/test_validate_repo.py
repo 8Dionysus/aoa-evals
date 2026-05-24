@@ -6503,6 +6503,35 @@ class TestValidateQuestRouteSurfaces:
     def test_memory_consumer_proof_boundary_validates_current_route(self) -> None:
         assert validate_repo.validate_memory_consumer_proof_boundary_surfaces(REPO_ROOT) == []
 
+    def test_memory_consumer_proof_boundary_rejects_root_route_anchor_loss(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in (
+            "README.md",
+            "docs/EVAL_PHILOSOPHY.md",
+            validate_repo.PROOF_TOPOLOGY_NAME,
+            validate_repo.MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME,
+            "docs/decisions/README.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        readme_path = tmp_path / "README.md"
+        readme_path.write_text(
+            readme_path.read_text(encoding="utf-8").replace(
+                "proof authority stays with",
+                "proof route is unclear",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_memory_consumer_proof_boundary_surfaces(tmp_path)
+
+        assert any(
+            issue.location == "README.md"
+            and "proof authority stays with" in issue.message
+            for issue in issues
+        )
+
     def test_memory_consumer_proof_boundary_rejects_memory_as_proof(
         self, tmp_path: Path
     ) -> None:

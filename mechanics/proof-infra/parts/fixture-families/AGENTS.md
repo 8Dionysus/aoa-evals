@@ -6,13 +6,23 @@
 
 ## Role
 
-This part owns generic shared fixture-family support for proof objects.
+This card routes generic shared fixture-family support for proof objects.
 
-It does not own bundle meaning, verdict logic, memo truth, audit acceptance,
-comparison semantics, runtime evidence, or sibling owner truth.
+Families here are public-safe reusable support for proof bundles. Bundle-local
+`EVAL.md`, `eval.yaml`, fixture contracts, reviewed reports, active mechanics,
+and sibling repositories keep stronger proof meaning and owner truth.
 
-Families here must stay public-safe and reviewable without hidden local
-context.
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | generic shared fixture-family support route for proof objects |
+| input | shared fixture family need, bundle fixture contract drift, generated `proof_artifacts` pressure, or narrower mechanic ownership question |
+| output | part-local fixture family route, bundle-local contract alignment, generated catalog check, or stronger-owner handoff |
+| owner | this part owns reusable public-safe support; source bundles and active mechanics own proof meaning |
+| next route | parent `parts/AGENTS.md`, parent `PARTS.md`, this part `README.md`, affected family README, affected `evals/**/EVAL.md`, and affected `evals/**/fixtures/contract.json` |
+| tools | parent centralized child validation, root validator, semantic AGENTS validator, and catalog builder |
+| validation | [parent parts/AGENTS.md](../AGENTS.md#centralized-child-validation) |
 
 ## Read before editing
 
@@ -22,29 +32,27 @@ context.
 4. `mechanics/EVIDENCE_CLUSTERS.md`
 5. `mechanics/proof-infra/README.md`
 6. `mechanics/proof-infra/PARTS.md`
-7. `mechanics/proof-infra/parts/fixture-families/README.md`
-8. affected `evals/**/EVAL.md`
-9. affected `evals/**/fixtures/contract.json`
+7. `mechanics/proof-infra/parts/AGENTS.md`
+8. `mechanics/proof-infra/parts/fixture-families/README.md`
+9. affected `evals/**/EVAL.md`
+10. affected `evals/**/fixtures/contract.json`
 
-## Boundaries
+## Boundary Routes
 
-- Keep the family weaker than the bundle-local claim.
-- Keep `shared_fixture_family_path` explicit and current.
-- Move a family out of this part only when a narrower active mechanic owns the
-  operation and a decision/provenance bridge records the move.
-- Do not add hidden benchmark cases, private logs, or source-owner secrets.
+| Pressure | Route |
+| --- | --- |
+| Bundle claim or verdict interpretation pressure | affected bundle-local `EVAL.md`, `eval.yaml`, report contract, or reviewed report. |
+| `shared_fixture_family_path` drift | affected bundle fixture contract plus generated catalog parity. |
+| Family-name parent pressure | `mechanics/EVIDENCE_CLUSTERS.md` before any parent proposal; this part stays reusable support. |
+| Narrower active mechanic ownership pressure | move the family with a decision and provenance bridge when the mechanic owns the operation. |
+| Hidden benchmark, private log, or source-owner secret pressure | owner evidence route or sibling repository; this part keeps public-safe reusable support. |
 
 ## Validation
 
-Run:
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
-
-Run targeted bundle validation for any bundle whose fixture contract changed.
+Use the centralized child validation lane in
+[parent parts/AGENTS.md](../AGENTS.md#centralized-child-validation).
+Route targeted bundle validation through the affected bundle's nearest
+`AGENTS.md` when a bundle fixture contract changes.
 
 ## Closeout
 

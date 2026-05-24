@@ -96,9 +96,13 @@ As of 2026-05-24:
 - Changed: active part route text now expresses scorer, runner, schema, root
   alias, and report pressure as boundary routes instead of prohibition-heavy
   prose.
+- Changed: descendant `AGENTS.md` now exposes an Operating Card and boundary
+  route table for low-context agents while routing executable checks to the
+  parent `parts/AGENTS.md` lane.
 - Source surfaces updated:
   `mechanics/proof-infra/PARTS.md`,
   `mechanics/proof-infra/parts/reportable-contracts/README.md`,
+  `mechanics/proof-infra/parts/reportable-contracts/AGENTS.md`,
   `scripts/validate_repo.py`.
 
 ## Review Log
@@ -118,6 +122,23 @@ As of 2026-05-24:
   when each pressure has an owner route.
 - Validation: `python scripts/validate_repo.py`, focused validator tests, and
   semantic AGENTS validation.
+
+### 2026-05-24 - Agent route-card applicability
+
+- Previous assumption: the descendant reportable-contract `AGENTS.md` could
+  repeat local role limits and command blocks.
+- New reality: the parent `parts/AGENTS.md` already owns centralized child
+  validation commands, so the descendant card is clearer as an Operating Card
+  plus boundary routes.
+- Reason: low-context agents need role, input, output, owner, next route,
+  tools, and validation ownership at the file boundary without duplicating the
+  parent command lane.
+- Source surfaces updated:
+  `mechanics/proof-infra/parts/reportable-contracts/AGENTS.md`,
+  `scripts/validate_repo.py`,
+  `tests/test_validate_repo.py`.
+- Validation: root validator, semantic AGENTS validation, catalog check,
+  focused scorer tests, and focused validator tests.
 
 ## Validation
 

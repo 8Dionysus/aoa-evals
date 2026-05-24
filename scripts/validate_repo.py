@@ -5086,7 +5086,7 @@ AUDIT_MECHANIC_DECISION_REQUIRED_TOKENS = (
 AUDIT_PARTS_README_REQUIRED_TOKENS = (
     "## Operating Card",
     "lower index for `audit` part-local candidate-evidence suboperations",
-    "## Part Map",
+    "## Active Parts",
     "`selected-evidence-packets/`",
     "`artifact-verdict-hooks/`",
     "`candidate-readers/`",
@@ -10573,6 +10573,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_mechanic_parent_direction_surfaces(repo_root))
     issues.extend(validate_mechanic_parts_index_sync_surfaces(repo_root))
     issues.extend(validate_mechanic_index_command_ownership(repo_root))
+    issues.extend(validate_mechanic_lower_parts_index_operating_cards(repo_root))
     issues.extend(validate_mechanic_legacy_single_bridge_surfaces(repo_root))
     issues.extend(validate_mechanic_part_readme_contract_surfaces(repo_root))
     issues.extend(validate_mechanic_part_validation_command_surfaces(repo_root))
@@ -12209,6 +12210,39 @@ def validate_mechanic_index_command_ownership(
                     "mechanic index surfaces must route executable validation commands to the nearest AGENTS.md instead of carrying python command blocks",
                 )
             )
+
+    return issues
+
+
+MECHANIC_LOWER_PARTS_INDEX_REQUIRED_TOKENS = (
+    "## Operating Card",
+    "| role |",
+    "| input |",
+    "| output |",
+    "| owner |",
+    "| next route |",
+    "| tools |",
+    "| validation |",
+    "## Active Parts",
+    "## Part Admission Route",
+    "AGENTS.md#validation",
+)
+
+
+def validate_mechanic_lower_parts_index_operating_cards(
+    repo_root: Path,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    index_paths = sorted((repo_root / "mechanics").glob("*/parts/README.md"))
+
+    for path in index_paths:
+        relative_name = path.relative_to(repo_root).as_posix()
+        require_tokens(
+            repo_root=repo_root,
+            path_name=relative_name,
+            tokens=MECHANIC_LOWER_PARTS_INDEX_REQUIRED_TOKENS,
+            issues=issues,
+        )
 
     return issues
 

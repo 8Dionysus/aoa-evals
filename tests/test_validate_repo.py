@@ -9848,6 +9848,36 @@ class TestValidateQuestRouteSurfaces:
     def test_mechanic_index_command_ownership_validates_current_routes(self) -> None:
         assert validate_repo.validate_mechanic_index_command_ownership(REPO_ROOT) == []
 
+    def test_mechanic_lower_parts_index_operating_cards_validate_current_routes(
+        self,
+    ) -> None:
+        assert (
+            validate_repo.validate_mechanic_lower_parts_index_operating_cards(REPO_ROOT)
+            == []
+        )
+
+    def test_mechanic_lower_parts_index_operating_cards_reject_missing_tools_row(
+        self, tmp_path: Path
+    ) -> None:
+        readme_name = validate_repo.COMPARISON_SPINE_PARTS_README_NAME
+        copy_repo_text(tmp_path, readme_name)
+        readme_path = tmp_path / readme_name
+        readme_path.write_text(
+            readme_path.read_text(encoding="utf-8").replace(
+                "| tools |", "| command route |", 1
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanic_lower_parts_index_operating_cards(
+            tmp_path
+        )
+
+        assert any(
+            issue.location == readme_name and "| tools |" in issue.message
+            for issue in issues
+        )
+
     def test_mechanic_index_command_ownership_rejects_parts_index_commands(
         self, tmp_path: Path
     ) -> None:

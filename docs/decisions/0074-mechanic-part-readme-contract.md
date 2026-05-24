@@ -73,6 +73,38 @@ It does not promote legacy raw files, generated readers, seeds, reports, or
 fixtures into stronger authority than their mechanic README and owning source
 surfaces.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: concrete part READMEs under
+  `mechanics/<parent>/parts/<part>/README.md` must expose source surfaces,
+  inputs, outputs, stronger owner split, stop-lines, and validation.
+- Changed: lower part indexes at `mechanics/<parent>/parts/README.md` now also
+  carry an operating-card contract with role, input, output, owner, next route,
+  tools, validation, active parts, and part admission route.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Lower parts index operating-card guard
+
+- Previous assumption: lower `parts/README.md` files could stay as short route
+  cards while parent `PARTS.md`, part READMEs, and `parts/AGENTS.md` carried
+  the operational detail.
+- New reality: every active lower parts index is now an agent operating card
+  with active part map, owner pressure/admission route, tool lane, and
+  validation lane.
+- Reason: agents often enter a directory from the file tree. The lower index
+  must answer where the agent is, what the part operation consumes and emits,
+  who owns stronger truth, which tools/checks apply, and where new part
+  pressure routes next.
+- Source surfaces updated: active `mechanics/*/parts/README.md` lower indexes,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: lower-index operating-card tests, root validation, semantic
+  AGENTS validation, generated catalog check, diff whitespace check, and full
+  pytest.
+
 ## Validation
 
 - `python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readmes_reject_stale_stop_line_lead_ins`

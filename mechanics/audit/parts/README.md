@@ -9,9 +9,10 @@
 | output | part route, source surface set, generated-reader route, validation lane, or stronger-owner handoff |
 | owner | `mechanics/audit/parts/AGENTS.md` for part-lane law; part README for local contract; parent `audit` package for the candidate-evidence loop |
 | next route | parent [README](../README.md), [PARTS](../PARTS.md), part README, part source surfaces, and [audit AGENTS validation](../AGENTS.md#validation) |
+| tools | candidate-reader generators, drift checks, repo validator, and focused tests through `mechanics/audit/AGENTS.md#validation` |
 | validation | `mechanics/audit/AGENTS.md#validation`, focused validator tests, and generated candidate-reader checks when source examples move |
 
-## Part Map
+## Active Parts
 
 Each part owns a bounded suboperation in the same candidate-evidence loop:
 

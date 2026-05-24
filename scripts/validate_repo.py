@@ -1530,6 +1530,22 @@ CONTRIBUTING_FORBIDDEN_ROUTE_SCAFFOLD = (
     "do not open a public issue or PR",
     "A good eval bundle does not try to prove everything.",
 )
+SCORE_SEMANTICS_GUIDE_NAME = "docs/SCORE_SEMANTICS_GUIDE.md"
+SCORE_SEMANTICS_GUIDE_REQUIRED_TOKENS = (
+    "Operating Card",
+    "score and verdict interpretation guide",
+    "explicit interpretation bounds",
+    "carry one bounded part of the claim",
+    "Requires stable comparison semantics before the result can be read comparatively.",
+    "route back to evidence or weaken the score shape",
+)
+SCORE_SEMANTICS_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD = (
+    "avoid heavy overlap with nearby axes",
+    "avoid pretending to be the whole claim",
+    "Not valid without stable comparison semantics.",
+    "explicit caution notes",
+    "If it hides that, weaken it.",
+)
 MECHANIC_ROUTE_CARD_FILES = tuple(
     route
     for parent_name in ACTIVE_MECHANIC_PARENT_NAMES
@@ -10222,6 +10238,27 @@ def validate_contributing_route_surface(repo_root: Path) -> list[ValidationIssue
                         "CONTRIBUTING.md",
                         "contributing guide should name owner routes and proof criteria "
                         f"instead of stale scaffold '{stale_phrase}'",
+                    )
+                )
+    return issues
+
+
+def validate_score_semantics_guide_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    guide_text = require_tokens(
+        repo_root=repo_root,
+        path_name=SCORE_SEMANTICS_GUIDE_NAME,
+        tokens=SCORE_SEMANTICS_GUIDE_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    if guide_text:
+        for stale_phrase in SCORE_SEMANTICS_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD:
+            if stale_phrase in guide_text:
+                issues.append(
+                    ValidationIssue(
+                        SCORE_SEMANTICS_GUIDE_NAME,
+                        "score semantics guide should name interpretation route "
+                        f"criteria instead of stale scaffold '{stale_phrase}'",
                     )
                 )
     return issues
@@ -20275,6 +20312,7 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_root_readme_surface_role(repo_root))
     issues.extend(validate_memory_consumer_proof_boundary_surfaces(repo_root))
     issues.extend(validate_eval_philosophy_route_map_surface(repo_root))
+    issues.extend(validate_score_semantics_guide_surface(repo_root))
     issues.extend(validate_docs_readme_route_map(repo_root))
     issues.extend(validate_portable_eval_boundary_guide_surface(repo_root))
     issues.extend(validate_closeout_writeback_ingress_surface(repo_root))

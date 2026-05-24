@@ -66,3 +66,33 @@ before being read as accepted eval bundles.
 - `docs/ARCHITECTURE.md` remains the technical model for eval bundle anatomy
 - `python scripts/build_catalog.py --check`
 - `python scripts/validate_repo.py`
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: the source proof object owns bounded claim meaning, evidence
+  boundary, scoring or verdict logic, and blind spots.
+- Clarified: `docs/SCORE_SEMANTICS_GUIDE.md` now expresses score semantics as
+  positive interpretation-route criteria: distinct axes, one bounded claim part
+  per axis, stable comparison semantics, explicit interpretation bounds, and a
+  return route to evidence when a score obscures the claim.
+- Source surfaces updated: `docs/SCORE_SEMANTICS_GUIDE.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation route: `python -m pytest -q tests/test_validate_repo.py -k score_semantics`
+  and `python scripts/validate_repo.py`.
+
+## Review Log
+
+### 2026-05-24 - Score semantics route language clarified
+
+- Previous assumption: score guidance could rely on warning phrasing around
+  axis overlap, whole-claim pressure, comparative validity, and caution notes.
+- New reality: low-context agents need result interpretation to name the route
+  criteria directly before a scalar, comparative, or mixed result can be read.
+- Reason: scoring guidance is proof-object authority support; it should preserve
+  claim limits by naming evidence, comparison, and interpretation routes.
+- Source surfaces updated: score semantics guide, root validator, and focused
+  validator tests.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k score_semantics`
+  and `python scripts/validate_repo.py`.

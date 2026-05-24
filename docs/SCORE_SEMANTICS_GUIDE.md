@@ -69,8 +69,8 @@ Implications:
 Rubric axes should:
 - name one bounded review dimension each
 - stay legible to a human reviewer
-- avoid heavy overlap with nearby axes
-- avoid pretending to be the whole claim
+- stay distinct from nearby axes
+- carry one bounded part of the claim
 
 Route these rubric-axis pressure signals:
 
@@ -115,7 +115,7 @@ cross-case support.
 |---|---|---|
 | `categorical` | Best default for most draft and bounded bundles. | Must still name evidence and interpretation limits. |
 | `pass-fail` | Useful when the claim surface is crisp and blocking failures are clear. | Easy to over-read if failure modes vary widely. |
-| `comparative` | Useful when the bundle is explicitly baseline-shaped. | Not valid without stable comparison semantics. |
+| `comparative` | Useful when the bundle is explicitly baseline-shaped. | Requires stable comparison semantics before the result can be read comparatively. |
 | `scalar-with-interpretation` | Acceptable when thresholds, ranges, and gaming risks are explicit. | Keep the number subordinate to the evidence and interpretation bound. |
 | `mixed` | Useful when a bundle genuinely needs both structured axes and a bounded verdict. | Use mixed shape to expose unclear semantics before collapsing them. |
 
@@ -133,7 +133,7 @@ In those cases, prefer:
 - per-case notes
 - rubric-axis summaries
 - categorical verdicts
-- explicit caution notes
+- explicit interpretation bounds
 
 ## Score interpretation bound
 
@@ -158,7 +158,7 @@ Composite bundles:
 Diagnostic bundles:
 - should isolate one failure class or bounded review question
 - should name intentionally excluded questions
-- should treat blocking contradictions seriously rather than smoothing them away
+- should treat blocking contradictions as interpretation drivers
 
 ## Final note
 
@@ -167,4 +167,4 @@ In `aoa-evals`, a score serves the bounded claim.
 The point is a bounded, reviewable claim supported by legible evidence.
 
 If a score helps that, keep it.
-If it hides that, weaken it.
+If it obscures that, route back to evidence or weaken the score shape.

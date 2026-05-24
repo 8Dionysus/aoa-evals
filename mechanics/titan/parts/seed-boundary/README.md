@@ -53,18 +53,11 @@ activation, roster, and service truth.
 
 ## Stop-Lines
 
-The seed family stays together because current canaries share one shape
-contract and one validator route. Do not split named Titan, summon, memory,
-gate, runtime, or bridge canaries into separate parts until a future slice adds
-a distinct scorer, fixture, report, or validator contract.
-
-This part is seed-defined only. It does not create full incarnation proof,
-runtime activation, summon authority, memory sovereignty, mutation-gate bypass,
-judgment-gate bypass, or executable scorer-backed proof.
-
-Do not use canary presence as proof of a lawful summon, active Titan cohort,
-remembered bearer incarnation, accepted memory write, hidden arena permission,
-or owner-law change.
+| Pressure | Route |
+| --- | --- |
+| named Titan, summon, memory, gate, runtime, or bridge canary wants a separate part | keep the seed family together until a distinct scorer, fixture, report, or validator contract proves a separate operation |
+| full incarnation proof, runtime activation, summon authority, memory sovereignty, mutation-gate bypass, judgment-gate bypass, or executable scorer-backed proof pressure | route to stronger owners or later scorer contracts before claim strengthening |
+| canary presence reads as proof of a lawful summon, active Titan cohort, remembered bearer incarnation, accepted memory write, hidden arena permission, or owner-law change | keep the output as seed-boundary evidence and route the stronger claim to the owner surface |
 
 ## Validation
 

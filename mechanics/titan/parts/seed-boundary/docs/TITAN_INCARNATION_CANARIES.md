@@ -4,8 +4,8 @@
 
 This guide routes Titan boundary canaries in `aoa-evals`.
 
-It is not full Titan doctrine, runtime activation guidance, summon authority,
-memory authority, or proof that incarnation is complete.
+Full Titan doctrine, runtime activation guidance, summon authority, memory
+authority, and incarnation completion proof route to stronger owner surfaces.
 
 ## Active Route
 
@@ -45,15 +45,16 @@ The validator expects:
 - `checks`, `required_fields`, `expected_failure`, `expected_result`,
   `expected`, `forbidden`, or failure examples that make the seed reviewable.
 
-## Boundaries
+## Boundary Routes
 
-- Seed canaries are not full incarnation proof.
-- Seed canaries do not activate a runtime cohort.
-- Seed canaries do not grant summon authority.
-- Seed canaries do not create memory sovereignty.
-- Seed canaries do not bypass mutation gate or judgment gate requirements.
-- Seed canaries should become executable scorer-backed proof only after scorer,
-  fixture, and report contracts exist.
+| Pressure | Route |
+| --- | --- |
+| full incarnation proof | route to `aoa-agents` or later scorer-backed proof review |
+| runtime cohort activation | route to runtime owners before proof wording changes |
+| summon authority | route to Titan summon owners before proof wording changes |
+| memory sovereignty | route to `aoa-memo` before proof adoption |
+| mutation gate or judgment gate bypass | route back to the gate docs and validation surface |
+| executable scorer-backed proof | add scorer, fixture, report, and validator contracts before strengthening the claim |
 
 ## Validation
 

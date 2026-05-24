@@ -5780,6 +5780,36 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_titan_seed_boundary_surfaces_reject_stale_negative_claim_limits(
+        self, tmp_path: Path
+    ) -> None:
+        readme_name = validate_repo.TITAN_SEED_BOUNDARY_PART_README_NAME
+        copy_repo_text(tmp_path, readme_name)
+        readme_path = tmp_path / readme_name
+
+        for stale_phrase in validate_repo.TITAN_SEED_BOUNDARY_STALE_ROUTE_PHRASES:
+            readme_path.write_text(
+                readme_path.read_text(encoding="utf-8")
+                + f"\n\n{stale_phrase}.\n",
+                encoding="utf-8",
+            )
+
+            issues = validate_repo.validate_mechanics_surfaces(tmp_path)
+
+            assert any(
+                issue.location == readme_name
+                and "owner maps instead of stale negative" in issue.message
+                for issue in issues
+            )
+
+            readme_path.write_text(
+                readme_path.read_text(encoding="utf-8").replace(
+                    f"\n\n{stale_phrase}.\n",
+                    "",
+                ),
+                encoding="utf-8",
+            )
+
     def test_agent_lane_surfaces_validate_current_routes(self) -> None:
         assert validate_repo.validate_agent_lane_surfaces(REPO_ROOT) == []
 

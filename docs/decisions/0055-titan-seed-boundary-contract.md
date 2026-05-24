@@ -63,3 +63,44 @@ It does not transfer `aoa-agents` Titan role/bearer/incarnation law,
 
 - `python scripts/validate_repo.py`
 - `python -m pytest -q tests/test_validate_repo.py -k 'titan_seed_boundary or titan_canary'`
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `mechanics/titan/parts/seed-boundary/README.md` owns the
+  part-level contract for Titan seed canaries.
+- Still valid: `titan` remains the parent mechanic; canary YAML payloads remain
+  under `mechanics/titan/parts/seed-boundary/seeds/`.
+- Changed: Titan seed-boundary route surfaces now express claim-limit pressure
+  as owner routes instead of negative boundary prose.
+- Changed: `scripts/validate_repo.py` requires the current seed-boundary route
+  wording and rejects stale negative claim-limit phrases on the active Titan
+  seed-boundary route surfaces.
+- Source surfaces updated: `mechanics/titan/AGENTS.md`,
+  `mechanics/titan/DIRECTION.md`, `mechanics/titan/PARTS.md`,
+  `mechanics/titan/parts/README.md`,
+  `mechanics/titan/parts/seed-boundary/README.md`,
+  `mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md`,
+  `mechanics/titan/parts/seed-boundary/docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md`,
+  `mechanics/titan/parts/seed-boundary/seeds/AGENTS.md`,
+  `mechanics/titan/parts/seed-boundary/seeds/README.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+
+## Review Log
+
+### 2026-05-24 - Seed-boundary route tables
+
+- Previous assumption: Titan seed-boundary claim limits could stay as direct
+  negative boundary prose once the part contract existed.
+- New reality: Titan seed surfaces are safer for low-context agents when each
+  high-risk pressure names its owner route.
+- Reason: Titan canary language touches incarnation, summon, memory, runtime,
+  mutation-gate, and judgment-gate authority. The active route surface should
+  tell the agent where each pressure belongs before it edits seed wording.
+- Source surfaces updated: Titan package, part, seed, and guide route wording;
+  validator tokens; validator regression coverage.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k "titan_seed_boundary or titan_canary"`,
+  `python scripts/validate_repo.py`, `python scripts/validate_semantic_agents.py`,
+  generated-surface `--check` commands, `python -m pytest -q`, and
+  `git diff --check`.

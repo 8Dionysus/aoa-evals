@@ -15,7 +15,8 @@ Titan seed canaries.
 
 It keeps owner-named Titan boundary pressure seed-defined, falsifiable, and
 ready for later scorer or stronger-owner review. The current proof claim is
-seed-boundary only: not full incarnation proof.
+seed-boundary evidence only; full incarnation proof routes to stronger owner
+review.
 
 ## Operating Card
 
@@ -71,7 +72,8 @@ seed-boundary only: not full incarnation proof.
 
 - Keep seed YAML files inside this package unless a later decision creates a
   stronger source home.
-- Keep seed canaries framed as not full incarnation proof.
+- Keep seed canaries framed as seed-boundary evidence; route full incarnation
+  proof to stronger owners.
 - Route runtime, hidden arena, and live summon behavior to stronger owners.
 - Keep Titan canaries below stronger owner law.
 - Change legacy canary vocabulary compatibility through a decision and

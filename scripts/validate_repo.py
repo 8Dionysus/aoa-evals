@@ -1140,6 +1140,7 @@ AGENT_INDEX_DECISION_REQUIRED_TOKENS = (
 READ_MODEL_COMMAND_OWNER_PATHS = (
     ".github/pull_request_template.md",
     "CONTRIBUTING.md",
+    "EVAL_SELECTION.md",
     "README.md",
     "ROADMAP.md",
     "AUDIT.md",
@@ -2831,6 +2832,7 @@ PROOF_LOOP_SMOKE_REPORT_REQUIRED_TOKENS = (
     "defer/handoff",
     "No runtime candidate packet is accepted by this smoke",
     "No sibling proof ref is required by this smoke",
+    "parts/AGENTS.md#validation",
 )
 PROOF_LOOP_SMOKE_DECISION_REQUIRED_TOKENS = (
     "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
@@ -12448,12 +12450,19 @@ def validate_repo_validation_workflow_surface(repo_root: Path) -> list[Validatio
 
 def validate_proof_loop_smoke_report_surfaces(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
-    require_tokens(
+    report_text = require_tokens(
         repo_root=repo_root,
         path_name=PROOF_LOOP_SMOKE_REPORT_NAME,
         tokens=PROOF_LOOP_SMOKE_REPORT_REQUIRED_TOKENS,
         issues=issues,
     )
+    if report_text and markdown_python_commands(report_text):
+        issues.append(
+            ValidationIssue(
+                PROOF_LOOP_SMOKE_REPORT_NAME,
+                "bounded route-smoke report must route executable validation commands to mechanics/proof-loop/parts/AGENTS.md",
+            )
+        )
     require_tokens(
         repo_root=repo_root,
         path_name=PROOF_LOOP_SMOKE_DECISION_NAME,

@@ -6935,6 +6935,22 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_read_model_command_ownership_rejects_eval_selection_command(
+        self, tmp_path: Path
+    ) -> None:
+        write_text(
+            tmp_path / "EVAL_SELECTION.md",
+            "# Selection\n\nValidate with `python scripts/validate_repo.py --eval sample`.\n",
+        )
+
+        issues = validate_repo.validate_read_model_command_ownership(tmp_path)
+
+        assert any(
+            issue.location == "EVAL_SELECTION.md"
+            and "nearest AGENTS.md" in issue.message
+            for issue in issues
+        )
+
     def test_source_eval_command_ownership_validates_current_routes(self) -> None:
         source_issues, records = validate_repo.collect_catalog_records(REPO_ROOT)
 
@@ -11595,6 +11611,35 @@ class TestValidateQuestRouteSurfaces:
         assert any(
             issue.location == "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md"
             and "no eval result receipt" in issue.message
+            for issue in issues
+        )
+
+    def test_proof_loop_smoke_report_rejects_validation_command_block(
+        self, tmp_path: Path
+    ) -> None:
+        for relative_path in [
+            "mechanics/proof-loop/README.md",
+            "reports/README.md",
+            "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
+            "docs/decisions/README.md",
+            "docs/decisions/0020-proof-loop-local-smoke-report.md",
+            "docs/decisions/0030-proof-loop-route-smoke-part.md",
+        ]:
+            copy_repo_text(tmp_path, relative_path)
+
+        report_path = tmp_path / validate_repo.PROOF_LOOP_SMOKE_REPORT_NAME
+        report_path.write_text(
+            report_path.read_text(encoding="utf-8")
+            + "\n```bash\npython scripts/validate_repo.py\n```\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_proof_loop_smoke_report_surfaces(tmp_path)
+
+        assert any(
+            issue.location
+            == "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md"
+            and "parts/AGENTS.md" in issue.message
             for issue in issues
         )
 

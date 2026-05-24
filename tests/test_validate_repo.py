@@ -6577,6 +6577,27 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_root_readme_surface_role_rejects_docs_guide_catalog_in_proof_check(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in ("README.md", "docs/README.md"):
+            copy_repo_text(tmp_path, path_name)
+        readme_path = tmp_path / "README.md"
+        readme_path.write_text(
+            readme_path.read_text(encoding="utf-8")
+            + "\n| Which comparison, artifact/process, repeated-window, or shared-infra guide applies? | docs guide catalog |\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_root_readme_surface_role(tmp_path)
+
+        assert any(
+            issue.location == "README.md"
+            and "detailed proof-guide catalogs route to docs/README.md"
+            in issue.message
+            for issue in issues
+        )
+
     def test_root_readme_surface_role_rejects_generic_docs_map_eval_labels(
         self, tmp_path: Path
     ) -> None:

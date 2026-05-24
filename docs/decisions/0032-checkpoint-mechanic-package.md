@@ -66,6 +66,39 @@ implementation, memory canon, runtime activation, or self-agent role truth.
   remain bundle-local or adjacent until their support artifacts justify a
   distinct part.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `mechanics/checkpoint/` remains the AoA-aligned eval-side parent
+  for A2A summon return, restartable inquiry, and self-agent checkpoint posture
+  proof support.
+- Changed: parent-level boundary coverage now uses pressure-to-owner routes in
+  `README.md`, `PARTS.md`, and `DIRECTION.md`, with validator tokens guarding
+  the parent route rows.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Parent boundary route wording
+
+- Previous assumption: parent-level Checkpoint surfaces expressed boundaries
+  through exclusion prose around implementation authority, memory canon,
+  runtime activation, owner acceptance, hidden scheduling, self-repair,
+  child-output quality, and broad long-horizon competence.
+- New reality: the parent route keeps the same authority split through
+  pressure-to-owner-route rows.
+- Reason: AoA owns checkpoint law, `aoa-sdk` owns controls, `aoa-memo` owns
+  checkpoint memory, `aoa-agents` owns self-agent posture, and `aoa-evals` keeps
+  bounded proof support; the active package should show the next owner route
+  directly.
+- Source surfaces updated: `mechanics/checkpoint/README.md`,
+  `mechanics/checkpoint/PARTS.md`, `mechanics/checkpoint/DIRECTION.md`, and
+  `scripts/validate_repo.py`.
+- Validation: checkpoint validator focus, A2A part-local fixture test,
+  candidate-reader checks, catalog check, root validation, semantic AGENTS
+  validation, diff whitespace check, and full pytest passed.
+
 ## Boundaries
 
 This decision does not move checkpoint source proof bundles into

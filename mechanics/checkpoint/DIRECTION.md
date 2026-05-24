@@ -1,8 +1,8 @@
 # Checkpoint Direction
 
 Checkpoint in `aoa-evals` should make return, restart, and self-agent
-checkpoint pressure reviewable as bounded proof without implementing checkpoint
-runtime or memory canon.
+checkpoint pressure reviewable as bounded proof while implementation, runtime,
+and memory-canon pressure route to stronger owners.
 
 Use this file for the package's current operating direction: read it after the
 parent entry card and before `PARTS.md`, part contracts, source bundles,
@@ -32,15 +32,17 @@ decision records, and `PROVENANCE.md`.
 ## Growth rule
 
 Add a checkpoint part only when a repeated checkpoint proof operation has its
-own support payload and validation. Do not split parts around every artifact
-name that happens to include checkpoint language.
+own support payload and validation. Artifact-name pressure routes through the
+current part map before checkpoint grows a new part.
 
 ## Stop-lines
 
-- Do not claim checkpoint implementation authority, memory canon, runtime
-  activation, or automatic self-agent continuity.
-- Do not use checkpoint proof posture to bypass approval, rollback, or owner
-  review.
+- Checkpoint implementation authority, memory canon, runtime activation, and
+  automatic self-agent continuity pressure route to the stronger owner split in
+  the parent README.
+- Approval, rollback, and owner-review pressure route through their owning
+  agents, playbooks, memo, runtime, or owner-repository surfaces before
+  eval-side checkpoint proof.
 
 ## Validation
 

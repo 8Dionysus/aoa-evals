@@ -39,21 +39,24 @@ contracts. `aoa-playbooks` owns restartable-inquiry choreography. The owner
 repository owns canon meaning, raw transcript continuity, and final inquiry
 truth.
 
-`aoa-evals` owns only bounded checkpoint-and-relaunch proof wording, the
-part-local restart fixture, hook example, and bundle-local interpretation for
-`aoa-long-horizon-depth`.
+`aoa-evals` owns the bounded checkpoint-and-relaunch proof reading: proof
+wording, the part-local restart fixture, hook example, and bundle-local
+interpretation for `aoa-long-horizon-depth`. Authority beyond that proof
+reading routes through the stronger owner split above.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Boundary routes keep restartable-inquiry pressure with the owner that can act
+on it:
 
-- memo checkpoint schema authority;
-- playbook choreography ownership;
-- canon meaning;
-- raw transcript continuity;
-- final inquiry truth or final-answer grading;
-- broad long-horizon competence.
+| Pressure | Owner route |
+| --- | --- |
+| memo checkpoint schema authority pressure | `aoa-memo` checkpoint schema route |
+| playbook choreography ownership pressure | `aoa-playbooks` restartable-inquiry route |
+| canon meaning pressure | owner repository canon route |
+| raw transcript continuity pressure | owner repository transcript route |
+| final inquiry truth or final-answer grading pressure | owner repository inquiry acceptance route |
+| broad long-horizon competence pressure | bundle-local proof object plus source-owner evidence review |
 
 ## Validation
 

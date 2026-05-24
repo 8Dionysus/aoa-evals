@@ -40,21 +40,25 @@ summon and closeout skill truth. `aoa-memo` owns memo writeback acceptance.
 `abyss-stack` owns runtime closeout execution after runtime gates. Owner
 repositories own child-output acceptance.
 
-`aoa-evals` owns only bounded A2A summon return checkpoint proof wording, the
-part-local fixture family, hook example, seeded validation test, and
-bundle-local interpretation for `aoa-a2a-summon-return-checkpoint`.
+`aoa-evals` owns the bounded A2A summon return checkpoint proof reading: proof
+wording, the part-local fixture family, hook example, seeded validation test,
+and bundle-local interpretation for `aoa-a2a-summon-return-checkpoint`.
+Authority beyond that proof reading routes through the stronger owner split
+above.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Boundary routes keep A2A summon-return pressure with the owner that can act on
+it:
 
-- checkpoint doctrine;
-- A2A control-plane implementation;
-- summon skill truth;
-- memo canon or memo writeback acceptance;
-- live runtime execution or runtime closeout authority;
-- owner acceptance or final child-output quality.
+| Pressure | Owner route |
+| --- | --- |
+| checkpoint doctrine pressure | Agents-of-Abyss center route |
+| A2A control-plane implementation pressure | `aoa-sdk` A2A checkpoint-control route |
+| summon skill truth pressure | `aoa-skills` summon and closeout skill route |
+| memo canon or memo writeback acceptance pressure | `aoa-memo` writeback route |
+| live runtime execution or runtime closeout authority pressure | `abyss-stack` runtime route |
+| owner acceptance or final child-output quality pressure | owner repository child-output acceptance route |
 
 ## Validation
 

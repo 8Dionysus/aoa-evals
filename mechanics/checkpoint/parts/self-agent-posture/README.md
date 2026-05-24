@@ -5,7 +5,8 @@
 This part owns the eval-side reading route for self-agent checkpoint posture.
 
 It keeps the posture note and approval-boundary hook example together under
-the checkpoint mechanic without creating a new checkpoint-only proof canon.
+the checkpoint mechanic while checkpoint-only proof-canon pressure routes to
+stronger owners.
 
 ## Source Surfaces
 
@@ -37,21 +38,24 @@ and role boundaries. `aoa-playbooks` owns scenario composition and rollout
 choreography. `aoa-memo` owns checkpoint writeback and memory objects.
 `Agents-of-Abyss` owns checkpoint law and vocabulary.
 
-`aoa-evals` owns only bounded approval-boundary and route-quality proof
-readings from checkpoint artifacts, plus the part-local posture note and hook
-example.
+`aoa-evals` owns bounded approval-boundary and route-quality proof readings
+from checkpoint artifacts, plus the part-local posture note and hook example.
+Authority beyond that proof reading routes through the stronger owner split
+above.
 
 ## Stop-Lines
 
-Boundary: this part supports its local proof operation. These claims stay outside
-the part:
+Boundary routes keep self-agent checkpoint pressure with the owner that can act
+on it:
 
-- `aoa-agents` self-agent checkpoint contract meaning;
-- `aoa-playbooks` scenario composition;
-- `aoa-memo` checkpoint writeback authority;
-- checkpoint ontology;
-- sovereign checkpoint proof canon;
-- owner acceptance or runtime activation.
+| Pressure | Owner route |
+| --- | --- |
+| self-agent checkpoint contract meaning pressure | `aoa-agents` self-agent route |
+| scenario composition pressure | `aoa-playbooks` scenario route |
+| checkpoint writeback authority pressure | `aoa-memo` checkpoint writeback route |
+| checkpoint ontology pressure | Agents-of-Abyss checkpoint doctrine route |
+| sovereign checkpoint proof-canon pressure | Agents-of-Abyss doctrine plus bundle-local proof route |
+| owner acceptance or runtime activation pressure | owner repository acceptance route plus `abyss-stack` runtime route |
 
 ## Validation
 

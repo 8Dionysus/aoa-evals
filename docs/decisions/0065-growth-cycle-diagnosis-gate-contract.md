@@ -75,6 +75,23 @@ As of 2026-05-24:
   catalog check, root validation, semantic AGENTS validation, diff whitespace
   check, and full pytest passed.
 
+### 2026-05-24 - Lower parts index operating route
+
+- Previous assumption: the lower Growth Cycle parts README could remain a
+  compact active/deferred note because `PARTS.md` and `diagnosis-gate/README.md`
+  carried the detailed contract.
+- New reality: `mechanics/growth-cycle/parts/README.md` now acts as the
+  lower-index operating card for selecting `diagnosis-gate`, routing stronger
+  owner pressure, and deciding whether a future Growth Cycle part is justified.
+- Reason: diagnosis, repair, progression, closeout, quest, memory, runtime, and
+  owner-followthrough pressure should route from the directory index itself
+  before a future agent adds a part by proximity.
+- Source surfaces updated: `mechanics/growth-cycle/parts/README.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: focused lower-index validator tests, diagnosis bundle
+  validation, root validation, semantic AGENTS validation, generated catalog
+  check, diff whitespace check, and full pytest.
+
 ## Validation
 
 Expected validation route:

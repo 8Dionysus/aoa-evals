@@ -7996,6 +7996,49 @@ class TestValidateQuestRouteSurfaces:
             for issue in validate_repo.validate_mechanics_surfaces(REPO_ROOT)
         )
 
+    @pytest.mark.parametrize(
+        "readme_name",
+        (
+            validate_repo.PROOF_LOOP_PARTS_README_NAME,
+            validate_repo.GROWTH_CYCLE_PARTS_README_NAME,
+            validate_repo.TITAN_PARTS_INDEX_README_NAME,
+        ),
+    )
+    def test_single_part_lower_indexes_validate_current_operating_cards(
+        self, readme_name: str
+    ) -> None:
+        assert not any(
+            issue.location == readme_name
+            for issue in validate_repo.validate_mechanics_surfaces(REPO_ROOT)
+        )
+
+    @pytest.mark.parametrize(
+        "readme_name",
+        (
+            validate_repo.PROOF_LOOP_PARTS_README_NAME,
+            validate_repo.GROWTH_CYCLE_PARTS_README_NAME,
+            validate_repo.TITAN_PARTS_INDEX_README_NAME,
+        ),
+    )
+    def test_single_part_lower_indexes_reject_missing_operating_card(
+        self, tmp_path: Path, readme_name: str
+    ) -> None:
+        copy_repo_text(tmp_path, readme_name)
+        readme_path = tmp_path / readme_name
+        readme_path.write_text(
+            readme_path.read_text(encoding="utf-8").replace(
+                "## Operating Card", "## Route Notes"
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanics_surfaces(tmp_path)
+
+        assert any(
+            issue.location == readme_name and "## Operating Card" in issue.message
+            for issue in issues
+        )
+
     def test_repair_diagnosis_route_boundary_validates_current_contract(self) -> None:
         protected_locations = {
             validate_repo.ANTIFRAGILITY_MECHANIC_README_NAME,

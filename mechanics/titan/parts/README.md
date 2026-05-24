@@ -1,14 +1,41 @@
 # Titan / Parts Route
 
-`parts/` contains Titan proof-seed artifacts that are narrower than the parent
-mechanic but too operational to stay at package root.
+`mechanics/titan/parts/` is the lower index for Titan proof-seed part
+artifacts. Use it after the parent Titan route has selected a part-level
+operation and the next agent needs the exact part, seed payload home,
+stronger-owner route, and validation lane.
 
-The parts district is named by operation. Current canary YAML payloads belong
-under the `seed-boundary` part until a future scorer, fixture, report, or
-validator contract proves a different part.
+## Operating Card
 
-Read [../PARTS.md](../PARTS.md) for the active map.
+| Field | Route |
+| --- | --- |
+| role | lower index for active Titan proof-seed parts |
+| input | Titan boundary pressure, seed canary YAML, seed-local route law, incarnation guide pressure, summon-discipline guide pressure, or future scorer pressure |
+| output | seed-boundary route, seed payload home, validated canary shape, future scorer handoff, or stronger-owner review |
+| owner | `aoa-evals` owns seed-boundary proof shape; `aoa-agents`, `aoa-memo`, runtime owners, and later scorer contracts keep stronger authority |
+| next route | `mechanics/titan/PARTS.md`, selected part README, seed payload AGENTS card, guide surfaces, and stronger-owner route |
+| validation | `mechanics/titan/parts/AGENTS.md#validation` and `mechanics/titan/AGENTS.md#validation` |
 
-## Parts
+## Active Parts
 
-- [Seed Boundary](seed-boundary/README.md)
+| Part | Operation | Start surface |
+| --- | --- | --- |
+| `seed-boundary/` | seed-defined Titan boundary canary family and seed-local route law | `seed-boundary/README.md` |
+
+## Owner Pressure Routes
+
+| Pressure | Route |
+| --- | --- |
+| canary presence reads as incarnation, summon authority, or runtime cohort proof | keep the part seed-defined and route stronger claims to Titan/runtime owners |
+| canary presence reads as memory sovereignty | route to `aoa-memo` before proof adoption |
+| mutation-gate or judgment-gate bypass pressure appears | keep the gate named in seed docs and validation |
+| executable scorer-backed proof pressure appears | wait for scorer, fixture, report, and validator contracts |
+| topic split or new Titan proof family pressure | require a different source shape and validation route before adding a part |
+
+## Part Admission Route
+
+| Source signal | Operation test | Next route |
+| --- | --- | --- |
+| seed-defined Titan canary YAML | current source shape and validator lane match the seed-boundary contract | `seed-boundary/README.md` |
+| future executable scorer route | scorer, fixture, report, and validator contracts exist | parent `PARTS.md` update plus decision review |
+| future topic split | source shape and validation route differ from seed-boundary | parent `PARTS.md` update plus owner-route review |

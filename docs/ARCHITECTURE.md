@@ -270,7 +270,7 @@ A likely public maturity path is:
 This repository should eventually support:
 - portable public proof surfaces
 - bounded comparison across agent changes
-- regression visibility without metric theater
+- regression visibility with bounded comparison semantics
 - compact trustworthy report contracts
 - reusable evaluation discipline across projects
-- growth tracking without inflated claims
+- growth tracking with explicit claim limits

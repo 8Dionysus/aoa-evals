@@ -1,11 +1,8 @@
 # Mechanic Root-district Reconnaissance
 
-- Status: Accepted; source-district name superseded by 0104
+- Status: Accepted
 - Date: 2026-05-20
 - Owner surface: `mechanics/EVIDENCE_CLUSTERS.md`
-- Current source eval route:
-  [0104 Source Eval Tree Topology](0104-source-eval-tree-topology.md)
-  owns the active `evals/<claim-family>/<eval-name>/` source tree.
 
 ## Context
 
@@ -82,6 +79,33 @@ stay derived, and mechanic-owned payloads stay under the owning active part.
 Existing route-card-only guards for `config`, `examples`, `fixtures`,
 `manifests`, `reports`, `runners`, `schemas`, `scorers`, `templates`, and the
 other cleaned compatibility roots remain enforced by `scripts/validate_repo.py`.
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: this decision owns the rationale for the root-district
+  reconnaissance ledger in `mechanics/EVIDENCE_CLUSTERS.md`.
+- Changed: active source eval package topology routes through
+  [0104 Source Eval Tree Topology](0104-source-eval-tree-topology.md) and
+  `evals/<claim-family>/<eval-name>/`.
+- Superseded by: 0104 only for active source eval tree placement. This decision
+  still owns the mechanics root-district evidence ledger rationale.
+
+## Review Log
+
+### 2026-05-24 - Source eval tree route narrowed
+
+- Previous assumption: root-district reconnaissance could carry the old
+  `bundles/` source-district pressure inside its active status line.
+- New reality: source eval package topology is owned by 0104, and the active
+  source package route is `evals/<claim-family>/<eval-name>/`.
+- Reason: decision status should stay atomic; dated applicability carries
+  current route changes without rewriting the original context or rationale.
+- Source surfaces updated:
+  `docs/decisions/0084-mechanic-root-district-reconnaissance.md`.
+- Validation: `python scripts/validate_repo.py` and focused validator tests for
+  decision status routing.
 
 ## Validation
 

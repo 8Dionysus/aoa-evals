@@ -92,3 +92,42 @@ or `aoa-stats` owner truth into `aoa-evals`.
 - `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check`
 - `python scripts/validate_repo.py`
 - `python scripts/validate_semantic_agents.py`
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `mechanics/audit/` remains the live mechanic package for
+  runtime or trace artifact candidate intake, selected evidence packets,
+  artifact-to-verdict hooks, generated candidate readers, integrity review, and
+  bundle-local review handoff.
+- Clarified: active audit surfaces now express boundary pressure as owner routes
+  and handoffs instead of long negative self-descriptions.
+- Source surfaces updated:
+  - `mechanics/audit/PARTS.md`
+  - `mechanics/audit/parts/selected-evidence-packets/README.md`
+  - `mechanics/audit/parts/artifact-verdict-hooks/README.md`
+  - `mechanics/audit/parts/candidate-readers/README.md`
+  - `mechanics/audit/parts/integrity-review/README.md`
+  - `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md`
+  - `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md`
+  - `mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
+  - `mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md`
+- Validation: `python scripts/validate_repo.py` and
+  `python scripts/validate_semantic_agents.py` stayed green before the
+  amendment slice; post-change validation is recorded in the landing PR.
+
+## Review Log
+
+### 2026-05-24 - Audit route pressure wording clarified
+
+- Previous assumption: candidate-only posture needed repeated negative boundary
+  prose on active audit surfaces.
+- New reality: the same boundary is clearer for agents when a pressure names its
+  owner route, next review surface, and validation lane.
+- Reason: modern agent-operational guidance favors explicit role, input,
+  output, owner, tools, guardrails, handoff, and trace/eval loops over
+  prohibition-heavy local prose.
+- Source surfaces updated: audit parent and part route docs, trace bridge,
+  runtime bench guide, runtime integrity guide, and validator tokens.
+- Validation: see the landing PR for the exact command battery.

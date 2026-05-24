@@ -68,3 +68,36 @@ or `aoa-stats` owner truth into `aoa-evals`.
 - `tests/test_validate_repo.py`
 - `python scripts/validate_repo.py`
 - `python -m pytest -q tests/test_validate_repo.py -k 'audit_part_readmes or provenance'`
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: the four audit part README files remain explicit part contracts
+  with inputs, outputs, stronger-owner split, stop-lines, and validation route.
+- Clarified: the stop-line sections now use pressure-to-route tables so an
+  agent sees the next owner action instead of only a blocked action.
+- Source surfaces updated:
+  - `mechanics/audit/parts/selected-evidence-packets/README.md`
+  - `mechanics/audit/parts/artifact-verdict-hooks/README.md`
+  - `mechanics/audit/parts/candidate-readers/README.md`
+  - `mechanics/audit/parts/integrity-review/README.md`
+  - `scripts/validate_repo.py`
+- Validation: the audit part README validator tokens now require the route-map
+  wording that replaced prohibition-only phrasing.
+
+## Review Log
+
+### 2026-05-24 - Part stop-lines converted to route pressure maps
+
+- Previous assumption: part contracts should prove safety by repeating direct
+  prohibitions such as generated reader authority, verdict execution, runtime
+  activation, and raw evidence ingestion.
+- New reality: the contract is stronger when each pressure routes to an owner,
+  source surface, or bundle-local review step.
+- Reason: this matches the repo-wide target where a low-context agent can infer
+  role, input, output, owner, next route, tool, and validation from the active
+  part card.
+- Source surfaces updated: the four audit part README contracts and their
+  validator tokens.
+- Validation: see the landing PR for the exact command battery.

@@ -6,7 +6,7 @@ This part owns the owner-local runtime integrity review contract.
 
 It captures W10-shaped runtime continuity evidence as `candidate_only`, keeps
 human review mandatory, and points upward to the stronger Experience owner split
-instead of defining activation authority locally.
+for activation or continuity-owner decisions.
 
 ## Source Surfaces
 
@@ -34,19 +34,22 @@ instead of defining activation authority locally.
 interpretation limits.
 
 Runtime activation, continuity truth, memory canon, and Experience owner truth
-stay outside this audit part until their owning surfaces accept them.
+route through their owning surfaces before this candidate review can support a
+stronger read.
 
 ## Boundary
 
-The review surface does not become proof canon, runtime activation authority,
-owner override, or canon write permission.
+The review surface is a candidate inspection route. Proof canon, runtime
+activation authority, owner override, and canon write pressure all hand off to
+their owner routes.
 
 ## Stop-Lines
 
-- Do not activate runtime continuity from this review.
-- Do not write memory canon, owner approval, or proof verdicts from this
-  candidate-only artifact.
-- Do not remove human review or replay requirements.
+| Pressure | Route |
+| --- | --- |
+| runtime continuity activation is requested | route to Experience and runtime-owner gates after review |
+| memory canon, owner approval, or proof verdict pressure appears | route to `aoa-memo`, the owning repo, or bundle-local eval review |
+| replay or human review is skipped | return to selected evidence, owner-local replay, and reviewer signoff |
 
 ## Validation
 

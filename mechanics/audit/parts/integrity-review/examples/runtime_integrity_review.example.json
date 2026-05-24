@@ -25,5 +25,5 @@
     "owner_override",
     "canon_write"
   ],
-  "notes": "Candidate only. Owner-local runtime integrity review remains weaker than proof canon and does not activate runtime continuity."
+  "notes": "Candidate only. Owner-local runtime integrity review routes proof-canon pressure to bundle-local proof review and activation pressure to Experience or runtime-owner gates."
 }

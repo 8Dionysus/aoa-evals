@@ -131,3 +131,17 @@ As of 2026-05-24:
 - Source surfaces updated: audit parent and part route docs, trace bridge,
   runtime bench guide, runtime integrity guide, and validator tokens.
 - Validation: see the landing PR for the exact command battery.
+
+### 2026-05-24 - Root audit map names outbound owner routes
+
+- Previous assumption: the repository role section in `AUDIT.md` could preserve
+  owner boundaries with a negative ownership list.
+- New reality: the root audit map now names outbound owner routes for technique
+  truth, workflow meaning, routing authority, artifact-contract meaning, and
+  private/runtime evidence.
+- Reason: audit orientation should show where a pressure goes next, while
+  `AGENTS.md` keeps route law, approval gates, review severity, and validation.
+- Source surfaces updated: `AUDIT.md`, `scripts/validate_repo.py`,
+  `tests/test_validate_repo.py`, and this decision.
+- Validation: root validation, semantic AGENTS validation, and focused audit
+  surface tests.

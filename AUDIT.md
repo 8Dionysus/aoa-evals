@@ -21,13 +21,16 @@ It owns:
 - shared proof infrastructure contracts that stay weaker than bundle-local meaning,
 - generated catalogs, capsules, sections, and comparison-spine surfaces for routing and selection.
 
-It does **not** own:
+Route outward for:
 
-- reusable technique truth in `aoa-techniques`,
-- execution workflow meaning in `aoa-skills`,
-- routing authority outside eval selection surfaces,
-- agent, playbook, or memo ownership of artifact-contract meaning,
-- hidden telemetry, private benchmark infrastructure, or secret-bearing operational detail.
+- reusable technique truth: `aoa-techniques`,
+- execution workflow meaning: `aoa-skills`,
+- routing authority outside eval selection: the owning routing or source layer,
+- agent, playbook, or memo artifact-contract meaning:
+  `aoa-agents`, `aoa-playbooks`, or `aoa-memo`,
+- hidden telemetry, private benchmark infrastructure, or secret-bearing
+  operational detail: the private/runtime owner and a sanitized evidence route
+  before public proof.
 
 ## Source-of-truth docs
 

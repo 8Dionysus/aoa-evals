@@ -84,13 +84,23 @@ As of 2026-05-24:
   disclosure as concrete review gap routes: unsupported claims, false-pass or
   false-fail paths, local-shape assumptions, nearby-bundle routes, and
   bundle-shaped specificity.
+- Clarified: core proof guides now express relation, baseline comparison,
+  artifact/process, fixture, repeated-window, and philosophy routes through
+  direct evidence, claim scope, uncertainty, status-bounded interpretation, and
+  owner review criteria.
 - Source surfaces updated: `docs/SCORE_SEMANTICS_GUIDE.md`,
   `docs/EVAL_REVIEW_GUIDE.md`, `docs/BLIND_SPOT_DISCLOSURE_GUIDE.md`,
-  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+  `docs/EVAL_RUBRIC.md`, `docs/BASELINE_COMPARISON_GUIDE.md`,
+  `docs/EVAL_PHILOSOPHY.md`,
+  `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`,
+  `docs/FIXTURE_SURFACE_GUIDE.md`,
+  `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`, `scripts/validate_repo.py`, and
+  `tests/test_validate_repo.py`.
 - Validation route: `python -m pytest -q tests/test_validate_repo.py -k score_semantics`
   or `python -m pytest -q tests/test_validate_repo.py -k eval_review_guide`,
   or `python -m pytest -q tests/test_validate_repo.py -k blind_spot_disclosure`,
-  plus `python scripts/validate_repo.py`.
+  plus `python scripts/validate_repo.py`; proof-guide route phrasing uses the
+  root docs validation battery.
 
 ## Review Log
 
@@ -135,3 +145,20 @@ As of 2026-05-24:
   focused validator tests.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k blind_spot_disclosure`
   and `python scripts/validate_repo.py`.
+
+### 2026-05-24 - Proof guide route phrasing aligned
+
+- Previous assumption: central proof guides could rely on shorthand contrast
+  phrasing around relation semantics, portability, comparison drift, noisy
+  variation, artifact/process grouping, fixture scope, repeated windows, and
+  proof philosophy.
+- New reality: low-context agents need those guides to name the route criteria
+  directly: direct dependency separation, status-bounded portability,
+  comparison disclosure, uncertainty preservation, explicit evidence, claim
+  scope, distinct artifact/process readings, and owner-routed growth claims.
+- Reason: these guides support proof-object authority without adding new
+  validator law to a wording-only route clarification.
+- Source surfaces updated: eval rubric, baseline comparison guide, eval
+  philosophy, artifact/process separation guide, fixture surface guide, and
+  repeated-window discipline guide.
+- Validation: root docs validation battery.

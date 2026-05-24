@@ -1109,6 +1109,26 @@ READ_MODEL_COMMAND_OWNER_PATHS = (
     "mechanics/README.md",
     "mechanics/EVIDENCE_CLUSTERS.md",
 )
+RELEASING_ROUTE_MAP_REQUIRED_TOKENS = (
+    "## Operating Card",
+    "root release process guide",
+    "bounded release scope",
+    "readiness/live-status route",
+    "release-support validation lane",
+    "root validation lane",
+    "local release-prep reviewability evidence",
+    "current git, GitHub, tag, release, PR, and objective evidence",
+    "requirement-by-requirement handoff evidence",
+    "current objective audit and landing evidence",
+    "pre-PR snapshot",
+    "current git and GitHub evidence for live branch, commit, push, PR",
+)
+RELEASING_FORBIDDEN_STATUS_LEDGER_TOKENS = (
+    "not a tag",
+    "not a branch",
+    "not goal completion",
+    "goal-completion proof",
+)
 ROOT_README_SURFACE_REQUIRED_TOKENS = (
     "# aoa-evals Bounded Proof Canon",
     "AoA proof canon",
@@ -9341,6 +9361,29 @@ def validate_read_model_command_ownership(repo_root: Path) -> list[ValidationIss
     return issues
 
 
+def validate_releasing_route_map_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    text = require_tokens(
+        repo_root=repo_root,
+        path_name="docs/RELEASING.md",
+        tokens=RELEASING_ROUTE_MAP_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    if text:
+        for stale_phrase in RELEASING_FORBIDDEN_STATUS_LEDGER_TOKENS:
+            if stale_phrase in text:
+                issues.append(
+                    ValidationIssue(
+                        "docs/RELEASING.md",
+                        "release guide must route readiness artifacts to live-status owners instead of stale status-ledger negative wording "
+                        f"'{stale_phrase}'",
+                    )
+                )
+
+    return issues
+
+
 def validate_source_eval_tree_topology_surfaces(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
 
@@ -12331,8 +12374,8 @@ def validate_release_support_readiness_audit_surface(repo_root: Path) -> list[Va
             "docs/RELEASING.md",
             (
                 RELEASE_SUPPORT_READINESS_AUDIT_NAME,
-                "not a tag",
-                "goal-completion proof",
+                "local release-prep reviewability evidence",
+                "current git, GitHub, tag, release, PR, and objective evidence",
             ),
         ),
         (
@@ -12636,7 +12679,11 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
         ),
         (
             "docs/RELEASING.md",
-            (STRATEGIC_CLOSEOUT_AUDIT_NAME, "not goal completion"),
+            (
+                STRATEGIC_CLOSEOUT_AUDIT_NAME,
+                "requirement-by-requirement handoff evidence",
+                "current objective audit and landing evidence",
+            ),
         ),
         (
             RELEASE_SUPPORT_MECHANIC_README_NAME,
@@ -12940,8 +12987,8 @@ def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[Validation
             "docs/RELEASING.md",
             (
                 RELEASE_PREP_PR_HANDOFF_NAME,
-                "not a branch",
-                "not a branch, commit",
+                "pre-PR snapshot",
+                "current git and GitHub evidence for live branch, commit, push, PR",
             ),
         ),
         (
@@ -19263,6 +19310,7 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_memory_consumer_proof_boundary_surfaces(repo_root))
     issues.extend(validate_docs_readme_route_map(repo_root))
     issues.extend(validate_read_model_command_ownership(repo_root))
+    issues.extend(validate_releasing_route_map_surface(repo_root))
     issues.extend(validate_source_eval_tree_topology_surfaces(repo_root))
     issues.extend(validate_audit_surface_role(repo_root))
     issues.extend(validate_index_surface_roles(repo_root))

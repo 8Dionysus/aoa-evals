@@ -3,12 +3,25 @@
 This guide defines the lightweight publication flow for docs and public eval surfaces in `aoa-evals`.
 
 This is a v1 guide.
-It describes bounded release discipline, not full release automation.
+It keeps release discipline bounded and routes automation, landing, and
+publication state to their owner surfaces.
 
 See also:
 - [Documentation Map](README.md)
 - [Contributing](../CONTRIBUTING.md)
 - [Eval Review Guide](EVAL_REVIEW_GUIDE.md)
+
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | root release process guide for docs and public eval surfaces |
+| input | bounded release scope, docs-only release, draft bundle, baseline/regression release, status promotion, readiness audit, or publication question |
+| output | release scope route, local check route, readiness/live-status route, changelog route, or publication record route |
+| owner | this guide for the release procedure; `CHANGELOG.md` for public narrative; release-support mechanics for readiness and handoff artifacts; GitHub surfaces for live PR/CI/merge state |
+| next route | `mechanics/release-support/AGENTS.md`, `mechanics/release-support/README.md`, `CHANGELOG.md`, `scripts/release_check.py`, `.github/AGENTS.md`, affected source bundle, or generated builder |
+| tools | nearest `AGENTS.md`, release-support validation lane, root validation lane, release check, generated-reader checks, and latest-sibling canary when current sibling compatibility is part of the release claim |
+| validation | `docs/AGENTS.md#validation` and `mechanics/release-support/AGENTS.md#validation` |
 
 ## Release units
 
@@ -35,12 +48,13 @@ When you need the latest-sibling canary rather than the pinned repo-validation
 lane, use the boundary-bridge validation route in
 `mechanics/boundary-bridge/AGENTS.md#validation`.
 
-If pinned sibling repos are not available locally, the validator will stay
-permissive about dependency-target existence. CI is the strict path-existence
-gate because it checks sibling repos out into `.deps/` and exports the matching
-`AOA_*_ROOT` variables, including `AOA_MEMO_ROOT`.
-If `abyss-stack` is not checked out beside `aoa-evals` and not under `~/src/abyss-stack`,
-export `ABYSS_STACK_ROOT` to the source checkout so runtime evidence example refs resolve against tracked schemas.
+With pinned sibling repos unavailable locally, the validator stays permissive
+about dependency-target existence. CI is the strict path-existence gate because
+it checks sibling repos out into `.deps/` and exports the matching `AOA_*_ROOT`
+variables, including `AOA_MEMO_ROOT`.
+When no `abyss-stack` checkout exists beside `aoa-evals` or under
+`~/src/abyss-stack`, export `ABYSS_STACK_ROOT` to the source checkout so
+runtime evidence example refs resolve against tracked schemas.
 The canary follows the same source-checkout rule and will prefer `~/src/abyss-stack` over a runtime-like sibling mirror when both exist.
 
 The latest-sibling canary and GitHub `Repo Validation` answer different
@@ -80,7 +94,7 @@ Before shipping a new public draft bundle:
 
 ## Baseline or regression release
 
-Before shipping a bundle whose `baseline_mode` is not `none`:
+Before shipping a bundle with active baseline mode:
 - every `evidence.path` in `eval.yaml` should resolve to a tracked public file
 - at least one `baseline_readiness` evidence note should be present
 - the frozen baseline contract should be readable by a bounded outside reviewer
@@ -109,24 +123,25 @@ Use:
 - [Eval Review Guide](EVAL_REVIEW_GUIDE.md) for promotion to `baseline`
 - [Eval Review Guide](EVAL_REVIEW_GUIDE.md) for `baseline -> canonical`
 
-Do not use metadata alone as a release gate for promotion.
+Use bundle-local review as the promotion release gate; metadata carries
+supporting evidence.
 
 ## Local-only boundary
 
-Tracked public docs and bundles should not depend on local-only material such as:
+Tracked public docs and bundles route away from local-only material such as:
 - private seeds
 - local planning files
 - unpublished fixture sources
 - hidden reviewer notes
 
-If a tracked surface needs one of those to make sense,
-it is not ready to publish in its current form.
+A tracked surface that needs one of those for meaning stays in local review
+until public-safe support exists.
 
 ## Final publication check
 
 Before finalizing a change:
 - confirm the public claim stayed bounded
-- confirm summaries do not overstate the evidence
+- confirm summaries stay within the evidence
 - confirm blind spots and interpretation notes still match the current wording
 - confirm starter-bundle integrity artifacts still match current manifest and chooser wording
 - confirm `generated/eval_catalog.json` and `generated/eval_catalog.min.json`
@@ -134,20 +149,14 @@ Before finalizing a change:
   intentionally changes generated readers
 - confirm release scope is small enough that reviewers can reason about it directly
 
-For a large accumulated refactor, read
-`mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json` before publication. That audit
-may prove local release-prep reviewability, but it is not a tag, GitHub
-Release, GitHub `Repo Validation`, PR approval, or goal-completion proof.
-If the change is also part of the long strategic refactor, read
-`mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json` as the wider requirement-by-
-requirement handoff audit. It may show local handoff readiness, but it still is
-not goal completion.
-When preparing the actual PR route, read
-`mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json` as a pre-PR snapshot for candidate
-branch, commit, PR title/body, validation, and landing steps. That handoff is
-not a branch, commit, push, PR, GitHub `Repo Validation`, merge, tag, GitHub
-Release, or goal completion; after branch or PR creation, current git and
-GitHub state supersedes it for live status.
+For a large accumulated refactor, read the release-support artifacts through
+their live-status routes:
+
+| Artifact | Read as | Live route |
+| --- | --- | --- |
+| `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json` | local release-prep reviewability evidence | current git, GitHub, tag, release, PR, and objective evidence |
+| `mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json` | requirement-by-requirement handoff evidence | current objective audit and landing evidence |
+| `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json` | pre-PR snapshot for candidate branch, commit, PR title/body, validation, and landing steps | current git and GitHub evidence for live branch, commit, push, PR, GitHub `Repo Validation`, merge, tag, and GitHub Release status |
 
 ## Publication record
 

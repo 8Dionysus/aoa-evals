@@ -8,17 +8,16 @@ Defines how rollback drill proof is judged.
 
 This document belongs to the v1.0 installation and first sovereign release wave. It turns the experience program from forged seed into installable order: landing, migration, smoke testing, operator review, first live assistant office, governed release, rollback drill, replay audit, and post-release watch.
 
-## Owns
+## Owner Routes
 
-- rollback proof
-- reachability
-- post-rollback state
-
-## Must not do
-
-- rollback promise as proof
-- drill without evidence
-- unsafe rollback pass
+| Pressure | Route |
+| --- | --- |
+| rollback proof | this bounded rollback-drill proof contract |
+| reachability | rollback evidence and operator review route |
+| post-rollback state | post-drill evidence refs |
+| rollback promise pressure | drill evidence route |
+| evidence gap pressure | evidence-ref requirement and fail-closed verdict route |
+| unsafe rollback pressure | operator denial or fail-closed verdict route |
 
 ## Flow
 
@@ -31,7 +30,7 @@ owner-local artifact
 
 ## Authority Source
 
-Release authority and cross-layer doctrine live in [Agents-of-Abyss](https://github.com/8Dionysus/Agents-of-Abyss/blob/main/docs/EXPERIENCE_WAVE5_SOVEREIGN_OFFICE.md). The no-direct-write boundary for Tree-of-Sophia lives in [Tree-of-Sophia](https://github.com/8Dionysus/Tree-of-Sophia/blob/main/docs/NO_DIRECT_EXPERIENCE_INSTALL_WRITE.md). This `aoa-evals` surface only defines owner-local contract behavior and consumes those upstream gates.
+Release authority and cross-layer doctrine live in [Agents-of-Abyss](https://github.com/8Dionysus/Agents-of-Abyss/blob/main/docs/EXPERIENCE_WAVE5_SOVEREIGN_OFFICE.md). The no-direct-write boundary for Tree-of-Sophia lives in [Tree-of-Sophia](https://github.com/8Dionysus/Tree-of-Sophia/blob/main/docs/NO_DIRECT_EXPERIENCE_INSTALL_WRITE.md). This `aoa-evals` surface routes owner-local contract behavior through those upstream gates.
 
 ## Exit signal
 

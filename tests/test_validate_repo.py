@@ -9853,12 +9853,12 @@ class TestValidateQuestRouteSurfaces:
         for path_name in validate_repo.MECHANIC_LEGACY_SKELETON_FILES:
             write_text(
                 tmp_path / path_name,
-                "# Legacy\n\n../PROVENANCE.md\nINDEX.md\nDISTILLATION_LOG.md\nraw/README.md\nnot active topology\nnew-work entrypoint\n",
+                "# Legacy\n\n../PROVENANCE.md\nINDEX.md\nDISTILLATION_LOG.md\nraw/README.md\narchive-local route\ncurrent active route\n",
             )
         readme_path = "mechanics/titan/legacy/README.md"
         write_text(
             tmp_path / readme_path,
-            "# Titan Legacy\n\nINDEX.md\nDISTILLATION_LOG.md\nraw/README.md\nnot active topology\nnew-work entrypoint\n",
+            "# Titan Legacy\n\nINDEX.md\nDISTILLATION_LOG.md\nraw/README.md\narchive-local route\ncurrent active route\n",
         )
 
         issues = validate_repo.validate_mechanics_parent_allowlist(tmp_path)

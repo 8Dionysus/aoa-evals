@@ -5,8 +5,8 @@
 This directory preserves old proof-object template and schema placement behind
 the active mechanic.
 
-Do not use it as a bundle source, template source, schema source, or generated
-reader.
+It maps old proof-object bundle, template, schema, and generated-reader
+placements back to the active mechanic route.
 
 ## Route
 
@@ -17,16 +17,15 @@ Active route first:
 3. `mechanics/proof-object/PROVENANCE.md`
 4. `legacy/INDEX.md`
 
-## Validation
+## Validation Route
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Validation commands route through [AGENTS.md](AGENTS.md#validation).
 
 ## Required Route
 
-Open `../PROVENANCE.md` before using this directory. Use `INDEX.md` for
+Open `../PROVENANCE.md` before local lookup. Use `INDEX.md` for
 old-path lookup, `DISTILLATION_LOG.md` for raw-to-active accounting, and
-`raw/README.md` for raw lineage. Legacy is not active topology and not a
-new-work entrypoint.
+`raw/README.md` for raw lineage.
+
+This legacy directory is an archive-local route: it returns historical sources
+to the current active route and keeps archive-local accounting in legacy.

@@ -10,7 +10,8 @@ Use the active route first:
 3. the target part README
 4. `mechanics/distillation/PROVENANCE.md`
 
-Legacy files here are not active contracts and are not a place for new work.
+Current distillation work starts in the active route; this legacy directory
+keeps placement lineage and raw-to-active accounting.
 
 ## Files
 
@@ -18,12 +19,14 @@ Legacy files here are not active contracts and are not a place for new work.
 - `DISTILLATION_LOG.md`: dated accounting for root or adjacent placement
   changes.
 
-No raw source bundle moved here in this slice. Source proof bundles remain
-under `evals/`.
+Source proof bundles remain under `evals/`; this archive records placement
+lineage for support surfaces that have an active route.
 
 ## Required Route
 
-Open `../PROVENANCE.md` before using this directory. Use `INDEX.md` for
+Open `../PROVENANCE.md` before local lookup. Use `INDEX.md` for
 old-path lookup, `DISTILLATION_LOG.md` for raw-to-active accounting, and
-`raw/README.md` for raw lineage. Legacy is not active topology and not a
-new-work entrypoint.
+`raw/README.md` for raw lineage.
+
+This legacy directory is an archive-local route: it returns historical sources
+to the current active route and keeps archive-local accounting in legacy.

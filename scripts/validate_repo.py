@@ -1631,8 +1631,8 @@ MECHANIC_LEGACY_README_REQUIRED_TOKENS = (
     "INDEX.md",
     "DISTILLATION_LOG.md",
     "raw/README.md",
-    "not active topology",
-    "new-work entrypoint",
+    "archive-local route",
+    "current active route",
 )
 MECHANIC_LEGACY_RAW_PAYLOAD_DECISION_REQUIRED_TOKENS = (
     "raw payload",
@@ -1650,8 +1650,9 @@ MECHANIC_LEGACY_SKELETON_DECISION_REQUIRED_TOKENS = (
     "archive-local index",
     "accounting log",
     "`../PROVENANCE.md`",
-    "not an active contract",
-    "not a new-work entrypoint",
+    "Current Applicability",
+    "Review Log",
+    "current active route",
     "unindexed raw payloads",
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_skeleton",
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_raw_payload",

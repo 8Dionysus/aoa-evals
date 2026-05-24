@@ -6518,6 +6518,38 @@ class TestValidateQuestRouteSurfaces:
     def test_agent_index_surface_validates_current_route(self) -> None:
         assert validate_repo.validate_agent_index_surface(REPO_ROOT) == []
 
+    def test_github_agents_surface_validates_current_route(self) -> None:
+        assert validate_repo.validate_github_agent_surface(REPO_ROOT) == []
+
+    def test_github_agents_rejects_stale_negative_platform_scaffold(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, validate_repo.GITHUB_AGENTS_NAME)
+        agents_path = tmp_path / validate_repo.GITHUB_AGENTS_NAME
+
+        for stale_phrase in validate_repo.GITHUB_AGENTS_STALE_ROUTE_PHRASES:
+            agents_path.write_text(
+                agents_path.read_text(encoding="utf-8")
+                + f"\n\n{stale_phrase}.\n",
+                encoding="utf-8",
+            )
+
+            issues = validate_repo.validate_github_agent_surface(tmp_path)
+
+            assert any(
+                issue.location == validate_repo.GITHUB_AGENTS_NAME
+                and "operating card and boundary route table" in issue.message
+                for issue in issues
+            )
+
+            agents_path.write_text(
+                agents_path.read_text(encoding="utf-8").replace(
+                    f"\n\n{stale_phrase}.\n",
+                    "",
+                ),
+                encoding="utf-8",
+            )
+
     def test_agent_index_surface_rejects_missing_chain(self, tmp_path: Path) -> None:
         for path_name in (
             validate_repo.AGENT_INDEX_NAME,

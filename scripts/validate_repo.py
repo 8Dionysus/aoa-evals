@@ -112,6 +112,7 @@ EVAL_SELECTION_NAME = "EVAL_SELECTION.md"
 ROADMAP_NAME = "ROADMAP.md"
 DESIGN_NAME = "DESIGN.md"
 DESIGN_AGENTS_NAME = "DESIGN.AGENTS.md"
+GITHUB_AGENTS_NAME = ".github/AGENTS.md"
 AGENTS_DISTRICT_NAME = ".agents/AGENTS.md"
 SPARK_LANE_AGENTS_NAME = ".agents/spark/AGENTS.md"
 SPARK_LANE_SWARM_NAME = ".agents/spark/SWARM.md"
@@ -451,6 +452,20 @@ ROOT_AGENTS_DESIGN_REQUIRED_TOKENS = (
     "DESIGN.AGENTS.md",
     "mechanics/EVIDENCE_CLUSTERS.md",
     "docs/decisions/",
+)
+GITHUB_AGENTS_REQUIRED_TOKENS = (
+    "## Operating Card",
+    "GitHub platform route",
+    "root `AGENTS.md` owns branch/PR/CI/merge",
+    "Repo Validation",
+    "## Boundary Routes",
+    "CI-green pressure",
+    "public-safe and deterministic",
+)
+GITHUB_AGENTS_STALE_ROUTE_PHRASES = (
+    "Do not encode sibling-repo doctrine",
+    "Do not add secrets",
+    "Do not make CI green",
 )
 DECISION_SURFACE_REQUIRED_TOKENS = (
     "bounded proof",
@@ -9700,6 +9715,30 @@ def validate_audit_surface_role(repo_root: Path) -> list[ValidationIssue]:
         tokens=AGENTS_AUDIT_ROUTE_REQUIRED_TOKENS,
         issues=issues,
     )
+
+    return issues
+
+
+def validate_github_agent_surface(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    text = require_tokens(
+        repo_root=repo_root,
+        path_name=GITHUB_AGENTS_NAME,
+        tokens=GITHUB_AGENTS_REQUIRED_TOKENS,
+        issues=issues,
+    )
+    if text:
+        for stale_phrase in GITHUB_AGENTS_STALE_ROUTE_PHRASES:
+            if stale_phrase in text:
+                issues.append(
+                    ValidationIssue(
+                        GITHUB_AGENTS_NAME,
+                        ".github route card should use an operating card and boundary route table "
+                        "instead of stale negative platform scaffold "
+                        f"'{stale_phrase}'",
+                    )
+                )
 
     return issues
 
@@ -19501,6 +19540,7 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_releasing_route_map_surface(repo_root))
     issues.extend(validate_source_eval_tree_topology_surfaces(repo_root))
     issues.extend(validate_audit_surface_role(repo_root))
+    issues.extend(validate_github_agent_surface(repo_root))
     issues.extend(validate_index_surface_roles(repo_root))
     issues.extend(validate_validator_surface_role(repo_root))
     issues.extend(validate_mechanic_index_surface_roles(repo_root))

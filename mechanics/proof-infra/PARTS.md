@@ -4,10 +4,10 @@
 
 `PARTS.md` lists the active parts inside `mechanics/proof-infra/`.
 
-It is not a generic inventory of every fixture, runner, scorer, schema, report,
-or template in the repository. A part is active only when `proof-infra` owns the
-operation and the stronger proof meaning stays in the bundle or owning
-mechanic.
+Use it to route shared proof-support pressure into the active part, payload
+home, stronger owner, and validation lane:
+
+`shared support pressure -> active part -> payload home -> stronger owner -> validation route`
 
 ## Active Parts
 
@@ -66,29 +66,24 @@ Owner split stays explicit: proof-infra owns reusable support contracts; source
 bundles, bundle-local runner contracts, report schemas, and owning mechanics
 keep stronger proof meaning.
 
-Stop-lines forbid promoting fixture family names into parent mechanics,
-recreating active root infrastructure aliases, or absorbing bundle-local proof
-objects and reviewed reports.
+Stop-lines route fixture-family parent pressure, former root aliases, and
+bundle-local proof objects through the boundary routes below.
 
 Validation routes through [AGENTS](AGENTS.md#validation) and the affected part
 route cards, plus targeted bundle checks when shared fixture or reportable
 paths move.
 
-## Stop-Lines
+## Boundary Routes
 
-- Do not promote a fixture family name into a parent mechanic.
-- Do not move a family here when an active mechanic part already owns the
-  operation.
-- Do not treat fixture-family placement as proof acceptance.
-- Keep former root fixture-family aliases as historical compatibility
-  vocabulary for active families.
-- Do not recreate active root `runners/`, `scorers/`, or `schemas/` payload
-  aliases for reportable contracts.
-- Do not treat `runner_surface_path`, `scorer_helper_paths`, or shared schemas
-  as stronger than bundle-local `EVAL.md`, `eval.yaml`, report schemas, or
-  reviewed reports.
-- Do not use this part to absorb bundle-local `EVAL.md`, `eval.yaml`, runner
-  contracts, report schemas, or reviewed reports.
+| Pressure | Route |
+| --- | --- |
+| Fixture-family parent pressure | `mechanics/EVIDENCE_CLUSTERS.md` before any parent proposal; fixture-family names stay part-local support. |
+| Domain-owned fixture pressure | the narrower active mechanic part that owns the operation. |
+| Fixture placement as proof acceptance | bundle-local `EVAL.md`, `eval.yaml`, fixture contract, and reviewed report. |
+| Former root fixture aliases | `PROVENANCE.md` and `legacy/` as historical compatibility vocabulary. |
+| Root `runners/`, `scorers/`, or `schemas` alias pressure | route-card-only root districts plus the active `reportable-contracts` part paths. |
+| `runner_surface_path`, `scorer_helper_paths`, or shared schema authority pressure | bundle-local interpretation surfaces and reviewed reports. |
+| Bundle-local proof-object or report pressure | source bundle files, bundle-local runner contracts, report schemas, and reviewed reports. |
 
 ## Validation
 

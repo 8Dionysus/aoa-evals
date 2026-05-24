@@ -83,6 +83,42 @@ publication receipts, sibling owner truth, or AoA center mechanics.
 It does not authorize active root payload aliases under `runners/`, `scorers/`,
 or `schemas/`.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: reportable contracts route through
+  `mechanics/proof-infra/parts/reportable-contracts/` when bundle-local runner
+  contracts consume `runner_surface_path`, `scorer_helper_paths`, or shared
+  schemas.
+- Still valid: source bundles, bundle-local schemas, examples, and reviewed
+  reports own proof interpretation.
+- Changed: active part route text now expresses scorer, runner, schema, root
+  alias, and report pressure as boundary routes instead of prohibition-heavy
+  prose.
+- Source surfaces updated:
+  `mechanics/proof-infra/PARTS.md`,
+  `mechanics/proof-infra/parts/reportable-contracts/README.md`,
+  `scripts/validate_repo.py`.
+
+## Review Log
+
+### 2026-05-24 - Boundary-route wording
+
+- Previous assumption: reportable-contract stop-lines needed repeated
+  negative wording around scorer helpers, shared runner surfaces, root aliases,
+  and bundle-local reports.
+- New reality: the invariant is clearer as a route map: scoring pressure routes
+  to source-bundle bounded review, shared-runner pressure routes to
+  bundle-local interpretation, weak-report pressure routes to evidence or
+  schema fit, root alias pressure routes to route-card-only districts, and
+  reviewed-report pressure routes back to the source bundle.
+- Reason: the active part already names inputs, outputs, stronger owner split,
+  payload homes, and validation; the boundary is easier for agents to follow
+  when each pressure has an owner route.
+- Validation: `python scripts/validate_repo.py`, focused validator tests, and
+  semantic AGENTS validation.
+
 ## Validation
 
 - `mechanics/proof-infra/PARTS.md`

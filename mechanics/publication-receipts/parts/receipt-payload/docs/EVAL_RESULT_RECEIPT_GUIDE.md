@@ -6,12 +6,13 @@ This guide defines the bounded machine-readable publication seam for
 `aoa-evals`.
 
 An `eval_result_receipt` records that one bounded eval publication happened.
-It keeps the publication legible for later derived read models without moving
-verdict meaning into telemetry.
+It keeps the publication legible for later derived read models while verdict
+meaning stays with bundle-local review.
 
-## Core rule
+## Core Rule
 
-An `eval_result_receipt` is a publication sidecar, not a second proof canon.
+An `eval_result_receipt` is a publication sidecar.
+Proof-canon pressure routes to the bundle-local report and source bundle.
 
 It is subordinate to:
 
@@ -20,7 +21,7 @@ It is subordinate to:
 - the concrete report artifact being published
 - the bundle-local interpretation boundary
 
-It does not replace bundle-local verdict meaning.
+Bundle-local verdict meaning stays with the reviewed report and source bundle.
 
 ## Shared receipt surfaces
 
@@ -46,8 +47,12 @@ to the live JSONL log.
 
 `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json` is the first
 report-to-receipt intake dry review. It may show a schema-valid
-`candidate_payload_preview`, but it is not an `eval_result_receipt`, not a
-`stats-event-envelope`, and not live log content.
+`candidate_payload_preview`.
+
+Publication pressure routes to the receipt envelope and live-publisher lane.
+Envelope pressure routes to the `stats-event-envelope` mirror and canonical
+`aoa-stats` owner. Live-log pressure routes to `.aoa/live_receipts/` through
+the live publisher.
 
 Use the dry review when checking whether a reviewed report can derive the
 payload fields. Use the publisher only when a later slice intentionally emits a
@@ -64,18 +69,18 @@ An `eval_result_receipt` may name:
 - case count or score when the owning bundle already exposes them
 - an explicit interpretation bound
 
-It should stay evidence-linked and point back to the report artifact and bundle
+It stays evidence-linked and points back to the report artifact and bundle
 contract instead of duplicating the whole proof surface.
 
-## What the receipt must not do
+## Receipt Pressure Routes
 
-Do not use this seam to:
-
-- create a repo-global score
-- replace bundle-local reports with one receipt payload
-- hide blind spots or limitations behind counters
-- convert comparative or repeated-window reads into universal rankings
-- let derived summaries pretend to own verdict logic
+| Pressure | Route |
+| --- | --- |
+| repo-global score | scoring owner and explicit score contract |
+| bundle-local report replacement | reviewed report and source bundle |
+| blind spots hidden behind counters | report limitations and interpretation boundary |
+| comparative or repeated-window read becomes universal ranking | comparison owner and bounded ranking contract |
+| derived summary claims verdict ownership | `aoa-evals` verdict owner and bundle-local review |
 
 ## Correction posture
 
@@ -83,7 +88,8 @@ Receipts should stay append-only.
 
 When a published receipt needs correction, emit a later receipt and link it
 through `supersedes`.
-Do not silently rewrite old publication facts.
+Correction pressure routes through a later receipt so publication history stays
+auditable.
 
 ## Boundary to preserve
 
@@ -93,5 +99,5 @@ Do not silently rewrite old publication facts.
 - bundle-local report schemas remain the stronger machine-readable proof
   contract
 - shared receipts remain weaker than bundle-local interpretation guidance
-- later derived stats or observatory layers may read receipts, but they do not
-  become proof authorities
+- later derived stats or observatory layers may read receipts; proof-authority
+  pressure routes back to bundle-local review

@@ -33,6 +33,6 @@
     "report_ref": "repo:aoa-evals/evals/workflow/aoa-bounded-change-quality/reports/example-report.json",
     "case_count": 3,
     "score": null,
-    "interpretation_bound": "Example only. This receipt records one bounded proof publication and does not replace bundle-local verdict meaning, limitations, or cross-bundle interpretation."
+    "interpretation_bound": "Example only. This receipt records one bounded proof publication; verdict meaning, limitations, and cross-bundle interpretation route to the bundle-local report and source bundle."
   }
 }

@@ -2747,8 +2747,8 @@ RECEIPT_INTAKE_DRY_REVIEW_REQUIRED_TOKENS = (
     "not_published",
     "not_created",
     "not_attempted",
-    "does not publish an eval result receipt",
-    "not runtime acceptance",
+    "publication pressure routes to a receipt envelope",
+    "runtime acceptance pressure",
 )
 RECEIPT_INTAKE_DRY_REVIEW_DECISION_REQUIRED_TOKENS = (
     RECEIPT_INTAKE_DRY_REVIEW_NAME,
@@ -5313,12 +5313,14 @@ EVAL_RESULT_RECEIPT_PUBLISHER_NAME = (
 )
 LIVE_EVAL_RECEIPT_LOG_NAME = ".aoa/live_receipts/eval-result-receipts.jsonl"
 EVAL_RESULT_RECEIPT_REQUIRED_TOKENS = (
-    "## Core rule",
+    "## Core Rule",
     "`eval_result_receipt`",
     "`stats-event-envelope`",
     "`supersedes`",
-    "bundle-local verdict meaning",
+    "meaning stays with bundle-local review",
     "repo-global score",
+    "## Receipt Pressure Routes",
+    "Proof-canon pressure routes",
 )
 RUNTIME_INTEGRITY_REVIEW_DOC_NAME = "mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md"
 RUNTIME_INTEGRITY_REVIEW_SCHEMA_NAME = "runtime-integrity-review.schema.json"
@@ -12144,9 +12146,9 @@ def validate_receipt_intake_dry_review_surface(repo_root: Path) -> list[Validati
         else:
             for token in (
                 "Dry review only.",
-                "does not publish an eval result receipt",
+                "publication pressure routes to a receipt envelope",
                 ".aoa/live_receipts/",
-                "does not replace bundle-local verdict meaning",
+                "verdict meaning stays with bundle-local review",
             ):
                 if token not in interpretation_bound:
                     issues.append(
@@ -12256,11 +12258,11 @@ def validate_receipt_intake_dry_review_surface(repo_root: Path) -> list[Validati
             )
         else:
             for token in (
-                "not an eval_result_receipt",
-                "not a stats-event-envelope sidecar",
-                "not live receipt log content",
-                "not proof promotion",
-                "not runtime acceptance",
+                "receipt envelope pressure",
+                "stats sidecar pressure",
+                "live log pressure",
+                "proof or bundle promotion pressure",
+                "runtime acceptance pressure",
             ):
                 if token not in boundary:
                     issues.append(
@@ -12277,11 +12279,11 @@ def validate_receipt_intake_dry_review_surface(repo_root: Path) -> list[Validati
         issues.append(ValidationIssue(location, "claim_limit must be a string"))
     else:
         for token in (
-            "does not publish an eval result receipt",
-            "append live receipt memory",
-            "accept runtime evidence",
-            "promote a bundle",
-            "complete the aoa-evals strategic refactor",
+            "Publication pressure routes",
+            "live receipt memory append routes",
+            "runtime evidence acceptance routes",
+            "bundle promotion routes",
+            "strategic closeout stays with the goal owner",
         ):
             if token not in claim_limit:
                 issues.append(

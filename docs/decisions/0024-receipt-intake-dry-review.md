@@ -68,3 +68,33 @@ completion of the whole strategic refactor.
 The route is protected by `scripts/validate_repo.py`, targeted tests for the
 dry-review artifact, publisher rejection of the dry-review shape, and the normal
 receipt tests when receipt publication behavior changes.
+
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: the intake dry review remains a non-publishing derivation review
+  for a schema-valid `candidate_payload_preview`.
+- Clarified: `interpretation_bound`, `publication_boundary.boundary`, and
+  `claim_limit` now name the publication, live-log, runtime, quest, bundle, and
+  strategic-closeout owner routes directly.
+- Source surfaces updated:
+  - `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`
+  - `scripts/validate_repo.py`
+- Validation: root repository validation, semantic AGENTS validation, receipt
+  targeted tests, generated surface checks, and full pytest stayed green.
+
+## Review Log
+
+### 2026-05-24 - Dry-review boundary strings route pressure to owners
+
+- Previous assumption: the dry-review artifact needed repeated non-publication
+  phrasing to avoid being mistaken for a receipt or closeout.
+- New reality: the artifact keeps the same statuses while its free-text fields
+  route publication, append, runtime, quest, bundle, and goal pressure to the
+  owners that can act.
+- Reason: machine-readable status fields already carry the dry-review state;
+  prose should tell agents where to go next.
+- Source surfaces updated: intake dry-review report and validator expectations.
+- Validation: root repository validation, semantic AGENTS validation, receipt
+  targeted tests, generated surface checks, and full pytest stayed green.

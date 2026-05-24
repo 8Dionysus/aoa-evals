@@ -28,12 +28,13 @@ Another repo may replace the concrete cases locally, but only if the replacement
 - keeps the frozen baseline target explicit and inspectable
 - keeps baseline and candidate on the same visible case family
 - preserves the possibility of all four public comparative readings
-- does not silently turn style-only shifts into a stronger regression or improvement claim
+- routes style-only shifts through the comparison note instead of strengthening
+  regression or improvement claims
 
 ## Public safety
 
 This family should stay public-safe:
-- no secret-bearing traces
-- no hidden reviewer-only context for reading the frozen baseline
-- no baseline target so thin that same-task regression becomes theatrical
-- no case families so broad that same-task comparison stops being bounded
+- public-safe traces only
+- frozen baseline readable without hidden reviewer-only context
+- baseline target thick enough for same-task regression to stay substantive
+- case families bounded enough for same-task comparison

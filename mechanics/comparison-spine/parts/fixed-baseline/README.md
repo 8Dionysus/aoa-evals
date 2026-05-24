@@ -35,22 +35,23 @@ Source proof bundles own the fixed-baseline claim, baseline target, verdict
 logic, and blind spots.
 
 This part owns shared fixture/readout support for fixed-baseline posture. It
-does not own bundle status promotion, global score construction, or broad
-capability growth.
+routes bundle promotion, repo-global scoring, and broad growth pressure to
+bundle-local review and owner surfaces.
 
 ## Boundary
 
 The fixture family and dossier support fixed-baseline comparison claims. They
-do not make one baseline result a repo-global score or broad capability proof.
+keep one baseline result inside the source bundle's bounded claim.
 
 ## Stop-Lines
 
-- Do not treat one fixed-baseline result as a repo-global score.
-- Do not claim broad growth from same-task regression evidence.
-- Do not promote a draft, portable, baseline, or canonical bundle by improving
-  this part.
-- Do not treat a baseline target as sibling-owner acceptance or runtime health.
-- Do not move bundle-local fixture, runner, or report contracts into this part.
+| Pressure | Route |
+| --- | --- |
+| one fixed-baseline result as repo-global score | source bundle review plus comparison-spine bounded read |
+| broad growth from same-task regression evidence | `longitudinal-window` evidence plus growth/progression owner review |
+| draft, portable, baseline, or canonical bundle promotion | bundle-local review and release/report owner route |
+| baseline target as sibling-owner acceptance or runtime health | sibling owner or `abyss-stack` runtime route with comparison evidence as support |
+| bundle-local fixture, runner, or report contracts | owning bundle contract path under `evals/` |
 
 ## Validation
 

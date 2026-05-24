@@ -23,10 +23,11 @@ The current spine is intentionally split:
 - `aoa-longitudinal-growth-snapshot` asks whether ordered named windows show modest movement on one bounded workflow surface
 - `aoa-eval-integrity-check` asks whether the public comparison wording and support artifacts still support only those bounded claims
 
-## Anti-overread rule
+## Route Checks
 
-Do not collapse this shared comparison flow into:
-- one scalar score
-- proof of broad capability growth
-- automatic baseline status for draft bridge or longitudinal surfaces
-- proof that a clean integrity read replaces the underlying comparison evidence
+| Pressure | Route |
+| --- | --- |
+| one scalar score | mode-specific comparison route |
+| broad capability growth | growth/progression owner review with bounded comparison evidence |
+| automatic baseline status for draft bridge or longitudinal surfaces | bundle-local review plus source `baseline_mode` |
+| clean integrity read replacing underlying comparison evidence | underlying comparison bundle and generated spine route |

@@ -81,6 +81,38 @@ It does not turn fixed-baseline, peer-compare, or longitudinal-window results
 into broad capability growth, repo-global scoring, runtime health, or sibling
 owner acceptance.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: `mechanics/comparison-spine/` remains the active comparison
+  operation for fixed-baseline, peer-compare, and longitudinal-window proof
+  claims.
+- Changed: active comparison-spine route surfaces now express overread,
+  generated-reader, broad-growth, repo-global-score, runtime-health, sibling,
+  and promotion pressure as pressure-to-route maps.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Comparison boundary routes
+
+- Previous assumption: comparison-spine could keep its overread limits legible
+  through stop-line prose.
+- New reality: the parent and part surfaces now route each pressure class to
+  source bundles, mode-specific parts, generated builders, growth/progression
+  owners, runtime owners, sibling owners, or release/report owners.
+- Reason: comparison outputs are especially easy to overread; routing pressure
+  directly to the next owner gives a low-context agent a clearer action path
+  than a prohibition list.
+- Source surfaces updated: `mechanics/comparison-spine/README.md`,
+  `mechanics/comparison-spine/DIRECTION.md`,
+  `mechanics/comparison-spine/PARTS.md`, the four active comparison part
+  READMEs, and `scripts/validate_repo.py`.
+- Validation: comparison-spine part README focus, catalog check, root
+  validation, semantic AGENTS validation, diff whitespace check, and full
+  pytest are the expected checks for this slice.
+
 ## Validation
 
 - `mechanics/comparison-spine/README.md` names the owned operation, source

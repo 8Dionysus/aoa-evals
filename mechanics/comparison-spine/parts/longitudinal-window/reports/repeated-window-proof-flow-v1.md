@@ -30,15 +30,16 @@ The repeated-window read should preserve:
 
 ## Distinctness boundary
 
-This repeated-window proof flow is not a substitute for `aoa-regression-same-task`.
+This repeated-window proof flow routes to `aoa-longitudinal-growth-snapshot`.
 
 `aoa-regression-same-task` asks whether one candidate materially regressed against one frozen baseline on the same bounded task family.
 This dossier asks whether one named bounded workflow surface shows modest directional movement across ordered windows.
 
-## Anti-overread rule
+## Route Checks
 
-Do not collapse this repeated-window flow into:
-- proof of broad capability growth
-- proof that every nearby workflow diagnostic improved
-- a replacement for same-task frozen-baseline comparison
-- a myth-making dashboard for long-horizon progress
+| Pressure | Route |
+| --- | --- |
+| broad capability growth | growth/progression owner review with longitudinal evidence as support |
+| every nearby workflow diagnostic improved | source diagnostic bundle review |
+| same-task frozen-baseline comparison replacement | fixed-baseline part route |
+| long-horizon progress dashboard | stats or release/report owner route with bounded claim wording |

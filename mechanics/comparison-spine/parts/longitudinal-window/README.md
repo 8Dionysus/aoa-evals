@@ -38,24 +38,25 @@ Source proof bundles own the longitudinal claim, ordered windows, invariant
 surface, verdict posture, and blind spots.
 
 This part owns shared repeated-window and stress-recovery readout support. It
-does not own broad growth proof, runtime health proof, or antifragility
-acceptance.
+routes broad growth proof, runtime health, and antifragility acceptance
+pressure to their owners with repeated-window evidence as support.
 
 ## Boundary
 
 Longitudinal-window fixture and dossier surfaces support ordered-window
-reading. They do not turn style-only movement, cleaner later wording, or one
-vivid stress-recovery window into broad growth proof.
+reading. Style-only movement, cleaner later wording, and vivid stress-recovery
+windows stay tied to the source bundle claim until owner review accepts a
+broader reading.
 
 ## Stop-Lines
 
-- Do not treat ordered-window movement as broad growth by association.
-- Do not count cleaner later wording as capability movement unless the source
-  bundle supports that claim.
-- Do not collapse repeated-window and stress-recovery evidence into runtime
-  health or antifragility acceptance.
-- Do not hide cross-window context changes or invariant drift.
-- Do not promote a bundle from repeated-window polish alone.
+| Pressure | Route |
+| --- | --- |
+| ordered-window movement as broad growth by association | source bundle claim plus growth/progression owner review |
+| cleaner later wording as capability movement | source bundle support note and invariant review |
+| repeated-window or stress-recovery evidence as runtime health or antifragility acceptance | `abyss-stack` runtime route or `mechanics/antifragility/` owner route |
+| hidden cross-window context changes or invariant drift | longitudinal support note plus paired readout route |
+| bundle promotion from repeated-window polish | bundle-local review and release/report owner route |
 
 ## Validation
 

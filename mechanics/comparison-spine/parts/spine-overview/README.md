@@ -30,23 +30,24 @@ This part owns the cross-mode comparison-spine read-order dossier.
 Source proof bundles own claim meaning, object under evaluation, comparison
 surface, verdict posture, and blind spots.
 
-This part owns only the cross-mode read-order dossier. Generated comparison
-readers remain derived companions, not source truth.
+This part owns the cross-mode read-order dossier. Generated comparison readers
+route as derived companions.
 
 ## Boundary
 
 The overview dossier routes fixed-baseline, peer-compare, and
-longitudinal-window reading. It does not replace bundle-local comparison
-surfaces or `generated/comparison_spine.json`.
+longitudinal-window reading. Bundle-local comparison surfaces and
+`generated/comparison_spine.json` keep their own source routes.
 
 ## Stop-Lines
 
-- Do not treat the overview dossier as a comparison result.
-- Do not collapse fixed-baseline, peer-compare, and longitudinal-window into
-  one score.
-- Do not use generated comparison readers as source truth.
-- Do not use read-order guidance to promote or deprecate bundles.
-- Do not turn one clean comparison into broad capability growth.
+| Pressure | Route |
+| --- | --- |
+| overview dossier as comparison result | source bundle comparison surface plus mode-specific part report |
+| fixed-baseline, peer-compare, and longitudinal-window collapsed into one score | mode-specific part route plus bundle-local review |
+| generated comparison reader as source truth | source bundle, builder, and `build_catalog.py --check` route |
+| read-order guidance as bundle promotion or deprecation | bundle-local review and release/report owner route |
+| one clean comparison as broad capability growth | declared comparison mode plus growth/progression owner review |
 
 ## Validation
 

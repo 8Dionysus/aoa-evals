@@ -19,11 +19,13 @@ The dossier stays honest only when:
 - each window keeps the same anchor workflow surface
 - style-only change stays weaker than workflow movement
 - context drift is disclosed before the top-line verdict
-- the cleanest later-looking window does not erase mixed or weaker earlier evidence
+- mixed or weaker earlier evidence remains visible beside the cleanest
+  later-looking window
 
-## Anti-overread rule
+## Route Checks
 
-Do not use this dossier as:
-- proof of broad capability growth
-- proof that repeated-window movement inherited baseline status
-- proof that one polished later window cancels earlier instability
+| Pressure | Route |
+| --- | --- |
+| broad capability growth | growth/progression owner review with longitudinal evidence as support |
+| repeated-window movement inherits baseline status | fixed-baseline part route and source `baseline_mode` |
+| one polished later window cancels earlier instability | transition notes and invariant review |

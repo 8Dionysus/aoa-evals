@@ -2896,16 +2896,17 @@ COMPARISON_SPINE_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "fixed-baseline",
     "peer-compare",
     "longitudinal-window",
-    "does not make `generated/comparison_spine.json` source truth",
+    "pressure-to-route maps",
 )
 COMPARISON_SPINE_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "spine-overview",
     "fixed-baseline",
     "peer-compare",
     "longitudinal-window",
-    "not standalone mechanics",
-    "source claim meaning stays in `evals/**/EVAL.md`",
+    "Parts carry comparison-spine fixture and readout surfaces",
+    "Source claim meaning stays in `evals/**/EVAL.md`",
     "fixture and readout surfaces",
+    "| repo-global score or broad growth proof | source bundle review plus `longitudinal-window` evidence and growth/progression owner route |",
 )
 COMPARISON_SPINE_PARTS_README_REQUIRED_TOKENS = (
     "spine-overview/",
@@ -2925,9 +2926,9 @@ COMPARISON_SPINE_PART_README_COMMON_REQUIRED_TOKENS = (
 COMPARISON_SPINE_OVERVIEW_PART_REQUIRED_TOKENS = (
     "comparison-spine-proof-flow-v1.md",
     "cross-mode",
-    "does not replace",
     "generated/comparison_spine.json",
-    "Do not collapse fixed-baseline, peer-compare, and longitudinal-window into",
+    "| overview dossier as comparison result | source bundle comparison surface plus mode-specific part report |",
+    "| fixed-baseline, peer-compare, and longitudinal-window collapsed into one score | mode-specific part route plus bundle-local review |",
 ) + COMPARISON_SPINE_PART_README_COMMON_REQUIRED_TOKENS
 COMPARISON_SPINE_FIXED_BASELINE_PART_REQUIRED_TOKENS = (
     "frozen-same-task-v1",
@@ -2935,7 +2936,8 @@ COMPARISON_SPINE_FIXED_BASELINE_PART_REQUIRED_TOKENS = (
     "fixed-baseline",
     "repo-global score",
     "baseline_target_label",
-    "Do not claim broad growth from same-task regression evidence",
+    "| one fixed-baseline result as repo-global score | source bundle review plus comparison-spine bounded read |",
+    "| broad growth from same-task regression evidence | `longitudinal-window` evidence plus growth/progression owner review |",
 ) + COMPARISON_SPINE_PART_README_COMMON_REQUIRED_TOKENS
 COMPARISON_SPINE_PEER_COMPARE_PART_REQUIRED_TOKENS = (
     "bounded-change-paired-v1",
@@ -2944,7 +2946,8 @@ COMPARISON_SPINE_PEER_COMPARE_PART_REQUIRED_TOKENS = (
     "artifact-process-paired-proof-flow-v2.md",
     "Peer-compare",
     "matched_surface",
-    "Do not turn peer comparison into fixed-baseline by association",
+    "| peer comparison into fixed-baseline by association | source bundle `baseline_mode` and fixed-baseline part route |",
+    "| peer-compare blur as broad capability growth or repo-global score | bounded comparison read plus growth/progression owner review |",
 ) + COMPARISON_SPINE_PART_README_COMMON_REQUIRED_TOKENS
 COMPARISON_SPINE_LONGITUDINAL_PART_REQUIRED_TOKENS = (
     "repeated-window-bounded-v1",
@@ -2953,7 +2956,8 @@ COMPARISON_SPINE_LONGITUDINAL_PART_REQUIRED_TOKENS = (
     "stress-recovery-window-proof-flow-v1.md",
     "broad growth proof",
     "cross-window invariants",
-    "Do not treat ordered-window movement as broad growth by association",
+    "| ordered-window movement as broad growth by association | source bundle claim plus growth/progression owner review |",
+    "| repeated-window or stress-recovery evidence as runtime health or antifragility acceptance | `abyss-stack` runtime route or `mechanics/antifragility/` owner route |",
 ) + COMPARISON_SPINE_PART_README_COMMON_REQUIRED_TOKENS
 COMPARISON_SPINE_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "Comparison Spine Part Contract Guard",
@@ -2968,6 +2972,7 @@ COMPARISON_SPINE_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "stronger owner split",
     "stop-lines",
     "broad growth",
+    "pressure-to-owner routes",
     "python scripts/build_catalog.py --check",
 )
 COMPARISON_SPINE_REPORT_PARTS_DECISION_REQUIRED_TOKENS = (

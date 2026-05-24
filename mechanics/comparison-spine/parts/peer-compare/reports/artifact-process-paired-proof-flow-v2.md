@@ -24,9 +24,10 @@ Before assigning a bridge verdict, keep visible:
 - the matched-condition evidence that keeps the read truly side by side
 - the reason a mixed or noise-limited result stayed mixed
 
-## Anti-overread rule
+## Route Checks
 
-Do not use this dossier as:
-- proof that artifact quality outranks workflow discipline in general
-- proof that workflow discipline outranks artifact quality in general
-- proof that witness reviewability or compost provenance replaced the standalone artifact/process layer
+| Pressure | Route |
+| --- | --- |
+| artifact quality outranks workflow discipline in general | bundle-local review plus peer-compare evidence |
+| workflow discipline outranks artifact quality in general | bundle-local review plus peer-compare evidence |
+| witness reviewability or compost provenance replaces the artifact/process layer | source artifact/process layer plus provenance owner route |

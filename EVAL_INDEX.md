@@ -2,6 +2,18 @@
 
 This file is the repository-wide agent-facing index of public eval bundles.
 
+## Operating Card
+
+| Field | Route |
+|---|---|
+| role | repository-wide agent-facing index of public eval bundles |
+| input | public bundle inventory question, eval layer/status map question, category lookup, or starter-surface audit |
+| output | bundle-local source route, layer route, generated reader route, or validation route |
+| owner | `EVAL_INDEX.md` owns public starter-table and layer-index wording; bundle-local source files own claim meaning |
+| next route | `EVAL_SELECTION.md`, selected `evals/**/EVAL.md`, `eval.yaml`, `generated/README.md`, or comparison/mechanic support routes |
+| tools | generated catalog/readers, comparison spine reader, report index, and eval source validator |
+| validation | [evals/AGENTS.md#validation](evals/AGENTS.md#validation) and root [AGENTS.md#verify](AGENTS.md#verify) |
+
 ## Starter eval bundles
 
 | name | category | status | summary |
@@ -27,7 +39,7 @@ This file is the repository-wide agent-facing index of public eval bundles.
 | aoa-regression-same-task | regression | baseline | Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth. |
 | aoa-artifact-review-rubric | artifact | portable | Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating artifact quality as proof of workflow discipline or as an artifact/process bridge. |
 | aoa-compost-provenance-preservation | artifact | draft | Checks whether witness-derived compost artifacts preserve provenance, review state, limits, and contradiction posture as they move toward note, principle, or canon-candidate surfaces. |
-| aoa-output-vs-process-gap | comparative | draft | Compares artifact-side and process-side readings on the same bounded cases as a bridge surface, not as a replacement for standalone artifact review, standalone workflow review, or baseline comparison. |
+| aoa-output-vs-process-gap | comparative | draft | Compares artifact-side and process-side readings on the same bounded cases after standalone artifact review, standalone workflow review, or baseline comparison is already visible. |
 | aoa-eval-integrity-check | capability | bounded | Checks whether current public starter bundles stay coherent as eval surfaces across manifest contract, verdict wording, evidence coverage, and public routing; this bounded integrity sidecar now travels with comparison-spine wording waves. |
 | aoa-longitudinal-growth-snapshot | longitudinal | draft | Checks whether ordered, comparable windows on the same bounded workflow surface show modest directional movement without upgrading that movement into broad capability growth. |
 

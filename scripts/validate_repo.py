@@ -1305,6 +1305,32 @@ INDEX_SURFACE_ROLE_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
         "Top-down route",
     ),
 }
+EVAL_SOURCE_ENTRY_OPERATING_CARD_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
+    EVAL_SELECTION_NAME: (
+        "## Operating Card",
+        "root eval chooser for first bundle selection",
+        "proof question, claim class, maturity need, comparison need, or diagnostic pressure",
+        "selected source eval bundle, comparison surface, or defer-to-index route",
+        "`EVAL_SELECTION.md` owns first-choice chooser wording",
+        "[evals/AGENTS.md#validation](evals/AGENTS.md#validation)",
+    ),
+    EVAL_INDEX_NAME: (
+        "## Operating Card",
+        "repository-wide agent-facing index of public eval bundles",
+        "public bundle inventory question, eval layer/status map question",
+        "`EVAL_INDEX.md` owns public starter-table and layer-index wording",
+        "generated catalog/readers, comparison spine reader, report index, and eval source validator",
+        "[evals/AGENTS.md#validation](evals/AGENTS.md#validation)",
+    ),
+    "evals/README.md": (
+        "## Operating Card",
+        "source eval package tree for bundle-local proof objects",
+        "source proof question, bundle lookup, claim-family path",
+        "bundle-local `EVAL.md` and `eval.yaml` own claim meaning",
+        "`evals/AGENTS.md` owns source-tree edit law",
+        "[evals/AGENTS.md#validation](AGENTS.md#validation)",
+    ),
+}
 VALIDATOR_SURFACE_ROLE_REQUIRED_TOKENS = (
     "## Applies to",
     "## Role",
@@ -10007,6 +10033,20 @@ def validate_index_surface_roles(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
 
     for path_name, tokens in INDEX_SURFACE_ROLE_REQUIRED_TOKENS.items():
+        require_tokens(
+            repo_root=repo_root,
+            path_name=path_name,
+            tokens=tokens,
+            issues=issues,
+        )
+
+    return issues
+
+
+def validate_eval_source_entry_operating_cards(repo_root: Path) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+
+    for path_name, tokens in EVAL_SOURCE_ENTRY_OPERATING_CARD_REQUIRED_TOKENS.items():
         require_tokens(
             repo_root=repo_root,
             path_name=path_name,
@@ -19955,6 +19995,7 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_audit_surface_role(repo_root))
     issues.extend(validate_github_agent_surface(repo_root))
     issues.extend(validate_index_surface_roles(repo_root))
+    issues.extend(validate_eval_source_entry_operating_cards(repo_root))
     issues.extend(validate_validator_surface_role(repo_root))
     issues.extend(validate_mechanic_index_surface_roles(repo_root))
     issues.extend(validate_root_design_surfaces(repo_root))

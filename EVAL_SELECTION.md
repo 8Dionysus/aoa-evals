@@ -11,6 +11,18 @@ This surface prefers:
 - modest public states
 - honest uncertainty
 
+## Operating Card
+
+| Field | Route |
+|---|---|
+| role | root eval chooser for first bundle selection |
+| input | proof question, claim class, maturity need, comparison need, or diagnostic pressure |
+| output | selected source eval bundle, comparison surface, or defer-to-index route |
+| owner | `EVAL_SELECTION.md` owns first-choice chooser wording; bundle-local source files own claim meaning |
+| next route | selected `evals/**/EVAL.md`, `eval.yaml`, `EVAL_INDEX.md`, generated readers, or evals AGENTS validation |
+| tools | generated catalog/readers and eval source validation routes |
+| validation | [evals/AGENTS.md#validation](evals/AGENTS.md#validation) and root [AGENTS.md#verify](AGENTS.md#verify) |
+
 ## Current Starter Posture
 
 | Eval | Status | Use when |

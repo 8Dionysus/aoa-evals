@@ -7096,6 +7096,55 @@ class TestValidateQuestRouteSurfaces:
     def test_index_surface_roles_validate_current_headings(self) -> None:
         assert validate_repo.validate_index_surface_roles(REPO_ROOT) == []
 
+    def test_eval_source_entry_operating_cards_validate_current_routes(self) -> None:
+        assert validate_repo.validate_eval_source_entry_operating_cards(REPO_ROOT) == []
+
+    def test_eval_source_entry_operating_cards_reject_missing_selection_card(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in validate_repo.EVAL_SOURCE_ENTRY_OPERATING_CARD_REQUIRED_TOKENS:
+            copy_repo_text(tmp_path, path_name)
+        selection_path = tmp_path / validate_repo.EVAL_SELECTION_NAME
+        selection_path.write_text(
+            selection_path.read_text(encoding="utf-8").replace(
+                "## Operating Card",
+                "## Route Notes",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_eval_source_entry_operating_cards(tmp_path)
+
+        assert any(
+            issue.location == validate_repo.EVAL_SELECTION_NAME
+            and "## Operating Card" in issue.message
+            for issue in issues
+        )
+
+    def test_eval_source_entry_operating_cards_reject_missing_source_index_card(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in validate_repo.EVAL_SOURCE_ENTRY_OPERATING_CARD_REQUIRED_TOKENS:
+            copy_repo_text(tmp_path, path_name)
+        source_index_path = tmp_path / "evals" / "README.md"
+        source_index_path.write_text(
+            source_index_path.read_text(encoding="utf-8").replace(
+                "## Operating Card",
+                "## Route Notes",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_eval_source_entry_operating_cards(tmp_path)
+
+        assert any(
+            issue.location == "evals/README.md"
+            and "## Operating Card" in issue.message
+            for issue in issues
+        )
+
     def test_index_surface_roles_reject_generic_decision_heading(
         self, tmp_path: Path
     ) -> None:

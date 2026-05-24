@@ -11,6 +11,17 @@ See also:
 - [Eval Philosophy](EVAL_PHILOSOPHY.md)
 - [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md)
 
+## Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | score and verdict interpretation guide for eval result surfaces |
+| input | result surface, case evidence, rubric axis, bundle-level verdict, scalar-score pressure, or collapse pressure |
+| output | score interpretation bound, expanded result shape, per-case note route, bundle-level verdict route, or review gap |
+| owner | this guide owns score semantics; bundle-local `EVAL.md`, `eval.yaml`, reports, and review notes own concrete claim meaning |
+| next route | `docs/EVAL_REVIEW_GUIDE.md`, `docs/VERDICT_INTERPRETATION_GUIDE.md`, `docs/EVAL_RUBRIC.md`, or the affected bundle |
+| validation | `docs/AGENTS.md#validation` |
+
 ## Default posture
 
 This repository prefers:
@@ -27,7 +38,7 @@ Use a scalar score only when it has a strict interpretation contract.
 |---|---|
 | `evidence` | Directly inspectable material such as traces, diffs, outputs, classifications, logs, or review notes tied to a case. |
 | `signal` | A bounded pattern extracted from evidence, such as scope drift, explicit verification, or refusal quality. |
-| `rubric axis` | One named review dimension used to structure judgment. An axis is not the whole claim. |
+| `rubric axis` | One named review dimension used to structure judgment. An axis carries one part of the claim. |
 | `per-case note` | The bounded result for one case, fixture item, or scenario. |
 | `bundle-level summary` | The compact cross-case reading of what happened across the eval surface. |
 | `verdict` | The bounded judgment about whether the stated claim is supported on this eval surface. |
@@ -48,8 +59,8 @@ Preferred order:
 5. scalar or aggregate score
 
 Implications:
-- a clean score must not erase a material failed case
-- a bundle-level verdict must not silently contradict per-case evidence
+- a clean score preserves material failed cases in the interpretation bound
+- a bundle-level verdict stays consistent with per-case evidence
 - a rubric axis must stay interpretable from observed evidence
 - if aggregate output hides a meaningful disagreement, prefer `mixed support`
 
@@ -61,11 +72,14 @@ Rubric axes should:
 - avoid heavy overlap with nearby axes
 - avoid pretending to be the whole claim
 
-Rubric axes should not:
-- duplicate the final verdict in slightly different words
-- average unrelated failure modes into false objectivity
-- replace explicit blind-spot disclosure
-- create the illusion of precision without clearer meaning
+Route these rubric-axis pressure signals:
+
+| Pressure | Route |
+| --- | --- |
+| axis repeats the final verdict in slightly different words | collapse it into the verdict or split a real evidence dimension |
+| unrelated failure modes get averaged into false objectivity | keep separate axes or use `mixed support` |
+| blind spots disappear into axis labels | add explicit blind-spot disclosure |
+| precision appears without clearer meaning | weaken the score shape or add an interpretation bound |
 
 Examples of good axis shapes:
 - scope stayed declared and reviewable
@@ -92,7 +106,8 @@ If cases materially diverge, prefer:
 - explicit uncertainty notes
 - or `mixed support`
 
-Do not let one impressive case stand in for the bundle.
+One impressive case stays per-case evidence; the bundle verdict follows
+cross-case support.
 
 ## Score shapes
 
@@ -101,12 +116,12 @@ Do not let one impressive case stand in for the bundle.
 | `categorical` | Best default for most draft and bounded bundles. | Must still name evidence and interpretation limits. |
 | `pass-fail` | Useful when the claim surface is crisp and blocking failures are clear. | Easy to over-read if failure modes vary widely. |
 | `comparative` | Useful when the bundle is explicitly baseline-shaped. | Not valid without stable comparison semantics. |
-| `scalar-with-interpretation` | Acceptable when thresholds, ranges, and gaming risks are explicit. | Never let the number become the whole meaning. |
-| `mixed` | Useful when a bundle genuinely needs both structured axes and a bounded verdict. | Do not use mixed shape to hide unclear semantics. |
+| `scalar-with-interpretation` | Acceptable when thresholds, ranges, and gaming risks are explicit. | Keep the number subordinate to the evidence and interpretation bound. |
+| `mixed` | Useful when a bundle genuinely needs both structured axes and a bounded verdict. | Use mixed shape to expose unclear semantics before collapsing them. |
 
-## When not to collapse into one score
+## When To Keep Results Expanded
 
-Do not collapse the result into one number when:
+Keep the result expanded when:
 - the bundle is composite and nearby failure modes matter separately
 - the bundle is diagnostic and one blocking failure should dominate interpretation
 - the fixture surface is thin or still highly local-shaped
@@ -124,12 +139,12 @@ In those cases, prefer:
 
 Every score or verdict should make clear:
 - what it captures
-- what it does not capture
+- what remains outside its capture boundary
 - whether it is per-case or bundle-level
 - whether it supports standalone or comparative reading
 - what nearby bundle should be used for a narrower diagnosis if needed
 
-A score without an interpretation bound is not a strong public surface.
+A score with an interpretation bound becomes a reviewable public surface.
 
 ## Composite and diagnostic bundles
 
@@ -142,12 +157,12 @@ Composite bundles:
 
 Diagnostic bundles:
 - should isolate one failure class or bounded review question
-- should say what they intentionally do not evaluate
+- should name intentionally excluded questions
 - should treat blocking contradictions seriously rather than smoothing them away
 
 ## Final note
 
-In `aoa-evals`, a score is never the point.
+In `aoa-evals`, a score serves the bounded claim.
 
 The point is a bounded, reviewable claim supported by legible evidence.
 

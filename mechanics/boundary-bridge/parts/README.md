@@ -43,7 +43,7 @@ validation lane.
 | Source signal | Operation test | Next route |
 | --- | --- | --- |
 | sibling ref needs posture before supporting local proof | compatibility map owns the posture vocabulary | `compatibility-map/README.md` |
-| sibling checkout freshness needs a local canary | matrix and runner can check current sibling state without editing sibling truth | `latest-sibling-canary/README.md` |
+| sibling checkout freshness needs a local canary | matrix and runner check current sibling state while sibling truth stays owner-routed | `latest-sibling-canary/README.md` |
 | orchestrator-facing proof anchor needs local eval routing | source class remains owner-routed while eval anchor is local | `orchestrator-proof-anchors/README.md` |
 | Phase Alpha playbook run needs eval-anchor support refs | sibling run truth remains in playbooks while local anchors are generated | `phase-alpha-eval-matrix/README.md` |
 | new boundary bridge pressure | distinct source surface, owner split, payload home, and validation lane exist | parent `PARTS.md` update plus decision review |

@@ -21,12 +21,12 @@ The owned operation is:
 
 `repo-qualified ref or class-facing proof anchor -> sibling owner route -> current/legacy/rejected/unresolved posture -> latest-sibling canary or quest validator -> bundle-local review or quest review`
 
-This package turns sibling path drift into a reviewable compatibility boundary
-instead of a one-off broken-link chore. It also keeps orchestrator-facing proof
-anchors as a bridge part rather than creating an `orchestrator` parent package
-or importing role identity from `aoa-agents`. It also keeps the Phase Alpha
-eval matrix as a bridge from sibling-owned playbook run truth to local eval
-anchors rather than leaving the matrix builder as a loose root script.
+This package gives sibling path drift a standing compatibility boundary:
+posture vocabulary, latest-sibling canary evidence, sibling owner route, and
+bundle-local review. Orchestrator-facing proof anchors stay in the bridge part,
+with role identity routed to `aoa-agents`. The Phase Alpha eval matrix stays as
+the bridge from sibling-owned playbook run truth to local eval anchors, with
+its builder owned by the matrix part.
 
 ## Source Surfaces
 
@@ -64,7 +64,8 @@ anchors rather than leaving the matrix builder as a loose root script.
 - orchestrator-facing quest records that cite `aoa-agents` class refs,
   playbook family refs, and memo surface refs;
 - Phase Alpha run matrix entries from `aoa-playbooks` that need local eval
-  anchors and support refs without importing playbook authority;
+  anchors and support refs with playbook authority routed back to
+  `aoa-playbooks`;
 - legacy sibling refs that still preserve provenance or accepted input.
 
 ## Outputs
@@ -86,8 +87,8 @@ sibling ref may support a local proof claim.
 The sibling repo owns the referenced object meaning.
 
 `abyss-stack` is special: the canary uses the `abyss-stack-source` resolver so
-runtime evidence schema refs resolve against the source checkout rather than a
-deployed `Configs` mirror.
+runtime evidence schema refs resolve against the source checkout; the deployed
+`Configs` mirror remains runtime artifact territory.
 
 ## Boundaries
 
@@ -131,6 +132,6 @@ validation lane before closeout.
 
 ## Next Route
 
-The next honest movement is to add a machine-readable compatibility ledger only
-after repeated sibling drift proves the current docs and canary matrix are not
-enough.
+The next honest movement is a machine-readable compatibility ledger when
+repeated sibling drift shows the current docs and canary matrix need a shared
+ledger surface.

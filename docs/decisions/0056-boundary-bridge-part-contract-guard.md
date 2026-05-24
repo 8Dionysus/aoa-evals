@@ -62,6 +62,36 @@ turn generated quest readers into source truth.
 It does not transfer `aoa-agents`, `aoa-playbooks`, `aoa-memo`, `aoa-kag`,
 `abyss-stack`, or other sibling owner authority into `aoa-evals`.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: Boundary Bridge part README files carry inputs, outputs, owner
+  split, stop-lines, and validation routes for the part contracts.
+- Clarified: the lower parts route and latest-sibling-canary part now describe
+  sibling checkout freshness and sibling edit pressure as owner-routed
+  operations with canary output kept as local compatibility evidence.
+- Source surfaces updated: `mechanics/boundary-bridge/parts/README.md` and
+  `mechanics/boundary-bridge/parts/latest-sibling-canary/README.md`.
+- Validation route: root repo validation, focused Boundary Bridge validator
+  tests, latest-sibling canary, and Phase Alpha matrix check.
+
+## Review Log
+
+### 2026-05-24 - Boundary Bridge part route language clarified
+
+- Previous assumption: part route wording could contrast local canary checks
+  with direct sibling edits.
+- New reality: the agent-facing part route should state the positive operation:
+  current sibling checkout evidence enters the local canary lane; sibling edits
+  and acceptance stay in sibling-owner routes.
+- Reason: the part index should let a low-context agent choose route, owner,
+  tool lane, and validation lane directly.
+- Source surfaces updated: `mechanics/boundary-bridge/parts/README.md` and
+  `mechanics/boundary-bridge/parts/latest-sibling-canary/README.md`.
+- Validation: package-local and repo-wide checks described in the closeout for
+  the implementing slice.
+
 ## Validation
 
 - `python scripts/validate_repo.py`

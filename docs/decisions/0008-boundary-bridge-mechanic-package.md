@@ -68,6 +68,40 @@ generated-reader truth, bundle promotion, or runtime verdict meaning.
 
 It does not replace bundle-local review.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: Boundary Bridge remains the local package route for
+  repo-qualified sibling proof refs, latest-sibling canary evidence,
+  orchestrator proof anchors, and Phase Alpha eval matrix bridge work.
+- Clarified: the package README now presents the route as a positive operating
+  boundary: posture vocabulary, canary evidence, sibling owner route, and
+  bundle-local review.
+- Source surfaces updated: `mechanics/boundary-bridge/README.md`,
+  `mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md`,
+  and `mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`.
+- Validation route: root repo validation plus the Boundary Bridge canary and
+  Phase Alpha matrix checks named by the package `AGENTS.md`.
+
+## Review Log
+
+### 2026-05-24 - Boundary Bridge entry route language clarified
+
+- Previous assumption: the README could explain the package by contrasting it
+  with one-off broken-link repair, `orchestrator` parent creation, loose root
+  scripts, and deployed runtime mirrors.
+- New reality: the agent-facing entry route should name the standing operation
+  directly: compatibility posture, canary evidence, sibling owner routing,
+  bundle-local review, local proof anchors, and matrix-part ownership.
+- Reason: low-context agents orient faster from positive owner-route maps than
+  from prohibition-heavy self-description.
+- Source surfaces updated: `mechanics/boundary-bridge/README.md`,
+  `mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md`,
+  and `mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`.
+- Validation: package-local and repo-wide checks described in the closeout for
+  the implementing slice.
+
 ## Validation
 
 - `mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md` names the compatibility map and posture

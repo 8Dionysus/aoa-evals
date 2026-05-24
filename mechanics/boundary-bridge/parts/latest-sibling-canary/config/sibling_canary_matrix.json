@@ -68,7 +68,7 @@
       "repo": "abyss-stack",
       "root_variable": "ABYSS_STACK_ROOT",
       "path": "../abyss-stack",
-      "purpose": "prove runtime evidence schema refs against a real source checkout instead of a runtime mirror",
+      "purpose": "prove runtime evidence schema refs against the runtime source checkout with deployed mirrors kept outside proof-source resolution",
       "resolver": "abyss-stack-source"
     }
   ]

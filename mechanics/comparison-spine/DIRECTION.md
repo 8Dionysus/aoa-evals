@@ -34,9 +34,12 @@ not justify a growth claim or a new part.
 
 ## Stop-lines
 
-- Do not infer general improvement from one run.
-- Do not treat generated comparison readers as proof authority.
-- Do not collapse baseline, peer, and longitudinal questions into one score.
+| Pressure | Route |
+| --- | --- |
+| general improvement from one run | source bundle claim plus declared comparison mode |
+| generated comparison reader as proof authority | source bundle, builder, and `build_catalog.py --check` route |
+| baseline, peer, and longitudinal questions collapsed into one score | mode-specific part route plus bundle-local review |
+| broad growth, repo-global score, runtime health, or sibling acceptance | comparison readout as evidence plus the owning growth, runtime, sibling, or release route |
 
 ## Validation
 

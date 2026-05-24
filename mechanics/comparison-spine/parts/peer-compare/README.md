@@ -37,23 +37,24 @@ dossiers.
 Source proof bundles own the peer-compare claim, compared surfaces, matched
 conditions, verdict posture, and blind spots.
 
-This part owns shared paired fixture/readout support. It does not choose a
-winner, promote a bridge, establish a default truth source, or turn comparison
-into baseline by association.
+This part owns shared paired fixture/readout support. Winner, bridge promotion,
+default truth source, and baseline pressure route through bundle-local review.
 
 ## Boundary
 
 Peer-compare fixtures and dossiers support side-by-side bounded reading. They
-do not turn one side into the default truth source, and they do not promote a
-draft bridge by association.
+keep both sides inside matched-condition evidence until a source owner accepts a
+stronger read.
 
 ## Stop-Lines
 
-- Do not turn peer comparison into fixed-baseline by association.
-- Do not make one side the default truth source without bundle-local review.
-- Do not promote draft bridge surfaces through paired readout polish.
-- Do not erase matched-condition limits or artifact/process separation.
-- Do not use peer-compare blur as broad capability growth or repo-global score.
+| Pressure | Route |
+| --- | --- |
+| peer comparison into fixed-baseline by association | source bundle `baseline_mode` and fixed-baseline part route |
+| one side as default truth source | bundle-local review plus source owner acceptance |
+| draft bridge promotion from paired readout polish | release/report owner route with bundle-local review |
+| matched-condition limits or artifact/process separation drift | peer-compare support note and paired report route |
+| peer-compare blur as broad capability growth or repo-global score | bounded comparison read plus growth/progression owner review |
 
 ## Validation
 

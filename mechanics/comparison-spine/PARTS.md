@@ -18,8 +18,8 @@ The mechanic owns the route:
 
 ## Boundary
 
-Parts are not standalone mechanics. They carry comparison-spine fixture and readout surfaces
-while source claim meaning stays in `evals/**/EVAL.md` and
+Parts carry comparison-spine fixture and readout surfaces under the parent
+operation. Source claim meaning stays in `evals/**/EVAL.md` and
 `evals/**/eval.yaml`, and generated comparison readers stay derived.
 
 ## Part Contract
@@ -33,8 +33,15 @@ peer compare, longitudinal windows, and stress-recovery windows.
 Owner split stays explicit: bundles own claim meaning; comparison-spine owns
 comparison posture and read order; generated readers remain derived.
 
-Stop-lines forbid style-only movement, repo-global scoring, broad growth proof,
-or treating a shared dossier as stronger than the source proof object.
+Stop-lines are pressure routes:
+
+| Pressure | Route |
+| --- | --- |
+| style-only movement as capability movement | source bundle support note plus mode-specific report route |
+| repo-global score or broad growth proof | source bundle review plus `longitudinal-window` evidence and growth/progression owner route |
+| shared dossier stronger than source proof object | bundle-local `EVAL.md`, `eval.yaml`, and comparison surface route |
+| generated comparison reader as source truth | source bundle, builder, and generated check route |
+| bundle promotion or deprecation | bundle-local review and release/report owner route |
 
 Validation routes through [AGENTS](AGENTS.md#validation), including generated
 comparison-spine and repo validation lanes.

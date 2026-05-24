@@ -59,6 +59,42 @@ runtime health, transfer sibling authority, or claim broad capability growth.
 It does not move bundle-local fixture, runner, report, or schema contracts into
 comparison-spine parts.
 
+## Current Applicability
+
+As of 2026-05-24:
+
+- Still valid: the four comparison-spine part README files remain the active
+  part-level contract surfaces for overview, fixed-baseline, peer-compare, and
+  longitudinal-window support.
+- Changed: each required `## Stop-Lines` section now carries
+  pressure-to-owner routes for overread, generated truth, broad growth,
+  repo-global scoring, runtime health, sibling acceptance, promotion, and
+  bundle-local contract pressure.
+- Superseded by: none.
+
+## Review Log
+
+### 2026-05-24 - Part-level pressure routes
+
+- Previous assumption: part README stop-lines could list overread limits and
+  remain clear enough for future agents.
+- New reality: part stop-lines now route the pressure to the next owner:
+  source bundle review, mode-specific part reports, generated builder checks,
+  release/report owner routes, `abyss-stack`, antifragility, sibling owners, or
+  growth/progression review.
+- Reason: comparison-spine parts are readout support, so the right next action
+  is owner routing rather than a local refusal.
+- Source surfaces updated:
+  `mechanics/comparison-spine/parts/spine-overview/README.md`,
+  `mechanics/comparison-spine/parts/fixed-baseline/README.md`,
+  `mechanics/comparison-spine/parts/peer-compare/README.md`,
+  `mechanics/comparison-spine/parts/longitudinal-window/README.md`,
+  `mechanics/comparison-spine/PARTS.md`, and `scripts/validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k comparison_spine_part_readmes`,
+  `python scripts/validate_repo.py`, `python scripts/build_catalog.py --check`,
+  `python scripts/validate_semantic_agents.py`, and full pytest are the
+  expected checks for this slice.
+
 ## Validation
 
 - `python scripts/validate_repo.py`

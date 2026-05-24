@@ -30,15 +30,16 @@ The same-task read should preserve:
 
 ## Distinctness boundary
 
-This same-task proof flow is not a substitute for `aoa-longitudinal-growth-snapshot`.
+This same-task proof flow routes to `aoa-regression-same-task`.
 
 `aoa-longitudinal-growth-snapshot` asks whether ordered windows on one bounded workflow surface show movement over time.
 This dossier asks whether one candidate materially regressed against one frozen baseline on the same bounded task family.
 
-## Anti-overread rule
+## Route Checks
 
-Do not collapse this baseline flow into:
-- one scalar score
-- proof of general capability growth
-- proof that one clean same-task comparison explains every nearby diagnostic change
-- a replacement for one-run workflow or trace-aware diagnosis
+| Pressure | Route |
+| --- | --- |
+| one scalar score | fixed-baseline verdict plus bundle-local interpretation |
+| general capability growth | longitudinal/growth owner review with this baseline as support |
+| one clean same-task comparison explains nearby diagnostic change | diagnosis or proof-loop owner route |
+| one-run workflow or trace-aware diagnosis replacement | source workflow bundle or trace-aware diagnosis route |

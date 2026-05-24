@@ -30,12 +30,13 @@ Another repo may replace the concrete cases locally, but only if the replacement
 - keeps the artifact surface inspectable without private context
 - keeps the workflow surface inspectable enough for bounded review
 - preserves the possibility of all four paired shapes
-- does not silently turn style preference into a stronger proof surface
+- routes style preference through the paired note instead of strengthening the
+  proof surface
 
 ## Public safety
 
 This family should stay public-safe:
-- no secret-bearing traces
-- no hidden house-style expectations
-- no private deployment assumptions
-- no task families so broad that artifact/process pairing stops being bounded
+- public-safe traces only
+- house-style expectations visible in the case text
+- deployment assumptions public or excluded
+- task families bounded enough for artifact/process pairing

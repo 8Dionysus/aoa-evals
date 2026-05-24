@@ -31,15 +31,17 @@ The paired read should preserve:
 
 ## Distinctness boundary
 
-This paired flow is not a substitute for `aoa-trace-outcome-separation`.
+This paired flow routes artifact/process comparison through
+`aoa-output-vs-process-gap`.
 
 `aoa-trace-outcome-separation` asks whether outcome and path should stay separate.
 This dossier asks whether artifact quality and process quality diverge or align on the same bounded cases.
 
-## Anti-overread rule
+## Route Checks
 
-Do not collapse this paired flow into:
-- one scalar score
-- a baseline-default comparator
-- a claim that one side always matters more
-- a root-cause diagnosis for every divergence
+| Pressure | Route |
+| --- | --- |
+| one scalar score | paired verdict plus side-by-side interpretation |
+| baseline-default comparator | fixed-baseline part route and source `baseline_mode` |
+| one side always matters more | bundle-local claim review |
+| root-cause diagnosis for every divergence | diagnosis owner route with paired evidence as support |

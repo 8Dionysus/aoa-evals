@@ -10,9 +10,11 @@ Use it to show:
 - the bounded bundle posture
 - the main blind spots and evidence gaps
 
-This dossier does not outrank:
+This dossier routes pressure back to:
 
-- owner receipts
-- playbook gates
-- KAG projection-health or regrounding objects
-- the bundle-local machine-readable report
+| Pressure | Route |
+| --- | --- |
+| owner receipt truth | owner receipt route |
+| playbook gate truth | `aoa-playbooks` gate route |
+| KAG projection-health or regrounding truth | `aoa-kag` or regrounding owner route |
+| bundle-local machine-readable report | source bundle report route |

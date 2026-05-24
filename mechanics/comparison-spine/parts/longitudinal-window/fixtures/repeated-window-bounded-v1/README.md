@@ -28,12 +28,12 @@ Another repo may replace the concrete window sequence locally, but only if the r
 - keeps the windows named and comparable before the longitudinal read begins
 - preserves the possibility of all four public movement readings
 - discloses context drift that materially changes comparability
-- does not silently turn report polish into a stronger movement claim
+- routes report polish through context notes before strengthening movement
 
 ## Public safety
 
 This family should stay public-safe:
-- no secret-bearing run histories
-- no hidden local chronology required to understand the window sequence
-- no undeclared case-family drift across windows
-- no growth claims that outrun the named bounded workflow surface
+- public-safe run histories only
+- window sequence readable without hidden local chronology
+- case-family drift declared across windows
+- growth wording bounded by the named workflow surface

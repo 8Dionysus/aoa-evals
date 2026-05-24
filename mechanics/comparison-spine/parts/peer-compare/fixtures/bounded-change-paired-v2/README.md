@@ -35,12 +35,13 @@ Another repo may replace the concrete cases locally, but only if the replacement
 - keeps artifact-side and process-side evidence readable on the same case family
 - keeps matched conditions visible before any bridge verdict is assigned
 - preserves the possibility of all four paired shapes
-- does not silently let polished output stand in for workflow proof
+- routes polished output through artifact-side evidence while workflow proof
+  stays process-side
 
 ## Public safety
 
 This family should stay public-safe:
-- no secret-bearing traces
-- no hidden house-style expectations
-- no private deployment assumptions
-- no side-by-side read that depends on missing matched-condition evidence
+- public-safe traces only
+- house-style expectations visible in the case text
+- deployment assumptions public or excluded
+- matched-condition evidence present before side-by-side reading

@@ -76,8 +76,8 @@ Comparison may cite skills, techniques, runtime candidates, sibling owner
 surfaces, reports, or generated readers.
 
 Those cited surfaces remain weaker than the source proof object for the bounded
-claim. Comparison routing does not make one result a repo-global score, broad
-growth proof, runtime health proof, or sibling owner acceptance.
+claim. Repo-global score, broad growth, runtime health, and sibling acceptance
+pressure route through the boundary map below before comparison wording widens.
 
 ## Comparison Modes
 
@@ -92,13 +92,15 @@ The current default public baseline surface is `aoa-regression-same-task`.
 
 Use when two peer readings are compared side by side on matched bounded cases.
 
-Peer comparison is not baseline by association.
+Peer comparison stays a side-by-side reading until the source bundle declares a
+fixed-baseline route.
 
 ### `longitudinal-window`
 
 Use when ordered named windows stay on one bounded workflow surface.
 
-Repeated-window movement is not broad growth by association.
+Repeated-window movement stays bounded to the declared workflow surface until
+growth or progression owners accept a broader reading.
 
 ## Boundaries
 

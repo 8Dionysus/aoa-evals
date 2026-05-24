@@ -60,8 +60,8 @@ the primary validation surfaces without owning executable commands.
 - Put a new Agon artifact in the part that owns its proof-alignment question.
 - Create a new part only when no existing part can own the source, generated,
   and validation route honestly.
-- Do not split one future-growing operation into a proof-suffix child. Grow the
-  parent part unless the new work has a different source, generated, and
+- Grow one future-extensible operation inside its parent part. A proof-suffix
+  child starts only when the new work has a different source, generated, and
   validation route.
 - Keep historical wave landing files behind `PROVENANCE.md` unless they are
   distilled into an active part surface.

@@ -1703,6 +1703,25 @@ MECHANIC_PARENT_README_STALE_STOP_LINE_LEAD_IN = "Do not use this package to cla
 MECHANIC_PARENT_README_STALE_PROVENANCE_ROUTE = (
     "[PROVENANCE.md](PROVENANCE.md) only"
 )
+ACTIVE_MECHANIC_ROUTE_STALE_ROLE_PHRASES: dict[str, tuple[str, ...]] = {
+    "mechanics/boundary-bridge/README.md": (
+        "refs that should not feed proof",
+    ),
+    "mechanics/agon/PARTS.md": (
+        "Do not split one future-growing operation",
+    ),
+    "mechanics/agon/README.md": (
+        "They do not define the active package name",
+        "not the route for new Agon work",
+    ),
+    "mechanics/distillation/README.md": (
+        "It is not an active Distillation source surface",
+        "not a replacement for the source bundles",
+    ),
+    "mechanics/proof-loop/README.md": (
+        "Do not use it as a generic eval-result example",
+    ),
+}
 MECHANIC_PARENT_AGENTS_DIRECTION_ROUTE_REQUIRED_TOKENS = (
     "## Entry Route",
     "current operating direction",
@@ -19112,6 +19131,20 @@ def validate_mechanic_parent_direction_surfaces(
                     "mechanic parent README must introduce Stop-Lines as a bounded eval-side proof boundary, not the old package-claim scaffold",
                 )
             )
+
+    for path_name, stale_phrases in ACTIVE_MECHANIC_ROUTE_STALE_ROLE_PHRASES.items():
+        text = read_text_or_issue(repo_root / path_name, issues, root=repo_root)
+        if text is None:
+            continue
+        for stale_phrase in stale_phrases:
+            if stale_phrase in text:
+                issues.append(
+                    ValidationIssue(
+                        path_name,
+                        "active mechanic route surface must use positive owner-route language instead of stale negative role scaffold "
+                        f"{stale_phrase!r}",
+                    )
+                )
 
     for parent_name, path_name in zip(
         ACTIVE_MECHANIC_PARENT_NAMES,

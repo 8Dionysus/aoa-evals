@@ -93,8 +93,9 @@ It selects `aoa-verification-honesty`, follows the local proof-loop route, and
 ends in a bounded route-smoke only: no eval result receipt, no bundle promotion,
 and no runtime or sibling evidence acceptance.
 
-Use it as evidence that the route can be followed locally. Do not use it as a
-generic eval-result example.
+Use it as route-smoke evidence that the loop can be followed locally. Generic
+eval-result examples route through bundle-local reports and receipt-support
+surfaces after review.
 
 ## Parts
 

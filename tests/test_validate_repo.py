@@ -8443,6 +8443,29 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_mechanic_parent_direction_rejects_stale_negative_route_language(
+        self, tmp_path: Path
+    ) -> None:
+        readme_name = validate_repo.AGON_MECHANIC_README_NAME
+        copy_repo_text(tmp_path, readme_name)
+        readme_path = tmp_path / readme_name
+        readme_path.write_text(
+            readme_path.read_text(encoding="utf-8").replace(
+                "The active\npackage name stays `mechanics/agon/`.",
+                "They do not define the active package name.",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
+
+        assert any(
+            issue.location == readme_name
+            and "positive owner-route language" in issue.message
+            for issue in issues
+        )
+
     def test_mechanic_parent_agents_rejects_stale_provenance_side_path(
         self, tmp_path: Path
     ) -> None:

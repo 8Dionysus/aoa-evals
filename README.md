@@ -76,10 +76,10 @@ Before trusting, publishing, or extending a proof claim, ask the narrowest owner
 
 ## Current Contour
 
-`aoa-evals` currently carries 36 source eval bundles, generated proof readers,
-runtime-candidate templates, trace and receipt bridges, phase-alpha matrices,
-Agon alignment surfaces, mechanics packages, and public-safe proof references
-into sibling owners.
+`aoa-evals` currently carries the source eval bundle corpus, generated proof
+readers, runtime-candidate templates, trace and receipt bridges, phase-alpha
+matrices, Agon alignment surfaces, mechanics packages, and public-safe proof
+references into sibling owners.
 
 Current public eval discovery lives in:
 

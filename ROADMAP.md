@@ -49,10 +49,10 @@ only land a local surface?
 
 ## Current Direction
 
-`aoa-evals` is past bootstrap. The repository now carries 36 eval bundles,
-generated proof readers, runtime-candidate templates, trace and receipt
-bridges, phase-alpha matrices, Agon alignment surfaces, mechanics packages, and
-public-safe proof references into sibling owners.
+`aoa-evals` is past bootstrap. The repository now carries the source eval
+bundle corpus, generated proof readers, runtime-candidate templates, trace and
+receipt bridges, phase-alpha matrices, Agon alignment surfaces, mechanics
+packages, and public-safe proof references into sibling owners.
 
 The current movement is proof-organ maturity:
 

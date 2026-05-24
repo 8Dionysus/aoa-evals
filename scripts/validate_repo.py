@@ -12233,10 +12233,21 @@ def validate_mechanic_lower_parts_index_operating_cards(
     repo_root: Path,
 ) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
-    index_paths = sorted((repo_root / "mechanics").glob("*/parts/README.md"))
+    parts_dirs = sorted(
+        path for path in (repo_root / "mechanics").glob("*/parts") if path.is_dir()
+    )
 
-    for path in index_paths:
+    for parts_dir in parts_dirs:
+        path = parts_dir / "README.md"
         relative_name = path.relative_to(repo_root).as_posix()
+        if not path.exists():
+            issues.append(
+                ValidationIssue(
+                    relative_name,
+                    "lower parts index README is missing",
+                )
+            )
+            continue
         require_tokens(
             repo_root=repo_root,
             path_name=relative_name,

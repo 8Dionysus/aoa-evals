@@ -82,7 +82,8 @@ As of 2026-05-24:
   inputs, outputs, stronger owner split, stop-lines, and validation.
 - Changed: lower part indexes at `mechanics/<parent>/parts/README.md` now also
   carry an operating-card contract with role, input, output, owner, next route,
-  tools, validation, active parts, and part admission route.
+  tools, validation, active parts, and part admission route. Every active
+  `mechanics/<parent>/parts/` directory now needs that lower index.
 - Superseded by: none.
 
 ## Review Log
@@ -101,6 +102,22 @@ As of 2026-05-24:
   pressure routes next.
 - Source surfaces updated: active `mechanics/*/parts/README.md` lower indexes,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: lower-index operating-card tests, root validation, semantic
+  AGENTS validation, generated catalog check, diff whitespace check, and full
+  pytest.
+
+### 2026-05-24 - Missing lower parts indexes closed
+
+- Previous assumption: parent `PARTS.md` could carry enough local part-index
+  detail even when `mechanics/<parent>/parts/README.md` was absent.
+- New reality: `checkpoint`, `experience`, and `recurrence` now expose lower
+  `parts/README.md` operating cards like the rest of active mechanics.
+- Reason: agents often enter from the file tree at `parts/`; the directory
+  itself needs a route surface before the agent chooses a concrete part.
+- Source surfaces updated: `mechanics/checkpoint/parts/README.md`,
+  `mechanics/experience/parts/README.md`,
+  `mechanics/recurrence/parts/README.md`, `scripts/validate_repo.py`, and
+  `tests/test_validate_repo.py`.
 - Validation: lower-index operating-card tests, root validation, semantic
   AGENTS validation, generated catalog check, diff whitespace check, and full
   pytest.

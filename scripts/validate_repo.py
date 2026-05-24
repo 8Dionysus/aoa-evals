@@ -543,8 +543,8 @@ MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME = (
     "docs/decisions/0106-memory-consumer-proof-boundary.md"
 )
 MEMORY_CONSUMER_PROOF_BOUNDARY_README_TOKENS = (
-    "Use `aoa-memo` for reviewed memory objects and recall posture.",
     "`aoa-evals`",
+    "reviewed `aoa-memo` object ids and provenance",
     "can cite reviewed recall as bounded context",
     "proof authority stays with",
     "eval bundle or owning mechanic",
@@ -1180,7 +1180,6 @@ ROOT_README_SURFACE_REQUIRED_TOKENS = (
     "mechanics/README.md",
     "Eval Bundle Selection Chooser",
     "Eval Bundle Index",
-    "generated/eval_report_index.min.json",
     "public proof-organ entry",
     "Agent route law and local checks",
     "Executable validation routes live in",
@@ -1188,6 +1187,11 @@ ROOT_README_SURFACE_REQUIRED_TOKENS = (
 )
 ROOT_README_SURFACE_FORBIDDEN_TOKENS = (
     "Which comparison, artifact/process, repeated-window, or shared-infra guide applies?",
+    "generated/eval_catalog.min.json",
+    "generated/eval_capsules.json",
+    "generated/eval_sections.full.json",
+    "generated/eval_report_index.min.json",
+    "generated/comparison_spine.json",
 )
 DOCS_README_ROUTE_MAP_REQUIRED_TOKENS = (
     "# Documentation Map",
@@ -12210,8 +12214,8 @@ def validate_proof_loop_local_report_surfaces(repo_root: Path) -> list[Validatio
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="README.md",
-        tokens=("Evidence And Handoff", "docs/README.md#mechanic-and-evidence-anchors"),
+        path_name="docs/README.md",
+        tokens=("Mechanic And Evidence Anchors",),
         issues=issues,
     )
     require_tokens(
@@ -12284,8 +12288,8 @@ def validate_receipt_intake_dry_review_surface(repo_root: Path) -> list[Validati
             ),
         ),
         (
-            "README.md",
-            ("Evidence And Handoff", "docs/README.md#mechanic-and-evidence-anchors"),
+            "docs/README.md",
+            ("Mechanic And Evidence Anchors",),
         ),
         ("docs/README.md", (RECEIPT_INTAKE_DRY_REVIEW_NAME, "Receipt Intake Dry Review")),
         (
@@ -12665,8 +12669,8 @@ def validate_release_support_readiness_audit_surface(repo_root: Path) -> list[Va
             ),
         ),
         (
-            "README.md",
-            ("Evidence And Handoff", "docs/README.md#mechanic-and-evidence-anchors"),
+            "docs/README.md",
+            ("Mechanic And Evidence Anchors",),
         ),
         (
             "docs/README.md",
@@ -12939,8 +12943,8 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
     )
     for path_name, tokens in (
         (
-            "README.md",
-            ("Evidence And Handoff", "docs/README.md#mechanic-and-evidence-anchors"),
+            "docs/README.md",
+            ("Mechanic And Evidence Anchors",),
         ),
         (
             "docs/README.md",
@@ -13245,8 +13249,8 @@ def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[Validation
     )
     for path_name, tokens in (
         (
-            "README.md",
-            ("Evidence And Handoff", "docs/README.md#mechanic-and-evidence-anchors"),
+            "docs/README.md",
+            ("Mechanic And Evidence Anchors",),
         ),
         (
             "docs/README.md",
@@ -13583,11 +13587,11 @@ def validate_comparison_doctrine_surfaces(
         index_text = ""
         issues.append(ValidationIssue(EVAL_INDEX_NAME, "file is missing"))
 
-    if "generated/comparison_spine.json" not in readme_text:
+    if "generated reader index" not in readme_text:
         issues.append(
             ValidationIssue(
                 "README.md",
-                "README.md must reference generated/comparison_spine.json",
+                "README.md must route generated comparison readers through the generated reader index",
             )
         )
 
@@ -19302,7 +19306,6 @@ def validate_eval_report_index_route_surfaces(repo_root: Path) -> list[Validatio
         issues=issues,
     )
     for path_name in (
-        "README.md",
         "docs/README.md",
         "CHANGELOG.md",
         "generated/AGENTS.md",

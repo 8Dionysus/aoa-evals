@@ -729,7 +729,7 @@ def make_repo_docs(
         See `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md` when you need the artifact/process layer.
         See `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md` when you need repeated-window discipline.
         See `docs/SHARED_PROOF_INFRA_GUIDE.md` when you need shared proof infra rules.
-        Generated comparison routing lives in `generated/comparison_spine.json`.
+        Generated comparison routing lives through the generated reader index.
         """,
     )
     write_text(
@@ -6720,6 +6720,27 @@ class TestValidateQuestRouteSurfaces:
         readme_path.write_text(
             readme_path.read_text(encoding="utf-8")
             + "\n| Which comparison, artifact/process, repeated-window, or shared-infra guide applies? | docs guide catalog |\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_root_readme_surface_role(tmp_path)
+
+        assert any(
+            issue.location == "README.md"
+            and "detailed proof-guide catalogs route to docs/README.md"
+            in issue.message
+            for issue in issues
+        )
+
+    def test_root_readme_surface_role_rejects_generated_reader_catalog_bloat(
+        self, tmp_path: Path
+    ) -> None:
+        for path_name in ("README.md", "docs/README.md"):
+            copy_repo_text(tmp_path, path_name)
+        readme_path = tmp_path / "README.md"
+        readme_path.write_text(
+            readme_path.read_text(encoding="utf-8")
+            + "\n- [generated/eval_report_index.min.json](generated/eval_report_index.min.json)\n",
             encoding="utf-8",
         )
 

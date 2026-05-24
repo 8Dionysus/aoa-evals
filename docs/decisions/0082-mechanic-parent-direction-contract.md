@@ -51,6 +51,8 @@ As of 2026-05-24:
   validation posture for each active mechanic parent.
 - Changed: parent direction source splits now name `legacy/` as the
   archive-local route opened by `PROVENANCE.md`.
+- Changed: parent README and AGENTS entry routes now name `PROVENANCE.md` as
+  the active-to-archive bridge for legacy or former-placement lookup.
 - Superseded by: no new decision; this is a route-language amendment of the
   same parent direction contract.
 
@@ -65,6 +67,20 @@ As of 2026-05-24:
 - Reason: low-context agents should see the active-to-archive handoff in the
   source-of-truth split before opening parts or legacy.
 - Source surfaces updated: `mechanics/*/DIRECTION.md`,
+  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
+- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  mechanic_parent_direction`; `python scripts/validate_repo.py`.
+
+### 2026-05-24 - Parent entry provenance route made positive
+
+- Previous assumption: parent README and AGENTS entry routes treated
+  `PROVENANCE.md` as an only-when legacy side path.
+- New reality: parent README and AGENTS entry routes name `PROVENANCE.md` as
+  the active-to-archive bridge for historical and former-placement lookup.
+- Reason: low-context agents should see the provenance handoff as part of the
+  active route before opening archive-local legacy details.
+- Source surfaces updated: `mechanics/*/README.md`,
+  `mechanics/*/AGENTS.md`, one part-local recurrence `AGENTS.md` handoff,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k
   mechanic_parent_direction`; `python scripts/validate_repo.py`.

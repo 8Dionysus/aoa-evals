@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/proof-loop/DIRECTION.md` for current operating direction, `mechanics/proof-loop/PARTS.md` for active parts, and `mechanics/proof-loop/PROVENANCE.md` only when legacy or former placement matters.
+Start with the package README. Then read `mechanics/proof-loop/DIRECTION.md` for current operating direction, `mechanics/proof-loop/PARTS.md` for active parts, and `mechanics/proof-loop/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
 
 ## Applies to
 

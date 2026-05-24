@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/recurrence/DIRECTION.md` for current operating direction, `mechanics/recurrence/PARTS.md` for active parts, and `mechanics/recurrence/PROVENANCE.md` only when legacy or former placement matters.
+Start with the package README. Then read `mechanics/recurrence/DIRECTION.md` for current operating direction, `mechanics/recurrence/PARTS.md` for active parts, and `mechanics/recurrence/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
 
 ## Applies to
 
@@ -37,7 +37,7 @@ bundle-local review, or stronger-owner handoff routes.
 5. `mechanics/recurrence/README.md`
 6. `mechanics/recurrence/PARTS.md`
 7. target part `README.md`
-8. `mechanics/recurrence/PROVENANCE.md` only for old placement or raw lineage
+8. `mechanics/recurrence/PROVENANCE.md` as the active-to-archive bridge for old placement or raw lineage
 
 ## Route Rules
 

@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/titan/DIRECTION.md` for current operating direction, `mechanics/titan/PARTS.md` for active parts, and `mechanics/titan/PROVENANCE.md` only when legacy or former placement matters.
+Start with the package README. Then read `mechanics/titan/DIRECTION.md` for current operating direction, `mechanics/titan/PARTS.md` for active parts, and `mechanics/titan/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
 
 ## Applies to
 

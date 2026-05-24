@@ -1602,14 +1602,22 @@ MECHANIC_PARENT_README_DIRECTION_ROUTE_REQUIRED_TOKENS = (
     "current operating direction",
     "[PARTS.md](PARTS.md)",
     "[PROVENANCE.md](PROVENANCE.md)",
+    "active-to-archive bridge",
     "## Validation",
     "AGENTS.md#validation",
     "## Next Route",
 )
 MECHANIC_PARENT_README_STALE_STOP_LINE_LEAD_IN = "Do not use this package to claim:"
+MECHANIC_PARENT_README_STALE_PROVENANCE_ROUTE = (
+    "[PROVENANCE.md](PROVENANCE.md) only"
+)
 MECHANIC_PARENT_AGENTS_DIRECTION_ROUTE_REQUIRED_TOKENS = (
     "## Entry Route",
     "current operating direction",
+    "active-to-archive bridge",
+)
+MECHANIC_PARENT_AGENTS_STALE_PROVENANCE_ROUTE_TEMPLATE = (
+    "`mechanics/{parent_name}/PROVENANCE.md` only"
 )
 MECHANIC_PARENT_DIRECTION_DECISION_REQUIRED_TOKENS = (
     "Mechanic Parent Direction Contract",
@@ -1620,6 +1628,7 @@ MECHANIC_PARENT_DIRECTION_DECISION_REQUIRED_TOKENS = (
     "`README.md`",
     "`PARTS.md`",
     "`PROVENANCE.md`",
+    "active-to-archive bridge",
     "not provenance",
     "not a part map",
     MECHANIC_PARENT_DIRECTION_COMMAND,
@@ -18309,6 +18318,13 @@ def validate_mechanic_parent_direction_surfaces(
         text = read_text_or_issue(repo_root / path_name, issues, root=repo_root)
         if text is None:
             continue
+        if MECHANIC_PARENT_README_STALE_PROVENANCE_ROUTE in text:
+            issues.append(
+                ValidationIssue(
+                    path_name,
+                    "mechanic parent README must route PROVENANCE.md as the active-to-archive bridge; stale only-when legacy side-path wording is retired",
+                )
+            )
         if MECHANIC_PARENT_README_STALE_STOP_LINE_LEAD_IN in text:
             issues.append(
                 ValidationIssue(
@@ -18333,6 +18349,19 @@ def validate_mechanic_parent_direction_surfaces(
             ),
             issues=issues,
         )
+        text = read_text_or_issue(repo_root / path_name, issues, root=repo_root)
+        if text is None:
+            continue
+        stale_route = MECHANIC_PARENT_AGENTS_STALE_PROVENANCE_ROUTE_TEMPLATE.format(
+            parent_name=parent_name
+        )
+        if stale_route in text:
+            issues.append(
+                ValidationIssue(
+                    path_name,
+                    "mechanic parent AGENTS card must route PROVENANCE.md as the active-to-archive bridge; stale only-when legacy side-path wording is retired",
+                )
+            )
 
     require_tokens(
         repo_root=repo_root,

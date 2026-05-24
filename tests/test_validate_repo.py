@@ -7961,7 +7961,7 @@ class TestValidateQuestRouteSurfaces:
         for path_name in validate_repo.MECHANIC_PARENT_README_FILES:
             write_text(
                 tmp_path / path_name,
-                "# Parent\n\n## Entry Route\n\n[DIRECTION.md](DIRECTION.md)\ncurrent operating direction\n[PARTS.md](PARTS.md)\n[PROVENANCE.md](PROVENANCE.md)\n",
+                "# Parent\n\n## Entry Route\n\n[DIRECTION.md](DIRECTION.md)\ncurrent operating direction\n[PARTS.md](PARTS.md)\n[PROVENANCE.md](PROVENANCE.md)\nactive-to-archive bridge\n",
             )
         for parent_name, path_name in zip(
             validate_repo.ACTIVE_MECHANIC_PARENT_NAMES,
@@ -7970,12 +7970,12 @@ class TestValidateQuestRouteSurfaces:
         ):
             write_text(
                 tmp_path / path_name,
-                f"# AGENTS.md\n\n## Entry Route\n\ncurrent operating direction\n`mechanics/{parent_name}/DIRECTION.md`\n`mechanics/{parent_name}/PARTS.md`\n`mechanics/{parent_name}/PROVENANCE.md`\n",
+                f"# AGENTS.md\n\n## Entry Route\n\ncurrent operating direction\nactive-to-archive bridge\n`mechanics/{parent_name}/DIRECTION.md`\n`mechanics/{parent_name}/PARTS.md`\n`mechanics/{parent_name}/PROVENANCE.md`\n",
             )
         readme_path = "mechanics/titan/README.md"
         write_text(
             tmp_path / readme_path,
-            "# Titan\n\n## Entry Route\n\ncurrent operating direction\n[PARTS.md](PARTS.md)\n[PROVENANCE.md](PROVENANCE.md)\n",
+            "# Titan\n\n## Entry Route\n\ncurrent operating direction\nactive-to-archive bridge\n[PARTS.md](PARTS.md)\n[PROVENANCE.md](PROVENANCE.md)\n",
         )
 
         issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
@@ -7996,7 +7996,7 @@ class TestValidateQuestRouteSurfaces:
         for path_name in validate_repo.MECHANIC_PARENT_README_FILES:
             write_text(
                 tmp_path / path_name,
-                "# Parent\n\n## Entry Route\n\n[DIRECTION.md](DIRECTION.md)\ncurrent operating direction\n[PARTS.md](PARTS.md)\n[PROVENANCE.md](PROVENANCE.md)\n\n## Owned Operation\n\nRoute proof work.\n\n## Validation\n\n[AGENTS](AGENTS.md#validation)\n",
+                "# Parent\n\n## Entry Route\n\n[DIRECTION.md](DIRECTION.md)\ncurrent operating direction\n[PARTS.md](PARTS.md)\n[PROVENANCE.md](PROVENANCE.md)\nactive-to-archive bridge\n\n## Owned Operation\n\nRoute proof work.\n\n## Validation\n\n[AGENTS](AGENTS.md#validation)\n",
             )
         for parent_name, path_name in zip(
             validate_repo.ACTIVE_MECHANIC_PARENT_NAMES,
@@ -8005,7 +8005,7 @@ class TestValidateQuestRouteSurfaces:
         ):
             write_text(
                 tmp_path / path_name,
-                f"# AGENTS.md\n\n## Entry Route\n\ncurrent operating direction\n`mechanics/{parent_name}/DIRECTION.md`\n`mechanics/{parent_name}/PARTS.md`\n`mechanics/{parent_name}/PROVENANCE.md`\n",
+                f"# AGENTS.md\n\n## Entry Route\n\ncurrent operating direction\nactive-to-archive bridge\n`mechanics/{parent_name}/DIRECTION.md`\n`mechanics/{parent_name}/PARTS.md`\n`mechanics/{parent_name}/PROVENANCE.md`\n",
             )
 
         issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
@@ -8041,6 +8041,50 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_mechanic_parent_readme_rejects_stale_provenance_side_path(
+        self, tmp_path: Path
+    ) -> None:
+        readme_name = "mechanics/titan/README.md"
+        copy_repo_text(tmp_path, readme_name)
+        readme_path = tmp_path / readme_name
+        readme_path.write_text(
+            readme_path.read_text(encoding="utf-8").replace(
+                "[PROVENANCE.md](PROVENANCE.md) as the active-to-archive bridge for legacy or former-placement lookup.",
+                "[PROVENANCE.md](PROVENANCE.md) only for legacy or former placement.",
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
+
+        assert any(
+            issue.location == readme_name
+            and "stale only-when legacy side-path wording" in issue.message
+            for issue in issues
+        )
+
+    def test_mechanic_parent_agents_rejects_stale_provenance_side_path(
+        self, tmp_path: Path
+    ) -> None:
+        agents_name = "mechanics/titan/AGENTS.md"
+        copy_repo_text(tmp_path, agents_name)
+        agents_path = tmp_path / agents_name
+        agents_path.write_text(
+            agents_path.read_text(encoding="utf-8").replace(
+                "`mechanics/titan/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.",
+                "`mechanics/titan/PROVENANCE.md` only when legacy or former placement matters.",
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
+
+        assert any(
+            issue.location == agents_name
+            and "stale only-when legacy side-path wording" in issue.message
+            for issue in issues
+        )
+
     def test_mechanic_parent_direction_rejects_missing_agents_entry_route(
         self, tmp_path: Path
     ) -> None:
@@ -8052,7 +8096,7 @@ class TestValidateQuestRouteSurfaces:
         for path_name in validate_repo.MECHANIC_PARENT_README_FILES:
             write_text(
                 tmp_path / path_name,
-                "# Parent\n\n## Entry Route\n\n[DIRECTION.md](DIRECTION.md)\ncurrent operating direction\n[PARTS.md](PARTS.md)\n[PROVENANCE.md](PROVENANCE.md)\n",
+                "# Parent\n\n## Entry Route\n\n[DIRECTION.md](DIRECTION.md)\ncurrent operating direction\n[PARTS.md](PARTS.md)\n[PROVENANCE.md](PROVENANCE.md)\nactive-to-archive bridge\n",
             )
         for parent_name, path_name in zip(
             validate_repo.ACTIVE_MECHANIC_PARENT_NAMES,
@@ -8061,12 +8105,12 @@ class TestValidateQuestRouteSurfaces:
         ):
             write_text(
                 tmp_path / path_name,
-                f"# AGENTS.md\n\n## Entry Route\n\ncurrent operating direction\n`mechanics/{parent_name}/DIRECTION.md`\n`mechanics/{parent_name}/PARTS.md`\n`mechanics/{parent_name}/PROVENANCE.md`\n",
+                f"# AGENTS.md\n\n## Entry Route\n\ncurrent operating direction\nactive-to-archive bridge\n`mechanics/{parent_name}/DIRECTION.md`\n`mechanics/{parent_name}/PARTS.md`\n`mechanics/{parent_name}/PROVENANCE.md`\n",
             )
         agents_path = "mechanics/titan/AGENTS.md"
         write_text(
             tmp_path / agents_path,
-            "# AGENTS.md\n\n## Entry Route\n\ncurrent operating direction\n`mechanics/titan/PARTS.md`\n`mechanics/titan/PROVENANCE.md`\n",
+            "# AGENTS.md\n\n## Entry Route\n\ncurrent operating direction\nactive-to-archive bridge\n`mechanics/titan/PARTS.md`\n`mechanics/titan/PROVENANCE.md`\n",
         )
 
         issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)

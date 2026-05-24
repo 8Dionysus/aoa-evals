@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/distillation/DIRECTION.md` for current operating direction, `mechanics/distillation/PARTS.md` for active parts, and `mechanics/distillation/PROVENANCE.md` only when legacy or former placement matters.
+Start with the package README. Then read `mechanics/distillation/DIRECTION.md` for current operating direction, `mechanics/distillation/PARTS.md` for active parts, and `mechanics/distillation/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
 
 ## Applies to
 
@@ -38,7 +38,7 @@ handoff routes.
 6. `mechanics/README.md`
 7. `mechanics/distillation/README.md`
 8. `mechanics/distillation/PARTS.md`
-9. `mechanics/distillation/PROVENANCE.md` only for old placement or raw lineage
+9. `mechanics/distillation/PROVENANCE.md` as the active-to-archive bridge for old placement or raw lineage
 10. the affected bundle `EVAL.md`
 
 ## Route Rules

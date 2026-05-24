@@ -17,12 +17,13 @@ The mechanic owns the route:
 
 Parts are not standalone mechanics. The `seed-boundary` part owns the current
 seed-defined canary family because all current Titan canaries share one source
-shape and one validation route. It does not split canaries by topic until a
-topic gains a different scorer, fixture, report, or validator contract.
+shape and one validation route. Topic-split pressure waits for a different
+scorer, fixture, report, or validator contract.
 
-The part remains seed-defined. It does not create full incarnation proof,
-runtime activation, summon authority, memory sovereignty, mutation-gate bypass,
-judgment-gate bypass, or executable scorer-backed proof.
+The part remains seed-defined. Full incarnation proof, runtime activation,
+summon authority, memory sovereignty, mutation-gate bypass, judgment-gate
+bypass, and executable scorer-backed proof route to stronger owners or later
+contracts before claim strengthening.
 
 ## Part Contract
 
@@ -36,9 +37,14 @@ Owner split stays explicit: `aoa-evals` owns seed-boundary proof shape;
 `aoa-agents`, `aoa-memo`, and runtime owners keep Titan role, memory, and
 activation truth.
 
-Stop-lines forbid treating canary presence as incarnation, summon authority,
-runtime cohort proof, memory sovereignty, mutation-gate bypass, or
-judgment-gate bypass.
+Stop-lines pressure routes:
+
+| Pressure | Route |
+| --- | --- |
+| canary presence reads as incarnation, summon authority, or runtime cohort proof | keep the part seed-defined and route stronger claims to Titan/runtime owners |
+| canary presence reads as memory sovereignty | route to `aoa-memo` before proof adoption |
+| mutation-gate or judgment-gate bypass pressure appears | keep the gate named in seed docs and validation |
+| executable scorer-backed proof pressure appears | wait for scorer, fixture, report, and validator contracts |
 
 Validation routes through [AGENTS](AGENTS.md#validation), including the
 `validate_titan_canary_surfaces` repo validation lane.

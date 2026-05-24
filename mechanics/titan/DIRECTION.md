@@ -33,13 +33,17 @@ decision records, and `PROVENANCE.md`.
 
 Add Titan parts only when seed-boundary pressure becomes a separate repeated
 proof operation with inputs, outputs, owner split, stop-lines, and validation.
-Do not recreate `titan-canaries` as a parent.
+`titan-canaries` parent pressure routes through `PROVENANCE.md`, legacy indexes,
+and validator-backed replacement paths.
 
 ## Stop-lines
 
-- Do not claim Titan incarnation completion, summon runtime authority, memory
-  authority, hidden arena safety, or runtime roster truth from seed canaries.
-- Do not let old `evals/` or `titan-canaries` paths steer active topology.
+| Pressure | Route |
+| --- | --- |
+| incarnation completion or broad Titan proof | keep seed canaries not incarnation proof; route stronger claims to `aoa-agents` |
+| summon runtime authority, hidden arena safety, or runtime roster truth | route to runtime and summon owners before proof wording changes |
+| memory authority | route to `aoa-memo` before adoption or proof strengthening |
+| old `evals/` or `titan-canaries` path vocabulary | enter through `PROVENANCE.md` and active `parts/seed-boundary/` routes |
 
 ## Validation
 

@@ -10350,6 +10350,36 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_agon_part_readmes_reject_stale_imperative_stop_line_phrasing(
+        self, tmp_path: Path
+    ) -> None:
+        readme_name = validate_repo.AGON_PART_README_CONTRACTS[1][0]
+        copy_repo_text(tmp_path, readme_name)
+        readme_path = tmp_path / readme_name
+
+        for stale_phrase in validate_repo.AGON_PART_README_STALE_STOP_LINE_PHRASES:
+            readme_path.write_text(
+                readme_path.read_text(encoding="utf-8")
+                + f"\n\n{stale_phrase}.\n",
+                encoding="utf-8",
+            )
+
+            issues = validate_repo.validate_mechanics_surfaces(tmp_path)
+
+            assert any(
+                issue.location == readme_name
+                and "owner tables instead of stale imperative" in issue.message
+                for issue in issues
+            )
+
+            readme_path.write_text(
+                readme_path.read_text(encoding="utf-8").replace(
+                    f"\n\n{stale_phrase}.\n",
+                    "",
+                ),
+                encoding="utf-8",
+            )
+
     def test_boundary_bridge_part_readmes_reject_missing_outputs_contract(
         self, tmp_path: Path
     ) -> None:

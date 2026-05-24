@@ -43,12 +43,11 @@ rank truth, trust truth, retention execution, and durable state authority.
 
 ## Stop-Lines
 
-- Do not mutate rank, trust, retention schedules, scars, memory, stats truth, or
-  Tree of Sophia canon.
-- Do not treat eval alignment as promotion, demotion, quarantine, or retention
-  execution.
-- Do not let generated rank-pressure records outrank owner review or
-  bundle-local proof.
+| Pressure | Route |
+| --- | --- |
+| rank, trust, retention schedule, scar, memory, stats truth, or Tree of Sophia canon mutation pressure | route to the owner of the durable state or canon; this part keeps no-mutation alignment evidence |
+| promotion, demotion, quarantine, or retention execution pressure | route to the retention/rank owner before any live effect is considered |
+| generated rank-pressure records look stronger than owner review or bundle-local proof | route back to review evidence before using the record outside the part |
 
 ## Validation
 

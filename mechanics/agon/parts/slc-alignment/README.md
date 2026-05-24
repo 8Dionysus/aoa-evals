@@ -44,11 +44,11 @@ Agents-of-Abyss law keep their own source truth and promotion authority.
 
 ## Stop-Lines
 
-- Do not canonize schools, lineages, campaigns, or Tree of Sophia meaning from
-  this part.
-- Do not issue live verdicts, arena actions, rank mutations, scars, memory
-  writes, or hidden scheduler actions.
-- Do not treat SLC alignment as owner acceptance or campaign authority.
+| Pressure | Route |
+| --- | --- |
+| schools, lineages, campaigns, or Tree of Sophia canon pressure | route to the relevant canon or authored-meaning owner; this part stays non-canon alignment |
+| live verdict, arena action, rank mutation, scar, memory write, or hidden scheduler pressure | route to the stronger live owner before any effect exists |
+| owner acceptance or campaign authority pressure | route to the owner of that school, lineage, campaign, or acceptance process |
 
 ## Validation
 

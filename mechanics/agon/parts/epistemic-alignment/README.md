@@ -46,12 +46,11 @@ truth authority, doctrine, canon, and live judgment.
 
 ## Stop-Lines
 
-- Do not rewrite doctrine, decide truth, promote to Tree of Sophia, or take over
-  owner truth.
-- Do not issue live verdict, durable scar, memory write, retention execution,
-  rank mutation, or hidden scheduler action.
-- Do not let generated epistemic records outrank source owners or bundle-local
-  review.
+| Pressure | Route |
+| --- | --- |
+| doctrine rewrite, truth decision, Tree of Sophia promotion, or owner-truth takeover pressure | route to the doctrine, ToS, or source owner; local output remains epistemic boundary alignment |
+| live verdict, durable scar, memory write, retention execution, rank mutation, or hidden scheduler pressure | route to the stronger live owner before any durable effect exists |
+| generated epistemic records look stronger than source owners or bundle-local review | route back to source-owner evidence and review before using the record |
 
 ## Validation
 

@@ -101,8 +101,8 @@ preserved lineage behind the active parts, not the route for new Agon work.
 - Keep new quest pressure in schema-backed `quests/<lane>/<state>/AOA-EV-Q-*.yaml`
   records, and keep former Agon markdown note lineage behind `PROVENANCE.md`.
 - Keep bundle-local proof review stronger than Agon mechanic signals.
-- Do not turn an eval alignment into a live verdict, arena action, or owner
-  promotion.
+- Route live verdict, arena action, and owner-promotion pressure to the stronger
+  owner before any eval-alignment signal becomes operational.
 - Preserve stop-lines such as `no_live_verdict`, `no_closure_grant`,
   `no_live_summon`, `no_durable_memory_write`, `no_rank_mutation`, and
   `no_tree_of_sophia_promotion`.

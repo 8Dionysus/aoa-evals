@@ -44,11 +44,11 @@ any future live verdict bridge.
 
 ## Stop-Lines
 
-- Do not emit or accept a live verdict.
-- Do not turn verdict draft status into closure, arena action, rank mutation,
-  scar write, memory write, or Tree of Sophia promotion.
-- Do not let generated draft-status records outrank the seed, validator, or
-  bundle-local review.
+| Pressure | Route |
+| --- | --- |
+| live verdict emission or acceptance pressure | keep this part on the no-live-verdict path and route verdict authority to Agents-of-Abyss |
+| verdict draft status pressure asks for closure, arena action, rank mutation, scar write, memory write, or Tree of Sophia promotion | route to the stronger live owner; local output remains verdict-draft alignment |
+| generated draft-status records conflict with `must_not_emit`, `may_emit`, the seed, validator, or bundle-local review | route back to the source seed and validator before treating the record as usable |
 
 ## Validation
 

@@ -27,15 +27,17 @@ Eval bundles for adoption readiness and safety.
 
 - adoption_eval_bundles
 
-## Stop lines
+## Boundary Routes
 
-- No hidden assistant self-adoption.
-- No adoption without local owner consent.
-- No direct Tree-of-Sophia runtime write or runtime adoption.
-- No KAG forced adoption into source repos.
-- No routing layer authorship of meaning.
-- No persistent change without rollback or explicit quarantine fallback.
+| Pressure | Route |
+| --- | --- |
+| hidden assistant self-adoption | release/version review and owner-local adoption decision |
+| adoption without local owner consent | owner consent refs and local owner route before activation |
+| Tree-of-Sophia runtime write or runtime adoption | ToS dossier boundary plus runtime owner route |
+| KAG forced adoption into source repos | KAG promotion gates and source-repo consent |
+| routing layer authorship of meaning | `aoa-routing` for routing behavior; source owner for meaning |
+| persistent change | rollback path, retention watch, or explicit quarantine fallback |
 
 ## Notes
 
-This document belongs to the v0.7 downstream adoption wave. It assumes the v0.6 federation harvest has already approved a shared pattern, but it refuses to treat approval as automatic adoption. Adoption is a second sovereign act: local owner consent, compatibility, shadow proof, rollback path, retention watch, and kind-safe projection are required.
+This document belongs to the v0.7 downstream adoption wave. It assumes the v0.6 federation harvest has already approved a shared pattern, then routes adoption as a second sovereign act: local owner consent, compatibility, shadow proof, rollback path, retention watch, and kind-safe projection are required before activation.

@@ -2,7 +2,14 @@
 
 - Status: Accepted
 - Date: 2026-05-19
-- Owner surface: `docs/LEGACY_NAMING.md`
+- Owner surface: `docs/architecture/LEGACY_NAMING.md`
+
+## Index Metadata
+
+- Surface classes: legacy/provenance
+- Mechanic parents: none
+- Guard families: legacy and provenance
+- Posture: legacy/provenance rationale
 
 ## Context
 
@@ -16,7 +23,7 @@ too early or let legacy vocabulary steer active topology.
 
 ## Decision
 
-Create `docs/LEGACY_NAMING.md` as the repo-level posture guide for old and
+Create `docs/architecture/LEGACY_NAMING.md` as the repo-level posture guide for old and
 overloaded-name classes.
 
 The guide names posture vocabulary:
@@ -71,10 +78,10 @@ It does not authorize copying archive details into root guidance.
 
 ## Validation
 
-- `docs/LEGACY_NAMING.md` names posture vocabulary, current-route discipline,
+- `docs/architecture/LEGACY_NAMING.md` names posture vocabulary, current-route discipline,
   and boundary rules.
 - package-local legacy route cards point back to `../PROVENANCE.md`.
-- `README.md`, `docs/README.md`, `DESIGN.md`, `docs/PROOF_TOPOLOGY.md`,
+- `README.md`, `docs/README.md`, `DESIGN.md`, `docs/architecture/PROOF_TOPOLOGY.md`,
   `ROADMAP.md`, `CHANGELOG.md`, and `docs/decisions/README.md` route to the
   guide.
 - `python scripts/validate_repo.py`

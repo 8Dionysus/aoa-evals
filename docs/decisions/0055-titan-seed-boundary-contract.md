@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/titan/parts/seed-boundary/`
 
+## Index Metadata
+
+- Surface classes: boundary/runtime/sibling
+- Mechanic parents: titan
+- Guard families: sibling and boundary
+- Posture: active rationale
+
 ## Context
 
 `mechanics/titan/` is the active parent mechanic, not `titan-canaries`.

@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/`
 
+## Index Metadata
+
+- Surface classes: mechanic part, validation guard
+- Mechanic parents: cross-parent
+- Guard families: route residue, part and payload
+- Posture: active guard rationale
+
 ## Context
 
 The mechanics refactor already guards active mechanics route cards and part

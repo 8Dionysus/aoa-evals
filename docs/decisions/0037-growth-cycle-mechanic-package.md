@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: mechanic package
+- Mechanic parents: growth-cycle
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 The Growth Cycle evidence pass found one active eval-side operation and several

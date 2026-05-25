@@ -14,7 +14,7 @@ As of 2026-05-24:
 - Clarified: active atlas and topology surfaces should describe the route as a
   validation route, with command ownership staying in AGENTS.
 - Source surfaces updated: `mechanics/README.md`,
-  `docs/PROOF_TOPOLOGY.md`, `scripts/validate_repo.py`, and
+  `docs/architecture/PROOF_TOPOLOGY.md`, `scripts/validate_repo.py`, and
   `tests/test_validate_repo.py`.
 - Validation route: `mechanics/AGENTS.md#validation` and root
   `AGENTS.md#verify`.
@@ -31,9 +31,16 @@ As of 2026-05-24:
   as the route, while validator internals keep checking reachable commands
   inside the AGENTS owner lane.
 - Source surfaces updated: `mechanics/README.md`,
-  `docs/PROOF_TOPOLOGY.md`, validator message text, and validator tests.
+  `docs/architecture/PROOF_TOPOLOGY.md`, validator message text, and validator tests.
 - Validation: use the mechanic validation route in
   `mechanics/AGENTS.md#validation`.
+
+## Index Metadata
+
+- Surface classes: mechanic part, validation guard
+- Mechanic parents: cross-parent
+- Guard families: part and payload
+- Posture: active guard rationale
 
 ## Context
 

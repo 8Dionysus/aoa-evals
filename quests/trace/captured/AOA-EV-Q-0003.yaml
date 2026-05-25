@@ -32,7 +32,7 @@ activation:
   note: review when trace or verdict surface changes
 anchor_ref:
   artifact: artifact-process-separation
-  ref: docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md
+  ref: docs/guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md
 handoff_role: eval-maintainer
 evidence:
 - trace-to-verdict seams are explicit

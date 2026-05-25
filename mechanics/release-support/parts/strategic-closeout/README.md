@@ -13,8 +13,8 @@ owner-visible final audit gate for the accumulated refactor route.
 - `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json`
 - `ROADMAP.md`
 - `CHANGELOG.md`
-- `docs/PROOF_TOPOLOGY.md`
-- `docs/LEGACY_NAMING.md`
+- `docs/architecture/PROOF_TOPOLOGY.md`
+- `docs/architecture/LEGACY_NAMING.md`
 
 The artifact reviews the long refactor goal requirement by requirement. It may
 state local handoff readiness. Goal completion routes through a current

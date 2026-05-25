@@ -29,7 +29,7 @@ activation:
   mode: immediate
 anchor_ref:
   artifact: architecture
-  ref: docs/ARCHITECTURE.md
+  ref: docs/architecture/ARCHITECTURE.md
 handoff_role: eval-maintainer
 evidence:
 - QUESTBOOK.md exists

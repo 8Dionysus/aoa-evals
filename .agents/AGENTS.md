@@ -33,8 +33,8 @@ Current maintained lanes:
 
 1. root `AGENTS.md`
 2. `DESIGN.AGENTS.md`
-3. `docs/PROOF_TOPOLOGY.md`
-4. `docs/LEGACY_NAMING.md`
+3. `docs/architecture/PROOF_TOPOLOGY.md`
+4. `docs/architecture/LEGACY_NAMING.md`
 5. the target lane or support-surface `AGENTS.md`
 6. `docs/decisions/0017-spark-agent-lane-placement.md` for Spark lane
    placement changes

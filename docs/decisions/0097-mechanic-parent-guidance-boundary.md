@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/README.md`
 
+## Index Metadata
+
+- Surface classes: proof topology
+- Mechanic parents: cross-parent
+- Guard families: parent and package, sibling and boundary
+- Posture: active rationale
+
 ## Context
 
 The mechanics refactor now makes `mechanics/<parent>/parts/<part>/` the home for

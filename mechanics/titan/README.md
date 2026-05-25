@@ -27,8 +27,8 @@ stay under `mechanics/titan/parts/seed-boundary/seeds/titan*.yaml`.
 - `mechanics/titan/parts/seed-boundary/docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md`
 - `mechanics/titan/parts/seed-boundary/seeds/titan*.yaml`
 - `mechanics/titan/parts/seed-boundary/seeds/AGENTS.md`
-- `docs/LEGACY_NAMING.md`
-- `docs/PROOF_TOPOLOGY.md`
+- `docs/architecture/LEGACY_NAMING.md`
+- `docs/architecture/PROOF_TOPOLOGY.md`
 - `scripts/validate_repo.py` function `validate_titan_canary_surfaces`
 - `tests/test_validate_repo.py`
 

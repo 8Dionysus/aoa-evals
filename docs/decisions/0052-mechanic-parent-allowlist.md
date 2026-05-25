@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/`
 
+## Index Metadata
+
+- Surface classes: validation guard
+- Mechanic parents: cross-parent
+- Guard families: parent and package
+- Posture: active guard rationale
+
 ## Context
 
 The mechanics refactor fixed several bad parent forms by routing them to the
@@ -37,7 +44,7 @@ A new parent mechanic may be added only when the same slice updates:
 - `mechanics/EVIDENCE_CLUSTERS.md`;
 - `mechanics/README.md`;
 - the new package route cards and part contracts;
-- `docs/PROOF_TOPOLOGY.md`;
+- `docs/architecture/PROOF_TOPOLOGY.md`;
 - this validator allowlist;
 - decision/changelog/roadmap surfaces that explain why the name is not a form,
   artifact, report, canary, schema, runner, generated reader, or old path

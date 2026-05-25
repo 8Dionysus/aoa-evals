@@ -20,7 +20,7 @@ or upgrade pressure routes to the owner that can carry that claim.
 | output | regression proof chain, surface-family route, interpretation boundary, or anti-overread route |
 | owner | this guide owns docs-level regression routing; bundle-local proof objects, comparison-spine parts, audit packets, and release-support parts own concrete evidence |
 | next route | [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md), [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md), [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md), [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md), `mechanics/comparison-spine/`, `mechanics/audit/`, `mechanics/release-support/`, or the affected bundle |
-| validation | [docs/AGENTS.md#validation](AGENTS.md#validation) and the nearest owner route card |
+| validation | [docs/AGENTS.md#validation](../AGENTS.md#validation) and the nearest owner route card |
 
 ## Owner Split
 
@@ -97,7 +97,7 @@ handoff, or closeout promises remain reviewable.
 
 Primary routes:
 
-- [Releasing `aoa-evals`](RELEASING.md)
+- [Releasing `aoa-evals`](../operations/RELEASING.md)
 - `mechanics/release-support/README.md`
 - `mechanics/release-support/parts/readiness-audit/reports/`
 - `mechanics/release-support/parts/strategic-closeout/reports/`
@@ -137,8 +137,8 @@ family, report path, and interpretation boundary.
 ## Validation
 
 For root regression guide or comparison-reader edits, use
-[docs/AGENTS.md#validation](AGENTS.md#validation),
-[generated/AGENTS.md#validation](../generated/AGENTS.md#validation), and the
+[docs/AGENTS.md#validation](../AGENTS.md#validation),
+[generated/AGENTS.md#validation](../../generated/AGENTS.md#validation), and the
 nearest comparison-spine route card.
 
 Use the full test suite when the edit touches bundle manifests, generated

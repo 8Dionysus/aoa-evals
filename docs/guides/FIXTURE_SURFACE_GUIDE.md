@@ -8,7 +8,7 @@ the case surface is public-safe, representative enough, and replaceable by
 contract.
 
 See also:
-- [Documentation Map](README.md)
+- [Documentation Map](../README.md)
 - [Portable Eval Boundary Guide](PORTABLE_EVAL_BOUNDARY_GUIDE.md)
 - [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
 
@@ -20,7 +20,7 @@ See also:
 | input | bundle cases, public-safety pressure, representativeness pressure, replacement pressure, or local-shaped fixture pressure |
 | output | public-safe route, fixture hardening route, replacement contract route, or bundle-local review route |
 | owner | this guide owns docs-level fixture reading discipline; bundle-local `evals/<family>/<eval>/fixtures/contract.json`, shared fixture-family parts, and bundle `EVAL.md` own concrete evidence |
-| next route | `mechanics/proof-infra/parts/fixture-families/`, narrower mechanic fixture family, bundle-local fixture contract, `docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md`, or `docs/BASELINE_COMPARISON_GUIDE.md` |
+| next route | `mechanics/proof-infra/parts/fixture-families/`, narrower mechanic fixture family, bundle-local fixture contract, `docs/guides/PORTABLE_EVAL_BOUNDARY_GUIDE.md`, or `docs/guides/BASELINE_COMPARISON_GUIDE.md` |
 | validation | `docs/AGENTS.md#validation` |
 
 ## Core question

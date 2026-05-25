@@ -24,10 +24,10 @@ This package routes the comparison operation. Source claim meaning stays in
 
 - `mechanics/comparison-spine/PARTS.md`
 - `mechanics/comparison-spine/parts/README.md`
-- `docs/COMPARISON_SPINE_GUIDE.md`
-- `docs/BASELINE_COMPARISON_GUIDE.md`
-- `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
-- `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
+- `docs/guides/COMPARISON_SPINE_GUIDE.md`
+- `docs/guides/BASELINE_COMPARISON_GUIDE.md`
+- `docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
+- `docs/guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
 - `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md`
 - `generated/comparison_spine.json`
 - `generated/eval_catalog.json`

@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: mechanic package
+- Mechanic parents: method-growth
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 The method-growth evidence cluster was already present across local root

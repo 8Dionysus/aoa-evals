@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: proof topology
+- Mechanic parents: none
+- Guard families: sibling and boundary
+- Posture: active rationale
+
 ## Context
 
 The mechanics refactor rejected `repair` as a parent mechanic and routed bounded

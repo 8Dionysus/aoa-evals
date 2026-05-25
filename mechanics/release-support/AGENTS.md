@@ -25,7 +25,7 @@ handoff routes.
 | input | release scope, `CHANGELOG.md` narrative, release audit, GitHub `Repo Validation` posture, PR handoff, readiness report, or sibling compatibility pressure |
 | output | release-support part route, changelog route, release check, generated/sibling check, PR handoff, or stronger-owner handoff |
 | owner | `aoa-evals` owns bounded release support; source bundles keep proof meaning, GitHub-native surfaces keep workflow law, and sibling repos keep release approval |
-| next route | `mechanics/release-support/README.md`, `DIRECTION.md`, `PARTS.md`, affected part README, `CHANGELOG.md`, `docs/RELEASING.md`, `scripts/release_check.py`, and `.github/AGENTS.md` when GitHub surfaces move |
+| next route | `mechanics/release-support/README.md`, `DIRECTION.md`, `PARTS.md`, affected part README, `CHANGELOG.md`, `docs/operations/RELEASING.md`, `scripts/release_check.py`, and `.github/AGENTS.md` when GitHub surfaces move |
 | tools | root validator, semantic AGENTS validator, `scripts/release_check.py`, generated builders, latest-sibling canary runner |
 | validation | this card's `Validation` section |
 
@@ -34,13 +34,13 @@ handoff routes.
 1. repository root `AGENTS.md`
 2. `DESIGN.md`
 3. `DESIGN.AGENTS.md`
-4. `docs/PROOF_TOPOLOGY.md`
+4. `docs/architecture/PROOF_TOPOLOGY.md`
 5. `mechanics/README.md`
 6. `mechanics/release-support/README.md`
 7. `mechanics/release-support/PARTS.md`
 8. `mechanics/release-support/parts/README.md`
 9. the relevant part `README.md`
-10. `docs/RELEASING.md`
+10. `docs/operations/RELEASING.md`
 11. `CHANGELOG.md`
 12. `scripts/release_check.py`
 13. `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json` when auditing an
@@ -67,7 +67,7 @@ handoff routes.
   completion.
 - Keep package-owned audit and handoff artifacts under
   `mechanics/release-support/parts/`; keep `CHANGELOG.md`,
-  `docs/RELEASING.md`, `scripts/release_check.py`, and GitHub workflows in
+  `docs/operations/RELEASING.md`, `scripts/release_check.py`, and GitHub workflows in
   their root or GitHub-native lanes.
 
 ## Route Rules

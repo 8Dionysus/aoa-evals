@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/recurrence/`
 
+## Index Metadata
+
+- Surface classes: mechanic part
+- Mechanic parents: recurrence
+- Guard families: part and payload
+- Posture: active rationale
+
 ## Context
 
 The first recurrence package slice made `control-plane-integrity` active and
@@ -97,7 +104,7 @@ owners, and source owner repositories keep stronger local truth.
 
 - `mechanics/recurrence/README.md`, `PARTS.md`, and `PROVENANCE.md` route the
   new parts and bridge old placement questions into the owning legacy archive.
-- `docs/PROOF_TOPOLOGY.md`, `docs/LEGACY_NAMING.md`, and
+- `docs/architecture/PROOF_TOPOLOGY.md`, `docs/architecture/LEGACY_NAMING.md`, and
   `mechanics/EVIDENCE_CLUSTERS.md` name the updated topology.
 - `scripts/validate_repo.py` checks the recurrence package and active support
   part route tokens.

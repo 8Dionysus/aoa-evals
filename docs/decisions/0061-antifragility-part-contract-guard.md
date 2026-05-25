@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: mechanic part, validation guard
+- Mechanic parents: antifragility
+- Guard families: part and payload
+- Posture: active guard rationale
+
 ## Context
 
 `mechanics/antifragility/` is already the active AoA-aligned parent for

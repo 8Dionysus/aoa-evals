@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: sibling reference checks and proof evidence references
 
+## Index Metadata
+
+- Surface classes: boundary/runtime/sibling
+- Mechanic parents: none
+- Guard families: sibling and boundary
+- Posture: active rationale
+
 ## Context
 
 The current repository validation fails because several `aoa-memo` evidence and

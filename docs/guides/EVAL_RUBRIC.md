@@ -6,7 +6,7 @@ Markdown stays authoritative.
 Any generated catalog, selection surface, or summary artifact should remain derived from tracked markdown plus `schemas/`.
 
 See also:
-- [Documentation Map](README.md)
+- [Documentation Map](../README.md)
 - [Eval Review Guide](EVAL_REVIEW_GUIDE.md)
 - [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md)
 
@@ -18,7 +18,7 @@ See also:
 | input | frontmatter field, generated catalog pressure, export pressure, relation pressure, maturity pressure, or review evidence gap |
 | output | field interpretation, evidence floor, review route, export posture, or bounded metadata repair |
 | owner | this guide owns metadata semantics; schemas validate shape; bundle-local files and review notes own concrete claims |
-| next route | `docs/EVAL_REVIEW_GUIDE.md`, `docs/SCORE_SEMANTICS_GUIDE.md`, `mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json`, generated catalog builders, or the affected bundle |
+| next route | `docs/guides/EVAL_REVIEW_GUIDE.md`, `docs/guides/SCORE_SEMANTICS_GUIDE.md`, `mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json`, generated catalog builders, or the affected bundle |
 | validation | `docs/AGENTS.md#validation` |
 
 ## Metadata And Canonical Review

@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/proof-object/`
 
+## Index Metadata
+
+- Surface classes: mechanic package
+- Mechanic parents: proof-object
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 Decision `0002` established the source proof object as the authority for one
@@ -78,9 +85,9 @@ It does not authorize one proof object as a universal agent ranking.
   surfaces, inputs, outputs, stronger-owner split, boundaries, lifecycle
   posture, validation, and next route.
 - `mechanics/proof-object/AGENTS.md` names local editing law.
-- `mechanics/README.md`, `docs/PROOF_TOPOLOGY.md`, `README.md`,
+- `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `README.md`,
   `docs/README.md`, `ROADMAP.md`, `CHANGELOG.md`,
-  `docs/LEGACY_NAMING.md`, and `docs/decisions/README.md` route to the
+  `docs/architecture/LEGACY_NAMING.md`, and `docs/decisions/README.md` route to the
   package.
 - `python scripts/validate_repo.py`
 - `python scripts/build_catalog.py --check`

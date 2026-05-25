@@ -20,7 +20,7 @@ evals-native.
 | input | proposed parent name, old root path family, artifact class, report/canary/form cluster, or payload movement pressure |
 | output | allowed parent class, evidence dimensions, root-district posture, mechanic boundary, and validation guard |
 | owner | `mechanics/AGENTS.md` for mutation law; this map for parent evidence; parent `README.md`/`DIRECTION.md`/`PARTS.md` for local operation |
-| next route | `docs/PROOF_TOPOLOGY.md`, `mechanics/README.md`, parent route cards, part READMEs, and `docs/decisions/` |
+| next route | `docs/architecture/PROOF_TOPOLOGY.md`, `mechanics/README.md`, parent route cards, part READMEs, and `docs/decisions/` |
 | tools | root validator, semantic route-card validator, package-local builders, and focused validator tests named by the touched parent |
 | validation | [mechanics/AGENTS.md#validation](AGENTS.md#validation) and the nearest mechanics route card |
 
@@ -72,37 +72,39 @@ which validation guard keeps the route anchored to current topology.
 This residual ledger covers root-authored files that remain under `docs/`,
 `scripts/`, and `tests/` after mechanic-owned payload movement. These districts
 carry authored guidance, builders, validators, and tests, so every top-level
-file is classified as root-owned guidance, root-owned builder/validator, or
-root-owned test coverage, and every row states where mechanic-owned payload
-belongs.
+file plus the focused root validator modules are classified as root-owned
+guidance, root-owned builder/validator, or root-owned test coverage, and every
+row states where mechanic-owned payload belongs.
 
 | Surface | Root role | Mechanic boundary | Validation guard |
 | --- | --- | --- | --- |
 | `docs/AGENTS.md` | root-owned docs route card for proof-meaning edits | mechanic-owned payload guidance belongs in nearest `mechanics/*/AGENTS.md` | semantic and nested AGENTS validation |
-| `docs/AGENTS_ROOT_REFERENCE.md` | root-owned preserved reference for full historical root guidance | mechanic-owned payload history must route through package `PROVENANCE.md` and legacy indexes | root design and route-residue validation |
-| `docs/AGENT_INDEX.md` | root-owned agent-facing pass-through index from repo to authority class, operation, mechanic parent, part, payload, and validation | mechanic-owned payload details belong in `mechanics/EVIDENCE_CLUSTERS.md`, parent maps, part READMEs, and local route cards | agent-index surface validation and root-authored classification |
-| `docs/ARCHITECTURE.md` | root-owned technical proof model | mechanic-owned payload architecture lives in parent `DIRECTION.md` and part READMEs | proof topology validation |
-| `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md` | root-owned guide for process/artifact reading | mechanic-owned payload examples and reports live under owning parts | root-authored route-residue validation |
-| `docs/BASELINE_COMPARISON_GUIDE.md` | root-owned baseline comparison guide | mechanic-owned payload comparison fixtures and reports live under `mechanics/comparison-spine/parts/` | comparison-spine and root-authored route guards |
-| `docs/BLIND_SPOT_DISCLOSURE_GUIDE.md` | root-owned blind-spot disclosure guide | mechanic-owned payload blind-spot evidence lives with bundles, reports, or owning mechanics | bundle and report validation |
-| `docs/COMPARISON_SPINE_GUIDE.md` | root-owned comparison-spine interpretation guide | mechanic-owned payload comparison state lives under `mechanics/comparison-spine/parts/` | comparison-spine focused and route-residue checks |
-| `docs/EVAL_PHILOSOPHY.md` | root-owned epistemic posture guide | mechanic-owned payload proof operations live in mechanic packages | root design validation |
-| `docs/EVAL_REVIEW_GUIDE.md` | root-owned review posture guide | mechanic-owned payload review artifacts live under bundle-local or part-local reports | repo validation and report index checks |
-| `docs/EVAL_RUBRIC.md` | root-owned rubric interpretation guide | mechanic-owned payload scoring helpers live under proof-infra or bundle-local contracts | schema and proof-infra validation |
-| `docs/FIXTURE_SURFACE_GUIDE.md` | root-owned fixture interpretation guide | mechanic-owned payload fixture families live under proof-infra or owning mechanic parts | root route-card guard and fixture-family checks |
-| `docs/LEGACY_NAMING.md` | root-owned legacy naming posture guide | mechanic-owned payload legacy details live inside package `legacy/` archives behind package `PROVENANCE.md` | legacy naming and provenance validators |
-| `docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md` | root-owned portability boundary guide | mechanic-owned payload portable beacons live under recurrence parts when proven | recurrence and root-authored route guards |
-| `docs/PROOF_TOPOLOGY.md` | root-owned authority-class topology | mechanic-owned payload topology lives in `mechanics/EVIDENCE_CLUSTERS.md`, parent `DIRECTION.md`, and parts | proof topology validation |
-| `docs/QUESTBOOK_EVAL_INTEGRATION.md` | root-owned quest/eval integration guide | mechanic-owned payload quest schemas and dispatch contracts live under `mechanics/questbook/parts/` | quest route and generated quest checks |
+| `docs/operations/AGENTS_ROOT_REFERENCE.md` | root-owned preserved reference for full historical root guidance | mechanic-owned payload history must route through package `PROVENANCE.md` and legacy indexes | root design and route-residue validation |
+| `docs/architecture/AGENT_INDEX.md` | root-owned agent-facing pass-through index from repo to authority class, operation, mechanic parent, part, payload, and validation | mechanic-owned payload details belong in `mechanics/EVIDENCE_CLUSTERS.md`, parent maps, part READMEs, and local route cards | agent-index surface validation and root-authored classification |
+| `docs/architecture/ARCHITECTURE.md` | root-owned technical proof model | mechanic-owned payload architecture lives in parent `DIRECTION.md` and part READMEs | proof topology validation |
+| `docs/architecture/ROUTE_RESIDUE_GUARDS.md` | root-owned route-residue guard contract map | mechanic-owned payload route details remain under active mechanics, source bundles, or generated builders instead of hidden root paths | route-residue validation family |
+| `docs/architecture/topology_contract.yaml` | root-owned docs topology contract | mechanic-owned payload docs stay under owning mechanic parts; this contract only classifies docs authority folders | docs topology validation |
+| `docs/guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md` | root-owned guide for process/artifact reading | mechanic-owned payload examples and reports live under owning parts | root-authored route-residue validation |
+| `docs/guides/BASELINE_COMPARISON_GUIDE.md` | root-owned baseline comparison guide | mechanic-owned payload comparison fixtures and reports live under `mechanics/comparison-spine/parts/` | comparison-spine and root-authored route guards |
+| `docs/guides/BLIND_SPOT_DISCLOSURE_GUIDE.md` | root-owned blind-spot disclosure guide | mechanic-owned payload blind-spot evidence lives with bundles, reports, or owning mechanics | bundle and report validation |
+| `docs/guides/COMPARISON_SPINE_GUIDE.md` | root-owned comparison-spine interpretation guide | mechanic-owned payload comparison state lives under `mechanics/comparison-spine/parts/` | comparison-spine focused and route-residue checks |
+| `docs/guides/EVAL_PHILOSOPHY.md` | root-owned epistemic posture guide | mechanic-owned payload proof operations live in mechanic packages | root design validation |
+| `docs/guides/EVAL_REVIEW_GUIDE.md` | root-owned review posture guide | mechanic-owned payload review artifacts live under bundle-local or part-local reports | repo validation and report index checks |
+| `docs/guides/EVAL_RUBRIC.md` | root-owned rubric interpretation guide | mechanic-owned payload scoring helpers live under proof-infra or bundle-local contracts | schema and proof-infra validation |
+| `docs/guides/FIXTURE_SURFACE_GUIDE.md` | root-owned fixture interpretation guide | mechanic-owned payload fixture families live under proof-infra or owning mechanic parts | root route-card guard and fixture-family checks |
+| `docs/architecture/LEGACY_NAMING.md` | root-owned legacy naming posture guide | mechanic-owned payload legacy details live inside package `legacy/` archives behind package `PROVENANCE.md` | legacy naming and provenance validators |
+| `docs/guides/PORTABLE_EVAL_BOUNDARY_GUIDE.md` | root-owned portability boundary guide | mechanic-owned payload portable beacons live under recurrence parts when proven | recurrence and root-authored route guards |
+| `docs/architecture/PROOF_TOPOLOGY.md` | root-owned authority-class topology | mechanic-owned payload topology lives in `mechanics/EVIDENCE_CLUSTERS.md`, parent `DIRECTION.md`, and parts | proof topology validation |
+| `docs/operations/QUESTBOOK_EVAL_INTEGRATION.md` | root-owned quest/eval integration guide | mechanic-owned payload quest schemas and dispatch contracts live under `mechanics/questbook/parts/` | quest route and generated quest checks |
 | `docs/README.md` | root-owned docs index | mechanic-owned payload docs route to owning mechanic docs and READMEs | root-authored route-residue validation |
-| `docs/REGRESSION_PROOF_SURFACES.md` | root-owned regression proof guide | mechanic-owned payload regression fixtures and reports live under comparison-spine or bundles | comparison and bundle validation |
-| `docs/RELEASING.md` | root-owned release process guide | mechanic-owned payload release state artifacts live under `mechanics/release-support/parts/` | release-support and release_check validation |
-| `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md` | root-owned repeated-window discipline guide | mechanic-owned payload repeated-window reports live under comparison-spine parts | comparison-spine validation |
-| `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` | root-owned ingress note for deferred closeout/writeback pressure | mechanic-owned payload activates only through a proven growth-cycle, distillation, audit, or questbook part | root-authored route guards and future decision review |
-| `docs/SCORE_SEMANTICS_GUIDE.md` | root-owned score semantics guide | mechanic-owned payload scorers live under proof-infra or owning parts | scorer and schema validation |
-| `docs/SHARED_PROOF_INFRA_GUIDE.md` | root-owned shared proof infrastructure guide | mechanic-owned payload shared contracts live under `mechanics/proof-infra/parts/` | proof-infra validation |
-| `docs/VERDICT_INTERPRETATION_GUIDE.md` | root-owned verdict interpretation guide | mechanic-owned payload verdict models live under source bundles or owning mechanic parts | bundle and root-authored route validation |
-| `docs/BOUNDARY_ROUTE_CHECKLIST.md` | root-owned boundary route checklist | mechanic-owned payload stop-lines live in parent `DIRECTION.md`, `PARTS.md`, and part READMEs | direction and part README validators |
+| `docs/guides/REGRESSION_PROOF_SURFACES.md` | root-owned regression proof guide | mechanic-owned payload regression fixtures and reports live under comparison-spine or bundles | comparison and bundle validation |
+| `docs/operations/RELEASING.md` | root-owned release process guide | mechanic-owned payload release state artifacts live under `mechanics/release-support/parts/` | release-support and release_check validation |
+| `docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md` | root-owned repeated-window discipline guide | mechanic-owned payload repeated-window reports live under comparison-spine parts | comparison-spine validation |
+| `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` | root-owned ingress note for deferred closeout/writeback pressure | mechanic-owned payload activates only through a proven growth-cycle, distillation, audit, or questbook part | root-authored route guards and future decision review |
+| `docs/guides/SCORE_SEMANTICS_GUIDE.md` | root-owned score semantics guide | mechanic-owned payload scorers live under proof-infra or owning parts | scorer and schema validation |
+| `docs/guides/SHARED_PROOF_INFRA_GUIDE.md` | root-owned shared proof infrastructure guide | mechanic-owned payload shared contracts live under `mechanics/proof-infra/parts/` | proof-infra validation |
+| `docs/guides/VERDICT_INTERPRETATION_GUIDE.md` | root-owned verdict interpretation guide | mechanic-owned payload verdict models live under source bundles or owning mechanic parts | bundle and root-authored route validation |
+| `docs/guides/BOUNDARY_ROUTE_CHECKLIST.md` | root-owned boundary route checklist | mechanic-owned payload stop-lines live in parent `DIRECTION.md`, `PARTS.md`, and part READMEs | direction and part README validators |
 | `scripts/AGENTS.md` | root-owned scripts route card | mechanic-owned payload scripts live under owning `mechanics/*/parts/*/scripts/` | semantic AGENTS and script route validation |
 | `scripts/build_catalog.py` | root-owned catalog builder | mechanic-owned payload builders live part-local and feed generated companions; root catalog truth stays with the root builder | catalog check and repo validation |
 | `scripts/eval_capsule_contract.py` | root-owned generated capsule contract helper | mechanic-owned payload capsule logic moves into a mechanic part only when the part owns that generated reader | downstream feed tests |
@@ -110,11 +112,19 @@ belongs.
 | `scripts/eval_comparison_spine_contract.py` | root-owned comparison-spine generated contract helper | mechanic-owned payload comparison reports and fixtures live under comparison-spine parts | comparison spine generated checks |
 | `scripts/eval_proof_contract_helpers.py` | root-owned proof contract helper library | mechanic-owned payload validators may import helpers but belong under owning parts | full repo validation |
 | `scripts/eval_section_contract.py` | root-owned section-reader contract helper | mechanic-owned payload section readers stay generated companions tied to source truth | downstream feed tests |
+| `scripts/generate_decision_indexes.py` | root-owned decision-index read-model builder | mechanic-owned payload lookup belongs in owning decision notes and generated `docs/decisions/indexes/` read models | decision index generated parity check |
 | `scripts/generate_eval_report_index.py` | root-owned report-index builder | mechanic-owned payload reports remain bundle-local or part-local and feed the root report index | report index check |
 | `scripts/release_check.py` | root-owned release gate runner | mechanic-owned payload release audit artifacts live under release-support parts | release gate route in root `AGENTS.md#verify` |
 | `scripts/validate_nested_agents.py` | root-owned nested AGENTS validator | mechanic-owned payload route cards live locally and are checked from root validation | nested AGENTS validation |
 | `scripts/validate_repo.py` | root-owned repository validator | mechanic-owned payload validators may live part-local, while this file guards cross-repo topology | focused and full repo validation |
 | `scripts/validate_semantic_agents.py` | root-owned semantic AGENTS validator | mechanic-owned payload guidance lives in local route cards and is checked here | semantic AGENTS validation |
+| `scripts/validators/__init__.py` | root-owned validator module package marker | mechanic-owned payload validators belong under owning mechanic parts unless the root validator owns the cross-surface guard | validator module import smoke through repo validation |
+| `scripts/validators/docs_decisions.py` | root-owned decision-index read-model validator module | mechanic-owned payload decision meaning stays in source decisions; this module checks metadata and generated lookup parity | decision index generated parity and repo validation |
+| `scripts/validators/docs_routes.py` | root-owned docs route-map validator module | mechanic-owned payload docs route to owning mechanics or bundles; this module checks root docs routes and links | docs route contracts and repo validation |
+| `scripts/validators/docs_topology.py` | root-owned docs topology validator module | mechanic-owned payload docs stay under owning mechanics; this module checks docs folder topology and topology contract | docs topology contract and repo validation |
+| `scripts/validators/eval_bundles.py` | root-owned source eval tree validator module | mechanic-owned payload support parts remain outside bundle-local claim truth; this module checks eval source topology | eval bundle topology contracts and repo validation |
+| `scripts/validators/generated_parity.py` | root-owned generated/read-model parity validator module | mechanic-owned payload generated companions stay part-local unless promoted through root readers | generated parity contracts and repo validation |
+| `scripts/validators/mechanics.py` | root-owned mechanics ledger validator module | mechanic-owned payload classification stays in owning mechanic surfaces; this module checks residual root-authored surfaces | root-authored classification and repo validation |
 | `tests/AGENTS.md` | root-owned tests route card | mechanic-owned payload tests live under `mechanics/<mechanic>/parts/<part>/tests/` | semantic AGENTS validation |
 | `tests/test_build_catalog.py` | root-owned catalog test coverage | mechanic-owned payload catalog inputs stay in bundles or parts and are checked through root builder tests | pytest catalog checks |
 | `tests/test_current_direction_routes.py` | root-owned entrypoint route test | mechanic-owned payload direction lives in parent `DIRECTION.md` surfaces | focused direction tests |
@@ -176,18 +186,18 @@ still needs living evidence.
 | `audit` | `mechanics/audit/README.md`, `mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json`, `evals/capability/aoa-eval-integrity-check/EVAL.md`, `docs/decisions/0007-audit-mechanic-package.md` |
 | `boundary-bridge` | `mechanics/boundary-bridge/README.md`, `mechanics/boundary-bridge/parts/latest-sibling-canary/README.md`, `.github/workflows/latest-sibling-canary.yml`, `quests/orchestrator/captured/AOA-EV-Q-0006.yaml` |
 | `checkpoint` | `mechanics/checkpoint/README.md`, `mechanics/checkpoint/parts/a2a-summon-return/README.md`, `evals/workflow/aoa-a2a-summon-return-checkpoint/EVAL.md`, `mechanics/checkpoint/parts/a2a-summon-return/tests/test_a2a_summon_return_checkpoint_fixture.py` |
-| `comparison-spine` | `mechanics/comparison-spine/README.md`, `mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md`, `docs/COMPARISON_SPINE_GUIDE.md`, `generated/comparison_spine.json` |
+| `comparison-spine` | `mechanics/comparison-spine/README.md`, `mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md`, `docs/guides/COMPARISON_SPINE_GUIDE.md`, `generated/comparison_spine.json` |
 | `distillation` | `mechanics/distillation/README.md`, `mechanics/distillation/parts/compost-provenance/README.md`, `evals/artifact/aoa-compost-provenance-preservation/EVAL.md`, `evals/workflow/aoa-memo-reviewed-candidate-adoption-integrity/EVAL.md` |
 | `experience` | `mechanics/experience/README.md`, `mechanics/experience/parts/protocol-integrity/README.md`, `evals/boundary/aoa-experience-protocol-integrity/EVAL.md`, `mechanics/experience/parts/protocol-integrity/fixtures/experience-verdict-protocol-integrity-v1/README.md` |
-| `growth-cycle` | `mechanics/growth-cycle/README.md`, `mechanics/growth-cycle/parts/diagnosis-gate/README.md`, `evals/workflow/aoa-diagnosis-cause-discipline/EVAL.md`, `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` |
+| `growth-cycle` | `mechanics/growth-cycle/README.md`, `mechanics/growth-cycle/parts/diagnosis-gate/README.md`, `evals/workflow/aoa-diagnosis-cause-discipline/EVAL.md`, `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` |
 | `method-growth` | `mechanics/method-growth/README.md`, `mechanics/method-growth/parts/candidate-lineage/README.md`, `evals/capability/aoa-candidate-lineage-integrity/EVAL.md`, `evals/boundary/aoa-owner-fit-routing-quality/EVAL.md` |
-| `proof-infra` | `mechanics/proof-infra/README.md`, `mechanics/proof-infra/parts/fixture-families/README.md`, `docs/SHARED_PROOF_INFRA_GUIDE.md`, `mechanics/proof-infra/parts/reportable-contracts/schemas/report-summary.schema.json` |
+| `proof-infra` | `mechanics/proof-infra/README.md`, `mechanics/proof-infra/parts/fixture-families/README.md`, `docs/guides/SHARED_PROOF_INFRA_GUIDE.md`, `mechanics/proof-infra/parts/reportable-contracts/schemas/report-summary.schema.json` |
 | `proof-loop` | `mechanics/proof-loop/README.md`, `mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md`, `evals/workflow/aoa-verification-honesty/EVAL.md`, `generated/eval_catalog.json` |
 | `proof-object` | `mechanics/proof-object/README.md`, `mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json`, `evals/workflow/aoa-verification-honesty/EVAL.md`, `generated/eval_catalog.json` |
 | `publication-receipts` | `mechanics/publication-receipts/README.md`, `mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md`, `mechanics/publication-receipts/parts/receipt-payload/schemas/eval-result-receipt.schema.json`, `.aoa/live_receipts/AGENTS.md` |
 | `questbook` | `mechanics/questbook/README.md`, `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`, `quests/README.md`, `generated/quest_catalog.min.json` |
 | `recurrence` | `mechanics/recurrence/README.md`, `mechanics/recurrence/parts/control-plane-integrity/README.md`, `evals/boundary/aoa-recurrence-control-plane-integrity/EVAL.md`, `mechanics/recurrence/parts/control-plane-integrity/tests/test_recurrence_control_plane_integrity_eval_seed.py` |
-| `release-support` | `mechanics/release-support/README.md`, `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json`, `docs/RELEASING.md`, `scripts/release_check.py` |
+| `release-support` | `mechanics/release-support/README.md`, `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json`, `docs/operations/RELEASING.md`, `scripts/release_check.py` |
 | `rpg` | `mechanics/rpg/README.md`, `mechanics/rpg/parts/progression-unlocks/README.md`, `mechanics/rpg/parts/progression-unlocks/schemas/progression_evidence.schema.json`, `quests/unlock/triaged/AOA-EV-Q-0009.yaml` |
 | `titan` | `mechanics/titan/README.md`, `mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md`, `mechanics/titan/parts/seed-boundary/seeds/titan_incarnation_spine_canary.yaml`, `README.md` |
 
@@ -312,7 +322,7 @@ future evidence pass until evidence makes a parent route ready.
 `scripts/validate_repo.py` rejects undeclared top-level
 `mechanics/<parent>/` directories. A future parent must first prove an
 AoA-aligned or evals-native cross-root evidence cluster, then update this file,
-the package route cards, `docs/PROOF_TOPOLOGY.md`, `docs/decisions/`, and the
+the package route cards, `docs/architecture/PROOF_TOPOLOGY.md`, `docs/decisions/`, and the
 validator allowlist in one slice.
 
 Allowed parents must keep their active route form complete: `AGENTS.md`,
@@ -336,7 +346,7 @@ part:
 | --- | --- | --- |
 | repair-cycle | `mechanics/antifragility/parts/repair-proof/` | a Growth Cycle repair stage needs its own source surfaces, contracts, stop-lines, and validation before entering `mechanics/growth-cycle/parts/` |
 | progression-lift | `mechanics/rpg/parts/progression-unlocks/` and `mechanics/comparison-spine/parts/longitudinal-window/` | a Growth Cycle progression part needs distinct eval-side operation evidence |
-| reviewed-closeout-chain | `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` plus the relevant closeout, audit, questbook, or distillation route | active part status needs source refs, payload contract, owner split, and validation |
+| reviewed-closeout-chain | `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` plus the relevant closeout, audit, questbook, or distillation route | active part status needs source refs, payload contract, owner split, and validation |
 | donor-harvest | current owner mechanic plus provenance bridge | active part status needs reusable proof operation evidence beyond a one-off harvest note |
 | quest-promotion | `mechanics/questbook/parts/` and source quest records under `quests/` | active part status needs a schema-backed promotion contract and generated-reader route |
 | owner-followthrough | stronger-owner handoff route plus local proof receipt or report | active part status needs owner-visible evidence and bounded eval-side validation |

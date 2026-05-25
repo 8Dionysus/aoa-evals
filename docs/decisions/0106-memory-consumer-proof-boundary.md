@@ -2,7 +2,14 @@
 
 - Status: Accepted
 - Date: 2026-05-24
-- Owner surface: `README.md`, `docs/EVAL_PHILOSOPHY.md`, `docs/PROOF_TOPOLOGY.md`, `scripts/validate_repo.py`
+- Owner surface: `README.md`, `docs/guides/EVAL_PHILOSOPHY.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `scripts/validate_repo.py`
+
+## Index Metadata
+
+- Surface classes: proof topology, boundary/runtime/sibling
+- Mechanic parents: none
+- Guard families: none
+- Posture: active rationale
 
 ## Context
 
@@ -75,15 +82,15 @@ As of 2026-05-24:
 - Changed: root proof guidance now names memory context as recall context, not
   proof authority.
 - Current root-entry placement: `README.md` carries the concise memory owner
-  route, while detailed memory-consumer law stays in `docs/EVAL_PHILOSOPHY.md`,
-  `docs/PROOF_TOPOLOGY.md`, and this decision.
+  route, while detailed memory-consumer law stays in `docs/guides/EVAL_PHILOSOPHY.md`,
+  `docs/architecture/PROOF_TOPOLOGY.md`, and this decision.
 - Superseded by: none.
 
 As of 2026-05-24 route-language review:
 
 - Still valid: reviewed memory can enter proof review only as bounded recall
   context with object ids, provenance, lifecycle, and generated read models.
-- Changed: `docs/EVAL_PHILOSOPHY.md` now expresses the active memory route by
+- Changed: `docs/guides/EVAL_PHILOSOPHY.md` now expresses the active memory route by
   naming recall context, source evidence, owner surfaces, and visible
   provenance directly.
 - Historical text: the original decision, rationale, and boundaries remain as
@@ -100,8 +107,8 @@ As of 2026-05-24 route-language review:
   consumer route inside the proof organ.
 - Reason: eval/KAG/stats/playbooks/agents are being connected as memory
   consumers while `aoa-memo` remains reviewed memory authority.
-- Source surfaces updated: `README.md`, `docs/EVAL_PHILOSOPHY.md`,
-  `docs/PROOF_TOPOLOGY.md`, `scripts/validate_repo.py`,
+- Source surfaces updated: `README.md`, `docs/guides/EVAL_PHILOSOPHY.md`,
+  `docs/architecture/PROOF_TOPOLOGY.md`, `scripts/validate_repo.py`,
   `tests/test_validate_repo.py`.
 - Validation: `python scripts/validate_repo.py` and
   `python scripts/validate_semantic_agents.py`.
@@ -134,7 +141,7 @@ As of 2026-05-24 route-language review:
 - Reason: agent-facing proof philosophy should let a low-context agent know the
   route, owner, and validation pressure without relying on repeated negative
   self-description.
-- Source surfaces updated: `docs/EVAL_PHILOSOPHY.md`,
+- Source surfaces updated: `docs/guides/EVAL_PHILOSOPHY.md`,
   `scripts/validate_repo.py`, `tests/test_validate_repo.py`, and this
   decision.
 - Validation: root validation, semantic AGENTS validation, and focused memory

@@ -31,7 +31,7 @@ the active questbook mechanic.
 6. `mechanics/questbook/PARTS.md`
 7. `mechanics/questbook/PROVENANCE.md`
 8. `quests/AGENTS.md`
-9. `docs/LEGACY_NAMING.md`
+9. `docs/architecture/LEGACY_NAMING.md`
 10. `mechanics/questbook/legacy/INDEX.md`
 
 ## Route Rules

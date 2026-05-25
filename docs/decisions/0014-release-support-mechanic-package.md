@@ -4,9 +4,16 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/release-support/`
 
+## Index Metadata
+
+- Surface classes: mechanic package, report/release/receipt
+- Mechanic parents: release-support
+- Guard families: generated/report/receipt/runtime
+- Posture: report/release/receipt rationale
+
 ## Context
 
-`aoa-evals` already has release discipline in `docs/RELEASING.md`, public
+`aoa-evals` already has release discipline in `docs/operations/RELEASING.md`, public
 release narrative in `CHANGELOG.md`, a local release audit script in
 `scripts/release_check.py`, and GitHub `Repo Validation` wired through
 `.github/workflows/repo-validation.yml`.
@@ -19,7 +26,7 @@ verdict authority.
 
 ## Options Considered
 
-- Leave release work in `docs/RELEASING.md`, `CHANGELOG.md`,
+- Leave release work in `docs/operations/RELEASING.md`, `CHANGELOG.md`,
   `scripts/release_check.py`, and GitHub workflow files only.
 - Move release docs, checks, and workflow files under a mechanics package.
 - Create `mechanics/release-support/` as a route package while leaving root
@@ -35,7 +42,7 @@ Create `mechanics/release-support/` for the operation:
 `bounded release scope -> changelog narrative -> release audit -> Repo Validation -> tag and GitHub release notes -> post-release proof posture`
 
 The package routes release proof publication without moving root release
-entrypoints: `docs/RELEASING.md`, `CHANGELOG.md`, `scripts/release_check.py`,
+entrypoints: `docs/operations/RELEASING.md`, `CHANGELOG.md`, `scripts/release_check.py`,
 `.github/`, generated surfaces, or source proof bundles.
 
 Package-owned release state artifacts live under `mechanics/release-support/parts/`:
@@ -63,7 +70,7 @@ stronger than release notes.
   validator-backed discovery surface.
 - Tradeoff: the package does not own GitHub automation or changelog content; it
   routes them. Future maintainers must still read `.github/AGENTS.md` and
-  `docs/RELEASING.md` for exact local law.
+  `docs/operations/RELEASING.md` for exact local law.
 - Follow-up: later validators can tighten release title, changelog section, and
   generated-surface parity checks if release drift appears.
 
@@ -88,7 +95,7 @@ release notes that overstate proof claims.
 - `mechanics/release-support/PARTS.md` names the part-local release artifacts and
   root entrypoints that intentionally stay outside the package body.
 - `mechanics/release-support/AGENTS.md` names local editing law.
-- `mechanics/README.md`, `docs/PROOF_TOPOLOGY.md`, `README.md`,
+- `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `README.md`,
   `docs/README.md`, `ROADMAP.md`, `CHANGELOG.md`, and
   `docs/decisions/README.md` route to the package.
 - `python scripts/validate_repo.py`

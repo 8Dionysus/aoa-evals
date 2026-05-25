@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/publication-receipts/`
 
+## Index Metadata
+
+- Surface classes: report/release/receipt
+- Mechanic parents: none
+- Guard families: generated/report/receipt/runtime
+- Posture: report/release/receipt rationale
+
 ## Context
 
 The proof loop now has a first schema-backed bundle-local report at

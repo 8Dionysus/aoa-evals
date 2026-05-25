@@ -32,7 +32,7 @@ activation:
   note: open when new proof gaps survive bundle or index review
 anchor_ref:
   artifact: comparison-spine
-  ref: docs/COMPARISON_SPINE_GUIDE.md
+  ref: docs/guides/COMPARISON_SPINE_GUIDE.md
 handoff_role: eval-maintainer
 evidence:
 - missing proof routes receive stable quest IDs

@@ -28,8 +28,8 @@ behind the active `release-support` mechanic.
 3. `mechanics/release-support/README.md`
 4. `mechanics/release-support/PARTS.md`
 5. `mechanics/release-support/PROVENANCE.md`
-6. `docs/RELEASING.md`
-7. `docs/LEGACY_NAMING.md`
+6. `docs/operations/RELEASING.md`
+7. `docs/architecture/LEGACY_NAMING.md`
 
 ## Route Rules
 

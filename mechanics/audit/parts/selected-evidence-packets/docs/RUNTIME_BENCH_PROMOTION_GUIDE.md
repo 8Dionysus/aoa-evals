@@ -7,8 +7,8 @@ Use it when a runtime benchmark looks useful, but you still need to decide wheth
 See also:
 - [Documentation Map](../../../../../docs/README.md)
 - [Trace Eval Bridge](../../artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md)
-- [Portable Eval Boundary Guide](../../../../../docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md)
-- [Baseline Comparison Guide](../../../../../docs/BASELINE_COMPARISON_GUIDE.md)
+- [Portable Eval Boundary Guide](../../../../../docs/guides/PORTABLE_EVAL_BOUNDARY_GUIDE.md)
+- [Baseline Comparison Guide](../../../../../docs/guides/BASELINE_COMPARISON_GUIDE.md)
 
 ## Core rule
 `aoa-evals` may read selected runtime benchmark evidence from `abyss-stack`.

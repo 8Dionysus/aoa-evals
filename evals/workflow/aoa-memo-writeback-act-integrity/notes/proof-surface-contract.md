@@ -18,7 +18,7 @@ The materialized proof flow keeps these surfaces explicit:
 - schema-backed writeback readout in `reports/summary.schema.json`
 - a concrete companion example in `reports/example-report.json`
 - a real bounded Phase Alpha report in `reports/phase-alpha-memo-writeback-act.report.json`
-- the ingress anchor in `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`
+- the ingress anchor in `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`
 
 The machine-readable surface should preserve:
 - runtime closure and writeback boundary honesty

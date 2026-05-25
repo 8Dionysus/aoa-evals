@@ -30,8 +30,8 @@ route to later scorer or stronger-owner surfaces.
 1. repository root `AGENTS.md`
 2. `DESIGN.md`
 3. `DESIGN.AGENTS.md`
-4. `docs/PROOF_TOPOLOGY.md`
-5. `docs/LEGACY_NAMING.md`
+4. `docs/architecture/PROOF_TOPOLOGY.md`
+5. `docs/architecture/LEGACY_NAMING.md`
 6. `mechanics/titan/README.md`
 7. `mechanics/titan/parts/AGENTS.md`
 8. `mechanics/titan/parts/seed-boundary/README.md`

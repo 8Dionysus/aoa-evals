@@ -34,8 +34,8 @@ This `AGENTS.md` is the operating policy for Spark work.
 1. root `AGENTS.md`
 2. `DESIGN.AGENTS.md`
 3. `.agents/AGENTS.md`
-4. `docs/PROOF_TOPOLOGY.md`
-5. `docs/LEGACY_NAMING.md`
+4. `docs/architecture/PROOF_TOPOLOGY.md`
+5. `docs/architecture/LEGACY_NAMING.md`
 6. the target proof source surface or mechanic package
 
 ## Default posture

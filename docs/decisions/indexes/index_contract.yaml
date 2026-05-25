@@ -1,0 +1,19 @@
+schema_version: 1
+role: decision-index-read-model-contract
+source_surface: docs/decisions/*.md
+source_metadata_heading: Index Metadata
+generated_indexes:
+  - docs/decisions/indexes/README.md
+  - docs/decisions/indexes/by-number.md
+  - docs/decisions/indexes/by-surface.md
+  - docs/decisions/indexes/by-mechanic.md
+  - docs/decisions/indexes/by-validation-guard.md
+authority_order:
+  - source surfaces
+  - decision notes
+  - generated decision indexes
+fields:
+  surface_classes: required-list
+  mechanic_parents: optional-list
+  guard_families: optional-list
+  posture: required-scalar

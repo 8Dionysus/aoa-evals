@@ -4,20 +4,27 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: legacy/provenance
+- Mechanic parents: none
+- Guard families: legacy and provenance
+- Posture: legacy/provenance rationale
+
 ## Context
 
-`docs/LEGACY_NAMING.md` began as a broad map while mechanic packages were still
+`docs/architecture/LEGACY_NAMING.md` began as a broad map while mechanic packages were still
 being discovered. That was useful before every active mechanic had a
 `PROVENANCE.md` bridge and local `legacy/` archive.
 
 After the mechanic refactor, keeping archive details in the root legacy naming
-file creates a second route into history. It makes `docs/LEGACY_NAMING.md`
+file creates a second route into history. It makes `docs/architecture/LEGACY_NAMING.md`
 feel like a global archive map beside the real package bridge, even though AoA
 mechanics use one controlled bridge from active surfaces into legacy.
 
 ## Decision
 
-`docs/LEGACY_NAMING.md` is now a posture guide, not a global archive map.
+`docs/architecture/LEGACY_NAMING.md` is now a posture guide, not a global archive map.
 
 It may name:
 

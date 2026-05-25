@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/release-support/parts/strategic-closeout/`
 
+## Index Metadata
+
+- Surface classes: report/release/receipt, boundary/runtime/sibling
+- Mechanic parents: audit
+- Guard families: generated/report/receipt/runtime
+- Posture: report/release/receipt rationale
+
 ## Context
 
 The strategic refactor now has routeable evidence across root design, agent

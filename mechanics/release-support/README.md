@@ -27,13 +27,13 @@ objects own claim strength.
 
 ## Source Surfaces
 
-- `docs/RELEASING.md`
+- `docs/operations/RELEASING.md`
 - `CHANGELOG.md`
 - `scripts/release_check.py`
 - `.github/workflows/repo-validation.yml`
 - `.github/AGENTS.md`
 - `README.md` current release line
-- `docs/AGENTS_ROOT_REFERENCE.md`
+- `docs/operations/AGENTS_ROOT_REFERENCE.md`
 - `mechanics/release-support/PARTS.md`
 - `mechanics/release-support/parts/README.md`
 - `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json`
@@ -101,7 +101,7 @@ Use [PARTS](PARTS.md) before editing package-owned release artifacts.
   snapshot.
 
 Root release entrypoints stay root- or GitHub-native when they are contributor
-entrypoints or execution gates: `CHANGELOG.md`, `docs/RELEASING.md`,
+entrypoints or execution gates: `CHANGELOG.md`, `docs/operations/RELEASING.md`,
 `scripts/release_check.py`, and `.github/workflows/repo-validation.yml`.
 
 ## Readiness Audit
@@ -165,7 +165,7 @@ validation lane before closeout.
 Use this package before:
 
 - preparing a release section in `CHANGELOG.md`;
-- changing `docs/RELEASING.md`;
+- changing `docs/operations/RELEASING.md`;
 - changing `scripts/release_check.py`;
 - changing `.github/workflows/repo-validation.yml`;
 - changing the part-local readiness, strategic closeout, or PR handoff

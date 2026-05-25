@@ -2,7 +2,14 @@
 
 - Status: Accepted
 - Date: 2026-05-19
-- Owner surface: `docs/PROOF_TOPOLOGY.md`
+- Owner surface: `docs/architecture/PROOF_TOPOLOGY.md`
+
+## Index Metadata
+
+- Surface classes: root/topology
+- Mechanic parents: none
+- Guard families: none
+- Posture: active rationale
 
 ## Context
 
@@ -31,7 +38,7 @@ keep using that map to constrain further movement.
 
 ## Decision
 
-Add `docs/PROOF_TOPOLOGY.md` as the Phase 4 map of authority classes and root
+Add `docs/architecture/PROOF_TOPOLOGY.md` as the Phase 4 map of authority classes and root
 technical districts.
 
 The map names source proof objects, source guidance, shared proof
@@ -68,7 +75,7 @@ taxonomy.
 
 As of 2026-05-22:
 
-- Still valid: `docs/PROOF_TOPOLOGY.md` owns authority-class routing and the
+- Still valid: `docs/architecture/PROOF_TOPOLOGY.md` owns authority-class routing and the
   convex topology frame.
 - Changed: detailed mechanic activation, parent evidence, payload home, and
   validation lane detail now routes through `mechanics/README.md`, parent
@@ -88,12 +95,12 @@ As of 2026-05-24 (authority boundary routes):
 
 As of 2026-05-24 (root district routes):
 
-- Still valid: `docs/PROOF_TOPOLOGY.md` remains the active authority-class and
+- Still valid: `docs/architecture/PROOF_TOPOLOGY.md` remains the active authority-class and
   root-district map.
 - Changed: quest, sibling, mechanic-operation, root-district, agent-lane,
   receipt-sidecar, and parent-evidence rows now route through positive owner
   language.
-- Source surfaces updated: `docs/PROOF_TOPOLOGY.md`,
+- Source surfaces updated: `docs/architecture/PROOF_TOPOLOGY.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k
   proof_topology`.
@@ -108,10 +115,10 @@ As of 2026-05-24 (root district routes):
 - New reality: the active mechanics atlas and evidence gate now provide the
   clearer owner surfaces for parent evidence, part contracts, payload homes,
   and validation lanes.
-- Reason: low-context agents should use `docs/PROOF_TOPOLOGY.md` to classify a
+- Reason: low-context agents should use `docs/architecture/PROOF_TOPOLOGY.md` to classify a
   surface, then descend into mechanics through the operation atlas instead of
   reading duplicated package detail in the topology map.
-- Source surfaces updated: `docs/PROOF_TOPOLOGY.md` and this decision.
+- Source surfaces updated: `docs/architecture/PROOF_TOPOLOGY.md` and this decision.
 - Validation: use root validation and the focused proof-topology validator
   tests.
 
@@ -124,7 +131,7 @@ As of 2026-05-24 (root district routes):
 - Reason: agent-facing topology is more durable when the table gives role,
   input, output, owner, next route, and validation pressure without repeated
   negative self-description.
-- Source surfaces updated: `docs/PROOF_TOPOLOGY.md`, `docs/README.md`,
+- Source surfaces updated: `docs/architecture/PROOF_TOPOLOGY.md`, `docs/README.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
 - Validation: root validation, semantic AGENTS validation, and focused proof
   topology tests.
@@ -139,7 +146,7 @@ As of 2026-05-24 (root district routes):
 - Reason: low-context agents use this table as a pass-through map before
   descending into mechanics, so the table should expose the next route at a
   glance.
-- Source surfaces updated: `docs/PROOF_TOPOLOGY.md`,
+- Source surfaces updated: `docs/architecture/PROOF_TOPOLOGY.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k
   proof_topology`.
@@ -157,7 +164,7 @@ bundle-local reports, generated builders, or sibling-owner truth.
 
 ## Validation
 
-- `docs/PROOF_TOPOLOGY.md` names the authority classes and root technical
+- `docs/architecture/PROOF_TOPOLOGY.md` names the authority classes and root technical
   districts.
 - `README.md`, `docs/README.md`, `DESIGN.md`, `DESIGN.AGENTS.md`, `AGENTS.md`,
   and `ROADMAP.md` route readers to the topology map.

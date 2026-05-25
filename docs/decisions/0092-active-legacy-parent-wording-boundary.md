@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: legacy/provenance
+- Mechanic parents: none
+- Guard families: legacy and provenance, sibling and boundary
+- Posture: legacy/provenance rationale
+
 ## Context
 
 The mechanics refactor rejects parent names such as `runtime-evidence`,

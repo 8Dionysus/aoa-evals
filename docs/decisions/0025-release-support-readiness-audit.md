@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/release-support/`
 
+## Index Metadata
+
+- Surface classes: report/release/receipt, boundary/runtime/sibling
+- Mechanic parents: release-support, audit
+- Guard families: generated/report/receipt/runtime
+- Posture: report/release/receipt rationale
+
 ## Context
 
 The strategic refactor now spans root design, agent route cards, decisions,
@@ -59,7 +66,7 @@ publication weaker than source proof objects.
 - Positive: future agents get a concrete release-prep handoff surface instead
   of inferring readiness from scattered checks.
 - Tradeoff: the audit is one more report surface to validate and keep
-  subordinate to `CHANGELOG.md`, `docs/RELEASING.md`, and the actual PR/CI
+  subordinate to `CHANGELOG.md`, `docs/operations/RELEASING.md`, and the actual PR/CI
   route.
 - Follow-up: a later landing slice can turn this readiness audit into a PR
   handoff, but only after rerunning the required gates and preserving skipped

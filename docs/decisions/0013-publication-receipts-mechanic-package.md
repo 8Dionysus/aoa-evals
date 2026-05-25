@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/publication-receipts/`
 
+## Index Metadata
+
+- Surface classes: mechanic package, report/release/receipt
+- Mechanic parents: publication-receipts
+- Guard families: generated/report/receipt/runtime
+- Posture: report/release/receipt rationale
+
 ## Context
 
 `aoa-evals` already has an eval-result receipt guide, receipt payload schema,
@@ -86,7 +93,7 @@ receipt-count quality claims.
   next route.
 - `mechanics/publication-receipts/PARTS.md` names the part topology.
 - `mechanics/publication-receipts/AGENTS.md` names local editing law.
-- `mechanics/README.md`, `docs/PROOF_TOPOLOGY.md`, `README.md`,
+- `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `README.md`,
   `docs/README.md`, `ROADMAP.md`, `CHANGELOG.md`, and
   `docs/decisions/README.md` route to the package.
 - `python scripts/validate_repo.py`

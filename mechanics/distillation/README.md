@@ -35,7 +35,7 @@ side.
 
 ## Related Ingress
 
-- `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`
+- `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`
 
 That note remains root ingress and quest pressure for the closeout/writeback
 lane. The active Distillation source route stays with the source bundles above;

@@ -4,20 +4,27 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: root/topology
+- Mechanic parents: none
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 The repository now has enough route cards, topology maps, mechanics parents,
 part contracts, generated readers, decisions, and validators that a future
 agent can still lose the chain between a path name and its authority class.
 
-The root README must stay compact, `docs/PROOF_TOPOLOGY.md` must keep authority
+The root README must stay compact, `docs/architecture/PROOF_TOPOLOGY.md` must keep authority
 classes rather than become a dispatcher, and `AGENTS.md` must own executable
 route law. Putting the whole agent route chain into any one of those surfaces
 would either bloat an entrypoint or hide route-law detail in the wrong place.
 
 ## Decision
 
-Add `docs/AGENT_INDEX.md` as an agent-facing pass-through index for the chain:
+Add `docs/architecture/AGENT_INDEX.md` as an agent-facing pass-through index for the chain:
 
 `repo -> authority class -> operation -> mechanic parent -> part -> payload -> validation`
 
@@ -42,7 +49,7 @@ part routes flowing through part `VALIDATION.md` into the parent
   agent route map.
 - Positive: route-card-only districts become visible as compatibility surfaces
   instead of looking like active payload homes.
-- Tradeoff: `docs/AGENT_INDEX.md` must stay a read model. If it starts carrying
+- Tradeoff: `docs/architecture/AGENT_INDEX.md` must stay a read model. If it starts carrying
   commands, source truth, or decision rationale, it should be trimmed and routed
   back to the owning surface.
 
@@ -50,7 +57,7 @@ part routes flowing through part `VALIDATION.md` into the parent
 
 As of 2026-05-22:
 
-- Still valid: `docs/AGENT_INDEX.md` remains the pass-through chain from repo to
+- Still valid: `docs/architecture/AGENT_INDEX.md` remains the pass-through chain from repo to
   authority class, operation, mechanic parent, part, payload, and validation.
 - Changed: the root README now follows the public front-door pattern used by
   the neighboring AoA repositories: it names what the proof canon does, routes
@@ -66,7 +73,7 @@ As of 2026-05-22:
   the agent index.
 - New reality: the README is also the public proof-organ entry, so it needs a
   clear question-to-route map while leaving the full pass-through chain in
-  `docs/AGENT_INDEX.md`.
+  `docs/architecture/AGENT_INDEX.md`.
 - Reason: low-context agents orient better from role, route, owner, output, and
   validation cues than from repeated negative self-description.
 - Source surfaces updated: `README.md`, `scripts/validate_repo.py`, and
@@ -81,7 +88,7 @@ As of 2026-05-22:
   needs an explicit owner route.
 - Reason: the index is an operating map for low-context agents, so it should
   begin from owner-route recovery rather than absence or insufficiency.
-- Source surfaces updated: `docs/AGENT_INDEX.md`, `scripts/validate_repo.py`,
+- Source surfaces updated: `docs/architecture/AGENT_INDEX.md`, `scripts/validate_repo.py`,
   and `tests/test_validate_repo.py`.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k agent_index`.
 

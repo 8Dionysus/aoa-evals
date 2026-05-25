@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/recurrence/parts/portable-proof-beacons/`
 
+## Index Metadata
+
+- Surface classes: mechanic part
+- Mechanic parents: recurrence
+- Guard families: part and payload
+- Posture: active rationale
+
 ## Context
 
 The former root `manifests/recurrence/` district carried

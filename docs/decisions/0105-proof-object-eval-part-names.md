@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: proof topology, mechanic part
+- Mechanic parents: proof-object
+- Guard families: part and payload
+- Posture: active rationale
+
 ## Context
 
 `evals/` is now the source eval tree. The active proof-object support parts

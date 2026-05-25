@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `.agents/spark/`
 
+## Index Metadata
+
+- Surface classes: proof topology
+- Mechanic parents: none
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 `Spark/` was the last maintained agent lane still sitting at the repository
@@ -12,7 +19,7 @@ root. Earlier design work intentionally kept it there until
 
 That condition is now met. `DESIGN.AGENTS.md` defines the agent-facing mesh,
 `.agents/skills/` already exists as an agent companion surface, and
-`docs/LEGACY_NAMING.md` marks root `Spark/` as historical until validator-backed
+`docs/architecture/LEGACY_NAMING.md` marks root `Spark/` as historical until validator-backed
 placement is ready.
 
 ## Options Considered
@@ -66,7 +73,7 @@ It does not make `.agents/` a doctrine center.
 - `.agents/spark/AGENTS.md` names the Spark fast-loop lane route.
 - `.agents/spark/SWARM.md` uses the current path.
 - `Spark/` is absent.
-- `docs/PROOF_TOPOLOGY.md`, `docs/LEGACY_NAMING.md`, `README.md`,
+- `docs/architecture/PROOF_TOPOLOGY.md`, `docs/architecture/LEGACY_NAMING.md`, `README.md`,
   `ROADMAP.md`, and `docs/decisions/README.md` route the new placement.
 - `scripts/validate_repo.py`
 - `python scripts/validate_nested_agents.py`

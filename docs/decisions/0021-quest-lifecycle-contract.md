@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `quests/`
 
+## Index Metadata
+
+- Surface classes: quest/lane
+- Mechanic parents: none
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 Quest source records now use `quests/<lane>/<state>/AOA-EV-Q-*.yaml`, and

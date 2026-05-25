@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: mechanic package
+- Mechanic parents: rpg
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 The RPG evidence cluster entered the refactor through former root and quest

@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: legacy/provenance, boundary/runtime/sibling
+- Mechanic parents: cross-parent
+- Guard families: legacy and provenance, sibling and boundary
+- Posture: legacy/provenance rationale
+
 ## Context
 
 `PROVENANCE.md` is the only active-side bridge from a mechanic parent into its
@@ -62,8 +69,8 @@ As of 2026-05-24:
 - Reason: live route surfaces should give low-context agents a route, owner,
   and next step.
 - Source surfaces updated: `mechanics/*/PROVENANCE.md`,
-  `mechanics/README.md`, `docs/PROOF_TOPOLOGY.md`,
-  `docs/LEGACY_NAMING.md`, `DESIGN.md`, `scripts/validate_repo.py`, and
+  `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`,
+  `docs/architecture/LEGACY_NAMING.md`, `DESIGN.md`, `scripts/validate_repo.py`, and
   `tests/test_validate_repo.py`.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k
   mechanic_provenance_bridge_posture`; `python scripts/validate_repo.py`.

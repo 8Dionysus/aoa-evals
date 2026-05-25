@@ -36,7 +36,7 @@ does not replace the packages that own each step.
 - `generated/eval_sections.full.json`
 - `generated/eval_report_index.min.json`
 - `mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json`
-- `docs/EVAL_REVIEW_GUIDE.md`
+- `docs/guides/EVAL_REVIEW_GUIDE.md`
 - `mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md`
 - `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md`
 - `mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md`
@@ -55,7 +55,7 @@ does not replace the packages that own each step.
 | inspect source bundle | `mechanics/proof-object/` and `evals/**/EVAL.md` | bounded claim and proof-object boundary |
 | expand support contract | `mechanics/proof-infra/` plus bundle-local fixtures, runners, schemas, reports, or examples | reviewable evidence contract |
 | select candidate evidence | `mechanics/audit/` or `mechanics/boundary-bridge/` | candidate packet or cited owner ref |
-| review against bundle | `docs/EVAL_REVIEW_GUIDE.md` and bundle-local report contract | bounded review result |
+| review against bundle | `docs/guides/EVAL_REVIEW_GUIDE.md` and bundle-local report contract | bounded review result |
 | publish bounded report | bundle-local reports, proof-loop part-local route-smoke reports, or future root reports only when no narrower owner exists | reviewed report artifact |
 | route existing reports | `generated/eval_report_index.min.json` | derived reader pointing back to source reports |
 | dry-review receipt intake | `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json` and `mechanics/publication-receipts/` | payload preview with no publication |

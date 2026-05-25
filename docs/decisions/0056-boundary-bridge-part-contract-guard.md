@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/boundary-bridge/parts/`
 
+## Index Metadata
+
+- Surface classes: mechanic part, validation guard, boundary/runtime/sibling
+- Mechanic parents: boundary-bridge
+- Guard families: part and payload, sibling and boundary
+- Posture: active guard rationale
+
 ## Context
 
 `boundary-bridge` owns the eval-side operation for sibling proof refs,

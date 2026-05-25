@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/EVIDENCE_CLUSTERS.md`
 
+## Index Metadata
+
+- Surface classes: root/topology
+- Mechanic parents: cross-parent
+- Guard families: none
+- Posture: active rationale; source tree routed by 0104
+
 ## Context
 
 The mechanics refactor depends on more than parent-name correctness. The root
@@ -26,7 +33,7 @@ topology after the payload has moved behind a mechanic-owned payload route.
 
 ## Options Considered
 
-- Keep root-district knowledge only in `docs/PROOF_TOPOLOGY.md`.
+- Keep root-district knowledge only in `docs/architecture/PROOF_TOPOLOGY.md`.
 - Rely on route-card-only guards for cleaned root districts.
 - Add a Root District Reconnaissance Ledger to the mechanics evidence map and
   validate the required root-district rows.

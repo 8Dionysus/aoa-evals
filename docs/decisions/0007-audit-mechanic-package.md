@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/audit/`
 
+## Index Metadata
+
+- Surface classes: mechanic package, boundary/runtime/sibling
+- Mechanic parents: audit
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 After the `questbook` mechanic landed, the next candidate package had to be

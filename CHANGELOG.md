@@ -42,8 +42,8 @@ Tracking starts with the community-docs baseline for this repository.
 
 - root entry surfaces now route as a compact proof-organ map:
   `README.md`, `ROADMAP.md`, `DESIGN.md`, `DESIGN.AGENTS.md`,
-  `docs/ARCHITECTURE.md`, `docs/PROOF_TOPOLOGY.md`, and
-  `docs/AGENT_INDEX.md` point agents toward owner surfaces instead of carrying
+  `docs/architecture/ARCHITECTURE.md`, `docs/architecture/PROOF_TOPOLOGY.md`, and
+  `docs/architecture/AGENT_INDEX.md` point agents toward owner surfaces instead of carrying
   detailed operational ledgers.
 - eval-facing guides now use owner routes for selection, review, score
   semantics, blind spots, baseline comparison, repeated windows, fixture
@@ -76,7 +76,7 @@ Tracking starts with the community-docs baseline for this repository.
   compatibility
 - quest route surfaces in `quests/README.md` and `quests/AGENTS.md`, plus a
   questbook topology decision
-- proof topology map in `docs/PROOF_TOPOLOGY.md`, plus a decision recording why
+- proof topology map in `docs/architecture/PROOF_TOPOLOGY.md`, plus a decision recording why
   topology mapping precedes mechanics creation and file movement
 - mechanics atlas plus the first live `questbook` package for quest source law,
   human open-obligation indexing, generated readers, and deferred promotion
@@ -149,11 +149,11 @@ Tracking starts with the community-docs baseline for this repository.
   `growth-cycle/diagnosis-gate` instead of stale deferred Antifragility
   wording or a `repair` parent
 - Active Mechanics Topology Wording decision and validator coverage that keeps
-  `DESIGN.md`, `DESIGN.AGENTS.md`, and `docs/PROOF_TOPOLOGY.md` speaking about
+  `DESIGN.md`, `DESIGN.AGENTS.md`, and `docs/architecture/PROOF_TOPOLOGY.md` speaking about
   active mechanic packages rather than future or readiness-only pre-movement
   posture, now also covering `ROADMAP.md` and the proof-topology decision while
   leaving legacy archive details inside legacy
-- legacy boundary wording guard that keeps `docs/LEGACY_NAMING.md`,
+- legacy boundary wording guard that keeps `docs/architecture/LEGACY_NAMING.md`,
   `ROADMAP.md`, and `DESIGN.AGENTS.md` from treating legacy as a movement,
   deletion, or retirement route outside the owning archive
 - legacy naming posture now stays free of concrete old-name inventories,
@@ -215,10 +215,10 @@ Tracking starts with the community-docs baseline for this repository.
   bridge, not an active route, and to route readers through active surfaces
   before opening the legacy archive
 - Legacy Naming Single-Bridge Language guard, with validator coverage and a
-  decision record requiring `docs/LEGACY_NAMING.md` to keep `PROVENANCE.md` as
+  decision record requiring `docs/architecture/LEGACY_NAMING.md` to keep `PROVENANCE.md` as
   the single controlled bridge from active mechanic surfaces
 - Legacy Naming Posture Guide guard, with validator coverage and a decision
-  record requiring `docs/LEGACY_NAMING.md` to stay a posture guide rather than
+  record requiring `docs/architecture/LEGACY_NAMING.md` to stay a posture guide rather than
   a global archive map
 - compatibility root route-card legacy wording guard, keeping root route cards
   such as `schemas/` and `manifests/` on the owning mechanic `PROVENANCE.md`
@@ -503,8 +503,8 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Changed
 
-- clarified `docs/ARCHITECTURE.md` as the technical proof model, distinct from
-  `DESIGN.md`, `docs/PROOF_TOPOLOGY.md`, and
+- clarified `docs/architecture/ARCHITECTURE.md` as the technical proof model, distinct from
+  `DESIGN.md`, `docs/architecture/PROOF_TOPOLOGY.md`, and
   `mechanics/EVIDENCE_CLUSTERS.md`, with mechanics and legacy bridge layering
   described as proof-operation support rather than bundle authority, plus a
   validator-backed decision contract that keeps that role visible
@@ -770,7 +770,7 @@ This changelog entry uses the release-prep merge date.
   - `generated/eval_sections.full.json`
 - shared proof-flow dossiers under `reports/` for same-task baseline, artifact/process paired reading, comparison-spine reading, and repeated-window reading
 - repo-owned validation helpers under `scripts/` plus the GitHub Actions repo validation workflow under `.github/workflows/repo-validation.yml`
-- public repository entry and governance surfaces including `README.md`, `docs/README.md`, `docs/ARCHITECTURE.md`, `docs/EVAL_PHILOSOPHY.md`, `docs/RELEASING.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `EVAL_INDEX.md`, and `EVAL_SELECTION.md`
+- public repository entry and governance surfaces including `README.md`, `docs/README.md`, `docs/architecture/ARCHITECTURE.md`, `docs/guides/EVAL_PHILOSOPHY.md`, `docs/operations/RELEASING.md`, `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `EVAL_INDEX.md`, and `EVAL_SELECTION.md`
 
 ### Included in this release
 

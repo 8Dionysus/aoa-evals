@@ -30,7 +30,7 @@ home, owner route, tool lane, and validation lane.
 | Pressure | Route |
 | --- | --- |
 | public release narrative | `CHANGELOG.md` |
-| release procedure | `docs/RELEASING.md` |
+| release procedure | `docs/operations/RELEASING.md` |
 | local release gate | `scripts/release_check.py` |
 | GitHub landing gate | `.github/workflows/repo-validation.yml` and observed GitHub check evidence |
 | tag, GitHub Release, PR approval, merge, or goal completion | live git, GitHub, tag, release, and current-goal evidence |

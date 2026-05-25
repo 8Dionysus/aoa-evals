@@ -12,8 +12,8 @@ Use this swarm for one bounded eval bundle or one eval seam at a time.
 - `DESIGN.AGENTS.md`
 - `.agents/AGENTS.md`
 - `.agents/spark/AGENTS.md`
-- `docs/ARCHITECTURE.md`
-- `docs/EVAL_PHILOSOPHY.md`
+- `docs/architecture/ARCHITECTURE.md`
+- `docs/guides/EVAL_PHILOSOPHY.md`
 - `EVAL_INDEX.md`
 - `evals/workflow/aoa-bounded-change-quality/EVAL.md`
 - `mechanics/proof-object/parts/bundle-authoring/templates/EVAL.template.md`

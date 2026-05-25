@@ -30,7 +30,7 @@ proof placement.
 5. `mechanics/rpg/DIRECTION.md`
 6. `mechanics/rpg/PARTS.md`
 7. `mechanics/rpg/PROVENANCE.md`
-8. `docs/LEGACY_NAMING.md`
+8. `docs/architecture/LEGACY_NAMING.md`
 9. `mechanics/rpg/legacy/INDEX.md`
 
 ## Route Rules

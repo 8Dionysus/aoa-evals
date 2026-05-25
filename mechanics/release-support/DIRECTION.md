@@ -16,7 +16,7 @@ decision records, and `PROVENANCE.md`.
 - `PROVENANCE.md`: controlled bridge from active route to old proof-release placement.
 - `legacy/`: archive-local route for old proof-release placement after
   `PROVENANCE.md`.
-- root release surfaces: `CHANGELOG.md`, `docs/RELEASING.md`, CI workflows,
+- root release surfaces: `CHANGELOG.md`, `docs/operations/RELEASING.md`, CI workflows,
   and release scripts.
 
 ## Current contour
@@ -31,7 +31,7 @@ decision records, and `PROVENANCE.md`.
 
 Add release-support parts only when a repeated release operation needs a
 reviewable artifact and validator coverage. Ordinary changelog edits route to
-`CHANGELOG.md`, `docs/RELEASING.md`, or `scripts/release_check.py`.
+`CHANGELOG.md`, `docs/operations/RELEASING.md`, or `scripts/release_check.py`.
 
 ## Stop-lines
 

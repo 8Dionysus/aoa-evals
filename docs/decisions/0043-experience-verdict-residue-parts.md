@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/experience/`
 
+## Index Metadata
+
+- Surface classes: mechanic part
+- Mechanic parents: experience
+- Guard families: part and payload
+- Posture: active rationale
+
 ## Context
 
 After the Experience mechanic package existed, several root `docs/` verdict

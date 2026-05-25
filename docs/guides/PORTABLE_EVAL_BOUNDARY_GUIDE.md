@@ -9,7 +9,7 @@ Use this guide when a bundle demonstrates utility in a specific context and now
 needs review as a public proof surface.
 
 See also:
-- [Documentation Map](README.md)
+- [Documentation Map](../README.md)
 - [Eval Philosophy](EVAL_PHILOSOPHY.md)
 - [Eval Review Guide](EVAL_REVIEW_GUIDE.md)
 
@@ -22,7 +22,7 @@ See also:
 | output | portable posture, local-shaped posture, bounded adaptation route, or reviewer deferral |
 | owner | bundle-local `EVAL.md` and `eval.yaml` own the proof claim; this guide owns portability criteria |
 | next route | [Fixture Surface Guide](FIXTURE_SURFACE_GUIDE.md), [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md), [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md), [Eval Review Guide](EVAL_REVIEW_GUIDE.md), or the affected bundle |
-| validation | [docs/AGENTS.md#validation](AGENTS.md#validation) and the affected bundle route |
+| validation | [docs/AGENTS.md#validation](../AGENTS.md#validation) and the affected bundle route |
 
 ## Core question
 

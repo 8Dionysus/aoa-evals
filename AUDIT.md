@@ -37,14 +37,14 @@ Route outward for:
 Default reading order for audits:
 
 1. `README.md`
-2. `docs/ARCHITECTURE.md`
-3. `docs/EVAL_PHILOSOPHY.md`
+2. `docs/architecture/ARCHITECTURE.md`
+3. `docs/guides/EVAL_PHILOSOPHY.md`
 4. `EVAL_INDEX.md`
 5. `EVAL_SELECTION.md`
-6. `docs/COMPARISON_SPINE_GUIDE.md`
-7. `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
-8. `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
-9. `docs/SHARED_PROOF_INFRA_GUIDE.md`
+6. `docs/guides/COMPARISON_SPINE_GUIDE.md`
+7. `docs/guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
+8. `docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
+9. `docs/guides/SHARED_PROOF_INFRA_GUIDE.md`
 10. `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md`
 11. the target `evals/**/EVAL.md`
 12. the target `evals/**/eval.yaml`
@@ -78,7 +78,7 @@ Also apply the nearest nested `AGENTS.md` when working in subdirectories.
 
 - `EVAL_INDEX.md`
 - `EVAL_SELECTION.md`
-- `docs/COMPARISON_SPINE_GUIDE.md`
+- `docs/guides/COMPARISON_SPINE_GUIDE.md`
 - `generated/eval_catalog.json`
 - `generated/comparison_spine.json`
 - any change that makes a `draft` or `bounded` surface sound `baseline` or `canonical` by association
@@ -89,8 +89,8 @@ Also apply the nearest nested `AGENTS.md` when working in subdirectories.
 - `evals/comparison/peer-compare/aoa-output-vs-process-gap/`
 - `evals/comparison/longitudinal-window/aoa-longitudinal-growth-snapshot/`
 - `evals/capability/aoa-eval-integrity-check/`
-- `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
-- `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
+- `docs/guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`
+- `docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
 
 ### Shared proof infrastructure
 
@@ -99,7 +99,7 @@ Also apply the nearest nested `AGENTS.md` when working in subdirectories.
 - active mechanic-local proof-infra parts under
   `mechanics/proof-infra/parts/fixture-families/` and
   `mechanics/proof-infra/parts/reportable-contracts/`
-- `docs/SHARED_PROOF_INFRA_GUIDE.md`
+- `docs/guides/SHARED_PROOF_INFRA_GUIDE.md`
 - any path or helper naming that implies shared infra is stronger than bundle-local meaning
 
 ### Trace / evidence seam

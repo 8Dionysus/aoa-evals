@@ -4,6 +4,13 @@
 - Date: 2026-05-21
 - Owner surface: `mechanics/EVIDENCE_CLUSTERS.md`
 
+## Index Metadata
+
+- Surface classes: root/topology
+- Mechanic parents: cross-parent
+- Guard families: parent and package
+- Posture: active rationale
+
 ## Context
 
 The Active Parent Evidence Dimension Ledger made every mechanic parent show

@@ -30,7 +30,7 @@ This district preserves Antifragility provenance behind the active
 5. `mechanics/antifragility/DIRECTION.md`
 6. `mechanics/antifragility/PARTS.md`
 7. `mechanics/antifragility/PROVENANCE.md`
-8. `docs/LEGACY_NAMING.md`
+8. `docs/architecture/LEGACY_NAMING.md`
 
 ## Route Rules
 

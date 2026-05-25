@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: proof topology
+- Mechanic parents: rpg
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 `mechanics/rpg/` is the active AoA-aligned parent for eval-side RPG proof. The

@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/proof-loop/`
 
+## Index Metadata
+
+- Surface classes: mechanic package
+- Mechanic parents: proof-loop
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 The strategic plan names Phase 8 as the active proof loop:
@@ -70,7 +77,7 @@ refs to outrank bundle-local review.
 
 - `mechanics/proof-loop/README.md` names the owned operation and step owners.
 - `mechanics/proof-loop/AGENTS.md` names local editing law and boundaries.
-- `mechanics/README.md`, `docs/PROOF_TOPOLOGY.md`, `README.md`, `docs/README.md`,
+- `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `README.md`, `docs/README.md`,
   `ROADMAP.md`, and `CHANGELOG.md` route the package.
 - `scripts/validate_repo.py`
 - `python scripts/validate_semantic_agents.py`

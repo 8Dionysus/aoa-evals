@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: root route-card districts
 
+## Index Metadata
+
+- Surface classes: validation guard, root/topology
+- Mechanic parents: none
+- Guard families: none
+- Posture: active guard rationale
+
 ## Context
 
 The mechanics refactor moved active payloads out of several root technical
@@ -38,7 +45,7 @@ Keep these root districts as route-card-only surfaces for now.
 
 Active mechanic-owned payloads must live under their owning part. The root
 route-card districts may contain only their route cards unless a future
-decision updates `docs/PROOF_TOPOLOGY.md` and the validator allowlist.
+decision updates `docs/architecture/PROOF_TOPOLOGY.md` and the validator allowlist.
 
 ## Rationale
 
@@ -106,7 +113,7 @@ config, scripts, tests, reports, or generated readers under active
 - `manifests/README.md`
 - `schemas/README.md`
 - `templates/README.md`
-- `docs/PROOF_TOPOLOGY.md`
+- `docs/architecture/PROOF_TOPOLOGY.md`
 - `scripts/validate_repo.py`
 - `tests/test_validate_repo.py`
 - `python scripts/validate_repo.py`

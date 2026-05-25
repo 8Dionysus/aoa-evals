@@ -14,7 +14,7 @@ REVIEW_GUIDE_BY_KIND = {
     "artifact_to_verdict_hook": "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md",
     "runtime_evidence_selection": "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
 }
-OWNER_REVIEW_FALLBACK = "docs/EVAL_REVIEW_GUIDE.md"
+OWNER_REVIEW_FALLBACK = "docs/guides/EVAL_REVIEW_GUIDE.md"
 
 
 def read_text(path: Path) -> str:
@@ -82,7 +82,7 @@ def build_runtime_candidate_intake_payload() -> dict[str, object]:
         "layer": "aoa-evals",
         "source_of_truth": {
             "runtime_candidate_template_index": "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json",
-            "eval_review_guide": "docs/EVAL_REVIEW_GUIDE.md",
+            "eval_review_guide": "docs/guides/EVAL_REVIEW_GUIDE.md",
             "trace_eval_bridge": "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md",
             "runtime_bench_promotion_guide": "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
         },

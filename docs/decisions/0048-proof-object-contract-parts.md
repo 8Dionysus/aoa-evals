@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/proof-object/`
 
+## Index Metadata
+
+- Surface classes: mechanic part
+- Mechanic parents: proof-object
+- Guard families: part and payload
+- Posture: active rationale
+
 ## Context
 
 The proof-object mechanic owns the operation that keeps source eval bundles

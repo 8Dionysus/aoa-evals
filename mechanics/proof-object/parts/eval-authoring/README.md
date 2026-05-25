@@ -37,7 +37,7 @@ route to their owning source surfaces.
 claim, object under evaluation, status, evidence posture, verdict logic,
 blind spots, and manifest metadata.
 
-`docs/ARCHITECTURE.md`, `docs/EVAL_PHILOSOPHY.md`, review guides, comparison
+`docs/architecture/ARCHITECTURE.md`, `docs/guides/EVAL_PHILOSOPHY.md`, review guides, comparison
 guides, score guides, and verdict guides own repo-level proof vocabulary.
 The template borrows that vocabulary for a starter shape. When it reads as
 doctrine or accepted proof meaning, route back to the source package and proof

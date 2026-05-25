@@ -25,7 +25,7 @@ decisions.
 ## Validation
 
 Use the certification-gate README and
-[Regression Proof Surfaces](../../../../../docs/REGRESSION_PROOF_SURFACES.md)
+[Regression Proof Surfaces](../../../../../docs/guides/REGRESSION_PROOF_SURFACES.md)
 for route context.
 
 The verdict should name the promise, evidence, and interpretation boundary.

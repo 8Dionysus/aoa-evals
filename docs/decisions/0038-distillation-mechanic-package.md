@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/distillation/`
 
+## Index Metadata
+
+- Surface classes: mechanic package
+- Mechanic parents: distillation
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 Distillation is a named AoA mechanic, and `aoa-evals` has a local proof-side
@@ -20,7 +27,7 @@ The evidence cluster spans:
   `mechanics/experience/parts/adoption-federation/fixtures/memo-reviewed-candidate-adoption-guardrail-v1/README.md`
 - bundle-local fixture and runner contracts, report schemas, example reports,
   generated catalog/capsule/section entries, tests, and
-  `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`
+  `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`
 
 The same search found nearby memo recall, memo contradiction, confirmed
 writeback-act, witness trace, audit hook, and generic Experience adoption

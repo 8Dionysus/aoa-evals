@@ -26,6 +26,14 @@ import eval_section_contract
 import eval_comparison_spine_contract
 import eval_proof_contract_helpers
 import validate_nested_agents
+from validators import (
+    docs_decisions,
+    docs_routes,
+    docs_topology,
+    eval_bundles,
+    generated_parity,
+    mechanics as mechanics_validator,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 FORMAT_CHECKER = Draft202012Validator.FORMAT_CHECKER
@@ -116,10 +124,13 @@ GITHUB_AGENTS_NAME = ".github/AGENTS.md"
 AGENTS_DISTRICT_NAME = ".agents/AGENTS.md"
 SPARK_LANE_AGENTS_NAME = ".agents/spark/AGENTS.md"
 SPARK_LANE_SWARM_NAME = ".agents/spark/SWARM.md"
-PROOF_TOPOLOGY_NAME = "docs/PROOF_TOPOLOGY.md"
-AGENT_INDEX_NAME = "docs/AGENT_INDEX.md"
+PROOF_TOPOLOGY_NAME = "docs/architecture/PROOF_TOPOLOGY.md"
+ROUTE_RESIDUE_GUARDS_NAME = "docs/architecture/ROUTE_RESIDUE_GUARDS.md"
+AGENT_INDEX_NAME = "docs/architecture/AGENT_INDEX.md"
 AGENT_INDEX_CHAIN_DECISION_NAME = "docs/decisions/0103-agent-index-chain-surface.md"
-LEGACY_NAMING_NAME = "docs/LEGACY_NAMING.md"
+DECISION_RECORDS_README_NAME = "docs/decisions/README.md"
+DECISION_INDEX_BY_NUMBER_NAME = "docs/decisions/indexes/by-number.md"
+LEGACY_NAMING_NAME = "docs/architecture/LEGACY_NAMING.md"
 LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME = (
     "docs/decisions/0091-legacy-naming-single-bridge-language.md"
 )
@@ -266,7 +277,7 @@ ROOT_ROUTE_CARD_README_FORBIDDEN_TOKENS = (
 ROOT_ROUTE_CARD_GUARD_DECISION_REQUIRED_TOKENS = (
     "Root Route-card Guard",
     "route-card-only surfaces",
-    "docs/PROOF_TOPOLOGY.md",
+    "docs/architecture/PROOF_TOPOLOGY.md",
     "validator allowlist",
     "does not forbid bundle-local examples or reports",
 )
@@ -388,8 +399,8 @@ ROOT_DESIGN_REQUIRED_TOKENS = (
     "proof meaning comes from source refs, owner routes, generated parity",
     "Local owner truth stays authoritative",
     "mechanics/EVIDENCE_CLUSTERS.md",
-    "docs/ARCHITECTURE.md",
-    "docs/EVAL_PHILOSOPHY.md",
+    "docs/architecture/ARCHITECTURE.md",
+    "docs/guides/EVAL_PHILOSOPHY.md",
     "docs/decisions/",
 )
 ARCHITECTURE_PROOF_MODEL_DECISION_NAME = (
@@ -402,7 +413,7 @@ ARCHITECTURE_REQUIRED_TOKENS = (
     "technical proof model",
     "Use this file for the proof model",
     "DESIGN.md",
-    "docs/PROOF_TOPOLOGY.md",
+    "docs/architecture/PROOF_TOPOLOGY.md",
     "mechanics/EVIDENCE_CLUSTERS.md",
     "### Mechanics",
     "proof-layer operation",
@@ -429,7 +440,7 @@ ARCHITECTURE_PROOF_MODEL_DECISION_REQUIRED_TOKENS = (
     "Architecture Proof Model Contract",
     "technical proof model",
     "DESIGN.md",
-    "docs/PROOF_TOPOLOGY.md",
+    "docs/architecture/PROOF_TOPOLOGY.md",
     "mechanics/EVIDENCE_CLUSTERS.md",
     "mechanics as operation support",
     "owner-named evals-native",
@@ -706,7 +717,7 @@ ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_REQUIRED_TOKENS = (
     ACTIVE_MECHANICS_TOPOLOGY_WORDING_COMMAND,
 )
 PROOF_TOPOLOGY_DECISION_REQUIRED_TOKENS = (
-    "docs/PROOF_TOPOLOGY.md",
+    "docs/architecture/PROOF_TOPOLOGY.md",
     "mechanics",
     "source proof objects",
     "candidate evidence",
@@ -745,7 +756,7 @@ LEGACY_NAMING_FORBIDDEN_DETAIL_TOKENS = (
     "The old `Spark/` root path",
 )
 LEGACY_NAMING_DECISION_REQUIRED_TOKENS = (
-    "docs/LEGACY_NAMING.md",
+    "docs/architecture/LEGACY_NAMING.md",
     "posture guide",
     "accepted-input",
     "active topology",
@@ -755,7 +766,7 @@ LEGACY_NAMING_DECISION_REQUIRED_TOKENS = (
 )
 LEGACY_NAMING_POSTURE_GUIDE_DECISION_REQUIRED_TOKENS = (
     "Legacy Naming Posture Guide",
-    "docs/LEGACY_NAMING.md",
+    "docs/architecture/LEGACY_NAMING.md",
     "posture guide",
     "not a global archive map",
     "archive details",
@@ -764,7 +775,7 @@ LEGACY_NAMING_POSTURE_GUIDE_DECISION_REQUIRED_TOKENS = (
 )
 LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_REQUIRED_TOKENS = (
     "Legacy Naming Single-Bridge Language",
-    "docs/LEGACY_NAMING.md",
+    "docs/architecture/LEGACY_NAMING.md",
     "`PROVENANCE.md`",
     "single controlled bridge",
     "archive details",
@@ -1125,30 +1136,32 @@ ROOT_AUTHORED_SURFACE_CLASSIFICATION_COLUMNS = (
 ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS: dict[str, tuple[str, ...]] = {
     "docs": (
         "AGENTS.md",
-        "AGENTS_ROOT_REFERENCE.md",
-        "AGENT_INDEX.md",
-        "ARCHITECTURE.md",
-        "ARTIFACT_PROCESS_SEPARATION_GUIDE.md",
-        "BASELINE_COMPARISON_GUIDE.md",
-        "BLIND_SPOT_DISCLOSURE_GUIDE.md",
-        "COMPARISON_SPINE_GUIDE.md",
-        "EVAL_PHILOSOPHY.md",
-        "EVAL_REVIEW_GUIDE.md",
-        "EVAL_RUBRIC.md",
-        "FIXTURE_SURFACE_GUIDE.md",
-        "LEGACY_NAMING.md",
-        "PORTABLE_EVAL_BOUNDARY_GUIDE.md",
-        "PROOF_TOPOLOGY.md",
-        "QUESTBOOK_EVAL_INTEGRATION.md",
         "README.md",
-        "REGRESSION_PROOF_SURFACES.md",
-        "RELEASING.md",
-        "REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
-        "REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md",
-        "SCORE_SEMANTICS_GUIDE.md",
-        "SHARED_PROOF_INFRA_GUIDE.md",
-        "VERDICT_INTERPRETATION_GUIDE.md",
-        "BOUNDARY_ROUTE_CHECKLIST.md",
+        "architecture/AGENT_INDEX.md",
+        "architecture/ARCHITECTURE.md",
+        "architecture/LEGACY_NAMING.md",
+        "architecture/PROOF_TOPOLOGY.md",
+        "architecture/ROUTE_RESIDUE_GUARDS.md",
+        "architecture/topology_contract.yaml",
+        "guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md",
+        "guides/BASELINE_COMPARISON_GUIDE.md",
+        "guides/BLIND_SPOT_DISCLOSURE_GUIDE.md",
+        "guides/BOUNDARY_ROUTE_CHECKLIST.md",
+        "guides/COMPARISON_SPINE_GUIDE.md",
+        "guides/EVAL_PHILOSOPHY.md",
+        "guides/EVAL_REVIEW_GUIDE.md",
+        "guides/EVAL_RUBRIC.md",
+        "guides/FIXTURE_SURFACE_GUIDE.md",
+        "guides/PORTABLE_EVAL_BOUNDARY_GUIDE.md",
+        "guides/REGRESSION_PROOF_SURFACES.md",
+        "guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
+        "guides/SCORE_SEMANTICS_GUIDE.md",
+        "guides/SHARED_PROOF_INFRA_GUIDE.md",
+        "guides/VERDICT_INTERPRETATION_GUIDE.md",
+        "operations/AGENTS_ROOT_REFERENCE.md",
+        "operations/QUESTBOOK_EVAL_INTEGRATION.md",
+        "operations/RELEASING.md",
+        "operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md",
     ),
     "scripts": (
         "AGENTS.md",
@@ -1158,11 +1171,19 @@ ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS: dict[str, tuple[str, ...]] = {
         "eval_comparison_spine_contract.py",
         "eval_proof_contract_helpers.py",
         "eval_section_contract.py",
+        "generate_decision_indexes.py",
         "generate_eval_report_index.py",
         "release_check.py",
         "validate_nested_agents.py",
         "validate_repo.py",
         "validate_semantic_agents.py",
+        "validators/__init__.py",
+        "validators/docs_decisions.py",
+        "validators/docs_routes.py",
+        "validators/docs_topology.py",
+        "validators/eval_bundles.py",
+        "validators/generated_parity.py",
+        "validators/mechanics.py",
     ),
     "tests": (
         "AGENTS.md",
@@ -1184,7 +1205,7 @@ AGENT_INDEX_REQUIRED_TOKENS = (
     "path needs an explicit owner route",
     "repo -> authority class -> operation -> mechanic parent -> part -> payload -> validation",
     "nearest `AGENTS.md`",
-    "docs/PROOF_TOPOLOGY.md",
+    "docs/architecture/PROOF_TOPOLOGY.md",
     "mechanics/README.md",
     "docs/decisions/README.md",
     "route-card-only",
@@ -1200,7 +1221,7 @@ AGENT_INDEX_FORBIDDEN_ROUTE_SCAFFOLD = (
 )
 AGENT_INDEX_DECISION_REQUIRED_TOKENS = (
     "Agent Index Chain Surface",
-    "docs/AGENT_INDEX.md",
+    "docs/architecture/AGENT_INDEX.md",
     "docs/README.md",
     "active mechanic parent",
     "repo -> authority class -> operation -> mechanic parent -> part -> payload -> validation",
@@ -1215,11 +1236,11 @@ READ_MODEL_COMMAND_OWNER_PATHS = (
     "ROADMAP.md",
     "AUDIT.md",
     "docs/README.md",
-    "docs/AGENT_INDEX.md",
-    "docs/PROOF_TOPOLOGY.md",
-    "docs/LEGACY_NAMING.md",
-    "docs/RELEASING.md",
-    "docs/REGRESSION_PROOF_SURFACES.md",
+    "docs/architecture/AGENT_INDEX.md",
+    "docs/architecture/PROOF_TOPOLOGY.md",
+    "docs/architecture/LEGACY_NAMING.md",
+    "docs/operations/RELEASING.md",
+    "docs/guides/REGRESSION_PROOF_SURFACES.md",
     "evals/README.md",
     "generated/README.md",
     "quests/README.md",
@@ -1252,8 +1273,8 @@ ROOT_README_SURFACE_REQUIRED_TOKENS = (
     "AoA proof canon",
     "bounded proof surface",
     "repo to authority class",
-    "docs/AGENT_INDEX.md",
-    "docs/PROOF_TOPOLOGY.md",
+    "docs/architecture/AGENT_INDEX.md",
+    "docs/architecture/PROOF_TOPOLOGY.md",
     "mechanics/README.md",
     "Eval Bundle Selection Chooser",
     "Eval Bundle Index",
@@ -1279,7 +1300,13 @@ DOCS_README_ROUTE_MAP_REQUIRED_TOKENS = (
     "Decision Records Index",
     "Eval Bundle Selection Chooser",
     "Eval Bundle Index",
+    "Folder Map",
+    "docs/architecture/",
+    "docs/guides/",
+    "docs/operations/",
+    "Route Residue Guards",
     "Recommended Reading Paths",
+    "Mechanics Refactor Path",
     "Validation Route",
     "docs/AGENTS.md#validation",
 )
@@ -1310,7 +1337,7 @@ ROADMAP_DIRECTION_SURFACE_REQUIRED_TOKENS = (
     "release history: [CHANGELOG.md](CHANGELOG.md)",
     "## Update Rule",
     "## Current Direction",
-    "`docs/AGENT_INDEX.md` remains",
+    "`docs/architecture/AGENT_INDEX.md` remains",
     "bundle-local review keeps bounded claim",
     "## Direction Anchors",
     "changelog and validator ledgers carry",
@@ -1461,7 +1488,7 @@ ROOT_AUTHORED_SURFACE_CLASSIFICATION_DECISION_REQUIRED_TOKENS = (
     "unclassified root-authored surface",
     ROOT_AUTHORED_SURFACE_CLASSIFICATION_COMMAND,
 )
-PORTABLE_EVAL_BOUNDARY_GUIDE_NAME = "docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md"
+PORTABLE_EVAL_BOUNDARY_GUIDE_NAME = "docs/guides/PORTABLE_EVAL_BOUNDARY_GUIDE.md"
 PORTABLE_EVAL_BOUNDARY_GUIDE_REQUIRED_TOKENS = (
     "portability route for evaluation bundles",
     "Operating Card",
@@ -1478,7 +1505,7 @@ PORTABLE_EVAL_BOUNDARY_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD = (
     "Full universality is not required",
     "Do not confuse portability with scale",
 )
-CLOSEOUT_WRITEBACK_INGRESS_NAME = "docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md"
+CLOSEOUT_WRITEBACK_INGRESS_NAME = "docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md"
 CLOSEOUT_WRITEBACK_INGRESS_DECISION_NAME = (
     "docs/decisions/0045-closeout-writeback-ingress-boundary.md"
 )
@@ -1530,7 +1557,7 @@ CONTRIBUTING_FORBIDDEN_ROUTE_SCAFFOLD = (
     "do not open a public issue or PR",
     "A good eval bundle does not try to prove everything.",
 )
-SCORE_SEMANTICS_GUIDE_NAME = "docs/SCORE_SEMANTICS_GUIDE.md"
+SCORE_SEMANTICS_GUIDE_NAME = "docs/guides/SCORE_SEMANTICS_GUIDE.md"
 SCORE_SEMANTICS_GUIDE_REQUIRED_TOKENS = (
     "Operating Card",
     "score and verdict interpretation guide",
@@ -1546,7 +1573,7 @@ SCORE_SEMANTICS_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD = (
     "explicit caution notes",
     "If it hides that, weaken it.",
 )
-EVAL_REVIEW_GUIDE_NAME = "docs/EVAL_REVIEW_GUIDE.md"
+EVAL_REVIEW_GUIDE_NAME = "docs/guides/EVAL_REVIEW_GUIDE.md"
 EVAL_REVIEW_GUIDE_REQUIRED_TOKENS = (
     "bounded maturity review guide",
     "remaining-gap route",
@@ -1565,7 +1592,7 @@ EVAL_REVIEW_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD = (
     "score semantics still too vague",
     "verdict logic still too dependent on hidden reviewer intuition",
 )
-BLIND_SPOT_DISCLOSURE_GUIDE_NAME = "docs/BLIND_SPOT_DISCLOSURE_GUIDE.md"
+BLIND_SPOT_DISCLOSURE_GUIDE_NAME = "docs/guides/BLIND_SPOT_DISCLOSURE_GUIDE.md"
 BLIND_SPOT_DISCLOSURE_GUIDE_REQUIRED_TOKENS = (
     "blind-spot disclosure guide",
     "Disclosure Posture",
@@ -2254,10 +2281,10 @@ DECISION_ROUTE_RESIDUE_CONTEXT_TOKENS = (
     "stale authored path example",
 )
 ACTIVE_LEGACY_PARENT_WORDING_FORBIDDEN: dict[str, tuple[str, ...]] = {
-    "docs/RELEASING.md": (
+    "docs/operations/RELEASING.md": (
         "runtime-evidence example refs",
     ),
-    "docs/PROOF_TOPOLOGY.md": (
+    "docs/architecture/PROOF_TOPOLOGY.md": (
         "audit runtime-evidence packets",
     ),
     "mechanics/boundary-bridge/README.md": (
@@ -2824,7 +2851,7 @@ MECHANICS_REQUIRED_TOKENS = (
 )
 MECHANICS_AGENTS_REQUIRED_TOKENS = (
     "repeatable proof-layer operations",
-    "docs/PROOF_TOPOLOGY.md",
+    "docs/architecture/PROOF_TOPOLOGY.md",
     "mechanics/EVIDENCE_CLUSTERS.md",
     "source proof objects",
     "generated readers",
@@ -3260,9 +3287,9 @@ REPO_VALIDATION_AOA_MEMO_PIN_DECISION_REQUIRED_TOKENS = (
 )
 COMPARISON_SPINE_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
-    "docs/COMPARISON_SPINE_GUIDE.md",
-    "docs/BASELINE_COMPARISON_GUIDE.md",
-    "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
+    "docs/guides/COMPARISON_SPINE_GUIDE.md",
+    "docs/guides/BASELINE_COMPARISON_GUIDE.md",
+    "docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
     "generated/comparison_spine.json",
     "mechanics/comparison-spine/PARTS.md",
     COMPARISON_SPINE_OVERVIEW_REPORT_NAME,
@@ -3414,7 +3441,7 @@ COMPARISON_SPINE_LEGACY_INDEX_REQUIRED_TOKENS = (
 )
 PROOF_INFRA_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
-    "docs/SHARED_PROOF_INFRA_GUIDE.md",
+    "docs/guides/SHARED_PROOF_INFRA_GUIDE.md",
     "fixtures/README.md",
     PROOF_INFRA_REPORTABLE_CONTRACTS_RUNNER_SURFACE_NAME,
     PROOF_INFRA_REPORTABLE_CONTRACTS_SCORER_NAME,
@@ -3691,7 +3718,7 @@ PUBLICATION_RECEIPTS_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
 RELEASE_SUPPORT_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
     "PARTS.md",
-    "docs/RELEASING.md",
+    "docs/operations/RELEASING.md",
     "CHANGELOG.md",
     "scripts/release_check.py",
     ".github/workflows/repo-validation.yml",
@@ -3736,7 +3763,7 @@ RELEASE_SUPPORT_MECHANIC_DECISION_REQUIRED_TOKENS = (
 RELEASE_SUPPORT_MECHANIC_PARTS_REQUIRED_TOKENS = (
     "Release Support / Part Index",
     "CHANGELOG.md",
-    "docs/RELEASING.md",
+    "docs/operations/RELEASING.md",
     "scripts/release_check.py",
     ".github/workflows/repo-validation.yml",
     "Readiness Audit",
@@ -5638,14 +5665,14 @@ SECTION_SOURCE_OF_TRUTH = eval_section_contract.SECTION_SOURCE_OF_TRUTH
 COMPARISON_SPINE_NAME = eval_comparison_spine_contract.COMPARISON_SPINE_NAME
 COMPARISON_SPINE_VERSION = eval_comparison_spine_contract.COMPARISON_SPINE_VERSION
 COMPARISON_SPINE_SOURCE_OF_TRUTH = eval_comparison_spine_contract.COMPARISON_SPINE_SOURCE_OF_TRUTH
-ARTIFACT_PROCESS_GUIDE_NAME = "docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md"
-REPEATED_WINDOW_GUIDE_NAME = "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md"
-SHARED_PROOF_INFRA_GUIDE_NAME = "docs/SHARED_PROOF_INFRA_GUIDE.md"
+ARTIFACT_PROCESS_GUIDE_NAME = "docs/guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md"
+REPEATED_WINDOW_GUIDE_NAME = "docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md"
+SHARED_PROOF_INFRA_GUIDE_NAME = "docs/guides/SHARED_PROOF_INFRA_GUIDE.md"
 QUESTBOOK_NAME = "QUESTBOOK.md"
 QUESTS_README_NAME = "quests/README.md"
 QUESTS_AGENTS_NAME = "quests/AGENTS.md"
 QUEST_LIFECYCLE_NAME = "quests/LIFECYCLE.md"
-QUESTBOOK_INTEGRATION_NAME = "docs/QUESTBOOK_EVAL_INTEGRATION.md"
+QUESTBOOK_INTEGRATION_NAME = "docs/operations/QUESTBOOK_EVAL_INTEGRATION.md"
 QUEST_SCHEMA_NAME = "mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json"
 QUEST_DISPATCH_SCHEMA_NAME = "mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json"
 QUEST_CATALOG_NAME = "generated/quest_catalog.min.json"
@@ -9835,8 +9862,25 @@ def require_tokens(
     text = read_text_or_issue(repo_root / path_name, issues, root=repo_root)
     if not text:
         return text
+    decision_index_text = ""
+    companion_texts: list[str] = []
+    if path_name == DECISION_RECORDS_README_NAME:
+        index_texts = []
+        for relative_path in docs_decisions.GENERATED_INDEX_PATHS:
+            index_path = repo_root / relative_path
+            if index_path.is_file():
+                index_texts.append(index_path.read_text(encoding="utf-8"))
+        decision_index_text = "\n\n".join(index_texts)
+    if path_name == PROOF_TOPOLOGY_NAME:
+        route_guard_path = repo_root / ROUTE_RESIDUE_GUARDS_NAME
+        if route_guard_path.is_file():
+            companion_texts.append(route_guard_path.read_text(encoding="utf-8"))
     for token in tokens:
         search_text = text
+        if decision_index_text:
+            search_text = "\n\n".join((text, decision_index_text))
+        if companion_texts:
+            search_text = "\n\n".join((search_text, *companion_texts))
         if part_readme_path_name(path_name) and token.lstrip("`").startswith("python "):
             search_text = "\n\n".join(
                 (
@@ -9856,6 +9900,41 @@ def require_tokens(
                 ValidationIssue(path_name, f"file must mention '{token}'")
             )
     return text
+
+
+def validate_decision_index_read_models(repo_root: Path) -> list[ValidationIssue]:
+    return [
+        ValidationIssue(location, message)
+        for location, message in docs_decisions.validate_decision_index_surfaces(repo_root)
+    ]
+
+
+def validate_docs_topology_read_model(repo_root: Path) -> list[ValidationIssue]:
+    return [
+        ValidationIssue(location, message)
+        for location, message in docs_topology.validate_docs_topology(repo_root)
+    ]
+
+
+def validate_docs_route_contracts(repo_root: Path) -> list[ValidationIssue]:
+    return [
+        ValidationIssue(location, message)
+        for location, message in docs_routes.validate_docs_routes(repo_root)
+    ]
+
+
+def validate_generated_parity_contracts(repo_root: Path) -> list[ValidationIssue]:
+    return [
+        ValidationIssue(location, message)
+        for location, message in generated_parity.validate_generated_parity(repo_root)
+    ]
+
+
+def validate_eval_bundle_topology_contracts(repo_root: Path) -> list[ValidationIssue]:
+    return [
+        ValidationIssue(location, message)
+        for location, message in eval_bundles.validate_eval_bundle_topology(repo_root)
+    ]
 
 
 def validate_decision_status_lines(repo_root: Path) -> list[ValidationIssue]:
@@ -10001,7 +10080,7 @@ def validate_releasing_route_map_surface(repo_root: Path) -> list[ValidationIssu
 
     text = require_tokens(
         repo_root=repo_root,
-        path_name="docs/RELEASING.md",
+        path_name="docs/operations/RELEASING.md",
         tokens=RELEASING_ROUTE_MAP_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -10010,7 +10089,7 @@ def validate_releasing_route_map_surface(repo_root: Path) -> list[ValidationIssu
             if stale_phrase in text:
                 issues.append(
                     ValidationIssue(
-                        "docs/RELEASING.md",
+                        "docs/operations/RELEASING.md",
                         "release guide must route readiness artifacts to live-status owners instead of stale status-ledger negative wording "
                         f"'{stale_phrase}'",
                     )
@@ -10103,7 +10182,7 @@ def validate_memory_consumer_proof_boundary_surfaces(repo_root: Path) -> list[Va
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/EVAL_PHILOSOPHY.md",
+        path_name="docs/guides/EVAL_PHILOSOPHY.md",
         tokens=MEMORY_CONSUMER_PROOF_BOUNDARY_PHILOSOPHY_TOKENS,
         issues=issues,
     )
@@ -10137,7 +10216,7 @@ def validate_eval_philosophy_route_map_surface(repo_root: Path) -> list[Validati
 
     text = require_tokens(
         repo_root=repo_root,
-        path_name="docs/EVAL_PHILOSOPHY.md",
+        path_name="docs/guides/EVAL_PHILOSOPHY.md",
         tokens=EVAL_PHILOSOPHY_ROUTE_MAP_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -10146,7 +10225,7 @@ def validate_eval_philosophy_route_map_surface(repo_root: Path) -> list[Validati
             if stale_phrase in text:
                 issues.append(
                     ValidationIssue(
-                        "docs/EVAL_PHILOSOPHY.md",
+                        "docs/guides/EVAL_PHILOSOPHY.md",
                         "eval philosophy should route proof pressure through positive distinctions instead of flat negative slogan wording "
                         f"'{stale_phrase}'",
                     )
@@ -10192,18 +10271,6 @@ def validate_docs_readme_route_map(repo_root: Path) -> list[ValidationIssue]:
                 "Validation Route must stay after Recommended Reading Paths so reader paths remain contiguous",
             )
         )
-
-    topology_section = markdown_heading_section(text, "Topology And Route Maps")
-    for parent_name in ACTIVE_MECHANIC_PARENT_NAMES:
-        token = f"../mechanics/{parent_name}/README.md"
-        if token not in topology_section:
-            issues.append(
-                ValidationIssue(
-                    "docs/README.md",
-                    "docs route map must include every active mechanic parent in Topology And Route Maps; "
-                    f"missing {token}",
-                )
-            )
 
     return issues
 
@@ -10467,7 +10534,7 @@ def validate_root_design_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     architecture_text = require_tokens(
         repo_root=repo_root,
-        path_name="docs/ARCHITECTURE.md",
+        path_name="docs/architecture/ARCHITECTURE.md",
         tokens=ARCHITECTURE_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -10562,7 +10629,7 @@ def validate_root_design_surfaces(repo_root: Path) -> list[ValidationIssue]:
             if stale_phrase in architecture_text:
                 issues.append(
                     ValidationIssue(
-                        "docs/ARCHITECTURE.md",
+                        "docs/architecture/ARCHITECTURE.md",
                         "architecture should route related surfaces positively instead of stale negative role scaffold "
                         f"'{stale_phrase}'",
                     )
@@ -10571,7 +10638,7 @@ def validate_root_design_surfaces(repo_root: Path) -> list[ValidationIssue]:
             if stale_phrase in architecture_text:
                 issues.append(
                     ValidationIssue(
-                        "docs/ARCHITECTURE.md",
+                        "docs/architecture/ARCHITECTURE.md",
                         "architecture long-term direction should name the proof route "
                         f"instead of stale scaffold '{stale_phrase}'",
                     )
@@ -10775,7 +10842,7 @@ def validate_agent_lane_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/PROOF_TOPOLOGY.md",
+        path_name="docs/architecture/PROOF_TOPOLOGY.md",
         tokens=(".agents/", ".agents/spark/", "Agent guidance"),
         issues=issues,
     )
@@ -11095,7 +11162,7 @@ def validate_legacy_naming_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/PROOF_TOPOLOGY.md",
+        path_name="docs/architecture/PROOF_TOPOLOGY.md",
         tokens=(LEGACY_NAMING_NAME, "generated-projection", "provenance-bridge"),
         issues=issues,
     )
@@ -12968,18 +13035,6 @@ def validate_proof_loop_local_report_surfaces(repo_root: Path) -> list[Validatio
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/README.md",
-        tokens=("Mechanic And Evidence Anchors",),
-        issues=issues,
-    )
-    require_tokens(
-        repo_root=repo_root,
-        path_name="docs/README.md",
-        tokens=(PROOF_LOOP_LOCAL_REPORT_NAME, "First Proof Loop Bundle-Local Report"),
-        issues=issues,
-    )
-    require_tokens(
-        repo_root=repo_root,
         path_name="ROADMAP.md",
         tokens=("Proof loop route", "mechanics/proof-loop/README.md"),
         issues=issues,
@@ -13041,11 +13096,6 @@ def validate_receipt_intake_dry_review_surface(repo_root: Path) -> list[Validati
                 "`not_published`",
             ),
         ),
-        (
-            "docs/README.md",
-            ("Mechanic And Evidence Anchors",),
-        ),
-        ("docs/README.md", (RECEIPT_INTAKE_DRY_REVIEW_NAME, "Receipt Intake Dry Review")),
         (
             "ROADMAP.md",
             ("Publication receipt posture", "mechanics/publication-receipts/README.md"),
@@ -13407,7 +13457,7 @@ def validate_release_support_readiness_audit_surface(repo_root: Path) -> list[Va
             ),
         ),
         (
-            "docs/RELEASING.md",
+            "docs/operations/RELEASING.md",
             (
                 RELEASE_SUPPORT_READINESS_AUDIT_NAME,
                 "local release-prep reviewability evidence",
@@ -13421,14 +13471,6 @@ def validate_release_support_readiness_audit_surface(repo_root: Path) -> list[Va
                 "GitHub PR approval and Repo Validation",
                 "current goal review",
             ),
-        ),
-        (
-            "docs/README.md",
-            ("Mechanic And Evidence Anchors",),
-        ),
-        (
-            "docs/README.md",
-            (RELEASE_SUPPORT_READINESS_AUDIT_NAME, "Release Support Readiness Audit"),
         ),
         (
             "ROADMAP.md",
@@ -13697,14 +13739,6 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
     )
     for path_name, tokens in (
         (
-            "docs/README.md",
-            ("Mechanic And Evidence Anchors",),
-        ),
-        (
-            "docs/README.md",
-            (STRATEGIC_CLOSEOUT_AUDIT_NAME, "Strategic Closeout Audit"),
-        ),
-        (
             "mechanics/release-support/parts/strategic-closeout/README.md",
             (
                 STRATEGIC_CLOSEOUT_AUDIT_NAME,
@@ -13714,7 +13748,7 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
             ),
         ),
         (
-            "docs/RELEASING.md",
+            "docs/operations/RELEASING.md",
             (
                 STRATEGIC_CLOSEOUT_AUDIT_NAME,
                 "requirement-by-requirement handoff evidence",
@@ -14003,14 +14037,6 @@ def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[Validation
     )
     for path_name, tokens in (
         (
-            "docs/README.md",
-            ("Mechanic And Evidence Anchors",),
-        ),
-        (
-            "docs/README.md",
-            (RELEASE_PREP_PR_HANDOFF_NAME, "Release Prep PR Handoff"),
-        ),
-        (
             "mechanics/release-support/parts/pr-handoff/README.md",
             (
                 RELEASE_PREP_PR_HANDOFF_NAME,
@@ -14020,7 +14046,7 @@ def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[Validation
             ),
         ),
         (
-            "docs/RELEASING.md",
+            "docs/operations/RELEASING.md",
             (
                 RELEASE_PREP_PR_HANDOFF_NAME,
                 "pre-PR snapshot",
@@ -14306,7 +14332,7 @@ def validate_comparison_doctrine_surfaces(
         return []
 
     issues: list[ValidationIssue] = []
-    doctrine_path = repo_root / "docs" / "COMPARISON_SPINE_GUIDE.md"
+    doctrine_path = repo_root / "docs" / "guides" / "COMPARISON_SPINE_GUIDE.md"
     readme_path = repo_root / "README.md"
     docs_readme_path = repo_root / "docs" / "README.md"
     selection_path = repo_root / EVAL_SELECTION_NAME
@@ -14315,7 +14341,7 @@ def validate_comparison_doctrine_surfaces(
     try:
         doctrine_text = doctrine_path.read_text(encoding="utf-8")
     except FileNotFoundError:
-        return [ValidationIssue("docs/COMPARISON_SPINE_GUIDE.md", "file is missing")]
+        return [ValidationIssue("docs/guides/COMPARISON_SPINE_GUIDE.md", "file is missing")]
 
     try:
         readme_text = readme_path.read_text(encoding="utf-8")
@@ -14386,7 +14412,7 @@ def validate_comparison_doctrine_surfaces(
         if name not in doctrine_text:
             issues.append(
                 ValidationIssue(
-                    "docs/COMPARISON_SPINE_GUIDE.md",
+                    "docs/guides/COMPARISON_SPINE_GUIDE.md",
                     f"comparison doctrine must mention '{name}'",
                 )
             )
@@ -14424,7 +14450,7 @@ def validate_artifact_process_doctrine_surfaces(
 
     issues: list[ValidationIssue] = []
     guide_text = read_text_or_issue(
-        repo_root / "docs" / "ARTIFACT_PROCESS_SEPARATION_GUIDE.md",
+        repo_root / ARTIFACT_PROCESS_GUIDE_NAME,
         issues,
         root=repo_root,
     )
@@ -14519,7 +14545,7 @@ def validate_repeated_window_doctrine_surfaces(
 
     issues: list[ValidationIssue] = []
     guide_text = read_text_or_issue(
-        repo_root / "docs" / "REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
+        repo_root / REPEATED_WINDOW_GUIDE_NAME,
         issues,
         root=repo_root,
     )
@@ -14697,7 +14723,7 @@ def validate_shared_proof_infra_surfaces(
 
     issues: list[ValidationIssue] = []
     guide_text = read_text_or_issue(
-        repo_root / "docs" / "SHARED_PROOF_INFRA_GUIDE.md",
+        repo_root / SHARED_PROOF_INFRA_GUIDE_NAME,
         issues,
         root=repo_root,
     )
@@ -16553,14 +16579,7 @@ def validate_runtime_integrity_review_surface(repo_root: Path) -> list[Validatio
                     )
                 )
 
-    docs_map_text = read_text_or_issue(docs_map_path, issues, root=repo_root)
-    if docs_map_text and "RUNTIME_INTEGRITY_REVIEW.md" not in docs_map_text:
-        issues.append(
-            ValidationIssue(
-                relative_location(docs_map_path, repo_root),
-                "docs/README.md must route mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md",
-            )
-        )
+    read_text_or_issue(docs_map_path, issues, root=repo_root)
 
     landing_text = read_text_or_issue(landing_path, issues, root=repo_root)
     if landing_text:
@@ -17519,7 +17538,7 @@ def validate_runtime_candidate_intake(repo_root: Path) -> list[ValidationIssue]:
         issues.append(ValidationIssue(generated_location, "layer must equal 'aoa-evals'"))
     expected_source_of_truth = {
         "runtime_candidate_template_index": "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json",
-        "eval_review_guide": "docs/EVAL_REVIEW_GUIDE.md",
+        "eval_review_guide": "docs/guides/EVAL_REVIEW_GUIDE.md",
         "trace_eval_bridge": "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md",
         "runtime_bench_promotion_guide": "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
     }
@@ -17594,7 +17613,7 @@ def validate_runtime_candidate_intake(repo_root: Path) -> list[ValidationIssue]:
                 issues.append(ValidationIssue(location, f"{field_name} must match mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json"))
 
         template_kind = entry.get("template_kind")
-        expected_review_guide = review_guide_by_kind.get(template_kind, "docs/EVAL_REVIEW_GUIDE.md")
+        expected_review_guide = review_guide_by_kind.get(template_kind, "docs/guides/EVAL_REVIEW_GUIDE.md")
         if entry.get("review_guide_ref") != expected_review_guide:
             issues.append(ValidationIssue(location, "review_guide_ref must stay aligned with the template kind"))
 
@@ -17604,7 +17623,7 @@ def validate_runtime_candidate_intake(repo_root: Path) -> list[ValidationIssue]:
         else:
             expected_owner_review_refs = [
                 expected_review_guide,
-                "docs/EVAL_REVIEW_GUIDE.md",
+                "docs/guides/EVAL_REVIEW_GUIDE.md",
                 source_entry.get("source_example_ref"),
             ]
             expected_owner_review_refs = [
@@ -17661,7 +17680,7 @@ def validate_eval_report_index(repo_root: Path) -> list[ValidationIssue]:
         "bundle_reports": "evals/**/reports/*.report.json",
         "bundle_report_schema": "evals/**/reports/summary.schema.json",
         "bundle_manifest": "evals/**/eval.yaml",
-        "eval_review_guide": "docs/EVAL_REVIEW_GUIDE.md",
+        "eval_review_guide": "docs/guides/EVAL_REVIEW_GUIDE.md",
     }
     if payload.get("source_of_truth") != expected_source_of_truth:
         issues.append(ValidationIssue(generated_location, "source_of_truth must stay stable"))
@@ -19292,145 +19311,12 @@ def validate_mechanic_root_district_recon_surfaces(
 def validate_root_authored_surface_classification(
     repo_root: Path,
 ) -> list[ValidationIssue]:
-    issues: list[ValidationIssue] = []
-
-    text = read_text_or_issue(
-        repo_root / MECHANICS_EVIDENCE_CLUSTERS_NAME,
-        issues,
-        root=repo_root,
-    )
-    if not text:
-        return issues
-
-    section = markdown_heading_section(
-        text, ROOT_AUTHORED_SURFACE_CLASSIFICATION_SECTION
-    )
-    if not section:
-        issues.append(
-            ValidationIssue(
-                MECHANICS_EVIDENCE_CLUSTERS_NAME,
-                f"mechanics evidence cluster map must contain section {ROOT_AUTHORED_SURFACE_CLASSIFICATION_SECTION!r}",
-            )
+    issues: list[ValidationIssue] = [
+        ValidationIssue(location, message)
+        for location, message in mechanics_validator.validate_root_authored_surface_classification(
+            repo_root
         )
-
-    for token in ROOT_AUTHORED_SURFACE_CLASSIFICATION_REQUIRED_TOKENS:
-        if token not in section:
-            issues.append(
-                ValidationIssue(
-                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
-                    f"root-authored surface classification must mention {token!r}",
-                )
-            )
-
-    expected_surfaces = {
-        f"{district_name}/{file_name}"
-        for district_name, file_names in ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS.items()
-        for file_name in file_names
-    }
-    actual_surfaces: set[str] = set()
-    for district_name, allowed_names in ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS.items():
-        district = repo_root / district_name
-        if not district.is_dir():
-            issues.append(
-                ValidationIssue(
-                    district_name,
-                    "classified root-authored district is missing",
-                )
-            )
-            continue
-        allowed = set(allowed_names)
-        actual_names = {
-            path.name
-            for path in district.iterdir()
-            if path.is_file()
-        }
-        for file_name in sorted(actual_names - allowed):
-            issues.append(
-                ValidationIssue(
-                    f"{district_name}/{file_name}",
-                    "unclassified root-authored surface must be routed, moved, or added to the residual classification ledger",
-                )
-            )
-        for file_name in sorted(allowed - actual_names):
-            issues.append(
-                ValidationIssue(
-                    f"{district_name}/{file_name}",
-                    "classified root-authored surface is missing; update the residual classification ledger if it moved",
-                )
-            )
-        actual_surfaces.update(
-            f"{district_name}/{file_name}"
-            for file_name in actual_names
-            if file_name in allowed
-        )
-
-    ledger_rows: dict[str, list[str]] = {}
-    for cells in markdown_table_rows(section):
-        if not cells or cells[0] == "Surface":
-            continue
-        surface_name = cells[0].strip("`")
-        if surface_name not in expected_surfaces:
-            continue
-        if surface_name in ledger_rows:
-            issues.append(
-                ValidationIssue(
-                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
-                    f"root-authored surface `{surface_name}` must appear only once in the residual classification ledger",
-                )
-            )
-        ledger_rows[surface_name] = cells
-        if len(cells) != len(ROOT_AUTHORED_SURFACE_CLASSIFICATION_COLUMNS):
-            issues.append(
-                ValidationIssue(
-                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
-                    f"root-authored surface `{surface_name}` row must have {len(ROOT_AUTHORED_SURFACE_CLASSIFICATION_COLUMNS)} columns",
-                )
-            )
-            continue
-        for column_name, cell in zip(
-            ROOT_AUTHORED_SURFACE_CLASSIFICATION_COLUMNS[1:],
-            cells[1:],
-            strict=True,
-        ):
-            if not cell or cell.lower() in {"-", "n/a", "todo", "tbd"}:
-                issues.append(
-                    ValidationIssue(
-                        MECHANICS_EVIDENCE_CLUSTERS_NAME,
-                        f"root-authored surface `{surface_name}` row must fill `{column_name}`",
-                    )
-                )
-        row_text = " | ".join(cells)
-        if "mechanic-owned payload" not in row_text:
-            issues.append(
-                ValidationIssue(
-                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
-                    f"root-authored surface `{surface_name}` row must state its mechanic-owned payload boundary",
-                )
-            )
-        if "root-owned" not in row_text:
-            issues.append(
-                ValidationIssue(
-                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
-                    f"root-authored surface `{surface_name}` row must state its root-owned role",
-                )
-            )
-
-    for surface_name in sorted(expected_surfaces):
-        if surface_name not in ledger_rows:
-            issues.append(
-                ValidationIssue(
-                    MECHANICS_EVIDENCE_CLUSTERS_NAME,
-                    f"root-authored surface `{surface_name}` must appear in the residual classification ledger",
-                )
-            )
-
-    for surface_name in sorted(actual_surfaces - expected_surfaces):
-        issues.append(
-            ValidationIssue(
-                surface_name,
-                "unclassified root-authored surface must not remain in root districts",
-            )
-        )
+    ]
 
     require_tokens(
         repo_root=repo_root,
@@ -20398,6 +20284,7 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_read_model_command_ownership(repo_root))
     issues.extend(validate_releasing_route_map_surface(repo_root))
     issues.extend(validate_source_eval_tree_topology_surfaces(repo_root))
+    issues.extend(validate_eval_bundle_topology_contracts(repo_root))
     issues.extend(validate_audit_surface_role(repo_root))
     issues.extend(validate_github_agent_surface(repo_root))
     issues.extend(validate_index_surface_roles(repo_root))
@@ -20405,6 +20292,10 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_validator_surface_role(repo_root))
     issues.extend(validate_mechanic_index_surface_roles(repo_root))
     issues.extend(validate_root_design_surfaces(repo_root))
+    issues.extend(validate_docs_topology_read_model(repo_root))
+    issues.extend(validate_docs_route_contracts(repo_root))
+    issues.extend(validate_decision_index_read_models(repo_root))
+    issues.extend(validate_generated_parity_contracts(repo_root))
     issues.extend(validate_decision_status_lines(repo_root))
     issues.extend(validate_root_route_card_districts(repo_root))
     issues.extend(validate_root_authored_route_residue_surfaces(repo_root))

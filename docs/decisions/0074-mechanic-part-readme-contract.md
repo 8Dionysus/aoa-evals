@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/`, `scripts/validate_repo.py`
 
+## Index Metadata
+
+- Surface classes: mechanic part
+- Mechanic parents: cross-parent
+- Guard families: part and payload
+- Posture: active rationale
+
 ## Context
 
 The mechanics refactor moved real proof operations out of root districts into

@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: validation guard, generated/readout
+- Mechanic parents: none
+- Guard families: route residue, generated/report/receipt/runtime
+- Posture: generated/readout rationale
+
 ## Context
 
 The mechanics refactor moved active payloads out of old root districts and

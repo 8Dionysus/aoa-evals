@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/comparison-spine/parts/`
 
+## Index Metadata
+
+- Surface classes: mechanic part, report/release/receipt
+- Mechanic parents: comparison-spine
+- Guard families: part and payload, generated/report/receipt/runtime
+- Posture: report/release/receipt rationale
+
 ## Context
 
 Decision `0011` created `mechanics/comparison-spine/` as the route for

@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/EVIDENCE_CLUSTERS.md`
 
+## Index Metadata
+
+- Surface classes: root/topology
+- Mechanic parents: none
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 The mechanics refactor moved many active payloads out of root districts and into
@@ -80,10 +87,10 @@ As of 2026-05-24:
   root-authored surface classification ledger for top-level `docs/`,
   `scripts/`, and `tests/` files.
 - Clarified: the former `docs/VIA_NEGATIVA_CHECKLIST.md` root guide now routes
-  through `docs/BOUNDARY_ROUTE_CHECKLIST.md`, so the file name and content name
+  through `docs/guides/BOUNDARY_ROUTE_CHECKLIST.md`, so the file name and content name
   the agent action directly.
 - Source surfaces updated:
-  - `docs/BOUNDARY_ROUTE_CHECKLIST.md`
+  - `docs/guides/BOUNDARY_ROUTE_CHECKLIST.md`
   - `docs/README.md`
   - `mechanics/EVIDENCE_CLUSTERS.md`
   - `scripts/validate_repo.py`
@@ -112,9 +119,9 @@ As of 2026-05-24:
 - New reality: low-context agents need the guide to name the review criteria:
   replacement contract, public setup route, bounded portable meaning, and
   travel-together proof surfaces.
-- Reason: `docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md` is a root-owned guide; its
+- Reason: `docs/guides/PORTABLE_EVAL_BOUNDARY_GUIDE.md` is a root-owned guide; its
   first-pass route should expose the proof route before local-shaped deferral.
-- Source surfaces updated: `docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md`,
+- Source surfaces updated: `docs/guides/PORTABLE_EVAL_BOUNDARY_GUIDE.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k portable_eval_boundary`
   and `python scripts/validate_repo.py`.

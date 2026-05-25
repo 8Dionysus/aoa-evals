@@ -9,11 +9,11 @@ selection:
 - when does `aoa-eval-integrity-check` need to travel as the integrity sidecar?
 
 See also:
-- [Documentation Map](README.md)
+- [Documentation Map](../README.md)
 - [Baseline Comparison Guide](BASELINE_COMPARISON_GUIDE.md)
 - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
 - [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md)
-- [Eval Bundle Selection Chooser](../EVAL_SELECTION.md)
+- [Eval Bundle Selection Chooser](../../EVAL_SELECTION.md)
 
 ## Operating Card
 

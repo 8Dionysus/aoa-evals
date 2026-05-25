@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: proof topology
+- Mechanic parents: cross-parent
+- Guard families: parent and package
+- Posture: active rationale
+
 ## Context
 
 Mechanic parents need an active current-direction surface between the package

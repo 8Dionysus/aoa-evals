@@ -32,7 +32,7 @@ stronger-owner handoff routes.
 
 1. root `AGENTS.md`
 2. `DESIGN.md`
-3. `docs/PROOF_TOPOLOGY.md`
+3. `docs/architecture/PROOF_TOPOLOGY.md`
 4. `mechanics/EVIDENCE_CLUSTERS.md`
 5. `mechanics/checkpoint/README.md`
 6. `mechanics/checkpoint/PARTS.md`

@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/questbook/`
 
+## Index Metadata
+
+- Surface classes: mechanic package, quest/lane
+- Mechanic parents: questbook
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 After the proof topology map landed, `aoa-evals` needed to choose whether

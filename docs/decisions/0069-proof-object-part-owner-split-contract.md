@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: mechanic part
+- Mechanic parents: proof-object
+- Guard families: part and payload, sibling and boundary
+- Posture: active rationale
+
 ## Context
 
 `mechanics/proof-object/` is an evals-native parent for the operation around

@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/EVIDENCE_CLUSTERS.md`
 
+## Index Metadata
+
+- Surface classes: root/topology
+- Mechanic parents: cross-parent
+- Guard families: parent and package
+- Posture: active rationale
+
 ## Context
 
 The mechanics atlas already has an allowlist and a class split between

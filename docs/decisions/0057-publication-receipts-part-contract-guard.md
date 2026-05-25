@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/publication-receipts/parts/`
 
+## Index Metadata
+
+- Surface classes: mechanic part, validation guard, report/release/receipt
+- Mechanic parents: publication-receipts
+- Guard families: part and payload, generated/report/receipt/runtime
+- Posture: report/release/receipt rationale
+
 ## Context
 
 `publication-receipts` owns the optional eval-result receipt route:

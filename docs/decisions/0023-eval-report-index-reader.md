@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: report/release/receipt, generated/readout
+- Mechanic parents: none
+- Guard families: generated/report/receipt/runtime
+- Posture: generated/readout rationale
+
 ## Context
 
 `aoa-evals` now has multiple real bundle-local `*.report.json` artifacts.

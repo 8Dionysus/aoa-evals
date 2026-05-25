@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/README.md`
 
+## Index Metadata
+
+- Surface classes: mechanic part
+- Mechanic parents: cross-parent
+- Guard families: part and payload
+- Posture: active rationale
+
 ## Context
 
 Concrete part README files now route payload directories and validation

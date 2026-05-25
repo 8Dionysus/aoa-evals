@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `evals/`
 
+## Index Metadata
+
+- Surface classes: validation guard
+- Mechanic parents: none
+- Guard families: route residue
+- Posture: active guard rationale
+
 ## Context
 
 Source proof bundles are source proof objects stronger than generated readers,

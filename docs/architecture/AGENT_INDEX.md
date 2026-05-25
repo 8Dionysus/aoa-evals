@@ -17,7 +17,7 @@ Use this index when a path needs an explicit owner route.
 | entry | start from the current path or from `README.md` |
 | output | next owner surface and validation route |
 | owner | `docs/` source guidance; executable commands stay in the nearest `AGENTS.md` |
-| next route | `docs/PROOF_TOPOLOGY.md`, `mechanics/README.md`, or a bundle-local source file |
+| next route | `docs/architecture/PROOF_TOPOLOGY.md`, `mechanics/README.md`, or a bundle-local source file |
 | validation | `docs/AGENTS.md#validation` and root `AGENTS.md#verify` |
 
 ## Canonical Chain
@@ -38,7 +38,7 @@ owning authority class is explicit.
 | --- | --- | --- |
 | What is this repository? | `README.md` | public proof-organ entry |
 | What is the system form? | `DESIGN.md` and `DESIGN.AGENTS.md` | source design and agent-facing shape |
-| Which class owns this artifact? | `docs/PROOF_TOPOLOGY.md` | authority-class topology |
+| Which class owns this artifact? | `docs/architecture/PROOF_TOPOLOGY.md` | authority-class topology |
 | Which operation owns this proof support? | `mechanics/README.md` | operation atlas |
 | Why does this route exist? | `docs/decisions/README.md` | durable rationale index |
 | What is the current direction? | `ROADMAP.md` | direction and horizon order |

@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/`
 
+## Index Metadata
+
+- Surface classes: generated/readout, boundary/runtime/sibling
+- Mechanic parents: boundary-bridge
+- Guard families: generated/report/receipt/runtime, sibling and boundary
+- Posture: generated/readout rationale
+
 ## Context
 
 The Phase Alpha eval matrix entered the refactor split across former root

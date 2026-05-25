@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/proof-infra/parts/reportable-contracts/`
 
+## Index Metadata
+
+- Surface classes: report/release/receipt
+- Mechanic parents: proof-infra
+- Guard families: generated/report/receipt/runtime
+- Posture: report/release/receipt rationale
+
 ## Context
 
 After generic fixture families moved behind `proof-infra`, former root

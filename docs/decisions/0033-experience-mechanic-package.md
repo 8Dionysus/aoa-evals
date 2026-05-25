@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/experience/`
 
+## Index Metadata
+
+- Surface classes: mechanic package
+- Mechanic parents: experience
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 Experience is a named AoA mechanic, and `aoa-evals` has enough local proof-side

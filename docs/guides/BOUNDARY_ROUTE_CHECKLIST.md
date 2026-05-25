@@ -10,8 +10,8 @@ This checklist routes boundary pressure for `aoa-evals` source proof surfaces.
 | input | proposed eval, report, score, schema, example, or public-claim wording |
 | output | keep, route to owner, merge into existing proof shape, quarantine as transition material, or remove as stale residue |
 | owner | `docs/AGENTS.md` for docs edits; bundle-local proof surfaces and mechanics own their specific claims |
-| next route | `docs/PROOF_TOPOLOGY.md`, `docs/EVAL_REVIEW_GUIDE.md`, `docs/SCORE_SEMANTICS_GUIDE.md`, `mechanics/README.md`, or the affected bundle |
-| validation | [docs/AGENTS.md#validation](AGENTS.md#validation) and the nearest owner route card |
+| next route | `docs/architecture/PROOF_TOPOLOGY.md`, `docs/guides/EVAL_REVIEW_GUIDE.md`, `docs/guides/SCORE_SEMANTICS_GUIDE.md`, `mechanics/README.md`, or the affected bundle |
+| validation | [docs/AGENTS.md#validation](../AGENTS.md#validation) and the nearest owner route card |
 
 ## Preserve
 
@@ -26,8 +26,8 @@ This checklist routes boundary pressure for `aoa-evals` source proof surfaces.
 | Pressure | Route |
 | --- | --- |
 | overlapping bundles that differ only by manifest or naming | existing bundle, manifest variant, or source proof object review |
-| prestige composite score replaces bounded verdict | `docs/SCORE_SEMANTICS_GUIDE.md` and bundle-local verdict review |
-| public wording frames evals as readiness sovereignty | `docs/PROOF_TOPOLOGY.md`, stronger owner, and bounded claim review |
+| prestige composite score replaces bounded verdict | `docs/guides/SCORE_SEMANTICS_GUIDE.md` and bundle-local verdict review |
+| public wording frames evals as readiness sovereignty | `docs/architecture/PROOF_TOPOLOGY.md`, stronger owner, and bounded claim review |
 | report shape drifts into governance | release-support, decision, or owner route before proof claim wording changes |
 | schema or example exists for consumer convenience | owning bundle or mechanic part, with source refs and validation |
 

@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/proof-loop/`
 
+## Index Metadata
+
+- Surface classes: mechanic part
+- Mechanic parents: proof-loop
+- Guard families: part and payload
+- Posture: active rationale
+
 ## Context
 
 The first proof-loop route-smoke report was created to test whether one local

@@ -69,7 +69,7 @@ The current movement is proof-organ maturity:
 
 ## Current Public Contour
 
-Current release marker: `v0.3.3`.
+Current release marker: `v0.4.0`.
 
 The public proof contour stays bounded: this roadmap keeps release anchors
 visible while source bundles, reports, receipts, generated readers, runtime

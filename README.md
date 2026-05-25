@@ -17,7 +17,7 @@ claims reviewable outside the original project.
 practice canon -> workflow canon -> proof canon
 ```
 
-Current release: `v0.3.3`. See [CHANGELOG.md](CHANGELOG.md).
+Current release: `v0.4.0`. See [CHANGELOG.md](CHANGELOG.md).
 
 This README is the public proof-organ entry. When a question needs detail, route
 to the owner surface instead of expanding this page.

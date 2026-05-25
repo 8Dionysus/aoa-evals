@@ -55,6 +55,7 @@
 - [0095 Mechanic Part Source Surfaces Section Contract](../0095-mechanic-part-source-surfaces-section-contract.md) (`docs/decisions/0095-mechanic-part-source-surfaces-section-contract.md`)
 - [0102 Mechanic Part Validation Command Ownership](../0102-mechanic-part-validation-command-ownership.md) (`docs/decisions/0102-mechanic-part-validation-command-ownership.md`)
 - [0105 Proof-object Eval Part Names](../0105-proof-object-eval-part-names.md) (`docs/decisions/0105-proof-object-eval-part-names.md`)
+- [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)
 
 ## legacy and provenance
 
@@ -88,6 +89,8 @@
 - [0073 Generated Route Residue Guard](../0073-generated-route-residue-guard.md) (`docs/decisions/0073-generated-route-residue-guard.md`)
 - [0109 Validator Orchestrator Domain Modules](../0109-validator-orchestrator-domain-modules.md) (`docs/decisions/0109-validator-orchestrator-domain-modules.md`)
 - [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
+- [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)
+- [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)
 
 ## sibling and boundary
 
@@ -109,9 +112,12 @@
 - [0097 Mechanic Parent Guidance Boundary](../0097-mechanic-parent-guidance-boundary.md) (`docs/decisions/0097-mechanic-parent-guidance-boundary.md`)
 - [0099 Repair Diagnosis Route Boundary](../0099-repair-diagnosis-route-boundary.md) (`docs/decisions/0099-repair-diagnosis-route-boundary.md`)
 - [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
+- [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)
 
 ## decision index/read-model
 
 - [0107 Agent-operable Docs And Decision Indexes](../0107-agent-operable-docs-and-decision-indexes.md) (`docs/decisions/0107-agent-operable-docs-and-decision-indexes.md`)
 - [0109 Validator Orchestrator Domain Modules](../0109-validator-orchestrator-domain-modules.md) (`docs/decisions/0109-validator-orchestrator-domain-modules.md`)
 - [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
+- [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)
+- [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)

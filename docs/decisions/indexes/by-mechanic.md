@@ -10,6 +10,7 @@
 - [0069 Proof-object Part Owner-split Contract](../0069-proof-object-part-owner-split-contract.md) (`docs/decisions/0069-proof-object-part-owner-split-contract.md`)
 - [0105 Proof-object Eval Part Names](../0105-proof-object-eval-part-names.md) (`docs/decisions/0105-proof-object-eval-part-names.md`)
 - [0109 Validator Orchestrator Domain Modules](../0109-validator-orchestrator-domain-modules.md) (`docs/decisions/0109-validator-orchestrator-domain-modules.md`)
+- [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)
 
 ## proof-loop
 
@@ -18,6 +19,8 @@
 - [0022 Proof Loop Bundle-Local Report](../0022-proof-loop-bundle-local-report.md) (`docs/decisions/0022-proof-loop-bundle-local-report.md`)
 - [0030 Proof Loop Route-Smoke Part](../0030-proof-loop-route-smoke-part.md) (`docs/decisions/0030-proof-loop-route-smoke-part.md`)
 - [0060 Proof Loop Route-Smoke Contract](../0060-proof-loop-route-smoke-contract.md) (`docs/decisions/0060-proof-loop-route-smoke-contract.md`)
+- [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)
+- [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)
 
 ## comparison-spine
 
@@ -103,6 +106,7 @@
 - [0006 Questbook Mechanic Package](../0006-questbook-mechanic-package.md) (`docs/decisions/0006-questbook-mechanic-package.md`)
 - [0047 Questbook Schema Parts](../0047-questbook-schema-parts.md) (`docs/decisions/0047-questbook-schema-parts.md`)
 - [0070 Questbook Part Owner-split Contract](../0070-questbook-part-owner-split-contract.md) (`docs/decisions/0070-questbook-part-owner-split-contract.md`)
+- [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)
 
 ## audit
 
@@ -111,6 +115,8 @@
 - [0026 Strategic Closeout Audit](../0026-strategic-closeout-audit.md) (`docs/decisions/0026-strategic-closeout-audit.md`)
 - [0053 Audit Part Contract Guard](../0053-audit-part-contract-guard.md) (`docs/decisions/0053-audit-part-contract-guard.md`)
 - [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
+- [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)
+- [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)
 
 ## boundary-bridge
 
@@ -119,6 +125,7 @@
 - [0046 Boundary Bridge Phase Alpha Eval Matrix](../0046-boundary-bridge-phase-alpha-eval-matrix.md) (`docs/decisions/0046-boundary-bridge-phase-alpha-eval-matrix.md`)
 - [0056 Boundary Bridge Part Contract Guard](../0056-boundary-bridge-part-contract-guard.md) (`docs/decisions/0056-boundary-bridge-part-contract-guard.md`)
 - [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
+- [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)
 
 ## cross-parent
 
@@ -145,3 +152,5 @@
 - [0102 Mechanic Part Validation Command Ownership](../0102-mechanic-part-validation-command-ownership.md) (`docs/decisions/0102-mechanic-part-validation-command-ownership.md`)
 - [0109 Validator Orchestrator Domain Modules](../0109-validator-orchestrator-domain-modules.md) (`docs/decisions/0109-validator-orchestrator-domain-modules.md`)
 - [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
+- [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)
+- [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)

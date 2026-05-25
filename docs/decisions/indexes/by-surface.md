@@ -21,6 +21,7 @@
 - [0108 Docs Topology Folders And Route Residue Guards](../0108-docs-topology-folders-and-route-residue-guards.md) (`docs/decisions/0108-docs-topology-folders-and-route-residue-guards.md`)
 - [0109 Validator Orchestrator Domain Modules](../0109-validator-orchestrator-domain-modules.md) (`docs/decisions/0109-validator-orchestrator-domain-modules.md`)
 - [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
+- [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)
 
 ## proof topology
 
@@ -96,6 +97,7 @@
 - [0095 Mechanic Part Source Surfaces Section Contract](../0095-mechanic-part-source-surfaces-section-contract.md) (`docs/decisions/0095-mechanic-part-source-surfaces-section-contract.md`)
 - [0102 Mechanic Part Validation Command Ownership](../0102-mechanic-part-validation-command-ownership.md) (`docs/decisions/0102-mechanic-part-validation-command-ownership.md`)
 - [0105 Proof-object Eval Part Names](../0105-proof-object-eval-part-names.md) (`docs/decisions/0105-proof-object-eval-part-names.md`)
+- [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)
 
 ## validation guard
 
@@ -125,6 +127,8 @@
 - [0108 Docs Topology Folders And Route Residue Guards](../0108-docs-topology-folders-and-route-residue-guards.md) (`docs/decisions/0108-docs-topology-folders-and-route-residue-guards.md`)
 - [0109 Validator Orchestrator Domain Modules](../0109-validator-orchestrator-domain-modules.md) (`docs/decisions/0109-validator-orchestrator-domain-modules.md`)
 - [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
+- [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)
+- [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)
 
 ## legacy/provenance
 
@@ -146,6 +150,8 @@
 - [0107 Agent-operable Docs And Decision Indexes](../0107-agent-operable-docs-and-decision-indexes.md) (`docs/decisions/0107-agent-operable-docs-and-decision-indexes.md`)
 - [0109 Validator Orchestrator Domain Modules](../0109-validator-orchestrator-domain-modules.md) (`docs/decisions/0109-validator-orchestrator-domain-modules.md`)
 - [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
+- [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)
+- [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)
 
 ## report/release/receipt
 
@@ -173,6 +179,7 @@
 - [0047 Questbook Schema Parts](../0047-questbook-schema-parts.md) (`docs/decisions/0047-questbook-schema-parts.md`)
 - [0070 Questbook Part Owner-split Contract](../0070-questbook-part-owner-split-contract.md) (`docs/decisions/0070-questbook-part-owner-split-contract.md`)
 - [0098 Agon Quest-note Provenance Route](../0098-agon-quest-note-provenance-route.md) (`docs/decisions/0098-agon-quest-note-provenance-route.md`)
+- [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)
 
 ## boundary/runtime/sibling
 
@@ -195,3 +202,4 @@
 - [0098 Agon Quest-note Provenance Route](../0098-agon-quest-note-provenance-route.md) (`docs/decisions/0098-agon-quest-note-provenance-route.md`)
 - [0106 Memory Consumer Proof Boundary](../0106-memory-consumer-proof-boundary.md) (`docs/decisions/0106-memory-consumer-proof-boundary.md`)
 - [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
+- [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)

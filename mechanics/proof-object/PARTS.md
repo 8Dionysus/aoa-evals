@@ -15,10 +15,14 @@ companions.
 
 Owned operation:
 
-`origin proof pressure -> new eval scaffold -> bounded source proof object`
+`origin proof pressure -> existing-route check -> new eval scaffold -> bounded source proof object`
 
 This part owns the authoring scaffold:
 
+- `mechanics/proof-object/parts/eval-authoring/docs/EVAL_BIRTH_PROTOCOL.md`
+- `mechanics/proof-object/parts/eval-authoring/schemas/eval-need.schema.json`
+- `mechanics/proof-object/parts/eval-authoring/examples/eval_need.example.json`
+- `mechanics/proof-object/parts/eval-authoring/scripts/scaffold_eval_bundle.py`
 - `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md`
 
 ### `eval-contracts`

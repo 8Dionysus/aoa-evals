@@ -78,6 +78,9 @@ As of 2026-05-25:
   helper before new draft bundle creation.
 - Changed: the MCP access plane may now expose read-only find-or-propose
   context that routes into this protocol without writing source files.
+- Changed: comparative-summary drafts with a non-`none` baseline mode now scaffold
+  their minimum comparison notes, fixture contract, runner contract, report
+  schema, and example report in the first draft plan.
 - Superseded by: none.
 
 ## Review Log
@@ -117,6 +120,25 @@ As of 2026-05-25:
 - Validation: repo validation, generated decision index check, stack MCP
   package tests, and stack validation.
 
+### 2026-05-25 - Validator-ready comparative scaffolds
+
+- Previous assumption: every new draft could start from the same four-file
+  scaffold and fill comparison contracts later.
+- New reality: fixed-baseline and other comparative-summary drafts are not
+  authoring-ready unless their support note, baseline-readiness note, fixture
+  contract, runner contract, report schema, and example report exist from the
+  first scaffold plan.
+- Reason: OS Abyss runtime pressure should be able to become a reviewable eval
+  draft without making the next agent rediscover the validator contract by
+  trial and error.
+- Source surfaces updated:
+  - `mechanics/proof-object/parts/eval-authoring/docs/EVAL_BIRTH_PROTOCOL.md`
+  - `mechanics/proof-object/parts/eval-authoring/scripts/scaffold_eval_bundle.py`
+  - `mechanics/proof-object/parts/eval-authoring/tests/test_scaffold_eval_bundle.py`
+- Validation: part-local tests, repo validation, generated catalog check,
+  semantic AGENTS validation, full pytest, and dry-run against the Workhorse
+  runtime-latency proposal.
+
 ## Boundaries
 
 Future agents must not infer that `eval_need_v1` is proof, acceptance,
@@ -136,6 +158,8 @@ This decision is valid only when:
 
 - the eval authoring protocol remains under the proof-object part;
 - the scaffold helper refuses parallel authoring without explicit `--allow-new`;
+- comparative-summary drafts with a comparison baseline include the minimum
+  comparison support artifacts needed by repo validation;
 - generated decision indexes include this note;
 - `python -m pytest -q mechanics/proof-object/parts/eval-authoring/tests`
   passes;

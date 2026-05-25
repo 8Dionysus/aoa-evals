@@ -70,12 +70,23 @@ The packet is not a verdict, not proof acceptance, and not a source bundle.
 - produce a dry-run scaffold plan;
 - write a draft bundle only when both `--allow-new` and `--write` are present.
 
-It writes only source eval bundle starter files:
+It writes only source eval bundle starter files. Every draft gets:
 
 - `EVAL.md`;
 - `eval.yaml`;
 - `notes/origin-need.md`;
 - `checks/eval-integrity-check.md`.
+
+For `comparative-summary` drafts with a non-`none` `baseline_mode`, the helper
+also materializes the minimum comparison contract surface required by repo
+validation:
+
+- `evals/<claim-family>/<eval-name>/notes/comparison-contract.md`;
+- `evals/<claim-family>/<eval-name>/notes/baseline-readiness.md`;
+- `evals/<claim-family>/<eval-name>/fixtures/contract.json`;
+- `evals/<claim-family>/<eval-name>/runners/contract.json`;
+- `evals/<claim-family>/<eval-name>/reports/summary.schema.json`;
+- `evals/<claim-family>/<eval-name>/reports/example-report.json`.
 
 It does not add the bundle to `EVAL_INDEX.md`, `EVAL_SELECTION.md`, reports,
 receipts, or generated readers. Those routes require separate review and

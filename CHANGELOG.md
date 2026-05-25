@@ -7,6 +7,14 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
+### Changed
+
+- `mechanics/proof-object/parts/eval-authoring/scripts/scaffold_eval_bundle.py`
+  now creates validator-ready comparison support artifacts for
+  `comparative-summary` drafts with a non-`none` baseline mode, including
+  comparison notes, baseline readiness, fixture/runner contracts, report
+  schema, and example report.
+
 ## [0.4.0] - 2026-05-25
 
 ### Summary

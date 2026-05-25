@@ -87,6 +87,7 @@
 - [0058 Release Support Part Contract Guard](../0058-release-support-part-contract-guard.md) (`docs/decisions/0058-release-support-part-contract-guard.md`)
 - [0073 Generated Route Residue Guard](../0073-generated-route-residue-guard.md) (`docs/decisions/0073-generated-route-residue-guard.md`)
 - [0109 Validator Orchestrator Domain Modules](../0109-validator-orchestrator-domain-modules.md) (`docs/decisions/0109-validator-orchestrator-domain-modules.md`)
+- [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
 
 ## sibling and boundary
 
@@ -107,8 +108,10 @@
 - [0092 Active Legacy Parent Wording Boundary](../0092-active-legacy-parent-wording-boundary.md) (`docs/decisions/0092-active-legacy-parent-wording-boundary.md`)
 - [0097 Mechanic Parent Guidance Boundary](../0097-mechanic-parent-guidance-boundary.md) (`docs/decisions/0097-mechanic-parent-guidance-boundary.md`)
 - [0099 Repair Diagnosis Route Boundary](../0099-repair-diagnosis-route-boundary.md) (`docs/decisions/0099-repair-diagnosis-route-boundary.md`)
+- [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
 
 ## decision index/read-model
 
 - [0107 Agent-operable Docs And Decision Indexes](../0107-agent-operable-docs-and-decision-indexes.md) (`docs/decisions/0107-agent-operable-docs-and-decision-indexes.md`)
 - [0109 Validator Orchestrator Domain Modules](../0109-validator-orchestrator-domain-modules.md) (`docs/decisions/0109-validator-orchestrator-domain-modules.md`)
+- [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)

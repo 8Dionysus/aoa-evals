@@ -50,6 +50,7 @@ owning authority class is explicit.
 | --- | --- | --- |
 | `evals/<family>/<eval>/EVAL.md` and `eval.yaml` | source proof object | bundle-local files own the bounded claim |
 | `docs/*.md` | root-owned guidance or topology | `docs/AGENTS.md` for edit route, target doc for meaning |
+| `docs/architecture/AOA_EVALS_MCP_CONTRACT.md` | MCP access-plane contract | `aoa-evals` owns proof contract; `abyss-stack` owns runnable MCP service |
 | `docs/decisions/*.md` | decision rationale | `docs/decisions/AGENTS.md` and the source surface being explained |
 | `generated/*` | derived reader | `generated/AGENTS.md` plus the builder and source inputs |
 | `quests/<lane>/<state>/*.yaml` | source quest record | `quests/AGENTS.md`, `QUESTBOOK.md`, and quest schemas |

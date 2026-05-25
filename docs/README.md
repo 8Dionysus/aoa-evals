@@ -26,6 +26,7 @@ where meaning lives and which surface to open next.
 | Where am I in the agent index chain? | [Agent Index](architecture/AGENT_INDEX.md) |
 | What is the proof-system shape? | [Design](../DESIGN.md), [Agent Surface Design](../DESIGN.AGENTS.md), [Architecture](architecture/ARCHITECTURE.md) |
 | Which authority class owns this artifact? | [Proof Topology](architecture/PROOF_TOPOLOGY.md) |
+| What may `aoa_evals` MCP expose without becoming proof authority? | [AoA Evals MCP Contract](architecture/AOA_EVALS_MCP_CONTRACT.md) |
 | Is this route residue, stale path, or wrong owner pressure? | [Route Residue Guards](architecture/ROUTE_RESIDUE_GUARDS.md) |
 | Is this name active, legacy, accepted input, generated projection, or candidate vocabulary? | [Legacy Naming](architecture/LEGACY_NAMING.md) |
 | Which proof guide applies? | [Guides](#guides) |
@@ -52,6 +53,7 @@ The first concrete source-owned proof surface remains
 - [Agent Index](architecture/AGENT_INDEX.md)
 - [Architecture](architecture/ARCHITECTURE.md)
 - [Proof Topology](architecture/PROOF_TOPOLOGY.md)
+- [AoA Evals MCP Contract](architecture/AOA_EVALS_MCP_CONTRACT.md)
 - [Route Residue Guards](architecture/ROUTE_RESIDUE_GUARDS.md)
 - [Legacy Naming](architecture/LEGACY_NAMING.md)
 

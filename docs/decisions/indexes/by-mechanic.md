@@ -110,6 +110,7 @@
 - [0025 Release Support Readiness Audit](../0025-release-support-readiness-audit.md) (`docs/decisions/0025-release-support-readiness-audit.md`)
 - [0026 Strategic Closeout Audit](../0026-strategic-closeout-audit.md) (`docs/decisions/0026-strategic-closeout-audit.md`)
 - [0053 Audit Part Contract Guard](../0053-audit-part-contract-guard.md) (`docs/decisions/0053-audit-part-contract-guard.md`)
+- [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
 
 ## boundary-bridge
 
@@ -117,6 +118,7 @@
 - [0044 Boundary Bridge Orchestrator Proof Anchors](../0044-boundary-bridge-orchestrator-proof-anchors.md) (`docs/decisions/0044-boundary-bridge-orchestrator-proof-anchors.md`)
 - [0046 Boundary Bridge Phase Alpha Eval Matrix](../0046-boundary-bridge-phase-alpha-eval-matrix.md) (`docs/decisions/0046-boundary-bridge-phase-alpha-eval-matrix.md`)
 - [0056 Boundary Bridge Part Contract Guard](../0056-boundary-bridge-part-contract-guard.md) (`docs/decisions/0056-boundary-bridge-part-contract-guard.md`)
+- [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
 
 ## cross-parent
 
@@ -142,3 +144,4 @@
 - [0101 Mechanic Evidence Route Refs](../0101-mechanic-evidence-route-refs.md) (`docs/decisions/0101-mechanic-evidence-route-refs.md`)
 - [0102 Mechanic Part Validation Command Ownership](../0102-mechanic-part-validation-command-ownership.md) (`docs/decisions/0102-mechanic-part-validation-command-ownership.md`)
 - [0109 Validator Orchestrator Domain Modules](../0109-validator-orchestrator-domain-modules.md) (`docs/decisions/0109-validator-orchestrator-domain-modules.md`)
+- [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)

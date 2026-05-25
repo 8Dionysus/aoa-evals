@@ -20,6 +20,7 @@
 - [0107 Agent-operable Docs And Decision Indexes](../0107-agent-operable-docs-and-decision-indexes.md) (`docs/decisions/0107-agent-operable-docs-and-decision-indexes.md`)
 - [0108 Docs Topology Folders And Route Residue Guards](../0108-docs-topology-folders-and-route-residue-guards.md) (`docs/decisions/0108-docs-topology-folders-and-route-residue-guards.md`)
 - [0109 Validator Orchestrator Domain Modules](../0109-validator-orchestrator-domain-modules.md) (`docs/decisions/0109-validator-orchestrator-domain-modules.md`)
+- [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
 
 ## proof topology
 
@@ -123,6 +124,7 @@
 - [0107 Agent-operable Docs And Decision Indexes](../0107-agent-operable-docs-and-decision-indexes.md) (`docs/decisions/0107-agent-operable-docs-and-decision-indexes.md`)
 - [0108 Docs Topology Folders And Route Residue Guards](../0108-docs-topology-folders-and-route-residue-guards.md) (`docs/decisions/0108-docs-topology-folders-and-route-residue-guards.md`)
 - [0109 Validator Orchestrator Domain Modules](../0109-validator-orchestrator-domain-modules.md) (`docs/decisions/0109-validator-orchestrator-domain-modules.md`)
+- [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
 
 ## legacy/provenance
 
@@ -143,6 +145,7 @@
 - [0073 Generated Route Residue Guard](../0073-generated-route-residue-guard.md) (`docs/decisions/0073-generated-route-residue-guard.md`)
 - [0107 Agent-operable Docs And Decision Indexes](../0107-agent-operable-docs-and-decision-indexes.md) (`docs/decisions/0107-agent-operable-docs-and-decision-indexes.md`)
 - [0109 Validator Orchestrator Domain Modules](../0109-validator-orchestrator-domain-modules.md) (`docs/decisions/0109-validator-orchestrator-domain-modules.md`)
+- [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
 
 ## report/release/receipt
 
@@ -191,3 +194,4 @@
 - [0091 Legacy Naming Single-Bridge Language](../0091-legacy-naming-single-bridge-language.md) (`docs/decisions/0091-legacy-naming-single-bridge-language.md`)
 - [0098 Agon Quest-note Provenance Route](../0098-agon-quest-note-provenance-route.md) (`docs/decisions/0098-agon-quest-note-provenance-route.md`)
 - [0106 Memory Consumer Proof Boundary](../0106-memory-consumer-proof-boundary.md) (`docs/decisions/0106-memory-consumer-proof-boundary.md`)
+- [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)

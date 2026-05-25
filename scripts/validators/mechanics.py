@@ -27,6 +27,7 @@ ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS: dict[str, tuple[str, ...]] = {
         "AGENTS.md",
         "README.md",
         "architecture/AGENT_INDEX.md",
+        "architecture/AOA_EVALS_MCP_CONTRACT.md",
         "architecture/ARCHITECTURE.md",
         "architecture/LEGACY_NAMING.md",
         "architecture/PROOF_TOPOLOGY.md",

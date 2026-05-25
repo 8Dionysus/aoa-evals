@@ -23,6 +23,35 @@ COMPARISON_FAMILY_BY_BASELINE_MODE = {
     "peer-compare": ("comparison", "peer-compare"),
     "longitudinal-window": ("comparison", "longitudinal-window"),
 }
+COMPARISON_SURFACE_DEFAULTS = {
+    "fixed-baseline": {
+        "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "anchor_surface": "aoa-bounded-change-quality",
+        "baseline_target_label": "draft fixed-baseline reference",
+    },
+    "peer-compare": {
+        "shared_family_path": "mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "peer_surfaces": ["aoa-output-vs-process-gap"],
+        "matched_surface": "draft matched peer comparison surface",
+    },
+    "longitudinal-window": {
+        "shared_family_path": "mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v1.md",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "anchor_surface": "aoa-longitudinal-growth-snapshot",
+        "window_family_label": "draft repeated-window family",
+    },
+}
+REPORTABLE_RUNNER_SURFACE = (
+    "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
+)
+BOUNDED_RUBRIC_SCORER = (
+    "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
+)
 STOPWORDS = {
     "about",
     "after",
@@ -252,13 +281,69 @@ def frontmatter_for(proposal: dict[str, Any]) -> dict[str, Any]:
         "technique_dependencies": technique_ids(proposal),
         "skill_dependencies": skill_names(proposal),
     }
-    comparison_surface = proposal.get("comparison_surface")
+    comparison_surface = comparison_surface_for(proposal)
     if comparison_surface is not None:
         frontmatter["comparison_surface"] = comparison_surface
     return frontmatter
 
 
+def is_comparative_scaffold(proposal: dict[str, Any]) -> bool:
+    return (
+        proposal.get("baseline_mode") != "none"
+        and proposal.get("report_format") == "comparative-summary"
+    )
+
+
+def comparison_surface_for(proposal: dict[str, Any]) -> dict[str, Any] | None:
+    provided = proposal.get("comparison_surface")
+    if isinstance(provided, dict):
+        return provided
+
+    baseline_mode = str(proposal.get("baseline_mode"))
+    if baseline_mode == "none":
+        return None
+
+    defaults = COMPARISON_SURFACE_DEFAULTS.get(baseline_mode)
+    if defaults is None:
+        return None
+
+    surface = dict(defaults)
+    related_refs = [
+        ref
+        for ref in proposal.get("related_eval_refs", [])
+        if isinstance(ref, str) and ref != proposal.get("name")
+    ]
+    if baseline_mode in {"fixed-baseline", "longitudinal-window"} and related_refs:
+        surface["anchor_surface"] = related_refs[0]
+    if baseline_mode == "peer-compare" and related_refs:
+        surface["peer_surfaces"] = related_refs
+    surface["selection_question"] = (
+        f"Do you need a {baseline_mode} comparative route for {proposal['object_under_evaluation']}?"
+    )
+    return surface
+
+
+def comparison_baseline_label(proposal: dict[str, Any]) -> str:
+    comparison_surface = comparison_surface_for(proposal) or {}
+    label = comparison_surface.get("baseline_target_label")
+    if isinstance(label, str) and label:
+        return label
+    return f"{proposal['name']} draft baseline target"
+
+
 def manifest_for(proposal: dict[str, Any]) -> dict[str, Any]:
+    evidence = [
+        {"kind": "origin_need", "path": "notes/origin-need.md"},
+        {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+    ]
+    if is_comparative_scaffold(proposal):
+        evidence.extend(
+            [
+                {"kind": "support_note", "path": "notes/comparison-contract.md"},
+                {"kind": "baseline_readiness", "path": "notes/baseline-readiness.md"},
+            ]
+        )
+
     manifest: dict[str, Any] = {
         "name": proposal["name"],
         "category": proposal["category"],
@@ -279,17 +364,16 @@ def manifest_for(proposal: dict[str, Any]) -> dict[str, Any]:
         "score_interpretation_bound": "explicit",
         "technique_dependencies": proposal.get("technique_dependencies", []),
         "skill_dependencies": proposal.get("skill_dependencies", []),
-        "comparison_surface": proposal.get("comparison_surface"),
         "relations": [
             {"type": "complements", "target": ref}
             for ref in proposal.get("related_eval_refs", [])
             if ref != proposal["name"]
         ],
-        "evidence": [
-            {"kind": "origin_need", "path": "notes/origin-need.md"},
-            {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
-        ],
+        "evidence": evidence,
     }
+    comparison_surface = comparison_surface_for(proposal)
+    if comparison_surface is not None:
+        manifest["comparison_surface"] = comparison_surface
     return manifest
 
 
@@ -437,16 +521,234 @@ def render_integrity_check(proposal: dict[str, Any]) -> str:
     )
 
 
-def planned_files(bundle_dir: Path) -> dict[Path, str]:
-    return {
+def bundle_relative_path(bundle_dir: Path, repo_root: Path | None = None) -> Path:
+    if repo_root is not None:
+        try:
+            return bundle_dir.relative_to(repo_root)
+        except ValueError:
+            pass
+    parts = bundle_dir.parts
+    if "evals" in parts:
+        index = parts.index("evals")
+        return Path(*parts[index:])
+    return Path(bundle_dir.name)
+
+
+def render_comparison_contract(proposal: dict[str, Any]) -> str:
+    baseline_label = comparison_baseline_label(proposal)
+    return (
+        "# Comparison Contract\n\n"
+        "Use this draft bundle only when the baseline target and comparison surface are explicit.\n\n"
+        f"- baseline target: `{baseline_label}`\n"
+        f"- comparison mode: `{proposal['baseline_mode']}`\n"
+        "- noisy variation must stay weaker than a comparative verdict\n"
+        "- style-only or presentation-only changes must not become capability movement\n"
+        "- resource tradeoffs must stay separate from reasoning quality claims\n\n"
+        "Public summary discipline:\n"
+        "- keep the baseline target visible in every comparative report\n"
+        "- keep matched conditions and fixture boundaries visible before the verdict\n"
+        "- keep candidate evidence below bundle-local review until accepted\n"
+        "- do not overread one runtime comparison as a broad agent-quality claim\n"
+    )
+
+
+def render_baseline_readiness(proposal: dict[str, Any]) -> str:
+    baseline_label = comparison_baseline_label(proposal)
+    return (
+        "# Baseline Readiness\n\n"
+        f"This draft uses `{proposal['baseline_mode']}`, so baseline discipline must be explicit.\n\n"
+        "Minimum bounded baseline conditions:\n"
+        f"- the named baseline target remains `{baseline_label}`\n"
+        "- baseline and candidate evidence use matched fixture conditions\n"
+        "- comparison inputs are public-safe or sanitized before review\n"
+        "- noisy variation and style-only differences stay weaker than the verdict\n"
+        "- reviewer notes separate latency, resource use, and behavioral-quality claims\n\n"
+        "This note does not approve the bundle for baseline status. It records the draft readiness gates.\n"
+    )
+
+
+def render_fixture_contract(proposal: dict[str, Any]) -> str:
+    comparison_surface = comparison_surface_for(proposal) or {}
+    payload = {
+        "contract_version": 1,
+        "shared_fixture_family_path": comparison_surface.get("shared_family_path"),
+        "shared_case_surface": (
+            f"public-safe matched cases for {proposal['object_under_evaluation']} with the baseline "
+            "and candidate judged on the same visible fixture family"
+        ),
+        "bounded_replacement_rule": (
+            "A local repo may replace these draft cases only if the replacement preserves matched "
+            "conditions, keeps the baseline target inspectable, and still separates noisy variation, "
+            "style-only change, resource tradeoff, and bounded comparative evidence."
+        ),
+        "public_safe_requirements": [
+            "raw private runtime artifacts are not copied into the public bundle",
+            "baseline and candidate are compared under matched fixture conditions",
+            "style-only or resource-only differences are not overread as broad capability movement",
+        ],
+    }
+    return json.dumps(payload, indent=2, sort_keys=False) + "\n"
+
+
+def render_runner_contract(proposal: dict[str, Any], bundle_dir: Path, repo_root: Path | None = None) -> str:
+    bundle_rel = bundle_relative_path(bundle_dir, repo_root).as_posix()
+    comparison_surface = comparison_surface_for(proposal) or {}
+    payload = {
+        "contract_version": 1,
+        "runner_surface_path": REPORTABLE_RUNNER_SURFACE,
+        "inputs": [
+            "named baseline target",
+            "candidate runtime or workflow variant under the same fixture family",
+            "matched-condition comparison notes",
+            "bounded comparative summary",
+        ],
+        "fixture_contract_paths": [f"{bundle_rel}/fixtures/contract.json"],
+        "scorer_helper_paths": [BOUNDED_RUBRIC_SCORER],
+        "report_schema_path": f"{bundle_rel}/reports/summary.schema.json",
+        "report_example_path": f"{bundle_rel}/reports/example-report.json",
+        "paired_readout_path": comparison_surface.get("paired_readout_path"),
+        "validation_commands": [f"python scripts/validate_repo.py --eval {proposal['name']}"],
+    }
+    return json.dumps(payload, indent=2, sort_keys=False) + "\n"
+
+
+def render_report_schema(proposal: dict[str, Any]) -> str:
+    payload = {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": f"{proposal['name']} comparative-summary report",
+        "type": "object",
+        "additionalProperties": False,
+        "required": [
+            "eval_name",
+            "bundle_status",
+            "object_under_evaluation",
+            "comparison_mode",
+            "verdict",
+            "claim_boundary",
+            "limitations",
+            "baseline_target",
+            "case_family",
+            "per_case_comparisons",
+        ],
+        "properties": {
+            "eval_name": {"const": proposal["name"]},
+            "bundle_status": {"const": "draft"},
+            "object_under_evaluation": {"const": proposal["object_under_evaluation"]},
+            "comparison_mode": {"const": proposal["baseline_mode"]},
+            "verdict": {
+                "type": "string",
+                "enum": [
+                    "baseline stronger",
+                    "candidate stronger",
+                    "mixed tradeoff signal",
+                    "noisy variation",
+                    "not reviewable",
+                ],
+            },
+            "claim_boundary": {"type": "string", "minLength": 20},
+            "limitations": {
+                "type": "array",
+                "minItems": 1,
+                "items": {"type": "string", "minLength": 3},
+            },
+            "baseline_target": {"type": "string", "minLength": 5},
+            "case_family": {"type": "string", "minLength": 5},
+            "per_case_comparisons": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": [
+                        "case_id",
+                        "baseline_note",
+                        "candidate_note",
+                        "comparative_reading",
+                        "comparison_note",
+                    ],
+                    "properties": {
+                        "case_id": {"type": "string", "minLength": 3},
+                        "baseline_note": {"type": "string", "minLength": 10},
+                        "candidate_note": {"type": "string", "minLength": 10},
+                        "comparative_reading": {
+                            "type": "string",
+                            "enum": [
+                                "baseline stronger",
+                                "candidate stronger",
+                                "mixed tradeoff signal",
+                                "noisy variation",
+                                "not reviewable",
+                            ],
+                        },
+                        "comparison_note": {"type": "string", "minLength": 10},
+                    },
+                },
+            },
+        },
+    }
+    return json.dumps(payload, indent=2, sort_keys=False) + "\n"
+
+
+def render_example_report(proposal: dict[str, Any]) -> str:
+    payload = {
+        "eval_name": proposal["name"],
+        "bundle_status": "draft",
+        "object_under_evaluation": proposal["object_under_evaluation"],
+        "comparison_mode": proposal["baseline_mode"],
+        "verdict": "mixed tradeoff signal",
+        "claim_boundary": (
+            f"This draft report can compare {proposal['object_under_evaluation']} only under the "
+            "named matched conditions and cannot rank general agent quality."
+        ),
+        "limitations": [
+            "This report does not rank reasoning quality.",
+            "This report does not support cross-host leaderboard claims.",
+            "This report does not accept raw runtime evidence without bundle-local review.",
+        ],
+        "baseline_target": comparison_baseline_label(proposal),
+        "case_family": "draft matched fixture family",
+        "per_case_comparisons": [
+            {
+                "case_id": "DRAFT-01",
+                "baseline_note": "The baseline target is named and kept inspectable for review.",
+                "candidate_note": "The candidate evidence is represented only as a draft comparison input.",
+                "comparative_reading": "mixed tradeoff signal",
+                "comparison_note": (
+                    "The draft readout preserves matched-condition comparison while avoiding a broad "
+                    "quality claim."
+                ),
+            }
+        ],
+    }
+    return json.dumps(payload, indent=2, sort_keys=False) + "\n"
+
+
+def planned_files(bundle_dir: Path, proposal: dict[str, Any]) -> dict[Path, str]:
+    files = {
         bundle_dir / "EVAL.md": "eval markdown",
         bundle_dir / "eval.yaml": "eval manifest",
         bundle_dir / "notes" / "origin-need.md": "origin need evidence",
         bundle_dir / "checks" / "eval-integrity-check.md": "integrity check evidence",
     }
+    if is_comparative_scaffold(proposal):
+        files.update(
+            {
+                bundle_dir / "notes" / "comparison-contract.md": "comparison support note",
+                bundle_dir / "notes" / "baseline-readiness.md": "baseline readiness note",
+                bundle_dir / "fixtures" / "contract.json": "fixture contract",
+                bundle_dir / "runners" / "contract.json": "runner contract",
+                bundle_dir / "reports" / "summary.schema.json": "report schema",
+                bundle_dir / "reports" / "example-report.json": "example report",
+            }
+        )
+    return files
 
 
-def write_scaffold(bundle_dir: Path, proposal: dict[str, Any]) -> list[str]:
+def write_scaffold(
+    bundle_dir: Path,
+    proposal: dict[str, Any],
+    repo_root: Path | None = None,
+) -> list[str]:
     if bundle_dir.exists():
         raise ScaffoldError(f"{bundle_dir}: target bundle directory already exists")
     files = {
@@ -455,6 +757,21 @@ def write_scaffold(bundle_dir: Path, proposal: dict[str, Any]) -> list[str]:
         bundle_dir / "notes" / "origin-need.md": render_origin_need(proposal),
         bundle_dir / "checks" / "eval-integrity-check.md": render_integrity_check(proposal),
     }
+    if is_comparative_scaffold(proposal):
+        files.update(
+            {
+                bundle_dir / "notes" / "comparison-contract.md": render_comparison_contract(proposal),
+                bundle_dir / "notes" / "baseline-readiness.md": render_baseline_readiness(proposal),
+                bundle_dir / "fixtures" / "contract.json": render_fixture_contract(proposal),
+                bundle_dir / "runners" / "contract.json": render_runner_contract(
+                    proposal,
+                    bundle_dir,
+                    repo_root,
+                ),
+                bundle_dir / "reports" / "summary.schema.json": render_report_schema(proposal),
+                bundle_dir / "reports" / "example-report.json": render_example_report(proposal),
+            }
+        )
     for path, text in files.items():
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text, encoding="utf-8")
@@ -565,10 +882,13 @@ def route_result(
                 *route_notes,
                 "dry run only; pass --write to create scaffold files",
             ],
-            "created_paths": [path.relative_to(repo_root).as_posix() for path in planned_files(target_dir)],
+            "created_paths": [
+                path.relative_to(repo_root).as_posix()
+                for path in planned_files(target_dir, proposal)
+            ],
         }
 
-    created_paths = write_scaffold(target_dir, proposal)
+    created_paths = write_scaffold(target_dir, proposal, repo_root)
     return {
         "schema_version": "eval_birth_route_result_v1",
         "outcome": "created_new_draft",

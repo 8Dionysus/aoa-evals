@@ -36,9 +36,9 @@ class RoadmapParityTestCase(unittest.TestCase):
         normalized_readme = " ".join(readme.split())
         normalized_roadmap = " ".join(roadmap.split())
 
-        self.assertIn("Current release: `v0.3.3`", readme)
-        self.assertIn("## [0.3.3]", changelog)
-        self.assertIn("`v0.3.3`", roadmap)
+        self.assertIn("Current release: `v0.4.0`", readme)
+        self.assertIn("## [0.4.0]", changelog)
+        self.assertIn("`v0.4.0`", roadmap)
         self.assertIn("Current Public Contour", roadmap)
         self.assertIn("Direction Anchors", roadmap)
         self.assertIn("release history: [CHANGELOG.md](CHANGELOG.md)", roadmap)

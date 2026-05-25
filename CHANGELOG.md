@@ -7,7 +7,56 @@ Tracking starts with the community-docs baseline for this repository.
 
 ## [Unreleased]
 
-### Changed
+## [0.4.0] - 2026-05-25
+
+### Summary
+
+- releases the accumulated proof-organ refactor from `v0.3.3` through the
+  current `main`: 196 first-parent commits, merged PRs #148 through #343,
+  1721 changed tracked paths, and the completed move from the old flat
+  `bundles/` surface into the source-proof `evals/` tree.
+- makes the repository legible as an agent-facing proof canon: root entry,
+  authority topology, proof operations, mechanic parents, mechanic parts,
+  payloads, generated/readout surfaces, and validation routes now have explicit
+  owner paths instead of relying on scattered prose.
+- keeps the release narrative below proof authority. This release records the
+  route and topology work; source bundle meaning still lives in
+  `evals/**/EVAL.md` and `evals/**/eval.yaml`, and mechanics keep their own
+  proof-operation boundaries.
+
+### Reconciliation Basis
+
+- checked the release against `git log --first-parent v0.3.3..HEAD`,
+  `git diff --name-status v0.3.3..HEAD`, merged GitHub PR metadata, the
+  release-support readiness and handoff reports, and the current repository
+  route cards instead of trusting this file alone.
+- current public proof corpus: 37 source eval bundles under `evals/`.
+- current proof-operation topology: 19 active mechanic parents under
+  `mechanics/`, with parent route cards, direction surfaces, provenance
+  bridges, part indexes, and 90 part or fixture README contracts.
+- largest changed surfaces in the release window are `mechanics/`, `evals/`,
+  `.agents/`, and `docs/`, matching the intended strategic refactor rather
+  than an unrelated code-only release.
+
+### Final Route Sweep
+
+- root entry surfaces now route as a compact proof-organ map:
+  `README.md`, `ROADMAP.md`, `DESIGN.md`, `DESIGN.AGENTS.md`,
+  `docs/ARCHITECTURE.md`, `docs/PROOF_TOPOLOGY.md`, and
+  `docs/AGENT_INDEX.md` point agents toward owner surfaces instead of carrying
+  detailed operational ledgers.
+- eval-facing guides now use owner routes for selection, review, score
+  semantics, blind spots, baseline comparison, repeated windows, fixture
+  surfaces, verdict interpretation, portable eval boundaries, proof guides,
+  and closeout writeback ingress.
+- mechanics closure tightened route language for audit, proof-object,
+  antifragility, proof-loop, boundary-bridge, Agon, generated readers,
+  readouts, legacy archives, source eval validation, and lower part indexes.
+- AGENTS route cards now carry executable validation ownership across root,
+  docs, decisions, evals, generated readers, mechanics, scripts, tests,
+  GitHub, validator surfaces, and source eval entries.
+
+### Proof Authority And Memory Boundary
 
 - clarified the eval memory-consumer boundary: reviewed `aoa-memo` memory and
   `.aoa` session evidence may provide cited recall context, but proof authority
@@ -475,6 +524,26 @@ Tracking starts with the community-docs baseline for this repository.
 - moved former `AOE-Q-AGON-*` markdown quest notes behind
   `mechanics/agon/PROVENANCE.md` so `quests/` remains a schema-backed source
   record district instead of an active route for legacy note forms
+
+### Validation
+
+- `python scripts/validate_repo.py`
+- `python scripts/validate_semantic_agents.py`
+- `python scripts/build_catalog.py --check`
+- `python scripts/generate_eval_report_index.py --check`
+- `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check`
+- `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check`
+- `python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check`
+- `python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json`
+- `python scripts/release_check.py`
+- GitHub `Repo Validation` on the release PR
+
+### Notes
+
+- `v0.4.0` publishes the proof topology, mechanics topology, agent route mesh,
+  generated-reader parity, release-support route, and eval-source tree
+  refactor. It does not promote `aoa-evals` into runtime, memory, role,
+  routing, sibling-release, or broad agent-capability authority.
 
 ## [0.3.3] - 2026-04-23
 

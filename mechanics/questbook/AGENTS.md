@@ -31,7 +31,7 @@ This package protects the quest obligation loop:
 1. root `AGENTS.md`
 2. `DESIGN.md`
 3. `DESIGN.AGENTS.md`
-4. `docs/PROOF_TOPOLOGY.md`
+4. `docs/architecture/PROOF_TOPOLOGY.md`
 5. `mechanics/README.md`
 6. `mechanics/questbook/README.md`
 7. `mechanics/questbook/PARTS.md`

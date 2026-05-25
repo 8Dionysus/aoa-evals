@@ -30,7 +30,7 @@ behind the active proof-object mechanic.
 5. `mechanics/proof-object/DIRECTION.md`
 6. `mechanics/proof-object/PARTS.md`
 7. `mechanics/proof-object/PROVENANCE.md`
-8. `docs/LEGACY_NAMING.md`
+8. `docs/architecture/LEGACY_NAMING.md`
 9. `mechanics/proof-object/legacy/INDEX.md`
 
 ## Route Rules

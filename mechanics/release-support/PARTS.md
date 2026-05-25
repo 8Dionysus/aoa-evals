@@ -8,7 +8,7 @@ The package keeps root release entrypoints visible where contributors expect
 them:
 
 - `CHANGELOG.md` remains the public release narrative.
-- `docs/RELEASING.md` remains the public release procedure.
+- `docs/operations/RELEASING.md` remains the public release procedure.
 - `scripts/release_check.py` remains the root local release gate.
 - `.github/workflows/repo-validation.yml` remains the GitHub-native landing
   gate.

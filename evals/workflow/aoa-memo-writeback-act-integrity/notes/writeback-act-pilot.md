@@ -2,7 +2,7 @@
 
 This bundle is the first narrow downstream pilot for the reviewed-closeout
 writeback gap that landed in
-`docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`.
+`docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`.
 
 It treats the writeback act as supportable only when the proof flow preserves,
 at minimum:

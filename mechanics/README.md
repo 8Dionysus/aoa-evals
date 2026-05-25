@@ -22,7 +22,7 @@ validation, and parent evidence.
 | input | source proof pressure, support artifact movement, route-card drift, or mechanic-owned payload work |
 | output | parent route, part contract, payload location, validation lane, or stronger-owner handoff |
 | owner | mechanic parent `README.md`, `DIRECTION.md`, `PARTS.md`, part `README.md`, and nearest `AGENTS.md` |
-| next route | `mechanics/EVIDENCE_CLUSTERS.md` for parent evidence, `docs/PROOF_TOPOLOGY.md` for authority class |
+| next route | `mechanics/EVIDENCE_CLUSTERS.md` for parent evidence, `docs/architecture/PROOF_TOPOLOGY.md` for authority class |
 | validation | [mechanics/AGENTS.md#validation](AGENTS.md#validation) and the nearest package card |
 
 ## Traversal Index
@@ -36,7 +36,7 @@ Top-down route:
 
 Bottom-up route:
 
-`payload file -> nearest part README -> parent PARTS.md -> parent DIRECTION.md -> parent README -> mechanics/EVIDENCE_CLUSTERS.md -> docs/PROOF_TOPOLOGY.md`
+`payload file -> nearest part README -> parent PARTS.md -> parent DIRECTION.md -> parent README -> mechanics/EVIDENCE_CLUSTERS.md -> docs/architecture/PROOF_TOPOLOGY.md`
 
 | Layer | Primary route | What it answers |
 | --- | --- | --- |
@@ -46,7 +46,7 @@ Bottom-up route:
 | local part contract | `mechanics/<parent>/parts/<part>/README.md` | source surfaces, payload classes, local validation, and part-specific boundaries |
 | payload | `docs/`, `examples/`, `fixtures/`, `schemas/`, `scripts/`, `tests/`, `reports/`, `generated/`, or other part-local payload homes | the actual proof-support material owned by the part |
 | route law | nearest `AGENTS.md` | how an agent may edit the surface and what to verify before closeout |
-| evidence class | `mechanics/EVIDENCE_CLUSTERS.md` and `docs/PROOF_TOPOLOGY.md` | why the parent exists and what authority class the artifact belongs to |
+| evidence class | `mechanics/EVIDENCE_CLUSTERS.md` and `docs/architecture/PROOF_TOPOLOGY.md` | why the parent exists and what authority class the artifact belongs to |
 
 When starting from a payload, recover the nearest part first. When starting from
 a parent, read `DIRECTION.md` before part details. When a path looks legacy,
@@ -208,7 +208,7 @@ publication coherent and eval claims bounded:
 
 `bounded release scope -> changelog narrative -> release audit -> Repo Validation -> tag and GitHub release notes -> post-release proof posture`
 
-It routes `docs/RELEASING.md`, `CHANGELOG.md`, `scripts/release_check.py`,
+It routes `docs/operations/RELEASING.md`, `CHANGELOG.md`, `scripts/release_check.py`,
 GitHub `Repo Validation`, generated freshness checks, release-note posture, and
 part-local readiness/closeout/handoff reports while root release entrypoints,
 CI, generated surfaces, and source proof bundles stay in their owner lanes.

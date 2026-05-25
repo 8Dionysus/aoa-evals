@@ -40,7 +40,7 @@ It also protects the Phase Alpha eval matrix bridge:
 1. root `AGENTS.md`
 2. `DESIGN.md`
 3. `DESIGN.AGENTS.md`
-4. `docs/PROOF_TOPOLOGY.md`
+4. `docs/architecture/PROOF_TOPOLOGY.md`
 5. `mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md`
 6. `mechanics/boundary-bridge/PARTS.md`
 7. `mechanics/boundary-bridge/parts/README.md`

@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: proof topology
+- Mechanic parents: recurrence
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 `mechanics/recurrence/` is the active AoA-aligned parent for eval-side

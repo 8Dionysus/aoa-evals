@@ -1,0 +1,33 @@
+schema_version: 1
+role: docs-topology-contract
+root_files:
+  - docs/AGENTS.md
+  - docs/README.md
+architecture:
+  - docs/architecture/AGENT_INDEX.md
+  - docs/architecture/ARCHITECTURE.md
+  - docs/architecture/PROOF_TOPOLOGY.md
+  - docs/architecture/ROUTE_RESIDUE_GUARDS.md
+  - docs/architecture/LEGACY_NAMING.md
+guides:
+  - docs/guides/EVAL_PHILOSOPHY.md
+  - docs/guides/EVAL_RUBRIC.md
+  - docs/guides/EVAL_REVIEW_GUIDE.md
+  - docs/guides/SCORE_SEMANTICS_GUIDE.md
+  - docs/guides/VERDICT_INTERPRETATION_GUIDE.md
+  - docs/guides/COMPARISON_SPINE_GUIDE.md
+  - docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md
+  - docs/guides/PORTABLE_EVAL_BOUNDARY_GUIDE.md
+  - docs/guides/FIXTURE_SURFACE_GUIDE.md
+  - docs/guides/BLIND_SPOT_DISCLOSURE_GUIDE.md
+  - docs/guides/SHARED_PROOF_INFRA_GUIDE.md
+  - docs/guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md
+  - docs/guides/BASELINE_COMPARISON_GUIDE.md
+  - docs/guides/REGRESSION_PROOF_SURFACES.md
+  - docs/guides/BOUNDARY_ROUTE_CHECKLIST.md
+operations:
+  - docs/operations/RELEASING.md
+  - docs/operations/QUESTBOOK_EVAL_INTEGRATION.md
+  - docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md
+  - docs/operations/AGENTS_ROOT_REFERENCE.md
+decision_surface: docs/decisions/

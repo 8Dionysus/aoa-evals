@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: root docs and agent route surfaces
 
+## Index Metadata
+
+- Surface classes: root/topology
+- Mechanic parents: none
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 `aoa-evals` already had strong proof philosophy and a technical architecture
@@ -16,7 +23,7 @@ preserve.
 
 ## Options Considered
 
-- Keep using `docs/ARCHITECTURE.md` as the highest design surface.
+- Keep using `docs/architecture/ARCHITECTURE.md` as the highest design surface.
 - Expand root `AGENTS.md` with the missing design doctrine.
 - Add a root design spine and keep existing depth docs in their current roles.
 
@@ -25,8 +32,8 @@ preserve.
 Add `DESIGN.md` and `DESIGN.AGENTS.md`, then keep root `AGENTS.md` as a compact
 route card that points to those surfaces.
 
-`docs/ARCHITECTURE.md` remains the technical proof model.
-`docs/EVAL_PHILOSOPHY.md` remains the epistemic posture for evaluation.
+`docs/architecture/ARCHITECTURE.md` remains the technical proof model.
+`docs/guides/EVAL_PHILOSOPHY.md` remains the epistemic posture for evaluation.
 
 ## Rationale
 

@@ -28,7 +28,7 @@ history behind the active `audit` mechanic.
 3. `mechanics/audit/README.md`
 4. `mechanics/audit/PARTS.md`
 5. `mechanics/audit/PROVENANCE.md`
-6. `docs/LEGACY_NAMING.md`
+6. `docs/architecture/LEGACY_NAMING.md`
 
 ## Route Rules
 

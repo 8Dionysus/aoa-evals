@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/checkpoint/`
 
+## Index Metadata
+
+- Surface classes: mechanic package
+- Mechanic parents: checkpoint
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 Checkpoint is a named AoA mechanic, and `aoa-evals` has enough local

@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/boundary-bridge/`
 
+## Index Metadata
+
+- Surface classes: mechanic package, boundary/runtime/sibling
+- Mechanic parents: boundary-bridge
+- Guard families: sibling and boundary
+- Posture: active rationale
+
 ## Context
 
 The first refactor slice exposed sibling reference drift in `aoa-memo` paths.

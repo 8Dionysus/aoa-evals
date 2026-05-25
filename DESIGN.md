@@ -12,7 +12,7 @@ Adjacent routes:
 
 - public entry: `README.md`
 - repo direction: `ROADMAP.md`
-- technical proof model: `docs/ARCHITECTURE.md`
+- technical proof model: `docs/architecture/ARCHITECTURE.md`
 - eval-package meaning: `evals/**/EVAL.md` and `evals/**/eval.yaml`
 - durable rationale: `docs/decisions/`
 - agent-facing route shape: `DESIGN.AGENTS.md` and `AGENTS.md`
@@ -217,14 +217,14 @@ A future maintainer can find why the topology exists.
 [`AGENTS.md`](AGENTS.md) routes agent work.
 [`DESIGN.AGENTS.md`](DESIGN.AGENTS.md) holds the design form of the
 agent-facing guidance mesh.
-[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) explains the technical proof
+[`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECTURE.md) explains the technical proof
 model and bundle layering.
-[`docs/EVAL_PHILOSOPHY.md`](docs/EVAL_PHILOSOPHY.md) explains the epistemic
+[`docs/guides/EVAL_PHILOSOPHY.md`](docs/guides/EVAL_PHILOSOPHY.md) explains the epistemic
 posture and limits of evaluation.
-[`docs/PROOF_TOPOLOGY.md`](docs/PROOF_TOPOLOGY.md) maps source, derived,
+[`docs/architecture/PROOF_TOPOLOGY.md`](docs/architecture/PROOF_TOPOLOGY.md) maps source, derived,
 candidate, receipt, quest, decision, sibling, legacy, and active mechanic
 authority classes.
-[`docs/LEGACY_NAMING.md`](docs/LEGACY_NAMING.md) maps active, historical,
+[`docs/architecture/LEGACY_NAMING.md`](docs/architecture/LEGACY_NAMING.md) maps active, historical,
 accepted-input, generated-projection, candidate-only, and provenance-bridge
 naming postures. It is a posture guide for routing old names through active
 surfaces and the `PROVENANCE.md` single controlled bridge from active mechanic

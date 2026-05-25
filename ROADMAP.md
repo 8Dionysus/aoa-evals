@@ -15,7 +15,7 @@ Use the stronger owner surface when the work needs detail:
   nested `AGENTS.md`
 - durable rationale: [docs/decisions/](docs/decisions/)
 - source proof meaning: `evals/**/EVAL.md` and `evals/**/eval.yaml`
-- proof topology: [docs/PROOF_TOPOLOGY.md](docs/PROOF_TOPOLOGY.md)
+- proof topology: [docs/architecture/PROOF_TOPOLOGY.md](docs/architecture/PROOF_TOPOLOGY.md)
 - proof operation atlas: [mechanics/README.md](mechanics/README.md), parent
   `README.md`, parent `DIRECTION.md`, parent `PARTS.md`, and part `README.md`
 - validator contracts: `scripts/validate_repo.py` and
@@ -43,7 +43,7 @@ only land a local surface?
 | input | proof-organ pressure, public contour shifts, horizon changes, or verification posture changes |
 | output | direction, horizon order, current public contour, and exit gates |
 | owner | root roadmap for sequencing; owner surfaces above for detail |
-| next route | `docs/AGENT_INDEX.md`, `docs/PROOF_TOPOLOGY.md`, `mechanics/README.md`, then nearest local route card |
+| next route | `docs/architecture/AGENT_INDEX.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `mechanics/README.md`, then nearest local route card |
 | validation | [AGENTS.md#verify](AGENTS.md#verify), `tests/test_roadmap_parity.py`, and roadmap contracts in `scripts/validate_repo.py` |
 
 ## Current Direction
@@ -56,7 +56,7 @@ packages, and public-safe proof references into sibling owners.
 The current movement is proof-organ maturity:
 
 - keep entry surfaces short enough to trust
-- keep the agent index chain visible while `docs/AGENT_INDEX.md` remains the
+- keep the agent index chain visible while `docs/architecture/AGENT_INDEX.md` remains the
   index
 - keep decisions as rationale crosswalks and release history in the changelog
 - keep executable commands in local `AGENTS.md` cards while authored docs carry
@@ -94,11 +94,11 @@ history/token detail.
 
 | Anchor | Owner surface | Directional use |
 | --- | --- | --- |
-| Root proof spine | `DESIGN.md`, `DESIGN.AGENTS.md`, `docs/ARCHITECTURE.md` | Keep root design compact and proof-bundle meaning bounded. |
-| Agent index chain | `docs/AGENT_INDEX.md` | Keep the pass-through route from repo to authority class, operation, mechanic parent, part, payload, and validation visible. |
-| Proof Topology Map | `docs/PROOF_TOPOLOGY.md` | Keep source, generated, candidate, receipt, sibling, legacy, and active mechanic authority classes separate. |
+| Root proof spine | `DESIGN.md`, `DESIGN.AGENTS.md`, `docs/architecture/ARCHITECTURE.md` | Keep root design compact and proof-bundle meaning bounded. |
+| Agent index chain | `docs/architecture/AGENT_INDEX.md` | Keep the pass-through route from repo to authority class, operation, mechanic parent, part, payload, and validation visible. |
+| Proof Topology Map | `docs/architecture/PROOF_TOPOLOGY.md` | Keep source, generated, candidate, receipt, sibling, legacy, and active mechanic authority classes separate. |
 | Decision memory | `docs/decisions/README.md` | Keep decision rationale findable by surface class, mechanic parent, validation guard family, and active posture. |
-| Legacy naming | `docs/LEGACY_NAMING.md` | Keep active names and legacy bridge posture explicit so active topology stays the first route. |
+| Legacy naming | `docs/architecture/LEGACY_NAMING.md` | Keep active names and legacy bridge posture explicit so active topology stays the first route. |
 | Mechanics evidence | `mechanics/EVIDENCE_CLUSTERS.md` | Keep parent evidence, root district posture, and residual root-authored surface classification outside roadmap body detail. |
 | Route residue guard family | `scripts/validate_repo.py`, route cards, and `docs/decisions/` | Keep generated/readout, active mechanic, root-authored, decision, repo-config, source-bundle, and mechanic-payload residue guards tied to owner contracts. |
 | Mechanic lower index | `mechanics/README.md`, parent `DIRECTION.md`, parent `PARTS.md`, part `README.md`, part `VALIDATION.md`, and parent `parts/AGENTS.md` | Keep parent direction, part/payload source surfaces, parts index synchronization, local validation routes, and payload coverage recoverable through owner surfaces. |
@@ -114,7 +114,7 @@ history/token detail.
 
 | Field | Direction |
 | --- | --- |
-| Direction | Keep `README.md`, `docs/README.md`, and `docs/AGENT_INDEX.md` readable as entry and pass-through surfaces. |
+| Direction | Keep `README.md`, `docs/README.md`, and `docs/architecture/AGENT_INDEX.md` readable as entry and pass-through surfaces. |
 | Exit gate | A low-context agent can tell where to start, where detail lives, and which file owns validation commands. |
 
 ### Horizon: Decision, Roadmap, And Quest Route

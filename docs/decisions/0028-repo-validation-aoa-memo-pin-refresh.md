@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `.github/workflows/repo-validation.yml`
 
+## Index Metadata
+
+- Surface classes: proof topology
+- Mechanic parents: none
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 GitHub `Repo Validation` failed after the strategic refactor branch was pushed.

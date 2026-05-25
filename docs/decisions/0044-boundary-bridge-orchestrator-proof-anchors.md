@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/boundary-bridge/parts/orchestrator-proof-anchors/`
 
+## Index Metadata
+
+- Surface classes: boundary/runtime/sibling
+- Mechanic parents: boundary-bridge
+- Guard families: sibling and boundary
+- Posture: active rationale
+
 ## Context
 
 `docs/ORCHESTRATOR_PROOF_ALIGNMENT.md` was still a root doc, but its evidence

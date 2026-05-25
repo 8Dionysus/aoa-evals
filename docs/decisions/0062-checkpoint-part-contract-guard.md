@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: mechanic part, validation guard
+- Mechanic parents: checkpoint
+- Guard families: part and payload
+- Posture: active guard rationale
+
 ## Context
 
 `mechanics/checkpoint/` is the active AoA-aligned parent for A2A summon return,

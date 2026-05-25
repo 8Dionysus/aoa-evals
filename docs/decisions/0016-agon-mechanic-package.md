@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/agon/`
 
+## Index Metadata
+
+- Surface classes: mechanic package, boundary/runtime/sibling
+- Mechanic parents: agon
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 Agon appears across `aoa-evals` as historical and active proof-family
@@ -19,7 +26,7 @@ observe the surfaces, and bundle-local review checks Agon stop-lines.
 
 ## Options Considered
 
-- Leave Agon only in `docs/LEGACY_NAMING.md` and `docs/PROOF_TOPOLOGY.md`.
+- Leave Agon only in `docs/architecture/LEGACY_NAMING.md` and `docs/architecture/PROOF_TOPOLOGY.md`.
 - Move Agon docs, configs, generated registries, manifests, scripts, tests,
   schemas, and examples into part-local homes under `mechanics/agon/`.
 - Create `mechanics/agon/` only as a route package while leaving source,
@@ -74,7 +81,7 @@ action, arena activation, or stronger-owner law changes.
   validation, and next route.
 - `mechanics/agon/AGENTS.md` names local editing law.
 - `mechanics/agon/PARTS.md` names the active part topology.
-- `mechanics/README.md`, `docs/PROOF_TOPOLOGY.md`, `docs/LEGACY_NAMING.md`,
+- `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `docs/architecture/LEGACY_NAMING.md`,
   `README.md`, `docs/README.md`, `ROADMAP.md`, `CHANGELOG.md`, and
   `docs/decisions/README.md` route to the package.
 - `scripts/validate_repo.py` checks the package and decision remain

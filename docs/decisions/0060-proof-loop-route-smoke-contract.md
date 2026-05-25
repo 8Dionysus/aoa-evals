@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/proof-loop/parts/route-smoke/`
 
+## Index Metadata
+
+- Surface classes: proof topology
+- Mechanic parents: proof-loop
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 Decision `0030` moved the first proof-loop route-smoke report into

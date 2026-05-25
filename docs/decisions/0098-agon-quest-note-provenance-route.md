@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: legacy/provenance, quest/lane, boundary/runtime/sibling
+- Mechanic parents: agon
+- Guard families: legacy and provenance
+- Posture: legacy/provenance rationale
+
 ## Context
 
 Earlier quest topology moved old `AOE-Q-AGON-*` markdown notes from top-level

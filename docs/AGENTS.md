@@ -22,16 +22,16 @@ bundle-local `EVAL.md` and `eval.yaml`.
 | input | proof questions, route questions, topology changes, guide lookup, and durable docs edits |
 | output | next source surface, topology explanation, proof guide, or decision route |
 | owner | target doc for its meaning; nearest `AGENTS.md` for edit and validation route |
-| next route | `docs/README.md`, `docs/AGENT_INDEX.md`, `docs/PROOF_TOPOLOGY.md`, `docs/decisions/`, mechanics, or bundle-local proof |
+| next route | `docs/README.md`, `docs/architecture/AGENT_INDEX.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `docs/decisions/`, mechanics, or bundle-local proof |
 | tools | root validator, semantic AGENTS validator, and generated-reader builders when route maps touch derived surfaces |
 | validation | this card's `Validation` section |
 
 ## Surface Split
 
 - `docs/README.md` is a route map. Keep it link-driven and reader-oriented.
-- `docs/AGENT_INDEX.md` is an agent-facing pass-through index. Keep it weaker
+- `docs/architecture/AGENT_INDEX.md` is an agent-facing pass-through index. Keep it weaker
   than source truth, route cards, decisions, generated readers, and validators.
-- `docs/PROOF_TOPOLOGY.md`, `docs/ARCHITECTURE.md`, and proof guides may carry
+- `docs/architecture/PROOF_TOPOLOGY.md`, `docs/architecture/ARCHITECTURE.md`, and proof guides may carry
   source meaning about authority classes, review posture, and proof limits.
 - `docs/decisions/` owns durable rationale; follow `docs/decisions/AGENTS.md`
   there.

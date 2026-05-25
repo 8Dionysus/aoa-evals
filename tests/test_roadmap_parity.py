@@ -8,9 +8,9 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 DIRECTION_ANCHORS = (
-    "docs/AGENT_INDEX.md",
-    "docs/PROOF_TOPOLOGY.md",
-    "docs/LEGACY_NAMING.md",
+    "docs/architecture/AGENT_INDEX.md",
+    "docs/architecture/PROOF_TOPOLOGY.md",
+    "docs/architecture/LEGACY_NAMING.md",
     "mechanics/EVIDENCE_CLUSTERS.md",
     "mechanics/proof-loop/README.md",
     "generated/README.md",
@@ -25,6 +25,17 @@ DETAILED_EVIDENCE_ANCHORS = (
     "mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json",
     "mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json",
     "mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json",
+)
+
+DOCS_ROUTE_TOKENS = (
+    "architecture/AGENT_INDEX.md",
+    "architecture/PROOF_TOPOLOGY.md",
+    "architecture/ROUTE_RESIDUE_GUARDS.md",
+    "guides/EVAL_REVIEW_GUIDE.md",
+    "operations/RELEASING.md",
+    "decisions/README.md",
+    "generated/eval_report_index.min.json",
+    "generated/comparison_spine.json",
 )
 
 
@@ -58,10 +69,12 @@ class RoadmapParityTestCase(unittest.TestCase):
                 self.assertIn(anchor, roadmap)
 
         docs_readme = (REPO_ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        for token in DOCS_ROUTE_TOKENS:
+            with self.subTest(docs_route_token=token):
+                self.assertIn(token, docs_readme)
         for anchor in DETAILED_EVIDENCE_ANCHORS:
             with self.subTest(detailed_anchor=anchor):
                 self.assertTrue((REPO_ROOT / anchor).is_file())
-                self.assertIn(anchor, docs_readme)
 
     def test_memo_pilot_surfaces_do_not_overclaim_memory_readiness(self) -> None:
         roadmap = (REPO_ROOT / "ROADMAP.md").read_text(encoding="utf-8")

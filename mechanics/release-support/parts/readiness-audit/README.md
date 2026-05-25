@@ -9,7 +9,7 @@ This part owns the local release-prep readiness audit artifact.
 - `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json`
 - `mechanics/release-support/parts/readiness-audit/tests/test_release_support_readiness_audit.py`
 - `CHANGELOG.md`
-- `docs/RELEASING.md`
+- `docs/operations/RELEASING.md`
 - `scripts/release_check.py`
 
 The artifact says whether the accumulated strategic refactor is locally ready
@@ -44,7 +44,7 @@ evidence, and current goal review.
 This part owns the local readiness audit for release-prep review.
 
 Root release entrypoints own their own lanes: `CHANGELOG.md` is the public
-release narrative, `docs/RELEASING.md` is the procedure, `scripts/release_check.py`
+release narrative, `docs/operations/RELEASING.md` is the procedure, `scripts/release_check.py`
 is the local release gate, and GitHub `Repo Validation` is the remote landing
 gate.
 
@@ -67,6 +67,6 @@ Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable com
 ## Next Route
 
 Use this part when updating release-prep readiness evidence or its validator
-contract. Keep `CHANGELOG.md`, `docs/RELEASING.md`, `scripts/release_check.py`,
+contract. Keep `CHANGELOG.md`, `docs/operations/RELEASING.md`, `scripts/release_check.py`,
 and `.github/workflows/repo-validation.yml` in their root or GitHub-native
 lanes.

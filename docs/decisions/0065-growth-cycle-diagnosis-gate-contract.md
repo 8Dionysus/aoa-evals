@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: proof topology
+- Mechanic parents: growth-cycle
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 `mechanics/growth-cycle/` is deliberately narrow. The active eval-side

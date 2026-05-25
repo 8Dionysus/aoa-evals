@@ -228,7 +228,7 @@ class DownstreamFeedContractsTests(unittest.TestCase):
             workhorse["owner_review_refs"],
             [
                 "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
-                "docs/EVAL_REVIEW_GUIDE.md",
+                "docs/guides/EVAL_REVIEW_GUIDE.md",
                 "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.workhorse-local.example.json",
             ],
         )

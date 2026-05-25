@@ -2,7 +2,7 @@
 
 ## Role
 
-`docs/LEGACY_NAMING.md` is a thin posture guide for old and overloaded names
+`docs/architecture/LEGACY_NAMING.md` is a thin posture guide for old and overloaded names
 that may still appear in `aoa-evals`.
 
 Use this guide to classify old vocabulary, then route through the active owner.
@@ -24,9 +24,9 @@ vocabulary?
 | input | old path, overloaded name, former parent form, generated projection, candidate evidence name, or accepted compatibility vocabulary |
 | output | name posture, active owner route, provenance bridge route, rename gate, and validation guard |
 | owner | this guide owns posture vocabulary; active mechanic surfaces own concrete legacy archive details through `PROVENANCE.md` |
-| next route | `mechanics/EVIDENCE_CLUSTERS.md`, `docs/PROOF_TOPOLOGY.md`, nearest parent `README.md`/`DIRECTION.md`/`PARTS.md`, package `PROVENANCE.md`, then archive-local legacy surfaces |
+| next route | `mechanics/EVIDENCE_CLUSTERS.md`, `docs/architecture/PROOF_TOPOLOGY.md`, nearest parent `README.md`/`DIRECTION.md`/`PARTS.md`, package `PROVENANCE.md`, then archive-local legacy surfaces |
 | tools | root validator, semantic AGENTS validator, and focused legacy naming tests in `tests/test_validate_repo.py` |
-| validation | [docs/AGENTS.md#validation](AGENTS.md#validation) and root [AGENTS.md#verify](../AGENTS.md#verify) |
+| validation | [docs/AGENTS.md#validation](../AGENTS.md#validation) and root [AGENTS.md#verify](../../AGENTS.md#verify) |
 
 ## Active-first Route
 
@@ -110,7 +110,7 @@ When a concrete current owner is needed, use the active topology surfaces:
 - `mechanics/README.md` for the active operation atlas;
 - `mechanics/EVIDENCE_CLUSTERS.md` for parent-class proof and wrong-parent
   guardrails;
-- `docs/PROOF_TOPOLOGY.md` for authority class routing;
+- `docs/architecture/PROOF_TOPOLOGY.md` for authority class routing;
 - nearest parent `README.md`, `DIRECTION.md`, `PARTS.md`, and part contracts for
   the living operation.
 
@@ -159,5 +159,5 @@ These phrases name validation guard domains for active route residue.
 ## Validation
 
 Executable checks for legacy naming posture live in
-[docs/AGENTS.md#validation](AGENTS.md#validation) and root
-[AGENTS.md#verify](../AGENTS.md#verify).
+[docs/AGENTS.md#validation](../AGENTS.md#validation) and root
+[AGENTS.md#verify](../../AGENTS.md#verify).

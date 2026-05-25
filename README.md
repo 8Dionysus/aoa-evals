@@ -27,8 +27,8 @@ to the owner surface instead of expanding this page.
 | Function | Surface |
 | --- | --- |
 | Public proof-organ entry | this README |
-| Agent pass-through chain from repo to authority class | [docs/AGENT_INDEX.md](docs/AGENT_INDEX.md) |
-| Authority-class topology | [docs/PROOF_TOPOLOGY.md](docs/PROOF_TOPOLOGY.md) |
+| Agent pass-through chain from repo to authority class | [docs/architecture/AGENT_INDEX.md](docs/architecture/AGENT_INDEX.md) |
+| Authority-class topology | [docs/architecture/PROOF_TOPOLOGY.md](docs/architecture/PROOF_TOPOLOGY.md) |
 | Proof operation atlas | [mechanics/README.md](mechanics/README.md) |
 | Source proof objects | `evals/**/EVAL.md` and `evals/**/eval.yaml` |
 | Eval discovery | [Eval Bundle Selection Chooser](EVAL_SELECTION.md), [Eval Bundle Index](EVAL_INDEX.md) |
@@ -44,14 +44,14 @@ Read only what matches the job.
 | Need | Route |
 | --- | --- |
 | Shortest honest overview | this README -> [DESIGN.md](DESIGN.md) -> [DESIGN.AGENTS.md](DESIGN.AGENTS.md) |
-| Agent location in the tree | [docs/AGENT_INDEX.md](docs/AGENT_INDEX.md) |
-| Artifact authority class | [docs/PROOF_TOPOLOGY.md](docs/PROOF_TOPOLOGY.md) |
+| Agent location in the tree | [docs/architecture/AGENT_INDEX.md](docs/architecture/AGENT_INDEX.md) |
+| Artifact authority class | [docs/architecture/PROOF_TOPOLOGY.md](docs/architecture/PROOF_TOPOLOGY.md) |
 | Proof operation or mechanic parent | [mechanics/README.md](mechanics/README.md), then parent `README.md`, `DIRECTION.md`, `PARTS.md`, and part `README.md` |
 | Eval bundle selection | [Eval Bundle Selection Chooser](EVAL_SELECTION.md) and [Eval Bundle Index](EVAL_INDEX.md) |
 | First concrete proof object | [aoa-bounded-change-quality](evals/workflow/aoa-bounded-change-quality/EVAL.md) |
 | Full guide and evidence map | [docs/README.md](docs/README.md) |
 | Mechanics or payload movement | [mechanics/EVIDENCE_CLUSTERS.md](mechanics/EVIDENCE_CLUSTERS.md), then the owning mechanic |
-| Legacy, provenance, or accepted-input vocabulary | [docs/LEGACY_NAMING.md](docs/LEGACY_NAMING.md) |
+| Legacy, provenance, or accepted-input vocabulary | [docs/architecture/LEGACY_NAMING.md](docs/architecture/LEGACY_NAMING.md) |
 | Decision rationale | [docs/decisions/README.md](docs/decisions/README.md) |
 | Executable validation route | [AGENTS.md#verify](AGENTS.md#verify), then the nearest nested route card |
 
@@ -66,7 +66,7 @@ that can answer the question.
 | Question | Owner route |
 | --- | --- |
 | What exactly is being claimed? | bundle-local `EVAL.md` and `eval.yaml` |
-| What class of proof object is this? | [docs/PROOF_TOPOLOGY.md](docs/PROOF_TOPOLOGY.md) |
+| What class of proof object is this? | [docs/architecture/PROOF_TOPOLOGY.md](docs/architecture/PROOF_TOPOLOGY.md) |
 | Which repeatable operation owns the movement? | [mechanics/README.md](mechanics/README.md), then the parent mechanic |
 | Which guide or evidence anchor explains the route? | [docs/README.md](docs/README.md) |
 | Is memory context involved? | `aoa-evals` can cite reviewed recall as bounded context from reviewed `aoa-memo` object ids and provenance; proof authority stays with the eval bundle or owning mechanic |

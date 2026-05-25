@@ -45,15 +45,15 @@ bundle-local interpretation.
 1. repository root `AGENTS.md`
 2. `DESIGN.md`
 3. `DESIGN.AGENTS.md`
-4. `docs/PROOF_TOPOLOGY.md`
+4. `docs/architecture/PROOF_TOPOLOGY.md`
 5. `mechanics/README.md`
 6. `mechanics/proof-object/README.md`
 7. `mechanics/comparison-spine/README.md`
 8. `mechanics/comparison-spine/PARTS.md`
 9. `mechanics/comparison-spine/parts/README.md`
-10. `docs/COMPARISON_SPINE_GUIDE.md`
-11. `docs/BASELINE_COMPARISON_GUIDE.md`
-12. `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
+10. `docs/guides/COMPARISON_SPINE_GUIDE.md`
+11. `docs/guides/BASELINE_COMPARISON_GUIDE.md`
+12. `docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
 13. affected `evals/**/EVAL.md` and `evals/**/eval.yaml`
 
 ## Local Law

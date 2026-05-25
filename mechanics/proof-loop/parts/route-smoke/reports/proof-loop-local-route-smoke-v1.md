@@ -63,7 +63,7 @@ This smoke uses only public-safe repo-local route evidence:
 - `mechanics/audit/README.md`
 - `mechanics/boundary-bridge/README.md`
 - `mechanics/publication-receipts/README.md`
-- `docs/EVAL_REVIEW_GUIDE.md`
+- `docs/guides/EVAL_REVIEW_GUIDE.md`
 - `reports/README.md`
 - this report
 

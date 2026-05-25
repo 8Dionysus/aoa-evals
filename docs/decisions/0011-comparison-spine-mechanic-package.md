@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/comparison-spine/`
 
+## Index Metadata
+
+- Surface classes: mechanic package
+- Mechanic parents: comparison-spine
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 The proof-object route is now explicit, and the next live pressure is comparison
@@ -14,9 +21,9 @@ longitudinal movement as stronger proof than the source bundle supports.
 
 Current comparison pressure is visible in:
 
-- `docs/COMPARISON_SPINE_GUIDE.md`
-- `docs/BASELINE_COMPARISON_GUIDE.md`
-- `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
+- `docs/guides/COMPARISON_SPINE_GUIDE.md`
+- `docs/guides/BASELINE_COMPARISON_GUIDE.md`
+- `docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
 - `generated/comparison_spine.json`
 - `scripts/validate_repo.py`
 - `tests/test_validate_repo.py`
@@ -119,7 +126,7 @@ As of 2026-05-24:
   surfaces, inputs, outputs, stronger-owner split, comparison modes,
   boundaries, validation, and next route.
 - `mechanics/comparison-spine/AGENTS.md` names local editing law.
-- `mechanics/README.md`, `docs/PROOF_TOPOLOGY.md`, `README.md`,
+- `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `README.md`,
   `docs/README.md`, `ROADMAP.md`, `CHANGELOG.md`, and
   `docs/decisions/README.md` route to the package.
 - `python scripts/validate_repo.py`

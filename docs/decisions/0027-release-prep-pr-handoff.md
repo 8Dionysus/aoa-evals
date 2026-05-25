@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/release-support/parts/pr-handoff/`
 
+## Index Metadata
+
+- Surface classes: report/release/receipt
+- Mechanic parents: none
+- Guard families: generated/report/receipt/runtime
+- Posture: report/release/receipt rationale
+
 ## Context
 
 The local strategic refactor now has a release-support readiness audit and a

@@ -113,7 +113,7 @@ def build_eval_report_index_payload() -> dict[str, object]:
             "bundle_reports": "evals/**/reports/*.report.json",
             "bundle_report_schema": "evals/**/reports/summary.schema.json",
             "bundle_manifest": "evals/**/eval.yaml",
-            "eval_review_guide": "docs/EVAL_REVIEW_GUIDE.md",
+            "eval_review_guide": "docs/guides/EVAL_REVIEW_GUIDE.md",
         },
         "interpretation_boundary": (
             "This generated reader routes to bounded report artifacts. It is not a receipt, "

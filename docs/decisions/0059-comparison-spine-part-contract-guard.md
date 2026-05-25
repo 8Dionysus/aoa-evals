@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/comparison-spine/parts/`
 
+## Index Metadata
+
+- Surface classes: mechanic part, validation guard
+- Mechanic parents: comparison-spine
+- Guard families: part and payload
+- Posture: active guard rationale
+
 ## Context
 
 `comparison-spine` owns the route:

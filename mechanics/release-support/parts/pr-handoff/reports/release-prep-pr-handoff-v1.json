@@ -66,8 +66,8 @@
       "group_id": "proof_topology_legacy_mechanics",
       "summary": "Convex proof topology, legacy naming containment, mechanics atlas, and package route cards.",
       "evidence_refs": [
-        "repo:aoa-evals/docs/PROOF_TOPOLOGY.md",
-        "repo:aoa-evals/docs/LEGACY_NAMING.md",
+        "repo:aoa-evals/docs/architecture/PROOF_TOPOLOGY.md",
+        "repo:aoa-evals/docs/architecture/LEGACY_NAMING.md",
         "repo:aoa-evals/mechanics/EVIDENCE_CLUSTERS.md",
         "repo:aoa-evals/mechanics/README.md",
         "repo:aoa-evals/mechanics/agon/DIRECTION.md",
@@ -252,7 +252,7 @@
     {
       "command": "python -m pytest -q tests/test_validate_repo.py -k legacy_naming_single_bridge_language",
       "result": "passed",
-      "claim_limit": "Focused legacy naming single-bridge tests constrain docs/LEGACY_NAMING.md wording; they do not prove every archived source has been distilled."
+      "claim_limit": "Focused legacy naming single-bridge tests constrain docs/architecture/LEGACY_NAMING.md wording; they do not prove every archived source has been distilled."
     },
     {
       "command": "python -m pytest -q tests/test_validate_repo.py -k active_legacy_parent_wording",

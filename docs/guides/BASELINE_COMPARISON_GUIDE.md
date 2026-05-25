@@ -6,7 +6,7 @@ Use it when a bundle already looks portable and useful, and the next decision is
 whether repeated comparison would mean something bounded and trustworthy.
 
 See also:
-- [Documentation Map](README.md)
+- [Documentation Map](../README.md)
 - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
 - [Eval Review Guide](EVAL_REVIEW_GUIDE.md)
 - [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md)
@@ -19,7 +19,7 @@ See also:
 | input | portable-looking bundle, repeated-run pressure, fixed-baseline pressure, longitudinal-window pressure, style-only movement, or baseline promotion pressure |
 | output | baseline-ready route, deferral route, style-only route, or comparison hygiene route |
 | owner | this guide owns docs-level baseline reading discipline; bundle-local `EVAL.md`, `eval.yaml`, comparison-spine parts, and reports own concrete evidence |
-| next route | `mechanics/comparison-spine/parts/fixed-baseline/`, `mechanics/comparison-spine/parts/longitudinal-window/`, `docs/FIXTURE_SURFACE_GUIDE.md`, `docs/SCORE_SEMANTICS_GUIDE.md`, or bundle-local review |
+| next route | `mechanics/comparison-spine/parts/fixed-baseline/`, `mechanics/comparison-spine/parts/longitudinal-window/`, `docs/guides/FIXTURE_SURFACE_GUIDE.md`, `docs/guides/SCORE_SEMANTICS_GUIDE.md`, or bundle-local review |
 | validation | `docs/AGENTS.md#validation` |
 
 ## What baseline means
@@ -104,8 +104,8 @@ claims to measure.
 | Pressure | Route |
 | --- | --- |
 | one run depends too much on reviewer intuition | bundle-local review hardening |
-| fixture surface is too local or too flattering | `docs/FIXTURE_SURFACE_GUIDE.md` and fixture replacement contract |
-| verdict meanings are muddy | `docs/SCORE_SEMANTICS_GUIDE.md` and bundle-level result semantics |
+| fixture surface is too local or too flattering | `docs/guides/FIXTURE_SURFACE_GUIDE.md` and fixture replacement contract |
+| verdict meanings are muddy | `docs/guides/SCORE_SEMANTICS_GUIDE.md` and bundle-level result semantics |
 | style changes swamp real movement | noisy variation route plus comparison-spine readout |
 | repeated runs preserve different proof jobs | reset comparison family before baseline claim |
 

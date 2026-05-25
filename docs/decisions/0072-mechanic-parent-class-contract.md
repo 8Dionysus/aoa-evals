@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: proof topology
+- Mechanic parents: cross-parent
+- Guard families: parent and package
+- Posture: active rationale
+
 ## Context
 
 The mechanics atlas now has an allowlisted active parent set. The goal also

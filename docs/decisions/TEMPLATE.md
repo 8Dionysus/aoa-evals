@@ -4,6 +4,13 @@
 - Date: YYYY-MM-DD
 - Owner surface: `path/or/surface`
 
+## Index Metadata
+
+- Surface classes: root/topology
+- Mechanic parents: none
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 What problem, drift, topology pressure, validation failure, or owner-boundary

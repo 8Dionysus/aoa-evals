@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/agon/parts/`
 
+## Index Metadata
+
+- Surface classes: mechanic part, validation guard, boundary/runtime/sibling
+- Mechanic parents: agon
+- Guard families: part and payload
+- Posture: active guard rationale
+
 ## Context
 
 `agon` is the active parent mechanic. Its current parts already had real source

@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: legacy/provenance
+- Mechanic parents: cross-parent
+- Guard families: legacy and provenance, sibling and boundary
+- Posture: legacy/provenance rationale
+
 ## Context
 
 The mechanics refactor now uses active parent packages with part-local

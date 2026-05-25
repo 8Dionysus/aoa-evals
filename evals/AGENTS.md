@@ -40,7 +40,7 @@ Use the owning surface when the change is outside bundle-local claim meaning:
 | shared scorer helpers | `mechanics/proof-infra/parts/reportable-contracts/` |
 | shared runner contracts | `mechanics/proof-infra/parts/reportable-contracts/` |
 | generated catalogs and capsules | `generated/` plus the builder and source inputs |
-| repository doctrine or topology | `docs/`, especially `docs/PROOF_TOPOLOGY.md` and `docs/AGENT_INDEX.md` |
+| repository doctrine or topology | `docs/`, especially `docs/architecture/PROOF_TOPOLOGY.md` and `docs/architecture/AGENT_INDEX.md` |
 
 ## Editing rules
 

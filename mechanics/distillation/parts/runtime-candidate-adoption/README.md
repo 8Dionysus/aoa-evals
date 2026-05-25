@@ -16,7 +16,7 @@ proof bundles stay under `evals/`.
 
 ## Related Ingress
 
-- `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`
+- `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`
 
 That root note explains why reviewed-candidate adoption became the next
 stricter memo gap after the base writeback-act pilot. It remains ingress and

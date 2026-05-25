@@ -227,7 +227,7 @@
     "id": "AOA-EV-Q-0013",
     "kind": "proof",
     "milestone_ref": "",
-    "owner_surface": "docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md",
+    "owner_surface": "docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md",
     "public_safe": true,
     "repo": "aoa-evals",
     "risk": "r2_contract",

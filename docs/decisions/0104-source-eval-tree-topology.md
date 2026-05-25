@@ -53,6 +53,13 @@ As of 2026-05-24:
 - Source surfaces updated: root eval selection chooser and public eval index.
 - Validation: source-tree topology and root validation routes.
 
+## Index Metadata
+
+- Surface classes: proof topology, root/topology
+- Mechanic parents: none
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 The old `bundles/` source district made every eval package look equivalent at

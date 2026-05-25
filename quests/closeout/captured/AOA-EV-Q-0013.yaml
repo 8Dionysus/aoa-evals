@@ -5,7 +5,7 @@ summary: Track the Agents-of-Abyss v0.4.0 closeout proof handoff as bounded
   eval follow-through without turning one center release into a new proof
   bundle or generic eval.
 repo: aoa-evals
-owner_surface: docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md
+owner_surface: docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md
 theme_ref: ''
 milestone_ref: ''
 kind: proof
@@ -35,7 +35,7 @@ activation:
     pressure rather than portable verdict authority
 anchor_ref:
   artifact: reviewed_closeout_writeback_proof_ingress
-  ref: docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md
+  ref: docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md
   note: keep the AoA release closeout proof pressure as repeated ingress
     evidence, not as a fresh eval bundle
 handoff_role: proof-maintainer

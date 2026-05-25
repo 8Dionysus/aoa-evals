@@ -2,14 +2,21 @@
 
 - Status: Accepted
 - Date: 2026-05-20
-- Owner surface: `docs/ARCHITECTURE.md`
+- Owner surface: `docs/architecture/ARCHITECTURE.md`
+
+## Index Metadata
+
+- Surface classes: root/topology
+- Mechanic parents: none
+- Guard families: none
+- Posture: active rationale
 
 ## Context
 
-`docs/ARCHITECTURE.md` predated most of the mechanics refactor and mainly
+`docs/architecture/ARCHITECTURE.md` predated most of the mechanics refactor and mainly
 explained portable eval bundles. That was useful, but too weak for the current
 repository shape: `DESIGN.md` now owns the system form,
-`docs/PROOF_TOPOLOGY.md` owns authority classes, and
+`docs/architecture/PROOF_TOPOLOGY.md` owns authority classes, and
 `mechanics/EVIDENCE_CLUSTERS.md` owns the evidence gate before mechanic parent
 growth.
 
@@ -18,7 +25,7 @@ bundle-only model or compete with the topology and mechanics ledgers.
 
 ## Decision
 
-Keep `docs/ARCHITECTURE.md` as the technical proof model. It must describe:
+Keep `docs/architecture/ARCHITECTURE.md` as the technical proof model. It must describe:
 
 - portable eval bundles as source proof surfaces;
 - mechanics as operation support, not replacement bundle authority;
@@ -36,7 +43,7 @@ Keep `docs/ARCHITECTURE.md` as the technical proof model. It must describe:
 ## Consequences
 
 - Positive: Architecture can evolve technically without stealing the role of
-  `DESIGN.md`, `docs/PROOF_TOPOLOGY.md`, or
+  `DESIGN.md`, `docs/architecture/PROOF_TOPOLOGY.md`, or
   `mechanics/EVIDENCE_CLUSTERS.md`.
 - Positive: future edits cannot erase mechanics and legacy bridge layering from
   the technical model while tests still pass.
@@ -47,13 +54,13 @@ Keep `docs/ARCHITECTURE.md` as the technical proof model. It must describe:
 
 As of 2026-05-24:
 
-- Still valid: `docs/ARCHITECTURE.md` owns the technical proof model, while
+- Still valid: `docs/architecture/ARCHITECTURE.md` owns the technical proof model, while
   repository form, authority classes, and mechanic-parent evidence route to
   their owner surfaces.
 - Changed: the long-term direction now names `regression visibility with
   bounded comparison semantics` and `growth tracking with explicit claim limits`
   as the desired proof outcomes.
-- Source surfaces updated: `docs/ARCHITECTURE.md`, `scripts/validate_repo.py`,
+- Source surfaces updated: `docs/architecture/ARCHITECTURE.md`, `scripts/validate_repo.py`,
   and `tests/test_validate_repo.py`.
 - Validation route: `python -m pytest -q tests/test_validate_repo.py -k architecture`
   and `python scripts/validate_repo.py`.
@@ -70,7 +77,7 @@ As of 2026-05-24:
   claim limits.
 - Reason: architecture is used as a technical operating map, so its direction
   bullets should expose the route an agent can follow.
-- Source surfaces updated: `docs/ARCHITECTURE.md`, `scripts/validate_repo.py`,
+- Source surfaces updated: `docs/architecture/ARCHITECTURE.md`, `scripts/validate_repo.py`,
   and `tests/test_validate_repo.py`.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k architecture`
   and `python scripts/validate_repo.py`.

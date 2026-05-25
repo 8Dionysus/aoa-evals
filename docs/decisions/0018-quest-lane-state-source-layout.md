@@ -8,6 +8,13 @@ Supersession note: `docs/decisions/0098-agon-quest-note-provenance-route.md`
 supersedes the Agon markdown note placement from this decision. The lane/state
 layout remains current for schema-backed `AOA-EV-Q-*` quest records.
 
+## Index Metadata
+
+- Surface classes: quest/lane
+- Mechanic parents: none
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 `aoa-evals` had already separated `QUESTBOOK.md`, source quest records,
@@ -69,7 +76,7 @@ authority, or bundle-local verdict meaning.
 
 - `quests/README.md` names the active lane/state source layout.
 - `quests/AGENTS.md` names local editing law and state-directory alignment.
-- `docs/LEGACY_NAMING.md` maps old top-level quest paths as legacy path
+- `docs/architecture/LEGACY_NAMING.md` maps old top-level quest paths as legacy path
   vocabulary.
 - `generated/quest_catalog.min.json` and `generated/quest_dispatch.min.json`
   emit current source paths.

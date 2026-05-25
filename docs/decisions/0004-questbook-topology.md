@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `QUESTBOOK.md`, `quests/`, and generated quest readers
 
+## Index Metadata
+
+- Surface classes: root/topology, quest/lane
+- Mechanic parents: questbook
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 `aoa-evals` already has source quest records, generated quest catalog and

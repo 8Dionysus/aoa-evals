@@ -7,9 +7,9 @@ It keeps release discipline bounded and routes automation, landing, and
 publication state to their owner surfaces.
 
 See also:
-- [Documentation Map](README.md)
-- [Contributing](../CONTRIBUTING.md)
-- [Eval Review Guide](EVAL_REVIEW_GUIDE.md)
+- [Documentation Map](../README.md)
+- [Contributing](../../CONTRIBUTING.md)
+- [Eval Review Guide](../guides/EVAL_REVIEW_GUIDE.md)
 
 ## Operating Card
 
@@ -120,8 +120,8 @@ Before shipping a promoted public status:
 - `comparative-summary` bundles should already carry an explicit comparison-contract `support_note`
 
 Use:
-- [Eval Review Guide](EVAL_REVIEW_GUIDE.md) for promotion to `baseline`
-- [Eval Review Guide](EVAL_REVIEW_GUIDE.md) for `baseline -> canonical`
+- [Eval Review Guide](../guides/EVAL_REVIEW_GUIDE.md) for promotion to `baseline`
+- [Eval Review Guide](../guides/EVAL_REVIEW_GUIDE.md) for `baseline -> canonical`
 
 Use bundle-local review as the promotion release gate; metadata carries
 supporting evidence.

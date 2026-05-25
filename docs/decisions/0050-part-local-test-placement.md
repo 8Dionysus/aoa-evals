@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/*/parts/*/tests/`
 
+## Index Metadata
+
+- Surface classes: mechanic part
+- Mechanic parents: none
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 The mechanics refactor moved many active docs, schemas, reports, scripts,
@@ -67,7 +74,7 @@ validators for the part that owns the operation.
 
 ## Validation
 
-- `docs/PROOF_TOPOLOGY.md`
+- `docs/architecture/PROOF_TOPOLOGY.md`
 - `tests/AGENTS.md`
 - `mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py`
 - `mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py`

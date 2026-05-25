@@ -2,11 +2,18 @@
 
 - Status: Accepted
 - Date: 2026-05-20
-- Owner surface: `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`
+- Owner surface: `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`
+
+## Index Metadata
+
+- Surface classes: report/release/receipt
+- Mechanic parents: none
+- Guard families: generated/report/receipt/runtime, sibling and boundary
+- Posture: report/release/receipt rationale
 
 ## Context
 
-`docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` preserves a repeated
+`docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` preserves a repeated
 closeout survivor:
 `candidate:proof:aoa-evals-runtime-candidate-template-index-min`.
 
@@ -39,7 +46,7 @@ Nearby active surfaces exist, but they are narrower:
 
 ## Decision
 
-Keep `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` in root `docs/` as an
+Keep `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` in root `docs/` as an
 ingress anchor.
 
 Do not promote it into `growth-cycle`, `distillation`, or a new parent mechanic
@@ -91,7 +98,7 @@ It does not move sibling owner meaning into `aoa-evals`.
   ingress note only as related ingress.
 - `mechanics/growth-cycle/README.md` separates active diagnosis source
   surfaces from deferred closeout/writeback context.
-- `docs/LEGACY_NAMING.md` maps the root ingress path as active ingress, not an
+- `docs/architecture/LEGACY_NAMING.md` maps the root ingress path as active ingress, not an
   active mechanic part.
 - `python scripts/validate_repo.py`
 - `python scripts/validate_semantic_agents.py`
@@ -100,11 +107,11 @@ It does not move sibling owner meaning into `aoa-evals`.
 
 As of 2026-05-24:
 
-- Still valid: `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` remains the
+- Still valid: `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md` remains the
   root owner-local ingress anchor for the closeout/writeback survivor.
 - Changed: the active note now names its positive route as traceable proof ingress,
   owner-local re-read anchor, and source-bundle handoff.
-- Source surfaces updated: `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`,
+- Source surfaces updated: `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
 - Validation route: `python -m pytest -q tests/test_validate_repo.py -k closeout_writeback_ingress`
   and `python scripts/validate_repo.py`.
@@ -120,7 +127,7 @@ As of 2026-05-24:
   authority.
 - Reason: the file is still active root ingress, so its first read should route
   the agent to the source bundle and future evidence pass.
-- Source surfaces updated: `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`,
+- Source surfaces updated: `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
 - Validation: `python -m pytest -q tests/test_validate_repo.py -k closeout_writeback_ingress`
   and `python scripts/validate_repo.py`.

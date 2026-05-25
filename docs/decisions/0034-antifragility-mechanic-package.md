@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: mechanic package
+- Mechanic parents: antifragility
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 The antifragility evidence cluster was already present across local root

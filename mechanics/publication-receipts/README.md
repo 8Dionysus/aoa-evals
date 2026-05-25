@@ -54,7 +54,7 @@ routed here while the log home stays outside `parts/`.
 - `.aoa/live_receipts/AGENTS.md`
 - `.aoa/live_receipts/eval-result-receipts.jsonl` as an owner-local append-only
   log path
-- `docs/PROOF_TOPOLOGY.md`
+- `docs/architecture/PROOF_TOPOLOGY.md`
 
 ## Inputs
 

@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: repository config surfaces
 
+## Index Metadata
+
+- Surface classes: validation guard
+- Mechanic parents: none
+- Guard families: route residue
+- Posture: active guard rationale
+
 ## Context
 
 The mechanics refactor moved active payloads out of route-card-only root

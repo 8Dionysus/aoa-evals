@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/README.md`
 
+## Index Metadata
+
+- Surface classes: mechanic part, validation guard
+- Mechanic parents: cross-parent
+- Guard families: part and payload
+- Posture: active guard rationale
+
 ## Context
 
 Parent mechanics now own active `PARTS.md` maps and concrete

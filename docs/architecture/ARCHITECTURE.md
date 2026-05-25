@@ -2,10 +2,10 @@
 
 ## Role
 
-`docs/ARCHITECTURE.md` explains the technical proof model of `aoa-evals`.
+`docs/architecture/ARCHITECTURE.md` explains the technical proof model of `aoa-evals`.
 
 Use this file for the proof model. Use `DESIGN.md` for repository shape,
-`docs/PROOF_TOPOLOGY.md` for authority classes, `ROADMAP.md` for sequencing,
+`docs/architecture/PROOF_TOPOLOGY.md` for authority classes, `ROADMAP.md` for sequencing,
 `docs/decisions/` for rationale, generated catalogs for compact projections,
 and `mechanics/EVIDENCE_CLUSTERS.md` before creating or moving mechanic
 packages.
@@ -17,8 +17,8 @@ packages.
 | role | technical proof model for portable eval bundles, mechanic operation support, and generated reader boundaries |
 | input | proof-model question, agent-eval vocabulary, bundle anatomy, mechanic parent pressure, local adaptation pressure, or generated-reader pressure |
 | output | proof-layer route, owner split, bundle/mechanic/generated boundary, and design-rule route |
-| owner | this document for the technical proof model; `DESIGN.md` for repository form; `docs/PROOF_TOPOLOGY.md` for authority classes |
-| next route | source eval package, `docs/PROOF_TOPOLOGY.md`, `mechanics/EVIDENCE_CLUSTERS.md`, `mechanics/README.md`, generated builder, or `docs/decisions/` |
+| owner | this document for the technical proof model; `DESIGN.md` for repository form; `docs/architecture/PROOF_TOPOLOGY.md` for authority classes |
+| next route | source eval package, `docs/architecture/PROOF_TOPOLOGY.md`, `mechanics/EVIDENCE_CLUSTERS.md`, `mechanics/README.md`, generated builder, or `docs/decisions/` |
 | tools | nearest `AGENTS.md`, root validator, semantic AGENTS validator, and generated-reader builders when derived surfaces move |
 | validation | `docs/AGENTS.md#validation` and the focused architecture proof-model route in `docs/decisions/0093-architecture-proof-model-contract.md` |
 

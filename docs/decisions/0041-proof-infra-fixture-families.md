@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/proof-infra/parts/fixture-families/`
 
+## Index Metadata
+
+- Surface classes: mechanic part
+- Mechanic parents: proof-infra
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 After comparison, recurrence, checkpoint, Experience, Antifragility,

@@ -44,7 +44,7 @@ ownership, and append-only publication boundaries.
 1. repository root `AGENTS.md`
 2. `DESIGN.md`
 3. `DESIGN.AGENTS.md`
-4. `docs/PROOF_TOPOLOGY.md`
+4. `docs/architecture/PROOF_TOPOLOGY.md`
 5. `mechanics/README.md`
 6. `mechanics/publication-receipts/README.md`
 7. `mechanics/publication-receipts/PARTS.md`

@@ -2,7 +2,14 @@
 
 - Status: Accepted
 - Date: 2026-05-21
-- Owner surface: `DESIGN.md`, `DESIGN.AGENTS.md`, `docs/PROOF_TOPOLOGY.md`, `ROADMAP.md`, `docs/decisions/0005-proof-topology-map.md`
+- Owner surface: `DESIGN.md`, `DESIGN.AGENTS.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `ROADMAP.md`, `docs/decisions/0005-proof-topology-map.md`
+
+## Index Metadata
+
+- Surface classes: root/topology
+- Mechanic parents: cross-parent
+- Guard families: none
+- Posture: active rationale
 
 ## Context
 
@@ -32,7 +39,7 @@ package-local archive behind `PROVENANCE.md`.
 Active design and topology surfaces describe active mechanics.
 
 `DESIGN.AGENTS.md` says active mechanic packages carry route cards and that new
-parents require evidence, decisions, and validators. `docs/PROOF_TOPOLOGY.md`
+parents require evidence, decisions, and validators. `docs/architecture/PROOF_TOPOLOGY.md`
 names mechanic operations as an active authority class and treats further file
 movement as additional movement after the mechanics refactor, not as a future
 Phase 4 precondition. `DESIGN.md` names active mechanic authority classes.
@@ -80,7 +87,7 @@ As of 2026-05-24:
 - Previous assumption: roadmap direction could preserve boundaries with compact
   negative phrases when adjacent owner surfaces were linked nearby.
 - New reality: the roadmap is easier for low-context agents when each boundary
-  points to the active owner: `docs/AGENT_INDEX.md`, bundle-local review,
+  points to the active owner: `docs/architecture/AGENT_INDEX.md`, bundle-local review,
   changelog, or validator ledger.
 - Reason: roadmap should set direction and horizon order, while indices,
   changelog, validators, and proof bundles carry their own detail.

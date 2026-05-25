@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/questbook/`
 
+## Index Metadata
+
+- Surface classes: mechanic part, quest/lane
+- Mechanic parents: questbook
+- Guard families: part and payload
+- Posture: active rationale
+
 ## Context
 
 Questbook already owned a real proof-side operation:

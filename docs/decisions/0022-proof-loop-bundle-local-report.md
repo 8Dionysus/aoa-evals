@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: report/release/receipt
+- Mechanic parents: proof-loop
+- Guard families: generated/report/receipt/runtime
+- Posture: report/release/receipt rationale
+
 ## Context
 
 `mechanics/proof-loop/` now has a local route and

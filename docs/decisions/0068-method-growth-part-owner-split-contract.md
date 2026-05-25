@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: mechanic part
+- Mechanic parents: method-growth
+- Guard families: part and payload, sibling and boundary
+- Posture: active rationale
+
 ## Context
 
 `mechanics/method-growth/` is the active AoA-aligned parent for eval-side

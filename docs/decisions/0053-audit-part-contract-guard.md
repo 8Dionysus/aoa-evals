@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/audit/parts/`
 
+## Index Metadata
+
+- Surface classes: mechanic part, validation guard, boundary/runtime/sibling
+- Mechanic parents: audit
+- Guard families: part and payload
+- Posture: active guard rationale
+
 ## Context
 
 The audit mechanic is the highest-risk candidate-evidence intake route in

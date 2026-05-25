@@ -4,9 +4,16 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: legacy/provenance, boundary/runtime/sibling
+- Mechanic parents: none
+- Guard families: legacy and provenance, sibling and boundary
+- Posture: legacy/provenance rationale
+
 ## Context
 
-`docs/LEGACY_NAMING.md` is the map future agents read when an old name appears.
+`docs/architecture/LEGACY_NAMING.md` is the map future agents read when an old name appears.
 After the mechanics legacy bridge work, this map must not sound as if archive
 surfaces are active entrypoints beside `PROVENANCE.md`.
 
@@ -15,7 +22,7 @@ owning `legacy/` archive.
 
 ## Decision
 
-`docs/LEGACY_NAMING.md` must describe:
+`docs/architecture/LEGACY_NAMING.md` must describe:
 
 - `PROVENANCE.md` as the single controlled bridge from active mechanic
   surfaces for old placement and source-lineage questions.

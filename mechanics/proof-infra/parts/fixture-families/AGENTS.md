@@ -28,7 +28,7 @@ and sibling repositories keep stronger proof meaning and owner truth.
 
 1. repository root `AGENTS.md`
 2. `DESIGN.md`
-3. `docs/PROOF_TOPOLOGY.md`
+3. `docs/architecture/PROOF_TOPOLOGY.md`
 4. `mechanics/EVIDENCE_CLUSTERS.md`
 5. `mechanics/proof-infra/README.md`
 6. `mechanics/proof-infra/PARTS.md`

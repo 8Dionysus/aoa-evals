@@ -110,7 +110,7 @@
           "evidence_refs": [
             "repo:aoa-playbooks/playbooks/validation-driven-remediation/PLAYBOOK.md",
             "repo:aoa-playbooks/generated/playbook_review_status.min.json#AOA-P-0018",
-            "docs/COMPARISON_SPINE_GUIDE.md"
+            "docs/guides/COMPARISON_SPINE_GUIDE.md"
           ],
           "conditions": [
             "evaluator slot remains present when regression posture is in play"
@@ -126,7 +126,7 @@
           "confidence": "medium",
           "evidence_refs": [
             "repo:aoa-playbooks/playbooks/validation-driven-remediation/PLAYBOOK.md",
-            "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md"
+            "docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md"
           ],
           "conditions": [
             "use only in validation/remediation scenarios with explicit evaluator participation"
@@ -142,7 +142,7 @@
           "confidence": "medium",
           "evidence_refs": [
             "repo:aoa-playbooks/playbooks/validation-driven-remediation/PLAYBOOK.md",
-            "docs/COMPARISON_SPINE_GUIDE.md"
+            "docs/guides/COMPARISON_SPINE_GUIDE.md"
           ],
           "conditions": [
             "lane anchors and reanchor policy must be named explicitly before broader rollout"
@@ -154,8 +154,8 @@
       ],
       "evidence_refs": [
         "repo:aoa-playbooks/playbooks/validation-driven-remediation/PLAYBOOK.md",
-        "docs/COMPARISON_SPINE_GUIDE.md",
-        "docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md"
+        "docs/guides/COMPARISON_SPINE_GUIDE.md",
+        "docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md"
       ],
       "evaluator_ref": "AOA-A-EXAMPLE-EVALUATOR",
       "notes": "Example only. Granting a party lane leaves equip and routing with owner gates.",

@@ -9,6 +9,13 @@ activates `anchor-return` (`return-anchor` proof support), `memory-recall`, `rec
 `stats-regrounding-boundary` as recurrence parts after a later root-district
 evidence pass. The original decision remains the package creation record.
 
+## Index Metadata
+
+- Surface classes: mechanic package
+- Mechanic parents: recurrence
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 Recurrence is a named AoA mechanic, and `aoa-evals` now has enough local
@@ -24,7 +31,7 @@ return-aware bundles.
 ## Options Considered
 
 - Keep recurrence surfaces in root districts and only mention them from
-  `docs/PROOF_TOPOLOGY.md`.
+  `docs/architecture/PROOF_TOPOLOGY.md`.
 - Move every recurrence-named bundle into `mechanics/recurrence/`.
 - Create `mechanics/recurrence/` as the AoA-aligned parent, move only
   control-plane support machinery into a part, and leave source proof bundles

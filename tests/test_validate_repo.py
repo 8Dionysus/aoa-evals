@@ -79,7 +79,7 @@ def make_questbook_surface(repo_root: Path) -> None:
     for relative_path in [
         "QUESTBOOK.md",
         "quests/LIFECYCLE.md",
-        "docs/QUESTBOOK_EVAL_INTEGRATION.md",
+        "docs/operations/QUESTBOOK_EVAL_INTEGRATION.md",
         "mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md",
         "mechanics/rpg/parts/progression-unlocks/docs/UNLOCK_PROOF_BRIDGE.md",
         "mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md",
@@ -159,7 +159,7 @@ def make_runtime_candidate_intake_surface(repo_root: Path) -> None:
     for relative_path in [
         "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json",
         "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json",
-        "docs/EVAL_REVIEW_GUIDE.md",
+        "docs/guides/EVAL_REVIEW_GUIDE.md",
         "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md",
         "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
         "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.workhorse-local.example.json",
@@ -232,7 +232,7 @@ def make_release_support_readiness_audit_surface(repo_root: Path) -> None:
         "mechanics/release-support/PARTS.md",
         "mechanics/release-support/parts/README.md",
         "mechanics/release-support/parts/readiness-audit/README.md",
-        "docs/RELEASING.md",
+        "docs/operations/RELEASING.md",
         "reports/README.md",
         "README.md",
         "docs/README.md",
@@ -246,8 +246,8 @@ def make_release_support_readiness_audit_surface(repo_root: Path) -> None:
         "quests/LIFECYCLE.md",
         "generated/quest_catalog.min.json",
         "generated/quest_dispatch.min.json",
-        "docs/PROOF_TOPOLOGY.md",
-        "docs/LEGACY_NAMING.md",
+        "docs/architecture/PROOF_TOPOLOGY.md",
+        "docs/architecture/LEGACY_NAMING.md",
         "mechanics/README.md",
         "mechanics/proof-object/README.md",
         "mechanics/proof-loop/README.md",
@@ -293,14 +293,14 @@ def make_strategic_closeout_audit_surface(repo_root: Path) -> None:
         "README.md",
         "docs/README.md",
         "reports/README.md",
-        "docs/RELEASING.md",
+        "docs/operations/RELEASING.md",
         "ROADMAP.md",
         "CHANGELOG.md",
         "DESIGN.md",
         "DESIGN.AGENTS.md",
         "AGENTS.md",
-        "docs/PROOF_TOPOLOGY.md",
-        "docs/LEGACY_NAMING.md",
+        "docs/architecture/PROOF_TOPOLOGY.md",
+        "docs/architecture/LEGACY_NAMING.md",
         "mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md",
         "QUESTBOOK.md",
         "quests/README.md",
@@ -359,14 +359,14 @@ def make_release_prep_pr_handoff_surface(repo_root: Path) -> None:
         "README.md",
         "docs/README.md",
         "reports/README.md",
-        "docs/RELEASING.md",
+        "docs/operations/RELEASING.md",
         "ROADMAP.md",
         "CHANGELOG.md",
         "DESIGN.md",
         "DESIGN.AGENTS.md",
         "AGENTS.md",
-        "docs/PROOF_TOPOLOGY.md",
-        "docs/LEGACY_NAMING.md",
+        "docs/architecture/PROOF_TOPOLOGY.md",
+        "docs/architecture/LEGACY_NAMING.md",
         "QUESTBOOK.md",
         "quests/README.md",
         "quests/LIFECYCLE.md",
@@ -725,10 +725,10 @@ def make_repo_docs(
         """
         # aoa-evals
 
-        See `docs/COMPARISON_SPINE_GUIDE.md` when you need the comparison ladder.
-        See `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md` when you need the artifact/process layer.
-        See `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md` when you need repeated-window discipline.
-        See `docs/SHARED_PROOF_INFRA_GUIDE.md` when you need shared proof infra rules.
+        See `docs/guides/COMPARISON_SPINE_GUIDE.md` when you need the comparison ladder.
+        See `docs/guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md` when you need the artifact/process layer.
+        See `docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md` when you need repeated-window discipline.
+        See `docs/guides/SHARED_PROOF_INFRA_GUIDE.md` when you need shared proof infra rules.
         Generated comparison routing lives through the generated reader index.
         """,
     )
@@ -737,15 +737,15 @@ def make_repo_docs(
         """
         # Documentation Map
 
-        - [Comparison Spine Guide](COMPARISON_SPINE_GUIDE.md)
-        - [Artifact Process Separation Guide](ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
-        - [Repeated Window Discipline Guide](REPEATED_WINDOW_DISCIPLINE_GUIDE.md)
-        - [Shared Proof Infra Guide](SHARED_PROOF_INFRA_GUIDE.md)
+        - [Comparison Spine Guide](guides/COMPARISON_SPINE_GUIDE.md)
+        - [Artifact Process Separation Guide](guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
+        - [Repeated Window Discipline Guide](guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md)
+        - [Shared Proof Infra Guide](guides/SHARED_PROOF_INFRA_GUIDE.md)
         - `generated/comparison_spine.json`
         """,
     )
     write_text(
-        repo_root / "docs" / "COMPARISON_SPINE_GUIDE.md",
+        repo_root / "docs" / "guides" / "COMPARISON_SPINE_GUIDE.md",
         f"""
         # Comparison Spine Guide
 
@@ -754,7 +754,7 @@ def make_repo_docs(
         """,
     )
     write_text(
-        repo_root / "docs" / "ARTIFACT_PROCESS_SEPARATION_GUIDE.md",
+        repo_root / "docs" / "guides" / "ARTIFACT_PROCESS_SEPARATION_GUIDE.md",
         """
         # Artifact Process Separation Guide
 
@@ -770,7 +770,7 @@ def make_repo_docs(
         """,
     )
     write_text(
-        repo_root / "docs" / "REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
+        repo_root / "docs" / "guides" / "REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
         """
         # Repeated Window Discipline Guide
 
@@ -781,7 +781,7 @@ def make_repo_docs(
         """,
     )
     write_text(
-        repo_root / "docs" / "SHARED_PROOF_INFRA_GUIDE.md",
+        repo_root / "docs" / "guides" / "SHARED_PROOF_INFRA_GUIDE.md",
         """
         # Shared Proof Infra Guide
 
@@ -929,7 +929,7 @@ def make_roadmap(
 
         Highest-priority additions:
         - placeholder
-        - keep the agent index chain visible while `docs/AGENT_INDEX.md` remains the
+        - keep the agent index chain visible while `docs/architecture/AGENT_INDEX.md` remains the
           index
         - grow the active proof loop while bundle-local review keeps bounded claim
           strength
@@ -941,9 +941,9 @@ def make_roadmap(
 
         | Anchor | Owner surface | Directional use |
         | --- | --- | --- |
-        | Agent index chain | `docs/AGENT_INDEX.md` | Keep the pass-through route visible. |
+        | Agent index chain | `docs/architecture/AGENT_INDEX.md` | Keep the pass-through route visible. |
         | Route residue guard family | `scripts/validate_repo.py`, route cards, and `docs/decisions/` | Keep generated/readout, active mechanic, root-authored, decision, repo-config, source-bundle, and mechanic-payload residue guards routed to their owner contracts. |
-        | Legacy naming | `docs/LEGACY_NAMING.md` | Keep active names and legacy bridge posture visible. |
+        | Legacy naming | `docs/architecture/LEGACY_NAMING.md` | Keep active names and legacy bridge posture visible. |
         | Mechanics evidence | `mechanics/EVIDENCE_CLUSTERS.md` | Keep parent evidence, root district posture, and residual root-authored surface classification outside roadmap body detail. |
         | Mechanic lower index | `mechanics/README.md`, parent `DIRECTION.md`, parent `PARTS.md`, part `README.md`, part `VALIDATION.md`, and parent `parts/AGENTS.md` | Keep part/payload source surfaces, parts index synchronization, and payload coverage recoverable. |
         | Legacy bridge | parent `PROVENANCE.md` and `legacy/` | Keep single controlled bridge posture, active mechanic surfaces, and runtime evidence limits behind the active route. |
@@ -2742,7 +2742,7 @@ def test_validate_repo_requires_comparison_doctrine_selection_parity(tmp_path: P
 def test_validate_repo_requires_artifact_process_doctrine_guide(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-artifact-review-rubric", category="artifact")
     write_catalogs(tmp_path)
-    (tmp_path / "docs" / "ARTIFACT_PROCESS_SEPARATION_GUIDE.md").unlink()
+    (tmp_path / "docs" / "guides" / "ARTIFACT_PROCESS_SEPARATION_GUIDE.md").unlink()
 
     issues = run_validation(tmp_path, eval_name="aoa-artifact-review-rubric")
 
@@ -5169,7 +5169,7 @@ class TestValidateQuestbookSurface:
 
     def test_missing_integration_boundary_token_fails(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
-        integration_path = tmp_path / "docs" / "QUESTBOOK_EVAL_INTEGRATION.md"
+        integration_path = tmp_path / "docs" / "operations" / "QUESTBOOK_EVAL_INTEGRATION.md"
         integration_text = integration_path.read_text(encoding="utf-8").replace(
             "verdict-bridge",
             "verdict bridge",
@@ -6315,7 +6315,7 @@ class TestValidateQuestRouteSurfaces:
             "DESIGN.md",
             "DESIGN.AGENTS.md",
             "AGENTS.md",
-            "docs/ARCHITECTURE.md",
+            "docs/architecture/ARCHITECTURE.md",
             "docs/decisions/README.md",
             "docs/decisions/TEMPLATE.md",
             "docs/decisions/AGENTS.md",
@@ -6346,7 +6346,7 @@ class TestValidateQuestRouteSurfaces:
             "DESIGN.md",
             "DESIGN.AGENTS.md",
             "AGENTS.md",
-            "docs/ARCHITECTURE.md",
+            "docs/architecture/ARCHITECTURE.md",
             "docs/decisions/README.md",
             "docs/decisions/TEMPLATE.md",
             "docs/decisions/AGENTS.md",
@@ -6407,7 +6407,7 @@ class TestValidateQuestRouteSurfaces:
             validate_repo.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
         ):
             copy_repo_text(tmp_path, path_name)
-        architecture_name = "docs/ARCHITECTURE.md"
+        architecture_name = "docs/architecture/ARCHITECTURE.md"
         write_text(
             tmp_path / architecture_name,
             """
@@ -6441,7 +6441,7 @@ class TestValidateQuestRouteSurfaces:
             "DESIGN.md",
             "DESIGN.AGENTS.md",
             "AGENTS.md",
-            "docs/ARCHITECTURE.md",
+            "docs/architecture/ARCHITECTURE.md",
             "docs/decisions/README.md",
             "docs/decisions/TEMPLATE.md",
             "docs/decisions/AGENTS.md",
@@ -6474,7 +6474,7 @@ class TestValidateQuestRouteSurfaces:
             "DESIGN.md",
             "DESIGN.AGENTS.md",
             "AGENTS.md",
-            "docs/ARCHITECTURE.md",
+            "docs/architecture/ARCHITECTURE.md",
             "docs/decisions/README.md",
             "docs/decisions/TEMPLATE.md",
             "docs/decisions/AGENTS.md",
@@ -6482,7 +6482,7 @@ class TestValidateQuestRouteSurfaces:
             validate_repo.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
         ):
             copy_repo_text(tmp_path, path_name)
-        architecture_path = tmp_path / "docs" / "ARCHITECTURE.md"
+        architecture_path = tmp_path / "docs" / "architecture" / "ARCHITECTURE.md"
         architecture_path.write_text(
             architecture_path.read_text(encoding="utf-8")
             + "\nIt is not the system design thesis.\n",
@@ -6492,7 +6492,7 @@ class TestValidateQuestRouteSurfaces:
         issues = validate_repo.validate_root_design_surfaces(tmp_path)
 
         assert any(
-            issue.location == "docs/ARCHITECTURE.md"
+            issue.location == "docs/architecture/ARCHITECTURE.md"
             and "positive" in issue.message
             and "It is not the system design thesis" in issue.message
             for issue in issues
@@ -6505,7 +6505,7 @@ class TestValidateQuestRouteSurfaces:
             "DESIGN.md",
             "DESIGN.AGENTS.md",
             "AGENTS.md",
-            "docs/ARCHITECTURE.md",
+            "docs/architecture/ARCHITECTURE.md",
             "docs/decisions/README.md",
             "docs/decisions/TEMPLATE.md",
             "docs/decisions/AGENTS.md",
@@ -6513,7 +6513,7 @@ class TestValidateQuestRouteSurfaces:
             validate_repo.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
         ):
             copy_repo_text(tmp_path, path_name)
-        architecture_path = tmp_path / "docs" / "ARCHITECTURE.md"
+        architecture_path = tmp_path / "docs" / "architecture" / "ARCHITECTURE.md"
         architecture_path.write_text(
             architecture_path.read_text(encoding="utf-8")
             + "\n- regression visibility without metric theater\n"
@@ -6524,13 +6524,13 @@ class TestValidateQuestRouteSurfaces:
         issues = validate_repo.validate_root_design_surfaces(tmp_path)
 
         assert any(
-            issue.location == "docs/ARCHITECTURE.md"
+            issue.location == "docs/architecture/ARCHITECTURE.md"
             and "proof route" in issue.message
             and "regression visibility without metric theater" in issue.message
             for issue in issues
         )
         assert any(
-            issue.location == "docs/ARCHITECTURE.md"
+            issue.location == "docs/architecture/ARCHITECTURE.md"
             and "proof route" in issue.message
             and "growth tracking without inflated claims" in issue.message
             for issue in issues
@@ -6543,7 +6543,7 @@ class TestValidateQuestRouteSurfaces:
             "DESIGN.md",
             "DESIGN.AGENTS.md",
             "AGENTS.md",
-            "docs/ARCHITECTURE.md",
+            "docs/architecture/ARCHITECTURE.md",
             "docs/decisions/README.md",
             "docs/decisions/TEMPLATE.md",
             "docs/decisions/AGENTS.md",
@@ -6588,7 +6588,7 @@ class TestValidateQuestRouteSurfaces:
             "DESIGN.md",
             "DESIGN.AGENTS.md",
             "AGENTS.md",
-            "docs/ARCHITECTURE.md",
+            "docs/architecture/ARCHITECTURE.md",
             "docs/decisions/README.md",
             "docs/decisions/TEMPLATE.md",
             "docs/decisions/AGENTS.md",
@@ -6620,7 +6620,7 @@ class TestValidateQuestRouteSurfaces:
             "DESIGN.md",
             "DESIGN.AGENTS.md",
             "AGENTS.md",
-            "docs/ARCHITECTURE.md",
+            "docs/architecture/ARCHITECTURE.md",
             "docs/decisions/README.md",
             "docs/decisions/TEMPLATE.md",
             "docs/decisions/AGENTS.md",
@@ -6796,7 +6796,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             "README.md",
-            "docs/EVAL_PHILOSOPHY.md",
+            "docs/guides/EVAL_PHILOSOPHY.md",
             validate_repo.PROOF_TOPOLOGY_NAME,
             validate_repo.MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME,
             "docs/decisions/README.md",
@@ -6984,7 +6984,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             "README.md",
-            "docs/EVAL_PHILOSOPHY.md",
+            "docs/guides/EVAL_PHILOSOPHY.md",
             validate_repo.PROOF_TOPOLOGY_NAME,
             validate_repo.MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME,
             "docs/decisions/README.md",
@@ -7013,13 +7013,13 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             "README.md",
-            "docs/EVAL_PHILOSOPHY.md",
+            "docs/guides/EVAL_PHILOSOPHY.md",
             validate_repo.PROOF_TOPOLOGY_NAME,
             validate_repo.MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME,
             "docs/decisions/README.md",
         ):
             copy_repo_text(tmp_path, path_name)
-        philosophy_path = tmp_path / "docs" / "EVAL_PHILOSOPHY.md"
+        philosophy_path = tmp_path / "docs" / "guides" / "EVAL_PHILOSOPHY.md"
         philosophy_path.write_text(
             philosophy_path.read_text(encoding="utf-8").replace(
                 "Reviewed memory routes recall into proof review.",
@@ -7032,7 +7032,7 @@ class TestValidateQuestRouteSurfaces:
         issues = validate_repo.validate_memory_consumer_proof_boundary_surfaces(tmp_path)
 
         assert any(
-            issue.location == "docs/EVAL_PHILOSOPHY.md"
+            issue.location == "docs/guides/EVAL_PHILOSOPHY.md"
             and "Reviewed memory routes recall into proof review." in issue.message
             for issue in issues
         )
@@ -7043,8 +7043,8 @@ class TestValidateQuestRouteSurfaces:
     def test_eval_philosophy_route_map_rejects_flat_negative_slogan(
         self, tmp_path: Path
     ) -> None:
-        copy_repo_text(tmp_path, "docs/EVAL_PHILOSOPHY.md")
-        philosophy_path = tmp_path / "docs" / "EVAL_PHILOSOPHY.md"
+        copy_repo_text(tmp_path, "docs/guides/EVAL_PHILOSOPHY.md")
+        philosophy_path = tmp_path / "docs" / "guides" / "EVAL_PHILOSOPHY.md"
         philosophy_path.write_text(
             philosophy_path.read_text(encoding="utf-8")
             + "\nNeither fact alone proves quality.\n",
@@ -7054,7 +7054,7 @@ class TestValidateQuestRouteSurfaces:
         issues = validate_repo.validate_eval_philosophy_route_map_surface(tmp_path)
 
         assert any(
-            issue.location == "docs/EVAL_PHILOSOPHY.md"
+            issue.location == "docs/guides/EVAL_PHILOSOPHY.md"
             and "positive distinctions" in issue.message
             and "Neither fact alone proves quality." in issue.message
             for issue in issues
@@ -7200,8 +7200,8 @@ class TestValidateQuestRouteSurfaces:
         docs_readme_path = tmp_path / "docs" / "README.md"
         docs_readme_path.write_text(
             docs_readme_path.read_text(encoding="utf-8").replace(
-                "### Reviewer Path",
-                "## Verify Current Surfaces\n\nUse docs/AGENTS.md.\n\n### Reviewer Path",
+                "## Recommended Reading Paths",
+                "## Verify Current Surfaces\n\nUse docs/AGENTS.md.\n\n## Recommended Reading Paths",
                 1,
             ),
             encoding="utf-8",
@@ -7234,15 +7234,15 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
-    def test_docs_readme_route_map_rejects_missing_active_mechanic_parent(
+    def test_docs_readme_route_map_rejects_missing_folder_map_route(
         self, tmp_path: Path
     ) -> None:
         copy_repo_text(tmp_path, "docs/README.md")
         docs_readme_path = tmp_path / "docs" / "README.md"
         docs_readme_path.write_text(
             docs_readme_path.read_text(encoding="utf-8").replace(
-                "- [Recurrence Mechanic](../mechanics/recurrence/README.md)\n",
-                "",
+                "docs/guides/",
+                "docs/guide-drift/",
                 1,
             ),
             encoding="utf-8",
@@ -7252,7 +7252,7 @@ class TestValidateQuestRouteSurfaces:
 
         assert any(
             issue.location == "docs/README.md"
-            and "../mechanics/recurrence/README.md" in issue.message
+            and "docs/guides/" in issue.message
             for issue in issues
         )
 
@@ -7262,7 +7262,7 @@ class TestValidateQuestRouteSurfaces:
     def test_read_model_command_ownership_rejects_command_block(
         self, tmp_path: Path
     ) -> None:
-        readme_name = "docs/PROOF_TOPOLOGY.md"
+        readme_name = "docs/architecture/PROOF_TOPOLOGY.md"
         write_text(
             tmp_path / readme_name,
             """
@@ -7288,7 +7288,7 @@ class TestValidateQuestRouteSurfaces:
     def test_read_model_command_ownership_rejects_bullet_command(
         self, tmp_path: Path
     ) -> None:
-        readme_name = "docs/RELEASING.md"
+        readme_name = "docs/operations/RELEASING.md"
         write_text(
             tmp_path / readme_name,
             """
@@ -7381,8 +7381,8 @@ class TestValidateQuestRouteSurfaces:
     def test_releasing_route_map_surface_rejects_status_ledger_wording(
         self, tmp_path: Path
     ) -> None:
-        copy_repo_text(tmp_path, "docs/RELEASING.md")
-        releasing = tmp_path / "docs" / "RELEASING.md"
+        copy_repo_text(tmp_path, "docs/operations/RELEASING.md")
+        releasing = tmp_path / "docs" / "operations" / "RELEASING.md"
         releasing.write_text(
             releasing.read_text(encoding="utf-8")
             + "\nThis readiness audit is not a branch, commit, push, PR, or tag.\n",
@@ -7392,7 +7392,7 @@ class TestValidateQuestRouteSurfaces:
         issues = validate_repo.validate_releasing_route_map_surface(tmp_path)
 
         assert any(
-            issue.location == "docs/RELEASING.md"
+            issue.location == "docs/operations/RELEASING.md"
             and "live-status owners" in issue.message
             and "not a branch" in issue.message
             for issue in issues
@@ -7491,6 +7491,88 @@ class TestValidateQuestRouteSurfaces:
 
     def test_index_surface_roles_validate_current_headings(self) -> None:
         assert validate_repo.validate_index_surface_roles(REPO_ROOT) == []
+
+    def test_decision_index_read_models_validate_current_metadata(self) -> None:
+        assert validate_repo.validate_decision_index_read_models(REPO_ROOT) == []
+
+    def test_docs_route_contracts_validate_current_map(self) -> None:
+        assert validate_repo.validate_docs_route_contracts(REPO_ROOT) == []
+
+    def test_generated_parity_contracts_validate_current_readers(self) -> None:
+        assert validate_repo.validate_generated_parity_contracts(REPO_ROOT) == []
+
+    def test_decision_index_read_models_reject_missing_metadata(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(
+            tmp_path,
+            "docs/decisions/0107-agent-operable-docs-and-decision-indexes.md",
+        )
+        decision_path = (
+            tmp_path
+            / "docs"
+            / "decisions"
+            / "0107-agent-operable-docs-and-decision-indexes.md"
+        )
+        text = decision_path.read_text(encoding="utf-8")
+        start = text.index("\n## Index Metadata\n")
+        end = text.index("\n## Context\n")
+        decision_path.write_text(text[:start] + text[end:], encoding="utf-8")
+
+        issues = validate_repo.validate_decision_index_read_models(tmp_path)
+
+        assert any("Index Metadata" in issue.message for issue in issues)
+
+    def test_docs_route_contracts_reject_command_block_in_entrypoint(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "docs/README.md")
+        readme_path = tmp_path / "docs" / "README.md"
+        readme_path.write_text(
+            readme_path.read_text(encoding="utf-8")
+            + "\n```bash\npython scripts/validate_repo.py\n```\n",
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_docs_route_contracts(tmp_path)
+
+        assert any(
+            issue.location == "docs/README.md"
+            and "must link validation routes" in issue.message
+            for issue in issues
+        )
+
+    def test_generated_parity_contracts_reject_missing_check_command(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "generated/README.md")
+        copy_repo_text(tmp_path, "generated/AGENTS.md")
+        copy_repo_text(tmp_path, "docs/README.md")
+        for path_name in (
+            "docs/decisions/indexes/README.md",
+            "docs/decisions/indexes/by-number.md",
+            "docs/decisions/indexes/by-surface.md",
+            "docs/decisions/indexes/by-mechanic.md",
+            "docs/decisions/indexes/by-validation-guard.md",
+        ):
+            copy_repo_text(tmp_path, path_name)
+        agents_path = tmp_path / "generated" / "AGENTS.md"
+        agents_path.write_text(
+            agents_path.read_text(encoding="utf-8").replace(
+                "python scripts/generate_eval_report_index.py --check",
+                "python scripts/generate_wrong_report_index.py --check",
+                1,
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_generated_parity_contracts(tmp_path)
+
+        assert any(
+            issue.location == "generated/AGENTS.md"
+            and "python scripts/generate_eval_report_index.py --check" in issue.message
+            for issue in issues
+        )
 
     def test_eval_source_entry_operating_cards_validate_current_routes(self) -> None:
         assert validate_repo.validate_eval_source_entry_operating_cards(REPO_ROOT) == []
@@ -7995,7 +8077,7 @@ class TestValidateQuestRouteSurfaces:
         self, tmp_path: Path
     ) -> None:
         write_text(
-            tmp_path / "docs" / "RELEASING.md",
+            tmp_path / "docs" / "operations" / "RELEASING.md",
             "# Releasing\n\nRead route card `reports/README.md`.\n",
         )
 
@@ -8005,7 +8087,7 @@ class TestValidateQuestRouteSurfaces:
         self, tmp_path: Path
     ) -> None:
         write_text(
-            tmp_path / "docs" / "LEGACY_NAMING.md",
+            tmp_path / "docs" / "architecture" / "LEGACY_NAMING.md",
             "# Legacy\n\nFormer root paths `reports/old.json` are mapped through provenance.\n",
         )
 
@@ -9480,6 +9562,9 @@ class TestValidateQuestRouteSurfaces:
     def test_source_eval_tree_topology_validates_current_route(self) -> None:
         assert validate_repo.validate_source_eval_tree_topology_surfaces(REPO_ROOT) == []
 
+    def test_eval_bundle_topology_contracts_validate_current_tree(self) -> None:
+        assert validate_repo.validate_eval_bundle_topology_contracts(REPO_ROOT) == []
+
     def test_source_eval_tree_topology_rejects_decision_command_list(
         self, tmp_path: Path
     ) -> None:
@@ -9525,6 +9610,32 @@ class TestValidateQuestRouteSurfaces:
         assert any(
             issue.location == validate_repo.EVALS_AGENTS_NAME
             and "python scripts/build_catalog.py --check" in issue.message
+            for issue in issues
+        )
+
+    def test_eval_bundle_topology_contracts_reject_flat_manifest(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, "evals/README.md")
+        copy_repo_text(tmp_path, validate_repo.EVALS_AGENTS_NAME)
+        write_text(
+            tmp_path / "evals" / "aoa-flat" / "EVAL.md",
+            "# Flat Eval\n",
+        )
+        write_text(
+            tmp_path / "evals" / "aoa-flat" / "eval.yaml",
+            """
+            name: aoa-flat
+            category: workflow
+            baseline_mode: none
+            """,
+        )
+
+        issues = validate_repo.validate_eval_bundle_topology_contracts(tmp_path)
+
+        assert any(
+            issue.location == "evals/aoa-flat/eval.yaml"
+            and "evals/<claim-family>/<eval-name>" in issue.message
             for issue in issues
         )
 
@@ -11211,7 +11322,7 @@ class TestValidateQuestRouteSurfaces:
         titan_parts.write_text("# Titan Canaries Parts\n\nTitan-canary-owned artifacts.\n", encoding="utf-8")
         reports_readme = tmp_path / "reports" / "README.md"
         reports_readme.write_text("Proof-release reports no longer live here.\n", encoding="utf-8")
-        releasing = tmp_path / "docs" / "RELEASING.md"
+        releasing = tmp_path / "docs" / "operations" / "RELEASING.md"
         releasing.write_text(
             "runtime-evidence example refs should not sound like an active route.\n",
             encoding="utf-8",
@@ -11235,7 +11346,7 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
         assert any(
-            issue.location == "docs/RELEASING.md"
+            issue.location == "docs/operations/RELEASING.md"
             and "runtime-evidence example refs" in issue.message
             for issue in issues
         )
@@ -12319,7 +12430,7 @@ class TestValidateQuestRouteSurfaces:
             """,
         )
         write_text(
-            tmp_path / "docs" / "PROOF_TOPOLOGY.md",
+            tmp_path / "docs" / "architecture" / "PROOF_TOPOLOGY.md",
             """
             # Proof Topology
 
@@ -12327,7 +12438,7 @@ class TestValidateQuestRouteSurfaces:
             """,
         )
         write_text(
-            tmp_path / "docs" / "LEGACY_NAMING.md",
+            tmp_path / "docs" / "architecture" / "LEGACY_NAMING.md",
             """
             # Legacy Naming
 

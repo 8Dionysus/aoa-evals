@@ -249,11 +249,11 @@ remains drifted, and where to resume from the closeout itself.
 
 [`DESIGN.md`](DESIGN.md) describes the system form of the proof layer.
 [`AGENTS.md`](AGENTS.md) is the active root route card.
-[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) explains the technical proof
+[`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECTURE.md) explains the technical proof
 model.
-[`docs/EVAL_PHILOSOPHY.md`](docs/EVAL_PHILOSOPHY.md) explains evaluation
+[`docs/guides/EVAL_PHILOSOPHY.md`](docs/guides/EVAL_PHILOSOPHY.md) explains evaluation
 posture and epistemic limits.
-[`docs/PROOF_TOPOLOGY.md`](docs/PROOF_TOPOLOGY.md) maps proof authority
+[`docs/architecture/PROOF_TOPOLOGY.md`](docs/architecture/PROOF_TOPOLOGY.md) maps proof authority
 classes, active mechanics, and file-movement boundaries.
 [`mechanics/EVIDENCE_CLUSTERS.md`](mechanics/EVIDENCE_CLUSTERS.md) records why
 a mechanic parent is allowed and whether it is AoA-aligned or evals-native.

@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: `mechanics/titan/`
 
+## Index Metadata
+
+- Surface classes: mechanic package, boundary/runtime/sibling
+- Mechanic parents: titan
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 Titan canaries began as seed YAML files under `evals/`, and
@@ -94,7 +101,7 @@ stronger-owner Titan law changes.
 - `mechanics/titan/parts/seed-boundary/seeds/titan*.yaml` carries the source seed family.
 - `mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md` and
   `mechanics/titan/parts/seed-boundary/docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md` route to the package.
-- `mechanics/README.md`, `docs/PROOF_TOPOLOGY.md`, `docs/LEGACY_NAMING.md`,
+- `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `docs/architecture/LEGACY_NAMING.md`,
   `README.md`, `docs/README.md`, `ROADMAP.md`, `CHANGELOG.md`, and
   `docs/decisions/README.md` route to the package.
 - `python scripts/validate_repo.py`

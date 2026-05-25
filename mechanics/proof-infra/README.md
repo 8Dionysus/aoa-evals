@@ -23,7 +23,7 @@ This package routes shared proof infrastructure. Source proof meaning stays in
 
 ## Source Surfaces
 
-- `docs/SHARED_PROOF_INFRA_GUIDE.md`
+- `docs/guides/SHARED_PROOF_INFRA_GUIDE.md`
 - root route cards `fixtures/README.md` and `fixtures/AGENTS.md`
 - `mechanics/proof-infra/PARTS.md`
 - `mechanics/proof-infra/parts/fixture-families/README.md`

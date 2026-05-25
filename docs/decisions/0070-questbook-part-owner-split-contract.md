@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: mechanic part, quest/lane
+- Mechanic parents: questbook
+- Guard families: part and payload, sibling and boundary
+- Posture: active rationale
+
 ## Context
 
 `mechanics/questbook/` routes the quest obligation loop:

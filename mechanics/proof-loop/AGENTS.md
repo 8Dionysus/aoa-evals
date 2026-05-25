@@ -46,7 +46,7 @@ the current loop segment.
 2. `DESIGN.md`
 3. `DESIGN.AGENTS.md`
 4. `ROADMAP.md`
-5. `docs/PROOF_TOPOLOGY.md`
+5. `docs/architecture/PROOF_TOPOLOGY.md`
 6. `mechanics/README.md`
 7. `mechanics/proof-loop/README.md`
 8. `mechanics/proof-loop/PARTS.md`

@@ -7,7 +7,7 @@ Use it when an eval bundle already has a result surface,
 but you still need to decide what that result actually means and how far it can be read.
 
 See also:
-- [Documentation Map](README.md)
+- [Documentation Map](../README.md)
 - [Eval Philosophy](EVAL_PHILOSOPHY.md)
 - [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md)
 
@@ -19,7 +19,7 @@ See also:
 | input | result surface, case evidence, rubric axis, bundle-level verdict, scalar-score pressure, or collapse pressure |
 | output | score interpretation bound, expanded result shape, per-case note route, bundle-level verdict route, or review gap |
 | owner | this guide owns score semantics; bundle-local `EVAL.md`, `eval.yaml`, reports, and review notes own concrete claim meaning |
-| next route | `docs/EVAL_REVIEW_GUIDE.md`, `docs/VERDICT_INTERPRETATION_GUIDE.md`, `docs/EVAL_RUBRIC.md`, or the affected bundle |
+| next route | `docs/guides/EVAL_REVIEW_GUIDE.md`, `docs/guides/VERDICT_INTERPRETATION_GUIDE.md`, `docs/guides/EVAL_RUBRIC.md`, or the affected bundle |
 | validation | `docs/AGENTS.md#validation` |
 
 ## Default posture

@@ -75,20 +75,20 @@ Before making changes, read in this order:
 
 1. `README.md`
 2. `ROADMAP.md`
-3. `docs/ARCHITECTURE.md`
-4. `docs/EVAL_PHILOSOPHY.md`
+3. `docs/architecture/ARCHITECTURE.md`
+4. `docs/guides/EVAL_PHILOSOPHY.md`
 5. the target `evals/**/EVAL.md`
 6. any generated catalogs, capsules, comparison surfaces, or section surfaces tied to that bundle
 
 Then branch by task:
 
 - score semantics, verdict boundaries, or review posture:
-  `docs/SCORE_SEMANTICS_GUIDE.md`,
-  `docs/VERDICT_INTERPRETATION_GUIDE.md`,
-  `docs/EVAL_RUBRIC.md`, and
-  `docs/EVAL_REVIEW_GUIDE.md`
+  `docs/guides/SCORE_SEMANTICS_GUIDE.md`,
+  `docs/guides/VERDICT_INTERPRETATION_GUIDE.md`,
+  `docs/guides/EVAL_RUBRIC.md`, and
+  `docs/guides/EVAL_REVIEW_GUIDE.md`
 - repeated-window, stress recovery, progression, recurrence, or self-agent checkpoint seams:
-  `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`,
+  `docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`,
   `mechanics/antifragility/parts/stress-recovery-window/docs/STRESS_RECOVERY_WINDOW_EVALS.md`,
   `mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md`,
   `mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`, and
@@ -98,9 +98,9 @@ Then branch by task:
   `mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md`, and
   `mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
 - comparison spine, baselines, or blind-spot handling:
-  `docs/COMPARISON_SPINE_GUIDE.md`,
-  `docs/BASELINE_COMPARISON_GUIDE.md`, and
-  `docs/BLIND_SPOT_DISCLOSURE_GUIDE.md`
+  `docs/guides/COMPARISON_SPINE_GUIDE.md`,
+  `docs/guides/BASELINE_COMPARISON_GUIDE.md`, and
+  `docs/guides/BLIND_SPOT_DISCLOSURE_GUIDE.md`
 
 If the task changes a claim, inspect the upstream skill or technique surfaces
 the eval depends on before editing.

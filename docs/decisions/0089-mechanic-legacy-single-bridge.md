@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/README.md`
 
+## Index Metadata
+
+- Surface classes: legacy/provenance, boundary/runtime/sibling
+- Mechanic parents: cross-parent
+- Guard families: legacy and provenance, sibling and boundary
+- Posture: legacy/provenance rationale
+
 ## Context
 
 Legacy in AoA mechanics is important archive flesh, not an active route.

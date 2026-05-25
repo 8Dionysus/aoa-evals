@@ -4,6 +4,13 @@
 
 Accepted.
 
+## Index Metadata
+
+- Surface classes: mechanic part, validation guard
+- Mechanic parents: experience
+- Guard families: part and payload
+- Posture: active guard rationale
+
 ## Context
 
 `mechanics/experience/` is the active AoA-aligned parent for eval-side

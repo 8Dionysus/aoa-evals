@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/release-support/parts/`
 
+## Index Metadata
+
+- Surface classes: mechanic part, validation guard, report/release/receipt
+- Mechanic parents: release-support
+- Guard families: part and payload, generated/report/receipt/runtime
+- Posture: report/release/receipt rationale
+
 ## Context
 
 `release-support` owns the release-publication proof route:
@@ -35,7 +42,7 @@ audits, and PR handoff snapshots are forms inside that parent, not independent
 parent mechanics and not remote publication evidence.
 
 Root release entrypoints keep their own lanes. `CHANGELOG.md` carries the
-public narrative, `docs/RELEASING.md` carries the procedure,
+public narrative, `docs/operations/RELEASING.md` carries the procedure,
 `scripts/release_check.py` carries the local audit gate, and GitHub `Repo
 Validation` carries the remote landing gate.
 

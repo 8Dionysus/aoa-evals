@@ -4,6 +4,13 @@
 - Date: 2026-05-19
 - Owner surface: proof bundle and shared proof-contract surfaces
 
+## Index Metadata
+
+- Surface classes: proof topology
+- Mechanic parents: proof-object
+- Guard families: none
+- Posture: active rationale
+
 ## Context
 
 The repository contains generated catalogs, runtime-candidate readers, receipts,
@@ -63,7 +70,7 @@ before being read as accepted eval bundles.
 ## Validation
 
 - `DESIGN.md` names the proof object as the authority center
-- `docs/ARCHITECTURE.md` remains the technical model for eval bundle anatomy
+- `docs/architecture/ARCHITECTURE.md` remains the technical model for eval bundle anatomy
 - `python scripts/build_catalog.py --check`
 - `python scripts/validate_repo.py`
 
@@ -73,14 +80,14 @@ As of 2026-05-24:
 
 - Still valid: the source proof object owns bounded claim meaning, evidence
   boundary, scoring or verdict logic, and blind spots.
-- Clarified: `docs/SCORE_SEMANTICS_GUIDE.md` now expresses score semantics as
+- Clarified: `docs/guides/SCORE_SEMANTICS_GUIDE.md` now expresses score semantics as
   positive interpretation-route criteria: distinct axes, one bounded claim part
   per axis, stable comparison semantics, explicit interpretation bounds, and a
   return route to evidence when a score obscures the claim.
-- Clarified: `docs/EVAL_REVIEW_GUIDE.md` now expresses maturity deferral as
+- Clarified: `docs/guides/EVAL_REVIEW_GUIDE.md` now expresses maturity deferral as
   concrete gap routes: explicit review evidence, default-use rationale,
   interpretation bounds, bundle-shaped blind spots, and weaker claim language.
-- Clarified: `docs/BLIND_SPOT_DISCLOSURE_GUIDE.md` now expresses blind-spot
+- Clarified: `docs/guides/BLIND_SPOT_DISCLOSURE_GUIDE.md` now expresses blind-spot
   disclosure as concrete review gap routes: unsupported claims, false-pass or
   false-fail paths, local-shape assumptions, nearby-bundle routes, and
   bundle-shaped specificity.
@@ -88,13 +95,13 @@ As of 2026-05-24:
   artifact/process, fixture, repeated-window, and philosophy routes through
   direct evidence, claim scope, uncertainty, status-bounded interpretation, and
   owner review criteria.
-- Source surfaces updated: `docs/SCORE_SEMANTICS_GUIDE.md`,
-  `docs/EVAL_REVIEW_GUIDE.md`, `docs/BLIND_SPOT_DISCLOSURE_GUIDE.md`,
-  `docs/EVAL_RUBRIC.md`, `docs/BASELINE_COMPARISON_GUIDE.md`,
-  `docs/EVAL_PHILOSOPHY.md`,
-  `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`,
-  `docs/FIXTURE_SURFACE_GUIDE.md`,
-  `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`, `scripts/validate_repo.py`, and
+- Source surfaces updated: `docs/guides/SCORE_SEMANTICS_GUIDE.md`,
+  `docs/guides/EVAL_REVIEW_GUIDE.md`, `docs/guides/BLIND_SPOT_DISCLOSURE_GUIDE.md`,
+  `docs/guides/EVAL_RUBRIC.md`, `docs/guides/BASELINE_COMPARISON_GUIDE.md`,
+  `docs/guides/EVAL_PHILOSOPHY.md`,
+  `docs/guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md`,
+  `docs/guides/FIXTURE_SURFACE_GUIDE.md`,
+  `docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`, `scripts/validate_repo.py`, and
   `tests/test_validate_repo.py`.
 - Validation route: `python -m pytest -q tests/test_validate_repo.py -k score_semantics`
   or `python -m pytest -q tests/test_validate_repo.py -k eval_review_guide`,

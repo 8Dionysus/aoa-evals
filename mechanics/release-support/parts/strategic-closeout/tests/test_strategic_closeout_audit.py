@@ -69,7 +69,7 @@ def test_strategic_closeout_audit_maps_original_plan_requirements() -> None:
         assert entry["evidence_refs"]
         assert "claim_limit" in entry
 
-    assert "repo:aoa-evals/docs/PROOF_TOPOLOGY.md" in requirements["phase_4_proof_topology"]["evidence_refs"]
+    assert "repo:aoa-evals/docs/architecture/PROOF_TOPOLOGY.md" in requirements["phase_4_proof_topology"]["evidence_refs"]
     assert "repo:aoa-evals/mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json" in requirements["release_readiness"]["evidence_refs"]
     assert "repo:aoa-evals/.agents/spark/AGENTS.md" in requirements["spark_agent_lane_cleanup"]["evidence_refs"]
 

@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/*/PROVENANCE.md`
 
+## Index Metadata
+
+- Surface classes: legacy/provenance
+- Mechanic parents: cross-parent
+- Guard families: legacy and provenance
+- Posture: legacy/provenance rationale
+
 ## Context
 
 The mechanics refactor made every active parent expose a legacy/provenance

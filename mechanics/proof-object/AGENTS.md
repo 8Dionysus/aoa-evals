@@ -45,7 +45,7 @@ present.
 1. repository root `AGENTS.md`
 2. `DESIGN.md`
 3. `DESIGN.AGENTS.md`
-4. `docs/PROOF_TOPOLOGY.md`
+4. `docs/architecture/PROOF_TOPOLOGY.md`
 5. `docs/decisions/0002-proof-object-authority-contract.md`
 6. `mechanics/README.md`
 7. `mechanics/proof-object/README.md`

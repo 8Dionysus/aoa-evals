@@ -6,7 +6,7 @@ Use it when a bundle looks useful and needs explicit unsupported claims,
 likely misleading paths, and nearby-bundle routes before stronger review.
 
 See also:
-- [Documentation Map](README.md)
+- [Documentation Map](../README.md)
 - [Eval Philosophy](EVAL_PHILOSOPHY.md)
 - [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md)
 
@@ -19,7 +19,7 @@ See also:
 | output | unsupported-claim boundary, blind-spot class, review deferral route, or summary correction route |
 | owner | this guide owns docs-level blind-spot disclosure discipline; bundle-local `EVAL.md`, reports, and review notes own concrete blind-spot evidence |
 | next route | affected bundle, [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md), [Eval Review Guide](EVAL_REVIEW_GUIDE.md), or nearby bundle owner |
-| validation | [docs/AGENTS.md#validation](AGENTS.md#validation) |
+| validation | [docs/AGENTS.md#validation](../AGENTS.md#validation) |
 
 ## Why blind spots are mandatory
 

@@ -27,7 +27,7 @@ Route outward for:
 | --- | --- |
 | entry | `README.md`, then the nearest nested `AGENTS.md` for the touched path |
 | source proof meaning | `evals/**/EVAL.md` and `evals/**/eval.yaml` |
-| authority class | `docs/PROOF_TOPOLOGY.md` and `docs/AGENT_INDEX.md` |
+| authority class | `docs/architecture/PROOF_TOPOLOGY.md` and `docs/architecture/AGENT_INDEX.md` |
 | proof operation | `mechanics/README.md`, then parent `README.md`, `DIRECTION.md`, `PARTS.md`, and part `README.md` |
 | output | bounded reports, receipts, generated readers, or owner handoffs only through their owning surface |
 | tools and checks | this card's `Verify` section and the nearest nested `AGENTS.md` |
@@ -38,17 +38,17 @@ Route outward for:
 2. `DESIGN.md`
 3. `DESIGN.AGENTS.md` when agent-facing guidance, lane topology, or route cards change
 4. `ROADMAP.md`
-5. `docs/PROOF_TOPOLOGY.md` when artifact classes, legacy, mechanics, or root districts change
+5. `docs/architecture/PROOF_TOPOLOGY.md` when artifact classes, legacy, mechanics, or root districts change
 6. `mechanics/EVIDENCE_CLUSTERS.md` before moving root-district artifacts into or between mechanics
 7. `mechanics/README.md` when a repeatable proof operation or package changes
-8. `docs/ARCHITECTURE.md`
-9. `docs/EVAL_PHILOSOPHY.md`
+8. `docs/architecture/ARCHITECTURE.md`
+9. `docs/guides/EVAL_PHILOSOPHY.md`
 10. `AUDIT.md` when auditing or reviewing proof claims
 11. the target `evals/**/EVAL.md`
 12. affected generated catalogs, capsules, comparison, receipt, or section surfaces
 13. upstream skill or technique docs if the claim depends on them
 14. `docs/decisions/` when a structural, topology, validation, or workflow route changes
-15. `docs/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
+15. `docs/operations/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
 
 
 ## AGENTS stack law
@@ -198,4 +198,4 @@ For audits, reviews, and non-trivial patches, report:
 
 ## Full reference
 
-`docs/AGENTS_ROOT_REFERENCE.md` preserves the former detailed root guidance, including branch docs, audit contract, review priorities, and cross-repo routes.
+`docs/operations/AGENTS_ROOT_REFERENCE.md` preserves the former detailed root guidance, including branch docs, audit contract, review priorities, and cross-repo routes.

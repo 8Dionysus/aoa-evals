@@ -33,10 +33,10 @@ surface for deferred proof obligations.
 | Pressure | Anchor route |
 | --- | --- |
 | public proof navigation | `EVAL_INDEX.md` |
-| comparison or regression seam | `docs/COMPARISON_SPINE_GUIDE.md` |
+| comparison or regression seam | `docs/guides/COMPARISON_SPINE_GUIDE.md` |
 | verdict-bridge debt | `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md` |
-| artifact/process confusion | `docs/ARTIFACT_PROCESS_SEPARATION_GUIDE.md` |
-| repeated-window caution | `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md` |
+| artifact/process confusion | `docs/guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md` |
+| repeated-window caution | `docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md` |
 
 ## Initial posture
 
@@ -86,6 +86,6 @@ Those references stay source-owned upstream while this rollout stays in the
 
 ## Manual-first pilot lane
 
-- `AOA-EV-Q-0002` closed one source/proof review lane by anchoring the surviving proof question in `EVAL_INDEX.md` and `docs/COMPARISON_SPINE_GUIDE.md`.
+- `AOA-EV-Q-0002` closed one source/proof review lane by anchoring the surviving proof question in `EVAL_INDEX.md` and `docs/guides/COMPARISON_SPINE_GUIDE.md`.
 - This pass stayed manual-first: source/proof alignment landed without adding a live routing consumer, dispatch input, or quest builder.
 - The result is bounded proof alignment; verdict authority remains with bundle and mechanic evidence.

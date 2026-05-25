@@ -18,7 +18,7 @@ instead of turning `portable-proof-beacons` into a parent mechanic.
 - `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md`
 - `mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
 - `mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md`
-- `docs/PORTABLE_EVAL_BOUNDARY_GUIDE.md`
+- `docs/guides/PORTABLE_EVAL_BOUNDARY_GUIDE.md`
 
 ## Inputs
 

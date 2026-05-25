@@ -4,6 +4,13 @@
 - Date: 2026-05-20
 - Owner surface: `mechanics/` route cards and part READMEs
 
+## Index Metadata
+
+- Surface classes: validation guard
+- Mechanic parents: cross-parent
+- Guard families: route residue
+- Posture: active guard rationale
+
 ## Context
 
 The mechanics refactor made root infrastructure districts route-card-only and

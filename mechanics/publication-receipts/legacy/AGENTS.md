@@ -28,7 +28,7 @@ This directory preserves old receipt root placement behind the active
 3. `mechanics/publication-receipts/README.md`
 4. `mechanics/publication-receipts/PARTS.md`
 5. `mechanics/publication-receipts/PROVENANCE.md`
-6. `docs/LEGACY_NAMING.md`
+6. `docs/architecture/LEGACY_NAMING.md`
 
 ## Route Rules
 

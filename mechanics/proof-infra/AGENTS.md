@@ -44,12 +44,12 @@ routes shared contract pressure to the narrowest active owner.
 1. repository root `AGENTS.md`
 2. `DESIGN.md`
 3. `DESIGN.AGENTS.md`
-4. `docs/PROOF_TOPOLOGY.md`
+4. `docs/architecture/PROOF_TOPOLOGY.md`
 5. `mechanics/README.md`
 6. `mechanics/proof-object/README.md`
 7. `mechanics/proof-infra/README.md`
 8. `mechanics/proof-infra/PARTS.md`
-9. `docs/SHARED_PROOF_INFRA_GUIDE.md`
+9. `docs/guides/SHARED_PROOF_INFRA_GUIDE.md`
 10. affected `parts/fixture-families/`, `parts/reportable-contracts/`, or
    root route-card local `AGENTS.md`
 11. affected `evals/**/EVAL.md` and `evals/**/eval.yaml`

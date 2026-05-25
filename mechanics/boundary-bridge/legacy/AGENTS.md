@@ -29,7 +29,7 @@ This directory maps former boundary-bridge path vocabulary to active routes.
 5. `../DIRECTION.md`
 6. `../PARTS.md`
 7. `../PROVENANCE.md`
-8. `docs/LEGACY_NAMING.md`
+8. `docs/architecture/LEGACY_NAMING.md`
 9. `INDEX.md`
 10. `DISTILLATION_LOG.md`
 

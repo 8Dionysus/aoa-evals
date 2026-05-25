@@ -43,8 +43,8 @@ Route guard: repair proof under `antifragility`; repeated-window movement under
 - `mechanics/method-growth/PARTS.md`
 - `mechanics/antifragility/parts/repair-proof/README.md`
 - `mechanics/comparison-spine/parts/longitudinal-window/README.md`
-- `docs/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
-- `docs/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`
+- `docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
+- `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`
 - `quests/harvest/captured/AOA-EV-Q-0004.yaml`
 - `quests/closeout/captured/AOA-EV-Q-0010.yaml`
 - `quests/closeout/captured/AOA-EV-Q-0013.yaml`

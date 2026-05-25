@@ -40,7 +40,7 @@ to the owning mechanic instead of convenience placement.
 | Pressure | Route |
 | --- | --- |
 | fixture families, runner contracts, scorer helpers, or shared schemas read as proof authority | bundle-local `EVAL.md`, `eval.yaml`, and reviewed report route |
-| unclassified root payload wants a parking place | `mechanics/EVIDENCE_CLUSTERS.md`, `docs/PROOF_TOPOLOGY.md`, or the owning mechanic part |
+| unclassified root payload wants a parking place | `mechanics/EVIDENCE_CLUSTERS.md`, `docs/architecture/PROOF_TOPOLOGY.md`, or the owning mechanic part |
 | generated reader looks stronger than source bundle meaning | source bundle, source contract, builder, and generated check |
 | domain-specific support appears in shared infrastructure | narrower active mechanic that owns the operation |
 

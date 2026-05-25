@@ -28,7 +28,7 @@ This directory preserves old proof-loop root report placement behind the active
 3. `mechanics/proof-loop/README.md`
 4. `mechanics/proof-loop/PARTS.md`
 5. `mechanics/proof-loop/PROVENANCE.md`
-6. `docs/LEGACY_NAMING.md`
+6. `docs/architecture/LEGACY_NAMING.md`
 
 ## Route Rules
 

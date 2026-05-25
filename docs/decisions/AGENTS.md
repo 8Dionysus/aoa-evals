@@ -17,12 +17,12 @@ sibling-owner authority stays with the owning source surface.
 
 | Field | Route |
 | --- | --- |
-| role | durable decision rationale lane |
+| role | durable decision rationale lane plus generated lookup-index route |
 | input | structural choices, owner splits, topology changes, validation authority, workflow route changes, and compatibility decisions |
-| output | accepted rationale that points back to current source surfaces |
-| owner | decision record for why; source surface for what |
-| next route | decision index, decision template, source surface being explained, or root/docs/mechanics route card |
-| tools | root validator and semantic AGENTS validator |
+| output | accepted rationale, source-owned index metadata, and generated lookup index parity |
+| owner | decision record for why; source surface for what; `docs/decisions/indexes/` for generated lookup only |
+| next route | decision index, generated lookup indexes, decision template, source surface being explained, or root/docs/mechanics route card |
+| tools | `scripts/generate_decision_indexes.py`, root validator, and semantic AGENTS validator |
 | validation | this card's `Validation` section |
 
 ## Read before editing
@@ -39,15 +39,18 @@ sibling-owner authority stays with the owning source surface.
 | Need | Owner route |
 | --- | --- |
 | current proof claim | bundle-local `EVAL.md` and `eval.yaml` |
-| root design or architecture meaning | `DESIGN.md`, `DESIGN.AGENTS.md`, or `docs/ARCHITECTURE.md` |
+| root design or architecture meaning | `DESIGN.md`, `DESIGN.AGENTS.md`, or `docs/architecture/ARCHITECTURE.md` |
 | validator behavior | `scripts/AGENTS.md`, validator source, and focused tests |
 | generated reader meaning | source surface, builder, generated reader, and validator |
 | runtime candidate, receipt, or sibling truth | owning mechanic, receipt surface, runtime owner, or sibling repository |
 | decision rationale | this lane plus `docs/decisions/TEMPLATE.md` |
+| decision lookup | source decision `Index Metadata`, then generated `docs/decisions/indexes/` read models |
 
 ## Route Rules
 
 - Record a decision only when future contributors need the rationale.
+- Give every numbered decision an `## Index Metadata` block so lookup indexes
+  can be regenerated from source notes instead of hand-maintained crosswalks.
 - Keep evidence, working notes, generated output, and runtime facts as context;
   do not promote them into decision authority.
 - Name rejected options or accepted tradeoffs when they shaped the decision.
@@ -112,9 +115,13 @@ validation evidence.
 Run the narrow docs checks after editing this lane:
 
 ```bash
+python scripts/generate_decision_indexes.py --check
 python scripts/validate_repo.py
 python scripts/validate_semantic_agents.py
 ```
+
+When decision metadata changes, run `python scripts/generate_decision_indexes.py`
+before the `--check` form.
 
 If a decision changes generated, schema, quest, bundle, receipt, runtime, or
 sibling-reference surfaces, run the owning builder or validator for that surface
@@ -122,6 +129,6 @@ too.
 
 ## Closeout
 
-Report which decision was added or changed, which source surface it constrains,
-what validation ran, what existing drift remains, and which follow-up route the
-decision enables.
+Report which decision was added or changed, whether generated lookup indexes
+were refreshed, which source surface it constrains, what validation ran, what
+existing drift remains, and which follow-up route the decision enables.

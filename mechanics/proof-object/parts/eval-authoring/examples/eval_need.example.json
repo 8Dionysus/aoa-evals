@@ -1,0 +1,39 @@
+{
+  "schema_version": "eval_need_v1",
+  "name": "aoa-runtime-evidence-route-discipline",
+  "proof_question": "Does runtime evidence pressure route through candidate packets before bundle-local proof review?",
+  "origin_need": "OS Abyss needs a compact way to prevent runtime traces from becoming proof authority by accident.",
+  "summary": "Checks whether runtime evidence pressure stays candidate-only before source bundle review.",
+  "object_under_evaluation": "runtime evidence routing workflow",
+  "category": "workflow",
+  "claim_type": "bounded",
+  "baseline_mode": "none",
+  "report_format": "summary-with-breakdown",
+  "verdict_shape": "categorical",
+  "authoring_route": "new_draft_bundle",
+  "expected_use_when": [
+    "runtime or trace artifacts are being routed toward aoa-evals",
+    "candidate evidence needs a bounded proof-review gate"
+  ],
+  "blind_spot_notes": [
+    "does not prove runtime health",
+    "does not accept evidence as proof",
+    "does not replace bundle-local review"
+  ],
+  "related_eval_refs": [
+    "aoa-verification-honesty",
+    "aoa-trace-outcome-separation"
+  ],
+  "candidate_evidence_refs": [
+    "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json"
+  ],
+  "quest_refs": [
+    "AOA-EV-Q-0010"
+  ],
+  "source_refs": [
+    "mechanics/audit/README.md",
+    "mechanics/proof-loop/README.md"
+  ],
+  "technique_dependencies": [],
+  "skill_dependencies": []
+}

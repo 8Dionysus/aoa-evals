@@ -9,10 +9,14 @@ route to their owning source surfaces.
 
 ## Owned Operation
 
-`origin proof pressure -> starter scaffold -> bounded source proof object`
+`origin proof pressure -> existing-route check -> starter scaffold -> bounded source proof object`
 
 ## Source Surfaces
 
+- `mechanics/proof-object/parts/eval-authoring/docs/EVAL_BIRTH_PROTOCOL.md`
+- `mechanics/proof-object/parts/eval-authoring/schemas/eval-need.schema.json`
+- `mechanics/proof-object/parts/eval-authoring/examples/eval_need.example.json`
+- `mechanics/proof-object/parts/eval-authoring/scripts/scaffold_eval_bundle.py`
 - `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md`
 - `evals/**/EVAL.md`
 - `evals/**/eval.yaml`
@@ -21,12 +25,16 @@ route to their owning source surfaces.
 ## Inputs
 
 - a bounded proof question;
+- an existing eval route check against current generated catalog surfaces;
 - object under evaluation;
 - claim type and baseline posture;
 - expected evidence, fixtures, runners, reports, and blind spots.
 
 ## Outputs
 
+- a route-first eval need packet;
+- an existing eval route, candidate-evidence route, quest route, or explicit
+  new-draft posture;
 - a new or reshaped `EVAL.md` scaffold;
 - frontmatter aligned with the eval source contract;
 - explicit comparison and report contract placeholders when applicable.
@@ -47,9 +55,9 @@ guides.
 checks. Generated catalogs, capsules, sections, reports, receipts, runtime
 candidates, and sibling refs stay weaker than source eval packages.
 
-`aoa-evals` owns only the bounded authoring scaffold in this part: a starter
-form that helps a future eval package expose source truth without hiding
-limits.
+`aoa-evals` owns only the bounded authoring scaffold in this part: a
+route-first form that helps a future eval package expose source truth without
+hiding limits or bypassing existing proof surfaces.
 
 ## Stop-Lines
 
@@ -57,6 +65,9 @@ limits.
 | --- | --- |
 | template reads as active proof meaning | route proof meaning to `evals/**/EVAL.md`, `evals/**/eval.yaml`, and repo proof guides |
 | placeholder text reads as evidence | route to real evidence entries, fixtures, reports, or examples |
+| proof pressure fits an existing eval | return the existing source bundle route instead of creating a parallel bundle |
+| proof pressure is recurring but not authoring-ready | route through `QUESTBOOK.md` and source quest records |
+| runtime or trace artifact is the input | route through audit selected-evidence packets and candidate readers before bundle-local review |
 | comparison posture hides in prose | carry it in frontmatter, `eval.yaml`, and comparison guidance |
 | source eval package movement appears | keep source eval packages under `evals/` |
 | generated readers, reports, receipts, runtime candidates, or sibling refs outrank source eval packages | return to source eval packages and bundle-local review |

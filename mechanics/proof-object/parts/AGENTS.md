@@ -51,6 +51,7 @@ Executable validation commands from child part routes live here. Child README an
 ### `mechanics/proof-object/parts/eval-authoring/VALIDATION.md`
 
 ```bash
+python -m pytest -q mechanics/proof-object/parts/eval-authoring/tests
 python scripts/validate_repo.py
 python scripts/build_catalog.py --check
 python scripts/validate_semantic_agents.py

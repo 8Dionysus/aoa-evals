@@ -2404,6 +2404,7 @@ RELEASE_PREP_PR_HANDOFF_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0027-release-prep-pr-handoff.md"
 )
 REPO_VALIDATION_WORKFLOW_NAME = ".github/workflows/repo-validation.yml"
+REPO_VALIDATION_AOA_AGENTS_REF = "1299181822b59c602f30027185e3314e18739bd2"
 REPO_VALIDATION_AOA_MEMO_REF = "97f19698c94ebbebabe8b1b6f22e5ccff3bc5f1f"
 REPO_VALIDATION_AOA_MEMO_PIN_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0028-repo-validation-aoa-memo-pin-refresh.md"
@@ -12817,6 +12818,34 @@ def validate_repo_validation_workflow_surface(repo_root: Path) -> list[Validatio
     except FileNotFoundError:
         issues.append(ValidationIssue(REPO_VALIDATION_WORKFLOW_NAME, "file is missing"))
         return issues
+
+    agents_checkout = re.search(
+        r"(?ms)^\s+- name: Checkout aoa-agents\b(?P<block>.*?)(?=^\s+- name: |\Z)",
+        workflow_text,
+    )
+    if agents_checkout is None:
+        issues.append(
+            ValidationIssue(
+                REPO_VALIDATION_WORKFLOW_NAME,
+                "missing Checkout aoa-agents step",
+            )
+        )
+    else:
+        agents_block = agents_checkout.group("block")
+        if "repository: 8Dionysus/aoa-agents" not in agents_block:
+            issues.append(
+                ValidationIssue(
+                    REPO_VALIDATION_WORKFLOW_NAME,
+                    "Checkout aoa-agents step must use repository 8Dionysus/aoa-agents",
+                )
+            )
+        if f"ref: {REPO_VALIDATION_AOA_AGENTS_REF}" not in agents_block:
+            issues.append(
+                ValidationIssue(
+                    REPO_VALIDATION_WORKFLOW_NAME,
+                    f"aoa-agents checkout ref must be {REPO_VALIDATION_AOA_AGENTS_REF}",
+                )
+            )
 
     memo_checkout = re.search(
         r"(?ms)^\s+- name: Checkout aoa-memo\b(?P<block>.*?)(?=^\s+- name: |\Z)",

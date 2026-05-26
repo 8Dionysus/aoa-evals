@@ -8447,6 +8447,27 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_repo_validation_workflow_rejects_stale_aoa_agents_pin(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, ".github/workflows/repo-validation.yml")
+        workflow_path = tmp_path / ".github" / "workflows" / "repo-validation.yml"
+        workflow_path.write_text(
+            workflow_path.read_text(encoding="utf-8").replace(
+                validate_repo.REPO_VALIDATION_AOA_AGENTS_REF,
+                "5be6bf70701fd348618b627d4795fc4733bb6d94",
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_repo_validation_workflow_surface(tmp_path)
+
+        assert any(
+            issue.location == ".github/workflows/repo-validation.yml"
+            and "aoa-agents checkout ref must be" in issue.message
+            for issue in issues
+        )
+
     def test_proof_loop_mechanic_surfaces_validate_current_routes(self) -> None:
         assert not any(
             issue.location.startswith("mechanics/proof-loop/")

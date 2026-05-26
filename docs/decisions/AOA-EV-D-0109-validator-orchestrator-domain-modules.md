@@ -86,6 +86,8 @@ As of 2026-05-25:
 - Changed: artifact-to-verdict hook contract refs now have a focused
   `scripts/validators/artifact_hooks.py` module instead of living only inside
   the root validator.
+- Changed: `Repo Validation` now pins `aoa-agents` to a public revision that
+  contains the mechanics-owned artifact hook targets used by that module.
 - Superseded by: none.
 
 ## Boundaries

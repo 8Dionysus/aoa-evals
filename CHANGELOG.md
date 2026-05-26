@@ -22,7 +22,8 @@ Tracking starts with the community-docs baseline for this repository.
   `aoa-agents` continuity-lane source path under
   `mechanics/checkpoint/parts/continuity-lane/`.
 - `Repo Validation` now pins `aoa-agents` to the public revision that contains
-  that continuity-lane source path.
+  the continuity-lane source path and current artifact-hook schema/example
+  targets.
 - Artifact-to-verdict hook contract refs now route through
   `scripts/validators/artifact_hooks.py`, and the `aoa-agents` hook refs now
   point at current mechanics-owned schema/example paths.

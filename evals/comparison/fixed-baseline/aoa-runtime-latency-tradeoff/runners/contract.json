@@ -1,0 +1,25 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
+  "inputs": [
+    "named baseline target",
+    "candidate runtime or workflow variant under the same fixture family",
+    "latency metric definition",
+    "resource-use metric definition",
+    "matched-condition summary",
+    "matched-condition comparison notes",
+    "bounded comparative summary"
+  ],
+  "fixture_contract_paths": [
+    "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/reports/summary.schema.json",
+  "report_example_path": "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/reports/example-report.json",
+  "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-runtime-latency-tradeoff"
+  ]
+}

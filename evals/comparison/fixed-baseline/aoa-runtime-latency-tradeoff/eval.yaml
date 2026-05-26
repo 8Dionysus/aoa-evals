@@ -1,0 +1,44 @@
+name: aoa-runtime-latency-tradeoff
+category: comparative
+status: draft
+object_under_evaluation: runtime latency and resource-use tradeoff under matched fixture
+  conditions
+claim_type: comparative
+baseline_mode: fixed-baseline
+verdict_shape: comparative
+report_format: comparative-summary
+maturity_score: 1
+rigor_level: bounded
+repeatability: moderate
+portability_level: local-shaped
+review_required: true
+validation_strength: baseline
+export_ready: true
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+technique_dependencies: []
+skill_dependencies: []
+relations:
+- type: complements
+  target: aoa-local-text-contract-fit
+- type: complements
+  target: aoa-regression-same-task
+- type: complements
+  target: aoa-output-vs-process-gap
+evidence:
+- kind: origin_need
+  path: notes/origin-need.md
+- kind: integrity_check
+  path: checks/eval-integrity-check.md
+- kind: support_note
+  path: notes/comparison-contract.md
+- kind: baseline_readiness
+  path: notes/baseline-readiness.md
+comparison_surface:
+  shared_family_path: mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md
+  paired_readout_path: mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md
+  integrity_sidecar: aoa-eval-integrity-check
+  anchor_surface: aoa-local-text-contract-fit
+  baseline_target_label: sanitized local runtime baseline variant
+  selection_question: Do you need a fixed-baseline route for runtime latency and resource-use
+    tradeoffs under matched fixture conditions?

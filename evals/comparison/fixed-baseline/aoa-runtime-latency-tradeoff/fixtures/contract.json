@@ -1,0 +1,15 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md",
+  "shared_case_surface": "public-safe matched cases for runtime latency and resource-use tradeoff under matched fixture conditions with the baseline and candidate judged on the same visible fixture family",
+  "bounded_replacement_rule": "A local repo may replace these draft cases only if the replacement preserves matched conditions, keeps the baseline target inspectable, and still separates noisy variation, style-only change, resource tradeoff, and bounded comparative evidence.",
+  "public_safe_requirements": [
+    "raw private runtime artifacts are not copied into the public bundle",
+    "baseline and candidate are compared under matched fixture conditions",
+    "style-only or resource-only differences are not overread as broad capability movement",
+    "latency metric semantics are named and stable across baseline and candidate",
+    "resource-use metric semantics are named and stable across baseline and candidate",
+    "latency movement and resource movement are reported separately",
+    "matched-condition assumptions are visible without exposing private host fingerprints"
+  ]
+}

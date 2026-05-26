@@ -34,6 +34,7 @@ The current public ladder is:
 
 Current public comparison bundles:
 - `aoa-regression-same-task`
+- `aoa-runtime-latency-tradeoff`
 - `aoa-output-vs-process-gap`
 - `aoa-longitudinal-growth-snapshot`
 - `aoa-stress-recovery-window`
@@ -41,6 +42,8 @@ Current public comparison bundles:
 
 This ladder is intentionally asymmetric:
 - `aoa-regression-same-task` is the first and only public `baseline` default
+- `aoa-runtime-latency-tradeoff` remains a draft fixed-baseline runtime
+  tradeoff surface and is not a public default baseline
 - `aoa-output-vs-process-gap` remains a draft peer-comparison bridge
 - `aoa-longitudinal-growth-snapshot` remains a draft repeated-window movement surface
 - `aoa-stress-recovery-window` remains a draft repeated-window stress recovery surface
@@ -52,11 +55,15 @@ This ladder is intentionally asymmetric:
 
 Current bundle:
 - `aoa-regression-same-task`
+- `aoa-runtime-latency-tradeoff`
 
 Use when:
 - one candidate is being compared against one frozen baseline target
 - the same bounded task family remains visible and stable
 - the question stays focused on regression detection and leaves broad growth to growth/progression owner review
+- or selected runtime evidence needs a public-safe latency/resource tradeoff
+  read without becoming reasoning-quality, agent-quality, host, or hardware
+  ranking
 
 Current machine-readable contract should keep explicit:
 - anchor surface
@@ -112,7 +119,7 @@ Current machine-readable contract should keep explicit:
 Read the comparison spine in this order:
 
 1. Read the one-run anchor surface first.
-2. Read `fixed-baseline` when the question is candidate-versus-frozen-target regression.
+2. Read `fixed-baseline` when the question is candidate-versus-frozen-target regression or a selected runtime latency/resource tradeoff under matched fixture conditions.
 3. Read `peer-compare` when the question is side-by-side divergence on the same bounded cases.
 4. Read `longitudinal-window` when the question is ordered movement across named windows on one bounded surface.
 5. Add `aoa-eval-integrity-check` when public wording, routing, maturity posture, or generated contracts are moving enough that the comparison read could start implying more than the evidence carries.
@@ -132,12 +139,15 @@ Shared public read-order artifact:
 | peer-comparison as baseline by association | source bundle `baseline_mode` and fixed-baseline part route |
 | repeated-window movement as general growth | longitudinal-window evidence plus growth/progression owner review |
 | repeated-window stress recovery as live health authority | stress-recovery owner route and runtime owner route |
+| runtime latency improvement as reasoning quality | `aoa-runtime-latency-tradeoff` plus the appropriate quality eval before any stronger reading |
+| runtime resource cost hidden behind a winner label | `aoa-runtime-latency-tradeoff` support notes and report schema |
 | integrity sidecar success as direct agent-quality proof | underlying comparison bundle plus integrity sidecar route |
 
 ## Status discipline
 
 Status remains intentionally conservative:
 - `aoa-regression-same-task` stays the only default public `baseline` surface
+- `aoa-runtime-latency-tradeoff` stays `draft`
 - `aoa-output-vs-process-gap` stays `draft`
 - `aoa-longitudinal-growth-snapshot` stays `draft`
 - `aoa-stress-recovery-window` stays `draft`

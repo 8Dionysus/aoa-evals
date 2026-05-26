@@ -151,6 +151,48 @@
       "status": "baseline"
     },
     {
+      "baseline_mode": "fixed-baseline",
+      "comparison_surface": {
+        "anchor_surface": "aoa-local-text-contract-fit",
+        "baseline_target_label": "sanitized local runtime baseline variant",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
+        "selection_question": "Do you need a fixed-baseline route for runtime latency and resource-use tradeoffs under matched fixture conditions?",
+        "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+      },
+      "eval_path": "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/EVAL.md",
+      "interpretation_boundary": "evidence acceptance without bundle-local review; a runtime health verdict; a public starter recommendation",
+      "name": "aoa-runtime-latency-tradeoff",
+      "proof_artifacts": {
+        "fixture_contract_path": "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/fixtures/contract.json",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
+        "report_example_path": "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/reports/example-report.json",
+        "report_schema_path": "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/reports/summary.schema.json",
+        "runner_contract_path": "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/runners/contract.json",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+      },
+      "relations": [
+        {
+          "target": "aoa-local-text-contract-fit",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-regression-same-task",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-output-vs-process-gap",
+          "type": "complements"
+        }
+      ],
+      "selection_summary": "Do you need a fixed-baseline route for runtime latency and resource-use tradeoffs under matched fixture conditions?",
+      "status": "draft"
+    },
+    {
       "baseline_mode": "longitudinal-window",
       "comparison_surface": {
         "anchor_surface": "aoa-antifragility-posture",

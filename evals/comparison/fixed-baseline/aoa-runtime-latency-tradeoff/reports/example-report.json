@@ -1,0 +1,29 @@
+{
+  "eval_name": "aoa-runtime-latency-tradeoff",
+  "bundle_status": "draft",
+  "object_under_evaluation": "runtime latency and resource-use tradeoff under matched fixture conditions",
+  "comparison_mode": "fixed-baseline",
+  "verdict": "mixed tradeoff signal",
+  "claim_boundary": "This draft report can compare runtime latency and resource-use tradeoff under matched fixture conditions only under the named matched conditions and cannot rank general agent quality.",
+  "limitations": [
+    "This report does not rank reasoning quality.",
+    "This report does not support cross-host leaderboard claims.",
+    "This report does not accept raw runtime evidence without bundle-local review."
+  ],
+  "baseline_target": "sanitized local runtime baseline variant",
+  "latency_metric": "chosen first-token latency aggregate under the matched fixture family",
+  "resource_metric": "chosen runtime memory-pressure aggregate under the matched fixture family",
+  "matched_condition_summary": "Baseline and candidate are compared on the same public-safe fixture family with matched preset, timeout, retry, and metric semantics.",
+  "case_family": "draft matched fixture family",
+  "per_case_comparisons": [
+    {
+      "case_id": "DRAFT-01",
+      "baseline_note": "The baseline target is named and kept inspectable for review.",
+      "candidate_note": "The candidate evidence is represented only as a draft comparison input.",
+      "latency_reading": "The candidate may show lower latency only under the named matched metric.",
+      "resource_reading": "The candidate resource cost remains visible and separate from the latency reading.",
+      "comparative_reading": "mixed tradeoff signal",
+      "comparison_note": "The draft readout preserves matched-condition comparison while avoiding a broad quality claim."
+    }
+  ]
+}

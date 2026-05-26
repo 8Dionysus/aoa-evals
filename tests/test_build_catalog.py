@@ -253,6 +253,7 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     comparison_entries = {entry["name"]: entry for entry in comparison_spine["evals"]}
 
     regression_artifacts = entries["aoa-regression-same-task"]["proof_artifacts"]
+    runtime_artifacts = entries["aoa-runtime-latency-tradeoff"]["proof_artifacts"]
     longitudinal_artifacts = entries["aoa-longitudinal-growth-snapshot"]["proof_artifacts"]
     stress_recovery_artifacts = entries["aoa-stress-recovery-window"]["proof_artifacts"]
 
@@ -260,6 +261,11 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     assert regression_artifacts["runner_contract_path"] == "evals/comparison/fixed-baseline/aoa-regression-same-task/runners/contract.json"
     assert regression_artifacts["report_schema_path"] == "evals/comparison/fixed-baseline/aoa-regression-same-task/reports/summary.schema.json"
     assert regression_artifacts["paired_readout_path"] == "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md"
+
+    assert runtime_artifacts["shared_fixture_family_path"] == "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+    assert runtime_artifacts["runner_contract_path"] == "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/runners/contract.json"
+    assert runtime_artifacts["report_schema_path"] == "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/reports/summary.schema.json"
+    assert runtime_artifacts["paired_readout_path"] == "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md"
 
     assert longitudinal_artifacts["shared_fixture_family_path"] == "mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md"
     assert longitudinal_artifacts["runner_contract_path"] == "evals/comparison/longitudinal-window/aoa-longitudinal-growth-snapshot/runners/contract.json"
@@ -272,6 +278,8 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     assert stress_recovery_artifacts["paired_readout_path"] == "mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md"
 
     assert entries["aoa-regression-same-task"]["comparison_surface"]["baseline_target_label"] == "RS-v1 frozen bounded workflow reference"
+    assert entries["aoa-runtime-latency-tradeoff"]["comparison_surface"]["baseline_target_label"] == "sanitized local runtime baseline variant"
+    assert entries["aoa-runtime-latency-tradeoff"]["comparison_surface"]["anchor_surface"] == "aoa-local-text-contract-fit"
     assert entries["aoa-output-vs-process-gap"]["comparison_surface"]["peer_surfaces"] == [
         "aoa-artifact-review-rubric",
         "aoa-bounded-change-quality",
@@ -282,6 +290,7 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
         "aoa-longitudinal-growth-snapshot",
         "aoa-output-vs-process-gap",
         "aoa-regression-same-task",
+        "aoa-runtime-latency-tradeoff",
         "aoa-stress-recovery-window",
     }
 

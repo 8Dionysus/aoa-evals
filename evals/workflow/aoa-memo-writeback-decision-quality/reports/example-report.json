@@ -1,0 +1,61 @@
+{
+  "eval_name": "aoa-memo-writeback-decision-quality",
+  "bundle_status": "draft",
+  "object_under_evaluation": "memo writeback decision quality on session-to-memory routing",
+  "verdict": "mixed support",
+  "claim_boundary": "On this bounded writeback-decision family, the skill application can support a decision-quality claim only when route, evidence search, outcome selection, missed-evidence risk, and privacy posture stay separately inspectable.",
+  "limitations": [
+    "This report does not prove durable memory truth.",
+    "This report does not approve central aoa-memo landing.",
+    "This report does not replace write-path guardrail review.",
+    "This report does not prove recall precision or contradiction handling.",
+    "This report does not authorize raw session transcript promotion."
+  ],
+  "case_family": "memo-writeback-decision-quality-v1 bounded decision family",
+  "decision_outcome": "route_only_debt",
+  "owner_route": {
+    "owner_repo": "aoa-evals",
+    "stronger_owner_route": "aoa-memo reviewed intake for durable memory truth",
+    "route_quality": "mixed"
+  },
+  "evidence_coverage": {
+    "session_evidence": "covered",
+    "source_refs": "covered",
+    "landed_work_lens": "covered",
+    "memo_recall_or_pending_exports": "insufficient",
+    "local_memo_port_status": "covered",
+    "privacy_review": "covered"
+  },
+  "breakdown": {
+    "invocation_fit": "strong",
+    "owner_route_clarity": "mixed",
+    "evidence_search_coverage": "mixed",
+    "memory_worthiness_filter": "strong",
+    "decision_outcome_correctness": "mixed",
+    "missed_evidence_disclosure": "strong",
+    "privacy_and_packet_safety": "strong"
+  },
+  "missed_evidence_risk": {
+    "level": "medium",
+    "notes": [
+      "Memo recall or pending-export context was thinner than the session and source refs, so the route-only debt decision cannot be read as final durable-memory readiness.",
+      "The report keeps that search gap visible instead of treating the clean closeout as complete evidence."
+    ]
+  },
+  "privacy_public_safety": {
+    "no_secret_material": true,
+    "raw_transcript_not_promoted": true,
+    "public_packet_safe": true,
+    "note": "The example uses evidence handles and source refs rather than private transcript excerpts."
+  },
+  "case_notes": [
+    {
+      "case_id": "MWD-01",
+      "decision_reading": "mixed support",
+      "search_note": "Session refs, source refs, landed-work refs, and local port status were visible; memo recall coverage remained thin.",
+      "outcome_note": "Route-only debt was plausible because the local port route was not ready for a candidate packet.",
+      "missed_evidence_note": "Pending export search could change the next owner move and remains named as medium risk.",
+      "privacy_note": "No raw transcript content or secret-bearing material was copied into the public packet."
+    }
+  ]
+}

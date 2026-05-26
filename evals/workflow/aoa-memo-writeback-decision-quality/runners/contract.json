@@ -1,0 +1,26 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
+  "inputs": [
+    "aoa-memo-writeback decision case dossier",
+    "owner route note",
+    "session evidence coverage note",
+    "owner source refs",
+    "landed-work reconciliation note",
+    "memo recall or pending-export note",
+    "local memo port status note",
+    "privacy and public-safe packet note",
+    "bundle-level decision-quality summary"
+  ],
+  "fixture_contract_paths": [
+    "evals/workflow/aoa-memo-writeback-decision-quality/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [
+    "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
+  ],
+  "report_schema_path": "evals/workflow/aoa-memo-writeback-decision-quality/reports/summary.schema.json",
+  "report_example_path": "evals/workflow/aoa-memo-writeback-decision-quality/reports/example-report.json",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-memo-writeback-decision-quality"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/memo-writeback-decision-quality-v1/README.md",
+  "shared_case_surface": "memo writeback-decision cases that keep invocation fit, owner route, evidence search, memory-worthiness filtering, outcome correctness, missed-evidence risk, and privacy posture reviewable before candidate, export, route-only debt, or no-writeback output is trusted",
+  "bounded_replacement_rule": "A local repo may replace the cases only if the replacement preserves the same decision-quality question, covers all six memo_writeback_decision outcomes over time or names the missing outcomes as gaps, keeps evidence refs inspectable, and still treats skipped search and missed-evidence risk as reviewable failure modes.",
+  "public_safe_requirements": [
+    "raw private transcripts are not copied into the public bundle",
+    "session evidence appears as refs or sanitized handles rather than transcript truth",
+    "source refs, PR/diff/commit/review refs, memo recall refs, and local port status are visible when relevant",
+    "generic progress is not promoted into memory candidates",
+    "central aoa-memo objects are not created by the eval or the skill application"
+  ]
+}

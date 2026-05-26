@@ -830,6 +830,57 @@
       "what_this_does_not_prove": "proof that memo writeback is generally solved; proof that reviewed-candidate promotion is ready; proof of future scar or retention readiness"
     },
     {
+      "blind_spot_short": "durable memory truth or final memo object quality; local memo port validation quality after a candidate is written; source trust, ingestion-risk, derivation, or...",
+      "bounded_claim_short": "under these conditions, one aoa-memo-writeback application made a bounded, evidence-linked decision with adequate invocation fit, route choice, search coverage, owner-boundary clarity, noise...",
+      "category": "workflow",
+      "comparison_surface": null,
+      "do_not_use_short": "the main question is whether a local candidate can safely become durable",
+      "eval_path": "evals/workflow/aoa-memo-writeback-decision-quality/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-memo-writeback-decision-quality",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether an aoa-memo-writeback application made a bounded, evidence-linked memory writeback decision with adequate route choice, source and session search, owner-boundary clarity, noise rejection, privacy limits, and missed-evidence disclosure.",
+      "technique_dependencies": [
+        "AOA-T-0026",
+        "AOA-T-0106",
+        "AOA-T-0076"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0026",
+          "path": "techniques/history/history-artifacts/session-capture-as-repo-artifact/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        },
+        {
+          "id": "AOA-T-0106",
+          "path": "techniques/proof/review-evidence/single-scoped-evidence-reference/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        },
+        {
+          "id": "AOA-T-0076",
+          "path": "techniques/governance/decision-routing/owner-layer-triage/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "use_when_short": "an agent applies aoa-memo-writeback after a live session, closeout, PR, diff, commit, release, or review thread; the review question is whether the memory writeback...",
+      "verdict_shape": "mixed",
+      "what_this_does_not_prove": "proof that the resulting memo is true; permission to land durable reviewed memory; permission to skip write-path guardrails"
+    },
+    {
       "blind_spot_short": "root-cause diagnosis for why one side outran the other; one-run artifact quality by itself; one-run workflow quality by itself",
       "bounded_claim_short": "under these conditions, artifact-side and process-side readings on the same bounded cases can be compared honestly enough to show whether one materially outruns the other or whether the...",
       "category": "comparative",

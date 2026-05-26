@@ -1962,6 +1962,114 @@
       "verdict_shape": "mixed"
     },
     {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
+      "category": "workflow",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "evals/workflow/aoa-memo-writeback-decision-quality/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/decision-quality-contract.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/search-coverage-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": true,
+      "interpretation_boundary": "proof that the resulting memo is true; permission to land durable reviewed memory; permission to skip write-path guardrails",
+      "maturity_score": 2,
+      "name": "aoa-memo-writeback-decision-quality",
+      "object_under_evaluation": "memo writeback decision quality on session-to-memory routing",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": "evals/workflow/aoa-memo-writeback-decision-quality/fixtures/contract.json",
+        "paired_readout_path": null,
+        "report_example_path": "evals/workflow/aoa-memo-writeback-decision-quality/reports/example-report.json",
+        "report_schema_path": "evals/workflow/aoa-memo-writeback-decision-quality/reports/summary.schema.json",
+        "runner_contract_path": "evals/workflow/aoa-memo-writeback-decision-quality/runners/contract.json",
+        "runner_surface_path": "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md",
+        "scorer_helper_paths": [
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/memo-writeback-decision-quality-v1/README.md"
+      },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema"
+      ],
+      "relations": [
+        {
+          "target": "aoa-memo-write-path-guardrails",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-memo-writeback-act-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-owner-fit-routing-quality",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-verification-honesty",
+          "type": "complements"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "selection_summary": "",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether an aoa-memo-writeback application made a bounded, evidence-linked memory writeback decision with adequate route choice, source and session search, owner-boundary clarity, noise rejection, privacy limits, and missed-evidence disclosure.",
+      "technique_dependencies": [
+        "AOA-T-0026",
+        "AOA-T-0106",
+        "AOA-T-0076"
+      ],
+      "technique_refs": [
+        {
+          "id": "AOA-T-0026",
+          "path": "techniques/history/history-artifacts/session-capture-as-repo-artifact/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        },
+        {
+          "id": "AOA-T-0106",
+          "path": "techniques/proof/review-evidence/single-scoped-evidence-reference/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        },
+        {
+          "id": "AOA-T-0076",
+          "path": "techniques/governance/decision-routing/owner-layer-triage/TECHNIQUE.md",
+          "repo": "aoa-techniques"
+        }
+      ],
+      "validation_strength": "baseline",
+      "verdict_shape": "mixed"
+    },
+    {
       "baseline_mode": "peer-compare",
       "blind_spot_disclosure": "required-and-present",
       "category": "comparative",

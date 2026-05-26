@@ -1,0 +1,286 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-memo-writeback-decision-quality summary-with-breakdown report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "case_family",
+    "decision_outcome",
+    "owner_route",
+    "evidence_coverage",
+    "breakdown",
+    "missed_evidence_risk",
+    "privacy_public_safety",
+    "case_notes"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-memo-writeback-decision-quality"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "memo writeback decision quality on session-to-memory routing"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "mixed support",
+        "does not support bounded claim",
+        "not reviewable"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 10
+      }
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 10
+    },
+    "decision_outcome": {
+      "type": "string",
+      "enum": [
+        "write_candidate",
+        "prepare_export",
+        "no_writeback_needed",
+        "route_only_debt",
+        "needs_owner_review",
+        "blocked"
+      ]
+    },
+    "owner_route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner_repo",
+        "stronger_owner_route",
+        "route_quality"
+      ],
+      "properties": {
+        "owner_repo": {
+          "type": "string",
+          "minLength": 2
+        },
+        "stronger_owner_route": {
+          "type": "string",
+          "minLength": 2
+        },
+        "route_quality": {
+          "type": "string",
+          "enum": [
+            "strong",
+            "mixed",
+            "weak",
+            "not_reviewable"
+          ]
+        }
+      }
+    },
+    "evidence_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "session_evidence",
+        "source_refs",
+        "landed_work_lens",
+        "memo_recall_or_pending_exports",
+        "local_memo_port_status",
+        "privacy_review"
+      ],
+      "properties": {
+        "session_evidence": {
+          "$ref": "#/$defs/coverage_status"
+        },
+        "source_refs": {
+          "$ref": "#/$defs/coverage_status"
+        },
+        "landed_work_lens": {
+          "$ref": "#/$defs/coverage_status"
+        },
+        "memo_recall_or_pending_exports": {
+          "$ref": "#/$defs/coverage_status"
+        },
+        "local_memo_port_status": {
+          "$ref": "#/$defs/coverage_status"
+        },
+        "privacy_review": {
+          "$ref": "#/$defs/coverage_status"
+        }
+      }
+    },
+    "breakdown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "invocation_fit",
+        "owner_route_clarity",
+        "evidence_search_coverage",
+        "memory_worthiness_filter",
+        "decision_outcome_correctness",
+        "missed_evidence_disclosure",
+        "privacy_and_packet_safety"
+      ],
+      "properties": {
+        "invocation_fit": {
+          "$ref": "#/$defs/axis_reading"
+        },
+        "owner_route_clarity": {
+          "$ref": "#/$defs/axis_reading"
+        },
+        "evidence_search_coverage": {
+          "$ref": "#/$defs/axis_reading"
+        },
+        "memory_worthiness_filter": {
+          "$ref": "#/$defs/axis_reading"
+        },
+        "decision_outcome_correctness": {
+          "$ref": "#/$defs/axis_reading"
+        },
+        "missed_evidence_disclosure": {
+          "$ref": "#/$defs/axis_reading"
+        },
+        "privacy_and_packet_safety": {
+          "$ref": "#/$defs/axis_reading"
+        }
+      }
+    },
+    "missed_evidence_risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "notes"
+      ],
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "blocking"
+          ]
+        },
+        "notes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    },
+    "privacy_public_safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "no_secret_material",
+        "raw_transcript_not_promoted",
+        "public_packet_safe",
+        "note"
+      ],
+      "properties": {
+        "no_secret_material": {
+          "type": "boolean"
+        },
+        "raw_transcript_not_promoted": {
+          "type": "boolean"
+        },
+        "public_packet_safe": {
+          "type": "boolean"
+        },
+        "note": {
+          "type": "string",
+          "minLength": 10
+        }
+      }
+    },
+    "case_notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "decision_reading",
+          "search_note",
+          "outcome_note",
+          "missed_evidence_note",
+          "privacy_note"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "decision_reading": {
+            "type": "string",
+            "enum": [
+              "supports bounded claim",
+              "mixed support",
+              "does not support bounded claim",
+              "not reviewable"
+            ]
+          },
+          "search_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "outcome_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "missed_evidence_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "privacy_note": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "coverage_status": {
+      "type": "string",
+      "enum": [
+        "covered",
+        "not_applicable",
+        "insufficient",
+        "missing",
+        "blocked"
+      ]
+    },
+    "axis_reading": {
+      "type": "string",
+      "enum": [
+        "strong",
+        "mixed",
+        "weak",
+        "not_reviewable"
+      ]
+    }
+  }
+}

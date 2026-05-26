@@ -1,0 +1,46 @@
+name: aoa-memo-writeback-decision-quality
+category: workflow
+status: draft
+object_under_evaluation: memo writeback decision quality on session-to-memory routing
+claim_type: bounded
+baseline_mode: none
+verdict_shape: mixed
+report_format: summary-with-breakdown
+maturity_score: 2
+rigor_level: bounded
+repeatability: moderate
+portability_level: local-shaped
+review_required: true
+validation_strength: baseline
+export_ready: true
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+technique_dependencies:
+- id: AOA-T-0026
+  repo: 8Dionysus/aoa-techniques
+  path: techniques/history/history-artifacts/session-capture-as-repo-artifact/TECHNIQUE.md
+- id: AOA-T-0106
+  repo: 8Dionysus/aoa-techniques
+  path: techniques/proof/review-evidence/single-scoped-evidence-reference/TECHNIQUE.md
+- id: AOA-T-0076
+  repo: 8Dionysus/aoa-techniques
+  path: techniques/governance/decision-routing/owner-layer-triage/TECHNIQUE.md
+skill_dependencies: []
+relations:
+- type: complements
+  target: aoa-memo-write-path-guardrails
+- type: complements
+  target: aoa-memo-writeback-act-integrity
+- type: complements
+  target: aoa-owner-fit-routing-quality
+- type: complements
+  target: aoa-verification-honesty
+evidence:
+- kind: origin_need
+  path: notes/origin-need.md
+- kind: support_note
+  path: notes/decision-quality-contract.md
+- kind: support_note
+  path: notes/search-coverage-contract.md
+- kind: integrity_check
+  path: checks/eval-integrity-check.md

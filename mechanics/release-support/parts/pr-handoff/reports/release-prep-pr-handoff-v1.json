@@ -8,7 +8,7 @@
   "pre_landing_worktree_posture": "dirty_uncommitted_local_diff",
   "source_readiness_audit_ref": "repo:aoa-evals/mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json",
   "source_strategic_closeout_audit_ref": "repo:aoa-evals/mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json",
-  "decision_ref": "repo:aoa-evals/docs/decisions/0027-release-prep-pr-handoff.md",
+  "decision_ref": "repo:aoa-evals/docs/decisions/AOA-EV-D-0027-release-prep-pr-handoff.md",
   "candidate_branch_name": "codex/aoa-evals-strategic-refactor",
   "candidate_commit_message": "Refactor aoa-evals proof topology and active loop",
   "candidate_pr_title": "Refactor aoa-evals proof topology and active loop",
@@ -39,14 +39,14 @@
       "summary": "Durable decision lane for topology, validation, mechanics, reports, receipts, release readiness, and strategic closeout.",
       "evidence_refs": [
         "repo:aoa-evals/docs/decisions/README.md",
-        "repo:aoa-evals/docs/decisions/0026-strategic-closeout-audit.md",
-        "repo:aoa-evals/docs/decisions/0027-release-prep-pr-handoff.md",
-        "repo:aoa-evals/docs/decisions/0073-generated-route-residue-guard.md",
-        "repo:aoa-evals/docs/decisions/0074-mechanic-part-readme-contract.md",
-        "repo:aoa-evals/docs/decisions/0075-mechanic-provenance-entry-contract.md",
-        "repo:aoa-evals/docs/decisions/0082-mechanic-parent-direction-contract.md",
-        "repo:aoa-evals/docs/decisions/0083-mechanic-evidence-dimension-ledger.md",
-        "repo:aoa-evals/docs/decisions/0084-mechanic-root-district-reconnaissance.md"
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0026-strategic-closeout-audit.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0027-release-prep-pr-handoff.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0073-generated-route-residue-guard.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0074-mechanic-part-readme-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0075-mechanic-provenance-entry-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0082-mechanic-parent-direction-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0083-mechanic-evidence-dimension-ledger.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0084-mechanic-root-district-reconnaissance.md"
       ]
     },
     {
@@ -111,12 +111,12 @@
         "repo:aoa-evals/scripts/release_check.py",
         "repo:aoa-evals/scripts/validate_nested_agents.py",
         "repo:aoa-evals/tests/test_validate_repo.py",
-        "repo:aoa-evals/docs/decisions/0073-generated-route-residue-guard.md",
-        "repo:aoa-evals/docs/decisions/0074-mechanic-part-readme-contract.md",
-        "repo:aoa-evals/docs/decisions/0075-mechanic-provenance-entry-contract.md",
-        "repo:aoa-evals/docs/decisions/0082-mechanic-parent-direction-contract.md",
-        "repo:aoa-evals/docs/decisions/0083-mechanic-evidence-dimension-ledger.md",
-        "repo:aoa-evals/docs/decisions/0084-mechanic-root-district-reconnaissance.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0073-generated-route-residue-guard.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0074-mechanic-part-readme-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0075-mechanic-provenance-entry-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0082-mechanic-parent-direction-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0083-mechanic-evidence-dimension-ledger.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0084-mechanic-root-district-reconnaissance.md",
         "repo:aoa-evals/mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py",
         "repo:aoa-evals/mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py"
       ]

@@ -12,11 +12,11 @@
     "distillation_pack"
   ],
   "artifact_contract_refs": [
-    "repo:aoa-agents/schemas/artifact.route_decision.schema.json",
-    "repo:aoa-agents/schemas/artifact.bounded_plan.schema.json",
-    "repo:aoa-agents/schemas/artifact.verification_result.schema.json",
-    "repo:aoa-agents/schemas/artifact.transition_decision.schema.json",
-    "repo:aoa-agents/schemas/artifact.distillation_pack.schema.json"
+    "repo:aoa-agents/mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.route_decision.schema.json",
+    "repo:aoa-agents/mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.bounded_plan.schema.json",
+    "repo:aoa-agents/mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.verification_result.schema.json",
+    "repo:aoa-agents/mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.transition_decision.schema.json",
+    "repo:aoa-agents/mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.distillation_pack.schema.json"
   ],
   "trace_surfaces": [
     "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md"

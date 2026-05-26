@@ -49,7 +49,7 @@ handoffs that still need a bounded next route.
 6. `quests/LIFECYCLE.md`
 7. `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`
 8. `mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json`
-9. `docs/decisions/0004-questbook-topology.md`
+9. `docs/decisions/AOA-EV-D-0004-questbook-topology.md`
 
 ## Route Rules
 

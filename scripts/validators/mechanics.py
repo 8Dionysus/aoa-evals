@@ -68,6 +68,7 @@ ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS: dict[str, tuple[str, ...]] = {
         "validate_repo.py",
         "validate_semantic_agents.py",
         "validators/__init__.py",
+        "validators/artifact_hooks.py",
         "validators/docs_decisions.py",
         "validators/docs_routes.py",
         "validators/docs_topology.py",

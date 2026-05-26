@@ -21,7 +21,7 @@ Accounting:
 - old route:
   `fixtures/<family>/README.md`
 - decision:
-  `docs/decisions/0041-proof-infra-fixture-families.md`
+  `docs/decisions/AOA-EV-D-0041-proof-infra-fixture-families.md`
 - validation route:
   `../AGENTS.md` and this archive's `AGENTS.md`
 
@@ -53,6 +53,6 @@ Accounting:
   `schemas/runner-contract.schema.json`,
   `schemas/report-summary.schema.json`
 - decision:
-  `docs/decisions/0049-proof-infra-reportable-contracts.md`
+  `docs/decisions/AOA-EV-D-0049-proof-infra-reportable-contracts.md`
 - validation route:
   `../AGENTS.md` and this archive's `AGENTS.md`

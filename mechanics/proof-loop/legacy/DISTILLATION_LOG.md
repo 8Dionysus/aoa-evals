@@ -11,7 +11,7 @@ Distilled into active route:
   `mechanics/proof-loop/parts/route-smoke/`;
 - the first route-smoke report now lives at
   `mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md`;
-- `docs/decisions/0030-proof-loop-route-smoke-part.md` records why root
+- `docs/decisions/AOA-EV-D-0030-proof-loop-route-smoke-part.md` records why root
   `reports/` placement was too broad for the route-smoke artifact.
 
 Still historical:

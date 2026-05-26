@@ -43,7 +43,7 @@ This package protects the candidate-evidence loop:
 13. `mechanics/audit/parts/artifact-verdict-hooks/schemas/artifact-to-verdict-hook.schema.json`
 14. `mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py`
 15. `mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py`
-16. `docs/decisions/0007-audit-mechanic-package.md`
+16. `docs/decisions/AOA-EV-D-0007-audit-mechanic-package.md`
 
 ## Route Rules
 

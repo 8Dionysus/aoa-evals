@@ -11,6 +11,7 @@ DOCS_README = Path("docs/README.md")
 DECISION_INDEXES = (
     Path("docs/decisions/indexes/README.md"),
     Path("docs/decisions/indexes/by-number.md"),
+    Path("docs/decisions/indexes/by-date.md"),
     Path("docs/decisions/indexes/by-surface.md"),
     Path("docs/decisions/indexes/by-mechanic.md"),
     Path("docs/decisions/indexes/by-validation-guard.md"),

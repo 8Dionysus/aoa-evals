@@ -42,9 +42,9 @@ This package protects the quest obligation loop:
 12. `quests/LIFECYCLE.md`
 13. `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`
 14. `mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json`
-15. `docs/decisions/0004-questbook-topology.md`
-16. `docs/decisions/0006-questbook-mechanic-package.md`
-17. `docs/decisions/0047-questbook-schema-parts.md`
+15. `docs/decisions/AOA-EV-D-0004-questbook-topology.md`
+16. `docs/decisions/AOA-EV-D-0006-questbook-mechanic-package.md`
+17. `docs/decisions/AOA-EV-D-0047-questbook-schema-parts.md`
 
 ## Route Rules
 

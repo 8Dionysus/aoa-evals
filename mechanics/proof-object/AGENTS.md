@@ -46,7 +46,7 @@ present.
 2. `DESIGN.md`
 3. `DESIGN.AGENTS.md`
 4. `docs/architecture/PROOF_TOPOLOGY.md`
-5. `docs/decisions/0002-proof-object-authority-contract.md`
+5. `docs/decisions/AOA-EV-D-0002-proof-object-authority-contract.md`
 6. `mechanics/README.md`
 7. `mechanics/proof-object/README.md`
 8. `mechanics/proof-object/PARTS.md`
@@ -55,7 +55,7 @@ present.
 11. `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md` when authoring or reshaping eval anatomy
 12. `mechanics/proof-object/parts/eval-contracts/schemas/eval-frontmatter.schema.json`
 13. `mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json`
-14. `docs/decisions/0048-proof-object-contract-parts.md`
+14. `docs/decisions/AOA-EV-D-0048-proof-object-contract-parts.md`
 
 ## Local Law
 

@@ -8,6 +8,7 @@ Decision notes own rationale; these indexes only make lookup cheaper for agents.
 ## Indexes
 
 - [By number](by-number.md)
+- [By date](by-date.md)
 - [By surface class](by-surface.md)
 - [By mechanic parent](by-mechanic.md)
 - [By validation guard family](by-validation-guard.md)

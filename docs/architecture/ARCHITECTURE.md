@@ -20,7 +20,7 @@ packages.
 | owner | this document for the technical proof model; `DESIGN.md` for repository form; `docs/architecture/PROOF_TOPOLOGY.md` for authority classes |
 | next route | source eval package, `docs/architecture/PROOF_TOPOLOGY.md`, `mechanics/EVIDENCE_CLUSTERS.md`, `mechanics/README.md`, generated builder, or `docs/decisions/` |
 | tools | nearest `AGENTS.md`, root validator, semantic AGENTS validator, and generated-reader builders when derived surfaces move |
-| validation | `docs/AGENTS.md#validation` and the focused architecture proof-model route in `docs/decisions/0093-architecture-proof-model-contract.md` |
+| validation | `docs/AGENTS.md#validation` and the focused architecture proof-model route in `docs/decisions/AOA-EV-D-0093-architecture-proof-model-contract.md` |
 
 ## Purpose
 

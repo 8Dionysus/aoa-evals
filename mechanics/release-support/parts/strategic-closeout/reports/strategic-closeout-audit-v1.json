@@ -8,7 +8,7 @@
   "completion_verdict": "current_objective_audit_and_landing_route_in_progress_after_mechanics_validation_hardening",
   "goal_completion_status": "not_complete_pending_requirement_audit_and_landing_route",
   "release_support_readiness_audit_ref": "repo:aoa-evals/mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json",
-  "decision_ref": "repo:aoa-evals/docs/decisions/0026-strategic-closeout-audit.md",
+  "decision_ref": "repo:aoa-evals/docs/decisions/AOA-EV-D-0026-strategic-closeout-audit.md",
   "current_objective_ref": "thread goal: deep mechanics refactor as proof-side organ with evidence-derived parent map, part contracts, active-first legacy, and source-of-truth validation",
   "requirements_review": [
     {
@@ -18,7 +18,7 @@
         "repo:aoa-evals/DESIGN.md",
         "repo:aoa-evals/docs/architecture/PROOF_TOPOLOGY.md",
         "repo:aoa-evals/docs/architecture/LEGACY_NAMING.md",
-        "repo:aoa-evals/docs/decisions/0001-root-design-spine.md"
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0001-root-design-spine.md"
       ],
       "claim_limit": "The repo now routes proof as a positive owner operation with explicit stop-lines. This does not make negative boundary language the architecture and does not complete the long goal."
     },
@@ -50,7 +50,7 @@
       "status": "satisfied_for_local_refactor",
       "evidence_refs": [
         "repo:aoa-evals/docs/architecture/PROOF_TOPOLOGY.md",
-        "repo:aoa-evals/docs/decisions/0005-proof-topology-map.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
         "repo:aoa-evals/mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md"
       ],
       "claim_limit": "Authority classes, sibling refs, and source-derived-candidate-receipt splits are mapped before further movement. This does not make the map stronger than the source surfaces."
@@ -72,14 +72,14 @@
       "evidence_refs": [
         "repo:aoa-evals/docs/decisions/README.md",
         "repo:aoa-evals/docs/decisions/TEMPLATE.md",
-        "repo:aoa-evals/docs/decisions/0001-root-design-spine.md",
-        "repo:aoa-evals/docs/decisions/0026-strategic-closeout-audit.md",
-        "repo:aoa-evals/docs/decisions/0073-generated-route-residue-guard.md",
-        "repo:aoa-evals/docs/decisions/0074-mechanic-part-readme-contract.md",
-        "repo:aoa-evals/docs/decisions/0075-mechanic-provenance-entry-contract.md",
-        "repo:aoa-evals/docs/decisions/0082-mechanic-parent-direction-contract.md",
-        "repo:aoa-evals/docs/decisions/0083-mechanic-evidence-dimension-ledger.md",
-        "repo:aoa-evals/docs/decisions/0084-mechanic-root-district-reconnaissance.md"
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0001-root-design-spine.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0026-strategic-closeout-audit.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0073-generated-route-residue-guard.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0074-mechanic-part-readme-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0075-mechanic-provenance-entry-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0082-mechanic-parent-direction-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0083-mechanic-evidence-dimension-ledger.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0084-mechanic-root-district-reconnaissance.md"
       ],
       "claim_limit": "Durable decisions now explain topology, validation, route, and report choices. They remain rationale, not proof source authority."
     },
@@ -102,7 +102,7 @@
       "status": "satisfied_for_local_refactor",
       "evidence_refs": [
         "repo:aoa-evals/docs/architecture/PROOF_TOPOLOGY.md",
-        "repo:aoa-evals/docs/decisions/0005-proof-topology-map.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
         "repo:aoa-evals/mechanics/README.md"
       ],
       "claim_limit": "The convex topology criterion is now carried by explicit source, derived, candidate, receipt, sibling, legacy, and mechanic classes. It does not authorize arbitrary file movement."
@@ -118,11 +118,11 @@
         "repo:aoa-evals/mechanics/audit/README.md",
         "repo:aoa-evals/mechanics/boundary-bridge/README.md",
         "repo:aoa-evals/mechanics/EVIDENCE_CLUSTERS.md",
-        "repo:aoa-evals/docs/decisions/0074-mechanic-part-readme-contract.md",
-        "repo:aoa-evals/docs/decisions/0075-mechanic-provenance-entry-contract.md",
-        "repo:aoa-evals/docs/decisions/0082-mechanic-parent-direction-contract.md",
-        "repo:aoa-evals/docs/decisions/0083-mechanic-evidence-dimension-ledger.md",
-        "repo:aoa-evals/docs/decisions/0084-mechanic-root-district-reconnaissance.md"
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0074-mechanic-part-readme-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0075-mechanic-provenance-entry-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0082-mechanic-parent-direction-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0083-mechanic-evidence-dimension-ledger.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0084-mechanic-root-district-reconnaissance.md"
       ],
       "claim_limit": "Mechanics packages route real proof operations, current parent direction, and stronger owner splits. They do not move source bundles or become empty taxonomy."
     },
@@ -131,8 +131,8 @@
       "status": "satisfied_for_local_refactor",
       "evidence_refs": [
         "repo:aoa-evals/docs/architecture/LEGACY_NAMING.md",
-        "repo:aoa-evals/docs/decisions/0009-legacy-naming-containment.md",
-        "repo:aoa-evals/docs/decisions/0075-mechanic-provenance-entry-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0009-legacy-naming-containment.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0075-mechanic-provenance-entry-contract.md",
         "repo:aoa-evals/quests/README.md"
       ],
       "claim_limit": "Legacy and accepted-input names are preserved as provenance and routing compatibility. They do not steer active topology by historical inertia."
@@ -144,12 +144,12 @@
         "repo:aoa-evals/scripts/validate_repo.py",
         "repo:aoa-evals/scripts/release_check.py",
         "repo:aoa-evals/tests/test_validate_repo.py",
-        "repo:aoa-evals/docs/decisions/0073-generated-route-residue-guard.md",
-        "repo:aoa-evals/docs/decisions/0074-mechanic-part-readme-contract.md",
-        "repo:aoa-evals/docs/decisions/0075-mechanic-provenance-entry-contract.md",
-        "repo:aoa-evals/docs/decisions/0082-mechanic-parent-direction-contract.md",
-        "repo:aoa-evals/docs/decisions/0083-mechanic-evidence-dimension-ledger.md",
-        "repo:aoa-evals/docs/decisions/0084-mechanic-root-district-reconnaissance.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0073-generated-route-residue-guard.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0074-mechanic-part-readme-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0075-mechanic-provenance-entry-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0082-mechanic-parent-direction-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0083-mechanic-evidence-dimension-ledger.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0084-mechanic-root-district-reconnaissance.md",
         "repo:aoa-evals/mechanics/release-support/parts/readiness-audit/tests/test_release_support_readiness_audit.py"
       ],
       "claim_limit": "Validator and tests now constrain named design, topology, quest, mechanics, generated route residue, report, receipt, release, and closeout invariants. Green checks do not prove broader truth outside those invariants."
@@ -184,7 +184,7 @@
         "repo:aoa-evals/.agents/AGENTS.md",
         "repo:aoa-evals/.agents/spark/AGENTS.md",
         "repo:aoa-evals/.agents/spark/SWARM.md",
-        "repo:aoa-evals/docs/decisions/0017-spark-agent-lane-placement.md"
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0017-spark-agent-lane-placement.md"
       ],
       "claim_limit": "The maintained Spark lane is under .agents and route-card covered. It does not widen proof claims or make .agents a doctrine center."
     },

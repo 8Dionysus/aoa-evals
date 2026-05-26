@@ -46,8 +46,8 @@ It also protects the Phase Alpha eval matrix bridge:
 7. `mechanics/boundary-bridge/parts/README.md`
 8. `mechanics/README.md`
 9. `mechanics/boundary-bridge/README.md`
-10. `docs/decisions/0003-sibling-proof-reference-compatibility.md`
-11. `docs/decisions/0008-boundary-bridge-mechanic-package.md`
+10. `docs/decisions/AOA-EV-D-0003-sibling-proof-reference-compatibility.md`
+11. `docs/decisions/AOA-EV-D-0008-boundary-bridge-mechanic-package.md`
 12. `mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md`
 13. `mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`
 14. `mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py`

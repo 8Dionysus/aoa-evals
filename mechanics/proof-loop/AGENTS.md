@@ -58,8 +58,8 @@ the current loop segment.
 14. `mechanics/boundary-bridge/README.md`
 15. `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json` when the loop
     reaches receipt-intake dry review
-16. `docs/decisions/0019-proof-loop-mechanic-package.md`
-17. `docs/decisions/0030-proof-loop-route-smoke-part.md`
+16. `docs/decisions/AOA-EV-D-0019-proof-loop-mechanic-package.md`
+17. `docs/decisions/AOA-EV-D-0030-proof-loop-route-smoke-part.md`
 
 ## Route Rules
 

@@ -19,7 +19,7 @@ sibling-owner authority stays with the owning source surface.
 | --- | --- |
 | role | durable decision rationale lane plus generated lookup-index route |
 | input | structural choices, owner splits, topology changes, validation authority, workflow route changes, and compatibility decisions |
-| output | accepted rationale, source-owned index metadata, and generated lookup index parity |
+| output | accepted rationale, canonical decision ID, source-owned index metadata, and generated lookup index parity |
 | owner | decision record for why; source surface for what; `docs/decisions/indexes/` for generated lookup only |
 | next route | decision index, generated lookup indexes, decision template, source surface being explained, or root/docs/mechanics route card |
 | tools | `scripts/generate_decision_indexes.py`, root validator, and semantic AGENTS validator |
@@ -49,8 +49,12 @@ sibling-owner authority stays with the owning source surface.
 ## Route Rules
 
 - Record a decision only when future contributors need the rationale.
-- Give every numbered decision an `## Index Metadata` block so lookup indexes
-  can be regenerated from source notes instead of hand-maintained crosswalks.
+- Give every decision a canonical `Decision ID: AOA-EV-D-####` whose filename
+  prefix matches the ID exactly.
+- Give every decision an `## Index Metadata` block so lookup indexes can be
+  regenerated from source notes instead of hand-maintained crosswalks.
+- Keep old short numbered decision paths in git/PR history only. Do not add
+  compatibility maps or stub files for retired paths.
 - Keep evidence, working notes, generated output, and runtime facts as context;
   do not promote them into decision authority.
 - Name rejected options or accepted tradeoffs when they shaped the decision.
@@ -96,8 +100,9 @@ Use this decision maintenance route:
 - small clarification of the same decision: add a dated `Review Log` entry;
 - application changed while the rationale still holds: add `Review Log` and
   `Current Applicability`;
-- direction replaced by a new route: create the next numbered decision, set the
-  old record `Status` to `Superseded`, and add `Superseded by: NNNN-...`;
+- direction replaced by a new route: create the next canonical decision, set
+  the old record `Status` to `Superseded`, and add `Superseded by:
+  AOA-EV-D-####-...`;
 - material made obsolete: record what aged out, why, and what replaces it in a
   dated review entry.
 

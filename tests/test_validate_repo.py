@@ -18,6 +18,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 import build_catalog
 import eval_section_contract
 import validate_repo
+from validators import artifact_hooks
 from validate_repo import (
     NO_ADDITIONAL_STARTER_BUNDLES_TEXT,
     build_capsule_payload,
@@ -123,9 +124,9 @@ def make_quest_route_surface(repo_root: Path) -> None:
         "quests/README.md",
         "quests/AGENTS.md",
         "quests/LIFECYCLE.md",
-        "docs/decisions/0004-questbook-topology.md",
-        "docs/decisions/0018-quest-lane-state-source-layout.md",
-        "docs/decisions/0021-quest-lifecycle-contract.md",
+        "docs/decisions/AOA-EV-D-0004-questbook-topology.md",
+        "docs/decisions/AOA-EV-D-0018-quest-lane-state-source-layout.md",
+        "docs/decisions/AOA-EV-D-0021-quest-lifecycle-contract.md",
         validate_repo.AGON_QUEST_NOTE_PROVENANCE_DECISION_NAME,
     ]:
         copy_repo_text(repo_root, relative_path)
@@ -201,7 +202,7 @@ def make_eval_report_index_surface(repo_root: Path) -> None:
 def make_receipt_intake_dry_review_surface(repo_root: Path) -> None:
     for relative_path in [
         "mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json",
-        "docs/decisions/0024-receipt-intake-dry-review.md",
+        "docs/decisions/AOA-EV-D-0024-receipt-intake-dry-review.md",
         "docs/decisions/README.md",
         "mechanics/proof-loop/README.md",
         "mechanics/publication-receipts/README.md",
@@ -225,7 +226,7 @@ def make_receipt_intake_dry_review_surface(repo_root: Path) -> None:
 def make_release_support_readiness_audit_surface(repo_root: Path) -> None:
     for relative_path in [
         "mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json",
-        "docs/decisions/0025-release-support-readiness-audit.md",
+        "docs/decisions/AOA-EV-D-0025-release-support-readiness-audit.md",
         "docs/decisions/README.md",
         "mechanics/release-support/README.md",
         "mechanics/release-support/AGENTS.md",
@@ -281,9 +282,9 @@ def make_release_support_readiness_audit_surface(repo_root: Path) -> None:
 def make_strategic_closeout_audit_surface(repo_root: Path) -> None:
     for relative_path in [
         "mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json",
-        "docs/decisions/0026-strategic-closeout-audit.md",
+        "docs/decisions/AOA-EV-D-0026-strategic-closeout-audit.md",
         "mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json",
-        "docs/decisions/0025-release-support-readiness-audit.md",
+        "docs/decisions/AOA-EV-D-0025-release-support-readiness-audit.md",
         "docs/decisions/README.md",
         "docs/decisions/TEMPLATE.md",
         "mechanics/release-support/PARTS.md",
@@ -344,12 +345,12 @@ def make_strategic_closeout_audit_surface(repo_root: Path) -> None:
 def make_release_prep_pr_handoff_surface(repo_root: Path) -> None:
     for relative_path in [
         "mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json",
-        "docs/decisions/0027-release-prep-pr-handoff.md",
-        "docs/decisions/0028-repo-validation-aoa-memo-pin-refresh.md",
+        "docs/decisions/AOA-EV-D-0027-release-prep-pr-handoff.md",
+        "docs/decisions/AOA-EV-D-0028-repo-validation-aoa-memo-pin-refresh.md",
         "mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json",
         "mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json",
-        "docs/decisions/0025-release-support-readiness-audit.md",
-        "docs/decisions/0026-strategic-closeout-audit.md",
+        "docs/decisions/AOA-EV-D-0025-release-support-readiness-audit.md",
+        "docs/decisions/AOA-EV-D-0026-strategic-closeout-audit.md",
         "docs/decisions/README.md",
         "mechanics/release-support/PARTS.md",
         "mechanics/release-support/parts/README.md",
@@ -4943,6 +4944,27 @@ def test_validate_trace_eval_bridge_surfaces_keeps_local_example_checks_when_pla
     )
 
 
+def test_artifact_hook_expectations_use_current_aoa_agents_mechanics_refs() -> None:
+    refs = [
+        ref
+        for expectation in artifact_hooks.TRACE_EVAL_HOOK_EXPECTATIONS.values()
+        for ref in expectation["artifact_contract_refs"]
+        if ref.startswith("repo:aoa-agents/")
+    ]
+
+    assert refs
+    assert not any(ref.startswith("repo:aoa-agents/schemas/") for ref in refs)
+    assert not any("repo:aoa-agents/examples/alpha_reference_routes/" in ref for ref in refs)
+    assert (
+        "repo:aoa-agents/mechanics/checkpoint/parts/self-agent-checkpoint/schemas/self-agent-checkpoint.schema.json"
+        in refs
+    )
+    assert (
+        "repo:aoa-agents/mechanics/runtime-seam/parts/artifact-contracts/schemas/artifact.route_decision.schema.json"
+        in refs
+    )
+
+
 def test_duplicate_eval_headings_are_detected_before_dict_normalization(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-duplicate-headings")
     eval_md_path = eval_dir_for_test(tmp_path, "aoa-duplicate-headings") / "EVAL.md"
@@ -5955,7 +5977,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.LEGACY_NAMING_NAME,
-            "docs/decisions/0009-legacy-naming-containment.md",
+            "docs/decisions/AOA-EV-D-0009-legacy-naming-containment.md",
             validate_repo.LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
             validate_repo.LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
             "docs/decisions/README.md",
@@ -5987,7 +6009,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.LEGACY_NAMING_NAME,
-            "docs/decisions/0009-legacy-naming-containment.md",
+            "docs/decisions/AOA-EV-D-0009-legacy-naming-containment.md",
             validate_repo.LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
             validate_repo.LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
             "docs/decisions/README.md",
@@ -6018,7 +6040,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.LEGACY_NAMING_NAME,
-            "docs/decisions/0009-legacy-naming-containment.md",
+            "docs/decisions/AOA-EV-D-0009-legacy-naming-containment.md",
             validate_repo.LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
             validate_repo.LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
             "docs/decisions/README.md",
@@ -6048,7 +6070,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.LEGACY_NAMING_NAME,
-            "docs/decisions/0009-legacy-naming-containment.md",
+            "docs/decisions/AOA-EV-D-0009-legacy-naming-containment.md",
             validate_repo.LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
             validate_repo.LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
             "docs/decisions/README.md",
@@ -6078,7 +6100,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.LEGACY_NAMING_NAME,
-            "docs/decisions/0009-legacy-naming-containment.md",
+            "docs/decisions/AOA-EV-D-0009-legacy-naming-containment.md",
             validate_repo.LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
             validate_repo.LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
             "docs/decisions/README.md",
@@ -6108,7 +6130,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.LEGACY_NAMING_NAME,
-            "docs/decisions/0009-legacy-naming-containment.md",
+            "docs/decisions/AOA-EV-D-0009-legacy-naming-containment.md",
             validate_repo.LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
             validate_repo.LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
             "docs/decisions/README.md",
@@ -6150,7 +6172,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.LEGACY_NAMING_NAME,
-            "docs/decisions/0009-legacy-naming-containment.md",
+            "docs/decisions/AOA-EV-D-0009-legacy-naming-containment.md",
             validate_repo.LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
             validate_repo.LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
             "docs/decisions/README.md",
@@ -6160,7 +6182,7 @@ class TestValidateQuestRouteSurfaces:
             "CHANGELOG.md",
         ):
             copy_repo_text(tmp_path, path_name)
-        decision_path = "docs/decisions/0082-mechanic-parent-direction-contract.md"
+        decision_path = "docs/decisions/AOA-EV-D-0082-mechanic-parent-direction-contract.md"
         write_text(
             tmp_path / decision_path,
             (
@@ -6184,7 +6206,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.LEGACY_NAMING_NAME,
-            "docs/decisions/0009-legacy-naming-containment.md",
+            "docs/decisions/AOA-EV-D-0009-legacy-naming-containment.md",
             validate_repo.LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
             validate_repo.LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
             "docs/decisions/README.md",
@@ -6217,7 +6239,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.LEGACY_NAMING_NAME,
-            "docs/decisions/0009-legacy-naming-containment.md",
+            "docs/decisions/AOA-EV-D-0009-legacy-naming-containment.md",
             validate_repo.LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
             validate_repo.LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
             "docs/decisions/README.md",
@@ -6250,7 +6272,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.LEGACY_NAMING_NAME,
-            "docs/decisions/0009-legacy-naming-containment.md",
+            "docs/decisions/AOA-EV-D-0009-legacy-naming-containment.md",
             validate_repo.LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
             validate_repo.LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
             "docs/decisions/README.md",
@@ -6394,10 +6416,11 @@ class TestValidateQuestRouteSurfaces:
         self, tmp_path: Path
     ) -> None:
         write_text(
-            tmp_path / "docs" / "decisions" / "0001-example.md",
+            tmp_path / "docs" / "decisions" / "AOA-EV-D-0001-example.md",
             """
             # Example
 
+            - Decision ID: AOA-EV-D-0001
             - Status: Accepted; source route superseded by 0002
             - Date: 2026-05-24
             """,
@@ -6406,7 +6429,7 @@ class TestValidateQuestRouteSurfaces:
         issues = validate_repo.validate_decision_status_lines(tmp_path)
 
         assert any(
-            issue.location == "docs/decisions/0001-example.md:3"
+            issue.location == "docs/decisions/AOA-EV-D-0001-example.md:4"
             and "decision status should stay atomic" in issue.message
             for issue in issues
         )
@@ -6681,7 +6704,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.PROOF_TOPOLOGY_NAME,
-            "docs/decisions/0005-proof-topology-map.md",
+            "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
             "ROADMAP.md",
         ):
             copy_repo_text(tmp_path, path_name)
@@ -6708,7 +6731,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.PROOF_TOPOLOGY_NAME,
-            "docs/decisions/0005-proof-topology-map.md",
+            "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
             "ROADMAP.md",
         ):
             copy_repo_text(tmp_path, path_name)
@@ -6733,7 +6756,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.PROOF_TOPOLOGY_NAME,
-            "docs/decisions/0005-proof-topology-map.md",
+            "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
             "ROADMAP.md",
         ):
             copy_repo_text(tmp_path, path_name)
@@ -6761,7 +6784,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.PROOF_TOPOLOGY_NAME,
-            "docs/decisions/0005-proof-topology-map.md",
+            "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
             "ROADMAP.md",
         ):
             copy_repo_text(tmp_path, path_name)
@@ -6845,11 +6868,11 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.PROOF_TOPOLOGY_NAME,
-            "docs/decisions/0005-proof-topology-map.md",
+            "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
             "ROADMAP.md",
         ):
             copy_repo_text(tmp_path, path_name)
-        decision_path = tmp_path / "docs" / "decisions" / "0005-proof-topology-map.md"
+        decision_path = tmp_path / "docs" / "decisions" / "AOA-EV-D-0005-proof-topology-map.md"
         decision_path.write_text(
             decision_path.read_text(encoding="utf-8")
             + "\nKeep physical movement deferred until a later phase.\n",
@@ -6859,7 +6882,7 @@ class TestValidateQuestRouteSurfaces:
         issues = validate_repo.validate_proof_topology_surfaces(tmp_path)
 
         assert any(
-            issue.location == "docs/decisions/0005-proof-topology-map.md"
+            issue.location == "docs/decisions/AOA-EV-D-0005-proof-topology-map.md"
             and "active mechanics atlas" in issue.message
             and "Keep physical movement deferred" in issue.message
             for issue in issues
@@ -6870,7 +6893,7 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         for path_name in (
             validate_repo.PROOF_TOPOLOGY_NAME,
-            "docs/decisions/0005-proof-topology-map.md",
+            "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
             "ROADMAP.md",
         ):
             copy_repo_text(tmp_path, path_name)
@@ -7524,13 +7547,13 @@ class TestValidateQuestRouteSurfaces:
     ) -> None:
         copy_repo_text(
             tmp_path,
-            "docs/decisions/0107-agent-operable-docs-and-decision-indexes.md",
+            "docs/decisions/AOA-EV-D-0107-agent-operable-docs-and-decision-indexes.md",
         )
         decision_path = (
             tmp_path
             / "docs"
             / "decisions"
-            / "0107-agent-operable-docs-and-decision-indexes.md"
+            / "AOA-EV-D-0107-agent-operable-docs-and-decision-indexes.md"
         )
         text = decision_path.read_text(encoding="utf-8")
         start = text.index("\n## Index Metadata\n")
@@ -7569,6 +7592,7 @@ class TestValidateQuestRouteSurfaces:
         for path_name in (
             "docs/decisions/indexes/README.md",
             "docs/decisions/indexes/by-number.md",
+            "docs/decisions/indexes/by-date.md",
             "docs/decisions/indexes/by-surface.md",
             "docs/decisions/indexes/by-mechanic.md",
             "docs/decisions/indexes/by-validation-guard.md",
@@ -8118,14 +8142,14 @@ class TestValidateQuestRouteSurfaces:
         self, tmp_path: Path
     ) -> None:
         write_text(
-            tmp_path / "docs" / "decisions" / "0099-bad-route.md",
+            tmp_path / "docs" / "decisions" / "AOA-EV-D-0099-bad-route.md",
             "# Bad Route\n\nUse `reports/summary.schema.json` as the active schema.\n",
         )
 
         issues = validate_repo.validate_decision_route_residue(tmp_path)
 
         assert any(
-            issue.location == "docs/decisions/0099-bad-route.md:3"
+            issue.location == "docs/decisions/AOA-EV-D-0099-bad-route.md:3"
             and "route-card-only root district payload 'reports/summary.schema.json'"
             in issue.message
             for issue in issues
@@ -8135,7 +8159,7 @@ class TestValidateQuestRouteSurfaces:
         self, tmp_path: Path
     ) -> None:
         write_text(
-            tmp_path / "docs" / "decisions" / "0099-former-route.md",
+            tmp_path / "docs" / "decisions" / "AOA-EV-D-0099-former-route.md",
             "# Former Route\n\nFormer root `reports/summary.schema.json` moved behind provenance.\n",
         )
 
@@ -8423,11 +8447,32 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_repo_validation_workflow_rejects_stale_aoa_agents_pin(
+        self, tmp_path: Path
+    ) -> None:
+        copy_repo_text(tmp_path, ".github/workflows/repo-validation.yml")
+        workflow_path = tmp_path / ".github" / "workflows" / "repo-validation.yml"
+        workflow_path.write_text(
+            workflow_path.read_text(encoding="utf-8").replace(
+                validate_repo.REPO_VALIDATION_AOA_AGENTS_REF,
+                "5be6bf70701fd348618b627d4795fc4733bb6d94",
+            ),
+            encoding="utf-8",
+        )
+
+        issues = validate_repo.validate_repo_validation_workflow_surface(tmp_path)
+
+        assert any(
+            issue.location == ".github/workflows/repo-validation.yml"
+            and "aoa-agents checkout ref must be" in issue.message
+            for issue in issues
+        )
+
     def test_proof_loop_mechanic_surfaces_validate_current_routes(self) -> None:
         assert not any(
             issue.location.startswith("mechanics/proof-loop/")
-            or issue.location == "docs/decisions/0019-proof-loop-mechanic-package.md"
-            or issue.location == "docs/decisions/0020-proof-loop-local-smoke-report.md"
+            or issue.location == "docs/decisions/AOA-EV-D-0019-proof-loop-mechanic-package.md"
+            or issue.location == "docs/decisions/AOA-EV-D-0020-proof-loop-local-smoke-report.md"
             or issue.location == "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md"
             for issue in validate_repo.validate_mechanics_surfaces(REPO_ROOT)
         )
@@ -9409,7 +9454,7 @@ class TestValidateQuestRouteSurfaces:
         evidence_path.write_text(
             evidence_path.read_text(encoding="utf-8").replace(
                 "| `titan` | `mechanics/titan/README.md`, `mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md`, `mechanics/titan/parts/seed-boundary/seeds/titan_incarnation_spine_canary.yaml`, `README.md` |",
-                "| `titan` | `mechanics/titan/README.md`, `mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md`, `mechanics/titan/parts/seed-boundary/seeds/titan_incarnation_spine_canary.yaml`, `docs/decisions/0015-titan-mechanic-package.md` |",
+                "| `titan` | `mechanics/titan/README.md`, `mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md`, `mechanics/titan/parts/seed-boundary/seeds/titan_incarnation_spine_canary.yaml`, `docs/decisions/AOA-EV-D-0015-titan-mechanic-package.md` |",
                 1,
             ),
             encoding="utf-8",
@@ -11937,7 +11982,7 @@ class TestValidateQuestRouteSurfaces:
             validate_repo.AUDIT_INTEGRITY_REVIEW_PART_README_NAME,
             validate_repo.AUDIT_PART_CONTRACT_GUARD_DECISION_NAME,
             "docs/decisions/README.md",
-            "docs/decisions/0007-audit-mechanic-package.md",
+            "docs/decisions/AOA-EV-D-0007-audit-mechanic-package.md",
         ):
             copy_repo_text(tmp_path, path_name)
         parts_path = tmp_path / validate_repo.AUDIT_PARTS_README_NAME
@@ -12338,8 +12383,8 @@ class TestValidateQuestRouteSurfaces:
             "reports/README.md",
             "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
             "docs/decisions/README.md",
-            "docs/decisions/0020-proof-loop-local-smoke-report.md",
-            "docs/decisions/0030-proof-loop-route-smoke-part.md",
+            "docs/decisions/AOA-EV-D-0020-proof-loop-local-smoke-report.md",
+            "docs/decisions/AOA-EV-D-0030-proof-loop-route-smoke-part.md",
         ]:
             copy_repo_text(tmp_path, relative_path)
 
@@ -12368,8 +12413,8 @@ class TestValidateQuestRouteSurfaces:
             "reports/README.md",
             "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
             "docs/decisions/README.md",
-            "docs/decisions/0020-proof-loop-local-smoke-report.md",
-            "docs/decisions/0030-proof-loop-route-smoke-part.md",
+            "docs/decisions/AOA-EV-D-0020-proof-loop-local-smoke-report.md",
+            "docs/decisions/AOA-EV-D-0030-proof-loop-route-smoke-part.md",
         ]:
             copy_repo_text(tmp_path, relative_path)
 
@@ -12428,7 +12473,7 @@ class TestValidateQuestRouteSurfaces:
             """,
         )
         write_text(
-            tmp_path / "docs" / "decisions" / "0017-spark-agent-lane-placement.md",
+            tmp_path / "docs" / "decisions" / "AOA-EV-D-0017-spark-agent-lane-placement.md",
             """
             # 0017 Spark Agent Lane Placement
 
@@ -12486,7 +12531,7 @@ class TestValidateQuestRouteSurfaces:
         for path_name in (
             ".agents/AGENTS.md",
             ".agents/spark/AGENTS.md",
-            "docs/decisions/0017-spark-agent-lane-placement.md",
+            "docs/decisions/AOA-EV-D-0017-spark-agent-lane-placement.md",
         ):
             copy_repo_text(tmp_path, path_name)
         write_text(

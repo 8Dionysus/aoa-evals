@@ -56,6 +56,7 @@
 - [0102 Mechanic Part Validation Command Ownership](../0102-mechanic-part-validation-command-ownership.md) (`docs/decisions/0102-mechanic-part-validation-command-ownership.md`)
 - [0105 Proof-object Eval Part Names](../0105-proof-object-eval-part-names.md) (`docs/decisions/0105-proof-object-eval-part-names.md`)
 - [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)
+- [0113 aoa-memo Writeback Decision Quality Eval](../0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/0113-aoa-memo-writeback-decision-quality-eval.md`)
 
 ## legacy and provenance
 
@@ -91,6 +92,7 @@
 - [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
 - [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)
 - [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)
+- [0113 aoa-memo Writeback Decision Quality Eval](../0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/0113-aoa-memo-writeback-decision-quality-eval.md`)
 
 ## sibling and boundary
 
@@ -113,6 +115,7 @@
 - [0099 Repair Diagnosis Route Boundary](../0099-repair-diagnosis-route-boundary.md) (`docs/decisions/0099-repair-diagnosis-route-boundary.md`)
 - [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
 - [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)
+- [0113 aoa-memo Writeback Decision Quality Eval](../0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/0113-aoa-memo-writeback-decision-quality-eval.md`)
 
 ## decision index/read-model
 

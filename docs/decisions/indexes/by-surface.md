@@ -40,6 +40,7 @@
 - [0105 Proof-object Eval Part Names](../0105-proof-object-eval-part-names.md) (`docs/decisions/0105-proof-object-eval-part-names.md`)
 - [0106 Memory Consumer Proof Boundary](../0106-memory-consumer-proof-boundary.md) (`docs/decisions/0106-memory-consumer-proof-boundary.md`)
 - [0108 Docs Topology Folders And Route Residue Guards](../0108-docs-topology-folders-and-route-residue-guards.md) (`docs/decisions/0108-docs-topology-folders-and-route-residue-guards.md`)
+- [0113 aoa-memo Writeback Decision Quality Eval](../0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/0113-aoa-memo-writeback-decision-quality-eval.md`)
 
 ## mechanic package
 
@@ -152,6 +153,7 @@
 - [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
 - [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)
 - [0112 Route-First Eval Birth Protocol](../0112-route-first-eval-birth-protocol.md) (`docs/decisions/0112-route-first-eval-birth-protocol.md`)
+- [0113 aoa-memo Writeback Decision Quality Eval](../0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/0113-aoa-memo-writeback-decision-quality-eval.md`)
 
 ## report/release/receipt
 
@@ -203,3 +205,4 @@
 - [0106 Memory Consumer Proof Boundary](../0106-memory-consumer-proof-boundary.md) (`docs/decisions/0106-memory-consumer-proof-boundary.md`)
 - [0110 AoA Evals MCP Access Plane Contract](../0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/0110-aoa-evals-mcp-access-plane-contract.md`)
 - [0111 Runtime Evidence Ingestion and Mirror Status](../0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/0111-runtime-evidence-ingestion-and-mirror-status.md`)
+- [0113 aoa-memo Writeback Decision Quality Eval](../0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/0113-aoa-memo-writeback-decision-quality-eval.md`)

@@ -34,6 +34,7 @@
 - [0012 Proof Infra Mechanic Package](../0012-proof-infra-mechanic-package.md) (`docs/decisions/0012-proof-infra-mechanic-package.md`)
 - [0041 Proof Infra Fixture Families](../0041-proof-infra-fixture-families.md) (`docs/decisions/0041-proof-infra-fixture-families.md`)
 - [0049 Proof Infra Reportable Contracts](../0049-proof-infra-reportable-contracts.md) (`docs/decisions/0049-proof-infra-reportable-contracts.md`)
+- [0113 aoa-memo Writeback Decision Quality Eval](../0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/0113-aoa-memo-writeback-decision-quality-eval.md`)
 
 ## publication-receipts
 

@@ -15,6 +15,11 @@ Tracking starts with the community-docs baseline for this repository.
   comparison notes, baseline readiness, fixture/runner contracts, report
   schema, and example report.
 
+### Added
+
+- `aoa-runtime-latency-tradeoff` as a draft fixed-baseline comparison bundle
+  for public-safe runtime latency and resource-use tradeoff evidence.
+
 ## [0.4.0] - 2026-05-25
 
 ### Summary

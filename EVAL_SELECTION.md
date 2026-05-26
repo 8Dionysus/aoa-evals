@@ -158,6 +158,10 @@ See also:
 ### I need to compare a candidate against a frozen baseline on the same bounded task family
 - `aoa-regression-same-task`
 
+### I need to preserve a runtime latency and resource-use tradeoff without ranking quality
+- `aoa-runtime-latency-tradeoff`
+  Use this draft when selected runtime evidence compares local variants under matched fixture conditions and the public read must keep latency, resource use, and anti-overread limits separate.
+
 ### I need to judge the produced artifact itself
 - `aoa-artifact-review-rubric`
   If the question is artifact-versus-process divergence on the same cases, switch to `aoa-output-vs-process-gap` only after the standalone workflow read is already visible.
@@ -185,6 +189,10 @@ See also:
 - `aoa-regression-same-task`
   This remains the only current default public `baseline` comparison surface.
 
+### Do you need a fixed-baseline route for runtime latency and resource-use tradeoffs under matched fixture conditions?
+- `aoa-runtime-latency-tradeoff`
+  Keep this as a draft runtime tradeoff surface. It may carry selected public-safe runtime evidence, but it does not rank reasoning quality, agent behavior, hosts, or hardware tiers.
+
 ### Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?
 - `aoa-output-vs-process-gap`
   Read it only after the standalone artifact and workflow surfaces are already visible.
@@ -210,7 +218,7 @@ See also:
 | `stress` | You care about incomplete, conflicting, or underspecified task meaning, or about one bounded owner-local stressor family and whether degraded continuation stayed reviewable, source-owned, and weaker than the normal path. | `aoa-ambiguity-handling`, `aoa-antifragility-posture` |
 | `regression` | You care about frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | `artifact` | You care about the produced artifact itself or about provenance-preserving compost artifacts derived from witness-facing inputs. | `aoa-artifact-review-rubric`, `aoa-compost-provenance-preservation` |
-| `comparative` | You care about cross-surface divergence such as polished output versus process discipline. | `aoa-output-vs-process-gap` |
+| `comparative` | You care about cross-surface divergence such as polished output versus process discipline, or a public-safe runtime latency/resource tradeoff under matched conditions. | `aoa-output-vs-process-gap`, `aoa-runtime-latency-tradeoff` |
 | `capability` | You care about whether a bounded eval-side review surface is present, such as integrity checking of public eval bundles, growth-refinery lineage coherence, or continuity-anchor integrity as distinct bounded abilities. | `aoa-eval-integrity-check`, `aoa-candidate-lineage-integrity`, `aoa-continuity-anchor-integrity` |
 | `longitudinal` | You care about ordered repeated-window movement on the same bounded surface, or about repeated-window stress recovery posture on one named stressor family; one-run and baseline questions route to their own surfaces. | `aoa-longitudinal-growth-snapshot`, `aoa-stress-recovery-window` |
 
@@ -232,6 +240,7 @@ explicit `canonical_readiness`, and a fresh public-safety recheck.
 ### If you need a bounded comparison surface
 Prefer `aoa-regression-same-task` when you need the first public `baseline` same-task comparison surface.
 Use `aoa-output-vs-process-gap` when you need artifact-side versus process-side peer comparison on the same bounded cases after the standalone artifact and workflow surfaces are already readable.
+Use `aoa-runtime-latency-tradeoff` when selected runtime evidence needs a fixed-baseline public-safe route for latency/resource tradeoff without becoming a quality or leaderboard claim.
 Use `aoa-longitudinal-growth-snapshot` when you need ordered repeated-window movement on the same bounded workflow surface.
 Use `aoa-stress-recovery-window` when the repeated-window question is specifically owner-first stress recovery posture for one named stressor family.
 Use `aoa-eval-integrity-check` as the bounded sidecar when a public maturity wave risks semantic overreach, bundle blur, or baseline/growth-by-association drift.
@@ -271,6 +280,7 @@ Trace-aware split and tool-path workflow starters are also public; use the narro
 | witness trace integrity | You want to know whether a bounded run left a reviewable public witness trace before memo or compost reuse. | `aoa-witness-trace-integrity` |
 | diagnosis-cause discipline | You want to know whether a diagnosis kept symptoms, probable causes, owner ambiguity, unknowns, and repair proof separate. | `aoa-diagnosis-cause-discipline` |
 | same-task regression comparison | You want a frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
+| runtime latency/resource tradeoff | You want a public-safe fixed-baseline read on local runtime latency and resource use under matched fixture conditions. | `aoa-runtime-latency-tradeoff` |
 | artifact review | You want to judge the produced artifact itself on the visible task surface. | `aoa-artifact-review-rubric` |
 | compost provenance preservation | You want to know whether a witness-derived note or principle candidate kept provenance, review state, and demotion posture visible. | `aoa-compost-provenance-preservation` |
 | output-vs-process divergence | You want to compare artifact-side and process-side readings on the same bounded cases. | `aoa-output-vs-process-gap` |

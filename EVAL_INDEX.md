@@ -58,6 +58,7 @@ Use it in this order:
 |---|---|
 | one-run anchors | The base workflow, artifact, boundary, or stress read is still missing. |
 | `aoa-regression-same-task` | A frozen-baseline comparison on the same bounded task family is needed. |
+| `aoa-runtime-latency-tradeoff` | Selected runtime evidence needs a public-safe latency/resource tradeoff read under matched fixture conditions. |
 | `aoa-output-vs-process-gap` | Matched artifact-side and process-side readings exist on the same bounded cases. |
 | `aoa-longitudinal-growth-snapshot` | Ordered repeated-window movement on one named bounded workflow surface is the question. |
 | `aoa-stress-recovery-window` | Ordered repeated-window proof on one named stressor family is the question. |

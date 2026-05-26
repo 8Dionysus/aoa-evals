@@ -1181,6 +1181,46 @@
       "what_this_does_not_prove": "proof that the best possible skills were chosen; proof that the task outcome is strong overall; proof that every harvest decision is globally correct"
     },
     {
+      "blind_spot_short": "reasoning quality ranking; better agent behavior; cross-host leaderboard placement",
+      "bounded_claim_short": "under these matched fixture conditions, the candidate runtime variant shows a lower chosen latency reading than the named baseline while using more of the tracked resource budget.",
+      "category": "comparative",
+      "comparison_surface": {
+        "anchor_surface": "aoa-local-text-contract-fit",
+        "baseline_target_label": "sanitized local runtime baseline variant",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
+        "selection_question": "Do you need a fixed-baseline route for runtime latency and resource-use tradeoffs under matched fixture conditions?",
+        "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+      },
+      "do_not_use_short": "aoa-local-text-contract-fit is the real question because output-shape",
+      "eval_path": "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "integrity_check",
+        "support_note",
+        "baseline_readiness"
+      ],
+      "name": "aoa-runtime-latency-tradeoff",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema",
+        "paired_readout"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether a runtime comparison preserves a bounded latency and resource-use tradeoff claim without overreading it as reasoning quality, agent behavior, or cross-host performance.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "use_when_short": "a runtime candidate compares local runtime variants under matched fixture conditions; the claim is about latency and resource use rather than reasoning quality",
+      "verdict_shape": "comparative",
+      "what_this_does_not_prove": "evidence acceptance without bundle-local review; a runtime health verdict; a public starter recommendation"
+    },
+    {
       "blind_spot_short": "overall workflow quality; verification truthfulness; authority handling quality",
       "bounded_claim_short": "under these conditions, the agent can keep bounded change work aligned with the requested scope or disclose the deviation explicitly enough for a reviewer to see it clearly.",
       "category": "boundary",

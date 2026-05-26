@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-runtime-latency-tradeoff comparative-summary report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "comparison_mode",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "baseline_target",
+    "latency_metric",
+    "resource_metric",
+    "matched_condition_summary",
+    "case_family",
+    "per_case_comparisons"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-runtime-latency-tradeoff"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "runtime latency and resource-use tradeoff under matched fixture conditions"
+    },
+    "comparison_mode": {
+      "const": "fixed-baseline"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "baseline stronger",
+        "candidate stronger",
+        "mixed tradeoff signal",
+        "noisy variation",
+        "not reviewable"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "baseline_target": {
+      "type": "string",
+      "minLength": 5
+    },
+    "latency_metric": {
+      "type": "string",
+      "minLength": 5
+    },
+    "resource_metric": {
+      "type": "string",
+      "minLength": 5
+    },
+    "matched_condition_summary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "case_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "per_case_comparisons": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+          "required": [
+            "case_id",
+            "baseline_note",
+            "candidate_note",
+            "latency_reading",
+            "resource_reading",
+            "comparative_reading",
+            "comparison_note"
+          ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "baseline_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "candidate_note": {
+            "type": "string",
+            "minLength": 10
+          },
+          "latency_reading": {
+            "type": "string",
+            "minLength": 10
+          },
+          "resource_reading": {
+            "type": "string",
+            "minLength": 10
+          },
+          "comparative_reading": {
+            "type": "string",
+            "enum": [
+              "baseline stronger",
+              "candidate stronger",
+              "mixed tradeoff signal",
+              "noisy variation",
+              "not reviewable"
+            ]
+          },
+          "comparison_note": {
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    }
+  }
+}

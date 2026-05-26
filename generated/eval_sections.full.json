@@ -2727,6 +2727,100 @@
       "verdict_shape": "categorical"
     },
     {
+      "category": "comparative",
+      "eval_path": "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/EVAL.md",
+      "name": "aoa-runtime-latency-tradeoff",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to check whether a local runtime variant comparison can support\na bounded latency and resource-use tradeoff claim under matched fixture\nconditions.\n\nThis draft bundle exists because runtime benchmark pressure can be valuable\nwithout being safe to publish raw. It turns a selected, sanitized runtime\ncandidate into a reviewable fixed-baseline proof route.\n\nThe goal is not to crown a runtime, model, host, or agent.\nThe goal is to test one bounded claim:\n\nunder matched host class, preset, fixture, timeout, and metric semantics, one\nlocal runtime variant may show lower chosen latency while carrying a visible\nresource-use cost.\n\nThis bundle remains diagnostic until bundle-local review accepts specific\npublic-safe evidence.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval checks runtime latency and resource-use tradeoff under matched\nfixture conditions.\n\nPrimary surfaces under evaluation:\n- the named baseline runtime variant and candidate runtime variant\n- latency metric semantics, such as p95 first-token latency, kept stable across\n  the comparison\n- resource-use metric semantics, such as visible accelerator memory pressure,\n  kept separate from latency\n- matched fixture, preset, timeout, retry, and host-class assumptions\n- whether the comparative summary preserves the tradeoff instead of flattening\n  it into a winner story\n\nNearby surfaces intentionally excluded:\n- reasoning quality\n- agent behavior quality\n- global model ranking\n- host or hardware leaderboard claims\n- runtime health outside the named comparison window\n- raw private benchmark artifact publication",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "This eval is designed to support a claim like:\n\nunder these matched fixture conditions, the candidate runtime variant shows a\nlower chosen latency reading than the named baseline while using more of the\ntracked resource budget.\n\nThe claim must stay a runtime tradeoff claim only.\n\nThis eval does **not** support claims such as:\n- the candidate reasons better\n- the agent behaves better end to end\n- the candidate is globally faster across hosts\n- the model, backend, or quantization is generally best\n- the private runtime evidence is now public proof by itself",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n- a runtime candidate compares local runtime variants under matched fixture conditions\n- the claim is about latency and resource use rather than reasoning quality\n- selected raw runtime artifacts need a public-safe eval route before review\n- an owner wants to preserve a tradeoff lesson without copying private logs,\n  rendered configs, host fingerprints, or raw device samples\n\nDo not use this eval when:\n- `aoa-local-text-contract-fit` is the real question because output-shape\n  contract fit, not runtime tradeoff, is under review\n- `aoa-regression-same-task` is sufficient because the comparison is a workflow\n  regression claim rather than runtime metric hygiene\n- raw runtime evidence has not been reduced to a selected public-safe candidate\n  packet\n- the pressure is still only a quest obligation\n- the result is meant to rank reasoning quality, agent quality, hosts, or\n  hardware tiers",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- named baseline runtime variant\n- named candidate runtime variant\n- public-safe selected evidence packet or sanitized candidate ref\n- matched fixture family and case identifiers\n- latency metric definition and aggregation window\n- resource-use metric definition\n- environment invariants and environment deltas stated at review level\n- bundle-local reviewer judgment\n\nCandidate evidence refs:\n- private-runtime-candidate:sanitized-local-runtime-latency-tradeoff\n\nQuest refs:\n- no quest refs named",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "The initial fixture contract lives at `fixtures/contract.json`.\n\nA strong public-safe fixture family should include:\n- repeatable prompts or requests shared by baseline and candidate\n- stable preset, timeout, retry, and warmup posture\n- metric labels that remain comparable across both sides\n- enough case-level notes to distinguish latency movement from resource cost\n- a replacement rule for local repos that need different prompts without\n  changing the comparison meaning\n\nFixture families should avoid:\n- secret-bearing prompts or rendered configs\n- raw private log paths\n- host fingerprints or exact hardware identity\n- one flattering prompt treated as a general runtime result\n- latency-only summaries that hide resource deltas",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "This draft uses a comparative verdict with per-case comparison notes.\n\nCanonical comparative readings:\n- `baseline stronger`\n- `candidate stronger`\n- `mixed tradeoff signal`\n- `noisy variation`\n- `not reviewable`\n\nFor this bundle, `candidate stronger` should be rare. Lower latency with higher\nresource use is usually a `mixed tradeoff signal` unless the accepted review\ncontract explicitly says the resource cost remains inside the allowed budget.\n\nPer-case review should ask:\n- did both variants run under the same fixture and preset assumptions?\n- is the latency metric defined the same way on both sides?\n- is the resource-use metric visible and separated from latency?\n- is the difference larger than noisy variation for the named metric?\n- does the summary preserve the tradeoff rather than implying general quality?",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This draft uses `fixed-baseline`.\n\nThe baseline target label is `sanitized local runtime baseline variant`.\nThe comparison surface is anchored near `aoa-local-text-contract-fit` because\nruntime tradeoff evidence is useful only after local text-lane contract-fit\npressure stays distinct from speed pressure.\n\nThe fixed baseline is acceptable only when:\n- baseline and candidate use the same public-safe fixture family\n- metric semantics are stable across both variants\n- host-class, preset, timeout, and retry posture are named at review level\n- environment deltas are visible and do not silently change the proof job\n- resource use remains a first-class reading, not an appendix",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "A careful run should:\n1. reduce raw runtime evidence into a selected public-safe packet\n2. name the baseline target and candidate target\n3. confirm matched fixture, preset, timeout, retry, and metric semantics\n4. capture latency and resource-use readings separately\n5. write per-case comparative notes before the bundle-level verdict\n6. reject or defer evidence that leaks private runtime artifacts\n7. publish only a bounded comparative summary after bundle-local review\n\nDo not treat scaffold creation as runtime evidence acceptance.",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "- one bundle-level comparative verdict\n- per-case baseline and candidate notes\n- named baseline target\n- latency movement summary\n- resource-use movement summary\n- noisy-variation notes where the difference is too thin\n- evidence acceptance or rejection notes after review\n- optional schema-backed report at `reports/example-report.json`",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "- duplicate bundle for an existing proof surface\n- runtime evidence accepted before bundle-local review\n- vague quest pressure promoted too early\n- scaffold text mistaken for proof\n- latency improvement summarized as reasoning improvement\n- resource cost hidden behind a winner label\n- private paths, raw logs, rendered configs, or device samples copied into the\n  public bundle\n- host-specific evidence overread as a cross-host leaderboard",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n- reasoning quality ranking\n- better agent behavior\n- cross-host leaderboard placement\n- general runtime health\n- public proof status for private runtime artifacts\n- that the named resource tradeoff is acceptable for a specific deployment",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat any future positive result as support for one bounded runtime tradeoff\nclaim.\n\nDo not treat a positive result as:\n- evidence acceptance without bundle-local review\n- a runtime health verdict\n- a public starter recommendation\n- proof that neighboring evals are unnecessary\n- proof that speed repaired an output-contract, workflow, or reasoning miss",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- confirm the bounded claim is explicit\n- confirm existing eval routes were inspected first\n- confirm candidate evidence stayed candidate-only\n- confirm origin need and integrity check evidence resolve publicly\n- confirm the public bundle contains no raw private paths, rendered configs,\n  host fingerprints, or raw device samples\n- confirm latency and resource-use readings remain separate in every report\n- run the proof-object validation lane before promotion\n\nSource refs:\n- mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md\n- mechanics/proof-object/parts/eval-authoring/docs/EVAL_BIRTH_PROTOCOL.md",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "- none yet",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "- none yet",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "- local fixtures\n- local runners\n- bundle-local report schema\n- candidate evidence review packets",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "comparative"
+    },
+    {
       "category": "boundary",
       "eval_path": "evals/boundary/aoa-scope-drift-detection/EVAL.md",
       "name": "aoa-scope-drift-detection",

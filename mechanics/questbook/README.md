@@ -37,7 +37,7 @@ lane/state layout.
 - `generated/quest_catalog.min.json`
 - `generated/quest_dispatch.min.json`
 - `.agents/skills/aoa-quest-harvest/SKILL.md`
-- `docs/decisions/0004-questbook-topology.md`
+- `docs/decisions/AOA-EV-D-0004-questbook-topology.md`
 
 ## Inputs
 

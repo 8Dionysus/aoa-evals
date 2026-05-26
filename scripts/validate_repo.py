@@ -27,6 +27,7 @@ import eval_comparison_spine_contract
 import eval_proof_contract_helpers
 import validate_nested_agents
 from validators import (
+    artifact_hooks,
     docs_decisions,
     docs_routes,
     docs_topology,
@@ -127,51 +128,51 @@ SPARK_LANE_SWARM_NAME = ".agents/spark/SWARM.md"
 PROOF_TOPOLOGY_NAME = "docs/architecture/PROOF_TOPOLOGY.md"
 ROUTE_RESIDUE_GUARDS_NAME = "docs/architecture/ROUTE_RESIDUE_GUARDS.md"
 AGENT_INDEX_NAME = "docs/architecture/AGENT_INDEX.md"
-AGENT_INDEX_CHAIN_DECISION_NAME = "docs/decisions/0103-agent-index-chain-surface.md"
+AGENT_INDEX_CHAIN_DECISION_NAME = "docs/decisions/AOA-EV-D-0103-agent-index-chain-surface.md"
 DECISION_RECORDS_README_NAME = "docs/decisions/README.md"
 DECISION_INDEX_BY_NUMBER_NAME = "docs/decisions/indexes/by-number.md"
 LEGACY_NAMING_NAME = "docs/architecture/LEGACY_NAMING.md"
 LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME = (
-    "docs/decisions/0091-legacy-naming-single-bridge-language.md"
+    "docs/decisions/AOA-EV-D-0091-legacy-naming-single-bridge-language.md"
 )
 LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k legacy_naming_single_bridge_language"
 )
 LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME = (
-    "docs/decisions/0096-legacy-naming-posture-guide.md"
+    "docs/decisions/AOA-EV-D-0096-legacy-naming-posture-guide.md"
 )
 LEGACY_NAMING_POSTURE_GUIDE_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k legacy_naming_posture_guide"
 )
 MECHANICS_EVIDENCE_CLUSTERS_NAME = "mechanics/EVIDENCE_CLUSTERS.md"
-PART_LOCAL_TEST_PLACEMENT_DECISION_NAME = "docs/decisions/0050-part-local-test-placement.md"
-ROOT_ROUTE_CARD_GUARD_DECISION_NAME = "docs/decisions/0051-root-route-card-guard.md"
+PART_LOCAL_TEST_PLACEMENT_DECISION_NAME = "docs/decisions/AOA-EV-D-0050-part-local-test-placement.md"
+ROOT_ROUTE_CARD_GUARD_DECISION_NAME = "docs/decisions/AOA-EV-D-0051-root-route-card-guard.md"
 GENERATED_ROUTE_RESIDUE_DECISION_NAME = (
-    "docs/decisions/0073-generated-route-residue-guard.md"
+    "docs/decisions/AOA-EV-D-0073-generated-route-residue-guard.md"
 )
 ACTIVE_MECHANIC_ROUTE_RESIDUE_DECISION_NAME = (
-    "docs/decisions/0076-active-mechanic-route-residue-guard.md"
+    "docs/decisions/AOA-EV-D-0076-active-mechanic-route-residue-guard.md"
 )
 ROOT_AUTHORED_ROUTE_RESIDUE_DECISION_NAME = (
-    "docs/decisions/0077-root-authored-route-residue-guard.md"
+    "docs/decisions/AOA-EV-D-0077-root-authored-route-residue-guard.md"
 )
 ACTIVE_LEGACY_PARENT_WORDING_DECISION_NAME = (
-    "docs/decisions/0092-active-legacy-parent-wording-boundary.md"
+    "docs/decisions/AOA-EV-D-0092-active-legacy-parent-wording-boundary.md"
 )
 ACTIVE_LEGACY_PARENT_WORDING_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k active_legacy_parent_wording"
 )
 DECISION_ROUTE_RESIDUE_DECISION_NAME = (
-    "docs/decisions/0078-decision-route-residue-guard.md"
+    "docs/decisions/AOA-EV-D-0078-decision-route-residue-guard.md"
 )
 REPO_CONFIG_ROUTE_RESIDUE_DECISION_NAME = (
-    "docs/decisions/0079-repo-config-route-residue-guard.md"
+    "docs/decisions/AOA-EV-D-0079-repo-config-route-residue-guard.md"
 )
 SOURCE_BUNDLE_ROUTE_RESIDUE_DECISION_NAME = (
-    "docs/decisions/0080-source-bundle-route-residue-guard.md"
+    "docs/decisions/AOA-EV-D-0080-source-bundle-route-residue-guard.md"
 )
 SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME = (
-    "docs/decisions/0104-source-eval-tree-topology.md"
+    "docs/decisions/AOA-EV-D-0104-source-eval-tree-topology.md"
 )
 EVALS_AGENTS_NAME = "evals/AGENTS.md"
 SOURCE_EVAL_TREE_TOPOLOGY_COMMANDS = (
@@ -188,7 +189,7 @@ SOURCE_EVAL_TREE_TOPOLOGY_DECISION_REQUIRED_TOKENS = (
     "source-tree topology path",
 )
 MECHANIC_PAYLOAD_ROUTE_RESIDUE_DECISION_NAME = (
-    "docs/decisions/0081-mechanic-payload-route-residue-guard.md"
+    "docs/decisions/AOA-EV-D-0081-mechanic-payload-route-residue-guard.md"
 )
 ROOT_ROUTE_CARD_ONLY_DISTRICTS: dict[str, tuple[str, ...]] = {
     "config": ("AGENTS.md", "README.md"),
@@ -404,7 +405,7 @@ ROOT_DESIGN_REQUIRED_TOKENS = (
     "docs/decisions/",
 )
 ARCHITECTURE_PROOF_MODEL_DECISION_NAME = (
-    "docs/decisions/0093-architecture-proof-model-contract.md"
+    "docs/decisions/AOA-EV-D-0093-architecture-proof-model-contract.md"
 )
 ARCHITECTURE_PROOF_MODEL_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k architecture_proof_model"
@@ -591,7 +592,7 @@ PROOF_TOPOLOGY_REQUIRED_TOKENS = (
     "No remaining named candidate family is promoted by symmetry",
 )
 MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME = (
-    "docs/decisions/0106-memory-consumer-proof-boundary.md"
+    "docs/decisions/AOA-EV-D-0106-memory-consumer-proof-boundary.md"
 )
 MEMORY_CONSUMER_PROOF_BOUNDARY_README_TOKENS = (
     "`aoa-evals`",
@@ -702,7 +703,7 @@ ROADMAP_FORBIDDEN_STALE_TOPOLOGY_WORDING = (
     "future mechanic packages",
 )
 ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME = (
-    "docs/decisions/0100-active-mechanics-topology-wording.md"
+    "docs/decisions/AOA-EV-D-0100-active-mechanics-topology-wording.md"
 )
 ACTIVE_MECHANICS_TOPOLOGY_WORDING_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k "
@@ -833,7 +834,7 @@ LEGACY_EXTERNAL_ROUTE_MANAGEMENT_SURFACE_NAMES = (
     LEGACY_NAMING_NAME,
     ROADMAP_NAME,
     DESIGN_AGENTS_NAME,
-    "docs/decisions/0009-legacy-naming-containment.md",
+    "docs/decisions/AOA-EV-D-0009-legacy-naming-containment.md",
     LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
     LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
 )
@@ -871,26 +872,26 @@ LEGACY_SINGLE_BRIDGE_RESIDUE_SURFACES = (
     "scorers/AGENTS.md",
     "templates/README.md",
     "templates/AGENTS.md",
-    "docs/decisions/0071-mechanic-legacy-skeleton-contract.md",
-    "docs/decisions/0075-mechanic-provenance-entry-contract.md",
-    "docs/decisions/0082-mechanic-parent-direction-contract.md",
-    "docs/decisions/0089-mechanic-legacy-single-bridge.md",
-    "docs/decisions/0090-mechanic-provenance-bridge-posture.md",
+    "docs/decisions/AOA-EV-D-0071-mechanic-legacy-skeleton-contract.md",
+    "docs/decisions/AOA-EV-D-0075-mechanic-provenance-entry-contract.md",
+    "docs/decisions/AOA-EV-D-0082-mechanic-parent-direction-contract.md",
+    "docs/decisions/AOA-EV-D-0089-mechanic-legacy-single-bridge.md",
+    "docs/decisions/AOA-EV-D-0090-mechanic-provenance-bridge-posture.md",
     LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
 )
 MECHANICS_README_NAME = "mechanics/README.md"
 MECHANICS_AGENTS_NAME = "mechanics/AGENTS.md"
 MECHANIC_PARENT_ALLOWLIST_DECISION_NAME = (
-    "docs/decisions/0052-mechanic-parent-allowlist.md"
+    "docs/decisions/AOA-EV-D-0052-mechanic-parent-allowlist.md"
 )
 MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_NAME = (
-    "docs/decisions/0083-mechanic-evidence-dimension-ledger.md"
+    "docs/decisions/AOA-EV-D-0083-mechanic-evidence-dimension-ledger.md"
 )
 MECHANIC_ROOT_DISTRICT_RECON_DECISION_NAME = (
-    "docs/decisions/0084-mechanic-root-district-reconnaissance.md"
+    "docs/decisions/AOA-EV-D-0084-mechanic-root-district-reconnaissance.md"
 )
 ROOT_AUTHORED_SURFACE_CLASSIFICATION_DECISION_NAME = (
-    "docs/decisions/0085-root-authored-surface-classification.md"
+    "docs/decisions/AOA-EV-D-0085-root-authored-surface-classification.md"
 )
 MECHANICS_ROOT_ALLOWED_FILES = (
     "AGENTS.md",
@@ -987,7 +988,7 @@ MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_REQUIRED_TOKENS = (
     MECHANIC_EVIDENCE_DIMENSION_LEDGER_COMMAND,
 )
 MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME = (
-    "docs/decisions/0101-mechanic-evidence-route-refs.md"
+    "docs/decisions/AOA-EV-D-0101-mechanic-evidence-route-refs.md"
 )
 MECHANIC_EVIDENCE_ROUTE_REFS_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_evidence_route_refs"
@@ -1508,7 +1509,7 @@ PORTABLE_EVAL_BOUNDARY_GUIDE_FORBIDDEN_ROUTE_SCAFFOLD = (
 )
 CLOSEOUT_WRITEBACK_INGRESS_NAME = "docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md"
 CLOSEOUT_WRITEBACK_INGRESS_DECISION_NAME = (
-    "docs/decisions/0045-closeout-writeback-ingress-boundary.md"
+    "docs/decisions/AOA-EV-D-0045-closeout-writeback-ingress-boundary.md"
 )
 CLOSEOUT_WRITEBACK_INGRESS_REQUIRED_TOKENS = (
     "traceable proof ingress",
@@ -1662,7 +1663,7 @@ MECHANIC_LEGACY_SKELETON_FILES = (
     + MECHANIC_LEGACY_RAW_README_FILES
 )
 MECHANIC_LEGACY_SKELETON_DECISION_NAME = (
-    "docs/decisions/0071-mechanic-legacy-skeleton-contract.md"
+    "docs/decisions/AOA-EV-D-0071-mechanic-legacy-skeleton-contract.md"
 )
 MECHANIC_PART_CONTRACT_REQUIRED_TOKENS = (
     "## Part Contract",
@@ -1689,55 +1690,55 @@ MECHANIC_PART_README_STALE_STOP_LINE_LEAD_INS = (
     "Do not use this part to claim:",
 )
 MECHANIC_PART_README_CONTRACT_DECISION_NAME = (
-    "docs/decisions/0074-mechanic-part-readme-contract.md"
+    "docs/decisions/AOA-EV-D-0074-mechanic-part-readme-contract.md"
 )
 MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME = (
-    "docs/decisions/0086-mechanic-part-payload-inventory.md"
+    "docs/decisions/AOA-EV-D-0086-mechanic-part-payload-inventory.md"
 )
 MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_payload_inventory"
 )
 MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_NAME = (
-    "docs/decisions/0097-mechanic-parent-guidance-boundary.md"
+    "docs/decisions/AOA-EV-D-0097-mechanic-parent-guidance-boundary.md"
 )
 MECHANIC_PARENT_GUIDANCE_BOUNDARY_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_guidance_boundary"
 )
 MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME = (
-    "docs/decisions/0087-mechanic-part-validation-command-reachability.md"
+    "docs/decisions/AOA-EV-D-0087-mechanic-part-validation-command-reachability.md"
 )
 MECHANIC_PART_VALIDATION_COMMAND_OWNERSHIP_DECISION_NAME = (
-    "docs/decisions/0102-mechanic-part-validation-command-ownership.md"
+    "docs/decisions/AOA-EV-D-0102-mechanic-part-validation-command-ownership.md"
 )
 MECHANIC_PART_VALIDATION_COMMAND_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_validation_command"
 )
 MECHANIC_PARTS_INDEX_SYNC_DECISION_NAME = (
-    "docs/decisions/0088-mechanic-parts-index-synchronization.md"
+    "docs/decisions/AOA-EV-D-0088-mechanic-parts-index-synchronization.md"
 )
 MECHANIC_PARTS_INDEX_SYNC_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_parts_index_sync"
 )
 MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_NAME = (
-    "docs/decisions/0094-mechanic-part-source-surface-reference-guard.md"
+    "docs/decisions/AOA-EV-D-0094-mechanic-part-source-surface-reference-guard.md"
 )
 MECHANIC_PART_SOURCE_SURFACE_REF_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_source_surface"
 )
 MECHANIC_PART_SOURCE_SURFACES_SECTION_DECISION_NAME = (
-    "docs/decisions/0095-mechanic-part-source-surfaces-section-contract.md"
+    "docs/decisions/AOA-EV-D-0095-mechanic-part-source-surfaces-section-contract.md"
 )
 MECHANIC_PART_SOURCE_SURFACES_SECTION_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_source_surfaces_section"
 )
 MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_NAME = (
-    "docs/decisions/0089-mechanic-legacy-single-bridge.md"
+    "docs/decisions/AOA-EV-D-0089-mechanic-legacy-single-bridge.md"
 )
 MECHANIC_LEGACY_SINGLE_BRIDGE_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_single_bridge"
 )
 MECHANIC_PROVENANCE_BRIDGE_POSTURE_DECISION_NAME = (
-    "docs/decisions/0090-mechanic-provenance-bridge-posture.md"
+    "docs/decisions/AOA-EV-D-0090-mechanic-provenance-bridge-posture.md"
 )
 MECHANIC_PROVENANCE_BRIDGE_POSTURE_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_bridge_posture"
@@ -1933,7 +1934,7 @@ MECHANIC_PROVENANCE_BRIDGE_POSTURE_DECISION_REQUIRED_TOKENS = (
     MECHANIC_PROVENANCE_BRIDGE_POSTURE_COMMAND,
 )
 MECHANIC_PARENT_DIRECTION_DECISION_NAME = (
-    "docs/decisions/0082-mechanic-parent-direction-contract.md"
+    "docs/decisions/AOA-EV-D-0082-mechanic-parent-direction-contract.md"
 )
 MECHANIC_PARENT_DIRECTION_COMMAND = (
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_direction"
@@ -2080,7 +2081,7 @@ MECHANIC_PROVENANCE_ENTRY_REQUIRED_TOKENS = (
     "archive details",
 )
 MECHANIC_PROVENANCE_ENTRY_DECISION_NAME = (
-    "docs/decisions/0075-mechanic-provenance-entry-contract.md"
+    "docs/decisions/AOA-EV-D-0075-mechanic-provenance-entry-contract.md"
 )
 MECHANIC_PROVENANCE_ENTRY_DECISION_REQUIRED_TOKENS = (
     "Mechanic Provenance Entry Contract",
@@ -2092,7 +2093,7 @@ MECHANIC_PROVENANCE_ENTRY_DECISION_REQUIRED_TOKENS = (
     "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_entry",
 )
 MECHANIC_PARENT_CLASS_DECISION_NAME = (
-    "docs/decisions/0072-mechanic-parent-class-contract.md"
+    "docs/decisions/AOA-EV-D-0072-mechanic-parent-class-contract.md"
 )
 MECHANIC_PARENT_CLASS_DECISION_REQUIRED_TOKENS = (
     "Mechanic Parent Class Contract",
@@ -2336,13 +2337,13 @@ PROOF_OBJECT_EVAL_CONTRACTS_PART_README_NAME = (
     "mechanics/proof-object/parts/eval-contracts/README.md"
 )
 PROOF_OBJECT_CONTRACT_PART_DECISION_NAME = (
-    "docs/decisions/0048-proof-object-contract-parts.md"
+    "docs/decisions/AOA-EV-D-0048-proof-object-contract-parts.md"
 )
 PROOF_OBJECT_PART_OWNER_SPLIT_DECISION_NAME = (
-    "docs/decisions/0069-proof-object-part-owner-split-contract.md"
+    "docs/decisions/AOA-EV-D-0069-proof-object-part-owner-split-contract.md"
 )
 PROOF_OBJECT_EVAL_PART_NAMES_DECISION_NAME = (
-    "docs/decisions/0105-proof-object-eval-part-names.md"
+    "docs/decisions/AOA-EV-D-0105-proof-object-eval-part-names.md"
 )
 PROOF_LOOP_MECHANIC_README_NAME = "mechanics/proof-loop/README.md"
 PROOF_LOOP_MECHANIC_AGENTS_NAME = "mechanics/proof-loop/AGENTS.md"
@@ -2361,51 +2362,51 @@ PROOF_LOOP_SMOKE_REPORT_NAME = (
     "mechanics/proof-loop/parts/route-smoke/reports/"
     "proof-loop-local-route-smoke-v1.md"
 )
-PROOF_LOOP_SMOKE_DECISION_NAME = "docs/decisions/0020-proof-loop-local-smoke-report.md"
+PROOF_LOOP_SMOKE_DECISION_NAME = "docs/decisions/AOA-EV-D-0020-proof-loop-local-smoke-report.md"
 PROOF_LOOP_ROUTE_SMOKE_PART_DECISION_NAME = (
-    "docs/decisions/0030-proof-loop-route-smoke-part.md"
+    "docs/decisions/AOA-EV-D-0030-proof-loop-route-smoke-part.md"
 )
 PROOF_LOOP_ROUTE_SMOKE_CONTRACT_DECISION_NAME = (
-    "docs/decisions/0060-proof-loop-route-smoke-contract.md"
+    "docs/decisions/AOA-EV-D-0060-proof-loop-route-smoke-contract.md"
 )
 PROOF_LOOP_LOCAL_REPORT_NAME = (
     "evals/workflow/aoa-verification-honesty/reports/"
     "aoa-evals-slice-19-lifecycle-contract.report.json"
 )
 PROOF_LOOP_LOCAL_REPORT_DECISION_NAME = (
-    "docs/decisions/0022-proof-loop-bundle-local-report.md"
+    "docs/decisions/AOA-EV-D-0022-proof-loop-bundle-local-report.md"
 )
 RECEIPT_INTAKE_DRY_REVIEW_NAME = (
     "mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json"
 )
 RECEIPT_INTAKE_DRY_REVIEW_DECISION_NAME = (
-    "docs/decisions/0024-receipt-intake-dry-review.md"
+    "docs/decisions/AOA-EV-D-0024-receipt-intake-dry-review.md"
 )
 RELEASE_SUPPORT_READINESS_AUDIT_NAME = (
     "mechanics/release-support/parts/readiness-audit/reports/"
     "release-support-readiness-audit-v1.json"
 )
 RELEASE_SUPPORT_READINESS_AUDIT_DECISION_NAME = (
-    "docs/decisions/0025-release-support-readiness-audit.md"
+    "docs/decisions/AOA-EV-D-0025-release-support-readiness-audit.md"
 )
 STRATEGIC_CLOSEOUT_AUDIT_NAME = (
     "mechanics/release-support/parts/strategic-closeout/reports/"
     "strategic-closeout-audit-v1.json"
 )
 STRATEGIC_CLOSEOUT_AUDIT_DECISION_NAME = (
-    "docs/decisions/0026-strategic-closeout-audit.md"
+    "docs/decisions/AOA-EV-D-0026-strategic-closeout-audit.md"
 )
 RELEASE_PREP_PR_HANDOFF_NAME = (
     "mechanics/release-support/parts/pr-handoff/reports/"
     "release-prep-pr-handoff-v1.json"
 )
 RELEASE_PREP_PR_HANDOFF_DECISION_NAME = (
-    "docs/decisions/0027-release-prep-pr-handoff.md"
+    "docs/decisions/AOA-EV-D-0027-release-prep-pr-handoff.md"
 )
 REPO_VALIDATION_WORKFLOW_NAME = ".github/workflows/repo-validation.yml"
 REPO_VALIDATION_AOA_MEMO_REF = "97f19698c94ebbebabe8b1b6f22e5ccff3bc5f1f"
 REPO_VALIDATION_AOA_MEMO_PIN_DECISION_NAME = (
-    "docs/decisions/0028-repo-validation-aoa-memo-pin-refresh.md"
+    "docs/decisions/AOA-EV-D-0028-repo-validation-aoa-memo-pin-refresh.md"
 )
 COMPARISON_SPINE_MECHANIC_README_NAME = "mechanics/comparison-spine/README.md"
 COMPARISON_SPINE_MECHANIC_AGENTS_NAME = "mechanics/comparison-spine/AGENTS.md"
@@ -2468,13 +2469,13 @@ COMPARISON_SPINE_REPEATED_WINDOW_FIXTURE_NAME = (
     "repeated-window-bounded-v1/README.md"
 )
 COMPARISON_SPINE_REPORT_PARTS_DECISION_NAME = (
-    "docs/decisions/0029-comparison-spine-report-parts.md"
+    "docs/decisions/AOA-EV-D-0029-comparison-spine-report-parts.md"
 )
 COMPARISON_SPINE_FIXTURE_PARTS_DECISION_NAME = (
-    "docs/decisions/0040-comparison-spine-fixture-parts.md"
+    "docs/decisions/AOA-EV-D-0040-comparison-spine-fixture-parts.md"
 )
 COMPARISON_SPINE_PART_CONTRACT_GUARD_DECISION_NAME = (
-    "docs/decisions/0059-comparison-spine-part-contract-guard.md"
+    "docs/decisions/AOA-EV-D-0059-comparison-spine-part-contract-guard.md"
 )
 COMPARISON_SPINE_PROVENANCE_NAME = "mechanics/comparison-spine/PROVENANCE.md"
 COMPARISON_SPINE_LEGACY_INDEX_NAME = "mechanics/comparison-spine/legacy/INDEX.md"
@@ -2511,10 +2512,10 @@ REPORT_SUMMARY_SCHEMA_NAME = (
 PROOF_INFRA_PROVENANCE_NAME = "mechanics/proof-infra/PROVENANCE.md"
 PROOF_INFRA_LEGACY_INDEX_NAME = "mechanics/proof-infra/legacy/INDEX.md"
 PROOF_INFRA_FIXTURE_FAMILIES_DECISION_NAME = (
-    "docs/decisions/0041-proof-infra-fixture-families.md"
+    "docs/decisions/AOA-EV-D-0041-proof-infra-fixture-families.md"
 )
 PROOF_INFRA_REPORTABLE_CONTRACTS_DECISION_NAME = (
-    "docs/decisions/0049-proof-infra-reportable-contracts.md"
+    "docs/decisions/AOA-EV-D-0049-proof-infra-reportable-contracts.md"
 )
 PUBLICATION_RECEIPTS_MECHANIC_README_NAME = "mechanics/publication-receipts/README.md"
 PUBLICATION_RECEIPTS_MECHANIC_AGENTS_NAME = "mechanics/publication-receipts/AGENTS.md"
@@ -2532,7 +2533,7 @@ PUBLICATION_RECEIPTS_INTAKE_DRY_REVIEW_PART_README_NAME = (
     "mechanics/publication-receipts/parts/intake-dry-review/README.md"
 )
 PUBLICATION_RECEIPTS_PART_CONTRACT_GUARD_DECISION_NAME = (
-    "docs/decisions/0057-publication-receipts-part-contract-guard.md"
+    "docs/decisions/AOA-EV-D-0057-publication-receipts-part-contract-guard.md"
 )
 PUBLICATION_RECEIPTS_LEGACY_INDEX_NAME = "mechanics/publication-receipts/legacy/INDEX.md"
 PUBLICATION_RECEIPTS_LEGACY_DISTILLATION_LOG_NAME = (
@@ -2556,7 +2557,7 @@ RELEASE_SUPPORT_PR_HANDOFF_PART_README_NAME = (
     "mechanics/release-support/parts/pr-handoff/README.md"
 )
 RELEASE_SUPPORT_PART_CONTRACT_GUARD_DECISION_NAME = (
-    "docs/decisions/0058-release-support-part-contract-guard.md"
+    "docs/decisions/AOA-EV-D-0058-release-support-part-contract-guard.md"
 )
 RELEASE_SUPPORT_LEGACY_INDEX_NAME = "mechanics/release-support/legacy/INDEX.md"
 RELEASE_SUPPORT_LEGACY_DISTILLATION_LOG_NAME = (
@@ -2572,12 +2573,12 @@ TITAN_SEED_BOUNDARY_SEEDS_DIR_NAME = "mechanics/titan/parts/seed-boundary/seeds"
 TITAN_SEED_BOUNDARY_SEEDS_README_NAME = "mechanics/titan/parts/seed-boundary/seeds/README.md"
 TITAN_SEED_BOUNDARY_SEEDS_AGENTS_NAME = "mechanics/titan/parts/seed-boundary/seeds/AGENTS.md"
 TITAN_SEED_BOUNDARY_CONTRACT_DECISION_NAME = (
-    "docs/decisions/0055-titan-seed-boundary-contract.md"
+    "docs/decisions/AOA-EV-D-0055-titan-seed-boundary-contract.md"
 )
 AGON_MECHANIC_README_NAME = "mechanics/agon/README.md"
 AGON_MECHANIC_AGENTS_NAME = "mechanics/agon/AGENTS.md"
 AGON_PART_CONTRACT_GUARD_DECISION_NAME = (
-    "docs/decisions/0054-agon-part-contract-guard.md"
+    "docs/decisions/AOA-EV-D-0054-agon-part-contract-guard.md"
 )
 RECURRENCE_MECHANIC_README_NAME = "mechanics/recurrence/README.md"
 RECURRENCE_MECHANIC_AGENTS_NAME = "mechanics/recurrence/AGENTS.md"
@@ -2604,15 +2605,15 @@ RECURRENCE_PORTABLE_PROOF_BEACONS_PART_README_NAME = (
 RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_NAME = (
     "mechanics/recurrence/parts/portable-proof-beacons/AGENTS.md"
 )
-RECURRENCE_MECHANIC_DECISION_NAME = "docs/decisions/0031-recurrence-mechanic-package.md"
+RECURRENCE_MECHANIC_DECISION_NAME = "docs/decisions/AOA-EV-D-0031-recurrence-mechanic-package.md"
 RECURRENCE_SUPPORT_PARTS_DECISION_NAME = (
-    "docs/decisions/0039-recurrence-support-parts-expansion.md"
+    "docs/decisions/AOA-EV-D-0039-recurrence-support-parts-expansion.md"
 )
 RECURRENCE_PORTABLE_PROOF_BEACONS_DECISION_NAME = (
-    "docs/decisions/0042-recurrence-portable-proof-beacons-part.md"
+    "docs/decisions/AOA-EV-D-0042-recurrence-portable-proof-beacons-part.md"
 )
 RECURRENCE_CONTROL_PLANE_CONTRACT_DECISION_NAME = (
-    "docs/decisions/0066-recurrence-control-plane-contract.md"
+    "docs/decisions/AOA-EV-D-0066-recurrence-control-plane-contract.md"
 )
 CHECKPOINT_MECHANIC_README_NAME = "mechanics/checkpoint/README.md"
 CHECKPOINT_MECHANIC_AGENTS_NAME = "mechanics/checkpoint/AGENTS.md"
@@ -2630,9 +2631,9 @@ CHECKPOINT_SELF_AGENT_PART_README_NAME = (
 CHECKPOINT_SELF_AGENT_POSTURE_DOC_NAME = (
     "mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md"
 )
-CHECKPOINT_MECHANIC_DECISION_NAME = "docs/decisions/0032-checkpoint-mechanic-package.md"
+CHECKPOINT_MECHANIC_DECISION_NAME = "docs/decisions/AOA-EV-D-0032-checkpoint-mechanic-package.md"
 CHECKPOINT_PART_CONTRACT_GUARD_DECISION_NAME = (
-    "docs/decisions/0062-checkpoint-part-contract-guard.md"
+    "docs/decisions/AOA-EV-D-0062-checkpoint-part-contract-guard.md"
 )
 EXPERIENCE_MECHANIC_README_NAME = "mechanics/experience/README.md"
 EXPERIENCE_MECHANIC_AGENTS_NAME = "mechanics/experience/AGENTS.md"
@@ -2653,12 +2654,12 @@ EXPERIENCE_GOVERNANCE_PART_README_NAME = (
 EXPERIENCE_OFFICE_PART_README_NAME = (
     "mechanics/experience/parts/office-release-train/README.md"
 )
-EXPERIENCE_MECHANIC_DECISION_NAME = "docs/decisions/0033-experience-mechanic-package.md"
+EXPERIENCE_MECHANIC_DECISION_NAME = "docs/decisions/AOA-EV-D-0033-experience-mechanic-package.md"
 EXPERIENCE_VERDICT_RESIDUE_DECISION_NAME = (
-    "docs/decisions/0043-experience-verdict-residue-parts.md"
+    "docs/decisions/AOA-EV-D-0043-experience-verdict-residue-parts.md"
 )
 EXPERIENCE_PART_CONTRACT_GUARD_DECISION_NAME = (
-    "docs/decisions/0063-experience-part-contract-guard.md"
+    "docs/decisions/AOA-EV-D-0063-experience-part-contract-guard.md"
 )
 ANTIFRAGILITY_MECHANIC_README_NAME = "mechanics/antifragility/README.md"
 ANTIFRAGILITY_MECHANIC_AGENTS_NAME = "mechanics/antifragility/AGENTS.md"
@@ -2678,10 +2679,10 @@ ANTIFRAGILITY_REPAIR_PROOF_PART_README_NAME = (
     "mechanics/antifragility/parts/repair-proof/README.md"
 )
 ANTIFRAGILITY_MECHANIC_DECISION_NAME = (
-    "docs/decisions/0034-antifragility-mechanic-package.md"
+    "docs/decisions/AOA-EV-D-0034-antifragility-mechanic-package.md"
 )
 ANTIFRAGILITY_PART_CONTRACT_GUARD_DECISION_NAME = (
-    "docs/decisions/0061-antifragility-part-contract-guard.md"
+    "docs/decisions/AOA-EV-D-0061-antifragility-part-contract-guard.md"
 )
 METHOD_GROWTH_MECHANIC_README_NAME = "mechanics/method-growth/README.md"
 METHOD_GROWTH_MECHANIC_AGENTS_NAME = "mechanics/method-growth/AGENTS.md"
@@ -2694,10 +2695,10 @@ METHOD_GROWTH_OWNER_LANDING_PART_README_NAME = (
     "mechanics/method-growth/parts/owner-landing/README.md"
 )
 METHOD_GROWTH_MECHANIC_DECISION_NAME = (
-    "docs/decisions/0035-method-growth-mechanic-package.md"
+    "docs/decisions/AOA-EV-D-0035-method-growth-mechanic-package.md"
 )
 METHOD_GROWTH_PART_OWNER_SPLIT_DECISION_NAME = (
-    "docs/decisions/0068-method-growth-part-owner-split-contract.md"
+    "docs/decisions/AOA-EV-D-0068-method-growth-part-owner-split-contract.md"
 )
 RPG_MECHANIC_README_NAME = "mechanics/rpg/README.md"
 RPG_MECHANIC_AGENTS_NAME = "mechanics/rpg/AGENTS.md"
@@ -2706,9 +2707,9 @@ RPG_MECHANIC_PROVENANCE_NAME = "mechanics/rpg/PROVENANCE.md"
 RPG_PROGRESS_UNLOCKS_PART_README_NAME = (
     "mechanics/rpg/parts/progression-unlocks/README.md"
 )
-RPG_MECHANIC_DECISION_NAME = "docs/decisions/0036-rpg-mechanic-package.md"
+RPG_MECHANIC_DECISION_NAME = "docs/decisions/AOA-EV-D-0036-rpg-mechanic-package.md"
 RPG_PROGRESS_UNLOCKS_CONTRACT_DECISION_NAME = (
-    "docs/decisions/0067-rpg-progression-unlocks-contract.md"
+    "docs/decisions/AOA-EV-D-0067-rpg-progression-unlocks-contract.md"
 )
 GROWTH_CYCLE_MECHANIC_README_NAME = "mechanics/growth-cycle/README.md"
 GROWTH_CYCLE_MECHANIC_AGENTS_NAME = "mechanics/growth-cycle/AGENTS.md"
@@ -2719,13 +2720,13 @@ GROWTH_CYCLE_DIAGNOSIS_GATE_PART_README_NAME = (
     "mechanics/growth-cycle/parts/diagnosis-gate/README.md"
 )
 GROWTH_CYCLE_MECHANIC_DECISION_NAME = (
-    "docs/decisions/0037-growth-cycle-mechanic-package.md"
+    "docs/decisions/AOA-EV-D-0037-growth-cycle-mechanic-package.md"
 )
 GROWTH_CYCLE_DIAGNOSIS_GATE_CONTRACT_DECISION_NAME = (
-    "docs/decisions/0065-growth-cycle-diagnosis-gate-contract.md"
+    "docs/decisions/AOA-EV-D-0065-growth-cycle-diagnosis-gate-contract.md"
 )
 REPAIR_DIAGNOSIS_ROUTE_BOUNDARY_DECISION_NAME = (
-    "docs/decisions/0099-repair-diagnosis-route-boundary.md"
+    "docs/decisions/AOA-EV-D-0099-repair-diagnosis-route-boundary.md"
 )
 DISTILLATION_MECHANIC_README_NAME = "mechanics/distillation/README.md"
 DISTILLATION_MECHANIC_AGENTS_NAME = "mechanics/distillation/AGENTS.md"
@@ -2738,10 +2739,10 @@ DISTILLATION_RUNTIME_CANDIDATE_ADOPTION_PART_README_NAME = (
     "mechanics/distillation/parts/runtime-candidate-adoption/README.md"
 )
 DISTILLATION_MECHANIC_DECISION_NAME = (
-    "docs/decisions/0038-distillation-mechanic-package.md"
+    "docs/decisions/AOA-EV-D-0038-distillation-mechanic-package.md"
 )
 DISTILLATION_PART_CONTRACT_GUARD_DECISION_NAME = (
-    "docs/decisions/0064-distillation-part-contract-guard.md"
+    "docs/decisions/AOA-EV-D-0064-distillation-part-contract-guard.md"
 )
 QUESTBOOK_MECHANIC_README_NAME = "mechanics/questbook/README.md"
 QUESTBOOK_MECHANIC_AGENTS_NAME = "mechanics/questbook/AGENTS.md"
@@ -2754,7 +2755,7 @@ QUESTBOOK_DISPATCH_READER_PART_README_NAME = (
     "mechanics/questbook/parts/dispatch-reader/README.md"
 )
 QUESTBOOK_PART_OWNER_SPLIT_DECISION_NAME = (
-    "docs/decisions/0070-questbook-part-owner-split-contract.md"
+    "docs/decisions/AOA-EV-D-0070-questbook-part-owner-split-contract.md"
 )
 AUDIT_MECHANIC_README_NAME = "mechanics/audit/README.md"
 AUDIT_MECHANIC_AGENTS_NAME = "mechanics/audit/AGENTS.md"
@@ -2764,7 +2765,7 @@ AUDIT_LEGACY_INDEX_NAME = "mechanics/audit/legacy/INDEX.md"
 AUDIT_LEGACY_DISTILLATION_LOG_NAME = "mechanics/audit/legacy/DISTILLATION_LOG.md"
 AUDIT_LEGACY_RAW_README_NAME = "mechanics/audit/legacy/raw/README.md"
 AUDIT_PART_CONTRACT_GUARD_DECISION_NAME = (
-    "docs/decisions/0053-audit-part-contract-guard.md"
+    "docs/decisions/AOA-EV-D-0053-audit-part-contract-guard.md"
 )
 AUDIT_SELECTED_EVIDENCE_PART_README_NAME = (
     "mechanics/audit/parts/selected-evidence-packets/README.md"
@@ -2801,7 +2802,7 @@ BOUNDARY_BRIDGE_ORCHESTRATOR_PROOF_ANCHORS_PART_README_NAME = (
     "mechanics/boundary-bridge/parts/orchestrator-proof-anchors/README.md"
 )
 BOUNDARY_BRIDGE_PART_CONTRACT_GUARD_DECISION_NAME = (
-    "docs/decisions/0056-boundary-bridge-part-contract-guard.md"
+    "docs/decisions/AOA-EV-D-0056-boundary-bridge-part-contract-guard.md"
 )
 SIBLING_CANARY_MATRIX_NAME = (
     "mechanics/boundary-bridge/parts/latest-sibling-canary/config/"
@@ -3063,8 +3064,8 @@ PROOF_LOOP_MECHANIC_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POST
 PROOF_LOOP_LEGACY_INDEX_REQUIRED_TOKENS = (
     "reports/proof-loop-local-route-smoke-v1.md",
     "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md",
-    "docs/decisions/0020-proof-loop-local-smoke-report.md",
-    "docs/decisions/0030-proof-loop-route-smoke-part.md",
+    "docs/decisions/AOA-EV-D-0020-proof-loop-local-smoke-report.md",
+    "docs/decisions/AOA-EV-D-0030-proof-loop-route-smoke-part.md",
     "Former root report paths are provenance only",
 )
 PROOF_LOOP_LEGACY_DISTILLATION_REQUIRED_TOKENS = (
@@ -3839,7 +3840,7 @@ RELEASE_SUPPORT_LEGACY_INDEX_REQUIRED_TOKENS = (
     "tests/test_proof_release_readiness_audit.py",
     "mechanics/release-support/parts/readiness-audit/tests/test_release_support_readiness_audit.py",
     "docs/decisions/0014-proof-release-mechanic-package.md",
-    "docs/decisions/0014-release-support-mechanic-package.md",
+    "docs/decisions/AOA-EV-D-0014-release-support-mechanic-package.md",
 )
 RELEASE_SUPPORT_LEGACY_DISTILLATION_REQUIRED_TOKENS = (
     "proof-release",
@@ -5342,7 +5343,7 @@ QUEST_LIFECYCLE_DECISION_REQUIRED_TOKENS = (
     "route-smoke",
 )
 AGON_QUEST_NOTE_PROVENANCE_DECISION_NAME = (
-    "docs/decisions/0098-agon-quest-note-provenance-route.md"
+    "docs/decisions/AOA-EV-D-0098-agon-quest-note-provenance-route.md"
 )
 AGON_QUEST_NOTE_PROVENANCE_DECISION_REQUIRED_TOKENS = (
     "mechanics/agon/PROVENANCE.md",
@@ -5993,7 +5994,7 @@ RUNTIME_CANDIDATE_INTAKE_SCRIPT_NAME = (
     "mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py"
 )
 EVAL_REPORT_INDEX_NAME = "generated/eval_report_index.min.json"
-EVAL_REPORT_INDEX_DECISION_NAME = "docs/decisions/0023-eval-report-index-reader.md"
+EVAL_REPORT_INDEX_DECISION_NAME = "docs/decisions/AOA-EV-D-0023-eval-report-index-reader.md"
 PHASE_ALPHA_EVAL_MATRIX_PART_NAME = "mechanics/boundary-bridge/parts/phase-alpha-eval-matrix"
 PHASE_ALPHA_EVAL_MATRIX_SCHEMA_NAME = (
     f"{PHASE_ALPHA_EVAL_MATRIX_PART_NAME}/schemas/phase-alpha-eval-matrix.schema.json"
@@ -6008,15 +6009,7 @@ PHASE_ALPHA_EVAL_MATRIX_NAME = (
     f"{PHASE_ALPHA_EVAL_MATRIX_PART_NAME}/generated/phase_alpha_eval_matrix.min.json"
 )
 NORMALIZED_RUNTIME_ARTIFACT_RE = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
-ARTIFACT_VERDICT_HOOK_EXAMPLES = {
-    "AOA-P-0014": "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.local-stack-diagnosis.example.json",
-    "AOA-P-0006": "mechanics/checkpoint/parts/self-agent-posture/examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
-    "AOA-P-0018": "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.validation-driven-remediation.example.json",
-    "AOA-P-0008": "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
-    "AOA-P-0009": "mechanics/checkpoint/parts/restartable-inquiry/examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
-    "AOA-P-0031": "mechanics/checkpoint/parts/a2a-summon-return/examples/artifact_to_verdict_hook.a2a-summon-return-checkpoint.example.json",
-    "AOA-P-0032": "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json",
-}
+ARTIFACT_VERDICT_HOOK_EXAMPLES = artifact_hooks.ARTIFACT_VERDICT_HOOK_EXAMPLES
 RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
     "runtime_evidence_selection.workhorse-local.example.json": {
         "target_eval": None,
@@ -6055,107 +6048,7 @@ RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
         "allowed_ref_roots": ["mechanics"],
     },
 }
-TRACE_EVAL_HOOK_EXPECTATIONS = {
-    "AOA-P-0014": {
-        "eval_anchor": "aoa-verification-honesty",
-        "artifact_contract_refs": [
-            "repo:aoa-playbooks/playbooks/local-stack-diagnosis/PLAYBOOK.md#expected-artifacts",
-            "repo:aoa-playbooks/docs/alpha-readiness/local-stack-diagnosis.md",
-            "repo:aoa-agents/examples/alpha_reference_routes/local-stack-diagnosis.example.json",
-            "repo:aoa-memo/examples/phase-alpha/state_capsule.phase-alpha-local-stack.example.json",
-            "repo:aoa-memo/examples/phase-alpha/episode.phase-alpha-local-stack.example.json",
-            "repo:aoa-memo/examples/phase-alpha/decision.phase-alpha-local-stack.example.json",
-        ],
-        "trace_surfaces": [],
-        "verification_surface": "verification_pack",
-    },
-    "AOA-P-0006": {
-        "eval_anchor": "aoa-approval-boundary-adherence",
-        "artifact_contract_refs": [
-            "repo:aoa-agents/schemas/self-agent-checkpoint.schema.json",
-            "repo:aoa-playbooks/playbooks/self-agent-checkpoint-rollout/PLAYBOOK.md#expected-artifacts",
-            "repo:aoa-memo/docs/memory/MEMORY_MODEL.md#checkpoint-route-writeback",
-            "repo:aoa-memo/mechanics/checkpoint/parts/approval-and-health-records/examples/checkpoint_approval_record.example.json",
-            "repo:aoa-memo/mechanics/checkpoint/parts/approval-and-health-records/examples/checkpoint_health_check.example.json",
-            "repo:aoa-memo/mechanics/checkpoint/parts/approval-and-health-records/examples/checkpoint_improvement_thread.example.json",
-        ],
-        "trace_surfaces": [],
-        "verification_surface": "approval_record",
-    },
-    "AOA-P-0018": {
-        "eval_anchor": "aoa-scope-drift-detection",
-        "artifact_contract_refs": [
-            "repo:aoa-playbooks/playbooks/validation-driven-remediation/PLAYBOOK.md#expected-artifacts",
-            "repo:aoa-playbooks/docs/alpha-readiness/validation-driven-remediation.md",
-            "repo:aoa-agents/examples/alpha_reference_routes/validation-driven-remediation.example.json",
-            "repo:aoa-memo/examples/phase-alpha/episode.phase-alpha-validation-remediation.example.json",
-            "repo:aoa-memo/examples/phase-alpha/decision.phase-alpha-validation-remediation.example.json",
-            "repo:aoa-memo/examples/recall/recall_contract.object.working.phase-alpha.json",
-        ],
-        "trace_surfaces": [],
-        "verification_surface": "revalidation_pack",
-    },
-    "AOA-P-0008": {
-        "eval_anchor": "aoa-tool-trajectory-discipline",
-        "artifact_contract_refs": [
-            "repo:aoa-agents/schemas/artifact.route_decision.schema.json",
-            "repo:aoa-agents/schemas/artifact.bounded_plan.schema.json",
-            "repo:aoa-agents/schemas/artifact.verification_result.schema.json",
-            "repo:aoa-agents/schemas/artifact.transition_decision.schema.json",
-            "repo:aoa-agents/schemas/artifact.distillation_pack.schema.json",
-        ],
-        "trace_surfaces": [
-            "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md",
-        ],
-        "verification_surface": "verification_result",
-    },
-    "AOA-P-0009": {
-        "eval_anchor": "aoa-long-horizon-depth",
-        "artifact_contract_refs": [
-            "repo:aoa-memo/mechanics/checkpoint/parts/checkpoint-carry-contract/schemas/inquiry_checkpoint.schema.json",
-            "repo:aoa-memo/mechanics/checkpoint/parts/checkpoint-to-memory-mapping/schemas/checkpoint-to-memory-contract.schema.json",
-            "repo:aoa-playbooks/playbooks/restartable-inquiry-loop/PLAYBOOK.md#expected-artifacts",
-            "repo:aoa-playbooks/generated/playbook_registry.min.json",
-        ],
-        "trace_surfaces": [],
-        "verification_surface": "inquiry_checkpoint",
-    },
-    "AOA-P-0031": {
-        "eval_anchor": "aoa-a2a-summon-return-checkpoint",
-        "artifact_contract_refs": [
-            "repo:aoa-playbooks/playbooks/a2a-summon-return-checkpoint/PLAYBOOK.md#expected-artifacts",
-            "repo:aoa-skills/skills/core/session-growth/aoa-summon/references/summon-request-v3.schema.json",
-            "repo:aoa-skills/skills/core/session-growth/aoa-summon/references/summon-result-v3.schema.json",
-            "repo:aoa-sdk/docs/A2A_WAVE5_CODEX_RETURN_CHECKPOINT.md",
-            "repo:aoa-sdk/examples/a2a/codex_local_target.example.json",
-            "repo:aoa-sdk/examples/a2a/return_transition_decision.example.json",
-            "repo:aoa-sdk/examples/a2a/checkpoint_bridge_plan.example.json",
-            "repo:aoa-sdk/examples/a2a/reviewed_closeout_request.example.json",
-            "repo:aoa-sdk/examples/a2a/summon_return_checkpoint_e2e.fixture.json",
-            "repo:aoa-memo/mechanics/writeback/docs/A2A_CHILD_RETURN_WRITEBACK.md",
-            "repo:abyss-stack/mechanics/runtime-repair/parts/a2a-return-dry-run/docs/A2A_RETURN_DRY_RUN.md",
-        ],
-        "trace_surfaces": [],
-        "verification_surface": "runtime_closeout_dry_run_receipt",
-    },
-    "AOA-P-0032": {
-        "eval_anchor": "aoa-witness-trace-integrity",
-        "artifact_contract_refs": [
-            "repo:aoa-playbooks/playbooks/runtime-chaos-recovery/PLAYBOOK.md#expected-artifacts",
-            "repo:aoa-playbooks/examples/playbook_stress_lane.runtime-timeout-chaos.example.json",
-            "repo:aoa-playbooks/examples/playbook_reentry_gate.retrieval-outage-honesty.example.json",
-            "repo:aoa-routing/examples/composite_stress_route_hint.retrieval-outage-honesty.example.json",
-            "repo:aoa-kag/examples/regrounding_ticket.retrieval-outage-honesty.example.json",
-            "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/schemas/service-degradation-receipt.schema.json",
-            "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md",
-        ],
-        "trace_surfaces": [
-            "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md",
-            "repo:aoa-memo/mechanics/writeback/parts/growth-and-continuity/examples/provenance_thread.self-agency-continuity.example.json",
-        ],
-        "verification_surface": "proof_handoff_candidate",
-    },
-}
+TRACE_EVAL_HOOK_EXPECTATIONS = artifact_hooks.TRACE_EVAL_HOOK_EXPECTATIONS
 COMPARISON_SURFACE_COMMON_KEYS = (
     "shared_family_path",
     "paired_readout_path",
@@ -9944,7 +9837,7 @@ def validate_decision_status_lines(repo_root: Path) -> list[ValidationIssue]:
     if not decisions_root.exists():
         return issues
 
-    for decision_path in sorted(decisions_root.glob("[0-9][0-9][0-9][0-9]-*.md")):
+    for decision_path in sorted(decisions_root.glob("AOA-EV-D-[0-9][0-9][0-9][0-9]-*.md")):
         relative_path = decision_path.relative_to(repo_root).as_posix()
         try:
             lines = decision_path.read_text(encoding="utf-8").splitlines()
@@ -10831,7 +10724,7 @@ def validate_agent_lane_surfaces(repo_root: Path) -> list[ValidationIssue]:
         )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0017-spark-agent-lane-placement.md",
+        path_name="docs/decisions/AOA-EV-D-0017-spark-agent-lane-placement.md",
         tokens=SPARK_LANE_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -10894,13 +10787,13 @@ def validate_quest_route_surfaces(repo_root: Path) -> list[ValidationIssue]:
             )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0004-questbook-topology.md",
+        path_name="docs/decisions/AOA-EV-D-0004-questbook-topology.md",
         tokens=("QUESTBOOK.md", "generated quest", "lane/state", "eval bundles"),
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0018-quest-lane-state-source-layout.md",
+        path_name="docs/decisions/AOA-EV-D-0018-quest-lane-state-source-layout.md",
         tokens=(
             "quests/<lane>/<state>/",
             "generated quest readers",
@@ -10911,7 +10804,7 @@ def validate_quest_route_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0021-quest-lifecycle-contract.md",
+        path_name="docs/decisions/AOA-EV-D-0021-quest-lifecycle-contract.md",
         tokens=QUEST_LIFECYCLE_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -10963,7 +10856,7 @@ def validate_proof_topology_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     decision_text = require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0005-proof-topology-map.md",
+        path_name="docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
         tokens=PROOF_TOPOLOGY_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -10996,7 +10889,7 @@ def validate_proof_topology_surfaces(repo_root: Path) -> list[ValidationIssue]:
             if stale_phrase in decision_text:
                 issues.append(
                     ValidationIssue(
-                        "docs/decisions/0005-proof-topology-map.md",
+                        "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
                         f"proof topology decision must describe the active mechanics atlas, not stale preparatory wording '{stale_phrase}'",
                     )
                 )
@@ -11128,7 +11021,7 @@ def validate_legacy_naming_surfaces(repo_root: Path) -> list[ValidationIssue]:
                 )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0009-legacy-naming-containment.md",
+        path_name="docs/decisions/AOA-EV-D-0009-legacy-naming-containment.md",
         tokens=LEGACY_NAMING_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -11323,7 +11216,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0010-proof-object-mechanic-package.md",
+        path_name="docs/decisions/AOA-EV-D-0010-proof-object-mechanic-package.md",
         tokens=PROOF_OBJECT_MECHANIC_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -11425,7 +11318,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0019-proof-loop-mechanic-package.md",
+        path_name="docs/decisions/AOA-EV-D-0019-proof-loop-mechanic-package.md",
         tokens=PROOF_LOOP_MECHANIC_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -11496,7 +11389,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0011-comparison-spine-mechanic-package.md",
+        path_name="docs/decisions/AOA-EV-D-0011-comparison-spine-mechanic-package.md",
         tokens=COMPARISON_SPINE_MECHANIC_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -11595,7 +11488,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0012-proof-infra-mechanic-package.md",
+        path_name="docs/decisions/AOA-EV-D-0012-proof-infra-mechanic-package.md",
         tokens=PROOF_INFRA_MECHANIC_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -11688,7 +11581,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0013-publication-receipts-mechanic-package.md",
+        path_name="docs/decisions/AOA-EV-D-0013-publication-receipts-mechanic-package.md",
         tokens=PUBLICATION_RECEIPTS_MECHANIC_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -11775,7 +11668,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0014-release-support-mechanic-package.md",
+        path_name="docs/decisions/AOA-EV-D-0014-release-support-mechanic-package.md",
         tokens=RELEASE_SUPPORT_MECHANIC_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -11799,7 +11692,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0015-titan-mechanic-package.md",
+        path_name="docs/decisions/AOA-EV-D-0015-titan-mechanic-package.md",
         tokens=TITAN_MECHANIC_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -11882,7 +11775,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0016-agon-mechanic-package.md",
+        path_name="docs/decisions/AOA-EV-D-0016-agon-mechanic-package.md",
         tokens=AGON_MECHANIC_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -12541,13 +12434,13 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0006-questbook-mechanic-package.md",
+        path_name="docs/decisions/AOA-EV-D-0006-questbook-mechanic-package.md",
         tokens=QUESTBOOK_MECHANIC_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0021-quest-lifecycle-contract.md",
+        path_name="docs/decisions/AOA-EV-D-0021-quest-lifecycle-contract.md",
         tokens=QUEST_LIFECYCLE_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -12655,7 +12548,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0007-audit-mechanic-package.md",
+        path_name="docs/decisions/AOA-EV-D-0007-audit-mechanic-package.md",
         tokens=AUDIT_MECHANIC_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )
@@ -12748,7 +12641,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(
         repo_root=repo_root,
-        path_name="docs/decisions/0008-boundary-bridge-mechanic-package.md",
+        path_name="docs/decisions/AOA-EV-D-0008-boundary-bridge-mechanic-package.md",
         tokens=BOUNDARY_BRIDGE_DECISION_REQUIRED_TOKENS,
         issues=issues,
     )

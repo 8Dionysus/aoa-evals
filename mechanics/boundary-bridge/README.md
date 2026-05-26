@@ -42,7 +42,7 @@ its builder owned by the matrix part.
 - `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/schemas/phase-alpha-eval-matrix.schema.json`
 - `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py`
 - `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated/phase_alpha_eval_matrix.min.json`
-- `docs/decisions/0003-sibling-proof-reference-compatibility.md`
+- `docs/decisions/AOA-EV-D-0003-sibling-proof-reference-compatibility.md`
 - `mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`
 - `mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py`
 - `mechanics/boundary-bridge/parts/latest-sibling-canary/tests/test_sibling_canary.py`

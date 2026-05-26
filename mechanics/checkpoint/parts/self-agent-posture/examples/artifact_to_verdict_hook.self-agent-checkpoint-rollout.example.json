@@ -11,7 +11,7 @@
     "improvement_log"
   ],
   "artifact_contract_refs": [
-    "repo:aoa-agents/schemas/self-agent-checkpoint.schema.json",
+    "repo:aoa-agents/mechanics/checkpoint/parts/self-agent-checkpoint/schemas/self-agent-checkpoint.schema.json",
     "repo:aoa-playbooks/playbooks/self-agent-checkpoint-rollout/PLAYBOOK.md#expected-artifacts",
     "repo:aoa-memo/docs/memory/MEMORY_MODEL.md#checkpoint-route-writeback",
     "repo:aoa-memo/mechanics/checkpoint/parts/approval-and-health-records/examples/checkpoint_approval_record.example.json",

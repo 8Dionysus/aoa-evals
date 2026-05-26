@@ -36,7 +36,7 @@ Current maintained lanes:
 3. `docs/architecture/PROOF_TOPOLOGY.md`
 4. `docs/architecture/LEGACY_NAMING.md`
 5. the target lane or support-surface `AGENTS.md`
-6. `docs/decisions/0017-spark-agent-lane-placement.md` for Spark lane
+6. `docs/decisions/AOA-EV-D-0017-spark-agent-lane-placement.md` for Spark lane
    placement changes
 
 ## Owner Routes

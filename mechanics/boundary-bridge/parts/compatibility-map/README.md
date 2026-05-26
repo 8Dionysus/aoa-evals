@@ -13,7 +13,7 @@ stays below sibling owner acceptance.
 - `mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md`
 - `mechanics/boundary-bridge/README.md`
 - `mechanics/boundary-bridge/PARTS.md`
-- `docs/decisions/0003-sibling-proof-reference-compatibility.md`
+- `docs/decisions/AOA-EV-D-0003-sibling-proof-reference-compatibility.md`
 
 ## Inputs
 

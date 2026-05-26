@@ -54,7 +54,7 @@ canary command.
 GitHub `Repo Validation` is the stricter pinned public lane. For `aoa-memo`,
 that lane currently checks out `97f19698c94ebbebabe8b1b6f22e5ccff3bc5f1f` in
 `.github/workflows/repo-validation.yml`; see
-`docs/decisions/0028-repo-validation-aoa-memo-pin-refresh.md`.
+`docs/decisions/AOA-EV-D-0028-repo-validation-aoa-memo-pin-refresh.md`.
 
 ## Posture Vocabulary
 

@@ -1,11 +1,13 @@
-# NNNN Decision Title
+# Decision Title
 
+- Decision ID: AOA-EV-D-NNNN
 - Status: Proposed
 - Date: YYYY-MM-DD
 - Owner surface: `path/or/surface`
 
 ## Index Metadata
 
+- Original date: YYYY-MM-DD
 - Surface classes: root/topology
 - Mechanic parents: none
 - Guard families: none

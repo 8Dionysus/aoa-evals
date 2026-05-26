@@ -42,7 +42,7 @@ This package protects the local Agon proof-alignment loop:
 12. `mechanics/agon/docs/AGON_EVAL_RECURRENCE_REVIEW_BOUNDARY.md`
 13. `evals/boundary/aoa-recurrence-control-plane-integrity/EVAL.md` when recurrence
     review posture changes
-14. `docs/decisions/0016-agon-mechanic-package.md`
+14. `docs/decisions/AOA-EV-D-0016-agon-mechanic-package.md`
 
 ## Route Rules
 

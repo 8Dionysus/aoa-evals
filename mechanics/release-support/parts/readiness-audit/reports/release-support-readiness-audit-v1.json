@@ -26,13 +26,13 @@
       "status": "ready_for_release_prep_review",
       "evidence_refs": [
         "repo:aoa-evals/docs/decisions/README.md",
-        "repo:aoa-evals/docs/decisions/0001-root-design-spine.md",
-        "repo:aoa-evals/docs/decisions/0024-receipt-intake-dry-review.md",
-        "repo:aoa-evals/docs/decisions/0074-mechanic-part-readme-contract.md",
-        "repo:aoa-evals/docs/decisions/0075-mechanic-provenance-entry-contract.md",
-        "repo:aoa-evals/docs/decisions/0082-mechanic-parent-direction-contract.md",
-        "repo:aoa-evals/docs/decisions/0083-mechanic-evidence-dimension-ledger.md",
-        "repo:aoa-evals/docs/decisions/0084-mechanic-root-district-reconnaissance.md"
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0001-root-design-spine.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0024-receipt-intake-dry-review.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0074-mechanic-part-readme-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0075-mechanic-provenance-entry-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0082-mechanic-parent-direction-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0083-mechanic-evidence-dimension-ledger.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0084-mechanic-root-district-reconnaissance.md"
       ],
       "claim_limit": "Decision memory covers the strategic topology route through the latest dry-review decision; decisions explain rationale and do not become source proof authority."
     },
@@ -97,11 +97,11 @@
         "repo:aoa-evals/tests/test_validate_repo.py",
         "repo:aoa-evals/tests/test_downstream_feed_contracts.py",
         "repo:aoa-evals/mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py",
-        "repo:aoa-evals/docs/decisions/0074-mechanic-part-readme-contract.md",
-        "repo:aoa-evals/docs/decisions/0075-mechanic-provenance-entry-contract.md",
-        "repo:aoa-evals/docs/decisions/0082-mechanic-parent-direction-contract.md",
-        "repo:aoa-evals/docs/decisions/0083-mechanic-evidence-dimension-ledger.md",
-        "repo:aoa-evals/docs/decisions/0084-mechanic-root-district-reconnaissance.md"
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0074-mechanic-part-readme-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0075-mechanic-provenance-entry-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0082-mechanic-parent-direction-contract.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0083-mechanic-evidence-dimension-ledger.md",
+        "repo:aoa-evals/docs/decisions/AOA-EV-D-0084-mechanic-root-district-reconnaissance.md"
       ],
       "claim_limit": "Local release gate coverage constrains current route invariants; green checks do not replace GitHub Repo Validation, reviewer judgment, or bundle-local review."
     },

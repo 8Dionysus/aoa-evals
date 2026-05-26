@@ -9,6 +9,10 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Changed
 
+- Decision records now use canonical `AOA-EV-D-####` IDs as both in-file
+  handles and filename prefixes. Generated decision indexes now include
+  date-based lookup, and short numbered decision paths are retired to git/PR
+  history instead of staying as active compatibility routes.
 - `mechanics/proof-object/parts/eval-authoring/scripts/scaffold_eval_bundle.py`
   now creates validator-ready comparison support artifacts for
   `comparative-summary` drafts with a non-`none` baseline mode, including
@@ -19,6 +23,9 @@ Tracking starts with the community-docs baseline for this repository.
   `mechanics/checkpoint/parts/continuity-lane/`.
 - `Repo Validation` now pins `aoa-agents` to the public revision that contains
   that continuity-lane source path.
+- Artifact-to-verdict hook contract refs now route through
+  `scripts/validators/artifact_hooks.py`, and the `aoa-agents` hook refs now
+  point at current mechanics-owned schema/example paths.
 
 ### Added
 
@@ -434,7 +441,7 @@ Tracking starts with the community-docs baseline for this repository.
   stronger-owner split, stop-lines, and validation without treating local
   readiness, closeout, or handoff artifacts as release, GitHub, tag, or goal
   completion authority
-- decision `docs/decisions/0028-repo-validation-aoa-memo-pin-refresh.md` for
+- decision `docs/decisions/AOA-EV-D-0028-repo-validation-aoa-memo-pin-refresh.md` for
   the pinned public CI lane after GitHub `Repo Validation` exposed stale
   `aoa-memo` checkout drift
 - validator coverage that keeps the new root design and decision surfaces
@@ -442,71 +449,71 @@ Tracking starts with the community-docs baseline for this repository.
 - route-card guard for cleaned root districts, including new or tightened
   README cards for `config/`, `examples/`, `manifests/`, `reports/`,
   `schemas/`, and `templates/`, decision
-  `docs/decisions/0051-root-route-card-guard.md`, and validator coverage that
+  `docs/decisions/AOA-EV-D-0051-root-route-card-guard.md`, and validator coverage that
   rejects active payload and stray directory drift across every route-card-only
   root district
 - mechanic parent allowlist guard, decision
-  `docs/decisions/0052-mechanic-parent-allowlist.md`, and validator coverage
+  `docs/decisions/AOA-EV-D-0052-mechanic-parent-allowlist.md`, and validator coverage
   that rejects undeclared `mechanics/<parent>/` directories before they become
   invented active topology; the same guard now requires every allowed parent to
   expose `AGENTS.md`, `README.md`, `PARTS.md`, and part-contract wording
 - mechanic legacy archive boundary guard, decision
-  `docs/decisions/0071-mechanic-legacy-skeleton-contract.md`, and validator
+  `docs/decisions/AOA-EV-D-0071-mechanic-legacy-skeleton-contract.md`, and validator
   coverage requiring every active parent to expose `PROVENANCE.md` and a
   package-local legacy archive behind it so legacy remains provenance behind
   active mechanics
 - mechanic parent class guard, decision
-  `docs/decisions/0072-mechanic-parent-class-contract.md`, and validator
+  `docs/decisions/AOA-EV-D-0072-mechanic-parent-class-contract.md`, and validator
   coverage that keeps AoA-aligned and evals-native parent sets disjoint,
   complete, and tied to `mechanics/EVIDENCE_CLUSTERS.md`, while keeping
   `agon-proof`, `titan-canaries`, `proof-release`, `runtime-evidence`,
   `sibling-proof-refs`, and `repair` as wrong parent forms
 - generated route residue guard, decision
-  `docs/decisions/0073-generated-route-residue-guard.md`, and validator
+  `docs/decisions/AOA-EV-D-0073-generated-route-residue-guard.md`, and validator
   coverage that rejects stale structured generated/readout references to former
   wrong mechanic parents or route-card-only root districts without blocking
   valid part-local generated references to sibling `config/`, `schemas/`, or
   report surfaces
 - active mechanic route residue guard, decision
-  `docs/decisions/0076-active-mechanic-route-residue-guard.md`, and validator
+  `docs/decisions/AOA-EV-D-0076-active-mechanic-route-residue-guard.md`, and validator
   coverage that rejects stale authored mechanics route-card references to
   former wrong mechanic parents or route-card-only root payload paths without
   blocking root route cards or same-part local references
 - root authored route residue guard, decision
-  `docs/decisions/0077-root-authored-route-residue-guard.md`, and validator
+  `docs/decisions/AOA-EV-D-0077-root-authored-route-residue-guard.md`, and validator
   coverage that rejects stale root-facing guide references to route-card-only
   root payload paths without blocking root route cards, historical context, or
   active `evals/<family>/<eval>/...` and `mechanics/...` routes
 - decision route residue guard, decision
-  `docs/decisions/0078-decision-route-residue-guard.md`, and validator coverage
+  `docs/decisions/AOA-EV-D-0078-decision-route-residue-guard.md`, and validator coverage
   that rejects unmarked current-looking decision references to former root
   payload paths without blocking historical context, root route cards, or
   active `evals/<family>/<eval>/...` and `mechanics/...` routes
 - repo config route residue guard, decision
-  `docs/decisions/0079-repo-config-route-residue-guard.md`, `.gitignore`
+  `docs/decisions/AOA-EV-D-0079-repo-config-route-residue-guard.md`, `.gitignore`
   migration from the rejected `mechanics/titan-canaries/seeds/` unignore to
   `mechanics/titan/parts/seed-boundary/seeds/`, and validator coverage that
   keeps repo config from preserving former parent routes or route-card-only
   root payload paths as executable routing
 - source bundle route residue guard, decision
-  `docs/decisions/0080-source-bundle-route-residue-guard.md`, repo-qualified
+  `docs/decisions/AOA-EV-D-0080-source-bundle-route-residue-guard.md`, repo-qualified
   `aoa-sdk` fixture wording in `aoa-a2a-summon-return-checkpoint`, target-bundle
   fixture checklist wording in `aoa-eval-integrity-check`, and validator
   coverage that keeps source proof bundles from carrying ambiguous root payload
   paths or former mechanic parent routes
 - mechanic payload route residue guard, decision
-  `docs/decisions/0081-mechanic-payload-route-residue-guard.md`,
+  `docs/decisions/AOA-EV-D-0081-mechanic-payload-route-residue-guard.md`,
   repo-qualified recursor refs to `repo:aoa-agents/config/codex_subagent_wiring.v2.json`,
   portable-proof hook cleanup from stale root runtime globs, and validator
   coverage that keeps active mechanics payload from carrying ambiguous root
   payload paths or former mechanic parent routes
 - mechanic part README contract guard, decision
-  `docs/decisions/0074-mechanic-part-readme-contract.md`, and validator coverage
+  `docs/decisions/AOA-EV-D-0074-mechanic-part-readme-contract.md`, and validator coverage
   that requires every active `mechanics/<parent>/parts/<part>/README.md` to
   expose inputs, outputs, stronger-owner split, stop-lines, validation, and a
   parent `PARTS.md` route by README path or exact part slug
 - mechanic provenance entry contract guard, decision
-  `docs/decisions/0075-mechanic-provenance-entry-contract.md`, and validator
+  `docs/decisions/AOA-EV-D-0075-mechanic-provenance-entry-contract.md`, and validator
   coverage that requires every active `PROVENANCE.md` to name the active route
   first and bridge only to `legacy/README.md` without carrying archive details
 - legacy route notes for every active mechanic parent, plus validator coverage

@@ -29,6 +29,8 @@ Tracking starts with the community-docs baseline for this repository.
   searched the relevant evidence, rejected noisy writeback, and disclosed
   missed-evidence and privacy risk before candidate/export/debt/stop-line
   output is trusted.
+- Decision 0113 records the bounded proof route for that eval and serves as
+  the route-only writeback marker for the `aoa-evals` landing.
 
 ## [0.4.0] - 2026-05-25
 

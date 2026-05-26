@@ -127,11 +127,17 @@ Non-starter public bundles stay discoverable through
 their bundle-local source directories until they are intentionally promoted into
 the starter table.
 
-Memo pilot boundary: current memo starter and readout routes include recall,
-contradiction, writeback-act, reviewed-candidate adoption, and write-path
-guardrail surfaces. They stay below future scar, retention,
-live memory-ledger readiness, KAG/RAG/vector readiness, and broad memory-safety
-readiness.
+Memo pilot boundary: current memo starter and readout routes include
+writeback-decision quality, recall, contradiction, writeback-act,
+reviewed-candidate adoption, and write-path guardrail surfaces. They stay below
+future scar, retention, live memory-ledger readiness, KAG/RAG/vector readiness,
+and broad memory-safety readiness.
+
+Use `aoa-memo-writeback-decision-quality` before trusting a
+`memo_writeback_decision` from `aoa-memo-writeback`. Use
+`aoa-memo-write-path-guardrails` when a candidate/export route is moving toward
+reviewed memory, and use `aoa-memo-writeback-act-integrity` after a concrete
+runtime-to-memo act already exists.
 
 ## Planned public states
 

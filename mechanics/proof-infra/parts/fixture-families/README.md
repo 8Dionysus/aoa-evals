@@ -34,6 +34,7 @@ bundle say which public-safe case pressure it uses.
 | `memo-contradiction-guardrail-v1` | `evals/workflow/aoa-memo-contradiction-integrity/` |
 | `memo-write-path-guardrail-v1` | `evals/boundary/aoa-memo-write-path-guardrails/` |
 | `memo-writeback-act-guardrail-v1` | `evals/workflow/aoa-memo-writeback-act-integrity/` |
+| `memo-writeback-decision-quality-v1` | `evals/workflow/aoa-memo-writeback-decision-quality/` |
 | `ring-application-discipline-v1` | `evals/workflow/aoa-ring-application-discipline/` |
 | `scope-drift-bounded-v1` | `evals/boundary/aoa-scope-drift-detection/` |
 | `tool-trajectory-bounded-v1` | `evals/workflow/aoa-tool-trajectory-discipline/` |

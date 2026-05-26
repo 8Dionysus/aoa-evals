@@ -14,11 +14,21 @@ Tracking starts with the community-docs baseline for this repository.
   `comparative-summary` drafts with a non-`none` baseline mode, including
   comparison notes, baseline readiness, fixture/runner contracts, report
   schema, and example report.
+- W10 runtime integrity review evidence refs now follow the current
+  `aoa-agents` continuity-lane source path under
+  `mechanics/checkpoint/parts/continuity-lane/`.
+- `Repo Validation` now pins `aoa-agents` to the public revision that contains
+  that continuity-lane source path.
 
 ### Added
 
 - `aoa-runtime-latency-tradeoff` as a draft fixed-baseline comparison bundle
   for public-safe runtime latency and resource-use tradeoff evidence.
+- `aoa-memo-writeback-decision-quality` as a draft workflow bundle for judging
+  whether an `aoa-memo-writeback` application chose the right memory route,
+  searched the relevant evidence, rejected noisy writeback, and disclosed
+  missed-evidence and privacy risk before candidate/export/debt/stop-line
+  output is trusted.
 
 ## [0.4.0] - 2026-05-25
 

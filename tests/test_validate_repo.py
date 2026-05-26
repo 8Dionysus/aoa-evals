@@ -4794,7 +4794,16 @@ def test_validate_runtime_integrity_review_surface_rejects_missing_center_anchor
     routing_root = tmp_path / "aoa-routing"
     write_text(routing_root / "docs" / "LIVE_SESSION_REENTRY_ROUTE_REVIEW.md", "# Live Session Reentry Route Review\n")
     agents_root = tmp_path / "aoa-agents"
-    write_text(agents_root / "docs" / "SELF_AGENCY_CONTINUITY_LANE.md", "# Self-Agency Continuity Lane\n")
+    write_text(
+        agents_root
+        / "mechanics"
+        / "checkpoint"
+        / "parts"
+        / "continuity-lane"
+        / "docs"
+        / "self-agency-continuity-lane.md",
+        "# Self-Agency Continuity Lane\n",
+    )
     memo_root = tmp_path / "aoa-memo"
     write_text(memo_root / "schemas" / "inquiry_checkpoint.schema.json", "{\n  \"type\": \"object\"\n}\n")
     write_text(
@@ -4852,7 +4861,16 @@ def test_validate_runtime_integrity_review_surface_rejects_anchor_drift_in_evide
     routing_root = tmp_path / "aoa-routing"
     write_text(routing_root / "docs" / "LIVE_SESSION_REENTRY_ROUTE_REVIEW.md", "# Live Session Reentry Route Review\n")
     agents_root = tmp_path / "aoa-agents"
-    write_text(agents_root / "docs" / "SELF_AGENCY_CONTINUITY_LANE.md", "# Self-Agency Continuity Lane\n")
+    write_text(
+        agents_root
+        / "mechanics"
+        / "checkpoint"
+        / "parts"
+        / "continuity-lane"
+        / "docs"
+        / "self-agency-continuity-lane.md",
+        "# Self-Agency Continuity Lane\n",
+    )
     memo_root = tmp_path / "aoa-memo"
     write_text(memo_root / "schemas" / "inquiry_checkpoint.schema.json", "{\n  \"type\": \"object\"\n}\n")
     write_text(

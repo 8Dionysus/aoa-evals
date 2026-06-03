@@ -6,6 +6,8 @@ import sys
 import unittest
 from pathlib import Path
 
+import pytest
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = REPO_ROOT / "scripts"
@@ -28,6 +30,7 @@ from validate_repo import (
     build_comparison_spine_payload,
     collect_catalog_records,
 )
+import validate_repo
 
 
 def load_module(script_name: str):
@@ -53,6 +56,130 @@ phase_alpha_eval_matrix_builder = load_module("generate_phase_alpha_eval_matrix.
 
 def load_json(relative_path: str) -> dict:
     return json.loads((REPO_ROOT / relative_path).read_text(encoding="utf-8"))
+
+
+def copy_repo_text(repo_root: Path, relative_path: str) -> None:
+    source = REPO_ROOT / relative_path
+    if not source.exists():
+        raise FileNotFoundError(source)
+    destination = repo_root / relative_path
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
+
+
+def write_json_payload(path: Path, payload: object) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
+def make_phase_alpha_eval_matrix_surface(repo_root: Path) -> None:
+    for relative_path in [
+        "mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated/phase_alpha_eval_matrix.min.json",
+        "mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/schemas/phase-alpha-eval-matrix.schema.json",
+        "mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/examples/phase_alpha_eval_matrix.example.json",
+        "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json",
+        "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.return-anchor-integrity.example.json",
+        "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.local-stack-diagnosis.example.json",
+        "mechanics/checkpoint/parts/self-agent-posture/examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
+        "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.validation-driven-remediation.example.json",
+        "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json",
+        "mechanics/checkpoint/parts/restartable-inquiry/examples/artifact_to_verdict_hook.restartable-inquiry-loop.example.json",
+        "mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py",
+    ]:
+        copy_repo_text(repo_root, relative_path)
+
+
+def phase_alpha_playbooks_root_or_skip() -> Path:
+    candidates = [
+        validate_repo.AOA_PLAYBOOKS_ROOT,
+        REPO_ROOT.parent / "aoa-playbooks",
+        Path("/srv/AbyssOS/aoa-playbooks"),
+    ]
+    for candidate in candidates:
+        if (candidate / "generated" / "phase_alpha_run_matrix.min.json").is_file():
+            return candidate
+    pytest.skip("aoa-playbooks phase alpha matrix is unavailable")
+
+
+def test_phase_alpha_eval_matrix_validates_for_current_repo() -> None:
+    issues = validate_repo.validate_phase_alpha_eval_matrix(REPO_ROOT)
+
+    assert issues == []
+
+
+def test_phase_alpha_eval_matrix_drift_fails(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    make_phase_alpha_eval_matrix_surface(tmp_path)
+    matrix_path = (
+        tmp_path
+        / "mechanics"
+        / "boundary-bridge"
+        / "parts"
+        / "phase-alpha-eval-matrix"
+        / "generated"
+        / "phase_alpha_eval_matrix.min.json"
+    )
+    payload = json.loads(matrix_path.read_text(encoding="utf-8"))
+    payload["runs"][0]["required_evals"][0]["eval_anchor"] = "aoa-bounded-change-quality"
+    write_json_payload(matrix_path, payload)
+
+    playbooks_root = phase_alpha_playbooks_root_or_skip()
+    monkeypatch.setattr(validate_repo, "AOA_PLAYBOOKS_ROOT", playbooks_root)
+    monkeypatch.setenv("AOA_PLAYBOOKS_ROOT", str(playbooks_root))
+    monkeypatch.setenv(validate_repo.STRICT_SIBLING_COMPAT_ENV, "1")
+    issues = validate_repo.validate_phase_alpha_eval_matrix(tmp_path)
+
+    assert any(
+        issue.location
+        == "mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated/phase_alpha_eval_matrix.min.json"
+        and "out of date or mismatched" in issue.message
+        for issue in issues
+    )
+
+
+def test_phase_alpha_eval_matrix_requires_playbooks_root_in_strict_mode(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    make_phase_alpha_eval_matrix_surface(tmp_path)
+    missing_playbooks_root = tmp_path / "missing-aoa-playbooks"
+    monkeypatch.setattr(validate_repo, "AOA_PLAYBOOKS_ROOT", missing_playbooks_root)
+    monkeypatch.setenv(validate_repo.STRICT_SIBLING_COMPAT_ENV, "1")
+
+    issues = validate_repo.validate_phase_alpha_eval_matrix(tmp_path)
+
+    assert any(
+        issue.location == str(missing_playbooks_root)
+        and "strict sibling compatibility requires available aoa-playbooks root" in issue.message
+        for issue in issues
+    )
+
+
+def test_phase_alpha_eval_matrix_rejects_non_bool_optional_rerun(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    make_phase_alpha_eval_matrix_surface(tmp_path)
+    playbooks_root = phase_alpha_playbooks_root_or_skip()
+    monkeypatch.setenv("AOA_PLAYBOOKS_ROOT", str(playbooks_root))
+    example_path = (
+        tmp_path
+        / "mechanics"
+        / "boundary-bridge"
+        / "parts"
+        / "phase-alpha-eval-matrix"
+        / "examples"
+        / "phase_alpha_eval_matrix.example.json"
+    )
+    payload = json.loads(example_path.read_text(encoding="utf-8"))
+    payload["runs"][0]["optional_control_path_rerun"] = "false"
+    write_json_payload(example_path, payload)
+    builder = validate_repo.load_phase_alpha_eval_matrix_builder(tmp_path)
+
+    with pytest.raises(SystemExit, match="optional_control_path_rerun must be a boolean"):
+        builder.build_phase_alpha_eval_matrix_payload()
 
 
 class DownstreamFeedContractsTests(unittest.TestCase):

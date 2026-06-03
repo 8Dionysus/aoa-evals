@@ -84,7 +84,7 @@ As of 2026-05-24:
   `mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md`,
   `mechanics/rpg/parts/progression-unlocks/docs/UNLOCK_PROOF_BRIDGE.md`, and
   `scripts/validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k rpg_progression_unlocks`,
+- Validation: `python -m pytest -q tests/test_mechanic_surface_contracts.py -k rpg_progression_unlocks`,
   `python scripts/validate_repo.py`, `python scripts/build_catalog.py --check`,
   `python scripts/validate_semantic_agents.py`, and full pytest are the
   expected checks for this slice.
@@ -94,7 +94,7 @@ As of 2026-05-24:
 Expected validation route:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k rpg_progression_unlocks
+python -m pytest -q tests/test_mechanic_surface_contracts.py -k rpg_progression_unlocks
 python scripts/validate_repo.py
 python scripts/build_catalog.py --check
 python scripts/validate_semantic_agents.py

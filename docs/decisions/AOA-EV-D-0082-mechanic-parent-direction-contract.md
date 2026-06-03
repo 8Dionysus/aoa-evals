@@ -43,7 +43,7 @@ Legacy remains behind `PROVENANCE.md`. Archive details stay inside the owning
 Validator coverage:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_direction
+python -m pytest -q tests/test_mechanic_parent_direction.py -k mechanic_parent_direction
 ```
 
 ## Consequences

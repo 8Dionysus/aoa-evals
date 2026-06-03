@@ -91,9 +91,9 @@ Focused mechanic topology checks live in this lane when the changed source
 surface names a narrower guard:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k mechanic_root_district_recon
-python -m pytest -q tests/test_validate_repo.py -k mechanic_part_payload_inventory
-python -m pytest -q tests/test_validate_repo.py -k mechanic_part_validation_command
+python -m pytest -q tests/test_mechanic_root_district_recon.py -k mechanic_root_district_recon
+python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_payload_inventory
+python -m pytest -q tests/test_mechanic_part_validation_commands.py -k mechanic_part_validation_command
 ```
 
 ## Closeout

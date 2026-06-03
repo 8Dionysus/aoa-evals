@@ -74,6 +74,6 @@ It does not create new parent mechanics, move source proof bundles out of
 ## Validation
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k mechanic_part_source_surfaces_section
+python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_source_surfaces_section
 python scripts/validate_repo.py
 ```

@@ -1,7 +1,7 @@
 # Repo Validation aoa-memo Pin Refresh
 
 - Decision ID: AOA-EV-D-0028
-- Status: Accepted
+- Status: Superseded
 - Date: 2026-05-20
 - Owner surface: `.github/workflows/repo-validation.yml`
 
@@ -11,7 +11,7 @@
 - Surface classes: proof topology
 - Mechanic parents: none
 - Guard families: none
-- Posture: active rationale
+- Posture: historical compatibility rationale
 
 ## Context
 
@@ -40,10 +40,17 @@ repo now validates.
 Refresh the `aoa-memo` checkout ref in `.github/workflows/repo-validation.yml`
 to `97f19698c94ebbebabe8b1b6f22e5ccff3bc5f1f`.
 
-This is a pinned CI-lane update, not a latest-sibling canary substitution. The
-latest-sibling canary remains the read of current local sibling checkouts; GitHub
-`Repo Validation` remains the strict public landing gate using pinned sibling
-refs.
+At that time, this was a pinned CI-lane update, not a latest-sibling canary
+substitution. The latest-sibling canary remained the read of current local
+sibling checkouts, and GitHub `Repo Validation` still used pinned sibling refs
+as its strict public landing gate.
+
+## Supersession
+
+AOA-EV-D-0115 later separated local release identity from sibling compatibility
+checks. GitHub `Repo Validation` now runs the local `aoa-evals` release gate
+without sibling checkout pins. Pinned sibling checks remain compatibility
+evidence only when a PR or release explicitly makes that cross-organ claim.
 
 ## Rationale
 

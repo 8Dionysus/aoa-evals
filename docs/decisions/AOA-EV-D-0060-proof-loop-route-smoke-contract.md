@@ -87,4 +87,4 @@ As of 2026-05-24:
 
 - `python scripts/validate_repo.py`
 - `python scripts/validate_semantic_agents.py`
-- `python -m pytest -q tests/test_validate_repo.py -k proof_loop_route_smoke_part_readme`
+- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k proof_loop_route_smoke_part_readme`

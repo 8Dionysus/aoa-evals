@@ -93,7 +93,7 @@ As of 2026-05-22:
   begin from owner-route recovery rather than absence or insufficiency.
 - Source surfaces updated: `docs/architecture/AGENT_INDEX.md`, `scripts/validate_repo.py`,
   and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k agent_index`.
+- Validation: `python -m pytest -q tests/test_root_surface_roles.py -k agent_index`.
 
 ## Validation
 

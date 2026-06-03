@@ -107,7 +107,7 @@ As of 2026-05-24:
 Expected validation route:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k growth_cycle_diagnosis_gate
+python -m pytest -q tests/test_mechanic_surface_contracts.py -k growth_cycle_diagnosis_gate
 python scripts/validate_repo.py --eval aoa-diagnosis-cause-discipline
 python scripts/validate_repo.py
 python scripts/build_catalog.py --check

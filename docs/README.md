@@ -15,7 +15,7 @@ where meaning lives and which surface to open next.
 | input | proof questions, route questions, topology questions, guide lookup, or operational docs lookup |
 | output | the next source surface, index, proof guide, operation guide, or owner route |
 | owner | `docs/AGENTS.md` for docs edits; target source files own their meaning |
-| next route | `docs/architecture/`, `docs/guides/`, `docs/operations/`, `docs/decisions/`, mechanics, or bundle-local proof |
+| next route | `docs/architecture/`, `docs/guides/`, `docs/operations/`, `docs/validation/`, `docs/testing/`, `docs/decisions/`, mechanics, or bundle-local proof |
 | validation | [docs/AGENTS.md#validation](AGENTS.md#validation) and the nearest owner route card |
 
 ## First Route
@@ -31,6 +31,8 @@ where meaning lives and which surface to open next.
 | Is this name active, legacy, accepted input, generated projection, or candidate vocabulary? | [Legacy Naming](architecture/LEGACY_NAMING.md) |
 | Which proof guide applies? | [Guides](#guides) |
 | Which proof operation owns this route? | [Mechanics Operation Atlas](../mechanics/README.md) |
+| Which validation lane or command owner applies? | [Validation Command Authority](validation/COMMAND_AUTHORITY.md) |
+| Which test family should cover this boundary? | [Test Topology](testing/TEST_TOPOLOGY.md) |
 | Which generated report or comparison reader should I inspect? | [Generated Eval Report Index](../generated/eval_report_index.min.json), [Comparison Spine Reader](../generated/comparison_spine.json), then the source bundle or mechanic named inside the reader |
 | Why was this route chosen? | [Decision Records Index](decisions/README.md) |
 | What should happen next? | [Proof Direction Roadmap](../ROADMAP.md), [Questbook Obligation Index](../QUESTBOOK.md), [Quest Source Records](../quests/README.md), [Quest Lifecycle Contract](../quests/LIFECYCLE.md) |
@@ -46,6 +48,8 @@ The first concrete source-owned proof surface remains
 | `architecture/` | authority, topology, route law, and legacy/provenance posture | [Proof Topology](architecture/PROOF_TOPOLOGY.md) |
 | `guides/` | proof-reading guides for review, score, verdict, comparison, portability, fixtures, blind spots, and boundaries | [Eval Review Guide](guides/EVAL_REVIEW_GUIDE.md) |
 | `operations/` | release, quest integration, closeout/writeback ingress, and preserved root reference material | [Releasing](operations/RELEASING.md) |
+| `validation/` | validator topology, command authority, lane manifest, and validator/script inventories | [Validation Command Authority](validation/COMMAND_AUTHORITY.md) |
+| `testing/` | test topology and test coverage inventory | [Test Topology](testing/TEST_TOPOLOGY.md) |
 | `decisions/` | durable rationale and generated lookup indexes | [Decision Records Index](decisions/README.md) |
 
 ## Architecture
@@ -82,6 +86,13 @@ The first concrete source-owned proof surface remains
 - [Reviewed Closeout Writeback Proof Ingress](operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md)
 - [AGENTS Root Reference](operations/AGENTS_ROOT_REFERENCE.md)
 
+## Validation And Testing
+
+- [Validator Topology](validation/VALIDATOR_TOPOLOGY.md)
+- [Validation Command Authority](validation/COMMAND_AUTHORITY.md)
+- [Script Topology](validation/SCRIPT_TOPOLOGY.md)
+- [Test Topology](testing/TEST_TOPOLOGY.md)
+
 ## Recommended Reading Paths
 
 | Path | Route |
@@ -89,6 +100,7 @@ The first concrete source-owned proof surface remains
 | New reader | [aoa-evals Bounded Proof Canon](../README.md) -> [Agent Index](architecture/AGENT_INDEX.md) -> [First starter bundle](../evals/workflow/aoa-bounded-change-quality/EVAL.md) -> [Eval Bundle Selection Chooser](../EVAL_SELECTION.md) -> [Eval Bundle Index](../EVAL_INDEX.md) |
 | Reviewer | [Eval Rubric](guides/EVAL_RUBRIC.md) -> [Eval Review Guide](guides/EVAL_REVIEW_GUIDE.md) -> [Verdict Interpretation Guide](guides/VERDICT_INTERPRETATION_GUIDE.md) -> bundle notes -> [Blind Spot Disclosure Guide](guides/BLIND_SPOT_DISCLOSURE_GUIDE.md) |
 | Mechanics Refactor Path | [Proof Topology](architecture/PROOF_TOPOLOGY.md) -> [Route Residue Guards](architecture/ROUTE_RESIDUE_GUARDS.md) -> [Mechanics Operation Atlas](../mechanics/README.md) -> parent `README.md`/`DIRECTION.md`/`PARTS.md` -> nearest `AGENTS.md` |
+| Validator/Test/Script Refactor | [Validator Topology](validation/VALIDATOR_TOPOLOGY.md) -> [Validation Command Authority](validation/COMMAND_AUTHORITY.md) -> [Test Topology](testing/TEST_TOPOLOGY.md) -> [Script Topology](validation/SCRIPT_TOPOLOGY.md) -> focused topology tests |
 | Release and handoff | [Releasing](operations/RELEASING.md) -> [Release Support Mechanic](../mechanics/release-support/README.md) -> readiness, closeout, or PR-handoff report |
 
 ## Validation Route

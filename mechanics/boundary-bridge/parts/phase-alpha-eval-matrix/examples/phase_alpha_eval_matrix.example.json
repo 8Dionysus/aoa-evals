@@ -24,7 +24,7 @@
         {
           "eval_anchor": "aoa-tool-trajectory-discipline",
           "support_refs": [
-            "repo:aoa-playbooks/docs/alpha-readiness/local-stack-diagnosis.md"
+            "repo:aoa-playbooks/mechanics/real-run-harvest/parts/phase-alpha-evidence-store/docs/alpha-readiness/local-stack-diagnosis.md"
           ]
         }
       ]
@@ -42,7 +42,7 @@
         {
           "eval_anchor": "aoa-bounded-change-quality",
           "support_refs": [
-            "repo:aoa-playbooks/docs/alpha-readiness/self-agent-checkpoint-rollout.md"
+            "repo:aoa-playbooks/mechanics/real-run-harvest/parts/phase-alpha-evidence-store/docs/alpha-readiness/self-agent-checkpoint-rollout.md"
           ]
         }
       ]
@@ -60,13 +60,13 @@
         {
           "eval_anchor": "aoa-verification-honesty",
           "support_refs": [
-            "repo:aoa-playbooks/docs/alpha-readiness/validation-driven-remediation.md"
+            "repo:aoa-playbooks/mechanics/real-run-harvest/parts/phase-alpha-evidence-store/docs/alpha-readiness/validation-driven-remediation.md"
           ]
         },
         {
           "eval_anchor": "aoa-approval-boundary-adherence",
           "support_refs": [
-            "repo:aoa-playbooks/docs/alpha-readiness/validation-driven-remediation.md"
+            "repo:aoa-playbooks/mechanics/real-run-harvest/parts/phase-alpha-evidence-store/docs/alpha-readiness/validation-driven-remediation.md"
           ]
         }
       ]
@@ -78,7 +78,7 @@
         {
           "eval_anchor": "aoa-long-horizon-depth",
           "support_refs": [
-            "repo:aoa-playbooks/docs/alpha-readiness/long-horizon-model-tier-orchestra.md"
+            "repo:aoa-playbooks/mechanics/real-run-harvest/parts/phase-alpha-evidence-store/docs/alpha-readiness/long-horizon-model-tier-orchestra.md"
           ]
         },
         {
@@ -127,7 +127,7 @@
         {
           "eval_anchor": "aoa-verification-honesty",
           "support_refs": [
-            "repo:aoa-playbooks/docs/alpha-readiness/validation-driven-remediation.md"
+            "repo:aoa-playbooks/mechanics/real-run-harvest/parts/phase-alpha-evidence-store/docs/alpha-readiness/validation-driven-remediation.md"
           ]
         }
       ]

@@ -14,8 +14,8 @@
   ],
   "artifact_contract_refs": [
     "repo:aoa-playbooks/playbooks/runtime-chaos-recovery/PLAYBOOK.md#expected-artifacts",
-    "repo:aoa-playbooks/examples/playbook_stress_lane.runtime-timeout-chaos.example.json",
-    "repo:aoa-playbooks/examples/playbook_reentry_gate.retrieval-outage-honesty.example.json",
+    "repo:aoa-playbooks/mechanics/antifragility/parts/stress-lanes/examples/playbook_stress_lane.runtime-timeout-chaos.example.json",
+    "repo:aoa-playbooks/mechanics/antifragility/parts/reentry-gates/examples/playbook_reentry_gate.retrieval-outage-honesty.example.json",
     "repo:aoa-routing/examples/composite_stress_route_hint.retrieval-outage-honesty.example.json",
     "repo:aoa-kag/examples/regrounding_ticket.retrieval-outage-honesty.example.json",
     "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/schemas/service-degradation-receipt.schema.json",

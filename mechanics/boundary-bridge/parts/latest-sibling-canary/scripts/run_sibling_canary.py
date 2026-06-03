@@ -5,6 +5,7 @@ import argparse
 import contextlib
 import io
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any, Iterator, Sequence
@@ -148,7 +149,9 @@ def override_validate_repo_roots(
         name: getattr(validate_repo, name)
         for name in tracked_attributes
     }
+    original_strict = os.environ.get(validate_repo.STRICT_SIBLING_COMPAT_ENV)
     try:
+        os.environ[validate_repo.STRICT_SIBLING_COMPAT_ENV] = "1"
         for entry in entries:
             setattr(validate_repo, str(entry["root_variable"]), Path(entry["resolved_path"]))
         validate_repo.VISIBLE_ROOTS = (
@@ -179,6 +182,10 @@ def override_validate_repo_roots(
         }
         yield
     finally:
+        if original_strict is None:
+            os.environ.pop(validate_repo.STRICT_SIBLING_COMPAT_ENV, None)
+        else:
+            os.environ[validate_repo.STRICT_SIBLING_COMPAT_ENV] = original_strict
         for name, value in original_values.items():
             setattr(validate_repo, name, value)
 

@@ -104,7 +104,7 @@ As of 2026-05-24 (root district routes):
   language.
 - Source surfaces updated: `docs/architecture/PROOF_TOPOLOGY.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+- Validation: `python -m pytest -q tests/test_root_surface_roles.py -k
   proof_topology`.
 - Superseded by: none.
 
@@ -150,7 +150,7 @@ As of 2026-05-24 (root district routes):
   glance.
 - Source surfaces updated: `docs/architecture/PROOF_TOPOLOGY.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+- Validation: `python -m pytest -q tests/test_root_surface_roles.py -k
   proof_topology`.
 
 ## Boundaries

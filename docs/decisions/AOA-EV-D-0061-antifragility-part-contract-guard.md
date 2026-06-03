@@ -118,7 +118,7 @@ As of 2026-05-24:
 Expected validation route:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k antifragility_part_readmes
+python -m pytest -q tests/test_mechanic_surface_contracts.py -k antifragility_part_readmes
 python scripts/validate_repo.py
 python scripts/build_catalog.py --check
 python -m pytest -q

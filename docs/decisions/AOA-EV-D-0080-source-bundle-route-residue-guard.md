@@ -88,5 +88,5 @@ It does not treat generated readers as stronger than bundles.
 
 ## Validation
 
-- `python -m pytest -q tests/test_validate_repo.py -k source_bundle_route_residue`
+- `python -m pytest -q tests/test_route_residue.py -k source_bundle_route_residue`
 - `python scripts/validate_repo.py`

@@ -101,7 +101,7 @@ As of 2026-05-24:
 Expected validation route:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k distillation_part_readmes
+python -m pytest -q tests/test_mechanic_surface_contracts.py -k distillation_part_readmes
 python scripts/validate_repo.py --eval aoa-compost-provenance-preservation
 python scripts/validate_repo.py --eval aoa-memo-reviewed-candidate-adoption-integrity
 python scripts/validate_repo.py

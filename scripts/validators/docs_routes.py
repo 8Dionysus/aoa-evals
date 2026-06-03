@@ -29,6 +29,8 @@ README_FOLDER_ROUTES = (
     "docs/architecture/",
     "docs/guides/",
     "docs/operations/",
+    "docs/validation/",
+    "docs/testing/",
     "docs/decisions/",
 )
 RELATIVE_LINK_RE = re.compile(r"!?\[[^\]]+\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")

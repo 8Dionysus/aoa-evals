@@ -68,7 +68,7 @@ python scripts/validate_repo.py
 
 ```bash
 python scripts/validate_repo.py
-python -m pytest -q tests/test_validate_repo.py -k runtime_integrity_review
+python -m pytest -q tests/test_runtime_evidence_surfaces.py -k runtime_integrity_review
 ```
 
 ### `mechanics/audit/parts/selected-evidence-packets/VALIDATION.md`

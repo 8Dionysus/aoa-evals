@@ -59,7 +59,7 @@ implementation truth.
 Expected validation route:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k questbook_part_owner_split
+python -m pytest -q tests/test_mechanic_surface_contracts.py -k questbook_part_owner_split
 python scripts/build_catalog.py --check
 python scripts/validate_repo.py
 python scripts/validate_semantic_agents.py

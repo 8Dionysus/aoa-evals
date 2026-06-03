@@ -104,6 +104,7 @@ As of 2026-05-24:
 ## Validation
 
 - `python scripts/validate_repo.py`
-- `python -m pytest -q tests/test_validate_repo.py -k 'boundary_bridge_part_readmes or boundary_bridge_provenance'`
+- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k boundary_bridge_part_readmes`
+- `python -m pytest -q tests/test_validate_repo.py -k boundary_bridge_provenance`
 - `python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json`
 - `python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check`

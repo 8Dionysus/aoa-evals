@@ -99,7 +99,7 @@ As of 2026-05-24:
   `mechanics/comparison-spine/parts/peer-compare/README.md`,
   `mechanics/comparison-spine/parts/longitudinal-window/README.md`,
   `mechanics/comparison-spine/PARTS.md`, and `scripts/validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k comparison_spine_part_readmes`,
+- Validation: `python -m pytest -q tests/test_mechanic_surface_contracts.py -k comparison_spine_part_readmes`,
   `python scripts/validate_repo.py`, `python scripts/build_catalog.py --check`,
   `python scripts/validate_semantic_agents.py`, and full pytest are the
   expected checks for this slice.
@@ -108,4 +108,4 @@ As of 2026-05-24:
 
 - `python scripts/validate_repo.py`
 - `python scripts/build_catalog.py --check`
-- `python -m pytest -q tests/test_validate_repo.py -k comparison_spine_part_readmes`
+- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k comparison_spine_part_readmes`

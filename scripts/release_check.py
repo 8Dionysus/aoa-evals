@@ -1,53 +1,28 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import os
 import subprocess
-import sys
 from pathlib import Path
 
+import validation_lanes
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
+# Release lane still includes the generated report index check:
+# `python scripts/generate_eval_report_index.py --check`.
 
 
-def _env() -> dict[str, str]:
-    env = os.environ.copy()
-    deps = {
-        "AOA_TECHNIQUES_ROOT": "aoa-techniques",
-        "AOA_SKILLS_ROOT": "aoa-skills",
-        "AOA_AGENTS_ROOT": "aoa-agents",
-        "AOA_PLAYBOOKS_ROOT": "aoa-playbooks",
-        "AOA_MEMO_ROOT": "aoa-memo",
-        "ABYSS_STACK_ROOT": "abyss-stack",
-    }
-    for env_var, repo_name in deps.items():
-        fallback_roots = [
-            str((REPO_ROOT / ".deps" / repo_name).resolve()),
-            str((REPO_ROOT.parent / repo_name).resolve()),
-        ]
-        if env_var == "ABYSS_STACK_ROOT":
-            fallback_roots.insert(1, str((Path.home() / "src" / "abyss-stack").resolve()))
-        candidates = [
-            env.get(env_var),
-            *fallback_roots,
-        ]
-        for candidate in candidates:
-            if candidate and Path(candidate).exists():
-                env[env_var] = str(Path(candidate).resolve())
-                break
-    return env
+def _command_label(command: tuple[str, ...]) -> str:
+    if len(command) >= 2 and command[1].endswith(".py"):
+        return Path(command[1]).stem.replace("_", " ")
+    if "-m" in command and "pytest" in command:
+        return "run tests"
+    return " ".join(command)
 
 
-COMMANDS = [
-    ("check generated catalog", [sys.executable, "scripts/build_catalog.py", "--check"]),
-    ("check generated eval report index", [sys.executable, "scripts/generate_eval_report_index.py", "--check"]),
-    ("validate repo", [sys.executable, "scripts/validate_repo.py"]),
-    ("run tests", [sys.executable, "-m", "pytest", "-q"]),
-]
-
-
-def run_step(label: str, command: list[str]) -> int:
-    print(f"[run] {label}: {subprocess.list2cmdline(command)}", flush=True)
-    completed = subprocess.run(command, cwd=REPO_ROOT, env=_env(), check=False)
+def run_step(label: str, command: tuple[str, ...]) -> int:
+    runtime_command = validation_lanes.command_for_runtime(command)
+    print(f"[run] {label}: {subprocess.list2cmdline(runtime_command)}", flush=True)
+    completed = subprocess.run(runtime_command, cwd=REPO_ROOT, env=None, check=False)
     if completed.returncode != 0:
         print(f"[error] {label} failed with exit code {completed.returncode}", flush=True)
         return completed.returncode
@@ -56,7 +31,8 @@ def run_step(label: str, command: list[str]) -> int:
 
 
 def main() -> int:
-    for label, command in COMMANDS:
+    for command in validation_lanes.RELEASE_CHECK_COMMAND_SEQUENCE:
+        label = _command_label(command)
         exit_code = run_step(label, command)
         if exit_code != 0:
             return exit_code

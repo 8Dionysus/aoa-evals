@@ -78,4 +78,4 @@ snapshots stronger than source proof objects and bundle-local reports.
 
 - `python scripts/validate_repo.py`
 - `python scripts/release_check.py`
-- `python -m pytest -q tests/test_validate_repo.py -k release_support_part_readmes`
+- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k release_support_part_readmes`

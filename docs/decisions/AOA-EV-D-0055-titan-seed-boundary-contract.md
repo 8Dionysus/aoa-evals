@@ -71,7 +71,7 @@ It does not transfer `aoa-agents` Titan role/bearer/incarnation law,
 ## Validation
 
 - `python scripts/validate_repo.py`
-- `python -m pytest -q tests/test_validate_repo.py -k 'titan_seed_boundary or titan_canary'`
+- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k titan`
 
 ## Current Applicability
 
@@ -112,7 +112,7 @@ As of 2026-05-24:
   tell the agent where each pressure belongs before it edits seed wording.
 - Source surfaces updated: Titan package, part, seed, and guide route wording;
   validator tokens; validator regression coverage.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k "titan_seed_boundary or titan_canary"`,
+- Validation: `python -m pytest -q tests/test_mechanic_surface_contracts.py -k titan`,
   `python scripts/validate_repo.py`, `python scripts/validate_semantic_agents.py`,
   generated-surface `--check` commands, `python -m pytest -q`, and
   `git diff --check`.

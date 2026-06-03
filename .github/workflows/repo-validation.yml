@@ -10,58 +10,9 @@ jobs:
   release_audit:
     name: Repo Validation
     runs-on: ubuntu-latest
-    env:
-      AOA_TECHNIQUES_ROOT: ${{ github.workspace }}/.deps/aoa-techniques
-      AOA_SKILLS_ROOT: ${{ github.workspace }}/.deps/aoa-skills
-      AOA_AGENTS_ROOT: ${{ github.workspace }}/.deps/aoa-agents
-      AOA_PLAYBOOKS_ROOT: ${{ github.workspace }}/.deps/aoa-playbooks
-      AOA_MEMO_ROOT: ${{ github.workspace }}/.deps/aoa-memo
-      ABYSS_STACK_ROOT: ${{ github.workspace }}/.deps/abyss-stack
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-
-      - name: Checkout aoa-techniques
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-        with:
-          repository: 8Dionysus/aoa-techniques
-          ref: dca2de00d21264b95410123e7b85fa65df6203e4
-          path: .deps/aoa-techniques
-
-      - name: Checkout aoa-skills
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-        with:
-          repository: 8Dionysus/aoa-skills
-          ref: d98eaac04619b977558eeec0d244967a74e9353e
-          path: .deps/aoa-skills
-
-      - name: Checkout aoa-agents
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-        with:
-          repository: 8Dionysus/aoa-agents
-          ref: 1299181822b59c602f30027185e3314e18739bd2
-          path: .deps/aoa-agents
-
-      - name: Checkout aoa-playbooks
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-        with:
-          repository: 8Dionysus/aoa-playbooks
-          ref: ef4a4b29d9a9a5ae20385303a7b763184374e2b3
-          path: .deps/aoa-playbooks
-
-      - name: Checkout aoa-memo
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-        with:
-          repository: 8Dionysus/aoa-memo
-          ref: 97f19698c94ebbebabe8b1b6f22e5ccff3bc5f1f
-          path: .deps/aoa-memo
-
-      - name: Checkout abyss-stack
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
-        with:
-          repository: 8Dionysus/abyss-stack
-          ref: 1186ba924fbec5b6590aa32581baadef7c912c80
-          path: .deps/abyss-stack
 
       - name: Setup Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405

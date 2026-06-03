@@ -35,7 +35,7 @@ owning `legacy/` archive.
 Validator coverage:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k legacy_naming_single_bridge_language
+python -m pytest -q tests/test_root_surface_roles.py -k legacy_naming_single_bridge_language
 ```
 
 ## Consequences

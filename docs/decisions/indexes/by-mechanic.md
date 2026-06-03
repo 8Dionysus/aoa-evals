@@ -155,3 +155,4 @@
 - [AOA-EV-D-0110 AoA Evals MCP Access Plane Contract](../AOA-EV-D-0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/AOA-EV-D-0110-aoa-evals-mcp-access-plane-contract.md`)
 - [AOA-EV-D-0111 Runtime Evidence Ingestion and Mirror Status](../AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md`)
 - [AOA-EV-D-0112 Route-First Eval Birth Protocol](../AOA-EV-D-0112-route-first-eval-birth-protocol.md) (`docs/decisions/AOA-EV-D-0112-route-first-eval-birth-protocol.md`)
+- [AOA-EV-D-0115 Validation Lane Command Authority](../AOA-EV-D-0115-validation-lane-command-authority.md) (`docs/decisions/AOA-EV-D-0115-validation-lane-command-authority.md`)

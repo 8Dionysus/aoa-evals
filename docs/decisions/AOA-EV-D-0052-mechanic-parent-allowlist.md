@@ -89,6 +89,6 @@ owner split, stop-lines, and validation.
 - `mechanics/EVIDENCE_CLUSTERS.md`
 - `mechanics/README.md`
 - `scripts/validate_repo.py`
-- `tests/test_validate_repo.py`
+- `tests/test_mechanic_parent_topology.py`
 - `python scripts/validate_repo.py`
-- `python -m pytest -q tests/test_validate_repo.py -k 'mechanic_parent_allowlist or part_contract_files'`
+- `python -m pytest -q tests/test_mechanic_parent_topology.py -k 'mechanic_parent_allowlist or mechanic_part_contract_files'`

@@ -76,7 +76,8 @@ or `aoa-stats` owner truth into `aoa-evals`.
 - `scripts/validate_repo.py`
 - `tests/test_validate_repo.py`
 - `python scripts/validate_repo.py`
-- `python -m pytest -q tests/test_validate_repo.py -k 'audit_part_readmes or provenance'`
+- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k audit_part_readmes`
+- `python -m pytest -q tests/test_validate_repo.py -k provenance`
 
 ## Current Applicability
 

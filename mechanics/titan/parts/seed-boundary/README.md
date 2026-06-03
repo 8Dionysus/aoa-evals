@@ -16,7 +16,7 @@ one source shape and one validator route.
 - `mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md`
 - `mechanics/titan/parts/seed-boundary/docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md`
 - `scripts/validate_repo.py` function `validate_titan_canary_surfaces`
-- `tests/test_validate_repo.py` titan canary checks
+- `tests/test_mechanic_surface_contracts.py` Titan canary checks
 
 ## Route
 

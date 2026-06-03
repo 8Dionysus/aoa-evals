@@ -66,7 +66,7 @@ Current former wrong parent forms include `agon-proof`, `titan-canaries`,
 Expected validation route:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_class
+python -m pytest -q tests/test_mechanic_evidence_ledger.py -k mechanic_parent_class
 python scripts/validate_repo.py
 python scripts/build_catalog.py --check
 python -m pytest -q

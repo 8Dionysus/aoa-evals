@@ -61,7 +61,7 @@ The guard is context-aware:
 Expected validation route:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k generated_route_residue
+python -m pytest -q tests/test_generated_route_residue.py
 python scripts/validate_repo.py
 python scripts/build_catalog.py --check
 python -m pytest -q

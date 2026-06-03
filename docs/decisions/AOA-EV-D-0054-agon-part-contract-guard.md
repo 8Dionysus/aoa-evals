@@ -77,7 +77,8 @@ runtime truth, stats truth, or memo truth into `aoa-evals`.
 ## Validation
 
 - `python scripts/validate_repo.py`
-- `python -m pytest -q tests/test_validate_repo.py -k 'agon_part_readmes or mechanic_parent_allowlist'`
+- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k agon_part_readmes`
+- `python -m pytest -q tests/test_mechanic_parent_topology.py -k mechanic_parent_allowlist`
 - part-local Agon builders, validators, and tests before any generated registry
   change
 

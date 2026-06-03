@@ -80,5 +80,5 @@ districts.
 
 ## Validation
 
-- `python -m pytest -q tests/test_validate_repo.py -k decision_route_residue`
+- `python -m pytest -q tests/test_route_residue.py -k decision_route_residue`
 - `python scripts/validate_repo.py`

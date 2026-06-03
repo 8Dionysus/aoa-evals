@@ -86,7 +86,7 @@ Run the narrow package route checks:
 ```bash
 python scripts/validate_repo.py
 python scripts/validate_semantic_agents.py
-python -m pytest -q tests/test_validate_repo.py -k titan_canary
+python -m pytest -q tests/test_mechanic_surface_contracts.py -k titan
 ```
 
 Run broader generated and release checks when canary changes affect public

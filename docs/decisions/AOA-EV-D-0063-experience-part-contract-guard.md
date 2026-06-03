@@ -118,7 +118,7 @@ As of 2026-05-24:
 Expected validation route:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k experience_part_readmes
+python -m pytest -q tests/test_mechanic_surface_contracts.py -k experience_part_readmes
 python -m pytest -q mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py mechanics/experience/parts/certification-gate/tests/test_experience_certification_gate_integrity.py mechanics/experience/parts/certification-gate/tests/test_experience_wave2_seed_contracts.py mechanics/experience/parts/adoption-federation/tests/test_experience_wave3_seed_contracts.py mechanics/experience/parts/governance-runtime-boundary/tests/test_experience_wave4_seed_contracts.py mechanics/experience/parts/office-release-train/tests/test_experience_wave5_seed_contracts.py
 python scripts/validate_repo.py
 python scripts/build_catalog.py --check

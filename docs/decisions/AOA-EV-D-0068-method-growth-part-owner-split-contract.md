@@ -88,7 +88,7 @@ As of 2026-05-24:
 Expected validation route:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k method_growth_part_owner_split
+python -m pytest -q tests/test_mechanic_surface_contracts.py -k method_growth_part_owner_split
 python scripts/validate_repo.py --eval aoa-candidate-lineage-integrity
 python scripts/validate_repo.py --eval aoa-owner-fit-routing-quality
 python scripts/validate_repo.py

@@ -30,4 +30,12 @@ operations:
   - docs/operations/QUESTBOOK_EVAL_INTEGRATION.md
   - docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md
   - docs/operations/AGENTS_ROOT_REFERENCE.md
+validation:
+  - docs/validation/AGENTS.md
+  - docs/validation/VALIDATOR_TOPOLOGY.md
+  - docs/validation/COMMAND_AUTHORITY.md
+  - docs/validation/SCRIPT_TOPOLOGY.md
+testing:
+  - docs/testing/AGENTS.md
+  - docs/testing/TEST_TOPOLOGY.md
 decision_surface: docs/decisions/

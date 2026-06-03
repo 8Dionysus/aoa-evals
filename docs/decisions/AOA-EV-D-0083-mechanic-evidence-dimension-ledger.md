@@ -73,6 +73,6 @@ validator constants together.
 ## Validation
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k mechanic_evidence_dimension
+python -m pytest -q tests/test_mechanic_evidence_ledger.py -k mechanic_evidence_dimension
 python scripts/validate_repo.py
 ```

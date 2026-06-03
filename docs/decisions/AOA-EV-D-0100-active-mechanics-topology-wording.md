@@ -109,7 +109,7 @@ stay inside legacy.
 
 ## Validation
 
-- `python -m pytest -q tests/test_validate_repo.py -k 'root_design or design_agents or proof_topology'`
+- `python -m pytest -q tests/test_root_surface_roles.py -k 'root_design or design_agents or proof_topology'`
 - `python scripts/validate_repo.py`
 - `python scripts/build_catalog.py --check`
 - `python scripts/validate_semantic_agents.py`

@@ -1,10 +1,17 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[5]
+SCRIPTS_DIR = REPO_ROOT / "scripts"
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
+
+import validate_repo
+
 AUDIT_PATH = (
     REPO_ROOT
     / "mechanics"
@@ -18,6 +25,25 @@ AUDIT_PATH = (
 
 def load_audit() -> dict:
     return json.loads(AUDIT_PATH.read_text(encoding="utf-8"))
+
+
+def write_json_payload(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def copy_repo_text(repo_root: Path, relative_path: str) -> None:
+    source = REPO_ROOT / relative_path
+    if not source.exists():
+        raise FileNotFoundError(source)
+    destination = repo_root / relative_path
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
+
+
+def make_strategic_closeout_audit_surface(repo_root: Path) -> Path:
+    copy_repo_text(repo_root, validate_repo.STRATEGIC_CLOSEOUT_AUDIT_NAME)
+    return repo_root / validate_repo.STRATEGIC_CLOSEOUT_AUDIT_NAME
 
 
 def test_strategic_closeout_audit_keeps_goal_open() -> None:
@@ -101,19 +127,19 @@ def test_strategic_closeout_audit_lists_verification_snapshot() -> None:
     commands = {entry["command"]: entry for entry in audit["verification_snapshot"]}
 
     for command in (
-        "python -m pytest -q mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py tests/test_validate_repo.py -k strategic_closeout",
-        "python -m pytest -q tests/test_validate_repo.py -k generated_route_residue",
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readme_contract",
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_payload_inventory",
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_validation_command",
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_parts_index_sync",
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_single_bridge",
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_bridge_posture",
-        "python -m pytest -q tests/test_validate_repo.py -k legacy_naming_single_bridge_language",
-        "python -m pytest -q tests/test_validate_repo.py -k active_legacy_parent_wording",
+        "python -m pytest -q mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py",
+        "python -m pytest -q tests/test_generated_route_residue.py",
+        "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_readme_contract",
+        "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_payload_inventory",
+        "python -m pytest -q tests/test_mechanic_part_validation_commands.py -k mechanic_part_validation_command",
+        "python -m pytest -q tests/test_mechanic_parts_index.py -k mechanic_parts_index_sync",
+        "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_legacy_single_bridge",
+        "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_provenance_bridge_posture",
+        "python -m pytest -q tests/test_root_surface_roles.py -k legacy_naming_single_bridge_language",
+        "python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k active_legacy_parent_wording",
         "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_entry",
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_root_district_recon",
-        "python -m pytest -q tests/test_validate_repo.py -k root_authored_surface_classification",
+        "python -m pytest -q tests/test_mechanic_root_district_recon.py -k mechanic_root_district_recon",
+        "python -m pytest -q tests/test_mechanics_topology.py",
         "python scripts/validate_repo.py",
         "python scripts/validate_semantic_agents.py",
         "python scripts/validate_nested_agents.py",
@@ -129,5 +155,88 @@ def test_strategic_closeout_audit_lists_verification_snapshot() -> None:
     ):
         assert commands[command]["result"] == "passed"
 
-    assert "payload coverage anchors" in commands["python -m pytest -q tests/test_validate_repo.py -k mechanic_part_validation_command"]["claim_limit"]
+    assert "payload coverage anchors" in commands["python -m pytest -q tests/test_mechanic_part_validation_commands.py -k mechanic_part_validation_command"]["claim_limit"]
     assert "not receipt or verdict authority" in commands["python scripts/generate_eval_report_index.py --check"]["claim_limit"]
+
+
+def test_strategic_closeout_audit_surface_validates_current_route() -> None:
+    assert validate_repo.validate_strategic_closeout_audit_surface(REPO_ROOT) == []
+
+
+def test_strategic_closeout_audit_rejects_goal_completion_claim(
+    tmp_path: Path,
+) -> None:
+    audit_path = make_strategic_closeout_audit_surface(tmp_path)
+    payload = json.loads(audit_path.read_text(encoding="utf-8"))
+    payload["goal_completion_status"] = "complete"
+    write_json_payload(audit_path, payload)
+
+    issues = validate_repo.validate_strategic_closeout_audit_surface(tmp_path)
+
+    assert any(
+        issue.location == validate_repo.STRATEGIC_CLOSEOUT_AUDIT_NAME
+        and "goal_completion_status must be 'not_complete_pending_requirement_audit_and_landing_route'"
+        in issue.message
+        for issue in issues
+    )
+
+
+def test_strategic_closeout_audit_rejects_missing_requirement_id(
+    tmp_path: Path,
+) -> None:
+    audit_path = make_strategic_closeout_audit_surface(tmp_path)
+    payload = json.loads(audit_path.read_text(encoding="utf-8"))
+    payload["requirements_review"] = [
+        entry
+        for entry in payload["requirements_review"]
+        if entry["requirement_id"] != "phase_8_active_proof_loop"
+    ]
+    write_json_payload(audit_path, payload)
+
+    issues = validate_repo.validate_strategic_closeout_audit_surface(tmp_path)
+
+    assert any(
+        issue.location == f"{validate_repo.STRATEGIC_CLOSEOUT_AUDIT_NAME}.requirements_review"
+        and "phase_8_active_proof_loop" in issue.message
+        for issue in issues
+    )
+
+
+def test_strategic_closeout_audit_rejects_missing_focused_gate(
+    tmp_path: Path,
+) -> None:
+    audit_path = make_strategic_closeout_audit_surface(tmp_path)
+    payload = json.loads(audit_path.read_text(encoding="utf-8"))
+    payload["verification_snapshot"] = [
+        entry
+        for entry in payload["verification_snapshot"]
+        if entry["command"]
+        != "python -m pytest -q mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py"
+    ]
+    write_json_payload(audit_path, payload)
+
+    issues = validate_repo.validate_strategic_closeout_audit_surface(tmp_path)
+
+    assert any(
+        issue.location == f"{validate_repo.STRATEGIC_CLOSEOUT_AUDIT_NAME}.verification_snapshot"
+        and "mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py"
+        in issue.message
+        for issue in issues
+    )
+
+
+def test_strategic_closeout_audit_rejects_absolute_plan_path(
+    tmp_path: Path,
+) -> None:
+    audit_path = make_strategic_closeout_audit_surface(tmp_path)
+    payload = json.loads(audit_path.read_text(encoding="utf-8"))
+    payload["source_plan_ref"] = "/home/dionysus/private-note.md"
+    write_json_payload(audit_path, payload)
+
+    issues = validate_repo.validate_strategic_closeout_audit_surface(tmp_path)
+
+    assert any(
+        issue.location == validate_repo.STRATEGIC_CLOSEOUT_AUDIT_NAME
+        and "must not expose an absolute host path" in issue.message
+        for issue in issues
+    )

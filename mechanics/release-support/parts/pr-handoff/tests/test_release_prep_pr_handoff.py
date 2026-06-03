@@ -1,10 +1,17 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[5]
+SCRIPTS_DIR = REPO_ROOT / "scripts"
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
+
+import validate_repo
+
 HANDOFF_PATH = (
     REPO_ROOT
     / "mechanics"
@@ -18,6 +25,25 @@ HANDOFF_PATH = (
 
 def load_handoff() -> dict:
     return json.loads(HANDOFF_PATH.read_text(encoding="utf-8"))
+
+
+def write_json_payload(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def copy_repo_text(repo_root: Path, relative_path: str) -> None:
+    source = REPO_ROOT / relative_path
+    if not source.exists():
+        raise FileNotFoundError(source)
+    destination = repo_root / relative_path
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
+
+
+def make_release_prep_pr_handoff_surface(repo_root: Path) -> Path:
+    copy_repo_text(repo_root, validate_repo.RELEASE_PREP_PR_HANDOFF_NAME)
+    return repo_root / validate_repo.RELEASE_PREP_PR_HANDOFF_NAME
 
 
 def test_release_prep_pr_handoff_keeps_pre_pr_snapshot_bounded() -> None:
@@ -102,19 +128,19 @@ def test_release_prep_pr_handoff_lists_landing_steps_and_gates() -> None:
         assert token in landing_steps
 
     for command in (
-        "python -m pytest -q mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py tests/test_validate_repo.py -k release_prep_pr_handoff",
-        "python -m pytest -q tests/test_validate_repo.py -k generated_route_residue",
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readme_contract",
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_payload_inventory",
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_validation_command",
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_parts_index_sync",
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_single_bridge",
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_bridge_posture",
-        "python -m pytest -q tests/test_validate_repo.py -k legacy_naming_single_bridge_language",
-        "python -m pytest -q tests/test_validate_repo.py -k active_legacy_parent_wording",
+        "python -m pytest -q mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py",
+        "python -m pytest -q tests/test_generated_route_residue.py",
+        "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_readme_contract",
+        "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_payload_inventory",
+        "python -m pytest -q tests/test_mechanic_part_validation_commands.py -k mechanic_part_validation_command",
+        "python -m pytest -q tests/test_mechanic_parts_index.py -k mechanic_parts_index_sync",
+        "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_legacy_single_bridge",
+        "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_provenance_bridge_posture",
+        "python -m pytest -q tests/test_root_surface_roles.py -k legacy_naming_single_bridge_language",
+        "python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k active_legacy_parent_wording",
         "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_entry",
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_root_district_recon",
-        "python -m pytest -q tests/test_validate_repo.py -k root_authored_surface_classification",
+        "python -m pytest -q tests/test_mechanic_root_district_recon.py -k mechanic_root_district_recon",
+        "python -m pytest -q tests/test_mechanics_topology.py",
         "python scripts/validate_repo.py",
         "python scripts/validate_semantic_agents.py",
         "python scripts/validate_nested_agents.py",
@@ -129,3 +155,89 @@ def test_release_prep_pr_handoff_lists_landing_steps_and_gates() -> None:
         "python scripts/release_check.py",
     ):
         assert commands[command]["result"] == "passed"
+
+
+def test_release_prep_pr_handoff_surface_validates_current_route() -> None:
+    assert validate_repo.validate_release_prep_pr_handoff_surface(REPO_ROOT) == []
+
+
+def test_release_prep_pr_handoff_rejects_open_pr_claim(
+    tmp_path: Path,
+) -> None:
+    handoff_path = make_release_prep_pr_handoff_surface(tmp_path)
+    payload = json.loads(handoff_path.read_text(encoding="utf-8"))
+    payload["pre_handoff_github_status"]["pr_status"] = "opened"
+    write_json_payload(handoff_path, payload)
+
+    issues = validate_repo.validate_release_prep_pr_handoff_surface(tmp_path)
+
+    assert any(
+        issue.location == f"{validate_repo.RELEASE_PREP_PR_HANDOFF_NAME}.pre_handoff_github_status"
+        and "pre_handoff pr_status must be 'not_opened'" in issue.message
+        for issue in issues
+    )
+
+
+def test_release_prep_pr_handoff_rejects_missing_surface_group(
+    tmp_path: Path,
+) -> None:
+    handoff_path = make_release_prep_pr_handoff_surface(tmp_path)
+    payload = json.loads(handoff_path.read_text(encoding="utf-8"))
+    payload["changed_surface_groups"] = [
+        entry
+        for entry in payload["changed_surface_groups"]
+        if entry["group_id"] != "active_proof_loop"
+    ]
+    write_json_payload(handoff_path, payload)
+
+    issues = validate_repo.validate_release_prep_pr_handoff_surface(tmp_path)
+
+    assert any(
+        issue.location == f"{validate_repo.RELEASE_PREP_PR_HANDOFF_NAME}.changed_surface_groups"
+        and "active_proof_loop" in issue.message
+        for issue in issues
+    )
+
+
+def test_release_prep_pr_handoff_rejects_missing_landing_step(
+    tmp_path: Path,
+) -> None:
+    handoff_path = make_release_prep_pr_handoff_surface(tmp_path)
+    payload = json.loads(handoff_path.read_text(encoding="utf-8"))
+    payload["landing_steps"] = [
+        item
+        for item in payload["landing_steps"]
+        if "watch GitHub Repo Validation" not in item
+    ]
+    write_json_payload(handoff_path, payload)
+
+    issues = validate_repo.validate_release_prep_pr_handoff_surface(tmp_path)
+
+    assert any(
+        issue.location == f"{validate_repo.RELEASE_PREP_PR_HANDOFF_NAME}.landing_steps"
+        and "watch GitHub Repo Validation" in issue.message
+        for issue in issues
+    )
+
+
+def test_release_prep_pr_handoff_rejects_missing_focused_gate(
+    tmp_path: Path,
+) -> None:
+    handoff_path = make_release_prep_pr_handoff_surface(tmp_path)
+    payload = json.loads(handoff_path.read_text(encoding="utf-8"))
+    payload["verification_snapshot"] = [
+        entry
+        for entry in payload["verification_snapshot"]
+        if entry["command"]
+        != "python -m pytest -q mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py"
+    ]
+    write_json_payload(handoff_path, payload)
+
+    issues = validate_repo.validate_release_prep_pr_handoff_surface(tmp_path)
+
+    assert any(
+        issue.location == f"{validate_repo.RELEASE_PREP_PR_HANDOFF_NAME}.verification_snapshot"
+        and "mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py"
+        in issue.message
+        for issue in issues
+    )

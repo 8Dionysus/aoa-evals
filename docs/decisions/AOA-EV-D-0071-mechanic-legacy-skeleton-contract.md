@@ -91,8 +91,9 @@ As of 2026-05-24:
 - Reason: low-context agents should see where an old path enters, what the
   archive owns, and which active route receives current work.
 - Source surfaces updated: `mechanics/*/legacy/README.md`,
-  `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+  `scripts/validate_repo.py`, `tests/test_mechanic_parent_topology.py`, and
+  `tests/test_mechanic_legacy_archive_routes.py`.
+- Validation: `python -m pytest -q tests/test_mechanic_parent_topology.py -k
   mechanic_legacy_skeleton`; `python scripts/validate_repo.py`.
 
 ### 2026-05-24 - Archive route files hand validation to AGENTS
@@ -116,8 +117,8 @@ As of 2026-05-24:
 Expected validation route:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_skeleton
-python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_raw_payload
+python -m pytest -q tests/test_mechanic_parent_topology.py -k mechanic_legacy_skeleton
+python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k mechanic_legacy_raw_payload
 python scripts/validate_repo.py
 python scripts/build_catalog.py --check
 python -m pytest -q

@@ -9,7 +9,14 @@ import pytest
 REPO_ROOT = Path(__file__).resolve().parents[5]
 WORKSPACE_ROOT = REPO_ROOT.parent
 SDK_FIXTURE_PATH = (
-    WORKSPACE_ROOT / "aoa-sdk" / "examples" / "a2a" / "summon_return_checkpoint_e2e.fixture.json"
+    WORKSPACE_ROOT
+    / "aoa-sdk"
+    / "mechanics"
+    / "checkpoint"
+    / "parts"
+    / "child-task-reentry"
+    / "examples"
+    / "summon_return_checkpoint_e2e.fixture.json"
 )
 
 
@@ -46,9 +53,10 @@ def test_a2a_eval_hook_references_sdk_e2e_fixture() -> None:
         / "artifact_to_verdict_hook.a2a-summon-return-checkpoint.example.json"
     )
 
-    assert "repo:aoa-sdk/examples/a2a/summon_return_checkpoint_e2e.fixture.json" in hook[
-        "artifact_contract_refs"
-    ]
+    assert (
+        "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/"
+        "summon_return_checkpoint_e2e.fixture.json"
+    ) in hook["artifact_contract_refs"]
 
 
 def test_sdk_e2e_fixture_keeps_eval_contract_inputs_visible() -> None:

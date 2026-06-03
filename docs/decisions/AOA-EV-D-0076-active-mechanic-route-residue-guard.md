@@ -66,5 +66,5 @@ The guard permits:
 
 ## Validation
 
-- `python -m pytest -q tests/test_validate_repo.py -k active_mechanic_route_residue`
+- `python -m pytest -q tests/test_route_residue.py -k active_mechanic_route_residue`
 - `python scripts/validate_repo.py`

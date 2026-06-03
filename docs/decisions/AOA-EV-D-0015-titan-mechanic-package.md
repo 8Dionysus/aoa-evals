@@ -108,4 +108,4 @@ stronger-owner Titan law changes.
   `docs/decisions/README.md` route to the package.
 - `python scripts/validate_repo.py`
 - `python scripts/validate_semantic_agents.py`
-- `python -m pytest -q tests/test_validate_repo.py -k titan_canary`
+- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k titan`

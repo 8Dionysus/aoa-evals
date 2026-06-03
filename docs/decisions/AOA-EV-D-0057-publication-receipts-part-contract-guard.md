@@ -73,4 +73,4 @@ It does not transfer canonical `aoa-stats` envelope authority into
 ## Validation
 
 - `python scripts/validate_repo.py`
-- `python -m pytest -q tests/test_validate_repo.py -k publication_receipts_part_readmes`
+- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k publication_receipts_part_readmes`

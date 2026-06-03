@@ -20,7 +20,14 @@ from validate_repo import (
     collect_catalog_records,
 )
 
-from test_validate_repo import add_peer_compare_proof_artifacts, make_eval_bundle, eval_dir_for_test
+from validate_repo_fixtures import (
+    add_materialized_proof_artifacts,
+    add_peer_compare_proof_artifacts,
+    eval_dir_for_test,
+    make_eval_bundle,
+    make_index,
+    make_selection,
+)
 
 
 def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None:
@@ -168,6 +175,26 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
     ]
 
 
+def test_build_catalog_preserves_same_kind_relations_in_full_catalog(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-alpha",
+        relations=[{"type": "complements", "target": "aoa-beta"}],
+    )
+    make_eval_bundle(tmp_path, name="aoa-beta")
+    make_index(tmp_path, "aoa-alpha", "workflow")
+    make_selection(tmp_path, ["aoa-alpha", "aoa-beta"])
+
+    assert build_catalog.main(argv=[], repo_root=tmp_path) == 0
+
+    full_catalog = json.loads((tmp_path / "generated" / "eval_catalog.json").read_text(encoding="utf-8"))
+    alpha_entry = next(entry for entry in full_catalog["evals"] if entry["name"] == "aoa-alpha")
+
+    assert alpha_entry["relations"] == [{"type": "complements", "target": "aoa-beta"}]
+    assert alpha_entry["technique_refs"][0]["repo"] == "aoa-techniques"
+    assert alpha_entry["skill_refs"][0]["repo"] == "aoa-skills"
+
+
 def test_build_catalog_check_passes_after_write(tmp_path: Path) -> None:
     make_eval_bundle(tmp_path, name="aoa-check-pass")
 
@@ -200,6 +227,56 @@ def test_build_catalog_keeps_primary_proof_artifact_paths_when_additional_paths_
 
     assert entry["proof_artifacts"]["shared_fixture_family_path"] == "mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md"
     assert entry["proof_artifacts"]["paired_readout_path"] == "mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md"
+
+
+def test_build_catalog_records_materialized_proof_artifacts(tmp_path: Path) -> None:
+    make_eval_bundle(tmp_path, name="aoa-materialized-proof")
+    add_materialized_proof_artifacts(
+        tmp_path,
+        bundle_name="aoa-materialized-proof",
+        report_schema={
+            "type": "object",
+            "additionalProperties": False,
+            "required": [
+                "eval_name",
+                "bundle_status",
+                "object_under_evaluation",
+                "verdict",
+                "claim_boundary",
+                "limitations",
+            ],
+            "properties": {
+                "eval_name": {"const": "aoa-materialized-proof"},
+                "bundle_status": {"const": "draft"},
+                "object_under_evaluation": {"const": "bounded test surface"},
+                "verdict": {"type": "string"},
+                "claim_boundary": {"type": "string"},
+                "limitations": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "minItems": 1,
+                },
+            },
+        },
+        report_example={
+            "eval_name": "aoa-materialized-proof",
+            "bundle_status": "draft",
+            "object_under_evaluation": "bounded test surface",
+            "verdict": "supports bounded claim",
+            "claim_boundary": "bounded machine-readable proof artifact for validation",
+            "limitations": ["still bounded"],
+        },
+        include_paired_readout=True,
+    )
+
+    assert build_catalog.main(argv=[], repo_root=tmp_path) == 0
+
+    full_catalog = json.loads((tmp_path / "generated" / "eval_catalog.json").read_text(encoding="utf-8"))
+    entry = next(item for item in full_catalog["evals"] if item["name"] == "aoa-materialized-proof")
+
+    assert entry["proof_artifacts"]["shared_fixture_family_path"] == "fixtures/shared-bounded-family/README.md"
+    assert entry["proof_artifacts"]["runner_surface_path"] == "mechanics/proof-infra/parts/reportable-contracts/runners/reportable_proof_contract.md"
+    assert entry["proof_artifacts"]["report_schema_path"] == "evals/workflow/aoa-materialized-proof/reports/summary.schema.json"
 
 
 def test_build_catalog_rejects_invalid_dependency_contract(tmp_path: Path) -> None:

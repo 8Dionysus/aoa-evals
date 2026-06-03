@@ -51,7 +51,7 @@ Executable validation commands from child part routes live here. Child README an
 ### `mechanics/publication-receipts/parts/intake-dry-review/VALIDATION.md`
 
 ```bash
-python -m pytest -q mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py tests/test_validate_repo.py -k receipt_intake_dry_review
+python -m pytest -q mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py
 python scripts/validate_repo.py
 ```
 
@@ -66,14 +66,14 @@ python scripts/validate_repo.py
 
 ```bash
 python scripts/validate_repo.py
-python -m pytest -q mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py tests/test_validate_repo.py -k publication_receipts
+python -m pytest -q mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py
 ```
 
 ### `mechanics/publication-receipts/parts/stats-envelope-mirror/VALIDATION.md`
 
 ```bash
 python scripts/validate_repo.py
-python -m pytest -q mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py tests/test_validate_repo.py -k live_receipt
+python -m pytest -q mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py
 ```
 
 <!-- centralized-child-validation:end -->

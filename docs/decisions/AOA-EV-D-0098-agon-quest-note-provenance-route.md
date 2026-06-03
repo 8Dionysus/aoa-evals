@@ -83,5 +83,5 @@ schema-backed source quest record shape.
   archive.
 - `scripts/validate_repo.py` rejects markdown quest notes under active quest
   lifecycle paths.
-- `python -m pytest -q tests/test_validate_repo.py -k quest_route`
+- `python -m pytest -q tests/test_quest_and_reader_surfaces.py -k quest_route`
 - `python scripts/validate_repo.py`

@@ -51,7 +51,7 @@ Executable validation commands from child part routes live here. Child README an
 ### `mechanics/release-support/parts/pr-handoff/VALIDATION.md`
 
 ```bash
-python -m pytest -q mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py tests/test_validate_repo.py -k release_prep_pr_handoff
+python -m pytest -q mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py
 python scripts/validate_repo.py
 python scripts/release_check.py
 ```
@@ -59,7 +59,7 @@ python scripts/release_check.py
 ### `mechanics/release-support/parts/readiness-audit/VALIDATION.md`
 
 ```bash
-python -m pytest -q mechanics/release-support/parts/readiness-audit/tests/test_release_support_readiness_audit.py tests/test_validate_repo.py -k release_support_readiness
+python -m pytest -q mechanics/release-support/parts/readiness-audit/tests/test_release_support_readiness_audit.py
 python scripts/validate_repo.py
 python scripts/release_check.py
 ```
@@ -67,7 +67,7 @@ python scripts/release_check.py
 ### `mechanics/release-support/parts/strategic-closeout/VALIDATION.md`
 
 ```bash
-python -m pytest -q mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py tests/test_validate_repo.py -k strategic_closeout
+python -m pytest -q mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py
 python scripts/validate_repo.py
 python scripts/release_check.py
 ```

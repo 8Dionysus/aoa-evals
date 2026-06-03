@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "owner": "docs/validation/COMMAND_AUTHORITY.md",
+  "command_authority": "docs/validation/validation_lanes.json",
+  "notes": [
+    "This manifest is the canonical storage surface for named validation lane command sequences in aoa-evals.",
+    "scripts/validation_lanes.py is a loader/API; scripts/release_check.py reads its local release command sequence here.",
+    "The root config/ district remains route-card-only in this slice, so validation command authority lives under docs/validation/."
+  ],
+  "lanes": {
+    "source_fast": {
+      "label": "source-fast",
+      "posture": "blocking",
+      "owner_surface": "docs/validation/VALIDATOR_TOPOLOGY.md",
+      "command_sequence": "source_fast",
+      "purpose": "Growth-safe route, source, semantic AGENTS, and transitional root proof-validator gate.",
+      "does_not_own": [
+        "release artifact identity",
+        "latest sibling drift",
+        "runtime policy enforcement"
+      ]
+    },
+    "generated": {
+      "label": "generated",
+      "posture": "blocking",
+      "owner_surface": "docs/validation/VALIDATOR_TOPOLOGY.md",
+      "command_sequence": "generated_check",
+      "command_groups": "generated_check",
+      "drift_paths": "generated",
+      "purpose": "Projection parity for generated/read-model companions derived from source proof surfaces.",
+      "does_not_own": [
+        "eval source meaning",
+        "sibling truth",
+        "runtime verdict authority"
+      ]
+    },
+    "mechanics_part_local": {
+      "label": "mechanics/part-local",
+      "posture": "blocking",
+      "owner_surface": "docs/testing/TEST_TOPOLOGY.md",
+      "command_sequence": "mechanics_part_local",
+      "purpose": "Mechanic-owned part-local pytest homes and their payload contracts.",
+      "does_not_own": [
+        "root release freeze",
+        "public proof interpretation"
+      ]
+    },
+    "pinned_sibling": {
+      "label": "pinned-sibling",
+      "posture": "non_blocking",
+      "owner_surface": "docs/validation/VALIDATOR_TOPOLOGY.md",
+      "command_sequence": "pinned_sibling",
+      "entrypoint": "scripts/release_check.py",
+      "purpose": "Explicit compatibility proof check against clean pinned sibling roots when a PR or release makes a cross-organ compatibility claim.",
+      "does_not_own": [
+        "aoa-evals release identity",
+        "latest sibling growth drift"
+      ]
+    },
+    "latest_sibling": {
+      "label": "latest-sibling",
+      "posture": "non_blocking",
+      "owner_surface": "mechanics/boundary-bridge/parts/latest-sibling-canary/README.md",
+      "command_sequence": "latest_sibling",
+      "purpose": "Moving-sibling compatibility canary that remains separate from release identity.",
+      "does_not_own": [
+        "release pass/fail identity",
+        "sibling repository truth"
+      ]
+    },
+    "trace_eval": {
+      "label": "trace/eval",
+      "posture": "non_blocking",
+      "owner_surface": "docs/validation/VALIDATOR_TOPOLOGY.md",
+      "purpose": "Route-visible future lane for trace, trajectory, tool-call, outcome, and grader checks.",
+      "boundaries": [
+        "Final-answer-only checks are insufficient for agent behavior.",
+        "Trace/eval hard gates require bounded eval bundles and explicit graders."
+      ]
+    },
+    "audit": {
+      "label": "audit",
+      "posture": "non_blocking",
+      "owner_surface": "docs/validation/VALIDATOR_TOPOLOGY.md",
+      "purpose": "Route-visible review lane for evidence sufficiency, receipts, handoffs, and advisory reports.",
+      "boundaries": [
+        "Reports are not release blockers unless promoted by a decision.",
+        "Audit surfaces must stay weaker than source proof objects."
+      ]
+    },
+    "release": {
+      "label": "release",
+      "posture": "blocking",
+      "owner_surface": "docs/operations/RELEASING.md",
+      "command_sequence": "release_check",
+      "entrypoint": "scripts/release_check.py",
+      "purpose": "Frozen local release-prep gate for aoa-evals source, generated projections, and tests.",
+      "does_not_own": [
+        "ordinary PR growth gating",
+        "pinned sibling compatibility truth",
+        "latest sibling canary truth"
+      ]
+    },
+    "nightly": {
+      "label": "nightly",
+      "posture": "non_blocking",
+      "owner_surface": "docs/validation/VALIDATOR_TOPOLOGY.md",
+      "command_sequence": "nightly",
+      "purpose": "Moving-main sentinel over source, generated, part-local, and latest-sibling drift.",
+      "does_not_own": [
+        "release artifact identity"
+      ]
+    },
+    "advisory": {
+      "label": "advisory",
+      "posture": "non_blocking",
+      "owner_surface": "docs/validation/VALIDATOR_TOPOLOGY.md",
+      "purpose": "Boundary inventory for capability/runtime policy, memory/context, handoff, observability, and security surfaces.",
+      "boundaries": [
+        {
+          "surface": "capability/runtime-policy",
+          "posture": "route_only",
+          "owner_route": "runtime-owning repositories or explicit mechanic decision",
+          "local_check": "Keep tool/capability and approval boundaries visible without treating prompt guardrails as security enforcement."
+        },
+        {
+          "surface": "memory/context",
+          "posture": "route_only",
+          "owner_route": "aoa-memo and bundle-local proof review",
+          "local_check": "Reviewed memory refs may support proof review but cannot become hidden proof authority."
+        },
+        {
+          "surface": "inter-agent/handoff",
+          "posture": "route_only",
+          "owner_route": "handoff owner or boundary-bridge mechanic",
+          "local_check": "Typed envelope, replay, approval, and delegation checks need bounded source contracts before hard gating."
+        },
+        {
+          "surface": "observability/audit",
+          "posture": "route_only",
+          "owner_route": "audit and release-support mechanics",
+          "local_check": "Trace completeness and approval records must be reviewable evidence, not implicit pass/fail truth."
+        },
+        {
+          "surface": "security/adversarial",
+          "posture": "route_only",
+          "owner_route": "security-owning runtime layer or explicit eval bundle",
+          "local_check": "Prompt injection, tool misuse, secret leakage, and supply-chain poisoning remain separate from ordinary lint."
+        }
+      ]
+    }
+  },
+  "drift_paths": {
+    "generated": [
+      "EVAL_INDEX.md",
+      "EVAL_SELECTION.md",
+      "generated",
+      "mechanics/audit/parts/candidate-readers/generated",
+      "mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated"
+    ]
+  },
+  "command_groups": {
+    "generated_check": [
+      {
+        "id": "catalog",
+        "label": "Generated eval catalog",
+        "command_sequence": "generated_catalog_check",
+        "owner_module": "scripts/build_catalog.py"
+      },
+      {
+        "id": "report_index",
+        "label": "Generated eval report index",
+        "command_sequence": "generated_report_index_check",
+        "owner_module": "scripts/generate_eval_report_index.py"
+      },
+      {
+        "id": "runtime_candidate_readers",
+        "label": "Runtime candidate reader projections",
+        "command_sequence": "runtime_candidate_reader_check",
+        "owner_module": "mechanics/audit/parts/candidate-readers/scripts"
+      },
+      {
+        "id": "phase_alpha_eval_matrix",
+        "label": "Phase Alpha eval matrix projection",
+        "command_sequence": "boundary_bridge_generated_check",
+        "owner_module": "mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py"
+      }
+    ]
+  },
+  "command_sequences": {
+    "source_fast": [
+      ["python", "scripts/validate_nested_agents.py"],
+      ["python", "scripts/validate_semantic_agents.py"],
+      ["python", "scripts/validate_repo.py"]
+    ],
+    "generated_catalog_check": [
+      ["python", "scripts/build_catalog.py", "--check"]
+    ],
+    "generated_report_index_check": [
+      ["python", "scripts/generate_eval_report_index.py", "--check"]
+    ],
+    "runtime_candidate_reader_check": [
+      ["python", "mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py", "--check"],
+      ["python", "mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py", "--check"]
+    ],
+    "generated_check": [
+      ["python", "scripts/build_catalog.py", "--check"],
+      ["python", "scripts/generate_eval_report_index.py", "--check"],
+      ["python", "mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py", "--check"],
+      ["python", "mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py", "--check"],
+      ["python", "mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py", "--check"]
+    ],
+    "boundary_bridge_generated_check": [
+      ["python", "mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py", "--check"]
+    ],
+    "mechanics_part_local": [
+      ["python", "-m", "pytest", "-q", "mechanics/*/parts/*/tests/test*.py"]
+    ],
+    "pinned_sibling": [
+      ["python", "scripts/release_check.py"]
+    ],
+    "latest_sibling": [
+      ["python", "mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py", "--repo-root", ".", "--matrix", "mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json"]
+    ],
+    "release_check": [
+      ["python", "scripts/build_catalog.py", "--check"],
+      ["python", "scripts/generate_eval_report_index.py", "--check"],
+      ["python", "scripts/validate_repo.py"],
+      ["python", "-m", "pytest", "-q"]
+    ],
+    "nightly": [
+      ["python", "scripts/validate_nested_agents.py"],
+      ["python", "scripts/validate_semantic_agents.py"],
+      ["python", "scripts/validate_repo.py"],
+      ["python", "scripts/build_catalog.py", "--check"],
+      ["python", "scripts/generate_eval_report_index.py", "--check"],
+      ["python", "-m", "pytest", "-q", "mechanics/*/parts/*/tests/test*.py"],
+      ["python", "mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py", "--repo-root", ".", "--matrix", "mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json"]
+    ]
+  }
+}

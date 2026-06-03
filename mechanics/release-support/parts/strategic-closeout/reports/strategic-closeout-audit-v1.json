@@ -263,82 +263,82 @@
   ],
   "verification_snapshot": [
     {
-      "command": "python -m pytest -q mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py tests/test_validate_repo.py -k strategic_closeout",
+      "command": "python -m pytest -q mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py",
       "result": "passed",
       "claim_limit": "Focused strategic closeout tests constrained this handoff report after it was added."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k generated_route_residue",
+      "command": "python -m pytest -q tests/test_generated_route_residue.py",
       "result": "passed",
       "claim_limit": "Focused generated-route residue tests constrain stale generated/readout references without over-policing part-local generated sibling paths."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k active_mechanic_route_residue",
+      "command": "python -m pytest -q tests/test_route_residue.py -k active_mechanic_route_residue",
       "result": "passed",
       "claim_limit": "Focused active mechanic route residue tests constrain authored route-card paths without blocking root route cards or same-part local references."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k mechanic_payload_route_residue",
+      "command": "python -m pytest -q tests/test_route_residue.py -k mechanic_payload_route_residue",
       "result": "passed",
       "claim_limit": "Focused mechanic payload route residue tests constrain active fixtures, schemas, manifests, scripts, tests, and hooks without blocking part-local or repo-qualified sibling refs."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k root_authored_route_residue",
+      "command": "python -m pytest -q tests/test_route_residue.py -k root_authored_route_residue",
       "result": "passed",
       "claim_limit": "Focused root authored route residue tests constrain root-facing guidance paths without blocking root route cards, historical context, or active bundle and mechanic routes."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k decision_route_residue",
+      "command": "python -m pytest -q tests/test_route_residue.py -k decision_route_residue",
       "result": "passed",
       "claim_limit": "Focused decision route residue tests constrain current-looking decision paths without erasing historical or provenance context."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k repo_config_route_residue",
+      "command": "python -m pytest -q tests/test_route_residue.py -k repo_config_route_residue",
       "result": "passed",
       "claim_limit": "Focused repo config route residue tests constrain executable config paths without erasing historical or provenance context."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k source_bundle_route_residue",
+      "command": "python -m pytest -q tests/test_route_residue.py -k source_bundle_route_residue",
       "result": "passed",
       "claim_limit": "Focused source bundle route residue tests constrain proof-object route paths without moving bundle meaning into mechanics."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readme_contract",
+      "command": "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_readme_contract",
       "result": "passed",
       "claim_limit": "Focused mechanic part README tests constrain generic part routing and contract headings; they do not prove any part is proof-complete."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_payload_inventory",
+      "command": "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_payload_inventory",
       "result": "passed",
       "claim_limit": "Focused mechanic part payload inventory tests constrain part-local payload visibility and reject empty or unknown payload directories; they do not prove any part is proof-complete."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_validation_command",
+      "command": "python -m pytest -q tests/test_mechanic_part_validation_commands.py -k mechanic_part_validation_command",
       "result": "passed",
       "claim_limit": "Focused mechanic part validation command tests constrain repo-relative reachable validation paths and payload coverage anchors; they do not execute every part command or prove any part is proof-complete."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k mechanic_parts_index_sync",
+      "command": "python -m pytest -q tests/test_mechanic_parts_index.py -k mechanic_parts_index_sync",
       "result": "passed",
       "claim_limit": "Focused mechanic PARTS index synchronization tests constrain local parent part maps; they do not turn cross-parent stop-line references into local ownership."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_single_bridge",
+      "command": "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_legacy_single_bridge",
       "result": "passed",
       "claim_limit": "Focused mechanic legacy single-bridge tests constrain active surfaces to route archive detail through provenance; they do not prove every archived source has been distilled."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_bridge_posture",
+      "command": "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_provenance_bridge_posture",
       "result": "passed",
       "claim_limit": "Focused mechanic provenance bridge-posture tests constrain PROVENANCE.md as a bridge, not an active route; they do not make legacy archive detail active topology."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k legacy_naming_single_bridge_language",
+      "command": "python -m pytest -q tests/test_root_surface_roles.py -k legacy_naming_single_bridge_language",
       "result": "passed",
       "claim_limit": "Focused legacy naming single-bridge tests constrain docs/architecture/LEGACY_NAMING.md wording; they do not prove every archived source has been distilled."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k active_legacy_parent_wording",
+      "command": "python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k active_legacy_parent_wording",
       "result": "passed",
       "claim_limit": "Focused active legacy parent wording tests constrain old parent-form vocabulary in active route wording without blocking schema filename compatibility or explicit provenance context."
     },
@@ -348,22 +348,22 @@
       "claim_limit": "Focused mechanic provenance tests constrain active-first provenance routing through index, distillation log, and raw-lineage boundary; they do not make legacy active topology."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_direction",
+      "command": "python -m pytest -q tests/test_mechanic_parent_direction.py -k mechanic_parent_direction",
       "result": "passed",
       "claim_limit": "Focused mechanic parent direction tests constrain parent DIRECTION surfaces and parent entry routes; they do not create new mechanics or strengthen proof claims."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k mechanic_evidence_dimension",
+      "command": "python -m pytest -q tests/test_mechanic_evidence_ledger.py -k mechanic_evidence_dimension",
       "result": "passed",
       "claim_limit": "Focused mechanic evidence dimension tests constrain the parent evidence ledger; they do not make the ledger source proof authority."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k mechanic_root_district_recon",
+      "command": "python -m pytest -q tests/test_mechanic_root_district_recon.py -k mechanic_root_district_recon",
       "result": "passed",
       "claim_limit": "Focused mechanic root-district reconnaissance tests constrain the root-district ledger; they do not move payloads or make the ledger source proof authority."
     },
     {
-      "command": "python -m pytest -q tests/test_validate_repo.py -k root_authored_surface_classification",
+      "command": "python -m pytest -q tests/test_mechanics_topology.py",
       "result": "passed",
       "claim_limit": "Focused root-authored surface classification tests constrain residual root docs, scripts, and tests; they do not move payloads or make root surfaces mechanic-owned."
     },

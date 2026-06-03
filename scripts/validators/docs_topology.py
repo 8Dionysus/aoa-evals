@@ -44,8 +44,25 @@ OPERATION_FILES = (
     DOCS_DIR / "operations" / "REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md",
     DOCS_DIR / "operations" / "AGENTS_ROOT_REFERENCE.md",
 )
+VALIDATION_FILES = (
+    DOCS_DIR / "validation" / "AGENTS.md",
+    DOCS_DIR / "validation" / "VALIDATOR_TOPOLOGY.md",
+    DOCS_DIR / "validation" / "COMMAND_AUTHORITY.md",
+    DOCS_DIR / "validation" / "SCRIPT_TOPOLOGY.md",
+)
+TESTING_FILES = (
+    DOCS_DIR / "testing" / "AGENTS.md",
+    DOCS_DIR / "testing" / "TEST_TOPOLOGY.md",
+)
 EXPECTED_FLAT_DOC_FILES = ROOT_FILES
-ALL_AUTHORED_DOC_FILES = ROOT_FILES + ARCHITECTURE_FILES + GUIDE_FILES + OPERATION_FILES
+ALL_AUTHORED_DOC_FILES = (
+    ROOT_FILES
+    + ARCHITECTURE_FILES
+    + GUIDE_FILES
+    + OPERATION_FILES
+    + VALIDATION_FILES
+    + TESTING_FILES
+)
 
 
 def _as_posix(paths: tuple[Path, ...]) -> list[str]:
@@ -88,6 +105,8 @@ def validate_docs_topology(repo_root: Path) -> list[tuple[str, str]]:
             "architecture": _as_posix(ARCHITECTURE_FILES),
             "guides": _as_posix(GUIDE_FILES),
             "operations": _as_posix(OPERATION_FILES),
+            "validation": _as_posix(VALIDATION_FILES),
+            "testing": _as_posix(TESTING_FILES),
             "decision_surface": "docs/decisions/",
         }
         for key, value in expected.items():
@@ -106,6 +125,8 @@ def validate_docs_topology(repo_root: Path) -> list[tuple[str, str]]:
             "docs/architecture/",
             "docs/guides/",
             "docs/operations/",
+            "docs/validation/",
+            "docs/testing/",
             "docs/decisions/",
             "Route Residue Guards",
         ):

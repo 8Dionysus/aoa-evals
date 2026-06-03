@@ -41,7 +41,7 @@ Active route wording must:
 Validator coverage:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k active_legacy_parent_wording
+python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k active_legacy_parent_wording
 ```
 
 ## Consequences

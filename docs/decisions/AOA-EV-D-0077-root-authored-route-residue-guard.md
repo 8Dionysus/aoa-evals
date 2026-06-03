@@ -60,7 +60,7 @@ The guard permits:
 
 ## Validation
 
-- `python -m pytest -q tests/test_validate_repo.py -k root_authored_route_residue`
+- `python -m pytest -q tests/test_route_residue.py -k root_authored_route_residue`
 - `python scripts/validate_repo.py`
 
 ## Current Applicability

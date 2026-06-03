@@ -55,7 +55,7 @@ and release surfaces stay weaker than bundle-local review.
 Expected validation route:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k proof_object_part_owner_split
+python -m pytest -q tests/test_mechanic_surface_contracts.py -k proof_object_part_owner_split
 python scripts/validate_repo.py
 python scripts/build_catalog.py --check
 python scripts/validate_semantic_agents.py

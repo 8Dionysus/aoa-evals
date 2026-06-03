@@ -33,6 +33,9 @@ bundle-local `EVAL.md` and `eval.yaml`.
   than source truth, route cards, decisions, generated readers, and validators.
 - `docs/architecture/PROOF_TOPOLOGY.md`, `docs/architecture/ARCHITECTURE.md`, and proof guides may carry
   source meaning about authority classes, review posture, and proof limits.
+- `docs/validation/` owns validation topology, command authority, lane manifest
+  storage, and validator/script inventories.
+- `docs/testing/` owns test topology and test coverage inventory.
 - `docs/decisions/` owns durable rationale; follow `docs/decisions/AGENTS.md`
   there.
 - Operational edit law, mutation posture, and local verification expectations

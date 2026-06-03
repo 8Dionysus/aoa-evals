@@ -133,6 +133,6 @@ As of 2026-05-24:
 
 ## Validation
 
-- `python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readmes_reject_stale_stop_line_lead_ins`
-- `python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readme_contract`
+- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k mechanic_part_readmes_reject_stale_stop_line_lead_ins`
+- `python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_readme_contract`
 - `python scripts/validate_repo.py`

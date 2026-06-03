@@ -63,6 +63,6 @@ or part-local validation.
 ## Validation
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_single_bridge
+python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_legacy_single_bridge
 python scripts/validate_repo.py
 ```

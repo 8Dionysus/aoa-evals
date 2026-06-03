@@ -13,6 +13,7 @@
 - [AOA-EV-D-0081 Mechanic Payload Route Residue Guard](../AOA-EV-D-0081-mechanic-payload-route-residue-guard.md) (`docs/decisions/AOA-EV-D-0081-mechanic-payload-route-residue-guard.md`)
 - [AOA-EV-D-0108 Docs Topology Folders And Route Residue Guards](../AOA-EV-D-0108-docs-topology-folders-and-route-residue-guards.md) (`docs/decisions/AOA-EV-D-0108-docs-topology-folders-and-route-residue-guards.md`)
 - [AOA-EV-D-0109 Validator Orchestrator Domain Modules](../AOA-EV-D-0109-validator-orchestrator-domain-modules.md) (`docs/decisions/AOA-EV-D-0109-validator-orchestrator-domain-modules.md`)
+- [AOA-EV-D-0115 Validation Lane Command Authority](../AOA-EV-D-0115-validation-lane-command-authority.md) (`docs/decisions/AOA-EV-D-0115-validation-lane-command-authority.md`)
 
 ## parent and package
 
@@ -93,6 +94,7 @@
 - [AOA-EV-D-0111 Runtime Evidence Ingestion and Mirror Status](../AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md`)
 - [AOA-EV-D-0112 Route-First Eval Birth Protocol](../AOA-EV-D-0112-route-first-eval-birth-protocol.md) (`docs/decisions/AOA-EV-D-0112-route-first-eval-birth-protocol.md`)
 - [AOA-EV-D-0113 aoa-memo Writeback Decision Quality Eval](../AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md`)
+- [AOA-EV-D-0115 Validation Lane Command Authority](../AOA-EV-D-0115-validation-lane-command-authority.md) (`docs/decisions/AOA-EV-D-0115-validation-lane-command-authority.md`)
 
 ## sibling and boundary
 
@@ -125,3 +127,4 @@
 - [AOA-EV-D-0111 Runtime Evidence Ingestion and Mirror Status](../AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md`)
 - [AOA-EV-D-0112 Route-First Eval Birth Protocol](../AOA-EV-D-0112-route-first-eval-birth-protocol.md) (`docs/decisions/AOA-EV-D-0112-route-first-eval-birth-protocol.md`)
 - [AOA-EV-D-0114 Canonical Decision IDs and Addresses](../AOA-EV-D-0114-canonical-decision-ids-and-addresses.md) (`docs/decisions/AOA-EV-D-0114-canonical-decision-ids-and-addresses.md`)
+- [AOA-EV-D-0115 Validation Lane Command Authority](../AOA-EV-D-0115-validation-lane-command-authority.md) (`docs/decisions/AOA-EV-D-0115-validation-lane-command-authority.md`)

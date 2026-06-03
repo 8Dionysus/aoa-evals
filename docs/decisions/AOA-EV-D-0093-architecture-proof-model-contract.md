@@ -98,6 +98,6 @@ route.
 ## Validation
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k architecture_proof_model
+python -m pytest -q tests/test_root_surface_roles.py -k architecture_proof_model
 python scripts/validate_repo.py
 ```

@@ -50,7 +50,7 @@ owning `legacy/` archive, reached only after:
 Validator coverage:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k legacy_naming_posture_guide
+python -m pytest -q tests/test_root_surface_roles.py -k legacy_naming_posture_guide
 ```
 
 ## Consequences

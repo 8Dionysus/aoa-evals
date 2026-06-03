@@ -128,7 +128,7 @@ As of 2026-05-24 route-language review:
   `tests/test_validate_repo.py`.
 - Validation: `python scripts/validate_repo.py`,
   `python scripts/validate_semantic_agents.py`,
-  `python -m pytest -q tests/test_validate_repo.py -k 'root_readme or memory_consumer_proof_boundary'`,
+  `python -m pytest -q tests/test_root_surface_roles.py -k 'root_readme or memory_consumer_proof_boundary'`,
   `python scripts/build_catalog.py --check`,
   `python scripts/generate_eval_report_index.py --check`,
   `git diff --check`, and `python -m pytest -q`.

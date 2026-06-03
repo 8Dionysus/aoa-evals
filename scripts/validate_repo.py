@@ -34,6 +34,7 @@ from validators import (
     eval_bundles,
     generated_parity,
     mechanics as mechanics_validator,
+    validation_topology,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -136,13 +137,13 @@ LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0091-legacy-naming-single-bridge-language.md"
 )
 LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k legacy_naming_single_bridge_language"
+    "python -m pytest -q tests/test_root_surface_roles.py -k legacy_naming_single_bridge_language"
 )
 LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0096-legacy-naming-posture-guide.md"
 )
 LEGACY_NAMING_POSTURE_GUIDE_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k legacy_naming_posture_guide"
+    "python -m pytest -q tests/test_root_surface_roles.py -k legacy_naming_posture_guide"
 )
 MECHANICS_EVIDENCE_CLUSTERS_NAME = "mechanics/EVIDENCE_CLUSTERS.md"
 PART_LOCAL_TEST_PLACEMENT_DECISION_NAME = "docs/decisions/AOA-EV-D-0050-part-local-test-placement.md"
@@ -160,7 +161,7 @@ ACTIVE_LEGACY_PARENT_WORDING_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0092-active-legacy-parent-wording-boundary.md"
 )
 ACTIVE_LEGACY_PARENT_WORDING_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k active_legacy_parent_wording"
+    "python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k active_legacy_parent_wording"
 )
 DECISION_ROUTE_RESIDUE_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0078-decision-route-residue-guard.md"
@@ -288,7 +289,7 @@ GENERATED_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
     "route-card-only root district",
     "part-local generated readers",
     "content_markdown",
-    "python -m pytest -q tests/test_validate_repo.py -k generated_route_residue",
+    "python -m pytest -q tests/test_generated_route_residue.py",
 )
 GENERATED_READER_INDEX_REQUIRED_TOKENS = (
     "# Generated Reader Index",
@@ -308,22 +309,22 @@ GENERATED_AGENTS_REQUIRED_TOKENS = (
     "generated/quest_dispatch.min.example.json",
 )
 ACTIVE_MECHANIC_ROUTE_RESIDUE_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k active_mechanic_route_residue"
+    "python -m pytest -q tests/test_route_residue.py -k active_mechanic_route_residue"
 )
 ROOT_AUTHORED_ROUTE_RESIDUE_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k root_authored_route_residue"
+    "python -m pytest -q tests/test_route_residue.py -k root_authored_route_residue"
 )
 DECISION_ROUTE_RESIDUE_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k decision_route_residue"
+    "python -m pytest -q tests/test_route_residue.py -k decision_route_residue"
 )
 REPO_CONFIG_ROUTE_RESIDUE_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k repo_config_route_residue"
+    "python -m pytest -q tests/test_route_residue.py -k repo_config_route_residue"
 )
 SOURCE_BUNDLE_ROUTE_RESIDUE_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k source_bundle_route_residue"
+    "python -m pytest -q tests/test_route_residue.py -k source_bundle_route_residue"
 )
 MECHANIC_PAYLOAD_ROUTE_RESIDUE_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_payload_route_residue"
+    "python -m pytest -q tests/test_route_residue.py -k mechanic_payload_route_residue"
 )
 ACTIVE_MECHANIC_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
     "Active Mechanic Route Residue Guard",
@@ -408,7 +409,7 @@ ARCHITECTURE_PROOF_MODEL_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0093-architecture-proof-model-contract.md"
 )
 ARCHITECTURE_PROOF_MODEL_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k architecture_proof_model"
+    "python -m pytest -q tests/test_root_surface_roles.py -k architecture_proof_model"
 )
 ARCHITECTURE_REQUIRED_TOKENS = (
     "technical proof model",
@@ -706,7 +707,7 @@ ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0100-active-mechanics-topology-wording.md"
 )
 ACTIVE_MECHANICS_TOPOLOGY_WORDING_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k "
+    "python -m pytest -q tests/test_root_surface_roles.py -k "
     "'root_design or design_agents or proof_topology'"
 )
 ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_REQUIRED_TOKENS = (
@@ -951,7 +952,7 @@ FORMER_WRONG_MECHANIC_PARENT_ROUTES = (
     ("repair", "antifragility/repair-proof"),
 )
 MECHANIC_EVIDENCE_DIMENSION_LEDGER_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_evidence_dimension"
+    "python -m pytest -q tests/test_mechanic_evidence_ledger.py -k mechanic_evidence_dimension"
 )
 MECHANIC_EVIDENCE_DIMENSION_LEDGER_REQUIRED_TOKENS = (
     "Active Parent Evidence Dimension Ledger",
@@ -991,7 +992,7 @@ MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0101-mechanic-evidence-route-refs.md"
 )
 MECHANIC_EVIDENCE_ROUTE_REFS_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_evidence_route_refs"
+    "python -m pytest -q tests/test_mechanic_evidence_ledger.py -k mechanic_evidence_route_refs"
 )
 MECHANIC_EVIDENCE_ROUTE_REFS_SECTION = "Active Parent Evidence Route Refs"
 MECHANIC_EVIDENCE_ROUTE_REFS_REQUIRED_TOKENS = (
@@ -1030,7 +1031,7 @@ MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_REQUIRED_TOKENS = (
     MECHANIC_EVIDENCE_ROUTE_REFS_COMMAND,
 )
 MECHANIC_ROOT_DISTRICT_RECON_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_root_district_recon"
+    "python -m pytest -q tests/test_mechanic_root_district_recon.py -k mechanic_root_district_recon"
 )
 MECHANIC_ROOT_DISTRICT_RECON_REQUIRED_TOKENS = (
     "Root District Reconnaissance Ledger",
@@ -1125,7 +1126,7 @@ MECHANIC_ROOT_DISTRICT_RECON_DECISION_REQUIRED_TOKENS = (
 )
 DECISION_STATUS_DETAIL_MARKERS = (";", "superseded by")
 ROOT_AUTHORED_SURFACE_CLASSIFICATION_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k root_authored_surface_classification"
+    "python -m pytest -q tests/test_mechanics_topology.py"
 )
 ROOT_AUTHORED_SURFACE_CLASSIFICATION_SECTION = "Residual Root-authored Surface Classification"
 ROOT_AUTHORED_SURFACE_CLASSIFICATION_COLUMNS = (
@@ -1145,6 +1146,16 @@ ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS: dict[str, tuple[str, ...]] = {
         "architecture/PROOF_TOPOLOGY.md",
         "architecture/ROUTE_RESIDUE_GUARDS.md",
         "architecture/topology_contract.yaml",
+        "testing/AGENTS.md",
+        "testing/TEST_TOPOLOGY.md",
+        "testing/test_inventory.json",
+        "validation/AGENTS.md",
+        "validation/COMMAND_AUTHORITY.md",
+        "validation/SCRIPT_TOPOLOGY.md",
+        "validation/VALIDATOR_TOPOLOGY.md",
+        "validation/script_inventory.json",
+        "validation/validation_lanes.json",
+        "validation/validator_inventory.json",
         "guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md",
         "guides/BASELINE_COMPARISON_GUIDE.md",
         "guides/BLIND_SPOT_DISCLOSURE_GUIDE.md",
@@ -1175,31 +1186,66 @@ ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS: dict[str, tuple[str, ...]] = {
         "eval_section_contract.py",
         "generate_decision_indexes.py",
         "generate_eval_report_index.py",
+        "ci_gate.py",
         "release_check.py",
+        "validation_lanes.py",
         "validate_nested_agents.py",
         "validate_repo.py",
         "validate_semantic_agents.py",
         "validators/__init__.py",
+        "validators/artifact_hooks.py",
         "validators/docs_decisions.py",
         "validators/docs_routes.py",
         "validators/docs_topology.py",
         "validators/eval_bundles.py",
         "validators/generated_parity.py",
         "validators/mechanics.py",
+        "validators/validation_topology.py",
     ),
     "tests": (
         "AGENTS.md",
         "test_build_catalog.py",
+        "test_comparison_surface_contracts.py",
         "test_current_direction_routes.py",
+        "test_decision_indexes.py",
+        "test_docs_topology.py",
         "test_downstream_feed_contracts.py",
+        "test_quest_and_reader_surfaces.py",
+        "test_eval_source_topology.py",
+        "test_generated_parity.py",
+        "test_generated_route_residue.py",
+        "test_guidance_surface_routes.py",
+        "test_index_surface_roles.py",
+        "test_mechanic_evidence_ledger.py",
         "test_memo_contradiction_phase_alpha_gap_report.py",
         "test_memo_contradiction_phase_alpha_rerun_report.py",
         "test_memo_writeback_act_phase_alpha_report.py",
+        "test_mechanic_legacy_bridge.py",
+        "test_mechanic_legacy_archive_routes.py",
+        "test_mechanic_manifest_routes.py",
+        "test_mechanic_part_contracts.py",
+        "test_mechanic_part_validation_commands.py",
+        "test_mechanic_parent_direction.py",
+        "test_mechanic_parent_topology.py",
+        "test_mechanic_parts_index.py",
+        "test_mechanic_root_district_recon.py",
+        "test_mechanic_surface_contracts.py",
+        "test_mechanics_topology.py",
         "test_nested_agents_docs.py",
         "test_roadmap_parity.py",
+        "test_read_model_command_ownership.py",
+        "test_repo_validation_workflow.py",
+        "test_root_surface_roles.py",
+        "test_route_residue.py",
+        "test_runtime_evidence_surfaces.py",
+        "test_report_schema_contracts.py",
+        "test_script_topology.py",
+        "test_test_topology.py",
         "test_validate_repo.py",
+        "test_validation_topology.py",
         "test_validate_semantic_agents.py",
         "test_verification_honesty_local_report.py",
+        "validate_repo_fixtures.py",
     ),
 }
 AGENT_INDEX_REQUIRED_TOKENS = (
@@ -1696,13 +1742,13 @@ MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0086-mechanic-part-payload-inventory.md"
 )
 MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_payload_inventory"
+    "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_payload_inventory"
 )
 MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0097-mechanic-parent-guidance-boundary.md"
 )
 MECHANIC_PARENT_GUIDANCE_BOUNDARY_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_guidance_boundary"
+    "python -m pytest -q tests/test_mechanic_parent_topology.py -k mechanic_parent_guidance_boundary"
 )
 MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0087-mechanic-part-validation-command-reachability.md"
@@ -1711,37 +1757,37 @@ MECHANIC_PART_VALIDATION_COMMAND_OWNERSHIP_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0102-mechanic-part-validation-command-ownership.md"
 )
 MECHANIC_PART_VALIDATION_COMMAND_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_validation_command"
+    "python -m pytest -q tests/test_mechanic_part_validation_commands.py -k mechanic_part_validation_command"
 )
 MECHANIC_PARTS_INDEX_SYNC_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0088-mechanic-parts-index-synchronization.md"
 )
 MECHANIC_PARTS_INDEX_SYNC_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_parts_index_sync"
+    "python -m pytest -q tests/test_mechanic_parts_index.py -k mechanic_parts_index_sync"
 )
 MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0094-mechanic-part-source-surface-reference-guard.md"
 )
 MECHANIC_PART_SOURCE_SURFACE_REF_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_source_surface"
+    "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_source_surface"
 )
 MECHANIC_PART_SOURCE_SURFACES_SECTION_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0095-mechanic-part-source-surfaces-section-contract.md"
 )
 MECHANIC_PART_SOURCE_SURFACES_SECTION_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_source_surfaces_section"
+    "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_source_surfaces_section"
 )
 MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0089-mechanic-legacy-single-bridge.md"
 )
 MECHANIC_LEGACY_SINGLE_BRIDGE_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_single_bridge"
+    "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_legacy_single_bridge"
 )
 MECHANIC_PROVENANCE_BRIDGE_POSTURE_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0090-mechanic-provenance-bridge-posture.md"
 )
 MECHANIC_PROVENANCE_BRIDGE_POSTURE_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_bridge_posture"
+    "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_provenance_bridge_posture"
 )
 MECHANIC_PART_ALLOWED_PAYLOAD_DIRS = (
     "config",
@@ -1802,7 +1848,7 @@ MECHANIC_PART_README_CONTRACT_DECISION_REQUIRED_TOKENS = (
     "`## Validation`",
     "parent `PARTS.md`",
     "orphan part",
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readme_contract",
+    "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_readme_contract",
 )
 MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_REQUIRED_TOKENS = (
     "Mechanic Part Payload Inventory",
@@ -1937,7 +1983,7 @@ MECHANIC_PARENT_DIRECTION_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0082-mechanic-parent-direction-contract.md"
 )
 MECHANIC_PARENT_DIRECTION_COMMAND = (
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_direction"
+    "python -m pytest -q tests/test_mechanic_parent_direction.py -k mechanic_parent_direction"
 )
 MECHANIC_DIRECTION_REQUIRED_TOKENS = (
     "current operating direction",
@@ -2071,8 +2117,8 @@ MECHANIC_LEGACY_SKELETON_DECISION_REQUIRED_TOKENS = (
     "unindexed raw payloads",
     "current-route expectations",
     "validation through the nearest legacy `AGENTS.md`",
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_skeleton",
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_legacy_raw_payload",
+    "python -m pytest -q tests/test_mechanic_parent_topology.py -k mechanic_legacy_skeleton",
+    "python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k mechanic_legacy_raw_payload",
 )
 MECHANIC_PROVENANCE_ENTRY_REQUIRED_TOKENS = (
     "active",
@@ -2111,7 +2157,7 @@ MECHANIC_PARENT_CLASS_DECISION_REQUIRED_TOKENS = (
     "`runtime-evidence`",
     "`sibling-proof-refs`",
     "`repair`",
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_parent_class",
+    "python -m pytest -q tests/test_mechanic_evidence_ledger.py -k mechanic_parent_class",
 )
 FORBIDDEN_ACTIVE_MECHANICS_PATHS = (
     "mechanics/agon-proof",
@@ -3011,7 +3057,7 @@ PROOF_OBJECT_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS = (
     "Source proof bundle meaning stays under `evals/`",
     "generated readers, reports, receipts, runtime candidates, sibling refs, quests",
     "Schema acceptance may prove metadata shape",
-    "python -m pytest -q tests/test_validate_repo.py -k proof_object_part_owner_split",
+    "python -m pytest -q tests/test_mechanic_surface_contracts.py -k proof_object_part_owner_split",
 )
 PROOF_OBJECT_EVAL_PART_NAMES_DECISION_REQUIRED_TOKENS = (
     "Proof-object Eval Part Names",
@@ -3281,12 +3327,14 @@ RELEASE_PREP_PR_HANDOFF_DECISION_REQUIRED_TOKENS = (
 )
 REPO_VALIDATION_AOA_MEMO_PIN_DECISION_REQUIRED_TOKENS = (
     REPO_VALIDATION_WORKFLOW_NAME,
-    REPO_VALIDATION_AOA_MEMO_REF,
-    "pinned CI-lane update",
+    "Status: Superseded",
+    "historical compatibility rationale",
+    "AOA-EV-D-0115",
+    "local release identity",
+    "sibling checkout pins",
     "latest-sibling canary",
     "GitHub `Repo Validation`",
     "does not mutate `aoa-memo`",
-    "does not weaken path validation",
 )
 COMPARISON_SPINE_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
@@ -4946,7 +4994,7 @@ METHOD_GROWTH_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS = (
     "owner-fit routing proof only",
     "final owner truth stays with the owning repositories",
     "derivative first-authoring",
-    "python -m pytest -q tests/test_validate_repo.py -k method_growth_part_owner_split",
+    "python -m pytest -q tests/test_mechanic_surface_contracts.py -k method_growth_part_owner_split",
 )
 RPG_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
@@ -5026,7 +5074,7 @@ RPG_PROGRESS_UNLOCKS_CONTRACT_DECISION_REQUIRED_TOKENS = (
     "runtime route after owner gates",
     "generated unlock cards remain",
     "Diagnosis, repair, harvest, closeout, and longitudinal movement",
-    "python -m pytest -q tests/test_validate_repo.py -k rpg_progression_unlocks",
+    "python -m pytest -q tests/test_mechanic_surface_contracts.py -k rpg_progression_unlocks",
 )
 GROWTH_CYCLE_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
@@ -5148,7 +5196,7 @@ REPAIR_DIAGNOSIS_ROUTE_BOUNDARY_DECISION_REQUIRED_TOKENS = (
     "`repair` remains a wrong parent form",
     "Diagnosis-cause discipline is not an antifragility part",
     "repair proof is not diagnosis proof",
-    "python -m pytest -q tests/test_validate_repo.py -k repair_diagnosis_route_boundary",
+    "python -m pytest -q tests/test_mechanic_surface_contracts.py -k repair_diagnosis_route_boundary",
 )
 DISTILLATION_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
@@ -5353,7 +5401,7 @@ AGON_QUEST_NOTE_PROVENANCE_DECISION_REQUIRED_TOKENS = (
     "schema-backed source quest records",
     "markdown quest notes",
     "quests/",
-    "python -m pytest -q tests/test_validate_repo.py -k quest_route",
+    "python -m pytest -q tests/test_quest_and_reader_surfaces.py -k quest_route",
 )
 QUESTBOOK_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "mechanics/questbook/",
@@ -5372,7 +5420,7 @@ QUESTBOOK_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS = (
     "Generated quest readers stay under root `generated/`",
     "aoa-quest-harvest",
     "live task assignment",
-    "python -m pytest -q tests/test_validate_repo.py -k questbook_part_owner_split",
+    "python -m pytest -q tests/test_mechanic_surface_contracts.py -k questbook_part_owner_split",
 )
 AUDIT_MECHANIC_REQUIRED_TOKENS = (
     "Owned Operation",
@@ -5506,7 +5554,7 @@ AUDIT_INTEGRITY_REVIEW_PART_README_REQUIRED_TOKENS = (
     "candidate-only",
     "runtime continuity activation is requested",
     "route to Experience and runtime-owner gates",
-    "python -m pytest -q tests/test_validate_repo.py -k runtime_integrity_review",
+    "python -m pytest -q tests/test_runtime_evidence_surfaces.py -k runtime_integrity_review",
 )
 BOUNDARY_BRIDGE_COMPATIBILITY_MAP_DOC_REQUIRED_TOKENS = (
     "compatibility map",
@@ -5875,6 +5923,7 @@ VISIBLE_ROOTS = (
     ABYSS_STACK_ROOT,
 )
 REPO_REF_PREFIX = "repo:"
+STRICT_SIBLING_COMPAT_ENV = "AOA_EVALS_STRICT_SIBLING_COMPAT"
 REPO_REF_ROOTS = {
     "aoa-evals": REPO_ROOT,
     "aoa-techniques": AOA_TECHNIQUES_ROOT,
@@ -5887,6 +5936,15 @@ REPO_REF_ROOTS = {
     "aoa-sdk": AOA_SDK_ROOT,
     "abyss-stack": ABYSS_STACK_ROOT,
 }
+
+
+def strict_sibling_compat_checks_enabled() -> bool:
+    return os.environ.get(STRICT_SIBLING_COMPAT_ENV, "").lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
 ARTIFACT_VERDICT_HOOK_SCHEMA_NAME = "artifact-to-verdict-hook.schema.json"
 ARTIFACT_VERDICT_HOOK_SCHEMA_PATH = (
     "mechanics/audit/parts/artifact-verdict-hooks/schemas/artifact-to-verdict-hook.schema.json"
@@ -6253,7 +6311,7 @@ def load_json_payload(path: Path, issues: list[ValidationIssue]) -> Any | None:
 
 def load_live_orchestrator_class_ids(issues: list[ValidationIssue]) -> set[str] | None:
     catalog_path = AOA_AGENTS_ROOT / ORCHESTRATOR_CLASS_CATALOG_NAME
-    if not AOA_AGENTS_ROOT.exists():
+    if not strict_sibling_compat_checks_enabled() or not AOA_AGENTS_ROOT.exists():
         return None
     payload = load_json_payload(catalog_path, issues)
     if not isinstance(payload, dict):
@@ -7857,8 +7915,16 @@ def parse_repo_ref(
         return None
 
     target = repo_root / path_text
-    if not repo_root.exists():
+    if repo_name != "aoa-evals" and not strict_sibling_compat_checks_enabled():
         return repo_name, target, anchor or None
+    if not repo_root.exists():
+        issues.append(
+            ValidationIssue(
+                location,
+                f"strict sibling compatibility requires available repo root for {repo_name}: {repo_root}",
+            )
+        )
+        return None
     if not target.exists():
         issues.append(
             ValidationIssue(
@@ -9822,6 +9888,13 @@ def validate_generated_parity_contracts(repo_root: Path) -> list[ValidationIssue
     return [
         ValidationIssue(location, message)
         for location, message in generated_parity.validate_generated_parity(repo_root)
+    ]
+
+
+def validate_validation_topology_contracts(repo_root: Path) -> list[ValidationIssue]:
+    return [
+        ValidationIssue(location, message)
+        for location, message in validation_topology.validate_validation_topology(repo_root)
     ]
 
 
@@ -12819,62 +12892,46 @@ def validate_repo_validation_workflow_surface(repo_root: Path) -> list[Validatio
         issues.append(ValidationIssue(REPO_VALIDATION_WORKFLOW_NAME, "file is missing"))
         return issues
 
-    agents_checkout = re.search(
-        r"(?ms)^\s+- name: Checkout aoa-agents\b(?P<block>.*?)(?=^\s+- name: |\Z)",
-        workflow_text,
-    )
-    if agents_checkout is None:
+    if "Run release audit" not in workflow_text or "python scripts/release_check.py" not in workflow_text:
         issues.append(
             ValidationIssue(
                 REPO_VALIDATION_WORKFLOW_NAME,
-                "missing Checkout aoa-agents step",
+                "repo validation workflow must run scripts/release_check.py",
             )
         )
-    else:
-        agents_block = agents_checkout.group("block")
-        if "repository: 8Dionysus/aoa-agents" not in agents_block:
+
+    forbidden_tokens = (
+        ".deps/",
+        "AOA_TECHNIQUES_ROOT:",
+        "AOA_SKILLS_ROOT:",
+        "AOA_AGENTS_ROOT:",
+        "AOA_PLAYBOOKS_ROOT:",
+        "AOA_MEMO_ROOT:",
+        "AOA_ROUTING_ROOT:",
+        "AOA_KAG_ROOT:",
+        "AOA_SDK_ROOT:",
+        "AOA_STATS_ROOT:",
+        "ABYSS_STACK_ROOT:",
+        "repository: 8Dionysus/aoa-techniques",
+        "repository: 8Dionysus/aoa-skills",
+        "repository: 8Dionysus/aoa-agents",
+        "repository: 8Dionysus/aoa-playbooks",
+        "repository: 8Dionysus/aoa-memo",
+        "repository: 8Dionysus/aoa-routing",
+        "repository: 8Dionysus/aoa-kag",
+        "repository: 8Dionysus/aoa-sdk",
+        "repository: 8Dionysus/aoa-stats",
+        "repository: 8Dionysus/abyss-stack",
+    )
+    for token in forbidden_tokens:
+        if token in workflow_text:
             issues.append(
                 ValidationIssue(
                     REPO_VALIDATION_WORKFLOW_NAME,
-                    "Checkout aoa-agents step must use repository 8Dionysus/aoa-agents",
+                    "repo validation workflow must not checkout or pin sibling repositories",
                 )
             )
-        if f"ref: {REPO_VALIDATION_AOA_AGENTS_REF}" not in agents_block:
-            issues.append(
-                ValidationIssue(
-                    REPO_VALIDATION_WORKFLOW_NAME,
-                    f"aoa-agents checkout ref must be {REPO_VALIDATION_AOA_AGENTS_REF}",
-                )
-            )
-
-    memo_checkout = re.search(
-        r"(?ms)^\s+- name: Checkout aoa-memo\b(?P<block>.*?)(?=^\s+- name: |\Z)",
-        workflow_text,
-    )
-    if memo_checkout is None:
-        issues.append(
-            ValidationIssue(
-                REPO_VALIDATION_WORKFLOW_NAME,
-                "missing Checkout aoa-memo step",
-            )
-        )
-        return issues
-
-    memo_block = memo_checkout.group("block")
-    if "repository: 8Dionysus/aoa-memo" not in memo_block:
-        issues.append(
-            ValidationIssue(
-                REPO_VALIDATION_WORKFLOW_NAME,
-                "Checkout aoa-memo step must use repository 8Dionysus/aoa-memo",
-            )
-        )
-    if f"ref: {REPO_VALIDATION_AOA_MEMO_REF}" not in memo_block:
-        issues.append(
-            ValidationIssue(
-                REPO_VALIDATION_WORKFLOW_NAME,
-                f"aoa-memo checkout ref must be {REPO_VALIDATION_AOA_MEMO_REF}",
-            )
-        )
+            break
     return issues
 
 
@@ -13499,7 +13556,7 @@ def validate_release_support_readiness_audit_surface(repo_root: Path) -> list[Va
         issues.append(ValidationIssue(location, "requirements_review must be a list"))
 
     required_commands = {
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readme_contract",
+        "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_readme_contract",
         MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND,
         MECHANIC_PART_VALIDATION_COMMAND_COMMAND,
         MECHANIC_PARTS_INDEX_SYNC_COMMAND,
@@ -13834,8 +13891,8 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
         issues.append(ValidationIssue(location, "trap_review must be a list"))
 
     required_commands = {
-        "python -m pytest -q mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py tests/test_validate_repo.py -k strategic_closeout",
-        "python -m pytest -q tests/test_validate_repo.py -k generated_route_residue",
+        "python -m pytest -q mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py",
+        "python -m pytest -q tests/test_generated_route_residue.py",
         ACTIVE_MECHANIC_ROUTE_RESIDUE_COMMAND,
         MECHANIC_PAYLOAD_ROUTE_RESIDUE_COMMAND,
         ROOT_AUTHORED_ROUTE_RESIDUE_COMMAND,
@@ -13843,7 +13900,7 @@ def validate_strategic_closeout_audit_surface(repo_root: Path) -> list[Validatio
         DECISION_ROUTE_RESIDUE_COMMAND,
         REPO_CONFIG_ROUTE_RESIDUE_COMMAND,
         SOURCE_BUNDLE_ROUTE_RESIDUE_COMMAND,
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readme_contract",
+        "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_readme_contract",
         MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND,
         MECHANIC_PART_VALIDATION_COMMAND_COMMAND,
         MECHANIC_PARTS_INDEX_SYNC_COMMAND,
@@ -14126,8 +14183,8 @@ def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[Validation
         issues.append(ValidationIssue(location, "draft_pr_body must be a list"))
 
     required_commands = {
-        "python -m pytest -q mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py tests/test_validate_repo.py -k release_prep_pr_handoff",
-        "python -m pytest -q tests/test_validate_repo.py -k generated_route_residue",
+        "python -m pytest -q mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py",
+        "python -m pytest -q tests/test_generated_route_residue.py",
         ACTIVE_MECHANIC_ROUTE_RESIDUE_COMMAND,
         MECHANIC_PAYLOAD_ROUTE_RESIDUE_COMMAND,
         ROOT_AUTHORED_ROUTE_RESIDUE_COMMAND,
@@ -14135,7 +14192,7 @@ def validate_release_prep_pr_handoff_surface(repo_root: Path) -> list[Validation
         DECISION_ROUTE_RESIDUE_COMMAND,
         REPO_CONFIG_ROUTE_RESIDUE_COMMAND,
         SOURCE_BUNDLE_ROUTE_RESIDUE_COMMAND,
-        "python -m pytest -q tests/test_validate_repo.py -k mechanic_part_readme_contract",
+        "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_readme_contract",
         MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND,
         MECHANIC_PART_VALIDATION_COMMAND_COMMAND,
         MECHANIC_PARTS_INDEX_SYNC_COMMAND,
@@ -16843,7 +16900,14 @@ def validate_trace_eval_bridge_surfaces(
     schema_validator = Draft202012Validator(schema)
 
     playbooks_by_id: dict[str, dict[str, Any]] | None = None
-    if AOA_PLAYBOOKS_ROOT.exists():
+    if strict_sibling_compat_checks_enabled() and not AOA_PLAYBOOKS_ROOT.exists():
+        issues.append(
+            ValidationIssue(
+                display_location(AOA_PLAYBOOKS_ROOT),
+                "strict sibling compatibility requires available aoa-playbooks root",
+            )
+        )
+    elif strict_sibling_compat_checks_enabled():
         playbook_registry_path = AOA_PLAYBOOKS_ROOT / "generated" / "playbook_registry.min.json"
         playbook_registry_location = display_location(playbook_registry_path)
         playbook_registry = load_json_payload(playbook_registry_path, issues)
@@ -19959,16 +20023,6 @@ def validate_phase_alpha_eval_matrix(repo_root: Path) -> list[ValidationIssue]:
         return issues
     if not validate_inline_schema(schema, location=schema_location, issues=issues):
         return issues
-    if not AOA_PLAYBOOKS_ROOT.exists():
-        return issues
-
-    try:
-        builder = load_phase_alpha_eval_matrix_builder(repo_root)
-        expected = builder.build_phase_alpha_eval_matrix_payload()
-    except Exception as exc:
-        issues.append(ValidationIssue(generated_location, str(exc)))
-        return issues
-
     payload = load_json_payload(generated_path, issues)
     if payload is None:
         return issues
@@ -19983,19 +20037,37 @@ def validate_phase_alpha_eval_matrix(repo_root: Path) -> list[ValidationIssue]:
         issues,
     )
 
-    if payload != expected:
-        issues.append(
-            ValidationIssue(
-                generated_location,
-                "generated phase alpha eval matrix is out of date or mismatched",
-            )
-        )
-
     if payload.get("runtime_lanes") != {"primary": "llama.cpp", "control": "llama.cpp-second-pass"}:
         issues.append(
             ValidationIssue(
                 generated_location,
                 "runtime_lanes must stay {'primary': 'llama.cpp', 'control': 'llama.cpp-second-pass'}",
+            )
+        )
+
+    if not strict_sibling_compat_checks_enabled():
+        return issues
+    if not AOA_PLAYBOOKS_ROOT.exists():
+        issues.append(
+            ValidationIssue(
+                display_location(AOA_PLAYBOOKS_ROOT),
+                "strict sibling compatibility requires available aoa-playbooks root",
+            )
+        )
+        return issues
+
+    try:
+        builder = load_phase_alpha_eval_matrix_builder(repo_root)
+        expected = builder.build_phase_alpha_eval_matrix_payload()
+    except Exception as exc:
+        issues.append(ValidationIssue(generated_location, str(exc)))
+        return issues
+
+    if payload != expected:
+        issues.append(
+            ValidationIssue(
+                generated_location,
+                "generated phase alpha eval matrix is out of date or mismatched",
             )
         )
 
@@ -20217,6 +20289,7 @@ def validate_root_topology_domain(repo_root: Path) -> list[ValidationIssue]:
     issues.extend(validate_root_design_surfaces(repo_root))
     issues.extend(validate_docs_topology_read_model(repo_root))
     issues.extend(validate_docs_route_contracts(repo_root))
+    issues.extend(validate_validation_topology_contracts(repo_root))
     issues.extend(validate_decision_index_read_models(repo_root))
     issues.extend(validate_generated_parity_contracts(repo_root))
     issues.extend(validate_decision_status_lines(repo_root))

@@ -50,7 +50,7 @@ Keep the two routes separate and explicit:
 Expected validation route:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k repair_diagnosis_route_boundary
+python -m pytest -q tests/test_mechanic_surface_contracts.py -k repair_diagnosis_route_boundary
 python scripts/validate_repo.py --eval aoa-repair-boundedness
 python scripts/validate_repo.py --eval aoa-diagnosis-cause-discipline
 python scripts/validate_repo.py

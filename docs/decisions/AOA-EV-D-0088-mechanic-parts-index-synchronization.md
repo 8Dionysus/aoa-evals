@@ -81,6 +81,6 @@ command reachability, or legacy/provenance guards.
 ## Validation
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k mechanic_parts_index_sync
+python -m pytest -q tests/test_mechanic_parts_index.py -k mechanic_parts_index_sync
 python scripts/validate_repo.py
 ```

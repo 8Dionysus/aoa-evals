@@ -136,3 +136,7 @@
 
 - [AOA-EV-D-0113 aoa-memo Writeback Decision Quality Eval](../AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md`)
 - [AOA-EV-D-0114 Canonical Decision IDs and Addresses](../AOA-EV-D-0114-canonical-decision-ids-and-addresses.md) (`docs/decisions/AOA-EV-D-0114-canonical-decision-ids-and-addresses.md`)
+
+## 2026-06-03
+
+- [AOA-EV-D-0115 Validation Lane Command Authority](../AOA-EV-D-0115-validation-lane-command-authority.md) (`docs/decisions/AOA-EV-D-0115-validation-lane-command-authority.md`)

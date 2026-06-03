@@ -4,6 +4,8 @@ import json
 import sys
 from pathlib import Path
 
+import pytest
+
 
 REPO_ROOT = Path(__file__).resolve().parents[5]
 SCRIPTS_DIR = REPO_ROOT / "scripts"
@@ -63,3 +65,42 @@ def test_validate_live_receipt_log_flags_duplicate_ids_and_missing_primary_refs(
 
     assert any("duplicate event_id 'evr-bcq-2026-04-05-001'" in message for message in messages)
     assert any("must include one primary evidence ref" in message for message in messages)
+
+
+@pytest.mark.parametrize(
+    "observed_at",
+    [
+        "not-a-date-time",
+        "2026-05-17",
+        "2026-05-17 12:00:00",
+        "2026-05-17T12:00:00",
+    ],
+)
+def test_validate_live_receipt_log_enforces_datetime_format(
+    tmp_path: Path,
+    observed_at: str,
+) -> None:
+    receipt = load_example_receipt()
+    receipt["observed_at"] = observed_at
+    write_receipt_log(tmp_path, [receipt])
+
+    issues = validate_live_receipt_log(tmp_path)
+
+    assert any("date-time" in issue.message for issue in issues)
+
+
+@pytest.mark.parametrize(
+    "observed_at",
+    ["2026-05-17t12:00:00z", "2026-05-17t12:00:00Z"],
+)
+def test_validate_live_receipt_log_accepts_lowercase_rfc3339_designators(
+    tmp_path: Path,
+    observed_at: str,
+) -> None:
+    receipt = load_example_receipt()
+    receipt["observed_at"] = observed_at
+    write_receipt_log(tmp_path, [receipt])
+
+    issues = validate_live_receipt_log(tmp_path)
+
+    assert not any("date-time" in issue.message for issue in issues)

@@ -77,7 +77,7 @@ owner route proves the move.
 ## Validation
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k root_authored_surface_classification
+python -m pytest -q tests/test_mechanics_topology.py
 python scripts/validate_repo.py
 ```
 

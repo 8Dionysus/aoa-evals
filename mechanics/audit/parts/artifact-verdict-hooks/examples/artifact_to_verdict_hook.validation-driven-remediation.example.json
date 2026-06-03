@@ -14,7 +14,7 @@
   ],
   "artifact_contract_refs": [
     "repo:aoa-playbooks/playbooks/validation-driven-remediation/PLAYBOOK.md#expected-artifacts",
-    "repo:aoa-playbooks/docs/alpha-readiness/validation-driven-remediation.md",
+    "repo:aoa-playbooks/mechanics/real-run-harvest/parts/phase-alpha-evidence-store/docs/alpha-readiness/validation-driven-remediation.md",
     "repo:aoa-agents/mechanics/questbook/parts/alpha-reference-routes/examples/validation-driven-remediation.example.json",
     "repo:aoa-memo/examples/phase-alpha/episode.phase-alpha-validation-remediation.example.json",
     "repo:aoa-memo/examples/phase-alpha/decision.phase-alpha-validation-remediation.example.json",

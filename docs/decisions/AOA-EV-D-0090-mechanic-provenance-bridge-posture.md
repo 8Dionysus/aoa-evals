@@ -37,7 +37,7 @@ Every active mechanic `PROVENANCE.md` must state:
 Validator coverage:
 
 ```bash
-python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_bridge_posture
+python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_provenance_bridge_posture
 ```
 
 ## Consequences

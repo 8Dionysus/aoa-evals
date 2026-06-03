@@ -84,7 +84,7 @@ As of 2026-05-24:
   closeout paths.
 - Source surfaces updated: `DESIGN.md`, `DESIGN.AGENTS.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+- Validation: `python -m pytest -q tests/test_root_surface_roles.py -k
   'root_design or design_agents'`.
 
 ## Review Log
@@ -100,7 +100,7 @@ As of 2026-05-24:
   operating maps instead of local warning ledgers.
 - Source surfaces updated: `DESIGN.md`, `DESIGN.AGENTS.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
+- Validation: `python -m pytest -q tests/test_root_surface_roles.py -k
   'root_design or design_agents'`.
 
 ### 2026-05-24 - Design appearance route language clarified

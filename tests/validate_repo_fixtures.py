@@ -14,15 +14,23 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
+import eval_catalog_contract
 import eval_section_contract
 import validate_repo
-from validate_repo import (
-    NO_ADDITIONAL_STARTER_BUNDLES_TEXT,
+from validators import (
+    eval_bundles as eval_bundles_validator,
+    questbook as questbook_validator,
+    root_context,
+    runtime_audit as runtime_audit_validator,
+)
+from validators.source_eval_contracts import (
     build_capsule_payload,
     build_catalog_payloads,
     build_comparison_spine_payload,
     collect_catalog_records,
-    write_json_file,
+)
+NO_ADDITIONAL_STARTER_BUNDLES_TEXT = (
+    eval_bundles_validator.NO_ADDITIONAL_STARTER_BUNDLES_TEXT
 )
 
 
@@ -97,19 +105,19 @@ def make_questbook_surface(repo_root: Path) -> None:
 def rewrite_questbook_projections(repo_root: Path) -> None:
     write_json_payload(
         repo_root / "generated" / "quest_catalog.min.json",
-        validate_repo.build_quest_catalog_projection(repo_root),
+        questbook_validator.build_quest_catalog_projection(repo_root),
     )
     write_json_payload(
         repo_root / "generated" / "quest_catalog.min.example.json",
-        validate_repo.build_quest_catalog_projection(repo_root),
+        questbook_validator.build_quest_catalog_projection(repo_root),
     )
     write_json_payload(
         repo_root / "generated" / "quest_dispatch.min.json",
-        validate_repo.build_quest_dispatch_projection(repo_root),
+        questbook_validator.build_quest_dispatch_projection(repo_root),
     )
     write_json_payload(
         repo_root / "generated" / "quest_dispatch.min.example.json",
-        validate_repo.build_quest_dispatch_projection(repo_root),
+        questbook_validator.build_quest_dispatch_projection(repo_root),
     )
 
 
@@ -121,7 +129,7 @@ def make_quest_route_surface(repo_root: Path) -> None:
         "docs/decisions/AOA-EV-D-0004-questbook-topology.md",
         "docs/decisions/AOA-EV-D-0018-quest-lane-state-source-layout.md",
         "docs/decisions/AOA-EV-D-0021-quest-lifecycle-contract.md",
-        validate_repo.AGON_QUEST_NOTE_PROVENANCE_DECISION_NAME,
+        questbook_validator.AGON_QUEST_NOTE_PROVENANCE_DECISION_NAME,
     ]:
         copy_repo_text(repo_root, relative_path)
 
@@ -422,7 +430,7 @@ def make_phase_alpha_eval_matrix_surface(repo_root: Path) -> None:
 
 def phase_alpha_playbooks_root_or_skip() -> Path:
     candidates = [
-        validate_repo.AOA_PLAYBOOKS_ROOT,
+        root_context.AOA_PLAYBOOKS_ROOT,
         REPO_ROOT.parent / "aoa-playbooks",
         Path("/srv/AbyssOS/aoa-playbooks"),
     ]
@@ -1267,11 +1275,11 @@ def write_catalogs(repo_root: Path) -> None:
     sections, section_issues = eval_section_contract.build_sections_payload(repo_root, records)
     if section_issues:
         return
-    write_json_file(repo_root / "generated" / "eval_catalog.json", full_catalog, compact=False)
-    write_json_file(repo_root / "generated" / "eval_catalog.min.json", min_catalog, compact=True)
-    write_json_file(repo_root / "generated" / "eval_capsules.json", capsules, compact=False)
-    write_json_file(repo_root / "generated" / "comparison_spine.json", comparison_spine, compact=False)
-    write_json_file(repo_root / "generated" / "eval_sections.full.json", sections, compact=False)
+    eval_catalog_contract.write_json_file(repo_root / "generated" / "eval_catalog.json", full_catalog, compact=False)
+    eval_catalog_contract.write_json_file(repo_root / "generated" / "eval_catalog.min.json", min_catalog, compact=True)
+    eval_catalog_contract.write_json_file(repo_root / "generated" / "eval_capsules.json", capsules, compact=False)
+    eval_catalog_contract.write_json_file(repo_root / "generated" / "comparison_spine.json", comparison_spine, compact=False)
+    eval_catalog_contract.write_json_file(repo_root / "generated" / "eval_sections.full.json", sections, compact=False)
 
 
 def make_abyss_stack_schema(tmp_path: Path, schema_name: str) -> Path:
@@ -1327,7 +1335,7 @@ def write_runtime_evidence_selection_example(
     candidate_eval_refs: list[str],
 ) -> None:
     write_text(
-        repo_root / validate_repo.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH,
+        repo_root / runtime_audit_validator.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH,
         """
         {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -1392,7 +1400,7 @@ def write_runtime_evidence_selection_example(
         """,
     )
     write_text(
-        repo_root / validate_repo.RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR / filename,
+        repo_root / runtime_audit_validator.RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR / filename,
         json.dumps(
             {
                 "surface_type": "runtime_evidence_selection",

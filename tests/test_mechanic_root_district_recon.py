@@ -10,6 +10,8 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import validate_repo
+from validators import mechanics as mechanics_validator
+from validators import root_context
 
 
 def copy_repo_text(repo_root: Path, relative_path: str) -> None:
@@ -23,26 +25,26 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 def copy_root_district_recon_surface(repo_root: Path) -> None:
     for path_name in (
-        validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME,
-        validate_repo.MECHANIC_ROOT_DISTRICT_RECON_DECISION_NAME,
+        mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME,
+        mechanics_validator.MECHANIC_ROOT_DISTRICT_RECON_DECISION_NAME,
         "docs/decisions/README.md",
         "mechanics/README.md",
-        validate_repo.MECHANICS_AGENTS_NAME,
-        validate_repo.PROOF_TOPOLOGY_NAME,
+        mechanics_validator.MECHANICS_AGENTS_NAME,
+        root_context.PROOF_TOPOLOGY_NAME,
         "ROADMAP.md",
     ):
         copy_repo_text(repo_root, path_name)
 
 
 def test_mechanic_root_district_recon_validates_current_routes() -> None:
-    assert validate_repo.validate_mechanic_root_district_recon_surfaces(REPO_ROOT) == []
+    assert mechanics_validator.validate_mechanic_root_district_recon_surfaces(REPO_ROOT) == []
 
 
 def test_mechanic_root_district_recon_requires_source_tree_supersession(
     tmp_path: Path,
 ) -> None:
     copy_root_district_recon_surface(tmp_path)
-    decision_path = tmp_path / validate_repo.MECHANIC_ROOT_DISTRICT_RECON_DECISION_NAME
+    decision_path = tmp_path / mechanics_validator.MECHANIC_ROOT_DISTRICT_RECON_DECISION_NAME
     decision_path.write_text(
         decision_path.read_text(encoding="utf-8").replace(
             "`evals/<claim-family>/<eval-name>/`",
@@ -51,10 +53,10 @@ def test_mechanic_root_district_recon_requires_source_tree_supersession(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_root_district_recon_surfaces(tmp_path)
+    issues = mechanics_validator.validate_mechanic_root_district_recon_surfaces(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANIC_ROOT_DISTRICT_RECON_DECISION_NAME
+        issue.location == mechanics_validator.MECHANIC_ROOT_DISTRICT_RECON_DECISION_NAME
         and "`evals/<claim-family>/<eval-name>/`" in issue.message
         for issue in issues
     )
@@ -64,21 +66,21 @@ def test_mechanic_root_district_recon_requires_agents_command_route(
     tmp_path: Path,
 ) -> None:
     copy_root_district_recon_surface(tmp_path)
-    agents_path = tmp_path / validate_repo.MECHANICS_AGENTS_NAME
+    agents_path = tmp_path / mechanics_validator.MECHANICS_AGENTS_NAME
     agents_path.write_text(
         agents_path.read_text(encoding="utf-8").replace(
-            validate_repo.MECHANIC_ROOT_DISTRICT_RECON_COMMAND,
+            mechanics_validator.MECHANIC_ROOT_DISTRICT_RECON_COMMAND,
             "python -m pytest -q tests/test_validate_repo.py -k wrong_route",
             1,
         ),
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_root_district_recon_surfaces(tmp_path)
+    issues = mechanics_validator.validate_mechanic_root_district_recon_surfaces(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_AGENTS_NAME
-        and validate_repo.MECHANIC_ROOT_DISTRICT_RECON_COMMAND in issue.message
+        issue.location == mechanics_validator.MECHANICS_AGENTS_NAME
+        and mechanics_validator.MECHANIC_ROOT_DISTRICT_RECON_COMMAND in issue.message
         for issue in issues
     )
 
@@ -87,7 +89,7 @@ def test_mechanic_root_district_recon_rejects_missing_district_row(
     tmp_path: Path,
 ) -> None:
     copy_root_district_recon_surface(tmp_path)
-    evidence_path = tmp_path / validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+    evidence_path = tmp_path / mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
     evidence_text = "\n".join(
         line
         for line in evidence_path.read_text(encoding="utf-8").splitlines()
@@ -95,10 +97,10 @@ def test_mechanic_root_district_recon_rejects_missing_district_row(
     )
     evidence_path.write_text(evidence_text, encoding="utf-8")
 
-    issues = validate_repo.validate_mechanic_root_district_recon_surfaces(tmp_path)
+    issues = mechanics_validator.validate_mechanic_root_district_recon_surfaces(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "root district `quests` must appear in the reconnaissance ledger"
         in issue.message
         for issue in issues
@@ -109,7 +111,7 @@ def test_mechanic_root_district_recon_rejects_missing_route_card_posture(
     tmp_path: Path,
 ) -> None:
     copy_root_district_recon_surface(tmp_path)
-    evidence_path = tmp_path / validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+    evidence_path = tmp_path / mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
     evidence_path.write_text(
         evidence_path.read_text(encoding="utf-8").replace(
             "route-card-only compatibility posture; active fixture families live under proof-infra or domain mechanic parts",
@@ -119,10 +121,10 @@ def test_mechanic_root_district_recon_rejects_missing_route_card_posture(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_root_district_recon_surfaces(tmp_path)
+    issues = mechanics_validator.validate_mechanic_root_district_recon_surfaces(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "root district `fixtures` reconnaissance row must preserve route-card-only posture"
         in issue.message
         for issue in issues
@@ -133,7 +135,7 @@ def test_mechanic_root_district_recon_rejects_empty_validation_guard(
     tmp_path: Path,
 ) -> None:
     copy_root_district_recon_surface(tmp_path)
-    evidence_path = tmp_path / validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+    evidence_path = tmp_path / mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
     evidence_path.write_text(
         evidence_path.read_text(encoding="utf-8").replace(
             "quest route validation, generated quest catalog checks, and catalog-check route",
@@ -143,10 +145,10 @@ def test_mechanic_root_district_recon_rejects_empty_validation_guard(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_root_district_recon_surfaces(tmp_path)
+    issues = mechanics_validator.validate_mechanic_root_district_recon_surfaces(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "root district `quests` reconnaissance row must fill `Validation guard`"
         in issue.message
         for issue in issues

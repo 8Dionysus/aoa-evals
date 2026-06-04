@@ -10,7 +10,21 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import validate_repo
+from validators import release_support as release_support_validator
+
+REPO_REF_ROOTS = {
+    "aoa-evals": REPO_ROOT,
+    "aoa-techniques": REPO_ROOT.parent / "aoa-techniques",
+    "aoa-skills": REPO_ROOT.parent / "aoa-skills",
+    "aoa-agents": REPO_ROOT.parent / "aoa-agents",
+    "aoa-playbooks": REPO_ROOT.parent / "aoa-playbooks",
+    "aoa-memo": REPO_ROOT.parent / "aoa-memo",
+    "aoa-routing": REPO_ROOT.parent / "aoa-routing",
+    "aoa-kag": REPO_ROOT.parent / "aoa-kag",
+    "aoa-sdk": REPO_ROOT.parent / "aoa-sdk",
+    "aoa-stats": REPO_ROOT.parent / "aoa-stats",
+    "abyss-stack": REPO_ROOT.parent / "abyss-stack",
+}
 
 HANDOFF_PATH = (
     REPO_ROOT
@@ -42,8 +56,16 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 
 def make_release_prep_pr_handoff_surface(repo_root: Path) -> Path:
-    copy_repo_text(repo_root, validate_repo.RELEASE_PREP_PR_HANDOFF_NAME)
-    return repo_root / validate_repo.RELEASE_PREP_PR_HANDOFF_NAME
+    copy_repo_text(repo_root, release_support_validator.RELEASE_PREP_PR_HANDOFF_NAME)
+    return repo_root / release_support_validator.RELEASE_PREP_PR_HANDOFF_NAME
+
+
+def validate_release_prep_pr_handoff_surface(repo_root: Path):
+    return release_support_validator.validate_release_prep_pr_handoff_surface(
+        repo_root,
+        repo_ref_roots=REPO_REF_ROOTS,
+        strict_sibling_compat=False,
+    )
 
 
 def test_release_prep_pr_handoff_keeps_pre_pr_snapshot_bounded() -> None:
@@ -158,7 +180,7 @@ def test_release_prep_pr_handoff_lists_landing_steps_and_gates() -> None:
 
 
 def test_release_prep_pr_handoff_surface_validates_current_route() -> None:
-    assert validate_repo.validate_release_prep_pr_handoff_surface(REPO_ROOT) == []
+    assert validate_release_prep_pr_handoff_surface(REPO_ROOT) == []
 
 
 def test_release_prep_pr_handoff_rejects_open_pr_claim(
@@ -169,10 +191,10 @@ def test_release_prep_pr_handoff_rejects_open_pr_claim(
     payload["pre_handoff_github_status"]["pr_status"] = "opened"
     write_json_payload(handoff_path, payload)
 
-    issues = validate_repo.validate_release_prep_pr_handoff_surface(tmp_path)
+    issues = validate_release_prep_pr_handoff_surface(tmp_path)
 
     assert any(
-        issue.location == f"{validate_repo.RELEASE_PREP_PR_HANDOFF_NAME}.pre_handoff_github_status"
+        issue.location == f"{release_support_validator.RELEASE_PREP_PR_HANDOFF_NAME}.pre_handoff_github_status"
         and "pre_handoff pr_status must be 'not_opened'" in issue.message
         for issue in issues
     )
@@ -190,10 +212,10 @@ def test_release_prep_pr_handoff_rejects_missing_surface_group(
     ]
     write_json_payload(handoff_path, payload)
 
-    issues = validate_repo.validate_release_prep_pr_handoff_surface(tmp_path)
+    issues = validate_release_prep_pr_handoff_surface(tmp_path)
 
     assert any(
-        issue.location == f"{validate_repo.RELEASE_PREP_PR_HANDOFF_NAME}.changed_surface_groups"
+        issue.location == f"{release_support_validator.RELEASE_PREP_PR_HANDOFF_NAME}.changed_surface_groups"
         and "active_proof_loop" in issue.message
         for issue in issues
     )
@@ -211,10 +233,10 @@ def test_release_prep_pr_handoff_rejects_missing_landing_step(
     ]
     write_json_payload(handoff_path, payload)
 
-    issues = validate_repo.validate_release_prep_pr_handoff_surface(tmp_path)
+    issues = validate_release_prep_pr_handoff_surface(tmp_path)
 
     assert any(
-        issue.location == f"{validate_repo.RELEASE_PREP_PR_HANDOFF_NAME}.landing_steps"
+        issue.location == f"{release_support_validator.RELEASE_PREP_PR_HANDOFF_NAME}.landing_steps"
         and "watch GitHub Repo Validation" in issue.message
         for issue in issues
     )
@@ -233,10 +255,10 @@ def test_release_prep_pr_handoff_rejects_missing_focused_gate(
     ]
     write_json_payload(handoff_path, payload)
 
-    issues = validate_repo.validate_release_prep_pr_handoff_surface(tmp_path)
+    issues = validate_release_prep_pr_handoff_surface(tmp_path)
 
     assert any(
-        issue.location == f"{validate_repo.RELEASE_PREP_PR_HANDOFF_NAME}.verification_snapshot"
+        issue.location == f"{release_support_validator.RELEASE_PREP_PR_HANDOFF_NAME}.verification_snapshot"
         and "mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py"
         in issue.message
         for issue in issues

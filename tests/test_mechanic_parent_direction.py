@@ -11,6 +11,10 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import validate_repo
+from validators import agon as agon_validator
+from validators import mechanic_legacy as mechanic_legacy_validator
+from validators import mechanic_parents as mechanic_parents_validator
+from validators import mechanics as mechanics_validator
 
 
 def write_text(path: Path, content: str) -> None:
@@ -28,7 +32,7 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 
 def write_valid_direction_files(repo_root: Path) -> None:
-    for path_name in validate_repo.MECHANIC_DIRECTION_FILES:
+    for path_name in mechanic_parents_validator.MECHANIC_DIRECTION_FILES:
         write_text(
             repo_root / path_name,
             "# Direction\n\ncurrent operating direction\n\n## Source-of-truth split\n\n`README.md`\n`DIRECTION.md`\n`PARTS.md`\n`PROVENANCE.md`\n`legacy/`\narchive-local route\n\n## Current contour\n\nNow.\n\n## Growth rule\n\nGrow only with proof.\n\n## Stop-lines\n\nNo overclaim.\n\n## Validation\n\n`python scripts/validate_repo.py`\n",
@@ -36,7 +40,7 @@ def write_valid_direction_files(repo_root: Path) -> None:
 
 
 def write_valid_parent_readmes(repo_root: Path) -> None:
-    for path_name in validate_repo.MECHANIC_PARENT_README_FILES:
+    for path_name in mechanic_parents_validator.MECHANIC_PARENT_README_FILES:
         write_text(
             repo_root / path_name,
             "# Parent\n\n## Entry Route\n\n[DIRECTION.md](DIRECTION.md)\ncurrent operating direction\n[PARTS.md](PARTS.md)\n[PROVENANCE.md](PROVENANCE.md)\nactive-to-archive bridge\n",
@@ -45,8 +49,8 @@ def write_valid_parent_readmes(repo_root: Path) -> None:
 
 def write_valid_parent_agents(repo_root: Path) -> None:
     for parent_name, path_name in zip(
-        validate_repo.ACTIVE_MECHANIC_PARENT_NAMES,
-        validate_repo.MECHANIC_PARENT_AGENTS_FILES,
+        mechanics_validator.ACTIVE_MECHANIC_PARENT_NAMES,
+        mechanic_parents_validator.MECHANIC_PARENT_AGENTS_FILES,
         strict=True,
     ):
         write_text(
@@ -56,7 +60,7 @@ def write_valid_parent_agents(repo_root: Path) -> None:
 
 
 def write_valid_provenance_files(repo_root: Path) -> None:
-    for path_name in validate_repo.MECHANIC_PROVENANCE_FILES:
+    for path_name in mechanic_legacy_validator.MECHANIC_PROVENANCE_FILES:
         write_text(
             repo_root / path_name,
             "# Provenance\n\nactive route\nlegacy/README.md\nlegacy archive owns its own details\narchive details stay out\n",
@@ -73,7 +77,9 @@ def test_mechanic_parent_direction_rejects_missing_current_contour(
         "# Titan Direction\n\ncurrent operating direction\n\n## Source-of-truth split\n\n`README.md`\n`DIRECTION.md`\n`PARTS.md`\n`PROVENANCE.md`\n\n## Growth rule\n\nGrow only with proof.\n\n## Stop-lines\n\nNo overclaim.\n\n## Validation\n\n`python scripts/validate_repo.py`\n",
     )
 
-    issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
+    issues = mechanic_parents_validator.validate_mechanic_parent_direction_surfaces(
+        tmp_path
+    )
 
     assert any(
         issue.location == direction_path and "## Current contour" in issue.message
@@ -93,7 +99,9 @@ def test_mechanic_parent_direction_rejects_missing_readme_entry_route(
         "# Titan\n\n## Entry Route\n\ncurrent operating direction\nactive-to-archive bridge\n[PARTS.md](PARTS.md)\n[PROVENANCE.md](PROVENANCE.md)\n",
     )
 
-    issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
+    issues = mechanic_parents_validator.validate_mechanic_parent_direction_surfaces(
+        tmp_path
+    )
 
     assert any(
         issue.location == readme_path and "[DIRECTION.md](DIRECTION.md)" in issue.message
@@ -105,14 +113,16 @@ def test_mechanic_parent_direction_rejects_missing_readme_role_and_next_route(
     tmp_path: Path,
 ) -> None:
     write_valid_direction_files(tmp_path)
-    for path_name in validate_repo.MECHANIC_PARENT_README_FILES:
+    for path_name in mechanic_parents_validator.MECHANIC_PARENT_README_FILES:
         write_text(
             tmp_path / path_name,
             "# Parent\n\n## Entry Route\n\n[DIRECTION.md](DIRECTION.md)\ncurrent operating direction\n[PARTS.md](PARTS.md)\n[PROVENANCE.md](PROVENANCE.md)\nactive-to-archive bridge\n\n## Owned Operation\n\nRoute proof work.\n\n## Validation\n\n[AGENTS](AGENTS.md#validation)\n",
         )
     write_valid_parent_agents(tmp_path)
 
-    issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
+    issues = mechanic_parents_validator.validate_mechanic_parent_direction_surfaces(
+        tmp_path
+    )
 
     assert any(
         issue.location == "mechanics/titan/README.md" and "## Role" in issue.message
@@ -133,12 +143,14 @@ def test_mechanic_parent_readme_rejects_stale_stop_line_lead_in(
     readme_path.write_text(
         readme_path.read_text(encoding="utf-8").replace(
             "Boundary routes keep recurrence proof pressure with the owner that can act on\nit:",
-            validate_repo.MECHANIC_PARENT_README_STALE_STOP_LINE_LEAD_IN,
+            mechanic_parents_validator.MECHANIC_PARENT_README_STALE_STOP_LINE_LEAD_IN,
         ),
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
+    issues = mechanic_parents_validator.validate_mechanic_parent_direction_surfaces(
+        tmp_path
+    )
 
     assert any(
         issue.location == readme_name and "old package-claim scaffold" in issue.message
@@ -160,7 +172,9 @@ def test_mechanic_parent_readme_rejects_stale_provenance_side_path(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
+    issues = mechanic_parents_validator.validate_mechanic_parent_direction_surfaces(
+        tmp_path
+    )
 
     assert any(
         issue.location == readme_name
@@ -172,7 +186,7 @@ def test_mechanic_parent_readme_rejects_stale_provenance_side_path(
 def test_mechanic_parent_direction_rejects_stale_negative_route_language(
     tmp_path: Path,
 ) -> None:
-    readme_name = validate_repo.AGON_MECHANIC_README_NAME
+    readme_name = agon_validator.AGON_MECHANIC_README_NAME
     copy_repo_text(tmp_path, readme_name)
     readme_path = tmp_path / readme_name
     readme_path.write_text(
@@ -184,7 +198,9 @@ def test_mechanic_parent_direction_rejects_stale_negative_route_language(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
+    issues = mechanic_parents_validator.validate_mechanic_parent_direction_surfaces(
+        tmp_path
+    )
 
     assert any(
         issue.location == readme_name
@@ -207,7 +223,9 @@ def test_mechanic_parent_agents_rejects_stale_provenance_side_path(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
+    issues = mechanic_parents_validator.validate_mechanic_parent_direction_surfaces(
+        tmp_path
+    )
 
     assert any(
         issue.location == agents_name
@@ -228,7 +246,9 @@ def test_mechanic_parent_direction_rejects_missing_agents_entry_route(
         "# AGENTS.md\n\n## Entry Route\n\ncurrent operating direction\nactive-to-archive bridge\n`mechanics/titan/PARTS.md`\n`mechanics/titan/PROVENANCE.md`\n",
     )
 
-    issues = validate_repo.validate_mechanic_parent_direction_surfaces(tmp_path)
+    issues = mechanic_parents_validator.validate_mechanic_parent_direction_surfaces(
+        tmp_path
+    )
 
     assert any(
         issue.location == agents_path
@@ -247,7 +267,9 @@ def test_mechanic_provenance_entry_rejects_missing_legacy_readme_bridge(
         "# Titan Provenance\n\nactive route\nlegacy archive owns its own details\narchive details stay out\n",
     )
 
-    issues = validate_repo.validate_mechanic_provenance_entry_surfaces(tmp_path)
+    issues = mechanic_legacy_validator.validate_mechanic_provenance_entry_surfaces(
+        tmp_path
+    )
 
     assert any(
         issue.location == readme_path and "legacy/README.md" in issue.message
@@ -265,7 +287,9 @@ def test_mechanic_provenance_entry_rejects_archive_detail_in_bridge(
         "# Titan Provenance\n\nactive route\nlegacy/README.md\nlegacy/INDEX.md\nlegacy archive owns its own details\narchive details stay out\n",
     )
 
-    issues = validate_repo.validate_mechanic_provenance_entry_surfaces(tmp_path)
+    issues = mechanic_legacy_validator.validate_mechanic_provenance_entry_surfaces(
+        tmp_path
+    )
 
     assert any(
         issue.location == readme_path

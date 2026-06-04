@@ -11,7 +11,7 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import validate_repo
+from validators import source_eval_contracts as source_eval_contracts_validator
 
 
 SCRIPT_PATH = (
@@ -209,7 +209,7 @@ def test_allow_new_write_creates_valid_draft_bundle(tmp_path: Path) -> None:
     assert (bundle_dir / "notes" / "origin-need.md").is_file()
     assert (bundle_dir / "checks" / "eval-integrity-check.md").is_file()
 
-    issues, records = validate_repo.collect_catalog_records(tmp_path)
+    issues, records = source_eval_contracts_validator.collect_catalog_records(tmp_path)
     assert issues == []
     assert [record.name for record in records] == ["aoa-runtime-evidence-route-discipline"]
 
@@ -291,7 +291,7 @@ def test_allow_new_write_creates_valid_fixed_baseline_comparative_draft(tmp_path
     ):
         assert bundle_dir.joinpath(*rel_parts).is_file()
 
-    issues, records = validate_repo.collect_catalog_records(tmp_path)
+    issues, records = source_eval_contracts_validator.collect_catalog_records(tmp_path)
     assert issues == []
     assert sorted(record.name for record in records) == [
         "aoa-bounded-change-quality",

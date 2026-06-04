@@ -11,8 +11,10 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 import eval_section_contract
 import validate_repo
+from validators import eval_bundles as eval_bundles_validator
+from validators import root_context
+from validators.source_eval_contracts import collect_catalog_records
 from validate_repo import (
-    collect_catalog_records,
     run_validation,
 )
 
@@ -41,7 +43,7 @@ def test_eval_selection_rejects_generic_heading(tmp_path: Path) -> None:
         """,
     )
 
-    issues = validate_repo.validate_eval_selection(tmp_path, ["aoa-alpha"])
+    issues = eval_bundles_validator.validate_eval_selection(tmp_path, ["aoa-alpha"])
 
     assert any(
         issue.location == "EVAL_SELECTION.md"
@@ -439,14 +441,14 @@ def test_validate_repo_allows_local_run_without_sibling_dependency_repos(monkeyp
     missing_memo_root = REPO_ROOT / ".tmp" / "missing-aoa-memo"
     missing_abyss_stack_root = REPO_ROOT / ".tmp" / "missing-abyss-stack"
 
-    monkeypatch.setattr(validate_repo, "AOA_TECHNIQUES_ROOT", missing_techniques_root)
-    monkeypatch.setattr(validate_repo, "AOA_SKILLS_ROOT", missing_skills_root)
-    monkeypatch.setattr(validate_repo, "AOA_AGENTS_ROOT", missing_agents_root)
-    monkeypatch.setattr(validate_repo, "AOA_PLAYBOOKS_ROOT", missing_playbooks_root)
-    monkeypatch.setattr(validate_repo, "AOA_MEMO_ROOT", missing_memo_root)
-    monkeypatch.setattr(validate_repo, "ABYSS_STACK_ROOT", missing_abyss_stack_root)
+    monkeypatch.setattr(root_context, "AOA_TECHNIQUES_ROOT", missing_techniques_root)
+    monkeypatch.setattr(root_context, "AOA_SKILLS_ROOT", missing_skills_root)
+    monkeypatch.setattr(root_context, "AOA_AGENTS_ROOT", missing_agents_root)
+    monkeypatch.setattr(root_context, "AOA_PLAYBOOKS_ROOT", missing_playbooks_root)
+    monkeypatch.setattr(root_context, "AOA_MEMO_ROOT", missing_memo_root)
+    monkeypatch.setattr(root_context, "ABYSS_STACK_ROOT", missing_abyss_stack_root)
     monkeypatch.setattr(
-        validate_repo,
+        root_context,
         "REPO_REF_ROOTS",
         {
             "aoa-evals": validate_repo.REPO_ROOT,

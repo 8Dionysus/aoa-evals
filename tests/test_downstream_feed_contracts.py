@@ -25,11 +25,13 @@ PHASE_ALPHA_EVAL_MATRIX_SCRIPTS_DIR = (
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from validate_repo import (
+from validators.source_eval_contracts import (
     build_catalog_payloads,
     build_comparison_spine_payload,
     collect_catalog_records,
 )
+from validators import phase_alpha_matrix as phase_alpha_matrix_validator
+from validators import root_context
 import validate_repo
 
 
@@ -72,6 +74,17 @@ def write_json_payload(path: Path, payload: object) -> None:
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
+def validate_phase_alpha_eval_matrix(repo_root: Path):
+    return phase_alpha_matrix_validator.validate_phase_alpha_eval_matrix(
+        repo_root,
+        sibling_root=root_context.AOA_PLAYBOOKS_ROOT,
+        repo_ref_roots=root_context.REPO_REF_ROOTS,
+        strict_sibling_compat=root_context.strict_sibling_compat_checks_enabled(),
+        visible_roots=root_context.VISIBLE_ROOTS,
+        builder_loader=phase_alpha_matrix_validator.load_phase_alpha_eval_matrix_builder,
+    )
+
+
 def make_phase_alpha_eval_matrix_surface(repo_root: Path) -> None:
     for relative_path in [
         "mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated/phase_alpha_eval_matrix.min.json",
@@ -91,7 +104,7 @@ def make_phase_alpha_eval_matrix_surface(repo_root: Path) -> None:
 
 def phase_alpha_playbooks_root_or_skip() -> Path:
     candidates = [
-        validate_repo.AOA_PLAYBOOKS_ROOT,
+        root_context.AOA_PLAYBOOKS_ROOT,
         REPO_ROOT.parent / "aoa-playbooks",
         Path("/srv/AbyssOS/aoa-playbooks"),
     ]
@@ -102,7 +115,7 @@ def phase_alpha_playbooks_root_or_skip() -> Path:
 
 
 def test_phase_alpha_eval_matrix_validates_for_current_repo() -> None:
-    issues = validate_repo.validate_phase_alpha_eval_matrix(REPO_ROOT)
+    issues = validate_phase_alpha_eval_matrix(REPO_ROOT)
 
     assert issues == []
 
@@ -126,10 +139,10 @@ def test_phase_alpha_eval_matrix_drift_fails(
     write_json_payload(matrix_path, payload)
 
     playbooks_root = phase_alpha_playbooks_root_or_skip()
-    monkeypatch.setattr(validate_repo, "AOA_PLAYBOOKS_ROOT", playbooks_root)
+    monkeypatch.setattr(root_context, "AOA_PLAYBOOKS_ROOT", playbooks_root)
     monkeypatch.setenv("AOA_PLAYBOOKS_ROOT", str(playbooks_root))
-    monkeypatch.setenv(validate_repo.STRICT_SIBLING_COMPAT_ENV, "1")
-    issues = validate_repo.validate_phase_alpha_eval_matrix(tmp_path)
+    monkeypatch.setenv(root_context.STRICT_SIBLING_COMPAT_ENV, "1")
+    issues = validate_phase_alpha_eval_matrix(tmp_path)
 
     assert any(
         issue.location
@@ -145,10 +158,10 @@ def test_phase_alpha_eval_matrix_requires_playbooks_root_in_strict_mode(
 ) -> None:
     make_phase_alpha_eval_matrix_surface(tmp_path)
     missing_playbooks_root = tmp_path / "missing-aoa-playbooks"
-    monkeypatch.setattr(validate_repo, "AOA_PLAYBOOKS_ROOT", missing_playbooks_root)
-    monkeypatch.setenv(validate_repo.STRICT_SIBLING_COMPAT_ENV, "1")
+    monkeypatch.setattr(root_context, "AOA_PLAYBOOKS_ROOT", missing_playbooks_root)
+    monkeypatch.setenv(root_context.STRICT_SIBLING_COMPAT_ENV, "1")
 
-    issues = validate_repo.validate_phase_alpha_eval_matrix(tmp_path)
+    issues = validate_phase_alpha_eval_matrix(tmp_path)
 
     assert any(
         issue.location == str(missing_playbooks_root)
@@ -176,7 +189,7 @@ def test_phase_alpha_eval_matrix_rejects_non_bool_optional_rerun(
     payload = json.loads(example_path.read_text(encoding="utf-8"))
     payload["runs"][0]["optional_control_path_rerun"] = "false"
     write_json_payload(example_path, payload)
-    builder = validate_repo.load_phase_alpha_eval_matrix_builder(tmp_path)
+    builder = phase_alpha_matrix_validator.load_phase_alpha_eval_matrix_builder(tmp_path)
 
     with pytest.raises(SystemExit, match="optional_control_path_rerun must be a boolean"):
         builder.build_phase_alpha_eval_matrix_payload()

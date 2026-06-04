@@ -10,6 +10,8 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import validate_repo
+from validators import mechanics as mechanics_validator
+from validators import root_context
 
 
 TITAN_DIMENSION_ROW = (
@@ -39,10 +41,10 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 def copy_class_map_surface(repo_root: Path, *extra_paths: str) -> None:
     for path_name in (
-        validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME,
+        mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME,
         "docs/decisions/README.md",
         "mechanics/README.md",
-        validate_repo.PROOF_TOPOLOGY_NAME,
+        root_context.PROOF_TOPOLOGY_NAME,
         "ROADMAP.md",
         *extra_paths,
     ):
@@ -50,31 +52,31 @@ def copy_class_map_surface(repo_root: Path, *extra_paths: str) -> None:
 
 
 def evidence_text_path(repo_root: Path) -> Path:
-    return repo_root / validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+    return repo_root / mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
 
 
 def test_mechanic_parent_class_sets_cover_allowed_parents() -> None:
-    aoa_parents = set(validate_repo.AOA_ALIGNED_MECHANIC_PARENT_NAMES)
-    evals_native_parents = set(validate_repo.EVALS_NATIVE_MECHANIC_PARENT_NAMES)
+    aoa_parents = set(mechanics_validator.AOA_ALIGNED_MECHANIC_PARENT_NAMES)
+    evals_native_parents = set(mechanics_validator.EVALS_NATIVE_MECHANIC_PARENT_NAMES)
 
     assert aoa_parents.isdisjoint(evals_native_parents)
     assert aoa_parents | evals_native_parents == set(
-        validate_repo.ACTIVE_MECHANIC_PARENT_NAMES
+        mechanics_validator.ACTIVE_MECHANIC_PARENT_NAMES
     )
 
 
 def test_mechanic_parent_class_map_validates_current_routes() -> None:
-    assert validate_repo.validate_mechanic_parent_class_map(REPO_ROOT) == []
+    assert mechanics_validator.validate_mechanic_parent_class_map(REPO_ROOT) == []
 
 
 def test_mechanic_evidence_dimension_ledger_validates_current_routes() -> None:
-    issues = validate_repo.validate_mechanic_parent_class_map(REPO_ROOT)
+    issues = mechanics_validator.validate_mechanic_parent_class_map(REPO_ROOT)
 
     assert not any("evidence dimension ledger" in issue.message for issue in issues)
 
 
 def test_mechanic_evidence_route_refs_validate_current_routes() -> None:
-    issues = validate_repo.validate_mechanic_parent_class_map(REPO_ROOT)
+    issues = mechanics_validator.validate_mechanic_parent_class_map(REPO_ROOT)
 
     assert not any("evidence route refs" in issue.message for issue in issues)
 
@@ -84,16 +86,16 @@ def test_mechanic_evidence_dimension_ledger_rejects_missing_parent_row(
 ) -> None:
     copy_class_map_surface(
         tmp_path,
-        validate_repo.MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_NAME,
+        mechanics_validator.MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_NAME,
     )
     evidence_path = evidence_text_path(tmp_path)
     evidence_text = evidence_path.read_text(encoding="utf-8")
     evidence_path.write_text(evidence_text.replace(TITAN_DIMENSION_ROW, ""), encoding="utf-8")
 
-    issues = validate_repo.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "active parent `titan` must appear in the evidence dimension ledger"
         in issue.message
         for issue in issues
@@ -105,7 +107,7 @@ def test_mechanic_evidence_dimension_ledger_rejects_wrong_class(
 ) -> None:
     copy_class_map_surface(
         tmp_path,
-        validate_repo.MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_NAME,
+        mechanics_validator.MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_NAME,
     )
     evidence_path = evidence_text_path(tmp_path)
     evidence_text = evidence_path.read_text(encoding="utf-8")
@@ -114,10 +116,10 @@ def test_mechanic_evidence_dimension_ledger_rejects_wrong_class(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "row for `titan` must use class `evals-native`" in issue.message
         for issue in issues
     )
@@ -128,7 +130,7 @@ def test_mechanic_evidence_dimension_ledger_rejects_empty_dimension(
 ) -> None:
     copy_class_map_surface(
         tmp_path,
-        validate_repo.MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_NAME,
+        mechanics_validator.MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_NAME,
     )
     evidence_path = evidence_text_path(tmp_path)
     evidence_text = evidence_path.read_text(encoding="utf-8")
@@ -137,10 +139,10 @@ def test_mechanic_evidence_dimension_ledger_rejects_empty_dimension(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "row for `titan` must fill `Contracts/payloads`" in issue.message
         for issue in issues
     )
@@ -149,7 +151,7 @@ def test_mechanic_evidence_dimension_ledger_rejects_empty_dimension(
 def test_mechanic_evidence_route_refs_rejects_missing_path_refs(
     tmp_path: Path,
 ) -> None:
-    copy_class_map_surface(tmp_path, validate_repo.MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME)
+    copy_class_map_surface(tmp_path, mechanics_validator.MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME)
     evidence_path = evidence_text_path(tmp_path)
     evidence_path.write_text(
         evidence_path.read_text(encoding="utf-8").replace(
@@ -160,10 +162,10 @@ def test_mechanic_evidence_route_refs_rejects_missing_path_refs(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "evidence route refs row for `titan` must name at least" in issue.message
         for issue in issues
     )
@@ -172,7 +174,7 @@ def test_mechanic_evidence_route_refs_rejects_missing_path_refs(
 def test_mechanic_evidence_route_refs_rejects_generic_root_validator_ref(
     tmp_path: Path,
 ) -> None:
-    copy_class_map_surface(tmp_path, validate_repo.MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME)
+    copy_class_map_surface(tmp_path, mechanics_validator.MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME)
     evidence_path = evidence_text_path(tmp_path)
     evidence_path.write_text(
         evidence_path.read_text(encoding="utf-8").replace(
@@ -183,10 +185,10 @@ def test_mechanic_evidence_route_refs_rejects_generic_root_validator_ref(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "must not use generic root validator route `tests/test_validate_repo.py`"
         in issue.message
         for issue in issues
@@ -196,7 +198,7 @@ def test_mechanic_evidence_route_refs_rejects_generic_root_validator_ref(
 def test_mechanic_evidence_route_refs_rejects_decision_only_non_mechanics_ref(
     tmp_path: Path,
 ) -> None:
-    copy_class_map_surface(tmp_path, validate_repo.MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME)
+    copy_class_map_surface(tmp_path, mechanics_validator.MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME)
     evidence_path = evidence_text_path(tmp_path)
     evidence_path.write_text(
         evidence_path.read_text(encoding="utf-8").replace(
@@ -207,10 +209,10 @@ def test_mechanic_evidence_route_refs_rejects_decision_only_non_mechanics_ref(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "living non-mechanics evidence" in issue.message
         and "rationale-only decision refs are not enough" in issue.message
         for issue in issues
@@ -220,7 +222,7 @@ def test_mechanic_evidence_route_refs_rejects_decision_only_non_mechanics_ref(
 def test_mechanic_evidence_route_refs_rejects_stale_path(
     tmp_path: Path,
 ) -> None:
-    copy_class_map_surface(tmp_path, validate_repo.MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME)
+    copy_class_map_surface(tmp_path, mechanics_validator.MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME)
     evidence_path = evidence_text_path(tmp_path)
     stale_ref = "mechanics/titan/parts/seed-boundary/seeds/missing-canary.yaml"
     evidence_path.write_text(
@@ -232,10 +234,10 @@ def test_mechanic_evidence_route_refs_rejects_stale_path(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "evidence route refs row for `titan` has stale route ref" in issue.message
         and stale_ref in issue.message
         for issue in issues
@@ -245,7 +247,7 @@ def test_mechanic_evidence_route_refs_rejects_stale_path(
 def test_mechanic_evidence_route_refs_rejects_mechanics_only_row(
     tmp_path: Path,
 ) -> None:
-    copy_class_map_surface(tmp_path, validate_repo.MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME)
+    copy_class_map_surface(tmp_path, mechanics_validator.MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME)
     evidence_path = evidence_text_path(tmp_path)
     evidence_path.write_text(
         evidence_path.read_text(encoding="utf-8").replace(
@@ -256,10 +258,10 @@ def test_mechanic_evidence_route_refs_rejects_mechanics_only_row(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "must include at least one non-mechanics route ref" in issue.message
         for issue in issues
     )
@@ -270,9 +272,9 @@ def test_mechanic_parent_class_map_rejects_missing_owner_named_titan_boundary(
 ) -> None:
     copy_class_map_surface(
         tmp_path,
-        validate_repo.MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_NAME,
-        validate_repo.MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME,
-        validate_repo.MECHANIC_PARENT_CLASS_DECISION_NAME,
+        mechanics_validator.MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_NAME,
+        mechanics_validator.MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_NAME,
+        mechanics_validator.MECHANIC_PARENT_CLASS_DECISION_NAME,
     )
     evidence_path = evidence_text_path(tmp_path)
     evidence_path.write_text(
@@ -283,10 +285,10 @@ def test_mechanic_parent_class_map_rejects_missing_owner_named_titan_boundary(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "owner-named evals-native" in issue.message
         for issue in issues
     )
@@ -295,8 +297,8 @@ def test_mechanic_parent_class_map_rejects_missing_owner_named_titan_boundary(
 def test_mechanic_parent_class_map_rejects_misclassified_parent(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME)
-    evidence_path = tmp_path / validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+    copy_repo_text(tmp_path, mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME)
+    evidence_path = tmp_path / mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
     evidence_text = evidence_path.read_text(encoding="utf-8")
     evidence_text = evidence_text.replace(
         "| `titan` | Titan incarnation and summon discipline docs plus 37 Titan seed canaries",
@@ -304,10 +306,10 @@ def test_mechanic_parent_class_map_rejects_misclassified_parent(
     )
     evidence_path.write_text(evidence_text, encoding="utf-8")
 
-    issues = validate_repo.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "evals-native parent `titan`" in issue.message
         for issue in issues
     )
@@ -316,18 +318,18 @@ def test_mechanic_parent_class_map_rejects_misclassified_parent(
 def test_mechanic_parent_class_map_rejects_missing_wrong_parent_mapping(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME)
-    evidence_path = tmp_path / validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+    copy_repo_text(tmp_path, mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME)
+    evidence_path = tmp_path / mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
     evidence_text = evidence_path.read_text(encoding="utf-8").replace(
         "| `repair` | `antifragility/repair-proof` | Active route sends bounded repair pressure through the repair-proof part; future Growth Cycle repair stages still need separate evidence. |\n",
         "",
     )
     evidence_path.write_text(evidence_text, encoding="utf-8")
 
-    issues = validate_repo.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "former wrong parent `repair`" in issue.message
         for issue in issues
     )
@@ -336,18 +338,18 @@ def test_mechanic_parent_class_map_rejects_missing_wrong_parent_mapping(
 def test_mechanic_parent_class_map_rejects_plausible_parent_wording(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME)
-    evidence_path = tmp_path / validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+    copy_repo_text(tmp_path, mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME)
+    evidence_path = tmp_path / mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
     evidence_text = evidence_path.read_text(encoding="utf-8").replace(
         "The following parents are active and must stay constrained",
         "The following parents are currently plausible and must stay constrained",
     )
     evidence_path.write_text(evidence_text, encoding="utf-8")
 
-    issues = validate_repo.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_EVIDENCE_CLUSTERS_NAME
+        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
         and "not merely plausible candidates" in issue.message
         for issue in issues
     )

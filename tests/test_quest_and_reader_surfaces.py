@@ -14,10 +14,15 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import validate_repo
+from validators import (
+    questbook as questbook_validator,
+    report_index as report_index_validator,
+    root_topology as root_topology_validator,
+    runtime_audit as runtime_audit_validator,
+    runtime_candidates as runtime_candidates_validator,
+)
 from validate_repo import (
     run_validation,
-    validate_questbook_surface,
 )
 
 
@@ -92,19 +97,19 @@ def make_questbook_surface(repo_root: Path) -> None:
 def rewrite_questbook_projections(repo_root: Path) -> None:
     write_json_payload(
         repo_root / "generated" / "quest_catalog.min.json",
-        validate_repo.build_quest_catalog_projection(repo_root),
+        questbook_validator.build_quest_catalog_projection(repo_root),
     )
     write_json_payload(
         repo_root / "generated" / "quest_catalog.min.example.json",
-        validate_repo.build_quest_catalog_projection(repo_root),
+        questbook_validator.build_quest_catalog_projection(repo_root),
     )
     write_json_payload(
         repo_root / "generated" / "quest_dispatch.min.json",
-        validate_repo.build_quest_dispatch_projection(repo_root),
+        questbook_validator.build_quest_dispatch_projection(repo_root),
     )
     write_json_payload(
         repo_root / "generated" / "quest_dispatch.min.example.json",
-        validate_repo.build_quest_dispatch_projection(repo_root),
+        questbook_validator.build_quest_dispatch_projection(repo_root),
     )
 
 
@@ -116,7 +121,7 @@ def make_quest_route_surface(repo_root: Path) -> None:
         "docs/decisions/AOA-EV-D-0004-questbook-topology.md",
         "docs/decisions/AOA-EV-D-0018-quest-lane-state-source-layout.md",
         "docs/decisions/AOA-EV-D-0021-quest-lifecycle-contract.md",
-        validate_repo.AGON_QUEST_NOTE_PROVENANCE_DECISION_NAME,
+        questbook_validator.AGON_QUEST_NOTE_PROVENANCE_DECISION_NAME,
     ]:
         copy_repo_text(repo_root, relative_path)
 
@@ -187,6 +192,31 @@ def make_eval_report_index_surface(repo_root: Path) -> None:
         ]:
             copy_repo_text(repo_root, source_path.relative_to(REPO_ROOT).as_posix())
 
+
+def validate_runtime_candidate_template_index(repo_root: Path, *, builder_loader=None):
+    return runtime_candidates_validator.validate_runtime_candidate_template_index(
+        repo_root,
+        builder_loader=builder_loader
+        or runtime_candidates_validator.load_runtime_candidate_template_index_builder,
+    )
+
+
+def validate_runtime_candidate_intake(repo_root: Path, *, builder_loader=None):
+    return runtime_candidates_validator.validate_runtime_candidate_intake(
+        repo_root,
+        builder_loader=builder_loader
+        or runtime_candidates_validator.load_runtime_candidate_intake_builder,
+    )
+
+
+def validate_eval_report_index(repo_root: Path, *, builder_loader=None):
+    return report_index_validator.validate_eval_report_index(
+        repo_root,
+        builder_loader=builder_loader
+        or report_index_validator.load_eval_report_index_builder,
+    )
+
+
 def write_yaml_payload(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(yaml.safe_dump(payload, sort_keys=False), encoding="utf-8")
@@ -200,7 +230,7 @@ class TestValidateQuestbookSurface:
     def test_valid_questbook_surface_passes(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
 
-        assert validate_questbook_surface(tmp_path) == []
+        assert questbook_validator.validate_questbook_surface(tmp_path) == []
 
     def test_questbook_surface_rejects_generic_obligation_heading(
         self, tmp_path: Path
@@ -216,7 +246,7 @@ class TestValidateQuestbookSurface:
             encoding="utf-8",
         )
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any(
             issue.location == "QUESTBOOK.md"
@@ -238,7 +268,7 @@ class TestValidateQuestbookSurface:
             encoding="utf-8",
         )
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any(
             issue.location == "QUESTBOOK.md"
@@ -249,10 +279,10 @@ class TestValidateQuestbookSurface:
 
     def test_quest_lifecycle_surface_validates_current_state_contract(self) -> None:
         quest_schema = json.loads(
-            (REPO_ROOT / validate_repo.QUEST_SCHEMA_NAME).read_text(encoding="utf-8")
+            (REPO_ROOT / questbook_validator.QUEST_SCHEMA_NAME).read_text(encoding="utf-8")
         )
 
-        assert validate_repo.validate_quest_lifecycle_surface(REPO_ROOT, quest_schema) == []
+        assert questbook_validator.validate_quest_lifecycle_surface(REPO_ROOT, quest_schema) == []
 
     def test_quest_lifecycle_surface_rejects_generic_heading(
         self, tmp_path: Path
@@ -269,10 +299,10 @@ class TestValidateQuestbookSurface:
             encoding="utf-8",
         )
         quest_schema = json.loads(
-            (tmp_path / validate_repo.QUEST_SCHEMA_NAME).read_text(encoding="utf-8")
+            (tmp_path / questbook_validator.QUEST_SCHEMA_NAME).read_text(encoding="utf-8")
         )
 
-        issues = validate_repo.validate_quest_lifecycle_surface(tmp_path, quest_schema)
+        issues = questbook_validator.validate_quest_lifecycle_surface(tmp_path, quest_schema)
 
         assert any(
             issue.location == "quests/LIFECYCLE.md"
@@ -294,10 +324,10 @@ class TestValidateQuestbookSurface:
             encoding="utf-8",
         )
         quest_schema = json.loads(
-            (tmp_path / validate_repo.QUEST_SCHEMA_NAME).read_text(encoding="utf-8")
+            (tmp_path / questbook_validator.QUEST_SCHEMA_NAME).read_text(encoding="utf-8")
         )
 
-        issues = validate_repo.validate_quest_lifecycle_surface(tmp_path, quest_schema)
+        issues = questbook_validator.validate_quest_lifecycle_surface(tmp_path, quest_schema)
 
         assert any(
             issue.location == "quests/LIFECYCLE.md"
@@ -313,15 +343,15 @@ class TestValidateQuestbookSurface:
         make_questbook_surface(tmp_path)
         missing_agents_root = tmp_path / "missing-aoa-agents"
 
-        monkeypatch.setattr(validate_repo, "AOA_AGENTS_ROOT", missing_agents_root)
+        monkeypatch.setattr(questbook_validator, "AOA_AGENTS_ROOT", missing_agents_root)
 
-        assert validate_questbook_surface(tmp_path) == []
+        assert questbook_validator.validate_questbook_surface(tmp_path) == []
 
     def test_missing_questbook_file_fails(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
         (tmp_path / "QUESTBOOK.md").unlink()
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any(issue.location.endswith("QUESTBOOK.md") for issue in issues)
         assert any("file is missing" in issue.message for issue in issues)
@@ -333,11 +363,11 @@ class TestValidateQuestbookSurface:
             path.stem
             for path in sorted(
                 (REPO_ROOT / "quests").rglob("AOA-EV-Q-*.yaml"),
-                key=lambda path: validate_repo.quest_sort_key(path.stem),
+                key=lambda path: questbook_validator.quest_sort_key(path.stem),
             )
         ]
 
-        assert validate_repo.discover_quest_names(tmp_path) == expected_quest_names
+        assert questbook_validator.discover_quest_names(tmp_path) == expected_quest_names
 
     def test_missing_tracked_id_in_questbook_fails(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
@@ -348,7 +378,7 @@ class TestValidateQuestbookSurface:
         )
         questbook_path.write_text(questbook_text, encoding="utf-8")
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any(
             "QUESTBOOK.md must reference active quest id 'AOA-EV-Q-0004'" in issue.message
@@ -364,7 +394,7 @@ class TestValidateQuestbookSurface:
         )
         integration_path.write_text(integration_text, encoding="utf-8")
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any("integration note must mention 'verdict-bridge'" in issue.message for issue in issues)
 
@@ -372,7 +402,7 @@ class TestValidateQuestbookSurface:
         make_questbook_surface(tmp_path)
         quest_fixture_path(tmp_path, "AOA-EV-Q-0002").unlink()
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any("quests" == issue.location for issue in issues)
         assert any("missing required foundation quest file 'AOA-EV-Q-0002.yaml'" in issue.message for issue in issues)
@@ -384,7 +414,7 @@ class TestValidateQuestbookSurface:
         quest_data["id"] = "AOA-EV-Q-9999"
         write_yaml_payload(quest_path, quest_data)
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any("quest id must match filename 'AOA-EV-Q-0003'" in issue.message for issue in issues)
 
@@ -395,7 +425,7 @@ class TestValidateQuestbookSurface:
         stale_path.write_text(quest_path.read_text(encoding="utf-8"), encoding="utf-8")
         quest_path.unlink()
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any(
             issue.location == "quests/AOA-EV-Q-0004.yaml"
@@ -411,7 +441,7 @@ class TestValidateQuestbookSurface:
         wrong_state_path.write_text(quest_path.read_text(encoding="utf-8"), encoding="utf-8")
         quest_path.unlink()
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any(
             issue.location == "quests/proof/triaged/AOA-EV-Q-0005.yaml"
@@ -426,7 +456,7 @@ class TestValidateQuestbookSurface:
         quest_data["repo"] = "aoa-techniques"
         write_yaml_payload(quest_path, quest_data)
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any("quest repo must be 'aoa-evals'" in issue.message for issue in issues)
 
@@ -437,7 +467,7 @@ class TestValidateQuestbookSurface:
         quest_data["public_safe"] = False
         write_yaml_payload(quest_path, quest_data)
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any("quest must set public_safe to true" in issue.message for issue in issues)
 
@@ -448,7 +478,7 @@ class TestValidateQuestbookSurface:
         catalog_data[0]["source_path"] = "quests/not-the-right-file.yaml"
         write_json_payload(catalog_path, catalog_data)
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any("generated quest catalog example is out of date or mismatched" in issue.message for issue in issues)
 
@@ -456,7 +486,7 @@ class TestValidateQuestbookSurface:
         make_questbook_surface(tmp_path)
         (tmp_path / "generated" / "quest_catalog.min.json").unlink()
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any("generated/quest_catalog.min.json" in issue.location for issue in issues)
         assert any("file is missing" in issue.message for issue in issues)
@@ -468,7 +498,7 @@ class TestValidateQuestbookSurface:
         dispatch_data[0]["source_path"] = "quests/not-the-right-file.yaml"
         write_json_payload(dispatch_path, dispatch_data)
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any("generated quest dispatch is out of date or mismatched" in issue.message for issue in issues)
 
@@ -479,7 +509,7 @@ class TestValidateQuestbookSurface:
         dispatch_data[0]["fallback_tier"] = None
         write_json_payload(dispatch_path, dispatch_data)
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any(
             issue.location.endswith("quest_dispatch.min.json[0]")
@@ -503,8 +533,8 @@ class TestValidateQuestbookSurface:
             copy_repo_text(tmp_path, relative_path)
         rewrite_questbook_projections(tmp_path)
 
-        issues = validate_questbook_surface(tmp_path)
-        issues.extend(validate_repo.validate_unlock_proof_bridge_surface(tmp_path))
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
+        issues.extend(questbook_validator.validate_unlock_proof_bridge_surface(tmp_path))
 
         assert issues == []
 
@@ -530,7 +560,7 @@ class TestValidateQuestbookSurface:
         example_path.write_text(example_text, encoding="utf-8")
         rewrite_questbook_projections(tmp_path)
 
-        issues = validate_repo.validate_unlock_proof_bridge_surface(tmp_path)
+        issues = questbook_validator.validate_unlock_proof_bridge_surface(tmp_path)
 
         assert any("legacy playbook quest id" in issue.message for issue in issues)
 
@@ -541,7 +571,7 @@ class TestValidateQuestbookSurface:
         dispatch_data[0]["wrapper_class"] = None
         write_json_payload(dispatch_path, dispatch_data)
 
-        issues = validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any(
             issue.location.endswith("quest_dispatch.min.example.json[0]")
@@ -565,13 +595,13 @@ class TestValidateQuestbookSurface:
     def test_quest_projection_includes_additive_quest(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
 
-        catalog_projection = validate_repo.build_quest_catalog_projection(tmp_path)
-        dispatch_projection = validate_repo.build_quest_dispatch_projection(tmp_path)
+        catalog_projection = questbook_validator.build_quest_catalog_projection(tmp_path)
+        dispatch_projection = questbook_validator.build_quest_dispatch_projection(tmp_path)
         expected_quest_names = [
             path.stem
             for path in sorted(
                 (REPO_ROOT / "quests").rglob("AOA-EV-Q-*.yaml"),
-                key=lambda path: validate_repo.quest_sort_key(path.stem),
+                key=lambda path: questbook_validator.quest_sort_key(path.stem),
             )
         ]
 
@@ -581,7 +611,10 @@ class TestValidateQuestbookSurface:
 
 class TestValidateQuestRouteSurfaces:
     def test_quest_route_surfaces_validate_current_schema_backed_layout(self) -> None:
-        assert validate_repo.validate_quest_route_surfaces(REPO_ROOT) == []
+        assert questbook_validator.validate_quest_route_surfaces(
+            REPO_ROOT,
+            context=root_topology_validator.questbook_route_context(),
+        ) == []
 
     def test_quest_route_surfaces_reject_generic_readme_heading(
         self, tmp_path: Path
@@ -597,7 +630,10 @@ class TestValidateQuestRouteSurfaces:
             encoding="utf-8",
         )
 
-        issues = validate_repo.validate_quest_route_surfaces(tmp_path)
+        issues = questbook_validator.validate_quest_route_surfaces(
+            tmp_path,
+            context=root_topology_validator.questbook_route_context(),
+        )
 
         assert any(
             issue.location == "quests/README.md"
@@ -628,7 +664,10 @@ class TestValidateQuestRouteSurfaces:
             encoding="utf-8",
         )
 
-        issues = validate_repo.validate_quest_route_surfaces(tmp_path)
+        issues = questbook_validator.validate_quest_route_surfaces(
+            tmp_path,
+            context=root_topology_validator.questbook_route_context(),
+        )
 
         assert any(
             issue.location == "quests/README.md"
@@ -657,7 +696,10 @@ class TestValidateQuestRouteSurfaces:
             """,
         )
 
-        issues = validate_repo.validate_quest_route_surfaces(tmp_path)
+        issues = questbook_validator.validate_quest_route_surfaces(
+            tmp_path,
+            context=root_topology_validator.questbook_route_context(),
+        )
 
         assert any(
             issue.location == "quests/agon/captured/AOE-Q-AGON-0001.md"
@@ -667,18 +709,18 @@ class TestValidateQuestRouteSurfaces:
         )
 
     def test_runtime_candidate_template_index_validates_for_current_repo(self) -> None:
-        issues = validate_repo.validate_runtime_candidate_template_index(REPO_ROOT)
+        issues = validate_runtime_candidate_template_index(REPO_ROOT)
 
         assert issues == []
 
     def test_runtime_candidate_template_index_drift_fails(self, tmp_path: Path) -> None:
         make_runtime_candidate_template_index_surface(tmp_path)
-        index_path = tmp_path / validate_repo.RUNTIME_CANDIDATE_TEMPLATE_INDEX_NAME
+        index_path = tmp_path / runtime_candidates_validator.RUNTIME_CANDIDATE_TEMPLATE_INDEX_NAME
         payload = json.loads(index_path.read_text(encoding="utf-8"))
         payload["templates"][0]["review_required"] = False
         write_json_payload(index_path, payload)
 
-        issues = validate_repo.validate_runtime_candidate_template_index(tmp_path)
+        issues = validate_runtime_candidate_template_index(tmp_path)
 
         assert any(
             issue.location == "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json"
@@ -690,14 +732,14 @@ class TestValidateQuestRouteSurfaces:
         make_runtime_candidate_template_index_surface(tmp_path)
         example_path = (
             tmp_path
-            / validate_repo.RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR
+            / runtime_audit_validator.RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR
             / "runtime_evidence_selection.workhorse-local.example.json"
         )
         example_payload = json.loads(example_path.read_text(encoding="utf-8"))
         example_payload["selected_evidence"][0]["evidence_role"] = "Summary Artifact"
         write_json_payload(example_path, example_payload)
 
-        index_path = tmp_path / validate_repo.RUNTIME_CANDIDATE_TEMPLATE_INDEX_NAME
+        index_path = tmp_path / runtime_candidates_validator.RUNTIME_CANDIDATE_TEMPLATE_INDEX_NAME
         payload = json.loads(index_path.read_text(encoding="utf-8"))
         for entry in payload["templates"]:
             if entry["template_name"] == "workhorse-q4-vs-q6-latency-tradeoff":
@@ -705,7 +747,7 @@ class TestValidateQuestRouteSurfaces:
                 break
         write_json_payload(index_path, payload)
 
-        issues = validate_repo.validate_runtime_candidate_template_index(tmp_path)
+        issues = validate_runtime_candidate_template_index(tmp_path)
 
         assert any(
             issue.location.startswith("mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json.templates[")
@@ -713,39 +755,36 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
-    def test_runtime_candidate_template_index_reports_builder_system_exit(self, monkeypatch) -> None:
+    def test_runtime_candidate_template_index_reports_builder_system_exit(self) -> None:
         class FailingBuilder:
             def build_runtime_candidate_template_index_payload(self) -> dict[str, object]:
                 raise SystemExit("builder-exit")
 
-        monkeypatch.setattr(
-            validate_repo,
-            "load_runtime_candidate_template_index_builder",
-            lambda repo_root: FailingBuilder(),
+        issues = validate_runtime_candidate_template_index(
+            REPO_ROOT,
+            builder_loader=lambda repo_root: FailingBuilder(),
         )
 
-        issues = validate_repo.validate_runtime_candidate_template_index(REPO_ROOT)
-
-        assert issues == [
-            validate_repo.ValidationIssue(
+        assert [(issue.location, issue.message) for issue in issues] == [
+            (
                 "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json",
                 "builder-exit",
             )
         ]
 
     def test_runtime_candidate_intake_validates_for_current_repo(self) -> None:
-        issues = validate_repo.validate_runtime_candidate_intake(REPO_ROOT)
+        issues = validate_runtime_candidate_intake(REPO_ROOT)
 
         assert issues == []
 
     def test_runtime_candidate_intake_drift_fails(self, tmp_path: Path) -> None:
         make_runtime_candidate_intake_surface(tmp_path)
-        intake_path = tmp_path / validate_repo.RUNTIME_CANDIDATE_INTAKE_NAME
+        intake_path = tmp_path / runtime_candidates_validator.RUNTIME_CANDIDATE_INTAKE_NAME
         payload = json.loads(intake_path.read_text(encoding="utf-8"))
         payload["templates"][0]["review_guide_ref"] = "docs/DRIFTED.md"
         write_json_payload(intake_path, payload)
 
-        issues = validate_repo.validate_runtime_candidate_intake(tmp_path)
+        issues = validate_runtime_candidate_intake(tmp_path)
 
         assert any(
             issue.location == "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json"
@@ -755,12 +794,12 @@ class TestValidateQuestRouteSurfaces:
 
     def test_runtime_candidate_intake_rejects_missing_owner_review_ref(self, tmp_path: Path) -> None:
         make_runtime_candidate_intake_surface(tmp_path)
-        intake_path = tmp_path / validate_repo.RUNTIME_CANDIDATE_INTAKE_NAME
+        intake_path = tmp_path / runtime_candidates_validator.RUNTIME_CANDIDATE_INTAKE_NAME
         payload = json.loads(intake_path.read_text(encoding="utf-8"))
         payload["templates"][0]["owner_review_refs"] = []
         write_json_payload(intake_path, payload)
 
-        issues = validate_repo.validate_runtime_candidate_intake(tmp_path)
+        issues = validate_runtime_candidate_intake(tmp_path)
 
         assert any(
             issue.location.startswith("mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json.templates[")
@@ -768,28 +807,25 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
-    def test_runtime_candidate_intake_reports_builder_system_exit(self, monkeypatch) -> None:
+    def test_runtime_candidate_intake_reports_builder_system_exit(self) -> None:
         class FailingBuilder:
             def build_runtime_candidate_intake_payload(self) -> dict[str, object]:
                 raise SystemExit("builder-exit")
 
-        monkeypatch.setattr(
-            validate_repo,
-            "load_runtime_candidate_intake_builder",
-            lambda repo_root: FailingBuilder(),
+        issues = validate_runtime_candidate_intake(
+            REPO_ROOT,
+            builder_loader=lambda repo_root: FailingBuilder(),
         )
 
-        issues = validate_repo.validate_runtime_candidate_intake(REPO_ROOT)
-
-        assert issues == [
-            validate_repo.ValidationIssue(
+        assert [(issue.location, issue.message) for issue in issues] == [
+            (
                 "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json",
                 "builder-exit",
             )
         ]
 
     def test_eval_report_index_validates_for_current_repo(self) -> None:
-        issues = validate_repo.validate_eval_report_index(REPO_ROOT)
+        issues = validate_eval_report_index(REPO_ROOT)
 
         assert issues == []
 
@@ -800,7 +836,7 @@ class TestValidateQuestRouteSurfaces:
         payload["reports"][0]["verdict"] = "drifted verdict"
         write_json_payload(index_path, payload)
 
-        issues = validate_repo.validate_eval_report_index(tmp_path)
+        issues = validate_eval_report_index(tmp_path)
 
         assert any(
             issue.location == "generated/eval_report_index.min.json"
@@ -820,7 +856,7 @@ class TestValidateQuestRouteSurfaces:
         payload["reports"][0]["receipt_status"] = "published_receipt"
         write_json_payload(index_path, payload)
 
-        issues = validate_repo.validate_eval_report_index(tmp_path)
+        issues = validate_eval_report_index(tmp_path)
 
         assert any(
             issue.location.startswith("generated/eval_report_index.min.json.reports[")
@@ -828,21 +864,18 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
-    def test_eval_report_index_reports_builder_system_exit(self, monkeypatch) -> None:
+    def test_eval_report_index_reports_builder_system_exit(self) -> None:
         class FailingBuilder:
             def build_eval_report_index_payload(self) -> dict[str, object]:
                 raise SystemExit("builder-exit")
 
-        monkeypatch.setattr(
-            validate_repo,
-            "load_eval_report_index_builder",
-            lambda repo_root: FailingBuilder(),
+        issues = validate_eval_report_index(
+            REPO_ROOT,
+            builder_loader=lambda repo_root: FailingBuilder(),
         )
 
-        issues = validate_repo.validate_eval_report_index(REPO_ROOT)
-
-        assert issues == [
-            validate_repo.ValidationIssue(
+        assert [(issue.location, issue.message) for issue in issues] == [
+            (
                 "generated/eval_report_index.min.json",
                 "builder-exit",
             )
@@ -856,15 +889,15 @@ class TestValidateQuestRouteSurfaces:
         write_yaml_payload(quest_path, quest)
 
         with pytest.raises(ValueError, match=r"violates .*quest\.schema\.json"):
-            validate_repo.build_quest_catalog_projection(tmp_path)
+            questbook_validator.build_quest_catalog_projection(tmp_path)
 
     def test_questbook_validation_ignores_missing_agents_checkout_for_orchestrator_refs(
         self, tmp_path: Path, monkeypatch
     ) -> None:
         make_questbook_surface(tmp_path)
-        monkeypatch.setattr(validate_repo, "AOA_AGENTS_ROOT", tmp_path / "missing-aoa-agents")
+        monkeypatch.setattr(questbook_validator, "AOA_AGENTS_ROOT", tmp_path / "missing-aoa-agents")
 
-        issues = validate_repo.validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert not any("orchestrator class catalog" in issue.message for issue in issues)
 
@@ -882,6 +915,6 @@ class TestValidateQuestRouteSurfaces:
         )
         write_json_payload(catalog_path, catalog)
 
-        issues = validate_repo.validate_questbook_surface(tmp_path)
+        issues = questbook_validator.validate_questbook_surface(tmp_path)
 
         assert any("unexpected quest id" in issue.message for issue in issues)

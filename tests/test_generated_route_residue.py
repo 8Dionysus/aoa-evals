@@ -11,7 +11,10 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import validate_repo
+import eval_catalog_contract
+from validators import root_context
+from validators import root_topology as root_topology_validator
+from validators import route_residue as route_residue_validator
 
 
 def write_text(path: Path, content: str) -> None:
@@ -32,21 +35,28 @@ def copy_generated_route_residue_surface(repo_root: Path) -> None:
     for path_name in (
         "generated/README.md",
         "generated/AGENTS.md",
-        validate_repo.GENERATED_ROUTE_RESIDUE_DECISION_NAME,
+        route_residue_validator.GENERATED_ROUTE_RESIDUE_DECISION_NAME,
         "docs/decisions/README.md",
-        validate_repo.PROOF_TOPOLOGY_NAME,
-        validate_repo.LEGACY_NAMING_NAME,
-        validate_repo.ROADMAP_NAME,
+        root_context.PROOF_TOPOLOGY_NAME,
+        root_context.LEGACY_NAMING_NAME,
+        root_context.ROADMAP_NAME,
     ):
         copy_repo_text(repo_root, path_name)
 
 
+def validate_generated_route_residue_surfaces(repo_root: Path):
+    return route_residue_validator.validate_generated_route_residue_surfaces(
+        repo_root,
+        context=root_topology_validator.route_residue_context(),
+    )
+
+
 def test_generated_route_residue_accepts_current_generated_readouts() -> None:
-    assert validate_repo.validate_generated_route_residue(REPO_ROOT) == []
+    assert route_residue_validator.validate_generated_route_residue(REPO_ROOT) == []
 
 
 def test_generated_route_residue_surfaces_validate_current_reader_index() -> None:
-    assert validate_repo.validate_generated_route_residue_surfaces(REPO_ROOT) == []
+    assert validate_generated_route_residue_surfaces(REPO_ROOT) == []
 
 
 def test_generated_route_residue_surfaces_reject_missing_quest_reader_route(
@@ -63,7 +73,7 @@ def test_generated_route_residue_surfaces_reject_missing_quest_reader_route(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_generated_route_residue_surfaces(tmp_path)
+    issues = validate_generated_route_residue_surfaces(tmp_path)
 
     assert any(
         issue.location == "generated/AGENTS.md"
@@ -86,7 +96,7 @@ def test_generated_reader_index_requires_source_truth_return(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_generated_route_residue_surfaces(tmp_path)
+    issues = validate_generated_route_residue_surfaces(tmp_path)
 
     assert any(
         issue.location == "generated/README.md"
@@ -109,7 +119,7 @@ def test_generated_reader_index_requires_source_ownership_language(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_generated_route_residue_surfaces(tmp_path)
+    issues = validate_generated_route_residue_surfaces(tmp_path)
 
     assert any(
         issue.location == "generated/README.md"
@@ -121,7 +131,7 @@ def test_generated_reader_index_requires_source_ownership_language(
 def test_generated_route_residue_rejects_root_route_card_structural_reference(
     tmp_path: Path,
 ) -> None:
-    validate_repo.write_json_file(
+    eval_catalog_contract.write_json_file(
         tmp_path / "generated" / "eval_catalog.json",
         {
             "evals": [
@@ -135,7 +145,7 @@ def test_generated_route_residue_rejects_root_route_card_structural_reference(
         },
     )
 
-    issues = validate_repo.validate_generated_route_residue(tmp_path)
+    issues = route_residue_validator.validate_generated_route_residue(tmp_path)
 
     assert any(
         "route-card-only root district 'fixtures/'" in issue.message
@@ -146,7 +156,7 @@ def test_generated_route_residue_rejects_root_route_card_structural_reference(
 def test_generated_route_residue_rejects_legacy_mechanic_parent_reference(
     tmp_path: Path,
 ) -> None:
-    validate_repo.write_json_file(
+    eval_catalog_contract.write_json_file(
         tmp_path / "generated" / "comparison_spine.json",
         {
             "evals": [
@@ -160,7 +170,7 @@ def test_generated_route_residue_rejects_legacy_mechanic_parent_reference(
         },
     )
 
-    issues = validate_repo.validate_generated_route_residue(tmp_path)
+    issues = route_residue_validator.validate_generated_route_residue(tmp_path)
 
     assert any(
         "not legacy parent route 'mechanics/titan-canaries/'" in issue.message
@@ -173,19 +183,19 @@ def test_generated_route_residue_allows_part_local_generated_config_reference(
 ) -> None:
     part_root = tmp_path / "mechanics" / "agon" / "parts" / "court-prebinding"
     write_text(part_root / "config" / "seed.json", "{}")
-    validate_repo.write_json_file(
+    eval_catalog_contract.write_json_file(
         part_root / "generated" / "registry.min.json",
         {"source": "config/seed.json"},
         compact=True,
     )
 
-    assert validate_repo.validate_generated_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_generated_route_residue(tmp_path) == []
 
 
 def test_generated_route_residue_ignores_markdown_content_paths(
     tmp_path: Path,
 ) -> None:
-    validate_repo.write_json_file(
+    eval_catalog_contract.write_json_file(
         tmp_path / "generated" / "eval_sections.full.json",
         {
             "evals": [
@@ -197,4 +207,4 @@ def test_generated_route_residue_ignores_markdown_content_paths(
         },
     )
 
-    assert validate_repo.validate_generated_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_generated_route_residue(tmp_path) == []

@@ -13,7 +13,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 import build_catalog
 import eval_section_contract
-from validate_repo import (
+from validators.source_eval_contracts import (
     build_capsule_payload,
     build_catalog_payloads,
     build_comparison_spine_payload,

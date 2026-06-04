@@ -12,6 +12,8 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 import validate_repo
 from validate_repo import run_validation
+from validators import generated_parity
+from validators.common import ValidationIssue
 from validate_repo_fixtures import eval_dir_for_test, make_eval_bundle, write_catalogs
 
 
@@ -24,8 +26,15 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
     destination.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
 
 
+def generated_parity_contracts(repo_root: Path) -> list[ValidationIssue]:
+    return [
+        ValidationIssue(location, message)
+        for location, message in generated_parity.validate_generated_parity(repo_root)
+    ]
+
+
 def test_generated_parity_contracts_validate_current_readers() -> None:
-    assert validate_repo.validate_generated_parity_contracts(REPO_ROOT) == []
+    assert generated_parity_contracts(REPO_ROOT) == []
 
 
 def test_generated_parity_contracts_reject_missing_check_command(
@@ -53,7 +62,7 @@ def test_generated_parity_contracts_reject_missing_check_command(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_generated_parity_contracts(tmp_path)
+    issues = generated_parity_contracts(tmp_path)
 
     assert any(
         issue.location == "generated/AGENTS.md"

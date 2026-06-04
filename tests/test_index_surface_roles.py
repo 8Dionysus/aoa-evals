@@ -10,7 +10,8 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import validate_repo
+from validators import mechanic_parts as mechanic_parts_validator
+from validators import root_authority as root_authority_validator
 
 
 def copy_repo_text(repo_root: Path, relative_path: str) -> None:
@@ -23,13 +24,13 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 
 def test_index_surface_roles_validate_current_headings() -> None:
-    assert validate_repo.validate_index_surface_roles(REPO_ROOT) == []
+    assert root_authority_validator.validate_index_surface_roles(REPO_ROOT) == []
 
 
 def test_index_surface_roles_reject_generic_decision_heading(
     tmp_path: Path,
 ) -> None:
-    for path_name in validate_repo.INDEX_SURFACE_ROLE_REQUIRED_TOKENS:
+    for path_name in root_authority_validator.INDEX_SURFACE_ROLE_REQUIRED_TOKENS:
         copy_repo_text(tmp_path, path_name)
     decision_index_path = tmp_path / "docs" / "decisions" / "README.md"
     decision_index_path.write_text(
@@ -40,7 +41,7 @@ def test_index_surface_roles_reject_generic_decision_heading(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_index_surface_roles(tmp_path)
+    issues = root_authority_validator.validate_index_surface_roles(tmp_path)
 
     assert any(
         issue.location == "docs/decisions/README.md"
@@ -52,7 +53,7 @@ def test_index_surface_roles_reject_generic_decision_heading(
 def test_index_surface_roles_reject_generic_mechanics_heading(
     tmp_path: Path,
 ) -> None:
-    for path_name in validate_repo.INDEX_SURFACE_ROLE_REQUIRED_TOKENS:
+    for path_name in root_authority_validator.INDEX_SURFACE_ROLE_REQUIRED_TOKENS:
         copy_repo_text(tmp_path, path_name)
     mechanics_index_path = tmp_path / "mechanics" / "README.md"
     mechanics_index_path.write_text(
@@ -63,10 +64,10 @@ def test_index_surface_roles_reject_generic_mechanics_heading(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_index_surface_roles(tmp_path)
+    issues = root_authority_validator.validate_index_surface_roles(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANICS_README_NAME
+        issue.location == root_authority_validator.MECHANICS_README_NAME
         and "# Mechanics Operation Atlas" in issue.message
         for issue in issues
     )
@@ -75,9 +76,9 @@ def test_index_surface_roles_reject_generic_mechanics_heading(
 def test_index_surface_roles_reject_generic_eval_index_heading(
     tmp_path: Path,
 ) -> None:
-    for path_name in validate_repo.INDEX_SURFACE_ROLE_REQUIRED_TOKENS:
+    for path_name in root_authority_validator.INDEX_SURFACE_ROLE_REQUIRED_TOKENS:
         copy_repo_text(tmp_path, path_name)
-    eval_index_path = tmp_path / validate_repo.EVAL_INDEX_NAME
+    eval_index_path = tmp_path / root_authority_validator.EVAL_INDEX_NAME
     eval_index_path.write_text(
         eval_index_path.read_text(encoding="utf-8").replace(
             "# Eval Bundle Index",
@@ -86,17 +87,17 @@ def test_index_surface_roles_reject_generic_eval_index_heading(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_index_surface_roles(tmp_path)
+    issues = root_authority_validator.validate_index_surface_roles(tmp_path)
 
     assert any(
-        issue.location == validate_repo.EVAL_INDEX_NAME
+        issue.location == root_authority_validator.EVAL_INDEX_NAME
         and "# Eval Bundle Index" in issue.message
         for issue in issues
     )
 
 
 def test_mechanic_index_surface_roles_validate_current_headings() -> None:
-    assert validate_repo.validate_mechanic_index_surface_roles(REPO_ROOT) == []
+    assert mechanic_parts_validator.validate_mechanic_index_surface_roles(REPO_ROOT) == []
 
 
 def test_mechanic_index_surface_roles_reject_generic_parts_heading(
@@ -117,7 +118,7 @@ def test_mechanic_index_surface_roles_reject_generic_parts_heading(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_index_surface_roles(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_index_surface_roles(tmp_path)
 
     assert any(
         issue.location == "mechanics/proof-object/PARTS.md"
@@ -144,7 +145,7 @@ def test_mechanic_index_surface_roles_reject_generic_parts_route_heading(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_index_surface_roles(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_index_surface_roles(tmp_path)
 
     assert any(
         issue.location == "mechanics/proof-object/parts/README.md"

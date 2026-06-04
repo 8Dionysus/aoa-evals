@@ -10,8 +10,10 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import validate_repo
+from validators import docs_routes
 from validators import docs_topology
+from validators.common import ValidationIssue
+from validators import root_guidance as root_guidance_validator
 
 
 def copy_repo_text(repo_root: Path, relative_path: str) -> None:
@@ -29,16 +31,30 @@ def copy_docs_topology_surface(repo_root: Path) -> None:
     copy_repo_text(repo_root, docs_topology.TOPOLOGY_CONTRACT_PATH.as_posix())
 
 
+def docs_route_contracts(repo_root: Path) -> list[ValidationIssue]:
+    return [
+        ValidationIssue(location, message)
+        for location, message in docs_routes.validate_docs_routes(repo_root)
+    ]
+
+
+def docs_topology_read_model(repo_root: Path) -> list[ValidationIssue]:
+    return [
+        ValidationIssue(location, message)
+        for location, message in docs_topology.validate_docs_topology(repo_root)
+    ]
+
+
 def test_docs_route_contracts_validate_current_map() -> None:
-    assert validate_repo.validate_docs_route_contracts(REPO_ROOT) == []
+    assert docs_route_contracts(REPO_ROOT) == []
 
 
 def test_docs_topology_read_model_validates_current_contract() -> None:
-    assert validate_repo.validate_docs_topology_read_model(REPO_ROOT) == []
+    assert docs_topology_read_model(REPO_ROOT) == []
 
 
 def test_docs_readme_route_map_validates_current_map() -> None:
-    assert validate_repo.validate_docs_readme_route_map(REPO_ROOT) == []
+    assert root_guidance_validator.validate_docs_readme_route_map(REPO_ROOT) == []
 
 
 def test_docs_route_contracts_reject_command_block_in_entrypoint(
@@ -52,7 +68,7 @@ def test_docs_route_contracts_reject_command_block_in_entrypoint(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_docs_route_contracts(tmp_path)
+    issues = docs_route_contracts(tmp_path)
 
     assert any(
         issue.location == "docs/README.md"
@@ -74,7 +90,7 @@ def test_docs_readme_route_map_rejects_generic_mechanics_label(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_docs_readme_route_map(tmp_path)
+    issues = root_guidance_validator.validate_docs_readme_route_map(tmp_path)
 
     assert any(
         issue.location == "docs/README.md"
@@ -97,7 +113,7 @@ def test_docs_readme_route_map_rejects_validation_block_in_reader_paths(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_docs_readme_route_map(tmp_path)
+    issues = root_guidance_validator.validate_docs_readme_route_map(tmp_path)
 
     assert any(
         issue.location == "docs/README.md"
@@ -115,7 +131,7 @@ def test_docs_readme_route_map_rejects_command_block(tmp_path: Path) -> None:
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_docs_readme_route_map(tmp_path)
+    issues = root_guidance_validator.validate_docs_readme_route_map(tmp_path)
 
     assert any(
         issue.location == "docs/README.md"
@@ -138,7 +154,7 @@ def test_docs_readme_route_map_rejects_missing_folder_map_route(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_docs_readme_route_map(tmp_path)
+    issues = root_guidance_validator.validate_docs_readme_route_map(tmp_path)
 
     assert any(
         issue.location == "docs/README.md" and "docs/guides/" in issue.message
@@ -151,7 +167,7 @@ def test_docs_topology_rejects_unrouted_flat_docs_file(tmp_path: Path) -> None:
     flat_path = tmp_path / "docs" / "UNROUTED_PAYLOAD.md"
     flat_path.write_text("# Unrouted\n", encoding="utf-8")
 
-    issues = validate_repo.validate_docs_topology_read_model(tmp_path)
+    issues = docs_topology_read_model(tmp_path)
 
     assert any(
         issue.location == "docs/UNROUTED_PAYLOAD.md"
@@ -172,7 +188,7 @@ def test_docs_topology_rejects_contract_drift(tmp_path: Path) -> None:
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_docs_topology_read_model(tmp_path)
+    issues = docs_topology_read_model(tmp_path)
 
     assert any(
         issue.location == docs_topology.TOPOLOGY_CONTRACT_PATH.as_posix()

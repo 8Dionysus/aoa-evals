@@ -63,13 +63,13 @@ def test_sibling_canary_reports_success_with_resolved_roots(tmp_path: Path, monk
         ],
     )
 
-    original_techniques_root = run_sibling_canary.validate_repo.AOA_TECHNIQUES_ROOT
+    original_techniques_root = run_sibling_canary.root_context.AOA_TECHNIQUES_ROOT
     captured: dict[str, Path] = {}
 
     def fake_invoke(repo_root_arg: Path) -> tuple[int, str]:
         assert repo_root_arg == repo_root.resolve()
-        captured["techniques"] = run_sibling_canary.validate_repo.AOA_TECHNIQUES_ROOT
-        captured["skills"] = run_sibling_canary.validate_repo.AOA_SKILLS_ROOT
+        captured["techniques"] = run_sibling_canary.root_context.AOA_TECHNIQUES_ROOT
+        captured["skills"] = run_sibling_canary.root_context.AOA_SKILLS_ROOT
         return 0, "Validation passed for 0 eval bundles."
 
     monkeypatch.setattr(run_sibling_canary, "invoke_validator", fake_invoke)
@@ -88,7 +88,7 @@ def test_sibling_canary_reports_success_with_resolved_roots(tmp_path: Path, monk
     assert exit_code == 0
     assert captured["techniques"] == techniques_root.resolve()
     assert captured["skills"] == skills_root.resolve()
-    assert run_sibling_canary.validate_repo.AOA_TECHNIQUES_ROOT == original_techniques_root
+    assert run_sibling_canary.root_context.AOA_TECHNIQUES_ROOT == original_techniques_root
     output = stdout.getvalue()
     assert "validator status: ok" in output
     assert "aoa-techniques" in output
@@ -144,7 +144,7 @@ def test_sibling_canary_prefers_source_checkout_for_abyss_stack(tmp_path: Path, 
 
     def fake_invoke(repo_root_arg: Path) -> tuple[int, str]:
         assert repo_root_arg == repo_root.resolve()
-        captured["abyss_stack"] = run_sibling_canary.validate_repo.ABYSS_STACK_ROOT
+        captured["abyss_stack"] = run_sibling_canary.root_context.ABYSS_STACK_ROOT
         return 0, "Validation passed for 0 eval bundles."
 
     monkeypatch.setattr(run_sibling_canary, "invoke_validator", fake_invoke)

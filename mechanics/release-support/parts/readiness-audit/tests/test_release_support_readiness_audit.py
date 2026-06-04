@@ -10,7 +10,21 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import validate_repo
+from validators import release_support as release_support_validator
+
+REPO_REF_ROOTS = {
+    "aoa-evals": REPO_ROOT,
+    "aoa-techniques": REPO_ROOT.parent / "aoa-techniques",
+    "aoa-skills": REPO_ROOT.parent / "aoa-skills",
+    "aoa-agents": REPO_ROOT.parent / "aoa-agents",
+    "aoa-playbooks": REPO_ROOT.parent / "aoa-playbooks",
+    "aoa-memo": REPO_ROOT.parent / "aoa-memo",
+    "aoa-routing": REPO_ROOT.parent / "aoa-routing",
+    "aoa-kag": REPO_ROOT.parent / "aoa-kag",
+    "aoa-sdk": REPO_ROOT.parent / "aoa-sdk",
+    "aoa-stats": REPO_ROOT.parent / "aoa-stats",
+    "abyss-stack": REPO_ROOT.parent / "abyss-stack",
+}
 
 AUDIT_PATH = (
     REPO_ROOT
@@ -42,8 +56,16 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 
 def make_release_support_readiness_audit_surface(repo_root: Path) -> Path:
-    copy_repo_text(repo_root, validate_repo.RELEASE_SUPPORT_READINESS_AUDIT_NAME)
-    return repo_root / validate_repo.RELEASE_SUPPORT_READINESS_AUDIT_NAME
+    copy_repo_text(repo_root, release_support_validator.RELEASE_SUPPORT_READINESS_AUDIT_NAME)
+    return repo_root / release_support_validator.RELEASE_SUPPORT_READINESS_AUDIT_NAME
+
+
+def validate_release_support_readiness_audit_surface(repo_root: Path):
+    return release_support_validator.validate_release_support_readiness_audit_surface(
+        repo_root,
+        repo_ref_roots=REPO_REF_ROOTS,
+        strict_sibling_compat=False,
+    )
 
 
 def test_release_support_readiness_audit_keeps_publication_open() -> None:
@@ -121,7 +143,7 @@ def test_release_support_readiness_audit_lists_local_gates_and_limits() -> None:
 
 
 def test_release_support_readiness_audit_surface_validates_current_route() -> None:
-    assert validate_repo.validate_release_support_readiness_audit_surface(REPO_ROOT) == []
+    assert validate_release_support_readiness_audit_surface(REPO_ROOT) == []
 
 
 def test_release_support_readiness_audit_rejects_goal_completion_claim(
@@ -132,10 +154,10 @@ def test_release_support_readiness_audit_rejects_goal_completion_claim(
     payload["publication_boundary"]["goal_completion_status"] = "complete"
     write_json_payload(audit_path, payload)
 
-    issues = validate_repo.validate_release_support_readiness_audit_surface(tmp_path)
+    issues = validate_release_support_readiness_audit_surface(tmp_path)
 
     assert any(
-        issue.location == f"{validate_repo.RELEASE_SUPPORT_READINESS_AUDIT_NAME}.publication_boundary"
+        issue.location == f"{release_support_validator.RELEASE_SUPPORT_READINESS_AUDIT_NAME}.publication_boundary"
         and "goal_completion_status must be 'not_complete'" in issue.message
         for issue in issues
     )
@@ -153,10 +175,10 @@ def test_release_support_readiness_audit_rejects_missing_release_gate(
     ]
     write_json_payload(audit_path, payload)
 
-    issues = validate_repo.validate_release_support_readiness_audit_surface(tmp_path)
+    issues = validate_release_support_readiness_audit_surface(tmp_path)
 
     assert any(
-        issue.location == f"{validate_repo.RELEASE_SUPPORT_READINESS_AUDIT_NAME}.verification_snapshot"
+        issue.location == f"{release_support_validator.RELEASE_SUPPORT_READINESS_AUDIT_NAME}.verification_snapshot"
         and "python scripts/release_check.py" in issue.message
         for issue in issues
     )

@@ -10,7 +10,21 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import validate_repo
+from validators import release_support as release_support_validator
+
+REPO_REF_ROOTS = {
+    "aoa-evals": REPO_ROOT,
+    "aoa-techniques": REPO_ROOT.parent / "aoa-techniques",
+    "aoa-skills": REPO_ROOT.parent / "aoa-skills",
+    "aoa-agents": REPO_ROOT.parent / "aoa-agents",
+    "aoa-playbooks": REPO_ROOT.parent / "aoa-playbooks",
+    "aoa-memo": REPO_ROOT.parent / "aoa-memo",
+    "aoa-routing": REPO_ROOT.parent / "aoa-routing",
+    "aoa-kag": REPO_ROOT.parent / "aoa-kag",
+    "aoa-sdk": REPO_ROOT.parent / "aoa-sdk",
+    "aoa-stats": REPO_ROOT.parent / "aoa-stats",
+    "abyss-stack": REPO_ROOT.parent / "abyss-stack",
+}
 
 AUDIT_PATH = (
     REPO_ROOT
@@ -42,8 +56,16 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 
 def make_strategic_closeout_audit_surface(repo_root: Path) -> Path:
-    copy_repo_text(repo_root, validate_repo.STRATEGIC_CLOSEOUT_AUDIT_NAME)
-    return repo_root / validate_repo.STRATEGIC_CLOSEOUT_AUDIT_NAME
+    copy_repo_text(repo_root, release_support_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME)
+    return repo_root / release_support_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME
+
+
+def validate_strategic_closeout_audit_surface(repo_root: Path):
+    return release_support_validator.validate_strategic_closeout_audit_surface(
+        repo_root,
+        repo_ref_roots=REPO_REF_ROOTS,
+        strict_sibling_compat=False,
+    )
 
 
 def test_strategic_closeout_audit_keeps_goal_open() -> None:
@@ -160,7 +182,7 @@ def test_strategic_closeout_audit_lists_verification_snapshot() -> None:
 
 
 def test_strategic_closeout_audit_surface_validates_current_route() -> None:
-    assert validate_repo.validate_strategic_closeout_audit_surface(REPO_ROOT) == []
+    assert validate_strategic_closeout_audit_surface(REPO_ROOT) == []
 
 
 def test_strategic_closeout_audit_rejects_goal_completion_claim(
@@ -171,10 +193,10 @@ def test_strategic_closeout_audit_rejects_goal_completion_claim(
     payload["goal_completion_status"] = "complete"
     write_json_payload(audit_path, payload)
 
-    issues = validate_repo.validate_strategic_closeout_audit_surface(tmp_path)
+    issues = validate_strategic_closeout_audit_surface(tmp_path)
 
     assert any(
-        issue.location == validate_repo.STRATEGIC_CLOSEOUT_AUDIT_NAME
+        issue.location == release_support_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME
         and "goal_completion_status must be 'not_complete_pending_requirement_audit_and_landing_route'"
         in issue.message
         for issue in issues
@@ -193,10 +215,10 @@ def test_strategic_closeout_audit_rejects_missing_requirement_id(
     ]
     write_json_payload(audit_path, payload)
 
-    issues = validate_repo.validate_strategic_closeout_audit_surface(tmp_path)
+    issues = validate_strategic_closeout_audit_surface(tmp_path)
 
     assert any(
-        issue.location == f"{validate_repo.STRATEGIC_CLOSEOUT_AUDIT_NAME}.requirements_review"
+        issue.location == f"{release_support_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME}.requirements_review"
         and "phase_8_active_proof_loop" in issue.message
         for issue in issues
     )
@@ -215,10 +237,10 @@ def test_strategic_closeout_audit_rejects_missing_focused_gate(
     ]
     write_json_payload(audit_path, payload)
 
-    issues = validate_repo.validate_strategic_closeout_audit_surface(tmp_path)
+    issues = validate_strategic_closeout_audit_surface(tmp_path)
 
     assert any(
-        issue.location == f"{validate_repo.STRATEGIC_CLOSEOUT_AUDIT_NAME}.verification_snapshot"
+        issue.location == f"{release_support_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME}.verification_snapshot"
         and "mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py"
         in issue.message
         for issue in issues
@@ -233,10 +255,10 @@ def test_strategic_closeout_audit_rejects_absolute_plan_path(
     payload["source_plan_ref"] = "/home/dionysus/private-note.md"
     write_json_payload(audit_path, payload)
 
-    issues = validate_repo.validate_strategic_closeout_audit_surface(tmp_path)
+    issues = validate_strategic_closeout_audit_surface(tmp_path)
 
     assert any(
-        issue.location == validate_repo.STRATEGIC_CLOSEOUT_AUDIT_NAME
+        issue.location == release_support_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME
         and "must not expose an absolute host path" in issue.message
         for issue in issues
     )

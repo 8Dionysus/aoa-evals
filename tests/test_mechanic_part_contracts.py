@@ -11,6 +11,7 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import validate_repo
+from validators import mechanic_parts as mechanic_parts_validator
 
 
 def write_text(path: Path, content: str) -> None:
@@ -110,7 +111,7 @@ def write_standard_new_part(
 
 
 def test_mechanic_part_readme_contract_validates_current_routes() -> None:
-    assert validate_repo.validate_mechanic_part_readme_contract_surfaces(REPO_ROOT) == []
+    assert mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(REPO_ROOT) == []
 
 
 def test_mechanic_part_readme_contract_rejects_heading_without_parent(
@@ -133,7 +134,7 @@ def test_mechanic_part_readme_contract_rejects_heading_without_parent(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
 
     assert any(
         issue.location == readme_name and "parent mechanic" in issue.message
@@ -161,7 +162,7 @@ def test_mechanic_part_readme_contract_rejects_validation_heading_without_parent
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
 
     assert any(
         issue.location == validation_name and "parent mechanic" in issue.message
@@ -170,15 +171,15 @@ def test_mechanic_part_readme_contract_rejects_validation_heading_without_parent
 
 
 def test_mechanic_part_payload_inventory_validates_current_routes() -> None:
-    assert validate_repo.validate_mechanic_part_readme_contract_surfaces(REPO_ROOT) == []
+    assert mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(REPO_ROOT) == []
 
 
 def test_mechanic_part_payload_inventory_rejects_active_decision_command_list(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, validate_repo.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME)
-    copy_repo_text(tmp_path, validate_repo.MECHANICS_AGENTS_NAME)
-    decision_path = tmp_path / validate_repo.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
+    copy_repo_text(tmp_path, mechanic_parts_validator.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME)
+    copy_repo_text(tmp_path, mechanic_parts_validator.MECHANICS_AGENTS_NAME)
+    decision_path = tmp_path / mechanic_parts_validator.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
     decision_path.write_text(
         decision_path.read_text(encoding="utf-8").replace(
             "## Validation\n\nUse",
@@ -188,21 +189,21 @@ def test_mechanic_part_payload_inventory_rejects_active_decision_command_list(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
+        issue.location == mechanic_parts_validator.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
         and "mechanics/AGENTS.md#validation" in issue.message
         for issue in issues
     )
 
 
 def test_mechanic_part_source_surface_refs_validate_current_routes() -> None:
-    assert validate_repo.validate_mechanic_part_readme_contract_surfaces(REPO_ROOT) == []
+    assert mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(REPO_ROOT) == []
 
 
 def test_mechanic_part_source_surfaces_section_validates_current_routes() -> None:
-    assert validate_repo.validate_mechanic_part_readme_contract_surfaces(REPO_ROOT) == []
+    assert mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(REPO_ROOT) == []
 
 
 def test_mechanic_part_source_surfaces_section_rejects_singular_heading(
@@ -221,7 +222,7 @@ def test_mechanic_part_source_surfaces_section_rejects_singular_heading(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
 
     assert any(
         issue.location == readme_name and "## Source Surfaces" in issue.message
@@ -244,7 +245,7 @@ def test_mechanic_part_source_surfaces_section_rejects_empty_section(
     )
     readme_path.write_text(text, encoding="utf-8")
 
-    issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
 
     assert any(
         issue.location == readme_name
@@ -261,7 +262,7 @@ def test_mechanic_part_source_surface_refs_reject_stale_path(
         source_surfaces="- `mechanics/agon/parts/new-proof/docs/missing.md`\n",
     )
 
-    issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
 
     assert any(
         issue.location == readme_name
@@ -280,21 +281,21 @@ def test_mechanic_part_source_surface_refs_allow_explicit_nonlocal_routes(
     )
 
     assert (
-        validate_repo.source_surface_ref_resolution_issue(
+        mechanic_parts_validator.source_surface_ref_resolution_issue(
             tmp_path,
             "mechanics/agon/parts/new-proof/docs/*.md",
         )
         is None
     )
     assert (
-        validate_repo.source_surface_ref_resolution_issue(
+        mechanic_parts_validator.source_surface_ref_resolution_issue(
             tmp_path,
             "repo:aoa-playbooks/generated/phase_alpha_run_matrix.min.json",
         )
         is None
     )
     assert (
-        validate_repo.source_surface_ref_resolution_issue(
+        mechanic_parts_validator.source_surface_ref_resolution_issue(
             tmp_path,
             "quests/<lane>/<state>/AOA-EV-Q-*.yaml",
         )
@@ -334,7 +335,7 @@ def test_mechanic_part_readme_contract_rejects_unrouted_part(tmp_path: Path) -> 
         """,
     )
 
-    issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
 
     assert any(
         issue.location == "mechanics/agon/PARTS.md"
@@ -376,7 +377,7 @@ def test_mechanic_part_readme_contract_rejects_missing_owner_split(
         readme_name=readme_name,
     )
 
-    issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
 
     assert any(
         issue.location == readme_name and "## Stronger Owner Split" in issue.message
@@ -393,7 +394,7 @@ def test_mechanic_part_payload_inventory_rejects_unmentioned_payload_dir(
         "{}\n",
     )
 
-    issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
 
     assert any(
         issue.location == readme_name
@@ -411,7 +412,7 @@ def test_mechanic_part_payload_inventory_rejects_unknown_payload_class(
         "{}\n",
     )
 
-    issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
 
     assert any(
         issue.location == "mechanics/agon/parts/new-proof/mystery"
@@ -429,7 +430,7 @@ def test_mechanic_part_payload_inventory_rejects_unexpected_part_root_file(
         "{}\n",
     )
 
-    issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
 
     assert any(
         issue.location == "mechanics/agon/parts/new-proof/payload.json"
@@ -446,7 +447,7 @@ def test_mechanic_part_payload_inventory_rejects_empty_payload_dir(
         parents=True
     )
 
-    issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
 
     assert any(
         issue.location == "mechanics/agon/parts/new-proof/fixtures"
@@ -467,7 +468,7 @@ def test_mechanic_part_payload_inventory_rejects_unexplained_thin_part(
         owner_split="Bundles keep source proof meaning; mechanics keeps route support.",
     )
 
-    issues = validate_repo.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
 
     assert any(
         issue.location == readme_name

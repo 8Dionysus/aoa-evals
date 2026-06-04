@@ -10,7 +10,12 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import validate_repo
+from validators import proof_object as proof_object_validator
+from validators import root_context
+from validators import root_guidance as root_guidance_validator
+from validators import root_route_cards as root_route_cards_validator
+from validators import root_topology as root_topology_validator
+from validators import route_residue as route_residue_validator
 
 
 def write_text(path: Path, content: str) -> None:
@@ -51,19 +56,26 @@ def eval_dir_for_test(
 
 
 def copy_root_route_card_surface(repo_root: Path) -> None:
-    for district_name, allowed_names in validate_repo.ROOT_ROUTE_CARD_ONLY_DISTRICTS.items():
+    for district_name, allowed_names in root_route_cards_validator.ROOT_ROUTE_CARD_ONLY_DISTRICTS.items():
         for allowed_name in allowed_names:
             copy_repo_text(repo_root, f"{district_name}/{allowed_name}")
     for path_name in (
-        validate_repo.ROOT_ROUTE_CARD_GUARD_DECISION_NAME,
+        root_route_cards_validator.ROOT_ROUTE_CARD_GUARD_DECISION_NAME,
         "docs/decisions/README.md",
-        validate_repo.PROOF_TOPOLOGY_NAME,
+        root_context.PROOF_TOPOLOGY_NAME,
     ):
         copy_repo_text(repo_root, path_name)
 
 
+def validate_root_route_card_districts(repo_root: Path):
+    return root_route_cards_validator.validate_root_route_card_districts(
+        repo_root,
+        context=root_topology_validator.root_route_card_context(),
+    )
+
+
 def test_eval_philosophy_route_map_validates_current_route() -> None:
-    assert validate_repo.validate_eval_philosophy_route_map_surface(REPO_ROOT) == []
+    assert root_guidance_validator.validate_eval_philosophy_route_map_surface(REPO_ROOT) == []
 
 
 def test_eval_philosophy_route_map_rejects_flat_negative_slogan(
@@ -77,7 +89,7 @@ def test_eval_philosophy_route_map_rejects_flat_negative_slogan(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_eval_philosophy_route_map_surface(tmp_path)
+    issues = root_guidance_validator.validate_eval_philosophy_route_map_surface(tmp_path)
 
     assert any(
         issue.location == "docs/guides/EVAL_PHILOSOPHY.md"
@@ -88,7 +100,7 @@ def test_eval_philosophy_route_map_rejects_flat_negative_slogan(
 
 
 def test_releasing_route_map_surface_validates_current_route() -> None:
-    assert validate_repo.validate_releasing_route_map_surface(REPO_ROOT) == []
+    assert root_guidance_validator.validate_releasing_route_map_surface(REPO_ROOT) == []
 
 
 def test_releasing_route_map_surface_rejects_status_ledger_wording(
@@ -102,7 +114,7 @@ def test_releasing_route_map_surface_rejects_status_ledger_wording(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_releasing_route_map_surface(tmp_path)
+    issues = root_guidance_validator.validate_releasing_route_map_surface(tmp_path)
 
     assert any(
         issue.location == "docs/operations/RELEASING.md"
@@ -113,35 +125,35 @@ def test_releasing_route_map_surface_rejects_status_ledger_wording(
 
 
 def test_proof_object_parts_route_validates_current_operating_card() -> None:
-    assert validate_repo.validate_proof_object_parts_route_surface(REPO_ROOT) == []
+    assert proof_object_validator.validate_proof_object_parts_route_surface(REPO_ROOT) == []
 
 
 def test_proof_object_parts_route_rejects_stale_negative_boundary_scaffold(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, validate_repo.PROOF_OBJECT_PARTS_README_NAME)
-    parts_path = tmp_path / validate_repo.PROOF_OBJECT_PARTS_README_NAME
+    copy_repo_text(tmp_path, proof_object_validator.PROOF_OBJECT_PARTS_README_NAME)
+    parts_path = tmp_path / proof_object_validator.PROOF_OBJECT_PARTS_README_NAME
     parts_path.write_text(
         parts_path.read_text(encoding="utf-8")
         + "\nThey do not own source eval meaning and do not replace generated readers.\n",
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_proof_object_parts_route_surface(tmp_path)
+    issues = proof_object_validator.validate_proof_object_parts_route_surface(tmp_path)
 
     assert any(
-        issue.location == validate_repo.PROOF_OBJECT_PARTS_README_NAME
+        issue.location == proof_object_validator.PROOF_OBJECT_PARTS_README_NAME
         and "positive operating card" in issue.message
         for issue in issues
     )
 
 
 def test_root_route_card_districts_validate_current_routes() -> None:
-    assert validate_repo.validate_root_route_card_districts(REPO_ROOT) == []
+    assert validate_root_route_card_districts(REPO_ROOT) == []
 
 
 def test_root_route_card_districts_cover_expected_roots() -> None:
-    assert set(validate_repo.ROOT_ROUTE_CARD_ONLY_DISTRICTS) == {
+    assert set(root_route_cards_validator.ROOT_ROUTE_CARD_ONLY_DISTRICTS) == {
         "config",
         "examples",
         "fixtures",
@@ -156,12 +168,12 @@ def test_root_route_card_districts_cover_expected_roots() -> None:
 
 def test_root_route_card_districts_reject_active_payload(tmp_path: Path) -> None:
     copy_root_route_card_surface(tmp_path)
-    for district_name in validate_repo.ROOT_ROUTE_CARD_ONLY_DISTRICTS:
+    for district_name in root_route_cards_validator.ROOT_ROUTE_CARD_ONLY_DISTRICTS:
         write_text(tmp_path / district_name / "stray" / "payload.txt", "stray\n")
 
-    issues = validate_repo.validate_root_route_card_districts(tmp_path)
+    issues = validate_root_route_card_districts(tmp_path)
 
-    for district_name in validate_repo.ROOT_ROUTE_CARD_ONLY_DISTRICTS:
+    for district_name in root_route_cards_validator.ROOT_ROUTE_CARD_ONLY_DISTRICTS:
         assert any(
             issue.location == f"{district_name}/stray/payload.txt"
             and "route-card-only root district" in issue.message
@@ -176,7 +188,7 @@ def test_root_route_card_districts_reject_stray_empty_directory(
     stray_path = tmp_path / "manifests" / "recurrence" / "hooks"
     stray_path.mkdir(parents=True)
 
-    issues = validate_repo.validate_root_route_card_districts(tmp_path)
+    issues = validate_root_route_card_districts(tmp_path)
 
     assert any(
         issue.location == "manifests/recurrence"
@@ -199,7 +211,7 @@ def test_root_route_card_districts_reject_unclear_readme_heading(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_root_route_card_districts(tmp_path)
+    issues = validate_root_route_card_districts(tmp_path)
 
     assert any(
         issue.location == "fixtures/README.md"
@@ -219,7 +231,7 @@ def test_root_route_card_districts_reject_readme_operational_discipline(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_root_route_card_districts(tmp_path)
+    issues = validate_root_route_card_districts(tmp_path)
 
     assert any(
         issue.location == "runners/README.md"
@@ -242,7 +254,7 @@ def test_reports_route_card_requires_source_strength_route(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_root_route_card_districts(tmp_path)
+    issues = validate_root_route_card_districts(tmp_path)
 
     assert any(
         issue.location == "reports/README.md"
@@ -253,7 +265,7 @@ def test_reports_route_card_requires_source_strength_route(
 
 
 def test_active_mechanic_route_residue_validates_current_route_cards() -> None:
-    assert validate_repo.validate_active_mechanic_route_residue(REPO_ROOT) == []
+    assert route_residue_validator.validate_active_mechanic_route_residue(REPO_ROOT) == []
 
 
 def test_active_mechanic_route_residue_rejects_root_payload_reference(
@@ -264,7 +276,7 @@ def test_active_mechanic_route_residue_rejects_root_payload_reference(
         "# Proof Infra\n\nUse `fixtures/old-family/README.md` as active input.\n",
     )
 
-    issues = validate_repo.validate_active_mechanic_route_residue(tmp_path)
+    issues = route_residue_validator.validate_active_mechanic_route_residue(tmp_path)
 
     assert any(
         issue.location == "mechanics/proof-infra/README.md:3"
@@ -282,7 +294,7 @@ def test_active_mechanic_route_residue_allows_root_route_card_reference(
         "# Proof Infra\n\nSee root route card `fixtures/README.md`.\n",
     )
 
-    assert validate_repo.validate_active_mechanic_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_active_mechanic_route_residue(tmp_path) == []
 
 
 def test_active_mechanic_route_residue_allows_same_part_root_reference(
@@ -308,7 +320,7 @@ def test_active_mechanic_route_residue_allows_same_part_root_reference(
         "# Artifact Verdict Hooks\n\nUse `examples/hook.example.json` locally.\n",
     )
 
-    assert validate_repo.validate_active_mechanic_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_active_mechanic_route_residue(tmp_path) == []
 
 
 def test_active_mechanic_route_residue_rejects_legacy_parent_route(
@@ -319,7 +331,7 @@ def test_active_mechanic_route_residue_rejects_legacy_parent_route(
         "# Titan\n\nDo not route through `mechanics/titan-canaries/README.md`.\n",
     )
 
-    issues = validate_repo.validate_active_mechanic_route_residue(tmp_path)
+    issues = route_residue_validator.validate_active_mechanic_route_residue(tmp_path)
 
     assert any(
         issue.location == "mechanics/titan/README.md:3"
@@ -329,7 +341,7 @@ def test_active_mechanic_route_residue_rejects_legacy_parent_route(
 
 
 def test_root_authored_route_residue_validates_current_route_cards() -> None:
-    assert validate_repo.validate_root_authored_route_residue(REPO_ROOT) == []
+    assert route_residue_validator.validate_root_authored_route_residue(REPO_ROOT) == []
 
 
 def test_root_authored_route_residue_rejects_root_payload_reference(
@@ -340,7 +352,7 @@ def test_root_authored_route_residue_rejects_root_payload_reference(
         "# Audit\n\nRead `reports/summary.schema.json` before review.\n",
     )
 
-    issues = validate_repo.validate_root_authored_route_residue(tmp_path)
+    issues = route_residue_validator.validate_root_authored_route_residue(tmp_path)
 
     assert any(
         issue.location == "AUDIT.md:3"
@@ -358,7 +370,7 @@ def test_root_authored_route_residue_allows_bundle_local_reference(
         "# Audit\n\nRead `evals/workflow/aoa-demo/reports/summary.schema.json`.\n",
     )
 
-    assert validate_repo.validate_root_authored_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_root_authored_route_residue(tmp_path) == []
 
 
 def test_root_authored_route_residue_allows_root_route_card_reference(
@@ -369,7 +381,7 @@ def test_root_authored_route_residue_allows_root_route_card_reference(
         "# Releasing\n\nRead route card `reports/README.md`.\n",
     )
 
-    assert validate_repo.validate_root_authored_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_root_authored_route_residue(tmp_path) == []
 
 
 def test_root_authored_route_residue_allows_historical_context(
@@ -380,11 +392,11 @@ def test_root_authored_route_residue_allows_historical_context(
         "# Legacy\n\nFormer root paths `reports/old.json` are mapped through provenance.\n",
     )
 
-    assert validate_repo.validate_root_authored_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_root_authored_route_residue(tmp_path) == []
 
 
 def test_decision_route_residue_validates_current_decisions() -> None:
-    assert validate_repo.validate_decision_route_residue(REPO_ROOT) == []
+    assert route_residue_validator.validate_decision_route_residue(REPO_ROOT) == []
 
 
 def test_decision_route_residue_rejects_unmarked_root_payload_reference(
@@ -395,7 +407,7 @@ def test_decision_route_residue_rejects_unmarked_root_payload_reference(
         "# Bad Route\n\nUse `reports/summary.schema.json` as the active schema.\n",
     )
 
-    issues = validate_repo.validate_decision_route_residue(tmp_path)
+    issues = route_residue_validator.validate_decision_route_residue(tmp_path)
 
     assert any(
         issue.location == "docs/decisions/AOA-EV-D-0099-bad-route.md:3"
@@ -413,7 +425,7 @@ def test_decision_route_residue_allows_historical_root_payload_reference(
         "# Former Route\n\nFormer root `reports/summary.schema.json` moved behind provenance.\n",
     )
 
-    assert validate_repo.validate_decision_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_decision_route_residue(tmp_path) == []
 
 
 def test_decision_route_residue_allows_bundle_local_reference(
@@ -424,7 +436,7 @@ def test_decision_route_residue_allows_bundle_local_reference(
         "# Bundle Route\n\nUse `evals/workflow/aoa-demo/reports/summary.schema.json`.\n",
     )
 
-    assert validate_repo.validate_decision_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_decision_route_residue(tmp_path) == []
 
 
 def test_decision_route_residue_allows_root_route_card_reference(
@@ -435,11 +447,11 @@ def test_decision_route_residue_allows_root_route_card_reference(
         "# Route Card\n\nRead route card `reports/README.md`.\n",
     )
 
-    assert validate_repo.validate_decision_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_decision_route_residue(tmp_path) == []
 
 
 def test_repo_config_route_residue_validates_current_config() -> None:
-    assert validate_repo.validate_repo_config_route_residue(REPO_ROOT) == []
+    assert route_residue_validator.validate_repo_config_route_residue(REPO_ROOT) == []
 
 
 def test_repo_config_route_residue_rejects_legacy_parent_reference(
@@ -450,7 +462,7 @@ def test_repo_config_route_residue_rejects_legacy_parent_reference(
         "seeds/\n!mechanics/titan-canaries/seeds/\n",
     )
 
-    issues = validate_repo.validate_repo_config_route_residue(tmp_path)
+    issues = route_residue_validator.validate_repo_config_route_residue(tmp_path)
 
     assert any(
         issue.location == ".gitignore:2"
@@ -467,7 +479,7 @@ def test_repo_config_route_residue_rejects_root_payload_reference(
         "name: bad\n# uses reports/summary.schema.json\n",
     )
 
-    issues = validate_repo.validate_repo_config_route_residue(tmp_path)
+    issues = route_residue_validator.validate_repo_config_route_residue(tmp_path)
 
     assert any(
         issue.location == ".github/workflows/bad.yml:2"
@@ -485,11 +497,11 @@ def test_repo_config_route_residue_allows_current_seed_boundary_unignore(
         "seeds/\n!mechanics/titan/parts/seed-boundary/seeds/\n",
     )
 
-    assert validate_repo.validate_repo_config_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_repo_config_route_residue(tmp_path) == []
 
 
 def test_source_bundle_route_residue_validates_current_bundles() -> None:
-    assert validate_repo.validate_source_bundle_route_residue(REPO_ROOT) == []
+    assert route_residue_validator.validate_source_bundle_route_residue(REPO_ROOT) == []
 
 
 def test_source_bundle_route_residue_rejects_unqualified_external_path(
@@ -500,7 +512,7 @@ def test_source_bundle_route_residue_rejects_unqualified_external_path(
         "# Demo\n\nRead `examples/a2a/external.fixture.json` from aoa-sdk.\n",
     )
 
-    issues = validate_repo.validate_source_bundle_route_residue(tmp_path)
+    issues = route_residue_validator.validate_source_bundle_route_residue(tmp_path)
 
     assert any(
         issue.location == "evals/workflow/aoa-demo/EVAL.md:3"
@@ -518,7 +530,7 @@ def test_source_bundle_route_residue_rejects_legacy_parent_reference(
         "# Demo\n\nUse `mechanics/agon-proof/README.md` as the owner.\n",
     )
 
-    issues = validate_repo.validate_source_bundle_route_residue(tmp_path)
+    issues = route_residue_validator.validate_source_bundle_route_residue(tmp_path)
 
     assert any(
         issue.location == "evals/workflow/aoa-demo/EVAL.md:3"
@@ -539,7 +551,7 @@ def test_source_bundle_route_residue_allows_bundle_local_path(
         "# Demo\n\nUse `fixtures/contract.json` as this bundle's local fixture contract.\n",
     )
 
-    assert validate_repo.validate_source_bundle_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_source_bundle_route_residue(tmp_path) == []
 
 
 def test_source_bundle_route_residue_allows_repo_qualified_sibling_path(
@@ -550,11 +562,11 @@ def test_source_bundle_route_residue_allows_repo_qualified_sibling_path(
         "# Demo\n\nUse `repo:aoa-sdk/examples/a2a/external.fixture.json` as sibling evidence.\n",
     )
 
-    assert validate_repo.validate_source_bundle_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_source_bundle_route_residue(tmp_path) == []
 
 
 def test_mechanic_payload_route_residue_validates_current_payloads() -> None:
-    assert validate_repo.validate_mechanic_payload_route_residue(REPO_ROOT) == []
+    assert route_residue_validator.validate_mechanic_payload_route_residue(REPO_ROOT) == []
 
 
 def test_mechanic_payload_route_residue_rejects_unqualified_external_path(
@@ -571,7 +583,7 @@ def test_mechanic_payload_route_residue_rejects_unqualified_external_path(
         '{\n  "must_not_modify": [\n    "config/codex_subagent_wiring.v2.json"\n  ]\n}\n',
     )
 
-    issues = validate_repo.validate_mechanic_payload_route_residue(tmp_path)
+    issues = route_residue_validator.validate_mechanic_payload_route_residue(tmp_path)
 
     assert any(
         issue.location
@@ -594,7 +606,7 @@ def test_mechanic_payload_route_residue_allows_part_local_path(
         '{\n  "local_config": "config/local.json"\n}\n',
     )
 
-    assert validate_repo.validate_mechanic_payload_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_mechanic_payload_route_residue(tmp_path) == []
 
 
 def test_mechanic_payload_route_residue_allows_repo_qualified_sibling_path(
@@ -611,7 +623,7 @@ def test_mechanic_payload_route_residue_allows_repo_qualified_sibling_path(
         '{\n  "source": "repo:aoa-agents/config/codex_subagent_wiring.v2.json"\n}\n',
     )
 
-    assert validate_repo.validate_mechanic_payload_route_residue(tmp_path) == []
+    assert route_residue_validator.validate_mechanic_payload_route_residue(tmp_path) == []
 
 
 def test_mechanic_payload_route_residue_rejects_legacy_parent_route(
@@ -628,7 +640,7 @@ def test_mechanic_payload_route_residue_rejects_legacy_parent_route(
         '{\n  "owner": "mechanics/titan-canaries/seeds/titan_runtime_roster_canary.yaml"\n}\n',
     )
 
-    issues = validate_repo.validate_mechanic_payload_route_residue(tmp_path)
+    issues = route_residue_validator.validate_mechanic_payload_route_residue(tmp_path)
 
     assert any(
         issue.location

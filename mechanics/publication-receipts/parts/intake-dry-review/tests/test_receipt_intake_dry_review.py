@@ -45,7 +45,7 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import validate_repo
+from validators import publication_receipts as publication_receipts_validator
 
 
 def load_script(path: Path):
@@ -79,8 +79,15 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 
 def make_receipt_intake_dry_review_surface(repo_root: Path) -> Path:
-    copy_repo_text(repo_root, validate_repo.RECEIPT_INTAKE_DRY_REVIEW_NAME)
-    return repo_root / validate_repo.RECEIPT_INTAKE_DRY_REVIEW_NAME
+    copy_repo_text(repo_root, publication_receipts_validator.RECEIPT_INTAKE_DRY_REVIEW_NAME)
+    return repo_root / publication_receipts_validator.RECEIPT_INTAKE_DRY_REVIEW_NAME
+
+
+def validate_receipt_intake_dry_review_surface(repo_root: Path):
+    return publication_receipts_validator.validate_receipt_intake_dry_review_surface(
+        repo_root,
+        fallback_repo_root=REPO_ROOT,
+    )
 
 
 def test_receipt_intake_dry_review_payload_preview_is_valid_but_not_publishable() -> None:
@@ -134,7 +141,7 @@ def test_receipt_intake_dry_review_matches_first_bundle_local_report() -> None:
 
 
 def test_receipt_intake_dry_review_surface_validates_current_route() -> None:
-    assert validate_repo.validate_receipt_intake_dry_review_surface(REPO_ROOT) == []
+    assert validate_receipt_intake_dry_review_surface(REPO_ROOT) == []
 
 
 def test_receipt_intake_dry_review_rejects_published_posture(
@@ -145,10 +152,10 @@ def test_receipt_intake_dry_review_rejects_published_posture(
     payload["publication_boundary"]["receipt_status"] = "published"
     write_json_payload(review_path, payload)
 
-    issues = validate_repo.validate_receipt_intake_dry_review_surface(tmp_path)
+    issues = validate_receipt_intake_dry_review_surface(tmp_path)
 
     assert any(
-        issue.location == f"{validate_repo.RECEIPT_INTAKE_DRY_REVIEW_NAME}.publication_boundary"
+        issue.location == f"{publication_receipts_validator.RECEIPT_INTAKE_DRY_REVIEW_NAME}.publication_boundary"
         and "receipt_status must be 'not_published'" in issue.message
         for issue in issues
     )
@@ -162,10 +169,10 @@ def test_receipt_intake_dry_review_rejects_publishable_envelope_shape(
     payload["event_kind"] = "eval_result_receipt"
     write_json_payload(review_path, payload)
 
-    issues = validate_repo.validate_receipt_intake_dry_review_surface(tmp_path)
+    issues = validate_receipt_intake_dry_review_surface(tmp_path)
 
     assert any(
-        issue.location == validate_repo.RECEIPT_INTAKE_DRY_REVIEW_NAME
+        issue.location == publication_receipts_validator.RECEIPT_INTAKE_DRY_REVIEW_NAME
         and "must not contain publishable receipt field 'event_kind'" in issue.message
         for issue in issues
     )

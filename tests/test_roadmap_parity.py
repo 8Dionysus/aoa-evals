@@ -11,7 +11,8 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import validate_repo
-from validate_repo import run_validation, validate_eval_index
+from validate_repo import run_validation
+from validators import eval_bundles as eval_bundles_validator
 from validate_repo_fixtures import make_eval_bundle, make_index, make_roadmap, make_selection, write_catalogs
 
 
@@ -76,7 +77,7 @@ def test_validate_roadmap_parity_rejects_generic_heading(tmp_path: Path) -> None
     )
     write_catalogs(tmp_path)
 
-    issues = validate_repo.validate_roadmap_parity(
+    issues = eval_bundles_validator.validate_roadmap_parity(
         tmp_path,
         starter_names=["aoa-starter-alpha"],
     )
@@ -104,7 +105,7 @@ def test_validate_roadmap_parity_rejects_missing_update_rule(tmp_path: Path) -> 
     )
     write_catalogs(tmp_path)
 
-    issues = validate_repo.validate_roadmap_parity(
+    issues = eval_bundles_validator.validate_roadmap_parity(
         tmp_path,
         starter_names=["aoa-starter-alpha"],
     )
@@ -131,7 +132,7 @@ def test_validate_roadmap_parity_rejects_old_negative_route_scaffold(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_roadmap_parity(
+    issues = eval_bundles_validator.validate_roadmap_parity(
         tmp_path,
         ["aoa-starter-alpha"],
     )
@@ -181,7 +182,7 @@ def test_validate_eval_index_allows_targeted_non_starter_bundle_selection(tmp_pa
     make_roadmap(tmp_path, ["aoa-starter-alpha"])
     write_catalogs(tmp_path)
 
-    issues = validate_eval_index(
+    issues = eval_bundles_validator.validate_eval_index(
         tmp_path,
         starter_names=["aoa-starter-alpha"],
         selected_evals={"aoa-public-draft"},

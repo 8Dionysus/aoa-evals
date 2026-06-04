@@ -11,9 +11,14 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import validate_repo
-from validate_repo import collect_catalog_records, run_validation
-from validators import artifact_hooks
+from validate_repo import run_validation
+from validators import (
+    artifact_hooks,
+    evidence_readouts,
+    root_context,
+    runtime_audit as runtime_audit_validator,
+)
+from validators.source_eval_contracts import collect_catalog_records
 from validate_repo_fixtures import (
     make_abyss_stack_schema,
     make_eval_bundle,
@@ -48,20 +53,18 @@ def test_repo_ref_parser_keeps_sibling_refs_as_boundary_shape_by_default(
     tmp_path: Path,
     monkeypatch,
 ) -> None:
-    issues: list[validate_repo.ValidationIssue] = []
+    issues: list[root_context.ValidationIssue] = []
     sibling_root = tmp_path / "aoa-playbooks"
     sibling_root.mkdir()
-    monkeypatch.setattr(
-        validate_repo,
-        "REPO_REF_ROOTS",
+    monkeypatch.setattr(root_context, "REPO_REF_ROOTS",
         {
-            **validate_repo.REPO_REF_ROOTS,
+            **root_context.REPO_REF_ROOTS,
             "aoa-playbooks": sibling_root,
         },
     )
-    monkeypatch.delenv(validate_repo.STRICT_SIBLING_COMPAT_ENV, raising=False)
+    monkeypatch.delenv(root_context.STRICT_SIBLING_COMPAT_ENV, raising=False)
 
-    parsed = validate_repo.parse_repo_ref(
+    parsed = root_context.parse_repo_ref(
         "repo:aoa-playbooks/playbooks/moved/PLAYBOOK.md#expected-artifacts",
         location="example.ref",
         issues=issues,
@@ -75,20 +78,18 @@ def test_repo_ref_parser_resolves_sibling_refs_in_strict_compat_mode(
     tmp_path: Path,
     monkeypatch,
 ) -> None:
-    issues: list[validate_repo.ValidationIssue] = []
+    issues: list[root_context.ValidationIssue] = []
     sibling_root = tmp_path / "aoa-playbooks"
     sibling_root.mkdir()
-    monkeypatch.setattr(
-        validate_repo,
-        "REPO_REF_ROOTS",
+    monkeypatch.setattr(root_context, "REPO_REF_ROOTS",
         {
-            **validate_repo.REPO_REF_ROOTS,
+            **root_context.REPO_REF_ROOTS,
             "aoa-playbooks": sibling_root,
         },
     )
-    monkeypatch.setenv(validate_repo.STRICT_SIBLING_COMPAT_ENV, "1")
+    monkeypatch.setenv(root_context.STRICT_SIBLING_COMPAT_ENV, "1")
 
-    parsed = validate_repo.parse_repo_ref(
+    parsed = root_context.parse_repo_ref(
         "repo:aoa-playbooks/playbooks/moved/PLAYBOOK.md#expected-artifacts",
         location="example.ref",
         issues=issues,
@@ -102,19 +103,17 @@ def test_repo_ref_parser_rejects_missing_sibling_root_in_strict_compat_mode(
     tmp_path: Path,
     monkeypatch,
 ) -> None:
-    issues: list[validate_repo.ValidationIssue] = []
+    issues: list[root_context.ValidationIssue] = []
     missing_root = tmp_path / "missing-aoa-playbooks"
-    monkeypatch.setattr(
-        validate_repo,
-        "REPO_REF_ROOTS",
+    monkeypatch.setattr(root_context, "REPO_REF_ROOTS",
         {
-            **validate_repo.REPO_REF_ROOTS,
+            **root_context.REPO_REF_ROOTS,
             "aoa-playbooks": missing_root,
         },
     )
-    monkeypatch.setenv(validate_repo.STRICT_SIBLING_COMPAT_ENV, "1")
+    monkeypatch.setenv(root_context.STRICT_SIBLING_COMPAT_ENV, "1")
 
-    parsed = validate_repo.parse_repo_ref(
+    parsed = root_context.parse_repo_ref(
         "repo:aoa-playbooks/playbooks/current/PLAYBOOK.md#expected-artifacts",
         location="example.ref",
         issues=issues,
@@ -141,15 +140,13 @@ def _write_return_anchor_evidence_surface(tmp_path: Path, *, source_schema_ref: 
 
 
 def _set_abyss_stack_ref_roots(monkeypatch, *, repo_root: Path, abyss_stack_root: Path) -> None:
-    monkeypatch.setattr(validate_repo, "ABYSS_STACK_ROOT", abyss_stack_root)
-    monkeypatch.setattr(
-        validate_repo,
-        "REPO_REF_ROOTS",
+    monkeypatch.setattr(root_context, "ABYSS_STACK_ROOT", abyss_stack_root)
+    monkeypatch.setattr(root_context, "REPO_REF_ROOTS",
         {
             "aoa-evals": repo_root,
-            "aoa-agents": validate_repo.AOA_AGENTS_ROOT,
-            "aoa-playbooks": validate_repo.AOA_PLAYBOOKS_ROOT,
-            "aoa-memo": validate_repo.AOA_MEMO_ROOT,
+            "aoa-agents": root_context.AOA_AGENTS_ROOT,
+            "aoa-playbooks": root_context.AOA_PLAYBOOKS_ROOT,
+            "aoa-memo": root_context.AOA_MEMO_ROOT,
             "abyss-stack": abyss_stack_root,
         },
     )
@@ -163,7 +160,7 @@ def write_runtime_evidence_selection_example(
     candidate_eval_refs: list[str],
 ) -> None:
     write_text(
-        repo_root / validate_repo.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH,
+        repo_root / runtime_audit_validator.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH,
         """
         {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -228,7 +225,7 @@ def write_runtime_evidence_selection_example(
         """,
     )
     write_text(
-        repo_root / validate_repo.RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR / filename,
+        repo_root / runtime_audit_validator.RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR / filename,
         json.dumps(
             {
                 "surface_type": "runtime_evidence_selection",
@@ -285,15 +282,16 @@ def test_validate_runtime_evidence_selection_uses_repo_local_schema(tmp_path: Pa
         source_schema_ref="repo:abyss-stack/mechanics/governed-execution/parts/return-policy/schemas/runtime-return-event.schema.json",
         candidate_eval_refs=["candidate:aoa-return-anchor-integrity"],
     )
-    schema_path = tmp_path / validate_repo.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH
+    schema_path = tmp_path / runtime_audit_validator.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     schema["required"].append("repo_local_only")
     schema["properties"]["repo_local_only"] = {"type": "string"}
     write_json_payload(schema_path, schema)
 
-    issues = validate_repo.validate_runtime_evidence_selection_surfaces(
+    issues = runtime_audit_validator.validate_runtime_evidence_selection_surfaces(
         tmp_path,
         records=[],
+        context=evidence_readouts.runtime_audit_context(),
         target_eval_names={"aoa-return-anchor-integrity"},
     )
 
@@ -306,7 +304,7 @@ def test_validate_runtime_evidence_selection_uses_repo_local_schema(tmp_path: Pa
 
 def test_validate_runtime_evidence_selection_reports_missing_expected_examples_in_full_run(tmp_path: Path) -> None:
     write_text(
-        tmp_path / validate_repo.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH,
+        tmp_path / runtime_audit_validator.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH,
         """
         {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -315,7 +313,11 @@ def test_validate_runtime_evidence_selection_reports_missing_expected_examples_i
         """,
     )
 
-    issues = validate_repo.validate_runtime_evidence_selection_surfaces(tmp_path, records=[])
+    issues = runtime_audit_validator.validate_runtime_evidence_selection_surfaces(
+        tmp_path,
+        records=[],
+        context=evidence_readouts.runtime_audit_context(),
+    )
 
     assert any(
         issue.location.endswith("runtime_evidence_selection.workhorse-local.example.json")
@@ -329,9 +331,10 @@ def test_validate_runtime_evidence_selection_accepts_example_backed_runtime_chao
 
     assert issues == []
     assert (
-        validate_repo.validate_runtime_evidence_selection_surfaces(
+        runtime_audit_validator.validate_runtime_evidence_selection_surfaces(
             REPO_ROOT,
             records,
+            context=evidence_readouts.runtime_audit_context(),
             target_eval_names={"aoa-stress-recovery-window"},
         )
         == []
@@ -363,7 +366,7 @@ def test_resolve_abyss_stack_root_prefers_source_checkout_over_runtime_tree(
     monkeypatch.setenv("HOME", str(home_root))
     monkeypatch.delenv("ABYSS_STACK_ROOT", raising=False)
 
-    resolved = validate_repo.resolve_abyss_stack_root(runtime_like_root)
+    resolved = root_context.resolve_abyss_stack_root(runtime_like_root)
 
     assert resolved == source_root.resolve()
 
@@ -376,7 +379,7 @@ def test_resolve_abyss_stack_root_respects_env_override(
     override_root = tmp_path / "custom" / "abyss-stack"
     monkeypatch.setenv("ABYSS_STACK_ROOT", str(override_root))
 
-    resolved = validate_repo.resolve_abyss_stack_root(default_root)
+    resolved = root_context.resolve_abyss_stack_root(default_root)
 
     assert resolved == override_root.resolve()
 
@@ -459,7 +462,7 @@ def test_validate_repo_allows_return_anchor_integrity_as_public_non_starter_bund
 
 
 def test_validate_runtime_integrity_review_surface_accepts_repo_contract() -> None:
-    assert validate_repo.validate_runtime_integrity_review_surface(REPO_ROOT) == []
+    assert runtime_audit_validator.validate_runtime_integrity_review_surface(REPO_ROOT, context=evidence_readouts.runtime_audit_context()) == []
 
 
 def test_validate_runtime_integrity_review_surface_requires_all_declared_doc_fields(tmp_path: Path) -> None:
@@ -472,11 +475,11 @@ def test_validate_runtime_integrity_review_surface_requires_all_declared_doc_fie
     ):
         copy_repo_text(tmp_path, relative_path)
 
-    doc_path = tmp_path / validate_repo.RUNTIME_INTEGRITY_REVIEW_DOC_NAME
+    doc_path = tmp_path / runtime_audit_validator.RUNTIME_INTEGRITY_REVIEW_DOC_NAME
     doc_text = doc_path.read_text(encoding="utf-8").replace("`evidence_refs`", "evidence refs", 1)
     doc_path.write_text(doc_text, encoding="utf-8")
 
-    issues = validate_repo.validate_runtime_integrity_review_surface(tmp_path)
+    issues = runtime_audit_validator.validate_runtime_integrity_review_surface(tmp_path, context=evidence_readouts.runtime_audit_context())
 
     assert any(
         issue.location == "mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md"
@@ -495,13 +498,13 @@ def test_validate_runtime_integrity_review_surface_uses_repo_local_schema(tmp_pa
     ):
         copy_repo_text(tmp_path, relative_path)
 
-    schema_path = tmp_path / validate_repo.RUNTIME_INTEGRITY_REVIEW_SCHEMA_PATH
+    schema_path = tmp_path / runtime_audit_validator.RUNTIME_INTEGRITY_REVIEW_SCHEMA_PATH
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     schema["required"].append("repo_local_only")
     schema["properties"]["repo_local_only"] = {"type": "string"}
     write_json_payload(schema_path, schema)
 
-    issues = validate_repo.validate_runtime_integrity_review_surface(tmp_path)
+    issues = runtime_audit_validator.validate_runtime_integrity_review_surface(tmp_path, context=evidence_readouts.runtime_audit_context())
 
     assert any(
         issue.location == "mechanics/audit/parts/integrity-review/examples/runtime_integrity_review.example.json"
@@ -520,12 +523,12 @@ def test_validate_runtime_integrity_review_surface_rejects_weakened_schema_contr
     ):
         copy_repo_text(tmp_path, relative_path)
 
-    schema_path = tmp_path / validate_repo.RUNTIME_INTEGRITY_REVIEW_SCHEMA_PATH
+    schema_path = tmp_path / runtime_audit_validator.RUNTIME_INTEGRITY_REVIEW_SCHEMA_PATH
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     schema["properties"]["evidence_refs"]["minItems"] = 1
     write_json_payload(schema_path, schema)
 
-    issues = validate_repo.validate_runtime_integrity_review_surface(tmp_path)
+    issues = runtime_audit_validator.validate_runtime_integrity_review_surface(tmp_path, context=evidence_readouts.runtime_audit_context())
 
     assert any(
         issue.location == "mechanics/audit/parts/integrity-review/schemas/runtime-integrity-review.schema.json"
@@ -544,12 +547,12 @@ def test_validate_runtime_integrity_review_surface_rejects_open_top_level_schema
     ):
         copy_repo_text(tmp_path, relative_path)
 
-    schema_path = tmp_path / validate_repo.RUNTIME_INTEGRITY_REVIEW_SCHEMA_PATH
+    schema_path = tmp_path / runtime_audit_validator.RUNTIME_INTEGRITY_REVIEW_SCHEMA_PATH
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     schema["additionalProperties"] = True
     write_json_payload(schema_path, schema)
 
-    issues = validate_repo.validate_runtime_integrity_review_surface(tmp_path)
+    issues = runtime_audit_validator.validate_runtime_integrity_review_surface(tmp_path, context=evidence_readouts.runtime_audit_context())
 
     assert any(
         issue.location == "mechanics/audit/parts/integrity-review/schemas/runtime-integrity-review.schema.json"
@@ -597,10 +600,8 @@ def test_validate_runtime_integrity_review_surface_rejects_missing_center_anchor
         "# Continuity Context Contract\n",
     )
 
-    monkeypatch.setattr(validate_repo, "AGENTS_OF_ABYSS_ROOT", center_root)
-    monkeypatch.setattr(
-        validate_repo,
-        "REPO_REF_ROOTS",
+    monkeypatch.setattr(root_context, "AGENTS_OF_ABYSS_ROOT", center_root)
+    monkeypatch.setattr(root_context, "REPO_REF_ROOTS",
         {
             "aoa-evals": repo_root,
             "aoa-routing": routing_root,
@@ -609,7 +610,7 @@ def test_validate_runtime_integrity_review_surface_rejects_missing_center_anchor
         },
     )
 
-    issues = validate_repo.validate_runtime_integrity_review_surface(repo_root)
+    issues = runtime_audit_validator.validate_runtime_integrity_review_surface(repo_root, context=evidence_readouts.runtime_audit_context())
 
     assert any(
         issue.location == "mechanics/audit/parts/integrity-review/examples/runtime_integrity_review.example.json.budget_ref"
@@ -634,7 +635,7 @@ def test_validate_runtime_integrity_review_surface_rejects_anchor_drift_in_evide
     ):
         copy_repo_text(repo_root, relative_path)
 
-    example_path = repo_root / validate_repo.RUNTIME_INTEGRITY_REVIEW_EXAMPLE_NAME
+    example_path = repo_root / runtime_audit_validator.RUNTIME_INTEGRITY_REVIEW_EXAMPLE_NAME
     payload = json.loads(example_path.read_text(encoding="utf-8"))
     payload["evidence_refs"][0] = "repo:aoa-evals/mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md#purpose"
     write_json_payload(example_path, payload)
@@ -664,10 +665,8 @@ def test_validate_runtime_integrity_review_surface_rejects_anchor_drift_in_evide
         "# Continuity Context Contract\n\n## Stronger Owner Split\n",
     )
 
-    monkeypatch.setattr(validate_repo, "AGENTS_OF_ABYSS_ROOT", center_root)
-    monkeypatch.setattr(
-        validate_repo,
-        "REPO_REF_ROOTS",
+    monkeypatch.setattr(root_context, "AGENTS_OF_ABYSS_ROOT", center_root)
+    monkeypatch.setattr(root_context, "REPO_REF_ROOTS",
         {
             "aoa-evals": repo_root,
             "aoa-routing": routing_root,
@@ -676,7 +675,7 @@ def test_validate_runtime_integrity_review_surface_rejects_anchor_drift_in_evide
         },
     )
 
-    issues = validate_repo.validate_runtime_integrity_review_surface(repo_root)
+    issues = runtime_audit_validator.validate_runtime_integrity_review_surface(repo_root, context=evidence_readouts.runtime_audit_context())
 
     assert any(
         issue.location == "mechanics/audit/parts/integrity-review/examples/runtime_integrity_review.example.json"
@@ -690,7 +689,7 @@ def test_validate_trace_eval_bridge_surfaces_keeps_local_example_checks_when_pla
     monkeypatch,
 ) -> None:
     write_text(
-        tmp_path / validate_repo.ARTIFACT_VERDICT_HOOK_SCHEMA_PATH,
+        tmp_path / runtime_audit_validator.ARTIFACT_VERDICT_HOOK_SCHEMA_PATH,
         """
         {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -708,14 +707,18 @@ def test_validate_trace_eval_bridge_surfaces_keeps_local_example_checks_when_pla
         / "mechanics/checkpoint/parts/self-agent-posture/examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json",
         {},
     )
-    monkeypatch.setattr(validate_repo, "AOA_PLAYBOOKS_ROOT", tmp_path / "missing-playbooks")
+    monkeypatch.setattr(root_context, "AOA_PLAYBOOKS_ROOT", tmp_path / "missing-playbooks")
     monkeypatch.setattr(
-        validate_repo,
+        runtime_audit_validator,
         "ARTIFACT_VERDICT_HOOK_EXAMPLES",
         {"AOA-P-0006": "mechanics/checkpoint/parts/self-agent-posture/examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json"},
     )
 
-    issues = validate_repo.validate_trace_eval_bridge_surfaces(tmp_path, [])
+    issues = runtime_audit_validator.validate_trace_eval_bridge_surfaces(
+        tmp_path,
+        [],
+        context=evidence_readouts.runtime_audit_context(),
+    )
 
     assert any(
         issue.location == "mechanics/checkpoint/parts/self-agent-posture/examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json"

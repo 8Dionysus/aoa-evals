@@ -16,6 +16,7 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import validate_repo
+from validators import root_context
 
 
 ROOT_VARIABLE_NAMES = {
@@ -118,7 +119,7 @@ def normalized_entries(payload: dict[str, Any]) -> list[dict[str, Any]]:
 def resolve_entry_path(repo_root: Path, entry: dict[str, Any]) -> Path:
     resolved = resolve_path(repo_root, str(entry["path"]))
     if entry["resolver"] == "abyss-stack-source":
-        return validate_repo.resolve_abyss_stack_root(resolved)
+        return root_context.resolve_abyss_stack_root(resolved)
     return resolved
 
 
@@ -146,48 +147,23 @@ def override_validate_repo_roots(
 ) -> Iterator[None]:
     tracked_attributes = list(ROOT_VARIABLE_NAMES) + ["VISIBLE_ROOTS", "REPO_REF_ROOTS"]
     original_values = {
-        name: getattr(validate_repo, name)
+        name: getattr(root_context, name)
         for name in tracked_attributes
     }
-    original_strict = os.environ.get(validate_repo.STRICT_SIBLING_COMPAT_ENV)
+    original_strict = os.environ.get(root_context.STRICT_SIBLING_COMPAT_ENV)
     try:
-        os.environ[validate_repo.STRICT_SIBLING_COMPAT_ENV] = "1"
+        os.environ[root_context.STRICT_SIBLING_COMPAT_ENV] = "1"
         for entry in entries:
-            setattr(validate_repo, str(entry["root_variable"]), Path(entry["resolved_path"]))
-        validate_repo.VISIBLE_ROOTS = (
-            repo_root,
-            validate_repo.AOA_TECHNIQUES_ROOT,
-            validate_repo.AOA_SKILLS_ROOT,
-            validate_repo.AOA_AGENTS_ROOT,
-            validate_repo.AOA_PLAYBOOKS_ROOT,
-            validate_repo.AOA_MEMO_ROOT,
-            validate_repo.AOA_ROUTING_ROOT,
-            validate_repo.AOA_KAG_ROOT,
-            validate_repo.AOA_SDK_ROOT,
-            validate_repo.AOA_STATS_ROOT,
-            validate_repo.ABYSS_STACK_ROOT,
-        )
-        validate_repo.REPO_REF_ROOTS = {
-            "aoa-evals": repo_root,
-            "aoa-techniques": validate_repo.AOA_TECHNIQUES_ROOT,
-            "aoa-skills": validate_repo.AOA_SKILLS_ROOT,
-            "aoa-agents": validate_repo.AOA_AGENTS_ROOT,
-            "aoa-playbooks": validate_repo.AOA_PLAYBOOKS_ROOT,
-            "aoa-memo": validate_repo.AOA_MEMO_ROOT,
-            "aoa-routing": validate_repo.AOA_ROUTING_ROOT,
-            "aoa-kag": validate_repo.AOA_KAG_ROOT,
-            "aoa-sdk": validate_repo.AOA_SDK_ROOT,
-            "aoa-stats": validate_repo.AOA_STATS_ROOT,
-            "abyss-stack": validate_repo.ABYSS_STACK_ROOT,
-        }
+            setattr(root_context, str(entry["root_variable"]), Path(entry["resolved_path"]))
+        root_context.refresh_roots(repo_root)
         yield
     finally:
         if original_strict is None:
-            os.environ.pop(validate_repo.STRICT_SIBLING_COMPAT_ENV, None)
+            os.environ.pop(root_context.STRICT_SIBLING_COMPAT_ENV, None)
         else:
-            os.environ[validate_repo.STRICT_SIBLING_COMPAT_ENV] = original_strict
+            os.environ[root_context.STRICT_SIBLING_COMPAT_ENV] = original_strict
         for name, value in original_values.items():
-            setattr(validate_repo, name, value)
+            setattr(root_context, name, value)
 
 
 def invoke_validator(repo_root: Path) -> tuple[int, str]:

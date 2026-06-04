@@ -10,7 +10,9 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import validate_repo
+from validators import mechanic_parents as mechanic_parents_validator
+from validators import mechanic_parts as mechanic_parts_validator
+from validators import comparison_spine as comparison_spine_validator
 
 
 def write_text(path: Path, content: str) -> None:
@@ -28,21 +30,26 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 
 def test_mechanic_parts_index_sync_validates_current_routes() -> None:
-    assert validate_repo.validate_mechanic_parts_index_sync_surfaces(REPO_ROOT) == []
+    assert mechanic_parts_validator.validate_mechanic_parts_index_sync_surfaces(REPO_ROOT) == []
 
 
 def test_mechanic_index_command_ownership_validates_current_routes() -> None:
-    assert validate_repo.validate_mechanic_index_command_ownership(REPO_ROOT) == []
+    assert mechanic_parents_validator.validate_mechanic_index_command_ownership(REPO_ROOT) == []
 
 
 def test_mechanic_lower_parts_index_operating_cards_validate_current_routes() -> None:
-    assert validate_repo.validate_mechanic_lower_parts_index_operating_cards(REPO_ROOT) == []
+    assert (
+        mechanic_parents_validator.validate_mechanic_lower_parts_index_operating_cards(
+            REPO_ROOT
+        )
+        == []
+    )
 
 
 def test_mechanic_lower_parts_index_operating_cards_reject_missing_tools_row(
     tmp_path: Path,
 ) -> None:
-    readme_name = validate_repo.COMPARISON_SPINE_PARTS_README_NAME
+    readme_name = comparison_spine_validator.COMPARISON_SPINE_PARTS_README_NAME
     copy_repo_text(tmp_path, readme_name)
     readme_path = tmp_path / readme_name
     readme_path.write_text(
@@ -52,7 +59,11 @@ def test_mechanic_lower_parts_index_operating_cards_reject_missing_tools_row(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_lower_parts_index_operating_cards(tmp_path)
+    issues = (
+        mechanic_parents_validator.validate_mechanic_lower_parts_index_operating_cards(
+            tmp_path
+        )
+    )
 
     assert any(
         issue.location == readme_name and "| tools |" in issue.message
@@ -66,7 +77,11 @@ def test_mechanic_lower_parts_index_operating_cards_reject_missing_index(
     parts_dir = tmp_path / "mechanics" / "missing-parent" / "parts"
     parts_dir.mkdir(parents=True)
 
-    issues = validate_repo.validate_mechanic_lower_parts_index_operating_cards(tmp_path)
+    issues = (
+        mechanic_parents_validator.validate_mechanic_lower_parts_index_operating_cards(
+            tmp_path
+        )
+    )
 
     assert any(
         issue.location == "mechanics/missing-parent/parts/README.md"
@@ -92,7 +107,9 @@ def test_mechanic_index_command_ownership_rejects_parts_index_commands(
         """,
     )
 
-    issues = validate_repo.validate_mechanic_index_command_ownership(tmp_path)
+    issues = mechanic_parents_validator.validate_mechanic_index_command_ownership(
+        tmp_path
+    )
 
     assert any(
         issue.location == parts_index_name
@@ -112,7 +129,7 @@ def test_mechanic_parts_index_sync_rejects_unlisted_actual_part(
     )
     (tmp_path / "mechanics" / "agon" / "parts" / "new-proof").mkdir(parents=True)
 
-    issues = validate_repo.validate_mechanic_parts_index_sync_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_parts_index_sync_surfaces(tmp_path)
 
     assert any(
         issue.location == parts_index_name
@@ -131,7 +148,7 @@ def test_mechanic_parts_index_sync_rejects_stale_local_part_route(
     )
     (tmp_path / "mechanics" / "agon" / "parts").mkdir(parents=True)
 
-    issues = validate_repo.validate_mechanic_parts_index_sync_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_parts_index_sync_surfaces(tmp_path)
 
     assert any(
         issue.location == parts_index_name
@@ -161,7 +178,7 @@ def test_mechanic_parts_index_sync_allows_cross_parent_reference(
         parents=True
     )
 
-    issues = validate_repo.validate_mechanic_parts_index_sync_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_parts_index_sync_surfaces(tmp_path)
 
     assert not any(
         issue.location == parts_index_name

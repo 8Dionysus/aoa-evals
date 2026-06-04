@@ -11,6 +11,7 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import validate_repo
+from validators import mechanic_parts as mechanic_parts_validator
 
 
 def write_text(path: Path, content: str) -> None:
@@ -28,19 +29,19 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 
 def test_mechanic_part_validation_command_validates_current_routes() -> None:
-    assert validate_repo.validate_mechanic_part_validation_command_surfaces(REPO_ROOT) == []
+    assert mechanic_parts_validator.validate_mechanic_part_validation_command_surfaces(REPO_ROOT) == []
 
 
 def test_mechanic_part_validation_command_rejects_active_decision_command_list(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, validate_repo.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME)
+    copy_repo_text(tmp_path, mechanic_parts_validator.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME)
     copy_repo_text(
         tmp_path,
-        validate_repo.MECHANIC_PART_VALIDATION_COMMAND_OWNERSHIP_DECISION_NAME,
+        mechanic_parts_validator.MECHANIC_PART_VALIDATION_COMMAND_OWNERSHIP_DECISION_NAME,
     )
-    copy_repo_text(tmp_path, validate_repo.MECHANICS_AGENTS_NAME)
-    decision_path = tmp_path / validate_repo.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME
+    copy_repo_text(tmp_path, mechanic_parts_validator.MECHANICS_AGENTS_NAME)
+    decision_path = tmp_path / mechanic_parts_validator.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME
     decision_path.write_text(
         decision_path.read_text(encoding="utf-8").replace(
             "## Validation\n\nUse",
@@ -50,10 +51,10 @@ def test_mechanic_part_validation_command_rejects_active_decision_command_list(
         encoding="utf-8",
     )
 
-    issues = validate_repo.validate_mechanic_part_validation_command_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_validation_command_surfaces(tmp_path)
 
     assert any(
-        issue.location == validate_repo.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME
+        issue.location == mechanic_parts_validator.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME
         and "mechanics/AGENTS.md#validation" in issue.message
         for issue in issues
     )
@@ -76,7 +77,7 @@ def test_mechanic_part_validation_command_rejects_stale_path(
         """,
     )
 
-    issues = validate_repo.validate_mechanic_part_validation_command_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_validation_command_surfaces(tmp_path)
 
     assert any(
         issue.location == readme_name
@@ -101,7 +102,7 @@ def test_mechanic_part_validation_command_rejects_missing_python_command(
         """,
     )
 
-    issues = validate_repo.validate_mechanic_part_validation_command_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_validation_command_surfaces(tmp_path)
 
     assert any(
         issue.location == readme_name
@@ -150,7 +151,7 @@ def test_mechanic_part_validation_command_rejects_readme_command_blocks(
     )
     write_text(tmp_path / "scripts/validate_repo.py", "# validator\n")
 
-    issues = validate_repo.validate_mechanic_part_validation_command_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_validation_command_surfaces(tmp_path)
 
     assert any(
         issue.location == readme_name
@@ -176,7 +177,7 @@ def test_mechanic_part_validation_command_rejects_absolute_path(
         """,
     )
 
-    issues = validate_repo.validate_mechanic_part_validation_command_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_validation_command_surfaces(tmp_path)
 
     assert any(
         issue.location == readme_name and "repo-relative path" in issue.message
@@ -214,7 +215,7 @@ def test_mechanic_part_validation_command_rejects_unanchored_payload_part(
     write_text(tmp_path / "scripts" / "validate_repo.py", "# validator\n")
     write_text(tmp_path / "scripts" / "build_catalog.py", "# builder\n")
 
-    issues = validate_repo.validate_mechanic_part_validation_command_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_validation_command_surfaces(tmp_path)
 
     assert any(
         issue.location == readme_name

@@ -10,7 +10,8 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import validate_repo
+from validators import docs_decisions
+from validators.common import ValidationIssue
 
 
 def copy_repo_text(repo_root: Path, relative_path: str) -> None:
@@ -22,8 +23,15 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
     destination.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
 
 
+def decision_index_read_models(repo_root: Path) -> list[ValidationIssue]:
+    return [
+        ValidationIssue(location, message)
+        for location, message in docs_decisions.validate_decision_index_surfaces(repo_root)
+    ]
+
+
 def test_decision_index_read_models_validate_current_metadata() -> None:
-    assert validate_repo.validate_decision_index_read_models(REPO_ROOT) == []
+    assert decision_index_read_models(REPO_ROOT) == []
 
 
 def test_decision_index_read_models_reject_missing_metadata(tmp_path: Path) -> None:
@@ -42,6 +50,6 @@ def test_decision_index_read_models_reject_missing_metadata(tmp_path: Path) -> N
     end = text.index("\n## Context\n")
     decision_path.write_text(text[:start] + text[end:], encoding="utf-8")
 
-    issues = validate_repo.validate_decision_index_read_models(tmp_path)
+    issues = decision_index_read_models(tmp_path)
 
     assert any("Index Metadata" in issue.message for issue in issues)

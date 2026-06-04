@@ -11,7 +11,7 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-import validate_repo
+from validators import root_authority as root_authority_validator
 
 
 def write_text(path: Path, content: str) -> None:
@@ -20,7 +20,7 @@ def write_text(path: Path, content: str) -> None:
 
 
 def test_read_model_command_ownership_validates_current_routes() -> None:
-    assert validate_repo.validate_read_model_command_ownership(REPO_ROOT) == []
+    assert root_authority_validator.validate_read_model_command_ownership(REPO_ROOT) == []
 
 
 def test_read_model_command_ownership_rejects_command_block(
@@ -40,7 +40,7 @@ def test_read_model_command_ownership_rejects_command_block(
         """,
     )
 
-    issues = validate_repo.validate_read_model_command_ownership(tmp_path)
+    issues = root_authority_validator.validate_read_model_command_ownership(tmp_path)
 
     assert any(
         issue.location == readme_name
@@ -65,7 +65,7 @@ def test_read_model_command_ownership_rejects_bullet_command(
         """,
     )
 
-    issues = validate_repo.validate_read_model_command_ownership(tmp_path)
+    issues = root_authority_validator.validate_read_model_command_ownership(tmp_path)
 
     assert any(
         issue.location == readme_name and "python command lines" in issue.message
@@ -81,7 +81,7 @@ def test_read_model_command_ownership_rejects_eval_selection_command(
         "# Selection\n\nValidate with `python scripts/validate_repo.py --eval sample`.\n",
     )
 
-    issues = validate_repo.validate_read_model_command_ownership(tmp_path)
+    issues = root_authority_validator.validate_read_model_command_ownership(tmp_path)
 
     assert any(
         issue.location == "EVAL_SELECTION.md"

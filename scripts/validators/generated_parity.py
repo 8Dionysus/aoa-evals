@@ -2,7 +2,16 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, Callable, Sequence
+
+import eval_capsule_contract
+import eval_catalog_contract
+import eval_comparison_spine_contract
+import eval_section_contract
+
+from validators.common import ValidationIssue, relative_location
 
 
 GENERATED_README = Path("generated/README.md")
@@ -42,6 +51,30 @@ PART_LOCAL_GENERATED_SURFACES = (
     Path("mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/generated"),
     Path("mechanics/rpg/parts/progression-unlocks/generated"),
 )
+GENERATED_DIR_NAME = "generated"
+FULL_CATALOG_NAME = eval_catalog_contract.FULL_CATALOG_NAME
+MIN_CATALOG_NAME = eval_catalog_contract.MIN_CATALOG_NAME
+CATALOG_VERSION = eval_catalog_contract.CATALOG_VERSION
+CATALOG_SOURCE_OF_TRUTH = eval_catalog_contract.CATALOG_SOURCE_OF_TRUTH
+CAPSULE_NAME = eval_capsule_contract.CAPSULE_NAME
+CAPSULE_VERSION = eval_capsule_contract.CAPSULE_VERSION
+CAPSULE_SOURCE_OF_TRUTH = eval_capsule_contract.CAPSULE_SOURCE_OF_TRUTH
+SECTION_NAME = eval_section_contract.SECTIONS_NAME
+SECTION_VERSION = eval_section_contract.SECTION_VERSION
+SECTION_SOURCE_OF_TRUTH = eval_section_contract.SECTION_SOURCE_OF_TRUTH
+COMPARISON_SPINE_NAME = eval_comparison_spine_contract.COMPARISON_SPINE_NAME
+COMPARISON_SPINE_VERSION = eval_comparison_spine_contract.COMPARISON_SPINE_VERSION
+COMPARISON_SPINE_SOURCE_OF_TRUTH = eval_comparison_spine_contract.COMPARISON_SPINE_SOURCE_OF_TRUTH
+
+
+@dataclass(frozen=True)
+class GeneratedReadModelContext:
+    build_catalog_payloads: Callable[[Path, Sequence[Any]], tuple[dict[str, Any], dict[str, Any]]]
+    build_capsule_payload: Callable[[Path, Sequence[Any], dict[str, Any]], dict[str, Any]]
+    build_comparison_spine_payload: Callable[[Path, Sequence[Any], dict[str, Any]], dict[str, Any]]
+    full_catalog_entry: Callable[[Path, Any], dict[str, Any]]
+    project_min_catalog: Callable[[dict[str, Any]], dict[str, Any]]
+    read_json_file: Callable[[Path, list[ValidationIssue], Path], Any | None]
 
 
 def _read_text(repo_root: Path, relative_path: Path, issues: list[tuple[str, str]]) -> str:
@@ -91,4 +124,555 @@ def validate_generated_parity(repo_root: Path) -> list[tuple[str, str]]:
         if docs_readme and token not in docs_readme:
             issues.append((DOCS_README.as_posix(), f"docs route chooser must link generated reader {token}"))
 
+    return issues
+
+
+def project_min_catalog_safely(
+    full_catalog: dict[str, Any],
+    *,
+    location: str,
+    label: str,
+    issues: list[ValidationIssue],
+    context: GeneratedReadModelContext,
+) -> dict[str, Any] | None:
+    try:
+        return context.project_min_catalog(full_catalog)
+    except (KeyError, TypeError):
+        issues.append(
+            ValidationIssue(
+                location,
+                f"{label} is malformed; min projection could not be computed",
+            )
+        )
+        return None
+
+
+def validate_catalog_metadata(
+    actual_catalog: dict[str, Any],
+    expected_catalog: dict[str, Any],
+    *,
+    location: str,
+    label: str,
+    issues: list[ValidationIssue],
+) -> None:
+    if (
+        actual_catalog.get("catalog_version") != expected_catalog["catalog_version"]
+        or actual_catalog.get("source_of_truth") != expected_catalog["source_of_truth"]
+    ):
+        issues.append(
+            ValidationIssue(
+                location,
+                f"{label} metadata is out of date; run 'python scripts/build_catalog.py'",
+            )
+        )
+
+
+def validate_generated_catalogs(
+    repo_root: Path,
+    records: Sequence[Any],
+    *,
+    context: GeneratedReadModelContext,
+    target_eval_names: Sequence[str] | None = None,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    full_path = repo_root / GENERATED_DIR_NAME / FULL_CATALOG_NAME
+    min_path = repo_root / GENERATED_DIR_NAME / MIN_CATALOG_NAME
+
+    expected_full, expected_min = context.build_catalog_payloads(repo_root, records)
+    actual_full = context.read_json_file(full_path, issues, repo_root)
+    actual_min = context.read_json_file(min_path, issues, repo_root)
+
+    if actual_full is None or actual_min is None:
+        return issues
+
+    full_location = relative_location(full_path, repo_root)
+    min_location = relative_location(min_path, repo_root)
+    if target_eval_names is None:
+        if actual_full != expected_full:
+            issues.append(
+                ValidationIssue(
+                    full_location,
+                    "generated catalog is out of date; run 'python scripts/build_catalog.py'",
+                )
+            )
+        if actual_min != expected_min:
+            issues.append(
+                ValidationIssue(
+                    min_location,
+                    "generated min catalog is out of date; run 'python scripts/build_catalog.py'",
+                )
+            )
+
+        projected_min = project_min_catalog_safely(
+            actual_full,
+            location=full_location,
+            label="generated catalog",
+            issues=issues,
+            context=context,
+        )
+        if projected_min is None:
+            return issues
+        if actual_min != projected_min:
+            issues.append(
+                ValidationIssue(
+                    min_location,
+                    "min catalog must stay a projection of the full catalog",
+                )
+            )
+        return issues
+
+    validate_catalog_metadata(
+        actual_full,
+        expected_full,
+        location=full_location,
+        label="generated catalog",
+        issues=issues,
+    )
+    validate_catalog_metadata(
+        actual_min,
+        expected_min,
+        location=min_location,
+        label="generated min catalog",
+        issues=issues,
+    )
+
+    full_entries, full_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+        actual_full,
+        array_key="evals",
+        key_name="name",
+        location=full_location,
+    )
+    min_entries, min_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+        actual_min,
+        array_key="evals",
+        key_name="name",
+        location=min_location,
+    )
+    issues.extend(
+        ValidationIssue(issue.location, issue.message)
+        for issue in full_entry_issues + min_entry_issues
+    )
+
+    expected_full_entries = {
+        record.name: context.full_catalog_entry(repo_root, record)
+        for record in records
+    }
+    expected_min_entries = {
+        name: context.project_min_catalog(
+            {
+                "catalog_version": CATALOG_VERSION,
+                "source_of_truth": CATALOG_SOURCE_OF_TRUTH,
+                "evals": [entry],
+            }
+        )["evals"][0]
+        for name, entry in expected_full_entries.items()
+    }
+
+    for eval_name in target_eval_names:
+        actual_full_entry = full_entries.get(eval_name)
+        actual_min_entry = min_entries.get(eval_name)
+        if actual_full_entry is None:
+            issues.append(
+                ValidationIssue(
+                    full_location,
+                    f"generated catalog is missing eval '{eval_name}'",
+                )
+            )
+            continue
+        if actual_min_entry is None:
+            issues.append(
+                ValidationIssue(
+                    min_location,
+                    f"generated min catalog is missing eval '{eval_name}'",
+                )
+            )
+            continue
+
+        expected_full_entry = expected_full_entries[eval_name]
+        expected_min_entry = expected_min_entries[eval_name]
+        if actual_full_entry != expected_full_entry:
+            issues.append(
+                ValidationIssue(
+                    full_location,
+                    f"generated catalog entry for '{eval_name}' is out of date; run 'python scripts/build_catalog.py'",
+                )
+            )
+        if actual_min_entry != expected_min_entry:
+            issues.append(
+                ValidationIssue(
+                    min_location,
+                    f"generated min catalog entry for '{eval_name}' is out of date; run 'python scripts/build_catalog.py'",
+                )
+            )
+
+        projected_min_catalog_payload = project_min_catalog_safely(
+            {
+                "catalog_version": actual_full.get("catalog_version"),
+                "source_of_truth": actual_full.get("source_of_truth"),
+                "evals": [actual_full_entry],
+            },
+            location=full_location,
+            label=f"generated catalog entry for '{eval_name}'",
+            issues=issues,
+            context=context,
+        )
+        if projected_min_catalog_payload is None:
+            continue
+        projected_min_entry = projected_min_catalog_payload["evals"][0]
+        if actual_min_entry != projected_min_entry:
+            issues.append(
+                ValidationIssue(
+                    min_location,
+                    f"generated min catalog entry for '{eval_name}' must stay a projection of the full catalog",
+                )
+            )
+
+    return issues
+
+
+def validate_generated_capsules(
+    repo_root: Path,
+    records: Sequence[Any],
+    *,
+    context: GeneratedReadModelContext,
+    target_eval_names: Sequence[str] | None = None,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    full_path = repo_root / GENERATED_DIR_NAME / FULL_CATALOG_NAME
+    capsule_path = repo_root / GENERATED_DIR_NAME / CAPSULE_NAME
+    capsule_location = relative_location(capsule_path, repo_root)
+
+    expected_full, _expected_min = context.build_catalog_payloads(repo_root, records)
+    expected_capsules = context.build_capsule_payload(repo_root, records, expected_full)
+    actual_capsules = context.read_json_file(capsule_path, issues, repo_root)
+    if actual_capsules is None:
+        return issues
+
+    if not isinstance(actual_capsules, dict):
+        issues.append(
+            ValidationIssue(capsule_location, "generated capsules payload must be an object")
+        )
+        return issues
+
+    if actual_capsules.get("capsule_version") != CAPSULE_VERSION:
+        issues.append(
+            ValidationIssue(capsule_location, f"capsule_version must be {CAPSULE_VERSION}")
+        )
+    if actual_capsules.get("source_of_truth") != CAPSULE_SOURCE_OF_TRUTH:
+        issues.append(
+            ValidationIssue(capsule_location, "source_of_truth does not match the capsule contract")
+        )
+
+    if target_eval_names is None:
+        if actual_capsules != expected_capsules:
+            issues.append(
+                ValidationIssue(
+                    capsule_location,
+                    "generated capsules are out of date; run 'python scripts/build_catalog.py'",
+                )
+            )
+    else:
+        expected_entries, expected_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+            expected_capsules,
+            array_key="evals",
+            key_name="name",
+            location=capsule_location,
+        )
+        actual_entries, actual_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+            actual_capsules,
+            array_key="evals",
+            key_name="name",
+            location=capsule_location,
+        )
+        issues.extend(
+            ValidationIssue(issue.location, issue.message)
+            for issue in expected_entry_issues + actual_entry_issues
+        )
+        for eval_name in target_eval_names:
+            actual_entry = actual_entries.get(eval_name)
+            if actual_entry is None:
+                issues.append(
+                    ValidationIssue(
+                        capsule_location,
+                        f"generated capsules are missing eval '{eval_name}'",
+                    )
+                )
+                continue
+            if actual_entry != expected_entries[eval_name]:
+                issues.append(
+                    ValidationIssue(
+                        capsule_location,
+                        f"generated capsule entry for '{eval_name}' is out of date; run 'python scripts/build_catalog.py'",
+                    )
+                )
+
+    alignment_issues: list[ValidationIssue] = []
+    actual_full = context.read_json_file(full_path, alignment_issues, repo_root)
+    issues.extend(alignment_issues)
+    if isinstance(actual_full, dict):
+        contract_issues = eval_capsule_contract.validate_capsule_alignment(
+            actual_full,
+            actual_capsules,
+            location=capsule_location,
+            target_eval_names=set(target_eval_names) if target_eval_names is not None else None,
+        )
+        issues.extend(
+            ValidationIssue(issue.location, issue.message)
+            for issue in contract_issues
+        )
+
+    return issues
+
+
+def validate_generated_sections(
+    repo_root: Path,
+    records: Sequence[Any],
+    *,
+    context: GeneratedReadModelContext,
+    target_eval_names: Sequence[str] | None = None,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    full_path = repo_root / GENERATED_DIR_NAME / FULL_CATALOG_NAME
+    sections_path = repo_root / GENERATED_DIR_NAME / SECTION_NAME
+    sections_location = relative_location(sections_path, repo_root)
+
+    expected_sections, section_contract_issues = eval_section_contract.build_sections_payload(
+        repo_root,
+        records,
+    )
+    issues.extend(
+        ValidationIssue(issue.location, issue.message)
+        for issue in section_contract_issues
+    )
+    if section_contract_issues:
+        return issues
+
+    actual_sections = context.read_json_file(sections_path, issues, repo_root)
+    if actual_sections is None:
+        return issues
+    if not isinstance(actual_sections, dict):
+        issues.append(
+            ValidationIssue(sections_location, "generated sections payload must be an object")
+        )
+        return issues
+
+    if actual_sections.get("section_version") != SECTION_VERSION:
+        issues.append(
+            ValidationIssue(sections_location, f"section_version must be {SECTION_VERSION}")
+        )
+    if actual_sections.get("source_of_truth") != SECTION_SOURCE_OF_TRUTH:
+        issues.append(
+            ValidationIssue(sections_location, "source_of_truth does not match the section contract")
+        )
+
+    if target_eval_names is None:
+        if actual_sections != expected_sections:
+            issues.append(
+                ValidationIssue(
+                    sections_location,
+                    "generated sections are out of date; run 'python scripts/build_catalog.py'",
+                )
+            )
+    else:
+        expected_entries, expected_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+            expected_sections,
+            array_key="evals",
+            key_name="name",
+            location=sections_location,
+        )
+        actual_entries, actual_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+            actual_sections,
+            array_key="evals",
+            key_name="name",
+            location=sections_location,
+        )
+        issues.extend(
+            ValidationIssue(issue.location, issue.message)
+            for issue in expected_entry_issues + actual_entry_issues
+        )
+        for eval_name in target_eval_names:
+            actual_entry = actual_entries.get(eval_name)
+            if actual_entry is None:
+                issues.append(
+                    ValidationIssue(
+                        sections_location,
+                        f"generated sections are missing eval '{eval_name}'",
+                    )
+                )
+                continue
+            if actual_entry != expected_entries[eval_name]:
+                issues.append(
+                    ValidationIssue(
+                        sections_location,
+                        f"generated section entry for '{eval_name}' is out of date; run 'python scripts/build_catalog.py'",
+                    )
+                )
+
+    actual_full = context.read_json_file(full_path, issues, repo_root)
+    if not isinstance(actual_full, dict):
+        return issues
+
+    catalog_entries, catalog_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+        actual_full,
+        array_key="evals",
+        key_name="name",
+        location=relative_location(full_path, repo_root),
+    )
+    section_entries, section_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+        actual_sections,
+        array_key="evals",
+        key_name="name",
+        location=sections_location,
+    )
+    issues.extend(
+        ValidationIssue(issue.location, issue.message)
+        for issue in catalog_entry_issues + section_entry_issues
+    )
+    if catalog_entry_issues or section_entry_issues:
+        return issues
+
+    catalog_names = set(catalog_entries)
+    section_names = set(section_entries)
+    if target_eval_names is not None:
+        target_name_set = set(target_eval_names)
+        catalog_names &= target_name_set
+        section_names &= target_name_set
+
+    for missing in sorted(catalog_names - section_names):
+        issues.append(
+            ValidationIssue(
+                sections_location,
+                f"generated sections are missing eval '{missing}' from generated/eval_catalog.json",
+            )
+        )
+    for extra in sorted(section_names - catalog_names):
+        issues.append(
+            ValidationIssue(
+                sections_location,
+                f"generated sections include unknown eval '{extra}' from generated/eval_catalog.json",
+            )
+        )
+
+    for eval_name in sorted(catalog_names & section_names):
+        catalog_entry = catalog_entries[eval_name]
+        section_entry = section_entries[eval_name]
+        for field_name in ("category", "status", "verdict_shape", "eval_path"):
+            if section_entry.get(field_name) != catalog_entry.get(field_name):
+                issues.append(
+                    ValidationIssue(
+                        sections_location,
+                        f"generated section entry for '{eval_name}' must align with full catalog field '{field_name}'",
+                    )
+                )
+
+    return issues
+
+
+def validate_generated_comparison_spine(
+    repo_root: Path,
+    records: Sequence[Any],
+    *,
+    context: GeneratedReadModelContext,
+    target_eval_names: Sequence[str] | None = None,
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    full_path = repo_root / GENERATED_DIR_NAME / FULL_CATALOG_NAME
+    comparison_spine_path = repo_root / GENERATED_DIR_NAME / COMPARISON_SPINE_NAME
+    comparison_spine_location = relative_location(comparison_spine_path, repo_root)
+    comparison_target_names = {
+        record.name
+        for record in records
+        if record.manifest.get("baseline_mode") != "none"
+    }
+    if target_eval_names is not None:
+        comparison_target_names &= set(target_eval_names)
+    if not comparison_target_names and target_eval_names is not None:
+        return issues
+
+    expected_full, _expected_min = context.build_catalog_payloads(repo_root, records)
+    expected_comparison_spine = context.build_comparison_spine_payload(repo_root, records, expected_full)
+    actual_comparison_spine = context.read_json_file(comparison_spine_path, issues, repo_root)
+    if actual_comparison_spine is None:
+        return issues
+    if not isinstance(actual_comparison_spine, dict):
+        issues.append(
+            ValidationIssue(
+                comparison_spine_location,
+                "generated comparison spine payload must be an object",
+            )
+        )
+        return issues
+
+    if actual_comparison_spine.get("comparison_spine_version") != COMPARISON_SPINE_VERSION:
+        issues.append(
+            ValidationIssue(
+                comparison_spine_location,
+                f"comparison_spine_version must be {COMPARISON_SPINE_VERSION}",
+            )
+        )
+    if actual_comparison_spine.get("source_of_truth") != COMPARISON_SPINE_SOURCE_OF_TRUTH:
+        issues.append(
+            ValidationIssue(
+                comparison_spine_location,
+                "source_of_truth does not match the comparison spine contract",
+            )
+        )
+
+    if target_eval_names is None:
+        if actual_comparison_spine != expected_comparison_spine:
+            issues.append(
+                ValidationIssue(
+                    comparison_spine_location,
+                    "generated comparison spine is out of date; run 'python scripts/build_catalog.py'",
+                )
+            )
+    else:
+        expected_entries, expected_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+            expected_comparison_spine,
+            array_key="evals",
+            key_name="name",
+            location=comparison_spine_location,
+        )
+        actual_entries, actual_entry_issues = eval_catalog_contract.catalog_entries_by_name(
+            actual_comparison_spine,
+            array_key="evals",
+            key_name="name",
+            location=comparison_spine_location,
+        )
+        issues.extend(
+            ValidationIssue(issue.location, issue.message)
+            for issue in expected_entry_issues + actual_entry_issues
+        )
+        for eval_name in sorted(comparison_target_names):
+            actual_entry = actual_entries.get(eval_name)
+            if actual_entry is None:
+                issues.append(
+                    ValidationIssue(
+                        comparison_spine_location,
+                        f"generated comparison spine is missing eval '{eval_name}'",
+                    )
+                )
+                continue
+            if actual_entry != expected_entries[eval_name]:
+                issues.append(
+                    ValidationIssue(
+                        comparison_spine_location,
+                        f"generated comparison spine entry for '{eval_name}' is out of date; run 'python scripts/build_catalog.py'",
+                    )
+                )
+
+    actual_full = context.read_json_file(full_path, issues, repo_root)
+    if not isinstance(actual_full, dict):
+        return issues
+
+    contract_issues = eval_comparison_spine_contract.validate_comparison_spine_alignment(
+        actual_full,
+        actual_comparison_spine,
+        location=comparison_spine_location,
+        target_eval_names=comparison_target_names if comparison_target_names else None,
+    )
+    issues.extend(
+        ValidationIssue(issue.location, issue.message)
+        for issue in contract_issues
+    )
     return issues

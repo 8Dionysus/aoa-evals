@@ -11,6 +11,20 @@
 - [AOA-EV-D-0105 Proof-object Eval Part Names](../AOA-EV-D-0105-proof-object-eval-part-names.md) (`docs/decisions/AOA-EV-D-0105-proof-object-eval-part-names.md`)
 - [AOA-EV-D-0109 Validator Orchestrator Domain Modules](../AOA-EV-D-0109-validator-orchestrator-domain-modules.md) (`docs/decisions/AOA-EV-D-0109-validator-orchestrator-domain-modules.md`)
 - [AOA-EV-D-0112 Route-First Eval Birth Protocol](../AOA-EV-D-0112-route-first-eval-birth-protocol.md) (`docs/decisions/AOA-EV-D-0112-route-first-eval-birth-protocol.md`)
+- [AOA-EV-D-0122 Proof Loop Validator Module Boundary](../AOA-EV-D-0122-proof-loop-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0122-proof-loop-validator-module-boundary.md`)
+- [AOA-EV-D-0123 Comparison Spine Validator Module Boundary](../AOA-EV-D-0123-comparison-spine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0123-comparison-spine-validator-module-boundary.md`)
+- [AOA-EV-D-0124 Proof Infra Validator Module Boundary](../AOA-EV-D-0124-proof-infra-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0124-proof-infra-validator-module-boundary.md`)
+- [AOA-EV-D-0125 Source Doctrine Validator Module Boundary](../AOA-EV-D-0125-source-doctrine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0125-source-doctrine-validator-module-boundary.md`)
+- [AOA-EV-D-0126 Proof Object Validator Module Boundary](../AOA-EV-D-0126-proof-object-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0126-proof-object-validator-module-boundary.md`)
+- [AOA-EV-D-0127 Publication Receipts Route Validator Completion](../AOA-EV-D-0127-publication-receipts-route-validator-completion.md) (`docs/decisions/AOA-EV-D-0127-publication-receipts-route-validator-completion.md`)
+- [AOA-EV-D-0128 Audit Validator Module Boundary](../AOA-EV-D-0128-audit-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0128-audit-validator-module-boundary.md`)
+- [AOA-EV-D-0129 Boundary Bridge Validator Module Boundary](../AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md`)
+- [AOA-EV-D-0130 Validator Root Compatibility Alias Removal](../AOA-EV-D-0130-validator-root-compatibility-alias-removal.md) (`docs/decisions/AOA-EV-D-0130-validator-root-compatibility-alias-removal.md`)
+- [AOA-EV-D-0131 Runtime Audit Validator Module Boundary](../AOA-EV-D-0131-runtime-audit-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0131-runtime-audit-validator-module-boundary.md`)
+- [AOA-EV-D-0132 Generated Read-model Validator Completion](../AOA-EV-D-0132-generated-read-model-validator-completion.md) (`docs/decisions/AOA-EV-D-0132-generated-read-model-validator-completion.md`)
+- [AOA-EV-D-0133 Recurrence Validator Module Boundary](../AOA-EV-D-0133-recurrence-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0133-recurrence-validator-module-boundary.md`)
+- [AOA-EV-D-0134 Checkpoint Validator Module Boundary](../AOA-EV-D-0134-checkpoint-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0134-checkpoint-validator-module-boundary.md`)
+- [AOA-EV-D-0135 Experience Validator Module Boundary](../AOA-EV-D-0135-experience-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0135-experience-validator-module-boundary.md`)
 
 ## proof-loop
 
@@ -21,6 +35,15 @@
 - [AOA-EV-D-0060 Proof Loop Route-Smoke Contract](../AOA-EV-D-0060-proof-loop-route-smoke-contract.md) (`docs/decisions/AOA-EV-D-0060-proof-loop-route-smoke-contract.md`)
 - [AOA-EV-D-0111 Runtime Evidence Ingestion and Mirror Status](../AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md`)
 - [AOA-EV-D-0112 Route-First Eval Birth Protocol](../AOA-EV-D-0112-route-first-eval-birth-protocol.md) (`docs/decisions/AOA-EV-D-0112-route-first-eval-birth-protocol.md`)
+- [AOA-EV-D-0117 Report Index Validator Module Boundary](../AOA-EV-D-0117-report-index-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0117-report-index-validator-module-boundary.md`)
+- [AOA-EV-D-0120 Publication Receipts Validator Module Boundary](../AOA-EV-D-0120-publication-receipts-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0120-publication-receipts-validator-module-boundary.md`)
+- [AOA-EV-D-0122 Proof Loop Validator Module Boundary](../AOA-EV-D-0122-proof-loop-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0122-proof-loop-validator-module-boundary.md`)
+- [AOA-EV-D-0124 Proof Infra Validator Module Boundary](../AOA-EV-D-0124-proof-infra-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0124-proof-infra-validator-module-boundary.md`)
+- [AOA-EV-D-0126 Proof Object Validator Module Boundary](../AOA-EV-D-0126-proof-object-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0126-proof-object-validator-module-boundary.md`)
+- [AOA-EV-D-0127 Publication Receipts Route Validator Completion](../AOA-EV-D-0127-publication-receipts-route-validator-completion.md) (`docs/decisions/AOA-EV-D-0127-publication-receipts-route-validator-completion.md`)
+- [AOA-EV-D-0128 Audit Validator Module Boundary](../AOA-EV-D-0128-audit-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0128-audit-validator-module-boundary.md`)
+- [AOA-EV-D-0129 Boundary Bridge Validator Module Boundary](../AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md`)
+- [AOA-EV-D-0131 Runtime Audit Validator Module Boundary](../AOA-EV-D-0131-runtime-audit-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0131-runtime-audit-validator-module-boundary.md`)
 
 ## comparison-spine
 
@@ -28,6 +51,11 @@
 - [AOA-EV-D-0029 Comparison Spine Report Parts](../AOA-EV-D-0029-comparison-spine-report-parts.md) (`docs/decisions/AOA-EV-D-0029-comparison-spine-report-parts.md`)
 - [AOA-EV-D-0040 Comparison Spine Fixture Parts](../AOA-EV-D-0040-comparison-spine-fixture-parts.md) (`docs/decisions/AOA-EV-D-0040-comparison-spine-fixture-parts.md`)
 - [AOA-EV-D-0059 Comparison Spine Part Contract Guard](../AOA-EV-D-0059-comparison-spine-part-contract-guard.md) (`docs/decisions/AOA-EV-D-0059-comparison-spine-part-contract-guard.md`)
+- [AOA-EV-D-0123 Comparison Spine Validator Module Boundary](../AOA-EV-D-0123-comparison-spine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0123-comparison-spine-validator-module-boundary.md`)
+- [AOA-EV-D-0125 Source Doctrine Validator Module Boundary](../AOA-EV-D-0125-source-doctrine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0125-source-doctrine-validator-module-boundary.md`)
+- [AOA-EV-D-0132 Generated Read-model Validator Completion](../AOA-EV-D-0132-generated-read-model-validator-completion.md) (`docs/decisions/AOA-EV-D-0132-generated-read-model-validator-completion.md`)
+- [AOA-EV-D-0136 Antifragility Validator Module Boundary](../AOA-EV-D-0136-antifragility-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0136-antifragility-validator-module-boundary.md`)
+- [AOA-EV-D-0138 RPG Validator Module Boundary](../AOA-EV-D-0138-rpg-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0138-rpg-validator-module-boundary.md`)
 
 ## proof-infra
 
@@ -35,28 +63,48 @@
 - [AOA-EV-D-0041 Proof Infra Fixture Families](../AOA-EV-D-0041-proof-infra-fixture-families.md) (`docs/decisions/AOA-EV-D-0041-proof-infra-fixture-families.md`)
 - [AOA-EV-D-0049 Proof Infra Reportable Contracts](../AOA-EV-D-0049-proof-infra-reportable-contracts.md) (`docs/decisions/AOA-EV-D-0049-proof-infra-reportable-contracts.md`)
 - [AOA-EV-D-0113 aoa-memo Writeback Decision Quality Eval](../AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md`)
+- [AOA-EV-D-0117 Report Index Validator Module Boundary](../AOA-EV-D-0117-report-index-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0117-report-index-validator-module-boundary.md`)
+- [AOA-EV-D-0122 Proof Loop Validator Module Boundary](../AOA-EV-D-0122-proof-loop-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0122-proof-loop-validator-module-boundary.md`)
+- [AOA-EV-D-0123 Comparison Spine Validator Module Boundary](../AOA-EV-D-0123-comparison-spine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0123-comparison-spine-validator-module-boundary.md`)
+- [AOA-EV-D-0124 Proof Infra Validator Module Boundary](../AOA-EV-D-0124-proof-infra-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0124-proof-infra-validator-module-boundary.md`)
+- [AOA-EV-D-0125 Source Doctrine Validator Module Boundary](../AOA-EV-D-0125-source-doctrine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0125-source-doctrine-validator-module-boundary.md`)
+- [AOA-EV-D-0126 Proof Object Validator Module Boundary](../AOA-EV-D-0126-proof-object-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0126-proof-object-validator-module-boundary.md`)
+- [AOA-EV-D-0130 Validator Root Compatibility Alias Removal](../AOA-EV-D-0130-validator-root-compatibility-alias-removal.md) (`docs/decisions/AOA-EV-D-0130-validator-root-compatibility-alias-removal.md`)
+- [AOA-EV-D-0158 Source Eval Domains Validator Boundary](../AOA-EV-D-0158-source-eval-domains-validator-boundary.md) (`docs/decisions/AOA-EV-D-0158-source-eval-domains-validator-boundary.md`)
 
 ## publication-receipts
 
 - [AOA-EV-D-0013 Publication Receipts Mechanic Package](../AOA-EV-D-0013-publication-receipts-mechanic-package.md) (`docs/decisions/AOA-EV-D-0013-publication-receipts-mechanic-package.md`)
 - [AOA-EV-D-0057 Publication Receipts Part Contract Guard](../AOA-EV-D-0057-publication-receipts-part-contract-guard.md) (`docs/decisions/AOA-EV-D-0057-publication-receipts-part-contract-guard.md`)
+- [AOA-EV-D-0120 Publication Receipts Validator Module Boundary](../AOA-EV-D-0120-publication-receipts-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0120-publication-receipts-validator-module-boundary.md`)
+- [AOA-EV-D-0122 Proof Loop Validator Module Boundary](../AOA-EV-D-0122-proof-loop-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0122-proof-loop-validator-module-boundary.md`)
+- [AOA-EV-D-0127 Publication Receipts Route Validator Completion](../AOA-EV-D-0127-publication-receipts-route-validator-completion.md) (`docs/decisions/AOA-EV-D-0127-publication-receipts-route-validator-completion.md`)
+- [AOA-EV-D-0130 Validator Root Compatibility Alias Removal](../AOA-EV-D-0130-validator-root-compatibility-alias-removal.md) (`docs/decisions/AOA-EV-D-0130-validator-root-compatibility-alias-removal.md`)
+- [AOA-EV-D-0140 Distillation Validator Module Boundary](../AOA-EV-D-0140-distillation-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0140-distillation-validator-module-boundary.md`)
+- [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
 
 ## release-support
 
 - [AOA-EV-D-0014 Release Support Mechanic Package](../AOA-EV-D-0014-release-support-mechanic-package.md) (`docs/decisions/AOA-EV-D-0014-release-support-mechanic-package.md`)
 - [AOA-EV-D-0025 Release Support Readiness Audit](../AOA-EV-D-0025-release-support-readiness-audit.md) (`docs/decisions/AOA-EV-D-0025-release-support-readiness-audit.md`)
 - [AOA-EV-D-0058 Release Support Part Contract Guard](../AOA-EV-D-0058-release-support-part-contract-guard.md) (`docs/decisions/AOA-EV-D-0058-release-support-part-contract-guard.md`)
+- [AOA-EV-D-0121 Release Support Validator Module Boundary](../AOA-EV-D-0121-release-support-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0121-release-support-validator-module-boundary.md`)
+- [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
 
 ## titan
 
 - [AOA-EV-D-0015 Titan Mechanic Package](../AOA-EV-D-0015-titan-mechanic-package.md) (`docs/decisions/AOA-EV-D-0015-titan-mechanic-package.md`)
 - [AOA-EV-D-0055 Titan Seed-boundary Contract](../AOA-EV-D-0055-titan-seed-boundary-contract.md) (`docs/decisions/AOA-EV-D-0055-titan-seed-boundary-contract.md`)
+- [AOA-EV-D-0141 Titan Validator Module Boundary](../AOA-EV-D-0141-titan-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0141-titan-validator-module-boundary.md`)
+- [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
 
 ## agon
 
 - [AOA-EV-D-0016 Agon Mechanic Package](../AOA-EV-D-0016-agon-mechanic-package.md) (`docs/decisions/AOA-EV-D-0016-agon-mechanic-package.md`)
 - [AOA-EV-D-0054 Agon Part Contract Guard](../AOA-EV-D-0054-agon-part-contract-guard.md) (`docs/decisions/AOA-EV-D-0054-agon-part-contract-guard.md`)
 - [AOA-EV-D-0098 Agon Quest-note Provenance Route](../AOA-EV-D-0098-agon-quest-note-provenance-route.md) (`docs/decisions/AOA-EV-D-0098-agon-quest-note-provenance-route.md`)
+- [AOA-EV-D-0142 Agon Validator Module Boundary](../AOA-EV-D-0142-agon-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0142-agon-validator-module-boundary.md`)
+- [AOA-EV-D-0143 Questbook Validator Route Boundary](../AOA-EV-D-0143-questbook-validator-route-boundary.md) (`docs/decisions/AOA-EV-D-0143-questbook-validator-route-boundary.md`)
 
 ## recurrence
 
@@ -64,42 +112,65 @@
 - [AOA-EV-D-0039 Recurrence Support Parts Expansion](../AOA-EV-D-0039-recurrence-support-parts-expansion.md) (`docs/decisions/AOA-EV-D-0039-recurrence-support-parts-expansion.md`)
 - [AOA-EV-D-0042 Recurrence Portable Proof Beacons Part](../AOA-EV-D-0042-recurrence-portable-proof-beacons-part.md) (`docs/decisions/AOA-EV-D-0042-recurrence-portable-proof-beacons-part.md`)
 - [AOA-EV-D-0066 Recurrence Control-plane Contract](../AOA-EV-D-0066-recurrence-control-plane-contract.md) (`docs/decisions/AOA-EV-D-0066-recurrence-control-plane-contract.md`)
+- [AOA-EV-D-0133 Recurrence Validator Module Boundary](../AOA-EV-D-0133-recurrence-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0133-recurrence-validator-module-boundary.md`)
+- [AOA-EV-D-0140 Distillation Validator Module Boundary](../AOA-EV-D-0140-distillation-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0140-distillation-validator-module-boundary.md`)
+- [AOA-EV-D-0142 Agon Validator Module Boundary](../AOA-EV-D-0142-agon-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0142-agon-validator-module-boundary.md`)
 
 ## checkpoint
 
 - [AOA-EV-D-0032 Checkpoint Mechanic Package](../AOA-EV-D-0032-checkpoint-mechanic-package.md) (`docs/decisions/AOA-EV-D-0032-checkpoint-mechanic-package.md`)
 - [AOA-EV-D-0062 Checkpoint Part Contract Guard](../AOA-EV-D-0062-checkpoint-part-contract-guard.md) (`docs/decisions/AOA-EV-D-0062-checkpoint-part-contract-guard.md`)
+- [AOA-EV-D-0118 Runtime Candidate Validator Module Boundary](../AOA-EV-D-0118-runtime-candidate-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0118-runtime-candidate-validator-module-boundary.md`)
+- [AOA-EV-D-0134 Checkpoint Validator Module Boundary](../AOA-EV-D-0134-checkpoint-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0134-checkpoint-validator-module-boundary.md`)
 
 ## experience
 
 - [AOA-EV-D-0033 Experience Mechanic Package](../AOA-EV-D-0033-experience-mechanic-package.md) (`docs/decisions/AOA-EV-D-0033-experience-mechanic-package.md`)
 - [AOA-EV-D-0043 Experience Verdict Residue Parts](../AOA-EV-D-0043-experience-verdict-residue-parts.md) (`docs/decisions/AOA-EV-D-0043-experience-verdict-residue-parts.md`)
 - [AOA-EV-D-0063 Experience Part Contract Guard](../AOA-EV-D-0063-experience-part-contract-guard.md) (`docs/decisions/AOA-EV-D-0063-experience-part-contract-guard.md`)
+- [AOA-EV-D-0135 Experience Validator Module Boundary](../AOA-EV-D-0135-experience-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0135-experience-validator-module-boundary.md`)
+- [AOA-EV-D-0140 Distillation Validator Module Boundary](../AOA-EV-D-0140-distillation-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0140-distillation-validator-module-boundary.md`)
 
 ## antifragility
 
 - [AOA-EV-D-0034 Antifragility Mechanic Package](../AOA-EV-D-0034-antifragility-mechanic-package.md) (`docs/decisions/AOA-EV-D-0034-antifragility-mechanic-package.md`)
 - [AOA-EV-D-0061 Antifragility Part Contract Guard](../AOA-EV-D-0061-antifragility-part-contract-guard.md) (`docs/decisions/AOA-EV-D-0061-antifragility-part-contract-guard.md`)
+- [AOA-EV-D-0136 Antifragility Validator Module Boundary](../AOA-EV-D-0136-antifragility-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0136-antifragility-validator-module-boundary.md`)
+- [AOA-EV-D-0137 Method-growth Validator Module Boundary](../AOA-EV-D-0137-method-growth-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0137-method-growth-validator-module-boundary.md`)
+- [AOA-EV-D-0139 Growth-cycle Validator Module Boundary](../AOA-EV-D-0139-growth-cycle-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0139-growth-cycle-validator-module-boundary.md`)
 
 ## method-growth
 
 - [AOA-EV-D-0035 Method-growth Mechanic Package](../AOA-EV-D-0035-method-growth-mechanic-package.md) (`docs/decisions/AOA-EV-D-0035-method-growth-mechanic-package.md`)
 - [AOA-EV-D-0068 Method-growth Part Owner-split Contract](../AOA-EV-D-0068-method-growth-part-owner-split-contract.md) (`docs/decisions/AOA-EV-D-0068-method-growth-part-owner-split-contract.md`)
+- [AOA-EV-D-0137 Method-growth Validator Module Boundary](../AOA-EV-D-0137-method-growth-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0137-method-growth-validator-module-boundary.md`)
 
 ## rpg
 
 - [AOA-EV-D-0036 RPG Mechanic Package](../AOA-EV-D-0036-rpg-mechanic-package.md) (`docs/decisions/AOA-EV-D-0036-rpg-mechanic-package.md`)
 - [AOA-EV-D-0067 RPG Progression-unlocks Contract](../AOA-EV-D-0067-rpg-progression-unlocks-contract.md) (`docs/decisions/AOA-EV-D-0067-rpg-progression-unlocks-contract.md`)
+- [AOA-EV-D-0116 Questbook Validator Module Boundary](../AOA-EV-D-0116-questbook-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0116-questbook-validator-module-boundary.md`)
+- [AOA-EV-D-0133 Recurrence Validator Module Boundary](../AOA-EV-D-0133-recurrence-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0133-recurrence-validator-module-boundary.md`)
+- [AOA-EV-D-0137 Method-growth Validator Module Boundary](../AOA-EV-D-0137-method-growth-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0137-method-growth-validator-module-boundary.md`)
+- [AOA-EV-D-0138 RPG Validator Module Boundary](../AOA-EV-D-0138-rpg-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0138-rpg-validator-module-boundary.md`)
+- [AOA-EV-D-0139 Growth-cycle Validator Module Boundary](../AOA-EV-D-0139-growth-cycle-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0139-growth-cycle-validator-module-boundary.md`)
+- [AOA-EV-D-0143 Questbook Validator Route Boundary](../AOA-EV-D-0143-questbook-validator-route-boundary.md) (`docs/decisions/AOA-EV-D-0143-questbook-validator-route-boundary.md`)
 
 ## growth-cycle
 
 - [AOA-EV-D-0037 Growth-cycle Mechanic Package](../AOA-EV-D-0037-growth-cycle-mechanic-package.md) (`docs/decisions/AOA-EV-D-0037-growth-cycle-mechanic-package.md`)
 - [AOA-EV-D-0065 Growth-cycle Diagnosis-gate Contract](../AOA-EV-D-0065-growth-cycle-diagnosis-gate-contract.md) (`docs/decisions/AOA-EV-D-0065-growth-cycle-diagnosis-gate-contract.md`)
+- [AOA-EV-D-0136 Antifragility Validator Module Boundary](../AOA-EV-D-0136-antifragility-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0136-antifragility-validator-module-boundary.md`)
+- [AOA-EV-D-0137 Method-growth Validator Module Boundary](../AOA-EV-D-0137-method-growth-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0137-method-growth-validator-module-boundary.md`)
+- [AOA-EV-D-0138 RPG Validator Module Boundary](../AOA-EV-D-0138-rpg-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0138-rpg-validator-module-boundary.md`)
+- [AOA-EV-D-0139 Growth-cycle Validator Module Boundary](../AOA-EV-D-0139-growth-cycle-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0139-growth-cycle-validator-module-boundary.md`)
 
 ## distillation
 
 - [AOA-EV-D-0038 Distillation Mechanic Package](../AOA-EV-D-0038-distillation-mechanic-package.md) (`docs/decisions/AOA-EV-D-0038-distillation-mechanic-package.md`)
 - [AOA-EV-D-0064 Distillation Part Contract Guard](../AOA-EV-D-0064-distillation-part-contract-guard.md) (`docs/decisions/AOA-EV-D-0064-distillation-part-contract-guard.md`)
+- [AOA-EV-D-0135 Experience Validator Module Boundary](../AOA-EV-D-0135-experience-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0135-experience-validator-module-boundary.md`)
+- [AOA-EV-D-0140 Distillation Validator Module Boundary](../AOA-EV-D-0140-distillation-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0140-distillation-validator-module-boundary.md`)
 
 ## questbook
 
@@ -108,6 +179,13 @@
 - [AOA-EV-D-0047 Questbook Schema Parts](../AOA-EV-D-0047-questbook-schema-parts.md) (`docs/decisions/AOA-EV-D-0047-questbook-schema-parts.md`)
 - [AOA-EV-D-0070 Questbook Part Owner-split Contract](../AOA-EV-D-0070-questbook-part-owner-split-contract.md) (`docs/decisions/AOA-EV-D-0070-questbook-part-owner-split-contract.md`)
 - [AOA-EV-D-0112 Route-First Eval Birth Protocol](../AOA-EV-D-0112-route-first-eval-birth-protocol.md) (`docs/decisions/AOA-EV-D-0112-route-first-eval-birth-protocol.md`)
+- [AOA-EV-D-0116 Questbook Validator Module Boundary](../AOA-EV-D-0116-questbook-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0116-questbook-validator-module-boundary.md`)
+- [AOA-EV-D-0126 Proof Object Validator Module Boundary](../AOA-EV-D-0126-proof-object-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0126-proof-object-validator-module-boundary.md`)
+- [AOA-EV-D-0132 Generated Read-model Validator Completion](../AOA-EV-D-0132-generated-read-model-validator-completion.md) (`docs/decisions/AOA-EV-D-0132-generated-read-model-validator-completion.md`)
+- [AOA-EV-D-0138 RPG Validator Module Boundary](../AOA-EV-D-0138-rpg-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0138-rpg-validator-module-boundary.md`)
+- [AOA-EV-D-0139 Growth-cycle Validator Module Boundary](../AOA-EV-D-0139-growth-cycle-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0139-growth-cycle-validator-module-boundary.md`)
+- [AOA-EV-D-0142 Agon Validator Module Boundary](../AOA-EV-D-0142-agon-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0142-agon-validator-module-boundary.md`)
+- [AOA-EV-D-0143 Questbook Validator Route Boundary](../AOA-EV-D-0143-questbook-validator-route-boundary.md) (`docs/decisions/AOA-EV-D-0143-questbook-validator-route-boundary.md`)
 
 ## audit
 
@@ -118,6 +196,17 @@
 - [AOA-EV-D-0110 AoA Evals MCP Access Plane Contract](../AOA-EV-D-0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/AOA-EV-D-0110-aoa-evals-mcp-access-plane-contract.md`)
 - [AOA-EV-D-0111 Runtime Evidence Ingestion and Mirror Status](../AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md`)
 - [AOA-EV-D-0112 Route-First Eval Birth Protocol](../AOA-EV-D-0112-route-first-eval-birth-protocol.md) (`docs/decisions/AOA-EV-D-0112-route-first-eval-birth-protocol.md`)
+- [AOA-EV-D-0118 Runtime Candidate Validator Module Boundary](../AOA-EV-D-0118-runtime-candidate-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0118-runtime-candidate-validator-module-boundary.md`)
+- [AOA-EV-D-0122 Proof Loop Validator Module Boundary](../AOA-EV-D-0122-proof-loop-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0122-proof-loop-validator-module-boundary.md`)
+- [AOA-EV-D-0125 Source Doctrine Validator Module Boundary](../AOA-EV-D-0125-source-doctrine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0125-source-doctrine-validator-module-boundary.md`)
+- [AOA-EV-D-0128 Audit Validator Module Boundary](../AOA-EV-D-0128-audit-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0128-audit-validator-module-boundary.md`)
+- [AOA-EV-D-0130 Validator Root Compatibility Alias Removal](../AOA-EV-D-0130-validator-root-compatibility-alias-removal.md) (`docs/decisions/AOA-EV-D-0130-validator-root-compatibility-alias-removal.md`)
+- [AOA-EV-D-0131 Runtime Audit Validator Module Boundary](../AOA-EV-D-0131-runtime-audit-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0131-runtime-audit-validator-module-boundary.md`)
+- [AOA-EV-D-0133 Recurrence Validator Module Boundary](../AOA-EV-D-0133-recurrence-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0133-recurrence-validator-module-boundary.md`)
+- [AOA-EV-D-0134 Checkpoint Validator Module Boundary](../AOA-EV-D-0134-checkpoint-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0134-checkpoint-validator-module-boundary.md`)
+- [AOA-EV-D-0136 Antifragility Validator Module Boundary](../AOA-EV-D-0136-antifragility-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0136-antifragility-validator-module-boundary.md`)
+- [AOA-EV-D-0154 Root Context Validator Boundary](../AOA-EV-D-0154-root-context-validator-boundary.md) (`docs/decisions/AOA-EV-D-0154-root-context-validator-boundary.md`)
+- [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
 
 ## boundary-bridge
 
@@ -127,6 +216,12 @@
 - [AOA-EV-D-0056 Boundary Bridge Part Contract Guard](../AOA-EV-D-0056-boundary-bridge-part-contract-guard.md) (`docs/decisions/AOA-EV-D-0056-boundary-bridge-part-contract-guard.md`)
 - [AOA-EV-D-0110 AoA Evals MCP Access Plane Contract](../AOA-EV-D-0110-aoa-evals-mcp-access-plane-contract.md) (`docs/decisions/AOA-EV-D-0110-aoa-evals-mcp-access-plane-contract.md`)
 - [AOA-EV-D-0111 Runtime Evidence Ingestion and Mirror Status](../AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md`)
+- [AOA-EV-D-0119 Phase Alpha Matrix Validator Module Boundary](../AOA-EV-D-0119-phase-alpha-matrix-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0119-phase-alpha-matrix-validator-module-boundary.md`)
+- [AOA-EV-D-0122 Proof Loop Validator Module Boundary](../AOA-EV-D-0122-proof-loop-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0122-proof-loop-validator-module-boundary.md`)
+- [AOA-EV-D-0129 Boundary Bridge Validator Module Boundary](../AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md`)
+- [AOA-EV-D-0130 Validator Root Compatibility Alias Removal](../AOA-EV-D-0130-validator-root-compatibility-alias-removal.md) (`docs/decisions/AOA-EV-D-0130-validator-root-compatibility-alias-removal.md`)
+- [AOA-EV-D-0154 Root Context Validator Boundary](../AOA-EV-D-0154-root-context-validator-boundary.md) (`docs/decisions/AOA-EV-D-0154-root-context-validator-boundary.md`)
+- [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
 
 ## cross-parent
 
@@ -156,3 +251,40 @@
 - [AOA-EV-D-0111 Runtime Evidence Ingestion and Mirror Status](../AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md`)
 - [AOA-EV-D-0112 Route-First Eval Birth Protocol](../AOA-EV-D-0112-route-first-eval-birth-protocol.md) (`docs/decisions/AOA-EV-D-0112-route-first-eval-birth-protocol.md`)
 - [AOA-EV-D-0115 Validation Lane Command Authority](../AOA-EV-D-0115-validation-lane-command-authority.md) (`docs/decisions/AOA-EV-D-0115-validation-lane-command-authority.md`)
+- [AOA-EV-D-0116 Questbook Validator Module Boundary](../AOA-EV-D-0116-questbook-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0116-questbook-validator-module-boundary.md`)
+- [AOA-EV-D-0117 Report Index Validator Module Boundary](../AOA-EV-D-0117-report-index-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0117-report-index-validator-module-boundary.md`)
+- [AOA-EV-D-0118 Runtime Candidate Validator Module Boundary](../AOA-EV-D-0118-runtime-candidate-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0118-runtime-candidate-validator-module-boundary.md`)
+- [AOA-EV-D-0119 Phase Alpha Matrix Validator Module Boundary](../AOA-EV-D-0119-phase-alpha-matrix-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0119-phase-alpha-matrix-validator-module-boundary.md`)
+- [AOA-EV-D-0120 Publication Receipts Validator Module Boundary](../AOA-EV-D-0120-publication-receipts-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0120-publication-receipts-validator-module-boundary.md`)
+- [AOA-EV-D-0121 Release Support Validator Module Boundary](../AOA-EV-D-0121-release-support-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0121-release-support-validator-module-boundary.md`)
+- [AOA-EV-D-0123 Comparison Spine Validator Module Boundary](../AOA-EV-D-0123-comparison-spine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0123-comparison-spine-validator-module-boundary.md`)
+- [AOA-EV-D-0124 Proof Infra Validator Module Boundary](../AOA-EV-D-0124-proof-infra-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0124-proof-infra-validator-module-boundary.md`)
+- [AOA-EV-D-0125 Source Doctrine Validator Module Boundary](../AOA-EV-D-0125-source-doctrine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0125-source-doctrine-validator-module-boundary.md`)
+- [AOA-EV-D-0126 Proof Object Validator Module Boundary](../AOA-EV-D-0126-proof-object-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0126-proof-object-validator-module-boundary.md`)
+- [AOA-EV-D-0127 Publication Receipts Route Validator Completion](../AOA-EV-D-0127-publication-receipts-route-validator-completion.md) (`docs/decisions/AOA-EV-D-0127-publication-receipts-route-validator-completion.md`)
+- [AOA-EV-D-0128 Audit Validator Module Boundary](../AOA-EV-D-0128-audit-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0128-audit-validator-module-boundary.md`)
+- [AOA-EV-D-0129 Boundary Bridge Validator Module Boundary](../AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md`)
+- [AOA-EV-D-0130 Validator Root Compatibility Alias Removal](../AOA-EV-D-0130-validator-root-compatibility-alias-removal.md) (`docs/decisions/AOA-EV-D-0130-validator-root-compatibility-alias-removal.md`)
+- [AOA-EV-D-0131 Runtime Audit Validator Module Boundary](../AOA-EV-D-0131-runtime-audit-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0131-runtime-audit-validator-module-boundary.md`)
+- [AOA-EV-D-0132 Generated Read-model Validator Completion](../AOA-EV-D-0132-generated-read-model-validator-completion.md) (`docs/decisions/AOA-EV-D-0132-generated-read-model-validator-completion.md`)
+- [AOA-EV-D-0133 Recurrence Validator Module Boundary](../AOA-EV-D-0133-recurrence-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0133-recurrence-validator-module-boundary.md`)
+- [AOA-EV-D-0134 Checkpoint Validator Module Boundary](../AOA-EV-D-0134-checkpoint-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0134-checkpoint-validator-module-boundary.md`)
+- [AOA-EV-D-0135 Experience Validator Module Boundary](../AOA-EV-D-0135-experience-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0135-experience-validator-module-boundary.md`)
+- [AOA-EV-D-0136 Antifragility Validator Module Boundary](../AOA-EV-D-0136-antifragility-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0136-antifragility-validator-module-boundary.md`)
+- [AOA-EV-D-0137 Method-growth Validator Module Boundary](../AOA-EV-D-0137-method-growth-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0137-method-growth-validator-module-boundary.md`)
+- [AOA-EV-D-0138 RPG Validator Module Boundary](../AOA-EV-D-0138-rpg-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0138-rpg-validator-module-boundary.md`)
+- [AOA-EV-D-0139 Growth-cycle Validator Module Boundary](../AOA-EV-D-0139-growth-cycle-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0139-growth-cycle-validator-module-boundary.md`)
+- [AOA-EV-D-0140 Distillation Validator Module Boundary](../AOA-EV-D-0140-distillation-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0140-distillation-validator-module-boundary.md`)
+- [AOA-EV-D-0141 Titan Validator Module Boundary](../AOA-EV-D-0141-titan-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0141-titan-validator-module-boundary.md`)
+- [AOA-EV-D-0142 Agon Validator Module Boundary](../AOA-EV-D-0142-agon-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0142-agon-validator-module-boundary.md`)
+- [AOA-EV-D-0143 Questbook Validator Route Boundary](../AOA-EV-D-0143-questbook-validator-route-boundary.md) (`docs/decisions/AOA-EV-D-0143-questbook-validator-route-boundary.md`)
+- [AOA-EV-D-0145 Route Residue Validator Module Boundary](../AOA-EV-D-0145-route-residue-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0145-route-residue-validator-module-boundary.md`)
+- [AOA-EV-D-0146 Mechanics Topology Validator Boundary](../AOA-EV-D-0146-mechanics-topology-validator-boundary.md) (`docs/decisions/AOA-EV-D-0146-mechanics-topology-validator-boundary.md`)
+- [AOA-EV-D-0147 Mechanic Part Validator Boundary](../AOA-EV-D-0147-mechanic-part-validator-boundary.md) (`docs/decisions/AOA-EV-D-0147-mechanic-part-validator-boundary.md`)
+- [AOA-EV-D-0148 Mechanic Legacy Validator Boundary](../AOA-EV-D-0148-mechanic-legacy-validator-boundary.md) (`docs/decisions/AOA-EV-D-0148-mechanic-legacy-validator-boundary.md`)
+- [AOA-EV-D-0149 Mechanic Parent Validator Boundary](../AOA-EV-D-0149-mechanic-parent-validator-boundary.md) (`docs/decisions/AOA-EV-D-0149-mechanic-parent-validator-boundary.md`)
+- [AOA-EV-D-0154 Root Context Validator Boundary](../AOA-EV-D-0154-root-context-validator-boundary.md) (`docs/decisions/AOA-EV-D-0154-root-context-validator-boundary.md`)
+- [AOA-EV-D-0155 Mechanics Routes Validator Boundary](../AOA-EV-D-0155-mechanics-routes-validator-boundary.md) (`docs/decisions/AOA-EV-D-0155-mechanics-routes-validator-boundary.md`)
+- [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
+- [AOA-EV-D-0157 Root Topology Validator Boundary](../AOA-EV-D-0157-root-topology-validator-boundary.md) (`docs/decisions/AOA-EV-D-0157-root-topology-validator-boundary.md`)
+- [AOA-EV-D-0158 Source Eval Domains Validator Boundary](../AOA-EV-D-0158-source-eval-domains-validator-boundary.md) (`docs/decisions/AOA-EV-D-0158-source-eval-domains-validator-boundary.md`)

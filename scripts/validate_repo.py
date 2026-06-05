@@ -12,16 +12,21 @@ import validate_nested_agents
 from validators import (
     eval_entry_routes as eval_entry_routes_validator,
     eval_starter_surfaces as eval_starter_surfaces_validator,
-    evidence_readouts,
+    generated_readouts as generated_readouts_validator,
+    observability_readouts as observability_readouts_validator,
+    phase_alpha_readouts as phase_alpha_readouts_validator,
     questbook_obligation_index as questbook_obligation_index_validator,
     questbook_projection_parity as questbook_projection_parity_validator,
     questbook_progression as questbook_progression_validator,
     questbook_schema_lifecycle as questbook_schema_lifecycle_validator,
     questbook_source_records as questbook_source_records_validator,
+    readout_contexts,
     root_context,
     root_topology as root_topology_validator,
+    runtime_readouts as runtime_readouts_validator,
     source_eval_collection as source_eval_collection_validator,
     source_eval_domains,
+    titan_canary as titan_canary_validator,
 )
 from validators.common import ValidationIssue
 
@@ -47,6 +52,63 @@ def validator_module_issues(module_issues: Sequence[Any]) -> list[ValidationIssu
 def format_issues(issues: Sequence[ValidationIssue]) -> str:
     lines = [f"- {issue.location}: {issue.message}" for issue in issues]
     return "\n".join(lines)
+
+def validate_repo_wide_readouts(
+    repo_root: Path,
+    records: Sequence[Any],
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    runtime_context = readout_contexts.runtime_audit_context()
+    generated_context = readout_contexts.generated_read_model_context()
+
+    issues.extend(
+        runtime_readouts_validator.validate_repo_wide_runtime_readout_surfaces(
+            repo_root,
+            records,
+            context=runtime_context,
+        )
+    )
+    issues.extend(observability_readouts_validator.validate_observability_readout_surfaces(repo_root))
+    issues.extend(phase_alpha_readouts_validator.validate_phase_alpha_readout_surfaces(repo_root))
+    issues.extend(
+        validator_module_issues(titan_canary_validator.validate_titan_canary_surfaces(repo_root))
+    )
+    issues.extend(
+        generated_readouts_validator.validate_generated_readout_surfaces(
+            repo_root,
+            records,
+            context=generated_context,
+        )
+    )
+    return issues
+
+def validate_target_eval_readouts(
+    repo_root: Path,
+    records: Sequence[Any],
+    *,
+    target_evals: Sequence[str],
+) -> list[ValidationIssue]:
+    issues: list[ValidationIssue] = []
+    runtime_context = readout_contexts.runtime_audit_context()
+    generated_context = readout_contexts.generated_read_model_context()
+
+    issues.extend(
+        runtime_readouts_validator.validate_target_runtime_readout_surfaces(
+            repo_root,
+            records,
+            target_eval_names=set(target_evals),
+            context=runtime_context,
+        )
+    )
+    issues.extend(
+        generated_readouts_validator.validate_generated_readout_surfaces(
+            repo_root,
+            records,
+            context=generated_context,
+            target_eval_names=target_evals,
+        )
+    )
+    return issues
 
 def run_validation(
     repo_root: Path,
@@ -125,20 +187,9 @@ def run_validation(
             )
         )
         if not all_source_issues:
-            issues.extend(
-                evidence_readouts.validate_repo_wide_readout_surfaces(
-                    repo_root,
-                    all_records,
-                )
-            )
+            issues.extend(validate_repo_wide_readouts(repo_root, all_records))
     elif source_evals_dir_exists and eval_name is not None and not source_issues:
-        issues.extend(
-            evidence_readouts.validate_target_eval_readout_surfaces(
-                repo_root,
-                records,
-                target_evals=target_evals,
-            )
-        )
+        issues.extend(validate_target_eval_readouts(repo_root, records, target_evals=target_evals))
 
     quest_schema_validation = (
         questbook_schema_lifecycle_validator.validate_quest_schema_lifecycle_surfaces(

@@ -177,6 +177,7 @@
 - [AOA-EV-D-0213 Root Legacy Layer Split](../AOA-EV-D-0213-root-legacy-layer-split.md) (`docs/decisions/AOA-EV-D-0213-root-legacy-layer-split.md`)
 - [AOA-EV-D-0214 Publication Receipts Intake Layer Split](../AOA-EV-D-0214-publication-receipts-intake-layer-split.md) (`docs/decisions/AOA-EV-D-0214-publication-receipts-intake-layer-split.md`)
 - [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
 ## projection/generated
 
@@ -201,6 +202,7 @@
 - [AOA-EV-D-0219 Questbook Helper Layer Split](../AOA-EV-D-0219-questbook-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0219-questbook-helper-layer-split.md`)
 - [AOA-EV-D-0235 Method-growth Validator Layer Split](../AOA-EV-D-0235-method-growth-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0235-method-growth-validator-layer-split.md`)
 - [AOA-EV-D-0236 RPG Validator Layer Split](../AOA-EV-D-0236-rpg-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0236-rpg-validator-layer-split.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
 ## questbook/source
 
@@ -217,6 +219,7 @@
 - [AOA-EV-D-0190 Release Support Facade Removal](../AOA-EV-D-0190-release-support-facade-removal.md) (`docs/decisions/AOA-EV-D-0190-release-support-facade-removal.md`)
 - [AOA-EV-D-0206 Boundary Bridge Aggregate Removal](../AOA-EV-D-0206-boundary-bridge-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0206-boundary-bridge-aggregate-removal.md`)
 - [AOA-EV-D-0217 Release-support Helper Layer Split](../AOA-EV-D-0217-release-support-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0217-release-support-helper-layer-split.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
 ## report/release/receipt
 
@@ -260,6 +263,7 @@
 - [AOA-EV-D-0236 RPG Validator Layer Split](../AOA-EV-D-0236-rpg-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0236-rpg-validator-layer-split.md`)
 - [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)
 - [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
 ## runtime-policy route
 
@@ -404,3 +408,4 @@
 - [AOA-EV-D-0234 Antifragility Validator Layer Split](../AOA-EV-D-0234-antifragility-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0234-antifragility-validator-layer-split.md`)
 - [AOA-EV-D-0235 Method-growth Validator Layer Split](../AOA-EV-D-0235-method-growth-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0235-method-growth-validator-layer-split.md`)
 - [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)

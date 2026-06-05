@@ -82,7 +82,6 @@ the implementation is split by owner route. Current focused modules are:
 - `scripts/validators/eval_roadmap_parity.py`
 - `scripts/validators/eval_entry_routes.py`
 - `scripts/validators/eval_tree_topology.py`
-- `scripts/validators/evidence_readouts.py`
 - `scripts/validators/experience_route_paths.py`
 - `scripts/validators/experience_route_tokens.py`
 - `scripts/validators/experience_routes.py`
@@ -91,6 +90,7 @@ the implementation is split by owner route. Current focused modules are:
 - `scripts/validators/generated_eval_comparison_spine.py`
 - `scripts/validators/generated_eval_readmodel_common.py`
 - `scripts/validators/generated_eval_sections.py`
+- `scripts/validators/generated_readouts.py`
 - `scripts/validators/generated_route_surfaces.py`
 - `scripts/validators/growth_cycle_route_paths.py`
 - `scripts/validators/growth_cycle_route_tokens.py`
@@ -126,6 +126,8 @@ the implementation is split by owner route. Current focused modules are:
 - `scripts/validators/method_growth_route_paths.py`
 - `scripts/validators/method_growth_route_tokens.py`
 - `scripts/validators/method_growth_routes.py`
+- `scripts/validators/observability_readouts.py`
+- `scripts/validators/phase_alpha_readouts.py`
 - `scripts/validators/phase_alpha_matrix_common.py`
 - `scripts/validators/phase_alpha_matrix_projection.py`
 - `scripts/validators/phase_alpha_matrix_sibling_compat.py`
@@ -180,6 +182,7 @@ the implementation is split by owner route. Current focused modules are:
 - `scripts/validators/release_support_routes.py`
 - `scripts/validators/release_support_strategic_closeout_report.py`
 - `scripts/validators/report_index.py`
+- `scripts/validators/readout_contexts.py`
 - `scripts/validators/root_agent_index.py`
 - `scripts/validators/root_agent_lanes.py`
 - `scripts/validators/root_audit_routes.py`
@@ -225,6 +228,7 @@ the implementation is split by owner route. Current focused modules are:
 - `scripts/validators/runtime_integrity_review_docs.py`
 - `scripts/validators/runtime_integrity_review_example.py`
 - `scripts/validators/runtime_integrity_review_schema.py`
+- `scripts/validators/runtime_readouts.py`
 - `scripts/validators/runtime_trace_eval_bridge.py`
 - `scripts/validators/runtime_candidate_common.py`
 - `scripts/validators/runtime_candidate_intake.py`

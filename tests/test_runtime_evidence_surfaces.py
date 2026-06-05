@@ -14,7 +14,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 from validate_repo import run_validation
 from validators import (
     artifact_hooks,
-    evidence_readouts,
+    readout_contexts,
     root_context,
     runtime_evidence_selection as runtime_evidence_selection_validator,
     runtime_integrity_review_common as runtime_integrity_review_common_validator,
@@ -296,7 +296,7 @@ def test_validate_runtime_evidence_selection_uses_repo_local_schema(tmp_path: Pa
     issues = runtime_evidence_selection_validator.validate_runtime_evidence_selection_surfaces(
         tmp_path,
         records=[],
-        context=evidence_readouts.runtime_audit_context(),
+        context=readout_contexts.runtime_audit_context(),
         target_eval_names={"aoa-return-anchor-integrity"},
     )
 
@@ -321,7 +321,7 @@ def test_validate_runtime_evidence_selection_reports_missing_expected_examples_i
     issues = runtime_evidence_selection_validator.validate_runtime_evidence_selection_surfaces(
         tmp_path,
         records=[],
-        context=evidence_readouts.runtime_audit_context(),
+        context=readout_contexts.runtime_audit_context(),
     )
 
     assert any(
@@ -339,7 +339,7 @@ def test_validate_runtime_evidence_selection_accepts_example_backed_runtime_chao
         runtime_evidence_selection_validator.validate_runtime_evidence_selection_surfaces(
             REPO_ROOT,
             records,
-            context=evidence_readouts.runtime_audit_context(),
+            context=readout_contexts.runtime_audit_context(),
             target_eval_names={"aoa-stress-recovery-window"},
         )
         == []
@@ -475,7 +475,7 @@ def test_validate_runtime_integrity_review_surface_accepts_repo_contract() -> No
     assert schema_validation.issues == []
     assert runtime_integrity_review_example_validator.validate_runtime_integrity_review_example_surface(
         REPO_ROOT,
-        context=evidence_readouts.runtime_audit_context(),
+        context=readout_contexts.runtime_audit_context(),
         schema_validator=schema_validation.validator,
     ) == []
 
@@ -521,7 +521,7 @@ def test_validate_runtime_integrity_review_surface_uses_repo_local_schema(tmp_pa
 
     issues = runtime_integrity_review_example_validator.validate_runtime_integrity_review_example_surface(
         tmp_path,
-        context=evidence_readouts.runtime_audit_context(),
+        context=readout_contexts.runtime_audit_context(),
     )
 
     assert any(
@@ -630,7 +630,7 @@ def test_validate_runtime_integrity_review_surface_rejects_missing_center_anchor
 
     issues = runtime_integrity_review_example_validator.validate_runtime_integrity_review_example_surface(
         repo_root,
-        context=evidence_readouts.runtime_audit_context(),
+        context=readout_contexts.runtime_audit_context(),
     )
 
     assert any(
@@ -698,7 +698,7 @@ def test_validate_runtime_integrity_review_surface_rejects_anchor_drift_in_evide
 
     issues = runtime_integrity_review_example_validator.validate_runtime_integrity_review_example_surface(
         repo_root,
-        context=evidence_readouts.runtime_audit_context(),
+        context=readout_contexts.runtime_audit_context(),
     )
 
     assert any(
@@ -741,7 +741,7 @@ def test_validate_trace_eval_bridge_surfaces_keeps_local_example_checks_when_pla
     issues = runtime_trace_eval_bridge_validator.validate_trace_eval_bridge_surfaces(
         tmp_path,
         [],
-        context=evidence_readouts.runtime_audit_context(),
+        context=readout_contexts.runtime_audit_context(),
     )
 
     assert any(

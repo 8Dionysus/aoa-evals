@@ -23,6 +23,7 @@ from validators import (
     mechanic_parent_direction as mechanic_parent_direction_validator,
     mechanic_parent_index as mechanic_parent_index_validator,
     mechanic_parent_registry as mechanic_parent_registry_validator,
+    mechanics_route_contexts,
     mechanic_part_contract_index as mechanic_part_contract_index_validator,
     mechanic_part_readme_contract as mechanic_part_readme_contract_validator,
     mechanic_part_validation_commands as mechanic_part_validation_commands_validator,
@@ -39,9 +40,7 @@ from validators import (
     questbook_routes as questbook_routes_validator,
     recurrence_routes as recurrence_routes_validator,
     release_support_routes as release_support_routes_validator,
-    root_route_tokens,
     route_residue_active_mechanics as route_residue_active_mechanics_validator,
-    route_residue_common as route_residue_common_validator,
     route_residue_mechanic_payload as route_residue_mechanic_payload_validator,
     rpg_routes as rpg_routes_validator,
     titan_routes as titan_routes_validator,
@@ -54,83 +53,6 @@ def _module_issues(module_issues: Sequence[Any]) -> list[ValidationIssue]:
         ValidationIssue(issue.location, issue.message)
         for issue in module_issues
     ]
-
-
-def _route_residue_context() -> route_residue_common_validator.RouteResidueContext:
-    return route_residue_common_validator.RouteResidueContext(
-        require_tokens=root_route_tokens.context_require_tokens,
-    )
-
-
-def _recurrence_route_context() -> recurrence_routes_validator.RecurrenceRouteContext:
-    return recurrence_routes_validator.RecurrenceRouteContext(
-        require_tokens=root_route_tokens.context_require_tokens,
-        provenance_tokens=mechanic_provenance_bridge_validator.MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS,
-    )
-
-
-def _checkpoint_route_context() -> checkpoint_routes_validator.CheckpointRouteContext:
-    return checkpoint_routes_validator.CheckpointRouteContext(
-        require_tokens=root_route_tokens.context_require_tokens,
-        provenance_tokens=mechanic_provenance_bridge_validator.MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS,
-    )
-
-
-def _experience_route_context() -> experience_routes_validator.ExperienceRouteContext:
-    return experience_routes_validator.ExperienceRouteContext(
-        require_tokens=root_route_tokens.context_require_tokens,
-        provenance_tokens=mechanic_provenance_bridge_validator.MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS,
-    )
-
-
-def _antifragility_route_context() -> antifragility_routes_validator.AntifragilityRouteContext:
-    return antifragility_routes_validator.AntifragilityRouteContext(
-        require_tokens=root_route_tokens.context_require_tokens,
-        provenance_tokens=mechanic_provenance_bridge_validator.MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS,
-    )
-
-
-def _method_growth_route_context() -> method_growth_routes_validator.MethodGrowthRouteContext:
-    return method_growth_routes_validator.MethodGrowthRouteContext(
-        require_tokens=root_route_tokens.context_require_tokens,
-        provenance_tokens=mechanic_provenance_bridge_validator.MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS,
-    )
-
-
-def _rpg_route_context() -> rpg_routes_validator.RpgRouteContext:
-    return rpg_routes_validator.RpgRouteContext(
-        require_tokens=root_route_tokens.context_require_tokens,
-        provenance_tokens=mechanic_provenance_bridge_validator.MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS,
-    )
-
-
-def _growth_cycle_route_context() -> growth_cycle_routes_validator.GrowthCycleRouteContext:
-    return growth_cycle_routes_validator.GrowthCycleRouteContext(
-        require_tokens=root_route_tokens.context_require_tokens,
-        provenance_tokens=mechanic_provenance_bridge_validator.MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS,
-    )
-
-
-def _distillation_route_context() -> distillation_routes_validator.DistillationRouteContext:
-    return distillation_routes_validator.DistillationRouteContext(
-        require_tokens=root_route_tokens.context_require_tokens,
-        provenance_tokens=mechanic_provenance_bridge_validator.MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS,
-    )
-
-
-def _titan_route_context() -> titan_routes_validator.TitanRouteContext:
-    return titan_routes_validator.TitanRouteContext(require_tokens=root_route_tokens.context_require_tokens)
-
-
-def _agon_route_context() -> agon_routes_validator.AgonRouteContext:
-    return agon_routes_validator.AgonRouteContext(require_tokens=root_route_tokens.context_require_tokens)
-
-
-def _questbook_route_context() -> questbook_routes_validator.QuestbookRouteContext:
-    return questbook_routes_validator.QuestbookRouteContext(
-        require_tokens=root_route_tokens.context_require_tokens,
-        provenance_tokens=mechanic_provenance_bridge_validator.MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS,
-    )
 
 
 def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
@@ -234,7 +156,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         _module_issues(
             route_residue_active_mechanics_validator.validate_active_mechanic_route_residue_surfaces(
                 repo_root,
-                context=_route_residue_context(),
+                context=mechanics_route_contexts.route_residue_context(),
             )
         )
     )
@@ -242,7 +164,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         _module_issues(
             route_residue_mechanic_payload_validator.validate_mechanic_payload_route_residue_surfaces(
                 repo_root,
-                context=_route_residue_context(),
+                context=mechanics_route_contexts.route_residue_context(),
             )
         )
     )
@@ -271,7 +193,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         _module_issues(
             titan_routes_validator.validate_titan_route_surfaces(
                 repo_root,
-                context=_titan_route_context(),
+                context=mechanics_route_contexts.titan_route_context(),
             )
         )
     )
@@ -279,7 +201,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         _module_issues(
             agon_routes_validator.validate_agon_route_surfaces(
                 repo_root,
-                context=_agon_route_context(),
+                context=mechanics_route_contexts.agon_route_context(),
             )
         )
     )
@@ -287,7 +209,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         _module_issues(
             recurrence_routes_validator.validate_recurrence_route_surfaces(
                 repo_root,
-                context=_recurrence_route_context(),
+                context=mechanics_route_contexts.recurrence_route_context(),
             )
         )
     )
@@ -295,7 +217,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         _module_issues(
             checkpoint_routes_validator.validate_checkpoint_route_surfaces(
                 repo_root,
-                context=_checkpoint_route_context(),
+                context=mechanics_route_contexts.checkpoint_route_context(),
             )
         )
     )
@@ -303,7 +225,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         _module_issues(
             experience_routes_validator.validate_experience_route_surfaces(
                 repo_root,
-                context=_experience_route_context(),
+                context=mechanics_route_contexts.experience_route_context(),
             )
         )
     )
@@ -311,7 +233,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         _module_issues(
             antifragility_routes_validator.validate_antifragility_route_surfaces(
                 repo_root,
-                context=_antifragility_route_context(),
+                context=mechanics_route_contexts.antifragility_route_context(),
             )
         )
     )
@@ -319,7 +241,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         _module_issues(
             method_growth_routes_validator.validate_method_growth_route_surfaces(
                 repo_root,
-                context=_method_growth_route_context(),
+                context=mechanics_route_contexts.method_growth_route_context(),
             )
         )
     )
@@ -327,7 +249,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         _module_issues(
             rpg_routes_validator.validate_rpg_route_surfaces(
                 repo_root,
-                context=_rpg_route_context(),
+                context=mechanics_route_contexts.rpg_route_context(),
             )
         )
     )
@@ -335,7 +257,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         _module_issues(
             growth_cycle_routes_validator.validate_growth_cycle_route_surfaces(
                 repo_root,
-                context=_growth_cycle_route_context(),
+                context=mechanics_route_contexts.growth_cycle_route_context(),
             )
         )
     )
@@ -343,7 +265,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         _module_issues(
             distillation_routes_validator.validate_distillation_route_surfaces(
                 repo_root,
-                context=_distillation_route_context(),
+                context=mechanics_route_contexts.distillation_route_context(),
             )
         )
     )
@@ -351,7 +273,7 @@ def validate_mechanics_surfaces(repo_root: Path) -> list[ValidationIssue]:
         _module_issues(
             questbook_routes_validator.validate_questbook_route_surfaces(
                 repo_root,
-                context=_questbook_route_context(),
+                context=mechanics_route_contexts.questbook_route_context(),
             )
         )
     )

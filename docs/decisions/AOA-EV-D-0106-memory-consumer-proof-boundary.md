@@ -99,6 +99,16 @@ As of 2026-05-24 route-language review:
   the record of why the consumer boundary was adopted.
 - Superseded by: none.
 
+As of 2026-06-05:
+
+- Still valid: `aoa-evals` consumes memory context only for bounded proof
+  review.
+- Changed: memo-shaped runtime selected-evidence packets now carry a
+  `memory_context_boundary` that names provenance, freshness, retention,
+  permission, authority stop-lines, and bundle-local review pressure before
+  runtime candidate readers may project them.
+- Superseded by: none.
+
 ## Review Log
 
 ### 2026-05-24 - Memory consumer boundary landed
@@ -149,6 +159,24 @@ As of 2026-05-24 route-language review:
 - Validation: root validation, semantic AGENTS validation, and focused memory
   consumer tests.
 
+### 2026-06-05 - Runtime selected-evidence memory context boundary
+
+- Previous assumption: the memory-consumer proof boundary lived mainly in root
+  proof guidance and bundle-local memo eval wording.
+- New reality: memo recall, contradiction, and writeback selected-evidence
+  packets now expose `memory_context_boundary` metadata before generated
+  runtime-candidate readers project them.
+- Reason: memory context can become hidden authority if provenance, freshness,
+  retention, permission, and stop-lines disappear at the runtime evidence
+  selection layer.
+- Source surfaces updated:
+  `mechanics/audit/parts/selected-evidence-packets/schemas/runtime-evidence-selection.schema.json`,
+  selected memo evidence examples, `scripts/validators/runtime_evidence_selection.py`,
+  runtime-candidate reader builders, generated reader surfaces, validation
+  inventories, and focused runtime evidence tests.
+- Validation: focused runtime evidence tests, runtime-candidate reader tests,
+  generated-reader checks, source-fast validation, and release check.
+
 ## Boundaries
 
 This decision does not make `aoa-evals` a memory object owner.
@@ -156,6 +184,9 @@ It does not let reviewed memory replace source eval bundles, selected evidence,
 fixtures, reports, scoring, verdict logic, or mechanic-owned proof
 interpretation.
 It does not create a local memo port.
+It does not let `memory_context_boundary` authorize tool use, durable memory
+writeback, source-truth settlement, private or stale context promotion, or a
+local memo port.
 It does not change `aoa-memo` durable reviewed memory authority.
 It does not treat `aoa_memo` MCP outputs as proof authority or direct durable
 write authority.

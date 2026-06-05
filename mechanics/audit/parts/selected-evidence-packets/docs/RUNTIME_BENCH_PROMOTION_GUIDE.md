@@ -51,6 +51,8 @@ Before promotion, keep explicit:
 - environment invariants
 - environment deltas
 - selected evidence only
+- memory-context boundary when the packet reads memo recall, contradiction, or
+  writeback context
 - overread-routing notes
 - human review required
 
@@ -115,10 +117,23 @@ Route broader readings this way:
 Use `../schemas/runtime-evidence-selection.schema.json` as the machine-readable selection contract.
 
 Use `../examples/runtime_evidence_selection.workhorse-local.example.json` as the first bounded example.
-Use `../examples/runtime_evidence_selection.return-anchor-integrity.example.json` when selected `runtime_return_event` summaries and return-policy notes need to travel upward as a bounded evidence sidecar for `aoa-return-anchor-integrity`.
-Use `../examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json` when selected runtime memo-export packets need to travel upward as a bounded evidence sidecar for `aoa-memo-recall-integrity` on the Phase Alpha rerun seam.
-Use `../examples/runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json` when selected Phase Alpha runtime closure packets need to travel upward as a bounded evidence sidecar for `aoa-memo-writeback-act-integrity` on the runtime-to-memo writeback seam.
-Use `../examples/runtime_evidence_selection.runtime-chaos-window.example.json` when curated chaos-wave receipts and reviewed closeout examples should travel upward only as example-backed sidecar evidence for `aoa-stress-recovery-window`.
+Use `../examples/runtime_evidence_selection.return-anchor-integrity.example.json`
+when selected `runtime_return_event` summaries and return-policy notes need to
+travel upward as a bounded evidence sidecar for `aoa-return-anchor-integrity`.
+Use `../examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json`
+when selected runtime memo-export packets need to travel upward as a bounded
+evidence sidecar for `aoa-memo-recall-integrity` on the Phase Alpha rerun seam.
+Use `../examples/runtime_evidence_selection.phase-alpha-memo-contradiction-gap.example.json`
+and `../examples/runtime_evidence_selection.phase-alpha-memo-contradiction-rerun.example.json`
+when selected runtime memo-export packets need to stay contradiction-visible
+without turning lifecycle context into source truth.
+Use `../examples/runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json`
+when selected Phase Alpha runtime closure packets need to travel upward as a
+bounded evidence sidecar for `aoa-memo-writeback-act-integrity` on the
+runtime-to-memo writeback seam.
+Use `../examples/runtime_evidence_selection.runtime-chaos-window.example.json`
+when curated chaos-wave receipts and reviewed closeout examples should travel
+upward only as example-backed sidecar evidence for `aoa-stress-recovery-window`.
 
 ## Boundary to preserve
 Runtime posture can become evidence after bounded selection.
@@ -126,3 +141,9 @@ Runtime posture can become evidence after bounded selection.
 Proof-canon pressure routes through `aoa-evals` bounded meaning review. Until
 that review happens, runtime evidence-selection packets stay candidate surfaces
 with owner-review refs.
+
+Memo-context packets also keep `memory_context_boundary` visible. That boundary
+routes provenance, freshness, retention, and permission pressure to `aoa-memo`
+and forbids reading selected memory context as tool authorization, durable
+writeback approval, source truth, private/stale-context proof, or a local memo
+port.

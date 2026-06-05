@@ -764,6 +764,19 @@ class TestValidateQuestRouteSurfaces:
 
         assert issues == []
 
+    def test_runtime_candidate_template_index_projects_memory_context_boundary(self) -> None:
+        payload = json.loads(
+            (REPO_ROOT / runtime_candidate_common_validator.RUNTIME_CANDIDATE_TEMPLATE_INDEX_NAME).read_text(encoding="utf-8")
+        )
+        entry = next(
+            item
+            for item in payload["templates"]
+            if item["template_name"] == "phase-alpha-memo-recall-rerun-v1"
+        )
+
+        assert entry["memory_context_boundary"]["consumer_posture"] == "candidate_context_only_not_memory_authority"
+        assert "does not authorize tool use" in entry["memory_context_boundary"]["authority_stop_lines"]
+
     def test_runtime_candidate_template_index_drift_fails(self, tmp_path: Path) -> None:
         make_runtime_candidate_template_index_surface(tmp_path)
         index_path = tmp_path / runtime_candidate_common_validator.RUNTIME_CANDIDATE_TEMPLATE_INDEX_NAME
@@ -827,6 +840,19 @@ class TestValidateQuestRouteSurfaces:
         issues = validate_runtime_candidate_intake(REPO_ROOT)
 
         assert issues == []
+
+    def test_runtime_candidate_intake_projects_memory_context_boundary(self) -> None:
+        payload = json.loads(
+            (REPO_ROOT / runtime_candidate_common_validator.RUNTIME_CANDIDATE_INTAKE_NAME).read_text(encoding="utf-8")
+        )
+        entry = next(
+            item
+            for item in payload["templates"]
+            if item["template_name"] == "phase-alpha-memo-recall-rerun-v1"
+        )
+
+        assert entry["memory_context_boundary"]["consumer_posture"] == "candidate_context_only_not_memory_authority"
+        assert "does not create a local memo port" in entry["memory_context_boundary"]["authority_stop_lines"]
 
     def test_runtime_candidate_intake_drift_fails(self, tmp_path: Path) -> None:
         make_runtime_candidate_intake_surface(tmp_path)

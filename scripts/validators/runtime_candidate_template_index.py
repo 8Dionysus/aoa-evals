@@ -191,6 +191,12 @@ def validate_runtime_candidate_template_index(
                         expected_artifacts.append(evidence_role)
             if entry.get("required_runtime_artifacts") != expected_artifacts:
                 issues.append(ValidationIssue(location, "required_runtime_artifacts must match selected evidence roles"))
+            memory_context_boundary = example_payload.get("memory_context_boundary")
+            expected_memory_context_boundary = (
+                memory_context_boundary if isinstance(memory_context_boundary, dict) else None
+            )
+            if entry.get("memory_context_boundary") != expected_memory_context_boundary:
+                issues.append(ValidationIssue(location, "memory_context_boundary must match the source evidence example"))
             review_posture = example_payload.get("review_posture")
             expected_review_required = bool(
                 isinstance(review_posture, dict) and review_posture.get("human_review_required") is True

@@ -6,8 +6,8 @@ This part owns generated reader surfaces for runtime-evidence candidates.
 
 The readers are derived from selected evidence packet examples and
 artifact-to-verdict hook examples so future review can see candidate templates,
-required runtime artifacts, runtime policy boundary metadata, review guides,
-and owner-review refs.
+required runtime artifacts, runtime policy boundary metadata, memory context
+boundary metadata, review guides, and owner-review refs.
 
 ## Source Surfaces
 
@@ -24,13 +24,16 @@ and owner-review refs.
 - artifact-to-verdict hook examples from audit and mechanic-local hook routes;
 - review-guide refs, owner-review refs, candidate eval refs, and support refs
   carried by those examples.
+- memory-context boundary fields carried by memo recall, contradiction, and
+  writeback selected-evidence examples.
 
 ## Outputs
 
 - `runtime_candidate_template_index.min.json`;
 - `runtime_candidate_intake.min.json`;
 - generated navigation records that route future reviewers back to source
-  examples, schemas, policy boundary metadata, and bundle-local review surfaces.
+  examples, schemas, policy or memory boundary metadata, and bundle-local
+  review surfaces.
 
 ## Stronger Owner Split
 
@@ -51,6 +54,7 @@ validation lane.
 | --- | --- |
 | generated reader content needs to change | edit the source example, schema, or builder, then regenerate through `parts/AGENTS.md` |
 | reader inclusion is treated as proof acceptance | route to bundle-local review before any proof read |
+| memory-context metadata is missing or treated as authority | restore the selected-evidence source example and rebuild the reader; memory authority remains in `aoa-memo` |
 | generated navigation conflicts with source examples, schemas, or eval contracts | follow the source surface and rebuild the reader |
 
 ## Validation

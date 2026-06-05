@@ -37,6 +37,13 @@ boundary-bridge matrices are projections. Generated validators may rebuild
 expected payloads from source and compare parity. They do not define what an
 eval proves.
 
+Memo-shaped runtime evidence selection packets must carry a
+`memory_context_boundary`. The selected-evidence source example owns the
+boundary fields; runtime-candidate readers project them so recall,
+contradiction, freshness, retention, permission, and writeback pressure stays
+visible without turning memory context into proof authority, action
+authorization, source truth, or a local memo port.
+
 ## Validator Modules
 
 `scripts/validate_repo.py` remains the repo-wide compatibility entrypoint while

@@ -27,6 +27,8 @@ environment invariants, and overread-routing notes.
 
 - schema-backed `runtime_evidence_selection.*.example.json` packets;
 - selected evidence routes for candidate readers;
+- runtime-degradation sidecars that explicitly pair fallback evidence with a
+  trace/eval bridge hook before any behavior reading;
 - owner-review refs that a later bundle-local review must inspect;
 - explicit rejection posture for raw, private, or overbroad runtime evidence.
 
@@ -44,12 +46,17 @@ Selected evidence starts as a candidate packet. Bundle-local review decides how
 the owning eval may read it, while the runtime or sibling owner keeps source
 truth.
 
+Degradation and fallback packets remain weaker sidecar evidence: they can prove
+selection hygiene and pairing to a trace/eval bridge, but not live runtime
+health, final eval verdicts, or runtime-owner closeout.
+
 ## Stop-Lines
 
 | Pressure | Route |
 | --- | --- |
 | raw logs, secrets, private host fingerprints, or unreduced operator traces appear | keep them with the source owner or curate a public-safe packet first |
 | a selected packet is read as runtime health, proof acceptance, or bundle promotion | send the read to runtime-owner review and bundle-local eval review |
+| degradation/fallback sidecar evidence is used without its paired trace/eval hook and bridge doc | restore the pairing before treating the packet as route-visible behavior evidence |
 | packet wording conflicts with a source bundle, runtime owner, or sibling owner | follow the stronger owner surface before using the packet as evidence |
 
 ## Validation

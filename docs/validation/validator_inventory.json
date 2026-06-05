@@ -269,11 +269,11 @@
       "layer": "runtime evidence selection packet boundary",
       "mode": "blocking",
       "owner_surface": "mechanics/audit/parts/selected-evidence-packets/README.md",
-      "source_truth": ["mechanics/audit/parts/selected-evidence-packets/schemas/runtime-evidence-selection.schema.json", "mechanics/audit/parts/selected-evidence-packets/examples"],
-      "input": ["runtime evidence selection schema and examples", "source eval records", "abyss-stack ref resolution context"],
-      "output": ["runtime evidence selection schema, candidate eval, and abyss-stack ref issues"],
+      "source_truth": ["mechanics/audit/parts/selected-evidence-packets/schemas/runtime-evidence-selection.schema.json", "mechanics/audit/parts/selected-evidence-packets/examples", "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json", "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md"],
+      "input": ["runtime evidence selection schema and examples", "source eval records", "abyss-stack ref resolution context", "paired trace/eval chaos hook", "runtime chaos bridge doc"],
+      "output": ["runtime evidence selection schema, candidate eval, abyss-stack ref, and runtime-chaos degradation pairing issues"],
       "command_sequences": ["source_fast", "release_check"],
-      "failure_route": "Fix the selected-evidence packet schema/example, candidate eval refs, or abyss-stack refs; runtime activation and proof-canon acceptance remain outside selected-evidence validation.",
+      "failure_route": "Fix the selected-evidence packet schema/example, candidate eval refs, abyss-stack refs, paired trace/eval hook, or runtime chaos bridge doc; runtime activation, live runtime health truth, eval verdict replacement, and proof-canon acceptance remain outside selected-evidence validation.",
       "disposition": "add"
     },
     {

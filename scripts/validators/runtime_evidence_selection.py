@@ -10,6 +10,7 @@ from jsonschema import Draft202012Validator
 from validators.common import (
     ValidationIssue,
     load_json_payload,
+    read_text_or_issue,
     relative_location,
     validate_against_schema,
     validate_inline_schema,
@@ -21,6 +22,12 @@ RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH = (
     "mechanics/audit/parts/selected-evidence-packets/schemas/runtime-evidence-selection.schema.json"
 )
 RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR = "mechanics/audit/parts/selected-evidence-packets/examples"
+TRACE_EVAL_BRIDGE_CHAOS_DOC_NAME = (
+    "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md"
+)
+TRACE_INTEGRITY_CHAOS_HOOK_NAME = (
+    "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json"
+)
 RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
     "runtime_evidence_selection.workhorse-local.example.json": {
         "target_eval": None,
@@ -57,8 +64,183 @@ RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
         "source_schema_ref": "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/schemas/service-degradation-receipt.schema.json",
         "candidate_eval_refs": ["candidate:aoa-stress-recovery-window"],
         "allowed_ref_roots": ["mechanics"],
+        "required_bounded_claim_tokens": [
+            "operator-visible containment",
+            "blocked repair fan-out",
+            "explicit degraded continuation",
+            "reviewed closeout posture",
+            "recovery-legibility evidence only",
+        ],
+        "required_environment_invariant_tokens": [
+            "same bounded runtime owner repo: abyss-stack",
+            "selected evidence only, no raw live logs or rendered config snapshots",
+            "reviewed closeout remains required before stronger claims",
+        ],
+        "required_do_not_overread_tokens": [
+            "does not prove global runtime health",
+            "does not replace an eval verdict",
+            "does not turn example packets into live operations truth",
+        ],
+        "required_evidence_roles": [
+            "summary",
+            "case-breakdown",
+            "environment-note",
+            "integrity-sidecar",
+        ],
+        "required_artifact_ref_fragments": [
+            "degradation-receipts/examples/service-degradation-receipt.",
+            "repair-safe-closeout/examples/repair-safe-closeout-receipt.",
+        ],
+        "paired_trace_hook": {
+            "path": TRACE_INTEGRITY_CHAOS_HOOK_NAME,
+            "hook_id": "trace-integrity-chaos",
+            "playbook_id": "AOA-P-0032",
+            "eval_anchor": "aoa-witness-trace-integrity",
+            "verification_surface": "proof_handoff_candidate",
+            "required_contract_refs": [
+                "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/schemas/service-degradation-receipt.schema.json",
+                "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md",
+            ],
+        },
+        "bridge_doc": {
+            "path": TRACE_EVAL_BRIDGE_CHAOS_DOC_NAME,
+            "required_tokens": [
+                "../examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json",
+                "../../selected-evidence-packets/examples/runtime_evidence_selection.runtime-chaos-window.example.json",
+                "weaker sidecar evidence",
+                "Live-log publication pressure stays with the runtime owner",
+                "health pressure routes to runtime review",
+                "Runtime-judge pressure routes to the runtime owner",
+            ],
+        },
     },
 }
+
+
+def _require_string_tokens(
+    *,
+    location: str,
+    value: Any,
+    field_name: str,
+    tokens: Sequence[str],
+    issues: list[ValidationIssue],
+) -> None:
+    if not isinstance(value, str):
+        issues.append(ValidationIssue(f"{location}.{field_name}", f"{field_name} must be a string"))
+        return
+    for token in tokens:
+        if token not in value:
+            issues.append(ValidationIssue(location, f"{field_name} must mention '{token}'"))
+
+
+def _require_list_tokens(
+    *,
+    location: str,
+    value: Any,
+    field_name: str,
+    tokens: Sequence[str],
+    issues: list[ValidationIssue],
+) -> None:
+    if not isinstance(value, list) or not all(isinstance(item, str) for item in value):
+        issues.append(ValidationIssue(f"{location}.{field_name}", f"{field_name} must be a string list"))
+        return
+    joined = "\n".join(value)
+    for token in tokens:
+        if token not in joined:
+            issues.append(ValidationIssue(location, f"{field_name} must mention '{token}'"))
+
+
+def _validate_runtime_degradation_pairing(
+    *,
+    repo_root: Path,
+    location: str,
+    payload: dict[str, Any],
+    expectations: dict[str, Any],
+    issues: list[ValidationIssue],
+) -> None:
+    _require_string_tokens(
+        location=location,
+        value=payload.get("bounded_claim"),
+        field_name="bounded_claim",
+        tokens=expectations.get("required_bounded_claim_tokens", ()),
+        issues=issues,
+    )
+    _require_list_tokens(
+        location=location,
+        value=payload.get("environment_invariants"),
+        field_name="environment_invariants",
+        tokens=expectations.get("required_environment_invariant_tokens", ()),
+        issues=issues,
+    )
+    _require_list_tokens(
+        location=location,
+        value=payload.get("do_not_overread"),
+        field_name="do_not_overread",
+        tokens=expectations.get("required_do_not_overread_tokens", ()),
+        issues=issues,
+    )
+
+    selected_evidence = payload.get("selected_evidence")
+    if isinstance(selected_evidence, list):
+        roles = [
+            item.get("evidence_role")
+            for item in selected_evidence
+            if isinstance(item, dict)
+        ]
+        for role in expectations.get("required_evidence_roles", ()):
+            if role not in roles:
+                issues.append(ValidationIssue(location, f"selected_evidence must include '{role}' evidence_role"))
+        if any(isinstance(item, dict) and item.get("summary_only") is not True for item in selected_evidence):
+            issues.append(ValidationIssue(location, "runtime degradation selected_evidence entries must stay summary_only"))
+        artifact_refs = [
+            item.get("artifact_ref")
+            for item in selected_evidence
+            if isinstance(item, dict) and isinstance(item.get("artifact_ref"), str)
+        ]
+        for fragment in expectations.get("required_artifact_ref_fragments", ()):
+            if not any(fragment in ref for ref in artifact_refs):
+                issues.append(ValidationIssue(location, f"selected_evidence artifact refs must include '{fragment}'"))
+
+    paired_hook = expectations.get("paired_trace_hook")
+    if isinstance(paired_hook, dict):
+        hook_path_name = paired_hook.get("path")
+        if isinstance(hook_path_name, str):
+            hook_path = repo_root / hook_path_name
+            hook_location = relative_location(hook_path, repo_root)
+            hook_payload = load_json_payload(hook_path, issues, root=repo_root)
+            if isinstance(hook_payload, dict):
+                for field_name in ("hook_id", "playbook_id", "eval_anchor", "verification_surface"):
+                    expected_value = paired_hook.get(field_name)
+                    if hook_payload.get(field_name) != expected_value:
+                        issues.append(
+                            ValidationIssue(
+                                hook_location,
+                                f"{field_name} must equal '{expected_value}' for runtime degradation pairing",
+                            )
+                        )
+                contract_refs = hook_payload.get("artifact_contract_refs")
+                if not isinstance(contract_refs, list):
+                    issues.append(ValidationIssue(f"{hook_location}.artifact_contract_refs", "artifact_contract_refs must be a list"))
+                else:
+                    for required_ref in paired_hook.get("required_contract_refs", ()):
+                        if required_ref not in contract_refs:
+                            issues.append(
+                                ValidationIssue(
+                                    hook_location,
+                                    f"artifact_contract_refs must include '{required_ref}'",
+                                )
+                            )
+
+    bridge_doc = expectations.get("bridge_doc")
+    if isinstance(bridge_doc, dict):
+        doc_path_name = bridge_doc.get("path")
+        if isinstance(doc_path_name, str):
+            doc_path = repo_root / doc_path_name
+            doc_text = read_text_or_issue(doc_path, issues, root=repo_root)
+            doc_location = relative_location(doc_path, repo_root)
+            for token in bridge_doc.get("required_tokens", ()):
+                if token not in doc_text:
+                    issues.append(ValidationIssue(doc_location, f"bridge doc must mention '{token}'"))
 
 
 def validate_runtime_evidence_selection_surfaces(
@@ -114,6 +296,9 @@ def validate_runtime_evidence_selection_surfaces(
             issues=issues,
             validator=schema_validator,
         )
+
+        if target_eval is not None and payload.get("target_eval") != target_eval:
+            issues.append(ValidationIssue(location, f"target_eval must equal '{target_eval}'"))
 
         expected_schema_ref = expectations["source_schema_ref"]
         if payload.get("source_schema_ref") != expected_schema_ref:
@@ -186,6 +371,15 @@ def validate_runtime_evidence_selection_surfaces(
                 item.get("artifact_ref"),
                 allowed_roots=allowed_ref_roots,
                 location=f"{item_location}.artifact_ref",
+                issues=issues,
+            )
+
+        if expectations.get("paired_trace_hook"):
+            _validate_runtime_degradation_pairing(
+                repo_root=repo_root,
+                location=location,
+                payload=payload,
+                expectations=expectations,
                 issues=issues,
             )
 

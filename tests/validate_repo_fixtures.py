@@ -1369,6 +1369,7 @@ def write_runtime_evidence_selection_example(
             "promotion_target": {"type": "string", "enum": ["local-only", "evidence-sidecar", "bundle-candidate"]},
             "comparison_mode": {"type": "string", "enum": ["none", "fixed-baseline", "peer-compare", "longitudinal-window"]},
             "candidate_eval_refs": {"type": "array", "items": {"type": "string"}},
+            "target_eval": {"type": "string"},
             "selected_evidence": {
               "type": "array",
               "minItems": 1,
@@ -1415,6 +1416,7 @@ def write_runtime_evidence_selection_example(
                 "bounded_claim": "Bounded return-aware runtime evidence can support anchor-fidelity reading without becoming a final-quality claim.",
                 "promotion_target": "evidence-sidecar",
                 "comparison_mode": "none",
+                "target_eval": "aoa-return-anchor-integrity",
                 "candidate_eval_refs": candidate_eval_refs,
                 "selected_evidence": [
                     {

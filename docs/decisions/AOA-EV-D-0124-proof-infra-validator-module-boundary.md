@@ -3,7 +3,8 @@
 - Decision ID: AOA-EV-D-0124
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/proof_infra.py`, `mechanics/proof-infra/`
+- Historical owner surface: `scripts/validators/proof_infra.py`, `mechanics/proof-infra/`
+- Refined by: AOA-EV-D-0201
 
 ## Index Metadata
 
@@ -78,7 +79,10 @@ As of 2026-06-03:
   entrypoint.
 - Changed: proof-infra route and shared support checks now have a focused
   validator module.
-- Superseded by: none.
+- Further changed on 2026-06-04: AOA-EV-D-0201 removes
+  `scripts/validators/proof_infra.py`; active proof-infra validation is split
+  across route, shared-support, and helper modules.
+- Superseded by: AOA-EV-D-0201 for the aggregate module shape.
 
 ## Boundaries
 
@@ -92,6 +96,7 @@ It does not move generated catalog projection ownership into proof-infra.
 
 ## Validation
 
+- `python -m py_compile scripts/validators/proof_infra_common.py scripts/validators/proof_infra_routes.py scripts/validators/proof_infra_shared_support.py scripts/validators/mechanics_routes.py scripts/validators/source_eval_domains.py scripts/validators/source_eval_fixture_contracts.py scripts/validators/source_eval_runner_contracts.py tests/test_mechanic_surface_contracts.py`
 - `python -m pytest -q tests/test_mechanic_surface_contracts.py -k proof_infra`
 - `python -m pytest -q mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py`
 - `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`

@@ -11,7 +11,9 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import validate_repo
-from validators import mechanic_parts as mechanic_parts_validator
+from validators import mechanic_part_readme_contract as mechanic_parts_validator
+from validators import mechanic_part_contract_common as mechanic_part_contract_common
+from validators import mechanic_part_source_surfaces as mechanic_part_source_surfaces_validator
 
 
 def write_text(path: Path, content: str) -> None:
@@ -177,9 +179,9 @@ def test_mechanic_part_payload_inventory_validates_current_routes() -> None:
 def test_mechanic_part_payload_inventory_rejects_active_decision_command_list(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, mechanic_parts_validator.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME)
-    copy_repo_text(tmp_path, mechanic_parts_validator.MECHANICS_AGENTS_NAME)
-    decision_path = tmp_path / mechanic_parts_validator.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
+    copy_repo_text(tmp_path, mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME)
+    copy_repo_text(tmp_path, mechanic_part_contract_common.MECHANICS_AGENTS_NAME)
+    decision_path = tmp_path / mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
     decision_path.write_text(
         decision_path.read_text(encoding="utf-8").replace(
             "## Validation\n\nUse",
@@ -192,7 +194,7 @@ def test_mechanic_part_payload_inventory_rejects_active_decision_command_list(
     issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
 
     assert any(
-        issue.location == mechanic_parts_validator.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
+        issue.location == mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
         and "mechanics/AGENTS.md#validation" in issue.message
         for issue in issues
     )
@@ -281,21 +283,21 @@ def test_mechanic_part_source_surface_refs_allow_explicit_nonlocal_routes(
     )
 
     assert (
-        mechanic_parts_validator.source_surface_ref_resolution_issue(
+        mechanic_part_source_surfaces_validator.source_surface_ref_resolution_issue(
             tmp_path,
             "mechanics/agon/parts/new-proof/docs/*.md",
         )
         is None
     )
     assert (
-        mechanic_parts_validator.source_surface_ref_resolution_issue(
+        mechanic_part_source_surfaces_validator.source_surface_ref_resolution_issue(
             tmp_path,
             "repo:aoa-playbooks/generated/phase_alpha_run_matrix.min.json",
         )
         is None
     )
     assert (
-        mechanic_parts_validator.source_surface_ref_resolution_issue(
+        mechanic_part_source_surfaces_validator.source_surface_ref_resolution_issue(
             tmp_path,
             "quests/<lane>/<state>/AOA-EV-Q-*.yaml",
         )

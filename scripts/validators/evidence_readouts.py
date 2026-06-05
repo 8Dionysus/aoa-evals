@@ -6,18 +6,37 @@ from pathlib import Path
 from typing import Any, Sequence
 
 import eval_catalog_contract
+import eval_capsule_contract
+import eval_comparison_spine_contract
 
 from validators import (
-    generated_parity,
-    phase_alpha_matrix as phase_alpha_matrix_validator,
-    publication_receipts as publication_receipts_validator,
-    release_support as release_support_validator,
+    generated_eval_capsules as generated_capsules,
+    generated_eval_catalogs as generated_catalogs,
+    generated_eval_comparison_spine as generated_comparison_spine,
+    generated_eval_readmodel_common as generated_readmodel_common,
+    generated_eval_sections as generated_sections,
+    phase_alpha_matrix_projection as phase_alpha_matrix_projection_validator,
+    phase_alpha_matrix_sibling_compat as phase_alpha_matrix_sibling_compat_validator,
+    publication_receipts_intake_artifact as publication_receipts_intake_artifact_validator,
+    publication_receipts_intake_boundary as publication_receipts_intake_boundary_validator,
+    publication_receipts_intake_preview as publication_receipts_intake_preview_validator,
+    publication_receipts_intake_route as publication_receipts_intake_route_validator,
+    publication_receipts_live as publication_receipts_live_validator,
+    publication_receipts_payload as publication_receipts_payload_validator,
+    release_support_pr_handoff_report as release_support_pr_handoff_report_validator,
+    release_support_readiness_report as release_support_readiness_report_validator,
+    release_support_strategic_closeout_report as release_support_strategic_closeout_report_validator,
     report_index as report_index_validator,
     root_context,
-    runtime_audit as runtime_audit_validator,
-    runtime_candidates as runtime_candidates_validator,
-    source_eval_contracts as source_eval_contracts_validator,
-    titan as titan_validator,
+    runtime_audit_common as runtime_audit_common_validator,
+    runtime_candidate_intake as runtime_candidate_intake_validator,
+    runtime_candidate_template_index as runtime_candidate_template_index_validator,
+    runtime_evidence_selection as runtime_evidence_selection_validator,
+    runtime_integrity_review_docs as runtime_integrity_review_docs_validator,
+    runtime_integrity_review_example as runtime_integrity_review_example_validator,
+    runtime_integrity_review_schema as runtime_integrity_review_schema_validator,
+    runtime_trace_eval_bridge as runtime_trace_eval_bridge_validator,
+    titan_canary as titan_canary_validator,
 )
 from validators.common import ValidationIssue
 
@@ -38,8 +57,8 @@ def read_json_file(path: Path, issues: list[ValidationIssue], repo_root: Path) -
     return payload
 
 
-def runtime_audit_context() -> runtime_audit_validator.RuntimeAuditContext:
-    return runtime_audit_validator.RuntimeAuditContext(
+def runtime_audit_context() -> runtime_audit_common_validator.RuntimeAuditContext:
+    return runtime_audit_common_validator.RuntimeAuditContext(
         agents_of_abyss_root=root_context.AGENTS_OF_ABYSS_ROOT,
         abyss_stack_root=root_context.ABYSS_STACK_ROOT,
         aoa_playbooks_root=root_context.AOA_PLAYBOOKS_ROOT,
@@ -51,13 +70,13 @@ def runtime_audit_context() -> runtime_audit_validator.RuntimeAuditContext:
     )
 
 
-def generated_read_model_context() -> generated_parity.GeneratedReadModelContext:
-    return generated_parity.GeneratedReadModelContext(
-        build_catalog_payloads=source_eval_contracts_validator.build_catalog_payloads,
-        build_capsule_payload=source_eval_contracts_validator.build_capsule_payload,
-        build_comparison_spine_payload=source_eval_contracts_validator.build_comparison_spine_payload,
-        full_catalog_entry=source_eval_contracts_validator.full_catalog_entry,
-        project_min_catalog=source_eval_contracts_validator.project_min_catalog,
+def generated_read_model_context() -> generated_readmodel_common.GeneratedReadModelContext:
+    return generated_readmodel_common.GeneratedReadModelContext(
+        build_catalog_payloads=eval_catalog_contract.build_catalog_payloads,
+        build_capsule_payload=eval_capsule_contract.build_capsule_payload,
+        build_comparison_spine_payload=eval_comparison_spine_contract.build_comparison_spine_payload,
+        full_catalog_entry=eval_catalog_contract.full_catalog_entry,
+        project_min_catalog=eval_catalog_contract.project_min_catalog,
         read_json_file=read_json_file,
     )
 
@@ -74,7 +93,7 @@ def validate_repo_wide_readout_surfaces(
 
     issues.extend(
         _module_issues(
-            runtime_audit_validator.validate_trace_eval_bridge_surfaces(
+            runtime_trace_eval_bridge_validator.validate_trace_eval_bridge_surfaces(
                 repo_root,
                 records,
                 context=runtime_context,
@@ -83,15 +102,27 @@ def validate_repo_wide_readout_surfaces(
     )
     issues.extend(
         _module_issues(
-            runtime_audit_validator.validate_runtime_integrity_review_surface(
+            runtime_integrity_review_docs_validator.validate_runtime_integrity_review_doc_surfaces(
+                repo_root
+            )
+        )
+    )
+    schema_validation = runtime_integrity_review_schema_validator.runtime_integrity_review_schema_validation(
+        repo_root
+    )
+    issues.extend(_module_issues(schema_validation.issues))
+    issues.extend(
+        _module_issues(
+            runtime_integrity_review_example_validator.validate_runtime_integrity_review_example_surface(
                 repo_root,
                 context=runtime_context,
+                schema_validator=schema_validation.validator,
             )
         )
     )
     issues.extend(
         _module_issues(
-            publication_receipts_validator.validate_eval_result_receipt_surfaces(
+            publication_receipts_payload_validator.validate_eval_result_receipt_surfaces(
                 repo_root,
                 aoa_stats_root=root_context.AOA_STATS_ROOT,
                 repo_ref_roots=repo_ref_roots,
@@ -101,16 +132,58 @@ def validate_repo_wide_readout_surfaces(
     )
     issues.extend(
         _module_issues(
-            publication_receipts_validator.validate_receipt_intake_dry_review_surface(
+            publication_receipts_intake_route_validator.validate_receipt_intake_route_surfaces(repo_root)
+        )
+    )
+    issues.extend(
+        _module_issues(
+            publication_receipts_intake_artifact_validator.validate_receipt_intake_artifact_surface(repo_root)
+        )
+    )
+    issues.extend(
+        _module_issues(
+            publication_receipts_intake_preview_validator.validate_receipt_intake_candidate_preview_surface(
+                repo_root, fallback_repo_root=root_context.REPO_ROOT
+            )
+        )
+    )
+    issues.extend(
+        _module_issues(
+            publication_receipts_intake_boundary_validator.validate_receipt_intake_boundary_surface(repo_root)
+        )
+    )
+    issues.extend(
+        _module_issues(
+            release_support_readiness_report_validator.validate_release_support_readiness_audit_surface(
+                repo_root,
+                repo_ref_roots=repo_ref_roots,
+                strict_sibling_compat=strict_sibling_compat,
+            )
+        )
+    )
+    issues.extend(
+        _module_issues(
+            release_support_strategic_closeout_report_validator.validate_strategic_closeout_audit_surface(
+                repo_root,
+                repo_ref_roots=repo_ref_roots,
+                strict_sibling_compat=strict_sibling_compat,
+            )
+        )
+    )
+    issues.extend(
+        _module_issues(
+            release_support_pr_handoff_report_validator.validate_release_prep_pr_handoff_surface(
+                repo_root,
+                repo_ref_roots=repo_ref_roots,
+                strict_sibling_compat=strict_sibling_compat,
+            )
+        )
+    )
+    issues.extend(
+        _module_issues(
+            publication_receipts_live_validator.validate_live_receipt_log(
                 repo_root,
                 fallback_repo_root=root_context.REPO_ROOT,
-            )
-        )
-    )
-    issues.extend(
-        _module_issues(
-            release_support_validator.validate_release_support_readiness_audit_surface(
-                repo_root,
                 repo_ref_roots=repo_ref_roots,
                 strict_sibling_compat=strict_sibling_compat,
             )
@@ -118,35 +191,7 @@ def validate_repo_wide_readout_surfaces(
     )
     issues.extend(
         _module_issues(
-            release_support_validator.validate_strategic_closeout_audit_surface(
-                repo_root,
-                repo_ref_roots=repo_ref_roots,
-                strict_sibling_compat=strict_sibling_compat,
-            )
-        )
-    )
-    issues.extend(
-        _module_issues(
-            release_support_validator.validate_release_prep_pr_handoff_surface(
-                repo_root,
-                repo_ref_roots=repo_ref_roots,
-                strict_sibling_compat=strict_sibling_compat,
-            )
-        )
-    )
-    issues.extend(
-        _module_issues(
-            publication_receipts_validator.validate_live_receipt_log(
-                repo_root,
-                fallback_repo_root=root_context.REPO_ROOT,
-                repo_ref_roots=repo_ref_roots,
-                strict_sibling_compat=strict_sibling_compat,
-            )
-        )
-    )
-    issues.extend(
-        _module_issues(
-            runtime_audit_validator.validate_runtime_evidence_selection_surfaces(
+            runtime_evidence_selection_validator.validate_runtime_evidence_selection_surfaces(
                 repo_root,
                 records,
                 context=runtime_context,
@@ -155,17 +200,17 @@ def validate_repo_wide_readout_surfaces(
     )
     issues.extend(
         _module_issues(
-            runtime_candidates_validator.validate_runtime_candidate_template_index(
+            runtime_candidate_template_index_validator.validate_runtime_candidate_template_index(
                 repo_root,
-                builder_loader=runtime_candidates_validator.load_runtime_candidate_template_index_builder,
+                builder_loader=runtime_candidate_template_index_validator.load_runtime_candidate_template_index_builder,
             )
         )
     )
     issues.extend(
         _module_issues(
-            runtime_candidates_validator.validate_runtime_candidate_intake(
+            runtime_candidate_intake_validator.validate_runtime_candidate_intake(
                 repo_root,
-                builder_loader=runtime_candidates_validator.load_runtime_candidate_intake_builder,
+                builder_loader=runtime_candidate_intake_validator.load_runtime_candidate_intake_builder,
             )
         )
     )
@@ -179,20 +224,27 @@ def validate_repo_wide_readout_surfaces(
     )
     issues.extend(
         _module_issues(
-            phase_alpha_matrix_validator.validate_phase_alpha_eval_matrix(
+            phase_alpha_matrix_projection_validator.validate_phase_alpha_matrix_projection(
+                repo_root
+            )
+        )
+    )
+    issues.extend(
+        _module_issues(
+            phase_alpha_matrix_sibling_compat_validator.validate_phase_alpha_matrix_sibling_compat(
                 repo_root,
                 sibling_root=root_context.AOA_PLAYBOOKS_ROOT,
                 repo_ref_roots=repo_ref_roots,
                 strict_sibling_compat=strict_sibling_compat,
                 visible_roots=root_context.VISIBLE_ROOTS,
-                builder_loader=phase_alpha_matrix_validator.load_phase_alpha_eval_matrix_builder,
+                builder_loader=phase_alpha_matrix_sibling_compat_validator.load_phase_alpha_eval_matrix_builder,
             )
         )
     )
-    issues.extend(_module_issues(titan_validator.validate_titan_canary_surfaces(repo_root)))
+    issues.extend(_module_issues(titan_canary_validator.validate_titan_canary_surfaces(repo_root)))
     issues.extend(
         _module_issues(
-            generated_parity.validate_generated_catalogs(
+            generated_catalogs.validate_generated_catalogs(
                 repo_root,
                 records,
                 context=generated_context,
@@ -201,7 +253,7 @@ def validate_repo_wide_readout_surfaces(
     )
     issues.extend(
         _module_issues(
-            generated_parity.validate_generated_capsules(
+            generated_capsules.validate_generated_capsules(
                 repo_root,
                 records,
                 context=generated_context,
@@ -210,7 +262,7 @@ def validate_repo_wide_readout_surfaces(
     )
     issues.extend(
         _module_issues(
-            generated_parity.validate_generated_sections(
+            generated_sections.validate_generated_sections(
                 repo_root,
                 records,
                 context=generated_context,
@@ -219,7 +271,7 @@ def validate_repo_wide_readout_surfaces(
     )
     issues.extend(
         _module_issues(
-            generated_parity.validate_generated_comparison_spine(
+            generated_comparison_spine.validate_generated_comparison_spine(
                 repo_root,
                 records,
                 context=generated_context,
@@ -240,7 +292,7 @@ def validate_target_eval_readout_surfaces(
     generated_context = generated_read_model_context()
     issues.extend(
         _module_issues(
-            runtime_audit_validator.validate_runtime_evidence_selection_surfaces(
+            runtime_evidence_selection_validator.validate_runtime_evidence_selection_surfaces(
                 repo_root,
                 records,
                 context=runtime_context,
@@ -250,7 +302,7 @@ def validate_target_eval_readout_surfaces(
     )
     issues.extend(
         _module_issues(
-            generated_parity.validate_generated_catalogs(
+            generated_catalogs.validate_generated_catalogs(
                 repo_root,
                 records,
                 context=generated_context,
@@ -260,7 +312,7 @@ def validate_target_eval_readout_surfaces(
     )
     issues.extend(
         _module_issues(
-            generated_parity.validate_generated_capsules(
+            generated_capsules.validate_generated_capsules(
                 repo_root,
                 records,
                 context=generated_context,
@@ -270,7 +322,7 @@ def validate_target_eval_readout_surfaces(
     )
     issues.extend(
         _module_issues(
-            generated_parity.validate_generated_sections(
+            generated_sections.validate_generated_sections(
                 repo_root,
                 records,
                 context=generated_context,
@@ -280,7 +332,7 @@ def validate_target_eval_readout_surfaces(
     )
     issues.extend(
         _module_issues(
-            generated_parity.validate_generated_comparison_spine(
+            generated_comparison_spine.validate_generated_comparison_spine(
                 repo_root,
                 records,
                 context=generated_context,

@@ -56,11 +56,11 @@ def copy_root_authored_classification_surface(repo_root: Path) -> None:
             copy_repo_text(repo_root, f"{district_name}/{file_name}")
 
 
-def test_mechanics_root_surfaces_validate_current_routes() -> None:
-    assert mechanics_validator.validate_mechanics_root_surfaces(REPO_ROOT) == []
+def test_mechanics_root_route_surfaces_validate_current_routes() -> None:
+    assert mechanics_validator.validate_mechanics_root_route_surfaces(REPO_ROOT) == []
 
 
-def test_mechanics_root_surfaces_reject_missing_operation_atlas_token(
+def test_mechanics_root_route_surfaces_reject_missing_operation_atlas_token(
     tmp_path: Path,
 ) -> None:
     copy_mechanics_root_surface(tmp_path)
@@ -73,7 +73,7 @@ def test_mechanics_root_surfaces_reject_missing_operation_atlas_token(
         encoding="utf-8",
     )
 
-    issues = mechanics_validator.validate_mechanics_root_surfaces(tmp_path)
+    issues = mechanics_validator.validate_mechanics_root_route_surfaces(tmp_path)
 
     assert any(
         issue.location == mechanics_validator.MECHANICS_README_NAME

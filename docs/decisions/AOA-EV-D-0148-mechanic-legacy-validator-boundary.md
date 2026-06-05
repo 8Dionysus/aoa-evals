@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0148
 - Status: Accepted
 - Date: 2026-06-04
-- Owner surface: `scripts/validators/mechanic_legacy.py`, mechanic legacy/provenance boundary guard family
+- Owner surface: mechanic legacy/provenance boundary guard family
 
 ## Index Metadata
 
@@ -75,7 +75,25 @@ As of 2026-06-04:
   `PROVENANCE.md` and archive-local legacy entry surfaces.
 - Changed: mechanic legacy/provenance checks moved from
   `scripts/validate_repo.py` to `scripts/validators/mechanic_legacy.py`.
-- Superseded by: none.
+- Superseded by: AOA-EV-D-0186 for the split into focused archive,
+  provenance-bridge, active-wording, and helper modules.
+
+## Review Log
+
+### 2026-06-04 - Focused legacy/provenance split
+
+- Previous assumption: one `mechanic_legacy.py` module could own skeleton,
+  archive route language, raw payload accounting, PROVENANCE bridge posture,
+  provenance entry checks, single-bridge restrictions, and active legacy parent
+  wording.
+- New reality: those are adjacent but distinct boundaries. Archive skeleton and
+  raw accounting belong to `mechanic_legacy_archive.py`; active-to-archive
+  bridge posture belongs to `mechanic_provenance_bridge.py`; former legacy
+  parent wording belongs to `active_legacy_parent_wording.py`; shared constants
+  and token lookup belong to `mechanic_legacy_common.py`.
+- Reason: preserving a single broad validator would turn the legacy boundary
+  into another historical bucket.
+- Superseded by: AOA-EV-D-0186.
 
 ## Boundaries
 
@@ -88,5 +106,5 @@ stays in `legacy/`.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/mechanic_legacy.py`
+- `python -m py_compile scripts/validate_repo.py scripts/validators/mechanic_legacy_archive.py scripts/validators/mechanic_provenance_bridge.py scripts/validators/active_legacy_parent_wording.py scripts/validators/mechanic_legacy_common.py`
 - `python -m pytest -q tests/test_mechanic_legacy_bridge.py tests/test_mechanic_legacy_archive_routes.py tests/test_mechanic_parent_topology.py tests/test_mechanic_parent_direction.py`

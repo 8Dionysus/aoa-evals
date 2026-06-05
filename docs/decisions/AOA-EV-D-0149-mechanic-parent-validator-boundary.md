@@ -67,7 +67,7 @@ the historical memory of every mechanic-parent wave.
   parent route/guidance as a distinct source-fast boundary.
 - Follow-up: remaining root mechanics checks should split only when their
   boundary is not already covered by `mechanics.py`, `mechanic_parts.py`,
-  `mechanic_legacy.py`, or this module.
+  focused mechanic legacy/provenance validators, or this module.
 
 ## Current Applicability
 
@@ -76,8 +76,46 @@ As of 2026-06-04:
 - Still valid: mechanic parents must expose active route cards, current
   direction, allowlisted guidance, and lower parts indexes.
 - Changed: mechanic parent checks moved from `scripts/validate_repo.py` to
-  `scripts/validators/mechanic_parents.py`.
-- Superseded by: none.
+  `scripts/validators/mechanic_parents.py`; current-direction checks later
+  moved into `scripts/validators/mechanic_parent_direction.py`; the remaining
+  aggregate was removed under AOA-EV-D-0194.
+- Superseded by: AOA-EV-D-0177 for mechanic parent current-direction checks
+  and AOA-EV-D-0194 for the current focused allowlist, guidance, and index
+  boundaries.
+
+## Review Log
+
+### 2026-06-04 - Current-direction split
+
+- Previous assumption: `mechanic_parents.py` owned parent direction contracts
+  inline alongside allowlist, guidance docs, lower-index command hygiene, and
+  legacy path bans.
+- New reality: `mechanic_parents.py` delegates parent `DIRECTION.md`,
+  README/AGENTS direction-entry routes, stale route wording, and direction
+  decision checks to `scripts/validators/mechanic_parent_direction.py`.
+- Reason: current direction is a distinct source/topology boundary and should
+  not remain hidden inside the aggregate parent validator.
+- Source surfaces updated: `scripts/validators/mechanic_parents.py`,
+  `scripts/validators/mechanic_parent_common.py`,
+  `scripts/validators/mechanic_parent_direction.py`, validation inventories,
+  and mechanics residual classification.
+- Validation: see AOA-EV-D-0177.
+
+### 2026-06-04 - Aggregate removal
+
+- Previous assumption: `mechanic_parents.py` could remain as an aggregate
+  validator after direction moved out.
+- New reality: `mechanic_parents.py` no longer exists; allowlist, guidance,
+  index hygiene, and direction checks live in focused modules.
+- Reason: the aggregate was no longer an owner boundary and kept unlike parent
+  concerns behind one historical import path.
+- Source surfaces updated: `scripts/validators/mechanic_parent_allowlist.py`,
+  `scripts/validators/mechanic_parent_guidance.py`,
+  `scripts/validators/mechanic_parent_index.py`,
+  `scripts/validators/mechanic_parent_direction.py`,
+  `scripts/validators/mechanics_routes.py`, validation inventories, and
+  mechanics residual classification.
+- Validation: see AOA-EV-D-0194.
 
 ## Boundaries
 
@@ -89,7 +127,13 @@ It does not turn parent-level guidance docs into payload space.
 It does not make lower parts indexes command authority; executable validation
 still routes through the nearest `AGENTS.md`.
 
+Current-direction route checks live in
+`scripts/validators/mechanic_parent_direction.py`; allowlist checks live in
+`scripts/validators/mechanic_parent_allowlist.py`; guidance checks live in
+`scripts/validators/mechanic_parent_guidance.py`; index command-hygiene checks
+live in `scripts/validators/mechanic_parent_index.py`.
+
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/mechanic_parents.py`
+- `python -m py_compile scripts/validate_repo.py scripts/validators/mechanic_parent_allowlist.py scripts/validators/mechanic_parent_guidance.py scripts/validators/mechanic_parent_index.py scripts/validators/mechanic_parent_direction.py`
 - `python -m pytest -q tests/test_mechanic_parent_topology.py tests/test_mechanic_parent_direction.py tests/test_mechanic_parts_index.py`

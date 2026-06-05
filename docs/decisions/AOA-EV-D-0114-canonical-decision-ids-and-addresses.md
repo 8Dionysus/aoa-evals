@@ -108,8 +108,8 @@ As of 2026-05-26:
 - Reason: this makes decision refs easier to route from search, MCP packets,
   generated indexes, reviews, and cross-repo notes.
 - Source surfaces updated: `docs/decisions/`, generated decision indexes,
-  `docs/decisions/indexes/index_contract.yaml`, and
-  `scripts/validators/docs_decisions.py`.
+  `docs/decisions/indexes/index_contract.yaml`, and the decision-index
+  validator layer later split by AOA-EV-D-0218.
 - Validation: `python scripts/generate_decision_indexes.py --check`,
   focused tests for decision indexes, and semantic AGENTS validation.
 
@@ -127,7 +127,9 @@ receipt, runtime candidate, or sibling reference.
 
 ## Validation
 
-- `scripts/validators/docs_decisions.py` enforces canonical ID filename
-  prefixes, in-file decision IDs, original dates, and generated index parity.
+- `scripts/validators/decision_records.py` enforces canonical ID filename
+  prefixes, in-file decision IDs, and original dates.
+- `scripts/validators/decision_index_surfaces.py` enforces generated index
+  parity.
 - `docs/decisions/indexes/index_contract.yaml` names the active path policy.
 - Generated decision indexes route back to `AOA-EV-D-####-*.md` source notes.

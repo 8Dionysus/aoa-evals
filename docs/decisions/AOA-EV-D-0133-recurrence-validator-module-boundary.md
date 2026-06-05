@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0133
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/recurrence.py`, `mechanics/recurrence/`
+- Owner surface: Recurrence validator modules, `mechanics/recurrence/`
 
 ## Index Metadata
 
@@ -25,7 +25,8 @@ truth, or owner promotion.
 
 ## Decision
 
-Recurrence route validation lives in `scripts/validators/recurrence.py`.
+Recurrence route validation moved out of the root mechanics validator into a
+Recurrence-specific validator boundary.
 
 `scripts/validate_repo.py` delegates recurrence checks through
 `validate_recurrence_route_surfaces` and supplies a `RecurrenceRouteContext`
@@ -52,7 +53,7 @@ body.
   decision-token checks have one focused owner.
 - Positive: `validate_mechanics_surfaces` delegates one more active mechanic
   parent instead of retaining parent-specific token matrices.
-- Positive: tests import recurrence constants from the owner module directly.
+- Positive: tests import recurrence constants from the owner boundary directly.
 - Follow-up: Checkpoint, Experience, Antifragility, Method-growth, RPG,
   Growth-cycle, Distillation, Titan, and Agon can be split by the same
   owner-boundary rule when each route is handled deliberately.
@@ -63,9 +64,10 @@ As of 2026-06-03:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide command
   entrypoint.
-- Changed: recurrence route validation now lives in
-  `scripts/validators/recurrence.py`.
-- Superseded by: none.
+- Changed: AOA-EV-D-0227 split the former `scripts/validators/recurrence.py`
+  boundary into focused route, path-helper, and token-helper modules.
+- Superseded by: AOA-EV-D-0227 for module shape; still valid for why
+  recurrence validation is not owned by the root mechanics validator.
 
 ## Boundaries
 
@@ -78,7 +80,7 @@ helpers into recurrence.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/recurrence.py tests/test_mechanic_surface_contracts.py`
+- `python -m py_compile scripts/validate_repo.py scripts/validators/recurrence_routes.py scripts/validators/recurrence_route_paths.py scripts/validators/recurrence_route_tokens.py tests/test_mechanic_surface_contracts.py`
 - `python -m pytest -q tests/test_mechanic_surface_contracts.py -k recurrence`
 - `python scripts/generate_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py --check`

@@ -14,8 +14,8 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import validate_repo
+from validators import source_eval_report_longitudinal as source_eval_report_longitudinal_validator
 from validate_repo import run_validation
-from validators import source_eval_contracts as source_eval_contracts_validator
 from validate_repo_fixtures import (
     add_materialized_proof_artifacts,
     eval_dir_for_test,
@@ -110,16 +110,16 @@ def test_antifragility_schema_requires_non_empty_receipt_refs() -> None:
 
 
 def test_longitudinal_growth_overclaim_detection_requires_real_negation() -> None:
-    assert source_eval_contracts_validator.claim_boundary_overclaims_longitudinal_growth(
+    assert source_eval_report_longitudinal_validator.claim_boundary_overclaims_longitudinal_growth(
         "this report demonstrates broad capability growth rather than workflow-only movement"
     )
-    assert source_eval_contracts_validator.claim_boundary_overclaims_longitudinal_growth(
+    assert source_eval_report_longitudinal_validator.claim_boundary_overclaims_longitudinal_growth(
         "this report demonstrates broad capability growth even though it does not prove general capability growth"
     )
-    assert not source_eval_contracts_validator.claim_boundary_overclaims_longitudinal_growth(
+    assert not source_eval_report_longitudinal_validator.claim_boundary_overclaims_longitudinal_growth(
         "this report does not prove broad capability growth"
     )
-    assert not source_eval_contracts_validator.claim_boundary_overclaims_longitudinal_growth(
+    assert not source_eval_report_longitudinal_validator.claim_boundary_overclaims_longitudinal_growth(
         "broad capability growth is not proven here"
     )
 

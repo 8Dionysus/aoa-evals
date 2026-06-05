@@ -10,6 +10,9 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import validate_repo
+from validators import mechanic_evidence_dimensions as mechanic_evidence_dimensions_validator
+from validators import mechanic_evidence_route_refs as mechanic_evidence_route_refs_validator
+from validators import mechanic_parent_registry as mechanic_parent_registry_validator
 from validators import mechanics as mechanics_validator
 from validators import root_context
 
@@ -66,17 +69,17 @@ def test_mechanic_parent_class_sets_cover_allowed_parents() -> None:
 
 
 def test_mechanic_parent_class_map_validates_current_routes() -> None:
-    assert mechanics_validator.validate_mechanic_parent_class_map(REPO_ROOT) == []
+    assert mechanic_parent_registry_validator.validate_mechanic_parent_class_surfaces(REPO_ROOT) == []
 
 
 def test_mechanic_evidence_dimension_ledger_validates_current_routes() -> None:
-    issues = mechanics_validator.validate_mechanic_parent_class_map(REPO_ROOT)
+    issues = mechanic_evidence_dimensions_validator.validate_mechanic_evidence_dimension_ledger(REPO_ROOT)
 
     assert not any("evidence dimension ledger" in issue.message for issue in issues)
 
 
 def test_mechanic_evidence_route_refs_validate_current_routes() -> None:
-    issues = mechanics_validator.validate_mechanic_parent_class_map(REPO_ROOT)
+    issues = mechanic_evidence_route_refs_validator.validate_mechanic_evidence_route_refs(REPO_ROOT)
 
     assert not any("evidence route refs" in issue.message for issue in issues)
 
@@ -92,7 +95,7 @@ def test_mechanic_evidence_dimension_ledger_rejects_missing_parent_row(
     evidence_text = evidence_path.read_text(encoding="utf-8")
     evidence_path.write_text(evidence_text.replace(TITAN_DIMENSION_ROW, ""), encoding="utf-8")
 
-    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanic_evidence_dimensions_validator.validate_mechanic_evidence_dimension_ledger(tmp_path)
 
     assert any(
         issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
@@ -116,7 +119,7 @@ def test_mechanic_evidence_dimension_ledger_rejects_wrong_class(
         encoding="utf-8",
     )
 
-    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanic_evidence_dimensions_validator.validate_mechanic_evidence_dimension_ledger(tmp_path)
 
     assert any(
         issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
@@ -139,7 +142,7 @@ def test_mechanic_evidence_dimension_ledger_rejects_empty_dimension(
         encoding="utf-8",
     )
 
-    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanic_evidence_dimensions_validator.validate_mechanic_evidence_dimension_ledger(tmp_path)
 
     assert any(
         issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
@@ -162,7 +165,7 @@ def test_mechanic_evidence_route_refs_rejects_missing_path_refs(
         encoding="utf-8",
     )
 
-    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanic_evidence_route_refs_validator.validate_mechanic_evidence_route_refs(tmp_path)
 
     assert any(
         issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
@@ -185,7 +188,7 @@ def test_mechanic_evidence_route_refs_rejects_generic_root_validator_ref(
         encoding="utf-8",
     )
 
-    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanic_evidence_route_refs_validator.validate_mechanic_evidence_route_refs(tmp_path)
 
     assert any(
         issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
@@ -209,7 +212,7 @@ def test_mechanic_evidence_route_refs_rejects_decision_only_non_mechanics_ref(
         encoding="utf-8",
     )
 
-    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanic_evidence_route_refs_validator.validate_mechanic_evidence_route_refs(tmp_path)
 
     assert any(
         issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
@@ -234,7 +237,7 @@ def test_mechanic_evidence_route_refs_rejects_stale_path(
         encoding="utf-8",
     )
 
-    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanic_evidence_route_refs_validator.validate_mechanic_evidence_route_refs(tmp_path)
 
     assert any(
         issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
@@ -258,7 +261,7 @@ def test_mechanic_evidence_route_refs_rejects_mechanics_only_row(
         encoding="utf-8",
     )
 
-    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanic_evidence_route_refs_validator.validate_mechanic_evidence_route_refs(tmp_path)
 
     assert any(
         issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
@@ -285,7 +288,7 @@ def test_mechanic_parent_class_map_rejects_missing_owner_named_titan_boundary(
         encoding="utf-8",
     )
 
-    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanic_parent_registry_validator.validate_mechanic_parent_class_surfaces(tmp_path)
 
     assert any(
         issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
@@ -306,7 +309,7 @@ def test_mechanic_parent_class_map_rejects_misclassified_parent(
     )
     evidence_path.write_text(evidence_text, encoding="utf-8")
 
-    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanic_parent_registry_validator.validate_mechanic_parent_class_surfaces(tmp_path)
 
     assert any(
         issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
@@ -326,7 +329,7 @@ def test_mechanic_parent_class_map_rejects_missing_wrong_parent_mapping(
     )
     evidence_path.write_text(evidence_text, encoding="utf-8")
 
-    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanic_parent_registry_validator.validate_mechanic_parent_class_surfaces(tmp_path)
 
     assert any(
         issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
@@ -346,7 +349,7 @@ def test_mechanic_parent_class_map_rejects_plausible_parent_wording(
     )
     evidence_path.write_text(evidence_text, encoding="utf-8")
 
-    issues = mechanics_validator.validate_mechanic_parent_class_map(tmp_path)
+    issues = mechanic_parent_registry_validator.validate_mechanic_parent_class_surfaces(tmp_path)
 
     assert any(
         issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME

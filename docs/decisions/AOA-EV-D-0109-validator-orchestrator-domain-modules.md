@@ -39,7 +39,7 @@ protected.
 `scripts/validate_repo.py` now delegates focused contracts to:
 
 - `scripts/validators/artifact_hooks.py`
-- `scripts/validators/docs_decisions.py`
+- focused decision-index validator modules
 - `scripts/validators/docs_topology.py`
 - `scripts/validators/docs_routes.py`
 - `scripts/validators/mechanics.py`
@@ -86,6 +86,9 @@ As of 2026-05-25:
 - Changed: artifact-to-verdict hook contract refs now have a focused
   `scripts/validators/artifact_hooks.py` module instead of living only inside
   the root validator.
+- Changed: AOA-EV-D-0218 removes the decision-index validator aggregate and
+  keeps decision metadata parsing, index rendering, lane topology, and generated
+  parity in focused modules.
 - Changed: `Repo Validation` now pins `aoa-agents` to a public revision that
   contains the mechanics-owned artifact hook targets used by that module.
 - Superseded by: none.

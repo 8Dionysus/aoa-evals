@@ -6,10 +6,13 @@ from pathlib import Path
 from typing import Any, Sequence
 
 from validators import (
-    proof_infra as proof_infra_validator,
+    proof_infra_shared_support as proof_infra_validator,
     root_context,
-    source_doctrine as source_doctrine_validator,
-    source_eval_contracts as source_eval_contracts_validator,
+    source_artifact_process_doctrine as source_artifact_process_doctrine_validator,
+    source_comparison_doctrine as source_comparison_doctrine_validator,
+    source_eval_records as source_eval_records_validator,
+    source_integrity_taxonomy as source_integrity_taxonomy_validator,
+    source_repeated_window_doctrine as source_repeated_window_doctrine_validator,
 )
 from validators.common import ValidationIssue
 
@@ -37,14 +40,14 @@ def validate_source_eval_doctrine_surfaces(
     issues: list[ValidationIssue] = []
     issues.extend(
         _module_issues(
-            source_eval_contracts_validator.validate_source_eval_command_ownership(
+            source_eval_records_validator.validate_source_eval_command_ownership(
                 repo_root, records
             )
         )
     )
     issues.extend(
         _module_issues(
-            source_doctrine_validator.validate_comparison_doctrine_surfaces(
+            source_comparison_doctrine_validator.validate_comparison_doctrine_surfaces(
                 repo_root,
                 records,
                 selected_evals=selected_evals,
@@ -53,7 +56,7 @@ def validate_source_eval_doctrine_surfaces(
     )
     issues.extend(
         _module_issues(
-            source_doctrine_validator.validate_artifact_process_doctrine_surfaces(
+            source_artifact_process_doctrine_validator.validate_artifact_process_doctrine_surfaces(
                 repo_root,
                 records,
                 selected_evals=selected_evals,
@@ -62,7 +65,7 @@ def validate_source_eval_doctrine_surfaces(
     )
     issues.extend(
         _module_issues(
-            source_doctrine_validator.validate_repeated_window_doctrine_surfaces(
+            source_repeated_window_doctrine_validator.validate_repeated_window_doctrine_surfaces(
                 repo_root,
                 records,
                 selected_evals=selected_evals,
@@ -71,7 +74,7 @@ def validate_source_eval_doctrine_surfaces(
     )
     issues.extend(
         _module_issues(
-            source_doctrine_validator.validate_integrity_taxonomy_surfaces(
+            source_integrity_taxonomy_validator.validate_integrity_taxonomy_surfaces(
                 repo_root,
                 selected_evals=selected_evals,
             )

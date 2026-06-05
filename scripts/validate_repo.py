@@ -10,12 +10,17 @@ from typing import Any, Sequence
 
 import validate_nested_agents
 from validators import (
-    eval_bundles,
+    eval_entry_routes as eval_entry_routes_validator,
+    eval_starter_surfaces as eval_starter_surfaces_validator,
     evidence_readouts,
-    questbook as questbook_validator,
+    questbook_obligation_index as questbook_obligation_index_validator,
+    questbook_projection_parity as questbook_projection_parity_validator,
+    questbook_progression as questbook_progression_validator,
+    questbook_schema_lifecycle as questbook_schema_lifecycle_validator,
+    questbook_source_records as questbook_source_records_validator,
     root_context,
     root_topology as root_topology_validator,
-    source_eval_contracts as source_eval_contracts_validator,
+    source_eval_collection as source_eval_collection_validator,
     source_eval_domains,
 )
 from validators.common import ValidationIssue
@@ -51,20 +56,23 @@ def run_validation(
     if repo_root.resolve() == REPO_ROOT.resolve() and eval_name is None:
         issues.extend(root_topology_validator.validate_root_topology_surfaces(repo_root))
     source_evals_dir_exists = (
-        repo_root / source_eval_contracts_validator.SOURCE_EVALS_DIR_NAME
+        repo_root / source_eval_collection_validator.SOURCE_EVALS_DIR_NAME
     ).is_dir()
     try:
-        all_eval_names = source_eval_contracts_validator.discover_eval_names(repo_root)
+        all_eval_names = source_eval_collection_validator.discover_eval_names(repo_root)
     except FileNotFoundError:
         issues.append(
             ValidationIssue(
-                source_eval_contracts_validator.SOURCE_EVALS_DIR_NAME,
+                source_eval_collection_validator.SOURCE_EVALS_DIR_NAME,
                 "directory is missing",
             )
         )
         all_eval_names = []
     starter_issues: list[Any] = []
-    starter_names = eval_bundles.load_starter_eval_names(repo_root, starter_issues)
+    starter_names = eval_starter_surfaces_validator.load_starter_eval_names(
+        repo_root,
+        starter_issues,
+    )
     issues.extend(validator_module_issues(starter_issues))
     starter_set = set(starter_names)
 
@@ -80,7 +88,7 @@ def run_validation(
         selected_starter_evals = None
 
     if all_eval_names:
-        source_issues, records = source_eval_contracts_validator.collect_catalog_records(
+        source_issues, records = source_eval_collection_validator.collect_catalog_records(
             repo_root,
             target_evals,
             dependency_roots=source_eval_domains.source_eval_dependency_roots(),
@@ -92,7 +100,7 @@ def run_validation(
     if source_evals_dir_exists:
         issues.extend(
             validator_module_issues(
-                eval_bundles.validate_source_eval_entry_surfaces(
+                eval_entry_routes_validator.validate_source_eval_entry_surfaces(
                     repo_root,
                     starter_names=starter_names,
                     selected_evals=selected_evals,
@@ -111,7 +119,7 @@ def run_validation(
 
     if source_evals_dir_exists and eval_name is None and not source_issues:
         all_source_issues, all_records = (
-            source_eval_contracts_validator.collect_catalog_records(
+            source_eval_collection_validator.collect_catalog_records(
                 repo_root,
                 dependency_roots=source_eval_domains.source_eval_dependency_roots(),
             )
@@ -132,9 +140,42 @@ def run_validation(
             )
         )
 
+    quest_schema_validation = (
+        questbook_schema_lifecycle_validator.validate_quest_schema_lifecycle_surfaces(
+            repo_root
+        )
+    )
+    issues.extend(validator_module_issues(quest_schema_validation.issues))
+    quest_source_validation = (
+        questbook_source_records_validator.validate_quest_source_records(repo_root)
+    )
+    issues.extend(validator_module_issues(quest_source_validation.issues))
     issues.extend(
-        ValidationIssue(issue.location, issue.message)
-        for issue in questbook_validator.validate_questbook_surface(repo_root)
+        validator_module_issues(
+            questbook_obligation_index_validator.validate_questbook_obligation_index(
+                repo_root,
+                active_quest_ids=quest_source_validation.active_quest_ids,
+                closed_quest_ids=quest_source_validation.closed_quest_ids,
+                needs_orchestrator_alignment_doc=(
+                    quest_source_validation.needs_orchestrator_alignment_doc
+                ),
+            )
+        )
+    )
+    if quest_source_validation.unlock_proof_bridge_quest_present:
+        issues.extend(
+            validator_module_issues(
+                questbook_progression_validator.validate_unlock_proof_bridge_surface(
+                    repo_root
+                )
+            )
+        )
+    questbook_projection_parity_validator.validate_generated_quest_projection_surfaces(
+        repo_root,
+        valid_quest_ids=quest_source_validation.valid_quest_ids,
+        expected_catalog_entries=quest_source_validation.expected_catalog_entries,
+        expected_dispatch_entries=quest_source_validation.expected_dispatch_entries,
+        issues=issues,
     )
 
     return issues
@@ -169,7 +210,7 @@ def main(argv: Sequence[str] | None = None, repo_root: Path | None = None) -> in
     if args.eval:
         print(f"Validation passed for eval '{args.eval}'.")
     else:
-        eval_count = len(source_eval_contracts_validator.discover_eval_names(repo_root))
+        eval_count = len(source_eval_collection_validator.discover_eval_names(repo_root))
         print(f"Validation passed for {eval_count} eval bundles.")
     return 0
 

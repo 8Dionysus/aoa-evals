@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0153
 - Status: Accepted
 - Date: 2026-06-04
-- Owner surface: `scripts/validators/root_authority.py`, root authority, proof topology, design, legacy, and agent-route guard family
+- Owner surface: root source/topology guard family
 
 ## Index Metadata
 
@@ -30,15 +30,14 @@ orchestrator.
 
 ## Decision
 
-Root authority, design, proof-topology, legacy naming, agent-lane, audit/GitHub
-route, index-role, read-model command ownership, memory proof boundary, and
-decision-status validation lives in `scripts/validators/root_authority.py`.
+Root authority facade, agent-lane, audit/GitHub route, index-role, read-model
+command ownership, memory proof boundary, validator posture, and
+decision-status validation initially moved into
+`scripts/validators/root_authority.py`. AOA-EV-D-0196 later removes that
+aggregate and splits these checks into focused root validators.
 
 The module owns:
 
-- root design and architecture posture checks;
-- proof topology token and stale-scaffold checks;
-- legacy naming posture, single-bridge, and external archive-detail checks;
 - agent index chain, root index-role, and validator-surface posture checks;
 - `.agents/` and `.agents/spark/` lane route checks;
 - `.github/AGENTS.md` and root audit route checks;
@@ -47,8 +46,12 @@ The module owns:
 - atomic decision status line checks.
 
 `scripts/validate_repo.py` remains the repo-wide entrypoint and delegates this
-domain to the module. Tests import `validators/root_authority.py` directly
-instead of using root wrappers.
+domain through `root_topology.py`. Current tests import focused root modules
+directly instead of using root wrappers.
+
+Root design/proof topology now delegates to `scripts/validators/root_design.py`.
+Legacy naming posture now delegates to `scripts/validators/root_legacy.py`
+through compatibility aliases and thin wrappers.
 
 ## Rationale
 
@@ -64,11 +67,15 @@ boundaries visible and command ownership routed.
 ## Consequences
 
 - Positive: `validate_repo.py` no longer exports root authority, design,
-  proof-topology, legacy naming, agent-index, audit/GitHub, read-model command
-  ownership, decision-status, or agent-lane wrapper checks.
+  proof-topology, agent-index, audit/GitHub, read-model command ownership,
+  decision-status, or agent-lane wrapper checks.
 - Positive: root authority tests now import the focused module directly.
 - Positive: root authority has its own inventory, residual ledger row, and
   module topology entry.
+- Positive: legacy naming posture has a separate validator boundary under
+  AOA-EV-D-0171.
+- Positive: root design and proof-topology posture has a separate validator
+  boundary under AOA-EV-D-0172.
 - Follow-up: remaining root mechanics orchestration and command-ownership
   checks should split only by coherent owner boundary.
 
@@ -79,9 +86,14 @@ As of 2026-06-04:
 - Still valid: root authority surfaces must point agents toward the real owner
   of source truth, generated parity, runtime evidence, mechanics payloads,
   audit evidence, and release evidence.
-- Changed: root authority/design/proof/legacy/agent route checks moved from
-  `scripts/validate_repo.py` to `scripts/validators/root_authority.py`.
-- Superseded by: none.
+- Changed: root authority/design/proof/agent route checks moved from
+  `scripts/validate_repo.py` to root validator modules; legacy naming posture
+  later moved to `scripts/validators/root_legacy.py`; root design and
+  proof-topology posture later moved to `scripts/validators/root_design.py`; the
+  remaining `root_authority.py` aggregate is later removed.
+- Superseded by: AOA-EV-D-0171 for legacy naming posture checks; AOA-EV-D-0172
+  for root design and proof-topology posture checks; AOA-EV-D-0196 for root
+  aggregate removal.
 
 ## Boundaries
 
@@ -91,8 +103,13 @@ publication evidence, or mechanic payload details.
 
 It does not make root route prose a proof source.
 
+Root design and proof-topology posture routes to
+`scripts/validators/root_design.py`. Legacy naming posture routes to
+`scripts/validators/root_legacy.py`. Remaining root authority checks route to
+the focused modules named by AOA-EV-D-0196; no compatibility aggregate remains.
+
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/root_authority.py`
+- `python -m py_compile scripts/validate_repo.py scripts/validators/root_topology.py scripts/validators/root_agent_index.py scripts/validators/root_agent_lanes.py scripts/validators/root_audit_routes.py scripts/validators/root_memory_boundary.py scripts/validators/root_read_model_commands.py scripts/validators/root_index_surfaces.py scripts/validators/root_validator_surfaces.py scripts/validators/root_decision_status.py scripts/validators/root_common.py`
 - `python -m pytest -q tests/test_root_surface_roles.py tests/test_read_model_command_ownership.py tests/test_index_surface_roles.py`
 - `python scripts/validate_repo.py`

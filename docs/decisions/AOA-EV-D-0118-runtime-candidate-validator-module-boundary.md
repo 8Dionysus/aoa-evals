@@ -3,7 +3,8 @@
 - Decision ID: AOA-EV-D-0118
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/runtime_candidates.py`, `mechanics/audit/parts/candidate-readers/`
+- Owner surface: focused runtime-candidate generated reader validators and `mechanics/audit/parts/candidate-readers/`
+- Refined by: AOA-EV-D-0205
 
 ## Index Metadata
 
@@ -35,7 +36,7 @@ bundle verdict meaning.
 ## Decision
 
 Runtime-candidate reader validation lives in
-`scripts/validators/runtime_candidates.py`.
+focused runtime-candidate validator modules.
 
 `scripts/validate_repo.py` keeps compatibility wrappers for
 `load_runtime_candidate_template_index_builder`,
@@ -75,7 +76,11 @@ As of 2026-06-03:
   entrypoint.
 - Changed: runtime-candidate generated reader checks now have a focused
   validator module.
-- Superseded by: none.
+- As of AOA-EV-D-0205: `scripts/validators/runtime_candidates.py` is removed;
+  template-index parity lives in `runtime_candidate_template_index.py`, intake
+  parity lives in `runtime_candidate_intake.py`, and shared JSON/schema/builder
+  helpers live in `runtime_candidate_common.py`.
+- Superseded by: AOA-EV-D-0205 for aggregate module shape.
 
 ## Boundaries
 
@@ -87,6 +92,7 @@ It does not create a new release command. Lane command authority remains in
 
 ## Validation
 
+- `python -m py_compile scripts/validators/runtime_candidate_common.py scripts/validators/runtime_candidate_template_index.py scripts/validators/runtime_candidate_intake.py scripts/validators/evidence_readouts.py tests/test_quest_and_reader_surfaces.py`
 - `python -m pytest -q tests/test_quest_and_reader_surfaces.py -k runtime_candidate`
 - `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`
 - `python scripts/generate_decision_indexes.py`

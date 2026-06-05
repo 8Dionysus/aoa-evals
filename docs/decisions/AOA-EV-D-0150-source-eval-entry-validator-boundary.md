@@ -3,7 +3,8 @@
 - Decision ID: AOA-EV-D-0150
 - Status: Accepted
 - Date: 2026-06-04
-- Owner surface: `scripts/validators/eval_bundles.py`, source eval entry/topology guard family
+- Historical owner surface: `scripts/validators/eval_bundles.py`, source eval entry/topology guard family
+- Refined by: AOA-EV-D-0184, AOA-EV-D-0221
 
 ## Index Metadata
 
@@ -77,7 +78,19 @@ As of 2026-06-04:
   proof objects and keep starter/readout claims synchronized.
 - Changed: source eval entry and source-tree topology checks moved from
   `scripts/validate_repo.py` to `scripts/validators/eval_bundles.py`.
-- Superseded by: none.
+- Refined on 2026-06-04: AOA-EV-D-0184 removed
+  `scripts/validators/eval_bundles.py` after moving entry/roadmap checks to
+  `scripts/validators/eval_entry_surfaces.py`, tree-topology checks to
+  `scripts/validators/eval_tree_topology.py`, and shared helpers to
+  `scripts/validators/eval_bundle_common.py`.
+- Refined on 2026-06-05: AOA-EV-D-0221 removed
+  `scripts/validators/eval_entry_surfaces.py` after moving entry-card checks to
+  `scripts/validators/eval_entry_cards.py`, starter/index checks to
+  `scripts/validators/eval_starter_surfaces.py`, roadmap parity checks to
+  `scripts/validators/eval_roadmap_parity.py`, and validate-repo wiring to
+  `scripts/validators/eval_entry_routes.py`.
+- Superseded by: AOA-EV-D-0184 and AOA-EV-D-0221 for the single-module owner
+  shapes.
 
 ## Boundaries
 
@@ -92,5 +105,5 @@ or grader outcomes.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/eval_bundles.py`
+- `python -m py_compile scripts/validate_repo.py scripts/validators/eval_bundle_common.py scripts/validators/eval_entry_cards.py scripts/validators/eval_starter_surfaces.py scripts/validators/eval_roadmap_parity.py scripts/validators/eval_entry_routes.py scripts/validators/eval_tree_topology.py`
 - `python -m pytest -q tests/test_eval_source_topology.py tests/test_roadmap_parity.py tests/test_validate_repo.py`

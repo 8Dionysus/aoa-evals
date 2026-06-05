@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0128
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/audit.py`, `mechanics/audit/`
+- Owner surface: Audit validator modules, `mechanics/audit/`
 
 ## Index Metadata
 
@@ -27,26 +27,28 @@ Meanwhile adjacent audit behavior already had focused owners:
 
 - artifact-to-verdict hook contract refs live in
   `scripts/validators/artifact_hooks.py`;
-- runtime candidate reader generated parity lives in
-  `scripts/validators/runtime_candidates.py`;
+- runtime candidate reader generated parity lives in focused
+  `runtime_candidate_template_index.py` and `runtime_candidate_intake.py`
+  validators;
 - runtime evidence meaning stays with runtime owners and bundle-local review.
 
 ## Options Considered
 
 - Leave audit route checks in `scripts/validate_repo.py`.
 - Merge audit route checks into artifact-hook or runtime-candidate validators.
-- Create `scripts/validators/audit.py` for audit route, provenance, legacy,
+- Create an Audit validator boundary for audit route, provenance, legacy,
   and active part-contract checks.
 
 ## Decision
 
-Audit route validation lives in `scripts/validators/audit.py`.
+Audit route validation moved out of the root mechanics validator into an
+Audit-specific validator boundary.
 
 `scripts/validate_repo.py` delegates audit route-card, part-contract,
 provenance, legacy, active-part, and decision checks to
 `validate_audit_route_surfaces`.
 
-Tests import audit constants from `scripts/validators/audit.py` directly.
+Tests import audit constants from the Audit owner boundary directly.
 `scripts/validate_repo.py` no longer re-exports audit compatibility aliases.
 
 ## Rationale
@@ -79,7 +81,9 @@ As of 2026-06-03:
   focused modules.
 - Changed: audit route-card and part-contract checks now have a focused
   validator module.
-- Superseded by: none.
+- Refined by: AOA-EV-D-0205 for runtime-candidate aggregate removal;
+  AOA-EV-D-0228 splits the former `scripts/validators/audit.py` module into
+  path, token, helper, and route validator modules.
 
 ## Boundaries
 

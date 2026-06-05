@@ -10,7 +10,8 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from validators import release_support as release_support_validator
+from validators import release_support_report_constants as release_support_report_constants_validator
+from validators import release_support_readiness_report as release_support_readiness_report_validator
 
 REPO_REF_ROOTS = {
     "aoa-evals": REPO_ROOT,
@@ -56,12 +57,12 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 
 def make_release_support_readiness_audit_surface(repo_root: Path) -> Path:
-    copy_repo_text(repo_root, release_support_validator.RELEASE_SUPPORT_READINESS_AUDIT_NAME)
-    return repo_root / release_support_validator.RELEASE_SUPPORT_READINESS_AUDIT_NAME
+    copy_repo_text(repo_root, release_support_report_constants_validator.RELEASE_SUPPORT_READINESS_AUDIT_NAME)
+    return repo_root / release_support_report_constants_validator.RELEASE_SUPPORT_READINESS_AUDIT_NAME
 
 
 def validate_release_support_readiness_audit_surface(repo_root: Path):
-    return release_support_validator.validate_release_support_readiness_audit_surface(
+    return release_support_readiness_report_validator.validate_release_support_readiness_audit_surface(
         repo_root,
         repo_ref_roots=REPO_REF_ROOTS,
         strict_sibling_compat=False,
@@ -157,7 +158,7 @@ def test_release_support_readiness_audit_rejects_goal_completion_claim(
     issues = validate_release_support_readiness_audit_surface(tmp_path)
 
     assert any(
-        issue.location == f"{release_support_validator.RELEASE_SUPPORT_READINESS_AUDIT_NAME}.publication_boundary"
+        issue.location == f"{release_support_report_constants_validator.RELEASE_SUPPORT_READINESS_AUDIT_NAME}.publication_boundary"
         and "goal_completion_status must be 'not_complete'" in issue.message
         for issue in issues
     )
@@ -178,7 +179,7 @@ def test_release_support_readiness_audit_rejects_missing_release_gate(
     issues = validate_release_support_readiness_audit_surface(tmp_path)
 
     assert any(
-        issue.location == f"{release_support_validator.RELEASE_SUPPORT_READINESS_AUDIT_NAME}.verification_snapshot"
+        issue.location == f"{release_support_report_constants_validator.RELEASE_SUPPORT_READINESS_AUDIT_NAME}.verification_snapshot"
         and "python scripts/release_check.py" in issue.message
         for issue in issues
     )

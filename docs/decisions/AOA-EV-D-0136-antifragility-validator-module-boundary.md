@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0136
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/antifragility.py`, `mechanics/antifragility/`
+- Owner surface: focused Antifragility validator modules, `mechanics/antifragility/`
 
 ## Index Metadata
 
@@ -26,17 +26,17 @@ truth, generated-reader truth, or Growth Cycle completion.
 
 ## Decision
 
-Antifragility route validation lives in
-`scripts/validators/antifragility.py`.
+Antifragility route validation lives in focused Antifragility validator
+modules.
 
 `scripts/validate_repo.py` delegates Antifragility checks through
 `validate_antifragility_route_surfaces` and supplies an
 `AntifragilityRouteContext` with the root token lookup helper and shared
 provenance bridge tokens.
 
-The module owns Antifragility-specific route, part-contract, stress-window,
-stale-scaffold, provenance, and decision expectations. Shared lookup and
-provenance posture remain injected.
+The focused modules own Antifragility-specific route paths, token matrices,
+route checks, part-contract, stress-window, stale-scaffold, provenance, and
+decision expectations. Shared lookup and provenance posture remain injected.
 
 ## Rationale
 
@@ -56,7 +56,7 @@ stronger owners.
   provenance, stale-scaffold, and decision-token checks have one focused owner.
 - Positive: `validate_mechanics_surfaces` delegates another active mechanic
   parent instead of retaining parent-specific token matrices.
-- Positive: tests import Antifragility constants from the owner module
+- Positive: tests import Antifragility path constants from the path helper
   directly.
 - Follow-up: Method-growth, RPG, Growth-cycle, Distillation, Titan, and Agon
   can be split by the same owner-boundary rule when each route is handled
@@ -68,9 +68,9 @@ As of 2026-06-03:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide command
   entrypoint.
-- Changed: Antifragility route validation now lives in
-  `scripts/validators/antifragility.py`.
-- Superseded by: none.
+- Changed: Antifragility route validation now lives in path, token, and route
+  validator modules.
+- Superseded by: AOA-EV-D-0234 removes the former aggregate module boundary.
 
 ## Boundaries
 
@@ -83,7 +83,7 @@ helpers into Antifragility.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/antifragility.py tests/test_mechanic_surface_contracts.py`
+- `python -m py_compile scripts/validators/antifragility_route_paths.py scripts/validators/antifragility_route_tokens.py scripts/validators/antifragility_routes.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py`
 - `python -m pytest -q tests/test_mechanic_surface_contracts.py -k antifragility`
 - `python scripts/generate_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py --check`

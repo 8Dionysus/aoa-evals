@@ -12,8 +12,8 @@ import eval_catalog_contract
 import eval_capsule_contract
 import eval_section_contract
 import eval_comparison_spine_contract
-from validators import questbook as questbook_validator
-from validators import source_eval_contracts as source_eval_contracts_validator
+from validators import questbook_projection_records as questbook_projection_records_validator
+from validators import source_eval_collection as source_eval_collection_validator
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -41,9 +41,9 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 
 
 def check_catalogs(repo_root: Path) -> list[str]:
-    issues, records = source_eval_contracts_validator.collect_catalog_records(repo_root)
+    issues, records = source_eval_collection_validator.collect_catalog_records(repo_root)
     if issues:
-        return [f"source validation failed:\n{source_eval_contracts_validator.format_issues(issues)}"]
+        return [f"source validation failed:\n{source_eval_collection_validator.format_issues(issues)}"]
 
     expected_full, expected_min = eval_catalog_contract.build_catalog_payloads(repo_root, records)
     expected_capsules = eval_capsule_contract.build_capsule_payload(repo_root, records, expected_full)
@@ -97,8 +97,8 @@ def check_catalogs(repo_root: Path) -> list[str]:
     if actual_comparison_spine != expected_comparison_spine:
         problems.append(f"stale {comparison_spine_path.relative_to(repo_root).as_posix()}")
     if has_questbook_surface(repo_root):
-        expected_quest_catalog = questbook_validator.build_quest_catalog_projection(repo_root)
-        expected_quest_dispatch = questbook_validator.build_quest_dispatch_projection(repo_root)
+        expected_quest_catalog = questbook_projection_records_validator.build_quest_catalog_projection(repo_root)
+        expected_quest_dispatch = questbook_projection_records_validator.build_quest_dispatch_projection(repo_root)
         actual_quest_catalog, quest_catalog_parse_issues = eval_catalog_contract.read_json_file(
             quest_catalog_path, repo_root
         )
@@ -129,12 +129,12 @@ def check_catalogs(repo_root: Path) -> list[str]:
 
 
 def write_catalogs(repo_root: Path) -> tuple[Path, Path, Path, Path, Path]:
-    issues, records = source_eval_contracts_validator.collect_catalog_records(repo_root)
+    issues, records = source_eval_collection_validator.collect_catalog_records(repo_root)
     if issues:
-        raise ValueError(source_eval_contracts_validator.format_issues(issues))
+        raise ValueError(source_eval_collection_validator.format_issues(issues))
 
     full_catalog, min_catalog = eval_catalog_contract.build_catalog_payloads(repo_root, records)
-    capsules = source_eval_contracts_validator.build_capsule_payload(repo_root, records, full_catalog)
+    capsules = eval_capsule_contract.build_capsule_payload(repo_root, records, full_catalog)
     sections, section_issues = eval_section_contract.build_sections_payload(repo_root, records)
     comparison_spine = eval_comparison_spine_contract.build_comparison_spine_payload(
         repo_root,
@@ -156,8 +156,8 @@ def write_catalogs(repo_root: Path) -> tuple[Path, Path, Path, Path, Path]:
     eval_catalog_contract.write_json_file(sections_path, sections, compact=False)
     eval_catalog_contract.write_json_file(comparison_spine_path, comparison_spine, compact=False)
     if has_questbook_surface(repo_root):
-        quest_catalog = questbook_validator.build_quest_catalog_projection(repo_root)
-        quest_dispatch = questbook_validator.build_quest_dispatch_projection(repo_root)
+        quest_catalog = questbook_projection_records_validator.build_quest_catalog_projection(repo_root)
+        quest_dispatch = questbook_projection_records_validator.build_quest_dispatch_projection(repo_root)
         eval_catalog_contract.write_json_file(
             generated_dir / "quest_catalog.min.json", quest_catalog, compact=True
         )

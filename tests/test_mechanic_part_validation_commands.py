@@ -11,7 +11,9 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import validate_repo
-from validators import mechanic_parts as mechanic_parts_validator
+from validators import mechanic_part_contract_common
+from validators import mechanic_part_validation_command_tokens as command_tokens
+from validators import mechanic_part_validation_commands as mechanic_parts_validator
 
 
 def write_text(path: Path, content: str) -> None:
@@ -35,13 +37,13 @@ def test_mechanic_part_validation_command_validates_current_routes() -> None:
 def test_mechanic_part_validation_command_rejects_active_decision_command_list(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, mechanic_parts_validator.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME)
+    copy_repo_text(tmp_path, command_tokens.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME)
     copy_repo_text(
         tmp_path,
-        mechanic_parts_validator.MECHANIC_PART_VALIDATION_COMMAND_OWNERSHIP_DECISION_NAME,
+        command_tokens.MECHANIC_PART_VALIDATION_COMMAND_OWNERSHIP_DECISION_NAME,
     )
-    copy_repo_text(tmp_path, mechanic_parts_validator.MECHANICS_AGENTS_NAME)
-    decision_path = tmp_path / mechanic_parts_validator.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME
+    copy_repo_text(tmp_path, mechanic_part_contract_common.MECHANICS_AGENTS_NAME)
+    decision_path = tmp_path / command_tokens.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME
     decision_path.write_text(
         decision_path.read_text(encoding="utf-8").replace(
             "## Validation\n\nUse",
@@ -54,7 +56,7 @@ def test_mechanic_part_validation_command_rejects_active_decision_command_list(
     issues = mechanic_parts_validator.validate_mechanic_part_validation_command_surfaces(tmp_path)
 
     assert any(
-        issue.location == mechanic_parts_validator.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME
+        issue.location == command_tokens.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME
         and "mechanics/AGENTS.md#validation" in issue.message
         for issue in issues
     )

@@ -11,10 +11,13 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import validate_repo
-from validators import mechanic_legacy as mechanic_legacy_validator
-from validators import mechanic_parents as mechanic_parents_validator
-from validators import mechanic_parts as mechanic_parts_validator
+from validators import mechanic_legacy_archive as mechanic_legacy_archive_validator
+from validators import mechanic_parent_allowlist as mechanic_parent_allowlist_validator
+from validators import mechanic_parent_direction as mechanic_parent_direction_validator
+from validators import mechanic_parent_guidance as mechanic_parent_guidance_validator
+from validators import mechanic_part_contract_common as mechanic_parts_validator
 from validators import mechanics as mechanics_validator
+from validators import mechanic_provenance_bridge as mechanic_provenance_bridge_validator
 from validators import root_context
 
 
@@ -35,7 +38,7 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 def write_guidance_boundary_scaffold(repo_root: Path) -> None:
     write_text(
         repo_root
-        / mechanic_parents_validator.MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_NAME,
+        / mechanic_parent_guidance_validator.MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_NAME,
         f"""
         # Mechanic Parent Guidance Boundary
 
@@ -45,12 +48,12 @@ def write_guidance_boundary_scaffold(repo_root: Path) -> None:
         allowlisted
         unallowlisted parent-level docs
         Titan canary guides
-        {mechanic_parents_validator.MECHANIC_PARENT_GUIDANCE_BOUNDARY_COMMAND}
+        {mechanic_parent_guidance_validator.MECHANIC_PARENT_GUIDANCE_BOUNDARY_COMMAND}
         """,
     )
     write_text(
         repo_root / "docs" / "decisions" / "README.md",
-        f"{mechanic_parents_validator.MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_NAME}\nMechanic Parent Guidance Boundary\n",
+        f"{mechanic_parent_guidance_validator.MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_NAME}\nMechanic Parent Guidance Boundary\n",
     )
     write_text(
         repo_root / mechanics_validator.MECHANICS_README_NAME,
@@ -59,7 +62,7 @@ def write_guidance_boundary_scaffold(repo_root: Path) -> None:
 
 
 def test_mechanic_parent_allowlist_validates_current_routes() -> None:
-    assert mechanic_parents_validator.validate_mechanics_parent_allowlist(REPO_ROOT) == []
+    assert mechanic_parent_allowlist_validator.validate_mechanics_parent_allowlist(REPO_ROOT) == []
 
 
 def test_mechanic_parent_allowlist_rejects_unknown_parent(
@@ -69,7 +72,7 @@ def test_mechanic_parent_allowlist_rejects_unknown_parent(
     copy_repo_text(tmp_path, mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME)
     copy_repo_text(
         tmp_path,
-        mechanic_parents_validator.MECHANIC_PARENT_ALLOWLIST_DECISION_NAME,
+        mechanic_parent_allowlist_validator.MECHANIC_PARENT_ALLOWLIST_DECISION_NAME,
     )
     copy_repo_text(tmp_path, root_context.PROOF_TOPOLOGY_NAME)
     copy_repo_text(tmp_path, "docs/decisions/README.md")
@@ -80,7 +83,7 @@ def test_mechanic_parent_allowlist_rejects_unknown_parent(
         "# Repair\n\nThis invented parent must not become active topology.\n",
     )
 
-    issues = mechanic_parents_validator.validate_mechanics_parent_allowlist(tmp_path)
+    issues = mechanic_parent_allowlist_validator.validate_mechanics_parent_allowlist(tmp_path)
 
     assert any(
         issue.location == "mechanics/repair"
@@ -96,7 +99,7 @@ def test_mechanic_parent_allowlist_rejects_missing_declared_parent(
     copy_repo_text(tmp_path, mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME)
     copy_repo_text(
         tmp_path,
-        mechanic_parents_validator.MECHANIC_PARENT_ALLOWLIST_DECISION_NAME,
+        mechanic_parent_allowlist_validator.MECHANIC_PARENT_ALLOWLIST_DECISION_NAME,
     )
     copy_repo_text(tmp_path, root_context.PROOF_TOPOLOGY_NAME)
     copy_repo_text(tmp_path, "docs/decisions/README.md")
@@ -105,7 +108,7 @@ def test_mechanic_parent_allowlist_rejects_missing_declared_parent(
             continue
         (tmp_path / "mechanics" / parent_name).mkdir(parents=True)
 
-    issues = mechanic_parents_validator.validate_mechanics_parent_allowlist(tmp_path)
+    issues = mechanic_parent_allowlist_validator.validate_mechanics_parent_allowlist(tmp_path)
 
     assert any(
         issue.location == "mechanics/titan"
@@ -121,7 +124,7 @@ def test_mechanic_parent_allowlist_rejects_missing_route_card(
     copy_repo_text(tmp_path, mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME)
     copy_repo_text(
         tmp_path,
-        mechanic_parents_validator.MECHANIC_PARENT_ALLOWLIST_DECISION_NAME,
+        mechanic_parent_allowlist_validator.MECHANIC_PARENT_ALLOWLIST_DECISION_NAME,
     )
     copy_repo_text(tmp_path, root_context.PROOF_TOPOLOGY_NAME)
     copy_repo_text(tmp_path, "docs/decisions/README.md")
@@ -132,7 +135,7 @@ def test_mechanic_parent_allowlist_rejects_missing_route_card(
             write_text(parent_root / filename, f"# {filename}\n")
     (tmp_path / "mechanics" / "proof-object" / "PARTS.md").unlink()
 
-    issues = mechanic_parents_validator.validate_mechanics_parent_allowlist(tmp_path)
+    issues = mechanic_parent_allowlist_validator.validate_mechanics_parent_allowlist(tmp_path)
 
     assert any(
         issue.location == "mechanics/proof-object/PARTS.md"
@@ -143,7 +146,7 @@ def test_mechanic_parent_allowlist_rejects_missing_route_card(
 
 def test_mechanic_parent_guidance_boundary_validates_current_routes() -> None:
     assert (
-        mechanic_parents_validator.validate_mechanic_parent_guidance_boundary(REPO_ROOT)
+        mechanic_parent_guidance_validator.validate_mechanic_parent_guidance_boundary(REPO_ROOT)
         == []
     )
 
@@ -157,7 +160,7 @@ def test_mechanic_parent_guidance_boundary_rejects_unowned_parent_docs(
         "# Wrong parent docs\n",
     )
 
-    issues = mechanic_parents_validator.validate_mechanic_parent_guidance_boundary(
+    issues = mechanic_parent_guidance_validator.validate_mechanic_parent_guidance_boundary(
         tmp_path
     )
 
@@ -179,7 +182,7 @@ def test_mechanic_parent_guidance_boundary_rejects_empty_parent_docs(
     write_guidance_boundary_scaffold(tmp_path)
     (tmp_path / "mechanics" / "checkpoint" / "docs").mkdir(parents=True)
 
-    issues = mechanic_parents_validator.validate_mechanic_parent_guidance_boundary(
+    issues = mechanic_parent_guidance_validator.validate_mechanic_parent_guidance_boundary(
         tmp_path
     )
 
@@ -195,7 +198,7 @@ def test_mechanic_parent_guidance_boundary_rejects_thin_allowlisted_doc(
 ) -> None:
     copy_repo_text(
         tmp_path,
-        mechanic_parents_validator.MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_NAME,
+        mechanic_parent_guidance_validator.MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_NAME,
     )
     copy_repo_text(tmp_path, "docs/decisions/README.md")
     copy_repo_text(tmp_path, mechanics_validator.MECHANICS_README_NAME)
@@ -209,14 +212,14 @@ def test_mechanic_parent_guidance_boundary_rejects_thin_allowlisted_doc(
         / "agon"
         / "docs"
         / "AGON_EVAL_RECURRENCE_REVIEW_BOUNDARY.md",
-        "\n".join(mechanic_parents_validator.MECHANIC_PARENT_GUIDANCE_DOC_REQUIRED_TOKENS),
+        "\n".join(mechanic_parent_guidance_validator.MECHANIC_PARENT_GUIDANCE_DOC_REQUIRED_TOKENS),
     )
     write_text(
         tmp_path / "mechanics" / "recurrence" / "docs" / "RECURRENCE_PROOF_PROGRAM.md",
-        "\n".join(mechanic_parents_validator.MECHANIC_PARENT_GUIDANCE_DOC_REQUIRED_TOKENS),
+        "\n".join(mechanic_parent_guidance_validator.MECHANIC_PARENT_GUIDANCE_DOC_REQUIRED_TOKENS),
     )
 
-    issues = mechanic_parents_validator.validate_mechanic_parent_guidance_boundary(
+    issues = mechanic_parent_guidance_validator.validate_mechanic_parent_guidance_boundary(
         tmp_path
     )
 
@@ -243,7 +246,7 @@ def test_mechanic_direction_files_cover_allowed_parents() -> None:
         for parent_name in mechanics_validator.ACTIVE_MECHANIC_PARENT_NAMES
     }
 
-    assert set(mechanic_parents_validator.MECHANIC_DIRECTION_FILES) == expected
+    assert set(mechanic_parent_direction_validator.MECHANIC_DIRECTION_FILES) == expected
 
 
 def test_mechanic_route_card_files_cover_direction_route() -> None:
@@ -253,7 +256,7 @@ def test_mechanic_route_card_files_cover_direction_route() -> None:
         for filename in ("AGENTS.md", "README.md", "DIRECTION.md", "PARTS.md")
     }
 
-    assert set(mechanic_parents_validator.MECHANIC_ROUTE_CARD_FILES) == expected
+    assert set(mechanic_parent_allowlist_validator.MECHANIC_ROUTE_CARD_FILES) == expected
 
 
 def test_mechanic_parent_readme_and_agents_files_cover_allowed_parents() -> None:
@@ -266,8 +269,8 @@ def test_mechanic_parent_readme_and_agents_files_cover_allowed_parents() -> None
         for parent_name in mechanics_validator.ACTIVE_MECHANIC_PARENT_NAMES
     }
 
-    assert set(mechanic_parents_validator.MECHANIC_PARENT_README_FILES) == expected_readmes
-    assert set(mechanic_parents_validator.MECHANIC_PARENT_AGENTS_FILES) == expected_agents
+    assert set(mechanic_parent_direction_validator.MECHANIC_PARENT_README_FILES) == expected_readmes
+    assert set(mechanic_parent_direction_validator.MECHANIC_PARENT_AGENTS_FILES) == expected_agents
 
 
 def test_mechanic_legacy_raw_readmes_cover_allowed_parents() -> None:
@@ -276,7 +279,7 @@ def test_mechanic_legacy_raw_readmes_cover_allowed_parents() -> None:
         for parent_name in mechanics_validator.ACTIVE_MECHANIC_PARENT_NAMES
     }
 
-    assert set(mechanic_legacy_validator.MECHANIC_LEGACY_RAW_README_FILES) == expected
+    assert set(mechanic_legacy_archive_validator.MECHANIC_LEGACY_RAW_README_FILES) == expected
 
 
 def test_mechanic_legacy_skeleton_files_cover_allowed_parents() -> None:
@@ -292,7 +295,7 @@ def test_mechanic_legacy_skeleton_files_cover_allowed_parents() -> None:
         )
     }
 
-    assert set(mechanic_legacy_validator.MECHANIC_LEGACY_SKELETON_FILES) == expected
+    assert set(mechanic_legacy_archive_validator.MECHANIC_LEGACY_SKELETON_FILES) == expected
 
 
 def test_mechanic_legacy_skeleton_rejects_missing_legacy_index(
@@ -302,22 +305,22 @@ def test_mechanic_legacy_skeleton_rejects_missing_legacy_index(
     copy_repo_text(tmp_path, mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME)
     copy_repo_text(
         tmp_path,
-        mechanic_parents_validator.MECHANIC_PARENT_ALLOWLIST_DECISION_NAME,
+        mechanic_parent_allowlist_validator.MECHANIC_PARENT_ALLOWLIST_DECISION_NAME,
     )
     copy_repo_text(
         tmp_path,
-        mechanic_legacy_validator.MECHANIC_LEGACY_SKELETON_DECISION_NAME,
+        mechanic_legacy_archive_validator.MECHANIC_LEGACY_SKELETON_DECISION_NAME,
     )
     copy_repo_text(tmp_path, root_context.PROOF_TOPOLOGY_NAME)
     copy_repo_text(tmp_path, "docs/decisions/README.md")
-    for path_name in mechanic_parents_validator.MECHANIC_ROUTE_CARD_FILES:
+    for path_name in mechanic_parent_allowlist_validator.MECHANIC_ROUTE_CARD_FILES:
         write_text(tmp_path / path_name, "# Route\n")
-    for path_name in mechanic_legacy_validator.MECHANIC_LEGACY_SKELETON_FILES:
+    for path_name in mechanic_legacy_archive_validator.MECHANIC_LEGACY_SKELETON_FILES:
         write_text(tmp_path / path_name, "# Legacy\n")
     missing_path = "mechanics/questbook/legacy/INDEX.md"
     (tmp_path / missing_path).unlink()
 
-    issues = mechanic_parents_validator.validate_mechanics_parent_allowlist(tmp_path)
+    issues = mechanic_parent_allowlist_validator.validate_mechanics_parent_allowlist(tmp_path)
 
     assert any(
         issue.location == missing_path
@@ -333,17 +336,17 @@ def test_mechanic_legacy_readme_rejects_missing_provenance_route(
     copy_repo_text(tmp_path, mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME)
     copy_repo_text(
         tmp_path,
-        mechanic_parents_validator.MECHANIC_PARENT_ALLOWLIST_DECISION_NAME,
+        mechanic_parent_allowlist_validator.MECHANIC_PARENT_ALLOWLIST_DECISION_NAME,
     )
     copy_repo_text(
         tmp_path,
-        mechanic_legacy_validator.MECHANIC_LEGACY_SKELETON_DECISION_NAME,
+        mechanic_legacy_archive_validator.MECHANIC_LEGACY_SKELETON_DECISION_NAME,
     )
     copy_repo_text(tmp_path, root_context.PROOF_TOPOLOGY_NAME)
     copy_repo_text(tmp_path, "docs/decisions/README.md")
-    for path_name in mechanic_parents_validator.MECHANIC_ROUTE_CARD_FILES:
+    for path_name in mechanic_parent_allowlist_validator.MECHANIC_ROUTE_CARD_FILES:
         write_text(tmp_path / path_name, "# Route\n")
-    for path_name in mechanic_legacy_validator.MECHANIC_LEGACY_SKELETON_FILES:
+    for path_name in mechanic_legacy_archive_validator.MECHANIC_LEGACY_SKELETON_FILES:
         write_text(
             tmp_path / path_name,
             "# Legacy\n\n../PROVENANCE.md\nINDEX.md\nDISTILLATION_LOG.md\nraw/README.md\narchive-local route\ncurrent active route\n",
@@ -354,7 +357,7 @@ def test_mechanic_legacy_readme_rejects_missing_provenance_route(
         "# Titan Legacy\n\nINDEX.md\nDISTILLATION_LOG.md\nraw/README.md\narchive-local route\ncurrent active route\n",
     )
 
-    issues = mechanic_parents_validator.validate_mechanics_parent_allowlist(tmp_path)
+    issues = mechanic_parent_allowlist_validator.validate_mechanics_parent_allowlist(tmp_path)
 
     assert any(
         issue.location == readme_path and "../PROVENANCE.md" in issue.message
@@ -364,7 +367,7 @@ def test_mechanic_legacy_readme_rejects_missing_provenance_route(
 
 def test_mechanic_provenance_entry_files_validate_contract() -> None:
     assert (
-        mechanic_legacy_validator.validate_mechanic_provenance_entry_surfaces(
+        mechanic_provenance_bridge_validator.validate_mechanic_provenance_entry_surfaces(
             REPO_ROOT
         )
         == []
@@ -373,7 +376,7 @@ def test_mechanic_provenance_entry_files_validate_contract() -> None:
 
 def test_mechanic_parent_direction_surfaces_validate_contract() -> None:
     assert (
-        mechanic_parents_validator.validate_mechanic_parent_direction_surfaces(
+        mechanic_parent_direction_validator.validate_mechanic_parent_direction_surfaces(
             REPO_ROOT
         )
         == []

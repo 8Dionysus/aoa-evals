@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0138
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/rpg.py`, `mechanics/rpg/`
+- Owner surface: focused RPG validator modules, `mechanics/rpg/`
 
 ## Index Metadata
 
@@ -25,14 +25,15 @@ logic, or Growth Cycle movement.
 
 ## Decision
 
-RPG route validation lives in `scripts/validators/rpg.py`.
+RPG route validation lives in focused RPG validator modules.
 
 `scripts/validate_repo.py` delegates RPG checks through
 `validate_rpg_route_surfaces` and supplies an `RpgRouteContext` with the root
 token lookup helper and shared provenance bridge tokens.
 
-The module owns RPG-specific route, progression-unlocks, provenance, and
-decision expectations. Shared lookup and provenance posture remain injected.
+The focused modules own RPG-specific route paths, token matrices, route checks,
+progression-unlocks, provenance, and decision expectations. Shared lookup and
+provenance posture remain injected.
 
 ## Rationale
 
@@ -51,7 +52,7 @@ logic, generated-card authority, and Growth Cycle movement to stronger owners.
   checks have one focused owner.
 - Positive: `validate_mechanics_surfaces` delegates another active mechanic
   parent instead of retaining parent-specific token matrices.
-- Positive: tests import RPG constants from the owner module directly.
+- Positive: tests import RPG path constants from the path helper directly.
 - Follow-up: Growth-cycle, Distillation, Titan, and Agon can be split by the
   same owner-boundary rule when each route is handled deliberately.
 
@@ -61,8 +62,9 @@ As of 2026-06-03:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide command
   entrypoint.
-- Changed: RPG route validation now lives in `scripts/validators/rpg.py`.
-- Superseded by: none.
+- Changed: RPG route validation now lives in path, token, and route validator
+  modules.
+- Superseded by: AOA-EV-D-0236 removes the former aggregate module boundary.
 
 ## Boundaries
 
@@ -75,7 +77,7 @@ helpers into RPG.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/rpg.py tests/test_mechanic_surface_contracts.py`
+- `python -m py_compile scripts/validators/rpg_route_paths.py scripts/validators/rpg_route_tokens.py scripts/validators/rpg_routes.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py`
 - `python -m pytest -q tests/test_mechanic_surface_contracts.py -k rpg`
 - `python scripts/generate_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py --check`

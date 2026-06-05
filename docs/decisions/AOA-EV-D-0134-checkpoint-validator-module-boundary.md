@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0134
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/checkpoint.py`, `mechanics/checkpoint/`
+- Owner surface: focused Checkpoint validator modules, `mechanics/checkpoint/`
 
 ## Index Metadata
 
@@ -25,16 +25,17 @@ quality, or broad long-horizon competence claims.
 
 ## Decision
 
-Checkpoint route validation lives in `scripts/validators/checkpoint.py`.
+Checkpoint route validation lives in focused Checkpoint validator modules.
 
 `scripts/validate_repo.py` delegates checkpoint checks through
 `validate_checkpoint_route_surfaces` and supplies a `CheckpointRouteContext`
 with the root token lookup helper and shared provenance bridge tokens.
 
 The root token lookup remains injected because it knows how to search companion
-AGENTS validation cards for command tokens. The checkpoint module owns the
-checkpoint-specific route, part-contract, posture-doc, provenance, and decision
-expectations.
+AGENTS validation cards for command tokens. The focused Checkpoint modules own
+checkpoint-specific paths, token matrices, route checks, posture-doc,
+provenance, and decision expectations without treating the blocking route
+validator as a constants bucket.
 
 ## Rationale
 
@@ -54,7 +55,8 @@ final output acceptance.
   decision-token checks have one focused owner.
 - Positive: `validate_mechanics_surfaces` delegates another active mechanic
   parent instead of retaining parent-specific history.
-- Positive: tests import checkpoint constants from the owner module directly.
+- Positive: tests import checkpoint path constants from the path helper
+  directly.
 - Follow-up: Experience, Antifragility, Method-growth, RPG, Growth-cycle,
   Distillation, Titan, and Agon can be split by the same owner-boundary rule
   when each route is handled deliberately.
@@ -65,9 +67,9 @@ As of 2026-06-03:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide command
   entrypoint.
-- Changed: checkpoint route validation now lives in
-  `scripts/validators/checkpoint.py`.
-- Superseded by: none.
+- Changed: checkpoint route validation now lives in path, token, and route
+  validator modules.
+- Superseded by: AOA-EV-D-0231 removes the former aggregate module boundary.
 
 ## Boundaries
 
@@ -80,7 +82,7 @@ helpers into checkpoint.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/checkpoint.py tests/test_mechanic_surface_contracts.py`
+- `python -m py_compile scripts/validators/checkpoint_route_paths.py scripts/validators/checkpoint_route_tokens.py scripts/validators/checkpoint_routes.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py`
 - `python -m pytest -q tests/test_mechanic_surface_contracts.py -k checkpoint`
 - `python scripts/generate_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py --check`

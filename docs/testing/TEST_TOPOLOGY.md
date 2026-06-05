@@ -32,7 +32,7 @@ Test files are not command authority. Lane command sequences live in
 | Family | Protects | Owner Surface |
 | --- | --- | --- |
 | `source/proof-contract` | Source eval bundle schema, proof posture, report artifacts, and bounded claims. | `evals/**/EVAL.md`, `evals/**/eval.yaml`, `scripts/validate_repo.py` |
-| `generated/read-model` | Generated catalogs, report indexes, comparison spine, and projection parity. | builders and `scripts/validators/generated_parity.py` |
+| `generated/read-model` | Generated catalogs, report indexes, comparison spine, and projection parity. | builders, generated eval parity validators, and `scripts/validators/generated_route_surfaces.py` |
 | `route-card/topology` | AGENTS mesh, docs topology, root route cards, route residue, and semantic snippets. | nearest `AGENTS.md`, docs topology, and validator modules |
 | `mechanics/package-topology` | Mechanic parent, part, legacy, provenance, payload, and validation route contracts. | `mechanics/<parent>/` and part READMEs |
 | `mechanics/part-local` | One mechanic part report, registry, fixture, script, or generated surface. | `mechanics/<parent>/parts/<part>/` |

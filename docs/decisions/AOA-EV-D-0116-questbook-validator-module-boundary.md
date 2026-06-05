@@ -69,13 +69,19 @@ This preserves the local proof canon without creating a generic
 
 ## Current Applicability
 
-As of 2026-06-03:
+As of 2026-06-04:
 
 - Still valid: `scripts/validate_repo.py` remains the single repo-wide
   validation entrypoint.
-- Changed: questbook source/projection checks now have a focused validator
-  module under `scripts/validators/`.
-- Superseded by: none.
+- Changed: the original broad `questbook.py` module was later split into
+  `questbook_source.py`, `questbook_projection_records.py`,
+  `questbook_projection_parity.py`, `questbook_orchestrator_refs.py`,
+  `questbook_routes.py`, `questbook_progression.py`, and focused Questbook
+  helper modules; the remaining compatibility facade was removed under
+  AOA-EV-D-0193 and the projection aggregate was removed under AOA-EV-D-0197.
+- Superseded by: AOA-EV-D-0143, AOA-EV-D-0160, AOA-EV-D-0163,
+  AOA-EV-D-0170, AOA-EV-D-0176, AOA-EV-D-0193, and AOA-EV-D-0197 for the
+  current focused Questbook validator boundaries.
 
 ## Boundaries
 

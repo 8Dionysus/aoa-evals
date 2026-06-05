@@ -10,7 +10,8 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from validators import boundary_bridge as boundary_bridge_validator
+from validators import boundary_bridge_canary as boundary_bridge_canary_validator
+from validators import boundary_bridge_workflow as boundary_bridge_workflow_validator
 
 
 def copy_repo_text(repo_root: Path, relative_path: str) -> None:
@@ -23,7 +24,7 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 
 def test_repo_validation_workflow_surface_validates_current_pin() -> None:
-    assert boundary_bridge_validator.validate_repo_validation_workflow_surface(REPO_ROOT) == []
+    assert boundary_bridge_workflow_validator.validate_repo_validation_workflow_surface(REPO_ROOT) == []
 
 
 def test_repo_validation_workflow_rejects_sibling_checkout(
@@ -45,7 +46,7 @@ def test_repo_validation_workflow_rejects_sibling_checkout(
     )
     workflow_path.write_text(workflow_text, encoding="utf-8")
 
-    issues = boundary_bridge_validator.validate_repo_validation_workflow_surface(tmp_path)
+    issues = boundary_bridge_workflow_validator.validate_repo_validation_workflow_surface(tmp_path)
 
     assert any(
         issue.location == ".github/workflows/repo-validation.yml"
@@ -66,7 +67,7 @@ def test_repo_validation_workflow_rejects_sibling_root_env(
     )
     workflow_path.write_text(workflow_text, encoding="utf-8")
 
-    issues = boundary_bridge_validator.validate_repo_validation_workflow_surface(tmp_path)
+    issues = boundary_bridge_workflow_validator.validate_repo_validation_workflow_surface(tmp_path)
 
     assert any(
         issue.location == ".github/workflows/repo-validation.yml"
@@ -76,12 +77,12 @@ def test_repo_validation_workflow_rejects_sibling_root_env(
 
 
 def test_sibling_canary_matrix_surface_validates_current_entries() -> None:
-    assert boundary_bridge_validator.validate_sibling_canary_matrix_surface(REPO_ROOT) == []
+    assert boundary_bridge_canary_validator.validate_sibling_canary_matrix_surface(REPO_ROOT) == []
 
 
 def test_sibling_canary_matrix_rejects_missing_expected_repo(tmp_path: Path) -> None:
-    copy_repo_text(tmp_path, boundary_bridge_validator.SIBLING_CANARY_MATRIX_NAME)
-    matrix_path = tmp_path / boundary_bridge_validator.SIBLING_CANARY_MATRIX_NAME
+    copy_repo_text(tmp_path, boundary_bridge_canary_validator.SIBLING_CANARY_MATRIX_NAME)
+    matrix_path = tmp_path / boundary_bridge_canary_validator.SIBLING_CANARY_MATRIX_NAME
     matrix = json.loads(matrix_path.read_text(encoding="utf-8"))
     matrix["entries"] = [
         entry
@@ -90,10 +91,10 @@ def test_sibling_canary_matrix_rejects_missing_expected_repo(tmp_path: Path) -> 
     ]
     matrix_path.write_text(json.dumps(matrix, indent=2) + "\n", encoding="utf-8")
 
-    issues = boundary_bridge_validator.validate_sibling_canary_matrix_surface(tmp_path)
+    issues = boundary_bridge_canary_validator.validate_sibling_canary_matrix_surface(tmp_path)
 
     assert any(
-        issue.location == boundary_bridge_validator.SIBLING_CANARY_MATRIX_NAME
+        issue.location == boundary_bridge_canary_validator.SIBLING_CANARY_MATRIX_NAME
         and "missing sibling canary entry for aoa-memo" in issue.message
         for issue in issues
     )
@@ -102,18 +103,18 @@ def test_sibling_canary_matrix_rejects_missing_expected_repo(tmp_path: Path) -> 
 def test_sibling_canary_matrix_rejects_abyss_stack_direct_resolver(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, boundary_bridge_validator.SIBLING_CANARY_MATRIX_NAME)
-    matrix_path = tmp_path / boundary_bridge_validator.SIBLING_CANARY_MATRIX_NAME
+    copy_repo_text(tmp_path, boundary_bridge_canary_validator.SIBLING_CANARY_MATRIX_NAME)
+    matrix_path = tmp_path / boundary_bridge_canary_validator.SIBLING_CANARY_MATRIX_NAME
     matrix = json.loads(matrix_path.read_text(encoding="utf-8"))
     for entry in matrix["entries"]:
         if entry.get("repo") == "abyss-stack":
             entry["resolver"] = "direct"
     matrix_path.write_text(json.dumps(matrix, indent=2) + "\n", encoding="utf-8")
 
-    issues = boundary_bridge_validator.validate_sibling_canary_matrix_surface(tmp_path)
+    issues = boundary_bridge_canary_validator.validate_sibling_canary_matrix_surface(tmp_path)
 
     assert any(
-        issue.location == boundary_bridge_validator.SIBLING_CANARY_MATRIX_NAME
+        issue.location == boundary_bridge_canary_validator.SIBLING_CANARY_MATRIX_NAME
         and "abyss-stack-source" in issue.message
         for issue in issues
     )

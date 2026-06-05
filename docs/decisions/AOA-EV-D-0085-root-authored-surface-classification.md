@@ -27,8 +27,8 @@ those roots are not empty by design.
 
 - Leave residual root-authored files implicit.
 - Make `docs/`, `scripts/`, and `tests/` route-card-only too.
-- Add a residual classification ledger and validator allowlist for top-level
-  root-authored surfaces that may remain in those districts.
+- Add a residual classification ledger and derive validator inventory checks
+  from the ledger for root-authored surfaces that may remain in those districts.
 
 ## Decision
 
@@ -59,8 +59,8 @@ mechanics.
   or `tests/` without updating the ledger and validator.
 - Positive: root-owned guides, builders, and tests remain legitimate where they
   are stronger than any one mechanic package.
-- Tradeoff: new top-level files in those districts must update the ledger and
-  validator allowlist in the same slice.
+- Tradeoff: new top-level files in those districts must update the ledger in
+  the same slice.
 
 ## Boundaries
 
@@ -83,23 +83,44 @@ python scripts/validate_repo.py
 
 ## Current Applicability
 
-As of 2026-05-24:
+As of 2026-06-05:
 
-- Still valid: `mechanics/EVIDENCE_CLUSTERS.md` owns the residual
-  root-authored surface classification ledger for top-level `docs/`,
-  `scripts/`, and `tests/` files.
+- Still valid: `mechanics/EVIDENCE_CLUSTERS.md` remains the source for the
+  residual root-authored surface classification ledger covering root-authored
+  `docs/`, `scripts/`, and `tests/` files.
+- Changed: the validator allowlist retired; validators now derive a
+  ledger-derived surface map from the ledger, compare the filesystem against
+  that map, and check ledger row shape without keeping a second list in Python.
 - Clarified: the former `docs/VIA_NEGATIVA_CHECKLIST.md` root guide now routes
-  through `docs/guides/BOUNDARY_ROUTE_CHECKLIST.md`, so the file name and content name
-  the agent action directly.
+  through `docs/guides/BOUNDARY_ROUTE_CHECKLIST.md`, so the file name and
+  content name the agent action directly.
 - Source surfaces updated:
   - `docs/guides/BOUNDARY_ROUTE_CHECKLIST.md`
   - `docs/README.md`
   - `mechanics/EVIDENCE_CLUSTERS.md`
-  - `scripts/validate_repo.py`
+  - `scripts/validators/root_authored_surface_common.py`
+  - `scripts/validators/root_authored_surface_inventory.py`
+  - `scripts/validators/root_authored_surface_ledger.py`
 - Validation: root-authored classification tests, root repository validation,
-  and semantic AGENTS validation stayed green.
+  and semantic AGENTS validation stayed green when each route changed.
 
 ## Review Log
+
+### 2026-06-05 - Validator allowlist retired
+
+- Previous assumption: the residual classification ledger and a Python
+  allowlist needed to move together.
+- New reality: the ledger is strong enough to be the source; the validator
+  derives its surface map from that ledger and rejects filesystem drift against
+  the ledger-derived surface map.
+- Reason: a Python allowlist became a second source of truth for a topology
+  classification that already lives in `mechanics/EVIDENCE_CLUSTERS.md`.
+- Source surfaces updated: `mechanics/EVIDENCE_CLUSTERS.md`,
+  `scripts/validators/root_authored_surface_common.py`,
+  `scripts/validators/root_authored_surface_inventory.py`, and
+  `scripts/validators/root_authored_surface_ledger.py`.
+- Validation: `python -m pytest -q tests/test_mechanics_topology.py` and the
+  source-fast/release validation route.
 
 ### 2026-05-24 - Boundary checklist renamed to route action
 
@@ -109,8 +130,8 @@ As of 2026-05-24:
   which route action the guide owns.
 - Reason: boundary pressure is handled through owner routes, source proof
   review, and validation rather than a free-standing negative checklist.
-- Source surfaces updated: checklist file name/content, docs map link,
-  root-authored classification ledger, and validator allowlist.
+- Source surfaces updated: checklist file name/content, docs map link, and the
+  root-authored classification validation route.
 - Validation: root-authored classification tests, root repository validation,
   and semantic AGENTS validation stayed green.
 

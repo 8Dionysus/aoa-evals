@@ -12,9 +12,9 @@ from validators.mechanics_common import (
 )
 from validators.root_authored_surface_common import (
     ROOT_AUTHORED_SURFACE_CLASSIFICATION_COLUMNS,
+    ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICT_NAMES,
     ROOT_AUTHORED_SURFACE_CLASSIFICATION_REQUIRED_TOKENS,
     ROOT_AUTHORED_SURFACE_CLASSIFICATION_SECTION,
-    expected_root_authored_surfaces,
 )
 
 
@@ -48,14 +48,11 @@ def validate_root_authored_surface_ledger(repo_root: Path) -> list[ValidationIss
                 )
             )
 
-    expected_surfaces = expected_root_authored_surfaces()
     ledger_rows: dict[str, list[str]] = {}
     for cells in _markdown_table_rows(section):
         if not cells or cells[0] == "Surface":
             continue
         surface_name = cells[0].strip("`")
-        if surface_name not in expected_surfaces:
-            continue
         if surface_name in ledger_rows:
             issues.append(
                 (
@@ -64,6 +61,18 @@ def validate_root_authored_surface_ledger(repo_root: Path) -> list[ValidationIss
                 )
             )
         ledger_rows[surface_name] = cells
+        district_name, separator, file_name = surface_name.partition("/")
+        if (
+            not separator
+            or not file_name
+            or district_name not in ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICT_NAMES
+        ):
+            issues.append(
+                (
+                    MECHANICS_EVIDENCE_CLUSTERS.as_posix(),
+                    f"root-authored surface `{surface_name}` must route under docs/, scripts/, or tests/",
+                )
+            )
         if len(cells) != len(ROOT_AUTHORED_SURFACE_CLASSIFICATION_COLUMNS):
             issues.append(
                 (
@@ -97,15 +106,6 @@ def validate_root_authored_surface_ledger(repo_root: Path) -> list[ValidationIss
                 (
                     MECHANICS_EVIDENCE_CLUSTERS.as_posix(),
                     f"root-authored surface `{surface_name}` row must state its root-owned role",
-                )
-            )
-
-    for surface_name in sorted(expected_surfaces):
-        if surface_name not in ledger_rows:
-            issues.append(
-                (
-                    MECHANICS_EVIDENCE_CLUSTERS.as_posix(),
-                    f"root-authored surface `{surface_name}` must appear in the residual classification ledger",
                 )
             )
 

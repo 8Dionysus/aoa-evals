@@ -61,9 +61,11 @@ from validators.root_authored_surface_common import (
     ROOT_AUTHORED_SURFACE_CLASSIFICATION_COMMAND,
     ROOT_AUTHORED_SURFACE_CLASSIFICATION_DECISION_NAME,
     ROOT_AUTHORED_SURFACE_CLASSIFICATION_DECISION_REQUIRED_TOKENS,
-    ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS,
+    ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICT_NAMES,
     ROOT_AUTHORED_SURFACE_CLASSIFICATION_REQUIRED_TOKENS,
     ROOT_AUTHORED_SURFACE_CLASSIFICATION_SECTION,
+    expected_root_authored_surfaces,
+    root_authored_surface_classification_districts,
 )
 from validators.root_authored_surface_decision import validate_root_authored_surface_decision
 from validators.root_authored_surface_inventory import validate_root_authored_surface_inventory
@@ -247,9 +249,11 @@ __all__ = (
     "ROOT_AUTHORED_SURFACE_CLASSIFICATION_COMMAND",
     "ROOT_AUTHORED_SURFACE_CLASSIFICATION_DECISION_NAME",
     "ROOT_AUTHORED_SURFACE_CLASSIFICATION_DECISION_REQUIRED_TOKENS",
-    "ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS",
+    "ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICT_NAMES",
     "ROOT_AUTHORED_SURFACE_CLASSIFICATION_REQUIRED_TOKENS",
     "ROOT_AUTHORED_SURFACE_CLASSIFICATION_SECTION",
+    "expected_root_authored_surfaces",
+    "root_authored_surface_classification_districts",
     "validate_mechanic_evidence_dimension_ledger",
     "validate_mechanic_evidence_route_refs",
     "validate_mechanic_parent_class_surfaces",

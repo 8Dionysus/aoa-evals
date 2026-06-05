@@ -6,7 +6,8 @@ from pathlib import Path
 
 from validators.common import ValidationIssue
 from validators.root_authored_surface_common import (
-    ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS,
+    ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICT_NAMES,
+    root_authored_surface_classification_districts,
 )
 
 
@@ -29,7 +30,9 @@ def _actual_district_names(repo_root: Path, district_name: str) -> set[str]:
 
 def validate_root_authored_surface_inventory(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
-    for district_name, allowed_names in ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS.items():
+    classification_districts = root_authored_surface_classification_districts(repo_root)
+    for district_name in ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICT_NAMES:
+        allowed_names = classification_districts.get(district_name, ())
         district = repo_root / district_name
         if not district.is_dir():
             issues.append(

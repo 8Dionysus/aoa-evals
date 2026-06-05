@@ -84,14 +84,27 @@
     {
       "path": "scripts/validators/root_context.py",
       "lane": "source_fast",
-      "layer": "root validation context, repo-ref, and route-token lookup boundary",
+      "layer": "root validation context and repo-ref boundary",
       "mode": "blocking",
       "owner_surface": "scripts/AGENTS.md",
-      "source_truth": ["docs/validation/VALIDATOR_TOPOLOGY.md", "docs/architecture/PROOF_TOPOLOGY.md", "docs/architecture/ROUTE_RESIDUE_GUARDS.md"],
-      "input": ["sibling root environment variables", "repo-qualified references", "markdown anchors", "root route-token lookup requests"],
-      "output": ["repo-ref resolution results", "strict sibling compatibility posture", "root route-token companion lookup context"],
+      "source_truth": ["docs/validation/VALIDATOR_TOPOLOGY.md"],
+      "input": ["sibling root environment variables", "repo-qualified references", "markdown anchors"],
+      "output": ["repo-ref resolution results", "strict sibling compatibility posture", "markdown anchor lookup results"],
       "command_sequences": ["source_fast", "release_check"],
-      "failure_route": "Fix root-context resolution or the consuming focused validator; root context must not own source eval meaning, generated parity, mechanic payload truth, runtime outcome, or release publication evidence.",
+      "failure_route": "Fix root-context resolution or the consuming focused validator; root context must not own route-token companion lookup, source eval meaning, generated parity, mechanic payload truth, runtime outcome, or release publication evidence.",
+      "disposition": "add"
+    },
+    {
+      "path": "scripts/validators/root_route_tokens.py",
+      "lane": "source_fast",
+      "layer": "root route-token companion lookup boundary",
+      "mode": "blocking",
+      "owner_surface": "scripts/AGENTS.md",
+      "source_truth": ["docs/validation/VALIDATOR_TOPOLOGY.md", "docs/architecture/PROOF_TOPOLOGY.md", "docs/architecture/ROUTE_RESIDUE_GUARDS.md", "docs/decisions/indexes"],
+      "input": ["root route-token lookup requests", "decision indexes", "route-residue guard companion", "mechanic parent and part validation-route companions"],
+      "output": ["root route-token companion lookup context"],
+      "command_sequences": ["source_fast", "release_check"],
+      "failure_route": "Fix root route-token companion lookup or the consuming focused validator; this helper must not own sibling root resolution, repo-ref parsing, source eval meaning, generated parity, mechanic payload truth, runtime outcome, or release publication evidence.",
       "disposition": "add"
     },
     {
@@ -331,14 +344,14 @@
     {
       "path": "scripts/validators/boundary_bridge_common.py",
       "lane": "source_fast",
-      "layer": "boundary-bridge shared helper boundary",
+      "layer": "boundary-bridge constants helper boundary",
       "mode": "blocking",
       "owner_surface": "scripts/AGENTS.md",
       "source_truth": ["docs/validation/VALIDATOR_TOPOLOGY.md", "mechanics/boundary-bridge/README.md", "mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json", ".github/workflows/repo-validation.yml"],
-      "input": ["boundary-bridge constants", "decision indexes", "part validation route helpers"],
-      "output": ["boundary-bridge helper diagnostics"],
+      "input": ["boundary-bridge path, command, and token constants"],
+      "output": ["boundary-bridge constants for focused validators"],
       "command_sequences": ["source_fast", "release_check"],
-      "failure_route": "Fix the focused boundary-bridge validator that owns the failed behavior; this helper does not own route-card contracts, workflow-pin hygiene, sibling canary matrix shape, generated parity, or sibling execution.",
+      "failure_route": "Fix the focused boundary-bridge validator that owns the failed behavior; this helper does not own route-token companion lookup, route-card contracts, workflow-pin hygiene, sibling canary matrix shape, generated parity, or sibling execution.",
       "disposition": "add"
     },
     {

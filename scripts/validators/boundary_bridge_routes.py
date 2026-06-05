@@ -33,10 +33,9 @@ from validators.boundary_bridge_common import (
     BOUNDARY_BRIDGE_PARTS_README_REQUIRED_TOKENS,
     BOUNDARY_BRIDGE_PART_CONTRACT_GUARD_DECISION_NAME,
     BOUNDARY_BRIDGE_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS,
-    DECISION_RECORDS_README_NAME,
-    ValidationIssue,
-    require_tokens,
 )
+from validators.common import ValidationIssue
+from validators.root_route_tokens import DECISION_RECORDS_README_NAME, require_tokens
 
 
 def validate_boundary_bridge_route_surfaces(repo_root: Path) -> list[ValidationIssue]:

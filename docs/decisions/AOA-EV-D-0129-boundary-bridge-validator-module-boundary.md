@@ -89,11 +89,13 @@ As of 2026-06-03:
   focused validator module; repo-validation workflow-pin hygiene also moved to
   `scripts/validators/boundary_bridge.py`; sibling-canary matrix shape also
   moved to the same module.
-- As of AOA-EV-D-0206: `scripts/validators/boundary_bridge.py` is removed;
-  route cards and sibling-ref posture live in `boundary_bridge_routes.py`,
-  workflow-pin hygiene lives in `boundary_bridge_workflow.py`, canary matrix
-  shape lives in `boundary_bridge_canary.py`, and shared constants/token lookup
-  live in `boundary_bridge_common.py`.
+- As of AOA-EV-D-0206 and its 2026-06-05 review:
+  `scripts/validators/boundary_bridge.py` is removed; route cards and
+  sibling-ref posture live in `boundary_bridge_routes.py`, workflow-pin hygiene
+  lives in `boundary_bridge_workflow.py`, canary matrix shape lives in
+  `boundary_bridge_canary.py`, shared boundary-bridge constants live in
+  `boundary_bridge_common.py`, and route-token companion lookup lives in
+  `root_route_tokens.py`.
 - Superseded by: AOA-EV-D-0206 for aggregate module shape.
 
 ## Boundaries

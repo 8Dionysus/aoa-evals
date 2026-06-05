@@ -81,6 +81,7 @@ def build_runtime_candidate_template_index_payload() -> dict[str, object]:
                 ]
             )
         review_posture = payload.get("review_posture")
+        memory_context_boundary = payload.get("memory_context_boundary")
         entries.append(
             {
                 "template_kind": "runtime_evidence_selection",
@@ -90,6 +91,9 @@ def build_runtime_candidate_template_index_payload() -> dict[str, object]:
                 "verdict_bundle_ref": bundle_refs.get(target_eval) if isinstance(target_eval, str) else None,
                 "required_runtime_artifacts": required_runtime_artifacts,
                 "runtime_policy_boundary": None,
+                "memory_context_boundary": memory_context_boundary
+                if isinstance(memory_context_boundary, dict)
+                else None,
                 "review_required": bool(
                     isinstance(review_posture, dict) and review_posture.get("human_review_required") is True
                 ),
@@ -121,6 +125,7 @@ def build_runtime_candidate_template_index_payload() -> dict[str, object]:
                     "runtime_policy_boundary": runtime_policy_boundary
                     if isinstance(runtime_policy_boundary, dict)
                     else None,
+                    "memory_context_boundary": None,
                     "review_required": bool(
                         isinstance(report_expectation, dict) and report_expectation.get("review_required") is True
                     ),

@@ -299,6 +299,21 @@ def _write_runtime_chaos_selection_surface(repo_root: Path) -> Path:
     )
 
 
+def _write_memo_context_selection_surface(repo_root: Path) -> Path:
+    for relative_path in (
+        runtime_evidence_selection_validator.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH,
+        "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json",
+        "docs/guides/EVAL_PHILOSOPHY.md",
+        "evals/workflow/aoa-memo-recall-integrity/EVAL.md",
+    ):
+        copy_repo_text(repo_root, relative_path)
+    return (
+        repo_root
+        / runtime_evidence_selection_validator.RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR
+        / "runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json"
+    )
+
+
 def _write_abyss_stack_degradation_schema(repo_root: Path) -> Path:
     abyss_stack_root = repo_root / "abyss-stack"
     write_text(
@@ -377,6 +392,78 @@ def test_validate_runtime_evidence_selection_accepts_example_backed_runtime_chao
             target_eval_names={"aoa-stress-recovery-window"},
         )
         == []
+    )
+
+
+def test_validate_runtime_evidence_selection_accepts_memo_context_boundaries() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    assert (
+        runtime_evidence_selection_validator.validate_runtime_evidence_selection_surfaces(
+            REPO_ROOT,
+            records,
+            context=readout_contexts.runtime_audit_context(),
+            target_eval_names={
+                "aoa-memo-recall-integrity",
+                "aoa-memo-contradiction-integrity",
+                "aoa-memo-writeback-act-integrity",
+            },
+        )
+        == []
+    )
+
+
+def test_validate_runtime_evidence_selection_requires_memo_context_boundary(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    example_path = _write_memo_context_selection_surface(tmp_path)
+    payload = json.loads(example_path.read_text(encoding="utf-8"))
+    payload.pop("memory_context_boundary")
+    write_json_payload(example_path, payload)
+
+    _set_abyss_stack_ref_roots(monkeypatch, repo_root=tmp_path, abyss_stack_root=tmp_path / "abyss-stack")
+
+    issues = runtime_evidence_selection_validator.validate_runtime_evidence_selection_surfaces(
+        tmp_path,
+        records=[SimpleNamespace(name="aoa-memo-recall-integrity")],
+        context=readout_contexts.runtime_audit_context(),
+        target_eval_names={"aoa-memo-recall-integrity"},
+    )
+
+    assert any(
+        issue.location == "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json.memory_context_boundary"
+        and "memory_context_boundary must be present for memo context candidate evidence" == issue.message
+        for issue in issues
+    )
+
+
+def test_validate_runtime_evidence_selection_rejects_memory_authority_stop_line_drift(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    example_path = _write_memo_context_selection_surface(tmp_path)
+    payload = json.loads(example_path.read_text(encoding="utf-8"))
+    stop_lines = payload["memory_context_boundary"]["authority_stop_lines"]
+    payload["memory_context_boundary"]["authority_stop_lines"] = [
+        item for item in stop_lines if item != "does not authorize tool use"
+    ]
+    write_json_payload(example_path, payload)
+
+    _set_abyss_stack_ref_roots(monkeypatch, repo_root=tmp_path, abyss_stack_root=tmp_path / "abyss-stack")
+
+    issues = runtime_evidence_selection_validator.validate_runtime_evidence_selection_surfaces(
+        tmp_path,
+        records=[SimpleNamespace(name="aoa-memo-recall-integrity")],
+        context=readout_contexts.runtime_audit_context(),
+        target_eval_names={"aoa-memo-recall-integrity"},
+    )
+
+    assert any(
+        issue.location == "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json.memory_context_boundary"
+        and "authority_stop_lines must mention 'does not authorize tool use'" == issue.message
+        for issue in issues
     )
 
 

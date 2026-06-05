@@ -28,6 +28,25 @@ TRACE_EVAL_BRIDGE_CHAOS_DOC_NAME = (
 TRACE_INTEGRITY_CHAOS_HOOK_NAME = (
     "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json"
 )
+MEMORY_CONTEXT_SOURCE_SCHEMA_REF = (
+    "repo:abyss-stack/mechanics/governed-execution/parts/candidate-exports/schemas/"
+    "runtime-memo-export-candidate.schema.json"
+)
+MEMORY_CONTEXT_BOUNDARY_OWNER = "aoa-memo"
+MEMORY_CONTEXT_BOUNDARY_CONSUMER_POSTURE = "candidate_context_only_not_memory_authority"
+MEMORY_CONTEXT_BOUNDARY_REF_FIELDS = (
+    "provenance_refs",
+    "freshness_refs",
+    "retention_refs",
+    "permission_refs",
+)
+MEMORY_CONTEXT_BOUNDARY_STOP_LINES = (
+    "does not authorize tool use",
+    "does not authorize durable memory writeback",
+    "does not settle source truth",
+    "does not convert stale or private context into proof",
+    "does not create a local memo port",
+)
 RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
     "runtime_evidence_selection.workhorse-local.example.json": {
         "target_eval": None,
@@ -41,23 +60,27 @@ RUNTIME_EVIDENCE_SELECTION_EXAMPLES: dict[str, dict[str, Any]] = {
     },
     "runtime_evidence_selection.phase-alpha-memo-recall-rerun.example.json": {
         "target_eval": "aoa-memo-recall-integrity",
-        "source_schema_ref": "repo:abyss-stack/mechanics/governed-execution/parts/candidate-exports/schemas/runtime-memo-export-candidate.schema.json",
+        "source_schema_ref": MEMORY_CONTEXT_SOURCE_SCHEMA_REF,
         "candidate_eval_refs": ["candidate:aoa-memo-recall-integrity"],
+        "memory_context_allowed_influence": "memo recall context for bundle-local review",
     },
     "runtime_evidence_selection.phase-alpha-memo-contradiction-gap.example.json": {
         "target_eval": "aoa-memo-contradiction-integrity",
-        "source_schema_ref": "repo:abyss-stack/mechanics/governed-execution/parts/candidate-exports/schemas/runtime-memo-export-candidate.schema.json",
+        "source_schema_ref": MEMORY_CONTEXT_SOURCE_SCHEMA_REF,
         "candidate_eval_refs": ["candidate:aoa-memo-contradiction-integrity"],
+        "memory_context_allowed_influence": "memo contradiction context for bundle-local review",
     },
     "runtime_evidence_selection.phase-alpha-memo-contradiction-rerun.example.json": {
         "target_eval": "aoa-memo-contradiction-integrity",
-        "source_schema_ref": "repo:abyss-stack/mechanics/governed-execution/parts/candidate-exports/schemas/runtime-memo-export-candidate.schema.json",
+        "source_schema_ref": MEMORY_CONTEXT_SOURCE_SCHEMA_REF,
         "candidate_eval_refs": ["candidate:aoa-memo-contradiction-integrity"],
+        "memory_context_allowed_influence": "memo contradiction context for bundle-local review",
     },
     "runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json": {
         "target_eval": "aoa-memo-writeback-act-integrity",
-        "source_schema_ref": "repo:abyss-stack/mechanics/governed-execution/parts/candidate-exports/schemas/runtime-memo-export-candidate.schema.json",
+        "source_schema_ref": MEMORY_CONTEXT_SOURCE_SCHEMA_REF,
         "candidate_eval_refs": ["candidate:aoa-memo-writeback-act-integrity"],
+        "memory_context_allowed_influence": "memo writeback context for bundle-local review",
     },
     "runtime_evidence_selection.runtime-chaos-window.example.json": {
         "target_eval": "aoa-stress-recovery-window",
@@ -243,6 +266,115 @@ def _validate_runtime_degradation_pairing(
                     issues.append(ValidationIssue(doc_location, f"bridge doc must mention '{token}'"))
 
 
+def _is_memory_context_candidate(payload: dict[str, Any]) -> bool:
+    target_eval = payload.get("target_eval")
+    selection_id = payload.get("selection_id")
+    return (
+        payload.get("source_schema_ref") == MEMORY_CONTEXT_SOURCE_SCHEMA_REF
+        or (isinstance(target_eval, str) and target_eval.startswith("aoa-memo-"))
+        or (isinstance(selection_id, str) and "memo" in selection_id)
+    )
+
+
+def _validate_memory_context_boundary(
+    *,
+    location: str,
+    payload: dict[str, Any],
+    expected_influence: str | None,
+    context: RuntimeAuditContext,
+    issues: list[ValidationIssue],
+) -> None:
+    boundary = payload.get("memory_context_boundary")
+    if not isinstance(boundary, dict):
+        issues.append(
+            ValidationIssue(
+                f"{location}.memory_context_boundary",
+                "memory_context_boundary must be present for memo context candidate evidence",
+            )
+        )
+        return
+
+    if payload.get("source_schema_ref") != MEMORY_CONTEXT_SOURCE_SCHEMA_REF:
+        issues.append(
+            ValidationIssue(
+                location,
+                f"memo context candidate evidence must use source_schema_ref '{MEMORY_CONTEXT_SOURCE_SCHEMA_REF}'",
+            )
+        )
+    if boundary.get("memory_owner_repo") != MEMORY_CONTEXT_BOUNDARY_OWNER:
+        issues.append(
+            ValidationIssue(
+                f"{location}.memory_context_boundary.memory_owner_repo",
+                "memory_owner_repo must equal 'aoa-memo'",
+            )
+        )
+    if boundary.get("consumer_posture") != MEMORY_CONTEXT_BOUNDARY_CONSUMER_POSTURE:
+        issues.append(
+            ValidationIssue(
+                f"{location}.memory_context_boundary.consumer_posture",
+                f"consumer_posture must equal '{MEMORY_CONTEXT_BOUNDARY_CONSUMER_POSTURE}'",
+            )
+        )
+    if boundary.get("review_required") is not True:
+        issues.append(
+            ValidationIssue(
+                f"{location}.memory_context_boundary.review_required",
+                "memory context candidate evidence must require review",
+            )
+        )
+
+    allowed_influence = boundary.get("allowed_influence")
+    if not isinstance(allowed_influence, list) or not all(isinstance(item, str) for item in allowed_influence):
+        issues.append(
+            ValidationIssue(
+                f"{location}.memory_context_boundary.allowed_influence",
+                "allowed_influence must be a string list",
+            )
+        )
+    elif expected_influence is not None and expected_influence not in allowed_influence:
+        issues.append(
+            ValidationIssue(
+                f"{location}.memory_context_boundary.allowed_influence",
+                f"allowed_influence must include '{expected_influence}'",
+            )
+        )
+
+    _require_list_tokens(
+        location=f"{location}.memory_context_boundary",
+        value=boundary.get("authority_stop_lines"),
+        field_name="authority_stop_lines",
+        tokens=MEMORY_CONTEXT_BOUNDARY_STOP_LINES,
+        issues=issues,
+    )
+
+    for field_name in MEMORY_CONTEXT_BOUNDARY_REF_FIELDS:
+        refs = boundary.get(field_name)
+        if not isinstance(refs, list) or not all(isinstance(item, str) for item in refs):
+            issues.append(
+                ValidationIssue(
+                    f"{location}.memory_context_boundary.{field_name}",
+                    f"{field_name} must be a string list",
+                )
+            )
+            continue
+        for index, ref in enumerate(refs):
+            resolution = context.parse_repo_ref(
+                ref,
+                location=f"{location}.memory_context_boundary.{field_name}[{index}]",
+                issues=issues,
+            )
+            if resolution is None:
+                continue
+            repo_name, _target_path, _anchor = resolution
+            if repo_name not in {"aoa-evals", "aoa-memo"}:
+                issues.append(
+                    ValidationIssue(
+                        f"{location}.memory_context_boundary.{field_name}[{index}]",
+                        "memory context boundary refs must stay in aoa-evals or aoa-memo",
+                    )
+                )
+
+
 def validate_runtime_evidence_selection_surfaces(
     repo_root: Path,
     records: Sequence[Any],
@@ -380,6 +512,14 @@ def validate_runtime_evidence_selection_surfaces(
                 location=location,
                 payload=payload,
                 expectations=expectations,
+                issues=issues,
+            )
+        if expectations.get("memory_context_allowed_influence") or _is_memory_context_candidate(payload):
+            _validate_memory_context_boundary(
+                location=location,
+                payload=payload,
+                expected_influence=expectations.get("memory_context_allowed_influence"),
+                context=context,
                 issues=issues,
             )
 

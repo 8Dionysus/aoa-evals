@@ -72,6 +72,9 @@ def build_runtime_candidate_intake_payload() -> dict[str, object]:
                 "runtime_policy_boundary": template.get("runtime_policy_boundary")
                 if isinstance(template.get("runtime_policy_boundary"), dict)
                 else None,
+                "memory_context_boundary": template.get("memory_context_boundary")
+                if isinstance(template.get("memory_context_boundary"), dict)
+                else None,
                 "review_required": bool(template.get("review_required")),
                 "review_guide_ref": review_guide_ref,
                 "owner_review_refs": _owner_review_refs(template, review_guide_ref=review_guide_ref),

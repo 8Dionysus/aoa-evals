@@ -270,10 +270,10 @@
       "mode": "blocking",
       "owner_surface": "mechanics/audit/parts/selected-evidence-packets/README.md",
       "source_truth": ["mechanics/audit/parts/selected-evidence-packets/schemas/runtime-evidence-selection.schema.json", "mechanics/audit/parts/selected-evidence-packets/examples", "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json", "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md"],
-      "input": ["runtime evidence selection schema and examples", "source eval records", "abyss-stack ref resolution context", "paired trace/eval chaos hook", "runtime chaos bridge doc"],
-      "output": ["runtime evidence selection schema, candidate eval, abyss-stack ref, and runtime-chaos degradation pairing issues"],
+      "input": ["runtime evidence selection schema and examples", "source eval records", "abyss-stack ref resolution context", "paired trace/eval chaos hook", "runtime chaos bridge doc", "memory context boundary refs"],
+      "output": ["runtime evidence selection schema, candidate eval, abyss-stack ref, runtime-chaos degradation pairing, and memo memory-context boundary issues"],
       "command_sequences": ["source_fast", "release_check"],
-      "failure_route": "Fix the selected-evidence packet schema/example, candidate eval refs, abyss-stack refs, paired trace/eval hook, or runtime chaos bridge doc; runtime activation, live runtime health truth, eval verdict replacement, and proof-canon acceptance remain outside selected-evidence validation.",
+      "failure_route": "Fix the selected-evidence packet schema/example, candidate eval refs, abyss-stack refs, paired trace/eval hook, runtime chaos bridge doc, or memo memory-context boundary; runtime activation, live runtime health truth, eval verdict replacement, memory authority, tool authorization, durable writeback, source-truth settlement, local memo ports, and proof-canon acceptance remain outside selected-evidence validation.",
       "disposition": "add"
     },
     {
@@ -2130,9 +2130,9 @@
       "owner_surface": "mechanics/audit/parts/candidate-readers/README.md",
       "source_truth": ["mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py", "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json", "mechanics/audit/parts/candidate-readers/schemas/runtime-candidate-template-index.schema.json", "mechanics/audit/parts/selected-evidence-packets/examples", "mechanics/audit/parts/artifact-verdict-hooks/examples", "generated/eval_catalog.min.json"],
       "input": ["runtime candidate template index", "template-index builder", "template-index schema", "source example fixtures", "eval catalog"],
-      "output": ["runtime-candidate template-index rebuild parity, schema, example coverage, eval-anchor, artifact normalization, runtime policy boundary projection, and source-example field issues"],
+      "output": ["runtime-candidate template-index rebuild parity, schema, example coverage, eval-anchor, artifact normalization, runtime policy boundary projection, memory context boundary projection, and source-example field issues"],
       "command_sequences": ["generated_check", "release_check", "nightly"],
-      "failure_route": "Regenerate the template index from its part-local builder or fix the owning source example/schema/catalog ref; candidate readers must not become runtime acceptance or runtime policy enforcement authority.",
+      "failure_route": "Regenerate the template index from its part-local builder or fix the owning source example/schema/catalog ref; candidate readers must not become runtime acceptance, runtime policy enforcement, or memory authority.",
       "disposition": "add"
     },
     {
@@ -2143,9 +2143,9 @@
       "owner_surface": "mechanics/audit/parts/candidate-readers/README.md",
       "source_truth": ["mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py", "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json", "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json", "docs/guides/EVAL_REVIEW_GUIDE.md", "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md", "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md"],
       "input": ["runtime candidate intake reader", "intake builder", "template index", "review guides", "owner review refs"],
-      "output": ["runtime-candidate intake rebuild parity, source-of-truth, template ordering, review-guide, owner-review-ref, runtime policy boundary projection, and candidate posture issues"],
+      "output": ["runtime-candidate intake rebuild parity, source-of-truth, template ordering, review-guide, owner-review-ref, runtime policy boundary projection, memory context boundary projection, and candidate posture issues"],
       "command_sequences": ["generated_check", "release_check", "nightly"],
-      "failure_route": "Regenerate the intake reader from its part-local builder or fix the owning review guide/source ref; candidate readers must not become runtime acceptance or runtime policy enforcement authority.",
+      "failure_route": "Regenerate the intake reader from its part-local builder or fix the owning review guide/source ref; candidate readers must not become runtime acceptance, runtime policy enforcement, or memory authority.",
       "disposition": "add"
     },
     {

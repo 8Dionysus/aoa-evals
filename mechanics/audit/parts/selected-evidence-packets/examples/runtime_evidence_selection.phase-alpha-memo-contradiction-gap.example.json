@@ -14,6 +14,37 @@
   "candidate_eval_refs": [
     "candidate:aoa-memo-contradiction-integrity"
   ],
+  "memory_context_boundary": {
+    "memory_owner_repo": "aoa-memo",
+    "consumer_posture": "candidate_context_only_not_memory_authority",
+    "allowed_influence": [
+      "memo contradiction context for bundle-local review"
+    ],
+    "provenance_refs": [
+      "repo:aoa-evals/evals/workflow/aoa-memo-contradiction-integrity/EVAL.md",
+      "repo:aoa-memo/docs/posture/PROVENANCE_THREADS.md"
+    ],
+    "freshness_refs": [
+      "repo:aoa-memo/docs/posture/MEMORY_TRUST_POSTURE.md",
+      "repo:aoa-memo/docs/posture/LIFECYCLE.md"
+    ],
+    "retention_refs": [
+      "repo:aoa-memo/docs/posture/MEMORY_TEMPERATURES.md",
+      "repo:aoa-memo/mechanics/writeback/docs/RUNTIME_WRITEBACK_SEAM.md"
+    ],
+    "permission_refs": [
+      "repo:aoa-memo/mechanics/consumer-handoff/docs/MEMORY_EVAL_GUARDRAILS.md",
+      "repo:aoa-evals/docs/guides/EVAL_PHILOSOPHY.md#on-memory"
+    ],
+    "authority_stop_lines": [
+      "does not authorize tool use",
+      "does not authorize durable memory writeback",
+      "does not settle source truth",
+      "does not convert stale or private context into proof",
+      "does not create a local memo port"
+    ],
+    "review_required": true
+  },
   "selected_evidence": [
     {
       "artifact_ref": "repo:abyss-stack/Logs/phase-alpha/alpha-05-restartable-inquiry-loop/contradiction_map.json",

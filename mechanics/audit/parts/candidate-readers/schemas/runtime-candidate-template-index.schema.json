@@ -60,6 +60,7 @@
           "verdict_bundle_ref",
           "required_runtime_artifacts",
           "runtime_policy_boundary",
+          "memory_context_boundary",
           "review_required",
           "source_example_ref"
         ],
@@ -163,6 +164,92 @@
                   "type": "string",
                   "minLength": 1
                 }
+              }
+            }
+          },
+          "memory_context_boundary": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": false,
+            "required": [
+              "memory_owner_repo",
+              "consumer_posture",
+              "allowed_influence",
+              "provenance_refs",
+              "freshness_refs",
+              "retention_refs",
+              "permission_refs",
+              "authority_stop_lines",
+              "review_required"
+            ],
+            "properties": {
+              "memory_owner_repo": {
+                "type": "string",
+                "const": "aoa-memo"
+              },
+              "consumer_posture": {
+                "type": "string",
+                "const": "candidate_context_only_not_memory_authority"
+              },
+              "allowed_influence": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "provenance_refs": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "freshness_refs": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "retention_refs": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "permission_refs": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "authority_stop_lines": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "review_required": {
+                "type": "boolean",
+                "const": true
               }
             }
           },

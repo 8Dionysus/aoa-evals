@@ -62,6 +62,7 @@ the implementation is split by owner route. Current focused modules are:
 - `scripts/validators/checkpoint_routes.py`
 - `scripts/validators/common.py`
 - `scripts/validators/root_context.py`
+- `scripts/validators/root_route_tokens.py`
 - `scripts/validators/comparison_spine_paths.py`
 - `scripts/validators/comparison_spine_tokens.py`
 - `scripts/validators/comparison_spine_route_helpers.py`
@@ -192,6 +193,7 @@ the implementation is split by owner route. Current focused modules are:
 - `scripts/validators/root_authored_surface_ledger.py`
 - `scripts/validators/root_common.py`
 - `scripts/validators/root_context.py`
+- `scripts/validators/root_route_tokens.py`
 - `scripts/validators/root_decision_status.py`
 - `scripts/validators/root_design_common.py`
 - `scripts/validators/root_design_docs.py`

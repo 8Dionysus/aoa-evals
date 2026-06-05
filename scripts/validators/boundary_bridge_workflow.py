@@ -8,9 +8,9 @@ from validators.boundary_bridge_common import (
     REPO_VALIDATION_AOA_MEMO_PIN_DECISION_NAME,
     REPO_VALIDATION_AOA_MEMO_PIN_DECISION_REQUIRED_TOKENS,
     REPO_VALIDATION_WORKFLOW_NAME,
-    ValidationIssue,
-    require_tokens,
 )
+from validators.common import ValidationIssue
+from validators.root_route_tokens import require_tokens
 
 
 def validate_repo_validation_workflow_surface(repo_root: Path) -> list[ValidationIssue]:

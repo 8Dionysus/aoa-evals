@@ -40,7 +40,9 @@ Boundary-bridge validation now routes through focused modules:
   release-audit execution and sibling checkout/pin residue checks.
 - `boundary_bridge_canary.py` owns sibling canary matrix JSON shape, expected
   repo coverage, and `abyss-stack` resolver posture.
-- `boundary_bridge_common.py` is helper-only shared constants and token lookup.
+- `boundary_bridge_common.py` is helper-only shared boundary-bridge constants.
+- Root route-token companion lookup lives in
+  `scripts/validators/root_route_tokens.py`.
 
 `mechanics_routes.py` calls each focused validator directly.
 
@@ -67,14 +69,32 @@ matrix rules from accumulating in one broad module.
 
 ## Current Applicability
 
-As of 2026-06-04:
+As of 2026-06-05:
 
 - Still valid: live sibling-canary execution remains outside source-fast
   validation.
 - Changed: boundary-bridge behavior no longer lives in
   `boundary_bridge.py`; it is split across route, workflow-pin, canary-matrix,
-  and helper-only modules.
+  constants, and root route-token helper modules.
 - Supersedes: the aggregate module shape left by AOA-EV-D-0129.
+
+## Review Log
+
+### 2026-06-05 - Shared token lookup left boundary-bridge common
+
+- Previous assumption: boundary-bridge shared constants and route-token lookup
+  could live together in `boundary_bridge_common.py`.
+- New reality: boundary-bridge common is constants-only; route-token companion
+  lookup is shared root helper behavior in `root_route_tokens.py`.
+- Reason: leaving token lookup in boundary-bridge common duplicated root helper
+  behavior and kept another small historical utility bucket alive.
+- Source surfaces updated: `scripts/validators/boundary_bridge_common.py`,
+  `scripts/validators/boundary_bridge_routes.py`,
+  `scripts/validators/boundary_bridge_workflow.py`,
+  `scripts/validators/boundary_bridge_canary.py`, validation inventories, and
+  `mechanics/EVIDENCE_CLUSTERS.md`.
+- Validation: boundary-bridge focused tests, source-fast gate, and release
+  check.
 
 ## Boundaries
 

@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0154
 - Status: Accepted
 - Date: 2026-06-04
-- Owner surface: `scripts/validators/root_context.py`, root validation context, sibling repo-ref, and route-token lookup boundary
+- Owner surface: `scripts/validators/root_context.py` and `scripts/validators/root_route_tokens.py`
 
 ## Index Metadata
 
@@ -29,6 +29,7 @@ the focused modules already owned their validation behavior.
 ## Decision
 
 Root validation context lives in `scripts/validators/root_context.py`.
+Root route-token companion lookup lives in `scripts/validators/root_route_tokens.py`.
 
 The module owns:
 
@@ -37,20 +38,22 @@ The module owns:
 - `repo:` and named-surface reference parsing;
 - strict sibling compatibility mode;
 - markdown anchor lookup for repo-qualified refs;
-- root route-token companion lookup through decision indexes, route-residue
-  guards, mechanic parent `AGENTS.md`, part `VALIDATION.md`, and parts
-  `AGENTS.md` child sections;
 - explicit `refresh_roots()` for latest-sibling canary overrides.
+
+`scripts/validators/root_route_tokens.py` owns root route-token companion lookup
+through decision indexes, route-residue guards, mechanic parent `AGENTS.md`,
+part `VALIDATION.md`, and parts `AGENTS.md` child sections.
 
 `scripts/validate_repo.py` remains the CLI entrypoint and domain orchestrator.
 Focused validators receive context objects or helper callables from
-`root_context.py`; tests and canary scripts patch `root_context.py` directly.
+`root_context.py` or `root_route_tokens.py`; tests and canary scripts patch
+`root_context.py` directly for sibling-root overrides.
 
 ## Rationale
 
-Repo-ref resolution and route-token lookup are boundary context, not source eval
-meaning, generated parity, mechanic payload truth, runtime acceptance, or live
-release evidence. Keeping them in `validate_repo.py` made every focused
+Repo-ref resolution and route-token lookup are boundary context, not source
+eval meaning, generated parity, mechanic payload truth, runtime acceptance, or
+live release evidence. Keeping them in `validate_repo.py` made every focused
 validator look dependent on a historical mega-script.
 
 Moving the context to a named owner makes the dependency explicit: runtime audit,
@@ -72,26 +75,46 @@ root CLI into a utility bucket.
 
 ## Current Applicability
 
-As of 2026-06-04:
+As of 2026-06-05:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide validation
   command.
 - Changed: sibling root globals, strict compatibility flags, repo-ref parsing,
-  Abyss Stack source resolution, and route-token lookup moved to
-  `scripts/validators/root_context.py`.
+  and Abyss Stack source resolution stay in `scripts/validators/root_context.py`.
+  Root route-token companion lookup moved onward to
+  `scripts/validators/root_route_tokens.py`.
 - Superseded by: none.
+
+## Review Log
+
+### 2026-06-05 - Route-token lookup split from root context
+
+- Previous assumption: repo-ref resolution and route-token companion lookup
+  could share one root context module.
+- New reality: sibling-root and `repo:` parsing are a different boundary from
+  route-token companion lookup through decision indexes, route-residue guards,
+  parent `AGENTS.md`, part `VALIDATION.md`, and parts `AGENTS.md` sections.
+- Reason: `root_context.py` had become the largest validator helper and still
+  behaved like a historical utility bucket after source/readout validators were
+  split.
+- Source surfaces updated: `scripts/validators/root_context.py`,
+  `scripts/validators/root_route_tokens.py`, `scripts/validators/root_topology.py`,
+  `scripts/validators/mechanics_routes.py`, validation inventories, and
+  `mechanics/EVIDENCE_CLUSTERS.md`.
+- Validation: root-context and route-token focused tests, source-fast gate, and
+  release check.
 
 ## Boundaries
 
-This decision does not let `root_context.py` define source eval claims,
-generated projection freshness, mechanic payload meaning, runtime policy
-acceptance, trace/eval grading, live receipt publication, or release artifact
-identity.
+This decision does not let `root_context.py` or `root_route_tokens.py` define
+source eval claims, generated projection freshness, mechanic payload meaning,
+runtime policy acceptance, trace/eval grading, live receipt publication, or
+release artifact identity.
 
 It does not create a second root validator. It provides context used by focused
 validators.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/root_context.py mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py tests/test_runtime_evidence_surfaces.py tests/test_downstream_feed_contracts.py tests/test_generated_route_residue.py tests/validate_repo_fixtures.py tests/test_route_residue.py tests/test_mechanic_parent_topology.py tests/test_mechanic_evidence_ledger.py tests/test_mechanic_root_district_recon.py`
+- `python -m py_compile scripts/validate_repo.py scripts/validators/root_context.py scripts/validators/root_route_tokens.py mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py tests/test_runtime_evidence_surfaces.py tests/test_downstream_feed_contracts.py tests/test_generated_route_residue.py tests/validate_repo_fixtures.py tests/test_route_residue.py tests/test_mechanic_parent_topology.py tests/test_mechanic_evidence_ledger.py tests/test_mechanic_root_district_recon.py`
 - `python -m pytest -q tests/test_runtime_evidence_surfaces.py tests/test_downstream_feed_contracts.py tests/test_generated_route_residue.py tests/test_route_residue.py tests/test_eval_source_topology.py tests/test_validate_repo.py tests/test_quest_and_reader_surfaces.py mechanics/boundary-bridge/parts/latest-sibling-canary/tests/test_sibling_canary.py`

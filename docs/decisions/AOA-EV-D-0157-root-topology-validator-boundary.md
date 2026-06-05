@@ -37,7 +37,7 @@ The module owns:
   residue, quest route, mechanics route-domain, and report-index route checks;
 - root route-card context construction;
 - root route-residue context construction;
-- Questbook route context construction from `root_context.py` and mechanic
+- Questbook route context construction from `root_route_tokens.py` and mechanic
   provenance bridge tokens;
 - conversion of focused validator issue objects into the root
   `ValidationIssue` shape.

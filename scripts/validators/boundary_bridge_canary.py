@@ -8,8 +8,8 @@ from pathlib import Path
 from validators.boundary_bridge_common import (
     SIBLING_CANARY_EXPECTED_REPOS,
     SIBLING_CANARY_MATRIX_NAME,
-    ValidationIssue,
 )
+from validators.common import ValidationIssue
 
 
 def validate_sibling_canary_matrix_surface(repo_root: Path) -> list[ValidationIssue]:

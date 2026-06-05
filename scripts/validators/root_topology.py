@@ -21,7 +21,6 @@ from validators import (
     root_agent_index as root_agent_index_validator,
     root_agent_lanes as root_agent_lanes_validator,
     root_audit_routes as root_audit_routes_validator,
-    root_context,
     root_decision_status as root_decision_status_validator,
     root_design_docs as root_design_docs_validator,
     root_eval_guides as root_eval_guides_validator,
@@ -35,6 +34,7 @@ from validators import (
     root_proof_topology as root_proof_topology_validator,
     root_read_model_commands as root_read_model_commands_validator,
     root_release_guidance as root_release_guidance_validator,
+    root_route_tokens,
     root_route_cards as root_route_cards_validator,
     root_validator_surfaces as root_validator_surfaces_validator,
     route_residue_common as route_residue_common_validator,
@@ -68,19 +68,19 @@ def _tuple_issues(module_issues: Sequence[tuple[str, str]]) -> list[ValidationIs
 
 def root_route_card_context() -> root_route_cards_validator.RootRouteCardContext:
     return root_route_cards_validator.RootRouteCardContext(
-        require_tokens=root_context.context_require_tokens,
+        require_tokens=root_route_tokens.context_require_tokens,
     )
 
 
 def route_residue_context() -> route_residue_common_validator.RouteResidueContext:
     return route_residue_common_validator.RouteResidueContext(
-        require_tokens=root_context.context_require_tokens,
+        require_tokens=root_route_tokens.context_require_tokens,
     )
 
 
 def questbook_route_context() -> questbook_routes_validator.QuestbookRouteContext:
     return questbook_routes_validator.QuestbookRouteContext(
-        require_tokens=root_context.context_require_tokens,
+        require_tokens=root_route_tokens.context_require_tokens,
         provenance_tokens=mechanic_provenance_bridge_validator.MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS,
     )
 

@@ -1486,16 +1486,29 @@
       "disposition": "add"
     },
     {
+      "path": "scripts/validators/mechanics_route_contexts.py",
+      "lane": "source_fast",
+      "layer": "mechanics route-context helper boundary",
+      "mode": "non_blocking",
+      "owner_surface": "scripts/AGENTS.md",
+      "source_truth": ["docs/validation/VALIDATOR_TOPOLOGY.md", "scripts/validators/root_route_tokens.py", "scripts/validators/mechanic_provenance_bridge.py"],
+      "input": ["root token lookup context", "mechanic provenance bridge posture tokens", "focused route context dataclasses"],
+      "output": ["mechanics route-token and provenance context objects"],
+      "command_sequences": ["source_fast", "release_check"],
+      "failure_route": "Fix the mechanics route-context helper or the focused validator consuming it; this helper must not choose mechanic aggregation order or define mechanic payload meaning.",
+      "disposition": "add"
+    },
+    {
       "path": "scripts/validators/mechanics_routes.py",
       "lane": "source_fast",
       "layer": "mechanics route-domain orchestration",
       "mode": "blocking",
       "owner_surface": "mechanics/EVIDENCE_CLUSTERS.md",
-      "source_truth": ["mechanics/AGENTS.md", "mechanics/EVIDENCE_CLUSTERS.md", "mechanics/*/README.md", "mechanics/*/PARTS.md", "mechanics/*/PROVENANCE.md", "docs/decisions/README.md"],
-      "input": ["focused mechanic validator modules", "mechanic route cards", "mechanic part contracts", "mechanic provenance bridge posture", "root token lookup context"],
+      "source_truth": ["mechanics/AGENTS.md", "mechanics/EVIDENCE_CLUSTERS.md", "mechanics/*/README.md", "mechanics/*/PARTS.md", "mechanics/*/PROVENANCE.md", "docs/decisions/README.md", "scripts/validators/mechanics_route_contexts.py"],
+      "input": ["focused mechanic validator modules", "mechanic route cards", "mechanic part contracts", "mechanics route-context helper"],
       "output": ["aggregated mechanic route-domain validation issues"],
       "command_sequences": ["source_fast", "release_check"],
-      "failure_route": "Fix the focused mechanic validator, owning mechanic route surface, or injected route context; mechanics_routes.py must not define mechanic payload meaning.",
+      "failure_route": "Fix the focused mechanic validator, owning mechanic route surface, or route-context helper; mechanics_routes.py must not construct shared route context or define mechanic payload meaning.",
       "disposition": "add"
     },
     {

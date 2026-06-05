@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0155
 - Status: Accepted
 - Date: 2026-06-04
-- Owner surface: `scripts/validators/mechanics_routes.py`, mechanics route-domain validation orchestration
+- Owner surface: `scripts/validators/mechanics_routes.py` and `scripts/validators/mechanics_route_contexts.py`, mechanics route-domain validation orchestration and context construction
 
 ## Index Metadata
 
@@ -31,16 +31,19 @@ individual checks had focused owners.
 Mechanics route-domain orchestration lives in
 `scripts/validators/mechanics_routes.py`.
 
-The module owns:
+`scripts/validators/mechanics_routes.py` owns:
 
 - aggregation order for focused mechanic route validators;
+- conversion of focused validator issue objects into the root
+  `ValidationIssue` shape.
+
+`scripts/validators/mechanics_route_contexts.py` owns:
+
 - route-residue context wiring for active mechanic and mechanic-payload
   residue checks;
 - route-token lookup context injection for mechanic parent route validators;
 - mechanic provenance bridge token injection for route validators that depend on
-  active-to-archive posture;
-- conversion of focused validator issue objects into the root
-  `ValidationIssue` shape.
+  active-to-archive posture.
 
 `scripts/validate_repo.py` remains the CLI entrypoint and calls
 `mechanics_routes.validate_mechanics_surfaces(repo_root)` from the root topology
@@ -70,25 +73,45 @@ historical owner of every mechanic route rule, while avoiding a new
 
 ## Current Applicability
 
-As of 2026-06-04:
+As of 2026-06-05:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide validation
   command.
-- Changed: mechanic route-domain aggregation and mechanic route context factories
-  moved to `scripts/validators/mechanics_routes.py`.
+- Changed: mechanic route-domain aggregation remains in
+  `scripts/validators/mechanics_routes.py`; mechanic route context factories
+  moved to `scripts/validators/mechanics_route_contexts.py`.
 - Superseded by: none.
+
+## Review Log
+
+### 2026-06-05 - Route context factories split from orchestration
+
+- Previous assumption: aggregation order and injected route-token/provenance
+  context construction could live together in `mechanics_routes.py`.
+- New reality: `mechanics_routes.py` owns the explicit focused-validator run
+  order, while `mechanics_route_contexts.py` owns route-token/provenance context
+  construction.
+- Reason: the previous shape kept two boundaries in the largest source-fast
+  route module and made context wiring look like orchestration meaning.
+- Source surfaces updated: `scripts/validators/mechanics_routes.py`,
+  `scripts/validators/mechanics_route_contexts.py`, validation inventories,
+  `docs/validation/VALIDATOR_TOPOLOGY.md`, and
+  `mechanics/EVIDENCE_CLUSTERS.md`.
+- Validation: focused mechanic route tests, source-fast gate, release check, and
+  workspace decision graph.
 
 ## Boundaries
 
-This decision does not let `mechanics_routes.py` define mechanic payload meaning,
-source eval contracts, generated projection freshness, runtime policy
-acceptance, trace/eval grading, live receipt publication, release artifact
-identity, or sibling compatibility truth.
+This decision does not let `mechanics_routes.py` or
+`mechanics_route_contexts.py` define mechanic payload meaning, source eval
+contracts, generated projection freshness, runtime policy acceptance,
+trace/eval grading, live receipt publication, release artifact identity, or
+sibling compatibility truth.
 
 It is an orchestration boundary for focused mechanic validators, not a second
 root validator.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py tests/test_mechanic_legacy_archive_routes.py`
+- `python -m py_compile scripts/validate_repo.py scripts/validators/mechanics_routes.py scripts/validators/mechanics_route_contexts.py tests/test_mechanic_surface_contracts.py tests/test_mechanic_legacy_archive_routes.py`
 - `python -m pytest -q tests/test_mechanic_surface_contracts.py tests/test_mechanic_legacy_archive_routes.py tests/test_mechanics_topology.py`

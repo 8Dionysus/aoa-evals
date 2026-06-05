@@ -13,7 +13,7 @@ gate that only one script remembers.
 | Lane | Posture | Owns | Does not own |
 | --- | --- | --- | --- |
 | `source-fast` | blocking growth gate | route cards, semantic AGENTS shape, source eval entry/topology, docs/decision topology, root proof boundaries | full generated freshness, release packaging, latest sibling drift |
-| `generated` | blocking projection gate | generated catalog, generated report index, runtime-candidate reader parity, and boundary-bridge read-model parity | eval source meaning, sibling truth, runtime policy |
+| `generated` | blocking projection gate | generated catalog, generated report index, runtime-candidate reader parity, and boundary-bridge read-model parity | eval source meaning, sibling truth, runtime policy enforcement |
 | `mechanics/part-local` | blocking mechanic-owned gate | mechanic part tests and part-owned builders or validators | root release freeze, public proof interpretation |
 | `pinned-sibling` | compatibility-only gate | explicit compatibility proof against clean pinned dependency checkouts when a PR or release makes that claim | `aoa-evals` release identity or latest sibling growth-surface drift |
 | `latest-sibling` | advisory moving-sibling canary | local compatibility signal against current sibling repositories | release pass/fail identity |
@@ -278,6 +278,9 @@ surface is a hard gate:
 - Capability/runtime-policy validators remain route-only until a runtime owner
   exposes enforceable policy; degradation/fallback evidence may be hard-checked
   only as bounded sidecar selection plus trace/eval pairing, not as live health.
+- Policy-sensitive trace hooks may hard-check authorization, approval,
+  fallback/rollback, and forbidden-claim metadata without granting tool
+  permission, runtime owner approval, or cost/time cap proof.
 - Trace/eval validators must inspect trajectories, tool calls, environment
   outcome, and grader records, not only final text.
 - Memory/context validators must keep reviewed memory as evidence context, not

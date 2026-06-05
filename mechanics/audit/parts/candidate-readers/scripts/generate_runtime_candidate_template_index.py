@@ -89,6 +89,7 @@ def build_runtime_candidate_template_index_payload() -> dict[str, object]:
                 "eval_anchor": target_eval if isinstance(target_eval, str) else None,
                 "verdict_bundle_ref": bundle_refs.get(target_eval) if isinstance(target_eval, str) else None,
                 "required_runtime_artifacts": required_runtime_artifacts,
+                "runtime_policy_boundary": None,
                 "review_required": bool(
                     isinstance(review_posture, dict) and review_posture.get("human_review_required") is True
                 ),
@@ -105,6 +106,7 @@ def build_runtime_candidate_template_index_payload() -> dict[str, object]:
             required_runtime_artifacts = [
                 item for item in artifact_inputs if isinstance(item, str)
             ] if isinstance(artifact_inputs, list) else []
+            runtime_policy_boundary = payload.get("runtime_policy_boundary")
             report_expectation = payload.get("report_expectation")
             entries.append(
                 {
@@ -116,6 +118,9 @@ def build_runtime_candidate_template_index_payload() -> dict[str, object]:
                     if isinstance(payload.get("verdict_bundle_ref"), str)
                     else None,
                     "required_runtime_artifacts": required_runtime_artifacts,
+                    "runtime_policy_boundary": runtime_policy_boundary
+                    if isinstance(runtime_policy_boundary, dict)
+                    else None,
                     "review_required": bool(
                         isinstance(report_expectation, dict) and report_expectation.get("review_required") is True
                     ),

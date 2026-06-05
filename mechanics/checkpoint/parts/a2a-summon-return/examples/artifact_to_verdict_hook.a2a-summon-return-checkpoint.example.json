@@ -38,5 +38,28 @@
     "report_format": "summary-with-breakdown",
     "verdict_shape": "mixed",
     "review_required": true
+  },
+  "runtime_policy_boundary": {
+    "policy_owner": "runtime_or_route_owner",
+    "enforcement_posture": "candidate_metadata_only_not_runtime_enforcement",
+    "authorization_artifacts": [
+      "summon_decision",
+      "codex_local_target"
+    ],
+    "approval_artifacts": [
+      "summon_decision"
+    ],
+    "fallback_or_rollback_artifacts": [
+      "return_plan",
+      "checkpoint_bridge_plan",
+      "runtime_closeout_dry_run_receipt"
+    ],
+    "runtime_review_required": true,
+    "forbidden_claims": [
+      "does not grant tool permission",
+      "does not prove runtime policy enforcement",
+      "does not replace runtime owner approval",
+      "does not prove cost or time cap compliance"
+    ]
   }
 }

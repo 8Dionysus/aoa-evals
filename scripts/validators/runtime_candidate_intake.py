@@ -128,6 +128,7 @@ def validate_runtime_candidate_intake(
             "eval_anchor",
             "verdict_bundle_ref",
             "required_runtime_artifacts",
+            "runtime_policy_boundary",
             "review_required",
         ):
             if entry.get(field_name) != source_entry.get(field_name):

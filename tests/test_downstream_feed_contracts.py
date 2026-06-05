@@ -328,10 +328,23 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         self.assertEqual(checkpoint_hook["playbook_id"], "AOA-P-0006")
         self.assertEqual(checkpoint_hook["eval_anchor"], "aoa-approval-boundary-adherence")
         self.assertTrue(checkpoint_hook["review_required"])
+        self.assertEqual(
+            checkpoint_hook["runtime_policy_boundary"]["authorization_artifacts"],
+            ["approval_record"],
+        )
+        self.assertIn(
+            "does not grant tool permission",
+            checkpoint_hook["runtime_policy_boundary"]["forbidden_claims"],
+        )
         chaos_hook = by_name[("artifact_to_verdict_hook", "trace-integrity-chaos")]
         self.assertEqual(chaos_hook["playbook_id"], "AOA-P-0032")
         self.assertEqual(chaos_hook["eval_anchor"], "aoa-witness-trace-integrity")
+        self.assertEqual(
+            chaos_hook["runtime_policy_boundary"]["fallback_or_rollback_artifacts"],
+            ["runtime_stress_lane", "runtime_closeout_receipt"],
+        )
         self.assertTrue(chaos_hook["review_required"])
+        self.assertIsNone(workhorse["runtime_policy_boundary"])
         for entry in current["templates"]:
             self.assertEqual(
                 entry["required_runtime_artifacts"],
@@ -383,8 +396,13 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         hook = by_name[("artifact_to_verdict_hook", "aoa-p-0006-approval-boundary-hook")]
         self.assertEqual(hook["review_guide_ref"], "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md")
         self.assertEqual(hook["candidate_acceptance_posture"], "candidate_until_eval_review")
+        self.assertEqual(
+            hook["runtime_policy_boundary"]["approval_artifacts"],
+            ["approval_record"],
+        )
         memo_writeback = by_name[("runtime_evidence_selection", "phase-alpha-memo-writeback-act-v1")]
         self.assertEqual(memo_writeback["review_guide_ref"], "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md")
+        self.assertIsNone(memo_writeback["runtime_policy_boundary"])
         self.assertIn(
             "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.phase-alpha-memo-writeback-act.example.json",
             memo_writeback["owner_review_refs"],

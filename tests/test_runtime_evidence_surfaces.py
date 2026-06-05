@@ -873,6 +873,138 @@ def test_validate_trace_eval_bridge_surfaces_keeps_local_example_checks_when_pla
     )
 
 
+def _write_tool_trajectory_hook_surface(repo_root: Path) -> Path:
+    hook_name = (
+        "mechanics/audit/parts/artifact-verdict-hooks/examples/"
+        "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json"
+    )
+    for relative_path in (
+        runtime_trace_eval_bridge_validator.ARTIFACT_VERDICT_HOOK_SCHEMA_PATH,
+        hook_name,
+    ):
+        copy_repo_text(repo_root, relative_path)
+    write_json_payload(
+        repo_root / "generated" / "eval_catalog.min.json",
+        {
+            "evals": [
+                {
+                    "name": "aoa-tool-trajectory-discipline",
+                    "eval_path": "evals/workflow/aoa-tool-trajectory-discipline/EVAL.md",
+                }
+            ]
+        },
+    )
+    bundle_dir = repo_root / "evals" / "workflow" / "aoa-tool-trajectory-discipline"
+    for relative_path in (
+        "EVAL.md",
+        "checks/eval-integrity-check.md",
+        "notes/bounded-promotion-review.md",
+        "notes/proof-surface-contract.md",
+    ):
+        write_text(bundle_dir / relative_path, "# Tool Trajectory Discipline\n")
+    return repo_root / hook_name
+
+
+def _tool_trajectory_record(repo_root: Path) -> SimpleNamespace:
+    bundle_dir = repo_root / "evals" / "workflow" / "aoa-tool-trajectory-discipline"
+    return SimpleNamespace(
+        name="aoa-tool-trajectory-discipline",
+        bundle_dir=bundle_dir,
+        manifest={
+            "report_format": "summary-with-breakdown",
+            "verdict_shape": "categorical",
+            "review_required": True,
+            "evidence": [
+                {"kind": "integrity_check", "path": "checks/eval-integrity-check.md"},
+                {"kind": "support_note", "path": "notes/bounded-promotion-review.md"},
+                {"kind": "support_note", "path": "notes/proof-surface-contract.md"},
+            ],
+        },
+    )
+
+
+def test_validate_trace_eval_bridge_surfaces_accepts_policy_boundary_examples() -> None:
+    issues, records = collect_catalog_records(REPO_ROOT)
+
+    assert issues == []
+    assert runtime_trace_eval_bridge_validator.validate_trace_eval_bridge_surfaces(
+        REPO_ROOT,
+        records,
+        context=readout_contexts.runtime_audit_context(),
+    ) == []
+
+
+def test_validate_trace_eval_bridge_surfaces_requires_policy_boundary_for_policy_sensitive_hook(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    hook_path = _write_tool_trajectory_hook_surface(tmp_path)
+    payload = json.loads(hook_path.read_text(encoding="utf-8"))
+    payload.pop("runtime_policy_boundary")
+    write_json_payload(hook_path, payload)
+    monkeypatch.setattr(
+        runtime_trace_eval_bridge_validator,
+        "ARTIFACT_VERDICT_HOOK_EXAMPLES",
+        {
+            "AOA-P-0008": (
+                "mechanics/audit/parts/artifact-verdict-hooks/examples/"
+                "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json"
+            )
+        },
+    )
+
+    issues = runtime_trace_eval_bridge_validator.validate_trace_eval_bridge_surfaces(
+        tmp_path,
+        [_tool_trajectory_record(tmp_path)],
+        context=readout_contexts.runtime_audit_context(),
+    )
+
+    assert any(
+        issue.location
+        == "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json"
+        and "runtime_policy_boundary is required for policy-sensitive hook AOA-P-0008" == issue.message
+        for issue in issues
+    )
+
+
+def test_validate_trace_eval_bridge_surfaces_rejects_policy_artifact_outside_hook_inputs(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    hook_path = _write_tool_trajectory_hook_surface(tmp_path)
+    payload = json.loads(hook_path.read_text(encoding="utf-8"))
+    payload["runtime_policy_boundary"]["approval_artifacts"] = ["ambient_approval"]
+    write_json_payload(hook_path, payload)
+    monkeypatch.setattr(
+        runtime_trace_eval_bridge_validator,
+        "ARTIFACT_VERDICT_HOOK_EXAMPLES",
+        {
+            "AOA-P-0008": (
+                "mechanics/audit/parts/artifact-verdict-hooks/examples/"
+                "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json"
+            )
+        },
+    )
+
+    issues = runtime_trace_eval_bridge_validator.validate_trace_eval_bridge_surfaces(
+        tmp_path,
+        [_tool_trajectory_record(tmp_path)],
+        context=readout_contexts.runtime_audit_context(),
+    )
+
+    assert any(
+        issue.location
+        == (
+            "mechanics/audit/parts/artifact-verdict-hooks/examples/"
+            "artifact_to_verdict_hook.long-horizon-model-tier-orchestra.example.json"
+            ".runtime_policy_boundary.approval_artifacts"
+        )
+        and "approval_artifacts entries must resolve inside artifact_inputs: ambient_approval"
+        == issue.message
+        for issue in issues
+    )
+
+
 def test_artifact_hook_expectations_use_current_aoa_agents_mechanics_refs() -> None:
     refs = [
         ref

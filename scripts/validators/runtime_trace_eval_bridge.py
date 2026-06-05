@@ -30,7 +30,13 @@ ARTIFACT_VERDICT_HOOK_EXAMPLE_DIRS = (
     "mechanics/checkpoint/parts/self-agent-posture/examples",
 )
 ARTIFACT_VERDICT_HOOK_EXAMPLES = artifact_hooks.ARTIFACT_VERDICT_HOOK_EXAMPLES
+RUNTIME_POLICY_HOOK_EXPECTATIONS = artifact_hooks.RUNTIME_POLICY_HOOK_EXPECTATIONS
 TRACE_EVAL_HOOK_EXPECTATIONS = artifact_hooks.TRACE_EVAL_HOOK_EXPECTATIONS
+RUNTIME_POLICY_ARTIFACT_FIELDS = (
+    "authorization_artifacts",
+    "approval_artifacts",
+    "fallback_or_rollback_artifacts",
+)
 
 
 def expected_contract_test_refs(record: Any, repo_root: Path) -> set[str]:
@@ -49,6 +55,52 @@ def expected_contract_test_refs(record: Any, repo_root: Path) -> set[str]:
             continue
         refs.add(f"repo:aoa-evals/{relative_location(bundle_dir, repo_root)}/{raw_path}")
     return refs
+
+
+def _validate_runtime_policy_boundary(
+    *,
+    location: str,
+    playbook_id: str,
+    payload: dict[str, Any],
+    issues: list[ValidationIssue],
+) -> None:
+    expected_boundary = RUNTIME_POLICY_HOOK_EXPECTATIONS.get(playbook_id)
+    if expected_boundary is None:
+        return
+
+    boundary = payload.get("runtime_policy_boundary")
+    if not isinstance(boundary, dict):
+        issues.append(
+            ValidationIssue(
+                location,
+                f"runtime_policy_boundary is required for policy-sensitive hook {playbook_id}",
+            )
+        )
+        return
+
+    for field_name, expected_value in expected_boundary.items():
+        if boundary.get(field_name) != expected_value:
+            issues.append(
+                ValidationIssue(
+                    f"{location}.runtime_policy_boundary.{field_name}",
+                    f"{field_name} must match the policy-sensitive hook expectation",
+                )
+            )
+
+    artifact_inputs = payload.get("artifact_inputs")
+    artifact_input_set = set(artifact_inputs) if isinstance(artifact_inputs, list) else set()
+    for field_name in RUNTIME_POLICY_ARTIFACT_FIELDS:
+        artifacts = boundary.get(field_name)
+        if not isinstance(artifacts, list):
+            continue
+        missing = [artifact for artifact in artifacts if artifact not in artifact_input_set]
+        if missing:
+            issues.append(
+                ValidationIssue(
+                    f"{location}.runtime_policy_boundary.{field_name}",
+                    f"{field_name} entries must resolve inside artifact_inputs: {', '.join(missing)}",
+                )
+            )
 
 
 def validate_trace_eval_bridge_surfaces(
@@ -132,6 +184,13 @@ def validate_trace_eval_bridge_surfaces(
                     f"eval_anchor must be '{expected_hook['eval_anchor']}' for {playbook_id}",
                 )
             )
+
+        _validate_runtime_policy_boundary(
+            location=location,
+            playbook_id=playbook_id,
+            payload=payload,
+            issues=issues,
+        )
 
         eval_anchor = payload.get("eval_anchor")
         if not isinstance(eval_anchor, str):

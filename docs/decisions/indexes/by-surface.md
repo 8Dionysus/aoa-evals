@@ -267,6 +267,7 @@
 - [AOA-EV-D-0236 RPG Validator Layer Split](../AOA-EV-D-0236-rpg-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0236-rpg-validator-layer-split.md`)
 - [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)
 - [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
 ## legacy/provenance
 
@@ -490,10 +491,12 @@
 - [AOA-EV-D-0214 Publication Receipts Intake Layer Split](../AOA-EV-D-0214-publication-receipts-intake-layer-split.md) (`docs/decisions/AOA-EV-D-0214-publication-receipts-intake-layer-split.md`)
 - [AOA-EV-D-0217 Release-support Helper Layer Split](../AOA-EV-D-0217-release-support-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0217-release-support-helper-layer-split.md`)
 - [AOA-EV-D-0222 Publication Receipts Route Validator Layer Split](../AOA-EV-D-0222-publication-receipts-route-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0222-publication-receipts-route-validator-layer-split.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
 ## projection/generated
 
 - [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
 ## publication/receipt
 
@@ -530,6 +533,7 @@
 - [AOA-EV-D-0174 Runtime Integrity Review Validator Boundary](../AOA-EV-D-0174-runtime-integrity-review-validator-boundary.md) (`docs/decisions/AOA-EV-D-0174-runtime-integrity-review-validator-boundary.md`)
 - [AOA-EV-D-0203 Runtime Audit Aggregate Removal](../AOA-EV-D-0203-runtime-audit-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0203-runtime-audit-aggregate-removal.md`)
 - [AOA-EV-D-0212 Runtime Integrity Review Layer Split](../AOA-EV-D-0212-runtime-integrity-review-layer-split.md) (`docs/decisions/AOA-EV-D-0212-runtime-integrity-review-layer-split.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
 ## source/topology
 

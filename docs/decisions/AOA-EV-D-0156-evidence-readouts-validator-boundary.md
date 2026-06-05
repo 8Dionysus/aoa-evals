@@ -1,9 +1,10 @@
 # Evidence Readouts Validator Boundary
 
 - Decision ID: AOA-EV-D-0156
-- Status: Accepted
+- Status: Superseded
 - Date: 2026-06-04
 - Owner surface: `scripts/validators/evidence_readouts.py`, repo-wide and target-eval evidence/readout validation orchestration
+- Superseded by: AOA-EV-D-0239-readout-lane-orchestration-split
 
 ## Index Metadata
 
@@ -71,13 +72,34 @@ owners.
 
 ## Current Applicability
 
-As of 2026-06-04:
+As of 2026-06-05:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide validation
-  command and source eval scope selector.
-- Changed: evidence/readout context construction and repo-wide/target-eval
-  readout orchestration moved to `scripts/validators/evidence_readouts.py`.
-- Superseded by: none.
+  command and source eval scope selector; readout validators still do not own
+  source proof meaning, runtime acceptance, receipt truth, release publication
+  truth, or generated source meaning.
+- Changed: the single `scripts/validators/evidence_readouts.py` route is
+  removed. Context construction moved to `readout_contexts.py`, runtime route
+  calls moved to `runtime_readouts.py`, generated parity routing moved to
+  `generated_readouts.py`, receipt/release/report routing moved to
+  `observability_readouts.py`, and Phase Alpha routing moved to
+  `phase_alpha_readouts.py`.
+- Superseded by: AOA-EV-D-0239-readout-lane-orchestration-split.
+
+## Review Log
+
+### 2026-06-05 - Readout aggregate removed
+
+- Previous assumption: a single `evidence_readouts.py` module could be a named
+  readout orchestration boundary without owning rule meaning.
+- New reality: the module was still too broad because it grouped generated,
+  runtime, observability, release-support, Phase Alpha, and Titan canary routes.
+- Reason: post-refactor cleanup removed the remaining readout aggregate instead
+  of preserving another historical routing bucket.
+- Source surfaces updated: `scripts/validate_repo.py`,
+  `scripts/validators/*readouts.py`, `scripts/validators/readout_contexts.py`,
+  validation inventories, validator topology, and evidence clusters.
+- Validation: pending in AOA-EV-D-0239.
 
 ## Boundaries
 

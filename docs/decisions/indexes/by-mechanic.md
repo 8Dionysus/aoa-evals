@@ -135,6 +135,7 @@
 - [AOA-EV-D-0214 Publication Receipts Intake Layer Split](../AOA-EV-D-0214-publication-receipts-intake-layer-split.md) (`docs/decisions/AOA-EV-D-0214-publication-receipts-intake-layer-split.md`)
 - [AOA-EV-D-0222 Publication Receipts Route Validator Layer Split](../AOA-EV-D-0222-publication-receipts-route-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0222-publication-receipts-route-validator-layer-split.md`)
 - [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
 ## release-support
 
@@ -149,6 +150,7 @@
 - [AOA-EV-D-0189 Release Support Report Facade Removal](../AOA-EV-D-0189-release-support-report-facade-removal.md) (`docs/decisions/AOA-EV-D-0189-release-support-report-facade-removal.md`)
 - [AOA-EV-D-0190 Release Support Facade Removal](../AOA-EV-D-0190-release-support-facade-removal.md) (`docs/decisions/AOA-EV-D-0190-release-support-facade-removal.md`)
 - [AOA-EV-D-0217 Release-support Helper Layer Split](../AOA-EV-D-0217-release-support-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0217-release-support-helper-layer-split.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
 ## titan
 
@@ -157,6 +159,7 @@
 - [AOA-EV-D-0141 Titan Validator Module Boundary](../AOA-EV-D-0141-titan-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0141-titan-validator-module-boundary.md`)
 - [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
 - [AOA-EV-D-0224 Titan Validator Layer Split](../AOA-EV-D-0224-titan-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0224-titan-validator-layer-split.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
 ## agon
 
@@ -317,6 +320,7 @@
 - [AOA-EV-D-0228 Audit Validator Layer Split](../AOA-EV-D-0228-audit-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0228-audit-validator-layer-split.md`)
 - [AOA-EV-D-0231 Checkpoint Validator Layer Split](../AOA-EV-D-0231-checkpoint-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0231-checkpoint-validator-layer-split.md`)
 - [AOA-EV-D-0234 Antifragility Validator Layer Split](../AOA-EV-D-0234-antifragility-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0234-antifragility-validator-layer-split.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
 ## boundary-bridge
 
@@ -336,6 +340,7 @@
 - [AOA-EV-D-0207 Phase Alpha Matrix Aggregate Removal](../AOA-EV-D-0207-phase-alpha-matrix-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0207-phase-alpha-matrix-aggregate-removal.md`)
 - [AOA-EV-D-0211 Proof Loop Aggregate Removal](../AOA-EV-D-0211-proof-loop-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0211-proof-loop-aggregate-removal.md`)
 - [AOA-EV-D-0219 Questbook Helper Layer Split](../AOA-EV-D-0219-questbook-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0219-questbook-helper-layer-split.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
 ## cross-parent
 
@@ -467,3 +472,4 @@
 - [AOA-EV-D-0236 RPG Validator Layer Split](../AOA-EV-D-0236-rpg-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0236-rpg-validator-layer-split.md`)
 - [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)
 - [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
+- [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)

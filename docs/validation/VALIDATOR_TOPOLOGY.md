@@ -276,7 +276,8 @@ surface is a hard gate:
 - Source/topology validators protect authored source and owner boundaries.
 - Projection/generated validators protect rebuild parity and provenance.
 - Capability/runtime-policy validators remain route-only until a runtime owner
-  exposes enforceable policy.
+  exposes enforceable policy; degradation/fallback evidence may be hard-checked
+  only as bounded sidecar selection plus trace/eval pairing, not as live health.
 - Trace/eval validators must inspect trajectories, tool calls, environment
   outcome, and grader records, not only final text.
 - Memory/context validators must keep reviewed memory as evidence context, not

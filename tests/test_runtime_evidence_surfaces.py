@@ -4,6 +4,7 @@ import json
 import sys
 import textwrap
 from pathlib import Path
+from types import SimpleNamespace
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -197,6 +198,7 @@ def write_runtime_evidence_selection_example(
             "promotion_target": {"type": "string", "enum": ["local-only", "evidence-sidecar", "bundle-candidate"]},
             "comparison_mode": {"type": "string", "enum": ["none", "fixed-baseline", "peer-compare", "longitudinal-window"]},
             "candidate_eval_refs": {"type": "array", "items": {"type": "string"}},
+            "target_eval": {"type": "string"},
             "selected_evidence": {
               "type": "array",
               "minItems": 1,
@@ -243,6 +245,7 @@ def write_runtime_evidence_selection_example(
                 "bounded_claim": "Bounded return-aware runtime evidence can support anchor-fidelity reading without becoming a final-quality claim.",
                 "promotion_target": "evidence-sidecar",
                 "comparison_mode": "none",
+                "target_eval": "aoa-return-anchor-integrity",
                 "candidate_eval_refs": candidate_eval_refs,
                 "selected_evidence": [
                     {
@@ -279,6 +282,37 @@ def write_runtime_evidence_selection_example(
         )
         + "\n",
     )
+
+
+def _write_runtime_chaos_selection_surface(repo_root: Path) -> Path:
+    for relative_path in (
+        runtime_evidence_selection_validator.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH,
+        "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.runtime-chaos-window.example.json",
+        runtime_evidence_selection_validator.TRACE_EVAL_BRIDGE_CHAOS_DOC_NAME,
+        runtime_evidence_selection_validator.TRACE_INTEGRITY_CHAOS_HOOK_NAME,
+    ):
+        copy_repo_text(repo_root, relative_path)
+    return (
+        repo_root
+        / runtime_evidence_selection_validator.RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR
+        / "runtime_evidence_selection.runtime-chaos-window.example.json"
+    )
+
+
+def _write_abyss_stack_degradation_schema(repo_root: Path) -> Path:
+    abyss_stack_root = repo_root / "abyss-stack"
+    write_text(
+        abyss_stack_root
+        / "mechanics"
+        / "runtime-repair"
+        / "parts"
+        / "degradation-receipts"
+        / "schemas"
+        / "service-degradation-receipt.schema.json",
+        "{}\n",
+    )
+    return abyss_stack_root
+
 
 def test_validate_runtime_evidence_selection_uses_repo_local_schema(tmp_path: Path) -> None:
     write_runtime_evidence_selection_example(
@@ -343,6 +377,94 @@ def test_validate_runtime_evidence_selection_accepts_example_backed_runtime_chao
             target_eval_names={"aoa-stress-recovery-window"},
         )
         == []
+    )
+
+
+def test_validate_runtime_evidence_selection_requires_runtime_chaos_target_eval(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    example_path = _write_runtime_chaos_selection_surface(tmp_path)
+    payload = json.loads(example_path.read_text(encoding="utf-8"))
+    payload.pop("target_eval")
+    write_json_payload(example_path, payload)
+
+    abyss_stack_root = _write_abyss_stack_degradation_schema(tmp_path)
+    _set_abyss_stack_ref_roots(monkeypatch, repo_root=tmp_path, abyss_stack_root=abyss_stack_root)
+
+    issues = runtime_evidence_selection_validator.validate_runtime_evidence_selection_surfaces(
+        tmp_path,
+        records=[SimpleNamespace(name="aoa-stress-recovery-window")],
+        context=readout_contexts.runtime_audit_context(),
+        target_eval_names={"aoa-stress-recovery-window"},
+    )
+
+    assert any(
+        issue.location == "mechanics/audit/parts/selected-evidence-packets/examples/runtime_evidence_selection.runtime-chaos-window.example.json"
+        and "target_eval must equal 'aoa-stress-recovery-window'" == issue.message
+        for issue in issues
+    )
+
+
+def test_validate_runtime_evidence_selection_requires_runtime_chaos_bridge_doc(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    _write_runtime_chaos_selection_surface(tmp_path)
+    doc_path = tmp_path / runtime_evidence_selection_validator.TRACE_EVAL_BRIDGE_CHAOS_DOC_NAME
+    doc_path.write_text(
+        doc_path.read_text(encoding="utf-8").replace("weaker sidecar evidence", "sidecar evidence", 1),
+        encoding="utf-8",
+    )
+
+    abyss_stack_root = _write_abyss_stack_degradation_schema(tmp_path)
+    _set_abyss_stack_ref_roots(monkeypatch, repo_root=tmp_path, abyss_stack_root=abyss_stack_root)
+
+    issues = runtime_evidence_selection_validator.validate_runtime_evidence_selection_surfaces(
+        tmp_path,
+        records=[SimpleNamespace(name="aoa-stress-recovery-window")],
+        context=readout_contexts.runtime_audit_context(),
+        target_eval_names={"aoa-stress-recovery-window"},
+    )
+
+    assert any(
+        issue.location == "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md"
+        and "bridge doc must mention 'weaker sidecar evidence'" == issue.message
+        for issue in issues
+    )
+
+
+def test_validate_runtime_evidence_selection_requires_runtime_chaos_trace_hook_contract_ref(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    _write_runtime_chaos_selection_surface(tmp_path)
+    hook_path = tmp_path / runtime_evidence_selection_validator.TRACE_INTEGRITY_CHAOS_HOOK_NAME
+    hook_payload = json.loads(hook_path.read_text(encoding="utf-8"))
+    required_ref = (
+        "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/schemas/"
+        "service-degradation-receipt.schema.json"
+    )
+    hook_payload["artifact_contract_refs"] = [
+        ref for ref in hook_payload["artifact_contract_refs"] if ref != required_ref
+    ]
+    write_json_payload(hook_path, hook_payload)
+
+    abyss_stack_root = _write_abyss_stack_degradation_schema(tmp_path)
+    _set_abyss_stack_ref_roots(monkeypatch, repo_root=tmp_path, abyss_stack_root=abyss_stack_root)
+
+    issues = runtime_evidence_selection_validator.validate_runtime_evidence_selection_surfaces(
+        tmp_path,
+        records=[SimpleNamespace(name="aoa-stress-recovery-window")],
+        context=readout_contexts.runtime_audit_context(),
+        target_eval_names={"aoa-stress-recovery-window"},
+    )
+
+    assert any(
+        issue.location
+        == "mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.trace-integrity-chaos.example.json"
+        and f"artifact_contract_refs must include '{required_ref}'" == issue.message
+        for issue in issues
     )
 
 

@@ -10,6 +10,7 @@
   "bounded_claim": "On the existing Phase Alpha runtime surfaces, selected evidence can show why aoa-memo-contradiction-integrity remains blocked: alpha-05 preserved a general contradiction map and memo delta, but no lifecycle-aware object recall rerun exercised superseded, retracted, or still-open memo objects. This is gap evidence only.",
   "promotion_target": "local-only",
   "comparison_mode": "none",
+  "target_eval": "aoa-memo-contradiction-integrity",
   "candidate_eval_refs": [
     "candidate:aoa-memo-contradiction-integrity"
   ],

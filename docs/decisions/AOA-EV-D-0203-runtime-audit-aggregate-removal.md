@@ -70,14 +70,34 @@ orchestration while making each audit part own its validation failure route.
 - Tradeoff: `evidence_readouts.py` imports more focused runtime validators
   because it orchestrates readout validation.
 
+## Review Log
+
+### 2026-06-05 - Runtime degradation pairing contract
+
+- Changed: `runtime_evidence_selection.py` now hard-checks the
+  `runtime-chaos-window` packet as degradation/fallback sidecar evidence paired
+  to `artifact_to_verdict_hook.trace-integrity-chaos.example.json` and
+  `TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md`.
+- Reason: behavior degradation evidence must preserve a bounded target eval,
+  selected artifact roles, source schema refs, trace/eval hook contracts, and
+  explicit stop-lines before it becomes route-visible runtime behavior evidence.
+- Boundary: the check proves selection hygiene and trace/eval pairing only; it
+  does not prove live runtime health, replace an eval verdict, publish raw logs,
+  or move runtime-owner closeout into `aoa-evals`.
+- Source surfaces updated: selected-evidence README, validation inventories,
+  mechanics evidence clusters, and runtime evidence surface tests.
+
 ## Current Applicability
 
-As of 2026-06-04:
+As of 2026-06-05:
 
 - Still valid: runtime audit validation does not accept runtime activation,
   owner override, canon writes, or proof verdict authority.
 - Changed: runtime audit behavior no longer lives in `runtime_audit.py`; it is
   split across focused runtime-policy validators and a helper-only context.
+- Further changed on 2026-06-05: selected-evidence validation owns bounded
+  runtime degradation/fallback pairing only when the packet, paired trace/eval
+  hook, bridge doc, target eval, selected roles, and stop-lines agree.
 - Supersedes: the aggregate module shape left by AOA-EV-D-0131 and the
   compatibility alias posture left by AOA-EV-D-0174.
 

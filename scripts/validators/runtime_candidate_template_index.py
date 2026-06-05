@@ -209,6 +209,12 @@ def validate_runtime_candidate_template_index(
             expected_artifacts = example_payload.get("artifact_inputs")
             if entry.get("required_runtime_artifacts") != expected_artifacts:
                 issues.append(ValidationIssue(location, "required_runtime_artifacts must match artifact_inputs"))
+            runtime_policy_boundary = example_payload.get("runtime_policy_boundary")
+            expected_runtime_policy_boundary = (
+                runtime_policy_boundary if isinstance(runtime_policy_boundary, dict) else None
+            )
+            if entry.get("runtime_policy_boundary") != expected_runtime_policy_boundary:
+                issues.append(ValidationIssue(location, "runtime_policy_boundary must match the source hook example"))
             report_expectation = example_payload.get("report_expectation")
             expected_review_required = bool(
                 isinstance(report_expectation, dict) and report_expectation.get("review_required") is True

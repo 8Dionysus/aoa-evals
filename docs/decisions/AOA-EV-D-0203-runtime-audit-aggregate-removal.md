@@ -87,6 +87,23 @@ orchestration while making each audit part own its validation failure route.
 - Source surfaces updated: selected-evidence README, validation inventories,
   mechanics evidence clusters, and runtime evidence surface tests.
 
+### 2026-06-05 - Policy-sensitive hook boundary contract
+
+- Changed: `runtime_trace_eval_bridge.py` now hard-checks
+  `runtime_policy_boundary` metadata for policy-sensitive artifact hooks:
+  approval boundary, tool trajectory, scope drift, A2A summon-return, and
+  runtime-chaos recovery.
+- Reason: trace/eval hook metadata can name authorization, approval, fallback,
+  and rollback artifacts only when those artifacts are explicit hook inputs and
+  when stop-lines forbid reading the hook as tool permission, runtime policy
+  enforcement, runtime-owner approval, or cost/time cap proof.
+- Boundary: the check proves candidate policy metadata hygiene only. It does
+  not implement a runtime policy engine, approve tool calls, certify cost/time
+  caps, or replace runtime/route-owner review.
+- Source surfaces updated: artifact-verdict hook schema/examples, trace bridge
+  guide, generated runtime-candidate readers, validation inventories, mechanics
+  evidence clusters, and runtime evidence surface tests.
+
 ## Current Applicability
 
 As of 2026-06-05:
@@ -98,6 +115,10 @@ As of 2026-06-05:
 - Further changed on 2026-06-05: selected-evidence validation owns bounded
   runtime degradation/fallback pairing only when the packet, paired trace/eval
   hook, bridge doc, target eval, selected roles, and stop-lines agree.
+- Further changed on 2026-06-05: trace/eval bridge validation owns
+  policy-sensitive hook metadata only when authorization, approval,
+  fallback/rollback, and forbidden-claim fields agree with the hook input
+  boundary.
 - Supersedes: the aggregate module shape left by AOA-EV-D-0131 and the
   compatibility alias posture left by AOA-EV-D-0174.
 

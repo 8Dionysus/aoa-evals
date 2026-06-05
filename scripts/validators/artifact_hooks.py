@@ -21,6 +21,70 @@ ARTIFACT_VERDICT_HOOK_EXAMPLES = {
 }
 
 
+RUNTIME_POLICY_FORBIDDEN_CLAIMS = [
+    "does not grant tool permission",
+    "does not prove runtime policy enforcement",
+    "does not replace runtime owner approval",
+    "does not prove cost or time cap compliance",
+]
+
+
+RUNTIME_POLICY_HOOK_EXPECTATIONS: dict[str, dict[str, Any]] = {
+    "AOA-P-0006": {
+        "policy_owner": "runtime_or_route_owner",
+        "enforcement_posture": "candidate_metadata_only_not_runtime_enforcement",
+        "authorization_artifacts": ["approval_record"],
+        "approval_artifacts": ["approval_record"],
+        "fallback_or_rollback_artifacts": ["rollback_marker", "health_check"],
+        "runtime_review_required": True,
+        "forbidden_claims": RUNTIME_POLICY_FORBIDDEN_CLAIMS,
+    },
+    "AOA-P-0008": {
+        "policy_owner": "runtime_or_route_owner",
+        "enforcement_posture": "candidate_metadata_only_not_runtime_enforcement",
+        "authorization_artifacts": ["route_decision", "bounded_plan"],
+        "approval_artifacts": [],
+        "fallback_or_rollback_artifacts": ["transition_decision"],
+        "runtime_review_required": True,
+        "forbidden_claims": RUNTIME_POLICY_FORBIDDEN_CLAIMS,
+    },
+    "AOA-P-0018": {
+        "policy_owner": "runtime_or_route_owner",
+        "enforcement_posture": "candidate_metadata_only_not_runtime_enforcement",
+        "authorization_artifacts": ["boundary_map"],
+        "approval_artifacts": [],
+        "fallback_or_rollback_artifacts": ["remediation_decision", "handoff_record"],
+        "runtime_review_required": True,
+        "forbidden_claims": RUNTIME_POLICY_FORBIDDEN_CLAIMS,
+    },
+    "AOA-P-0031": {
+        "policy_owner": "runtime_or_route_owner",
+        "enforcement_posture": "candidate_metadata_only_not_runtime_enforcement",
+        "authorization_artifacts": ["summon_decision", "codex_local_target"],
+        "approval_artifacts": ["summon_decision"],
+        "fallback_or_rollback_artifacts": [
+            "return_plan",
+            "checkpoint_bridge_plan",
+            "runtime_closeout_dry_run_receipt",
+        ],
+        "runtime_review_required": True,
+        "forbidden_claims": RUNTIME_POLICY_FORBIDDEN_CLAIMS,
+    },
+    "AOA-P-0032": {
+        "policy_owner": "runtime_or_route_owner",
+        "enforcement_posture": "candidate_metadata_only_not_runtime_enforcement",
+        "authorization_artifacts": ["runtime_reentry_gate", "owner_runtime_receipt"],
+        "approval_artifacts": ["owner_runtime_receipt"],
+        "fallback_or_rollback_artifacts": [
+            "runtime_stress_lane",
+            "runtime_closeout_receipt",
+        ],
+        "runtime_review_required": True,
+        "forbidden_claims": RUNTIME_POLICY_FORBIDDEN_CLAIMS,
+    },
+}
+
+
 TRACE_EVAL_HOOK_EXPECTATIONS: dict[str, dict[str, Any]] = {
     "AOA-P-0014": {
         "eval_anchor": "aoa-verification-honesty",

@@ -257,10 +257,10 @@
       "mode": "blocking",
       "owner_surface": "mechanics/audit/parts/artifact-verdict-hooks/README.md",
       "source_truth": ["mechanics/audit/parts/artifact-verdict-hooks/schemas/artifact-to-verdict-hook.schema.json", "mechanics/audit/parts/artifact-verdict-hooks/examples", "generated/eval_catalog.min.json"],
-      "input": ["artifact-to-verdict trace bridge schema and examples", "generated eval catalog", "repo-ref resolution context", "optional aoa-playbooks registry"],
-      "output": ["trace bridge eval-anchor, playbook compatibility, contract-ref, trace-surface, and report-expectation issues"],
+      "input": ["artifact-to-verdict trace bridge schema and examples", "generated eval catalog", "repo-ref resolution context", "optional aoa-playbooks registry", "policy-sensitive hook boundary matrix"],
+      "output": ["trace bridge eval-anchor, playbook compatibility, contract-ref, trace-surface, report-expectation, and runtime policy boundary issues"],
       "command_sequences": ["source_fast", "release_check"],
-      "failure_route": "Fix the artifact-verdict hook schema/example or repo-ref context surface; runtime activation and proof-canon acceptance remain outside trace bridge validation.",
+      "failure_route": "Fix the artifact-verdict hook schema/example, policy boundary matrix, or repo-ref context surface; runtime activation, tool permission, runtime owner approval, cost/time cap proof, and proof-canon acceptance remain outside trace bridge validation.",
       "disposition": "add"
     },
     {
@@ -2130,9 +2130,9 @@
       "owner_surface": "mechanics/audit/parts/candidate-readers/README.md",
       "source_truth": ["mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py", "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json", "mechanics/audit/parts/candidate-readers/schemas/runtime-candidate-template-index.schema.json", "mechanics/audit/parts/selected-evidence-packets/examples", "mechanics/audit/parts/artifact-verdict-hooks/examples", "generated/eval_catalog.min.json"],
       "input": ["runtime candidate template index", "template-index builder", "template-index schema", "source example fixtures", "eval catalog"],
-      "output": ["runtime-candidate template-index rebuild parity, schema, example coverage, eval-anchor, artifact normalization, and source-example field issues"],
+      "output": ["runtime-candidate template-index rebuild parity, schema, example coverage, eval-anchor, artifact normalization, runtime policy boundary projection, and source-example field issues"],
       "command_sequences": ["generated_check", "release_check", "nightly"],
-      "failure_route": "Regenerate the template index from its part-local builder or fix the owning source example/schema/catalog ref; candidate readers must not become runtime acceptance authority.",
+      "failure_route": "Regenerate the template index from its part-local builder or fix the owning source example/schema/catalog ref; candidate readers must not become runtime acceptance or runtime policy enforcement authority.",
       "disposition": "add"
     },
     {
@@ -2143,9 +2143,9 @@
       "owner_surface": "mechanics/audit/parts/candidate-readers/README.md",
       "source_truth": ["mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py", "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json", "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json", "docs/guides/EVAL_REVIEW_GUIDE.md", "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md", "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md"],
       "input": ["runtime candidate intake reader", "intake builder", "template index", "review guides", "owner review refs"],
-      "output": ["runtime-candidate intake rebuild parity, source-of-truth, template ordering, review-guide, owner-review-ref, and candidate posture issues"],
+      "output": ["runtime-candidate intake rebuild parity, source-of-truth, template ordering, review-guide, owner-review-ref, runtime policy boundary projection, and candidate posture issues"],
       "command_sequences": ["generated_check", "release_check", "nightly"],
-      "failure_route": "Regenerate the intake reader from its part-local builder or fix the owning review guide/source ref; candidate readers must not become runtime acceptance authority.",
+      "failure_route": "Regenerate the intake reader from its part-local builder or fix the owning review guide/source ref; candidate readers must not become runtime acceptance or runtime policy enforcement authority.",
       "disposition": "add"
     },
     {

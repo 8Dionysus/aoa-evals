@@ -69,6 +69,9 @@ def build_runtime_candidate_intake_payload() -> dict[str, object]:
                 "required_runtime_artifacts": [
                     item for item in template.get("required_runtime_artifacts", []) if isinstance(item, str)
                 ],
+                "runtime_policy_boundary": template.get("runtime_policy_boundary")
+                if isinstance(template.get("runtime_policy_boundary"), dict)
+                else None,
                 "review_required": bool(template.get("review_required")),
                 "review_guide_ref": review_guide_ref,
                 "owner_review_refs": _owner_review_refs(template, review_guide_ref=review_guide_ref),

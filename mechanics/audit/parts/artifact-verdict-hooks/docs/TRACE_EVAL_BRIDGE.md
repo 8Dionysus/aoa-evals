@@ -170,12 +170,24 @@ These hook surfaces bind together:
 - the selected eval anchor bundle
 - contract-test refs from that bundle
 - the expected report shape
+- runtime policy boundary metadata for policy-sensitive hooks
 - optional trace sidecars
 
 They are derived bridge metadata.
 Runtime-produced hook packets remain review candidates until `aoa-evals` confirms their bounded use against the owning eval bundle.
 Proof-canon pressure routes to the owning eval bundle; runtime-judge
 implementation pressure routes to the runtime owner.
+
+Policy-sensitive hooks must name a `runtime_policy_boundary` object. That
+object records which hook artifacts are authorization, approval, or
+fallback/rollback evidence and keeps these stop-lines explicit:
+
+- the hook does not grant tool permission;
+- the hook does not prove runtime policy enforcement;
+- the hook does not replace runtime owner approval;
+- the hook does not prove cost or time cap compliance.
+
+This is metadata for eval review, not a runtime policy engine.
 
 When a bounded verdict later needs one machine-readable publication sidecar,
 use [EVAL_RESULT_RECEIPT_GUIDE.md](../../../../../mechanics/publication-receipts/parts/receipt-payload/docs/EVAL_RESULT_RECEIPT_GUIDE.md).

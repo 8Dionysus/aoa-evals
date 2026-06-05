@@ -22,6 +22,7 @@ expectations, and handoff owners visible for later eval review.
 - playbook, trace, runtime, or mechanic-local artifact refs;
 - eval anchors and expected report-shape refs;
 - contract refs that constrain how an artifact may be read;
+- runtime policy boundary metadata for policy-sensitive hooks;
 - owner-review refs for later candidate intake or bundle-local review.
 
 ## Outputs
@@ -29,6 +30,8 @@ expectations, and handoff owners visible for later eval review.
 - schema-backed `artifact_to_verdict_hook.*.example.json` metadata;
 - generated candidate-reader intake entries;
 - bridge guidance that keeps artifact inputs tied to eval anchors;
+- policy-boundary metadata that names authorization, approval, and
+  fallback/rollback artifacts without granting runtime permission;
 - stop-line evidence for routes that must hand off to sibling or runtime
   owners.
 
@@ -51,6 +54,7 @@ meaning stays with the mechanic part that owns the proof route.
 | Pressure | Route |
 | --- | --- |
 | hook metadata is asked to execute a verdict | route to the owning eval bundle, scorer, runner, or report contract |
+| hook metadata is read as tool permission, runtime-policy enforcement, runtime-owner approval, or cost/time cap proof | route to the runtime or route owner before using it as enforcement evidence |
 | mechanic-specific proof meaning appears | keep the example under the mechanic part that owns that proof route |
 | playbook, runtime, trace, or sibling artifact acceptance is requested | send the artifact through owner review and bundle-local eval review |
 

@@ -49,9 +49,9 @@ def copy_root_authored_classification_surface(repo_root: Path) -> None:
     copy_repo_text(repo_root, "docs/decisions/README.md")
     copy_repo_text(repo_root, mechanics_validator.PROOF_TOPOLOGY_NAME)
     copy_repo_text(repo_root, "ROADMAP.md")
-    for district_name, file_names in (
-        mechanics_validator.ROOT_AUTHORED_SURFACE_CLASSIFICATION_DISTRICTS.items()
-    ):
+    for district_name, file_names in mechanics_validator.root_authored_surface_classification_districts(
+        REPO_ROOT
+    ).items():
         for file_name in file_names:
             copy_repo_text(repo_root, f"{district_name}/{file_name}")
 
@@ -119,9 +119,8 @@ def test_root_authored_surface_classification_rejects_missing_ledger_row(
     issues = mechanics_validator.validate_root_authored_surface_classification(tmp_path)
 
     assert any(
-        issue.location == mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME
-        and "root-authored surface `tests/test_mechanics_topology.py` must appear"
-        in issue.message
+        issue.location == "tests/test_mechanics_topology.py"
+        and "unclassified root-authored surface" in issue.message
         for issue in issues
     )
 

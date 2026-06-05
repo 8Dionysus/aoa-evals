@@ -25,14 +25,16 @@ PHASE_ALPHA_EVAL_MATRIX_SCRIPTS_DIR = (
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from validators.source_eval_contracts import (
-    build_catalog_payloads,
-    build_comparison_spine_payload,
-    collect_catalog_records,
-)
-from validators import phase_alpha_matrix as phase_alpha_matrix_validator
+import eval_catalog_contract
+import eval_comparison_spine_contract
+from validators.source_eval_collection import collect_catalog_records
+from validators import phase_alpha_matrix_projection as phase_alpha_matrix_projection_validator
+from validators import phase_alpha_matrix_sibling_compat as phase_alpha_matrix_sibling_compat_validator
 from validators import root_context
 import validate_repo
+
+build_catalog_payloads = eval_catalog_contract.build_catalog_payloads
+build_comparison_spine_payload = eval_comparison_spine_contract.build_comparison_spine_payload
 
 
 def load_module(script_name: str):
@@ -75,14 +77,20 @@ def write_json_payload(path: Path, payload: object) -> None:
 
 
 def validate_phase_alpha_eval_matrix(repo_root: Path):
-    return phase_alpha_matrix_validator.validate_phase_alpha_eval_matrix(
-        repo_root,
-        sibling_root=root_context.AOA_PLAYBOOKS_ROOT,
-        repo_ref_roots=root_context.REPO_REF_ROOTS,
-        strict_sibling_compat=root_context.strict_sibling_compat_checks_enabled(),
-        visible_roots=root_context.VISIBLE_ROOTS,
-        builder_loader=phase_alpha_matrix_validator.load_phase_alpha_eval_matrix_builder,
+    issues = phase_alpha_matrix_projection_validator.validate_phase_alpha_matrix_projection(
+        repo_root
     )
+    issues.extend(
+        phase_alpha_matrix_sibling_compat_validator.validate_phase_alpha_matrix_sibling_compat(
+            repo_root,
+            sibling_root=root_context.AOA_PLAYBOOKS_ROOT,
+            repo_ref_roots=root_context.REPO_REF_ROOTS,
+            strict_sibling_compat=root_context.strict_sibling_compat_checks_enabled(),
+            visible_roots=root_context.VISIBLE_ROOTS,
+            builder_loader=phase_alpha_matrix_sibling_compat_validator.load_phase_alpha_eval_matrix_builder,
+        )
+    )
+    return issues
 
 
 def make_phase_alpha_eval_matrix_surface(repo_root: Path) -> None:
@@ -189,7 +197,7 @@ def test_phase_alpha_eval_matrix_rejects_non_bool_optional_rerun(
     payload = json.loads(example_path.read_text(encoding="utf-8"))
     payload["runs"][0]["optional_control_path_rerun"] = "false"
     write_json_payload(example_path, payload)
-    builder = phase_alpha_matrix_validator.load_phase_alpha_eval_matrix_builder(tmp_path)
+    builder = phase_alpha_matrix_sibling_compat_validator.load_phase_alpha_eval_matrix_builder(tmp_path)
 
     with pytest.raises(SystemExit, match="optional_control_path_rerun must be a boolean"):
         builder.build_phase_alpha_eval_matrix_payload()

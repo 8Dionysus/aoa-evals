@@ -17,9 +17,9 @@
 
 After the root topology split, `scripts/validate_repo.py` still carried
 source-eval doctrine orchestration: sibling dependency roots for
-`aoa-techniques` and `aoa-skills`, source eval command ownership, comparison
-doctrine, artifact/process doctrine, repeated-window doctrine, integrity
-taxonomy, and shared proof infra checks.
+`aoa-techniques` and `aoa-skills`, source eval command ownership, focused
+comparison doctrine, artifact/process doctrine, repeated-window doctrine,
+integrity taxonomy, and shared proof infra checks.
 
 Those checks are source-eval validation behavior, not CLI parsing or output.
 
@@ -32,8 +32,8 @@ The module owns:
 
 - source eval dependency-root mapping from `root_context.py`;
 - aggregation of source eval command ownership checks;
-- aggregation of comparison, artifact/process, repeated-window, and integrity
-  taxonomy doctrine checks;
+- aggregation of focused comparison, artifact/process, repeated-window, and
+  integrity taxonomy doctrine checks;
 - aggregation of shared proof-infra source checks for selected eval scopes;
 - conversion of focused validator issue objects into `ValidationIssue`.
 
@@ -67,6 +67,8 @@ As of 2026-06-04:
   command and eval scope selector.
 - Changed: source-eval dependency roots and doctrine aggregation moved to
   `scripts/validators/source_eval_domains.py`.
+- Further changed by: AOA-EV-D-0209 removes the broad `source_doctrine.py`
+  aggregate while keeping this orchestrator as the source-eval doctrine router.
 - Superseded by: none.
 
 ## Boundaries

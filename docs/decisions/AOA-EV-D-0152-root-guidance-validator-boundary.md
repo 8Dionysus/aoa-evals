@@ -3,7 +3,8 @@
 - Decision ID: AOA-EV-D-0152
 - Status: Accepted
 - Date: 2026-06-04
-- Owner surface: `scripts/validators/root_guidance.py`, root guidance and README route guard family
+- Historical owner surface: `scripts/validators/root_guidance.py`, root guidance and README route guard family
+- Refined by: AOA-EV-D-0202
 
 ## Index Metadata
 
@@ -74,7 +75,10 @@ As of 2026-06-04:
   decision instead of carrying hidden payload authority.
 - Changed: root guidance/readme/operations checks moved from
   `scripts/validate_repo.py` to `scripts/validators/root_guidance.py`.
-- Superseded by: none.
+- Further changed on 2026-06-04: AOA-EV-D-0202 removes
+  `scripts/validators/root_guidance.py`; active guidance validation is split
+  across front-door, eval-guide, operations, release, and helper modules.
+- Superseded by: AOA-EV-D-0202 for the aggregate module shape.
 
 ## Boundaries
 
@@ -86,6 +90,6 @@ It does not make guidance prose a proof source.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/root_guidance.py`
+- `python -m py_compile scripts/validators/root_guidance_common.py scripts/validators/root_frontdoor_guidance.py scripts/validators/root_eval_guides.py scripts/validators/root_operations_guidance.py scripts/validators/root_release_guidance.py scripts/validators/root_topology.py`
 - `python -m pytest -q tests/test_guidance_surface_routes.py tests/test_docs_topology.py tests/test_route_residue.py tests/test_root_surface_roles.py`
 - `python scripts/validate_repo.py`

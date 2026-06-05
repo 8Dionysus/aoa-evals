@@ -1,7 +1,8 @@
 # Source Doctrine Validator Module Boundary
 
 - Decision ID: AOA-EV-D-0125
-- Status: Accepted
+- Status: Superseded
+- Superseded by: AOA-EV-D-0209-source-doctrine-aggregate-removal
 - Date: 2026-06-03
 - Owner surface: `scripts/validators/source_doctrine.py`, `evals/`, `docs/guides/`
 
@@ -75,9 +76,10 @@ As of 2026-06-03:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide validation
   entrypoint.
-- Changed: guide and source-bundle doctrine checks now have a focused validator
-  module.
-- Superseded by: none.
+- Changed: guide and source-bundle doctrine checks first moved to
+  `source_doctrine.py`; active validation later split into focused comparison,
+  artifact/process, repeated-window, and integrity taxonomy validators.
+- Superseded by: AOA-EV-D-0209 removes the `source_doctrine.py` aggregate.
 
 ## Boundaries
 
@@ -85,8 +87,8 @@ This decision does not move bundle parsing, bundle schema validation, generated
 catalog parity, runtime integrity review, receipt publication, or release
 evidence into source-doctrine.
 
-It does not make comparison, repeated-window, or integrity taxonomy guides
-stronger than bundle-local source truth.
+It does not make comparison, artifact/process, repeated-window, or integrity
+taxonomy guides stronger than bundle-local source truth.
 
 ## Validation
 

@@ -11,8 +11,19 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from validators import root_authority as root_authority_validator
-from validators import root_guidance as root_guidance_validator
+from validators import root_agent_index as root_agent_index_validator
+from validators import root_agent_lanes as root_agent_lanes_validator
+from validators import root_audit_routes as root_audit_routes_validator
+from validators import root_decision_status as root_decision_status_validator
+from validators import root_design_docs as root_design_validator
+from validators import root_frontdoor_guidance as root_frontdoor_guidance_validator
+from validators import root_legacy_bridge_residue as root_legacy_bridge_residue_validator
+from validators import root_legacy_external_leakage as root_legacy_external_leakage_validator
+from validators import root_legacy_naming as root_legacy_validator
+from validators import root_memory_boundary as root_memory_boundary_validator
+from validators import root_proof_topology as root_proof_topology_validator
+from validators import root_validator_surfaces as root_validator_surfaces_validator
+from validators.common import ValidationIssue
 
 
 def write_text(path: Path, content: str) -> None:
@@ -35,13 +46,13 @@ def copy_root_readme_surface(repo_root: Path) -> None:
 
 
 LEGACY_NAMING_SURFACE_PATHS = (
-    root_authority_validator.LEGACY_NAMING_NAME,
+    root_legacy_validator.LEGACY_NAMING_NAME,
     "docs/decisions/AOA-EV-D-0009-legacy-naming-containment.md",
-    root_authority_validator.LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
-    root_authority_validator.LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
+    root_legacy_validator.LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_DECISION_NAME,
+    root_legacy_validator.LEGACY_NAMING_POSTURE_GUIDE_DECISION_NAME,
     "docs/decisions/README.md",
     "README.md",
-    root_authority_validator.PROOF_TOPOLOGY_NAME,
+    root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
     "ROADMAP.md",
     "CHANGELOG.md",
 )
@@ -50,15 +61,23 @@ LEGACY_NAMING_SURFACE_PATHS = (
 def copy_legacy_naming_surface(repo_root: Path, *extra_paths: str) -> Path:
     for path_name in (*LEGACY_NAMING_SURFACE_PATHS, *extra_paths):
         copy_repo_text(repo_root, path_name)
-    return repo_root / root_authority_validator.LEGACY_NAMING_NAME
+    return repo_root / root_legacy_validator.LEGACY_NAMING_NAME
+
+
+def legacy_naming_issues(repo_root: Path) -> list[ValidationIssue]:
+    return [
+        *root_legacy_validator.validate_legacy_naming_posture_surfaces(repo_root),
+        *root_legacy_bridge_residue_validator.validate_legacy_single_bridge_residue_surfaces(repo_root),
+        *root_legacy_external_leakage_validator.validate_legacy_external_leakage_surfaces(repo_root),
+    ]
 
 
 def test_root_readme_surface_role_validates_current_entry() -> None:
-    assert root_guidance_validator.validate_root_readme_surface_role(REPO_ROOT) == []
+    assert root_frontdoor_guidance_validator.validate_root_readme_surface_role(REPO_ROOT) == []
 
 
 def test_agent_lane_surfaces_validate_current_routes() -> None:
-    assert root_authority_validator.validate_agent_lane_surfaces(REPO_ROOT) == []
+    assert root_agent_lanes_validator.validate_agent_lane_surfaces(REPO_ROOT) == []
 
 
 def test_agent_lane_surfaces_reject_root_local_spark_lane(
@@ -145,9 +164,9 @@ def test_agent_lane_surfaces_reject_root_local_spark_lane(
         """,
     )
 
-    issues = root_authority_validator.validate_agent_lane_surfaces(tmp_path)
+    issues = root_agent_lanes_validator.validate_agent_lane_surfaces(tmp_path)
 
-    assert root_authority_validator.ValidationIssue(
+    assert ValidationIssue(
         "Spark/",
         "root-local Spark lane must stay moved to .agents/spark/",
     ) in issues
@@ -178,7 +197,7 @@ def test_agent_lane_surfaces_reject_spark_swarm_command_lines(
         """,
     )
 
-    issues = root_authority_validator.validate_agent_lane_surfaces(tmp_path)
+    issues = root_agent_lanes_validator.validate_agent_lane_surfaces(tmp_path)
 
     assert any(
         issue.location == ".agents/spark/SWARM.md"
@@ -189,7 +208,7 @@ def test_agent_lane_surfaces_reject_spark_swarm_command_lines(
 
 
 def test_legacy_naming_surfaces_validate_current_routes() -> None:
-    assert root_authority_validator.validate_legacy_naming_surfaces(REPO_ROOT) == []
+    assert legacy_naming_issues(REPO_ROOT) == []
 
 
 def test_legacy_naming_surfaces_reject_missing_archive_detail_boundary(
@@ -204,10 +223,10 @@ def test_legacy_naming_surfaces_reject_missing_archive_detail_boundary(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_legacy_naming_surfaces(tmp_path)
+    issues = legacy_naming_issues(tmp_path)
 
     assert any(
-        issue.location == root_authority_validator.LEGACY_NAMING_NAME
+        issue.location == root_legacy_validator.LEGACY_NAMING_NAME
         and "archive details" in issue.message
         for issue in issues
     )
@@ -224,10 +243,10 @@ def test_legacy_naming_single_bridge_language_rejects_index_as_entry(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_legacy_naming_surfaces(tmp_path)
+    issues = legacy_naming_issues(tmp_path)
 
     assert any(
-        issue.location == root_authority_validator.LEGACY_NAMING_NAME
+        issue.location == root_legacy_validator.LEGACY_NAMING_NAME
         and "single controlled bridge" in issue.message
         for issue in issues
     )
@@ -243,10 +262,10 @@ def test_legacy_naming_posture_guide_rejects_direct_mechanic_legacy_index(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_legacy_naming_surfaces(tmp_path)
+    issues = legacy_naming_issues(tmp_path)
 
     assert any(
-        issue.location == root_authority_validator.LEGACY_NAMING_NAME
+        issue.location == root_legacy_validator.LEGACY_NAMING_NAME
         and "direct mechanic legacy index paths" in issue.message
         for issue in issues
     )
@@ -262,10 +281,10 @@ def test_legacy_naming_posture_guide_rejects_concrete_legacy_inventory(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_legacy_naming_surfaces(tmp_path)
+    issues = legacy_naming_issues(tmp_path)
 
     assert any(
-        issue.location == root_authority_validator.LEGACY_NAMING_NAME
+        issue.location == root_legacy_validator.LEGACY_NAMING_NAME
         and "concrete legacy-name inventories" in issue.message
         for issue in issues
     )
@@ -281,10 +300,10 @@ def test_legacy_naming_rejects_negative_role_scaffold(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_legacy_naming_surfaces(tmp_path)
+    issues = legacy_naming_issues(tmp_path)
 
     assert any(
-        issue.location == root_authority_validator.LEGACY_NAMING_NAME
+        issue.location == root_legacy_validator.LEGACY_NAMING_NAME
         and "concrete legacy-name inventories" in issue.message
         for issue in issues
     )
@@ -307,7 +326,7 @@ def test_legacy_naming_rejects_external_archive_accounting_detail(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_legacy_naming_surfaces(tmp_path)
+    issues = legacy_naming_issues(tmp_path)
 
     assert any(
         issue.location == "mechanics/README.md"
@@ -336,7 +355,7 @@ def test_legacy_single_bridge_residue_rejects_decision_second_entry(
         ),
     )
 
-    issues = root_authority_validator.validate_legacy_naming_surfaces(tmp_path)
+    issues = legacy_naming_issues(tmp_path)
 
     assert any(
         issue.location == decision_path
@@ -359,7 +378,7 @@ def test_legacy_single_bridge_residue_rejects_root_route_card_archive_entry(
         ),
     )
 
-    issues = root_authority_validator.validate_legacy_naming_surfaces(tmp_path)
+    issues = legacy_naming_issues(tmp_path)
 
     assert any(
         issue.location == route_card_path
@@ -382,7 +401,7 @@ def test_legacy_single_bridge_residue_rejects_root_route_card_mechanic_archive_e
         ),
     )
 
-    issues = root_authority_validator.validate_legacy_naming_surfaces(tmp_path)
+    issues = legacy_naming_issues(tmp_path)
 
     assert any(
         issue.location == route_card_path
@@ -432,7 +451,7 @@ def test_legacy_naming_rejects_external_route_management_wording(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_legacy_naming_surfaces(tmp_path)
+    issues = legacy_naming_issues(tmp_path)
 
     for location in (
         "ROADMAP.md",
@@ -460,7 +479,7 @@ def test_root_readme_surface_role_rejects_generic_heading(tmp_path: Path) -> Non
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_root_readme_surface_role(tmp_path)
+    issues = root_frontdoor_guidance_validator.validate_root_readme_surface_role(tmp_path)
 
     assert any(
         issue.location == "README.md"
@@ -482,7 +501,7 @@ def test_root_readme_surface_role_requires_positive_validation_route(
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_root_readme_surface_role(tmp_path)
+    issues = root_frontdoor_guidance_validator.validate_root_readme_surface_role(tmp_path)
 
     assert any(
         issue.location == "README.md"
@@ -502,7 +521,7 @@ def test_root_readme_surface_role_rejects_docs_guide_catalog_in_proof_check(
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_root_readme_surface_role(tmp_path)
+    issues = root_frontdoor_guidance_validator.validate_root_readme_surface_role(tmp_path)
 
     assert any(
         issue.location == "README.md"
@@ -522,7 +541,7 @@ def test_root_readme_surface_role_rejects_generated_reader_catalog_bloat(
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_root_readme_surface_role(tmp_path)
+    issues = root_frontdoor_guidance_validator.validate_root_readme_surface_role(tmp_path)
 
     assert any(
         issue.location == "README.md"
@@ -544,7 +563,7 @@ def test_root_readme_surface_role_rejects_generic_docs_map_eval_labels(
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_root_readme_surface_role(tmp_path)
+    issues = root_frontdoor_guidance_validator.validate_root_readme_surface_role(tmp_path)
 
     assert any(
         issue.location == "docs/README.md"
@@ -554,7 +573,7 @@ def test_root_readme_surface_role_rejects_generic_docs_map_eval_labels(
 
 
 def test_audit_surface_role_validates_current_route() -> None:
-    assert root_authority_validator.validate_audit_surface_role(REPO_ROOT) == []
+    assert root_audit_routes_validator.validate_audit_surface_role(REPO_ROOT) == []
 
 
 def test_audit_surface_role_rejects_stale_negative_boundary_scaffold(
@@ -564,13 +583,13 @@ def test_audit_surface_role_rejects_stale_negative_boundary_scaffold(
     copy_repo_text(tmp_path, "AGENTS.md")
     agents_path = tmp_path / "AGENTS.md"
 
-    for stale_phrase in root_authority_validator.ROOT_AGENTS_STALE_NEGATIVE_ROUTE_PHRASES:
+    for stale_phrase in root_audit_routes_validator.ROOT_AGENTS_STALE_NEGATIVE_ROUTE_PHRASES:
         agents_path.write_text(
             agents_path.read_text(encoding="utf-8") + f"\n\n{stale_phrase}\n",
             encoding="utf-8",
         )
 
-        issues = root_authority_validator.validate_audit_surface_role(tmp_path)
+        issues = root_audit_routes_validator.validate_audit_surface_role(tmp_path)
 
         assert any(
             issue.location == "AGENTS.md"
@@ -595,7 +614,7 @@ def test_audit_surface_role_rejects_audit_as_route_law(tmp_path: Path) -> None:
         "# AUDIT.md\n\nThis file maps audit surfaces without naming AGENTS ownership.\n",
     )
 
-    issues = root_authority_validator.validate_audit_surface_role(tmp_path)
+    issues = root_audit_routes_validator.validate_audit_surface_role(tmp_path)
 
     assert any(
         issue.location == "AUDIT.md" and "Audit Surface Map" in issue.message
@@ -618,7 +637,7 @@ def test_audit_surface_role_requires_route_outward_owner_map(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_audit_surface_role(tmp_path)
+    issues = root_audit_routes_validator.validate_audit_surface_role(tmp_path)
 
     assert any(
         issue.location == "AUDIT.md" and "Route outward for:" in issue.message
@@ -635,7 +654,7 @@ def test_audit_surface_role_rejects_missing_agents_audit_route(
         "# AGENTS.md\n\n## Verify\n\nUse local validation.\n",
     )
 
-    issues = root_authority_validator.validate_audit_surface_role(tmp_path)
+    issues = root_audit_routes_validator.validate_audit_surface_role(tmp_path)
 
     assert any(
         issue.location == "AGENTS.md"
@@ -645,7 +664,7 @@ def test_audit_surface_role_rejects_missing_agents_audit_route(
 
 
 def test_validator_surface_role_validates_current_route() -> None:
-    assert root_authority_validator.validate_validator_surface_role(REPO_ROOT) == []
+    assert root_validator_surfaces_validator.validate_validator_surface_role(REPO_ROOT) == []
 
 
 def test_validator_surface_role_rejects_stale_negative_scaffold(
@@ -665,7 +684,7 @@ def test_validator_surface_role_rejects_stale_negative_scaffold(
             encoding="utf-8",
         )
 
-        issues = root_authority_validator.validate_validator_surface_role(tmp_path)
+        issues = root_validator_surfaces_validator.validate_validator_surface_role(tmp_path)
 
         assert any(
             issue.location == path_name
@@ -691,7 +710,7 @@ def test_validator_surface_role_rejects_generic_scripts_guidance(
     )
     copy_repo_text(tmp_path, "tests/AGENTS.md")
 
-    issues = root_authority_validator.validate_validator_surface_role(tmp_path)
+    issues = root_validator_surfaces_validator.validate_validator_surface_role(tmp_path)
 
     assert any(
         issue.location == "scripts/AGENTS.md"
@@ -709,7 +728,7 @@ def test_validator_surface_role_rejects_generic_test_guidance(
         "# AGENTS.md\n\nTests cover helpers.\n",
     )
 
-    issues = root_authority_validator.validate_validator_surface_role(tmp_path)
+    issues = root_validator_surfaces_validator.validate_validator_surface_role(tmp_path)
 
     assert any(
         issue.location == "tests/AGENTS.md"
@@ -718,7 +737,7 @@ def test_validator_surface_role_rejects_generic_test_guidance(
     )
 
 def test_architecture_proof_model_contract_validates_current_route() -> None:
-    assert root_authority_validator.validate_root_design_surfaces(REPO_ROOT) == []
+    assert root_design_validator.validate_root_design_surfaces(REPO_ROOT) == []
 
 def test_decision_agents_requires_review_log_route(tmp_path: Path) -> None:
     for path_name in (
@@ -729,8 +748,8 @@ def test_decision_agents_requires_review_log_route(tmp_path: Path) -> None:
         "docs/decisions/README.md",
         "docs/decisions/TEMPLATE.md",
         "docs/decisions/AGENTS.md",
-        root_authority_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
-        root_authority_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        root_design_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+        root_design_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
     ):
         copy_repo_text(tmp_path, path_name)
     agents_path = tmp_path / "docs" / "decisions" / "AGENTS.md"
@@ -743,7 +762,7 @@ def test_decision_agents_requires_review_log_route(tmp_path: Path) -> None:
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_root_design_surfaces(tmp_path)
+    issues = root_design_validator.validate_root_design_surfaces(tmp_path)
 
     assert any(
         issue.location == "docs/decisions/AGENTS.md"
@@ -760,8 +779,8 @@ def test_decision_template_requires_review_log_shape(tmp_path: Path) -> None:
         "docs/decisions/README.md",
         "docs/decisions/TEMPLATE.md",
         "docs/decisions/AGENTS.md",
-        root_authority_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
-        root_authority_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        root_design_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+        root_design_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
     ):
         copy_repo_text(tmp_path, path_name)
     template_path = tmp_path / "docs" / "decisions" / "TEMPLATE.md"
@@ -774,7 +793,7 @@ def test_decision_template_requires_review_log_shape(tmp_path: Path) -> None:
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_root_design_surfaces(tmp_path)
+    issues = root_design_validator.validate_root_design_surfaces(tmp_path)
 
     assert any(
         issue.location == "docs/decisions/TEMPLATE.md"
@@ -796,7 +815,7 @@ def test_decision_status_line_rejects_embedded_supersession_detail(
         """,
     )
 
-    issues = root_authority_validator.validate_decision_status_lines(tmp_path)
+    issues = root_decision_status_validator.validate_decision_status_lines(tmp_path)
 
     assert any(
         issue.location == "docs/decisions/AOA-EV-D-0001-example.md:4"
@@ -814,8 +833,8 @@ def test_architecture_proof_model_contract_rejects_bundle_only_model(
         "docs/decisions/README.md",
         "docs/decisions/TEMPLATE.md",
         "docs/decisions/AGENTS.md",
-        root_authority_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
-        root_authority_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        root_design_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+        root_design_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
     ):
         copy_repo_text(tmp_path, path_name)
     architecture_name = "docs/architecture/ARCHITECTURE.md"
@@ -832,7 +851,7 @@ def test_architecture_proof_model_contract_rejects_bundle_only_model(
         """,
     )
 
-    issues = root_authority_validator.validate_root_design_surfaces(tmp_path)
+    issues = root_design_validator.validate_root_design_surfaces(tmp_path)
 
     assert any(
         issue.location == architecture_name
@@ -856,8 +875,8 @@ def test_root_design_surfaces_reject_stale_mechanic_ready_wording(
         "docs/decisions/README.md",
         "docs/decisions/TEMPLATE.md",
         "docs/decisions/AGENTS.md",
-        root_authority_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
-        root_authority_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        root_design_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+        root_design_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
     ):
         copy_repo_text(tmp_path, path_name)
     design_path = tmp_path / "DESIGN.md"
@@ -869,7 +888,7 @@ def test_root_design_surfaces_reject_stale_mechanic_ready_wording(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_root_design_surfaces(tmp_path)
+    issues = root_design_validator.validate_root_design_surfaces(tmp_path)
 
     assert any(
         issue.location == "DESIGN.md"
@@ -889,8 +908,8 @@ def test_root_design_surfaces_reject_negative_architecture_role_scaffold(
         "docs/decisions/README.md",
         "docs/decisions/TEMPLATE.md",
         "docs/decisions/AGENTS.md",
-        root_authority_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
-        root_authority_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        root_design_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+        root_design_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
     ):
         copy_repo_text(tmp_path, path_name)
     architecture_path = tmp_path / "docs" / "architecture" / "ARCHITECTURE.md"
@@ -900,7 +919,7 @@ def test_root_design_surfaces_reject_negative_architecture_role_scaffold(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_root_design_surfaces(tmp_path)
+    issues = root_design_validator.validate_root_design_surfaces(tmp_path)
 
     assert any(
         issue.location == "docs/architecture/ARCHITECTURE.md"
@@ -920,8 +939,8 @@ def test_root_design_surfaces_reject_architecture_direction_scaffold(
         "docs/decisions/README.md",
         "docs/decisions/TEMPLATE.md",
         "docs/decisions/AGENTS.md",
-        root_authority_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
-        root_authority_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        root_design_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+        root_design_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
     ):
         copy_repo_text(tmp_path, path_name)
     architecture_path = tmp_path / "docs" / "architecture" / "ARCHITECTURE.md"
@@ -932,7 +951,7 @@ def test_root_design_surfaces_reject_architecture_direction_scaffold(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_root_design_surfaces(tmp_path)
+    issues = root_design_validator.validate_root_design_surfaces(tmp_path)
 
     assert any(
         issue.location == "docs/architecture/ARCHITECTURE.md"
@@ -958,8 +977,8 @@ def test_root_design_surfaces_reject_old_route_scaffold(
         "docs/decisions/README.md",
         "docs/decisions/TEMPLATE.md",
         "docs/decisions/AGENTS.md",
-        root_authority_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
-        root_authority_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        root_design_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+        root_design_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
     ):
         copy_repo_text(tmp_path, path_name)
     design_path = tmp_path / "DESIGN.md"
@@ -971,7 +990,7 @@ def test_root_design_surfaces_reject_old_route_scaffold(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_root_design_surfaces(tmp_path)
+    issues = root_design_validator.validate_root_design_surfaces(tmp_path)
 
     assert any(
         issue.location == "DESIGN.md"
@@ -1003,11 +1022,11 @@ def test_design_agents_rejects_future_mechanic_package_wording(
         "docs/decisions/README.md",
         "docs/decisions/TEMPLATE.md",
         "docs/decisions/AGENTS.md",
-        root_authority_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
-        root_authority_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        root_design_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+        root_design_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
     ):
         copy_repo_text(tmp_path, path_name)
-    design_agents_path = tmp_path / root_authority_validator.DESIGN_AGENTS_NAME
+    design_agents_path = tmp_path / root_design_validator.DESIGN_AGENTS_NAME
     design_agents_path.write_text(
         design_agents_path.read_text(encoding="utf-8").replace(
             "Active mechanic packages", "Future mechanic packages"
@@ -1015,10 +1034,10 @@ def test_design_agents_rejects_future_mechanic_package_wording(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_root_design_surfaces(tmp_path)
+    issues = root_design_validator.validate_root_design_surfaces(tmp_path)
 
     assert any(
-        issue.location == root_authority_validator.DESIGN_AGENTS_NAME
+        issue.location == root_design_validator.DESIGN_AGENTS_NAME
         and "active mechanic packages" in issue.message
         and "Future mechanic packages" in issue.message
         for issue in issues
@@ -1035,11 +1054,11 @@ def test_design_agents_rejects_old_negative_route_scaffold(
         "docs/decisions/README.md",
         "docs/decisions/TEMPLATE.md",
         "docs/decisions/AGENTS.md",
-        root_authority_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
-        root_authority_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
+        root_design_validator.ARCHITECTURE_PROOF_MODEL_DECISION_NAME,
+        root_design_validator.ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_NAME,
     ):
         copy_repo_text(tmp_path, path_name)
-    design_agents_path = tmp_path / root_authority_validator.DESIGN_AGENTS_NAME
+    design_agents_path = tmp_path / root_design_validator.DESIGN_AGENTS_NAME
     design_agents_path.write_text(
         design_agents_path.read_text(encoding="utf-8")
         + "\nthey do not replace the\nsource surface\n"
@@ -1048,22 +1067,22 @@ def test_design_agents_rejects_old_negative_route_scaffold(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_root_design_surfaces(tmp_path)
+    issues = root_design_validator.validate_root_design_surfaces(tmp_path)
 
     assert any(
-        issue.location == root_authority_validator.DESIGN_AGENTS_NAME
+        issue.location == root_design_validator.DESIGN_AGENTS_NAME
         and "owner routes" in issue.message
         and "Presence-only checks are not enough" in issue.message
         for issue in issues
     )
     assert any(
-        issue.location == root_authority_validator.DESIGN_AGENTS_NAME
+        issue.location == root_design_validator.DESIGN_AGENTS_NAME
         and "owner routes" in issue.message
         and "Negative boundaries stay narrow" in issue.message
         for issue in issues
     )
     assert any(
-        issue.location == root_authority_validator.DESIGN_AGENTS_NAME
+        issue.location == root_design_validator.DESIGN_AGENTS_NAME
         and "owner routes" in issue.message
         and "they do not replace" in issue.message
         for issue in issues
@@ -1073,12 +1092,12 @@ def test_proof_topology_rejects_preparatory_mechanic_wording(
     tmp_path: Path
 ) -> None:
     for path_name in (
-        root_authority_validator.PROOF_TOPOLOGY_NAME,
+        root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
         "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
         "ROADMAP.md",
     ):
         copy_repo_text(tmp_path, path_name)
-    topology_path = tmp_path / root_authority_validator.PROOF_TOPOLOGY_NAME
+    topology_path = tmp_path / root_proof_topology_validator.PROOF_TOPOLOGY_NAME
     topology_path.write_text(
         topology_path.read_text(encoding="utf-8").replace(
             "mechanic operations apart",
@@ -1087,10 +1106,10 @@ def test_proof_topology_rejects_preparatory_mechanic_wording(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_proof_topology_surfaces(tmp_path)
+    issues = root_proof_topology_validator.validate_proof_topology_surfaces(tmp_path)
 
     assert any(
-        issue.location == root_authority_validator.PROOF_TOPOLOGY_NAME
+        issue.location == root_proof_topology_validator.PROOF_TOPOLOGY_NAME
         and "active mechanics" in issue.message
         and "mechanic-ready operations" in issue.message
         for issue in issues
@@ -1100,22 +1119,22 @@ def test_proof_topology_rejects_negative_role_scaffold(
     tmp_path: Path
 ) -> None:
     for path_name in (
-        root_authority_validator.PROOF_TOPOLOGY_NAME,
+        root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
         "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
         "ROADMAP.md",
     ):
         copy_repo_text(tmp_path, path_name)
-    topology_path = tmp_path / root_authority_validator.PROOF_TOPOLOGY_NAME
+    topology_path = tmp_path / root_proof_topology_validator.PROOF_TOPOLOGY_NAME
     topology_path.write_text(
         topology_path.read_text(encoding="utf-8")
         + "\nIt is not the roadmap.\n",
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_proof_topology_surfaces(tmp_path)
+    issues = root_proof_topology_validator.validate_proof_topology_surfaces(tmp_path)
 
     assert any(
-        issue.location == root_authority_validator.PROOF_TOPOLOGY_NAME
+        issue.location == root_proof_topology_validator.PROOF_TOPOLOGY_NAME
         and "active mechanics" in issue.message
         and "It is not the roadmap" in issue.message
         for issue in issues
@@ -1125,12 +1144,12 @@ def test_proof_topology_requires_positive_authority_boundary_routes(
     tmp_path: Path
 ) -> None:
     for path_name in (
-        root_authority_validator.PROOF_TOPOLOGY_NAME,
+        root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
         "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
         "ROADMAP.md",
     ):
         copy_repo_text(tmp_path, path_name)
-    topology_path = tmp_path / root_authority_validator.PROOF_TOPOLOGY_NAME
+    topology_path = tmp_path / root_proof_topology_validator.PROOF_TOPOLOGY_NAME
     topology_path.write_text(
         topology_path.read_text(encoding="utf-8").replace(
             "candidate packets enter bundle-local review before verdict meaning",
@@ -1140,10 +1159,10 @@ def test_proof_topology_requires_positive_authority_boundary_routes(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_proof_topology_surfaces(tmp_path)
+    issues = root_proof_topology_validator.validate_proof_topology_surfaces(tmp_path)
 
     assert any(
-        issue.location == root_authority_validator.PROOF_TOPOLOGY_NAME
+        issue.location == root_proof_topology_validator.PROOF_TOPOLOGY_NAME
         and "candidate packets enter bundle-local review before verdict meaning"
         in issue.message
         for issue in issues
@@ -1153,12 +1172,12 @@ def test_proof_topology_rejects_old_negative_route_scaffold(
     tmp_path: Path
 ) -> None:
     for path_name in (
-        root_authority_validator.PROOF_TOPOLOGY_NAME,
+        root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
         "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
         "ROADMAP.md",
     ):
         copy_repo_text(tmp_path, path_name)
-    topology_path = tmp_path / root_authority_validator.PROOF_TOPOLOGY_NAME
+    topology_path = tmp_path / root_proof_topology_validator.PROOF_TOPOLOGY_NAME
     topology_path.write_text(
         topology_path.read_text(encoding="utf-8")
         + "\nquests are obligations, not eval bundles\n"
@@ -1169,34 +1188,34 @@ def test_proof_topology_rejects_old_negative_route_scaffold(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_proof_topology_surfaces(tmp_path)
+    issues = root_proof_topology_validator.validate_proof_topology_surfaces(tmp_path)
 
     assert any(
-        issue.location == root_authority_validator.PROOF_TOPOLOGY_NAME
+        issue.location == root_proof_topology_validator.PROOF_TOPOLOGY_NAME
         and "owner routes" in issue.message
         and "quests are obligations" in issue.message
         for issue in issues
     )
     assert any(
-        issue.location == root_authority_validator.PROOF_TOPOLOGY_NAME
+        issue.location == root_proof_topology_validator.PROOF_TOPOLOGY_NAME
         and "owner routes" in issue.message
         and "no active root reports payload" in issue.message
         for issue in issues
     )
     assert any(
-        issue.location == root_authority_validator.PROOF_TOPOLOGY_NAME
+        issue.location == root_proof_topology_validator.PROOF_TOPOLOGY_NAME
         and "owner routes" in issue.message
         and "not proof canon" in issue.message
         for issue in issues
     )
     assert any(
-        issue.location == root_authority_validator.PROOF_TOPOLOGY_NAME
+        issue.location == root_proof_topology_validator.PROOF_TOPOLOGY_NAME
         and "owner routes" in issue.message
         and "rationale-only decision ref" in issue.message
         for issue in issues
     )
     assert any(
-        issue.location == root_authority_validator.PROOF_TOPOLOGY_NAME
+        issue.location == root_proof_topology_validator.PROOF_TOPOLOGY_NAME
         and "owner routes" in issue.message
         and "do not move the file yet" in issue.message
         for issue in issues
@@ -1208,12 +1227,12 @@ def test_memory_consumer_topology_requires_positive_source_authority_route(
     for path_name in (
         "README.md",
         "docs/guides/EVAL_PHILOSOPHY.md",
-        root_authority_validator.PROOF_TOPOLOGY_NAME,
-        root_authority_validator.MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME,
+        root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
+        root_memory_boundary_validator.MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME,
         "docs/decisions/README.md",
     ):
         copy_repo_text(tmp_path, path_name)
-    topology_path = tmp_path / root_authority_validator.PROOF_TOPOLOGY_NAME
+    topology_path = tmp_path / root_proof_topology_validator.PROOF_TOPOLOGY_NAME
     topology_path.write_text(
         topology_path.read_text(encoding="utf-8").replace(
             "reviewed memory provides recall context; local proof authority stays with the eval bundle or owning mechanic",
@@ -1223,12 +1242,12 @@ def test_memory_consumer_topology_requires_positive_source_authority_route(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_memory_consumer_proof_boundary_surfaces(
+    issues = root_memory_boundary_validator.validate_memory_consumer_proof_boundary_surfaces(
         tmp_path
     )
 
     assert any(
-        issue.location == root_authority_validator.PROOF_TOPOLOGY_NAME
+        issue.location == root_proof_topology_validator.PROOF_TOPOLOGY_NAME
         and "reviewed memory provides recall context" in issue.message
         for issue in issues
     )
@@ -1237,7 +1256,7 @@ def test_proof_topology_decision_rejects_deferred_movement_wording(
     tmp_path: Path
 ) -> None:
     for path_name in (
-        root_authority_validator.PROOF_TOPOLOGY_NAME,
+        root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
         "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
         "ROADMAP.md",
     ):
@@ -1249,7 +1268,7 @@ def test_proof_topology_decision_rejects_deferred_movement_wording(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_proof_topology_surfaces(tmp_path)
+    issues = root_proof_topology_validator.validate_proof_topology_surfaces(tmp_path)
 
     assert any(
         issue.location == "docs/decisions/AOA-EV-D-0005-proof-topology-map.md"
@@ -1262,7 +1281,7 @@ def test_proof_topology_rejects_roadmap_preparatory_mechanic_wording(
     tmp_path: Path
 ) -> None:
     for path_name in (
-        root_authority_validator.PROOF_TOPOLOGY_NAME,
+        root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
         "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
         "ROADMAP.md",
     ):
@@ -1274,7 +1293,7 @@ def test_proof_topology_rejects_roadmap_preparatory_mechanic_wording(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_proof_topology_surfaces(tmp_path)
+    issues = root_proof_topology_validator.validate_proof_topology_surfaces(tmp_path)
 
     assert any(
         issue.location == "ROADMAP.md"
@@ -1284,28 +1303,28 @@ def test_proof_topology_rejects_roadmap_preparatory_mechanic_wording(
     )
 
 def test_agent_index_surface_validates_current_route() -> None:
-    assert root_authority_validator.validate_agent_index_surface(REPO_ROOT) == []
+    assert root_agent_index_validator.validate_agent_index_surface(REPO_ROOT) == []
 
 def test_github_agents_surface_validates_current_route() -> None:
-    assert root_authority_validator.validate_github_agent_surface(REPO_ROOT) == []
+    assert root_audit_routes_validator.validate_github_agent_surface(REPO_ROOT) == []
 
 def test_github_agents_rejects_stale_negative_platform_scaffold(
     tmp_path: Path
 ) -> None:
-    copy_repo_text(tmp_path, root_authority_validator.GITHUB_AGENTS_NAME)
-    agents_path = tmp_path / root_authority_validator.GITHUB_AGENTS_NAME
+    copy_repo_text(tmp_path, root_audit_routes_validator.GITHUB_AGENTS_NAME)
+    agents_path = tmp_path / root_audit_routes_validator.GITHUB_AGENTS_NAME
 
-    for stale_phrase in root_authority_validator.GITHUB_AGENTS_STALE_ROUTE_PHRASES:
+    for stale_phrase in root_audit_routes_validator.GITHUB_AGENTS_STALE_ROUTE_PHRASES:
         agents_path.write_text(
             agents_path.read_text(encoding="utf-8")
             + f"\n\n{stale_phrase}.\n",
             encoding="utf-8",
         )
 
-        issues = root_authority_validator.validate_github_agent_surface(tmp_path)
+        issues = root_audit_routes_validator.validate_github_agent_surface(tmp_path)
 
         assert any(
-            issue.location == root_authority_validator.GITHUB_AGENTS_NAME
+            issue.location == root_audit_routes_validator.GITHUB_AGENTS_NAME
             and "operating card and boundary route table" in issue.message
             for issue in issues
         )
@@ -1320,17 +1339,17 @@ def test_github_agents_rejects_stale_negative_platform_scaffold(
 
 def test_agent_index_surface_rejects_missing_chain(tmp_path: Path) -> None:
     for path_name in (
-        root_authority_validator.AGENT_INDEX_NAME,
-        root_authority_validator.AGENT_INDEX_CHAIN_DECISION_NAME,
+        root_agent_index_validator.AGENT_INDEX_NAME,
+        root_agent_index_validator.AGENT_INDEX_CHAIN_DECISION_NAME,
         "README.md",
         "docs/README.md",
-        root_authority_validator.PROOF_TOPOLOGY_NAME,
+        root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
         "ROADMAP.md",
-        root_authority_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME,
+        root_agent_index_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME,
         "docs/decisions/README.md",
     ):
         copy_repo_text(tmp_path, path_name)
-    index_path = tmp_path / root_authority_validator.AGENT_INDEX_NAME
+    index_path = tmp_path / root_agent_index_validator.AGENT_INDEX_NAME
     index_path.write_text(
         index_path.read_text(encoding="utf-8").replace(
             "repo -> authority class -> operation -> mechanic parent -> part -> payload -> validation",
@@ -1339,10 +1358,10 @@ def test_agent_index_surface_rejects_missing_chain(tmp_path: Path) -> None:
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_agent_index_surface(tmp_path)
+    issues = root_agent_index_validator.validate_agent_index_surface(tmp_path)
 
     assert any(
-        issue.location == root_authority_validator.AGENT_INDEX_NAME
+        issue.location == root_agent_index_validator.AGENT_INDEX_NAME
         and "repo -> authority class -> operation" in issue.message
         for issue in issues
     )
@@ -1351,17 +1370,17 @@ def test_agent_index_surface_rejects_old_negative_route_scaffold(
     tmp_path: Path
 ) -> None:
     for path_name in (
-        root_authority_validator.AGENT_INDEX_NAME,
-        root_authority_validator.AGENT_INDEX_CHAIN_DECISION_NAME,
+        root_agent_index_validator.AGENT_INDEX_NAME,
+        root_agent_index_validator.AGENT_INDEX_CHAIN_DECISION_NAME,
         "README.md",
         "docs/README.md",
-        root_authority_validator.PROOF_TOPOLOGY_NAME,
+        root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
         "ROADMAP.md",
-        root_authority_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME,
+        root_agent_index_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME,
         "docs/decisions/README.md",
     ):
         copy_repo_text(tmp_path, path_name)
-    index_path = tmp_path / root_authority_validator.AGENT_INDEX_NAME
+    index_path = tmp_path / root_agent_index_validator.AGENT_INDEX_NAME
     index_path.write_text(
         index_path.read_text(encoding="utf-8")
         + "\nUse this index when the path name is not enough by itself.\n"
@@ -1369,23 +1388,23 @@ def test_agent_index_surface_rejects_old_negative_route_scaffold(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_agent_index_surface(tmp_path)
+    issues = root_agent_index_validator.validate_agent_index_surface(tmp_path)
 
     assert any(
-        issue.location == root_authority_validator.AGENT_INDEX_NAME
+        issue.location == root_agent_index_validator.AGENT_INDEX_NAME
         and "explicit owner routes" in issue.message
         and "path name is not enough" in issue.message
         for issue in issues
     )
     assert any(
-        issue.location == root_authority_validator.AGENT_INDEX_NAME
+        issue.location == root_agent_index_validator.AGENT_INDEX_NAME
         and "explicit owner routes" in issue.message
         and "An agent should expect only" in issue.message
         for issue in issues
     )
 
 def test_memory_consumer_proof_boundary_validates_current_route() -> None:
-    assert root_authority_validator.validate_memory_consumer_proof_boundary_surfaces(REPO_ROOT) == []
+    assert root_memory_boundary_validator.validate_memory_consumer_proof_boundary_surfaces(REPO_ROOT) == []
 
 def test_memory_consumer_proof_boundary_rejects_root_route_anchor_loss(
     tmp_path: Path
@@ -1393,8 +1412,8 @@ def test_memory_consumer_proof_boundary_rejects_root_route_anchor_loss(
     for path_name in (
         "README.md",
         "docs/guides/EVAL_PHILOSOPHY.md",
-        root_authority_validator.PROOF_TOPOLOGY_NAME,
-        root_authority_validator.MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME,
+        root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
+        root_memory_boundary_validator.MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME,
         "docs/decisions/README.md",
     ):
         copy_repo_text(tmp_path, path_name)
@@ -1408,7 +1427,7 @@ def test_memory_consumer_proof_boundary_rejects_root_route_anchor_loss(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_memory_consumer_proof_boundary_surfaces(tmp_path)
+    issues = root_memory_boundary_validator.validate_memory_consumer_proof_boundary_surfaces(tmp_path)
 
     assert any(
         issue.location == "README.md"
@@ -1422,8 +1441,8 @@ def test_memory_consumer_proof_boundary_requires_positive_memory_route(
     for path_name in (
         "README.md",
         "docs/guides/EVAL_PHILOSOPHY.md",
-        root_authority_validator.PROOF_TOPOLOGY_NAME,
-        root_authority_validator.MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME,
+        root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
+        root_memory_boundary_validator.MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_NAME,
         "docs/decisions/README.md",
     ):
         copy_repo_text(tmp_path, path_name)
@@ -1437,7 +1456,7 @@ def test_memory_consumer_proof_boundary_requires_positive_memory_route(
         encoding="utf-8",
     )
 
-    issues = root_authority_validator.validate_memory_consumer_proof_boundary_surfaces(tmp_path)
+    issues = root_memory_boundary_validator.validate_memory_consumer_proof_boundary_surfaces(tmp_path)
 
     assert any(
         issue.location == "docs/guides/EVAL_PHILOSOPHY.md"

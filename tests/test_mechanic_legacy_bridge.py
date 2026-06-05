@@ -10,7 +10,7 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from validators import mechanic_legacy as mechanic_legacy_validator
+from validators import mechanic_provenance_bridge as mechanic_provenance_bridge_validator
 
 
 def write_text(path: Path, content: str) -> None:
@@ -29,7 +29,7 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 def write_legacy_single_bridge_scaffold(repo_root: Path) -> None:
     write_text(
-        repo_root / mechanic_legacy_validator.MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_NAME,
+        repo_root / mechanic_provenance_bridge_validator.MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_NAME,
         f"""
         # Mechanic Legacy Single Bridge
 
@@ -42,17 +42,17 @@ def write_legacy_single_bridge_scaffold(repo_root: Path) -> None:
         direct `legacy/raw`
         JSON
         YAML
-        {mechanic_legacy_validator.MECHANIC_LEGACY_SINGLE_BRIDGE_COMMAND}
+        {mechanic_provenance_bridge_validator.MECHANIC_LEGACY_SINGLE_BRIDGE_COMMAND}
         """,
     )
     write_text(
         repo_root / "docs" / "decisions" / "README.md",
-        f"{mechanic_legacy_validator.MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_NAME}\nMechanic Legacy Single Bridge\n",
+        f"{mechanic_provenance_bridge_validator.MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_NAME}\nMechanic Legacy Single Bridge\n",
     )
     for path_name in (
-        mechanic_legacy_validator.MECHANICS_README_NAME,
-        mechanic_legacy_validator.PROOF_TOPOLOGY_NAME,
-        mechanic_legacy_validator.LEGACY_NAMING_NAME,
+        mechanic_provenance_bridge_validator.MECHANICS_README_NAME,
+        mechanic_provenance_bridge_validator.PROOF_TOPOLOGY_NAME,
+        mechanic_provenance_bridge_validator.LEGACY_NAMING_NAME,
     ):
         write_text(
             repo_root / path_name,
@@ -66,7 +66,7 @@ def write_legacy_single_bridge_scaffold(repo_root: Path) -> None:
 
 def test_mechanic_legacy_single_bridge_validates_current_routes() -> None:
     assert (
-        mechanic_legacy_validator.validate_mechanic_legacy_single_bridge_surfaces(
+        mechanic_provenance_bridge_validator.validate_mechanic_legacy_single_bridge_surfaces(
             REPO_ROOT
         )
         == []
@@ -83,7 +83,7 @@ def test_mechanic_legacy_single_bridge_rejects_active_direct_legacy_index(
         "# Titan\n\nUse `legacy/INDEX.md` directly for old canary lookup.\n",
     )
 
-    issues = mechanic_legacy_validator.validate_mechanic_legacy_single_bridge_surfaces(
+    issues = mechanic_provenance_bridge_validator.validate_mechanic_legacy_single_bridge_surfaces(
         tmp_path
     )
 
@@ -99,11 +99,11 @@ def test_mechanic_legacy_single_bridge_rejects_active_direct_legacy_raw_in_json(
     tmp_path: Path,
 ) -> None:
     for path_name in (
-        mechanic_legacy_validator.MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_NAME,
+        mechanic_provenance_bridge_validator.MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_NAME,
         "docs/decisions/README.md",
-        mechanic_legacy_validator.MECHANICS_README_NAME,
-        mechanic_legacy_validator.PROOF_TOPOLOGY_NAME,
-        mechanic_legacy_validator.LEGACY_NAMING_NAME,
+        mechanic_provenance_bridge_validator.MECHANICS_README_NAME,
+        mechanic_provenance_bridge_validator.PROOF_TOPOLOGY_NAME,
+        mechanic_provenance_bridge_validator.LEGACY_NAMING_NAME,
         "ROADMAP.md",
     ):
         copy_repo_text(tmp_path, path_name)
@@ -113,7 +113,7 @@ def test_mechanic_legacy_single_bridge_rejects_active_direct_legacy_raw_in_json(
         '{"surfaces": ["mechanics/titan/legacy/raw/old-canary.md"]}\n',
     )
 
-    issues = mechanic_legacy_validator.validate_mechanic_legacy_single_bridge_surfaces(
+    issues = mechanic_provenance_bridge_validator.validate_mechanic_legacy_single_bridge_surfaces(
         tmp_path
     )
 
@@ -138,7 +138,7 @@ def test_mechanic_legacy_single_bridge_rejects_provenance_archive_detail(
         "# Titan Provenance\n\nUse `legacy/INDEX.md` and `legacy/raw/README.md` here.\n",
     )
 
-    issues = mechanic_legacy_validator.validate_mechanic_legacy_single_bridge_surfaces(
+    issues = mechanic_provenance_bridge_validator.validate_mechanic_legacy_single_bridge_surfaces(
         tmp_path
     )
 
@@ -151,7 +151,7 @@ def test_mechanic_legacy_single_bridge_rejects_provenance_archive_detail(
 
 def test_mechanic_provenance_bridge_posture_validates_current_routes() -> None:
     assert (
-        mechanic_legacy_validator.validate_mechanic_provenance_bridge_posture_surfaces(
+        mechanic_provenance_bridge_validator.validate_mechanic_provenance_bridge_posture_surfaces(
             REPO_ROOT
         )
         == []
@@ -161,14 +161,14 @@ def test_mechanic_provenance_bridge_posture_validates_current_routes() -> None:
 def test_mechanic_provenance_bridge_posture_rejects_missing_active_first_contract(
     tmp_path: Path,
 ) -> None:
-    for path_name in mechanic_legacy_validator.MECHANIC_PROVENANCE_FILES:
+    for path_name in mechanic_provenance_bridge_validator.MECHANIC_PROVENANCE_FILES:
         copy_repo_text(tmp_path, path_name)
     for path_name in (
-        mechanic_legacy_validator.MECHANIC_PROVENANCE_BRIDGE_POSTURE_DECISION_NAME,
+        mechanic_provenance_bridge_validator.MECHANIC_PROVENANCE_BRIDGE_POSTURE_DECISION_NAME,
         "docs/decisions/README.md",
-        mechanic_legacy_validator.MECHANICS_README_NAME,
-        mechanic_legacy_validator.PROOF_TOPOLOGY_NAME,
-        mechanic_legacy_validator.LEGACY_NAMING_NAME,
+        mechanic_provenance_bridge_validator.MECHANICS_README_NAME,
+        mechanic_provenance_bridge_validator.PROOF_TOPOLOGY_NAME,
+        mechanic_provenance_bridge_validator.LEGACY_NAMING_NAME,
         "DESIGN.md",
         "ROADMAP.md",
     ):
@@ -181,7 +181,7 @@ def test_mechanic_provenance_bridge_posture_rejects_missing_active_first_contrac
     )
 
     issues = (
-        mechanic_legacy_validator.validate_mechanic_provenance_bridge_posture_surfaces(
+        mechanic_provenance_bridge_validator.validate_mechanic_provenance_bridge_posture_surfaces(
             tmp_path
         )
     )

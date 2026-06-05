@@ -14,7 +14,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 import eval_catalog_contract
 from validators import root_context
 from validators import root_topology as root_topology_validator
-from validators import route_residue as route_residue_validator
+from validators import route_residue_generated as route_residue_generated_validator
 
 
 def write_text(path: Path, content: str) -> None:
@@ -35,7 +35,7 @@ def copy_generated_route_residue_surface(repo_root: Path) -> None:
     for path_name in (
         "generated/README.md",
         "generated/AGENTS.md",
-        route_residue_validator.GENERATED_ROUTE_RESIDUE_DECISION_NAME,
+        route_residue_generated_validator.GENERATED_ROUTE_RESIDUE_DECISION_NAME,
         "docs/decisions/README.md",
         root_context.PROOF_TOPOLOGY_NAME,
         root_context.LEGACY_NAMING_NAME,
@@ -45,14 +45,14 @@ def copy_generated_route_residue_surface(repo_root: Path) -> None:
 
 
 def validate_generated_route_residue_surfaces(repo_root: Path):
-    return route_residue_validator.validate_generated_route_residue_surfaces(
+    return route_residue_generated_validator.validate_generated_route_residue_surfaces(
         repo_root,
         context=root_topology_validator.route_residue_context(),
     )
 
 
 def test_generated_route_residue_accepts_current_generated_readouts() -> None:
-    assert route_residue_validator.validate_generated_route_residue(REPO_ROOT) == []
+    assert route_residue_generated_validator.validate_generated_route_residue(REPO_ROOT) == []
 
 
 def test_generated_route_residue_surfaces_validate_current_reader_index() -> None:
@@ -145,7 +145,7 @@ def test_generated_route_residue_rejects_root_route_card_structural_reference(
         },
     )
 
-    issues = route_residue_validator.validate_generated_route_residue(tmp_path)
+    issues = route_residue_generated_validator.validate_generated_route_residue(tmp_path)
 
     assert any(
         "route-card-only root district 'fixtures/'" in issue.message
@@ -170,7 +170,7 @@ def test_generated_route_residue_rejects_legacy_mechanic_parent_reference(
         },
     )
 
-    issues = route_residue_validator.validate_generated_route_residue(tmp_path)
+    issues = route_residue_generated_validator.validate_generated_route_residue(tmp_path)
 
     assert any(
         "not legacy parent route 'mechanics/titan-canaries/'" in issue.message
@@ -189,7 +189,7 @@ def test_generated_route_residue_allows_part_local_generated_config_reference(
         compact=True,
     )
 
-    assert route_residue_validator.validate_generated_route_residue(tmp_path) == []
+    assert route_residue_generated_validator.validate_generated_route_residue(tmp_path) == []
 
 
 def test_generated_route_residue_ignores_markdown_content_paths(
@@ -207,4 +207,4 @@ def test_generated_route_residue_ignores_markdown_content_paths(
         },
     )
 
-    assert route_residue_validator.validate_generated_route_residue(tmp_path) == []
+    assert route_residue_generated_validator.validate_generated_route_residue(tmp_path) == []

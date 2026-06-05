@@ -9,7 +9,8 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from validators import root_guidance as root_guidance_validator
+from validators import root_eval_guides as root_eval_guides_validator
+from validators import root_operations_guidance as root_operations_guidance_validator
 
 
 def copy_repo_text(repo_root: Path, relative_path: str) -> None:
@@ -22,14 +23,14 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 
 def test_portable_eval_boundary_guide_validates_current_route() -> None:
-    assert root_guidance_validator.validate_portable_eval_boundary_guide_surface(REPO_ROOT) == []
+    assert root_eval_guides_validator.validate_portable_eval_boundary_guide_surface(REPO_ROOT) == []
 
 
 def test_portable_eval_boundary_guide_rejects_route_scaffold(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, root_guidance_validator.PORTABLE_EVAL_BOUNDARY_GUIDE_NAME)
-    guide_path = tmp_path / root_guidance_validator.PORTABLE_EVAL_BOUNDARY_GUIDE_NAME
+    copy_repo_text(tmp_path, root_eval_guides_validator.PORTABLE_EVAL_BOUNDARY_GUIDE_NAME)
+    guide_path = tmp_path / root_eval_guides_validator.PORTABLE_EVAL_BOUNDARY_GUIDE_NAME
     guide_path.write_text(
         guide_path.read_text(encoding="utf-8")
         + "\nDo not confuse portability with scale.\n"
@@ -37,16 +38,16 @@ def test_portable_eval_boundary_guide_rejects_route_scaffold(
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_portable_eval_boundary_guide_surface(tmp_path)
+    issues = root_eval_guides_validator.validate_portable_eval_boundary_guide_surface(tmp_path)
 
     assert any(
-        issue.location == root_guidance_validator.PORTABLE_EVAL_BOUNDARY_GUIDE_NAME
+        issue.location == root_eval_guides_validator.PORTABLE_EVAL_BOUNDARY_GUIDE_NAME
         and "positive review criteria" in issue.message
         and "Do not confuse portability with scale" in issue.message
         for issue in issues
     )
     assert any(
-        issue.location == root_guidance_validator.PORTABLE_EVAL_BOUNDARY_GUIDE_NAME
+        issue.location == root_eval_guides_validator.PORTABLE_EVAL_BOUNDARY_GUIDE_NAME
         and "positive review criteria" in issue.message
         and "without hidden private knowledge" in issue.message
         for issue in issues
@@ -54,25 +55,25 @@ def test_portable_eval_boundary_guide_rejects_route_scaffold(
 
 
 def test_closeout_writeback_ingress_validates_current_route() -> None:
-    assert root_guidance_validator.validate_closeout_writeback_ingress_surface(REPO_ROOT) == []
+    assert root_operations_guidance_validator.validate_closeout_writeback_ingress_surface(REPO_ROOT) == []
 
 
 def test_closeout_writeback_ingress_rejects_route_scaffold(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, root_guidance_validator.CLOSEOUT_WRITEBACK_INGRESS_NAME)
-    copy_repo_text(tmp_path, root_guidance_validator.CLOSEOUT_WRITEBACK_INGRESS_DECISION_NAME)
-    ingress_path = tmp_path / root_guidance_validator.CLOSEOUT_WRITEBACK_INGRESS_NAME
+    copy_repo_text(tmp_path, root_operations_guidance_validator.CLOSEOUT_WRITEBACK_INGRESS_NAME)
+    copy_repo_text(tmp_path, root_operations_guidance_validator.CLOSEOUT_WRITEBACK_INGRESS_DECISION_NAME)
+    ingress_path = tmp_path / root_operations_guidance_validator.CLOSEOUT_WRITEBACK_INGRESS_NAME
     ingress_path.write_text(
         ingress_path.read_text(encoding="utf-8")
         + "\nThis note remains the owner-local re-read anchor for the lane, not a shadow copy of bundle truth.\n",
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_closeout_writeback_ingress_surface(tmp_path)
+    issues = root_operations_guidance_validator.validate_closeout_writeback_ingress_surface(tmp_path)
 
     assert any(
-        issue.location == root_guidance_validator.CLOSEOUT_WRITEBACK_INGRESS_NAME
+        issue.location == root_operations_guidance_validator.CLOSEOUT_WRITEBACK_INGRESS_NAME
         and "re-read route" in issue.message
         and "not a shadow copy" in issue.message
         for issue in issues
@@ -80,7 +81,7 @@ def test_closeout_writeback_ingress_rejects_route_scaffold(
 
 
 def test_contributing_route_validates_current_surface() -> None:
-    assert root_guidance_validator.validate_contributing_route_surface(REPO_ROOT) == []
+    assert root_operations_guidance_validator.validate_contributing_route_surface(REPO_ROOT) == []
 
 
 def test_contributing_route_rejects_stale_scaffold(tmp_path: Path) -> None:
@@ -92,7 +93,7 @@ def test_contributing_route_rejects_stale_scaffold(tmp_path: Path) -> None:
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_contributing_route_surface(tmp_path)
+    issues = root_operations_guidance_validator.validate_contributing_route_surface(tmp_path)
 
     assert any(
         issue.location == "CONTRIBUTING.md"
@@ -103,24 +104,24 @@ def test_contributing_route_rejects_stale_scaffold(tmp_path: Path) -> None:
 
 
 def test_score_semantics_guide_validates_current_surface() -> None:
-    assert root_guidance_validator.validate_score_semantics_guide_surface(REPO_ROOT) == []
+    assert root_eval_guides_validator.validate_score_semantics_guide_surface(REPO_ROOT) == []
 
 
 def test_score_semantics_guide_rejects_stale_scaffold(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, root_guidance_validator.SCORE_SEMANTICS_GUIDE_NAME)
-    guide_path = tmp_path / root_guidance_validator.SCORE_SEMANTICS_GUIDE_NAME
+    copy_repo_text(tmp_path, root_eval_guides_validator.SCORE_SEMANTICS_GUIDE_NAME)
+    guide_path = tmp_path / root_eval_guides_validator.SCORE_SEMANTICS_GUIDE_NAME
     guide_path.write_text(
         guide_path.read_text(encoding="utf-8")
         + "\nNot valid without stable comparison semantics.\n",
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_score_semantics_guide_surface(tmp_path)
+    issues = root_eval_guides_validator.validate_score_semantics_guide_surface(tmp_path)
 
     assert any(
-        issue.location == root_guidance_validator.SCORE_SEMANTICS_GUIDE_NAME
+        issue.location == root_eval_guides_validator.SCORE_SEMANTICS_GUIDE_NAME
         and "interpretation route criteria" in issue.message
         and "Not valid without stable comparison semantics" in issue.message
         for issue in issues
@@ -128,24 +129,24 @@ def test_score_semantics_guide_rejects_stale_scaffold(
 
 
 def test_eval_review_guide_validates_current_surface() -> None:
-    assert root_guidance_validator.validate_eval_review_guide_surface(REPO_ROOT) == []
+    assert root_eval_guides_validator.validate_eval_review_guide_surface(REPO_ROOT) == []
 
 
 def test_eval_review_guide_rejects_stale_scaffold(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, root_guidance_validator.EVAL_REVIEW_GUIDE_NAME)
-    guide_path = tmp_path / root_guidance_validator.EVAL_REVIEW_GUIDE_NAME
+    copy_repo_text(tmp_path, root_eval_guides_validator.EVAL_REVIEW_GUIDE_NAME)
+    guide_path = tmp_path / root_eval_guides_validator.EVAL_REVIEW_GUIDE_NAME
     guide_path.write_text(
         guide_path.read_text(encoding="utf-8")
         + "\nIt still reads like one useful option among peers without a crisp default-use rationale.\n",
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_eval_review_guide_surface(tmp_path)
+    issues = root_eval_guides_validator.validate_eval_review_guide_surface(tmp_path)
 
     assert any(
-        issue.location == root_guidance_validator.EVAL_REVIEW_GUIDE_NAME
+        issue.location == root_eval_guides_validator.EVAL_REVIEW_GUIDE_NAME
         and "maturity gap routes" in issue.message
         and "without a crisp default-use rationale" in issue.message
         for issue in issues
@@ -153,24 +154,24 @@ def test_eval_review_guide_rejects_stale_scaffold(
 
 
 def test_blind_spot_disclosure_guide_validates_current_surface() -> None:
-    assert root_guidance_validator.validate_blind_spot_disclosure_guide_surface(REPO_ROOT) == []
+    assert root_eval_guides_validator.validate_blind_spot_disclosure_guide_surface(REPO_ROOT) == []
 
 
 def test_blind_spot_disclosure_guide_rejects_stale_scaffold(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, root_guidance_validator.BLIND_SPOT_DISCLOSURE_GUIDE_NAME)
-    guide_path = tmp_path / root_guidance_validator.BLIND_SPOT_DISCLOSURE_GUIDE_NAME
+    copy_repo_text(tmp_path, root_eval_guides_validator.BLIND_SPOT_DISCLOSURE_GUIDE_NAME)
+    guide_path = tmp_path / root_eval_guides_validator.BLIND_SPOT_DISCLOSURE_GUIDE_NAME
     guide_path.write_text(
         guide_path.read_text(encoding="utf-8")
         + "\nWeak disclosure sounds like a generic umbrella caveat.\n",
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_blind_spot_disclosure_guide_surface(tmp_path)
+    issues = root_eval_guides_validator.validate_blind_spot_disclosure_guide_surface(tmp_path)
 
     assert any(
-        issue.location == root_guidance_validator.BLIND_SPOT_DISCLOSURE_GUIDE_NAME
+        issue.location == root_eval_guides_validator.BLIND_SPOT_DISCLOSURE_GUIDE_NAME
         and "disclosure gap routes" in issue.message
         and "Weak disclosure sounds like" in issue.message
         for issue in issues

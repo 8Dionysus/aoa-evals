@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0142
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/agon.py`, `mechanics/agon/`
+- Owner surface: focused Agon validator modules, `mechanics/agon/`
 
 ## Index Metadata
 
@@ -27,14 +27,16 @@ registry parity.
 
 ## Decision
 
-Agon route validation lives in `scripts/validators/agon.py`.
+Agon route validation lives in focused Agon validator modules.
 
 `scripts/validate_repo.py` delegates Agon checks through
 `validate_agon_route_surfaces` and supplies an `AgonRouteContext` with the root
 token lookup helper.
 
-The module owns Agon-specific route, part README contract, stale stop-line
-phrasing, and decision expectations. Shared lookup posture remains injected.
+The focused Agon modules own Agon-specific paths, token matrices, route checks,
+part README contracts, stale stop-line phrasing, and decision expectations.
+Shared lookup posture remains injected without treating the blocking route
+validator as a constants bucket.
 
 ## Rationale
 
@@ -53,7 +55,8 @@ execution, and generated registry parity truth to the owning surfaces.
   and decision-token checks have one focused owner.
 - Positive: `validate_mechanics_surfaces` delegates another active mechanic
   parent instead of retaining parent-specific token matrices.
-- Positive: tests import Agon constants from the owner module directly.
+- Positive: tests import Agon path constants and stale phrase constants from
+  focused helpers directly.
 - Follow-up: remaining root mechanics checks should be split only when they
   represent coherent owner boundaries, not historical aliases.
 
@@ -63,9 +66,9 @@ As of 2026-06-03:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide command
   entrypoint.
-- Changed: Agon route and part-contract validation now lives in
-  `scripts/validators/agon.py`.
-- Superseded by: none.
+- Changed: Agon route and part-contract validation now lives in path, token,
+  and route validator modules.
+- Superseded by: AOA-EV-D-0233 removes the former aggregate module boundary.
 
 ## Boundaries
 
@@ -79,7 +82,7 @@ entrypoint.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/agon.py tests/test_mechanic_surface_contracts.py`
+- `python -m py_compile scripts/validators/agon_route_paths.py scripts/validators/agon_route_tokens.py scripts/validators/agon_routes.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py tests/test_mechanic_parent_direction.py`
 - `python -m pytest -q tests/test_mechanic_surface_contracts.py -k agon`
 - `python scripts/generate_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py --check`

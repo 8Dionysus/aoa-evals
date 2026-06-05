@@ -1,7 +1,8 @@
 # Proof Loop Validator Module Boundary
 
 - Decision ID: AOA-EV-D-0122
-- Status: Accepted
+- Status: Superseded
+- Superseded by: AOA-EV-D-0211-proof-loop-aggregate-removal
 - Date: 2026-06-03
 - Owner surface: `scripts/validators/proof_loop.py`, `mechanics/proof-loop/`
 
@@ -11,7 +12,7 @@
 - Surface classes: validation guard, trace/eval, report/readout
 - Mechanic parents: proof-loop, publication-receipts, proof-object, proof-infra, audit, boundary-bridge
 - Guard families: source/topology, generated/report/receipt/runtime
-- Posture: active rationale
+- Posture: superseded rationale
 
 ## Context
 
@@ -68,9 +69,11 @@ As of 2026-06-03:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide validation
   entrypoint.
-- Changed: proof-loop route and report checks now have a focused validator
-  module.
-- Superseded by: none.
+- Changed: proof-loop route and report checks first moved into
+  `scripts/validators/proof_loop.py`; active validation later split into
+  `proof_loop_routes.py`, `proof_loop_smoke_report.py`,
+  `proof_loop_local_report.py`, and helper-only `proof_loop_common.py`.
+- Superseded by: AOA-EV-D-0211 removes the `proof_loop.py` aggregate.
 
 ## Boundaries
 
@@ -83,8 +86,8 @@ It does not move bundle-local report authority out of `evals/**/reports/`.
 
 ## Validation
 
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k proof_loop`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`
+- `python -m py_compile scripts/validators/proof_loop_common.py scripts/validators/proof_loop_routes.py scripts/validators/proof_loop_smoke_report.py scripts/validators/proof_loop_local_report.py scripts/validators/mechanics_routes.py`
+- `python -m pytest -q tests/test_mechanic_surface_contracts.py tests/test_mechanic_legacy_archive_routes.py -k proof_loop`
+- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
 - `python scripts/validate_repo.py`

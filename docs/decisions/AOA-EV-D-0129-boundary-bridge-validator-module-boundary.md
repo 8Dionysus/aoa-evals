@@ -3,7 +3,8 @@
 - Decision ID: AOA-EV-D-0129
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/boundary_bridge.py`, `mechanics/boundary-bridge/`
+- Owner surface: focused boundary-bridge validators and `mechanics/boundary-bridge/`
+- Refined by: AOA-EV-D-0206
 
 ## Index Metadata
 
@@ -88,7 +89,12 @@ As of 2026-06-03:
   focused validator module; repo-validation workflow-pin hygiene also moved to
   `scripts/validators/boundary_bridge.py`; sibling-canary matrix shape also
   moved to the same module.
-- Superseded by: none.
+- As of AOA-EV-D-0206: `scripts/validators/boundary_bridge.py` is removed;
+  route cards and sibling-ref posture live in `boundary_bridge_routes.py`,
+  workflow-pin hygiene lives in `boundary_bridge_workflow.py`, canary matrix
+  shape lives in `boundary_bridge_canary.py`, and shared constants/token lookup
+  live in `boundary_bridge_common.py`.
+- Superseded by: AOA-EV-D-0206 for aggregate module shape.
 
 ## Boundaries
 
@@ -102,6 +108,7 @@ execution into the route validator.
 
 ## Validation
 
+- `python -m py_compile scripts/validators/boundary_bridge_common.py scripts/validators/boundary_bridge_routes.py scripts/validators/boundary_bridge_workflow.py scripts/validators/boundary_bridge_canary.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py tests/test_mechanic_legacy_archive_routes.py tests/test_repo_validation_workflow.py`
 - `python -m pytest -q tests/test_mechanic_surface_contracts.py -k boundary_bridge`
 - `python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k boundary_bridge`
 - `python -m pytest -q tests/test_repo_validation_workflow.py`

@@ -10,7 +10,8 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from validators import release_support as release_support_validator
+from validators import release_support_report_constants as release_support_report_constants_validator
+from validators import release_support_strategic_closeout_report as release_support_strategic_closeout_report_validator
 
 REPO_REF_ROOTS = {
     "aoa-evals": REPO_ROOT,
@@ -56,12 +57,12 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 
 def make_strategic_closeout_audit_surface(repo_root: Path) -> Path:
-    copy_repo_text(repo_root, release_support_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME)
-    return repo_root / release_support_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME
+    copy_repo_text(repo_root, release_support_report_constants_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME)
+    return repo_root / release_support_report_constants_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME
 
 
 def validate_strategic_closeout_audit_surface(repo_root: Path):
-    return release_support_validator.validate_strategic_closeout_audit_surface(
+    return release_support_strategic_closeout_report_validator.validate_strategic_closeout_audit_surface(
         repo_root,
         repo_ref_roots=REPO_REF_ROOTS,
         strict_sibling_compat=False,
@@ -196,7 +197,7 @@ def test_strategic_closeout_audit_rejects_goal_completion_claim(
     issues = validate_strategic_closeout_audit_surface(tmp_path)
 
     assert any(
-        issue.location == release_support_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME
+        issue.location == release_support_report_constants_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME
         and "goal_completion_status must be 'not_complete_pending_requirement_audit_and_landing_route'"
         in issue.message
         for issue in issues
@@ -218,7 +219,7 @@ def test_strategic_closeout_audit_rejects_missing_requirement_id(
     issues = validate_strategic_closeout_audit_surface(tmp_path)
 
     assert any(
-        issue.location == f"{release_support_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME}.requirements_review"
+        issue.location == f"{release_support_report_constants_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME}.requirements_review"
         and "phase_8_active_proof_loop" in issue.message
         for issue in issues
     )
@@ -240,7 +241,7 @@ def test_strategic_closeout_audit_rejects_missing_focused_gate(
     issues = validate_strategic_closeout_audit_surface(tmp_path)
 
     assert any(
-        issue.location == f"{release_support_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME}.verification_snapshot"
+        issue.location == f"{release_support_report_constants_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME}.verification_snapshot"
         and "mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py"
         in issue.message
         for issue in issues
@@ -258,7 +259,7 @@ def test_strategic_closeout_audit_rejects_absolute_plan_path(
     issues = validate_strategic_closeout_audit_surface(tmp_path)
 
     assert any(
-        issue.location == release_support_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME
+        issue.location == release_support_report_constants_validator.STRATEGIC_CLOSEOUT_AUDIT_NAME
         and "must not expose an absolute host path" in issue.message
         for issue in issues
     )

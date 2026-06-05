@@ -9,6 +9,7 @@ generated_indexes:
   - docs/decisions/indexes/by-surface.md
   - docs/decisions/indexes/by-mechanic.md
   - docs/decisions/indexes/by-validation-guard.md
+modeled_surfaces:
 fields:
   decision_id:
     required: true

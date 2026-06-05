@@ -16,9 +16,14 @@ from validators import (
     artifact_hooks,
     evidence_readouts,
     root_context,
-    runtime_audit as runtime_audit_validator,
+    runtime_evidence_selection as runtime_evidence_selection_validator,
+    runtime_integrity_review_common as runtime_integrity_review_common_validator,
+    runtime_integrity_review_docs as runtime_integrity_review_docs_validator,
+    runtime_integrity_review_example as runtime_integrity_review_example_validator,
+    runtime_integrity_review_schema as runtime_integrity_review_schema_validator,
+    runtime_trace_eval_bridge as runtime_trace_eval_bridge_validator,
 )
-from validators.source_eval_contracts import collect_catalog_records
+from validators.source_eval_collection import collect_catalog_records
 from validate_repo_fixtures import (
     make_abyss_stack_schema,
     make_eval_bundle,
@@ -160,7 +165,7 @@ def write_runtime_evidence_selection_example(
     candidate_eval_refs: list[str],
 ) -> None:
     write_text(
-        repo_root / runtime_audit_validator.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH,
+        repo_root / runtime_evidence_selection_validator.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH,
         """
         {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -225,7 +230,7 @@ def write_runtime_evidence_selection_example(
         """,
     )
     write_text(
-        repo_root / runtime_audit_validator.RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR / filename,
+        repo_root / runtime_evidence_selection_validator.RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR / filename,
         json.dumps(
             {
                 "surface_type": "runtime_evidence_selection",
@@ -282,13 +287,13 @@ def test_validate_runtime_evidence_selection_uses_repo_local_schema(tmp_path: Pa
         source_schema_ref="repo:abyss-stack/mechanics/governed-execution/parts/return-policy/schemas/runtime-return-event.schema.json",
         candidate_eval_refs=["candidate:aoa-return-anchor-integrity"],
     )
-    schema_path = tmp_path / runtime_audit_validator.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH
+    schema_path = tmp_path / runtime_evidence_selection_validator.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     schema["required"].append("repo_local_only")
     schema["properties"]["repo_local_only"] = {"type": "string"}
     write_json_payload(schema_path, schema)
 
-    issues = runtime_audit_validator.validate_runtime_evidence_selection_surfaces(
+    issues = runtime_evidence_selection_validator.validate_runtime_evidence_selection_surfaces(
         tmp_path,
         records=[],
         context=evidence_readouts.runtime_audit_context(),
@@ -304,7 +309,7 @@ def test_validate_runtime_evidence_selection_uses_repo_local_schema(tmp_path: Pa
 
 def test_validate_runtime_evidence_selection_reports_missing_expected_examples_in_full_run(tmp_path: Path) -> None:
     write_text(
-        tmp_path / runtime_audit_validator.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH,
+        tmp_path / runtime_evidence_selection_validator.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH,
         """
         {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -313,7 +318,7 @@ def test_validate_runtime_evidence_selection_reports_missing_expected_examples_i
         """,
     )
 
-    issues = runtime_audit_validator.validate_runtime_evidence_selection_surfaces(
+    issues = runtime_evidence_selection_validator.validate_runtime_evidence_selection_surfaces(
         tmp_path,
         records=[],
         context=evidence_readouts.runtime_audit_context(),
@@ -331,7 +336,7 @@ def test_validate_runtime_evidence_selection_accepts_example_backed_runtime_chao
 
     assert issues == []
     assert (
-        runtime_audit_validator.validate_runtime_evidence_selection_surfaces(
+        runtime_evidence_selection_validator.validate_runtime_evidence_selection_surfaces(
             REPO_ROOT,
             records,
             context=evidence_readouts.runtime_audit_context(),
@@ -462,7 +467,17 @@ def test_validate_repo_allows_return_anchor_integrity_as_public_non_starter_bund
 
 
 def test_validate_runtime_integrity_review_surface_accepts_repo_contract() -> None:
-    assert runtime_audit_validator.validate_runtime_integrity_review_surface(REPO_ROOT, context=evidence_readouts.runtime_audit_context()) == []
+    schema_validation = runtime_integrity_review_schema_validator.runtime_integrity_review_schema_validation(
+        REPO_ROOT
+    )
+
+    assert runtime_integrity_review_docs_validator.validate_runtime_integrity_review_doc_surfaces(REPO_ROOT) == []
+    assert schema_validation.issues == []
+    assert runtime_integrity_review_example_validator.validate_runtime_integrity_review_example_surface(
+        REPO_ROOT,
+        context=evidence_readouts.runtime_audit_context(),
+        schema_validator=schema_validation.validator,
+    ) == []
 
 
 def test_validate_runtime_integrity_review_surface_requires_all_declared_doc_fields(tmp_path: Path) -> None:
@@ -475,11 +490,11 @@ def test_validate_runtime_integrity_review_surface_requires_all_declared_doc_fie
     ):
         copy_repo_text(tmp_path, relative_path)
 
-    doc_path = tmp_path / runtime_audit_validator.RUNTIME_INTEGRITY_REVIEW_DOC_NAME
+    doc_path = tmp_path / runtime_integrity_review_common_validator.RUNTIME_INTEGRITY_REVIEW_DOC_NAME
     doc_text = doc_path.read_text(encoding="utf-8").replace("`evidence_refs`", "evidence refs", 1)
     doc_path.write_text(doc_text, encoding="utf-8")
 
-    issues = runtime_audit_validator.validate_runtime_integrity_review_surface(tmp_path, context=evidence_readouts.runtime_audit_context())
+    issues = runtime_integrity_review_docs_validator.validate_runtime_integrity_review_doc_surfaces(tmp_path)
 
     assert any(
         issue.location == "mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md"
@@ -498,13 +513,16 @@ def test_validate_runtime_integrity_review_surface_uses_repo_local_schema(tmp_pa
     ):
         copy_repo_text(tmp_path, relative_path)
 
-    schema_path = tmp_path / runtime_audit_validator.RUNTIME_INTEGRITY_REVIEW_SCHEMA_PATH
+    schema_path = tmp_path / runtime_integrity_review_common_validator.RUNTIME_INTEGRITY_REVIEW_SCHEMA_PATH
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     schema["required"].append("repo_local_only")
     schema["properties"]["repo_local_only"] = {"type": "string"}
     write_json_payload(schema_path, schema)
 
-    issues = runtime_audit_validator.validate_runtime_integrity_review_surface(tmp_path, context=evidence_readouts.runtime_audit_context())
+    issues = runtime_integrity_review_example_validator.validate_runtime_integrity_review_example_surface(
+        tmp_path,
+        context=evidence_readouts.runtime_audit_context(),
+    )
 
     assert any(
         issue.location == "mechanics/audit/parts/integrity-review/examples/runtime_integrity_review.example.json"
@@ -523,12 +541,12 @@ def test_validate_runtime_integrity_review_surface_rejects_weakened_schema_contr
     ):
         copy_repo_text(tmp_path, relative_path)
 
-    schema_path = tmp_path / runtime_audit_validator.RUNTIME_INTEGRITY_REVIEW_SCHEMA_PATH
+    schema_path = tmp_path / runtime_integrity_review_common_validator.RUNTIME_INTEGRITY_REVIEW_SCHEMA_PATH
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     schema["properties"]["evidence_refs"]["minItems"] = 1
     write_json_payload(schema_path, schema)
 
-    issues = runtime_audit_validator.validate_runtime_integrity_review_surface(tmp_path, context=evidence_readouts.runtime_audit_context())
+    issues = runtime_integrity_review_schema_validator.validate_runtime_integrity_review_schema_surface(tmp_path)
 
     assert any(
         issue.location == "mechanics/audit/parts/integrity-review/schemas/runtime-integrity-review.schema.json"
@@ -547,12 +565,12 @@ def test_validate_runtime_integrity_review_surface_rejects_open_top_level_schema
     ):
         copy_repo_text(tmp_path, relative_path)
 
-    schema_path = tmp_path / runtime_audit_validator.RUNTIME_INTEGRITY_REVIEW_SCHEMA_PATH
+    schema_path = tmp_path / runtime_integrity_review_common_validator.RUNTIME_INTEGRITY_REVIEW_SCHEMA_PATH
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
     schema["additionalProperties"] = True
     write_json_payload(schema_path, schema)
 
-    issues = runtime_audit_validator.validate_runtime_integrity_review_surface(tmp_path, context=evidence_readouts.runtime_audit_context())
+    issues = runtime_integrity_review_schema_validator.validate_runtime_integrity_review_schema_surface(tmp_path)
 
     assert any(
         issue.location == "mechanics/audit/parts/integrity-review/schemas/runtime-integrity-review.schema.json"
@@ -610,7 +628,10 @@ def test_validate_runtime_integrity_review_surface_rejects_missing_center_anchor
         },
     )
 
-    issues = runtime_audit_validator.validate_runtime_integrity_review_surface(repo_root, context=evidence_readouts.runtime_audit_context())
+    issues = runtime_integrity_review_example_validator.validate_runtime_integrity_review_example_surface(
+        repo_root,
+        context=evidence_readouts.runtime_audit_context(),
+    )
 
     assert any(
         issue.location == "mechanics/audit/parts/integrity-review/examples/runtime_integrity_review.example.json.budget_ref"
@@ -635,7 +656,7 @@ def test_validate_runtime_integrity_review_surface_rejects_anchor_drift_in_evide
     ):
         copy_repo_text(repo_root, relative_path)
 
-    example_path = repo_root / runtime_audit_validator.RUNTIME_INTEGRITY_REVIEW_EXAMPLE_NAME
+    example_path = repo_root / runtime_integrity_review_common_validator.RUNTIME_INTEGRITY_REVIEW_EXAMPLE_NAME
     payload = json.loads(example_path.read_text(encoding="utf-8"))
     payload["evidence_refs"][0] = "repo:aoa-evals/mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md#purpose"
     write_json_payload(example_path, payload)
@@ -675,7 +696,10 @@ def test_validate_runtime_integrity_review_surface_rejects_anchor_drift_in_evide
         },
     )
 
-    issues = runtime_audit_validator.validate_runtime_integrity_review_surface(repo_root, context=evidence_readouts.runtime_audit_context())
+    issues = runtime_integrity_review_example_validator.validate_runtime_integrity_review_example_surface(
+        repo_root,
+        context=evidence_readouts.runtime_audit_context(),
+    )
 
     assert any(
         issue.location == "mechanics/audit/parts/integrity-review/examples/runtime_integrity_review.example.json"
@@ -689,7 +713,7 @@ def test_validate_trace_eval_bridge_surfaces_keeps_local_example_checks_when_pla
     monkeypatch,
 ) -> None:
     write_text(
-        tmp_path / runtime_audit_validator.ARTIFACT_VERDICT_HOOK_SCHEMA_PATH,
+        tmp_path / runtime_trace_eval_bridge_validator.ARTIFACT_VERDICT_HOOK_SCHEMA_PATH,
         """
         {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -709,12 +733,12 @@ def test_validate_trace_eval_bridge_surfaces_keeps_local_example_checks_when_pla
     )
     monkeypatch.setattr(root_context, "AOA_PLAYBOOKS_ROOT", tmp_path / "missing-playbooks")
     monkeypatch.setattr(
-        runtime_audit_validator,
+        runtime_trace_eval_bridge_validator,
         "ARTIFACT_VERDICT_HOOK_EXAMPLES",
         {"AOA-P-0006": "mechanics/checkpoint/parts/self-agent-posture/examples/artifact_to_verdict_hook.self-agent-checkpoint-rollout.example.json"},
     )
 
-    issues = runtime_audit_validator.validate_trace_eval_bridge_surfaces(
+    issues = runtime_trace_eval_bridge_validator.validate_trace_eval_bridge_surfaces(
         tmp_path,
         [],
         context=evidence_readouts.runtime_audit_context(),

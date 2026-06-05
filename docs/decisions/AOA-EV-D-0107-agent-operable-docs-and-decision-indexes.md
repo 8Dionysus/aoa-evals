@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0107
 - Status: Accepted
 - Date: 2026-05-25
-- Owner surface: `docs/README.md`, `docs/decisions/`, `scripts/generate_decision_indexes.py`, `scripts/validators/docs_decisions.py`
+- Owner surface: `docs/README.md`, `docs/decisions/`, `scripts/generate_decision_indexes.py`, focused decision-index validator modules
 
 ## Index Metadata
 
@@ -56,10 +56,12 @@ The decision lookup crosswalks are generated read models under
 `docs/decisions/README.md` becomes the entrypoint and authority explainer. It
 routes to generated indexes instead of owning every crosswalk by hand.
 
-`scripts/generate_decision_indexes.py` builds the read models, and
-`scripts/validators/docs_decisions.py` validates metadata, index contract, and
-generated parity. `scripts/validate_repo.py` remains the repo-wide entrypoint
-while delegating this contract to the docs-decision validator module.
+`scripts/generate_decision_indexes.py` builds the read models. The original
+decision-index validator aggregate validated metadata, index contract, and
+generated parity; AOA-EV-D-0218 later split that aggregate into focused
+decision-record, renderer, lane-surface, and generated-parity modules.
+`scripts/validate_repo.py` remains the repo-wide entrypoint while delegating
+this contract to focused decision-index validator modules.
 
 ## Rationale
 
@@ -89,7 +91,9 @@ As of 2026-05-25:
 
 - Still valid: decision notes own rationale; generated indexes are read models.
 - Changed: decision lookup metadata is source-owned by each decision note.
-- Superseded by: none.
+- Changed: AOA-EV-D-0218 removes the original decision-index validator aggregate
+  and splits parsing, rendering, lane topology, and generated parity.
+- Superseded in part by: AOA-EV-D-0218 for decision-index validator splitting.
 
 ## Boundaries
 

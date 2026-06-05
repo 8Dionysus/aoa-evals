@@ -3,7 +3,8 @@
 - Decision ID: AOA-EV-D-0119
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/phase_alpha_matrix.py`, `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/`
+- Owner surface: focused Phase Alpha matrix validators and `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/`
+- Refined by: AOA-EV-D-0207
 
 ## Index Metadata
 
@@ -70,7 +71,12 @@ As of 2026-06-03:
 - Still valid: `scripts/validate_repo.py` remains the repo-wide validation
   entrypoint.
 - Changed: Phase Alpha matrix validation now has a focused validator module.
-- Superseded by: none.
+- As of AOA-EV-D-0207: `scripts/validators/phase_alpha_matrix.py` is removed;
+  local generated projection checks live in `phase_alpha_matrix_projection.py`,
+  strict sibling compatibility lives in `phase_alpha_matrix_sibling_compat.py`,
+  and shared JSON/schema/repo-ref/builder helpers live in
+  `phase_alpha_matrix_common.py`.
+- Superseded by: AOA-EV-D-0207 for aggregate module shape.
 
 ## Boundaries
 
@@ -84,6 +90,7 @@ It does not authorize sibling repository edits.
 
 ## Validation
 
+- `python -m py_compile scripts/validators/phase_alpha_matrix_common.py scripts/validators/phase_alpha_matrix_projection.py scripts/validators/phase_alpha_matrix_sibling_compat.py scripts/validators/evidence_readouts.py tests/test_downstream_feed_contracts.py`
 - `python -m pytest -q tests/test_downstream_feed_contracts.py -k phase_alpha`
 - `python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check`
 - `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`

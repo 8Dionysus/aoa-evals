@@ -12,13 +12,11 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import build_catalog
+import eval_capsule_contract
+import eval_catalog_contract
+import eval_comparison_spine_contract
 import eval_section_contract
-from validators.source_eval_contracts import (
-    build_capsule_payload,
-    build_catalog_payloads,
-    build_comparison_spine_payload,
-    collect_catalog_records,
-)
+from validators.source_eval_collection import collect_catalog_records
 
 from validate_repo_fixtures import (
     add_materialized_proof_artifacts,
@@ -28,6 +26,10 @@ from validate_repo_fixtures import (
     make_index,
     make_selection,
 )
+
+build_catalog_payloads = eval_catalog_contract.build_catalog_payloads
+build_capsule_payload = eval_capsule_contract.build_capsule_payload
+build_comparison_spine_payload = eval_comparison_spine_contract.build_comparison_spine_payload
 
 
 def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None:

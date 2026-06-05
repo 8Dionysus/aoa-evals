@@ -14,10 +14,12 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 import validate_repo
 from validate_repo import run_validation
-from validators import eval_bundles as eval_bundles_validator
+from validators import eval_entry_cards as eval_entry_cards_validator
+from validators import eval_tree_topology as eval_tree_topology_validator
 from validators import root_context
+from validators import source_eval_collection as source_eval_collection_validator
+from validators import source_eval_records as source_eval_records_validator
 from validators.common import ValidationIssue
-from validators import source_eval_contracts as source_eval_contracts_validator
 from validate_repo_fixtures import eval_dir_for_test, make_eval_bundle, write_catalogs
 
 
@@ -38,22 +40,22 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 def eval_bundle_topology_contracts(repo_root: Path) -> list[ValidationIssue]:
     return [
         ValidationIssue(location, message)
-        for location, message in eval_bundles_validator.validate_eval_bundle_topology(
+        for location, message in eval_tree_topology_validator.validate_eval_bundle_topology(
             repo_root
         )
     ]
 
 
 def test_eval_source_entry_operating_cards_validate_current_routes() -> None:
-    assert eval_bundles_validator.validate_eval_source_entry_operating_cards(REPO_ROOT) == []
+    assert eval_entry_cards_validator.validate_eval_source_entry_operating_cards(REPO_ROOT) == []
 
 
 def test_eval_source_entry_operating_cards_reject_missing_selection_card(
     tmp_path: Path,
 ) -> None:
-    for path_name in eval_bundles_validator.EVAL_SOURCE_ENTRY_OPERATING_CARD_REQUIRED_TOKENS:
+    for path_name in eval_entry_cards_validator.EVAL_SOURCE_ENTRY_OPERATING_CARD_REQUIRED_TOKENS:
         copy_repo_text(tmp_path, path_name)
-    selection_path = tmp_path / eval_bundles_validator.EVAL_SELECTION_NAME
+    selection_path = tmp_path / "EVAL_SELECTION.md"
     selection_path.write_text(
         selection_path.read_text(encoding="utf-8").replace(
             "## Operating Card",
@@ -63,10 +65,10 @@ def test_eval_source_entry_operating_cards_reject_missing_selection_card(
         encoding="utf-8",
     )
 
-    issues = eval_bundles_validator.validate_eval_source_entry_operating_cards(tmp_path)
+    issues = eval_entry_cards_validator.validate_eval_source_entry_operating_cards(tmp_path)
 
     assert any(
-        issue.location == eval_bundles_validator.EVAL_SELECTION_NAME
+        issue.location == "EVAL_SELECTION.md"
         and "## Operating Card" in issue.message
         for issue in issues
     )
@@ -75,7 +77,7 @@ def test_eval_source_entry_operating_cards_reject_missing_selection_card(
 def test_eval_source_entry_operating_cards_reject_missing_source_index_card(
     tmp_path: Path,
 ) -> None:
-    for path_name in eval_bundles_validator.EVAL_SOURCE_ENTRY_OPERATING_CARD_REQUIRED_TOKENS:
+    for path_name in eval_entry_cards_validator.EVAL_SOURCE_ENTRY_OPERATING_CARD_REQUIRED_TOKENS:
         copy_repo_text(tmp_path, path_name)
     source_index_path = tmp_path / "evals" / "README.md"
     source_index_path.write_text(
@@ -87,7 +89,7 @@ def test_eval_source_entry_operating_cards_reject_missing_source_index_card(
         encoding="utf-8",
     )
 
-    issues = eval_bundles_validator.validate_eval_source_entry_operating_cards(tmp_path)
+    issues = eval_entry_cards_validator.validate_eval_source_entry_operating_cards(tmp_path)
 
     assert any(
         issue.location == "evals/README.md"
@@ -97,16 +99,16 @@ def test_eval_source_entry_operating_cards_reject_missing_source_index_card(
 
 
 def test_source_eval_tree_topology_validates_current_route() -> None:
-    assert eval_bundles_validator.validate_source_eval_tree_topology_surfaces(REPO_ROOT) == []
+    assert eval_tree_topology_validator.validate_source_eval_tree_topology_surfaces(REPO_ROOT) == []
 
 
 def test_source_eval_tree_topology_rejects_decision_command_list(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, eval_bundles_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME)
-    copy_repo_text(tmp_path, eval_bundles_validator.EVALS_AGENTS_NAME)
-    copy_repo_text(tmp_path, eval_bundles_validator.DECISION_INDEX_BY_NUMBER_NAME)
-    decision_path = tmp_path / eval_bundles_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME
+    copy_repo_text(tmp_path, eval_tree_topology_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME)
+    copy_repo_text(tmp_path, "evals/AGENTS.md")
+    copy_repo_text(tmp_path, eval_tree_topology_validator.DECISION_INDEX_BY_NUMBER_NAME)
+    decision_path = tmp_path / eval_tree_topology_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME
     decision_path.write_text(
         decision_path.read_text(encoding="utf-8").replace(
             "Validation routes through",
@@ -116,10 +118,10 @@ def test_source_eval_tree_topology_rejects_decision_command_list(
         encoding="utf-8",
     )
 
-    issues = eval_bundles_validator.validate_source_eval_tree_topology_surfaces(tmp_path)
+    issues = eval_tree_topology_validator.validate_source_eval_tree_topology_surfaces(tmp_path)
 
     assert any(
-        issue.location == eval_bundles_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME
+        issue.location == eval_tree_topology_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME
         and "evals/AGENTS.md#validation" in issue.message
         for issue in issues
     )
@@ -128,10 +130,10 @@ def test_source_eval_tree_topology_rejects_decision_command_list(
 def test_source_eval_tree_topology_requires_agents_command_route(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, eval_bundles_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME)
-    copy_repo_text(tmp_path, eval_bundles_validator.EVALS_AGENTS_NAME)
-    copy_repo_text(tmp_path, eval_bundles_validator.DECISION_INDEX_BY_NUMBER_NAME)
-    agents_path = tmp_path / eval_bundles_validator.EVALS_AGENTS_NAME
+    copy_repo_text(tmp_path, eval_tree_topology_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME)
+    copy_repo_text(tmp_path, "evals/AGENTS.md")
+    copy_repo_text(tmp_path, eval_tree_topology_validator.DECISION_INDEX_BY_NUMBER_NAME)
+    agents_path = tmp_path / "evals/AGENTS.md"
     agents_path.write_text(
         agents_path.read_text(encoding="utf-8").replace(
             "python scripts/build_catalog.py --check",
@@ -141,10 +143,10 @@ def test_source_eval_tree_topology_requires_agents_command_route(
         encoding="utf-8",
     )
 
-    issues = eval_bundles_validator.validate_source_eval_tree_topology_surfaces(tmp_path)
+    issues = eval_tree_topology_validator.validate_source_eval_tree_topology_surfaces(tmp_path)
 
     assert any(
-        issue.location == eval_bundles_validator.EVALS_AGENTS_NAME
+        issue.location == "evals/AGENTS.md"
         and "python scripts/build_catalog.py --check" in issue.message
         for issue in issues
     )
@@ -158,7 +160,7 @@ def test_eval_bundle_topology_contracts_reject_flat_manifest(
     tmp_path: Path,
 ) -> None:
     copy_repo_text(tmp_path, "evals/README.md")
-    copy_repo_text(tmp_path, eval_bundles_validator.EVALS_AGENTS_NAME)
+    copy_repo_text(tmp_path, "evals/AGENTS.md")
     write_text(
         tmp_path / "evals" / "aoa-flat" / "EVAL.md",
         "# Flat Eval\n",
@@ -182,10 +184,10 @@ def test_eval_bundle_topology_contracts_reject_flat_manifest(
 
 
 def test_source_eval_command_ownership_validates_current_routes() -> None:
-    source_issues, records = source_eval_contracts_validator.collect_catalog_records(REPO_ROOT)
+    source_issues, records = source_eval_collection_validator.collect_catalog_records(REPO_ROOT)
 
     assert source_issues == []
-    assert source_eval_contracts_validator.validate_source_eval_command_ownership(
+    assert source_eval_records_validator.validate_source_eval_command_ownership(
         REPO_ROOT, records
     ) == []
 
@@ -208,7 +210,7 @@ def test_source_eval_command_ownership_rejects_eval_command_block(
         ```
         """,
     )
-    record = source_eval_contracts_validator.EvalBundleRecord(
+    record = source_eval_records_validator.EvalBundleRecord(
         name="sample-command-owner",
         bundle_dir=eval_path.parent,
         eval_md_path=eval_path,
@@ -218,7 +220,7 @@ def test_source_eval_command_ownership_rejects_eval_command_block(
         sections={},
     )
 
-    issues = source_eval_contracts_validator.validate_source_eval_command_ownership(
+    issues = source_eval_records_validator.validate_source_eval_command_ownership(
         tmp_path, [record]
     )
 

@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0140
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/distillation.py`, `mechanics/distillation/`
+- Owner surface: focused Distillation validator modules, `mechanics/distillation/`
 
 ## Index Metadata
 
@@ -25,15 +25,16 @@ owner-local adoption, or final owner acceptance.
 
 ## Decision
 
-Distillation route validation lives in `scripts/validators/distillation.py`.
+Distillation route validation lives in focused Distillation validator modules.
 
 `scripts/validate_repo.py` delegates Distillation checks through
 `validate_distillation_route_surfaces` and supplies a
 `DistillationRouteContext` with the root token lookup helper and shared
 provenance bridge tokens.
 
-The module owns Distillation-specific route, part-contract, provenance, and
-decision expectations. Shared lookup and provenance posture remain injected.
+The focused modules own Distillation-specific route paths, token matrices,
+route checks, part-contract, provenance, and decision expectations. Shared
+lookup and provenance posture remain injected.
 
 ## Rationale
 
@@ -53,7 +54,8 @@ acceptance truth to stronger owners.
   provenance, and decision-token checks have one focused owner.
 - Positive: `validate_mechanics_surfaces` delegates another active mechanic
   parent instead of retaining parent-specific token matrices.
-- Positive: tests import Distillation constants from the owner module directly.
+- Positive: tests import Distillation path constants from the path helper
+  directly.
 - Follow-up: Titan and Agon can be split by the same owner-boundary rule when
   each route is handled deliberately.
 
@@ -63,9 +65,9 @@ As of 2026-06-03:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide command
   entrypoint.
-- Changed: Distillation route validation now lives in
-  `scripts/validators/distillation.py`.
-- Superseded by: none.
+- Changed: Distillation route validation now lives in path, token, and route
+  validator modules.
+- Superseded by: AOA-EV-D-0238 removes the former aggregate module boundary.
 
 ## Boundaries
 
@@ -78,7 +80,7 @@ shared provenance token helpers into Distillation.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/distillation.py tests/test_mechanic_surface_contracts.py`
+- `python -m py_compile scripts/validators/distillation_route_paths.py scripts/validators/distillation_route_tokens.py scripts/validators/distillation_routes.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py`
 - `python -m pytest -q tests/test_mechanic_surface_contracts.py -k distillation`
 - `python scripts/generate_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py --check`

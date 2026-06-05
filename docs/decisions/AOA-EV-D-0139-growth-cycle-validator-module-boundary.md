@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0139
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/growth_cycle.py`, `mechanics/growth-cycle/`
+- Owner surface: focused Growth-cycle validator modules, `mechanics/growth-cycle/`
 
 ## Index Metadata
 
@@ -27,16 +27,17 @@ landing.
 
 ## Decision
 
-Growth-cycle route validation lives in `scripts/validators/growth_cycle.py`.
+Growth-cycle route validation lives in focused Growth-cycle validator modules.
 
 `scripts/validate_repo.py` delegates Growth-cycle checks through
 `validate_growth_cycle_route_surfaces` and supplies a
 `GrowthCycleRouteContext` with the root token lookup helper and shared
 provenance bridge tokens.
 
-The module owns Growth-cycle-specific route, diagnosis-gate, lower parts index,
-repair-diagnosis boundary, provenance, and decision expectations. Shared
-lookup and provenance posture remain injected.
+The focused modules own Growth-cycle-specific route paths, token matrices,
+route checks, diagnosis-gate, lower parts index, repair-diagnosis boundary,
+provenance, and decision expectations. Shared lookup and provenance posture
+remain injected.
 
 ## Rationale
 
@@ -55,7 +56,8 @@ memory, runtime, hidden automation, and owner-local landing to stronger owners.
   repair-diagnosis boundary, and decision-token checks have one focused owner.
 - Positive: `validate_mechanics_surfaces` delegates another active mechanic
   parent instead of retaining parent-specific token matrices.
-- Positive: tests import Growth-cycle constants from the owner module directly.
+- Positive: tests import Growth-cycle path constants from the path helper
+  directly.
 - Follow-up: Distillation, Titan, and Agon can be split by the same
   owner-boundary rule when each route is handled deliberately.
 
@@ -65,9 +67,9 @@ As of 2026-06-03:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide command
   entrypoint.
-- Changed: Growth-cycle route validation now lives in
-  `scripts/validators/growth_cycle.py`.
-- Superseded by: none.
+- Changed: Growth-cycle route validation now lives in path, token, and route
+  validator modules.
+- Superseded by: AOA-EV-D-0237 removes the former aggregate module boundary.
 
 ## Boundaries
 
@@ -81,7 +83,7 @@ helpers into Growth-cycle.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/growth_cycle.py tests/test_mechanic_surface_contracts.py`
+- `python -m py_compile scripts/validators/growth_cycle_route_paths.py scripts/validators/growth_cycle_route_tokens.py scripts/validators/growth_cycle_routes.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py`
 - `python -m pytest -q tests/test_mechanic_surface_contracts.py -k "growth_cycle or repair_diagnosis_route_boundary"`
 - `python scripts/generate_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py --check`

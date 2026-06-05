@@ -6,7 +6,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from validators import docs_decisions
+from validators import decision_index_renderer, decision_lane_surfaces, decision_records
 
 
 def main() -> int:
@@ -21,14 +21,14 @@ def main() -> int:
     args = parser.parse_args()
 
     repo_root = args.repo_root.resolve()
-    records, issues = docs_decisions.collect_decision_records(repo_root)
-    issues.extend(docs_decisions.load_index_contract(repo_root)[1])
+    records, issues = decision_records.collect_decision_records(repo_root)
+    issues.extend(decision_lane_surfaces.load_index_contract(repo_root)[1])
     if issues:
         for location, message in issues:
             print(f"- {location}: {message}")
         return 1
 
-    rendered = docs_decisions.render_index_files(records)
+    rendered = decision_index_renderer.render_index_files(records)
     stale: list[str] = []
     for relative_path, expected_text in rendered.items():
         path = repo_root / relative_path

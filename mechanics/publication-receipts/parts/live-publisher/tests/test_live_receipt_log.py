@@ -12,7 +12,7 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from validators import publication_receipts as publication_receipts_validator
+from validators import publication_receipts_live as publication_receipts_live_validator
 
 EXAMPLE_RECEIPT_PATH = (
     REPO_ROOT
@@ -39,7 +39,7 @@ def write_receipt_log(repo_root: Path, entries: list[dict]) -> None:
 
 
 def validate_live_receipt_log(repo_root: Path):
-    return publication_receipts_validator.validate_live_receipt_log(
+    return publication_receipts_live_validator.validate_live_receipt_log(
         repo_root,
         fallback_repo_root=REPO_ROOT,
         repo_ref_roots={"aoa-evals": REPO_ROOT},

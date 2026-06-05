@@ -102,6 +102,14 @@
 - [AOA-EV-D-0120 Publication Receipts Validator Module Boundary](../AOA-EV-D-0120-publication-receipts-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0120-publication-receipts-validator-module-boundary.md`)
 - [AOA-EV-D-0122 Proof Loop Validator Module Boundary](../AOA-EV-D-0122-proof-loop-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0122-proof-loop-validator-module-boundary.md`)
 - [AOA-EV-D-0127 Publication Receipts Route Validator Completion](../AOA-EV-D-0127-publication-receipts-route-validator-completion.md) (`docs/decisions/AOA-EV-D-0127-publication-receipts-route-validator-completion.md`)
+- [AOA-EV-D-0161 Publication Receipts Live Validator Boundary](../AOA-EV-D-0161-publication-receipts-live-validator-boundary.md) (`docs/decisions/AOA-EV-D-0161-publication-receipts-live-validator-boundary.md`)
+- [AOA-EV-D-0180 Publication Receipts Route And Payload Subvalidators](../AOA-EV-D-0180-publication-receipts-route-payload-subvalidators.md) (`docs/decisions/AOA-EV-D-0180-publication-receipts-route-payload-subvalidators.md`)
+- [AOA-EV-D-0191 Publication Receipts Facade Removal](../AOA-EV-D-0191-publication-receipts-facade-removal.md) (`docs/decisions/AOA-EV-D-0191-publication-receipts-facade-removal.md`)
+- [AOA-EV-D-0205 Runtime Candidate Aggregate Removal](../AOA-EV-D-0205-runtime-candidate-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0205-runtime-candidate-aggregate-removal.md`)
+- [AOA-EV-D-0207 Phase Alpha Matrix Aggregate Removal](../AOA-EV-D-0207-phase-alpha-matrix-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0207-phase-alpha-matrix-aggregate-removal.md`)
+- [AOA-EV-D-0211 Proof Loop Aggregate Removal](../AOA-EV-D-0211-proof-loop-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0211-proof-loop-aggregate-removal.md`)
+- [AOA-EV-D-0214 Publication Receipts Intake Layer Split](../AOA-EV-D-0214-publication-receipts-intake-layer-split.md) (`docs/decisions/AOA-EV-D-0214-publication-receipts-intake-layer-split.md`)
+- [AOA-EV-D-0222 Publication Receipts Route Validator Layer Split](../AOA-EV-D-0222-publication-receipts-route-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0222-publication-receipts-route-validator-layer-split.md`)
 
 ## sibling and boundary
 
@@ -126,6 +134,8 @@
 - [AOA-EV-D-0111 Runtime Evidence Ingestion and Mirror Status](../AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md) (`docs/decisions/AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md`)
 - [AOA-EV-D-0113 aoa-memo Writeback Decision Quality Eval](../AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md`)
 - [AOA-EV-D-0119 Phase Alpha Matrix Validator Module Boundary](../AOA-EV-D-0119-phase-alpha-matrix-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0119-phase-alpha-matrix-validator-module-boundary.md`)
+- [AOA-EV-D-0207 Phase Alpha Matrix Aggregate Removal](../AOA-EV-D-0207-phase-alpha-matrix-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0207-phase-alpha-matrix-aggregate-removal.md`)
+- [AOA-EV-D-0219 Questbook Helper Layer Split](../AOA-EV-D-0219-questbook-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0219-questbook-helper-layer-split.md`)
 
 ## decision index/read-model
 
@@ -137,10 +147,14 @@
 - [AOA-EV-D-0114 Canonical Decision IDs and Addresses](../AOA-EV-D-0114-canonical-decision-ids-and-addresses.md) (`docs/decisions/AOA-EV-D-0114-canonical-decision-ids-and-addresses.md`)
 - [AOA-EV-D-0115 Validation Lane Command Authority](../AOA-EV-D-0115-validation-lane-command-authority.md) (`docs/decisions/AOA-EV-D-0115-validation-lane-command-authority.md`)
 - [AOA-EV-D-0117 Report Index Validator Module Boundary](../AOA-EV-D-0117-report-index-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0117-report-index-validator-module-boundary.md`)
+- [AOA-EV-D-0218 Decision-index Validator Layer Split](../AOA-EV-D-0218-decision-index-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0218-decision-index-validator-layer-split.md`)
 
 ## capability/permission
 
 - [AOA-EV-D-0129 Boundary Bridge Validator Module Boundary](../AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md`)
+- [AOA-EV-D-0197 Questbook Projection Aggregate Removal](../AOA-EV-D-0197-questbook-projection-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0197-questbook-projection-aggregate-removal.md`)
+- [AOA-EV-D-0206 Boundary Bridge Aggregate Removal](../AOA-EV-D-0206-boundary-bridge-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0206-boundary-bridge-aggregate-removal.md`)
+- [AOA-EV-D-0208 Questbook Source Aggregate Removal](../AOA-EV-D-0208-questbook-source-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0208-questbook-source-aggregate-removal.md`)
 
 ## generated/readout
 
@@ -148,11 +162,21 @@
 - [AOA-EV-D-0124 Proof Infra Validator Module Boundary](../AOA-EV-D-0124-proof-infra-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0124-proof-infra-validator-module-boundary.md`)
 - [AOA-EV-D-0125 Source Doctrine Validator Module Boundary](../AOA-EV-D-0125-source-doctrine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0125-source-doctrine-validator-module-boundary.md`)
 - [AOA-EV-D-0126 Proof Object Validator Module Boundary](../AOA-EV-D-0126-proof-object-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0126-proof-object-validator-module-boundary.md`)
+- [AOA-EV-D-0209 Source Doctrine Aggregate Removal](../AOA-EV-D-0209-source-doctrine-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0209-source-doctrine-aggregate-removal.md`)
+- [AOA-EV-D-0220 Comparison-spine Validator Layer Split](../AOA-EV-D-0220-comparison-spine-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0220-comparison-spine-validator-layer-split.md`)
 
 ## observability/audit
 
 - [AOA-EV-D-0140 Distillation Validator Module Boundary](../AOA-EV-D-0140-distillation-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0140-distillation-validator-module-boundary.md`)
 - [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
+- [AOA-EV-D-0161 Publication Receipts Live Validator Boundary](../AOA-EV-D-0161-publication-receipts-live-validator-boundary.md) (`docs/decisions/AOA-EV-D-0161-publication-receipts-live-validator-boundary.md`)
+- [AOA-EV-D-0169 Publication Receipts Intake Validator Boundary](../AOA-EV-D-0169-publication-receipts-intake-validator-boundary.md) (`docs/decisions/AOA-EV-D-0169-publication-receipts-intake-validator-boundary.md`)
+- [AOA-EV-D-0171 Root Legacy Validator Boundary](../AOA-EV-D-0171-root-legacy-validator-boundary.md) (`docs/decisions/AOA-EV-D-0171-root-legacy-validator-boundary.md`)
+- [AOA-EV-D-0191 Publication Receipts Facade Removal](../AOA-EV-D-0191-publication-receipts-facade-removal.md) (`docs/decisions/AOA-EV-D-0191-publication-receipts-facade-removal.md`)
+- [AOA-EV-D-0196 Root Authority Aggregate Removal](../AOA-EV-D-0196-root-authority-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0196-root-authority-aggregate-removal.md`)
+- [AOA-EV-D-0213 Root Legacy Layer Split](../AOA-EV-D-0213-root-legacy-layer-split.md) (`docs/decisions/AOA-EV-D-0213-root-legacy-layer-split.md`)
+- [AOA-EV-D-0214 Publication Receipts Intake Layer Split](../AOA-EV-D-0214-publication-receipts-intake-layer-split.md) (`docs/decisions/AOA-EV-D-0214-publication-receipts-intake-layer-split.md`)
+- [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
 
 ## projection/generated
 
@@ -164,6 +188,19 @@
 - [AOA-EV-D-0143 Questbook Validator Route Boundary](../AOA-EV-D-0143-questbook-validator-route-boundary.md) (`docs/decisions/AOA-EV-D-0143-questbook-validator-route-boundary.md`)
 - [AOA-EV-D-0145 Route Residue Validator Module Boundary](../AOA-EV-D-0145-route-residue-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0145-route-residue-validator-module-boundary.md`)
 - [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
+- [AOA-EV-D-0163 Questbook Projection Validator Boundary](../AOA-EV-D-0163-questbook-projection-validator-boundary.md) (`docs/decisions/AOA-EV-D-0163-questbook-projection-validator-boundary.md`)
+- [AOA-EV-D-0167 Route Residue Domain Validator Boundaries](../AOA-EV-D-0167-route-residue-domain-validator-boundaries.md) (`docs/decisions/AOA-EV-D-0167-route-residue-domain-validator-boundaries.md`)
+- [AOA-EV-D-0170 Questbook Source Validator Boundary](../AOA-EV-D-0170-questbook-source-validator-boundary.md) (`docs/decisions/AOA-EV-D-0170-questbook-source-validator-boundary.md`)
+- [AOA-EV-D-0183 Generated Parity Subvalidators](../AOA-EV-D-0183-generated-parity-subvalidators.md) (`docs/decisions/AOA-EV-D-0183-generated-parity-subvalidators.md`)
+- [AOA-EV-D-0192 Route Residue Facade Removal](../AOA-EV-D-0192-route-residue-facade-removal.md) (`docs/decisions/AOA-EV-D-0192-route-residue-facade-removal.md`)
+- [AOA-EV-D-0193 Questbook Facade Removal](../AOA-EV-D-0193-questbook-facade-removal.md) (`docs/decisions/AOA-EV-D-0193-questbook-facade-removal.md`)
+- [AOA-EV-D-0197 Questbook Projection Aggregate Removal](../AOA-EV-D-0197-questbook-projection-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0197-questbook-projection-aggregate-removal.md`)
+- [AOA-EV-D-0200 Generated Eval Read-model Aggregate Removal](../AOA-EV-D-0200-generated-eval-readmodel-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0200-generated-eval-readmodel-aggregate-removal.md`)
+- [AOA-EV-D-0208 Questbook Source Aggregate Removal](../AOA-EV-D-0208-questbook-source-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0208-questbook-source-aggregate-removal.md`)
+- [AOA-EV-D-0218 Decision-index Validator Layer Split](../AOA-EV-D-0218-decision-index-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0218-decision-index-validator-layer-split.md`)
+- [AOA-EV-D-0219 Questbook Helper Layer Split](../AOA-EV-D-0219-questbook-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0219-questbook-helper-layer-split.md`)
+- [AOA-EV-D-0235 Method-growth Validator Layer Split](../AOA-EV-D-0235-method-growth-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0235-method-growth-validator-layer-split.md`)
+- [AOA-EV-D-0236 RPG Validator Layer Split](../AOA-EV-D-0236-rpg-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0236-rpg-validator-layer-split.md`)
 
 ## questbook/source
 
@@ -174,15 +211,30 @@
 - [AOA-EV-D-0129 Boundary Bridge Validator Module Boundary](../AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md`)
 - [AOA-EV-D-0130 Validator Root Compatibility Alias Removal](../AOA-EV-D-0130-validator-root-compatibility-alias-removal.md) (`docs/decisions/AOA-EV-D-0130-validator-root-compatibility-alias-removal.md`)
 - [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
+- [AOA-EV-D-0162 Release Support Report Validator Boundary](../AOA-EV-D-0162-release-support-report-validator-boundary.md) (`docs/decisions/AOA-EV-D-0162-release-support-report-validator-boundary.md`)
+- [AOA-EV-D-0179 Release Support Report Subvalidators](../AOA-EV-D-0179-release-support-report-subvalidators.md) (`docs/decisions/AOA-EV-D-0179-release-support-report-subvalidators.md`)
+- [AOA-EV-D-0189 Release Support Report Facade Removal](../AOA-EV-D-0189-release-support-report-facade-removal.md) (`docs/decisions/AOA-EV-D-0189-release-support-report-facade-removal.md`)
+- [AOA-EV-D-0190 Release Support Facade Removal](../AOA-EV-D-0190-release-support-facade-removal.md) (`docs/decisions/AOA-EV-D-0190-release-support-facade-removal.md`)
+- [AOA-EV-D-0206 Boundary Bridge Aggregate Removal](../AOA-EV-D-0206-boundary-bridge-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0206-boundary-bridge-aggregate-removal.md`)
+- [AOA-EV-D-0217 Release-support Helper Layer Split](../AOA-EV-D-0217-release-support-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0217-release-support-helper-layer-split.md`)
 
 ## report/release/receipt
 
 - [AOA-EV-D-0120 Publication Receipts Validator Module Boundary](../AOA-EV-D-0120-publication-receipts-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0120-publication-receipts-validator-module-boundary.md`)
 - [AOA-EV-D-0121 Release Support Validator Module Boundary](../AOA-EV-D-0121-release-support-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0121-release-support-validator-module-boundary.md`)
+- [AOA-EV-D-0162 Release Support Report Validator Boundary](../AOA-EV-D-0162-release-support-report-validator-boundary.md) (`docs/decisions/AOA-EV-D-0162-release-support-report-validator-boundary.md`)
+- [AOA-EV-D-0179 Release Support Report Subvalidators](../AOA-EV-D-0179-release-support-report-subvalidators.md) (`docs/decisions/AOA-EV-D-0179-release-support-report-subvalidators.md`)
+- [AOA-EV-D-0180 Publication Receipts Route And Payload Subvalidators](../AOA-EV-D-0180-publication-receipts-route-payload-subvalidators.md) (`docs/decisions/AOA-EV-D-0180-publication-receipts-route-payload-subvalidators.md`)
+- [AOA-EV-D-0182 Release Support Route And Helper Subvalidators](../AOA-EV-D-0182-release-support-route-helper-subvalidators.md) (`docs/decisions/AOA-EV-D-0182-release-support-route-helper-subvalidators.md`)
+- [AOA-EV-D-0189 Release Support Report Facade Removal](../AOA-EV-D-0189-release-support-report-facade-removal.md) (`docs/decisions/AOA-EV-D-0189-release-support-report-facade-removal.md`)
+- [AOA-EV-D-0190 Release Support Facade Removal](../AOA-EV-D-0190-release-support-facade-removal.md) (`docs/decisions/AOA-EV-D-0190-release-support-facade-removal.md`)
+- [AOA-EV-D-0191 Publication Receipts Facade Removal](../AOA-EV-D-0191-publication-receipts-facade-removal.md) (`docs/decisions/AOA-EV-D-0191-publication-receipts-facade-removal.md`)
+- [AOA-EV-D-0217 Release-support Helper Layer Split](../AOA-EV-D-0217-release-support-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0217-release-support-helper-layer-split.md`)
 
 ## runtime-candidate/read-model
 
 - [AOA-EV-D-0118 Runtime Candidate Validator Module Boundary](../AOA-EV-D-0118-runtime-candidate-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0118-runtime-candidate-validator-module-boundary.md`)
+- [AOA-EV-D-0205 Runtime Candidate Aggregate Removal](../AOA-EV-D-0205-runtime-candidate-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0205-runtime-candidate-aggregate-removal.md`)
 
 ## runtime-policy
 
@@ -197,6 +249,17 @@
 - [AOA-EV-D-0140 Distillation Validator Module Boundary](../AOA-EV-D-0140-distillation-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0140-distillation-validator-module-boundary.md`)
 - [AOA-EV-D-0141 Titan Validator Module Boundary](../AOA-EV-D-0141-titan-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0141-titan-validator-module-boundary.md`)
 - [AOA-EV-D-0142 Agon Validator Module Boundary](../AOA-EV-D-0142-agon-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0142-agon-validator-module-boundary.md`)
+- [AOA-EV-D-0174 Runtime Integrity Review Validator Boundary](../AOA-EV-D-0174-runtime-integrity-review-validator-boundary.md) (`docs/decisions/AOA-EV-D-0174-runtime-integrity-review-validator-boundary.md`)
+- [AOA-EV-D-0203 Runtime Audit Aggregate Removal](../AOA-EV-D-0203-runtime-audit-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0203-runtime-audit-aggregate-removal.md`)
+- [AOA-EV-D-0212 Runtime Integrity Review Layer Split](../AOA-EV-D-0212-runtime-integrity-review-layer-split.md) (`docs/decisions/AOA-EV-D-0212-runtime-integrity-review-layer-split.md`)
+- [AOA-EV-D-0228 Audit Validator Layer Split](../AOA-EV-D-0228-audit-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0228-audit-validator-layer-split.md`)
+- [AOA-EV-D-0231 Checkpoint Validator Layer Split](../AOA-EV-D-0231-checkpoint-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0231-checkpoint-validator-layer-split.md`)
+- [AOA-EV-D-0232 Experience Validator Layer Split](../AOA-EV-D-0232-experience-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0232-experience-validator-layer-split.md`)
+- [AOA-EV-D-0233 Agon Validator Layer Split](../AOA-EV-D-0233-agon-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0233-agon-validator-layer-split.md`)
+- [AOA-EV-D-0234 Antifragility Validator Layer Split](../AOA-EV-D-0234-antifragility-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0234-antifragility-validator-layer-split.md`)
+- [AOA-EV-D-0236 RPG Validator Layer Split](../AOA-EV-D-0236-rpg-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0236-rpg-validator-layer-split.md`)
+- [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)
+- [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
 
 ## runtime-policy route
 
@@ -242,6 +305,77 @@
 - [AOA-EV-D-0155 Mechanics Routes Validator Boundary](../AOA-EV-D-0155-mechanics-routes-validator-boundary.md) (`docs/decisions/AOA-EV-D-0155-mechanics-routes-validator-boundary.md`)
 - [AOA-EV-D-0157 Root Topology Validator Boundary](../AOA-EV-D-0157-root-topology-validator-boundary.md) (`docs/decisions/AOA-EV-D-0157-root-topology-validator-boundary.md`)
 - [AOA-EV-D-0158 Source Eval Domains Validator Boundary](../AOA-EV-D-0158-source-eval-domains-validator-boundary.md) (`docs/decisions/AOA-EV-D-0158-source-eval-domains-validator-boundary.md`)
+- [AOA-EV-D-0159 Source Eval Artifact Validator Boundary](../AOA-EV-D-0159-source-eval-artifact-validator-boundary.md) (`docs/decisions/AOA-EV-D-0159-source-eval-artifact-validator-boundary.md`)
+- [AOA-EV-D-0160 Questbook Progression Validator Boundary](../AOA-EV-D-0160-questbook-progression-validator-boundary.md) (`docs/decisions/AOA-EV-D-0160-questbook-progression-validator-boundary.md`)
+- [AOA-EV-D-0163 Questbook Projection Validator Boundary](../AOA-EV-D-0163-questbook-projection-validator-boundary.md) (`docs/decisions/AOA-EV-D-0163-questbook-projection-validator-boundary.md`)
+- [AOA-EV-D-0164 Mechanics Root-surface Validator Boundary](../AOA-EV-D-0164-mechanics-root-surface-validator-boundary.md) (`docs/decisions/AOA-EV-D-0164-mechanics-root-surface-validator-boundary.md`)
+- [AOA-EV-D-0165 Mechanic Part Validation Route Validator Boundary](../AOA-EV-D-0165-mechanic-part-validation-route-validator-boundary.md) (`docs/decisions/AOA-EV-D-0165-mechanic-part-validation-route-validator-boundary.md`)
+- [AOA-EV-D-0166 Source Eval Evidence Validator Boundary](../AOA-EV-D-0166-source-eval-evidence-validator-boundary.md) (`docs/decisions/AOA-EV-D-0166-source-eval-evidence-validator-boundary.md`)
+- [AOA-EV-D-0167 Route Residue Domain Validator Boundaries](../AOA-EV-D-0167-route-residue-domain-validator-boundaries.md) (`docs/decisions/AOA-EV-D-0167-route-residue-domain-validator-boundaries.md`)
+- [AOA-EV-D-0168 Source Eval Reference Validator Boundary](../AOA-EV-D-0168-source-eval-reference-validator-boundary.md) (`docs/decisions/AOA-EV-D-0168-source-eval-reference-validator-boundary.md`)
+- [AOA-EV-D-0169 Publication Receipts Intake Validator Boundary](../AOA-EV-D-0169-publication-receipts-intake-validator-boundary.md) (`docs/decisions/AOA-EV-D-0169-publication-receipts-intake-validator-boundary.md`)
+- [AOA-EV-D-0170 Questbook Source Validator Boundary](../AOA-EV-D-0170-questbook-source-validator-boundary.md) (`docs/decisions/AOA-EV-D-0170-questbook-source-validator-boundary.md`)
+- [AOA-EV-D-0171 Root Legacy Validator Boundary](../AOA-EV-D-0171-root-legacy-validator-boundary.md) (`docs/decisions/AOA-EV-D-0171-root-legacy-validator-boundary.md`)
+- [AOA-EV-D-0172 Root Design Validator Boundary](../AOA-EV-D-0172-root-design-validator-boundary.md) (`docs/decisions/AOA-EV-D-0172-root-design-validator-boundary.md`)
+- [AOA-EV-D-0173 Source Eval Comparison Validator Boundary](../AOA-EV-D-0173-source-eval-comparison-validator-boundary.md) (`docs/decisions/AOA-EV-D-0173-source-eval-comparison-validator-boundary.md`)
+- [AOA-EV-D-0174 Runtime Integrity Review Validator Boundary](../AOA-EV-D-0174-runtime-integrity-review-validator-boundary.md) (`docs/decisions/AOA-EV-D-0174-runtime-integrity-review-validator-boundary.md`)
+- [AOA-EV-D-0175 Mechanic Part Contract Subvalidators](../AOA-EV-D-0175-mechanic-part-contract-subvalidators.md) (`docs/decisions/AOA-EV-D-0175-mechanic-part-contract-subvalidators.md`)
+- [AOA-EV-D-0176 Questbook Route Validator Boundary](../AOA-EV-D-0176-questbook-route-validator-boundary.md) (`docs/decisions/AOA-EV-D-0176-questbook-route-validator-boundary.md`)
+- [AOA-EV-D-0177 Mechanic Parent Direction Validator Boundary](../AOA-EV-D-0177-mechanic-parent-direction-validator-boundary.md) (`docs/decisions/AOA-EV-D-0177-mechanic-parent-direction-validator-boundary.md`)
+- [AOA-EV-D-0178 Source Eval Record Validator Boundary](../AOA-EV-D-0178-source-eval-record-validator-boundary.md) (`docs/decisions/AOA-EV-D-0178-source-eval-record-validator-boundary.md`)
+- [AOA-EV-D-0181 Mechanics Parent Class Validator Boundary](../AOA-EV-D-0181-mechanics-parent-class-validator-boundary.md) (`docs/decisions/AOA-EV-D-0181-mechanics-parent-class-validator-boundary.md`)
+- [AOA-EV-D-0182 Release Support Route And Helper Subvalidators](../AOA-EV-D-0182-release-support-route-helper-subvalidators.md) (`docs/decisions/AOA-EV-D-0182-release-support-route-helper-subvalidators.md`)
+- [AOA-EV-D-0183 Generated Parity Subvalidators](../AOA-EV-D-0183-generated-parity-subvalidators.md) (`docs/decisions/AOA-EV-D-0183-generated-parity-subvalidators.md`)
+- [AOA-EV-D-0184 Source Eval Entry And Tree Subvalidators](../AOA-EV-D-0184-source-eval-entry-tree-subvalidators.md) (`docs/decisions/AOA-EV-D-0184-source-eval-entry-tree-subvalidators.md`)
+- [AOA-EV-D-0185 Mechanics Root-district Subvalidators](../AOA-EV-D-0185-mechanics-root-district-subvalidators.md) (`docs/decisions/AOA-EV-D-0185-mechanics-root-district-subvalidators.md`)
+- [AOA-EV-D-0186 Mechanic Legacy Subvalidators](../AOA-EV-D-0186-mechanic-legacy-subvalidators.md) (`docs/decisions/AOA-EV-D-0186-mechanic-legacy-subvalidators.md`)
+- [AOA-EV-D-0187 Source Eval Collection Validator](../AOA-EV-D-0187-source-eval-collection-validator.md) (`docs/decisions/AOA-EV-D-0187-source-eval-collection-validator.md`)
+- [AOA-EV-D-0188 Mechanic Part Facade Removal](../AOA-EV-D-0188-mechanic-part-facade-removal.md) (`docs/decisions/AOA-EV-D-0188-mechanic-part-facade-removal.md`)
+- [AOA-EV-D-0190 Release Support Facade Removal](../AOA-EV-D-0190-release-support-facade-removal.md) (`docs/decisions/AOA-EV-D-0190-release-support-facade-removal.md`)
+- [AOA-EV-D-0192 Route Residue Facade Removal](../AOA-EV-D-0192-route-residue-facade-removal.md) (`docs/decisions/AOA-EV-D-0192-route-residue-facade-removal.md`)
+- [AOA-EV-D-0193 Questbook Facade Removal](../AOA-EV-D-0193-questbook-facade-removal.md) (`docs/decisions/AOA-EV-D-0193-questbook-facade-removal.md`)
+- [AOA-EV-D-0194 Mechanic Parent Aggregate Removal](../AOA-EV-D-0194-mechanic-parent-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0194-mechanic-parent-aggregate-removal.md`)
+- [AOA-EV-D-0195 Mechanic Part Validation Aggregate Removal](../AOA-EV-D-0195-mechanic-part-validation-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0195-mechanic-part-validation-aggregate-removal.md`)
+- [AOA-EV-D-0196 Root Authority Aggregate Removal](../AOA-EV-D-0196-root-authority-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0196-root-authority-aggregate-removal.md`)
+- [AOA-EV-D-0197 Questbook Projection Aggregate Removal](../AOA-EV-D-0197-questbook-projection-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0197-questbook-projection-aggregate-removal.md`)
+- [AOA-EV-D-0198 Mechanics Parent Class Aggregate Removal](../AOA-EV-D-0198-mechanics-parent-class-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0198-mechanics-parent-class-aggregate-removal.md`)
+- [AOA-EV-D-0199 Source Eval Artifact Aggregate Removal](../AOA-EV-D-0199-source-eval-artifact-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0199-source-eval-artifact-aggregate-removal.md`)
+- [AOA-EV-D-0201 Proof Infra Aggregate Removal](../AOA-EV-D-0201-proof-infra-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0201-proof-infra-aggregate-removal.md`)
+- [AOA-EV-D-0202 Root Guidance Aggregate Removal](../AOA-EV-D-0202-root-guidance-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0202-root-guidance-aggregate-removal.md`)
+- [AOA-EV-D-0203 Runtime Audit Aggregate Removal](../AOA-EV-D-0203-runtime-audit-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0203-runtime-audit-aggregate-removal.md`)
+- [AOA-EV-D-0204 Mechanic Part Contract Aggregate Removal](../AOA-EV-D-0204-mechanic-part-contract-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0204-mechanic-part-contract-aggregate-removal.md`)
+- [AOA-EV-D-0206 Boundary Bridge Aggregate Removal](../AOA-EV-D-0206-boundary-bridge-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0206-boundary-bridge-aggregate-removal.md`)
+- [AOA-EV-D-0208 Questbook Source Aggregate Removal](../AOA-EV-D-0208-questbook-source-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0208-questbook-source-aggregate-removal.md`)
+- [AOA-EV-D-0209 Source Doctrine Aggregate Removal](../AOA-EV-D-0209-source-doctrine-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0209-source-doctrine-aggregate-removal.md`)
+- [AOA-EV-D-0210 Root Design Aggregate Removal](../AOA-EV-D-0210-root-design-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0210-root-design-aggregate-removal.md`)
+- [AOA-EV-D-0211 Proof Loop Aggregate Removal](../AOA-EV-D-0211-proof-loop-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0211-proof-loop-aggregate-removal.md`)
+- [AOA-EV-D-0212 Runtime Integrity Review Layer Split](../AOA-EV-D-0212-runtime-integrity-review-layer-split.md) (`docs/decisions/AOA-EV-D-0212-runtime-integrity-review-layer-split.md`)
+- [AOA-EV-D-0213 Root Legacy Layer Split](../AOA-EV-D-0213-root-legacy-layer-split.md) (`docs/decisions/AOA-EV-D-0213-root-legacy-layer-split.md`)
+- [AOA-EV-D-0214 Publication Receipts Intake Layer Split](../AOA-EV-D-0214-publication-receipts-intake-layer-split.md) (`docs/decisions/AOA-EV-D-0214-publication-receipts-intake-layer-split.md`)
+- [AOA-EV-D-0215 Root-authored Surface Layer Split](../AOA-EV-D-0215-root-authored-surface-layer-split.md) (`docs/decisions/AOA-EV-D-0215-root-authored-surface-layer-split.md`)
+- [AOA-EV-D-0216 Validation Topology Layer Split](../AOA-EV-D-0216-validation-topology-layer-split.md) (`docs/decisions/AOA-EV-D-0216-validation-topology-layer-split.md`)
+- [AOA-EV-D-0217 Release-support Helper Layer Split](../AOA-EV-D-0217-release-support-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0217-release-support-helper-layer-split.md`)
+- [AOA-EV-D-0218 Decision-index Validator Layer Split](../AOA-EV-D-0218-decision-index-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0218-decision-index-validator-layer-split.md`)
+- [AOA-EV-D-0219 Questbook Helper Layer Split](../AOA-EV-D-0219-questbook-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0219-questbook-helper-layer-split.md`)
+- [AOA-EV-D-0220 Comparison-spine Validator Layer Split](../AOA-EV-D-0220-comparison-spine-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0220-comparison-spine-validator-layer-split.md`)
+- [AOA-EV-D-0221 Source Eval Entry Validator Layer Split](../AOA-EV-D-0221-source-eval-entry-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0221-source-eval-entry-validator-layer-split.md`)
+- [AOA-EV-D-0222 Publication Receipts Route Validator Layer Split](../AOA-EV-D-0222-publication-receipts-route-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0222-publication-receipts-route-validator-layer-split.md`)
+- [AOA-EV-D-0223 Questbook Route Validator Layer Split](../AOA-EV-D-0223-questbook-route-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0223-questbook-route-validator-layer-split.md`)
+- [AOA-EV-D-0224 Titan Validator Layer Split](../AOA-EV-D-0224-titan-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0224-titan-validator-layer-split.md`)
+- [AOA-EV-D-0225 Mechanic Part Validation-command Layer Split](../AOA-EV-D-0225-mechanic-part-validation-command-layer-split.md) (`docs/decisions/AOA-EV-D-0225-mechanic-part-validation-command-layer-split.md`)
+- [AOA-EV-D-0226 Source Eval Report Validator Layer Split](../AOA-EV-D-0226-source-eval-report-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0226-source-eval-report-validator-layer-split.md`)
+- [AOA-EV-D-0227 Recurrence Validator Layer Split](../AOA-EV-D-0227-recurrence-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0227-recurrence-validator-layer-split.md`)
+- [AOA-EV-D-0228 Audit Validator Layer Split](../AOA-EV-D-0228-audit-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0228-audit-validator-layer-split.md`)
+- [AOA-EV-D-0229 Proof-object Validator Layer Split](../AOA-EV-D-0229-proof-object-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0229-proof-object-validator-layer-split.md`)
+- [AOA-EV-D-0230 Proof-infra Route Token Layer Split](../AOA-EV-D-0230-proof-infra-route-token-layer-split.md) (`docs/decisions/AOA-EV-D-0230-proof-infra-route-token-layer-split.md`)
+- [AOA-EV-D-0231 Checkpoint Validator Layer Split](../AOA-EV-D-0231-checkpoint-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0231-checkpoint-validator-layer-split.md`)
+- [AOA-EV-D-0232 Experience Validator Layer Split](../AOA-EV-D-0232-experience-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0232-experience-validator-layer-split.md`)
+- [AOA-EV-D-0233 Agon Validator Layer Split](../AOA-EV-D-0233-agon-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0233-agon-validator-layer-split.md`)
+- [AOA-EV-D-0234 Antifragility Validator Layer Split](../AOA-EV-D-0234-antifragility-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0234-antifragility-validator-layer-split.md`)
+- [AOA-EV-D-0235 Method-growth Validator Layer Split](../AOA-EV-D-0235-method-growth-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0235-method-growth-validator-layer-split.md`)
+- [AOA-EV-D-0236 RPG Validator Layer Split](../AOA-EV-D-0236-rpg-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0236-rpg-validator-layer-split.md`)
+- [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)
+- [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
 
 ## trace/eval
 
@@ -255,3 +389,18 @@
 - [AOA-EV-D-0141 Titan Validator Module Boundary](../AOA-EV-D-0141-titan-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0141-titan-validator-module-boundary.md`)
 - [AOA-EV-D-0142 Agon Validator Module Boundary](../AOA-EV-D-0142-agon-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0142-agon-validator-module-boundary.md`)
 - [AOA-EV-D-0143 Questbook Validator Route Boundary](../AOA-EV-D-0143-questbook-validator-route-boundary.md) (`docs/decisions/AOA-EV-D-0143-questbook-validator-route-boundary.md`)
+- [AOA-EV-D-0160 Questbook Progression Validator Boundary](../AOA-EV-D-0160-questbook-progression-validator-boundary.md) (`docs/decisions/AOA-EV-D-0160-questbook-progression-validator-boundary.md`)
+- [AOA-EV-D-0170 Questbook Source Validator Boundary](../AOA-EV-D-0170-questbook-source-validator-boundary.md) (`docs/decisions/AOA-EV-D-0170-questbook-source-validator-boundary.md`)
+- [AOA-EV-D-0173 Source Eval Comparison Validator Boundary](../AOA-EV-D-0173-source-eval-comparison-validator-boundary.md) (`docs/decisions/AOA-EV-D-0173-source-eval-comparison-validator-boundary.md`)
+- [AOA-EV-D-0174 Runtime Integrity Review Validator Boundary](../AOA-EV-D-0174-runtime-integrity-review-validator-boundary.md) (`docs/decisions/AOA-EV-D-0174-runtime-integrity-review-validator-boundary.md`)
+- [AOA-EV-D-0193 Questbook Facade Removal](../AOA-EV-D-0193-questbook-facade-removal.md) (`docs/decisions/AOA-EV-D-0193-questbook-facade-removal.md`)
+- [AOA-EV-D-0203 Runtime Audit Aggregate Removal](../AOA-EV-D-0203-runtime-audit-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0203-runtime-audit-aggregate-removal.md`)
+- [AOA-EV-D-0208 Questbook Source Aggregate Removal](../AOA-EV-D-0208-questbook-source-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0208-questbook-source-aggregate-removal.md`)
+- [AOA-EV-D-0212 Runtime Integrity Review Layer Split](../AOA-EV-D-0212-runtime-integrity-review-layer-split.md) (`docs/decisions/AOA-EV-D-0212-runtime-integrity-review-layer-split.md`)
+- [AOA-EV-D-0224 Titan Validator Layer Split](../AOA-EV-D-0224-titan-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0224-titan-validator-layer-split.md`)
+- [AOA-EV-D-0231 Checkpoint Validator Layer Split](../AOA-EV-D-0231-checkpoint-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0231-checkpoint-validator-layer-split.md`)
+- [AOA-EV-D-0232 Experience Validator Layer Split](../AOA-EV-D-0232-experience-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0232-experience-validator-layer-split.md`)
+- [AOA-EV-D-0233 Agon Validator Layer Split](../AOA-EV-D-0233-agon-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0233-agon-validator-layer-split.md`)
+- [AOA-EV-D-0234 Antifragility Validator Layer Split](../AOA-EV-D-0234-antifragility-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0234-antifragility-validator-layer-split.md`)
+- [AOA-EV-D-0235 Method-growth Validator Layer Split](../AOA-EV-D-0235-method-growth-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0235-method-growth-validator-layer-split.md`)
+- [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)

@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0126
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/proof_object.py`, `mechanics/proof-object/`
+- Owner surface: focused Proof-object validator modules, `mechanics/proof-object/`
 
 ## Index Metadata
 
@@ -30,20 +30,20 @@ sibling refs, or quest dispatch.
 
 - Keep proof-object checks inside `scripts/validate_repo.py`.
 - Fold proof-object checks into generic mechanics validation.
-- Move route, part, provenance, and decision checks into
-  `scripts/validators/proof_object.py` while keeping `scripts/validate_repo.py`
-  as the compatibility entrypoint.
+- Move route, part, provenance, and decision checks into a focused
+  Proof-object validator surface while keeping `scripts/validate_repo.py` as
+  the repo validation entrypoint.
 
 ## Decision
 
-Proof-object route validation lives in `scripts/validators/proof_object.py`.
+Proof-object route validation lives in focused Proof-object validator modules.
 
 `scripts/validate_repo.py` delegates proof-object route-card, part-contract,
 provenance, decision, and stale lower-index wording checks to the focused
 module.
 
-Compatibility constants and `validate_proof_object_parts_route_surface` remain
-available through `scripts/validate_repo.py` for existing tests and imports.
+Compatibility constants are not a source of truth; tests import path helpers
+directly and route orchestration imports the route validator.
 
 ## Rationale
 
@@ -74,9 +74,9 @@ As of 2026-06-03:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide validation
   entrypoint.
-- Changed: proof-object route and part checks now have a focused validator
-  module.
-- Superseded by: none.
+- Changed: proof-object route and part checks now have focused path, token,
+  helper, and route validator modules.
+- Superseded by: AOA-EV-D-0229 removes the former aggregate module boundary.
 
 ## Boundaries
 

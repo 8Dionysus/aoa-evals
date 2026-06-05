@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0123
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/comparison_spine.py`, `mechanics/comparison-spine/`
+- Owner surface: focused comparison-spine route validator modules, `mechanics/comparison-spine/`
 
 ## Index Metadata
 
@@ -33,8 +33,9 @@ boundaries. They do not own source bundle comparison meaning.
 
 ## Decision
 
-Comparison-spine route validation lives in
-`scripts/validators/comparison_spine.py`.
+Comparison-spine route validation first lived in
+`scripts/validators/comparison_spine.py`; AOA-EV-D-0220 later split that
+aggregate into focused path, token, helper, and route validator modules.
 
 `scripts/validate_repo.py` delegates the comparison-spine route-card,
 part-contract, decision, provenance, and legacy fixture-placement checks to the
@@ -72,7 +73,10 @@ As of 2026-06-03:
   entrypoint.
 - Changed: comparison-spine route and part checks now have a focused validator
   module.
-- Superseded by: none.
+- Changed: AOA-EV-D-0220 removes the original comparison-spine aggregate and
+  keeps path constants, token matrices, route helpers, and route validation in
+  separate modules.
+- Superseded in part by: AOA-EV-D-0220 for comparison-spine validator splitting.
 
 ## Boundaries
 
@@ -86,8 +90,9 @@ It does not make generated comparison readers source truth.
 
 ## Validation
 
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k comparison_spine`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`
+- `python -m py_compile scripts/validators/comparison_spine_paths.py scripts/validators/comparison_spine_tokens.py scripts/validators/comparison_spine_route_helpers.py scripts/validators/comparison_spine_routes.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py tests/test_mechanic_parts_index.py`
+- `python -m pytest -q tests/test_mechanic_surface_contracts.py tests/test_mechanic_parts_index.py -k comparison_spine`
+- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py --check`
 - `python scripts/validate_repo.py`

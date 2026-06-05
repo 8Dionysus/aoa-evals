@@ -31,7 +31,7 @@ Tests and fixtures import constants from their owner modules directly:
 
 - `scripts/validators/audit.py`
 - `scripts/validators/boundary_bridge.py`
-- `scripts/validators/docs_decisions.py`
+- focused decision-index validator modules
 - `scripts/validators/docs_routes.py`
 - `scripts/validators/docs_topology.py`
 - `scripts/validators/eval_bundles.py`
@@ -40,11 +40,13 @@ Tests and fixtures import constants from their owner modules directly:
 - `scripts/validators/proof_infra.py`
 - `scripts/validators/proof_loop.py`
 - `scripts/validators/proof_object.py`
-- `scripts/validators/publication_receipts.py`
 - `scripts/validators/phase_alpha_matrix.py`
-- `scripts/validators/questbook.py`
+- focused Questbook helper modules
+- `scripts/validators/questbook_projection.py`
+- `scripts/validators/questbook_progression.py`
+- `scripts/validators/questbook_routes.py`
+- `scripts/validators/questbook_source.py`
 - `scripts/validators/report_index.py`
-- `scripts/validators/release_support.py`
 - `scripts/validators/root_authority.py`
 - `scripts/validators/runtime_candidates.py`
 - `scripts/validators/source_doctrine.py`
@@ -75,13 +77,18 @@ source of future alias drift.
 
 ## Current Applicability
 
-As of 2026-06-03:
+As of 2026-06-04:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide command
   entrypoint.
 - Changed: focused validator constants are imported from focused modules, not
   re-exported by root.
-- Superseded by: none.
+- Refined by: AOA-EV-D-0193 removes the remaining Questbook compatibility
+  facade and keeps Questbook callers on focused modules.
+- Refined by: AOA-EV-D-0218 removes the decision-index validator aggregate and
+  keeps decision-index callers on focused modules.
+- Refined by: AOA-EV-D-0219 removes the Questbook helper aggregate and keeps
+  Questbook callers on focused helper modules.
 
 ## Boundaries
 

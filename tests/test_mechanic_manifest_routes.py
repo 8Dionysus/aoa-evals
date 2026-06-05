@@ -10,7 +10,7 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from validators import route_residue as route_residue_validator
+from validators import route_residue_mechanic_payload as route_residue_mechanic_payload_validator
 
 
 def write_text(path: Path, content: str) -> None:
@@ -33,7 +33,7 @@ def test_mechanic_manifest_path_globs_reject_unresolved_root_docs_glob(
         '{\n  "observation_inputs": [\n    {"path_globs": ["docs/AGON_*.md"]}\n  ]\n}\n',
     )
 
-    issues = route_residue_validator.validate_mechanic_manifest_path_glob_routes(tmp_path)
+    issues = route_residue_mechanic_payload_validator.validate_mechanic_manifest_path_glob_routes(tmp_path)
 
     assert any(
         issue.location
@@ -58,7 +58,7 @@ def test_mechanic_manifest_route_fields_reject_root_schema_payload(
         '{\n  "observed_surfaces": [\n    "schemas/agon-sophian-eval-alignment.schema.json"\n  ]\n}\n',
     )
 
-    issues = route_residue_validator.validate_mechanic_manifest_path_glob_routes(tmp_path)
+    issues = route_residue_mechanic_payload_validator.validate_mechanic_manifest_path_glob_routes(tmp_path)
 
     assert any(
         issue.location

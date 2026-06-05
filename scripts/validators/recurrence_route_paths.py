@@ -1,0 +1,59 @@
+"""Recurrence route path constants."""
+
+from __future__ import annotations
+
+
+RECURRENCE_MECHANIC_README_NAME = "mechanics/recurrence/README.md"
+RECURRENCE_MECHANIC_AGENTS_NAME = "mechanics/recurrence/AGENTS.md"
+RECURRENCE_MECHANIC_PARTS_NAME = "mechanics/recurrence/PARTS.md"
+RECURRENCE_MECHANIC_PROVENANCE_NAME = "mechanics/recurrence/PROVENANCE.md"
+RECURRENCE_CONTROL_PLANE_PART_README_NAME = (
+    "mechanics/recurrence/parts/control-plane-integrity/README.md"
+)
+RECURRENCE_ANCHOR_RETURN_PART_README_NAME = (
+    "mechanics/recurrence/parts/anchor-return/README.md"
+)
+RECURRENCE_MEMORY_RECALL_PART_README_NAME = (
+    "mechanics/recurrence/parts/memory-recall/README.md"
+)
+RECURRENCE_RECURSOR_BOUNDARY_PART_README_NAME = (
+    "mechanics/recurrence/parts/recursor-boundary/README.md"
+)
+RECURRENCE_STATS_REGROUNDING_PART_README_NAME = (
+    "mechanics/recurrence/parts/stats-regrounding-boundary/README.md"
+)
+RECURRENCE_PORTABLE_PROOF_BEACONS_PART_README_NAME = (
+    "mechanics/recurrence/parts/portable-proof-beacons/README.md"
+)
+RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_NAME = (
+    "mechanics/recurrence/parts/portable-proof-beacons/AGENTS.md"
+)
+RECURRENCE_MECHANIC_DECISION_NAME = "docs/decisions/AOA-EV-D-0031-recurrence-mechanic-package.md"
+RECURRENCE_SUPPORT_PARTS_DECISION_NAME = (
+    "docs/decisions/AOA-EV-D-0039-recurrence-support-parts-expansion.md"
+)
+RECURRENCE_PORTABLE_PROOF_BEACONS_DECISION_NAME = (
+    "docs/decisions/AOA-EV-D-0042-recurrence-portable-proof-beacons-part.md"
+)
+RECURRENCE_CONTROL_PLANE_CONTRACT_DECISION_NAME = (
+    "docs/decisions/AOA-EV-D-0066-recurrence-control-plane-contract.md"
+)
+
+
+__all__ = (
+    "RECURRENCE_ANCHOR_RETURN_PART_README_NAME",
+    "RECURRENCE_CONTROL_PLANE_CONTRACT_DECISION_NAME",
+    "RECURRENCE_CONTROL_PLANE_PART_README_NAME",
+    "RECURRENCE_MECHANIC_AGENTS_NAME",
+    "RECURRENCE_MECHANIC_DECISION_NAME",
+    "RECURRENCE_MECHANIC_PARTS_NAME",
+    "RECURRENCE_MECHANIC_PROVENANCE_NAME",
+    "RECURRENCE_MECHANIC_README_NAME",
+    "RECURRENCE_MEMORY_RECALL_PART_README_NAME",
+    "RECURRENCE_PORTABLE_PROOF_BEACONS_DECISION_NAME",
+    "RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_NAME",
+    "RECURRENCE_PORTABLE_PROOF_BEACONS_PART_README_NAME",
+    "RECURRENCE_RECURSOR_BOUNDARY_PART_README_NAME",
+    "RECURRENCE_STATS_REGROUNDING_PART_README_NAME",
+    "RECURRENCE_SUPPORT_PARTS_DECISION_NAME",
+)

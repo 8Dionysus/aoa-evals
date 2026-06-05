@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0120
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/publication_receipts.py`, `mechanics/publication-receipts/`
+- Owner surface: focused publication-receipts validators, `mechanics/publication-receipts/`
 
 ## Index Metadata
 
@@ -42,7 +42,9 @@ wrappers for `validate_eval_result_receipt_surfaces`,
 `validate_receipt_intake_dry_review_surface`.
 
 The module validates receipt payload shape, stats-envelope mirror alignment,
-append-only live-log entries, and dry-review non-publication posture.
+and dry-review non-publication posture. It keeps
+`validate_live_receipt_log` as a compatibility adapter while live JSONL
+inspection is owned by `scripts/validators/publication_receipts_live.py`.
 
 ## Rationale
 
@@ -67,19 +69,87 @@ envelopes.
 
 ## Current Applicability
 
-As of 2026-06-03:
+As of 2026-06-04:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide validation
   entrypoint.
-- Changed: receipt payload, live-log, and dry-review checks now have a focused
-  validator module.
-- Superseded by: none.
+- Changed: receipt payload and route checks moved from the compatibility
+  publication-receipts facade into focused payload and route validators;
+  dry-review checks first moved to
+  `scripts/validators/publication_receipts_intake.py` and later split across
+  focused intake route, artifact, preview, and boundary validators; live JSONL
+  inspection moved to `scripts/validators/publication_receipts_live.py`; shared
+  schema/ref helpers moved to `scripts/validators/publication_receipts_common.py`.
+- Superseded in part by: AOA-EV-D-0161 for the live receipt log validator
+  boundary; AOA-EV-D-0169 for the intake dry-review validator boundary;
+  AOA-EV-D-0180 for the route/payload subvalidator boundary; AOA-EV-D-0191 for
+  publication-receipts facade removal; AOA-EV-D-0214 for aggregate intake
+  dry-review validator shape; AOA-EV-D-0222 for route support-layer ownership.
+
+## Review Log
+
+### 2026-06-04 - Live receipt validator split
+
+- Previous assumption: one focused publication-receipts validator could carry
+  payload shape, stats-envelope mirror, dry-review posture, and live-log
+  inspection.
+- New reality: live receipt JSONL inspection is an observability/audit boundary
+  around owner-local append memory, while receipt payload/dry-review checks are
+  publication-receipts source-fast route contracts.
+- Reason: keeping both in one file recreated historical bulk after the validator
+  refactor; the live path deserves its own validator organ and topology entry.
+- Source surfaces updated:
+  `scripts/validators/publication_receipts.py`,
+  `scripts/validators/publication_receipts_live.py`,
+  `scripts/validators/publication_receipts_common.py`,
+  `docs/validation/VALIDATOR_TOPOLOGY.md`,
+  `docs/validation/script_inventory.json`,
+  `docs/validation/validator_inventory.json`, and
+  `mechanics/EVIDENCE_CLUSTERS.md`.
+- Validation: `python -m pytest -q
+  mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py
+  mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py
+  mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py`
+  and `python -m pytest -q tests/test_validation_topology.py
+  tests/test_script_topology.py tests/test_mechanics_topology.py
+  tests/test_mechanic_root_district_recon.py`.
+
+### 2026-06-04 - Intake dry-review validator split
+
+- Previous assumption: `publication_receipts.py` owned both route/payload checks
+  and intake dry-review artifact validation.
+- New reality: intake dry-review validation lives in
+  `scripts/validators/publication_receipts_intake.py`.
+- Reason: dry review is an advisory non-publication report and source-alignment
+  check; it should not remain in the same implementation block as receipt
+  payload schema and stats-envelope mirror checks.
+- Source surfaces updated:
+  `scripts/validators/publication_receipts.py`,
+  `scripts/validators/publication_receipts_intake.py`,
+  validation inventories, and `mechanics/EVIDENCE_CLUSTERS.md`.
+- Validation: see AOA-EV-D-0169.
+
+### 2026-06-04 - Route and payload subvalidator split
+
+- Previous assumption: after live and intake moved out, `publication_receipts.py`
+  could remain the route/payload validator.
+- New reality: route-card/provenance/part-contract checks and receipt
+  payload/schema-mirror checks are separate owner boundaries.
+- Reason: keeping route tokens and JSON schema/example validation in one file
+  preserved a broad historical container after the first split.
+- Source surfaces updated:
+  `scripts/validators/publication_receipts.py`,
+  `scripts/validators/publication_receipts_routes.py`,
+  `scripts/validators/publication_receipts_payload.py`,
+  validation inventories, and `mechanics/EVIDENCE_CLUSTERS.md`.
+- Validation: see AOA-EV-D-0180.
 
 ## Boundaries
 
 This decision does not make receipts stronger than reviewed reports.
 
-It does not make dry-review output a live publication.
+It does not make dry-review output a live publication; dry-review validation now
+lives in focused publication-receipts intake validators.
 
 It does not change canonical `aoa-stats` ownership of the shared
 stats-event-envelope vocabulary.

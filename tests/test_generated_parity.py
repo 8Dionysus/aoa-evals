@@ -12,7 +12,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 import validate_repo
 from validate_repo import run_validation
-from validators import generated_parity
+from validators import generated_route_surfaces
 from validators.common import ValidationIssue
 from validate_repo_fixtures import eval_dir_for_test, make_eval_bundle, write_catalogs
 
@@ -29,7 +29,7 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 def generated_parity_contracts(repo_root: Path) -> list[ValidationIssue]:
     return [
         ValidationIssue(location, message)
-        for location, message in generated_parity.validate_generated_parity(repo_root)
+        for location, message in generated_route_surfaces.validate_generated_route_surfaces(repo_root)
     ]
 
 

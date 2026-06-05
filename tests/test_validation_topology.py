@@ -13,7 +13,14 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 import validation_lanes
 import ci_gate
-from validators import validation_topology
+from validators import (
+    validation_lane_manifest,
+    validation_script_inventory,
+    validation_test_inventory,
+    validation_topology_common,
+    validation_topology_docs,
+    validation_validator_inventory,
+)
 
 LANE_MANIFEST_PATH = REPO_ROOT / "docs" / "validation" / "validation_lanes.json"
 VALIDATOR_INVENTORY_PATH = REPO_ROOT / "docs" / "validation" / "validator_inventory.json"
@@ -34,6 +41,16 @@ def command_script_paths(commands: tuple[tuple[str, ...], ...]) -> set[str]:
             ):
                 paths.add(part)
     return paths
+
+
+def validate_validation_topology(repo_root: Path) -> list[tuple[str, str]]:
+    issues: list[tuple[str, str]] = []
+    issues.extend(validation_topology_docs.validate_validation_topology_docs(repo_root))
+    issues.extend(validation_lane_manifest.validate_validation_lane_manifest(repo_root))
+    issues.extend(validation_validator_inventory.validate_validator_inventory(repo_root))
+    issues.extend(validation_script_inventory.validate_script_inventory(repo_root))
+    issues.extend(validation_test_inventory.validate_test_inventory(repo_root))
+    return issues
 
 
 class ValidationTopologyTests(unittest.TestCase):
@@ -130,7 +147,7 @@ class ValidationTopologyTests(unittest.TestCase):
                 self.assertIn(entry["disposition"], {"keep", "split", "fold", "add"})
 
     def test_validation_topology_validator_accepts_current_surfaces(self) -> None:
-        self.assertEqual([], validation_topology.validate_validation_topology(REPO_ROOT))
+        self.assertEqual([], validate_validation_topology(REPO_ROOT))
 
     def test_validation_topology_validator_rejects_unclassified_validator_module(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -152,7 +169,7 @@ class ValidationTopologyTests(unittest.TestCase):
             module_path.parent.mkdir(parents=True, exist_ok=True)
             module_path.write_text("# unclassified validator\n", encoding="utf-8")
 
-            issues = validation_topology.validate_validation_topology(tmp_path)
+            issues = validate_validation_topology(tmp_path)
 
         self.assertTrue(
             any(
@@ -185,7 +202,7 @@ class ValidationTopologyTests(unittest.TestCase):
             ]
             manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
-            issues = validation_topology.validate_validation_topology(tmp_path)
+            issues = validate_validation_topology(tmp_path)
 
         self.assertTrue(
             any(
@@ -216,7 +233,7 @@ class ValidationTopologyTests(unittest.TestCase):
             del manifest["command_groups"]["generated_check"]
             manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
-            issues = validation_topology.validate_validation_topology(tmp_path)
+            issues = validate_validation_topology(tmp_path)
 
         self.assertTrue(
             any(
@@ -249,7 +266,7 @@ class ValidationTopologyTests(unittest.TestCase):
             owned_script.write_text("# owned\n", encoding="utf-8")
             dependency_script.write_text("# dependency\n", encoding="utf-8")
 
-            discovered = validation_topology._discovered_script_surfaces(tmp_path)
+            discovered = validation_topology_common._discovered_script_surfaces(tmp_path)
 
         self.assertIn("scripts/owned.py", discovered)
         self.assertNotIn(".deps/aoa-playbooks/scripts/external.py", discovered)

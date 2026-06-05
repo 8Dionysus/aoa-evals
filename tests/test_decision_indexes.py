@@ -10,7 +10,7 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from validators import docs_decisions
+from validators import decision_index_surfaces
 from validators.common import ValidationIssue
 
 
@@ -26,7 +26,7 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 def decision_index_read_models(repo_root: Path) -> list[ValidationIssue]:
     return [
         ValidationIssue(location, message)
-        for location, message in docs_decisions.validate_decision_index_surfaces(repo_root)
+        for location, message in decision_index_surfaces.validate_decision_index_surfaces(repo_root)
     ]
 
 

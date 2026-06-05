@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0137
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/method_growth.py`, `mechanics/method-growth/`
+- Owner surface: focused Method-growth validator modules, `mechanics/method-growth/`
 
 ## Index Metadata
 
@@ -26,15 +26,16 @@ growth scoring.
 
 ## Decision
 
-Method-growth route validation lives in `scripts/validators/method_growth.py`.
+Method-growth route validation lives in focused Method-growth validator modules.
 
 `scripts/validate_repo.py` delegates Method-growth checks through
 `validate_method_growth_route_surfaces` and supplies a
 `MethodGrowthRouteContext` with the root token lookup helper and shared
 provenance bridge tokens.
 
-The module owns Method-growth-specific route, part-contract, provenance, and
-decision expectations. Shared lookup and provenance posture remain injected.
+The focused modules own Method-growth-specific route paths, token matrices,
+route checks, part-contract, provenance, and decision expectations. Shared
+lookup and provenance posture remain injected.
 
 ## Rationale
 
@@ -55,7 +56,7 @@ meaning back to stronger owners.
   and decision-token checks have one focused owner.
 - Positive: `validate_mechanics_surfaces` delegates another active mechanic
   parent instead of retaining parent-specific token matrices.
-- Positive: tests import Method-growth constants from the owner module
+- Positive: tests import Method-growth path constants from the path helper
   directly.
 - Follow-up: RPG, Growth-cycle, Distillation, Titan, and Agon can be split by
   the same owner-boundary rule when each route is handled deliberately.
@@ -66,9 +67,9 @@ As of 2026-06-03:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide command
   entrypoint.
-- Changed: Method-growth route validation now lives in
-  `scripts/validators/method_growth.py`.
-- Superseded by: none.
+- Changed: Method-growth route validation now lives in path, token, and route
+  validator modules.
+- Superseded by: AOA-EV-D-0235 removes the former aggregate module boundary.
 
 ## Boundaries
 
@@ -82,7 +83,7 @@ helpers into Method-growth.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/method_growth.py tests/test_mechanic_surface_contracts.py`
+- `python -m py_compile scripts/validators/method_growth_route_paths.py scripts/validators/method_growth_route_tokens.py scripts/validators/method_growth_routes.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py`
 - `python -m pytest -q tests/test_mechanic_surface_contracts.py -k method_growth`
 - `python scripts/generate_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py --check`

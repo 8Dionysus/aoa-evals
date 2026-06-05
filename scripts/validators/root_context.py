@@ -8,7 +8,7 @@ from functools import lru_cache
 from pathlib import Path, PurePosixPath
 from typing import Any, Iterable, Sequence
 
-from validators import docs_decisions
+from validators import decision_index_paths
 from validators.common import ValidationIssue, read_text_or_issue, relative_location
 
 
@@ -432,7 +432,7 @@ def require_tokens(
     companion_texts: list[str] = []
     if path_name == DECISION_RECORDS_README_NAME:
         index_texts = []
-        for relative_path in docs_decisions.GENERATED_INDEX_PATHS:
+        for relative_path in decision_index_paths.GENERATED_INDEX_PATHS:
             index_path = repo_root / relative_path
             if index_path.is_file():
                 index_texts.append(index_path.read_text(encoding="utf-8"))

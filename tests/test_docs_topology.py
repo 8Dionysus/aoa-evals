@@ -13,7 +13,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 from validators import docs_routes
 from validators import docs_topology
 from validators.common import ValidationIssue
-from validators import root_guidance as root_guidance_validator
+from validators import root_frontdoor_guidance as root_frontdoor_guidance_validator
 
 
 def copy_repo_text(repo_root: Path, relative_path: str) -> None:
@@ -54,7 +54,7 @@ def test_docs_topology_read_model_validates_current_contract() -> None:
 
 
 def test_docs_readme_route_map_validates_current_map() -> None:
-    assert root_guidance_validator.validate_docs_readme_route_map(REPO_ROOT) == []
+    assert root_frontdoor_guidance_validator.validate_docs_readme_route_map(REPO_ROOT) == []
 
 
 def test_docs_route_contracts_reject_command_block_in_entrypoint(
@@ -90,7 +90,7 @@ def test_docs_readme_route_map_rejects_generic_mechanics_label(
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_docs_readme_route_map(tmp_path)
+    issues = root_frontdoor_guidance_validator.validate_docs_readme_route_map(tmp_path)
 
     assert any(
         issue.location == "docs/README.md"
@@ -113,7 +113,7 @@ def test_docs_readme_route_map_rejects_validation_block_in_reader_paths(
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_docs_readme_route_map(tmp_path)
+    issues = root_frontdoor_guidance_validator.validate_docs_readme_route_map(tmp_path)
 
     assert any(
         issue.location == "docs/README.md"
@@ -131,7 +131,7 @@ def test_docs_readme_route_map_rejects_command_block(tmp_path: Path) -> None:
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_docs_readme_route_map(tmp_path)
+    issues = root_frontdoor_guidance_validator.validate_docs_readme_route_map(tmp_path)
 
     assert any(
         issue.location == "docs/README.md"
@@ -154,7 +154,7 @@ def test_docs_readme_route_map_rejects_missing_folder_map_route(
         encoding="utf-8",
     )
 
-    issues = root_guidance_validator.validate_docs_readme_route_map(tmp_path)
+    issues = root_frontdoor_guidance_validator.validate_docs_readme_route_map(tmp_path)
 
     assert any(
         issue.location == "docs/README.md" and "docs/guides/" in issue.message

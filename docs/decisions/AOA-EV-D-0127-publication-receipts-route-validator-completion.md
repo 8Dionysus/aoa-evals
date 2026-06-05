@@ -3,7 +3,8 @@
 - Decision ID: AOA-EV-D-0127
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/publication_receipts.py`, `mechanics/publication-receipts/`
+- Owner surface: `scripts/validators/publication_receipts_routes.py`, `mechanics/publication-receipts/`
+- Refined by: AOA-EV-D-0222
 
 ## Index Metadata
 
@@ -58,8 +59,9 @@ that receipts stay weaker than reviewed bundle-local reports.
 ## Consequences
 
 - Positive: another long route-card block leaves `validate_mechanics_surfaces`.
-- Positive: publication-receipts route, payload, live-log, and dry-review checks
-  now have one validator owner.
+- Positive: publication-receipts route, payload, and dry-review checks now have
+  one validator owner; live-log inspection remains reachable through the
+  compatibility adapter and is owned by a narrower validator after D-0161.
 - Positive: publication-receipts test fixtures now route to the focused module
   instead of preserving root compatibility aliases.
 - Follow-up: audit and boundary-bridge route blocks can receive the same
@@ -67,11 +69,39 @@ that receipts stay weaker than reviewed bundle-local reports.
 
 ## Current Applicability
 
-As of 2026-06-03:
+As of 2026-06-04:
 
-- Still valid: AOA-EV-D-0120 remains the publication-receipts module boundary.
-- Changed: route-card and part-contract checks now live in that module too.
-- Superseded by: none.
+- Still valid: route-card and part-contract checks remain blocking.
+- Changed: route-card and part-contract checks now live in
+  `scripts/validators/publication_receipts_routes.py`.
+- Changed on 2026-06-05: AOA-EV-D-0222 split route path constants, token
+  sets, and route-token lookup helpers out of
+  `publication_receipts_routes.py`; the route validator remains the blocking
+  route/provenance owner.
+- Superseded in part by: AOA-EV-D-0161 for live receipt log validation,
+  AOA-EV-D-0180 for route/payload split, and AOA-EV-D-0191 for
+  publication-receipts facade removal; AOA-EV-D-0222 for route support-layer
+  ownership.
+
+## Review Log
+
+### 2026-06-04 - Live-log validation narrowed
+
+- Previous assumption: publication-receipts route completion meant route,
+  payload, live-log, and dry-review checks should share one validator owner.
+- New reality: route, payload, and dry-review checks stay together, while
+  live-log inspection belongs to a live-publisher and `.aoa/live_receipts/`
+  boundary.
+- Reason: route-card validation and live append-memory inspection are different
+  guard families even when they belong to the same mechanic.
+- Source surfaces updated:
+  `scripts/validators/publication_receipts.py`,
+  `scripts/validators/publication_receipts_live.py`,
+  `docs/validation/validator_inventory.json`, and
+  `mechanics/EVIDENCE_CLUSTERS.md`.
+- Validation: `python -m pytest -q tests/test_validation_topology.py
+  tests/test_script_topology.py tests/test_mechanics_topology.py
+  tests/test_mechanic_root_district_recon.py`.
 
 ## Boundaries
 
@@ -86,6 +116,7 @@ index parity, or bundle-local verdict meaning into publication-receipts.
 
 - `python -m pytest -q tests/test_mechanic_surface_contracts.py -k publication_receipts`
 - `python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k publication_receipts`
+- `python -m py_compile scripts/validators/publication_receipts_route_paths.py scripts/validators/publication_receipts_route_tokens.py scripts/validators/publication_receipts_route_helpers.py scripts/validators/publication_receipts_routes.py scripts/validators/publication_receipts_intake_common.py scripts/validators/publication_receipts_intake_route.py`
 - `python -m pytest -q mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py`
 - `python scripts/generate_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py --check`

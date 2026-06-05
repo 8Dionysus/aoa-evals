@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0141
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/titan.py`, `mechanics/titan/`
+- Owner surface: Titan validator modules, `mechanics/titan/`
 
 ## Index Metadata
 
@@ -27,7 +27,8 @@ or executable proof scoring.
 
 ## Decision
 
-Titan route and seed-canary validation lives in `scripts/validators/titan.py`.
+Titan route and seed-canary validation moved out of the root mechanics
+validator into a Titan-specific validator boundary.
 
 `scripts/validate_repo.py` delegates Titan route checks through
 `validate_titan_route_surfaces` and supplies a `TitanRouteContext` with the
@@ -66,9 +67,11 @@ As of 2026-06-03:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide command
   entrypoint.
-- Changed: Titan route and seed-canary validation now lives in
-  `scripts/validators/titan.py`.
-- Superseded by: none.
+- Changed: AOA-EV-D-0224 split the former `scripts/validators/titan.py`
+  boundary into focused route, canary-shape, path-helper, and token-helper
+  modules.
+- Superseded by: AOA-EV-D-0224 for module shape; still valid for why Titan
+  validation is not owned by the root mechanics validator.
 
 ## Boundaries
 
@@ -82,7 +85,7 @@ into Titan.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/titan.py tests/test_mechanic_surface_contracts.py`
+- `python -m py_compile scripts/validate_repo.py scripts/validators/titan_routes.py scripts/validators/titan_canary.py scripts/validators/titan_route_paths.py scripts/validators/titan_route_tokens.py tests/test_mechanic_surface_contracts.py`
 - `python -m pytest -q tests/test_mechanic_surface_contracts.py -k titan`
 - `python scripts/generate_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py --check`

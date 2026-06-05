@@ -10,7 +10,8 @@ SCRIPTS_DIR = REPO_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from validators import release_support as release_support_validator
+from validators import release_support_report_constants as release_support_report_constants_validator
+from validators import release_support_pr_handoff_report as release_support_pr_handoff_report_validator
 
 REPO_REF_ROOTS = {
     "aoa-evals": REPO_ROOT,
@@ -56,12 +57,12 @@ def copy_repo_text(repo_root: Path, relative_path: str) -> None:
 
 
 def make_release_prep_pr_handoff_surface(repo_root: Path) -> Path:
-    copy_repo_text(repo_root, release_support_validator.RELEASE_PREP_PR_HANDOFF_NAME)
-    return repo_root / release_support_validator.RELEASE_PREP_PR_HANDOFF_NAME
+    copy_repo_text(repo_root, release_support_report_constants_validator.RELEASE_PREP_PR_HANDOFF_NAME)
+    return repo_root / release_support_report_constants_validator.RELEASE_PREP_PR_HANDOFF_NAME
 
 
 def validate_release_prep_pr_handoff_surface(repo_root: Path):
-    return release_support_validator.validate_release_prep_pr_handoff_surface(
+    return release_support_pr_handoff_report_validator.validate_release_prep_pr_handoff_surface(
         repo_root,
         repo_ref_roots=REPO_REF_ROOTS,
         strict_sibling_compat=False,
@@ -194,7 +195,7 @@ def test_release_prep_pr_handoff_rejects_open_pr_claim(
     issues = validate_release_prep_pr_handoff_surface(tmp_path)
 
     assert any(
-        issue.location == f"{release_support_validator.RELEASE_PREP_PR_HANDOFF_NAME}.pre_handoff_github_status"
+        issue.location == f"{release_support_report_constants_validator.RELEASE_PREP_PR_HANDOFF_NAME}.pre_handoff_github_status"
         and "pre_handoff pr_status must be 'not_opened'" in issue.message
         for issue in issues
     )
@@ -215,7 +216,7 @@ def test_release_prep_pr_handoff_rejects_missing_surface_group(
     issues = validate_release_prep_pr_handoff_surface(tmp_path)
 
     assert any(
-        issue.location == f"{release_support_validator.RELEASE_PREP_PR_HANDOFF_NAME}.changed_surface_groups"
+        issue.location == f"{release_support_report_constants_validator.RELEASE_PREP_PR_HANDOFF_NAME}.changed_surface_groups"
         and "active_proof_loop" in issue.message
         for issue in issues
     )
@@ -236,7 +237,7 @@ def test_release_prep_pr_handoff_rejects_missing_landing_step(
     issues = validate_release_prep_pr_handoff_surface(tmp_path)
 
     assert any(
-        issue.location == f"{release_support_validator.RELEASE_PREP_PR_HANDOFF_NAME}.landing_steps"
+        issue.location == f"{release_support_report_constants_validator.RELEASE_PREP_PR_HANDOFF_NAME}.landing_steps"
         and "watch GitHub Repo Validation" in issue.message
         for issue in issues
     )
@@ -258,7 +259,7 @@ def test_release_prep_pr_handoff_rejects_missing_focused_gate(
     issues = validate_release_prep_pr_handoff_surface(tmp_path)
 
     assert any(
-        issue.location == f"{release_support_validator.RELEASE_PREP_PR_HANDOFF_NAME}.verification_snapshot"
+        issue.location == f"{release_support_report_constants_validator.RELEASE_PREP_PR_HANDOFF_NAME}.verification_snapshot"
         and "mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py"
         in issue.message
         for issue in issues

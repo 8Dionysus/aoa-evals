@@ -15,23 +15,25 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import eval_catalog_contract
+import eval_capsule_contract
+import eval_comparison_spine_contract
 import eval_section_contract
 import validate_repo
 from validators import (
-    eval_bundles as eval_bundles_validator,
-    questbook as questbook_validator,
+    eval_bundle_common,
+    questbook_projection_records as questbook_projection_records_validator,
+    questbook_route_paths as questbook_route_paths_validator,
     root_context,
-    runtime_audit as runtime_audit_validator,
+    runtime_evidence_selection as runtime_evidence_selection_validator,
 )
-from validators.source_eval_contracts import (
-    build_capsule_payload,
-    build_catalog_payloads,
-    build_comparison_spine_payload,
-    collect_catalog_records,
-)
+from validators.source_eval_collection import collect_catalog_records
 NO_ADDITIONAL_STARTER_BUNDLES_TEXT = (
-    eval_bundles_validator.NO_ADDITIONAL_STARTER_BUNDLES_TEXT
+    eval_bundle_common.NO_ADDITIONAL_STARTER_BUNDLES_TEXT
 )
+
+build_catalog_payloads = eval_catalog_contract.build_catalog_payloads
+build_capsule_payload = eval_capsule_contract.build_capsule_payload
+build_comparison_spine_payload = eval_comparison_spine_contract.build_comparison_spine_payload
 
 
 def write_text(path: Path, content: str) -> None:
@@ -105,19 +107,19 @@ def make_questbook_surface(repo_root: Path) -> None:
 def rewrite_questbook_projections(repo_root: Path) -> None:
     write_json_payload(
         repo_root / "generated" / "quest_catalog.min.json",
-        questbook_validator.build_quest_catalog_projection(repo_root),
+        questbook_projection_records_validator.build_quest_catalog_projection(repo_root),
     )
     write_json_payload(
         repo_root / "generated" / "quest_catalog.min.example.json",
-        questbook_validator.build_quest_catalog_projection(repo_root),
+        questbook_projection_records_validator.build_quest_catalog_projection(repo_root),
     )
     write_json_payload(
         repo_root / "generated" / "quest_dispatch.min.json",
-        questbook_validator.build_quest_dispatch_projection(repo_root),
+        questbook_projection_records_validator.build_quest_dispatch_projection(repo_root),
     )
     write_json_payload(
         repo_root / "generated" / "quest_dispatch.min.example.json",
-        questbook_validator.build_quest_dispatch_projection(repo_root),
+        questbook_projection_records_validator.build_quest_dispatch_projection(repo_root),
     )
 
 
@@ -129,7 +131,7 @@ def make_quest_route_surface(repo_root: Path) -> None:
         "docs/decisions/AOA-EV-D-0004-questbook-topology.md",
         "docs/decisions/AOA-EV-D-0018-quest-lane-state-source-layout.md",
         "docs/decisions/AOA-EV-D-0021-quest-lifecycle-contract.md",
-        questbook_validator.AGON_QUEST_NOTE_PROVENANCE_DECISION_NAME,
+        questbook_route_paths_validator.AGON_QUEST_NOTE_PROVENANCE_DECISION_NAME,
     ]:
         copy_repo_text(repo_root, relative_path)
 
@@ -1335,7 +1337,7 @@ def write_runtime_evidence_selection_example(
     candidate_eval_refs: list[str],
 ) -> None:
     write_text(
-        repo_root / runtime_audit_validator.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH,
+        repo_root / runtime_evidence_selection_validator.RUNTIME_EVIDENCE_SELECTION_SCHEMA_PATH,
         """
         {
           "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -1400,7 +1402,7 @@ def write_runtime_evidence_selection_example(
         """,
     )
     write_text(
-        repo_root / runtime_audit_validator.RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR / filename,
+        repo_root / runtime_evidence_selection_validator.RUNTIME_EVIDENCE_SELECTION_EXAMPLES_DIR / filename,
         json.dumps(
             {
                 "surface_type": "runtime_evidence_selection",

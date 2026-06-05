@@ -3,7 +3,8 @@
 - Decision ID: AOA-EV-D-0132
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/generated_parity.py`, `generated/`
+- Historical owner surface: `scripts/validators/generated_parity.py`, `generated/`
+- Refined by: AOA-EV-D-0183, AOA-EV-D-0200
 
 ## Index Metadata
 
@@ -62,7 +63,17 @@ As of 2026-06-03:
   generated read models.
 - Changed: read-model parity behavior moved from `scripts/validate_repo.py` to
   `scripts/validators/generated_parity.py`.
-- Superseded by: none.
+- Refined on 2026-06-04: AOA-EV-D-0183 removed
+  `scripts/validators/generated_parity.py` after moving eval read-model
+  projection parity to `scripts/validators/generated_eval_readmodels.py` and
+  generated route/topology checks to
+  `scripts/validators/generated_route_surfaces.py`.
+- Further refined on 2026-06-04: AOA-EV-D-0200 removed
+  `scripts/validators/generated_eval_readmodels.py`; active generated eval
+  read-model parity is split across catalog, capsule, section, and
+  comparison-spine validator modules plus a helper-only common context.
+- Superseded by: AOA-EV-D-0183 for the generated-parity aggregate shape;
+  AOA-EV-D-0200 for the generated eval read-model aggregate shape.
 
 ## Boundaries
 
@@ -77,7 +88,7 @@ It does not change release or generated lane command authority.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/generated_parity.py`
+- `python -m py_compile scripts/validators/generated_eval_readmodel_common.py scripts/validators/generated_eval_catalogs.py scripts/validators/generated_eval_capsules.py scripts/validators/generated_eval_sections.py scripts/validators/generated_eval_comparison_spine.py scripts/validators/generated_route_surfaces.py scripts/validators/evidence_readouts.py`
 - `python -m pytest -q tests/test_generated_parity.py tests/test_build_catalog.py tests/test_downstream_feed_contracts.py`
 - `python scripts/generate_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py --check`

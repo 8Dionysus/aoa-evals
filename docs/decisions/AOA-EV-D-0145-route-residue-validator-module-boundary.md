@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0145
 - Status: Accepted
 - Date: 2026-06-04
-- Owner surface: `scripts/validators/route_residue.py`, route residue guard family
+- Owner surface: focused route residue guard family modules
 
 ## Index Metadata
 
@@ -32,11 +32,12 @@ mode instead of delegating to one boundary organ.
 
 Route residue validation lives in `scripts/validators/route_residue.py`.
 
-The module owns the generated/readout, active mechanic, root-authored,
-decision, repo-config, source-bundle, mechanic-payload, and structured
-manifest route-residue checks. It imports active mechanic parent topology from
-`scripts/validators/mechanics.py` and root route-card-only district topology
-from `scripts/validators/root_route_cards.py`.
+The module owns the route residue guard family and initially owned the
+generated/readout, active mechanic, root-authored, decision, repo-config,
+source-bundle, mechanic-payload, and structured manifest route-residue checks.
+It imports active mechanic parent topology from `scripts/validators/mechanics.py`
+and root route-card-only district topology from
+`scripts/validators/root_route_cards.py`.
 
 `scripts/validate_repo.py` delegates through the module and injects only the
 shared token lookup context.
@@ -62,6 +63,26 @@ entrypoint while preserving the guard as a hard source-fast check.
 - Follow-up: remaining root-owned mechanics topology helpers can be split next
   when their owner boundary is equally coherent.
 
+## Review Log
+
+### 2026-06-04 - Generated and mechanic-payload residue split
+
+- Previous assumption: `route_residue.py` owned every route residue domain as
+  implementation logic.
+- New reality: generated/readout residue lives in
+  `scripts/validators/route_residue_generated.py`; mechanic-payload and
+  structured manifest route-field residue lives in
+  `scripts/validators/route_residue_mechanic_payload.py`; shared context and
+  token normalization live in `scripts/validators/route_residue_common.py`.
+- Reason: generated read models and mechanic payload files are different owner
+  surfaces with different failure routes and allowances.
+- Source surfaces updated: `scripts/validators/route_residue.py`,
+  `scripts/validators/route_residue_generated.py`,
+  `scripts/validators/route_residue_mechanic_payload.py`,
+  `scripts/validators/route_residue_common.py`, validation inventories, and
+  mechanics residual classification.
+- Validation: see AOA-EV-D-0167.
+
 ## Current Applicability
 
 As of 2026-06-04:
@@ -69,12 +90,19 @@ As of 2026-06-04:
 - Still valid: route-card-only districts and legacy mechanic parent paths must
   not be used as current authority.
 - Changed: route residue validation moved from `scripts/validate_repo.py` to
-  `scripts/validators/route_residue.py`.
-- Superseded by: none.
+  `scripts/validators/route_residue.py`; generated/readout and mechanic-payload
+  residue logic later moved to focused route-residue domain validators.
+- Changed: AOA-EV-D-0192 removes the remaining `route_residue.py` aggregate
+  facade.
+- Superseded by: AOA-EV-D-0167 for route-residue domain boundaries and
+  AOA-EV-D-0192 for facade removal.
 
 ## Boundaries
 
 This decision does not make generated validators define source meaning.
+
+It no longer makes `route_residue.py` the implementation owner of any residue
+domain; focused `route_residue_*.py` modules own their domains.
 
 It does not promote route residue checks to runtime policy enforcement,
 capability authorization, release artifact freeze, or trace/eval outcome
@@ -82,5 +110,5 @@ grading.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/route_residue.py tests/test_generated_route_residue.py tests/test_route_residue.py`
+- `python -m py_compile scripts/validate_repo.py scripts/validators/root_topology.py scripts/validators/mechanics_routes.py tests/test_generated_route_residue.py tests/test_route_residue.py`
 - `python -m pytest -q tests/test_generated_route_residue.py tests/test_route_residue.py`

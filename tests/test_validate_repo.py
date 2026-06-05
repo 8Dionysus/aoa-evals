@@ -11,9 +11,9 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 import eval_section_contract
 import validate_repo
-from validators import eval_bundles as eval_bundles_validator
+from validators import eval_starter_surfaces as eval_starter_surfaces_validator
 from validators import root_context
-from validators.source_eval_contracts import collect_catalog_records
+from validators.source_eval_collection import collect_catalog_records
 from validate_repo import (
     run_validation,
 )
@@ -43,7 +43,10 @@ def test_eval_selection_rejects_generic_heading(tmp_path: Path) -> None:
         """,
     )
 
-    issues = eval_bundles_validator.validate_eval_selection(tmp_path, ["aoa-alpha"])
+    issues = eval_starter_surfaces_validator.validate_eval_selection(
+        tmp_path,
+        ["aoa-alpha"],
+    )
 
     assert any(
         issue.location == "EVAL_SELECTION.md"

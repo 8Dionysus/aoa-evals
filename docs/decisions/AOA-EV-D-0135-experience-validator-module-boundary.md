@@ -3,7 +3,7 @@
 - Decision ID: AOA-EV-D-0135
 - Status: Accepted
 - Date: 2026-06-03
-- Owner surface: `scripts/validators/experience.py`, `mechanics/experience/`
+- Owner surface: focused Experience validator modules, `mechanics/experience/`
 
 ## Index Metadata
 
@@ -26,16 +26,17 @@ Experience success claims.
 
 ## Decision
 
-Experience route validation lives in `scripts/validators/experience.py`.
+Experience route validation lives in focused Experience validator modules.
 
 `scripts/validate_repo.py` delegates Experience checks through
 `validate_experience_route_surfaces` and supplies an `ExperienceRouteContext`
 with the root token lookup helper and shared provenance bridge tokens.
 
 The root token lookup remains injected because it knows how to search companion
-AGENTS validation cards for command tokens. The Experience module owns the
-Experience-specific route, part-contract, provenance, and decision
-expectations.
+AGENTS validation cards for command tokens. The focused Experience modules own
+Experience-specific paths, token matrices, route checks, provenance, and
+decision expectations without treating the blocking route validator as a
+constants bucket.
 
 ## Rationale
 
@@ -56,7 +57,8 @@ authored-meaning truth.
   checks have one focused owner.
 - Positive: `validate_mechanics_surfaces` delegates another active mechanic
   parent instead of retaining parent-specific token matrices.
-- Positive: tests import Experience constants from the owner module directly.
+- Positive: tests import Experience path constants from the path helper
+  directly.
 - Follow-up: Antifragility, Method-growth, RPG, Growth-cycle, Distillation,
   Titan, and Agon can be split by the same owner-boundary rule when each route
   is handled deliberately.
@@ -67,9 +69,9 @@ As of 2026-06-03:
 
 - Still valid: `scripts/validate_repo.py` remains the repo-wide command
   entrypoint.
-- Changed: Experience route validation now lives in
-  `scripts/validators/experience.py`.
-- Superseded by: none.
+- Changed: Experience route validation now lives in path, token, and route
+  validator modules.
+- Superseded by: AOA-EV-D-0232 removes the former aggregate module boundary.
 
 ## Boundaries
 
@@ -83,7 +85,7 @@ helpers into Experience.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/experience.py tests/test_mechanic_surface_contracts.py`
+- `python -m py_compile scripts/validators/experience_route_paths.py scripts/validators/experience_route_tokens.py scripts/validators/experience_routes.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py`
 - `python -m pytest -q tests/test_mechanic_surface_contracts.py -k experience`
 - `python scripts/generate_decision_indexes.py`
 - `python scripts/generate_decision_indexes.py --check`

@@ -270,6 +270,10 @@
 - [AOA-EV-D-0154 Root Context Validator Boundary](../AOA-EV-D-0154-root-context-validator-boundary.md) (`docs/decisions/AOA-EV-D-0154-root-context-validator-boundary.md`)
 - [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
 
+## sibling-reference
+
+- [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
+
 ## source/topology
 
 - [AOA-EV-D-0121 Release Support Validator Module Boundary](../AOA-EV-D-0121-release-support-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0121-release-support-validator-module-boundary.md`)
@@ -380,6 +384,7 @@
 - [AOA-EV-D-0236 RPG Validator Layer Split](../AOA-EV-D-0236-rpg-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0236-rpg-validator-layer-split.md`)
 - [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)
 - [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
+- [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
 
 ## trace/eval
 
@@ -409,3 +414,7 @@
 - [AOA-EV-D-0235 Method-growth Validator Layer Split](../AOA-EV-D-0235-method-growth-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0235-method-growth-validator-layer-split.md`)
 - [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
+
+## validation
+
+- [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)

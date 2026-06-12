@@ -30,6 +30,7 @@ where meaning lives and which surface to open next.
 | Is this route residue, stale path, or wrong owner pressure? | [Route Residue Guards](architecture/ROUTE_RESIDUE_GUARDS.md) |
 | Is this name active, legacy, accepted input, generated projection, or candidate vocabulary? | [Legacy Naming](architecture/LEGACY_NAMING.md) |
 | Which proof guide applies? | [Guides](#guides) |
+| How should sibling repos host local eval pressure? | [Local Eval Port Standard](guides/LOCAL_EVAL_PORT_STANDARD.md) |
 | Which proof operation owns this route? | [Mechanics Operation Atlas](../mechanics/README.md) |
 | Which validation lane or command owner applies? | [Validation Command Authority](validation/COMMAND_AUTHORITY.md) |
 | Which test family should cover this boundary? | [Test Topology](testing/TEST_TOPOLOGY.md) |
@@ -78,6 +79,7 @@ The first concrete source-owned proof surface remains
 - [Baseline Comparison Guide](guides/BASELINE_COMPARISON_GUIDE.md)
 - [Regression Proof Surfaces](guides/REGRESSION_PROOF_SURFACES.md)
 - [Boundary Route Checklist](guides/BOUNDARY_ROUTE_CHECKLIST.md)
+- [Local Eval Port Standard](guides/LOCAL_EVAL_PORT_STANDARD.md)
 
 ## Operations
 

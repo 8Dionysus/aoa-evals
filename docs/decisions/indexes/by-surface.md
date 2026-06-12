@@ -47,6 +47,7 @@
 - [AOA-EV-D-0106 Memory Consumer Proof Boundary](../AOA-EV-D-0106-memory-consumer-proof-boundary.md) (`docs/decisions/AOA-EV-D-0106-memory-consumer-proof-boundary.md`)
 - [AOA-EV-D-0108 Docs Topology Folders And Route Residue Guards](../AOA-EV-D-0108-docs-topology-folders-and-route-residue-guards.md) (`docs/decisions/AOA-EV-D-0108-docs-topology-folders-and-route-residue-guards.md`)
 - [AOA-EV-D-0113 aoa-memo Writeback Decision Quality Eval](../AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md`)
+- [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
 
 ## mechanic package
 
@@ -268,6 +269,7 @@
 - [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)
 - [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
+- [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
 
 ## legacy/provenance
 
@@ -534,6 +536,10 @@
 - [AOA-EV-D-0203 Runtime Audit Aggregate Removal](../AOA-EV-D-0203-runtime-audit-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0203-runtime-audit-aggregate-removal.md`)
 - [AOA-EV-D-0212 Runtime Integrity Review Layer Split](../AOA-EV-D-0212-runtime-integrity-review-layer-split.md) (`docs/decisions/AOA-EV-D-0212-runtime-integrity-review-layer-split.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
+
+## sibling reference
+
+- [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
 
 ## source/topology
 

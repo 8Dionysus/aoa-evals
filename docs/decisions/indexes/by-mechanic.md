@@ -45,6 +45,7 @@
 - [AOA-EV-D-0230 Proof-infra Route Token Layer Split](../AOA-EV-D-0230-proof-infra-route-token-layer-split.md) (`docs/decisions/AOA-EV-D-0230-proof-infra-route-token-layer-split.md`)
 - [AOA-EV-D-0231 Checkpoint Validator Layer Split](../AOA-EV-D-0231-checkpoint-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0231-checkpoint-validator-layer-split.md`)
 - [AOA-EV-D-0232 Experience Validator Layer Split](../AOA-EV-D-0232-experience-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0232-experience-validator-layer-split.md`)
+- [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
 
 ## proof-loop
 

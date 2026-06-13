@@ -144,7 +144,7 @@ TRACE_EVAL_HOOK_EXPECTATIONS: dict[str, dict[str, Any]] = {
         "artifact_contract_refs": [
             "repo:aoa-memo/mechanics/checkpoint/parts/checkpoint-carry-contract/schemas/inquiry_checkpoint.schema.json",
             "repo:aoa-memo/mechanics/checkpoint/parts/checkpoint-to-memory-mapping/schemas/checkpoint-to-memory-contract.schema.json",
-            "repo:aoa-playbooks/playbooks/restartable-inquiry-loop/PLAYBOOK.md#expected-artifacts",
+            "repo:aoa-playbooks/playbooks/continuity/session-growth/restartable-inquiry-loop/PLAYBOOK.md#expected-artifacts",
             "repo:aoa-playbooks/generated/playbook_registry.min.json",
         ],
         "trace_surfaces": [],

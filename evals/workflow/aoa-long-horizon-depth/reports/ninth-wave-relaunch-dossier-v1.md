@@ -17,7 +17,7 @@ It is not a runtime transcript, not a hidden-context replay, and not a starter-r
 - `aoa-memo/examples/inquiry_checkpoint.example.json`
 - `aoa-memo/docs/MEMORY_TEMPERATURES.md`
 - `aoa-memo/docs/WRITEBACK_TEMPERATURE_POLICY.md`
-- `aoa-playbooks/playbooks/restartable-inquiry-loop/PLAYBOOK.md`
+- `aoa-playbooks/playbooks/continuity/session-growth/restartable-inquiry-loop/PLAYBOOK.md`
 - `aoa-routing/generated/task_to_tier_hints.json`
 - `aoa-agents/generated/model_tier_registry.json`
 

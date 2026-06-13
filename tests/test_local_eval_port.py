@@ -83,6 +83,42 @@ def write_valid_intake(repo_root: Path) -> None:
     )
 
 
+def write_valid_suite_note(repo_root: Path) -> None:
+    write_text(
+        repo_root / "evals" / "suites" / "memory-guardrail.suite.md",
+        f"""
+        ---
+        schema_version: local_eval_suite_note_v1
+        owner_repo: {repo_root.name}
+        status: draft
+        authority_boundary: no verdict, scoring, regression, or proof doctrine authority
+        ---
+
+        # Memory Guardrail Suite
+
+        Local suite shape for memo-side guardrail pressure.
+        """,
+    )
+
+
+def write_valid_report_note(repo_root: Path) -> None:
+    write_text(
+        repo_root / "evals" / "reports" / "memory-guardrail.report.md",
+        f"""
+        ---
+        schema_version: local_eval_report_note_v1
+        owner_repo: {repo_root.name}
+        status: draft
+        authority_boundary: no verdict, scoring, regression, or proof doctrine authority
+        ---
+
+        # Memory Guardrail Report
+
+        Local report shell for memo-side guardrail pressure.
+        """,
+    )
+
+
 def test_valid_skeleton_port_passes(tmp_path: Path) -> None:
     repo_root = tmp_path / "aoa-routing"
     make_port(repo_root)
@@ -107,6 +143,76 @@ def test_active_port_requires_intake_or_bundle(tmp_path: Path) -> None:
     issues = validate_local_eval_port.validate_local_eval_port(repo_root)
 
     assert any("active local eval port" in issue.message for issue in issues)
+
+
+def test_valid_active_suite_note_passes(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-memo"
+    make_port(repo_root, status="active")
+    write_valid_suite_note(repo_root)
+
+    assert validate_local_eval_port.validate_local_eval_port(repo_root) == []
+
+
+def test_valid_active_report_note_passes(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-memo"
+    make_port(repo_root, status="active")
+    write_valid_report_note(repo_root)
+
+    assert validate_local_eval_port.validate_local_eval_port(repo_root) == []
+
+
+def test_skeleton_port_rejects_suite_or_report_pressure(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(repo_root, status="skeleton")
+    write_valid_suite_note(repo_root)
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("skeleton local eval port" in issue.message for issue in issues)
+
+
+def test_local_note_frontmatter_boundary_is_required(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-memo"
+    make_port(repo_root, status="active")
+    write_text(
+        repo_root / "evals" / "reports" / "bad.report.md",
+        f"""
+        ---
+        schema_version: local_eval_report_note_v1
+        owner_repo: {repo_root.name}
+        status: draft
+        authority_boundary: local proof
+        ---
+
+        # Bad Report
+        """,
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("authority_boundary" in issue.message for issue in issues)
+
+
+def test_local_note_filename_shape_is_required(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-memo"
+    make_port(repo_root, status="active")
+    write_text(
+        repo_root / "evals" / "suites" / "bad.md",
+        """
+        ---
+        schema_version: local_eval_suite_note_v1
+        owner_repo: aoa-memo
+        status: draft
+        authority_boundary: no verdict, scoring, regression, or proof doctrine authority
+        ---
+
+        # Bad Suite
+        """,
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("filename must match" in issue.message for issue in issues)
 
 
 def test_valid_active_intake_passes(tmp_path: Path) -> None:

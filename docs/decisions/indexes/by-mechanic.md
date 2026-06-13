@@ -46,6 +46,7 @@
 - [AOA-EV-D-0231 Checkpoint Validator Layer Split](../AOA-EV-D-0231-checkpoint-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0231-checkpoint-validator-layer-split.md`)
 - [AOA-EV-D-0232 Experience Validator Layer Split](../AOA-EV-D-0232-experience-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0232-experience-validator-layer-split.md`)
 - [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
+- [AOA-EV-D-0241 Local Eval Port Write-Side MCP](../AOA-EV-D-0241-local-eval-port-write-side-mcp.md) (`docs/decisions/AOA-EV-D-0241-local-eval-port-write-side-mcp.md`)
 
 ## proof-loop
 

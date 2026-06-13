@@ -20,7 +20,7 @@ The proof authority remains:
 
 | Field | Route |
 | --- | --- |
-| role | read-only MCP contract for proof selection, inspection, expansion, eval-need proposal routing, candidate evidence routing, candidate packet validation, stack runtime candidate export reading, mirror freshness status, and report skeleton preparation |
+| role | MCP contract for proof selection, inspection, expansion, eval-need proposal routing, local eval-port federation, gated local-port file writes, candidate evidence routing, candidate packet validation, stack runtime candidate export reading, mirror freshness status, and report skeleton preparation |
 | input | proof question, eval name, section key, comparison mode, eval-need proposal fields, candidate evidence refs, candidate evidence packet, runtime candidate export id, runtime template request, or freshness/status request |
 | output | compact source refs, generated reader context, existing-route matches, candidate-only eval-need proposal context, candidate-only evidence shape, candidate validation result, stack runtime candidate export metadata/detail, mirror freshness status, or report skeleton |
 | owner | `aoa-evals` owns this contract and proof authority; `abyss-stack` owns the runnable MCP service implementation |
@@ -54,6 +54,11 @@ MCP output is always weaker than the source bundle and its manifest.
 | `aoa-evals://runtime-candidate-exports` | stack-owned private candidate export metadata and validation summaries | governed execution candidate-export lane |
 | `aoa-evals://runtime-candidate-export/{record_id}` | one stack-owned private candidate export without nested payload by default | governed execution candidate-export lane and bundle-local review |
 | `aoa-evals://reports` | generated report index | source reports and bundle-local report contracts |
+| `aoa-evals://local-ports` | workspace local eval-port registry with validation summaries | sibling `evals/PORT.yaml` files and `aoa-evals` local-port validator |
+| `aoa-evals://local-port/{repo}` | one repo-local eval port summary | sibling repo-local `evals/` port |
+| `aoa-evals://local-port/{repo}/intake` | local `eval_need_v1` intake packets | sibling repo-local `evals/intake/` |
+| `aoa-evals://local-port/{repo}/suites` | local suite notes | sibling repo-local `evals/suites/` |
+| `aoa-evals://local-port/{repo}/reports` | local report notes | sibling repo-local `evals/reports/` |
 
 ## MCP Tools
 
@@ -70,6 +75,12 @@ MCP output is always weaker than the source bundle and its manifest.
 | `aoa_evals_runtime_candidate_exports(limit)` | list stack-owned private runtime candidate exports with validation summaries | include nested private payloads, accept evidence, or publish results |
 | `aoa_evals_read_runtime_candidate_export(record_id, include_payload)` | read one stack-owned private candidate export for review routing | treat readability or schema validity as proof acceptance |
 | `aoa_evals_report_skeleton(name, evidence_refs)` | prepare a candidate-only report skeleton and required source refs | publish a receipt, compute a verdict, or mutate repo files |
+| `aoa_evals_local_ports(status, include_skeleton)` | list repo-local eval ports and validation summaries | treat local pressure as accepted proof |
+| `aoa_evals_local_port(repo)` | inspect one repo-local eval port, counts, and owner boundary | override the sibling repo's local route card |
+| `aoa_evals_find_or_propose_local(repo, proof_question, proposal)` | shape a local `eval_need_v1` packet and target route for a sibling port | write source, approve proposal, or skip existing-route review |
+| `aoa_evals_write_local_intake(repo, packet, file_slug, apply)` | dry-run or write one local intake packet under `repo/evals/intake/` | write central bundles, overwrite silently, accept proof, or bypass validation |
+| `aoa_evals_write_local_suite_note(repo, suite_slug, title, summary, body_markdown, refs, apply)` | dry-run or write one local suite note under `repo/evals/suites/` | define scoring truth, final verdicts, or regression authority |
+| `aoa_evals_write_local_report_note(repo, report_slug, title, summary, body_markdown, refs, apply)` | dry-run or write one local report note under `repo/evals/reports/` | publish receipts, compute verdicts, or claim central report authority |
 
 ## MCP Prompts
 
@@ -88,6 +99,8 @@ MCP output is always weaker than the source bundle and its manifest.
 - Do not publish receipts.
 - Do not promote bundles.
 - Do not mutate `aoa-evals` source from MCP.
+- Do not create central `aoa-evals/evals/**` source bundles from MCP.
+- Do not write outside a sibling repo-local `evals/` port.
 - Do not treat runtime evidence, generated readers, or MCP output as stronger
   than bundle-local `EVAL.md` and `eval.yaml`.
 - Do not move proof authority into `abyss-stack`.
@@ -144,6 +157,33 @@ The result is advisory. It is not proof, proposal approval, duplicate-fit
 truth, source mutation permission, or bundle creation. New source bundles still
 go through the repo-local scaffold helper and its `--allow-new`/`--write`
 gates after review.
+
+## Local Eval-Port Federation And Writes
+
+Sibling repositories may expose `evals/` local ports using
+`local_eval_port_v1`. These ports preserve repo-local pressure, fixtures,
+suites, reports, and intake packets below central proof authority.
+
+`aoa_evals` may federate those ports across the workspace. It may list ports,
+inspect one port, read local intake/suite/report files, and validate local
+port shape against `scripts/validate_local_eval_port.py` semantics.
+
+Write-side MCP is intentionally narrow:
+
+- default behavior is dry-run (`apply=false`);
+- `apply=true` may write only `evals/intake/*.eval_need.json`,
+  `evals/suites/*.suite.md`, and `evals/reports/*.report.md` in the selected
+  sibling repo;
+- when a skeleton port receives its first valid local pressure file, MCP may
+  move `evals/PORT.yaml` from `status: skeleton` to `status: active` in the
+  same operation;
+- overwrite requires an explicit replace flag in the stack implementation.
+
+These writes are authoring convenience, not proof acceptance. They do not
+approve proposals, accept evidence, compute results, publish receipts, define
+scoring, declare regression state, or promote local bundles into `aoa-evals`.
+Central source bundle creation remains a separate `aoa-evals` source-authoring
+route.
 
 ## Refresh and Mirror Discipline
 

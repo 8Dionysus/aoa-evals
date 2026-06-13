@@ -53,6 +53,19 @@ CLAIM_FAMILIES = {
     "stress",
     "workflow",
 }
+LOCAL_NOTE_BOUNDARY_TOKENS = ("verdict", "scoring", "regression", "proof doctrine")
+LOCAL_NOTE_CONFIG = {
+    "suites": {
+        "glob": "*.suite.md",
+        "schema_version": "local_eval_suite_note_v1",
+        "label": "local suite note",
+    },
+    "reports": {
+        "glob": "*.report.md",
+        "schema_version": "local_eval_report_note_v1",
+        "label": "local report note",
+    },
+}
 
 
 @dataclass(frozen=True)
@@ -101,6 +114,31 @@ def load_json_payload(path: Path, root: Path, issues: list[ValidationIssue]) -> 
     except json.JSONDecodeError as exc:
         issues.append(ValidationIssue(relative_location(path, root), f"invalid JSON: {exc}"))
     return None
+
+
+def load_markdown_frontmatter(path: Path, root: Path, issues: list[ValidationIssue]) -> dict[str, Any] | None:
+    try:
+        text = path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        issues.append(ValidationIssue(relative_location(path, root), "file is missing"))
+        return None
+    if not text.startswith("---\n"):
+        issues.append(ValidationIssue(relative_location(path, root), "missing YAML frontmatter"))
+        return None
+    try:
+        _, frontmatter, _ = text.split("---\n", 2)
+    except ValueError:
+        issues.append(ValidationIssue(relative_location(path, root), "unterminated YAML frontmatter"))
+        return None
+    try:
+        payload = yaml.safe_load(frontmatter)
+    except yaml.YAMLError as exc:
+        issues.append(ValidationIssue(relative_location(path, root), f"invalid frontmatter YAML: {exc}"))
+        return None
+    if not isinstance(payload, dict):
+        issues.append(ValidationIssue(relative_location(path, root), "frontmatter must contain a mapping"))
+        return None
+    return payload
 
 
 def format_schema_path(path_parts: Sequence[Any]) -> str:
@@ -309,6 +347,64 @@ def validate_local_bundles(
     return bundle_count
 
 
+def validate_local_note_dir(
+    repo_root: Path,
+    evals_dir: Path,
+    directory_name: str,
+    issues: list[ValidationIssue],
+) -> int:
+    config = LOCAL_NOTE_CONFIG[directory_name]
+    directory = evals_dir / directory_name
+    if not directory.is_dir():
+        return 0
+
+    note_count = 0
+    for path in sorted(directory.glob("*.md")):
+        if path.name == "README.md":
+            continue
+        note_count += 1
+        if not path.match(config["glob"]):
+            issues.append(
+                ValidationIssue(
+                    relative_location(path, repo_root),
+                    f"{config['label']} filename must match {config['glob']}",
+                )
+            )
+            continue
+
+        payload = load_markdown_frontmatter(path, repo_root, issues)
+        if payload is None:
+            continue
+        location = relative_location(path, repo_root)
+        if payload.get("schema_version") != config["schema_version"]:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"schema_version must be '{config['schema_version']}'",
+                )
+            )
+        if payload.get("owner_repo") != repo_root.name:
+            issues.append(
+                ValidationIssue(location, f"owner_repo must match target root '{repo_root.name}'")
+            )
+        if payload.get("status") not in {"draft", "reviewed"}:
+            issues.append(ValidationIssue(location, "status must be 'draft' or 'reviewed'"))
+        boundary = payload.get("authority_boundary")
+        if not isinstance(boundary, str) or not boundary.strip():
+            issues.append(ValidationIssue(location, "authority_boundary must be a non-empty string"))
+        else:
+            lowered = boundary.lower()
+            missing = [token for token in LOCAL_NOTE_BOUNDARY_TOKENS if token not in lowered]
+            if missing:
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        "authority_boundary must name no verdict, scoring, regression, or proof doctrine authority",
+                    )
+                )
+    return note_count
+
+
 def validate_status(
     repo_root: Path,
     evals_dir: Path,
@@ -316,24 +412,27 @@ def validate_status(
     *,
     intake_count: int,
     bundle_count: int,
+    suite_count: int,
+    report_count: int,
     issues: list[ValidationIssue],
 ) -> None:
     if not port_payload:
         return
     location = relative_location(evals_dir / "PORT.yaml", repo_root)
     status = port_payload.get("status")
-    if status == "active" and intake_count == 0 and bundle_count == 0:
+    active_count = intake_count + bundle_count + suite_count + report_count
+    if status == "active" and active_count == 0:
         issues.append(
             ValidationIssue(
                 location,
-                "active local eval port must contain at least one intake packet or local bundle",
+                "active local eval port must contain at least one intake packet, local bundle, suite note, or report note",
             )
         )
-    if status == "skeleton" and (intake_count > 0 or bundle_count > 0):
+    if status == "skeleton" and active_count > 0:
         issues.append(
             ValidationIssue(
                 location,
-                "skeleton local eval port must not contain active intake packets or bundles",
+                "skeleton local eval port must not contain active intake packets, bundles, suite notes, or report notes",
             )
         )
 
@@ -349,12 +448,16 @@ def validate_local_eval_port(repo_root: Path) -> list[ValidationIssue]:
     validate_port_docs(repo_root, evals_dir, issues)
     intake_count = validate_intake_payloads(repo_root, evals_dir, issues)
     bundle_count = validate_local_bundles(repo_root, evals_dir, issues)
+    suite_count = validate_local_note_dir(repo_root, evals_dir, "suites", issues)
+    report_count = validate_local_note_dir(repo_root, evals_dir, "reports", issues)
     validate_status(
         repo_root,
         evals_dir,
         port_payload,
         intake_count=intake_count,
         bundle_count=bundle_count,
+        suite_count=suite_count,
+        report_count=report_count,
         issues=issues,
     )
     return issues

@@ -51,8 +51,8 @@ The first wave status values are:
 
 - `skeleton`: the port exists and declares its boundary, but carries no active
   local intake or bundle yet;
-- `active`: the port carries at least one local intake packet or local draft
-  bundle.
+- `active`: the port carries at least one local intake packet, local draft
+  bundle, local suite note, or local report note.
 
 ## Intake
 
@@ -67,6 +67,57 @@ Use `*.eval_need.json` for structured intake. The payload must follow the
 Do not call this layer `candidates/`. A candidate is one possible state; local
 eval intake also includes trace failures, fixture pressure, local suite needs,
 and non-authoring-ready blind spots.
+
+## Local Suites And Reports
+
+`suites/` and `reports/` are local note surfaces for deterministic repo-local
+proof pressure. They preserve fixture families, case lists, local review
+shells, or run summaries before `aoa-evals` adopts a portable bundle.
+
+Use these filenames:
+
+```text
+evals/suites/<slug>.suite.md
+evals/reports/<slug>.report.md
+```
+
+Both files start with YAML frontmatter:
+
+```yaml
+---
+schema_version: local_eval_suite_note_v1
+owner_repo: aoa-memo
+status: draft
+authority_boundary: no verdict, scoring, regression, or proof doctrine authority
+---
+```
+
+Report notes use `schema_version: local_eval_report_note_v1`. The first-wave
+note statuses are `draft` and `reviewed`.
+
+Local suite and report notes may name local cases, fixture expectations,
+evidence refs, and review questions. They must not compute final verdicts,
+define scoring truth, declare regression status, publish receipts, or invent
+proof doctrine.
+
+## MCP Federation And Writes
+
+The `aoa_evals` MCP access plane may federate local ports across the workspace.
+It may list ports, inspect one port, read local intake/suite/report surfaces,
+and prepare route-first local write plans.
+
+Write-side MCP in the first federation wave is limited to local port files:
+
+- `evals/intake/*.eval_need.json`;
+- `evals/suites/*.suite.md`;
+- `evals/reports/*.report.md`;
+- `evals/PORT.yaml` status movement from `skeleton` to `active` when the same
+  gated write adds the first local pressure file.
+
+The MCP must not create central `aoa-evals/evals/**` source bundles, compute
+verdicts, define scoring, mark regression truth, publish receipts, or accept
+evidence. Central adoption still routes through `aoa-evals` source bundle
+review and the eval authoring scaffold.
 
 ## Local Ownership
 
@@ -119,12 +170,13 @@ The local port validator is deterministic and safe for repo checks:
 python ../aoa-evals/scripts/validate_local_eval_port.py --target-root .
 ```
 
-It confirms the port shape, `PORT.yaml`, `eval_need_v1` intake payloads, and
-the boundary that central proof authority remains in `aoa-evals`.
+It confirms the port shape, `PORT.yaml`, `eval_need_v1` intake payloads, local
+suite/report note frontmatter, local active/skeleton status, and the boundary
+that central proof authority remains in `aoa-evals`.
 
-## First-Wave Repos
+## Coverage Waves
 
-The first local eval-port wave covers:
+The first local eval-port wave covered:
 
 - `aoa-memo` as the first active port;
 - `aoa-routing`;
@@ -136,6 +188,25 @@ The first local eval-port wave covers:
 Skeleton ports are acceptable during the first wave as long as they state their
 future local pressure honestly and do not carry fake bundles.
 
+The next coverage wave extends the same contract to other owner repositories
+that produce repo-local eval pressure while work is happening there:
+
+- `8Dionysus` for public-entry and workspace-route proof pressure;
+- `Agents-of-Abyss` for center and federation-boundary proof pressure;
+- `Tree-of-Sophia` for ToS source, doctrine, and relation proof pressure;
+- `ATM10-Agent` for companion, perception, retrieval, and safe-automation proof
+  pressure;
+- `Dionysus` for seed, wave, planting, and replay proof pressure;
+- `aoa-skills` for skill-trigger and workflow proof pressure;
+- `aoa-techniques` for technique-canon and reusable-practice proof pressure;
+- `aoa-playbooks` for scenario, fallback, handoff, and real-run proof
+  pressure;
+- `abyss-machine` for host-machine proof pressure under the host change-ledger
+  and storage-policy boundary.
+
+The coverage wave changes where pressure may be captured; it does not move
+central proof authority out of `aoa-evals`.
+
 ## Stop-Lines
 
 Route away when:
@@ -143,6 +214,8 @@ Route away when:
 - a local report reads like a central verdict;
 - a skeleton port starts implying an active suite;
 - a trace failure becomes proof without review;
+- write-side MCP starts writing central bundles, verdicts, scores, regression
+  truth, or receipts;
 - a local eval bundle duplicates an existing central bundle without a
   route-first check;
 - a sibling repo starts defining proof doctrine instead of local evidence

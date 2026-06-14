@@ -482,7 +482,8 @@ def expected_family(manifest: dict[str, Any]) -> Path | None:
     if baseline_mode != "none":
         if not isinstance(baseline_mode, str) or not baseline_mode:
             return None
-        return Path("comparison") / baseline_mode
+        family = "fixed-baseline" if baseline_mode == "previous-version" else baseline_mode
+        return Path("comparison") / family
     if not isinstance(category, str) or category not in CLAIM_FAMILIES:
         return None
     return Path(category)

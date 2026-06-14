@@ -20,6 +20,7 @@ SCHEMA_PATH = PART_ROOT / "schemas" / "eval-need.schema.json"
 CATALOG_PATH = "generated/eval_catalog.min.json"
 COMPARISON_FAMILY_BY_BASELINE_MODE = {
     "fixed-baseline": ("comparison", "fixed-baseline"),
+    "previous-version": ("comparison", "fixed-baseline"),
     "peer-compare": ("comparison", "peer-compare"),
     "longitudinal-window": ("comparison", "longitudinal-window"),
 }
@@ -30,6 +31,13 @@ COMPARISON_SURFACE_DEFAULTS = {
         "integrity_sidecar": "aoa-eval-integrity-check",
         "anchor_surface": "aoa-bounded-change-quality",
         "baseline_target_label": "draft fixed-baseline reference",
+    },
+    "previous-version": {
+        "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "anchor_surface": "aoa-bounded-change-quality",
+        "baseline_target_label": "draft previous-version reference",
     },
     "peer-compare": {
         "shared_family_path": "mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md",
@@ -313,7 +321,7 @@ def comparison_surface_for(proposal: dict[str, Any]) -> dict[str, Any] | None:
         for ref in proposal.get("related_eval_refs", [])
         if isinstance(ref, str) and ref != proposal.get("name")
     ]
-    if baseline_mode in {"fixed-baseline", "longitudinal-window"} and related_refs:
+    if baseline_mode in {"fixed-baseline", "previous-version", "longitudinal-window"} and related_refs:
         surface["anchor_surface"] = related_refs[0]
     if baseline_mode == "peer-compare" and related_refs:
         surface["peer_surfaces"] = related_refs

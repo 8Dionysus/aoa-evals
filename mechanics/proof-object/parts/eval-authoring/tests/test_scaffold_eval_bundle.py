@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 import sys
 
+import yaml
+
 
 REPO_ROOT = Path(__file__).resolve().parents[5]
 SCRIPTS_DIR = REPO_ROOT / "scripts"
@@ -297,6 +299,86 @@ def test_allow_new_write_creates_valid_fixed_baseline_comparative_draft(tmp_path
         "aoa-bounded-change-quality",
         "aoa-eval-integrity-check",
         "aoa-runtime-latency-tradeoff",
+    ]
+
+
+def test_previous_version_comparative_draft_uses_fixed_baseline_surface(tmp_path: Path) -> None:
+    module = load_scaffold_module()
+    seed_comparison_support_surfaces(tmp_path)
+    seed_existing_bundle(
+        module,
+        tmp_path,
+        name="aoa-bounded-change-quality",
+        category="workflow",
+        summary="Existing workflow anchor for bounded change quality.",
+        object_under_evaluation="bounded change workflow",
+    )
+    seed_existing_bundle(
+        module,
+        tmp_path,
+        name="aoa-eval-integrity-check",
+        category="capability",
+        summary="Existing integrity sidecar for eval review.",
+        object_under_evaluation="eval integrity sidecar",
+    )
+    write_catalog(
+        tmp_path,
+        [
+            catalog_entry(
+                "aoa-bounded-change-quality",
+                "workflow",
+                "Existing workflow anchor for bounded change quality.",
+                "bounded change workflow",
+            ),
+            catalog_entry(
+                "aoa-eval-integrity-check",
+                "capability",
+                "Existing integrity sidecar for eval review.",
+                "eval integrity sidecar",
+            ),
+        ],
+    )
+
+    result = module.route_result(
+        proposal=proposal(
+            name="aoa-previous-version-delta",
+            proof_question="Compare a candidate version against the previous reviewed version.",
+            origin_need="OS Abyss needs previous-version comparison scaffolds to keep baseline posture explicit.",
+            summary="Checks whether a candidate version regresses against the previous reviewed version.",
+            object_under_evaluation="previous version delta under matched fixture conditions",
+            category="comparative",
+            claim_type="comparative",
+            baseline_mode="previous-version",
+            report_format="comparative-summary",
+            verdict_shape="comparative",
+            related_eval_refs=["aoa-bounded-change-quality"],
+            source_refs=["mechanics/comparison-spine/parts/fixed-baseline/README.md"],
+        ),
+        repo_root=tmp_path,
+        allow_new=True,
+        write=True,
+    )
+
+    assert result["outcome"] == "created_new_draft"
+    assert result["target_path"] == "evals/comparison/fixed-baseline/aoa-previous-version-delta"
+    bundle_dir = tmp_path / "evals" / "comparison" / "fixed-baseline" / "aoa-previous-version-delta"
+    manifest = yaml.safe_load((bundle_dir / "eval.yaml").read_text(encoding="utf-8"))
+    comparison_surface = manifest["comparison_surface"]
+    assert comparison_surface["shared_family_path"] == (
+        "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+    )
+    assert comparison_surface["paired_readout_path"] == (
+        "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md"
+    )
+    assert comparison_surface["anchor_surface"] == "aoa-bounded-change-quality"
+    assert comparison_surface["baseline_target_label"] == "draft previous-version reference"
+
+    issues, records = source_eval_collection_validator.collect_catalog_records(tmp_path)
+    assert issues == []
+    assert sorted(record.name for record in records) == [
+        "aoa-bounded-change-quality",
+        "aoa-eval-integrity-check",
+        "aoa-previous-version-delta",
     ]
 
 

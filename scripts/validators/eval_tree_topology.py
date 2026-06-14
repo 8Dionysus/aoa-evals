@@ -84,12 +84,22 @@ def validate_source_eval_tree_topology_surfaces(repo_root: Path) -> list[Validat
             )
         )
 
-    require_tokens(
+    agents_text = require_tokens(
         repo_root=repo_root,
         path_name=EVALS_AGENTS_NAME,
-        tokens=("source-tree topology", *SOURCE_EVAL_TREE_TOPOLOGY_COMMANDS),
+        tokens=("source-tree topology",),
         issues=issues,
     )
+    if agents_text:
+        agents_validation_section = markdown_heading_section(agents_text, "Validation")
+        for command in SOURCE_EVAL_TREE_TOPOLOGY_COMMANDS:
+            if command not in agents_validation_section:
+                issues.append(
+                    ValidationIssue(
+                        EVALS_AGENTS_NAME,
+                        f"Validation section must mention required source-tree topology command: {command}",
+                    )
+                )
     require_tokens(
         repo_root=repo_root,
         path_name=DECISION_INDEX_BY_NUMBER_NAME,

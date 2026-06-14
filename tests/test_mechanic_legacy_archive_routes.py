@@ -48,6 +48,28 @@ def test_mechanic_legacy_readmes_validate_entry_contract() -> None:
     )
 
 
+def test_mechanic_legacy_readmes_reject_missing_boundary_stop_line(
+    tmp_path: Path,
+) -> None:
+    readme_name = "mechanics/experience/legacy/README.md"
+    stop_line = "Legacy is not active topology or a new-work entrypoint."
+    copy_repo_text(tmp_path, readme_name)
+    readme_path = tmp_path / readme_name
+    readme_path.write_text(
+        readme_path.read_text(encoding="utf-8").replace(stop_line, ""),
+        encoding="utf-8",
+    )
+
+    issues = mechanic_parent_allowlist_validator.validate_mechanics_parent_allowlist(
+        tmp_path
+    )
+
+    assert any(
+        issue.location == readme_name and stop_line in issue.message
+        for issue in issues
+    )
+
+
 def test_mechanic_legacy_archive_route_language_validates_current_routes() -> None:
     assert (
         mechanic_legacy_archive_validator.validate_mechanic_legacy_archive_route_language(

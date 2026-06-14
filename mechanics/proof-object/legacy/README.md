@@ -29,3 +29,4 @@ old-path lookup, `DISTILLATION_LOG.md` for raw-to-active accounting, and
 
 This legacy directory is an archive-local route: it returns historical sources
 to the current active route and keeps archive-local accounting in legacy.
+Legacy is not active topology or a new-work entrypoint.

@@ -345,6 +345,34 @@ def test_port_boundary_accepts_route_to_aoa_evals_authority(tmp_path: Path) -> N
     assert validate_local_eval_port.validate_local_eval_port(repo_root) == []
 
 
+def test_port_boundary_accepts_modal_route_to_aoa_evals_authority(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "verdict, scoring, regression, and proof doctrine authority must "
+            "be routed to aoa-evals"
+        ),
+    )
+
+    assert validate_local_eval_port.validate_local_eval_port(repo_root) == []
+
+
+def test_port_boundary_accepts_modal_active_route_to_aoa_evals_authority(
+    tmp_path: Path,
+) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "verdict, scoring, regression, and proof doctrine authority must "
+            "route to aoa-evals"
+        ),
+    )
+
+    assert validate_local_eval_port.validate_local_eval_port(repo_root) == []
+
+
 def test_port_boundary_rejects_route_for_only_one_authority_term(tmp_path: Path) -> None:
     repo_root = tmp_path / "aoa-routing"
     make_port(

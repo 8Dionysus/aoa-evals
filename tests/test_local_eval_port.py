@@ -276,3 +276,18 @@ def test_port_boundary_rejects_local_authority_affirmation(tmp_path: Path) -> No
     issues = validate_local_eval_port.validate_local_eval_port(repo_root)
 
     assert any("central_boundary" in issue.message for issue in issues)
+
+
+def test_port_boundary_rejects_split_denial_then_local_authority(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "no central authority; local verdict, scoring, regression, "
+            "and proof doctrine authority"
+        ),
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("central_boundary" in issue.message for issue in issues)

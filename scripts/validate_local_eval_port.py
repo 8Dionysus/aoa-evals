@@ -44,9 +44,9 @@ REQUIRED_PORT_FIELDS = (
 )
 VALID_STATUSES = {"skeleton", "active"}
 AUTHORITY_BOUNDARY_TOKENS = ("verdict", "scoring", "regression", "proof doctrine")
-AUTHORITY_DENIAL_PATTERN = re.compile(
-    r"\b(no|without)\b[^.\n;:]*\bauthority\b|\bnon-authoritative\b|\bno-authority\b"
-)
+AUTHORITY_CLAUSE_SPLIT_RE = re.compile(r"[.;:\n]+")
+AUTHORITY_DENIAL_TERM_RE = re.compile(r"\b(no|without)\b")
+AUTHORITY_NO_AUTHORITY_MARKERS = ("non-authoritative", "no-authority")
 CLAIM_FAMILIES = {
     "artifact",
     "boundary",
@@ -163,6 +163,39 @@ def eval_need_validator() -> Draft202012Validator:
     return Draft202012Validator(schema)
 
 
+def authority_boundary_clauses(text: str) -> list[str]:
+    return [clause.strip() for clause in AUTHORITY_CLAUSE_SPLIT_RE.split(text) if clause.strip()]
+
+
+def authority_boundary_clause_names_proof_authority(clause: str) -> bool:
+    return any(token in clause for token in AUTHORITY_BOUNDARY_TOKENS)
+
+
+def authority_boundary_clause_denies_authority(clause: str) -> bool:
+    if not authority_boundary_clause_names_proof_authority(clause):
+        return False
+    if any(marker in clause for marker in AUTHORITY_NO_AUTHORITY_MARKERS):
+        return True
+    return bool(AUTHORITY_DENIAL_TERM_RE.search(clause)) and "authority" in clause
+
+
+def central_boundary_denies_local_authority(text: str) -> bool:
+    return any(
+        authority_boundary_clause_denies_authority(clause)
+        for clause in authority_boundary_clauses(text)
+    )
+
+
+def central_boundary_affirms_local_authority(text: str) -> bool:
+    return any(
+        "local" in clause
+        and "authority" in clause
+        and authority_boundary_clause_names_proof_authority(clause)
+        and not authority_boundary_clause_denies_authority(clause)
+        for clause in authority_boundary_clauses(text)
+    )
+
+
 def validate_port_file(
     repo_root: Path,
     evals_dir: Path,
@@ -210,7 +243,15 @@ def validate_port_file(
                     "or proof doctrine authority",
                 )
             )
-        elif not AUTHORITY_DENIAL_PATTERN.search(lowered):
+        elif central_boundary_affirms_local_authority(lowered):
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "central_boundary must not grant local verdict, scoring, "
+                    "regression, or proof doctrine authority",
+                )
+            )
+        elif not central_boundary_denies_local_authority(lowered):
             issues.append(
                 ValidationIssue(
                     location,

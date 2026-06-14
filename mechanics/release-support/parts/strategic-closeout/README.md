@@ -19,8 +19,8 @@ owner-visible final audit gate for the accumulated refactor route.
 The artifact reviews the long refactor goal requirement by requirement. It may
 state local handoff readiness. Goal completion routes through a current
 objective audit proving the mechanics-refactor definition of done from the
-worktree plus the requested landing route: commit, push, PR review, GitHub
-`Repo Validation`, merge, fast-forward `main`, and clean worktree. Those
+worktree plus the requested landing route: commit, push, PR review, GitHub `Repo Validation`,
+merge, fast-forward `main`, and clean worktree. Those
 landing facts are proof for this route and inputs to the objective audit. Short
 form: goal open until the current objective audit proves completion and the
 requested landing route lands cleanly.

@@ -71,7 +71,7 @@ def validate_strategic_closeout_audit_surface(
                 (
                     STRATEGIC_CLOSEOUT_AUDIT_NAME,
                     "goal open",
-                    "GitHub",
+                    "GitHub `Repo Validation`",
                     "current objective audit",
                 ),
             ),

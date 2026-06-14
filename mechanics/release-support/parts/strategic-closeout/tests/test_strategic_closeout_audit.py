@@ -186,6 +186,32 @@ def test_strategic_closeout_audit_surface_validates_current_route() -> None:
     assert validate_strategic_closeout_audit_surface(REPO_ROOT) == []
 
 
+def test_strategic_closeout_readme_rejects_generic_github_gate(
+    tmp_path: Path,
+) -> None:
+    make_strategic_closeout_audit_surface(tmp_path)
+    readme_name = (
+        release_support_strategic_closeout_report_validator.RELEASE_SUPPORT_STRATEGIC_CLOSEOUT_PART_README_NAME
+    )
+    copy_repo_text(tmp_path, readme_name)
+    readme_path = tmp_path / readme_name
+    readme_path.write_text(
+        readme_path.read_text(encoding="utf-8").replace(
+            "GitHub `Repo Validation`",
+            "GitHub",
+            1,
+        ),
+        encoding="utf-8",
+    )
+
+    issues = validate_strategic_closeout_audit_surface(tmp_path)
+
+    assert any(
+        issue.location == readme_name and "GitHub `Repo Validation`" in issue.message
+        for issue in issues
+    )
+
+
 def test_strategic_closeout_audit_rejects_goal_completion_claim(
     tmp_path: Path,
 ) -> None:

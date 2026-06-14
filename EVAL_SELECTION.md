@@ -47,6 +47,7 @@ This surface prefers:
 | `aoa-self-reanchor-correctness` | draft | You need reanchor checked against the last valid artifact. |
 | `aoa-witness-trace-integrity` | draft | You need a bounded run checked for a reviewable witness trace before memo or compost use. |
 | `aoa-regression-same-task` | baseline | You need frozen-baseline comparison on the same bounded task family. |
+| `aoa-runtime-latency-tradeoff` | draft | You need a public-safe runtime latency and resource-use tradeoff read under matched fixture conditions. |
 | `aoa-artifact-review-rubric` | portable | You need the produced artifact judged on the visible task surface. |
 | `aoa-compost-provenance-preservation` | draft | You need witness-derived compost checked for provenance and review posture. |
 | `aoa-output-vs-process-gap` | draft | You need artifact-side and process-side readings compared on matched conditions after both standalone readings exist. |

@@ -447,6 +447,28 @@ class TestValidateQuestbookSurface:
 
         assert any("integration note must mention 'verdict-bridge'" in issue.message for issue in issues)
 
+    def test_generated_quest_surfaces_require_anti_authority_token(
+        self, tmp_path: Path
+    ) -> None:
+        make_questbook_surface(tmp_path)
+        integration_path = (
+            tmp_path / "docs" / "operations" / "QUESTBOOK_EVAL_INTEGRATION.md"
+        )
+        integration_text = integration_path.read_text(encoding="utf-8").replace(
+            "not live portable verdict authority",
+            "only generated review projection",
+            1,
+        )
+        integration_path.write_text(integration_text, encoding="utf-8")
+
+        issues = validate_questbook_surface(tmp_path)
+
+        assert any(
+            "integration note must mention 'not live portable verdict authority'"
+            in issue.message
+            for issue in issues
+        )
+
     def test_missing_quest_yaml_fails(self, tmp_path: Path) -> None:
         make_questbook_surface(tmp_path)
         quest_fixture_path(tmp_path, "AOA-EV-Q-0002").unlink()

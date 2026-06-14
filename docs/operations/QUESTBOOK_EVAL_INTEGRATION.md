@@ -74,7 +74,7 @@ Its allowed outcomes are:
 ## Generated quest surfaces
 
 The live generated quest catalog and dispatch surfaces are repo-local review
-projection and validation projection over source quest records.
+projection and validation projection over source quest records, not live portable verdict authority.
 The matching example files remain versioned example-only surfaces and example
 mirrors.
 Portable verdict authority stays with eval bundle evidence, mechanic proof

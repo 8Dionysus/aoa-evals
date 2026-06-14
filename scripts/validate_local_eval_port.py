@@ -73,7 +73,8 @@ AUTHORITY_ROUTE_TAIL_STOP_RE = re.compile(
     r"[.;:\n]+|\b(?:but|while|whereas)\b"
 )
 AUTHORITY_ROUTE_SUBJECT_PREFIX_RE = re.compile(
-    r"\bauthority(?:\s+(?:is|are|be|being|been))?\s*$"
+    r"\bauthority(?:\s+(?:(?:is|are|be|being|been)|"
+    r"(?:must|should|shall|will|can|could|may|might)(?:\s+be)?))?\s*$"
 )
 CLAIM_FAMILIES = {
     "artifact",

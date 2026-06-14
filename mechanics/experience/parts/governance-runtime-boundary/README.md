@@ -57,7 +57,7 @@ Boundary routes keep governance-runtime pressure with the owner that can act on 
 | --- | --- |
 | governance authority pressure | Agents-of-Abyss center governance route |
 | runtime enforcement pressure | `abyss-stack` runtime route |
-| Tree-of-Sophia write or meaning pressure | Tree-of-Sophia authored-meaning route |
+| direct ToS runtime write or ToS-authored meaning pressure | Tree-of-Sophia authored-meaning route |
 | constitution interpretation pressure | Agents-of-Abyss constitution route |
 | sealed-vote authority pressure | owner governance acceptance route |
 | appeal or stay-order pressure | owner repository and Agents-of-Abyss governance route |

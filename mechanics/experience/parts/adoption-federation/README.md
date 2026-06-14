@@ -56,7 +56,7 @@ Boundary routes keep adoption-federation pressure with the owner that can act on
 | owner-local adoption pressure | owner repository adoption route |
 | owner consent pressure | owner repository consent route |
 | KAG adoption pressure | `aoa-kag` substrate route plus owner consent |
-| Tree-of-Sophia meaning or write pressure | Tree-of-Sophia authored-meaning route |
+| direct ToS runtime write or ToS-authored meaning pressure | Tree-of-Sophia authored-meaning route |
 | memory canon or memo adoption pressure | `aoa-memo` memory route |
 | routing authorship pressure | `aoa-routing` route-authority lane |
 | automatic activation pressure | owner activation and runtime route |

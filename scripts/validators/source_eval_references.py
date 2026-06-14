@@ -15,6 +15,7 @@ from validators.source_eval_common import CONTRACT_ROOT, relative_location
 SOURCE_EVALS_DIR_NAME = "evals"
 COMPARISON_FAMILY_BY_BASELINE_MODE = {
     "fixed-baseline": ("comparison", "fixed-baseline"),
+    "previous-version": ("comparison", "fixed-baseline"),
     "peer-compare": ("comparison", "peer-compare"),
     "longitudinal-window": ("comparison", "longitudinal-window"),
 }

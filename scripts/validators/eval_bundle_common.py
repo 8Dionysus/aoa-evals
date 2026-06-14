@@ -122,7 +122,8 @@ def expected_manifest_parent(payload: dict[str, Any]) -> Path | None:
     if baseline_mode and baseline_mode != "none":
         if not isinstance(baseline_mode, str):
             return None
-        return EVALS_DIR / "comparison" / baseline_mode / name
+        family = "fixed-baseline" if baseline_mode == "previous-version" else baseline_mode
+        return EVALS_DIR / "comparison" / family / name
     if not isinstance(category, str) or not category:
         return None
     return EVALS_DIR / category / name

@@ -134,6 +134,7 @@ MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_REQUIRED_TOKENS = (
     "Source surfaces updated",
     "mechanics/AGENTS.md#validation",
     "focused mechanic part payload-inventory guard",
+    MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND,
 )
 MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_REQUIRED_TOKENS = (
     "Mechanic Part Source Surface Reference Guard",

@@ -179,9 +179,15 @@ def test_mechanic_part_payload_inventory_validates_current_routes() -> None:
 def test_mechanic_part_payload_inventory_rejects_active_decision_command_list(
     tmp_path: Path,
 ) -> None:
-    copy_repo_text(tmp_path, mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME)
+    copy_repo_text(
+        tmp_path,
+        mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME,
+    )
     copy_repo_text(tmp_path, mechanic_part_contract_common.MECHANICS_AGENTS_NAME)
-    decision_path = tmp_path / mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
+    decision_path = (
+        tmp_path
+        / mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
+    )
     decision_path.write_text(
         decision_path.read_text(encoding="utf-8").replace(
             "## Validation\n\nUse",
@@ -191,11 +197,37 @@ def test_mechanic_part_payload_inventory_rejects_active_decision_command_list(
         encoding="utf-8",
     )
 
-    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(
+        tmp_path
+    )
 
     assert any(
         issue.location == mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
         and "mechanics/AGENTS.md#validation" in issue.message
+        for issue in issues
+    )
+
+
+def test_mechanic_part_payload_inventory_requires_superseded_command_string(
+    tmp_path: Path,
+) -> None:
+    copy_repo_text(tmp_path, mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME)
+    copy_repo_text(tmp_path, mechanic_part_contract_common.MECHANICS_AGENTS_NAME)
+    decision_path = tmp_path / mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
+    decision_path.write_text(
+        decision_path.read_text(encoding="utf-8").replace(
+            mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND,
+            "python -m pytest -q tests/test_mechanic_part_contracts.py -k changed_guard",
+            1,
+        ),
+        encoding="utf-8",
+    )
+
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+
+    assert any(
+        issue.location == mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
+        and mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND in issue.message
         for issue in issues
     )
 

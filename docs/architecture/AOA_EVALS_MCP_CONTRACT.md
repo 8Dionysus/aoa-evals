@@ -34,7 +34,7 @@ The proof authority remains:
 | source eval bundle | owns claim, object under evaluation, verdict logic, report contract, blind spots, and interpretation limits |
 | generated readers | provide deterministic catalog, capsule, section, comparison, and report lookup |
 | runtime-candidate readers | provide candidate evidence and artifact-to-verdict hook shapes that still require bundle-local review |
-| `aoa_evals` MCP | exposes compact read-only access to the above surfaces |
+| `aoa_evals` MCP | exposes compact proof/candidate read access and narrow gated sibling-local eval-port writes |
 | `abyss-stack` service | runs the stdio MCP server and resolves source or approved mirror paths |
 | `abyss-stack` runtime export lane | owns private `Logs/eval-exports/` candidate records |
 
@@ -78,9 +78,9 @@ MCP output is always weaker than the source bundle and its manifest.
 | `aoa_evals_local_ports(status, include_skeleton)` | list repo-local eval ports and validation summaries | treat local pressure as accepted proof |
 | `aoa_evals_local_port(repo)` | inspect one repo-local eval port, counts, and owner boundary | override the sibling repo's local route card |
 | `aoa_evals_find_or_propose_local(repo, proof_question, proposal)` | shape a local `eval_need_v1` packet and target route for a sibling port | write source, approve proposal, or skip existing-route review |
-| `aoa_evals_write_local_intake(repo, packet, file_slug, apply)` | dry-run or write one local intake packet under `repo/evals/intake/` | write central bundles, overwrite silently, accept proof, or bypass validation |
-| `aoa_evals_write_local_suite_note(repo, suite_slug, title, summary, body_markdown, refs, apply)` | dry-run or write one local suite note under `repo/evals/suites/` | define scoring truth, final verdicts, or regression authority |
-| `aoa_evals_write_local_report_note(repo, report_slug, title, summary, body_markdown, refs, apply)` | dry-run or write one local report note under `repo/evals/reports/` | publish receipts, compute verdicts, or claim central report authority |
+| `aoa_evals_write_local_intake(repo, packet, file_slug, apply, replace_existing)` | dry-run or write one local intake packet under `repo/evals/intake/` | write central bundles, overwrite silently, accept proof, or bypass validation |
+| `aoa_evals_write_local_suite_note(repo, suite_slug, title, summary, body_markdown, refs, apply, replace_existing)` | dry-run or write one local suite note under `repo/evals/suites/` | define scoring truth, final verdicts, or regression authority |
+| `aoa_evals_write_local_report_note(repo, report_slug, title, summary, body_markdown, refs, apply, replace_existing)` | dry-run or write one local report note under `repo/evals/reports/` | publish receipts, compute verdicts, or claim central report authority |
 
 ## MCP Prompts
 
@@ -177,7 +177,8 @@ Write-side MCP is intentionally narrow:
 - when a skeleton port receives its first valid local pressure file, MCP may
   move `evals/PORT.yaml` from `status: skeleton` to `status: active` in the
   same operation;
-- overwrite requires an explicit replace flag in the stack implementation.
+- overwrite requires an explicit `replace_existing=true` flag in the stack
+  implementation and contract.
 
 These writes are authoring convenience, not proof acceptance. They do not
 approve proposals, accept evidence, compute results, publish receipts, define

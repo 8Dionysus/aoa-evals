@@ -44,6 +44,10 @@ def validate_distillation_route_surfaces(
             distillation_tokens.DISTILLATION_MECHANIC_REQUIRED_TOKENS,
         ),
         (
+            distillation_paths.DISTILLATION_MECHANIC_DIRECTION_NAME,
+            distillation_tokens.DISTILLATION_MECHANIC_DIRECTION_REQUIRED_TOKENS,
+        ),
+        (
             distillation_paths.DISTILLATION_MECHANIC_AGENTS_NAME,
             distillation_tokens.DISTILLATION_MECHANIC_AGENTS_REQUIRED_TOKENS,
         ),

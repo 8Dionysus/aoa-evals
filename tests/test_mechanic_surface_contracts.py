@@ -916,6 +916,29 @@ def test_distillation_part_readmes_reject_missing_stop_lines_contract(
     )
 
 
+def test_distillation_direction_rejects_missing_parent_stop_line_route(
+    tmp_path: Path,
+) -> None:
+    direction_name = distillation_paths_validator.DISTILLATION_MECHANIC_DIRECTION_NAME
+    stop_line = (
+        "| runtime activation or hidden runtime-store pressure | "
+        "`abyss-stack` runtime route |"
+    )
+    copy_repo_text(tmp_path, direction_name)
+    direction_path = tmp_path / direction_name
+    direction_path.write_text(
+        direction_path.read_text(encoding="utf-8").replace(stop_line, ""),
+        encoding="utf-8",
+    )
+
+    issues = mechanics_routes_validator.validate_mechanics_surfaces(tmp_path)
+
+    assert any(
+        issue.location == direction_name and stop_line in issue.message
+        for issue in issues
+    )
+
+
 def test_growth_cycle_diagnosis_gate_rejects_missing_owner_split_contract(
     tmp_path: Path,
 ) -> None:

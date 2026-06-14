@@ -25,6 +25,16 @@ DISTILLATION_MECHANIC_REQUIRED_TOKENS = (
     "| memo recall pressure | `mechanics/recurrence/parts/memory-recall/` route |",
     "python scripts/validate_repo.py --eval aoa-compost-provenance-preservation",
 )
+DISTILLATION_MECHANIC_DIRECTION_REQUIRED_TOKENS = (
+    "Distillation Direction",
+    "current operating direction",
+    "Stop-lines",
+    "| summary-as-proof pressure | source trace, source bundle, and bundle-local review route |",
+    "| raw deletion authority pressure | owner repository source-retention route |",
+    "| proof verdict without bundle-local review pressure | bundle-local review route |",
+    "| memory canon, recall sovereignty, or live memory-ledger pressure | `aoa-memo` memory route |",
+    "| runtime activation or hidden runtime-store pressure | `abyss-stack` runtime route |",
+)
 DISTILLATION_MECHANIC_AGENTS_REQUIRED_TOKENS = (
     "Distillation proof work",
     "mechanics/distillation/PARTS.md",

@@ -87,6 +87,7 @@ EXPERIENCE_ADOPTION_PART_REQUIRED_TOKENS = (
     "federation-harvest",
     "KAG/ToS boundary",
     "| owner-local adoption pressure | owner repository adoption route |",
+    "| direct ToS runtime write or ToS-authored meaning pressure | Tree-of-Sophia authored-meaning route |",
     "| routing authorship pressure | `aoa-routing` route-authority lane |",
     "| runtime distillation candidate adoption pressure | `mechanics/distillation/parts/runtime-candidate-adoption/` |",
     "python scripts/build_catalog.py --check",
@@ -101,6 +102,7 @@ EXPERIENCE_GOVERNANCE_PART_REQUIRED_TOKENS = (
     "constitution-runtime",
     "| governance authority pressure | Agents-of-Abyss center governance route |",
     "| runtime enforcement pressure | `abyss-stack` runtime route |",
+    "| direct ToS runtime write or ToS-authored meaning pressure | Tree-of-Sophia authored-meaning route |",
     "python scripts/validate_repo.py",
 ) + EXPERIENCE_PART_README_COMMON_REQUIRED_TOKENS
 EXPERIENCE_OFFICE_PART_REQUIRED_TOKENS = (

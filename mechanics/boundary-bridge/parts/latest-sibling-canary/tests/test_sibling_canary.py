@@ -162,6 +162,52 @@ def test_sibling_canary_prefers_source_checkout_for_abyss_stack(tmp_path: Path, 
     assert captured["abyss_stack"] == source_root.resolve()
 
 
+def test_sibling_canary_overrides_questbook_context_agents_root(tmp_path: Path, monkeypatch) -> None:
+    repo_root = tmp_path / "aoa-evals"
+    repo_root.mkdir(parents=True)
+    agents_root = tmp_path / "aoa-agents-latest"
+    agents_root.mkdir()
+
+    matrix_path = repo_root / CANARY_MATRIX_RELATIVE
+    write_matrix(
+        matrix_path,
+        [
+            {
+                "repo": "aoa-agents",
+                "root_variable": "AOA_AGENTS_ROOT",
+                "path": "../aoa-agents-latest",
+                "purpose": "fixture agents questbook check",
+                "resolver": "direct",
+            }
+        ],
+    )
+
+    original_agents_root = run_sibling_canary.questbook_context.AOA_AGENTS_ROOT
+    captured: dict[str, Path] = {}
+
+    def fake_invoke(repo_root_arg: Path) -> tuple[int, str]:
+        assert repo_root_arg == repo_root.resolve()
+        captured["root_context"] = run_sibling_canary.root_context.AOA_AGENTS_ROOT
+        captured["questbook_context"] = run_sibling_canary.questbook_context.AOA_AGENTS_ROOT
+        return 0, "Validation passed for 0 eval bundles."
+
+    monkeypatch.setattr(run_sibling_canary, "invoke_validator", fake_invoke)
+
+    exit_code = run_sibling_canary.main(
+        [
+            "--repo-root",
+            str(repo_root),
+            "--matrix",
+            CANARY_MATRIX_NAME,
+        ]
+    )
+
+    assert exit_code == 0
+    assert captured["root_context"] == agents_root.resolve()
+    assert captured["questbook_context"] == agents_root.resolve()
+    assert run_sibling_canary.questbook_context.AOA_AGENTS_ROOT == original_agents_root
+
+
 def test_sibling_canary_reports_missing_repo_path(tmp_path: Path) -> None:
     repo_root = tmp_path / "aoa-evals"
     repo_root.mkdir(parents=True)

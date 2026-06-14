@@ -16,7 +16,7 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import validate_repo
-from validators import root_context
+from validators import questbook_context, root_context
 
 
 ROOT_VARIABLE_NAMES = {
@@ -150,11 +150,24 @@ def override_validate_repo_roots(
         name: getattr(root_context, name)
         for name in tracked_attributes
     }
+    questbook_tracked_attributes = [
+        name for name in ROOT_VARIABLE_NAMES if hasattr(questbook_context, name)
+    ]
+    original_questbook_values = {
+        name: getattr(questbook_context, name)
+        for name in questbook_tracked_attributes
+    }
     original_strict = os.environ.get(root_context.STRICT_SIBLING_COMPAT_ENV)
     try:
         os.environ[root_context.STRICT_SIBLING_COMPAT_ENV] = "1"
         for entry in entries:
             setattr(root_context, str(entry["root_variable"]), Path(entry["resolved_path"]))
+            if hasattr(questbook_context, str(entry["root_variable"])):
+                setattr(
+                    questbook_context,
+                    str(entry["root_variable"]),
+                    Path(entry["resolved_path"]),
+                )
         root_context.refresh_roots(repo_root)
         yield
     finally:
@@ -164,6 +177,8 @@ def override_validate_repo_roots(
             os.environ[root_context.STRICT_SIBLING_COMPAT_ENV] = original_strict
         for name, value in original_values.items():
             setattr(root_context, name, value)
+        for name, value in original_questbook_values.items():
+            setattr(questbook_context, name, value)
 
 
 def invoke_validator(repo_root: Path) -> tuple[int, str]:

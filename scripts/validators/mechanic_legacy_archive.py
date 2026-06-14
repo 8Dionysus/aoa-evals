@@ -73,8 +73,13 @@ MECHANIC_LEGACY_SKELETON_DECISION_REQUIRED_TOKENS = (
     "python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k mechanic_legacy_raw_payload",
 )
 
+MECHANIC_LEGACY_ARCHIVE_COMMAND_WORD_RE = (
+    r"(?:python|pytest|uv|bash|sh|zsh|fish|make|node|npm|npx|pnpm|yarn|cargo|go|deno|ruby)"
+)
 MECHANIC_LEGACY_ARCHIVE_COMMAND_RE = re.compile(
-    r"```(?:bash|sh)\b|`python (?:scripts/|-m pytest)|^python (?:scripts/|-m pytest)",
+    rf"```[^\n`]*\n[\s\S]*?^\s*{MECHANIC_LEGACY_ARCHIVE_COMMAND_WORD_RE}\b"
+    rf"|`{MECHANIC_LEGACY_ARCHIVE_COMMAND_WORD_RE}\b"
+    rf"|^\s*{MECHANIC_LEGACY_ARCHIVE_COMMAND_WORD_RE}\b",
     re.MULTILINE,
 )
 MECHANIC_LEGACY_ARCHIVE_STALE_ROUTE_PHRASES = (
@@ -91,7 +96,6 @@ MECHANIC_LEGACY_ARCHIVE_STALE_ROUTE_PHRASES = (
     "not an active",
     "not active",
     "not a changelog",
-    " not ",
 )
 
 

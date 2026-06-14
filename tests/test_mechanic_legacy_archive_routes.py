@@ -91,6 +91,45 @@ def test_mechanic_legacy_archive_route_language_rejects_command_blocks(
     )
 
 
+def test_mechanic_legacy_archive_route_language_rejects_non_bash_command_blocks(
+    tmp_path: Path,
+) -> None:
+    for path_name in mechanic_legacy_archive_validator.MECHANIC_LEGACY_ARCHIVE_ROUTE_FILES:
+        write_text(tmp_path / path_name, "# Legacy\n\nCurrent route.\n")
+    target = "mechanics/questbook/legacy/INDEX.md"
+    write_text(
+        tmp_path / target,
+        "# Legacy\n\n```zsh\nuv run python scripts/validate_repo.py\n```\n",
+    )
+
+    issues = mechanic_legacy_archive_validator.validate_mechanic_legacy_archive_route_language(
+        tmp_path
+    )
+
+    assert any(
+        issue.location == target and "AGENTS.md" in issue.message
+        for issue in issues
+    )
+
+
+def test_mechanic_legacy_archive_route_language_allows_neutral_not_phrasing(
+    tmp_path: Path,
+) -> None:
+    for path_name in mechanic_legacy_archive_validator.MECHANIC_LEGACY_ARCHIVE_ROUTE_FILES:
+        write_text(tmp_path / path_name, "# Legacy\n\nCurrent route.\n")
+    target = "mechanics/questbook/legacy/INDEX.md"
+    write_text(
+        tmp_path / target,
+        "# Legacy\n\nThis mapping is not exhaustive; use the current active route.\n",
+    )
+
+    issues = mechanic_legacy_archive_validator.validate_mechanic_legacy_archive_route_language(
+        tmp_path
+    )
+
+    assert not any(issue.location == target for issue in issues)
+
+
 def test_mechanic_legacy_archive_route_language_rejects_negative_scaffold(
     tmp_path: Path,
 ) -> None:

@@ -895,6 +895,29 @@ def test_experience_part_readmes_reject_missing_direct_tos_stop_line(
     )
 
 
+def test_experience_office_part_rejects_missing_stop_line_route(
+    tmp_path: Path,
+) -> None:
+    readme_name = experience_paths_validator.EXPERIENCE_OFFICE_PART_README_NAME
+    stop_line = (
+        "| deployment approval or rollout promotion pressure | "
+        "`abyss-stack` runtime route and operator review route |"
+    )
+    copy_repo_text(tmp_path, readme_name)
+    readme_path = tmp_path / readme_name
+    readme_path.write_text(
+        readme_path.read_text(encoding="utf-8").replace(stop_line, ""),
+        encoding="utf-8",
+    )
+
+    issues = mechanics_routes_validator.validate_mechanics_surfaces(tmp_path)
+
+    assert any(
+        issue.location == readme_name and stop_line in issue.message
+        for issue in issues
+    )
+
+
 def test_distillation_part_readmes_reject_missing_stop_lines_contract(
     tmp_path: Path,
 ) -> None:

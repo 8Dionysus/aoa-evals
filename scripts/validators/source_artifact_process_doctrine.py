@@ -73,6 +73,21 @@ def validate_artifact_process_doctrine_surfaces(
                 "EVAL_SELECTION.md must say that the artifact/process bridge is read only after the standalone artifact and workflow surfaces",
             )
         )
+    for surface_name, surface_text in (
+        (EVAL_SELECTION_NAME, selection_text),
+        (EVAL_INDEX_NAME, index_text),
+    ):
+        for forbidden_phrase in (
+            "or frozen-baseline comparison",
+            "or baseline comparison",
+        ):
+            if forbidden_phrase in surface_text:
+                issues.append(
+                    ValidationIssue(
+                        surface_name,
+                        "aoa-output-vs-process-gap must require both standalone artifact and workflow readings before bridge comparison",
+                    )
+                )
 
     for phrase in (
         "aoa-artifact-review-rubric",

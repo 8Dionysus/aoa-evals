@@ -8,6 +8,7 @@ QUESTBOOK_INTEGRATION_REQUIRED_TOKENS = (
     "verdict-bridge",
     "example-only",
     "repo-local review projection",
+    "not live portable verdict authority",
 )
 QUESTBOOK_NOTE_REQUIRED_TOKENS = (
     "# Questbook Obligation Index",

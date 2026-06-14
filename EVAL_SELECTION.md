@@ -182,7 +182,7 @@ See also:
 
 ### I need to know whether polished output is outrunning process discipline
 - `aoa-output-vs-process-gap`
-  Use this bridge after standalone artifact review, standalone workflow review, or frozen-baseline comparison has made the paired surfaces visible.
+  Use this bridge after both standalone artifact review and standalone workflow review have made the paired surfaces visible under matched conditions.
   Read the side-by-side note as matched-condition evidence.
 
 ### I need to check whether a public starter bundle is coherent as an eval surface

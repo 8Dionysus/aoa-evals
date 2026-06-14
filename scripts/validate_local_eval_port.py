@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Sequence
@@ -43,6 +44,9 @@ REQUIRED_PORT_FIELDS = (
 )
 VALID_STATUSES = {"skeleton", "active"}
 AUTHORITY_BOUNDARY_TOKENS = ("verdict", "scoring", "regression", "proof doctrine")
+AUTHORITY_DENIAL_PATTERN = re.compile(
+    r"\b(no|without)\b[^.\n;:]*\bauthority\b|\bnon-authoritative\b|\bno-authority\b"
+)
 CLAIM_FAMILIES = {
     "artifact",
     "boundary",
@@ -204,6 +208,14 @@ def validate_port_file(
                     location,
                     "central_boundary must name no verdict, scoring, regression, "
                     "or proof doctrine authority",
+                )
+            )
+        elif not AUTHORITY_DENIAL_PATTERN.search(lowered):
+            issues.append(
+                ValidationIssue(
+                    location,
+                    "central_boundary must explicitly deny local verdict, scoring, "
+                    "regression, or proof doctrine authority",
                 )
             )
 

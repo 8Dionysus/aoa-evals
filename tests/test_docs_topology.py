@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 import sys
 
 
@@ -158,6 +159,37 @@ def test_docs_readme_route_map_rejects_missing_folder_map_route(
 
     assert any(
         issue.location == "docs/README.md" and "docs/guides/" in issue.message
+        for issue in issues
+    )
+
+
+@pytest.mark.parametrize(
+    "guide_target",
+    (
+        "guides/COMPARISON_SPINE_GUIDE.md",
+        "guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md",
+        "guides/SHARED_PROOF_INFRA_GUIDE.md",
+        "guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md",
+    ),
+)
+def test_docs_readme_route_map_rejects_missing_concrete_guide_target(
+    tmp_path: Path, guide_target: str
+) -> None:
+    copy_repo_text(tmp_path, "docs/README.md")
+    docs_readme_path = tmp_path / "docs" / "README.md"
+    docs_readme_path.write_text(
+        docs_readme_path.read_text(encoding="utf-8").replace(
+            guide_target,
+            guide_target.replace(".md", "-DRIFT.md"),
+            1,
+        ),
+        encoding="utf-8",
+    )
+
+    issues = root_frontdoor_guidance_validator.validate_docs_readme_route_map(tmp_path)
+
+    assert any(
+        issue.location == "docs/README.md" and guide_target in issue.message
         for issue in issues
     )
 

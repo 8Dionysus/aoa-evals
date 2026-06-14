@@ -4,6 +4,7 @@ from __future__ import annotations
 
 
 DISTILLATION_MECHANIC_README_NAME = "mechanics/distillation/README.md"
+DISTILLATION_MECHANIC_DIRECTION_NAME = "mechanics/distillation/DIRECTION.md"
 DISTILLATION_MECHANIC_AGENTS_NAME = "mechanics/distillation/AGENTS.md"
 DISTILLATION_MECHANIC_PARTS_NAME = "mechanics/distillation/PARTS.md"
 DISTILLATION_MECHANIC_PROVENANCE_NAME = "mechanics/distillation/PROVENANCE.md"

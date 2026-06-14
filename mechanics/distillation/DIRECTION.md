@@ -42,6 +42,14 @@ evidence pass may promote a recurring operation into this package.
 - Summary pressure routes through source trace, reviewed candidate evidence, and
   bundle-local review.
 
+| Pressure | Direction route |
+| --- | --- |
+| summary-as-proof pressure | source trace, source bundle, and bundle-local review route |
+| raw deletion authority pressure | owner repository source-retention route |
+| proof verdict without bundle-local review pressure | bundle-local review route |
+| memory canon, recall sovereignty, or live memory-ledger pressure | `aoa-memo` memory route |
+| runtime activation or hidden runtime-store pressure | `abyss-stack` runtime route |
+
 ## Validation
 
 Use the validation lane in [mechanics/distillation/AGENTS.md](AGENTS.md#validation).

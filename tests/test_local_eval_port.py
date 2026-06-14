@@ -304,6 +304,21 @@ def test_port_boundary_requires_denial_for_each_authority_term(tmp_path: Path) -
     assert any("central_boundary" in issue.message for issue in issues)
 
 
+def test_port_boundary_rejects_comma_grant_after_partial_denial(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "no local verdict authority, scoring, regression, "
+            "and proof doctrine stay local"
+        ),
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("central_boundary" in issue.message for issue in issues)
+
+
 def test_port_boundary_accepts_split_denial_for_each_authority_term(tmp_path: Path) -> None:
     repo_root = tmp_path / "aoa-routing"
     make_port(
@@ -315,3 +330,191 @@ def test_port_boundary_accepts_split_denial_for_each_authority_term(tmp_path: Pa
     )
 
     assert validate_local_eval_port.validate_local_eval_port(repo_root) == []
+
+
+def test_port_boundary_accepts_route_to_aoa_evals_authority(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "local intake routes downstream to aoa-evals verdict, scoring, "
+            "regression, and proof doctrine authority"
+        ),
+    )
+
+    assert validate_local_eval_port.validate_local_eval_port(repo_root) == []
+
+
+def test_port_boundary_rejects_route_for_only_one_authority_term(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "verdict authority routes to aoa-evals, while scoring, regression, "
+            "and proof doctrine authority are undecided"
+        ),
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("central_boundary" in issue.message for issue in issues)
+
+
+def test_port_boundary_rejects_route_followed_by_negated_route(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "verdict authority routes to aoa-evals, and scoring, regression, "
+            "and proof doctrine authority is not routed to aoa-evals"
+        ),
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("central_boundary" in issue.message for issue in issues)
+
+
+def test_port_boundary_rejects_unrelated_report_route(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "verdict, scoring, regression, and proof doctrine authority are "
+            "undecided, and reports route to aoa-evals"
+        ),
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("central_boundary" in issue.message for issue in issues)
+
+
+def test_port_boundary_rejects_negated_route_to_aoa_evals_authority(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "verdict, scoring, regression, and proof doctrine authority is not "
+            "routed to aoa-evals"
+        ),
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("central_boundary" in issue.message for issue in issues)
+
+
+def test_port_boundary_rejects_absent_route_to_aoa_evals_authority(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "verdict, scoring, regression, and proof doctrine authority has no "
+            "route to aoa-evals"
+        ),
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("central_boundary" in issue.message for issue in issues)
+
+
+def test_port_boundary_rejects_stays_local_after_partial_denial(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "no local verdict authority, but scoring, regression, and proof "
+            "doctrine authority stays local"
+        ),
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("central_boundary" in issue.message for issue in issues)
+
+
+def test_port_boundary_accepts_local_fixture_custody_with_authority_route(
+    tmp_path: Path,
+) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "local port keeps fixtures, and verdict, scoring, regression, "
+            "and proof doctrine authority routes to aoa-evals"
+        ),
+    )
+
+    assert validate_local_eval_port.validate_local_eval_port(repo_root) == []
+
+
+def test_port_boundary_rejects_local_grant_with_aoa_evals_route(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "local verdict, scoring, regression, and proof doctrine authority, "
+            "with reports routed downstream to aoa-evals"
+        ),
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("central_boundary" in issue.message for issue in issues)
+
+
+def test_port_boundary_rejects_local_subject_owning_authority_with_route(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "local port owns verdict, scoring, regression, and proof doctrine authority, "
+            "with reports routed downstream to aoa-evals"
+        ),
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("central_boundary" in issue.message for issue in issues)
+
+
+def test_port_boundary_rejects_local_subject_having_authority_with_route(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "local port has verdict, scoring, regression, and proof doctrine authority, "
+            "with reports routed downstream to aoa-evals"
+        ),
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("central_boundary" in issue.message for issue in issues)
+
+
+def test_port_boundary_accepts_denial_that_authority_stays_local(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary="no verdict, scoring, regression, or proof doctrine authority stays local",
+    )
+
+    assert validate_local_eval_port.validate_local_eval_port(repo_root) == []
+
+
+def test_port_boundary_rejects_authority_is_local_with_route(tmp_path: Path) -> None:
+    repo_root = tmp_path / "aoa-routing"
+    make_port(
+        repo_root,
+        boundary=(
+            "reports route to aoa-evals, but verdict, scoring, regression, "
+            "and proof doctrine authority is local"
+        ),
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+
+    assert any("central_boundary" in issue.message for issue in issues)

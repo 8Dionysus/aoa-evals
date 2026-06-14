@@ -44,16 +44,36 @@ REQUIRED_PORT_FIELDS = (
 )
 VALID_STATUSES = {"skeleton", "active"}
 AUTHORITY_BOUNDARY_TOKENS = ("verdict", "scoring", "regression", "proof doctrine")
-AUTHORITY_CLAUSE_SPLIT_RE = re.compile(r"[.;:\n]+")
+AUTHORITY_CLAUSE_SPLIT_RE = re.compile(
+    r"[.;:\n]+|\b(?:but|while|whereas)\b"
+)
 AUTHORITY_DENIAL_RE = re.compile(r"\b(no|without)\b")
-LOCAL_AUTHORITY_GRANT_MARKERS = (
-    "authority",
-    "control",
-    "ownership",
-    "own",
-    "owns",
-    "stay local",
-    "stays local",
+LOCAL_STAY_GRANT_RE = re.compile(r"\b(stay|stays|remain|remains)\s+local\b")
+AUTHORITY_GRANT_RE = re.compile(r"\b(authority|control|ownership|own|owns|owned)\b")
+LOCAL_SUBJECT_GRANT_RE = re.compile(
+    r"\blocal\b.*\b(has|have|had|hold|holds|held|keep|keeps|kept|"
+    r"retain|retains|retained|own|owns|owned|control|controls|controlled)\b"
+)
+AUTHORITY_STAYS_LOCAL_RE = re.compile(
+    r"\bauthority\s+(stay|stays|remain|remains)\s+local\b"
+)
+AUTHORITY_IS_LOCAL_RE = re.compile(
+    r"\bauthority\s+(is|are|stay|stays|remain|remains)\s+local\b"
+)
+AOA_EVALS_ROUTE_RE = re.compile(
+    r"\b(route|routes|routed|routing|to|toward|towards|downstream)\b.*?\baoa-evals\b"
+)
+AUTHORITY_ROUTE_NEGATION_PREFIX_RE = re.compile(
+    r"\b(?:not|never)\s+(?:be\s+|being\s+|been\s+)?$"
+)
+AUTHORITY_ROUTE_ABSENCE_PREFIX_RE = re.compile(
+    r"\b(?:no|without)\s+(?:a\s+|any\s+)?$"
+)
+AUTHORITY_ROUTE_TAIL_STOP_RE = re.compile(
+    r"[.;:\n]+|\b(?:but|while|whereas)\b"
+)
+AUTHORITY_ROUTE_SUBJECT_PREFIX_RE = re.compile(
+    r"\bauthority(?:\s+(?:is|are|be|being|been))?\s*$"
 )
 CLAIM_FAMILIES = {
     "artifact",
@@ -184,29 +204,133 @@ def authority_boundary_clause_denies_term(clause: str, token: str) -> bool:
         token in clause
         and "authority" in clause
         and bool(AUTHORITY_DENIAL_RE.search(clause))
+        and not authority_boundary_clause_negates_route(clause)
     )
 
 
-def denied_authority_terms(text: str) -> set[str]:
-    denied: set[str] = set()
+def authority_route_match_is_negated(clause: str, match: re.Match[str]) -> bool:
+        prefix = clause[max(0, match.start() - 40) : match.start()]
+        return bool(
+            AUTHORITY_ROUTE_NEGATION_PREFIX_RE.search(prefix)
+            or AUTHORITY_ROUTE_ABSENCE_PREFIX_RE.search(prefix)
+        )
+
+
+def authority_boundary_clause_negates_route(clause: str) -> bool:
+    return any(
+        authority_route_match_is_negated(clause, match)
+        for match in AOA_EVALS_ROUTE_RE.finditer(clause)
+    )
+
+
+def authority_route_target_tail(clause: str, start: int) -> str:
+    tail = clause[start:].lstrip()
+    if not tail or tail[0] in ",)]}":
+        return ""
+    return AUTHORITY_ROUTE_TAIL_STOP_RE.split(tail, maxsplit=1)[0]
+
+
+def authority_terms_in_text(text: str) -> set[str]:
+    return {token for token in AUTHORITY_BOUNDARY_TOKENS if token in text}
+
+
+def local_subject_authority_grant_terms(clause: str) -> set[str]:
+    if AUTHORITY_DENIAL_RE.search(clause):
+        return set()
+
+    granted: set[str] = set()
+    for match in LOCAL_SUBJECT_GRANT_RE.finditer(clause):
+        object_text = clause[match.end() :]
+        authority_index = object_text.find("authority")
+        if authority_index < 0:
+            continue
+        object_before_authority = object_text[:authority_index]
+        positions = [
+            object_before_authority.find(token)
+            for token in AUTHORITY_BOUNDARY_TOKENS
+            if token in object_before_authority
+        ]
+        if not positions:
+            continue
+        leading_object = object_before_authority[: min(positions)]
+        if re.search(r"[a-z0-9]", leading_object):
+            continue
+        granted.update(authority_terms_in_text(object_before_authority))
+    return granted
+
+
+def routed_authority_terms(clause: str) -> set[str]:
+    if "authority" not in clause:
+        return set()
+
+    routed: set[str] = set()
+    for match in AOA_EVALS_ROUTE_RE.finditer(clause):
+        if authority_route_match_is_negated(clause, match):
+            continue
+
+        prefix = clause[: match.start()]
+        if AUTHORITY_ROUTE_SUBJECT_PREFIX_RE.search(prefix):
+            routed.update(authority_terms_in_text(prefix))
+
+        match_text = match.group(0)
+        if "authority" in match_text:
+            routed.update(authority_terms_in_text(match_text))
+
+        tail = authority_route_target_tail(clause, match.end())
+        if "authority" in tail:
+            routed.update(authority_terms_in_text(tail))
+
+    return routed
+
+
+def authority_boundary_clause_routes_term(clause: str, token: str) -> bool:
+    return token in routed_authority_terms(clause)
+
+
+def protected_authority_terms(text: str) -> set[str]:
+    protected: set[str] = set()
     for clause in authority_boundary_clauses(text):
         for token in AUTHORITY_BOUNDARY_TOKENS:
-            if authority_boundary_clause_denies_term(clause, token):
-                denied.add(token)
-    return denied
+            if authority_boundary_clause_denies_term(
+                clause, token
+            ) or authority_boundary_clause_routes_term(clause, token):
+                protected.add(token)
+    return protected
 
 
 def local_authority_grant_terms(text: str) -> set[str]:
     granted: set[str] = set()
     for clause in authority_boundary_clauses(text):
-        if AUTHORITY_DENIAL_RE.search(clause):
-            continue
-        if "local" not in clause:
-            continue
-        if not any(marker in clause for marker in LOCAL_AUTHORITY_GRANT_MARKERS):
-            continue
         for token in AUTHORITY_BOUNDARY_TOKENS:
-            if token in clause:
+            if token not in clause:
+                continue
+            term = re.escape(token)
+            denied_authority_stays_local = bool(
+                AUTHORITY_DENIAL_RE.search(clause)
+                and AUTHORITY_STAYS_LOCAL_RE.search(clause)
+            )
+            stay_local_grant = bool(
+                not denied_authority_stays_local
+                and re.search(rf"\b{term}\b.*{LOCAL_STAY_GRANT_RE.pattern}", clause)
+            )
+            local_authority_grant = (
+                not AUTHORITY_DENIAL_RE.search(clause)
+                and bool(re.search(rf"\blocal\s+{term}\b", clause))
+                and bool(AUTHORITY_GRANT_RE.search(clause))
+            )
+            local_subject_grant = (
+                token in local_subject_authority_grant_terms(clause)
+            )
+            authority_is_local_grant = (
+                not AUTHORITY_DENIAL_RE.search(clause)
+                and bool(AUTHORITY_IS_LOCAL_RE.search(clause))
+            )
+            if (
+                stay_local_grant
+                or local_authority_grant
+                or local_subject_grant
+                or authority_is_local_grant
+            ):
                 granted.add(token)
     return granted
 
@@ -260,9 +384,9 @@ def validate_port_file(
             )
         else:
             granted = sorted(local_authority_grant_terms(lowered))
-            denied = denied_authority_terms(lowered)
+            protected = protected_authority_terms(lowered)
             missing_denial = [
-                token for token in AUTHORITY_BOUNDARY_TOKENS if token not in denied
+                token for token in AUTHORITY_BOUNDARY_TOKENS if token not in protected
             ]
             if granted:
                 issues.append(

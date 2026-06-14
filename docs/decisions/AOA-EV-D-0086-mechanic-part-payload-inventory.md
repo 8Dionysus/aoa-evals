@@ -105,6 +105,8 @@ As of 2026-05-22:
 - Previous assumption: the decision could carry its focused validation command
   list directly.
 - New reality: `mechanics/AGENTS.md` owns the focused mechanic part payload-inventory guard.
+- Superseded original command string:
+  `python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_payload_inventory`.
 - Reason: accepted decisions preserve why; AGENTS route cards carry executable
   validation lanes for agents.
 - Source surfaces updated: `mechanics/AGENTS.md`, `scripts/validate_repo.py`,

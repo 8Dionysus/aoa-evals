@@ -47,10 +47,11 @@ Each part README must contain:
 - `## Stop-Lines`
 - `## Validation`
 
-The `## Stop-Lines` section uses the active lead-in
-`Boundary: this part supports its local proof operation. These claims stay outside the part:`.
-This keeps the section as an operational proof boundary instead of a bare
-prohibition scaffold.
+The `## Stop-Lines` section must expose a pressure-to-owner route table with a
+`Pressure` column and a `Route` or `Owner route` column. A part may introduce
+that table with route-specific boundary prose such as `Boundary routes keep ...`,
+but the table is the checked contract. This keeps the section as an operational
+proof boundary instead of a bare prohibition scaffold.
 
 The same guard also rejects an orphan part by requiring the parent `PARTS.md` to
 route each concrete part by README path or exact backticked part slug.
@@ -67,8 +68,9 @@ evals-native growth without recreating wrong parent forms.
 ## Consequences
 
 - Positive: new parts cannot silently appear as unreviewed topology.
-- Positive: part stop-lines now open with the local proof-operation boundary
-  they protect, so low-context agents can read the role before the exclusions.
+- Positive: part stop-lines now route pressure to the owner that can act on it,
+  so low-context agents can read the boundary as an operational route instead
+  of a list of detached prohibitions.
 - Tradeoff: experimental part directories need a README contract before they can
   live under active mechanics.
 - Follow-up: part-specific validators still add stronger local invariants where
@@ -96,6 +98,23 @@ As of 2026-05-24:
 - Superseded by: none.
 
 ## Review Log
+
+### 2026-06-14 - Stop-lines route table guard
+
+- Previous assumption: a single generic Stop-Lines lead-in string could define
+  the active part boundary across every mechanic part.
+- New reality: active parts now use pressure-specific route tables, sometimes
+  introduced by route-specific `Boundary routes keep ...` prose and sometimes
+  starting directly at the table.
+- Reason: the route table is the durable contract: it names the pressure and the
+  owner route that can carry it, while allowing local part wording to stay
+  precise.
+- Source surfaces updated: `scripts/validators/mechanic_part_readme_contract.py`,
+  `scripts/validators/mechanic_part_contract_common.py`, and
+  `tests/test_mechanic_part_contracts.py`.
+- Validation: focused mechanic part README contract tests, root validation,
+  semantic AGENTS validation, generated catalog check, diff whitespace check,
+  and full pytest.
 
 ### 2026-05-24 - Lower parts index operating-card guard
 

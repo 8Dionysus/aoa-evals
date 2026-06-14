@@ -82,7 +82,11 @@ def write_standard_new_part(
     write_agon_part_index(repo_root, readme_name)
     source_section = ""
     if source_surfaces is not None:
-        source_section = f"\n## Source Surfaces\n\n{source_surfaces}\n"
+        source_section = f"""
+        ## Source Surfaces
+
+        {textwrap.indent(source_surfaces, "        ")}
+        """
     return write_new_part_readme(
         repo_root,
         f"""
@@ -102,7 +106,9 @@ def write_standard_new_part(
 
         ## Stop-Lines
 
-        No parent promotion.
+        | Pressure | Owner route |
+        | --- | --- |
+        | parent promotion pressure | `mechanics/agon/` parent route |
 
         ## Validation
 
@@ -415,6 +421,34 @@ def test_mechanic_part_readme_contract_rejects_missing_owner_split(
 
     assert any(
         issue.location == readme_name and "## Stronger Owner Split" in issue.message
+        for issue in issues
+    )
+
+
+def test_mechanic_part_readme_contract_rejects_stop_lines_without_route_table(
+    tmp_path: Path,
+) -> None:
+    readme_name = write_standard_new_part(
+        tmp_path,
+        source_surfaces="- `mechanics/agon/parts/new-proof/README.md`",
+    )
+    readme_path = tmp_path / readme_name
+    readme_path.write_text(
+        readme_path.read_text(encoding="utf-8").replace(
+            """| Pressure | Owner route |
+| --- | --- |
+| parent promotion pressure | `mechanics/agon/` parent route |""",
+            "No parent promotion.",
+        ),
+        encoding="utf-8",
+    )
+
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+
+    assert any(
+        issue.location == readme_name
+        and "Stop-Lines" in issue.message
+        and "pressure-to-owner route table" in issue.message
         for issue in issues
     )
 

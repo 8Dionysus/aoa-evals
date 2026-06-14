@@ -33,6 +33,27 @@ def generated_parity_contracts(repo_root: Path) -> list[ValidationIssue]:
     ]
 
 
+def copy_generated_route_surfaces(repo_root: Path) -> None:
+    copy_repo_text(repo_root, "generated/README.md")
+    copy_repo_text(repo_root, "generated/AGENTS.md")
+    copy_repo_text(repo_root, "docs/README.md")
+    for path_name in (
+        "docs/decisions/indexes/README.md",
+        "docs/decisions/indexes/by-number.md",
+        "docs/decisions/indexes/by-date.md",
+        "docs/decisions/indexes/by-surface.md",
+        "docs/decisions/indexes/by-mechanic.md",
+        "docs/decisions/indexes/by-validation-guard.md",
+    ):
+        copy_repo_text(repo_root, path_name)
+    for reader_path in generated_route_surfaces.ROOT_READERS:
+        reader = repo_root / reader_path
+        reader.parent.mkdir(parents=True, exist_ok=True)
+        reader.write_text("{}\n", encoding="utf-8")
+    for generated_dir in generated_route_surfaces.PART_LOCAL_GENERATED_SURFACES:
+        (repo_root / generated_dir).mkdir(parents=True, exist_ok=True)
+
+
 def test_generated_parity_contracts_validate_current_readers() -> None:
     assert generated_parity_contracts(REPO_ROOT) == []
 
@@ -67,6 +88,34 @@ def test_generated_parity_contracts_reject_missing_check_command(
     assert any(
         issue.location == "generated/AGENTS.md"
         and "python scripts/generate_eval_report_index.py --check" in issue.message
+        for issue in issues
+    )
+
+
+def test_generated_parity_contracts_reject_wrong_builder_for_reader_row(
+    tmp_path: Path,
+) -> None:
+    copy_generated_route_surfaces(tmp_path)
+    target_reader = Path("generated/eval_report_index.min.json")
+    expected_builder = generated_route_surfaces.ROOT_READERS[target_reader]
+    readme_path = tmp_path / "generated" / "README.md"
+    readme_text = readme_path.read_text(encoding="utf-8")
+    row = (
+        f"| `{target_reader.as_posix()}` | compact index of bundle-local report artifacts "
+        f"| `{expected_builder}` |"
+    )
+    assert row in readme_text
+    readme_path.write_text(
+        readme_text.replace(row, row.replace(expected_builder, "scripts/wrong_report_index.py"), 1)
+        + f"\nMention elsewhere: `{expected_builder}`\n",
+        encoding="utf-8",
+    )
+
+    issues = generated_parity_contracts(tmp_path)
+
+    assert any(
+        issue.location == "generated/README.md"
+        and f"generated reader index must route {target_reader.as_posix()} to {expected_builder}" in issue.message
         for issue in issues
     )
 

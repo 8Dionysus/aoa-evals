@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from validators.common import ValidationIssue
+from validators.common import ValidationIssue, read_text_or_issue
 from validators.root_design_common import (
     PROOF_TOPOLOGY_NAME,
     ROADMAP_NAME,
@@ -88,14 +88,19 @@ PROOF_TOPOLOGY_DECISION_REQUIRED_TOKENS = (
 )
 
 
+def _require_proof_topology_tokens(repo_root: Path, issues: list[ValidationIssue]) -> str:
+    text = read_text_or_issue(repo_root / PROOF_TOPOLOGY_NAME, issues, root=repo_root)
+    if not text:
+        return text
+    for token in PROOF_TOPOLOGY_REQUIRED_TOKENS:
+        if token not in text:
+            issues.append(ValidationIssue(PROOF_TOPOLOGY_NAME, f"file must mention '{token}'"))
+    return text
+
+
 def validate_proof_topology_surfaces(repo_root: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
-    topology_text = require_tokens(
-        repo_root,
-        PROOF_TOPOLOGY_NAME,
-        PROOF_TOPOLOGY_REQUIRED_TOKENS,
-        issues,
-    )
+    topology_text = _require_proof_topology_tokens(repo_root, issues)
     decision_text = require_tokens(
         repo_root,
         "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",

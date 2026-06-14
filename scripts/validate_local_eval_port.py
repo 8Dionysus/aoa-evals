@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Sequence
@@ -43,6 +44,17 @@ REQUIRED_PORT_FIELDS = (
 )
 VALID_STATUSES = {"skeleton", "active"}
 AUTHORITY_BOUNDARY_TOKENS = ("verdict", "scoring", "regression", "proof doctrine")
+AUTHORITY_CLAUSE_SPLIT_RE = re.compile(r"[.;:\n]+")
+AUTHORITY_DENIAL_RE = re.compile(r"\b(no|without)\b")
+LOCAL_AUTHORITY_GRANT_MARKERS = (
+    "authority",
+    "control",
+    "ownership",
+    "own",
+    "owns",
+    "stay local",
+    "stays local",
+)
 CLAIM_FAMILIES = {
     "artifact",
     "boundary",
@@ -159,6 +171,46 @@ def eval_need_validator() -> Draft202012Validator:
     return Draft202012Validator(schema)
 
 
+def authority_boundary_clauses(text: str) -> list[str]:
+    return [
+        clause.strip()
+        for clause in AUTHORITY_CLAUSE_SPLIT_RE.split(text)
+        if clause.strip()
+    ]
+
+
+def authority_boundary_clause_denies_term(clause: str, token: str) -> bool:
+    return (
+        token in clause
+        and "authority" in clause
+        and bool(AUTHORITY_DENIAL_RE.search(clause))
+    )
+
+
+def denied_authority_terms(text: str) -> set[str]:
+    denied: set[str] = set()
+    for clause in authority_boundary_clauses(text):
+        for token in AUTHORITY_BOUNDARY_TOKENS:
+            if authority_boundary_clause_denies_term(clause, token):
+                denied.add(token)
+    return denied
+
+
+def local_authority_grant_terms(text: str) -> set[str]:
+    granted: set[str] = set()
+    for clause in authority_boundary_clauses(text):
+        if AUTHORITY_DENIAL_RE.search(clause):
+            continue
+        if "local" not in clause:
+            continue
+        if not any(marker in clause for marker in LOCAL_AUTHORITY_GRANT_MARKERS):
+            continue
+        for token in AUTHORITY_BOUNDARY_TOKENS:
+            if token in clause:
+                granted.add(token)
+    return granted
+
+
 def validate_port_file(
     repo_root: Path,
     evals_dir: Path,
@@ -206,6 +258,28 @@ def validate_port_file(
                     "or proof doctrine authority",
                 )
             )
+        else:
+            granted = sorted(local_authority_grant_terms(lowered))
+            denied = denied_authority_terms(lowered)
+            missing_denial = [
+                token for token in AUTHORITY_BOUNDARY_TOKENS if token not in denied
+            ]
+            if granted:
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        "central_boundary must not grant local "
+                        f"{', '.join(granted)} authority",
+                    )
+                )
+            elif missing_denial:
+                issues.append(
+                    ValidationIssue(
+                        location,
+                        "central_boundary must explicitly deny local "
+                        f"{', '.join(missing_denial)} authority",
+                    )
+                )
 
     local_role = payload.get("local_role")
     if not isinstance(local_role, str) or not local_role.strip():

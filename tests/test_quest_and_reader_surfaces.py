@@ -736,6 +736,12 @@ class TestValidateQuestRouteSurfaces:
             ),
             encoding="utf-8",
         )
+        agents_path = tmp_path / "quests" / "AGENTS.md"
+        agents_path.write_text(
+            agents_path.read_text(encoding="utf-8")
+            + "\n\nnot as generated dispatch\n",
+            encoding="utf-8",
+        )
 
         issues = questbook_routes_validator.validate_quest_route_surfaces(
             tmp_path,
@@ -752,6 +758,12 @@ class TestValidateQuestRouteSurfaces:
             issue.location == "quests/LIFECYCLE.md"
             and "positive role routing" in issue.message
             and "does not create an eval result receipt" in issue.message
+            for issue in issues
+        )
+        assert any(
+            issue.location == "quests/AGENTS.md"
+            and "positive role routing" in issue.message
+            and "not as generated dispatch" in issue.message
             for issue in issues
         )
 

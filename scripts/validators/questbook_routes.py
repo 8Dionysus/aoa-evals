@@ -69,6 +69,7 @@ def validate_quest_route_surfaces(
     for path_name, stale_token in (
         (QUESTS_README_NAME, "It is not `QUESTBOOK.md`"),
         (QUESTS_README_NAME, "Quests are not eval bundles."),
+        (QUESTS_AGENTS_NAME, "not as generated dispatch"),
         (QUEST_LIFECYCLE_NAME, "It is not `QUESTBOOK.md`"),
         (QUEST_LIFECYCLE_NAME, "does not create an eval result receipt"),
     ):

@@ -43,6 +43,31 @@ PART_LOCAL_GENERATED_SURFACES = (
 )
 
 
+def _strip_markdown_code(value: str) -> str:
+    value = value.strip()
+    if value.startswith("`") and value.endswith("`"):
+        return value[1:-1]
+    return value
+
+
+def _generated_reader_builder_rows(markdown: str) -> dict[str, str]:
+    rows: dict[str, str] = {}
+    for line in markdown.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in stripped.strip("|").split("|")]
+        if len(cells) < 3 or cells[0] == "Reader":
+            continue
+        if set(cells[0]) <= {"-", ":"}:
+            continue
+        reader = _strip_markdown_code(cells[0])
+        builder = _strip_markdown_code(cells[2])
+        if reader.startswith("generated/"):
+            rows[reader] = builder
+    return rows
+
+
 def _read_text(repo_root: Path, relative_path: Path, issues: list[tuple[str, str]]) -> str:
     path = repo_root / relative_path
     if not path.is_file():
@@ -57,20 +82,21 @@ def validate_generated_route_surfaces(repo_root: Path) -> list[tuple[str, str]]:
     generated_readme = _read_text(repo_root, GENERATED_README, issues)
     generated_agents = _read_text(repo_root, GENERATED_AGENTS, issues)
     docs_readme = _read_text(repo_root, DOCS_README, issues)
+    reader_builder_rows = _generated_reader_builder_rows(generated_readme) if generated_readme else {}
 
     for reader_path, builder in ROOT_READERS.items():
+        reader = reader_path.as_posix()
         if not (repo_root / reader_path).is_file():
-            issues.append((reader_path.as_posix(), "generated root reader is missing"))
+            issues.append((reader, "generated root reader is missing"))
         if generated_readme:
-            if reader_path.as_posix() not in generated_readme:
-                issues.append(
-                    (GENERATED_README.as_posix(), f"generated reader index must mention {reader_path.as_posix()}")
-                )
-            if builder not in generated_readme:
+            if reader not in generated_readme:
+                issues.append((GENERATED_README.as_posix(), f"generated reader index must mention {reader}"))
+            row_builder = reader_builder_rows.get(reader)
+            if row_builder is None or builder not in row_builder:
                 issues.append(
                     (
                         GENERATED_README.as_posix(),
-                        f"generated reader index must route {reader_path.as_posix()} to {builder}",
+                        f"generated reader index must route {reader} to {builder}",
                     )
                 )
 

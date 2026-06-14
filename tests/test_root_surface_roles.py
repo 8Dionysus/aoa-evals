@@ -1168,6 +1168,36 @@ def test_proof_topology_requires_positive_authority_boundary_routes(
         for issue in issues
     )
 
+def test_proof_topology_required_tokens_must_live_in_proof_topology(
+    tmp_path: Path
+) -> None:
+    for path_name in (
+        root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
+        "docs/architecture/ROUTE_RESIDUE_GUARDS.md",
+        "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
+        "ROADMAP.md",
+    ):
+        copy_repo_text(tmp_path, path_name)
+    token = root_proof_topology_validator.PROOF_TOPOLOGY_REQUIRED_TOKENS[0]
+    topology_path = tmp_path / root_proof_topology_validator.PROOF_TOPOLOGY_NAME
+    topology_path.write_text(
+        topology_path.read_text(encoding="utf-8").replace(token, "token removed from proof topology", 1),
+        encoding="utf-8",
+    )
+    route_guard_path = tmp_path / "docs/architecture/ROUTE_RESIDUE_GUARDS.md"
+    route_guard_path.write_text(
+        route_guard_path.read_text(encoding="utf-8") + f"\n{token}\n",
+        encoding="utf-8",
+    )
+
+    issues = root_proof_topology_validator.validate_proof_topology_surfaces(tmp_path)
+
+    assert any(
+        issue.location == root_proof_topology_validator.PROOF_TOPOLOGY_NAME
+        and token in issue.message
+        for issue in issues
+    )
+
 def test_proof_topology_rejects_old_negative_route_scaffold(
     tmp_path: Path
 ) -> None:

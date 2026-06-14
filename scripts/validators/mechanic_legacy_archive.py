@@ -39,6 +39,9 @@ MECHANIC_LEGACY_RAW_README_REQUIRED_TOKENS = (
     "git history",
     "INDEX.md",
 )
+MECHANIC_LEGACY_BOUNDARY_STOP_LINE = (
+    "Legacy is not active topology or a new-work entrypoint."
+)
 MECHANIC_LEGACY_README_REQUIRED_TOKENS = (
     "../PROVENANCE.md",
     "INDEX.md",
@@ -46,6 +49,7 @@ MECHANIC_LEGACY_README_REQUIRED_TOKENS = (
     "raw/README.md",
     "archive-local route",
     "current active route",
+    MECHANIC_LEGACY_BOUNDARY_STOP_LINE,
 )
 MECHANIC_LEGACY_RAW_PAYLOAD_DECISION_REQUIRED_TOKENS = (
     "raw payload",
@@ -116,8 +120,9 @@ def validate_mechanic_legacy_archive_route_language(
                     "legacy archive route files must point validation to AGENTS.md instead of carrying executable command blocks",
                 )
             )
+        stale_scan_text = text.replace(MECHANIC_LEGACY_BOUNDARY_STOP_LINE, "")
         for phrase in MECHANIC_LEGACY_ARCHIVE_STALE_ROUTE_PHRASES:
-            if phrase in text:
+            if phrase in stale_scan_text:
                 issues.append(
                     ValidationIssue(
                         path_name,
@@ -265,6 +270,7 @@ def validate_mechanic_legacy_surfaces(repo_root: Path) -> list[ValidationIssue]:
 
 __all__ = (
     "MECHANIC_LEGACY_ARCHIVE_ROUTE_FILES",
+    "MECHANIC_LEGACY_BOUNDARY_STOP_LINE",
     "MECHANIC_LEGACY_DISTILLATION_LOG_FILES",
     "MECHANIC_LEGACY_INDEX_FILES",
     "MECHANIC_LEGACY_RAW_PAYLOAD_DECISION_REQUIRED_TOKENS",

@@ -42,6 +42,9 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Fixed
 
+- Mechanic legacy archive route-language validation now rejects targeted
+  lowercase and modal negative route scaffold such as `do not use` and `should
+  not use`, while preserving neutral wording like `not exhaustive`.
 - Distillation direction stop-lines now mirror and guard the full parent
   stronger-owner route table, including owner acceptance, Tree-of-Sophia canon,
   KAG lift, memo contradiction/writeback, and memo recall routes.

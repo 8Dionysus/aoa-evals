@@ -42,6 +42,9 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Fixed
 
+- Distillation direction stop-lines now mirror and guard the full parent
+  stronger-owner route table, including owner acceptance, Tree-of-Sophia canon,
+  KAG lift, memo contradiction/writeback, and memo recall routes.
 - Root `validate_repo` regression coverage now guards the strategic-closeout
   README's exact GitHub `Repo Validation` landing-route token.
 - Output/process bridge chooser routing now has an explicit decision record,

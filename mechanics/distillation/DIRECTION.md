@@ -49,6 +49,11 @@ evidence pass may promote a recurring operation into this package.
 | proof verdict without bundle-local review pressure | bundle-local review route |
 | memory canon, recall sovereignty, or live memory-ledger pressure | `aoa-memo` memory route |
 | runtime activation or hidden runtime-store pressure | `abyss-stack` runtime route |
+| owner acceptance, owner-local adoption, or final promotion pressure | owner repository acceptance route |
+| Tree-of-Sophia canon or compost authority pressure | Tree-of-Sophia canon route |
+| KAG bridge promotion or graph lift pressure | `aoa-kag` graph-lift route |
+| memo contradiction or confirmed writeback-act pressure | owning eval bundle or mechanic part route |
+| memo recall pressure | `mechanics/recurrence/parts/memory-recall/` route |
 
 ## Validation
 

@@ -93,6 +93,7 @@
 - [AOA-EV-D-0226 Source Eval Report Validator Layer Split](../AOA-EV-D-0226-source-eval-report-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0226-source-eval-report-validator-layer-split.md`)
 - [AOA-EV-D-0234 Antifragility Validator Layer Split](../AOA-EV-D-0234-antifragility-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0234-antifragility-validator-layer-split.md`)
 - [AOA-EV-D-0236 RPG Validator Layer Split](../AOA-EV-D-0236-rpg-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0236-rpg-validator-layer-split.md`)
+- [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
 
 ## proof-infra
 

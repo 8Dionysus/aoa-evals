@@ -272,6 +272,7 @@
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 - [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
 - [AOA-EV-D-0241 Local Eval Port Write-Side MCP](../AOA-EV-D-0241-local-eval-port-write-side-mcp.md) (`docs/decisions/AOA-EV-D-0241-local-eval-port-write-side-mcp.md`)
+- [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
 
 ## legacy/provenance
 
@@ -506,6 +507,10 @@
 - [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
+## public contract
+
+- [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
+
 ## publication/receipt
 
 - [AOA-EV-D-0120 Publication Receipts Validator Module Boundary](../AOA-EV-D-0120-publication-receipts-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0120-publication-receipts-validator-module-boundary.md`)
@@ -534,6 +539,10 @@
 - [AOA-EV-D-0201 Proof Infra Aggregate Removal](../AOA-EV-D-0201-proof-infra-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0201-proof-infra-aggregate-removal.md`)
 - [AOA-EV-D-0209 Source Doctrine Aggregate Removal](../AOA-EV-D-0209-source-doctrine-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0209-source-doctrine-aggregate-removal.md`)
 - [AOA-EV-D-0211 Proof Loop Aggregate Removal](../AOA-EV-D-0211-proof-loop-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0211-proof-loop-aggregate-removal.md`)
+
+## root chooser
+
+- [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
 
 ## runtime-policy
 

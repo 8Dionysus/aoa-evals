@@ -42,6 +42,9 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Fixed
 
+- Output/process bridge chooser routing now has an explicit decision record,
+  and the source-doctrine validator only rejects real baseline-as-bridge
+  alternatives instead of unrelated `for baseline comparison` guidance.
 - Mechanic part payload-inventory decision guards now use a dedicated
   superseded-command token so D-0086 preserves historical command text even if
   the active mechanics route command changes.

@@ -75,14 +75,25 @@ As of 2026-06-04:
   and route decisions must remain source/topology validation gates.
 - Changed: route-card, stale residue, part owner-split, and route-decision
   checks moved out of `questbook.py` and into `questbook_routes.py`.
-- Changed on 2026-06-14: stale negative quest route scaffold checks explicitly
-  cover `quests/AGENTS.md`, not only `quests/README.md` and
-  `quests/LIFECYCLE.md`.
 - Changed on 2026-06-05: AOA-EV-D-0223 keeps
   `questbook_routes.py` as the blocking route validator while moving route path
   constants and token sets into focused helper modules.
 - Superseded by: AOA-EV-D-0193 removes the remaining `questbook.py`
   compatibility facade; AOA-EV-D-0223 for route support-layer ownership.
+
+## Review Log
+
+### 2026-06-14 - Stale quest route scaffold coverage expanded
+
+- Previous assumption: stale negative quest route scaffold checks only needed to
+  cover `quests/README.md` and `quests/LIFECYCLE.md`.
+- New reality: stale negative quest route scaffold checks also cover
+  `quests/AGENTS.md`.
+- Reason: route-card drift can reappear through the quest agent guidance
+  surface, not only through the public README or lifecycle card.
+- Source surfaces updated: `scripts/validators/questbook_routes.py` and its
+  focused quest-route scaffold regression.
+- Validation: PR #388 Repo Validation covered the route scaffold guard.
 
 ## Boundaries
 

@@ -42,6 +42,8 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Fixed
 
+- Root `validate_repo` regression coverage now guards the strategic-closeout
+  README's exact GitHub `Repo Validation` landing-route token.
 - Output/process bridge chooser routing now has an explicit decision record,
   and the source-doctrine validator only rejects real baseline-as-bridge
   alternatives instead of unrelated `for baseline comparison` guidance.

@@ -261,6 +261,42 @@ def test_validate_repo_rejects_output_vs_process_bridge_after_baseline_only(tmp_
     )
 
 
+def test_validate_repo_allows_unrelated_for_baseline_comparison_phrase(tmp_path: Path) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-output-vs-process-gap",
+        category="comparative",
+        claim_type="comparative",
+        baseline_mode="peer-compare",
+        verdict_shape="comparative",
+        report_format="comparative-summary",
+    )
+    add_peer_compare_proof_artifacts(tmp_path, bundle_name="aoa-output-vs-process-gap")
+    write_catalogs(tmp_path)
+    selection_path = tmp_path / "EVAL_SELECTION.md"
+    selection_path.write_text(
+        selection_path.read_text(encoding="utf-8")
+        + "\nUse `aoa-regression-same-task` for baseline comparison.\n",
+        encoding="utf-8",
+    )
+    index_path = tmp_path / "EVAL_INDEX.md"
+    index_path.write_text(
+        index_path.read_text(encoding="utf-8")
+        + "\nUse `aoa-regression-same-task` for baseline comparison.\n",
+        encoding="utf-8",
+    )
+
+    issues = run_validation(tmp_path, eval_name="aoa-output-vs-process-gap")
+
+    bridge_issues = [
+        issue
+        for issue in issues
+        if issue.location in {"EVAL_SELECTION.md", "EVAL_INDEX.md"}
+        and "must require both standalone artifact and workflow readings" in issue.message
+    ]
+    assert bridge_issues == []
+
+
 def test_validate_repo_accepts_valid_longitudinal_comparison_surface(tmp_path: Path) -> None:
     make_eval_bundle(
         tmp_path,

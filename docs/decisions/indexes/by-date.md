@@ -278,3 +278,7 @@
 ## 2026-06-13
 
 - [AOA-EV-D-0241 Local Eval Port Write-Side MCP](../AOA-EV-D-0241-local-eval-port-write-side-mcp.md) (`docs/decisions/AOA-EV-D-0241-local-eval-port-write-side-mcp.md`)
+
+## 2026-06-16
+
+- [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)

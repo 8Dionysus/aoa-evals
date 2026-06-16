@@ -149,12 +149,20 @@
 - [AOA-EV-D-0117 Report Index Validator Module Boundary](../AOA-EV-D-0117-report-index-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0117-report-index-validator-module-boundary.md`)
 - [AOA-EV-D-0218 Decision-index Validator Layer Split](../AOA-EV-D-0218-decision-index-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0218-decision-index-validator-layer-split.md`)
 
+## artifact/process
+
+- [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
+
 ## capability/permission
 
 - [AOA-EV-D-0129 Boundary Bridge Validator Module Boundary](../AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md`)
 - [AOA-EV-D-0197 Questbook Projection Aggregate Removal](../AOA-EV-D-0197-questbook-projection-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0197-questbook-projection-aggregate-removal.md`)
 - [AOA-EV-D-0206 Boundary Bridge Aggregate Removal](../AOA-EV-D-0206-boundary-bridge-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0206-boundary-bridge-aggregate-removal.md`)
 - [AOA-EV-D-0208 Questbook Source Aggregate Removal](../AOA-EV-D-0208-questbook-source-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0208-questbook-source-aggregate-removal.md`)
+
+## comparison
+
+- [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
 
 ## generated/readout
 
@@ -278,6 +286,10 @@
 
 - [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
 - [AOA-EV-D-0241 Local Eval Port Write-Side MCP](../AOA-EV-D-0241-local-eval-port-write-side-mcp.md) (`docs/decisions/AOA-EV-D-0241-local-eval-port-write-side-mcp.md`)
+
+## source doctrine
+
+- [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
 
 ## source/topology
 

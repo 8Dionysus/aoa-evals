@@ -453,6 +453,32 @@ def test_mechanic_part_readme_contract_rejects_stop_lines_without_route_table(
     )
 
 
+def test_mechanic_part_readme_contract_rejects_stop_lines_with_empty_route_cells(
+    tmp_path: Path,
+) -> None:
+    readme_name = write_standard_new_part(
+        tmp_path,
+        source_surfaces="- `mechanics/agon/parts/new-proof/README.md`",
+    )
+    readme_path = tmp_path / readme_name
+    readme_path.write_text(
+        readme_path.read_text(encoding="utf-8").replace(
+            "| parent promotion pressure | `mechanics/agon/` parent route |",
+            "| parent promotion pressure | |",
+        ),
+        encoding="utf-8",
+    )
+
+    issues = mechanic_parts_validator.validate_mechanic_part_readme_contract_surfaces(tmp_path)
+
+    assert any(
+        issue.location == readme_name
+        and "Stop-Lines" in issue.message
+        and "pressure-to-owner route table" in issue.message
+        for issue in issues
+    )
+
+
 def test_mechanic_part_payload_inventory_rejects_unmentioned_payload_dir(
     tmp_path: Path,
 ) -> None:

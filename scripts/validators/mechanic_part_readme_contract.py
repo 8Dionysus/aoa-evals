@@ -44,9 +44,18 @@ def validate_stop_lines_route_table(
         bool(header)
         and header[0] == MECHANIC_PART_README_STOP_LINE_PRESSURE_HEADER
     )
-    has_route = any(cell in MECHANIC_PART_README_STOP_LINE_ROUTE_HEADERS for cell in header[1:])
-    has_body_row = len(table_rows) > 1
-    if not has_pressure or not has_route or not has_body_row:
+    route_columns = [
+        index
+        for index, cell in enumerate(header[1:], start=1)
+        if cell in MECHANIC_PART_README_STOP_LINE_ROUTE_HEADERS
+    ]
+    has_routed_body_row = any(
+        row
+        and row[0].strip()
+        and any(index < len(row) and row[index].strip() for index in route_columns)
+        for row in table_rows[1:]
+    )
+    if not has_pressure or not route_columns or not has_routed_body_row:
         issues.append(
             ValidationIssue(
                 readme_name,

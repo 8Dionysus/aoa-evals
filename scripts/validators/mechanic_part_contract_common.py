@@ -70,6 +70,9 @@ MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME = (
 MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND = (
     "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_payload_inventory"
 )
+MECHANIC_PART_PAYLOAD_INVENTORY_SUPERSEDED_COMMAND = (
+    "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_payload_inventory"
+)
 MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0094-mechanic-part-source-surface-reference-guard.md"
 )
@@ -132,7 +135,7 @@ MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_REQUIRED_TOKENS = (
     "Source surfaces updated",
     "mechanics/AGENTS.md#validation",
     "focused mechanic part payload-inventory guard",
-    MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND,
+    MECHANIC_PART_PAYLOAD_INVENTORY_SUPERSEDED_COMMAND,
 )
 MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_REQUIRED_TOKENS = (
     "Mechanic Part Source Surface Reference Guard",
@@ -239,6 +242,7 @@ __all__ = (
     "MECHANIC_PART_README_CONTRACT_DECISION_NAME",
     "MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME",
     "MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND",
+    "MECHANIC_PART_PAYLOAD_INVENTORY_SUPERSEDED_COMMAND",
     "MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_NAME",
     "MECHANIC_PART_SOURCE_SURFACE_REF_COMMAND",
     "MECHANIC_PART_SOURCE_SURFACES_SECTION_DECISION_NAME",

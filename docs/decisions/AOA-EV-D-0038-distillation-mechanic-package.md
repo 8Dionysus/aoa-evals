@@ -106,6 +106,23 @@ As of 2026-05-24:
 
 ## Review Log
 
+### 2026-06-16 - Direction stop-line guard completed
+
+- Previous assumption: `DIRECTION.md` carried the same parent-level
+  pressure-to-owner-route stop-lines as the package README.
+- New reality: the direction surface must mirror every parent README stop-line
+  row, and the Distillation token matrix must guard each row explicitly.
+- Reason: low-context readers can stop at `DIRECTION.md`; owner acceptance,
+  Tree-of-Sophia canon, KAG lift, memo contradiction/writeback, and memo recall
+  pressure must still route to the stronger owner.
+- Source surfaces updated: `mechanics/distillation/DIRECTION.md`,
+  `scripts/validators/distillation_route_tokens.py`, and
+  `tests/test_mechanic_surface_contracts.py`.
+- Validation: focused Distillation mechanic surface tests, bundle-local
+  Distillation eval checks, decision index generation/check, `validate_repo`,
+  semantic AGENTS validation, catalog check, full pytest, release check, and
+  `git diff --check`.
+
 ### 2026-05-24 - Parent boundary route wording
 
 - Previous assumption: parent-level Distillation surfaces expressed boundaries

@@ -939,14 +939,26 @@ def test_distillation_part_readmes_reject_missing_stop_lines_contract(
     )
 
 
-def test_distillation_direction_rejects_missing_parent_stop_line_route(
+@pytest.mark.parametrize(
+    "stop_line",
+    (
+        "| summary-as-proof pressure | source trace, source bundle, and bundle-local review route |",
+        "| raw deletion authority pressure | owner repository source-retention route |",
+        "| proof verdict without bundle-local review pressure | bundle-local review route |",
+        "| memory canon, recall sovereignty, or live memory-ledger pressure | `aoa-memo` memory route |",
+        "| runtime activation or hidden runtime-store pressure | `abyss-stack` runtime route |",
+        "| owner acceptance, owner-local adoption, or final promotion pressure | owner repository acceptance route |",
+        "| Tree-of-Sophia canon or compost authority pressure | Tree-of-Sophia canon route |",
+        "| KAG bridge promotion or graph lift pressure | `aoa-kag` graph-lift route |",
+        "| memo contradiction or confirmed writeback-act pressure | owning eval bundle or mechanic part route |",
+        "| memo recall pressure | `mechanics/recurrence/parts/memory-recall/` route |",
+    ),
+)
+def test_distillation_direction_rejects_missing_parent_stop_line_routes(
     tmp_path: Path,
+    stop_line: str,
 ) -> None:
     direction_name = distillation_paths_validator.DISTILLATION_MECHANIC_DIRECTION_NAME
-    stop_line = (
-        "| runtime activation or hidden runtime-store pressure | "
-        "`abyss-stack` runtime route |"
-    )
     copy_repo_text(tmp_path, direction_name)
     direction_path = tmp_path / direction_name
     direction_path.write_text(

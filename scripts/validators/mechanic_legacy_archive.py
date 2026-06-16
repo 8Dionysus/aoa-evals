@@ -91,7 +91,6 @@ MECHANIC_LEGACY_ARCHIVE_STALE_ROUTE_PHRASES = (
     "Do not begin new",
     "Do not recreate",
     "Do not treat",
-    "Do not use",
     "It is not",
     "does not own",
     "Legacy only explains",
@@ -100,6 +99,12 @@ MECHANIC_LEGACY_ARCHIVE_STALE_ROUTE_PHRASES = (
     "not an active",
     "not active",
     "not a changelog",
+)
+MECHANIC_LEGACY_ARCHIVE_STALE_ROUTE_PATTERNS = (
+    re.compile(r"\bdo not use\b", re.IGNORECASE),
+    re.compile(r"\bshould not use\b", re.IGNORECASE),
+    re.compile(r"\bshould not be used\b", re.IGNORECASE),
+    re.compile(r"\bnot (?:the )?(?:current|active) route\b", re.IGNORECASE),
 )
 
 
@@ -127,6 +132,18 @@ def validate_mechanic_legacy_archive_route_language(
                     ValidationIssue(
                         path_name,
                         f"legacy archive route files must name current active route expectations instead of stale negative scaffold `{phrase}`",
+                    )
+                )
+        for pattern in MECHANIC_LEGACY_ARCHIVE_STALE_ROUTE_PATTERNS:
+            pattern_match = pattern.search(stale_scan_text)
+            if pattern_match is not None:
+                issues.append(
+                    ValidationIssue(
+                        path_name,
+                        (
+                            "legacy archive route files must name current active route expectations "
+                            f"instead of stale negative scaffold `{pattern_match.group(0)}`"
+                        ),
                     )
                 )
 

@@ -4,6 +4,8 @@ import sys
 import textwrap
 from pathlib import Path
 
+import pytest
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = REPO_ROOT / "scripts"
@@ -169,6 +171,38 @@ def test_mechanic_legacy_archive_route_language_rejects_negative_scaffold(
 
     assert any(
         issue.location == target and "current active route expectations" in issue.message
+        for issue in issues
+    )
+
+
+@pytest.mark.parametrize(
+    "stale_text",
+    (
+        "should not use this as the current route",
+        "do not use this as the current route",
+        "This route should not be used as the current route.",
+        "This is not the current route.",
+    ),
+)
+def test_mechanic_legacy_archive_route_language_rejects_targeted_not_scaffold(
+    tmp_path: Path,
+    stale_text: str,
+) -> None:
+    for path_name in mechanic_legacy_archive_validator.MECHANIC_LEGACY_ARCHIVE_ROUTE_FILES:
+        write_text(tmp_path / path_name, "# Legacy\n\nCurrent route.\n")
+    target = "mechanics/proof-object/legacy/DISTILLATION_LOG.md"
+    write_text(
+        tmp_path / target,
+        f"# Legacy\n\n{stale_text}\n",
+    )
+
+    issues = mechanic_legacy_archive_validator.validate_mechanic_legacy_archive_route_language(
+        tmp_path
+    )
+
+    assert any(
+        issue.location == target
+        and "current active route expectations" in issue.message
         for issue in issues
     )
 

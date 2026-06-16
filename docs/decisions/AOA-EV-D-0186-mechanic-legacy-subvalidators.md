@@ -83,6 +83,25 @@ As of 2026-06-04:
   moved into `mechanic_legacy_common.py`.
 - Supersedes: the single-module owner shape described by AOA-EV-D-0148.
 
+## Review Log
+
+### 2026-06-16 - Targeted negative archive route wording
+
+- Previous assumption: exact stale-route phrases were enough to keep archive
+  records from becoming negative active-route scaffold.
+- New reality: archive route files must also reject targeted lowercase and
+  modal negative wording such as `do not use`, `should not use`, `should not be
+  used`, and `not the current route`, while preserving neutral forms such as
+  `not exhaustive`.
+- Reason: these phrases still tell the reader what not to do instead of naming
+  the current active route expectation.
+- Source surfaces updated: `scripts/validators/mechanic_legacy_archive.py` and
+  `tests/test_mechanic_legacy_archive_routes.py`.
+- Validation: focused mechanic legacy archive route-language tests,
+  py_compile for the validator and test, decision index generation/check,
+  `validate_repo`, semantic AGENTS validation, source-fast CI gate, full
+  pytest, release check, and `git diff --check`.
+
 ## Boundaries
 
 This decision does not let legacy validators define mechanic payload meaning.

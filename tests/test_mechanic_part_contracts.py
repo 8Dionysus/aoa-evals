@@ -222,7 +222,7 @@ def test_mechanic_part_payload_inventory_requires_superseded_command_string(
     decision_path = tmp_path / mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
     decision_path.write_text(
         decision_path.read_text(encoding="utf-8").replace(
-            mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND,
+            mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_SUPERSEDED_COMMAND,
             "python -m pytest -q tests/test_mechanic_part_contracts.py -k changed_guard",
             1,
         ),
@@ -233,7 +233,7 @@ def test_mechanic_part_payload_inventory_requires_superseded_command_string(
 
     assert any(
         issue.location == mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
-        and mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND in issue.message
+        and mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_SUPERSEDED_COMMAND in issue.message
         for issue in issues
     )
 

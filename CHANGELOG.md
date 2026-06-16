@@ -40,6 +40,12 @@ Tracking starts with the community-docs baseline for this repository.
 - Decision 0113 records the bounded proof route for that eval and serves as
   the route-only writeback marker for the `aoa-evals` landing.
 
+### Fixed
+
+- Mechanic part payload-inventory decision guards now use a dedicated
+  superseded-command token so D-0086 preserves historical command text even if
+  the active mechanics route command changes.
+
 ## [0.4.0] - 2026-05-25
 
 ### Summary

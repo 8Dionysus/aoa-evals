@@ -106,7 +106,7 @@ def test_generated_parity_contracts_reject_wrong_builder_for_reader_row(
     )
     assert row in readme_text
     readme_path.write_text(
-        readme_text.replace(row, row.replace(expected_builder, "scripts/wrong_report_index.py"), 1)
+        readme_text.replace(row, row.replace(expected_builder, f"{expected_builder}.bak"), 1)
         + f"\nMention elsewhere: `{expected_builder}`\n",
         encoding="utf-8",
     )

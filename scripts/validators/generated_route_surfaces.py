@@ -92,7 +92,7 @@ def validate_generated_route_surfaces(repo_root: Path) -> list[tuple[str, str]]:
             if reader not in generated_readme:
                 issues.append((GENERATED_README.as_posix(), f"generated reader index must mention {reader}"))
             row_builder = reader_builder_rows.get(reader)
-            if row_builder is None or builder not in row_builder:
+            if row_builder != builder:
                 issues.append(
                     (
                         GENERATED_README.as_posix(),

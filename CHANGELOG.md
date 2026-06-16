@@ -42,6 +42,8 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Fixed
 
+- Generated reader route validation now requires each reader row to name the
+  exact builder path, rejecting near-matches such as `.bak` or `.old` scripts.
 - Mechanic legacy archive route-language validation now rejects targeted
   lowercase and modal negative route scaffold such as `do not use` and `should
   not use`, while preserving neutral wording like `not exhaustive`.

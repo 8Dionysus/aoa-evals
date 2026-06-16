@@ -25,6 +25,7 @@ from validate_repo_fixtures import (
     add_materialized_proof_artifacts,
     eval_dir_for_test,
     make_eval_bundle,
+    make_strategic_closeout_audit_surface,
     write_catalogs,
     write_text,
 )
@@ -434,6 +435,26 @@ def test_validate_repo_accepts_valid_longitudinal_bundle_with_materialized_artif
     write_catalogs(tmp_path)
 
     assert run_validation(tmp_path, eval_name="aoa-valid-longitudinal-materialized") == []
+
+
+def test_validate_repo_requires_strategic_closeout_repo_validation_route_token(
+    tmp_path: Path,
+) -> None:
+    make_strategic_closeout_audit_surface(tmp_path)
+    readme_path = tmp_path / "mechanics/release-support/parts/strategic-closeout/README.md"
+    readme_text = readme_path.read_text(encoding="utf-8")
+    readme_path.write_text(
+        readme_text.replace("GitHub `Repo Validation`", "GitHub validation", 1),
+        encoding="utf-8",
+    )
+
+    issues = run_validation(tmp_path)
+
+    assert any(
+        issue.location == "mechanics/release-support/parts/strategic-closeout/README.md"
+        and "GitHub `Repo Validation`" in issue.message
+        for issue in issues
+    )
 
 
 def test_validate_repo_allows_local_run_without_sibling_dependency_repos(monkeypatch) -> None:

@@ -83,6 +83,25 @@ As of 2026-05-24:
 
 ## Review Log
 
+### 2026-06-16 - Runtime-specific fixed-baseline readout
+
+- Previous assumption: the fixed-baseline part's active paired readout could be
+  represented by `same-task-baseline-proof-flow-v1.md` for every current
+  fixed-baseline bundle.
+- New reality: `aoa-runtime-latency-tradeoff` is a draft public starter with a
+  fixed-baseline comparison surface, but its `mixed tradeoff signal` verdict
+  and latency/resource-use boundary are not a same-task regression verdict.
+- Reason: routing runtime tradeoff reports to the same-task regression dossier
+  excluded the runtime bundle's verdict shape and could overread latency
+  movement as workflow regression, runtime health, or broad quality.
+- Source surfaces updated:
+  `mechanics/comparison-spine/parts/fixed-baseline/reports/runtime-latency-tradeoff-proof-flow-v1.md`,
+  `mechanics/comparison-spine/parts/fixed-baseline/README.md`, and
+  `evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/`.
+- Validation: bundle-local validation, generated catalog check, root
+  validation, semantic AGENTS validation, comparison/catalog tests, and full
+  pytest are the expected checks for this slice.
+
 ### 2026-05-24 - Part-level pressure routes
 
 - Previous assumption: part README stop-lines could list overread limits and

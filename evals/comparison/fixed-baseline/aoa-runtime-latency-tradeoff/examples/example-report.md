@@ -6,7 +6,7 @@
 - bundle shape: `comparative`
 - verdict: `mixed tradeoff signal`
 - machine-readable companion: `reports/example-report.json`
-- shared proof dossier: `mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md`
+- shared proof dossier: `mechanics/comparison-spine/parts/fixed-baseline/reports/runtime-latency-tradeoff-proof-flow-v1.md`
 
 This is a draft runtime tradeoff surface, not a runtime leaderboard or quality
 ranking.

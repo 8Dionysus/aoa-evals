@@ -14,7 +14,7 @@ technique_dependencies: []
 skill_dependencies: []
 comparison_surface:
   shared_family_path: mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md
-  paired_readout_path: mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md
+  paired_readout_path: mechanics/comparison-spine/parts/fixed-baseline/reports/runtime-latency-tradeoff-proof-flow-v1.md
   integrity_sidecar: aoa-eval-integrity-check
   anchor_surface: aoa-local-text-contract-fit
   baseline_target_label: sanitized local runtime baseline variant

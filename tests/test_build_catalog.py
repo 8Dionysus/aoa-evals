@@ -344,7 +344,7 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     assert runtime_artifacts["shared_fixture_family_path"] == "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
     assert runtime_artifacts["runner_contract_path"] == "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/runners/contract.json"
     assert runtime_artifacts["report_schema_path"] == "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/reports/summary.schema.json"
-    assert runtime_artifacts["paired_readout_path"] == "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md"
+    assert runtime_artifacts["paired_readout_path"] == "mechanics/comparison-spine/parts/fixed-baseline/reports/runtime-latency-tradeoff-proof-flow-v1.md"
 
     assert longitudinal_artifacts["shared_fixture_family_path"] == "mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md"
     assert longitudinal_artifacts["runner_contract_path"] == "evals/comparison/longitudinal-window/aoa-longitudinal-growth-snapshot/runners/contract.json"

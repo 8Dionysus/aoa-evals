@@ -42,6 +42,9 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Fixed
 
+- `aoa-runtime-latency-tradeoff` now reconciles its draft public-starter
+  routing with bundle-local integrity evidence and uses a runtime-specific
+  fixed-baseline readout instead of the same-task regression dossier.
 - Generated reader route validation now requires each reader row to name the
   exact builder path, rejecting near-matches such as `.bak` or `.old` scripts.
 - Mechanic legacy archive route-language validation now rejects targeted

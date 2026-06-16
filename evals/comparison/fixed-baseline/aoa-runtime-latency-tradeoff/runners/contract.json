@@ -18,7 +18,7 @@
   ],
   "report_schema_path": "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/reports/summary.schema.json",
   "report_example_path": "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/reports/example-report.json",
-  "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
+  "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/runtime-latency-tradeoff-proof-flow-v1.md",
   "validation_commands": [
     "python scripts/validate_repo.py --eval aoa-runtime-latency-tradeoff"
   ]

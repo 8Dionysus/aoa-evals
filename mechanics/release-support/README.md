@@ -30,8 +30,10 @@ objects own claim strength.
 - `docs/operations/RELEASING.md`
 - `CHANGELOG.md`
 - `scripts/release_check.py`
+- `scripts/validate_abyss_machine_report_index_bundle.py`
 - `.github/workflows/repo-validation.yml`
 - `.github/AGENTS.md`
+- `mechanics/release-support/parts/artifact-bundles/manifests/report_index.bundle.json`
 - `README.md` current release line
 - `docs/operations/AGENTS_ROOT_REFERENCE.md`
 - `mechanics/release-support/PARTS.md`
@@ -84,6 +86,7 @@ routes to bundle-local proof objects.
 | `CHANGELOG.md` carries proof-claim pressure | human public release narrative, with source proof meaning in source proof surfaces |
 | GitHub `Repo Validation` reads as bundle-local review | landing gate first, then bundle-local review for proof interpretation |
 | Git tag reads as draft, baseline, or canonical promotion | published-state record, with promotion routed through bundle-local review |
+| generated report-index bundle reads as proof authority | OS Abyss artifact bundle validation checks the release carrier only; bundle-local proof sources keep claim strength |
 
 Sibling repositories keep their own stronger truth. Latest-sibling canary
 results may prove compatibility posture for release review; sibling authority

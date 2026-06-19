@@ -15,6 +15,7 @@ them:
 
 The mechanic-owned state artifacts live in parts:
 
+- [Artifact Bundles](parts/artifact-bundles/README.md)
 - [Readiness Audit](parts/readiness-audit/README.md)
 - [Strategic Closeout](parts/strategic-closeout/README.md)
 - [PR Handoff](parts/pr-handoff/README.md)
@@ -28,7 +29,7 @@ owned by bundle-local proof surfaces.
 | Field | Route |
 | --- | --- |
 | Inputs | bounded release scope, changelog narrative, release procedure, repository validation posture, local handoff or audit evidence |
-| Outputs | readiness audit, strategic closeout audit, PR handoff snapshot, or release-route review artifact |
+| Outputs | artifact bundle manifest, readiness audit, strategic closeout audit, PR handoff snapshot, or release-route review artifact |
 | Owner split | root release entrypoints remain where contributors expect them; package parts own release-support state artifacts; bundle claims stay with source proof surfaces |
 | Stop-lines | route tag, GitHub Release, PR approval, observed GitHub `Repo Validation`, merge, and goal completion checks to live owner evidence |
 | Validation | parent `AGENTS.md` and `parts/AGENTS.md` command lanes |

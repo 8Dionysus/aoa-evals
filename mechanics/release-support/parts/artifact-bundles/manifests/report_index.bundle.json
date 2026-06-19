@@ -1,0 +1,36 @@
+{
+  "schema": "abyss_machine_artifact_bundle_manifest_v1",
+  "id": "aoa-evals-generated-report-index-bundle",
+  "artifact_class": "aoa_evals_generated_report_index_bundle",
+  "owner_repo": "aoa-evals",
+  "policy_ref": "repo:abyss-machine/manifests/artifact_signature_policy.manifest.json",
+  "mode": "github_release",
+  "public_safe": true,
+  "purpose": "Repo-local OS Abyss artifact bundle input for generated/eval_report_index.min.json.",
+  "subject_repo_root": "../../../../..",
+  "build_type": "https://abyssos.local/buildtypes/aoa-evals-generated-report-index/v1",
+  "artifact_identity": {
+    "artifact_class": "aoa_evals_generated_report_index_bundle",
+    "abi_epoch": "aoa_evals_generated_report_index_bundle_v1"
+  },
+  "abi_subject": {
+    "path": "generated/eval_report_index.min.json"
+  },
+  "artifact_subjects": [
+    {
+      "path": "generated/eval_report_index.min.json",
+      "role": "generated_report_index"
+    }
+  ],
+  "package": {
+    "ecosystem": "proof-reader",
+    "name": "aoa-evals-generated-report-index",
+    "purl": "pkg:generic/aoa-evals-generated-report-index@0"
+  },
+  "consumer_command": [
+    "abyss-machine artifacts build-sidecars --manifest mechanics/release-support/parts/artifact-bundles/manifests/report_index.bundle.json --bundle-dir BUNDLE_DIR",
+    "abyss-machine artifacts sign BUNDLE_DIR",
+    "abyss-machine artifacts verify BUNDLE_DIR",
+    "abyss-machine artifacts release-check BUNDLE_DIR"
+  ]
+}

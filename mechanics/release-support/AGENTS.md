@@ -43,14 +43,16 @@ handoff routes.
 10. `docs/operations/RELEASING.md`
 11. `CHANGELOG.md`
 12. `scripts/release_check.py`
-13. `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json` when auditing an
+13. `mechanics/release-support/parts/artifact-bundles/README.md` when release
+    artifact bundle identity or OS Abyss verifier intake changes
+14. `mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json` when auditing an
     accumulated release-prep diff
-14. `mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json` when auditing strategic
+15. `mechanics/release-support/parts/strategic-closeout/reports/strategic-closeout-audit-v1.json` when auditing strategic
     completion readiness
-15. `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json` when reading the pre-PR owner
+16. `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json` when reading the pre-PR owner
     landing handoff snapshot without mistaking it for live PR or GitHub `Repo Validation` state
-16. `.github/AGENTS.md` when GitHub workflows or PR templates change
-17. affected source proof bundles, docs, schemas, generated builders, or
+17. `.github/AGENTS.md` when GitHub workflows or PR templates change
+18. affected source proof bundles, docs, schemas, generated builders, or
     mechanics packages
 
 ## Local Law
@@ -63,6 +65,9 @@ handoff routes.
 - Keep release titles plain tag-shaped when publishing, for example `v0.3.3`.
 - Keep sibling compatibility claims tied to CI or latest-sibling canary
   evidence.
+- Keep OS Abyss artifact bundle verification under the `abyss-machine`
+  policy/verifier route; release-support manifests name the carried artifact,
+  not a local signing doctrine.
 - Keep readiness audits below tags, GitHub releases, PR approval, and goal
   completion.
 - Keep package-owned audit and handoff artifacts under

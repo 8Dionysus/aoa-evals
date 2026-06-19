@@ -19,7 +19,7 @@ gate that only one script remembers.
 | `latest-sibling` | advisory moving-sibling canary | local compatibility signal against current sibling repositories | release pass/fail identity |
 | `trace/eval` | advisory proof-behavior lane | trace, trajectory, tool-call, outcome, and grader route coverage for future eval harness work | hard runtime execution or model-quality verdicts without a bounded eval bundle |
 | `audit` | advisory review lane | evidence sufficiency, route residue, proof limits, receipts, and review/handoff reports | release blocking unless promoted by a decision |
-| `release` | blocking release gate | frozen local release sequence through `scripts/release_check.py` | ordinary PR growth gating, pinned sibling compatibility, and moving-main canaries |
+| `release` | blocking release gate | frozen local release sequence through `scripts/release_check.py`, including OS Abyss report-index artifact bundle identity/provenance | ordinary PR growth gating, pinned sibling compatibility, and moving-main canaries |
 | `nightly` | moving-main sentinel | source, generated, part-local, and moving-sibling drift evidence | release artifact identity |
 | `advisory` | non-blocking boundary inventory | capability/runtime policy, memory/context, inter-agent handoff, observability, and security/adversarial routes | prompt-only guardrails as a security boundary |
 
@@ -36,6 +36,13 @@ Generated readers, catalogs, runtime-candidate indexes, report indexes, and
 boundary-bridge matrices are projections. Generated validators may rebuild
 expected payloads from source and compare parity. They do not define what an
 eval proves.
+
+The release lane also validates the generated report index as an OS Abyss
+artifact bundle through
+`scripts/validate_abyss_machine_report_index_bundle.py`. That check proves the
+release carrier's ABI/SBOM/SLSA sidecars against `abyss-machine` policy; it
+does not promote `generated/eval_report_index.min.json` above bundle-local
+proof sources.
 
 Memo-shaped runtime evidence selection packets must carry a
 `memory_context_boundary`. The selected-evidence source example owns the

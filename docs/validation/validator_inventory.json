@@ -56,6 +56,19 @@
       "disposition": "keep"
     },
     {
+      "path": "scripts/validate_abyss_machine_report_index_bundle.py",
+      "lane": "release",
+      "layer": "release artifact identity",
+      "mode": "blocking",
+      "owner_surface": "mechanics/release-support/parts/artifact-bundles/README.md",
+      "source_truth": ["mechanics/release-support/parts/artifact-bundles/manifests/report_index.bundle.json", "generated/eval_report_index.min.json", "docs/validation/validation_lanes.json"],
+      "input": ["generated eval report index", "release-support artifact bundle manifest", "abyss-machine artifact policy/verifier"],
+      "output": ["OS Abyss artifact bundle validation payload", "ABI/SBOM/SLSA verifier status"],
+      "command_sequences": ["release_check"],
+      "failure_route": "Fix the generated report index, bundle manifest, runner-provided abyss-machine verifier, or abyss-machine artifact policy class; do not promote the generated reader into proof authority.",
+      "disposition": "add"
+    },
+    {
       "path": "scripts/validators/__init__.py",
       "lane": "source_fast",
       "layer": "compatibility adapter",

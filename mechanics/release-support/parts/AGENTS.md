@@ -48,6 +48,14 @@ python scripts/validate_semantic_agents.py
 
 Executable validation commands from child part routes live here. Child README and VALIDATION files route to this section instead of carrying command blocks.
 
+### `mechanics/release-support/parts/artifact-bundles/VALIDATION.md`
+
+```bash
+python scripts/validate_abyss_machine_report_index_bundle.py
+python scripts/validate_repo.py
+python scripts/release_check.py
+```
+
 ### `mechanics/release-support/parts/pr-handoff/VALIDATION.md`
 
 ```bash

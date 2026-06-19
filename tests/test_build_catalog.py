@@ -53,6 +53,8 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
         "eval_markdown": "evals/**/EVAL.md",
         "eval_manifest": "evals/**/eval.yaml",
     }
+    assert full_catalog["artifact_identity"] == eval_catalog_contract.CATALOG_ARTIFACT_IDENTITY
+    assert min_catalog["artifact_identity"] == eval_catalog_contract.CATALOG_ARTIFACT_IDENTITY
     entry = next(item for item in full_catalog["evals"] if item["name"] == "aoa-catalog-shape")
     assert entry["technique_refs"] == [
         {

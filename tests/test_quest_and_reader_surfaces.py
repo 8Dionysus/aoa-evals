@@ -975,6 +975,21 @@ class TestValidateQuestRouteSurfaces:
             for issue in issues
         )
 
+    def test_eval_report_index_rejects_artifact_identity_drift(self, tmp_path: Path) -> None:
+        make_eval_report_index_surface(tmp_path)
+        index_path = tmp_path / "generated" / "eval_report_index.min.json"
+        payload = json.loads(index_path.read_text(encoding="utf-8"))
+        payload["artifact_identity"] = {"artifact_class": "stronger_than_source"}
+        write_json_payload(index_path, payload)
+
+        issues = validate_eval_report_index(tmp_path)
+
+        assert any(
+            issue.location == "generated/eval_report_index.min.json"
+            and "artifact_identity must stay stable" in issue.message
+            for issue in issues
+        )
+
     def test_eval_report_index_reports_builder_system_exit(self) -> None:
         class FailingBuilder:
             def build_eval_report_index_payload(self) -> dict[str, object]:

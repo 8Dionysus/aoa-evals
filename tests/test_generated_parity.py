@@ -243,6 +243,7 @@ def test_targeted_validation_catches_stale_catalog_metadata(tmp_path: Path) -> N
     min_catalog = json.loads(min_path.read_text(encoding="utf-8"))
     full_catalog["catalog_version"] = 999
     min_catalog["source_of_truth"] = {"broken": True}
+    full_catalog["artifact_identity"] = {"broken": True}
     full_path.write_text(json.dumps(full_catalog), encoding="utf-8")
     min_path.write_text(json.dumps(min_catalog), encoding="utf-8")
 

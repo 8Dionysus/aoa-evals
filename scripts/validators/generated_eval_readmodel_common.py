@@ -18,6 +18,7 @@ FULL_CATALOG_NAME = eval_catalog_contract.FULL_CATALOG_NAME
 MIN_CATALOG_NAME = eval_catalog_contract.MIN_CATALOG_NAME
 CATALOG_VERSION = eval_catalog_contract.CATALOG_VERSION
 CATALOG_SOURCE_OF_TRUTH = eval_catalog_contract.CATALOG_SOURCE_OF_TRUTH
+CATALOG_ARTIFACT_IDENTITY = eval_catalog_contract.CATALOG_ARTIFACT_IDENTITY
 CAPSULE_NAME = eval_capsule_contract.CAPSULE_NAME
 CAPSULE_VERSION = eval_capsule_contract.CAPSULE_VERSION
 CAPSULE_SOURCE_OF_TRUTH = eval_capsule_contract.CAPSULE_SOURCE_OF_TRUTH
@@ -70,6 +71,7 @@ def validate_catalog_metadata(
     if (
         actual_catalog.get("catalog_version") != expected_catalog["catalog_version"]
         or actual_catalog.get("source_of_truth") != expected_catalog["source_of_truth"]
+        or actual_catalog.get("artifact_identity") != expected_catalog["artifact_identity"]
     ):
         issues.append(
             ValidationIssue(

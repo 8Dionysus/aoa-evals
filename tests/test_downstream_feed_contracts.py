@@ -426,10 +426,18 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         self.assertEqual(current, expected)
         self.assertEqual(
             set(current.keys()),
-            {"schema_version", "layer", "source_of_truth", "interpretation_boundary", "reports"},
+            {
+                "schema_version",
+                "layer",
+                "source_of_truth",
+                "artifact_identity",
+                "interpretation_boundary",
+                "reports",
+            },
         )
         self.assertEqual(current["schema_version"], 1)
         self.assertEqual(current["layer"], "aoa-evals")
+        self.assertEqual(current["artifact_identity"], eval_report_index_builder.ARTIFACT_IDENTITY)
         self.assertIn("not a receipt", current["interpretation_boundary"])
         self.assertIn("verdict authority", current["interpretation_boundary"])
 

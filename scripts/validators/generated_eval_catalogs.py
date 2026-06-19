@@ -97,6 +97,7 @@ def validate_generated_catalogs(
             {
                 "catalog_version": CATALOG_VERSION,
                 "source_of_truth": CATALOG_SOURCE_OF_TRUTH,
+                "artifact_identity": expected_full["artifact_identity"],
                 "evals": [entry],
             }
         )["evals"][0]
@@ -134,6 +135,7 @@ def validate_generated_catalogs(
             {
                 "catalog_version": actual_full.get("catalog_version"),
                 "source_of_truth": actual_full.get("source_of_truth"),
+                "artifact_identity": actual_full.get("artifact_identity"),
                 "evals": [actual_full_entry],
             },
             location=full_location,

@@ -13,6 +13,50 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_PATH = REPO_ROOT / "generated" / "eval_report_index.min.json"
 REPORT_SUFFIX = ".report.json"
 SOURCE_EVALS_DIR_NAME = "evals"
+SCHEMA_VERSION = 1
+LAYER = "aoa-evals"
+SOURCE_OF_TRUTH = {
+    "bundle_reports": "evals/**/reports/*.report.json",
+    "bundle_report_schema": "evals/**/reports/summary.schema.json",
+    "bundle_manifest": "evals/**/eval.yaml",
+    "eval_review_guide": "docs/guides/EVAL_REVIEW_GUIDE.md",
+}
+INTERPRETATION_BOUNDARY = (
+    "This generated reader routes to bounded report artifacts. It is not a receipt, "
+    "promotion signal, runtime acceptance, or verdict authority."
+)
+ARTIFACT_IDENTITY = {
+    "artifact_class": "derived_eval_report_index",
+    "surface_state": "public_generated_report_index",
+    "owner_repo": "aoa-evals",
+    "authority_ref": "docs/architecture/PROOF_TOPOLOGY.md",
+    "producer": (
+        "scripts/generate_eval_report_index.py from evals/**/reports/*.report.json "
+        "and evals/**/eval.yaml"
+    ),
+    "consumer_expectation": (
+        "consumers verify schema_version, layer, source_of_truth, source report refs, "
+        "not_a_receipt posture, and generate_eval_report_index --check plus validate_repo "
+        "before treating entries as bounded report routing"
+    ),
+    "privacy_boundary": (
+        "public-safe report metadata and refs only; no private raw evidence, runtime telemetry, "
+        "hidden datasets, or receipt publication claims"
+    ),
+    "content_identity": (
+        "generated/eval_report_index.min.json rebuilt from bundle-local reports and compared by "
+        "generate_eval_report_index --check"
+    ),
+    "abi_epoch": "aoa_evals_eval_report_index_v1",
+    "contract_version": "generate_eval_report_index.py@aoa_evals_eval_report_index_v1#artifact_identity",
+    "trust_layer": ["abi_contract_signature", "w3c_prov_lineage"],
+    "verification": [
+        "python scripts/generate_eval_report_index.py --check",
+        "python scripts/validate_repo.py",
+        "python -m pytest -q tests/test_quest_and_reader_surfaces.py -k eval_report_index",
+    ],
+    "action": "ADD_CONSUMER_EXPECTATION",
+}
 
 
 def read_text(path: Path) -> str:
@@ -107,18 +151,11 @@ def build_eval_report_index_payload() -> dict[str, object]:
     reports.sort(key=lambda item: (str(item["eval_name"]), str(item["report_id"])))
 
     return {
-        "schema_version": 1,
-        "layer": "aoa-evals",
-        "source_of_truth": {
-            "bundle_reports": "evals/**/reports/*.report.json",
-            "bundle_report_schema": "evals/**/reports/summary.schema.json",
-            "bundle_manifest": "evals/**/eval.yaml",
-            "eval_review_guide": "docs/guides/EVAL_REVIEW_GUIDE.md",
-        },
-        "interpretation_boundary": (
-            "This generated reader routes to bounded report artifacts. It is not a receipt, "
-            "promotion signal, runtime acceptance, or verdict authority."
-        ),
+        "schema_version": SCHEMA_VERSION,
+        "layer": LAYER,
+        "source_of_truth": SOURCE_OF_TRUTH,
+        "artifact_identity": ARTIFACT_IDENTITY,
+        "interpretation_boundary": INTERPRETATION_BOUNDARY,
         "reports": reports,
     }
 

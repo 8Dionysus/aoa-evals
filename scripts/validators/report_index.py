@@ -132,6 +132,8 @@ def validate_eval_report_index(
     }
     if payload.get("source_of_truth") != expected_source_of_truth:
         issues.append(ValidationIssue(generated_location, "source_of_truth must stay stable"))
+    if payload.get("artifact_identity") != getattr(builder, "ARTIFACT_IDENTITY", None):
+        issues.append(ValidationIssue(generated_location, "artifact_identity must stay stable"))
     boundary = payload.get("interpretation_boundary")
     if not isinstance(boundary, str) or not all(
         token in boundary

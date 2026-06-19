@@ -1,4 +1,26 @@
 {
+  "artifact_identity": {
+    "abi_epoch": "aoa_evals_eval_catalog_v1",
+    "action": "ADD_CONSUMER_EXPECTATION",
+    "artifact_class": "derived_eval_catalog_readmodel",
+    "authority_ref": "docs/architecture/PROOF_TOPOLOGY.md",
+    "consumer_expectation": "consumers verify catalog_version, source_of_truth, artifact_identity, eval_path refs, and build_catalog --check plus validate_repo before treating entries as proof routing",
+    "content_identity": "generated/eval_catalog.json and generated/eval_catalog.min.json rebuilt from source eval bundles and compared by build_catalog --check",
+    "contract_version": "eval_catalog_contract.py@aoa_evals_eval_catalog_v1#artifact_identity",
+    "owner_repo": "aoa-evals",
+    "privacy_boundary": "public eval metadata and source refs only; no private runtime evidence, hidden datasets, session memory payloads, or receipt publication claims",
+    "producer": "scripts/build_catalog.py from evals/**/EVAL.md and evals/**/eval.yaml",
+    "surface_state": "public_generated_proof_catalog",
+    "trust_layer": [
+      "abi_contract_signature",
+      "w3c_prov_lineage"
+    ],
+    "verification": [
+      "python scripts/build_catalog.py --check",
+      "python scripts/validate_repo.py",
+      "python -m pytest -q tests/test_build_catalog.py tests/test_generated_parity.py"
+    ]
+  },
   "catalog_version": 1,
   "evals": [
     {

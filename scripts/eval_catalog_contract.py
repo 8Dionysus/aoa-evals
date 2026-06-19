@@ -17,6 +17,34 @@ CATALOG_SOURCE_OF_TRUTH = {
     "eval_markdown": "evals/**/EVAL.md",
     "eval_manifest": "evals/**/eval.yaml",
 }
+CATALOG_ARTIFACT_IDENTITY = {
+    "artifact_class": "derived_eval_catalog_readmodel",
+    "surface_state": "public_generated_proof_catalog",
+    "owner_repo": "aoa-evals",
+    "authority_ref": "docs/architecture/PROOF_TOPOLOGY.md",
+    "producer": "scripts/build_catalog.py from evals/**/EVAL.md and evals/**/eval.yaml",
+    "consumer_expectation": (
+        "consumers verify catalog_version, source_of_truth, artifact_identity, eval_path refs, "
+        "and build_catalog --check plus validate_repo before treating entries as proof routing"
+    ),
+    "privacy_boundary": (
+        "public eval metadata and source refs only; no private runtime evidence, hidden datasets, "
+        "session memory payloads, or receipt publication claims"
+    ),
+    "content_identity": (
+        "generated/eval_catalog.json and generated/eval_catalog.min.json rebuilt from source eval "
+        "bundles and compared by build_catalog --check"
+    ),
+    "abi_epoch": "aoa_evals_eval_catalog_v1",
+    "contract_version": "eval_catalog_contract.py@aoa_evals_eval_catalog_v1#artifact_identity",
+    "trust_layer": ["abi_contract_signature", "w3c_prov_lineage"],
+    "verification": [
+        "python scripts/build_catalog.py --check",
+        "python scripts/validate_repo.py",
+        "python -m pytest -q tests/test_build_catalog.py tests/test_generated_parity.py",
+    ],
+    "action": "ADD_CONSUMER_EXPECTATION",
+}
 MIN_ENTRY_KEYS = (
     "name",
     "category",
@@ -469,6 +497,7 @@ def project_min_catalog(full_catalog: dict[str, Any]) -> dict[str, Any]:
     return {
         "catalog_version": full_catalog["catalog_version"],
         "source_of_truth": full_catalog["source_of_truth"],
+        "artifact_identity": full_catalog["artifact_identity"],
         "evals": [
             {key: entry[key] for key in MIN_ENTRY_KEYS}
             for entry in full_catalog["evals"]
@@ -484,6 +513,7 @@ def build_catalog_payloads(
     full_catalog = {
         "catalog_version": CATALOG_VERSION,
         "source_of_truth": CATALOG_SOURCE_OF_TRUTH,
+        "artifact_identity": CATALOG_ARTIFACT_IDENTITY,
         "evals": [full_catalog_entry(repo_root, record) for record in sorted_records],
     }
     return full_catalog, project_min_catalog(full_catalog)

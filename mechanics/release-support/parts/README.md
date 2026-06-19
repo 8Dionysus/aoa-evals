@@ -9,9 +9,9 @@ home, owner route, tool lane, and validation lane.
 
 | Field | Route |
 | --- | --- |
-| role | lower index for release-support readiness, closeout, and PR handoff artifacts |
+| role | lower index for release-support artifact-bundle, readiness, closeout, and PR handoff artifacts |
 | input | bounded release scope, changelog narrative, release procedure, repository validation posture, handoff evidence, audit evidence, or live landing pressure |
-| output | readiness audit route, strategic closeout route, PR handoff route, release-route review artifact, or live owner-evidence handoff |
+| output | artifact-bundle route, readiness audit route, strategic closeout route, PR handoff route, release-route review artifact, or live owner-evidence handoff |
 | owner | root release entrypoints stay in root/docs/scripts/GitHub lanes; release-support parts own state artifacts; bundle claims stay with source proof surfaces |
 | next route | `mechanics/release-support/PARTS.md`, selected part README, root release entrypoint, GitHub evidence, source bundle, and parent validation lane |
 | tools | release check, repo validator, semantic AGENTS validator, GitHub validation, and focused release-support checks through `mechanics/release-support/AGENTS.md#validation` |
@@ -21,6 +21,7 @@ home, owner route, tool lane, and validation lane.
 
 | Part | Operation | Start surface |
 | --- | --- | --- |
+| `artifact-bundles/` | Artifact bundle manifests that route generated release carriers into OS Abyss `abyss-machine` verification | `artifact-bundles/README.md` |
 | `readiness-audit/` | Readiness Audit artifact for accumulated strategic refactor diff | `readiness-audit/README.md` |
 | `strategic-closeout/` | Strategic Closeout artifact for requirement-by-requirement goal review | `strategic-closeout/README.md` |
 | `pr-handoff/` | PR Handoff snapshot; current git and GitHub evidence own live branch, PR, CI, and merge status | `pr-handoff/README.md` |
@@ -32,6 +33,7 @@ home, owner route, tool lane, and validation lane.
 | public release narrative | `CHANGELOG.md` |
 | release procedure | `docs/operations/RELEASING.md` |
 | local release gate | `scripts/release_check.py` |
+| OS Abyss artifact bundle verifier dependency | `mechanics/release-support/parts/artifact-bundles/README.md` and `abyss-machine` policy/verifier route |
 | GitHub landing gate | `.github/workflows/repo-validation.yml` and observed GitHub check evidence |
 | tag, GitHub Release, PR approval, merge, or goal completion | live git, GitHub, tag, release, and current-goal evidence |
 | eval claim strength | bundle-local proof surfaces |
@@ -40,6 +42,7 @@ home, owner route, tool lane, and validation lane.
 
 | Source signal | Operation test | Next route |
 | --- | --- | --- |
+| generated release carrier needs ABI/SBOM/SLSA verification | artifact-bundle manifest names the carrier while `abyss-machine` owns policy and verifier behavior | `artifact-bundles/README.md` |
 | release-prep readiness needs a local artifact | readiness audit has bounded scope and validation posture | `readiness-audit/README.md` |
 | strategic goal closeout needs requirement-by-requirement audit | closeout artifact can name evidence and residual risk | `strategic-closeout/README.md` |
 | PR landing needs a pre-PR handoff snapshot | handoff artifact can point to live git/GitHub evidence without replacing it | `pr-handoff/README.md` |

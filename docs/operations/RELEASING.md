@@ -43,6 +43,9 @@ Recommended local release loop:
   commands
 - follow root `AGENTS.md#verify` when the release touches generated readers or
   repository-wide proof topology
+- when release audit reaches the OS Abyss report-index artifact bundle check,
+  provide `ABYSS_MACHINE_REPO_ROOT` or an installed `abyss_machine` verifier if
+  there is no sibling `abyss-machine` checkout
 
 When you need the latest-sibling canary rather than the pinned repo-validation
 lane, use the boundary-bridge validation route in

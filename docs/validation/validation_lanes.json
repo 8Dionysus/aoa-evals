@@ -94,7 +94,7 @@
       "owner_surface": "docs/operations/RELEASING.md",
       "command_sequence": "release_check",
       "entrypoint": "scripts/release_check.py",
-      "purpose": "Frozen local release-prep gate for aoa-evals source, generated projections, and tests.",
+      "purpose": "Frozen local release-prep gate for aoa-evals source, generated projections, OS Abyss report-index artifact bundle identity/provenance, and tests.",
       "does_not_own": [
         "ordinary PR growth gating",
         "pinned sibling compatibility truth",
@@ -225,6 +225,7 @@
     "release_check": [
       ["python", "scripts/build_catalog.py", "--check"],
       ["python", "scripts/generate_eval_report_index.py", "--check"],
+      ["python", "scripts/validate_abyss_machine_report_index_bundle.py"],
       ["python", "scripts/validate_repo.py"],
       ["python", "-m", "pytest", "-q"]
     ],

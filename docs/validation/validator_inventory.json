@@ -63,9 +63,9 @@
       "owner_surface": "mechanics/release-support/parts/artifact-bundles/README.md",
       "source_truth": ["mechanics/release-support/parts/artifact-bundles/manifests/report_index.bundle.json", "generated/eval_report_index.min.json", "docs/validation/validation_lanes.json"],
       "input": ["generated eval report index", "release-support artifact bundle manifest", "abyss-machine artifact policy/verifier"],
-      "output": ["OS Abyss artifact bundle validation payload", "ABI/SBOM/SLSA verifier status"],
+      "output": ["OS Abyss artifact bundle validation payload", "ABI/SBOM/SLSA verifier status", "temporary artifact registry latest-state read-model", "consumer trust-gate allow/deny readout", "SBOM/SLSA/private-marker/unverified-latest/terminal-state negative checks"],
       "command_sequences": ["release_check"],
-      "failure_route": "Fix the generated report index, bundle manifest, runner-provided abyss-machine verifier, or abyss-machine artifact policy class; do not promote the generated reader into proof authority.",
+      "failure_route": "Fix the generated report index, bundle manifest, registry lifecycle state, runner-provided abyss-machine verifier, or abyss-machine artifact policy class; do not promote the generated reader into proof authority.",
       "disposition": "add"
     },
     {

@@ -17,7 +17,8 @@ publishes for validation. It does not define signing policy or proof meaning.
 The `manifests/` payload subdirectory carries release-support bundle manifests.
 `mechanics/release-support/parts/artifact-bundles/manifests/report_index.bundle.json`
 describes `generated/eval_report_index.min.json` as an OS Abyss artifact bundle
-subject for the root `abyss-machine` verifier.
+subject for the root `abyss-machine` verifier, with lifecycle and registry
+consumer contract metadata for release-ready selection.
 Signing controls stay in `abyss-machine` artifact policy.
 
 ## Inputs
@@ -32,10 +33,14 @@ Signing controls stay in `abyss-machine` artifact policy.
 
 - release-support bundle manifest payloads under `manifests/`;
 - release-check validation that builds temporary sidecars, signs or records the
-  policy decision, verifies the bundle, and runs the `abyss-machine` release
-  check;
+  policy decision, verifies the bundle, writes a temporary registry read-model,
+  checks release-ready/latest selection, checks the consumer `trust-gate`, and
+  runs the `abyss-machine` release check;
 - blocking release failures when ABI/SBOM/SLSA controls required by
-  `abyss-machine` policy are missing or invalid.
+  `abyss-machine` policy are missing or invalid;
+- adversarial release-carrier checks for missing SBOM, wrong SLSA subject,
+  private generated-report markers, unverified latest registration, terminal
+  lifecycle states, and revoked-record `trust-gate` denial.
 
 ## Stronger Owner Split
 

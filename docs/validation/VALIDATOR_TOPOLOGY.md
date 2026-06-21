@@ -40,9 +40,10 @@ eval proves.
 The release lane also validates the generated report index as an OS Abyss
 artifact bundle through
 `scripts/validate_abyss_machine_report_index_bundle.py`. That check proves the
-release carrier's ABI/SBOM/SLSA sidecars against `abyss-machine` policy; it
-does not promote `generated/eval_report_index.min.json` above bundle-local
-proof sources.
+release carrier's ABI/SBOM/SLSA sidecars, release-ready registry latest
+selection, consumer `trust-gate` admission, and negative bundle/registry
+scenarios against `abyss-machine` policy; it does not promote
+`generated/eval_report_index.min.json` above bundle-local proof sources.
 
 Memo-shaped runtime evidence selection packets must carry a
 `memory_context_boundary`. The selected-evidence source example owns the

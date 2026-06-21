@@ -27,10 +27,34 @@
     "name": "aoa-evals-generated-report-index",
     "purl": "pkg:generic/aoa-evals-generated-report-index@0"
   },
+  "lifecycle": {
+    "initial_state": "candidate",
+    "promotion_path": [
+      "candidate",
+      "built-local",
+      "manually-verified",
+      "release-ready",
+      "published",
+      "superseded",
+      "revoked"
+    ],
+    "latest_eligible_states": [
+      "manually-verified",
+      "release-ready",
+      "published"
+    ]
+  },
+  "consumer_contract": {
+    "stable_interface": "python scripts/validate_abyss_machine_report_index_bundle.py and abyss-machine artifacts trust-gate --artifact-class aoa_evals_generated_report_index_bundle --consumer-intent agent --json",
+    "consumer_expectation": "Release consumers select an aoa_evals_generated_report_index_bundle from the registry latest read-model only after ABI, SBOM, SLSA/in-toto verification, and consumer trust-gate allow/warn succeeds; bundle-local eval sources keep proof meaning.",
+    "registry_required": true
+  },
   "consumer_command": [
     "abyss-machine artifacts build-sidecars --manifest mechanics/release-support/parts/artifact-bundles/manifests/report_index.bundle.json --bundle-dir BUNDLE_DIR",
     "abyss-machine artifacts sign BUNDLE_DIR",
     "abyss-machine artifacts verify BUNDLE_DIR",
-    "abyss-machine artifacts release-check BUNDLE_DIR"
+    "abyss-machine artifacts release-check BUNDLE_DIR",
+    "abyss-machine artifacts bundle-registry --registry-dir REGISTRY_DIR --artifact-class aoa_evals_generated_report_index_bundle --json",
+    "abyss-machine artifacts trust-gate --registry-dir REGISTRY_DIR --artifact-class aoa_evals_generated_report_index_bundle --consumer-intent agent --json"
   ]
 }

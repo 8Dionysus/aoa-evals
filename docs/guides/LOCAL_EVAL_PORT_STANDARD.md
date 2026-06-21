@@ -183,7 +183,8 @@ inventory builder from `aoa-evals`:
 python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json
 ```
 
-The builder scans sibling Git repositories, validates local ports through
+The builder scans sibling Git repositories with a valid working-tree marker
+(`.git/HEAD` or a worktree-style `.git` file), validates local ports through
 `scripts/validate_local_eval_port.py`, counts local intake, suites, reports,
 and draft bundles, and emits route recommendations such as:
 

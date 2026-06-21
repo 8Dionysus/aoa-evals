@@ -45,6 +45,10 @@
   "excluded_repo_reason": "central_proof_owner_not_repo_local_port",
   "discovery": {
     "default_max_depth": 4,
+    "valid_git_markers": [
+      ".git directory with HEAD file",
+      ".git file whose first line starts with gitdir:"
+    ],
     "ignored_dir_names": [
       ".git",
       ".hg",

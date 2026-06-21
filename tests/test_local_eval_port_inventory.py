@@ -21,7 +21,9 @@ def write_text(path: Path, content: str) -> None:
 
 def make_repo(workspace: Path, relative_path: str) -> Path:
     repo_root = workspace / relative_path
-    (repo_root / ".git").mkdir(parents=True)
+    git_dir = repo_root / ".git"
+    git_dir.mkdir(parents=True)
+    write_text(git_dir / "HEAD", "ref: refs/heads/main\n")
     return repo_root
 
 
@@ -159,6 +161,10 @@ def test_inventory_contract_matches_builder_surface() -> None:
     ]
     assert contract["excluded_repo_reason"] == "central_proof_owner_not_repo_local_port"
     assert contract["discovery"]["default_max_depth"] == inventory.DEFAULT_MAX_DEPTH
+    assert contract["discovery"]["valid_git_markers"] == [
+        ".git directory with HEAD file",
+        ".git file whose first line starts with gitdir:",
+    ]
     assert set(contract["discovery"]["ignored_dir_names"]) == inventory.IGNORED_DIR_NAMES
     assert contract["discovery"]["ignored_relative_prefixes"] == list(
         inventory.IGNORED_RELATIVE_PREFIXES
@@ -176,6 +182,16 @@ def test_inventory_contract_matches_builder_surface() -> None:
         "active_reports_only_suite_extraction_or_review",
         "active_without_detected_pressure",
     }
+
+
+def test_discovery_ignores_empty_git_marker_at_workspace_root(tmp_path: Path) -> None:
+    workspace = tmp_path / "AbyssOS"
+    (workspace / ".git").mkdir(parents=True)
+    repo_root = make_repo(workspace, "aoa-routing")
+
+    repo_roots = inventory.discover_repo_roots(workspace, max_depth=inventory.DEFAULT_MAX_DEPTH)
+
+    assert repo_roots == [repo_root.resolve()]
 
 
 def test_inventory_classifies_repo_port_states(tmp_path: Path) -> None:

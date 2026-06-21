@@ -1,0 +1,159 @@
+{
+  "schema_version": "aoa_local_eval_port_inventory_contract_v1",
+  "inventory_schema_version": "os_abyss_local_eval_port_inventory_v1",
+  "layer": "aoa-evals-local-port-inventory",
+  "proof_owner_repo": "aoa-evals",
+  "authority_boundary": "Repo-local eval ports carry intake, suites, reports, and pressure evidence only. Central verdict, scoring, regression, proof doctrine, and central bundle adoption remain in aoa-evals.",
+  "source_of_truth": {
+    "local_port_standard": "docs/guides/LOCAL_EVAL_PORT_STANDARD.md",
+    "local_port_validator": "scripts/validate_local_eval_port.py",
+    "central_eval_catalog": "generated/eval_catalog.min.json",
+    "mcp_contract": "docs/architecture/AOA_EVALS_MCP_CONTRACT.md",
+    "inventory_contract": "docs/architecture/local_eval_port_inventory.contract.v1.json"
+  },
+  "inventory_statuses": [
+    "missing",
+    "stale_candidate",
+    "invalid",
+    "skeleton",
+    "active"
+  ],
+  "summary_keys": [
+    "repos",
+    "validator_ok",
+    "validator_failed",
+    "with_local_port",
+    "with_detected_pressure",
+    "excluded_repos",
+    "missing",
+    "stale_candidate",
+    "invalid",
+    "skeleton",
+    "active"
+  ],
+  "pressure_count_keys": [
+    "intake_packets",
+    "suite_notes",
+    "report_notes",
+    "local_bundles",
+    "active_total"
+  ],
+  "validation_issue_keys": [
+    "location",
+    "message"
+  ],
+  "excluded_repo_reason": "central_proof_owner_not_repo_local_port",
+  "discovery": {
+    "default_max_depth": 4,
+    "ignored_dir_names": [
+      ".git",
+      ".hg",
+      ".svn",
+      ".aoa",
+      ".codex",
+      ".worktrees",
+      ".tox",
+      ".venv",
+      "__pycache__",
+      "node_modules"
+    ],
+    "ignored_relative_prefixes": [
+      ".worktrees",
+      ".codex",
+      "abyss-stack/Logs",
+      "abyss-stack/Models",
+      "abyss-stack/Services",
+      "bundles"
+    ]
+  },
+  "route_recommendations": [
+    {
+      "route_key": "missing_no_pressure",
+      "route": "stop",
+      "subskill": "none",
+      "action": "Do not create a local eval port unless current repo work produces real eval pressure.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "stale_local_eval_surface_review",
+      "route": "aoa-eval-select",
+      "subskill": "aoa-eval-select",
+      "action": "Inspect the existing eval-like surface before mutation; add a valid port only if current pressure warrants it.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "invalid_port_repair",
+      "route": "repair-local-port",
+      "subskill": "aoa-eval-select",
+      "action": "Repair the local eval-port shape and rerun the validator before applying or designing evals.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "invalid_active_repair",
+      "route": "repair-local-port",
+      "subskill": "aoa-eval-select",
+      "action": "Repair the local eval-port shape and rerun the validator before applying or designing evals.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "central_overlap_apply_existing_first",
+      "route": "aoa-eval-select",
+      "subskill": "aoa-eval-select",
+      "action": "Local pressure overlaps central eval names; inspect and apply the existing central route before designing a new local suite.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "valid_skeleton_keep_dormant",
+      "route": "stop",
+      "subskill": "none",
+      "action": "Keep the valid skeleton dormant until a current task creates local eval pressure.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "local_bundle_central_review_candidate",
+      "route": "central-adoption-review",
+      "subskill": "aoa-eval-select",
+      "action": "Review the local draft bundle against central aoa-evals routes before any adoption or normalization.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "active_suite_apply_or_regression_check",
+      "route": "aoa-eval-apply",
+      "subskill": "aoa-eval-apply",
+      "action": "Use the local suite as a candidate deterministic check or regression surface; keep scoring and verdict authority central.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "active_intake_select_then_apply_or_design",
+      "route": "aoa-eval-select",
+      "subskill": "aoa-eval-select",
+      "action": "Select existing local and central eval routes first, then apply or design only after duplicate-fit review.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "active_reports_only_suite_extraction_or_review",
+      "route": "aoa-eval-design",
+      "subskill": "aoa-eval-design",
+      "action": "Treat reports-only pressure as a candidate for suite extraction or central review, not proof acceptance.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "active_without_detected_pressure",
+      "route": "repair-local-port",
+      "subskill": "aoa-eval-select",
+      "action": "Declared active state has no detected pressure files; repair status or add the missing reviewed pressure surface.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    }
+  ],
+  "mcp_surface": {
+    "resource": "aoa-evals://local-ports",
+    "detail_resource_template": "aoa-evals://local-port/{repo}",
+    "tool": "aoa_evals_local_ports",
+    "detail_tool": "aoa_evals_local_port"
+  },
+  "contract_limits": [
+    "inventory is routing evidence, not central proof acceptance",
+    "route recommendations do not approve proposals or accept evidence",
+    "MCP and generated readers remain weaker than source ports and aoa-evals source bundles"
+  ]
+}

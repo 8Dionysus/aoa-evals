@@ -54,8 +54,8 @@ MCP output is always weaker than the source bundle and its manifest.
 | `aoa-evals://runtime-candidate-exports` | stack-owned private candidate export metadata and validation summaries | governed execution candidate-export lane |
 | `aoa-evals://runtime-candidate-export/{record_id}` | one stack-owned private candidate export without nested payload by default | governed execution candidate-export lane and bundle-local review |
 | `aoa-evals://reports` | generated report index | source reports and bundle-local report contracts |
-| `aoa-evals://local-ports` | workspace local eval-port registry with validation summaries | sibling `evals/PORT.yaml` files and `aoa-evals` local-port validator |
-| `aoa-evals://local-port/{repo}` | one repo-local eval port summary | sibling repo-local `evals/` port |
+| `aoa-evals://local-ports` | workspace local eval-port registry with validation summaries and advisory route recommendations | sibling `evals/PORT.yaml` files, `aoa-evals` local-port validator, and local-port inventory read-model |
+| `aoa-evals://local-port/{repo}` | one repo-local eval port summary, pressure counts, validator issues, and advisory route key | sibling repo-local `evals/` port |
 | `aoa-evals://local-port/{repo}/intake` | local `eval_need_v1` intake packets | sibling repo-local `evals/intake/` |
 | `aoa-evals://local-port/{repo}/suites` | local suite notes | sibling repo-local `evals/suites/` |
 | `aoa-evals://local-port/{repo}/reports` | local report notes | sibling repo-local `evals/reports/` |
@@ -75,8 +75,8 @@ MCP output is always weaker than the source bundle and its manifest.
 | `aoa_evals_runtime_candidate_exports(limit)` | list stack-owned private runtime candidate exports with validation summaries | include nested private payloads, accept evidence, or publish results |
 | `aoa_evals_read_runtime_candidate_export(record_id, include_payload)` | read one stack-owned private candidate export for review routing | treat readability or schema validity as proof acceptance |
 | `aoa_evals_report_skeleton(name, evidence_refs)` | prepare a candidate-only report skeleton and required source refs | publish a receipt, compute a verdict, or mutate repo files |
-| `aoa_evals_local_ports(status, include_skeleton)` | list repo-local eval ports and validation summaries | treat local pressure as accepted proof |
-| `aoa_evals_local_port(repo)` | inspect one repo-local eval port, counts, and owner boundary | override the sibling repo's local route card |
+| `aoa_evals_local_ports(status, include_skeleton)` | list repo-local eval ports, validation summaries, pressure counts, and advisory route recommendations | treat local pressure as accepted proof |
+| `aoa_evals_local_port(repo)` | inspect one repo-local eval port, counts, validator issues, owner boundary, and advisory route key | override the sibling repo's local route card |
 | `aoa_evals_find_or_propose_local(repo, proof_question, proposal)` | shape a local `eval_need_v1` packet and target route for a sibling port | write source, approve proposal, or skip existing-route review |
 | `aoa_evals_write_local_intake(repo, packet, file_slug, apply, replace_existing)` | dry-run or write one local intake packet under `repo/evals/intake/` | write central bundles, overwrite silently, accept proof, or bypass validation |
 | `aoa_evals_write_local_suite_note(repo, suite_slug, title, summary, body_markdown, refs, apply, replace_existing)` | dry-run or write one local suite note under `repo/evals/suites/` | define scoring truth, final verdicts, or regression authority |
@@ -167,6 +167,23 @@ suites, reports, and intake packets below central proof authority.
 `aoa_evals` may federate those ports across the workspace. It may list ports,
 inspect one port, read local intake/suite/report files, and validate local
 port shape against `scripts/validate_local_eval_port.py` semantics.
+
+Where the workspace inventory read-model is available, the local-port registry
+should be backed by `scripts/build_local_eval_port_inventory.py` or equivalent
+semantics. Registry entries may expose status, pressure counts, central-name
+overlap, validation issues, and a route key such as
+`active_intake_select_then_apply_or_design` or `invalid_active_repair`.
+
+The stable producer/consumer shape for that inventory is locked in
+`docs/architecture/local_eval_port_inventory.contract.v1.json`. The JSON
+contract names the inventory schema version, summary keys, status vocabulary,
+route keys, discovery ignore policy, MCP surface names, and authority limits
+that `aoa-evals` and `aoa-evals-mcp` must keep aligned.
+
+The route key is advisory. It helps the agent pick `aoa-eval-select`,
+`aoa-eval-apply`, `aoa-eval-design`, local repair, or no mutation. It is not
+proposal approval, evidence acceptance, proof scoring, regression truth, or a
+central adoption decision.
 
 Write-side MCP is intentionally narrow:
 

@@ -123,6 +123,19 @@ def relative_depth(path: Path, workspace_root: Path) -> int:
     return len(Path(relative).parts)
 
 
+def has_valid_git_marker(path: Path) -> bool:
+    git_marker = path / ".git"
+    if git_marker.is_dir():
+        return (git_marker / "HEAD").is_file()
+    if not git_marker.is_file():
+        return False
+    try:
+        first_line = git_marker.read_text(encoding="utf-8").splitlines()[0]
+    except (IndexError, OSError, UnicodeDecodeError):
+        return False
+    return first_line.startswith("gitdir:")
+
+
 def discover_repo_roots(workspace_root: Path, *, max_depth: int) -> list[Path]:
     workspace_root = workspace_root.resolve()
     repo_roots: list[Path] = []
@@ -143,8 +156,7 @@ def discover_repo_roots(workspace_root: Path, *, max_depth: int) -> list[Path]:
             and not is_ignored_path(current_path / name, workspace_root)
         )
 
-        git_marker = current_path / ".git"
-        if git_marker.exists():
+        if has_valid_git_marker(current_path):
             repo_roots.append(current_path)
     return sorted(set(repo_roots), key=lambda path: repo_relative(path, workspace_root))
 

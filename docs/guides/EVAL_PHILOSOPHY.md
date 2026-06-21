@@ -92,11 +92,14 @@ find prior decisions, source refs, and session evidence. Proof authority stays
 with fixtures, selected evidence, scoring or verdict logic, bundle-local
 reports, or mechanic-owned proof interpretation.
 
-`aoa-evals` keeps route_only memory posture until a local memo port exists.
-Session evidence routes through `.aoa` or source proof artifacts before any
-later `aoa-memo` reviewed intake.
-Durable memory, local memo candidates, and export packets route through reviewed
-owner surfaces with visible provenance.
+`aoa-evals` keeps memory-consumer proof posture. The local `memo/` port may
+hold `write_candidate_only` proof-layer memory candidates, receipts, exports,
+and local notes. Those packets are review material, not proof authority or
+durable memory.
+Session evidence routes through `.aoa`, local memo candidates, or source proof
+artifacts before any later `aoa-memo` reviewed intake.
+Durable memory and export-packet landing route through reviewed owner surfaces
+with visible provenance.
 `aoa_memo` MCP brief/search/status/validation/landing-plan dry-runs are
 access-plane evidence for inspection and review.
 Owner surfaces keep proof authority and durable write authority.

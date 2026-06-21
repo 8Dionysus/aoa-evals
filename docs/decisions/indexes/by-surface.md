@@ -49,6 +49,7 @@
 - [AOA-EV-D-0113 aoa-memo Writeback Decision Quality Eval](../AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md`)
 - [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
 - [AOA-EV-D-0241 Local Eval Port Write-Side MCP](../AOA-EV-D-0241-local-eval-port-write-side-mcp.md) (`docs/decisions/AOA-EV-D-0241-local-eval-port-write-side-mcp.md`)
+- [AOA-EV-D-0243 Local Memo Port](../AOA-EV-D-0243-local-memo-port.md) (`docs/decisions/AOA-EV-D-0243-local-memo-port.md`)
 
 ## mechanic package
 
@@ -273,6 +274,7 @@
 - [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
 - [AOA-EV-D-0241 Local Eval Port Write-Side MCP](../AOA-EV-D-0241-local-eval-port-write-side-mcp.md) (`docs/decisions/AOA-EV-D-0241-local-eval-port-write-side-mcp.md`)
 - [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
+- [AOA-EV-D-0243 Local Memo Port](../AOA-EV-D-0243-local-memo-port.md) (`docs/decisions/AOA-EV-D-0243-local-memo-port.md`)
 
 ## legacy/provenance
 
@@ -365,6 +367,7 @@
 - [AOA-EV-D-0113 aoa-memo Writeback Decision Quality Eval](../AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md`)
 - [AOA-EV-D-0119 Phase Alpha Matrix Validator Module Boundary](../AOA-EV-D-0119-phase-alpha-matrix-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0119-phase-alpha-matrix-validator-module-boundary.md`)
 - [AOA-EV-D-0207 Phase Alpha Matrix Aggregate Removal](../AOA-EV-D-0207-phase-alpha-matrix-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0207-phase-alpha-matrix-aggregate-removal.md`)
+- [AOA-EV-D-0243 Local Memo Port](../AOA-EV-D-0243-local-memo-port.md) (`docs/decisions/AOA-EV-D-0243-local-memo-port.md`)
 
 ## MCP access plane
 
@@ -484,6 +487,10 @@
 - [AOA-EV-D-0236 RPG Validator Layer Split](../AOA-EV-D-0236-rpg-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0236-rpg-validator-layer-split.md`)
 - [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)
 - [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
+
+## memory context
+
+- [AOA-EV-D-0243 Local Memo Port](../AOA-EV-D-0243-local-memo-port.md) (`docs/decisions/AOA-EV-D-0243-local-memo-port.md`)
 
 ## observability/audit
 

@@ -69,7 +69,7 @@ that can answer the question.
 | What class of proof object is this? | [docs/architecture/PROOF_TOPOLOGY.md](docs/architecture/PROOF_TOPOLOGY.md) |
 | Which repeatable operation owns the movement? | [mechanics/README.md](mechanics/README.md), then the parent mechanic |
 | Which guide or evidence anchor explains the route? | [docs/README.md](docs/README.md) |
-| Is memory context involved? | `aoa-evals` can cite reviewed recall as bounded context from reviewed `aoa-memo` object ids and provenance; proof authority stays with the eval bundle or owning mechanic |
+| Is memory context involved? | `aoa-evals` can cite reviewed recall as bounded context from reviewed `aoa-memo` object ids and provenance; local `memo/` can hold write-candidate-only proof-layer memory; proof authority stays with the eval bundle or owning mechanic |
 | How should the change close? | nearest `AGENTS.md` validation lane |
 
 ## Current Contour
@@ -92,6 +92,7 @@ Source bundles, mechanics, decisions, and route cards keep meaning.
 | [mechanics](mechanics/README.md) | repeatable proof-layer operations and mechanic-owned payloads |
 | [generated](generated/README.md) | compact derived readers tied back to source inputs |
 | [quests](quests/README.md) | durable proof obligations and source quest records |
+| [memo](memo/README.md) | proof-layer local memory candidates before reviewed `aoa-memo` landing |
 | [scripts](scripts/AGENTS.md) and [tests](tests/AGENTS.md) | root-wide validators, builders, and regression surfaces |
 
 Compatibility districts such as `fixtures/`, `reports/`, `schemas/`,
@@ -117,6 +118,7 @@ operation or mechanics movement, start with [mechanics/AGENTS](mechanics/AGENTS.
 | Navigation and dispatch | route to `aoa-routing` |
 | Role posture and handoff contracts | route to `aoa-agents` |
 | Scenario composition | route to `aoa-playbooks` |
+| Proof-layer memory candidates, receipts, or reviewed-intake exports | use local `memo/` without treating it as proof authority |
 | Reviewed memory objects and recall posture | route to `aoa-memo` |
 | Runtime, deployment, storage, and lifecycle state | route to `abyss-stack` |
 

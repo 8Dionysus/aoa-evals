@@ -174,6 +174,41 @@ It confirms the port shape, `PORT.yaml`, `eval_need_v1` intake payloads, local
 suite/report note frontmatter, local active/skeleton status, and the boundary
 that central proof authority remains in `aoa-evals`.
 
+## Workspace Inventory And Routing Read-Model
+
+When an agent needs the OS Abyss-wide eval-port picture, use the read-only
+inventory builder from `aoa-evals`:
+
+```bash
+python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json
+```
+
+The builder scans sibling Git repositories, validates local ports through
+`scripts/validate_local_eval_port.py`, counts local intake, suites, reports,
+and draft bundles, and emits route recommendations such as:
+
+- `missing_no_pressure`;
+- `valid_skeleton_keep_dormant`;
+- `active_intake_select_then_apply_or_design`;
+- `active_suite_apply_or_regression_check`;
+- `active_reports_only_suite_extraction_or_review`;
+- `invalid_active_repair` or `invalid_port_repair`;
+- `central_overlap_apply_existing_first`.
+
+The inventory excludes `aoa-evals` itself because `aoa-evals` is the central
+proof owner, not a repo-local pressure port.
+
+The read-model is advisory routing evidence. It may tell an agent which repo
+needs local-port repair, selection, apply, design, or no mutation. It must not
+promote local pressure, compute verdicts, accept evidence, create central
+bundles, or replace direct inspection of the target repository before a write.
+
+The inventory's producer/consumer contract lives in
+`docs/architecture/local_eval_port_inventory.contract.v1.json`. `aoa-evals`
+owns that contract; `aoa-evals-mcp` may consume it to keep MCP resources and
+tools aligned with the central status vocabulary, summary keys, route keys, and
+authority boundaries.
+
 ## Coverage Waves
 
 The first local eval-port wave covered:

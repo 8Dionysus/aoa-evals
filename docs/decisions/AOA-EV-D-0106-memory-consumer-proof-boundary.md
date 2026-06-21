@@ -20,9 +20,9 @@ session archives, runtime candidate readers, and sibling routes.
 That is useful for recall and source discovery, but it can blur the proof
 boundary if reviewed memory starts to read like verdict support by itself.
 
-`aoa_memo` currently reports `aoa-evals` as route-only: the repo has no local
-memo port, and reviewed memory should be consumed through `aoa-memo` rather
-than written locally from eval-side paths.
+`aoa_memo` originally reported `aoa-evals` as route-only: the repo had no
+local memo port, and reviewed memory had to be consumed through `aoa-memo`
+rather than written locally from eval-side paths.
 
 ## Options Considered
 
@@ -42,9 +42,10 @@ object ids, provenance, lifecycle, and generated read models, or as `.aoa`
 session evidence that remains source evidence until reviewed memory intake.
 Memory is not proof.
 
-The repo does not create a local memo port in this slice.
-Until a future owner decision adds one, do not create local memo candidates,
-reviewed-intake exports, or durable memory records from hidden eval-side paths.
+This slice did not create a local memo port.
+AOA-EV-D-0243 later adds one explicit local `write_candidate_only` memo port.
+Do not create local memo candidates, reviewed-intake exports, or durable memory
+records from hidden eval-side paths outside that port.
 Durable memory lands only in `aoa-memo`.
 
 `aoa_memo` MCP brief/search/status/validation/landing-plan dry-runs may support
@@ -60,9 +61,9 @@ bundle-local reports, mechanic-owned interpretation, and validation.
 Reviewed memory helps reviewers find prior context and source refs, but it does
 not prove the bounded claim on its own.
 
-Keeping route_only memory posture also matches the current workspace memory map
-and avoids creating a local write path before `aoa-evals` has a real owner need
-for one.
+The original route_only memory posture matched the workspace memory map at the
+time and avoided creating a local write path before `aoa-evals` had a real
+owner need for one.
 
 ## Consequences
 
@@ -70,11 +71,10 @@ for one.
   verdict authority.
 - Positive: future agents get a clear route for `.aoa` evidence, reviewed
   `aoa-memo` recall, and durable memory landing.
-- Tradeoff: eval-side memory writeback remains unavailable until a separate
-  owner decision adds a local memo port.
-- Follow-up: if recurring eval work truly needs local memory candidates, add a
-  reviewed memo port contract in a separate slice before writing candidates or
-  exports.
+- Tradeoff: eval-side memory writeback remained unavailable until a separate
+  owner decision added a local memo port.
+- Follow-up: recurring eval work now uses AOA-EV-D-0243 and `memo/` before
+  writing candidates or exports.
 
 ## Current Applicability
 
@@ -108,6 +108,15 @@ As of 2026-06-05:
   permission, authority stop-lines, and bundle-local review pressure before
   runtime candidate readers may project them.
 - Superseded by: none.
+
+As of 2026-06-21:
+
+- Still valid: memory can support bounded proof review only as recall context,
+  source refs, provenance, lifecycle, and reviewed evidence context.
+- Changed: AOA-EV-D-0243 creates a local `write_candidate_only` memo port at
+  `memo/` for proof-layer memory candidates, receipts, exports, and local notes.
+- Superseded by: AOA-EV-D-0243 only for the original route_only/no-local-port
+  operational clause. The memory-consumer proof boundary remains active.
 
 ## Review Log
 
@@ -177,16 +186,31 @@ As of 2026-06-05:
 - Validation: focused runtime evidence tests, runtime-candidate reader tests,
   generated-reader checks, source-fast validation, and release check.
 
+### 2026-06-21 - Local memo port added below proof authority
+
+- Previous assumption: `aoa-evals` had no local memo port and all durable or
+  candidate memory writeback should route away immediately.
+- New reality: `aoa-evals` has a minimal `write_candidate_only` local memo port
+  for proof-layer lessons.
+- Reason: repeated proof-boundary, validator, eval-port, and landing lessons
+  need a near-field holding surface before any reviewed `aoa-memo` landing.
+- Source surfaces updated: `memo/`, `README.md`, `AGENTS.md`,
+  `docs/guides/EVAL_PHILOSOPHY.md`, `docs/architecture/PROOF_TOPOLOGY.md`,
+  this decision, and AOA-EV-D-0243.
+- Validation: local memo port validation, local memo port index check,
+  generated decision indexes, root validation, and semantic AGENTS validation.
+
 ## Boundaries
 
 This decision does not make `aoa-evals` a memory object owner.
 It does not let reviewed memory replace source eval bundles, selected evidence,
 fixtures, reports, scoring, verdict logic, or mechanic-owned proof
 interpretation.
-It does not create a local memo port.
+The original decision did not create a local memo port; AOA-EV-D-0243 now
+creates one explicit `write_candidate_only` local memo port.
 It does not let `memory_context_boundary` authorize tool use, durable memory
-writeback, source-truth settlement, private or stale context promotion, or a
-local memo port.
+writeback, source-truth settlement, private or stale context promotion, or
+hidden memo ports.
 It does not change `aoa-memo` durable reviewed memory authority.
 It does not treat `aoa_memo` MCP outputs as proof authority or direct durable
 write authority.

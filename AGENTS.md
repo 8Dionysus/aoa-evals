@@ -29,6 +29,7 @@ Route outward for:
 | source proof meaning | `evals/**/EVAL.md` and `evals/**/eval.yaml` |
 | authority class | `docs/architecture/PROOF_TOPOLOGY.md` and `docs/architecture/AGENT_INDEX.md` |
 | proof operation | `mechanics/README.md`, then parent `README.md`, `DIRECTION.md`, `PARTS.md`, and part `README.md` |
+| local memory candidates | `memo/AGENTS.md`, `memo/README.md`, and `memo/PORT.yaml` |
 | output | bounded reports, receipts, generated readers, or owner handoffs only through their owning surface |
 | tools and checks | this card's `Verify` section and the nearest nested `AGENTS.md` |
 
@@ -65,8 +66,7 @@ Route outward for:
 For recall, continuity, compaction recovery, comparison with past work, or
 preserved lessons, start with `aoa-memo` and the workspace memory map. Session
 grounding routes through `.aoa`; local candidate writing routes through this
-repository's `memo/` port when that port exists; durable reviewed memory lands
-through `aoa-memo`.
+repository's `memo/` port; durable reviewed memory lands through `aoa-memo`.
 
 ## Route away when
 

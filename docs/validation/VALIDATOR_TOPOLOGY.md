@@ -45,6 +45,15 @@ selection, consumer `trust-gate` admission, and negative bundle/registry
 scenarios against `abyss-machine` policy; it does not promote
 `generated/eval_report_index.min.json` above bundle-local proof sources.
 
+`scripts/validate_os_abyss_artifact_trust_plane.py` is the advisory host proof
+for the wider OS Abyss artifact trust plane. It reads live `abyss-machine`
+requirements, full trust coverage, durable-only trust coverage, and affected
+drift read-models to prove scenario coverage, owner-profile coverage, manual
+positive/negative evidence, durable-registry downgrade behavior, and sibling
+accepted-lag behavior. It is intentionally not part of `release_check.py`,
+because it reads live host trust-plane state rather than this repository's
+release identity.
+
 Memo-shaped runtime evidence selection packets must carry a
 `memory_context_boundary`. The selected-evidence source example owns the
 boundary fields; runtime-candidate readers project them so recall,

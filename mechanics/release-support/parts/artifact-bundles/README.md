@@ -34,8 +34,9 @@ Signing controls stay in `abyss-machine` artifact policy.
 - release-support bundle manifest payloads under `manifests/`;
 - release-check validation that builds temporary sidecars, signs or records the
   policy decision, verifies the bundle, writes a temporary registry read-model,
-  checks release-ready/latest selection, checks the consumer `trust-gate`, and
-  runs the `abyss-machine` release check;
+  materializes the report-index subject store, checks release-ready/latest
+  selection, checks the consumer `trust-gate`, and runs the `abyss-machine`
+  release check;
 - blocking release failures when ABI/SBOM/SLSA controls required by
   `abyss-machine` policy are missing or invalid;
 - adversarial release-carrier checks for missing SBOM, wrong SLSA subject,

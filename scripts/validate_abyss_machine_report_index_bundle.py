@@ -195,6 +195,40 @@ def _registry_roundtrip(
     }
 
 
+def _registry_roundtrip_with_subject_store(
+    artifact_bundles: Any,
+    bundle_dir: Path,
+    registry_dir: Path,
+    store_root: Path,
+    *,
+    lifecycle_state: str,
+    evidence_ref: str,
+) -> dict[str, Any]:
+    env_root = "ABYSS_MACHINE_ARTIFACT_SUBJECT_STORE_ROOT"
+    env_roots = "ABYSS_MACHINE_ARTIFACT_SUBJECT_STORE_ROOTS"
+    old_root = os.environ.get(env_root)
+    old_roots = os.environ.get(env_roots)
+    os.environ[env_root] = str(store_root)
+    os.environ[env_roots] = str(store_root)
+    try:
+        return _registry_roundtrip(
+            artifact_bundles,
+            bundle_dir,
+            registry_dir,
+            lifecycle_state=lifecycle_state,
+            evidence_ref=evidence_ref,
+        )
+    finally:
+        if old_root is None:
+            os.environ.pop(env_root, None)
+        else:
+            os.environ[env_root] = old_root
+        if old_roots is None:
+            os.environ.pop(env_roots, None)
+        else:
+            os.environ[env_roots] = old_roots
+
+
 def _trust_gate_allow_latest(artifact_bundles: Any, registry_dir: Path, registry_roundtrip: dict[str, Any]) -> dict[str, Any]:
     record = registry_roundtrip.get("registered", {}).get("record", {})
     trust_gate = artifact_bundles.trust_gate(
@@ -318,7 +352,70 @@ def _verify_terminal_registry_state(artifact_bundles: Any, bundle_dir: Path, tmp
     }
 
 
-def _run_adversarial_checks(artifact_bundles: Any, abyss_repo_root: Path, subject: Path, bundle_dir: Path) -> dict[str, Any]:
+def _verify_materialized_subject_store(
+    artifact_bundles: Any,
+    manifest: Path,
+    bundle_dir: Path,
+    registry_dir: Path,
+    tmp_root: Path,
+) -> dict[str, Any]:
+    store_root = tmp_root / "subject-store"
+    pre_registry = _registry_roundtrip(
+        artifact_bundles,
+        bundle_dir,
+        registry_dir,
+        lifecycle_state="release-ready",
+        evidence_ref="materialized-subject-store-precondition",
+    )
+    materialized = artifact_bundles.materialize_artifact_subjects(
+        bundle_dir,
+        store_root=store_root,
+        registry_dir=registry_dir,
+        manifest_ref=manifest,
+        consumer_intent="agent",
+        expected_source_repo="aoa-evals",
+    )
+    refreshed_registry = _registry_roundtrip_with_subject_store(
+        artifact_bundles,
+        bundle_dir,
+        registry_dir,
+        store_root,
+        lifecycle_state="release-ready",
+        evidence_ref="materialized-subject-store-rehearsal",
+    )
+    latest_record = refreshed_registry.get("latest", {}).get("latest_by_artifact_class", {}).get(ARTIFACT_CLASS, {})
+    store_status = latest_record.get("artifact_subject_store") if isinstance(latest_record, dict) else {}
+    gate = artifact_bundles.trust_gate(
+        registry_dir,
+        artifact_class=ARTIFACT_CLASS,
+        subject_digest=str(materialized.get("aggregate_digest") or ""),
+        consumer_intent="agent",
+        expected_source_repo="aoa-evals",
+    )
+    return {
+        "ok": bool(
+            pre_registry.get("ok")
+            and materialized.get("ok")
+            and refreshed_registry.get("ok")
+            and isinstance(store_status, dict)
+            and store_status.get("ok") is True
+            and gate.get("verdict") == "allow"
+        ),
+        "pre_registry": pre_registry,
+        "materialized": materialized,
+        "refreshed_registry": refreshed_registry,
+        "trust_gate": gate,
+    }
+
+
+def _run_adversarial_checks(
+    artifact_bundles: Any,
+    abyss_repo_root: Path,
+    manifest: Path,
+    subject: Path,
+    bundle_dir: Path,
+    registry_dir: Path,
+) -> dict[str, Any]:
     with tempfile.TemporaryDirectory(prefix="aoa-evals-report-index-negative-", dir=_default_tmp_root()) as tmp:
         tmp_root = Path(tmp)
         checks = {
@@ -327,6 +424,13 @@ def _run_adversarial_checks(artifact_bundles: Any, abyss_repo_root: Path, subjec
             "private_report_marker": _verify_private_report_marker(subject, tmp_root),
             "unverified_latest_rejected": _verify_unverified_latest_rejected(artifact_bundles, bundle_dir, tmp_root),
             "terminal_registry_state": _verify_terminal_registry_state(artifact_bundles, bundle_dir, tmp_root),
+            "materialized_subject_store": _verify_materialized_subject_store(
+                artifact_bundles,
+                manifest,
+                bundle_dir,
+                registry_dir,
+                tmp_root,
+            ),
         }
     return {
         "ok": all(bool(item.get("ok")) for item in checks.values()),
@@ -365,7 +469,7 @@ def _validate_in_bundle_dir(manifest: Path, subject: Path, bundle_dir: Path, reg
     )
     trust_gate = _trust_gate_allow_latest(artifact_bundles, registry_dir, registry)
     _assert_public_registry_does_not_leak_local_roots(registry_dir, abyss_machine_root)
-    adversarial = _run_adversarial_checks(artifact_bundles, abyss_repo_root, subject, bundle_dir)
+    adversarial = _run_adversarial_checks(artifact_bundles, abyss_repo_root, manifest, subject, bundle_dir, registry_dir)
 
     manifest_payload = _load_json(manifest)
     return {

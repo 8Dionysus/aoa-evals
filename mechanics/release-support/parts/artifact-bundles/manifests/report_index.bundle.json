@@ -54,7 +54,9 @@
     "abyss-machine artifacts sign BUNDLE_DIR",
     "abyss-machine artifacts verify BUNDLE_DIR",
     "abyss-machine artifacts release-check BUNDLE_DIR",
-    "abyss-machine artifacts bundle-registry --registry-dir REGISTRY_DIR --artifact-class aoa_evals_generated_report_index_bundle --json",
-    "abyss-machine artifacts trust-gate --registry-dir REGISTRY_DIR --artifact-class aoa_evals_generated_report_index_bundle --consumer-intent agent --json"
+    "abyss-machine artifacts bundle-register BUNDLE_DIR --registry-dir REGISTRY_DIR --lifecycle-state release-ready --consumer-ref aoa-evals:generated-report-index --source-repo aoa-evals --json",
+    "abyss-machine artifacts materialize-subjects BUNDLE_DIR --registry-dir REGISTRY_DIR --manifest mechanics/release-support/parts/artifact-bundles/manifests/report_index.bundle.json --consumer-intent agent --source-repo aoa-evals --json",
+    "abyss-machine artifacts trust-gate --registry-dir REGISTRY_DIR --artifact-class aoa_evals_generated_report_index_bundle --consumer-intent agent --source-repo aoa-evals --subject-digest SUBJECT_DIGEST --json",
+    "abyss-machine artifacts registry-latest --registry-dir REGISTRY_DIR --artifact-class aoa_evals_generated_report_index_bundle --source-repo aoa-evals --json"
   ]
 }

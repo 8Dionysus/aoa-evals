@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -33,6 +34,7 @@ class FakeArtifactBundles:
     def __init__(self, trust_gate_response: dict[str, Any]) -> None:
         self.trust_gate_response = trust_gate_response
         self.trust_gate_calls: list[dict[str, Any]] = []
+        self.materialize_calls: list[dict[str, Any]] = []
         self.records: list[dict[str, Any]] = []
 
     def trust_gate(self, registry_dir: Path, **kwargs: Any) -> dict[str, Any]:
@@ -50,14 +52,35 @@ class FakeArtifactBundles:
         return {"ok": True, "record": record}
 
     def read_bundle_registry(self, registry_dir: Path, *, artifact_class: str) -> dict[str, Any]:
-        latest = {
-            record["record_id"]: record
-            for record in self.records
-            if record.get("lifecycle_state") == "release-ready"
-        }
+        release_ready = [record for record in self.records if record.get("lifecycle_state") == "release-ready"]
+        latest_record = release_ready[-1] if release_ready else None
         if self.records and self.records[-1].get("lifecycle_state") == "revoked":
-            latest = {}
-        return {"latest_by_artifact_class": {artifact_class: next(iter(latest.values()))} if latest else {}}
+            latest_record = None
+        if latest_record and os.environ.get("ABYSS_MACHINE_ARTIFACT_SUBJECT_STORE_ROOT"):
+            latest_record["artifact_subject_store"] = {"ok": True}
+        return {"latest_by_artifact_class": {artifact_class: latest_record} if latest_record else {}}
+
+    def materialize_artifact_subjects(
+        self,
+        bundle_dir: Path,
+        *,
+        store_root: Path,
+        registry_dir: Path,
+        manifest_ref: Path,
+        consumer_intent: str,
+        expected_source_repo: str,
+    ) -> dict[str, Any]:
+        self.materialize_calls.append(
+            {
+                "bundle_dir": bundle_dir,
+                "store_root": store_root,
+                "registry_dir": registry_dir,
+                "manifest_ref": manifest_ref,
+                "consumer_intent": consumer_intent,
+                "expected_source_repo": expected_source_repo,
+            }
+        )
+        return {"ok": True, "aggregate_digest": "sha256:" + "3" * 64}
 
 
 def allow_gate_response() -> dict[str, Any]:
@@ -97,8 +120,14 @@ def test_report_index_manifest_and_inventory_keep_consumer_trust_gate_contract()
 
     assert "trust-gate" in consumer_contract["stable_interface"]
     assert "trust-gate allow/warn" in consumer_contract["consumer_expectation"]
+    assert "abyss-machine artifacts bundle-register" in consumer_commands
+    assert "abyss-machine artifacts materialize-subjects" in consumer_commands
     assert "abyss-machine artifacts trust-gate" in consumer_commands
+    assert "abyss-machine artifacts registry-latest" in consumer_commands
+    assert "--consumer-ref aoa-evals:generated-report-index" in consumer_commands
+    assert "--source-repo aoa-evals" in consumer_commands
     assert "consumer trust-gate allow/deny readout" in report_index_entry["output"]
+    assert "materializes the report-index subject store" in part_readme
     assert "revoked-record `trust-gate` denial" in part_readme
 
 
@@ -153,3 +182,47 @@ def test_terminal_registry_state_requires_revoked_record_trust_gate_deny(tmp_pat
     )
     assert allowed["ok"] is False
     assert allowed["revoked_trust_gate"]["verdict"] == "allow"
+
+
+def test_materialized_subject_store_requires_trusted_source_scoped_subject(tmp_path: Path) -> None:
+    validator = load_validator_module()
+    fake = FakeArtifactBundles(allow_gate_response())
+
+    result = validator._verify_materialized_subject_store(
+        fake,
+        MANIFEST_PATH,
+        tmp_path,
+        tmp_path / "registry",
+        tmp_path,
+    )
+
+    assert result["ok"] is True
+    assert fake.materialize_calls == [
+        {
+            "bundle_dir": tmp_path,
+            "store_root": tmp_path / "subject-store",
+            "registry_dir": tmp_path / "registry",
+            "manifest_ref": MANIFEST_PATH,
+            "consumer_intent": "agent",
+            "expected_source_repo": "aoa-evals",
+        }
+    ]
+    assert fake.trust_gate_calls[-1] == {
+        "registry_dir": tmp_path / "registry",
+        "artifact_class": "aoa_evals_generated_report_index_bundle",
+        "subject_digest": "sha256:" + "3" * 64,
+        "consumer_intent": "agent",
+        "expected_source_repo": "aoa-evals",
+    }
+
+    fake = FakeArtifactBundles({**allow_gate_response(), "verdict": "warn"})
+    assert (
+        validator._verify_materialized_subject_store(
+            fake,
+            MANIFEST_PATH,
+            tmp_path,
+            tmp_path / "registry",
+            tmp_path,
+        )["ok"]
+        is False
+    )

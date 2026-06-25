@@ -46,17 +46,20 @@
   },
   "consumer_contract": {
     "stable_interface": "python scripts/validate_abyss_machine_report_index_bundle.py and abyss-machine artifacts trust-gate --artifact-class aoa_evals_generated_report_index_bundle --consumer-intent agent --json",
-    "consumer_expectation": "Release consumers select an aoa_evals_generated_report_index_bundle from the registry latest read-model only after ABI, SBOM, SLSA/in-toto verification, and consumer trust-gate allow/warn succeeds; bundle-local eval sources keep proof meaning.",
-    "registry_required": true
+    "consumer_expectation": "Release consumers select an aoa_evals_generated_report_index_bundle from the registry latest read-model only after ABI, SBOM, SLSA/in-toto verification, durable evidence promotion, materialized subject-store verification, source/trust-root matching, and consumer trust-gate allow/warn succeeds; bundle-local eval sources keep proof meaning.",
+    "registry_required": true,
+    "subject_store_required": true,
+    "admission_gate": "fail_closed_consumer_admission",
+    "consumer_verdict": "allow_or_deny_required_before_use"
   },
   "consumer_command": [
     "abyss-machine artifacts build-sidecars --manifest mechanics/release-support/parts/artifact-bundles/manifests/report_index.bundle.json --bundle-dir BUNDLE_DIR",
     "abyss-machine artifacts sign BUNDLE_DIR",
     "abyss-machine artifacts verify BUNDLE_DIR",
     "abyss-machine artifacts release-check BUNDLE_DIR",
-    "abyss-machine artifacts bundle-register BUNDLE_DIR --registry-dir REGISTRY_DIR --lifecycle-state release-ready --consumer-ref aoa-evals:generated-report-index --source-repo aoa-evals --json",
-    "abyss-machine artifacts materialize-subjects BUNDLE_DIR --registry-dir REGISTRY_DIR --manifest mechanics/release-support/parts/artifact-bundles/manifests/report_index.bundle.json --consumer-intent agent --source-repo aoa-evals --json",
-    "abyss-machine artifacts trust-gate --registry-dir REGISTRY_DIR --artifact-class aoa_evals_generated_report_index_bundle --consumer-intent agent --source-repo aoa-evals --subject-digest SUBJECT_DIGEST --json",
-    "abyss-machine artifacts registry-latest --registry-dir REGISTRY_DIR --artifact-class aoa_evals_generated_report_index_bundle --source-repo aoa-evals --json"
+    "abyss-machine artifacts evidence-promote BUNDLE_DIR --registry-dir REGISTRY_DIR --lifecycle-state release-ready --consumer-ref aoa-evals:generated-report-index --evidence-ref BUNDLE_DIR/artifact.verify.json --source-repo aoa-evals --source-ref mechanics/release-support/parts/artifact-bundles/manifests/report_index.bundle.json --producer aoa-evals-generated-report-index-builder --trust-root-mode host_managed --json",
+    "abyss-machine artifacts materialize-subjects BUNDLE_DIR --store-root SUBJECT_STORE_ROOT --registry-dir REGISTRY_DIR --manifest mechanics/release-support/parts/artifact-bundles/manifests/report_index.bundle.json --consumer-intent agent --source-repo aoa-evals --trust-root-mode host_managed --json",
+    "abyss-machine artifacts trust-gate --registry-dir REGISTRY_DIR --artifact-class aoa_evals_generated_report_index_bundle --consumer-intent agent --source-repo aoa-evals --trust-root-mode host_managed --subject-digest SUBJECT_DIGEST --json",
+    "abyss-machine artifacts registry-latest --registry-dir REGISTRY_DIR --artifact-class aoa_evals_generated_report_index_bundle --consumer-intent agent --source-repo aoa-evals --trust-root-mode host_managed --json"
   ]
 }

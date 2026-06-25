@@ -106,6 +106,9 @@ def test_source_ref_drift_proof_distinguishes_promoted_and_unpromoted_refs(tmp_p
     assert promoted_row["verdict"] == "fresh"
     assert promoted_row["source_ref_status"]["matched"] is True
     assert promoted_row["source_ref_status"]["matched_ref"] == "commit:current"
+    assert promoted_row["drift"]["status"] == "fresh"
+    assert promoted_row["drift"]["operationally_blocking"] is False
+    assert promoted_row["drift"]["source_ref_state"] == "proved_current"
     assert promoted_row["trust_gate"]["verdict"] == "allow"
 
     assert stale["summary"]["status_counts"] == {"blocked_by_missing_sibling": 1}
@@ -113,4 +116,8 @@ def test_source_ref_drift_proof_distinguishes_promoted_and_unpromoted_refs(tmp_p
     assert stale_row["verdict"] == "blocked_by_missing_sibling"
     assert stale_row["source_ref_status"]["matched"] is False
     assert stale_row["source_ref_status"]["expected"] == "commit:current"
+    assert stale_row["drift"]["status"] == "blocked_missing_sibling"
+    assert stale_row["drift"]["operationally_blocking"] is True
+    assert stale_row["drift"]["needs_rebuild"] is True
+    assert stale_row["drift"]["source_ref_state"] == "missing_current_proof"
     assert stale_row["next_actions"][1] == "run the producer profile in owner repo aoa-sdk"

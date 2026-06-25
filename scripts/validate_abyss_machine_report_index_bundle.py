@@ -326,12 +326,22 @@ def _trust_gate_allow_latest(
         expected_trust_root_mode=TRUST_ROOT_MODE,
     )
     inspected_claims = trust_gate.get("inspected_claims", {})
+    blockers = {str(item) for item in trust_gate.get("blockers", [])}
+    subject_store_blocker = str(
+        getattr(
+            artifact_bundles,
+            "REQUIRED_SUBJECT_STORE_BLOCKER",
+            "required_artifact_subject_store_not_verified",
+        )
+    )
+    missing_subject_store_only = not require_subject_store and blockers == {subject_store_blocker}
+    verdict_allows = trust_gate.get("verdict") in {"allow", "warn"} or missing_subject_store_only
+    decision_allows = trust_gate.get("decision", {}).get("allow") is True or missing_subject_store_only
     return {
         "ok": bool(
-            trust_gate.get("ok")
-            and trust_gate.get("verdict") in {"allow", "warn"}
+            verdict_allows
             and trust_gate.get("decision", {}).get("model") == "fail_closed_consumer_admission"
-            and trust_gate.get("decision", {}).get("allow") is True
+            and decision_allows
             and inspected_claims.get("registry_latest", {}).get("selected_record_is_latest") is True
             and inspected_claims.get("controls", {}).get("required_controls_missing") == []
             and inspected_claims.get("source", {}).get("source_repo_matched") is True
@@ -341,6 +351,7 @@ def _trust_gate_allow_latest(
                 or inspected_claims.get("artifact_subject_store", {}).get("ok") is True
             )
         ),
+        "accepted_missing_subject_store_precondition": missing_subject_store_only,
         "trust_gate": trust_gate,
     }
 
@@ -713,6 +724,49 @@ def validate_bundle(
     )
 
 
+def _failure_summary(payload: dict[str, Any]) -> list[str]:
+    failures: list[str] = []
+
+    steps = payload.get("steps", {})
+    if isinstance(steps, dict):
+        for name, result in steps.items():
+            if isinstance(result, dict) and result.get("ok") is not True:
+                failures.append(f"steps.{name}")
+
+    for name in (
+        "registry",
+        "pre_materialization_gate",
+        "materialized_subject_store",
+        "trust_gate",
+        "subject_store_gate",
+    ):
+        result = payload.get(name)
+        if isinstance(result, dict) and result.get("ok") is not True:
+            failures.append(name)
+
+    subject_store_gate = payload.get("subject_store_gate", {})
+    if isinstance(subject_store_gate, dict):
+        if subject_store_gate.get("verdict") not in {"allow", "warn"}:
+            failures.append("subject_store_gate.verdict")
+        if subject_store_gate.get("decision", {}).get("allow") is not True:
+            failures.append("subject_store_gate.decision.allow")
+        store_claim = subject_store_gate.get("inspected_claims", {}).get("artifact_subject_store", {})
+        if not isinstance(store_claim, dict) or store_claim.get("ok") is not True:
+            failures.append("subject_store_gate.artifact_subject_store")
+
+    adversarial = payload.get("adversarial_checks", {})
+    if isinstance(adversarial, dict):
+        if adversarial.get("ok") is not True:
+            failures.append("adversarial_checks")
+        checks = adversarial.get("checks", {})
+        if isinstance(checks, dict):
+            for name, result in checks.items():
+                if isinstance(result, dict) and result.get("ok") is not True:
+                    failures.append(f"adversarial_checks.{name}")
+
+    return failures or ["payload.ok=false"]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate generated aoa-evals report index through abyss-machine artifact bundles.")
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
@@ -739,6 +793,10 @@ def main() -> int:
             f"{payload['bundle_dir']} ({', '.join(payload['verified_controls'])}; "
             f"registry={payload['registry_dir']}; subject-store={payload['subject_store_root']})"
         )
+    else:
+        print("[error] abyss-machine report index artifact bundle validation failed", file=sys.stderr)
+        for failure in _failure_summary(payload):
+            print(f"- {failure}", file=sys.stderr)
     return 0 if payload["ok"] else 1
 
 

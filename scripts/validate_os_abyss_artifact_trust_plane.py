@@ -53,6 +53,16 @@ KNOWN_AFFECTED_VERDICTS = {
     "manual_review_required",
 }
 
+KNOWN_DRIFT_STATUSES = {
+    "fresh",
+    "missing_durable_evidence",
+    "rebuild_required",
+    "reverify_required",
+    "blocked_missing_sibling",
+    "accepted_lag",
+    "manual_review_required",
+}
+
 CLAIM_LIMITS = [
     "This validator reads abyss-machine trust-plane read-models; it does not create signatures, attestations, SBOMs, C2PA manifests, registry records, or release artifacts.",
     "FULLY_COVERED is accepted only when abyss-machine reports durable latest selection, consumer trust-gate admission, and manual positive plus negative evidence for every declared artifact class.",
@@ -325,6 +335,16 @@ def _single_row(payload: dict[str, Any], artifact_class: str) -> dict[str, Any] 
     return _rows_by_class(payload).get(artifact_class)
 
 
+def _row_drift(row: dict[str, Any] | None) -> dict[str, Any]:
+    drift = row.get("drift") if row else None
+    return drift if isinstance(drift, dict) else {}
+
+
+def _row_source_ref(row: dict[str, Any] | None) -> dict[str, Any]:
+    source_ref = row.get("source_ref_status") if row else None
+    return source_ref if isinstance(source_ref, dict) else {}
+
+
 def _validate_drift(payloads: dict[str, dict[str, Any]], issues: list[dict[str, str]]) -> dict[str, Any]:
     policy = payloads["policy_drift"]
     sibling_blocked = payloads["sibling_blocked"]
@@ -335,20 +355,59 @@ def _validate_drift(payloads: dict[str, dict[str, Any]], issues: list[dict[str, 
         _add_issue(issues, "affected.policy_manifest", "policy manifest drift does not force needs_reverify for every class")
     if set(policy.get("known_verdicts", [])) != KNOWN_AFFECTED_VERDICTS:
         _add_issue(issues, "affected.known_verdicts", "affected verdict vocabulary is incomplete")
+    if set(policy.get("known_drift_statuses", [])) != KNOWN_DRIFT_STATUSES:
+        _add_issue(issues, "affected.known_drift_statuses", "affected drift-status vocabulary is incomplete")
+
+    policy_rows = _rows_by_class(policy)
+    if len(policy_rows) != int(policy_summary.get("artifact_classes") or 0):
+        _add_issue(issues, "affected.policy_manifest_rows", "policy manifest drift lacks row-level drift evidence for every class")
+    for artifact_class, row in policy_rows.items():
+        drift = _row_drift(row)
+        if row.get("verdict") != "needs_reverify" or drift.get("status") != "reverify_required":
+            _add_issue(issues, "affected.policy_drift_status", f"{artifact_class} policy drift is not marked reverify_required")
+        if drift.get("operationally_blocking") is not True or drift.get("needs_reverify") is not True:
+            _add_issue(issues, "affected.policy_drift_blocking", f"{artifact_class} policy drift is not operationally blocking")
 
     blocked_row = _single_row(sibling_blocked, "aoa_sdk_python_distribution")
     accepted_row = _single_row(sibling_accepted_lag, "aoa_sdk_python_distribution")
+    blocked_drift = _row_drift(blocked_row)
+    accepted_drift = _row_drift(accepted_row)
     if not blocked_row or blocked_row.get("verdict") != "blocked_by_missing_sibling":
         _add_issue(issues, "affected.blocked_sibling", "unpromoted sibling ref did not block without accepted lag")
-    elif blocked_row.get("source_ref_status", {}).get("matched") is not False:
+    elif _row_source_ref(blocked_row).get("matched") is not False:
         _add_issue(issues, "affected.blocked_sibling_source_ref", "blocked sibling ref did not expose unmatched source_ref_status")
+    elif blocked_drift.get("status") != "blocked_missing_sibling":
+        _add_issue(issues, "affected.blocked_sibling_drift_status", "blocked sibling ref did not expose blocked_missing_sibling drift")
+    elif blocked_drift.get("operationally_blocking") is not True or blocked_drift.get("needs_rebuild") is not True:
+        _add_issue(issues, "affected.blocked_sibling_drift_blocking", "blocked sibling ref is not operationally blocking rebuild drift")
+    elif blocked_drift.get("source_ref_state") != "missing_current_proof":
+        _add_issue(issues, "affected.blocked_sibling_source_ref_state", "blocked sibling ref did not expose missing_current_proof")
     if not accepted_row or accepted_row.get("verdict") != "accepted_lag":
         _add_issue(issues, "affected.accepted_lag", "unpromoted sibling ref did not become accepted_lag with explicit flag")
+    elif _row_source_ref(accepted_row).get("matched") is not False:
+        _add_issue(issues, "affected.accepted_lag_source_ref", "accepted lag did not keep unmatched source_ref_status visible")
+    elif accepted_drift.get("status") != "accepted_lag":
+        _add_issue(issues, "affected.accepted_lag_drift_status", "accepted lag did not expose accepted_lag drift")
+    elif accepted_drift.get("accepted_lag") is not True or accepted_drift.get("operationally_blocking") is not False:
+        _add_issue(issues, "affected.accepted_lag_blocking", "accepted lag did not become explicit nonblocking lag")
+    elif accepted_drift.get("source_ref_state") != "missing_current_proof":
+        _add_issue(issues, "affected.accepted_lag_source_ref_state", "accepted lag stopped exposing missing_current_proof")
 
     return {
         "policy_status_counts": policy_summary.get("status_counts", {}),
+        "policy_drift_statuses": sorted(
+            {
+                str(_row_drift(row).get("status"))
+                for row in policy_rows.values()
+                if _row_drift(row).get("status")
+            }
+        ),
         "sibling_blocked_verdict": blocked_row.get("verdict") if blocked_row else None,
+        "sibling_blocked_drift_status": blocked_drift.get("status") if blocked_drift else None,
+        "sibling_blocked_operationally_blocking": blocked_drift.get("operationally_blocking") if blocked_drift else None,
         "sibling_accepted_lag_verdict": accepted_row.get("verdict") if accepted_row else None,
+        "sibling_accepted_lag_drift_status": accepted_drift.get("status") if accepted_drift else None,
+        "sibling_accepted_lag_operationally_blocking": accepted_drift.get("operationally_blocking") if accepted_drift else None,
     }
 
 

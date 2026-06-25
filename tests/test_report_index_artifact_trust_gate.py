@@ -150,6 +150,31 @@ def test_report_index_manifest_and_inventory_keep_consumer_trust_gate_contract()
     assert "revoked-record `trust-gate` denial" in part_readme
 
 
+def test_report_index_failure_summary_names_failed_subchecks() -> None:
+    validator = load_validator_module()
+    payload = {
+        "steps": {"verify": {"ok": False}},
+        "subject_store_gate": {
+            "ok": True,
+            "verdict": "deny",
+            "decision": {"allow": False},
+            "inspected_claims": {"artifact_subject_store": {"ok": False}},
+        },
+        "adversarial_checks": {
+            "ok": False,
+            "checks": {"missing_sbom": {"ok": False}},
+        },
+    }
+
+    summary = validator._failure_summary(payload)
+
+    assert "steps.verify" in summary
+    assert "subject_store_gate.verdict" in summary
+    assert "subject_store_gate.decision.allow" in summary
+    assert "subject_store_gate.artifact_subject_store" in summary
+    assert "adversarial_checks.missing_sbom" in summary
+
+
 def test_trust_gate_allow_latest_requires_fail_closed_latest_controls_and_source(tmp_path: Path) -> None:
     validator = load_validator_module()
     fake = FakeArtifactBundles(allow_gate_response())
@@ -184,6 +209,37 @@ def test_trust_gate_allow_latest_requires_fail_closed_latest_controls_and_source
             else:
                 response[key] = value
         assert validator._trust_gate_allow_latest(FakeArtifactBundles(response), tmp_path, registry_roundtrip)["ok"] is False
+
+    missing_store_response = allow_gate_response()
+    missing_store_response.update(
+        {
+            "ok": False,
+            "verdict": "deny",
+            "blockers": ["required_artifact_subject_store_not_verified"],
+        }
+    )
+    missing_store_response["decision"].update(
+        {
+            "allow": False,
+            "verdict": "deny",
+            "blockers": ["required_artifact_subject_store_not_verified"],
+        }
+    )
+    missing_store_response["inspected_claims"]["artifact_subject_store"] = {"required": True, "ok": False}
+    pre_materialization = validator._trust_gate_allow_latest(
+        FakeArtifactBundles(missing_store_response),
+        tmp_path,
+        registry_roundtrip,
+        require_subject_store=False,
+    )
+    assert pre_materialization["ok"] is True
+    assert pre_materialization["accepted_missing_subject_store_precondition"] is True
+    assert (
+        validator._trust_gate_allow_latest(FakeArtifactBundles(missing_store_response), tmp_path, registry_roundtrip)[
+            "ok"
+        ]
+        is False
+    )
 
 
 def test_terminal_registry_state_requires_revoked_record_trust_gate_deny(tmp_path: Path) -> None:

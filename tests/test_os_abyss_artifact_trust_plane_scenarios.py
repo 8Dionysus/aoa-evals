@@ -38,6 +38,42 @@ OWNER_CLASS_BY_REPO = {
 }
 
 
+KNOWN_DRIFT_STATUSES = [
+    "fresh",
+    "missing_durable_evidence",
+    "rebuild_required",
+    "reverify_required",
+    "blocked_missing_sibling",
+    "accepted_lag",
+    "manual_review_required",
+]
+
+
+def drift_state(
+    status: str,
+    *,
+    operationally_blocking: bool,
+    needs_rebuild: bool = False,
+    needs_reverify: bool = False,
+    accepted_lag: bool = False,
+    lag_policy: str = "not_accepted",
+    source_ref_state: str = "not_requested",
+) -> dict[str, Any]:
+    return {
+        "status": status,
+        "known_statuses": KNOWN_DRIFT_STATUSES,
+        "operationally_blocking": operationally_blocking,
+        "needs_rebuild": needs_rebuild,
+        "needs_reverify": needs_reverify,
+        "accepted_lag": accepted_lag,
+        "lag_policy": lag_policy,
+        "source_ref_state": source_ref_state,
+        "evidence_state": "durable_latest_present",
+        "reason_count": 1,
+        "explanation": f"{status} fixture",
+    }
+
+
 def requirement_row(artifact_class: str, owner: str) -> dict[str, Any]:
     return {
         "artifact_class": artifact_class,
@@ -147,8 +183,26 @@ def make_payloads() -> dict[str, dict[str, Any]]:
         },
         "policy_drift": {
             "known_verdicts": sorted(validator.KNOWN_AFFECTED_VERDICTS),
-            "summary": {"artifact_classes": len(artifact_classes), "status_counts": {"needs_reverify": len(artifact_classes)}},
-            "rows": [],
+            "known_drift_statuses": sorted(validator.KNOWN_DRIFT_STATUSES),
+            "summary": {
+                "artifact_classes": len(artifact_classes),
+                "status_counts": {"needs_reverify": len(artifact_classes)},
+                "operationally_blocking": len(artifact_classes),
+                "accepted_lag": 0,
+            },
+            "rows": [
+                {
+                    "artifact_class": artifact_class,
+                    "verdict": "needs_reverify",
+                    "source_ref_status": {"required": False, "matched": None},
+                    "drift": drift_state(
+                        "reverify_required",
+                        operationally_blocking=True,
+                        needs_reverify=True,
+                    ),
+                }
+                for artifact_class in artifact_classes
+            ],
         },
         "sibling_blocked": {
             "rows": [
@@ -156,6 +210,13 @@ def make_payloads() -> dict[str, dict[str, Any]]:
                     "artifact_class": "aoa_sdk_python_distribution",
                     "verdict": "blocked_by_missing_sibling",
                     "source_ref_status": {"matched": False},
+                    "drift": drift_state(
+                        "blocked_missing_sibling",
+                        operationally_blocking=True,
+                        needs_rebuild=True,
+                        lag_policy="blocked",
+                        source_ref_state="missing_current_proof",
+                    ),
                 }
             ]
         },
@@ -165,6 +226,13 @@ def make_payloads() -> dict[str, dict[str, Any]]:
                     "artifact_class": "aoa_sdk_python_distribution",
                     "verdict": "accepted_lag",
                     "source_ref_status": {"matched": False},
+                    "drift": drift_state(
+                        "accepted_lag",
+                        operationally_blocking=False,
+                        accepted_lag=True,
+                        lag_policy="accepted",
+                        source_ref_state="missing_current_proof",
+                    ),
                 }
             ]
         },
@@ -181,8 +249,13 @@ def test_os_artifact_trust_plane_validator_accepts_full_durable_and_drift_scenar
     assert "durable-only pass must stay weaker than FULLY_COVERED" in result["claim_limits"][2]
     assert "aoa_sdk_python_distribution" in result["checked"]["requirements"]["artifact_classes"]
     assert "aoa-sdk" in result["checked"]["producer_profiles"]["owner_repos"]
+    assert result["checked"]["drift"]["policy_drift_statuses"] == ["reverify_required"]
     assert result["checked"]["drift"]["sibling_blocked_verdict"] == "blocked_by_missing_sibling"
+    assert result["checked"]["drift"]["sibling_blocked_drift_status"] == "blocked_missing_sibling"
+    assert result["checked"]["drift"]["sibling_blocked_operationally_blocking"] is True
     assert result["checked"]["drift"]["sibling_accepted_lag_verdict"] == "accepted_lag"
+    assert result["checked"]["drift"]["sibling_accepted_lag_drift_status"] == "accepted_lag"
+    assert result["checked"]["drift"]["sibling_accepted_lag_operationally_blocking"] is False
 
 
 def test_os_artifact_trust_plane_validator_rejects_missing_manual_negative_evidence() -> None:
@@ -218,6 +291,17 @@ def test_os_artifact_trust_plane_validator_rejects_unaccepted_sibling_drift_clai
 
     assert result["ok"] is False
     assert any(issue["check"] == "affected.accepted_lag" for issue in result["issues"])
+
+
+def test_os_artifact_trust_plane_validator_rejects_accepted_lag_without_nonblocking_drift() -> None:
+    validator = load_validator_module()
+    payloads = deepcopy(make_payloads())
+    payloads["sibling_accepted_lag"]["rows"][0]["drift"]["operationally_blocking"] = True
+
+    result = validator.validate_payloads(payloads)
+
+    assert result["ok"] is False
+    assert any(issue["check"] == "affected.accepted_lag_blocking" for issue in result["issues"])
 
 
 def test_os_artifact_trust_plane_validator_rejects_missing_producer_profile_owner() -> None:

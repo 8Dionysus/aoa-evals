@@ -47,8 +47,9 @@ scenarios against `abyss-machine` policy; it does not promote
 
 `scripts/validate_os_abyss_artifact_trust_plane.py` is the advisory host proof
 for the wider OS Abyss artifact trust plane. It reads live `abyss-machine`
-requirements, full trust coverage, durable-only trust coverage, and affected
-drift read-models to prove scenario coverage, owner-profile coverage, manual
+requirements, producer profiles, full trust coverage, durable-only trust
+coverage, and affected drift read-models to prove scenario coverage,
+producer-owner profile coverage, agent-loop command coverage, manual
 positive/negative evidence, durable-registry downgrade behavior, and sibling
 accepted-lag behavior. It is intentionally not part of `release_check.py`,
 because it reads live host trust-plane state rather than this repository's

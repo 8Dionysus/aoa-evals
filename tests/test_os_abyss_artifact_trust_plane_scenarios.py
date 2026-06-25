@@ -48,6 +48,7 @@ def requirement_row(artifact_class: str, owner: str) -> dict[str, Any]:
         "consumer": {"trust_gate": f"abyss-machine artifacts trust-gate --artifact-class {artifact_class} --json"},
         "agent_loop": {
             "requirements": "requirements",
+            "producer_profiles": "producer-profiles",
             "affected": "affected",
             "build_sidecars": "build-sidecars",
             "evidence_promote": "evidence-promote",
@@ -78,11 +79,52 @@ def make_payloads() -> dict[str, dict[str, Any]]:
     ]
     full_rows = [coverage_row(artifact_class) for artifact_class in artifact_classes]
     durable_rows = [coverage_row(artifact_class, durable_only=True) for artifact_class in artifact_classes]
+    producer_profile_rows = [
+        {
+            "profile_id": owner,
+            "owner_repo": owner,
+            "artifact_classes": [artifact_class],
+            "owner_route_refs": ["AGENTS.md"],
+            "validator_commands": ["python scripts/release_check.py"],
+            "produced_sidecars": ["artifact.identity.json"],
+            "consumer_expectations": ["consume only after trust-gate verdict"],
+            "owner_boundaries": ["source owner remains stronger than read-model"],
+            "trust_root_modes": ["local_dev", "github_oidc"],
+        }
+        for owner, artifact_class in sorted(OWNER_CLASS_BY_REPO.items())
+    ]
+    for row in producer_profile_rows:
+        if row["owner_repo"] == "abyss-machine":
+            row["artifact_classes"].extend(
+                [
+                    "runtime_or_container_artifact",
+                    "ai_model_or_runtime_bundle",
+                    "public_source_seed",
+                    "public_media_export",
+                    "browser_extension_package",
+                    "host_local_evidence",
+                ]
+            )
     return {
         "requirements": {
             "ok": True,
             "summary": {"artifact_classes": len(requirements_rows), "missing_artifact_classes": []},
             "rows": requirements_rows,
+        },
+        "producer_profiles": {
+            "ok": True,
+            "summary": {
+                "profiles": len(producer_profile_rows),
+                "owner_repos": sorted(OWNER_CLASS_BY_REPO),
+                "artifact_classes": artifact_classes,
+                "artifact_class_count": len(artifact_classes),
+            },
+            "rows": producer_profile_rows,
+            "agent_loop": {
+                "producer_profiles": "abyss-machine artifacts producer-profiles --artifact-class ARTIFACT_CLASS --json",
+                "trust_gate": "abyss-machine artifacts trust-gate --artifact-class ARTIFACT_CLASS --json",
+            },
+            "claim_limits": ["Producer profiles are read-models, not enforcement."],
         },
         "trust_coverage": {
             "ok": True,
@@ -138,6 +180,7 @@ def test_os_artifact_trust_plane_validator_accepts_full_durable_and_drift_scenar
     assert result["issues"] == []
     assert "durable-only pass must stay weaker than FULLY_COVERED" in result["claim_limits"][2]
     assert "aoa_sdk_python_distribution" in result["checked"]["requirements"]["artifact_classes"]
+    assert "aoa-sdk" in result["checked"]["producer_profiles"]["owner_repos"]
     assert result["checked"]["drift"]["sibling_blocked_verdict"] == "blocked_by_missing_sibling"
     assert result["checked"]["drift"]["sibling_accepted_lag_verdict"] == "accepted_lag"
 
@@ -175,3 +218,16 @@ def test_os_artifact_trust_plane_validator_rejects_unaccepted_sibling_drift_clai
 
     assert result["ok"] is False
     assert any(issue["check"] == "affected.accepted_lag" for issue in result["issues"])
+
+
+def test_os_artifact_trust_plane_validator_rejects_missing_producer_profile_owner() -> None:
+    validator = load_validator_module()
+    payloads = deepcopy(make_payloads())
+    payloads["producer_profiles"]["rows"] = [
+        row for row in payloads["producer_profiles"]["rows"] if row["owner_repo"] != "Tree-of-Sophia"
+    ]
+
+    result = validator.validate_payloads(payloads)
+
+    assert result["ok"] is False
+    assert any(issue["check"] == "producer_profiles.owner_repos" for issue in result["issues"])

@@ -125,6 +125,7 @@ def _run_artifacts_command(args: list[str], *, repo_root: Path | None = None) ->
 def collect_live_payloads(*, repo_root: Path | None = None) -> dict[str, dict[str, Any]]:
     return {
         "requirements": _run_artifacts_command(["requirements"], repo_root=repo_root),
+        "producer_profiles": _run_artifacts_command(["producer-profiles"], repo_root=repo_root),
         "trust_coverage": _run_artifacts_command(["trust-coverage"], repo_root=repo_root),
         "durable_trust_coverage": _run_artifacts_command(["trust-coverage", "--durable-only"], repo_root=repo_root),
         "policy_drift": _run_artifacts_command(
@@ -206,11 +207,67 @@ def _validate_requirements(payload: dict[str, Any], issues: list[dict[str, str]]
         if not isinstance(consumer, dict) or "trust-gate" not in str(consumer.get("trust_gate") or ""):
             _add_issue(issues, "requirements.consumer_path", f"{artifact_class} has no consumer trust-gate path")
         agent_loop = row.get("agent_loop", {})
-        for key in ("requirements", "affected", "build_sidecars", "evidence_promote", "trust_gate"):
+        for key in ("requirements", "producer_profiles", "affected", "build_sidecars", "evidence_promote", "trust_gate"):
             if not isinstance(agent_loop, dict) or not agent_loop.get(key):
                 _add_issue(issues, "requirements.agent_loop", f"{artifact_class} missing agent loop command {key}")
 
     return {"artifact_classes": sorted(rows_by_class), "owner_repos": sorted(owner_repos)}
+
+
+def _validate_producer_profiles(payload: dict[str, Any], issues: list[dict[str, str]]) -> dict[str, Any]:
+    rows = payload.get("rows", [])
+    if not isinstance(rows, list):
+        rows = []
+    profile_rows = [row for row in rows if isinstance(row, dict)]
+    owner_repos = {str(row.get("owner_repo")) for row in profile_rows if row.get("owner_repo")}
+    artifact_classes: set[str] = set()
+    for row in profile_rows:
+        classes = row.get("artifact_classes", [])
+        if isinstance(classes, list):
+            artifact_classes.update(str(item) for item in classes if item)
+
+    if payload.get("ok") is not True:
+        _add_issue(issues, "producer_profiles.ok", "producer-profiles read-model is not ok")
+
+    missing_owners = sorted(REQUIRED_OWNER_REPOS - owner_repos)
+    if missing_owners:
+        _add_issue(issues, "producer_profiles.owner_repos", "missing producer profile owners: " + ", ".join(missing_owners))
+
+    for artifact_class, scenario in REQUIRED_SCENARIO_CLASSES.items():
+        if artifact_class not in artifact_classes:
+            _add_issue(issues, "producer_profiles.scenario_class", f"missing producer profile for {scenario}: {artifact_class}")
+
+    for row in profile_rows:
+        profile_id = row.get("profile_id") or row.get("owner_repo") or "<unknown>"
+        for key in (
+            "owner_repo",
+            "owner_route_refs",
+            "artifact_classes",
+            "validator_commands",
+            "produced_sidecars",
+            "consumer_expectations",
+            "owner_boundaries",
+            "trust_root_modes",
+        ):
+            value = row.get(key)
+            if not value or (isinstance(value, list) and not value):
+                _add_issue(issues, "producer_profiles.profile_shape", f"{profile_id} missing {key}")
+
+    agent_loop = payload.get("agent_loop", {})
+    if not isinstance(agent_loop, dict) or not agent_loop.get("producer_profiles"):
+        _add_issue(issues, "producer_profiles.agent_loop", "producer-profiles report has no producer_profiles agent-loop command")
+    if not isinstance(agent_loop, dict) or not agent_loop.get("trust_gate"):
+        _add_issue(issues, "producer_profiles.agent_loop", "producer-profiles report has no trust_gate agent-loop command")
+
+    claim_limits = payload.get("claim_limits", [])
+    if not isinstance(claim_limits, list) or not any("read-model" in str(item) for item in claim_limits):
+        _add_issue(issues, "producer_profiles.claim_limits", "producer-profiles report does not state read-model claim limit")
+
+    return {
+        "profiles": len(profile_rows),
+        "owner_repos": sorted(owner_repos),
+        "artifact_classes": sorted(artifact_classes),
+    }
 
 
 def _validate_full_coverage(payload: dict[str, Any], issues: list[dict[str, str]]) -> dict[str, Any]:
@@ -299,6 +356,7 @@ def validate_payloads(payloads: dict[str, dict[str, Any]]) -> dict[str, Any]:
     issues: list[dict[str, str]] = []
     checked = {
         "requirements": _validate_requirements(payloads["requirements"], issues),
+        "producer_profiles": _validate_producer_profiles(payloads["producer_profiles"], issues),
         "trust_coverage": _validate_full_coverage(payloads["trust_coverage"], issues),
         "durable_trust_coverage": _validate_durable_coverage(payloads["durable_trust_coverage"], issues),
         "drift": _validate_drift(payloads, issues),

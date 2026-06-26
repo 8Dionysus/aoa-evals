@@ -51,7 +51,11 @@ requirements, producer profiles, full trust coverage, durable-only trust
 coverage, and affected drift read-models to prove scenario coverage,
 producer-owner profile coverage, agent-loop command coverage, manual
 positive/negative evidence, durable-registry downgrade behavior, and sibling
-accepted-lag behavior. It is intentionally not part of `release_check.py`,
+accepted-lag behavior. The advisory pass may also accept a declared real
+blocker only when `abyss-machine` still proves durable latest selection,
+fresh source contracts, trust-gate admission, required controls, and explicit
+class-specific blocker text; it must not turn a production trust gap into a
+release identity shortcut. It is intentionally not part of `release_check.py`,
 because it reads live host trust-plane state rather than this repository's
 release identity.
 

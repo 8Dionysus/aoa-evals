@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-evals/mechanics/proof-object/parts/eval-authoring/schemas/eval-design-worksheet.schema.json",
+  "title": "aoa-evals eval design worksheet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "objective",
+    "object_under_evaluation",
+    "task_pressure",
+    "expected_route",
+    "observed_break",
+    "first_failure",
+    "consequence",
+    "owner_refs",
+    "source_refs",
+    "freshness_refs",
+    "privacy_boundary",
+    "selected_archetype_id",
+    "success_criteria",
+    "failure_criteria",
+    "positive_cases",
+    "negative_cases",
+    "fixtures",
+    "runner_solver_tool_needs",
+    "grader_family",
+    "evaluator_mode",
+    "calibration_needs",
+    "repeat_count",
+    "nondeterminism_posture",
+    "state_change_verification",
+    "anti_gaming_risks",
+    "maintenance_drift_risk",
+    "local_central_promotion_route",
+    "exact_next_command",
+    "proof_authority",
+    "promotion_allowed"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "eval_design_worksheet_v1"
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 8
+    },
+    "object_under_evaluation": {
+      "type": "string",
+      "minLength": 3
+    },
+    "task_pressure": {
+      "type": "string",
+      "minLength": 8
+    },
+    "expected_route": {
+      "type": "string",
+      "minLength": 5
+    },
+    "observed_break": {
+      "type": "string",
+      "minLength": 5
+    },
+    "first_failure": {
+      "type": "string",
+      "minLength": 5
+    },
+    "consequence": {
+      "type": "string",
+      "minLength": 5
+    },
+    "owner_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "freshness_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "privacy_boundary": {
+      "type": "string",
+      "minLength": 8
+    },
+    "selected_archetype_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "success_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 5
+      }
+    },
+    "failure_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 5
+      }
+    },
+    "positive_cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 5
+      }
+    },
+    "negative_cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 5
+      }
+    },
+    "fixtures": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "runner_solver_tool_needs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "grader_family": {
+      "type": "string",
+      "minLength": 5
+    },
+    "evaluator_mode": {
+      "type": "string",
+      "enum": [
+        "deterministic",
+        "llm_judge",
+        "human_review",
+        "mixed"
+      ]
+    },
+    "calibration_needs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "repeat_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "nondeterminism_posture": {
+      "type": "string",
+      "minLength": 5
+    },
+    "state_change_verification": {
+      "type": "string",
+      "minLength": 5
+    },
+    "anti_gaming_risks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 5
+      }
+    },
+    "maintenance_drift_risk": {
+      "type": "string",
+      "minLength": 5
+    },
+    "local_central_promotion_route": {
+      "type": "string",
+      "minLength": 5
+    },
+    "exact_next_command": {
+      "type": "string",
+      "minLength": 5
+    },
+    "proof_authority": {
+      "const": false
+    },
+    "promotion_allowed": {
+      "const": false
+    }
+  }
+}

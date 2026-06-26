@@ -14,6 +14,10 @@ boundary metadata, review guides, and owner-review refs.
 - `mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py`
 - `mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py`
 - `mechanics/audit/parts/candidate-readers/schemas/runtime-candidate-template-index.schema.json`
+- `mechanics/audit/parts/candidate-readers/schemas/aoa-eval-candidate-packet.schema.json`
+- `mechanics/audit/parts/candidate-readers/examples/aoa_eval_candidate_packet.example.json`
+- `mechanics/audit/parts/candidate-readers/packets/**/*.eval_candidate.json`
+- `mechanics/audit/parts/candidate-readers/reports/session-mining/*.manual-review.md`
 - `mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json`
 - `mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json`
 
@@ -26,6 +30,8 @@ boundary metadata, review guides, and owner-review refs.
   carried by those examples.
 - memory-context boundary fields carried by memo recall, contradiction, and
   writeback selected-evidence examples.
+- manually reviewed session/runtime/local candidate packets whose schema keeps
+  them below proof acceptance.
 
 ## Outputs
 
@@ -34,6 +40,12 @@ boundary metadata, review guides, and owner-review refs.
 - generated navigation records that route future reviewers back to source
   examples, schemas, policy or memory boundary metadata, and bundle-local
   review surfaces.
+- a candidate-only packet contract for manually reviewed session/runtime/local
+  evidence before queue import or proof-object design.
+- a packet-backed eval-readiness queue that a new session can inspect without
+  turning session evidence into verdict, score, baseline, or promotion.
+- a lifecycle guard route for candidate queue next-actions that stays read-only
+  and below proof promotion.
 
 ## Stronger Owner Split
 
@@ -56,6 +68,10 @@ validation lane.
 | reader inclusion is treated as proof acceptance | route to bundle-local review before any proof read |
 | memory-context metadata is missing or treated as authority | restore the selected-evidence source example and rebuild the reader; memory authority remains in `aoa-memo` |
 | generated navigation conflicts with source examples, schemas, or eval contracts | follow the source surface and rebuild the reader |
+| a session or runtime packet carries verdict, score, baseline, or promotion wording | reject the packet before queue import; candidate readers route evidence only |
+| a candidate queue state is treated as permission to promote proof | run `python scripts/check_eval_candidate_queue_lifecycle.py --json`; queue lifecycle remains review-only |
+| local candidate pressure is treated as central adoption | run `python scripts/review_eval_promotion_path.py --json`; promotion review stays dry-run until local owner review, central overlap check, and human acceptance |
+| session-mining report is treated as completed proof | route to owner review or a source eval bundle; reports and packets stay candidate-only |
 
 ## Validation
 

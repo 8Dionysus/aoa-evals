@@ -24,6 +24,7 @@ guides:
   - docs/guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md
   - docs/guides/BASELINE_COMPARISON_GUIDE.md
   - docs/guides/REGRESSION_PROOF_SURFACES.md
+  - docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md
   - docs/guides/BOUNDARY_ROUTE_CHECKLIST.md
 operations:
   - docs/operations/RELEASING.md

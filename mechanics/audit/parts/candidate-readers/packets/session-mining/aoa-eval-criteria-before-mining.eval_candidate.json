@@ -1,0 +1,62 @@
+{
+  "schema_version": "aoa_eval_candidate_packet_v1",
+  "packet_id": "session:aoa-eval-criteria-before-mining",
+  "candidate_only": true,
+  "proof_authority": false,
+  "promotion_allowed": false,
+  "source_kind": "session_episode",
+  "source_ref": ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0127/events:022746-023012",
+  "observed_at_utc": "2026-06-25T22:45:00Z",
+  "trigger_class_id": "session_episode_candidate_for_eval_design",
+  "task_pressure": "Before broad manual mining, the system needed criteria and signs grounded in current relevant sources.",
+  "expected_aoa_eval_route": "design",
+  "actual_trajectory": "The agent had not yet built enough shared criteria to mine safely and risked producing noisy or brittle candidates.",
+  "first_failure": "Candidate discovery was about to proceed without a reviewed rubric, reject taxonomy, and source-grounded evaluator fit.",
+  "consequence": "Manual mining would create garbage candidates or overly narrow examples instead of a durable eval-control system.",
+  "owner_surface_refs": [
+    "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
+    "scripts/validate_eval_candidate_packets.py",
+    "scripts/build_eval_readiness_dashboard.py",
+    "mechanics/audit/parts/candidate-readers/README.md"
+  ],
+  "evidence_refs": [
+    ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0127/events:022746-023012",
+    "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md#candidate-admission-gates",
+    "mechanics/audit/parts/candidate-readers/reports/session-mining/2026-06-25-aoa-eval-control.manual-review.md#admission-criteria"
+  ],
+  "freshness_refs": [
+    "review_date_utc:2026-06-25",
+    "external_research_grounding:OpenAI_agent_evals_checked_2026-06-25",
+    "external_research_grounding:LangSmith_trajectory_evals_checked_2026-06-25",
+    "external_research_grounding:Inspect_AI_checked_2026-06-25"
+  ],
+  "privacy_boundary": "The packet stores criteria and bounded refs only; raw session text stays local to .aoa.",
+  "existing_surface_check": "Existing guide and packet schema now hold criteria, but no accepted central eval bundle is claimed for this design pressure.",
+  "routing_rubric": {
+    "trigger_strength": 2,
+    "owner_surface_clarity": 2,
+    "consequence_severity": 2,
+    "repeatability": 2,
+    "freshness_dependency": 2,
+    "existing_eval_fit": 0,
+    "privacy_raw_evidence_boundary": 2
+  },
+  "evaluator_fit": "human_review_rubric",
+  "candidate_state": "needs_owner_review",
+  "candidate_state_reason": "Criteria design pressure is concrete and high-value, but the rubric needs owner review before broader automation.",
+  "promotion_forbidden_until": [
+    "criteria taxonomy accepted by owner",
+    "manual reject accounting reviewed",
+    "human owner acceptance recorded",
+    "candidate converted into trigger corpus or eval design by owner"
+  ],
+  "forbidden_effects": [
+    "central_proof_promotion",
+    "verdict_acceptance",
+    "score_or_baseline_creation",
+    "repo_mutation",
+    "mcp_created_bundle",
+    "unreviewed_classifier_automation"
+  ],
+  "next_step": "Use this packet to seed a criteria/rubric review before any larger session-mining wave."
+}

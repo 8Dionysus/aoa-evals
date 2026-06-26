@@ -92,6 +92,7 @@ MECHANIC_PART_ALLOWED_PAYLOAD_DIRS = (
     "fixtures",
     "generated",
     "manifests",
+    "packets",
     "reports",
     "runners",
     "schemas",

@@ -14,8 +14,11 @@ law and validation posture.
 
 The root reader names guarded here are `generated/eval_catalog.json`,
 `generated/eval_catalog.min.json`, `generated/eval_capsules.json`,
-`generated/comparison_spine.json`, `generated/eval_sections.full.json`, and
-`generated/eval_report_index.min.json`, plus the quest reader pair
+`generated/comparison_spine.json`, `generated/eval_sections.full.json`,
+`generated/eval_report_index.min.json`,
+`generated/eval_readiness_dashboard.json`,
+`generated/eval_readiness_dashboard.md`, and
+`generated/eval_support_registry.json`, plus the quest reader pair
 `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`,
 `generated/quest_catalog.min.example.json`, and
 `generated/quest_dispatch.min.example.json`.
@@ -29,7 +32,7 @@ The root reader names guarded here are `generated/eval_catalog.json`,
 | output | compact reader surfaces for agents, validators, and tools |
 | owner | source surfaces and builders named in `generated/README.md` |
 | next route | source bundle, quest record, report, mechanic part, or builder check |
-| tools | catalog builder, report-index builder, candidate-reader builders, phase-alpha matrix builder |
+| tools | catalog builder, report-index builder, readiness-dashboard builder, candidate-reader builders, phase-alpha matrix builder |
 | validation | this card's `Validation` section |
 
 ## Edit Route
@@ -38,6 +41,7 @@ Regenerate files with the owning builder:
 
 - `python scripts/build_catalog.py`
 - `python scripts/generate_eval_report_index.py`
+- `python scripts/build_eval_readiness_dashboard.py --write-generated`
 - `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py`
 - `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py`
 - `python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py`
@@ -45,10 +49,10 @@ Regenerate files with the owning builder:
 Use each builder's `--check` mode or `python scripts/validate_repo.py` to
 confirm generated surfaces stay current.
 Keep the min catalog an exact projection of the full catalog.
-Keep catalogs, capsules, sections, comparison spine, report index, runtime
-candidate readers, quest readers, part-local Agon registries, part-local RPG
-unlock proof cards, and the part-local Phase Alpha eval matrix aligned with
-their source surfaces.
+Keep catalogs, capsules, sections, comparison spine, report index, readiness
+dashboard, support registry, runtime candidate readers, quest readers,
+part-local Agon registries, part-local RPG unlock proof cards, and the
+part-local Phase Alpha eval matrix aligned with their source surfaces.
 
 ## Validation
 
@@ -57,6 +61,8 @@ For generated-reader freshness, run the matching non-mutating checks:
 ```bash
 python scripts/build_catalog.py --check
 python scripts/generate_eval_report_index.py --check
+python scripts/build_eval_readiness_dashboard.py --check
+python scripts/check_eval_support_registry.py --json
 python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
 python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
 python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check

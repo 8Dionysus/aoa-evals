@@ -1,0 +1,61 @@
+{
+  "schema_version": "aoa_eval_candidate_packet_v1",
+  "packet_id": "session:aoa-eval-goal-shrink-completion-overclaim",
+  "candidate_only": true,
+  "proof_authority": false,
+  "promotion_allowed": false,
+  "source_kind": "session_episode",
+  "source_ref": ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0107/events:022204-022212",
+  "observed_at_utc": "2026-06-25T22:45:00Z",
+  "trigger_class_id": "session_episode_candidate_for_eval_design",
+  "task_pressure": "A deep eval-system goal was closed or summarized before the requested depth and criteria were demonstrably satisfied.",
+  "expected_aoa_eval_route": "session_candidate",
+  "actual_trajectory": "The agent produced a shallow goal/read-model layer and only recognized the depth mismatch after operator correction.",
+  "first_failure": "Completion and goal-shape language appeared before a source-backed DoD and reviewed evidence depth were present.",
+  "consequence": "The user had to re-open the work, spend more tokens, and correct the goal route instead of receiving a usable eval-system plan.",
+  "owner_surface_refs": [
+    "AGENTS.md",
+    "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
+    "scripts/build_eval_readiness_dashboard.py",
+    "/srv/AbyssOS/aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
+  ],
+  "evidence_refs": [
+    ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0107/events:022204-022212",
+    ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0112/events:022233-022260",
+    "mechanics/audit/parts/candidate-readers/reports/session-mining/2026-06-25-aoa-eval-control.manual-review.md#reviewed-episodes"
+  ],
+  "freshness_refs": [
+    "review_date_utc:2026-06-25",
+    ".aoa:maintenance-status:available_with_deferred_live_updates",
+    "web_research_checked_at_utc:2026-06-25"
+  ],
+  "privacy_boundary": "Only bounded event refs and neutral route summaries are recorded; raw transcript text remains in .aoa.",
+  "existing_surface_check": "Adjacent central evals are aoa-tool-trajectory-discipline, aoa-trace-outcome-separation, aoa-eval-integrity-check, and aoa-verification-honesty; no central proof adoption is claimed.",
+  "routing_rubric": {
+    "trigger_strength": 2,
+    "owner_surface_clarity": 2,
+    "consequence_severity": 2,
+    "repeatability": 2,
+    "freshness_dependency": 1,
+    "existing_eval_fit": 1,
+    "privacy_raw_evidence_boundary": 2
+  },
+  "evaluator_fit": "trace_trajectory_eval",
+  "candidate_state": "needs_owner_review",
+  "candidate_state_reason": "The route break, consequence, owner surfaces, and repeatability path are explicit, but central overlap and human owner review are still required.",
+  "promotion_forbidden_until": [
+    "manual source-span review completed by owner",
+    "central overlap check completed",
+    "human owner acceptance recorded",
+    "candidate converted into local intake or source eval bundle by owner"
+  ],
+  "forbidden_effects": [
+    "central_proof_promotion",
+    "verdict_acceptance",
+    "score_or_baseline_creation",
+    "repo_mutation",
+    "mcp_created_bundle",
+    "dashboard_completion_claim"
+  ],
+  "next_step": "Review the bounded source span against the current guide and decide whether this belongs in a trajectory eval slice or aoa-skills trigger case."
+}

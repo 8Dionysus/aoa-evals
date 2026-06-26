@@ -15,7 +15,7 @@ authored source ownership.
 | output | reader family route, source owner route, builder route, or validation route |
 | owner | source surfaces and builders own truth; `generated/AGENTS.md` owns edit law |
 | next route | source bundle, quest record, report, mechanic part, builder, or route card |
-| tools | catalog builder, report-index builder, quest readers, candidate-reader builders, and phase-alpha matrix builder |
+| tools | catalog builder, report-index builder, readiness-dashboard builder, quest readers, candidate-reader builders, and phase-alpha matrix builder |
 | validation | [generated/AGENTS.md#validation](AGENTS.md#validation) and source-owner checks |
 
 ## Current Root Readers
@@ -28,6 +28,9 @@ authored source ownership.
 | `generated/eval_sections.full.json` | full section extraction for downstream readers | `scripts/build_catalog.py` |
 | `generated/comparison_spine.json` | comparison-only projection from bundle manifests | `scripts/build_catalog.py` |
 | `generated/eval_report_index.min.json` | compact index of bundle-local report artifacts | `scripts/generate_eval_report_index.py` |
+| `generated/eval_readiness_dashboard.json` | OS Abyss eval-readiness, trigger, candidate-queue, promotion-gate, and freshness read-model | `scripts/build_eval_readiness_dashboard.py --write-generated` |
+| `generated/eval_readiness_dashboard.md` | human-readable eval-readiness dashboard | `scripts/build_eval_readiness_dashboard.py --write-generated` |
+| `generated/eval_support_registry.json` | validator/test/script support map for eval-lane routing | `scripts/build_eval_readiness_dashboard.py --write-generated` |
 | `generated/quest_catalog.min.json` | compact quest source-record catalog | `scripts/build_catalog.py` |
 | `generated/quest_dispatch.min.json` | compact quest dispatch reader | `scripts/build_catalog.py` |
 | `generated/quest_catalog.min.example.json` | public-safe example projection for quest catalog shape | `scripts/build_catalog.py` |

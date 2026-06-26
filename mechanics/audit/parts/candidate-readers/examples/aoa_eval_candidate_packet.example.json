@@ -1,0 +1,54 @@
+{
+  "schema_version": "aoa_eval_candidate_packet_v1",
+  "packet_id": "session:criteria-example",
+  "candidate_only": true,
+  "proof_authority": false,
+  "promotion_allowed": false,
+  "source_kind": "session_episode",
+  "source_ref": ".aoa/session-ref/example-segment",
+  "observed_at_utc": "2026-06-25T00:00:00Z",
+  "trigger_class_id": "agent_route_miss_or_tool_trajectory_pressure",
+  "task_pressure": "Agent route behavior may need eval coverage after a concrete correction loop.",
+  "expected_aoa_eval_route": "session_candidate",
+  "actual_trajectory": "Agent would inspect bounded evidence and emit a candidate packet.",
+  "first_failure": "Example only; no real session failure is claimed.",
+  "consequence": "Without a packet contract, session mining can mix evidence with proof language.",
+  "owner_surface_refs": [
+    "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
+    "mechanics/audit/parts/candidate-readers/schemas/aoa-eval-candidate-packet.schema.json"
+  ],
+  "evidence_refs": [
+    "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md"
+  ],
+  "freshness_refs": [
+    "checked_at:2026-06-25"
+  ],
+  "privacy_boundary": "Example packet contains no raw private transcript.",
+  "existing_surface_check": "Existing central eval fit is not claimed by this example.",
+  "routing_rubric": {
+    "trigger_strength": 1,
+    "owner_surface_clarity": 2,
+    "consequence_severity": 1,
+    "repeatability": 2,
+    "freshness_dependency": 1,
+    "existing_eval_fit": 0,
+    "privacy_raw_evidence_boundary": 2
+  },
+  "evaluator_fit": "human_review_rubric",
+  "candidate_state": "observed",
+  "candidate_state_reason": "Example demonstrates candidate-only packet shape; it is not mined evidence.",
+  "promotion_forbidden_until": [
+    "real source evidence reviewed",
+    "owner surface refs verified",
+    "central overlap check completed",
+    "human owner acceptance recorded"
+  ],
+  "forbidden_effects": [
+    "central_proof_promotion",
+    "verdict_acceptance",
+    "score_or_baseline_creation",
+    "repo_mutation",
+    "mcp_created_bundle"
+  ],
+  "next_step": "Use real bounded source evidence before creating a non-example packet."
+}

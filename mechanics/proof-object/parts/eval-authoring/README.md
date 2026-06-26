@@ -9,13 +9,20 @@ route to their owning source surfaces.
 
 ## Owned Operation
 
-`origin proof pressure -> existing-route check -> starter scaffold -> bounded source proof object`
+`origin proof pressure -> existing-route check -> forge archetype route -> design worksheet -> starter scaffold -> bounded source proof object`
 
 ## Source Surfaces
 
 - `mechanics/proof-object/parts/eval-authoring/docs/EVAL_BIRTH_PROTOCOL.md`
 - `mechanics/proof-object/parts/eval-authoring/schemas/eval-need.schema.json`
+- `mechanics/proof-object/parts/eval-authoring/schemas/eval-archetype-registry.schema.json`
+- `mechanics/proof-object/parts/eval-authoring/schemas/eval-design-worksheet.schema.json`
+- `mechanics/proof-object/parts/eval-authoring/config/eval-archetypes.json`
+- `mechanics/proof-object/parts/eval-authoring/config/external-pattern-grounding.json`
 - `mechanics/proof-object/parts/eval-authoring/examples/eval_need.example.json`
+- `mechanics/proof-object/parts/eval-authoring/examples/eval_design_worksheet.example.json`
+- `mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py`
+- `mechanics/proof-object/parts/eval-authoring/scripts/prepare_eval_case.py`
 - `mechanics/proof-object/parts/eval-authoring/scripts/scaffold_eval_bundle.py`
 - `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md`
 - `evals/**/EVAL.md`
@@ -33,6 +40,10 @@ route to their owning source surfaces.
 ## Outputs
 
 - a route-first eval need packet;
+- an Eval Forge route with candidate admission gates, archetype ranking, owner
+  route, scaffold posture, and worksheet payload;
+- a case-preparation kit with schema validation, existing-match review, and
+  scaffold commands plus the forge route;
 - an existing eval route, candidate-evidence route, quest route, or explicit
   new-draft posture;
 - a new or reshaped `EVAL.md` scaffold;
@@ -59,6 +70,12 @@ candidates, and sibling refs stay weaker than source eval packages.
 route-first form that helps a future eval package expose source truth without
 hiding limits or bypassing existing proof surfaces.
 
+Eval Forge is the design router before source authoring. It can choose an
+archetype, explain missing evidence, and write an `eval_design_worksheet_v1`
+only when requested. It cannot create central bundles, accept proof, score
+evidence, mint baselines, promote candidate packets, or mutate repo-local
+`evals/` ports.
+
 ## Stop-Lines
 
 | Pressure | Route |
@@ -67,6 +84,8 @@ hiding limits or bypassing existing proof surfaces.
 | placeholder text reads as evidence | route to real evidence entries, fixtures, reports, or examples |
 | proof pressure fits an existing eval | return the existing source bundle route instead of creating a parallel bundle |
 | proof pressure is recurring but not authoring-ready | route through `QUESTBOOK.md` and source quest records |
+| candidate pressure is concrete but not source-authoring-ready | run `python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --json` and keep the result as design guidance only |
+| a new case needs quick collection before authoring | run `python mechanics/proof-object/parts/eval-authoring/scripts/prepare_eval_case.py --json`; write only an `eval_need_v1` proposal until review |
 | runtime or trace artifact is the input | route through audit selected-evidence packets and candidate readers before bundle-local review |
 | comparison posture hides in prose | carry it in frontmatter, `eval.yaml`, and comparison guidance |
 | source eval package movement appears | keep source eval packages under `evals/` |

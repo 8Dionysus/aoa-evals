@@ -1,0 +1,61 @@
+{
+  "schema_version": "eval_forge_external_pattern_grounding_v1",
+  "checked_at_utc": "2026-06-26T00:00:00Z",
+  "authority_boundary": "External eval systems inform Eval Forge archetype design. They are not OS Abyss proof authority, owner routing authority, or vendor lock-in.",
+  "sources": [
+    {
+      "source": "OpenAI agent workflow evals",
+      "url": "https://developers.openai.com/api/docs/guides/agent-evals",
+      "adopted": "Start debugging agent behavior from traces that expose model calls, tool calls, guardrails, handoffs, routing changes, and regressions before hardening datasets.",
+      "rejected": "Hosted trace grading or eval runs cannot become central OS Abyss proof acceptance."
+    },
+    {
+      "source": "OpenAI evaluation best practices and Evals deprecation boundary",
+      "url": "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
+      "adopted": "Use objective, representative data, metrics, run/compare loops, human calibration, and continuous eval growth.",
+      "rejected": "Do not couple durable OS Abyss proof control to deprecated hosted Evals platform semantics."
+    },
+    {
+      "source": "Anthropic demystifying evals for AI agents",
+      "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "adopted": "Model agent evals as task, trials, graders, transcripts, environment outcomes, and a holistic signal stack including manual transcript review.",
+      "rejected": "Do not judge agentic behavior from final text alone when tools or state changes matter."
+    },
+    {
+      "source": "LangSmith trajectory evaluations",
+      "url": "https://docs.langchain.com/langsmith/trajectory-evals",
+      "adopted": "Use deterministic trajectory matching when the expected route or tool-call sequence is the claim, and judge-based trajectory evaluation only when the valid path is flexible.",
+      "rejected": "Do not flatten deterministic route-law violations into broad LLM judge prompts."
+    },
+    {
+      "source": "LangChain Agent Evaluation Readiness Checklist",
+      "url": "https://www.langchain.com/blog/agent-evaluation-readiness-checklist",
+      "adopted": "Manually review real traces before infrastructure, separate capability from regression evals, assign owner expertise, and choose run/trace/thread level deliberately.",
+      "rejected": "Do not automate mining before labels, reject taxonomy, owner gates, and error analysis exist."
+    },
+    {
+      "source": "Promptfoo coding-agent eval guidance",
+      "url": "https://www.promptfoo.dev/docs/guides/evaluate-coding-agents/",
+      "adopted": "Coding agents require trajectory, trace/metadata assertions, cost/latency posture, repeated runs, and disposable workspaces for write-capable tests.",
+      "rejected": "Do not treat a coding agent as a one-shot text completion when file, shell, runtime, and state effects matter."
+    },
+    {
+      "source": "Inspect AI",
+      "url": "https://inspect.aisi.org.uk/",
+      "adopted": "Represent future runnable evals as tasks with datasets, solvers or agents, tools, scorers, logs, and isolation boundaries.",
+      "rejected": "Do not run write-capable eval support without an explicit check, dry-run, or sandbox route."
+    },
+    {
+      "source": "DeepEval agentic metrics",
+      "url": "https://deepeval.com/docs/metrics-tool-correctness",
+      "adopted": "Separate task completion, tool correctness, argument correctness, and judge-based metrics so agent failures can be localized.",
+      "rejected": "Do not use a single score to hide whether reasoning, tool choice, arguments, or state outcome failed."
+    },
+    {
+      "source": "Braintrust systematic evaluation",
+      "url": "https://www.braintrust.dev/docs/evaluate",
+      "adopted": "Keep the data/task/scorer loop, immutable experiments, CI regression checks, production trace scoring, and feedback into datasets.",
+      "rejected": "Do not move OS Abyss proof truth into an external experiment dashboard."
+    }
+  ]
+}

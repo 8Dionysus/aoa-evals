@@ -29,6 +29,8 @@ where meaning lives and which surface to open next.
 | What may `aoa_evals` MCP expose without becoming proof authority? | [AoA Evals MCP Contract](architecture/AOA_EVALS_MCP_CONTRACT.md) |
 | Is this route residue, stale path, or wrong owner pressure? | [Route Residue Guards](architecture/ROUTE_RESIDUE_GUARDS.md) |
 | Is this name active, legacy, accepted input, generated projection, or candidate vocabulary? | [Legacy Naming](architecture/LEGACY_NAMING.md) |
+| How should I start eval-control work in a new agent session? | [Agent Trace Eval Candidate Discovery Guide](guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md#session-front-door) |
+| How do I find trace/session eval candidates without keyword noise? | [Agent Trace Eval Candidate Discovery Guide](guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md) |
 | Which proof guide applies? | [Guides](#guides) |
 | How should sibling repos host local eval pressure? | [Local Eval Port Standard](guides/LOCAL_EVAL_PORT_STANDARD.md) |
 | Which proof operation owns this route? | [Mechanics Operation Atlas](../mechanics/README.md) |
@@ -78,6 +80,7 @@ The first concrete source-owned proof surface remains
 - [Artifact Process Separation Guide](guides/ARTIFACT_PROCESS_SEPARATION_GUIDE.md)
 - [Baseline Comparison Guide](guides/BASELINE_COMPARISON_GUIDE.md)
 - [Regression Proof Surfaces](guides/REGRESSION_PROOF_SURFACES.md)
+- [Agent Trace Eval Candidate Discovery Guide](guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md)
 - [Boundary Route Checklist](guides/BOUNDARY_ROUTE_CHECKLIST.md)
 - [Local Eval Port Standard](guides/LOCAL_EVAL_PORT_STANDARD.md)
 

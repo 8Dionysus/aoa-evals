@@ -1,0 +1,61 @@
+{
+  "schema_version": "aoa_eval_candidate_packet_v1",
+  "packet_id": "session:aoa-eval-keyword-mining-blindspot",
+  "candidate_only": true,
+  "proof_authority": false,
+  "promotion_allowed": false,
+  "source_kind": "session_episode",
+  "source_ref": ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0121/events:022721-022726",
+  "observed_at_utc": "2026-06-25T22:45:00Z",
+  "trigger_class_id": "session_episode_candidate_for_eval_design",
+  "task_pressure": "Session mining needed to find eval candidates from behavior and route signs, not from literal eval keywords.",
+  "expected_aoa_eval_route": "trigger_design",
+  "actual_trajectory": "The proposed discovery shape leaned toward keyword search even though real missed eval moments rarely say the word eval.",
+  "first_failure": "The mining unit was text keyword presence instead of route break, expected route, consequence, owner, and repeatability.",
+  "consequence": "The system would miss high-value candidates and over-collect noisy turns that mention eval/test/landing/done.",
+  "owner_surface_refs": [
+    "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
+    ".aoa/skills/aoa-session-manual-review/SKILL.md",
+    ".aoa/skills/aoa-session-search/SKILL.md",
+    "scripts/validate_eval_candidate_packets.py"
+  ],
+  "evidence_refs": [
+    ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0121/events:022721-022726",
+    ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0123/events:022731-022733",
+    "mechanics/audit/parts/candidate-readers/reports/session-mining/2026-06-25-aoa-eval-control.manual-review.md#reviewed-episodes"
+  ],
+  "freshness_refs": [
+    "review_date_utc:2026-06-25",
+    "web_research_checked_at_utc:2026-06-25",
+    ".aoa:maintenance-status:available_with_deferred_live_updates"
+  ],
+  "privacy_boundary": "Only bounded refs and normalized failure description are recorded; no raw transcript content is copied.",
+  "existing_surface_check": "The discovery guide now states that keyword hits are only pointers; existing evals do not yet cover mining classifier design.",
+  "routing_rubric": {
+    "trigger_strength": 2,
+    "owner_surface_clarity": 2,
+    "consequence_severity": 2,
+    "repeatability": 2,
+    "freshness_dependency": 1,
+    "existing_eval_fit": 0,
+    "privacy_raw_evidence_boundary": 2
+  },
+  "evaluator_fit": "skill_trigger_design",
+  "candidate_state": "needs_owner_review",
+  "candidate_state_reason": "The candidate has a concrete route miss and repeatable trigger-design consequence; it still needs manual label calibration.",
+  "promotion_forbidden_until": [
+    "manual source-span review completed by owner",
+    "criteria and reject taxonomy accepted by owner",
+    "human owner acceptance recorded",
+    "candidate converted into trigger corpus or eval design by owner"
+  ],
+  "forbidden_effects": [
+    "central_proof_promotion",
+    "verdict_acceptance",
+    "score_or_baseline_creation",
+    "repo_mutation",
+    "mcp_created_bundle",
+    "keyword_auto_mining"
+  ],
+  "next_step": "Use the manual review gates to design non-keyword pointer signals before any wider session-mining automation."
+}

@@ -1,0 +1,62 @@
+{
+  "schema_version": "eval_design_worksheet_v1",
+  "objective": "Route a session-mined eval candidate into the right design shape before any source bundle exists.",
+  "object_under_evaluation": "eval candidate discovery route",
+  "task_pressure": "The system needs to avoid keyword-only mining and classify eval pressure from route behavior.",
+  "expected_route": "Manual review should identify expected route, observed break, consequence, owner, and repeatability before automation.",
+  "observed_break": "A proposed mining path leaned toward keyword search instead of behavior and route signs.",
+  "first_failure": "The retrieval unit was keyword presence rather than a bounded route break.",
+  "consequence": "High-value missed eval moments would be skipped and noisy keyword hits would pollute the queue.",
+  "owner_refs": [
+    "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
+    ".aoa session evidence owner"
+  ],
+  "source_refs": [
+    ".aoa:session:019eb8c7/task-0121/events:022721-022726"
+  ],
+  "freshness_refs": [
+    "review_date_utc:2026-06-25"
+  ],
+  "privacy_boundary": "Only bounded refs and normalized failure description are recorded; raw transcript text stays local.",
+  "selected_archetype_id": "trace-trajectory-eval",
+  "success_criteria": [
+    "Candidate review names expected route, observed break, consequence, owner, and repeatability.",
+    "Keyword-only, transition-only, and emotion-only hits are rejected or deferred."
+  ],
+  "failure_criteria": [
+    "A candidate is kept only because it contains the word eval.",
+    "A route miss is accepted without owner refs or repeatability."
+  ],
+  "positive_cases": [
+    "A bounded session span where the agent skipped owner-route inspection before durable mutation."
+  ],
+  "negative_cases": [
+    "A transition turn saying landing or eval without an identifiable route break."
+  ],
+  "fixtures": [
+    "candidate packet JSON",
+    "manual review report row",
+    "source owner refs"
+  ],
+  "runner_solver_tool_needs": [
+    "candidate packet validator",
+    "forge router dry run"
+  ],
+  "grader_family": "trajectory match or route rubric",
+  "evaluator_mode": "human_review",
+  "calibration_needs": [
+    "owner review of kept/rejected examples before automation"
+  ],
+  "repeat_count": 1,
+  "nondeterminism_posture": "Manual review is the calibration source; automation may only propose queues until labels exist.",
+  "state_change_verification": "No repo mutation is expected from this worksheet.",
+  "anti_gaming_risks": [
+    "keyword search over-collects noise",
+    "one current workflow accident is fossilized as doctrine"
+  ],
+  "maintenance_drift_risk": "Criteria must be revised when reviewed traces reveal new failure families.",
+  "local_central_promotion_route": "candidate-only until owner review; no central proof promotion",
+  "exact_next_command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-keyword-mining-blindspot.eval_candidate.json --json",
+  "proof_authority": false,
+  "promotion_allowed": false
+}

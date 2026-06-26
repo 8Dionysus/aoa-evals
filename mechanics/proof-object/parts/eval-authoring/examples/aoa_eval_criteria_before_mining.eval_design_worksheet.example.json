@@ -1,0 +1,73 @@
+{
+  "anti_gaming_risks": [
+    "selected archetype is overfit to this one case",
+    "candidate evidence is promoted before owner review",
+    "final text is graded while trajectory or state is the real claim"
+  ],
+  "calibration_needs": [
+    "criteria taxonomy accepted by owner",
+    "manual reject accounting reviewed",
+    "human owner acceptance recorded",
+    "candidate converted into trigger corpus or eval design by owner"
+  ],
+  "consequence": "Manual mining would create garbage candidates or overly narrow examples instead of a durable eval-control system.",
+  "evaluator_mode": "human_review",
+  "exact_next_command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet /srv/AbyssOS/aoa-evals/mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-criteria-before-mining.eval_candidate.json --json",
+  "expected_route": "design",
+  "failure_criteria": [
+    "case lacks owner route, consequence, repeatability, or calibrated criteria"
+  ],
+  "first_failure": "Candidate discovery was about to proceed without a reviewed rubric, reject taxonomy, and source-grounded evaluator fit.",
+  "fixtures": [
+    ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0127/events:022746-023012",
+    ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0127/events:022746-023012",
+    "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md#candidate-admission-gates",
+    "mechanics/audit/parts/candidate-readers/reports/session-mining/2026-06-25-aoa-eval-control.manual-review.md#admission-criteria"
+  ],
+  "freshness_refs": [
+    "review_date_utc:2026-06-25",
+    "external_research_grounding:OpenAI_agent_evals_checked_2026-06-25",
+    "external_research_grounding:LangSmith_trajectory_evals_checked_2026-06-25",
+    "external_research_grounding:Inspect_AI_checked_2026-06-25"
+  ],
+  "grader_family": "manual rubric with later calibration option",
+  "local_central_promotion_route": "advisory via domain owner / human_review_before_automation; candidate-only until owner review",
+  "maintenance_drift_risk": "Re-run forge route when source owner docs, local ports, runtime status, or external eval patterns drift.",
+  "negative_cases": [
+    "one reject/defer case still needs review"
+  ],
+  "nondeterminism_posture": "Start with one reviewed route case; add repeat runs only after the fixture and grader are stable.",
+  "object_under_evaluation": "session_episode_candidate_for_eval_design",
+  "objective": "Before broad manual mining, the system needed criteria and signs grounded in current relevant sources.",
+  "observed_break": "The agent had not yet built enough shared criteria to mine safely and risked producing noisy or brittle candidates.",
+  "owner_refs": [
+    "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
+    "scripts/validate_eval_candidate_packets.py",
+    "scripts/build_eval_readiness_dashboard.py",
+    "mechanics/audit/parts/candidate-readers/README.md"
+  ],
+  "positive_cases": [
+    "one bounded passing case still needs review"
+  ],
+  "privacy_boundary": "The packet stores criteria and bounded refs only; raw session text stays local to .aoa.",
+  "promotion_allowed": false,
+  "proof_authority": false,
+  "repeat_count": 1,
+  "runner_solver_tool_needs": [
+    "candidate packet validator",
+    "owner review"
+  ],
+  "schema_version": "eval_design_worksheet_v1",
+  "selected_archetype_id": "human-review-rubric",
+  "source_refs": [
+    ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0127/events:022746-023012",
+    ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0127/events:022746-023012",
+    "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md#candidate-admission-gates",
+    "mechanics/audit/parts/candidate-readers/reports/session-mining/2026-06-25-aoa-eval-control.manual-review.md#admission-criteria"
+  ],
+  "state_change_verification": "State changes must be verified only when the selected archetype mutates or inspects live state.",
+  "success_criteria": [
+    "owner can confirm the Human-review rubric route applies"
+  ],
+  "task_pressure": "Before broad manual mining, the system needed criteria and signs grounded in current relevant sources."
+}

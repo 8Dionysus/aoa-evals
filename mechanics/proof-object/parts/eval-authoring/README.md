@@ -14,6 +14,9 @@ route to their owning source surfaces.
 ## Source Surfaces
 
 - `mechanics/proof-object/parts/eval-authoring/docs/EVAL_BIRTH_PROTOCOL.md`
+- `mechanics/proof-object/parts/eval-authoring/docs/EVAL_FORGE_OPERATING_PATH.md`
+- `mechanics/proof-object/parts/eval-authoring/docs/SESSION_MINING_CRITERIA.md`
+- `mechanics/proof-object/parts/eval-authoring/docs/LOCAL_PORT_DECISION_MATRIX.md`
 - `mechanics/proof-object/parts/eval-authoring/schemas/eval-need.schema.json`
 - `mechanics/proof-object/parts/eval-authoring/schemas/eval-archetype-registry.schema.json`
 - `mechanics/proof-object/parts/eval-authoring/schemas/eval-design-worksheet.schema.json`
@@ -21,6 +24,7 @@ route to their owning source surfaces.
 - `mechanics/proof-object/parts/eval-authoring/config/external-pattern-grounding.json`
 - `mechanics/proof-object/parts/eval-authoring/examples/eval_need.example.json`
 - `mechanics/proof-object/parts/eval-authoring/examples/eval_design_worksheet.example.json`
+- `mechanics/proof-object/parts/eval-authoring/examples/aoa_eval_criteria_before_mining.eval_design_worksheet.example.json`
 - `mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py`
 - `mechanics/proof-object/parts/eval-authoring/scripts/prepare_eval_case.py`
 - `mechanics/proof-object/parts/eval-authoring/scripts/scaffold_eval_bundle.py`
@@ -42,6 +46,10 @@ route to their owning source surfaces.
 - a route-first eval need packet;
 - an Eval Forge route with candidate admission gates, archetype ranking, owner
   route, scaffold posture, and worksheet payload;
+- an Eval Forge operating path, manual-mining criteria, reject taxonomy, and
+  local-port decision matrix for future agent sessions;
+- part-local route-review reports under
+  `mechanics/proof-object/parts/eval-authoring/reports/eval-forge/`;
 - a case-preparation kit with schema validation, existing-match review, and
   scaffold commands plus the forge route;
 - an existing eval route, candidate-evidence route, quest route, or explicit

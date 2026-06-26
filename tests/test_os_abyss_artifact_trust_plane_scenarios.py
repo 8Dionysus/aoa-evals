@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import importlib.util
+import os
+import sys
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
@@ -101,6 +103,44 @@ def coverage_row(artifact_class: str, *, durable_only: bool = False) -> dict[str
         "manual_negative_evidence": [] if durable_only else [f"{artifact_class}/negative.json"],
         "installed_verification": {"trust_gate_verdict": "allow"},
     }
+
+
+def public_media_c2pa_real_blocker_row(*, durable_only: bool = False) -> dict[str, Any]:
+    return {
+        "artifact_class": "public_media_export",
+        "status": "DEFERRED_WITH_REAL_BLOCKER",
+        "remaining_blocker": (
+            "Public media export has release evidence and valid C2PA asset binding, "
+            "but the C2PA signing credential is not production trust-list trusted."
+        ),
+        "required_controls": ["c2pa"],
+        "manual_positive_evidence": [] if durable_only else ["public_media_export/positive.json"],
+        "manual_negative_evidence": [] if durable_only else ["public_media_export/negative.json"],
+        "installed_verification": {
+            "latest_record_verification_ok": True,
+            "verified_controls": ["c2pa"],
+            "manual_positive_evidence_count": 0 if durable_only else 1,
+            "manual_negative_evidence_count": 0 if durable_only else 1,
+            "trust_gate_ok": True,
+            "trust_gate_verdict": "warn",
+        },
+        "source_freshness": {"freshness": "fresh"},
+        "persistent_registry_status": {
+            "has_latest": True,
+            "latest_eligible": True,
+            "verification_missing": [],
+            "verification_errors": [],
+            "trust_gate_verdict": "warn",
+        },
+    }
+
+
+def replace_coverage_row(payload: dict[str, Any], replacement: dict[str, Any]) -> None:
+    artifact_class = replacement["artifact_class"]
+    payload["rows"] = [
+        replacement if row["artifact_class"] == artifact_class else row
+        for row in payload["rows"]
+    ]
 
 
 def make_payloads() -> dict[str, dict[str, Any]]:
@@ -246,7 +286,7 @@ def test_os_artifact_trust_plane_validator_accepts_full_durable_and_drift_scenar
 
     assert result["ok"] is True
     assert result["issues"] == []
-    assert "durable-only pass must stay weaker than FULLY_COVERED" in result["claim_limits"][2]
+    assert any("durable-only pass must stay weaker than FULLY_COVERED" in item for item in result["claim_limits"])
     assert "aoa_sdk_python_distribution" in result["checked"]["requirements"]["artifact_classes"]
     assert "aoa-sdk" in result["checked"]["producer_profiles"]["owner_repos"]
     assert result["checked"]["drift"]["policy_drift_statuses"] == ["reverify_required"]
@@ -256,6 +296,38 @@ def test_os_artifact_trust_plane_validator_accepts_full_durable_and_drift_scenar
     assert result["checked"]["drift"]["sibling_accepted_lag_verdict"] == "accepted_lag"
     assert result["checked"]["drift"]["sibling_accepted_lag_drift_status"] == "accepted_lag"
     assert result["checked"]["drift"]["sibling_accepted_lag_operationally_blocking"] is False
+
+
+def test_os_artifact_trust_plane_validator_accepts_declared_public_media_c2pa_real_blocker() -> None:
+    validator = load_validator_module()
+    payloads = make_payloads()
+    replace_coverage_row(payloads["trust_coverage"], public_media_c2pa_real_blocker_row())
+    replace_coverage_row(payloads["durable_trust_coverage"], public_media_c2pa_real_blocker_row(durable_only=True))
+    payloads["trust_coverage"]["summary"]["fully_covered"] -= 1
+    payloads["trust_coverage"]["summary"]["deferred_with_real_blocker"] = 1
+    payloads["durable_trust_coverage"]["summary"]["durable_gate_covered"] -= 1
+    payloads["durable_trust_coverage"]["summary"]["deferred_with_real_blocker"] = 1
+
+    result = validator.validate_payloads(payloads)
+
+    assert result["ok"] is True
+    assert result["checked"]["trust_coverage"]["accepted_real_blockers"] == ["public_media_export"]
+    assert result["checked"]["durable_trust_coverage"]["accepted_real_blockers"] == ["public_media_export"]
+
+
+def test_os_artifact_trust_plane_validator_rejects_undeclared_real_blocker() -> None:
+    validator = load_validator_module()
+    payloads = make_payloads()
+    row = public_media_c2pa_real_blocker_row()
+    row["artifact_class"] = "public_source_seed"
+    replace_coverage_row(payloads["trust_coverage"], row)
+    payloads["trust_coverage"]["summary"]["fully_covered"] -= 1
+    payloads["trust_coverage"]["summary"]["deferred_with_real_blocker"] = 1
+
+    result = validator.validate_payloads(payloads)
+
+    assert result["ok"] is False
+    assert any(issue["check"] == "trust_coverage.accepted_real_blocker" for issue in result["issues"])
 
 
 def test_os_artifact_trust_plane_validator_rejects_missing_manual_negative_evidence() -> None:
@@ -315,3 +387,53 @@ def test_os_artifact_trust_plane_validator_rejects_missing_producer_profile_owne
 
     assert result["ok"] is False
     assert any(issue["check"] == "producer_profiles.owner_repos" for issue in result["issues"])
+
+
+def test_artifact_trust_plane_command_prefers_installed_cli_over_implicit_checkout(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    validator = load_validator_module()
+    fake_bin = tmp_path / "bin"
+    fake_bin.mkdir()
+    fake_cli = fake_bin / "abyss-machine"
+    fake_cli.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
+    fake_cli.chmod(0o755)
+    monkeypatch.delenv("ABYSS_MACHINE_REPO_ROOT", raising=False)
+    monkeypatch.setenv("PATH", str(fake_bin))
+
+    command, env = validator._resolve_artifacts_command(["trust-coverage"], repo_root=REPO_ROOT)
+
+    assert command == [str(fake_cli), "artifacts", "trust-coverage", "--json"]
+    assert env.get("PYTHONPATH", "").split(os.pathsep)[0] != str(Path.home() / "src" / "abyss-machine" / "src")
+
+
+def test_artifact_trust_plane_command_honors_explicit_source_root(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    validator = load_validator_module()
+    fake_bin = tmp_path / "bin"
+    fake_bin.mkdir()
+    fake_cli = fake_bin / "abyss-machine"
+    fake_cli.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
+    fake_cli.chmod(0o755)
+    source_root = tmp_path / "abyss-machine"
+    module_root = source_root / "src"
+    package_root = module_root / "abyss_machine"
+    package_root.mkdir(parents=True)
+    (package_root / "cli.py").write_text("def main():\n    return 0\n", encoding="utf-8")
+    monkeypatch.setenv("PATH", str(fake_bin))
+    monkeypatch.setenv("ABYSS_MACHINE_REPO_ROOT", str(source_root))
+
+    command, env = validator._resolve_artifacts_command(["trust-coverage"], repo_root=REPO_ROOT)
+
+    assert command == [
+        sys.executable,
+        "-m",
+        "abyss_machine.cli",
+        "artifacts",
+        "trust-coverage",
+        "--json",
+    ]
+    assert env["PYTHONPATH"].split(os.pathsep)[0] == str(module_root)

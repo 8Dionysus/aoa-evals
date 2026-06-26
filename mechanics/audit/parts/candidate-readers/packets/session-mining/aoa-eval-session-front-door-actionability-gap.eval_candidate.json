@@ -1,0 +1,62 @@
+{
+  "schema_version": "aoa_eval_candidate_packet_v1",
+  "packet_id": "session:aoa-eval-session-front-door-actionability-gap",
+  "candidate_only": true,
+  "proof_authority": false,
+  "promotion_allowed": false,
+  "source_kind": "session_episode",
+  "source_ref": ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0132/events:024136-024400",
+  "observed_at_utc": "2026-06-25T22:45:00Z",
+  "trigger_class_id": "agent_route_miss_or_tool_trajectory_pressure",
+  "task_pressure": "A fresh agent session needs one operational eval front door that shows tools, active routes, freshness blockers, candidate packets, and stop-lines.",
+  "expected_aoa_eval_route": "apply",
+  "actual_trajectory": "The existing session-start packet exposed first commands and a candidate summary, but not the real packet routes needed for immediate work.",
+  "first_failure": "The front door stopped at summary-level candidate queue data and still carried a synthetic deferred session-mining item.",
+  "consequence": "Future agents would rediscover tools, queue state, and manual-mining context instead of starting from actionable current routes.",
+  "owner_surface_refs": [
+    "scripts/aoa_eval_session_start.py",
+    "scripts/build_eval_readiness_dashboard.py",
+    "scripts/validate_eval_candidate_packets.py",
+    "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md"
+  ],
+  "evidence_refs": [
+    ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0132/events:024136-024400",
+    "mechanics/audit/parts/candidate-readers/reports/session-mining/2026-06-25-aoa-eval-control.manual-review.md#reviewed-episodes",
+    "scripts/aoa_eval_session_start.py",
+    "scripts/build_eval_readiness_dashboard.py"
+  ],
+  "freshness_refs": [
+    "review_date_utc:2026-06-25",
+    "generated_dashboard:requires_rebuild_after_packet_import",
+    "session_start:requires_candidate_route_projection"
+  ],
+  "privacy_boundary": "The packet records only the operational route gap and bounded refs; no private transcript body is copied.",
+  "existing_surface_check": "The dashboard/session-start scripts exist and need packet route projection; no proof bundle or central adoption is claimed.",
+  "routing_rubric": {
+    "trigger_strength": 2,
+    "owner_surface_clarity": 2,
+    "consequence_severity": 2,
+    "repeatability": 2,
+    "freshness_dependency": 2,
+    "existing_eval_fit": 1,
+    "privacy_raw_evidence_boundary": 2
+  },
+  "evaluator_fit": "runtime_smoke",
+  "candidate_state": "needs_owner_review",
+  "candidate_state_reason": "The operational gap is concrete and directly tied to the per-session eval front door, but owner review decides whether it becomes a durable eval case.",
+  "promotion_forbidden_until": [
+    "session-start packet exposes real packet routes",
+    "dashboard shape validation rejects synthetic completion overclaim",
+    "human owner acceptance recorded",
+    "candidate converted into runtime smoke or trajectory eval by owner"
+  ],
+  "forbidden_effects": [
+    "central_proof_promotion",
+    "verdict_acceptance",
+    "score_or_baseline_creation",
+    "repo_mutation",
+    "mcp_created_bundle",
+    "front_door_as_proof_surface"
+  ],
+  "next_step": "Import real packets into the dashboard queue and expose top candidate routes from session-start output."
+}

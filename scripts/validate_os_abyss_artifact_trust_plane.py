@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -66,9 +67,22 @@ KNOWN_DRIFT_STATUSES = {
 CLAIM_LIMITS = [
     "This validator reads abyss-machine trust-plane read-models; it does not create signatures, attestations, SBOMs, C2PA manifests, registry records, or release artifacts.",
     "FULLY_COVERED is accepted only when abyss-machine reports durable latest selection, consumer trust-gate admission, and manual positive plus negative evidence for every declared artifact class.",
+    "Declared real blockers are accepted only when the class-specific trust-plane evidence is otherwise durable, fresh, gate-admitted, and the blocker remains explicit.",
     "The durable-only pass must stay weaker than FULLY_COVERED: it proves persistent registry plus trust-gate coverage while intentionally ignoring tmp/manual evidence.",
     "Drift probes use synthetic source-ref and policy-change inputs to prove verdict behavior; they do not mutate sibling repositories.",
 ]
+
+KNOWN_REAL_BLOCKERS = {
+    "public_media_export": {
+        "status": "DEFERRED_WITH_REAL_BLOCKER",
+        "remaining_blocker_fragments": (
+            "C2PA signing credential",
+            "production trust-list trusted",
+        ),
+        "required_controls": ("c2pa",),
+        "trust_gate_verdicts": ("warn",),
+    },
+}
 
 
 def _repo_root() -> Path:
@@ -79,38 +93,66 @@ def _repo_root() -> Path:
 
 
 def _candidate_abyss_machine_roots(repo_root: Path) -> list[Path]:
-    candidates: list[Path] = []
-    env_root = os.environ.get("ABYSS_MACHINE_REPO_ROOT")
-    if env_root:
-        candidates.append(Path(env_root))
-    candidates.extend(
-        [
-            repo_root.parent / "abyss-machine",
-            Path.home() / "src" / "abyss-machine",
-            Path("/srv/AbyssOS/abyss-machine"),
-        ]
-    )
-    return candidates
+    return [
+        repo_root.parent / "abyss-machine",
+        Path.home() / "src" / "abyss-machine",
+        Path("/srv/AbyssOS/abyss-machine"),
+    ]
 
 
-def _command_env(repo_root: Path) -> dict[str, str]:
+def _source_module_root(candidate: Path) -> Path | None:
+    module_root = candidate.expanduser() / "src"
+    if (module_root / "abyss_machine" / "cli.py").is_file():
+        return module_root
+    return None
+
+
+def _source_command_env(module_root: Path) -> dict[str, str]:
     env = os.environ.copy()
-    for candidate in _candidate_abyss_machine_roots(repo_root):
-        module_root = candidate.expanduser() / "src"
-        if (module_root / "abyss_machine" / "cli.py").is_file():
-            current = env.get("PYTHONPATH")
-            env["PYTHONPATH"] = str(module_root) if not current else f"{module_root}{os.pathsep}{current}"
-            break
+    current = env.get("PYTHONPATH")
+    env["PYTHONPATH"] = str(module_root) if not current else f"{module_root}{os.pathsep}{current}"
     return env
+
+
+def _resolve_artifacts_command(args: list[str], *, repo_root: Path) -> tuple[list[str], dict[str, str]]:
+    explicit_root = os.environ.get("ABYSS_MACHINE_REPO_ROOT")
+    if explicit_root:
+        module_root = _source_module_root(Path(explicit_root))
+        if module_root is None:
+            raise RuntimeError(
+                "ABYSS_MACHINE_REPO_ROOT does not contain src/abyss_machine/cli.py: "
+                + str(Path(explicit_root).expanduser())
+            )
+        return (
+            [sys.executable, "-m", "abyss_machine.cli", "artifacts", *args, "--json"],
+            _source_command_env(module_root),
+        )
+
+    installed_cli = shutil.which("abyss-machine")
+    if installed_cli:
+        return [installed_cli, "artifacts", *args, "--json"], os.environ.copy()
+
+    for candidate in _candidate_abyss_machine_roots(repo_root):
+        module_root = _source_module_root(candidate)
+        if module_root is not None:
+            return (
+                [sys.executable, "-m", "abyss_machine.cli", "artifacts", *args, "--json"],
+                _source_command_env(module_root),
+            )
+
+    raise RuntimeError(
+        "No abyss-machine CLI found. Install abyss-machine or set ABYSS_MACHINE_REPO_ROOT "
+        "to a checkout containing src/abyss_machine/cli.py."
+    )
 
 
 def _run_artifacts_command(args: list[str], *, repo_root: Path | None = None) -> dict[str, Any]:
     root = repo_root or _repo_root()
-    command = [sys.executable, "-m", "abyss_machine.cli", "artifacts", *args, "--json"]
+    command, env = _resolve_artifacts_command(args, repo_root=root)
     completed = subprocess.run(
         command,
         cwd=root,
-        env=_command_env(root),
+        env=env,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
@@ -179,6 +221,68 @@ def _rows_by_class(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 def _add_issue(issues: list[dict[str, str]], check: str, message: str) -> None:
     issues.append({"check": check, "message": message})
+
+
+def _known_real_blocker_failures(row: dict[str, Any], *, durable_only: bool) -> list[str]:
+    artifact_class = str(row.get("artifact_class") or "")
+    blocker_spec = KNOWN_REAL_BLOCKERS.get(artifact_class)
+    if blocker_spec is None:
+        return [f"{artifact_class or '<unknown>'} is not a declared real-blocker class"]
+    failures: list[str] = []
+    if row.get("status") != blocker_spec["status"]:
+        failures.append(f"status is not {blocker_spec['status']}")
+
+    remaining_blocker = str(row.get("remaining_blocker") or "")
+    for fragment in blocker_spec["remaining_blocker_fragments"]:
+        if fragment not in remaining_blocker:
+            failures.append(f"remaining_blocker does not mention {fragment}")
+
+    required_controls = {str(item) for item in row.get("required_controls", [])}
+    for control in blocker_spec["required_controls"]:
+        if control not in required_controls:
+            failures.append(f"required_controls does not include {control}")
+
+    installed = row.get("installed_verification", {})
+    if not isinstance(installed, dict):
+        return failures + ["installed_verification is missing"]
+    if installed.get("latest_record_verification_ok") is not True:
+        failures.append("latest record verification is not ok")
+    verified_controls = {str(item) for item in installed.get("verified_controls", [])}
+    for control in blocker_spec["required_controls"]:
+        if control not in verified_controls:
+            failures.append(f"installed verification does not verify {control}")
+    if installed.get("trust_gate_ok") is not True:
+        failures.append("trust gate is not ok")
+    if installed.get("trust_gate_verdict") not in blocker_spec["trust_gate_verdicts"]:
+        failures.append("trust gate verdict is not an accepted blocker verdict")
+    if not durable_only:
+        if int(installed.get("manual_positive_evidence_count") or 0) <= 0:
+            failures.append("manual positive evidence count is missing")
+        if int(installed.get("manual_negative_evidence_count") or 0) <= 0:
+            failures.append("manual negative evidence count is missing")
+        if not row.get("manual_positive_evidence"):
+            failures.append("manual positive evidence refs are missing")
+        if not row.get("manual_negative_evidence"):
+            failures.append("manual negative evidence refs are missing")
+
+    freshness = row.get("source_freshness", {})
+    if not isinstance(freshness, dict) or freshness.get("freshness") != "fresh":
+        failures.append("source freshness is not fresh")
+
+    registry = row.get("persistent_registry_status", {})
+    if not isinstance(registry, dict):
+        return failures + ["persistent registry status is missing"]
+    if registry.get("has_latest") is not True:
+        failures.append("persistent registry has no latest record")
+    if registry.get("latest_eligible") is not True:
+        failures.append("persistent registry latest is not eligible")
+    if registry.get("verification_missing"):
+        failures.append("persistent registry reports missing verification")
+    if registry.get("verification_errors"):
+        failures.append("persistent registry reports verification errors")
+    if registry.get("trust_gate_verdict") not in blocker_spec["trust_gate_verdicts"]:
+        failures.append("persistent registry trust gate verdict is not accepted")
+    return failures
 
 
 def _validate_requirements(payload: dict[str, Any], issues: list[dict[str, str]]) -> dict[str, Any]:
@@ -285,17 +389,28 @@ def _validate_full_coverage(payload: dict[str, Any], issues: list[dict[str, str]
     summary = payload.get("summary", {}) if isinstance(payload.get("summary"), dict) else {}
     artifact_count = int(summary.get("artifact_classes") or 0)
     fully_covered = int(summary.get("fully_covered") or 0)
+    accepted_real_blockers: list[str] = []
 
     if payload.get("ok") is not True:
         _add_issue(issues, "trust_coverage.ok", "trust-coverage read-model is not ok")
-    if artifact_count == 0 or fully_covered != artifact_count:
-        _add_issue(issues, "trust_coverage.fully_covered", "not every artifact class is FULLY_COVERED")
     if summary.get("trust_tools_status") != "ready":
         _add_issue(issues, "trust_coverage.tools", "trust tools are not ready")
 
     for artifact_class, row in rows_by_class.items():
+        if row.get("status") == "DEFERRED_WITH_REAL_BLOCKER":
+            blocker_failures = _known_real_blocker_failures(row, durable_only=False)
+            if blocker_failures:
+                _add_issue(
+                    issues,
+                    "trust_coverage.accepted_real_blocker",
+                    f"{artifact_class} real blocker is not accepted: " + "; ".join(blocker_failures),
+                )
+            else:
+                accepted_real_blockers.append(artifact_class)
+            continue
         if row.get("status") != "FULLY_COVERED":
             _add_issue(issues, "trust_coverage.row_status", f"{artifact_class} is not FULLY_COVERED")
+            continue
         if not row.get("manual_positive_evidence"):
             _add_issue(issues, "trust_coverage.manual_positive", f"{artifact_class} has no manual positive evidence")
         if not row.get("manual_negative_evidence"):
@@ -304,7 +419,18 @@ def _validate_full_coverage(payload: dict[str, Any], issues: list[dict[str, str]
         if not isinstance(installed, dict) or installed.get("trust_gate_verdict") not in {"allow", "warn"}:
             _add_issue(issues, "trust_coverage.trust_gate", f"{artifact_class} has no allow/warn consumer gate")
 
-    return {"artifact_classes": sorted(rows_by_class), "summary": summary}
+    if artifact_count == 0 or fully_covered + len(accepted_real_blockers) != artifact_count:
+        _add_issue(
+            issues,
+            "trust_coverage.fully_covered",
+            "not every artifact class is FULLY_COVERED or an accepted declared real blocker",
+        )
+
+    return {
+        "artifact_classes": sorted(rows_by_class),
+        "summary": summary,
+        "accepted_real_blockers": sorted(accepted_real_blockers),
+    }
 
 
 def _validate_durable_coverage(payload: dict[str, Any], issues: list[dict[str, str]]) -> dict[str, Any]:
@@ -312,23 +438,43 @@ def _validate_durable_coverage(payload: dict[str, Any], issues: list[dict[str, s
     summary = payload.get("summary", {}) if isinstance(payload.get("summary"), dict) else {}
     artifact_count = int(summary.get("artifact_classes") or 0)
     durable_gate_covered = int(summary.get("durable_gate_covered") or 0)
+    accepted_real_blockers: list[str] = []
 
     if payload.get("ok") is not True:
         _add_issue(issues, "durable_trust_coverage.ok", "durable-only trust-coverage read-model is not ok")
-    if artifact_count == 0 or durable_gate_covered != artifact_count:
-        _add_issue(issues, "durable_trust_coverage.covered", "not every artifact class is DURABLE_GATE_COVERED")
     if int(summary.get("fully_covered") or 0) != 0:
         _add_issue(issues, "durable_trust_coverage.claim_level", "durable-only coverage must not claim FULLY_COVERED")
     if payload.get("manual_evidence_roots") != []:
         _add_issue(issues, "durable_trust_coverage.manual_roots", "durable-only coverage should ignore manual evidence roots")
 
     for artifact_class, row in rows_by_class.items():
-        if row.get("status") != "DURABLE_GATE_COVERED":
+        if row.get("status") == "DEFERRED_WITH_REAL_BLOCKER":
+            blocker_failures = _known_real_blocker_failures(row, durable_only=True)
+            if blocker_failures:
+                _add_issue(
+                    issues,
+                    "durable_trust_coverage.accepted_real_blocker",
+                    f"{artifact_class} durable real blocker is not accepted: " + "; ".join(blocker_failures),
+                )
+            else:
+                accepted_real_blockers.append(artifact_class)
+        elif row.get("status") != "DURABLE_GATE_COVERED":
             _add_issue(issues, "durable_trust_coverage.row_status", f"{artifact_class} is not DURABLE_GATE_COVERED")
         if row.get("manual_positive_evidence") or row.get("manual_negative_evidence"):
             _add_issue(issues, "durable_trust_coverage.manual_evidence", f"{artifact_class} durable-only row contains manual evidence")
 
-    return {"artifact_classes": sorted(rows_by_class), "summary": summary}
+    if artifact_count == 0 or durable_gate_covered + len(accepted_real_blockers) != artifact_count:
+        _add_issue(
+            issues,
+            "durable_trust_coverage.covered",
+            "not every artifact class is DURABLE_GATE_COVERED or an accepted declared real blocker",
+        )
+
+    return {
+        "artifact_classes": sorted(rows_by_class),
+        "summary": summary,
+        "accepted_real_blockers": sorted(accepted_real_blockers),
+    }
 
 
 def _single_row(payload: dict[str, Any], artifact_class: str) -> dict[str, Any] | None:
@@ -442,10 +588,14 @@ def main() -> int:
     elif payload["ok"]:
         full = payload["checked"]["trust_coverage"]["summary"]
         durable = payload["checked"]["durable_trust_coverage"]["summary"]
+        full_blockers = payload["checked"]["trust_coverage"]["accepted_real_blockers"]
+        durable_blockers = payload["checked"]["durable_trust_coverage"]["accepted_real_blockers"]
         print(
             "[ok] OS Abyss artifact trust-plane scenarios verified: "
-            f"full={full.get('fully_covered')}/{full.get('artifact_classes')}; "
-            f"durable={durable.get('durable_gate_covered')}/{durable.get('artifact_classes')}"
+            f"full={full.get('fully_covered')}/{full.get('artifact_classes')} "
+            f"+ blockers={len(full_blockers)}; "
+            f"durable={durable.get('durable_gate_covered')}/{durable.get('artifact_classes')} "
+            f"+ blockers={len(durable_blockers)}"
         )
     return 0 if payload["ok"] else 1
 

@@ -76,7 +76,7 @@
       "owner_surface": "docs/validation/VALIDATOR_TOPOLOGY.md",
       "source_truth": ["docs/validation/VALIDATOR_TOPOLOGY.md", "mechanics/release-support/parts/artifact-bundles/README.md", "abyss-machine artifact trust-plane read-models"],
       "input": ["abyss-machine artifact requirements read-model", "abyss-machine full and durable-only trust-coverage read-models", "abyss-machine affected/drift read-models"],
-      "output": ["OS Abyss artifact trust-plane scenario validation payload", "producer-owner profile coverage", "full versus durable-only coverage distinction", "policy drift and accepted-lag sibling drift verdict checks"],
+      "output": ["OS Abyss artifact trust-plane scenario validation payload", "producer-owner profile coverage", "full versus durable-only coverage distinction", "declared real-blocker acceptance checks", "policy drift and accepted-lag sibling drift verdict checks"],
       "command_sequences": ["advisory"],
       "failure_route": "Fix abyss-machine trust-plane read-models, missing owner profiles, manual evidence, durable registry promotion, or drift verdict behavior; do not weaken this advisory proof into a release identity shortcut.",
       "disposition": "add"

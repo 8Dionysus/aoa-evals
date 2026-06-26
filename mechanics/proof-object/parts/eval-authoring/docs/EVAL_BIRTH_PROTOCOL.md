@@ -15,7 +15,7 @@ new draft source proof object.
 | --- | --- |
 | role | route-first eval authoring protocol |
 | input | bounded proof pressure, runtime or trace cue, repeated blind spot, missing proof surface, or proposal packet |
-| output | existing bundle route, candidate evidence route, quest route, or explicit new draft scaffold |
+| output | existing bundle route, candidate evidence route, quest route, forge design worksheet, or explicit new draft scaffold |
 | owner | this part owns authoring support; `evals/**/EVAL.md` and `eval.yaml` own source proof meaning |
 | next route | `EVAL_SELECTION.md`, `EVAL_INDEX.md`, generated catalog, audit candidate packets, `QUESTBOOK.md`, or source eval bundle |
 | validation | parent `mechanics/proof-object/parts/AGENTS.md#validation` |
@@ -27,7 +27,9 @@ proof pressure
 -> search existing eval catalog and chooser/index surfaces
 -> if runtime or trace evidence: selected evidence packet or candidate reader
 -> if repeated but not authoring-ready: quest source record
--> if new draft is still warranted: eval_need_v1 packet
+-> if new draft is still plausible: prepare eval_need_v1 case kit
+-> if candidate pressure is concrete: Eval Forge archetype route and worksheet
+-> if new draft is still warranted: reviewed eval_need_v1 packet
 -> scaffold EVAL.md + eval.yaml + minimum support artifacts
 -> validate source bundle and generated-reader parity
 -> bundle-local review before reports, receipts, or promotion
@@ -60,6 +62,40 @@ records:
 - the requested authoring route.
 
 The packet is not a verdict, not proof acceptance, and not a source bundle.
+
+## Eval Forge Router
+
+`scripts/eval_forge_route.py` is the design router between raw pressure and
+source authoring. It may:
+
+- load the Eval Forge archetype registry;
+- normalize a candidate packet, local eval-port pressure item, proposal, or
+  manual case fields;
+- reject keyword-only or ownerless cases before they become system noise;
+- choose an archetype such as trajectory, tool correctness, local intake,
+  skill trigger, runtime smoke, rubric, or central draft;
+- emit an `eval_design_worksheet_v1` payload;
+- write only that worksheet when `--write-worksheet` is explicitly passed.
+
+It must not create source bundles, accept proof, score evidence, mint baselines,
+promote candidates, or mutate repo-local ports. Its output is design guidance
+until an owner accepts the next route.
+
+## Case Preparation Helper
+
+`scripts/prepare_eval_case.py` is the fast collection helper for a fresh case.
+It may:
+
+- build an `eval_need_v1` proposal from command-line fields;
+- validate an existing proposal file;
+- run the same existing-route check used by the scaffold helper;
+- include the Eval Forge route and selected archetype for the proposal;
+- emit the next scaffold commands;
+- write only the proposal JSON when `--write-proposal` is passed.
+
+It must not create `evals/**` bundle files. Bundle creation stays with
+`scripts/scaffold_eval_bundle.py`, and only after existing-match review and
+explicit human acceptance of the draft route.
 
 ## Scaffold Helper
 
@@ -99,6 +135,7 @@ validation.
 | proof pressure fits an existing eval | inspect the existing source bundle before authoring |
 | runtime evidence looks ready | keep it candidate-only through audit packets and bundle-local review |
 | repeated pressure is still vague | capture or update a quest record |
+| candidate pressure needs eval design | run Eval Forge and keep the worksheet non-proof until owner review |
 | proposal requests a starter bundle | require separate public starter review and chooser/index update |
 | scaffold output reads as accepted proof | return to bundle-local review and validation |
 | MCP wants to create a source bundle | MCP may return proposal context only; source mutation stays in repo-local authoring |

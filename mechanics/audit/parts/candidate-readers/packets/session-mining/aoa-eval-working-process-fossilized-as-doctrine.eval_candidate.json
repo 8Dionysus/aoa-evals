@@ -1,0 +1,61 @@
+{
+  "schema_version": "aoa_eval_candidate_packet_v1",
+  "packet_id": "session:aoa-eval-working-process-fossilized-as-doctrine",
+  "candidate_only": true,
+  "proof_authority": false,
+  "promotion_allowed": false,
+  "source_kind": "session_episode",
+  "source_ref": ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0117/events:022644-022661",
+  "observed_at_utc": "2026-06-25T22:45:00Z",
+  "trigger_class_id": "agent_route_miss_or_tool_trajectory_pressure",
+  "task_pressure": "The agent needed to separate a current repair tactic from durable system doctrine.",
+  "expected_aoa_eval_route": "session_candidate",
+  "actual_trajectory": "Current working-process language was treated as if it should become a stable system rule before the owner boundary was settled.",
+  "first_failure": "A temporary workflow correction was promoted into durable guidance language without proving it belonged there.",
+  "consequence": "Future agents could inherit accidental process entropy as a route rule and overfit the system to one active repair episode.",
+  "owner_surface_refs": [
+    "AGENTS.md",
+    ".aoa/AGENTS.md",
+    "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
+    "/srv/AbyssOS/aoa-skills/.agents/skills/aoa-eval/SKILL.md"
+  ],
+  "evidence_refs": [
+    ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0117/events:022644-022661",
+    ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0119/events:022664-022716",
+    "mechanics/audit/parts/candidate-readers/reports/session-mining/2026-06-25-aoa-eval-control.manual-review.md#reviewed-episodes"
+  ],
+  "freshness_refs": [
+    "review_date_utc:2026-06-25",
+    ".aoa:maintenance-status:available_with_deferred_live_updates",
+    "guide:docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md"
+  ],
+  "privacy_boundary": "Only bounded event refs and normalized route descriptions are recorded; raw correction text stays in .aoa.",
+  "existing_surface_check": "Adjacent central fit is aoa-trace-outcome-separation and aoa-tool-trajectory-discipline; the packet does not assert proof coverage.",
+  "routing_rubric": {
+    "trigger_strength": 2,
+    "owner_surface_clarity": 2,
+    "consequence_severity": 2,
+    "repeatability": 2,
+    "freshness_dependency": 1,
+    "existing_eval_fit": 1,
+    "privacy_raw_evidence_boundary": 2
+  },
+  "evaluator_fit": "human_review_rubric",
+  "candidate_state": "needs_owner_review",
+  "candidate_state_reason": "The failure family is clear, but deciding durable doctrine versus repair tactic requires owner review.",
+  "promotion_forbidden_until": [
+    "manual source-span review completed by owner",
+    "doctrine owner route named",
+    "human owner acceptance recorded",
+    "candidate converted into skill trigger or central eval design by owner"
+  ],
+  "forbidden_effects": [
+    "central_proof_promotion",
+    "verdict_acceptance",
+    "score_or_baseline_creation",
+    "repo_mutation",
+    "mcp_created_bundle",
+    "durable_doctrine_fossilization"
+  ],
+  "next_step": "Decide whether this should become an aoa-skills trigger case, an aoa-evals route-trajectory eval, or a rejected one-off repair note."
+}

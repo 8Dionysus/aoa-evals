@@ -8,8 +8,8 @@
     "installed_profile_verification": {
       "aoa_eval_install_state": "ok",
       "aoa_eval_is_symlink": true,
-      "aoa_eval_source_digest": "4603f720ff37409fce81fd4efd86fb9a46e05cda05d7ea4bcb06eb10141bc367",
-      "aoa_eval_target_digest": "4603f720ff37409fce81fd4efd86fb9a46e05cda05d7ea4bcb06eb10141bc367",
+      "aoa_eval_source_digest": "14ad5141c2d73942a5b55d0219d5de00da0ef1a78b0d685037240c2448b7ae94",
+      "aoa_eval_target_digest": "14ad5141c2d73942a5b55d0219d5de00da0ef1a78b0d685037240c2448b7ae94",
       "authority_boundary": "aoa-skills owns profile verification; aoa-evals stores the read-only routing signal.",
       "command": "python scripts/verify_skill_pack.py --repo-root . --profile user-aoa-foundation --install-root /home/dionysus/.codex/skills --format json",
       "expected_skill_count": 36,
@@ -23,7 +23,7 @@
       "missing_skill_count": 0,
       "missing_skills": [],
       "profile": "user-aoa-foundation",
-      "profile_revision": "7aed920aa4497adbc7e87a6b94e82ba40e8398e363faf7e80765021f2eb86d03",
+      "profile_revision": "3da2346ecfe2eadf9ee588a93ac7b150ab32b31c37b397bd5f5aed1fea07c7e8",
       "release_identity": {
         "changelog": "CHANGELOG.md",
         "has_unreleased_changes": true,
@@ -40,13 +40,13 @@
       "verifier_ref": "/srv/AbyssOS/aoa-skills/scripts/verify_skill_pack.py"
     },
     "installed_profile_verified": true,
-    "installed_sha256": "04edaf21115d3648aefe1244f7584d2d117bb23d00b426c0b06996c0c758cb8d",
+    "installed_sha256": "46bdc464ada0d6b7f89f3f3bc0e08aeb9b55c3ceee5660b2ce1dae8301792026",
     "installed_skill_ref": "/home/dionysus/.codex/skills/aoa-eval/SKILL.md",
     "prompt_visible_live_check": "external_live_check_required",
     "runtime_discovery_index_ref": "/srv/AbyssOS/aoa-skills/generated/runtime_discovery_index.json",
     "runtime_discovery_mentions_aoa_eval": true,
     "source_exists": true,
-    "source_sha256": "04edaf21115d3648aefe1244f7584d2d117bb23d00b426c0b06996c0c758cb8d",
+    "source_sha256": "46bdc464ada0d6b7f89f3f3bc0e08aeb9b55c3ceee5660b2ce1dae8301792026",
     "source_skill_ref": "/srv/AbyssOS/aoa-skills/.agents/skills/aoa-eval/SKILL.md",
     "subskills_posture": "manual_or_skill-local; root aoa-eval route remains the trigger surface",
     "trigger_report_exists": true,
@@ -59,32 +59,38 @@
     "aoa_root": "/srv/AbyssOS/.aoa",
     "authority_boundary": ".aoa provides session evidence and candidate-only refs, not reviewed eval truth.",
     "freshness_hints": {
-      "line_count": 1716,
+      "line_count": 2238,
       "mentions_indexed_archive_freshness": false,
       "mentions_stale": true
     },
     "json_summary": {
-      "agent_action": "run_live_catchup_for_recent_live",
-      "can_use_graph_search": true,
-      "diagnostics": [],
-      "exact_next_command": "python3 scripts/aoa_session_memory.py index-maintenance '2026-06-11__006__\u0443-\u043c\u0435\u043d\u044f-\u0441\u043a\u043b\u0430\u0434\u044b\u0432\u0430\u0435\u0442\u0441\u044f-\u0432\u043f\u0435\u0447\u0430\u0442\u043b\u0435\u043d\u0438\u0435-\u0447\u0442\u043e-\u0434\u043b\u044f-\u0432\u0441\u0435\u0445' --workspace-root /srv/AbyssOS --aoa-root /srv/AbyssOS/.aoa --apply --skip-graph-repair --skip-token-accounting --write-report",
+      "agent_action": "run_maintenance_before_graph_search",
+      "can_use_graph_search": false,
+      "diagnostics": [
+        "graph_maintenance_needed",
+        "graph_source_ledger_coverage_gap",
+        "index_maintenance_needed",
+        "latest_graph_maintenance_remaining_sources",
+        "session_projection_dirty"
+      ],
+      "exact_next_command": "python3 scripts/aoa_session_memory.py search-index 2026-06-20__003__codex-in-dionysus --workspace-root /srv/AbyssOS --aoa-root /srv/AbyssOS/.aoa --no-rebuild --write-report",
       "live_catchup_pending": true,
-      "live_tail_next_ready_at": "2026-06-26T04:59:11Z",
-      "live_tail_ready_count": 1,
+      "live_tail_next_ready_at": "2026-06-26T17:00:21Z",
+      "live_tail_ready_count": 2,
       "live_tail_status": "ready_for_catchup",
       "live_tail_waiting_count": 2,
       "maintenance_required": true,
-      "next_action_id": "run_live_catchup",
-      "next_action_reason": "deferred_live_ready_for_bounded_catchup",
-      "ok": true,
-      "recommendation": "run_live_catchup",
-      "route_status": "current"
+      "next_action_id": "repair_search_actionable",
+      "next_action_reason": "search_actionable_dirty_sessions",
+      "ok": false,
+      "recommendation": "run_maintenance",
+      "route_status": "needs_attention"
     },
-    "next_route": "python3 scripts/aoa_session_memory.py index-maintenance '2026-06-11__006__\u0443-\u043c\u0435\u043d\u044f-\u0441\u043a\u043b\u0430\u0434\u044b\u0432\u0430\u0435\u0442\u0441\u044f-\u0432\u043f\u0435\u0447\u0430\u0442\u043b\u0435\u043d\u0438\u0435-\u0447\u0442\u043e-\u0434\u043b\u044f-\u0432\u0441\u0435\u0445' --workspace-root /srv/AbyssOS --aoa-root /srv/AbyssOS/.aoa --apply --skip-graph-repair --skip-token-accounting --write-report",
-    "returncode": 0,
-    "status": "ok",
+    "next_route": "python3 scripts/aoa_session_memory.py search-index 2026-06-20__003__codex-in-dionysus --workspace-root /srv/AbyssOS --aoa-root /srv/AbyssOS/.aoa --no-rebuild --write-report",
+    "returncode": 1,
+    "status": "failed",
     "stderr_line_count": 0,
-    "stdout_line_count": 1716
+    "stdout_line_count": 2238
   },
   "authority_boundary": "This generated read-model routes OS Abyss eval pressure. It is not a verdict, score, baseline, regression, receipt, or central proof acceptance surface.",
   "candidate_packet_import": {
@@ -470,6 +476,7 @@
         "next_route": "active_intake_select_then_apply_or_design",
         "owner_repo": "aoa-memo",
         "promotion_allowed": false,
+        "proof_authority": false,
         "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
         "source_kind": "local_eval_port",
         "source_ref": "aoa-memo",
@@ -482,6 +489,7 @@
         "next_route": "active_intake_select_then_apply_or_design",
         "owner_repo": "aoa-routing",
         "promotion_allowed": false,
+        "proof_authority": false,
         "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
         "source_kind": "local_eval_port",
         "source_ref": "aoa-routing",
@@ -494,6 +502,7 @@
         "next_route": "active_suite_apply_or_regression_check",
         "owner_repo": "aoa-skills",
         "promotion_allowed": false,
+        "proof_authority": false,
         "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
         "source_kind": "local_eval_port",
         "source_ref": "aoa-skills",
@@ -506,9 +515,23 @@
         "next_route": "active_suite_apply_or_regression_check",
         "owner_repo": "connectors/aoa-4pda-connector",
         "promotion_allowed": false,
+        "proof_authority": false,
         "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
         "source_kind": "local_eval_port",
         "source_ref": "connectors/aoa-4pda-connector",
+        "state": "needs_owner_review"
+      },
+      {
+        "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
+        "candidate_id": "local-port:connectors/aoa-xda-connector",
+        "evidence_count": 1,
+        "next_route": "active_suite_apply_or_regression_check",
+        "owner_repo": "connectors/aoa-xda-connector",
+        "promotion_allowed": false,
+        "proof_authority": false,
+        "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
+        "source_kind": "local_eval_port",
+        "source_ref": "connectors/aoa-xda-connector",
         "state": "needs_owner_review"
       },
       {
@@ -535,6 +558,7 @@
         ],
         "packet_ref": "mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-criteria-before-mining.eval_candidate.json",
         "promotion_allowed": false,
+        "proof_authority": false,
         "review_gate": "criteria taxonomy accepted by owner; manual reject accounting reviewed; human owner acceptance recorded; +1 more",
         "source_kind": "session_episode",
         "source_ref": ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0127/events:022746-023012",
@@ -564,6 +588,7 @@
         ],
         "packet_ref": "mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-goal-shrink-completion-overclaim.eval_candidate.json",
         "promotion_allowed": false,
+        "proof_authority": false,
         "review_gate": "manual source-span review completed by owner; central overlap check completed; human owner acceptance recorded; +1 more",
         "source_kind": "session_episode",
         "source_ref": ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0107/events:022204-022212",
@@ -593,6 +618,7 @@
         ],
         "packet_ref": "mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-keyword-mining-blindspot.eval_candidate.json",
         "promotion_allowed": false,
+        "proof_authority": false,
         "review_gate": "manual source-span review completed by owner; criteria and reject taxonomy accepted by owner; human owner acceptance recorded; +1 more",
         "source_kind": "session_episode",
         "source_ref": ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0121/events:022721-022726",
@@ -622,6 +648,7 @@
         ],
         "packet_ref": "mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-session-front-door-actionability-gap.eval_candidate.json",
         "promotion_allowed": false,
+        "proof_authority": false,
         "review_gate": "session-start packet exposes real packet routes; dashboard shape validation rejects synthetic completion overclaim; human owner acceptance recorded; +1 more",
         "source_kind": "session_episode",
         "source_ref": ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0132/events:024136-024400",
@@ -651,6 +678,7 @@
         ],
         "packet_ref": "mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-working-process-fossilized-as-doctrine.eval_candidate.json",
         "promotion_allowed": false,
+        "proof_authority": false,
         "review_gate": "manual source-span review completed by owner; doctrine owner route named; human owner acceptance recorded; +1 more",
         "source_kind": "session_episode",
         "source_ref": ".aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0117/events:022644-022661",
@@ -664,6 +692,7 @@
         "next_route": "needs_owner_review_before_any_proof_meaning",
         "owner_repo": "abyss-stack + aoa-evals",
         "promotion_allowed": false,
+        "proof_authority": false,
         "review_gate": "runtime_owner_review_then_aoa_evals_owner_review",
         "source_kind": "runtime_candidate_export",
         "source_ref": "mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json",
@@ -725,16 +754,16 @@
     "schema_version": "os_abyss_eval_candidate_queue_v1",
     "summary": {
       "by_source_kind": {
-        "local_eval_port": 4,
+        "local_eval_port": 5,
         "runtime_candidate_export": 1,
         "session_episode": 5
       },
       "by_state": {
-        "needs_owner_review": 9,
+        "needs_owner_review": 10,
         "observed": 1
       },
       "central_catalog_total_evals": 39,
-      "entries": 10,
+      "entries": 11,
       "packet_count": 5,
       "session_mining_report_refs": [
         "mechanics/audit/parts/candidate-readers/reports/session-mining/2026-06-25-aoa-eval-control.manual-review.md"
@@ -930,7 +959,51 @@
     ],
     "external_pattern_grounding_ref": "mechanics/proof-object/parts/eval-authoring/config/external-pattern-grounding.json",
     "external_patterns_count": 12,
-    "local_port_pressure_hint_command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --json",
+    "front_door_commands": [
+      {
+        "command": "python scripts/aoa_eval_session_start.py --json",
+        "purpose": "raise the per-session Eval Forge front door"
+      },
+      {
+        "command": "python scripts/check_eval_forge_readiness.py --json",
+        "purpose": "check front-door readiness gates and blockers"
+      },
+      {
+        "command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json",
+        "purpose": "inspect active/skeleton/missing/invalid local eval ports"
+      },
+      {
+        "command": "python scripts/validate_eval_candidate_packets.py mechanics/audit/parts/candidate-readers/packets",
+        "purpose": "validate imported candidate packets before review"
+      },
+      {
+        "command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --json",
+        "purpose": "route a session candidate packet through Eval Forge"
+      },
+      {
+        "command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --local-port-inventory /tmp/aoa_local_eval_ports.current.json --workspace-root /srv/AbyssOS --json",
+        "purpose": "route one active local eval port through Eval Forge"
+      },
+      {
+        "command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --write-worksheet <worksheet-path> --json",
+        "purpose": "write a non-proof owner-review worksheet only after admission gates"
+      }
+    ],
+    "front_door_refs": {
+      "candidate_packet_schema_ref": "mechanics/audit/parts/candidate-readers/schemas/aoa-eval-candidate-packet.schema.json",
+      "latest_route_review_report_ref": "mechanics/proof-object/parts/eval-authoring/reports/eval-forge/2026-06-26-session-candidate-owner-review.md",
+      "local_port_decision_matrix_ref": "mechanics/proof-object/parts/eval-authoring/docs/LOCAL_PORT_DECISION_MATRIX.md",
+      "operating_path_ref": "mechanics/proof-object/parts/eval-authoring/docs/EVAL_FORGE_OPERATING_PATH.md",
+      "session_mining_criteria_ref": "mechanics/proof-object/parts/eval-authoring/docs/SESSION_MINING_CRITERIA.md",
+      "worksheet_example_ref": "mechanics/proof-object/parts/eval-authoring/examples/aoa_eval_criteria_before_mining.eval_design_worksheet.example.json"
+    },
+    "front_door_surface_status": {
+      "missing_refs": [],
+      "promotion_allowed": false,
+      "proof_authority": false,
+      "valid": true
+    },
+    "local_port_pressure_hint_command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --local-port-inventory /tmp/aoa_local_eval_ports.current.json --workspace-root /srv/AbyssOS --json",
     "registry_ref": "mechanics/proof-object/parts/eval-authoring/config/eval-archetypes.json",
     "registry_validation": {
       "archetype_count": 18,
@@ -945,7 +1018,8 @@
       "write worksheets only after admission gates; write source bundles only after human owner acceptance",
       "refresh external grounding when eval tooling patterns materially change"
     ],
-    "worksheet_schema_ref": "mechanics/proof-object/parts/eval-authoring/schemas/eval-design-worksheet.schema.json"
+    "worksheet_schema_ref": "mechanics/proof-object/parts/eval-authoring/schemas/eval-design-worksheet.schema.json",
+    "worksheet_write_command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --write-worksheet <worksheet-path> --json"
   },
   "eval_support_registry": {
     "authority_boundary": "Registry maps existing checks to eval-lane support. It is not command authority; docs/validation/validation_lanes.json keeps blocking lane commands.",
@@ -1114,30 +1188,18 @@
     "current_signals": {
       "aoa_freshness_status": {
         "freshness_hints": {
-          "line_count": 1716,
+          "line_count": 2238,
           "mentions_indexed_archive_freshness": false,
           "mentions_stale": true
         },
-        "status": "ok"
+        "status": "failed"
       },
       "dirty_repos": [
         {
-          "branch": "codex/tos-graph-review-loop",
-          "dirty_count": 17,
-          "head": "44bff7da30584ecf34921b3584af1e5572d28659",
-          "repo": "Tree-of-Sophia"
-        },
-        {
           "branch": "main",
-          "dirty_count": 20,
-          "head": "f3e861d422db2c8759c09354fcdd9774f26ce602",
+          "dirty_count": 9,
+          "head": "aa639e184d672bd734e092e1fb6f0a63e20b348a",
           "repo": "aoa-evals"
-        },
-        {
-          "branch": "codex/aoa-kag-projection-validator-split",
-          "dirty_count": 23,
-          "head": "ad4b0a3913a4972f0b8d0696db67668bc40e0f0c",
-          "repo": "aoa-kag"
         },
         {
           "branch": "main",
@@ -1159,28 +1221,34 @@
         },
         {
           "branch": "main",
-          "dirty_count": 2,
-          "head": "adb729af95c29084a8b1913d4760eb92ac1ccc37",
+          "dirty_count": 4,
+          "head": "4d536494412153ae3e0851a59b3bd3afb34198a5",
           "repo": "aoa-4pda-connector"
+        },
+        {
+          "branch": "main",
+          "dirty_count": 17,
+          "head": "HEAD",
+          "repo": "aoa-xda-connector"
         }
       ],
       "git_summary": {
-        "dirty_repos": 7,
-        "repos": 16,
-        "unavailable_repos": 0
+        "dirty_repos": 6,
+        "repos": 17,
+        "unavailable_repos": 1
       },
       "local_ports_status": {
-        "active": 4,
+        "active": 5,
         "excluded_repos": 1,
         "invalid": 0,
         "missing": 0,
-        "repos": 15,
+        "repos": 16,
         "skeleton": 11,
         "stale_candidate": 0,
         "validator_failed": 0,
-        "validator_ok": 15,
-        "with_detected_pressure": 4,
-        "with_local_port": 15
+        "validator_ok": 16,
+        "with_detected_pressure": 5,
+        "with_local_port": 16
       },
       "mcp_runtime_status": {
         "selected_stack_root": "/home/dionysus/src/abyss-stack",
@@ -1260,24 +1328,24 @@
       "support registry inventory parseability"
     ]
   },
-  "generated_at_utc": "2026-06-26T04:54:42Z",
+  "generated_at_utc": "2026-06-26T16:59:20Z",
   "layer": "aoa-evals",
   "local_eval_ports": {
     "authority_boundary": "Repo-local eval ports carry intake, suites, reports, and pressure evidence only. Central verdict, scoring, regression, proof doctrine, and central bundle adoption remain in aoa-evals.",
     "next_route": "inspect active or invalid ports before eval application/design",
     "source_ref": "generated by scripts/build_local_eval_port_inventory.py",
     "summary": {
-      "active": 4,
+      "active": 5,
       "excluded_repos": 1,
       "invalid": 0,
       "missing": 0,
-      "repos": 15,
+      "repos": 16,
       "skeleton": 11,
       "stale_candidate": 0,
       "validator_failed": 0,
-      "validator_ok": 15,
-      "with_detected_pressure": 4,
-      "with_local_port": 15
+      "validator_ok": 16,
+      "with_detected_pressure": 5,
+      "with_local_port": 16
     }
   },
   "local_to_central_promotion_path": {
@@ -1346,17 +1414,17 @@
       "authority_boundary": "Summarized MCP runtime-status payload; path-level mirror manifests stay in the MCP owner surface.",
       "catalog_count": 39,
       "freshness": {
-        "mirror_generated_at_utc": "2026-06-25T23:27:36+00:00",
+        "mirror_generated_at_utc": "2026-06-26T05:24:15+00:00",
         "mirror_is_current": false,
         "mirror_is_stale": true,
         "mirror_latest_reader_mtime_utc": "2026-06-19T04:46:53+00:00",
-        "mirror_source_git_commit": "5730db416f1d6dd9e9fe84dbdc79d0dc5e34584c",
+        "mirror_source_git_commit": "b93545965ad0a1cd407662e111c9a19d85422f97",
         "mirror_status": "stale",
         "notes": [
           "mirror manifest source_git_commit differs from source checkout"
         ],
         "refresh_command": "scripts/aoa-sync-federation-surfaces --layer aoa-evals",
-        "source_git_commit": "f3e861d422db2c8759c09354fcdd9774f26ce602",
+        "source_git_commit": "aa639e184d672bd734e092e1fb6f0a63e20b348a",
         "status": "source_with_stale_mirror"
       },
       "mirror": {
@@ -1370,7 +1438,7 @@
       },
       "mirror_root": "/srv/AbyssOS/abyss-stack/Knowledge/federation/aoa-evals",
       "root_kind": "source",
-      "runtime_candidate_export_count": 944,
+      "runtime_candidate_export_count": 948,
       "runtime_candidate_template_count": 14,
       "schema": "aoa_evals_runtime_status_v1",
       "selected_root": "/srv/AbyssOS/aoa-evals",
@@ -1382,7 +1450,7 @@
     "source_path": "/home/dionysus/src/abyss-stack/mcp/services/aoa-evals-mcp/src",
     "status": "ok",
     "stderr_line_count": 0,
-    "stdout_line_count": 286
+    "stdout_line_count": 287
   },
   "owner_boundaries": [
     {
@@ -1486,7 +1554,7 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
+            "aoa_freshness_status": "failed",
             "git_branch": "main",
             "git_head": "6e02452d9fbd5aa71111b771593c1e2742106e25",
             "mcp_status": "ok"
@@ -1494,7 +1562,8 @@
           "status": "warning",
           "warnings": [
             "repo_has_dirty_worktree",
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "active",
@@ -1524,7 +1593,7 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
+            "aoa_freshness_status": "failed",
             "git_branch": "main",
             "git_head": "8b2fc0272e144f49875397e25b6dbb48ba201056",
             "mcp_status": "ok"
@@ -1532,7 +1601,8 @@
           "status": "warning",
           "warnings": [
             "repo_has_dirty_worktree",
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "active",
@@ -1562,7 +1632,7 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
+            "aoa_freshness_status": "failed",
             "git_branch": "main",
             "git_head": "fd095d8bd6cbdc35132f443147e4f36d69cd95c8",
             "mcp_status": "ok"
@@ -1570,7 +1640,8 @@
           "status": "warning",
           "warnings": [
             "repo_has_dirty_worktree",
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "active",
@@ -1600,21 +1671,61 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
+            "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "adb729af95c29084a8b1913d4760eb92ac1ccc37",
+            "git_head": "4d536494412153ae3e0851a59b3bd3afb34198a5",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
             "repo_has_dirty_worktree",
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "active",
         "pressure_severity": "medium",
         "repo_id": "connectors/aoa-4pda-connector",
         "repo_path": "connectors/aoa-4pda-connector",
+        "route_action": "Use the local suite as a candidate deterministic check or regression surface; keep scoring and verdict authority central.",
+        "route_confidence": "medium",
+        "route_key": "active_suite_apply_or_regression_check",
+        "route_state": "apply_local_suite_or_regression_check",
+        "safe_actions": [
+          "inspect_local_port_inventory",
+          "select_existing_central_eval_before_new_design",
+          "keep_candidate_only_until_owner_review"
+        ]
+      },
+      {
+        "active_pressure_count": 1,
+        "central_eval_name_matches": [],
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"connectors/aoa-xda-connector\")'",
+        "forbidden_actions": [
+          "central_proof_acceptance_from_local_port",
+          "mcp_auto_promotion",
+          "session_memory_as_reviewed_truth"
+        ],
+        "freshness_gate": {
+          "blocks": [],
+          "blocks_eval_route": false,
+          "refs": {
+            "aoa_freshness_status": "failed",
+            "git_branch": "main",
+            "git_head": "HEAD",
+            "mcp_status": "ok"
+          },
+          "status": "warning",
+          "warnings": [
+            "repo_git_state_unavailable",
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
+          ]
+        },
+        "inventory_status": "active",
+        "pressure_severity": "low",
+        "repo_id": "connectors/aoa-xda-connector",
+        "repo_path": "connectors/aoa-xda-connector",
         "route_action": "Use the local suite as a candidate deterministic check or regression surface; keep scoring and verdict authority central.",
         "route_confidence": "medium",
         "route_key": "active_suite_apply_or_regression_check",
@@ -1638,14 +1749,15 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
+            "aoa_freshness_status": "failed",
             "git_branch": "main",
             "git_head": "b5c9918d97661fed7c33abfbd7b35d9df93fdfb0",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "skeleton",
@@ -1675,14 +1787,15 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
+            "aoa_freshness_status": "failed",
             "git_branch": "main",
             "git_head": "89f2dba0250e353af059d0d09cab9fe38f4b0df7",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "skeleton",
@@ -1712,14 +1825,15 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
+            "aoa_freshness_status": "failed",
             "git_branch": "main",
             "git_head": "d730f17953c222e028fd259d23cfe1530ec8fa24",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "skeleton",
@@ -1749,14 +1863,15 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
+            "aoa_freshness_status": "failed",
             "git_branch": "main",
             "git_head": "c40b3a9d233244265319edd6b7da0942dd57cfd7",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "skeleton",
@@ -1786,15 +1901,15 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
-            "git_branch": "codex/tos-graph-review-loop",
-            "git_head": "44bff7da30584ecf34921b3584af1e5572d28659",
+            "aoa_freshness_status": "failed",
+            "git_branch": "main",
+            "git_head": "6ec05458609281df9c3172ec882d37eee18b5e03",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "repo_has_dirty_worktree",
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "skeleton",
@@ -1824,14 +1939,15 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
+            "aoa_freshness_status": "failed",
             "git_branch": "main",
             "git_head": "1790da93288a0fdc7c8e51407632e530191905bc",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "skeleton",
@@ -1861,15 +1977,15 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
-            "git_branch": "codex/aoa-kag-projection-validator-split",
-            "git_head": "ad4b0a3913a4972f0b8d0696db67668bc40e0f0c",
+            "aoa_freshness_status": "failed",
+            "git_branch": "codex/aoa-kag-readme-front-door",
+            "git_head": "6509589d2432adcb6b98d0aceab201d169b09d4d",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "repo_has_dirty_worktree",
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "skeleton",
@@ -1899,14 +2015,15 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
+            "aoa_freshness_status": "failed",
             "git_branch": "main",
             "git_head": "5ab6af214a480476ed2b944c62d99fdc9b3d0daf",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "skeleton",
@@ -1936,14 +2053,15 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
+            "aoa_freshness_status": "failed",
             "git_branch": "main",
             "git_head": "33a59b6b8b0157031d12b3cd50b06461ab1552b6",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "skeleton",
@@ -1973,14 +2091,15 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
+            "aoa_freshness_status": "failed",
             "git_branch": "main",
             "git_head": "eefa34c9deb8752d93dac6ac03aeaf8e74c11e3b",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "skeleton",
@@ -2010,14 +2129,15 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "ok",
+            "aoa_freshness_status": "failed",
             "git_branch": "main",
             "git_head": "b5e38e08f1bbe73449acb8b272ea1fad0770524e",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_evals_mcp_mirror_stale"
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
           ]
         },
         "inventory_status": "skeleton",
@@ -2037,22 +2157,23 @@
     ],
     "schema_version": "os_abyss_eval_repo_readiness_v1",
     "summary": {
-      "actionable_repos": 4,
+      "actionable_repos": 5,
       "by_pressure_severity": {
         "high": 1,
+        "low": 1,
         "medium": 3,
         "none": 11
       },
       "by_route_confidence": {
         "high": 11,
-        "medium": 4
+        "medium": 5
       },
       "by_route_state": {
-        "apply_local_suite_or_regression_check": 2,
+        "apply_local_suite_or_regression_check": 3,
         "dormant_no_current_eval_pressure": 11,
         "needs_local_design_or_owner_review": 2
       },
-      "repos": 15
+      "repos": 16
     }
   },
   "runtime_candidate_exports": {
@@ -2073,9 +2194,14 @@
     "eval_catalog": "generated/eval_catalog.json",
     "eval_forge_archetype_registry": "mechanics/proof-object/parts/eval-authoring/config/eval-archetypes.json",
     "eval_forge_external_pattern_grounding": "mechanics/proof-object/parts/eval-authoring/config/external-pattern-grounding.json",
+    "eval_forge_local_port_matrix": "mechanics/proof-object/parts/eval-authoring/docs/LOCAL_PORT_DECISION_MATRIX.md",
+    "eval_forge_operating_path": "mechanics/proof-object/parts/eval-authoring/docs/EVAL_FORGE_OPERATING_PATH.md",
     "eval_forge_readiness_check": "scripts/check_eval_forge_readiness.py",
     "eval_forge_readiness_guide": "docs/guides/EVAL_FORGE_READINESS_LAYER.md",
+    "eval_forge_route_review_report": "mechanics/proof-object/parts/eval-authoring/reports/eval-forge/2026-06-26-session-candidate-owner-review.md",
     "eval_forge_router": "mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py",
+    "eval_forge_session_mining_criteria": "mechanics/proof-object/parts/eval-authoring/docs/SESSION_MINING_CRITERIA.md",
+    "eval_forge_worksheet_example": "mechanics/proof-object/parts/eval-authoring/examples/aoa_eval_criteria_before_mining.eval_design_worksheet.example.json",
     "eval_forge_worksheet_schema": "mechanics/proof-object/parts/eval-authoring/schemas/eval-design-worksheet.schema.json",
     "freshness_sentinel_command": "scripts/check_eval_freshness_sentinel.py",
     "local_eval_port_inventory_builder": "scripts/build_local_eval_port_inventory.py",
@@ -2388,10 +2514,10 @@
         "status": "ok"
       },
       {
-        "branch": "codex/tos-graph-review-loop",
-        "branch_status": "## codex/tos-graph-review-loop...origin/main",
-        "dirty_count": 17,
-        "head": "44bff7da30584ecf34921b3584af1e5572d28659",
+        "branch": "main",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 0,
+        "head": "6ec05458609281df9c3172ec882d37eee18b5e03",
         "repo": "Tree-of-Sophia",
         "repo_path": "/srv/AbyssOS/Tree-of-Sophia",
         "status": "ok"
@@ -2408,17 +2534,17 @@
       {
         "branch": "main",
         "branch_status": "## main...origin/main",
-        "dirty_count": 20,
-        "head": "f3e861d422db2c8759c09354fcdd9774f26ce602",
+        "dirty_count": 9,
+        "head": "aa639e184d672bd734e092e1fb6f0a63e20b348a",
         "repo": "aoa-evals",
         "repo_path": "/srv/AbyssOS/aoa-evals",
         "status": "ok"
       },
       {
-        "branch": "codex/aoa-kag-projection-validator-split",
-        "branch_status": "## codex/aoa-kag-projection-validator-split",
-        "dirty_count": 23,
-        "head": "ad4b0a3913a4972f0b8d0696db67668bc40e0f0c",
+        "branch": "codex/aoa-kag-readme-front-door",
+        "branch_status": "## codex/aoa-kag-readme-front-door...origin/codex/aoa-kag-readme-front-door [gone]",
+        "dirty_count": 0,
+        "head": "6509589d2432adcb6b98d0aceab201d169b09d4d",
         "repo": "aoa-kag",
         "repo_path": "/srv/AbyssOS/aoa-kag",
         "status": "ok"
@@ -2489,18 +2615,27 @@
       {
         "branch": "main",
         "branch_status": "## main...origin/main",
-        "dirty_count": 2,
-        "head": "adb729af95c29084a8b1913d4760eb92ac1ccc37",
+        "dirty_count": 4,
+        "head": "4d536494412153ae3e0851a59b3bd3afb34198a5",
         "repo": "aoa-4pda-connector",
         "repo_path": "/srv/AbyssOS/connectors/aoa-4pda-connector",
         "status": "ok"
+      },
+      {
+        "branch": "main",
+        "branch_status": "## No commits yet on main",
+        "dirty_count": 17,
+        "head": "HEAD",
+        "repo": "aoa-xda-connector",
+        "repo_path": "/srv/AbyssOS/connectors/aoa-xda-connector",
+        "status": "unavailable"
       }
     ],
     "status": "ok",
     "summary": {
-      "dirty_repos": 7,
-      "repos": 16,
-      "unavailable_repos": 0
+      "dirty_repos": 6,
+      "repos": 17,
+      "unavailable_repos": 1
     },
     "workspace_root": "/srv/AbyssOS"
   },

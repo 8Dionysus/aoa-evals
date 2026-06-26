@@ -9,14 +9,14 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 ## Summary
 
-- Generated at: `2026-06-26T04:54:42Z`
+- Generated at: `2026-06-26T16:59:20Z`
 - Workspace root: `/srv/AbyssOS`
 - Central evals: 39
-- Local active ports: 4
+- Local active ports: 5
 - Local invalid ports: 0
-- Actionable repo routes: 4
+- Actionable repo routes: 5
 - Runtime candidate exports: 14
-- Candidate queue entries: 10
+- Candidate queue entries: 11
 - Candidate packet imports: 5
 - Eval Forge archetypes: 18
 - Eval Forge candidate hints: 5
@@ -25,7 +25,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 - Eval-relevant surfaces with unresolved manual review: 0
 - Unsafe side-effect scripts: 4
 - MCP runtime status: `ok`
-- Dirty repos: 7
+- Dirty repos: 6
 
 ## Research Grounding
 
@@ -62,6 +62,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 | `aoa-memo` | needs_local_design_or_owner_review | medium | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "aoa-memo")'` |
 | `aoa-routing` | needs_local_design_or_owner_review | medium | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "aoa-routing")'` |
 | `connectors/aoa-4pda-connector` | apply_local_suite_or_regression_check | medium | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "connectors/aoa-4pda-connector")'` |
+| `connectors/aoa-xda-connector` | apply_local_suite_or_regression_check | low | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "connectors/aoa-xda-connector")'` |
 
 ## Candidate Queue
 
@@ -71,6 +72,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 | `local-port:aoa-routing` | needs_owner_review | local_eval_port | aoa-routing | 3 |  | active_intake_select_then_apply_or_design |
 | `local-port:aoa-skills` | needs_owner_review | local_eval_port | aoa-skills | 6 |  | active_suite_apply_or_regression_check |
 | `local-port:connectors/aoa-4pda-connector` | needs_owner_review | local_eval_port | connectors/aoa-4pda-connector | 2 |  | active_suite_apply_or_regression_check |
+| `local-port:connectors/aoa-xda-connector` | needs_owner_review | local_eval_port | connectors/aoa-xda-connector | 1 |  | active_suite_apply_or_regression_check |
 | `packet:session:aoa-eval-criteria-before-mining` | needs_owner_review | session_episode | aoa-evals | 3 | `mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-criteria-before-mining.eval_candidate.json` | Use this packet to seed a criteria/rubric review before any larger session-mining wave. |
 | `packet:session:aoa-eval-goal-shrink-completion-overclaim` | needs_owner_review | session_episode | aoa-evals + aoa-skills | 3 | `mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-goal-shrink-completion-overclaim.eval_candidate.json` | Review the bounded source span against the current guide and decide whether this belongs in a trajectory eval slice or aoa-skills trigger case. |
 | `packet:session:aoa-eval-keyword-mining-blindspot` | needs_owner_review | session_episode | aoa-evals + .aoa | 3 | `mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-keyword-mining-blindspot.eval_candidate.json` | Use the manual review gates to design non-keyword pointer signals before any wider session-mining automation. |
@@ -81,12 +83,31 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 ## Eval Forge
 
 - Router command: `python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --json`
-- Local-port command: `python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --json`
+- Local-port command: `python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --local-port-inventory /tmp/aoa_local_eval_ports.current.json --workspace-root /srv/AbyssOS --json`
+- Worksheet command: `python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --write-worksheet <worksheet-path> --json`
 - Registry: `mechanics/proof-object/parts/eval-authoring/config/eval-archetypes.json`
 - Worksheet schema: `mechanics/proof-object/parts/eval-authoring/schemas/eval-design-worksheet.schema.json`
 - Archetype count: 18
 - External pattern sources: 12
 - Registry valid: True
+
+### Forge Front Door
+
+- operating_path_ref: `mechanics/proof-object/parts/eval-authoring/docs/EVAL_FORGE_OPERATING_PATH.md`
+- session_mining_criteria_ref: `mechanics/proof-object/parts/eval-authoring/docs/SESSION_MINING_CRITERIA.md`
+- local_port_decision_matrix_ref: `mechanics/proof-object/parts/eval-authoring/docs/LOCAL_PORT_DECISION_MATRIX.md`
+- latest_route_review_report_ref: `mechanics/proof-object/parts/eval-authoring/reports/eval-forge/2026-06-26-session-candidate-owner-review.md`
+- worksheet_example_ref: `mechanics/proof-object/parts/eval-authoring/examples/aoa_eval_criteria_before_mining.eval_design_worksheet.example.json`
+- candidate_packet_schema_ref: `mechanics/audit/parts/candidate-readers/schemas/aoa-eval-candidate-packet.schema.json`
+- proof authority: False; promotion allowed: False; refs valid: True
+- exact commands:
+  - raise the per-session Eval Forge front door: `python scripts/aoa_eval_session_start.py --json`
+  - check front-door readiness gates and blockers: `python scripts/check_eval_forge_readiness.py --json`
+  - inspect active/skeleton/missing/invalid local eval ports: `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json`
+  - validate imported candidate packets before review: `python scripts/validate_eval_candidate_packets.py mechanics/audit/parts/candidate-readers/packets`
+  - route a session candidate packet through Eval Forge: `python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --json`
+  - route one active local eval port through Eval Forge: `python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --local-port-inventory /tmp/aoa_local_eval_ports.current.json --workspace-root /srv/AbyssOS --json`
+  - write a non-proof owner-review worksheet only after admission gates: `python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --write-worksheet <worksheet-path> --json`
 
 | Candidate | Decision | Archetype | Owner Route | Promotion |
 | --- | --- | --- | --- | --- |
@@ -137,10 +158,10 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 ## Freshness Sentinel
 
-- Git repos: 16
-- Dirty repos: 7
+- Git repos: 17
+- Dirty repos: 6
 - MCP selected root: `/home/dionysus/src/abyss-stack`
-- .aoa freshness status: `ok`
+- .aoa freshness status: `failed`
 
 ## Phase Coverage
 

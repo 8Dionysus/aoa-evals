@@ -90,7 +90,52 @@ def sample_dashboard() -> dict:
             "registry_validation": {"valid": True, "errors": [], "archetype_count": 18},
             "archetype_count": 18,
             "router_command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --json",
-            "local_port_pressure_hint_command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --json",
+            "local_port_pressure_hint_command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --local-port-inventory /tmp/aoa_local_eval_ports.current.json --workspace-root /srv/AbyssOS --json",
+            "worksheet_write_command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --write-worksheet <worksheet-path> --json",
+            "front_door_refs": {
+                "operating_path_ref": "mechanics/proof-object/parts/eval-authoring/docs/EVAL_FORGE_OPERATING_PATH.md",
+                "session_mining_criteria_ref": "mechanics/proof-object/parts/eval-authoring/docs/SESSION_MINING_CRITERIA.md",
+                "local_port_decision_matrix_ref": "mechanics/proof-object/parts/eval-authoring/docs/LOCAL_PORT_DECISION_MATRIX.md",
+                "latest_route_review_report_ref": "mechanics/proof-object/parts/eval-authoring/reports/eval-forge/2026-06-26-session-candidate-owner-review.md",
+                "worksheet_example_ref": "mechanics/proof-object/parts/eval-authoring/examples/aoa_eval_criteria_before_mining.eval_design_worksheet.example.json",
+                "candidate_packet_schema_ref": "mechanics/audit/parts/candidate-readers/schemas/aoa-eval-candidate-packet.schema.json",
+            },
+            "front_door_commands": [
+                {
+                    "purpose": "raise the per-session Eval Forge front door",
+                    "command": "python scripts/aoa_eval_session_start.py --json",
+                },
+                {
+                    "purpose": "check front-door readiness gates and blockers",
+                    "command": "python scripts/check_eval_forge_readiness.py --json",
+                },
+                {
+                    "purpose": "inspect active/skeleton/missing/invalid local eval ports",
+                    "command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json",
+                },
+                {
+                    "purpose": "validate imported candidate packets before review",
+                    "command": "python scripts/validate_eval_candidate_packets.py mechanics/audit/parts/candidate-readers/packets",
+                },
+                {
+                    "purpose": "route a session candidate packet through Eval Forge",
+                    "command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --json",
+                },
+                {
+                    "purpose": "route one active local eval port through Eval Forge",
+                    "command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --local-port-inventory /tmp/aoa_local_eval_ports.current.json --workspace-root /srv/AbyssOS --json",
+                },
+                {
+                    "purpose": "write a non-proof owner-review worksheet only after admission gates",
+                    "command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --write-worksheet <worksheet-path> --json",
+                },
+            ],
+            "front_door_surface_status": {
+                "valid": True,
+                "missing_refs": [],
+                "proof_authority": False,
+                "promotion_allowed": False,
+            },
             "candidate_archetype_hints": [
                 {
                     "candidate_id": "packet:session:example",
@@ -126,6 +171,7 @@ def test_session_start_payload_gives_agent_actionable_front_door() -> None:
     )
 
     commands = {item["command"] for item in payload["session_entry_commands"]}
+    assert "python scripts/aoa_eval_session_start.py --json" in commands
     assert "python scripts/build_eval_readiness_dashboard.py --check" in commands
     assert "python scripts/check_eval_support_registry.py --json" in commands
     assert "python scripts/validate_eval_candidate_packets.py --schema-only" in commands
@@ -133,11 +179,25 @@ def test_session_start_payload_gives_agent_actionable_front_door() -> None:
     assert "python scripts/check_eval_candidate_queue_lifecycle.py --json" in commands
     assert "python scripts/review_eval_promotion_path.py --json" in commands
     assert any("eval_forge_route.py" in command for command in commands)
+    front_door = payload["eval_forge_front_door"]
+    assert front_door["surface_refs"]["operating_path_ref"].endswith("EVAL_FORGE_OPERATING_PATH.md")
+    assert front_door["surface_refs"]["session_mining_criteria_ref"].endswith("SESSION_MINING_CRITERIA.md")
+    assert front_door["surface_refs"]["local_port_decision_matrix_ref"].endswith("LOCAL_PORT_DECISION_MATRIX.md")
+    assert front_door["surface_refs"]["latest_route_review_report_ref"].endswith("2026-06-26-session-candidate-owner-review.md")
+    assert front_door["surface_refs"]["worksheet_example_ref"].endswith("aoa_eval_criteria_before_mining.eval_design_worksheet.example.json")
+    assert front_door["proof_authority"] is False
+    assert front_door["promotion_allowed"] is False
+    front_door_commands = {item["command"] for item in front_door["exact_commands"]}
+    assert "python scripts/aoa_eval_session_start.py --json" in front_door_commands
+    assert any("--local-port-repo" in command and "--local-port-inventory" in command for command in front_door_commands)
+    assert any("--write-worksheet" in command for command in front_door_commands)
     assert payload["candidate_packet_contract"]["candidate_only"] is True
     assert payload["candidate_packet_contract"]["proof_authority"] is False
     assert payload["eval_forge_readiness"]["registry_valid"] is True
     assert payload["eval_forge_readiness"]["archetype_count"] == 18
     assert payload["eval_forge_readiness"]["promotion_allowed"] is False
+    assert payload["eval_forge_readiness"]["worksheet_write_command"].endswith("--write-worksheet <worksheet-path> --json")
+    assert payload["eval_forge_readiness"]["front_door_refs"]["worksheet_example_ref"] == front_door["surface_refs"]["worksheet_example_ref"]
     assert payload["eval_forge_readiness"]["top_candidate_hints"][0]["selected_archetype_id"] == "trace-trajectory-eval"
     assert payload["promotion_review_route"]["dry_run"] is True
     assert payload["promotion_review_route"]["promotion_allowed"] is False
@@ -146,6 +206,8 @@ def test_session_start_payload_gives_agent_actionable_front_door() -> None:
     assert payload["active_repo_routes"][0]["repo_id"] == "aoa-memo"
     assert payload["candidate_queue_routes"][0]["candidate_id"] == "packet:session:example"
     assert payload["candidate_queue_routes"][0]["packet_ref"].endswith("example.eval_candidate.json")
+    assert payload["candidate_queue_routes"][0]["proof_authority"] is False
+    assert payload["candidate_queue_routes"][0]["promotion_allowed"] is False
     assert payload["skill_route"]["runtime_adoption"]["installed_profile_verified"] is True
     assert "dormant-repo" not in {item["repo_id"] for item in payload["active_repo_routes"]}
     assert any("do not treat .aoa" in line for line in payload["stop_lines"])
@@ -181,6 +243,9 @@ def test_session_start_text_names_commands_and_stop_lines() -> None:
     rendered = session_start.render_text(payload)
 
     assert "OS Abyss Eval Session Start" in rendered
+    assert "Forge Front Door" in rendered
+    assert "EVAL_FORGE_OPERATING_PATH.md" in rendered
+    assert "--write-worksheet" in rendered
     assert "check_eval_support_registry.py" in rendered
     assert "validate_eval_candidate_packets.py" in rendered
     assert "check_eval_candidate_queue_lifecycle.py" in rendered

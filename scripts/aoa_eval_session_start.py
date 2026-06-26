@@ -114,6 +114,9 @@ def candidate_queue_routes(dashboard: dict[str, Any], limit: int = 12) -> list[d
                 "review_gate": entry.get("review_gate"),
                 "evidence_count": entry.get("evidence_count"),
                 "next_route": entry.get("next_route"),
+                "authority_boundary": entry.get("authority_boundary"),
+                "proof_authority": entry.get("proof_authority", False),
+                "promotion_allowed": entry.get("promotion_allowed", False),
             }
         )
     return sorted(
@@ -202,11 +205,22 @@ def build_session_start_payload(
         if isinstance(forge, dict)
         else "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --json"
     )
+    forge_front_door = {
+        "surface_refs": forge.get("front_door_refs", {}) if isinstance(forge, dict) else {},
+        "exact_commands": forge.get("front_door_commands", []) if isinstance(forge, dict) else [],
+        "surface_status": forge.get("front_door_surface_status", {}) if isinstance(forge, dict) else {},
+        "proof_authority": False,
+        "promotion_allowed": False,
+    }
     return {
         "schema_version": SCHEMA_VERSION,
         "authority_boundary": "Session-start output routes eval work; it cannot score, accept proof, promote candidates, or mutate sibling repos.",
         "read_model_posture": dashboard.get("read_model_posture", {}),
         "session_entry_commands": [
+            {
+                "purpose": "raise this per-session Eval Forge front door",
+                "command": "python scripts/aoa_eval_session_start.py --json",
+            },
             {
                 "purpose": "check the session-ready Eval Forge gate across freshness, ports, support classes, packets, MCP write receipts, and docs",
                 "command": "python scripts/check_eval_forge_readiness.py --json",
@@ -248,6 +262,7 @@ def build_session_start_payload(
                 "command": str(forge_router_command),
             },
         ],
+        "eval_forge_front_door": forge_front_door,
         "active_repo_routes": active_routes,
         "candidate_queue_summary": queue_summary,
         "candidate_queue_routes": candidate_routes,
@@ -285,6 +300,11 @@ def build_session_start_payload(
             "local_port_pressure_hint_command": (
                 forge.get("local_port_pressure_hint_command") if isinstance(forge, dict) else None
             ),
+            "worksheet_write_command": (
+                forge.get("worksheet_write_command") if isinstance(forge, dict) else None
+            ),
+            "front_door_refs": forge_front_door["surface_refs"],
+            "front_door_commands": forge_front_door["exact_commands"],
             "top_candidate_hints": forge_hints[:5],
             "proof_authority": False,
             "promotion_allowed": False,
@@ -322,6 +342,26 @@ def render_text(payload: dict[str, Any]) -> str:
     ]
     for item in payload["session_entry_commands"]:
         lines.append(f"- {item['purpose']}: `{item['command']}`")
+    front_door = payload.get("eval_forge_front_door") or {}
+    lines.extend(["", "## Forge Front Door"])
+    refs = front_door.get("surface_refs") if isinstance(front_door, dict) else {}
+    if isinstance(refs, dict) and refs:
+        for label, ref in refs.items():
+            lines.append(f"- {label}: `{ref}`")
+    else:
+        lines.append("- no Forge front-door refs available")
+    commands = front_door.get("exact_commands") if isinstance(front_door, dict) else []
+    if isinstance(commands, list) and commands:
+        lines.append("- exact commands:")
+        for item in commands:
+            if isinstance(item, dict):
+                lines.append(f"  - {item.get('purpose')}: `{item.get('command')}`")
+    lines.append(
+        "- proof authority: {proof}; promotion allowed: {promotion}".format(
+            proof=front_door.get("proof_authority") if isinstance(front_door, dict) else None,
+            promotion=front_door.get("promotion_allowed") if isinstance(front_door, dict) else None,
+        )
+    )
     lines.extend(["", "## Active Repo Routes"])
     routes = payload.get("active_repo_routes") or []
     if not routes:
@@ -366,6 +406,9 @@ def render_text(payload: dict[str, Any]) -> str:
         local_command = forge.get("local_port_pressure_hint_command")
         if local_command:
             lines.append(f"- local-port route: `{local_command}`")
+        worksheet_command = forge.get("worksheet_write_command")
+        if worksheet_command:
+            lines.append(f"- worksheet route: `{worksheet_command}`")
         hints = forge.get("top_candidate_hints") or []
         if hints:
             for hint in hints:

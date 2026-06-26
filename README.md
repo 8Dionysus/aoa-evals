@@ -46,6 +46,7 @@ Read only what matches the job.
 | Shortest honest overview | this README -> [DESIGN.md](DESIGN.md) -> [DESIGN.AGENTS.md](DESIGN.AGENTS.md) |
 | Agent location in the tree | [docs/architecture/AGENT_INDEX.md](docs/architecture/AGENT_INDEX.md) |
 | Artifact authority class | [docs/architecture/PROOF_TOPOLOGY.md](docs/architecture/PROOF_TOPOLOGY.md) |
+| Eval Forge session readiness | [Eval Forge Readiness Layer](docs/guides/EVAL_FORGE_READINESS_LAYER.md); `check_eval_forge_readiness.py` command route stays in [AGENTS.md#verify](AGENTS.md#verify) |
 | Proof operation or mechanic parent | [mechanics/README.md](mechanics/README.md), then parent `README.md`, `DIRECTION.md`, `PARTS.md`, and part `README.md` |
 | Eval bundle selection | [Eval Bundle Selection Chooser](EVAL_SELECTION.md) and [Eval Bundle Index](EVAL_INDEX.md) |
 | First concrete proof object | [aoa-bounded-change-quality](evals/workflow/aoa-bounded-change-quality/EVAL.md) |

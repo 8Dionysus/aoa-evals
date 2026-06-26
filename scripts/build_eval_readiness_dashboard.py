@@ -69,6 +69,8 @@ SOURCE_OF_TRUTH = {
     "eval_candidate_packet_root": CANDIDATE_PACKET_RELATIVE.as_posix(),
     "eval_candidate_queue_lifecycle": "scripts/check_eval_candidate_queue_lifecycle.py",
     "eval_forge_router": EVAL_FORGE_SCRIPT_RELATIVE.as_posix(),
+    "eval_forge_readiness_guide": "docs/guides/EVAL_FORGE_READINESS_LAYER.md",
+    "eval_forge_readiness_check": "scripts/check_eval_forge_readiness.py",
     "eval_forge_archetype_registry": EVAL_FORGE_REGISTRY_RELATIVE.as_posix(),
     "eval_forge_external_pattern_grounding": EVAL_FORGE_EXTERNAL_GROUNDING_RELATIVE.as_posix(),
     "eval_forge_worksheet_schema": EVAL_FORGE_WORKSHEET_SCHEMA_RELATIVE.as_posix(),
@@ -2315,6 +2317,7 @@ def build_dashboard(
             {"phase": 7, "status": "implemented_owner_gate_contract", "surface": "local_to_central_promotion_path"},
             {"phase": 8, "status": "implemented_runnable_sentinel", "surface": "freshness_sentinel + check_eval_freshness_sentinel.py"},
             {"phase": 9, "status": "implemented_design_forge_router", "surface": "eval_forge_readiness + eval_forge_route.py"},
+            {"phase": 10, "status": "implemented_session_readiness_gate", "surface": "check_eval_forge_readiness.py + docs/guides/EVAL_FORGE_READINESS_LAYER.md"},
         ],
     }
     return dashboard, support_registry

@@ -148,7 +148,7 @@ def test_dashboard_builds_living_readmodel_without_live_checks(tmp_path: Path) -
     assert keyword_hint["promotion_allowed"] is False
     assert dashboard["local_to_central_promotion_path"]["forbidden_shortcuts"]
     assert dashboard["freshness_sentinel"]["tracked_dimensions"]
-    assert [item["phase"] for item in dashboard["phase_coverage"]] == list(range(1, 10))
+    assert [item["phase"] for item in dashboard["phase_coverage"]] == list(range(1, 11))
 
     assert support["schema_version"] == readiness.SUPPORT_REGISTRY_SCHEMA_VERSION
     assert support["summary"]["total_surfaces"] > 0

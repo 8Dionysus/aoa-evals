@@ -372,6 +372,11 @@
 ## MCP access plane
 
 - [AOA-EV-D-0241 Local Eval Port Write-Side MCP](../AOA-EV-D-0241-local-eval-port-write-side-mcp.md) (`docs/decisions/AOA-EV-D-0241-local-eval-port-write-side-mcp.md`)
+- [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
+
+## agent-route
+
+- [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 
 ## audit/observability
 
@@ -423,6 +428,10 @@
 
 - [AOA-EV-D-0129 Boundary Bridge Validator Module Boundary](../AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md`)
 - [AOA-EV-D-0206 Boundary Bridge Aggregate Removal](../AOA-EV-D-0206-boundary-bridge-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0206-boundary-bridge-aggregate-removal.md`)
+
+## local-eval-port
+
+- [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 
 ## mechanics/topology
 
@@ -559,6 +568,10 @@
 - [AOA-EV-D-0212 Runtime Integrity Review Layer Split](../AOA-EV-D-0212-runtime-integrity-review-layer-split.md) (`docs/decisions/AOA-EV-D-0212-runtime-integrity-review-layer-split.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 
+## session evidence
+
+- [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
+
 ## sibling reference
 
 - [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
@@ -646,3 +659,7 @@
 
 - [AOA-EV-D-0122 Proof Loop Validator Module Boundary](../AOA-EV-D-0122-proof-loop-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0122-proof-loop-validator-module-boundary.md`)
 - [AOA-EV-D-0211 Proof Loop Aggregate Removal](../AOA-EV-D-0211-proof-loop-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0211-proof-loop-aggregate-removal.md`)
+
+## validation
+
+- [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)

@@ -9,7 +9,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 ## Summary
 
-- Generated at: `2026-06-26T03:48:35Z`
+- Generated at: `2026-06-26T04:54:42Z`
 - Workspace root: `/srv/AbyssOS`
 - Central evals: 39
 - Local active ports: 4
@@ -21,7 +21,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 - Eval Forge archetypes: 18
 - Eval Forge candidate hints: 5
 - Session-mining reviewed episodes: 20
-- Support surfaces: 593 total, 427 eval-relevant
+- Support surfaces: 595 total, 429 eval-relevant
 - Eval-relevant surfaces with unresolved manual review: 0
 - Unsafe side-effect scripts: 4
 - MCP runtime status: `ok`
@@ -37,6 +37,9 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 | LangSmith trajectory evaluations | Use deterministic trajectory matching when the expected route or tool-call sequence is the claim, and judge-based trajectory evaluation only when the valid path is flexible. | Do not flatten deterministic route-law violations into broad LLM judge prompts. |
 | LangChain Agent Evaluation Readiness Checklist | Manually review real traces before infrastructure, separate capability from regression evals, assign owner expertise, and choose run/trace/thread level deliberately. | Do not automate mining before labels, reject taxonomy, owner gates, and error analysis exist. |
 | Promptfoo coding-agent eval guidance | Coding agents require trajectory, trace/metadata assertions, cost/latency posture, repeated runs, and disposable workspaces for write-capable tests. | Do not treat a coding agent as a one-shot text completion when file, shell, runtime, and state effects matter. |
+| Model Context Protocol security best practices | MCP write-capable tools need explicit safety boundaries, least-privilege scope, consent posture, and validation; access-plane responses should make side effects visible. | Do not let an MCP adapter become proof authority, arbitrary code execution, or a hidden write plane. |
+| Model Context Protocol 2025-06-18 specification | Treat tools as potentially arbitrary code and require clear user/tool safety expectations before invocation. | Do not rely on tool descriptions or generated readouts as trusted proof without owner validation. |
+| NSA MCP Security Design Considerations | Use secure-by-default implementation rigor, practical validation tools, and deployment-specific threat controls for MCP in high-stakes agentic systems. | Do not widen OS Abyss MCP writes without a new decision, validation route, and explicit proof-owner boundary. |
 | Inspect AI | Represent future runnable evals as tasks with datasets, solvers or agents, tools, scorers, logs, and isolation boundaries. | Do not run write-capable eval support without an explicit check, dry-run, or sandbox route. |
 | DeepEval agentic metrics | Separate task completion, tool correctness, argument correctness, and judge-based metrics so agent failures can be localized. | Do not use a single score to hide whether reasoning, tool choice, arguments, or state outcome failed. |
 | Braintrust systematic evaluation | Keep the data/task/scorer loop, immutable experiments, CI regression checks, production trace scoring, and feedback into datasets. | Do not move OS Abyss proof truth into an external experiment dashboard. |
@@ -82,7 +85,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 - Registry: `mechanics/proof-object/parts/eval-authoring/config/eval-archetypes.json`
 - Worksheet schema: `mechanics/proof-object/parts/eval-authoring/schemas/eval-design-worksheet.schema.json`
 - Archetype count: 18
-- External pattern sources: 9
+- External pattern sources: 12
 - Registry valid: True
 
 | Candidate | Decision | Archetype | Owner Route | Promotion |
@@ -118,10 +121,10 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 ## Support Registry
 
 - Support registry JSON: `generated/eval_support_registry.json`
-- Eval-relevant surfaces: 427
-- Recommended routes: `{"apply_as_deterministic_eval_support": 465, "candidate_only_eval_support": 10, "component_only_use_owning_validator_or_lane_command": 83, "forbidden_as_eval_apply_until_manual_owner_review": 4, "generated_readmodel_support": 6, "ordinary_owner_route": 8, "run_check_mode_before_eval_support": 17}`
-- Semantic classes: `{"deterministic_validator": 463, "generated_parity_check": 31, "ordinary_support": 8, "runtime_candidate_support": 10, "trace_trajectory_eval_support": 14, "unit_contract_property_test": 63, "unsafe_side_effect_script": 4}`
-- Review status: `{"candidate_only": 10, "not_eval_relevant": 8, "reviewed_forbidden": 4, "rule_reviewed": 571}`
+- Eval-relevant surfaces: 429
+- Recommended routes: `{"apply_as_deterministic_eval_support": 466, "candidate_only_eval_support": 11, "component_only_use_owning_validator_or_lane_command": 83, "forbidden_as_eval_apply_until_manual_owner_review": 4, "generated_readmodel_support": 6, "ordinary_owner_route": 8, "run_check_mode_before_eval_support": 17}`
+- Semantic classes: `{"deterministic_validator": 463, "generated_parity_check": 32, "ordinary_support": 8, "runtime_candidate_support": 11, "trace_trajectory_eval_support": 14, "unit_contract_property_test": 63, "unsafe_side_effect_script": 4}`
+- Review status: `{"candidate_only": 11, "not_eval_relevant": 8, "reviewed_forbidden": 4, "rule_reviewed": 572}`
 
 ## Runtime Adoption
 
@@ -137,7 +140,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 - Git repos: 16
 - Dirty repos: 7
 - MCP selected root: `/home/dionysus/src/abyss-stack`
-- .aoa freshness status: `failed`
+- .aoa freshness status: `ok`
 
 ## Phase Coverage
 
@@ -152,3 +155,4 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 | 7 | implemented_owner_gate_contract | local_to_central_promotion_path |
 | 8 | implemented_runnable_sentinel | freshness_sentinel + check_eval_freshness_sentinel.py |
 | 9 | implemented_design_forge_router | eval_forge_readiness + eval_forge_route.py |
+| 10 | implemented_session_readiness_gate | check_eval_forge_readiness.py + docs/guides/EVAL_FORGE_READINESS_LAYER.md |

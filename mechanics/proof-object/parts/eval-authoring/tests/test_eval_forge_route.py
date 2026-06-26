@@ -256,3 +256,44 @@ def test_eval_forge_cli_outputs_json_for_real_packet() -> None:
     assert payload["schema_version"] == "eval_forge_route_v1"
     assert payload["selected_archetype_id"] == "aoa-skills-trigger-eval"
     assert payload["worksheet"]["proof_authority"] is False
+
+
+def test_real_session_packets_and_routes_remain_candidate_only() -> None:
+    forge = load_forge_module()
+    packet_dir = REPO_ROOT / "mechanics/audit/parts/candidate-readers/packets/session-mining"
+
+    packet_paths = sorted(packet_dir.glob("*.eval_candidate.json"))
+    assert packet_paths
+
+    for packet_path in packet_paths:
+        packet = json.loads(packet_path.read_text(encoding="utf-8"))
+
+        assert packet["candidate_only"] is True
+        assert packet["proof_authority"] is False
+        assert packet["promotion_allowed"] is False
+        assert "central_proof_promotion" in packet["forbidden_effects"]
+
+        case = forge.candidate_packet_case(packet, packet_path=packet_path.as_posix())
+        payload = forge.build_forge_route(case=case, repo_root=REPO_ROOT)
+
+        assert payload["worksheet"]["proof_authority"] is False
+        assert payload["worksheet"]["promotion_allowed"] is False
+        assert "candidate_auto_acceptance" in payload["forbidden_actions"]
+        assert payload["scaffold_posture"].get("write_allowed") is False
+
+
+def test_criteria_worksheet_example_validates_and_remains_non_proof() -> None:
+    forge = load_forge_module()
+    worksheet_path = (
+        PART_ROOT
+        / "examples/aoa_eval_criteria_before_mining.eval_design_worksheet.example.json"
+    )
+    schema_path = PART_ROOT / "schemas/eval-design-worksheet.schema.json"
+
+    worksheet = json.loads(worksheet_path.read_text(encoding="utf-8"))
+    errors = forge.validate_json(worksheet, schema_path)
+
+    assert errors == []
+    assert worksheet["selected_archetype_id"] == "human-review-rubric"
+    assert worksheet["proof_authority"] is False
+    assert worksheet["promotion_allowed"] is False

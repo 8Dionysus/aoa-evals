@@ -59,35 +59,32 @@
     "aoa_root": "/srv/AbyssOS/.aoa",
     "authority_boundary": ".aoa provides session evidence and candidate-only refs, not reviewed eval truth.",
     "freshness_hints": {
-      "line_count": 1751,
+      "line_count": 1716,
       "mentions_indexed_archive_freshness": false,
       "mentions_stale": true
     },
     "json_summary": {
-      "agent_action": "run_maintenance_before_graph_search",
-      "can_use_graph_search": false,
-      "diagnostics": [
-        "graph_maintenance_needed",
-        "graph_source_ledger_coverage_gap"
-      ],
-      "exact_next_command": "python3 scripts/aoa_session_memory.py graph-maintenance all --workspace-root /srv/AbyssOS --aoa-root /srv/AbyssOS/.aoa --use-queue --apply --write-report",
+      "agent_action": "run_live_catchup_for_recent_live",
+      "can_use_graph_search": true,
+      "diagnostics": [],
+      "exact_next_command": "python3 scripts/aoa_session_memory.py index-maintenance '2026-06-11__006__\u0443-\u043c\u0435\u043d\u044f-\u0441\u043a\u043b\u0430\u0434\u044b\u0432\u0430\u0435\u0442\u0441\u044f-\u0432\u043f\u0435\u0447\u0430\u0442\u043b\u0435\u043d\u0438\u0435-\u0447\u0442\u043e-\u0434\u043b\u044f-\u0432\u0441\u0435\u0445' --workspace-root /srv/AbyssOS --aoa-root /srv/AbyssOS/.aoa --apply --skip-graph-repair --skip-token-accounting --write-report",
       "live_catchup_pending": true,
-      "live_tail_next_ready_at": "2026-06-26T03:56:17Z",
-      "live_tail_ready_count": 0,
-      "live_tail_status": "waiting_for_quiet_window",
-      "live_tail_waiting_count": 1,
+      "live_tail_next_ready_at": "2026-06-26T04:59:11Z",
+      "live_tail_ready_count": 1,
+      "live_tail_status": "ready_for_catchup",
+      "live_tail_waiting_count": 2,
       "maintenance_required": true,
-      "next_action_id": "repair_graph_queue",
-      "next_action_reason": "graph_dirty_or_missing_sources",
-      "ok": false,
-      "recommendation": "run_maintenance",
-      "route_status": "needs_attention"
+      "next_action_id": "run_live_catchup",
+      "next_action_reason": "deferred_live_ready_for_bounded_catchup",
+      "ok": true,
+      "recommendation": "run_live_catchup",
+      "route_status": "current"
     },
-    "next_route": "python3 scripts/aoa_session_memory.py graph-maintenance all --workspace-root /srv/AbyssOS --aoa-root /srv/AbyssOS/.aoa --use-queue --apply --write-report",
-    "returncode": 1,
-    "status": "failed",
+    "next_route": "python3 scripts/aoa_session_memory.py index-maintenance '2026-06-11__006__\u0443-\u043c\u0435\u043d\u044f-\u0441\u043a\u043b\u0430\u0434\u044b\u0432\u0430\u0435\u0442\u0441\u044f-\u0432\u043f\u0435\u0447\u0430\u0442\u043b\u0435\u043d\u0438\u0435-\u0447\u0442\u043e-\u0434\u043b\u044f-\u0432\u0441\u0435\u0445' --workspace-root /srv/AbyssOS --aoa-root /srv/AbyssOS/.aoa --apply --skip-graph-repair --skip-token-accounting --write-report",
+    "returncode": 0,
+    "status": "ok",
     "stderr_line_count": 0,
-    "stdout_line_count": 1751
+    "stdout_line_count": 1716
   },
   "authority_boundary": "This generated read-model routes OS Abyss eval pressure. It is not a verdict, score, baseline, regression, receipt, or central proof acceptance surface.",
   "candidate_packet_import": {
@@ -932,7 +929,7 @@
       }
     ],
     "external_pattern_grounding_ref": "mechanics/proof-object/parts/eval-authoring/config/external-pattern-grounding.json",
-    "external_patterns_count": 9,
+    "external_patterns_count": 12,
     "local_port_pressure_hint_command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --json",
     "registry_ref": "mechanics/proof-object/parts/eval-authoring/config/eval-archetypes.json",
     "registry_validation": {
@@ -974,20 +971,20 @@
       "by_classification": {
         "builder_or_projection": 5,
         "builder_with_check_mode": 16,
-        "deterministic_script_validator": 245,
+        "deterministic_script_validator": 246,
         "deterministic_test": 63,
         "deterministic_validator": 226,
-        "generated_readmodel_test": 8,
+        "generated_readmodel_test": 9,
         "script_support": 16,
         "trace_eval_test": 14
       },
       "by_kind": {
-        "script": 282,
-        "test": 85,
+        "script": 283,
+        "test": 86,
         "validator": 226
       },
       "by_lane": {
-        "advisory": 32,
+        "advisory": 34,
         "generated": 52,
         "latest_sibling": 2,
         "mechanics_part_local": 51,
@@ -996,8 +993,8 @@
         "source_fast": 439
       },
       "by_recommended_route": {
-        "apply_as_deterministic_eval_support": 465,
-        "candidate_only_eval_support": 10,
+        "apply_as_deterministic_eval_support": 466,
+        "candidate_only_eval_support": 11,
         "component_only_use_owning_validator_or_lane_command": 83,
         "forbidden_as_eval_apply_until_manual_owner_review": 4,
         "generated_readmodel_support": 6,
@@ -1005,23 +1002,23 @@
         "run_check_mode_before_eval_support": 17
       },
       "by_review_status": {
-        "candidate_only": 10,
+        "candidate_only": 11,
         "not_eval_relevant": 8,
         "reviewed_forbidden": 4,
-        "rule_reviewed": 571
+        "rule_reviewed": 572
       },
       "by_semantic_class": {
         "deterministic_validator": 463,
-        "generated_parity_check": 31,
+        "generated_parity_check": 32,
         "ordinary_support": 8,
-        "runtime_candidate_support": 10,
+        "runtime_candidate_support": 11,
         "trace_trajectory_eval_support": 14,
         "unit_contract_property_test": 63,
         "unsafe_side_effect_script": 4
       },
-      "eval_lane_relevant": 427,
-      "safe_to_apply_directly": 465,
-      "total_surfaces": 593,
+      "eval_lane_relevant": 429,
+      "safe_to_apply_directly": 466,
+      "total_surfaces": 595,
       "unsafe_side_effect_scripts": 4
     }
   },
@@ -1070,6 +1067,27 @@
       "url": "https://www.promptfoo.dev/docs/guides/evaluate-coding-agents/"
     },
     {
+      "adopted": "MCP write-capable tools need explicit safety boundaries, least-privilege scope, consent posture, and validation; access-plane responses should make side effects visible.",
+      "checked_at_utc": "2026-06-26T00:00:00Z",
+      "rejected": "Do not let an MCP adapter become proof authority, arbitrary code execution, or a hidden write plane.",
+      "source": "Model Context Protocol security best practices",
+      "url": "https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices"
+    },
+    {
+      "adopted": "Treat tools as potentially arbitrary code and require clear user/tool safety expectations before invocation.",
+      "checked_at_utc": "2026-06-26T00:00:00Z",
+      "rejected": "Do not rely on tool descriptions or generated readouts as trusted proof without owner validation.",
+      "source": "Model Context Protocol 2025-06-18 specification",
+      "url": "https://modelcontextprotocol.io/specification/2025-06-18"
+    },
+    {
+      "adopted": "Use secure-by-default implementation rigor, practical validation tools, and deployment-specific threat controls for MCP in high-stakes agentic systems.",
+      "checked_at_utc": "2026-06-26T00:00:00Z",
+      "rejected": "Do not widen OS Abyss MCP writes without a new decision, validation route, and explicit proof-owner boundary.",
+      "source": "NSA MCP Security Design Considerations",
+      "url": "https://media.defense.gov/2026/Jun/02/2003943289/-1/-1/0/CSI_MCP_SECURITY.PDF"
+    },
+    {
       "adopted": "Represent future runnable evals as tasks with datasets, solvers or agents, tools, scorers, logs, and isolation boundaries.",
       "checked_at_utc": "2026-06-26T00:00:00Z",
       "rejected": "Do not run write-capable eval support without an explicit check, dry-run, or sandbox route.",
@@ -1096,29 +1114,29 @@
     "current_signals": {
       "aoa_freshness_status": {
         "freshness_hints": {
-          "line_count": 1751,
+          "line_count": 1716,
           "mentions_indexed_archive_freshness": false,
           "mentions_stale": true
         },
-        "status": "failed"
+        "status": "ok"
       },
       "dirty_repos": [
         {
-          "branch": "codex/tos-philosophy-graph-projection",
-          "dirty_count": 13,
-          "head": "57d28d7212c39b715c592f0336b77d284b010ade",
+          "branch": "codex/tos-graph-review-loop",
+          "dirty_count": 17,
+          "head": "44bff7da30584ecf34921b3584af1e5572d28659",
           "repo": "Tree-of-Sophia"
         },
         {
-          "branch": "codex/eval-session-readiness-landing",
-          "dirty_count": 50,
-          "head": "5730db416f1d6dd9e9fe84dbdc79d0dc5e34584c",
+          "branch": "main",
+          "dirty_count": 20,
+          "head": "f3e861d422db2c8759c09354fcdd9774f26ce602",
           "repo": "aoa-evals"
         },
         {
           "branch": "codex/aoa-kag-projection-validator-split",
-          "dirty_count": 21,
-          "head": "94edc76b5cd84e77b767d4d9d0899594a02a37ae",
+          "dirty_count": 23,
+          "head": "ad4b0a3913a4972f0b8d0696db67668bc40e0f0c",
           "repo": "aoa-kag"
         },
         {
@@ -1172,20 +1190,20 @@
         "by_classification": {
           "builder_or_projection": 5,
           "builder_with_check_mode": 16,
-          "deterministic_script_validator": 245,
+          "deterministic_script_validator": 246,
           "deterministic_test": 63,
           "deterministic_validator": 226,
-          "generated_readmodel_test": 8,
+          "generated_readmodel_test": 9,
           "script_support": 16,
           "trace_eval_test": 14
         },
         "by_kind": {
-          "script": 282,
-          "test": 85,
+          "script": 283,
+          "test": 86,
           "validator": 226
         },
         "by_lane": {
-          "advisory": 32,
+          "advisory": 34,
           "generated": 52,
           "latest_sibling": 2,
           "mechanics_part_local": 51,
@@ -1194,8 +1212,8 @@
           "source_fast": 439
         },
         "by_recommended_route": {
-          "apply_as_deterministic_eval_support": 465,
-          "candidate_only_eval_support": 10,
+          "apply_as_deterministic_eval_support": 466,
+          "candidate_only_eval_support": 11,
           "component_only_use_owning_validator_or_lane_command": 83,
           "forbidden_as_eval_apply_until_manual_owner_review": 4,
           "generated_readmodel_support": 6,
@@ -1203,23 +1221,23 @@
           "run_check_mode_before_eval_support": 17
         },
         "by_review_status": {
-          "candidate_only": 10,
+          "candidate_only": 11,
           "not_eval_relevant": 8,
           "reviewed_forbidden": 4,
-          "rule_reviewed": 571
+          "rule_reviewed": 572
         },
         "by_semantic_class": {
           "deterministic_validator": 463,
-          "generated_parity_check": 31,
+          "generated_parity_check": 32,
           "ordinary_support": 8,
-          "runtime_candidate_support": 10,
+          "runtime_candidate_support": 11,
           "trace_trajectory_eval_support": 14,
           "unit_contract_property_test": 63,
           "unsafe_side_effect_script": 4
         },
-        "eval_lane_relevant": 427,
-        "safe_to_apply_directly": 465,
-        "total_surfaces": 593,
+        "eval_lane_relevant": 429,
+        "safe_to_apply_directly": 466,
+        "total_surfaces": 595,
         "unsafe_side_effect_scripts": 4
       }
     },
@@ -1242,7 +1260,7 @@
       "support registry inventory parseability"
     ]
   },
-  "generated_at_utc": "2026-06-26T03:48:35Z",
+  "generated_at_utc": "2026-06-26T04:54:42Z",
   "layer": "aoa-evals",
   "local_eval_ports": {
     "authority_boundary": "Repo-local eval ports carry intake, suites, reports, and pressure evidence only. Central verdict, scoring, regression, proof doctrine, and central bundle adoption remain in aoa-evals.",
@@ -1329,15 +1347,17 @@
       "catalog_count": 39,
       "freshness": {
         "mirror_generated_at_utc": "2026-06-25T23:27:36+00:00",
-        "mirror_is_current": true,
-        "mirror_is_stale": false,
+        "mirror_is_current": false,
+        "mirror_is_stale": true,
         "mirror_latest_reader_mtime_utc": "2026-06-19T04:46:53+00:00",
         "mirror_source_git_commit": "5730db416f1d6dd9e9fe84dbdc79d0dc5e34584c",
-        "mirror_status": "current",
-        "notes": [],
+        "mirror_status": "stale",
+        "notes": [
+          "mirror manifest source_git_commit differs from source checkout"
+        ],
         "refresh_command": "scripts/aoa-sync-federation-surfaces --layer aoa-evals",
-        "source_git_commit": "5730db416f1d6dd9e9fe84dbdc79d0dc5e34584c",
-        "status": "source_with_current_mirror"
+        "source_git_commit": "f3e861d422db2c8759c09354fcdd9774f26ce602",
+        "status": "source_with_stale_mirror"
       },
       "mirror": {
         "exists": true,
@@ -1350,7 +1370,7 @@
       },
       "mirror_root": "/srv/AbyssOS/abyss-stack/Knowledge/federation/aoa-evals",
       "root_kind": "source",
-      "runtime_candidate_export_count": 936,
+      "runtime_candidate_export_count": 944,
       "runtime_candidate_template_count": 14,
       "schema": "aoa_evals_runtime_status_v1",
       "selected_root": "/srv/AbyssOS/aoa-evals",
@@ -1362,7 +1382,7 @@
     "source_path": "/home/dionysus/src/abyss-stack/mcp/services/aoa-evals-mcp/src",
     "status": "ok",
     "stderr_line_count": 0,
-    "stdout_line_count": 282
+    "stdout_line_count": 286
   },
   "owner_boundaries": [
     {
@@ -1436,6 +1456,11 @@
       "phase": 9,
       "status": "implemented_design_forge_router",
       "surface": "eval_forge_readiness + eval_forge_route.py"
+    },
+    {
+      "phase": 10,
+      "status": "implemented_session_readiness_gate",
+      "surface": "check_eval_forge_readiness.py + docs/guides/EVAL_FORGE_READINESS_LAYER.md"
     }
   ],
   "read_model_posture": {
@@ -1461,7 +1486,7 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
+            "aoa_freshness_status": "ok",
             "git_branch": "main",
             "git_head": "6e02452d9fbd5aa71111b771593c1e2742106e25",
             "mcp_status": "ok"
@@ -1469,7 +1494,7 @@
           "status": "warning",
           "warnings": [
             "repo_has_dirty_worktree",
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "active",
@@ -1499,7 +1524,7 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
+            "aoa_freshness_status": "ok",
             "git_branch": "main",
             "git_head": "8b2fc0272e144f49875397e25b6dbb48ba201056",
             "mcp_status": "ok"
@@ -1507,7 +1532,7 @@
           "status": "warning",
           "warnings": [
             "repo_has_dirty_worktree",
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "active",
@@ -1537,7 +1562,7 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
+            "aoa_freshness_status": "ok",
             "git_branch": "main",
             "git_head": "fd095d8bd6cbdc35132f443147e4f36d69cd95c8",
             "mcp_status": "ok"
@@ -1545,7 +1570,7 @@
           "status": "warning",
           "warnings": [
             "repo_has_dirty_worktree",
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "active",
@@ -1575,7 +1600,7 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
+            "aoa_freshness_status": "ok",
             "git_branch": "main",
             "git_head": "adb729af95c29084a8b1913d4760eb92ac1ccc37",
             "mcp_status": "ok"
@@ -1583,7 +1608,7 @@
           "status": "warning",
           "warnings": [
             "repo_has_dirty_worktree",
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "active",
@@ -1613,14 +1638,14 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
+            "aoa_freshness_status": "ok",
             "git_branch": "main",
             "git_head": "b5c9918d97661fed7c33abfbd7b35d9df93fdfb0",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "skeleton",
@@ -1650,14 +1675,14 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
+            "aoa_freshness_status": "ok",
             "git_branch": "main",
             "git_head": "89f2dba0250e353af059d0d09cab9fe38f4b0df7",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "skeleton",
@@ -1687,14 +1712,14 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
+            "aoa_freshness_status": "ok",
             "git_branch": "main",
             "git_head": "d730f17953c222e028fd259d23cfe1530ec8fa24",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "skeleton",
@@ -1724,14 +1749,14 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
+            "aoa_freshness_status": "ok",
             "git_branch": "main",
             "git_head": "c40b3a9d233244265319edd6b7da0942dd57cfd7",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "skeleton",
@@ -1761,15 +1786,15 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
-            "git_branch": "codex/tos-philosophy-graph-projection",
-            "git_head": "57d28d7212c39b715c592f0336b77d284b010ade",
+            "aoa_freshness_status": "ok",
+            "git_branch": "codex/tos-graph-review-loop",
+            "git_head": "44bff7da30584ecf34921b3584af1e5572d28659",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
             "repo_has_dirty_worktree",
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "skeleton",
@@ -1799,14 +1824,14 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
+            "aoa_freshness_status": "ok",
             "git_branch": "main",
             "git_head": "1790da93288a0fdc7c8e51407632e530191905bc",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "skeleton",
@@ -1836,15 +1861,15 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
+            "aoa_freshness_status": "ok",
             "git_branch": "codex/aoa-kag-projection-validator-split",
-            "git_head": "94edc76b5cd84e77b767d4d9d0899594a02a37ae",
+            "git_head": "ad4b0a3913a4972f0b8d0696db67668bc40e0f0c",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
             "repo_has_dirty_worktree",
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "skeleton",
@@ -1874,14 +1899,14 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
+            "aoa_freshness_status": "ok",
             "git_branch": "main",
             "git_head": "5ab6af214a480476ed2b944c62d99fdc9b3d0daf",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "skeleton",
@@ -1911,14 +1936,14 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
+            "aoa_freshness_status": "ok",
             "git_branch": "main",
             "git_head": "33a59b6b8b0157031d12b3cd50b06461ab1552b6",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "skeleton",
@@ -1948,14 +1973,14 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
+            "aoa_freshness_status": "ok",
             "git_branch": "main",
             "git_head": "eefa34c9deb8752d93dac6ac03aeaf8e74c11e3b",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "skeleton",
@@ -1985,14 +2010,14 @@
           "blocks": [],
           "blocks_eval_route": false,
           "refs": {
-            "aoa_freshness_status": "failed",
+            "aoa_freshness_status": "ok",
             "git_branch": "main",
             "git_head": "b5e38e08f1bbe73449acb8b272ea1fad0770524e",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "aoa_session_memory_freshness_unhealthy"
+            "aoa_evals_mcp_mirror_stale"
           ]
         },
         "inventory_status": "skeleton",
@@ -2048,6 +2073,8 @@
     "eval_catalog": "generated/eval_catalog.json",
     "eval_forge_archetype_registry": "mechanics/proof-object/parts/eval-authoring/config/eval-archetypes.json",
     "eval_forge_external_pattern_grounding": "mechanics/proof-object/parts/eval-authoring/config/external-pattern-grounding.json",
+    "eval_forge_readiness_check": "scripts/check_eval_forge_readiness.py",
+    "eval_forge_readiness_guide": "docs/guides/EVAL_FORGE_READINESS_LAYER.md",
     "eval_forge_router": "mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py",
     "eval_forge_worksheet_schema": "mechanics/proof-object/parts/eval-authoring/schemas/eval-design-worksheet.schema.json",
     "freshness_sentinel_command": "scripts/check_eval_freshness_sentinel.py",
@@ -2361,10 +2388,10 @@
         "status": "ok"
       },
       {
-        "branch": "codex/tos-philosophy-graph-projection",
-        "branch_status": "## codex/tos-philosophy-graph-projection",
-        "dirty_count": 13,
-        "head": "57d28d7212c39b715c592f0336b77d284b010ade",
+        "branch": "codex/tos-graph-review-loop",
+        "branch_status": "## codex/tos-graph-review-loop...origin/main",
+        "dirty_count": 17,
+        "head": "44bff7da30584ecf34921b3584af1e5572d28659",
         "repo": "Tree-of-Sophia",
         "repo_path": "/srv/AbyssOS/Tree-of-Sophia",
         "status": "ok"
@@ -2379,10 +2406,10 @@
         "status": "ok"
       },
       {
-        "branch": "codex/eval-session-readiness-landing",
-        "branch_status": "## codex/eval-session-readiness-landing",
-        "dirty_count": 50,
-        "head": "5730db416f1d6dd9e9fe84dbdc79d0dc5e34584c",
+        "branch": "main",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 20,
+        "head": "f3e861d422db2c8759c09354fcdd9774f26ce602",
         "repo": "aoa-evals",
         "repo_path": "/srv/AbyssOS/aoa-evals",
         "status": "ok"
@@ -2390,8 +2417,8 @@
       {
         "branch": "codex/aoa-kag-projection-validator-split",
         "branch_status": "## codex/aoa-kag-projection-validator-split",
-        "dirty_count": 21,
-        "head": "94edc76b5cd84e77b767d4d9d0899594a02a37ae",
+        "dirty_count": 23,
+        "head": "ad4b0a3913a4972f0b8d0696db67668bc40e0f0c",
         "repo": "aoa-kag",
         "repo_path": "/srv/AbyssOS/aoa-kag",
         "status": "ok"

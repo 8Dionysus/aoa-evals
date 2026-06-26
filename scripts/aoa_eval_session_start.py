@@ -208,6 +208,10 @@ def build_session_start_payload(
         "read_model_posture": dashboard.get("read_model_posture", {}),
         "session_entry_commands": [
             {
+                "purpose": "check the session-ready Eval Forge gate across freshness, ports, support classes, packets, MCP write receipts, and docs",
+                "command": "python scripts/check_eval_forge_readiness.py --json",
+            },
+            {
                 "purpose": "check OS Abyss eval freshness, mirror drift, and route blockers",
                 "command": "python scripts/check_eval_freshness_sentinel.py --json",
             },

@@ -149,9 +149,17 @@
 - [AOA-EV-D-0117 Report Index Validator Module Boundary](../AOA-EV-D-0117-report-index-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0117-report-index-validator-module-boundary.md`)
 - [AOA-EV-D-0218 Decision-index Validator Layer Split](../AOA-EV-D-0218-decision-index-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0218-decision-index-validator-layer-split.md`)
 
+## MCP write confinement
+
+- [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
+
 ## artifact/process
 
 - [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
+
+## candidate-only mining
+
+- [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 
 ## capability/permission
 
@@ -163,6 +171,14 @@
 ## comparison
 
 - [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
+
+## eval-forge readiness
+
+- [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
+
+## freshness drift
+
+- [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 
 ## generated/readout
 
@@ -180,6 +196,10 @@
 ## local memo port
 
 - [AOA-EV-D-0243 Local Memo Port](../AOA-EV-D-0243-local-memo-port.md) (`docs/decisions/AOA-EV-D-0243-local-memo-port.md`)
+
+## local-port boundary
+
+- [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 
 ## memory boundary
 

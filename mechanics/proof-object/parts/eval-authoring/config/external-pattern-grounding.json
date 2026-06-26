@@ -40,6 +40,24 @@
       "rejected": "Do not treat a coding agent as a one-shot text completion when file, shell, runtime, and state effects matter."
     },
     {
+      "source": "Model Context Protocol security best practices",
+      "url": "https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices",
+      "adopted": "MCP write-capable tools need explicit safety boundaries, least-privilege scope, consent posture, and validation; access-plane responses should make side effects visible.",
+      "rejected": "Do not let an MCP adapter become proof authority, arbitrary code execution, or a hidden write plane."
+    },
+    {
+      "source": "Model Context Protocol 2025-06-18 specification",
+      "url": "https://modelcontextprotocol.io/specification/2025-06-18",
+      "adopted": "Treat tools as potentially arbitrary code and require clear user/tool safety expectations before invocation.",
+      "rejected": "Do not rely on tool descriptions or generated readouts as trusted proof without owner validation."
+    },
+    {
+      "source": "NSA MCP Security Design Considerations",
+      "url": "https://media.defense.gov/2026/Jun/02/2003943289/-1/-1/0/CSI_MCP_SECURITY.PDF",
+      "adopted": "Use secure-by-default implementation rigor, practical validation tools, and deployment-specific threat controls for MCP in high-stakes agentic systems.",
+      "rejected": "Do not widen OS Abyss MCP writes without a new decision, validation route, and explicit proof-owner boundary."
+    },
+    {
       "source": "Inspect AI",
       "url": "https://inspect.aisi.org.uk/",
       "adopted": "Represent future runnable evals as tasks with datasets, solvers or agents, tools, scorers, logs, and isolation boundaries.",

@@ -12,20 +12,20 @@
     "by_classification": {
       "builder_or_projection": 5,
       "builder_with_check_mode": 16,
-      "deterministic_script_validator": 245,
+      "deterministic_script_validator": 246,
       "deterministic_test": 63,
       "deterministic_validator": 226,
-      "generated_readmodel_test": 8,
+      "generated_readmodel_test": 9,
       "script_support": 16,
       "trace_eval_test": 14
     },
     "by_kind": {
-      "script": 282,
-      "test": 85,
+      "script": 283,
+      "test": 86,
       "validator": 226
     },
     "by_lane": {
-      "advisory": 32,
+      "advisory": 34,
       "generated": 52,
       "latest_sibling": 2,
       "mechanics_part_local": 51,
@@ -34,8 +34,8 @@
       "source_fast": 439
     },
     "by_recommended_route": {
-      "apply_as_deterministic_eval_support": 465,
-      "candidate_only_eval_support": 10,
+      "apply_as_deterministic_eval_support": 466,
+      "candidate_only_eval_support": 11,
       "component_only_use_owning_validator_or_lane_command": 83,
       "forbidden_as_eval_apply_until_manual_owner_review": 4,
       "generated_readmodel_support": 6,
@@ -43,23 +43,23 @@
       "run_check_mode_before_eval_support": 17
     },
     "by_review_status": {
-      "candidate_only": 10,
+      "candidate_only": 11,
       "not_eval_relevant": 8,
       "reviewed_forbidden": 4,
-      "rule_reviewed": 571
+      "rule_reviewed": 572
     },
     "by_semantic_class": {
       "deterministic_validator": 463,
-      "generated_parity_check": 31,
+      "generated_parity_check": 32,
       "ordinary_support": 8,
-      "runtime_candidate_support": 10,
+      "runtime_candidate_support": 11,
       "trace_trajectory_eval_support": 14,
       "unit_contract_property_test": 63,
       "unsafe_side_effect_script": 4
     },
-    "eval_lane_relevant": 427,
-    "safe_to_apply_directly": 465,
-    "total_surfaces": 593,
+    "eval_lane_relevant": 429,
+    "safe_to_apply_directly": 466,
+    "total_surfaces": 595,
     "unsafe_side_effect_scripts": 4
   },
   "surfaces": [
@@ -1413,6 +1413,45 @@
       "side_effects": "stdout or JSON output only; checks candidate queue lifecycle routes and next actions without writing packet state, accepting proof, scoring, or promoting candidates",
       "source_truth_count": 3,
       "test_target": "tests/test_eval_candidate_queue_lifecycle.py"
+    },
+    {
+      "classification": "deterministic_script_validator",
+      "classification_evidence": [
+        "family: source_validator",
+        "owner_surface: docs/guides/EVAL_FORGE_READINESS_LAYER.md",
+        "side_effects: stdout or JSON output only; checks session-ready Eval Forge gates without syncing mirrors, mutating repos, writing local ports, accepting proof, scoring, promoting candidates, or widening MCP authority",
+        "validation_lane: advisory"
+      ],
+      "classification_rule": "runtime_or_session_candidate_signal",
+      "eval_lane_relevant": true,
+      "failure_route": null,
+      "family": "source_validator",
+      "focused_target": null,
+      "forbidden_interpretations": [
+        "reviewed_truth",
+        "central_proof_acceptance"
+      ],
+      "kind": "script",
+      "lane": "advisory",
+      "owner_surface": "docs/guides/EVAL_FORGE_READINESS_LAYER.md",
+      "path": "scripts/check_eval_forge_readiness.py",
+      "recommended_route": "candidate_only_eval_support",
+      "relevance_reasons": [
+        "eval",
+        "proof",
+        "candidate",
+        "trace",
+        "local_eval",
+        "freshness",
+        "session"
+      ],
+      "review_reason": "runtime/session/memory signal can seed candidates only and cannot become reviewed truth",
+      "review_status": "candidate_only",
+      "safe_to_apply_directly": false,
+      "semantic_class": "runtime_candidate_support",
+      "side_effects": "stdout or JSON output only; checks session-ready Eval Forge gates without syncing mirrors, mutating repos, writing local ports, accepting proof, scoring, promoting candidates, or widening MCP authority",
+      "source_truth_count": 6,
+      "test_target": "tests/test_eval_forge_readiness_check.py"
     },
     {
       "classification": "deterministic_script_validator",
@@ -10817,6 +10856,40 @@
       "review_status": "rule_reviewed",
       "safe_to_apply_directly": true,
       "semantic_class": "trace_trajectory_eval_support",
+      "side_effects": null,
+      "source_truth_count": null,
+      "test_target": null
+    },
+    {
+      "classification": "generated_readmodel_test",
+      "classification_evidence": [
+        "family: generated/read-model",
+        "owner_surface: scripts/check_eval_forge_readiness.py",
+        "coverage_authority: validation_lanes.advisory"
+      ],
+      "classification_rule": "test_family_generated_readmodel",
+      "eval_lane_relevant": true,
+      "failure_route": "Fix the Eval Forge readiness checker, docs entrypoint, dashboard inputs, MCP receipt markers, or candidate packet gates before treating eval-control as ready for a new agent session.",
+      "family": "generated/read-model",
+      "focused_target": "session-ready Eval Forge gate shape across freshness, dirty state, trigger rubric, manual mining packets, repo-local forge flow, MCP write receipts, support classification, drift model, UX entrypoints, and verification commands",
+      "forbidden_interpretations": [
+        "central_proof_acceptance"
+      ],
+      "kind": "test",
+      "lane": "advisory",
+      "owner_surface": "scripts/check_eval_forge_readiness.py",
+      "path": "tests/test_eval_forge_readiness_check.py",
+      "recommended_route": "apply_as_deterministic_eval_support",
+      "relevance_reasons": [
+        "eval",
+        "candidate",
+        "freshness",
+        "session"
+      ],
+      "review_reason": "test inventory entry constrains behavior through the owning test route",
+      "review_status": "rule_reviewed",
+      "safe_to_apply_directly": true,
+      "semantic_class": "generated_parity_check",
       "side_effects": null,
       "source_truth_count": null,
       "test_target": null

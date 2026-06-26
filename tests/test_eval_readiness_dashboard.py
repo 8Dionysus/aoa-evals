@@ -141,6 +141,18 @@ def test_dashboard_builds_living_readmodel_without_live_checks(tmp_path: Path) -
     assert forge["registry_validation"]["valid"] is True
     assert forge["archetype_count"] >= 18
     assert "aoa-skills-trigger-eval" in forge["archetype_ids"]
+    assert forge["front_door_surface_status"]["valid"] is True
+    assert forge["front_door_surface_status"]["proof_authority"] is False
+    assert forge["front_door_surface_status"]["promotion_allowed"] is False
+    assert forge["front_door_refs"]["operating_path_ref"].endswith("EVAL_FORGE_OPERATING_PATH.md")
+    assert forge["front_door_refs"]["session_mining_criteria_ref"].endswith("SESSION_MINING_CRITERIA.md")
+    assert forge["front_door_refs"]["local_port_decision_matrix_ref"].endswith("LOCAL_PORT_DECISION_MATRIX.md")
+    assert forge["front_door_refs"]["latest_route_review_report_ref"].endswith("2026-06-26-session-candidate-owner-review.md")
+    assert forge["front_door_refs"]["worksheet_example_ref"].endswith("aoa_eval_criteria_before_mining.eval_design_worksheet.example.json")
+    front_door_commands = {item["command"] for item in forge["front_door_commands"]}
+    assert "python scripts/aoa_eval_session_start.py --json" in front_door_commands
+    assert any("--local-port-repo" in command and "--local-port-inventory" in command for command in front_door_commands)
+    assert any("--write-worksheet" in command for command in front_door_commands)
     keyword_hint = {
         item["candidate_id"]: item for item in forge["candidate_archetype_hints"]
     }["packet:session:aoa-eval-keyword-mining-blindspot"]

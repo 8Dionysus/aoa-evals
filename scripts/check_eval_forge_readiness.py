@@ -188,6 +188,22 @@ def build_payload(
         ["Eval Forge Readiness Layer", "check_eval_forge_readiness.py"],
     )
     root_markers_ok, root_missing = file_contains(root_readme, ["Eval Forge Readiness Layer"])
+    forge_readiness = dashboard.get("eval_forge_readiness", {})
+    front_door_status = (
+        forge_readiness.get("front_door_surface_status", {})
+        if isinstance(forge_readiness, dict)
+        else {}
+    )
+    front_door_refs = (
+        forge_readiness.get("front_door_refs", {})
+        if isinstance(forge_readiness, dict)
+        else {}
+    )
+    front_door_commands = (
+        forge_readiness.get("front_door_commands", [])
+        if isinstance(forge_readiness, dict)
+        else []
+    )
 
     gates = [
         gate(
@@ -269,6 +285,19 @@ def build_payload(
             next_command="python scripts/check_eval_forge_readiness.py --json",
         ),
         gate(
+            "forge_front_door_surface_gate",
+            status="ok" if front_door_status.get("valid") is True else "error",
+            reason="Eval Forge front-door refs, commands, worksheet example, and route-review report are exposed",
+            evidence={
+                "front_door_refs": front_door_refs,
+                "front_door_commands": front_door_commands,
+                "missing_refs": front_door_status.get("missing_refs", []),
+                "proof_authority": front_door_status.get("proof_authority"),
+                "promotion_allowed": front_door_status.get("promotion_allowed"),
+            },
+            next_command="python scripts/aoa_eval_session_start.py --json",
+        ),
+        gate(
             "verification_shape_gate",
             status="ok" if not dashboard_shape_issues else "error",
             reason="readiness dashboard/support registry shape validates",
@@ -312,6 +341,13 @@ def build_payload(
             "local_eval_ports": local_summary,
             "candidate_queue": candidate_queue.get("summary"),
             "support_registry": support_registry.get("summary"),
+            "eval_forge_front_door": {
+                "surface_refs": front_door_refs,
+                "exact_commands": front_door_commands,
+                "surface_status": front_door_status,
+                "proof_authority": False,
+                "promotion_allowed": False,
+            },
         },
     }
 
@@ -330,6 +366,25 @@ def render_text(payload: dict[str, Any]) -> str:
         lines.append(f"- {item['status']} {item['id']}: {item['reason']}")
         if item.get("next_command"):
             lines.append(f"  next: `{item['next_command']}`")
+    front_door = (payload.get("dashboard_summary") or {}).get("eval_forge_front_door") or {}
+    lines.extend(["", "## Forge Front Door"])
+    refs = front_door.get("surface_refs") if isinstance(front_door, dict) else {}
+    if isinstance(refs, dict) and refs:
+        for label, ref in refs.items():
+            lines.append(f"- {label}: `{ref}`")
+    commands = front_door.get("exact_commands") if isinstance(front_door, dict) else []
+    if isinstance(commands, list) and commands:
+        lines.append("- exact commands:")
+        for item in commands:
+            if isinstance(item, dict):
+                lines.append(f"  - {item.get('purpose')}: `{item.get('command')}`")
+    if isinstance(front_door, dict):
+        lines.append(
+            "- proof authority: {proof}; promotion allowed: {promotion}".format(
+                proof=front_door.get("proof_authority"),
+                promotion=front_door.get("promotion_allowed"),
+            )
+        )
     lines.extend(["", "## Verification Commands"])
     for command in payload["verification_commands"]:
         lines.append(f"- `{command}`")

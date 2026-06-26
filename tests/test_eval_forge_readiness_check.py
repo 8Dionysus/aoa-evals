@@ -100,8 +100,17 @@ def test_eval_forge_readiness_check_builds_gate_packet(tmp_path: Path) -> None:
     assert gates["repo_local_forge_flow_gate"]["status"] == "ok"
     assert gates["mcp_write_side_gate"]["status"] == "ok"
     assert gates["support_classification_gate"]["status"] == "ok"
+    assert gates["forge_front_door_surface_gate"]["status"] == "ok"
+    assert gates["forge_front_door_surface_gate"]["evidence"]["proof_authority"] is False
+    assert gates["forge_front_door_surface_gate"]["evidence"]["promotion_allowed"] is False
     assert gates["verification_shape_gate"]["status"] == "ok"
     assert payload["dashboard_summary"]["local_eval_ports"]["with_local_port"] == 1
+    front_door = payload["dashboard_summary"]["eval_forge_front_door"]
+    assert front_door["surface_refs"]["operating_path_ref"].endswith("EVAL_FORGE_OPERATING_PATH.md")
+    assert front_door["surface_refs"]["worksheet_example_ref"].endswith("aoa_eval_criteria_before_mining.eval_design_worksheet.example.json")
+    assert front_door["proof_authority"] is False
+    assert front_door["promotion_allowed"] is False
+    assert any("--write-worksheet" in item["command"] for item in front_door["exact_commands"])
     assert "python scripts/check_eval_forge_readiness.py --json" in payload["verification_commands"]
 
     json.dumps(payload)

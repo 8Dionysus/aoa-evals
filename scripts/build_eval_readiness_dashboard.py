@@ -47,6 +47,23 @@ EVAL_FORGE_EXTERNAL_GROUNDING_RELATIVE = Path(
 EVAL_FORGE_WORKSHEET_SCHEMA_RELATIVE = Path(
     "mechanics/proof-object/parts/eval-authoring/schemas/eval-design-worksheet.schema.json"
 )
+EVAL_FORGE_OPERATING_PATH_RELATIVE = Path(
+    "mechanics/proof-object/parts/eval-authoring/docs/EVAL_FORGE_OPERATING_PATH.md"
+)
+EVAL_FORGE_SESSION_MINING_CRITERIA_RELATIVE = Path(
+    "mechanics/proof-object/parts/eval-authoring/docs/SESSION_MINING_CRITERIA.md"
+)
+EVAL_FORGE_LOCAL_PORT_MATRIX_RELATIVE = Path(
+    "mechanics/proof-object/parts/eval-authoring/docs/LOCAL_PORT_DECISION_MATRIX.md"
+)
+EVAL_FORGE_WORKSHEET_EXAMPLE_RELATIVE = Path(
+    "mechanics/proof-object/parts/eval-authoring/examples/"
+    "aoa_eval_criteria_before_mining.eval_design_worksheet.example.json"
+)
+EVAL_FORGE_ROUTE_REVIEW_REPORT_RELATIVE = Path(
+    "mechanics/proof-object/parts/eval-authoring/reports/eval-forge/"
+    "2026-06-26-session-candidate-owner-review.md"
+)
 MANUAL_SESSION_MINING_REPORT = (
     SESSION_MINING_REPORT_RELATIVE / "2026-06-25-aoa-eval-control.manual-review.md"
 )
@@ -74,6 +91,11 @@ SOURCE_OF_TRUTH = {
     "eval_forge_archetype_registry": EVAL_FORGE_REGISTRY_RELATIVE.as_posix(),
     "eval_forge_external_pattern_grounding": EVAL_FORGE_EXTERNAL_GROUNDING_RELATIVE.as_posix(),
     "eval_forge_worksheet_schema": EVAL_FORGE_WORKSHEET_SCHEMA_RELATIVE.as_posix(),
+    "eval_forge_operating_path": EVAL_FORGE_OPERATING_PATH_RELATIVE.as_posix(),
+    "eval_forge_session_mining_criteria": EVAL_FORGE_SESSION_MINING_CRITERIA_RELATIVE.as_posix(),
+    "eval_forge_local_port_matrix": EVAL_FORGE_LOCAL_PORT_MATRIX_RELATIVE.as_posix(),
+    "eval_forge_worksheet_example": EVAL_FORGE_WORKSHEET_EXAMPLE_RELATIVE.as_posix(),
+    "eval_forge_route_review_report": EVAL_FORGE_ROUTE_REVIEW_REPORT_RELATIVE.as_posix(),
     "manual_session_mining_report": MANUAL_SESSION_MINING_REPORT.as_posix(),
     "session_start_tool": "scripts/aoa_eval_session_start.py",
     "freshness_sentinel_command": "scripts/check_eval_freshness_sentinel.py",
@@ -1457,6 +1479,7 @@ def candidate_entry(
         "evidence_count": evidence_count,
         "review_gate": review_gate,
         "authority_boundary": boundary,
+        "proof_authority": False,
         "promotion_allowed": False,
     }
     if extra:
@@ -1805,6 +1828,61 @@ def build_eval_forge_readiness(
                 )
 
     external_grounding = load_external_research_grounding(evals_root)
+    front_door_refs = {
+        "operating_path_ref": EVAL_FORGE_OPERATING_PATH_RELATIVE.as_posix(),
+        "session_mining_criteria_ref": EVAL_FORGE_SESSION_MINING_CRITERIA_RELATIVE.as_posix(),
+        "local_port_decision_matrix_ref": EVAL_FORGE_LOCAL_PORT_MATRIX_RELATIVE.as_posix(),
+        "latest_route_review_report_ref": EVAL_FORGE_ROUTE_REVIEW_REPORT_RELATIVE.as_posix(),
+        "worksheet_example_ref": EVAL_FORGE_WORKSHEET_EXAMPLE_RELATIVE.as_posix(),
+        "candidate_packet_schema_ref": (
+            "mechanics/audit/parts/candidate-readers/schemas/"
+            "aoa-eval-candidate-packet.schema.json"
+        ),
+    }
+    missing_front_door_refs = [
+        ref for ref in front_door_refs.values() if not (evals_root / ref).is_file()
+    ]
+    front_door_commands = [
+        {
+            "purpose": "raise the per-session Eval Forge front door",
+            "command": "python scripts/aoa_eval_session_start.py --json",
+        },
+        {
+            "purpose": "check front-door readiness gates and blockers",
+            "command": "python scripts/check_eval_forge_readiness.py --json",
+        },
+        {
+            "purpose": "inspect active/skeleton/missing/invalid local eval ports",
+            "command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json",
+        },
+        {
+            "purpose": "validate imported candidate packets before review",
+            "command": "python scripts/validate_eval_candidate_packets.py mechanics/audit/parts/candidate-readers/packets",
+        },
+        {
+            "purpose": "route a session candidate packet through Eval Forge",
+            "command": (
+                "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py "
+                "--candidate-packet <path> --json"
+            ),
+        },
+        {
+            "purpose": "route one active local eval port through Eval Forge",
+            "command": (
+                "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py "
+                "--local-port-repo <repo_id> "
+                "--local-port-inventory /tmp/aoa_local_eval_ports.current.json "
+                "--workspace-root /srv/AbyssOS --json"
+            ),
+        },
+        {
+            "purpose": "write a non-proof owner-review worksheet only after admission gates",
+            "command": (
+                "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py "
+                "--candidate-packet <path> --write-worksheet <worksheet-path> --json"
+            ),
+        },
+    ]
     return {
         "schema_version": "os_abyss_eval_forge_readiness_v1",
         "authority_boundary": (
@@ -1814,13 +1892,27 @@ def build_eval_forge_readiness(
         "registry_ref": EVAL_FORGE_REGISTRY_RELATIVE.as_posix(),
         "worksheet_schema_ref": EVAL_FORGE_WORKSHEET_SCHEMA_RELATIVE.as_posix(),
         "external_pattern_grounding_ref": EVAL_FORGE_EXTERNAL_GROUNDING_RELATIVE.as_posix(),
+        "front_door_refs": front_door_refs,
+        "front_door_commands": front_door_commands,
+        "front_door_surface_status": {
+            "valid": not missing_front_door_refs,
+            "missing_refs": missing_front_door_refs,
+            "proof_authority": False,
+            "promotion_allowed": False,
+        },
         "router_command": (
             "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py "
             "--candidate-packet <path> --json"
         ),
         "local_port_pressure_hint_command": (
             "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py "
-            "--local-port-repo <repo_id> --json"
+            "--local-port-repo <repo_id> "
+            "--local-port-inventory /tmp/aoa_local_eval_ports.current.json "
+            "--workspace-root /srv/AbyssOS --json"
+        ),
+        "worksheet_write_command": (
+            "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py "
+            "--candidate-packet <path> --write-worksheet <worksheet-path> --json"
         ),
         "registry_validation": {
             "valid": not registry_errors,
@@ -2446,11 +2538,37 @@ def build_markdown(dashboard: dict[str, Any], support_registry: dict[str, Any]) 
             "",
             f"- Router command: `{eval_forge.get('router_command')}`",
             f"- Local-port command: `{eval_forge.get('local_port_pressure_hint_command')}`",
+            f"- Worksheet command: `{eval_forge.get('worksheet_write_command')}`",
             f"- Registry: `{eval_forge.get('registry_ref')}`",
             f"- Worksheet schema: `{eval_forge.get('worksheet_schema_ref')}`",
             f"- Archetype count: {eval_forge.get('archetype_count')}",
             f"- External pattern sources: {eval_forge.get('external_patterns_count')}",
             f"- Registry valid: {(eval_forge.get('registry_validation') or {}).get('valid')}",
+            "",
+        ]
+    )
+    lines.extend(["### Forge Front Door", ""])
+    front_door_refs = eval_forge.get("front_door_refs", {})
+    if isinstance(front_door_refs, dict):
+        for label, ref in front_door_refs.items():
+            lines.append(f"- {label}: `{ref}`")
+    front_door_status = eval_forge.get("front_door_surface_status", {})
+    if isinstance(front_door_status, dict):
+        lines.append(
+            "- proof authority: {proof}; promotion allowed: {promotion}; refs valid: {valid}".format(
+                proof=front_door_status.get("proof_authority"),
+                promotion=front_door_status.get("promotion_allowed"),
+                valid=front_door_status.get("valid"),
+            )
+        )
+    front_door_commands = eval_forge.get("front_door_commands", [])
+    if isinstance(front_door_commands, list) and front_door_commands:
+        lines.append("- exact commands:")
+        for item in front_door_commands:
+            if isinstance(item, dict):
+                lines.append(f"  - {item.get('purpose')}: `{item.get('command')}`")
+    lines.extend(
+        [
             "",
             markdown_row(["Candidate", "Decision", "Archetype", "Owner Route", "Promotion"]),
             markdown_row(["---", "---", "---", "---", "---"]),
@@ -2606,6 +2724,40 @@ def validate_dashboard_shape(payload: Any, support_payload: Any) -> list[str]:
             issues.append("eval_forge_readiness must expose at least 18 archetypes")
         if not forge.get("router_command") or "eval_forge_route.py" not in str(forge.get("router_command")):
             issues.append("eval_forge_readiness must expose eval_forge_route.py command")
+        front_door_refs = forge.get("front_door_refs")
+        required_front_door_ref_keys = {
+            "operating_path_ref",
+            "session_mining_criteria_ref",
+            "local_port_decision_matrix_ref",
+            "latest_route_review_report_ref",
+            "worksheet_example_ref",
+            "candidate_packet_schema_ref",
+        }
+        if not isinstance(front_door_refs, dict) or not required_front_door_ref_keys.issubset(front_door_refs):
+            issues.append("eval_forge_readiness must expose all front-door refs")
+        front_door_status = forge.get("front_door_surface_status")
+        if not isinstance(front_door_status, dict) or front_door_status.get("valid") is not True:
+            issues.append("eval_forge_readiness front-door surfaces must validate")
+        elif front_door_status.get("proof_authority") is not False or front_door_status.get("promotion_allowed") is not False:
+            issues.append("eval_forge_readiness front-door surfaces must stay non-proof")
+        front_door_commands = forge.get("front_door_commands")
+        if not isinstance(front_door_commands, list) or len(front_door_commands) < 7:
+            issues.append("eval_forge_readiness must expose front-door commands")
+        else:
+            command_text = "\n".join(str(item.get("command")) for item in front_door_commands if isinstance(item, dict))
+            required_commands = [
+                "aoa_eval_session_start.py --json",
+                "check_eval_forge_readiness.py --json",
+                "build_local_eval_port_inventory.py",
+                "validate_eval_candidate_packets.py mechanics/audit/parts/candidate-readers/packets",
+                "eval_forge_route.py --candidate-packet",
+                "eval_forge_route.py --local-port-repo",
+                "--write-worksheet",
+            ]
+            for required_command in required_commands:
+                if required_command not in command_text:
+                    issues.append(f"eval_forge_readiness missing front-door command: {required_command}")
+                    break
         hints = forge.get("candidate_archetype_hints")
         if not isinstance(hints, list):
             issues.append("eval_forge_readiness candidate_archetype_hints must be a list")

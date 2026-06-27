@@ -22,7 +22,7 @@
   "source_owner": "aoa-evals",
   "provenance_mode": "strict_source_linked",
   "derived_method": "source-linked local KAG receipt over eval bundles and proof report index",
-  "generated_or_authored": "generated_from_source",
+  "generated_or_authored": "authored_control",
   "status": "active",
   "owner_return_route": {
     "repo": "aoa-evals",
@@ -30,17 +30,17 @@
     "route_kind": "proof"
   },
   "freshness": {
-    "mode": "source_snapshot",
+    "mode": "validator_receipt",
     "state": "current",
-    "checked_ref": "evals/README.md"
+    "checked_ref": "kag/manifest.json"
   },
   "builder": {
-    "route": "eval report index builder",
-    "surface": "scripts/generate_eval_report_index.py"
+    "route": "local KAG provider authoring",
+    "surface": "kag/manifest.json"
   },
   "validator": {
-    "route": "scripts/validate_repo.py",
-    "lane": "owner-local"
+    "route": "aoa-kag:scripts/validate_kag.py",
+    "lane": "local-kag"
   },
   "storage_posture": {
     "git_surface": "receipt",

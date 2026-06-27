@@ -1,0 +1,61 @@
+{
+  "schema_version": "aoa-local-kag-record-v1",
+  "repo": "aoa-evals",
+  "local_id": "index:evals:source-surfaces",
+  "record_class": "index",
+  "source_refs": [
+    {
+      "repo": "aoa-evals",
+      "path": "generated/eval_report_index.min.json",
+      "source_class": "eval_source",
+      "role": "primary",
+      "authority": "derived_readmodel"
+    },
+    {
+      "repo": "aoa-evals",
+      "path": "evals/README.md",
+      "source_class": "eval_source",
+      "role": "owner_route",
+      "authority": "authored_source"
+    }
+  ],
+  "source_owner": "aoa-evals",
+  "provenance_mode": "strict_source_linked",
+  "derived_method": "source-linked local KAG index over eval bundles and proof report index",
+  "generated_or_authored": "generated_from_source",
+  "status": "active",
+  "owner_return_route": {
+    "repo": "aoa-evals",
+    "surface": "evals/README.md",
+    "route_kind": "proof"
+  },
+  "freshness": {
+    "mode": "source_snapshot",
+    "state": "current",
+    "checked_ref": "generated/eval_report_index.min.json"
+  },
+  "builder": {
+    "route": "eval report index builder",
+    "surface": "scripts/generate_eval_report_index.py"
+  },
+  "validator": {
+    "route": "scripts/validate_repo.py",
+    "lane": "owner-local"
+  },
+  "storage_posture": {
+    "git_surface": "portable_records",
+    "payload_class": "index",
+    "runtime_route": "source-repo"
+  },
+  "consumer_route": "aoa-kag registry",
+  "index_kind": "inventory",
+  "indexed_record_classes": [
+    "node",
+    "edge"
+  ],
+  "source_record_ids": [
+    "node:evals:eval-report-index",
+    "node:evals:eval-source-route",
+    "edge:evals:source-returns-to-owner"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": "aoa-local-kag-record-v1",
+  "repo": "aoa-evals",
+  "local_id": "receipt:validation:evals-provider",
+  "record_class": "receipt",
+  "source_refs": [
+    {
+      "repo": "aoa-evals",
+      "path": "generated/eval_report_index.min.json",
+      "source_class": "eval_source",
+      "role": "primary",
+      "authority": "derived_readmodel"
+    },
+    {
+      "repo": "aoa-evals",
+      "path": "evals/README.md",
+      "source_class": "eval_source",
+      "role": "owner_route",
+      "authority": "authored_source"
+    }
+  ],
+  "source_owner": "aoa-evals",
+  "provenance_mode": "strict_source_linked",
+  "derived_method": "source-linked local KAG receipt over eval bundles and proof report index",
+  "generated_or_authored": "generated_from_source",
+  "status": "active",
+  "owner_return_route": {
+    "repo": "aoa-evals",
+    "surface": "evals/README.md",
+    "route_kind": "proof"
+  },
+  "freshness": {
+    "mode": "source_snapshot",
+    "state": "current",
+    "checked_ref": "evals/README.md"
+  },
+  "builder": {
+    "route": "eval report index builder",
+    "surface": "scripts/generate_eval_report_index.py"
+  },
+  "validator": {
+    "route": "scripts/validate_repo.py",
+    "lane": "owner-local"
+  },
+  "storage_posture": {
+    "git_surface": "receipt",
+    "payload_class": "receipt",
+    "runtime_route": "source-repo"
+  },
+  "consumer_route": "aoa-kag registry",
+  "receipt_kind": "validation",
+  "result": "current",
+  "fallback_route": "scripts/validate_repo.py"
+}

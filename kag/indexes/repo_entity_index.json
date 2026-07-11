@@ -3482,6 +3482,20 @@
         "surface_state": "authored_source"
       },
       "entity_kind": "artifact",
+      "id": "entity:file:docs/architecture/local_eval_port_inventory.contract.v2.json:bb028b4238",
+      "label": "docs/architecture/local_eval_port_inventory.contract.v2.json",
+      "source_record_id": "file:docs/architecture/local_eval_port_inventory.contract.v2.json:bb028b4238"
+    },
+    {
+      "coordinates": {
+        "artifact_kind": "config",
+        "code_role": "none",
+        "command_role": "none",
+        "document_role": "none",
+        "mechanics_role": "none",
+        "surface_state": "authored_source"
+      },
+      "entity_kind": "artifact",
       "id": "entity:file:docs/architecture/topology_contract.yaml:eff04284bf",
       "label": "docs/architecture/topology_contract.yaml",
       "source_record_id": "file:docs/architecture/topology_contract.yaml:eff04284bf"
@@ -6915,6 +6929,20 @@
       "id": "entity:file:docs/decisions/aoa-ev-d-0244-eval-forge-readiness-layer.md:444cdb8632",
       "label": "docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md",
       "source_record_id": "file:docs/decisions/aoa-ev-d-0244-eval-forge-readiness-layer.md:444cdb8632"
+    },
+    {
+      "coordinates": {
+        "artifact_kind": "document",
+        "code_role": "none",
+        "command_role": "none",
+        "document_role": "decision",
+        "mechanics_role": "none",
+        "surface_state": "authored_source"
+      },
+      "entity_kind": "decision",
+      "id": "entity:file:docs/decisions/aoa-ev-d-0245-local-eval-suite-execution-contract.md:385a4fa3cd",
+      "label": "docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md",
+      "source_record_id": "file:docs/decisions/aoa-ev-d-0245-local-eval-suite-execution-contract.md:385a4fa3cd"
     },
     {
       "coordinates": {
@@ -22178,6 +22206,20 @@
     },
     {
       "coordinates": {
+        "artifact_kind": "schema",
+        "code_role": "none",
+        "command_role": "none",
+        "document_role": "none",
+        "mechanics_role": "part_schema",
+        "surface_state": "authored_source"
+      },
+      "entity_kind": "mechanic_part",
+      "id": "entity:file:mechanics/proof-object/parts/eval-authoring/schemas/local-eval-suite-execution.schema.json:6a783d8b44",
+      "label": "mechanics/proof-object/parts/eval-authoring/schemas/local-eval-suite-execution.schema.json",
+      "source_record_id": "file:mechanics/proof-object/parts/eval-authoring/schemas/local-eval-suite-execution.schema.json:6a783d8b44"
+    },
+    {
+      "coordinates": {
         "artifact_kind": "script",
         "code_role": "entrypoint",
         "command_role": "script",
@@ -30047,7 +30089,7 @@
   ],
   "index_identity": {
     "artifact_kind": "repository_entity_index",
-    "content_digest": "2962086a65ac47e5dcb367e26af5fe33855bea9ac59e1720c31f169169ae3dd6",
+    "content_digest": "c30f81418b61b4b0b875b7b2f563859e73cc964a17846b44db6cb766c758202b",
     "index_kind": "entity",
     "local_id": "index:repo-local:entities",
     "schema_ref": "aoa-kag:schemas/repo-local-kag-repository-index.schema.json"
@@ -30070,22 +30112,22 @@
   },
   "schema_version": "aoa-repo-local-kag-repository-index-v1",
   "source_index": {
-    "content_digest": "47ab1f4cdd6396d09e28c1b9aad4c8551e65a48b107c036bc2b13d0564fd87ad",
+    "content_digest": "63eae86c0cc09b899e9f526dc9189fb215e8cd8ef14dd393cfb3c90080c70f9d",
     "local_id": "index:repo-local:source-surfaces",
     "path": "kag/indexes/source_surface_index.json"
   },
   "summary": {
-    "entry_count": 2146,
+    "entry_count": 2149,
     "kind_counts": {
       "agent_route": 26,
-      "artifact": 277,
+      "artifact": 278,
       "code": 227,
       "command": 83,
       "contract": 39,
-      "decision": 250,
+      "decision": 251,
       "document": 396,
       "mechanic_package": 101,
-      "mechanic_part": 725,
+      "mechanic_part": 726,
       "owner_surface": 2,
       "readmodel": 20
     }

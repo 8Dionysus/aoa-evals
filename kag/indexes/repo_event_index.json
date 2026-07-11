@@ -2392,6 +2392,15 @@
       "event_kind": "decision_record",
       "event_role": "declaration",
       "heading_ref": null,
+      "id": "event:repo:fb87b323622387c3021b",
+      "observation_state": "declared",
+      "path": "docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md",
+      "source_record_id": "file:docs/decisions/aoa-ev-d-0245-local-eval-suite-execution-contract.md:385a4fa3cd"
+    },
+    {
+      "event_kind": "decision_record",
+      "event_role": "declaration",
+      "heading_ref": null,
       "id": "event:repo:c0cbdf32404855a2aa4f",
       "observation_state": "declared",
       "path": "docs/decisions/TEMPLATE.md",
@@ -3687,7 +3696,7 @@
   ],
   "index_identity": {
     "artifact_kind": "repository_event_index",
-    "content_digest": "97173a4b33e4b4152b892bd72be55ec932f411ab2f0960f1bcf13b22ff798c03",
+    "content_digest": "6aff902d9cb2bcb05e44548591eec353dc5bbe485527004f30d2fbc957fa4d3f",
     "index_kind": "event",
     "local_id": "index:repo-local:events",
     "schema_ref": "aoa-kag:schemas/repo-local-kag-repository-index.schema.json"
@@ -3712,15 +3721,15 @@
   },
   "schema_version": "aoa-repo-local-kag-repository-index-v1",
   "source_index": {
-    "content_digest": "47ab1f4cdd6396d09e28c1b9aad4c8551e65a48b107c036bc2b13d0564fd87ad",
+    "content_digest": "63eae86c0cc09b899e9f526dc9189fb215e8cd8ef14dd393cfb3c90080c70f9d",
     "local_id": "index:repo-local:source-surfaces",
     "path": "kag/indexes/source_surface_index.json"
   },
   "summary": {
-    "entry_count": 404,
+    "entry_count": 405,
     "kind_counts": {
       "command_run": 20,
-      "decision_record": 250,
+      "decision_record": 251,
       "generation_run": 17,
       "release_declaration": 7,
       "release_lane": 1,

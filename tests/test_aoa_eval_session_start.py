@@ -203,7 +203,16 @@ def test_session_start_payload_gives_agent_actionable_front_door() -> None:
     assert payload["promotion_review_route"]["promotion_allowed"] is False
     assert "human_acceptance" in payload["promotion_review_route"]["gates"]
     assert payload["read_model_posture"]["can_accept_proof"] is False
+    assert payload["local_suite_execution_boundary"]["execution_allowed"] is False
+    assert payload["local_suite_execution_boundary"]["owner_apply_required_for_ready"] is True
+    assert payload["local_suite_execution_boundary"]["readiness_scope"] == "source-contract-ready"
+    assert payload["local_suite_execution_boundary"]["runtime_reproducibility_proven"] is False
+    assert payload["local_suite_execution_boundary"]["jit_revalidation_required"] is True
+    assert payload["local_suite_execution_boundary"]["execution_receipt_required"] is True
+    assert payload["local_suite_execution_boundary"]["environment_capture_required"] is True
     assert payload["active_repo_routes"][0]["repo_id"] == "aoa-memo"
+    assert payload["active_repo_routes"][0]["suite_execution"]["state"] == "absent"
+    assert payload["active_repo_routes"][0]["suite_execution"]["execution_allowed"] is False
     assert payload["candidate_queue_routes"][0]["candidate_id"] == "packet:session:example"
     assert payload["candidate_queue_routes"][0]["packet_ref"].endswith("example.eval_candidate.json")
     assert payload["candidate_queue_routes"][0]["proof_authority"] is False

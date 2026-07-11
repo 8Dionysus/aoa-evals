@@ -78,20 +78,47 @@ from scattered memory. It also keeps authority layers separate:
 
 ## Current Applicability
 
-As of 2026-06-26:
+As of 2026-07-10:
 
 - Still valid: `aoa-evals` is the proof owner and the readiness layer is a
   routing/checking surface only.
 - Changed: agents should start eval-control work from
   `docs/guides/EVAL_FORGE_READINESS_LAYER.md` and
-  `scripts/check_eval_forge_readiness.py`.
+  `scripts/check_eval_forge_readiness.py`; local suite routing now reports the
+  `absent`/`invalid`/`stale`/`ready` execution state from AOA-EV-D-0245, where
+  ready means source-contract-ready and still requires owner/apply JIT
+  revalidation, environment capture, and an execution receipt.
 - Superseded by: none.
+
+## Review Log
+
+### 2026-07-10 - Add inspect-only local suite execution readiness
+
+- Previous assumption: suite-note presence was enough for the readiness layer
+  to suggest local apply.
+- New reality: only a source-contract-ready execution sidecar suggests
+  owner/apply; absent, invalid, and stale states route to design or repair, and
+  readiness itself never claims pinned runtime reproducibility.
+- Compatibility correction: Forge, dashboard, and promotion consumers
+  normalize v1/unknown inventory first; injected ready state becomes `absent`.
+- Portability correction: generated readiness and MCP-root paths name the
+  canonical owner checkout, never the implementation `.worktrees/` path.
+- Reason: readiness must not turn prose, malformed paths, or stale source
+  hashes into executable support.
+- Source surfaces updated: Eval Forge router, readiness dashboard/check,
+  session-start packet, promotion dry-run, local-port inventory v2, and their
+  owner docs.
+- Validation: focused Forge/readiness/session-start/promotion tests and
+  generated dashboard parity.
 
 ## Boundaries
 
 Do not infer that Eval Forge can accept proof, compute verdicts, set scores,
 mint baselines, promote candidates, mutate central bundles through MCP, or make
 session evidence reviewed truth.
+
+Do not infer that Eval Forge, readiness, dashboard, session-start, promotion
+review, inventory, generated readers, or MCP may execute local suite argv.
 
 Do not infer that a warning-free readiness check proves an eval claim. It proves
 that the routing layer is ready enough to choose the next owner surface.

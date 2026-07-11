@@ -55,6 +55,17 @@ def make_fake_stack(stack_root: Path) -> None:
     write_text(
         stack_root / "mcp/services/aoa-evals-mcp/src/aoa_evals_mcp/core.py",
         """
+        LOCAL_WRITE_ALLOWED_GLOBS = (
+            "evals/intake/*.eval_need.json",
+            "evals/suites/*.suite.md",
+            "evals/reports/*.report.md",
+            "evals/PORT.yaml status skeleton-to-active activation with first pressure",
+        )
+        LOCAL_NOTE_CONFIG = {
+            "suites": {"glob_suffix": ".suite.md"},
+            "reports": {"glob_suffix": ".report.md"},
+        }
+        LOCAL_SUITE_EXECUTION_READ_GLOB = "evals/suites/*.suite.json"
         WRITE_RECEIPT = {
             "write_receipt": {
                 "schema": "aoa_evals_local_write_receipt_v1",
@@ -98,7 +109,11 @@ def test_eval_forge_readiness_check_builds_gate_packet(tmp_path: Path) -> None:
     gates = {item["id"]: item for item in payload["gates"]}
     assert gates["manual_session_mining_gate"]["status"] == "ok"
     assert gates["repo_local_forge_flow_gate"]["status"] == "ok"
+    assert gates["local_suite_execution_gate"]["status"] == "ok"
+    assert gates["local_suite_execution_gate"]["evidence"]["owner_apply_required"] is True
     assert gates["mcp_write_side_gate"]["status"] == "ok"
+    assert gates["mcp_write_side_gate"]["evidence"]["suite_sidecar_read_marker_present"] is True
+    assert gates["mcp_write_side_gate"]["evidence"]["suite_sidecar_write_allowed"] is False
     assert gates["support_classification_gate"]["status"] == "ok"
     assert gates["forge_front_door_surface_gate"]["status"] == "ok"
     assert gates["forge_front_door_surface_gate"]["evidence"]["proof_authority"] is False

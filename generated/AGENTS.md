@@ -54,6 +54,17 @@ dashboard, support registry, runtime candidate readers, quest readers,
 part-local Agon registries, part-local RPG unlock proof cards, and the
 part-local Phase Alpha eval matrix aligned with their source surfaces.
 
+The readiness dashboard may project local suite execution state from the v2
+inventory contract. It keeps the exact `absent`/`invalid`/`stale`/`ready`
+vocabulary and `invalid > stale > ready > absent` aggregate priority, but it
+never executes `runner.argv`. A `.suite.md` note alone projects as `absent`.
+`ready` projects source-contract readiness only, never pinned-runtime
+reproducibility; the dashboard keeps canonical-owner and downstream
+JIT/environment/receipt requirements visible.
+Generated dashboard paths name the canonical `/srv/AbyssOS/aoa-evals` owner
+checkout, never an ephemeral `.worktrees/` implementation path. V1 or unknown
+inventory input is normalized to suite state `absent` before projection.
+
 ## Validation
 
 For generated-reader freshness, run the matching non-mutating checks:

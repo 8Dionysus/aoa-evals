@@ -65,9 +65,15 @@ python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS 
 python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --json
 ```
 
-Active ports can carry intake packets, suite notes, and report notes. Skeleton
-ports stay dormant until real pressure appears. A local port does not own
-verdicts, scoring, regression truth, or proof doctrine.
+Active ports can carry intake packets, suite notes, suite execution sidecars,
+and report notes. Skeleton ports stay dormant until real pressure appears. A
+`.suite.md` note is design pressure, not runnable support. Only a valid
+`local_eval_suite_execution_v1` sidecar in `ready` state may route onward to
+the repo owner or `aoa-eval-apply`. A local port does not own verdicts,
+scoring, regression truth, or proof doctrine. Here `ready` means
+`source-contract-ready`, not a pinned or reproducible runtime. Owner/apply must
+JIT-revalidate, capture interpreter/dependency/platform context, and write an
+execution receipt.
 
 ## Session Mining Flow
 
@@ -107,6 +113,11 @@ validation passed, whether `PORT.yaml` activation was needed/applied, and that
 proof authority, promotion, verdict, scoring, and central mutation remain
 false.
 
+The write side does not include `evals/suites/*.suite.json`. MCP, inventory,
+Eval Forge, readiness, dashboard, session-start, and promotion review may
+inspect suite execution metadata but never create the sidecar, refresh its
+hashes, or execute its argv.
+
 Future central bundle creation, evidence acceptance, verdict computation,
 regression scoring, receipt publication, non-stdio exposure, or writes outside
 repo-local `evals/` ports require a new decision.
@@ -139,11 +150,26 @@ Freshness is a gate, not a background concern. The readiness layer tracks:
 - support registry unsafe writers;
 - component-only validators;
 - active local port pressure;
+- local suite execution state and tracked-source freshness;
 - dirty repositories and branch drift.
 
 The source checkout remains stronger than a stale mirror. Raw/session evidence
 remains stronger than `.aoa` search output. Authored source remains stronger
 than generated dashboards.
+
+Suite execution state is exactly `absent`, `invalid`, `stale`, or `ready`,
+aggregated as `invalid > stale > ready > absent`. Invalid and stale block
+owner-local apply. Absent keeps a suite note in design/review routing. Ready
+exposes typed `python_pytest` argv to the owner/apply route without running it.
+Canonical owner identity comes from PORT plus Git common-dir/origin evidence,
+so a named worktree basename cannot redefine the owner. Readiness does not
+prove runtime reproducibility; JIT revalidation, environment capture, and
+receipt creation remain downstream owner/apply obligations.
+
+The builder may run from an isolated implementation worktree, but generated
+dashboard and MCP status paths remain canonicalized to
+`/srv/AbyssOS/aoa-evals`. An absolute `.worktrees/` path in generated output is
+validation drift, not portable source identity.
 
 ## Verification
 

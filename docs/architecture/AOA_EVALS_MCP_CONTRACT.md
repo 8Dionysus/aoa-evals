@@ -22,7 +22,7 @@ The proof authority remains:
 | --- | --- |
 | role | MCP contract for proof selection, inspection, expansion, eval-need proposal routing, local eval-port federation, gated local-port file writes, candidate evidence routing, candidate packet validation, stack runtime candidate export reading, mirror freshness status, and report skeleton preparation |
 | input | proof question, eval name, section key, comparison mode, eval-need proposal fields, candidate evidence refs, candidate evidence packet, runtime candidate export id, runtime template request, or freshness/status request |
-| output | compact source refs, generated reader context, existing-route matches, candidate-only eval-need proposal context, candidate-only evidence shape, candidate validation result, stack runtime candidate export metadata/detail, mirror freshness status, or report skeleton |
+| output | compact source refs, generated reader context, existing-route matches, candidate-only eval-need proposal context, candidate-only evidence shape, candidate validation result, stack runtime candidate export metadata/detail, mirror freshness status, local suite execution state, or report skeleton |
 | owner | `aoa-evals` owns this contract and proof authority; `abyss-stack` owns the runnable MCP service implementation |
 | next route | source bundle, generated reader builder, runtime-candidate reader, bundle-local review guide, or stack MCP package |
 | validation | root `AGENTS.md#verify`, `docs/AGENTS.md#validation`, generated-reader checks, runtime-candidate reader checks, and stack service tests |
@@ -57,7 +57,7 @@ MCP output is always weaker than the source bundle and its manifest.
 | `aoa-evals://local-ports` | workspace local eval-port registry with validation summaries and advisory route recommendations | sibling `evals/PORT.yaml` files, `aoa-evals` local-port validator, and local-port inventory read-model |
 | `aoa-evals://local-port/{repo}` | one repo-local eval port summary, pressure counts, validator issues, and advisory route key | sibling repo-local `evals/` port |
 | `aoa-evals://local-port/{repo}/intake` | local `eval_need_v1` intake packets | sibling repo-local `evals/intake/` |
-| `aoa-evals://local-port/{repo}/suites` | local suite notes | sibling repo-local `evals/suites/` |
+| `aoa-evals://local-port/{repo}/suites` | local suite notes plus inspect-only `absent`/`invalid`/`stale`/`ready` execution-sidecar metadata | sibling repo-local `evals/suites/` and central sidecar validator |
 | `aoa-evals://local-port/{repo}/reports` | local report notes | sibling repo-local `evals/reports/` |
 
 ## MCP Tools
@@ -95,6 +95,10 @@ MCP output is always weaker than the source bundle and its manifest.
 ## Stop Lines
 
 - Do not run general evals.
+- Do not invoke local suite `runner.argv`; only the selected repo owner or
+  `aoa-eval-apply` may invoke an exact validated argv after state is `ready`
+  and a just-in-time revalidation succeeds; that route captures environment
+  metadata and an execution receipt.
 - Do not compute verdicts.
 - Do not publish receipts.
 - Do not promote bundles.
@@ -174,11 +178,14 @@ semantics. Registry entries may expose status, pressure counts, central-name
 overlap, validation issues, and a route key such as
 `active_intake_select_then_apply_or_design` or `invalid_active_repair`.
 
-The stable producer/consumer shape for that inventory is locked in
-`docs/architecture/local_eval_port_inventory.contract.v1.json`. The JSON
-contract names the inventory schema version, summary keys, status vocabulary,
-route keys, discovery ignore policy, MCP surface names, and authority limits
-that `aoa-evals` and `aoa-evals-mcp` must keep aligned.
+The current producer/consumer shape for that inventory is locked in
+`docs/architecture/local_eval_port_inventory.contract.v2.json`. The v1 file
+remains a compatibility input. During rollout the stack MCP consumer must
+dual-read both contract/inventory schema versions. V1 entries map suite
+execution to `absent` and must never infer runnable from `suite_notes`, an
+injected `suite_execution.ready`, or an old runnable route key. Consumers
+normalize v1/unknown input before routing; v2 exposes the explicit suite
+execution state and aggregate priority.
 
 The route key is advisory. It helps the agent pick `aoa-eval-select`,
 `aoa-eval-apply`, `aoa-eval-design`, local repair, or no mutation. It is not
@@ -202,6 +209,36 @@ approve proposals, accept evidence, compute results, publish receipts, define
 scoring, declare regression state, or promote local bundles into `aoa-evals`.
 Central source bundle creation remains a separate `aoa-evals` source-authoring
 route.
+
+The AOA-EV-D-0241 write allowlist does not include
+`evals/suites/*.suite.json`. MCP may read validated sidecar metadata but must
+not create or replace a sidecar, refresh tracked-source hashes, or execute its
+runner. Widening that surface requires a separate decision.
+
+## Local Suite Execution Read Boundary
+
+`local_eval_suite_execution_v1` is a source contract owned by `aoa-evals` and
+stored in the sibling repo beside its `.suite.md` note. MCP may expose:
+
+- aggregate state `absent`, `invalid`, `stale`, or `ready`, with priority
+  `invalid > stale > ready > absent`;
+- sidecar ref, suite id, entrypoint ref, exact argv/cwd, timeout, accepted exit
+  codes, canonical owner identity, source-contract readiness scope, required
+  JIT/environment/receipt posture, and stale/validation diagnostics;
+- fixed `execution_allowed: false`, `proof_authority: false`, and
+  `promotion_allowed: false` on the MCP projection.
+
+Readability, schema validity, or `ready` state is not an instruction to run.
+`ready` means only `source-contract-ready`; it does not prove a pinned
+interpreter, dependency environment, or reproducible runtime. It only makes
+the owner/apply route discoverable. That stronger route must JIT-revalidate the
+sidecar and tracked hashes immediately before execution and capture environment
+metadata plus an execution receipt. MCP does none of those writes or execution
+steps.
+
+`entrypoint_ref` is repo-relative source identity; the final argv token is its
+path relative to `runner.cwd` and must resolve to that exact file. MCP exposes
+the validated pair but does not recompute it into an execution request.
 
 ## Refresh and Mirror Discipline
 

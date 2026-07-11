@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-evals/mechanics/proof-object/parts/eval-authoring/schemas/local-eval-suite-execution.schema.json",
+  "title": "aoa-evals local_eval_suite_execution_v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "suite_id",
+    "owner_repo",
+    "suite_note_ref",
+    "runner",
+    "entrypoint_ref",
+    "timeout_seconds",
+    "success_exit_codes",
+    "tracked_sources",
+    "auto_run_allowed",
+    "proof_authority",
+    "promotion_allowed",
+    "readiness_scope",
+    "runtime_reproducibility_proven",
+    "jit_revalidation_required",
+    "execution_receipt_required",
+    "environment_capture_required",
+    "authority_boundary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "local_eval_suite_execution_v1"
+    },
+    "suite_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "owner_repo": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "suite_note_ref": {
+      "type": "string",
+      "pattern": "^evals/suites/[a-z0-9]+(?:-[a-z0-9]+)*\\.suite\\.md$"
+    },
+    "runner": {
+      "type": "object",
+      "description": "Typed source execution intent. The validator enforces exact python|python3 [-B] -m pytest [allowlisted flags] <cwd-relative-entrypoint-arg> grammar, including only the fixed argv plugin-disable pair -p no:cacheprovider. Ambient pytest plugins, config, and environment remain unproven runtime inputs; this schema never authorizes execution.",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "argv",
+        "cwd"
+      ],
+      "properties": {
+        "kind": {
+          "const": "python_pytest"
+        },
+        "argv": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          }
+        },
+        "cwd": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        }
+      }
+    },
+    "entrypoint_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "description": "Canonical repo-relative source ref. The final argv token is its traversal-free path relative to runner.cwd and must resolve to this same file."
+    },
+    "timeout_seconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3600
+    },
+    "success_exit_codes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 16,
+      "uniqueItems": true,
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      }
+    },
+    "tracked_sources": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "kind",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "file",
+              "tree"
+            ]
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "auto_run_allowed": {
+      "const": false
+    },
+    "proof_authority": {
+      "const": false
+    },
+    "promotion_allowed": {
+      "const": false
+    },
+    "readiness_scope": {
+      "const": "source-contract-ready",
+      "description": "Ready constrains reviewed source shape and hashes only, not interpreter or dependency reproducibility."
+    },
+    "runtime_reproducibility_proven": {
+      "const": false,
+      "description": "This sidecar cannot prove a pinned or reproducible runtime."
+    },
+    "jit_revalidation_required": {
+      "const": true,
+      "description": "Owner/apply must revalidate schema, owner, paths, argv, and hashes immediately before execution."
+    },
+    "execution_receipt_required": {
+      "const": true,
+      "description": "Owner/apply records the observed invocation and outcome below central proof authority."
+    },
+    "environment_capture_required": {
+      "const": true,
+      "description": "Owner/apply captures interpreter, dependencies, platform, and other runtime identity needed to interpret the receipt."
+    },
+    "authority_boundary": {
+      "const": "owner-local execution support only; no verdict, scoring, regression, proof doctrine, proof acceptance, or promotion authority"
+    }
+  }
+}

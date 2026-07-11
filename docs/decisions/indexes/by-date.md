@@ -290,3 +290,7 @@
 ## 2026-06-26
 
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
+
+## 2026-07-10
+
+- [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)

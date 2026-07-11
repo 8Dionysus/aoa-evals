@@ -4,11 +4,13 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 from dataclasses import dataclass
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any, Sequence
+from urllib.parse import urlparse
 
 import yaml
 from jsonschema import Draft202012Validator
@@ -23,6 +25,15 @@ EVAL_NEED_SCHEMA = (
     / "eval-authoring"
     / "schemas"
     / "eval-need.schema.json"
+)
+LOCAL_SUITE_EXECUTION_SCHEMA = (
+    CONTRACT_ROOT
+    / "mechanics"
+    / "proof-object"
+    / "parts"
+    / "eval-authoring"
+    / "schemas"
+    / "local-eval-suite-execution.schema.json"
 )
 
 REQUIRED_PORT_FILES = (
@@ -99,12 +110,69 @@ LOCAL_NOTE_CONFIG = {
         "label": "local report note",
     },
 }
+LOCAL_SUITE_AUTHORITY_BOUNDARY = (
+    "owner-local execution support only; no verdict, scoring, regression, "
+    "proof doctrine, proof acceptance, or promotion authority"
+)
+LOCAL_SUITE_EXECUTION_STATES = ("absent", "invalid", "stale", "ready")
+LOCAL_SUITE_EXECUTION_AGGREGATE_PRIORITY = ("invalid", "stale", "ready", "absent")
+LOCAL_SUITE_READY_SCOPE = "source-contract-ready"
+LOCAL_SUITE_RUNTIME_BOUNDARY = (
+    "ready validates the reviewed source contract only; it does not prove a pinned "
+    "interpreter, dependency environment, or reproducible runtime"
+)
+LOCAL_SUITE_JIT_HANDOFF = (
+    "owner/apply must revalidate the sidecar and tracked hashes immediately before "
+    "execution, then capture the environment and an execution receipt"
+)
+SHELL_EXECUTABLES = {
+    "ash",
+    "bash",
+    "cmd",
+    "cmd.exe",
+    "dash",
+    "fish",
+    "ksh",
+    "powershell",
+    "powershell.exe",
+    "pwsh",
+    "sh",
+    "zsh",
+}
+SHELL_WRAPPER_EXECUTABLES = {"command", "env"}
+BUSYBOX_EXECUTABLES = {"busybox"}
+SHELL_METACHARACTER_RE = re.compile(r"[;&|<>`$\r\n\x00]")
+WINDOWS_ABSOLUTE_PATH_RE = re.compile(r"^[A-Za-z]:[\\/]")
+PYTHON_PYTEST_EXECUTABLES = {"python", "python3"}
+PYTHON_PYTEST_FLAGS = {
+    "-q",
+    "--quiet",
+    "-x",
+    "--exitfirst",
+    "--strict-markers",
+    "--strict-config",
+    "--disable-warnings",
+}
+PYTHON_PYTEST_VALUE_FLAG_RE = re.compile(
+    r"^(?:--maxfail=[1-9][0-9]{0,2}|--tb=(?:auto|long|short|line|native|no)|"
+    r"--color=(?:yes|no|auto)|-r[a-zA-Z]+)$"
+)
 
 
 @dataclass(frozen=True)
 class ValidationIssue:
     location: str
     message: str
+
+
+@dataclass(frozen=True)
+class RepoIdentity:
+    owner_repo: str
+    sources: tuple[str, ...]
+    common_dir: str | None
+    common_dir_owner: str | None
+    origin_owner: str | None
+    issues: tuple[str, ...]
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
@@ -129,6 +197,113 @@ def relative_location(path: Path, root: Path) -> str:
         return path.as_posix()
 
 
+def git_dir_from_marker(repo_root: Path) -> Path | None:
+    marker = repo_root / ".git"
+    if marker.is_dir():
+        return marker.resolve()
+    if not marker.is_file():
+        return None
+    try:
+        first_line = marker.read_text(encoding="utf-8").splitlines()[0]
+    except (IndexError, OSError, UnicodeDecodeError):
+        return None
+    if not first_line.startswith("gitdir:"):
+        return None
+    raw_path = first_line.removeprefix("gitdir:").strip()
+    if not raw_path:
+        return None
+    git_dir = Path(raw_path)
+    if not git_dir.is_absolute():
+        git_dir = repo_root / git_dir
+    return git_dir.resolve(strict=False)
+
+
+def git_common_dir(git_dir: Path) -> Path:
+    commondir_path = git_dir / "commondir"
+    try:
+        raw_path = commondir_path.read_text(encoding="utf-8").splitlines()[0].strip()
+    except (FileNotFoundError, IndexError, OSError, UnicodeDecodeError):
+        return git_dir
+    common_dir = Path(raw_path)
+    if not common_dir.is_absolute():
+        common_dir = git_dir / common_dir
+    return common_dir.resolve(strict=False)
+
+
+def repo_name_from_git_remote(url: str) -> str | None:
+    value = url.strip().rstrip("/")
+    if not value:
+        return None
+    if "://" in value:
+        path_text = urlparse(value).path
+    elif ":" in value and not WINDOWS_ABSOLUTE_PATH_RE.match(value):
+        path_text = value.rsplit(":", 1)[1]
+    else:
+        path_text = value
+    name = PurePosixPath(path_text.replace("\\", "/")).name
+    if name.endswith(".git"):
+        name = name[:-4]
+    return name or None
+
+
+def origin_owner_from_config(common_dir: Path) -> str | None:
+    try:
+        text = (common_dir / "config").read_text(encoding="utf-8")
+    except (FileNotFoundError, OSError, UnicodeDecodeError):
+        return None
+    match = re.search(
+        r'^\s*\[remote\s+"origin"\]\s*$'
+        r"(?P<body>.*?)(?=^\s*\[|\Z)",
+        text,
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    if match is None:
+        return None
+    url_match = re.search(r"^\s*url\s*=\s*(?P<url>.+?)\s*$", match.group("body"), re.MULTILINE)
+    return repo_name_from_git_remote(url_match.group("url")) if url_match else None
+
+
+def resolve_repo_identity(repo_root: Path) -> RepoIdentity:
+    repo_root = repo_root.resolve()
+    git_dir = git_dir_from_marker(repo_root)
+    if git_dir is None:
+        return RepoIdentity(
+            owner_repo=repo_root.name,
+            sources=("fallback_basename_nongit",),
+            common_dir=None,
+            common_dir_owner=None,
+            origin_owner=None,
+            issues=(),
+        )
+
+    common_dir = git_common_dir(git_dir)
+    common_owner = common_dir.parent.name if common_dir.name == ".git" else None
+    origin_owner = origin_owner_from_config(common_dir)
+    sources: list[str] = []
+    if common_owner:
+        sources.append("git_common_dir")
+    if origin_owner:
+        sources.append("git_origin")
+    if not sources:
+        sources.append("fallback_basename_unidentified_git")
+
+    identity_issues: list[str] = []
+    if common_owner and origin_owner and common_owner != origin_owner:
+        identity_issues.append(
+            "Git common-dir owner "
+            f"'{common_owner}' conflicts with origin owner '{origin_owner}'"
+        )
+    resolved_owner = origin_owner or common_owner or repo_root.name
+    return RepoIdentity(
+        owner_repo=resolved_owner,
+        sources=tuple(sources),
+        common_dir=common_dir.as_posix(),
+        common_dir_owner=common_owner,
+        origin_owner=origin_owner,
+        issues=tuple(identity_issues),
+    )
+
+
 def load_yaml_payload(path: Path, root: Path, issues: list[ValidationIssue]) -> Any | None:
     try:
         return yaml.safe_load(path.read_text(encoding="utf-8"))
@@ -146,6 +321,20 @@ def load_json_payload(path: Path, root: Path, issues: list[ValidationIssue]) -> 
         issues.append(ValidationIssue(relative_location(path, root), "file is missing"))
     except json.JSONDecodeError as exc:
         issues.append(ValidationIssue(relative_location(path, root), f"invalid JSON: {exc}"))
+    except UnicodeDecodeError as exc:
+        issues.append(
+            ValidationIssue(
+                relative_location(path, root),
+                f"invalid JSON: file must be UTF-8 text ({exc})",
+            )
+        )
+    except OSError as exc:
+        issues.append(
+            ValidationIssue(
+                relative_location(path, root),
+                f"invalid JSON sidecar: cannot read regular file ({exc})",
+            )
+        )
     return None
 
 
@@ -190,6 +379,537 @@ def format_schema_path(path_parts: Sequence[Any]) -> str:
 def eval_need_validator() -> Draft202012Validator:
     schema = json.loads(EVAL_NEED_SCHEMA.read_text(encoding="utf-8"))
     return Draft202012Validator(schema)
+
+
+def local_suite_execution_validator() -> Draft202012Validator:
+    schema = json.loads(LOCAL_SUITE_EXECUTION_SCHEMA.read_text(encoding="utf-8"))
+    return Draft202012Validator(schema)
+
+
+def compute_file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def compute_tree_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    for child in sorted(path.rglob("*"), key=lambda item: item.relative_to(path).as_posix()):
+        relative = child.relative_to(path).as_posix()
+        if child.is_symlink():
+            raise ValueError(f"tracked tree contains symlink: {relative}")
+        if child.is_dir():
+            digest.update(f"dir\0{relative}\n".encode("utf-8"))
+            continue
+        if not child.is_file():
+            raise ValueError(f"tracked tree contains non-regular path: {relative}")
+        child_digest = compute_file_sha256(child)
+        digest.update(f"file\0{relative}\0{child_digest}\n".encode("utf-8"))
+    return digest.hexdigest()
+
+
+def compute_tracked_source_sha256(path: Path, kind: str) -> str:
+    if kind == "file":
+        return compute_file_sha256(path)
+    if kind == "tree":
+        return compute_tree_sha256(path)
+    raise ValueError(f"unsupported tracked source kind: {kind}")
+
+
+def repo_relative_contract_path(
+    repo_root: Path,
+    value: Any,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+    allow_repo_root: bool = False,
+) -> Path | None:
+    if not isinstance(value, str) or not value:
+        issues.append(ValidationIssue(location, "path must be a non-empty repo-relative string"))
+        return None
+    if "\\" in value or value.startswith("~"):
+        issues.append(ValidationIssue(location, "path must use a repo-relative POSIX form"))
+        return None
+    pure = PurePosixPath(value)
+    if pure.is_absolute() or ".." in pure.parts:
+        issues.append(ValidationIssue(location, "path traversal is forbidden; use a repo-relative path"))
+        return None
+    if value != "." and any(part in {"", "."} for part in pure.parts):
+        issues.append(ValidationIssue(location, "path must use a normalized repo-relative form"))
+        return None
+    if value == "." and not allow_repo_root:
+        issues.append(ValidationIssue(location, "path must name a repo-relative surface, not the repo root"))
+        return None
+
+    candidate = repo_root if value == "." else repo_root.joinpath(*pure.parts)
+    symlink_component = first_symlink_component(repo_root, pure.parts)
+    if symlink_component is not None:
+        issues.append(ValidationIssue(location, f"symlink path components are forbidden: {symlink_component}"))
+        return None
+    try:
+        candidate.resolve(strict=False).relative_to(repo_root.resolve())
+    except ValueError:
+        issues.append(ValidationIssue(location, "path traversal is forbidden; target escapes repo root"))
+        return None
+    return candidate
+
+
+def first_symlink_component(repo_root: Path, parts: Sequence[str]) -> str | None:
+    cursor = repo_root
+    for part in parts:
+        cursor = cursor / part
+        if cursor.is_symlink():
+            try:
+                return cursor.relative_to(repo_root).as_posix()
+            except ValueError:
+                return cursor.as_posix()
+    return None
+
+
+def validate_shell_free_argv(
+    argv: Any,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+) -> None:
+    if not isinstance(argv, list) or not argv:
+        return
+    if not all(isinstance(item, str) and item for item in argv):
+        return
+    executable = Path(argv[0]).name.lower()
+    if executable in SHELL_EXECUTABLES:
+        issues.append(ValidationIssue(location, "runner.argv must be shell-free; shell executables are forbidden"))
+    if executable.startswith("python") and len(argv) > 1 and argv[1] == "-c":
+        issues.append(ValidationIssue(location, "runner.argv must be shell-free; inline interpreter code is forbidden"))
+    if executable in SHELL_WRAPPER_EXECUTABLES:
+        issues.append(ValidationIssue(location, "runner.argv must be shell-free; shell-dispatch wrappers are forbidden"))
+    if executable in BUSYBOX_EXECUTABLES:
+        issues.append(ValidationIssue(location, "runner.argv must be shell-free; busybox dispatch is forbidden"))
+    for index, item in enumerate(argv):
+        if SHELL_METACHARACTER_RE.search(item):
+            issues.append(
+                ValidationIssue(
+                    f"{location}[{index}]",
+                    "runner.argv must be shell-free; shell metacharacters are forbidden",
+                )
+            )
+
+
+def validate_python_pytest_runner(
+    runner: Any,
+    entrypoint_arg: str,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+) -> None:
+    if not isinstance(runner, dict) or runner.get("kind") != "python_pytest":
+        return
+    argv = runner.get("argv")
+    if not isinstance(argv, list) or not all(isinstance(item, str) for item in argv):
+        return
+    if len(argv) < 4:
+        issues.append(
+            ValidationIssue(
+                location,
+                "python_pytest runner argv must be <python|python3> [-B] -m pytest [allowed flags] <entrypoint_ref>",
+            )
+        )
+        return
+    module_index = 2 if len(argv) > 1 and argv[1] == "-B" else 1
+    flags_start = module_index + 2
+    if (
+        argv[0] not in PYTHON_PYTEST_EXECUTABLES
+        or argv[module_index:flags_start] != ["-m", "pytest"]
+    ):
+        issues.append(
+            ValidationIssue(
+                location,
+                "python_pytest runner permits only exact executable/module prefix: python or python3, optional -B, then -m pytest",
+            )
+        )
+    if argv[-1] != entrypoint_arg:
+        issues.append(
+            ValidationIssue(
+                location,
+                "python_pytest runner must place the runner.cwd-relative entrypoint argument exactly once as the final argv token",
+            )
+        )
+    if argv.count(entrypoint_arg) != 1:
+        issues.append(
+            ValidationIssue(
+                location,
+                "python_pytest runner must contain the runner.cwd-relative entrypoint argument exactly once",
+            )
+        )
+    index = flags_start
+    while index < len(argv) - 1:
+        flag = argv[index]
+        if flag == "-p" and index + 1 < len(argv) - 1:
+            if argv[index + 1] == "no:cacheprovider":
+                index += 2
+                continue
+            issues.append(
+                ValidationIssue(
+                    f"{location}.argv[{index}]",
+                    "python_pytest runner permits only the fixed plugin pair -p no:cacheprovider",
+                )
+            )
+            index += 2
+            continue
+        if flag in PYTHON_PYTEST_FLAGS or PYTHON_PYTEST_VALUE_FLAG_RE.fullmatch(flag):
+            index += 1
+            continue
+        issues.append(
+            ValidationIssue(
+                f"{location}.argv[{index}]",
+                f"python_pytest runner flag is outside the reviewed allowlist: {flag}",
+            )
+        )
+        index += 1
+
+
+def validate_runner_argv_paths_and_entrypoint(
+    argv: Any,
+    entrypoint_arg: str,
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+) -> None:
+    if not isinstance(argv, list) or not all(isinstance(item, str) for item in argv):
+        return
+    if entrypoint_arg not in argv:
+        issues.append(
+            ValidationIssue(
+                location,
+                "runner.argv must contain the runner.cwd-relative entrypoint argument exactly so owner/apply invocation resolves to the reviewed entrypoint_ref",
+            )
+        )
+    for index, item in enumerate(argv[1:], start=1):
+        if item.startswith("-"):
+            continue
+        pure = PurePosixPath(item)
+        if pure.is_absolute() or ".." in pure.parts or WINDOWS_ABSOLUTE_PATH_RE.match(item):
+            issues.append(
+                ValidationIssue(
+                    f"{location}[{index}]",
+                    "runner.argv path-like values must use normalized repo-relative path arguments without traversal",
+                )
+            )
+
+
+def tracked_source_covers_entrypoint(
+    entrypoint_ref: str,
+    tracked_path: str,
+    kind: str,
+) -> bool:
+    entrypoint = PurePosixPath(entrypoint_ref)
+    tracked = PurePosixPath(tracked_path)
+    if kind == "file":
+        return entrypoint == tracked
+    return entrypoint == tracked or tracked in entrypoint.parents
+
+
+def evaluate_local_suite_contract(
+    repo_root: Path,
+    path: Path,
+    *,
+    repo_identity: RepoIdentity | None = None,
+) -> dict[str, Any]:
+    repo_root = repo_root.resolve()
+    repo_identity = repo_identity or resolve_repo_identity(repo_root)
+    location = relative_location(path, repo_root)
+    issues: list[ValidationIssue] = []
+    stale_sources: list[dict[str, str]] = []
+    for identity_issue in repo_identity.issues:
+        issues.append(ValidationIssue(location, identity_issue))
+    try:
+        lexical_relative = path.absolute().relative_to(repo_root)
+    except ValueError:
+        issues.append(ValidationIssue(location, "suite execution sidecar must stay inside the repo root"))
+        lexical_relative = None
+    if lexical_relative is not None:
+        symlink_component = first_symlink_component(repo_root, lexical_relative.parts)
+        if symlink_component is not None:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    f"suite execution sidecar path must not contain a symlink: {symlink_component}",
+                )
+            )
+    if issues:
+        payload: Any = None
+    elif path.is_symlink():
+        issues.append(ValidationIssue(location, "suite execution sidecar must not be a symlink"))
+        payload = None
+    elif not path.is_file():
+        issues.append(
+            ValidationIssue(location, "suite execution sidecar must be a regular file")
+        )
+        payload = None
+    else:
+        payload = load_json_payload(path, repo_root, issues)
+
+    if isinstance(payload, dict):
+        validator = local_suite_execution_validator()
+        errors = sorted(
+            validator.iter_errors(payload),
+            key=lambda error: (list(error.absolute_path), error.message),
+        )
+        for error in errors:
+            error_path = format_schema_path(error.absolute_path)
+            message = f"schema violation at '{error_path}': {error.message}" if error_path else f"schema violation: {error.message}"
+            issues.append(ValidationIssue(location, message))
+    elif payload is not None:
+        issues.append(ValidationIssue(location, "suite execution sidecar must contain a JSON object"))
+
+    if not isinstance(payload, dict) or issues:
+        return {
+            "path": location,
+            "suite_id": payload.get("suite_id") if isinstance(payload, dict) else None,
+            "state": "invalid",
+            "readiness_scope": LOCAL_SUITE_READY_SCOPE,
+            "runtime_reproducibility_proven": False,
+            "runtime_boundary": LOCAL_SUITE_RUNTIME_BOUNDARY,
+            "jit_revalidation_required": True,
+            "execution_receipt_required": True,
+            "environment_capture_required": True,
+            "execution_handoff": LOCAL_SUITE_JIT_HANDOFF,
+            "runner": payload.get("runner") if isinstance(payload, dict) else None,
+            "issues": [{"location": issue.location, "message": issue.message} for issue in issues],
+            "stale_sources": [],
+        }
+
+    suite_id = str(payload["suite_id"])
+    expected_name = f"{suite_id}.suite.json"
+    if path.name != expected_name:
+        issues.append(ValidationIssue(location, f"filename must be '{expected_name}'"))
+    expected_note_ref = f"evals/suites/{suite_id}.suite.md"
+    if payload["suite_note_ref"] != expected_note_ref:
+        issues.append(ValidationIssue(location, f"suite_note_ref must be '{expected_note_ref}'"))
+    if payload["owner_repo"] != repo_identity.owner_repo:
+        issues.append(
+            ValidationIssue(
+                location,
+                "owner_repo must match canonical repo identity "
+                f"'{repo_identity.owner_repo}', not worktree basename '{repo_root.name}'",
+            )
+        )
+    if payload["authority_boundary"] != LOCAL_SUITE_AUTHORITY_BOUNDARY:
+        issues.append(ValidationIssue(location, "authority_boundary must preserve the owner-local non-proof boundary"))
+
+    suite_note_path = repo_relative_contract_path(
+        repo_root,
+        payload["suite_note_ref"],
+        location=f"{location}:suite_note_ref",
+        issues=issues,
+    )
+    if suite_note_path is not None and not suite_note_path.is_file():
+        issues.append(ValidationIssue(f"{location}:suite_note_ref", "referenced suite note is missing"))
+
+    runner = payload["runner"]
+    validate_shell_free_argv(runner["argv"], location=f"{location}:runner.argv", issues=issues)
+    cwd_path = repo_relative_contract_path(
+        repo_root,
+        runner["cwd"],
+        location=f"{location}:runner.cwd",
+        issues=issues,
+        allow_repo_root=True,
+    )
+    if cwd_path is not None and not cwd_path.is_dir():
+        issues.append(ValidationIssue(f"{location}:runner.cwd", "runner cwd must be an existing directory"))
+
+    entrypoint_ref = str(payload["entrypoint_ref"])
+    entrypoint_path = repo_relative_contract_path(
+        repo_root,
+        entrypoint_ref,
+        location=f"{location}:entrypoint_ref",
+        issues=issues,
+    )
+    if entrypoint_path is not None and not entrypoint_path.is_file():
+        issues.append(ValidationIssue(f"{location}:entrypoint_ref", "entrypoint_ref must name an existing file"))
+
+    entrypoint_arg: str | None = None
+    if cwd_path is not None and entrypoint_path is not None:
+        try:
+            entrypoint_arg = entrypoint_path.relative_to(cwd_path).as_posix()
+        except ValueError:
+            issues.append(
+                ValidationIssue(
+                    f"{location}:runner.cwd",
+                    "entrypoint_ref must resolve beneath runner.cwd so argv can name it without traversal",
+                )
+            )
+        if entrypoint_arg in {"", "."}:
+            issues.append(
+                ValidationIssue(
+                    f"{location}:entrypoint_ref",
+                    "entrypoint_ref must resolve to a file below runner.cwd",
+                )
+            )
+            entrypoint_arg = None
+    if entrypoint_arg is not None:
+        validate_python_pytest_runner(
+            runner,
+            entrypoint_arg,
+            location=f"{location}:runner",
+            issues=issues,
+        )
+        validate_runner_argv_paths_and_entrypoint(
+            runner["argv"],
+            entrypoint_arg,
+            location=f"{location}:runner.argv",
+            issues=issues,
+        )
+
+    tracked_paths: set[str] = set()
+    entrypoint_covered = False
+    for index, source in enumerate(payload["tracked_sources"]):
+        source_location = f"{location}:tracked_sources[{index}]"
+        source_ref = str(source["path"])
+        kind = str(source["kind"])
+        if source_ref in tracked_paths:
+            issues.append(ValidationIssue(source_location, f"duplicate tracked source path: {source_ref}"))
+            continue
+        tracked_paths.add(source_ref)
+        source_path = repo_relative_contract_path(
+            repo_root,
+            source_ref,
+            location=f"{source_location}.path",
+            issues=issues,
+        )
+        if source_path is None:
+            continue
+        if kind == "file" and not source_path.is_file():
+            issues.append(ValidationIssue(source_location, "tracked file source is missing or not a file"))
+            continue
+        if kind == "tree" and not source_path.is_dir():
+            issues.append(ValidationIssue(source_location, "tracked tree source is missing or not a directory"))
+            continue
+        try:
+            actual_sha256 = compute_tracked_source_sha256(source_path, kind)
+        except (OSError, ValueError) as exc:
+            issues.append(ValidationIssue(source_location, str(exc)))
+            continue
+        if actual_sha256 != source["sha256"]:
+            stale_sources.append(
+                {
+                    "path": source_ref,
+                    "kind": kind,
+                    "expected_sha256": str(source["sha256"]),
+                    "actual_sha256": actual_sha256,
+                }
+            )
+        entrypoint_covered = entrypoint_covered or tracked_source_covers_entrypoint(
+            entrypoint_ref,
+            source_ref,
+            kind,
+        )
+    if not entrypoint_covered:
+        issues.append(ValidationIssue(location, "entrypoint_ref must be covered by tracked_sources"))
+
+    state = "invalid" if issues else ("stale" if stale_sources else "ready")
+    return {
+        "path": location,
+        "suite_id": suite_id,
+        "state": state,
+        "runner": runner,
+        "entrypoint_ref": entrypoint_ref,
+        "entrypoint_arg": entrypoint_arg,
+        "timeout_seconds": payload["timeout_seconds"],
+        "success_exit_codes": payload["success_exit_codes"],
+        "auto_run_allowed": False,
+        "proof_authority": False,
+        "promotion_allowed": False,
+        "readiness_scope": LOCAL_SUITE_READY_SCOPE,
+        "runtime_reproducibility_proven": False,
+        "runtime_boundary": LOCAL_SUITE_RUNTIME_BOUNDARY,
+        "jit_revalidation_required": True,
+        "execution_receipt_required": True,
+        "environment_capture_required": True,
+        "execution_handoff": LOCAL_SUITE_JIT_HANDOFF,
+        "authority_boundary": payload["authority_boundary"],
+        "issues": [{"location": issue.location, "message": issue.message} for issue in issues],
+        "stale_sources": stale_sources,
+    }
+
+
+def evaluate_local_suite_execution(repo_root: Path) -> dict[str, Any]:
+    repo_root = repo_root.resolve()
+    repo_identity = resolve_repo_identity(repo_root)
+    evals_dir = repo_root / "evals"
+    suite_dir = evals_dir / "suites"
+    parent_issues = [
+        {
+            "location": location,
+            "message": "suite execution discovery path must not contain a symlink",
+        }
+        for parent, location in ((evals_dir, "evals"), (suite_dir, "evals/suites"))
+        if parent.is_symlink()
+    ]
+    if parent_issues:
+        return {
+            "schema_version": "local_eval_suite_execution_inventory_v1",
+            "state": "invalid",
+            "canonical_owner_repo": repo_identity.owner_repo,
+            "owner_identity_sources": list(repo_identity.sources),
+            "state_vocabulary": list(LOCAL_SUITE_EXECUTION_STATES),
+            "aggregate_priority": list(LOCAL_SUITE_EXECUTION_AGGREGATE_PRIORITY),
+            "suite_count": 0,
+            "invalid_count": 1,
+            "stale_count": 0,
+            "ready_count": 0,
+            "auto_run_allowed": False,
+            "inventory_executed_runner": False,
+            "proof_authority": False,
+            "promotion_allowed": False,
+            "readiness_scope": LOCAL_SUITE_READY_SCOPE,
+            "runtime_reproducibility_proven": False,
+            "runtime_boundary": LOCAL_SUITE_RUNTIME_BOUNDARY,
+            "jit_revalidation_required": True,
+            "execution_receipt_required": True,
+            "environment_capture_required": True,
+            "execution_handoff": LOCAL_SUITE_JIT_HANDOFF,
+            "issues": parent_issues,
+            "suites": [],
+        }
+    paths = sorted(suite_dir.glob("*.suite.json")) if suite_dir.is_dir() else []
+    suites = [
+        evaluate_local_suite_contract(repo_root, path, repo_identity=repo_identity)
+        for path in paths
+    ]
+    states = {str(suite["state"]) for suite in suites}
+    aggregate_state = next(
+        (state for state in LOCAL_SUITE_EXECUTION_AGGREGATE_PRIORITY if state in states),
+        "absent",
+    )
+    issues = [issue for suite in suites for issue in suite.get("issues", [])]
+    return {
+        "schema_version": "local_eval_suite_execution_inventory_v1",
+        "state": aggregate_state,
+        "canonical_owner_repo": repo_identity.owner_repo,
+        "owner_identity_sources": list(repo_identity.sources),
+        "state_vocabulary": list(LOCAL_SUITE_EXECUTION_STATES),
+        "aggregate_priority": list(LOCAL_SUITE_EXECUTION_AGGREGATE_PRIORITY),
+        "suite_count": len(suites),
+        "invalid_count": sum(1 for suite in suites if suite["state"] == "invalid"),
+        "stale_count": sum(1 for suite in suites if suite["state"] == "stale"),
+        "ready_count": sum(1 for suite in suites if suite["state"] == "ready"),
+        "auto_run_allowed": False,
+        "inventory_executed_runner": False,
+        "proof_authority": False,
+        "promotion_allowed": False,
+        "readiness_scope": LOCAL_SUITE_READY_SCOPE,
+        "runtime_reproducibility_proven": False,
+        "runtime_boundary": LOCAL_SUITE_RUNTIME_BOUNDARY,
+        "jit_revalidation_required": True,
+        "execution_receipt_required": True,
+        "environment_capture_required": True,
+        "execution_handoff": LOCAL_SUITE_JIT_HANDOFF,
+        "issues": issues,
+        "suites": suites,
+    }
 
 
 def authority_boundary_clauses(text: str) -> list[str]:
@@ -339,6 +1059,7 @@ def local_authority_grant_terms(text: str) -> set[str]:
 def validate_port_file(
     repo_root: Path,
     evals_dir: Path,
+    repo_identity: RepoIdentity,
     issues: list[ValidationIssue],
 ) -> dict[str, Any] | None:
     port_path = evals_dir / "PORT.yaml"
@@ -358,9 +1079,15 @@ def validate_port_file(
         issues.append(
             ValidationIssue(location, "schema_version must be 'local_eval_port_v1'")
         )
-    if payload.get("owner_repo") != repo_root.name:
+    for identity_issue in repo_identity.issues:
+        issues.append(ValidationIssue(location, identity_issue))
+    if payload.get("owner_repo") != repo_identity.owner_repo:
         issues.append(
-            ValidationIssue(location, f"owner_repo must match target root '{repo_root.name}'")
+            ValidationIssue(
+                location,
+                "owner_repo must match canonical repo identity "
+                f"'{repo_identity.owner_repo}', not worktree basename '{repo_root.name}'",
+            )
         )
     if payload.get("status") not in VALID_STATUSES:
         issues.append(ValidationIssue(location, "status must be 'skeleton' or 'active'"))
@@ -415,11 +1142,26 @@ def validate_port_file(
 
 def validate_required_shape(repo_root: Path, evals_dir: Path) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
+    if evals_dir.is_symlink():
+        issues.append(ValidationIssue("evals", "local eval port directory must not be a symlink"))
+        return issues
     if not evals_dir.is_dir():
         issues.append(ValidationIssue("evals", "local eval port directory is missing"))
         return issues
     for relative_path in REQUIRED_PORT_FILES:
         path = evals_dir / relative_path
+        symlink_component = first_symlink_component(
+            repo_root,
+            Path("evals", relative_path).parts,
+        )
+        if symlink_component is not None:
+            issues.append(
+                ValidationIssue(
+                    relative_location(path, repo_root),
+                    f"local eval port path components must not be symlinks: {symlink_component}",
+                )
+            )
+            continue
         if not path.is_file():
             issues.append(ValidationIssue(relative_location(path, repo_root), "file is missing"))
     return issues
@@ -551,6 +1293,7 @@ def validate_local_note_dir(
     repo_root: Path,
     evals_dir: Path,
     directory_name: str,
+    canonical_owner_repo: str,
     issues: list[ValidationIssue],
 ) -> int:
     config = LOCAL_NOTE_CONFIG[directory_name]
@@ -583,9 +1326,12 @@ def validate_local_note_dir(
                     f"schema_version must be '{config['schema_version']}'",
                 )
             )
-        if payload.get("owner_repo") != repo_root.name:
+        if payload.get("owner_repo") != canonical_owner_repo:
             issues.append(
-                ValidationIssue(location, f"owner_repo must match target root '{repo_root.name}'")
+                ValidationIssue(
+                    location,
+                    f"owner_repo must match canonical repo identity '{canonical_owner_repo}'",
+                )
             )
         if payload.get("status") not in {"draft", "reviewed"}:
             issues.append(ValidationIssue(location, "status must be 'draft' or 'reviewed'"))
@@ -613,6 +1359,7 @@ def validate_status(
     intake_count: int,
     bundle_count: int,
     suite_count: int,
+    suite_execution_contract_count: int,
     report_count: int,
     issues: list[ValidationIssue],
 ) -> None:
@@ -620,7 +1367,13 @@ def validate_status(
         return
     location = relative_location(evals_dir / "PORT.yaml", repo_root)
     status = port_payload.get("status")
-    active_count = intake_count + bundle_count + suite_count + report_count
+    active_count = (
+        intake_count
+        + bundle_count
+        + suite_count
+        + suite_execution_contract_count
+        + report_count
+    )
     if status == "active" and active_count == 0:
         issues.append(
             ValidationIssue(
@@ -639,17 +1392,35 @@ def validate_status(
 
 def validate_local_eval_port(repo_root: Path) -> list[ValidationIssue]:
     repo_root = repo_root.resolve()
+    repo_identity = resolve_repo_identity(repo_root)
     evals_dir = repo_root / "evals"
     issues = validate_required_shape(repo_root, evals_dir)
+    if evals_dir.is_symlink() or (evals_dir / "suites").is_symlink():
+        return issues
     if not evals_dir.is_dir():
         return issues
 
-    port_payload = validate_port_file(repo_root, evals_dir, issues)
+    port_payload = validate_port_file(repo_root, evals_dir, repo_identity, issues)
     validate_port_docs(repo_root, evals_dir, issues)
     intake_count = validate_intake_payloads(repo_root, evals_dir, issues)
     bundle_count = validate_local_bundles(repo_root, evals_dir, issues)
-    suite_count = validate_local_note_dir(repo_root, evals_dir, "suites", issues)
-    report_count = validate_local_note_dir(repo_root, evals_dir, "reports", issues)
+    suite_count = validate_local_note_dir(
+        repo_root,
+        evals_dir,
+        "suites",
+        repo_identity.owner_repo,
+        issues,
+    )
+    report_count = validate_local_note_dir(
+        repo_root,
+        evals_dir,
+        "reports",
+        repo_identity.owner_repo,
+        issues,
+    )
+    suite_execution = evaluate_local_suite_execution(repo_root)
+    for issue in suite_execution["issues"]:
+        issues.append(ValidationIssue(str(issue["location"]), str(issue["message"])))
     validate_status(
         repo_root,
         evals_dir,
@@ -657,6 +1428,7 @@ def validate_local_eval_port(repo_root: Path) -> list[ValidationIssue]:
         intake_count=intake_count,
         bundle_count=bundle_count,
         suite_count=suite_count,
+        suite_execution_contract_count=int(suite_execution["suite_count"]),
         report_count=report_count,
         issues=issues,
     )
@@ -671,13 +1443,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     target_root = Path(args.target_root)
     issues = validate_local_eval_port(target_root)
+    suite_execution = evaluate_local_suite_execution(target_root)
+    suite_execution_blocked = suite_execution["state"] in {"invalid", "stale"}
     if args.json:
         print(
             json.dumps(
                 {
                     "schema": "local_eval_port_validation_v1",
                     "target_root": str(target_root.resolve()),
-                    "ok": not issues,
+                    "ok": not issues and not suite_execution_blocked,
+                    "suite_execution": suite_execution,
                     "issues": [
                         {"location": issue.location, "message": issue.message}
                         for issue in issues
@@ -687,12 +1462,15 @@ def main(argv: Sequence[str] | None = None) -> int:
                 sort_keys=True,
             )
         )
-    elif issues:
+    elif issues or suite_execution_blocked:
         print("Local eval port validation failed:")
-        print(format_issues(issues))
+        if issues:
+            print(format_issues(issues))
+        if suite_execution["state"] == "stale":
+            print("- evals/suites: one or more suite execution contracts have stale tracked-source hashes")
     else:
         print("Local eval port validation passed.")
-    return 1 if issues else 0
+    return 1 if issues or suite_execution_blocked else 0
 
 
 if __name__ == "__main__":

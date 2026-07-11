@@ -1,5 +1,10 @@
 # Eval Forge Session Candidate Owner Review 2026-06-26
 
+> Current applicability (2026-07-10): the direct pytest command below is
+> historical owner evidence, not an Eval Forge execution route. A current
+> local apply requires a `ready` AOA-EV-D-0245 sidecar, and only the repo owner
+> or `aoa-eval-apply` may invoke its exact argv.
+
 ## Boundary
 
 This is an owner-review routing report for five session-derived Eval Forge

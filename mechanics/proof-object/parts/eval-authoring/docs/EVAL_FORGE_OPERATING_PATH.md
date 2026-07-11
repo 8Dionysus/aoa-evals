@@ -50,9 +50,11 @@ Then read the result in this order:
    reported, keep them visible and do not turn stale evidence into proof.
 2. Check the candidate queue and packet count. Candidate packets are only
    admission evidence for review.
-3. Check active repo-local ports. Active suite pressure can route to local
-   apply/regression checks; active intake pressure routes to select/design
-   review before central adoption.
+3. Check active repo-local ports. A suite note alone routes to design/review.
+   Only a source-contract-`ready` suite execution sidecar can route to local
+   apply/regression checks; the owner route JIT-revalidates and captures
+   environment plus an execution receipt. `invalid` and `stale` route to repair. Active
+   intake pressure routes to select/design review before central adoption.
 4. Check the support registry. Apply directly only when the surface is
    classified as safe. Treat candidate-only, component-only, generated, or
    forbidden entries according to their route.
@@ -97,7 +99,9 @@ Use the smallest route that can honestly handle the pressure:
 | Pressure | Route |
 | --- | --- |
 | Existing central eval may fit | inspect `EVAL_INDEX.md`, `EVAL_SELECTION.md`, generated catalog, then source bundle |
-| Existing local suite can run | `aoa-eval-apply` through repo-local `evals/suites/` and local validators |
+| Existing local suite has a source-contract-ready sidecar | route typed `python_pytest` argv to the repo owner or `aoa-eval-apply`; Forge does not execute it; owner/apply JIT-revalidates and captures environment plus receipt |
+| Only `.suite.md` exists | local design/review; do not call it runnable |
+| Suite sidecar is invalid or stale | repair schema/path/hash state before owner-local apply |
 | Active local intake exists | `aoa-eval-select`, then local design or apply after duplicate-fit review |
 | Missed skill trigger or prompt-routing failure | `aoa-skills-trigger-eval` and `aoa-skills` owner review |
 | Agent route/path failure across tools or steps | `trace-trajectory-eval` with `.aoa` refs candidate-only |
@@ -140,3 +144,14 @@ For any meaningful Eval Forge pass, record:
 - remaining gaps separated as owner-review needed, automation later, proof
   promotion later, and rejected/noise.
 
+Record the local suite execution state when suite pressure is involved. The
+only states are `absent`, `invalid`, `stale`, and `ready`, aggregated in that
+order of blocking priority: `invalid > stale > ready > absent`. Inventory,
+Forge, readiness, dashboard, session-start, promotion review, and MCP never
+invoke `runner.argv`.
+`ready` does not claim interpreter/dependency reproducibility. PORT, Git
+common-dir/origin, notes, and sidecar must resolve one canonical owner; a named
+worktree basename is not that owner.
+Before any archetype selection, Forge normalizes inventory v1 or unknown input:
+even an injected `suite_execution.ready` and old runnable route become
+`absent` plus sidecar design. Only inventory v2 can expose runnable routing.

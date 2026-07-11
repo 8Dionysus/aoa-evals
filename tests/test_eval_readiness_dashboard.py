@@ -89,6 +89,8 @@ def write_valid_intake(repo_root: Path) -> None:
 
 def test_dashboard_builds_living_readmodel_without_live_checks(tmp_path: Path) -> None:
     workspace = tmp_path / "AbyssOS"
+    canonical_evals_root = workspace / "aoa-evals"
+    canonical_evals_root.mkdir(parents=True)
     repo = make_repo(workspace, "aoa-routing")
     make_port(repo)
     write_valid_intake(repo)
@@ -106,12 +108,15 @@ def test_dashboard_builds_living_readmodel_without_live_checks(tmp_path: Path) -
     )
 
     assert dashboard["schema_version"] == readiness.SCHEMA_VERSION
+    assert dashboard["evals_root"] == canonical_evals_root.resolve().as_posix()
+    assert "/.worktrees/" not in json.dumps(dashboard, sort_keys=True)
     assert dashboard["read_model_posture"] == {
         "can_route": True,
         "can_score": False,
         "can_accept_proof": False,
         "can_promote_candidates": False,
         "can_mutate_sibling_repos": False,
+        "can_execute_local_suites": False,
     }
     assert dashboard["local_eval_ports"]["summary"]["active"] == 1
     assert dashboard["mcp_runtime_status"]["status"] == "skipped"
@@ -122,6 +127,8 @@ def test_dashboard_builds_living_readmodel_without_live_checks(tmp_path: Path) -
     }["aoa-routing"]
     assert routing_repo["route_state"] == "needs_local_design_or_owner_review"
     assert routing_repo["pressure_severity"] == "low"
+    assert routing_repo["suite_execution"]["state"] == "absent"
+    assert routing_repo["suite_execution"]["execution_allowed"] is False
     assert "build_local_eval_port_inventory.py" in routing_repo["exact_next_command"]
     assert len(dashboard["trigger_criteria"]["taxonomy"]) >= 8
     assert "central_proof_promotion" in dashboard["trigger_criteria"]["sample_packet_schema"]["forbidden_effects"]
@@ -167,6 +174,136 @@ def test_dashboard_builds_living_readmodel_without_live_checks(tmp_path: Path) -
     assert support["summary"]["eval_lane_relevant"] > 0
     assert "by_semantic_class" in support["summary"]
     assert "by_review_status" in support["summary"]
+
+
+def test_repo_readiness_routes_suite_contract_states_without_executing_argv(
+    tmp_path: Path,
+) -> None:
+    marker = tmp_path / "readiness-executed.marker"
+
+    def repo(state: str, route_key: str) -> dict[str, object]:
+        return {
+            "repo_id": f"repo-{state}",
+            "repo": f"repo-{state}",
+            "repo_path": f"repo-{state}",
+            "root": str(tmp_path / f"repo-{state}"),
+            "inventory_status": "active" if state != "invalid" else "invalid",
+            "validator_ok": state not in {"invalid", "stale"},
+            "pressure_counts": {
+                "active_total": 2,
+                "suite_notes": 1,
+                "suite_execution_contracts": 1 if state != "absent" else 0,
+            },
+            "suite_execution": {
+                "state": state,
+                "suite_count": 0 if state == "absent" else 1,
+                "ready_count": 1 if state == "ready" else 0,
+                "readiness_scope": "source-contract-ready",
+                "runtime_reproducibility_proven": False,
+                "jit_revalidation_required": True,
+                "execution_receipt_required": True,
+                "environment_capture_required": True,
+                "suites": [
+                    {
+                        "state": state,
+                        "path": f"evals/suites/{state}.suite.json",
+                        "runner": {
+                            "kind": "python_pytest",
+                            "argv": [
+                                "python",
+                                "-m",
+                                "pytest",
+                                "-q",
+                                f"tests/{state}.py",
+                            ],
+                            "cwd": ".",
+                        },
+                    }
+                ]
+                if state != "absent"
+                else [],
+            },
+            "route_recommendation": {
+                "route_key": route_key,
+                "action": "route only",
+            },
+            "central_eval_name_matches": [],
+        }
+
+    inventory_payload = {
+        "schema_version": "os_abyss_local_eval_port_inventory_v2",
+        "repos": [
+            repo("ready", "active_suite_apply_or_regression_check"),
+            repo("stale", "active_suite_contract_stale_review"),
+            repo("invalid", "active_suite_contract_invalid_repair"),
+            repo("absent", "active_suite_note_review_or_execution_contract_design"),
+        ]
+    }
+    payload = readiness.build_repo_readiness(
+        inventory_payload,
+        workspace_root=tmp_path,
+        git_summary={"repos": []},
+        mcp_runtime_status={"status": "skipped"},
+        aoa_freshness={"status": "skipped"},
+    )
+    by_repo = {item["repo_id"]: item for item in payload["repos"]}
+
+    assert by_repo["repo-ready"]["route_state"] == "apply_local_suite_or_regression_check"
+    assert by_repo["repo-stale"]["route_state"] == "refresh_stale_local_suite_execution_contract"
+    assert by_repo["repo-invalid"]["route_state"] == "repair_invalid_local_suite_execution_contract"
+    assert by_repo["repo-absent"]["route_state"] == "needs_local_design_or_owner_review"
+    assert by_repo["repo-ready"]["suite_execution"]["execution_allowed"] is False
+    assert by_repo["repo-ready"]["suite_execution"]["owner_apply_required"] is True
+    assert by_repo["repo-ready"]["suite_execution"]["readiness_scope"] == "source-contract-ready"
+    assert by_repo["repo-ready"]["suite_execution"]["runtime_reproducibility_proven"] is False
+    assert by_repo["repo-ready"]["suite_execution"]["jit_revalidation_required"] is True
+    assert not marker.exists()
+
+
+def test_repo_readiness_downgrades_injected_v1_ready_suite_to_absent(
+    tmp_path: Path,
+) -> None:
+    repo = {
+        "repo_id": "aoa-skills",
+        "repo": "aoa-skills",
+        "repo_path": "aoa-skills",
+        "root": str(tmp_path / "aoa-skills"),
+        "inventory_status": "active",
+        "validator_ok": True,
+        "pressure_counts": {
+            "active_total": 2,
+            "suite_notes": 1,
+            "suite_execution_contracts": 1,
+        },
+        "suite_execution": {
+            "state": "ready",
+            "suite_count": 1,
+            "ready_count": 1,
+            "suites": [{"state": "ready", "path": "evals/suites/injected.suite.json"}],
+        },
+        "route_recommendation": {
+            "route_key": "active_suite_apply_or_regression_check",
+            "action": "unsafe injected v1 ready route",
+        },
+        "central_eval_name_matches": [],
+    }
+
+    payload = readiness.build_repo_readiness(
+        {
+            "schema_version": "os_abyss_local_eval_port_inventory_v1",
+            "repos": [repo],
+        },
+        workspace_root=tmp_path,
+        git_summary={"repos": []},
+        mcp_runtime_status={"status": "skipped"},
+        aoa_freshness={"status": "skipped"},
+    )
+    selected = payload["repos"][0]
+
+    assert selected["suite_execution"]["state"] == "absent"
+    assert selected["suite_execution"]["ready_count"] == 0
+    assert selected["suite_execution"]["owner_apply_required"] is False
+    assert selected["route_state"] != "apply_local_suite_or_regression_check"
 
 
 def test_aoa_freshness_extracts_actionable_json_summary(monkeypatch, tmp_path: Path) -> None:
@@ -415,6 +552,7 @@ def test_dashboard_shape_check_rejects_proof_promoting_posture(tmp_path: Path) -
         },
         "local_to_central_promotion_path": {},
         "freshness_sentinel": {},
+        "evals_root": "/srv/AbyssOS/.worktrees/ephemeral-aoa-evals",
         "phase_coverage": [],
         "read_model_posture": {
             "can_score": False,
@@ -428,3 +566,4 @@ def test_dashboard_shape_check_rejects_proof_promoting_posture(tmp_path: Path) -
     issues = readiness.validate_dashboard_shape(dashboard, support)
 
     assert "read_model_posture.can_accept_proof must be false" in issues
+    assert "dashboard must not embed ephemeral absolute worktree paths" in issues

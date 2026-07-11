@@ -69,12 +69,39 @@ route, selected evidence packet, quest pressure, or draft bundle request.
 
 ## Current Applicability
 
-As of 2026-06-11:
+As of 2026-07-10:
 
 - Still valid: local ports preserve repo-local eval pressure below central
   proof authority.
-- Changed: none.
+- Changed: `AOA-EV-D-0245` separates suite notes from executable suite
+  contracts. A `.suite.md` note remains local pressure; runnable routing now
+  requires a source-contract-ready `local_eval_suite_execution_v1` sidecar
+  whose canonical owner resolves across PORT, Git common-dir, and origin.
 - Superseded by: none.
+
+## Review Log
+
+### 2026-07-10 - Separate suite notes from execution contracts
+
+- Previous assumption: a valid local suite note could imply a runnable local
+  suite route.
+- New reality: the note is non-runnable design pressure; only a
+  source-contract-ready JSON sidecar with canonical owner and typed
+  `python_pytest` grammar supplies executable intent.
+- Reason: executable routing needs semantic dispatcher confinement, path
+  confinement, timeout, accepted exits, tracked hashes, explicit
+  no-proof/no-promotion flags, and a JIT revalidation plus environment/receipt
+  handoff. Source hashes do not prove pinned runtime reproducibility.
+- Compatibility correction: every consumer downgrades v1/unknown inventory to
+  execution state `absent`, including injected ready fields and old runnable
+  route keys.
+- Integrity correction: cwd-relative entrypoint resolution, regular UTF-8
+  sidecars, and Git identity conflicts are validated before routing or central
+  exclusion.
+- Source surfaces updated: `docs/guides/LOCAL_EVAL_PORT_STANDARD.md`,
+  `scripts/validate_local_eval_port.py`, and the v2 inventory contract.
+- Validation: focused local-port, inventory, Forge, readiness, session-start,
+  and promotion-review tests plus decision-index parity.
 
 ## Boundaries
 
@@ -85,6 +112,17 @@ promotion.
 Future agents must not infer that a skeleton port carries active eval coverage.
 
 Future agents must not infer that `eval_need_v1` intake is proof acceptance.
+
+Future agents must not infer that a `.suite.md` note is runnable or that a
+ready execution sidecar grants automatic execution.
+
+Future agents must not infer that a named worktree basename is its owner repo,
+or that source-contract readiness proves a reproducible interpreter/dependency
+environment.
+
+Future agents must not trust v2-shaped execution fields embedded in a v1
+inventory packet or serialize ephemeral `.worktrees/` paths into generated
+read-models.
 
 ## Validation
 

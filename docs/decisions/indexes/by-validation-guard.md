@@ -197,6 +197,10 @@
 
 - [AOA-EV-D-0243 Local Memo Port](../AOA-EV-D-0243-local-memo-port.md) (`docs/decisions/AOA-EV-D-0243-local-memo-port.md`)
 
+## local suite execution
+
+- [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)
+
 ## local-port boundary
 
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
@@ -204,6 +208,10 @@
 ## memory boundary
 
 - [AOA-EV-D-0243 Local Memo Port](../AOA-EV-D-0243-local-memo-port.md) (`docs/decisions/AOA-EV-D-0243-local-memo-port.md`)
+
+## no-execution routing
+
+- [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)
 
 ## observability/audit
 
@@ -218,6 +226,10 @@
 - [AOA-EV-D-0214 Publication Receipts Intake Layer Split](../AOA-EV-D-0214-publication-receipts-intake-layer-split.md) (`docs/decisions/AOA-EV-D-0214-publication-receipts-intake-layer-split.md`)
 - [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
+
+## path confinement
+
+- [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)
 
 ## projection/generated
 
@@ -318,6 +330,10 @@
 ## source doctrine
 
 - [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
+
+## source freshness
+
+- [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)
 
 ## source/topology
 

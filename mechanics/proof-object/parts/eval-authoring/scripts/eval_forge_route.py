@@ -17,6 +17,13 @@ import scaffold_eval_bundle as scaffold
 
 
 REPO_ROOT = Path(__file__).resolve().parents[5]
+ROOT_SCRIPTS = REPO_ROOT / "scripts"
+if str(ROOT_SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(ROOT_SCRIPTS))
+
+import build_local_eval_port_inventory as local_port_inventory
+
+
 PART_ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_RELATIVE = Path(
     "mechanics/proof-object/parts/eval-authoring/config/eval-archetypes.json"
@@ -32,7 +39,7 @@ WORKSHEET_SCHEMA_VERSION = "eval_design_worksheet_v1"
 AUTHORITY_BOUNDARY = (
     "Eval Forge routes case design only. It does not create source bundles, "
     "accept proof, score evidence, mint baselines, promote candidates, or mutate "
-    "repo-local eval ports."
+    "repo-local eval ports, and it never executes local suite runner argv."
 )
 FORBIDDEN_ACTIONS = [
     "central_proof_promotion",
@@ -41,6 +48,7 @@ FORBIDDEN_ACTIONS = [
     "repo_mutation",
     "mcp_created_bundle",
     "candidate_auto_acceptance",
+    "local_suite_runner_execution",
 ]
 CRITICAL_GATES = {
     "expected_route_clarity",
@@ -353,15 +361,30 @@ def local_port_case(
     if selected is None:
         raise scaffold.ScaffoldError(f"local eval port repo not found in inventory: {repo_id}")
     counts = selected.get("pressure_counts") if isinstance(selected.get("pressure_counts"), dict) else {}
+    suite_execution = (
+        selected.get("suite_execution")
+        if isinstance(selected.get("suite_execution"), dict)
+        else {"state": "absent", "suites": []}
+    )
     route = selected.get("route_recommendation") if isinstance(selected.get("route_recommendation"), dict) else {}
     owner = selected.get("owner_boundary") if isinstance(selected.get("owner_boundary"), dict) else {}
     pressure_summary = (
         f"local port status={selected.get('inventory_status')} active_total={counts.get('active_total')} "
-        f"intake={counts.get('intake_packets')} suites={counts.get('suite_notes')} reports={counts.get('report_notes')}"
+        f"intake={counts.get('intake_packets')} suite_notes={counts.get('suite_notes')} "
+        f"suite_execution={suite_execution.get('state')} reports={counts.get('report_notes')}"
     )
     root = str(selected.get("root") or "")
     port_path = str(selected.get("port_path") or "evals/PORT.yaml")
-    hint = "local-runnable-suite" if counts.get("suite_notes") else "local-intake-pressure-packet"
+    hint = (
+        "local-runnable-suite"
+        if suite_execution.get("state") == "ready"
+        else "local-intake-pressure-packet"
+    )
+    suite_refs = [
+        str(item.get("path"))
+        for item in suite_execution.get("suites", [])
+        if isinstance(item, dict) and item.get("path")
+    ]
     return NormalizedCase(
         input_kind="local_eval_port",
         case_id=f"local-port:{repo_id}",
@@ -373,9 +396,12 @@ def local_port_case(
         first_failure="local eval pressure needs owner review before central adoption",
         consequence="local pressure can drift, duplicate central evals, or be over-promoted without route review",
         owner_refs=[f"{root}/{port_path}" if root else port_path, str(owner.get("owner_repo") or repo_id)],
-        evidence_refs=[f"{root}/{port_path}" if root else port_path],
-        source_refs=[f"{root}/{port_path}" if root else port_path],
-        freshness_refs=[f"inventory_status:{selected.get('inventory_status')}"],
+        evidence_refs=[f"{root}/{port_path}" if root else port_path, *suite_refs],
+        source_refs=[f"{root}/{port_path}" if root else port_path, *suite_refs],
+        freshness_refs=[
+            f"inventory_status:{selected.get('inventory_status')}",
+            f"suite_execution_state:{suite_execution.get('state')}",
+        ],
         privacy_boundary="repo-local port inventory contains route pressure only, not central proof",
         repeatability_path=[str(route.get("route_key") or ""), str(route.get("proof_boundary") or "")],
         success_criteria=["repo owner reviews local pressure before central overlap or suite application"],
@@ -383,7 +409,11 @@ def local_port_case(
         positive_cases=["active local port pressure with owner route and central boundary"],
         negative_cases=["dormant skeleton port with no active pressure"],
         fixtures=[port_path],
-        runner_solver_tool_needs=["local port inventory", "local port validator"],
+        runner_solver_tool_needs=[
+            "local port inventory and validator inspect only; they never execute runner argv",
+            "repo owner or aoa-eval-apply JIT-revalidates and invokes typed exact argv only when suite state is source-contract-ready",
+            "owner/apply captures environment metadata and an execution receipt; ready is not runtime reproducibility",
+        ],
         calibration_needs=["repo-local owner review"],
         archetype_hint=hint,
         raw=selected,
@@ -398,7 +428,7 @@ def load_local_port_inventory(
     if inventory_path:
         payload = load_json(resolve_path(inventory_path, base=Path.cwd()))
         if isinstance(payload, dict):
-            return payload
+            return local_port_inventory.normalize_inventory_for_suite_consumers(payload)
         raise scaffold.ScaffoldError(f"{inventory_path}: local port inventory must be an object")
     result = subprocess.run(
         [
@@ -421,7 +451,7 @@ def load_local_port_inventory(
     payload = json.loads(result.stdout)
     if not isinstance(payload, dict):
         raise scaffold.ScaffoldError("local port inventory command returned non-object JSON")
-    return payload
+    return local_port_inventory.normalize_inventory_for_suite_consumers(payload)
 
 
 def text_for(case: NormalizedCase) -> str:
@@ -684,6 +714,13 @@ def next_command_for(
             f"--candidate-packet {case.candidate_packet_path} --json"
         )
     if case.input_kind == "local_eval_port":
+        suite_execution = case.raw.get("suite_execution") if isinstance(case.raw, dict) else None
+        if isinstance(suite_execution, dict) and suite_execution.get("state") == "ready":
+            return (
+                "route to repo owner or aoa-eval-apply; JIT-revalidate the "
+                "source-contract-ready suite, invoke typed runner.argv exactly, "
+                "and capture environment plus execution receipt"
+            )
         return "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json"
     if decision["decision"] == "reject":
         return "record reject reason; do not create intake, worksheet, suite, or central bundle"
@@ -823,6 +860,7 @@ def build_forge_route(
                 worksheet,
                 force=force,
             )
+    local_suite_execution = local_suite_execution_posture(case)
     return {
         "schema_version": SCHEMA_VERSION,
         "authority_boundary": AUTHORITY_BOUNDARY,
@@ -846,6 +884,7 @@ def build_forge_route(
             "recommended_next_command": next_command,
             "proof_boundary": "candidate/readmodel/local pressure remains non-proof until owner review",
         },
+        "local_suite_execution": local_suite_execution,
         "scaffold_posture": scaffold_posture_for(case, decision, selected),
         "worksheet": worksheet,
         "worksheet_validation": {
@@ -864,7 +903,60 @@ def build_forge_route(
             "do not treat candidate packets, local ports, MCP packets, or generated dashboards as proof",
             "do not use LLM judge routes without human rubric calibration",
             "do not fossilize one temporary workflow accident as durable eval doctrine",
+            "Eval Forge and inventory inspect local suite sidecars but never execute runner.argv",
         ],
+    }
+
+
+def local_suite_execution_posture(case: NormalizedCase) -> dict[str, Any]:
+    if case.input_kind != "local_eval_port" or not isinstance(case.raw, dict):
+        return {
+            "state": "not_applicable",
+            "readiness_scope": "source-contract-ready",
+            "runtime_reproducibility_proven": False,
+            "execution_allowed": False,
+            "owner_apply_required": False,
+            "proof_authority": False,
+            "promotion_allowed": False,
+        }
+    execution = case.raw.get("suite_execution")
+    if not isinstance(execution, dict):
+        execution = {"state": "absent", "suites": []}
+    suites = execution.get("suites") if isinstance(execution.get("suites"), list) else []
+    ready_suites = [
+        {
+            "path": item.get("path"),
+            "suite_id": item.get("suite_id"),
+            "runner": item.get("runner"),
+            "entrypoint_ref": item.get("entrypoint_ref"),
+            "entrypoint_arg": item.get("entrypoint_arg"),
+            "timeout_seconds": item.get("timeout_seconds"),
+            "success_exit_codes": item.get("success_exit_codes"),
+        }
+        for item in suites
+        if isinstance(item, dict) and item.get("state") == "ready"
+    ]
+    state = str(execution.get("state") or "absent")
+    return {
+        "state": state,
+        "suite_count": int(execution.get("suite_count") or len(suites)),
+        "ready_count": int(execution.get("ready_count") or len(ready_suites)),
+        "ready_suites": ready_suites,
+        "readiness_scope": str(execution.get("readiness_scope") or "source-contract-ready"),
+        "runtime_reproducibility_proven": False,
+        "jit_revalidation_required": True,
+        "execution_receipt_required": True,
+        "environment_capture_required": True,
+        "execution_allowed": False,
+        "owner_apply_required": state == "ready",
+        "inventory_executed_runner": False,
+        "proof_authority": False,
+        "promotion_allowed": False,
+        "boundary": (
+            "Eval Forge only routes validated suite metadata; the selected repo "
+            "owner or aoa-eval-apply is the sole invocation route. Ready means "
+            "source-contract-ready, not a pinned or reproducible runtime."
+        ),
     }
 
 

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -23,6 +24,12 @@ REQUIRED_SESSION_PACKET_IDS = {
     "packet:session:aoa-eval-session-front-door-actionability-gap",
     "packet:session:aoa-eval-working-process-fossilized-as-doctrine",
 }
+EXPECTED_MCP_LOCAL_WRITE_ALLOWED_GLOBS = (
+    "evals/intake/*.eval_need.json",
+    "evals/suites/*.suite.md",
+    "evals/reports/*.report.md",
+    "evals/PORT.yaml status skeleton-to-active activation with first pressure",
+)
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
@@ -71,6 +78,28 @@ def file_contains(path: Path, needles: Sequence[str]) -> tuple[bool, list[str]]:
         return False, list(needles)
     missing = [needle for needle in needles if needle not in text]
     return not missing, missing
+
+
+def python_literal_assignment(path: Path, name: str) -> Any | None:
+    try:
+        tree = ast.parse(path.read_text(encoding="utf-8"), filename=path.as_posix())
+    except (FileNotFoundError, SyntaxError, UnicodeDecodeError):
+        return None
+    for node in tree.body:
+        value_node: ast.expr | None = None
+        if isinstance(node, ast.Assign) and any(
+            isinstance(target, ast.Name) and target.id == name for target in node.targets
+        ):
+            value_node = node.value
+        elif isinstance(node, ast.AnnAssign) and isinstance(node.target, ast.Name) and node.target.id == name:
+            value_node = node.value
+        if value_node is None:
+            continue
+        try:
+            return ast.literal_eval(value_node)
+        except (ValueError, TypeError):
+            return None
+    return None
 
 
 def selected_stack_root(value: str | None) -> Path | None:
@@ -123,20 +152,63 @@ def build_mcp_write_side_gate(stack_root: Path | None) -> dict[str, Any]:
             "aoa_evals_local_write_receipt_v1",
         ],
     )
+    try:
+        core_text = core_path.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        core_text = ""
+    write_allowlist = python_literal_assignment(core_path, "LOCAL_WRITE_ALLOWED_GLOBS")
+    note_config = python_literal_assignment(core_path, "LOCAL_NOTE_CONFIG")
+    write_allowlist_valid = tuple(write_allowlist or ()) == EXPECTED_MCP_LOCAL_WRITE_ALLOWED_GLOBS
+    suite_note_target_valid = (
+        isinstance(note_config, dict)
+        and isinstance(note_config.get("suites"), dict)
+        and note_config["suites"].get("glob_suffix") == ".suite.md"
+    )
+    suite_sidecar_write_allowed = (
+        isinstance(write_allowlist, (list, tuple))
+        and any(".suite.json" in str(item) for item in write_allowlist)
+    ) or (
+        isinstance(note_config, dict)
+        and any(
+            ".suite.json" in str(config.get("glob_suffix"))
+            for config in note_config.values()
+            if isinstance(config, dict)
+        )
+    )
+    suite_sidecar_read_marker_present = ".suite.json" in core_text
     missing = [f"core:{item}" for item in core_missing] + [f"tests:{item}" for item in tests_missing]
     return gate(
         "mcp_write_side_gate",
-        status="ok" if core_ok and tests_ok else "error",
+        status="ok"
+        if core_ok
+        and tests_ok
+        and write_allowlist_valid
+        and suite_note_target_valid
+        and not suite_sidecar_write_allowed
+        else "error",
         reason=(
             "aoa-evals-mcp local write side exposes dry-run/path-bounded audit receipts"
-            if core_ok and tests_ok
-            else "aoa-evals-mcp local write side is missing audit receipt source or test coverage"
+            if core_ok
+            and tests_ok
+            and write_allowlist_valid
+            and suite_note_target_valid
+            and not suite_sidecar_write_allowed
+            else "aoa-evals-mcp local write side is missing audit coverage or its parsed allowlist/target suffix widened"
         ),
         evidence={
             "stack_root": stack_root.as_posix(),
             "core_path": core_path.as_posix(),
             "tests_path": tests_path.as_posix(),
             "missing_markers": missing,
+            "parsed_local_write_allowed_globs": list(write_allowlist or []),
+            "expected_local_write_allowed_globs": list(EXPECTED_MCP_LOCAL_WRITE_ALLOWED_GLOBS),
+            "suite_note_target_suffix": (
+                note_config.get("suites", {}).get("glob_suffix")
+                if isinstance(note_config, dict)
+                else None
+            ),
+            "suite_sidecar_write_allowed": suite_sidecar_write_allowed,
+            "suite_sidecar_read_marker_present": suite_sidecar_read_marker_present,
         },
         next_command="python mcp/services/aoa-evals-mcp/scripts/validate_evals_mcp.py",
     )
@@ -248,9 +320,33 @@ def build_payload(
             if int(local_summary.get("invalid") or 0) == 0
             and int(local_summary.get("validator_failed") or 0) == 0
             and int(local_summary.get("missing") or 0) == 0
+            and int(local_summary.get("suite_execution_invalid") or 0) == 0
+            and int(local_summary.get("suite_execution_stale") or 0) == 0
             else "error",
             reason="all discovered repo-local eval ports validate and active/skeleton states are explicit",
             evidence={"local_eval_port_summary": local_summary},
+            next_command="python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json",
+        ),
+        gate(
+            "local_suite_execution_gate",
+            status="ok"
+            if int(local_summary.get("suite_execution_invalid") or 0) == 0
+            and int(local_summary.get("suite_execution_stale") or 0) == 0
+            and dashboard.get("read_model_posture", {}).get("can_execute_local_suites") is False
+            else "error",
+            reason=(
+                "suite sidecars are absent or ready and all readiness surfaces remain inspect-only"
+                if int(local_summary.get("suite_execution_invalid") or 0) == 0
+                and int(local_summary.get("suite_execution_stale") or 0) == 0
+                else "invalid or stale suite execution contracts block owner-local apply"
+            ),
+            evidence={
+                "local_eval_port_summary": local_summary,
+                "read_model_can_execute_local_suites": dashboard.get("read_model_posture", {}).get("can_execute_local_suites"),
+                "state_vocabulary": ["absent", "invalid", "stale", "ready"],
+                "aggregate_priority": ["invalid", "stale", "ready", "absent"],
+                "owner_apply_required": True,
+            },
             next_command="python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json",
         ),
         build_mcp_write_side_gate(stack_root),
@@ -311,7 +407,8 @@ def build_payload(
         "generated_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "authority_boundary": (
             "This check proves routing readiness only. It does not accept proof, score evals, "
-            "promote candidates, mutate sibling repos, or widen MCP write authority."
+            "promote candidates, mutate sibling repos, execute local suite runner argv, "
+            "or widen MCP write authority."
         ),
         "overall_status": overall,
         "gates": gates,

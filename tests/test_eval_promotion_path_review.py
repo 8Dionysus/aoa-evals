@@ -21,6 +21,7 @@ def repo_entry(
     route_key: str = "active_intake_select_then_apply_or_design",
     central_matches: list[str] | None = None,
 ) -> dict:
+    suite_state = "ready" if route_key == "active_suite_apply_or_regression_check" else "absent"
     return {
         "repo": repo_id,
         "repo_id": repo_id,
@@ -45,11 +46,24 @@ def repo_entry(
             "route_key": route_key,
             "action": "Use the local surface without central proof acceptance.",
         },
+        "suite_execution": {
+            "state": suite_state,
+            "suite_count": 1 if suite_state == "ready" else 0,
+            "ready_count": 1 if suite_state == "ready" else 0,
+            "suites": [],
+            "auto_run_allowed": False,
+            "inventory_executed_runner": False,
+            "proof_authority": False,
+            "promotion_allowed": False,
+        },
     }
 
 
-def inventory_payload(*repos: dict) -> dict:
-    return {"schema_version": "os_abyss_local_eval_port_inventory_v1", "repos": list(repos)}
+def inventory_payload(
+    *repos: dict,
+    schema_version: str = "os_abyss_local_eval_port_inventory_v2",
+) -> dict:
+    return {"schema_version": schema_version, "repos": list(repos)}
 
 
 def catalog_payload() -> dict:
@@ -93,11 +107,38 @@ def test_promotion_review_auto_selects_active_pressure_and_stays_dry_run() -> No
     assert payload["selected_repo"]["pressure_severity"] == "high"
     assert payload["promotion_allowed"] is False
     assert payload["mcp_promotion_allowed"] is False
+    assert payload["selected_repo"]["suite_execution"]["state"] == "ready"
+    assert payload["selected_repo"]["suite_execution"]["execution_allowed"] is False
+    assert payload["selected_repo"]["suite_execution"]["promotion_review_executed_runner"] is False
     assert payload["central_overlap"]["summary"]["adjacent_count"] == 1
     assert payload["recommended_next_route"] == "inspect_adjacent_central_evals_then_local_owner_review"
     assert [gate["gate"] for gate in payload["promotion_gates"]] == review.PROMOTION_GATES
     assert payload["promotion_gates"][0]["status"] == "needs_owner_review"
     assert any(stage["stage"] == "central_draft" for stage in payload["stage_boundaries"])
+
+
+def test_promotion_review_downgrades_injected_v1_ready_suite_to_absent() -> None:
+    injected = repo_entry(
+        "aoa-skills",
+        active_total=6,
+        route_key="active_suite_apply_or_regression_check",
+    )
+    payload = review.build_promotion_review_payload(
+        inventory_payload(
+            injected,
+            schema_version="os_abyss_local_eval_port_inventory_v1",
+        ),
+        {"evals": []},
+        repo_id="aoa-skills",
+    )
+
+    assert payload["valid"] is True
+    assert payload["selected_repo"]["suite_execution"]["state"] == "absent"
+    assert payload["selected_repo"]["suite_execution"]["ready_count"] == 0
+    assert payload["selected_repo"]["suite_execution"]["owner_apply_required"] is False
+    assert payload["recommended_next_route"] != (
+        "apply_local_suite_as_candidate_regression_check_before_central_draft"
+    )
 
 
 def test_promotion_review_routes_exact_duplicate_before_new_central_draft() -> None:

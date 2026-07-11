@@ -17,7 +17,9 @@ Generated from:
 python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json
 ```
 
-Current snapshot on 2026-06-26:
+The pressure counts below are the 2026-06-26 snapshot. Runnable posture is
+interpreted by the 2026-07-10 execution-sidecar contract: suite notes without
+a sidecar have execution state `absent`.
 
 | Metric | Count |
 | --- | ---: |
@@ -35,10 +37,10 @@ Current snapshot on 2026-06-26:
 
 | Repo | Status | Local Pressure | Route Key | First Action |
 | --- | --- | --- | --- | --- |
-| `aoa-skills` | active | 1 suite, 5 reports | `active_suite_apply_or_regression_check` | run or inspect local trigger/regression suite before new design |
+| `aoa-skills` | active | 1 suite note, 5 reports; execution absent | `active_suite_note_review_or_execution_contract_design` | inspect the note and add/review a sidecar before owner-local apply |
 | `aoa-memo` | active | 1 intake, 1 report | `active_intake_select_then_apply_or_design` | inspect local intake and central overlap before design |
 | `aoa-routing` | active | 1 intake, 2 reports | `active_intake_select_then_apply_or_design` | inspect local intake and central overlap before design |
-| `connectors/aoa-4pda-connector` | active | 1 suite, 1 report | `active_suite_apply_or_regression_check` | run or inspect connector-local suite before central adoption |
+| `connectors/aoa-4pda-connector` | active | 1 suite note, 1 report; execution absent | `active_suite_note_review_or_execution_contract_design` | inspect the note and add/review a sidecar before owner-local apply |
 
 ## Deep Local Port Check: aoa-skills
 
@@ -52,7 +54,7 @@ Current snapshot on 2026-06-26:
 - central boundary forbids local verdict, scoring, regression, or proof
   doctrine authority.
 
-The active suite is:
+The active suite note is:
 
 - `evals/suites/aoa-eval-trigger-corpus.suite.md`
 
@@ -64,8 +66,11 @@ The active reports include:
 - `aoa-eval-prompt-trigger-harness-20260625.report.md`;
 - `aoa-eval-self-awareness-contract-lane.report.md`.
 
-Implication: for `aoa-eval` trigger pressure, the first route is local apply or
-regression review in `aoa-skills`, not a new central bundle.
+Implication: the note proves local pressure exists but does not prove a runnable
+suite. The first route is sidecar design/review in `aoa-skills`; only a later
+source-contract-`ready` state can route typed `python_pytest` argv to the owner
+or `aoa-eval-apply`. It does not prove a pinned runtime; owner/apply
+JIT-revalidates and captures environment plus an execution receipt.
 
 ## Decision Matrix
 
@@ -74,7 +79,10 @@ regression review in `aoa-skills`, not a new central bundle.
 | `missing_no_pressure` | no local port and no current pressure | stop unless current work creates bounded pressure | do not create a port just for symmetry |
 | `valid_skeleton_keep_dormant` | valid dormant port with no active pressure | no-op or record current pressure only if new evidence exists | do not invent intake |
 | `active_intake_select_then_apply_or_design` | local intake/report pressure exists | `local-intake-pressure-packet`, then select/design review | check central/local duplicates first |
-| `active_suite_apply_or_regression_check` | local suite can run as deterministic support | `local-runnable-suite`, then local apply/regression check | suite result is not central verdict |
+| `active_suite_note_review_or_execution_contract_design` | suite note exists but execution state is `absent` | design/review sidecar | `.suite.md` alone is not runnable |
+| `active_suite_contract_invalid_repair` | sidecar schema, path, symlink, argv, or authority guard fails | repair contract | no invocation from invalid state |
+| `active_suite_contract_stale_review` | tracked source digest changed | review change and refresh approved hash | no invocation from stale state |
+| `active_suite_apply_or_regression_check` | execution state is source-contract-`ready` | owner or `aoa-eval-apply` JIT-revalidates, invokes typed exact argv, and captures environment/receipt | inventory/Forge/readiness never execute; ready is not runtime reproducibility and the suite result is not central verdict |
 | `active_reports_only_suite_extraction_or_review` | reports exist without runnable suite | owner review; possibly extract suite | reports are not proof |
 | `invalid_active_repair` | active port shape is invalid | repair port shape first | no eval adoption before validator passes |
 | `invalid_port_repair` | invalid local port | repair schema/topology | no central adoption from invalid local state |
@@ -113,3 +121,17 @@ review packets. They do not create central `aoa-evals` proof by location. A
 central proof bundle or verdict requires separate owner acceptance and source
 bundle validation.
 
+## Execution Boundary
+
+The execution state vocabulary is exactly `absent`, `invalid`, `stale`, and
+`ready`, aggregated as `invalid > stale > ready > absent`. Inventory, Eval
+Forge, readiness, dashboard, session-start, promotion review, generated
+readers, and MCP are inspect-only. MCP also cannot write `.suite.json` under
+AOA-EV-D-0241. Only the selected repo owner or `aoa-eval-apply` may invoke a
+ready contract's exact argv.
+The contract owner is resolved from PORT and Git common-dir/origin identity,
+not a named worktree basename. Owner/apply must revalidate immediately before
+execution and preserve environment plus receipt metadata.
+Every consumer first normalizes the inventory envelope. V1/unknown packets map
+suite execution to `absent`, regardless of injected fields or old route keys;
+only v2 may reach `active_suite_apply_or_regression_check`.

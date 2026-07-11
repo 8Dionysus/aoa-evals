@@ -40,6 +40,14 @@ This keeps each session operational: the agent sees current tools, active local
 pressure, candidate-only boundaries, promotion gates, freshness blockers, and
 stop-lines before it starts designing new evals.
 
+When local suite pressure appears, the packet also carries execution state:
+`absent`, `invalid`, `stale`, or `ready`, aggregated as
+`invalid > stale > ready > absent`. A `.suite.md` note alone is `absent` and
+non-runnable. Session-start, Forge, readiness, dashboard, inventory, promotion
+review, and MCP inspect this state but never execute `runner.argv`. `ready`
+means source-contract-ready, not pinned-runtime-ready; canonical owner identity
+comes from PORT plus Git common-dir/origin evidence.
+
 Eval Forge is the quick design route for a kept candidate. It can select an
 archetype and emit a worksheet, but it remains non-proof and cannot promote
 candidate packets or create central bundles.
@@ -48,7 +56,10 @@ The promotion dry-run is a gate review, not promotion. It walks one active
 local pressure item through local owner review, central overlap check, source
 bundle draft, fixture/runner/report contract review, human acceptance,
 catalog/report regeneration, and release/advisory validation. It must keep
-`promotion_allowed=false` and `mcp_promotion_allowed=false`.
+`promotion_allowed=false`, `mcp_promotion_allowed=false`, and local suite
+`execution_allowed=false`. A ready suite routes only to the repo owner or
+`aoa-eval-apply`, which must JIT-revalidate immediately before exact-argv
+invocation and capture environment plus an execution receipt.
 
 ## Research Grounding
 
@@ -242,7 +253,7 @@ Automation still stays below source owners, review notes, and bundle-local proof
 | Surface | Role in discovery |
 | --- | --- |
 | `.aoa` | raw/session evidence and freshness pointers only |
-| local repo `evals/` | repo-owned pressure, intake packets, local suites, and reports |
+| local repo `evals/` | repo-owned pressure, intake packets, suite notes/sidecars, canonical owner and tracked-source freshness, and reports; only owner/apply may JIT-revalidate and execute a source-contract-ready sidecar with environment/receipt capture |
 | `aoa-evals` | proof doctrine, central bundles, shared guide criteria, generated proof readers |
 | `aoa-evals-mcp` | access plane; it can expose packets or status but must not create proof truth |
 | `aoa-skills` | trigger and workflow behavior that can become skill-level eval pressure |

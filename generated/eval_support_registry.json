@@ -989,7 +989,7 @@
       "classification_evidence": [
         "family: part_local_router",
         "owner_surface: mechanics/proof-object/parts/eval-authoring/README.md",
-        "side_effects: stdout or JSON output by default; optional worksheet write only; does not create source eval bundles, accept proof, score evidence, mint baselines, promote candidates, or mutate local eval ports",
+        "side_effects: stdout or JSON output by default; normalizes v1/unknown suite state to absent before routing and may write an optional worksheet only; does not create source eval bundles, execute suites, accept proof, score evidence, mint baselines, promote candidates, or mutate local eval ports",
         "validation_lane: mechanics_part_local",
         "writes: optional eval_design_worksheet_v1 path when requested"
       ],
@@ -1013,14 +1013,15 @@
         "proof",
         "candidate",
         "trace",
+        "local_eval",
         "local eval"
       ],
       "review_reason": "write-capable script has no check/dry-run guard; direct eval application is forbidden until owner route changes",
       "review_status": "reviewed_forbidden",
       "safe_to_apply_directly": false,
       "semantic_class": "unsafe_side_effect_script",
-      "side_effects": "stdout or JSON output by default; optional worksheet write only; does not create source eval bundles, accept proof, score evidence, mint baselines, promote candidates, or mutate local eval ports",
-      "source_truth_count": 5,
+      "side_effects": "stdout or JSON output by default; normalizes v1/unknown suite state to absent before routing and may write an optional worksheet only; does not create source eval bundles, execute suites, accept proof, score evidence, mint baselines, promote candidates, or mutate local eval ports",
+      "source_truth_count": 6,
       "test_target": "mechanics/proof-object/parts/eval-authoring/tests/test_eval_forge_route.py"
     },
     {
@@ -1231,7 +1232,7 @@
       "classification_evidence": [
         "family: source_readmodel_builder",
         "owner_surface: docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
-        "side_effects: stdout or JSON output only; emits per-session eval-control and Eval Forge route packet without accepting proof, promoting candidates, scoring, or mutating sibling repos",
+        "side_effects: stdout or JSON output only; emits per-session eval-control and inspect-only suite routes without executing runner argv, accepting proof, promoting candidates, scoring, or mutating sibling repos",
         "validation_lane: advisory"
       ],
       "classification_rule": "runtime_or_session_candidate_signal",
@@ -1259,8 +1260,8 @@
       "review_status": "candidate_only",
       "safe_to_apply_directly": false,
       "semantic_class": "runtime_candidate_support",
-      "side_effects": "stdout or JSON output only; emits per-session eval-control and Eval Forge route packet without accepting proof, promoting candidates, scoring, or mutating sibling repos",
-      "source_truth_count": 6,
+      "side_effects": "stdout or JSON output only; emits per-session eval-control and inspect-only suite routes without executing runner argv, accepting proof, promoting candidates, scoring, or mutating sibling repos",
+      "source_truth_count": 7,
       "test_target": "tests/test_aoa_eval_session_start.py"
     },
     {
@@ -1303,7 +1304,7 @@
       "classification_evidence": [
         "family: source_readmodel_builder",
         "owner_surface: generated/AGENTS.md",
-        "side_effects: read-only by default; --write-generated writes volatile generated read-models; --check validates shape, eval-forge readiness, and proof-boundary invariants without accepting verdicts, scores, baselines, central proof, or candidate promotion",
+        "side_effects: read-only by default; --write-generated emits portable canonical-owner paths and never ephemeral .worktrees paths; v1/unknown suite state normalizes to absent; --check validates shape, suite routing, Forge readiness, and proof boundaries without executing runner argv or accepting proof/promotion",
         "validation_lane: advisory",
         "writes: generated/eval_readiness_dashboard.json, generated/eval_readiness_dashboard.md, generated/eval_support_registry.json when invoked with --write-generated"
       ],
@@ -1328,15 +1329,14 @@
         "candidate",
         "runtime",
         "trace",
-        "verdict",
         "local_eval"
       ],
       "review_reason": "write-capable script has an explicit check/dry-run/preview route; run the non-mutating mode before eval support",
       "review_status": "rule_reviewed",
       "safe_to_apply_directly": false,
       "semantic_class": "generated_parity_check",
-      "side_effects": "read-only by default; --write-generated writes volatile generated read-models; --check validates shape, eval-forge readiness, and proof-boundary invariants without accepting verdicts, scores, baselines, central proof, or candidate promotion",
-      "source_truth_count": 11,
+      "side_effects": "read-only by default; --write-generated emits portable canonical-owner paths and never ephemeral .worktrees paths; v1/unknown suite state normalizes to absent; --check validates shape, suite routing, Forge readiness, and proof boundaries without executing runner argv or accepting proof/promotion",
+      "source_truth_count": 12,
       "test_target": "tests/test_eval_readiness_dashboard.py"
     },
     {
@@ -1344,7 +1344,7 @@
       "classification_evidence": [
         "family: source_readmodel_builder",
         "owner_surface: docs/guides/LOCAL_EVAL_PORT_STANDARD.md",
-        "side_effects: read-only inventory by default; optional output writes only to caller-specified paths; does not repair local ports, mutate central proof bundles, compute verdicts, or promote local pressure",
+        "side_effects: read-only inventory by default; emits v2, surfaces identity conflicts before central exclusion, and provides the shared consumer normalizer that maps v1/unknown injected suite state to absent and old runnable routes to design; optional output writes only to caller-specified paths; never invokes runner argv, claims runtime reproducibility, repairs local ports, mutates proof, or promotes pressure",
         "validation_lane: advisory",
         "writes: optional JSON or Markdown output path when requested"
       ],
@@ -1366,16 +1366,16 @@
         "eval",
         "proof",
         "catalog",
+        "runtime",
         "trace",
-        "verdict",
         "local_eval"
       ],
       "review_reason": "write-capable script has an explicit check/dry-run/preview route; run the non-mutating mode before eval support",
       "review_status": "rule_reviewed",
       "safe_to_apply_directly": false,
       "semantic_class": "generated_parity_check",
-      "side_effects": "read-only inventory by default; optional output writes only to caller-specified paths; does not repair local ports, mutate central proof bundles, compute verdicts, or promote local pressure",
-      "source_truth_count": 4,
+      "side_effects": "read-only inventory by default; emits v2, surfaces identity conflicts before central exclusion, and provides the shared consumer normalizer that maps v1/unknown injected suite state to absent and old runnable routes to design; optional output writes only to caller-specified paths; never invokes runner argv, claims runtime reproducibility, repairs local ports, mutates proof, or promotes pressure",
+      "source_truth_count": 6,
       "test_target": "tests/test_local_eval_port_inventory.py"
     },
     {
@@ -1419,7 +1419,7 @@
       "classification_evidence": [
         "family: source_validator",
         "owner_surface: docs/guides/EVAL_FORGE_READINESS_LAYER.md",
-        "side_effects: stdout or JSON output only; checks session-ready Eval Forge gates without syncing mirrors, mutating repos, writing local ports, accepting proof, scoring, promoting candidates, or widening MCP authority",
+        "side_effects: stdout or JSON output only; checks session-ready Forge and suite-state gates without executing runner argv, syncing mirrors, mutating repos, writing local ports, accepting proof, scoring, promoting candidates, or widening MCP authority",
         "validation_lane: advisory"
       ],
       "classification_rule": "runtime_or_session_candidate_signal",
@@ -1449,8 +1449,8 @@
       "review_status": "candidate_only",
       "safe_to_apply_directly": false,
       "semantic_class": "runtime_candidate_support",
-      "side_effects": "stdout or JSON output only; checks session-ready Eval Forge gates without syncing mirrors, mutating repos, writing local ports, accepting proof, scoring, promoting candidates, or widening MCP authority",
-      "source_truth_count": 6,
+      "side_effects": "stdout or JSON output only; checks session-ready Forge and suite-state gates without executing runner argv, syncing mirrors, mutating repos, writing local ports, accepting proof, scoring, promoting candidates, or widening MCP authority",
+      "source_truth_count": 7,
       "test_target": "tests/test_eval_forge_readiness_check.py"
     },
     {
@@ -1824,7 +1824,7 @@
       "classification_evidence": [
         "family: source_validator",
         "owner_surface: docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
-        "side_effects: stdout or JSON output only; dry-runs local-to-central promotion review without creating central bundles, accepting proof, scoring, baselines, release artifacts, MCP promotion, or sibling mutation",
+        "side_effects: stdout or JSON output only; normalizes v1/unknown injected suite state to absent and dry-runs local-to-central promotion review without executing runner argv, creating central bundles, accepting proof, scoring, baselines, release artifacts, MCP promotion, or sibling mutation",
         "validation_lane: advisory"
       ],
       "classification_rule": "runtime_or_session_candidate_signal",
@@ -1854,8 +1854,8 @@
       "review_status": "candidate_only",
       "safe_to_apply_directly": false,
       "semantic_class": "runtime_candidate_support",
-      "side_effects": "stdout or JSON output only; dry-runs local-to-central promotion review without creating central bundles, accepting proof, scoring, baselines, release artifacts, MCP promotion, or sibling mutation",
-      "source_truth_count": 3,
+      "side_effects": "stdout or JSON output only; normalizes v1/unknown injected suite state to absent and dry-runs local-to-central promotion review without executing runner argv, creating central bundles, accepting proof, scoring, baselines, release artifacts, MCP promotion, or sibling mutation",
+      "source_truth_count": 4,
       "test_target": "tests/test_eval_promotion_path_review.py"
     },
     {
@@ -1972,7 +1972,7 @@
       "classification_evidence": [
         "family: source_validator",
         "owner_surface: docs/guides/LOCAL_EVAL_PORT_STANDARD.md",
-        "side_effects: validation output only; checks sibling-local eval port shape without owning central verdict, scoring, regression, or proof doctrine authority",
+        "side_effects: validation output only; surfaces Git identity conflicts, rejects non-regular/non-UTF8 sidecars, resolves cwd-relative entrypoint argv to canonical entrypoint_ref, enforces typed python_pytest argv, computes deterministic hashes and absent/invalid/stale/source-contract-ready state, and exposes JIT/environment/receipt obligations without invoking runner argv or claiming runtime reproducibility or proof authority",
         "validation_lane: advisory"
       ],
       "classification_rule": "read_only_validator_script",
@@ -1991,16 +1991,15 @@
       "relevance_reasons": [
         "eval",
         "proof",
-        "verdict",
-        "local_eval",
-        "local eval"
+        "runtime",
+        "local_eval"
       ],
       "review_reason": "read-only validator script has validation-only side effects and an owner surface",
       "review_status": "rule_reviewed",
       "safe_to_apply_directly": true,
       "semantic_class": "deterministic_validator",
-      "side_effects": "validation output only; checks sibling-local eval port shape without owning central verdict, scoring, regression, or proof doctrine authority",
-      "source_truth_count": 2,
+      "side_effects": "validation output only; surfaces Git identity conflicts, rejects non-regular/non-UTF8 sidecars, resolves cwd-relative entrypoint argv to canonical entrypoint_ref, enforces typed python_pytest argv, computes deterministic hashes and absent/invalid/stale/source-contract-ready state, and exposes JIT/environment/receipt obligations without invoking runner argv or claiming runtime reproducibility or proof authority",
+      "source_truth_count": 3,
       "test_target": "tests/test_local_eval_port.py"
     },
     {

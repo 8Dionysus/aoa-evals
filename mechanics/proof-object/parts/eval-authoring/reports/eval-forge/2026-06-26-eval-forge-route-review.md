@@ -1,5 +1,12 @@
 # Eval Forge Route Review 2026-06-26
 
+> Current applicability (2026-07-10): this report preserves the reviewed
+> 2026-06-26 route snapshot. Under AOA-EV-D-0245, its `.suite.md`-only rows
+> have execution state `absent` and route to sidecar design/review, not
+> `local-runnable-suite`, until a validated sidecar becomes
+> source-contract-`ready`. That state does not prove runtime reproducibility;
+> owner/apply still JIT-revalidates and captures environment plus receipt.
+
 ## Boundary
 
 This is a part-local route-review report for Eval Forge.
@@ -148,4 +155,3 @@ Rejected/noise:
 - keyword-only, emotion-only, transition-only, duplicate, ownerless, private
   raw-only, no-consequence, and no-repeatability cases stay out of packetized
   candidate queues.
-

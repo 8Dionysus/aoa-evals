@@ -47,6 +47,10 @@ EVAL_FORGE_EXTERNAL_GROUNDING_RELATIVE = Path(
 EVAL_FORGE_WORKSHEET_SCHEMA_RELATIVE = Path(
     "mechanics/proof-object/parts/eval-authoring/schemas/eval-design-worksheet.schema.json"
 )
+LOCAL_SUITE_EXECUTION_SCHEMA_RELATIVE = Path(
+    "mechanics/proof-object/parts/eval-authoring/schemas/"
+    "local-eval-suite-execution.schema.json"
+)
 EVAL_FORGE_OPERATING_PATH_RELATIVE = Path(
     "mechanics/proof-object/parts/eval-authoring/docs/EVAL_FORGE_OPERATING_PATH.md"
 )
@@ -91,6 +95,7 @@ SOURCE_OF_TRUTH = {
     "eval_forge_archetype_registry": EVAL_FORGE_REGISTRY_RELATIVE.as_posix(),
     "eval_forge_external_pattern_grounding": EVAL_FORGE_EXTERNAL_GROUNDING_RELATIVE.as_posix(),
     "eval_forge_worksheet_schema": EVAL_FORGE_WORKSHEET_SCHEMA_RELATIVE.as_posix(),
+    "local_suite_execution_schema": LOCAL_SUITE_EXECUTION_SCHEMA_RELATIVE.as_posix(),
     "eval_forge_operating_path": EVAL_FORGE_OPERATING_PATH_RELATIVE.as_posix(),
     "eval_forge_session_mining_criteria": EVAL_FORGE_SESSION_MINING_CRITERIA_RELATIVE.as_posix(),
     "eval_forge_local_port_matrix": EVAL_FORGE_LOCAL_PORT_MATRIX_RELATIVE.as_posix(),
@@ -494,6 +499,21 @@ def repo_relative(path: Path, root: Path) -> str:
         return path.relative_to(root).as_posix()
     except ValueError:
         return path.as_posix()
+
+
+def canonical_evals_owner_root(evals_root: Path, workspace_root: Path) -> Path:
+    """Keep generated paths on the canonical owner checkout, not a worktree."""
+
+    identity = build_local_eval_port_inventory.validate_local_eval_port.resolve_repo_identity(
+        evals_root
+    )
+    candidate = workspace_root / identity.owner_repo
+    if (
+        not identity.issues
+        and identity.owner_repo == build_local_eval_port_inventory.PROOF_OWNER_REPO
+    ):
+        return candidate.resolve(strict=False)
+    return evals_root.resolve()
 
 
 def sha256_file(path: Path) -> str | None:
@@ -1557,6 +1577,11 @@ def build_candidate_queue(
     catalog_summary: dict[str, Any],
     candidate_packets: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    local_inventory = (
+        build_local_eval_port_inventory.normalize_inventory_for_suite_consumers(
+            local_inventory
+        )
+    )
     entries: list[dict[str, Any]] = []
     packet_records = (
         candidate_packets.get("packets", [])
@@ -1838,6 +1863,7 @@ def build_eval_forge_readiness(
             "mechanics/audit/parts/candidate-readers/schemas/"
             "aoa-eval-candidate-packet.schema.json"
         ),
+        "local_suite_execution_schema_ref": LOCAL_SUITE_EXECUTION_SCHEMA_RELATIVE.as_posix(),
     }
     missing_front_door_refs = [
         ref for ref in front_door_refs.values() if not (evals_root / ref).is_file()
@@ -1887,8 +1913,22 @@ def build_eval_forge_readiness(
         "schema_version": "os_abyss_eval_forge_readiness_v1",
         "authority_boundary": (
             "Eval Forge is a design router and worksheet layer. It cannot accept proof, "
-            "score evidence, create baselines, promote candidates, or mutate local ports."
+            "score evidence, create baselines, promote candidates, mutate local ports, "
+            "or execute local suite runner argv."
         ),
+        "local_suite_execution_boundary": {
+            "state_vocabulary": ["absent", "invalid", "stale", "ready"],
+            "aggregate_priority": ["invalid", "stale", "ready", "absent"],
+            "readiness_scope": "source-contract-ready",
+            "runtime_reproducibility_proven": False,
+            "jit_revalidation_required": True,
+            "execution_receipt_required": True,
+            "environment_capture_required": True,
+            "execution_allowed": False,
+            "owner_apply_required": True,
+            "proof_authority": False,
+            "promotion_allowed": False,
+        },
         "registry_ref": EVAL_FORGE_REGISTRY_RELATIVE.as_posix(),
         "worksheet_schema_ref": EVAL_FORGE_WORKSHEET_SCHEMA_RELATIVE.as_posix(),
         "external_pattern_grounding_ref": EVAL_FORGE_EXTERNAL_GROUNDING_RELATIVE.as_posix(),
@@ -1931,6 +1971,8 @@ def build_eval_forge_readiness(
         "stop_lines": [
             "check existing central/local eval surfaces before new source authoring",
             "keep candidate packets, local ports, MCP exports, and dashboards non-proof",
+            "treat .suite.md as a note; only a ready sidecar can route to owner/apply",
+            "inventory, Eval Forge, readiness, dashboard, session-start, promotion review, and MCP never execute runner.argv",
             "write worksheets only after admission gates; write source bundles only after human owner acceptance",
             "refresh external grounding when eval tooling patterns materially change",
         ],
@@ -1998,6 +2040,16 @@ def freshness_gate_for_repo(
 
     if repo.get("inventory_status") == "invalid" or repo.get("validator_ok") is False:
         blocks.append("invalid_local_eval_port")
+    suite_execution = repo.get("suite_execution")
+    suite_state = (
+        str(suite_execution.get("state") or "absent")
+        if isinstance(suite_execution, dict)
+        else "absent"
+    )
+    if suite_state == "invalid":
+        blocks.append("invalid_local_suite_execution_contract")
+    elif suite_state == "stale":
+        blocks.append("stale_local_suite_execution_contract")
 
     return {
         "status": "blocked" if blocks else ("warning" if warnings else "ok"),
@@ -2014,6 +2066,16 @@ def freshness_gate_for_repo(
 
 
 def repo_readiness_state(repo: dict[str, Any], freshness_gate: dict[str, Any]) -> str:
+    suite_execution = repo.get("suite_execution")
+    suite_state = (
+        str(suite_execution.get("state") or "absent")
+        if isinstance(suite_execution, dict)
+        else "absent"
+    )
+    if suite_state == "invalid":
+        return "repair_invalid_local_suite_execution_contract"
+    if suite_state == "stale":
+        return "refresh_stale_local_suite_execution_contract"
     if freshness_gate.get("blocks_eval_route"):
         return "blocked_by_freshness_or_invalid_port"
     active_total = pressure_total(repo)
@@ -2025,7 +2087,7 @@ def repo_readiness_state(repo: dict[str, Any], freshness_gate: dict[str, Any]) -
         return "dormant_no_current_eval_pressure"
     if has_central_overlap:
         return "apply_existing_eval_or_duplicate_review"
-    if "suite" in route_key or "regression" in route_key:
+    if suite_state == "ready" and ("suite" in route_key or "regression" in route_key):
         return "apply_local_suite_or_regression_check"
     if "intake" in route_key or "design" in route_key:
         return "needs_local_design_or_owner_review"
@@ -2054,6 +2116,45 @@ def exact_next_command_for_repo(repo: dict[str, Any], workspace_root: Path) -> s
     )
 
 
+def suite_execution_readiness(repo: dict[str, Any]) -> dict[str, Any]:
+    execution = repo.get("suite_execution")
+    if not isinstance(execution, dict):
+        execution = {"state": "absent", "suites": []}
+    suites = execution.get("suites") if isinstance(execution.get("suites"), list) else []
+    ready_suites = [
+        {
+            "path": item.get("path"),
+            "suite_id": item.get("suite_id"),
+            "runner": item.get("runner"),
+            "entrypoint_ref": item.get("entrypoint_ref"),
+            "entrypoint_arg": item.get("entrypoint_arg"),
+            "timeout_seconds": item.get("timeout_seconds"),
+            "success_exit_codes": item.get("success_exit_codes"),
+        }
+        for item in suites
+        if isinstance(item, dict) and item.get("state") == "ready"
+    ]
+    state = str(execution.get("state") or "absent")
+    return {
+        "state": state,
+        "suite_count": int(execution.get("suite_count") or len(suites)),
+        "invalid_count": int(execution.get("invalid_count") or 0),
+        "stale_count": int(execution.get("stale_count") or 0),
+        "ready_count": int(execution.get("ready_count") or len(ready_suites)),
+        "ready_suites": ready_suites,
+        "readiness_scope": str(execution.get("readiness_scope") or "source-contract-ready"),
+        "runtime_reproducibility_proven": False,
+        "jit_revalidation_required": True,
+        "execution_receipt_required": True,
+        "environment_capture_required": True,
+        "execution_allowed": False,
+        "owner_apply_required": state == "ready",
+        "readiness_executed_runner": False,
+        "proof_authority": False,
+        "promotion_allowed": False,
+    }
+
+
 def build_repo_readiness(
     local_inventory: dict[str, Any],
     *,
@@ -2062,11 +2163,17 @@ def build_repo_readiness(
     mcp_runtime_status: dict[str, Any],
     aoa_freshness: dict[str, Any],
 ) -> dict[str, Any]:
+    local_inventory = (
+        build_local_eval_port_inventory.normalize_inventory_for_suite_consumers(
+            local_inventory
+        )
+    )
     repos = local_inventory.get("repos", []) if isinstance(local_inventory, dict) else []
     readiness: list[dict[str, Any]] = []
     by_state: Counter[str] = Counter()
     by_severity: Counter[str] = Counter()
     by_confidence: Counter[str] = Counter()
+    by_suite_execution_state: Counter[str] = Counter()
     if isinstance(repos, list):
         for repo in repos:
             if not isinstance(repo, dict):
@@ -2081,6 +2188,8 @@ def build_repo_readiness(
             by_severity[severity] += 1
             by_confidence[confidence] += 1
             route = repo.get("route_recommendation") if isinstance(repo.get("route_recommendation"), dict) else {}
+            suite_execution = suite_execution_readiness(repo)
+            by_suite_execution_state[str(suite_execution["state"])] += 1
             readiness.append(
                 {
                     "repo_id": repo.get("repo_id") or repo.get("repo"),
@@ -2094,16 +2203,19 @@ def build_repo_readiness(
                     "route_action": route.get("action"),
                     "freshness_gate": freshness_gate,
                     "central_eval_name_matches": repo.get("central_eval_name_matches", []),
+                    "suite_execution": suite_execution,
                     "exact_next_command": exact_next_command_for_repo(repo, workspace_root),
                     "safe_actions": [
                         "inspect_local_port_inventory",
                         "select_existing_central_eval_before_new_design",
                         "keep_candidate_only_until_owner_review",
+                        "route_ready_suite_to_repo_owner_or_aoa_eval_apply",
                     ],
                     "forbidden_actions": [
                         "central_proof_acceptance_from_local_port",
                         "mcp_auto_promotion",
                         "session_memory_as_reviewed_truth",
+                        "readiness_or_dashboard_executes_runner_argv",
                     ],
                 }
             )
@@ -2123,19 +2235,22 @@ def build_repo_readiness(
             "blocked_by_freshness_or_invalid_port",
             "apply_existing_eval_or_duplicate_review",
             "apply_local_suite_or_regression_check",
+            "repair_invalid_local_suite_execution_contract",
+            "refresh_stale_local_suite_execution_contract",
             "needs_local_design_or_owner_review",
             "needs_human_review",
         }
     ]
     return {
         "schema_version": "os_abyss_eval_repo_readiness_v1",
-        "authority_boundary": "Per-repo readiness routes local eval pressure; it does not mutate repos or accept proof.",
+        "authority_boundary": "Per-repo readiness routes local eval pressure; it does not mutate repos, execute local suites, or accept proof.",
         "summary": {
             "repos": len(readiness),
             "actionable_repos": len(actionable),
             "by_route_state": normalize_counter(by_state),
             "by_pressure_severity": normalize_counter(by_severity),
             "by_route_confidence": normalize_counter(by_confidence),
+            "by_suite_execution_state": normalize_counter(by_suite_execution_state),
         },
         "repos": readiness,
     }
@@ -2304,6 +2419,7 @@ def build_dashboard(
     observed_at_utc: str | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     observed_at_utc = observed_at_utc or utc_now()
+    canonical_evals_root = canonical_evals_owner_root(evals_root, workspace_root)
     support_registry = build_support_registry(evals_root)
     local_inventory = build_local_eval_port_inventory.build_inventory_payload(workspace_root)
     catalog_summary = load_catalog_summary(evals_root)
@@ -2311,7 +2427,7 @@ def build_dashboard(
     candidate_packets = load_candidate_packets(evals_root)
     mcp_runtime_status = build_mcp_runtime_status(
         workspace_root,
-        evals_root,
+        canonical_evals_root,
         stack_root,
         include_live_checks=include_live_checks,
         timeout=live_timeout,
@@ -2358,19 +2474,25 @@ def build_dashboard(
         "external_research_grounding": external_research_grounding,
         "owner_boundaries": OWNER_BOUNDARIES,
         "workspace_root": workspace_root.as_posix(),
-        "evals_root": evals_root.as_posix(),
+        "evals_root": canonical_evals_root.as_posix(),
         "read_model_posture": {
             "can_route": True,
             "can_score": False,
             "can_accept_proof": False,
             "can_promote_candidates": False,
             "can_mutate_sibling_repos": False,
+            "can_execute_local_suites": False,
         },
         "local_eval_ports": {
             "summary": local_inventory.get("summary", {}),
             "authority_boundary": local_inventory.get("authority_boundary"),
             "source_ref": "generated by scripts/build_local_eval_port_inventory.py",
             "next_route": "inspect active or invalid ports before eval application/design",
+            "suite_execution_boundary": (
+                "suite execution states are inspected only; ready means source-contract-ready, "
+                "not pinned runtime reproducibility; owner/apply must JIT-revalidate before "
+                "invoking exact runner.argv and capture environment plus an execution receipt"
+            ),
         },
         "central_catalog": catalog_summary,
         "mcp_runtime_status": mcp_runtime_status,
@@ -2657,6 +2779,8 @@ def validate_dashboard_shape(payload: Any, support_payload: Any) -> list[str]:
         return ["dashboard must be a JSON object"]
     if payload.get("schema_version") != SCHEMA_VERSION:
         issues.append("dashboard schema_version mismatch")
+    if "/.worktrees/" in json.dumps(payload, sort_keys=True):
+        issues.append("dashboard must not embed ephemeral absolute worktree paths")
     required_keys = {
         "authority_boundary",
         "external_research_grounding",
@@ -2686,7 +2810,13 @@ def validate_dashboard_shape(payload: Any, support_payload: Any) -> list[str]:
     if not isinstance(posture, dict):
         issues.append("read_model_posture missing")
     else:
-        for key in ("can_score", "can_accept_proof", "can_promote_candidates", "can_mutate_sibling_repos"):
+        for key in (
+            "can_score",
+            "can_accept_proof",
+            "can_promote_candidates",
+            "can_mutate_sibling_repos",
+            "can_execute_local_suites",
+        ):
             if posture.get(key) is not False:
                 issues.append(f"read_model_posture.{key} must be false")
     queue = payload.get("candidate_queue")
@@ -2732,6 +2862,7 @@ def validate_dashboard_shape(payload: Any, support_payload: Any) -> list[str]:
             "latest_route_review_report_ref",
             "worksheet_example_ref",
             "candidate_packet_schema_ref",
+            "local_suite_execution_schema_ref",
         }
         if not isinstance(front_door_refs, dict) or not required_front_door_ref_keys.issubset(front_door_refs):
             issues.append("eval_forge_readiness must expose all front-door refs")
@@ -2772,6 +2903,23 @@ def validate_dashboard_shape(payload: Any, support_payload: Any) -> list[str]:
                 if not hint.get("candidate_id") or not hint.get("selected_archetype_id"):
                     issues.append("eval_forge_readiness hints must include candidate_id and selected_archetype_id")
                     break
+        local_suite_boundary = forge.get("local_suite_execution_boundary")
+        if not isinstance(local_suite_boundary, dict):
+            issues.append("eval_forge_readiness must expose local_suite_execution_boundary")
+        elif (
+            local_suite_boundary.get("execution_allowed") is not False
+            or local_suite_boundary.get("proof_authority") is not False
+            or local_suite_boundary.get("promotion_allowed") is not False
+            or local_suite_boundary.get("readiness_scope") != "source-contract-ready"
+            or local_suite_boundary.get("runtime_reproducibility_proven") is not False
+            or local_suite_boundary.get("jit_revalidation_required") is not True
+            or local_suite_boundary.get("execution_receipt_required") is not True
+            or local_suite_boundary.get("environment_capture_required") is not True
+        ):
+            issues.append(
+                "eval_forge_readiness local suite boundary must stay source-contract-only, "
+                "inspect-only, JIT-revalidated, receipt-bearing, and non-proof"
+            )
     else:
         issues.append("eval_forge_readiness must be an object")
     packet_import = payload.get("candidate_packet_import")
@@ -2812,6 +2960,28 @@ def validate_dashboard_shape(payload: Any, support_payload: Any) -> list[str]:
                     continue
                 if not item.get("route_state") or not item.get("exact_next_command"):
                     issues.append("repo_readiness entries must include route_state and exact_next_command")
+                    break
+                suite_execution = item.get("suite_execution")
+                if not isinstance(suite_execution, dict):
+                    issues.append("repo_readiness entries must include suite_execution")
+                    break
+                if suite_execution.get("execution_allowed") is not False:
+                    issues.append("repo_readiness suite_execution must keep execution_allowed false")
+                    break
+                if suite_execution.get("proof_authority") is not False or suite_execution.get("promotion_allowed") is not False:
+                    issues.append("repo_readiness suite_execution must stay non-proof")
+                    break
+                if (
+                    suite_execution.get("readiness_scope") != "source-contract-ready"
+                    or suite_execution.get("runtime_reproducibility_proven") is not False
+                    or suite_execution.get("jit_revalidation_required") is not True
+                    or suite_execution.get("execution_receipt_required") is not True
+                    or suite_execution.get("environment_capture_required") is not True
+                ):
+                    issues.append(
+                        "repo_readiness suite_execution must preserve source-contract readiness "
+                        "and JIT revalidation/environment-receipt requirements"
+                    )
                     break
     else:
         issues.append("repo_readiness must be an object")

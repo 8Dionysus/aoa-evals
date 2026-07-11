@@ -1,0 +1,271 @@
+{
+  "schema_version": "aoa_local_eval_port_inventory_contract_v2",
+  "inventory_schema_version": "os_abyss_local_eval_port_inventory_v2",
+  "layer": "aoa-evals-local-port-inventory",
+  "proof_owner_repo": "aoa-evals",
+  "authority_boundary": "Repo-local eval ports carry intake, suites, reports, and pressure evidence only. Central verdict, scoring, regression, proof doctrine, and central bundle adoption remain in aoa-evals.",
+  "execution_boundary": "Inventory, Eval Forge, readiness, dashboard, session-start, promotion review, generated readers, and MCP consumers inspect suite execution contracts but never invoke runner.argv. Ready means source-contract-ready only. The selected repo owner or aoa-eval-apply must JIT-revalidate the contract and hashes before invoking exact argv, then capture environment metadata and an execution receipt.",
+  "canonical_owner_identity": {
+    "law": "PORT.yaml owner_repo and every suite/report note or execution sidecar owner_repo must match the resolved canonical repo identity, not a named worktree basename.",
+    "git_resolution": "Use Git common-dir owner and origin repository name when available; disagreement is invalid.",
+    "nongit_fallback": "Use target-root basename only for non-Git fixtures or an otherwise unidentified Git fixture."
+  },
+  "ready_semantics": {
+    "scope": "source-contract-ready",
+    "runtime_reproducibility_proven": false,
+    "runner_kind": "python_pytest",
+    "runner_grammar": "python|python3 [-B] -m pytest [reviewed allowlisted flags] <cwd-relative-entrypoint-arg>, with only fixed -p no:cacheprovider plugin disabling; the final arg must resolve from runner.cwd to canonical repo-relative entrypoint_ref",
+    "jit_revalidation_required": true,
+    "environment_capture_required": true,
+    "execution_receipt_required": true
+  },
+  "generated_path_boundary": {
+    "canonical_owner_root": "/srv/AbyssOS/aoa-evals",
+    "ephemeral_worktree_paths_allowed": false,
+    "rule": "Builders may read source from an isolated worktree, but generated dashboard and MCP runtime-status paths name the canonical owner checkout."
+  },
+  "compatibility": {
+    "previous_contract_ref": "docs/architecture/local_eval_port_inventory.contract.v1.json",
+    "current_contract_ref": "docs/architecture/local_eval_port_inventory.contract.v2.json",
+    "accepted_contract_schema_versions": [
+      "aoa_local_eval_port_inventory_contract_v1",
+      "aoa_local_eval_port_inventory_contract_v2"
+    ],
+    "accepted_inventory_schema_versions": [
+      "os_abyss_local_eval_port_inventory_v1",
+      "os_abyss_local_eval_port_inventory_v2"
+    ],
+    "consumer_rule": "All Forge, dashboard, promotion, session, generated, and MCP consumers normalize v1 or unknown inventory input before routing: injected suite_execution fields map to absent and an old active-suite route maps to sidecar design. V1 must never infer runnable from suite_notes. Only v2 suite_execution is authoritative for runnable routing.",
+    "producer_rule": "The current builder emits v2 only and keeps the v1 contract file as a historical compatibility input.",
+    "v1_fallback_suite_execution_state": "absent"
+  },
+  "source_of_truth": {
+    "local_port_standard": "docs/guides/LOCAL_EVAL_PORT_STANDARD.md",
+    "local_port_validator": "scripts/validate_local_eval_port.py",
+    "local_suite_execution_schema": "mechanics/proof-object/parts/eval-authoring/schemas/local-eval-suite-execution.schema.json",
+    "central_eval_catalog": "generated/eval_catalog.min.json",
+    "mcp_contract": "docs/architecture/AOA_EVALS_MCP_CONTRACT.md",
+    "inventory_contract": "docs/architecture/local_eval_port_inventory.contract.v2.json"
+  },
+  "inventory_statuses": [
+    "missing",
+    "stale_candidate",
+    "invalid",
+    "skeleton",
+    "active"
+  ],
+  "suite_execution_states": [
+    "absent",
+    "invalid",
+    "stale",
+    "ready"
+  ],
+  "suite_execution_aggregate_priority": [
+    "invalid",
+    "stale",
+    "ready",
+    "absent"
+  ],
+  "summary_keys": [
+    "repos",
+    "validator_ok",
+    "validator_failed",
+    "with_local_port",
+    "with_detected_pressure",
+    "excluded_repos",
+    "missing",
+    "stale_candidate",
+    "invalid",
+    "skeleton",
+    "active",
+    "suite_execution_absent",
+    "suite_execution_invalid",
+    "suite_execution_stale",
+    "suite_execution_ready"
+  ],
+  "summary_semantics": {
+    "validator_ok": "true only for a present valid port whose aggregate suite execution state is neither invalid nor stale",
+    "validator_failed": "count entries with structural validation issues or aggregate invalid/stale suite execution state; stale remains an active inventory status but is validator-blocked"
+  },
+  "pressure_count_keys": [
+    "intake_packets",
+    "suite_notes",
+    "suite_execution_contracts",
+    "report_notes",
+    "local_bundles",
+    "active_total"
+  ],
+  "suite_execution_keys": [
+    "schema_version",
+    "state",
+    "canonical_owner_repo",
+    "owner_identity_sources",
+    "state_vocabulary",
+    "aggregate_priority",
+    "suite_count",
+    "invalid_count",
+    "stale_count",
+    "ready_count",
+    "auto_run_allowed",
+    "inventory_executed_runner",
+    "proof_authority",
+    "promotion_allowed",
+    "readiness_scope",
+    "runtime_reproducibility_proven",
+    "runtime_boundary",
+    "jit_revalidation_required",
+    "environment_capture_required",
+    "execution_receipt_required",
+    "execution_handoff",
+    "issues",
+    "suites"
+  ],
+  "validation_issue_keys": [
+    "location",
+    "message"
+  ],
+  "excluded_repo_reason": "central_proof_owner_not_repo_local_port",
+  "discovery": {
+    "default_max_depth": 4,
+    "valid_git_markers": [
+      ".git directory with HEAD file",
+      ".git file whose first line starts with gitdir:"
+    ],
+    "ignored_dir_names": [
+      ".git",
+      ".hg",
+      ".svn",
+      ".aoa",
+      ".codex",
+      ".worktrees",
+      ".tox",
+      ".venv",
+      "__pycache__",
+      "node_modules"
+    ],
+    "ignored_relative_prefixes": [
+      ".worktrees",
+      ".codex",
+      "abyss-stack/Logs",
+      "abyss-stack/Models",
+      "abyss-stack/Services",
+      "bundles"
+    ]
+  },
+  "route_recommendations": [
+    {
+      "route_key": "missing_no_pressure",
+      "route": "stop",
+      "subskill": "none",
+      "action": "Do not create a local eval port unless current repo work produces real eval pressure.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "stale_local_eval_surface_review",
+      "route": "aoa-eval-select",
+      "subskill": "aoa-eval-select",
+      "action": "Inspect the existing eval-like surface before mutation; add a valid port only if current pressure warrants it.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "invalid_port_repair",
+      "route": "repair-local-port",
+      "subskill": "aoa-eval-select",
+      "action": "Repair the local eval-port shape and rerun the validator before applying or designing evals.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "invalid_active_repair",
+      "route": "repair-local-port",
+      "subskill": "aoa-eval-select",
+      "action": "Repair the local eval-port shape and rerun the validator before applying or designing evals.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "active_suite_contract_invalid_repair",
+      "route": "repair-local-suite-execution-contract",
+      "subskill": "aoa-eval-apply",
+      "action": "Repair the local suite execution sidecar, canonical owner, schema, paths, typed python_pytest argv grammar, or authority/runtime-boundary flags before any owner-local invocation.",
+      "proof_boundary": "inventory and routing surfaces never execute runner.argv; central proof authority stays in aoa-evals"
+    },
+    {
+      "route_key": "active_suite_contract_stale_review",
+      "route": "refresh-local-suite-execution-contract",
+      "subskill": "aoa-eval-apply",
+      "action": "Review changed tracked sources and refresh approved SHA256 values before any owner-local invocation.",
+      "proof_boundary": "stale contracts are not runnable and hash refresh is not proof acceptance"
+    },
+    {
+      "route_key": "central_overlap_apply_existing_first",
+      "route": "aoa-eval-select",
+      "subskill": "aoa-eval-select",
+      "action": "Local pressure overlaps central eval names; inspect and apply the existing central route before designing a new local suite.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "valid_skeleton_keep_dormant",
+      "route": "stop",
+      "subskill": "none",
+      "action": "Keep the valid skeleton dormant until a current task creates local eval pressure.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "local_bundle_central_review_candidate",
+      "route": "central-adoption-review",
+      "subskill": "aoa-eval-select",
+      "action": "Review the local draft bundle against central aoa-evals routes before any adoption or normalization.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "active_suite_apply_or_regression_check",
+      "route": "aoa-eval-apply",
+      "subskill": "aoa-eval-apply",
+      "action": "A source-contract-ready local suite may be invoked only by the repo owner or aoa-eval-apply after JIT revalidation, using exact argv and timeout, with environment capture and an execution receipt.",
+      "proof_boundary": "ready does not prove pinned dependencies or reproducible runtime and remains owner-local support, not central proof, scoring, or verdict authority"
+    },
+    {
+      "route_key": "active_suite_note_review_or_execution_contract_design",
+      "route": "aoa-eval-design",
+      "subskill": "aoa-eval-design",
+      "action": "Treat the suite note as design pressure only; add a reviewed execution sidecar before claiming a runnable local suite.",
+      "proof_boundary": "a .suite.md note alone is not runnable and carries no central proof authority"
+    },
+    {
+      "route_key": "active_intake_select_then_apply_or_design",
+      "route": "aoa-eval-select",
+      "subskill": "aoa-eval-select",
+      "action": "Select existing local and central eval routes first, then apply or design only after duplicate-fit review.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "active_reports_only_suite_extraction_or_review",
+      "route": "aoa-eval-design",
+      "subskill": "aoa-eval-design",
+      "action": "Treat reports-only pressure as a candidate for suite extraction or central review, not proof acceptance.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    },
+    {
+      "route_key": "active_without_detected_pressure",
+      "route": "repair-local-port",
+      "subskill": "aoa-eval-select",
+      "action": "Declared active state has no detected pressure files; repair status or add the missing reviewed pressure surface.",
+      "proof_boundary": "central proof adoption, verdicts, scoring, regression, and proof doctrine stay in aoa-evals"
+    }
+  ],
+  "mcp_surface": {
+    "resource": "aoa-evals://local-ports",
+    "detail_resource_template": "aoa-evals://local-port/{repo}",
+    "tool": "aoa_evals_local_ports",
+    "detail_tool": "aoa_evals_local_port",
+    "execution_allowed": false,
+    "suite_sidecar_write_allowed": false
+  },
+  "contract_limits": [
+    "inventory is routing evidence, not central proof acceptance",
+    "route recommendations do not approve proposals or accept evidence",
+    "inventory, Eval Forge, readiness, dashboard, session-start, promotion review, generated readers, and MCP never execute runner.argv",
+    "ready proves reviewed source-contract shape and freshness only, not interpreter or dependency reproducibility",
+    "owner/apply must JIT-revalidate and capture environment plus an execution receipt",
+    "MCP and generated readers remain weaker than source ports and aoa-evals source bundles"
+  ]
+}

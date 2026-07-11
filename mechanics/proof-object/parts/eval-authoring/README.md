@@ -20,6 +20,7 @@ route to their owning source surfaces.
 - `mechanics/proof-object/parts/eval-authoring/schemas/eval-need.schema.json`
 - `mechanics/proof-object/parts/eval-authoring/schemas/eval-archetype-registry.schema.json`
 - `mechanics/proof-object/parts/eval-authoring/schemas/eval-design-worksheet.schema.json`
+- `mechanics/proof-object/parts/eval-authoring/schemas/local-eval-suite-execution.schema.json`
 - `mechanics/proof-object/parts/eval-authoring/config/eval-archetypes.json`
 - `mechanics/proof-object/parts/eval-authoring/config/external-pattern-grounding.json`
 - `mechanics/proof-object/parts/eval-authoring/examples/eval_need.example.json`
@@ -57,6 +58,10 @@ route to their owning source surfaces.
 - a new or reshaped `EVAL.md` scaffold;
 - frontmatter aligned with the eval source contract;
 - explicit comparison and report contract placeholders when applicable.
+- an inspect-only local suite execution route whose state is
+  `absent`/`invalid`/`stale`/`ready`; `.suite.md` alone is never runnable.
+  `ready` means source-contract-ready only and requires canonical Git/PORT
+  owner identity plus typed `python_pytest` argv.
 
 ## Stronger Owner Split
 
@@ -82,7 +87,11 @@ Eval Forge is the design router before source authoring. It can choose an
 archetype, explain missing evidence, and write an `eval_design_worksheet_v1`
 only when requested. It cannot create central bundles, accept proof, score
 evidence, mint baselines, promote candidate packets, or mutate repo-local
-`evals/` ports.
+`evals/` ports. It also cannot execute local suite `runner.argv`; only the
+selected repo owner or `aoa-eval-apply` may invoke an exact validated argv when
+the sidecar state is `ready`, JIT revalidation succeeds, and environment plus
+execution-receipt capture is arranged. Ready does not prove a pinned or
+reproducible runtime.
 
 ## Stop-Lines
 
@@ -95,6 +104,8 @@ evidence, mint baselines, promote candidate packets, or mutate repo-local
 | candidate pressure is concrete but not source-authoring-ready | run `python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --json` and keep the result as design guidance only |
 | a new case needs quick collection before authoring | run `python mechanics/proof-object/parts/eval-authoring/scripts/prepare_eval_case.py --json`; write only an `eval_need_v1` proposal until review |
 | runtime or trace artifact is the input | route through audit selected-evidence packets and candidate readers before bundle-local review |
+| `.suite.md` is present without a ready sidecar | keep it as design pressure; validate or repair `local_eval_suite_execution_v1` before owner/apply |
+| inventory, Forge, readiness, dashboard, session-start, promotion review, generated readers, or MCP would execute a local suite | stop; these surfaces are inspect-only |
 | comparison posture hides in prose | carry it in frontmatter, `eval.yaml`, and comparison guidance |
 | source eval package movement appears | keep source eval packages under `evals/` |
 | generated readers, reports, receipts, runtime candidates, or sibling refs outrank source eval packages | return to source eval packages and bundle-local review |

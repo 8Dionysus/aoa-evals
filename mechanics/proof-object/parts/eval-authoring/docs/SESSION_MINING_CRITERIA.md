@@ -117,7 +117,8 @@ The packet is not a verdict, score, baseline, or central proof object.
 | missed trigger without keyword | `aoa-skills-trigger-eval` |
 | runtime/MCP/front-door actionability gap | `abyss-stack-runtime-mcp-smoke` |
 | active local intake | `local-intake-pressure-packet` |
-| active local suite/regression surface | `local-runnable-suite` |
+| active local suite/regression surface with source-contract-`ready` execution sidecar | `local-runnable-suite`; owner/apply still JIT-revalidates and captures environment/receipt |
+| `.suite.md` note with absent, invalid, or stale execution sidecar | local contract design, repair, or freshness review; do not route as runnable |
 | possible central proof bundle | `central-proof-bundle-draft` only after owner acceptance |
 
 ## Automation Stop-Line
@@ -126,4 +127,3 @@ Do not automate broad session mining until this layer has enough reviewed
 positive cases, negative cases, duplicate accounting, and owner decisions to
 calibrate a miner. The first useful automation is a guardrail that preserves
 candidate-only posture, not a miner that creates more queue pressure.
-

@@ -57,6 +57,16 @@ def active_repo_routes(dashboard: dict[str, Any], limit: int = 8) -> list[dict[s
             "route_confidence": item.get("route_confidence"),
             "exact_next_command": item.get("exact_next_command"),
             "freshness_warnings": item.get("freshness_warnings", []),
+            "suite_execution": item.get(
+                "suite_execution",
+                {
+                    "state": "absent",
+                    "execution_allowed": False,
+                    "owner_apply_required": False,
+                    "proof_authority": False,
+                    "promotion_allowed": False,
+                },
+            ),
         }
         for item in repos
         if isinstance(item, dict)
@@ -214,7 +224,7 @@ def build_session_start_payload(
     }
     return {
         "schema_version": SCHEMA_VERSION,
-        "authority_boundary": "Session-start output routes eval work; it cannot score, accept proof, promote candidates, or mutate sibling repos.",
+        "authority_boundary": "Session-start output routes eval work; it cannot score, accept proof, promote candidates, mutate sibling repos, or execute local suite runner argv.",
         "read_model_posture": dashboard.get("read_model_posture", {}),
         "session_entry_commands": [
             {
@@ -263,6 +273,19 @@ def build_session_start_payload(
             },
         ],
         "eval_forge_front_door": forge_front_door,
+        "local_suite_execution_boundary": {
+            "state_vocabulary": ["absent", "invalid", "stale", "ready"],
+            "aggregate_priority": ["invalid", "stale", "ready", "absent"],
+            "readiness_scope": "source-contract-ready",
+            "runtime_reproducibility_proven": False,
+            "jit_revalidation_required": True,
+            "execution_receipt_required": True,
+            "environment_capture_required": True,
+            "execution_allowed": False,
+            "owner_apply_required_for_ready": True,
+            "proof_authority": False,
+            "promotion_allowed": False,
+        },
         "active_repo_routes": active_routes,
         "candidate_queue_summary": queue_summary,
         "candidate_queue_routes": candidate_routes,
@@ -328,6 +351,9 @@ def build_session_start_payload(
             "do not import session evidence without candidate packet validation",
             "do not skip Eval Forge admission gates when designing a new eval from candidate pressure",
             "do not promote local eval pressure before promotion dry-run review and human owner acceptance",
+            "do not treat .suite.md as runnable; only a source-contract-ready sidecar may route to owner/apply",
+            "do not treat ready as pinned runtime reproducibility; owner/apply must JIT-revalidate and capture environment plus receipt",
+            "session-start, readiness, dashboard, Eval Forge, inventory, promotion review, and MCP never execute runner.argv",
         ],
     }
 

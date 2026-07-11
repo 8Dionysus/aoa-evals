@@ -233,22 +233,22 @@
       "label": "Repo-local runnable suite",
       "route_kind": "local-suite",
       "signals": ["suite", "regression", "local report", "runnable", "repo check"],
-      "use_when": ["A repo has a concrete local suite or report that can be applied as candidate regression support."],
-      "do_not_use_when": ["The suite claims central verdict, scoring, or baseline authority."],
-      "required_evidence": ["local suite path", "run command", "report/readout boundary"],
+      "use_when": ["A repo has a local_eval_suite_execution_v1 sidecar whose aggregate execution state is source-contract-ready."],
+      "do_not_use_when": ["Only a .suite.md note exists, the execution sidecar is absent, invalid, or stale, or the suite claims central verdict, scoring, or baseline authority."],
+      "required_evidence": ["local suite note and matching execution sidecar paths", "canonical owner identity verified across PORT and Git common-dir/origin when available", "schema-valid typed python_pytest argv and repo-relative cwd", "entrypoint and tracked file/tree SHA256 refs", "auto-run, runtime-reproducibility, proof-authority, and promotion flags fixed false", "JIT revalidation, environment capture, and execution receipt flags fixed true"],
       "required_owner_surface": ["repo-local evals/suites", "repo-local evals/reports"],
       "grader_family": "local runnable check or regression smoke",
-      "fixture_shape": "repo-local cases, runner command, and bounded report",
+      "fixture_shape": "repo-local cases plus evals/suites/<slug>.suite.json execution sidecar and bounded report",
       "positive_negative_case_expectation": "Include expected pass/fail or regression/no-regression cases.",
-      "repeatability_requirements": ["local command documented", "report does not claim central proof"],
-      "anti_gaming_risks": ["local pass treated as central proof", "suite silently depends on stale local state"],
+      "repeatability_requirements": ["suite execution state is source-contract-ready after tracked-source hash validation", "only the repo owner or aoa-eval-apply JIT-revalidates and invokes runner.argv exactly", "owner/apply captures interpreter, dependency, platform, sidecar digest, observed hashes, and an execution receipt", "inventory, Eval Forge, readiness, dashboard, session-start, promotion review, and MCP do not execute the suite", "report does not claim central proof or pinned runtime reproducibility"],
+      "anti_gaming_risks": ["local pass treated as central proof", "source-contract-ready treated as reproducible-runtime-ready", "suite silently depends on stale local state or ambient dependencies", "worktree basename used to redefine repo owner", "untyped interpreter or module dispatcher bypasses the reviewed entrypoint"],
       "local_vs_central_route": {
         "target": "local",
         "owner_repo": "repo-local evals/",
         "route_key": "active_suite_apply_or_regression_check"
       },
-      "validation_route": "run repo-local suite command and local port validator",
-      "example_refs": ["aoa-skills/evals/suites/aoa-eval-trigger-corpus.suite.md"]
+      "validation_route": "python scripts/validate_local_eval_port.py --target-root <repo>; owner/apply revalidates immediately before exact argv, captures environment, and writes an execution receipt only when state is source-contract-ready",
+      "example_refs": ["docs/guides/LOCAL_EVAL_PORT_STANDARD.md", "mechanics/proof-object/parts/eval-authoring/schemas/local-eval-suite-execution.schema.json"]
     },
     {
       "id": "aoa-skills-trigger-eval",

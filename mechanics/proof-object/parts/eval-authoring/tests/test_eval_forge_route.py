@@ -149,6 +149,7 @@ def test_local_port_inventory_routes_to_local_intake(tmp_path: Path) -> None:
     inventory_path.write_text(
         json.dumps(
             {
+                "schema_version": "os_abyss_local_eval_port_inventory_v2",
                 "repos": [
                     {
                         "repo_id": "aoa-routing",
@@ -187,6 +188,214 @@ def test_local_port_inventory_routes_to_local_intake(tmp_path: Path) -> None:
     assert payload["candidate_admissibility"]["decision"] == "keep"
     assert payload["selected_archetype_id"] == "local-intake-pressure-packet"
     assert payload["owner_route"]["owner_repo"] == "repo-local evals/"
+
+
+def test_local_suite_note_without_ready_sidecar_is_not_routed_as_runnable(
+    tmp_path: Path,
+) -> None:
+    forge = load_forge_module()
+    inventory_path = tmp_path / "local-port-inventory.json"
+    inventory_path.write_text(
+        json.dumps(
+            {
+                "repos": [
+                    {
+                        "repo_id": "aoa-skills",
+                        "inventory_status": "active",
+                        "root": "/srv/AbyssOS/aoa-skills",
+                        "port_path": "evals/PORT.yaml",
+                        "pressure_counts": {
+                            "active_total": 1,
+                            "intake_packets": 0,
+                            "suite_notes": 1,
+                            "suite_execution_contracts": 0,
+                            "report_notes": 0,
+                        },
+                        "suite_execution": {
+                            "state": "absent",
+                            "suite_count": 0,
+                            "ready_count": 0,
+                            "auto_run_allowed": False,
+                            "inventory_executed_runner": False,
+                            "suites": [],
+                        },
+                        "route_recommendation": {
+                            "action": "review suite note or design an execution sidecar",
+                            "route_key": "active_suite_note_review_or_execution_contract_design",
+                            "proof_boundary": ".suite.md alone is not runnable",
+                        },
+                        "owner_boundary": {"owner_repo": "aoa-skills"},
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    case = forge.local_port_case(
+        "aoa-skills",
+        repo_root=REPO_ROOT,
+        workspace_root=tmp_path,
+        inventory_path=inventory_path.as_posix(),
+    )
+    payload = forge.build_forge_route(case=case, repo_root=tmp_path)
+
+    assert case.archetype_hint == "local-intake-pressure-packet"
+    assert payload["selected_archetype_id"] != "local-runnable-suite"
+    assert payload["local_suite_execution"]["state"] == "absent"
+    assert payload["local_suite_execution"]["execution_allowed"] is False
+
+
+def test_ready_local_suite_routes_to_apply_without_forge_execution(tmp_path: Path) -> None:
+    forge = load_forge_module()
+    marker = tmp_path / "forge-executed.marker"
+    inventory_path = tmp_path / "local-port-inventory.json"
+    inventory_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "os_abyss_local_eval_port_inventory_v2",
+                "repos": [
+                    {
+                        "repo_id": "aoa-skills",
+                        "inventory_status": "active",
+                        "root": "/srv/AbyssOS/aoa-skills",
+                        "port_path": "evals/PORT.yaml",
+                        "pressure_counts": {
+                            "active_total": 2,
+                            "intake_packets": 0,
+                            "suite_notes": 1,
+                            "suite_execution_contracts": 1,
+                            "report_notes": 0,
+                        },
+                        "suite_execution": {
+                            "state": "ready",
+                            "suite_count": 1,
+                            "ready_count": 1,
+                            "auto_run_allowed": False,
+                            "inventory_executed_runner": False,
+                            "suites": [
+                                {
+                                    "path": "evals/suites/trigger.suite.json",
+                                    "suite_id": "trigger",
+                                    "state": "ready",
+                                    "readiness_scope": "source-contract-ready",
+                                    "runtime_reproducibility_proven": False,
+                                    "runner": {
+                                        "kind": "python_pytest",
+                                        "argv": [
+                                            "python",
+                                            "-m",
+                                            "pytest",
+                                            "-q",
+                                            "tests/trigger.py",
+                                        ],
+                                        "cwd": ".",
+                                    },
+                                }
+                            ],
+                        },
+                        "route_recommendation": {
+                            "action": "owner/apply may invoke exact argv",
+                            "route_key": "active_suite_apply_or_regression_check",
+                            "proof_boundary": "ready local support is not central proof",
+                        },
+                        "owner_boundary": {"owner_repo": "aoa-skills"},
+                    }
+                ]
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    case = forge.local_port_case(
+        "aoa-skills",
+        repo_root=REPO_ROOT,
+        workspace_root=tmp_path,
+        inventory_path=inventory_path.as_posix(),
+    )
+    payload = forge.build_forge_route(case=case, repo_root=tmp_path)
+
+    assert case.archetype_hint == "local-runnable-suite"
+    assert payload["selected_archetype_id"] == "local-runnable-suite"
+    assert payload["local_suite_execution"]["state"] == "ready"
+    assert payload["local_suite_execution"]["execution_allowed"] is False
+    assert payload["local_suite_execution"]["owner_apply_required"] is True
+    assert payload["local_suite_execution"]["readiness_scope"] == "source-contract-ready"
+    assert payload["local_suite_execution"]["runtime_reproducibility_proven"] is False
+    assert payload["local_suite_execution"]["jit_revalidation_required"] is True
+    assert payload["local_suite_execution"]["execution_receipt_required"] is True
+    assert payload["local_suite_execution"]["environment_capture_required"] is True
+    assert not marker.exists()
+
+
+def test_v1_inventory_injected_ready_suite_is_downgraded_to_absent(
+    tmp_path: Path,
+) -> None:
+    forge = load_forge_module()
+    inventory_path = tmp_path / "local-port-inventory-v1.json"
+    inventory_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "os_abyss_local_eval_port_inventory_v1",
+                "repos": [
+                    {
+                        "repo_id": "aoa-skills",
+                        "inventory_status": "active",
+                        "root": "/srv/AbyssOS/aoa-skills",
+                        "port_path": "evals/PORT.yaml",
+                        "pressure_counts": {
+                            "active_total": 2,
+                            "suite_notes": 1,
+                            "suite_execution_contracts": 1,
+                            "report_notes": 0,
+                        },
+                        "suite_execution": {
+                            "state": "ready",
+                            "suite_count": 1,
+                            "ready_count": 1,
+                            "suites": [
+                                {
+                                    "state": "ready",
+                                    "path": "evals/suites/injected.suite.json",
+                                    "runner": {
+                                        "kind": "python_pytest",
+                                        "argv": ["python", "-m", "pytest", "tests/injected.py"],
+                                        "cwd": ".",
+                                    },
+                                }
+                            ],
+                        },
+                        "route_recommendation": {
+                            "route_key": "active_suite_apply_or_regression_check",
+                            "action": "unsafe injected v1 ready route",
+                        },
+                        "owner_boundary": {"owner_repo": "aoa-skills"},
+                    }
+                ],
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    case = forge.local_port_case(
+        "aoa-skills",
+        repo_root=REPO_ROOT,
+        workspace_root=tmp_path,
+        inventory_path=inventory_path.as_posix(),
+    )
+    payload = forge.build_forge_route(case=case, repo_root=tmp_path)
+
+    assert case.archetype_hint != "local-runnable-suite"
+    assert payload["selected_archetype_id"] != "local-runnable-suite"
+    assert payload["local_suite_execution"]["state"] == "absent"
+    assert payload["local_suite_execution"]["ready_count"] == 0
+    assert payload["local_suite_execution"]["owner_apply_required"] is False
 
 
 def test_existing_catalog_match_blocks_parallel_scaffold(tmp_path: Path) -> None:

@@ -9,14 +9,14 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 ## Summary
 
-- Generated at: `2026-06-26T16:59:20Z`
+- Generated at: `2026-07-11T07:46:47Z`
 - Workspace root: `/srv/AbyssOS`
 - Central evals: 39
-- Local active ports: 5
+- Local active ports: 9
 - Local invalid ports: 0
-- Actionable repo routes: 5
+- Actionable repo routes: 9
 - Runtime candidate exports: 14
-- Candidate queue entries: 11
+- Candidate queue entries: 15
 - Candidate packet imports: 5
 - Eval Forge archetypes: 18
 - Eval Forge candidate hints: 5
@@ -25,7 +25,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 - Eval-relevant surfaces with unresolved manual review: 0
 - Unsafe side-effect scripts: 4
 - MCP runtime status: `ok`
-- Dirty repos: 6
+- Dirty repos: 15
 
 ## Research Grounding
 
@@ -58,11 +58,15 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 | Repo | State | Severity | Confidence | Freshness | Next Command |
 | --- | --- | --- | --- | --- | --- |
-| `aoa-skills` | apply_local_suite_or_regression_check | high | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "aoa-skills")'` |
+| `aoa-skills` | needs_local_design_or_owner_review | high | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "aoa-skills")'` |
+| `connectors/aoa-course-connector` | needs_local_design_or_owner_review | high | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "connectors/aoa-course-connector")'` |
 | `aoa-memo` | needs_local_design_or_owner_review | medium | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "aoa-memo")'` |
 | `aoa-routing` | needs_local_design_or_owner_review | medium | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "aoa-routing")'` |
-| `connectors/aoa-4pda-connector` | apply_local_suite_or_regression_check | medium | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "connectors/aoa-4pda-connector")'` |
-| `connectors/aoa-xda-connector` | apply_local_suite_or_regression_check | low | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "connectors/aoa-xda-connector")'` |
+| `connectors/aoa-4pda-connector` | needs_local_design_or_owner_review | medium | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "connectors/aoa-4pda-connector")'` |
+| `connectors/aoa-discord-connector` | needs_local_design_or_owner_review | low | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "connectors/aoa-discord-connector")'` |
+| `connectors/aoa-stackoverflow-connector` | needs_local_design_or_owner_review | low | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "connectors/aoa-stackoverflow-connector")'` |
+| `connectors/aoa-telegram-connector` | needs_local_design_or_owner_review | low | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "connectors/aoa-telegram-connector")'` |
+| `connectors/aoa-xda-connector` | needs_local_design_or_owner_review | low | medium | warning | `python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == "connectors/aoa-xda-connector")'` |
 
 ## Candidate Queue
 
@@ -70,9 +74,13 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 | --- | --- | --- | --- | ---: | --- | --- |
 | `local-port:aoa-memo` | needs_owner_review | local_eval_port | aoa-memo | 2 |  | active_intake_select_then_apply_or_design |
 | `local-port:aoa-routing` | needs_owner_review | local_eval_port | aoa-routing | 3 |  | active_intake_select_then_apply_or_design |
-| `local-port:aoa-skills` | needs_owner_review | local_eval_port | aoa-skills | 6 |  | active_suite_apply_or_regression_check |
-| `local-port:connectors/aoa-4pda-connector` | needs_owner_review | local_eval_port | connectors/aoa-4pda-connector | 2 |  | active_suite_apply_or_regression_check |
-| `local-port:connectors/aoa-xda-connector` | needs_owner_review | local_eval_port | connectors/aoa-xda-connector | 1 |  | active_suite_apply_or_regression_check |
+| `local-port:aoa-skills` | needs_owner_review | local_eval_port | aoa-skills | 6 |  | active_suite_note_review_or_execution_contract_design |
+| `local-port:connectors/aoa-4pda-connector` | needs_owner_review | local_eval_port | connectors/aoa-4pda-connector | 2 |  | active_suite_note_review_or_execution_contract_design |
+| `local-port:connectors/aoa-course-connector` | needs_owner_review | local_eval_port | connectors/aoa-course-connector | 11 |  | active_suite_note_review_or_execution_contract_design |
+| `local-port:connectors/aoa-discord-connector` | needs_owner_review | local_eval_port | connectors/aoa-discord-connector | 1 |  | active_suite_note_review_or_execution_contract_design |
+| `local-port:connectors/aoa-stackoverflow-connector` | needs_owner_review | local_eval_port | connectors/aoa-stackoverflow-connector | 1 |  | active_suite_note_review_or_execution_contract_design |
+| `local-port:connectors/aoa-telegram-connector` | needs_owner_review | local_eval_port | connectors/aoa-telegram-connector | 1 |  | active_suite_note_review_or_execution_contract_design |
+| `local-port:connectors/aoa-xda-connector` | needs_owner_review | local_eval_port | connectors/aoa-xda-connector | 1 |  | active_suite_note_review_or_execution_contract_design |
 | `packet:session:aoa-eval-criteria-before-mining` | needs_owner_review | session_episode | aoa-evals | 3 | `mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-criteria-before-mining.eval_candidate.json` | Use this packet to seed a criteria/rubric review before any larger session-mining wave. |
 | `packet:session:aoa-eval-goal-shrink-completion-overclaim` | needs_owner_review | session_episode | aoa-evals + aoa-skills | 3 | `mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-goal-shrink-completion-overclaim.eval_candidate.json` | Review the bounded source span against the current guide and decide whether this belongs in a trajectory eval slice or aoa-skills trigger case. |
 | `packet:session:aoa-eval-keyword-mining-blindspot` | needs_owner_review | session_episode | aoa-evals + .aoa | 3 | `mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-keyword-mining-blindspot.eval_candidate.json` | Use the manual review gates to design non-keyword pointer signals before any wider session-mining automation. |
@@ -99,6 +107,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 - latest_route_review_report_ref: `mechanics/proof-object/parts/eval-authoring/reports/eval-forge/2026-06-26-session-candidate-owner-review.md`
 - worksheet_example_ref: `mechanics/proof-object/parts/eval-authoring/examples/aoa_eval_criteria_before_mining.eval_design_worksheet.example.json`
 - candidate_packet_schema_ref: `mechanics/audit/parts/candidate-readers/schemas/aoa-eval-candidate-packet.schema.json`
+- local_suite_execution_schema_ref: `mechanics/proof-object/parts/eval-authoring/schemas/local-eval-suite-execution.schema.json`
 - proof authority: False; promotion allowed: False; refs valid: True
 - exact commands:
   - raise the per-session Eval Forge front door: `python scripts/aoa_eval_session_start.py --json`
@@ -158,8 +167,8 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 ## Freshness Sentinel
 
-- Git repos: 17
-- Dirty repos: 6
+- Git repos: 21
+- Dirty repos: 15
 - MCP selected root: `/home/dionysus/src/abyss-stack`
 - .aoa freshness status: `failed`
 

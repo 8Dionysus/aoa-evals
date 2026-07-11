@@ -16,10 +16,11 @@ import validate_local_eval_port
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-CONTRACT_PATH = Path("docs/architecture/local_eval_port_inventory.contract.v1.json")
+CONTRACT_PATH = Path("docs/architecture/local_eval_port_inventory.contract.v2.json")
 DEFAULT_WORKSPACE_ROOT = Path("/srv/AbyssOS")
 DEFAULT_MAX_DEPTH = 4
-SCHEMA_VERSION = "os_abyss_local_eval_port_inventory_v1"
+SCHEMA_VERSION = "os_abyss_local_eval_port_inventory_v2"
+V1_SCHEMA_VERSION = "os_abyss_local_eval_port_inventory_v1"
 PROOF_OWNER_REPO = "aoa-evals"
 AUTHORITY_BOUNDARY = (
     "Repo-local eval ports carry intake, suites, reports, and pressure evidence "
@@ -29,6 +30,10 @@ AUTHORITY_BOUNDARY = (
 SOURCE_OF_TRUTH = {
     "local_port_standard": "docs/guides/LOCAL_EVAL_PORT_STANDARD.md",
     "local_port_validator": "scripts/validate_local_eval_port.py",
+    "local_suite_execution_schema": (
+        "mechanics/proof-object/parts/eval-authoring/schemas/"
+        "local-eval-suite-execution.schema.json"
+    ),
     "central_eval_catalog": "generated/eval_catalog.min.json",
     "mcp_contract": "docs/architecture/AOA_EVALS_MCP_CONTRACT.md",
     "inventory_contract": CONTRACT_PATH.as_posix(),
@@ -59,12 +64,89 @@ IGNORED_RELATIVE_PREFIXES = (
 class PressureCounts:
     intake_packets: int
     suite_notes: int
+    suite_execution_contracts: int
     report_notes: int
     local_bundles: int
 
     @property
     def active_total(self) -> int:
-        return self.intake_packets + self.suite_notes + self.report_notes + self.local_bundles
+        return (
+            self.intake_packets
+            + self.suite_notes
+            + self.suite_execution_contracts
+            + self.report_notes
+            + self.local_bundles
+        )
+
+
+def compatibility_absent_suite_execution(source_schema_version: str) -> dict[str, Any]:
+    return {
+        "schema_version": "local_eval_suite_execution_inventory_v1",
+        "state": "absent",
+        "state_vocabulary": list(validate_local_eval_port.LOCAL_SUITE_EXECUTION_STATES),
+        "aggregate_priority": list(
+            validate_local_eval_port.LOCAL_SUITE_EXECUTION_AGGREGATE_PRIORITY
+        ),
+        "suite_count": 0,
+        "invalid_count": 0,
+        "stale_count": 0,
+        "ready_count": 0,
+        "suites": [],
+        "auto_run_allowed": False,
+        "inventory_executed_runner": False,
+        "proof_authority": False,
+        "promotion_allowed": False,
+        "readiness_scope": validate_local_eval_port.LOCAL_SUITE_READY_SCOPE,
+        "runtime_reproducibility_proven": False,
+        "jit_revalidation_required": True,
+        "execution_receipt_required": True,
+        "environment_capture_required": True,
+        "compatibility_downgrade": {
+            "source_inventory_schema_version": source_schema_version,
+            "rule": "non-v2 inventories always map suite execution to absent",
+        },
+    }
+
+
+def normalize_inventory_for_suite_consumers(payload: dict[str, Any]) -> dict[str, Any]:
+    """Apply the v1/unknown compatibility floor before runnable routing."""
+
+    schema_version = str(payload.get("schema_version") or "unknown")
+    if schema_version == SCHEMA_VERSION:
+        return payload
+
+    normalized = dict(payload)
+    repos = payload.get("repos")
+    normalized_repos: list[Any] = []
+    if isinstance(repos, list):
+        for item in repos:
+            if not isinstance(item, dict):
+                normalized_repos.append(item)
+                continue
+            repo = dict(item)
+            repo["suite_execution"] = compatibility_absent_suite_execution(schema_version)
+            route = item.get("route_recommendation")
+            if isinstance(route, dict) and route.get("route_key") == "active_suite_apply_or_regression_check":
+                repo["route_recommendation"] = {
+                    "route_key": "active_suite_note_review_or_execution_contract_design",
+                    "route": "aoa-eval-design",
+                    "subskill": "aoa-eval-design",
+                    "action": (
+                        "Treat v1 suite-note pressure as non-runnable; inspect or design a "
+                        "v2 execution sidecar before owner/apply."
+                    ),
+                    "proof_boundary": (
+                        "v1 cannot carry runnable suite execution state and maps to absent"
+                    ),
+                }
+            normalized_repos.append(repo)
+    normalized["repos"] = normalized_repos
+    normalized["consumer_compatibility"] = {
+        "source_schema_version": schema_version,
+        "suite_execution_state": "absent",
+        "runnable_inference_allowed": False,
+    }
+    return normalized
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
@@ -162,7 +244,10 @@ def discover_repo_roots(workspace_root: Path, *, max_depth: int) -> list[Path]:
 
 
 def excluded_repo_reason(repo_root: Path) -> str | None:
-    if repo_root.name == PROOF_OWNER_REPO:
+    identity = validate_local_eval_port.resolve_repo_identity(repo_root)
+    if identity.issues:
+        return None
+    if identity.owner_repo == PROOF_OWNER_REPO:
         return "central_proof_owner_not_repo_local_port"
     return None
 
@@ -229,6 +314,7 @@ def collect_pressure_counts(evals_dir: Path) -> PressureCounts:
     return PressureCounts(
         intake_packets=count_matching_files(evals_dir / "intake", "*.eval_need.json"),
         suite_notes=count_matching_files(evals_dir / "suites", "*.suite.md", excluded_names={"README.md"}),
+        suite_execution_contracts=count_matching_files(evals_dir / "suites", "*.suite.json"),
         report_notes=count_matching_files(evals_dir / "reports", "*.report.md", excluded_names={"README.md"}),
         local_bundles=count_local_bundles(evals_dir),
     )
@@ -295,12 +381,16 @@ def route_recommendation(
     status: str,
     declared_status: str | None,
     counts: PressureCounts,
+    suite_execution: dict[str, Any],
     central_matches: list[str],
 ) -> dict[str, str]:
     if status == "missing":
         return contract_route_recommendation("missing_no_pressure")
     if status == "stale_candidate":
         return contract_route_recommendation("stale_local_eval_surface_review")
+    suite_state = str(suite_execution.get("state") or "absent")
+    if suite_state == "invalid":
+        return contract_route_recommendation("active_suite_contract_invalid_repair")
     if status == "invalid":
         return contract_route_recommendation(
             "invalid_active_repair" if declared_status == "active" else "invalid_port_repair"
@@ -311,8 +401,12 @@ def route_recommendation(
         return contract_route_recommendation("valid_skeleton_keep_dormant")
     if counts.local_bundles:
         return contract_route_recommendation("local_bundle_central_review_candidate")
-    if counts.suite_notes:
+    if suite_state == "stale":
+        return contract_route_recommendation("active_suite_contract_stale_review")
+    if suite_state == "ready":
         return contract_route_recommendation("active_suite_apply_or_regression_check")
+    if counts.suite_notes:
+        return contract_route_recommendation("active_suite_note_review_or_execution_contract_design")
     if counts.intake_packets:
         return contract_route_recommendation("active_intake_select_then_apply_or_design")
     if counts.report_notes:
@@ -325,7 +419,14 @@ def build_repo_entry(repo_root: Path, workspace_root: Path, central_eval_names: 
     port_path = evals_dir / "PORT.yaml"
     port_payload = read_yaml_mapping(port_path)
     issues = validation_issues(repo_root) if evals_dir.exists() or port_path.exists() else []
+    repo_identity = validate_local_eval_port.resolve_repo_identity(repo_root)
+    known_issue_messages = {str(issue.get("message")) for issue in issues}
+    for identity_issue in repo_identity.issues:
+        if identity_issue not in known_issue_messages:
+            issues.append({"location": ".git", "message": identity_issue})
     counts = collect_pressure_counts(evals_dir)
+    suite_execution = validate_local_eval_port.evaluate_local_suite_execution(repo_root)
+    suite_execution_blocked = suite_execution.get("state") in {"invalid", "stale"}
     declared_status = port_payload.get("status") if isinstance(port_payload.get("status"), str) else None
     status = inventory_status(
         evals_dir=evals_dir,
@@ -337,16 +438,24 @@ def build_repo_entry(repo_root: Path, workspace_root: Path, central_eval_names: 
 
     entry = {
         "repo": repo_root.name,
+        "canonical_owner_repo": repo_identity.owner_repo,
+        "owner_identity_sources": list(repo_identity.sources),
         "repo_path": repo_relative(repo_root, workspace_root),
         "repo_id": local_repo_id(repo_root, workspace_root),
         "root": repo_root.as_posix(),
         "port_path": repo_relative(port_path, repo_root),
         "inventory_status": status,
-        "validator_ok": not issues and status not in {"missing", "stale_candidate"},
+        "validator_ok": (
+            not issues
+            and status not in {"missing", "stale_candidate"}
+            and not suite_execution_blocked
+        ),
+        "blocked_by_suite_execution": suite_execution_blocked,
         "declared_status": declared_status,
         "pressure_counts": {
             "intake_packets": counts.intake_packets,
             "suite_notes": counts.suite_notes,
+            "suite_execution_contracts": counts.suite_execution_contracts,
             "report_notes": counts.report_notes,
             "local_bundles": counts.local_bundles,
             "active_total": counts.active_total,
@@ -360,6 +469,7 @@ def build_repo_entry(repo_root: Path, workspace_root: Path, central_eval_names: 
             "central_boundary": port_payload.get("central_boundary"),
             "central_proof_boundary_ok": central_boundary_ok(port_payload, issues),
         },
+        "suite_execution": suite_execution,
         "central_eval_name_matches": central_matches,
         "validation_issues": issues,
     }
@@ -367,6 +477,7 @@ def build_repo_entry(repo_root: Path, workspace_root: Path, central_eval_names: 
         status=status,
         declared_status=declared_status,
         counts=counts,
+        suite_execution=suite_execution,
         central_matches=central_matches,
     )
     return entry
@@ -376,7 +487,11 @@ def build_summary(entries: list[dict[str, Any]]) -> dict[str, int]:
     summary: dict[str, int] = {
         "repos": len(entries),
         "validator_ok": sum(1 for entry in entries if entry["validator_ok"]),
-        "validator_failed": sum(1 for entry in entries if entry["validation_issues"]),
+        "validator_failed": sum(
+            1
+            for entry in entries
+            if entry["validation_issues"] or entry.get("blocked_by_suite_execution")
+        ),
         "with_local_port": sum(1 for entry in entries if entry["inventory_status"] not in {"missing", "stale_candidate"}),
         "with_detected_pressure": sum(
             1 for entry in entries if entry["pressure_counts"]["active_total"] > 0
@@ -384,6 +499,10 @@ def build_summary(entries: list[dict[str, Any]]) -> dict[str, int]:
     }
     for status in ("missing", "stale_candidate", "invalid", "skeleton", "active"):
         summary[status] = sum(1 for entry in entries if entry["inventory_status"] == status)
+    for state in validate_local_eval_port.LOCAL_SUITE_EXECUTION_STATES:
+        summary[f"suite_execution_{state}"] = sum(
+            1 for entry in entries if entry["suite_execution"]["state"] == state
+        )
     return summary
 
 
@@ -414,6 +533,7 @@ def build_inventory_payload(workspace_root: Path, *, max_depth: int = DEFAULT_MA
     return {
         "contract_schema_version": load_inventory_contract().get("schema_version"),
         "contract_ref": CONTRACT_PATH.as_posix(),
+        "contract_compatibility": load_inventory_contract().get("compatibility", {}),
         "schema_version": SCHEMA_VERSION,
         "layer": "aoa-evals-local-port-inventory",
         "workspace_root": workspace_root.as_posix(),
@@ -448,7 +568,7 @@ def build_markdown_report(payload: dict[str, Any]) -> str:
         f"- Workspace root: `{payload['workspace_root']}`",
         f"- Repositories scanned: {summary['repos']}",
         f"- Valid local ports: {summary['validator_ok']}",
-        f"- Invalid local ports: {summary['validator_failed']}",
+        f"- Validator-blocked local ports (including stale suite contracts): {summary['validator_failed']}",
         f"- Missing ports: {summary['missing']}",
         f"- Skeleton ports: {summary['skeleton']}",
         f"- Active ports: {summary['active']}",
@@ -465,17 +585,23 @@ def build_markdown_report(payload: dict[str, Any]) -> str:
                 "Validator",
                 "Intake",
                 "Suites",
+                "Execution",
                 "Reports",
                 "Bundles",
                 "Route",
             ]
         ),
-        markdown_table_row(["---", "---", "---", "---:", "---:", "---:", "---:", "---"]),
+        markdown_table_row(["---", "---", "---", "---:", "---:", "---", "---:", "---:", "---"]),
     ]
     for entry in payload["repos"]:
         counts = entry["pressure_counts"]
         route = entry["route_recommendation"]
-        validator = "ok" if entry["validator_ok"] else f"{len(entry['validation_issues'])} issue(s)"
+        if entry["validator_ok"]:
+            validator = "ok"
+        elif entry.get("blocked_by_suite_execution") and not entry["validation_issues"]:
+            validator = f"blocked: {entry['suite_execution']['state']} source contract"
+        else:
+            validator = f"{len(entry['validation_issues'])} issue(s)"
         lines.append(
             markdown_table_row(
                 [
@@ -484,6 +610,7 @@ def build_markdown_report(payload: dict[str, Any]) -> str:
                     validator,
                     str(counts["intake_packets"]),
                     str(counts["suite_notes"]),
+                    str(entry["suite_execution"]["state"]),
                     str(counts["report_notes"]),
                     str(counts["local_bundles"]),
                     str(route["route_key"]),
@@ -519,7 +646,10 @@ def build_markdown_report(payload: dict[str, Any]) -> str:
             "- `missing_no_pressure`: no mutation unless current repo work creates real eval pressure.",
             "- `valid_skeleton_keep_dormant`: valid dormant port; stop unless pressure appears.",
             "- `active_intake_select_then_apply_or_design`: inspect local and central routes before applying or designing.",
-            "- `active_suite_apply_or_regression_check`: local suite may drive deterministic checks; central proof stays in `aoa-evals`.",
+            "- `active_suite_apply_or_regression_check`: source-contract-ready suite routes to owner/apply for JIT revalidation, exact typed argv, environment capture, and receipt; runtime reproducibility and central proof are not implied.",
+            "- `active_suite_note_review_or_execution_contract_design`: `.suite.md` is design pressure only; add a valid sidecar before apply.",
+            "- `active_suite_contract_stale_review`: review changed sources and refresh approved hashes before owner-local apply.",
+            "- `active_suite_contract_invalid_repair`: repair schema, path, hash, or shell-free argv guards before apply.",
             "- `active_reports_only_suite_extraction_or_review`: reports-only pressure may need suite extraction or central review.",
             "- `invalid_active_repair` / `invalid_port_repair`: repair port shape before eval adoption.",
             "- `central_overlap_apply_existing_first`: apply or inspect existing central route before local duplication.",

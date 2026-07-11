@@ -28,7 +28,8 @@ PROMOTION_GATES = [
 AUTHORITY_BOUNDARY = (
     "This dry-run review routes local eval pressure toward owner review. "
     "It cannot promote a candidate, create a central bundle, accept proof, "
-    "score a run, mint a baseline, or publish a release artifact."
+    "score a run, mint a baseline, publish a release artifact, or execute "
+    "local suite runner argv."
 )
 FORBIDDEN_TRUE_FIELDS = {
     "promotion_allowed",
@@ -39,6 +40,8 @@ FORBIDDEN_TRUE_FIELDS = {
     "can_score",
     "central_bundle_created",
     "release_artifact_created",
+    "execution_allowed",
+    "promotion_review_executed_runner",
 }
 FORBIDDEN_ANY_FIELDS = {
     "verdict",
@@ -212,6 +215,12 @@ def route_action(repo: dict[str, Any]) -> str:
 
 
 def recommended_next_route(repo: dict[str, Any], exact: list[dict[str, Any]], adjacent: list[dict[str, Any]]) -> str:
+    execution = repo.get("suite_execution")
+    suite_state = str(execution.get("state") or "absent") if isinstance(execution, dict) else "absent"
+    if suite_state == "invalid":
+        return "repair_invalid_local_suite_execution_contract_before_promotion_review"
+    if suite_state == "stale":
+        return "review_tracked_source_changes_and_refresh_suite_hashes_before_apply"
     if repo.get("inventory_status") == "invalid" or repo.get("validator_ok") is False:
         return "repair_local_eval_port_before_any_promotion_review"
     if exact:
@@ -219,7 +228,7 @@ def recommended_next_route(repo: dict[str, Any], exact: list[dict[str, Any]], ad
     if adjacent:
         return "inspect_adjacent_central_evals_then_local_owner_review"
     key = route_key(repo)
-    if "suite" in key or "regression" in key:
+    if suite_state == "ready" and ("suite" in key or "regression" in key):
         return "apply_local_suite_as_candidate_regression_check_before_central_draft"
     if "intake" in key or "design" in key:
         return "local_owner_review_then_design_or_central_draft_decision"
@@ -228,6 +237,30 @@ def recommended_next_route(repo: dict[str, Any], exact: list[dict[str, Any]], ad
     if "local_bundle" in key:
         return "central_adoption_review_after_overlap_check"
     return "local_owner_review_required"
+
+
+def suite_execution_review_posture(repo: dict[str, Any]) -> dict[str, Any]:
+    execution = repo.get("suite_execution")
+    if not isinstance(execution, dict):
+        execution = {"state": "absent", "suites": []}
+    state = str(execution.get("state") or "absent")
+    return {
+        "state": state,
+        "suite_count": int(execution.get("suite_count") or 0),
+        "invalid_count": int(execution.get("invalid_count") or 0),
+        "stale_count": int(execution.get("stale_count") or 0),
+        "ready_count": int(execution.get("ready_count") or 0),
+        "readiness_scope": str(execution.get("readiness_scope") or "source-contract-ready"),
+        "runtime_reproducibility_proven": False,
+        "jit_revalidation_required": True,
+        "execution_receipt_required": True,
+        "environment_capture_required": True,
+        "execution_allowed": False,
+        "owner_apply_required": state == "ready",
+        "promotion_review_executed_runner": False,
+        "proof_authority": False,
+        "promotion_allowed": False,
+    }
 
 
 def gate(
@@ -359,6 +392,11 @@ def build_promotion_review_payload(
     *,
     repo_id: str = "",
 ) -> dict[str, Any]:
+    inventory_payload = (
+        build_local_eval_port_inventory.normalize_inventory_for_suite_consumers(
+            inventory_payload
+        )
+    )
     repo, selection_issues = select_repo_for_review(inventory_payload, repo_id=repo_id)
     records = catalog_records(catalog_payload)
     if repo is None:
@@ -391,6 +429,7 @@ def build_promotion_review_payload(
             "route_key": route_key(repo),
             "route_action": route_action(repo),
             "owner_boundary": repo.get("owner_boundary", {}),
+            "suite_execution": suite_execution_review_posture(repo),
         },
         "central_overlap": {
             "catalog_ref": "generated/eval_catalog.min.json",
@@ -414,6 +453,8 @@ def build_promotion_review_payload(
             "local reports remain local until owner review and central overlap review",
             "central draft is not accepted proof",
             "release artifact meaning requires catalog/report regeneration and release/advisory validation",
+            "promotion review inspects suite state but never executes runner.argv",
+            "source-contract-ready does not prove runtime reproducibility; owner/apply JIT-revalidates and captures environment plus receipt",
         ],
     }
     issues = validate_promotion_review_payload(payload)

@@ -78,7 +78,7 @@
       "heading_ref": {
         "anchor": "020-2026-04-01",
         "level": 2,
-        "line": 757,
+        "line": 761,
         "ref": "CHANGELOG.md#020-2026-04-01",
         "title": "[0.2.0] - 2026-04-01"
       },
@@ -93,7 +93,7 @@
       "heading_ref": {
         "anchor": "010-2026-03-23",
         "level": 2,
-        "line": 799,
+        "line": 803,
         "ref": "CHANGELOG.md#010-2026-03-23",
         "title": "[0.1.0] - 2026-03-23"
       },
@@ -108,7 +108,7 @@
       "heading_ref": {
         "anchor": "033-2026-04-23",
         "level": 2,
-        "line": 603,
+        "line": 607,
         "ref": "CHANGELOG.md#033-2026-04-23",
         "title": "[0.3.3] - 2026-04-23"
       },
@@ -123,7 +123,7 @@
       "heading_ref": {
         "anchor": "032-2026-04-19",
         "level": 2,
-        "line": 645,
+        "line": 649,
         "ref": "CHANGELOG.md#032-2026-04-19",
         "title": "[0.3.2] - 2026-04-19"
       },
@@ -138,7 +138,7 @@
       "heading_ref": {
         "anchor": "040-2026-05-25",
         "level": 2,
-        "line": 65,
+        "line": 69,
         "ref": "CHANGELOG.md#040-2026-05-25",
         "title": "[0.4.0] - 2026-05-25"
       },
@@ -153,7 +153,7 @@
       "heading_ref": {
         "anchor": "031-2026-04-12",
         "level": 2,
-        "line": 684,
+        "line": 688,
         "ref": "CHANGELOG.md#031-2026-04-12",
         "title": "[0.3.1] - 2026-04-12"
       },
@@ -168,7 +168,7 @@
       "heading_ref": {
         "anchor": "030-2026-04-10",
         "level": 2,
-        "line": 713,
+        "line": 717,
         "ref": "CHANGELOG.md#030-2026-04-10",
         "title": "[0.3.0] - 2026-04-10"
       },
@@ -2704,6 +2704,15 @@
       "source_record_id": "file:mechanics/agon/parts/vds-alignment/tests/test_agon_vds_eval_alignment.py:b6f2897921"
     },
     {
+      "event_kind": "test_run",
+      "event_role": "producer",
+      "heading_ref": null,
+      "id": "event:repo:a89ad98360e0842db38f",
+      "observation_state": "declared",
+      "path": "mechanics/antifragility/parts/stress-recovery-window/tests/test_stress_recovery_owner_refs.py",
+      "source_record_id": "file:mechanics/antifragility/parts/stress-recovery-window/tests/test_stress_recovery_owner_refs.py:128777f124"
+    },
+    {
       "event_kind": "generation_run",
       "event_role": "producer",
       "heading_ref": null,
@@ -3696,7 +3705,7 @@
   ],
   "index_identity": {
     "artifact_kind": "repository_event_index",
-    "content_digest": "6aff902d9cb2bcb05e44548591eec353dc5bbe485527004f30d2fbc957fa4d3f",
+    "content_digest": "cd9679d38c0c0f09e5d7bac3dd8472642ef685bf8991573f26b5543cf214766f",
     "index_kind": "event",
     "local_id": "index:repo-local:events",
     "schema_ref": "aoa-kag:schemas/repo-local-kag-repository-index.schema.json"
@@ -3721,19 +3730,19 @@
   },
   "schema_version": "aoa-repo-local-kag-repository-index-v1",
   "source_index": {
-    "content_digest": "63eae86c0cc09b899e9f526dc9189fb215e8cd8ef14dd393cfb3c90080c70f9d",
+    "content_digest": "d3dec4d03cda44723a2008c568245ae8e68ca48a0d0d33162392408ee9d4b00b",
     "local_id": "index:repo-local:source-surfaces",
     "path": "kag/indexes/source_surface_index.json"
   },
   "summary": {
-    "entry_count": 405,
+    "entry_count": 406,
     "kind_counts": {
       "command_run": 20,
       "decision_record": 251,
       "generation_run": 17,
       "release_declaration": 7,
       "release_lane": 1,
-      "test_run": 86,
+      "test_run": 87,
       "validation_lane_run": 2,
       "validation_receipt": 2,
       "validation_run": 17,

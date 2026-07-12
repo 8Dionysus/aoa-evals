@@ -27,6 +27,10 @@ Tracking starts with the community-docs baseline for this repository.
 - Artifact-to-verdict hook contract refs now route through
   `scripts/validators/artifact_hooks.py`, and the `aoa-agents` hook refs now
   point at current mechanics-owned schema/example paths.
+- The Stress Recovery input manifest and example report now use explicit
+  sibling-qualified refs to current mechanic-owned agent, playbook, KAG,
+  routing, and memo evidence paths. The draft claim, comparison posture,
+  report values, and owner-evidence ceiling are unchanged.
 
 ### Added
 

@@ -1802,7 +1802,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "74bd6163586c1bc7ec00a098c12cfcf4e8d21b8b850ae7112f9705212d44b792",
+      "content_hash": "dde1901acf66da030d96011ff68a0c1ef3d9ea532cf0248b645af75bf1931dc3",
       "id": "artifact:file:changelog.md:06572a96a5",
       "path": "CHANGELOG.md",
       "source_record_id": "file:changelog.md:06572a96a5",
@@ -4234,7 +4234,7 @@
     },
     {
       "artifact_kind": "config",
-      "content_hash": "3ca29ffbdde4745b55ec1540d2c06b1a9dc6198e6d32a225ff4c645ae2d7084c",
+      "content_hash": "9c88a50a6d41f5ea8bbdbc4bea152fecb804803c9b2eeba84f549f37999db4a5",
       "id": "artifact:file:docs/testing/test_inventory.json:4bb775b510",
       "path": "docs/testing/test_inventory.json",
       "source_record_id": "file:docs/testing/test_inventory.json:4bb775b510",
@@ -5810,7 +5810,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "cc7c92799d1787b6d4af73de8033aa8b5400faa41fe39b4aa1383e0501bfcf9e",
+      "content_hash": "58040ba5880b6104e42e204a983bd3cefa4d786378f31bed9ee0379ea667aa0e",
       "id": "artifact:file:evals/comparison/longitudinal-window/aoa-stress-recovery-window/eval.md:14538c3b9d",
       "path": "evals/comparison/longitudinal-window/aoa-stress-recovery-window/EVAL.md",
       "source_record_id": "file:evals/comparison/longitudinal-window/aoa-stress-recovery-window/eval.md:14538c3b9d",
@@ -5850,7 +5850,7 @@
     },
     {
       "artifact_kind": "config",
-      "content_hash": "a7f13d570f8343a024e1d687fc541e17e365c221720e83ec61b23b856c9d44d0",
+      "content_hash": "2c1343f8a4a7094af8cd6cec7147ba8cb4dd31f684dcc0567490bad15aa55430",
       "id": "artifact:file:evals/comparison/longitudinal-window/aoa-stress-recovery-window/input_manifest.example.json:7240670600",
       "path": "evals/comparison/longitudinal-window/aoa-stress-recovery-window/input_manifest.example.json",
       "source_record_id": "file:evals/comparison/longitudinal-window/aoa-stress-recovery-window/input_manifest.example.json:7240670600",
@@ -5882,7 +5882,7 @@
     },
     {
       "artifact_kind": "config",
-      "content_hash": "49053961399baf4468d178044a7cbab893fb15850dd98b518f9d233ec60eba3e",
+      "content_hash": "c74bc131546ba262787ea1531115c944bea784f4b7e4df74641ef14703366506",
       "id": "artifact:file:evals/comparison/longitudinal-window/aoa-stress-recovery-window/reports/example-report.json:df1653c1f6",
       "path": "evals/comparison/longitudinal-window/aoa-stress-recovery-window/reports/example-report.json",
       "source_record_id": "file:evals/comparison/longitudinal-window/aoa-stress-recovery-window/reports/example-report.json:df1653c1f6",
@@ -5898,7 +5898,7 @@
     },
     {
       "artifact_kind": "config",
-      "content_hash": "3022b8cb6c041f65c30353f9e98a4850586491f16c39a766e86df27bf2e00a38",
+      "content_hash": "b94dc255aaade4180ef9ca7756ac67011b7c2cd6586d6a28d445b677e60fe3ab",
       "id": "artifact:file:evals/comparison/longitudinal-window/aoa-stress-recovery-window/runners/contract.json:b05c6c007a",
       "path": "evals/comparison/longitudinal-window/aoa-stress-recovery-window/runners/contract.json",
       "source_record_id": "file:evals/comparison/longitudinal-window/aoa-stress-recovery-window/runners/contract.json:b05c6c007a",
@@ -7706,7 +7706,7 @@
     },
     {
       "artifact_kind": "generated_readmodel",
-      "content_hash": "3b2c7e147d08d7f69413313a313374793151ab271a563ad39511d4e3734f5da5",
+      "content_hash": "120a97a1a34c080b20de3c5e185209f3d3bda69d885711256d5fb25dba23f84d",
       "id": "artifact:file:generated/eval_sections.full.json:a9ddf313fa",
       "path": "generated/eval_sections.full.json",
       "source_record_id": "file:generated/eval_sections.full.json:a9ddf313fa",
@@ -9194,7 +9194,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "22a54d96797591212af072404948f000a9bc6f405d359c74e32b7939186c0c91",
+      "content_hash": "1fd8c0d5ed985f5b8d1250fb4d260cebb0c32bd32164b96160075c94acd16746",
       "id": "artifact:file:mechanics/antifragility/parts/agents.md:87df2f9f4b",
       "path": "mechanics/antifragility/parts/AGENTS.md",
       "source_record_id": "file:mechanics/antifragility/parts/agents.md:87df2f9f4b",
@@ -9258,7 +9258,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "1ba52e9b54641eee77338db15c4d87e9b0145fc5c7baf267da703eb4ef16d8eb",
+      "content_hash": "68c44e769a079e6c9dc6e6dc9b4e07969cabf77f5999c7141556c5caf70c2eb5",
       "id": "artifact:file:mechanics/antifragility/parts/stress-recovery-window/readme.md:5a212487ee",
       "path": "mechanics/antifragility/parts/stress-recovery-window/README.md",
       "source_record_id": "file:mechanics/antifragility/parts/stress-recovery-window/readme.md:5a212487ee",
@@ -9266,7 +9266,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "3d283e4550bc5bef343110c02e917c203857dab5066907895f926dfd03d845ca",
+      "content_hash": "08affed2cb16dc21e6c698f9d565d9ed78bd26f8aef5095fe608e846af3adcd6",
       "id": "artifact:file:mechanics/antifragility/parts/stress-recovery-window/validation.md:9d6af44475",
       "path": "mechanics/antifragility/parts/stress-recovery-window/VALIDATION.md",
       "source_record_id": "file:mechanics/antifragility/parts/stress-recovery-window/validation.md:9d6af44475",
@@ -9274,7 +9274,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "c05b824bad787a6cfa9febdde8be172466343775347a7a9040939dfec9934237",
+      "content_hash": "b4fdab24deef492104808103a8b2997c0f80d5ff6595fc91f46062ba2bcc2b8b",
       "id": "artifact:file:mechanics/antifragility/parts/stress-recovery-window/docs/stress_recovery_window_evals.md:bf22dc5241",
       "path": "mechanics/antifragility/parts/stress-recovery-window/docs/STRESS_RECOVERY_WINDOW_EVALS.md",
       "source_record_id": "file:mechanics/antifragility/parts/stress-recovery-window/docs/stress_recovery_window_evals.md:bf22dc5241",
@@ -9294,6 +9294,14 @@
       "id": "artifact:file:mechanics/antifragility/parts/stress-recovery-window/schemas/stress_recovery_window_eval_report_v1.json:1e72dbee55",
       "path": "mechanics/antifragility/parts/stress-recovery-window/schemas/stress_recovery_window_eval_report_v1.json",
       "source_record_id": "file:mechanics/antifragility/parts/stress-recovery-window/schemas/stress_recovery_window_eval_report_v1.json:1e72dbee55",
+      "surface_state": "authored_source"
+    },
+    {
+      "artifact_kind": "test",
+      "content_hash": "9e35287ca470b6bf45c7febc6f8ae843f5000d29e385510ab1e38a27da628867",
+      "id": "artifact:file:mechanics/antifragility/parts/stress-recovery-window/tests/test_stress_recovery_owner_refs.py:128777f124",
+      "path": "mechanics/antifragility/parts/stress-recovery-window/tests/test_stress_recovery_owner_refs.py",
+      "source_record_id": "file:mechanics/antifragility/parts/stress-recovery-window/tests/test_stress_recovery_owner_refs.py:128777f124",
       "surface_state": "authored_source"
     },
     {
@@ -17195,7 +17203,7 @@
   ],
   "index_identity": {
     "artifact_kind": "repository_artifact_index",
-    "content_digest": "556fa5c502017455113db0c9cf7b359598289b05a1366b54e0c4277b1335c04c",
+    "content_digest": "ac73e7d863c2f3e008c84c246531a23246ec555cafc6e1b3759fab08f7dd8822",
     "index_kind": "artifact",
     "local_id": "index:repo-local:artifacts",
     "schema_ref": "aoa-kag:schemas/repo-local-kag-repository-index.schema.json"
@@ -17219,12 +17227,12 @@
   },
   "schema_version": "aoa-repo-local-kag-repository-index-v1",
   "source_index": {
-    "content_digest": "63eae86c0cc09b899e9f526dc9189fb215e8cd8ef14dd393cfb3c90080c70f9d",
+    "content_digest": "d3dec4d03cda44723a2008c568245ae8e68ca48a0d0d33162392408ee9d4b00b",
     "local_id": "index:repo-local:source-surfaces",
     "path": "kag/indexes/source_surface_index.json"
   },
   "summary": {
-    "entry_count": 2149,
+    "entry_count": 2150,
     "kind_counts": {
       "asset": 50,
       "config": 368,
@@ -17244,7 +17252,7 @@
       "script": 39,
       "security": 1,
       "source_code": 227,
-      "test": 86,
+      "test": 87,
       "validator": 17
     }
   }

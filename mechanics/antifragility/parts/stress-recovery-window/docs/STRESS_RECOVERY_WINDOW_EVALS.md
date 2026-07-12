@@ -2,8 +2,8 @@
 
 ## Purpose
 
-Wave 4 adds a repeated-window proof surface for explicit stress handling across
-owner repos and adjacent AoA layers.
+This part supports a repeated-window proof surface for explicit stress handling
+across owner repos and adjacent AoA layers.
 
 It answers a narrow question:
 
@@ -12,7 +12,8 @@ It answers a narrow question:
 ## Why This Belongs In `aoa-evals`
 
 `aoa-evals` already owns bounded, reproducible, regression-aware proof surfaces.
-Wave 4 extends that posture to stress handling that spans multiple explicit objects:
+This bundle applies that posture to stress handling that spans multiple
+explicit objects:
 
 - source-owned stressor receipts
 - agent stress handoff envelopes
@@ -29,15 +30,15 @@ that produced the stress handling evidence.
 Preferred evidence order:
 
 1. source-owned receipts and owner-local artifacts
-2. wave-3 handoff, lane, gate, projection-health, and regrounding objects
+2. explicit handoff, lane, gate, projection-health, and regrounding objects
 3. route hints that cite those owner or derived inputs
 4. memo objects as reviewed context after owner evidence
 
 The bundle should suppress or narrow its verdict when owner evidence is too thin.
 
-## Suggested Axes
+## Report Axes
 
-Wave 4 uses split axes that match the objects now in play:
+The report contract uses split axes that match the objects in play:
 
 - `handoff_fidelity`
 - `route_discipline`
@@ -64,7 +65,7 @@ explicit windows, and the bounded eval question.
 
 ## Output Posture
 
-The wave-4 landing publishes:
+The active source bundle publishes:
 
 - one bundle at `evals/comparison/longitudinal-window/aoa-stress-recovery-window/`
 - one schema-backed report

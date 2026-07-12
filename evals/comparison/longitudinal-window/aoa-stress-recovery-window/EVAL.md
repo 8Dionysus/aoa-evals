@@ -27,7 +27,8 @@ skill_dependencies: []
 Use this eval to check whether ordered windows around one named stressor family show healthier handling without upgrading that movement into federation-wide resilience.
 
 This starter bundle is a `diagnostic` longitudinal eval.
-It is downstream of owner receipts, wave-3 handoff and regrounding objects, and bounded eval evidence.
+It is downstream of owner receipts, explicit handoff and regrounding objects,
+and bounded eval evidence.
 Its goal is to test one modest claim:
 
 across ordered comparable windows on one named stress recovery family,
@@ -75,7 +76,8 @@ Use this eval when:
 
 - you have ordered windows on the same named stressor family
 - the main question is repeated-window recovery posture rather than one-run family reading
-- owner receipts and adjacent wave-3 objects are explicit enough to follow
+- owner receipts and adjacent handoff and regrounding objects are explicit
+  enough to follow
 - you need split-axis proof rather than a prestige scalar
 
 Do not use this eval when:
@@ -91,7 +93,7 @@ Do not use this eval when:
 - one bounded owner surface or tightly related surface family
 - one public input manifest for the chosen window family
 - source-owned stressor receipts and owner-local artifacts
-- wave-3 handoff, playbook, and KAG objects for the same family when available
+- explicit handoff, playbook, and KAG objects for the same family when available
 - optional route hints and memo context that remain secondary
 
 Because `baseline_mode` is `longitudinal-window`, this bundle also requires:
@@ -151,7 +153,7 @@ Axis status values:
 The evidence hierarchy should stay explicit:
 
 1. owner receipts and owner-local artifacts
-2. wave-3 handoff, lane, gate, projection-health, and regrounding objects
+2. explicit handoff, lane, gate, projection-health, and regrounding objects
 3. bounded eval report interpretation
 4. derived stats summary and route hints as secondary shaping context
 5. memo context only as reviewed recall
@@ -186,7 +188,7 @@ A careful run should:
 
 1. define the ordered window and the named stressor family
 2. collect source-owned owner receipts and owner-local artifacts
-3. gather the relevant wave-3 handoff, playbook, and KAG objects
+3. gather the relevant handoff, playbook, and KAG objects
 4. interpret route hints and memo context only after the stronger evidence is visible
 5. publish one comparative-summary artifact with a bounded longitudinal posture
 

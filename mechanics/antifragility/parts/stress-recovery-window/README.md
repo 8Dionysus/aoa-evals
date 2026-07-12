@@ -25,6 +25,8 @@ stays under `mechanics/comparison-spine/`.
 - owner receipts and owner-local artifacts;
 - handoff, playbook, route, KAG, and memo evidence kept weaker than owner
   evidence;
+- sibling evidence refs that name their repository and current mechanic-owned
+  payload path rather than a root-district shorthand;
 - selected runtime-chaos evidence from `mechanics/audit/` as candidate-only
   sidecar input.
 

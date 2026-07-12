@@ -4,7 +4,7 @@
   "inputs": [
     "ordered named windows",
     "source-owned owner receipts and owner-local artifacts",
-    "wave-3 handoff, playbook, and KAG objects for the same stressor family",
+    "explicit handoff, playbook, and KAG objects for the same stressor family",
     "optional route hints and memo context as secondary shaping evidence",
     "bundle-level longitudinal stress recovery summary"
   ],

@@ -19,27 +19,27 @@
     "surface_family": "kag-regrounding"
   },
   "source_receipt_refs": [
-    "ATM10-Agent/examples/stressor_receipt.retrieval_only_fallback.example.json"
+    "repo:ATM10-Agent/examples/stressor_receipt.retrieval_only_fallback.example.json"
   ],
   "handoff_refs": [
-    "aoa-agents/examples/stress_handoff_envelope.example.json"
+    "repo:aoa-agents/mechanics/antifragility/parts/stress-posture/examples/stress-handoff-envelope.example.json"
   ],
   "playbook_lane_refs": [
-    "aoa-playbooks/examples/playbook_stress_lane.example.json"
+    "repo:aoa-playbooks/mechanics/antifragility/parts/stress-lanes/examples/playbook_stress_lane.example.json"
   ],
   "reentry_gate_refs": [
-    "aoa-playbooks/examples/playbook_reentry_gate.example.json"
+    "repo:aoa-playbooks/mechanics/antifragility/parts/reentry-gates/examples/playbook_reentry_gate.example.json"
   ],
   "projection_health_refs": [
-    "aoa-kag/examples/projection_health_receipt.example.json"
+    "repo:aoa-kag/mechanics/antifragility/parts/projection-health/examples/projection_health_receipt.example.json"
   ],
   "regrounding_ticket_refs": [
-    "aoa-kag/examples/regrounding_ticket.example.json"
+    "repo:aoa-kag/mechanics/antifragility/parts/retrieval-outage-regrounding/examples/regrounding_ticket.example.json"
   ],
   "route_hint_refs": [
-    "aoa-routing/examples/composite_stress_route_hint.example.json"
+    "repo:aoa-routing/mechanics/antifragility/parts/composite-stress-routing/examples/composite_stress_route_hint.example.json"
   ],
   "memo_context_refs": [
-    "aoa-memo/examples/recovery_pattern_memory.example.json"
+    "repo:aoa-memo/mechanics/antifragility/parts/recovery-pattern-memory/examples/recovery_pattern_memory.example.json"
   ]
 }

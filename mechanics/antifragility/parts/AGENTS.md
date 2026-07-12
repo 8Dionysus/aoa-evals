@@ -67,6 +67,7 @@ python scripts/validate_repo.py
 ### `mechanics/antifragility/parts/stress-recovery-window/VALIDATION.md`
 
 ```bash
+python -m pytest -q mechanics/antifragility/parts/stress-recovery-window/tests
 python scripts/validate_repo.py --eval aoa-stress-recovery-window
 python scripts/build_catalog.py --check
 python scripts/validate_repo.py

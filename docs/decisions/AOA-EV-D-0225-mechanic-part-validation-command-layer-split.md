@@ -81,10 +81,5 @@ It does not create a replacement mechanic-part validation-command aggregate.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/mechanic_part_validation_command_tokens.py scripts/validators/mechanic_part_validation_command_parsing.py scripts/validators/mechanic_part_validation_command_sources.py scripts/validators/mechanic_part_validation_commands.py tests/test_mechanic_part_validation_commands.py`
-- `python -m pytest -q tests/test_mechanic_part_validation_commands.py -k mechanic_part_validation_command`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/ci_gate.py --mode source-fast`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

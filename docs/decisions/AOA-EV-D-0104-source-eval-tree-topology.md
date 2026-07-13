@@ -37,8 +37,8 @@ As of 2026-05-24:
   and validation before a reader opens a bundle.
 - Source surfaces updated: `EVAL_SELECTION.md`, `EVAL_INDEX.md`,
   `evals/README.md`, validator tokens, and validator tests.
-- Validation: use the source-tree topology path in
-  `evals/AGENTS.md#validation` plus root `AGENTS.md#verify`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Root chooser and index route language clarified
 
@@ -53,7 +53,8 @@ As of 2026-05-24:
   surfaces; they should send the reader to the right bundle or neighboring
   route before bundle-local proof meaning is read.
 - Source surfaces updated: root eval selection chooser and public eval index.
-- Validation: source-tree topology and root validation routes.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Index Metadata
 
@@ -112,8 +113,6 @@ shape.
 
 ## Validation
 
-Validation routes through
-[evals/AGENTS.md#validation](../../evals/AGENTS.md#validation).
-Use the source-tree topology path there when changing this decision, recursive
-eval discovery, generated catalog/report readers, or eval-source package
-placement validators.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md`; the source-tree topology path for this
+decision is in [evals/AGENTS.md#validation](../../evals/AGENTS.md#validation).

@@ -73,8 +73,6 @@ MECHANIC_LEGACY_SKELETON_DECISION_REQUIRED_TOKENS = (
     "unindexed raw payloads",
     "current-route expectations",
     "validation through the nearest legacy `AGENTS.md`",
-    "python -m pytest -q tests/test_mechanic_parent_topology.py -k mechanic_legacy_skeleton",
-    "python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k mechanic_legacy_raw_payload",
 )
 
 MECHANIC_LEGACY_ARCHIVE_COMMAND_WORD_RE = (

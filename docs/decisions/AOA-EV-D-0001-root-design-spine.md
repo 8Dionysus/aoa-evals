@@ -63,11 +63,8 @@ legacy files by analogy alone.
 
 ## Validation
 
-- root `AGENTS.md` links to `DESIGN.md` and `DESIGN.AGENTS.md`
-- `docs/decisions/README.md` lists this decision
-- `python scripts/validate_repo.py` checks the root design surfaces
-- `python scripts/validate_semantic_agents.py` checks the existing semantic
-  AGENTS mesh
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.
 
 ## Current Applicability
 
@@ -84,8 +81,8 @@ As of 2026-05-24:
   closeout paths.
 - Source surfaces updated: `DESIGN.md`, `DESIGN.AGENTS.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_root_surface_roles.py -k
-  'root_design or design_agents'`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Review Log
 
@@ -100,8 +97,8 @@ As of 2026-05-24:
   operating maps instead of local warning ledgers.
 - Source surfaces updated: `DESIGN.md`, `DESIGN.AGENTS.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_root_surface_roles.py -k
-  'root_design or design_agents'`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Design appearance route language clarified
 
@@ -114,4 +111,5 @@ As of 2026-05-24:
 - Reason: `DESIGN.md` and `DESIGN.AGENTS.md` are root design entry surfaces;
   their first appearance cues should express the route the agent follows.
 - Source surfaces updated: `DESIGN.md` and `DESIGN.AGENTS.md`.
-- Validation: root design validation route.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.

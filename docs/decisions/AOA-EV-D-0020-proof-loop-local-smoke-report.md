@@ -83,11 +83,5 @@ Use this pattern only when the route itself is the object under evaluation.
 
 ## Validation
 
-- `mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md`
-- `mechanics/proof-loop/README.md`
-- `mechanics/proof-loop/PARTS.md`
-- `reports/README.md`
-- `docs/decisions/README.md`
-- `docs/decisions/AOA-EV-D-0030-proof-loop-route-smoke-part.md`
-- `scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

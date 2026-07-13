@@ -97,8 +97,8 @@ As of 2026-06-05:
   `scripts/validators/mechanics_route_contexts.py`, validation inventories,
   `docs/validation/VALIDATOR_TOPOLOGY.md`, and
   `mechanics/EVIDENCE_CLUSTERS.md`.
-- Validation: focused mechanic route tests, source-fast gate, release check, and
-  workspace decision graph.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -113,5 +113,5 @@ root validator.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/mechanics_routes.py scripts/validators/mechanics_route_contexts.py tests/test_mechanic_surface_contracts.py tests/test_mechanic_legacy_archive_routes.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py tests/test_mechanic_legacy_archive_routes.py tests/test_mechanics_topology.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

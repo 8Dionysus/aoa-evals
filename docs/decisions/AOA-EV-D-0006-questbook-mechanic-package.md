@@ -74,10 +74,5 @@ It does not authorize broad mechanics package creation by analogy.
 
 ## Validation
 
-- `mechanics/README.md` names the operation atlas and candidate-package rule.
-- `mechanics/questbook/README.md` names source surfaces, inputs, outputs,
-  stronger-owner split, boundaries, legacy posture, validation, and next route.
-- `mechanics/questbook/AGENTS.md` names local editing law.
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

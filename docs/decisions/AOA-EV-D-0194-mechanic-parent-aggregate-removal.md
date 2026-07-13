@@ -86,7 +86,5 @@ another name.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/mechanic_parent_allowlist.py scripts/validators/mechanic_parent_guidance.py scripts/validators/mechanic_parent_index.py scripts/validators/mechanic_parent_common.py scripts/validators/mechanic_parent_direction.py scripts/validators/mechanic_legacy_archive.py scripts/validators/mechanics_routes.py tests/test_mechanic_parent_topology.py tests/test_mechanic_parent_direction.py tests/test_mechanic_parts_index.py tests/test_mechanic_legacy_archive_routes.py`
-- `python -m pytest -q tests/test_mechanic_parent_topology.py tests/test_mechanic_parent_direction.py tests/test_mechanic_parts_index.py tests/test_mechanic_legacy_archive_routes.py -k "mechanic_parent or mechanic_index or lower_parts_index or legacy_readmes"`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

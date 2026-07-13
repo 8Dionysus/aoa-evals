@@ -89,8 +89,5 @@ focused `root_authored_surface_*` validators, or the
 
 ## Validation
 
-- `python -m py_compile scripts/validators/mechanics.py scripts/validators/mechanic_parent_registry.py scripts/validators/mechanic_evidence_dimensions.py scripts/validators/mechanic_evidence_route_refs.py scripts/validators/mechanics_root_districts.py scripts/validators/root_authored_surface_common.py scripts/validators/root_authored_surface_inventory.py scripts/validators/root_authored_surface_ledger.py scripts/validators/root_authored_surface_decision.py scripts/validators/mechanic_part_contract_common.py scripts/validators/mechanic_part_contract_index.py scripts/validators/mechanic_part_readme_contract.py scripts/validators/mechanic_part_role_headings.py scripts/validators/mechanic_parent_direction.py scripts/validators/route_residue_active_mechanics.py scripts/validators/root_legacy_common.py scripts/validators/root_legacy_naming.py scripts/validators/root_legacy_bridge_residue.py scripts/validators/root_legacy_external_leakage.py`
-- `python -m pytest -q tests/test_mechanic_evidence_ledger.py tests/test_mechanics_topology.py tests/test_mechanic_parent_topology.py tests/test_mechanic_parent_direction.py tests/test_mechanic_root_district_recon.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

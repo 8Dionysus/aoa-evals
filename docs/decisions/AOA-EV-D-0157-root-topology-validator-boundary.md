@@ -90,5 +90,5 @@ generated validator or release gate.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/root_topology.py tests/test_generated_route_residue.py tests/test_route_residue.py tests/test_quest_and_reader_surfaces.py`
-- `python -m pytest -q tests/test_route_residue.py tests/test_generated_route_residue.py tests/test_quest_and_reader_surfaces.py tests/test_root_surface_roles.py tests/test_validation_topology.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

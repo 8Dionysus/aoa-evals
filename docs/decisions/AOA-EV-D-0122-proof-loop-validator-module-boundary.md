@@ -86,8 +86,5 @@ It does not move bundle-local report authority out of `evals/**/reports/`.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/proof_loop_common.py scripts/validators/proof_loop_routes.py scripts/validators/proof_loop_smoke_report.py scripts/validators/proof_loop_local_report.py scripts/validators/mechanics_routes.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py tests/test_mechanic_legacy_archive_routes.py -k proof_loop`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

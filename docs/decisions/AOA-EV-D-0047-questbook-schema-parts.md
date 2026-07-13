@@ -90,11 +90,5 @@ It does not authorize root schema aliases or top-level quest source aliases.
 
 ## Validation
 
-- `mechanics/questbook/PARTS.md` names active parts, stop-lines, and validation.
-- `mechanics/questbook/PROVENANCE.md` bridges former root schema placement
-  questions into the owning legacy archive.
-- `scripts/validate_repo.py` and `scripts/build_catalog.py` use the part-local
-  schema paths.
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

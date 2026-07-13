@@ -60,8 +60,7 @@ state, verdict, rank, and promotion authority.
   `*-proof` or `*-canary` parent topology.
 - Positive: generated registries remain weaker than seed configs, validators,
   owner truth, and bundle-local review.
-- Positive: `python scripts/validate_repo.py` now rejects missing Agon
-  part-level contracts.
+- Positive: the repository validator now rejects missing Agon part-level contracts.
 - Tradeoff: Agon README wording is now deliberately tighter where authority
   boundaries matter.
 
@@ -76,11 +75,8 @@ runtime truth, stats truth, or memo truth into `aoa-evals`.
 
 ## Validation
 
-- `python scripts/validate_repo.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k agon_part_readmes`
-- `python -m pytest -q tests/test_mechanic_parent_topology.py -k mechanic_parent_allowlist`
-- part-local Agon builders, validators, and tests before any generated registry
-  change
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.
 
 ## Current Applicability
 
@@ -116,10 +112,8 @@ As of 2026-05-24:
   do.
 - Source surfaces updated: Agon parent and part README stop-line wording,
   validator tokens, and validator regression coverage.
-- Validation: Agon builders, Agon validators, Agon part tests,
-  `python scripts/validate_repo.py`, `python scripts/validate_semantic_agents.py`,
-  generated-surface `--check` commands, `python -m pytest -q`, and
-  `git diff --check`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Parent part map owner-route wording
 
@@ -131,5 +125,5 @@ As of 2026-05-24:
   canon, KAG, ToS, arena, and live-judgment pressure.
 - Reason: `PARTS.md` is an active lower index, not an anti-claim appendix.
 - Source surfaces updated: `mechanics/agon/PARTS.md`.
-- Validation: package-local and repo-wide checks described in the closeout for
-  the implementing slice.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.

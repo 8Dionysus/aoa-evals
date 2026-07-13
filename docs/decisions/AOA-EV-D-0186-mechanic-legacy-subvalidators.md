@@ -97,10 +97,8 @@ As of 2026-06-04:
   the current active route expectation.
 - Source surfaces updated: `scripts/validators/mechanic_legacy_archive.py` and
   `tests/test_mechanic_legacy_archive_routes.py`.
-- Validation: focused mechanic legacy archive route-language tests,
-  py_compile for the validator and test, decision index generation/check,
-  `validate_repo`, semantic AGENTS validation, source-fast CI gate, full
-  pytest, release check, and `git diff --check`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -114,8 +112,5 @@ It does not let `mechanic_legacy_common.py` own validation semantics.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/active_legacy_parent_wording.py scripts/validators/mechanic_legacy_common.py scripts/validators/mechanic_legacy_archive.py scripts/validators/mechanic_provenance_bridge.py scripts/validators/root_topology.py scripts/validators/mechanics_routes.py scripts/validators/mechanic_parent_allowlist.py`
-- `python -m pytest -q tests/test_mechanic_legacy_bridge.py tests/test_mechanic_legacy_archive_routes.py tests/test_mechanic_parent_topology.py tests/test_mechanic_parent_direction.py tests/test_mechanic_surface_contracts.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -92,10 +92,5 @@ It does not authorize sibling repository edits.
 
 ## Validation
 
-- `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/README.md` names the
-  part operation, owner split, stop-lines, and validation route.
-- `scripts/validate_repo.py` validates the part-local schema, builder, and
-  generated matrix.
-- `python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -94,8 +94,5 @@ authority remains in `docs/validation/validation_lanes.json`.
 
 ## Validation
 
-- `python -m pytest -q tests/test_quest_and_reader_surfaces.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

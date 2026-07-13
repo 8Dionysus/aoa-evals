@@ -110,8 +110,8 @@ As of 2026-05-26:
 - Source surfaces updated: `docs/decisions/`, generated decision indexes,
   `docs/decisions/indexes/index_contract.yaml`, and the decision-index
   validator layer later split by AOA-EV-D-0218.
-- Validation: `python scripts/generate_decision_indexes.py --check`,
-  focused tests for decision indexes, and semantic AGENTS validation.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -127,9 +127,5 @@ receipt, runtime candidate, or sibling reference.
 
 ## Validation
 
-- `scripts/validators/decision_records.py` enforces canonical ID filename
-  prefixes, in-file decision IDs, and original dates.
-- `scripts/validators/decision_index_surfaces.py` enforces generated index
-  parity.
-- `docs/decisions/indexes/index_contract.yaml` names the active path policy.
-- Generated decision indexes route back to `AOA-EV-D-####-*.md` source notes.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

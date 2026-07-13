@@ -91,9 +91,5 @@ truth, or quest dispatch into proof-object.
 
 ## Validation
 
-- `python -m pytest -q tests/test_route_residue.py -k proof_object_parts_route`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k proof_object`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

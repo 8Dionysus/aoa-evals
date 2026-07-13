@@ -104,8 +104,8 @@ As of 2026-05-25:
   - `mechanics/proof-object/parts/eval-authoring/examples/eval_need.example.json`
   - `mechanics/proof-object/parts/eval-authoring/scripts/scaffold_eval_bundle.py`
   - `mechanics/proof-object/parts/eval-authoring/tests/test_scaffold_eval_bundle.py`
-- Validation: part-local tests, repo validation, generated catalog check,
-  semantic AGENTS validation, and generated decision index check.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-25 - Read-only MCP proposal context
 
@@ -119,8 +119,8 @@ As of 2026-05-25:
 - Source surfaces updated:
   - `docs/architecture/AOA_EVALS_MCP_CONTRACT.md`
   - `abyss-stack:mcp/services/aoa-evals-mcp/`
-- Validation: repo validation, generated decision index check, stack MCP
-  package tests, and stack validation.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-25 - Validator-ready comparative scaffolds
 
@@ -137,9 +137,8 @@ As of 2026-05-25:
   - `mechanics/proof-object/parts/eval-authoring/docs/EVAL_BIRTH_PROTOCOL.md`
   - `mechanics/proof-object/parts/eval-authoring/scripts/scaffold_eval_bundle.py`
   - `mechanics/proof-object/parts/eval-authoring/tests/test_scaffold_eval_bundle.py`
-- Validation: part-local tests, repo validation, generated catalog check,
-  semantic AGENTS validation, full pytest, and dry-run against the Workhorse
-  runtime-latency proposal.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -156,14 +155,5 @@ the current access-plane contract.
 
 ## Validation
 
-This decision is valid only when:
-
-- the eval authoring protocol remains under the proof-object part;
-- the scaffold helper refuses parallel authoring without explicit `--allow-new`;
-- comparative-summary drafts with a comparison baseline include the minimum
-  comparison support artifacts needed by repo validation;
-- generated decision indexes include this note;
-- `python -m pytest -q mechanics/proof-object/parts/eval-authoring/tests`
-  passes;
-- `python scripts/validate_repo.py`, `python scripts/build_catalog.py --check`,
-  and `python scripts/validate_semantic_agents.py` pass.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

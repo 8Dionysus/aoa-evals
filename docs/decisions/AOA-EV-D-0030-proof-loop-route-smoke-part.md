@@ -99,12 +99,10 @@ As of 2026-05-24:
   thin placeholder first.
 - Source surfaces updated: `mechanics/proof-loop/parts/README.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: focused lower-index validator tests, root validation, semantic
-  AGENTS validation, generated catalog check, diff whitespace check, and full
-  pytest.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
-- `python -m pytest -q tests/test_validate_repo.py -k proof_loop`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

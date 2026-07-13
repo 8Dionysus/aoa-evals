@@ -34,11 +34,8 @@ Every active mechanic `PROVENANCE.md` must state:
 - The bridge opens `legacy/README.md`.
 - The legacy archive owns its own details.
 
-Validator coverage:
-
-```bash
-python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_provenance_bridge_posture
-```
+Validator coverage follows the focused provenance-bridge route in command
+authority and the nearest `AGENTS.md`.
 
 ## Consequences
 
@@ -75,5 +72,5 @@ As of 2026-05-24:
   `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`,
   `docs/architecture/LEGACY_NAMING.md`, `DESIGN.md`, `scripts/validate_repo.py`, and
   `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
-  mechanic_provenance_bridge_posture`; `python scripts/validate_repo.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.

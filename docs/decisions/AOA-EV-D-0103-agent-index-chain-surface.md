@@ -81,7 +81,8 @@ As of 2026-05-22:
   validation cues than from repeated negative self-description.
 - Source surfaces updated: `README.md`, `scripts/validate_repo.py`, and
   `tests/test_validate_repo.py`.
-- Validation: use root validation and the focused root README surface-role test.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Index owner-route language clarified
 
@@ -93,8 +94,10 @@ As of 2026-05-22:
   begin from owner-route recovery rather than absence or insufficiency.
 - Source surfaces updated: `docs/architecture/AGENT_INDEX.md`, `scripts/validate_repo.py`,
   and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_root_surface_roles.py -k agent_index`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-Use the root and docs validation lanes in `AGENTS.md` and `docs/AGENTS.md`.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

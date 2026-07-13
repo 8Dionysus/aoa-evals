@@ -100,12 +100,5 @@ current inventories and topology must point to the focused lane modules.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/readout_contexts.py scripts/validators/runtime_readouts.py scripts/validators/generated_readouts.py scripts/validators/observability_readouts.py scripts/validators/phase_alpha_readouts.py`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python /home/dionysus/src/abyss-stack/scripts/build_workspace_decision_graph.py --check --json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python -m pytest -q tests/test_runtime_evidence_surfaces.py tests/test_generated_parity.py tests/test_validation_topology.py tests/test_script_topology.py tests/test_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

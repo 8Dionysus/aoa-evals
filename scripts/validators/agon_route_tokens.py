@@ -162,7 +162,6 @@ AGON_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "no new Agon parent",
     "stronger owner split",
     "stop-lines",
-    "python scripts/validate_repo.py",
 )
 
 

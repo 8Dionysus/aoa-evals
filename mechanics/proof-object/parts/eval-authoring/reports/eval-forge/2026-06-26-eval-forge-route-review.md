@@ -18,14 +18,8 @@ boundaries.
 
 ## Readiness Evidence
 
-Commands run:
-
-```bash
-python scripts/aoa_eval_session_start.py --json
-python scripts/check_eval_forge_readiness.py --json
-python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json-output /tmp/aoa_local_eval_ports.current.json
-python scripts/validate_eval_candidate_packets.py mechanics/audit/parts/candidate-readers/packets
-```
+The session-start, readiness, local-port inventory, and candidate-packet
+validation routes were exercised through their owning entrypoints.
 
 Observed:
 
@@ -61,13 +55,7 @@ These are not OS Abyss proof authorities.
 
 ## Session Candidate Routes
 
-Command shape:
-
-```bash
-python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py \
-  --candidate-packet <packet> \
-  --json
-```
+Candidate packets were inspected through the Eval Forge candidate route.
 
 | Packet | Decision | Archetype | Owner Route | Next Route |
 | --- | --- | --- | --- | --- |
@@ -82,15 +70,8 @@ the worksheet payload.
 
 ## Local Port Routes
 
-Command shape:
-
-```bash
-python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py \
-  --local-port-repo <repo-id> \
-  --local-port-inventory /tmp/aoa_local_eval_ports.current.json \
-  --workspace-root /srv/AbyssOS \
-  --json
-```
+Local ports were inspected through the Eval Forge owner-routing path after the
+workspace inventory had been built.
 
 | Repo | Decision | Archetype | Route Key | Owner Boundary |
 | --- | --- | --- | --- | --- |
@@ -101,15 +82,8 @@ python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py \
 
 ## Worksheet Artifact
 
-Generated with:
-
-```bash
-python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py \
-  --candidate-packet mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-criteria-before-mining.eval_candidate.json \
-  --write-worksheet mechanics/proof-object/parts/eval-authoring/examples/aoa_eval_criteria_before_mining.eval_design_worksheet.example.json \
-  --force \
-  --json
-```
+The worksheet was produced through the Eval Forge candidate route and written
+to the part-local example surface below.
 
 Output:
 

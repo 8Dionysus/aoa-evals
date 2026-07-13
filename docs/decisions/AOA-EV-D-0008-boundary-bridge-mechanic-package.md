@@ -108,19 +108,10 @@ As of 2026-05-24:
 - Source surfaces updated: `mechanics/boundary-bridge/README.md`,
   `mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md`,
   and `mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`.
-- Validation: package-local and repo-wide checks described in the closeout for
-  the implementing slice.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-- `mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md` names the compatibility map and posture
-  vocabulary.
-- `mechanics/boundary-bridge/README.md` names source surfaces, inputs,
-  outputs, stronger-owner split, boundaries, legacy posture, validation, and
-  next route.
-- `mechanics/boundary-bridge/PARTS.md` names the compatibility-map and
-  latest-sibling-canary parts.
-- `mechanics/boundary-bridge/AGENTS.md` names local editing law.
-- `python scripts/validate_repo.py`
-- `python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

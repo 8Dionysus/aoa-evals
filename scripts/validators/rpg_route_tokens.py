@@ -68,7 +68,6 @@ RPG_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "growth-cycle",
     "pressure-to-owner route map",
     "runtime equip",
-    "python scripts/validate_repo.py",
 )
 RPG_PROGRESS_UNLOCKS_CONTRACT_DECISION_REQUIRED_TOKENS = (
     "RPG Progression-unlocks Contract",
@@ -80,7 +79,6 @@ RPG_PROGRESS_UNLOCKS_CONTRACT_DECISION_REQUIRED_TOKENS = (
     "runtime route after owner gates",
     "generated unlock cards remain",
     "Diagnosis, repair, harvest, closeout, and longitudinal movement",
-    "python -m pytest -q tests/test_mechanic_surface_contracts.py -k rpg_progression_unlocks",
 )
 
 

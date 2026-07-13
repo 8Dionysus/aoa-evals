@@ -32,11 +32,8 @@ owning `legacy/` archive.
 - archive details as belonging inside the owning `legacy/` archive.
 - active route surfaces as the place where new work begins.
 
-Validator coverage:
-
-```bash
-python -m pytest -q tests/test_root_surface_roles.py -k legacy_naming_single_bridge_language
-```
+Validator coverage follows the focused legacy-naming route in command authority
+and the nearest `AGENTS.md`.
 
 ## Consequences
 

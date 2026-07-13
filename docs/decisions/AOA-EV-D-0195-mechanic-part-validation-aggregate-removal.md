@@ -89,7 +89,5 @@ It does not add a replacement aggregate mechanic-part validation module.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/mechanic_part_validation_common.py scripts/validators/mechanic_parts_index_sync.py scripts/validators/mechanic_part_validation_commands.py scripts/validators/mechanic_part_contract_common.py scripts/validators/mechanic_part_contract_index.py scripts/validators/mechanic_part_readme_contract.py scripts/validators/mechanic_part_role_headings.py scripts/validators/mechanics_routes.py tests/test_mechanic_parts_index.py tests/test_mechanic_part_validation_commands.py`
-- `python -m pytest -q tests/test_mechanic_parts_index.py tests/test_mechanic_part_validation_commands.py tests/test_mechanic_part_contracts.py -k "mechanic_parts_index_sync or mechanic_part_validation_command or mechanic_part"`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

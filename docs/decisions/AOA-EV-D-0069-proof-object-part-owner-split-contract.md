@@ -52,12 +52,5 @@ and release surfaces stay weaker than bundle-local review.
 
 ## Validation
 
-Expected validation route:
-
-```bash
-python -m pytest -q tests/test_mechanic_surface_contracts.py -k proof_object_part_owner_split
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-python -m pytest -q
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

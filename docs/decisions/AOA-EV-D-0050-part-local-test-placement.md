@@ -61,9 +61,9 @@ already has a narrower owner. Repo-wide tests stay root-owned.
   docs, schemas, scripts, reports, and stop-lines.
 - Positive: root `tests/` becomes a clearer repo-wide district instead of a
   mixed attic for every proof check.
-- Tradeoff: focused pytest commands become longer.
-- Tradeoff: full validation should use `python -m pytest -q`, not only
-  `python -m pytest -q tests`, when part-local tests matter.
+- Tradeoff: focused test routes become longer.
+- Tradeoff: the full test lane must include part-local tests rather than only
+  the root test district when those checks matter.
 
 ## Boundaries
 
@@ -76,15 +76,5 @@ validators for the part that owns the operation.
 
 ## Validation
 
-- `docs/architecture/PROOF_TOPOLOGY.md`
-- `tests/AGENTS.md`
-- `mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py`
-- `mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py`
-- `mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py`
-- `mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py`
-- `mechanics/release-support/parts/readiness-audit/tests/test_release_support_readiness_audit.py`
-- `mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py`
-- `mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py`
-- `mechanics/boundary-bridge/parts/latest-sibling-canary/tests/test_sibling_canary.py`
-- `python -m pytest -q`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

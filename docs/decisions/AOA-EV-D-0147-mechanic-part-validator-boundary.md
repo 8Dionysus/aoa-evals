@@ -106,7 +106,8 @@ As of 2026-06-04:
 - Source surfaces updated: `scripts/validators/mechanic_parts.py`,
   `scripts/validators/mechanic_part_validation.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0165.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - README, payload, and source-surface split
 
@@ -126,7 +127,8 @@ As of 2026-06-04:
   `scripts/validators/mechanic_part_source_surfaces.py`,
   `scripts/validators/mechanic_part_validation.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0175.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Aggregate facade removal
 
@@ -137,7 +139,8 @@ As of 2026-06-04:
   root-topology checks, and tests import focused part validators directly.
 - Reason: the facade carried only aliases and aggregate glue after the owner
   split was complete.
-- Validation: see AOA-EV-D-0188.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Validation aggregate removal
 
@@ -148,7 +151,8 @@ As of 2026-06-04:
   parsing lives in `mechanic_part_validation_common.py`.
 - Reason: parent route-map parity and executable part validation evidence are
   adjacent but distinct source-fast boundaries.
-- Validation: see AOA-EV-D-0195.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Contract aggregate removal
 
@@ -163,7 +167,8 @@ As of 2026-06-04:
 - Reason: contract-index checks, role-heading checks, README traversal, payload
   inventory, source refs, and validation commands are adjacent but distinct
   part-local boundaries.
-- Validation: see AOA-EV-D-0204.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -188,5 +193,5 @@ modules. No aggregate `mechanic_parts.py`, `mechanic_part_validation.py`, or
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/mechanics_routes.py scripts/validators/mechanic_part_contract_common.py scripts/validators/mechanic_part_contract_index.py scripts/validators/mechanic_part_readme_contract.py scripts/validators/mechanic_part_role_headings.py scripts/validators/mechanic_parts_index_sync.py scripts/validators/mechanic_part_validation_commands.py scripts/validators/mechanic_part_validation_common.py`
-- `python -m pytest -q tests/test_index_surface_roles.py tests/test_mechanic_part_contracts.py tests/test_mechanic_parts_index.py tests/test_mechanic_part_validation_commands.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -88,7 +88,8 @@ from becoming a historical collection of every source-eval proof rule.
   `scripts/validators/source_eval_artifacts.py`,
   `scripts/validators/source_eval_common.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0159.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Evidence and review-policy split
 
@@ -104,7 +105,8 @@ from becoming a historical collection of every source-eval proof rule.
 - Source surfaces updated: `scripts/validators/source_eval_contracts.py`,
   `scripts/validators/source_eval_evidence.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0166.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Reference edge split
 
@@ -119,7 +121,8 @@ from becoming a historical collection of every source-eval proof rule.
 - Source surfaces updated: `scripts/validators/source_eval_contracts.py`,
   `scripts/validators/source_eval_references.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0168.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Comparison-surface split
 
@@ -135,7 +138,8 @@ from becoming a historical collection of every source-eval proof rule.
 - Source surfaces updated: `scripts/validators/source_eval_contracts.py`,
   `scripts/validators/source_eval_comparison.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0173.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Authored record split
 
@@ -150,7 +154,8 @@ from becoming a historical collection of every source-eval proof rule.
 - Source surfaces updated: `scripts/validators/source_eval_contracts.py`,
   `scripts/validators/source_eval_records.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0178.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Collection/projection adapter removal
 
@@ -162,7 +167,8 @@ from becoming a historical collection of every source-eval proof rule.
   comparison-spine builders route through direct `eval_*_contract.py` modules.
 - Reason: keeping projection adapters inside a validator facade kept an old
   compatibility bucket alive after the owner split was complete.
-- Validation: see AOA-EV-D-0187.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Current Applicability
 
@@ -235,7 +241,5 @@ grader outcomes, release packaging, or frozen artifact provenance.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/source_eval_collection.py scripts/build_catalog.py`
-- `python -m pytest -q tests/test_build_catalog.py tests/test_downstream_feed_contracts.py tests/test_validate_repo.py tests/test_runtime_evidence_surfaces.py tests/test_eval_source_topology.py tests/test_report_schema_contracts.py mechanics/proof-object/parts/eval-authoring/tests/test_scaffold_eval_bundle.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

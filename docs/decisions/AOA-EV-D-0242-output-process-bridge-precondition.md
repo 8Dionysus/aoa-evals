@@ -93,8 +93,8 @@ As of 2026-06-16:
   as approval-gated.
 - Source surfaces updated: this decision note, generated decision indexes,
   source doctrine validator, and focused comparison-surface tests.
-- Validation: run the decision-index, repo, semantic-agent, and focused
-  comparison-surface checks in the landing PR.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -111,13 +111,5 @@ Do not infer that frozen-baseline comparison is deprecated. It remains owned by
 
 ## Validation
 
-This decision is valid when:
-
-- `EVAL_SELECTION.md` routes `aoa-output-vs-process-gap` after both standalone
-  readings are visible;
-- `EVAL_INDEX.md` describes the same matched-condition bridge posture;
-- `scripts/validators/source_artifact_process_doctrine.py` rejects real
-  baseline-as-bridge alternatives without rejecting unrelated baseline-route
-  guidance;
-- generated decision indexes include `AOA-EV-D-0242`;
-- repo validation and semantic AGENTS validation pass.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

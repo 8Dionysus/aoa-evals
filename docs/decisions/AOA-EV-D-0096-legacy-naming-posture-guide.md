@@ -47,11 +47,8 @@ owning `legacy/` archive, reached only after:
 
 `active route -> PROVENANCE.md`
 
-Validator coverage:
-
-```bash
-python -m pytest -q tests/test_root_surface_roles.py -k legacy_naming_posture_guide
-```
+Validator coverage follows the focused legacy-naming posture route in command
+authority and the nearest `AGENTS.md`.
 
 ## Consequences
 

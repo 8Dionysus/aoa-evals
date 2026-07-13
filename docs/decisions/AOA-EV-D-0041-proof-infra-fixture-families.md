@@ -122,8 +122,8 @@ As of 2026-05-24:
   reusable support.
 - Reason: the active topology is now strong enough that owner routes carry the
   boundary without repeating negative prose at every entry point.
-- Validation: `python scripts/validate_repo.py`, focused validator tests, and
-  semantic AGENTS validation.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Agent route-card applicability
 
@@ -139,18 +139,10 @@ As of 2026-05-24:
   `mechanics/proof-infra/parts/fixture-families/AGENTS.md`,
   `scripts/validate_repo.py`,
   `tests/test_validate_repo.py`.
-- Validation: root validator, semantic AGENTS validation, catalog check, and
-  focused validator tests.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-- `mechanics/proof-infra/PARTS.md`
-- `mechanics/proof-infra/parts/fixture-families/README.md`
-- `mechanics/proof-infra/PROVENANCE.md`
-- owning proof-infra legacy archive for former root fixture placement
-- affected bundle `evals/<family>/<eval>/fixtures/contract.json` paths
-- generated catalog `proof_artifacts`
-- `python scripts/build_catalog.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

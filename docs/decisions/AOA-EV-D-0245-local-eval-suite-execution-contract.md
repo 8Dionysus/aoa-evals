@@ -98,8 +98,9 @@ runtime evidence to capture, not properties proven by the source sidecar.
 - Positive: owner/apply receives an exact, reviewable invocation contract.
 - Positive: stale sources route to hash review instead of silent execution.
 - Positive: named worktrees retain the PORT/common-dir/origin owner identity.
-- Positive: `python -c`, arbitrary executables, alternate modules, and runtime
-  dispatch wrappers cannot masquerade as reviewed pytest entrypoints.
+- Positive: inline interpreter execution, arbitrary executables, alternate
+  modules, and runtime dispatch wrappers cannot masquerade as reviewed pytest
+  entrypoints.
 - Positive: generated readiness paths remain on the canonical owner checkout
   even when the builder reads an isolated implementation worktree.
 - Tradeoff: each runnable local suite needs a reviewed JSON sidecar and hash
@@ -137,9 +138,5 @@ It does not authorize MCP to create or update `.suite.json` sidecars.
 
 ## Validation
 
-- `python -m pytest -q tests/test_local_eval_port.py tests/test_local_eval_port_inventory.py`
-- `python -m pytest -q mechanics/proof-object/parts/eval-authoring/tests/test_eval_forge_route.py`
-- `python -m pytest -q tests/test_eval_readiness_dashboard.py tests/test_eval_forge_readiness_check.py tests/test_aoa_eval_session_start.py tests/test_eval_promotion_path_review.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

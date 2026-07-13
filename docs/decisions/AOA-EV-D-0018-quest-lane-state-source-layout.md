@@ -76,12 +76,5 @@ authority, or bundle-local verdict meaning.
 
 ## Validation
 
-- `quests/README.md` names the active lane/state source layout.
-- `quests/AGENTS.md` names local editing law and state-directory alignment.
-- `docs/architecture/LEGACY_NAMING.md` maps old top-level quest paths as legacy path
-  vocabulary.
-- `generated/quest_catalog.min.json` and `generated/quest_dispatch.min.json`
-  emit current source paths.
-- `scripts/validate_repo.py` rejects stale top-level quest source files.
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

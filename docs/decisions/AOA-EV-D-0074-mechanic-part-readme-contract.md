@@ -112,9 +112,8 @@ As of 2026-05-24:
 - Source surfaces updated: `scripts/validators/mechanic_part_readme_contract.py`,
   `scripts/validators/mechanic_part_contract_common.py`, and
   `tests/test_mechanic_part_contracts.py`.
-- Validation: focused mechanic part README contract tests, root validation,
-  semantic AGENTS validation, generated catalog check, diff whitespace check,
-  and full pytest.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Lower parts index operating-card guard
 
@@ -130,9 +129,8 @@ As of 2026-05-24:
   pressure routes next.
 - Source surfaces updated: active `mechanics/*/parts/README.md` lower indexes,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: lower-index operating-card tests, root validation, semantic
-  AGENTS validation, generated catalog check, diff whitespace check, and full
-  pytest.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Missing lower parts indexes closed
 
@@ -146,12 +144,10 @@ As of 2026-05-24:
   `mechanics/experience/parts/README.md`,
   `mechanics/recurrence/parts/README.md`, `scripts/validate_repo.py`, and
   `tests/test_validate_repo.py`.
-- Validation: lower-index operating-card tests, root validation, semantic
-  AGENTS validation, generated catalog check, diff whitespace check, and full
-  pytest.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k mechanic_part_readmes_reject_stale_stop_line_lead_ins`
-- `python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_readme_contract`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -92,9 +92,5 @@ It does not create a new release command. Lane command authority remains in
 
 ## Validation
 
-- `python -m py_compile scripts/validators/runtime_candidate_common.py scripts/validators/runtime_candidate_template_index.py scripts/validators/runtime_candidate_intake.py scripts/validators/evidence_readouts.py tests/test_quest_and_reader_surfaces.py`
-- `python -m pytest -q tests/test_quest_and_reader_surfaces.py -k runtime_candidate`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

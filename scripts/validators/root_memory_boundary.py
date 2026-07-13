@@ -64,8 +64,6 @@ MEMORY_CONSUMER_PROOF_BOUNDARY_DECISION_REQUIRED_TOKENS = (
     "access-plane evidence only",
     "direct durable",
     "write authority",
-    "python scripts/validate_repo.py",
-    "python scripts/validate_semantic_agents.py",
 )
 
 

@@ -70,20 +70,11 @@ MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME = (
 MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND = (
     "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_payload_inventory"
 )
-MECHANIC_PART_PAYLOAD_INVENTORY_SUPERSEDED_COMMAND = (
-    "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_payload_inventory"
-)
 MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0094-mechanic-part-source-surface-reference-guard.md"
 )
-MECHANIC_PART_SOURCE_SURFACE_REF_COMMAND = (
-    "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_source_surface"
-)
 MECHANIC_PART_SOURCE_SURFACES_SECTION_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0095-mechanic-part-source-surfaces-section-contract.md"
-)
-MECHANIC_PART_SOURCE_SURFACES_SECTION_COMMAND = (
-    "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_source_surfaces_section"
 )
 MECHANIC_PART_ALLOWED_PAYLOAD_DIRS = (
     "config",
@@ -118,7 +109,6 @@ MECHANIC_PART_README_CONTRACT_DECISION_REQUIRED_TOKENS = (
     "`## Validation`",
     "parent `PARTS.md`",
     "orphan part",
-    "python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_readme_contract",
 )
 MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_REQUIRED_TOKENS = (
     "Mechanic Part Payload Inventory",
@@ -136,7 +126,6 @@ MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_REQUIRED_TOKENS = (
     "Source surfaces updated",
     "mechanics/AGENTS.md#validation",
     "focused mechanic part payload-inventory guard",
-    MECHANIC_PART_PAYLOAD_INVENTORY_SUPERSEDED_COMMAND,
 )
 MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_REQUIRED_TOKENS = (
     "Mechanic Part Source Surface Reference Guard",
@@ -146,7 +135,6 @@ MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_REQUIRED_TOKENS = (
     "repo-qualified sibling ref",
     "placeholder route",
     "stale source surface ref",
-    MECHANIC_PART_SOURCE_SURFACE_REF_COMMAND,
 )
 MECHANIC_PART_SOURCE_SURFACES_SECTION_DECISION_REQUIRED_TOKENS = (
     "Mechanic Part Source Surfaces Section Contract",
@@ -156,7 +144,6 @@ MECHANIC_PART_SOURCE_SURFACES_SECTION_DECISION_REQUIRED_TOKENS = (
     "plural section",
     "not `## Source Surface`",
     "not `## Active Surfaces`",
-    MECHANIC_PART_SOURCE_SURFACES_SECTION_COMMAND,
 )
 
 
@@ -243,11 +230,8 @@ __all__ = (
     "MECHANIC_PART_README_CONTRACT_DECISION_NAME",
     "MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME",
     "MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND",
-    "MECHANIC_PART_PAYLOAD_INVENTORY_SUPERSEDED_COMMAND",
     "MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_NAME",
-    "MECHANIC_PART_SOURCE_SURFACE_REF_COMMAND",
     "MECHANIC_PART_SOURCE_SURFACES_SECTION_DECISION_NAME",
-    "MECHANIC_PART_SOURCE_SURFACES_SECTION_COMMAND",
     "MECHANIC_PART_ALLOWED_PAYLOAD_DIRS",
     "MECHANIC_THIN_PART_REQUIRED_TOKENS",
     "MECHANIC_PART_README_CONTRACT_DECISION_REQUIRED_TOKENS",

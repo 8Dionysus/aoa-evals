@@ -16,8 +16,11 @@
   not store blocking command sequences.
 - Root and nested `AGENTS.md` cards may name focused local checks and lane ids.
   They should not become separate hidden release command stores.
-- Decision records, changelogs, release notes, receipts, and review reports may
-  preserve historical command evidence. They are not active lane authority.
+- Decision records, changelogs, release notes, receipts, and review reports
+  preserve outcomes and owner routes, not copied runnable command catalogs.
+- The Eval Forge operating path, readiness guide, local-port standard, and
+  release procedure may keep the narrow operator routes they own; they do not
+  duplicate validation lane sequences.
 
 The manifest lives under `docs/validation/` rather than root `config/` because
 `config/` is currently a route-card-only compatibility district in this repo.

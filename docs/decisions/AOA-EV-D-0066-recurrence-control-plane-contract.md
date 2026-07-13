@@ -90,20 +90,10 @@ As of 2026-05-24:
 - Source surfaces updated:
   `mechanics/recurrence/parts/control-plane-integrity/README.md` and
   `scripts/validate_repo.py`.
-- Validation: recurrence validator focus, recurrence part runners and tests,
-  catalog check, root validation, semantic AGENTS validation, diff whitespace
-  check, and full pytest passed.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-Expected validation route:
-
-```bash
-python -m pytest -q tests/test_validate_repo.py -k recurrence_control_plane
-python mechanics/recurrence/parts/control-plane-integrity/scripts/run_recurrence_control_plane_integrity_eval.py --case mechanics/recurrence/parts/control-plane-integrity/fixtures/recurrence-control-plane-integrity-v1/cases/RCPI-001.registry-mixed-manifests.json --check-expected --json
-python -m pytest -q mechanics/recurrence/parts/control-plane-integrity/tests/test_recurrence_control_plane_integrity_eval_seed.py
-python scripts/validate_repo.py --eval aoa-recurrence-control-plane-integrity
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python -m pytest -q
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

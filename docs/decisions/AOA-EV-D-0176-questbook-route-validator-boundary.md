@@ -93,7 +93,8 @@ As of 2026-06-04:
   surface, not only through the public README or lifecycle card.
 - Source surfaces updated: `scripts/validators/questbook_routes.py` and its
   focused quest-route scaffold regression.
-- Validation: PR #388 Repo Validation covered the route scaffold guard.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -110,9 +111,5 @@ runtime or owner surfaces.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/questbook_context.py scripts/validators/questbook_io.py scripts/validators/questbook_route_paths.py scripts/validators/questbook_route_tokens.py scripts/validators/questbook_source_constants.py scripts/validators/questbook_orchestrator_constants.py scripts/validators/questbook_routes.py scripts/validators/questbook_schema_lifecycle.py scripts/validators/questbook_source_records.py scripts/validators/questbook_obligation_index.py scripts/validators/questbook_projection_records.py scripts/validators/questbook_projection_parity.py scripts/validators/questbook_orchestrator_refs.py scripts/validators/questbook_progression.py`
-- `python -m pytest -q tests/test_quest_and_reader_surfaces.py tests/test_mechanic_surface_contracts.py -k 'questbook or quest_route'`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

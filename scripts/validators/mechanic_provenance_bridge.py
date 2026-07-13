@@ -46,7 +46,6 @@ MECHANIC_LEGACY_SINGLE_BRIDGE_DECISION_REQUIRED_TOKENS = (
     "must not carry archive details",
     "JSON",
     "YAML",
-    MECHANIC_LEGACY_SINGLE_BRIDGE_COMMAND,
 )
 MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS = (
     "`PROVENANCE.md` is the active-to-archive bridge for this mechanic.",
@@ -69,7 +68,6 @@ MECHANIC_PROVENANCE_BRIDGE_POSTURE_DECISION_REQUIRED_TOKENS = (
     "legacy archive",
     "legacy/README.md",
     "owns its own details",
-    MECHANIC_PROVENANCE_BRIDGE_POSTURE_COMMAND,
 )
 MECHANIC_PROVENANCE_ENTRY_REQUIRED_TOKENS = (
     "active",
@@ -84,7 +82,6 @@ MECHANIC_PROVENANCE_ENTRY_DECISION_REQUIRED_TOKENS = (
     "active route first",
     "not active topology",
     "archive details",
-    "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_entry",
 )
 
 MECHANIC_LEGACY_ACTIVE_DIRECT_REF_RE = re.compile(

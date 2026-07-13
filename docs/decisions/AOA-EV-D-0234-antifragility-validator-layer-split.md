@@ -70,10 +70,5 @@ It does not create a replacement Antifragility aggregate facade.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/antifragility_route_paths.py scripts/validators/antifragility_route_tokens.py scripts/validators/antifragility_routes.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k antifragility`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/ci_gate.py --mode source-fast`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

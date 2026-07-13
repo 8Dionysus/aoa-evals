@@ -96,8 +96,8 @@ As of 2026-06-05:
   `scripts/validators/root_authored_surface_ledger.py`,
   `mechanics/EVIDENCE_CLUSTERS.md`, and
   `docs/decisions/AOA-EV-D-0085-root-authored-surface-classification.md`.
-- Validation: root-authored topology tests, decision indexes, source-fast gate,
-  and release check.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -110,11 +110,5 @@ Root-district posture remains owned by
 
 ## Validation
 
-- `python -m py_compile scripts/validators/root_authored_surface_common.py scripts/validators/root_authored_surface_inventory.py scripts/validators/root_authored_surface_ledger.py scripts/validators/root_authored_surface_decision.py scripts/validators/mechanics.py`
-- `python -m pytest -q tests/test_mechanics_topology.py`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

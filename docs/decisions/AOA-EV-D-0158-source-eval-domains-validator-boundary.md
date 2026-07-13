@@ -82,5 +82,5 @@ only.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/source_eval_domains.py`
-- `python -m pytest -q tests/test_validate_repo.py tests/test_eval_source_topology.py tests/test_comparison_surface_contracts.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

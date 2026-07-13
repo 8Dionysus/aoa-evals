@@ -88,9 +88,5 @@ It only checks root-visible legacy naming posture and route wording.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/root_legacy_common.py scripts/validators/root_legacy_naming.py scripts/validators/root_legacy_bridge_residue.py scripts/validators/root_legacy_external_leakage.py scripts/validators/root_topology.py`
-- `python -m pytest -q tests/test_root_surface_roles.py -k legacy`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

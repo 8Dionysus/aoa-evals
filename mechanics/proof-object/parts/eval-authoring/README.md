@@ -101,8 +101,8 @@ reproducible runtime.
 | placeholder text reads as evidence | route to real evidence entries, fixtures, reports, or examples |
 | proof pressure fits an existing eval | return the existing source bundle route instead of creating a parallel bundle |
 | proof pressure is recurring but not authoring-ready | route through `QUESTBOOK.md` and source quest records |
-| candidate pressure is concrete but not source-authoring-ready | run `python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <path> --json` and keep the result as design guidance only |
-| a new case needs quick collection before authoring | run `python mechanics/proof-object/parts/eval-authoring/scripts/prepare_eval_case.py --json`; write only an `eval_need_v1` proposal until review |
+| candidate pressure is concrete but not source-authoring-ready | use the candidate route in `docs/EVAL_FORGE_OPERATING_PATH.md` and keep the result as design guidance only |
+| a new case needs quick collection before authoring | use the case-preparation entrypoint routed by `docs/EVAL_BIRTH_PROTOCOL.md`; write only an `eval_need_v1` proposal until review |
 | runtime or trace artifact is the input | route through audit selected-evidence packets and candidate readers before bundle-local review |
 | `.suite.md` is present without a ready sidecar | keep it as design pressure; validate or repair `local_eval_suite_execution_v1` before owner/apply |
 | inventory, Forge, readiness, dashboard, session-start, promotion review, generated readers, or MCP would execute a local suite | stop; these surfaces are inspect-only |

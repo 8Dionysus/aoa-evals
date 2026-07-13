@@ -105,5 +105,5 @@ or grader outcomes.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/eval_bundle_common.py scripts/validators/eval_entry_cards.py scripts/validators/eval_starter_surfaces.py scripts/validators/eval_roadmap_parity.py scripts/validators/eval_entry_routes.py scripts/validators/eval_tree_topology.py`
-- `python -m pytest -q tests/test_eval_source_topology.py tests/test_roadmap_parity.py tests/test_validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

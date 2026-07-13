@@ -111,13 +111,8 @@ As of 2026-06-04:
   `docs/validation/script_inventory.json`,
   `docs/validation/validator_inventory.json`, and
   `mechanics/EVIDENCE_CLUSTERS.md`.
-- Validation: `python -m pytest -q
-  mechanics/release-support/parts/readiness-audit/tests/test_release_support_readiness_audit.py
-  mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py
-  mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py`
-  and `python -m pytest -q tests/test_validation_topology.py
-  tests/test_script_topology.py tests/test_mechanics_topology.py
-  tests/test_mechanic_root_district_recon.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Route and helper validator split
 
@@ -132,7 +127,8 @@ As of 2026-06-04:
   focused `scripts/validators/release_support_*` helper modules,
   `scripts/validators/release_support_routes.py`,
   validation inventories, and `mechanics/EVIDENCE_CLUSTERS.md`.
-- Validation: see AOA-EV-D-0182.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -149,8 +145,5 @@ let `release_support_routes.py` own report artifact meaning.
 
 ## Validation
 
-- `python -m pytest -q mechanics/release-support/parts/readiness-audit/tests/test_release_support_readiness_audit.py mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

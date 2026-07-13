@@ -90,6 +90,5 @@ It does not make guidance prose a proof source.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/root_guidance_common.py scripts/validators/root_frontdoor_guidance.py scripts/validators/root_eval_guides.py scripts/validators/root_operations_guidance.py scripts/validators/root_release_guidance.py scripts/validators/root_topology.py`
-- `python -m pytest -q tests/test_guidance_surface_routes.py tests/test_docs_topology.py tests/test_route_residue.py tests/test_root_surface_roles.py`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

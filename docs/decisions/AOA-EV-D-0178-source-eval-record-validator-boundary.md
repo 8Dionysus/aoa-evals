@@ -87,9 +87,5 @@ validators, runtime/eval surfaces, or stronger owner surfaces.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/source_eval_collection.py scripts/validators/source_eval_records.py`
-- `python -m pytest -q tests/test_build_catalog.py tests/test_validate_repo.py tests/test_eval_source_topology.py tests/test_downstream_feed_contracts.py mechanics/proof-object/parts/eval-authoring/tests/test_scaffold_eval_bundle.py`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

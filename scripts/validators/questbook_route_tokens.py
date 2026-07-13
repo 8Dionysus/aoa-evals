@@ -146,7 +146,6 @@ AGON_QUEST_NOTE_PROVENANCE_DECISION_REQUIRED_TOKENS = (
     "schema-backed source quest records",
     "markdown quest notes",
     "quests/",
-    "python -m pytest -q tests/test_quest_and_reader_surfaces.py -k quest_route",
 )
 QUESTBOOK_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "mechanics/questbook/",
@@ -165,7 +164,6 @@ QUESTBOOK_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS = (
     "Generated quest readers stay under root `generated/`",
     "aoa-quest-harvest",
     "live task assignment",
-    "python -m pytest -q tests/test_mechanic_surface_contracts.py -k questbook_part_owner_split",
 )
 
 

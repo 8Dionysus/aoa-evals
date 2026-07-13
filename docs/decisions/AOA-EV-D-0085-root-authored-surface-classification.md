@@ -76,10 +76,8 @@ owner route proves the move.
 
 ## Validation
 
-```bash
-python -m pytest -q tests/test_mechanics_topology.py
-python scripts/validate_repo.py
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.
 
 ## Current Applicability
 
@@ -101,8 +99,8 @@ As of 2026-06-05:
   - `scripts/validators/root_authored_surface_common.py`
   - `scripts/validators/root_authored_surface_inventory.py`
   - `scripts/validators/root_authored_surface_ledger.py`
-- Validation: root-authored classification tests, root repository validation,
-  and semantic AGENTS validation stayed green when each route changed.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Review Log
 
@@ -119,8 +117,8 @@ As of 2026-06-05:
   `scripts/validators/root_authored_surface_common.py`,
   `scripts/validators/root_authored_surface_inventory.py`, and
   `scripts/validators/root_authored_surface_ledger.py`.
-- Validation: `python -m pytest -q tests/test_mechanics_topology.py` and the
-  source-fast/release validation route.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Boundary checklist renamed to route action
 
@@ -132,8 +130,8 @@ As of 2026-06-05:
   review, and validation rather than a free-standing negative checklist.
 - Source surfaces updated: checklist file name/content, docs map link, and the
   root-authored classification validation route.
-- Validation: root-authored classification tests, root repository validation,
-  and semantic AGENTS validation stayed green.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Portable boundary guide route language clarified
 
@@ -146,5 +144,5 @@ As of 2026-06-05:
   first-pass route should expose the proof route before local-shaped deferral.
 - Source surfaces updated: `docs/guides/PORTABLE_EVAL_BOUNDARY_GUIDE.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k portable_eval_boundary`
-  and `python scripts/validate_repo.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.

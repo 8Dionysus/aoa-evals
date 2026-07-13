@@ -98,7 +98,5 @@ stronger than the proof objects or stronger owners it routes.
 
 ## Validation
 
-```bash
-python -m pytest -q tests/test_mechanic_parent_topology.py -k mechanic_parent_guidance_boundary
-python scripts/validate_repo.py
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -52,7 +52,7 @@ future drift inspectable instead of hiding it behind ad hoc path edits.
   all references are updated.
 - Follow-up: the next sibling-reference slice should fix the currently failing
   `aoa-memo` refs through current paths or an explicit compatibility bridge,
-  then rerun `python scripts/validate_repo.py`.
+  then rerun the repository validation lane.
 
 ## Boundaries
 
@@ -64,7 +64,5 @@ honest when sibling topology moves.
 
 ## Validation
 
-- current baseline failure is visible through `python scripts/validate_repo.py`
-- failing refs are limited to sibling path drift in `aoa-memo`
-- future repair should leave `validate_repo.py` green without editing sibling
-  repos unless separately authorized
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

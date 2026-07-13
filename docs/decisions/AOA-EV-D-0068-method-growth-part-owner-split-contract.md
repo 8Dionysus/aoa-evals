@@ -79,19 +79,10 @@ As of 2026-05-24:
   `mechanics/method-growth/parts/candidate-lineage/README.md`,
   `mechanics/method-growth/parts/owner-landing/README.md`, and
   `scripts/validate_repo.py`.
-- Validation: method-growth validator focus, candidate-lineage and owner-fit
-  eval validation, catalog check, root validation, semantic AGENTS validation,
-  diff whitespace check, and full pytest passed.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-Expected validation route:
-
-```bash
-python -m pytest -q tests/test_mechanic_surface_contracts.py -k method_growth_part_owner_split
-python scripts/validate_repo.py --eval aoa-candidate-lineage-integrity
-python scripts/validate_repo.py --eval aoa-owner-fit-routing-quality
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python -m pytest -q
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

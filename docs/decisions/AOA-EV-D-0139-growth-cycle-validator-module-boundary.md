@@ -83,11 +83,5 @@ helpers into Growth-cycle.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/growth_cycle_route_paths.py scripts/validators/growth_cycle_route_tokens.py scripts/validators/growth_cycle_routes.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k "growth_cycle or repair_diagnosis_route_boundary"`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/ci_gate.py --mode source-fast`
-- `python -m pytest -q`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

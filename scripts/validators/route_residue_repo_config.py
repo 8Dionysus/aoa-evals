@@ -32,7 +32,6 @@ REPO_CONFIG_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
     "legacy mechanic parent",
     "route-card-only root district",
     "not historical memory",
-    REPO_CONFIG_ROUTE_RESIDUE_COMMAND,
 )
 
 

@@ -91,8 +91,5 @@ name.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/mechanic_part_contract_common.py scripts/validators/mechanic_part_contract_index.py scripts/validators/mechanic_part_role_headings.py scripts/validators/mechanic_part_readme_contract.py scripts/validators/mechanic_part_payload_inventory.py scripts/validators/mechanic_part_source_surfaces.py scripts/validators/mechanic_parts_index_sync.py scripts/validators/mechanic_part_validation_commands.py scripts/validators/mechanic_part_validation_common.py scripts/validators/mechanics_routes.py scripts/validators/root_topology.py`
-- `python -m pytest -q tests/test_mechanic_part_contracts.py tests/test_index_surface_roles.py tests/test_mechanic_parts_index.py tests/test_mechanic_part_validation_commands.py tests/test_mechanic_parent_topology.py tests/test_mechanic_surface_contracts.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -65,9 +65,5 @@ wait until more than one reviewed local run reveals a repeated operation.
 
 ## Validation
 
-Expected checks:
-
-- `python scripts/validate_repo.py --eval aoa-verification-honesty`
-- `python -m pytest -q tests/test_validate_repo.py -k "actual_report or proof_loop"`
-- `python scripts/validate_repo.py`
-- broad repository checks before closeout.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

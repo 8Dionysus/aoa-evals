@@ -114,7 +114,6 @@ CHECKPOINT_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "source proof bundles stay under `evals/`",
     "artifact-to-verdict hook schema",
     "checkpoint implementation authority",
-    "python scripts/validate_repo.py",
 )
 CHECKPOINT_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "Checkpoint Part Contract Guard",
@@ -127,7 +126,6 @@ CHECKPOINT_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "runtime activation",
     "owner acceptance",
     "broad long-horizon",
-    "python scripts/validate_repo.py",
 )
 
 

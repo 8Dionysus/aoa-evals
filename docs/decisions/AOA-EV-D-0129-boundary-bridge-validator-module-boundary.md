@@ -110,11 +110,5 @@ execution into the route validator.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/boundary_bridge_common.py scripts/validators/boundary_bridge_routes.py scripts/validators/boundary_bridge_workflow.py scripts/validators/boundary_bridge_canary.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py tests/test_mechanic_legacy_archive_routes.py tests/test_repo_validation_workflow.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k boundary_bridge`
-- `python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k boundary_bridge`
-- `python -m pytest -q tests/test_repo_validation_workflow.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

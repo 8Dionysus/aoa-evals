@@ -155,7 +155,6 @@ PART_LOCAL_TEST_PLACEMENT_DECISION_REQUIRED_TOKENS = (
     "Part-local Test Placement",
     "mechanics/<mechanic>/parts/<part>/tests/",
     "Root `tests/` remains the repository-wide test district",
-    "python -m pytest -q",
     "does not create a new parent mechanic from a test name",
 )
 

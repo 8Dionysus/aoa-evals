@@ -92,6 +92,5 @@ It checks the RPG support surface that a Questbook source record references.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/questbook_context.py scripts/validators/questbook_io.py scripts/validators/questbook_source_constants.py scripts/validators/questbook_orchestrator_constants.py scripts/validators/questbook_source_records.py scripts/validators/questbook_progression.py scripts/validate_repo.py`
-- `python -m pytest -q tests/test_quest_and_reader_surfaces.py tests/test_mechanic_surface_contracts.py -k 'questbook or unlock_proof or progression_unlocks'`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -142,11 +142,5 @@ validation.
 
 ## Validation
 
-Use the part validation lane:
-
-```bash
-python -m pytest -q mechanics/proof-object/parts/eval-authoring/tests
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-```
+Use the part route in `../VALIDATION.md`; executable checks remain in the parent
+`AGENTS.md` validation lane.

@@ -80,10 +80,5 @@ semantics beyond helper/orchestration roles.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/eval_bundle_common.py scripts/validators/eval_entry_cards.py scripts/validators/eval_starter_surfaces.py scripts/validators/eval_roadmap_parity.py scripts/validators/eval_entry_routes.py scripts/validators/eval_tree_topology.py scripts/validators/root_topology.py tests/test_eval_source_topology.py tests/test_roadmap_parity.py tests/test_validate_repo.py tests/validate_repo_fixtures.py`
-- `python -m pytest -q tests/test_eval_source_topology.py tests/test_roadmap_parity.py tests/test_validate_repo.py -k "eval_source_entry or roadmap or eval_selection or starter"`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/ci_gate.py --mode source-fast`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

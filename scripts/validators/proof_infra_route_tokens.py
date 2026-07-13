@@ -129,7 +129,6 @@ PROOF_INFRA_FIXTURE_FAMILIES_DECISION_REQUIRED_TOKENS = (
     "no narrower active mechanic",
     "Root `fixtures/` remains a compatibility route card",
     "does not make fixture families stronger than bundle-local meaning",
-    "python scripts/build_catalog.py --check",
 )
 PROOF_INFRA_REPORTABLE_CONTRACTS_DECISION_REQUIRED_TOKENS = (
     "mechanics/proof-infra/parts/reportable-contracts/",
@@ -137,7 +136,6 @@ PROOF_INFRA_REPORTABLE_CONTRACTS_DECISION_REQUIRED_TOKENS = (
     "scorer_helper_paths",
     "root `runners/`, `scorers/`, and `schemas/` remain compatibility route cards",
     "does not make reportable contracts stronger than bundle-local meaning",
-    "python scripts/validate_repo.py",
 )
 
 

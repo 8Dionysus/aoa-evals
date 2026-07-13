@@ -92,7 +92,6 @@ AUDIT_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "inputs, outputs",
     "stronger-owner split",
     "candidate-only",
-    "python scripts/validate_repo.py",
 )
 AUDIT_SELECTED_EVIDENCE_PART_README_REQUIRED_TOKENS = (
     "## Inputs",

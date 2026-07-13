@@ -60,8 +60,8 @@ The guard permits:
 
 ## Validation
 
-- `python -m pytest -q tests/test_route_residue.py -k root_authored_route_residue`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.
 
 ## Current Applicability
 
@@ -73,8 +73,8 @@ As of 2026-05-24:
   criteria for contribution intake, validation evidence, and security handoff.
 - Source surfaces updated: `CONTRIBUTING.md`, `scripts/validate_repo.py`, and
   `tests/test_validate_repo.py`.
-- Validation route: `python -m pytest -q tests/test_validate_repo.py -k contributing_route`
-  and `python scripts/validate_repo.py`.
+- Validation route: use the focused contribution-route check and repository
+  lane owned by command authority and the nearest `AGENTS.md`.
 
 ## Review Log
 
@@ -89,5 +89,5 @@ As of 2026-05-24:
   public proof work to the right owner without duplicating agent workflow law.
 - Source surfaces updated: `CONTRIBUTING.md`, `scripts/validate_repo.py`, and
   `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k contributing_route`
-  and `python scripts/validate_repo.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.

@@ -53,8 +53,8 @@ The dry-review artifact stays `not_published`.
 
 - Positive: future receipt work starts from part contracts instead of path
   archaeology.
-- Positive: `python scripts/validate_repo.py` now catches drift in the four
-  high-risk publication receipt part README files.
+- Positive: the repository validator now catches drift in the four high-risk
+  publication receipt part README files.
 - Positive: receipt-payload, stats-envelope-mirror, live-publisher, and
   intake-dry-review stay visibly inside the `publication-receipts` parent.
 - Tradeoff: publication receipt wording is stricter where overclaiming is easy.
@@ -72,5 +72,5 @@ It does not transfer canonical `aoa-stats` envelope authority into
 
 ## Validation
 
-- `python scripts/validate_repo.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k publication_receipts_part_readmes`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

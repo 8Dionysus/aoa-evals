@@ -129,8 +129,8 @@ As of 2026-05-24:
 - Reason: the active part already names inputs, outputs, stronger owner split,
   payload homes, and validation; the boundary is easier for agents to follow
   when each pressure has an owner route.
-- Validation: `python scripts/validate_repo.py`, focused validator tests, and
-  semantic AGENTS validation.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Agent route-card applicability
 
@@ -146,18 +146,10 @@ As of 2026-05-24:
   `mechanics/proof-infra/parts/reportable-contracts/AGENTS.md`,
   `scripts/validate_repo.py`,
   `tests/test_validate_repo.py`.
-- Validation: root validator, semantic AGENTS validation, catalog check,
-  focused scorer tests, and focused validator tests.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-- `mechanics/proof-infra/PARTS.md`
-- `mechanics/proof-infra/parts/reportable-contracts/README.md`
-- `mechanics/proof-infra/PROVENANCE.md`
-- owning proof-infra legacy archive for former root contract placement
-- affected bundle `evals/<family>/<eval>/runners/contract.json` paths
-- generated catalog `proof_artifacts`
-- `python scripts/validate_repo.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_semantic_agents.py`
-- `python -m pytest -q mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py tests/test_build_catalog.py tests/test_validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

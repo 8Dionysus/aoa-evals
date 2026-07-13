@@ -1,6 +1,6 @@
 # Eval Forge Session Candidate Owner Review 2026-06-26
 
-> Current applicability (2026-07-10): the direct pytest command below is
+> Current applicability (2026-07-10): the supporting check recorded below is
 > historical owner evidence, not an Eval Forge execution route. A current
 > local apply requires a `ready` AOA-EV-D-0245 sidecar, and only the repo owner
 > or `aoa-eval-apply` may invoke its exact argv.
@@ -16,20 +16,9 @@ and `promotion_allowed: false`; the report only records the next owner route.
 
 ## Evidence Checked
 
-Commands run:
-
-```bash
-python scripts/validate_eval_candidate_packets.py mechanics/audit/parts/candidate-readers/packets
-python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet <packet> --json
-```
-
-Current supporting checks from this integration pass:
-
-```bash
-cd /srv/AbyssOS/aoa-skills && python -m pytest -q tests/test_aoa_eval_prompt_trigger_harness.py
-cd /home/dionysus/src/abyss-stack && PYTHONPATH=mcp/services/aoa-evals-mcp/src python -m aoa_evals_mcp.cli forge-access
-cd /home/dionysus/src/abyss-stack && PYTHONPATH=mcp/services/aoa-evals-mcp/src python mcp/services/aoa-evals-mcp/scripts/validate_evals_mcp.py
-```
+Candidate-packet validation, Eval Forge routing, the owner-local skill-trigger
+harness, and the stack-owned MCP access checks were exercised through their
+respective owner routes.
 
 Existing surfaces checked before decisions:
 
@@ -44,13 +33,13 @@ Existing surfaces checked before decisions:
 
 ## Decisions
 
-| Packet | Decision | Owner Repo | Existing Surfaces Checked | Exact Next Command | Proof Boundary |
+| Packet | Decision | Owner Repo | Existing Surfaces Checked | Next Route | Proof Boundary |
 | --- | --- | --- | --- | --- | --- |
-| `session:aoa-eval-criteria-before-mining` | owner-review worksheet only | `aoa-evals` plus domain owner | session-mining criteria, reject taxonomy, worksheet schema/example, candidate packet validator | `python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-criteria-before-mining.eval_candidate.json --write-worksheet <owner-review-worksheet>.eval_design_worksheet.json --json` | worksheet is advisory design evidence only; no broad mining automation until the owner accepts criteria and reject accounting |
-| `session:aoa-eval-goal-shrink-completion-overclaim` | central proof bundle draft gate | `aoa-evals` with `.aoa` candidate evidence | central catalog/readiness dashboard, candidate packet route, trace-trajectory archetype, `aoa-change-protocol` skill route | `python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-goal-shrink-completion-overclaim.eval_candidate.json --json` | a future draft gate may be opened only after manual source-span review, central overlap check, and owner acceptance; this report creates no bundle |
-| `session:aoa-eval-keyword-mining-blindspot` | skill trigger fixture/harness, applied through local `aoa-skills` suite | `aoa-skills` | `aoa-eval` source skill, `aoa-eval-trigger-corpus.suite.md`, prompt trigger fixtures, generated/runtime skill export | `cd /srv/AbyssOS/aoa-skills && python -m pytest -q tests/test_aoa_eval_prompt_trigger_harness.py` | local trigger coverage constrains skill routing only; it is not an `aoa-evals` verdict or central proof bundle |
-| `session:aoa-eval-session-front-door-actionability-gap` | runtime/MCP smoke | `abyss-stack` | `aoa-evals` session-start/readiness, `aoa-evals-mcp` Forge access packet, MCP boundary docs, runtime status | `cd /home/dionysus/src/abyss-stack && PYTHONPATH=mcp/services/aoa-evals-mcp/src python -m aoa_evals_mcp.cli forge-access` | MCP is access-plane data only; valid front-door output does not accept candidates, write worksheets, or promote proof |
-| `session:aoa-eval-working-process-fossilized-as-doctrine` | owner-review worksheet only, then defer unless owner accepts a reusable route | `aoa-evals` plus affected process owner | operating path, session-mining criteria, `aoa-eval` skill boundary, candidate packet route | `python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-working-process-fossilized-as-doctrine.eval_candidate.json --json` | current working process must not be fossilized into doctrine by this report; owner review decides whether it becomes a skill fixture, trajectory eval, or rejected one-off |
+| `session:aoa-eval-criteria-before-mining` | owner-review worksheet only | `aoa-evals` plus domain owner | session-mining criteria, reject taxonomy, worksheet schema/example, candidate packet validator | Eval Forge worksheet route | worksheet is advisory design evidence only; no broad mining automation until the owner accepts criteria and reject accounting |
+| `session:aoa-eval-goal-shrink-completion-overclaim` | central proof bundle draft gate | `aoa-evals` with `.aoa` candidate evidence | central catalog/readiness dashboard, candidate packet route, trace-trajectory archetype, `aoa-change-protocol` skill route | Eval Forge candidate review | a future draft gate may be opened only after manual source-span review, central overlap check, and owner acceptance; this report creates no bundle |
+| `session:aoa-eval-keyword-mining-blindspot` | skill trigger fixture/harness, applied through local `aoa-skills` suite | `aoa-skills` | `aoa-eval` source skill, `aoa-eval-trigger-corpus.suite.md`, prompt trigger fixtures, generated/runtime skill export | owner-local skill-trigger suite | local trigger coverage constrains skill routing only; it is not an `aoa-evals` verdict or central proof bundle |
+| `session:aoa-eval-session-front-door-actionability-gap` | runtime/MCP smoke | `abyss-stack` | `aoa-evals` session-start/readiness, `aoa-evals-mcp` Forge access packet, MCP boundary docs, runtime status | stack-owned MCP smoke | MCP is access-plane data only; valid front-door output does not accept candidates, write worksheets, or promote proof |
+| `session:aoa-eval-working-process-fossilized-as-doctrine` | owner-review worksheet only, then defer unless owner accepts a reusable route | `aoa-evals` plus affected process owner | operating path, session-mining criteria, `aoa-eval` skill boundary, candidate packet route | Eval Forge candidate review | current working process must not be fossilized into doctrine by this report; owner review decides whether it becomes a skill fixture, trajectory eval, or rejected one-off |
 
 ## Route Coverage
 

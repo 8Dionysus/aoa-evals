@@ -100,8 +100,8 @@ As of 2026-07-10:
   exclusion.
 - Source surfaces updated: `docs/guides/LOCAL_EVAL_PORT_STANDARD.md`,
   `scripts/validate_local_eval_port.py`, and the v2 inventory contract.
-- Validation: focused local-port, inventory, Forge, readiness, session-start,
-  and promotion-review tests plus decision-index parity.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -126,11 +126,5 @@ read-models.
 
 ## Validation
 
-This decision is valid when:
-
-- `docs/guides/LOCAL_EVAL_PORT_STANDARD.md` names the local-vs-central owner
-  split;
-- `scripts/validate_local_eval_port.py` validates first-wave local ports;
-- `aoa-memo` carries the first active local port;
-- skeleton first-wave ports declare `status: skeleton` without fake bundles;
-- generated decision indexes include this note.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

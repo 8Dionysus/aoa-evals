@@ -40,11 +40,8 @@ entry route before part growth or legacy lookup.
 Legacy remains behind `PROVENANCE.md`. Archive details stay inside the owning
 `legacy/` archive.
 
-Validator coverage:
-
-```bash
-python -m pytest -q tests/test_mechanic_parent_direction.py -k mechanic_parent_direction
-```
+Validator coverage follows the focused mechanic-parent direction route in
+command authority and the nearest `AGENTS.md`.
 
 ## Consequences
 
@@ -78,8 +75,8 @@ As of 2026-05-24:
   source-of-truth split before opening parts or legacy.
 - Source surfaces updated: `mechanics/*/DIRECTION.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
-  mechanic_parent_direction`; `python scripts/validate_repo.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Parent entry provenance route made positive
 
@@ -92,5 +89,5 @@ As of 2026-05-24:
 - Source surfaces updated: `mechanics/*/README.md`,
   `mechanics/*/AGENTS.md`, one part-local recurrence `AGENTS.md` handoff,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
-  mechanic_parent_direction`; `python scripts/validate_repo.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.

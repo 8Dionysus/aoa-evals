@@ -55,8 +55,8 @@ stronger owner law.
 - Positive: future Titan seed work starts from `seed-boundary`, not a new parent
   named after the artifact form.
 - Positive: the stronger-owner split is visible before editing a canary route.
-- Positive: `python scripts/validate_repo.py` now catches drift in the
-  seed-boundary part README.
+- Positive: the repository validator now catches drift in the seed-boundary
+  part README.
 - Tradeoff: Titan seed-boundary wording is now tighter than a short route card.
 
 ## Boundaries
@@ -70,8 +70,8 @@ It does not transfer `aoa-agents` Titan role/bearer/incarnation law,
 
 ## Validation
 
-- `python scripts/validate_repo.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k titan`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.
 
 ## Current Applicability
 
@@ -112,10 +112,8 @@ As of 2026-05-24:
   tell the agent where each pressure belongs before it edits seed wording.
 - Source surfaces updated: Titan package, part, seed, and guide route wording;
   validator tokens; validator regression coverage.
-- Validation: `python -m pytest -q tests/test_mechanic_surface_contracts.py -k titan`,
-  `python scripts/validate_repo.py`, `python scripts/validate_semantic_agents.py`,
-  generated-surface `--check` commands, `python -m pytest -q`, and
-  `git diff --check`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Seed-local agent route card
 
@@ -133,8 +131,8 @@ As of 2026-05-24:
   `mechanics/titan/parts/seed-boundary/seeds/README.md`,
   `scripts/validate_repo.py`,
   `tests/test_validate_repo.py`.
-- Validation: root validator, semantic AGENTS validation, titan canary focused
-  tests, generated-surface checks, full pytest, and diff whitespace check.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Lower parts index operating route
 
@@ -149,6 +147,5 @@ As of 2026-05-24:
   lane, stronger-owner route, and the conditions for future part growth.
 - Source surfaces updated: `mechanics/titan/parts/README.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: focused lower-index validator tests, Titan canary validation,
-  root validation, semantic AGENTS validation, generated catalog check, diff
-  whitespace check, and full pytest.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.

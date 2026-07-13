@@ -88,7 +88,5 @@ local contract for a concrete part.
 
 ## Validation
 
-```bash
-python -m pytest -q tests/test_mechanic_evidence_ledger.py -k mechanic_evidence_route_refs
-python scripts/validate_repo.py
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

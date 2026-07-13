@@ -93,13 +93,5 @@ monoculture.
 
 ## Validation
 
-- `mechanics/proof-infra/README.md` names the owned operation, source surfaces,
-  inputs, outputs, stronger-owner split, boundaries, validation, and next
-  route.
-- `mechanics/proof-infra/AGENTS.md` names local editing law.
-- `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `README.md`,
-  `docs/README.md`, `ROADMAP.md`, `CHANGELOG.md`, and
-  `docs/decisions/README.md` route to the package.
-- `python scripts/validate_repo.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

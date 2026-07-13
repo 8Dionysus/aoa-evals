@@ -157,7 +157,6 @@ RELEASE_SUPPORT_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "stronger owner split",
     "stop-lines",
     "not_complete",
-    "python scripts/release_check.py",
 )
 RELEASE_SUPPORT_LEGACY_INDEX_REQUIRED_TOKENS = (
     "mechanics/proof-release/",

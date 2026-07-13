@@ -103,5 +103,5 @@ focused artifact validators.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/source_eval_evidence.py scripts/validators/source_eval_report_artifacts.py scripts/validators/source_eval_fixture_contracts.py scripts/validators/source_eval_runner_contracts.py`
-- `python -m pytest -q tests/test_build_catalog.py tests/test_validate_repo.py tests/test_eval_source_topology.py tests/test_report_schema_contracts.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

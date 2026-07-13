@@ -65,7 +65,7 @@ must not soften the allowlist into a brainstorming surface.
 
 ## Consequences
 
-- Positive: `python scripts/validate_repo.py` rejects undeclared
+- Positive: the repository validator rejects undeclared
   `mechanics/<parent>/` directories.
 - Positive: the validator also rejects missing parent route cards and missing
   part-contract wording for any allowlisted parent.
@@ -86,9 +86,5 @@ owner split, stop-lines, and validation.
 
 ## Validation
 
-- `mechanics/EVIDENCE_CLUSTERS.md`
-- `mechanics/README.md`
-- `scripts/validate_repo.py`
-- `tests/test_mechanic_parent_topology.py`
-- `python scripts/validate_repo.py`
-- `python -m pytest -q tests/test_mechanic_parent_topology.py -k 'mechanic_parent_allowlist or mechanic_part_contract_files'`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

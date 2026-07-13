@@ -50,8 +50,8 @@ mechanics or importing runtime authority.
 
 - Positive: candidate-only posture is visible at the exact part a future agent
   edits.
-- Positive: `python scripts/validate_repo.py` now catches drift in audit part
-  contract wording.
+- Positive: the repository validator now catches drift in audit part contract
+  wording.
 - Tradeoff: audit README changes now have slightly tighter wording
   requirements.
 - Follow-up: other mechanics can receive part-level contract guards as their
@@ -69,15 +69,8 @@ or `aoa-stats` owner truth into `aoa-evals`.
 
 ## Validation
 
-- `mechanics/audit/parts/selected-evidence-packets/README.md`
-- `mechanics/audit/parts/artifact-verdict-hooks/README.md`
-- `mechanics/audit/parts/candidate-readers/README.md`
-- `mechanics/audit/parts/integrity-review/README.md`
-- `scripts/validate_repo.py`
-- `tests/test_validate_repo.py`
-- `python scripts/validate_repo.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k audit_part_readmes`
-- `python -m pytest -q tests/test_validate_repo.py -k provenance`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.
 
 ## Current Applicability
 
@@ -94,8 +87,8 @@ As of 2026-05-24:
   - `mechanics/audit/parts/candidate-readers/README.md`
   - `mechanics/audit/parts/integrity-review/README.md`
   - `scripts/validate_repo.py`
-- Validation: the audit part README validator tokens now require the route-map
-  wording that replaced prohibition-only phrasing.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 - Clarified: `mechanics/audit/parts/README.md` is the lower index and
   part-admission route for audit suboperations.
 
@@ -113,7 +106,8 @@ As of 2026-05-24:
   part card.
 - Source surfaces updated: the four audit part README contracts and their
   validator tokens.
-- Validation: see the landing PR for the exact command battery.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Part index admission route clarified
 
@@ -125,4 +119,5 @@ As of 2026-05-24:
   part-local contract without reading the warning as the main instruction.
 - Source surfaces updated: `mechanics/audit/parts/README.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: focused audit parts validator tests plus full repo validation.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.

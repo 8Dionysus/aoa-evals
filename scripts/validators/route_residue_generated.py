@@ -45,7 +45,6 @@ GENERATED_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
     "route-card-only root district",
     "part-local generated readers",
     "content_markdown",
-    "python -m pytest -q tests/test_generated_route_residue.py",
 )
 GENERATED_ROUTE_RESIDUE_MECHANIC_PREFIXES = tuple(
     f"mechanics/{wrong_parent}/"

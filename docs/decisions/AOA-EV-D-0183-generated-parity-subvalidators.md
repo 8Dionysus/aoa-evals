@@ -100,8 +100,5 @@ runtime outcomes.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/generated_eval_readmodel_common.py scripts/validators/generated_eval_catalogs.py scripts/validators/generated_eval_capsules.py scripts/validators/generated_eval_sections.py scripts/validators/generated_eval_comparison_spine.py scripts/validators/generated_route_surfaces.py scripts/validators/evidence_readouts.py scripts/validators/root_topology.py scripts/validators/mechanics_root_districts.py scripts/validators/root_authored_surface_common.py scripts/validators/root_authored_surface_inventory.py scripts/validators/root_authored_surface_ledger.py scripts/validators/root_authored_surface_decision.py`
-- `python -m pytest -q tests/test_generated_parity.py tests/test_build_catalog.py tests/test_downstream_feed_contracts.py tests/test_quest_and_reader_surfaces.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

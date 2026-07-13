@@ -95,9 +95,8 @@ As of 2026-05-24:
 - Source surfaces updated:
   `mechanics/recurrence/parts/portable-proof-beacons/README.md` and
   `scripts/validate_repo.py`.
-- Validation: recurrence validator focus, recurrence part runners and tests,
-  catalog check, root validation, semantic AGENTS validation, diff whitespace
-  check, and full pytest passed.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Agent route-card applicability
 
@@ -113,8 +112,8 @@ As of 2026-05-24:
   `mechanics/recurrence/parts/portable-proof-beacons/AGENTS.md`,
   `scripts/validate_repo.py`,
   `tests/test_validate_repo.py`.
-- Validation: root validator, semantic AGENTS validation, catalog and generated
-  reader checks, and focused validator tests.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -124,13 +123,5 @@ own audit/RPG/runtime truth.
 
 ## Validation
 
-Planned checks for this slice:
-
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-python scripts/validate_semantic_agents.py
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

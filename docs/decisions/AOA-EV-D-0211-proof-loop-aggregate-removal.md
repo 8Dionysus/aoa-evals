@@ -97,10 +97,5 @@ or make the route-smoke report stronger than a bounded routeability smoke.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/proof_loop_common.py scripts/validators/proof_loop_routes.py scripts/validators/proof_loop_smoke_report.py scripts/validators/proof_loop_local_report.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py tests/test_mechanic_legacy_archive_routes.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py tests/test_mechanic_legacy_archive_routes.py -k proof_loop`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

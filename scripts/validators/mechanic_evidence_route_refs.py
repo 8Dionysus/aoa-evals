@@ -57,7 +57,6 @@ MECHANIC_EVIDENCE_ROUTE_REFS_DECISION_REQUIRED_TOKENS = (
     "rationale-only decision",
     "generic root validator",
     "cross-root evidence",
-    MECHANIC_EVIDENCE_ROUTE_REFS_COMMAND,
 )
 
 SOURCE_SURFACE_CODE_REF_RE = re.compile(r"`([^`\n]+)`")

@@ -85,6 +85,5 @@ truth, receipt, or runtime evidence.
 
 ## Validation
 
-The route is protected by `scripts/validate_repo.py`, targeted tests for
-release-readiness overclaim boundaries, `python scripts/release_check.py`, and
-the generated/sibling/full-test battery before any later publication route.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -86,8 +86,5 @@ root guidance aggregate under another name.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/root_guidance_common.py scripts/validators/root_frontdoor_guidance.py scripts/validators/root_eval_guides.py scripts/validators/root_operations_guidance.py scripts/validators/root_release_guidance.py scripts/validators/root_topology.py tests/test_docs_topology.py tests/test_root_surface_roles.py tests/test_route_residue.py tests/test_guidance_surface_routes.py`
-- `python -m pytest -q tests/test_guidance_surface_routes.py tests/test_docs_topology.py tests/test_route_residue.py tests/test_root_surface_roles.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

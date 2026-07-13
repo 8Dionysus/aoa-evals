@@ -104,8 +104,8 @@ As of 2026-05-24 (root district routes):
   language.
 - Source surfaces updated: `docs/architecture/PROOF_TOPOLOGY.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_root_surface_roles.py -k
-  proof_topology`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 - Superseded by: none.
 
 ## Review Log
@@ -121,8 +121,8 @@ As of 2026-05-24 (root district routes):
   surface, then descend into mechanics through the operation atlas instead of
   reading duplicated package detail in the topology map.
 - Source surfaces updated: `docs/architecture/PROOF_TOPOLOGY.md` and this decision.
-- Validation: use root validation and the focused proof-topology validator
-  tests.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Authority boundaries use route-positive language
 
@@ -135,8 +135,8 @@ As of 2026-05-24 (root district routes):
   negative self-description.
 - Source surfaces updated: `docs/architecture/PROOF_TOPOLOGY.md`, `docs/README.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: root validation, semantic AGENTS validation, and focused proof
-  topology tests.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Root district routes clarified
 
@@ -150,8 +150,8 @@ As of 2026-05-24 (root district routes):
   glance.
 - Source surfaces updated: `docs/architecture/PROOF_TOPOLOGY.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_root_surface_roles.py -k
-  proof_topology`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -166,8 +166,5 @@ bundle-local reports, generated builders, or sibling-owner truth.
 
 ## Validation
 
-- `docs/architecture/PROOF_TOPOLOGY.md` names the authority classes and root technical
-  districts.
-- `README.md`, `docs/README.md`, `DESIGN.md`, `DESIGN.AGENTS.md`, `AGENTS.md`,
-  and `ROADMAP.md` route readers to the topology map.
-- `python scripts/validate_repo.py` checks the topology map and this decision.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

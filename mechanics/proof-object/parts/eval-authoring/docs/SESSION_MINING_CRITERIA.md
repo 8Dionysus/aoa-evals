@@ -89,8 +89,8 @@ Reject or defer when the evidence is only:
    `duplicate_existing_eval`, `deferred`, or `rejected`.
 7. Preserve rejected rows in the manual report when they protect future agents
    from re-adding queue noise.
-8. Validate any packetized candidate with
-   `python scripts/validate_eval_candidate_packets.py <path>`.
+8. Validate any packetized candidate through the candidate-packet validator
+   route owned by the nearest `AGENTS.md`.
 
 ## Minimal Candidate Packet Contract
 

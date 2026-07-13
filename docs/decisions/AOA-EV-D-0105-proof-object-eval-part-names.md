@@ -73,9 +73,5 @@ This decision does not move source eval packages into mechanics.
 
 ## Validation
 
-- `mechanics/proof-object/PARTS.md` names `eval-authoring` and
-  `eval-contracts`.
-- `scripts/validate_repo.py` checks the renamed part paths.
-- `python scripts/validate_repo.py`
-- `python scripts/build_catalog.py --check`
-- `python -m pytest -q tests/test_validate_repo.py -k proof_object`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -85,14 +85,5 @@ archive maps the historical placement internally.
 
 ## Validation
 
-- Bundle `comparison_surface.shared_family_path` fields point to part-local
-  fixture paths.
-- Bundle `evals/<family>/<eval>/fixtures/contract.json` paths match the same part-local fixture
-  paths.
-- `mechanics/comparison-spine/PARTS.md` names the fixture and report surfaces
-  for each active part.
-- Generated catalog and comparison-spine readers are rebuilt from source.
-- `python scripts/build_catalog.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -71,10 +71,8 @@ before being read as accepted eval bundles.
 
 ## Validation
 
-- `DESIGN.md` names the proof object as the authority center
-- `docs/architecture/ARCHITECTURE.md` remains the technical model for eval bundle anatomy
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.
 
 ## Current Applicability
 
@@ -105,11 +103,8 @@ As of 2026-05-24:
   `docs/guides/FIXTURE_SURFACE_GUIDE.md`,
   `docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`, `scripts/validate_repo.py`, and
   `tests/test_validate_repo.py`.
-- Validation route: `python -m pytest -q tests/test_validate_repo.py -k score_semantics`
-  or `python -m pytest -q tests/test_validate_repo.py -k eval_review_guide`,
-  or `python -m pytest -q tests/test_validate_repo.py -k blind_spot_disclosure`,
-  plus `python scripts/validate_repo.py`; proof-guide route phrasing uses the
-  root docs validation battery.
+- Validation route: use the focused proof-guide checks and repository lane
+  owned by command authority and the nearest `AGENTS.md`.
 
 ## Review Log
 
@@ -123,8 +118,8 @@ As of 2026-05-24:
   claim limits by naming evidence, comparison, and interpretation routes.
 - Source surfaces updated: score semantics guide, root validator, and focused
   validator tests.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k score_semantics`
-  and `python scripts/validate_repo.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Eval review route language clarified
 
@@ -138,8 +133,8 @@ As of 2026-05-24:
   source bundle is ready for bounded, baseline, or canonical public reading.
 - Source surfaces updated: eval review guide, root validator, and focused
   validator tests.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k eval_review_guide`
-  and `python scripts/validate_repo.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Blind-spot disclosure routes clarified
 
@@ -152,8 +147,8 @@ As of 2026-05-24:
   naming the missing disclosure route, not by leaving generic caution prose.
 - Source surfaces updated: blind-spot disclosure guide, root validator, and
   focused validator tests.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k blind_spot_disclosure`
-  and `python scripts/validate_repo.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Proof guide route phrasing aligned
 
@@ -170,4 +165,5 @@ As of 2026-05-24:
 - Source surfaces updated: eval rubric, baseline comparison guide, eval
   philosophy, artifact/process separation guide, fixture surface guide, and
   repeated-window discipline guide.
-- Validation: root docs validation battery.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.

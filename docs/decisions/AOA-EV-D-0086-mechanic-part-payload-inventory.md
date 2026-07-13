@@ -105,16 +105,16 @@ As of 2026-05-22:
 - Previous assumption: the decision could carry its focused validation command
   list directly.
 - New reality: `mechanics/AGENTS.md` owns the focused mechanic part payload-inventory guard.
-- Superseded original command string:
-  `python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_payload_inventory`.
+- Superseded original surface: the focused payload-inventory command formerly
+  copied into this decision.
 - Reason: accepted decisions preserve why; AGENTS route cards carry executable
   validation lanes for agents.
 - Source surfaces updated: `mechanics/AGENTS.md`, `scripts/validate_repo.py`,
   and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
-  mechanic_part_payload_inventory`; `python scripts/validate_repo.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-Use [mechanics/AGENTS.md#validation](../../mechanics/AGENTS.md#validation) for
-the current command lane.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

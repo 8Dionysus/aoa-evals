@@ -58,7 +58,6 @@ MECHANIC_PARENT_GUIDANCE_BOUNDARY_DECISION_REQUIRED_TOKENS = (
     "allowlisted",
     "unallowlisted parent-level docs",
     "Titan canary guides",
-    MECHANIC_PARENT_GUIDANCE_BOUNDARY_COMMAND,
 )
 
 

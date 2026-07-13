@@ -90,8 +90,5 @@ It does not introduce compatibility aliases for the removed facade.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/source_eval_collection.py scripts/validators/source_eval_records.py scripts/validators/source_eval_domains.py scripts/validators/evidence_readouts.py scripts/validate_repo.py scripts/build_catalog.py`
-- `python -m pytest -q tests/test_build_catalog.py tests/test_downstream_feed_contracts.py tests/test_validate_repo.py tests/test_runtime_evidence_surfaces.py tests/test_eval_source_topology.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

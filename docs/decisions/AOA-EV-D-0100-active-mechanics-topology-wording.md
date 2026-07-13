@@ -79,7 +79,8 @@ As of 2026-05-24:
   phrasing.
 - Source surfaces updated: `ROADMAP.md`, `scripts/validate_repo.py`, and
   `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k roadmap`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 - Superseded by: none.
 
 ## Review Log
@@ -95,7 +96,8 @@ As of 2026-05-24:
   changelog, validators, and proof bundles carry their own detail.
 - Source surfaces updated: `ROADMAP.md`, `scripts/validate_repo.py`, and
   `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k roadmap`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -109,9 +111,5 @@ stay inside legacy.
 
 ## Validation
 
-- `python -m pytest -q tests/test_root_surface_roles.py -k 'root_design or design_agents or proof_topology'`
-- `python scripts/validate_repo.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_semantic_agents.py`
-- `python -m pytest -q tests/test_validate_repo.py`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -61,7 +61,8 @@ through the Agon legacy archive, while active work starts from
 
 - Positive: `quests/` no longer presents non-generated, non-indexed markdown
   notes as active lifecycle source.
-- Positive: Agon lineage is now behind the owning mechanic provenance bridge.
+- Positive: Agon lineage and archive-local accounting are now behind the
+  owning mechanic provenance bridge.
 - Tradeoff: readers of the old markdown note route must cross
   `mechanics/agon/PROVENANCE.md` before archive lookup.
 
@@ -77,11 +78,5 @@ schema-backed source quest record shape.
 
 ## Validation
 
-- `quests/README.md` and `quests/AGENTS.md` state that active quest records are
-  schema-backed YAML.
-- Agon archive-local accounting maps former markdown note paths to the Agon
-  archive.
-- `scripts/validate_repo.py` rejects markdown quest notes under active quest
-  lifecycle paths.
-- `python -m pytest -q tests/test_quest_and_reader_surfaces.py -k quest_route`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

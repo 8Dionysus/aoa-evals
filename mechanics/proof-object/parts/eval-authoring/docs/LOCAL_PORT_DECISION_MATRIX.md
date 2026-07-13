@@ -9,68 +9,12 @@ Repo-local ports own pressure evidence, intake, suites, reports, and local
 fixtures. `aoa-evals` owns central proof doctrine, verdicts, scoring,
 regression meaning, and central bundle adoption.
 
-## Current Workspace Snapshot
+## Live Inventory Boundary
 
-Generated from:
-
-```bash
-python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json
-```
-
-The pressure counts below are the 2026-06-26 snapshot. Runnable posture is
-interpreted by the 2026-07-10 execution-sidecar contract: suite notes without
-a sidecar have execution state `absent`.
-
-| Metric | Count |
-| --- | ---: |
-| repositories scanned | 15 |
-| valid local ports | 15 |
-| invalid local ports | 0 |
-| missing ports | 0 |
-| skeleton ports | 11 |
-| active ports | 4 |
-| stale candidates | 0 |
-| repos with detected pressure | 4 |
-| excluded central proof owners | 1 |
-
-## Active Ports
-
-| Repo | Status | Local Pressure | Route Key | First Action |
-| --- | --- | --- | --- | --- |
-| `aoa-skills` | active | 1 suite note, 5 reports; execution absent | `active_suite_note_review_or_execution_contract_design` | inspect the note and add/review a sidecar before owner-local apply |
-| `aoa-memo` | active | 1 intake, 1 report | `active_intake_select_then_apply_or_design` | inspect local intake and central overlap before design |
-| `aoa-routing` | active | 1 intake, 2 reports | `active_intake_select_then_apply_or_design` | inspect local intake and central overlap before design |
-| `connectors/aoa-4pda-connector` | active | 1 suite note, 1 report; execution absent | `active_suite_note_review_or_execution_contract_design` | inspect the note and add/review a sidecar before owner-local apply |
-
-## Deep Local Port Check: aoa-skills
-
-`aoa-skills/evals/PORT.yaml` says:
-
-- `schema_version: local_eval_port_v1`;
-- `owner_repo: aoa-skills`;
-- `status: active`;
-- `proof_owner_repo: aoa-evals`;
-- local role is repo-local eval pressure, fixtures, suites, and reports;
-- central boundary forbids local verdict, scoring, regression, or proof
-  doctrine authority.
-
-The active suite note is:
-
-- `evals/suites/aoa-eval-trigger-corpus.suite.md`
-
-The active reports include:
-
-- `aoa-eval-session-mining.report.md`;
-- `aoa-eval-runtime-adoption-20260621.report.md`;
-- `aoa-eval-battle-path-20260621.report.md`;
-- `aoa-eval-prompt-trigger-harness-20260625.report.md`;
-- `aoa-eval-self-awareness-contract-lane.report.md`.
-
-Implication: the note proves local pressure exists but does not prove a runnable
-suite. The first route is sidecar design/review in `aoa-skills`; only a later
-source-contract-`ready` state can route typed `python_pytest` argv to the owner
-or `aoa-eval-apply`. It does not prove a pinned runtime; owner/apply
-JIT-revalidates and captures environment plus an execution receipt.
+Workspace counts, active-port membership, and current pressure are live read
+models, not durable content for this matrix. Inspect them through the local-port
+inventory route in `docs/guides/LOCAL_EVAL_PORT_STANDARD.md` and the Eval Forge
+operating path. This document keeps only the stable routing distinctions.
 
 ## Decision Matrix
 
@@ -88,31 +32,10 @@ JIT-revalidates and captures environment plus an execution receipt.
 | `invalid_port_repair` | invalid local port | repair schema/topology | no central adoption from invalid local state |
 | `central_overlap_apply_existing_first` | central route likely already exists | inspect/apply central source bundle first | no duplicate local or central draft |
 
-## Commands
+## Operating Route
 
-Inspect one repo from the inventory:
-
-```bash
-python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json \
-  | jq '.repos[] | select(.repo_id == "aoa-skills")'
-```
-
-Validate a repo-local port from its repo root:
-
-```bash
-AOA_EVALS_ROOT=/srv/AbyssOS/aoa-evals \
-python /srv/AbyssOS/aoa-evals/scripts/validate_local_eval_port.py --target-root .
-```
-
-Route a local port through Eval Forge:
-
-```bash
-python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py \
-  --local-port-repo aoa-skills \
-  --local-port-inventory /tmp/aoa_local_eval_ports.current.json \
-  --workspace-root /srv/AbyssOS \
-  --json
-```
+Use `docs/guides/LOCAL_EVAL_PORT_STANDARD.md` for local-port inspection and
+validation, and `EVAL_FORGE_OPERATING_PATH.md` for the owner-routing flow.
 
 ## Promotion Boundary
 

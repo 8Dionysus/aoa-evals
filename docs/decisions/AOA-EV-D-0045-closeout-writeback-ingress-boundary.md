@@ -95,15 +95,8 @@ It does not move sibling owner meaning into `aoa-evals`.
 
 ## Validation
 
-- `mechanics/distillation/README.md` and
-  `mechanics/distillation/parts/runtime-candidate-adoption/README.md` list the
-  ingress note only as related ingress.
-- `mechanics/growth-cycle/README.md` separates active diagnosis source
-  surfaces from deferred closeout/writeback context.
-- `docs/architecture/LEGACY_NAMING.md` maps the root ingress path as active ingress, not an
-  active mechanic part.
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.
 
 ## Current Applicability
 
@@ -115,8 +108,8 @@ As of 2026-05-24:
   owner-local re-read anchor, and source-bundle handoff.
 - Source surfaces updated: `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation route: `python -m pytest -q tests/test_validate_repo.py -k closeout_writeback_ingress`
-  and `python scripts/validate_repo.py`.
+- Validation route: use the focused ingress check and repository lane owned by
+  command authority and the nearest `AGENTS.md`.
 
 ## Review Log
 
@@ -131,5 +124,5 @@ As of 2026-05-24:
   the agent to the source bundle and future evidence pass.
 - Source surfaces updated: `docs/operations/REVIEWED_CLOSEOUT_WRITEBACK_PROOF_INGRESS.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k closeout_writeback_ingress`
-  and `python scripts/validate_repo.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.

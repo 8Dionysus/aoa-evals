@@ -57,8 +57,8 @@ public validation lane with local checkout success.
   path archaeology.
 - Positive: canary output and proof anchors remain bridge evidence, not owner
   truth.
-- Positive: `python scripts/validate_repo.py` now catches drift in the three
-  high-risk Boundary Bridge part README files.
+- Positive: the repository validator now catches drift in the three high-risk
+  Boundary Bridge part README files.
 - Tradeoff: part README wording is tighter where sibling authority is at risk.
 
 ## Boundaries
@@ -98,13 +98,10 @@ As of 2026-05-24:
   tool lane, and validation lane directly.
 - Source surfaces updated: `mechanics/boundary-bridge/parts/README.md` and
   `mechanics/boundary-bridge/parts/latest-sibling-canary/README.md`.
-- Validation: package-local and repo-wide checks described in the closeout for
-  the implementing slice.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-- `python scripts/validate_repo.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k boundary_bridge_part_readmes`
-- `python -m pytest -q tests/test_validate_repo.py -k boundary_bridge_provenance`
-- `python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json`
-- `python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

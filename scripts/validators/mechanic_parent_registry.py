@@ -88,7 +88,6 @@ MECHANIC_PARENT_CLASS_DECISION_REQUIRED_TOKENS = (
     "`runtime-evidence`",
     "`sibling-proof-refs`",
     "`repair`",
-    "python -m pytest -q tests/test_mechanic_evidence_ledger.py -k mechanic_parent_class",
 )
 
 

@@ -86,7 +86,5 @@ It does not create a replacement root aggregate under another name.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/root_common.py scripts/validators/root_agent_lanes.py scripts/validators/root_agent_index.py scripts/validators/root_index_surfaces.py scripts/validators/root_memory_boundary.py scripts/validators/root_read_model_commands.py scripts/validators/root_audit_routes.py scripts/validators/root_validator_surfaces.py scripts/validators/root_decision_status.py scripts/validators/root_topology.py tests/test_root_surface_roles.py tests/test_index_surface_roles.py tests/test_read_model_command_ownership.py`
-- `python -m pytest -q tests/test_root_surface_roles.py tests/test_index_surface_roles.py tests/test_read_model_command_ownership.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

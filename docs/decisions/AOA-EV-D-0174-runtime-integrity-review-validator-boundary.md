@@ -93,9 +93,5 @@ It checks the candidate-only integrity-review contract only.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/runtime_integrity_review_common.py scripts/validators/runtime_integrity_review_docs.py scripts/validators/runtime_integrity_review_schema.py scripts/validators/runtime_integrity_review_example.py scripts/validators/evidence_readouts.py`
-- `python -m pytest -q tests/test_runtime_evidence_surfaces.py -k runtime_integrity_review`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

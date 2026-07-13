@@ -58,11 +58,5 @@ The guard is context-aware:
 
 ## Validation
 
-Expected validation route:
-
-```bash
-python -m pytest -q tests/test_generated_route_residue.py
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python -m pytest -q
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

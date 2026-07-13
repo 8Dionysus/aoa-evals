@@ -89,9 +89,5 @@ runtime and eval surfaces.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/mechanic_parent_common.py scripts/validators/mechanic_parent_direction.py scripts/validators/mechanic_parent_allowlist.py scripts/validators/mechanic_parent_guidance.py scripts/validators/mechanic_parent_index.py`
-- `python -m pytest -q tests/test_mechanic_parent_direction.py tests/test_mechanic_parent_topology.py tests/test_mechanic_parts_index.py`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

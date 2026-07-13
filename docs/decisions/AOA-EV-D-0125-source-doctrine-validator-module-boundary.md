@@ -92,8 +92,5 @@ taxonomy guides stronger than bundle-local source truth.
 
 ## Validation
 
-- `python -m pytest -q tests/test_comparison_surface_contracts.py tests/test_validate_repo.py tests/test_report_schema_contracts.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -67,6 +67,8 @@ artifacts.
 
 - root public entry and owner-boundary surfaces;
 - source-authored eval bundles under `evals/`;
+- owner-local statistical questions, measurement contracts, and reference
+  packets under `stats/`;
 - proof philosophy, architecture, review, score, verdict, comparison,
   portability, and bridge docs under `docs/`;
 - shared fixtures, examples, reports, runners, scorers, schemas, and templates;
@@ -239,6 +241,9 @@ root-owned after mechanic-owned payload movement.
 operations once they have real source surfaces and validation.
 [`mechanics/proof-loop/README.md`](mechanics/proof-loop/README.md) routes the
 active local proof loop while package-local owners keep each step.
+[`stats/`](stats/README.md) holds eval-owned statistical meaning and reference
+measurements while `aoa-stats` owns the shared grammar and cross-owner
+composition.
 [`ROADMAP.md`](ROADMAP.md) points direction.
 [`QUESTBOOK.md`](QUESTBOOK.md) tracks proof obligations.
 [`docs/decisions/`](docs/decisions/) preserves durable structural and workflow
@@ -259,6 +264,7 @@ Agents should consult this file when a change alters:
 - quest or decision topology;
 - legacy naming posture;
 - mechanics package boundaries;
+- owner-local stats-port shape;
 - agent-facing layer design.
 
 Local owner truth stays authoritative. This file tells agents what kind of shape

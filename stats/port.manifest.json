@@ -1,0 +1,108 @@
+{
+  "schema_version": "aoa_stats_local_port_v1",
+  "contract_version": "1.0.0",
+  "owner_repo": "aoa-evals",
+  "status": "active",
+  "owner_boundary_ref": "docs/architecture/PROOF_TOPOLOGY.md",
+  "central_contract_refs": [
+    "aoa-stats:stats/measurement-contract/measurement-contract.schema.json",
+    "aoa-stats:stats/measurement-contract/measurement-packet.schema.json"
+  ],
+  "evidence_posture": {
+    "live_state": "reference_only",
+    "privacy": "public",
+    "raw_content_allowed": false
+  },
+  "questions": [
+    {
+      "id": "question:non-draft-bundle-ratio",
+      "question": "What fraction of source eval bundles have a bundle-local status other than draft at this source revision?",
+      "consumer_refs": [
+        "stats/README.md",
+        "EVAL_INDEX.md"
+      ]
+    }
+  ],
+  "measurements": [
+    {
+      "schema_version": "aoa_stats_measurement_contract_v1",
+      "measurement_id": "aoa-evals/non-draft-bundle-ratio",
+      "contract_version": "1.0.0",
+      "owner_repo": "aoa-evals",
+      "question_ref": "question:non-draft-bundle-ratio",
+      "semantic_class": "statistic",
+      "statistic": "ratio",
+      "object_kind": "eval-bundle-status-inventory",
+      "unit": {
+        "symbol": "1",
+        "quantity": "proportion"
+      },
+      "population": {
+        "subject": "source eval bundles",
+        "definition": "one evals/**/eval.yaml source manifest with a bundle-local status",
+        "inclusion_rule": "the source bundle contains eval.yaml with a declared status",
+        "exclusion_rule": "generated readers, reports, fixtures, templates, and files outside source bundle homes",
+        "sampling": "census"
+      },
+      "window": {
+        "temporality": "instant",
+        "clock": "owner_defined"
+      },
+      "dimensions": {
+        "allowed": [],
+        "prohibited": [
+          "bundle_id",
+          "report_content"
+        ]
+      },
+      "aggregation": {
+        "operator": "none",
+        "across": []
+      },
+      "missingness": {
+        "states": [
+          "missing",
+          "unknown",
+          "stale"
+        ],
+        "zero_is_observation": true
+      },
+      "uncertainty": {
+        "required": false,
+        "methods": [
+          "not_applicable"
+        ]
+      },
+      "provenance": {
+        "evidence_refs_required": true,
+        "source_revision_required": true
+      },
+      "lifecycle": {
+        "status": "active",
+        "compatible_with": []
+      },
+      "privacy": {
+        "classification": "public",
+        "raw_content_allowed": false,
+        "sensitive_dimensions_allowed": false
+      },
+      "live_state": {
+        "capability": "reference_only"
+      },
+      "authority_ceiling": "Counts source bundle status labels only; it does not establish eval quality, proof strength, readiness, comparison maturity, or verdict support."
+    }
+  ],
+  "exports": [
+    {
+      "measurement_id": "aoa-evals/non-draft-bundle-ratio",
+      "posture": "reference",
+      "packet_refs": [
+        "stats/packets/non-draft-bundle-ratio.reference.json"
+      ],
+      "evidence_refs": [
+        "evals/**/eval.yaml",
+        "docs/architecture/PROOF_TOPOLOGY.md"
+      ]
+    }
+  ]
+}

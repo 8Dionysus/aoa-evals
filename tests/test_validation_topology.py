@@ -107,6 +107,10 @@ class ValidationTopologyTests(unittest.TestCase):
             tuple(tuple(command) for command in manifest["command_sequences"]["release_check"]),
             validation_lanes.RELEASE_CHECK_COMMAND_SEQUENCE,
         )
+        stats_command = ("python", "scripts/validate_local_stats_port.py")
+        self.assertEqual(stats_command, validation_lanes.LATEST_SIBLING_COMMAND_SEQUENCE[0])
+        self.assertIn(stats_command, validation_lanes.NIGHTLY_COMMAND_SEQUENCE)
+        self.assertNotIn(stats_command, validation_lanes.RELEASE_CHECK_COMMAND_SEQUENCE)
 
         release_text = (REPO_ROOT / "scripts" / "release_check.py").read_text(encoding="utf-8")
         self.assertIn("validation_lanes.RELEASE_CHECK_COMMAND_SEQUENCE", release_text)

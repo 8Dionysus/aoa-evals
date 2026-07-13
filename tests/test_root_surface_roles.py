@@ -1088,6 +1088,33 @@ def test_design_agents_rejects_old_negative_route_scaffold(
         for issue in issues
     )
 
+def test_proof_topology_requires_stats_authority_class_and_district(
+    tmp_path: Path,
+) -> None:
+    for path_name in (
+        root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
+        "docs/decisions/AOA-EV-D-0005-proof-topology-map.md",
+        "ROADMAP.md",
+    ):
+        copy_repo_text(tmp_path, path_name)
+    topology_path = tmp_path / root_proof_topology_validator.PROOF_TOPOLOGY_NAME
+    topology_path.write_text(
+        topology_path.read_text(encoding="utf-8")
+        .replace("Owner-local statistics", "Unclassified local data", 1)
+        .replace(
+            "| `stats/` | owner-local statistics port",
+            "| `stats/` | unclassified local data",
+            1,
+        ),
+        encoding="utf-8",
+    )
+
+    issues = root_proof_topology_validator.validate_proof_topology_surfaces(tmp_path)
+
+    assert any("Owner-local statistics" in issue.message for issue in issues)
+    assert any("owner-local statistics port" in issue.message for issue in issues)
+
+
 def test_proof_topology_rejects_preparatory_mechanic_wording(
     tmp_path: Path
 ) -> None:
@@ -1393,6 +1420,37 @@ def test_agent_index_surface_rejects_missing_chain(tmp_path: Path) -> None:
     assert any(
         issue.location == root_agent_index_validator.AGENT_INDEX_NAME
         and "repo -> authority class -> operation" in issue.message
+        for issue in issues
+    )
+
+
+def test_agent_index_surface_requires_stats_authority_route(tmp_path: Path) -> None:
+    for path_name in (
+        root_agent_index_validator.AGENT_INDEX_NAME,
+        root_agent_index_validator.AGENT_INDEX_CHAIN_DECISION_NAME,
+        "README.md",
+        "docs/README.md",
+        root_proof_topology_validator.PROOF_TOPOLOGY_NAME,
+        "ROADMAP.md",
+        root_agent_index_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME,
+        "docs/decisions/README.md",
+    ):
+        copy_repo_text(tmp_path, path_name)
+    index_path = tmp_path / root_agent_index_validator.AGENT_INDEX_NAME
+    index_path.write_text(
+        index_path.read_text(encoding="utf-8").replace(
+            "| `stats/**` | owner-local statistics",
+            "| `stats/**` | unclassified",
+            1,
+        ),
+        encoding="utf-8",
+    )
+
+    issues = root_agent_index_validator.validate_agent_index_surface(tmp_path)
+
+    assert any(
+        issue.location == root_agent_index_validator.AGENT_INDEX_NAME
+        and "owner-local statistics" in issue.message
         for issue in issues
     )
 

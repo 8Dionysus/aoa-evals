@@ -22,6 +22,7 @@ AGENT_INDEX_REQUIRED_TOKENS = (
     "docs/architecture/PROOF_TOPOLOGY.md",
     "mechanics/README.md",
     "docs/decisions/README.md",
+    "| `stats/**` | owner-local statistics",
     "route-card-only",
     "compatibility districts",
     "mechanics/<parent>/parts/<part>/VALIDATION.md",

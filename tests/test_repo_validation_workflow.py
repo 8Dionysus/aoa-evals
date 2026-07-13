@@ -27,6 +27,19 @@ def test_repo_validation_workflow_surface_validates_current_pin() -> None:
     assert boundary_bridge_workflow_validator.validate_repo_validation_workflow_surface(REPO_ROOT) == []
 
 
+def test_latest_sibling_workflow_runs_the_named_lane() -> None:
+    workflow = (REPO_ROOT / ".github/workflows/latest-sibling-canary.yml").read_text(
+        encoding="utf-8"
+    )
+
+    assert "python scripts/ci_gate.py --mode latest-sibling" in workflow
+    assert (
+        "python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/"
+        "run_sibling_canary.py"
+        not in workflow
+    )
+
+
 def test_repo_validation_workflow_rejects_sibling_checkout(
     tmp_path: Path,
 ) -> None:

@@ -1762,7 +1762,7 @@
     },
     {
       "artifact_kind": "config",
-      "content_hash": "de2086b3c8a2ff59c755a0592cfd784d679e3473e14558bfaa54d3919576315f",
+      "content_hash": "85adda921a74be494bf55878954545efd31016cf124480f2d0dc60d4cc68a5a9",
       "id": "artifact:file:.github/workflows/latest-sibling-canary.yml:93b96f55b6",
       "path": ".github/workflows/latest-sibling-canary.yml",
       "source_record_id": "file:.github/workflows/latest-sibling-canary.yml:93b96f55b6",
@@ -1786,7 +1786,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "a8e112ede97188605547d303fb1f2f81b77a96af4dfe910c87044020e8440a2d",
+      "content_hash": "dbb72cdd41437393da322fe441c81a7439f1f28f795f4127c1829a076b099674",
       "id": "artifact:file:agents.md:a54ff182c7",
       "path": "AGENTS.md",
       "source_record_id": "file:agents.md:a54ff182c7",
@@ -1802,7 +1802,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "dde1901acf66da030d96011ff68a0c1ef3d9ea532cf0248b645af75bf1931dc3",
+      "content_hash": "14f3da1839f24bae3d925c1eb5a963ffdf7c98604cfcc190311ae4fca6e9e69b",
       "id": "artifact:file:changelog.md:06572a96a5",
       "path": "CHANGELOG.md",
       "source_record_id": "file:changelog.md:06572a96a5",
@@ -1826,7 +1826,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "9b1b7b8cf8877ed98490b3b761aa8e32457d761c153748fc6defe4bf60efd46d",
+      "content_hash": "25e76c31cf27d07b8b66900bde8f8c73d540cb8922387662a889f15a854f1eb3",
       "id": "artifact:file:design.agents.md:42d9f271de",
       "path": "DESIGN.AGENTS.md",
       "source_record_id": "file:design.agents.md:42d9f271de",
@@ -1834,7 +1834,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "c233581cc0b13d241a3a080ce545d9ca760ca8f22d1b42dcac6fa06218b8251d",
+      "content_hash": "f95570f63d0ddfd1127e54877407df24cc57d51afcedbaa54ce901272b693c82",
       "id": "artifact:file:design.md:3dc5dd454e",
       "path": "DESIGN.md",
       "source_record_id": "file:design.md:3dc5dd454e",
@@ -1874,7 +1874,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "e02480a0cd7e89a91e63e7770182da39c587fc255f07485665e39c2e92e1eece",
+      "content_hash": "e18d8b9225224a31a63ea6d03600a98612fd4a7605691529faf61b0f3ad052f5",
       "id": "artifact:file:readme.md:b335630551",
       "path": "README.md",
       "source_record_id": "file:readme.md:b335630551",
@@ -1930,7 +1930,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "eb16c354d6d1b415bd9e5bfbd0f3008543b387999af130aedd1708191f2412fb",
+      "content_hash": "78846def5f19bbac754147c682f7da7ab2f99f5bb7c6afcf10e11a3b26d72323",
       "id": "artifact:file:docs/architecture/agent_index.md:760b7d4eed",
       "path": "docs/architecture/AGENT_INDEX.md",
       "source_record_id": "file:docs/architecture/agent_index.md:760b7d4eed",
@@ -1962,7 +1962,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "1ad84d317c1b03c236190054575279909d0fa3ac189502d18e32d36c4d5d4363",
+      "content_hash": "45ef7654bf74ce289ad2a5034c58605fdfbaa17f16dc5c4a9fb3c3faeed4d867",
       "id": "artifact:file:docs/architecture/proof_topology.md:0c16f65386",
       "path": "docs/architecture/PROOF_TOPOLOGY.md",
       "source_record_id": "file:docs/architecture/proof_topology.md:0c16f65386",
@@ -4274,7 +4274,7 @@
     },
     {
       "artifact_kind": "config",
-      "content_hash": "582b07a21898cfff5f7c9875fcb3f9c27536c106b6993617ebbfff6343c550e6",
+      "content_hash": "90f53ec321d843613b7642ab759a960d36581126785497d712db99fd44a8ca80",
       "id": "artifact:file:docs/validation/script_inventory.json:3e79b7425b",
       "path": "docs/validation/script_inventory.json",
       "source_record_id": "file:docs/validation/script_inventory.json:3e79b7425b",
@@ -4282,7 +4282,7 @@
     },
     {
       "artifact_kind": "config",
-      "content_hash": "6bd4ecba61f41aa7c69dbac84f54d18bd4b7b0f695054594255e2e2de7ff0653",
+      "content_hash": "e4d4dfa90d93212f7bac776e026f1c4bbbe0b285b7f89385524c31f4b0515bb6",
       "id": "artifact:file:docs/validation/validation_lanes.json:fc8ffd214e",
       "path": "docs/validation/validation_lanes.json",
       "source_record_id": "file:docs/validation/validation_lanes.json:fc8ffd214e",
@@ -4290,7 +4290,7 @@
     },
     {
       "artifact_kind": "config",
-      "content_hash": "7dde56f230ac5a64b604e9562efc4345e112a7eae5ea03c233b0bfd8999ddcfc",
+      "content_hash": "e3011c3035e516a7c582373353017c8893839dcae34c1474d794db29af27dbb7",
       "id": "artifact:file:docs/validation/validator_inventory.json:c1230c1b46",
       "path": "docs/validation/validator_inventory.json",
       "source_record_id": "file:docs/validation/validator_inventory.json:c1230c1b46",
@@ -7850,7 +7850,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "03cb7df41233d23fc34536c220a197f3a7bf5c302d0a71a71bfd7649c02f2196",
+      "content_hash": "c33d11f2bd07c67af66d93b926ea068d9fe61bd3255c3d47e23654713afa88be",
       "id": "artifact:file:mechanics/evidence_clusters.md:96009eafe0",
       "path": "mechanics/EVIDENCE_CLUSTERS.md",
       "source_record_id": "file:mechanics/evidence_clusters.md:96009eafe0",
@@ -9842,7 +9842,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "62a9b1d2c71a867007f2855b3e21c622f1c000750041bceea26d5f82d99bc80d",
+      "content_hash": "6086346289c98aac278a57cafdb3f683ccac3efea627c05ee7b5f8fa23bd8b66",
       "id": "artifact:file:mechanics/boundary-bridge/parts/latest-sibling-canary/readme.md:df62ef031b",
       "path": "mechanics/boundary-bridge/parts/latest-sibling-canary/README.md",
       "source_record_id": "file:mechanics/boundary-bridge/parts/latest-sibling-canary/readme.md:df62ef031b",
@@ -14738,7 +14738,7 @@
     },
     {
       "artifact_kind": "document",
-      "content_hash": "6e62451697e22efedaec9dda88af5678fdede5922ddd95bb0c75db6f580e1771",
+      "content_hash": "6e1d73263cb2cb067d4065d72d8265d4361d530b8822d590c7afd01800f462b5",
       "id": "artifact:file:scripts/agents.md:cb91064dc5",
       "path": "scripts/AGENTS.md",
       "source_record_id": "file:scripts/agents.md:cb91064dc5",
@@ -14918,6 +14918,14 @@
       "id": "artifact:file:scripts/validate_local_eval_port.py:5e2eac4abb",
       "path": "scripts/validate_local_eval_port.py",
       "source_record_id": "file:scripts/validate_local_eval_port.py:5e2eac4abb",
+      "surface_state": "authored_source"
+    },
+    {
+      "artifact_kind": "validator",
+      "content_hash": "efd486b5f0ebebbfdca1b64eb45b38f51036e7918b78539d59b3dc57a0646c0a",
+      "id": "artifact:file:scripts/validate_local_stats_port.py:ea1a73c352",
+      "path": "scripts/validate_local_stats_port.py",
+      "source_record_id": "file:scripts/validate_local_stats_port.py:ea1a73c352",
       "surface_state": "authored_source"
     },
     {
@@ -16098,7 +16106,7 @@
     },
     {
       "artifact_kind": "source_code",
-      "content_hash": "f25d3553dbdfccd6e79e85fb161f1592f6e9a569df5d3347ec7d91eedc19e3a2",
+      "content_hash": "55f1ccd062b972f48ed7565de926e8b3830adf83230bafe530e612284b93c83e",
       "id": "artifact:file:scripts/validators/root_agent_index.py:4b278fe3db",
       "path": "scripts/validators/root_agent_index.py",
       "source_record_id": "file:scripts/validators/root_agent_index.py:4b278fe3db",
@@ -16274,7 +16282,7 @@
     },
     {
       "artifact_kind": "source_code",
-      "content_hash": "784b583be44177cdbd04189e9acc12220adb15c3c7ad16789a5f4491b2e5e6f8",
+      "content_hash": "480eeb2d5df58ae102408385e2c94dc6df4de8004cf5b24e03e5121fe4cbb79c",
       "id": "artifact:file:scripts/validators/root_proof_topology.py:7cc26a5bd6",
       "path": "scripts/validators/root_proof_topology.py",
       "source_record_id": "file:scripts/validators/root_proof_topology.py:7cc26a5bd6",
@@ -16730,6 +16738,38 @@
     },
     {
       "artifact_kind": "document",
+      "content_hash": "473e39141e2365483b9cc0e7eb798db27411d9337bbbc9d6a616a9dfff471264",
+      "id": "artifact:file:stats/agents.md:3f9a778b41",
+      "path": "stats/AGENTS.md",
+      "source_record_id": "file:stats/agents.md:3f9a778b41",
+      "surface_state": "authored_source"
+    },
+    {
+      "artifact_kind": "document",
+      "content_hash": "c701ce2b37ff3fc367a786a8eb8cdfd8f61b1afe803e132b42350d5c863d0990",
+      "id": "artifact:file:stats/readme.md:6bac6d2ff5",
+      "path": "stats/README.md",
+      "source_record_id": "file:stats/readme.md:6bac6d2ff5",
+      "surface_state": "authored_source"
+    },
+    {
+      "artifact_kind": "config",
+      "content_hash": "248cc3beefebd83e29bf104694bc7c36bb6fc802f8ca41583457d139356103e0",
+      "id": "artifact:file:stats/packets/non-draft-bundle-ratio.reference.json:169c467c42",
+      "path": "stats/packets/non-draft-bundle-ratio.reference.json",
+      "source_record_id": "file:stats/packets/non-draft-bundle-ratio.reference.json:169c467c42",
+      "surface_state": "authored_source"
+    },
+    {
+      "artifact_kind": "config",
+      "content_hash": "4c06566c747bc2ba86a869fc5cc2dd8affe7c8bfebca3e72ec96837c3fc4e0db",
+      "id": "artifact:file:stats/port.manifest.json:98b9bdeccf",
+      "path": "stats/port.manifest.json",
+      "source_record_id": "file:stats/port.manifest.json:98b9bdeccf",
+      "surface_state": "authored_source"
+    },
+    {
+      "artifact_kind": "document",
       "content_hash": "1f159c6979580331f44fd0da940e4cc1ddcf44222e778f6da6964727ef172452",
       "id": "artifact:file:templates/agents.md:a186e61abf",
       "path": "templates/AGENTS.md",
@@ -17090,7 +17130,7 @@
     },
     {
       "artifact_kind": "test",
-      "content_hash": "ed16466c00fb6dbee41f25ca8bf5dbe5d14ca26b5703e848ce9dda6744cc59c5",
+      "content_hash": "0f5815e64e55129ecf611f9f4d2a2cad877c1c143f772ae18388117c94b64376",
       "id": "artifact:file:tests/test_repo_validation_workflow.py:7f01f43e0c",
       "path": "tests/test_repo_validation_workflow.py",
       "source_record_id": "file:tests/test_repo_validation_workflow.py:7f01f43e0c",
@@ -17122,7 +17162,7 @@
     },
     {
       "artifact_kind": "test",
-      "content_hash": "8b2a127728efcf23053500388e6844bc334ab80440a27878025082103d9a8e7f",
+      "content_hash": "9f54ee12e48bfdb6261bc38826f546bebe7a22a088daa739e9555a7e688ef9b3",
       "id": "artifact:file:tests/test_root_surface_roles.py:cfb6d524e9",
       "path": "tests/test_root_surface_roles.py",
       "source_record_id": "file:tests/test_root_surface_roles.py:cfb6d524e9",
@@ -17178,7 +17218,7 @@
     },
     {
       "artifact_kind": "test",
-      "content_hash": "8435a7ac8a9139d845433d79bd9c91b8c0f9b7e702b376d087208e6a2bcbc1e7",
+      "content_hash": "6ae72d1bf7da52d13d3cbde7f6f3de6721d0c80c58523ed201a08a1b488c8e80",
       "id": "artifact:file:tests/test_validation_topology.py:f6818f763c",
       "path": "tests/test_validation_topology.py",
       "source_record_id": "file:tests/test_validation_topology.py:f6818f763c",
@@ -17203,7 +17243,7 @@
   ],
   "index_identity": {
     "artifact_kind": "repository_artifact_index",
-    "content_digest": "ac73e7d863c2f3e008c84c246531a23246ec555cafc6e1b3759fab08f7dd8822",
+    "content_digest": "f46162ea2daf0c8b0fff6df3a181b2bc99276bc17bec60bf845c750f52119cb8",
     "index_kind": "artifact",
     "local_id": "index:repo-local:artifacts",
     "schema_ref": "aoa-kag:schemas/repo-local-kag-repository-index.schema.json"
@@ -17227,18 +17267,18 @@
   },
   "schema_version": "aoa-repo-local-kag-repository-index-v1",
   "source_index": {
-    "content_digest": "d3dec4d03cda44723a2008c568245ae8e68ca48a0d0d33162392408ee9d4b00b",
+    "content_digest": "1300e07548afb9cccf32e9e9f61a0fa82779b24035d902f1afd6f3257b5f8702",
     "local_id": "index:repo-local:source-surfaces",
     "path": "kag/indexes/source_surface_index.json"
   },
   "summary": {
-    "entry_count": 2150,
+    "entry_count": 2155,
     "kind_counts": {
       "asset": 50,
-      "config": 368,
+      "config": 370,
       "dependency_manifest": 1,
       "directory_marker": 4,
-      "document": 1167,
+      "document": 1169,
       "generated_readmodel": 32,
       "index": 1,
       "license": 1,
@@ -17253,7 +17293,7 @@
       "security": 1,
       "source_code": 227,
       "test": 87,
-      "validator": 17
+      "validator": 18
     }
   }
 }

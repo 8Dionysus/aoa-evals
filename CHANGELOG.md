@@ -34,6 +34,11 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Added
 
+- Add the owner-local `stats/` port with a source-backed non-draft bundle ratio
+  contract and reference packet; bundle status meaning remains with
+  `aoa-evals`, while `aoa-stats` owns the shared statistical grammar and
+  cross-owner composition plus the validator delegated to by the
+  latest-sibling canary lane.
 - `aoa-runtime-latency-tradeoff` as a draft fixed-baseline comparison bundle
   for public-safe runtime latency and resource-use tradeoff evidence.
 - `aoa-memo-writeback-decision-quality` as a draft workflow bundle for judging

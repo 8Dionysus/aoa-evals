@@ -13,7 +13,7 @@ sibling edits and public validation replacement stay in their owner routes.
 - `mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`
 - `mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py`
 - `mechanics/boundary-bridge/parts/latest-sibling-canary/tests/test_sibling_canary.py`
-- `.github/workflows/repo-validation.yml`
+- `.github/workflows/latest-sibling-canary.yml`
 
 ## Inputs
 

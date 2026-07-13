@@ -46,6 +46,10 @@ instead of hidden network calls, private data, or ambient credentials.
 
 Builder changes must preserve source ownership: bundles, schemas, runners, scorers, and docs own meaning; generated catalogs summarize.
 
+`validate_local_stats_port.py` is only the latest-sibling canary adapter to the
+checked-out `aoa-stats` validator. Eval-local statistical meaning stays under
+`stats/`, and shared statistical grammar is not reimplemented under `scripts/`.
+
 The bounded proof posture is protected through precise failures that name the owner
 surface, field, and bounded claim being protected.
 Pair validator wording changes with focused tests in `tests/test_validate_repo.py`.

@@ -26120,6 +26120,20 @@
         "surface_state": "authored_source"
       },
       "entity_kind": "command",
+      "id": "entity:file:scripts/validate_local_stats_port.py:ea1a73c352",
+      "label": "scripts/validate_local_stats_port.py",
+      "source_record_id": "file:scripts/validate_local_stats_port.py:ea1a73c352"
+    },
+    {
+      "coordinates": {
+        "artifact_kind": "validator",
+        "code_role": "validator",
+        "command_role": "validator",
+        "document_role": "none",
+        "mechanics_role": "none",
+        "surface_state": "authored_source"
+      },
+      "entity_kind": "command",
       "id": "entity:file:scripts/validate_nested_agents.py:5befe5bd63",
       "label": "scripts/validate_nested_agents.py",
       "source_record_id": "file:scripts/validate_nested_agents.py:5befe5bd63"
@@ -29284,6 +29298,62 @@
         "surface_state": "authored_source"
       },
       "entity_kind": "agent_route",
+      "id": "entity:file:stats/agents.md:3f9a778b41",
+      "label": "stats/AGENTS.md",
+      "source_record_id": "file:stats/agents.md:3f9a778b41"
+    },
+    {
+      "coordinates": {
+        "artifact_kind": "document",
+        "code_role": "none",
+        "command_role": "none",
+        "document_role": "readme",
+        "mechanics_role": "none",
+        "surface_state": "authored_source"
+      },
+      "entity_kind": "document",
+      "id": "entity:file:stats/readme.md:6bac6d2ff5",
+      "label": "stats/README.md",
+      "source_record_id": "file:stats/readme.md:6bac6d2ff5"
+    },
+    {
+      "coordinates": {
+        "artifact_kind": "config",
+        "code_role": "none",
+        "command_role": "none",
+        "document_role": "none",
+        "mechanics_role": "none",
+        "surface_state": "authored_source"
+      },
+      "entity_kind": "artifact",
+      "id": "entity:file:stats/packets/non-draft-bundle-ratio.reference.json:169c467c42",
+      "label": "stats/packets/non-draft-bundle-ratio.reference.json",
+      "source_record_id": "file:stats/packets/non-draft-bundle-ratio.reference.json:169c467c42"
+    },
+    {
+      "coordinates": {
+        "artifact_kind": "config",
+        "code_role": "none",
+        "command_role": "none",
+        "document_role": "none",
+        "mechanics_role": "none",
+        "surface_state": "authored_source"
+      },
+      "entity_kind": "artifact",
+      "id": "entity:file:stats/port.manifest.json:98b9bdeccf",
+      "label": "stats/port.manifest.json",
+      "source_record_id": "file:stats/port.manifest.json:98b9bdeccf"
+    },
+    {
+      "coordinates": {
+        "artifact_kind": "document",
+        "code_role": "none",
+        "command_role": "none",
+        "document_role": "agents",
+        "mechanics_role": "none",
+        "surface_state": "authored_source"
+      },
+      "entity_kind": "agent_route",
       "id": "entity:file:templates/agents.md:a186e61abf",
       "label": "templates/AGENTS.md",
       "source_record_id": "file:templates/agents.md:a186e61abf"
@@ -30103,7 +30173,7 @@
   ],
   "index_identity": {
     "artifact_kind": "repository_entity_index",
-    "content_digest": "acaf58996999a00d2a8be00e993c5eb4b1e9b660b67ab277ddc4931adfa25588",
+    "content_digest": "b682e770763dcd4823f3558c68eb05081910302f6add4edd763426305e0bb600",
     "index_kind": "entity",
     "local_id": "index:repo-local:entities",
     "schema_ref": "aoa-kag:schemas/repo-local-kag-repository-index.schema.json"
@@ -30126,20 +30196,20 @@
   },
   "schema_version": "aoa-repo-local-kag-repository-index-v1",
   "source_index": {
-    "content_digest": "d3dec4d03cda44723a2008c568245ae8e68ca48a0d0d33162392408ee9d4b00b",
+    "content_digest": "1300e07548afb9cccf32e9e9f61a0fa82779b24035d902f1afd6f3257b5f8702",
     "local_id": "index:repo-local:source-surfaces",
     "path": "kag/indexes/source_surface_index.json"
   },
   "summary": {
-    "entry_count": 2150,
+    "entry_count": 2155,
     "kind_counts": {
-      "agent_route": 26,
-      "artifact": 278,
+      "agent_route": 27,
+      "artifact": 280,
       "code": 227,
-      "command": 83,
+      "command": 84,
       "contract": 39,
       "decision": 251,
-      "document": 396,
+      "document": 397,
       "mechanic_package": 101,
       "mechanic_part": 727,
       "owner_surface": 2,

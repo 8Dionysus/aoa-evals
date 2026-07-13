@@ -220,6 +220,7 @@
       ["python", "scripts/release_check.py"]
     ],
     "latest_sibling": [
+      ["python", "scripts/validate_local_stats_port.py"],
       ["python", "mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py", "--repo-root", ".", "--matrix", "mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json"]
     ],
     "release_check": [
@@ -236,6 +237,7 @@
       ["python", "scripts/build_catalog.py", "--check"],
       ["python", "scripts/generate_eval_report_index.py", "--check"],
       ["python", "-m", "pytest", "-q", "mechanics/*/parts/*/tests/test*.py"],
+      ["python", "scripts/validate_local_stats_port.py"],
       ["python", "mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py", "--repo-root", ".", "--matrix", "mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json"]
     ]
   }

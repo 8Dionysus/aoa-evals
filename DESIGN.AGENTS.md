@@ -50,7 +50,7 @@ Agent guidance should look like a readable route network:
 
 - a compact root `AGENTS.md`;
 - local cards for durable districts such as `evals/`, `docs/`, `generated/`,
-  `examples/`, `reports/`, `schemas/`, `scripts/`, `tests/`, `quests/`,
+  `examples/`, `reports/`, `schemas/`, `scripts/`, `tests/`, `quests/`, `stats/`,
   `.agents/`, and `mechanics/`;
 - deep cards for high-risk surfaces such as decisions, generated read models,
   receipts, legacy bridges, runtime candidates, and package parts;
@@ -87,6 +87,13 @@ protects deterministic builders and validators.
 bundle-local `EVAL.md` and `eval.yaml` own the specific bounded claim, object
 under evaluation, verdict shape, evidence posture, blind spots, and adaptation
 rules.
+
+### Local stats cards
+
+`stats/AGENTS.md` routes eval-owned statistical questions and reference
+measurements without allowing a derived count or ratio to become a proof
+verdict. The embedded contract and owner evidence remain stronger than the
+route card.
 
 ### Decision cards
 

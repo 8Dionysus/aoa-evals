@@ -52,6 +52,7 @@ owning authority class is explicit.
 | `docs/*.md` | root-owned guidance or topology | `docs/AGENTS.md` for edit route, target doc for meaning |
 | `docs/architecture/AOA_EVALS_MCP_CONTRACT.md` | MCP access-plane contract | `aoa-evals` owns proof contract; `abyss-stack` owns runnable MCP service |
 | `docs/decisions/*.md` | decision rationale | `docs/decisions/AGENTS.md` and the source surface being explained |
+| `stats/**` | owner-local statistics | `stats/AGENTS.md` and `stats/port.manifest.json` for the local route; `aoa-stats` for shared grammar and composition |
 | `generated/*` | derived reader | `generated/AGENTS.md` plus the builder and source inputs |
 | `quests/<lane>/<state>/*.yaml` | source quest record | `quests/AGENTS.md`, `QUESTBOOK.md`, and quest schemas |
 | `mechanics/<parent>/` | mechanic parent operation | parent `AGENTS.md`, `README.md`, `DIRECTION.md`, `PARTS.md`, `PROVENANCE.md` |
@@ -106,6 +107,7 @@ When starting from a payload, ask these in order:
 | --- | --- |
 | `evals/` | Does the bundle `EVAL.md` still own the claim? |
 | `mechanics/<parent>/parts/<part>/` | Is the payload named by the part `README.md` and covered by `VALIDATION.md`? |
+| `stats/` | Does `aoa-evals` still own the local meaning while `aoa-stats` owns only shared grammar and composition? |
 | `generated/` or part-local `generated/` | Which builder and source inputs produced it? |
 | route-card-only root districts | Is this only `AGENTS.md` or `README.md`? Any other payload is drift. |
 | `docs/` | Is this source guidance, topology, decision rationale, or a docs map? |

@@ -78,7 +78,7 @@
       "heading_ref": {
         "anchor": "020-2026-04-01",
         "level": 2,
-        "line": 761,
+        "line": 766,
         "ref": "CHANGELOG.md#020-2026-04-01",
         "title": "[0.2.0] - 2026-04-01"
       },
@@ -93,7 +93,7 @@
       "heading_ref": {
         "anchor": "010-2026-03-23",
         "level": 2,
-        "line": 803,
+        "line": 808,
         "ref": "CHANGELOG.md#010-2026-03-23",
         "title": "[0.1.0] - 2026-03-23"
       },
@@ -108,7 +108,7 @@
       "heading_ref": {
         "anchor": "033-2026-04-23",
         "level": 2,
-        "line": 607,
+        "line": 612,
         "ref": "CHANGELOG.md#033-2026-04-23",
         "title": "[0.3.3] - 2026-04-23"
       },
@@ -123,7 +123,7 @@
       "heading_ref": {
         "anchor": "032-2026-04-19",
         "level": 2,
-        "line": 649,
+        "line": 654,
         "ref": "CHANGELOG.md#032-2026-04-19",
         "title": "[0.3.2] - 2026-04-19"
       },
@@ -138,7 +138,7 @@
       "heading_ref": {
         "anchor": "040-2026-05-25",
         "level": 2,
-        "line": 69,
+        "line": 74,
         "ref": "CHANGELOG.md#040-2026-05-25",
         "title": "[0.4.0] - 2026-05-25"
       },
@@ -153,7 +153,7 @@
       "heading_ref": {
         "anchor": "031-2026-04-12",
         "level": 2,
-        "line": 688,
+        "line": 693,
         "ref": "CHANGELOG.md#031-2026-04-12",
         "title": "[0.3.1] - 2026-04-12"
       },
@@ -168,7 +168,7 @@
       "heading_ref": {
         "anchor": "030-2026-04-10",
         "level": 2,
-        "line": 717,
+        "line": 722,
         "ref": "CHANGELOG.md#030-2026-04-10",
         "title": "[0.3.0] - 2026-04-10"
       },
@@ -3166,6 +3166,15 @@
       "event_kind": "validation_run",
       "event_role": "producer",
       "heading_ref": null,
+      "id": "event:repo:11df82e3fb4b79db7378",
+      "observation_state": "declared",
+      "path": "scripts/validate_local_stats_port.py",
+      "source_record_id": "file:scripts/validate_local_stats_port.py:ea1a73c352"
+    },
+    {
+      "event_kind": "validation_run",
+      "event_role": "producer",
+      "heading_ref": null,
       "id": "event:repo:463ba1d1da0510804566",
       "observation_state": "declared",
       "path": "scripts/validate_nested_agents.py",
@@ -3705,7 +3714,7 @@
   ],
   "index_identity": {
     "artifact_kind": "repository_event_index",
-    "content_digest": "cd9679d38c0c0f09e5d7bac3dd8472642ef685bf8991573f26b5543cf214766f",
+    "content_digest": "b059bcf112351f377e718281ad38d0f7256c0535777cd016e5f9b35e01c17169",
     "index_kind": "event",
     "local_id": "index:repo-local:events",
     "schema_ref": "aoa-kag:schemas/repo-local-kag-repository-index.schema.json"
@@ -3730,12 +3739,12 @@
   },
   "schema_version": "aoa-repo-local-kag-repository-index-v1",
   "source_index": {
-    "content_digest": "d3dec4d03cda44723a2008c568245ae8e68ca48a0d0d33162392408ee9d4b00b",
+    "content_digest": "1300e07548afb9cccf32e9e9f61a0fa82779b24035d902f1afd6f3257b5f8702",
     "local_id": "index:repo-local:source-surfaces",
     "path": "kag/indexes/source_surface_index.json"
   },
   "summary": {
-    "entry_count": 406,
+    "entry_count": 407,
     "kind_counts": {
       "command_run": 20,
       "decision_record": 251,
@@ -3745,7 +3754,7 @@
       "test_run": 87,
       "validation_lane_run": 2,
       "validation_receipt": 2,
-      "validation_run": 17,
+      "validation_run": 18,
       "workflow_run": 2
     }
   }

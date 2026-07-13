@@ -16,10 +16,11 @@ This repository owns:
 - eval bundle wording, bounded claim framing, verdict shape, categories, baselines, reports, comparisons, caveats, and generated proof surfaces
 - doctrine about claim limits and proof boundaries
 - progression, recurrence, and checkpoint proof posture only when explicitly defined here
+- owner-local statistical questions and source-backed measurement declarations about eval-owned surfaces under `stats/`
 
 Route outward for:
 
-- skill workflow meaning, technique practice meaning, role policy, routing, playbooks, memory objects, stats dashboards, or hidden private benchmark truth
+- skill workflow meaning, technique practice meaning, role policy, routing, playbooks, memory objects, cross-owner statistical composition or dashboards, or hidden private benchmark truth
 
 ## Operational map
 
@@ -30,6 +31,7 @@ Route outward for:
 | authority class | `docs/architecture/PROOF_TOPOLOGY.md` and `docs/architecture/AGENT_INDEX.md` |
 | proof operation | `mechanics/README.md`, then parent `README.md`, `DIRECTION.md`, `PARTS.md`, and part `README.md` |
 | local memory candidates | `memo/AGENTS.md`, `memo/README.md`, and `memo/PORT.yaml` |
+| local statistics | `stats/AGENTS.md`, `stats/README.md`, and `stats/port.manifest.json` |
 | output | bounded reports, receipts, generated readers, or owner handoffs only through their owning surface |
 | tools and checks | this card's `Verify` section and the nearest nested `AGENTS.md` |
 
@@ -42,14 +44,15 @@ Route outward for:
 5. `docs/architecture/PROOF_TOPOLOGY.md` when artifact classes, legacy, mechanics, or root districts change
 6. `mechanics/EVIDENCE_CLUSTERS.md` before moving root-district artifacts into or between mechanics
 7. `mechanics/README.md` when a repeatable proof operation or package changes
-8. `docs/architecture/ARCHITECTURE.md`
-9. `docs/guides/EVAL_PHILOSOPHY.md`
-10. `AUDIT.md` when auditing or reviewing proof claims
-11. the target `evals/**/EVAL.md`
-12. affected generated catalogs, capsules, comparison, receipt, or section surfaces
-13. upstream skill or technique docs if the claim depends on them
-14. `docs/decisions/` when a structural, topology, validation, or workflow route changes
-15. `docs/operations/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
+8. `stats/README.md` when eval-owned statistical questions, contracts, or reference packets change
+9. `docs/architecture/ARCHITECTURE.md`
+10. `docs/guides/EVAL_PHILOSOPHY.md`
+11. `AUDIT.md` when auditing or reviewing proof claims
+12. the target `evals/**/EVAL.md`
+13. affected generated catalogs, capsules, comparison, receipt, or section surfaces
+14. upstream skill or technique docs if the claim depends on them
+15. `docs/decisions/` when a structural, topology, validation, or workflow route changes
+16. `docs/operations/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
 
 
 ## AGENTS stack law

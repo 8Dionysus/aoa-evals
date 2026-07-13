@@ -56,6 +56,19 @@
       "disposition": "keep"
     },
     {
+      "path": "scripts/validate_local_stats_port.py",
+      "lane": "latest_sibling",
+      "layer": "source/topology compatibility adapter",
+      "mode": "blocking",
+      "owner_surface": "stats/AGENTS.md",
+      "source_truth": ["stats/port.manifest.json", "aoa-stats:stats/federation/local-port.schema.json", "aoa-stats:stats/measurement-contract/measurement-packet.schema.json"],
+      "input": ["eval-local stats port", "referenced measurement packets", "checked-out aoa-stats validator"],
+      "output": ["central stats protocol validation status"],
+      "command_sequences": ["latest_sibling", "nightly"],
+      "failure_route": "Fix the eval-local stats port or the checked-out aoa-stats contract; do not copy central statistical semantics into aoa-evals.",
+      "disposition": "add"
+    },
+    {
       "path": "scripts/validate_abyss_machine_report_index_bundle.py",
       "lane": "release",
       "layer": "release artifact identity",

@@ -31,6 +31,7 @@ to the owner surface instead of expanding this page.
 | Authority-class topology | [docs/architecture/PROOF_TOPOLOGY.md](docs/architecture/PROOF_TOPOLOGY.md) |
 | Proof operation atlas | [mechanics/README.md](mechanics/README.md) |
 | Source proof objects | `evals/**/EVAL.md` and `evals/**/eval.yaml` |
+| Eval-owned statistical questions and reference measurements | [stats](stats/README.md) |
 | Eval discovery | [Eval Bundle Selection Chooser](EVAL_SELECTION.md), [Eval Bundle Index](EVAL_INDEX.md) |
 | Full documentation map | [docs/README.md](docs/README.md) |
 | Durable rationale | [docs/decisions/README.md](docs/decisions/README.md) |
@@ -94,6 +95,7 @@ Source bundles, mechanics, decisions, and route cards keep meaning.
 | [generated](generated/README.md) | compact derived readers tied back to source inputs |
 | [quests](quests/README.md) | durable proof obligations and source quest records |
 | [memo](memo/README.md) | proof-layer local memory candidates before reviewed `aoa-memo` landing |
+| [stats](stats/README.md) | owner-local statistical questions, measurement contracts, and evidence-linked reference packets |
 | [scripts](scripts/AGENTS.md) and [tests](tests/AGENTS.md) | root-wide validators, builders, and regression surfaces |
 
 Compatibility districts such as `fixtures/`, `reports/`, `schemas/`,

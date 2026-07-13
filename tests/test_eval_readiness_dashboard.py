@@ -175,6 +175,79 @@ def test_dashboard_builds_living_readmodel_without_live_checks(tmp_path: Path) -
     assert "by_semantic_class" in support["summary"]
     assert "by_review_status" in support["summary"]
 
+    ref_map = readiness.generated_public_ref_map(
+        evals_root=REPO_ROOT,
+        workspace_root=workspace,
+        aoa_root=tmp_path / ".aoa",
+        skills_source_root=tmp_path / "aoa-skills",
+        installed_skills_root=tmp_path / "skills",
+    )
+    public_dashboard = readiness.redact_generated_value(dashboard, ref_map)
+    serialized_public = json.dumps(public_dashboard, sort_keys=True)
+    assert workspace.as_posix() not in serialized_public
+    assert (tmp_path / ".aoa").as_posix() not in serialized_public
+    assert (tmp_path / "aoa-skills").as_posix() not in serialized_public
+    assert (tmp_path / "skills").as_posix() not in serialized_public
+    assert REPO_ROOT.as_posix() not in serialized_public
+    assert public_dashboard["workspace_root"] == "workspace:OS_ABYSS"
+    assert public_dashboard["evals_root"] == "repo:aoa-evals"
+
+
+def test_generated_check_compares_rebuilt_outputs(monkeypatch, tmp_path: Path) -> None:
+    evals_root = tmp_path / "aoa-evals"
+    generated_root = evals_root / "generated"
+    generated_root.mkdir(parents=True)
+    current_dashboard = {
+        "schema_version": readiness.SCHEMA_VERSION,
+        "generated_at_utc": "2026-06-25T00:00:00Z",
+        "stale": True,
+    }
+    current_support = {
+        "schema_version": readiness.SUPPORT_REGISTRY_SCHEMA_VERSION,
+        "stale": True,
+    }
+    expected_dashboard = {
+        "schema_version": readiness.SCHEMA_VERSION,
+        "generated_at_utc": "2026-06-25T00:00:00Z",
+        "stale": False,
+    }
+    expected_support = {
+        "schema_version": readiness.SUPPORT_REGISTRY_SCHEMA_VERSION,
+        "stale": False,
+    }
+    readiness.write_json(generated_root / "eval_readiness_dashboard.json", current_dashboard)
+    readiness.write_json(generated_root / "eval_support_registry.json", current_support)
+    (generated_root / "eval_readiness_dashboard.md").write_text(
+        "# OS Abyss Eval Readiness Dashboard\n\nstale\n",
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(readiness, "validate_dashboard_shape", lambda dashboard, support: [])
+    monkeypatch.setattr(
+        readiness,
+        "build_generated_outputs",
+        lambda **_kwargs: (
+            expected_dashboard,
+            expected_support,
+            "# OS Abyss Eval Readiness Dashboard\n\nfresh\n",
+        ),
+    )
+
+    issues = readiness.check_generated(
+        evals_root,
+        workspace_root=tmp_path / "AbyssOS",
+        aoa_root=tmp_path / ".aoa",
+        skills_source_root=tmp_path / "aoa-skills",
+        installed_skills_root=tmp_path / "skills",
+        stack_root=None,
+        include_live_checks=False,
+        live_timeout=1,
+    )
+
+    assert "generated/eval_readiness_dashboard.json is stale" in "\n".join(issues)
+    assert "generated/eval_support_registry.json is stale" in "\n".join(issues)
+    assert "generated/eval_readiness_dashboard.md is stale" in "\n".join(issues)
+
 
 def test_repo_readiness_routes_suite_contract_states_without_executing_argv(
     tmp_path: Path,

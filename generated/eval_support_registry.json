@@ -12,29 +12,29 @@
     "by_classification": {
       "builder_or_projection": 5,
       "builder_with_check_mode": 16,
-      "deterministic_script_validator": 246,
-      "deterministic_test": 63,
-      "deterministic_validator": 226,
+      "deterministic_script_validator": 247,
+      "deterministic_test": 64,
+      "deterministic_validator": 227,
       "generated_readmodel_test": 9,
       "script_support": 16,
       "trace_eval_test": 14
     },
     "by_kind": {
-      "script": 283,
-      "test": 86,
-      "validator": 226
+      "script": 284,
+      "test": 87,
+      "validator": 227
     },
     "by_lane": {
       "advisory": 34,
       "generated": 52,
-      "latest_sibling": 2,
-      "mechanics_part_local": 51,
+      "latest_sibling": 4,
+      "mechanics_part_local": 52,
       "pinned_sibling": 1,
       "release": 16,
       "source_fast": 439
     },
     "by_recommended_route": {
-      "apply_as_deterministic_eval_support": 466,
+      "apply_as_deterministic_eval_support": 469,
       "candidate_only_eval_support": 11,
       "component_only_use_owning_validator_or_lane_command": 83,
       "forbidden_as_eval_apply_until_manual_owner_review": 4,
@@ -46,20 +46,20 @@
       "candidate_only": 11,
       "not_eval_relevant": 8,
       "reviewed_forbidden": 4,
-      "rule_reviewed": 572
+      "rule_reviewed": 575
     },
     "by_semantic_class": {
-      "deterministic_validator": 463,
+      "deterministic_validator": 465,
       "generated_parity_check": 32,
       "ordinary_support": 8,
       "runtime_candidate_support": 11,
       "trace_trajectory_eval_support": 14,
-      "unit_contract_property_test": 63,
+      "unit_contract_property_test": 64,
       "unsafe_side_effect_script": 4
     },
-    "eval_lane_relevant": 429,
-    "safe_to_apply_directly": 466,
-    "total_surfaces": 595,
+    "eval_lane_relevant": 431,
+    "safe_to_apply_directly": 469,
+    "total_surfaces": 598,
     "unsafe_side_effect_scripts": 4
   },
   "surfaces": [
@@ -2001,6 +2001,36 @@
       "side_effects": "validation output only; surfaces Git identity conflicts, rejects non-regular/non-UTF8 sidecars, resolves cwd-relative entrypoint argv to canonical entrypoint_ref, enforces typed python_pytest argv, computes deterministic hashes and absent/invalid/stale/source-contract-ready state, and exposes JIT/environment/receipt obligations without invoking runner argv or claiming runtime reproducibility or proof authority",
       "source_truth_count": 3,
       "test_target": "tests/test_local_eval_port.py"
+    },
+    {
+      "classification": "deterministic_script_validator",
+      "classification_evidence": [
+        "family: source_validator",
+        "owner_surface: stats/AGENTS.md",
+        "side_effects: validation output only; delegates shared grammar and packet semantics to aoa-stats",
+        "validation_lane: latest_sibling"
+      ],
+      "classification_rule": "read_only_validator_script",
+      "eval_lane_relevant": false,
+      "failure_route": null,
+      "family": "source_validator",
+      "focused_target": null,
+      "forbidden_interpretations": [
+        "central_proof_acceptance"
+      ],
+      "kind": "script",
+      "lane": "latest_sibling",
+      "owner_surface": "stats/AGENTS.md",
+      "path": "scripts/validate_local_stats_port.py",
+      "recommended_route": "apply_as_deterministic_eval_support",
+      "relevance_reasons": [],
+      "review_reason": "read-only validator script has validation-only side effects and an owner surface",
+      "review_status": "rule_reviewed",
+      "safe_to_apply_directly": true,
+      "semantic_class": "deterministic_validator",
+      "side_effects": "validation output only; delegates shared grammar and packet semantics to aoa-stats",
+      "source_truth_count": 3,
+      "test_target": "tests/test_validation_topology.py"
     },
     {
       "classification": "deterministic_script_validator",
@@ -9825,6 +9855,37 @@
       "classification": "deterministic_test",
       "classification_evidence": [
         "family: boundary/sibling",
+        "owner_surface: mechanics/antifragility/parts/stress-recovery-window/README.md",
+        "coverage_authority: validation_lanes.mechanics_part_local"
+      ],
+      "classification_rule": "test_inventory_contract_or_invariant",
+      "eval_lane_relevant": true,
+      "failure_route": "Fix the source manifest, report, or current owner route before widening the derived stats projection.",
+      "family": "boundary/sibling",
+      "focused_target": "Stress Recovery manifest and report current sibling-owner refs",
+      "forbidden_interpretations": [
+        "central_proof_acceptance"
+      ],
+      "kind": "test",
+      "lane": "mechanics_part_local",
+      "owner_surface": "mechanics/antifragility/parts/stress-recovery-window/README.md",
+      "path": "mechanics/antifragility/parts/stress-recovery-window/tests/test_stress_recovery_owner_refs.py",
+      "recommended_route": "apply_as_deterministic_eval_support",
+      "relevance_reasons": [
+        "report"
+      ],
+      "review_reason": "test inventory entry constrains behavior through the owning test route",
+      "review_status": "rule_reviewed",
+      "safe_to_apply_directly": true,
+      "semantic_class": "unit_contract_property_test",
+      "side_effects": null,
+      "source_truth_count": null,
+      "test_target": null
+    },
+    {
+      "classification": "deterministic_test",
+      "classification_evidence": [
+        "family: boundary/sibling",
         "owner_surface: mechanics/boundary-bridge/parts/latest-sibling-canary/README.md",
         "coverage_authority: validation_lanes.latest_sibling"
       ],
@@ -12253,6 +12314,36 @@
         "proof",
         "report",
         "artifact"
+      ],
+      "review_reason": "validator inventory entry is already command-authority support; use as deterministic support, not proof acceptance",
+      "review_status": "rule_reviewed",
+      "safe_to_apply_directly": true,
+      "semantic_class": "deterministic_validator",
+      "side_effects": null,
+      "source_truth_count": 3,
+      "test_target": null
+    },
+    {
+      "classification": "deterministic_validator",
+      "classification_evidence": [
+        "mode: blocking",
+        "owner_surface: stats/AGENTS.md"
+      ],
+      "classification_rule": "validator_inventory_entry",
+      "eval_lane_relevant": true,
+      "failure_route": "Fix the eval-local stats port or the checked-out aoa-stats contract; do not copy central statistical semantics into aoa-evals.",
+      "family": null,
+      "focused_target": null,
+      "forbidden_interpretations": [
+        "central_proof_acceptance"
+      ],
+      "kind": "validator",
+      "lane": "latest_sibling",
+      "owner_surface": "stats/AGENTS.md",
+      "path": "scripts/validate_local_stats_port.py",
+      "recommended_route": "apply_as_deterministic_eval_support",
+      "relevance_reasons": [
+        "eval"
       ],
       "review_reason": "validator inventory entry is already command-authority support; use as deterministic support, not proof acceptance",
       "review_status": "rule_reviewed",

@@ -354,6 +354,34 @@ def test_os_artifact_trust_plane_validator_rejects_durable_only_full_claim() -> 
     assert any(issue["check"] == "durable_trust_coverage.manual_evidence" for issue in result["issues"])
 
 
+def test_os_artifact_trust_plane_validator_rejects_coverage_subset_that_claims_full() -> None:
+    validator = load_validator_module()
+    payloads = deepcopy(make_payloads())
+    missing = payloads["requirements"]["rows"][0]["artifact_class"]
+    payloads["trust_coverage"]["rows"] = [
+        row for row in payloads["trust_coverage"]["rows"] if row["artifact_class"] != missing
+    ]
+    payloads["durable_trust_coverage"]["rows"] = [
+        row for row in payloads["durable_trust_coverage"]["rows"] if row["artifact_class"] != missing
+    ]
+    payloads["trust_coverage"]["summary"]["artifact_classes"] -= 1
+    payloads["trust_coverage"]["summary"]["fully_covered"] -= 1
+    payloads["durable_trust_coverage"]["summary"]["artifact_classes"] -= 1
+    payloads["durable_trust_coverage"]["summary"]["durable_gate_covered"] -= 1
+
+    result = validator.validate_payloads(payloads)
+
+    assert result["ok"] is False
+    assert any(
+        issue["check"] == "trust_coverage.artifact_classes" and missing in issue["message"]
+        for issue in result["issues"]
+    )
+    assert any(
+        issue["check"] == "durable_trust_coverage.artifact_classes" and missing in issue["message"]
+        for issue in result["issues"]
+    )
+
+
 def test_os_artifact_trust_plane_validator_rejects_unaccepted_sibling_drift_claim() -> None:
     validator = load_validator_module()
     payloads = deepcopy(make_payloads())
@@ -387,6 +415,17 @@ def test_os_artifact_trust_plane_validator_rejects_missing_producer_profile_owne
 
     assert result["ok"] is False
     assert any(issue["check"] == "producer_profiles.owner_repos" for issue in result["issues"])
+
+
+def test_os_artifact_trust_plane_validator_rejects_scalar_producer_profile_list_fields() -> None:
+    validator = load_validator_module()
+    payloads = deepcopy(make_payloads())
+    payloads["producer_profiles"]["rows"][0]["validator_commands"] = "python scripts/release_check.py"
+
+    result = validator.validate_payloads(payloads)
+
+    assert result["ok"] is False
+    assert any(issue["check"] == "producer_profiles.profile_shape" for issue in result["issues"])
 
 
 def test_artifact_trust_plane_command_prefers_installed_cli_over_implicit_checkout(

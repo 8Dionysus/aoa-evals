@@ -36,7 +36,7 @@ def sample_dashboard() -> dict:
                     "route_state": "needs_local_design_or_owner_review",
                     "pressure_severity": "medium",
                     "route_confidence": "high",
-                    "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json",
+                    "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json-output /tmp/aoa_local_eval_ports.current.json --json",
                     "freshness_warnings": [],
                 },
                 {
@@ -111,7 +111,7 @@ def sample_dashboard() -> dict:
                 },
                 {
                     "purpose": "inspect active/skeleton/missing/invalid local eval ports",
-                    "command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json",
+                    "command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json-output /tmp/aoa_local_eval_ports.current.json --json",
                 },
                 {
                     "purpose": "validate imported candidate packets before review",

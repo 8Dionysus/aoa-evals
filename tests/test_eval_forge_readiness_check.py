@@ -128,4 +128,43 @@ def test_eval_forge_readiness_check_builds_gate_packet(tmp_path: Path) -> None:
     assert any("--write-worksheet" in item["command"] for item in front_door["exact_commands"])
     assert "python scripts/check_eval_forge_readiness.py --json" in payload["verification_commands"]
 
+
+def test_manual_session_mining_gate_requires_candidate_packet_validation(monkeypatch, tmp_path: Path) -> None:
+    workspace = tmp_path / "AbyssOS"
+    repo_root = make_repo(workspace, "aoa-routing")
+    make_port(repo_root)
+    stack_root = tmp_path / "abyss-stack"
+    make_fake_stack(stack_root)
+
+    def broken_packet_validation(paths):
+        return [
+            forge_check.candidate_packet_validator.ValidationIssue(
+                "mechanics/audit/parts/candidate-readers/packets/broken.eval_candidate.json",
+                "broken packet",
+            )
+        ]
+
+    monkeypatch.setattr(
+        forge_check.candidate_packet_validator,
+        "validate_files",
+        broken_packet_validation,
+    )
+
+    payload = forge_check.build_payload(
+        evals_root=REPO_ROOT,
+        workspace_root=workspace,
+        aoa_root=tmp_path / ".aoa",
+        skills_source_root=tmp_path / "aoa-skills",
+        installed_skills_root=tmp_path / "skills",
+        stack_root=stack_root,
+        include_live_checks=False,
+        live_timeout=1,
+        max_generated_age_hours=999999,
+    )
+
+    gate = {item["id"]: item for item in payload["gates"]}["manual_session_mining_gate"]
+    assert gate["status"] == "error"
+    assert gate["evidence"]["candidate_packet_validation"]["valid"] is False
+    assert gate["evidence"]["candidate_packet_validation"]["issue_count"] == 1
+
     json.dumps(payload)

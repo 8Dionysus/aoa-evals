@@ -3,15 +3,15 @@
     "authority_boundary": "aoa-skills owns trigger/runtime adoption; aoa-evals records read-only evidence only.",
     "front_door_invoke_capable": "covered_by_aoa_skills_prompt_trigger_harness_when_command_passes",
     "installed_exists": true,
-    "installed_matches_source": true,
+    "installed_matches_source": false,
     "installed_profile": "user-aoa-foundation",
     "installed_profile_verification": {
-      "aoa_eval_install_state": "ok",
-      "aoa_eval_is_symlink": true,
+      "aoa_eval_install_state": "mismatch",
+      "aoa_eval_is_symlink": false,
       "aoa_eval_source_digest": "254751194512eed6ac0bf3cc91fb834e0ce8dcad9e808c97e9b29eb2b5f4aaef",
-      "aoa_eval_target_digest": "254751194512eed6ac0bf3cc91fb834e0ce8dcad9e808c97e9b29eb2b5f4aaef",
+      "aoa_eval_target_digest": "5ad82b5a5c7c1a9a07f9e2c931454843126eb52847406b7935a4f92062aeb48f",
       "authority_boundary": "aoa-skills owns profile verification; aoa-evals stores the read-only routing signal.",
-      "command": "python scripts/verify_skill_pack.py --repo-root . --profile user-aoa-foundation --install-root /home/dionysus/.codex/skills --format json",
+      "command": "python scripts/verify_skill_pack.py --repo-root . --profile user-aoa-foundation --install-root codex-skills --format json",
       "expected_skill_count": 36,
       "extra_skill_dirs": [
         ".system",
@@ -19,9 +19,37 @@
         "aoa-session-memory-global-route",
         "os-abyss-artifact-trust-loop"
       ],
-      "install_root": "/home/dionysus/.codex/skills",
-      "mismatched_skill_count": 0,
-      "mismatched_skills": [],
+      "install_root": "codex-skills",
+      "mismatched_skill_count": 27,
+      "mismatched_skills": [
+        "aoa-session-donor-harvest",
+        "aoa-checkpoint-closeout-bridge",
+        "aoa-automation-opportunity-scan",
+        "aoa-memo-writeback",
+        "aoa-session-route-forks",
+        "aoa-session-self-diagnose",
+        "aoa-session-self-repair",
+        "aoa-session-progression-lift",
+        "aoa-quest-harvest",
+        "aoa-decision",
+        "aoa-decision-find",
+        "aoa-decision-create",
+        "aoa-decision-correct",
+        "aoa-change-protocol",
+        "aoa-approval-gate-check",
+        "aoa-dry-run-first",
+        "aoa-local-stack-bringup",
+        "aoa-safe-infra-change",
+        "aoa-sanitized-share",
+        "aoa-eval",
+        "aoa-eval-select",
+        "aoa-eval-apply",
+        "aoa-eval-local-need",
+        "aoa-eval-design",
+        "aoa-eval-session-mining",
+        "aoa-commit-growth-seam",
+        "aoa-summon"
+      ],
       "missing_skill_count": 0,
       "missing_skills": [],
       "profile": "user-aoa-foundation",
@@ -33,35 +61,35 @@
         "latest_tagged_version": "0.4.0",
         "releasing_doc": "mechanics/release-support/docs/RELEASING.md"
       },
-      "returncode": 0,
-      "status": "ok",
+      "returncode": 1,
+      "status": "failed",
       "stderr_line_count": 0,
-      "stdout_line_count": 425,
-      "verified": true,
-      "verified_skill_count": 36,
-      "verifier_ref": "/srv/AbyssOS/aoa-skills/scripts/verify_skill_pack.py"
+      "stdout_line_count": 453,
+      "verified": false,
+      "verified_skill_count": 9,
+      "verifier_ref": "repo:aoa-skills/scripts/verify_skill_pack.py"
     },
-    "installed_profile_verified": true,
-    "installed_sha256": "2e3afc86e92bd24b6ba5f464c3f3703fb5a95bfa50cd2b3f50e30a0970ce10c5",
-    "installed_skill_ref": "/home/dionysus/.codex/skills/aoa-eval/SKILL.md",
+    "installed_profile_verified": false,
+    "installed_sha256": "c14d4b8844e01e9eb40b3ee30ebc9de46ebc7748b2641b7b1fbeef02738bd973",
+    "installed_skill_ref": "codex-skills/aoa-eval/SKILL.md",
     "prompt_visible_live_check": "external_live_check_required",
-    "runtime_discovery_index_ref": "/srv/AbyssOS/aoa-skills/generated/runtime_discovery_index.json",
+    "runtime_discovery_index_ref": "repo:aoa-skills/generated/runtime_discovery_index.json",
     "runtime_discovery_mentions_aoa_eval": true,
     "source_exists": true,
     "source_sha256": "2e3afc86e92bd24b6ba5f464c3f3703fb5a95bfa50cd2b3f50e30a0970ce10c5",
-    "source_skill_ref": "/srv/AbyssOS/aoa-skills/.agents/skills/aoa-eval/SKILL.md",
+    "source_skill_ref": "repo:aoa-skills/.agents/skills/aoa-eval/SKILL.md",
     "subskills_posture": "manual_or_skill-local; root aoa-eval route remains the trigger surface",
     "trigger_report_exists": true,
-    "trigger_report_ref": "/srv/AbyssOS/aoa-skills/evals/reports/aoa-eval-prompt-trigger-harness-20260625.report.md",
+    "trigger_report_ref": "repo:aoa-skills/evals/reports/aoa-eval-prompt-trigger-harness-20260625.report.md",
     "trigger_suite_exists": true,
-    "trigger_suite_ref": "/srv/AbyssOS/aoa-skills/evals/suites/aoa-eval-trigger-corpus.suite.md",
+    "trigger_suite_ref": "repo:aoa-skills/evals/suites/aoa-eval-trigger-corpus.suite.md",
     "verification_command": "python -m pytest -q tests/test_aoa_eval_prompt_trigger_harness.py"
   },
   "aoa_session_memory_freshness": {
-    "aoa_root": "/srv/AbyssOS/.aoa",
+    "aoa_root": "workspace:OS_ABYSS/.aoa",
     "authority_boundary": ".aoa provides session evidence and candidate-only refs, not reviewed eval truth.",
     "freshness_hints": {
-      "line_count": 3147,
+      "line_count": 3459,
       "mentions_indexed_archive_freshness": false,
       "mentions_stale": true
     },
@@ -72,18 +100,14 @@
         "graph_maintenance_needed",
         "graph_source_ledger_store_count_mismatch",
         "index_maintenance_needed",
-        "maintenance_queue_empty_but_ledger_actionable_sources_present",
-        "search_shards_incomplete_or_stale",
-        "session_projection_dirty",
-        "shard_document_count_catalog_mismatch:month/2026-06",
-        "shard_document_count_catalog_mismatch:month/2026-07"
+        "session_projection_dirty"
       ],
-      "exact_next_command": "python3 /srv/AbyssOS/.aoa/scripts/aoa_session_memory.py search-index '2026-07-11__048__\u043f\u043e\u0447\u0442\u0438-\u0432\u043e-\u0432\u0441\u0435\u0445-aoa-\u043e\u0440\u0433\u0430\u043d\u0430\u0445-\u043f\u0440\u043e\u0432\u0435\u0434\u0435\u043d-\u0440\u0435\u0444\u0430\u043a\u0442\u043e\u0440\u0438\u043d\u0433' --workspace-root /srv/AbyssOS --aoa-root /srv/AbyssOS/.aoa --no-rebuild --write-report",
+      "exact_next_command": "python3 workspace:OS_ABYSS/.aoa/scripts/aoa_session_memory.py search-index '2026-07-10__001__\u043a\u0430\u043a-\u0434\u0443\u043c\u0430\u0435\u0448\u044c-\u043c\u044b-\u043c\u043e\u0436\u0435\u043c-\u0430\u043f\u0440\u0433\u0435\u0439\u0434\u043d\u0443\u0442\u044c-\u0443\u043b\u0443\u0447\u0448\u0438\u0442\u044c' --workspace-root workspace:OS_ABYSS --aoa-root workspace:OS_ABYSS/.aoa --no-rebuild --write-report",
       "live_catchup_pending": true,
-      "live_tail_next_ready_at": "2026-07-11T07:56:46Z",
-      "live_tail_ready_count": 3,
-      "live_tail_status": "ready_for_catchup",
-      "live_tail_waiting_count": 8,
+      "live_tail_next_ready_at": "2026-07-13T23:00:39Z",
+      "live_tail_ready_count": 0,
+      "live_tail_status": "waiting_for_quiet_window",
+      "live_tail_waiting_count": 10,
       "maintenance_required": true,
       "next_action_id": "repair_search_actionable",
       "next_action_reason": "search_actionable_dirty_sessions",
@@ -91,11 +115,11 @@
       "recommendation": "run_maintenance",
       "route_status": "needs_attention"
     },
-    "next_route": "python3 /srv/AbyssOS/.aoa/scripts/aoa_session_memory.py search-index '2026-07-11__048__\u043f\u043e\u0447\u0442\u0438-\u0432\u043e-\u0432\u0441\u0435\u0445-aoa-\u043e\u0440\u0433\u0430\u043d\u0430\u0445-\u043f\u0440\u043e\u0432\u0435\u0434\u0435\u043d-\u0440\u0435\u0444\u0430\u043a\u0442\u043e\u0440\u0438\u043d\u0433' --workspace-root /srv/AbyssOS --aoa-root /srv/AbyssOS/.aoa --no-rebuild --write-report",
+    "next_route": "python3 workspace:OS_ABYSS/.aoa/scripts/aoa_session_memory.py search-index '2026-07-10__001__\u043a\u0430\u043a-\u0434\u0443\u043c\u0430\u0435\u0448\u044c-\u043c\u044b-\u043c\u043e\u0436\u0435\u043c-\u0430\u043f\u0440\u0433\u0435\u0439\u0434\u043d\u0443\u0442\u044c-\u0443\u043b\u0443\u0447\u0448\u0438\u0442\u044c' --workspace-root workspace:OS_ABYSS --aoa-root workspace:OS_ABYSS/.aoa --no-rebuild --write-report",
     "returncode": 1,
     "status": "failed",
     "stderr_line_count": 0,
-    "stdout_line_count": 3147
+    "stdout_line_count": 3459
   },
   "authority_boundary": "This generated read-model routes OS Abyss eval pressure. It is not a verdict, score, baseline, regression, receipt, or central proof acceptance surface.",
   "candidate_packet_import": {
@@ -206,7 +230,7 @@
             "AGENTS.md",
             "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
             "scripts/build_eval_readiness_dashboard.py",
-            "/srv/AbyssOS/aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
+            "repo:aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
           ],
           "packet_id": "session:aoa-eval-goal-shrink-completion-overclaim",
           "privacy_boundary": "Only bounded event refs and neutral route summaries are recorded; raw transcript text remains in .aoa.",
@@ -399,7 +423,7 @@
             "AGENTS.md",
             ".aoa/AGENTS.md",
             "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
-            "/srv/AbyssOS/aoa-skills/.agents/skills/aoa-eval/SKILL.md"
+            "repo:aoa-skills/.agents/skills/aoa-eval/SKILL.md"
           ],
           "packet_id": "session:aoa-eval-working-process-fossilized-as-doctrine",
           "privacy_boundary": "Only bounded event refs and normalized route descriptions are recorded; raw correction text stays in .aoa.",
@@ -641,7 +665,7 @@
           "AGENTS.md",
           "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
           "scripts/build_eval_readiness_dashboard.py",
-          "/srv/AbyssOS/aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
+          "repo:aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
         ],
         "packet_ref": "mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-goal-shrink-completion-overclaim.eval_candidate.json",
         "promotion_allowed": false,
@@ -731,7 +755,7 @@
           "AGENTS.md",
           ".aoa/AGENTS.md",
           "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
-          "/srv/AbyssOS/aoa-skills/.agents/skills/aoa-eval/SKILL.md"
+          "repo:aoa-skills/.agents/skills/aoa-eval/SKILL.md"
         ],
         "packet_ref": "mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-working-process-fossilized-as-doctrine.eval_candidate.json",
         "promotion_allowed": false,
@@ -1026,7 +1050,7 @@
         "purpose": "check front-door readiness gates and blockers"
       },
       {
-        "command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json",
+        "command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json-output /tmp/aoa_local_eval_ports.current.json --json",
         "purpose": "inspect active/skeleton/missing/invalid local eval ports"
       },
       {
@@ -1038,7 +1062,7 @@
         "purpose": "route a session candidate packet through Eval Forge"
       },
       {
-        "command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --local-port-inventory /tmp/aoa_local_eval_ports.current.json --workspace-root /srv/AbyssOS --json",
+        "command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --local-port-inventory /tmp/aoa_local_eval_ports.current.json --workspace-root workspace:OS_ABYSS --json",
         "purpose": "route one active local eval port through Eval Forge"
       },
       {
@@ -1061,7 +1085,7 @@
       "proof_authority": false,
       "valid": true
     },
-    "local_port_pressure_hint_command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --local-port-inventory /tmp/aoa_local_eval_ports.current.json --workspace-root /srv/AbyssOS --json",
+    "local_port_pressure_hint_command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --local-port-repo <repo_id> --local-port-inventory /tmp/aoa_local_eval_ports.current.json --workspace-root workspace:OS_ABYSS --json",
     "local_suite_execution_boundary": {
       "aggregate_priority": [
         "invalid",
@@ -1128,29 +1152,29 @@
       "by_classification": {
         "builder_or_projection": 5,
         "builder_with_check_mode": 16,
-        "deterministic_script_validator": 246,
-        "deterministic_test": 63,
-        "deterministic_validator": 226,
+        "deterministic_script_validator": 247,
+        "deterministic_test": 64,
+        "deterministic_validator": 227,
         "generated_readmodel_test": 9,
         "script_support": 16,
         "trace_eval_test": 14
       },
       "by_kind": {
-        "script": 283,
-        "test": 86,
-        "validator": 226
+        "script": 284,
+        "test": 87,
+        "validator": 227
       },
       "by_lane": {
         "advisory": 34,
         "generated": 52,
-        "latest_sibling": 2,
-        "mechanics_part_local": 51,
+        "latest_sibling": 4,
+        "mechanics_part_local": 52,
         "pinned_sibling": 1,
         "release": 16,
         "source_fast": 439
       },
       "by_recommended_route": {
-        "apply_as_deterministic_eval_support": 466,
+        "apply_as_deterministic_eval_support": 469,
         "candidate_only_eval_support": 11,
         "component_only_use_owning_validator_or_lane_command": 83,
         "forbidden_as_eval_apply_until_manual_owner_review": 4,
@@ -1162,24 +1186,24 @@
         "candidate_only": 11,
         "not_eval_relevant": 8,
         "reviewed_forbidden": 4,
-        "rule_reviewed": 572
+        "rule_reviewed": 575
       },
       "by_semantic_class": {
-        "deterministic_validator": 463,
+        "deterministic_validator": 465,
         "generated_parity_check": 32,
         "ordinary_support": 8,
         "runtime_candidate_support": 11,
         "trace_trajectory_eval_support": 14,
-        "unit_contract_property_test": 63,
+        "unit_contract_property_test": 64,
         "unsafe_side_effect_script": 4
       },
-      "eval_lane_relevant": 429,
-      "safe_to_apply_directly": 466,
-      "total_surfaces": 595,
+      "eval_lane_relevant": 431,
+      "safe_to_apply_directly": 469,
+      "total_surfaces": 598,
       "unsafe_side_effect_scripts": 4
     }
   },
-  "evals_root": "/srv/AbyssOS/aoa-evals",
+  "evals_root": "repo:aoa-evals",
   "external_research_grounding": [
     {
       "adopted": "Start debugging agent behavior from traces that expose model calls, tool calls, guardrails, handoffs, routing changes, and regressions before hardening datasets.",
@@ -1271,7 +1295,7 @@
     "current_signals": {
       "aoa_freshness_status": {
         "freshness_hints": {
-          "line_count": 3147,
+          "line_count": 3459,
           "mentions_indexed_archive_freshness": false,
           "mentions_stale": true
         },
@@ -1280,15 +1304,9 @@
       "dirty_repos": [
         {
           "branch": "main",
-          "dirty_count": 4,
+          "dirty_count": 21,
           "head": "7ff7bb4375154577b0793cfd31e37280c764b83d",
           "repo": "8Dionysus"
-        },
-        {
-          "branch": "main",
-          "dirty_count": 1,
-          "head": "6d2bd2bb21a2a5c66ff5cdc0c8ee821ce24c04bc",
-          "repo": "ATM10-Agent"
         },
         {
           "branch": "main",
@@ -1340,12 +1358,6 @@
         },
         {
           "branch": "main",
-          "dirty_count": 15,
-          "head": "3bc67b92bb681e543412288eb3908fc3d7426e47",
-          "repo": "aoa-sdk"
-        },
-        {
-          "branch": "main",
           "dirty_count": 102,
           "head": "f66ee11d3ba46486aa555ab2a806a80a711aae1d",
           "repo": "aoa-skills"
@@ -1361,16 +1373,10 @@
           "dirty_count": 4,
           "head": "983658d2859998c64ee8551f9815122475a81960",
           "repo": "aoa-techniques"
-        },
-        {
-          "branch": "main",
-          "dirty_count": 28,
-          "head": "0d2a567216ea19c908a2f81bcd57879ed80c4fe9",
-          "repo": "aoa-4pda-connector"
         }
       ],
       "git_summary": {
-        "dirty_repos": 15,
+        "dirty_repos": 12,
         "repos": 21,
         "unavailable_repos": 0
       },
@@ -1392,36 +1398,36 @@
         "with_local_port": 20
       },
       "mcp_runtime_status": {
-        "selected_stack_root": "/home/dionysus/src/abyss-stack",
+        "selected_stack_root": "repo:abyss-stack",
         "status": "ok"
       },
       "support_registry_summary": {
         "by_classification": {
           "builder_or_projection": 5,
           "builder_with_check_mode": 16,
-          "deterministic_script_validator": 246,
-          "deterministic_test": 63,
-          "deterministic_validator": 226,
+          "deterministic_script_validator": 247,
+          "deterministic_test": 64,
+          "deterministic_validator": 227,
           "generated_readmodel_test": 9,
           "script_support": 16,
           "trace_eval_test": 14
         },
         "by_kind": {
-          "script": 283,
-          "test": 86,
-          "validator": 226
+          "script": 284,
+          "test": 87,
+          "validator": 227
         },
         "by_lane": {
           "advisory": 34,
           "generated": 52,
-          "latest_sibling": 2,
-          "mechanics_part_local": 51,
+          "latest_sibling": 4,
+          "mechanics_part_local": 52,
           "pinned_sibling": 1,
           "release": 16,
           "source_fast": 439
         },
         "by_recommended_route": {
-          "apply_as_deterministic_eval_support": 466,
+          "apply_as_deterministic_eval_support": 469,
           "candidate_only_eval_support": 11,
           "component_only_use_owning_validator_or_lane_command": 83,
           "forbidden_as_eval_apply_until_manual_owner_review": 4,
@@ -1433,20 +1439,20 @@
           "candidate_only": 11,
           "not_eval_relevant": 8,
           "reviewed_forbidden": 4,
-          "rule_reviewed": 572
+          "rule_reviewed": 575
         },
         "by_semantic_class": {
-          "deterministic_validator": 463,
+          "deterministic_validator": 465,
           "generated_parity_check": 32,
           "ordinary_support": 8,
           "runtime_candidate_support": 11,
           "trace_trajectory_eval_support": 14,
-          "unit_contract_property_test": 63,
+          "unit_contract_property_test": 64,
           "unsafe_side_effect_script": 4
         },
-        "eval_lane_relevant": 429,
-        "safe_to_apply_directly": 466,
-        "total_surfaces": 595,
+        "eval_lane_relevant": 431,
+        "safe_to_apply_directly": 469,
+        "total_surfaces": 598,
         "unsafe_side_effect_scripts": 4
       }
     },
@@ -1454,8 +1460,8 @@
       "python scripts/check_eval_freshness_sentinel.py --json",
       "python scripts/build_eval_readiness_dashboard.py --write-generated",
       "python scripts/build_eval_readiness_dashboard.py --check",
-      "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json",
-      "PYTHONPATH=mcp/services/aoa-evals-mcp/src python -m aoa_evals_mcp.cli --workspace-root /srv/AbyssOS --evals-root /srv/AbyssOS/aoa-evals runtime-status",
+      "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json-output /tmp/aoa_local_eval_ports.current.json --json",
+      "PYTHONPATH=mcp/services/aoa-evals-mcp/src python -m aoa_evals_mcp.cli --workspace-root workspace:OS_ABYSS --evals-root repo:aoa-evals runtime-status",
       "python3 scripts/aoa_session_memory.py maintenance-status --full"
     ],
     "schema_version": "os_abyss_eval_freshness_sentinel_v1",
@@ -1469,7 +1475,7 @@
       "support registry inventory parseability"
     ]
   },
-  "generated_at_utc": "2026-07-11T07:46:47Z",
+  "generated_at_utc": "2026-07-13T22:52:48Z",
   "layer": "aoa-evals",
   "local_eval_ports": {
     "authority_boundary": "Repo-local eval ports carry intake, suites, reports, and pressure evidence only. Central verdict, scoring, regression, proof doctrine, and central bundle adoption remain in aoa-evals.",
@@ -1582,18 +1588,18 @@
         "required_file_count": 24,
         "schema_version": null
       },
-      "mirror_root": "/srv/AbyssOS/abyss-stack/Knowledge/federation/aoa-evals",
+      "mirror_root": "workspace:OS_ABYSS/abyss-stack/Knowledge/federation/aoa-evals",
       "root_kind": "source",
-      "runtime_candidate_export_count": 977,
+      "runtime_candidate_export_count": 1011,
       "runtime_candidate_template_count": 14,
       "schema": "aoa_evals_runtime_status_v1",
-      "selected_root": "/srv/AbyssOS/aoa-evals",
-      "source_root": "/srv/AbyssOS/aoa-evals",
-      "workspace_root": "/srv/AbyssOS"
+      "selected_root": "repo:aoa-evals",
+      "source_root": "repo:aoa-evals",
+      "workspace_root": "workspace:OS_ABYSS"
     },
     "returncode": 0,
-    "selected_stack_root": "/home/dionysus/src/abyss-stack",
-    "source_path": "/home/dionysus/src/abyss-stack/mcp/services/aoa-evals-mcp/src",
+    "selected_stack_root": "repo:abyss-stack",
+    "source_path": "repo:abyss-stack/mcp/services/aoa-evals-mcp/src",
     "status": "ok",
     "stderr_line_count": 0,
     "stdout_line_count": 287
@@ -1691,7 +1697,7 @@
       {
         "active_pressure_count": 6,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"aoa-skills\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"aoa-skills\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -1750,7 +1756,7 @@
       {
         "active_pressure_count": 11,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"connectors/aoa-course-connector\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"connectors/aoa-course-connector\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -1763,7 +1769,7 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "64a36becd3851c23bb2829dc0eb936dc9b9d3f47",
+            "git_head": "2553848e089fc143957a6133f7babe04ed573415",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -1808,7 +1814,7 @@
       {
         "active_pressure_count": 2,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"aoa-memo\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"aoa-memo\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -1867,7 +1873,7 @@
       {
         "active_pressure_count": 3,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"aoa-routing\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"aoa-routing\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -1926,7 +1932,7 @@
       {
         "active_pressure_count": 2,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"connectors/aoa-4pda-connector\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"connectors/aoa-4pda-connector\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -1939,12 +1945,11 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "0d2a567216ea19c908a2f81bcd57879ed80c4fe9",
+            "git_head": "a06acc2bc288a3be6b3bc4d654eb350f7aa7171a",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "repo_has_dirty_worktree",
             "aoa_evals_mcp_mirror_stale",
             "aoa_session_memory_freshness_unhealthy"
           ]
@@ -1985,7 +1990,7 @@
       {
         "active_pressure_count": 1,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"connectors/aoa-discord-connector\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"connectors/aoa-discord-connector\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -1998,7 +2003,7 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "375269ad45545d28a108ca11b5ef4e09618e8c42",
+            "git_head": "ca923225b6a58e0e97c4a0d8582dd33ec70dbd6b",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -2043,7 +2048,7 @@
       {
         "active_pressure_count": 1,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"connectors/aoa-stackoverflow-connector\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"connectors/aoa-stackoverflow-connector\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -2056,7 +2061,7 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "cbd44c1a3349833c3d44c1dd90ca20ea913ad903",
+            "git_head": "2da4a9bfc84e3e1cfcc08e5b134f3c22df34a8f0",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -2101,7 +2106,7 @@
       {
         "active_pressure_count": 1,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"connectors/aoa-telegram-connector\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"connectors/aoa-telegram-connector\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -2114,7 +2119,7 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "694125550adebae3320acb32d0ecbf5e86da3916",
+            "git_head": "7e3e99c307c5519fb898e1c33dea0b223d9f1492",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -2159,7 +2164,7 @@
       {
         "active_pressure_count": 1,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"connectors/aoa-xda-connector\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"connectors/aoa-xda-connector\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -2172,7 +2177,7 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "f0a2ba364db170e6198361741c4dd3688e242de1",
+            "git_head": "200f019ae6d3827c06046c9a61286584988bf7d4",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -2217,7 +2222,7 @@
       {
         "active_pressure_count": 0,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"8Dionysus\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"8Dionysus\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -2276,7 +2281,7 @@
       {
         "active_pressure_count": 0,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"ATM10-Agent\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"ATM10-Agent\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -2289,12 +2294,11 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "6d2bd2bb21a2a5c66ff5cdc0c8ee821ce24c04bc",
+            "git_head": "5044451c1c0690acaa2d73dd0e7f6a41f7c157d5",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "repo_has_dirty_worktree",
             "aoa_evals_mcp_mirror_stale",
             "aoa_session_memory_freshness_unhealthy"
           ]
@@ -2335,7 +2339,7 @@
       {
         "active_pressure_count": 0,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"Agents-of-Abyss\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"Agents-of-Abyss\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -2394,7 +2398,7 @@
       {
         "active_pressure_count": 0,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"Dionysus\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"Dionysus\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -2453,7 +2457,7 @@
       {
         "active_pressure_count": 0,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"Tree-of-Sophia\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"Tree-of-Sophia\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -2512,7 +2516,7 @@
       {
         "active_pressure_count": 0,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"aoa-agents\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"aoa-agents\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -2571,7 +2575,7 @@
       {
         "active_pressure_count": 0,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"aoa-kag\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"aoa-kag\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -2583,8 +2587,8 @@
           "blocks_eval_route": false,
           "refs": {
             "aoa_freshness_status": "failed",
-            "git_branch": null,
-            "git_head": "68891c232ff6f5ab3c0a40c4a68f7f373c51aab4",
+            "git_branch": "codex/kag-canonical-self-knowledge-20260711",
+            "git_head": "d9e9bb26d884cf77c762c8fd8fef1763cd3ebd60",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -2629,7 +2633,7 @@
       {
         "active_pressure_count": 0,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"aoa-playbooks\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"aoa-playbooks\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -2688,7 +2692,7 @@
       {
         "active_pressure_count": 0,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"aoa-sdk\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"aoa-sdk\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -2701,12 +2705,11 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "3bc67b92bb681e543412288eb3908fc3d7426e47",
+            "git_head": "f17634f33f5c1042cfdc3b13fa9b9b0066981f02",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "repo_has_dirty_worktree",
             "aoa_evals_mcp_mirror_stale",
             "aoa_session_memory_freshness_unhealthy"
           ]
@@ -2747,7 +2750,7 @@
       {
         "active_pressure_count": 0,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"aoa-stats\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"aoa-stats\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -2806,7 +2809,7 @@
       {
         "active_pressure_count": 0,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json | jq '.repos[] | select(.repo_id == \"aoa-techniques\")'",
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"aoa-techniques\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
           "mcp_auto_promotion",
@@ -3190,38 +3193,38 @@
     "repos": [
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 2]",
-        "dirty_count": 4,
+        "branch_status": "## main...origin/main [ahead 1, behind 4]",
+        "dirty_count": 21,
         "head": "7ff7bb4375154577b0793cfd31e37280c764b83d",
         "repo": "8Dionysus",
-        "repo_path": "/srv/AbyssOS/8Dionysus",
+        "repo_path": "workspace:OS_ABYSS/8Dionysus",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 4]",
-        "dirty_count": 1,
-        "head": "6d2bd2bb21a2a5c66ff5cdc0c8ee821ce24c04bc",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 0,
+        "head": "5044451c1c0690acaa2d73dd0e7f6a41f7c157d5",
         "repo": "ATM10-Agent",
-        "repo_path": "/srv/AbyssOS/ATM10-Agent",
+        "repo_path": "workspace:OS_ABYSS/ATM10-Agent",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 7]",
+        "branch_status": "## main...origin/main [ahead 1, behind 8]",
         "dirty_count": 12,
         "head": "fab35c95823f6257cf991a7ec740274293f7a8b2",
         "repo": "Agents-of-Abyss",
-        "repo_path": "/srv/AbyssOS/Agents-of-Abyss",
+        "repo_path": "workspace:OS_ABYSS/Agents-of-Abyss",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 3]",
+        "branch_status": "## main...origin/main [ahead 1, behind 5]",
         "dirty_count": 3,
         "head": "3733eb559421527fd3447cbecbe124c59dbb8b32",
         "repo": "Dionysus",
-        "repo_path": "/srv/AbyssOS/Dionysus",
+        "repo_path": "workspace:OS_ABYSS/Dionysus",
         "status": "ok"
       },
       {
@@ -3230,161 +3233,161 @@
         "dirty_count": 16,
         "head": "b204ed2a20855da924fac74abe6a4a5b38f16fc9",
         "repo": "Tree-of-Sophia",
-        "repo_path": "/srv/AbyssOS/Tree-of-Sophia",
-        "status": "ok"
-      },
-      {
-        "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 4]",
-        "dirty_count": 10,
-        "head": "88a6b0b621c0d8e7025e392dadb9501e288da0d6",
-        "repo": "aoa-agents",
-        "repo_path": "/srv/AbyssOS/aoa-agents",
-        "status": "ok"
-      },
-      {
-        "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 4]",
-        "dirty_count": 29,
-        "head": "c14f421c378f96c8ff5e3fc6f371ceffdba668ef",
-        "repo": "aoa-evals",
-        "repo_path": "/srv/AbyssOS/aoa-evals",
-        "status": "ok"
-      },
-      {
-        "branch": null,
-        "branch_status": "## HEAD (no branch)",
-        "dirty_count": 0,
-        "head": "68891c232ff6f5ab3c0a40c4a68f7f373c51aab4",
-        "repo": "aoa-kag",
-        "repo_path": "/srv/AbyssOS/aoa-kag",
-        "status": "ok"
-      },
-      {
-        "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 4]",
-        "dirty_count": 12,
-        "head": "71972e4e0c5a325d5d169e96c21699017de62bf9",
-        "repo": "aoa-memo",
-        "repo_path": "/srv/AbyssOS/aoa-memo",
-        "status": "ok"
-      },
-      {
-        "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 4]",
-        "dirty_count": 4,
-        "head": "921d75250b3bbc4c18ade09149670797823894a7",
-        "repo": "aoa-playbooks",
-        "repo_path": "/srv/AbyssOS/aoa-playbooks",
-        "status": "ok"
-      },
-      {
-        "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 4]",
-        "dirty_count": 17,
-        "head": "044ec28b5c269d5250e5b76d37217cea1d4505d8",
-        "repo": "aoa-routing",
-        "repo_path": "/srv/AbyssOS/aoa-routing",
+        "repo_path": "workspace:OS_ABYSS/Tree-of-Sophia",
         "status": "ok"
       },
       {
         "branch": "main",
         "branch_status": "## main...origin/main [ahead 1, behind 6]",
-        "dirty_count": 15,
-        "head": "3bc67b92bb681e543412288eb3908fc3d7426e47",
-        "repo": "aoa-sdk",
-        "repo_path": "/srv/AbyssOS/aoa-sdk",
-        "status": "ok"
-      },
-      {
-        "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 15]",
-        "dirty_count": 102,
-        "head": "f66ee11d3ba46486aa555ab2a806a80a711aae1d",
-        "repo": "aoa-skills",
-        "repo_path": "/srv/AbyssOS/aoa-skills",
+        "dirty_count": 10,
+        "head": "88a6b0b621c0d8e7025e392dadb9501e288da0d6",
+        "repo": "aoa-agents",
+        "repo_path": "workspace:OS_ABYSS/aoa-agents",
         "status": "ok"
       },
       {
         "branch": "main",
         "branch_status": "## main...origin/main [ahead 1, behind 9]",
-        "dirty_count": 2,
-        "head": "fb236efa36f7faca2a88f08267a13a155abf6ba5",
-        "repo": "aoa-stats",
-        "repo_path": "/srv/AbyssOS/aoa-stats",
+        "dirty_count": 29,
+        "head": "c14f421c378f96c8ff5e3fc6f371ceffdba668ef",
+        "repo": "aoa-evals",
+        "repo_path": "repo:aoa-evals",
+        "status": "ok"
+      },
+      {
+        "branch": "codex/kag-canonical-self-knowledge-20260711",
+        "branch_status": "## codex/kag-canonical-self-knowledge-20260711...origin/codex/kag-canonical-self-knowledge-20260711 [gone]",
+        "dirty_count": 0,
+        "head": "d9e9bb26d884cf77c762c8fd8fef1763cd3ebd60",
+        "repo": "aoa-kag",
+        "repo_path": "workspace:OS_ABYSS/aoa-kag",
+        "status": "ok"
+      },
+      {
+        "branch": "main",
+        "branch_status": "## main...origin/main [ahead 1, behind 8]",
+        "dirty_count": 12,
+        "head": "71972e4e0c5a325d5d169e96c21699017de62bf9",
+        "repo": "aoa-memo",
+        "repo_path": "workspace:OS_ABYSS/aoa-memo",
         "status": "ok"
       },
       {
         "branch": "main",
         "branch_status": "## main...origin/main [ahead 1, behind 6]",
         "dirty_count": 4,
+        "head": "921d75250b3bbc4c18ade09149670797823894a7",
+        "repo": "aoa-playbooks",
+        "repo_path": "workspace:OS_ABYSS/aoa-playbooks",
+        "status": "ok"
+      },
+      {
+        "branch": "main",
+        "branch_status": "## main...origin/main [ahead 1, behind 16]",
+        "dirty_count": 17,
+        "head": "044ec28b5c269d5250e5b76d37217cea1d4505d8",
+        "repo": "aoa-routing",
+        "repo_path": "workspace:OS_ABYSS/aoa-routing",
+        "status": "ok"
+      },
+      {
+        "branch": "main",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 0,
+        "head": "f17634f33f5c1042cfdc3b13fa9b9b0066981f02",
+        "repo": "aoa-sdk",
+        "repo_path": "workspace:OS_ABYSS/aoa-sdk",
+        "status": "ok"
+      },
+      {
+        "branch": "main",
+        "branch_status": "## main...origin/main [ahead 1, behind 87]",
+        "dirty_count": 102,
+        "head": "f66ee11d3ba46486aa555ab2a806a80a711aae1d",
+        "repo": "aoa-skills",
+        "repo_path": "repo:aoa-skills",
+        "status": "ok"
+      },
+      {
+        "branch": "main",
+        "branch_status": "## main...origin/main [ahead 1, behind 56]",
+        "dirty_count": 2,
+        "head": "fb236efa36f7faca2a88f08267a13a155abf6ba5",
+        "repo": "aoa-stats",
+        "repo_path": "workspace:OS_ABYSS/aoa-stats",
+        "status": "ok"
+      },
+      {
+        "branch": "main",
+        "branch_status": "## main...origin/main [ahead 1, behind 9]",
+        "dirty_count": 4,
         "head": "983658d2859998c64ee8551f9815122475a81960",
         "repo": "aoa-techniques",
-        "repo_path": "/srv/AbyssOS/aoa-techniques",
+        "repo_path": "workspace:OS_ABYSS/aoa-techniques",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 5]",
-        "dirty_count": 28,
-        "head": "0d2a567216ea19c908a2f81bcd57879ed80c4fe9",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 0,
+        "head": "a06acc2bc288a3be6b3bc4d654eb350f7aa7171a",
         "repo": "aoa-4pda-connector",
-        "repo_path": "/srv/AbyssOS/connectors/aoa-4pda-connector",
+        "repo_path": "workspace:OS_ABYSS/connectors/aoa-4pda-connector",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main",
+        "branch_status": "## main...origin/main [behind 1]",
         "dirty_count": 0,
-        "head": "64a36becd3851c23bb2829dc0eb936dc9b9d3f47",
+        "head": "2553848e089fc143957a6133f7babe04ed573415",
         "repo": "aoa-course-connector",
-        "repo_path": "/srv/AbyssOS/connectors/aoa-course-connector",
+        "repo_path": "workspace:OS_ABYSS/connectors/aoa-course-connector",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main",
+        "branch_status": "## main...origin/main [behind 1]",
         "dirty_count": 0,
-        "head": "375269ad45545d28a108ca11b5ef4e09618e8c42",
+        "head": "ca923225b6a58e0e97c4a0d8582dd33ec70dbd6b",
         "repo": "aoa-discord-connector",
-        "repo_path": "/srv/AbyssOS/connectors/aoa-discord-connector",
+        "repo_path": "workspace:OS_ABYSS/connectors/aoa-discord-connector",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main",
+        "branch_status": "## main...origin/main [behind 1]",
         "dirty_count": 0,
-        "head": "cbd44c1a3349833c3d44c1dd90ca20ea913ad903",
+        "head": "2da4a9bfc84e3e1cfcc08e5b134f3c22df34a8f0",
         "repo": "aoa-stackoverflow-connector",
-        "repo_path": "/srv/AbyssOS/connectors/aoa-stackoverflow-connector",
+        "repo_path": "workspace:OS_ABYSS/connectors/aoa-stackoverflow-connector",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main",
+        "branch_status": "## main...origin/main [behind 1]",
         "dirty_count": 0,
-        "head": "694125550adebae3320acb32d0ecbf5e86da3916",
+        "head": "7e3e99c307c5519fb898e1c33dea0b223d9f1492",
         "repo": "aoa-telegram-connector",
-        "repo_path": "/srv/AbyssOS/connectors/aoa-telegram-connector",
+        "repo_path": "workspace:OS_ABYSS/connectors/aoa-telegram-connector",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main",
+        "branch_status": "## main...origin/main [behind 1]",
         "dirty_count": 0,
-        "head": "f0a2ba364db170e6198361741c4dd3688e242de1",
+        "head": "200f019ae6d3827c06046c9a61286584988bf7d4",
         "repo": "aoa-xda-connector",
-        "repo_path": "/srv/AbyssOS/connectors/aoa-xda-connector",
+        "repo_path": "workspace:OS_ABYSS/connectors/aoa-xda-connector",
         "status": "ok"
       }
     ],
     "status": "ok",
     "summary": {
-      "dirty_repos": 15,
+      "dirty_repos": 12,
       "repos": 21,
       "unavailable_repos": 0
     },
-    "workspace_root": "/srv/AbyssOS"
+    "workspace_root": "workspace:OS_ABYSS"
   },
-  "workspace_root": "/srv/AbyssOS"
+  "workspace_root": "workspace:OS_ABYSS"
 }

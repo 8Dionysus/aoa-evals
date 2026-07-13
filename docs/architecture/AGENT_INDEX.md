@@ -54,6 +54,7 @@ owning authority class is explicit.
 | `docs/decisions/*.md` | decision rationale | `docs/decisions/AGENTS.md` and the source surface being explained |
 | `stats/**` | owner-local statistics | `stats/AGENTS.md` and `stats/port.manifest.json` for the local route; `aoa-stats` for shared grammar and composition |
 | `generated/*` | derived reader | `generated/AGENTS.md` plus the builder and source inputs |
+| `kag/*` | local KAG provider record | `kag/AGENTS.md`, `kag/manifest.json`, owner validator, and `aoa-kag` local subtree validation |
 | `quests/<lane>/<state>/*.yaml` | source quest record | `quests/AGENTS.md`, `QUESTBOOK.md`, and quest schemas |
 | `mechanics/<parent>/` | mechanic parent operation | parent `AGENTS.md`, `README.md`, `DIRECTION.md`, `PARTS.md`, `PROVENANCE.md` |
 | `mechanics/<parent>/parts/<part>/` | mechanic part operation | part `README.md`, `VALIDATION.md`, and parent `parts/AGENTS.md` |
@@ -109,6 +110,7 @@ When starting from a payload, ask these in order:
 | `mechanics/<parent>/parts/<part>/` | Is the payload named by the part `README.md` and covered by `VALIDATION.md`? |
 | `stats/` | Does `aoa-evals` still own the local meaning while `aoa-stats` owns only shared grammar and composition? |
 | `generated/` or part-local `generated/` | Which builder and source inputs produced it? |
+| `kag/` | Does `kag/manifest.json` advertise both owner-local and `aoa-kag` provider validation, and do records name a real KAG authoring or builder route? |
 | route-card-only root districts | Is this only `AGENTS.md` or `README.md`? Any other payload is drift. |
 | `docs/` | Is this source guidance, topology, decision rationale, or a docs map? |
 | `scripts/` or `tests/` | Which owner carries it: root-wide infrastructure or part-local route? |

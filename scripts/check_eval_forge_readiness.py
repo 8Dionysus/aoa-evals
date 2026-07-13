@@ -11,8 +11,10 @@ from pathlib import Path
 from typing import Any, Sequence
 
 import build_eval_readiness_dashboard as readiness
+import check_eval_candidate_queue_lifecycle as candidate_lifecycle
 import check_eval_freshness_sentinel as freshness_sentinel
 import check_eval_support_registry as support_registry_review
+import validate_eval_candidate_packets as candidate_packet_validator
 
 
 SCHEMA_VERSION = "os_abyss_eval_forge_readiness_check_v1"
@@ -249,6 +251,14 @@ def build_payload(
     candidate_queue = dashboard["candidate_queue"]
     candidate_ids = {str(item.get("candidate_id")) for item in candidate_queue.get("entries", []) if isinstance(item, dict)}
     missing_packets = sorted(REQUIRED_SESSION_PACKET_IDS.difference(candidate_ids))
+    candidate_packet_root = evals_root / readiness.CANDIDATE_PACKET_RELATIVE
+    candidate_packet_paths = candidate_packet_validator.packet_paths([str(candidate_packet_root)])
+    candidate_packet_issues = candidate_packet_validator.validate_files(candidate_packet_paths)
+    candidate_packet_validation = candidate_packet_validator.result_payload(
+        candidate_packet_paths,
+        candidate_packet_issues,
+    )
+    candidate_lifecycle_payload = candidate_lifecycle.build_lifecycle_payload([str(candidate_packet_root)])
     mining_status = dashboard["trigger_criteria"]["session_mining_status"]
     docs_guide = evals_root / "docs/guides/EVAL_FORGE_READINESS_LAYER.md"
     docs_map = evals_root / "docs/README.md"
@@ -304,12 +314,33 @@ def build_payload(
         ),
         gate(
             "manual_session_mining_gate",
-            status="ok" if not missing_packets and int(mining_status.get("reviewed_count") or 0) >= 20 else "error",
-            reason="manual mining report reviewed real episodes and imported the five known candidate packets",
+            status=(
+                "ok"
+                if not missing_packets
+                and int(mining_status.get("reviewed_count") or 0) >= 20
+                and candidate_packet_validation["valid"] is True
+                and candidate_lifecycle_payload["valid"] is True
+                else "error"
+            ),
+            reason=(
+                "manual mining report reviewed real episodes, imported required candidate packets, and packet/lifecycle validators pass"
+            ),
             evidence={
                 "reviewed_count": mining_status.get("reviewed_count"),
                 "packetized_count": mining_status.get("packetized_count"),
                 "missing_required_packet_ids": missing_packets,
+                "candidate_packet_validation": {
+                    "valid": candidate_packet_validation["valid"],
+                    "packet_count": candidate_packet_validation["packet_count"],
+                    "issue_count": len(candidate_packet_validation["issues"]),
+                    "issues": candidate_packet_validation["issues"][:10],
+                },
+                "candidate_queue_lifecycle": {
+                    "valid": candidate_lifecycle_payload["valid"],
+                    "packet_count": candidate_lifecycle_payload["packet_count"],
+                    "issue_count": candidate_lifecycle_payload["issue_count"],
+                    "issues": candidate_lifecycle_payload["issues"][:10],
+                },
                 "report_refs": mining_status.get("report_refs"),
             },
             next_command="python scripts/validate_eval_candidate_packets.py mechanics/audit/parts/candidate-readers/packets",

@@ -9,8 +9,8 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 ## Summary
 
-- Generated at: `2026-07-11T07:46:47Z`
-- Workspace root: `/srv/AbyssOS`
+- Generated at: `2026-07-13T22:52:48Z`
+- Workspace root: `workspace:OS_ABYSS`
 - Central evals: 39
 - Local active ports: 9
 - Local invalid ports: 0
@@ -21,11 +21,11 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 - Eval Forge archetypes: 18
 - Eval Forge candidate hints: 5
 - Session-mining reviewed episodes: 20
-- Support surfaces: 595 total, 429 eval-relevant
+- Support surfaces: 598 total, 431 eval-relevant
 - Eval-relevant surfaces with unresolved manual review: 0
 - Unsafe side-effect scripts: 4
 - MCP runtime status: `ok`
-- Dirty repos: 15
+- Dirty repos: 12
 
 ## Research Grounding
 
@@ -151,25 +151,25 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 ## Support Registry
 
 - Support registry JSON: `generated/eval_support_registry.json`
-- Eval-relevant surfaces: 429
-- Recommended routes: `{"apply_as_deterministic_eval_support": 466, "candidate_only_eval_support": 11, "component_only_use_owning_validator_or_lane_command": 83, "forbidden_as_eval_apply_until_manual_owner_review": 4, "generated_readmodel_support": 6, "ordinary_owner_route": 8, "run_check_mode_before_eval_support": 17}`
-- Semantic classes: `{"deterministic_validator": 463, "generated_parity_check": 32, "ordinary_support": 8, "runtime_candidate_support": 11, "trace_trajectory_eval_support": 14, "unit_contract_property_test": 63, "unsafe_side_effect_script": 4}`
-- Review status: `{"candidate_only": 11, "not_eval_relevant": 8, "reviewed_forbidden": 4, "rule_reviewed": 572}`
+- Eval-relevant surfaces: 431
+- Recommended routes: `{"apply_as_deterministic_eval_support": 469, "candidate_only_eval_support": 11, "component_only_use_owning_validator_or_lane_command": 83, "forbidden_as_eval_apply_until_manual_owner_review": 4, "generated_readmodel_support": 6, "ordinary_owner_route": 8, "run_check_mode_before_eval_support": 17}`
+- Semantic classes: `{"deterministic_validator": 465, "generated_parity_check": 32, "ordinary_support": 8, "runtime_candidate_support": 11, "trace_trajectory_eval_support": 14, "unit_contract_property_test": 64, "unsafe_side_effect_script": 4}`
+- Review status: `{"candidate_only": 11, "not_eval_relevant": 8, "reviewed_forbidden": 4, "rule_reviewed": 575}`
 
 ## Runtime Adoption
 
 - Source skill exists: True
 - Installed skill exists: True
-- Installed matches source: True
-- Installed profile verified: True
+- Installed matches source: False
+- Installed profile verified: False
 - Runtime discovery mentions `aoa-eval`: True
 - Trigger harness owner: `aoa-skills:evals/suites/aoa-eval-trigger-corpus.suite.md`
 
 ## Freshness Sentinel
 
 - Git repos: 21
-- Dirty repos: 15
-- MCP selected root: `/home/dionysus/src/abyss-stack`
+- Dirty repos: 12
+- MCP selected root: `repo:abyss-stack`
 - .aoa freshness status: `failed`
 
 ## Phase Coverage

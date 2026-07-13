@@ -7,6 +7,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = REPO_ROOT / "scripts"
@@ -15,6 +16,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 import validation_lanes
 import ci_gate
+import validate_abyss_machine_report_index_bundle
 from validators import (
     validation_lane_manifest,
     validation_script_inventory,
@@ -206,6 +208,55 @@ python scripts/validate_repo.py
         self.assertEqual(
             ("node", "--version"),
             validation_lanes.command_for_runtime(("node", "--version")),
+        )
+
+    def test_report_index_bundle_validator_uses_temporary_paths_by_default(self) -> None:
+        captured: dict[str, Path] = {}
+
+        def fake_validate(
+            manifest: Path,
+            subject: Path,
+            bundle_dir: Path,
+            registry_dir: Path,
+            subject_store_root: Path,
+            *,
+            clean: bool,
+        ) -> dict:
+            captured.update(
+                {
+                    "bundle_dir": bundle_dir,
+                    "registry_dir": registry_dir,
+                    "subject_store_root": subject_store_root,
+                }
+            )
+            return {"ok": True, "bundle_dir": str(bundle_dir), "registry_dir": str(registry_dir)}
+
+        with patch.object(
+            validate_abyss_machine_report_index_bundle,
+            "_validate_in_bundle_dir",
+            side_effect=fake_validate,
+        ):
+            payload = validate_abyss_machine_report_index_bundle.validate_bundle(
+                validate_abyss_machine_report_index_bundle.DEFAULT_MANIFEST,
+                validate_abyss_machine_report_index_bundle.DEFAULT_SUBJECT,
+                None,
+                None,
+                None,
+                clean=True,
+            )
+
+        self.assertTrue(payload["ok"])
+        self.assertNotEqual(
+            captured["bundle_dir"],
+            validate_abyss_machine_report_index_bundle.DEFAULT_BUNDLE_DIR,
+        )
+        self.assertNotEqual(
+            captured["registry_dir"],
+            validate_abyss_machine_report_index_bundle.DEFAULT_REGISTRY_DIR,
+        )
+        self.assertNotEqual(
+            captured["subject_store_root"],
+            validate_abyss_machine_report_index_bundle.DEFAULT_SUBJECT_STORE_ROOT,
         )
 
     def test_validator_inventory_entries_are_complete_and_owner_routed(self) -> None:

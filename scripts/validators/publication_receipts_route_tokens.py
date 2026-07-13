@@ -166,7 +166,6 @@ PUBLICATION_RECEIPTS_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "stronger owner split",
     "stop-lines",
     "not_published",
-    "python scripts/validate_repo.py",
 )
 
 

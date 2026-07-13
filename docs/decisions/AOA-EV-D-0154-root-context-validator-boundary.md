@@ -101,8 +101,8 @@ As of 2026-06-05:
   `scripts/validators/root_route_tokens.py`, `scripts/validators/root_topology.py`,
   `scripts/validators/mechanics_routes.py`, validation inventories, and
   `mechanics/EVIDENCE_CLUSTERS.md`.
-- Validation: root-context and route-token focused tests, source-fast gate, and
-  release check.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -116,5 +116,5 @@ validators.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/root_context.py scripts/validators/root_route_tokens.py mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py tests/test_runtime_evidence_surfaces.py tests/test_downstream_feed_contracts.py tests/test_generated_route_residue.py tests/validate_repo_fixtures.py tests/test_route_residue.py tests/test_mechanic_parent_topology.py tests/test_mechanic_evidence_ledger.py tests/test_mechanic_root_district_recon.py`
-- `python -m pytest -q tests/test_runtime_evidence_surfaces.py tests/test_downstream_feed_contracts.py tests/test_generated_route_residue.py tests/test_route_residue.py tests/test_eval_source_topology.py tests/test_validate_repo.py tests/test_quest_and_reader_surfaces.py mechanics/boundary-bridge/parts/latest-sibling-canary/tests/test_sibling_canary.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

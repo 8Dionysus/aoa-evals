@@ -73,7 +73,5 @@ It does not create new parent mechanics, move source proof bundles out of
 
 ## Validation
 
-```bash
-python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_source_surfaces_section
-python scripts/validate_repo.py
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

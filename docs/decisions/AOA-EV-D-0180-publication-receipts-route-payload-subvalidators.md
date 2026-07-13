@@ -98,8 +98,5 @@ memory, dry-review acceptance, or canonical `aoa-stats` ownership.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/publication_receipts_route_paths.py scripts/validators/publication_receipts_route_tokens.py scripts/validators/publication_receipts_route_helpers.py scripts/validators/publication_receipts_routes.py scripts/validators/publication_receipts_payload.py scripts/validators/publication_receipts_common.py scripts/validators/publication_receipts_intake_common.py scripts/validators/publication_receipts_intake_route.py scripts/validators/publication_receipts_intake_artifact.py scripts/validators/publication_receipts_intake_preview.py scripts/validators/publication_receipts_intake_boundary.py scripts/validators/publication_receipts_live.py scripts/validators/evidence_readouts.py scripts/validators/mechanics_routes.py`
-- `python -m pytest -q mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py tests/test_mechanic_surface_contracts.py -k publication_receipts`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

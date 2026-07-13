@@ -37,7 +37,6 @@ MECHANIC_PAYLOAD_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
     "route-card-only root district",
     "structured manifest route fields",
     "root-authored docs globs",
-    MECHANIC_PAYLOAD_ROUTE_RESIDUE_COMMAND,
 )
 MECHANIC_PAYLOAD_ROUTE_RESIDUE_SUFFIXES = frozenset(
     {".json", ".md", ".py", ".txt", ".yaml", ".yml"}

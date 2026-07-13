@@ -25,8 +25,7 @@ practice. For this repository, validation is part of the mechanic boundary, not
 decoration.
 
 There is a second failure mode: a payload-bearing part can list only naked
-route-wide commands such as `python scripts/validate_repo.py` and
-`python scripts/build_catalog.py --check` without saying which part-local
+route-wide repository and catalog checks without saying which part-local
 payload or source bundle the validation is meant to cover. That creates formal
 safety without an operational return path.
 
@@ -47,8 +46,8 @@ section must list at least one python command.
 When the part has local payload subdirectories, the validation section must
 also include a payload coverage anchor: either a command or validation-section
 code ref under `mechanics/<parent>/parts/<part>/`, or a specific
-`python scripts/validate_repo.py --eval ...` command for a source-bundle route.
-Naked route-wide commands are not enough for payload-bearing parts.
+source-bundle validation route. Naked route-wide commands are not enough for
+payload-bearing parts.
 
 `scripts/validate_repo.py` parses python commands from fenced, bullet, or
 inline-code validation text and rejects:
@@ -122,10 +121,10 @@ As of 2026-05-22:
   validation lanes for agents.
 - Source surfaces updated: `mechanics/AGENTS.md`, `scripts/validate_repo.py`,
   and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
-  mechanic_part_validation_command`; `python scripts/validate_repo.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-Use [mechanics/AGENTS.md#validation](../../mechanics/AGENTS.md#validation) for
-the current command lane.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

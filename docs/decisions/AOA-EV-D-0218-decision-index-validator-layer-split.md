@@ -76,9 +76,5 @@ It does not create release evidence, runtime acceptance, or goal completion.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/decision_index_paths.py scripts/validators/decision_records.py scripts/validators/decision_index_renderer.py scripts/validators/decision_lane_surfaces.py scripts/validators/decision_index_surfaces.py scripts/generate_decision_indexes.py scripts/validators/root_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python -m pytest -q tests/test_decision_indexes.py tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py`
-- `python scripts/ci_gate.py --mode source-fast`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

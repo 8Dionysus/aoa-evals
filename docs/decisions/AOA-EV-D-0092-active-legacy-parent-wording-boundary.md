@@ -38,11 +38,8 @@ Active route wording must:
 - avoid using legacy parent form wording as an active owner label;
 - keep `runtime-evidence` as not the parent mechanic.
 
-Validator coverage:
-
-```bash
-python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k active_legacy_parent_wording
-```
+Validator coverage follows the focused active-legacy wording route in command
+authority and the nearest `AGENTS.md`.
 
 ## Consequences
 

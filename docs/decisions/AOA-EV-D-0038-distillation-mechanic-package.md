@@ -118,10 +118,8 @@ As of 2026-05-24:
 - Source surfaces updated: `mechanics/distillation/DIRECTION.md`,
   `scripts/validators/distillation_route_tokens.py`, and
   `tests/test_mechanic_surface_contracts.py`.
-- Validation: focused Distillation mechanic surface tests, bundle-local
-  Distillation eval checks, decision index generation/check, `validate_repo`,
-  semantic AGENTS validation, catalog check, full pytest, release check, and
-  `git diff --check`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Parent boundary route wording
 
@@ -137,13 +135,8 @@ As of 2026-05-24:
 - Source surfaces updated: `mechanics/distillation/README.md`,
   `mechanics/distillation/PARTS.md`, `mechanics/distillation/DIRECTION.md`, and
   `scripts/validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
-  distillation_mechanic`, `python scripts/validate_repo.py --eval
-  aoa-compost-provenance-preservation`, `python scripts/validate_repo.py --eval
-  aoa-memo-reviewed-candidate-adoption-integrity`, `python
-  scripts/validate_repo.py`, `python scripts/validate_semantic_agents.py`,
-  `python scripts/build_catalog.py --check`, `git diff --check`, and `python
-  -m pytest -q`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -160,16 +153,5 @@ It does not transfer `Agents-of-Abyss`, `Tree-of-Sophia`, `aoa-memo`,
 
 ## Validation
 
-- `mechanics/distillation/README.md` names the owned operation, source
-  surfaces, inputs, outputs, stronger-owner split, stop-lines, legacy route,
-  and validation.
-- `mechanics/distillation/AGENTS.md` names local editing law.
-- `mechanics/distillation/PARTS.md` names the active part topology.
-- `mechanics/distillation/PROVENANCE.md` bridges old fixture placement
-  questions into the owning legacy archive after the active route.
-- `scripts/validate_repo.py` checks the package, parts, provenance bridge,
-  decision, and moved fixture paths.
-- `python scripts/validate_repo.py --eval aoa-compost-provenance-preservation`
-- `python scripts/validate_repo.py --eval aoa-memo-reviewed-candidate-adoption-integrity`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

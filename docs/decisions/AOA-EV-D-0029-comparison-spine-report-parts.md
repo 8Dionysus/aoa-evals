@@ -74,11 +74,5 @@ owner acceptance.
 
 ## Validation
 
-- `mechanics/comparison-spine/PARTS.md` names the four active parts.
-- `mechanics/comparison-spine/README.md` routes the part-local reports.
-- Bundle `paired_readout_path` fields point to part-local report paths.
-- Generated catalog and comparison-spine readers are rebuilt from source.
-- `python scripts/build_catalog.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

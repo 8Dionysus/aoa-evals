@@ -93,8 +93,8 @@ As of 2026-05-24:
 - Source surfaces updated: `mechanics/*/legacy/README.md`,
   `scripts/validate_repo.py`, `tests/test_mechanic_parent_topology.py`, and
   `tests/test_mechanic_legacy_archive_routes.py`.
-- Validation: `python -m pytest -q tests/test_mechanic_parent_topology.py -k
-  mechanic_legacy_skeleton`; `python scripts/validate_repo.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Archive route files hand validation to AGENTS
 
@@ -108,18 +108,10 @@ As of 2026-05-24:
   command surface.
 - Source surfaces updated: archive-local indexes, distillation logs, raw README
   route files, `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
-  mechanic_legacy`; `python scripts/validate_repo.py`;
-  `python scripts/validate_semantic_agents.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-Expected validation route:
-
-```bash
-python -m pytest -q tests/test_mechanic_parent_topology.py -k mechanic_legacy_skeleton
-python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k mechanic_legacy_raw_payload
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python -m pytest -q
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -9,6 +9,10 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Changed
 
+- Centralized runnable validation and test routes in command authority,
+  primary operating guides, and the nearest agent cards; decisions, reports,
+  changelog history, and generated Markdown now preserve outcomes and owner
+  routes without copying command catalogs.
 - Decision records now use canonical `AOA-EV-D-####` IDs as both in-file
   handles and filename prefixes. Generated decision indexes now include
   date-based lookup, and short numbered decision paths are retired to git/PR
@@ -68,8 +72,8 @@ Tracking starts with the community-docs baseline for this repository.
   and the source-doctrine validator only rejects real baseline-as-bridge
   alternatives instead of unrelated `for baseline comparison` guidance.
 - Mechanic part payload-inventory decision guards now use a dedicated
-  superseded-command token so D-0086 preserves historical command text even if
-  the active mechanics route command changes.
+  superseded-route marker so D-0086 preserves the rationale without copying a
+  runnable historical command.
 
 ## [0.4.0] - 2026-05-25
 
@@ -90,10 +94,10 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Reconciliation Basis
 
-- checked the release against `git log --first-parent v0.3.3..HEAD`,
-  `git diff --name-status v0.3.3..HEAD`, merged GitHub PR metadata, the
-  release-support readiness and handoff reports, and the current repository
-  route cards instead of trusting this file alone.
+- checked the release against first-parent history, the changed-path
+  inventory, merged GitHub PR metadata, release-support readiness and handoff
+  reports, and the current repository route cards instead of trusting this
+  file alone.
 - current public proof corpus: 37 source eval bundles under `evals/`.
 - current proof-operation topology: 19 active mechanic parents under
   `mechanics/`, with parent route cards, direction surfaces, provenance
@@ -591,16 +595,8 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Validation
 
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/generate_eval_report_index.py --check`
-- `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check`
-- `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check`
-- `python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check`
-- `python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json`
-- `python scripts/release_check.py`
-- GitHub `Repo Validation` on the release PR
+- Repository, generated-reader, sibling-canary, release, and GitHub PR checks
+  passed through their canonical validation lanes.
 
 ### Notes
 
@@ -644,7 +640,7 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Validation
 
-- `python scripts/release_check.py`
+- The canonical release lane passed.
 
 ### Notes
 
@@ -682,7 +678,7 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Validation
 
-- `python scripts/release_check.py`
+- The canonical release lane passed.
 
 ### Notes
 
@@ -713,7 +709,7 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Validation
 
-- `python scripts/release_check.py`
+- The canonical release lane passed.
 
 ### Notes
 
@@ -729,7 +725,7 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Validation
 
-- `python scripts/release_check.py`
+- The canonical release lane passed.
 
 ### Notes
 
@@ -796,10 +792,7 @@ This changelog entry uses the release-prep merge date.
 
 ### Validation
 
-- `python scripts/build_catalog.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
-- `python -m pytest`
+- Catalog build/parity, repository validation, and the test lane passed.
 
 ### Notes
 
@@ -851,10 +844,8 @@ This changelog entry uses the release-prep merge date.
 
 Documented local validation path for this release:
 
-- `python -m pip install -r requirements-dev.txt`
-- `python scripts/build_catalog.py`
-- `python scripts/validate_repo.py`
-- `python -m pytest`
+- Development dependencies, catalog build, repository validation, and the test
+  lane completed successfully.
 
 ### Notes
 

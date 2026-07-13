@@ -107,17 +107,10 @@ As of 2026-05-24:
 - Source surfaces updated: `mechanics/growth-cycle/README.md`,
   `mechanics/growth-cycle/PARTS.md`, `mechanics/growth-cycle/DIRECTION.md`,
   and `scripts/validate_repo.py`.
-- Validation: growth-cycle validator focus, diagnosis bundle validation,
-  catalog check, root validation, semantic AGENTS validation, diff whitespace
-  check, and full pytest passed.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-Expected validation route:
-
-```bash
-python scripts/validate_repo.py --eval aoa-diagnosis-cause-discipline
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

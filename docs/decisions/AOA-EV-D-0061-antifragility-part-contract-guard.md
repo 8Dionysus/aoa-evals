@@ -87,13 +87,8 @@ As of 2026-05-24:
   `mechanics/antifragility/parts/stress-recovery-window/docs/STRESS_RECOVERY_WINDOW_EVALS.md`,
   `mechanics/antifragility/parts/repair-proof/README.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
-  antifragility`, `python scripts/validate_repo.py --eval
-  aoa-antifragility-posture`, `python scripts/validate_repo.py --eval
-  aoa-stress-recovery-window`, `python scripts/validate_repo.py --eval
-  aoa-repair-boundedness`, `python scripts/validate_repo.py`, `python
-  scripts/validate_semantic_agents.py`, `python scripts/build_catalog.py
-  --check`, `git diff --check`, and `python -m pytest -q`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Lower parts index operating route
 
@@ -109,17 +104,10 @@ As of 2026-05-24:
   pressure without parsing a negative scaffold.
 - Source surfaces updated: `mechanics/antifragility/parts/README.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: focused validator tests for `antifragility_parts_route`,
-  `python scripts/validate_repo.py`, `python scripts/validate_semantic_agents.py`,
-  `python scripts/build_catalog.py --check`, `git diff --check`, and full pytest.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-Expected validation route:
-
-```bash
-python -m pytest -q tests/test_mechanic_surface_contracts.py -k antifragility_part_readmes
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python -m pytest -q
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

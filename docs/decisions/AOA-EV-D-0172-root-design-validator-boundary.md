@@ -95,9 +95,5 @@ It checks root-authored design and proof topology posture only.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/root_design_common.py scripts/validators/root_design_docs.py scripts/validators/root_proof_topology.py scripts/validators/root_topology.py`
-- `python -m pytest -q tests/test_root_surface_roles.py -k 'root_design or design_agents or proof_topology or architecture_proof_model'`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

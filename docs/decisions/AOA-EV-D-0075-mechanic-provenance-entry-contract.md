@@ -53,5 +53,5 @@ surfaces.
 
 ## Validation
 
-- `python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_entry`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -96,10 +96,5 @@ It also does not move focused mechanic route-domain validation out of
 
 ## Validation
 
-- `python -m py_compile scripts/validators/mechanics.py scripts/validators/mechanics_common.py scripts/validators/mechanics_root_districts.py scripts/validators/root_authored_surface_common.py scripts/validators/root_authored_surface_inventory.py scripts/validators/root_authored_surface_ledger.py scripts/validators/root_authored_surface_decision.py scripts/validators/mechanics_routes.py`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python -m pytest -q tests/test_mechanics_topology.py tests/test_mechanic_root_district_recon.py tests/test_mechanic_evidence_ledger.py tests/test_validation_topology.py tests/test_script_topology.py tests/test_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

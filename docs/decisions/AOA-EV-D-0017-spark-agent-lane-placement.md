@@ -52,7 +52,8 @@ Spark can route one bounded claim or seam at a time, but bundle-local
 ## Consequences
 
 - Positive: root topology is cleaner, `.agents/` becomes the durable agent
-  district, and Spark lane guidance has local route validation.
+  district, `Spark/` is absent, and Spark lane guidance has local route
+  validation.
 - Tradeoff: references to `Spark/` must now be treated as legacy path
   vocabulary.
 - Follow-up: future maintained agent lanes should start under
@@ -71,12 +72,5 @@ It does not make `.agents/` a doctrine center.
 
 ## Validation
 
-- `.agents/AGENTS.md` names the agent district route.
-- `.agents/spark/AGENTS.md` names the Spark fast-loop lane route.
-- `.agents/spark/SWARM.md` uses the current path.
-- `Spark/` is absent.
-- `docs/architecture/PROOF_TOPOLOGY.md`, `docs/architecture/LEGACY_NAMING.md`, `README.md`,
-  `ROADMAP.md`, and `docs/decisions/README.md` route the new placement.
-- `scripts/validate_repo.py`
-- `python scripts/validate_nested_agents.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

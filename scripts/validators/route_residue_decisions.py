@@ -34,7 +34,6 @@ DECISION_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
     "route-card-only root district",
     "`evals/<family>/<eval>/...`",
     "active `mechanics/...`",
-    DECISION_ROUTE_RESIDUE_COMMAND,
 )
 DECISION_ROUTE_RESIDUE_CONTEXT_TOKENS = (
     *ROOT_AUTHORED_ROUTE_RESIDUE_CONTEXT_TOKENS,

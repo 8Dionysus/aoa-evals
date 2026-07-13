@@ -113,12 +113,11 @@ As of 2026-05-24:
   current route changes without rewriting the original context or rationale.
 - Source surfaces updated:
   `docs/decisions/AOA-EV-D-0084-mechanic-root-district-reconnaissance.md`.
-- Validation: `python scripts/validate_repo.py` and focused validator tests for
-  decision status routing.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-Validation routes through [mechanics/AGENTS.md#validation](../../mechanics/AGENTS.md#validation).
-Use the focused root-district reconnaissance guard there when changing this
-decision, `mechanics/EVIDENCE_CLUSTERS.md`, or the root-district posture
-validator.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md`; the local route for this decision is
+[mechanics/AGENTS.md#validation](../../mechanics/AGENTS.md#validation).

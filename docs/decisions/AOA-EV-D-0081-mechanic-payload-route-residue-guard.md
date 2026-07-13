@@ -100,5 +100,5 @@ It does not treat generated surfaces as stronger than authored payload.
 
 ## Validation
 
-- `python -m pytest -q tests/test_route_residue.py -k mechanic_payload_route_residue`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

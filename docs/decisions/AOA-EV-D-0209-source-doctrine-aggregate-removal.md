@@ -89,9 +89,5 @@ It also does not make doctrine guides stronger than bundle-local source truth.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/source_doctrine_common.py scripts/validators/source_comparison_doctrine.py scripts/validators/source_artifact_process_doctrine.py scripts/validators/source_repeated_window_doctrine.py scripts/validators/source_integrity_taxonomy.py scripts/validators/source_eval_domains.py scripts/validate_repo.py`
-- `python -m pytest -q tests/test_validate_repo.py tests/test_comparison_surface_contracts.py tests/test_report_schema_contracts.py`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -105,13 +105,5 @@ It does not require every landing to create a memo candidate.
 
 ## Validation
 
-This decision is valid when:
-
-- `memo/PORT.yaml` validates against the `aoa-memo` local memo port contract;
-- `memo/INDEX.md` and `memo/index.min.json` are generated from the port;
-- `README.md`, `AGENTS.md`, `docs/guides/EVAL_PHILOSOPHY.md`, and
-  `docs/architecture/PROOF_TOPOLOGY.md` keep proof authority separate from
-  local memo candidate capture;
-- generated decision indexes include this note;
-- `python scripts/validate_repo.py` and
-  `python scripts/validate_semantic_agents.py` pass.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

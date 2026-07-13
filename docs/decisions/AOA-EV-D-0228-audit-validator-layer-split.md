@@ -69,10 +69,5 @@ It does not create a replacement Audit aggregate facade.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/audit_route_paths.py scripts/validators/audit_route_tokens.py scripts/validators/audit_route_helpers.py scripts/validators/audit_routes.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py tests/test_mechanic_legacy_archive_routes.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py tests/test_mechanic_legacy_archive_routes.py -k audit`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/ci_gate.py --mode source-fast`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

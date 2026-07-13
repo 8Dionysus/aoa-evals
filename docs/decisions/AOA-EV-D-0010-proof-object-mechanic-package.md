@@ -83,14 +83,5 @@ It does not authorize one proof object as a universal agent ranking.
 
 ## Validation
 
-- `mechanics/proof-object/README.md` names the owned operation, source
-  surfaces, inputs, outputs, stronger-owner split, boundaries, lifecycle
-  posture, validation, and next route.
-- `mechanics/proof-object/AGENTS.md` names local editing law.
-- `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `README.md`,
-  `docs/README.md`, `ROADMAP.md`, `CHANGELOG.md`,
-  `docs/architecture/LEGACY_NAMING.md`, and `docs/decisions/README.md` route to the
-  package.
-- `python scripts/validate_repo.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -99,7 +99,8 @@ As of 2026-06-04:
   `scripts/validators/mechanic_parent_common.py`,
   `scripts/validators/mechanic_parent_direction.py`, validation inventories,
   and mechanics residual classification.
-- Validation: see AOA-EV-D-0177.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Aggregate removal
 
@@ -115,7 +116,8 @@ As of 2026-06-04:
   `scripts/validators/mechanic_parent_direction.py`,
   `scripts/validators/mechanics_routes.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0194.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -135,5 +137,5 @@ live in `scripts/validators/mechanic_parent_index.py`.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/mechanic_parent_allowlist.py scripts/validators/mechanic_parent_guidance.py scripts/validators/mechanic_parent_index.py scripts/validators/mechanic_parent_direction.py`
-- `python -m pytest -q tests/test_mechanic_parent_topology.py tests/test_mechanic_parent_direction.py tests/test_mechanic_parts_index.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

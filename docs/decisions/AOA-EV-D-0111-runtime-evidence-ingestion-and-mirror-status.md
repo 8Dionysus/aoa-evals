@@ -97,8 +97,8 @@ As of 2026-05-25:
 - Source surfaces updated:
   - `docs/architecture/AOA_EVALS_MCP_CONTRACT.md`
   - `docs/decisions/AOA-EV-D-0111-runtime-evidence-ingestion-and-mirror-status.md`
-- Validation: decision metadata indexes, repo validation, generated-reader
-  checks, runtime-candidate reader checks, and stack service contract tests.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -111,12 +111,5 @@ receipts, promote bundles, or edit the approved mirror by hand.
 
 ## Validation
 
-This decision is valid only when:
-
-- `docs/architecture/AOA_EVALS_MCP_CONTRACT.md` names the status and validation
-  stop-lines;
-- generated decision indexes include this note;
-- `aoa-evals` repo validation and runtime-candidate reader checks pass;
-- the stack-owned MCP service verifies candidate validation and status behavior.
-- the stack-owned MCP service verifies runtime candidate export listing/reading
-  stays read-only and candidate-only.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

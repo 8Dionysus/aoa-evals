@@ -115,7 +115,6 @@ DISTILLATION_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "Source proof bundles stay under `evals/`",
     "summary-as-proof",
     "aoa-memo-writeback-act-integrity",
-    "python scripts/validate_repo.py",
 )
 DISTILLATION_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "Distillation Part Contract Guard",
@@ -128,7 +127,6 @@ DISTILLATION_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "Experience adoption federation",
     "KAG lift",
     "owner-local acceptance",
-    "python scripts/validate_repo.py",
 )
 
 

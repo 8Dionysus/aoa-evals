@@ -70,7 +70,6 @@ ARCHITECTURE_PROOF_MODEL_DECISION_REQUIRED_TOKENS = (
     "legacy bridge layering",
     "bounded comparison semantics",
     "explicit claim limits",
-    ARCHITECTURE_PROOF_MODEL_COMMAND,
 )
 DESIGN_AGENTS_REQUIRED_TOKENS = (
     "agent-facing guidance",
@@ -149,7 +148,6 @@ ACTIVE_MECHANICS_TOPOLOGY_WORDING_DECISION_REQUIRED_TOKENS = (
     "stale preparatory wording",
     "PROVENANCE.md",
     "archive details",
-    ACTIVE_MECHANICS_TOPOLOGY_WORDING_COMMAND,
 )
 
 

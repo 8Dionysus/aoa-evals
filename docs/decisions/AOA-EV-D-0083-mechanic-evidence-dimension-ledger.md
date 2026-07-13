@@ -72,7 +72,5 @@ validator constants together.
 
 ## Validation
 
-```bash
-python -m pytest -q tests/test_mechanic_evidence_ledger.py -k mechanic_evidence_dimension
-python scripts/validate_repo.py
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

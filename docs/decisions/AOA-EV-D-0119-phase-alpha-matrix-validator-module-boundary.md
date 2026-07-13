@@ -90,10 +90,5 @@ It does not authorize sibling repository edits.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/phase_alpha_matrix_common.py scripts/validators/phase_alpha_matrix_projection.py scripts/validators/phase_alpha_matrix_sibling_compat.py scripts/validators/evidence_readouts.py tests/test_downstream_feed_contracts.py`
-- `python -m pytest -q tests/test_downstream_feed_contracts.py -k phase_alpha`
-- `python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

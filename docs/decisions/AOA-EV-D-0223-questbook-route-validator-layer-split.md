@@ -77,10 +77,5 @@ It does not create a replacement aggregate Questbook facade.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/questbook_route_paths.py scripts/validators/questbook_route_tokens.py scripts/validators/questbook_routes.py scripts/validators/questbook_source_constants.py scripts/validators/questbook_obligation_index.py scripts/validators/questbook_schema_lifecycle.py tests/test_quest_and_reader_surfaces.py tests/validate_repo_fixtures.py tests/test_mechanic_surface_contracts.py`
-- `python -m pytest -q tests/test_quest_and_reader_surfaces.py tests/test_mechanic_surface_contracts.py -k "questbook or quest_route"`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/ci_gate.py --mode source-fast`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -33,8 +33,8 @@ As of 2026-05-24:
   inside the AGENTS owner lane.
 - Source surfaces updated: `mechanics/README.md`,
   `docs/architecture/PROOF_TOPOLOGY.md`, validator message text, and validator tests.
-- Validation: use the mechanic validation route in
-  `mechanics/AGENTS.md#validation`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Index Metadata
 
@@ -122,4 +122,5 @@ readers, or runtime authority.
 
 ## Validation
 
-Use the nearest `AGENTS.md` validation lane for executable checks.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

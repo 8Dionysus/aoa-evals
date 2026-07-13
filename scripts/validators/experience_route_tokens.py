@@ -129,7 +129,6 @@ EXPERIENCE_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "Source proof bundles stay under `evals/`",
     "operator certification",
     "owner-local adoption",
-    "python scripts/validate_repo.py",
 )
 EXPERIENCE_VERDICT_RESIDUE_DECISION_REQUIRED_TOKENS = (
     "mechanics/experience/parts/governance-runtime-boundary/docs/",
@@ -138,7 +137,6 @@ EXPERIENCE_VERDICT_RESIDUE_DECISION_REQUIRED_TOKENS = (
     "SERVICE_MESH_REGRESSION_VERDICTS.md",
     "existing active parts",
     "does not grant governance authority",
-    "python scripts/validate_repo.py",
 )
 EXPERIENCE_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "Experience Part Contract Guard",
@@ -154,7 +152,6 @@ EXPERIENCE_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "memory canon",
     "routing authorship",
     "broad Experience success",
-    "python scripts/validate_repo.py",
 )
 
 

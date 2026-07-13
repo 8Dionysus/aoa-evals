@@ -95,5 +95,5 @@ It does not move live receipt JSONL inspection out of
 
 ## Validation
 
-- `python -m py_compile scripts/validators/publication_receipts_intake_common.py scripts/validators/publication_receipts_intake_route.py scripts/validators/publication_receipts_intake_artifact.py scripts/validators/publication_receipts_intake_preview.py scripts/validators/publication_receipts_intake_boundary.py scripts/validators/publication_receipts_live.py scripts/validators/publication_receipts_common.py scripts/validators/publication_receipts_routes.py scripts/validators/publication_receipts_payload.py`
-- `python -m pytest -q mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

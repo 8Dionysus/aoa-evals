@@ -102,7 +102,8 @@ As of 2026-06-04:
 - Source surfaces updated: `scripts/validators/questbook.py`,
   `scripts/validators/questbook_progression.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0160.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Generated projection split
 
@@ -116,7 +117,8 @@ As of 2026-06-04:
 - Source surfaces updated: `scripts/validators/questbook.py`,
   `scripts/validators/questbook_projection.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0163.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Source record and lifecycle split
 
@@ -132,7 +134,8 @@ As of 2026-06-04:
 - Source surfaces updated: `scripts/validators/questbook.py`,
   `scripts/validators/questbook_source.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0170.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Route-card split
 
@@ -146,7 +149,8 @@ As of 2026-06-04:
 - Source surfaces updated: `scripts/validators/questbook.py`,
   `scripts/validators/questbook_routes.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0176.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Compatibility facade removal
 
@@ -167,7 +171,8 @@ As of 2026-06-04:
   `scripts/validators/questbook_routes.py`,
   `scripts/validators/questbook_progression.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0193.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Projection aggregate removal
 
@@ -182,7 +187,8 @@ As of 2026-06-04:
   capability refs are different boundaries.
 - Source surfaces updated: Questbook validator modules, validation inventories,
   and mechanics residual classification.
-- Validation: see AOA-EV-D-0197.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -214,12 +220,5 @@ into Questbook.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/questbook_context.py scripts/validators/questbook_io.py scripts/validators/questbook_source_constants.py scripts/validators/questbook_orchestrator_constants.py scripts/validators/questbook_source_records.py scripts/validators/questbook_projection_records.py scripts/validators/questbook_projection_parity.py scripts/validators/questbook_orchestrator_refs.py scripts/validators/questbook_routes.py scripts/validators/questbook_progression.py tests/test_mechanic_surface_contracts.py tests/test_quest_and_reader_surfaces.py tests/validate_repo_fixtures.py`
-- `python -m pytest -q tests/test_quest_and_reader_surfaces.py -k quest_route`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k questbook`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/ci_gate.py --mode source-fast`
-- `python -m pytest -q`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

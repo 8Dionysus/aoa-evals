@@ -58,7 +58,6 @@ MECHANIC_EVIDENCE_DIMENSION_LEDGER_DECISION_REQUIRED_TOKENS = (
     "owner split and stop-lines",
     "owner-named evals-native",
     "legacy/provenance",
-    MECHANIC_EVIDENCE_DIMENSION_LEDGER_COMMAND,
 )
 
 

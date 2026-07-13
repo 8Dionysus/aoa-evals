@@ -33,7 +33,6 @@ ACTIVE_MECHANIC_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
     "same part root",
     "`evals/<family>/<eval>/...`",
     "legacy parent route",
-    ACTIVE_MECHANIC_ROUTE_RESIDUE_COMMAND,
 )
 
 

@@ -81,9 +81,8 @@ As of 2026-05-24:
 - Source surfaces updated:
   `mechanics/growth-cycle/parts/diagnosis-gate/README.md` and
   `scripts/validate_repo.py`.
-- Validation: growth-cycle validator focus, diagnosis bundle validation,
-  catalog check, root validation, semantic AGENTS validation, diff whitespace
-  check, and full pytest passed.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Lower parts index operating route
 
@@ -98,19 +97,10 @@ As of 2026-05-24:
   before a future agent adds a part by proximity.
 - Source surfaces updated: `mechanics/growth-cycle/parts/README.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: focused lower-index validator tests, diagnosis bundle
-  validation, root validation, semantic AGENTS validation, generated catalog
-  check, diff whitespace check, and full pytest.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-Expected validation route:
-
-```bash
-python -m pytest -q tests/test_mechanic_surface_contracts.py -k growth_cycle_diagnosis_gate
-python scripts/validate_repo.py --eval aoa-diagnosis-cause-discipline
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-python -m pytest -q
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -64,8 +64,8 @@ As of 2026-05-24:
   as the desired proof outcomes.
 - Source surfaces updated: `docs/architecture/ARCHITECTURE.md`, `scripts/validate_repo.py`,
   and `tests/test_validate_repo.py`.
-- Validation route: `python -m pytest -q tests/test_validate_repo.py -k architecture`
-  and `python scripts/validate_repo.py`.
+- Validation route: use the focused architecture check and repository lane
+  owned by command authority and the nearest `AGENTS.md`.
 
 ## Review Log
 
@@ -81,8 +81,8 @@ As of 2026-05-24:
   bullets should expose the route an agent can follow.
 - Source surfaces updated: `docs/architecture/ARCHITECTURE.md`, `scripts/validate_repo.py`,
   and `tests/test_validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k architecture`
-  and `python scripts/validate_repo.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -97,7 +97,5 @@ route.
 
 ## Validation
 
-```bash
-python -m pytest -q tests/test_root_surface_roles.py -k architecture_proof_model
-python scripts/validate_repo.py
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

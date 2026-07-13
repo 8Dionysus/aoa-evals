@@ -85,11 +85,5 @@ into Titan.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/titan_routes.py scripts/validators/titan_canary.py scripts/validators/titan_route_paths.py scripts/validators/titan_route_tokens.py tests/test_mechanic_surface_contracts.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k titan`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/ci_gate.py --mode source-fast`
-- `python -m pytest -q`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

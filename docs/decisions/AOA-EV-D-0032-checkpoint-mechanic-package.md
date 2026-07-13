@@ -104,9 +104,8 @@ As of 2026-05-24:
 - Source surfaces updated: `mechanics/checkpoint/README.md`,
   `mechanics/checkpoint/PARTS.md`, `mechanics/checkpoint/DIRECTION.md`, and
   `scripts/validate_repo.py`.
-- Validation: checkpoint validator focus, A2A part-local fixture test,
-  candidate-reader checks, catalog check, root validation, semantic AGENTS
-  validation, diff whitespace check, and full pytest passed.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -127,17 +126,5 @@ It does not transfer `Agents-of-Abyss`, `aoa-sdk`, `aoa-skills`,
 
 ## Validation
 
-- `mechanics/checkpoint/README.md` names the owned operation, source surfaces,
-  inputs, outputs, stronger-owner split, stop-lines, legacy route, and
-  validation.
-- `mechanics/checkpoint/AGENTS.md` names local editing law.
-- `mechanics/checkpoint/PARTS.md` names the active part topology.
-- `mechanics/checkpoint/PROVENANCE.md` bridges old root or audit placement
-  questions into the owning legacy archive after the active route.
-- `scripts/validate_repo.py` checks the package, parts, provenance bridge,
-  decision, mechanic-local hook examples, and stale root paths.
-- `python -m pytest -q mechanics/checkpoint/parts/a2a-summon-return/tests/test_a2a_summon_return_checkpoint_fixture.py`
-- `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check`
-- `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

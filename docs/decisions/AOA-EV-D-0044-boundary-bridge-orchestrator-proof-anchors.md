@@ -77,10 +77,5 @@ It does not let quest records become proof verdicts.
 
 ## Validation
 
-- `mechanics/boundary-bridge/parts/orchestrator-proof-anchors/README.md`
-  names the part contract, owner split, stop-lines, and validation route.
-- `scripts/validate_repo.py` keeps orchestrator proof quests tied to the
-  part-local owner surface.
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -88,11 +88,5 @@ It does not change release or generated lane command authority.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/generated_eval_readmodel_common.py scripts/validators/generated_eval_catalogs.py scripts/validators/generated_eval_capsules.py scripts/validators/generated_eval_sections.py scripts/validators/generated_eval_comparison_spine.py scripts/validators/generated_route_surfaces.py scripts/validators/evidence_readouts.py`
-- `python -m pytest -q tests/test_generated_parity.py tests/test_build_catalog.py tests/test_downstream_feed_contracts.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/ci_gate.py --mode source-fast`
-- `python -m pytest -q`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

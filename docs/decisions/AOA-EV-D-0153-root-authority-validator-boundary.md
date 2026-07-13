@@ -110,6 +110,5 @@ the focused modules named by AOA-EV-D-0196; no compatibility aggregate remains.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/root_topology.py scripts/validators/root_agent_index.py scripts/validators/root_agent_lanes.py scripts/validators/root_audit_routes.py scripts/validators/root_memory_boundary.py scripts/validators/root_read_model_commands.py scripts/validators/root_index_surfaces.py scripts/validators/root_validator_surfaces.py scripts/validators/root_decision_status.py scripts/validators/root_common.py`
-- `python -m pytest -q tests/test_root_surface_roles.py tests/test_read_model_command_ownership.py tests/test_index_surface_roles.py`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

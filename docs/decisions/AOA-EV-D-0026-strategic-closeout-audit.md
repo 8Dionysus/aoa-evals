@@ -99,6 +99,5 @@ sibling repositories, mutate sibling repos, or strengthen any eval verdict.
 
 ## Validation
 
-The route is protected by `scripts/validate_repo.py`, targeted tests for the
-strategic closeout audit, `python scripts/release_check.py`, and the broad
-generated/sibling/full-test battery before the requested landing route.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

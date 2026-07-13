@@ -108,9 +108,8 @@ As of 2026-05-24:
 - Source surfaces updated: `mechanics/recurrence/README.md`,
   `mechanics/recurrence/PARTS.md`, `mechanics/recurrence/DIRECTION.md`, and
   `scripts/validate_repo.py`.
-- Validation: recurrence validator focus, recurrence part runners and tests,
-  catalog check, root validation, semantic AGENTS validation, diff whitespace
-  check, and full pytest passed.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -127,18 +126,5 @@ truth into `aoa-evals`.
 
 ## Validation
 
-- `mechanics/recurrence/README.md` names the owned operation, source surfaces,
-  inputs, outputs, stronger-owner split, stop-lines, legacy route, and
-  validation.
-- `mechanics/recurrence/AGENTS.md` names local editing law.
-- `mechanics/recurrence/PARTS.md` names why control-plane integrity is an
-  active part and why return-aware families remain bundle-local.
-- `mechanics/recurrence/PROVENANCE.md` bridges old root placement questions
-  into the owning legacy archive after the active route.
-- `scripts/validate_repo.py` checks the package, part, provenance bridge,
-  decision, and stale root paths.
-- `python -m py_compile mechanics/recurrence/parts/control-plane-integrity/scorers/recurrence_control_plane_integrity.py mechanics/recurrence/parts/control-plane-integrity/scripts/run_recurrence_control_plane_integrity_eval.py`
-- `python mechanics/recurrence/parts/control-plane-integrity/scripts/run_recurrence_control_plane_integrity_eval.py --case mechanics/recurrence/parts/control-plane-integrity/fixtures/recurrence-control-plane-integrity-v1/cases/RCPI-001.registry-mixed-manifests.json --check-expected --json`
-- `python -m pytest -q mechanics/recurrence/parts/control-plane-integrity/tests/test_recurrence_control_plane_integrity_eval_seed.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

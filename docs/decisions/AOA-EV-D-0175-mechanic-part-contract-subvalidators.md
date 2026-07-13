@@ -89,9 +89,5 @@ compatibility or aggregate validation.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/mechanic_part_contract_common.py scripts/validators/mechanic_part_contract_index.py scripts/validators/mechanic_part_role_headings.py scripts/validators/mechanic_part_readme_contract.py scripts/validators/mechanic_part_payload_inventory.py scripts/validators/mechanic_part_source_surfaces.py scripts/validators/mechanic_parts_index_sync.py scripts/validators/mechanic_part_validation_commands.py scripts/validators/mechanic_part_validation_common.py scripts/validators/mechanics_routes.py`
-- `python -m pytest -q tests/test_mechanic_part_contracts.py tests/test_mechanic_parts_index.py tests/test_mechanic_part_validation_commands.py tests/test_index_surface_roles.py`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

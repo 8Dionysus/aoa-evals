@@ -56,12 +56,5 @@ implementation truth.
 
 ## Validation
 
-Expected validation route:
-
-```bash
-python -m pytest -q tests/test_mechanic_surface_contracts.py -k questbook_part_owner_split
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-python -m pytest -q
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

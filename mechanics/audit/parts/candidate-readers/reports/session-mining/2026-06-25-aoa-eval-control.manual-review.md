@@ -100,7 +100,7 @@ fresh evidence or owner review before they can be packetized.
 
 ## Next Route
 
-1. Validate packet schema with `python scripts/validate_eval_candidate_packets.py mechanics/audit/parts/candidate-readers/packets`.
+1. Validate packet schemas through the candidate-readers owner route.
 2. Import packet refs into the generated readiness dashboard queue.
 3. Make `scripts/aoa_eval_session_start.py --json` expose the top candidate
    routes, not just a summary.

@@ -106,5 +106,5 @@ stays in `legacy/`.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/mechanic_legacy_archive.py scripts/validators/mechanic_provenance_bridge.py scripts/validators/active_legacy_parent_wording.py scripts/validators/mechanic_legacy_common.py`
-- `python -m pytest -q tests/test_mechanic_legacy_bridge.py tests/test_mechanic_legacy_archive_routes.py tests/test_mechanic_parent_topology.py tests/test_mechanic_parent_direction.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

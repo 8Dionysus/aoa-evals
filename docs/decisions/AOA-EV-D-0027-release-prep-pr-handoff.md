@@ -93,6 +93,5 @@ the handoff snapshot for branch, commit, push, PR, CI, and merge status.
 
 ## Validation
 
-The route is protected by `scripts/validate_repo.py`, targeted tests for the
-release-prep PR handoff, `python scripts/release_check.py`, and the broad
-generated/sibling/full-test battery before any later landing route.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

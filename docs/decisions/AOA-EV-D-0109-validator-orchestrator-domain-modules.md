@@ -102,8 +102,5 @@ remain part-local unless the root validator owns a cross-surface contract.
 
 ## Validation
 
-Use the focused wrapper tests and full repo validator:
-
-- `python -m pytest -q tests/test_docs_topology.py tests/test_mechanics_topology.py tests/test_mechanic_evidence_ledger.py tests/test_mechanic_legacy_bridge.py tests/test_mechanic_legacy_archive_routes.py tests/test_mechanic_manifest_routes.py tests/test_mechanic_part_contracts.py tests/test_mechanic_part_validation_commands.py tests/test_mechanic_parent_direction.py tests/test_mechanic_parent_topology.py tests/test_mechanic_parts_index.py tests/test_mechanic_root_district_recon.py tests/test_mechanic_surface_contracts.py tests/test_repo_validation_workflow.py tests/test_root_surface_roles.py tests/test_read_model_command_ownership.py`
-- `python -m pytest -q tests/test_generated_parity.py tests/test_generated_route_residue.py tests/test_guidance_surface_routes.py tests/test_route_residue.py tests/test_decision_indexes.py tests/test_eval_source_topology.py tests/test_index_surface_roles.py`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

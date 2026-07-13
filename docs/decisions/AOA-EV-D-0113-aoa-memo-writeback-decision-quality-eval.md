@@ -104,10 +104,8 @@ As of 2026-05-26:
   `mechanics/proof-infra/parts/fixture-families/fixtures/memo-writeback-decision-quality-v1/`,
   generated eval readers, and `Repo Validation` sibling pin for the current
   `aoa-agents` continuity-lane source path.
-- Validation: `python scripts/validate_repo.py`,
-  `python scripts/build_catalog.py --check`,
-  `python scripts/generate_eval_report_index.py --check`,
-  `python scripts/validate_semantic_agents.py`, and `python -m pytest -q`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -123,8 +121,5 @@ It does not convert `.aoa` raw session evidence into reviewed memory.
 
 ## Validation
 
-- The source eval bundle is indexed by generated eval readers.
-- The proof-infra fixture-family route names the new fixture family.
-- The validator and tests accept the bounded bundle and generated surfaces.
-- `Repo Validation` passed on PR #350 after the sibling checkout pin matched the
-  evidence reference used by the runtime integrity review example.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

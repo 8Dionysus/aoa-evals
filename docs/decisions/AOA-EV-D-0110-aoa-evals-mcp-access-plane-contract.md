@@ -90,9 +90,8 @@ As of 2026-05-25:
   - `docs/architecture/PROOF_TOPOLOGY.md`
   - `docs/architecture/AGENT_INDEX.md`
   - `docs/README.md`
-- Validation: decision metadata indexes, repo validation, semantic AGENTS
-  validation, generated-reader checks, runtime-candidate reader checks, and
-  stack service validation.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -106,10 +105,5 @@ owns the runnable MCP package.
 
 ## Validation
 
-This decision is valid only when the source contract and generated lookup
-indexes are aligned, the `aoa-evals` repo checks pass, the generated proof
-readers and runtime-candidate readers are current, and the stack-owned MCP
-service passes its package-local tests and smoke checks.
-
-Executable command ownership stays with `docs/decisions/AGENTS.md#validation`,
-root `AGENTS.md#verify`, and the stack service-local route card.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

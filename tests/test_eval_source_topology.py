@@ -111,8 +111,8 @@ def test_source_eval_tree_topology_rejects_decision_command_list(
     decision_path = tmp_path / eval_tree_topology_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME
     decision_path.write_text(
         decision_path.read_text(encoding="utf-8").replace(
-            "Validation routes through",
-            "Run:\n\n- `python scripts/validate_repo.py`\n\nValidation routes through",
+            "Current executable checks are owned by",
+            "Run:\n\n- `python scripts/validate_repo.py`\n\nCurrent executable checks are owned by",
             1,
         ),
         encoding="utf-8",

@@ -117,16 +117,8 @@ As of 2026-05-24:
 - Source surfaces updated: `mechanics/experience/README.md`,
   `mechanics/experience/PARTS.md`, `mechanics/experience/DIRECTION.md`, and
   `scripts/validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
-  experience_mechanic`, `python -m pytest -q
-  mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py
-  mechanics/experience/parts/certification-gate/tests
-  mechanics/experience/parts/adoption-federation/tests
-  mechanics/experience/parts/governance-runtime-boundary/tests
-  mechanics/experience/parts/office-release-train/tests`, `python
-  scripts/build_catalog.py --check`, `python scripts/validate_repo.py`,
-  `python scripts/validate_semantic_agents.py`, `git diff --check`, and
-  `python -m pytest -q`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -146,15 +138,5 @@ into `aoa-evals`.
 
 ## Validation
 
-- `mechanics/experience/README.md` names the owned operation, source surfaces,
-  inputs, outputs, stronger-owner split, stop-lines, legacy route, and
-  validation.
-- `mechanics/experience/AGENTS.md` names local editing law.
-- `mechanics/experience/PARTS.md` names the active part topology.
-- `mechanics/experience/PROVENANCE.md` bridges old root placement questions
-  into the owning legacy archive after the active route.
-- `scripts/validate_repo.py` checks the package, parts, provenance bridge,
-  decision, and stale root paths.
-- `python -m pytest -q mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py mechanics/experience/parts/certification-gate/tests/test_experience_certification_gate_integrity.py mechanics/experience/parts/certification-gate/tests/test_experience_wave2_seed_contracts.py mechanics/experience/parts/adoption-federation/tests/test_experience_wave3_seed_contracts.py mechanics/experience/parts/governance-runtime-boundary/tests/test_experience_wave4_seed_contracts.py mechanics/experience/parts/office-release-train/tests/test_experience_wave5_seed_contracts.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -57,7 +57,7 @@ where completion has not happened.
 
 - Positive: future release-support work starts from local part contracts instead
   of interpreting JSON report names as authority.
-- Positive: `python scripts/validate_repo.py` now catches drift in the three
+- Positive: the repository validator now catches drift in the three
   release-support part README files.
 - Positive: readiness, closeout, and handoff stay visibly inside
   `release-support`.
@@ -76,6 +76,5 @@ snapshots stronger than source proof objects and bundle-local reports.
 
 ## Validation
 
-- `python scripts/validate_repo.py`
-- `python scripts/release_check.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k release_support_part_readmes`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

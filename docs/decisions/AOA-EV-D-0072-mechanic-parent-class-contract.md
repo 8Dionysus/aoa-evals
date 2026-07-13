@@ -63,11 +63,5 @@ Current former wrong parent forms include `agon-proof`, `titan-canaries`,
 
 ## Validation
 
-Expected validation route:
-
-```bash
-python -m pytest -q tests/test_mechanic_evidence_ledger.py -k mechanic_parent_class
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python -m pytest -q
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -52,7 +52,7 @@ broad growth proof.
 ## Consequences
 
 - Positive: future comparison work starts from local mode contracts.
-- Positive: `python scripts/validate_repo.py` now catches drift in the four
+- Positive: the repository validator now catches drift in the four
   comparison-spine part README files.
 - Positive: fixed-baseline, peer-compare, and longitudinal-window stay visibly
   distinct.
@@ -98,9 +98,8 @@ As of 2026-05-24:
   `mechanics/comparison-spine/parts/fixed-baseline/reports/runtime-latency-tradeoff-proof-flow-v1.md`,
   `mechanics/comparison-spine/parts/fixed-baseline/README.md`, and
   `evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/`.
-- Validation: bundle-local validation, generated catalog check, root
-  validation, semantic AGENTS validation, comparison/catalog tests, and full
-  pytest are the expected checks for this slice.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Part-level pressure routes
 
@@ -118,13 +117,10 @@ As of 2026-05-24:
   `mechanics/comparison-spine/parts/peer-compare/README.md`,
   `mechanics/comparison-spine/parts/longitudinal-window/README.md`,
   `mechanics/comparison-spine/PARTS.md`, and `scripts/validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_mechanic_surface_contracts.py -k comparison_spine_part_readmes`,
-  `python scripts/validate_repo.py`, `python scripts/build_catalog.py --check`,
-  `python scripts/validate_semantic_agents.py`, and full pytest are the
-  expected checks for this slice.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-- `python scripts/validate_repo.py`
-- `python scripts/build_catalog.py --check`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k comparison_spine_part_readmes`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

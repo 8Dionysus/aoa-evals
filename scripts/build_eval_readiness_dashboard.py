@@ -2611,7 +2611,7 @@ def build_markdown(dashboard: dict[str, Any], support_registry: dict[str, Any]) 
             "",
             "## Repo Readiness",
             "",
-            markdown_row(["Repo", "State", "Severity", "Confidence", "Freshness", "Next Command"]),
+            markdown_row(["Repo", "State", "Severity", "Confidence", "Freshness", "Next Route"]),
             markdown_row(["---", "---", "---", "---", "---", "---"]),
         ]
     )
@@ -2626,7 +2626,7 @@ def build_markdown(dashboard: dict[str, Any], support_registry: dict[str, Any]) 
                     str(entry["pressure_severity"]),
                     str(entry["route_confidence"]),
                     str(entry["freshness_gate"]["status"]),
-                    f"`{entry['exact_next_command']}`",
+                    f"`{entry.get('route_key')}`: {entry.get('route_action')}",
                 ]
             )
         )
@@ -2658,9 +2658,9 @@ def build_markdown(dashboard: dict[str, Any], support_registry: dict[str, Any]) 
             "",
             "## Eval Forge",
             "",
-            f"- Router command: `{eval_forge.get('router_command')}`",
-            f"- Local-port command: `{eval_forge.get('local_port_pressure_hint_command')}`",
-            f"- Worksheet command: `{eval_forge.get('worksheet_write_command')}`",
+            f"- Router surface: `{SOURCE_OF_TRUTH['eval_forge_router']}`",
+            f"- Local-port route: `{SOURCE_OF_TRUTH['eval_forge_local_port_matrix']}`",
+            f"- Worksheet contract: `{SOURCE_OF_TRUTH['eval_forge_worksheet_schema']}`",
             f"- Registry: `{eval_forge.get('registry_ref')}`",
             f"- Worksheet schema: `{eval_forge.get('worksheet_schema_ref')}`",
             f"- Archetype count: {eval_forge.get('archetype_count')}",
@@ -2672,7 +2672,7 @@ def build_markdown(dashboard: dict[str, Any], support_registry: dict[str, Any]) 
     lines.extend(["### Forge Front Door", ""])
     front_door_refs = eval_forge.get("front_door_refs", {})
     if isinstance(front_door_refs, dict):
-        for label, ref in front_door_refs.items():
+        for label, ref in sorted(front_door_refs.items()):
             lines.append(f"- {label}: `{ref}`")
     front_door_status = eval_forge.get("front_door_surface_status", {})
     if isinstance(front_door_status, dict):
@@ -2685,10 +2685,10 @@ def build_markdown(dashboard: dict[str, Any], support_registry: dict[str, Any]) 
         )
     front_door_commands = eval_forge.get("front_door_commands", [])
     if isinstance(front_door_commands, list) and front_door_commands:
-        lines.append("- exact commands:")
+        lines.append("- operator purposes (commands remain in the owning guides):")
         for item in front_door_commands:
             if isinstance(item, dict):
-                lines.append(f"  - {item.get('purpose')}: `{item.get('command')}`")
+                lines.append(f"  - {item.get('purpose')}")
     lines.extend(
         [
             "",
@@ -2752,7 +2752,8 @@ def build_markdown(dashboard: dict[str, Any], support_registry: dict[str, Any]) 
             f"- Installed matches source: {adoption['installed_matches_source']}",
             f"- Installed profile verified: {adoption['installed_profile_verified']}",
             f"- Runtime discovery mentions `aoa-eval`: {adoption['runtime_discovery_mentions_aoa_eval']}",
-            f"- Trigger harness command: `{adoption['verification_command']}`",
+            "- Trigger harness owner: "
+            "`aoa-skills:evals/suites/aoa-eval-trigger-corpus.suite.md`",
             "",
             "## Freshness Sentinel",
             "",

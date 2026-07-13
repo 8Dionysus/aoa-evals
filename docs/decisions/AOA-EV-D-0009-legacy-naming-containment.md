@@ -80,10 +80,5 @@ It does not authorize copying archive details into root guidance.
 
 ## Validation
 
-- `docs/architecture/LEGACY_NAMING.md` names posture vocabulary, current-route discipline,
-  and boundary rules.
-- package-local legacy route cards point back to `../PROVENANCE.md`.
-- `README.md`, `docs/README.md`, `DESIGN.md`, `docs/architecture/PROOF_TOPOLOGY.md`,
-  `ROADMAP.md`, `CHANGELOG.md`, and `docs/decisions/README.md` route to the
-  guide.
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

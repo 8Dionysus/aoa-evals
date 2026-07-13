@@ -136,7 +136,6 @@ PROOF_LOOP_ROUTE_SMOKE_CONTRACT_DECISION_REQUIRED_TOKENS = (
     "stop-lines",
     "no eval result receipt",
     "full proof-loop completeness",
-    "python scripts/validate_repo.py",
 )
 
 

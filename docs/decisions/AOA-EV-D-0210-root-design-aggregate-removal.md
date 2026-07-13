@@ -83,9 +83,5 @@ helper-only.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/root_design_common.py scripts/validators/root_design_docs.py scripts/validators/root_proof_topology.py scripts/validators/root_topology.py scripts/validators/root_agent_index.py scripts/validators/root_agent_lanes.py scripts/validators/root_memory_boundary.py tests/test_root_surface_roles.py`
-- `python -m pytest -q tests/test_root_surface_roles.py -k 'root_design or design_agents or proof_topology or architecture_proof_model or agent_index or agent_lane or memory_consumer'`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

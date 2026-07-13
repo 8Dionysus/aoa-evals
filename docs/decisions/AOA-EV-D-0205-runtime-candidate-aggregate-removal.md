@@ -85,9 +85,5 @@ name.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/runtime_candidate_common.py scripts/validators/runtime_candidate_template_index.py scripts/validators/runtime_candidate_intake.py scripts/validators/evidence_readouts.py tests/test_quest_and_reader_surfaces.py`
-- `python -m pytest -q tests/test_quest_and_reader_surfaces.py -k runtime_candidate`
-- `python -m pytest -q tests/test_runtime_evidence_surfaces.py tests/test_validate_repo.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

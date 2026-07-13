@@ -112,7 +112,6 @@ PROOF_OBJECT_CONTRACT_PART_DECISION_REQUIRED_TOKENS = (
     "mechanics/proof-object/parts/eval-contracts/schemas/",
     "source bundles stay under `evals/`",
     "generated readers stay",
-    "python scripts/validate_repo.py",
 )
 PROOF_OBJECT_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS = (
     "Proof-object Part Owner-split Contract",
@@ -123,7 +122,6 @@ PROOF_OBJECT_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS = (
     "Source proof bundle meaning stays under `evals/`",
     "generated readers, reports, receipts, runtime candidates, sibling refs, quests",
     "Schema acceptance may prove metadata shape",
-    "python -m pytest -q tests/test_mechanic_surface_contracts.py -k proof_object_part_owner_split",
 )
 PROOF_OBJECT_EVAL_PART_NAMES_DECISION_REQUIRED_TOKENS = (
     "Proof-object Eval Part Names",
@@ -133,7 +131,6 @@ PROOF_OBJECT_EVAL_PART_NAMES_DECISION_REQUIRED_TOKENS = (
     "eval-contracts",
     "active directory topology",
     "source eval packages into mechanics",
-    "python scripts/validate_repo.py",
 )
 
 

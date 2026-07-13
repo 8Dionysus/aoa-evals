@@ -81,9 +81,5 @@ It does not mark the PR, release, or long goal complete.
 
 ## Validation
 
-- GitHub failure logs showed missing `aoa-memo` paths under `.deps/aoa-memo`.
-- Local `aoa-memo` `main` and `origin/main` both resolved to
-  `97f19698c94ebbebabe8b1b6f22e5ccff3bc5f1f`.
-- `scripts/validate_repo.py` now checks the pinned workflow ref.
-- The landing route must rerun local release validation and GitHub
-  `Repo Validation` after this change.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

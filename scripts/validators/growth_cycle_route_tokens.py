@@ -98,7 +98,6 @@ GROWTH_CYCLE_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "aoa-repair-boundedness",
     "aoa-longitudinal-growth-snapshot",
     "No root file movement",
-    "python scripts/validate_repo.py",
 )
 GROWTH_CYCLE_DIAGNOSIS_GATE_CONTRACT_DECISION_REQUIRED_TOKENS = (
     "Growth-cycle Diagnosis-gate Contract",
@@ -111,7 +110,6 @@ GROWTH_CYCLE_DIAGNOSIS_GATE_CONTRACT_DECISION_REQUIRED_TOKENS = (
     "donor-harvest approval",
     "quest-promotion",
     "owner-local landing authority",
-    "python scripts/validate_repo.py",
 )
 REPAIR_DIAGNOSIS_ROUTE_BOUNDARY_DECISION_REQUIRED_TOKENS = (
     "Repair Diagnosis Route Boundary",
@@ -122,7 +120,6 @@ REPAIR_DIAGNOSIS_ROUTE_BOUNDARY_DECISION_REQUIRED_TOKENS = (
     "`repair` remains a wrong parent form",
     "Diagnosis-cause discipline is not an antifragility part",
     "repair proof is not diagnosis proof",
-    "python -m pytest -q tests/test_mechanic_surface_contracts.py -k repair_diagnosis_route_boundary",
 )
 
 

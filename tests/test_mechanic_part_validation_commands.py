@@ -46,8 +46,8 @@ def test_mechanic_part_validation_command_rejects_active_decision_command_list(
     decision_path = tmp_path / command_tokens.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME
     decision_path.write_text(
         decision_path.read_text(encoding="utf-8").replace(
-            "## Validation\n\nUse",
-            "## Validation\n\n- python scripts/validate_repo.py\n\nUse",
+            "## Validation\n\nCurrent executable",
+            "## Validation\n\n- python scripts/validate_repo.py\n\nCurrent executable",
             1,
         ),
         encoding="utf-8",

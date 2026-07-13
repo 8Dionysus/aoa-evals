@@ -98,9 +98,5 @@ It does not publish, append, rewrite, or accept runtime evidence.
 
 ## Validation
 
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k audit`
-- `python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k audit`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

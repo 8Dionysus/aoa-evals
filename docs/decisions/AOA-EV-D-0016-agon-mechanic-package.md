@@ -57,8 +57,9 @@ treating generated alignment registries as live verdict or arena authority.
 
 ## Consequences
 
-- Positive: future Agon work now has a current package route, part map, local
-  agent guidance, and validator-backed discovery surface.
+- Positive: future Agon work now has a current package route, the
+  `mechanics/agon/PARTS.md` part map, local agent guidance, and a
+  validator-backed discovery surface.
 - Tradeoff: quest source records and proof bundles still live in their owning
   districts, so Agon work must keep those owner boundaries visible.
 - Follow-up: if one Agon family matures into an eval bundle or stricter
@@ -78,32 +79,5 @@ action, arena activation, or stronger-owner law changes.
 
 ## Validation
 
-- `mechanics/agon/README.md` names the owned operation, package surfaces,
-  inputs, outputs, stronger-owner split, legacy posture, boundaries,
-  validation, and next route.
-- `mechanics/agon/AGENTS.md` names local editing law.
-- `mechanics/agon/PARTS.md` names the active part topology.
-- `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `docs/architecture/LEGACY_NAMING.md`,
-  `README.md`, `docs/README.md`, `ROADMAP.md`, `CHANGELOG.md`, and
-  `docs/decisions/README.md` route to the package.
-- `scripts/validate_repo.py` checks the package and decision remain
-  discoverable.
-- `python mechanics/agon/parts/court-prebinding/scripts/build_agon_eval_prebinding_registry.py --check`
-- `python mechanics/agon/parts/ccs-alignment/scripts/build_agon_ccs_eval_alignment_registry.py --check`
-- `python mechanics/agon/parts/vds-alignment/scripts/build_agon_vds_eval_alignment_registry.py --check`
-- `python mechanics/agon/parts/retention-rank-alignment/scripts/build_agon_retention_rank_eval_alignment_registry.py --check`
-- `python mechanics/agon/parts/mechanical-trial-suites/scripts/build_agon_mechanical_trial_eval_suites.py --check`
-- `python mechanics/agon/parts/epistemic-alignment/scripts/build_agon_epistemic_eval_alignment_registry.py --check`
-- `python mechanics/agon/parts/slc-alignment/scripts/build_agon_slc_eval_alignment_registry.py --check`
-- `python mechanics/agon/parts/kag-alignment/scripts/build_agon_kag_eval_alignment_registry.py --check`
-- `python mechanics/agon/parts/sophian-threshold-alignment/scripts/build_agon_sophian_eval_alignment_registry.py --check`
-- `python mechanics/agon/parts/court-prebinding/scripts/validate_agon_eval_prebindings.py`
-- `python mechanics/agon/parts/ccs-alignment/scripts/validate_agon_ccs_eval_alignment.py`
-- `python mechanics/agon/parts/vds-alignment/scripts/validate_agon_vds_eval_alignment.py`
-- `python mechanics/agon/parts/retention-rank-alignment/scripts/validate_agon_retention_rank_eval_alignment.py`
-- `python mechanics/agon/parts/mechanical-trial-suites/scripts/validate_agon_mechanical_trial_eval_suites.py`
-- `python mechanics/agon/parts/epistemic-alignment/scripts/validate_agon_epistemic_eval_alignment.py`
-- `python mechanics/agon/parts/slc-alignment/scripts/validate_agon_slc_eval_alignment_registry.py`
-- `python mechanics/agon/parts/kag-alignment/scripts/validate_agon_kag_eval_alignment_registry.py`
-- `python mechanics/agon/parts/sophian-threshold-alignment/scripts/validate_agon_sophian_eval_alignment_registry.py`
-- `python -m pytest -q mechanics/agon/parts/*/tests/test_agon*.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

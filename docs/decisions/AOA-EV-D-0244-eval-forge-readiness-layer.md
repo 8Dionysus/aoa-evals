@@ -65,9 +65,9 @@ from scattered memory. It also keeps authority layers separate:
 
 ## Consequences
 
-- Positive: future agents can run `python scripts/check_eval_forge_readiness.py
-  --json` and see the current route, blockers, candidate queue, local-port
-  status, support classification, and verification commands.
+- Positive: future agents can use the readiness entrypoint and see the current
+  route, blockers, candidate queue, local-port status, support classification,
+  and verification routes.
 - Positive: manual session mining can remain strict and useful because rejected
   and deferred cases are part of the route, not lost context.
 - Tradeoff: readiness can show warnings while live sessions are still changing;
@@ -108,8 +108,8 @@ As of 2026-07-10:
 - Source surfaces updated: Eval Forge router, readiness dashboard/check,
   session-start packet, promotion dry-run, local-port inventory v2, and their
   owner docs.
-- Validation: focused Forge/readiness/session-start/promotion tests and
-  generated dashboard parity.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -125,10 +125,5 @@ that the routing layer is ready enough to choose the next owner surface.
 
 ## Validation
 
-- `python scripts/check_eval_forge_readiness.py --json`
-- `python scripts/aoa_eval_session_start.py --json`
-- `python scripts/build_eval_readiness_dashboard.py --check`
-- `python scripts/check_eval_support_registry.py --json`
-- `python scripts/validate_eval_candidate_packets.py mechanics/audit/parts/candidate-readers/packets`
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

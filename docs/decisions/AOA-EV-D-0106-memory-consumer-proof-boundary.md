@@ -131,8 +131,8 @@ As of 2026-06-21:
 - Source surfaces updated: `README.md`, `docs/guides/EVAL_PHILOSOPHY.md`,
   `docs/architecture/PROOF_TOPOLOGY.md`, `scripts/validate_repo.py`,
   `tests/test_validate_repo.py`.
-- Validation: `python scripts/validate_repo.py` and
-  `python scripts/validate_semantic_agents.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Root entry surface slimmed
 
@@ -145,12 +145,8 @@ As of 2026-06-21:
   becoming the detailed boundary atlas.
 - Source surfaces updated: `README.md`, `scripts/validate_repo.py`,
   `tests/test_validate_repo.py`.
-- Validation: `python scripts/validate_repo.py`,
-  `python scripts/validate_semantic_agents.py`,
-  `python -m pytest -q tests/test_root_surface_roles.py -k 'root_readme or memory_consumer_proof_boundary'`,
-  `python scripts/build_catalog.py --check`,
-  `python scripts/generate_eval_report_index.py --check`,
-  `git diff --check`, and `python -m pytest -q`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Evaluation philosophy memory route made positive
 
@@ -165,8 +161,8 @@ As of 2026-06-21:
 - Source surfaces updated: `docs/guides/EVAL_PHILOSOPHY.md`,
   `scripts/validate_repo.py`, `tests/test_validate_repo.py`, and this
   decision.
-- Validation: root validation, semantic AGENTS validation, and focused memory
-  consumer tests.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-05 - Runtime selected-evidence memory context boundary
 
@@ -183,8 +179,8 @@ As of 2026-06-21:
   selected memo evidence examples, `scripts/validators/runtime_evidence_selection.py`,
   runtime-candidate reader builders, generated reader surfaces, validation
   inventories, and focused runtime evidence tests.
-- Validation: focused runtime evidence tests, runtime-candidate reader tests,
-  generated-reader checks, source-fast validation, and release check.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-21 - Local memo port added below proof authority
 
@@ -197,8 +193,8 @@ As of 2026-06-21:
 - Source surfaces updated: `memo/`, `README.md`, `AGENTS.md`,
   `docs/guides/EVAL_PHILOSOPHY.md`, `docs/architecture/PROOF_TOPOLOGY.md`,
   this decision, and AOA-EV-D-0243.
-- Validation: local memo port validation, local memo port index check,
-  generated decision indexes, root validation, and semantic AGENTS validation.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -217,10 +213,5 @@ write authority.
 
 ## Validation
 
-The validator requires the memory-consumer boundary in the public README,
-evaluation philosophy, proof topology, this decision note, and the decision
-index.
-Run:
-
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -27,7 +27,6 @@ ACTIVE_LEGACY_PARENT_WORDING_DECISION_REQUIRED_TOKENS = (
     "evidence class",
     "not the parent mechanic",
     "schema filename",
-    ACTIVE_LEGACY_PARENT_WORDING_COMMAND,
 )
 ACTIVE_LEGACY_PARENT_WORDING_FORBIDDEN: dict[str, tuple[str, ...]] = {
     "docs/operations/RELEASING.md": (

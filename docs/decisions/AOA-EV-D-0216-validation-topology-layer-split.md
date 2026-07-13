@@ -81,12 +81,5 @@ checks the authored topology surfaces.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/validation_topology_common.py scripts/validators/validation_topology_docs.py scripts/validators/validation_lane_manifest.py scripts/validators/validation_validator_inventory.py scripts/validators/validation_script_inventory.py scripts/validators/validation_test_inventory.py scripts/validators/root_topology.py tests/test_validation_topology.py`
-- `python -m pytest -q tests/test_validation_topology.py`
-- `python -m pytest -q tests/test_mechanics_topology.py`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

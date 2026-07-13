@@ -118,19 +118,10 @@ As of 2026-05-24:
   `mechanics/comparison-spine/DIRECTION.md`,
   `mechanics/comparison-spine/PARTS.md`, the four active comparison part
   READMEs, and `scripts/validate_repo.py`.
-- Validation: comparison-spine part README focus, catalog check, root
-  validation, semantic AGENTS validation, diff whitespace check, and full
-  pytest are the expected checks for this slice.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-- `mechanics/comparison-spine/README.md` names the owned operation, source
-  surfaces, inputs, outputs, stronger-owner split, comparison modes,
-  boundaries, validation, and next route.
-- `mechanics/comparison-spine/AGENTS.md` names local editing law.
-- `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `README.md`,
-  `docs/README.md`, `ROADMAP.md`, `CHANGELOG.md`, and
-  `docs/decisions/README.md` route to the package.
-- `python scripts/validate_repo.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

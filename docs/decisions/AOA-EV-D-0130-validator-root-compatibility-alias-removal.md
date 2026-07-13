@@ -101,7 +101,5 @@ It does not create compatibility aliases in another file.
 
 ## Validation
 
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py tests/test_mechanic_legacy_archive_routes.py tests/test_route_residue.py tests/test_quest_and_reader_surfaces.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

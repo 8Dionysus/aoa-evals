@@ -96,10 +96,5 @@ It does not move generated catalog projection ownership into proof-infra.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/proof_infra_common.py scripts/validators/proof_infra_routes.py scripts/validators/proof_infra_shared_support.py scripts/validators/mechanics_routes.py scripts/validators/source_eval_domains.py scripts/validators/source_eval_fixture_contracts.py scripts/validators/source_eval_runner_contracts.py tests/test_mechanic_surface_contracts.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k proof_infra`
-- `python -m pytest -q mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

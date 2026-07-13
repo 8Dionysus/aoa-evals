@@ -77,9 +77,5 @@ refs to outrank bundle-local review.
 
 ## Validation
 
-- `mechanics/proof-loop/README.md` names the owned operation and step owners.
-- `mechanics/proof-loop/AGENTS.md` names local editing law and boundaries.
-- `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `README.md`, `docs/README.md`,
-  `ROADMAP.md`, and `CHANGELOG.md` route the package.
-- `scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -85,5 +85,5 @@ It does not create any new root payload aliases.
 
 ## Validation
 
-- `python -m pytest -q tests/test_route_residue.py -k repo_config_route_residue`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

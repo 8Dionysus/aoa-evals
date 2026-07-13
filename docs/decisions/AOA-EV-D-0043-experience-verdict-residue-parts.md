@@ -74,10 +74,5 @@ or replay acceptance. It only routes bounded proof support surfaces.
 
 ## Validation
 
-Planned checks for this slice:
-
-```bash
-python -m pytest -q mechanics/experience/parts/governance-runtime-boundary/tests/test_experience_wave4_seed_contracts.py mechanics/experience/parts/office-release-train/tests/test_experience_wave5_seed_contracts.py
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

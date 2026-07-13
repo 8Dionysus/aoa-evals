@@ -61,8 +61,8 @@ are not the first place to put a new mechanic artifact.
 
 ## Consequences
 
-- Positive: `python scripts/validate_repo.py` now notices active payload and
-  stray directory drift in route-card-only root districts.
+- Positive: the repository validator now notices active payload and stray
+  directory drift in route-card-only root districts.
 - Positive: missing `README.md` cards for `config/`, `examples/`,
   `manifests/`, `schemas/`, and `templates/` now explain the active owner
   routes.
@@ -94,8 +94,8 @@ As of 2026-05-24:
   goes next rather than carrying prohibition-style proof caveats.
 - Source surfaces updated: `reports/README.md`, `scripts/validate_repo.py`,
   `tests/test_validate_repo.py`, and this decision.
-- Validation: root validation, generated-reader checks, semantic AGENTS
-  validation, and focused root route-card tests.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -110,13 +110,5 @@ config, scripts, tests, reports, or generated readers under active
 
 ## Validation
 
-- `config/README.md`
-- `examples/README.md`
-- `manifests/README.md`
-- `schemas/README.md`
-- `templates/README.md`
-- `docs/architecture/PROOF_TOPOLOGY.md`
-- `scripts/validate_repo.py`
-- `tests/test_validate_repo.py`
-- `python scripts/validate_repo.py`
-- `python -m pytest -q tests/test_validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

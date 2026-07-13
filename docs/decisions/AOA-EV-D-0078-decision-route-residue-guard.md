@@ -80,5 +80,5 @@ districts.
 
 ## Validation
 
-- `python -m pytest -q tests/test_route_residue.py -k decision_route_residue`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

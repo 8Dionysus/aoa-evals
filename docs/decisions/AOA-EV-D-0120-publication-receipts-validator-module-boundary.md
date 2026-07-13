@@ -106,13 +106,8 @@ As of 2026-06-04:
   `docs/validation/script_inventory.json`,
   `docs/validation/validator_inventory.json`, and
   `mechanics/EVIDENCE_CLUSTERS.md`.
-- Validation: `python -m pytest -q
-  mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py
-  mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py
-  mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py`
-  and `python -m pytest -q tests/test_validation_topology.py
-  tests/test_script_topology.py tests/test_mechanics_topology.py
-  tests/test_mechanic_root_district_recon.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Intake dry-review validator split
 
@@ -127,7 +122,8 @@ As of 2026-06-04:
   `scripts/validators/publication_receipts.py`,
   `scripts/validators/publication_receipts_intake.py`,
   validation inventories, and `mechanics/EVIDENCE_CLUSTERS.md`.
-- Validation: see AOA-EV-D-0169.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Route and payload subvalidator split
 
@@ -142,7 +138,8 @@ As of 2026-06-04:
   `scripts/validators/publication_receipts_routes.py`,
   `scripts/validators/publication_receipts_payload.py`,
   validation inventories, and `mechanics/EVIDENCE_CLUSTERS.md`.
-- Validation: see AOA-EV-D-0180.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -158,8 +155,5 @@ It does not append, rewrite, or publish `.aoa/live_receipts/` entries.
 
 ## Validation
 
-- `python -m pytest -q mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

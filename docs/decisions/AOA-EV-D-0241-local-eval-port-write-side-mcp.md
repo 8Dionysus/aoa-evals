@@ -96,13 +96,5 @@ because it owns the runnable MCP package.
 
 ## Validation
 
-This decision is valid when:
-
-- `docs/architecture/AOA_EVALS_MCP_CONTRACT.md` names local-port federation and
-  write stop-lines;
-- `docs/guides/LOCAL_EVAL_PORT_STANDARD.md` defines local suite/report note
-  shape;
-- `scripts/validate_local_eval_port.py` validates suite/report notes and
-  active/skeleton status;
-- generated decision indexes include this note;
-- the stack-owned `aoa-evals-mcp` package validates its local-port tools.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

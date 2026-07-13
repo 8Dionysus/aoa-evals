@@ -103,6 +103,5 @@ It does not let `publication_receipts_common.py` own receipt meaning.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/publication_receipts_common.py scripts/validators/publication_receipts_live.py scripts/validators/publication_receipts_routes.py scripts/validators/publication_receipts_payload.py scripts/validators/mechanics_routes.py`
-- `python -m pytest -q mechanics/publication-receipts/parts/live-publisher/tests/test_live_receipt_log.py mechanics/publication-receipts/parts/live-publisher/tests/test_publish_live_receipts.py mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_mechanic_root_district_recon.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

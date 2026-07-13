@@ -69,8 +69,8 @@ validation lane.
 | memory-context metadata is missing or treated as authority | restore the selected-evidence source example and rebuild the reader; memory authority remains in `aoa-memo` |
 | generated navigation conflicts with source examples, schemas, or eval contracts | follow the source surface and rebuild the reader |
 | a session or runtime packet carries verdict, score, baseline, or promotion wording | reject the packet before queue import; candidate readers route evidence only |
-| a candidate queue state is treated as permission to promote proof | run `python scripts/check_eval_candidate_queue_lifecycle.py --json`; queue lifecycle remains review-only |
-| local candidate pressure is treated as central adoption | run `python scripts/review_eval_promotion_path.py --json`; promotion review stays dry-run until local owner review, central overlap check, and human acceptance |
+| a candidate queue state is treated as permission to promote proof | use the queue-lifecycle route owned by `VALIDATION.md` and the parent `AGENTS.md`; queue lifecycle remains review-only |
+| local candidate pressure is treated as central adoption | use the dry-run promotion-review route owned by `VALIDATION.md` and the parent `AGENTS.md`; local owner review, central overlap checking, and human acceptance still apply |
 | session-mining report is treated as completed proof | route to owner review or a source eval bundle; reports and packets stay candidate-only |
 
 ## Validation

@@ -105,7 +105,6 @@ MECHANIC_PARENT_DIRECTION_DECISION_REQUIRED_TOKENS = (
     "active-to-archive bridge",
     "not provenance",
     "not a part map",
-    MECHANIC_PARENT_DIRECTION_COMMAND,
 )
 ROADMAP_MECHANIC_LOWER_INDEX_DIRECTION_TOKENS = (
     "Mechanic lower index",

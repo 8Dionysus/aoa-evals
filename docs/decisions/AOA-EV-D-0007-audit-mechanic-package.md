@@ -92,15 +92,8 @@ or `aoa-stats` owner truth into `aoa-evals`.
 
 ## Validation
 
-- `mechanics/audit/README.md` names source surfaces, inputs, outputs,
-  stronger-owner split, boundaries, legacy posture, validation, and next route.
-- `mechanics/audit/PARTS.md` names why the package has parts rather
-  than standalone sub-mechanics.
-- `mechanics/audit/AGENTS.md` names local editing law.
-- `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check`
-- `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.
 
 ## Current Applicability
 
@@ -122,9 +115,8 @@ As of 2026-05-24:
   - `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md`
   - `mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md`
   - `mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md`
-- Validation: `python scripts/validate_repo.py` and
-  `python scripts/validate_semantic_agents.py` stayed green before the
-  amendment slice; post-change validation is recorded in the landing PR.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Review Log
 
@@ -139,7 +131,8 @@ As of 2026-05-24:
   prohibition-heavy local prose.
 - Source surfaces updated: audit parent and part route docs, trace bridge,
   runtime bench guide, runtime integrity guide, and validator tokens.
-- Validation: see the landing PR for the exact command battery.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Root audit map names outbound owner routes
 
@@ -152,5 +145,5 @@ As of 2026-05-24:
   `AGENTS.md` keeps route law, approval gates, review severity, and validation.
 - Source surfaces updated: `AUDIT.md`, `scripts/validate_repo.py`,
   `tests/test_validate_repo.py`, and this decision.
-- Validation: root validation, semantic AGENTS validation, and focused audit
-  surface tests.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.

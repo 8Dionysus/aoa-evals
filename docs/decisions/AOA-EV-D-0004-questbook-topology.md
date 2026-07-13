@@ -85,8 +85,8 @@ As of 2026-05-24:
   owner without turning the human index into command law or verdict authority.
 - Source surfaces updated: `QUESTBOOK.md`, `scripts/validate_repo.py`,
   `tests/test_validate_repo.py`, and this decision.
-- Validation: root validation, generated-reader checks, semantic AGENTS
-  validation, and focused questbook tests.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -97,10 +97,5 @@ It does not authorize moving Agon notes or `AOA-EV-Q-*` records yet.
 
 ## Validation
 
-- `quests/README.md` and `quests/AGENTS.md` name the role split.
-- `QUESTBOOK.md` lists active non-closed quest IDs and excludes closed
-  foundation records.
-- `generated/quest_catalog.min.json` and `generated/quest_dispatch.min.json`
-  match source quest records.
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -115,7 +115,8 @@ As of 2026-06-04:
   `scripts/validators/mechanics_root_districts.py`,
   focused `scripts/validators/root_authored_surface_*` validators, validation
   inventories, and mechanics residual classification.
-- Validation: see AOA-EV-D-0164.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Parent-class and evidence-ledger split
 
@@ -133,7 +134,8 @@ As of 2026-06-04:
   `scripts/validators/mechanic_evidence_dimensions.py`,
   `scripts/validators/mechanic_evidence_route_refs.py`, validation
   inventories, and `mechanics/EVIDENCE_CLUSTERS.md`.
-- Validation: see AOA-EV-D-0181.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-06-04 - Parent-class aggregate removal
 
@@ -148,7 +150,8 @@ As of 2026-06-04:
   are separate mechanics topology boundaries.
 - Source surfaces updated: focused parent/evidence validators, validation
   inventories, and `mechanics/EVIDENCE_CLUSTERS.md`.
-- Validation: see AOA-EV-D-0198.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -169,5 +172,5 @@ security routes into hard gates.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/mechanics.py scripts/validators/mechanic_parent_registry.py scripts/validators/mechanic_evidence_dimensions.py scripts/validators/mechanic_evidence_route_refs.py scripts/validators/mechanics_root_districts.py scripts/validators/root_authored_surface_common.py scripts/validators/root_authored_surface_inventory.py scripts/validators/root_authored_surface_ledger.py scripts/validators/root_authored_surface_decision.py`
-- `python -m pytest -q tests/test_mechanics_topology.py tests/test_mechanic_evidence_ledger.py tests/test_mechanic_root_district_recon.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

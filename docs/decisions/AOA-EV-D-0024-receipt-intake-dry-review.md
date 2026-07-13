@@ -74,9 +74,8 @@ completion of the whole strategic refactor.
 
 ## Validation
 
-The route is protected by `scripts/validate_repo.py`, targeted tests for the
-dry-review artifact, publisher rejection of the dry-review shape, and the normal
-receipt tests when receipt publication behavior changes.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.
 
 ## Current Applicability
 
@@ -90,8 +89,8 @@ As of 2026-05-24:
 - Source surfaces updated:
   - `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`
   - `scripts/validate_repo.py`
-- Validation: root repository validation, semantic AGENTS validation, receipt
-  targeted tests, generated surface checks, and full pytest stayed green.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Review Log
 
@@ -105,5 +104,5 @@ As of 2026-05-24:
 - Reason: machine-readable status fields already carry the dry-review state;
   prose should tell agents where to go next.
 - Source surfaces updated: intake dry-review report and validator expectations.
-- Validation: root repository validation, semantic AGENTS validation, receipt
-  targeted tests, generated surface checks, and full pytest stayed green.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.

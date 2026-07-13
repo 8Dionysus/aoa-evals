@@ -257,9 +257,8 @@ The runtime status surface reports:
 
 The refresh route remains stack-owned:
 
-```bash
-scripts/aoa-sync-federation-surfaces --layer aoa-evals
-```
+Use the stack-owned federation sync wrapper for the `aoa-evals` layer; its CLI
+and execution contract remain with `abyss-stack`.
 
 If mirror provenance is missing or stale, agents must refresh through the stack
 federation sync wrapper or read the source checkout directly. They must not

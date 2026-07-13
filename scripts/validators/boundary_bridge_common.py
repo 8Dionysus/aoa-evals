@@ -197,7 +197,6 @@ BOUNDARY_BRIDGE_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "sibling authority",
     "orchestrator",
     "latest-sibling-canary",
-    "python scripts/validate_repo.py",
 )
 BOUNDARY_BRIDGE_DECISION_REQUIRED_TOKENS = (
     "mechanics/boundary-bridge/",

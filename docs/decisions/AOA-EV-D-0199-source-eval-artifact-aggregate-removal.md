@@ -93,7 +93,5 @@ name.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/source_eval_artifact_common.py scripts/validators/source_eval_report_artifacts.py scripts/validators/source_eval_fixture_contracts.py scripts/validators/source_eval_runner_contracts.py scripts/validators/source_eval_collection.py tests/test_report_schema_contracts.py`
-- `python -m pytest -q tests/test_report_schema_contracts.py tests/test_build_catalog.py tests/test_validate_repo.py tests/test_eval_source_topology.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

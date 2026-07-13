@@ -39,8 +39,8 @@ own evidence classes and source contracts.
 ## Consequences
 
 - Positive: route-smoke stays visibly bounded to routeability.
-- Positive: `python scripts/validate_repo.py` now catches drift in the
-  route-smoke part README.
+- Positive: the repository validator now catches drift in the route-smoke part
+  README.
 - Tradeoff: the README repeats stop-lines that the report already carries, but
   this is useful because low-context edits often start from the part card.
 
@@ -81,10 +81,10 @@ As of 2026-05-24:
   agent enters the part.
 - Source surfaces updated: proof-loop parent parts index and root validator
   token.
-- Validation: proof-loop route-smoke part validation and root repo validation.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k proof_loop_route_smoke_part_readme`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

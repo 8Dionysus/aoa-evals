@@ -87,9 +87,8 @@ As of 2026-05-24:
 - Source surfaces updated:
   `mechanics/experience/parts/office-release-train/README.md` and
   `scripts/validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
-  experience_part_readmes`, `python scripts/validate_repo.py`, and
-  `python scripts/validate_semantic_agents.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ### 2026-05-24 - Remaining Experience part boundary route wording
 
@@ -108,19 +107,10 @@ As of 2026-05-24:
   `mechanics/experience/parts/adoption-federation/README.md`,
   `mechanics/experience/parts/governance-runtime-boundary/README.md`, and
   `scripts/validate_repo.py`.
-- Validation: `python -m pytest -q tests/test_validate_repo.py -k
-  experience_part_readmes`, part-local Experience tests,
-  `python scripts/validate_repo.py`, and
-  `python scripts/validate_semantic_agents.py`.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-Expected validation route:
-
-```bash
-python -m pytest -q tests/test_mechanic_surface_contracts.py -k experience_part_readmes
-python -m pytest -q mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py mechanics/experience/parts/certification-gate/tests/test_experience_certification_gate_integrity.py mechanics/experience/parts/certification-gate/tests/test_experience_wave2_seed_contracts.py mechanics/experience/parts/adoption-federation/tests/test_experience_wave3_seed_contracts.py mechanics/experience/parts/governance-runtime-boundary/tests/test_experience_wave4_seed_contracts.py mechanics/experience/parts/office-release-train/tests/test_experience_wave5_seed_contracts.py
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python -m pytest -q
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

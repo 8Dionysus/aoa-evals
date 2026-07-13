@@ -95,17 +95,5 @@ stronger-owner Titan law changes.
 
 ## Validation
 
-- `mechanics/titan/README.md` names the owned operation, source
-  surfaces, inputs, outputs, stronger-owner split, boundaries, validation, and
-  next route.
-- `mechanics/titan/AGENTS.md` names local editing law.
-- `mechanics/titan/parts/seed-boundary/seeds/AGENTS.md` protects seed canary files.
-- `mechanics/titan/parts/seed-boundary/seeds/titan*.yaml` carries the source seed family.
-- `mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md` and
-  `mechanics/titan/parts/seed-boundary/docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md` route to the package.
-- `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `docs/architecture/LEGACY_NAMING.md`,
-  `README.md`, `docs/README.md`, `ROADMAP.md`, `CHANGELOG.md`, and
-  `docs/decisions/README.md` route to the package.
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k titan`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

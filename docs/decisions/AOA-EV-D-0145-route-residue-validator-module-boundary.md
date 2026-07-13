@@ -81,7 +81,8 @@ entrypoint while preserving the guard as a hard source-fast check.
   `scripts/validators/route_residue_mechanic_payload.py`,
   `scripts/validators/route_residue_common.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0167.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Current Applicability
 
@@ -110,5 +111,5 @@ grading.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/root_topology.py scripts/validators/mechanics_routes.py tests/test_generated_route_residue.py tests/test_route_residue.py`
-- `python -m pytest -q tests/test_generated_route_residue.py tests/test_route_residue.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

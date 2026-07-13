@@ -62,9 +62,5 @@ route drift is caught alongside catalog drift.
 
 ## Validation
 
-Expected checks:
-
-- `python scripts/generate_eval_report_index.py --check`
-- `python scripts/validate_repo.py`
-- `python -m pytest -q tests/test_downstream_feed_contracts.py tests/test_quest_and_reader_surfaces.py -k "eval_report_index or downstream"`
-- broad repository checks before closeout.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

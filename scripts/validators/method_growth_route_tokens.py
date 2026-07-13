@@ -105,7 +105,6 @@ METHOD_GROWTH_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "aoa-diagnosis-cause-discipline",
     "aoa-repair-boundedness",
     "final owner-object truth",
-    "python scripts/validate_repo.py",
 )
 METHOD_GROWTH_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS = (
     "Method-growth Part Owner-split Contract",
@@ -116,7 +115,6 @@ METHOD_GROWTH_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS = (
     "owner-fit routing proof only",
     "final owner truth stays with the owning repositories",
     "derivative first-authoring",
-    "python -m pytest -q tests/test_mechanic_surface_contracts.py -k method_growth_part_owner_split",
 )
 
 

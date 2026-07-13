@@ -71,7 +71,5 @@ Reachability guard.
 
 ## Validation
 
-```bash
-python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_source_surface
-python scripts/validate_repo.py
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

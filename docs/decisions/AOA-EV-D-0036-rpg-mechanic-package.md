@@ -98,17 +98,10 @@ As of 2026-05-24:
   `mechanics/rpg/parts/progression-unlocks/docs/PROGRESSION_EVIDENCE_MODEL.md`,
   `mechanics/rpg/parts/progression-unlocks/docs/UNLOCK_PROOF_BRIDGE.md`, and
   `scripts/validate_repo.py`.
-- Validation: RPG validator focus, unlock/progression surface validation,
-  catalog check, semantic AGENTS validation, diff whitespace check, and full
-  pytest are the expected checks for this slice.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-Expected validation route:
-
-```bash
-python scripts/build_catalog.py
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -75,10 +75,5 @@ It does not create a replacement Recurrence aggregate facade.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/recurrence_route_paths.py scripts/validators/recurrence_route_tokens.py scripts/validators/recurrence_routes.py scripts/validators/mechanics_routes.py tests/test_mechanic_surface_contracts.py`
-- `python -m pytest -q tests/test_mechanic_surface_contracts.py -k recurrence`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/ci_gate.py --mode source-fast`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -99,7 +99,8 @@ As of 2026-06-05:
 - Source surfaces updated: `scripts/validate_repo.py`,
   `scripts/validators/*readouts.py`, `scripts/validators/readout_contexts.py`,
   validation inventories, validator topology, and evidence clusters.
-- Validation: pending in AOA-EV-D-0239.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -113,5 +114,5 @@ release gate or a replacement for generated builders.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/evidence_readouts.py tests/test_runtime_evidence_surfaces.py`
-- `python -m pytest -q tests/test_runtime_evidence_surfaces.py tests/test_generated_parity.py tests/test_report_schema_contracts.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -98,5 +98,5 @@ checks into the validation-command or index-sync validators.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/mechanic_parts_index_sync.py scripts/validators/mechanic_part_validation_commands.py scripts/validators/mechanic_part_validation_common.py scripts/validators/mechanics_routes.py tests/test_mechanic_parts_index.py tests/test_mechanic_part_validation_commands.py`
-- `python -m pytest -q tests/test_mechanic_parts_index.py tests/test_mechanic_part_validation_commands.py tests/test_mechanic_part_contracts.py tests/test_index_surface_roles.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -96,20 +96,10 @@ As of 2026-05-24:
   `mechanics/checkpoint/parts/self-agent-posture/README.md`,
   `mechanics/checkpoint/parts/self-agent-posture/docs/SELF_AGENT_CHECKPOINT_EVAL_POSTURE.md`,
   and `scripts/validate_repo.py`.
-- Validation: checkpoint validator focus, A2A part-local fixture test,
-  candidate-reader checks, catalog check, root validation, semantic AGENTS
-  validation, diff whitespace check, and full pytest passed.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Validation
 
-Expected validation route:
-
-```bash
-python -m pytest -q tests/test_mechanic_surface_contracts.py -k checkpoint_part_readmes
-python -m pytest -q mechanics/checkpoint/parts/a2a-summon-return/tests/test_a2a_summon_return_checkpoint_fixture.py
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python -m pytest -q
-```
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

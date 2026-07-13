@@ -73,5 +73,5 @@ payload meaning, generated projection parity, or release packaging.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/root_route_cards.py tests/test_route_residue.py`
-- `python -m pytest -q tests/test_route_residue.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

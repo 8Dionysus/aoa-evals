@@ -33,7 +33,6 @@ SOURCE_BUNDLE_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
     "repo-qualified sibling",
     "legacy mechanic parent",
     "route-card-only root district",
-    SOURCE_BUNDLE_ROUTE_RESIDUE_COMMAND,
 )
 SOURCE_BUNDLE_ROUTE_RESIDUE_SUFFIXES = frozenset(
     {".json", ".md", ".txt", ".yaml", ".yml"}

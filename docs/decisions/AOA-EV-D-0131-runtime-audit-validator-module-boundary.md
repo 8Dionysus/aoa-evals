@@ -95,7 +95,8 @@ boundary explicit without duplicating root resolver authority.
 - Source surfaces updated: `scripts/validators/runtime_audit.py`,
   `scripts/validators/runtime_integrity_review.py`, validation inventories, and
   mechanics residual classification.
-- Validation: see AOA-EV-D-0174.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Current Applicability
 
@@ -126,12 +127,5 @@ generated, or release meaning.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/runtime_audit_common.py scripts/validators/runtime_trace_eval_bridge.py scripts/validators/runtime_evidence_selection.py scripts/validators/runtime_integrity_review.py scripts/validators/evidence_readouts.py tests/test_runtime_evidence_surfaces.py`
-- `python -m pytest -q tests/test_runtime_evidence_surfaces.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_test_topology.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/ci_gate.py --mode source-fast`
-- `python -m pytest -q`
-- `python scripts/release_check.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

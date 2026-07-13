@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import re
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -26,10 +28,58 @@ LANE_MANIFEST_PATH = REPO_ROOT / "docs" / "validation" / "validation_lanes.json"
 VALIDATOR_INVENTORY_PATH = REPO_ROOT / "docs" / "validation" / "validator_inventory.json"
 TOPOLOGY_PATH = REPO_ROOT / "docs" / "validation" / "VALIDATOR_TOPOLOGY.md"
 COMMAND_AUTHORITY_PATH = REPO_ROOT / "docs" / "validation" / "COMMAND_AUTHORITY.md"
+PRIMARY_COMMAND_DOCS = frozenset(
+    {
+        "docs/validation/COMMAND_AUTHORITY.md",
+        "docs/operations/RELEASING.md",
+        "docs/guides/EVAL_FORGE_READINESS_LAYER.md",
+        "docs/guides/LOCAL_EVAL_PORT_STANDARD.md",
+        (
+            "mechanics/proof-object/parts/eval-authoring/docs/"
+            "EVAL_FORGE_OPERATING_PATH.md"
+        ),
+    }
+)
+SHELL_FENCE_PATTERN = re.compile(
+    r"^ {0,3}```(?:bash|console|sh|shell)(?:\s+.*)?$",
+    re.IGNORECASE | re.MULTILINE,
+)
+REPO_COMMAND_LINE_PATTERN = re.compile(
+    r"^[ \t]*(?:[-*][ \t]+)?`?(?:"
+    r"python(?:[ \t]+-m)?[ \t]+|pytest(?=[ \t])|"
+    r"uv[ \t]+run[ \t]+pytest\b|git[ \t]+(?:status|diff)\b)",
+    re.IGNORECASE | re.MULTILINE,
+)
+INLINE_REPO_COMMAND_PATTERN = re.compile(
+    r"`(?:python(?:\s+-m)?\s+|pytest(?=\s)|git\s+(?:status|diff)\b)[^`]+`",
+    re.IGNORECASE,
+)
 
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def tracked_markdown_paths() -> tuple[Path, ...]:
+    result = subprocess.run(
+        ("git", "ls-files", "--", "*.md"),
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return tuple(Path(line) for line in result.stdout.splitlines() if line)
+
+
+def markdown_command_violations(content: str) -> set[str]:
+    violations: set[str] = set()
+    if SHELL_FENCE_PATTERN.search(content):
+        violations.add("shell command block")
+    if REPO_COMMAND_LINE_PATTERN.search(content):
+        violations.add("repo command line")
+    if INLINE_REPO_COMMAND_PATTERN.search(content):
+        violations.add("inline repo command")
+    return violations
 
 
 def command_script_paths(commands: tuple[tuple[str, ...], ...]) -> set[str]:
@@ -54,6 +104,37 @@ def validate_validation_topology(repo_root: Path) -> list[tuple[str, str]]:
 
 
 class ValidationTopologyTests(unittest.TestCase):
+    def test_non_owner_markdown_routes_runnable_commands_to_command_owners(self) -> None:
+        offenders: list[str] = []
+        for relative_path in tracked_markdown_paths():
+            route = relative_path.as_posix()
+            if route.startswith(".agents/skills/"):
+                continue
+            if relative_path.name in {"AGENTS.md", "VALIDATION.md"}:
+                continue
+            if route in PRIMARY_COMMAND_DOCS:
+                continue
+            content = (REPO_ROOT / relative_path).read_text(encoding="utf-8")
+            for violation in sorted(markdown_command_violations(content)):
+                offenders.append(f"{route}: {violation}")
+
+        self.assertEqual([], offenders)
+
+    def test_markdown_command_guard_rejects_scattered_command_forms(self) -> None:
+        content = """# Drift
+
+```bash
+python scripts/validate_repo.py
+```
+
+- `python -m pytest -q`
+"""
+
+        self.assertEqual(
+            {"inline repo command", "repo command line", "shell command block"},
+            markdown_command_violations(content),
+        )
+
     def test_topology_docs_name_agentic_proof_lanes(self) -> None:
         topology = TOPOLOGY_PATH.read_text(encoding="utf-8")
         command_authority = COMMAND_AUTHORITY_PATH.read_text(encoding="utf-8")

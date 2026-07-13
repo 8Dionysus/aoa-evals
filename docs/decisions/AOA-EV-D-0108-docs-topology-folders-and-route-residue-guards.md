@@ -97,6 +97,5 @@ guidance stays under the owning mechanic or part.
 
 ## Validation
 
-Use the docs topology validator through the root repository validator, plus
-`python -m pytest -q tests/test_docs_topology.py`, the semantic AGENTS check,
-and focused validator tests named in `docs/AGENTS.md`.
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

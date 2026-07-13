@@ -18,7 +18,7 @@
 <!--
 - root `AGENTS.md#verify` status
 - generated/readout parity status when relevant
-- pytest modules actually run
+- test modules actually run
 - comparison or chooser surfaces manually re-read
 - what was not run
 -->

@@ -90,16 +90,8 @@ receipt-count quality claims.
 
 ## Validation
 
-- `mechanics/publication-receipts/README.md` names the owned operation, source
-  surfaces, inputs, outputs, stronger-owner split, boundaries, validation, and
-  next route.
-- `mechanics/publication-receipts/PARTS.md` names the part topology.
-- `mechanics/publication-receipts/AGENTS.md` names local editing law.
-- `mechanics/README.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `README.md`,
-  `docs/README.md`, `ROADMAP.md`, `CHANGELOG.md`, and
-  `docs/decisions/README.md` route to the package.
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.
 
 ## Current Applicability
 
@@ -116,8 +108,8 @@ As of 2026-05-24:
   - `mechanics/publication-receipts/parts/receipt-payload/examples/eval_result_receipt.example.json`
   - `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json`
   - `scripts/validate_repo.py`
-- Validation: root repository validation, semantic AGENTS validation, receipt
-  targeted tests, generated surface checks, and full pytest stayed green.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Review Log
 
@@ -131,5 +123,5 @@ As of 2026-05-24:
   owner, next route, tool, and validation are the durable operating facts.
 - Source surfaces updated: receipt guide, public example interpretation bound,
   dry-review boundary strings, and validator tokens.
-- Validation: root repository validation, semantic AGENTS validation, receipt
-  targeted tests, generated surface checks, and full pytest stayed green.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.

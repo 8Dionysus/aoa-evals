@@ -117,5 +117,5 @@ grading.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/route_residue_active_mechanics.py scripts/validators/route_residue_root_authored.py scripts/validators/route_residue_decisions.py scripts/validators/route_residue_repo_config.py scripts/validators/route_residue_source_bundle.py scripts/validators/route_residue_generated.py scripts/validators/route_residue_mechanic_payload.py scripts/validators/route_residue_common.py scripts/validators/root_topology.py scripts/validators/mechanics_routes.py`
-- `python -m pytest -q tests/test_route_residue.py tests/test_generated_route_residue.py tests/test_mechanic_manifest_routes.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

@@ -93,7 +93,5 @@ name.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/questbook_context.py scripts/validators/questbook_io.py scripts/validators/questbook_source_constants.py scripts/validators/questbook_orchestrator_constants.py scripts/validators/questbook_orchestrator_refs.py scripts/validators/questbook_projection_records.py scripts/validators/questbook_projection_parity.py scripts/validators/questbook_schema_lifecycle.py scripts/validators/questbook_source_records.py scripts/validators/questbook_obligation_index.py scripts/build_catalog.py scripts/validate_repo.py tests/test_quest_and_reader_surfaces.py tests/validate_repo_fixtures.py`
-- `python -m pytest -q tests/test_quest_and_reader_surfaces.py tests/test_build_catalog.py tests/test_validate_repo.py -k quest`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

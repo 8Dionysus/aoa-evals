@@ -198,7 +198,6 @@ RECURRENCE_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "continuity-anchor",
     "self-reanchor",
     "global recurrence completeness",
-    "python scripts/validate_repo.py",
 )
 RECURRENCE_SUPPORT_PARTS_DECISION_REQUIRED_TOKENS = (
     "mechanics/recurrence/",
@@ -219,7 +218,6 @@ RECURRENCE_PORTABLE_PROOF_BEACONS_DECISION_REQUIRED_TOKENS = (
     "recurrence",
     "does not own audit candidate packet curation",
     "does not make runtime evidence proof canon",
-    "python scripts/validate_repo.py",
 )
 RECURRENCE_CONTROL_PLANE_CONTRACT_DECISION_REQUIRED_TOKENS = (
     "Recurrence Control-plane Contract",
@@ -232,7 +230,6 @@ RECURRENCE_CONTROL_PLANE_CONTRACT_DECISION_REQUIRED_TOKENS = (
     "Agon source truth",
     "beacon verdict authority",
     "portable proof acceptance",
-    "python scripts/validate_repo.py",
 )
 
 

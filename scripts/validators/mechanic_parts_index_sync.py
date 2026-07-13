@@ -29,7 +29,6 @@ MECHANIC_PARTS_INDEX_SYNC_DECISION_REQUIRED_TOKENS = (
     "declared part route",
     "stale local part route",
     "cross-parent reference",
-    MECHANIC_PARTS_INDEX_SYNC_COMMAND,
 )
 MECHANIC_PART_SLUG_PATTERN = r"[a-z0-9][a-z0-9_.-]+"
 

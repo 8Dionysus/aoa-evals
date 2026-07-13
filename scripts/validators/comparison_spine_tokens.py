@@ -153,7 +153,6 @@ COMPARISON_SPINE_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "stop-lines",
     "broad growth",
     "pressure-to-owner routes",
-    "python scripts/build_catalog.py --check",
 )
 COMPARISON_SPINE_REPORT_PARTS_DECISION_REQUIRED_TOKENS = (
     "mechanics/comparison-spine/parts/",
@@ -164,7 +163,6 @@ COMPARISON_SPINE_REPORT_PARTS_DECISION_REQUIRED_TOKENS = (
     "peer-compare",
     "longitudinal-window",
     "does not make a shared dossier stronger than the source proof object",
-    "python scripts/build_catalog.py --check",
 )
 COMPARISON_SPINE_FIXTURE_PARTS_DECISION_REQUIRED_TOKENS = (
     "fixed-baseline/fixtures/frozen-same-task-v1/",
@@ -174,7 +172,6 @@ COMPARISON_SPINE_FIXTURE_PARTS_DECISION_REQUIRED_TOKENS = (
     "Bundle source truth stays in `evals/**/EVAL.md`",
     "does not make a fixture family stronger than the source proof object",
     COMPARISON_SPINE_PROVENANCE_NAME,
-    "python scripts/build_catalog.py --check",
 )
 COMPARISON_SPINE_PROVENANCE_REQUIRED_TOKENS = MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS
 COMPARISON_SPINE_LEGACY_INDEX_REQUIRED_TOKENS = (

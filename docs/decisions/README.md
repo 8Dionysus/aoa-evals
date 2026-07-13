@@ -64,9 +64,8 @@ Use them in both directions:
 - bottom up: changed source surface -> local route card or part index ->
   validator guard -> decision rationale -> stronger owner surface.
 
-Regenerate the read models after decision metadata changes:
-
-`python scripts/generate_decision_indexes.py`
+After decision metadata changes, regenerate the read models through the route
+owned by this lane's `AGENTS.md`.
 
 ## Current Route
 

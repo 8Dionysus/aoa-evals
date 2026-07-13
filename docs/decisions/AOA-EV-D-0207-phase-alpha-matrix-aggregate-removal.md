@@ -91,9 +91,5 @@ name.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/phase_alpha_matrix_common.py scripts/validators/phase_alpha_matrix_projection.py scripts/validators/phase_alpha_matrix_sibling_compat.py scripts/validators/evidence_readouts.py tests/test_downstream_feed_contracts.py`
-- `python -m pytest -q tests/test_downstream_feed_contracts.py -k phase_alpha`
-- `python -m pytest -q tests/test_runtime_evidence_surfaces.py tests/test_validate_repo.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

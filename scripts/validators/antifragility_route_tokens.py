@@ -141,7 +141,6 @@ ANTIFRAGILITY_MECHANIC_DECISION_REQUIRED_TOKENS = (
     "comparison-spine",
     "audit",
     "aoa-diagnosis-cause-discipline",
-    "python scripts/validate_repo.py",
 )
 ANTIFRAGILITY_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "Antifragility Part Contract Guard",
@@ -154,7 +153,6 @@ ANTIFRAGILITY_PART_CONTRACT_GUARD_DECISION_REQUIRED_TOKENS = (
     "repair parent",
     "growth-cycle completion",
     "growth-cycle/diagnosis-gate",
-    "python scripts/validate_repo.py",
 )
 
 

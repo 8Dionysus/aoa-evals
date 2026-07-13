@@ -101,9 +101,5 @@ helper-only.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/questbook_context.py scripts/validators/questbook_io.py scripts/validators/questbook_source_constants.py scripts/validators/questbook_orchestrator_constants.py scripts/validators/questbook_schema_lifecycle.py scripts/validators/questbook_source_records.py scripts/validators/questbook_obligation_index.py scripts/validators/questbook_projection_records.py scripts/validators/questbook_projection_parity.py scripts/validators/questbook_orchestrator_refs.py scripts/validators/questbook_progression.py tests/test_quest_and_reader_surfaces.py`
-- `python -m pytest -q tests/test_quest_and_reader_surfaces.py -k quest`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

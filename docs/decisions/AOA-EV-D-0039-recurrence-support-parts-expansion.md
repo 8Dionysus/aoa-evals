@@ -87,9 +87,8 @@ As of 2026-05-24:
   `mechanics/recurrence/parts/recursor-boundary/README.md`,
   `mechanics/recurrence/parts/stats-regrounding-boundary/README.md`, and
   `scripts/validate_repo.py`.
-- Validation: recurrence validator focus, recurrence part runners and tests,
-  catalog check, root validation, semantic AGENTS validation, diff whitespace
-  check, and full pytest passed.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Boundaries
 
@@ -104,13 +103,5 @@ owners, and source owner repositories keep stronger local truth.
 
 ## Validation
 
-- `mechanics/recurrence/README.md`, `PARTS.md`, and `PROVENANCE.md` route the
-  new parts and bridge old placement questions into the owning legacy archive.
-- `docs/architecture/PROOF_TOPOLOGY.md`, `docs/architecture/LEGACY_NAMING.md`, and
-  `mechanics/EVIDENCE_CLUSTERS.md` name the updated topology.
-- `scripts/validate_repo.py` checks the recurrence package and active support
-  part route tokens.
-- `python mechanics/recurrence/parts/recursor-boundary/scripts/run_recursor_readiness_boundary_eval.py --case mechanics/recurrence/parts/recursor-boundary/fixtures/recursor-readiness-boundary-v1/cases/RRB-001.no-spawn-readiness.json --check-expected --json`
-- `python -m pytest -q mechanics/recurrence/parts/recursor-boundary/tests/test_recursor_readiness_boundary_eval_seed.py mechanics/recurrence/parts/memory-recall/tests/test_memo_recall_phase_alpha_report.py mechanics/recurrence/parts/stats-regrounding-boundary/tests/test_stats_regrounding_boundary_eval.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_repo.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

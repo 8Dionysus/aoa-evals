@@ -32,7 +32,6 @@ ROOT_AUTHORED_ROUTE_RESIDUE_DECISION_REQUIRED_TOKENS = (
     "docs/decisions/",
     "historical context",
     "`evals/<family>/<eval>/...`",
-    ROOT_AUTHORED_ROUTE_RESIDUE_COMMAND,
 )
 ROOT_AUTHORED_ROUTE_RESIDUE_ROOT_FILES = (
     ".agents/spark/SWARM.md",

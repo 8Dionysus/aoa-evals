@@ -44,7 +44,6 @@ ROOT_AUTHORED_SURFACE_CLASSIFICATION_DECISION_REQUIRED_TOKENS = (
     "validator allowlist retired",
     "ledger-derived surface map",
     "`mechanics/EVIDENCE_CLUSTERS.md` remains the source",
-    ROOT_AUTHORED_SURFACE_CLASSIFICATION_COMMAND,
 )
 
 

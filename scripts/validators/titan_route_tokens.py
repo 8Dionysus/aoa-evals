@@ -144,7 +144,6 @@ TITAN_SEED_BOUNDARY_CONTRACT_DECISION_REQUIRED_TOKENS = (
     "aoa-agents",
     "aoa-memo",
     "runtime activation",
-    "python scripts/validate_repo.py",
 )
 
 

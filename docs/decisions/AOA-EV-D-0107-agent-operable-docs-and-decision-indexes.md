@@ -107,8 +107,5 @@ later route-residue guard-map slice.
 
 ## Validation
 
-Use the docs-decision generator and repo validators:
-
-- `python scripts/generate_decision_indexes.py --check`
-- `python scripts/validate_repo.py`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

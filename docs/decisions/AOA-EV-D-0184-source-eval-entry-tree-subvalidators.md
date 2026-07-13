@@ -101,8 +101,5 @@ It does not let `eval_bundle_common.py` own validation semantics.
 
 ## Validation
 
-- `python -m py_compile scripts/validate_repo.py scripts/validators/eval_bundle_common.py scripts/validators/eval_entry_cards.py scripts/validators/eval_starter_surfaces.py scripts/validators/eval_roadmap_parity.py scripts/validators/eval_entry_routes.py scripts/validators/eval_tree_topology.py scripts/validators/root_topology.py scripts/validators/mechanics_root_districts.py scripts/validators/root_authored_surface_common.py scripts/validators/root_authored_surface_inventory.py scripts/validators/root_authored_surface_ledger.py scripts/validators/root_authored_surface_decision.py`
-- `python -m pytest -q tests/test_eval_source_topology.py tests/test_roadmap_parity.py tests/test_validate_repo.py`
-- `python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py tests/test_mechanics_topology.py tests/test_decision_indexes.py`
-- `python scripts/generate_decision_indexes.py`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

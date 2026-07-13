@@ -103,8 +103,5 @@ routes to `scripts/validators/questbook_source_records.py`.
 
 ## Validation
 
-- `python -m py_compile scripts/validators/questbook_context.py scripts/validators/questbook_io.py scripts/validators/questbook_source_constants.py scripts/validators/questbook_orchestrator_constants.py scripts/validators/questbook_projection_records.py scripts/validators/questbook_projection_parity.py scripts/validators/questbook_orchestrator_refs.py tests/test_quest_and_reader_surfaces.py tests/validate_repo_fixtures.py scripts/build_catalog.py`
-- `python -m pytest -q tests/test_quest_and_reader_surfaces.py`
-- `python -m json.tool docs/validation/script_inventory.json`
-- `python -m json.tool docs/validation/validator_inventory.json`
-- `python scripts/ci_gate.py --mode source-fast`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

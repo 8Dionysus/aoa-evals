@@ -82,16 +82,8 @@ It does not make eval schemas stronger than bundle-local meaning.
 
 ## Validation
 
-- `mechanics/proof-object/PARTS.md` names active parts, stop-lines, and
-  validation.
-- `mechanics/proof-object/parts/README.md` routes the lower part index and
-  part-admission posture.
-- `mechanics/proof-object/PROVENANCE.md` bridges former root placement
-  questions into the owning legacy archive.
-- `scripts/validate_repo.py` uses the part-local schema paths.
-- `python scripts/validate_repo.py`
-- `python scripts/build_catalog.py --check`
-- `python scripts/validate_semantic_agents.py`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.
 
 ## Current Applicability
 
@@ -103,8 +95,8 @@ As of 2026-05-24:
   part-admission route for proof-object support operations.
 - Source surfaces updated: `mechanics/proof-object/parts/README.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: proof-object parts route helper, full repository validation, and
-  generated catalog freshness check.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.
 
 ## Review Log
 
@@ -120,4 +112,5 @@ As of 2026-05-24:
   part without becoming a second proof-object contract.
 - Source surfaces updated: `mechanics/proof-object/parts/README.md`,
   `scripts/validate_repo.py`, and `tests/test_validate_repo.py`.
-- Validation: focused proof-object parts route tests plus full repo validation.
+- Validation: use the current owner validation route; historical run evidence
+  remains in Git and CI history.

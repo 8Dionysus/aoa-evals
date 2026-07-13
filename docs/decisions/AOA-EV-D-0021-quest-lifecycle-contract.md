@@ -77,10 +77,5 @@ closure or bundle-local proof success.
 
 ## Validation
 
-- `quests/LIFECYCLE.md`
-- `quests/README.md`
-- `quests/AGENTS.md`
-- `mechanics/questbook/README.md`
-- `mechanics/proof-loop/README.md`
-- `scripts/validate_repo.py`
-- `python scripts/build_catalog.py --check`
+Current executable checks are owned by
+`docs/validation/COMMAND_AUTHORITY.md` and the nearest `AGENTS.md`.

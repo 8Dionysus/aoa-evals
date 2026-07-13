@@ -1423,7 +1423,7 @@
     {"anchor_ids":["aoa:aoa-evals:anchor:a5238109a70d940f4f90b19e"],"entity_kind":"directory","id":"aoa:aoa-evals:entity:eec1dd95ddc79b4e18477eff","label":"fixtures","provenance_ref":"deterministic","semantic_key":"directory:evals/workflow/aoa-trace-outcome-separation/fixtures","source_digest":"173e594950468f86b63e4e4c3b918505af381b1e86ff0ce4692e0e7d0604afbe","source_record_ids":["aoa:aoa-evals:artifact:6adc29bfd1e3db4778fd638b"],"temporal_ref":"current","trust_ref":"deterministic"},
     {"anchor_ids":["aoa:aoa-evals:anchor:f5a7d30c8591c2588f0919b4"],"entity_kind":"directory","id":"aoa:aoa-evals:entity:eedadab8d49a5e24b8b0dabb","label":"schemas","provenance_ref":"deterministic","semantic_key":"directory:mechanics/audit/parts/candidate-readers/schemas","source_digest":"7c7e722b78f0860cc4da57da5c4638df3603a0eb97d986df3c1278dec7ba8663","source_record_ids":["aoa:aoa-evals:artifact:411b81b80c73fe2e07b0cbb2"],"temporal_ref":"current","trust_ref":"deterministic"},
     {"anchor_ids":["aoa:aoa-evals:anchor:c721c0597972ff4e56e65703"],"entity_kind":"directory","id":"aoa:aoa-evals:entity:eee51048f59f6e04228fc913","label":"runners","provenance_ref":"deterministic","semantic_key":"directory:evals/workflow/aoa-memo-writeback-decision-quality/runners","source_digest":"82947f89d17ef91c3f96c6654493cf00ae4b8962f9a14d5416db2598af2a5927","source_record_ids":["aoa:aoa-evals:artifact:614b08d0d633a6256bd089cd"],"temporal_ref":"current","trust_ref":"deterministic"},
-    {"anchor_ids":["aoa:aoa-evals:anchor:71befb3573138221b1c1f578"],"entity_kind":"directory","id":"aoa:aoa-evals:entity:f019620edd42955bd2ad859f","label":"workflows","provenance_ref":"deterministic","semantic_key":"directory:.github/workflows","source_digest":"5c91bdba750ed9fb7dc0f77852828faa195f4f2593ae106716aa48bc9fb81660","source_record_ids":["aoa:aoa-evals:artifact:3affb923d04bc06217e2c3a1"],"temporal_ref":"current","trust_ref":"deterministic"},
+    {"anchor_ids":["aoa:aoa-evals:anchor:71befb3573138221b1c1f578"],"entity_kind":"directory","id":"aoa:aoa-evals:entity:f019620edd42955bd2ad859f","label":"workflows","provenance_ref":"deterministic","semantic_key":"directory:.github/workflows","source_digest":"55d191900b09260ab101f9fafeea29dc34d5a9de23bc5d8cad98c70ff60e3591","source_record_ids":["aoa:aoa-evals:artifact:3affb923d04bc06217e2c3a1"],"temporal_ref":"current","trust_ref":"deterministic"},
     {"anchor_ids":["aoa:aoa-evals:anchor:3273c12753a79aae87f7a065"],"entity_kind":"directory","id":"aoa:aoa-evals:entity:f063e4ed8a65b2ba8fe281b4","label":"experience-verdict-protocol-integrity-v1","provenance_ref":"deterministic","semantic_key":"directory:mechanics/experience/parts/protocol-integrity/fixtures/experience-verdict-protocol-integrity-v1","source_digest":"c965e643c7367da0ae2d6fffe73ea444e6fcbc759fb2bb57f471fa54bd76ff6c","source_record_ids":["aoa:aoa-evals:artifact:c8be4e7bf91a560e73f2d09e"],"temporal_ref":"current","trust_ref":"deterministic"},
     {"anchor_ids":["aoa:aoa-evals:anchor:31bbce4c946bc59fa2a73f53"],"entity_kind":"directory","id":"aoa:aoa-evals:entity:f1236d945712106be2e2960a","label":"memo-writeback-decision-quality-v1","provenance_ref":"deterministic","semantic_key":"directory:mechanics/proof-infra/parts/fixture-families/fixtures/memo-writeback-decision-quality-v1","source_digest":"08896211dd5bac2f57f11ed49cde6c3093a06620327f4eaacd79f5c12c024ff1","source_record_ids":["aoa:aoa-evals:artifact:69de87987b699e71e9815a89"],"temporal_ref":"current","trust_ref":"deterministic"},
     {"anchor_ids":["aoa:aoa-evals:anchor:1930a03d4ebe5924a9cbac6b"],"entity_kind":"directory","id":"aoa:aoa-evals:entity:f14c99534187beab261b37bd","label":"aoa-ambiguity-handling","provenance_ref":"deterministic","semantic_key":"directory:evals/stress/aoa-ambiguity-handling","source_digest":"10c812f486955de61ea99ac8a8a7e9cfa0a27a8b9a9b407904d1dd90e392c1c5","source_record_ids":["aoa:aoa-evals:artifact:5193bf29fe1932be70ed1da0"],"temporal_ref":"current","trust_ref":"deterministic"},
@@ -4905,7 +4905,7 @@
   ],
   "index_identity": {
     "artifact_kind": "repository_entity_index",
-    "content_digest": "3ae6f3b941420fac414e1a6cc8570fe998e57e037593061e3ca4acbe5069d614",
+    "content_digest": "f423f5cdac2a9fe368dc82530deda58c173ca9bd932dc26b32819ca0d2e20619",
     "index_kind": "entity",
     "local_id": "index:repo-local:entities",
     "schema_ref": "aoa-kag:schemas/repo-local-kag-repository-index.schema.json"
@@ -4990,7 +4990,7 @@
   },
   "schema_version": "aoa-repo-local-kag-repository-index-v2",
   "source_index": {
-    "content_digest": "d42b5d3c634dfcdc31bb12e4ae70681824bb4625ff28a07bbf38e73c0e0d65b9",
+    "content_digest": "4980626f5a1eaea4c2db5817979ae767dba3c189713c5a85bafaf1b4bae5025a",
     "local_id": "index:repo-local:source-surfaces",
     "path": "kag/indexes/source_surface_index.json"
   },

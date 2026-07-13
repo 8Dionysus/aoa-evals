@@ -265,7 +265,10 @@ def build_session_start_payload(
             },
             {
                 "purpose": "inspect workspace local eval ports",
-                "command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json",
+                "command": (
+                    "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS "
+                    "--json-output /tmp/aoa_local_eval_ports.current.json --json"
+                ),
             },
             {
                 "purpose": "route one concrete eval candidate through Eval Forge before authoring",

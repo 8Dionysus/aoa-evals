@@ -353,8 +353,10 @@ def _validate_producer_profiles(payload: dict[str, Any], issues: list[dict[str, 
 
     for row in profile_rows:
         profile_id = row.get("profile_id") or row.get("owner_repo") or "<unknown>"
+        owner_repo = row.get("owner_repo")
+        if not isinstance(owner_repo, str) or not owner_repo:
+            _add_issue(issues, "producer_profiles.profile_shape", f"{profile_id} missing owner_repo")
         for key in (
-            "owner_repo",
             "owner_route_refs",
             "artifact_classes",
             "validator_commands",
@@ -364,7 +366,7 @@ def _validate_producer_profiles(payload: dict[str, Any], issues: list[dict[str, 
             "trust_root_modes",
         ):
             value = row.get(key)
-            if not value or (isinstance(value, list) and not value):
+            if not isinstance(value, list) or not value:
                 _add_issue(issues, "producer_profiles.profile_shape", f"{profile_id} missing {key}")
 
     agent_loop = payload.get("agent_loop", {})
@@ -477,6 +479,20 @@ def _validate_durable_coverage(payload: dict[str, Any], issues: list[dict[str, s
     }
 
 
+def _validate_coverage_class_set(
+    label: str,
+    required_classes: set[str],
+    observed_classes: set[str],
+    issues: list[dict[str, str]],
+) -> None:
+    missing = sorted(required_classes - observed_classes)
+    extra = sorted(observed_classes - required_classes)
+    if missing:
+        _add_issue(issues, f"{label}.artifact_classes", "missing required artifact classes: " + ", ".join(missing))
+    if extra:
+        _add_issue(issues, f"{label}.artifact_classes", "unexpected artifact classes: " + ", ".join(extra))
+
+
 def _single_row(payload: dict[str, Any], artifact_class: str) -> dict[str, Any] | None:
     return _rows_by_class(payload).get(artifact_class)
 
@@ -559,11 +575,28 @@ def _validate_drift(payloads: dict[str, dict[str, Any]], issues: list[dict[str, 
 
 def validate_payloads(payloads: dict[str, dict[str, Any]]) -> dict[str, Any]:
     issues: list[dict[str, str]] = []
+    requirements = _validate_requirements(payloads["requirements"], issues)
+    producer_profiles = _validate_producer_profiles(payloads["producer_profiles"], issues)
+    trust_coverage = _validate_full_coverage(payloads["trust_coverage"], issues)
+    durable_trust_coverage = _validate_durable_coverage(payloads["durable_trust_coverage"], issues)
+    required_classes = set(requirements["artifact_classes"])
+    _validate_coverage_class_set(
+        "trust_coverage",
+        required_classes,
+        set(trust_coverage["artifact_classes"]),
+        issues,
+    )
+    _validate_coverage_class_set(
+        "durable_trust_coverage",
+        required_classes,
+        set(durable_trust_coverage["artifact_classes"]),
+        issues,
+    )
     checked = {
-        "requirements": _validate_requirements(payloads["requirements"], issues),
-        "producer_profiles": _validate_producer_profiles(payloads["producer_profiles"], issues),
-        "trust_coverage": _validate_full_coverage(payloads["trust_coverage"], issues),
-        "durable_trust_coverage": _validate_durable_coverage(payloads["durable_trust_coverage"], issues),
+        "requirements": requirements,
+        "producer_profiles": producer_profiles,
+        "trust_coverage": trust_coverage,
+        "durable_trust_coverage": durable_trust_coverage,
         "drift": _validate_drift(payloads, issues),
     }
     return {

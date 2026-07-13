@@ -183,6 +183,19 @@ def test_promotion_review_validator_rejects_proof_promotion_fields() -> None:
     }
 
 
+def test_promotion_review_validator_requires_complete_gate_sequence() -> None:
+    payload = review.build_promotion_review_payload(
+        inventory_payload(repo_entry("aoa-routing")),
+        catalog_payload(),
+        repo_id="aoa-routing",
+    )
+    payload["promotion_gates"] = []
+
+    issues = review.validate_promotion_review_payload(payload)
+
+    assert {issue["code"] for issue in issues} >= {"promotion_gates"}
+
+
 def test_promotion_review_payload_cli_fails_on_forbidden_promotion(tmp_path: Path) -> None:
     payload = review.build_promotion_review_payload(
         inventory_payload(repo_entry("aoa-routing")),

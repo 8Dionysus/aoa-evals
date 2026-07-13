@@ -448,7 +448,7 @@ def _verify_terminal_registry_state(
     revoked_gate = artifact_bundles.trust_gate(
         registry_dir,
         artifact_class=ARTIFACT_CLASS,
-        record_id=str(release_ready.get("promoted", {}).get("record", {}).get("record_id") or ""),
+        record_id=str(revoked.get("record", {}).get("record_id") or ""),
         consumer_intent=CONSUMER_INTENT,
         expected_source_repo=OWNER_REPO,
         expected_trust_root_mode=TRUST_ROOT_MODE,
@@ -499,36 +499,49 @@ def _verify_materialized_subject_store(
         expected_trust_root_mode=TRUST_ROOT_MODE,
         repo_root=abyss_repo_root,
     )
-    refreshed_registry = _registry_roundtrip_with_subject_store(
-        artifact_bundles,
-        bundle_dir,
-        registry_dir,
-        target_store_root,
-        lifecycle_state="release-ready",
-        evidence_ref="materialized-subject-store-rehearsal",
-        manifest=manifest,
-        abyss_repo_root=abyss_repo_root,
-    )
-    latest_record = refreshed_registry.get("latest", {}).get("latest_by_artifact_class", {}).get(ARTIFACT_CLASS, {})
-    store_status = latest_record.get("artifact_subject_store") if isinstance(latest_record, dict) else {}
-    gate = artifact_bundles.trust_gate(
-        registry_dir,
-        artifact_class=ARTIFACT_CLASS,
-        subject_digest=str(materialized.get("aggregate_digest") or ""),
-        consumer_intent=CONSUMER_INTENT,
-        expected_source_repo=OWNER_REPO,
-        expected_trust_root_mode=TRUST_ROOT_MODE,
-    )
+    env_root = "ABYSS_MACHINE_ARTIFACT_SUBJECT_STORE_ROOT"
+    env_roots = "ABYSS_MACHINE_ARTIFACT_SUBJECT_STORE_ROOTS"
+    old_root = os.environ.get(env_root)
+    old_roots = os.environ.get(env_roots)
+    os.environ[env_root] = str(target_store_root)
+    os.environ[env_roots] = str(target_store_root)
+    try:
+        refreshed_registry = artifact_bundles.read_bundle_registry(registry_dir, artifact_class=ARTIFACT_CLASS)
+        latest_record = refreshed_registry.get("latest_by_artifact_class", {}).get(ARTIFACT_CLASS, {})
+        store_status = latest_record.get("artifact_subject_store") if isinstance(latest_record, dict) else {}
+        gate = artifact_bundles.trust_gate(
+            registry_dir,
+            artifact_class=ARTIFACT_CLASS,
+            subject_digest=str(materialized.get("aggregate_digest") or ""),
+            consumer_intent=CONSUMER_INTENT,
+            expected_source_repo=OWNER_REPO,
+            expected_trust_root_mode=TRUST_ROOT_MODE,
+        )
+    finally:
+        if old_root is None:
+            os.environ.pop(env_root, None)
+        else:
+            os.environ[env_root] = old_root
+        if old_roots is None:
+            os.environ.pop(env_roots, None)
+        else:
+            os.environ[env_roots] = old_roots
+    inspected_claims = gate.get("inspected_claims", {})
     return {
         "ok": bool(
             pre_registry.get("ok")
             and materialized.get("ok")
-            and refreshed_registry.get("ok")
             and isinstance(store_status, dict)
             and store_status.get("ok") is True
+            and gate.get("ok") is True
             and gate.get("verdict") in {"allow", "warn"}
+            and gate.get("decision", {}).get("model") == "fail_closed_consumer_admission"
             and gate.get("decision", {}).get("allow") is True
-            and gate.get("inspected_claims", {}).get("artifact_subject_store", {}).get("ok") is True
+            and inspected_claims.get("registry_latest", {}).get("selected_record_is_latest") is True
+            and inspected_claims.get("controls", {}).get("required_controls_missing") == []
+            and inspected_claims.get("source", {}).get("source_repo_matched") is True
+            and inspected_claims.get("trust_root", {}).get("trust_root_mode_matched") is True
+            and inspected_claims.get("artifact_subject_store", {}).get("ok") is True
         ),
         "pre_registry": pre_registry,
         "materialized": materialized,
@@ -582,14 +595,16 @@ def _validate_in_bundle_dir(
     subject_store_root: Path,
     *,
     clean: bool,
+    clean_registry: bool = True,
+    clean_subject_store: bool = True,
 ) -> dict[str, Any]:
     artifact_bundles, abyss_machine_root, package_root = _import_artifact_bundles()
     _assert_generated_index_public_safe(subject)
     if clean and bundle_dir.exists():
         shutil.rmtree(bundle_dir)
-    if clean and registry_dir.exists():
+    if clean and clean_registry and registry_dir.exists():
         shutil.rmtree(registry_dir)
-    if clean and subject_store_root.exists():
+    if clean and clean_subject_store and subject_store_root.exists():
         shutil.rmtree(subject_store_root)
     bundle_dir.mkdir(parents=True, exist_ok=True)
 
@@ -711,6 +726,17 @@ def validate_bundle(
     *,
     clean: bool,
 ) -> dict[str, Any]:
+    if bundle_dir is None and registry_dir is None and subject_store_root is None:
+        with tempfile.TemporaryDirectory(prefix="aoa-evals-report-index-", dir=_default_tmp_root()) as tmp:
+            tmp_root = Path(tmp)
+            return _validate_in_bundle_dir(
+                manifest,
+                subject,
+                tmp_root / "bundle",
+                tmp_root / "registry",
+                tmp_root / "subject-store",
+                clean=clean,
+            )
     target = bundle_dir or DEFAULT_BUNDLE_DIR
     target_registry = registry_dir or DEFAULT_REGISTRY_DIR
     target_subject_store = subject_store_root or DEFAULT_SUBJECT_STORE_ROOT
@@ -721,6 +747,8 @@ def validate_bundle(
         target_registry,
         target_subject_store,
         clean=clean,
+        clean_registry=registry_dir is None,
+        clean_subject_store=subject_store_root is None,
     )
 
 
@@ -771,18 +799,28 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Validate generated aoa-evals report index through abyss-machine artifact bundles.")
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--subject", type=Path, default=DEFAULT_SUBJECT)
-    parser.add_argument("--bundle-dir", type=Path, default=DEFAULT_BUNDLE_DIR)
-    parser.add_argument("--registry-dir", type=Path, default=DEFAULT_REGISTRY_DIR)
-    parser.add_argument("--subject-store-root", type=Path, default=DEFAULT_SUBJECT_STORE_ROOT)
-    parser.add_argument("--no-clean", action="store_true", help="do not remove the previous generated bundle directory first")
+    parser.add_argument("--bundle-dir", type=Path, default=None)
+    parser.add_argument("--registry-dir", type=Path, default=None)
+    parser.add_argument("--subject-store-root", type=Path, default=None)
+    parser.add_argument(
+        "--no-clean",
+        action="store_true",
+        help="do not remove generated bundle/registry/subject-store directories before validation",
+    )
     parser.add_argument("--json", action="store_true", help="print the full validation payload")
     args = parser.parse_args()
 
     manifest = args.manifest if args.manifest.is_absolute() else REPO_ROOT / args.manifest
     subject = args.subject if args.subject.is_absolute() else REPO_ROOT / args.subject
-    bundle_dir = args.bundle_dir if args.bundle_dir.is_absolute() else REPO_ROOT / args.bundle_dir
-    registry_dir = args.registry_dir if args.registry_dir.is_absolute() else REPO_ROOT / args.registry_dir
-    subject_store_root = args.subject_store_root if args.subject_store_root.is_absolute() else REPO_ROOT / args.subject_store_root
+    bundle_dir = None if args.bundle_dir is None else args.bundle_dir if args.bundle_dir.is_absolute() else REPO_ROOT / args.bundle_dir
+    registry_dir = None if args.registry_dir is None else args.registry_dir if args.registry_dir.is_absolute() else REPO_ROOT / args.registry_dir
+    subject_store_root = (
+        None
+        if args.subject_store_root is None
+        else args.subject_store_root
+        if args.subject_store_root.is_absolute()
+        else REPO_ROOT / args.subject_store_root
+    )
 
     payload = validate_bundle(manifest, subject, bundle_dir, registry_dir, subject_store_root, clean=not args.no_clean)
     if args.json:

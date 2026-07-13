@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import importlib.util
 import json
-import os
 from pathlib import Path
 from typing import Any
 
@@ -31,8 +30,9 @@ def load_validator_module() -> Any:
 
 
 class FakeArtifactBundles:
-    def __init__(self, trust_gate_response: dict[str, Any]) -> None:
+    def __init__(self, trust_gate_response: dict[str, Any], *, materialize_updates_registry: bool = True) -> None:
         self.trust_gate_response = trust_gate_response
+        self.materialize_updates_registry = materialize_updates_registry
         self.trust_gate_calls: list[dict[str, Any]] = []
         self.materialize_calls: list[dict[str, Any]] = []
         self.records: list[dict[str, Any]] = []
@@ -64,8 +64,6 @@ class FakeArtifactBundles:
         latest_record = release_ready[-1] if release_ready else None
         if self.records and self.records[-1].get("lifecycle_state") == "revoked":
             latest_record = None
-        if latest_record and os.environ.get("ABYSS_MACHINE_ARTIFACT_SUBJECT_STORE_ROOT"):
-            latest_record["artifact_subject_store"] = {"ok": True}
         return {"latest_by_artifact_class": {artifact_class: latest_record} if latest_record else {}}
 
     def materialize_artifact_subjects(
@@ -92,6 +90,11 @@ class FakeArtifactBundles:
                 "repo_root": repo_root,
             }
         )
+        if self.materialize_updates_registry and self.records:
+            self.records[-1]["artifact_subject_store"] = {
+                "ok": True,
+                "aggregate_digest": "sha256:" + "3" * 64,
+            }
         return {"ok": True, "aggregate_digest": "sha256:" + "3" * 64}
 
 
@@ -244,9 +247,10 @@ def test_trust_gate_allow_latest_requires_fail_closed_latest_controls_and_source
 
 def test_terminal_registry_state_requires_revoked_record_trust_gate_deny(tmp_path: Path) -> None:
     validator = load_validator_module()
+    fake = FakeArtifactBundles(deny_terminal_gate_response())
 
     denied = validator._verify_terminal_registry_state(
-        FakeArtifactBundles(deny_terminal_gate_response()),
+        fake,
         tmp_path,
         tmp_path,
         MANIFEST_PATH,
@@ -254,6 +258,9 @@ def test_terminal_registry_state_requires_revoked_record_trust_gate_deny(tmp_pat
     )
     assert denied["ok"] is True
     assert denied["revoked_trust_gate"]["verdict"] == "deny"
+    assert denied["revoked"]["record"]["record_id"] == "record-2"
+    assert denied["release_ready"]["promoted"]["record"]["record_id"] == "record-1"
+    assert fake.trust_gate_calls[-1]["record_id"] == "record-2"
 
     allowed = validator._verify_terminal_registry_state(
         FakeArtifactBundles(allow_gate_response()),
@@ -280,6 +287,7 @@ def test_materialized_subject_store_requires_trusted_source_scoped_subject(tmp_p
     )
 
     assert result["ok"] is True
+    assert len(fake.records) == 1
     assert fake.materialize_calls == [
         {
             "bundle_dir": tmp_path,
@@ -312,6 +320,89 @@ def test_materialized_subject_store_requires_trusted_source_scoped_subject(tmp_p
             tmp_path,
         )["ok"]
         is True
+    )
+
+    fake = FakeArtifactBundles(allow_gate_response(), materialize_updates_registry=False)
+    assert (
+        validator._verify_materialized_subject_store(
+            fake,
+            MANIFEST_PATH,
+            tmp_path,
+            tmp_path / "registry",
+            tmp_path,
+            tmp_path,
+        )["ok"]
+        is False
+    )
+
+
+def test_validate_bundle_preserves_caller_supplied_registry_and_subject_store(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    validator = load_validator_module()
+    calls: list[dict[str, Any]] = []
+
+    def fake_validate_in_bundle_dir(
+        manifest: Path,
+        subject: Path,
+        bundle_dir: Path,
+        registry_dir: Path,
+        subject_store_root: Path,
+        *,
+        clean: bool,
+        clean_registry: bool = True,
+        clean_subject_store: bool = True,
+    ) -> dict[str, Any]:
+        calls.append(
+            {
+                "manifest": manifest,
+                "subject": subject,
+                "bundle_dir": bundle_dir,
+                "registry_dir": registry_dir,
+                "subject_store_root": subject_store_root,
+                "clean": clean,
+                "clean_registry": clean_registry,
+                "clean_subject_store": clean_subject_store,
+            }
+        )
+        return {"ok": True}
+
+    monkeypatch.setattr(validator, "_validate_in_bundle_dir", fake_validate_in_bundle_dir)
+
+    validator.validate_bundle(
+        MANIFEST_PATH,
+        tmp_path / "subject.json",
+        tmp_path / "bundle",
+        tmp_path / "registry",
+        tmp_path / "subject-store",
+        clean=True,
+    )
+
+    assert calls == [
+        {
+            "manifest": MANIFEST_PATH,
+            "subject": tmp_path / "subject.json",
+            "bundle_dir": tmp_path / "bundle",
+            "registry_dir": tmp_path / "registry",
+            "subject_store_root": tmp_path / "subject-store",
+            "clean": True,
+            "clean_registry": False,
+            "clean_subject_store": False,
+        }
+    ]
+
+    fake = FakeArtifactBundles({**allow_gate_response(), "ok": False})
+    assert (
+        validator._verify_materialized_subject_store(
+            fake,
+            MANIFEST_PATH,
+            tmp_path,
+            tmp_path / "registry",
+            tmp_path,
+            tmp_path,
+        )["ok"]
+        is False
     )
 
     response = allow_gate_response()

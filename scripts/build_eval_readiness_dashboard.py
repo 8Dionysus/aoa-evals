@@ -470,6 +470,54 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def generated_public_ref_map(
+    *,
+    evals_root: Path,
+    workspace_root: Path,
+    aoa_root: Path,
+    skills_source_root: Path,
+    installed_skills_root: Path,
+    stack_root: Path | None = None,
+) -> list[tuple[str, str]]:
+    canonical_evals_root = canonical_evals_owner_root(evals_root, workspace_root)
+    refs = [
+        (evals_root, "repo:aoa-evals"),
+        (canonical_evals_root, "repo:aoa-evals"),
+        (skills_source_root, "repo:aoa-skills"),
+        (installed_skills_root, "codex-skills"),
+        (aoa_root, "workspace:OS_ABYSS/.aoa"),
+        (workspace_root, "workspace:OS_ABYSS"),
+    ]
+    if stack_root is not None:
+        refs.append((stack_root, "repo:abyss-stack"))
+    return sorted(
+        {
+            (path.resolve().as_posix(), public_ref)
+            for path, public_ref in refs
+            if path.as_posix()
+        },
+        key=lambda item: len(item[0]),
+        reverse=True,
+    )
+
+
+def redact_generated_string(value: str, ref_map: list[tuple[str, str]]) -> str:
+    redacted = value
+    for private_ref, public_ref in ref_map:
+        redacted = redacted.replace(private_ref, public_ref)
+    return redacted
+
+
+def redact_generated_value(value: Any, ref_map: list[tuple[str, str]]) -> Any:
+    if isinstance(value, dict):
+        return {key: redact_generated_value(item, ref_map) for key, item in value.items()}
+    if isinstance(value, list):
+        return [redact_generated_value(item, ref_map) for item in value]
+    if isinstance(value, str):
+        return redact_generated_string(value, ref_map)
+    return value
+
+
 def load_external_research_grounding(evals_root: Path) -> list[dict[str, Any]]:
     payload = read_json(evals_root / EVAL_FORGE_EXTERNAL_GROUNDING_RELATIVE, default=None)
     if not isinstance(payload, dict):
@@ -1879,7 +1927,10 @@ def build_eval_forge_readiness(
         },
         {
             "purpose": "inspect active/skeleton/missing/invalid local eval ports",
-            "command": "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json",
+            "command": (
+                "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS "
+                "--json-output /tmp/aoa_local_eval_ports.current.json --json"
+            ),
         },
         {
             "purpose": "validate imported candidate packets before review",
@@ -2399,7 +2450,8 @@ def build_freshness_sentinel(
             "python scripts/check_eval_freshness_sentinel.py --json",
             "python scripts/build_eval_readiness_dashboard.py --write-generated",
             "python scripts/build_eval_readiness_dashboard.py --check",
-            "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS --json",
+            "python scripts/build_local_eval_port_inventory.py --workspace-root /srv/AbyssOS "
+            "--json-output /tmp/aoa_local_eval_ports.current.json --json",
             "PYTHONPATH=mcp/services/aoa-evals-mcp/src python -m aoa_evals_mcp.cli --workspace-root /srv/AbyssOS --evals-root /srv/AbyssOS/aoa-evals runtime-status",
             "python3 scripts/aoa_session_memory.py maintenance-status --full",
         ],
@@ -2774,6 +2826,43 @@ def build_markdown(dashboard: dict[str, Any], support_registry: dict[str, Any]) 
     return "\n".join(lines)
 
 
+def build_generated_outputs(
+    *,
+    evals_root: Path,
+    workspace_root: Path,
+    aoa_root: Path,
+    skills_source_root: Path,
+    installed_skills_root: Path,
+    stack_root: Path | None,
+    include_live_checks: bool,
+    live_timeout: int,
+    observed_at_utc: str | None = None,
+) -> tuple[dict[str, Any], dict[str, Any], str]:
+    dashboard, support_registry = build_dashboard(
+        evals_root=evals_root,
+        workspace_root=workspace_root,
+        aoa_root=aoa_root,
+        skills_source_root=skills_source_root,
+        installed_skills_root=installed_skills_root,
+        stack_root=stack_root,
+        include_live_checks=include_live_checks,
+        live_timeout=live_timeout,
+        observed_at_utc=observed_at_utc,
+    )
+    ref_map = generated_public_ref_map(
+        evals_root=evals_root,
+        workspace_root=workspace_root,
+        aoa_root=aoa_root,
+        skills_source_root=skills_source_root,
+        installed_skills_root=installed_skills_root,
+        stack_root=stack_root,
+    )
+    public_dashboard = redact_generated_value(dashboard, ref_map)
+    public_support_registry = redact_generated_value(support_registry, ref_map)
+    markdown = build_markdown(public_dashboard, public_support_registry)
+    return public_dashboard, public_support_registry, markdown
+
+
 def validate_dashboard_shape(payload: Any, support_payload: Any) -> list[str]:
     issues: list[str] = []
     if not isinstance(payload, dict):
@@ -3017,15 +3106,48 @@ def validate_dashboard_shape(payload: Any, support_payload: Any) -> list[str]:
     return issues
 
 
-def check_generated(evals_root: Path) -> list[str]:
+def check_generated(
+    evals_root: Path,
+    *,
+    workspace_root: Path,
+    aoa_root: Path,
+    skills_source_root: Path,
+    installed_skills_root: Path,
+    stack_root: Path | None,
+    include_live_checks: bool,
+    live_timeout: int,
+) -> list[str]:
     dashboard = read_json(evals_root / "generated" / "eval_readiness_dashboard.json", default=None)
     support = read_json(evals_root / "generated" / "eval_support_registry.json", default=None)
     markdown_path = evals_root / "generated" / "eval_readiness_dashboard.md"
+    current_markdown = markdown_path.read_text(encoding="utf-8") if markdown_path.exists() else None
     issues = validate_dashboard_shape(dashboard, support)
+    observed_at_utc = (
+        str(dashboard.get("generated_at_utc") or "")
+        if isinstance(dashboard, dict)
+        else None
+    )
+    expected_dashboard, expected_support, expected_markdown = build_generated_outputs(
+        evals_root=evals_root,
+        workspace_root=workspace_root,
+        aoa_root=aoa_root,
+        skills_source_root=skills_source_root,
+        installed_skills_root=installed_skills_root,
+        stack_root=stack_root,
+        include_live_checks=include_live_checks,
+        live_timeout=live_timeout,
+        observed_at_utc=observed_at_utc,
+    )
+    if dashboard != expected_dashboard:
+        issues.append("generated/eval_readiness_dashboard.json is stale; run scripts/build_eval_readiness_dashboard.py --write-generated")
+    if support != expected_support:
+        issues.append("generated/eval_support_registry.json is stale; run scripts/build_eval_readiness_dashboard.py --write-generated")
     if not markdown_path.exists():
         issues.append("generated/eval_readiness_dashboard.md is missing")
-    elif "OS Abyss Eval Readiness Dashboard" not in markdown_path.read_text(encoding="utf-8"):
+    elif "OS Abyss Eval Readiness Dashboard" not in current_markdown:
         issues.append("generated/eval_readiness_dashboard.md does not look like the readiness dashboard")
+    elif current_markdown != expected_markdown:
+        issues.append("generated/eval_readiness_dashboard.md is stale; run scripts/build_eval_readiness_dashboard.py --write-generated")
     return issues
 
 
@@ -3039,7 +3161,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     stack_root = selected_stack_root(Path(args.stack_root).resolve() if args.stack_root else None)
 
     if args.check:
-        issues = check_generated(evals_root)
+        issues = check_generated(
+            evals_root,
+            workspace_root=workspace_root,
+            aoa_root=aoa_root,
+            skills_source_root=skills_source_root,
+            installed_skills_root=installed_skills_root,
+            stack_root=stack_root,
+            include_live_checks=not args.no_live_checks,
+            live_timeout=args.live_timeout,
+        )
         if issues:
             print("Eval readiness generated check failed.")
             for issue in issues:
@@ -3061,6 +3192,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     markdown = build_markdown(dashboard, support_registry)
 
     if args.write_generated:
+        dashboard, support_registry, markdown = build_generated_outputs(
+            evals_root=evals_root,
+            workspace_root=workspace_root,
+            aoa_root=aoa_root,
+            skills_source_root=skills_source_root,
+            installed_skills_root=installed_skills_root,
+            stack_root=stack_root,
+            include_live_checks=not args.no_live_checks,
+            live_timeout=args.live_timeout,
+        )
         write_json(evals_root / "generated" / "eval_readiness_dashboard.json", dashboard)
         write_json(evals_root / "generated" / "eval_support_registry.json", support_registry)
         (evals_root / "generated" / "eval_readiness_dashboard.md").write_text(markdown, encoding="utf-8")

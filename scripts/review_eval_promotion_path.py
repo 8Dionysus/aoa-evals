@@ -490,7 +490,7 @@ def validate_promotion_review_payload(payload: dict[str, Any]) -> list[dict[str,
         for item in payload.get("promotion_gates", [])
         if isinstance(item, dict)
     ]
-    if gate_ids and gate_ids != PROMOTION_GATES:
+    if gate_ids != PROMOTION_GATES:
         issues.append({"code": "promotion_gates", "message": "promotion gates must match the local-to-central review sequence"})
 
     for path, value in iter_field_paths(payload):

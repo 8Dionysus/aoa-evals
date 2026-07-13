@@ -14,6 +14,12 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 
 def import_artifact_bundles() -> Any:
     candidates: list[Path] = []
+    package_root = os.environ.get("ABYSS_MACHINE_PACKAGE_ROOT")
+    if package_root:
+        root = Path(package_root).expanduser()
+        if (root / "abyss_machine" / "artifact_bundles.py").is_file():
+            sys.path.insert(0, str(root))
+            return importlib.import_module("abyss_machine.artifact_bundles")
     env_root = os.environ.get("ABYSS_MACHINE_REPO_ROOT")
     if env_root:
         candidates.append(Path(env_root))
@@ -29,6 +35,11 @@ def import_artifact_bundles() -> Any:
         if (module_root / "abyss_machine" / "artifact_bundles.py").is_file():
             sys.path.insert(0, str(module_root))
             return importlib.import_module("abyss_machine.artifact_bundles")
+    try:
+        return importlib.import_module("abyss_machine.artifact_bundles")
+    except ModuleNotFoundError as exc:
+        if exc.name != "abyss_machine":
+            raise
     pytest.skip("abyss-machine artifact_bundles module is unavailable")
 
 

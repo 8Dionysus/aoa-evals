@@ -61,6 +61,7 @@ def proposal(**overrides: object) -> dict[str, object]:
         "source_refs": ["mechanics/proof-object/parts/eval-authoring/README.md"],
         "technique_dependencies": [],
         "skill_dependencies": [],
+        "capability_dependencies": [],
     }
     payload.update(overrides)
     return payload

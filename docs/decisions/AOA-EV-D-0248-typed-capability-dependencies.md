@@ -61,8 +61,10 @@ Each manifest capability ref records:
 
 Generated catalogs and capsules project both the compact ordered IDs and the
 full refs. Existing dependency validation is extended to check ordered
-frontmatter/manifest parity and registry-path reachability. No parallel
-validator or second graph is introduced.
+frontmatter/manifest parity, registry-path reachability, and exact registry
+entry parity for `id`, `kind`, and `target_owner`. The existing Eval Forge
+proposal and scaffold route carries the same typed refs into both source files.
+No parallel validator or second graph is introduced.
 
 ## Rationale
 
@@ -85,8 +87,8 @@ protects a durable ABI; it is not a temporary test scaffold.
 - Positive: registry provenance and execution ownership stay separate.
 - Tradeoff: consumers of the eval catalog must understand the additive
   capability fields before deriving cross-kind adjacency.
-- Tradeoff: registry reachability proves only that the declared semantic node
-  exists, not that the target runtime or workflow is currently available.
+- Tradeoff: registry-entry parity proves the declared semantic node and owner
+  mapping, not that the target runtime or workflow is currently available.
 - Follow-up: `aoa-routing` can now ingest current callable skills and preserve
   typed eval dependencies without resurrecting the retired 57-skill catalog.
 

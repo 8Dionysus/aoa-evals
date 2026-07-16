@@ -118,6 +118,7 @@ def proposal_from_args(args: argparse.Namespace) -> dict[str, Any]:
         "source_refs": args.source_ref,
         "technique_dependencies": [],
         "skill_dependencies": [],
+        "capability_dependencies": [],
     }
 
 

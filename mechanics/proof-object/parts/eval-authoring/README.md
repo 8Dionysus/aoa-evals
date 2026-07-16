@@ -57,6 +57,8 @@ route to their owning source surfaces.
   new-draft posture;
 - a new or reshaped `EVAL.md` scaffold;
 - frontmatter aligned with the eval source contract;
+- callable skills kept separate from typed modes, workflows, guards, tools,
+  adapters, and other capability-graph dependencies;
 - explicit comparison and report contract placeholders when applicable.
 - an inspect-only local suite execution route whose state is
   `absent`/`invalid`/`stale`/`ready`; `.suite.md` alone is never runnable.

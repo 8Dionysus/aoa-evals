@@ -4,6 +4,7 @@ import sys
 import textwrap
 from pathlib import Path
 
+import pytest
 import yaml
 
 
@@ -406,6 +407,94 @@ def test_validate_repo_accepts_dependency_targets_when_roots_exist(
     monkeypatch.setattr(root_context, "AOA_SKILLS_ROOT", skills_root)
 
     assert run_validation(tmp_path, eval_name="aoa-valid-dependency-targets") == []
+
+
+def capability_dependency_ref(**overrides: str) -> dict[str, str]:
+    ref = {
+        "id": "workflow.operations.repository-change",
+        "kind": "workflow",
+        "registry_repo": "8Dionysus/aoa-skills",
+        "registry_path": "capabilities/families/operations.yaml",
+        "target_owner": "host-agent",
+    }
+    ref.update(overrides)
+    return ref
+
+
+def write_capability_registry(skills_root: Path) -> None:
+    write_text(
+        skills_root / "capabilities" / "families" / "operations.yaml",
+        """
+        schema_version: aoa-capability-family-v1
+        family_id: owner-bound-operations
+        nodes:
+          - id: workflow.operations.repository-change
+            kind: workflow
+            owner:
+              repo: host-agent
+              surface: built-in/repository-change-loop
+              authority: external-authority
+        """,
+    )
+
+
+def test_validate_repo_accepts_matching_capability_registry_entry(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-valid-capability-target",
+        technique_dependencies=[],
+        skill_dependencies=[],
+        capability_dependencies=[capability_dependency_ref()],
+    )
+    write_catalogs(tmp_path)
+    skills_root = tmp_path / ".deps" / "aoa-skills"
+    write_capability_registry(skills_root)
+    monkeypatch.setattr(root_context, "AOA_SKILLS_ROOT", skills_root)
+
+    assert run_validation(tmp_path, eval_name="aoa-valid-capability-target") == []
+
+
+@pytest.mark.parametrize(
+    ("override", "expected_message"),
+    [
+        (
+            {"id": "workflow.operations.repository-chagne"},
+            "capability id 'workflow.operations.repository-chagne' does not exist",
+        ),
+        (
+            {"kind": "guard"},
+            "capability kind 'guard' does not match registry kind 'workflow'",
+        ),
+        (
+            {"target_owner": "aoa-skills"},
+            "capability target_owner 'aoa-skills' does not match registry owner 'host-agent'",
+        ),
+    ],
+)
+def test_validate_repo_rejects_capability_registry_entry_drift(
+    tmp_path: Path,
+    monkeypatch,
+    override: dict[str, str],
+    expected_message: str,
+) -> None:
+    make_eval_bundle(
+        tmp_path,
+        name="aoa-capability-registry-drift",
+        technique_dependencies=[],
+        skill_dependencies=[],
+        capability_dependencies=[capability_dependency_ref(**override)],
+    )
+    write_catalogs(tmp_path)
+    skills_root = tmp_path / ".deps" / "aoa-skills"
+    write_capability_registry(skills_root)
+    monkeypatch.setattr(root_context, "AOA_SKILLS_ROOT", skills_root)
+
+    issues = run_validation(tmp_path, eval_name="aoa-capability-registry-drift")
+
+    assert any(expected_message in issue.message for issue in issues)
 
 
 def test_validate_repo_rejects_missing_dependency_target_when_root_exists(

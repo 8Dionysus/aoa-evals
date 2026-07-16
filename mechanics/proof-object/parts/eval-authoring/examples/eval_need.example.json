@@ -35,5 +35,6 @@
     "mechanics/proof-loop/README.md"
   ],
   "technique_dependencies": [],
-  "skill_dependencies": []
+  "skill_dependencies": [],
+  "capability_dependencies": []
 }

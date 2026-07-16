@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 import eval_catalog_contract
+import yaml
 
 from validators.common import ValidationIssue
 from validators.source_eval_common import CONTRACT_ROOT, relative_location
@@ -120,6 +121,98 @@ def validate_dependency_target_exists(
         )
 
 
+def validate_capability_registry_entry(
+    item: dict[str, str],
+    *,
+    location: str,
+    issues: list[ValidationIssue],
+    dependency_roots: Mapping[str, Path] | None = None,
+) -> None:
+    repo_root = dependency_repo_root(item["registry_repo"], dependency_roots)
+    if repo_root is None or not repo_root.exists():
+        return
+
+    registry_path = repo_root / item["registry_path"]
+    if not registry_path.is_file():
+        return
+
+    try:
+        registry = yaml.safe_load(registry_path.read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError) as exc:
+        issues.append(
+            ValidationIssue(
+                f"{location}.registry_path",
+                f"capability registry cannot be read: {exc}",
+            )
+        )
+        return
+
+    nodes = registry.get("nodes") if isinstance(registry, dict) else None
+    if not isinstance(nodes, list):
+        issues.append(
+            ValidationIssue(
+                f"{location}.registry_path",
+                "capability registry must contain a nodes list",
+            )
+        )
+        return
+
+    matches = [
+        node
+        for node in nodes
+        if isinstance(node, dict) and node.get("id") == item["id"]
+    ]
+    if not matches:
+        issues.append(
+            ValidationIssue(
+                f"{location}.id",
+                "capability id "
+                f"'{item['id']}' does not exist in "
+                f"{item['registry_repo']}/{item['registry_path']}",
+            )
+        )
+        return
+    if len(matches) > 1:
+        issues.append(
+            ValidationIssue(
+                f"{location}.id",
+                "capability id "
+                f"'{item['id']}' is duplicated in "
+                f"{item['registry_repo']}/{item['registry_path']}",
+            )
+        )
+        return
+
+    node = matches[0]
+    registry_kind = node.get("kind")
+    if registry_kind != item["kind"]:
+        issues.append(
+            ValidationIssue(
+                f"{location}.kind",
+                f"capability kind '{item['kind']}' does not match registry kind "
+                f"'{registry_kind}' for '{item['id']}'",
+            )
+        )
+
+    owner = node.get("owner")
+    registry_owner = owner.get("repo") if isinstance(owner, dict) else None
+    if not isinstance(registry_owner, str) or not registry_owner:
+        issues.append(
+            ValidationIssue(
+                f"{location}.target_owner",
+                f"capability registry entry '{item['id']}' does not declare owner.repo",
+            )
+        )
+    elif registry_owner != item["target_owner"]:
+        issues.append(
+            ValidationIssue(
+                f"{location}.target_owner",
+                f"capability target_owner '{item['target_owner']}' does not match "
+                f"registry owner '{registry_owner}' for '{item['id']}'",
+            )
+        )
+
+
 def validate_dependency_drift(
     metadata: dict[str, Any],
     manifest: dict[str, Any],
@@ -183,13 +276,20 @@ def validate_dependency_drift(
             )
         )
     for index, item in enumerate(manifest_capability_refs):
+        location = (
+            f"{relative_location(eval_yaml_path)}"
+            f".capability_dependencies[{index}]"
+        )
         validate_dependency_target_exists(
             item["registry_repo"],
             item["registry_path"],
-            location=(
-                f"{relative_location(eval_yaml_path)}"
-                f".capability_dependencies[{index}].registry_path"
-            ),
+            location=f"{location}.registry_path",
+            issues=issues,
+            dependency_roots=dependency_roots,
+        )
+        validate_capability_registry_entry(
+            item,
+            location=location,
             issues=issues,
             dependency_roots=dependency_roots,
         )

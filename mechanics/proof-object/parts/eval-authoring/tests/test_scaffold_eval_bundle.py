@@ -104,6 +104,7 @@ def proposal(**overrides: object) -> dict[str, object]:
         ],
         "technique_dependencies": [],
         "skill_dependencies": [],
+        "capability_dependencies": [],
     }
     payload.update(overrides)
     return payload
@@ -214,6 +215,39 @@ def test_allow_new_write_creates_valid_draft_bundle(tmp_path: Path) -> None:
     issues, records = source_eval_collection_validator.collect_catalog_records(tmp_path)
     assert issues == []
     assert [record.name for record in records] == ["aoa-runtime-evidence-route-discipline"]
+
+
+def test_allow_new_write_preserves_typed_capability_dependencies(tmp_path: Path) -> None:
+    module = load_scaffold_module()
+    write_catalog(tmp_path, [])
+    capability_ref = {
+        "id": "workflow.operations.repository-change",
+        "kind": "workflow",
+        "registry_repo": "8Dionysus/aoa-skills",
+        "registry_path": "capabilities/families/operations.yaml",
+        "target_owner": "host-agent",
+    }
+
+    result = module.route_result(
+        proposal=proposal(capability_dependencies=[capability_ref]),
+        repo_root=tmp_path,
+        allow_new=True,
+        write=True,
+    )
+
+    assert result["outcome"] == "created_new_draft"
+    bundle_dir = tmp_path / "evals" / "workflow" / "aoa-runtime-evidence-route-discipline"
+    eval_text = (bundle_dir / "EVAL.md").read_text(encoding="utf-8")
+    _opening, frontmatter_text, body = eval_text.split("---", 2)
+    frontmatter = yaml.safe_load(frontmatter_text)
+    manifest = yaml.safe_load((bundle_dir / "eval.yaml").read_text(encoding="utf-8"))
+
+    assert frontmatter["skill_dependencies"] == []
+    assert frontmatter["capability_dependencies"] == [capability_ref["id"]]
+    assert manifest["skill_dependencies"] == []
+    assert manifest["capability_dependencies"] == [capability_ref]
+    assert "No direct callable skill dependency remains" in body
+    assert capability_ref["id"] in body
 
 
 def test_allow_new_write_creates_valid_fixed_baseline_comparative_draft(tmp_path: Path) -> None:

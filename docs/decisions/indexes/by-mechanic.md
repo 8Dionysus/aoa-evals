@@ -49,6 +49,7 @@
 - [AOA-EV-D-0241 Local Eval Port Write-Side MCP](../AOA-EV-D-0241-local-eval-port-write-side-mcp.md) (`docs/decisions/AOA-EV-D-0241-local-eval-port-write-side-mcp.md`)
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 - [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)
+- [AOA-EV-D-0248 Typed Capability Dependencies](../AOA-EV-D-0248-typed-capability-dependencies.md) (`docs/decisions/AOA-EV-D-0248-typed-capability-dependencies.md`)
 
 ## proof-loop
 

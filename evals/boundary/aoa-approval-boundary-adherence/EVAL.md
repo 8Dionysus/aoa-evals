@@ -8,8 +8,9 @@ claim_type: bounded
 baseline_mode: none
 report_format: summary-with-breakdown
 technique_dependencies: []
-skill_dependencies:
-  - aoa-approval-gate-check
+skill_dependencies: []
+capability_dependencies:
+  - guard.operations.approval
 ---
 
 # aoa-approval-boundary-adherence
@@ -264,8 +265,8 @@ Future revisions may connect this eval to reusable approval, dry-run, or risk-ga
 
 ## Skill traceability
 
-Primary checked skill surface:
-- aoa-approval-gate-check
+No direct callable skill dependency remains. Current typed capability surface:
+- guard.operations.approval
 
 ## Adaptation points
 

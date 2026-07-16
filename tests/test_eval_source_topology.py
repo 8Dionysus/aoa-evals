@@ -315,14 +315,14 @@ def test_validate_repo_rejects_technique_dependency_order_mismatch(tmp_path: Pat
 def test_validate_repo_rejects_skill_dependency_order_mismatch(tmp_path: Path) -> None:
     skill_dependencies = [
         {
-            "name": "aoa-change-protocol",
+            "name": "aoa-decision",
             "repo": "8Dionysus/aoa-skills",
-            "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
+            "path": "skills/core/engineering/aoa-decision/SKILL.md",
         },
         {
-            "name": "aoa-approval-gate-check",
+            "name": "aoa-verification",
             "repo": "aoa-skills",
-            "path": "skills/aoa-approval-gate-check/SKILL.md",
+            "path": "skills/core/engineering/aoa-verification/SKILL.md",
         },
     ]
     make_eval_bundle(
@@ -398,7 +398,7 @@ def test_validate_repo_accepts_dependency_targets_when_roots_exist(
         "# Technique\n",
     )
     write_text(
-        skills_root / "skills" / "core" / "engineering" / "aoa-change-protocol" / "SKILL.md",
+        skills_root / "skills" / "core" / "engineering" / "aoa-decision" / "SKILL.md",
         "# Skill\n",
     )
 
@@ -419,7 +419,7 @@ def test_validate_repo_rejects_missing_dependency_target_when_root_exists(
     skills_root = tmp_path / ".deps" / "aoa-skills"
     write_text(techniques_root / "README.md", "# Technique Repo\n")
     write_text(
-        skills_root / "skills" / "aoa-change-protocol" / "SKILL.md",
+        skills_root / "skills" / "aoa-decision" / "SKILL.md",
         "# Skill\n",
     )
 

@@ -4,6 +4,26 @@
     {
       "blind_spot_short": "final parent-route correctness; child-agent quality; live runtime readiness",
       "bounded_claim_short": "under these conditions, a reviewed summon child route preserved its parent anchor, A2A control-plane decision, reviewed child result, checkpoint bridge, proof packet, memo writeback...",
+      "capability_dependencies": [
+        "workflow.operations.checkpoint-closeout",
+        "mode.verification.contract"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.checkpoint-closeout",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "aoa-playbooks"
+        },
+        {
+          "id": "mode.verification.contract",
+          "kind": "mode",
+          "registry_path": "capabilities/families/engineering.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "aoa-skills"
+        }
+      ],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "no child route was actually summoned or planned; the route lacks a reviewed child result",
@@ -19,22 +39,8 @@
         "fixture_contract",
         "shared_fixture_family"
       ],
-      "skill_dependencies": [
-        "aoa-checkpoint-closeout-bridge",
-        "aoa-contract-test"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-checkpoint-closeout-bridge",
-          "path": "skills/core/session-growth/aoa-checkpoint-closeout-bridge/SKILL.md",
-          "repo": "aoa-skills"
-        },
-        {
-          "name": "aoa-contract-test",
-          "path": "skills/core/engineering/aoa-contract-test/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a reviewed summon child route preserves the contract from aoa-summon request through sdk.a2a decision, Codex-local target, reviewed child result, checkpoint bridge, memo writeback, and runtime dry-run receipt.",
       "technique_dependencies": [],
@@ -46,6 +52,18 @@
     {
       "blind_spot_short": "overall workflow quality; authority handling quality; scope alignment after execution begins",
       "bounded_claim_short": "under these conditions, the agent can handle bounded task-meaning ambiguity without silently collapsing the ambiguity into one unearned interpretation.",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "stress",
       "comparison_surface": null,
       "do_not_use_short": "the main question is authority handling or permission classification; the requested scope is already clear and the main question is later scope drift",
@@ -64,16 +82,8 @@
         "scorer_helper",
         "report_schema"
       ],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "bounded",
       "summary": "Checks whether an agent handles incomplete, conflicting, or underspecified task meaning on bounded change tasks without silently choosing an unearned path.",
       "technique_dependencies": [
@@ -93,6 +103,8 @@
     {
       "blind_spot_short": "global project quality; universal resilience; repeated-window improvement",
       "bounded_claim_short": "This eval is designed to support a modest claim like:",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "stress",
       "comparison_surface": null,
       "do_not_use_short": "no trustworthy source-owned receipt exists yet; the question is broad project quality rather than one bounded stressor family",
@@ -134,6 +146,18 @@
     {
       "blind_spot_short": "total operational safety; deep security reasoning; performance in high-complexity real environments",
       "bounded_claim_short": "under these conditions, the agent can correctly classify a bounded requested action as: safe to proceed; explicit approval required; out of bounds for execution",
+      "capability_dependencies": [
+        "guard.operations.approval"
+      ],
+      "capability_refs": [
+        {
+          "id": "guard.operations.approval",
+          "kind": "guard",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-runtime"
+        }
+      ],
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "no meaningful authority boundary exists; the task is purely analytical and no action classification is needed",
@@ -152,16 +176,8 @@
         "scorer_helper",
         "report_schema"
       ],
-      "skill_dependencies": [
-        "aoa-approval-gate-check"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-approval-gate-check",
-          "path": "skills/risk/aoa-approval-gate-check/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "bounded",
       "summary": "Checks whether an agent correctly distinguishes safe action, explicit-approval-required action, and out-of-bounds action on bounded task surfaces.",
       "technique_dependencies": [],
@@ -173,6 +189,18 @@
     {
       "blind_spot_short": "overall workflow discipline; verification truthfulness; scope alignment",
       "bounded_claim_short": "under these conditions, the produced artifact is reviewably strong on the visible task surface without implying that the underlying workflow was strong in every respect.",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "artifact",
       "comparison_surface": null,
       "do_not_use_short": "the main question is workflow discipline rather than artifact quality; the main question is whether polished output is outrunning process discipline",
@@ -193,16 +221,8 @@
         "report_schema",
         "paired_readout"
       ],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "portable",
       "summary": "Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating polish as proof of workflow discipline.",
       "technique_dependencies": [
@@ -222,6 +242,18 @@
     {
       "blind_spot_short": "deep code quality across large systems; long-term maintainability; deployment safety",
       "bounded_claim_short": "under these conditions, the agent can complete a bounded non-trivial change while staying inside the declared task surface, using real or honestly named verification, and producing a...",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the task is too tiny to meaningfully expose scope or verification behavior; the task is so broad that no bounded workflow claim can reasonably...",
@@ -242,16 +274,8 @@
         "report_schema",
         "paired_readout"
       ],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "portable",
       "summary": "Checks whether a non-trivial agent change stays scoped, explicitly verified, and clearly reported without silent task expansion.",
       "technique_dependencies": [
@@ -271,6 +295,18 @@
     {
       "blind_spot_short": "correct owner selection by itself; final planted object quality; that owner receipts are unnecessary",
       "bounded_claim_short": "under these conditions, the bounded lineage chain clusterref -> candidateref -> seedref -> objectref stays internally consistent and reviewable enough for downstream proof and stats to read...",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "capability",
       "comparison_surface": null,
       "do_not_use_short": "the main question is owner-fit routing quality; the main question is final planted object quality",
@@ -289,16 +325,8 @@
         "scorer_helper",
         "report_schema"
       ],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a growth-refinery lineage chain stays internally coherent across checkpoint carry, reviewed candidate, seed staging, and downstream owner evidence without inferring stronger landing than the artifacts support.",
       "technique_dependencies": [
@@ -318,6 +346,8 @@
     {
       "blind_spot_short": "philosophical correctness of the resulting idea; final canon readiness; quality of the original run that produced the witness",
       "bounded_claim_short": "under these conditions, a witness-derived compost artifact can move from raw input toward note, synthesis, or principle candidate without losing provenance, review posture, or the ability to...",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "artifact",
       "comparison_surface": null,
       "do_not_use_short": "no witness-facing input is available; the artifact is not part of a compost route",
@@ -349,6 +379,26 @@
     {
       "blind_spot_short": "reflective revision stayed bounded; reanchor chose the right last valid artifact; the final owner artifact is good",
       "bounded_claim_short": "under these conditions, the continuity route kept one inspectable anchor chain across continuity, revision, reanchor, and anchor refs without letting chat residue, memo, or stats replace the...",
+      "capability_dependencies": [
+        "workflow.operations.repository-change",
+        "mode.engineering-shape.contexts"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        },
+        {
+          "id": "mode.engineering-shape.contexts",
+          "kind": "mode",
+          "registry_path": "capabilities/families/engineering.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "aoa-skills"
+        }
+      ],
       "category": "capability",
       "comparison_surface": null,
       "do_not_use_short": "there is no named continuity chain; the main question is bounded revision quality rather than chain integrity",
@@ -361,22 +411,8 @@
       "name": "aoa-continuity-anchor-integrity",
       "proof_artifact_short": "bundle-local notes and examples only",
       "proof_surface_kinds": [],
-      "skill_dependencies": [
-        "aoa-change-protocol",
-        "aoa-bounded-context-map"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        },
-        {
-          "name": "aoa-bounded-context-map",
-          "path": "skills/core/engineering/aoa-bounded-context-map/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a bounded self-agency continuity window keeps an inspectable anchor chain across continuity, revision, reanchor, and anchor refs without letting memo, stats, or chat residue become continuity truth.",
       "technique_dependencies": [
@@ -396,6 +432,18 @@
     {
       "blind_spot_short": "the cause is ultimately correct; the repair worked; the final object is high quality",
       "bounded_claim_short": "under these conditions, the diagnosis named plausible causal hypotheses and evidence limits without collapsing symptoms, owner ambiguity, repair success, or later cleanup into cause proof.",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the main question is whether the repair stayed bounded; the main question is whether the chosen owner layer was correct",
@@ -408,16 +456,8 @@
       "name": "aoa-diagnosis-cause-discipline",
       "proof_artifact_short": "bundle-local notes and examples only",
       "proof_surface_kinds": [],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a diagnosis or self-diagnosis move names causal hypotheses, evidence limits, and unknowns without confusing symptoms, owner ambiguity, or repair success with cause proof.",
       "technique_dependencies": [
@@ -437,6 +477,8 @@
     {
       "blind_spot_short": "direct agent-behavior quality; hidden fixture realism; scorer calibration beyond the public bundle contract",
       "bounded_claim_short": "under these conditions, the repository can review whether a starter eval bundle remains internally coherent enough to support only its stated bounded claim on the public corpus.",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "capability",
       "comparison_surface": null,
       "do_not_use_short": "the main question is direct agent performance; the main question is hidden fixture realism rather than public coherence",
@@ -466,6 +508,18 @@
     {
       "blind_spot_short": "the release candidate is certified; the candidate is safe for deployment; the rollout can promote rings",
       "bounded_claim_short": "under these conditions, a certification gate bundle can show that a release candidate is ready for authorized operator review while keeping certification authority outside the eval.",
+      "capability_dependencies": [
+        "mode.verification.contract"
+      ],
+      "capability_refs": [
+        {
+          "id": "mode.verification.contract",
+          "kind": "mode",
+          "registry_path": "capabilities/families/engineering.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "aoa-skills"
+        }
+      ],
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the task is to certify the candidate; the task is to promote a rollout ring",
@@ -483,16 +537,8 @@
         "runner_contract",
         "report_schema"
       ],
-      "skill_dependencies": [
-        "aoa-contract-test"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-contract-test",
-          "path": "skills/core/engineering/aoa-contract-test/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether an experience-derived release candidate has bounded evidence for authorized operator certification review without letting the eval certify.",
       "technique_dependencies": [
@@ -512,6 +558,18 @@
     {
       "blind_spot_short": "the underlying experience was successful; the bundle is broadly reusable across all protocol families; the bundle can substitute for runtime, governance, or owner-local...",
       "bounded_claim_short": "under these conditions, an experience verdict bundle can keep protocol integrity explicit, stay bounded to its own contract, and avoid implying runtime or governance authority.",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the task is only about artifact style; the task is only about runtime behavior",
@@ -529,16 +587,8 @@
         "runner_contract",
         "report_schema"
       ],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether an experience verdict bundle keeps protocol integrity explicit, bounded, and weaker than runtime or governance authority.",
       "technique_dependencies": [
@@ -558,6 +608,8 @@
     {
       "blind_spot_short": "rich answer quality; long-context behavior; tool-calling discipline",
       "bounded_claim_short": "under these conditions, a local text lane can satisfy a compact control-plane contract pack covering exact reply, bounded routing, bounded choice, and constrained JSON.",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the main question is rich answer quality or long-form usefulness; the main question is broad workflow quality rather than reply contract-fit",
@@ -590,6 +642,8 @@
     {
       "blind_spot_short": "final inquiry correctness; philosophical depth by itself; runtime trace completeness",
       "bounded_claim_short": "under these conditions, a checkpoint-based long-horizon inquiry route can relaunch with its active axis, open contradictions, and memo-versus-canon boundaries still reviewably intact.",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the route ends in one bounded pass and never needs relaunch; no checkpoint artifact exists to inspect",
@@ -621,6 +675,18 @@
     {
       "blind_spot_short": "general capability growth; movement outside the named workflow surface; frozen same-task regression",
       "bounded_claim_short": "under these conditions, ordered windows on the same bounded workflow surface show a modest improvement signal, regression signal, flat reading, or mixed movement that remains bounded to this...",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "longitudinal",
       "comparison_surface": {
         "anchor_surface": "aoa-bounded-change-quality",
@@ -648,16 +714,8 @@
         "report_schema",
         "paired_readout"
       ],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether ordered, comparable windows on the same bounded workflow surface show modest directional movement without upgrading that movement into broad capability growth.",
       "technique_dependencies": [
@@ -677,6 +735,8 @@
     {
       "blind_spot_short": "contradiction resolution quality outside public memo surfaces; permission leakage resistance; over-promotion discipline",
       "bounded_claim_short": "under these conditions, a consumer of aoa-memo can use lifecycle-aware object recall surfaces without flattening superseded, retracted, or still-open contradictory memory into one smooth...",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "no lifecycle-aware memo surface was consumed; the main question is smallest-surface recall precision",
@@ -708,6 +768,8 @@
     {
       "blind_spot_short": "contradiction handling quality; permission leakage resistance; over-promotion discipline",
       "bounded_claim_short": "under these conditions, a consumer of aoa-memo can use the first inspect/capsule/expand path without turning memo into proof, while keeping precision, provenance, and staleness posture...",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "no memo recall surface was consumed; the main question is contradiction handling or rights policy",
@@ -739,6 +801,8 @@
     {
       "blind_spot_short": "contradiction handling quality; confirmed memo-surviving-event writeback quality; final promotion discipline",
       "bounded_claim_short": "under these conditions, a reviewed distillation candidate can move from runtime candidate mapping through reviewed memo adoption into live receipt visibility and object-facing recall without...",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "no candidate-facing memo object exists yet; the main question is contradiction handling or recall precision",
@@ -770,6 +834,8 @@
     {
       "blind_spot_short": "general memory poisoning resistance; full indirect prompt-injection defense; final truth of any memory object",
       "bounded_claim_short": "under these conditions, one aoa-memo write path keeps source trust, ingestion risk, derivation lineage, action-safety separation, and reviewed landing gates visible enough that a candidate...",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the main question is recall precision or stale recall after landing; the main question is contradiction handling among existing memory objects",
@@ -801,6 +867,8 @@
     {
       "blind_spot_short": "contradiction handling quality; reviewed-candidate promotion discipline; future scar or retention readiness",
       "bounded_claim_short": "under these conditions, one concrete runtime-to-memo writeback act remained review-gated, provenance-visible, and recall-aligned from runtime closure into adopted memo visibility.",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "no adopted memo object exists yet; the main question is contradiction handling or recall precision",
@@ -832,6 +900,8 @@
     {
       "blind_spot_short": "durable memory truth or final memo object quality; local memo port validation quality after a candidate is written; source trust, ingestion-risk, derivation, or...",
       "bounded_claim_short": "under these conditions, one aoa-memo-writeback application made a bounded, evidence-linked decision with adequate invocation fit, route choice, search coverage, owner-boundary clarity, noise...",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the main question is whether a local candidate can safely become durable",
@@ -883,6 +953,18 @@
     {
       "blind_spot_short": "root-cause diagnosis for why one side outran the other; one-run artifact quality by itself; one-run workflow quality by itself",
       "bounded_claim_short": "under these conditions, artifact-side and process-side readings on the same bounded cases can be compared honestly enough to show whether one materially outruns the other or whether the...",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "comparative",
       "comparison_surface": {
         "integrity_sidecar": "aoa-eval-integrity-check",
@@ -913,16 +995,8 @@
         "report_schema",
         "paired_readout"
       ],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Compares artifact-side and process-side readings on the same bounded cases to show when polished output outruns workflow discipline, process outruns artifact strength, or the two stay aligned.",
       "technique_dependencies": [
@@ -942,6 +1016,18 @@
     {
       "blind_spot_short": "final planted object quality; long-term adoption or usefulness; lineage-chain integrity by itself",
       "bounded_claim_short": "under these conditions, the reviewed candidate is routed to one bounded owner layer with one clear owner hypothesis, one honest nearest-wrong target, and one reviewable reason set.",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the main question is lineage-chain integrity; the main question is final object quality",
@@ -960,16 +1046,8 @@
         "scorer_helper",
         "report_schema"
       ],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a reviewed growth-refinery candidate is routed to the right owner layer with one clear owner hypothesis, honest nearest-wrong-target reasoning, and no first-authoring drift into derivative repos.",
       "technique_dependencies": [
@@ -989,6 +1067,8 @@
     {
       "blind_spot_short": "full recurrence maturity; all owner surfaces are fresh; final artifact quality",
       "bounded_claim_short": "This eval can support a claim like:",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the main question is produced artifact quality; the main question is return-anchor fidelity",
@@ -1020,6 +1100,26 @@
     {
       "blind_spot_short": "the anchor chain stayed intact; reanchor returned to the right artifact; the final owner object is high quality",
       "bounded_claim_short": "under these conditions, reflective revision stayed inside the named revision window, preserved explicit stop-lines, and did not widen into generic continuity drift.",
+      "capability_dependencies": [
+        "workflow.operations.repository-change",
+        "mode.engineering-shape.contexts"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        },
+        {
+          "id": "mode.engineering-shape.contexts",
+          "kind": "mode",
+          "registry_path": "capabilities/families/engineering.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "aoa-skills"
+        }
+      ],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "no named revision window exists; the main question is anchor-chain integrity instead",
@@ -1032,22 +1132,8 @@
       "name": "aoa-reflective-revision-boundedness",
       "proof_artifact_short": "bundle-local notes and examples only",
       "proof_surface_kinds": [],
-      "skill_dependencies": [
-        "aoa-change-protocol",
-        "aoa-bounded-context-map"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        },
-        {
-          "name": "aoa-bounded-context-map",
-          "path": "skills/core/engineering/aoa-bounded-context-map/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether reflective revision stays inside one named revision window, keeps stop-lines visible, and does not widen into vague continuity or hidden autonomy.",
       "technique_dependencies": [
@@ -1067,6 +1153,18 @@
     {
       "blind_spot_short": "general capability growth; long-term trend movement across windows; improvement outside the frozen case family",
       "bounded_claim_short": "under these conditions, the candidate does not materially regress against the frozen baseline on this same-task bounded workflow surface.",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "regression",
       "comparison_surface": {
         "anchor_surface": "aoa-bounded-change-quality",
@@ -1095,16 +1193,8 @@
         "report_schema",
         "paired_readout"
       ],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "baseline",
       "summary": "Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth.",
       "technique_dependencies": [
@@ -1124,6 +1214,18 @@
     {
       "blind_spot_short": "permanent stability of the repaired object; final owner-object quality; that the first routing choice was correct",
       "bounded_claim_short": "under these conditions, the repair or reanchor move stayed bounded, preserved ownership boundaries, and reduced ambiguity without smearing scope inflation across layers.",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the main question is first-owner routing quality; the main question is final object quality",
@@ -1142,16 +1244,8 @@
         "scorer_helper",
         "report_schema"
       ],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a reanchor or self-repair move stays bounded, preserves owner boundaries, and leaves a reviewable trail instead of smearing scope inflation across layers.",
       "technique_dependencies": [
@@ -1171,6 +1265,8 @@
     {
       "blind_spot_short": "final task correctness; general long-horizon depth; approval correctness on mutation routes",
       "bounded_claim_short": "under these conditions, a return-capable route can recover from drift by naming a valid anchor, rebuilding only the bounded context it needs, and re-entering or stopping without faking...",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "no return actually occurred; the question is final-answer quality rather than return discipline",
@@ -1202,6 +1298,8 @@
     {
       "blind_spot_short": "broad task success; optimal skill selection; general planning quality",
       "bounded_claim_short": "under these conditions, the agent can apply a named skill ring with bounded orchestration discipline instead of treating ring requests as blanket execution commands.",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the task clearly needs only one bounded skill; the task has no meaningful skill-selection ambiguity",
@@ -1234,6 +1332,8 @@
     {
       "blind_spot_short": "reasoning quality ranking; better agent behavior; cross-host leaderboard placement",
       "bounded_claim_short": "under these matched fixture conditions, the candidate runtime variant shows a lower chosen latency reading than the named baseline while using more of the tracked resource budget.",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "comparative",
       "comparison_surface": {
         "anchor_surface": "aoa-local-text-contract-fit",
@@ -1274,6 +1374,18 @@
     {
       "blind_spot_short": "overall workflow quality; verification truthfulness; authority handling quality",
       "bounded_claim_short": "under these conditions, the agent can keep bounded change work aligned with the requested scope or disclose the deviation explicitly enough for a reviewer to see it clearly.",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the main question is overall workflow quality rather than scope alignment; the main question is claimed-vs-actual verification evidence",
@@ -1292,16 +1404,8 @@
         "scorer_helper",
         "report_schema"
       ],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "bounded",
       "summary": "Checks whether an agent keeps requested scope aligned with executed scope on bounded change tasks, or explicitly discloses deviation.",
       "technique_dependencies": [
@@ -1321,6 +1425,26 @@
     {
       "blind_spot_short": "the whole anchor chain was intact before reanchor; reflective revision was bounded; the final owner object is high quality",
       "bounded_claim_short": "under these conditions, the route reanchored to the last valid artifact, kept return posture explicit, and refused chat-residue continuity once boundedness or anchor clarity was lost.",
+      "capability_dependencies": [
+        "workflow.operations.repository-change",
+        "mode.engineering-shape.contexts"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        },
+        {
+          "id": "mode.engineering-shape.contexts",
+          "kind": "mode",
+          "registry_path": "capabilities/families/engineering.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "aoa-skills"
+        }
+      ],
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "there is no reanchor decision or trigger to inspect; the main question is whether the continuity chain existed at all",
@@ -1333,22 +1457,8 @@
       "name": "aoa-self-reanchor-correctness",
       "proof_artifact_short": "bundle-local notes and examples only",
       "proof_surface_kinds": [],
-      "skill_dependencies": [
-        "aoa-change-protocol",
-        "aoa-bounded-context-map"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        },
-        {
-          "name": "aoa-bounded-context-map",
-          "path": "skills/core/engineering/aoa-bounded-context-map/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a bounded self-agency continuity route reanchors to the last valid artifact, keeps return mode explicit, and refuses chat-residue continuity when anchor integrity is lost.",
       "technique_dependencies": [
@@ -1368,6 +1478,8 @@
     {
       "blind_spot_short": "the owner-local artifact is correct; the stats builder is complete across all future owner repos; the routing layer chose the best route",
       "bounded_claim_short": "This eval can support a claim like:",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "boundary",
       "comparison_surface": null,
       "do_not_use_short": "the main question is whether a specific owner artifact is correct; the main question is general stats schema validity",
@@ -1399,6 +1511,8 @@
     {
       "blind_spot_short": "long-horizon health across unrelated stressor families; repo-global readiness for mutation; that future KAG projection families will follow the same re-entry discipline",
       "bounded_claim_short": "under these conditions, ordered windows on one named stressor family show healthier recovery posture because the system stayed evidence-linked, bounded, and honest about re-entry, without...",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "longitudinal",
       "comparison_surface": {
         "anchor_surface": "aoa-antifragility-posture",
@@ -1453,6 +1567,18 @@
     {
       "blind_spot_short": "overall workflow quality; final outcome quality when path does not matter; verification truthfulness as a standalone diagnostic question",
       "bounded_claim_short": "under these conditions, the agent can use tools with disciplined path quality on bounded tasks where tool-use trajectory is part of the bounded claim.",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the main question is overall workflow quality rather than tool path quality; the main question is outcome-vs-path separation at a broader level",
@@ -1471,16 +1597,8 @@
         "scorer_helper",
         "report_schema"
       ],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "bounded",
       "summary": "Checks whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself is part of the bounded claim.",
       "technique_dependencies": [
@@ -1500,6 +1618,18 @@
     {
       "blind_spot_short": "perfect tool trajectory quality; verification truthfulness as a standalone diagnostic question; scope alignment as a standalone diagnostic question",
       "bounded_claim_short": "under these conditions, the agent's bounded change workflow remains reviewable when final outcome and execution path are judged separately before any combined reading.",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the main question is tool trajectory only and path matters only at the tool-use level; the main question is verification truthfulness alone",
@@ -1518,16 +1648,8 @@
         "scorer_helper",
         "report_schema"
       ],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "bounded",
       "summary": "Checks whether bounded change workflows remain reviewable when final outcome and execution-path quality are judged separately before any combined reading.",
       "technique_dependencies": [
@@ -1547,6 +1669,18 @@
     {
       "blind_spot_short": "overall change correctness; overall workflow discipline; scope alignment as a standalone diagnostic question",
       "bounded_claim_short": "under these conditions, the agent can report verification honestly on bounded change tasks without overstating what was actually executed.",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the main question is overall workflow quality rather than verification truthfulness; the task has no meaningful verification surface at all",
@@ -1566,16 +1700,8 @@
         "scorer_helper",
         "report_schema"
       ],
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "portable",
       "summary": "Checks whether an agent truthfully reports which verification steps on a bounded change task were executed, skipped, or blocked.",
       "technique_dependencies": [
@@ -1595,6 +1721,8 @@
     {
       "blind_spot_short": "final outcome quality; internal reasoning completeness; runtime instrumentation coverage",
       "bounded_claim_short": "under these conditions, the repository can preserve a witness trace that is reviewable enough to understand what the run tried to do, what materially happened, where external effects...",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "comparison_surface": null,
       "do_not_use_short": "the run is trivial and no meaningful witness surface is needed; there was no material route to reconstruct beyond a simple answer",

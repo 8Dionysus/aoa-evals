@@ -83,7 +83,7 @@ def catalog_payload() -> dict:
                 "status": "bounded",
                 "eval_path": "evals/workflow/aoa-tool-trajectory-discipline/EVAL.md",
                 "summary": "Tool trajectory route discipline for aoa skills.",
-                "skill_refs": [{"repo": "aoa-skills", "name": "aoa-change-protocol"}],
+                "skill_refs": [{"repo": "aoa-skills", "name": "aoa-decision"}],
             },
         ]
     }

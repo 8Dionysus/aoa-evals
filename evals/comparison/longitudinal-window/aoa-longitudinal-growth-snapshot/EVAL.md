@@ -16,8 +16,9 @@ comparison_surface:
   window_family_label: repeated-window-bounded-v1 bounded workflow sequence
 technique_dependencies:
   - AOA-T-0001
-skill_dependencies:
-  - aoa-change-protocol
+skill_dependencies: []
+capability_dependencies:
+  - workflow.operations.repository-change
 ---
 
 # aoa-longitudinal-growth-snapshot
@@ -285,8 +286,8 @@ Primary source techniques:
 
 ## Skill traceability
 
-Primary checked skill surface:
-- aoa-change-protocol
+No direct callable skill dependency remains. Current typed capability surface:
+- workflow.operations.repository-change
 
 ## Adaptation points
 

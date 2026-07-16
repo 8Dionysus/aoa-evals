@@ -27,7 +27,8 @@ Use [README.md](README.md) as the bundle source index before treating short
 This layer owns:
 - bundle-local claim wording
 - bundle-local verdict and scoring boundary wording
-- bundle-local dependency fields such as `technique_dependencies` and `skill_dependencies`
+- bundle-local dependency fields such as `technique_dependencies`,
+  `skill_dependencies`, and typed `capability_dependencies`
 - bundle-local evidence references, including `support_note` when a comparative bundle requires it
 
 ## Owner Routes
@@ -50,7 +51,10 @@ When editing a bundle:
   non-comparison evals and `comparison/<baseline_mode>` for comparison evals
 - keep the bounded claim narrow and reviewable
 - keep `comparison_surface` mirrored across frontmatter and `eval.yaml` when `baseline_mode` is not `none`
-- preserve `technique_dependencies` and `skill_dependencies` unless the task explicitly changes dependency meaning
+- preserve dependency fields unless the task explicitly changes dependency
+  meaning; use `skill_dependencies` only for callable skills and
+  `capability_dependencies` for modes, workflows, guards, tools, adapters, or
+  other typed capability-graph nodes
 - treat evidence entries as part of claim hygiene, not decoration
 
 Bundle-local `AGENTS.md` overrides are exceptional. Use one only when a bundle

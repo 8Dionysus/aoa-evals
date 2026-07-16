@@ -16,13 +16,18 @@ export_ready: false
 blind_spot_disclosure: required-and-present
 score_interpretation_bound: explicit
 technique_dependencies: []
-skill_dependencies:
-  - name: aoa-checkpoint-closeout-bridge
-    repo: 8Dionysus/aoa-skills
-    path: skills/core/session-growth/aoa-checkpoint-closeout-bridge/SKILL.md
-  - name: aoa-contract-test
-    repo: 8Dionysus/aoa-skills
-    path: skills/core/engineering/aoa-contract-test/SKILL.md
+skill_dependencies: []
+capability_dependencies:
+  - id: workflow.operations.checkpoint-closeout
+    kind: workflow
+    registry_repo: 8Dionysus/aoa-skills
+    registry_path: capabilities/families/operations.yaml
+    target_owner: aoa-playbooks
+  - id: mode.verification.contract
+    kind: mode
+    registry_repo: 8Dionysus/aoa-skills
+    registry_path: capabilities/families/engineering.yaml
+    target_owner: aoa-skills
 relations:
   - type: complements
     target: aoa-return-anchor-integrity

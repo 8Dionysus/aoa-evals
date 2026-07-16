@@ -180,6 +180,10 @@
 
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 
+## generated parity
+
+- [AOA-EV-D-0248 Typed Capability Dependencies](../AOA-EV-D-0248-typed-capability-dependencies.md) (`docs/decisions/AOA-EV-D-0248-typed-capability-dependencies.md`)
+
 ## generated/readout
 
 - [AOA-EV-D-0123 Comparison Spine Validator Module Boundary](../AOA-EV-D-0123-comparison-spine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0123-comparison-spine-validator-module-boundary.md`)
@@ -226,6 +230,10 @@
 - [AOA-EV-D-0214 Publication Receipts Intake Layer Split](../AOA-EV-D-0214-publication-receipts-intake-layer-split.md) (`docs/decisions/AOA-EV-D-0214-publication-receipts-intake-layer-split.md`)
 - [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
+
+## owner boundary
+
+- [AOA-EV-D-0248 Typed Capability Dependencies](../AOA-EV-D-0248-typed-capability-dependencies.md) (`docs/decisions/AOA-EV-D-0248-typed-capability-dependencies.md`)
 
 ## path confinement
 
@@ -340,6 +348,10 @@
 ## source doctrine
 
 - [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
+
+## source eval dependency
+
+- [AOA-EV-D-0248 Typed Capability Dependencies](../AOA-EV-D-0248-typed-capability-dependencies.md) (`docs/decisions/AOA-EV-D-0248-typed-capability-dependencies.md`)
 
 ## source freshness
 

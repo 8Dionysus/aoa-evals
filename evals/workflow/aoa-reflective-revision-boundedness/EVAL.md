@@ -9,9 +9,10 @@ baseline_mode: none
 report_format: summary
 technique_dependencies:
   - AOA-T-0001
-skill_dependencies:
-  - aoa-change-protocol
-  - aoa-bounded-context-map
+skill_dependencies: []
+capability_dependencies:
+  - workflow.operations.repository-change
+  - mode.engineering-shape.contexts
 ---
 
 # aoa-reflective-revision-boundedness
@@ -172,8 +173,10 @@ Do not treat a positive result as:
 
 ## Skill traceability
 
-- aoa-change-protocol
-- aoa-bounded-context-map
+No direct callable skill dependency remains. Current typed capability surfaces:
+
+- workflow.operations.repository-change
+- mode.engineering-shape.contexts
 
 ## Adaptation points
 

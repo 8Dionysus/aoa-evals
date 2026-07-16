@@ -76,12 +76,12 @@
           "key": "verification"
         },
         {
-          "content_markdown": "Primary source techniques:\n\n- none yet; this bundle is workflow-contract shaped and currently depends on\n  skill and artifact contracts rather than a promoted technique bundle",
+          "content_markdown": "Primary source techniques:\n\n- none yet; this bundle is workflow-contract shaped and currently depends on\n  typed capability and artifact contracts rather than a promoted technique bundle",
           "heading": "Technique traceability",
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "Primary checked skill surfaces:\n\n- aoa-checkpoint-closeout-bridge\n- aoa-contract-test",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surfaces:\n\n- workflow.operations.checkpoint-closeout\n- mode.verification.contract",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -175,7 +175,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "Primary checked skill surface:\n- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -363,7 +363,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "Primary checked skill surface:\n- aoa-approval-gate-check",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n- guard.operations.approval",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -457,7 +457,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "Primary checked skill surface:\n- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -551,7 +551,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "Primary checked skill surface:\n- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -645,7 +645,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -833,7 +833,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "- aoa-change-protocol\n- aoa-bounded-context-map",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surfaces:\n\n- workflow.operations.repository-change\n- mode.engineering-shape.contexts",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -927,7 +927,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -1115,7 +1115,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "- aoa-contract-test",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n\n- mode.verification.contract",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -1209,7 +1209,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -1491,7 +1491,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "Primary checked skill surface:\n- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -2149,7 +2149,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "Primary checked skill surface:\n- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -2243,7 +2243,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -2431,7 +2431,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "- aoa-change-protocol\n- aoa-bounded-context-map",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surfaces:\n\n- workflow.operations.repository-change\n- mode.engineering-shape.contexts",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -2525,7 +2525,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "Primary checked skill surface:\n- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -2619,7 +2619,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -2995,7 +2995,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "Primary checked skill surface:\n- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -3089,7 +3089,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "- aoa-change-protocol\n- aoa-bounded-context-map",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surfaces:\n\n- workflow.operations.repository-change\n- mode.engineering-shape.contexts",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -3371,7 +3371,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "Primary checked skill surface:\n- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -3465,7 +3465,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "Primary checked skill surface:\n- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },
@@ -3559,7 +3559,7 @@
           "key": "technique_traceability"
         },
         {
-          "content_markdown": "Primary checked skill surface:\n- aoa-change-protocol",
+          "content_markdown": "No direct callable skill dependency remains. Current typed capability surface:\n- workflow.operations.repository-change",
           "heading": "Skill traceability",
           "key": "skill_traceability"
         },

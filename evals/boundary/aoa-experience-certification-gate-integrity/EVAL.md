@@ -9,8 +9,9 @@ baseline_mode: none
 report_format: summary-with-breakdown
 technique_dependencies:
   - AOA-T-0001
-skill_dependencies:
-  - aoa-contract-test
+skill_dependencies: []
+capability_dependencies:
+  - mode.verification.contract
 ---
 
 # aoa-experience-certification-gate-integrity
@@ -219,7 +220,9 @@ Do not treat a positive result as:
 
 ## Skill traceability
 
-- aoa-contract-test
+No direct callable skill dependency remains. Current typed capability surface:
+
+- mode.verification.contract
 
 ## Adaptation points
 

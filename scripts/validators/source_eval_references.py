@@ -70,6 +70,23 @@ def normalize_skill_dependency_refs(
     return normalized
 
 
+def normalize_capability_dependency_refs(
+    manifest: dict[str, Any],
+    eval_yaml_path: Path,
+    issues: list[ValidationIssue],
+) -> list[dict[str, str]]:
+    normalized, contract_issues = eval_catalog_contract.normalize_capability_dependency_refs(
+        manifest,
+        eval_yaml_path,
+        eval_yaml_path.parents[2],
+    )
+    issues.extend(
+        ValidationIssue(issue.location, issue.message)
+        for issue in contract_issues
+    )
+    return normalized
+
+
 def dependency_repo_root(
     repo_name: str,
     dependency_roots: Mapping[str, Path] | None = None,
@@ -146,6 +163,33 @@ def validate_dependency_drift(
             item["repo"],
             item["path"],
             location=f"{relative_location(eval_yaml_path)}.skill_dependencies[{index}].path",
+            issues=issues,
+            dependency_roots=dependency_roots,
+        )
+
+    frontmatter_capabilities = metadata.get("capability_dependencies", [])
+    manifest_capability_refs = normalize_capability_dependency_refs(
+        manifest,
+        eval_yaml_path,
+        issues,
+    )
+    manifest_capabilities = [item["id"] for item in manifest_capability_refs]
+    if frontmatter_capabilities != manifest_capabilities:
+        issues.append(
+            ValidationIssue(
+                relative_location(eval_yaml_path),
+                "ordered capability refs do not match "
+                f"{relative_location(eval_md_path)}.capability_dependencies",
+            )
+        )
+    for index, item in enumerate(manifest_capability_refs):
+        validate_dependency_target_exists(
+            item["registry_repo"],
+            item["registry_path"],
+            location=(
+                f"{relative_location(eval_yaml_path)}"
+                f".capability_dependencies[{index}].registry_path"
+            ),
             issues=issues,
             dependency_roots=dependency_roots,
         )

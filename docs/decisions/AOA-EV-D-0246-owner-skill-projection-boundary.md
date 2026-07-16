@@ -81,10 +81,27 @@ added.
 As of 2026-07-16:
 
 - Still valid: `.agents/` owns maintained agent lanes and proof authority stays
-  with source proof surfaces.
-- Changed: `.agents/skills/` is no longer a current support lane or copied
-  shared catalog.
-- Superseded by: none.
+  with source proof surfaces; copied shared catalogs remain forbidden.
+- Changed: the no-home state ended after manual evidence admitted one
+  repository-owned bundle. `.agents/skills/aoa-evals` is now an exact generated
+  projection of `skills/aoa-evals`, not a support lane or alternate source.
+- Superseded by: AOA-EV-D-0247 supersedes only the temporary absence state and
+  records the admitted owner bundle; this decision's projection boundary stays
+  active.
+
+## Review Log
+
+### 2026-07-16 - Owner bundle admitted after manual trials
+
+- Previous assumption: no repository skill had sufficient evidence for an
+  owner home.
+- New reality: one `aoa-evals` bundle passed the admission threshold.
+- Reason: isolated, negative, coexistence, no-skill, drift, and held-out work
+  established a distinct central-proof trigger and bounded result ABI.
+- Source surfaces updated: `skills/`, `.agents/skills/`, root agent guidance,
+  proof topology, and AOA-EV-D-0247.
+- Validation: manual semantic trials remain the admission evidence; the common
+  home-port guard checks only deterministic source/projection parity.
 
 ## Boundaries
 

@@ -77,6 +77,8 @@ artifacts.
 - decision records that preserve why proof topology or workflow routes moved;
 - public-safe receipt and runtime-candidate surfaces;
 - agent-facing route cards and maintained agent lanes under `.agents/`;
+- one admitted owner callable procedure under `skills/`, with its exact
+  repo-scoped discovery copy under `.agents/skills/`;
 - mechanics packages for repeatable proof-layer operations;
 - legacy and provenance bridges when old names remain accepted inputs.
 
@@ -244,6 +246,8 @@ active local proof loop while package-local owners keep each step.
 [`stats/`](stats/README.md) holds eval-owned statistical meaning and reference
 measurements while `aoa-stats` owns the shared grammar and cross-owner
 composition.
+[`skills/`](skills/README.md) owns the admitted callable route through central
+proof work; it remains weaker than source eval bundles and admitted evidence.
 [`ROADMAP.md`](ROADMAP.md) points direction.
 [`QUESTBOOK.md`](QUESTBOOK.md) tracks proof obligations.
 [`docs/decisions/`](docs/decisions/) preserves durable structural and workflow

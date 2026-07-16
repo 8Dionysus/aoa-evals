@@ -51,7 +51,7 @@ Agent guidance should look like a readable route network:
 - a compact root `AGENTS.md`;
 - local cards for durable districts such as `evals/`, `docs/`, `generated/`,
   `examples/`, `reports/`, `schemas/`, `scripts/`, `tests/`, `quests/`, `stats/`,
-  `.agents/`, and `mechanics/`;
+  `skills/`, `.agents/`, and `mechanics/`;
 - deep cards for high-risk surfaces such as decisions, generated read models,
   receipts, legacy bridges, runtime candidates, and package parts;
 - consistent sections that name role, source surfaces, boundaries, validation,
@@ -139,9 +139,11 @@ improvement over a no-skill baseline have been demonstrated manually. Its
 canonical source then lives under top-level `skills/`; runtime projections are
 derived delivery surfaces, not alternate owners.
 
-`aoa-evals` currently has no admitted repository skill home. Shared execution
-workflows remain owned by `aoa-skills`, and `.agents/` remains an agent-lane
-district rather than a copied skill catalog.
+`skills/aoa-evals/` is the admitted canonical owner bundle with internal
+`select`, `review`, and `evolve` modes. `.agents/skills/aoa-evals/` is its exact
+generated repo projection. Shared cross-repository selection and local apply
+remain owned by `aoa-skills`; source eval bundles and admitted evidence keep
+proof authority.
 
 ### Legacy cards
 
@@ -277,6 +279,8 @@ classes, active mechanics, and file-movement boundaries.
 [`mechanics/EVIDENCE_CLUSTERS.md`](mechanics/EVIDENCE_CLUSTERS.md) records why
 a mechanic parent is allowed and whether it is AoA-aligned or evals-native.
 [`.agents/AGENTS.md`](.agents/AGENTS.md) routes maintained agent lanes.
+[`skills/AGENTS.md`](skills/AGENTS.md) routes the canonical owner callable
+procedure and its generated projection.
 [`mechanics/README.md`](mechanics/README.md) is the operation atlas for active
 mechanic packages.
 `DESIGN.AGENTS.md` holds the agent-facing design form.
@@ -287,6 +291,7 @@ Consult this file when adding, moving, or refactoring:
 
 - `AGENTS.md` cards;
 - maintained agent lanes under `.agents/<lane>/`;
+- the admitted owner skill under `skills/` or its `.agents/skills/` projection;
 - proof bundle route rules;
 - decision, quest, generated, receipt, runtime-candidate, or legacy guidance;
 - future mechanic package cards;

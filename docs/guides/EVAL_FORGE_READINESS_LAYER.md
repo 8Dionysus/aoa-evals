@@ -56,6 +56,19 @@ Errors block the forge route until the named owner surface is repaired.
 Do not start from keyword search. A kept candidate needs expected route,
 observed break, consequence, owner surface, and repeatability path.
 
+## Shared Skill Source Posture
+
+Eval Forge does not require `aoa-eval` to be installed in the normal user
+skill profile. The current `aoa-skills` owner contract keeps `aoa-eval` as a
+deferred explicit source inside `repo-capability-sources`; `user-default`
+contains only the currently advertised shared bundle.
+
+The readiness dashboard may inspect the authored `aoa-eval` bundle, portable
+export, generated catalog, resolved profiles, and host install parity. Those
+signals establish source and delivery posture only. Actual prompt visibility
+still requires a fresh-session host inspection, and absence from the normal
+profile must not be reported as a broken `aoa-eval` installation.
+
 ## Local Port Flow
 
 Use local ports for pressure born inside a repo:

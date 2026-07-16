@@ -62,6 +62,35 @@ rather than from a desire to make the tree look mature.
   `audit`, or another candidate has comparable live operation
   pressure and validation.
 
+## Current Applicability
+
+As of 2026-07-16:
+
+- Still valid: questbook remains a real mechanic over source quest records,
+  human visibility, generated readers, deferred return, and reviewed owner
+  acceptance.
+- Changed: post-session candidate triage now routes through the shared
+  `aoa-session-harvest` `classify` mode; `aoa-quest-harvest` is a migration
+  alias and no longer names a local skill surface.
+- Superseded by: none; D-0246 supplies the current repository skill ownership
+  and projection boundary.
+
+## Review Log
+
+### 2026-07-16 - Harvest support route consolidated
+
+- Previous assumption: a standalone post-session harvest skill existed beside
+  the questbook operation.
+- New reality: `aoa-skills` consolidated that behavior into
+  `aoa-session-harvest` classify mode, which emits session-local proposals
+  without owner writes or automatic promotion.
+- Reason: the shared skill family was refactored and the copied local catalog
+  was removed.
+- Source surfaces updated: questbook README, human questbook integration,
+  source-record owner split, and repository skill boundary.
+- Validation: active-route residue search, questbook route checks, generated
+  reader checks, and repository validation.
+
 ## Boundaries
 
 This decision does not move `quests/*.yaml`, Agon notes, generated quest

@@ -200,7 +200,7 @@ def test_generated_check_compares_rebuilt_outputs(monkeypatch, tmp_path: Path) -
     current_dashboard = {
         "schema_version": readiness.SCHEMA_VERSION,
         "generated_at_utc": "2026-06-25T00:00:00Z",
-        "stale": True,
+        "central_catalog": {"total_evals": 1},
     }
     current_support = {
         "schema_version": readiness.SUPPORT_REGISTRY_SCHEMA_VERSION,
@@ -209,7 +209,7 @@ def test_generated_check_compares_rebuilt_outputs(monkeypatch, tmp_path: Path) -
     expected_dashboard = {
         "schema_version": readiness.SCHEMA_VERSION,
         "generated_at_utc": "2026-06-25T00:00:00Z",
-        "stale": False,
+        "central_catalog": {"total_evals": 2},
     }
     expected_support = {
         "schema_version": readiness.SUPPORT_REGISTRY_SCHEMA_VERSION,
@@ -232,6 +232,11 @@ def test_generated_check_compares_rebuilt_outputs(monkeypatch, tmp_path: Path) -
             "# OS Abyss Eval Readiness Dashboard\n\nfresh\n",
         ),
     )
+    monkeypatch.setattr(
+        readiness,
+        "build_markdown",
+        lambda *_args, **_kwargs: "# OS Abyss Eval Readiness Dashboard\n\nfresh\n",
+    )
 
     issues = readiness.check_generated(
         evals_root,
@@ -244,9 +249,59 @@ def test_generated_check_compares_rebuilt_outputs(monkeypatch, tmp_path: Path) -
         live_timeout=1,
     )
 
-    assert "generated/eval_readiness_dashboard.json is stale" in "\n".join(issues)
+    assert "source-derived fields are stale" in "\n".join(issues)
     assert "generated/eval_support_registry.json is stale" in "\n".join(issues)
-    assert "generated/eval_readiness_dashboard.md is stale" in "\n".join(issues)
+    assert "stale against its JSON snapshot" in "\n".join(issues)
+
+
+def test_generated_check_does_not_treat_volatile_os_change_as_source_drift(
+    monkeypatch, tmp_path: Path
+) -> None:
+    evals_root = tmp_path / "aoa-evals"
+    generated_root = evals_root / "generated"
+    generated_root.mkdir(parents=True)
+    current_dashboard = {
+        "schema_version": readiness.SCHEMA_VERSION,
+        "generated_at_utc": "2026-06-25T00:00:00Z",
+        "central_catalog": {"total_evals": 39},
+        "mcp_runtime_status": {"status": "ok", "freshness": "old-snapshot"},
+        "aoa_session_memory_freshness": {"status": "needs_attention"},
+        "workspace_git_drift": {"summary": {"dirty_repos": 2}},
+    }
+    expected_dashboard = {
+        "schema_version": readiness.SCHEMA_VERSION,
+        "generated_at_utc": "2026-06-25T00:00:00Z",
+        "central_catalog": {"total_evals": 39},
+        "mcp_runtime_status": {"status": "ok", "freshness": "new-live-state"},
+        "aoa_session_memory_freshness": {"status": "ok"},
+        "workspace_git_drift": {"summary": {"dirty_repos": 3}},
+    }
+    support = {"schema_version": readiness.SUPPORT_REGISTRY_SCHEMA_VERSION}
+    markdown = "# OS Abyss Eval Readiness Dashboard\n\nsnapshot\n"
+    readiness.write_json(generated_root / "eval_readiness_dashboard.json", current_dashboard)
+    readiness.write_json(generated_root / "eval_support_registry.json", support)
+    (generated_root / "eval_readiness_dashboard.md").write_text(markdown, encoding="utf-8")
+
+    monkeypatch.setattr(readiness, "validate_dashboard_shape", lambda *_args: [])
+    monkeypatch.setattr(
+        readiness,
+        "build_generated_outputs",
+        lambda **_kwargs: (expected_dashboard, support, "ignored"),
+    )
+    monkeypatch.setattr(readiness, "build_markdown", lambda *_args, **_kwargs: markdown)
+
+    issues = readiness.check_generated(
+        evals_root,
+        workspace_root=tmp_path / "AbyssOS",
+        aoa_root=tmp_path / ".aoa",
+        skills_source_root=tmp_path / "aoa-skills",
+        installed_skills_root=tmp_path / "skills",
+        stack_root=None,
+        include_live_checks=True,
+        live_timeout=1,
+    )
+
+    assert issues == []
 
 
 def test_repo_readiness_routes_suite_contract_states_without_executing_argv(
@@ -426,7 +481,7 @@ def test_aoa_freshness_extracts_actionable_json_summary(monkeypatch, tmp_path: P
     assert result["json_summary"]["live_tail_status"] == "ready_for_catchup"
 
 
-def test_skill_pack_profile_verification_summarizes_installed_foundation(tmp_path: Path) -> None:
+def test_skill_pack_profile_verification_summarizes_current_user_profile(tmp_path: Path) -> None:
     skills_source_root = tmp_path / "aoa-skills"
     installed_skills_root = tmp_path / "skills"
     verifier = skills_source_root / "scripts" / "verify_skill_pack.py"
@@ -439,17 +494,17 @@ def test_skill_pack_profile_verification_summarizes_installed_foundation(tmp_pat
         print(json.dumps({
             "verified": True,
             "profile_revision": "rev-1",
-            "expected_skill_count": 36,
-            "verified_skill_count": 36,
+            "expected_skill_count": 1,
+            "verified_skill_count": 1,
             "missing_skills": [],
             "mismatched_skills": [],
             "extra_skill_dirs": [".system"],
             "release_identity": {"has_unreleased_changes": True},
             "skills": [
                 {
-                    "name": "aoa-eval",
+                    "name": "aoa-decision",
                     "install_state": "ok",
-                    "is_symlink": True,
+                    "is_symlink": False,
                     "source_digest": "src",
                     "target_digest": "src"
                 }
@@ -466,13 +521,100 @@ def test_skill_pack_profile_verification_summarizes_installed_foundation(tmp_pat
 
     assert result["status"] == "ok"
     assert result["verified"] is True
-    assert result["expected_skill_count"] == 36
-    assert result["verified_skill_count"] == 36
+    assert result["profile"] == "user-default"
+    assert result["expected_skill_count"] == 1
+    assert result["verified_skill_count"] == 1
     assert result["missing_skill_count"] == 0
     assert result["mismatched_skill_count"] == 0
-    assert result["aoa_eval_install_state"] == "ok"
-    assert result["aoa_eval_is_symlink"] is True
+    assert result["profile_skill_names"] == ["aoa-decision"]
+    assert result["aoa_eval_expected_in_profile"] is False
+    assert result["aoa_eval_install_state"] is None
     assert result["authority_boundary"].startswith("aoa-skills owns")
+
+
+def test_aoa_eval_runtime_adoption_reads_deferred_source_profile(tmp_path: Path) -> None:
+    skills_source_root = tmp_path / "aoa-skills"
+    installed_skills_root = tmp_path / "skills"
+    write_text(
+        skills_source_root / "skills/core/engineering/aoa-eval/SKILL.md",
+        "---\nname: aoa-eval\ndescription: deferred source\n---\n",
+    )
+    write_text(
+        skills_source_root / ".agents/skills/aoa-eval/SKILL.md",
+        "---\nname: aoa-eval\ndescription: portable deferred source\n---\n",
+    )
+    write_text(
+        skills_source_root / "generated/agent_skill_catalog.json",
+        json.dumps(
+            {
+                "skills": [
+                    {
+                        "name": "aoa-eval",
+                        "implicit_activation_policy": "suggest",
+                        "allow_implicit_invocation": False,
+                        "manual_invocation_required": True,
+                        "candidate_only": True,
+                    }
+                ]
+            }
+        ),
+    )
+    write_text(
+        skills_source_root / "generated/skill_pack_profiles.resolved.json",
+        json.dumps(
+            {
+                "profiles": {
+                    "user-default": {"skills": [{"name": "aoa-decision"}]},
+                    "repo-capability-sources": {
+                        "skills": [{"name": "aoa-decision"}, {"name": "aoa-eval"}]
+                    },
+                }
+            }
+        ),
+    )
+    write_text(
+        skills_source_root / "generated/release_manifest.json",
+        json.dumps({"advertised_skill_count": 1, "deferred_skill_count": 6}),
+    )
+    write_text(
+        skills_source_root / "docs/reviews/2026-07-15-capability-family-lifecycle.md",
+        "# Manual lifecycle review\n",
+    )
+    write_text(
+        skills_source_root / "scripts/verify_skill_pack.py",
+        """
+        import json
+
+        print(json.dumps({
+            "verified": True,
+            "profile_revision": "current-user-default",
+            "expected_skill_count": 1,
+            "verified_skill_count": 1,
+            "missing_skills": [],
+            "mismatched_skills": [],
+            "extra_skill_dirs": [],
+            "skills": [{"name": "aoa-decision", "install_state": "ok"}]
+        }))
+        """,
+    )
+
+    result = readiness.build_aoa_eval_runtime_adoption(
+        skills_source_root,
+        installed_skills_root,
+        timeout=1,
+    )
+
+    assert result["posture"] == "deferred_explicit_source"
+    assert result["source_profile"] == "repo-capability-sources"
+    assert result["source_profile_contains_aoa_eval"] is True
+    assert result["normal_user_profile"] == "user-default"
+    assert result["normal_user_profile_contains_aoa_eval"] is False
+    assert result["normal_user_profile_verified"] is True
+    assert result["live_skill_expected_by_normal_user_profile"] is False
+    assert result["live_skill_exists"] is False
+    assert result["candidate_only"] is True
+    assert result["prompt_visible_live_check"] == "external_live_check_required"
+    assert "runtime_discovery_index_ref" not in result
 
 
 def test_support_registry_maps_readiness_builder_after_inventory_registration() -> None:

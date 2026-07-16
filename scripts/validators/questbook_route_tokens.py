@@ -18,7 +18,9 @@ QUESTBOOK_NOTE_REQUIRED_TOKENS = (
     "verdict-bridge",
     "Closed source records stay in `quests/` and generated projections as",
     "Promotion happens through reviewed owner acceptance",
-    "Quest-harvest route:",
+    "Session-harvest classify route:",
+    "aoa-session-harvest",
+    "proposal only",
     "route output into quest source records, owner handoff, or reviewed",
     "Eval bundle meaning stays in source bundles",
 )
@@ -105,7 +107,9 @@ QUESTBOOK_SOURCE_RECORD_PART_REQUIRED_TOKENS = (
     "QUESTBOOK.md",
     "generated projection input",
     "source quest record identity",
-    "aoa-quest-harvest",
+    "aoa-session-harvest",
+    "classify",
+    "session-local triage",
     "roadmap direction",
     "owner acceptance",
     "python scripts/build_catalog.py --check",
@@ -162,7 +166,9 @@ QUESTBOOK_PART_OWNER_SPLIT_DECISION_REQUIRED_TOKENS = (
     "Source quest records stay under `quests/<lane>/<state>/`",
     "Human visibility stays",
     "Generated quest readers stay under root `generated/`",
+    "aoa-session-harvest",
     "aoa-quest-harvest",
+    "session-local proposal",
     "live task assignment",
 )
 

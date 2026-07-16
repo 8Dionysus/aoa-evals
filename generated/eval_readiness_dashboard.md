@@ -9,23 +9,23 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 ## Summary
 
-- Generated at: `2026-07-13T22:52:48Z`
+- Generated at: `2026-07-16T11:29:54Z`
 - Workspace root: `workspace:OS_ABYSS`
 - Central evals: 39
 - Local active ports: 9
 - Local invalid ports: 0
-- Actionable repo routes: 9
+- Actionable repo routes: 10
 - Runtime candidate exports: 14
 - Candidate queue entries: 15
 - Candidate packet imports: 5
 - Eval Forge archetypes: 18
 - Eval Forge candidate hints: 5
 - Session-mining reviewed episodes: 20
-- Support surfaces: 598 total, 431 eval-relevant
+- Support surfaces: 592 total, 428 eval-relevant
 - Eval-relevant surfaces with unresolved manual review: 0
 - Unsafe side-effect scripts: 4
 - MCP runtime status: `ok`
-- Dirty repos: 12
+- Dirty repos: 2
 
 ## Research Grounding
 
@@ -60,20 +60,21 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 | --- | --- | --- | --- | --- | --- |
 | `aoa-skills` | needs_local_design_or_owner_review | high | medium | warning | `active_suite_note_review_or_execution_contract_design`: Treat the suite note as design pressure only; add a reviewed execution sidecar before claiming a runnable local suite. |
 | `connectors/aoa-course-connector` | needs_local_design_or_owner_review | high | medium | warning | `active_suite_note_review_or_execution_contract_design`: Treat the suite note as design pressure only; add a reviewed execution sidecar before claiming a runnable local suite. |
-| `aoa-memo` | needs_local_design_or_owner_review | medium | medium | warning | `active_intake_select_then_apply_or_design`: Select existing local and central eval routes first, then apply or design only after duplicate-fit review. |
 | `aoa-routing` | needs_local_design_or_owner_review | medium | medium | warning | `active_intake_select_then_apply_or_design`: Select existing local and central eval routes first, then apply or design only after duplicate-fit review. |
 | `connectors/aoa-4pda-connector` | needs_local_design_or_owner_review | medium | medium | warning | `active_suite_note_review_or_execution_contract_design`: Treat the suite note as design pressure only; add a reviewed execution sidecar before claiming a runnable local suite. |
+| `aoa-memo` | needs_local_design_or_owner_review | low | medium | warning | `active_intake_select_then_apply_or_design`: Select existing local and central eval routes first, then apply or design only after duplicate-fit review. |
 | `connectors/aoa-discord-connector` | needs_local_design_or_owner_review | low | medium | warning | `active_suite_note_review_or_execution_contract_design`: Treat the suite note as design pressure only; add a reviewed execution sidecar before claiming a runnable local suite. |
 | `connectors/aoa-stackoverflow-connector` | needs_local_design_or_owner_review | low | medium | warning | `active_suite_note_review_or_execution_contract_design`: Treat the suite note as design pressure only; add a reviewed execution sidecar before claiming a runnable local suite. |
 | `connectors/aoa-telegram-connector` | needs_local_design_or_owner_review | low | medium | warning | `active_suite_note_review_or_execution_contract_design`: Treat the suite note as design pressure only; add a reviewed execution sidecar before claiming a runnable local suite. |
 | `connectors/aoa-xda-connector` | needs_local_design_or_owner_review | low | medium | warning | `active_suite_note_review_or_execution_contract_design`: Treat the suite note as design pressure only; add a reviewed execution sidecar before claiming a runnable local suite. |
+| `media/aoa-editing` | blocked_by_freshness_or_invalid_port | none | blocked | blocked | `stale_local_eval_surface_review`: Inspect the existing eval-like surface before mutation; add a valid port only if current pressure warrants it. |
 
 ## Candidate Queue
 
 | Candidate | State | Source | Owner | Evidence | Packet | Next Route |
 | --- | --- | --- | --- | ---: | --- | --- |
-| `local-port:aoa-memo` | needs_owner_review | local_eval_port | aoa-memo | 2 |  | active_intake_select_then_apply_or_design |
-| `local-port:aoa-routing` | needs_owner_review | local_eval_port | aoa-routing | 3 |  | active_intake_select_then_apply_or_design |
+| `local-port:aoa-memo` | needs_owner_review | local_eval_port | aoa-memo | 1 |  | active_intake_select_then_apply_or_design |
+| `local-port:aoa-routing` | needs_owner_review | local_eval_port | aoa-routing | 2 |  | active_intake_select_then_apply_or_design |
 | `local-port:aoa-skills` | needs_owner_review | local_eval_port | aoa-skills | 6 |  | active_suite_note_review_or_execution_contract_design |
 | `local-port:connectors/aoa-4pda-connector` | needs_owner_review | local_eval_port | connectors/aoa-4pda-connector | 2 |  | active_suite_note_review_or_execution_contract_design |
 | `local-port:connectors/aoa-course-connector` | needs_owner_review | local_eval_port | connectors/aoa-course-connector | 11 |  | active_suite_note_review_or_execution_contract_design |
@@ -151,24 +152,27 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 ## Support Registry
 
 - Support registry JSON: `generated/eval_support_registry.json`
-- Eval-relevant surfaces: 431
-- Recommended routes: `{"apply_as_deterministic_eval_support": 469, "candidate_only_eval_support": 11, "component_only_use_owning_validator_or_lane_command": 83, "forbidden_as_eval_apply_until_manual_owner_review": 4, "generated_readmodel_support": 6, "ordinary_owner_route": 8, "run_check_mode_before_eval_support": 17}`
-- Semantic classes: `{"deterministic_validator": 465, "generated_parity_check": 32, "ordinary_support": 8, "runtime_candidate_support": 11, "trace_trajectory_eval_support": 14, "unit_contract_property_test": 64, "unsafe_side_effect_script": 4}`
-- Review status: `{"candidate_only": 11, "not_eval_relevant": 8, "reviewed_forbidden": 4, "rule_reviewed": 575}`
+- Eval-relevant surfaces: 428
+- Recommended routes: `{"apply_as_deterministic_eval_support": 469, "candidate_only_eval_support": 8, "component_only_use_owning_validator_or_lane_command": 83, "forbidden_as_eval_apply_until_manual_owner_review": 4, "generated_readmodel_support": 6, "ordinary_owner_route": 5, "run_check_mode_before_eval_support": 17}`
+- Semantic classes: `{"deterministic_validator": 465, "generated_parity_check": 32, "ordinary_support": 5, "runtime_candidate_support": 8, "trace_trajectory_eval_support": 14, "unit_contract_property_test": 64, "unsafe_side_effect_script": 4}`
+- Review status: `{"candidate_only": 8, "not_eval_relevant": 5, "reviewed_forbidden": 4, "rule_reviewed": 575}`
 
-## Runtime Adoption
+## aoa-eval Source And Host Posture
 
 - Source skill exists: True
-- Installed skill exists: True
-- Installed matches source: False
-- Installed profile verified: False
-- Runtime discovery mentions `aoa-eval`: True
-- Trigger harness owner: `aoa-skills:evals/suites/aoa-eval-trigger-corpus.suite.md`
+- Portable export exists: True
+- Current posture: `deferred_explicit_source`
+- Source profile contains `aoa-eval`: True
+- Normal user profile contains `aoa-eval`: False
+- Normal user profile verified: True
+- Live `aoa-eval` install exists: False
+- Prompt visibility: `external_live_check_required`
+- Behavioral review: `repo:aoa-skills/docs/reviews/2026-07-15-capability-family-lifecycle.md`
 
 ## Freshness Sentinel
 
-- Git repos: 21
-- Dirty repos: 12
+- Git repos: 22
+- Dirty repos: 2
 - MCP selected root: `repo:abyss-stack`
 - .aoa freshness status: `failed`
 

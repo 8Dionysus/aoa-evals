@@ -257,20 +257,20 @@
       "signals": ["skill", "trigger", "invocation", "front door", "subskill", "codex"],
       "use_when": ["The failure is that a skill should have triggered, routed, or stayed manual but did not."],
       "do_not_use_when": ["The issue is proof meaning or runtime state rather than skill discovery/adoption."],
-      "required_evidence": ["source skill", "installed/runtime visibility", "trigger prompt case", "expected route"],
-      "required_owner_surface": ["aoa-skills source skill", "aoa-skills trigger harness"],
-      "grader_family": "skill trigger corpus and prompt route harness",
-      "fixture_shape": "prompt/case, expected skill route, installed/source verification",
+      "required_evidence": ["source skill and resolved capability contract", "catalog/profile projection and prompt-visible runtime posture", "manual positive and negative applicability cases", "manual no-skill and coexistence comparison with artifact inspection"],
+      "required_owner_surface": ["aoa-skills source skill", "aoa-skills capability catalog and admitted lifecycle review"],
+      "grader_family": "owner-reviewed manual routing and outcome comparison",
+      "fixture_shape": "session-local prompt/case, expected route, acceptance criteria, source/profile/runtime posture, and inspected artifact",
       "positive_negative_case_expectation": "Include prompt cases that should trigger and cases that should not.",
-      "repeatability_requirements": ["source and installed skill digests known", "runtime discovery current"],
+      "repeatability_requirements": ["source commit, model, host, tools, and context boundary known", "profile, catalog, and projection state known", "manual artifacts and acceptance criteria inspectable"],
       "anti_gaming_risks": ["over-triggering on generic words", "aoa-evals tries to own skill runtime"],
       "local_vs_central_route": {
         "target": "stronger-owner",
         "owner_repo": "aoa-skills",
         "route_key": "trigger_design_case"
       },
-      "validation_route": "run aoa-skills prompt trigger harness",
-      "example_refs": ["aoa-skills/evals/reports/aoa-eval-prompt-trigger-harness-20260625.report.md"]
+      "validation_route": "run owner-reviewed manual no-skill, positive, negative, and coexistence trials; admit a durable harness only after a repeated stable invariant",
+      "example_refs": ["aoa-skills/docs/reviews/2026-07-15-capability-family-lifecycle.md"]
     },
     {
       "id": "abyss-stack-runtime-mcp-smoke",

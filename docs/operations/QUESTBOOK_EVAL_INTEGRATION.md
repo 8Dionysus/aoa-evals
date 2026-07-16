@@ -49,9 +49,12 @@ A good eval quest points to one of these durable pressures:
 | trace-to-verdict bridge debt | verdict-bridge owner route |
 | repeated caution pattern | recurring proof-pattern candidate until stable ID review |
 
-## Installed quest-harvest posture
+## Shared session-harvest posture
 
-`aoa-quest-harvest` may assist this repo only as a post-session installed skill after a reviewed run, closure, or pause.
+The `aoa-skills`-owned `aoa-session-harvest` `classify` mode may assist this
+repo only when explicitly supplied after a reviewed run, closure, or pause.
+The old `aoa-quest-harvest` name is migration-only and has no repo-local
+installation route.
 
 | Pressure | Route |
 | --- | --- |
@@ -62,14 +65,12 @@ A good eval quest points to one of these durable pressures:
 | memo ownership | `aoa-memo` owner route |
 | one anecdotal repeat | keep as harvest evidence until recurrence and owner-fit justify promotion |
 
-Its allowed outcomes are:
+Its allowed session-local outcomes are:
 
-- `keep/open quest`
-- `promote to skill`
-- `promote to playbook`
-- `promote to orchestrator surface`
-- `promote to proof surface`
-- `promote to memo surface`
+- defer or reject a durable artifact;
+- propose an `aoa-evals` quest/proof handoff;
+- propose a skill, playbook, eval, memo, tool, or adapter handoff;
+- preserve unresolved alternatives without writing an owner surface.
 
 ## Generated quest surfaces
 

@@ -78,7 +78,7 @@ from scattered memory. It also keeps authority layers separate:
 
 ## Current Applicability
 
-As of 2026-07-10:
+As of 2026-07-16:
 
 - Still valid: `aoa-evals` is the proof owner and the readiness layer is a
   routing/checking surface only.
@@ -88,9 +88,35 @@ As of 2026-07-10:
   `absent`/`invalid`/`stale`/`ready` execution state from AOA-EV-D-0245, where
   ready means source-contract-ready and still requires owner/apply JIT
   revalidation, environment capture, and an execution receipt.
+- Changed: `aoa-eval` is a deferred explicit source in the current
+  `aoa-skills` capability-source profile, not a member of the normal user
+  profile. Readiness checks current source, export, catalog, profile, and host
+  signals without treating profile absence as failed adoption.
 - Superseded by: none.
 
 ## Review Log
+
+### 2026-07-16 - Align skill posture with the consolidated capability ecosystem
+
+- Previous assumption: readiness could verify the former
+  `user-aoa-foundation` profile, runtime discovery index, and trigger harness
+  as current `aoa-eval` adoption signals.
+- New reality: those surfaces were retired. `user-default` contains only
+  `aoa-decision`; `aoa-eval` remains a deferred explicit source in
+  `repo-capability-sources`, and fresh-session prompt visibility stays host
+  evidence.
+- Check correction: dashboard `--check` compares source-derived fields and
+  JSON-to-Markdown snapshot parity; a naturally newer MCP, `.aoa`, Git, or
+  local-port observation remains freshness evidence rather than false source
+  drift.
+- Reason: keeping removed surfaces in the dashboard turned correct profile
+  absence into a false failure and obscured the owner-approved deferred
+  disposition.
+- Source surfaces updated: Eval Forge readiness guide, generated route card,
+  readiness builder, session-start reader, script inventory, generated
+  dashboard, and focused contract tests.
+- Validation: current `aoa-skills` profile verifier, fresh prompt inspection,
+  generated parity, focused tests, and repository validation.
 
 ### 2026-07-10 - Add inspect-only local suite execution readiness
 

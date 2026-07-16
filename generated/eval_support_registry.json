@@ -16,16 +16,16 @@
       "deterministic_test": 64,
       "deterministic_validator": 227,
       "generated_readmodel_test": 9,
-      "script_support": 16,
+      "script_support": 10,
       "trace_eval_test": 14
     },
     "by_kind": {
-      "script": 284,
+      "script": 278,
       "test": 87,
       "validator": 227
     },
     "by_lane": {
-      "advisory": 34,
+      "advisory": 28,
       "generated": 52,
       "latest_sibling": 4,
       "mechanics_part_local": 52,
@@ -35,223 +35,34 @@
     },
     "by_recommended_route": {
       "apply_as_deterministic_eval_support": 469,
-      "candidate_only_eval_support": 11,
+      "candidate_only_eval_support": 8,
       "component_only_use_owning_validator_or_lane_command": 83,
       "forbidden_as_eval_apply_until_manual_owner_review": 4,
       "generated_readmodel_support": 6,
-      "ordinary_owner_route": 8,
+      "ordinary_owner_route": 5,
       "run_check_mode_before_eval_support": 17
     },
     "by_review_status": {
-      "candidate_only": 11,
-      "not_eval_relevant": 8,
+      "candidate_only": 8,
+      "not_eval_relevant": 5,
       "reviewed_forbidden": 4,
       "rule_reviewed": 575
     },
     "by_semantic_class": {
       "deterministic_validator": 465,
       "generated_parity_check": 32,
-      "ordinary_support": 8,
-      "runtime_candidate_support": 11,
+      "ordinary_support": 5,
+      "runtime_candidate_support": 8,
       "trace_trajectory_eval_support": 14,
       "unit_contract_property_test": 64,
       "unsafe_side_effect_script": 4
     },
-    "eval_lane_relevant": 431,
+    "eval_lane_relevant": 428,
     "safe_to_apply_directly": 469,
-    "total_surfaces": 598,
+    "total_surfaces": 592,
     "unsafe_side_effect_scripts": 4
   },
   "surfaces": [
-    {
-      "classification": "script_support",
-      "classification_evidence": [
-        "family: exported_skill_helper",
-        "owner_surface: .agents/skills/AGENTS.md",
-        "side_effects: stdout/template output only",
-        "validation_lane: advisory"
-      ],
-      "classification_rule": "runtime_or_session_candidate_signal",
-      "eval_lane_relevant": true,
-      "failure_route": null,
-      "family": "exported_skill_helper",
-      "focused_target": null,
-      "forbidden_interpretations": [
-        "reviewed_truth",
-        "central_proof_acceptance"
-      ],
-      "kind": "script",
-      "lane": "advisory",
-      "owner_surface": ".agents/skills/AGENTS.md",
-      "path": ".agents/skills/aoa-dry-run-first/scripts/dry_run_contract.py",
-      "recommended_route": "candidate_only_eval_support",
-      "relevance_reasons": [
-        "runtime"
-      ],
-      "review_reason": "runtime/session/memory signal can seed candidates only and cannot become reviewed truth",
-      "review_status": "candidate_only",
-      "safe_to_apply_directly": false,
-      "semantic_class": "runtime_candidate_support",
-      "side_effects": "stdout/template output only",
-      "source_truth_count": 1,
-      "test_target": "docs/validation/SCRIPT_TOPOLOGY.md"
-    },
-    {
-      "classification": "script_support",
-      "classification_evidence": [
-        "family: exported_skill_helper",
-        "owner_surface: .agents/skills/AGENTS.md",
-        "side_effects: stdout only",
-        "validation_lane: advisory"
-      ],
-      "classification_rule": "runtime_or_session_candidate_signal",
-      "eval_lane_relevant": true,
-      "failure_route": null,
-      "family": "exported_skill_helper",
-      "focused_target": null,
-      "forbidden_interpretations": [
-        "reviewed_truth",
-        "central_proof_acceptance"
-      ],
-      "kind": "script",
-      "lane": "advisory",
-      "owner_surface": ".agents/skills/AGENTS.md",
-      "path": ".agents/skills/aoa-dry-run-first/scripts/preview_gap_check.py",
-      "recommended_route": "candidate_only_eval_support",
-      "relevance_reasons": [
-        "runtime"
-      ],
-      "review_reason": "runtime/session/memory signal can seed candidates only and cannot become reviewed truth",
-      "review_status": "candidate_only",
-      "safe_to_apply_directly": false,
-      "semantic_class": "runtime_candidate_support",
-      "side_effects": "stdout only",
-      "source_truth_count": 1,
-      "test_target": "docs/validation/SCRIPT_TOPOLOGY.md"
-    },
-    {
-      "classification": "script_support",
-      "classification_evidence": [
-        "family: exported_skill_helper",
-        "owner_surface: .agents/skills/AGENTS.md",
-        "side_effects: stdout/template output only",
-        "validation_lane: advisory"
-      ],
-      "classification_rule": "runtime_or_session_candidate_signal",
-      "eval_lane_relevant": true,
-      "failure_route": null,
-      "family": "exported_skill_helper",
-      "focused_target": null,
-      "forbidden_interpretations": [
-        "reviewed_truth",
-        "central_proof_acceptance"
-      ],
-      "kind": "script",
-      "lane": "advisory",
-      "owner_surface": ".agents/skills/AGENTS.md",
-      "path": ".agents/skills/aoa-local-stack-bringup/scripts/bringup_contract.py",
-      "recommended_route": "candidate_only_eval_support",
-      "relevance_reasons": [
-        "runtime"
-      ],
-      "review_reason": "runtime/session/memory signal can seed candidates only and cannot become reviewed truth",
-      "review_status": "candidate_only",
-      "safe_to_apply_directly": false,
-      "semantic_class": "runtime_candidate_support",
-      "side_effects": "stdout/template output only",
-      "source_truth_count": 1,
-      "test_target": "docs/validation/SCRIPT_TOPOLOGY.md"
-    },
-    {
-      "classification": "script_support",
-      "classification_evidence": [
-        "family: exported_skill_helper",
-        "owner_surface: .agents/skills/AGENTS.md",
-        "side_effects: stdout only",
-        "validation_lane: advisory"
-      ],
-      "classification_rule": "no_eval_lane_signal",
-      "eval_lane_relevant": false,
-      "failure_route": null,
-      "family": "exported_skill_helper",
-      "focused_target": null,
-      "forbidden_interpretations": [
-        "eval_lane_support_without_new_evidence"
-      ],
-      "kind": "script",
-      "lane": "advisory",
-      "owner_surface": ".agents/skills/AGENTS.md",
-      "path": ".agents/skills/aoa-local-stack-bringup/scripts/readiness_summary.py",
-      "recommended_route": "ordinary_owner_route",
-      "relevance_reasons": [],
-      "review_reason": "no eval-lane signal found in inventory evidence; keep on ordinary owner route",
-      "review_status": "not_eval_relevant",
-      "safe_to_apply_directly": false,
-      "semantic_class": "ordinary_support",
-      "side_effects": "stdout only",
-      "source_truth_count": 1,
-      "test_target": "docs/validation/SCRIPT_TOPOLOGY.md"
-    },
-    {
-      "classification": "script_support",
-      "classification_evidence": [
-        "family: exported_skill_helper",
-        "owner_surface: .agents/skills/AGENTS.md",
-        "side_effects: stdout/template output only",
-        "validation_lane: advisory"
-      ],
-      "classification_rule": "no_eval_lane_signal",
-      "eval_lane_relevant": false,
-      "failure_route": null,
-      "family": "exported_skill_helper",
-      "focused_target": null,
-      "forbidden_interpretations": [
-        "eval_lane_support_without_new_evidence"
-      ],
-      "kind": "script",
-      "lane": "advisory",
-      "owner_surface": ".agents/skills/AGENTS.md",
-      "path": ".agents/skills/aoa-safe-infra-change/scripts/infra_change_contract.py",
-      "recommended_route": "ordinary_owner_route",
-      "relevance_reasons": [],
-      "review_reason": "no eval-lane signal found in inventory evidence; keep on ordinary owner route",
-      "review_status": "not_eval_relevant",
-      "safe_to_apply_directly": false,
-      "semantic_class": "ordinary_support",
-      "side_effects": "stdout/template output only",
-      "source_truth_count": 1,
-      "test_target": "docs/validation/SCRIPT_TOPOLOGY.md"
-    },
-    {
-      "classification": "script_support",
-      "classification_evidence": [
-        "family: exported_skill_helper",
-        "owner_surface: .agents/skills/AGENTS.md",
-        "side_effects: stdout only",
-        "validation_lane: advisory"
-      ],
-      "classification_rule": "no_eval_lane_signal",
-      "eval_lane_relevant": false,
-      "failure_route": null,
-      "family": "exported_skill_helper",
-      "focused_target": null,
-      "forbidden_interpretations": [
-        "eval_lane_support_without_new_evidence"
-      ],
-      "kind": "script",
-      "lane": "advisory",
-      "owner_surface": ".agents/skills/AGENTS.md",
-      "path": ".agents/skills/aoa-safe-infra-change/scripts/risk_surface_scan.py",
-      "recommended_route": "ordinary_owner_route",
-      "relevance_reasons": [],
-      "review_reason": "no eval-lane signal found in inventory evidence; keep on ordinary owner route",
-      "review_status": "not_eval_relevant",
-      "safe_to_apply_directly": false,
-      "semantic_class": "ordinary_support",
-      "side_effects": "stdout only",
-      "source_truth_count": 1,
-      "test_target": "docs/validation/SCRIPT_TOPOLOGY.md"
-    },
     {
       "classification": "builder_with_check_mode",
       "classification_evidence": [
@@ -1304,7 +1115,7 @@
       "classification_evidence": [
         "family: source_readmodel_builder",
         "owner_surface: generated/AGENTS.md",
-        "side_effects: read-only by default; --write-generated emits portable canonical-owner paths and never ephemeral .worktrees paths; v1/unknown suite state normalizes to absent; --check validates shape, suite routing, Forge readiness, and proof boundaries without executing runner argv or accepting proof/promotion",
+        "side_effects: read-only by default; --write-generated emits portable canonical-owner paths and never ephemeral .worktrees paths; v1/unknown suite state normalizes to absent; --check validates source-derived parity and JSON-to-Markdown snapshot parity without comparing naturally changing MCP, session-memory, git, or local-port state; it never executes runner argv or accepts proof/promotion",
         "validation_lane: advisory",
         "writes: generated/eval_readiness_dashboard.json, generated/eval_readiness_dashboard.md, generated/eval_support_registry.json when invoked with --write-generated"
       ],
@@ -1329,13 +1140,14 @@
         "candidate",
         "runtime",
         "trace",
-        "local_eval"
+        "local_eval",
+        "session"
       ],
       "review_reason": "write-capable script has an explicit check/dry-run/preview route; run the non-mutating mode before eval support",
       "review_status": "rule_reviewed",
       "safe_to_apply_directly": false,
       "semantic_class": "generated_parity_check",
-      "side_effects": "read-only by default; --write-generated emits portable canonical-owner paths and never ephemeral .worktrees paths; v1/unknown suite state normalizes to absent; --check validates shape, suite routing, Forge readiness, and proof boundaries without executing runner argv or accepting proof/promotion",
+      "side_effects": "read-only by default; --write-generated emits portable canonical-owner paths and never ephemeral .worktrees paths; v1/unknown suite state normalizes to absent; --check validates source-derived parity and JSON-to-Markdown snapshot parity without comparing naturally changing MCP, session-memory, git, or local-port state; it never executes runner argv or accepts proof/promotion",
       "source_truth_count": 12,
       "test_target": "tests/test_eval_readiness_dashboard.py"
     },

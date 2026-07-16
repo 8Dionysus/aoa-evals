@@ -131,6 +131,18 @@ execution posture for agents. Proof meaning stays with source proof objects and
 bundle-local review. The current Spark lane lives under `.agents/spark/` and
 stays bounded to narrow proof-surface work.
 
+### Repository skills
+
+A repo-specific callable procedure may become a skill only after its own
+trigger, input/output contract, composition value, coexistence behavior, and
+improvement over a no-skill baseline have been demonstrated manually. Its
+canonical source then lives under top-level `skills/`; runtime projections are
+derived delivery surfaces, not alternate owners.
+
+`aoa-evals` currently has no admitted repository skill home. Shared execution
+workflows remain owned by `aoa-skills`, and `.agents/` remains an agent-lane
+district rather than a copied skill catalog.
+
 ### Legacy cards
 
 `PROVENANCE.md` names the bridge and current owner route. Legacy homes explain
@@ -264,8 +276,7 @@ posture and epistemic limits.
 classes, active mechanics, and file-movement boundaries.
 [`mechanics/EVIDENCE_CLUSTERS.md`](mechanics/EVIDENCE_CLUSTERS.md) records why
 a mechanic parent is allowed and whether it is AoA-aligned or evals-native.
-[`.agents/AGENTS.md`](.agents/AGENTS.md) routes maintained agent lanes and
-support surfaces.
+[`.agents/AGENTS.md`](.agents/AGENTS.md) routes maintained agent lanes.
 [`mechanics/README.md`](mechanics/README.md) is the operation atlas for active
 mechanic packages.
 `DESIGN.AGENTS.md` holds the agent-facing design form.

@@ -58,7 +58,7 @@ owning authority class is explicit.
 | `quests/<lane>/<state>/*.yaml` | source quest record | `quests/AGENTS.md`, `QUESTBOOK.md`, and quest schemas |
 | `mechanics/<parent>/` | mechanic parent operation | parent `AGENTS.md`, `README.md`, `DIRECTION.md`, `PARTS.md`, `PROVENANCE.md` |
 | `mechanics/<parent>/parts/<part>/` | mechanic part operation | part `README.md`, `VALIDATION.md`, and parent `parts/AGENTS.md` |
-| `.agents/` | maintained agent lane support | `.agents/AGENTS.md` and lane-local cards |
+| `.agents/` | maintained agent lanes | `.agents/AGENTS.md` and lane-local cards |
 | `.aoa/live_receipts/` | receipt sidecar | `.aoa/live_receipts/AGENTS.md`; receipts stay below reports and bundles |
 
 ## Route-Card-Only Root Districts

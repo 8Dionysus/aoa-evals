@@ -28,6 +28,7 @@
 - [AOA-EV-D-0144 Root Route-card Validator Module Boundary](../AOA-EV-D-0144-root-route-card-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0144-root-route-card-validator-module-boundary.md`)
 - [AOA-EV-D-0210 Root Design Aggregate Removal](../AOA-EV-D-0210-root-design-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0210-root-design-aggregate-removal.md`)
 - [AOA-EV-D-0218 Decision-index Validator Layer Split](../AOA-EV-D-0218-decision-index-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0218-decision-index-validator-layer-split.md`)
+- [AOA-EV-D-0246 Owner Skill Projection Boundary](../AOA-EV-D-0246-owner-skill-projection-boundary.md) (`docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md`)
 
 ## proof topology
 
@@ -379,6 +380,7 @@
 
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 - [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)
+- [AOA-EV-D-0246 Owner Skill Projection Boundary](../AOA-EV-D-0246-owner-skill-projection-boundary.md) (`docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md`)
 
 ## audit/observability
 
@@ -520,6 +522,10 @@
 - [AOA-EV-D-0217 Release-support Helper Layer Split](../AOA-EV-D-0217-release-support-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0217-release-support-helper-layer-split.md`)
 - [AOA-EV-D-0222 Publication Receipts Route Validator Layer Split](../AOA-EV-D-0222-publication-receipts-route-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0222-publication-receipts-route-validator-layer-split.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
+
+## owner-boundary
+
+- [AOA-EV-D-0246 Owner Skill Projection Boundary](../AOA-EV-D-0246-owner-skill-projection-boundary.md) (`docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md`)
 
 ## projection/generated
 

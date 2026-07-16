@@ -17,16 +17,6 @@ class AgentsDocSpec:
 
 REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
     AgentsDocSpec(
-        Path('.agents/skills/AGENTS.md'),
-        (
-            'agent-facing companion surface',
-            'EVAL.md',
-            'eval.yaml',
-            'bounded',
-            'validate_repo.py',
-        ),
-    ),
-    AgentsDocSpec(
         Path('.aoa/live_receipts/AGENTS.md'),
         (
             'live receipt',

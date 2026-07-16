@@ -88,8 +88,9 @@ def test_agent_lane_surfaces_reject_root_local_spark_lane(
         """
         # AGENTS.md
 
-        `.agents/<lane>/` route. `.agents/skills/` support. `.agents/spark/`
-        lane. Proof authority stays with the source bundle.
+        `.agents/<lane>/` route. Owner-admitted repository skills use a
+        top-level `skills/` home. `.agents/spark/` lane. Proof authority stays
+        with the source bundle.
 
         python scripts/validate_repo.py
         python scripts/validate_nested_agents.py
@@ -169,6 +170,31 @@ def test_agent_lane_surfaces_reject_root_local_spark_lane(
     assert ValidationIssue(
         "Spark/",
         "root-local Spark lane must stay moved to .agents/spark/",
+    ) in issues
+
+
+def test_agent_lane_surfaces_reject_skill_projection_without_owner_home(
+    tmp_path: Path,
+) -> None:
+    for path_name in (
+        ".agents/AGENTS.md",
+        ".agents/spark/AGENTS.md",
+        ".agents/spark/SWARM.md",
+        "docs/decisions/AOA-EV-D-0017-spark-agent-lane-placement.md",
+        "README.md",
+        "docs/architecture/PROOF_TOPOLOGY.md",
+    ):
+        copy_repo_text(tmp_path, path_name)
+    write_text(
+        tmp_path / ".agents" / "skills" / "foreign-skill" / "SKILL.md",
+        "# Foreign projected skill\n",
+    )
+
+    issues = root_agent_lanes_validator.validate_agent_lane_surfaces(tmp_path)
+
+    assert ValidationIssue(
+        ".agents/skills/",
+        "repo skill projection requires an owner-admitted top-level skills/ home",
     ) in issues
 
 

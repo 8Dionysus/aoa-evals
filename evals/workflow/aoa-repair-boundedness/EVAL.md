@@ -9,8 +9,9 @@ baseline_mode: none
 report_format: summary
 technique_dependencies:
   - AOA-T-0001
-skill_dependencies:
-  - aoa-change-protocol
+skill_dependencies: []
+capability_dependencies:
+  - workflow.operations.repository-change
 ---
 
 # aoa-repair-boundedness
@@ -167,7 +168,9 @@ Do not treat a positive result as:
 
 ## Skill traceability
 
-- aoa-change-protocol
+No direct callable skill dependency remains. Current typed capability surface:
+
+- workflow.operations.repository-change
 
 ## Adaptation points
 

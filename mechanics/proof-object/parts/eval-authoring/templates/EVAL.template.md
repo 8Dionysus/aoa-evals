@@ -24,6 +24,7 @@ report_format: summary
 #   # window_family_label: named repeated-window family
 technique_dependencies: []
 skill_dependencies: []
+capability_dependencies: []
 ---
 
 # eval-name
@@ -251,7 +252,9 @@ List upstream techniques that shaped this eval design.
 
 ## Skill traceability
 
-List skills this eval checks directly, uses as reference behavior, or compares.
+List callable skills this eval checks directly, uses as reference behavior, or compares.
+List typed modes, workflows, guards, tools, adapters, or other capability-graph
+nodes separately and do not present them as callable skill dependencies.
 
 ## Adaptation points
 

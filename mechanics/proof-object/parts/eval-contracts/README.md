@@ -23,7 +23,8 @@ source surfaces.
 ## Inputs
 
 - frontmatter metadata from `EVAL.md`;
-- manifest metadata from `eval.yaml`;
+- manifest metadata from `eval.yaml`, including separate skill and typed
+  capability dependency refs;
 - lifecycle status, category, claim type, baseline mode, evidence, and relation
   fields.
 

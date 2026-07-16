@@ -276,6 +276,14 @@ def skill_names(proposal: dict[str, Any]) -> list[str]:
     ]
 
 
+def capability_ids(proposal: dict[str, Any]) -> list[str]:
+    return [
+        str(item["id"])
+        for item in proposal.get("capability_dependencies", [])
+        if isinstance(item, dict) and isinstance(item.get("id"), str)
+    ]
+
+
 def frontmatter_for(proposal: dict[str, Any]) -> dict[str, Any]:
     frontmatter: dict[str, Any] = {
         "name": proposal["name"],
@@ -288,6 +296,7 @@ def frontmatter_for(proposal: dict[str, Any]) -> dict[str, Any]:
         "report_format": proposal["report_format"],
         "technique_dependencies": technique_ids(proposal),
         "skill_dependencies": skill_names(proposal),
+        "capability_dependencies": capability_ids(proposal),
     }
     comparison_surface = comparison_surface_for(proposal)
     if comparison_surface is not None:
@@ -372,6 +381,7 @@ def manifest_for(proposal: dict[str, Any]) -> dict[str, Any]:
         "score_interpretation_bound": "explicit",
         "technique_dependencies": proposal.get("technique_dependencies", []),
         "skill_dependencies": proposal.get("skill_dependencies", []),
+        "capability_dependencies": proposal.get("capability_dependencies", []),
         "relations": [
             {"type": "complements", "target": ref}
             for ref in proposal.get("related_eval_refs", [])
@@ -407,6 +417,22 @@ def section_bodies(proposal: dict[str, Any]) -> dict[str, str]:
         if baseline_mode == "none"
         else f"The proposed comparison mode is `{baseline_mode}` and still requires bundle-local review."
     )
+    direct_skills = skill_names(proposal)
+    typed_capabilities = capability_ids(proposal)
+    if direct_skills and typed_capabilities:
+        skill_traceability = (
+            "Direct callable skill dependencies:\n"
+            f"{bullet_list(direct_skills, 'none')}\n\n"
+            "Typed capability dependencies that are not being claimed as callable skills:\n"
+            f"{bullet_list(typed_capabilities, 'none')}"
+        )
+    elif typed_capabilities:
+        skill_traceability = (
+            "No direct callable skill dependency remains. Current typed capability surface:\n"
+            f"{bullet_list(typed_capabilities, 'none')}"
+        )
+    else:
+        skill_traceability = bullet_list(direct_skills, "none yet")
     return {
         "Intent": (
             f"{proposal['proof_question']}\n\n"
@@ -482,7 +508,7 @@ def section_bodies(proposal: dict[str, Any]) -> dict[str, str]:
             f"{source_refs}"
         ),
         "Technique traceability": bullet_list(technique_ids(proposal), "none yet"),
-        "Skill traceability": bullet_list(skill_names(proposal), "none yet"),
+        "Skill traceability": skill_traceability,
         "Adaptation points": (
             "- local fixtures\n"
             "- local runners\n"

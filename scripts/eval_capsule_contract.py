@@ -31,6 +31,8 @@ CAPSULE_ENTRY_KEYS = (
     "technique_refs",
     "skill_dependencies",
     "skill_refs",
+    "capability_dependencies",
+    "capability_refs",
     "evidence_kinds",
     "proof_surface_kinds",
     "eval_path",
@@ -283,6 +285,10 @@ def capsule_entry(
         "technique_refs": list(catalog_entry.get("technique_refs", [])),
         "skill_dependencies": list(record.metadata["skill_dependencies"]),
         "skill_refs": list(catalog_entry.get("skill_refs", [])),
+        "capability_dependencies": list(
+            record.metadata.get("capability_dependencies", [])
+        ),
+        "capability_refs": list(catalog_entry.get("capability_refs", [])),
         "evidence_kinds": list(catalog_entry.get("evidence_kinds", [])),
         "proof_surface_kinds": list(catalog_entry.get("proof_surface_kinds", [])),
         "eval_path": eval_catalog_contract.relative_location(record.eval_md_path, repo_root),
@@ -367,6 +373,7 @@ def validate_capsule_alignment(
         "comparison_surface",
         "technique_dependencies",
         "skill_dependencies",
+        "capability_dependencies",
         "eval_path",
     )
     for name in sorted(catalog_names & capsule_names):

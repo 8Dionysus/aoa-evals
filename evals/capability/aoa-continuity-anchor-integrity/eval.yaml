@@ -21,13 +21,18 @@ technique_dependencies:
     repo: 8Dionysus/aoa-techniques
     path: techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md
 
-skill_dependencies:
-  - name: aoa-change-protocol
-    repo: 8Dionysus/aoa-skills
-    path: skills/core/engineering/aoa-change-protocol/SKILL.md
-  - name: aoa-bounded-context-map
-    repo: 8Dionysus/aoa-skills
-    path: skills/core/engineering/aoa-bounded-context-map/SKILL.md
+skill_dependencies: []
+capability_dependencies:
+  - id: workflow.operations.repository-change
+    kind: workflow
+    registry_repo: 8Dionysus/aoa-skills
+    registry_path: capabilities/families/operations.yaml
+    target_owner: host-agent
+  - id: mode.engineering-shape.contexts
+    kind: mode
+    registry_repo: 8Dionysus/aoa-skills
+    registry_path: capabilities/families/engineering.yaml
+    target_owner: aoa-skills
 
 relations:
   - type: complements

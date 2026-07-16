@@ -245,7 +245,13 @@ class DownstreamFeedContractsTests(unittest.TestCase):
         self.assertEqual(expected_names, [entry["name"] for entry in sections["evals"]])
         first_catalog_entry = catalog["evals"][0]
         first_capsule_entry = capsules["evals"][0]
-        for key in ("technique_refs", "skill_refs", "evidence_kinds", "proof_surface_kinds"):
+        for key in (
+            "technique_refs",
+            "skill_refs",
+            "capability_refs",
+            "evidence_kinds",
+            "proof_surface_kinds",
+        ):
             self.assertIn(key, first_catalog_entry)
             self.assertIn(key, first_capsule_entry)
 

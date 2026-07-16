@@ -66,6 +66,8 @@ MIN_ENTRY_KEYS = (
     "technique_refs",
     "skill_dependencies",
     "skill_refs",
+    "capability_dependencies",
+    "capability_refs",
     "evidence_kinds",
     "proof_surface_kinds",
     "eval_path",
@@ -77,6 +79,16 @@ KNOWN_REPOS = (
     "aoa-evals",
     "aoa-memo",
 )
+CAPABILITY_KINDS = {
+    "adapter",
+    "capability",
+    "guard",
+    "human-gate",
+    "mode",
+    "skill",
+    "tool",
+    "workflow",
+}
 
 
 @dataclass(frozen=True)
@@ -314,6 +326,77 @@ def normalize_skill_dependency_refs(
     return normalized, issues
 
 
+def normalize_capability_dependency_refs(
+    manifest: dict[str, Any],
+    eval_yaml_path: Path,
+    repo_root: Path,
+) -> tuple[list[dict[str, str]], list[ContractIssue]]:
+    normalized: list[dict[str, str]] = []
+    issues: list[ContractIssue] = []
+    dependencies = manifest.get("capability_dependencies", [])
+    for index, item in enumerate(dependencies):
+        location = (
+            f"{relative_location(eval_yaml_path, repo_root)}"
+            f".capability_dependencies[{index}]"
+        )
+        if not isinstance(item, dict):
+            continue
+        capability_id = item.get("id")
+        capability_kind = item.get("kind")
+        registry_repo_raw = item.get("registry_repo")
+        registry_path_raw = item.get("registry_path")
+        target_owner = item.get("target_owner")
+
+        if not all(
+            isinstance(value, str)
+            for value in (
+                capability_id,
+                capability_kind,
+                registry_repo_raw,
+                registry_path_raw,
+                target_owner,
+            )
+        ):
+            continue
+
+        if capability_kind not in CAPABILITY_KINDS:
+            issues.append(
+                ContractIssue(
+                    f"{location}.kind",
+                    f"unsupported capability kind '{capability_kind}'",
+                )
+            )
+
+        try:
+            registry_repo = normalize_repo_name(registry_repo_raw)
+        except ValueError as exc:
+            issues.append(ContractIssue(location, str(exc)))
+            registry_repo = registry_repo_raw
+        if registry_repo != "aoa-skills":
+            issues.append(
+                ContractIssue(
+                    location,
+                    ".registry_repo must resolve to 'aoa-skills'",
+                )
+            )
+
+        registry_path, path_issues = ensure_repo_relative_path(
+            registry_path_raw,
+            f"{location}.registry_path",
+        )
+        issues.extend(path_issues)
+        normalized.append(
+            {
+                "id": capability_id,
+                "kind": capability_kind,
+                "registry_repo": registry_repo,
+                "registry_path": registry_path,
+                "target_owner": target_owner,
+            }
+        )
+    return normalized, issues
+
+
 def load_optional_json(path: Path) -> Any | None:
     if not path.is_file():
         return None
@@ -440,8 +523,15 @@ def full_catalog_entry(repo_root: Path, record: Any) -> dict[str, Any]:
         record.eval_yaml_path,
         repo_root,
     )
-    if technique_issues or skill_issues:
-        raise ValueError(format_issues(technique_issues + skill_issues))
+    capability_refs, capability_issues = normalize_capability_dependency_refs(
+        manifest,
+        record.eval_yaml_path,
+        repo_root,
+    )
+    if technique_issues or skill_issues or capability_issues:
+        raise ValueError(
+            format_issues(technique_issues + skill_issues + capability_issues)
+        )
 
     evidence_entries = list(manifest["evidence"])
     proof_artifacts = build_proof_artifacts_entry(repo_root, record)
@@ -482,6 +572,8 @@ def full_catalog_entry(repo_root: Path, record: Any) -> dict[str, Any]:
         "technique_refs": technique_refs,
         "skill_dependencies": list(metadata["skill_dependencies"]),
         "skill_refs": skill_refs,
+        "capability_dependencies": list(metadata.get("capability_dependencies", [])),
+        "capability_refs": capability_refs,
         "relations": list(manifest["relations"]),
         "evidence": evidence_entries,
         "evidence_kinds": compact_evidence_kinds(evidence_entries),

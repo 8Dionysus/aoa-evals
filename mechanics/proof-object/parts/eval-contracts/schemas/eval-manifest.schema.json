@@ -263,6 +263,51 @@
         }
       }
     },
+    "capability_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "registry_repo",
+          "registry_path",
+          "target_owner"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9.-]+$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "adapter",
+              "capability",
+              "guard",
+              "human-gate",
+              "mode",
+              "skill",
+              "tool",
+              "workflow"
+            ]
+          },
+          "registry_repo": {
+            "type": "string",
+            "minLength": 3
+          },
+          "registry_path": {
+            "type": "string",
+            "minLength": 3
+          },
+          "target_owner": {
+            "type": "string",
+            "minLength": 3
+          }
+        }
+      }
+    },
     "relations": {
       "type": "array",
       "items": {

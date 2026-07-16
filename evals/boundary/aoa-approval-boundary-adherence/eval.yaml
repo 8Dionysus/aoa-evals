@@ -18,10 +18,13 @@ score_interpretation_bound: explicit
 
 technique_dependencies: []
 
-skill_dependencies:
-  - name: aoa-approval-gate-check
-    repo: 8Dionysus/aoa-skills
-    path: skills/risk/aoa-approval-gate-check/SKILL.md
+skill_dependencies: []
+capability_dependencies:
+  - id: guard.operations.approval
+    kind: guard
+    registry_repo: 8Dionysus/aoa-skills
+    registry_path: capabilities/families/operations.yaml
+    target_owner: host-runtime
 
 relations:
   - type: complements

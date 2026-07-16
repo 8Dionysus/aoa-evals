@@ -187,6 +187,21 @@ def adjacent_catalog_matches(repo: dict[str, Any], records: list[dict[str, Any]]
             if skill_ref.get("repo") == repo_name or skill_ref.get("repo") == repo_id:
                 score += 5
                 reasons.append(f"skill_ref repo={skill_ref.get('repo')}")
+        for capability_ref in record.get("capability_refs", []) or []:
+            if not isinstance(capability_ref, dict):
+                continue
+            if capability_ref.get("target_owner") in {repo_name, repo_id}:
+                score += 5
+                reasons.append(
+                    "capability_ref target_owner="
+                    f"{capability_ref.get('target_owner')}"
+                )
+            elif capability_ref.get("registry_repo") in {repo_name, repo_id}:
+                score += 2
+                reasons.append(
+                    "capability_ref registry_repo="
+                    f"{capability_ref.get('registry_repo')}"
+                )
         record_tokens = tokenize(str(record.get("name") or ""))
         record_tokens |= tokenize(str(record.get("summary") or ""))
         overlap = sorted((record_tokens & pressure_tokens) - {"aoa"})

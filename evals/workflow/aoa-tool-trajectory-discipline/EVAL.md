@@ -9,8 +9,9 @@ baseline_mode: none
 report_format: summary-with-breakdown
 technique_dependencies:
   - AOA-T-0001
-skill_dependencies:
-  - aoa-change-protocol
+skill_dependencies: []
+capability_dependencies:
+  - workflow.operations.repository-change
 ---
 
 # aoa-tool-trajectory-discipline
@@ -303,8 +304,8 @@ Primary source techniques:
 
 ## Skill traceability
 
-Primary checked skill surface:
-- aoa-change-protocol
+No direct callable skill dependency remains. Current typed capability surface:
+- workflow.operations.repository-change
 
 ## Adaptation points
 

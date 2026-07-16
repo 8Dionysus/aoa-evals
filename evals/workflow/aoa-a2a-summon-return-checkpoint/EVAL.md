@@ -8,9 +8,10 @@ claim_type: bounded
 baseline_mode: none
 report_format: summary-with-breakdown
 technique_dependencies: []
-skill_dependencies:
-  - aoa-checkpoint-closeout-bridge
-  - aoa-contract-test
+skill_dependencies: []
+capability_dependencies:
+  - workflow.operations.checkpoint-closeout
+  - mode.verification.contract
 ---
 
 # aoa-a2a-summon-return-checkpoint
@@ -317,14 +318,14 @@ A mixed or negative result is useful because it can reveal:
 Primary source techniques:
 
 - none yet; this bundle is workflow-contract shaped and currently depends on
-  skill and artifact contracts rather than a promoted technique bundle
+  typed capability and artifact contracts rather than a promoted technique bundle
 
 ## Skill traceability
 
-Primary checked skill surfaces:
+No direct callable skill dependency remains. Current typed capability surfaces:
 
-- aoa-checkpoint-closeout-bridge
-- aoa-contract-test
+- workflow.operations.checkpoint-closeout
+- mode.verification.contract
 
 ## Adaptation points
 

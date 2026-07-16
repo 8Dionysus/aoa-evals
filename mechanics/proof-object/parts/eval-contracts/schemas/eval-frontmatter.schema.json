@@ -141,6 +141,14 @@
         "type": "string",
         "pattern": "^(aoa|abyss|atm10)-[a-z0-9-]+$"
       }
+    },
+    "capability_dependencies": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9.-]+$"
+      }
     }
   },
   "allOf": [

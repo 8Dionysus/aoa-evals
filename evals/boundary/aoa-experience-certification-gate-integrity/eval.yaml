@@ -21,10 +21,13 @@ technique_dependencies:
     repo: 8Dionysus/aoa-techniques
     path: techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md
 
-skill_dependencies:
-  - name: aoa-contract-test
-    repo: 8Dionysus/aoa-skills
-    path: skills/core/engineering/aoa-contract-test/SKILL.md
+skill_dependencies: []
+capability_dependencies:
+  - id: mode.verification.contract
+    kind: mode
+    registry_repo: 8Dionysus/aoa-skills
+    registry_path: capabilities/families/engineering.yaml
+    target_owner: aoa-skills
 
 relations:
   - type: derived_from

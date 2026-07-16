@@ -299,3 +299,4 @@
 
 - [AOA-EV-D-0246 Owner Skill Projection Boundary](../AOA-EV-D-0246-owner-skill-projection-boundary.md) (`docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md`)
 - [AOA-EV-D-0247 aoa-evals Owner Skill Bundle](../AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md) (`docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md`)
+- [AOA-EV-D-0248 Typed Capability Dependencies](../AOA-EV-D-0248-typed-capability-dependencies.md) (`docs/decisions/AOA-EV-D-0248-typed-capability-dependencies.md`)

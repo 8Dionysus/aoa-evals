@@ -975,6 +975,7 @@ def make_eval_bundle(
     portability_level: str | None = None,
     technique_dependencies: list[dict[str, str]] | None = None,
     skill_dependencies: list[dict[str, str]] | None = None,
+    capability_dependencies: list[dict[str, str]] | None = None,
     relations: list[dict[str, str]] | None = None,
     evidence_entries: list[dict[str, str]] | None = None,
     support_files: dict[str, str] | None = None,
@@ -993,20 +994,24 @@ def make_eval_bundle(
         "examples/example-report.md": "# Example Report\n",
         "checks/eval-integrity-check.md": "# Eval Integrity Check\n",
     })
-    technique_dependencies = technique_dependencies or [
-        {
-            "id": "AOA-T-0001",
-            "repo": "8Dionysus/aoa-techniques",
-            "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
-        }
-    ]
-    skill_dependencies = skill_dependencies or [
-        {
-            "name": "aoa-change-protocol",
-            "repo": "8Dionysus/aoa-skills",
-            "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-        }
-    ]
+    if technique_dependencies is None:
+        technique_dependencies = [
+            {
+                "id": "AOA-T-0001",
+                "repo": "8Dionysus/aoa-techniques",
+                "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
+            }
+        ]
+    if skill_dependencies is None:
+        skill_dependencies = [
+            {
+                "name": "aoa-decision",
+                "repo": "8Dionysus/aoa-skills",
+                "path": "skills/core/engineering/aoa-decision/SKILL.md",
+            }
+        ]
+    if capability_dependencies is None:
+        capability_dependencies = []
     relations = relations or []
     if comparison_surface is None:
         comparison_surface = build_default_comparison_surface(
@@ -1115,6 +1120,7 @@ def make_eval_bundle(
         "report_format": report_format,
         "technique_dependencies": [entry["id"] for entry in technique_dependencies],
         "skill_dependencies": [entry["name"] for entry in skill_dependencies],
+        "capability_dependencies": [entry["id"] for entry in capability_dependencies],
     }
     if comparison_surface is not None:
         frontmatter["comparison_surface"] = comparison_surface
@@ -1237,6 +1243,7 @@ def make_eval_bundle(
         "score_interpretation_bound": "explicit",
         "technique_dependencies": technique_dependencies,
         "skill_dependencies": skill_dependencies,
+        "capability_dependencies": capability_dependencies,
         "comparison_surface": comparison_surface,
         "relations": relations,
         "evidence": evidence_entries,

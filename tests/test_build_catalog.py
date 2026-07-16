@@ -37,6 +37,15 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
         tmp_path,
         name="aoa-catalog-shape",
         relations=[{"type": "complements", "target": "aoa-catalog-shape-2"}],
+        capability_dependencies=[
+            {
+                "id": "mode.verification.contract",
+                "kind": "mode",
+                "registry_repo": "8Dionysus/aoa-skills",
+                "registry_path": "capabilities/families/engineering.yaml",
+                "target_owner": "aoa-skills",
+            }
+        ],
     )
     make_eval_bundle(tmp_path, name="aoa-catalog-shape-2")
 
@@ -65,9 +74,18 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
     ]
     assert entry["skill_refs"] == [
         {
-            "name": "aoa-change-protocol",
+            "name": "aoa-decision",
             "repo": "aoa-skills",
-            "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
+            "path": "skills/core/engineering/aoa-decision/SKILL.md",
+        }
+    ]
+    assert entry["capability_refs"] == [
+        {
+            "id": "mode.verification.contract",
+            "kind": "mode",
+            "registry_repo": "aoa-skills",
+            "registry_path": "capabilities/families/engineering.yaml",
+            "target_owner": "aoa-skills",
         }
     ]
     assert entry["relations"] == [{"type": "complements", "target": "aoa-catalog-shape-2"}]
@@ -110,6 +128,8 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
         "technique_refs",
         "skill_dependencies",
         "skill_refs",
+        "capability_dependencies",
+        "capability_refs",
         "evidence_kinds",
         "proof_surface_kinds",
         "eval_path",
@@ -117,6 +137,7 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
     assert min_entry["validation_strength"] == "baseline"
     assert min_entry["technique_refs"] == entry["technique_refs"]
     assert min_entry["skill_refs"] == entry["skill_refs"]
+    assert min_entry["capability_refs"] == entry["capability_refs"]
     assert min_entry["evidence_kinds"] == ["origin_need", "integrity_check"]
     assert min_entry["proof_surface_kinds"] == []
 
@@ -142,12 +163,22 @@ def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None
                 "path": "techniques/execution/agent-workflows-core/plan-diff-apply-verify-report/TECHNIQUE.md",
             }
         ],
-        "skill_dependencies": ["aoa-change-protocol"],
+        "skill_dependencies": ["aoa-decision"],
         "skill_refs": [
             {
-                "name": "aoa-change-protocol",
+                "name": "aoa-decision",
                 "repo": "aoa-skills",
-                "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
+                "path": "skills/core/engineering/aoa-decision/SKILL.md",
+            }
+        ],
+        "capability_dependencies": ["mode.verification.contract"],
+        "capability_refs": [
+            {
+                "id": "mode.verification.contract",
+                "kind": "mode",
+                "registry_repo": "aoa-skills",
+                "registry_path": "capabilities/families/engineering.yaml",
+                "target_owner": "aoa-skills",
             }
         ],
         "evidence_kinds": ["origin_need", "integrity_check"],
@@ -310,7 +341,7 @@ def test_build_catalog_rejects_missing_required_section_contract(tmp_path: Path)
     eval_md_path = eval_dir_for_test(tmp_path, "aoa-missing-section") / "EVAL.md"
     eval_md_path.write_text(
         eval_md_path.read_text(encoding="utf-8").replace(
-            "## Skill traceability\n- aoa-change-protocol\n\n",
+            "## Skill traceability\n- aoa-decision\n\n",
             "",
         ),
         encoding="utf-8",

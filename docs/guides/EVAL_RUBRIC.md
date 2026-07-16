@@ -46,6 +46,8 @@ while explicit review judgment remains the promotion authority.
 | `validation_strength` | Evidence strength for the eval bundle itself. `baseline` means mostly structural validation, `source_backed` means it is grounded in real evaluation needs or repeated failure surfaces, `cross_context` means the bundle has shown stable meaning beyond one local context or review cycle. Treat this as review metadata; routing and recommendation authority stays with bounded review. |
 | `public_safety_reviewed_at` | Most recent public-safety review date for the published bundle, formatted as `YYYY-MM-DD`. |
 | `export_ready` | Whether the bundle is safe for Stage 1 structured catalog publication. This is about machine-readable publication safety for repo-local outputs; graph or AoA export routes stay outside this field. |
+| `skill_dependencies` | Direct callable skill dependencies only. A retired skill name must not remain here after its meaning moves to a mode, workflow, guard, tool, adapter, or another capability kind. |
+| `capability_dependencies` | Typed refs to current capability-graph nodes when the eval depends on a mode, workflow, guard, tool, adapter, human gate, capability, or skill-as-capability. Each manifest ref keeps the node kind, `aoa-skills` registry source, and actual target owner distinct. |
 | `relations` | Small structured links to other in-repo eval bundles. Keep the list bounded to direct reusable relationships only. |
 | `evidence` | Structured list of tracked note files or review artifacts that justify the bundle's current public posture. |
 | `blind_spot_disclosure` | Whether the bundle explicitly names its main blind spots. Suggested values: `required-and-present`, `partial`, `missing`. |

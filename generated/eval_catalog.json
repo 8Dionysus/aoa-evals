@@ -26,6 +26,26 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.checkpoint-closeout",
+        "mode.verification.contract"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.checkpoint-closeout",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "aoa-playbooks"
+        },
+        {
+          "id": "mode.verification.contract",
+          "kind": "mode",
+          "registry_path": "capabilities/families/engineering.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "aoa-skills"
+        }
+      ],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -89,22 +109,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-checkpoint-closeout-bridge",
-        "aoa-contract-test"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-checkpoint-closeout-bridge",
-          "path": "skills/core/session-growth/aoa-checkpoint-closeout-bridge/SKILL.md",
-          "repo": "aoa-skills"
-        },
-        {
-          "name": "aoa-contract-test",
-          "path": "skills/core/engineering/aoa-contract-test/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a reviewed summon child route preserves the contract from aoa-summon request through sdk.a2a decision, Codex-local target, reviewed child result, checkpoint bridge, memo writeback, and runtime dry-run receipt.",
       "technique_dependencies": [],
@@ -115,6 +121,18 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "stress",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -187,16 +205,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "bounded",
       "summary": "Checks whether an agent handles incomplete, conflicting, or underspecified task meaning on bounded change tasks without silently choosing an unearned path.",
       "technique_dependencies": [
@@ -215,6 +225,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "stress",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -299,6 +311,18 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "guard.operations.approval"
+      ],
+      "capability_refs": [
+        {
+          "id": "guard.operations.approval",
+          "kind": "guard",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-runtime"
+        }
+      ],
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -367,16 +391,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-approval-gate-check"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-approval-gate-check",
-          "path": "skills/risk/aoa-approval-gate-check/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "bounded",
       "summary": "Checks whether an agent correctly distinguishes safe action, explicit-approval-required action, and out-of-bounds action on bounded task surfaces.",
       "technique_dependencies": [],
@@ -387,6 +403,18 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "artifact",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -465,16 +493,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "portable",
       "summary": "Checks whether a produced artifact on a bounded change task is reviewably strong on the visible task surface without treating polish as proof of workflow discipline.",
       "technique_dependencies": [
@@ -493,6 +513,18 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -591,16 +623,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "portable",
       "summary": "Checks whether a non-trivial agent change stays scoped, explicitly verified, and clearly reported without silent task expansion.",
       "technique_dependencies": [
@@ -619,6 +643,18 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "capability",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -687,16 +723,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a growth-refinery lineage chain stays internally coherent across checkpoint carry, reviewed candidate, seed staging, and downstream owner evidence without inferring stronger landing than the artifacts support.",
       "technique_dependencies": [
@@ -715,6 +743,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "artifact",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -795,6 +825,26 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change",
+        "mode.engineering-shape.contexts"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        },
+        {
+          "id": "mode.engineering-shape.contexts",
+          "kind": "mode",
+          "registry_path": "capabilities/families/engineering.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "aoa-skills"
+        }
+      ],
       "category": "capability",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -855,22 +905,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol",
-        "aoa-bounded-context-map"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        },
-        {
-          "name": "aoa-bounded-context-map",
-          "path": "skills/core/engineering/aoa-bounded-context-map/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a bounded self-agency continuity window keeps an inspectable anchor chain across continuity, revision, reanchor, and anchor refs without letting memo, stats, or chat residue become continuity truth.",
       "technique_dependencies": [
@@ -889,6 +925,18 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -953,16 +1001,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a diagnosis or self-diagnosis move names causal hypotheses, evidence limits, and unknowns without confusing symptoms, owner ambiguity, or repair success with cause proof.",
       "technique_dependencies": [
@@ -981,6 +1021,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "capability",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -1111,6 +1153,18 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "mode.verification.contract"
+      ],
+      "capability_refs": [
+        {
+          "id": "mode.verification.contract",
+          "kind": "mode",
+          "registry_path": "capabilities/families/engineering.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "aoa-skills"
+        }
+      ],
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -1168,16 +1222,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-contract-test"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-contract-test",
-          "path": "skills/core/engineering/aoa-contract-test/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether an experience-derived release candidate has bounded evidence for authorized operator certification review without letting the eval certify.",
       "technique_dependencies": [
@@ -1196,6 +1242,18 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -1257,16 +1315,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether an experience verdict bundle keeps protocol integrity explicit, bounded, and weaker than runtime or governance authority.",
       "technique_dependencies": [
@@ -1285,6 +1335,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -1361,6 +1413,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -1441,6 +1495,18 @@
     {
       "baseline_mode": "longitudinal-window",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "longitudinal",
       "claim_type": "longitudinal",
       "comparison_surface": {
@@ -1526,16 +1592,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "Do you need ordered repeated-window movement on one named bounded workflow surface?",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether ordered, comparable windows on the same bounded workflow surface show modest directional movement without upgrading that movement into broad capability growth.",
       "technique_dependencies": [
@@ -1554,6 +1612,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -1642,6 +1702,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -1726,6 +1788,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -1814,6 +1878,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -1902,6 +1968,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -1986,6 +2054,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -2094,6 +2164,18 @@
     {
       "baseline_mode": "peer-compare",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "comparative",
       "claim_type": "comparative",
       "comparison_surface": {
@@ -2190,16 +2272,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Compares artifact-side and process-side readings on the same bounded cases to show when polished output outruns workflow discipline, process outruns artifact strength, or the two stay aligned.",
       "technique_dependencies": [
@@ -2218,6 +2292,18 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -2290,16 +2376,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a reviewed growth-refinery candidate is routed to the right owner layer with one clear owner hypothesis, honest nearest-wrong-target reasoning, and no first-authoring drift into derivative repos.",
       "technique_dependencies": [
@@ -2318,6 +2396,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -2402,6 +2482,26 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change",
+        "mode.engineering-shape.contexts"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        },
+        {
+          "id": "mode.engineering-shape.contexts",
+          "kind": "mode",
+          "registry_path": "capabilities/families/engineering.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "aoa-skills"
+        }
+      ],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -2462,22 +2562,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol",
-        "aoa-bounded-context-map"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        },
-        {
-          "name": "aoa-bounded-context-map",
-          "path": "skills/core/engineering/aoa-bounded-context-map/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether reflective revision stays inside one named revision window, keeps stop-lines visible, and does not widen into vague continuity or hidden autonomy.",
       "technique_dependencies": [
@@ -2496,6 +2582,18 @@
     {
       "baseline_mode": "fixed-baseline",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "regression",
       "claim_type": "regression",
       "comparison_surface": {
@@ -2586,16 +2684,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "Do you need a frozen-baseline comparison on the same bounded task family?",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "baseline",
       "summary": "Compares a candidate against a frozen baseline on the same bounded task family to detect material regression without claiming general growth.",
       "technique_dependencies": [
@@ -2614,6 +2704,18 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -2682,16 +2784,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a reanchor or self-repair move stays bounded, preserves owner boundaries, and leaves a reviewable trail instead of smearing scope inflation across layers.",
       "technique_dependencies": [
@@ -2710,6 +2804,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -2798,6 +2894,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -2883,6 +2981,8 @@
     {
       "baseline_mode": "fixed-baseline",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "comparative",
       "claim_type": "comparative",
       "comparison_surface": {
@@ -2976,6 +3076,18 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -3048,16 +3160,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "bounded",
       "summary": "Checks whether an agent keeps requested scope aligned with executed scope on bounded change tasks, or explicitly discloses deviation.",
       "technique_dependencies": [
@@ -3076,6 +3180,26 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change",
+        "mode.engineering-shape.contexts"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        },
+        {
+          "id": "mode.engineering-shape.contexts",
+          "kind": "mode",
+          "registry_path": "capabilities/families/engineering.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "aoa-skills"
+        }
+      ],
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -3136,22 +3260,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol",
-        "aoa-bounded-context-map"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        },
-        {
-          "name": "aoa-bounded-context-map",
-          "path": "skills/core/engineering/aoa-bounded-context-map/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "draft",
       "summary": "Checks whether a bounded self-agency continuity route reanchors to the last valid artifact, keeps return mode explicit, and refuses chat-residue continuity when anchor integrity is lost.",
       "technique_dependencies": [
@@ -3170,6 +3280,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "boundary",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -3254,6 +3366,8 @@
     {
       "baseline_mode": "longitudinal-window",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "longitudinal",
       "claim_type": "longitudinal",
       "comparison_surface": {
@@ -3365,6 +3479,18 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -3437,16 +3563,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "bounded",
       "summary": "Checks whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself is part of the bounded claim.",
       "technique_dependencies": [
@@ -3465,6 +3583,18 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -3545,16 +3675,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "bounded",
       "summary": "Checks whether bounded change workflows remain reviewable when final outcome and execution-path quality are judged separately before any combined reading.",
       "technique_dependencies": [
@@ -3573,6 +3695,18 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [
+        "workflow.operations.repository-change"
+      ],
+      "capability_refs": [
+        {
+          "id": "workflow.operations.repository-change",
+          "kind": "workflow",
+          "registry_path": "capabilities/families/operations.yaml",
+          "registry_repo": "aoa-skills",
+          "target_owner": "host-agent"
+        }
+      ],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,
@@ -3650,16 +3784,8 @@
       "rigor_level": "bounded",
       "score_interpretation_bound": "explicit",
       "selection_summary": "",
-      "skill_dependencies": [
-        "aoa-change-protocol"
-      ],
-      "skill_refs": [
-        {
-          "name": "aoa-change-protocol",
-          "path": "skills/core/engineering/aoa-change-protocol/SKILL.md",
-          "repo": "aoa-skills"
-        }
-      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
       "status": "portable",
       "summary": "Checks whether an agent truthfully reports which verification steps on a bounded change task were executed, skipped, or blocked.",
       "technique_dependencies": [
@@ -3678,6 +3804,8 @@
     {
       "baseline_mode": "none",
       "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "workflow",
       "claim_type": "bounded",
       "comparison_surface": null,

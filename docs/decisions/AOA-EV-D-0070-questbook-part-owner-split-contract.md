@@ -54,6 +54,32 @@ implementation truth.
 - Generated dispatch may route attention, but it must not become live task assignment,
   release readiness, portable verdict authority, or promotion proof.
 
+## Current Applicability
+
+As of 2026-07-16:
+
+- Still valid: source quest records, human visibility, generated navigation,
+  proof verdicts, and downstream owner acceptance remain separate authorities.
+- Changed: optional triage support is the shared `aoa-session-harvest`
+  `classify` mode. Its output is a session-local proposal, while
+  `aoa-quest-harvest` remains only a migration alias.
+- Superseded by: none; D-0246 owns the current local skill projection boundary.
+
+## Review Log
+
+### 2026-07-16 - Triage alias and effect boundary corrected
+
+- Previous assumption: `aoa-quest-harvest` was an independently installed
+  support skill.
+- New reality: the behavior is a mode of `aoa-session-harvest` and cannot write
+  quest truth or perform promotion.
+- Reason: shared-skill consolidation removed the independent package and the
+  repo-local projection.
+- Source surfaces updated: questbook package, source-record contract, human
+  questbook route, and integration guide.
+- Validation: route residue inspection, generated quest checks, and repository
+  validation.
+
 ## Validation
 
 Current executable checks are owned by

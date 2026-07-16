@@ -13,7 +13,7 @@ They are not a second command authority. Blocking lane sequences live in
 Machine-readable script coverage lives in
 [`script_inventory.json`](script_inventory.json). It includes every tracked
 non-pyc file under `*/scripts/*`, including root scripts, mechanic part-local
-scripts, and exported `.agents/skills/*/scripts` helpers.
+scripts, and any future scripts under an owner-admitted repository skill home.
 
 Each entry records:
 
@@ -44,7 +44,6 @@ authority, and tracked Python cache residue.
 | `validator_module` | focused root validator domains | owns one domain contract under root validator orchestration |
 | `part_local_builder` | mechanic-owned generated or registry payloads | covered by mechanic part tests or part-local commands |
 | `part_local_validator` | mechanic-owned payload validation | stays with the owning mechanic part |
-| `exported_skill_helper` | checked-in skill support helpers | advisory; does not become repo runtime policy |
 | `lane_loader` / `lane_executor` | command manifest API and lane execution | reads command authority from `docs/validation/validation_lanes.json` |
 | `release_entrypoint` | release stabilization and env routing | executes release lane from command authority |
 | `script_route_card` | local script-district route law | guidance only, not executable command storage |
@@ -58,10 +57,10 @@ root compatibility CLI while rule ownership continues moving into
 
 ## Non-Root Scripts
 
-Mechanic scripts live beside the part that owns their payload. Exported skill
-helpers under `.agents/skills/*/scripts` are advisory/local support material.
-They may model approval, dry-run, stack readiness, or risk-surface behavior, but
-they are not hard runtime policy gates for `aoa-evals`.
+Mechanic scripts live beside the part that owns their payload. A future
+repository-skill helper must live with an admitted top-level `skills/` source
+and remains below proof authority unless a stronger owner contract says
+otherwise.
 
 ## Promotion Rule
 

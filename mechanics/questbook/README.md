@@ -36,7 +36,6 @@ lane/state layout.
 - `mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json`
 - `generated/quest_catalog.min.json`
 - `generated/quest_dispatch.min.json`
-- `.agents/skills/aoa-quest-harvest/SKILL.md`
 - `docs/decisions/AOA-EV-D-0004-questbook-topology.md`
 
 ## Inputs
@@ -70,9 +69,13 @@ lane/state layout.
 `aoa-skills`, `aoa-playbooks`, `aoa-agents`, `aoa-memo`, and sibling owners keep
 their own stronger meaning when a quest outcome points outside proof work.
 
-The installed `aoa-quest-harvest` skill may support post-session promotion
-triage. Quest source truth stays in reviewed source records, and active-route
-promotion stays with the owning review path.
+The shared `aoa-session-harvest` `classify` mode may support post-session
+candidate triage when it is explicitly available. Its source stays with
+`aoa-skills` at
+`skills/core/session-growth/aoa-session-harvest/SKILL.md`;
+`aoa-quest-harvest` is a migration alias, not a local install target. Its
+output remains a session-local proposal. Quest source truth stays in reviewed
+source records, and acceptance stays with the owning review path.
 
 ## Boundaries
 

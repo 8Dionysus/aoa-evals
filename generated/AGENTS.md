@@ -64,6 +64,11 @@ JIT/environment/receipt requirements visible.
 Generated dashboard paths name the canonical `/srv/AbyssOS/aoa-evals` owner
 checkout, never an ephemeral `.worktrees/` implementation path. V1 or unknown
 inventory input is normalized to suite state `absent` before projection.
+The dashboard `--check` route compares source-derived fields and the checked-in
+JSON-to-Markdown snapshot. It does not treat naturally changed MCP, `.aoa`,
+Git, or local-port observations as source drift merely because they differ
+from the recorded snapshot; freshness is inspected through the live readiness
+route.
 
 ## Validation
 

@@ -17,10 +17,11 @@ This repository owns:
 - doctrine about claim limits and proof boundaries
 - progression, recurrence, and checkpoint proof posture only when explicitly defined here
 - owner-local statistical questions and source-backed measurement declarations about eval-owned surfaces under `stats/`
+- a repo-specific callable skill procedure only after an owner decision and manual evidence establish an independent trigger, input/output contract, composition value, and improvement over the no-skill baseline; its canonical home is top-level `skills/`
 
 Route outward for:
 
-- skill workflow meaning, technique practice meaning, role policy, routing, playbooks, memory objects, cross-owner statistical composition or dashboards, or hidden private benchmark truth
+- shared skill workflow meaning, technique practice meaning, role policy, routing, playbooks, memory objects, cross-owner statistical composition or dashboards, or hidden private benchmark truth
 
 ## Operational map
 

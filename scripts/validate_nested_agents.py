@@ -15,7 +15,8 @@ REQUIRED_AGENTS: dict[str, tuple[str, ...]] = {
     ".agents/AGENTS.md": (
         "agent-facing lanes",
         ".agents/<lane>/",
-        ".agents/skills/",
+        "top-level `skills/`",
+        "owner-admitted",
         ".agents/spark/",
         "proof authority",
         "validate_repo.py",

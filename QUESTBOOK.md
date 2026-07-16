@@ -119,28 +119,28 @@ State meaning is defined in `quests/LIFECYCLE.md`: `captured`, `triaged`,
 and `dropped` remain closed provenance; current open obligations come from the
 open-state source records.
 
-## Quest-Harvest Posture
+## Session-Harvest Posture
 
-`aoa-quest-harvest` may be installed at `.agents/skills/aoa-quest-harvest` as a
-post-session aid for proof-surface triage in this repo.
+The shared `aoa-session-harvest` `classify` mode may be supplied explicitly as
+a post-session aid for proof-surface triage in this repo. Its canonical source
+stays in `aoa-skills`; the old `aoa-quest-harvest` name is migration-only and
+has no local install path here.
 
-Quest-harvest route:
+Session-harvest classify route:
 
 - run after a reviewed run, closure, or pause;
 - route output into quest source records, owner handoff, or reviewed
   promotion;
 - keep orchestrator identity with the orchestrator owner;
 - route playbook, memo, eval, and doctrine outcomes to their source owners;
-- promote after reviewed repeat evidence and target-owner acceptance.
+- return a proposal only; owner acceptance is a separate reviewed action.
 
-Review verdicts:
+Allowed session-local outcomes:
 
-- `keep/open quest`
-- `promote to skill`
-- `promote to playbook`
-- `promote to orchestrator surface`
-- `promote to proof surface`
-- `promote to memo surface`
+- defer or reject a durable artifact;
+- propose an `aoa-evals` quest/proof handoff;
+- propose a skill, playbook, eval, memo, tool, or adapter handoff;
+- preserve unresolved alternatives without writing an owner surface.
 
 ## Backing Files
 

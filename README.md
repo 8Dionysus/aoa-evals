@@ -117,7 +117,8 @@ operation or mechanics movement, start with [mechanics/AGENTS](mechanics/AGENTS.
 | --- | --- |
 | Portable eval bundle, bounded workflow evaluation, comparison or regression surface, verdict schema, fixture, runner, scorer, rubric, or report contract | keep in `aoa-evals` under the owning bundle, mechanic, generated reader, schema, test, or route card |
 | Reusable practice meaning | route to `aoa-techniques` |
-| Bounded execution workflow meaning | route to `aoa-skills` |
+| Repo-specific callable procedure | keep in a top-level `skills/` home only after an owner decision and manual trigger, ABI, composition, coexistence, and no-skill evidence; no candidate is currently admitted |
+| Shared bounded execution workflow meaning | route to `aoa-skills` |
 | Navigation and dispatch | route to `aoa-routing` |
 | Role posture and handoff contracts | route to `aoa-agents` |
 | Scenario composition | route to `aoa-playbooks` |

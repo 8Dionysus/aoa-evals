@@ -1,59 +1,47 @@
 {
   "aoa_eval_runtime_adoption": {
-    "authority_boundary": "aoa-skills owns trigger/runtime adoption; aoa-evals records read-only evidence only.",
-    "front_door_invoke_capable": "covered_by_aoa_skills_prompt_trigger_harness_when_command_passes",
-    "installed_exists": true,
-    "installed_matches_source": false,
-    "installed_profile": "user-aoa-foundation",
-    "installed_profile_verification": {
-      "aoa_eval_install_state": "mismatch",
-      "aoa_eval_is_symlink": false,
-      "aoa_eval_source_digest": "254751194512eed6ac0bf3cc91fb834e0ce8dcad9e808c97e9b29eb2b5f4aaef",
-      "aoa_eval_target_digest": "5ad82b5a5c7c1a9a07f9e2c931454843126eb52847406b7935a4f92062aeb48f",
+    "allow_implicit_invocation": false,
+    "authority_boundary": "aoa-skills owns source/profile/visibility posture; host installation and fresh-session prompt visibility remain external evidence; aoa-evals records read-only routing signals only.",
+    "behavioral_review_exists": true,
+    "behavioral_review_ref": "repo:aoa-skills/docs/reviews/2026-07-15-capability-family-lifecycle.md",
+    "candidate_only": true,
+    "catalog_entry_found": true,
+    "catalog_ref": "repo:aoa-skills/generated/agent_skill_catalog.json",
+    "front_door_invoke_capable": "explicit_source_or_owner_selected_only",
+    "implicit_activation_policy": "suggest",
+    "live_skill_exists": false,
+    "live_skill_expected_by_normal_user_profile": false,
+    "live_skill_matches_portable_export": null,
+    "live_skill_ref": "codex-skills/aoa-eval/SKILL.md",
+    "live_skill_sha256": null,
+    "manual_invocation_required": true,
+    "normal_user_profile": "user-default",
+    "normal_user_profile_contains_aoa_eval": false,
+    "normal_user_profile_found": true,
+    "normal_user_profile_verification": {
+      "aoa_eval_expected_in_profile": false,
+      "aoa_eval_install_state": null,
+      "aoa_eval_is_symlink": null,
+      "aoa_eval_source_digest": null,
+      "aoa_eval_target_digest": null,
       "authority_boundary": "aoa-skills owns profile verification; aoa-evals stores the read-only routing signal.",
-      "command": "python scripts/verify_skill_pack.py --repo-root . --profile user-aoa-foundation --install-root codex-skills --format json",
-      "expected_skill_count": 36,
+      "command": "python scripts/verify_skill_pack.py --repo-root . --profile user-default --install-root codex-skills --format json",
+      "expected_skill_count": 1,
       "extra_skill_dirs": [
         ".system",
         "aoa-session-memory-evidence-route",
-        "aoa-session-memory-global-route",
-        "os-abyss-artifact-trust-loop"
+        "aoa-session-memory-global-route"
       ],
       "install_root": "codex-skills",
-      "mismatched_skill_count": 27,
-      "mismatched_skills": [
-        "aoa-session-donor-harvest",
-        "aoa-checkpoint-closeout-bridge",
-        "aoa-automation-opportunity-scan",
-        "aoa-memo-writeback",
-        "aoa-session-route-forks",
-        "aoa-session-self-diagnose",
-        "aoa-session-self-repair",
-        "aoa-session-progression-lift",
-        "aoa-quest-harvest",
-        "aoa-decision",
-        "aoa-decision-find",
-        "aoa-decision-create",
-        "aoa-decision-correct",
-        "aoa-change-protocol",
-        "aoa-approval-gate-check",
-        "aoa-dry-run-first",
-        "aoa-local-stack-bringup",
-        "aoa-safe-infra-change",
-        "aoa-sanitized-share",
-        "aoa-eval",
-        "aoa-eval-select",
-        "aoa-eval-apply",
-        "aoa-eval-local-need",
-        "aoa-eval-design",
-        "aoa-eval-session-mining",
-        "aoa-commit-growth-seam",
-        "aoa-summon"
-      ],
+      "mismatched_skill_count": 0,
+      "mismatched_skills": [],
       "missing_skill_count": 0,
       "missing_skills": [],
-      "profile": "user-aoa-foundation",
-      "profile_revision": "3b111704087232ba644cabb3a42a4cedd763a3d73c27f5b943cfc4d4d54d204f",
+      "profile": "user-default",
+      "profile_revision": "5c28d99613001c0472416611be6cabde87bb8a18cbb2fd2e4c6b24ce94517edd",
+      "profile_skill_names": [
+        "aoa-decision"
+      ],
       "release_identity": {
         "changelog": "CHANGELOG.md",
         "has_unreleased_changes": true,
@@ -61,35 +49,38 @@
         "latest_tagged_version": "0.4.0",
         "releasing_doc": "mechanics/release-support/docs/RELEASING.md"
       },
-      "returncode": 1,
-      "status": "failed",
+      "returncode": 0,
+      "status": "ok",
       "stderr_line_count": 0,
-      "stdout_line_count": 453,
-      "verified": false,
-      "verified_skill_count": 9,
+      "stdout_line_count": 39,
+      "verified": true,
+      "verified_skill_count": 1,
       "verifier_ref": "repo:aoa-skills/scripts/verify_skill_pack.py"
     },
-    "installed_profile_verified": false,
-    "installed_sha256": "c14d4b8844e01e9eb40b3ee30ebc9de46ebc7748b2641b7b1fbeef02738bd973",
-    "installed_skill_ref": "codex-skills/aoa-eval/SKILL.md",
+    "normal_user_profile_verified": true,
+    "portable_export_exists": true,
+    "portable_export_ref": "repo:aoa-skills/.agents/skills/aoa-eval/SKILL.md",
+    "portable_export_sha256": "b86992e36854d01f988fb2bdd68e7432f469e8e40d6d6b9451d0253b0e2e63b8",
+    "posture": "deferred_explicit_source",
+    "prompt_visibility_expectation": "absent_from_normal_user_profile; explicit source projection still requires fresh-session inspection",
     "prompt_visible_live_check": "external_live_check_required",
-    "runtime_discovery_index_ref": "repo:aoa-skills/generated/runtime_discovery_index.json",
-    "runtime_discovery_mentions_aoa_eval": true,
+    "release_advertised_skill_count": 1,
+    "release_deferred_skill_count": 6,
+    "release_manifest_ref": "repo:aoa-skills/generated/release_manifest.json",
     "source_exists": true,
-    "source_sha256": "2e3afc86e92bd24b6ba5f464c3f3703fb5a95bfa50cd2b3f50e30a0970ce10c5",
-    "source_skill_ref": "repo:aoa-skills/.agents/skills/aoa-eval/SKILL.md",
-    "subskills_posture": "manual_or_skill-local; root aoa-eval route remains the trigger surface",
-    "trigger_report_exists": true,
-    "trigger_report_ref": "repo:aoa-skills/evals/reports/aoa-eval-prompt-trigger-harness-20260625.report.md",
-    "trigger_suite_exists": true,
-    "trigger_suite_ref": "repo:aoa-skills/evals/suites/aoa-eval-trigger-corpus.suite.md",
-    "verification_command": "python -m pytest -q tests/test_aoa_eval_prompt_trigger_harness.py"
+    "source_profile": "repo-capability-sources",
+    "source_profile_contains_aoa_eval": true,
+    "source_profile_found": true,
+    "source_sha256": "e207ba495d95d3b9096bbcbabce674bcbd83eee06220982e5c78bbbf3eed3fb1",
+    "source_skill_ref": "repo:aoa-skills/skills/core/engineering/aoa-eval/SKILL.md",
+    "subskills_posture": "select/apply/propose are internal modes; legacy child bundles stay unloaded",
+    "verification_command": "python scripts/verify_skill_pack.py --repo-root . --profile user-default --install-root <host-user-skill-root> --format json"
   },
   "aoa_session_memory_freshness": {
     "aoa_root": "workspace:OS_ABYSS/.aoa",
     "authority_boundary": ".aoa provides session evidence and candidate-only refs, not reviewed eval truth.",
     "freshness_hints": {
-      "line_count": 3459,
+      "line_count": 4975,
       "mentions_indexed_archive_freshness": false,
       "mentions_stale": true
     },
@@ -97,17 +88,20 @@
       "agent_action": "run_maintenance_before_graph_search",
       "can_use_graph_search": false,
       "diagnostics": [
+        "episode_semantic_projection_missing_or_stale",
+        "exact_literal_projection_version_changed",
         "graph_maintenance_needed",
         "graph_source_ledger_store_count_mismatch",
         "index_maintenance_needed",
+        "maintenance_queue_empty_but_ledger_actionable_sources_present",
         "session_projection_dirty"
       ],
-      "exact_next_command": "python3 workspace:OS_ABYSS/.aoa/scripts/aoa_session_memory.py search-index '2026-07-10__001__\u043a\u0430\u043a-\u0434\u0443\u043c\u0430\u0435\u0448\u044c-\u043c\u044b-\u043c\u043e\u0436\u0435\u043c-\u0430\u043f\u0440\u0433\u0435\u0439\u0434\u043d\u0443\u0442\u044c-\u0443\u043b\u0443\u0447\u0448\u0438\u0442\u044c' --workspace-root workspace:OS_ABYSS --aoa-root workspace:OS_ABYSS/.aoa --no-rebuild --write-report",
+      "exact_next_command": "python3 workspace:OS_ABYSS/.aoa/scripts/aoa_session_memory.py search-index 2026-04-12__001__subagent-notification --workspace-root workspace:OS_ABYSS --aoa-root workspace:OS_ABYSS/.aoa --no-rebuild --write-report",
       "live_catchup_pending": true,
-      "live_tail_next_ready_at": "2026-07-13T23:00:39Z",
+      "live_tail_next_ready_at": "2026-07-16T11:39:51Z",
       "live_tail_ready_count": 0,
       "live_tail_status": "waiting_for_quiet_window",
-      "live_tail_waiting_count": 10,
+      "live_tail_waiting_count": 8,
       "maintenance_required": true,
       "next_action_id": "repair_search_actionable",
       "next_action_reason": "search_actionable_dirty_sessions",
@@ -115,11 +109,11 @@
       "recommendation": "run_maintenance",
       "route_status": "needs_attention"
     },
-    "next_route": "python3 workspace:OS_ABYSS/.aoa/scripts/aoa_session_memory.py search-index '2026-07-10__001__\u043a\u0430\u043a-\u0434\u0443\u043c\u0430\u0435\u0448\u044c-\u043c\u044b-\u043c\u043e\u0436\u0435\u043c-\u0430\u043f\u0440\u0433\u0435\u0439\u0434\u043d\u0443\u0442\u044c-\u0443\u043b\u0443\u0447\u0448\u0438\u0442\u044c' --workspace-root workspace:OS_ABYSS --aoa-root workspace:OS_ABYSS/.aoa --no-rebuild --write-report",
+    "next_route": "python3 workspace:OS_ABYSS/.aoa/scripts/aoa_session_memory.py search-index 2026-04-12__001__subagent-notification --workspace-root workspace:OS_ABYSS --aoa-root workspace:OS_ABYSS/.aoa --no-rebuild --write-report",
     "returncode": 1,
     "status": "failed",
     "stderr_line_count": 0,
-    "stdout_line_count": 3459
+    "stdout_line_count": 4975
   },
   "authority_boundary": "This generated read-model routes OS Abyss eval pressure. It is not a verdict, score, baseline, regression, receipt, or central proof acceptance surface.",
   "candidate_packet_import": {
@@ -230,7 +224,7 @@
             "AGENTS.md",
             "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
             "scripts/build_eval_readiness_dashboard.py",
-            "repo:aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
+            "workspace:OS_ABYSS/aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
           ],
           "packet_id": "session:aoa-eval-goal-shrink-completion-overclaim",
           "privacy_boundary": "Only bounded event refs and neutral route summaries are recorded; raw transcript text remains in .aoa.",
@@ -423,7 +417,7 @@
             "AGENTS.md",
             ".aoa/AGENTS.md",
             "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
-            "repo:aoa-skills/.agents/skills/aoa-eval/SKILL.md"
+            "workspace:OS_ABYSS/aoa-skills/.agents/skills/aoa-eval/SKILL.md"
           ],
           "packet_id": "session:aoa-eval-working-process-fossilized-as-doctrine",
           "privacy_boundary": "Only bounded event refs and normalized route descriptions are recorded; raw correction text stays in .aoa.",
@@ -501,7 +495,7 @@
       {
         "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
         "candidate_id": "local-port:aoa-memo",
-        "evidence_count": 2,
+        "evidence_count": 1,
         "next_route": "active_intake_select_then_apply_or_design",
         "owner_repo": "aoa-memo",
         "promotion_allowed": false,
@@ -514,7 +508,7 @@
       {
         "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
         "candidate_id": "local-port:aoa-routing",
-        "evidence_count": 3,
+        "evidence_count": 2,
         "next_route": "active_intake_select_then_apply_or_design",
         "owner_repo": "aoa-routing",
         "promotion_allowed": false,
@@ -665,7 +659,7 @@
           "AGENTS.md",
           "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
           "scripts/build_eval_readiness_dashboard.py",
-          "repo:aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
+          "workspace:OS_ABYSS/aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
         ],
         "packet_ref": "mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-goal-shrink-completion-overclaim.eval_candidate.json",
         "promotion_allowed": false,
@@ -755,7 +749,7 @@
           "AGENTS.md",
           ".aoa/AGENTS.md",
           "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
-          "repo:aoa-skills/.agents/skills/aoa-eval/SKILL.md"
+          "workspace:OS_ABYSS/aoa-skills/.agents/skills/aoa-eval/SKILL.md"
         ],
         "packet_ref": "mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-working-process-fossilized-as-doctrine.eval_candidate.json",
         "promotion_allowed": false,
@@ -1156,16 +1150,16 @@
         "deterministic_test": 64,
         "deterministic_validator": 227,
         "generated_readmodel_test": 9,
-        "script_support": 16,
+        "script_support": 10,
         "trace_eval_test": 14
       },
       "by_kind": {
-        "script": 284,
+        "script": 278,
         "test": 87,
         "validator": 227
       },
       "by_lane": {
-        "advisory": 34,
+        "advisory": 28,
         "generated": 52,
         "latest_sibling": 4,
         "mechanics_part_local": 52,
@@ -1175,31 +1169,31 @@
       },
       "by_recommended_route": {
         "apply_as_deterministic_eval_support": 469,
-        "candidate_only_eval_support": 11,
+        "candidate_only_eval_support": 8,
         "component_only_use_owning_validator_or_lane_command": 83,
         "forbidden_as_eval_apply_until_manual_owner_review": 4,
         "generated_readmodel_support": 6,
-        "ordinary_owner_route": 8,
+        "ordinary_owner_route": 5,
         "run_check_mode_before_eval_support": 17
       },
       "by_review_status": {
-        "candidate_only": 11,
-        "not_eval_relevant": 8,
+        "candidate_only": 8,
+        "not_eval_relevant": 5,
         "reviewed_forbidden": 4,
         "rule_reviewed": 575
       },
       "by_semantic_class": {
         "deterministic_validator": 465,
         "generated_parity_check": 32,
-        "ordinary_support": 8,
-        "runtime_candidate_support": 11,
+        "ordinary_support": 5,
+        "runtime_candidate_support": 8,
         "trace_trajectory_eval_support": 14,
         "unit_contract_property_test": 64,
         "unsafe_side_effect_script": 4
       },
-      "eval_lane_relevant": 431,
+      "eval_lane_relevant": 428,
       "safe_to_apply_directly": 469,
-      "total_surfaces": 598,
+      "total_surfaces": 592,
       "unsafe_side_effect_scripts": 4
     }
   },
@@ -1295,7 +1289,7 @@
     "current_signals": {
       "aoa_freshness_status": {
         "freshness_hints": {
-          "line_count": 3459,
+          "line_count": 4975,
           "mentions_indexed_archive_freshness": false,
           "mentions_stale": true
         },
@@ -1310,74 +1304,14 @@
         },
         {
           "branch": "main",
-          "dirty_count": 12,
-          "head": "fab35c95823f6257cf991a7ec740274293f7a8b2",
-          "repo": "Agents-of-Abyss"
-        },
-        {
-          "branch": "main",
-          "dirty_count": 3,
-          "head": "3733eb559421527fd3447cbecbe124c59dbb8b32",
-          "repo": "Dionysus"
-        },
-        {
-          "branch": "codex/tos-multilingual-content-contract",
-          "dirty_count": 16,
-          "head": "b204ed2a20855da924fac74abe6a4a5b38f16fc9",
-          "repo": "Tree-of-Sophia"
-        },
-        {
-          "branch": "main",
-          "dirty_count": 10,
-          "head": "88a6b0b621c0d8e7025e392dadb9501e288da0d6",
-          "repo": "aoa-agents"
-        },
-        {
-          "branch": "main",
-          "dirty_count": 29,
-          "head": "c14f421c378f96c8ff5e3fc6f371ceffdba668ef",
-          "repo": "aoa-evals"
-        },
-        {
-          "branch": "main",
-          "dirty_count": 12,
-          "head": "71972e4e0c5a325d5d169e96c21699017de62bf9",
-          "repo": "aoa-memo"
-        },
-        {
-          "branch": "main",
-          "dirty_count": 4,
-          "head": "921d75250b3bbc4c18ade09149670797823894a7",
-          "repo": "aoa-playbooks"
-        },
-        {
-          "branch": "main",
-          "dirty_count": 17,
-          "head": "044ec28b5c269d5250e5b76d37217cea1d4505d8",
-          "repo": "aoa-routing"
-        },
-        {
-          "branch": "main",
           "dirty_count": 102,
           "head": "f66ee11d3ba46486aa555ab2a806a80a711aae1d",
           "repo": "aoa-skills"
-        },
-        {
-          "branch": "main",
-          "dirty_count": 2,
-          "head": "fb236efa36f7faca2a88f08267a13a155abf6ba5",
-          "repo": "aoa-stats"
-        },
-        {
-          "branch": "main",
-          "dirty_count": 4,
-          "head": "983658d2859998c64ee8551f9815122475a81960",
-          "repo": "aoa-techniques"
         }
       ],
       "git_summary": {
-        "dirty_repos": 12,
-        "repos": 21,
+        "dirty_repos": 2,
+        "repos": 22,
         "unavailable_repos": 0
       },
       "local_ports_status": {
@@ -1385,14 +1319,14 @@
         "excluded_repos": 1,
         "invalid": 0,
         "missing": 0,
-        "repos": 20,
+        "repos": 21,
         "skeleton": 11,
-        "stale_candidate": 0,
-        "suite_execution_absent": 20,
+        "stale_candidate": 1,
+        "suite_execution_absent": 21,
         "suite_execution_invalid": 0,
         "suite_execution_ready": 0,
         "suite_execution_stale": 0,
-        "validator_failed": 0,
+        "validator_failed": 1,
         "validator_ok": 20,
         "with_detected_pressure": 9,
         "with_local_port": 20
@@ -1409,16 +1343,16 @@
           "deterministic_test": 64,
           "deterministic_validator": 227,
           "generated_readmodel_test": 9,
-          "script_support": 16,
+          "script_support": 10,
           "trace_eval_test": 14
         },
         "by_kind": {
-          "script": 284,
+          "script": 278,
           "test": 87,
           "validator": 227
         },
         "by_lane": {
-          "advisory": 34,
+          "advisory": 28,
           "generated": 52,
           "latest_sibling": 4,
           "mechanics_part_local": 52,
@@ -1428,31 +1362,31 @@
         },
         "by_recommended_route": {
           "apply_as_deterministic_eval_support": 469,
-          "candidate_only_eval_support": 11,
+          "candidate_only_eval_support": 8,
           "component_only_use_owning_validator_or_lane_command": 83,
           "forbidden_as_eval_apply_until_manual_owner_review": 4,
           "generated_readmodel_support": 6,
-          "ordinary_owner_route": 8,
+          "ordinary_owner_route": 5,
           "run_check_mode_before_eval_support": 17
         },
         "by_review_status": {
-          "candidate_only": 11,
-          "not_eval_relevant": 8,
+          "candidate_only": 8,
+          "not_eval_relevant": 5,
           "reviewed_forbidden": 4,
           "rule_reviewed": 575
         },
         "by_semantic_class": {
           "deterministic_validator": 465,
           "generated_parity_check": 32,
-          "ordinary_support": 8,
-          "runtime_candidate_support": 11,
+          "ordinary_support": 5,
+          "runtime_candidate_support": 8,
           "trace_trajectory_eval_support": 14,
           "unit_contract_property_test": 64,
           "unsafe_side_effect_script": 4
         },
-        "eval_lane_relevant": 431,
+        "eval_lane_relevant": 428,
         "safe_to_apply_directly": 469,
-        "total_surfaces": 598,
+        "total_surfaces": 592,
         "unsafe_side_effect_scripts": 4
       }
     },
@@ -1475,7 +1409,7 @@
       "support registry inventory parseability"
     ]
   },
-  "generated_at_utc": "2026-07-13T22:52:48Z",
+  "generated_at_utc": "2026-07-16T11:29:54Z",
   "layer": "aoa-evals",
   "local_eval_ports": {
     "authority_boundary": "Repo-local eval ports carry intake, suites, reports, and pressure evidence only. Central verdict, scoring, regression, proof doctrine, and central bundle adoption remain in aoa-evals.",
@@ -1487,14 +1421,14 @@
       "excluded_repos": 1,
       "invalid": 0,
       "missing": 0,
-      "repos": 20,
+      "repos": 21,
       "skeleton": 11,
-      "stale_candidate": 0,
-      "suite_execution_absent": 20,
+      "stale_candidate": 1,
+      "suite_execution_absent": 21,
       "suite_execution_invalid": 0,
       "suite_execution_ready": 0,
       "suite_execution_stale": 0,
-      "validator_failed": 0,
+      "validator_failed": 1,
       "validator_ok": 20,
       "with_detected_pressure": 9,
       "with_local_port": 20
@@ -1576,7 +1510,7 @@
           "mirror manifest source_git_commit differs from source checkout"
         ],
         "refresh_command": "scripts/aoa-sync-federation-surfaces --layer aoa-evals",
-        "source_git_commit": "c14f421c378f96c8ff5e3fc6f371ceffdba668ef",
+        "source_git_commit": "e30b81202f6fba925388c1dcae4098c1390f320c",
         "status": "source_with_stale_mirror"
       },
       "mirror": {
@@ -1590,7 +1524,7 @@
       },
       "mirror_root": "workspace:OS_ABYSS/abyss-stack/Knowledge/federation/aoa-evals",
       "root_kind": "source",
-      "runtime_candidate_export_count": 1011,
+      "runtime_candidate_export_count": 1059,
       "runtime_candidate_template_count": 14,
       "schema": "aoa_evals_runtime_status_v1",
       "selected_root": "repo:aoa-evals",
@@ -1769,7 +1703,7 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "2553848e089fc143957a6133f7babe04ed573415",
+            "git_head": "10c7e75707cea43ee493496f005b4b6ceeab7281",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -1814,65 +1748,6 @@
       {
         "active_pressure_count": 2,
         "central_eval_name_matches": [],
-        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"aoa-memo\")'",
-        "forbidden_actions": [
-          "central_proof_acceptance_from_local_port",
-          "mcp_auto_promotion",
-          "session_memory_as_reviewed_truth",
-          "readiness_or_dashboard_executes_runner_argv"
-        ],
-        "freshness_gate": {
-          "blocks": [],
-          "blocks_eval_route": false,
-          "refs": {
-            "aoa_freshness_status": "failed",
-            "git_branch": "main",
-            "git_head": "71972e4e0c5a325d5d169e96c21699017de62bf9",
-            "mcp_status": "ok"
-          },
-          "status": "warning",
-          "warnings": [
-            "repo_has_dirty_worktree",
-            "aoa_evals_mcp_mirror_stale",
-            "aoa_session_memory_freshness_unhealthy"
-          ]
-        },
-        "inventory_status": "active",
-        "pressure_severity": "medium",
-        "repo_id": "aoa-memo",
-        "repo_path": "aoa-memo",
-        "route_action": "Select existing local and central eval routes first, then apply or design only after duplicate-fit review.",
-        "route_confidence": "medium",
-        "route_key": "active_intake_select_then_apply_or_design",
-        "route_state": "needs_local_design_or_owner_review",
-        "safe_actions": [
-          "inspect_local_port_inventory",
-          "select_existing_central_eval_before_new_design",
-          "keep_candidate_only_until_owner_review",
-          "route_ready_suite_to_repo_owner_or_aoa_eval_apply"
-        ],
-        "suite_execution": {
-          "environment_capture_required": true,
-          "execution_allowed": false,
-          "execution_receipt_required": true,
-          "invalid_count": 0,
-          "jit_revalidation_required": true,
-          "owner_apply_required": false,
-          "promotion_allowed": false,
-          "proof_authority": false,
-          "readiness_executed_runner": false,
-          "readiness_scope": "source-contract-ready",
-          "ready_count": 0,
-          "ready_suites": [],
-          "runtime_reproducibility_proven": false,
-          "stale_count": 0,
-          "state": "absent",
-          "suite_count": 0
-        }
-      },
-      {
-        "active_pressure_count": 3,
-        "central_eval_name_matches": [],
         "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"aoa-routing\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
@@ -1886,12 +1761,11 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "044ec28b5c269d5250e5b76d37217cea1d4505d8",
+            "git_head": "72f91d2a8e21438157a853becd136be30e72234e",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "repo_has_dirty_worktree",
             "aoa_evals_mcp_mirror_stale",
             "aoa_session_memory_freshness_unhealthy"
           ]
@@ -1945,7 +1819,7 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "a06acc2bc288a3be6b3bc4d654eb350f7aa7171a",
+            "git_head": "01170c4df4c926078a81f982c157edcbb4e3e227",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -1990,6 +1864,64 @@
       {
         "active_pressure_count": 1,
         "central_eval_name_matches": [],
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"aoa-memo\")'",
+        "forbidden_actions": [
+          "central_proof_acceptance_from_local_port",
+          "mcp_auto_promotion",
+          "session_memory_as_reviewed_truth",
+          "readiness_or_dashboard_executes_runner_argv"
+        ],
+        "freshness_gate": {
+          "blocks": [],
+          "blocks_eval_route": false,
+          "refs": {
+            "aoa_freshness_status": "failed",
+            "git_branch": "main",
+            "git_head": "15c4c46e7880d2901c68782182e7d6a68656f6f3",
+            "mcp_status": "ok"
+          },
+          "status": "warning",
+          "warnings": [
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
+          ]
+        },
+        "inventory_status": "active",
+        "pressure_severity": "low",
+        "repo_id": "aoa-memo",
+        "repo_path": "aoa-memo",
+        "route_action": "Select existing local and central eval routes first, then apply or design only after duplicate-fit review.",
+        "route_confidence": "medium",
+        "route_key": "active_intake_select_then_apply_or_design",
+        "route_state": "needs_local_design_or_owner_review",
+        "safe_actions": [
+          "inspect_local_port_inventory",
+          "select_existing_central_eval_before_new_design",
+          "keep_candidate_only_until_owner_review",
+          "route_ready_suite_to_repo_owner_or_aoa_eval_apply"
+        ],
+        "suite_execution": {
+          "environment_capture_required": true,
+          "execution_allowed": false,
+          "execution_receipt_required": true,
+          "invalid_count": 0,
+          "jit_revalidation_required": true,
+          "owner_apply_required": false,
+          "promotion_allowed": false,
+          "proof_authority": false,
+          "readiness_executed_runner": false,
+          "readiness_scope": "source-contract-ready",
+          "ready_count": 0,
+          "ready_suites": [],
+          "runtime_reproducibility_proven": false,
+          "stale_count": 0,
+          "state": "absent",
+          "suite_count": 0
+        }
+      },
+      {
+        "active_pressure_count": 1,
+        "central_eval_name_matches": [],
         "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"connectors/aoa-discord-connector\")'",
         "forbidden_actions": [
           "central_proof_acceptance_from_local_port",
@@ -2003,7 +1935,7 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "ca923225b6a58e0e97c4a0d8582dd33ec70dbd6b",
+            "git_head": "fc80cb361e65f9fe711dcd8607727fc9bf1a519e",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -2061,7 +1993,7 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "2da4a9bfc84e3e1cfcc08e5b134f3c22df34a8f0",
+            "git_head": "22546ecef31f9c2b6d2d5a328f3306ac7d80ddaa",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -2119,7 +2051,7 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "7e3e99c307c5519fb898e1c33dea0b223d9f1492",
+            "git_head": "8dde4f6006fcd038314838a9995c0ecff09f980a",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -2177,7 +2109,7 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "200f019ae6d3827c06046c9a61286584988bf7d4",
+            "git_head": "e7d1c7d8cc659b6643e6c5fe050d3c693e43253b",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -2294,7 +2226,7 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "5044451c1c0690acaa2d73dd0e7f6a41f7c157d5",
+            "git_head": "430c622654362eae2ff3ed35855b42bc172dd552",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -2352,12 +2284,11 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "fab35c95823f6257cf991a7ec740274293f7a8b2",
+            "git_head": "f99066a81b76dc4998e193eb1fec89d0e0c93b3d",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "repo_has_dirty_worktree",
             "aoa_evals_mcp_mirror_stale",
             "aoa_session_memory_freshness_unhealthy"
           ]
@@ -2411,12 +2342,11 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "3733eb559421527fd3447cbecbe124c59dbb8b32",
+            "git_head": "72031c63ffc296550777ff7db1a86e29f94f6768",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "repo_has_dirty_worktree",
             "aoa_evals_mcp_mirror_stale",
             "aoa_session_memory_freshness_unhealthy"
           ]
@@ -2469,13 +2399,12 @@
           "blocks_eval_route": false,
           "refs": {
             "aoa_freshness_status": "failed",
-            "git_branch": "codex/tos-multilingual-content-contract",
-            "git_head": "b204ed2a20855da924fac74abe6a4a5b38f16fc9",
+            "git_branch": "main",
+            "git_head": "14aac6bb323627f73ff22a42047fcc94d5ddada4",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "repo_has_dirty_worktree",
             "aoa_evals_mcp_mirror_stale",
             "aoa_session_memory_freshness_unhealthy"
           ]
@@ -2529,12 +2458,11 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "88a6b0b621c0d8e7025e392dadb9501e288da0d6",
+            "git_head": "43d196cccbfb57ba803bf3fa0f723eb46ffeb91f",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "repo_has_dirty_worktree",
             "aoa_evals_mcp_mirror_stale",
             "aoa_session_memory_freshness_unhealthy"
           ]
@@ -2587,8 +2515,8 @@
           "blocks_eval_route": false,
           "refs": {
             "aoa_freshness_status": "failed",
-            "git_branch": "codex/kag-canonical-self-knowledge-20260711",
-            "git_head": "d9e9bb26d884cf77c762c8fd8fef1763cd3ebd60",
+            "git_branch": "main",
+            "git_head": "c9f250d8a768b5c094b427af77fc30394c538cac",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -2646,12 +2574,11 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "921d75250b3bbc4c18ade09149670797823894a7",
+            "git_head": "a9ed3f2eaffce1a64edf87fff076a57baf9b0215",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "repo_has_dirty_worktree",
             "aoa_evals_mcp_mirror_stale",
             "aoa_session_memory_freshness_unhealthy"
           ]
@@ -2705,7 +2632,7 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "f17634f33f5c1042cfdc3b13fa9b9b0066981f02",
+            "git_head": "b735658c6e5e7a5708fba3416820b53455322444",
             "mcp_status": "ok"
           },
           "status": "warning",
@@ -2763,12 +2690,11 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "fb236efa36f7faca2a88f08267a13a155abf6ba5",
+            "git_head": "04347e99179377c93207b2e788e3dfa77b24ebfe",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "repo_has_dirty_worktree",
             "aoa_evals_mcp_mirror_stale",
             "aoa_session_memory_freshness_unhealthy"
           ]
@@ -2822,12 +2748,11 @@
           "refs": {
             "aoa_freshness_status": "failed",
             "git_branch": "main",
-            "git_head": "983658d2859998c64ee8551f9815122475a81960",
+            "git_head": "a2be73594193ca1c186161dfe08a88ed19c3f624",
             "mcp_status": "ok"
           },
           "status": "warning",
           "warnings": [
-            "repo_has_dirty_worktree",
             "aoa_evals_mcp_mirror_stale",
             "aoa_session_memory_freshness_unhealthy"
           ]
@@ -2864,29 +2789,91 @@
           "state": "absent",
           "suite_count": 0
         }
+      },
+      {
+        "active_pressure_count": 0,
+        "central_eval_name_matches": [],
+        "exact_next_command": "python scripts/build_local_eval_port_inventory.py --workspace-root workspace:OS_ABYSS --json | jq '.repos[] | select(.repo_id == \"media/aoa-editing\")'",
+        "forbidden_actions": [
+          "central_proof_acceptance_from_local_port",
+          "mcp_auto_promotion",
+          "session_memory_as_reviewed_truth",
+          "readiness_or_dashboard_executes_runner_argv"
+        ],
+        "freshness_gate": {
+          "blocks": [
+            "invalid_local_eval_port"
+          ],
+          "blocks_eval_route": true,
+          "refs": {
+            "aoa_freshness_status": "failed",
+            "git_branch": "main",
+            "git_head": "c0cd90a7da32001e29c4a99d1f39b62a97b6fbb0",
+            "mcp_status": "ok"
+          },
+          "status": "blocked",
+          "warnings": [
+            "aoa_evals_mcp_mirror_stale",
+            "aoa_session_memory_freshness_unhealthy"
+          ]
+        },
+        "inventory_status": "stale_candidate",
+        "pressure_severity": "none",
+        "repo_id": "media/aoa-editing",
+        "repo_path": "media/aoa-editing",
+        "route_action": "Inspect the existing eval-like surface before mutation; add a valid port only if current pressure warrants it.",
+        "route_confidence": "blocked",
+        "route_key": "stale_local_eval_surface_review",
+        "route_state": "blocked_by_freshness_or_invalid_port",
+        "safe_actions": [
+          "inspect_local_port_inventory",
+          "select_existing_central_eval_before_new_design",
+          "keep_candidate_only_until_owner_review",
+          "route_ready_suite_to_repo_owner_or_aoa_eval_apply"
+        ],
+        "suite_execution": {
+          "environment_capture_required": true,
+          "execution_allowed": false,
+          "execution_receipt_required": true,
+          "invalid_count": 0,
+          "jit_revalidation_required": true,
+          "owner_apply_required": false,
+          "promotion_allowed": false,
+          "proof_authority": false,
+          "readiness_executed_runner": false,
+          "readiness_scope": "source-contract-ready",
+          "ready_count": 0,
+          "ready_suites": [],
+          "runtime_reproducibility_proven": false,
+          "stale_count": 0,
+          "state": "absent",
+          "suite_count": 0
+        }
       }
     ],
     "schema_version": "os_abyss_eval_repo_readiness_v1",
     "summary": {
-      "actionable_repos": 9,
+      "actionable_repos": 10,
       "by_pressure_severity": {
         "high": 2,
-        "low": 4,
-        "medium": 3,
-        "none": 11
+        "low": 5,
+        "medium": 2,
+        "none": 12
       },
       "by_route_confidence": {
+        "blocked": 1,
         "high": 11,
         "medium": 9
       },
       "by_route_state": {
+        "blocked_by_freshness_or_invalid_port": 1,
         "dormant_no_current_eval_pressure": 11,
         "needs_local_design_or_owner_review": 9
       },
       "by_suite_execution_state": {
-        "absent": 20
+        "absent": 21
       },
-      "repos": 20
+      "repos": 21
     }
   },
   "runtime_candidate_exports": {
@@ -3193,7 +3180,7 @@
     "repos": [
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 4]",
+        "branch_status": "## main...origin/main [ahead 1, behind 9]",
         "dirty_count": 21,
         "head": "7ff7bb4375154577b0793cfd31e37280c764b83d",
         "repo": "8Dionysus",
@@ -3204,88 +3191,88 @@
         "branch": "main",
         "branch_status": "## main...origin/main",
         "dirty_count": 0,
-        "head": "5044451c1c0690acaa2d73dd0e7f6a41f7c157d5",
+        "head": "430c622654362eae2ff3ed35855b42bc172dd552",
         "repo": "ATM10-Agent",
         "repo_path": "workspace:OS_ABYSS/ATM10-Agent",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 8]",
-        "dirty_count": 12,
-        "head": "fab35c95823f6257cf991a7ec740274293f7a8b2",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 0,
+        "head": "f99066a81b76dc4998e193eb1fec89d0e0c93b3d",
         "repo": "Agents-of-Abyss",
         "repo_path": "workspace:OS_ABYSS/Agents-of-Abyss",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 5]",
-        "dirty_count": 3,
-        "head": "3733eb559421527fd3447cbecbe124c59dbb8b32",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 0,
+        "head": "72031c63ffc296550777ff7db1a86e29f94f6768",
         "repo": "Dionysus",
         "repo_path": "workspace:OS_ABYSS/Dionysus",
         "status": "ok"
       },
       {
-        "branch": "codex/tos-multilingual-content-contract",
-        "branch_status": "## codex/tos-multilingual-content-contract...origin/codex/tos-multilingual-content-contract [gone]",
-        "dirty_count": 16,
-        "head": "b204ed2a20855da924fac74abe6a4a5b38f16fc9",
+        "branch": "main",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 0,
+        "head": "14aac6bb323627f73ff22a42047fcc94d5ddada4",
         "repo": "Tree-of-Sophia",
         "repo_path": "workspace:OS_ABYSS/Tree-of-Sophia",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 6]",
-        "dirty_count": 10,
-        "head": "88a6b0b621c0d8e7025e392dadb9501e288da0d6",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 0,
+        "head": "43d196cccbfb57ba803bf3fa0f723eb46ffeb91f",
         "repo": "aoa-agents",
         "repo_path": "workspace:OS_ABYSS/aoa-agents",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 9]",
-        "dirty_count": 29,
-        "head": "c14f421c378f96c8ff5e3fc6f371ceffdba668ef",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 0,
+        "head": "e30b81202f6fba925388c1dcae4098c1390f320c",
         "repo": "aoa-evals",
         "repo_path": "repo:aoa-evals",
         "status": "ok"
       },
       {
-        "branch": "codex/kag-canonical-self-knowledge-20260711",
-        "branch_status": "## codex/kag-canonical-self-knowledge-20260711...origin/codex/kag-canonical-self-knowledge-20260711 [gone]",
+        "branch": "main",
+        "branch_status": "## main...origin/main",
         "dirty_count": 0,
-        "head": "d9e9bb26d884cf77c762c8fd8fef1763cd3ebd60",
+        "head": "c9f250d8a768b5c094b427af77fc30394c538cac",
         "repo": "aoa-kag",
         "repo_path": "workspace:OS_ABYSS/aoa-kag",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 8]",
-        "dirty_count": 12,
-        "head": "71972e4e0c5a325d5d169e96c21699017de62bf9",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 0,
+        "head": "15c4c46e7880d2901c68782182e7d6a68656f6f3",
         "repo": "aoa-memo",
         "repo_path": "workspace:OS_ABYSS/aoa-memo",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 6]",
-        "dirty_count": 4,
-        "head": "921d75250b3bbc4c18ade09149670797823894a7",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 0,
+        "head": "a9ed3f2eaffce1a64edf87fff076a57baf9b0215",
         "repo": "aoa-playbooks",
         "repo_path": "workspace:OS_ABYSS/aoa-playbooks",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 16]",
-        "dirty_count": 17,
-        "head": "044ec28b5c269d5250e5b76d37217cea1d4505d8",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 0,
+        "head": "72f91d2a8e21438157a853becd136be30e72234e",
         "repo": "aoa-routing",
         "repo_path": "workspace:OS_ABYSS/aoa-routing",
         "status": "ok"
@@ -3294,34 +3281,34 @@
         "branch": "main",
         "branch_status": "## main...origin/main",
         "dirty_count": 0,
-        "head": "f17634f33f5c1042cfdc3b13fa9b9b0066981f02",
+        "head": "b735658c6e5e7a5708fba3416820b53455322444",
         "repo": "aoa-sdk",
         "repo_path": "workspace:OS_ABYSS/aoa-sdk",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 87]",
+        "branch_status": "## main...origin/main [ahead 1, behind 94]",
         "dirty_count": 102,
         "head": "f66ee11d3ba46486aa555ab2a806a80a711aae1d",
         "repo": "aoa-skills",
-        "repo_path": "repo:aoa-skills",
+        "repo_path": "workspace:OS_ABYSS/aoa-skills",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 56]",
-        "dirty_count": 2,
-        "head": "fb236efa36f7faca2a88f08267a13a155abf6ba5",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 0,
+        "head": "04347e99179377c93207b2e788e3dfa77b24ebfe",
         "repo": "aoa-stats",
         "repo_path": "workspace:OS_ABYSS/aoa-stats",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 9]",
-        "dirty_count": 4,
-        "head": "983658d2859998c64ee8551f9815122475a81960",
+        "branch_status": "## main...origin/main",
+        "dirty_count": 0,
+        "head": "a2be73594193ca1c186161dfe08a88ed19c3f624",
         "repo": "aoa-techniques",
         "repo_path": "workspace:OS_ABYSS/aoa-techniques",
         "status": "ok"
@@ -3330,61 +3317,70 @@
         "branch": "main",
         "branch_status": "## main...origin/main",
         "dirty_count": 0,
-        "head": "a06acc2bc288a3be6b3bc4d654eb350f7aa7171a",
+        "head": "01170c4df4c926078a81f982c157edcbb4e3e227",
         "repo": "aoa-4pda-connector",
         "repo_path": "workspace:OS_ABYSS/connectors/aoa-4pda-connector",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main...origin/main",
         "dirty_count": 0,
-        "head": "2553848e089fc143957a6133f7babe04ed573415",
+        "head": "10c7e75707cea43ee493496f005b4b6ceeab7281",
         "repo": "aoa-course-connector",
         "repo_path": "workspace:OS_ABYSS/connectors/aoa-course-connector",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main...origin/main",
         "dirty_count": 0,
-        "head": "ca923225b6a58e0e97c4a0d8582dd33ec70dbd6b",
+        "head": "fc80cb361e65f9fe711dcd8607727fc9bf1a519e",
         "repo": "aoa-discord-connector",
         "repo_path": "workspace:OS_ABYSS/connectors/aoa-discord-connector",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main...origin/main",
         "dirty_count": 0,
-        "head": "2da4a9bfc84e3e1cfcc08e5b134f3c22df34a8f0",
+        "head": "22546ecef31f9c2b6d2d5a328f3306ac7d80ddaa",
         "repo": "aoa-stackoverflow-connector",
         "repo_path": "workspace:OS_ABYSS/connectors/aoa-stackoverflow-connector",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main...origin/main",
         "dirty_count": 0,
-        "head": "7e3e99c307c5519fb898e1c33dea0b223d9f1492",
+        "head": "8dde4f6006fcd038314838a9995c0ecff09f980a",
         "repo": "aoa-telegram-connector",
         "repo_path": "workspace:OS_ABYSS/connectors/aoa-telegram-connector",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main...origin/main",
         "dirty_count": 0,
-        "head": "200f019ae6d3827c06046c9a61286584988bf7d4",
+        "head": "e7d1c7d8cc659b6643e6c5fe050d3c693e43253b",
         "repo": "aoa-xda-connector",
         "repo_path": "workspace:OS_ABYSS/connectors/aoa-xda-connector",
+        "status": "ok"
+      },
+      {
+        "branch": "main",
+        "branch_status": "## main",
+        "dirty_count": 0,
+        "head": "c0cd90a7da32001e29c4a99d1f39b62a97b6fbb0",
+        "repo": "aoa-editing",
+        "repo_path": "workspace:OS_ABYSS/media/aoa-editing",
         "status": "ok"
       }
     ],
     "status": "ok",
     "summary": {
-      "dirty_repos": 12,
-      "repos": 21,
+      "dirty_repos": 2,
+      "repos": 22,
       "unavailable_repos": 0
     },
     "workspace_root": "workspace:OS_ABYSS"

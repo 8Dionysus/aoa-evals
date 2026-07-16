@@ -49,8 +49,9 @@ and dispatch readers own derived navigation only. Eval bundles and mechanic
 parts own proof verdicts when a quest pressure becomes a source proof object.
 
 Sibling repositories own downstream owner acceptance when a quest points
-outside `aoa-evals`. The installed `aoa-quest-harvest` skill may support
-triage; source quest truth stays in reviewed quest records.
+outside `aoa-evals`. The shared `aoa-session-harvest` `classify` mode may
+support session-local triage when explicitly supplied; its source stays with
+`aoa-skills`, and source quest truth stays in reviewed quest records.
 
 `aoa-evals` owns the quest schema contract, lane/state consistency checks, and
 claim limits for source quest records.
@@ -62,7 +63,7 @@ claim limits for source quest records.
 | quest record used as proof verdict | bundle-local proof surface or owning mechanic evidence |
 | quest state movement | matching source path, schema, human index, generated reader, and validation updates |
 | old top-level quest path revived as active source | `PROVENANCE.md` and legacy path vocabulary |
-| `aoa-quest-harvest` output as source truth | reviewed source quest record |
+| `aoa-session-harvest` classify output used as source truth or direct promotion | reviewed source quest record and target-owner acceptance |
 | quest source record used as roadmap direction, release readiness, owner acceptance, or live promotion authority | `ROADMAP.md`, release-support route, sibling-owner evidence, or reviewed promotion route |
 
 ## Validation

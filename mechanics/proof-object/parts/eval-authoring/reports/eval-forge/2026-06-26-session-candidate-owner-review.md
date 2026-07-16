@@ -4,6 +4,15 @@
 > historical owner evidence, not an Eval Forge execution route. A current
 > local apply requires a `ready` AOA-EV-D-0245 sidecar, and only the repo owner
 > or `aoa-eval-apply` may invoke its exact argv.
+>
+> Current skill-route applicability (2026-07-16): the `aoa-skills` trigger
+> corpus, prompt harness, and generated runtime export named below were later
+> retired during capability-family consolidation. They remain historical
+> evidence for this review, not current commands or owner surfaces. Current
+> skill-effect review routes to the authored skill, resolved catalog/profile,
+> prompt-visible host posture, and session-local manual no-skill, positive,
+> negative, and coexistence comparisons. The admitted owner review is
+> `aoa-skills/docs/reviews/2026-07-15-capability-family-lifecycle.md`.
 
 ## Boundary
 

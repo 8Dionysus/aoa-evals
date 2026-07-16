@@ -231,6 +231,10 @@
 
 - [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)
 
+## projection ownership
+
+- [AOA-EV-D-0246 Owner Skill Projection Boundary](../AOA-EV-D-0246-owner-skill-projection-boundary.md) (`docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md`)
+
 ## projection/generated
 
 - [AOA-EV-D-0130 Validator Root Compatibility Alias Removal](../AOA-EV-D-0130-validator-root-compatibility-alias-removal.md) (`docs/decisions/AOA-EV-D-0130-validator-root-compatibility-alias-removal.md`)
@@ -285,6 +289,10 @@
 - [AOA-EV-D-0190 Release Support Facade Removal](../AOA-EV-D-0190-release-support-facade-removal.md) (`docs/decisions/AOA-EV-D-0190-release-support-facade-removal.md`)
 - [AOA-EV-D-0191 Publication Receipts Facade Removal](../AOA-EV-D-0191-publication-receipts-facade-removal.md) (`docs/decisions/AOA-EV-D-0191-publication-receipts-facade-removal.md`)
 - [AOA-EV-D-0217 Release-support Helper Layer Split](../AOA-EV-D-0217-release-support-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0217-release-support-helper-layer-split.md`)
+
+## repository skill admission
+
+- [AOA-EV-D-0246 Owner Skill Projection Boundary](../AOA-EV-D-0246-owner-skill-projection-boundary.md) (`docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md`)
 
 ## runtime-candidate/read-model
 

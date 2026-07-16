@@ -9,6 +9,10 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Changed
 
+- Removed the foreign copied `.agents/skills/` catalog. `aoa-evals` now keeps
+  no repository skill home until a repo-specific candidate demonstrates an
+  independent trigger, ABI, composition and coexistence value, and improvement
+  over a no-skill baseline; shared workflow ownership remains in `aoa-skills`.
 - Centralized runnable validation and test routes in command authority,
   primary operating guides, and the nearest agent cards; decisions, reports,
   changelog history, and generated Markdown now preserve outcomes and owner

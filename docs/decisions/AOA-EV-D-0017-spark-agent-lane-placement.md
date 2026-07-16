@@ -59,6 +59,35 @@ Spark can route one bounded claim or seam at a time, but bundle-local
 - Follow-up: future maintained agent lanes should start under
   `.agents/<lane>/` and get local validation before use.
 
+## Current Applicability
+
+As of 2026-07-16:
+
+- Still valid: Spark remains a maintained fast-loop lane under
+  `.agents/spark/`, and `.agents/` remains the district for agent-facing lanes.
+- Changed: `.agents/skills/` is no longer an active support surface; a future
+  repo-specific skill must first be admitted under the top-level `skills/`
+  owner boundary.
+- Superseded by: AOA-EV-D-0246 supersedes only the copied-skill support-lane
+  assumption; it does not supersede Spark placement.
+
+## Review Log
+
+### 2026-07-16 - Skill ownership and projection route corrected
+
+- Previous assumption: checked-in exported skills could coexist with maintained
+  agent lanes under `.agents/`.
+- New reality: shared procedures are delivered from `aoa-skills`, while a
+  repository projection requires a separately admitted top-level `skills/`
+  owner home.
+- Reason: manual fresh-context inspection showed that copied foreign skills
+  entered the model-visible routing catalog without becoming `aoa-evals`
+  owner truth.
+- Source surfaces updated: root and `.agents/` route cards,
+  `DESIGN.AGENTS.md`, proof topology, and the agent-lane projection guard.
+- Validation: D-0246, fresh prompt inspection, decision-index parity, focused
+  agent-lane tests, and repository validation.
+
 ## Boundaries
 
 This decision does not move `.agents/skills/`, proof bundles, generated

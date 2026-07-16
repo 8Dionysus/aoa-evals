@@ -6,8 +6,8 @@
 
 ## Role
 
-`.agents/` is the durable home for maintained agent-facing lanes and exported
-support skills in `aoa-evals`.
+`.agents/` is the durable home for maintained agent-facing lanes in
+`aoa-evals`.
 
 It routes agents that operate on proof surfaces. Proof authority stays with the
 source bundle, generated reader, runtime owner, receipt owner, sibling owner,
@@ -18,10 +18,10 @@ or repo doctrine surface named by the task.
 | Field | Route |
 | --- | --- |
 | role | maintained agent-facing lane district |
-| input | agent-lane guidance, support-skill exports, Spark lane work, and proof-surface route pressure |
-| output | scoped agent route, support guidance, or handoff toward the proof owner |
+| input | agent-lane guidance, Spark lane work, and proof-surface route pressure |
+| output | scoped agent route or handoff toward the proof owner |
 | owner | `.agents/AGENTS.md` for lane placement; lane-local `AGENTS.md` for local posture |
-| next route | `.agents/spark/AGENTS.md`, `.agents/skills/AGENTS.md`, or the proof owner surface |
+| next route | `.agents/spark/AGENTS.md`, the proof owner surface, or top-level `skills/` after an owner-admitted repository skill exists |
 | tools | root validation, semantic AGENTS validation, nested AGENTS validation |
 | validation | this card's `Validation` section |
 
@@ -35,14 +35,19 @@ Current maintained lanes:
 2. `DESIGN.AGENTS.md`
 3. `docs/architecture/PROOF_TOPOLOGY.md`
 4. `docs/architecture/LEGACY_NAMING.md`
-5. the target lane or support-surface `AGENTS.md`
+5. the target lane's `AGENTS.md`
 6. `docs/decisions/AOA-EV-D-0017-spark-agent-lane-placement.md` for Spark lane
    placement changes
+7. `docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md` before
+   adding a repository skill home or projection
 
 ## Owner Routes
 
 - Keep maintained lanes under `.agents/<lane>/`.
-- Keep exported skill guidance under `.agents/skills/`.
+- Keep an owner-admitted repository skill's canonical source under top-level
+  `skills/`, never under `.agents/`.
+- Keep `.agents/skills/` absent unless it is a derived projection of that
+  admitted home. No repository skill home is currently admitted.
 
 | Need | Owner route |
 | --- | --- |
@@ -72,6 +77,6 @@ run the owning builder or test for that surface.
 
 ## Closeout
 
-Report which agent lane or support surface changed, which proof owner surface
+Report which agent lane changed, which proof owner surface
 it routes, what validation ran, and which proof authority stayed outside
 `.agents/`.

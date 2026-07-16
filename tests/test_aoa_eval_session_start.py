@@ -155,11 +155,13 @@ def sample_dashboard() -> dict:
         "mcp_runtime_status": {"status": "ok"},
         "aoa_session_memory_freshness": {"status": "skipped"},
         "aoa_eval_runtime_adoption": {
-            "source_skill_exists": True,
-            "installed_profile": "user-aoa-foundation",
-            "installed_profile_verified": True,
-            "installed_matches_source": True,
-            "front_door_invoke_capable": "covered_by_aoa_skills_prompt_trigger_harness_when_command_passes",
+            "source_exists": True,
+            "posture": "deferred_explicit_source",
+            "normal_user_profile": "user-default",
+            "normal_user_profile_verified": True,
+            "normal_user_profile_contains_aoa_eval": False,
+            "live_skill_exists": False,
+            "front_door_invoke_capable": "explicit_source_or_owner_selected_only",
         },
     }
 
@@ -217,7 +219,7 @@ def test_session_start_payload_gives_agent_actionable_front_door() -> None:
     assert payload["candidate_queue_routes"][0]["packet_ref"].endswith("example.eval_candidate.json")
     assert payload["candidate_queue_routes"][0]["proof_authority"] is False
     assert payload["candidate_queue_routes"][0]["promotion_allowed"] is False
-    assert payload["skill_route"]["runtime_adoption"]["installed_profile_verified"] is True
+    assert payload["skill_route"]["runtime_adoption"]["normal_user_profile_verified"] is True
     assert "dormant-repo" not in {item["repo_id"] for item in payload["active_repo_routes"]}
     assert any("do not treat .aoa" in line for line in payload["stop_lines"])
 
@@ -263,7 +265,8 @@ def test_session_start_text_names_commands_and_stop_lines() -> None:
     assert "Eval Forge" in rendered
     assert "trace-trajectory-eval" in rendered
     assert "Skill Runtime" in rendered
-    assert "user-aoa-foundation" in rendered
+    assert "user-default" in rendered
+    assert "deferred_explicit_source" in rendered
     assert "packet:session:example" in rendered
     assert "aoa-memo" in rendered
     assert "do not import session evidence" in rendered

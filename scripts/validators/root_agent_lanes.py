@@ -15,7 +15,8 @@ SPARK_LANE_SWARM_NAME = ".agents/spark/SWARM.md"
 PROOF_TOPOLOGY_NAME = root_design_common_validator.PROOF_TOPOLOGY_NAME
 AGENTS_DISTRICT_REQUIRED_TOKENS = (
     ".agents/<lane>/",
-    ".agents/skills/",
+    "top-level `skills/`",
+    "owner-admitted",
     ".agents/spark/",
     "Proof authority stays",
     "python scripts/validate_repo.py",
@@ -69,6 +70,15 @@ def validate_agent_lane_surfaces(repo_root: Path) -> list[ValidationIssue]:
     )
     require_tokens(repo_root, "README.md", (AGENTS_DISTRICT_NAME, SPARK_LANE_AGENTS_NAME), issues)
     require_tokens(repo_root, PROOF_TOPOLOGY_NAME, (".agents/", ".agents/spark/", "Agent guidance"), issues)
+    repo_skill_home = repo_root / "skills"
+    repo_skill_projection = repo_root / ".agents" / "skills"
+    if repo_skill_projection.exists() and not repo_skill_home.exists():
+        issues.append(
+            ValidationIssue(
+                ".agents/skills/",
+                "repo skill projection requires an owner-admitted top-level skills/ home",
+            )
+        )
     if (repo_root / "Spark").exists():
         issues.append(ValidationIssue("Spark/", "root-local Spark lane must stay moved to .agents/spark/"))
     return issues

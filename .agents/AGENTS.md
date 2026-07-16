@@ -29,6 +29,11 @@ Current maintained lanes:
 
 - `.agents/spark/` for the Spark fast-loop lane.
 
+Derived discovery surface:
+
+- `.agents/skills/aoa-evals/` is the exact projection of the admitted
+  `skills/aoa-evals/` owner bundle; it is not a maintained lane or source.
+
 ## Read before editing
 
 1. root `AGENTS.md`
@@ -40,14 +45,16 @@ Current maintained lanes:
    placement changes
 7. `docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md` before
    adding a repository skill home or projection
+8. `docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md` and
+   `skills/AGENTS.md` before changing the admitted bundle or projection
 
 ## Owner Routes
 
 - Keep maintained lanes under `.agents/<lane>/`.
 - Keep an owner-admitted repository skill's canonical source under top-level
   `skills/`, never under `.agents/`.
-- Keep `.agents/skills/` absent unless it is a derived projection of that
-  admitted home. No repository skill home is currently admitted.
+- Keep `.agents/skills/aoa-evals/` byte- and mode-exact with the manifest-declared
+  owner source. Never edit the projection as source or add shared bundles here.
 
 | Need | Owner route |
 | --- | --- |

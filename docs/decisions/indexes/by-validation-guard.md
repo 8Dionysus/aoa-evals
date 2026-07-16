@@ -234,6 +234,7 @@
 ## projection ownership
 
 - [AOA-EV-D-0246 Owner Skill Projection Boundary](../AOA-EV-D-0246-owner-skill-projection-boundary.md) (`docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md`)
+- [AOA-EV-D-0247 aoa-evals Owner Skill Bundle](../AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md) (`docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md`)
 
 ## projection/generated
 
@@ -293,6 +294,7 @@
 ## repository skill admission
 
 - [AOA-EV-D-0246 Owner Skill Projection Boundary](../AOA-EV-D-0246-owner-skill-projection-boundary.md) (`docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md`)
+- [AOA-EV-D-0247 aoa-evals Owner Skill Bundle](../AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md) (`docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md`)
 
 ## runtime-candidate/read-model
 
@@ -455,6 +457,7 @@
 - [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
 - [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
 - [AOA-EV-D-0241 Local Eval Port Write-Side MCP](../AOA-EV-D-0241-local-eval-port-write-side-mcp.md) (`docs/decisions/AOA-EV-D-0241-local-eval-port-write-side-mcp.md`)
+- [AOA-EV-D-0247 aoa-evals Owner Skill Bundle](../AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md) (`docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md`)
 
 ## trace/eval
 

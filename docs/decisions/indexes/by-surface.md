@@ -29,6 +29,7 @@
 - [AOA-EV-D-0210 Root Design Aggregate Removal](../AOA-EV-D-0210-root-design-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0210-root-design-aggregate-removal.md`)
 - [AOA-EV-D-0218 Decision-index Validator Layer Split](../AOA-EV-D-0218-decision-index-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0218-decision-index-validator-layer-split.md`)
 - [AOA-EV-D-0246 Owner Skill Projection Boundary](../AOA-EV-D-0246-owner-skill-projection-boundary.md) (`docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md`)
+- [AOA-EV-D-0247 aoa-evals Owner Skill Bundle](../AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md) (`docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md`)
 
 ## proof topology
 
@@ -381,6 +382,7 @@
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 - [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)
 - [AOA-EV-D-0246 Owner Skill Projection Boundary](../AOA-EV-D-0246-owner-skill-projection-boundary.md) (`docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md`)
+- [AOA-EV-D-0247 aoa-evals Owner Skill Bundle](../AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md) (`docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md`)
 
 ## audit/observability
 
@@ -526,11 +528,16 @@
 ## owner-boundary
 
 - [AOA-EV-D-0246 Owner Skill Projection Boundary](../AOA-EV-D-0246-owner-skill-projection-boundary.md) (`docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md`)
+- [AOA-EV-D-0247 aoa-evals Owner Skill Bundle](../AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md) (`docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md`)
 
 ## projection/generated
 
 - [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
+
+## proof-topology
+
+- [AOA-EV-D-0247 aoa-evals Owner Skill Bundle](../AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md) (`docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md`)
 
 ## public contract
 

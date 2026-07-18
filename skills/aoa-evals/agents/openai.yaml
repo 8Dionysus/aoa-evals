@@ -1,0 +1,7 @@
+interface:
+  display_name: "AoA Evals"
+  short_description: "Own central eval proof and lifecycle"
+  default_prompt: "Use $aoa-evals to select, review, or evolve bounded proof through its owner source and claim limits."
+
+policy:
+  allow_implicit_invocation: true

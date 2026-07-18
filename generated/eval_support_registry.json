@@ -16,16 +16,16 @@
       "deterministic_test": 64,
       "deterministic_validator": 227,
       "generated_readmodel_test": 9,
-      "script_support": 10,
+      "script_support": 11,
       "trace_eval_test": 14
     },
     "by_kind": {
-      "script": 278,
+      "script": 279,
       "test": 87,
       "validator": 227
     },
     "by_lane": {
-      "advisory": 28,
+      "advisory": 29,
       "generated": 52,
       "latest_sibling": 4,
       "mechanics_part_local": 52,
@@ -40,26 +40,28 @@
       "forbidden_as_eval_apply_until_manual_owner_review": 4,
       "generated_readmodel_support": 6,
       "ordinary_owner_route": 5,
-      "run_check_mode_before_eval_support": 17
+      "run_check_mode_before_eval_support": 17,
+      "use_through_owner_skill_procedure": 1
     },
     "by_review_status": {
       "candidate_only": 8,
       "not_eval_relevant": 5,
       "reviewed_forbidden": 4,
-      "rule_reviewed": 575
+      "rule_reviewed": 576
     },
     "by_semantic_class": {
       "deterministic_validator": 465,
       "generated_parity_check": 32,
       "ordinary_support": 5,
+      "owner_skill_navigation_resource": 1,
       "runtime_candidate_support": 8,
       "trace_trajectory_eval_support": 14,
       "unit_contract_property_test": 64,
       "unsafe_side_effect_script": 4
     },
-    "eval_lane_relevant": 428,
+    "eval_lane_relevant": 429,
     "safe_to_apply_directly": 469,
-    "total_surfaces": 592,
+    "total_surfaces": 593,
     "unsafe_side_effect_scripts": 4
   },
   "surfaces": [
@@ -9382,6 +9384,42 @@
       "side_effects": "validation output only; checks validator inventory fields, owner surfaces, modes, lanes, and module discovery drift without owning lane manifest command grouping, script inventory, or test inventory entries",
       "source_truth_count": 5,
       "test_target": "tests/test_validation_topology.py"
+    },
+    {
+      "classification": "script_support",
+      "classification_evidence": [
+        "family: owner_skill_resource",
+        "owner_surface: skills/AGENTS.md",
+        "side_effects: read-only JSON packets to stdout; does not execute evals, accept proof, mutate source, or rebuild projections",
+        "validation_lane: advisory"
+      ],
+      "classification_rule": "read_only_owner_skill_resource",
+      "eval_lane_relevant": true,
+      "failure_route": null,
+      "family": "owner_skill_resource",
+      "focused_target": null,
+      "forbidden_interpretations": [
+        "direct_eval_apply_command",
+        "central_proof_acceptance",
+        "owner_skill_packet_as_verdict"
+      ],
+      "kind": "script",
+      "lane": "advisory",
+      "owner_surface": "skills/AGENTS.md",
+      "path": "skills/aoa-evals/scripts/eval_contract_packet.py",
+      "recommended_route": "use_through_owner_skill_procedure",
+      "relevance_reasons": [
+        "eval",
+        "proof",
+        "trace"
+      ],
+      "review_reason": "read-only bundled resource serves the admitted owner skill procedure and remains navigation support rather than direct eval application",
+      "review_status": "rule_reviewed",
+      "safe_to_apply_directly": false,
+      "semantic_class": "owner_skill_navigation_resource",
+      "side_effects": "read-only JSON packets to stdout; does not execute evals, accept proof, mutate source, or rebuild projections",
+      "source_truth_count": 3,
+      "test_target": "tests/test_script_topology.py"
     },
     {
       "classification": "deterministic_test",

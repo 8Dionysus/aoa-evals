@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 10711373,
+  "allowed_tracked_bytes": 23691200,
+  "approved_by": "repository-owner",
+  "base_ref": "347cf5b6c9b149f17371346e721bb047e15cb482",
+  "changed_generated_bytes": 10711373,
+  "changed_generated_files": 192,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "518c63c8b1aafb3a100e7ef559d8035cadbd9cd1ca91d1f07f73b93633469d0e",
+  "reason": "Refresh the portable owner projection after the aoa-evals v2 skill-home contract, removal of the duplicate repository projection, owner-resource classification, and CI contract pin changed source and history records.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 23691200,
+  "tracked_bytes_max": 26214400
+}

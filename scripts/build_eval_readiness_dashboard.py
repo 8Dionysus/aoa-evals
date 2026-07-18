@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import importlib.util
 import json
@@ -23,14 +24,78 @@ DEFAULT_WORKSPACE_ROOT = Path("/srv/AbyssOS")
 DEFAULT_AOA_ROOT = Path("/srv/AbyssOS/.aoa")
 DEFAULT_SKILLS_SOURCE_ROOT = Path("/srv/AbyssOS/aoa-skills")
 DEFAULT_INSTALLED_SKILLS_ROOT = Path.home() / ".codex" / "skills"
-DEFAULT_SHARED_USER_PROFILE = "user-default"
-DEFAULT_AOA_EVAL_SOURCE_PROFILE = "repo-capability-sources"
+DEFAULT_OS_USER_PROFILE = "os-user-default"
+DEFAULT_AOA_EVAL_PORTABLE_PROFILE = "portable-consumer-advertised"
 DEFAULT_STACK_ROOT_CANDIDATES = (
     Path("/home/dionysus/src/abyss-stack"),
     Path("/srv/AbyssOS/abyss-stack"),
 )
 SCHEMA_VERSION = "os_abyss_eval_readiness_dashboard_v1"
 SUPPORT_REGISTRY_SCHEMA_VERSION = "os_abyss_eval_support_registry_v1"
+DETERMINISTIC_DASHBOARD_KEYS = (
+    "schema_version",
+    "layer",
+    "authority_boundary",
+    "source_of_truth",
+    "external_research_grounding",
+    "owner_boundaries",
+    "workspace_root",
+    "evals_root",
+    "read_model_posture",
+    "central_catalog",
+    "runtime_candidate_exports",
+    "candidate_packet_import",
+    "eval_support_registry",
+    "trigger_criteria",
+    "trajectory_eval_slice",
+    "eval_forge_readiness",
+    "local_to_central_promotion_path",
+    "phase_coverage",
+)
+DETERMINISTIC_ADOPTION_KEYS = (
+    "posture",
+    "source_skill_ref",
+    "source_exists",
+    "source_sha256",
+    "source_bundle_hash",
+    "source_bundle_revision",
+    "portable_export_ref",
+    "portable_export_exists",
+    "portable_export_sha256",
+    "portable_export_map_ref",
+    "portable_export_contract_found",
+    "portable_export_source_ref",
+    "portable_export_target_ref",
+    "portable_export_physical_required",
+    "catalog_ref",
+    "catalog_entry_found",
+    "implicit_activation_policy",
+    "allow_implicit_invocation",
+    "manual_invocation_required",
+    "candidate_only",
+    "source_profile",
+    "source_profile_found",
+    "source_profile_contains_aoa_eval",
+    "normal_user_profile",
+    "normal_user_profile_ref",
+    "normal_user_profile_found",
+    "normal_user_profile_contains_aoa_eval",
+    "normal_user_profile_source",
+    "live_skill_expected_by_normal_user_profile",
+    "release_manifest_ref",
+    "release_bundle_revision_found",
+    "release_advertised_skill_count",
+    "release_deferred_skill_count",
+    "source_contract_ready",
+    "behavioral_review_ref",
+    "behavioral_review_exists",
+    "prompt_visible_live_check",
+    "prompt_visibility_expectation",
+    "front_door_invoke_capable",
+    "subskills_posture",
+    "verification_command",
+    "authority_boundary",
+)
 DASHBOARD_JSON = REPO_ROOT / "generated" / "eval_readiness_dashboard.json"
 DASHBOARD_MARKDOWN = REPO_ROOT / "generated" / "eval_readiness_dashboard.md"
 SUPPORT_REGISTRY_JSON = REPO_ROOT / "generated" / "eval_support_registry.json"
@@ -946,6 +1011,21 @@ def semantic_support_classification(kind: str, entry: dict[str, Any], relevant: 
             "safe_to_apply_directly": True,
             "forbidden_interpretations": ["central_proof_acceptance"],
         }
+    if kind == "script" and family == "owner_skill_resource" and not has_write:
+        return {
+            "semantic_class": "owner_skill_navigation_resource",
+            "classification_rule": "read_only_owner_skill_resource",
+            "review_status": "rule_reviewed",
+            "review_reason": "read-only bundled resource serves the admitted owner skill procedure and remains navigation support rather than direct eval application",
+            "classification_evidence": evidence,
+            "recommended_route": "use_through_owner_skill_procedure",
+            "safe_to_apply_directly": False,
+            "forbidden_interpretations": [
+                "direct_eval_apply_command",
+                "central_proof_acceptance",
+                "owner_skill_packet_as_verdict",
+            ],
+        }
     if "candidate" in text or "runtime" in text or "session" in text or "memory" in text:
         return {
             "semantic_class": "runtime_candidate_support",
@@ -1382,19 +1462,53 @@ def build_aoa_freshness(aoa_root: Path, *, include_live_checks: bool, timeout: i
     return result
 
 
+def _profile_skill_names(items: Any) -> list[str]:
+    if not isinstance(items, list):
+        return []
+    names: list[str] = []
+    for item in items:
+        if isinstance(item, str) and item:
+            names.append(item)
+        elif isinstance(item, dict) and item.get("name"):
+            names.append(str(item["name"]))
+    return names
+
+
+def _os_profile_skill_names(profile: Any) -> tuple[list[str], dict[str, Any] | None]:
+    if not isinstance(profile, dict) or not isinstance(profile.get("sources"), list):
+        return [], None
+    names: list[str] = []
+    aoa_eval_source: dict[str, Any] | None = None
+    for source in profile["sources"]:
+        if not isinstance(source, dict):
+            continue
+        source_names = _profile_skill_names(source.get("skills"))
+        names.extend(source_names)
+        if "aoa-eval" in source_names and aoa_eval_source is None:
+            aoa_eval_source = {
+                "kind": source.get("kind"),
+                "repo": source.get("repo"),
+                "root": source.get("root"),
+            }
+    return names, aoa_eval_source
+
+
 def build_aoa_eval_runtime_adoption(
     skills_source_root: Path,
     installed_skills_root: Path,
     *,
+    workspace_root: Path = DEFAULT_WORKSPACE_ROOT,
+    include_live_check: bool = True,
     timeout: int = 30,
 ) -> dict[str, Any]:
     source_skill = (
         skills_source_root / "skills" / "core" / "engineering" / "aoa-eval" / "SKILL.md"
     )
-    portable_skill = skills_source_root / ".agents" / "skills" / "aoa-eval" / "SKILL.md"
     live_skill = installed_skills_root / "aoa-eval" / "SKILL.md"
     catalog_path = skills_source_root / "generated" / "agent_skill_catalog.json"
     profiles_path = skills_source_root / "generated" / "skill_pack_profiles.resolved.json"
+    os_profiles_path = skills_source_root / "config" / "os_skill_profiles.json"
+    portable_export_map_path = skills_source_root / "generated" / "portable_export_map.json"
     release_manifest_path = skills_source_root / "generated" / "release_manifest.json"
     behavioral_review = (
         skills_source_root
@@ -1404,7 +1518,6 @@ def build_aoa_eval_runtime_adoption(
     )
 
     source_hash = sha256_file(source_skill)
-    portable_hash = sha256_file(portable_skill)
     live_hash = sha256_file(live_skill)
 
     catalog_payload = read_json(catalog_path, default={})
@@ -1427,143 +1540,232 @@ def build_aoa_eval_runtime_adoption(
         and isinstance(profiles_payload.get("profiles"), dict)
         else {}
     )
-
-    def resolved_profile_skill_names(profile_name: str) -> list[str]:
-        profile = profiles.get(profile_name)
-        if not isinstance(profile, dict):
-            return []
-        skills = profile.get("skills")
-        if not isinstance(skills, list):
-            return []
-        return [
-            str(item.get("name"))
-            for item in skills
-            if isinstance(item, dict) and item.get("name")
-        ]
-
-    normal_user_skill_names = resolved_profile_skill_names(DEFAULT_SHARED_USER_PROFILE)
-    source_profile_skill_names = resolved_profile_skill_names(
-        DEFAULT_AOA_EVAL_SOURCE_PROFILE
+    portable_profile = profiles.get(DEFAULT_AOA_EVAL_PORTABLE_PROFILE)
+    portable_profile_skill_names = _profile_skill_names(
+        portable_profile.get("skills") if isinstance(portable_profile, dict) else None
     )
+    source_profile_contains_aoa_eval = "aoa-eval" in portable_profile_skill_names
+
+    os_profiles_payload = read_json(os_profiles_path, default={})
+    os_profiles = (
+        os_profiles_payload.get("profiles", {})
+        if isinstance(os_profiles_payload, dict)
+        and isinstance(os_profiles_payload.get("profiles"), dict)
+        else {}
+    )
+    os_profile = os_profiles.get(DEFAULT_OS_USER_PROFILE)
+    normal_user_skill_names, normal_user_source = _os_profile_skill_names(os_profile)
     normal_user_contains_aoa_eval = "aoa-eval" in normal_user_skill_names
-    source_profile_contains_aoa_eval = "aoa-eval" in source_profile_skill_names
+
+    portable_export_map = read_json(portable_export_map_path, default={})
+    portable_exports = (
+        portable_export_map.get("exports", [])
+        if isinstance(portable_export_map, dict)
+        and isinstance(portable_export_map.get("exports"), list)
+        else []
+    )
+    portable_export = next(
+        (
+            item
+            for item in portable_exports
+            if isinstance(item, dict) and item.get("name") == "aoa-eval"
+        ),
+        {},
+    )
 
     release_manifest = read_json(release_manifest_path, default={})
     if not isinstance(release_manifest, dict):
         release_manifest = {}
+    release_revisions = (
+        release_manifest.get("skill_bundle_revisions", [])
+        if isinstance(release_manifest.get("skill_bundle_revisions"), list)
+        else []
+    )
+    release_revision = next(
+        (
+            item
+            for item in release_revisions
+            if isinstance(item, dict) and item.get("name") == "aoa-eval"
+        ),
+        {},
+    )
 
-    profile_verification = build_skill_pack_profile_verification(
+    profile_verification = build_os_skill_profile_verification(
         skills_source_root,
         installed_skills_root,
-        profile=DEFAULT_SHARED_USER_PROFILE,
+        workspace_root=workspace_root,
+        profile=DEFAULT_OS_USER_PROFILE,
+        include_live_check=include_live_check,
         timeout=timeout,
     )
 
+    source_contract_ready = all(
+        (
+            source_skill.is_file(),
+            bool(catalog_entry),
+            catalog_entry.get("implicit_activation_policy") == "invoke",
+            catalog_entry.get("allow_implicit_invocation") is True,
+            catalog_entry.get("manual_invocation_required") is False,
+            catalog_entry.get("candidate_only") is False,
+            source_profile_contains_aoa_eval,
+            normal_user_contains_aoa_eval,
+            bool(portable_export),
+            portable_export.get("source_skill_path")
+            == repo_relative(source_skill, skills_source_root),
+            bool(release_revision.get("source_hash")),
+            bool(release_revision.get("portable_hash")),
+        )
+    )
     if not source_skill.exists():
         posture = "source_unavailable"
-    elif (
-        source_profile_contains_aoa_eval
-        and not normal_user_contains_aoa_eval
-        and catalog_entry.get("allow_implicit_invocation") is False
-        and catalog_entry.get("manual_invocation_required") is True
-    ):
-        posture = "deferred_explicit_source"
+    elif source_contract_ready:
+        posture = "os_profile_source_ready"
     else:
         posture = "source_contract_unresolved"
 
     return {
         "posture": posture,
+        "source_contract_ready": source_contract_ready,
         "source_skill_ref": source_skill.as_posix(),
         "source_exists": source_skill.exists(),
         "source_sha256": source_hash,
-        "portable_export_ref": portable_skill.as_posix(),
-        "portable_export_exists": portable_skill.exists(),
-        "portable_export_sha256": portable_hash,
+        "source_bundle_hash": release_revision.get("source_hash"),
+        "source_bundle_revision": release_revision.get("skill_revision"),
+        "portable_export_ref": portable_export.get("target_skill_path"),
+        "portable_export_exists": bool(portable_export),
+        "portable_export_sha256": release_revision.get("portable_hash"),
+        "portable_export_map_ref": portable_export_map_path.as_posix(),
+        "portable_export_contract_found": bool(portable_export),
+        "portable_export_source_ref": portable_export.get("source_skill_path"),
+        "portable_export_target_ref": portable_export.get("target_skill_path"),
+        "portable_export_physical_required": False,
         "catalog_ref": catalog_path.as_posix(),
         "catalog_entry_found": bool(catalog_entry),
         "implicit_activation_policy": catalog_entry.get("implicit_activation_policy"),
         "allow_implicit_invocation": catalog_entry.get("allow_implicit_invocation"),
         "manual_invocation_required": catalog_entry.get("manual_invocation_required"),
         "candidate_only": catalog_entry.get("candidate_only"),
-        "source_profile": DEFAULT_AOA_EVAL_SOURCE_PROFILE,
-        "source_profile_found": DEFAULT_AOA_EVAL_SOURCE_PROFILE in profiles,
+        "source_profile": DEFAULT_AOA_EVAL_PORTABLE_PROFILE,
+        "source_profile_found": DEFAULT_AOA_EVAL_PORTABLE_PROFILE in profiles,
         "source_profile_contains_aoa_eval": source_profile_contains_aoa_eval,
-        "normal_user_profile": DEFAULT_SHARED_USER_PROFILE,
-        "normal_user_profile_found": DEFAULT_SHARED_USER_PROFILE in profiles,
+        "normal_user_profile": DEFAULT_OS_USER_PROFILE,
+        "normal_user_profile_ref": os_profiles_path.as_posix(),
+        "normal_user_profile_found": DEFAULT_OS_USER_PROFILE in os_profiles,
         "normal_user_profile_contains_aoa_eval": normal_user_contains_aoa_eval,
-        "normal_user_profile_verified": profile_verification.get("verified") is True,
+        "normal_user_profile_source": normal_user_source,
+        "normal_user_profile_verified": profile_verification.get("verified"),
         "normal_user_profile_verification": profile_verification,
         "live_skill_ref": live_skill.as_posix(),
         "live_skill_exists": live_skill.exists(),
         "live_skill_sha256": live_hash,
         "live_skill_expected_by_normal_user_profile": normal_user_contains_aoa_eval,
-        "live_skill_matches_portable_export": (
-            portable_hash == live_hash
-            if portable_hash is not None and live_hash is not None
+        "live_skill_matches_source_skill": (
+            source_hash == live_hash
+            if source_hash is not None and live_hash is not None
             else None
         ),
+        "live_skill_matches_portable_export": None,
         "release_manifest_ref": release_manifest_path.as_posix(),
+        "release_bundle_revision_found": bool(release_revision),
         "release_advertised_skill_count": release_manifest.get("advertised_skill_count"),
         "release_deferred_skill_count": release_manifest.get("deferred_skill_count"),
         "behavioral_review_ref": behavioral_review.as_posix(),
         "behavioral_review_exists": behavioral_review.exists(),
         "prompt_visible_live_check": "external_live_check_required",
         "prompt_visibility_expectation": (
-            "absent_from_normal_user_profile; explicit source projection still requires "
-            "fresh-session inspection"
+            "expected_after_os_profile_install; fresh-session inspection remains required"
         ),
-        "front_door_invoke_capable": "explicit_source_or_owner_selected_only",
-        "subskills_posture": "select/apply/propose are internal modes; legacy child bundles stay unloaded",
+        "front_door_invoke_capable": (
+            "os_profile_selected_invoke_after_install"
+            if source_contract_ready
+            else "source_contract_unresolved"
+        ),
+        "subskills_posture": (
+            "select/apply/local-need/design/session-mining are internal modes; "
+            "legacy child bundles stay unloaded"
+        ),
         "verification_command": (
-            "python scripts/verify_skill_pack.py --repo-root . --profile user-default "
-            "--install-root <host-user-skill-root> --format json"
+            "python scripts/install_os_skill_profile.py --repo-root . "
+            "--profile os-user-default --os-root <os-root> "
+            "--source-root aoa-skills=<aoa-skills-root> "
+            "--dest-root <host-user-skill-root> --check --format json"
         ),
         "authority_boundary": (
-            "aoa-skills owns source/profile/visibility posture; host installation and fresh-session "
-            "prompt visibility remain external evidence; aoa-evals records read-only routing signals only."
+            "aoa-skills owns source, portable export, and OS-profile selection; the OS installer "
+            "owns installed parity; fresh-session prompt visibility and behavior remain external "
+            "manual evidence; aoa-evals records read-only routing signals only."
         ),
     }
 
 
-def build_skill_pack_profile_verification(
+def build_os_skill_profile_verification(
     skills_source_root: Path,
     installed_skills_root: Path,
     *,
-    profile: str = DEFAULT_SHARED_USER_PROFILE,
+    workspace_root: Path = DEFAULT_WORKSPACE_ROOT,
+    profile: str = DEFAULT_OS_USER_PROFILE,
+    include_live_check: bool = True,
     timeout: int = 30,
 ) -> dict[str, Any]:
-    verifier = skills_source_root / "scripts" / "verify_skill_pack.py"
+    installer = skills_source_root / "scripts" / "install_os_skill_profile.py"
     command = [
         sys.executable,
-        "scripts/verify_skill_pack.py",
+        "scripts/install_os_skill_profile.py",
         "--repo-root",
         ".",
         "--profile",
         profile,
-        "--install-root",
+        "--os-root",
+        workspace_root.as_posix(),
+        "--source-root",
+        f"aoa-skills={skills_source_root.as_posix()}",
+        "--dest-root",
         installed_skills_root.as_posix(),
+        "--check",
         "--format",
         "json",
     ]
+    command_text = (
+        "python scripts/install_os_skill_profile.py --repo-root . --profile "
+        f"{profile} --os-root {workspace_root.as_posix()} --source-root "
+        f"aoa-skills={skills_source_root.as_posix()} --dest-root "
+        f"{installed_skills_root.as_posix()} --check --format json"
+    )
     result: dict[str, Any] = {
         "profile": profile,
-        "verifier_ref": verifier.as_posix(),
+        "installer_ref": installer.as_posix(),
         "install_root": installed_skills_root.as_posix(),
-        "command": "python scripts/verify_skill_pack.py --repo-root . --profile "
-        f"{profile} --install-root {installed_skills_root.as_posix()} --format json",
-        "authority_boundary": "aoa-skills owns profile verification; aoa-evals stores the read-only routing signal.",
+        "command": command_text,
+        "authority_boundary": (
+            "aoa-skills owns OS-profile installation parity; aoa-evals stores only the "
+            "read-only currentness signal and cannot infer prompt visibility or behavior."
+        ),
     }
-    if not verifier.exists():
+    if not include_live_check:
+        result.update(
+            {
+                "status": "skipped",
+                "verified": None,
+                "reason": "live OS-profile check disabled",
+            }
+        )
+        return result
+    if not installer.exists():
         result.update(
             {
                 "status": "unavailable",
                 "verified": False,
-                "reason": "aoa-skills verify_skill_pack.py is unavailable",
+                "reason": "aoa-skills install_os_skill_profile.py is unavailable",
             }
         )
         return result
 
-    completed = run_json_command(command, cwd=skills_source_root, timeout=timeout)
+    completed = run_json_command(
+        command,
+        cwd=skills_source_root,
+        timeout=timeout,
+        keep_output=True,
+    )
     payload = completed.get("json")
     result.update(
         {
@@ -1575,7 +1777,15 @@ def build_skill_pack_profile_verification(
     )
     if not isinstance(payload, dict):
         result["verified"] = False
-        result["reason"] = "verifier output was not parseable JSON"
+        stderr_summary = str(completed.get("stderr") or "").strip()
+        if stderr_summary:
+            result["failure_detail"] = stderr_summary
+            result["reason"] = (
+                "OS-profile installer failed before emitting JSON: "
+                f"{stderr_summary}"
+            )
+        else:
+            result["reason"] = "OS-profile installer output was not parseable JSON"
         return result
 
     skills = payload.get("skills") if isinstance(payload.get("skills"), list) else []
@@ -1587,37 +1797,52 @@ def build_skill_pack_profile_verification(
         ),
         {},
     )
-    missing = payload.get("missing_skills") if isinstance(payload.get("missing_skills"), list) else []
-    mismatched = (
-        payload.get("mismatched_skills")
-        if isinstance(payload.get("mismatched_skills"), list)
-        else []
+    missing = [
+        str(skill.get("name"))
+        for skill in skills
+        if isinstance(skill, dict) and skill.get("status") == "missing"
+    ]
+    mismatched = [
+        str(skill.get("name"))
+        for skill in skills
+        if isinstance(skill, dict)
+        and skill.get("status") not in {"current", "missing"}
+    ]
+    verified_skills = [
+        skill
+        for skill in skills
+        if isinstance(skill, dict) and skill.get("status") == "current"
+    ]
+    verified = (
+        completed.get("returncode") == 0
+        and payload.get("install_receipt_status") == "current"
+        and len(verified_skills) == len(skills)
     )
-    extra = payload.get("extra_skill_dirs") if isinstance(payload.get("extra_skill_dirs"), list) else []
     result.update(
         {
-            "verified": payload.get("verified") is True,
-            "profile_revision": payload.get("profile_revision"),
-            "expected_skill_count": payload.get("expected_skill_count"),
-            "verified_skill_count": payload.get("verified_skill_count"),
+            "verified": verified,
+            "expected_skill_count": len(skills),
+            "verified_skill_count": len(verified_skills),
             "missing_skill_count": len(missing),
             "mismatched_skill_count": len(mismatched),
             "missing_skills": missing,
             "mismatched_skills": mismatched,
-            "extra_skill_dirs": extra,
+            "extra_skill_dirs": payload.get("stale_managed", []),
             "profile_skill_names": [
                 str(skill.get("name"))
                 for skill in skills
                 if isinstance(skill, dict) and skill.get("name")
             ],
+            "install_receipt_status": payload.get("install_receipt_status"),
             "aoa_eval_expected_in_profile": bool(aoa_eval_entry),
-            "aoa_eval_install_state": aoa_eval_entry.get("install_state"),
-            "aoa_eval_is_symlink": aoa_eval_entry.get("is_symlink"),
+            "aoa_eval_install_state": aoa_eval_entry.get("status"),
+            "aoa_eval_is_symlink": False if aoa_eval_entry else None,
             "aoa_eval_source_digest": aoa_eval_entry.get("source_digest"),
             "aoa_eval_target_digest": aoa_eval_entry.get("target_digest"),
-            "release_identity": payload.get("release_identity"),
         }
     )
+    if not verified:
+        result["reason"] = "OS user profile is not current at the inspected install root"
     return result
 
 
@@ -2592,6 +2817,8 @@ def build_dashboard(
     runtime_adoption = build_aoa_eval_runtime_adoption(
         skills_source_root,
         installed_skills_root,
+        workspace_root=workspace_root,
+        include_live_check=include_live_checks,
         timeout=live_timeout,
     )
     external_research_grounding = load_external_research_grounding(evals_root)
@@ -2899,11 +3126,11 @@ def build_markdown(dashboard: dict[str, Any], support_registry: dict[str, Any]) 
     lines.extend(
         [
             f"- Source skill exists: {adoption['source_exists']}",
-            f"- Portable export exists: {adoption['portable_export_exists']}",
+            f"- Logical portable export contract exists: {adoption['portable_export_contract_found']}",
             f"- Current posture: `{adoption['posture']}`",
-            f"- Source profile contains `aoa-eval`: {adoption['source_profile_contains_aoa_eval']}",
-            f"- Normal user profile contains `aoa-eval`: {adoption['normal_user_profile_contains_aoa_eval']}",
-            f"- Normal user profile verified: {adoption['normal_user_profile_verified']}",
+            f"- Portable consumer profile `{adoption['source_profile']}` contains `aoa-eval`: {adoption['source_profile_contains_aoa_eval']}",
+            f"- OS user profile `{adoption['normal_user_profile']}` contains `aoa-eval`: {adoption['normal_user_profile_contains_aoa_eval']}",
+            f"- OS user profile currently installed: {adoption['normal_user_profile_verified']}",
             f"- Live `aoa-eval` install exists: {adoption['live_skill_exists']}",
             f"- Prompt visibility: `{adoption['prompt_visible_live_check']}`",
             f"- Behavioral review: `{adoption['behavioral_review_ref']}`",
@@ -2973,67 +3200,48 @@ def deterministic_dashboard_projection(
 
     if not isinstance(payload, dict):
         return {}
-    deterministic_keys = (
-        "schema_version",
-        "layer",
-        "authority_boundary",
-        "source_of_truth",
-        "external_research_grounding",
-        "owner_boundaries",
-        "workspace_root",
-        "evals_root",
-        "read_model_posture",
-        "central_catalog",
-        "runtime_candidate_exports",
-        "candidate_packet_import",
-        "eval_support_registry",
-        "trigger_criteria",
-        "trajectory_eval_slice",
-        "eval_forge_readiness",
-        "local_to_central_promotion_path",
-        "phase_coverage",
-    )
-    projection = {key: payload.get(key) for key in deterministic_keys}
+    projection = {key: payload.get(key) for key in DETERMINISTIC_DASHBOARD_KEYS}
     if include_skill_source_posture:
         adoption = payload.get("aoa_eval_runtime_adoption")
         if isinstance(adoption, dict):
-            adoption_keys = (
-                "posture",
-                "source_skill_ref",
-                "source_exists",
-                "source_sha256",
-                "portable_export_ref",
-                "portable_export_exists",
-                "portable_export_sha256",
-                "catalog_ref",
-                "catalog_entry_found",
-                "implicit_activation_policy",
-                "allow_implicit_invocation",
-                "manual_invocation_required",
-                "candidate_only",
-                "source_profile",
-                "source_profile_found",
-                "source_profile_contains_aoa_eval",
-                "normal_user_profile",
-                "normal_user_profile_found",
-                "normal_user_profile_contains_aoa_eval",
-                "live_skill_expected_by_normal_user_profile",
-                "release_manifest_ref",
-                "release_advertised_skill_count",
-                "release_deferred_skill_count",
-                "behavioral_review_ref",
-                "behavioral_review_exists",
-                "prompt_visible_live_check",
-                "prompt_visibility_expectation",
-                "front_door_invoke_capable",
-                "subskills_posture",
-                "verification_command",
-                "authority_boundary",
-            )
             projection["aoa_eval_runtime_adoption"] = {
-                key: adoption.get(key) for key in adoption_keys
+                key: adoption.get(key) for key in DETERMINISTIC_ADOPTION_KEYS
             }
     return projection
+
+
+def merge_source_derived_dashboard(
+    current: Any,
+    rebuilt: dict[str, Any],
+    *,
+    include_skill_source_posture: bool,
+) -> dict[str, Any]:
+    """Refresh owner-derived fields while preserving the recorded live snapshot."""
+
+    if not isinstance(current, dict):
+        return copy.deepcopy(rebuilt)
+    merged = copy.deepcopy(current)
+    for key in DETERMINISTIC_DASHBOARD_KEYS:
+        if key in rebuilt:
+            merged[key] = copy.deepcopy(rebuilt[key])
+        else:
+            merged.pop(key, None)
+    if include_skill_source_posture:
+        rebuilt_adoption = rebuilt.get("aoa_eval_runtime_adoption")
+        if isinstance(rebuilt_adoption, dict):
+            current_adoption = merged.get("aoa_eval_runtime_adoption")
+            adoption = (
+                copy.deepcopy(current_adoption)
+                if isinstance(current_adoption, dict)
+                else {}
+            )
+            for key in DETERMINISTIC_ADOPTION_KEYS:
+                if key in rebuilt_adoption:
+                    adoption[key] = copy.deepcopy(rebuilt_adoption[key])
+                else:
+                    adoption.pop(key, None)
+            merged["aoa_eval_runtime_adoption"] = adoption
+    return merged
 
 
 def validate_dashboard_shape(payload: Any, support_payload: Any) -> list[str]:
@@ -3107,6 +3315,26 @@ def validate_dashboard_shape(payload: Any, support_payload: Any) -> list[str]:
         ):
             issues.append(
                 "aoa_eval_runtime_adoption live expectation must follow resolved normal profile membership"
+            )
+        if adoption.get("normal_user_profile") != DEFAULT_OS_USER_PROFILE:
+            issues.append(
+                "aoa_eval_runtime_adoption must use the OS user profile "
+                f"{DEFAULT_OS_USER_PROFILE}"
+            )
+        if adoption.get("source_profile") != DEFAULT_AOA_EVAL_PORTABLE_PROFILE:
+            issues.append(
+                "aoa_eval_runtime_adoption must use the portable consumer profile "
+                f"{DEFAULT_AOA_EVAL_PORTABLE_PROFILE}"
+            )
+        if adoption.get("portable_export_physical_required") is not False:
+            issues.append(
+                "aoa_eval_runtime_adoption must treat the portable export as a logical build contract"
+            )
+        if adoption.get("posture") == "os_profile_source_ready" and adoption.get(
+            "source_contract_ready"
+        ) is not True:
+            issues.append(
+                "aoa_eval_runtime_adoption cannot report os_profile_source_ready without a complete source contract"
             )
     queue = payload.get("candidate_queue")
     if isinstance(queue, dict):
@@ -3353,10 +3581,13 @@ def check_generated(
     if current_projection != expected_projection:
         issues.append(
             "generated/eval_readiness_dashboard.json source-derived fields are stale; "
-            "run scripts/build_eval_readiness_dashboard.py --write-generated"
+            "run scripts/build_eval_readiness_dashboard.py --no-live-checks --write-generated"
         )
     if support != expected_support:
-        issues.append("generated/eval_support_registry.json is stale; run scripts/build_eval_readiness_dashboard.py --write-generated")
+        issues.append(
+            "generated/eval_support_registry.json is stale; run "
+            "scripts/build_eval_readiness_dashboard.py --no-live-checks --write-generated"
+        )
     if not markdown_path.exists():
         issues.append("generated/eval_readiness_dashboard.md is missing")
     elif "OS Abyss Eval Readiness Dashboard" not in current_markdown:
@@ -3366,7 +3597,7 @@ def check_generated(
         if current_markdown != expected_markdown:
             issues.append(
                 "generated/eval_readiness_dashboard.md is stale against its JSON snapshot; "
-                "run scripts/build_eval_readiness_dashboard.py --write-generated"
+                "run scripts/build_eval_readiness_dashboard.py --no-live-checks --write-generated"
             )
     return issues
 
@@ -3412,6 +3643,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     markdown = build_markdown(dashboard, support_registry)
 
     if args.write_generated:
+        current_dashboard = read_json(
+            evals_root / "generated" / "eval_readiness_dashboard.json",
+            default=None,
+        )
         dashboard, support_registry, markdown = build_generated_outputs(
             evals_root=evals_root,
             workspace_root=workspace_root,
@@ -3422,6 +3657,20 @@ def main(argv: Sequence[str] | None = None) -> int:
             include_live_checks=not args.no_live_checks,
             live_timeout=args.live_timeout,
         )
+        if args.no_live_checks:
+            skill_source_posture_available = (
+                skills_source_root / "generated" / "agent_skill_catalog.json"
+            ).exists() and (
+                skills_source_root
+                / "generated"
+                / "skill_pack_profiles.resolved.json"
+            ).exists()
+            dashboard = merge_source_derived_dashboard(
+                current_dashboard,
+                dashboard,
+                include_skill_source_posture=skill_source_posture_available,
+            )
+            markdown = build_markdown(dashboard, support_registry)
         write_json(evals_root / "generated" / "eval_readiness_dashboard.json", dashboard)
         write_json(evals_root / "generated" / "eval_support_registry.json", support_registry)
         (evals_root / "generated" / "eval_readiness_dashboard.md").write_text(markdown, encoding="utf-8")

@@ -77,8 +77,8 @@ artifacts.
 - decision records that preserve why proof topology or workflow routes moved;
 - public-safe receipt and runtime-candidate surfaces;
 - agent-facing route cards and maintained agent lanes under `.agents/`;
-- one admitted owner callable procedure under `skills/`, with its exact
-  repo-scoped discovery copy under `.agents/skills/`;
+- one admitted owner callable procedure under `skills/`, selected once by the
+  OS-level Codex user profile;
 - mechanics packages for repeatable proof-layer operations;
 - legacy and provenance bridges when old names remain accepted inputs.
 

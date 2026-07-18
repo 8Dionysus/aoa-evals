@@ -52,9 +52,10 @@ trials establish:
   the procedure claims generality.
 
 After an accepted owner decision, canonical skill source belongs under
-top-level `skills/`. Any `.agents/skills/` surface is then a derived delivery
-projection of that home, never an alternate owner or a place for copied shared
-skills. Shared procedures remain owned and delivered by `aoa-skills`.
+top-level `skills/`. Its active Codex delivery is selected once by the central
+OS user profile, never by a duplicate repository copy. `.agents/` remains a
+home for maintained agent lanes, not a second skill catalog. Shared procedures
+remain owned and delivered by `aoa-skills`.
 
 ## Rationale
 
@@ -83,13 +84,27 @@ As of 2026-07-16:
 - Still valid: `.agents/` owns maintained agent lanes and proof authority stays
   with source proof surfaces; copied shared catalogs remain forbidden.
 - Changed: the no-home state ended after manual evidence admitted one
-  repository-owned bundle. `.agents/skills/aoa-evals` is now an exact generated
-  projection of `skills/aoa-evals`, not a support lane or alternate source.
+  repository-owned bundle. Its canonical source is `skills/aoa-evals`; the
+  central `os-user-default` profile selects one managed user copy, and no
+  `.agents/skills` projection is part of the active repository topology.
 - Superseded by: AOA-EV-D-0247 supersedes only the temporary absence state and
   records the admitted owner bundle; this decision's projection boundary stays
   active.
 
 ## Review Log
+
+### 2026-07-18 - Remove the remaining duplicate projection assumption
+
+- Previous assumption: an admitted owner home should regain one exact
+  `.agents/skills/aoa-evals` projection.
+- New reality: v2 owner-home exposure installs the bundle once through the OS
+  user profile so neutral sessions can discover it without duplicate names.
+- Source surfaces updated: owner manifest and skill home remain canonical;
+  `.agents/` remains limited to maintained lanes; KAG and installed copies stay
+  derived.
+- Validation: manual prompt visibility and coexistence remain semantic
+  evidence; the common v2 home-port check protects only owner identity and
+  package shape.
 
 ### 2026-07-16 - Owner bundle admitted after manual trials
 
@@ -98,8 +113,9 @@ As of 2026-07-16:
 - New reality: one `aoa-evals` bundle passed the admission threshold.
 - Reason: isolated, negative, coexistence, no-skill, drift, and held-out work
   established a distinct central-proof trigger and bounded result ABI.
-- Source surfaces updated: `skills/`, `.agents/skills/`, root agent guidance,
-  proof topology, and AOA-EV-D-0247.
+- Source surfaces updated at that time: `skills/`, the then-current delivery
+  projection, root agent guidance, proof topology, and AOA-EV-D-0247. The
+  delivery portion is superseded by the 2026-07-18 v2 review above.
 - Validation: manual semantic trials remain the admission evidence; the common
   home-port guard checks only deterministic source/projection parity.
 

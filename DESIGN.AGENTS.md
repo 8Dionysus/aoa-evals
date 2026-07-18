@@ -140,10 +140,12 @@ canonical source then lives under top-level `skills/`; runtime projections are
 derived delivery surfaces, not alternate owners.
 
 `skills/aoa-evals/` is the admitted canonical owner bundle with internal
-`select`, `review`, and `evolve` modes. `.agents/skills/aoa-evals/` is its exact
-generated repo projection. Shared cross-repository selection and local apply
-remain owned by `aoa-skills`; source eval bundles and admitted evidence keep
-proof authority.
+`select`, `review`, and `evolve` modes. The central `aoa-skills`
+`os-user-default` profile selects one managed user projection for global
+discovery. `.agents/` remains limited to maintained agent lanes and does not
+carry a duplicate skill copy. Shared cross-repository selection and local
+apply remain owned by `aoa-skills`; source eval bundles and admitted evidence
+keep proof authority.
 
 ### Legacy cards
 

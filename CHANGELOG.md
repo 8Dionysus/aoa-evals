@@ -12,8 +12,10 @@ Tracking starts with the community-docs baseline for this repository.
 - Removed the foreign copied `.agents/skills/` catalog, then admitted one
   evidence-backed `aoa-evals` owner bundle after manual trigger, ABI,
   composition, coexistence, no-skill, drift, and held-out review. Its canonical
-  source is top-level `skills/`; `.agents/skills/aoa-evals` is an exact derived
-  projection, and shared workflow ownership remains in `aoa-skills`.
+  source is top-level `skills/`; the single OS-level `os-user-default` profile
+  supplies its managed user projection, `.agents/` remains an agent-lane
+  district without duplicate skills, and shared workflow ownership remains in
+  `aoa-skills`.
 - Centralized runnable validation and test routes in command authority,
   primary operating guides, and the nearest agent cards; decisions, reports,
   changelog history, and generated Markdown now preserve outcomes and owner

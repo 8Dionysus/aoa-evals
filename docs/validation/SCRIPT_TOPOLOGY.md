@@ -44,6 +44,7 @@ authority, and tracked Python cache residue.
 | `validator_module` | focused root validator domains | owns one domain contract under root validator orchestration |
 | `part_local_builder` | mechanic-owned generated or registry payloads | covered by mechanic part tests or part-local commands |
 | `part_local_validator` | mechanic-owned payload validation | stays with the owning mechanic part |
+| `owner_skill_resource` | read-only navigation packets for an admitted owner skill | invoked through that skill procedure, remains below source proof authority, and stays outside direct eval-apply and blocking command lanes |
 | `lane_loader` / `lane_executor` | command manifest API and lane execution | reads command authority from `docs/validation/validation_lanes.json` |
 | `release_entrypoint` | release stabilization and env routing | executes release lane from command authority |
 | `script_route_card` | local script-district route law | guidance only, not executable command storage |

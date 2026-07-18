@@ -1,5 +1,5 @@
 {
-  "schema_version": "aoa_skill_home_port_v1",
+  "schema_version": "aoa_skill_home_port_v2",
   "contract_ref": "aoa-skills:schemas/skill-home-port.schema.json",
   "owner_repo": "aoa-evals",
   "owner_ref": "AGENTS.md",
@@ -7,17 +7,17 @@
     {
       "name": "aoa-evals",
       "path": "skills/aoa-evals",
-      "version": "0.1.0",
+      "version": "0.1.18",
       "lifecycle": "admitted",
       "visibility": "advertised",
       "admission_ref": "docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md"
     }
   ],
-  "projection": {
+  "exposure": {
     "runtime": "codex",
-    "scope": "repo",
-    "root": ".agents/skills",
-    "mode": "generated-copy",
+    "scope": "user",
+    "profile": "os-user-default",
+    "mode": "profile-selected",
     "skills": [
       "aoa-evals"
     ]

@@ -1,0 +1,77 @@
+schema_version: aoa_owner_skill_contract_v1
+
+identity:
+  name: aoa-evals
+  owner: aoa-evals
+  canonical_source: skills/aoa-evals
+  version: 0.1.18
+  lifecycle: admitted
+
+authority:
+  procedure_owner: skills/aoa-evals
+  proof_meaning: [evals/**/EVAL.md, evals/**/eval.yaml, admitted bundle evidence]
+  weaker_surfaces: [candidates, readiness checks, reports without accepted evidence, receipts, generated readers, MCP results, KAG nodes, green commands]
+  trust_rule: A later or derived surface cannot strengthen its source proof contract.
+
+freedom:
+  select: bounded-judgment-read-only
+  review: bounded-judgment-read-only
+  evolve: owner-gated-source-change
+
+modes:
+  select:
+    input: [bounded proof question, object under evaluation, claim class, acceptance target, known evidence or comparison posture]
+    output:
+      type: central-eval-selection
+      dispositions: [exact_fit, partial_fit, no_fit, not_applicable, blocked]
+    effects: none
+    procedure: references/select.md
+  review:
+    input: [exact source bundle or already owner-routed central proof object, material accepted evidence or source-linked pressure, repository and environment posture]
+    output:
+      type: bounded-proof-review
+      dispositions: [candidate_only, supported_bounded, insufficient_evidence, defer, owner_handoff, no_change, verified_bounded, blocked]
+    effects: none
+    procedure: references/review.md
+  evolve:
+    input: [accepted owner review or stable no-fit need, resolved owner, acceptance criteria, explicit effect authority, required human confirmation]
+    output:
+      type: proof-owner-evolution
+      dispositions: [no_change, owner_handoff, blocked, verified_bounded]
+    effects: [authorized owner source change, declared projection rebuild after source change]
+    procedure: references/evolve.md
+
+common_output_abi:
+  required:
+    - selected mode and bounded proof question
+    - object under evaluation and claim class
+    - origin owner and proof owner
+    - strongest source and evidence refs
+    - weaker surfaces inspected
+    - relevant fit, freshness, environment, baseline, lifecycle, and blind spots
+    - one allowed disposition
+    - actual effects and verification
+    - skipped checks and remaining uncertainty
+    - next owner route
+    - exact claim limit and stop line
+
+relations:
+  primary-capability-parent: aoa-evals bounded-proof owner
+  composes-with: [aoa-eval, aoa-decision, aoa-session-memory-global-route]
+  hands-off-to: [origin owner, aoa-skills, aoa-memo, aoa-stats, abyss-stack, inspected stronger owner]
+  conflicts-with: [green-as-proof, readiness-as-verdict, candidate-as-bundle, report-as-source, generated-as-authority, implicit-maturity-promotion]
+
+tool_requirements:
+  fixed_tool_dependency: false
+  techniques_runtime_dependency: false
+  bundled_read_resource: scripts/eval_contract_packet.py
+
+termination:
+  - one exact, partial, or no-fit selection
+  - one bounded review disposition
+  - one owner-authorized source change or no-change result
+  - one owner handoff or blocker
+
+health:
+  recheck_after: [material model change, host or workflow change, source bundle or skill change]
+  manual_cases: [positive trigger, negative trigger, held-out wording, coexistence, bounded effects]

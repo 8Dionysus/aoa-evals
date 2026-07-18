@@ -7,8 +7,8 @@ This card applies to the canonical `aoa-evals/skills/` home.
 ## Role
 
 This home owns only admitted repository-specific callable procedures. The
-current source is `skills/aoa-evals/SKILL.md`; `.agents/skills/aoa-evals` is an
-exact generated Codex projection and never source truth.
+current source is `skills/aoa-evals/SKILL.md`. Global Codex exposure is a
+managed OS user-profile copy and never source truth.
 
 ## Read before editing
 
@@ -32,19 +32,20 @@ the selected mode.
 - The skill routes proof work; it cannot strengthen a candidate, readiness
   surface, report, receipt, generated reader, MCP result, or green check into
   proof authority.
-- Change canonical source first, then rebuild the exact repo projection through
-  the pinned `aoa-skills` home-port contract.
+- Change canonical source first, validate the owner home, then reinstall the
+  single OS user profile through the owning `aoa-skills` route.
 
 ## Validation
 
 Manual isolated, negative, held-out, coexistence, no-skill, and bounded-effect
 tasks decide usefulness. `skills-ref validate skills/aoa-evals` checks portable
 shape when that tool is available. The pinned `aoa-skills` composite action
-checks manifest, owner, source, and byte/mode projection parity; green output
-makes no routing, outcome, safety, or portability claim.
+checks manifest, owner, source, and package digest; the OS installer owns
+installed byte/mode parity. Green output makes no routing, outcome, safety, or
+portability claim.
 
 ## Closeout
 
-Report the mode cases exercised, strongest owner sources, projection rebuild,
+Report the mode cases exercised, strongest owner sources, OS-profile status,
 prompt-visible inspection, skipped environments, and removal of session-only
 trial material.

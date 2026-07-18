@@ -946,6 +946,21 @@ def semantic_support_classification(kind: str, entry: dict[str, Any], relevant: 
             "safe_to_apply_directly": True,
             "forbidden_interpretations": ["central_proof_acceptance"],
         }
+    if kind == "script" and family == "owner_skill_resource" and not has_write:
+        return {
+            "semantic_class": "owner_skill_navigation_resource",
+            "classification_rule": "read_only_owner_skill_resource",
+            "review_status": "rule_reviewed",
+            "review_reason": "read-only bundled resource serves the admitted owner skill procedure and remains navigation support rather than direct eval application",
+            "classification_evidence": evidence,
+            "recommended_route": "use_through_owner_skill_procedure",
+            "safe_to_apply_directly": False,
+            "forbidden_interpretations": [
+                "direct_eval_apply_command",
+                "central_proof_acceptance",
+                "owner_skill_packet_as_verdict",
+            ],
+        }
     if "candidate" in text or "runtime" in text or "session" in text or "memory" in text:
         return {
             "semantic_class": "runtime_candidate_support",

@@ -30,6 +30,7 @@ LANE_MANIFEST_PATH = REPO_ROOT / "docs" / "validation" / "validation_lanes.json"
 VALIDATOR_INVENTORY_PATH = REPO_ROOT / "docs" / "validation" / "validator_inventory.json"
 TOPOLOGY_PATH = REPO_ROOT / "docs" / "validation" / "VALIDATOR_TOPOLOGY.md"
 COMMAND_AUTHORITY_PATH = REPO_ROOT / "docs" / "validation" / "COMMAND_AUTHORITY.md"
+SKILL_PORT_MANIFEST_PATH = REPO_ROOT / "skills" / "port.manifest.json"
 PRIMARY_COMMAND_DOCS = frozenset(
     {
         "docs/validation/COMMAND_AUTHORITY.md",
@@ -73,6 +74,23 @@ def tracked_markdown_paths() -> tuple[Path, ...]:
     return tuple(Path(line) for line in result.stdout.splitlines() if line)
 
 
+def admitted_owner_skill_roots() -> tuple[Path, ...]:
+    payload = load_json(SKILL_PORT_MANIFEST_PATH)
+    roots: list[Path] = []
+    for bundle in payload.get("bundles", []):
+        path = bundle.get("path") if isinstance(bundle, dict) else None
+        if isinstance(path, str) and path:
+            roots.append(Path(path))
+    return tuple(roots)
+
+
+def is_owner_skill_command_doc(relative_path: Path) -> bool:
+    return any(
+        relative_path == root or root in relative_path.parents
+        for root in admitted_owner_skill_roots()
+    )
+
+
 def markdown_command_violations(content: str) -> set[str]:
     violations: set[str] = set()
     if SHELL_FENCE_PATTERN.search(content):
@@ -113,6 +131,8 @@ class ValidationTopologyTests(unittest.TestCase):
             if route.startswith(".agents/skills/"):
                 continue
             if relative_path.name in {"AGENTS.md", "VALIDATION.md"}:
+                continue
+            if is_owner_skill_command_doc(relative_path):
                 continue
             if route in PRIMARY_COMMAND_DOCS:
                 continue

@@ -682,6 +682,19 @@ def test_support_registry_routes_validator_helpers_through_owner_command() -> No
     assert "owning validator or lane command" in semantic["review_reason"]
 
 
+def test_support_registry_routes_owner_skill_resource_through_skill_procedure() -> None:
+    support = readiness.build_support_registry(REPO_ROOT)
+    entries = {entry["path"]: entry for entry in support["surfaces"]}
+
+    entry = entries["skills/aoa-evals/scripts/eval_contract_packet.py"]
+    assert entry["semantic_class"] == "owner_skill_navigation_resource"
+    assert entry["classification_rule"] == "read_only_owner_skill_resource"
+    assert entry["review_status"] == "rule_reviewed"
+    assert entry["recommended_route"] == "use_through_owner_skill_procedure"
+    assert entry["safe_to_apply_directly"] is False
+    assert "owner_skill_packet_as_verdict" in entry["forbidden_interpretations"]
+
+
 def test_session_mining_status_exposes_manual_review_packetization() -> None:
     status = readiness.SESSION_MINING_STATUS
     schema = readiness.SAMPLE_PACKET_SCHEMA

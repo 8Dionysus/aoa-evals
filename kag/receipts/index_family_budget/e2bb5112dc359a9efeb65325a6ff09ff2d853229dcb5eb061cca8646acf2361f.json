@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 11053384,
+  "allowed_tracked_bytes": 23692357,
+  "approved_by": "repository-owner",
+  "base_ref": "347cf5b6c9b149f17371346e721bb047e15cb482",
+  "changed_generated_bytes": 11053384,
+  "changed_generated_files": 198,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "e2bb5112dc359a9efeb65325a6ff09ff2d853229dcb5eb061cca8646acf2361f",
+  "reason": "Refresh the portable owner projection after correcting aoa-evals catalog truncation semantics from a manual routing counterexample and preserving the behavior in the existing owner-resource regression module.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 23692357,
+  "tracked_bytes_max": 26214400
+}

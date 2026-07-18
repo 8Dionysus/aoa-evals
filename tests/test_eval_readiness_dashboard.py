@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib.util
 import json
 import sys
 import textwrap
@@ -12,6 +13,19 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import build_eval_readiness_dashboard as readiness
+
+
+OWNER_SKILL_PACKET_PATH = (
+    REPO_ROOT / "skills" / "aoa-evals" / "scripts" / "eval_contract_packet.py"
+)
+OWNER_SKILL_PACKET_SPEC = importlib.util.spec_from_file_location(
+    "aoa_evals_owner_skill_packet",
+    OWNER_SKILL_PACKET_PATH,
+)
+assert OWNER_SKILL_PACKET_SPEC is not None
+assert OWNER_SKILL_PACKET_SPEC.loader is not None
+owner_skill_packet = importlib.util.module_from_spec(OWNER_SKILL_PACKET_SPEC)
+OWNER_SKILL_PACKET_SPEC.loader.exec_module(owner_skill_packet)
 
 
 def write_text(path: Path, content: str) -> None:
@@ -693,6 +707,44 @@ def test_support_registry_routes_owner_skill_resource_through_skill_procedure() 
     assert entry["recommended_route"] == "use_through_owner_skill_procedure"
     assert entry["safe_to_apply_directly"] is False
     assert "owner_skill_packet_as_verdict" in entry["forbidden_interpretations"]
+
+
+def test_owner_skill_catalog_marks_truncation_only_when_matches_are_omitted(
+    tmp_path: Path,
+) -> None:
+    one_match = {
+        "catalog_version": "test",
+        "evals": [
+            {"name": "aoa-one", "summary": "unique routing needle"},
+        ],
+    }
+    complete = owner_skill_packet._catalog_packet(
+        tmp_path,
+        one_match,
+        {},
+        "needle",
+        1,
+    )
+
+    two_matches = {
+        "catalog_version": "test",
+        "evals": [
+            {"name": "aoa-one", "summary": "shared routing needle"},
+            {"name": "aoa-two", "summary": "shared routing needle"},
+        ],
+    }
+    truncated = owner_skill_packet._catalog_packet(
+        tmp_path,
+        two_matches,
+        {},
+        "needle",
+        1,
+    )
+
+    assert complete["returned_entry_count"] == 1
+    assert complete["truncated"] is False
+    assert truncated["returned_entry_count"] == 1
+    assert truncated["truncated"] is True
 
 
 def test_session_mining_status_exposes_manual_review_packetization() -> None:

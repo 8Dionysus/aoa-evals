@@ -340,6 +340,7 @@ def _catalog_packet(
     }
     query_terms = _query_terms(query or "")
     entries: list[dict[str, Any]] = []
+    matched_entry_count = 0
     if query_terms:
         scored: list[tuple[int, str, dict[str, Any], list[str]]] = []
         for entry in source_entries:
@@ -349,6 +350,7 @@ def _catalog_packet(
                     (score, str(entry.get("name", "")), entry, matched)
                 )
         scored.sort(key=lambda row: (-row[0], row[1]))
+        matched_entry_count = len(scored)
         for score, _name, entry, matched in scored[:limit]:
             card = _compact_card(entry)
             card["route_score"] = score
@@ -378,7 +380,7 @@ def _catalog_packet(
         "catalog_version": catalog.get("catalog_version"),
         "total_entry_count": len(source_entries),
         "returned_entry_count": len(entries),
-        "truncated": bool(query_terms and len(entries) == limit),
+        "truncated": bool(query_terms and matched_entry_count > limit),
         "entries": entries,
         "claim_limit": (
             "lexical routing shortlist only; score is not semantic fit or proof; "

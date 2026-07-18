@@ -9,7 +9,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 ## Summary
 
-- Generated at: `2026-07-16T11:29:54Z`
+- Generated at: `2026-07-18T10:27:58Z`
 - Workspace root: `workspace:OS_ABYSS`
 - Central evals: 39
 - Local active ports: 9
@@ -21,7 +21,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 - Eval Forge archetypes: 18
 - Eval Forge candidate hints: 5
 - Session-mining reviewed episodes: 20
-- Support surfaces: 592 total, 428 eval-relevant
+- Support surfaces: 593 total, 429 eval-relevant
 - Eval-relevant surfaces with unresolved manual review: 0
 - Unsafe side-effect scripts: 4
 - MCP runtime status: `ok`
@@ -152,19 +152,19 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 ## Support Registry
 
 - Support registry JSON: `generated/eval_support_registry.json`
-- Eval-relevant surfaces: 428
-- Recommended routes: `{"apply_as_deterministic_eval_support": 469, "candidate_only_eval_support": 8, "component_only_use_owning_validator_or_lane_command": 83, "forbidden_as_eval_apply_until_manual_owner_review": 4, "generated_readmodel_support": 6, "ordinary_owner_route": 5, "run_check_mode_before_eval_support": 17}`
-- Semantic classes: `{"deterministic_validator": 465, "generated_parity_check": 32, "ordinary_support": 5, "runtime_candidate_support": 8, "trace_trajectory_eval_support": 14, "unit_contract_property_test": 64, "unsafe_side_effect_script": 4}`
-- Review status: `{"candidate_only": 8, "not_eval_relevant": 5, "reviewed_forbidden": 4, "rule_reviewed": 575}`
+- Eval-relevant surfaces: 429
+- Recommended routes: `{"apply_as_deterministic_eval_support": 469, "candidate_only_eval_support": 8, "component_only_use_owning_validator_or_lane_command": 83, "forbidden_as_eval_apply_until_manual_owner_review": 4, "generated_readmodel_support": 6, "ordinary_owner_route": 5, "run_check_mode_before_eval_support": 17, "use_through_owner_skill_procedure": 1}`
+- Semantic classes: `{"deterministic_validator": 465, "generated_parity_check": 32, "ordinary_support": 5, "owner_skill_navigation_resource": 1, "runtime_candidate_support": 8, "trace_trajectory_eval_support": 14, "unit_contract_property_test": 64, "unsafe_side_effect_script": 4}`
+- Review status: `{"candidate_only": 8, "not_eval_relevant": 5, "reviewed_forbidden": 4, "rule_reviewed": 576}`
 
 ## aoa-eval Source And Host Posture
 
 - Source skill exists: True
-- Portable export exists: True
-- Current posture: `deferred_explicit_source`
-- Source profile contains `aoa-eval`: True
-- Normal user profile contains `aoa-eval`: False
-- Normal user profile verified: True
+- Logical portable export contract exists: True
+- Current posture: `os_profile_source_ready`
+- Portable consumer profile `portable-consumer-advertised` contains `aoa-eval`: True
+- OS user profile `os-user-default` contains `aoa-eval`: True
+- OS user profile currently installed: False
 - Live `aoa-eval` install exists: False
 - Prompt visibility: `external_live_check_required`
 - Behavioral review: `repo:aoa-skills/docs/reviews/2026-07-15-capability-family-lifecycle.md`

@@ -472,7 +472,7 @@ def render_text(payload: dict[str, Any]) -> str:
     lines.extend(["", "## Skill Runtime"])
     if adoption:
         lines.append(
-            "- aoa-eval posture `{posture}`; normal profile `{profile}` verified: {verified}; "
+            "- aoa-eval posture `{posture}`; OS profile `{profile}` installed: {verified}; "
             "profile contains aoa-eval: {included}; live install exists: {live}; front door: {front_door}".format(
                 posture=adoption.get("posture"),
                 profile=adoption.get("normal_user_profile"),

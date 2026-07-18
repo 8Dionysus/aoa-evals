@@ -42,6 +42,7 @@ Regenerate files with the owning builder:
 - `python scripts/build_catalog.py`
 - `python scripts/generate_eval_report_index.py`
 - `python scripts/build_eval_readiness_dashboard.py --write-generated`
+- `python scripts/build_eval_readiness_dashboard.py --no-live-checks --write-generated`
 - `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py`
 - `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py`
 - `python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py`
@@ -69,6 +70,11 @@ JSON-to-Markdown snapshot. It does not treat naturally changed MCP, `.aoa`,
 Git, or local-port observations as source drift merely because they differ
 from the recorded snapshot; freshness is inspected through the live readiness
 route.
+Use `--no-live-checks --write-generated` when source inventory or another
+owner-derived input changes: it refreshes deterministic owner fields and the
+support registry while preserving the recorded live OS/session snapshot. Use
+plain `--write-generated` only when intentionally recording a new live
+readiness snapshot.
 
 ## Validation
 

@@ -58,16 +58,18 @@ observed break, consequence, owner surface, and repeatability path.
 
 ## Shared Skill Source Posture
 
-Eval Forge does not require `aoa-eval` to be installed in the normal user
-skill profile. The current `aoa-skills` owner contract keeps `aoa-eval` as a
-deferred explicit source inside `repo-capability-sources`; `user-default`
-contains only the currently advertised shared bundle.
+The current `aoa-skills` owner contract selects `aoa-eval` in the single
+OS-level `os-user-default` profile and in the logical
+`portable-consumer-advertised` build profile. The owner package remains under
+`aoa-skills/skills/`; neither `aoa-evals` nor a repo-local `.agents/skills`
+copy owns or supplies the shared procedure.
 
-The readiness dashboard may inspect the authored `aoa-eval` bundle, portable
-export, generated catalog, resolved profiles, and host install parity. Those
-signals establish source and delivery posture only. Actual prompt visibility
-still requires a fresh-session host inspection, and absence from the normal
-profile must not be reported as a broken `aoa-eval` installation.
+The readiness dashboard may inspect the authored `aoa-eval` bundle, logical
+portable-export contract, release revision, generated catalog, OS profile, and
+host install parity. Source-contract readiness and current installation are
+separate facts: a missing managed copy is deployment debt, while actual prompt
+visibility still requires a fresh-session host inspection. Neither state may
+be upgraded into evidence that the skill was selected or effective.
 
 ## Local Port Flow
 

@@ -88,13 +88,28 @@ As of 2026-07-16:
   `absent`/`invalid`/`stale`/`ready` execution state from AOA-EV-D-0245, where
   ready means source-contract-ready and still requires owner/apply JIT
   revalidation, environment capture, and an execution receipt.
-- Changed: `aoa-eval` is a deferred explicit source in the current
-  `aoa-skills` capability-source profile, not a member of the normal user
-  profile. Readiness checks current source, export, catalog, profile, and host
-  signals without treating profile absence as failed adoption.
+- Changed: `aoa-eval` is selected by the current `aoa-skills`
+  `os-user-default` profile and the logical
+  `portable-consumer-advertised` build profile. Readiness checks source,
+  logical export, release revision, catalog, OS-profile selection, and current
+  installation as separate signals; prompt visibility remains fresh-session
+  host evidence.
 - Superseded by: none.
 
 ## Review Log
+
+### 2026-07-18 - Adopt the v2 OS profile and logical export contract
+
+- Previous assumption: `aoa-eval` remained a deferred source outside the
+  normal user profile and required a physical repo-local portable copy.
+- New reality: the accepted v2 `aoa-skills` contract selects the owner package
+  in `os-user-default` and describes its portable delivery logically through
+  `portable-consumer-advertised`, the export map, and the release revision.
+- Check correction: readiness now separates owner-source contract readiness,
+  managed-copy installation, and fresh prompt visibility. No one signal proves
+  selection, execution, or outcome benefit.
+- Validation: source-only refresh, OS-profile check, focused contract tests,
+  fresh-session inspection, generated parity, and repository validation.
 
 ### 2026-07-16 - Align skill posture with the consolidated capability ecosystem
 

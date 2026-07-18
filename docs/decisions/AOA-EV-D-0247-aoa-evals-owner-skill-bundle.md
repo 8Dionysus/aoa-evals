@@ -44,15 +44,16 @@ parity, security, or general outcome superiority.
 - Add the procedure to shared `aoa-skills` or expand shared `aoa-eval` until it
   owns central proof interpretation.
 - Advertise separate selection, review, and evolution skills.
-- Admit one owner-local bundle with three internal modes and an exact derived
-  repository projection.
+- Admit one owner-local bundle with three internal modes and one managed
+  OS-level user projection.
 
 ## Decision
 
 Admit one repository-owned `aoa-evals` bundle with internal `select`, `review`,
 and `evolve` modes. Canonical source lives at `skills/aoa-evals/SKILL.md`.
 `skills/port.manifest.json` declares version, lifecycle, visibility, admission,
-and the exact repo-scoped Codex projection at `.agents/skills/aoa-evals`.
+and selection by the central `os-user-default` profile. The managed user copy
+is a delivery projection; `.agents/` carries no duplicate skill package.
 
 The bundle owns a callable route through central bounded-proof work, not proof
 meaning itself. Source `EVAL.md`, `eval.yaml`, and admitted evidence remain
@@ -86,9 +87,9 @@ projection invariant. Manual trials, not that validator, justify admission.
 - Tradeoff: one additional prompt-visible description consumes catalog space.
 - Tradeoff: material model, workflow, or bundle changes require new manual
   routing and outcome review before lifecycle expansion.
-- Follow-up: KAG may index the owner source and typed relations, but must mark
-  `.agents/skills/aoa-evals` as a generated projection rather than a second
-  authored skill.
+- Follow-up: KAG may index the owner source, typed relations, and install
+  provenance, but must keep the managed user copy a derived projection rather
+  than a second authored skill.
 
 ## Current Applicability
 
@@ -107,6 +108,19 @@ As of 2026-07-17:
   superseded by the v2 owner-home exposure contract.
 
 ## Review Log
+
+### 2026-07-18 - Move active exposure to the single OS user profile
+
+- Previous assumption: owner admission implied one exact repository projection
+  under `.agents/skills`.
+- New reality: the central v2 exposure contract selects `aoa-evals` once in
+  `os-user-default`; the repository retains only canonical `skills/` source and
+  maintained `.agents/` lanes.
+- Reason: neutral sessions need global owner-function discovery, while duplicate
+  user and repository names create routing ambiguity.
+- Claim limit: structural profile checks prove delivery identity only. Manual
+  fresh-session work remains required for prompt visibility, selection,
+  coexistence, and outcome claims.
 
 ### 2026-07-16 - Split the admitted bundle by progressive disclosure
 

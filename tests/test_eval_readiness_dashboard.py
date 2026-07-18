@@ -318,6 +318,55 @@ def test_generated_check_does_not_treat_volatile_os_change_as_source_drift(
     assert issues == []
 
 
+def test_source_derived_refresh_preserves_recorded_live_snapshot() -> None:
+    current = {
+        "schema_version": readiness.SCHEMA_VERSION,
+        "generated_at_utc": "2026-06-25T00:00:00Z",
+        "central_catalog": {"total_evals": 39},
+        "mcp_runtime_status": {"status": "ok", "freshness": "recorded"},
+        "aoa_session_memory_freshness": {"status": "recorded-warning"},
+        "workspace_git_drift": {"summary": {"dirty_repos": 2}},
+        "aoa_eval_runtime_adoption": {
+            "source_exists": False,
+            "live_skill_exists": True,
+            "normal_user_profile_verified": True,
+        },
+    }
+    rebuilt = {
+        "schema_version": readiness.SCHEMA_VERSION,
+        "generated_at_utc": "2026-07-18T00:00:00Z",
+        "central_catalog": {"total_evals": 40},
+        "mcp_runtime_status": {"status": "failed", "freshness": "current"},
+        "aoa_session_memory_freshness": {"status": "current-error"},
+        "workspace_git_drift": {"summary": {"dirty_repos": 9}},
+        "aoa_eval_runtime_adoption": {
+            "source_exists": True,
+            "live_skill_exists": False,
+            "normal_user_profile_verified": False,
+        },
+    }
+
+    merged = readiness.merge_source_derived_dashboard(
+        current,
+        rebuilt,
+        include_skill_source_posture=True,
+    )
+
+    assert merged["generated_at_utc"] == "2026-06-25T00:00:00Z"
+    assert merged["central_catalog"] == {"total_evals": 40}
+    assert merged["mcp_runtime_status"] == current["mcp_runtime_status"]
+    assert merged["aoa_session_memory_freshness"] == current[
+        "aoa_session_memory_freshness"
+    ]
+    assert merged["workspace_git_drift"] == current["workspace_git_drift"]
+    assert merged["aoa_eval_runtime_adoption"]["source_exists"] is True
+    assert merged["aoa_eval_runtime_adoption"]["live_skill_exists"] is True
+    assert (
+        merged["aoa_eval_runtime_adoption"]["normal_user_profile_verified"]
+        is True
+    )
+
+
 def test_repo_readiness_routes_suite_contract_states_without_executing_argv(
     tmp_path: Path,
 ) -> None:
@@ -495,30 +544,23 @@ def test_aoa_freshness_extracts_actionable_json_summary(monkeypatch, tmp_path: P
     assert result["json_summary"]["live_tail_status"] == "ready_for_catchup"
 
 
-def test_skill_pack_profile_verification_summarizes_current_user_profile(tmp_path: Path) -> None:
+def test_os_skill_profile_verification_summarizes_current_user_profile(tmp_path: Path) -> None:
     skills_source_root = tmp_path / "aoa-skills"
     installed_skills_root = tmp_path / "skills"
-    verifier = skills_source_root / "scripts" / "verify_skill_pack.py"
-    verifier.parent.mkdir(parents=True)
+    installer = skills_source_root / "scripts" / "install_os_skill_profile.py"
+    installer.parent.mkdir(parents=True)
     write_text(
-        verifier,
+        installer,
         """
         import json
 
         print(json.dumps({
-            "verified": True,
-            "profile_revision": "rev-1",
-            "expected_skill_count": 1,
-            "verified_skill_count": 1,
-            "missing_skills": [],
-            "mismatched_skills": [],
-            "extra_skill_dirs": [".system"],
-            "release_identity": {"has_unreleased_changes": True},
+            "install_receipt_status": "current",
+            "stale_managed": [],
             "skills": [
                 {
-                    "name": "aoa-decision",
-                    "install_state": "ok",
-                    "is_symlink": False,
+                    "name": "aoa-eval",
+                    "status": "current",
                     "source_digest": "src",
                     "target_digest": "src"
                 }
@@ -527,35 +569,59 @@ def test_skill_pack_profile_verification_summarizes_current_user_profile(tmp_pat
         """,
     )
 
-    result = readiness.build_skill_pack_profile_verification(
+    result = readiness.build_os_skill_profile_verification(
         skills_source_root,
         installed_skills_root,
+        workspace_root=tmp_path,
         timeout=1,
     )
 
     assert result["status"] == "ok"
     assert result["verified"] is True
-    assert result["profile"] == "user-default"
+    assert result["profile"] == "os-user-default"
     assert result["expected_skill_count"] == 1
     assert result["verified_skill_count"] == 1
     assert result["missing_skill_count"] == 0
     assert result["mismatched_skill_count"] == 0
-    assert result["profile_skill_names"] == ["aoa-decision"]
-    assert result["aoa_eval_expected_in_profile"] is False
-    assert result["aoa_eval_install_state"] is None
+    assert result["profile_skill_names"] == ["aoa-eval"]
+    assert result["aoa_eval_expected_in_profile"] is True
+    assert result["aoa_eval_install_state"] == "current"
     assert result["authority_boundary"].startswith("aoa-skills owns")
 
+    write_text(
+        installer,
+        """
+        import sys
 
-def test_aoa_eval_runtime_adoption_reads_deferred_source_profile(tmp_path: Path) -> None:
+        print(
+            "skill home port manifest is missing: "
+            "/srv/AbyssOS/aoa-agents/skills/port.manifest.json",
+            file=sys.stderr,
+        )
+        raise SystemExit(1)
+        """,
+    )
+    blocked = readiness.build_os_skill_profile_verification(
+        skills_source_root,
+        installed_skills_root,
+        workspace_root=tmp_path,
+        timeout=1,
+    )
+
+    assert blocked["status"] == "failed"
+    assert blocked["verified"] is False
+    assert "aoa-agents/skills/port.manifest.json" in blocked["failure_detail"]
+    assert blocked["reason"].startswith(
+        "OS-profile installer failed before emitting JSON"
+    )
+
+
+def test_aoa_eval_runtime_adoption_reads_v2_os_and_portable_profiles(tmp_path: Path) -> None:
     skills_source_root = tmp_path / "aoa-skills"
     installed_skills_root = tmp_path / "skills"
     write_text(
         skills_source_root / "skills/core/engineering/aoa-eval/SKILL.md",
-        "---\nname: aoa-eval\ndescription: deferred source\n---\n",
-    )
-    write_text(
-        skills_source_root / ".agents/skills/aoa-eval/SKILL.md",
-        "---\nname: aoa-eval\ndescription: portable deferred source\n---\n",
+        "---\nname: aoa-eval\ndescription: selected source\n---\n",
     )
     write_text(
         skills_source_root / "generated/agent_skill_catalog.json",
@@ -564,10 +630,10 @@ def test_aoa_eval_runtime_adoption_reads_deferred_source_profile(tmp_path: Path)
                 "skills": [
                     {
                         "name": "aoa-eval",
-                        "implicit_activation_policy": "suggest",
-                        "allow_implicit_invocation": False,
-                        "manual_invocation_required": True,
-                        "candidate_only": True,
+                        "implicit_activation_policy": "invoke",
+                        "allow_implicit_invocation": True,
+                        "manual_invocation_required": False,
+                        "candidate_only": False,
                     }
                 ]
             }
@@ -578,8 +644,7 @@ def test_aoa_eval_runtime_adoption_reads_deferred_source_profile(tmp_path: Path)
         json.dumps(
             {
                 "profiles": {
-                    "user-default": {"skills": [{"name": "aoa-decision"}]},
-                    "repo-capability-sources": {
+                    "portable-consumer-advertised": {
                         "skills": [{"name": "aoa-decision"}, {"name": "aoa-eval"}]
                     },
                 }
@@ -587,48 +652,105 @@ def test_aoa_eval_runtime_adoption_reads_deferred_source_profile(tmp_path: Path)
         ),
     )
     write_text(
+        skills_source_root / "config/os_skill_profiles.json",
+        json.dumps(
+            {
+                "schema_version": "aoa_os_skill_profiles_v1",
+                "profiles": {
+                    "os-user-default": {
+                        "sources": [
+                            {
+                                "kind": "shared-home",
+                                "repo": "aoa-skills",
+                                "root": "self",
+                                "skills": ["aoa-decision", "aoa-eval"],
+                            }
+                        ]
+                    }
+                },
+            }
+        ),
+    )
+    write_text(
+        skills_source_root / "generated/portable_export_map.json",
+        json.dumps(
+            {
+                "exports": [
+                    {
+                        "name": "aoa-eval",
+                        "source_skill_path": "skills/core/engineering/aoa-eval/SKILL.md",
+                        "target_skill_path": ".agents/skills/aoa-eval/SKILL.md",
+                    }
+                ]
+            }
+        ),
+    )
+    write_text(
         skills_source_root / "generated/release_manifest.json",
-        json.dumps({"advertised_skill_count": 1, "deferred_skill_count": 6}),
+        json.dumps(
+            {
+                "advertised_skill_count": 7,
+                "deferred_skill_count": 2,
+                "skill_bundle_revisions": [
+                    {
+                        "name": "aoa-eval",
+                        "skill_revision": "source-rev",
+                        "source_hash": "source-tree",
+                        "portable_hash": "portable-tree",
+                    }
+                ],
+            }
+        ),
     )
     write_text(
         skills_source_root / "docs/reviews/2026-07-15-capability-family-lifecycle.md",
         "# Manual lifecycle review\n",
     )
-    write_text(
-        skills_source_root / "scripts/verify_skill_pack.py",
-        """
-        import json
-
-        print(json.dumps({
-            "verified": True,
-            "profile_revision": "current-user-default",
-            "expected_skill_count": 1,
-            "verified_skill_count": 1,
-            "missing_skills": [],
-            "mismatched_skills": [],
-            "extra_skill_dirs": [],
-            "skills": [{"name": "aoa-decision", "install_state": "ok"}]
-        }))
-        """,
-    )
 
     result = readiness.build_aoa_eval_runtime_adoption(
         skills_source_root,
         installed_skills_root,
+        workspace_root=tmp_path,
+        include_live_check=False,
         timeout=1,
     )
 
-    assert result["posture"] == "deferred_explicit_source"
-    assert result["source_profile"] == "repo-capability-sources"
+    assert result["posture"] == "os_profile_source_ready"
+    assert result["source_contract_ready"] is True
+    assert result["source_profile"] == "portable-consumer-advertised"
     assert result["source_profile_contains_aoa_eval"] is True
-    assert result["normal_user_profile"] == "user-default"
-    assert result["normal_user_profile_contains_aoa_eval"] is False
-    assert result["normal_user_profile_verified"] is True
-    assert result["live_skill_expected_by_normal_user_profile"] is False
+    assert result["normal_user_profile"] == "os-user-default"
+    assert result["normal_user_profile_contains_aoa_eval"] is True
+    assert result["normal_user_profile_verified"] is None
+    assert result["live_skill_expected_by_normal_user_profile"] is True
     assert result["live_skill_exists"] is False
-    assert result["candidate_only"] is True
+    assert result["candidate_only"] is False
+    assert result["portable_export_contract_found"] is True
+    assert result["portable_export_physical_required"] is False
+    assert result["portable_export_sha256"] == "portable-tree"
+    assert result["front_door_invoke_capable"] == "os_profile_selected_invoke_after_install"
     assert result["prompt_visible_live_check"] == "external_live_check_required"
     assert "runtime_discovery_index_ref" not in result
+
+    os_profile = json.loads(
+        (skills_source_root / "config/os_skill_profiles.json").read_text(encoding="utf-8")
+    )
+    os_profile["profiles"]["os-user-default"]["sources"][0]["skills"] = [
+        "aoa-decision"
+    ]
+    write_text(
+        skills_source_root / "config/os_skill_profiles.json",
+        json.dumps(os_profile),
+    )
+    missing_from_os_profile = readiness.build_aoa_eval_runtime_adoption(
+        skills_source_root,
+        installed_skills_root,
+        workspace_root=tmp_path,
+        include_live_check=False,
+        timeout=1,
+    )
+    assert missing_from_os_profile["posture"] == "source_contract_unresolved"
+    assert missing_from_os_profile["source_contract_ready"] is False
 
 
 def test_support_registry_maps_readiness_builder_after_inventory_registration() -> None:

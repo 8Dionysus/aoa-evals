@@ -161,8 +161,11 @@ identity. `PORT.yaml`, suite/report notes, and sidecars must agree. In a Git
 checkout the validator resolves the Git common-dir repository name and the
 `origin` repository name when available; conflicting identities are invalid.
 A named worktree such as `aoa-skills-executable-eval-pilot-20260710` therefore
-still resolves to `aoa-skills`. A non-Git fixture falls back to the target-root
-basename.
+still resolves to `aoa-skills`. In a non-Git portable extraction, the validator
+uses a single owner identity only when at least two recognized source manifests
+agree: `evals/PORT.yaml`, `capabilities/port.manifest.json`, or
+`skills/port.manifest.json`. Conflicting declarations are invalid. A non-Git
+fixture without that agreement falls back to the target-root basename.
 An identity conflict is surfaced before central-owner exclusion, so a spoofed
 `origin=aoa-evals` cannot disappear from inventory as if it were the genuine
 central proof owner.
@@ -366,6 +369,9 @@ Route away when:
 - a `.suite.md` note is treated as runnable without a ready sidecar;
 - a named Git worktree basename overrides the canonical PORT/common-dir/origin
   owner identity;
+- an arbitrary portable extraction-directory basename overrides two or more
+  agreeing recognized owner manifests;
+- recognized portable owner manifests disagree;
 - a sidecar uses an untyped or non-`python_pytest` dispatcher grammar;
 - `ready` is described as pinned or reproducible runtime evidence;
 - owner/apply executes without JIT revalidation, environment capture, and an

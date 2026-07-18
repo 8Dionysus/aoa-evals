@@ -131,6 +131,36 @@ def write_valid_report_note(repo_root: Path, *, owner_repo: str | None = None) -
     )
 
 
+def write_portable_owner_manifests(
+    repo_root: Path,
+    *,
+    capability_owner: str,
+    skill_owner: str,
+) -> None:
+    write_text(
+        repo_root / "capabilities" / "port.manifest.json",
+        json.dumps(
+            {
+                "schema_version": "aoa_capability_home_port_v1",
+                "owner_repo": capability_owner,
+            },
+            indent=2,
+        )
+        + "\n",
+    )
+    write_text(
+        repo_root / "skills" / "port.manifest.json",
+        json.dumps(
+            {
+                "schema_version": "aoa_skill_home_port_v2",
+                "owner_repo": skill_owner,
+            },
+            indent=2,
+        )
+        + "\n",
+    )
+
+
 def write_suite_execution_contract(
     repo_root: Path,
     *,
@@ -406,6 +436,82 @@ def test_git_common_dir_origin_identity_conflict_invalidates_suite(tmp_path: Pat
 
     assert execution["state"] == "invalid"
     assert any("conflicts with origin owner" in issue["message"] for issue in execution["issues"])
+
+
+def test_nongit_portable_owner_consensus_ignores_extraction_basename(
+    tmp_path: Path,
+) -> None:
+    repo_root = tmp_path / "arbitrary-export-directory"
+    owner_repo = "aoa-session-memory"
+    make_port(repo_root, status="active", owner_repo=owner_repo)
+    write_valid_suite_note(repo_root, owner_repo=owner_repo)
+    write_suite_execution_contract(repo_root, owner_repo=owner_repo)
+    write_portable_owner_manifests(
+        repo_root,
+        capability_owner=owner_repo,
+        skill_owner=owner_repo,
+    )
+
+    issues = validate_local_eval_port.validate_local_eval_port(repo_root)
+    execution = validate_local_eval_port.evaluate_local_suite_execution(repo_root)
+
+    assert issues == []
+    assert execution["state"] == "ready"
+    assert execution["canonical_owner_repo"] == owner_repo
+    assert execution["owner_identity_sources"] == [
+        "portable_manifest:evals/PORT.yaml",
+        "portable_manifest:capabilities/port.manifest.json",
+        "portable_manifest:skills/port.manifest.json",
+    ]
+
+
+def test_nongit_portable_owner_conflict_is_invalid(tmp_path: Path) -> None:
+    repo_root = tmp_path / "arbitrary-export-directory"
+    owner_repo = "aoa-session-memory"
+    make_port(repo_root, status="active", owner_repo=owner_repo)
+    write_valid_suite_note(repo_root, owner_repo=owner_repo)
+    write_suite_execution_contract(repo_root, owner_repo=owner_repo)
+    write_portable_owner_manifests(
+        repo_root,
+        capability_owner=owner_repo,
+        skill_owner="spoofed-owner",
+    )
+
+    execution = validate_local_eval_port.evaluate_local_suite_execution(repo_root)
+
+    assert execution["state"] == "invalid"
+    assert any(
+        "portable owner declarations conflict" in issue["message"]
+        for issue in execution["issues"]
+    )
+
+
+def test_nongit_portable_owner_consensus_ignores_symlinked_manifest(
+    tmp_path: Path,
+) -> None:
+    repo_root = tmp_path / "arbitrary-export-directory"
+    owner_repo = "aoa-session-memory"
+    make_port(repo_root, status="active", owner_repo=owner_repo)
+    write_valid_suite_note(repo_root, owner_repo=owner_repo)
+    write_suite_execution_contract(repo_root, owner_repo=owner_repo)
+    external_root = tmp_path / "external-capabilities"
+    write_text(
+        external_root / "port.manifest.json",
+        json.dumps(
+            {
+                "schema_version": "aoa_capability_home_port_v1",
+                "owner_repo": owner_repo,
+            }
+        )
+        + "\n",
+    )
+    (repo_root / "capabilities").symlink_to(external_root, target_is_directory=True)
+
+    execution = validate_local_eval_port.evaluate_local_suite_execution(repo_root)
+
+    assert execution["state"] == "invalid"
+    assert execution["canonical_owner_repo"] == repo_root.name
+    assert execution["owner_identity_sources"] == ["fallback_basename_nongit"]
 
 
 def test_suite_execution_contract_becomes_stale_when_tracked_source_changes(

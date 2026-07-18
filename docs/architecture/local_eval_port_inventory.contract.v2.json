@@ -8,7 +8,8 @@
   "canonical_owner_identity": {
     "law": "PORT.yaml owner_repo and every suite/report note or execution sidecar owner_repo must match the resolved canonical repo identity, not a named worktree basename.",
     "git_resolution": "Use Git common-dir owner and origin repository name when available; disagreement is invalid.",
-    "nongit_fallback": "Use target-root basename only for non-Git fixtures or an otherwise unidentified Git fixture."
+    "nongit_portable_resolution": "For a non-Git portable extraction, use the declared owner only when at least two recognized source manifests agree: evals/PORT.yaml, capabilities/port.manifest.json, or skills/port.manifest.json. Any disagreement is invalid.",
+    "nongit_fallback": "Use target-root basename only when a non-Git fixture lacks two agreeing recognized owner manifests, or for an otherwise unidentified Git fixture."
   },
   "ready_semantics": {
     "scope": "source-contract-ready",

@@ -56,10 +56,14 @@ the required environment capture before interpreting an execution receipt.
 `source-contract-ready`.
 
 Resolve owner identity from the Git common-dir and `origin` repository name
-when available, with a target-basename fallback for non-Git fixtures. The PORT,
+when available. For a non-Git portable extraction, accept the declared owner
+only when at least two recognized source manifests agree:
+`evals/PORT.yaml`, `capabilities/port.manifest.json`, or
+`skills/port.manifest.json`. Conflicting declarations are invalid; a fixture
+without two agreeing declarations falls back to its target basename. The PORT,
 suite/report notes, and sidecars must use that canonical owner. A named
-worktree basename is not repository identity, and conflicting Git identities
-are invalid.
+worktree or extraction-directory basename is not repository identity when
+stronger source agreement exists.
 
 Suite execution state is exactly `absent`, `invalid`, `stale`, or `ready`.
 Multiple sidecars aggregate in this priority:
@@ -98,6 +102,10 @@ runtime evidence to capture, not properties proven by the source sidecar.
 - Positive: owner/apply receives an exact, reviewable invocation contract.
 - Positive: stale sources route to hash review instead of silent execution.
 - Positive: named worktrees retain the PORT/common-dir/origin owner identity.
+- Positive: portable non-Git extractions retain owner identity across arbitrary
+  destination directory names when independent owner manifests agree.
+- Positive: a lone or conflicting portable declaration cannot override the
+  fallback identity.
 - Positive: inline interpreter execution, arbitrary executables, alternate
   modules, and runtime dispatch wrappers cannot masquerade as reviewed pytest
   entrypoints.
@@ -117,13 +125,16 @@ runtime evidence to capture, not properties proven by the source sidecar.
 
 ## Current Applicability
 
-As of 2026-07-10:
+As of 2026-07-18:
 
 - Still valid: local suite execution is owner-local support below central
   proof authority.
 - Changed: runnable routing now requires a source-contract-ready JSON sidecar,
   a canonical owner identity, typed `python_pytest` argv, JIT revalidation,
   environment capture, and an execution receipt.
+- Changed: non-Git portable owner identity requires agreement from at least two
+  recognized owner manifests instead of treating an extraction directory name
+  as canonical repository identity.
 - Superseded by: none.
 
 ## Boundaries

@@ -143,6 +143,12 @@ SHELL_WRAPPER_EXECUTABLES = {"command", "env"}
 BUSYBOX_EXECUTABLES = {"busybox"}
 SHELL_METACHARACTER_RE = re.compile(r"[;&|<>`$\r\n\x00]")
 WINDOWS_ABSOLUTE_PATH_RE = re.compile(r"^[A-Za-z]:[\\/]")
+PORTABLE_OWNER_DECLARATIONS = (
+    ("evals/PORT.yaml", "local_eval_port_v1"),
+    ("capabilities/port.manifest.json", "aoa_capability_home_port_v1"),
+    ("skills/port.manifest.json", "aoa_skill_home_port_v2"),
+)
+PORTABLE_OWNER_MIN_AGREEMENTS = 2
 PYTHON_PYTEST_EXECUTABLES = {"python", "python3"}
 PYTHON_PYTEST_FLAGS = {
     "-q",
@@ -263,10 +269,64 @@ def origin_owner_from_config(common_dir: Path) -> str | None:
     return repo_name_from_git_remote(url_match.group("url")) if url_match else None
 
 
+def portable_owner_declarations(repo_root: Path) -> list[tuple[str, str]]:
+    declarations: list[tuple[str, str]] = []
+    for relative_path, schema_version in PORTABLE_OWNER_DECLARATIONS:
+        path = repo_root / relative_path
+        if (
+            first_symlink_component(
+                repo_root,
+                PurePosixPath(relative_path).parts,
+            )
+            is not None
+            or not path.is_file()
+        ):
+            continue
+        try:
+            if path.suffix == ".json":
+                payload = json.loads(path.read_text(encoding="utf-8"))
+            else:
+                payload = yaml.safe_load(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError, yaml.YAMLError):
+            continue
+        if not isinstance(payload, dict) or payload.get("schema_version") != schema_version:
+            continue
+        owner_repo = payload.get("owner_repo")
+        if isinstance(owner_repo, str) and owner_repo.strip():
+            declarations.append((relative_path, owner_repo.strip()))
+    return declarations
+
+
 def resolve_repo_identity(repo_root: Path) -> RepoIdentity:
     repo_root = repo_root.resolve()
     git_dir = git_dir_from_marker(repo_root)
     if git_dir is None:
+        declarations = portable_owner_declarations(repo_root)
+        if len(declarations) >= PORTABLE_OWNER_MIN_AGREEMENTS:
+            owners = sorted({owner for _, owner in declarations})
+            sources = tuple(f"portable_manifest:{path}" for path, _ in declarations)
+            if len(owners) == 1:
+                return RepoIdentity(
+                    owner_repo=owners[0],
+                    sources=sources,
+                    common_dir=None,
+                    common_dir_owner=None,
+                    origin_owner=None,
+                    issues=(),
+                )
+            rendered = ", ".join(
+                f"{path}={owner}" for path, owner in declarations
+            )
+            return RepoIdentity(
+                owner_repo=repo_root.name,
+                sources=sources,
+                common_dir=None,
+                common_dir_owner=None,
+                origin_owner=None,
+                issues=(
+                    "portable owner declarations conflict: " + rendered,
+                ),
+            )
         return RepoIdentity(
             owner_repo=repo_root.name,
             sources=("fallback_basename_nongit",),

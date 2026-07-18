@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 6211840,
+  "allowed_tracked_bytes": 23727556,
+  "approved_by": "repository-owner",
+  "base_ref": "795cb0c775a9e88c8c0b6c53ecabdad958cf129a",
+  "changed_generated_bytes": 6211840,
+  "changed_generated_files": 107,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "4cfed702b4d73becc52fbda1d0803978ab695a695f7e75ef7045a5d60995e727",
+  "reason": "Owner-reviewed non-Git eval-port identity resolution now requires agreement from recognized portable owner manifests and rejects conflicts or symlinked declarations; this receipt authorizes only the measured KAG delta while tracked bytes remain below the repository cap.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 23727556,
+  "tracked_bytes_max": 26214400
+}

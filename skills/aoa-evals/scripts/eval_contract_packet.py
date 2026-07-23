@@ -19,6 +19,10 @@ from typing import Any
 CATALOG_RELATIVE_PATH = Path("generated/eval_catalog.min.json")
 PORT_MANIFEST_RELATIVE_PATH = Path("skills/port.manifest.json")
 SOURCE_RECEIPT_NAME = ".aoa-skill-source.json"
+SOURCE_RECEIPT_SCHEMAS = {
+    "aoa_skill_source_receipt_v1",
+    "aoa_skill_source_receipt_v2",
+}
 SOURCE_BUNDLE_RELATIVE_PATH = Path("skills/aoa-evals")
 READINESS_RELATIVE_PATH = Path("docs/guides/EVAL_FORGE_READINESS_LAYER.md")
 CANDIDATE_PACKET_ROOT = Path(
@@ -180,8 +184,12 @@ def _resolve_owner(
         if not receipt_path.is_file():
             raise PacketError("same-bundle source receipt is not a regular file")
         receipt = _load_json(receipt_path, "same-bundle source receipt")
+        schema_version = receipt.get("schema_version")
+        if schema_version not in SOURCE_RECEIPT_SCHEMAS:
+            raise PacketError(
+                "same-bundle source receipt has unexpected schema_version"
+            )
         required = {
-            "schema_version": "aoa_skill_source_receipt_v1",
             "name": "aoa-evals",
             "owner_repo": "aoa-evals",
             "source_path": str(SOURCE_BUNDLE_RELATIVE_PATH),
@@ -199,15 +207,54 @@ def _resolve_owner(
             raise PacketError("same-bundle source receipt lacks absolute owner_root")
         owner_root, port, catalog = _load_owner(Path(owner_root_value))
         _safe_source_bundle(owner_root, str(receipt["source_path"]))
+        bundle = next(
+            item
+            for item in port["bundles"]
+            if isinstance(item, dict) and item.get("name") == "aoa-evals"
+        )
+        if (
+            schema_version == "aoa_skill_source_receipt_v2"
+            or "version" in receipt
+        ) and receipt.get("version") != bundle.get("version"):
+            raise PacketError(
+                "same-bundle source receipt version does not match owner manifest"
+            )
+        if schema_version == "aoa_skill_source_receipt_v2":
+            for field in (
+                "digest",
+                "source_fingerprint",
+                "source_fingerprint_scope",
+                "prompt_description_sha256",
+            ):
+                if not isinstance(receipt.get(field), str) or not receipt[field]:
+                    raise PacketError(
+                        f"v2 same-bundle source receipt lacks {field}"
+                    )
+            graph_hash = receipt.get("capability_graph_hash")
+            if graph_hash is not None and (
+                not isinstance(graph_hash, str) or not graph_hash
+            ):
+                raise PacketError(
+                    "v2 same-bundle source receipt has invalid capability_graph_hash"
+                )
         return owner_root, port, catalog, {
             "route": "source-receipt",
             "receipt_path": str(receipt_path),
+            "schema_version": schema_version,
             "owner_root": str(owner_root),
             "owner_ref": receipt.get("owner_ref"),
             "owner_dirty": receipt.get("owner_dirty"),
             "source_path": receipt.get("source_path"),
             "version": receipt.get("version"),
             "digest": receipt.get("digest"),
+            "source_fingerprint": receipt.get("source_fingerprint"),
+            "source_fingerprint_scope": receipt.get(
+                "source_fingerprint_scope"
+            ),
+            "capability_graph_hash": receipt.get("capability_graph_hash"),
+            "prompt_description_sha256": receipt.get(
+                "prompt_description_sha256"
+            ),
             "claim_limit": receipt.get("claim_limit"),
         }
 

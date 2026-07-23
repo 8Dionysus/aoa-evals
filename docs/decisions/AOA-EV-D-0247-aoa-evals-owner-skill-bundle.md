@@ -93,14 +93,15 @@ projection invariant. Manual trials, not that validator, justify admission.
 
 ## Current Applicability
 
-As of 2026-07-17:
+As of 2026-07-23:
 
 - Still valid: one bundle with three internal modes is the admitted owner
   route; manual evidence across `select`, `review`, `evolve`, negative
   applicability, and coexistence, not projection validation, justifies
-  admission on the exercised Codex host and model. Version `0.1.18` is the
-  current owner package and preserves the three-mode contract while adding the
-  exact packet-ID-only review route described below.
+  admission on the exercised Codex host and model. Version `0.1.19` is the
+  current owner package. It preserves the three-mode contract and exact
+  packet-ID-only review route while adding verifiable v2 installed-copy source
+  identity and retaining bounded v1 compatibility.
 - Changed: `aoa-evals` now has one repository skill home after the absence
   state recorded by AOA-EV-D-0246. Its Codex exposure is now selected once by
   the OS-level `os-user-default` profile rather than copied into this repo.
@@ -108,6 +109,27 @@ As of 2026-07-17:
   superseded by the v2 owner-home exposure contract.
 
 ## Review Log
+
+### 2026-07-23 - Make the receipt transition strict without breaking v1
+
+- Integration pressure: the OS profile assembler emits
+  `aoa_skill_source_receipt_v2`, while the admitted bundle and its source
+  packet helper accepted only v1.
+- Initial correction and discovered defect: version `0.1.19` admitted v2
+  identity fields, but its packet helper compared the receipt version
+  unconditionally. A still-valid v1 receipt with its optional `version`
+  omitted was rejected before owner return.
+- Final correction: v2 must carry the exact owner-manifest version. V1 may
+  omit it, but a supplied v1 version must still match. V2 also requires package
+  digest, source fingerprint and scope, and prompt-description hash; malformed
+  v2 identity fails closed.
+- Manual result: the missing-version v1 shape first reproduced the rejection,
+  then returned the exact owner-source packet after correction. A mismatched
+  v1 version and a v2 receipt missing `prompt_description_sha256` both stopped
+  before owner use. No new validator or regression scaffold was added.
+- Claim limit: this proves only the exercised compatibility and fail-closed
+  source-return cases. It does not re-prove eval selection, proof acceptance,
+  evolution authority, cross-host behavior, or general outcome benefit.
 
 ### 2026-07-18 - Move active exposure to the single OS user profile
 

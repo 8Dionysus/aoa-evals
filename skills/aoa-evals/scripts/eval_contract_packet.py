@@ -212,7 +212,10 @@ def _resolve_owner(
             for item in port["bundles"]
             if isinstance(item, dict) and item.get("name") == "aoa-evals"
         )
-        if receipt.get("version") != bundle.get("version"):
+        if (
+            schema_version == "aoa_skill_source_receipt_v2"
+            or "version" in receipt
+        ) and receipt.get("version") != bundle.get("version"):
             raise PacketError(
                 "same-bundle source receipt version does not match owner manifest"
             )

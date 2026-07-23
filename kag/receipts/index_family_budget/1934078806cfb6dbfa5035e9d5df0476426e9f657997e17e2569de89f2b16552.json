@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 1511287,
+  "allowed_tracked_bytes": 23731461,
+  "approved_by": "repository-owner",
+  "base_ref": "f836f94fd8a04dc914b5cab700757bf05b096aa8",
+  "changed_generated_bytes": 1511287,
+  "changed_generated_files": 26,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "1934078806cfb6dbfa5035e9d5df0476426e9f657997e17e2569de89f2b16552",
+  "reason": "Owner-reviewed receipt-v2 source identity for the aoa-evals skill changes the installed-skill provenance contract; this receipt authorizes only the deterministic KAG delta while the tracked family remains below its repository cap.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 23731461,
+  "tracked_bytes_max": 26214400
+}

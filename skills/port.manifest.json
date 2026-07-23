@@ -7,7 +7,7 @@
     {
       "name": "aoa-evals",
       "path": "skills/aoa-evals",
-      "version": "0.1.18",
+      "version": "0.1.19",
       "lifecycle": "admitted",
       "visibility": "advertised",
       "admission_ref": "docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md"

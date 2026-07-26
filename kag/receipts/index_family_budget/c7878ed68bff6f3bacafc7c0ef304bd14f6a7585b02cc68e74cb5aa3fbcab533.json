@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 16839849,
+  "allowed_tracked_bytes": 23970643,
+  "approved_by": "repository-owner",
+  "base_ref": "b6397276822935edb0237b1963e4c55ddffccf27",
+  "changed_generated_bytes": 16839849,
+  "changed_generated_files": 299,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "c7878ed68bff6f3bacafc7c0ef304bd14f6a7585b02cc68e74cb5aa3fbcab533",
+  "reason": "Index the bounded OS Abyss organ-access admission packet contract, negative-inference suite, and owner-routed proof documentation.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 23970643,
+  "tracked_bytes_max": 26214400
+}

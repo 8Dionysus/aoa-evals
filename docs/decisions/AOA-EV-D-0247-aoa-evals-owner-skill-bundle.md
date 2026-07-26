@@ -98,10 +98,10 @@ As of 2026-07-23:
 - Still valid: one bundle with three internal modes is the admitted owner
   route; manual evidence across `select`, `review`, `evolve`, negative
   applicability, and coexistence, not projection validation, justifies
-  admission on the exercised Codex host and model. Version `0.1.19` is the
-  current owner package. It preserves the three-mode contract and exact
-  packet-ID-only review route while adding verifiable v2 installed-copy source
-  identity and retaining bounded v1 compatibility.
+  admission on the exercised Codex host and model. Version `0.1.20` is the
+  current owner package. It preserves the three-mode contract, exact
+  packet-ID-only review route, and v2 installed-copy source identity while
+  keeping central proof applicability visible in a shortened host catalog.
 - Changed: `aoa-evals` now has one repository skill home after the absence
   state recorded by AOA-EV-D-0246. Its Codex exposure is now selected once by
   the OS-level `os-user-default` profile rather than copied into this repo.
@@ -109,6 +109,21 @@ As of 2026-07-23:
   superseded by the v2 owner-home exposure contract.
 
 ## Review Log
+
+### 2026-07-25 - Front-load central proof applicability
+
+- Observed defect: the active Codex host shortened the prompt-visible
+  description before it reached central proof, named eval, or lifecycle
+  applicability. The surviving text exposed only the package-first gate, so
+  implicit routing could preserve procedure discipline while losing the reason
+  to select the skill.
+- Correction: version `0.1.20` starts with the central AoA eval proof and
+  lifecycle trigger, then keeps the package-first gate in the same shortened
+  prefix. The full description retains the `aoa-eval` coexistence boundary and
+  proof ceiling.
+- Claim limit: this repairs the observed catalog representation. It does not
+  by itself prove implicit selection, outcome improvement, cross-host parity,
+  or the behavior of neighboring plugin skills.
 
 ### 2026-07-23 - Make the receipt transition strict without breaking v1
 

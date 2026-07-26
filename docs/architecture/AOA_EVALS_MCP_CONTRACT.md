@@ -16,6 +16,56 @@ The proof authority remains:
   `mechanics/audit/parts/candidate-readers/generated/` for candidate shapes;
 - bundle-local review and report contracts for final interpretation.
 
+The access plane also exposes evidence needed by the organ-access proof route,
+but it does not admit an organ. A registry entry, runnable process, observed
+schema, successful call, candidate packet, or green command remains weaker
+than the bounded source eval and reviewed acceptance route.
+
+## Organ Access Proof Boundary
+
+Central organ-access proof is capability- and policy-plane-specific. It checks
+the claimed owner route, primitive, arguments, authority ceiling, source and
+runtime identity, freshness, deny behavior, context footprint, latency,
+cancellation, injection resistance, receipt continuity, cross-organ handoff,
+and rollback. It does not collapse those observations into general health.
+
+The proof packet carries a maturity vector with independent evidence for:
+
+```text
+declared
+owner_reviewed
+packaged
+exported
+deployed
+process_alive
+endpoint_ready
+registry_indexed
+consumer_registered
+schema_observed
+call_succeeded
+result_grounded
+freshness_satisfied
+owner_accepted
+cross_organ_proven
+rollback_proven
+```
+
+Each asserted axis requires an observation timestamp, owner-qualified evidence
+reference, revision, and expiry or freshness policy. No axis is inferred from
+another. In particular, `endpoint_ready` does not imply `result_grounded`, and
+a central eval result does not imply `owner_accepted`.
+
+Admission remains a control-plane and acceptance-owner action after proof.
+`aoa-evals` emits a bounded proof result and its limits; it does not mutate the
+private registry, start a service, accept memory, apply source changes, or
+authorize effects.
+
+Read, candidate, internal-effect, and external-effect planes are evaluated
+separately. A read-plane pass is not evidence for an effect plane. Tests must
+show that a read credential is denied at higher-effect processes and that
+candidate output cannot become durable truth without the named acceptance
+owner.
+
 ## Operating Card
 
 | Field | Route |
@@ -108,6 +158,10 @@ MCP output is always weaker than the source bundle and its manifest.
 - Do not treat runtime evidence, generated readers, or MCP output as stronger
   than bundle-local `EVAL.md` and `eval.yaml`.
 - Do not move proof authority into `abyss-stack`.
+- Do not mutate the private organ registry or treat a central proof result as
+  admission or owner acceptance.
+- Do not infer a higher maturity axis, policy plane, or effect authority from a
+  lower one.
 
 ## Runtime Evidence Posture
 

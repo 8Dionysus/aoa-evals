@@ -379,6 +379,14 @@
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 - [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)
 
+## MCP boundary
+
+- [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
+
+## admission evidence
+
+- [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
+
 ## agent-route
 
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
@@ -536,6 +544,10 @@
 
 - [AOA-EV-D-0156 Evidence Readouts Validator Boundary](../AOA-EV-D-0156-evidence-readouts-validator-boundary.md) (`docs/decisions/AOA-EV-D-0156-evidence-readouts-validator-boundary.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
+
+## proof contract
+
+- [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
 
 ## proof-topology
 

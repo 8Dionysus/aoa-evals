@@ -1,6 +1,6 @@
 ---
 name: aoa-evals
-description: "FIRST TOOL TURN AFTER SELECTION: read this bundle's SKILL.md only; do not combine workspace inspection or search. Then select, review, or evolve central bounded proof through the aoa-evals owner boundary. Use for central source-bundle choice, named eval results or verdicts, source-linked reports, Eval Forge owner review, proof lifecycle, and source/reader drift. Use aoa-eval for local selection, apply, intake, design, or session-hit classification. Never treat a candidate, readiness check, receipt, MCP result, generated output, or green command as proof."
+description: "Central AoA eval proof or lifecycle; first tool turn reads only this SKILL.md, with no workspace inspection or search. Use to select, review, or evolve central source bundles, named eval results or verdicts, source-linked reports, Eval Forge owner review, and source/reader drift. Use aoa-eval for local selection, application, intake, design, or session-hit classification. Never treat a candidate, readiness check, receipt, MCP result, generated output, or green command as proof."
 ---
 
 # aoa-evals

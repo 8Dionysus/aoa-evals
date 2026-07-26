@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 3878946,
+  "allowed_tracked_bytes": 23993810,
+  "approved_by": "repository-owner",
+  "base_ref": "98358215cb540dd1bc457fcff7796645153905c3",
+  "changed_generated_bytes": 3878946,
+  "changed_generated_files": 66,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "84e4ee75ab07c453ea6f8b49b5613975fad3704c31e47a19555d1e5b21237bc1",
+  "reason": "Regenerate the reviewed owner skill projection with the repository-pinned KAG action against the pull-request merge base.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 23993810,
+  "tracked_bytes_max": 26214400
+}

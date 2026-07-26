@@ -10,7 +10,8 @@ Tracking starts with the community-docs baseline for this repository.
 ### Changed
 
 - Compact the owner skill's global description while retaining central-proof
-  applicability, the `aoa-eval` coexistence boundary, and the proof ceiling.
+  applicability, the package-first gate, the `aoa-eval` coexistence boundary,
+  and the generated-output proof ceiling.
 - Removed the foreign copied `.agents/skills/` catalog, then admitted one
   evidence-backed `aoa-evals` owner bundle after manual trigger, ABI,
   composition, coexistence, no-skill, drift, and held-out review. Its canonical

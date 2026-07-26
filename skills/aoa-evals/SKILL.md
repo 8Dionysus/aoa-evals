@@ -1,6 +1,6 @@
 ---
 name: aoa-evals
-description: "Use for central AoA proof meaning or lifecycle: select, review, or evolve source bundles, named eval results or verdicts, source-linked reports, Eval Forge owner review, or source/reader drift. Use aoa-eval for local selection, application, intake/design, or session-hit classification. Candidates, readiness checks, receipts, MCP outputs, and green commands are not proof."
+description: "Central AoA proof or lifecycle: first tool turn reads only this SKILL.md. Use to select, review, or evolve source bundles, named eval results or verdicts, source-linked reports, Eval Forge owner review, or source/reader drift. Use aoa-eval for local selection, application, intake/design, or session-hit classification. Candidates, readiness checks, receipts, generated readers or outputs, MCP outputs, and green commands are not proof."
 ---
 
 # aoa-evals

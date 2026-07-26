@@ -98,12 +98,10 @@ As of 2026-07-23:
 - Still valid: one bundle with three internal modes is the admitted owner
   route; manual evidence across `select`, `review`, `evolve`, negative
   applicability, and coexistence, not projection validation, justifies
-  admission on the exercised Codex host and model. Version `0.1.21` is the
+  admission on the exercised Codex host and model. Version `0.1.20` is the
   current owner package. It preserves the three-mode contract, exact
   packet-ID-only review route, and v2 installed-copy source identity while
-  keeping central proof applicability, the local-eval alternative, and the
-  proof ceiling visible in the host catalog; package sequencing remains in the
-  activated body.
+  keeping central proof applicability visible in a shortened host catalog.
 - Changed: `aoa-evals` now has one repository skill home after the absence
   state recorded by AOA-EV-D-0246. Its Codex exposure is now selected once by
   the OS-level `os-user-default` profile rather than copied into this repo.
@@ -111,6 +109,21 @@ As of 2026-07-23:
   superseded by the v2 owner-home exposure contract.
 
 ## Review Log
+
+### 2026-07-25 - Preserve the activated gate and the generated-output ceiling
+
+- Review finding: the `0.1.21` description made central applicability and the
+  `aoa-eval` boundary clearer but removed two prompt-visible controls: the
+  package-first read and the fact that generated readers or outputs are not
+  proof. Both controls matter before the full body is available.
+- Correction: the `0.1.21` host-visible description now states the first-turn
+  package gate and names generated readers or outputs alongside candidates,
+  readiness, receipts, MCP outputs, and green commands as non-proof.
+- History posture: the original `Current Applicability` text above remains
+  intact. This dated review records the active `0.1.21` route instead of
+  rewriting the accepted decision's previous state.
+- Validation limit: a fresh prompt-visible and routing trial is still required;
+  structural checks alone do not prove correct selection or proof handling.
 
 ### 2026-07-25 - Front-load central proof applicability
 

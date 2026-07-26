@@ -110,6 +110,21 @@ As of 2026-07-23:
 
 ## Review Log
 
+### 2026-07-25 - Preserve the activated gate and the generated-output ceiling
+
+- Review finding: the `0.1.21` description made central applicability and the
+  `aoa-eval` boundary clearer but removed two prompt-visible controls: the
+  package-first read and the fact that generated readers or outputs are not
+  proof. Both controls matter before the full body is available.
+- Correction: the `0.1.21` host-visible description now states the first-turn
+  package gate and names generated readers or outputs alongside candidates,
+  readiness, receipts, MCP outputs, and green commands as non-proof.
+- History posture: the original `Current Applicability` text above remains
+  intact. This dated review records the active `0.1.21` route instead of
+  rewriting the accepted decision's previous state.
+- Validation limit: a fresh prompt-visible and routing trial is still required;
+  structural checks alone do not prove correct selection or proof handling.
+
 ### 2026-07-25 - Front-load central proof applicability
 
 - Observed defect: the active Codex host shortened the prompt-visible

@@ -3,9 +3,11 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
+from copy import deepcopy
 from pathlib import Path
 
-from jsonschema import Draft202012Validator
+import pytest
+from jsonschema import Draft202012Validator, ValidationError
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -32,8 +34,8 @@ def test_checked_in_scenarios_match_bounded_expectations() -> None:
     completed = run_runner("run-scenarios")
     assert completed.returncode == 0, completed.stderr or completed.stdout
     report = json.loads(completed.stdout)
-    assert report["scenario_count"] == 10
-    assert report["passed_count"] == 10
+    assert report["scenario_count"] == 11
+    assert report["passed_count"] == 11
     assert report["failed_count"] == 0
     assert report["verdict"] == "supports bounded claim"
 
@@ -73,6 +75,42 @@ def test_example_report_matches_report_contract() -> None:
     assert example["failed_count"] == 0
 
 
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "failed_count",
+        "passed_count",
+        "scenario_count",
+        "failed_outcome",
+    ],
+)
+def test_positive_report_rejects_self_contradictory_counts_and_outcomes(
+    mutation: str,
+) -> None:
+    schema = json.loads(
+        (BUNDLE_ROOT / "reports" / "summary.schema.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    example = json.loads(
+        (BUNDLE_ROOT / "reports" / "example-report.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    payload = deepcopy(example)
+    if mutation == "failed_count":
+        payload["failed_count"] = 1
+    elif mutation == "passed_count":
+        payload["passed_count"] = 10
+    elif mutation == "scenario_count":
+        payload["scenario_count"] = 10
+    else:
+        payload["per_scenario_breakdown"][0]["outcome"] = "fail"
+
+    with pytest.raises(ValidationError):
+        Draft202012Validator(schema).validate(payload)
+
+
 def test_negative_scenarios_cover_forbidden_admission_inferences() -> None:
     expected_codes = set()
     for scenario_path in sorted(
@@ -91,3 +129,4 @@ def test_negative_scenarios_cover_forbidden_admission_inferences() -> None:
     )
     assert "positive_verdict_requires_asserted_evidence" in expected_codes
     assert "axis_revision_slot_mismatch:deployed" in expected_codes
+    assert "observation_window_invalid" in expected_codes

@@ -1,0 +1,20 @@
+{
+  "scenario_id": "lowercase_rfc3339_does_not_bypass_window_order",
+  "expected": "reject",
+  "expected_codes": [
+    "observation_window_invalid"
+  ],
+  "packet_ref": "fixtures/packets/valid-read.json",
+  "mutations": [
+    {
+      "action": "set",
+      "path": "observation_window.started_at",
+      "value": "2026-07-25t12:05:00z"
+    },
+    {
+      "action": "set",
+      "path": "observation_window.ended_at",
+      "value": "2026-07-25t12:00:00z"
+    }
+  ]
+}

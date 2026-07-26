@@ -9,7 +9,7 @@
     "A passing result cannot authorize admission, infer acceptance, or raise effect authority."
   ],
   "object_under_evaluation": "OS Abyss organ-access proof packet and its admission inferences",
-  "passed_count": 10,
+  "passed_count": 11,
   "per_scenario_breakdown": [
     {
       "expected": "accept",
@@ -132,8 +132,33 @@
       ],
       "outcome": "pass",
       "scenario_id": "axis_binds_to_its_designated_revision_slot"
+    },
+    {
+      "expected": "reject",
+      "expected_codes": [
+        "observation_window_invalid"
+      ],
+      "observed": "reject",
+      "observed_codes": [
+        "axis_observation_outside_packet_window:call_succeeded",
+        "axis_observation_outside_packet_window:consumer_registered",
+        "axis_observation_outside_packet_window:declared",
+        "axis_observation_outside_packet_window:deployed",
+        "axis_observation_outside_packet_window:endpoint_ready",
+        "axis_observation_outside_packet_window:exported",
+        "axis_observation_outside_packet_window:freshness_satisfied",
+        "axis_observation_outside_packet_window:owner_reviewed",
+        "axis_observation_outside_packet_window:packaged",
+        "axis_observation_outside_packet_window:process_alive",
+        "axis_observation_outside_packet_window:registry_indexed",
+        "axis_observation_outside_packet_window:result_grounded",
+        "axis_observation_outside_packet_window:schema_observed",
+        "observation_window_invalid"
+      ],
+      "outcome": "pass",
+      "scenario_id": "lowercase_rfc3339_does_not_bypass_window_order"
     }
   ],
-  "scenario_count": 10,
+  "scenario_count": 11,
   "verdict": "supports bounded claim"
 }

@@ -113,5 +113,46 @@
         }
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "verdict"
+        ],
+        "properties": {
+          "verdict": {
+            "const": "supports bounded claim"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "scenario_count": {
+            "const": 11
+          },
+          "passed_count": {
+            "const": 11
+          },
+          "failed_count": {
+            "const": 0
+          },
+          "per_scenario_breakdown": {
+            "minItems": 11,
+            "maxItems": 11,
+            "items": {
+              "required": [
+                "outcome"
+              ],
+              "properties": {
+                "outcome": {
+                  "const": "pass"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }

@@ -2,7 +2,7 @@
 
 Verdict: `supports bounded claim`
 
-All ten checked-in public-safe scenarios matched their expected accept or
+All eleven checked-in public-safe scenarios matched their expected accept or
 reject state:
 
 - a well-shaped read-plane packet was accepted;
@@ -15,6 +15,7 @@ reject state:
 - evidence could not expire before the packet observation window closed.
 - a positive verdict could not hide zero asserted axes;
 - an asserted axis could not bind to another axis family's revision slot.
+- lowercase RFC 3339 timestamps could not bypass observation-window ordering.
 
 This example is a source-contract readout only. It contains no live MCP,
 registry, consumer, owner-acceptance, or rollback evidence and must not be used

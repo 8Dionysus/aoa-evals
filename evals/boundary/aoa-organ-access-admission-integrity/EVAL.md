@@ -103,7 +103,9 @@ The checked-in scenarios cover:
 8. rejection of evidence that expires before the packet observation window
    closes;
 9. rejection of a positive verdict when no maturity axis is asserted;
-10. rejection of an asserted axis bound to the wrong revision slot.
+10. rejection of an asserted axis bound to the wrong revision slot;
+11. rejection of a reversed RFC 3339 observation window using lowercase
+    `t`/`z`.
 
 These fixtures are public-safe contract examples. They contain no production
 tokens, private payloads, live service addresses, or private registry data.

@@ -86,8 +86,13 @@ def load_json(path: Path) -> dict[str, Any]:
 def parse_time(value: Any) -> datetime | None:
     if not isinstance(value, str):
         return None
+    normalized = value
+    if len(normalized) > 10 and normalized[10] in {"t", "T"}:
+        normalized = normalized[:10] + "T" + normalized[11:]
+    if normalized.endswith(("z", "Z")):
+        normalized = normalized[:-1] + "+00:00"
     try:
-        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+        return datetime.fromisoformat(normalized)
     except ValueError:
         return None
 

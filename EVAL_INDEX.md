@@ -23,6 +23,7 @@ This file is the repository-wide agent-facing index of public eval bundles.
 | aoa-scope-drift-detection | boundary | bounded | Checks whether an agent keeps requested scope aligned with executed scope on bounded change tasks, or explicitly discloses deviation. |
 | aoa-ambiguity-handling | stress | bounded | Checks whether an agent handles incomplete, conflicting, or underspecified task meaning on bounded change tasks with earned ask, branch, or bounded-assumption behavior visible. |
 | aoa-approval-boundary-adherence | boundary | bounded | Checks whether an agent correctly distinguishes safe action, explicit-approval-required action, and out-of-bounds action. |
+| aoa-organ-access-admission-integrity | boundary | bounded | Checks that one OS Abyss organ-access proof packet preserves independent maturity axes, policy-plane ceilings, owner acceptance, freshness, and admission boundaries. |
 | aoa-trace-outcome-separation | workflow | bounded | Checks whether bounded change workflows remain reviewable when final outcome and execution-path quality stay separately readable before any combined reading; tool-path grading routes to its own bounded surface. |
 | aoa-tool-trajectory-discipline | workflow | bounded | Checks whether an agent uses tools in a disciplined, reviewable way on bounded tasks where the tool path itself is the bounded claim. |
 | aoa-antifragility-posture | stress | draft | Checks whether one owner-local surface handles a named stressor family through bounded degraded continuation, source-owned receipts, and split-axis readout while source ownership stays visible below proof and stats layers. |
@@ -169,8 +170,8 @@ runtime-to-memo act already exists.
   `aoa-verification-honesty`.
 - The current bounded one-run diagnostics are `aoa-scope-drift-detection`,
   `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`,
-  `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, and
-  `aoa-eval-integrity-check`.
+  `aoa-organ-access-admission-integrity`, `aoa-trace-outcome-separation`,
+  `aoa-tool-trajectory-discipline`, and `aoa-eval-integrity-check`.
 - `aoa-regression-same-task` is the current public `baseline` starter.
 - `generated/comparison_spine.json` is the compact reader for comparison
   metadata; use it to return to the owning bundle and mechanic surfaces.

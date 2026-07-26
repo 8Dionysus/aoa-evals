@@ -1,0 +1,23 @@
+{
+  "scenario_id": "central_eval_does_not_imply_owner_acceptance",
+  "expected": "reject",
+  "expected_codes": [
+    "axis_evidence_kind_mismatch:owner_accepted",
+    "central_eval_does_not_imply_owner_accepted"
+  ],
+  "packet_ref": "fixtures/packets/valid-read.json",
+  "mutations": [
+    {
+      "action": "set",
+      "path": "maturity.owner_accepted",
+      "value": {
+        "state": "asserted",
+        "observed_at": "2026-07-25T12:04:00Z",
+        "evidence_ref": "fixture://central-eval-result",
+        "evidence_kind": "central_eval_result",
+        "revision": "deploy:public-safe-001",
+        "freshness_policy": "valid for this bounded central eval run"
+      }
+    }
+  ]
+}

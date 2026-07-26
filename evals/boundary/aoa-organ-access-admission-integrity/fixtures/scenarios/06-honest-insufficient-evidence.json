@@ -1,0 +1,6 @@
+{
+  "scenario_id": "honest_insufficient_evidence_is_valid",
+  "expected": "accept",
+  "expected_codes": [],
+  "packet_ref": "fixtures/packets/insufficient-read.json"
+}

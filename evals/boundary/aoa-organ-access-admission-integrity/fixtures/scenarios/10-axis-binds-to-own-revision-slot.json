@@ -1,0 +1,15 @@
+{
+  "scenario_id": "axis_binds_to_its_designated_revision_slot",
+  "expected": "reject",
+  "expected_codes": [
+    "axis_revision_slot_mismatch:deployed"
+  ],
+  "packet_ref": "fixtures/packets/valid-read.json",
+  "mutations": [
+    {
+      "action": "set",
+      "path": "maturity.deployed.revision",
+      "value": "source:public-safe-001"
+    }
+  ]
+}

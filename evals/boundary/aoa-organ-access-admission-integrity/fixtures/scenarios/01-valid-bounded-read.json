@@ -1,0 +1,6 @@
+{
+  "scenario_id": "valid_bounded_read_packet",
+  "expected": "accept",
+  "expected_codes": [],
+  "packet_ref": "fixtures/packets/valid-read.json"
+}

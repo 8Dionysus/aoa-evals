@@ -1,0 +1,16 @@
+{
+  "scenario_id": "endpoint_ready_does_not_ground_result",
+  "expected": "reject",
+  "expected_codes": [
+    "axis_evidence_kind_mismatch:result_grounded",
+    "endpoint_ready_does_not_imply_result_grounded"
+  ],
+  "packet_ref": "fixtures/packets/valid-read.json",
+  "mutations": [
+    {
+      "action": "set",
+      "path": "maturity.result_grounded.evidence_kind",
+      "value": "endpoint_probe"
+    }
+  ]
+}

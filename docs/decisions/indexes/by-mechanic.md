@@ -50,6 +50,7 @@
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 - [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)
 - [AOA-EV-D-0248 Typed Capability Dependencies](../AOA-EV-D-0248-typed-capability-dependencies.md) (`docs/decisions/AOA-EV-D-0248-typed-capability-dependencies.md`)
+- [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
 
 ## proof-loop
 
@@ -77,6 +78,7 @@
 - [AOA-EV-D-0211 Proof Loop Aggregate Removal](../AOA-EV-D-0211-proof-loop-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0211-proof-loop-aggregate-removal.md`)
 - [AOA-EV-D-0214 Publication Receipts Intake Layer Split](../AOA-EV-D-0214-publication-receipts-intake-layer-split.md) (`docs/decisions/AOA-EV-D-0214-publication-receipts-intake-layer-split.md`)
 - [AOA-EV-D-0222 Publication Receipts Route Validator Layer Split](../AOA-EV-D-0222-publication-receipts-route-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0222-publication-receipts-route-validator-layer-split.md`)
+- [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
 
 ## comparison-spine
 
@@ -328,6 +330,7 @@
 - [AOA-EV-D-0234 Antifragility Validator Layer Split](../AOA-EV-D-0234-antifragility-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0234-antifragility-validator-layer-split.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
+- [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
 
 ## boundary-bridge
 
@@ -348,6 +351,7 @@
 - [AOA-EV-D-0211 Proof Loop Aggregate Removal](../AOA-EV-D-0211-proof-loop-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0211-proof-loop-aggregate-removal.md`)
 - [AOA-EV-D-0219 Questbook Helper Layer Split](../AOA-EV-D-0219-questbook-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0219-questbook-helper-layer-split.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
+- [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
 
 ## cross-parent
 

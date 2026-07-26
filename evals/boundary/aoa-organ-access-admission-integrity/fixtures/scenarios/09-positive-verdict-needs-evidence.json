@@ -1,0 +1,15 @@
+{
+  "scenario_id": "positive_verdict_requires_asserted_evidence",
+  "expected": "reject",
+  "expected_codes": [
+    "positive_verdict_requires_asserted_evidence"
+  ],
+  "packet_ref": "fixtures/packets/insufficient-read.json",
+  "mutations": [
+    {
+      "action": "set",
+      "path": "result.verdict",
+      "value": "supports_bounded_contract"
+    }
+  ]
+}

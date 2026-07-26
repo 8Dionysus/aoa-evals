@@ -206,6 +206,31 @@ This route keeps `aoa-evals` self-contained while allowing host or runtime
 facts to support bounded proof. The proof owner still accepts or rejects the
 interpretation through a source proof object and review surface.
 
+Organ-access admission uses the same candidate boundary:
+
+```text
+owner record + registry projection + stack observation + consumer trace
+  -> capability- and policy-plane proof packet
+  -> aoa-organ-access-admission-integrity packet validation
+  -> live pair-specific bounded eval and review
+  -> proof result with limits
+  -> named acceptance owner
+  -> control-plane admission receipt
+```
+
+The checked-in
+[`aoa-organ-access-admission-integrity`](../../evals/boundary/aoa-organ-access-admission-integrity/EVAL.md)
+bundle owns the public packet contract and negative-inference scenarios. Its
+source runner proves only that the packet preserves the bounded contract; it
+does not create the owner, runtime, registry, consumer, acceptance, or rollback
+observations carried by a live proof run.
+
+`aoa-evals` owns the bounded proof result, not registry mutation or owner
+acceptance. Maturity axes remain independent and evidence-bearing; process,
+endpoint, registration, schema observation, call success, grounded result,
+freshness, owner acceptance, cross-organ proof, and rollback proof must not be
+flattened into one readiness verdict.
+
 ## Use by Future Agents
 
 Before moving a file, creating a mechanic, changing a generated reader, or

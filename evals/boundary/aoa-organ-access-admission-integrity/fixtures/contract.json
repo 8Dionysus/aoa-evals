@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "evals/boundary/aoa-organ-access-admission-integrity/fixtures/README.md",
+  "shared_case_surface": "public-safe packets that exercise independent maturity evidence, revision and freshness binding, policy-plane ceilings, central-proof versus owner-acceptance separation, honest insufficient evidence, and admission denial",
+  "bounded_replacement_rule": "A local replacement may change organ, capability, protocol, and evidence labels only if it preserves all sixteen independent maturity axes, exact owner and revision bindings, the same negative-inference cases, an honest insufficient-evidence case, and false admission, acceptance-inference, and higher-effect authorization flags.",
+  "public_safe_requirements": [
+    "no tokens, private payloads, private registry rows, or production endpoints",
+    "all owner and evidence references are fictional but structurally inspectable",
+    "a passing source fixture remains explicitly weaker than live pair-specific evidence",
+    "expected reject scenarios name stable semantic issue codes"
+  ]
+}

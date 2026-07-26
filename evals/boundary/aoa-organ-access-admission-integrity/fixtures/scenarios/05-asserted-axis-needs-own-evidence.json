@@ -1,0 +1,18 @@
+{
+  "scenario_id": "asserted_axis_requires_revision_and_freshness",
+  "expected": "reject",
+  "expected_codes": [
+    "asserted_axis_missing_required_evidence:call_succeeded"
+  ],
+  "packet_ref": "fixtures/packets/valid-read.json",
+  "mutations": [
+    {
+      "action": "delete",
+      "path": "maturity.call_succeeded.revision"
+    },
+    {
+      "action": "delete",
+      "path": "maturity.call_succeeded.expires_at"
+    }
+  ]
+}

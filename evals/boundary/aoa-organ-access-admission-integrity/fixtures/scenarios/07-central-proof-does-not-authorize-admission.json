@@ -1,0 +1,15 @@
+{
+  "scenario_id": "central_proof_does_not_authorize_admission",
+  "expected": "reject",
+  "expected_codes": [
+    "admission_change_not_authorized_by_central_proof"
+  ],
+  "packet_ref": "fixtures/packets/valid-read.json",
+  "mutations": [
+    {
+      "action": "set",
+      "path": "result.admission_change_authorized",
+      "value": true
+    }
+  ]
+}

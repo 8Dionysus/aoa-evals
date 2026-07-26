@@ -1,0 +1,355 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agents-of-abyss.example/schemas/organ-access-proof-packet-v1.json",
+  "title": "OS Abyss organ access proof packet v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_id",
+    "organ_id",
+    "capability_id",
+    "policy_plane",
+    "protocol_pair",
+    "observation_window",
+    "owners",
+    "revisions",
+    "maturity",
+    "result"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "organ_access_proof_packet_v1"
+    },
+    "packet_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"
+    },
+    "organ_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{1,127}$"
+    },
+    "capability_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{1,127}$"
+    },
+    "policy_plane": {
+      "type": "string",
+      "enum": [
+        "read",
+        "candidate",
+        "internal_effect",
+        "external_effect"
+      ]
+    },
+    "protocol_pair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "consumer",
+        "server",
+        "transport"
+      ],
+      "properties": {
+        "consumer": {
+          "type": "string",
+          "minLength": 2
+        },
+        "server": {
+          "type": "string",
+          "minLength": 2
+        },
+        "transport": {
+          "type": "string",
+          "enum": [
+            "stdio",
+            "streamable-http"
+          ]
+        }
+      }
+    },
+    "observation_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "started_at",
+        "ended_at"
+      ],
+      "properties": {
+        "started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ended_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "owners": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "access",
+        "control",
+        "runtime",
+        "proof",
+        "acceptance"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/owner"
+        },
+        "access": {
+          "$ref": "#/$defs/owner"
+        },
+        "control": {
+          "$ref": "#/$defs/owner"
+        },
+        "runtime": {
+          "$ref": "#/$defs/owner"
+        },
+        "proof": {
+          "$ref": "#/$defs/owner"
+        },
+        "acceptance": {
+          "$ref": "#/$defs/owner"
+        }
+      }
+    },
+    "revisions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "package",
+        "deploy",
+        "consumer_schema"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/revision"
+        },
+        "package": {
+          "$ref": "#/$defs/revision"
+        },
+        "deploy": {
+          "$ref": "#/$defs/revision"
+        },
+        "consumer_schema": {
+          "$ref": "#/$defs/revision"
+        }
+      }
+    },
+    "maturity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "declared",
+        "owner_reviewed",
+        "packaged",
+        "exported",
+        "deployed",
+        "process_alive",
+        "endpoint_ready",
+        "registry_indexed",
+        "consumer_registered",
+        "schema_observed",
+        "call_succeeded",
+        "result_grounded",
+        "freshness_satisfied",
+        "owner_accepted",
+        "cross_organ_proven",
+        "rollback_proven"
+      ],
+      "properties": {
+        "declared": {
+          "$ref": "#/$defs/axis"
+        },
+        "owner_reviewed": {
+          "$ref": "#/$defs/axis"
+        },
+        "packaged": {
+          "$ref": "#/$defs/axis"
+        },
+        "exported": {
+          "$ref": "#/$defs/axis"
+        },
+        "deployed": {
+          "$ref": "#/$defs/axis"
+        },
+        "process_alive": {
+          "$ref": "#/$defs/axis"
+        },
+        "endpoint_ready": {
+          "$ref": "#/$defs/axis"
+        },
+        "registry_indexed": {
+          "$ref": "#/$defs/axis"
+        },
+        "consumer_registered": {
+          "$ref": "#/$defs/axis"
+        },
+        "schema_observed": {
+          "$ref": "#/$defs/axis"
+        },
+        "call_succeeded": {
+          "$ref": "#/$defs/axis"
+        },
+        "result_grounded": {
+          "$ref": "#/$defs/axis"
+        },
+        "freshness_satisfied": {
+          "$ref": "#/$defs/axis"
+        },
+        "owner_accepted": {
+          "$ref": "#/$defs/axis"
+        },
+        "cross_organ_proven": {
+          "$ref": "#/$defs/axis"
+        },
+        "rollback_proven": {
+          "$ref": "#/$defs/axis"
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verdict",
+        "admission_change_authorized",
+        "owner_acceptance_inferred",
+        "higher_effect_authorized",
+        "limitations"
+      ],
+      "properties": {
+        "verdict": {
+          "type": "string",
+          "enum": [
+            "supports_bounded_contract",
+            "insufficient_evidence",
+            "rejects_contract"
+          ]
+        },
+        "admission_change_authorized": {
+          "const": false
+        },
+        "owner_acceptance_inferred": {
+          "const": false
+        },
+        "higher_effect_authorized": {
+          "const": false
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 12
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "owner": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{1,127}$"
+    },
+    "revision": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:+/-]{2,191}$"
+    },
+    "axis": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state"
+          ],
+          "properties": {
+            "state": {
+              "type": "string",
+              "enum": [
+                "not_asserted",
+                "not_applicable"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "observed_at",
+            "evidence_ref",
+            "evidence_kind",
+            "revision"
+          ],
+          "properties": {
+            "state": {
+              "const": "asserted"
+            },
+            "observed_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "evidence_ref": {
+              "type": "string",
+              "minLength": 8
+            },
+            "evidence_kind": {
+              "type": "string",
+              "enum": [
+                "source_declaration",
+                "owner_review",
+                "package_receipt",
+                "export_receipt",
+                "deploy_receipt",
+                "process_observation",
+                "endpoint_probe",
+                "registry_observation",
+                "consumer_registration",
+                "consumer_schema_observation",
+                "call_receipt",
+                "owner_grounding_review",
+                "freshness_review",
+                "owner_acceptance_receipt",
+                "cross_organ_trace",
+                "rollback_receipt",
+                "central_eval_result"
+              ]
+            },
+            "revision": {
+              "$ref": "#/$defs/revision"
+            },
+            "expires_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "freshness_policy": {
+              "type": "string",
+              "minLength": 8
+            }
+          },
+          "anyOf": [
+            {
+              "required": [
+                "expires_at"
+              ]
+            },
+            {
+              "required": [
+                "freshness_policy"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

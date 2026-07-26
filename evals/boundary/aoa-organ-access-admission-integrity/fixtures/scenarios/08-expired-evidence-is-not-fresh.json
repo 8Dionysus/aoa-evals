@@ -1,0 +1,15 @@
+{
+  "scenario_id": "expired_evidence_is_not_fresh_for_packet_window",
+  "expected": "reject",
+  "expected_codes": [
+    "axis_evidence_expired_within_observation_window:freshness_satisfied"
+  ],
+  "packet_ref": "fixtures/packets/valid-read.json",
+  "mutations": [
+    {
+      "action": "set",
+      "path": "maturity.freshness_satisfied.expires_at",
+      "value": "2026-07-25T12:04:00Z"
+    }
+  ]
+}

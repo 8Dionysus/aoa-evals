@@ -951,6 +951,38 @@
       "what_this_does_not_prove": "proof that the resulting memo is true; permission to land durable reviewed memory; permission to skip write-path guardrails"
     },
     {
+      "blind_spot_short": "authenticity of an external evidence reference;; correctness of a live owner implementation;; runtime latency, cancellation, concurrency, or injection resistance;",
+      "bounded_claim_short": "The bundle can support only this claim:",
+      "capability_dependencies": [],
+      "capability_refs": [],
+      "category": "boundary",
+      "comparison_surface": null,
+      "do_not_use_short": "the task is owner-local semantic review;; the task is live runtime, registry, or consumer observation;",
+      "eval_path": "evals/boundary/aoa-organ-access-admission-integrity/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-organ-access-admission-integrity",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "report_schema"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "bounded",
+      "summary": "Checks that one OS Abyss organ-access proof packet preserves independent maturity axes, policy-plane ceilings, owner acceptance, freshness, and admission boundaries.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "use_when_short": "a central proof packet is being prepared or reviewed for the organ access",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "evidence that a live organ is installed or reachable;; evidence that a result is grounded or fresh;; owner acceptance or control-plane admission;"
+    },
+    {
       "blind_spot_short": "root-cause diagnosis for why one side outran the other; one-run artifact quality by itself; one-run workflow quality by itself",
       "bounded_claim_short": "under these conditions, artifact-side and process-side readings on the same bounded cases can be compared honestly enough to show whether one materially outruns the other or whether the...",
       "capability_dependencies": [

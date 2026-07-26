@@ -16,6 +16,82 @@ The proof authority remains:
   `mechanics/audit/parts/candidate-readers/generated/` for candidate shapes;
 - bundle-local review and report contracts for final interpretation.
 
+The access plane also exposes evidence needed by the organ-access proof route,
+but it does not admit an organ. A registry entry, runnable process, observed
+schema, successful call, candidate packet, or green command remains weaker
+than the bounded source eval and reviewed acceptance route.
+
+## Organ Access Proof Boundary
+
+The current central source proof is capability- and policy-plane-specific. It
+validates the packet unit, named owners, exact revision-slot bindings,
+independent maturity evidence, observation and expiry windows, honest
+insufficient-evidence posture, and the prohibition on acceptance, admission,
+or higher-effect inference. It does not collapse those fields into general
+health.
+
+This source route does not test a live primitive or arguments, process or
+credential denial, context footprint, latency, cancellation, injection
+resistance, receipt continuity, cross-organ handoff, or rollback. Any claim on
+those surfaces requires a separate named live proof bundle and validation
+route; none is supplied by this source contract.
+
+The proof packet carries a maturity vector with independent evidence for:
+
+```text
+declared
+owner_reviewed
+packaged
+exported
+deployed
+process_alive
+endpoint_ready
+registry_indexed
+consumer_registered
+schema_observed
+call_succeeded
+result_grounded
+freshness_satisfied
+owner_accepted
+cross_organ_proven
+rollback_proven
+```
+
+Each asserted axis requires an observation timestamp, owner-qualified evidence
+reference, revision, and expiry or freshness policy. No axis is inferred from
+another. In particular, `endpoint_ready` does not imply `result_grounded`, and
+a central eval result does not imply `owner_accepted`.
+
+Admission remains a control-plane and acceptance-owner action after proof.
+`aoa-evals` emits a bounded proof result and its limits; it does not mutate the
+private registry, start a service, accept memory, apply source changes, or
+authorize effects.
+
+Read, candidate, internal-effect, and external-effect planes are evaluated
+separately. A read-plane pass is not evidence for an effect plane. Tests must
+not claim effect isolation until a named live suite shows that a read
+credential is denied at higher-effect processes. Candidate output cannot
+become durable truth without the named acceptance owner.
+
+## Current Source-Backed Organ-Access Route
+
+The bounded source contract and negative-inference suite live in
+[`aoa-organ-access-admission-integrity`](../../evals/boundary/aoa-organ-access-admission-integrity/EVAL.md).
+Its packet schema is
+[`organ-access-proof-packet.schema.json`](../../evals/boundary/aoa-organ-access-admission-integrity/schemas/organ-access-proof-packet.schema.json).
+
+The exact checked-in scenario, packet-validation, and bundle-validation argv
+are recorded in the bundle's
+[`runners/contract.json`](../../evals/boundary/aoa-organ-access-admission-integrity/runners/contract.json)
+and governed by `evals/AGENTS.md#validation`.
+
+This route makes the public packet shape and its forbidden inferences
+executable. It does **not** collect or authenticate live owner, runtime,
+registry, consumer, denial, freshness, cross-organ, or rollback observations.
+A green source suite cannot admit an organ, accept owner meaning, prove a live
+protocol pair, or change a registry. Live pair-specific proof remains a
+separate evidence and acceptance route.
+
 ## Operating Card
 
 | Field | Route |
@@ -108,6 +184,10 @@ MCP output is always weaker than the source bundle and its manifest.
 - Do not treat runtime evidence, generated readers, or MCP output as stronger
   than bundle-local `EVAL.md` and `eval.yaml`.
 - Do not move proof authority into `abyss-stack`.
+- Do not mutate the private organ registry or treat a central proof result as
+  admission or owner acceptance.
+- Do not infer a higher maturity axis, policy plane, or effect authority from a
+  lower one.
 
 ## Runtime Evidence Posture
 

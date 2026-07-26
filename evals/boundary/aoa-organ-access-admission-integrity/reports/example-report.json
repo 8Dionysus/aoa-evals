@@ -9,7 +9,7 @@
     "A passing result cannot authorize admission, infer acceptance, or raise effect authority."
   ],
   "object_under_evaluation": "OS Abyss organ-access proof packet and its admission inferences",
-  "passed_count": 8,
+  "passed_count": 10,
   "per_scenario_breakdown": [
     {
       "expected": "accept",
@@ -42,6 +42,7 @@
       "observed": "reject",
       "observed_codes": [
         "axis_evidence_kind_mismatch:owner_accepted",
+        "axis_revision_slot_mismatch:owner_accepted",
         "central_eval_does_not_imply_owner_accepted"
       ],
       "outcome": "pass",
@@ -107,8 +108,32 @@
       ],
       "outcome": "pass",
       "scenario_id": "expired_evidence_is_not_fresh_for_packet_window"
+    },
+    {
+      "expected": "reject",
+      "expected_codes": [
+        "positive_verdict_requires_asserted_evidence"
+      ],
+      "observed": "reject",
+      "observed_codes": [
+        "positive_verdict_requires_asserted_evidence"
+      ],
+      "outcome": "pass",
+      "scenario_id": "positive_verdict_requires_asserted_evidence"
+    },
+    {
+      "expected": "reject",
+      "expected_codes": [
+        "axis_revision_slot_mismatch:deployed"
+      ],
+      "observed": "reject",
+      "observed_codes": [
+        "axis_revision_slot_mismatch:deployed"
+      ],
+      "outcome": "pass",
+      "scenario_id": "axis_binds_to_its_designated_revision_slot"
     }
   ],
-  "scenario_count": 8,
+  "scenario_count": 10,
   "verdict": "supports bounded claim"
 }

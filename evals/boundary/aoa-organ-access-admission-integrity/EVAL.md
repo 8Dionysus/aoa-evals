@@ -101,7 +101,9 @@ The checked-in scenarios cover:
 6. acceptance of an honest `insufficient_evidence` packet;
 7. rejection of a packet that tries to authorize an admission change;
 8. rejection of evidence that expires before the packet observation window
-   closes.
+   closes;
+9. rejection of a positive verdict when no maturity axis is asserted;
+10. rejection of an asserted axis bound to the wrong revision slot.
 
 These fixtures are public-safe contract examples. They contain no production
 tokens, private payloads, live service addresses, or private registry data.

@@ -37,6 +37,25 @@ EXPECTED_EVIDENCE_KIND = {
     "rollback_proven": "rollback_receipt",
 }
 
+EXPECTED_REVISION_SLOT = {
+    "declared": "source",
+    "owner_reviewed": "source",
+    "packaged": "package",
+    "exported": "package",
+    "deployed": "deploy",
+    "process_alive": "deploy",
+    "endpoint_ready": "deploy",
+    "registry_indexed": "deploy",
+    "consumer_registered": "consumer_schema",
+    "schema_observed": "consumer_schema",
+    "call_succeeded": "deploy",
+    "result_grounded": "source",
+    "freshness_satisfied": "deploy",
+    "owner_accepted": "source",
+    "cross_organ_proven": "deploy",
+    "rollback_proven": "deploy",
+}
+
 ASSERTED_FIELDS = {
     "observed_at",
     "evidence_ref",
@@ -93,18 +112,15 @@ def semantic_issues(packet: dict[str, Any]) -> set[str]:
         parse_time(window.get("ended_at")) if isinstance(window, dict) else None
     )
     revisions = packet.get("revisions")
-    known_revisions = (
-        {value for value in revisions.values() if isinstance(value, str)}
-        if isinstance(revisions, dict)
-        else set()
-    )
     maturity = packet.get("maturity")
+    asserted_axes: set[str] = set()
 
     if isinstance(maturity, dict):
         for axis, expected_kind in EXPECTED_EVIDENCE_KIND.items():
             evidence = maturity.get(axis)
             if not isinstance(evidence, dict) or evidence.get("state") != "asserted":
                 continue
+            asserted_axes.add(axis)
 
             missing = ASSERTED_FIELDS - evidence.keys()
             if missing or not (evidence.get("expires_at") or evidence.get("freshness_policy")):
@@ -119,8 +135,12 @@ def semantic_issues(packet: dict[str, Any]) -> set[str]:
                 issues.add("central_eval_does_not_imply_owner_accepted")
 
             revision = evidence.get("revision")
-            if isinstance(revision, str) and revision not in known_revisions:
-                issues.add(f"axis_revision_unbound:{axis}")
+            expected_slot = EXPECTED_REVISION_SLOT[axis]
+            expected_revision = (
+                revisions.get(expected_slot) if isinstance(revisions, dict) else None
+            )
+            if isinstance(revision, str) and revision != expected_revision:
+                issues.add(f"axis_revision_slot_mismatch:{axis}")
 
             observed_at = parse_time(evidence.get("observed_at"))
             expires_at = parse_time(evidence.get("expires_at"))
@@ -145,6 +165,11 @@ def semantic_issues(packet: dict[str, Any]) -> set[str]:
 
     result = packet.get("result")
     if isinstance(result, dict):
+        if (
+            result.get("verdict") == "supports_bounded_contract"
+            and not asserted_axes
+        ):
+            issues.add("positive_verdict_requires_asserted_evidence")
         if result.get("admission_change_authorized") is not False:
             issues.add("admission_change_not_authorized_by_central_proof")
         if result.get("owner_acceptance_inferred") is not False:

@@ -32,8 +32,8 @@ def test_checked_in_scenarios_match_bounded_expectations() -> None:
     completed = run_runner("run-scenarios")
     assert completed.returncode == 0, completed.stderr or completed.stdout
     report = json.loads(completed.stdout)
-    assert report["scenario_count"] == 8
-    assert report["passed_count"] == 8
+    assert report["scenario_count"] == 10
+    assert report["passed_count"] == 10
     assert report["failed_count"] == 0
     assert report["verdict"] == "supports bounded claim"
 
@@ -89,3 +89,5 @@ def test_negative_scenarios_cover_forbidden_admission_inferences() -> None:
         "axis_evidence_expired_within_observation_window:freshness_satisfied"
         in expected_codes
     )
+    assert "positive_verdict_requires_asserted_evidence" in expected_codes
+    assert "axis_revision_slot_mismatch:deployed" in expected_codes

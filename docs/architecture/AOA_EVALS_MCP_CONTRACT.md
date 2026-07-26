@@ -23,11 +23,18 @@ than the bounded source eval and reviewed acceptance route.
 
 ## Organ Access Proof Boundary
 
-Central organ-access proof is capability- and policy-plane-specific. It checks
-the claimed owner route, primitive, arguments, authority ceiling, source and
-runtime identity, freshness, deny behavior, context footprint, latency,
-cancellation, injection resistance, receipt continuity, cross-organ handoff,
-and rollback. It does not collapse those observations into general health.
+The current central source proof is capability- and policy-plane-specific. It
+validates the packet unit, named owners, exact revision-slot bindings,
+independent maturity evidence, observation and expiry windows, honest
+insufficient-evidence posture, and the prohibition on acceptance, admission,
+or higher-effect inference. It does not collapse those fields into general
+health.
+
+This source route does not test a live primitive or arguments, process or
+credential denial, context footprint, latency, cancellation, injection
+resistance, receipt continuity, cross-organ handoff, or rollback. Any claim on
+those surfaces requires a separate named live proof bundle and validation
+route; none is supplied by this source contract.
 
 The proof packet carries a maturity vector with independent evidence for:
 
@@ -62,9 +69,9 @@ authorize effects.
 
 Read, candidate, internal-effect, and external-effect planes are evaluated
 separately. A read-plane pass is not evidence for an effect plane. Tests must
-show that a read credential is denied at higher-effect processes and that
-candidate output cannot become durable truth without the named acceptance
-owner.
+not claim effect isolation until a named live suite shows that a read
+credential is denied at higher-effect processes. Candidate output cannot
+become durable truth without the named acceptance owner.
 
 ## Current Source-Backed Organ-Access Route
 

@@ -41,7 +41,8 @@ Choose the third option.
 unit is one exact organ capability on one policy plane, source revision,
 package/deploy identity, consumer, protocol pair, and observation window.
 
-The route checks, where applicable:
+For a future live pair-specific claim to be admissible, its named source bundle
+must explicitly check the applicable surfaces below:
 
 - correct owner and primitive selection;
 - argument and owner-specific schema conformance;
@@ -57,6 +58,12 @@ The route checks, where applicable:
 - receipt and trace continuity across direct and cross-organ handoffs;
 - rollback behavior;
 - consumer and model diversity where the claim depends on either.
+
+This decision does not itself provide that live suite. The currently landed
+`aoa-organ-access-admission-integrity` bundle validates packet structure,
+axis-specific evidence and revision slots, freshness windows, insufficient
+evidence, and negative admission inferences only. All other items above remain
+requirements for a separately named live bundle rather than current behavior.
 
 Evidence is represented as an independent maturity vector:
 `declared`, `owner_reviewed`, `packaged`, `exported`, `deployed`,

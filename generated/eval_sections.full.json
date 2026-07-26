@@ -2069,6 +2069,100 @@
       "verdict_shape": "mixed"
     },
     {
+      "category": "boundary",
+      "eval_path": "evals/boundary/aoa-organ-access-admission-integrity/EVAL.md",
+      "name": "aoa-organ-access-admission-integrity",
+      "sections": [
+        {
+          "content_markdown": "Use this eval to validate one public-safe proof packet for one exact OS Abyss\norgan capability on one policy plane. The bundle protects the boundary between\nobserved evidence and admission inference.\n\nThe bounded claim is:\n\n> Given a packet shaped by this source contract, independent maturity axes stay\n> independently evidenced, a lower policy plane does not authorize a higher\n> effect, and central proof does not impersonate owner acceptance or control\n> plane admission.\n\nThis is a source-contract and negative-invariant eval. It does not observe a\nlive MCP process, registry, consumer, or organ result by itself.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "The object under evaluation is one `organ_access_proof_packet_v1` packet with:\n\n- one organ and capability identity;\n- one policy plane and protocol pair;\n- named source, access, control, runtime, proof, and acceptance owners;\n- exact source, package, deploy, and consumer-schema revisions;\n- an observation window;\n- sixteen independently stated maturity axes;\n- a bounded result that cannot authorize admission, infer acceptance, or raise\n  effect authority.",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "The bundle can support only this claim:\n\n- the supplied packet matches the public source contract; and\n- the bundled negative scenarios do not allow the forbidden inferences named\n  in this eval.\n\nIt cannot support claims that:\n\n- an organ is installed, deployed, reachable, grounded, accepted, or admitted;\n- the private registry contains a current entry;\n- a named consumer invoked the organ successfully;\n- a live owner accepted evidence;\n- rollback works in the deployed runtime;\n- one passing protocol pair proves another pair.",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a central proof packet is being prepared or reviewed for the organ access\n  fabric;\n- a status surface risks collapsing reachability into grounding;\n- owner acceptance or admission is being inferred from central evaluation;\n- a read or candidate plane risks being treated as effect authority;\n- evidence freshness, revision binding, or rollback independence must remain\n  explicit.\n\nDo not use this eval when:\n\n- the task is owner-local semantic review;\n- the task is live runtime, registry, or consumer observation;\n- the task is capability-specific effect testing;\n- the task is acceptance-owner receipt review;\n- the task is control-plane admission or rollback execution.",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- one JSON packet conforming to\n  `schemas/organ-access-proof-packet.schema.json`;\n- the exact organ capability and policy plane under review;\n- owner-qualified evidence references and revision bindings for every asserted\n  axis;\n- explicit limitations and an observation window.",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "The checked-in scenarios cover:\n\n1. a valid bounded read-plane packet;\n2. rejection of `endpoint_ready` evidence used for `result_grounded`;\n3. rejection of a central-eval result used for `owner_accepted`;\n4. rejection of read-plane authorization for a higher effect;\n5. rejection of an asserted axis without complete evidence and revision data;\n6. acceptance of an honest `insufficient_evidence` packet;\n7. rejection of a packet that tries to authorize an admission change;\n8. rejection of evidence that expires before the packet observation window\n   closes.\n\nThese fixtures are public-safe contract examples. They contain no production\ntokens, private payloads, live service addresses, or private registry data.",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "The scenario runner produces:\n\n- `supports bounded claim` when every checked-in accept/reject expectation\n  matches;\n- `does not support bounded claim` when any scenario expectation diverges.\n\nFor direct packet validation, schema and semantic issues are returned as\nmachine-readable codes. An `insufficient_evidence` result is a valid and useful\nreadout when the packet is honest about missing proof.\n\nNo runner result changes admission. No positive result implies owner\nacceptance. A source-contract pass is weaker than live pair-specific evidence.",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`.\n\nIt is a standalone bounded source-contract and negative-invariant surface.\nWithout a baseline it can support only the current packet-shape claim. It\ncannot support improvement, regression, comparative implementation quality, or\nruntime reliability claims.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "Run the exact checked-in suite and packet-validation argv recorded in\n`runners/contract.json`. The executable repository validation route is governed\nby [`evals/AGENTS.md#validation`](../../AGENTS.md#validation); that owner card\ndefines the surrounding source checks and command ownership.\n\nThe runner is deterministic and offline. It validates packet shape and bounded\nsemantic invariants only. Live execution evidence must be gathered elsewhere,\nthen presented as owner-qualified candidate evidence.",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "- a deterministic summary-with-breakdown report;\n- per-scenario expected and observed acceptance state;\n- stable issue codes for violated inference boundaries;\n- an explicit claim boundary and limitations list.\n\nThe report contract is\n`reports/summary.schema.json`; `reports/example-report.json` is a checked-in\npublic-safe example, not a production receipt.",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "The instrument fails its purpose if:\n\n- one maturity axis is derived from another;\n- an asserted axis lacks timestamp, evidence, revision, and freshness data;\n- a central eval result is accepted as owner acceptance;\n- read or candidate evidence authorizes an effect plane;\n- a passing source scenario is reported as live organ admission;\n- absent evidence is hidden instead of producing `insufficient_evidence`;\n- private runtime material is copied into public fixtures.",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- authenticity of an external evidence reference;\n- correctness of a live owner implementation;\n- runtime latency, cancellation, concurrency, or injection resistance;\n- consumer diversity or protocol-pair interoperability;\n- actual effect isolation between processes and credentials;\n- durable rollback or recovery;\n- owner acceptance or control-plane admission.\n\nThose claims require pair-specific runtime evidence, named owner review, and\nseparate admission and rollback receipts.",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "A positive suite result means only that this checked-in source contract\npreserves its bounded negative invariants. It is not an organ health score.\n\nDo not treat a positive result as:\n\n- evidence that a live organ is installed or reachable;\n- evidence that a result is grounded or fresh;\n- owner acceptance or control-plane admission;\n- effect authorization;\n- cross-organ or rollback proof.\n\nReviewers must keep these distinctions:\n\n- declared is not packaged;\n- packaged is not deployed;\n- process alive is not endpoint ready;\n- endpoint ready is not result grounded;\n- call succeeded is not fresh or accepted;\n- central proof is not owner acceptance;\n- owner acceptance is not admission;\n- read-plane proof is not effect authorization;\n- successful operation is not rollback proof.",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- run the bundled scenario command;\n- validate the example report against the report schema;\n- run the bundle-specific repository check routed by\n  `evals/AGENTS.md#validation`;\n- confirm every asserted maturity axis retains its own evidence kind, revision,\n  timestamp, and freshness field;\n- confirm the report keeps admission, acceptance inference, and higher-effect\n  authorization fixed to `false`;\n- confirm the result names the live-evidence blind spot.",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "No registered technique dependency is required. The design follows the\nowner-separated proof topology and packet law named in\n`docs/architecture/AOA_EVALS_MCP_CONTRACT.md`.",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "No callable skill is under evaluation. `aoa-evals` selection and evolution\nprocedures may route to this bundle, but they do not supply proof evidence or\nchange its verdict.",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "Project overlays may replace the public-safe organ, capability, protocol pair,\nowner labels, and evidence references. They must retain:\n\n- all sixteen independent maturity axes;\n- exact revision, timestamp, evidence-kind, and freshness data for every\n  asserted axis;\n- the endpoint, central-eval, effect-plane, insufficient-evidence, and\n  admission-denial cases;\n- false admission, acceptance-inference, and higher-effect authorization\n  fields;\n- the source-only claim limit.",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "bounded",
+      "verdict_shape": "categorical"
+    },
+    {
       "category": "comparative",
       "eval_path": "evals/comparison/peer-compare/aoa-output-vs-process-gap/EVAL.md",
       "name": "aoa-output-vs-process-gap",

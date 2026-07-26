@@ -1,0 +1,155 @@
+{
+  "schema_version": "organ_access_proof_packet_v1",
+  "packet_id": "public-safe.memo-recall.read.20260725",
+  "organ_id": "aoa-memo",
+  "capability_id": "memo.recall",
+  "policy_plane": "read",
+  "protocol_pair": {
+    "consumer": "codex-public-fixture",
+    "server": "abyss-stack-mcp-public-fixture",
+    "transport": "streamable-http"
+  },
+  "observation_window": {
+    "started_at": "2026-07-25T12:00:00Z",
+    "ended_at": "2026-07-25T12:05:00Z"
+  },
+  "owners": {
+    "source": "aoa-memo",
+    "access": "abyss-stack-mcp",
+    "control": "aoa-sdk",
+    "runtime": "abyss-stack",
+    "proof": "aoa-evals",
+    "acceptance": "aoa-memo"
+  },
+  "revisions": {
+    "source": "source:public-safe-001",
+    "package": "package:public-safe-001",
+    "deploy": "deploy:public-safe-001",
+    "consumer_schema": "consumer-schema:public-safe-001"
+  },
+  "maturity": {
+    "declared": {
+      "state": "asserted",
+      "observed_at": "2026-07-25T12:00:00Z",
+      "evidence_ref": "fixture://source-declaration",
+      "evidence_kind": "source_declaration",
+      "revision": "source:public-safe-001",
+      "freshness_policy": "immutable source revision"
+    },
+    "owner_reviewed": {
+      "state": "asserted",
+      "observed_at": "2026-07-25T12:00:10Z",
+      "evidence_ref": "fixture://owner-review",
+      "evidence_kind": "owner_review",
+      "revision": "source:public-safe-001",
+      "freshness_policy": "valid for exact source revision"
+    },
+    "packaged": {
+      "state": "asserted",
+      "observed_at": "2026-07-25T12:00:20Z",
+      "evidence_ref": "fixture://package-receipt",
+      "evidence_kind": "package_receipt",
+      "revision": "package:public-safe-001",
+      "freshness_policy": "valid for exact package revision"
+    },
+    "exported": {
+      "state": "asserted",
+      "observed_at": "2026-07-25T12:00:30Z",
+      "evidence_ref": "fixture://export-receipt",
+      "evidence_kind": "export_receipt",
+      "revision": "package:public-safe-001",
+      "freshness_policy": "valid for exact package revision"
+    },
+    "deployed": {
+      "state": "asserted",
+      "observed_at": "2026-07-25T12:01:00Z",
+      "evidence_ref": "fixture://deploy-receipt",
+      "evidence_kind": "deploy_receipt",
+      "revision": "deploy:public-safe-001",
+      "expires_at": "2026-07-25T13:01:00Z"
+    },
+    "process_alive": {
+      "state": "asserted",
+      "observed_at": "2026-07-25T12:01:10Z",
+      "evidence_ref": "fixture://process-observation",
+      "evidence_kind": "process_observation",
+      "revision": "deploy:public-safe-001",
+      "expires_at": "2026-07-25T12:06:10Z"
+    },
+    "endpoint_ready": {
+      "state": "asserted",
+      "observed_at": "2026-07-25T12:01:20Z",
+      "evidence_ref": "fixture://endpoint-probe",
+      "evidence_kind": "endpoint_probe",
+      "revision": "deploy:public-safe-001",
+      "expires_at": "2026-07-25T12:06:20Z"
+    },
+    "registry_indexed": {
+      "state": "asserted",
+      "observed_at": "2026-07-25T12:01:30Z",
+      "evidence_ref": "fixture://registry-observation",
+      "evidence_kind": "registry_observation",
+      "revision": "deploy:public-safe-001",
+      "expires_at": "2026-07-25T12:06:30Z"
+    },
+    "consumer_registered": {
+      "state": "asserted",
+      "observed_at": "2026-07-25T12:02:00Z",
+      "evidence_ref": "fixture://consumer-registration",
+      "evidence_kind": "consumer_registration",
+      "revision": "consumer-schema:public-safe-001",
+      "freshness_policy": "valid for exact consumer schema revision"
+    },
+    "schema_observed": {
+      "state": "asserted",
+      "observed_at": "2026-07-25T12:02:10Z",
+      "evidence_ref": "fixture://consumer-schema-observation",
+      "evidence_kind": "consumer_schema_observation",
+      "revision": "consumer-schema:public-safe-001",
+      "expires_at": "2026-07-25T12:07:10Z"
+    },
+    "call_succeeded": {
+      "state": "asserted",
+      "observed_at": "2026-07-25T12:03:00Z",
+      "evidence_ref": "fixture://call-receipt",
+      "evidence_kind": "call_receipt",
+      "revision": "deploy:public-safe-001",
+      "expires_at": "2026-07-25T12:08:00Z"
+    },
+    "result_grounded": {
+      "state": "asserted",
+      "observed_at": "2026-07-25T12:03:20Z",
+      "evidence_ref": "fixture://owner-grounding-review",
+      "evidence_kind": "owner_grounding_review",
+      "revision": "source:public-safe-001",
+      "freshness_policy": "owner-qualified for exact source and fixture result"
+    },
+    "freshness_satisfied": {
+      "state": "asserted",
+      "observed_at": "2026-07-25T12:03:30Z",
+      "evidence_ref": "fixture://freshness-review",
+      "evidence_kind": "freshness_review",
+      "revision": "deploy:public-safe-001",
+      "expires_at": "2026-07-25T12:08:30Z"
+    },
+    "owner_accepted": {
+      "state": "not_asserted"
+    },
+    "cross_organ_proven": {
+      "state": "not_asserted"
+    },
+    "rollback_proven": {
+      "state": "not_asserted"
+    }
+  },
+  "result": {
+    "verdict": "supports_bounded_contract",
+    "admission_change_authorized": false,
+    "owner_acceptance_inferred": false,
+    "higher_effect_authorized": false,
+    "limitations": [
+      "This public fixture is not evidence that a live memo organ is admitted.",
+      "Owner acceptance, cross-organ proof, and rollback remain not asserted."
+    ]
+  }
+}

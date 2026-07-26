@@ -111,8 +111,11 @@ As of 2026-07-25:
 
 - Still valid: bundle-local source proof and review remain stronger than
   generated readers and MCP output.
-- Changed: organ-access evidence has an explicit central proof route and
-  maturity vector.
+- Changed: organ-access evidence has an executable bounded source packet
+  contract and negative-inference suite in
+  `evals/boundary/aoa-organ-access-admission-integrity/`.
+- Not yet established: live pair-specific owner, runtime, registry, consumer,
+  denial, acceptance, cross-organ, and rollback proof.
 - Superseded by: none.
 
 ## Review Log
@@ -128,8 +131,11 @@ As of 2026-07-25:
 - Source surfaces updated:
   - `docs/architecture/AOA_EVALS_MCP_CONTRACT.md`
   - `docs/architecture/PROOF_TOPOLOGY.md`
-- Validation: use the docs, decision-index, source-fast, and central
-  organ-access eval routes.
+  - `evals/boundary/aoa-organ-access-admission-integrity/`
+- Validation: use the exact bundle commands recorded in
+  `evals/boundary/aoa-organ-access-admission-integrity/runners/contract.json`
+  plus the docs, decision-index, and source-fast routes owned by their nearest
+  `AGENTS.md` cards.
 
 ## Boundaries
 
@@ -140,7 +146,12 @@ authority from a lower axis or policy-plane result.
 
 ## Validation
 
-Regenerate decision indexes, run root/docs semantic validation, then run the
-organ-access scenario suite against exact owner, runtime, registry, consumer,
-and protocol revisions. The proof output must preserve its interpretation
-limits and route to a named acceptance owner.
+Regenerate decision indexes, run root/docs semantic validation, and execute the
+exact scenario and source-bundle argv recorded in
+`evals/boundary/aoa-organ-access-admission-integrity/runners/contract.json`
+through the command-owning `evals/AGENTS.md` route.
+
+These commands validate the source packet contract, not live organ admission.
+Any stronger proof run must carry exact owner, runtime, registry, consumer, and
+protocol revisions, preserve the same interpretation limits, and route to the
+named acceptance owner.

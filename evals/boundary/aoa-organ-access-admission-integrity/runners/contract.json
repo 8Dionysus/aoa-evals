@@ -1,0 +1,23 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "evals/boundary/aoa-organ-access-admission-integrity/runners/run_scenarios.py",
+  "inputs": [
+    "one organ capability and policy plane",
+    "exact owner and protocol pair",
+    "source, package, deploy, and consumer-schema revisions",
+    "sixteen independent maturity-axis states",
+    "owner-qualified evidence, observation time, and freshness data for asserted axes",
+    "bounded result and limitations"
+  ],
+  "fixture_contract_paths": [
+    "evals/boundary/aoa-organ-access-admission-integrity/fixtures/contract.json",
+    "evals/boundary/aoa-organ-access-admission-integrity/schemas/organ-access-proof-packet.schema.json"
+  ],
+  "scorer_helper_paths": [],
+  "report_schema_path": "evals/boundary/aoa-organ-access-admission-integrity/reports/summary.schema.json",
+  "report_example_path": "evals/boundary/aoa-organ-access-admission-integrity/reports/example-report.json",
+  "validation_commands": [
+    "python evals/boundary/aoa-organ-access-admission-integrity/runners/run_scenarios.py run-scenarios",
+    "python scripts/validate_repo.py --eval aoa-organ-access-admission-integrity"
+  ]
+}

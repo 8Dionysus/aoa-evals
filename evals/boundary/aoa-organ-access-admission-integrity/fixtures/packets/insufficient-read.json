@@ -1,0 +1,90 @@
+{
+  "schema_version": "organ_access_proof_packet_v1",
+  "packet_id": "public-safe.unknown-organ.read.20260725",
+  "organ_id": "unknown-organ",
+  "capability_id": "unknown.read",
+  "policy_plane": "read",
+  "protocol_pair": {
+    "consumer": "codex-public-fixture",
+    "server": "abyss-stack-mcp-public-fixture",
+    "transport": "streamable-http"
+  },
+  "observation_window": {
+    "started_at": "2026-07-25T12:00:00Z",
+    "ended_at": "2026-07-25T12:00:01Z"
+  },
+  "owners": {
+    "source": "unknown-owner",
+    "access": "abyss-stack-mcp",
+    "control": "aoa-sdk",
+    "runtime": "abyss-stack",
+    "proof": "aoa-evals",
+    "acceptance": "unknown-owner"
+  },
+  "revisions": {
+    "source": "source:unknown-001",
+    "package": "package:unknown-001",
+    "deploy": "deploy:unknown-001",
+    "consumer_schema": "consumer-schema:unknown-001"
+  },
+  "maturity": {
+    "declared": {
+      "state": "not_asserted"
+    },
+    "owner_reviewed": {
+      "state": "not_asserted"
+    },
+    "packaged": {
+      "state": "not_asserted"
+    },
+    "exported": {
+      "state": "not_asserted"
+    },
+    "deployed": {
+      "state": "not_asserted"
+    },
+    "process_alive": {
+      "state": "not_asserted"
+    },
+    "endpoint_ready": {
+      "state": "not_asserted"
+    },
+    "registry_indexed": {
+      "state": "not_asserted"
+    },
+    "consumer_registered": {
+      "state": "not_asserted"
+    },
+    "schema_observed": {
+      "state": "not_asserted"
+    },
+    "call_succeeded": {
+      "state": "not_asserted"
+    },
+    "result_grounded": {
+      "state": "not_asserted"
+    },
+    "freshness_satisfied": {
+      "state": "not_asserted"
+    },
+    "owner_accepted": {
+      "state": "not_asserted"
+    },
+    "cross_organ_proven": {
+      "state": "not_asserted"
+    },
+    "rollback_proven": {
+      "state": "not_asserted"
+    }
+  },
+  "result": {
+    "verdict": "insufficient_evidence",
+    "admission_change_authorized": false,
+    "owner_acceptance_inferred": false,
+    "higher_effect_authorized": false,
+    "limitations": [
+      "No source, runtime, consumer, owner, or rollback evidence is asserted.",
+      "The packet is useful only as an honest insufficient-evidence readout."
+    ]
+  }
+}

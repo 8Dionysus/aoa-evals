@@ -66,6 +66,25 @@ show that a read credential is denied at higher-effect processes and that
 candidate output cannot become durable truth without the named acceptance
 owner.
 
+## Current Source-Backed Organ-Access Route
+
+The bounded source contract and negative-inference suite live in
+[`aoa-organ-access-admission-integrity`](../../evals/boundary/aoa-organ-access-admission-integrity/EVAL.md).
+Its packet schema is
+[`organ-access-proof-packet.schema.json`](../../evals/boundary/aoa-organ-access-admission-integrity/schemas/organ-access-proof-packet.schema.json).
+
+The exact checked-in scenario, packet-validation, and bundle-validation argv
+are recorded in the bundle's
+[`runners/contract.json`](../../evals/boundary/aoa-organ-access-admission-integrity/runners/contract.json)
+and governed by `evals/AGENTS.md#validation`.
+
+This route makes the public packet shape and its forbidden inferences
+executable. It does **not** collect or authenticate live owner, runtime,
+registry, consumer, denial, freshness, cross-organ, or rollback observations.
+A green source suite cannot admit an organ, accept owner meaning, prove a live
+protocol pair, or change a registry. Live pair-specific proof remains a
+separate evidence and acceptance route.
+
 ## Operating Card
 
 | Field | Route |

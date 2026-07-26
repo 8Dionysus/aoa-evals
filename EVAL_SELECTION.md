@@ -33,6 +33,7 @@ This surface prefers:
 | `aoa-scope-drift-detection` | bounded | You need requested scope compared with executed scope. |
 | `aoa-ambiguity-handling` | bounded | You need incomplete, conflicting, or underspecified task meaning evaluated as the main question. |
 | `aoa-approval-boundary-adherence` | bounded | You need approval, authority, or permission classification. |
+| `aoa-organ-access-admission-integrity` | bounded | You need an OS Abyss organ-access proof packet checked for independent maturity evidence, policy-plane ceilings, and admission inference safety. |
 | `aoa-trace-outcome-separation` | bounded | You need final outcome and execution path kept separately readable before a combined reading. |
 | `aoa-tool-trajectory-discipline` | bounded | You need tool-use path quality as its own bounded surface. |
 | `aoa-antifragility-posture` | draft | You need one owner-local stressor family read through bounded degraded continuation and source-owned receipts. |
@@ -89,6 +90,12 @@ See also:
 
 ### I need to know whether an agent respected approval, authority, or risk boundaries
 - `aoa-approval-boundary-adherence`
+
+### I need to validate an OS Abyss organ-access proof packet without implying admission
+- `aoa-organ-access-admission-integrity`
+  Use this for source packet shape and the bounded negative inferences around
+  maturity axes, effect planes, owner acceptance, freshness, and admission.
+  It does not replace live pair-specific proof or the named acceptance owner.
 
 ### I need to know whether a memo writeback decision itself was well grounded
 - `aoa-memo-writeback-decision-quality`
@@ -224,7 +231,7 @@ See also:
 | category | use when | starter bundles |
 |---|---|---|
 | `workflow` | You care about multi-step execution quality, diagnosis-cause discipline, repair boundedness, memo writeback-decision quality, reflective revision boundedness on continuity routes, verification truthfulness, outcome-vs-path separation, tool-path quality where path matters, or public witness-trace reviewability. | `aoa-bounded-change-quality`, `aoa-diagnosis-cause-discipline`, `aoa-repair-boundedness`, `aoa-memo-writeback-decision-quality`, `aoa-reflective-revision-boundedness`, `aoa-verification-honesty`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, `aoa-witness-trace-integrity` |
-| `boundary` | You care about authority, approval, permission adherence, requested-scope alignment, owner-fit routing boundaries, or whether a continuity route reanchored to the right artifact. | `aoa-scope-drift-detection`, `aoa-approval-boundary-adherence`, `aoa-owner-fit-routing-quality`, `aoa-self-reanchor-correctness`, `aoa-experience-protocol-integrity` |
+| `boundary` | You care about authority, approval, permission adherence, requested-scope alignment, organ-access admission inference safety, owner-fit routing boundaries, or whether a continuity route reanchored to the right artifact. | `aoa-scope-drift-detection`, `aoa-approval-boundary-adherence`, `aoa-organ-access-admission-integrity`, `aoa-owner-fit-routing-quality`, `aoa-self-reanchor-correctness`, `aoa-experience-protocol-integrity` |
 | `stress` | You care about incomplete, conflicting, or underspecified task meaning, or about one bounded owner-local stressor family and whether degraded continuation stayed reviewable, source-owned, and weaker than the normal path. | `aoa-ambiguity-handling`, `aoa-antifragility-posture` |
 | `regression` | You care about frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | `artifact` | You care about the produced artifact itself or about provenance-preserving compost artifacts derived from witness-facing inputs. | `aoa-artifact-review-rubric`, `aoa-compost-provenance-preservation` |
@@ -258,7 +265,10 @@ Follow bundle-local `EVAL.md`, `eval.yaml`, and report artifacts for the proof
 path after selecting the comparison surface.
 
 ### If you need a bounded one-run starter now
-Prefer `aoa-scope-drift-detection`, `aoa-ambiguity-handling`, `aoa-approval-boundary-adherence`, `aoa-trace-outcome-separation`, `aoa-tool-trajectory-discipline`, or `aoa-eval-integrity-check`.
+Prefer `aoa-scope-drift-detection`, `aoa-ambiguity-handling`,
+`aoa-approval-boundary-adherence`,
+`aoa-organ-access-admission-integrity`, `aoa-trace-outcome-separation`,
+`aoa-tool-trajectory-discipline`, or `aoa-eval-integrity-check`.
 These bounded diagnostics give repeatable one-run reads. Keep the read inside
 the status shown in `EVAL_INDEX.md` and the bundle manifest.
 

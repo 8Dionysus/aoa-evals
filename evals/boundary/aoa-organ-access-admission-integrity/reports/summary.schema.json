@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-organ-access-admission-integrity summary-with-breakdown report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "scenario_count",
+    "passed_count",
+    "failed_count",
+    "per_scenario_breakdown"
+  ],
+  "properties": {
+    "eval_name": {
+      "const": "aoa-organ-access-admission-integrity"
+    },
+    "bundle_status": {
+      "const": "bounded"
+    },
+    "object_under_evaluation": {
+      "const": "OS Abyss organ-access proof packet and its admission inferences"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports bounded claim",
+        "does not support bounded claim"
+      ]
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 30
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 12
+      }
+    },
+    "scenario_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "passed_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "failed_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "per_scenario_breakdown": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "scenario_id",
+          "expected",
+          "observed",
+          "expected_codes",
+          "observed_codes",
+          "outcome"
+        ],
+        "properties": {
+          "scenario_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "expected": {
+            "type": "string",
+            "enum": [
+              "accept",
+              "reject"
+            ]
+          },
+          "observed": {
+            "type": "string",
+            "enum": [
+              "accept",
+              "reject"
+            ]
+          },
+          "expected_codes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 3
+            }
+          },
+          "observed_codes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 3
+            }
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

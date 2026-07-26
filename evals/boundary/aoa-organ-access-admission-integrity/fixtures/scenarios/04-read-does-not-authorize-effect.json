@@ -1,0 +1,16 @@
+{
+  "scenario_id": "read_plane_does_not_authorize_effect",
+  "expected": "reject",
+  "expected_codes": [
+    "higher_effect_not_authorized_by_lower_plane",
+    "read_or_candidate_plane_cannot_authorize_effect"
+  ],
+  "packet_ref": "fixtures/packets/valid-read.json",
+  "mutations": [
+    {
+      "action": "set",
+      "path": "result.higher_effect_authorized",
+      "value": true
+    }
+  ]
+}

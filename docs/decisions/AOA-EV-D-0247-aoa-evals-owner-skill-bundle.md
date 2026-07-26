@@ -98,10 +98,12 @@ As of 2026-07-23:
 - Still valid: one bundle with three internal modes is the admitted owner
   route; manual evidence across `select`, `review`, `evolve`, negative
   applicability, and coexistence, not projection validation, justifies
-  admission on the exercised Codex host and model. Version `0.1.20` is the
+  admission on the exercised Codex host and model. Version `0.1.21` is the
   current owner package. It preserves the three-mode contract, exact
   packet-ID-only review route, and v2 installed-copy source identity while
-  keeping central proof applicability visible in a shortened host catalog.
+  keeping central proof applicability, the local-eval alternative, and the
+  proof ceiling visible in the host catalog; package sequencing remains in the
+  activated body.
 - Changed: `aoa-evals` now has one repository skill home after the absence
   state recorded by AOA-EV-D-0246. Its Codex exposure is now selected once by
   the OS-level `os-user-default` profile rather than copied into this repo.

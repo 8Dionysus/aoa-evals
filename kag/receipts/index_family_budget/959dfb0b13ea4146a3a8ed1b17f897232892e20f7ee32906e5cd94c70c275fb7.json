@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 17002446,
+  "allowed_tracked_bytes": 23983140,
+  "approved_by": "repository-owner",
+  "base_ref": "b6397276822935edb0237b1963e4c55ddffccf27",
+  "changed_generated_bytes": 17002446,
+  "changed_generated_files": 302,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "959dfb0b13ea4146a3a8ed1b17f897232892e20f7ee32906e5cd94c70c275fb7",
+  "reason": "Index tightened OS Abyss organ-access source claims, zero-evidence verdict denial, and axis-specific revision-slot validation.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 23983140,
+  "tracked_bytes_max": 26214400
+}

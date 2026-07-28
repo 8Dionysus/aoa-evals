@@ -32,9 +32,10 @@ honestly.
 
 ## Stronger Owner Split
 
-`Agents-of-Abyss` owns recurrence return law. `aoa-routing` owns local routing
-behavior. `aoa-memo` owns durable memory anchors. Runtime owners own logs and
-runtime return wrappers.
+`Agents-of-Abyss` owns recurrence return law. `aoa-sdk` owns canonical local
+routing behavior; `aoa-routing` remains only for predecessor compatibility.
+`aoa-memo` owns durable memory anchors. Runtime owners own logs and runtime
+return wrappers.
 
 `aoa-evals` owns the bounded return-anchor proof interpretation. Authority
 beyond that proof reading routes through the stronger owner split above.

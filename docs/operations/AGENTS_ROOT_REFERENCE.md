@@ -47,7 +47,8 @@ Do not treat this repository as the source of truth for:
 
 - reusable engineering practice in `aoa-techniques`
 - bounded execution workflows in `aoa-skills`
-- routing and dispatch logic in `aoa-routing`
+- canonical routing and dispatch logic in `aoa-sdk`; `aoa-routing` is only a
+  predecessor compatibility and history surface
 - role contracts, progression policy, or live checkpoint doctrine in `aoa-agents`
 - scenario composition in `aoa-playbooks`
 - memory objects or recall surfaces in `aoa-memo`
@@ -207,7 +208,8 @@ their owned meaning:
 
 - `aoa-techniques` for upstream practice
 - `aoa-skills` for the bounded workflows under evaluation
-- `aoa-routing` for smallest-next-object navigation
+- `aoa-sdk` for canonical smallest-next-object navigation; `aoa-routing` only
+  for predecessor compatibility and history
 - `aoa-agents` for role, checkpoint, and evaluation-posture context
 - `aoa-playbooks` for scenario-level context
 - `aoa-stats` for derived summary views that stay weaker than proof

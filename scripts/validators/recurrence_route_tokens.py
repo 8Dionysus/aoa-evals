@@ -141,12 +141,12 @@ RECURRENCE_STATS_REGROUNDING_PART_REQUIRED_TOKENS = (
     "test_stats_regrounding_boundary_eval.py",
     "aoa-stats",
     "aoa-sdk",
-    "aoa-routing",
+    "canonical advisory routing hints",
     "| owner artifact correctness pressure | owner repository source-truth route |",
-    "| route approval pressure | `aoa-routing` advisory route plus owner acceptance |",
+    "| route approval pressure | `aoa-sdk` advisory route plus owner acceptance |",
     "| project health pressure | owner repository review plus derived stats context |",
     "| SDK optimality pressure | `aoa-sdk` policy and implementation route |",
-    "| routing authority pressure | `aoa-routing` route-authority boundary |",
+    "| routing authority pressure | `aoa-sdk` canonical route-authority boundary; `aoa-routing` only for predecessor compatibility |",
     "| stats-as-proof pressure | `aoa-stats` derived-only route plus bundle-local proof review |",
 )
 RECURRENCE_PORTABLE_PROOF_BEACONS_PART_REQUIRED_TOKENS = (

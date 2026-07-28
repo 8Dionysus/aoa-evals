@@ -69,7 +69,9 @@ deployment behavior.
 `aoa-agents` owns actor, office, role, assistant, and handoff posture.
 `aoa-playbooks` owns recurring adoption, release, office, service, and rollback
 choreography.
-`aoa-routing` owns live routing behavior and context-router implementation.
+`aoa-sdk` owns canonical live routing behavior and context-router
+implementation. `aoa-routing` remains only for predecessor compatibility and
+history.
 `aoa-memo` owns memory objects, recall, provenance, and candidate adoption truth.
 `aoa-sdk` owns typed helper and compatibility APIs.
 `aoa-stats` owns derived observability and movement summaries.
@@ -100,7 +102,7 @@ it:
 | operator certification, release approval, deployment approval, or rollout promotion pressure | Agents-of-Abyss, release-support, and owner approval route |
 | owner-local adoption, consent, or acceptance pressure | owner repository adoption route |
 | memory sovereignty, recall authority, or memo canon pressure | `aoa-memo` memory route |
-| live router behavior or routing-layer authorship pressure | `aoa-routing` route-authority lane |
+| live router behavior or routing-layer authorship pressure | `aoa-sdk` canonical route-authority lane; `aoa-routing` only for predecessor compatibility |
 | KAG promotion into owner repositories pressure | `aoa-kag` graph route plus owner adoption route |
 | Tree-of-Sophia runtime write or authored-meaning pressure | Tree-of-Sophia authored-meaning route |
 | broad Experience success pressure | bundle-local proof object plus source-owner evidence review |

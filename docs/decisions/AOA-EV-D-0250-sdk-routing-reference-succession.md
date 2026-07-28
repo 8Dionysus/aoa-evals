@@ -97,6 +97,13 @@ As of 2026-07-27:
   - `mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`
   - `scripts/validators/root_context.py`
   - current stress-recovery and runtime-integrity reference examples
+  - `evals/boundary/aoa-stats-regrounding-boundary-integrity/`
+  - `mechanics/recurrence/parts/stats-regrounding-boundary/`
+  - `mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE_CHAOS_WAVE1.md`
+  - active owner-route maps under `mechanics/checkpoint/`,
+    `mechanics/experience/`, `mechanics/recurrence/`, and adjacent proof bridges
+  - `docs/operations/AGENTS_ROOT_REFERENCE.md`
+  - `README.md`
 - Validation: use focused reference-parser and part tests, the latest-sibling
   canary against explicit sibling roots, root validation, and the repository
   release gate.

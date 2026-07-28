@@ -2,8 +2,8 @@
 name: aoa-stats-regrounding-boundary-integrity
 category: boundary
 status: draft
-summary: Checks whether stats-derived re-grounding signals preserve the split between stats observability, SDK policy, routing advisory hints, and bounded eval proof verdicts.
-object_under_evaluation: stats-driven re-grounding consumer boundary across aoa-stats, aoa-sdk, aoa-routing, and aoa-evals
+summary: Checks whether stats-derived re-grounding signals preserve the split between stats observability, SDK policy and advisory routing hints, and bounded eval proof verdicts.
+object_under_evaluation: stats-driven re-grounding consumer boundary across aoa-stats, aoa-sdk, and aoa-evals
 claim_type: bounded
 baseline_mode: none
 report_format: summary-with-breakdown
@@ -19,20 +19,20 @@ Use this eval when a consumer starts reading `aoa-stats` surface profiles or
 source coverage as a trigger to re-ground before risky work.
 
 This bundle checks the boundary of that pattern. It asks whether stats remains
-derived observability, SDK owns policy application, routing remains advisory,
-and evals remains bounded proof.
+derived observability, SDK owns policy application and emits only advisory
+routing hints, and evals remains bounded proof.
 
 ## Object under evaluation
 
 This eval checks the stats-driven re-grounding consumer boundary across
-`aoa-stats`, `aoa-sdk`, `aoa-routing`, and `aoa-evals`.
+`aoa-stats`, `aoa-sdk`, and `aoa-evals`.
 
 Primary surfaces under evaluation:
 
 - `aoa-stats/generated/summary_surface_catalog.min.json`
 - `aoa-stats/generated/source_coverage_summary.min.json`
 - SDK-facing re-grounding signal or policy output
-- `aoa-routing/generated/stats_regrounding_hints.min.json`
+- SDK-produced `generated/stats_regrounding_hints.min.json`
 - this eval bundle's verdict wording and report shape
 
 Nearby surfaces intentionally excluded:
@@ -49,8 +49,8 @@ This eval can support a claim like:
 
 for this bounded consumer path, stats-derived surface profile and coverage
 signals correctly prompt re-grounding in owner-local truth, SDK applies the
-policy decision, routing provides only advisory next-read hints, and evals does
-not convert the stats signal into proof of owner truth.
+policy decision and provides only advisory next-read hints, and evals does not
+convert the stats signal into proof of owner truth.
 
 It does not support claims such as:
 
@@ -66,7 +66,7 @@ Use this eval when:
 
 - a consumer reads `source_coverage_summary` as a risk signal
 - a consumer reads a catalog entry as a `surface_profile`
-- routing exposes stats re-grounding hints
+- the SDK routing facade exposes stats re-grounding hints
 - SDK policy decides between clear, recommended, or required re-grounding
 - the report might accidentally upgrade a derived signal into proof
 
@@ -84,7 +84,7 @@ A careful run may include:
 - one stats summary-surface catalog entry for the target surface
 - one source-coverage summary with thin-signal flags
 - one SDK re-grounding signal or surface-detection report
-- one routing stats-regrounding advisory hint payload
+- one SDK-produced stats-regrounding advisory hint payload
 - one owner-local source reference used for re-grounding
 - the final consumer report wording
 
@@ -99,7 +99,7 @@ Seed cases should cover:
 
 - healthy coverage plus low-risk profile
 - thin coverage plus high-risk profile
-- routing advisory hint present but non-authoritative
+- SDK routing advisory hint present but non-authoritative
 - SDK policy requiring re-grounding before mutation
 - negative overclaim where stats is treated as proof or routing authority
 
@@ -142,7 +142,7 @@ A careful run should:
 
 1. select one stats surface profile and source-coverage payload
 2. capture the SDK policy decision that consumes those stats inputs
-3. capture any routing advisory hint exposed for the same surface
+3. capture any SDK routing advisory hint exposed for the same surface
 4. name the owner-local truth target used for re-grounding
 5. score each axis separately
 6. keep missing axes separate from failed axes
@@ -201,7 +201,7 @@ Likely misleading-result path:
 ## Interpretation guidance
 
 Treat a positive result as support for one bounded claim: the supplied
-consumer path preserved stats, SDK, routing, and eval ownership while using
+consumer path preserved stats, SDK, and eval ownership while using
 stats-derived signals to re-ground.
 
 Do not treat a positive result as:
@@ -222,7 +222,7 @@ claimed-versus-actual verification.
 - confirm the bounded claim is explicit
 - confirm stats remains derived observability
 - confirm SDK owns the policy decision
-- confirm routing hints are advisory only
+- confirm SDK routing hints are advisory only
 - confirm eval wording does not become owner truth
 - confirm owner-local re-grounding targets are named
 - confirm missing axes remain `not_observed`
@@ -247,7 +247,7 @@ define or activate those skills.
 Project overlays may add:
 
 - concrete SDK policy traces
-- routing advisory payloads from local generated surfaces
+- SDK routing advisory payloads from local generated surfaces
 - stats coverage snapshots from live refresh
 - owner-local receipt references
 - stricter report-schema extensions

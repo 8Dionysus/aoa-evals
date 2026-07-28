@@ -1533,7 +1533,7 @@
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "draft",
-      "summary": "Checks whether stats-derived re-grounding signals preserve the split between stats observability, SDK policy, routing advisory hints, and bounded eval proof verdicts.",
+      "summary": "Checks whether stats-derived re-grounding signals preserve the split between stats observability, SDK policy and advisory routing hints, and bounded eval proof verdicts.",
       "technique_dependencies": [],
       "technique_refs": [],
       "use_when_short": "a consumer reads sourcecoveragesummary as a risk signal; a consumer reads a catalog entry as a surfaceprofile",

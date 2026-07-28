@@ -37,7 +37,8 @@ Input owners:
 
 - `Agents-of-Abyss` for Agon move law, court posture, arena limits, scar/rank
   meaning, and center mechanic authority.
-- `aoa-routing` for gate hints and route compatibility pressure.
+- `aoa-sdk` for canonical gate hints and route-authority pressure;
+  `aoa-routing` only for predecessor route-compatibility pressure.
 - `aoa-playbooks` for trial choreography and scenario composition.
 - `aoa-sdk` and recurrence owners for review queues or typed recurrence
   support surfaces.

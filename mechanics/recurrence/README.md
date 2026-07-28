@@ -65,7 +65,7 @@ narrower part.
 - recursor witness/executor readiness contracts and candidate-only projection
   payloads;
 - stats surface profiles, source-coverage summaries, SDK policy decisions,
-  routing advisory hints, and owner-truth targets;
+  SDK routing advisory hints, and owner-truth targets;
 - public-safe runtime return evidence selected through audit;
 - recurrence manifests, portable proof beacons, hooks, downstream projections,
   and Agon stop-line diagnostics.
@@ -87,7 +87,8 @@ narrower part.
 
 `Agents-of-Abyss` owns recurrence doctrine and center law.
 `abyss-stack` owns runtime return policy and runtime logs.
-`aoa-routing` owns live navigation behavior.
+`aoa-sdk` owns canonical live navigation behavior and advisory routing hints.
+`aoa-routing` is retained only for predecessor compatibility and history.
 `aoa-memo` owns memory anchors and recall.
 `aoa-agents` owns self-agent and handoff posture.
 `aoa-playbooks` owns scenario choreography.

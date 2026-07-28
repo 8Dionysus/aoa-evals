@@ -43,7 +43,7 @@ Stop-lines route stronger-owner pressure through the boundary routes below.
 | operator certification, release approval, deployment approval, or rollout promotion | Agents-of-Abyss, release-support, and owner approval route |
 | owner-local adoption, consent, or acceptance | owner repository adoption route |
 | memory canon, recall authority, or memory sovereignty | `aoa-memo` memory route |
-| route activation or routing-layer authorship | `aoa-routing` route-authority lane |
+| route activation or routing-layer authorship | `aoa-sdk` canonical route-authority lane; `aoa-routing` only for predecessor compatibility |
 | KAG forced adoption into owner repositories | `aoa-kag` graph route plus owner adoption route |
 | direct ToS runtime write or ToS-authored meaning | Tree-of-Sophia authored-meaning route |
 | broad Experience success | bundle-local proof object plus source-owner evidence review |

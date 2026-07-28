@@ -129,6 +129,26 @@ def test_repo_ref_parser_rejects_missing_sibling_root_in_strict_compat_mode(
     assert any("strict sibling compatibility requires available repo root" in issue.message for issue in issues)
 
 
+def test_repo_ref_parser_preserves_retired_routing_provenance_without_checkout(
+    monkeypatch,
+) -> None:
+    issues: list[root_context.ValidationIssue] = []
+    monkeypatch.setenv(root_context.STRICT_SIBLING_COMPAT_ENV, "1")
+
+    parsed = root_context.parse_repo_ref(
+        "repo:aoa-routing/docs/decisions/AOA-ROUTING-D-0001.md",
+        location="historical.ref",
+        issues=issues,
+    )
+
+    assert parsed == (
+        "aoa-routing",
+        Path("docs/decisions/AOA-ROUTING-D-0001.md"),
+        None,
+    )
+    assert issues == []
+
+
 def _write_return_anchor_evidence_surface(tmp_path: Path, *, source_schema_ref: str) -> None:
     make_eval_bundle(tmp_path, name="aoa-starter-alpha")
     make_eval_bundle(tmp_path, name="aoa-return-anchor-integrity")

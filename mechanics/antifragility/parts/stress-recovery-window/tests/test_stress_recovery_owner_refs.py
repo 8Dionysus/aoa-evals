@@ -34,8 +34,9 @@ EXPECTED_INPUTS = {
         "retrieval-outage-regrounding/examples/regrounding_ticket.example.json"
     ],
     "route_hint_refs": [
-        "repo:aoa-routing/mechanics/antifragility/parts/"
-        "composite-stress-routing/examples/composite_stress_route_hint.example.json"
+        "repo:aoa-sdk/mechanics/boundary-bridge/parts/"
+        "consumed-surface-posture-gate/examples/"
+        "composite_stress_route_hint.example.json"
     ],
     "memo_context_refs": [
         "repo:aoa-memo/mechanics/antifragility/parts/recovery-pattern-memory/examples/recovery_pattern_memory.example.json"

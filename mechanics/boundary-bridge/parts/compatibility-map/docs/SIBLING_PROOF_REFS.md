@@ -38,9 +38,9 @@ owner-routed for their own edits and source truth.
 | `aoa-agents` | orchestrator, role-facing, and artifact-contract refs | `AOA_AGENTS_ROOT` | `direct` | role policy, orchestrator posture, and agent artifact contracts | latest-sibling canary |
 | `aoa-playbooks` | eval-anchor, phase-alpha, reviewed-run, and scenario refs | `AOA_PLAYBOOKS_ROOT` | `direct` | scenario composition and playbook route truth | latest-sibling canary |
 | `aoa-memo` | recall, checkpoint, writeback, memory object, and provenance refs | `AOA_MEMO_ROOT` | `direct` | memory object truth, recall/writeback posture, and memo provenance | latest-sibling canary plus repaired path refs plus pinned `Repo Validation` ref |
-| `aoa-routing` | runtime integrity route evidence refs | `AOA_ROUTING_ROOT` | `direct` | route review and dispatch posture | latest-sibling canary |
 | `aoa-kag` | runtime chaos regrounding refs | `AOA_KAG_ROOT` | `direct` | derived KAG substrate and regrounding truth | latest-sibling canary |
-| `aoa-sdk` | A2A checkpoint bridge and local target refs | `AOA_SDK_ROOT` | `direct` | SDK control-plane assembly and A2A helper contracts | latest-sibling canary |
+| `aoa-sdk` | A2A checkpoint bridge, routing consumer contract, and current routing compatibility refs | `AOA_SDK_ROOT` | `direct` | SDK control-plane assembly, canonical routing producer, and A2A helper contracts | latest-sibling canary |
+| `aoa-routing` (predecessor) | historical provenance refs only | none | `reference-only` | preserved historical releases and decisions; current routing producer truth routes to `aoa-sdk` | syntax and provenance review without checkout |
 | `aoa-stats` | stats event envelope mirror refs | `AOA_STATS_ROOT` | `direct` | shared event envelope vocabulary and downstream stats derivation | latest-sibling canary plus receipt-envelope checks |
 | `abyss-stack` | runtime evidence schema and selected runtime candidate refs | `ABYSS_STACK_ROOT` | `abyss-stack-source` | runtime source contracts and implementation truth | latest-sibling canary resolves the source checkout; deployed mirror remains runtime artifact |
 
@@ -89,6 +89,10 @@ When a sibling proof reference fails:
 
 The latest-sibling canary proves that the current local checkout can resolve the
 referenced sibling surfaces under the configured roots.
+The retired `aoa-routing` predecessor is the exception: its historical
+`repo:` references remain parseable as provenance, but the canary never
+checks out or resolves that repository. Current proof inputs must route to
+`aoa-sdk`.
 
 | Pressure | Route |
 | --- | --- |

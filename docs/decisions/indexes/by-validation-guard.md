@@ -136,6 +136,7 @@
 - [AOA-EV-D-0119 Phase Alpha Matrix Validator Module Boundary](../AOA-EV-D-0119-phase-alpha-matrix-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0119-phase-alpha-matrix-validator-module-boundary.md`)
 - [AOA-EV-D-0207 Phase Alpha Matrix Aggregate Removal](../AOA-EV-D-0207-phase-alpha-matrix-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0207-phase-alpha-matrix-aggregate-removal.md`)
 - [AOA-EV-D-0219 Questbook Helper Layer Split](../AOA-EV-D-0219-questbook-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0219-questbook-helper-layer-split.md`)
+- [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)
 
 ## decision index/read-model
 
@@ -179,6 +180,10 @@
 ## comparison
 
 - [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
+
+## consumer-zero
+
+- [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)
 
 ## effect denial
 
@@ -246,6 +251,10 @@
 ## owner boundary
 
 - [AOA-EV-D-0248 Typed Capability Dependencies](../AOA-EV-D-0248-typed-capability-dependencies.md) (`docs/decisions/AOA-EV-D-0248-typed-capability-dependencies.md`)
+
+## owner succession
+
+- [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)
 
 ## path confinement
 

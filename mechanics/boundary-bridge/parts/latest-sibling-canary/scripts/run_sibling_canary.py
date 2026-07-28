@@ -25,7 +25,6 @@ ROOT_VARIABLE_NAMES = {
     "AOA_AGENTS_ROOT",
     "AOA_PLAYBOOKS_ROOT",
     "AOA_MEMO_ROOT",
-    "AOA_ROUTING_ROOT",
     "AOA_KAG_ROOT",
     "AOA_SDK_ROOT",
     "AOA_STATS_ROOT",
@@ -117,7 +116,9 @@ def normalized_entries(payload: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def resolve_entry_path(repo_root: Path, entry: dict[str, Any]) -> Path:
-    resolved = resolve_path(repo_root, str(entry["path"]))
+    root_variable = str(entry["root_variable"])
+    requested_path = os.environ.get(root_variable) or str(entry["path"])
+    resolved = resolve_path(repo_root, requested_path)
     if entry["resolver"] == "abyss-stack-source":
         return root_context.resolve_abyss_stack_root(resolved)
     return resolved

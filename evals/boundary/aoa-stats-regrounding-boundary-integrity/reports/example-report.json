@@ -1,7 +1,7 @@
 {
   "eval_name": "aoa-stats-regrounding-boundary-integrity",
   "bundle_status": "draft",
-  "object_under_evaluation": "stats-driven re-grounding consumer boundary across aoa-stats, aoa-sdk, aoa-routing, and aoa-evals",
+  "object_under_evaluation": "stats-driven re-grounding consumer boundary across aoa-stats, aoa-sdk, and aoa-evals",
   "verdict": "mixed support",
   "claim_boundary": "This report speaks only to whether one consumer path used stats-derived profile and coverage signals to re-ground without moving authority out of owner repos.",
   "limitations": [
@@ -25,7 +25,7 @@
     },
     "routing_advisory_boundary": {
       "status": "strong",
-      "evidence_note": "Routing hints are described as next-read advice, not route approval."
+      "evidence_note": "SDK routing hints are described as next-read advice, not route approval."
     },
     "eval_verdict_boundary": {
       "status": "strong",
@@ -49,7 +49,7 @@
   ],
   "anti_overclaim_notes": [
     "Stats coverage is not proof of owner health.",
-    "Routing advice is not route approval.",
+    "SDK routing advice is not route approval.",
     "SDK policy is not an eval verdict."
   ],
   "followthrough": [

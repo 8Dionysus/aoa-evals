@@ -372,6 +372,11 @@
 - [AOA-EV-D-0119 Phase Alpha Matrix Validator Module Boundary](../AOA-EV-D-0119-phase-alpha-matrix-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0119-phase-alpha-matrix-validator-module-boundary.md`)
 - [AOA-EV-D-0207 Phase Alpha Matrix Aggregate Removal](../AOA-EV-D-0207-phase-alpha-matrix-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0207-phase-alpha-matrix-aggregate-removal.md`)
 - [AOA-EV-D-0243 Local Memo Port](../AOA-EV-D-0243-local-memo-port.md) (`docs/decisions/AOA-EV-D-0243-local-memo-port.md`)
+- [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)
+
+## CI compatibility
+
+- [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)
 
 ## MCP access plane
 
@@ -548,6 +553,10 @@
 ## proof contract
 
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
+
+## proof reference
+
+- [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)
 
 ## proof-topology
 

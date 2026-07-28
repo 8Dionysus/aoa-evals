@@ -64,7 +64,6 @@ SIBLING_CANARY_EXPECTED_REPOS = (
     "aoa-agents",
     "aoa-playbooks",
     "aoa-memo",
-    "aoa-routing",
     "aoa-kag",
     "aoa-sdk",
     "aoa-stats",

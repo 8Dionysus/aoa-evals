@@ -40,7 +40,7 @@ RUNTIME_INTEGRITY_REVIEW_LANDING_TOKENS = (
 RUNTIME_INTEGRITY_REVIEW_EVIDENCE_REFS = (
     "repo:aoa-evals/mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md",
     "repo:aoa-evals/mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",
-    "repo:aoa-routing/docs/LIVE_SESSION_REENTRY_ROUTE_REVIEW.md",
+    "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/docs/return-reentry.md",
     "repo:aoa-agents/mechanics/checkpoint/parts/continuity-lane/docs/self-agency-continuity-lane.md",
     "repo:aoa-memo/mechanics/checkpoint/parts/checkpoint-carry-contract/schemas/inquiry_checkpoint.schema.json",
     "repo:aoa-memo/mechanics/writeback/docs/SELF_AGENCY_CONTINUITY_WRITEBACK.md",

@@ -71,7 +71,8 @@ checkpoint-to-memory writeback.
 `aoa-playbooks` owns recurring checkpoint choreography.
 `abyss-stack` owns runtime checkpoint exports and dry-run or live runtime
 plumbing after runtime gates.
-`aoa-routing` owns re-entry hints without checkpoint meaning.
+`aoa-sdk` owns canonical re-entry hints without checkpoint meaning.
+`aoa-routing` remains only for predecessor compatibility and history.
 
 `aoa-evals` owns bounded checkpoint proof wording, regression readings, report
 interpretation, and local support-surface validation.

@@ -45,7 +45,7 @@ compatibility map before package growth.
 | --- | --- |
 | sibling repository needs an edit | sibling-owner route before local compatibility repair |
 | local compatibility checks read as sibling owner acceptance | accepting sibling repository or bundle-local proof review |
-| role, playbook, memo, runtime, or routing authority appears in bridge wording | `aoa-agents`, `aoa-playbooks`, `aoa-memo`, runtime owner, or `aoa-routing` owner route |
+| role, playbook, memo, runtime, or routing authority appears in bridge wording | `aoa-agents`, `aoa-playbooks`, `aoa-memo`, runtime owner, or `aoa-sdk` canonical routing-owner route; `aoa-routing` only for predecessor compatibility |
 | one broken sibling ref appears | compatibility map, current/legacy/rejected/unresolved posture, and latest-sibling canary before package growth |
 
 ## Validation

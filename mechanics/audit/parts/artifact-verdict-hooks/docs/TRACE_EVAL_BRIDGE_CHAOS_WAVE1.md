@@ -12,7 +12,8 @@ It still owns:
 
 Neighbor ownership stays explicit:
 - runtime execution routes to `abyss-stack`
-- routing posture routes to `aoa-routing`
+- canonical routing posture routes to `aoa-sdk`; predecessor compatibility
+  remains in `aoa-routing`
 - playbook scenario composition routes to `aoa-playbooks`
 - KAG health truth routes to `aoa-kag`
 - trace object meaning routes to `aoa-memo` or `aoa-agents`

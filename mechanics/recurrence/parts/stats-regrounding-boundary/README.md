@@ -6,8 +6,8 @@
 `aoa-stats-regrounding-boundary-integrity`.
 
 It checks whether stats-derived surface profiles and source-coverage signals
-trigger re-grounding without promoting stats, SDK policy, routing hints, or
-eval wording into owner truth.
+trigger re-grounding without promoting stats, SDK policy or its advisory
+routing hints, or eval wording into owner truth.
 
 ## Source Surfaces
 
@@ -23,7 +23,7 @@ eval wording into owner truth.
 - stats summary-surface catalog entries;
 - source-coverage summaries and thin-signal flags;
 - SDK re-grounding decisions;
-- routing advisory hints;
+- SDK routing advisory hints;
 - owner-local truth targets and final consumer report wording.
 
 ## Outputs
@@ -35,8 +35,9 @@ eval wording into owner truth.
 
 ## Stronger Owner Split
 
-`aoa-stats` owns derived observability. `aoa-sdk` owns policy application.
-`aoa-routing` owns advisory hints. Owner repositories own source truth.
+`aoa-stats` owns derived observability. `aoa-sdk` owns policy application and
+canonical advisory routing hints. `aoa-routing` retains predecessor
+compatibility only. Owner repositories own source truth.
 `aoa-evals` owns the bounded boundary-proof interpretation. Authority beyond
 that proof reading routes through the stronger owner split above.
 
@@ -48,10 +49,10 @@ it:
 | Pressure | Owner route |
 | --- | --- |
 | owner artifact correctness pressure | owner repository source-truth route |
-| route approval pressure | `aoa-routing` advisory route plus owner acceptance |
+| route approval pressure | `aoa-sdk` advisory route plus owner acceptance |
 | project health pressure | owner repository review plus derived stats context |
 | SDK optimality pressure | `aoa-sdk` policy and implementation route |
-| routing authority pressure | `aoa-routing` route-authority boundary |
+| routing authority pressure | `aoa-sdk` canonical route-authority boundary; `aoa-routing` only for predecessor compatibility |
 | stats-as-proof pressure | `aoa-stats` derived-only route plus bundle-local proof review |
 
 ## Validation

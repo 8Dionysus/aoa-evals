@@ -3202,32 +3202,32 @@
       "name": "aoa-stats-regrounding-boundary-integrity",
       "sections": [
         {
-          "content_markdown": "Use this eval when a consumer starts reading `aoa-stats` surface profiles or\nsource coverage as a trigger to re-ground before risky work.\n\nThis bundle checks the boundary of that pattern. It asks whether stats remains\nderived observability, SDK owns policy application, routing remains advisory,\nand evals remains bounded proof.",
+          "content_markdown": "Use this eval when a consumer starts reading `aoa-stats` surface profiles or\nsource coverage as a trigger to re-ground before risky work.\n\nThis bundle checks the boundary of that pattern. It asks whether stats remains\nderived observability, SDK owns policy application and emits only advisory\nrouting hints, and evals remains bounded proof.",
           "heading": "Intent",
           "key": "intent"
         },
         {
-          "content_markdown": "This eval checks the stats-driven re-grounding consumer boundary across\n`aoa-stats`, `aoa-sdk`, `aoa-routing`, and `aoa-evals`.\n\nPrimary surfaces under evaluation:\n\n- `aoa-stats/generated/summary_surface_catalog.min.json`\n- `aoa-stats/generated/source_coverage_summary.min.json`\n- SDK-facing re-grounding signal or policy output\n- `aoa-routing/generated/stats_regrounding_hints.min.json`\n- this eval bundle's verdict wording and report shape\n\nNearby surfaces intentionally excluded:\n\n- owner-local receipt truth\n- final owner object quality\n- route approval\n- proof verdicts for the underlying owner work\n- broad health or readiness scoring for the federation",
+          "content_markdown": "This eval checks the stats-driven re-grounding consumer boundary across\n`aoa-stats`, `aoa-sdk`, and `aoa-evals`.\n\nPrimary surfaces under evaluation:\n\n- `aoa-stats/generated/summary_surface_catalog.min.json`\n- `aoa-stats/generated/source_coverage_summary.min.json`\n- SDK-facing re-grounding signal or policy output\n- SDK-produced `generated/stats_regrounding_hints.min.json`\n- this eval bundle's verdict wording and report shape\n\nNearby surfaces intentionally excluded:\n\n- owner-local receipt truth\n- final owner object quality\n- route approval\n- proof verdicts for the underlying owner work\n- broad health or readiness scoring for the federation",
           "heading": "Object under evaluation",
           "key": "object_under_evaluation"
         },
         {
-          "content_markdown": "This eval can support a claim like:\n\nfor this bounded consumer path, stats-derived surface profile and coverage\nsignals correctly prompt re-grounding in owner-local truth, SDK applies the\npolicy decision, routing provides only advisory next-read hints, and evals does\nnot convert the stats signal into proof of owner truth.\n\nIt does not support claims such as:\n\n- a stats summary proves the owner repo is healthy\n- a routing hint approves a route\n- an SDK re-grounding decision is an eval verdict\n- an eval verdict replaces owner-local receipts\n- coverage breadth proves source truth or project health",
+          "content_markdown": "This eval can support a claim like:\n\nfor this bounded consumer path, stats-derived surface profile and coverage\nsignals correctly prompt re-grounding in owner-local truth, SDK applies the\npolicy decision and provides only advisory next-read hints, and evals does not\nconvert the stats signal into proof of owner truth.\n\nIt does not support claims such as:\n\n- a stats summary proves the owner repo is healthy\n- a routing hint approves a route\n- an SDK re-grounding decision is an eval verdict\n- an eval verdict replaces owner-local receipts\n- coverage breadth proves source truth or project health",
           "heading": "Bounded claim",
           "key": "bounded_claim"
         },
         {
-          "content_markdown": "Use this eval when:\n\n- a consumer reads `source_coverage_summary` as a risk signal\n- a consumer reads a catalog entry as a `surface_profile`\n- routing exposes stats re-grounding hints\n- SDK policy decides between clear, recommended, or required re-grounding\n- the report might accidentally upgrade a derived signal into proof\n\nDo not use this eval when:\n\n- the main question is whether a specific owner artifact is correct\n- the main question is general stats schema validity\n- the main question is final route quality\n- no consumer-side action or policy is being claimed",
+          "content_markdown": "Use this eval when:\n\n- a consumer reads `source_coverage_summary` as a risk signal\n- a consumer reads a catalog entry as a `surface_profile`\n- the SDK routing facade exposes stats re-grounding hints\n- SDK policy decides between clear, recommended, or required re-grounding\n- the report might accidentally upgrade a derived signal into proof\n\nDo not use this eval when:\n\n- the main question is whether a specific owner artifact is correct\n- the main question is general stats schema validity\n- the main question is final route quality\n- no consumer-side action or policy is being claimed",
           "heading": "Trigger boundary",
           "key": "trigger_boundary"
         },
         {
-          "content_markdown": "A careful run may include:\n\n- one stats summary-surface catalog entry for the target surface\n- one source-coverage summary with thin-signal flags\n- one SDK re-grounding signal or surface-detection report\n- one routing stats-regrounding advisory hint payload\n- one owner-local source reference used for re-grounding\n- the final consumer report wording\n\nMissing consumer-path pieces are `not_observed`, not passes.",
+          "content_markdown": "A careful run may include:\n\n- one stats summary-surface catalog entry for the target surface\n- one source-coverage summary with thin-signal flags\n- one SDK re-grounding signal or surface-detection report\n- one SDK-produced stats-regrounding advisory hint payload\n- one owner-local source reference used for re-grounding\n- the final consumer report wording\n\nMissing consumer-path pieces are `not_observed`, not passes.",
           "heading": "Inputs",
           "key": "inputs"
         },
         {
-          "content_markdown": "The shared fixture family is\n`mechanics/recurrence/parts/stats-regrounding-boundary/fixtures/stats-regrounding-boundary-v1/README.md`.\n\nSeed cases should cover:\n\n- healthy coverage plus low-risk profile\n- thin coverage plus high-risk profile\n- routing advisory hint present but non-authoritative\n- SDK policy requiring re-grounding before mutation\n- negative overclaim where stats is treated as proof or routing authority\n\nReplacement fixtures must preserve the same split-model question.",
+          "content_markdown": "The shared fixture family is\n`mechanics/recurrence/parts/stats-regrounding-boundary/fixtures/stats-regrounding-boundary-v1/README.md`.\n\nSeed cases should cover:\n\n- healthy coverage plus low-risk profile\n- thin coverage plus high-risk profile\n- SDK routing advisory hint present but non-authoritative\n- SDK policy requiring re-grounding before mutation\n- negative overclaim where stats is treated as proof or routing authority\n\nReplacement fixtures must preserve the same split-model question.",
           "heading": "Fixtures and case surface",
           "key": "fixtures_and_case_surface"
         },
@@ -3242,7 +3242,7 @@
           "key": "baseline_or_comparison_mode"
         },
         {
-          "content_markdown": "A careful run should:\n\n1. select one stats surface profile and source-coverage payload\n2. capture the SDK policy decision that consumes those stats inputs\n3. capture any routing advisory hint exposed for the same surface\n4. name the owner-local truth target used for re-grounding\n5. score each axis separately\n6. keep missing axes separate from failed axes\n7. write a compact summary-with-breakdown report\n8. stop before owner-route approval or proof promotion\n\nThe scorer is a proof helper. It does not outrank this EVAL.md claim boundary.",
+          "content_markdown": "A careful run should:\n\n1. select one stats surface profile and source-coverage payload\n2. capture the SDK policy decision that consumes those stats inputs\n3. capture any SDK routing advisory hint exposed for the same surface\n4. name the owner-local truth target used for re-grounding\n5. score each axis separately\n6. keep missing axes separate from failed axes\n7. write a compact summary-with-breakdown report\n8. stop before owner-route approval or proof promotion\n\nThe scorer is a proof helper. It does not outrank this EVAL.md claim boundary.",
           "heading": "Execution contract",
           "key": "execution_contract"
         },
@@ -3262,12 +3262,12 @@
           "key": "blind_spots"
         },
         {
-          "content_markdown": "Treat a positive result as support for one bounded claim: the supplied\nconsumer path preserved stats, SDK, routing, and eval ownership while using\nstats-derived signals to re-ground.\n\nDo not treat a positive result as:\n\n- proof that the underlying owner work is correct\n- permission to skip owner-local receipts\n- permission to promote a route\n- a general score for `aoa-stats`\n- a broad federation health verdict\n\nPair this bundle with `aoa-owner-fit-routing-quality`,\n`aoa-recurrence-control-plane-integrity`, or `aoa-verification-honesty` when\nthe main question moves into route fit, recurrence projection integrity, or\nclaimed-versus-actual verification.",
+          "content_markdown": "Treat a positive result as support for one bounded claim: the supplied\nconsumer path preserved stats, SDK, and eval ownership while using\nstats-derived signals to re-ground.\n\nDo not treat a positive result as:\n\n- proof that the underlying owner work is correct\n- permission to skip owner-local receipts\n- permission to promote a route\n- a general score for `aoa-stats`\n- a broad federation health verdict\n\nPair this bundle with `aoa-owner-fit-routing-quality`,\n`aoa-recurrence-control-plane-integrity`, or `aoa-verification-honesty` when\nthe main question moves into route fit, recurrence projection integrity, or\nclaimed-versus-actual verification.",
           "heading": "Interpretation guidance",
           "key": "interpretation_guidance"
         },
         {
-          "content_markdown": "- confirm the bounded claim is explicit\n- confirm stats remains derived observability\n- confirm SDK owns the policy decision\n- confirm routing hints are advisory only\n- confirm eval wording does not become owner truth\n- confirm owner-local re-grounding targets are named\n- confirm missing axes remain `not_observed`\n- confirm generated catalogs refresh after bundle changes",
+          "content_markdown": "- confirm the bounded claim is explicit\n- confirm stats remains derived observability\n- confirm SDK owns the policy decision\n- confirm SDK routing hints are advisory only\n- confirm eval wording does not become owner truth\n- confirm owner-local re-grounding targets are named\n- confirm missing axes remain `not_observed`\n- confirm generated catalogs refresh after bundle changes",
           "heading": "Verification",
           "key": "verification"
         },
@@ -3282,7 +3282,7 @@
           "key": "skill_traceability"
         },
         {
-          "content_markdown": "Project overlays may add:\n\n- concrete SDK policy traces\n- routing advisory payloads from local generated surfaces\n- stats coverage snapshots from live refresh\n- owner-local receipt references\n- stricter report-schema extensions\n- comparison baselines for policy revisions",
+          "content_markdown": "Project overlays may add:\n\n- concrete SDK policy traces\n- SDK routing advisory payloads from local generated surfaces\n- stats coverage snapshots from live refresh\n- owner-local receipt references\n- stricter report-schema extensions\n- comparison baselines for policy revisions",
           "heading": "Adaptation points",
           "key": "adaptation_points"
         }
@@ -3321,7 +3321,7 @@
           "key": "inputs"
         },
         {
-          "content_markdown": "This bundle stays report-led and bounded.\n\nA strong v1 window family includes:\n\n- one named owner surface\n- one named stressor family\n- repeated windows that keep the same owner and adjacent evidence family in play\n- a visible recovery lesson about containment, route posture, re-entry, or regrounding\n\nThe current exemplar keeps the surface narrow:\n\n- owner repo: `ATM10-Agent`\n- owner surface: `hybrid-query`\n- stressor family: `hybrid-query-kag-unhealthy`\n- adjacent layers: `aoa-agents`, `aoa-playbooks`, `aoa-kag`, `aoa-routing`, and `aoa-memo`\n\nThis surface excludes:\n\n- floating incident timelines with no named window contract\n- health claims that are not anchored to owner receipts\n- route-only or memo-only evidence chains\n\nThe current shared family is `mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md`.",
+          "content_markdown": "This bundle stays report-led and bounded.\n\nA strong v1 window family includes:\n\n- one named owner surface\n- one named stressor family\n- repeated windows that keep the same owner and adjacent evidence family in play\n- a visible recovery lesson about containment, route posture, re-entry, or regrounding\n\nThe current exemplar keeps the surface narrow:\n\n- owner repo: `ATM10-Agent`\n- owner surface: `hybrid-query`\n- stressor family: `hybrid-query-kag-unhealthy`\n- adjacent layers: `aoa-agents`, `aoa-playbooks`, `aoa-kag`, `aoa-sdk`, and `aoa-memo`\n\nThis surface excludes:\n\n- floating incident timelines with no named window contract\n- health claims that are not anchored to owner receipts\n- route-only or memo-only evidence chains\n\nThe current shared family is `mechanics/antifragility/parts/stress-recovery-window/fixtures/stress-recovery-window-bounded-v1/README.md`.",
           "heading": "Fixtures and case surface",
           "key": "fixtures_and_case_surface"
         },

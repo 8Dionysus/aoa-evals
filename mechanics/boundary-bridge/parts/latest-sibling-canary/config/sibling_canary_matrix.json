@@ -37,13 +37,6 @@
       "resolver": "direct"
     },
     {
-      "repo": "aoa-routing",
-      "root_variable": "AOA_ROUTING_ROOT",
-      "path": "../aoa-routing",
-      "purpose": "prove runtime integrity route evidence refs against the latest sibling checkout",
-      "resolver": "direct"
-    },
-    {
       "repo": "aoa-kag",
       "root_variable": "AOA_KAG_ROOT",
       "path": "../aoa-kag",
@@ -54,7 +47,7 @@
       "repo": "aoa-sdk",
       "root_variable": "AOA_SDK_ROOT",
       "path": "../aoa-sdk",
-      "purpose": "prove A2A checkpoint bridge refs against the latest sibling checkout",
+      "purpose": "prove A2A checkpoint bridge and SDK-owned routing consumer refs against the latest sibling checkout",
       "resolver": "direct"
     },
     {

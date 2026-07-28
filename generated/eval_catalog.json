@@ -3380,7 +3380,7 @@
       "interpretation_boundary": "proof that the underlying owner work is correct; permission to skip owner-local receipts; permission to promote a route",
       "maturity_score": 2,
       "name": "aoa-stats-regrounding-boundary-integrity",
-      "object_under_evaluation": "stats-driven re-grounding consumer boundary across aoa-stats, aoa-sdk, aoa-routing, and aoa-evals",
+      "object_under_evaluation": "stats-driven re-grounding consumer boundary across aoa-stats, aoa-sdk, and aoa-evals",
       "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": "evals/boundary/aoa-stats-regrounding-boundary-integrity/fixtures/contract.json",
@@ -3428,7 +3428,7 @@
       "skill_dependencies": [],
       "skill_refs": [],
       "status": "draft",
-      "summary": "Checks whether stats-derived re-grounding signals preserve the split between stats observability, SDK policy, routing advisory hints, and bounded eval proof verdicts.",
+      "summary": "Checks whether stats-derived re-grounding signals preserve the split between stats observability, SDK policy and advisory routing hints, and bounded eval proof verdicts.",
       "technique_dependencies": [],
       "technique_refs": [],
       "validation_strength": "baseline",

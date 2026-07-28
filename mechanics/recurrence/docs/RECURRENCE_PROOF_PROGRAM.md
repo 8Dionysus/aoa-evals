@@ -45,8 +45,9 @@ under the owning recurrence part or bundle route.
 bundle distinctness, and anti-overclaim posture. `Agents-of-Abyss` owns
 recurrence doctrine. Runtime owners own return execution and artifact
 contracts. `aoa-memo` owns checkpoint memory objects and memory canon.
-`aoa-stats`, `aoa-routing`, `aoa-playbooks`, KAG, and Agon owners keep their
-own truth.
+`aoa-stats`, `aoa-sdk`, `aoa-playbooks`, KAG, and Agon owners keep their own
+truth. `aoa-routing` remains a predecessor-compatibility and historical source,
+not the canonical routing owner.
 
 ## Stop-Lines
 
@@ -82,7 +83,7 @@ Stronger owner routes stay outside this proof program:
 | runtime artifact contracts | `aoa-agents` |
 | scenario composition | `aoa-playbooks` |
 | checkpoint memory objects | `aoa-memo` |
-| navigation hints | `aoa-routing` |
+| navigation hints | `aoa-sdk`; `aoa-routing` only for predecessor compatibility |
 
 ## Core rule
 

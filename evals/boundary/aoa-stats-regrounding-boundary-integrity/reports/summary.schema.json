@@ -25,7 +25,7 @@
       "const": "draft"
     },
     "object_under_evaluation": {
-      "const": "stats-driven re-grounding consumer boundary across aoa-stats, aoa-sdk, aoa-routing, and aoa-evals"
+      "const": "stats-driven re-grounding consumer boundary across aoa-stats, aoa-sdk, and aoa-evals"
     },
     "verdict": {
       "type": "string",

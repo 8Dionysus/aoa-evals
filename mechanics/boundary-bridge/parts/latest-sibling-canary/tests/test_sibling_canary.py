@@ -95,6 +95,52 @@ def test_sibling_canary_reports_success_with_resolved_roots(tmp_path: Path, monk
     assert "aoa-skills" in output
 
 
+def test_sibling_canary_prefers_explicit_root_variable(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    repo_root = tmp_path / "isolated" / "aoa-evals"
+    repo_root.mkdir(parents=True)
+    configured_root = tmp_path / "owner-worktrees" / "aoa-sdk"
+    configured_root.mkdir(parents=True)
+    monkeypatch.setenv("AOA_SDK_ROOT", str(configured_root))
+
+    matrix_path = repo_root / CANARY_MATRIX_RELATIVE
+    write_matrix(
+        matrix_path,
+        [
+            {
+                "repo": "aoa-sdk",
+                "root_variable": "AOA_SDK_ROOT",
+                "path": "../aoa-sdk",
+                "purpose": "fixture SDK routing consumer check",
+                "resolver": "direct",
+            }
+        ],
+    )
+
+    captured: dict[str, Path] = {}
+
+    def fake_invoke(repo_root_arg: Path) -> tuple[int, str]:
+        assert repo_root_arg == repo_root.resolve()
+        captured["sdk"] = run_sibling_canary.root_context.AOA_SDK_ROOT
+        return 0, "Validation passed for 0 eval bundles."
+
+    monkeypatch.setattr(run_sibling_canary, "invoke_validator", fake_invoke)
+
+    exit_code = run_sibling_canary.main(
+        [
+            "--repo-root",
+            str(repo_root),
+            "--matrix",
+            CANARY_MATRIX_NAME,
+        ]
+    )
+
+    assert exit_code == 0
+    assert captured["sdk"] == configured_root.resolve()
+
+
 def test_sibling_canary_prefers_source_checkout_for_abyss_stack(tmp_path: Path, monkeypatch) -> None:
     repo_root = tmp_path / "aoa-evals"
     repo_root.mkdir(parents=True)

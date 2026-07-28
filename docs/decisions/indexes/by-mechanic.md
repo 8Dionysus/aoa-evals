@@ -223,6 +223,7 @@
 - [AOA-EV-D-0234 Antifragility Validator Layer Split](../AOA-EV-D-0234-antifragility-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0234-antifragility-validator-layer-split.md`)
 - [AOA-EV-D-0235 Method-growth Validator Layer Split](../AOA-EV-D-0235-method-growth-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0235-method-growth-validator-layer-split.md`)
 - [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)
+- [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)
 
 ## method-growth
 
@@ -331,6 +332,7 @@
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
+- [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)
 
 ## boundary-bridge
 
@@ -352,6 +354,7 @@
 - [AOA-EV-D-0219 Questbook Helper Layer Split](../AOA-EV-D-0219-questbook-helper-layer-split.md) (`docs/decisions/AOA-EV-D-0219-questbook-helper-layer-split.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
+- [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)
 
 ## cross-parent
 

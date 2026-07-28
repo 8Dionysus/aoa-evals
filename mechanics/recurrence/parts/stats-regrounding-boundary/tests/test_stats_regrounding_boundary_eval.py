@@ -22,7 +22,7 @@ def test_stats_regrounding_boundary_eval_is_cataloged() -> None:
     assert entry["report_format"] == "summary-with-breakdown"
     assert entry["object_under_evaluation"] == (
         "stats-driven re-grounding consumer boundary across aoa-stats, "
-        "aoa-sdk, aoa-routing, and aoa-evals"
+        "aoa-sdk, and aoa-evals"
     )
     assert "stats" in entry["summary"]
     assert "proof" in entry["summary"]

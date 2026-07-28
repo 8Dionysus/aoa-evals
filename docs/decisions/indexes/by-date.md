@@ -304,3 +304,7 @@
 ## 2026-07-25
 
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
+
+## 2026-07-27
+
+- [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)

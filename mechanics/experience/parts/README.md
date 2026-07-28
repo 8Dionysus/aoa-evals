@@ -37,7 +37,7 @@ validation lane.
 | operator certification, release approval, deployment approval, or rollout promotion | Agents-of-Abyss, release-support, and owner approval route |
 | owner-local adoption, consent, or acceptance | owner repository adoption route |
 | memory sovereignty, recall authority, or memo canon | `aoa-memo` memory route |
-| live router behavior or routing-layer authorship | `aoa-routing` route-authority lane |
+| live router behavior or routing-layer authorship | `aoa-sdk` canonical route-authority lane; `aoa-routing` only for predecessor compatibility |
 | KAG promotion into owner repositories | `aoa-kag` graph route plus owner adoption route |
 | Tree of Sophia runtime write or authored meaning | Tree of Sophia authored-meaning route |
 | broad Experience success | bundle-local proof object plus source-owner evidence review |

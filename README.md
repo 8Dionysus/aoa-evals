@@ -122,7 +122,7 @@ operation or mechanics movement, start with [mechanics/AGENTS](mechanics/AGENTS.
 | Reusable practice meaning | route to `aoa-techniques` |
 | Repo-specific callable procedure | use the admitted `skills/aoa-evals` bundle for central proof selection, review, or evolution; keep shared cross-repo selection and local apply with `aoa-skills` |
 | Shared bounded execution workflow meaning | route to `aoa-skills` |
-| Navigation and dispatch | route to `aoa-routing` |
+| Navigation, dispatch, and canonical routing contracts | route to `aoa-sdk`; use `aoa-routing` only for predecessor compatibility and historical provenance |
 | Role posture and handoff contracts | route to `aoa-agents` |
 | Scenario composition | route to `aoa-playbooks` |
 | Proof-layer memory candidates, receipts, or reviewed-intake exports | use local `memo/` without treating it as proof authority |

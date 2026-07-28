@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 16204405,
+  "allowed_tracked_bytes": 24028361,
+  "approved_by": "repository-owner",
+  "base_ref": "4d03125d0961dbc0b15332f1a146cd0f7f08eb23",
+  "changed_generated_bytes": 16204405,
+  "changed_generated_files": 283,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "0506545b7ac3c99a8bdc395fad6b94a1219fe6340e246eb0273488d30e9c7ef4",
+  "reason": "Return aoa-evals current routing proof refs, strict sibling compatibility, and CI canary ownership from the predecessor checkout to aoa-sdk while preserving predecessor-qualified history as reference-only provenance; decision and evidence anchors disperse across existing content-addressed shards while the family remains below its standing cap.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 24028361,
+  "tracked_bytes_max": 26214400
+}

@@ -35,9 +35,10 @@ while source proof bundles stay under `evals/`.
 
 `Agents-of-Abyss` owns Experience adoption route language and federation
 boundaries. Owner repositories own owner consent, owner-local adoption, and
-activation. `aoa-routing` owns routing behavior. `aoa-kag` owns KAG substrate
-meaning and promotion mechanics. `Tree-of-Sophia` owns authored meaning and
-canon. `aoa-memo` owns memory objects and memo adoption truth.
+activation. `aoa-sdk` owns canonical routing behavior; `aoa-routing` remains
+only for predecessor compatibility. `aoa-kag` owns KAG substrate meaning and
+promotion mechanics. `Tree-of-Sophia` owns authored meaning and canon.
+`aoa-memo` owns memory objects and memo adoption truth.
 
 `aoa-evals` owns this part's bounded adoption and compatibility proof readings,
 schema/example contracts, and bundle-local interpretation. Authority beyond
@@ -58,7 +59,7 @@ Boundary routes keep adoption-federation pressure with the owner that can act on
 | KAG adoption pressure | `aoa-kag` substrate route plus owner consent |
 | direct ToS runtime write or ToS-authored meaning pressure | Tree-of-Sophia authored-meaning route |
 | memory canon or memo adoption pressure | `aoa-memo` memory route |
-| routing authorship pressure | `aoa-routing` route-authority lane |
+| routing authorship pressure | `aoa-sdk` canonical route-authority lane; `aoa-routing` only for predecessor compatibility |
 | automatic activation pressure | owner activation and runtime route |
 | runtime distillation candidate adoption pressure | `mechanics/distillation/parts/runtime-candidate-adoption/` |
 

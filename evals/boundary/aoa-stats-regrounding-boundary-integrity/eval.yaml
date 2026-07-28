@@ -1,7 +1,7 @@
 name: aoa-stats-regrounding-boundary-integrity
 category: boundary
 status: draft
-object_under_evaluation: stats-driven re-grounding consumer boundary across aoa-stats, aoa-sdk, aoa-routing, and aoa-evals
+object_under_evaluation: stats-driven re-grounding consumer boundary across aoa-stats, aoa-sdk, and aoa-evals
 claim_type: bounded
 baseline_mode: none
 verdict_shape: mixed

@@ -42,7 +42,8 @@ manifest together under one route.
 
 `Agents-of-Abyss` owns recurrence doctrine and center law. `abyss-stack` owns
 runtime return policy, runtime status, runtime logs, and live observation
-producer behavior. `aoa-routing` owns live routing behavior. `aoa-agents` owns
+producer behavior. `aoa-sdk` owns canonical live routing behavior;
+`aoa-routing` remains only for predecessor compatibility. `aoa-agents` owns
 self-agent and handoff posture. `aoa-playbooks` owns recurrence choreography.
 Downstream owner repositories own projection truth and owner review
 acceptance. Agon source truth stays with the Agon owner surface.

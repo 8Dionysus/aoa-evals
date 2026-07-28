@@ -24,7 +24,7 @@ Pressure routes:
 | progression evidence | progression evidence model plus cited refs |
 | global score or broad capability growth | multi-axis proof plus comparison/growth owner review |
 | runtime equip or activation pressure | `abyss-stack` runtime route plus owner gates |
-| playbook or routing meaning | `aoa-playbooks` and `aoa-routing` owner routes with unlock proof as support |
+| playbook or routing meaning | `aoa-playbooks` and `aoa-sdk` canonical routing-owner routes with unlock proof as support; `aoa-routing` only for predecessor compatibility |
 
 ## Scope posture
 

@@ -66,7 +66,6 @@ AOA_PLAYBOOKS_ROOT = repo_root_from_env(
     "AOA_PLAYBOOKS_ROOT", REPO_ROOT.parent / "aoa-playbooks"
 )
 AOA_MEMO_ROOT = repo_root_from_env("AOA_MEMO_ROOT", REPO_ROOT.parent / "aoa-memo")
-AOA_ROUTING_ROOT = repo_root_from_env("AOA_ROUTING_ROOT", REPO_ROOT.parent / "aoa-routing")
 AOA_KAG_ROOT = repo_root_from_env("AOA_KAG_ROOT", REPO_ROOT.parent / "aoa-kag")
 AOA_SDK_ROOT = repo_root_from_env("AOA_SDK_ROOT", REPO_ROOT.parent / "aoa-sdk")
 AOA_STATS_ROOT = repo_root_from_env("AOA_STATS_ROOT", REPO_ROOT.parent / "aoa-stats")
@@ -79,6 +78,7 @@ LEGACY_NAMING_NAME = "docs/architecture/LEGACY_NAMING.md"
 
 REPO_REF_PREFIX = "repo:"
 STRICT_SIBLING_COMPAT_ENV = "AOA_EVALS_STRICT_SIBLING_COMPAT"
+REFERENCE_ONLY_REPOS = frozenset({"aoa-routing"})
 
 
 def visible_roots(repo_root: Path = REPO_ROOT) -> tuple[Path, ...]:
@@ -89,7 +89,6 @@ def visible_roots(repo_root: Path = REPO_ROOT) -> tuple[Path, ...]:
         AOA_AGENTS_ROOT,
         AOA_PLAYBOOKS_ROOT,
         AOA_MEMO_ROOT,
-        AOA_ROUTING_ROOT,
         AOA_KAG_ROOT,
         AOA_SDK_ROOT,
         AOA_STATS_ROOT,
@@ -105,7 +104,6 @@ def repo_ref_roots(repo_root: Path = REPO_ROOT) -> dict[str, Path]:
         "aoa-agents": AOA_AGENTS_ROOT,
         "aoa-playbooks": AOA_PLAYBOOKS_ROOT,
         "aoa-memo": AOA_MEMO_ROOT,
-        "aoa-routing": AOA_ROUTING_ROOT,
         "aoa-kag": AOA_KAG_ROOT,
         "aoa-sdk": AOA_SDK_ROOT,
         "aoa-stats": AOA_STATS_ROOT,
@@ -174,6 +172,7 @@ def parse_repo_ref(
     *,
     location: str,
     issues: list[ValidationIssue],
+    allow_reference_only_provenance: bool = False,
 ) -> tuple[str, Path, str | None] | None:
     if not isinstance(raw_ref, str) or not raw_ref:
         issues.append(ValidationIssue(location, "reference must be a non-empty string"))
@@ -190,14 +189,27 @@ def parse_repo_ref(
         return None
 
     repo_name, path_with_anchor = payload.split("/", 1)
-    repo_root = REPO_REF_ROOTS.get(repo_name)
-    if repo_root is None:
-        issues.append(ValidationIssue(location, f"unknown repo in reference: '{repo_name}'"))
-        return None
-
     path_text, _, anchor = path_with_anchor.partition("#")
     if not path_text:
         issues.append(ValidationIssue(location, "reference path must not be empty"))
+        return None
+    if repo_name in REFERENCE_ONLY_REPOS:
+        if not allow_reference_only_provenance:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    (
+                        f"reference-only predecessor repo '{repo_name}' is allowed only "
+                        "for explicit historical provenance"
+                    ),
+                )
+            )
+            return None
+        return repo_name, Path(path_text), anchor or None
+
+    repo_root = REPO_REF_ROOTS.get(repo_name)
+    if repo_root is None:
+        issues.append(ValidationIssue(location, f"unknown repo in reference: '{repo_name}'"))
         return None
 
     target = repo_root / path_text

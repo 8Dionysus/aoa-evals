@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 17142273,
+  "allowed_tracked_bytes": 24042741,
+  "approved_by": "repository-owner",
+  "base_ref": "4d03125d0961dbc0b15332f1a146cd0f7f08eb23",
+  "changed_generated_bytes": 17142273,
+  "changed_generated_files": 317,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "3d9be8f545b6b19d2dbf4926cc16895257069c75ce87b5d2dfa7916368cee43e",
+  "reason": "Routing succession review corrections update active owner routes and generated corpus",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 24042741,
+  "tracked_bytes_max": 26214400
+}

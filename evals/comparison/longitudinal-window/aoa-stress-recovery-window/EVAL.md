@@ -118,7 +118,7 @@ The current exemplar keeps the surface narrow:
 - owner repo: `ATM10-Agent`
 - owner surface: `hybrid-query`
 - stressor family: `hybrid-query-kag-unhealthy`
-- adjacent layers: `aoa-agents`, `aoa-playbooks`, `aoa-kag`, `aoa-routing`, and `aoa-memo`
+- adjacent layers: `aoa-agents`, `aoa-playbooks`, `aoa-kag`, `aoa-sdk`, and `aoa-memo`
 
 This surface excludes:
 

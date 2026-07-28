@@ -45,9 +45,10 @@ strict latest-sibling compatibility checks route to `aoa-sdk`.
 `aoa-routing` is removed from the canary checkout matrix and active root map.
 
 Historical `repo:aoa-routing/...` references remain parseable as
-reference-only provenance. They do not require a predecessor checkout and do
-not pass through current path-existence or anchor validation. New current
-proof inputs must not use that exception.
+reference-only provenance only when the caller explicitly opts into that
+historical mode. They do not require a predecessor checkout and do not pass
+through current path-existence or anchor validation. New current proof inputs
+must not use that exception.
 
 ## Rationale
 

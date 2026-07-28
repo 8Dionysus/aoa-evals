@@ -45,7 +45,7 @@ The machine-readable contract lives in:
 
 The review may gather bounded evidence from adjacent owner surfaces such as:
 
-- `aoa-routing` live-session reentry review
+- `aoa-sdk` child-task return and live-session reentry contracts
 - `aoa-agents` self-agency continuity lane
 - `aoa-memo` inquiry checkpoint and continuity writeback boundary
 - local `aoa-evals` bridge and promotion guides
@@ -87,4 +87,4 @@ next step.
 | owner override | the named owner repo and review surface |
 | canon write through eval review | `aoa-memo` canon route or the owning canon surface |
 | proof-family promotion by receipt accumulation | bundle-local proof review with cited evidence |
-| routing, memo, and eval meaning collapse into one runtime judge | keep routing in `aoa-routing`, memory in `aoa-memo`, and proof in `aoa-evals` |
+| routing, memo, and eval meaning collapse into one runtime judge | keep canonical routing/control-plane policy in `aoa-sdk`, predecessor compatibility in `aoa-routing`, memory in `aoa-memo`, and proof in `aoa-evals` |

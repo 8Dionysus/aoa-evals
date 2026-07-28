@@ -172,6 +172,7 @@ def parse_repo_ref(
     *,
     location: str,
     issues: list[ValidationIssue],
+    allow_reference_only_provenance: bool = False,
 ) -> tuple[str, Path, str | None] | None:
     if not isinstance(raw_ref, str) or not raw_ref:
         issues.append(ValidationIssue(location, "reference must be a non-empty string"))
@@ -193,6 +194,17 @@ def parse_repo_ref(
         issues.append(ValidationIssue(location, "reference path must not be empty"))
         return None
     if repo_name in REFERENCE_ONLY_REPOS:
+        if not allow_reference_only_provenance:
+            issues.append(
+                ValidationIssue(
+                    location,
+                    (
+                        f"reference-only predecessor repo '{repo_name}' is allowed only "
+                        "for explicit historical provenance"
+                    ),
+                )
+            )
+            return None
         return repo_name, Path(path_text), anchor or None
 
     repo_root = REPO_REF_ROOTS.get(repo_name)

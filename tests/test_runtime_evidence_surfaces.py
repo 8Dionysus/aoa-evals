@@ -139,6 +139,7 @@ def test_repo_ref_parser_preserves_retired_routing_provenance_without_checkout(
         "repo:aoa-routing/docs/decisions/AOA-ROUTING-D-0001.md",
         location="historical.ref",
         issues=issues,
+        allow_reference_only_provenance=True,
     )
 
     assert parsed == (
@@ -147,6 +148,25 @@ def test_repo_ref_parser_preserves_retired_routing_provenance_without_checkout(
         None,
     )
     assert issues == []
+
+
+def test_repo_ref_parser_rejects_retired_routing_ref_without_explicit_provenance(
+    monkeypatch,
+) -> None:
+    issues: list[root_context.ValidationIssue] = []
+    monkeypatch.setenv(root_context.STRICT_SIBLING_COMPAT_ENV, "1")
+
+    parsed = root_context.parse_repo_ref(
+        "repo:aoa-routing/generated/current-routing-input.json",
+        location="current.ref",
+        issues=issues,
+    )
+
+    assert parsed is None
+    assert any(
+        "allowed only for explicit historical provenance" in issue.message
+        for issue in issues
+    )
 
 
 def _write_return_anchor_evidence_surface(tmp_path: Path, *, source_schema_ref: str) -> None:

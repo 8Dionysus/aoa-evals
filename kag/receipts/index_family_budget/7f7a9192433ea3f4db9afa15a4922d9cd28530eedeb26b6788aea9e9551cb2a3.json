@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 6216382,
+  "allowed_tracked_bytes": 24226538,
+  "approved_by": "repository-owner",
+  "base_ref": "12b408727e40174dd10e1f9ad0fa2e7f7fd11eec",
+  "changed_generated_bytes": 6216382,
+  "changed_generated_files": 106,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "7f7a9192433ea3f4db9afa15a4922d9cd28530eedeb26b6788aea9e9551cb2a3",
+  "reason": "Live organ-access eval packet contracts, materializer, and review coverage",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 24226538,
+  "tracked_bytes_max": 26214400
+}

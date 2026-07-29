@@ -5,9 +5,12 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import json
+import os
 import sys
-from datetime import datetime
+import tempfile
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -74,6 +77,13 @@ LIMITATIONS = [
     "Evidence references are structurally checked but are not authenticated by this runner.",
     "A passing result cannot authorize admission, infer acceptance, or raise effect authority.",
 ]
+LIVE_REVIEW_CLAIM_LIMIT = (
+    "This central bounded review proves only that the exact packet satisfies "
+    "the organ-access source contract and that the checked-in negative "
+    "inference scenarios pass at the pinned source revision. It does not "
+    "authenticate external evidence, infer owner acceptance, authorize "
+    "admission or effects, prove cross-organ benefit, or prove rollback."
+)
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -81,6 +91,45 @@ def load_json(path: Path) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise ValueError(f"{path}: expected a JSON object")
     return payload
+
+
+def canonical_digest(value: Any) -> str:
+    rendered = json.dumps(
+        value,
+        ensure_ascii=True,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    return "sha256:" + hashlib.sha256(rendered).hexdigest()
+
+
+def file_digest(path: Path) -> str:
+    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def write_private_json(path: Path, value: dict[str, Any]) -> None:
+    destination = path.expanduser().absolute()
+    destination.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+    destination.parent.chmod(0o700)
+    if destination.is_symlink():
+        raise ValueError(f"{destination}: output cannot be a symlink")
+    rendered = (
+        json.dumps(value, ensure_ascii=True, indent=2, sort_keys=True) + "\n"
+    ).encode("utf-8")
+    descriptor, temporary_name = tempfile.mkstemp(
+        prefix=f".{destination.name}.",
+        dir=destination.parent,
+    )
+    temporary = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "wb") as handle:
+            handle.write(rendered)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.chmod(temporary, 0o600)
+        os.replace(temporary, destination)
+    finally:
+        temporary.unlink(missing_ok=True)
 
 
 def parse_time(value: Any) -> datetime | None:
@@ -296,6 +345,90 @@ def run_scenarios() -> tuple[dict[str, Any], bool]:
     return report, failed_count == 0 and bool(breakdown)
 
 
+def review_packet(
+    packet_path: Path,
+    *,
+    reviewed_at: datetime,
+) -> tuple[dict[str, Any], bool]:
+    if reviewed_at.tzinfo is None or reviewed_at.utcoffset() is None:
+        raise ValueError("reviewed_at must be timezone-aware")
+    packet = load_json(packet_path)
+    issues = validate_packet(packet)
+    suite_report, suite_passed = run_scenarios()
+    accepted = not issues
+    report = {
+        "schema_version": "aoa_organ_access_packet_review_v1",
+        "eval_name": "aoa-organ-access-admission-integrity",
+        "bundle_status": "bounded",
+        "reviewed_at": reviewed_at.astimezone(timezone.utc)
+        .isoformat()
+        .replace("+00:00", "Z"),
+        "packet": {
+            "packet_ref": packet_path.expanduser().absolute().as_posix(),
+            "packet_digest": canonical_digest(packet),
+            "packet_id": packet.get("packet_id"),
+            "organ_id": packet.get("organ_id"),
+            "capability_id": packet.get("capability_id"),
+            "result_verdict": (
+                packet.get("result", {}).get("verdict")
+                if isinstance(packet.get("result"), dict)
+                else None
+            ),
+        },
+        "source_contract": {
+            "eval_ref": (
+                "evals/boundary/aoa-organ-access-admission-integrity/EVAL.md"
+            ),
+            "eval_digest": file_digest(BUNDLE_ROOT / "EVAL.md"),
+            "manifest_ref": (
+                "evals/boundary/aoa-organ-access-admission-integrity/eval.yaml"
+            ),
+            "manifest_digest": file_digest(BUNDLE_ROOT / "eval.yaml"),
+            "packet_schema_ref": (
+                "evals/boundary/aoa-organ-access-admission-integrity/"
+                "schemas/organ-access-proof-packet.schema.json"
+            ),
+            "packet_schema_digest": file_digest(SCHEMA_PATH),
+        },
+        "packet_validation": {
+            "accepted_by_source_contract": accepted,
+            "issues": issues,
+        },
+        "negative_suite": {
+            "verdict": suite_report["verdict"],
+            "scenario_count": suite_report["scenario_count"],
+            "passed_count": suite_report["passed_count"],
+            "failed_count": suite_report["failed_count"],
+            "report_digest": canonical_digest(suite_report),
+        },
+        "verdict": (
+            "supported_bounded"
+            if accepted and suite_passed
+            else "rejected_contract"
+        ),
+        "central_proof_asserted": accepted and suite_passed,
+        "owner_acceptance_inferred": False,
+        "admission_change_authorized": False,
+        "higher_effect_authorized": False,
+        "cross_organ_benefit_asserted": False,
+        "rollback_proven": False,
+        "actual_effects": [],
+        "limitations": [
+            *LIMITATIONS,
+            (
+                "A source-contract-valid insufficient_evidence packet remains "
+                "insufficient evidence; review does not promote its maturity axes."
+            ),
+            (
+                "The report is a private bounded review artifact, not an "
+                "owner-acceptance or live-publication receipt."
+            ),
+        ],
+        "claim_limit": LIVE_REVIEW_CLAIM_LIMIT,
+    }
+    return report, accepted and suite_passed
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -304,6 +437,13 @@ def build_parser() -> argparse.ArgumentParser:
         "validate-packet", help="validate one organ-access proof packet"
     )
     validate.add_argument("packet_path", type=Path)
+    review = subparsers.add_parser(
+        "review-packet",
+        help="emit one private bounded packet review after source-suite replay",
+    )
+    review.add_argument("packet_path", type=Path)
+    review.add_argument("--output", type=Path, required=True)
+    review.add_argument("--reviewed-at")
     return parser
 
 
@@ -312,6 +452,38 @@ def main() -> int:
     if args.command == "run-scenarios":
         report, passed = run_scenarios()
         print(json.dumps(report, indent=2, sort_keys=True))
+        return 0 if passed else 1
+
+    if args.command == "review-packet":
+        reviewed_at = (
+            parse_time(args.reviewed_at)
+            if args.reviewed_at
+            else datetime.now(timezone.utc)
+        )
+        if reviewed_at is None or reviewed_at.tzinfo is None:
+            raise ValueError("--reviewed-at must be an aware RFC 3339 timestamp")
+        report, passed = review_packet(
+            args.packet_path,
+            reviewed_at=reviewed_at,
+        )
+        write_private_json(args.output, report)
+        print(
+            json.dumps(
+                {
+                    "schema_version": report["schema_version"],
+                    "eval_name": report["eval_name"],
+                    "packet_digest": report["packet"]["packet_digest"],
+                    "verdict": report["verdict"],
+                    "central_proof_asserted": report[
+                        "central_proof_asserted"
+                    ],
+                    "output": args.output.expanduser().absolute().as_posix(),
+                    "claim_limit": report["claim_limit"],
+                },
+                indent=2,
+                sort_keys=True,
+            )
+        )
         return 0 if passed else 1
 
     packet = load_json(args.packet_path)

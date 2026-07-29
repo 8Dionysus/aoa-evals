@@ -951,7 +951,7 @@
       "what_this_does_not_prove": "proof that the resulting memo is true; permission to land durable reviewed memory; permission to skip write-path guardrails"
     },
     {
-      "blind_spot_short": "authenticity of an external evidence reference;; correctness of a live owner implementation;; runtime latency, cancellation, concurrency, or injection resistance;",
+      "blind_spot_short": "cryptographic authenticity or owner signature of an input receipt;; conformance of an external stack input to its full owner schema beyond the",
       "bounded_claim_short": "The bundle can support only this claim:",
       "capability_dependencies": [],
       "capability_refs": [],

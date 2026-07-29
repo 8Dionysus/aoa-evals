@@ -1,0 +1,254 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-evals/evals/boundary/aoa-organ-access-admission-integrity/reports/live-review.schema.json",
+  "title": "aoa-organ-access-admission-integrity private packet review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "eval_name",
+    "bundle_status",
+    "reviewed_at",
+    "packet",
+    "source_contract",
+    "packet_validation",
+    "negative_suite",
+    "verdict",
+    "central_proof_asserted",
+    "owner_acceptance_inferred",
+    "admission_change_authorized",
+    "higher_effect_authorized",
+    "cross_organ_benefit_asserted",
+    "rollback_proven",
+    "actual_effects",
+    "limitations",
+    "claim_limit"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aoa_organ_access_packet_review_v1"
+    },
+    "eval_name": {
+      "const": "aoa-organ-access-admission-integrity"
+    },
+    "bundle_status": {
+      "const": "bounded"
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "packet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "packet_ref",
+        "packet_digest",
+        "packet_id",
+        "organ_id",
+        "capability_id",
+        "result_verdict"
+      ],
+      "properties": {
+        "packet_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "packet_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "packet_id": {
+          "type": "string",
+          "minLength": 3
+        },
+        "organ_id": {
+          "type": "string",
+          "minLength": 2
+        },
+        "capability_id": {
+          "type": "string",
+          "minLength": 2
+        },
+        "result_verdict": {
+          "enum": [
+            "supports_bounded_contract",
+            "insufficient_evidence",
+            "rejects_contract"
+          ]
+        }
+      }
+    },
+    "source_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eval_ref",
+        "eval_digest",
+        "manifest_ref",
+        "manifest_digest",
+        "packet_schema_ref",
+        "packet_schema_digest"
+      ],
+      "properties": {
+        "eval_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "eval_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "manifest_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "manifest_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "packet_schema_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "packet_schema_digest": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "packet_validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accepted_by_source_contract",
+        "issues"
+      ],
+      "properties": {
+        "accepted_by_source_contract": {
+          "type": "boolean"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "negative_suite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verdict",
+        "scenario_count",
+        "passed_count",
+        "failed_count",
+        "report_digest"
+      ],
+      "properties": {
+        "verdict": {
+          "enum": [
+            "supports bounded claim",
+            "does not support bounded claim"
+          ]
+        },
+        "scenario_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "passed_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "report_digest": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "verdict": {
+      "enum": [
+        "supported_bounded",
+        "rejected_contract"
+      ]
+    },
+    "central_proof_asserted": {
+      "type": "boolean"
+    },
+    "owner_acceptance_inferred": {
+      "const": false
+    },
+    "admission_change_authorized": {
+      "const": false
+    },
+    "higher_effect_authorized": {
+      "const": false
+    },
+    "cross_organ_benefit_asserted": {
+      "const": false
+    },
+    "rollback_proven": {
+      "const": false
+    },
+    "actual_effects": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 12
+      }
+    },
+    "claim_limit": {
+      "type": "string",
+      "minLength": 40
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verdict": {
+            "const": "supported_bounded"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "central_proof_asserted": {
+            "const": true
+          },
+          "packet_validation": {
+            "properties": {
+              "accepted_by_source_contract": {
+                "const": true
+              },
+              "issues": {
+                "maxItems": 0
+              }
+            }
+          },
+          "negative_suite": {
+            "properties": {
+              "verdict": {
+                "const": "supports bounded claim"
+              },
+              "failed_count": {
+                "const": 0
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

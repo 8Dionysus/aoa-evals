@@ -13,3 +13,9 @@ Local replacement may change fictional owner, organ, capability, protocol, and
 revision labels only if all sixteen maturity axes and the checked-in forbidden
 inferences remain visible. Fixtures must not contain credentials, private
 payloads, private registry rows, or production endpoints.
+
+The live-materializer tests build temporary private-shaped registry,
+deployment, observation, canary, result-artifact, and owner-review inputs at
+test time. Those synthetic inputs exercise cross-input, authority, freshness,
+and permission boundaries; they are not checked-in live evidence and do not
+strengthen the bundle verdict.

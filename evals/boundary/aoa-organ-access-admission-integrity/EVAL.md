@@ -28,7 +28,9 @@ The bounded claim is:
 > plane admission.
 
 This is a source-contract and negative-invariant eval. It does not observe a
-live MCP process, registry, consumer, or organ result by itself.
+live MCP process, registry, consumer, or organ result by itself. Its optional
+live-packet materializer can compose already-issued local evidence into one
+candidate packet, but it cannot issue a proof verdict or owner decision.
 
 ## Object under evaluation
 
@@ -60,6 +62,10 @@ It cannot support claims that:
 - rollback works in the deployed runtime;
 - one passing protocol pair proves another pair.
 
+Materializing a packet does not change those claim limits. A materialized
+packet remains an `insufficient_evidence` candidate until the missing axes are
+independently supplied and reviewed through their named owners.
+
 ## Trigger boundary
 
 Use this eval when:
@@ -89,6 +95,19 @@ Do not use this eval when:
   axis;
 - explicit limitations and an observation window.
 
+For optional live packet materialization:
+
+- one private deny-by-default `aoa-sdk` registry source;
+- one exact content-addressed `abyss-stack` deployment manifest and its
+  byte-identical immutable record;
+- one current private `abyss-stack` runtime observation whose endpoint and
+  blocked-canary links reference the exact canary record;
+- one immutable private `abyss-stack` authenticated read-canary receipt;
+- for a successful call, its exact private content-addressed result artifact;
+- optionally, one exact private `aoa_organ_owner_result_review_v1` receipt from
+  the named source or acceptance owner; and
+- one private output path under a non-group/world-accessible directory.
+
 ## Fixtures and case surface
 
 The checked-in scenarios cover:
@@ -109,6 +128,45 @@ The checked-in scenarios cover:
 
 These fixtures are public-safe contract examples. They contain no production
 tokens, private payloads, live service addresses, or private registry data.
+
+### Live packet materializer
+
+`runners/materialize_live_packet.py` is a fail-closed composition helper, not a
+second verdict runner. Its exact input, binding, output, and claim ceiling are
+recorded in `runners/live-materializer-contract.md`.
+
+It performs bounded local checks over:
+
+- secret-free input shape, regular-file and symlink posture, duplicate JSON
+  keys, and private permissions for registry, observation, and canary inputs;
+- deployment content addressing and byte parity with the immutable record;
+- registry/observation owner, source-revision, and registry-record identity;
+- package/deploy/runtime identity and digest continuity;
+- canary content addressing, read-plane claim limit, server/package identity,
+  loopback endpoint, schema, immutable evidence reference, and blocked
+  owner-grounding posture;
+- result-artifact content addressing, captured-payload digest, receipt
+  identity, and explicit untrusted/no-instruction posture;
+- optional owner-review content addressing, source/acceptance-owner identity,
+  registry capability/primitive/payload-schema identity, source revision,
+  capture/result/schema digests, evidence lifetime, and fixed authority
+  ceiling.
+
+It may assert only the independently supported subset of `declared`,
+`packaged`, `exported`, `deployed`, `process_alive`, `endpoint_ready`,
+`registry_indexed`, `schema_observed`, and `call_succeeded`. An optional exact
+owner review may additionally assert `result_grounded` when its owner verdict
+is `grounded`, and `freshness_satisfied` only when its freshness verdict is
+`exact`. It never asserts `owner_reviewed`, `consumer_registered`,
+`owner_accepted`, `cross_organ_proven`, or `rollback_proven`.
+
+The output verdict is always `insufficient_evidence`. In particular,
+`result_contract_matched` in a stack canary is not
+`owner_grounding_review`, and the materializer does not convert it into
+`result_grounded`. The preserved result artifact exists so a later owner
+reviewer can inspect the exact payload; its presence alone asserts no maturity
+axis. A consumed result review is not the organ-contract `owner_reviewed` axis
+and cannot create acceptance, central proof, admission, or effect authority.
 
 ## Scoring or verdict logic
 
@@ -145,16 +203,30 @@ The runner is deterministic and offline. It validates packet shape and bounded
 semantic invariants only. Live execution evidence must be gathered elsewhere,
 then presented as owner-qualified candidate evidence.
 
+The live materializer is operator-invoked and reads only explicit paths. It
+does not discover workspaces, read credentials, probe MCP endpoints, mutate the
+registry, or execute admission. Its tests are part of the validation commands
+in `runners/contract.json`.
+
 ## Outputs
 
 - a deterministic summary-with-breakdown report;
 - per-scenario expected and observed acceptance state;
 - stable issue codes for violated inference boundaries;
 - an explicit claim boundary and limitations list.
+- optionally, one mode-`0600` materialized candidate packet plus a compact
+  stdout summary naming its asserted axes and claim limit.
+- optionally, one mode-`0600` `aoa_organ_access_packet_review_v1` report that
+  binds an exact packet digest to the current source bundle and negative-suite
+  replay without inferring owner acceptance, admission, cross-organ benefit,
+  effects, or rollback.
 
 The report contract is
 `reports/summary.schema.json`; `reports/example-report.json` is a checked-in
 public-safe example, not a production receipt.
+`reports/live-review.schema.json` constrains the optional private packet-review
+artifact. Its `supported_bounded` verdict means only that the exact packet
+satisfies this source contract and the checked-in negative scenarios pass.
 
 ## Failure modes
 
@@ -167,12 +239,19 @@ The instrument fails its purpose if:
 - a passing source scenario is reported as live organ admission;
 - absent evidence is hidden instead of producing `insufficient_evidence`;
 - private runtime material is copied into public fixtures.
+- mismatched registry, deploy, observation, or canary identities are composed
+  into one packet;
+- an owner review is accepted without exact registry, capture, result,
+  source-schema, lifetime, and authority-ceiling binding;
+- materializer success is reported as a central proof verdict.
 
 ## Blind spots
 
 This eval does not prove:
 
-- authenticity of an external evidence reference;
+- cryptographic authenticity or owner signature of an input receipt;
+- conformance of an external stack input to its full owner schema beyond the
+  bounded fields checked by the materializer;
 - correctness of a live owner implementation;
 - runtime latency, cancellation, concurrency, or injection resistance;
 - consumer diversity or protocol-pair interoperability;
@@ -219,6 +298,8 @@ Reviewers must keep these distinctions:
 - confirm the report keeps admission, acceptance inference, and higher-effect
   authorization fixed to `false`;
 - confirm the result names the live-evidence blind spot.
+- run the live-materializer tests and confirm output mode, negative cross-input
+  cases, secret rejection, and permanently unasserted owner/proof axes.
 
 ## Technique traceability
 
@@ -244,4 +325,5 @@ owner labels, and evidence references. They must retain:
   admission-denial cases;
 - false admission, acceptance-inference, and higher-effect authorization
   fields;
-- the source-only claim limit.
+- the source-contract claim limit and the rule that materialization is not a
+  proof verdict.

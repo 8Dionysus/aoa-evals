@@ -96,17 +96,11 @@ admission.
 
 ## Operator invocation
 
-```text
-python evals/boundary/aoa-organ-access-admission-integrity/runners/materialize_live_packet.py \
-  --organ <organ-id> \
-  --registry <private-registry-source.json> \
-  --deployment <deployments/latest.json> \
-  --observation <private-current-observation.json> \
-  --canary <private-immutable-canary-record.json> \
-  --result <private-content-addressed-result-artifact.json> \
-  --owner-review <private-content-addressed-owner-review.json> \
-  --output <private-proof-candidates/packet.json>
-```
+The runnable repository command belongs to
+[`docs/validation/COMMAND_AUTHORITY.md`](../../../../docs/validation/COMMAND_AUTHORITY.md).
+Select the materializer there, then supply the required inputs above. The
+script's argument parser remains the executable authority for exact flag
+spelling; this contract owns only their meaning and binding requirements.
 
 Successful materialization means only that the output is an honest,
 source-contract-valid candidate assembled from mutually bound local inputs. It

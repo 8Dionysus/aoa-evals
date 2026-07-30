@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 4863283,
+  "allowed_tracked_bytes": 25982176,
+  "approved_by": "repository-owner",
+  "base_ref": "f74ab97babe9de3799da49d18d368c3fe767ae78",
+  "changed_generated_bytes": 4863283,
+  "changed_generated_files": 74,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "747587d992890d8902ae4572a3b1a06d1a2aa351fa92dd8d8fe1dcf251330b07",
+  "reason": "Owner-reviewed current canary v2 compatibility proof requires a deterministic KAG family refresh; this receipt authorizes only the measured generated delta while the tracked family remains below its repository cap.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 25982176,
+  "tracked_bytes_max": 26214400
+}

@@ -102,7 +102,8 @@ For optional live packet materialization:
   byte-identical immutable record;
 - one current private `abyss-stack` runtime observation whose endpoint and
   blocked-canary links reference the exact canary record;
-- one immutable private `abyss-stack` authenticated read-canary receipt;
+- one immutable private `abyss-stack` authenticated read-canary receipt in
+  the legacy v1 or current attested v2 shape;
 - for a successful call, its exact private content-addressed result artifact;
 - optionally, one exact private `aoa_organ_owner_result_review_v1` receipt from
   the named source or acceptance owner; and
@@ -143,8 +144,9 @@ It performs bounded local checks over:
 - registry/observation owner, source-revision, and registry-record identity;
 - package/deploy/runtime identity and digest continuity;
 - canary content addressing, read-plane claim limit, server/package identity,
-  loopback endpoint, schema, immutable evidence reference, and blocked
-  owner-grounding posture;
+  loopback endpoint, schema, immutable evidence reference, blocked
+  owner-grounding posture, and for v2 the Ed25519 attestation field shape plus
+  receipt/result signer continuity;
 - result-artifact content addressing, captured-payload digest, receipt
   identity, and explicit untrusted/no-instruction posture;
 - optional owner-review content addressing, source/acceptance-owner identity,

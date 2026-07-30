@@ -20,8 +20,9 @@ the registry, or mutate runtime state.
   `latest.json` with its byte-identical content-addressed record beside it;
 - `--observation`: a mode-private, unexpired
   `abyss_stack_runtime_observation_v1`;
-- `--canary`: the mode-private immutable stack canary record under
-  `records/<organ>/<receipt-digest>.json`, not a copied or rewritten receipt;
+- `--canary`: the mode-private immutable stack canary v1 or current attested
+  v2 record under `records/<organ>/<receipt-digest>.json`, not a copied or
+  rewritten receipt;
 - `--result`: for a successful call, the exact mode-private artifact named by
   the canary `result_artifact_ref`;
 - optionally `--owner-review`: one mode-private
@@ -49,6 +50,7 @@ The materializer fails closed on:
   canary route, or receipt-reference mismatch;
 - missing, rewritten, relocated, secret-bearing, or digest-mismatched
   successful-call result artifacts;
+- malformed v2 Ed25519 attestation metadata or receipt/result signer drift;
 - owner-review SDK-contract, content-address, owner-role, registry
   capability/primitive/schema, source-revision, capture-ref, result-digest,
   schema-digest, watermark, evidence, freshness-window, or authority-ceiling
@@ -57,7 +59,10 @@ The materializer fails closed on:
   that treats the stack canary as owner grounding.
 
 These are local structural, permission, content-address, and cross-input
-checks. They do not authenticate an owner signature.
+checks. For v2 they validate the attestation encoding and signer continuity,
+but they do not authenticate the Ed25519 signature or establish the signer as
+an owner trust root. That remains an explicit blind spot unless an
+independently pinned owner verifier supplies a separately bound review.
 
 ## Output and claim ceiling
 

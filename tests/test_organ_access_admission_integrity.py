@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import base64
 import json
 import hashlib
 import stat
@@ -540,6 +541,64 @@ def run_materializer(
     )
 
 
+def upgrade_canary_inputs_to_v2(paths: dict[str, Path]) -> None:
+    canary_path = paths["canary"]
+    canary = json.loads(canary_path.read_text(encoding="utf-8"))
+    old_receipt_id = canary["receipt_id"]
+    signer_id = "sha256:" + ("1" * 64)
+    attestation = base64.urlsafe_b64encode(b"a" * 64).rstrip(b"=").decode("ascii")
+    canary.update(
+        {
+            "schema_version": "abyss_stack_mcp_canary_receipt_v2",
+            "signer_id": signer_id,
+            "attestation_algorithm": "ed25519",
+            "attestation": attestation,
+        }
+    )
+    unsigned_canary = {
+        key: value
+        for key, value in canary.items()
+        if key not in {"receipt_id", "attestation"}
+    }
+    canary["receipt_id"] = canonical_digest(unsigned_canary)
+    new_canary_path = (
+        canary_path.parent
+        / f"{canary['receipt_id'].removeprefix('sha256:')}.json"
+    )
+    write_json(new_canary_path, canary, mode=0o600)
+    canary_path.unlink()
+    paths["canary"] = new_canary_path
+
+    result_path = paths["result"]
+    result = json.loads(result_path.read_text(encoding="utf-8"))
+    result.update(
+        {
+            "schema_version": "abyss_stack_mcp_canary_result_artifact_v2",
+            "signer_id": signer_id,
+            "attestation_algorithm": "ed25519",
+            "attestation": attestation,
+        }
+    )
+    unsigned_result = {
+        key: value
+        for key, value in result.items()
+        if key not in {"artifact_id", "attestation"}
+    }
+    result["artifact_id"] = canonical_digest(unsigned_result)
+    write_json(result_path, result, mode=0o600)
+
+    observation_path = paths["observation"]
+    observation = json.loads(observation_path.read_text(encoding="utf-8"))
+    subject = observation["subjects"][0]
+    for section in ("endpoint", "canary"):
+        evidence = subject[section]["evidence"]["evidence_refs"][0]
+        evidence["evidence_ref"] = new_canary_path.absolute().as_posix()
+        evidence["revision"] = canary["receipt_id"]
+    write_json(observation_path, observation, mode=0o600)
+
+    assert old_receipt_id != canary["receipt_id"]
+
+
 def test_checked_in_scenarios_match_bounded_expectations() -> None:
     completed = run_runner("run-scenarios")
     assert completed.returncode == 0, completed.stderr or completed.stdout
@@ -747,6 +806,41 @@ def test_live_materializer_asserts_only_independently_bound_axes(
     result = json.loads(validated.stdout)
     assert result["accepted_by_source_contract"] is True
     assert result["issues"] == []
+
+
+def test_live_materializer_accepts_attested_canary_v2_shape(
+    tmp_path: Path,
+) -> None:
+    paths = live_packet_inputs(tmp_path)
+    upgrade_canary_inputs_to_v2(paths)
+
+    completed = run_materializer(paths)
+
+    assert completed.returncode == 0, completed.stderr or completed.stdout
+    packet = json.loads(paths["output"].read_text(encoding="utf-8"))
+    assert packet["maturity"]["call_succeeded"]["state"] == "asserted"
+
+
+def test_live_materializer_rejects_v2_result_signer_drift(
+    tmp_path: Path,
+) -> None:
+    paths = live_packet_inputs(tmp_path)
+    upgrade_canary_inputs_to_v2(paths)
+    result = json.loads(paths["result"].read_text(encoding="utf-8"))
+    result["signer_id"] = "sha256:" + ("2" * 64)
+    unsigned = {
+        key: value
+        for key, value in result.items()
+        if key not in {"artifact_id", "attestation"}
+    }
+    result["artifact_id"] = canonical_digest(unsigned)
+    write_json(paths["result"], result, mode=0o600)
+
+    completed = run_materializer(paths)
+
+    assert completed.returncode == 1
+    assert "result artifact signer does not match" in completed.stderr
+    assert not paths["output"].exists()
 
 
 def test_live_materializer_asserts_only_exact_owner_review_axes(

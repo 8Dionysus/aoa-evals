@@ -1,0 +1,387 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agents-of-abyss.local/schemas/phase6-outcome-attribution-report-v1.json",
+  "title": "Phase 6 active-organ outcome attribution report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "created_at",
+    "evidence_scope",
+    "input",
+    "pins",
+    "experiment",
+    "receipts",
+    "attribution",
+    "safety",
+    "freeze_probe",
+    "known_gaps",
+    "exit_gate_passed",
+    "verdict",
+    "authority",
+    "report_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "phase6_outcome_attribution_report_v1"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "evidence_scope": {
+      "const": "source-local-public-reviewed-no-deployment"
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "consumer_report_ref",
+        "consumer_report_file_digest",
+        "consumer_report_normalized_digest",
+        "consumer_exit_gate_passed",
+        "case_count",
+        "seed_count"
+      ],
+      "properties": {
+        "consumer_report_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "consumer_report_file_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "consumer_report_normalized_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "consumer_exit_gate_passed": {
+          "const": true
+        },
+        "case_count": {
+          "type": "integer",
+          "minimum": 8
+        },
+        "seed_count": {
+          "type": "integer",
+          "minimum": 3
+        }
+      }
+    },
+    "pins": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runner",
+        "report_schema",
+        "c10_schema",
+        "c10_semantic_validator",
+        "c21_file",
+        "c22_file",
+        "c22_normalized_self_digest",
+        "fixture",
+        "host_examples"
+      ],
+      "properties": {
+        "runner": {
+          "$ref": "#/$defs/digest"
+        },
+        "report_schema": {
+          "$ref": "#/$defs/digest"
+        },
+        "c10_schema": {
+          "$ref": "#/$defs/digest"
+        },
+        "c10_semantic_validator": {
+          "$ref": "#/$defs/digest"
+        },
+        "c21_file": {
+          "$ref": "#/$defs/digest"
+        },
+        "c22_file": {
+          "$ref": "#/$defs/digest"
+        },
+        "c22_normalized_self_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "fixture": {
+          "$ref": "#/$defs/digest"
+        },
+        "host_examples": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "experiment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "design",
+        "arms_materialized",
+        "arm_c_posture",
+        "seed_count",
+        "paired_case_seed_count",
+        "randomized_observation_count",
+        "randomized_holdout_count",
+        "paired_counterfactual_count"
+      ],
+      "properties": {
+        "design": {
+          "const": "paired-randomized-holdout-with-shadow-counterfactual"
+        },
+        "arms_materialized": {
+          "const": [
+            "A",
+            "B"
+          ]
+        },
+        "arm_c_posture": {
+          "const": "counterfactual-only-not-implemented"
+        },
+        "seed_count": {
+          "type": "integer",
+          "minimum": 3
+        },
+        "paired_case_seed_count": {
+          "type": "integer",
+          "minimum": 24
+        },
+        "randomized_observation_count": {
+          "type": "integer",
+          "minimum": 24
+        },
+        "randomized_holdout_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "paired_counterfactual_count": {
+          "type": "integer",
+          "minimum": 24
+        }
+      }
+    },
+    "receipts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "main_count",
+        "schema_valid_count",
+        "semantic_valid_count",
+        "schema_failures",
+        "semantic_failures",
+        "content_self_digest_count",
+        "partial_delayed_count"
+      ],
+      "properties": {
+        "main_count": {
+          "type": "integer",
+          "minimum": 48
+        },
+        "schema_valid_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "semantic_valid_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "schema_failures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "semantic_failures": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "content_self_digest_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "partial_delayed_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "attribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "active_supported_count",
+        "active_contested_no_action_change_count",
+        "active_possible_shadow_action_change_count",
+        "control_not_evaluated_count",
+        "action_changed_count",
+        "unknown_count"
+      ],
+      "properties": {
+        "active_supported_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "active_contested_no_action_change_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "active_possible_shadow_action_change_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "control_not_evaluated_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "action_changed_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unknown_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unsafe_authority_count",
+        "harm_observed_count",
+        "accidental_success_count",
+        "operator_intervention_count",
+        "access_count_used_as_utility_count",
+        "semantic_transition_allowed_count"
+      ],
+      "properties": {
+        "unsafe_authority_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "harm_observed_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "accidental_success_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "operator_intervention_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "access_count_used_as_utility_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "semantic_transition_allowed_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "freeze_probe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_valid",
+        "semantic_valid",
+        "issues",
+        "eval_plane_status",
+        "policy_update_state",
+        "attribution_status",
+        "file_digest"
+      ],
+      "properties": {
+        "schema_valid": {
+          "const": true
+        },
+        "semantic_valid": {
+          "type": "boolean"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "eval_plane_status": {
+          "const": "unavailable"
+        },
+        "policy_update_state": {
+          "const": "frozen"
+        },
+        "attribution_status": {
+          "const": "unknown"
+        },
+        "file_digest": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "known_gaps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "exit_gate_passed": {
+      "type": "boolean"
+    },
+    "verdict": {
+      "enum": [
+        "supports Phase 7 read-only shadow implementation",
+        "does not support Phase 7 continuation"
+      ]
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_authorized",
+        "deployment_authorized",
+        "consumer_visible_intervention_authorized",
+        "policy_promotion_authorized",
+        "semantic_memory_transition_authorized",
+        "training_authorized",
+        "landing_authorized"
+      ],
+      "properties": {
+        "production_authorized": {
+          "const": false
+        },
+        "deployment_authorized": {
+          "const": false
+        },
+        "consumer_visible_intervention_authorized": {
+          "const": false
+        },
+        "policy_promotion_authorized": {
+          "const": false
+        },
+        "semantic_memory_transition_authorized": {
+          "const": false
+        },
+        "training_authorized": {
+          "const": false
+        },
+        "landing_authorized": {
+          "const": false
+        }
+      }
+    },
+    "report_digest": {
+      "$ref": "#/$defs/digest"
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

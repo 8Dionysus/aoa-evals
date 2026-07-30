@@ -49,6 +49,7 @@ This surface prefers:
 | `aoa-witness-trace-integrity` | draft | You need a bounded run checked for a reviewable witness trace before memo or compost use. |
 | `aoa-regression-same-task` | baseline | You need frozen-baseline comparison on the same bounded task family. |
 | `aoa-runtime-latency-tradeoff` | draft | You need a public-safe runtime latency and resource-use tradeoff read under matched fixture conditions. |
+| `aoa-memo-active-organ-offline-replay` | draft | You need a pinned public-safe causal comparison of memory-disabled, pull-only, monolithic sandbox, and federated policy-gated memory. |
 | `aoa-artifact-review-rubric` | portable | You need the produced artifact judged on the visible task surface. |
 | `aoa-compost-provenance-preservation` | draft | You need witness-derived compost checked for provenance and review posture. |
 | `aoa-output-vs-process-gap` | draft | You need artifact-side and process-side readings compared on matched conditions after both standalone readings exist. |
@@ -79,6 +80,9 @@ See also:
   `aoa-memo-writeback-decision-quality`.
 - Need to know whether memo write-path material stayed guarded before durable
   memory? Use `aoa-memo-write-path-guardrails`.
+- Need a fixed-baseline causal comparison of active-memory architecture rather
+  than one write-path or recall guard? Use
+  `aoa-memo-active-organ-offline-replay`.
 
 ## Pick by question
 
@@ -179,6 +183,13 @@ See also:
 - `aoa-runtime-latency-tradeoff`
   Use this draft when selected runtime evidence compares local variants under matched fixture conditions and the public read must keep latency, resource use, and anti-overread limits separate.
 
+### I need a pinned causal comparison of active-memory architectures
+- `aoa-memo-active-organ-offline-replay`
+  Use this draft for matched public-safe replay across verified no-memory,
+  reviewed pull-only, monolithic sandbox, and federated policy-gated memory.
+  Conformance and erasure are blockers; a positive symbolic result authorizes
+  only consideration of the next weaker reviewed experiment.
+
 ### I need to judge the produced artifact itself
 - `aoa-artifact-review-rubric`
   If the question is artifact-versus-process divergence on the same cases, switch to `aoa-output-vs-process-gap` only after the standalone workflow read is already visible.
@@ -210,6 +221,12 @@ See also:
 - `aoa-runtime-latency-tradeoff`
   Keep this as a draft runtime tradeoff surface. It may carry selected public-safe runtime evidence, but it does not rank reasoning quality, agent behavior, hosts, or hardware tiers.
 
+### Does the bounded task require a fixed-baseline causal comparison of memory-disabled, pull-only, monolithic proactive, and federated policy-gated memory?
+- `aoa-memo-active-organ-offline-replay`
+  Keep this draft public-safe and shadow-only. Treat conformance, erasure,
+  tenant isolation, provenance, authority, and cost as blocking or explicit
+  verdict inputs rather than secondary decoration.
+
 ### Do you need a side-by-side peer compare between artifact quality and workflow discipline on the same bounded cases?
 - `aoa-output-vs-process-gap`
   Read it only after the standalone artifact and workflow surfaces are already visible.
@@ -235,7 +252,7 @@ See also:
 | `stress` | You care about incomplete, conflicting, or underspecified task meaning, or about one bounded owner-local stressor family and whether degraded continuation stayed reviewable, source-owned, and weaker than the normal path. | `aoa-ambiguity-handling`, `aoa-antifragility-posture` |
 | `regression` | You care about frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | `artifact` | You care about the produced artifact itself or about provenance-preserving compost artifacts derived from witness-facing inputs. | `aoa-artifact-review-rubric`, `aoa-compost-provenance-preservation` |
-| `comparative` | You care about cross-surface divergence such as polished output versus process discipline, or a public-safe runtime latency/resource tradeoff under matched conditions. | `aoa-output-vs-process-gap`, `aoa-runtime-latency-tradeoff` |
+| `comparative` | You care about cross-surface divergence, a public-safe runtime latency/resource tradeoff, or a pinned active-memory architecture comparison under matched conditions. | `aoa-output-vs-process-gap`, `aoa-runtime-latency-tradeoff`, `aoa-memo-active-organ-offline-replay` |
 | `capability` | You care about whether a bounded eval-side review surface is present, such as integrity checking of public eval bundles, growth-refinery lineage coherence, or continuity-anchor integrity as distinct bounded abilities. | `aoa-eval-integrity-check`, `aoa-candidate-lineage-integrity`, `aoa-continuity-anchor-integrity` |
 | `longitudinal` | You care about ordered repeated-window movement on the same bounded surface, or about repeated-window stress recovery posture on one named stressor family; one-run and baseline questions route to their own surfaces. | `aoa-longitudinal-growth-snapshot`, `aoa-stress-recovery-window` |
 
@@ -258,6 +275,10 @@ explicit `canonical_readiness`, and a fresh public-safety recheck.
 Prefer `aoa-regression-same-task` when you need the first public `baseline` same-task comparison surface.
 Use `aoa-output-vs-process-gap` when you need artifact-side versus process-side peer comparison on the same bounded cases after the standalone artifact and workflow surfaces are already readable.
 Use `aoa-runtime-latency-tradeoff` when selected runtime evidence needs a fixed-baseline public-safe route for latency/resource tradeoff without becoming a quality or leaderboard claim.
+Use `aoa-memo-active-organ-offline-replay` when the causal question is whether
+federated policy-gated memory has bounded net benefit over verified no-memory
+and reviewed pull-only baselines without turning symbolic or shadow evidence
+into policy admission.
 Use `aoa-longitudinal-growth-snapshot` when you need ordered repeated-window movement on the same bounded workflow surface.
 Use `aoa-stress-recovery-window` when the repeated-window question is specifically owner-first stress recovery posture for one named stressor family.
 Use `aoa-eval-integrity-check` as the bounded sidecar when a public maturity wave risks semantic overreach, bundle blur, or baseline/growth-by-association drift.

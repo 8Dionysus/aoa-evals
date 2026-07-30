@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "posture": "closed_episode_inside_mutable_session_projection",
+  "anchors": [
+    {
+      "case_id": "os-compaction-and-deferred-landing",
+      "session_index_ref": "sessions/2026-07-23__056__https-chatgpt-com-share-6a625882-8600-83e8/session.index.json",
+      "session_index_review_cutoff_sha256": "e8979619dba1ae1414123a6902dc77cd2492c317de5575a600f84e02a06eafd4",
+      "session_index_generation_id": "d18af2e09051d0007f17e8d6b9da369fccfc090154e60139d964a9297808ee47",
+      "episode_id": "task-0022",
+      "stable_episode_id": "019f9029-57ac-7c13-8c53-e3852ac6f5ae:task-0022:030617",
+      "episode_projection_sha256": "93be259895bf0e9cf0a867b8af90bdad1111fc8f35eddc9a669fc10913e06ce4",
+      "claim_limit": "The historical whole-index digest remains the review cutoff. Later unrelated episodes may change the mutable session projection, but the closed episode projection, generation, stable identity, reference counts, raw-block digests, coordinates, and envelopes must remain exact."
+    }
+  ]
+}

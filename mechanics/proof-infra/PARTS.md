@@ -51,16 +51,21 @@ Active surfaces:
 - `mechanics/proof-infra/parts/reportable-contracts/schemas/fixture-contract.schema.json`
 - `mechanics/proof-infra/parts/reportable-contracts/schemas/runner-contract.schema.json`
 - `mechanics/proof-infra/parts/reportable-contracts/schemas/report-summary.schema.json`
+- C21 `active-organ-model-prompt-provider-hardware-pin.schema.json`
+- C22 `active-organ-memory-experiment-manifest.schema.json`
+- C23 `active-organ-memory-run-status-receipt.schema.json`
+- `mechanics/proof-infra/parts/reportable-contracts/docs/ACTIVE_ORGAN_EXPERIMENT_CONTRACTS.md`
 
 ## Part Contract
 
 Inputs are bundle support needs, reusable fixture-family requirements,
-reportable runner/scorer/schema contracts, and generated `proof_artifacts`
-references.
+reportable runner/scorer/schema contracts, preregistered experiment-control
+needs, honest run-status evidence, and generated `proof_artifacts` references.
 
 Outputs are shared fixture-family support, reusable reportable proof contracts,
-bounded scorer helpers, schema-backed report artifacts, and catalog-visible
-proof artifact routes.
+bounded scorer helpers, schema-backed report artifacts, C21-C23 experiment
+control artifacts with a tamper-evident normalized C22 self-digest, and
+catalog-visible proof artifact routes.
 
 Owner split stays explicit: proof-infra owns reusable support contracts; source
 bundles, bundle-local runner contracts, report schemas, and owning mechanics
@@ -84,6 +89,8 @@ paths move.
 | Root `runners/`, `scorers/`, or `schemas` alias pressure | route-card-only root districts plus the active `reportable-contracts` part paths. |
 | `runner_surface_path`, `scorer_helper_paths`, or shared schema authority pressure | bundle-local interpretation surfaces and reviewed reports. |
 | Bundle-local proof-object or report pressure | source bundle files, bundle-local runner contracts, report schemas, and reviewed reports. |
+| Active-organ run status or green process reads as benefit | keep C23 as execution status and route benefit to admitted comparison evidence plus bundle-local verdict review. |
+| Active-organ contract wants sibling semantic or effect authority | `aoa-memo`, `aoa-sdk`, `abyss-stack`, `abyss-machine`, `aoa-stats`, or the sole operator according to the named field owner. |
 
 ## Validation
 

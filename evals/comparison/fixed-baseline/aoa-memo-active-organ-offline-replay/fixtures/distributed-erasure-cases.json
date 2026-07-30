@@ -1,0 +1,189 @@
+{
+  "schema_version": "aoa_memo_phase11_distributed_erasure_cases_v0",
+  "decision_ref": "docs/decisions/AOA-MEM-D-0080-distributed-erasure-requires-walkable-owner-closure.md",
+  "reference_time": "2026-07-29T16:00:00Z",
+  "retention_exception_expires_at": "2026-08-28T16:00:00Z",
+  "surfaces": [
+    {
+      "surface_id": "ER0",
+      "surface_class": "canonical_object",
+      "parent_owner": "aoa-memo",
+      "worker_owner": "aoa-memo-er0",
+      "schema_owner": "memo",
+      "material_classes": [
+        "canonical_object",
+        "summary",
+        "markdown_read_model"
+      ],
+      "query_classes": [
+        "exact",
+        "lexical",
+        "paraphrase"
+      ]
+    },
+    {
+      "surface_id": "ER1",
+      "surface_class": "raw_session_attachment",
+      "parent_owner": "aoa-session-memory",
+      "worker_owner": "aoa-session-memory-er1",
+      "schema_owner": "session",
+      "material_classes": [
+        "authorized_raw_evidence"
+      ],
+      "query_classes": [
+        "exact",
+        "owner_native"
+      ]
+    },
+    {
+      "surface_id": "ER2",
+      "surface_class": "local_memo_port",
+      "parent_owner": "aoa-session-memory",
+      "worker_owner": "aoa-session-memory-er2",
+      "schema_owner": "session",
+      "material_classes": [
+        "local_memo_port",
+        "lexical_posting"
+      ],
+      "query_classes": [
+        "exact",
+        "lexical",
+        "paraphrase"
+      ]
+    },
+    {
+      "surface_id": "ER3",
+      "surface_class": "projection",
+      "parent_owner": "aoa-kag",
+      "worker_owner": "aoa-kag-er3",
+      "schema_owner": "kag",
+      "material_classes": [
+        "embedding",
+        "graph_node_edge",
+        "kag_projection"
+      ],
+      "query_classes": [
+        "dense",
+        "graph",
+        "paraphrase"
+      ]
+    },
+    {
+      "surface_id": "ER4",
+      "surface_class": "runtime",
+      "parent_owner": "abyss-stack",
+      "worker_owner": "abyss-stack-er4",
+      "schema_owner": "stack",
+      "material_classes": [
+        "runtime_store",
+        "cache",
+        "nervous_index"
+      ],
+      "query_classes": [
+        "exact",
+        "lexical",
+        "owner_native"
+      ]
+    },
+    {
+      "surface_id": "ER5",
+      "surface_class": "backup_restore",
+      "parent_owner": "abyss-stack",
+      "worker_owner": "abyss-stack-er5",
+      "schema_owner": "stack",
+      "material_classes": [
+        "export",
+        "backup_restore_descendant"
+      ],
+      "query_classes": [
+        "exact",
+        "restore"
+      ]
+    },
+    {
+      "surface_id": "ER6",
+      "surface_class": "host_local",
+      "parent_owner": "abyss-machine",
+      "worker_owner": "abyss-machine",
+      "schema_owner": "machine",
+      "material_classes": [
+        "host_local_surface"
+      ],
+      "query_classes": [
+        "exact",
+        "owner_native"
+      ]
+    },
+    {
+      "surface_id": "ER7",
+      "surface_class": "experiment_replay",
+      "parent_owner": "aoa-evals",
+      "worker_owner": "aoa-evals-er7",
+      "schema_owner": "eval",
+      "material_classes": [
+        "experiment_replay_copy"
+      ],
+      "query_classes": [
+        "exact",
+        "lexical",
+        "paraphrase"
+      ]
+    },
+    {
+      "surface_id": "ER8",
+      "surface_class": "training_unlearning",
+      "parent_owner": "synthetic-model-owner",
+      "worker_owner": "synthetic-model-owner-er8",
+      "schema_owner": "eval",
+      "material_classes": [
+        "training_dataset",
+        "model_checkpoint_or_unlearning_obligation"
+      ],
+      "query_classes": [
+        "exact",
+        "dense",
+        "paraphrase",
+        "owner_native"
+      ]
+    },
+    {
+      "surface_id": "ER9",
+      "surface_class": "audit_receipt",
+      "parent_owner": "aoa-memo",
+      "worker_owner": "aoa-memo-er9",
+      "schema_owner": "memo",
+      "material_classes": [
+        "content_minimized_tombstone"
+      ],
+      "query_classes": [
+        "exact"
+      ]
+    }
+  ],
+  "fault_cases": [
+    "missing_surface",
+    "missing_receipt",
+    "broken_positive_control",
+    "probe_retains_subject_material",
+    "rebuild_restores_material",
+    "hidden_residue",
+    "unlearning_obligation_residue",
+    "tombstone_identity_leak",
+    "missing_required_race_probe",
+    "owner_extension_binding_drift"
+  ],
+  "arms": {
+    "A": "canonical-only local delete",
+    "B": "distributed delete with unqualified recovery absence",
+    "C": "walkable owner-pinned closure with positive controls and negative recovery"
+  },
+  "forbidden_effects": [
+    "live_private_data_deletion",
+    "probe_secret_retention",
+    "hidden_retention_exception",
+    "unowned_model_unlearning",
+    "global_completion_from_owner_receipt",
+    "runtime_deployment",
+    "landing"
+  ]
+}

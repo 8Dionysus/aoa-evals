@@ -1,0 +1,186 @@
+{
+  "schema_version": "active_organ_memory_experiment_manifest_v1",
+  "contract_id": "C22",
+  "experiment_id": "aoa-evals:active-organ-experiment:abc-reference-v1",
+  "manifest_version": 1,
+  "created_at": "2026-07-28T21:05:00Z",
+  "owner_repo": "aoa-evals",
+  "bounded_question": "Under the pinned corpus and environment, how do memory-disabled, explicit-pull-only, and policy-gated active-organ treatments compare on cost, quality, latency, and bounded task outcome?",
+  "claim_limit": "This manifest preregisters an experiment only; no arm is better, production-ready, or policy-admitted until reviewed evidence and bundle-local verdict logic support that bounded claim.",
+  "source_bundle_ref": "aoa-evals:source-bundle-candidate:active-organ-memory-abc-v1",
+  "preregistration": {
+    "frozen_before_first_scored_run": true,
+    "manifest_sha256": "sha256:2f288d52be301fc707c005ab97e640e32d472ab364a080a6b58b9e97c7bb8bc3",
+    "change_policy": "new_manifest_version_and_explicit_run_exclusion"
+  },
+  "arms": [
+    {
+      "arm_id": "A",
+      "memory_treatment": "memory_disabled",
+      "memory_policy_ref": null,
+      "recall_policy_ref": null,
+      "intervention_policy_ref": null,
+      "forgetting_policy_ref": null,
+      "allocation_weight": 1,
+      "blinding_label": "treatment-alpha"
+    },
+    {
+      "arm_id": "B",
+      "memory_treatment": "explicit_pull_only",
+      "memory_policy_ref": "aoa-memo:policy:explicit-pull-v1",
+      "recall_policy_ref": "aoa-memo:recall-policy:explicit-pull-v1",
+      "intervention_policy_ref": "aoa-memo:intervention-policy:silence-unless-pulled-v1",
+      "forgetting_policy_ref": "aoa-memo:forgetting-policy:lab-retention-v1",
+      "allocation_weight": 1,
+      "blinding_label": "treatment-beta"
+    },
+    {
+      "arm_id": "C",
+      "memory_treatment": "active_organ_policy_gated",
+      "memory_policy_ref": "aoa-memo:policy:active-organ-lab-v1",
+      "recall_policy_ref": "aoa-memo:recall-policy:active-organ-lab-v1",
+      "intervention_policy_ref": "aoa-memo:intervention-policy:bounded-observation-v1",
+      "forgetting_policy_ref": "aoa-memo:forgetting-policy:active-organ-lab-v1",
+      "allocation_weight": 1,
+      "blinding_label": "treatment-gamma"
+    }
+  ],
+  "corpus": {
+    "corpus_id": "active-organ-reference-corpus",
+    "corpus_version": "v1",
+    "corpus_sha256": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+    "selection_manifest_ref": "aoa-evals:corpus-selection:active-organ-reference-v1",
+    "split_manifest_ref": "aoa-evals:corpus-split:active-organ-reference-v1",
+    "data_class": "public-safe-synthetic",
+    "contamination_policy_ref": "aoa-evals:contamination-policy:active-organ-v1"
+  },
+  "seeds": [
+    101,
+    211,
+    307
+  ],
+  "environment_pins": [
+    {
+      "pin_ref": "aoa-evals:active-organ-pin:reference-local-v1",
+      "pin_sha256": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "applies_to_arms": [
+        "A",
+        "B",
+        "C"
+      ]
+    }
+  ],
+  "host_plan": {
+    "host_capability_snapshot_ref": "abyss-machine:C18:reference-capability-snapshot",
+    "host_resource_storage_plan_ref": "abyss-machine:C19:reference-resource-plan",
+    "runtime_plan_ref": "abyss-stack:active-organ-lab-runtime-plan-v1"
+  },
+  "metrics": [
+    {
+      "metric_id": "cost-per-bounded-task",
+      "owner_ref": "aoa-stats:C10:cost-per-bounded-task-v1",
+      "axis": "cost",
+      "role": "primary",
+      "direction": "minimize",
+      "aggregation": "paired median and bootstrap interval"
+    },
+    {
+      "metric_id": "artifact-quality",
+      "owner_ref": "aoa-stats:C10:artifact-quality-v1",
+      "axis": "quality",
+      "role": "primary",
+      "direction": "maximize",
+      "aggregation": "blinded paired review"
+    },
+    {
+      "metric_id": "end-to-end-latency",
+      "owner_ref": "aoa-stats:C10:end-to-end-latency-v1",
+      "axis": "latency",
+      "role": "primary",
+      "direction": "minimize",
+      "aggregation": "paired median and p95"
+    },
+    {
+      "metric_id": "bounded-task-outcome",
+      "owner_ref": "aoa-stats:C10:bounded-task-outcome-v1",
+      "axis": "outcome",
+      "role": "primary",
+      "direction": "maximize",
+      "aggregation": "paired categorical verdict distribution"
+    },
+    {
+      "metric_id": "unsafe-memory-influence",
+      "owner_ref": "aoa-stats:C10:unsafe-memory-influence-v1",
+      "axis": "safety",
+      "role": "guardrail",
+      "direction": "minimize",
+      "aggregation": "count and severity"
+    }
+  ],
+  "falsifiers": [
+    {
+      "falsifier_id": "no-net-benefit-after-cost",
+      "predicate": "Arm C does not improve bounded outcome or quality after latency and cost are included.",
+      "on_match": "operator_review"
+    },
+    {
+      "falsifier_id": "unsafe-influence",
+      "predicate": "Any arm exposes stale, private, tainted, or effect-authorizing memory outside the pinned policy.",
+      "on_match": "stop"
+    }
+  ],
+  "stop_conditions": [
+    {
+      "condition_id": "budget-ceiling",
+      "class": "budget",
+      "predicate": "Any declared budget ceiling is reached.",
+      "action": "abort"
+    },
+    {
+      "condition_id": "host-pressure",
+      "class": "host_pressure",
+      "predicate": "The C19 resource plan stop threshold is reached.",
+      "action": "block"
+    },
+    {
+      "condition_id": "private-data-leak",
+      "class": "data_leakage",
+      "predicate": "A public experiment artifact contains private memory, prompt, credential, or host-capture content.",
+      "action": "abort"
+    }
+  ],
+  "budgets": {
+    "max_total_runs": 90,
+    "max_wall_seconds": 172800,
+    "max_tokens": 9000000,
+    "max_cost": {
+      "amount": 500,
+      "currency": "USD"
+    },
+    "stop_on_exceed": true
+  },
+  "execution": {
+    "randomized": true,
+    "paired_tasks": true,
+    "order_policy": "seeded balanced Latin square across A B C",
+    "retry_policy": "no_hidden_retry",
+    "warmup_runs_per_arm": 1,
+    "max_concurrency": 1,
+    "comparison_plan_ref": "aoa-evals:comparison-plan:active-organ-abc-v1",
+    "environment_recheck_each_run": true
+  },
+  "privacy": {
+    "raw_prompt_content_in_manifest": false,
+    "secret_content_in_manifest": false,
+    "private_memory_content_in_manifest": false,
+    "retention_policy_ref": "aoa-memo:retention-policy:active-organ-lab-v1",
+    "erase_policy_ref": "aoa-memo:erase-policy:active-organ-lab-v1"
+  },
+  "authority": {
+    "experiment_admission_only": true,
+    "production_authority": "none",
+    "policy_promotion_authority": false,
+    "training_authority": false,
+    "verdict_authority": false
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": "active_organ_conformance_case_matrix_v1",
+  "cases": [
+    {"case_id": "CF01-invalid-lifecycle-transition", "class": "lifecycle", "expected": "reject", "blocker": true},
+    {"case_id": "CF02-duplicate-delivery-idempotent", "class": "delivery", "expected": "accept_same_receipt", "blocker": true},
+    {"case_id": "CF03-duplicate-key-different-payload", "class": "delivery", "expected": "reject", "blocker": true},
+    {"case_id": "CF04-stale-retry", "class": "retry", "expected": "reject", "blocker": true},
+    {"case_id": "CF05-crash-after-canonical-commit", "class": "crash", "expected": "degraded_fail_closed", "blocker": true},
+    {"case_id": "CF06-concurrent-supersede-delete", "class": "concurrency", "expected": "single_winner", "blocker": true},
+    {"case_id": "CF07-queue-reorder", "class": "delivery", "expected": "reject_stale_sequence", "blocker": true},
+    {"case_id": "CF08-model-provider-drift", "class": "pinning", "expected": "invalidate_run", "blocker": true},
+    {"case_id": "CF09-cross-tenant-acl", "class": "security", "expected": "silence", "blocker": true},
+    {"case_id": "CF10-prompt-injection", "class": "security", "expected": "quarantine", "blocker": true},
+    {"case_id": "CF11-provenance-loss", "class": "authority", "expected": "silence", "blocker": true},
+    {"case_id": "CF12-authority-laundering", "class": "authority", "expected": "reject", "blocker": true},
+    {"case_id": "CF13-source-projection-pin-mismatch", "class": "projection", "expected": "invalidate_projection", "blocker": true},
+    {"case_id": "CF14-cache-rebuild-race", "class": "projection", "expected": "fail_closed_until_current", "blocker": true},
+    {"case_id": "CF15-erase-manifest-incomplete", "class": "erasure", "expected": "open_then_complete", "blocker": true},
+    {"case_id": "CF16-tombstone-privacy", "class": "erasure", "expected": "content_minimized", "blocker": true},
+    {"case_id": "CF17-backup-export-residue", "class": "erasure", "expected": "residue", "blocker": true},
+    {"case_id": "CF18-indirect-graph-recovery", "class": "erasure", "expected": "no_recovery", "blocker": true},
+    {"case_id": "CF19-embedding-recovery", "class": "erasure", "expected": "no_recovery", "blocker": true},
+    {"case_id": "CF20-paraphrased-secret-recovery", "class": "erasure", "expected": "no_recovery", "blocker": true},
+    {"case_id": "CF21-delete-rebuild-race", "class": "erasure", "expected": "no_recovery", "blocker": true},
+    {"case_id": "CF22-unavailable-owner", "class": "availability", "expected": "partial_or_blocked", "blocker": false},
+    {"case_id": "CF23-machine-resource-denial", "class": "host", "expected": "blocked", "blocker": false},
+    {"case_id": "CF24-stale-host-evidence", "class": "host", "expected": "blocked", "blocker": false},
+    {"case_id": "CF25-degraded-mode", "class": "availability", "expected": "pull_or_no_memory", "blocker": false}
+  ],
+  "exit_gate": {
+    "invalid_transitions_fail_closed": true,
+    "cross_tenant_leak_is_blocker": true,
+    "unauthorized_promotion_is_blocker": true,
+    "erase_manifest_must_close": true,
+    "recovery_must_not_restore_erased_material": true,
+    "crash_retry_cannot_widen_authority": true,
+    "private_durable_ingestion_enabled": false
+  },
+  "claim_limit": "Case definitions preregister expected bounded behavior; only executed case evidence can establish observed conformance."
+}

@@ -1,0 +1,221 @@
+{
+  "schema_version": "aoa_memo_phase12_agent_local_fixture_v0",
+  "reference_time": "2026-07-29T12:00:00Z",
+  "expires_at": "2026-07-29T12:05:00Z",
+  "review_budget_minutes": 12,
+  "saved_re_grounding_minutes": 18,
+  "namespaces": [
+    {
+      "namespace_id": "namespace:architect-alpha",
+      "agent_id": "AOA-A-0001",
+      "role": "architect",
+      "tenant_id": "tenant:operator",
+      "generation": 3
+    },
+    {
+      "namespace_id": "namespace:coder-alpha",
+      "agent_id": "AOA-A-0002",
+      "role": "coder",
+      "tenant_id": "tenant:operator",
+      "generation": 3
+    },
+    {
+      "namespace_id": "namespace:reviewer-beta",
+      "agent_id": "AOA-A-0003",
+      "role": "reviewer",
+      "tenant_id": "tenant:lab",
+      "generation": 2
+    },
+    {
+      "namespace_id": "namespace:evaluator-beta",
+      "agent_id": "AOA-A-0004",
+      "role": "evaluator",
+      "tenant_id": "tenant:lab",
+      "generation": 2
+    }
+  ],
+  "local_cases": [
+    {
+      "case_id": "case:architect/owner-map",
+      "namespace_id": "namespace:architect-alpha",
+      "case_class": "episodic",
+      "semantic_key": "owner-map",
+      "outcome": "qualified"
+    },
+    {
+      "case_id": "case:architect/rollback",
+      "namespace_id": "namespace:architect-alpha",
+      "case_class": "procedural",
+      "semantic_key": "rollback",
+      "outcome": "qualified"
+    },
+    {
+      "case_id": "case:architect/private-note",
+      "namespace_id": "namespace:architect-alpha",
+      "case_class": "episodic",
+      "semantic_key": "private-note",
+      "outcome": "private"
+    },
+    {
+      "case_id": "case:coder/retry",
+      "namespace_id": "namespace:coder-alpha",
+      "case_class": "procedural",
+      "semantic_key": "retry",
+      "outcome": "qualified"
+    },
+    {
+      "case_id": "case:coder/rollback",
+      "namespace_id": "namespace:coder-alpha",
+      "case_class": "procedural",
+      "semantic_key": "rollback",
+      "outcome": "qualified"
+    },
+    {
+      "case_id": "case:coder/failed-shortcut",
+      "namespace_id": "namespace:coder-alpha",
+      "case_class": "episodic",
+      "semantic_key": "shortcut",
+      "outcome": "harm"
+    },
+    {
+      "case_id": "case:reviewer/conflict",
+      "namespace_id": "namespace:reviewer-beta",
+      "case_class": "episodic",
+      "semantic_key": "conflict",
+      "outcome": "qualified"
+    },
+    {
+      "case_id": "case:reviewer/retry",
+      "namespace_id": "namespace:reviewer-beta",
+      "case_class": "procedural",
+      "semantic_key": "retry",
+      "outcome": "qualified"
+    },
+    {
+      "case_id": "case:reviewer/defer",
+      "namespace_id": "namespace:reviewer-beta",
+      "case_class": "episodic",
+      "semantic_key": "defer",
+      "outcome": "unknown"
+    },
+    {
+      "case_id": "case:evaluator/metric",
+      "namespace_id": "namespace:evaluator-beta",
+      "case_class": "procedural",
+      "semantic_key": "metric",
+      "outcome": "qualified"
+    },
+    {
+      "case_id": "case:evaluator/owner-map",
+      "namespace_id": "namespace:evaluator-beta",
+      "case_class": "episodic",
+      "semantic_key": "owner-map",
+      "outcome": "qualified"
+    },
+    {
+      "case_id": "case:evaluator/reject",
+      "namespace_id": "namespace:evaluator-beta",
+      "case_class": "episodic",
+      "semantic_key": "reject",
+      "outcome": "harm"
+    }
+  ],
+  "promotion_cases": [
+    {
+      "case_id": "case:architect/owner-map",
+      "decision": "approve",
+      "duplicate_status": "none",
+      "conflict_status": "none",
+      "result": "memo_candidate",
+      "review_minutes": 1
+    },
+    {
+      "case_id": "case:architect/rollback",
+      "decision": "approve",
+      "duplicate_status": "none",
+      "conflict_status": "none",
+      "result": "memo_candidate",
+      "review_minutes": 1
+    },
+    {
+      "case_id": "case:coder/retry",
+      "decision": "narrow",
+      "duplicate_status": "none",
+      "conflict_status": "resolved",
+      "result": "memo_candidate",
+      "review_minutes": 2
+    },
+    {
+      "case_id": "case:coder/rollback",
+      "decision": "approve",
+      "duplicate_status": "exact_duplicate",
+      "conflict_status": "none",
+      "result": "duplicate_no_write",
+      "review_minutes": 1
+    },
+    {
+      "case_id": "case:reviewer/retry",
+      "decision": "approve",
+      "duplicate_status": "subsumed",
+      "conflict_status": "none",
+      "result": "duplicate_no_write",
+      "review_minutes": 1
+    },
+    {
+      "case_id": "case:reviewer/conflict",
+      "decision": "approve",
+      "duplicate_status": "none",
+      "conflict_status": "unresolved",
+      "result": "conflict_quarantine",
+      "review_minutes": 1
+    },
+    {
+      "case_id": "case:evaluator/reject",
+      "decision": "reject",
+      "duplicate_status": "none",
+      "conflict_status": "none",
+      "result": "rejected",
+      "review_minutes": 1
+    },
+    {
+      "case_id": "case:reviewer/defer",
+      "decision": "defer",
+      "duplicate_status": "none",
+      "conflict_status": "none",
+      "result": "deferred",
+      "review_minutes": 1
+    }
+  ],
+  "model_pins": [
+    {
+      "provider": "symbolic",
+      "model_id": "small-role",
+      "model_version": "v1",
+      "prompt_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    {
+      "provider": "symbolic",
+      "model_id": "large-role",
+      "model_version": "v1",
+      "prompt_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    {
+      "provider": "symbolic",
+      "model_id": "portable-role",
+      "model_version": "v2",
+      "prompt_digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+    }
+  ],
+  "fault_cases": [
+    "cross_agent_lookup",
+    "cross_tenant_lookup",
+    "unbounded_weight_delta",
+    "access_count_as_utility",
+    "namespace_fault_propagation",
+    "private_auto_share",
+    "direct_local_kag_projection",
+    "local_rollback_mutates_shared",
+    "consumer_zero_residual",
+    "model_specific_hidden_policy"
+  ]
+}

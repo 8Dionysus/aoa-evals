@@ -162,6 +162,10 @@
 
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
 
+## bounded claim
+
+- [AOA-EV-D-0251 Active-Organ Proof Does Not Collapse Into Admission](../AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md) (`docs/decisions/AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md`)
+
 ## bounded proof
 
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
@@ -229,6 +233,10 @@
 ## memory boundary
 
 - [AOA-EV-D-0243 Local Memo Port](../AOA-EV-D-0243-local-memo-port.md) (`docs/decisions/AOA-EV-D-0243-local-memo-port.md`)
+
+## no production authority
+
+- [AOA-EV-D-0251 Active-Organ Proof Does Not Collapse Into Admission](../AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md) (`docs/decisions/AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md`)
 
 ## no-execution routing
 
@@ -328,6 +336,10 @@
 ## rollback
 
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
+
+## run status
+
+- [AOA-EV-D-0251 Active-Organ Proof Does Not Collapse Into Admission](../AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md) (`docs/decisions/AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md`)
 
 ## runtime-candidate/read-model
 

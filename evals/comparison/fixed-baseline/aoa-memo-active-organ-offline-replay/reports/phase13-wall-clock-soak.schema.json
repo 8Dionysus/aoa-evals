@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agents-of-abyss.local/aoa-evals/phase13-wall-clock-soak.schema.json",
+  "title": "AoA memo active-organ Phase 13 passive wall-clock soak status",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_id",
+    "campaign_id",
+    "started_at",
+    "observed_at",
+    "elapsed_seconds",
+    "elapsed_days",
+    "sample_count",
+    "expected_sample_count",
+    "sample_coverage_ratio",
+    "host_probe_success_ratio",
+    "unique_sample_dates",
+    "integrity_failures",
+    "source_drift_failures",
+    "read_latency_ms",
+    "host_extrema",
+    "wall_clock_7d_complete",
+    "wall_clock_30d_complete",
+    "benefit_established",
+    "claim_limit",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "report_id": {
+      "const": "aoa-memo-phase13-wall-clock-soak-status-v1"
+    },
+    "campaign_id": {
+      "type": "string",
+      "pattern": "^aoa-memo-phase13-wall-clock-[0-9]{8}T[0-9]{6}Z$"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "elapsed_seconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "elapsed_days": {
+      "type": "number",
+      "minimum": 0
+    },
+    "sample_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "expected_sample_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "sample_coverage_ratio": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "host_probe_success_ratio": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "unique_sample_dates": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "integrity_failures": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "source_drift_failures": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "read_latency_ms": {
+      "$ref": "#/$defs/latency"
+    },
+    "host_extrema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minimum_mem_available_bytes",
+        "maximum_memory_psi_some_avg10",
+        "maximum_memory_psi_full_avg10",
+        "maximum_temperature_c",
+        "minimum_srv_free_bytes"
+      ],
+      "properties": {
+        "minimum_mem_available_bytes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "maximum_memory_psi_some_avg10": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "maximum_memory_psi_full_avg10": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "maximum_temperature_c": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "minimum_srv_free_bytes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "wall_clock_7d_complete": {
+      "type": "boolean"
+    },
+    "wall_clock_30d_complete": {
+      "type": "boolean"
+    },
+    "benefit_established": {
+      "const": false
+    },
+    "claim_limit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority": {
+      "$ref": "#/$defs/authority"
+    }
+  },
+  "$defs": {
+    "latency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "p50",
+        "p95",
+        "p99",
+        "maximum"
+      ],
+      "properties": {
+        "p50": {
+          "type": "number",
+          "minimum": 0
+        },
+        "p95": {
+          "type": "number",
+          "minimum": 0
+        },
+        "p99": {
+          "type": "number",
+          "minimum": 0
+        },
+        "maximum": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "live_memory_write",
+        "policy_promotion",
+        "production",
+        "training",
+        "landing"
+      ],
+      "properties": {
+        "live_memory_write": {
+          "const": false
+        },
+        "policy_promotion": {
+          "const": false
+        },
+        "production": {
+          "const": false
+        },
+        "training": {
+          "const": false
+        },
+        "landing": {
+          "const": false
+        }
+      }
+    }
+  }
+}

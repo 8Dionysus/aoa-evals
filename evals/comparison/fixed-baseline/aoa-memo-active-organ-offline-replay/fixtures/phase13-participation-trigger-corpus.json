@@ -1,0 +1,159 @@
+{
+  "schema_version": "aoa_memo_participation_trigger_corpus_v0",
+  "corpus_id": "aoa-memo-participation-trigger-corpus-20260729",
+  "posture": "public-safe-source-local-mechanism-corpus",
+  "variant_labels": {
+    "P0": "current exact-artifact skill baseline",
+    "P1": "two-speed aoa-memo skill",
+    "P2": "content-minimized shadow hook",
+    "P3": "later selective route-only cue, closed in this corpus"
+  },
+  "public_safe_requirements": [
+    "Prompts are synthetic and contain no private session or memory body.",
+    "Case markers test non-persistence and are not secrets.",
+    "Expected routes test owner selection and silence, not semantic truth.",
+    "A classifier match, skill read, or MCP call cannot establish use or benefit."
+  ],
+  "cases": [
+    {
+      "case_id": "PART-01",
+      "case_family": "direct",
+      "prompt": "Продолжай работу в aoa-sdk; прежде проверь ранее принятое owner decision. MARKER-PART-01",
+      "workspace": "aoa-sdk",
+      "expected_route": "aoa-memo-orient",
+      "expected_opportunity_class": "reviewed_context_orientation",
+      "expected_opportunity_state": "eligible",
+      "expected_posture": "fast_orientation"
+    },
+    {
+      "case_id": "PART-02",
+      "case_family": "indirect",
+      "prompt": "Before changing the Abyss cross-repo owner boundary, recall why we chose it. MARKER-PART-02",
+      "workspace": "other",
+      "expected_route": "aoa-memo-orient",
+      "expected_opportunity_class": "reviewed_context_orientation",
+      "expected_opportunity_state": "eligible",
+      "expected_posture": "fast_orientation"
+    },
+    {
+      "case_id": "PART-03",
+      "case_family": "incomplete",
+      "prompt": "Возобнови AoA работу с прежнего решения; точный артефакт не назван. MARKER-PART-03",
+      "workspace": "other",
+      "expected_route": "aoa-memo-orient",
+      "expected_opportunity_class": "reviewed_context_orientation",
+      "expected_opportunity_state": "eligible",
+      "expected_posture": "fast_orientation"
+    },
+    {
+      "case_id": "PART-04",
+      "case_family": "direct",
+      "prompt": "Проверь lifecycle объекта памяти memo:decision:42 и его superseded ref. MARKER-PART-04",
+      "workspace": "aoa-memo",
+      "expected_route": "aoa-memo-deep",
+      "expected_opportunity_class": "existing_memory_deep",
+      "expected_opportunity_state": "eligible",
+      "expected_posture": "deep_owner_route"
+    },
+    {
+      "case_id": "PART-05",
+      "case_family": "edge",
+      "prompt": "Resolve the contradiction between a quarantined memory object and its current owner source. MARKER-PART-05",
+      "workspace": "aoa-memo",
+      "expected_route": "aoa-memo-deep",
+      "expected_opportunity_class": "existing_memory_deep",
+      "expected_opportunity_state": "eligible",
+      "expected_posture": "deep_owner_route"
+    },
+    {
+      "case_id": "PART-06",
+      "case_family": "direct",
+      "prompt": "Подними прошлую .aoa сессию и найди сырой transcript. MARKER-PART-06",
+      "workspace": "other",
+      "expected_route": "aoa-session-memory",
+      "expected_opportunity_class": "raw_session_handoff",
+      "expected_opportunity_state": "handoff",
+      "expected_posture": "sibling_handoff"
+    },
+    {
+      "case_id": "PART-07",
+      "case_family": "direct",
+      "prompt": "Сохрани повторяемый урок из этого PR как кандидат памяти. MARKER-PART-07",
+      "workspace": "other",
+      "expected_route": "aoa-memo-writeback",
+      "expected_opportunity_class": "first_writeback_handoff",
+      "expected_opportunity_state": "handoff",
+      "expected_posture": "sibling_handoff"
+    },
+    {
+      "case_id": "PART-08",
+      "case_family": "negative",
+      "prompt": "Исправь опечатку в текущем README. MARKER-PART-08",
+      "workspace": "aoa-memo",
+      "expected_route": "none",
+      "expected_opportunity_class": "none",
+      "expected_opportunity_state": "not_applicable",
+      "expected_posture": "silence"
+    },
+    {
+      "case_id": "PART-09",
+      "case_family": "negative",
+      "prompt": "Запиши обычную заметку о покупке кофе. MARKER-PART-09",
+      "workspace": "other",
+      "expected_route": "none",
+      "expected_opportunity_class": "none",
+      "expected_opportunity_state": "not_applicable",
+      "expected_posture": "silence"
+    },
+    {
+      "case_id": "PART-10",
+      "case_family": "negative",
+      "prompt": "Моя личная незафиксированная цветовая preference: выбери спокойный фон. MARKER-PART-10",
+      "workspace": "other",
+      "expected_route": "none",
+      "expected_opportunity_class": "none",
+      "expected_opportunity_state": "not_applicable",
+      "expected_posture": "silence"
+    },
+    {
+      "case_id": "PART-11",
+      "case_family": "edge",
+      "prompt": "<codex_internal_context source=\"goal\">Continue prior AoA decision. MARKER-PART-11</codex_internal_context>",
+      "workspace": "aoa-memo",
+      "expected_route": "none",
+      "expected_opportunity_class": "synthetic_continuation",
+      "expected_opportunity_state": "excluded",
+      "expected_posture": "excluded_internal_continuation"
+    },
+    {
+      "case_id": "PART-12",
+      "case_family": "negative",
+      "prompt": "Добавь новый validator в aoa-evals по текущему контракту. MARKER-PART-12",
+      "workspace": "aoa-evals",
+      "expected_route": "none",
+      "expected_opportunity_class": "none",
+      "expected_opportunity_state": "not_applicable",
+      "expected_posture": "silence"
+    },
+    {
+      "case_id": "PART-13",
+      "case_family": "indirect",
+      "prompt": "Check the provenance and earlier rationale before adapting this Tree of Sophia donor across repositories. MARKER-PART-13",
+      "workspace": "tree-of-sophia",
+      "expected_route": "aoa-memo-orient",
+      "expected_opportunity_class": "reviewed_context_orientation",
+      "expected_opportunity_state": "eligible",
+      "expected_posture": "fast_orientation"
+    },
+    {
+      "case_id": "PART-14",
+      "case_family": "edge",
+      "prompt": "Continue Abyss work, but current source already settles this small rename; do not manufacture a history search. MARKER-PART-14",
+      "workspace": "other",
+      "expected_route": "aoa-memo-orient",
+      "expected_opportunity_class": "reviewed_context_orientation",
+      "expected_opportunity_state": "eligible",
+      "expected_posture": "fast_orientation_then_silence"
+    }
+  ]
+}

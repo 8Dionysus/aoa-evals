@@ -1,0 +1,127 @@
+{
+  "schema_version": "aoa_memo_phase10_mechanical_lifecycle_cases_v0",
+  "decision_ref": "docs/decisions/AOA-MEM-D-0079-mechanical-lifecycle-is-allowlisted-and-recoverable.md",
+  "reference_time": "2026-07-29T12:10:00Z",
+  "eligible_at": "2026-07-29T12:00:00Z",
+  "deadline_at": "2026-07-29T13:00:00Z",
+  "expired_time": "2026-07-29T13:00:01Z",
+  "operator_attention_budget": 3,
+  "mechanical_classes": [
+    "projection_invalidation",
+    "projection_rebuild",
+    "compaction",
+    "explicit_ephemeral_ttl",
+    "queue_cancellation",
+    "owner_approved_archive_deadline",
+    "cache_expiry",
+    "generation_rollover",
+    "obsolete_derived_artifact_removal"
+  ],
+  "semantic_proposal_classes": [
+    "conflict",
+    "merge_split",
+    "narrowed_applicability",
+    "supersession",
+    "retraction",
+    "archive",
+    "temperature_salience_change",
+    "retention_change"
+  ],
+  "forgetting_taxonomy": [
+    "decay",
+    "demotion",
+    "compression",
+    "merge",
+    "supersession",
+    "retraction",
+    "quarantine",
+    "expiry",
+    "ordinary_deletion",
+    "privacy_erasure",
+    "model_unlearning"
+  ],
+  "fault_cases": [
+    {
+      "case_id": "P10-F01-exact-duplicate",
+      "fault": "exact_duplicate",
+      "expected_status": "duplicate"
+    },
+    {
+      "case_id": "P10-F02-idempotency-payload-mismatch",
+      "fault": "idempotency_payload_mismatch",
+      "expected_status": "rejected_idempotency"
+    },
+    {
+      "case_id": "P10-F03-stale-retry",
+      "fault": "stale_retry",
+      "expected_status": "rejected_stale"
+    },
+    {
+      "case_id": "P10-F04-concurrent-conflict",
+      "fault": "concurrent_conflict",
+      "expected_status": "rejected_conflict"
+    },
+    {
+      "case_id": "P10-F05-crash-before-commit",
+      "fault": "crash_before_commit_retry",
+      "expected_status": "applied"
+    },
+    {
+      "case_id": "P10-F06-crash-after-commit-before-ack",
+      "fault": "crash_after_commit_before_ack",
+      "expected_status": "duplicate"
+    },
+    {
+      "case_id": "P10-F07-projection-failure",
+      "fault": "projection_failure_forward_repair",
+      "expected_status": "forward_repaired"
+    },
+    {
+      "case_id": "P10-F08-reordered-events",
+      "fault": "reordered_events",
+      "expected_status": "rejected_reordered"
+    },
+    {
+      "case_id": "P10-F09-missed-deadline",
+      "fault": "missed_deadline",
+      "expected_status": "cancelled"
+    },
+    {
+      "case_id": "P10-F10-explicit-cancellation",
+      "fault": "explicit_cancellation",
+      "expected_status": "cancelled"
+    },
+    {
+      "case_id": "P10-F11-concurrent-reader",
+      "fault": "concurrent_reader_atomicity",
+      "expected_status": "applied"
+    },
+    {
+      "case_id": "P10-F12-semantic-execution",
+      "fault": "semantic_execution_refusal",
+      "expected_status": "refused_proposal_only"
+    },
+    {
+      "case_id": "P10-F13-attention-overflow",
+      "fault": "operator_attention_overflow",
+      "expected_status": "deferred_attention_budget"
+    }
+  ],
+  "naive_negative_control": {
+    "duplicate_version_advancements": 1,
+    "stale_commits": 1,
+    "semantic_auto_applications": 1,
+    "mixed_active_projection_states": 1
+  },
+  "forbidden_phase10_effects": [
+    "privacy_erasure",
+    "model_unlearning",
+    "canonical_semantic_mutation",
+    "cross_tenant_transition",
+    "permission_expansion",
+    "automatic_policy_self_approval",
+    "live_runtime_mutation",
+    "deployment",
+    "landing"
+  ]
+}

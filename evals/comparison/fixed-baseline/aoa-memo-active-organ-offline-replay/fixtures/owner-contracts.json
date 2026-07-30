@@ -1,0 +1,184 @@
+{
+  "schema_version": "active_organ_owner_contract_digest_map_v1",
+  "purpose": "Verify exact Phase 2 owner candidates before composed conformance or replay. Digests establish artifact identity only, not owner acceptance, live deployment, benefit, or authority.",
+  "owners": [
+    {
+      "owner": "aoa-memo",
+      "artifacts": [
+        {
+          "contract_ids": ["C01", "C02", "C03", "C04", "C05", "C06", "C08", "C09", "C11", "C12", "C14", "C15", "C16", "C17"],
+          "path": "repo:aoa-memo/schemas/support-objects/active_organ_memo_contracts_v1.schema.json",
+          "sha256": "ecb9b6fb8abe8633d1505b12c396d8e4cfaee6d560ec20617268ce02574ff99d"
+        },
+        {
+          "contract_ids": ["C01-examples", "C02-examples", "C03-examples", "C04-examples", "C05-examples", "C06-examples", "C08-examples", "C09-examples", "C11-examples", "C12-examples", "C14-examples", "C15-examples", "C16-examples", "C17-examples"],
+          "path": "repo:aoa-memo/examples/support-objects/active_organ_memo_contracts_v1.examples.json",
+          "sha256": "a8746424f46f937cfead42ebb9c0fa690c7c630d3e18567fd33c0ca8c5204652"
+        }
+      ]
+    },
+    {
+      "owner": "aoa-sdk",
+      "artifacts": [
+        {
+          "contract_ids": ["C07"],
+          "path": "mechanics/boundary-bridge/parts/consumed-surface-posture-gate/schemas/recall-intent.schema.json",
+          "sha256": "f9ea4bc059373e5e4fc5e73610e06fb1c3e4666ff65b67753479715ac69235e7"
+        },
+        {
+          "contract_ids": ["C24"],
+          "path": "mechanics/boundary-bridge/parts/consumed-surface-posture-gate/schemas/active-organ-rollback-receipt.schema.json",
+          "sha256": "d942d03ecf89ad994721bbd2d54e9732dadbc9ff15e123f4abe955105f11fec7"
+        },
+        {
+          "contract_ids": ["C08-pin", "C09-pin", "C11-pin"],
+          "path": "mechanics/boundary-bridge/parts/consumed-surface-posture-gate/schemas/memo-active-organ-compatibility-pin.schema.json",
+          "sha256": "994021cbbfeb46cebc971659eb8b2cc5b02e9a35c15b2dc971e1cd9f69dbb170"
+        },
+        {
+          "contract_ids": ["C12-pin", "C13-pin"],
+          "path": "mechanics/boundary-bridge/parts/consumed-surface-posture-gate/schemas/kag-active-organ-projection-compatibility-pin.schema.json",
+          "sha256": "8f0068e8678882f90891b91c640fd423c528bff6797b1601fcb2078e1243c46f"
+        },
+        {
+          "contract_ids": ["C07-examples", "C24-examples", "compatibility-pin-examples"],
+          "path": "mechanics/boundary-bridge/parts/consumed-surface-posture-gate/examples/active_organ_sdk_contracts_v1.examples.json",
+          "sha256": "999ecdae589bcf469321b2913d1395a5ceb1fc65b9bb6d68d055a48506a90f03"
+        }
+      ]
+    },
+    {
+      "owner": "aoa-stats",
+      "artifacts": [
+        {
+          "contract_ids": ["C10"],
+          "path": "stats/measurement-contract/outcome-receipt.schema.json",
+          "sha256": "85bfab491b1f11bcbc4088eca52531f17a3b9b4f05bbb231970b1abcce8dbdef"
+        },
+        {
+          "contract_ids": ["C10-examples"],
+          "path": "mechanics/boundary-bridge/parts/measurement-packet-crossing/examples/active_organ_outcome_receipt_v1.examples.json",
+          "sha256": "719f478e772959c730b2661b478affec56e1ffee722b2ef6b50e4e4637e5a10c"
+        }
+      ]
+    },
+    {
+      "owner": "abyss-machine",
+      "artifacts": [
+        {
+          "contract_ids": ["C18"],
+          "path": "repo:abyss-machine/schemas/active-organ-host-capability-snapshot-reference.schema.json",
+          "sha256": "cdf28eabdb25f061214305de66e1168a93d23d171b1eb8ec975ae3a1736048c4"
+        },
+        {
+          "contract_ids": ["C19"],
+          "path": "repo:abyss-machine/schemas/active-organ-host-resource-storage-plan-reference.schema.json",
+          "sha256": "a9f39d6a120270ef7f09ee3a8996f3cdb31b6c5af98eda49d12ce8670141e45a"
+        },
+        {
+          "contract_ids": ["C18-examples", "C19-examples"],
+          "path": "mechanics/host-facts/examples/active_organ_host_contracts_v1.examples.json",
+          "sha256": "67632232f9ec6bf87840ee0e1bc97d0e428d599ddd8e881f7f7da715c2d2ab39"
+        }
+      ]
+    },
+    {
+      "owner": "aoa-kag",
+      "artifacts": [
+        {
+          "contract_ids": ["C12-KAG"],
+          "path": "mechanics/antifragility/parts/projection-health/schemas/active_organ_graph_projection_extension_v1.schema.json",
+          "sha256": "daae97792ec56b7218017bf424a0637ec3f61085cf82203347bca613b1e010df"
+        },
+        {
+          "contract_ids": ["C13"],
+          "path": "mechanics/antifragility/parts/projection-health/schemas/active_organ_projection_invalidation_receipt_v1.schema.json",
+          "sha256": "e4a91086365f2ff341629f9d1769e3815d3c24550f843c1cba0eb951cc2fe9c4"
+        },
+        {
+          "contract_ids": ["C12-KAG-examples", "C13-examples"],
+          "path": "mechanics/antifragility/parts/projection-health/examples/active_organ_projection_contracts_v1.examples.json",
+          "sha256": "991f533e84c608479d1567716c4f70be17d344064969ddce78a8d606be04c4bc"
+        }
+      ]
+    },
+    {
+      "owner": "abyss-stack",
+      "artifacts": [
+        {
+          "contract_ids": ["C20"],
+          "path": "mechanics/federation-seams/parts/memo-seam/schemas/active-organ-runtime-delivery-receipt.schema.json",
+          "sha256": "b65bdf9486166ff61d81e630adecad86ace6501d33d841f70a58988e9fe22058"
+        },
+        {
+          "contract_ids": ["C20-negative-examples"],
+          "path": "mechanics/federation-seams/parts/memo-seam/examples/active_organ_runtime_delivery_receipt.negative-examples.json",
+          "sha256": "38db79fc2926c43ab1d1fbdb635cd9ca1c998d83cae9b99d901fd1be13c73fc2"
+        }
+      ]
+    },
+    {
+      "owner": "aoa-evals",
+      "artifacts": [
+        {
+          "contract_ids": ["C21"],
+          "path": "mechanics/proof-infra/parts/reportable-contracts/schemas/active-organ-model-prompt-provider-hardware-pin.schema.json",
+          "sha256": "5c7ded3691a031f0ad0ff01e9dc30440e2c62b9de376b4f8c13d018b6852dc2d"
+        },
+        {
+          "contract_ids": ["C22"],
+          "path": "mechanics/proof-infra/parts/reportable-contracts/schemas/active-organ-memory-experiment-manifest.schema.json",
+          "sha256": "9ce238647b8adfeab6db04c6bc19b3c128c77c67774608e7eeab0358ab11f77d"
+        },
+        {
+          "contract_ids": ["C23"],
+          "path": "mechanics/proof-infra/parts/reportable-contracts/schemas/active-organ-memory-run-status-receipt.schema.json",
+          "sha256": "877c26dab06c86633a3320d6e36c0d2e104757442258d78d4d23db5b1b92d6f5"
+        }
+      ]
+    },
+    {
+      "owner": "Agents-of-Abyss",
+      "artifacts": [
+        {
+          "contract_ids": ["C25"],
+          "path": "mechanics/experience/parts/governance-polis/schemas/operator_decision_packet_v1.json",
+          "sha256": "3baf08d4e1f20bc19b33f55984fc0dc71092e5a01d01824a4a07d952de98aecb"
+        },
+        {
+          "contract_ids": ["C25-example"],
+          "path": "mechanics/experience/parts/governance-polis/examples/operator_decision_packet.example.json",
+          "sha256": "03f9e877b9ffb84dcabc352a5334fa315a6347e0a0b422fdb279b9e39b0bb732"
+        }
+      ]
+    }
+  ],
+  "required_contract_ids": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08",
+    "C09",
+    "C10",
+    "C11",
+    "C12",
+    "C13",
+    "C14",
+    "C15",
+    "C16",
+    "C17",
+    "C18",
+    "C19",
+    "C20",
+    "C21",
+    "C22",
+    "C23",
+    "C24",
+    "C25"
+  ],
+  "claim_limit": "Exact source identity and compatibility precondition only; this map does not prove implementation behavior, accepted evidence, benefit, landing, deployment, or authority."
+}

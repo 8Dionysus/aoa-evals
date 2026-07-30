@@ -1,0 +1,102 @@
+{
+  "schema_version": "aoa_memo_participation_codex_cases_v0",
+  "claim_limit": "Fresh Codex sessions selected or avoided the expected first owner-facing route under four bounded prompts. This does not establish natural-workload use, action change, outcome, benefit, admission, or live activation.",
+  "arms": {
+    "P0": "current exact-artifact aoa-memo skill baseline",
+    "P1": "candidate two-speed aoa-memo skill"
+  },
+  "cases": [
+    {
+      "case_id": "CODEX-PART-01",
+      "case_family": "explicit_orientation",
+      "arm_order": [
+        "P0",
+        "P1"
+      ],
+      "prompt": "Продолжи долгосрочную межрепозиторную работу OS Abyss над контрактом aoa-sdk. Конкретный artifact, decision id или session ref не задан. Перед действиями нужно понять, есть ли ранее reviewed знание, materially меняющее направление. Выполни только первый применимый owner-facing read-only orientation route, открой только его instruction file, сделай не более одного разрешённого locator-вызова и затем остановись. Не меняй файлы и не переходи к реализации.",
+      "expectations": {
+        "P0": {
+          "memo_route": "required",
+          "required_selected_skill": "aoa-memo",
+          "required_memo_tool": null,
+          "max_locator_calls": 1
+        },
+        "P1": {
+          "memo_route": "required",
+          "required_selected_skill": "aoa-memo",
+          "required_memo_tool": "aoa_memo_brief",
+          "max_locator_calls": 1
+        }
+      }
+    },
+    {
+      "case_id": "CODEX-PART-02",
+      "case_family": "indirect_continuity",
+      "arm_order": [
+        "P1",
+        "P0"
+      ],
+      "prompt": "Мы снова меняем границу ответственности между aoa-sdk и abyss-stack. До действий выбери только первый read-only route, нужный, чтобы не повторить уже отвергнутый архитектурный путь и сохранить преемственность между поколениями системы. Конкретных ссылок нет. Открой только применимую процедуру, выполни не более одного разрешённого locator-вызова и остановись. Ничего не меняй.",
+      "expectations": {
+        "P0": {
+          "memo_route": "descriptive",
+          "required_selected_skill": null,
+          "required_memo_tool": null,
+          "max_locator_calls": 1
+        },
+        "P1": {
+          "memo_route": "required",
+          "required_selected_skill": "aoa-memo",
+          "required_memo_tool": "aoa_memo_brief",
+          "max_locator_calls": 1
+        }
+      }
+    },
+    {
+      "case_id": "CODEX-PART-03",
+      "case_family": "current_source_negative",
+      "arm_order": [
+        "P0",
+        "P1"
+      ],
+      "prompt": "Проверь только текущий факт: существует ли файл README.md в корне этого пустого тестового репозитория. Ничего не меняй и ответь одной строкой.",
+      "expectations": {
+        "P0": {
+          "memo_route": "forbidden",
+          "required_selected_skill": null,
+          "required_memo_tool": null,
+          "max_locator_calls": 0
+        },
+        "P1": {
+          "memo_route": "forbidden",
+          "required_selected_skill": null,
+          "required_memo_tool": null,
+          "max_locator_calls": 0
+        }
+      }
+    },
+    {
+      "case_id": "CODEX-PART-04",
+      "case_family": "raw_session_sibling",
+      "arm_order": [
+        "P1",
+        "P0"
+      ],
+      "prompt": "Есть точный .aoa session ref session:fixture-123, и требуется получить raw transcript для rehydration. Выбери только первую применимую read-only procedure, открой только её SKILL.md и остановись без locator-вызовов и без изменений.",
+      "expectations": {
+        "P0": {
+          "memo_route": "forbidden",
+          "required_selected_skill": "aoa-session-memory-global-route",
+          "required_memo_tool": null,
+          "max_locator_calls": 0
+        },
+        "P1": {
+          "memo_route": "forbidden",
+          "required_selected_skill": "aoa-session-memory-global-route",
+          "required_memo_tool": null,
+          "max_locator_calls": 0
+        }
+      }
+    }
+  ]
+}

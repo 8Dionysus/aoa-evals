@@ -1,0 +1,570 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/8Dionysus/aoa-evals/main/evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/reports/agent-local-federation.schema.json",
+  "title": "AoA memo Phase 12 agent-local federation lab report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "created_at",
+    "evidence_scope",
+    "pins",
+    "contract_validation",
+    "abcd_comparison",
+    "fault_results",
+    "stats_aggregate",
+    "cost_quality_speed_result",
+    "exit_gate",
+    "sampling",
+    "authority",
+    "limitations",
+    "report_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aoa_memo_phase12_agent_local_federation_report_v0"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "evidence_scope": {
+      "const": "source-local-deterministic-public-safe-agent-local-federation-reference-lab-no-live-memory"
+    },
+    "pins": {
+      "type": "object",
+      "minProperties": 15,
+      "additionalProperties": {
+        "$ref": "#/$defs/sha256"
+      }
+    },
+    "contract_validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "namespace_contracts_valid",
+        "sdk_active_plans_valid",
+        "sdk_isolation_plan_valid",
+        "sdk_consumer_zero_plan_valid",
+        "runtime_namespace_states_valid",
+        "promotion_candidates_valid",
+        "promotion_receipts_valid",
+        "unreviewed_projection_blocked",
+        "stats_aggregate_valid"
+      ],
+      "properties": {
+        "namespace_contracts_valid": {
+          "const": 4
+        },
+        "sdk_active_plans_valid": {
+          "const": 4
+        },
+        "sdk_isolation_plan_valid": {
+          "const": true
+        },
+        "sdk_consumer_zero_plan_valid": {
+          "const": true
+        },
+        "runtime_namespace_states_valid": {
+          "const": 6
+        },
+        "promotion_candidates_valid": {
+          "const": 8
+        },
+        "promotion_receipts_valid": {
+          "const": 8
+        },
+        "unreviewed_projection_blocked": {
+          "const": true
+        },
+        "stats_aggregate_valid": {
+          "const": true
+        }
+      }
+    },
+    "abcd_comparison": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/arm_a"
+        },
+        {
+          "$ref": "#/$defs/arm_b"
+        },
+        {
+          "$ref": "#/$defs/arm_c"
+        },
+        {
+          "$ref": "#/$defs/arm_d"
+        }
+      ],
+      "items": false
+    },
+    "fault_results": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fault",
+          "detected",
+          "blocked",
+          "affected_namespaces",
+          "shared_organ_available"
+        ],
+        "properties": {
+          "fault": {
+            "type": "string",
+            "minLength": 3
+          },
+          "detected": {
+            "const": true
+          },
+          "blocked": {
+            "const": true
+          },
+          "affected_namespaces": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "shared_organ_available": {
+            "const": true
+          }
+        }
+      }
+    },
+    "stats_aggregate": {
+      "$ref": "#/$defs/stats_aggregate"
+    },
+    "cost_quality_speed_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit",
+        "wall_time_ms",
+        "quality",
+        "result",
+        "speed",
+        "cost"
+      ],
+      "properties": {
+        "unit": {
+          "const": "deterministic_reference_lab_descriptive_only"
+        },
+        "wall_time_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "quality": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "cross_agent_contamination",
+            "cross_tenant_leakage",
+            "private_to_shared_leakage",
+            "silent_shared_truth"
+          ],
+          "properties": {
+            "cross_agent_contamination": {
+              "const": 0
+            },
+            "cross_tenant_leakage": {
+              "const": 0
+            },
+            "private_to_shared_leakage": {
+              "const": 0
+            },
+            "silent_shared_truth": {
+              "const": 0
+            }
+          }
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "repeated_failures_avoided",
+            "local_fault_blast_radius",
+            "shared_organ_failures",
+            "consumer_zero_residue"
+          ],
+          "properties": {
+            "repeated_failures_avoided": {
+              "const": 6
+            },
+            "local_fault_blast_radius": {
+              "const": 1
+            },
+            "shared_organ_failures": {
+              "const": 0
+            },
+            "consumer_zero_residue": {
+              "const": 0
+            }
+          }
+        },
+        "speed": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "local_recall_steps",
+            "shared_promotion_reviewed_count",
+            "consumer_zero_steps"
+          ],
+          "properties": {
+            "local_recall_steps": {
+              "const": 1
+            },
+            "shared_promotion_reviewed_count": {
+              "const": 8
+            },
+            "consumer_zero_steps": {
+              "const": 3
+            }
+          }
+        },
+        "cost": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "local_case_count",
+            "duplicate_case_count",
+            "operator_review_minutes",
+            "saved_re_grounding_minutes",
+            "net_operator_minutes_saved"
+          ],
+          "properties": {
+            "local_case_count": {
+              "const": 12
+            },
+            "duplicate_case_count": {
+              "const": 2
+            },
+            "operator_review_minutes": {
+              "const": 9
+            },
+            "saved_re_grounding_minutes": {
+              "const": 18
+            },
+            "net_operator_minutes_saved": {
+              "const": 9
+            }
+          }
+        }
+      }
+    },
+    "exit_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "d_reduces_blast_radius",
+        "promotion_burden_below_benefit",
+        "shared_truth_never_silent",
+        "operator_review_within_budget",
+        "namespace_disable_preserves_shared_organ",
+        "strict_tenant_separation",
+        "consumer_zero_clean",
+        "model_portability_passed",
+        "passed"
+      ],
+      "properties": {
+        "d_reduces_blast_radius": {
+          "const": true
+        },
+        "promotion_burden_below_benefit": {
+          "const": true
+        },
+        "shared_truth_never_silent": {
+          "const": true
+        },
+        "operator_review_within_budget": {
+          "const": true
+        },
+        "namespace_disable_preserves_shared_organ": {
+          "const": true
+        },
+        "strict_tenant_separation": {
+          "const": true
+        },
+        "consumer_zero_clean": {
+          "const": true
+        },
+        "model_portability_passed": {
+          "const": true
+        },
+        "passed": {
+          "const": true
+        }
+      }
+    },
+    "sampling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "human_operator_sampling_status",
+        "synthetic_operator_decisions",
+        "live_operator_minutes_measured"
+      ],
+      "properties": {
+        "human_operator_sampling_status": {
+          "const": "not_performed"
+        },
+        "synthetic_operator_decisions": {
+          "const": 8
+        },
+        "live_operator_minutes_measured": {
+          "const": false
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "live_private_memory_written",
+        "live_namespace_deployed",
+        "shared_ledger_writes",
+        "semantic_transitions",
+        "runtime_promotion_allowed",
+        "policy_promotion_allowed",
+        "landing_performed"
+      ],
+      "properties": {
+        "live_private_memory_written": {
+          "const": false
+        },
+        "live_namespace_deployed": {
+          "const": false
+        },
+        "shared_ledger_writes": {
+          "const": 0
+        },
+        "semantic_transitions": {
+          "const": 0
+        },
+        "runtime_promotion_allowed": {
+          "const": false
+        },
+        "policy_promotion_allowed": {
+          "const": false
+        },
+        "landing_performed": {
+          "const": false
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 10
+      }
+    },
+    "report_digest": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "arm_base": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "arm",
+        "form",
+        "repeated_failures_avoided",
+        "max_fault_blast_radius_namespaces",
+        "cross_agent_contamination",
+        "private_to_shared_leakage",
+        "silent_shared_truth",
+        "operator_review_minutes",
+        "duplicate_case_count",
+        "safe"
+      ],
+      "properties": {
+        "arm": {
+          "type": "string"
+        },
+        "form": {
+          "type": "string"
+        },
+        "repeated_failures_avoided": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_fault_blast_radius_namespaces": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "cross_agent_contamination": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "private_to_shared_leakage": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "silent_shared_truth": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "operator_review_minutes": {
+          "type": "number",
+          "minimum": 0
+        },
+        "duplicate_case_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "safe": {
+          "type": "boolean"
+        }
+      }
+    },
+    "arm_a": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/arm_base"
+        },
+        {
+          "properties": {
+            "arm": {
+              "const": "A_shared_only"
+            },
+            "safe": {
+              "const": true
+            }
+          }
+        }
+      ]
+    },
+    "arm_b": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/arm_base"
+        },
+        {
+          "properties": {
+            "arm": {
+              "const": "B_unisolated_local"
+            },
+            "safe": {
+              "const": false
+            }
+          }
+        }
+      ]
+    },
+    "arm_c": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/arm_base"
+        },
+        {
+          "properties": {
+            "arm": {
+              "const": "C_auto_shared_local"
+            },
+            "safe": {
+              "const": false
+            }
+          }
+        }
+      ]
+    },
+    "arm_d": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/arm_base"
+        },
+        {
+          "properties": {
+            "arm": {
+              "const": "D_reviewed_agent_local"
+            },
+            "safe": {
+              "const": true
+            },
+            "max_fault_blast_radius_namespaces": {
+              "const": 1
+            },
+            "cross_agent_contamination": {
+              "const": 0
+            },
+            "private_to_shared_leakage": {
+              "const": 0
+            },
+            "silent_shared_truth": {
+              "const": 0
+            },
+            "operator_review_minutes": {
+              "const": 9
+            },
+            "duplicate_case_count": {
+              "const": 2
+            }
+          }
+        }
+      ]
+    },
+    "stats_aggregate": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "schema_version",
+        "aggregate_id",
+        "promotion",
+        "isolation",
+        "portability",
+        "consumer_zero",
+        "operator",
+        "measurement_authority",
+        "promotion_authority",
+        "proof_authority"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "active_organ_agent_local_federation_aggregate_v0"
+        },
+        "aggregate_id": {
+          "const": "agent-local-aggregate:phase12-reference"
+        },
+        "promotion": {
+          "type": "object"
+        },
+        "isolation": {
+          "type": "object"
+        },
+        "portability": {
+          "type": "object"
+        },
+        "consumer_zero": {
+          "type": "object"
+        },
+        "operator": {
+          "type": "object"
+        },
+        "measurement_authority": {
+          "const": "aoa-stats"
+        },
+        "promotion_authority": {
+          "const": "forbidden"
+        },
+        "proof_authority": {
+          "const": "forbidden"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md",
+  "additional_shared_fixture_family_paths": [
+    "mechanics/proof-infra/parts/fixture-families/fixtures/memo-contradiction-guardrail-v1/README.md",
+    "mechanics/recurrence/parts/memory-recall/fixtures/memo-recall-guardrail-v1/README.md"
+  ],
+  "shared_case_surface": "public-safe paired current-source, reviewed-memory, stale, poisoned, contradiction, tenant, erasure, silence, outcome, and action-change cases executed under the same task order and budget",
+  "bounded_replacement_rule": "A replacement corpus must preserve every declared pressure, exact split and corpus digests, paired task identity, fixed seed policy, public-safe content, 0/A/B/C label translation, and security or erasure stop-lines. A material change creates a new manifest and excludes incompatible runs.",
+  "public_safe_requirements": [
+    "fixtures contain synthetic public-safe values only",
+    "no prompt, credential, private memory, private host capture, or hidden answer-key content is persisted",
+    "every architecture arm receives the same paired task identity and budget",
+    "current source evidence remains separate from memory influence",
+    "tenant and erasure probes use synthetic canary material",
+    "a complete process does not imply benefit or policy admission"
+  ]
+}

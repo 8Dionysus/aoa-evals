@@ -733,6 +733,48 @@
       "what_this_does_not_prove": "proof of general capability growth; proof that all nearby workflow diagnostics improved; proof that the movement is stable outside this window sequence"
     },
     {
+      "blind_spot_short": "offline replay does not prove production reliability;; public-safe synthetic fixtures do not cover every private residue path;; finite seeds do not prove...",
+      "bounded_claim_short": "This eval may support only a claim such as:",
+      "capability_dependencies": [],
+      "capability_refs": [],
+      "category": "comparative",
+      "comparison_surface": {
+        "anchor_surface": "aoa-memo-recall-integrity",
+        "baseline_target_label": "verified current context with memory influence disabled",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
+        "selection_question": "Does the bounded task require a fixed-baseline causal comparison of memory-disabled, pull-only, monolithic proactive, and federated policy-gated memory?",
+        "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+      },
+      "do_not_use_short": "the question is only write-path, recall, contradiction, approval, or runtime",
+      "eval_path": "evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "baseline_readiness",
+        "integrity_check"
+      ],
+      "name": "aoa-memo-active-organ-offline-replay",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; shared scorer helper; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "scorer_helper",
+        "report_schema",
+        "paired_readout"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Compares current/no-memory, reviewed pull-only, monolithic proactive, and federated policy-gated memory under paired offline replay while security, erasure, authority, cost, and reproducibility remain separate gates.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "use_when_short": "an A/B/C memory comparison is preregistered before the first scored run;; the same tasks, role models, prompts, tools, datasets, budgets, and",
+      "verdict_shape": "comparative",
+      "what_this_does_not_prove": "proof that active memory should be enabled;; proof of real-model, production, or private-data behavior;; policy, deployment, training, or durable semantic-write authority;"
+    },
+    {
       "blind_spot_short": "contradiction resolution quality outside public memo surfaces; permission leakage resistance; over-promotion discipline",
       "bounded_claim_short": "under these conditions, a consumer of aoa-memo can use lifecycle-aware object recall surfaces without flattening superseded, retracted, or still-open contradictory memory into one smooth...",
       "capability_dependencies": [],

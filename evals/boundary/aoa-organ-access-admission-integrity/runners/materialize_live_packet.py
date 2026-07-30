@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import argparse
+import base64
+import binascii
 import errno
 import hashlib
 import json
@@ -419,8 +421,13 @@ def canary_receipt(path: Path) -> dict[str, Any]:
         "canary receipt",
         require_private=True,
     )
+    schema_version = payload.get("schema_version")
     if (
-        payload.get("schema_version") != "abyss_stack_mcp_canary_receipt_v1"
+        schema_version
+        not in {
+            "abyss_stack_mcp_canary_receipt_v1",
+            "abyss_stack_mcp_canary_receipt_v2",
+        }
         or payload.get("issuer") != "abyss-stack"
         or payload.get("consumer_id") != "abyss-stack-mcp-canary"
         or payload.get("policy_family") != "read"
@@ -541,10 +548,40 @@ def canary_receipt(path: Path) -> dict[str, Any]:
             )
     elif payload.get("result_artifact_ref") is not None:
         raise LivePacketError("failed canary cannot reference a result artifact")
-    unsigned = {key: value for key, value in payload.items() if key != "receipt_id"}
+    if schema_version == "abyss_stack_mcp_canary_receipt_v2":
+        validate_v2_attestation_fields(payload, "canary receipt")
+    unsigned = {
+        key: value
+        for key, value in payload.items()
+        if key != "receipt_id"
+        and not (
+            schema_version == "abyss_stack_mcp_canary_receipt_v2"
+            and key == "attestation"
+        )
+    }
     if payload.get("receipt_id") != digest(unsigned):
         raise LivePacketError("canary receipt content address is invalid")
     return payload
+
+
+def validate_v2_attestation_fields(payload: dict[str, Any], label: str) -> None:
+    signer_id = payload.get("signer_id")
+    required_digest(signer_id, f"{label} signer_id")
+    if payload.get("attestation_algorithm") != "ed25519":
+        raise LivePacketError(f"{label} attestation algorithm is unsupported")
+    encoded = payload.get("attestation")
+    if not isinstance(encoded, str):
+        raise LivePacketError(f"{label} attestation is unavailable")
+    try:
+        attestation = base64.b64decode(
+            encoded + ("=" * (-len(encoded) % 4)),
+            altchars=b"-_",
+            validate=True,
+        )
+    except (ValueError, binascii.Error) as exc:
+        raise LivePacketError(f"{label} attestation is malformed") from exc
+    if len(attestation) != 64:
+        raise LivePacketError(f"{label} attestation is malformed")
 
 
 def canary_result_artifact(
@@ -569,8 +606,14 @@ def canary_result_artifact(
         "canary result artifact",
         require_private=True,
     )
+    canary_version = canary.get("schema_version")
+    expected_artifact_version = (
+        "abyss_stack_mcp_canary_result_artifact_v2"
+        if canary_version == "abyss_stack_mcp_canary_receipt_v2"
+        else "abyss_stack_mcp_canary_result_artifact_v1"
+    )
     if (
-        payload.get("schema_version") != "abyss_stack_mcp_canary_result_artifact_v1"
+        payload.get("schema_version") != expected_artifact_version
         or payload.get("issuer") != "abyss-stack"
         or payload.get("organ_id") != canary.get("organ_id")
         or payload.get("policy_family") != "read"
@@ -596,7 +639,19 @@ def canary_result_artifact(
         raise LivePacketError("result artifact owner payload must be an object")
     if digest(owner_payload) != canary.get("result_digest"):
         raise LivePacketError("result artifact owner payload digest is invalid")
-    unsigned = {key: value for key, value in payload.items() if key != "artifact_id"}
+    if canary_version == "abyss_stack_mcp_canary_receipt_v2":
+        validate_v2_attestation_fields(payload, "result artifact")
+        if payload.get("signer_id") != canary.get("signer_id"):
+            raise LivePacketError("result artifact signer does not match canary receipt")
+    unsigned = {
+        key: value
+        for key, value in payload.items()
+        if key != "artifact_id"
+        and not (
+            canary_version == "abyss_stack_mcp_canary_receipt_v2"
+            and key == "attestation"
+        )
+    }
     if payload.get("artifact_id") != digest(unsigned):
         raise LivePacketError("result artifact content address is invalid")
     return payload

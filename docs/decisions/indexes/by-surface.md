@@ -420,6 +420,10 @@
 - [AOA-EV-D-0197 Questbook Projection Aggregate Removal](../AOA-EV-D-0197-questbook-projection-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0197-questbook-projection-aggregate-removal.md`)
 - [AOA-EV-D-0208 Questbook Source Aggregate Removal](../AOA-EV-D-0208-questbook-source-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0208-questbook-source-aggregate-removal.md`)
 
+## comparison
+
+- [AOA-EV-D-0251 Active-Organ Proof Does Not Collapse Into Admission](../AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md) (`docs/decisions/AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md`)
+
 ## comparison/readout
 
 - [AOA-EV-D-0123 Comparison Spine Validator Module Boundary](../AOA-EV-D-0123-comparison-spine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0123-comparison-spine-validator-module-boundary.md`)
@@ -553,6 +557,7 @@
 ## proof contract
 
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
+- [AOA-EV-D-0251 Active-Organ Proof Does Not Collapse Into Admission](../AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md) (`docs/decisions/AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md`)
 
 ## proof reference
 
@@ -616,6 +621,10 @@
 - [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
 - [AOA-EV-D-0241 Local Eval Port Write-Side MCP](../AOA-EV-D-0241-local-eval-port-write-side-mcp.md) (`docs/decisions/AOA-EV-D-0241-local-eval-port-write-side-mcp.md`)
 - [AOA-EV-D-0248 Typed Capability Dependencies](../AOA-EV-D-0248-typed-capability-dependencies.md) (`docs/decisions/AOA-EV-D-0248-typed-capability-dependencies.md`)
+
+## source eval package
+
+- [AOA-EV-D-0251 Active-Organ Proof Does Not Collapse Into Admission](../AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md) (`docs/decisions/AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md`)
 
 ## source/topology
 

@@ -1,0 +1,397 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agents-of-abyss.local/aoa-evals/phase13-accelerated-soak.schema.json",
+  "title": "AoA memo active-organ Phase 13 accelerated soak report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_id",
+    "generated_at",
+    "fixture",
+    "mode",
+    "arms",
+    "faults",
+    "summary",
+    "claim_limit",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "report_id": {
+      "const": "aoa-memo-phase13-accelerated-soak-v1"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "fixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "seed"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "seed": {
+          "type": "integer"
+        }
+      }
+    },
+    "mode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accelerated_days",
+        "checkpoints_days",
+        "wall_clock_elapsed_days",
+        "accelerated_replay_is_wall_clock_soak"
+      ],
+      "properties": {
+        "accelerated_days": {
+          "const": 30
+        },
+        "checkpoints_days": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": 7
+            },
+            {
+              "const": 30
+            }
+          ],
+          "items": false
+        },
+        "wall_clock_elapsed_days": {
+          "const": 0
+        },
+        "accelerated_replay_is_wall_clock_soak": {
+          "const": false
+        }
+      }
+    },
+    "arms": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "$ref": "#/$defs/arm"
+      }
+    },
+    "faults": {
+      "type": "array",
+      "minItems": 14,
+      "maxItems": 14,
+      "items": {
+        "$ref": "#/$defs/fault"
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "all_faults_detected",
+        "silent_faults",
+        "arm_c_bounded_storage",
+        "arm_c_bounded_write_amplification",
+        "arm_c_bounded_backlog",
+        "arm_c_foreground_p95_within_budget",
+        "arm_c_foreground_p99_within_budget",
+        "accelerated_7d_complete",
+        "accelerated_30d_complete",
+        "wall_clock_7d_complete",
+        "wall_clock_30d_complete",
+        "benefit_established",
+        "landing_performed"
+      ],
+      "properties": {
+        "all_faults_detected": {
+          "type": "boolean"
+        },
+        "silent_faults": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "arm_c_bounded_storage": {
+          "type": "boolean"
+        },
+        "arm_c_bounded_write_amplification": {
+          "type": "boolean"
+        },
+        "arm_c_bounded_backlog": {
+          "type": "boolean"
+        },
+        "arm_c_foreground_p95_within_budget": {
+          "type": "boolean"
+        },
+        "arm_c_foreground_p99_within_budget": {
+          "type": "boolean"
+        },
+        "accelerated_7d_complete": {
+          "type": "boolean"
+        },
+        "accelerated_30d_complete": {
+          "type": "boolean"
+        },
+        "wall_clock_7d_complete": {
+          "const": false
+        },
+        "wall_clock_30d_complete": {
+          "const": false
+        },
+        "benefit_established": {
+          "const": false
+        },
+        "landing_performed": {
+          "const": false
+        }
+      }
+    },
+    "claim_limit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "live_memory_write",
+        "policy_promotion",
+        "production",
+        "training",
+        "landing"
+      ],
+      "properties": {
+        "live_memory_write": {
+          "const": false
+        },
+        "policy_promotion": {
+          "const": false
+        },
+        "production": {
+          "const": false
+        },
+        "training": {
+          "const": false
+        },
+        "landing": {
+          "const": false
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "checkpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "storage_bytes",
+        "active_objects",
+        "maintenance_backlog_items",
+        "projection_consistent"
+      ],
+      "properties": {
+        "storage_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "active_objects": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maintenance_backlog_items": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "projection_consistent": {
+          "type": "boolean"
+        }
+      }
+    },
+    "arm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "arm_id",
+        "label",
+        "operation_count",
+        "committed_writes",
+        "idempotent_no_writes",
+        "version_conflicts",
+        "p50_latency_ms",
+        "p95_latency_ms",
+        "p99_latency_ms",
+        "mean_latency_ms",
+        "foreground_p50_latency_ms",
+        "foreground_p95_latency_ms",
+        "foreground_p99_latency_ms",
+        "maintenance_p50_latency_ms",
+        "maintenance_p95_latency_ms",
+        "maintenance_p99_latency_ms",
+        "storage_bytes",
+        "logical_write_bytes",
+        "write_amplification_ratio",
+        "maintenance_backlog_items",
+        "operator_review_minutes",
+        "foreground_task_result",
+        "projection_consistent",
+        "checkpoints"
+      ],
+      "properties": {
+        "arm_id": {
+          "enum": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "committed_writes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "idempotent_no_writes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "version_conflicts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "p50_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "p95_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "p99_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "mean_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "foreground_p50_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "foreground_p95_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "foreground_p99_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "maintenance_p50_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "maintenance_p95_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "maintenance_p99_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "storage_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "logical_write_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "write_amplification_ratio": {
+          "type": "number",
+          "minimum": 0
+        },
+        "maintenance_backlog_items": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "operator_review_minutes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "foreground_task_result": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "projection_consistent": {
+          "type": "boolean"
+        },
+        "checkpoints": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "7",
+            "30"
+          ],
+          "properties": {
+            "7": {
+              "$ref": "#/$defs/checkpoint"
+            },
+            "30": {
+              "$ref": "#/$defs/checkpoint"
+            }
+          }
+        }
+      }
+    },
+    "fault": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fault_id",
+        "expected",
+        "detected",
+        "evidence"
+      ],
+      "properties": {
+        "fault_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expected": {
+          "type": "string",
+          "minLength": 1
+        },
+        "detected": {
+          "type": "boolean"
+        },
+        "evidence": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

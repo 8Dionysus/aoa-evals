@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/8Dionysus/aoa-evals/main/mechanics/proof-infra/parts/reportable-contracts/schemas/active-organ-model-prompt-provider-hardware-pin.schema.json",
+  "title": "aoa-evals active-organ model prompt provider hardware pin",
+  "description": "C21 freezes the model, prompt-template identity, provider, host evidence, and runtime environment used by one active-organ experiment without carrying prompt text, credentials, private host captures, training authority, or production authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "pin_id",
+    "captured_at",
+    "owner_repo",
+    "purpose",
+    "model",
+    "prompt",
+    "provider",
+    "hardware",
+    "runtime",
+    "integrity",
+    "privacy",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "active_organ_model_prompt_provider_hardware_pin_v1"
+    },
+    "contract_id": {
+      "const": "C21"
+    },
+    "pin_id": {
+      "type": "string",
+      "pattern": "^aoa-evals:active-organ-pin:[A-Za-z0-9._:-]+$"
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "owner_repo": {
+      "const": "aoa-evals"
+    },
+    "purpose": {
+      "const": "experiment_evidence_only"
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner_ref",
+        "artifact_ref",
+        "artifact_sha256",
+        "revision",
+        "inference_parameters_sha256"
+      ],
+      "properties": {
+        "owner_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifact_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifact_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inference_parameters_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "prompt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "template_ref",
+        "template_sha256",
+        "system_policy_ref",
+        "system_policy_sha256",
+        "sampling_config_sha256"
+      ],
+      "properties": {
+        "template_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "template_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "system_policy_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "system_policy_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sampling_config_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "provider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_id",
+        "api_family",
+        "api_version",
+        "endpoint_class",
+        "adapter_ref"
+      ],
+      "properties": {
+        "provider_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "api_family": {
+          "type": "string",
+          "minLength": 1
+        },
+        "api_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "endpoint_class": {
+          "enum": [
+            "local_subprocess",
+            "local_loopback",
+            "host_local_service",
+            "remote_api"
+          ]
+        },
+        "adapter_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "hardware": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "host_capability_snapshot_ref",
+        "host_resource_storage_plan_ref",
+        "execution_device_class",
+        "driver_runtime_ref"
+      ],
+      "properties": {
+        "host_capability_snapshot_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "host_resource_storage_plan_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "execution_device_class": {
+          "type": "string",
+          "minLength": 1
+        },
+        "driver_runtime_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_owner_ref",
+        "runtime_adapter_ref",
+        "runtime_artifact_sha256",
+        "dependency_lock_sha256",
+        "environment_contract_ref"
+      ],
+      "properties": {
+        "runtime_owner_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "runtime_adapter_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "runtime_artifact_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "dependency_lock_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "environment_contract_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component_manifest_sha256",
+        "all_refs_resolved",
+        "captured_from_current_owner_sources"
+      ],
+      "properties": {
+        "component_manifest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "all_refs_resolved": {
+          "const": true
+        },
+        "captured_from_current_owner_sources": {
+          "const": true
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "refs_only",
+        "prompt_content_persisted",
+        "credential_content_persisted",
+        "private_hardware_capture_persisted"
+      ],
+      "properties": {
+        "refs_only": {
+          "const": true
+        },
+        "prompt_content_persisted": {
+          "const": false
+        },
+        "credential_content_persisted": {
+          "const": false
+        },
+        "private_hardware_capture_persisted": {
+          "const": false
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_only",
+        "training_enabled",
+        "model_editing_enabled",
+        "production_authority"
+      ],
+      "properties": {
+        "evidence_only": {
+          "const": true
+        },
+        "training_enabled": {
+          "const": false
+        },
+        "model_editing_enabled": {
+          "const": false
+        },
+        "production_authority": {
+          "const": "none"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

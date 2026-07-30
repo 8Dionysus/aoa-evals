@@ -1,0 +1,565 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agents-of-abyss.local/schemas/aoa-memo-phase13-participation-lab-v0.json",
+  "title": "AoA memo Phase 13 participation mechanism lab",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_id",
+    "generated_at",
+    "posture",
+    "source_pins",
+    "variants",
+    "skill_contract",
+    "trigger_corpus",
+    "lifecycle",
+    "composition",
+    "privacy",
+    "evidence_ladder",
+    "performance",
+    "gates",
+    "exit_gate_passed",
+    "verdict",
+    "authority",
+    "limitations",
+    "report_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aoa_memo_phase13_participation_lab_v0"
+    },
+    "report_id": {
+      "const": "aoa-memo-phase13-participation-mechanism-20260729"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "posture": {
+      "const": "source_local_shadow_mechanism_no_live_activation"
+    },
+    "source_pins": {
+      "type": "object",
+      "minProperties": 10,
+      "propertyNames": {
+        "pattern": "^[a-z0-9_]+$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/digest"
+      }
+    },
+    "variants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "P0",
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "properties": {
+        "P0": {
+          "const": "named_baseline_not_executed_in_mechanism_lab"
+        },
+        "P1": {
+          "const": "two_speed_skill_source_validated"
+        },
+        "P2": {
+          "const": "shadow_hook_and_composition_executed_disposably"
+        },
+        "P3": {
+          "const": "selective_route_only_cue_closed_not_executed"
+        }
+      }
+    },
+    "skill_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bundle_version",
+        "materiality_trigger_present",
+        "fast_lane_present",
+        "one_brief_budget_present",
+        "silence_present",
+        "deep_gate_present",
+        "sibling_handoffs_present",
+        "session_memory_dependency",
+        "prompt_visibility_checked",
+        "fresh_session_selection_checked"
+      ],
+      "properties": {
+        "bundle_version": {
+          "const": "0.1.22"
+        },
+        "materiality_trigger_present": {
+          "const": true
+        },
+        "fast_lane_present": {
+          "const": true
+        },
+        "one_brief_budget_present": {
+          "const": true
+        },
+        "silence_present": {
+          "const": true
+        },
+        "deep_gate_present": {
+          "const": true
+        },
+        "sibling_handoffs_present": {
+          "const": true
+        },
+        "session_memory_dependency": {
+          "const": false
+        },
+        "prompt_visibility_checked": {
+          "const": false
+        },
+        "fresh_session_selection_checked": {
+          "const": false
+        }
+      }
+    },
+    "trigger_corpus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_count",
+        "families",
+        "exact_match_count",
+        "false_positive_count",
+        "false_negative_count",
+        "observations"
+      ],
+      "properties": {
+        "case_count": {
+          "type": "integer",
+          "minimum": 10
+        },
+        "families": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 5,
+          "items": {
+            "enum": [
+              "direct",
+              "indirect",
+              "incomplete",
+              "negative",
+              "edge"
+            ]
+          }
+        },
+        "exact_match_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "false_positive_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "false_negative_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "observations": {
+          "type": "array",
+          "minItems": 10,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "case_id",
+              "case_family",
+              "expected_route",
+              "observed_route",
+              "expected_opportunity_state",
+              "observed_opportunity_state",
+              "passed",
+              "latency_ms",
+              "receipt_digest"
+            ],
+            "properties": {
+              "case_id": {
+                "type": "string",
+                "pattern": "^PART-[0-9]{2}$"
+              },
+              "case_family": {
+                "enum": [
+                  "direct",
+                  "indirect",
+                  "incomplete",
+                  "negative",
+                  "edge"
+                ]
+              },
+              "expected_route": {
+                "$ref": "#/$defs/route"
+              },
+              "observed_route": {
+                "$ref": "#/$defs/route"
+              },
+              "expected_opportunity_state": {
+                "$ref": "#/$defs/opportunity"
+              },
+              "observed_opportunity_state": {
+                "$ref": "#/$defs/opportunity"
+              },
+              "passed": {
+                "type": "boolean"
+              },
+              "latency_ms": {
+                "type": "number",
+                "minimum": 0
+              },
+              "receipt_digest": {
+                "$ref": "#/$defs/digest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "events_seen",
+        "receipt_count",
+        "receipt_logs_valid",
+        "hash_chains_valid",
+        "hook_stdout_empty",
+        "hook_stderr_empty",
+        "hook_failure_count"
+      ],
+      "properties": {
+        "events_seen": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "SessionStart",
+              "UserPromptSubmit",
+              "PostToolUse",
+              "PreCompact",
+              "PostCompact",
+              "Stop",
+              "SessionEnd"
+            ]
+          }
+        },
+        "receipt_count": {
+          "type": "integer",
+          "minimum": 17
+        },
+        "receipt_logs_valid": {
+          "type": "boolean"
+        },
+        "hash_chains_valid": {
+          "type": "boolean"
+        },
+        "hook_stdout_empty": {
+          "type": "boolean"
+        },
+        "hook_stderr_empty": {
+          "type": "boolean"
+        },
+        "hook_failure_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "composition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "native_source_digest",
+        "memo_fragment_digest",
+        "output_digest",
+        "composition_receipt_digest",
+        "fragment_order",
+        "event_count",
+        "native_handler_count",
+        "combined_handler_count",
+        "standalone_native_preserved",
+        "owner_metadata_removed",
+        "unresolved_binding_count",
+        "disposable_atomic_write",
+        "backup_created",
+        "live_config_touched",
+        "codex_trust_established"
+      ],
+      "properties": {
+        "native_source_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "memo_fragment_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "output_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "composition_receipt_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "fragment_order": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "native-config:0"
+            },
+            {
+              "const": "aoa-memo:participation-shadow:v0"
+            }
+          ],
+          "items": false
+        },
+        "event_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "native_handler_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "combined_handler_count": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "standalone_native_preserved": {
+          "type": "boolean"
+        },
+        "owner_metadata_removed": {
+          "type": "boolean"
+        },
+        "unresolved_binding_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "disposable_atomic_write": {
+          "const": true
+        },
+        "backup_created": {
+          "type": "boolean"
+        },
+        "live_config_touched": {
+          "const": false
+        },
+        "codex_trust_established": {
+          "const": false
+        }
+      }
+    },
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "raw_prompt_persisted",
+        "transcript_path_persisted",
+        "cwd_persisted",
+        "tool_input_persisted",
+        "tool_response_persisted",
+        "assistant_message_persisted",
+        "case_marker_leak_count",
+        "raw_binding_value_in_composition_receipt"
+      ],
+      "properties": {
+        "raw_prompt_persisted": {
+          "const": false
+        },
+        "transcript_path_persisted": {
+          "const": false
+        },
+        "cwd_persisted": {
+          "const": false
+        },
+        "tool_input_persisted": {
+          "const": false
+        },
+        "tool_response_persisted": {
+          "const": false
+        },
+        "assistant_message_persisted": {
+          "const": false
+        },
+        "case_marker_leak_count": {
+          "const": 0
+        },
+        "raw_binding_value_in_composition_receipt": {
+          "const": false
+        }
+      }
+    },
+    "evidence_ladder": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "opportunity",
+        "noticed",
+        "invocation",
+        "result_returned",
+        "used_or_rejected",
+        "action_change",
+        "outcome",
+        "benefit_claim_allowed"
+      ],
+      "properties": {
+        "opportunity": {
+          "const": "synthetic_corpus_observed"
+        },
+        "noticed": {
+          "const": "unknown"
+        },
+        "invocation": {
+          "const": "synthetic_posttool_observed"
+        },
+        "result_returned": {
+          "const": "synthetic_posttool_observed"
+        },
+        "used_or_rejected": {
+          "const": "unknown"
+        },
+        "action_change": {
+          "const": "unknown"
+        },
+        "outcome": {
+          "const": "unknown"
+        },
+        "benefit_claim_allowed": {
+          "const": false
+        }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prompt_hook_observation_count",
+        "p50_hook_latency_ms",
+        "p95_hook_latency_ms",
+        "max_hook_latency_ms",
+        "receipt_state_bytes",
+        "composed_config_bytes"
+      ],
+      "properties": {
+        "prompt_hook_observation_count": {
+          "type": "integer",
+          "minimum": 10
+        },
+        "p50_hook_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "p95_hook_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "max_hook_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "receipt_state_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "composed_config_bytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "boolean"
+      },
+      "minProperties": 8
+    },
+    "exit_gate_passed": {
+      "type": "boolean"
+    },
+    "verdict": {
+      "enum": [
+        "supports source-local H0 participation mechanism continuation",
+        "does not support source-local H0 participation mechanism continuation"
+      ]
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "live_activation",
+        "codex_trust",
+        "skill_admission",
+        "policy_promotion",
+        "memory_write",
+        "production",
+        "landing",
+        "benefit_verdict"
+      ],
+      "properties": {
+        "live_activation": {
+          "const": false
+        },
+        "codex_trust": {
+          "const": false
+        },
+        "skill_admission": {
+          "const": false
+        },
+        "policy_promotion": {
+          "const": false
+        },
+        "memory_write": {
+          "const": false
+        },
+        "production": {
+          "const": false
+        },
+        "landing": {
+          "const": false
+        },
+        "benefit_verdict": {
+          "const": false
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "report_digest": {
+      "$ref": "#/$defs/digest"
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "route": {
+      "enum": [
+        "aoa-memo-orient",
+        "aoa-memo-deep",
+        "aoa-memo-writeback",
+        "aoa-session-memory",
+        "none"
+      ]
+    },
+    "opportunity": {
+      "enum": [
+        "eligible",
+        "handoff",
+        "not_applicable",
+        "excluded",
+        "unknown"
+      ]
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": "active_organ_model_prompt_provider_hardware_pin_v1",
+  "contract_id": "C21",
+  "pin_id": "aoa-evals:active-organ-pin:reference-local-v1",
+  "captured_at": "2026-07-28T21:00:00Z",
+  "owner_repo": "aoa-evals",
+  "purpose": "experiment_evidence_only",
+  "model": {
+    "owner_ref": "model-owner:reference-model",
+    "artifact_ref": "artifact:reference-model:revision-1",
+    "artifact_sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "revision": "revision-1",
+    "inference_parameters_sha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "prompt": {
+    "template_ref": "aoa-evals:prompt-template:active-organ-lab-v1",
+    "template_sha256": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "system_policy_ref": "aoa-sdk:policy:active-organ-lab-v1",
+    "system_policy_sha256": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "sampling_config_sha256": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  "provider": {
+    "provider_id": "reference-local-provider",
+    "api_family": "local-inference",
+    "api_version": "v1",
+    "endpoint_class": "local_subprocess",
+    "adapter_ref": "abyss-stack:runtime-adapter:active-organ-lab-v1"
+  },
+  "hardware": {
+    "host_capability_snapshot_ref": "abyss-machine:C18:reference-capability-snapshot",
+    "host_resource_storage_plan_ref": "abyss-machine:C19:reference-resource-plan",
+    "execution_device_class": "reference-accelerator",
+    "driver_runtime_ref": "abyss-machine:driver-runtime:reference-v1"
+  },
+  "runtime": {
+    "runtime_owner_ref": "abyss-stack:active-organ-lab-runtime-v1",
+    "runtime_adapter_ref": "abyss-stack:agent-os-runtime-adapter-v1",
+    "runtime_artifact_sha256": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "dependency_lock_sha256": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "environment_contract_ref": "aoa-evals:environment-contract:active-organ-lab-v1"
+  },
+  "integrity": {
+    "component_manifest_sha256": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "all_refs_resolved": true,
+    "captured_from_current_owner_sources": true
+  },
+  "privacy": {
+    "refs_only": true,
+    "prompt_content_persisted": false,
+    "credential_content_persisted": false,
+    "private_hardware_capture_persisted": false
+  },
+  "authority": {
+    "evidence_only": true,
+    "training_enabled": false,
+    "model_editing_enabled": false,
+    "production_authority": "none"
+  }
+}

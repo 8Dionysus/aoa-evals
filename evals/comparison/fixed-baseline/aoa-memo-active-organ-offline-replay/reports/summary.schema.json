@@ -1,0 +1,584 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-memo-active-organ-offline-replay comparative report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "comparison_mode",
+    "executed_at",
+    "corpus",
+    "methodology",
+    "label_translation",
+    "conformance",
+    "arms",
+    "retrieval_ablations",
+    "model_matrix",
+    "comparisons",
+    "falsifiers_triggered",
+    "verdict",
+    "evidence_posture",
+    "consumer_visible_intervention",
+    "durable_semantic_auto_write",
+    "private_durable_ingestion",
+    "live_private_training",
+    "claim_boundary",
+    "limitations",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "active_organ_offline_replay_result_v1"
+    },
+    "eval_name": {
+      "const": "aoa-memo-active-organ-offline-replay"
+    },
+    "bundle_status": {
+      "const": "draft"
+    },
+    "object_under_evaluation": {
+      "const": "causal net benefit and boundary integrity of the aoa-memo federated active-organ architecture under matched offline replay"
+    },
+    "comparison_mode": {
+      "const": "fixed-baseline"
+    },
+    "executed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "corpus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "corpus_id",
+        "corpus_version",
+        "corpus_sha256",
+        "data_class"
+      ],
+      "properties": {
+        "corpus_id": {
+          "type": "string",
+          "minLength": 3
+        },
+        "corpus_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "corpus_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "data_class": {
+          "const": "public-safe-synthetic"
+        }
+      }
+    },
+    "methodology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "paired_tasks",
+        "seeds",
+        "independent_stochastic_runs",
+        "primary_metric",
+        "confidence_interval",
+        "paired_test",
+        "multiple_comparison_correction",
+        "seeded_randomized_order",
+        "fixed_role_contract",
+        "fixed_task_order",
+        "fixed_budget",
+        "max_incremental_cost_units_per_additional_success",
+        "operator_help_policy",
+        "wall_time_used_for_verdict"
+      ],
+      "properties": {
+        "paired_tasks": {
+          "const": true
+        },
+        "seeds": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer"
+          }
+        },
+        "independent_stochastic_runs": {
+          "type": "integer",
+          "minimum": 3
+        },
+        "primary_metric": {
+          "const": "bounded_task_outcome_rate"
+        },
+        "confidence_interval": {
+          "type": "string",
+          "minLength": 5
+        },
+        "paired_test": {
+          "type": "string",
+          "minLength": 5
+        },
+        "multiple_comparison_correction": {
+          "const": "Holm"
+        },
+        "seeded_randomized_order": {
+          "const": true
+        },
+        "fixed_role_contract": {
+          "const": true
+        },
+        "fixed_task_order": {
+          "const": true
+        },
+        "fixed_budget": {
+          "const": true
+        },
+        "max_incremental_cost_units_per_additional_success": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "operator_help_policy": {
+          "type": "string",
+          "minLength": 5
+        },
+        "wall_time_used_for_verdict": {
+          "const": false
+        }
+      }
+    },
+    "label_translation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "architecture_0",
+        "architecture_A",
+        "architecture_B",
+        "architecture_C"
+      ],
+      "properties": {
+        "architecture_0": {
+          "const": "C22 arm A memory_disabled"
+        },
+        "architecture_A": {
+          "const": "C22 arm B explicit_pull_only"
+        },
+        "architecture_B": {
+          "const": "secondary monolithic sandbox control"
+        },
+        "architecture_C": {
+          "const": "C22 arm C active_organ_policy_gated"
+        }
+      }
+    },
+    "conformance": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "case_count",
+        "passed_count",
+        "failed_count",
+        "blocking_failure_count",
+        "exit_gate_passed",
+        "private_durable_ingestion_enabled",
+        "cases",
+        "claim_limit"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "active_organ_conformance_report_v1"
+        },
+        "case_count": {
+          "const": 25
+        },
+        "passed_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 25
+        },
+        "failed_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 25
+        },
+        "blocking_failure_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 25
+        },
+        "exit_gate_passed": {
+          "type": "boolean"
+        },
+        "private_durable_ingestion_enabled": {
+          "const": false
+        },
+        "cases": {
+          "type": "array",
+          "minItems": 25,
+          "maxItems": 25,
+          "items": {
+            "type": "object"
+          }
+        },
+        "claim_limit": {
+          "type": "string",
+          "minLength": 20
+        }
+      }
+    },
+    "arms": {
+      "type": "array",
+      "minItems": 11,
+      "items": {
+        "$ref": "#/$defs/arm"
+      }
+    },
+    "retrieval_ablations": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "$ref": "#/$defs/arm"
+      }
+    },
+    "model_matrix": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "role",
+          "model_class",
+          "model_id",
+          "execution_status",
+          "small_large_local_remote_coverage",
+          "claim_limit"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "extractor",
+              "retriever",
+              "composer",
+              "intervention_arbiter",
+              "action_model",
+              "judge",
+              "adversarial_recovery_model"
+            ]
+          },
+          "model_class": {
+            "const": "deterministic-symbolic"
+          },
+          "model_id": {
+            "const": "deterministic-symbolic-v1"
+          },
+          "execution_status": {
+            "const": "complete"
+          },
+          "small_large_local_remote_coverage": {
+            "const": false
+          },
+          "claim_limit": {
+            "const": "mechanism_and_harness_only"
+          }
+        }
+      }
+    },
+    "comparisons": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "left",
+          "right",
+          "effect",
+          "raw_p_value",
+          "holm_adjusted_p_value",
+          "significant_at_0_05",
+          "incremental_cost_units_per_additional_success",
+          "latency_delta_units"
+        ],
+        "properties": {
+          "left": {
+            "const": "C-selective-shadow"
+          },
+          "right": {
+            "type": "string",
+            "enum": [
+              "0-verified-current-no-memory",
+              "A-reviewed-pull-only",
+              "B-monolithic-sandbox"
+            ]
+          },
+          "effect": {
+            "type": "number",
+            "minimum": -1,
+            "maximum": 1
+          },
+          "raw_p_value": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "holm_adjusted_p_value": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "significant_at_0_05": {
+            "type": "boolean"
+          },
+          "incremental_cost_units_per_additional_success": {
+            "type": ["number", "null"]
+          },
+          "latency_delta_units": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "falsifiers_triggered": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "supports C for bounded shadow continuation",
+        "mixed bounded evidence",
+        "no bounded net benefit",
+        "unsafe or nonconformant",
+        "not reviewable"
+      ]
+    },
+    "evidence_posture": {
+      "const": "candidate_pending_bundle_local_review"
+    },
+    "consumer_visible_intervention": {
+      "const": false
+    },
+    "durable_semantic_auto_write": {
+      "const": false
+    },
+    "private_durable_ingestion": {
+      "const": false
+    },
+    "live_private_training": {
+      "const": false
+    },
+    "claim_boundary": {
+      "type": "string",
+      "minLength": 40
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string",
+        "minLength": 20
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verdict_is_draft",
+        "policy_promotion_authorized",
+        "production_authorized",
+        "memory_semantic_write_authorized",
+        "training_authorized"
+      ],
+      "properties": {
+        "verdict_is_draft": {
+          "const": true
+        },
+        "policy_promotion_authorized": {
+          "const": false
+        },
+        "production_authorized": {
+          "const": false
+        },
+        "memory_semantic_write_authorized": {
+          "const": false
+        },
+        "training_authorized": {
+          "const": false
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "arm": {
+      "type": "object",
+      "required": [
+        "arm_id",
+        "architecture_label",
+        "description",
+        "production_candidate",
+        "consumer_visible",
+        "task_count",
+        "retrieval_profile",
+        "primary",
+        "quality",
+        "cost",
+        "latency",
+        "safety",
+        "observations"
+      ],
+      "properties": {
+        "arm_id": {
+          "type": "string",
+          "minLength": 3
+        },
+        "architecture_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 10
+        },
+        "production_candidate": {
+          "type": "boolean"
+        },
+        "consumer_visible": {
+          "const": false
+        },
+        "task_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "retrieval_profile": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "channels",
+            "abstraction_levels",
+            "reranker",
+            "context_budget"
+          ],
+          "properties": {
+            "channels": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "lexical",
+                  "dense",
+                  "graph"
+                ]
+              }
+            },
+            "abstraction_levels": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "detail",
+                  "summary"
+                ]
+              }
+            },
+            "reranker": {
+              "type": "string",
+              "enum": [
+                "source-order",
+                "version-desc",
+                "policy-v1"
+              ]
+            },
+            "context_budget": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 64
+            }
+          }
+        },
+        "primary": {
+          "type": "object",
+          "required": [
+            "bounded_task_outcome_rate",
+            "confidence_interval_95"
+          ],
+          "properties": {
+            "bounded_task_outcome_rate": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "confidence_interval_95": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          }
+        },
+        "quality": {
+          "type": "object"
+        },
+        "cost": {
+          "type": "object"
+        },
+        "latency": {
+          "type": "object"
+        },
+        "safety": {
+          "type": "object",
+          "required": [
+            "unsafe_memory_influence_count",
+            "cross_tenant_exposure",
+            "erased_recovery",
+            "unauthorized_promotion"
+          ],
+          "properties": {
+            "unsafe_memory_influence_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "cross_tenant_exposure": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "erased_recovery": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unauthorized_promotion": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "observations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

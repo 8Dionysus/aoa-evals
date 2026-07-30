@@ -308,3 +308,7 @@
 ## 2026-07-27
 
 - [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)
+
+## 2026-07-29
+
+- [AOA-EV-D-0251 Active-Organ Proof Does Not Collapse Into Admission](../AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md) (`docs/decisions/AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md`)

@@ -124,6 +124,7 @@
 - [AOA-EV-D-0211 Proof Loop Aggregate Removal](../AOA-EV-D-0211-proof-loop-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0211-proof-loop-aggregate-removal.md`)
 - [AOA-EV-D-0226 Source Eval Report Validator Layer Split](../AOA-EV-D-0226-source-eval-report-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0226-source-eval-report-validator-layer-split.md`)
 - [AOA-EV-D-0230 Proof-infra Route Token Layer Split](../AOA-EV-D-0230-proof-infra-route-token-layer-split.md) (`docs/decisions/AOA-EV-D-0230-proof-infra-route-token-layer-split.md`)
+- [AOA-EV-D-0251 Active-Organ Proof Does Not Collapse Into Admission](../AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md) (`docs/decisions/AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md`)
 
 ## publication-receipts
 

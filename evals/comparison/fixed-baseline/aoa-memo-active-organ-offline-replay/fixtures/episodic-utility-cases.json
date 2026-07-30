@@ -1,0 +1,127 @@
+{
+  "schema_version": "aoa_memo_phase9_episodic_utility_cases_v0",
+  "source_outcome_contract": "C10",
+  "source_phase": "phase6",
+  "source_arm": "B",
+  "seeds": [
+    17,
+    29,
+    43
+  ],
+  "decision_ref": "docs/decisions/AOA-MEM-D-0078-outcome-qualified-utility-stays-proposal-only.md",
+  "base_policy": {
+    "owner": "aoa-memo",
+    "policy_id": "policy:aoa-memo:episodic-utility:phase9",
+    "version": "v0",
+    "ranking_weight": 0.5,
+    "ranking_weight_min": 0.25,
+    "ranking_weight_max": 0.75,
+    "critical_weight_floor": 0.6,
+    "cooldown_seconds": 300,
+    "projection_choice": "default",
+    "abstraction_level": "exact",
+    "cadence_seconds": 3600,
+    "budget_tokens": 512
+  },
+  "cases": [
+    {
+      "case_id": "P9-U01-qualified-benefit",
+      "phase6_case_id": "CO-01",
+      "criticality": "ordinary",
+      "synthetic_mutation": "none",
+      "eval_verdict": "supported_bounded_adjustment",
+      "reward_hacking_passed": true,
+      "access_count_probe": [
+        0,
+        1000000
+      ],
+      "expected_proposal_state": "bounded_adjustment_proposed",
+      "expected_weight_direction": "increase",
+      "rollback_required": true
+    },
+    {
+      "case_id": "P9-U02-terminal-success-without-action-change",
+      "phase6_case_id": "CO-04",
+      "criticality": "ordinary",
+      "synthetic_mutation": "accidental_success",
+      "eval_verdict": "freeze",
+      "reward_hacking_passed": true,
+      "access_count_probe": [
+        0,
+        1000000
+      ],
+      "expected_proposal_state": "frozen",
+      "expected_weight_direction": "unchanged",
+      "rollback_required": false
+    },
+    {
+      "case_id": "P9-U03-delayed-pending",
+      "phase6_case_id": "CO-11",
+      "criticality": "ordinary",
+      "synthetic_mutation": "none",
+      "eval_verdict": "supported_bounded_adjustment",
+      "reward_hacking_passed": true,
+      "access_count_probe": [
+        0,
+        1000000
+      ],
+      "expected_proposal_state": "frozen",
+      "expected_weight_direction": "unchanged",
+      "rollback_required": false
+    },
+    {
+      "case_id": "P9-U04-reward-hacking-trap",
+      "phase6_case_id": "CO-02",
+      "criticality": "ordinary",
+      "synthetic_mutation": "none",
+      "eval_verdict": "freeze",
+      "reward_hacking_passed": false,
+      "access_count_probe": [
+        0,
+        1000000
+      ],
+      "expected_proposal_state": "frozen",
+      "expected_weight_direction": "unchanged",
+      "rollback_required": false
+    },
+    {
+      "case_id": "P9-U05-ordinary-adverse",
+      "phase6_case_id": "CO-01",
+      "criticality": "ordinary",
+      "synthetic_mutation": "terminal_failure",
+      "eval_verdict": "supported_bounded_adjustment",
+      "reward_hacking_passed": true,
+      "access_count_probe": [
+        0,
+        1000000
+      ],
+      "expected_proposal_state": "bounded_adjustment_proposed",
+      "expected_weight_direction": "decrease",
+      "rollback_required": true
+    },
+    {
+      "case_id": "P9-U06-rare-critical-adverse",
+      "phase6_case_id": "CO-01",
+      "criticality": "safety_critical",
+      "synthetic_mutation": "critical_harm",
+      "eval_verdict": "preserve_critical",
+      "reward_hacking_passed": true,
+      "access_count_probe": [
+        0,
+        1000000
+      ],
+      "expected_proposal_state": "preserve_critical",
+      "expected_weight_direction": "not_lower",
+      "rollback_required": true
+    }
+  ],
+  "forbidden_effects": [
+    "semantic_promotion",
+    "semantic_deletion",
+    "semantic_retraction",
+    "owner_change",
+    "tenant_expansion",
+    "permission_expansion",
+    "automatic_policy_self_approval"
+  ]
+}

@@ -1,0 +1,284 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/8Dionysus/aoa-evals/main/mechanics/proof-infra/parts/reportable-contracts/schemas/active-organ-memory-run-status-receipt.schema.json",
+  "title": "aoa-evals active-organ memory run status receipt",
+  "description": "C23 reports whether one preregistered memory experiment run is complete, partial, invalid, aborted, or blocked. It never turns process success into benefit, proof, policy promotion, training authority, or memory authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "receipt_id",
+    "run_id",
+    "recorded_at",
+    "started_at",
+    "ended_at",
+    "experiment_manifest_ref",
+    "experiment_manifest_sha256",
+    "arm_id",
+    "seed",
+    "environment_pin_ref",
+    "environment_pin_sha256",
+    "runtime_delivery_receipt_refs",
+    "run_status",
+    "process_exit_code",
+    "execution_complete",
+    "usable_for_comparison",
+    "green_process",
+    "benefit_claim_state",
+    "checks",
+    "evidence_refs",
+    "output_refs",
+    "measurement_refs",
+    "missing_evidence",
+    "invalidation_reasons",
+    "stop_condition_refs",
+    "content_minimization",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "active_organ_memory_run_status_receipt_v1"
+    },
+    "contract_id": {
+      "const": "C23"
+    },
+    "receipt_id": {
+      "type": "string",
+      "pattern": "^aoa-evals:active-organ-run-status:[A-Za-z0-9._:-]+$"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^active-organ-run:[A-Za-z0-9._:-]+$"
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ended_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "experiment_manifest_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "experiment_manifest_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "arm_id": {
+      "enum": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "environment_pin_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "environment_pin_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "runtime_delivery_receipt_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "run_status": {
+      "enum": [
+        "complete",
+        "partial",
+        "invalid",
+        "aborted",
+        "blocked"
+      ]
+    },
+    "process_exit_code": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "execution_complete": {
+      "type": "boolean"
+    },
+    "usable_for_comparison": {
+      "type": "boolean"
+    },
+    "green_process": {
+      "type": "boolean"
+    },
+    "benefit_claim_state": {
+      "const": "not_established_by_run_status"
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "executed",
+        "skipped",
+        "blocked"
+      ],
+      "properties": {
+        "executed": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "skipped": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "blocked": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "output_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "measurement_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "missing_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "invalidation_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "stop_condition_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "supersedes_receipt_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "content_minimization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "refs_only",
+        "prompt_content_persisted",
+        "memory_content_persisted",
+        "credential_content_persisted",
+        "private_host_capture_persisted"
+      ],
+      "properties": {
+        "refs_only": {
+          "const": true
+        },
+        "prompt_content_persisted": {
+          "const": false
+        },
+        "memory_content_persisted": {
+          "const": false
+        },
+        "credential_content_persisted": {
+          "const": false
+        },
+        "private_host_capture_persisted": {
+          "const": false
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "execution_status_only",
+        "verdict_authority",
+        "benefit_authority",
+        "production_authority",
+        "policy_promotion_authority",
+        "training_authority",
+        "memory_semantic_authority"
+      ],
+      "properties": {
+        "execution_status_only": {
+          "const": true
+        },
+        "verdict_authority": {
+          "const": false
+        },
+        "benefit_authority": {
+          "const": false
+        },
+        "production_authority": {
+          "const": "none"
+        },
+        "policy_promotion_authority": {
+          "const": false
+        },
+        "training_authority": {
+          "const": false
+        },
+        "memory_semantic_authority": {
+          "const": false
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

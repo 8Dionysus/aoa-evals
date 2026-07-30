@@ -1,0 +1,570 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agents-of-abyss.local/schemas/codex-owner-orientation-consumer-report-v0.json",
+  "title": "Codex owner-orientation source-local consumer report v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "created_at",
+    "consumer_id",
+    "evidence_scope",
+    "case_fixture",
+    "seeds",
+    "pins",
+    "arms",
+    "paired_observations",
+    "rollback",
+    "budgets",
+    "exit_gate_passed",
+    "verdict",
+    "authority",
+    "limitations",
+    "report_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "codex_owner_orientation_consumer_report_v0"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "consumer_id": {
+      "const": "codex_owner_orientation_v0"
+    },
+    "evidence_scope": {
+      "const": "source-local-production-like-no-deployment"
+    },
+    "case_fixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_count",
+        "sha256"
+      ],
+      "properties": {
+        "case_count": {
+          "type": "integer",
+          "minimum": 8
+        },
+        "sha256": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "seeds": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "type": "integer"
+      }
+    },
+    "pins": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "consumer_report_schema",
+        "consumer_runner",
+        "consumer_fixture",
+        "sdk_plan_schema",
+        "sdk_registry",
+        "sdk_dependency_manifest",
+        "memo_profile",
+        "memo_policy",
+        "memo_sdk_compatibility",
+        "memo_packet_builder",
+        "stack_runtime_compatibility",
+        "stack_c20_schema",
+        "stack_delivery_core",
+        "host_contract_examples"
+      ],
+      "properties": {
+        "consumer_report_schema": {
+          "$ref": "#/$defs/digest"
+        },
+        "consumer_runner": {
+          "$ref": "#/$defs/digest"
+        },
+        "consumer_fixture": {
+          "$ref": "#/$defs/digest"
+        },
+        "sdk_plan_schema": {
+          "$ref": "#/$defs/digest"
+        },
+        "sdk_registry": {
+          "$ref": "#/$defs/digest"
+        },
+        "sdk_dependency_manifest": {
+          "$ref": "#/$defs/digest"
+        },
+        "memo_profile": {
+          "$ref": "#/$defs/digest"
+        },
+        "memo_policy": {
+          "$ref": "#/$defs/digest"
+        },
+        "memo_sdk_compatibility": {
+          "$ref": "#/$defs/digest"
+        },
+        "memo_packet_builder": {
+          "$ref": "#/$defs/digest"
+        },
+        "stack_runtime_compatibility": {
+          "$ref": "#/$defs/digest"
+        },
+        "stack_c20_schema": {
+          "$ref": "#/$defs/digest"
+        },
+        "stack_delivery_core": {
+          "$ref": "#/$defs/digest"
+        },
+        "host_contract_examples": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "arms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "0_verified_current_source_lexical",
+        "A_reviewed_explicit_pull_bounded"
+      ],
+      "properties": {
+        "0_verified_current_source_lexical": {
+          "$ref": "#/$defs/armSummary"
+        },
+        "A_reviewed_explicit_pull_bounded": {
+          "$ref": "#/$defs/armSummary"
+        }
+      }
+    },
+    "paired_observations": {
+      "type": "array",
+      "minItems": 24,
+      "items": {
+        "$ref": "#/$defs/pairedObservation"
+      }
+    },
+    "rollback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target",
+        "passed",
+        "observations"
+      ],
+      "properties": {
+        "target": {
+          "const": "verified-current-no-memory"
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "observations": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/$defs/rollbackObservation"
+          }
+        }
+      }
+    },
+    "budgets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "p95_latency_ms",
+        "mean_estimated_context_tokens",
+        "unsafe_authority_count"
+      ],
+      "properties": {
+        "p95_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "mean_estimated_context_tokens": {
+          "type": "number",
+          "minimum": 0
+        },
+        "unsafe_authority_count": {
+          "const": 0
+        }
+      }
+    },
+    "exit_gate_passed": {
+      "type": "boolean"
+    },
+    "verdict": {
+      "enum": [
+        "supports bounded source-local A continuation",
+        "does not support bounded source-local A continuation"
+      ]
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_authorized",
+        "deployment_authorized",
+        "policy_promotion_authorized",
+        "landing_authorized",
+        "memory_write_authorized",
+        "effect_authority"
+      ],
+      "properties": {
+        "production_authorized": {
+          "const": false
+        },
+        "deployment_authorized": {
+          "const": false
+        },
+        "policy_promotion_authorized": {
+          "const": false
+        },
+        "landing_authorized": {
+          "const": false
+        },
+        "memory_write_authorized": {
+          "const": false
+        },
+        "effect_authority": {
+          "const": "none"
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "report_digest": {
+      "$ref": "#/$defs/digest"
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "rate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "nonNegativeNumber": {
+      "type": "number",
+      "minimum": 0
+    },
+    "armSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_count",
+        "outcome_rate",
+        "currentness_rate",
+        "source_route_rate",
+        "mean_latency_ms",
+        "p95_latency_ms",
+        "mean_estimated_context_tokens",
+        "mean_bytes_scanned",
+        "mean_filesystem_reads",
+        "mean_operator_attention_units",
+        "unsafe_authority_count"
+      ],
+      "properties": {
+        "observation_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "outcome_rate": {
+          "$ref": "#/$defs/rate"
+        },
+        "currentness_rate": {
+          "$ref": "#/$defs/rate"
+        },
+        "source_route_rate": {
+          "$ref": "#/$defs/rate"
+        },
+        "mean_latency_ms": {
+          "$ref": "#/$defs/nonNegativeNumber"
+        },
+        "p95_latency_ms": {
+          "$ref": "#/$defs/nonNegativeNumber"
+        },
+        "mean_estimated_context_tokens": {
+          "$ref": "#/$defs/nonNegativeNumber"
+        },
+        "mean_bytes_scanned": {
+          "$ref": "#/$defs/nonNegativeNumber"
+        },
+        "mean_filesystem_reads": {
+          "$ref": "#/$defs/nonNegativeNumber"
+        },
+        "mean_operator_attention_units": {
+          "$ref": "#/$defs/nonNegativeNumber"
+        },
+        "unsafe_authority_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "baselineObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selected_object_id",
+        "source_ref",
+        "source_current",
+        "estimated_context_tokens",
+        "bytes_scanned",
+        "filesystem_reads",
+        "operator_attention_units",
+        "latency_ms",
+        "correct",
+        "current"
+      ],
+      "properties": {
+        "selected_object_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_current": {
+          "type": "boolean"
+        },
+        "estimated_context_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bytes_scanned": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "filesystem_reads": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "operator_attention_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "latency_ms": {
+          "$ref": "#/$defs/nonNegativeNumber"
+        },
+        "correct": {
+          "type": "boolean"
+        },
+        "current": {
+          "type": "boolean"
+        }
+      }
+    },
+    "activeObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selected_object_id",
+        "source_route",
+        "query_digest",
+        "recall_intent_id",
+        "recall_intent_digest",
+        "plan_digest",
+        "recall_packet_ref",
+        "recall_packet_digest",
+        "intervention_decision_ref",
+        "intervention_decision_digest",
+        "runtime_receipt_id",
+        "runtime_receipt_digest",
+        "correct",
+        "current",
+        "source_route_correct",
+        "estimated_context_tokens",
+        "bytes_scanned",
+        "filesystem_reads",
+        "operator_attention_units",
+        "latency_ms",
+        "delivery_state",
+        "c20_reason",
+        "unsafe_authority_count"
+      ],
+      "properties": {
+        "selected_object_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_route": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "query_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "recall_intent_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recall_intent_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "plan_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "recall_packet_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recall_packet_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "intervention_decision_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "intervention_decision_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "runtime_receipt_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "runtime_receipt_digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "correct": {
+          "type": "boolean"
+        },
+        "current": {
+          "type": "boolean"
+        },
+        "source_route_correct": {
+          "type": "boolean"
+        },
+        "estimated_context_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bytes_scanned": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "filesystem_reads": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "operator_attention_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "latency_ms": {
+          "$ref": "#/$defs/nonNegativeNumber"
+        },
+        "delivery_state": {
+          "enum": [
+            "delivered",
+            "suppressed",
+            "expired"
+          ]
+        },
+        "c20_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unsafe_authority_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "pairedObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seed",
+        "case_id",
+        "recall_mode",
+        "expected_object_id",
+        "baseline",
+        "active"
+      ],
+      "properties": {
+        "seed": {
+          "type": "integer"
+        },
+        "case_id": {
+          "type": "string",
+          "pattern": "^CO-[0-9]{2}$"
+        },
+        "recall_mode": {
+          "enum": [
+            "semantic",
+            "episodic",
+            "procedural",
+            "lineage",
+            "source_route"
+          ]
+        },
+        "expected_object_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "baseline": {
+          "$ref": "#/$defs/baselineObservation"
+        },
+        "active": {
+          "$ref": "#/$defs/activeObservation"
+        }
+      }
+    },
+    "rollbackObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seed",
+        "latency_ms",
+        "status",
+        "delivery_state",
+        "memory_payload_count",
+        "reason",
+        "passed"
+      ],
+      "properties": {
+        "seed": {
+          "type": "integer"
+        },
+        "latency_ms": {
+          "$ref": "#/$defs/nonNegativeNumber"
+        },
+        "status": {
+          "const": "off"
+        },
+        "delivery_state": {
+          "const": "suppressed"
+        },
+        "memory_payload_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reason": {
+          "const": "policy_silence"
+        },
+        "passed": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

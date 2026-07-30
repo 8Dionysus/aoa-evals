@@ -366,6 +366,9 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
 
     regression_artifacts = entries["aoa-regression-same-task"]["proof_artifacts"]
     runtime_artifacts = entries["aoa-runtime-latency-tradeoff"]["proof_artifacts"]
+    memo_active_organ_artifacts = entries[
+        "aoa-memo-active-organ-offline-replay"
+    ]["proof_artifacts"]
     longitudinal_artifacts = entries["aoa-longitudinal-growth-snapshot"]["proof_artifacts"]
     stress_recovery_artifacts = entries["aoa-stress-recovery-window"]["proof_artifacts"]
 
@@ -378,6 +381,11 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     assert runtime_artifacts["runner_contract_path"] == "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/runners/contract.json"
     assert runtime_artifacts["report_schema_path"] == "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/reports/summary.schema.json"
     assert runtime_artifacts["paired_readout_path"] == "mechanics/comparison-spine/parts/fixed-baseline/reports/runtime-latency-tradeoff-proof-flow-v1.md"
+
+    assert memo_active_organ_artifacts["shared_fixture_family_path"] == "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+    assert memo_active_organ_artifacts["runner_contract_path"] == "evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/runners/contract.json"
+    assert memo_active_organ_artifacts["report_schema_path"] == "evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/reports/summary.schema.json"
+    assert memo_active_organ_artifacts["paired_readout_path"] == "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md"
 
     assert longitudinal_artifacts["shared_fixture_family_path"] == "mechanics/comparison-spine/parts/longitudinal-window/fixtures/repeated-window-bounded-v1/README.md"
     assert longitudinal_artifacts["runner_contract_path"] == "evals/comparison/longitudinal-window/aoa-longitudinal-growth-snapshot/runners/contract.json"
@@ -392,6 +400,8 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     assert entries["aoa-regression-same-task"]["comparison_surface"]["baseline_target_label"] == "RS-v1 frozen bounded workflow reference"
     assert entries["aoa-runtime-latency-tradeoff"]["comparison_surface"]["baseline_target_label"] == "sanitized local runtime baseline variant"
     assert entries["aoa-runtime-latency-tradeoff"]["comparison_surface"]["anchor_surface"] == "aoa-local-text-contract-fit"
+    assert entries["aoa-memo-active-organ-offline-replay"]["comparison_surface"]["baseline_target_label"] == "verified current context with memory influence disabled"
+    assert entries["aoa-memo-active-organ-offline-replay"]["comparison_surface"]["anchor_surface"] == "aoa-memo-recall-integrity"
     assert entries["aoa-output-vs-process-gap"]["comparison_surface"]["peer_surfaces"] == [
         "aoa-artifact-review-rubric",
         "aoa-bounded-change-quality",
@@ -399,8 +409,9 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     assert entries["aoa-longitudinal-growth-snapshot"]["comparison_surface"]["window_family_label"] == "repeated-window-bounded-v1 bounded workflow sequence"
     assert entries["aoa-stress-recovery-window"]["comparison_surface"]["window_family_label"] == "stress-recovery-window-bounded-v1 bounded stress recovery sequence"
     assert set(comparison_entries) == {
-        "aoa-longitudinal-growth-snapshot",
-        "aoa-output-vs-process-gap",
+            "aoa-longitudinal-growth-snapshot",
+            "aoa-memo-active-organ-offline-replay",
+            "aoa-output-vs-process-gap",
         "aoa-regression-same-task",
         "aoa-runtime-latency-tradeoff",
         "aoa-stress-recovery-window",

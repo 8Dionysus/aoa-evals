@@ -1,0 +1,293 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/8Dionysus/aoa-evals/main/evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/reports/episodic-utility.schema.json",
+  "title": "AoA memo Phase 9 episodic utility lab report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "created_at",
+    "evidence_scope",
+    "pins",
+    "observations",
+    "case_results",
+    "summary",
+    "exit_gate",
+    "authority",
+    "limitations",
+    "report_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aoa_memo_phase9_episodic_utility_report_v0"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "evidence_scope": {
+      "const": "source-local-outcome-qualified-utility-mechanism-no-deployment"
+    },
+    "pins": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/sha256"
+      },
+      "minProperties": 8
+    },
+    "observations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_count",
+        "real_c10_receipt_count",
+        "synthetic_adversarial_receipt_count",
+        "seed_count"
+      ],
+      "properties": {
+        "case_count": {
+          "const": 6
+        },
+        "real_c10_receipt_count": {
+          "type": "integer",
+          "minimum": 12
+        },
+        "synthetic_adversarial_receipt_count": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "seed_count": {
+          "const": 3
+        }
+      }
+    },
+    "case_results": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "stats_aggregate_ref",
+          "proposal_ref",
+          "proposal_state",
+          "qualified_observations",
+          "pending_delayed",
+          "weight_before",
+          "weight_candidate",
+          "weight_direction",
+          "access_count_invariant",
+          "semantic_unchanged",
+          "forbidden_effect_count",
+          "critical_preservation_status",
+          "rollback_required",
+          "rollback_exact"
+        ],
+        "properties": {
+          "case_id": {
+            "$ref": "#/$defs/ref"
+          },
+          "stats_aggregate_ref": {
+            "$ref": "#/$defs/ref"
+          },
+          "proposal_ref": {
+            "$ref": "#/$defs/ref"
+          },
+          "proposal_state": {
+            "enum": [
+              "bounded_adjustment_proposed",
+              "frozen",
+              "preserve_critical"
+            ]
+          },
+          "qualified_observations": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "pending_delayed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "weight_before": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "weight_candidate": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "weight_direction": {
+            "enum": [
+              "increase",
+              "decrease",
+              "unchanged",
+              "not_lower"
+            ]
+          },
+          "access_count_invariant": {
+            "const": true
+          },
+          "semantic_unchanged": {
+            "const": true
+          },
+          "forbidden_effect_count": {
+            "const": 0
+          },
+          "critical_preservation_status": {
+            "enum": [
+              "not_applicable",
+              "preserved"
+            ]
+          },
+          "rollback_required": {
+            "type": "boolean"
+          },
+          "rollback_exact": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bounded_adjustment_proposals",
+        "frozen_proposals",
+        "critical_preservation_proposals",
+        "rollback_drills",
+        "rollback_failures",
+        "access_count_invariance_failures",
+        "semantic_mutations",
+        "forbidden_effects_observed"
+      ],
+      "properties": {
+        "bounded_adjustment_proposals": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "frozen_proposals": {
+          "type": "integer",
+          "minimum": 3
+        },
+        "critical_preservation_proposals": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "rollback_drills": {
+          "type": "integer",
+          "minimum": 3
+        },
+        "rollback_failures": {
+          "const": 0
+        },
+        "access_count_invariance_failures": {
+          "const": 0
+        },
+        "semantic_mutations": {
+          "const": 0
+        },
+        "forbidden_effects_observed": {
+          "const": 0
+        }
+      }
+    },
+    "exit_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "outcome_action_counterfactual_qualified",
+        "delayed_effects_accounted",
+        "reward_hacking_checked",
+        "accidental_success_checked",
+        "rare_critical_preserved",
+        "rollback_weight_version_proven",
+        "passed"
+      ],
+      "properties": {
+        "outcome_action_counterfactual_qualified": {
+          "const": true
+        },
+        "delayed_effects_accounted": {
+          "const": true
+        },
+        "reward_hacking_checked": {
+          "const": true
+        },
+        "accidental_success_checked": {
+          "const": true
+        },
+        "rare_critical_preserved": {
+          "const": true
+        },
+        "rollback_weight_version_proven": {
+          "const": true
+        },
+        "passed": {
+          "const": true
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy_applied",
+        "runtime_mutated",
+        "semantic_transition",
+        "tenant_expanded",
+        "permissions_expanded",
+        "deployment_performed",
+        "landing_performed"
+      ],
+      "properties": {
+        "policy_applied": {
+          "const": false
+        },
+        "runtime_mutated": {
+          "const": false
+        },
+        "semantic_transition": {
+          "const": false
+        },
+        "tenant_expanded": {
+          "const": false
+        },
+        "permissions_expanded": {
+          "const": false
+        },
+        "deployment_performed": {
+          "const": false
+        },
+        "landing_performed": {
+          "const": false
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "$ref": "#/$defs/ref"
+      },
+      "uniqueItems": true
+    },
+    "report_digest": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

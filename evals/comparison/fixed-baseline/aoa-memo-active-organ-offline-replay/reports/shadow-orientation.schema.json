@@ -1,0 +1,414 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.local/aoa-evals/shadow-orientation-report-v0.schema.json",
+  "title": "Phase 7 consumer-invisible shadow orientation report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "created_at",
+    "evidence_scope",
+    "seeds",
+    "case_corpus",
+    "pins",
+    "host",
+    "arms",
+    "statistical_comparison",
+    "paired_observations",
+    "safety_probes",
+    "metabolism",
+    "authority",
+    "mechanism_exit_gate_passed",
+    "verdict",
+    "known_gaps",
+    "report_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "codex_owner_orientation_shadow_report_v0"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "evidence_scope": {
+      "const": "source-local-consumer-invisible-counterfactual-no-deployment"
+    },
+    "seeds": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "type": "integer"
+      }
+    },
+    "case_corpus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relevant_cases",
+        "irrelevant_cases",
+        "sha256"
+      ],
+      "properties": {
+        "relevant_cases": {
+          "type": "integer",
+          "minimum": 8
+        },
+        "irrelevant_cases": {
+          "type": "integer",
+          "minimum": 4
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "pins": {
+      "type": "object",
+      "minProperties": 12,
+      "additionalProperties": {
+        "$ref": "#/$defs/sha256"
+      }
+    },
+    "host": {
+      "type": "object",
+      "required": [
+        "disposition",
+        "admission_digest",
+        "launch_executed",
+        "project_root_mutation",
+        "stack_root_mutation",
+        "machine_contention_events",
+        "thermal_measurement",
+        "energy_measurement"
+      ],
+      "properties": {
+        "disposition": {
+          "enum": [
+            "start",
+            "soften",
+            "defer",
+            "deny"
+          ]
+        },
+        "admission_digest": {
+          "$ref": "#/$defs/sha256"
+        },
+        "launch_executed": {
+          "const": false
+        },
+        "project_root_mutation": {
+          "const": "forbidden"
+        },
+        "stack_root_mutation": {
+          "const": "forbidden"
+        },
+        "machine_contention_events": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "thermal_measurement": {
+          "const": "unknown"
+        },
+        "energy_measurement": {
+          "const": "unknown"
+        }
+      }
+    },
+    "arms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "A_no_memory",
+        "C_selective_shadow",
+        "D_always_shadow"
+      ],
+      "properties": {
+        "A_no_memory": {
+          "$ref": "#/$defs/arm"
+        },
+        "C_selective_shadow": {
+          "$ref": "#/$defs/arm"
+        },
+        "D_always_shadow": {
+          "$ref": "#/$defs/arm"
+        }
+      }
+    },
+    "statistical_comparison": {
+      "type": "object",
+      "required": [
+        "selective_vs_A",
+        "selective_vs_always",
+        "method",
+        "unit"
+      ],
+      "properties": {
+        "selective_vs_A": {
+          "$ref": "#/$defs/interval"
+        },
+        "selective_vs_always": {
+          "$ref": "#/$defs/interval"
+        },
+        "method": {
+          "const": "deterministic-paired-bootstrap-5000"
+        },
+        "unit": {
+          "const": "case-seed observation"
+        }
+      }
+    },
+    "paired_observations": {
+      "type": "object",
+      "required": [
+        "A_no_memory",
+        "C_selective_shadow",
+        "D_always_shadow"
+      ],
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object"
+        }
+      }
+    },
+    "safety_probes": {
+      "type": "object",
+      "required": [
+        "count",
+        "passed",
+        "rows",
+        "poison_survival_count",
+        "stale_recall_count",
+        "erase_residue_recall_count"
+      ],
+      "properties": {
+        "count": {
+          "type": "integer",
+          "minimum": 9
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "rows": {
+          "type": "array",
+          "minItems": 9,
+          "items": {
+            "type": "object"
+          }
+        },
+        "poison_survival_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stale_recall_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "erase_residue_recall_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "metabolism": {
+      "type": "object",
+      "required": [
+        "ephemeral_candidate_packets",
+        "durable_candidates_written",
+        "candidate_backlog",
+        "quarantine_packets",
+        "policy_proposals_accepted",
+        "semantic_transitions",
+        "content_storage_growth_bytes",
+        "erase_reconciliation_blocked_recall"
+      ],
+      "properties": {
+        "ephemeral_candidate_packets": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "durable_candidates_written": {
+          "const": 0
+        },
+        "candidate_backlog": {
+          "const": 0
+        },
+        "quarantine_packets": {
+          "type": "integer",
+          "minimum": 3
+        },
+        "policy_proposals_accepted": {
+          "const": 0
+        },
+        "semantic_transitions": {
+          "const": 0
+        },
+        "content_storage_growth_bytes": {
+          "const": 0
+        },
+        "erase_reconciliation_blocked_recall": {
+          "type": "boolean"
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "consumer_visible_count",
+        "delivery_attempt_count",
+        "actual_action_change_count",
+        "content_persisted_count",
+        "candidate_persisted_count",
+        "semantic_transition_count",
+        "policy_promotion_count",
+        "external_effect_count",
+        "landing_performed"
+      ],
+      "properties": {
+        "consumer_visible_count": {
+          "const": 0
+        },
+        "delivery_attempt_count": {
+          "const": 0
+        },
+        "actual_action_change_count": {
+          "const": 0
+        },
+        "content_persisted_count": {
+          "const": 0
+        },
+        "candidate_persisted_count": {
+          "const": 0
+        },
+        "semantic_transition_count": {
+          "const": 0
+        },
+        "policy_promotion_count": {
+          "const": 0
+        },
+        "external_effect_count": {
+          "const": 0
+        },
+        "landing_performed": {
+          "const": false
+        }
+      }
+    },
+    "mechanism_exit_gate_passed": {
+      "type": "boolean"
+    },
+    "verdict": {
+      "enum": [
+        "selective-shadow-mechanism-passed",
+        "shadow-mechanism-evidence-insufficient"
+      ]
+    },
+    "known_gaps": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "report_digest": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mean",
+        "lower_95",
+        "upper_95"
+      ],
+      "properties": {
+        "mean": {
+          "type": "number"
+        },
+        "lower_95": {
+          "type": "number"
+        },
+        "upper_95": {
+          "type": "number"
+        }
+      }
+    },
+    "arm": {
+      "type": "object",
+      "required": [
+        "observation_count",
+        "relevant_count",
+        "irrelevant_count",
+        "intervention_count",
+        "useful_intervention_count",
+        "intervention_precision",
+        "intervention_recall",
+        "silence_specificity",
+        "decision_accuracy",
+        "actual_task_result_delta",
+        "estimated_counterfactual_task_delta",
+        "estimated_net_benefit",
+        "mean_latency_ms",
+        "p95_latency_ms",
+        "mean_estimated_context_tokens",
+        "counterfactual_action_change_count",
+        "actual_action_change_count",
+        "estimated_repeated_failure_avoided_count",
+        "delayed_currentness_pending_count",
+        "missed_refresh_count",
+        "stale_recall_count",
+        "operator_minutes",
+        "candidate_backlog",
+        "content_storage_growth_bytes",
+        "machine_contention_events",
+        "unsafe_authority_count"
+      ],
+      "properties": {
+        "intervention_precision": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "intervention_recall": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "silence_specificity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "actual_task_result_delta": {
+          "const": 0
+        },
+        "actual_action_change_count": {
+          "const": 0
+        },
+        "operator_minutes": {
+          "const": 0
+        },
+        "candidate_backlog": {
+          "const": 0
+        },
+        "content_storage_growth_bytes": {
+          "const": 0
+        },
+        "unsafe_authority_count": {
+          "const": 0
+        }
+      }
+    }
+  }
+}

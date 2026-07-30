@@ -1,0 +1,92 @@
+{
+  "schema_version": "codex_owner_orientation_consumer_cases_v0",
+  "data_class": "public-reviewed-owner-sources",
+  "baseline": "verified-current-source-lexical-v0",
+  "consumer": "codex_owner_orientation_v0",
+  "cases": [
+    {
+      "case_id": "CO-01",
+      "recall_mode": "semantic",
+      "query": "Who owns the aoa-memo MCP access plane and where is durable memory authority?",
+      "expected_object_id": "memo.decision.2026-05-22.abyss-stack-aoa-memo-mcp-access-plane",
+      "baseline_source_ref": "memo/intake/reviewed/abyss-stack.20260522T021004Z.aoa-memo-mcp-access-plane.reviewed-intake.json"
+    },
+    {
+      "case_id": "CO-02",
+      "recall_mode": "semantic",
+      "query": "How does aoa-memo-mcp discover workspace memo ports without a hardcoded pilot list?",
+      "expected_object_id": "memo.decision.2026-05-26.abyss-stack-aoa-memo-mcp-workspace-port-discovery",
+      "baseline_source_ref": "memo/intake/reviewed/abyss-stack.20260526T021621Z.aoa-memo-mcp-derives-known-local-memo-ports-from.aoa-memo-intake.json"
+    },
+    {
+      "case_id": "CO-03",
+      "recall_mode": "semantic",
+      "query": "Which owner provides OS access-plane MCP services for memory eval and machine context?",
+      "expected_object_id": "memo.decision.2026-05-26.abyss-stack-os-access-plane-mcp-services",
+      "baseline_source_ref": "memo/intake/reviewed/abyss-stack.20260526T003500Z.os-access-plane-mcp-services.reviewed-intake.json"
+    },
+    {
+      "case_id": "CO-04",
+      "recall_mode": "semantic",
+      "query": "Should aoa_memo search reviewed corpus read models before file snippets?",
+      "expected_object_id": "memo.decision.2026-05-22.corpus-backed-mcp-search",
+      "baseline_source_ref": "repo:abyss-stack/mcp/services/aoa-memo-mcp/DESIGN.md"
+    },
+    {
+      "case_id": "CO-05",
+      "recall_mode": "semantic",
+      "query": "Where was the distributed memory organ foundation placed across existing owner surfaces?",
+      "expected_object_id": "memo.decision.2026-05-25.distributed-memory-organ-foundation",
+      "baseline_source_ref": "docs/decisions/AOA-MEM-D-0066-distributed-memory-organ-foundation.md"
+    },
+    {
+      "case_id": "CO-06",
+      "recall_mode": "semantic",
+      "query": "Who owns memory operational readouts for access-plane currentness and source intake wave?",
+      "expected_object_id": "memo.decision.2026-05-25.memory-operational-readouts",
+      "baseline_source_ref": "docs/decisions/AOA-MEM-D-0069-memory-operational-readouts.md"
+    },
+    {
+      "case_id": "CO-07",
+      "recall_mode": "semantic",
+      "query": "Where does aoa-memo keep the reviewed root corpus district?",
+      "expected_object_id": "memo.decision.2026-05-21.reviewed-corpus-district",
+      "baseline_source_ref": "DESIGN.md"
+    },
+    {
+      "case_id": "CO-08",
+      "recall_mode": "semantic",
+      "query": "How do reviewed memory objects feed evals KAG stats playbooks agents and runtime?",
+      "expected_object_id": "memo.decision.2026-05-22.reviewed-memory-consumer-handoff-spine",
+      "baseline_source_ref": "mechanics/consumer-handoff/README.md"
+    },
+    {
+      "case_id": "CO-09",
+      "recall_mode": "semantic",
+      "query": "Where should executable memory commands and operating routes live?",
+      "expected_object_id": "memo.pattern.2026-05-22.agents-route-cards-own-memory-operations",
+      "baseline_source_ref": "AGENTS.md"
+    },
+    {
+      "case_id": "CO-10",
+      "recall_mode": "semantic",
+      "query": "How do local memo candidates remain portable instead of using workstation absolute paths?",
+      "expected_object_id": "memo.pattern.2026-05-22.portable-local-memo-refs",
+      "baseline_source_ref": "docs/memory/LOCAL_MEMO_PORT_STANDARD.md"
+    },
+    {
+      "case_id": "CO-11",
+      "recall_mode": "source_route",
+      "query": "What rejects reviewed intake when source and evidence refs are missing?",
+      "expected_object_id": "memo.audit.2026-05-22.reviewed-intake-evidence-guard",
+      "baseline_source_ref": "docs/decisions/AOA-MEM-D-0064-reviewed-intake-landing.md"
+    },
+    {
+      "case_id": "CO-12",
+      "recall_mode": "lineage",
+      "query": "What is the reviewed corpus bridge for the Tree of Sophia lineage KAG donor?",
+      "expected_object_id": "memo.bridge.2026-03-23.tos-lineage-kag-candidate",
+      "baseline_source_ref": "mechanics/consumer-handoff/docs/KAG_SOURCE_EXPORT.md"
+    }
+  ]
+}

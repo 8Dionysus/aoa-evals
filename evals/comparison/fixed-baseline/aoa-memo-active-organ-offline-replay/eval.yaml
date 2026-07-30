@@ -1,0 +1,48 @@
+name: aoa-memo-active-organ-offline-replay
+category: comparative
+status: draft
+object_under_evaluation: causal net benefit and boundary integrity of the aoa-memo federated active-organ architecture under matched offline replay
+claim_type: comparative
+baseline_mode: fixed-baseline
+verdict_shape: comparative
+report_format: comparative-summary
+maturity_score: 1
+rigor_level: bounded
+repeatability: moderate
+portability_level: local-shaped
+review_required: true
+validation_strength: baseline
+export_ready: false
+blind_spot_disclosure: required-and-present
+score_interpretation_bound: explicit
+technique_dependencies: []
+skill_dependencies: []
+relations:
+  - type: complements
+    target: aoa-memo-write-path-guardrails
+  - type: complements
+    target: aoa-memo-recall-integrity
+  - type: complements
+    target: aoa-memo-contradiction-integrity
+  - type: complements
+    target: aoa-trace-outcome-separation
+  - type: complements
+    target: aoa-runtime-latency-tradeoff
+  - type: used_together_for
+    target: aoa-eval-integrity-check
+evidence:
+  - kind: origin_need
+    path: notes/origin-need.md
+  - kind: support_note
+    path: notes/comparison-contract.md
+  - kind: baseline_readiness
+    path: notes/baseline-readiness.md
+  - kind: integrity_check
+    path: checks/eval-integrity-check.md
+comparison_surface:
+  shared_family_path: mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md
+  paired_readout_path: mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md
+  integrity_sidecar: aoa-eval-integrity-check
+  anchor_surface: aoa-memo-recall-integrity
+  baseline_target_label: verified current context with memory influence disabled
+  selection_question: Does the bounded task require a fixed-baseline causal comparison of memory-disabled, pull-only, monolithic proactive, and federated policy-gated memory?

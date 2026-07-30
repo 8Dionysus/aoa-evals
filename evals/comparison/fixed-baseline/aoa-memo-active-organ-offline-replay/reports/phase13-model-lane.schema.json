@@ -1,0 +1,362 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agents-of-abyss.local/aoa-evals/phase13-model-lane.schema.json",
+  "title": "AoA memo active-organ Phase 13 model lane report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_id",
+    "generated_at",
+    "model",
+    "input",
+    "execution",
+    "by_arm",
+    "observations",
+    "claim_limit",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "report_id": {
+      "type": "string",
+      "pattern": "^aoa-memo-phase13-model-[a-z0-9._-]+$"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "model_id",
+        "model_revision",
+        "runtime_id",
+        "endpoint",
+        "resource_policy_ref",
+        "resource_policy_sha256",
+        "host_status_ref",
+        "host_status_sha256",
+        "seed",
+        "temperature",
+        "max_tokens"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "pattern": "^[a-z0-9._-]+$"
+        },
+        "model_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_revision": {
+          "type": "string",
+          "minLength": 7
+        },
+        "runtime_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "endpoint": {
+          "type": "string",
+          "pattern": "^http://127\\.0\\.0\\.1:[0-9]+$"
+        },
+        "resource_policy_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resource_policy_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "host_status_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "host_status_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "seed": {
+          "type": "integer"
+        },
+        "temperature": {
+          "const": 0
+        },
+        "max_tokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 256
+        }
+      }
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "attempted_prompt_count"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "attempted_prompt_count": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "complete_count",
+        "invalid_count",
+        "resumed_observation_count",
+        "checkpoint_path",
+        "checkpoint_sha256",
+        "hidden_retry",
+        "resource_admission_bypassed"
+      ],
+      "properties": {
+        "complete_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "invalid_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "resumed_observation_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "checkpoint_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "checkpoint_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "hidden_retry": {
+          "const": false
+        },
+        "resource_admission_bypassed": {
+          "const": false
+        }
+      }
+    },
+    "by_arm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "A",
+        "B",
+        "C"
+      ],
+      "properties": {
+        "A": {
+          "$ref": "#/$defs/arm"
+        },
+        "B": {
+          "$ref": "#/$defs/arm"
+        },
+        "C": {
+          "$ref": "#/$defs/arm"
+        }
+      }
+    },
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "prompt_id",
+          "question_id",
+          "question_type",
+          "arm_id",
+          "prompt_sha256",
+          "attempt_index",
+          "retry_count",
+          "status",
+          "http_status",
+          "latency_ms",
+          "response",
+          "usage",
+          "normalized_match",
+          "token_f1",
+          "error"
+        ],
+        "properties": {
+          "prompt_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "question_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "question_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "arm_id": {
+            "enum": [
+              "A",
+              "B",
+              "C"
+            ]
+          },
+          "prompt_sha256": {
+            "$ref": "#/$defs/sha256"
+          },
+          "attempt_index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "retry_count": {
+            "const": 0
+          },
+          "status": {
+            "enum": [
+              "complete",
+              "invalid"
+            ]
+          },
+          "http_status": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 100,
+            "maximum": 599
+          },
+          "latency_ms": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "response": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "usage": {
+            "type": "object"
+          },
+          "normalized_match": {
+            "type": "boolean"
+          },
+          "token_f1": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "claim_limit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "benefit_verdict",
+        "policy_promotion",
+        "production",
+        "training",
+        "landing"
+      ],
+      "properties": {
+        "benefit_verdict": {
+          "const": false
+        },
+        "policy_promotion": {
+          "const": false
+        },
+        "production": {
+          "const": false
+        },
+        "training": {
+          "const": false
+        },
+        "landing": {
+          "const": false
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "arm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempted",
+        "complete",
+        "normalized_match_rate",
+        "mean_token_f1",
+        "p50_latency_ms",
+        "p95_latency_ms",
+        "p99_latency_ms"
+      ],
+      "properties": {
+        "attempted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "complete": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "normalized_match_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "mean_token_f1": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "p50_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "p95_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "p99_latency_ms": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

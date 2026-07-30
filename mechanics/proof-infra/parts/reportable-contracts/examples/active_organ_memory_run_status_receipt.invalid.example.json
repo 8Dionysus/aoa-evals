@@ -1,0 +1,59 @@
+{
+  "schema_version": "active_organ_memory_run_status_receipt_v1",
+  "contract_id": "C23",
+  "receipt_id": "aoa-evals:active-organ-run-status:run-c-307-invalid",
+  "run_id": "active-organ-run:run-c-307",
+  "recorded_at": "2026-07-28T21:40:00Z",
+  "started_at": "2026-07-28T21:31:00Z",
+  "ended_at": "2026-07-28T21:39:59Z",
+  "experiment_manifest_ref": "aoa-evals:active-organ-experiment:abc-reference-v1",
+  "experiment_manifest_sha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "arm_id": "C",
+  "seed": 307,
+  "environment_pin_ref": "aoa-evals:active-organ-pin:reference-local-v1",
+  "environment_pin_sha256": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+  "runtime_delivery_receipt_refs": [
+    "abyss-stack:C20:run-c-307-delivery"
+  ],
+  "run_status": "invalid",
+  "process_exit_code": 0,
+  "execution_complete": true,
+  "usable_for_comparison": false,
+  "green_process": true,
+  "benefit_claim_state": "not_established_by_run_status",
+  "checks": {
+    "executed": [
+      "planned-run-completion"
+    ],
+    "skipped": [],
+    "blocked": []
+  },
+  "evidence_refs": [
+    "aoa-evals:run-evidence:run-c-307-invalid"
+  ],
+  "output_refs": [
+    "aoa-evals:run-output:run-c-307-invalid"
+  ],
+  "measurement_refs": [],
+  "missing_evidence": [],
+  "invalidation_reasons": [
+    "environment pin recheck detected a runtime artifact digest mismatch"
+  ],
+  "stop_condition_refs": [],
+  "content_minimization": {
+    "refs_only": true,
+    "prompt_content_persisted": false,
+    "memory_content_persisted": false,
+    "credential_content_persisted": false,
+    "private_host_capture_persisted": false
+  },
+  "authority": {
+    "execution_status_only": true,
+    "verdict_authority": false,
+    "benefit_authority": false,
+    "production_authority": "none",
+    "policy_promotion_authority": false,
+    "training_authority": false,
+    "memory_semantic_authority": false
+  }
+}

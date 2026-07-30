@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/8Dionysus/aoa-evals/main/evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/reports/erasure-owner-extension.schema.json",
+  "title": "Phase 11 ER7 and synthetic ER8 owner extension",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "extension_id",
+    "parent_owner",
+    "worker_owner",
+    "surface_id",
+    "work_item_ref",
+    "material_classes",
+    "target_ref_digests",
+    "operation_evidence_refs",
+    "recovery_probe_ref",
+    "result",
+    "residue_refs",
+    "retention_exceptions",
+    "training_ingestion_attestation_ref",
+    "checkpoint_or_replay_probe_ref",
+    "model_unlearning_authority",
+    "runtime_promotion_allowed",
+    "subject_material_included",
+    "content_minimized",
+    "execution_posture",
+    "live_execution",
+    "effect_authority",
+    "global_completion_authority",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "active_organ_owner_erasure_extension_v0"
+    },
+    "extension_id": {
+      "$ref": "#/$defs/ref"
+    },
+    "parent_owner": {
+      "enum": [
+        "aoa-evals",
+        "synthetic-model-owner"
+      ]
+    },
+    "worker_owner": {
+      "enum": [
+        "aoa-evals-er7",
+        "synthetic-model-owner-er8"
+      ]
+    },
+    "surface_id": {
+      "enum": [
+        "ER7",
+        "ER8"
+      ]
+    },
+    "work_item_ref": {
+      "$ref": "#/$defs/ref"
+    },
+    "material_classes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "experiment_replay_copy",
+          "training_dataset",
+          "model_checkpoint_or_unlearning_obligation"
+        ]
+      }
+    },
+    "target_ref_digests": {
+      "$ref": "#/$defs/digests"
+    },
+    "operation_evidence_refs": {
+      "$ref": "#/$defs/refs"
+    },
+    "recovery_probe_ref": {
+      "$ref": "#/$defs/ref"
+    },
+    "result": {
+      "enum": [
+        "erased",
+        "residue",
+        "partial",
+        "failed"
+      ]
+    },
+    "residue_refs": {
+      "$ref": "#/$defs/refs_optional"
+    },
+    "retention_exceptions": {
+      "type": "array"
+    },
+    "training_ingestion_attestation_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "checkpoint_or_replay_probe_ref": {
+      "$ref": "#/$defs/ref"
+    },
+    "model_unlearning_authority": {
+      "enum": [
+        "not_applicable",
+        "synthetic_model_owner_only"
+      ]
+    },
+    "runtime_promotion_allowed": {
+      "const": false
+    },
+    "subject_material_included": {
+      "const": false
+    },
+    "content_minimized": {
+      "const": true
+    },
+    "execution_posture": {
+      "const": "reference_lab_only"
+    },
+    "live_execution": {
+      "const": false
+    },
+    "effect_authority": {
+      "const": "owner_local_erasure_only"
+    },
+    "global_completion_authority": {
+      "const": false
+    },
+    "content_digest": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "surface_id": {
+            "const": "ER7"
+          }
+        },
+        "required": [
+          "surface_id"
+        ]
+      },
+      "then": {
+        "properties": {
+          "parent_owner": {
+            "const": "aoa-evals"
+          },
+          "worker_owner": {
+            "const": "aoa-evals-er7"
+          },
+          "material_classes": {
+            "const": [
+              "experiment_replay_copy"
+            ]
+          },
+          "training_ingestion_attestation_ref": {
+            "type": "null"
+          },
+          "model_unlearning_authority": {
+            "const": "not_applicable"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "parent_owner": {
+            "const": "synthetic-model-owner"
+          },
+          "worker_owner": {
+            "const": "synthetic-model-owner-er8"
+          },
+          "material_classes": {
+            "minItems": 2,
+            "maxItems": 2,
+            "allOf": [
+              {
+                "contains": {
+                  "const": "training_dataset"
+                }
+              },
+              {
+                "contains": {
+                  "const": "model_checkpoint_or_unlearning_obligation"
+                }
+              }
+            ]
+          },
+          "training_ingestion_attestation_ref": {
+            "$ref": "#/$defs/ref"
+          },
+          "model_unlearning_authority": {
+            "const": "synthetic_model_owner_only"
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "digests": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/sha256"
+      }
+    },
+    "refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/ref"
+      }
+    },
+    "refs_optional": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/ref"
+      }
+    }
+  }
+}

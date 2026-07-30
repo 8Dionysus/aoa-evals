@@ -1,0 +1,97 @@
+{
+  "schema_version": "codex_owner_orientation_shadow_cases_v0",
+  "positive_source": "fixtures/consumer-orientation-cases.json",
+  "positive_case_ids": [
+    "CO-01",
+    "CO-02",
+    "CO-03",
+    "CO-04",
+    "CO-05",
+    "CO-06",
+    "CO-07",
+    "CO-08",
+    "CO-09",
+    "CO-10",
+    "CO-11",
+    "CO-12"
+  ],
+  "irrelevant_cases": [
+    {
+      "case_id": "SH-N01",
+      "recall_mode": "semantic",
+      "query": "Translate this standalone greeting into Spanish.",
+      "expected_object_id": null,
+      "relevance": "irrelevant"
+    },
+    {
+      "case_id": "SH-N02",
+      "recall_mode": "semantic",
+      "query": "Calculate 17 multiplied by 23 without project context.",
+      "expected_object_id": null,
+      "relevance": "irrelevant"
+    },
+    {
+      "case_id": "SH-N03",
+      "recall_mode": "semantic",
+      "query": "Write a two-line poem about rain.",
+      "expected_object_id": null,
+      "relevance": "irrelevant"
+    },
+    {
+      "case_id": "SH-N04",
+      "recall_mode": "semantic",
+      "query": "Explain what a prime number is to a child.",
+      "expected_object_id": null,
+      "relevance": "irrelevant"
+    },
+    {
+      "case_id": "SH-N05",
+      "recall_mode": "semantic",
+      "query": "Convert 10 kilometers to meters.",
+      "expected_object_id": null,
+      "relevance": "irrelevant"
+    },
+    {
+      "case_id": "SH-N06",
+      "recall_mode": "semantic",
+      "query": "Suggest a generic name for a fictional cat.",
+      "expected_object_id": null,
+      "relevance": "irrelevant"
+    }
+  ],
+  "safety_probes": [
+    {
+      "probe_id": "quarantined-pressure",
+      "pressure_state": "quarantine_required",
+      "currentness_state": "current",
+      "erase_residue_present": false,
+      "expected": "silence"
+    },
+    {
+      "probe_id": "stale-currentness",
+      "pressure_state": "clean",
+      "currentness_state": "stale",
+      "erase_residue_present": false,
+      "expected": "silence"
+    },
+    {
+      "probe_id": "erase-residue",
+      "pressure_state": "clean",
+      "currentness_state": "current",
+      "erase_residue_present": true,
+      "expected": "silence"
+    }
+  ],
+  "net_benefit_weights": {
+    "correct_counterfactual_delta": 1.0,
+    "supported_outcome_bonus": 0.25,
+    "redundant_intervention_cost": 0.25,
+    "irrelevant_distraction_cost": 1.0,
+    "irrelevant_unnecessary_work_cost": 0.5,
+    "wrong_memory_anchoring_cost": 0.75,
+    "review_cost_per_proposal": 0.05,
+    "delayed_harm_reserve": 0.25,
+    "latency_cost_per_second": 0.1,
+    "context_cost_per_1000_tokens": 0.05
+  }
+}

@@ -9,6 +9,29 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Changed
 
+- Decision `AOA-EV-D-0251` keeps active-organ readiness, model, OS replay,
+  fault, accelerated, wall-clock, host, and operator-benefit lanes separate;
+  current evidence selects R1 without creating production or landing
+  authority.
+- Active-organ model-role runs now retain the raw response and incurred
+  evidence when strict JSON parsing fails, classify it as invalid instead of
+  wrong, perform no hidden retry, and separate attempted from complete
+  portability coverage in aggregates.
+- Phase 13 scalar gold answers now use the same stable textual normalization
+  as string answers, so an integer-valued benchmark answer cannot terminate a
+  durably checkpointed model run.
+- Active-organ erasure conformance now closes ER0-ER9 with the bounded T5
+  receipt exception and requires graph, embedding, and paraphrase detectors to
+  catch synthetic positive controls before no-recovery evidence is usable.
+- C21 pins now bind the system-policy digest separately from the prompt
+  template digest, preventing a stable policy ref from hiding changed policy
+  content.
+- Model-role reports now carry their runner and probe-fixture digests, and
+  cross-model aggregation rejects mixed runner pins instead of relying on an
+  external registry for execution identity.
+- C22 active-organ manifests now use a validator-enforced canonical normalized
+  self-digest, so post-freeze content mutation fails closed even when the JSON
+  remains schema-valid.
 - Compact the owner skill's global description while retaining central-proof
   applicability, the package-first gate, the `aoa-eval` coexistence boundary,
   and the generated-output proof ceiling.
@@ -48,6 +71,39 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Added
 
+- Phase 13 evidence-readiness contracts for the active-organ eval now pin
+  current LongMemEval V1/V2 and LoCoMo-Plus source/data identities, verify
+  artifact digests with bounded-memory streaming, freeze outcome-blind
+  stratified cases, and preserve public benchmark, reviewed OS replay, model,
+  fault, and 7/30-day soak lanes as separate statuses. The initial report is
+  necessarily partial and carries no benefit, policy, production, training,
+  live-write, or landing authority.
+- Phase 13 model execution now fsync-checkpoints every attempted observation
+  under an exact run fingerprint and resumes without replay. A separate
+  SQLite WAL/FULL accelerated 30-day lifecycle lab measures foreground and
+  maintenance tails, storage, write amplification, backlog, review cost, and
+  fourteen transaction/outage/erasure faults while schema-locking real
+  wall-clock soak, benefit, and landing claims to false.
+- `aoa-memo-active-organ-offline-replay` as a draft fixed-baseline,
+  public-safe comparison bundle for verified no-memory, reviewed pull-only,
+  monolithic sandbox, and federated policy-gated active memory. It adds exact
+  C01-C25 source composition, 25 conformance and erasure cases, preregistered C
+  and retrieval ablations across channels, abstraction levels, rerankers, and
+  context budgets, clustered seeded replay, cost admission,
+  schema-backed C21-C23 evidence, and a seven-role small/large/local/remote
+  model-portability matrix with cross-model judge-disagreement readout without
+  effect authority.
+- Active-organ C21-C23 reportable contracts for exact model/prompt/provider/
+  hardware pins, immutable A/B/C memory experiment manifests, and honest
+  complete/partial/invalid/aborted/blocked run-status receipts. Their semantic
+  validator and negative corpus preserve sibling-owner boundaries and cannot
+  establish benefit, verdict, policy promotion, training, or production
+  authority.
+- Fresh isolated Codex P0/P1 participation and H0 trigger lanes for
+  `aoa-memo`, covering explicit and indirect orientation, current-source
+  silence, raw-session sibling handoff, exact skill selection, bounded MCP
+  use, content-free hook receipts, token/latency accounting, and an explicit
+  refusal to infer natural benefit or live admission.
 - Add the owner-local `stats/` port with a source-backed non-draft bundle ratio
   contract and reference packet; bundle status meaning remains with
   `aoa-evals`, while `aoa-stats` owns the shared statistical grammar and

@@ -35,6 +35,7 @@ The current public ladder is:
 Current public comparison bundles:
 - `aoa-regression-same-task`
 - `aoa-runtime-latency-tradeoff`
+- `aoa-memo-active-organ-offline-replay`
 - `aoa-output-vs-process-gap`
 - `aoa-longitudinal-growth-snapshot`
 - `aoa-stress-recovery-window`
@@ -44,6 +45,8 @@ This ladder is intentionally asymmetric:
 - `aoa-regression-same-task` is the first and only public `baseline` default
 - `aoa-runtime-latency-tradeoff` remains a draft fixed-baseline runtime
   tradeoff surface and is not a public default baseline
+- `aoa-memo-active-organ-offline-replay` remains a draft fixed-baseline
+  active-memory architecture lab and cannot admit policy or production
 - `aoa-output-vs-process-gap` remains a draft peer-comparison bridge
 - `aoa-longitudinal-growth-snapshot` remains a draft repeated-window movement surface
 - `aoa-stress-recovery-window` remains a draft repeated-window stress recovery surface
@@ -56,6 +59,7 @@ This ladder is intentionally asymmetric:
 Current bundle:
 - `aoa-regression-same-task`
 - `aoa-runtime-latency-tradeoff`
+- `aoa-memo-active-organ-offline-replay`
 
 Use when:
 - one candidate is being compared against one frozen baseline target
@@ -64,6 +68,9 @@ Use when:
 - or selected runtime evidence needs a public-safe latency/resource tradeoff
   read without becoming reasoning-quality, agent-quality, host, or hardware
   ranking
+- or a pinned public-safe memory lab needs to compare memory-disabled,
+  reviewed pull-only, monolithic sandbox, and federated policy-gated memory
+  while conformance and erasure remain blocking gates
 
 Current machine-readable contract should keep explicit:
 - anchor surface
@@ -119,7 +126,9 @@ Current machine-readable contract should keep explicit:
 Read the comparison spine in this order:
 
 1. Read the one-run anchor surface first.
-2. Read `fixed-baseline` when the question is candidate-versus-frozen-target regression or a selected runtime latency/resource tradeoff under matched fixture conditions.
+2. Read `fixed-baseline` when the question is candidate-versus-frozen-target
+   regression, a selected runtime latency/resource tradeoff, or a pinned
+   active-memory architecture comparison under matched fixture conditions.
 3. Read `peer-compare` when the question is side-by-side divergence on the same bounded cases.
 4. Read `longitudinal-window` when the question is ordered movement across named windows on one bounded surface.
 5. Add `aoa-eval-integrity-check` when public wording, routing, maturity posture, or generated contracts are moving enough that the comparison read could start implying more than the evidence carries.
@@ -141,6 +150,8 @@ Shared public read-order artifact:
 | repeated-window stress recovery as live health authority | stress-recovery owner route and runtime owner route |
 | runtime latency improvement as reasoning quality | `aoa-runtime-latency-tradeoff` plus the appropriate quality eval before any stronger reading |
 | runtime resource cost hidden behind a winner label | `aoa-runtime-latency-tradeoff` support notes and report schema |
+| symbolic active-memory result as production or policy authority | `aoa-memo-active-organ-offline-replay` claim limit plus owner review |
+| monolithic architecture B confused with C22 pull-only arm B | `aoa-memo-active-organ-offline-replay` label translation and secondary-arm manifest |
 | integrity sidecar success as direct agent-quality proof | underlying comparison bundle plus integrity sidecar route |
 
 ## Status discipline
@@ -148,6 +159,7 @@ Shared public read-order artifact:
 Status remains intentionally conservative:
 - `aoa-regression-same-task` stays the only default public `baseline` surface
 - `aoa-runtime-latency-tradeoff` stays `draft`
+- `aoa-memo-active-organ-offline-replay` stays `draft`
 - `aoa-output-vs-process-gap` stays `draft`
 - `aoa-longitudinal-growth-snapshot` stays `draft`
 - `aoa-stress-recovery-window` stays `draft`

@@ -28,6 +28,9 @@ decision records, and `PROVENANCE.md`.
   owner for the support operation.
 - Keep reportable contracts shared; keep interpretation in each bundle or
   report.
+- Keep experiment conditions reproducible through immutable pins and manifests,
+  and keep run status honest; neither condition control nor a green process is
+  a verdict, benefit claim, policy promotion, or production authority.
 
 ## Growth rule
 

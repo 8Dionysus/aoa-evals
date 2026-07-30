@@ -44,7 +44,7 @@ overclaiming.
 | --- | --- | --- | --- | --- |
 | Source proof objects | `evals/**/EVAL.md`, `evals/**/eval.yaml`, `mechanics/proof-object/parts/eval-authoring/`, `mechanics/proof-object/parts/eval-contracts/`, bundle-local notes and fixtures | bounded claim, object under evaluation, evidence posture, verdict logic, baseline or comparison posture, blind spots | receives selected evidence and review context; emits bundle-local report expectations and bounded interpretation | strongest local proof meaning for one eval claim |
 | Source guidance | `DESIGN.md`, `docs/architecture/ARCHITECTURE.md`, `docs/guides/EVAL_PHILOSOPHY.md`, score, verdict, portability, comparison, trace, and infra guides | repo form, proof philosophy, review vocabulary, guide-level interpretation rules | receives pressure from bundles, reports, decisions, and validators; emits routeable guidance | specific bundle claims stay with bundle-local `EVAL.md` and `eval.yaml` |
-| Shared proof infrastructure | `fixtures/`, `mechanics/proof-infra/parts/fixture-families/fixtures/`, `mechanics/proof-infra/parts/reportable-contracts/`, `runners/`, `scorers/`, `schemas/`, `templates/`, reusable report contracts | reusable contracts and execution support for proof work | receives bundle needs; emits fixtures, runner contracts, scorer helpers, schemas, and templates | stays weaker than bundle-local interpretation |
+| Shared proof infrastructure | `fixtures/`, `mechanics/proof-infra/parts/fixture-families/fixtures/`, `mechanics/proof-infra/parts/reportable-contracts/`, `runners/`, `scorers/`, `schemas/`, `templates/`, reusable report and experiment-control contracts | reusable contracts and execution support for proof work | receives bundle needs; emits fixtures, runner contracts, scorer helpers, schemas, templates, immutable experiment pins/manifests, and honest run-status receipts | stays weaker than bundle-local interpretation; experiment status cannot establish benefit or production authority |
 | Repo-local suite execution contracts | sibling `evals/suites/*.suite.json` validated by `mechanics/proof-object/parts/eval-authoring/schemas/local-eval-suite-execution.schema.json` | canonical PORT/Git owner identity, typed `python_pytest` argv/cwd/timeout/exit source contract, and tracked-source freshness state | receives a matching suite note plus reviewed source hashes; emits `absent`/`invalid`/`stale`/source-contract-`ready` routing metadata | `.suite.md` alone is non-runnable; ready does not prove runtime reproducibility; discovery/readiness/MCP never execute; only repo owner or `aoa-eval-apply` JIT-revalidates, invokes exact argv, and captures environment/receipt; no verdict or proof authority |
 | Reports and examples | `reports/`, `examples/`, and mechanic-local `parts/*/reports/` where a narrower mechanic owns the readout | public-safe readouts and example payloads | receive source bundle contracts and schemas; emit reviewable examples or bounded result artifacts | examples illustrate; reports read one bounded result |
 | Derived readers | `generated/`, `EVAL_INDEX.md`, `EVAL_SELECTION.md`, generated quest readers | navigation, selection, compact projections, deterministic read models | receive authored source surfaces through builders; emit read-heavy routing surfaces | generated surfaces are companions that route to authored source owners |
@@ -230,6 +230,32 @@ acceptance. Maturity axes remain independent and evidence-bearing; process,
 endpoint, registration, schema observation, call success, grounded result,
 freshness, owner acceptance, cross-organ proof, and rollback proof must not be
 flattened into one readiness verdict.
+
+## Active-memory Experiment Evidence
+
+Active-memory comparison enters the proof topology through a separate,
+fail-closed experiment route:
+
+```text
+exact C01-C25 owner source identities
+  -> composed-workspace identity receipt
+  -> C21 environment pin + immutable C22 manifest
+  -> conformance and erasure blocker gate
+  -> paired 0/A/B/C replay + C23 execution receipts
+  -> schema-backed bundle-local comparative report
+  -> reviewed bounded verdict
+  -> later owner and effect-authority decision
+```
+
+The source bundle
+[`aoa-memo-active-organ-offline-replay`](../../evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/EVAL.md)
+owns the bounded comparison and its claim limit. Reusable C21-C23 shapes remain
+in `mechanics/proof-infra/parts/reportable-contracts/`; memory semantics remain
+with `aoa-memo`, routing admission with `aoa-sdk`, delivery evidence with
+`abyss-stack`, host facts with `abyss-machine`, and measurement grammar with
+`aoa-stats`. A passing symbolic, shadow, or conformance run cannot authorize
+consumer-visible intervention, durable semantic auto-write, training,
+deployment, or policy promotion.
 
 ## Use by Future Agents
 

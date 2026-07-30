@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 20636198,
+  "allowed_tracked_bytes": 25970009,
+  "approved_by": "repository-owner",
+  "base_ref": "58bf49d374b008ef6625a9fd6893c61096777b4d",
+  "changed_generated_bytes": 20636198,
+  "changed_generated_files": 381,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "7707f414db2296da358c9608f7787974693d0b46c712408c3e5efe739ca14881",
+  "reason": "Active-organ lab protocols, scorecards, observation readiness, and CI-portable sibling-compatibility routing add reviewed source for PR #439; this receipt admits only the measured portable-family delta.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 25970009,
+  "tracked_bytes_max": 26214400
+}

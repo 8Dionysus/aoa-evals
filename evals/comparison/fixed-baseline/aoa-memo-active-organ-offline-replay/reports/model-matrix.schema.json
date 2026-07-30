@@ -1,0 +1,378 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-memo active-organ model matrix evidence",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/run"
+    },
+    {
+      "$ref": "#/$defs/aggregate"
+    }
+  ],
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accepted_proof",
+        "architecture_verdict_authority",
+        "policy_promotion_authorized",
+        "production_authorized",
+        "training_authorized"
+      ],
+      "properties": {
+        "accepted_proof": {
+          "const": false
+        },
+        "architecture_verdict_authority": {
+          "const": false
+        },
+        "policy_promotion_authorized": {
+          "const": false
+        },
+        "production_authorized": {
+          "const": false
+        },
+        "memory_semantic_write_authorized": {
+          "const": false
+        },
+        "training_authorized": {
+          "const": false
+        }
+      }
+    },
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "eval_name",
+        "executed_at",
+        "run_status",
+        "fixture",
+        "execution_pin",
+        "model_pin",
+        "methodology",
+        "summary",
+        "roles",
+        "cost",
+        "same_model_bias",
+        "observations",
+        "claim_boundary",
+        "authority"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "active_organ_model_matrix_run_v1"
+        },
+        "eval_name": {
+          "const": "aoa-memo-active-organ-offline-replay"
+        },
+        "executed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "run_status": {
+          "enum": [
+            "complete",
+            "partial",
+            "invalid"
+          ]
+        },
+        "fixture": {
+          "type": "object",
+          "required": [
+            "ok",
+            "case_count",
+            "role_count",
+            "fixture_sha256",
+            "data_class",
+            "claim_limit"
+          ],
+          "properties": {
+            "ok": {
+              "const": true
+            },
+            "case_count": {
+              "const": 21
+            },
+            "role_count": {
+              "const": 7
+            },
+            "fixture_sha256": {
+              "$ref": "#/$defs/sha256"
+            },
+            "data_class": {
+              "const": "public-safe-synthetic"
+            },
+            "claim_limit": {
+              "type": "string",
+              "minLength": 10
+            }
+          }
+        },
+        "execution_pin": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "runner_ref",
+            "runner_sha256",
+            "model_role_probe_ref",
+            "model_role_probe_sha256"
+          ],
+          "properties": {
+            "runner_ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "runner_sha256": {
+              "$ref": "#/$defs/sha256"
+            },
+            "model_role_probe_ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "model_role_probe_sha256": {
+              "$ref": "#/$defs/sha256"
+            }
+          }
+        },
+        "model_pin": {
+          "type": "object",
+          "required": [
+            "model_id",
+            "model_class",
+            "provider_id",
+            "model_artifact_ref",
+            "model_artifact_sha256",
+            "model_revision",
+            "runtime_ref",
+            "hardware_ref",
+            "serving_owner",
+            "serving_state",
+            "endpoint_class"
+          ],
+          "properties": {
+            "model_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "model_class": {
+              "enum": [
+                "small",
+                "large"
+              ]
+            },
+            "provider_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "model_artifact_ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "model_artifact_sha256": {
+              "$ref": "#/$defs/sha256"
+            },
+            "model_revision": {
+              "type": "string",
+              "minLength": 1
+            },
+            "runtime_ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "hardware_ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "serving_owner": {
+              "type": "string",
+              "minLength": 1
+            },
+            "serving_state": {
+              "enum": [
+                "preexisting_warm",
+                "cold_started_for_run"
+              ]
+            },
+            "endpoint_class": {
+              "enum": [
+                "localhost",
+                "remote"
+              ]
+            }
+          }
+        },
+        "methodology": {
+          "type": "object",
+          "required": [
+            "seeds",
+            "independent_stochastic_runs",
+            "temperature",
+            "max_tokens",
+            "timeout_seconds",
+            "no_hidden_retry",
+            "one_isolated_case_per_role_per_seed",
+            "same_prompt_and_budget_across_models_required",
+            "confidence_interval"
+          ]
+        },
+        "summary": {
+          "type": "object",
+          "required": [
+            "case_count",
+            "complete_count",
+            "invalid_count",
+            "correct_count",
+            "accuracy",
+            "confidence_interval_95",
+            "blocker_failure_count",
+            "distribution_shift_accuracy"
+          ]
+        },
+        "roles": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7
+        },
+        "cost": {
+          "type": "object",
+          "required": [
+            "local_usd",
+            "prompt_tokens",
+            "completion_tokens",
+            "total_tokens",
+            "setup_seconds",
+            "cold_first_inference_seconds",
+            "cold_measurement_status",
+            "warm_measurement_status",
+            "warm_mean_inference_seconds",
+            "warm_p95_inference_seconds",
+            "mean_call_seconds",
+            "p95_call_seconds",
+            "total_call_seconds"
+          ],
+          "properties": {
+            "local_usd": {
+              "const": 0
+            }
+          }
+        },
+        "same_model_bias": {
+          "type": "object",
+          "required": [
+            "same_model_used_across_all_roles",
+            "independent_cross_model_judge_required",
+            "model_output_is_not_sufficient_verdict_authority"
+          ]
+        },
+        "observations": {
+          "type": "array",
+          "minItems": 21,
+          "maxItems": 21
+        },
+        "claim_boundary": {
+          "type": "string",
+          "minLength": 30
+        },
+        "authority": {
+          "$ref": "#/$defs/authority"
+        }
+      }
+    },
+    "aggregate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "eval_name",
+        "created_at",
+        "fixture_sha256",
+        "runner_sha256",
+        "seeds",
+        "models",
+        "coverage",
+        "same_model_bias",
+        "portability",
+        "verdict",
+        "claim_boundary",
+        "authority"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "active_organ_model_matrix_aggregate_v1"
+        },
+        "eval_name": {
+          "const": "aoa-memo-active-organ-offline-replay"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fixture_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "runner_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "seeds": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true
+        },
+        "models": {
+          "type": "array",
+          "minItems": 2
+        },
+        "coverage": {
+          "type": "object",
+          "required": [
+            "all_seven_roles",
+            "small_model",
+            "large_model",
+            "local_model",
+            "remote_model",
+            "remote_gap_reason"
+          ]
+        },
+        "same_model_bias": {
+          "type": "object",
+          "required": [
+            "within_run_present",
+            "cross_model_comparison_present",
+            "judge_case_count",
+            "judge_disagreement_count",
+            "judge_disagreements"
+          ]
+        },
+        "portability": {
+          "type": "object",
+          "required": [
+            "same_fixture",
+            "same_runner",
+            "same_seeds",
+            "same_budget",
+            "model_version_count",
+            "provider_count"
+          ]
+        },
+        "verdict": {
+          "type": "string",
+          "minLength": 10
+        },
+        "claim_boundary": {
+          "type": "string",
+          "minLength": 30
+        },
+        "authority": {
+          "$ref": "#/$defs/authority"
+        }
+      }
+    }
+  }
+}

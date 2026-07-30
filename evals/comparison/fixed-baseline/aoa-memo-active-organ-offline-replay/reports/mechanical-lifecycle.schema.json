@@ -1,0 +1,548 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/8Dionysus/aoa-evals/main/evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/reports/mechanical-lifecycle.schema.json",
+  "title": "AoA memo Phase 10 mechanical lifecycle lab report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "created_at",
+    "evidence_scope",
+    "pins",
+    "mechanical_class_results",
+    "fault_results",
+    "semantic_proposal_results",
+    "forgetting_taxonomy",
+    "abc_comparison",
+    "cost_quality_speed_result",
+    "projection_contract_probe",
+    "attention_budget",
+    "sampling",
+    "summary",
+    "exit_gate",
+    "authority",
+    "limitations",
+    "report_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aoa_memo_phase10_mechanical_lifecycle_report_v0"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "evidence_scope": {
+      "const": "source-local-deterministic-mechanical-lifecycle-reference-lab-no-runtime"
+    },
+    "pins": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/sha256"
+      },
+      "minProperties": 9
+    },
+    "mechanical_class_results": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "items": {
+        "$ref": "#/$defs/mechanical_result"
+      }
+    },
+    "fault_results": {
+      "type": "array",
+      "minItems": 13,
+      "maxItems": 13,
+      "items": {
+        "$ref": "#/$defs/fault_result"
+      }
+    },
+    "semantic_proposal_results": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "$ref": "#/$defs/semantic_result"
+      }
+    },
+    "forgetting_taxonomy": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "decay",
+          "demotion",
+          "compression",
+          "merge",
+          "supersession",
+          "retraction",
+          "quarantine",
+          "expiry",
+          "ordinary_deletion",
+          "privacy_erasure",
+          "model_unlearning"
+        ]
+      }
+    },
+    "abc_comparison": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "$ref": "#/$defs/arm_result"
+      }
+    },
+    "cost_quality_speed_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit",
+        "wall_time_ms",
+        "receipt_count",
+        "attempt_count",
+        "repair_count",
+        "operator_review_items",
+        "deferred_review_items",
+        "safety_violations",
+        "result"
+      ],
+      "properties": {
+        "unit": {
+          "const": "deterministic_reference_lab_descriptive_only"
+        },
+        "wall_time_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "receipt_count": {
+          "type": "integer",
+          "minimum": 20
+        },
+        "attempt_count": {
+          "type": "integer",
+          "minimum": 20
+        },
+        "repair_count": {
+          "const": 1
+        },
+        "operator_review_items": {
+          "const": 3
+        },
+        "deferred_review_items": {
+          "const": 5
+        },
+        "safety_violations": {
+          "const": 0
+        },
+        "result": {
+          "const": "bounded_reference_mechanism_pass"
+        }
+      }
+    },
+    "projection_contract_probe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_id",
+        "schema_valid",
+        "semantic_valid",
+        "recall_blocked",
+        "canonical_mutation"
+      ],
+      "properties": {
+        "contract_id": {
+          "const": "C13"
+        },
+        "schema_valid": {
+          "const": true
+        },
+        "semantic_valid": {
+          "const": true
+        },
+        "recall_blocked": {
+          "const": true
+        },
+        "canonical_mutation": {
+          "const": false
+        }
+      }
+    },
+    "attention_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_open_items",
+        "admitted",
+        "deferred",
+        "overflow_dropped",
+        "sole_operator_preserved"
+      ],
+      "properties": {
+        "max_open_items": {
+          "const": 3
+        },
+        "admitted": {
+          "const": 3
+        },
+        "deferred": {
+          "const": 5
+        },
+        "overflow_dropped": {
+          "const": 0
+        },
+        "sole_operator_preserved": {
+          "const": true
+        }
+      }
+    },
+    "sampling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "automated_contract_sample_count",
+        "automated_contract_sample_passed",
+        "human_operator_sampling_status",
+        "runtime_promotion_allowed"
+      ],
+      "properties": {
+        "automated_contract_sample_count": {
+          "const": 9
+        },
+        "automated_contract_sample_passed": {
+          "const": true
+        },
+        "human_operator_sampling_status": {
+          "const": "not_performed"
+        },
+        "runtime_promotion_allowed": {
+          "const": false
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mechanical_classes_passed",
+        "fault_cases_passed",
+        "semantic_proposals_preserved",
+        "semantic_effects",
+        "double_commits",
+        "mixed_active_states",
+        "provenance_scope_failures",
+        "unfinished_erase_misreported_deleted"
+      ],
+      "properties": {
+        "mechanical_classes_passed": {
+          "const": 9
+        },
+        "fault_cases_passed": {
+          "const": 13
+        },
+        "semantic_proposals_preserved": {
+          "const": 8
+        },
+        "semantic_effects": {
+          "const": 0
+        },
+        "double_commits": {
+          "const": 0
+        },
+        "mixed_active_states": {
+          "const": 0
+        },
+        "provenance_scope_failures": {
+          "const": 0
+        },
+        "unfinished_erase_misreported_deleted": {
+          "const": 0
+        }
+      }
+    },
+    "exit_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mechanical_allowlist_only",
+        "semantic_transition_requires_operator",
+        "provenance_preserved",
+        "historical_not_current",
+        "attention_budget_bounded",
+        "unfinished_erase_pending_not_deleted",
+        "idempotency_retry_compensation_audited",
+        "partial_projection_fail_closed",
+        "passed"
+      ],
+      "properties": {
+        "mechanical_allowlist_only": {
+          "const": true
+        },
+        "semantic_transition_requires_operator": {
+          "const": true
+        },
+        "provenance_preserved": {
+          "const": true
+        },
+        "historical_not_current": {
+          "const": true
+        },
+        "attention_budget_bounded": {
+          "const": true
+        },
+        "unfinished_erase_pending_not_deleted": {
+          "const": true
+        },
+        "idempotency_retry_compensation_audited": {
+          "const": true
+        },
+        "partial_projection_fail_closed": {
+          "const": true
+        },
+        "passed": {
+          "const": true
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference_simulation_only",
+        "semantic_transition",
+        "privacy_erasure",
+        "model_unlearning",
+        "runtime_mutated",
+        "deployment_performed",
+        "landing_performed"
+      ],
+      "properties": {
+        "reference_simulation_only": {
+          "const": true
+        },
+        "semantic_transition": {
+          "const": false
+        },
+        "privacy_erasure": {
+          "const": false
+        },
+        "model_unlearning": {
+          "const": false
+        },
+        "runtime_mutated": {
+          "const": false
+        },
+        "deployment_performed": {
+          "const": false
+        },
+        "landing_performed": {
+          "const": false
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 6,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/ref"
+      }
+    },
+    "report_digest": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "mechanical_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation_class",
+        "forgetting_class",
+        "status",
+        "receipt_ref",
+        "version_before",
+        "version_after",
+        "semantic_unchanged",
+        "scope_preserved",
+        "schema_valid",
+        "semantic_valid"
+      ],
+      "properties": {
+        "operation_class": {
+          "$ref": "#/$defs/ref"
+        },
+        "forgetting_class": {
+          "$ref": "#/$defs/ref"
+        },
+        "status": {
+          "const": "applied"
+        },
+        "receipt_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "version_before": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "version_after": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "semantic_unchanged": {
+          "const": true
+        },
+        "scope_preserved": {
+          "const": true
+        },
+        "schema_valid": {
+          "const": true
+        },
+        "semantic_valid": {
+          "const": true
+        }
+      }
+    },
+    "fault_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "fault",
+        "expected_status",
+        "observed_status",
+        "passed",
+        "canonical_commits",
+        "new_effects",
+        "detail"
+      ],
+      "properties": {
+        "case_id": {
+          "$ref": "#/$defs/ref"
+        },
+        "fault": {
+          "$ref": "#/$defs/ref"
+        },
+        "expected_status": {
+          "$ref": "#/$defs/ref"
+        },
+        "observed_status": {
+          "$ref": "#/$defs/ref"
+        },
+        "passed": {
+          "const": true
+        },
+        "canonical_commits": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "new_effects": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "detail": {
+          "$ref": "#/$defs/ref"
+        }
+      }
+    },
+    "semantic_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation_class",
+        "proposal_state",
+        "proposal_ref",
+        "apply_allowed",
+        "operator_required",
+        "attention_admitted",
+        "schema_valid",
+        "semantic_valid"
+      ],
+      "properties": {
+        "operation_class": {
+          "$ref": "#/$defs/ref"
+        },
+        "proposal_state": {
+          "enum": [
+            "pending_operator",
+            "deferred_attention_budget"
+          ]
+        },
+        "proposal_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "apply_allowed": {
+          "const": false
+        },
+        "operator_required": {
+          "const": true
+        },
+        "attention_admitted": {
+          "type": "boolean"
+        },
+        "schema_valid": {
+          "const": true
+        },
+        "semantic_valid": {
+          "const": true
+        }
+      }
+    },
+    "arm_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "arm",
+        "posture",
+        "automatic_effects",
+        "operator_review_items",
+        "safety_violations",
+        "quality",
+        "result"
+      ],
+      "properties": {
+        "arm": {
+          "enum": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        "posture": {
+          "$ref": "#/$defs/ref"
+        },
+        "automatic_effects": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "operator_review_items": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "safety_violations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "quality": {
+          "$ref": "#/$defs/ref"
+        },
+        "result": {
+          "$ref": "#/$defs/ref"
+        }
+      }
+    }
+  }
+}

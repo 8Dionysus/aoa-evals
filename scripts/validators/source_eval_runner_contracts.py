@@ -71,7 +71,12 @@ def validate_bundle_runner_contract(
             issues=issues,
         )
 
-    for field_name in ("fixture_contract_paths", "scorer_helper_paths"):
+    for field_name in (
+        "fixture_contract_paths",
+        "scorer_helper_paths",
+        "additional_runner_surface_paths",
+        "additional_report_schema_paths",
+    ):
         values = payload.get(field_name, [])
         if not isinstance(values, list):
             continue

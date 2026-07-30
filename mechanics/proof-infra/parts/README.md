@@ -22,7 +22,7 @@ tool lane, and validation lane.
 | Part | Operation | Start surface |
 | --- | --- | --- |
 | `fixture-families/` | generic shared fixture-family support for bundle-local fixture contracts | `fixture-families/README.md` |
-| `reportable-contracts/` | shared runner surface, scorer helper, and schemas consumed by bundle-local runner/report contracts | `reportable-contracts/README.md` |
+| `reportable-contracts/` | shared runner, scorer, report schemas, and preregistered experiment-control contracts consumed below bundle-local verdict meaning | `reportable-contracts/README.md` |
 
 ## Owner Pressure Routes
 
@@ -40,5 +40,5 @@ tool lane, and validation lane.
 | Source signal | Operation test | Next route |
 | --- | --- | --- |
 | reusable public-safe fixture family is needed across bundles | no narrower mechanic owns the fixture operation | `fixture-families/README.md` |
-| reusable runner/scorer/schema support is needed for reportable proof | shared contract feeds bundle-local runner/report contracts | `reportable-contracts/README.md` |
+| reusable runner/scorer/schema or experiment-control support is needed for reportable proof | shared contract feeds bundle-local runner/report or preregistered run-review contracts | `reportable-contracts/README.md` |
 | new proof-support family pressure | source surface, payload home, owner split, and validation lane are distinct from current parts | parent `PARTS.md` update plus evidence-cluster review |

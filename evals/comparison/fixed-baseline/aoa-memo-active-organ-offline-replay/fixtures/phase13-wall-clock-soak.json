@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "fixture_id": "aoa-memo-phase13-wall-clock-soak-v1",
+  "sample_interval_seconds": 3600,
+  "minimum_interval_seconds": 3000,
+  "read_probes_per_arm": 100,
+  "completion": {
+    "seven_day_elapsed_seconds": 604800,
+    "thirty_day_elapsed_seconds": 2592000,
+    "minimum_sample_coverage_ratio": 0.8,
+    "minimum_host_probe_success_ratio": 0.8,
+    "minimum_unique_dates_7d": 7,
+    "minimum_unique_dates_30d": 30,
+    "maximum_integrity_failures": 0,
+    "maximum_source_drift_failures": 0
+  },
+  "host_observation": {
+    "memory": "/proc/meminfo and /proc/pressure/memory",
+    "thermal": "/sys/class/hwmon and /sys/class/thermal read-only temperature inputs",
+    "storage": "shutil.disk_usage(/srv)",
+    "scheduler_owner": "abyss-machine resource launch light benchmark unattended"
+  },
+  "claim_limit": "This passive natural-load wall-clock soak proves retained lab-state integrity, projection consistency, bounded read latency, and host observation coverage only. It does not prove production traffic, natural operator benefit, memory write throughput, semantic correctness, policy admission, or deployment reliability.",
+  "authority": {
+    "live_memory_write": false,
+    "policy_promotion": false,
+    "production": false,
+    "training": false,
+    "landing": false
+  }
+}

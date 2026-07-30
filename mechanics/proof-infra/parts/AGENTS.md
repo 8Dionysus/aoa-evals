@@ -60,10 +60,11 @@ python scripts/validate_semantic_agents.py
 ### `mechanics/proof-infra/parts/reportable-contracts/VALIDATION.md`
 
 ```bash
+python mechanics/proof-infra/parts/reportable-contracts/scripts/validate_active_organ_experiment_contracts.py
 python scripts/validate_repo.py
 python scripts/build_catalog.py --check
 python scripts/validate_semantic_agents.py
-python -m pytest -q mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py tests/test_build_catalog.py tests/test_validate_repo.py
+python -m pytest -q mechanics/proof-infra/parts/reportable-contracts/tests/test_active_organ_experiment_contracts.py mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py tests/test_build_catalog.py tests/test_validate_repo.py
 ```
 
 <!-- centralized-child-validation:end -->

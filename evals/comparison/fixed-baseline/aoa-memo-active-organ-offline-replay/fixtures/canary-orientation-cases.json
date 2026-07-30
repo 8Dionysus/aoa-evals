@@ -1,0 +1,54 @@
+{
+  "schema_version": "codex_owner_orientation_canary_cases_v0",
+  "positive_source": "fixtures/consumer-orientation-cases.json",
+  "positive_case_ids": [
+    "CO-01",
+    "CO-02",
+    "CO-03",
+    "CO-04",
+    "CO-05",
+    "CO-06",
+    "CO-07",
+    "CO-08",
+    "CO-09",
+    "CO-10",
+    "CO-11",
+    "CO-12"
+  ],
+  "experiment": {
+    "assignment": "seeded-balanced-randomized-holdout",
+    "canary_fraction": 0.5,
+    "always_shadow_counterfactual": true,
+    "assignment_uses_outcomes": false,
+    "primary_metric": "actual_task_result_delta",
+    "secondary_metric": "actual_net_benefit"
+  },
+  "net_benefit_weights": {
+    "correct_task_delta": 1.0,
+    "redundant_observation_cost": 0.15,
+    "wrong_memory_anchoring_cost": 1.0,
+    "delayed_harm_reserve": 0.25,
+    "latency_cost_per_second": 0.1,
+    "context_cost_per_1000_tokens": 0.05,
+    "operator_interruption_cost": 0.02
+  },
+  "budgets": {
+    "max_reminders_per_window": 1,
+    "max_operator_interruptions_per_task": 0.5,
+    "p95_incremental_latency_reference": "phase5.A_reviewed_explicit_pull_bounded.p95_latency_ms",
+    "context_cost_reference": "phase5.A_reviewed_explicit_pull_bounded.cost_per_success",
+    "critical_boundary_breach_limit": 0
+  },
+  "safety_probes": [
+    "secret-detected",
+    "kill-switch",
+    "stale-currentness",
+    "eval-unavailable",
+    "host-denied",
+    "runtime-rate-limit",
+    "directive-tamper",
+    "source-visibility-tamper",
+    "policy-pin-tamper",
+    "host-consumer-tamper"
+  ]
+}

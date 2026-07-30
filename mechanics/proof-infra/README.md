@@ -35,6 +35,10 @@ This package routes shared proof infrastructure. Source proof meaning stays in
 - `mechanics/proof-infra/parts/reportable-contracts/schemas/fixture-contract.schema.json`
 - `mechanics/proof-infra/parts/reportable-contracts/schemas/runner-contract.schema.json`
 - `mechanics/proof-infra/parts/reportable-contracts/schemas/report-summary.schema.json`
+- `mechanics/proof-infra/parts/reportable-contracts/docs/ACTIVE_ORGAN_EXPERIMENT_CONTRACTS.md`
+- active-organ C21-C23 schemas, examples, canonical C22 normalized
+  self-digest, semantic validator, and negative mutation corpus under
+  `mechanics/proof-infra/parts/reportable-contracts/`
 - root route cards `runners/README.md` and `runners/AGENTS.md`
 - root route cards `scorers/README.md` and `scorers/AGENTS.md`
 - root route card `schemas/AGENTS.md`
@@ -60,6 +64,9 @@ This package routes shared proof infrastructure. Source proof meaning stays in
 - optional shared scorer helpers such as `mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py`
 - shared contract schemas under
   `mechanics/proof-infra/parts/reportable-contracts/schemas/`
+- a preregistered experiment that needs immutable environment pins, explicit
+  A/B/C memory treatments, and honest complete/partial/invalid/aborted/blocked
+  run status before any verdict review
 - optional shared report dossiers only through an explicit root route-card
   decision; current active reports are bundle-local or mechanic part-local
 
@@ -74,6 +81,8 @@ This package routes shared proof infrastructure. Source proof meaning stays in
 - explicit `report_schema_path`
 - part-local shared schemas for fixture, runner, and summary-report contract
   validation
+- reusable experiment pin, manifest, and run-status schemas that freeze
+  reproducibility while leaving benefit and verdict meaning to the source bundle
 - generated report-index entries that point back to real bundle-local reports
 - explicit `paired_readout_path`
 - optional `additional_paired_readout_paths`
@@ -115,6 +124,8 @@ support.
 | root `runners/`, `scorers/`, or `schemas/` wants active payload aliases | keep active payloads in the reportable-contracts part-local route |
 | one shared report shape spreads across unrelated bundles | keep each bundle bound to its local report schema and reviewed report route |
 | draft bundle gains polish through shared infrastructure | route promotion through bundle-local review and release surfaces |
+| experiment run is green but incomplete, invalid, or incomparable | preserve its explicit C23 status; do not infer benefit from process health |
+| shared experiment contract tries to own memory, routing, runtime delivery, host, measurement, or production semantics | route to `aoa-memo`, `aoa-sdk`, `abyss-stack`, `abyss-machine`, `aoa-stats`, or the sole operator/effect owner |
 
 ## Validation
 

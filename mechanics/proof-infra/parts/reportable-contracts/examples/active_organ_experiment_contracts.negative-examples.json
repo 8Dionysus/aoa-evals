@@ -1,0 +1,106 @@
+{
+  "schema_version": "active_organ_experiment_contract_negative_examples_v1",
+  "cases": [
+    {
+      "case_id": "c21_training_authority_leak",
+      "contract_id": "C21",
+      "base_example": "active_organ_model_prompt_provider_hardware_pin.example.json",
+      "set": {
+        "/authority/training_enabled": true
+      },
+      "expected_error": "authority/training_enabled"
+    },
+    {
+      "case_id": "c21_prompt_content_persisted",
+      "contract_id": "C21",
+      "base_example": "active_organ_model_prompt_provider_hardware_pin.example.json",
+      "set": {
+        "/privacy/prompt_content_persisted": true
+      },
+      "expected_error": "privacy/prompt_content_persisted"
+    },
+    {
+      "case_id": "c22_missing_c_arm",
+      "contract_id": "C22",
+      "base_example": "active_organ_memory_experiment_manifest.example.json",
+      "set": {
+        "/arms/2/arm_id": "B"
+      },
+      "expected_error": "arms"
+    },
+    {
+      "case_id": "c22_wrong_c_treatment",
+      "contract_id": "C22",
+      "base_example": "active_organ_memory_experiment_manifest.example.json",
+      "set": {
+        "/arms/2/memory_treatment": "explicit_pull_only"
+      },
+      "expected_error": "arms/C/memory_treatment"
+    },
+    {
+      "case_id": "c22_missing_outcome_axis",
+      "contract_id": "C22",
+      "base_example": "active_organ_memory_experiment_manifest.example.json",
+      "set": {
+        "/metrics/3/axis": "quality"
+      },
+      "expected_error": "metrics"
+    },
+    {
+      "case_id": "c22_production_authority_leak",
+      "contract_id": "C22",
+      "base_example": "active_organ_memory_experiment_manifest.example.json",
+      "set": {
+        "/authority/production_authority": "admit"
+      },
+      "expected_error": "authority/production_authority"
+    },
+    {
+      "case_id": "c22_manifest_self_digest_mismatch",
+      "contract_id": "C22",
+      "base_example": "active_organ_memory_experiment_manifest.example.json",
+      "set": {
+        "/preregistration/manifest_sha256": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "expected_error": "preregistration/manifest_sha256"
+    },
+    {
+      "case_id": "c23_complete_with_missing_evidence",
+      "contract_id": "C23",
+      "base_example": "active_organ_memory_run_status_receipt.complete.example.json",
+      "set": {
+        "/missing_evidence": [
+          "outcome receipt"
+        ]
+      },
+      "expected_error": "missing_evidence"
+    },
+    {
+      "case_id": "c23_green_process_claims_benefit",
+      "contract_id": "C23",
+      "base_example": "active_organ_memory_run_status_receipt.invalid.example.json",
+      "set": {
+        "/benefit_claim_state": "benefit_established"
+      },
+      "expected_error": "benefit_claim_state"
+    },
+    {
+      "case_id": "c23_invalid_marked_comparable",
+      "contract_id": "C23",
+      "base_example": "active_organ_memory_run_status_receipt.invalid.example.json",
+      "set": {
+        "/usable_for_comparison": true
+      },
+      "expected_error": "usable_for_comparison"
+    },
+    {
+      "case_id": "c23_blocked_without_blocked_checks",
+      "contract_id": "C23",
+      "base_example": "active_organ_memory_run_status_receipt.blocked.example.json",
+      "set": {
+        "/checks/blocked": []
+      },
+      "expected_error": "checks/blocked"
+    }
+  ]
+}

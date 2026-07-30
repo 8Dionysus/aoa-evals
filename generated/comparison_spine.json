@@ -48,6 +48,60 @@
       "status": "draft"
     },
     {
+      "baseline_mode": "fixed-baseline",
+      "comparison_surface": {
+        "anchor_surface": "aoa-memo-recall-integrity",
+        "baseline_target_label": "verified current context with memory influence disabled",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
+        "selection_question": "Does the bounded task require a fixed-baseline causal comparison of memory-disabled, pull-only, monolithic proactive, and federated policy-gated memory?",
+        "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+      },
+      "eval_path": "evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/EVAL.md",
+      "interpretation_boundary": "proof that active memory should be enabled;; proof of real-model, production, or private-data behavior;; policy, deployment, training, or durable semantic-write authority;",
+      "name": "aoa-memo-active-organ-offline-replay",
+      "proof_artifacts": {
+        "fixture_contract_path": "evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/fixtures/contract.json",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
+        "report_example_path": "evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/reports/example-report.json",
+        "report_schema_path": "evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/reports/summary.schema.json",
+        "runner_contract_path": "evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/runners/contract.json",
+        "runner_surface_path": "evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/runners/run_lab.py",
+        "scorer_helper_paths": [
+          "mechanics/proof-infra/parts/reportable-contracts/scorers/bounded_rubric_breakdown.py"
+        ],
+        "shared_fixture_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+      },
+      "relations": [
+        {
+          "target": "aoa-memo-write-path-guardrails",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-memo-recall-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-memo-contradiction-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-trace-outcome-separation",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-runtime-latency-tradeoff",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
+        }
+      ],
+      "selection_summary": "Does the bounded task require a fixed-baseline causal comparison of memory-disabled, pull-only, monolithic proactive, and federated policy-gated memory?",
+      "status": "draft"
+    },
+    {
       "baseline_mode": "peer-compare",
       "comparison_surface": {
         "integrity_sidecar": "aoa-eval-integrity-check",

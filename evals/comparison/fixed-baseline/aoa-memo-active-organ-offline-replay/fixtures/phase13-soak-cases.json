@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "fixture_id": "aoa-memo-phase13-accelerated-soak-v1",
+  "seed": 1307,
+  "days": 30,
+  "checkpoints_days": [
+    7,
+    30
+  ],
+  "accelerated_replay_is_wall_clock_soak": false,
+  "daily_workload": {
+    "new_objects": 20,
+    "updates": 6,
+    "recalls": 30,
+    "explicit_erasures": 2,
+    "semantic_review_candidates": 4,
+    "logical_payload_bytes_per_mutation": 64,
+    "review_minutes_per_candidate": 1
+  },
+  "arms": {
+    "A": "manual_pull_with_unprocessed_maintenance_backlog",
+    "B": "unguarded_automatic_maintenance_negative_control",
+    "C": "versioned_idempotent_lifecycle_with_tombstone_projection_guard"
+  },
+  "budgets": {
+    "operator_review_minutes_per_day": 12,
+    "foreground_p95_latency_ms": 25,
+    "foreground_p99_latency_ms": 50,
+    "max_storage_bytes": 16777216,
+    "max_write_amplification_ratio": 80,
+    "max_maintenance_backlog_items": 60,
+    "max_silent_faults": 0
+  },
+  "faults": [
+    {
+      "fault_id": "owner_source_unavailable",
+      "expected": "block_semantic_write_and_degrade_to_reviewed_pull"
+    },
+    {
+      "fault_id": "stale_projection",
+      "expected": "detect_version_mismatch_and_rebuild_from_current_source"
+    },
+    {
+      "fault_id": "duplicate_delivery",
+      "expected": "idempotent_no_write"
+    },
+    {
+      "fault_id": "retry_after_commit",
+      "expected": "same_receipt_no_write"
+    },
+    {
+      "fault_id": "crash_before_commit",
+      "expected": "transaction_rollback_and_safe_retry"
+    },
+    {
+      "fault_id": "crash_after_commit_before_ack",
+      "expected": "journal_recovery_and_idempotent_ack"
+    },
+    {
+      "fault_id": "queue_reorder",
+      "expected": "stale_expected_version_blocked"
+    },
+    {
+      "fault_id": "concurrent_update",
+      "expected": "one_commit_one_conflict"
+    },
+    {
+      "fault_id": "rebuild_during_erase",
+      "expected": "tombstone_prevents_reprojection"
+    },
+    {
+      "fault_id": "restore_after_erase",
+      "expected": "restore_quarantined_until_erasure_reconciliation"
+    },
+    {
+      "fault_id": "model_endpoint_unavailable",
+      "expected": "no_model_influence_and_pull_only_fallback"
+    },
+    {
+      "fault_id": "resource_admission_denied",
+      "expected": "run_blocked_without_force"
+    },
+    {
+      "fault_id": "storage_pressure_watch",
+      "expected": "pause_growth_work_and_preserve_reads"
+    },
+    {
+      "fault_id": "operator_review_backlog",
+      "expected": "narrow_or_pause_semantic_candidates"
+    }
+  ],
+  "required_metrics": [
+    "p50_latency_ms",
+    "p95_latency_ms",
+    "p99_latency_ms",
+    "foreground_p50_latency_ms",
+    "foreground_p95_latency_ms",
+    "foreground_p99_latency_ms",
+    "maintenance_p50_latency_ms",
+    "maintenance_p95_latency_ms",
+    "maintenance_p99_latency_ms",
+    "storage_bytes",
+    "write_amplification_ratio",
+    "maintenance_backlog_items",
+    "operator_review_minutes",
+    "foreground_task_result",
+    "silent_faults"
+  ],
+  "claim_limit": "Accelerated synthetic maintenance replay proves mechanism and bounded-growth behavior only; it is not a 7-day or 30-day wall-clock soak, natural operator-benefit result, or production reliability result.",
+  "authority": {
+    "live_memory_write": false,
+    "policy_promotion": false,
+    "production": false,
+    "training": false,
+    "landing": false
+  }
+}

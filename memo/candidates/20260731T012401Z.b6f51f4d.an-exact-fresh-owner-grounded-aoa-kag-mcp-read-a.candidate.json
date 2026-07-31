@@ -1,0 +1,30 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-evals:20260731T012401Z:b6f51f4d-an-exact-fresh-owner-grounded-ao",
+  "repo": "aoa-evals",
+  "kind": "constraint",
+  "family": "proof-boundary-memory",
+  "scope": "ecosystem",
+  "claim": "An exact fresh owner-grounded aoa-kag MCP read and a passing central boundary review do not establish durable memory, owner acceptance, admission, cross-organ benefit, effect authority, or rollback; each stronger claim requires a distinct owner-issued artifact.",
+  "source_refs": [
+    "repo:aoa-kag/docs/decisions/AOA-KAG-D-0023-review-captured-mcp-results-in-the-owner.md",
+    "repo:aoa-evals/evals/boundary/aoa-organ-access-admission-integrity/EVAL.md"
+  ],
+  "evidence_refs": [
+    "repo:abyss-stack/Knowledge/kag/repo-self/receipts/1860861d9ccc56dc74e955d390783a8878e00edf51b0f52d1d6ddd62c4866eeb/retrieval-eval.json",
+    "repo:abyss-stack/Logs/mcp/canaries/records/aoa-kag/f7f3ed79f5446491f9f6b1196853589dc4874d701baa8bb94c6d470718dd480a.json",
+    "receipt:aoa-kag-owner-review:sha256:7de0bd5757db14d4dc8d75993b72cb18cabd75bbcabccfbbef176b0d1b53de93",
+    "receipt:aoa-evals-central-review:sha256:0385610cd3fbde1a4a1a8493f80d65bd53f1474d2021d7cc4e4bfd7c206b490e"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-07-31T01:24:01Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}

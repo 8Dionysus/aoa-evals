@@ -1,0 +1,29 @@
+{
+  "schema": "aoa_local_memo_export_v1",
+  "id": "export:aoa-evals:20260731T015031Z:a-fresh-exact-owner-grounded-aoa-kag-mcp-result",
+  "repo": "aoa-evals",
+  "target_owner": "aoa-memo",
+  "target_route": "reviewed_intake",
+  "candidate_refs": [
+    "candidates/20260731T014607Z.971fc6cd.a-fresh-exact-owner-grounded-aoa-kag-mcp-result.candidate.json"
+  ],
+  "receipt_refs": [
+    "receipts/20260731T015046Z.export-aoa-evals-20260731t015031z-a-fresh-exact.forwarding-receipt.json"
+  ],
+  "source_refs": [
+    "repo:aoa-evals/evals/boundary/aoa-organ-access-admission-integrity/EVAL.md",
+    "repo:aoa-kag/docs/decisions/AOA-KAG-D-0023-review-captured-mcp-results-in-the-owner.md"
+  ],
+  "evidence_refs": [
+    "receipt:abyss-stack-cross-organ-host:sha256:299d40a158633f2b1a3c9543cb351c66d4aeb3e86fc9beefe64f52e2c85dc58b",
+    "receipt:abyss-stack-cross-organ-host:sha256:176e330fa336d3674af2c04964ec605a47097d0a663e70654557af59850bb192",
+    "receipt:abyss-stack-cross-organ-host:sha256:192d267a972445953ca0fc896671b2c06da66c2b3d35c1fbc5610898a637c5b0",
+    "receipt:abyss-stack-cross-organ-host:sha256:53f7e33efd00cb36fdfe440eec79730c38830752d2b105d01cac517474cfa64d",
+    "receipt:aoa-evals-central-review:sha256:0385610cd3fbde1a4a1a8493f80d65bd53f1474d2021d7cc4e4bfd7c206b490e",
+    "receipt:aoa-kag-owner-review:sha256:d5410a86fb0f8bf7176d166317ef392eb8ea159908573be6fffe08921f8d6e6d",
+    "repo:abyss-stack/Logs/mcp/canaries/results/aoa-kag/df24de9c43f6aa6a39813bfb78cda4a42310311da14230c9ac3d429022e289ba.json"
+  ],
+  "allowed_result": "reviewed_write",
+  "created_at": "2026-07-31T01:50:31Z",
+  "notes": "Reviewed by the aoa-evals origin owner after the fresh KAG owner review, temporally ordered host-visible KAG-to-memo-to-eval receipts, and bounded central packet review. This authorizes only the aoa-memo reviewed-intake landing route; it does not itself create durable memory, admission, effect authority, cross-organ benefit, or rollback proof."
+}

@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 5504913,
+  "allowed_tracked_bytes": 26047273,
+  "approved_by": "repository-owner",
+  "base_ref": "6141462a7d3dd4260ad89f4bc19500c4dd492592",
+  "changed_generated_bytes": 5504913,
+  "changed_generated_files": 89,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "d36bddc4ba1a79aef8b1d3fe97b211de7097e9497c888437fac233ceac80e25e",
+  "reason": "Index the reviewed live KAG MCP evidence and cross-organ orchestration eval packets; the portable family remains below its tracked-size cap.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 26047273,
+  "tracked_bytes_max": 26214400
+}

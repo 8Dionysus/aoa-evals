@@ -1,0 +1,20 @@
+{
+  "schema": "aoa_local_memo_receipt_v2",
+  "id": "receipt:aoa-evals:20260731T015046Z:export-aoa-evals-20260731t015031z-a-fresh-exact",
+  "repo": "aoa-evals",
+  "candidate_ref": "candidates/20260731T014607Z.971fc6cd.a-fresh-exact-owner-grounded-aoa-kag-mcp-result.candidate.json",
+  "export_ref": "exports/20260731T015031Z.a-fresh-exact-owner-grounded-aoa-kag-mcp-result.aoa-memo-intake.json",
+  "result": "forwarded",
+  "route": "reviewed_intake",
+  "checks": [
+    "schema",
+    "candidate_refs",
+    "source_refs",
+    "evidence_refs",
+    "guardrails"
+  ],
+  "errors": [],
+  "created_at": "2026-07-31T01:50:46Z",
+  "checked_by": "aoa-memo-mcp",
+  "notes": "Forwarding check receipt only. Durable landing remains an aoa-memo source patch."
+}

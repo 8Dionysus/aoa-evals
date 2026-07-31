@@ -6,22 +6,23 @@ Generated from `PORT.yaml` and local memo packets.
 
 | District | Count |
 |---|---:|
-| candidates | 1 |
-| receipts | 1 |
-| exports | 1 |
+| candidates | 2 |
+| receipts | 2 |
+| exports | 2 |
 | local | 0 |
 
 ## Routes
 
 | Route | Count |
 |---|---:|
-| `reviewed_intake` | 1 |
+| `reviewed_intake` | 2 |
 
 ## Open Items
 
 | ID | State | Route | Path |
 |---|---|---|---|
 | `candidate:aoa-evals:20260731T012401Z:b6f51f4d-an-exact-fresh-owner-grounded-ao` | `candidate` | `reviewed_intake` | `candidates/20260731T012401Z.b6f51f4d.an-exact-fresh-owner-grounded-aoa-kag-mcp-read-a.candidate.json` |
+| `candidate:aoa-evals:20260731T014607Z:971fc6cd-a-fresh-exact-owner-grounded-aoa` | `candidate` | `reviewed_intake` | `candidates/20260731T014607Z.971fc6cd.a-fresh-exact-owner-grounded-aoa-kag-mcp-result.candidate.json` |
 
 ## Agent Route
 

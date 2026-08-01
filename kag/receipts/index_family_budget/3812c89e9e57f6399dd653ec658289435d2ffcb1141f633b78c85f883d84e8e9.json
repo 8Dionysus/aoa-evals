@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 7720522,
+  "allowed_tracked_bytes": 26154114,
+  "approved_by": "repository-owner",
+  "base_ref": "ecdf8e50ea9b887f81b501998d3fb7fb1b5fcf94",
+  "changed_generated_bytes": 7720522,
+  "changed_generated_files": 127,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "3812c89e9e57f6399dd653ec658289435d2ffcb1141f633b78c85f883d84e8e9",
+  "reason": "Organ-access rollback readiness and O2 evaluation-memory artifacts add reviewed proof source; this receipt admits only the measured portable-family growth for PR #442.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 26154114,
+  "tracked_bytes_max": 26214400
+}

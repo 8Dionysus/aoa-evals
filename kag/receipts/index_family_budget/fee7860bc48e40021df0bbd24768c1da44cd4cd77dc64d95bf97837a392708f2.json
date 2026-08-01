@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 3290913,
+  "allowed_tracked_bytes": 26187252,
+  "approved_by": "repository-owner",
+  "base_ref": "1e228c1d5e0c2610b7e667513fbdbe068b49aef4",
+  "changed_generated_bytes": 3290913,
+  "changed_generated_files": 51,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "fee7860bc48e40021df0bbd24768c1da44cd4cd77dc64d95bf97837a392708f2",
+  "reason": "The reviewed post-merge MCP organ-chain handoff adds owner-local candidate, export, receipt, and derived index evidence; full aoa-evals tests and local memo-port parity passed before this bounded generated-family refresh.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta",
+  "tracked_bytes": 26187252,
+  "tracked_bytes_max": 26214400
+}

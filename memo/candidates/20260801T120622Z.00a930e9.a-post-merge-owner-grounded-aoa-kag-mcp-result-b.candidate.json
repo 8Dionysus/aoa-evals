@@ -1,0 +1,30 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-evals:20260801T120622Z:00a930e9-a-post-merge-owner-grounded-aoa",
+  "repo": "aoa-evals",
+  "kind": "constraint",
+  "family": "proof-boundary-memory",
+  "scope": "ecosystem",
+  "claim": "A post-merge, owner-grounded aoa-kag MCP result, bounded Codex registration, admission receipt, and host-visible orchestration remain independently owned evidence. Their composition does not let MCP, aoa-sdk, or abyss-stack infer durable memory, proof, semantic acceptance, or effect authority.",
+  "source_refs": [
+    "repo:aoa-kag/docs/decisions/AOA-KAG-D-0023-review-captured-mcp-results-in-the-owner.md",
+    "repo:aoa-sdk/docs/decisions/AOA-SDK-D-0080-host-visible-cross-organ-orchestration.md",
+    "repo:aoa-evals/evals/boundary/aoa-organ-access-admission-integrity/EVAL.md"
+  ],
+  "evidence_refs": [
+    "receipt:aoa-kag-owner-review:sha256:01e15dd251de5706ac49a010db0f50ff097445de3ebb52e0ebaeeb75ace56d05",
+    "receipt:os-abyss-kag-admission:sha256:a0cd01ef0312bc12ab53502ba8b2bdf1d44534250c3107f693c5df5488244cd5",
+    "receipt:codex-consumer-apply:sha256:b1d244f529e1c7ce772335cc58e3a91bc2bf5ef671728013764f6c5587ca821f"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-08-01T12:06:22Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}

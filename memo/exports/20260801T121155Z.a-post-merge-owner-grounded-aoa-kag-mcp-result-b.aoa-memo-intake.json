@@ -1,0 +1,31 @@
+{
+  "schema": "aoa_local_memo_export_v1",
+  "id": "export:aoa-evals:20260801T121155Z:a-post-merge-owner-grounded-aoa-kag-mcp-result-b",
+  "repo": "aoa-evals",
+  "target_owner": "aoa-memo",
+  "target_route": "reviewed_intake",
+  "candidate_refs": [
+    "candidates/20260801T120622Z.00a930e9.a-post-merge-owner-grounded-aoa-kag-mcp-result-b.candidate.json"
+  ],
+  "receipt_refs": [
+    "receipts/20260801T121201Z.export-aoa-evals-20260801t121155z-a-post-merge-o.forwarding-receipt.json"
+  ],
+  "source_refs": [
+    "repo:aoa-evals/evals/boundary/aoa-organ-access-admission-integrity/EVAL.md",
+    "repo:aoa-kag/docs/decisions/AOA-KAG-D-0023-review-captured-mcp-results-in-the-owner.md",
+    "repo:aoa-sdk/docs/decisions/AOA-SDK-D-0080-host-visible-cross-organ-orchestration.md"
+  ],
+  "evidence_refs": [
+    "receipt:aoa-kag-owner-review:sha256:01e15dd251de5706ac49a010db0f50ff097445de3ebb52e0ebaeeb75ace56d05",
+    "receipt:codex-consumer-apply:sha256:b1d244f529e1c7ce772335cc58e3a91bc2bf5ef671728013764f6c5587ca821f",
+    "receipt:os-abyss-kag-admission:sha256:a0cd01ef0312bc12ab53502ba8b2bdf1d44534250c3107f693c5df5488244cd5",
+    "receipt:abyss-stack-cross-organ-host:sha256:6bd828176bdb2480967a78b373fed376adb6d5094c7842805c687d437dd8bdf4",
+    "receipt:abyss-stack-cross-organ-host:sha256:f529db353f38f1c74afe36197fd9e8314ab081e4963c9e3bd06965fdade7ab80",
+    "receipt:abyss-stack-cross-organ-host:sha256:1c7bc135310e6ca21f9bcf7ba3d2e606b9f34f2405508e96f14e9d541bf3a9d6",
+    "receipt:abyss-stack-cross-organ-host:sha256:f5223835907e60ba80123c30406e82ed16d46592099fdbf4fa5ed8aefa343e36",
+    "receipt:aoa-evals-central-review:sha256:e041b6fe29c6c059d36b2ea28391b95592213e9fe7cebe8c7dea29c21c143095"
+  ],
+  "allowed_result": "reviewed_write",
+  "created_at": "2026-08-01T12:11:55Z",
+  "notes": "Reviewed by the aoa-evals origin owner after the post-merge KAG owner review, admitted read-plane and bounded consumer receipts, four temporally ordered host-visible orchestration receipts, and the current bounded central eval result. This authorizes only the exact aoa-memo reviewed-intake landing route; it does not itself create durable memory, admission, effect authority, cross-organ benefit, or rollback proof."
+}

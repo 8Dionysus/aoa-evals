@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-evals/evals/boundary/aoa-organ-access-admission-integrity/reports/rollback-review.schema.json",
+  "title": "Bounded organ-access rollback candidate review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "eval_name", "bundle_status", "reviewed_at", "candidate",
+    "source_contract", "candidate_validation", "negative_suite", "verdict",
+    "rollback_candidate_supported", "rollback_executed", "admission_change_authorized",
+    "higher_effect_authorized", "actual_effects", "limitations", "claim_limit"
+  ],
+  "properties": {
+    "schema_version": {"const": "aoa_organ_access_rollback_review_v1"},
+    "eval_name": {"const": "aoa-organ-access-admission-integrity"},
+    "bundle_status": {"const": "bounded"},
+    "reviewed_at": {"type": "string", "format": "date-time"},
+    "candidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["candidate_ref", "candidate_digest", "candidate_id", "organ_id", "policy_family"],
+      "properties": {
+        "candidate_ref": {"type": "string", "minLength": 1},
+        "candidate_digest": {"$ref": "#/$defs/digest"},
+        "candidate_id": {"$ref": "#/$defs/digest"},
+        "organ_id": {"type": "string", "minLength": 2},
+        "policy_family": {"const": "read"}
+      }
+    },
+    "source_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "eval_ref", "eval_digest", "manifest_ref", "manifest_digest",
+        "candidate_schema_ref", "candidate_schema_digest", "review_schema_ref",
+        "review_schema_digest", "runner_ref", "runner_digest"
+      ],
+      "properties": {
+        "eval_ref": {"type": "string", "minLength": 1},
+        "eval_digest": {"$ref": "#/$defs/digest"},
+        "manifest_ref": {"type": "string", "minLength": 1},
+        "manifest_digest": {"$ref": "#/$defs/digest"},
+        "candidate_schema_ref": {"type": "string", "minLength": 1},
+        "candidate_schema_digest": {"$ref": "#/$defs/digest"},
+        "review_schema_ref": {"type": "string", "minLength": 1},
+        "review_schema_digest": {"$ref": "#/$defs/digest"},
+        "runner_ref": {"type": "string", "minLength": 1},
+        "runner_digest": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "candidate_validation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["accepted_by_source_contract", "issues"],
+      "properties": {
+        "accepted_by_source_contract": {"type": "boolean"},
+        "issues": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "negative_suite": {
+      "type": "object", "additionalProperties": false,
+      "required": ["verdict", "scenario_count", "passed_count", "failed_count", "report_digest"],
+      "properties": {
+        "verdict": {"enum": ["supports bounded claim", "does not support bounded claim"]},
+        "scenario_count": {"type": "integer", "minimum": 1},
+        "passed_count": {"type": "integer", "minimum": 0},
+        "failed_count": {"type": "integer", "minimum": 0},
+        "report_digest": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "verdict": {"enum": ["supported_bounded", "rejected_contract"]},
+    "rollback_candidate_supported": {"type": "boolean"},
+    "rollback_executed": {"const": false},
+    "admission_change_authorized": {"const": false},
+    "higher_effect_authorized": {"const": false},
+    "actual_effects": {"type": "array", "maxItems": 0},
+    "limitations": {"type": "array", "minItems": 3, "items": {"type": "string", "minLength": 20}},
+    "claim_limit": {"type": "string", "minLength": 80}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"verdict": {"const": "supported_bounded"}}, "required": ["verdict"]},
+      "then": {
+        "properties": {
+          "rollback_candidate_supported": {"const": true},
+          "candidate_validation": {
+            "properties": {
+              "accepted_by_source_contract": {"const": true},
+              "issues": {"maxItems": 0}
+            }
+          },
+          "negative_suite": {
+            "properties": {
+              "verdict": {"const": "supports bounded claim"},
+              "failed_count": {"const": 0}
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

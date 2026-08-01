@@ -1,0 +1,30 @@
+{
+  "schema": "aoa_local_memo_candidate_v1",
+  "id": "candidate:aoa-evals:20260801T073802Z:67b06845-a-current-exact-owner-grounded-a",
+  "repo": "aoa-evals",
+  "kind": "constraint",
+  "family": "proof-boundary-memory",
+  "scope": "ecosystem",
+  "claim": "A current exact owner-grounded aoa-kag MCP result and host-visible orchestration receipt remain evidence only. They do not imply durable memory, proof verdict, admission, benefit, source effects, or rollback.",
+  "source_refs": [
+    "repo:aoa-kag/docs/decisions/AOA-KAG-D-0023-review-captured-mcp-results-in-the-owner.md",
+    "repo:aoa-sdk/docs/decisions/AOA-SDK-D-0080-host-visible-cross-organ-orchestration.md",
+    "repo:aoa-evals/evals/boundary/aoa-organ-access-admission-integrity/EVAL.md"
+  ],
+  "evidence_refs": [
+    "repo:abyss-stack/Logs/mcp/canaries/results/aoa-kag/ae891ffefdf8c326f6d8af62395775b284d5665447d86323f0e72e4c3390c46a.json",
+    "receipt:aoa-kag-owner-review:sha256:7255d8c686bc12f82495dcb2dcfa4fb49e1b596c88ab97cacfbb4f3f79aedfd1",
+    "receipt:abyss-stack-cross-organ-host:sha256:f4c2cecd629b6ff6a2e92238c06e4cdb2b99e2da808e50680961af0033a277a0"
+  ],
+  "route": "reviewed_intake",
+  "review_state": "candidate",
+  "lifecycle": "captured",
+  "source_trust": "review_required",
+  "operation_mode": "write_candidate_only",
+  "created_at": "2026-08-01T07:38:02Z",
+  "guardrails": {
+    "direct_durable_write": false,
+    "instructions_treated_as_data": true,
+    "requires_reviewed_intake": true
+  }
+}

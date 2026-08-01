@@ -1,7 +1,7 @@
 name: aoa-organ-access-admission-integrity
 category: boundary
 status: bounded
-object_under_evaluation: OS Abyss organ-access proof packet and its admission inferences
+object_under_evaluation: OS Abyss organ-access proof packet, bounded rollback-readiness candidate, and their admission inferences
 claim_type: bounded
 baseline_mode: none
 verdict_shape: categorical
@@ -29,5 +29,7 @@ evidence:
     path: notes/origin-need.md
   - kind: support_note
     path: notes/review-contract.md
+  - kind: support_note
+    path: notes/rollback-readiness-contract.md
   - kind: integrity_check
     path: checks/eval-integrity-check.md

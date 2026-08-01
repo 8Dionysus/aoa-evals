@@ -3,7 +3,7 @@ name: aoa-organ-access-admission-integrity
 category: boundary
 status: bounded
 summary: Checks that one OS Abyss organ-access proof packet preserves independent maturity axes, policy-plane ceilings, owner acceptance, freshness, and admission boundaries.
-object_under_evaluation: OS Abyss organ-access proof packet and its admission inferences
+object_under_evaluation: OS Abyss organ-access proof packet, bounded rollback-readiness candidate, and their admission inferences
 claim_type: bounded
 baseline_mode: none
 report_format: summary-with-breakdown
@@ -32,9 +32,15 @@ live MCP process, registry, consumer, or organ result by itself. Its optional
 live-packet materializer can compose already-issued local evidence into one
 candidate packet, but it cannot issue a proof verdict or owner decision.
 
+The bundle also exposes an optional rollback-readiness review for one exact
+stack-issued last-known-good candidate. That review checks reproducibility and
+authority stop-lines only. It neither executes rollback nor promotes readiness
+to the `rollback_proven` maturity axis.
+
 ## Object under evaluation
 
-The object under evaluation is one `organ_access_proof_packet_v1` packet with:
+The primary object under evaluation is one `organ_access_proof_packet_v1`
+packet with:
 
 - one organ and capability identity;
 - one policy plane and protocol pair;
@@ -44,6 +50,13 @@ The object under evaluation is one `organ_access_proof_packet_v1` packet with:
 - sixteen independently stated maturity axes;
 - a bounded result that cannot authorize admission, infer acceptance, or raise
   effect authority.
+
+The optional secondary object is one
+`abyss_stack_mcp_rollback_candidate_v1` candidate bound to the exact private
+runtime observation, immutable deployment record, consumer registration,
+stable restorable process target, and a distinct owner-grounded
+last-known-good canary. It remains a candidate until an independent stack
+projector revalidates those live inputs.
 
 ## Bounded claim
 
@@ -109,6 +122,20 @@ For optional live packet materialization:
   the named source or acceptance owner; and
 - one private output path under a non-group/world-accessible directory.
 
+For optional rollback-readiness review:
+
+- one private mode-`0600`, non-symlink stack-issued candidate conforming to
+  `schemas/rollback-readiness-candidate.schema.json`;
+- an unexpired observation window that covers the candidate lifetime;
+- byte-identical source, deployed package, and last-known-good package
+  identities;
+- one immutable deployment manifest reference and digest;
+- one stable restorable unit/executable identity, credential class without
+  credential bytes, and exact consumer registration;
+- one distinct `/last-known-good` canary receipt in the private
+  `rollback-canaries` lane; and
+- one private output path for the bounded review.
+
 ## Fixtures and case surface
 
 The checked-in scenarios cover:
@@ -170,6 +197,21 @@ reviewer can inspect the exact payload; its presence alone asserts no maturity
 axis. A consumed result review is not the organ-contract `owner_reviewed` axis
 and cannot create acceptance, central proof, admission, or effect authority.
 
+### Rollback-readiness review
+
+`runners/review_rollback.py` reviews one exact candidate without probing or
+mutating the runtime. It verifies the candidate schema and content address,
+source/deployed/LKG package continuity, immutable manifest identity, stable
+process-target shape, distinct LKG canary lane, observation lifetime, absence
+of secret-like material, and fixed-false execution/admission/effect fields.
+
+Its eleven deterministic scenarios include drift in source identity, manifest
+identity, canary route, lifetime, registry posture, process identity, content
+address, and authority ceilings. A `supported_bounded` verdict means the
+candidate passed this source contract. It does not authenticate the referenced
+live files; `abyss-stack` must revalidate them unchanged before projecting a
+rollback-readiness observation.
+
 ## Scoring or verdict logic
 
 The scenario runner produces:
@@ -222,6 +264,10 @@ in `runners/contract.json`.
   binds an exact packet digest to the current source bundle and negative-suite
   replay without inferring owner acceptance, admission, cross-organ benefit,
   effects, or rollback.
+- optionally, one mode-`0600` `aoa_organ_access_rollback_review_v1` report
+  binding one exact rollback candidate to this bundle and its negative-suite
+  replay while keeping rollback execution, admission change, higher effects,
+  and actual effects fixed false.
 
 The report contract is
 `reports/summary.schema.json`; `reports/example-report.json` is a checked-in
@@ -229,6 +275,8 @@ public-safe example, not a production receipt.
 `reports/live-review.schema.json` constrains the optional private packet-review
 artifact. Its `supported_bounded` verdict means only that the exact packet
 satisfies this source contract and the checked-in negative scenarios pass.
+`reports/rollback-review.schema.json` constrains the optional private rollback
+review and preserves the same source-versus-live boundary.
 
 ## Failure modes
 
@@ -246,6 +294,10 @@ The instrument fails its purpose if:
 - an owner review is accepted without exact registry, capture, result,
   source-schema, lifetime, and authority-ceiling binding;
 - materializer success is reported as a central proof verdict.
+- rollback readiness is reported as rollback execution or post-restore health;
+- a PID or current canary is accepted as a stable, distinct last-known-good
+  restoration target;
+- a rollback candidate contains credentials or authorizes process effects.
 
 ## Blind spots
 
@@ -263,6 +315,11 @@ This eval does not prove:
 
 Those claims require pair-specific runtime evidence, named owner review, and
 separate admission and rollback receipts.
+
+The rollback-readiness review reduces uncertainty about whether an exact
+last-known-good contour is reconstructable. It still does not prove that a
+future restoration succeeds, that post-rollback health is good, or that the
+target remains available after its evidence window expires.
 
 ## Interpretation guidance
 
@@ -288,6 +345,7 @@ Reviewers must keep these distinctions:
 - owner acceptance is not admission;
 - read-plane proof is not effect authorization;
 - successful operation is not rollback proof.
+- reproducible rollback target is not executed or verified rollback.
 
 ## Verification
 
@@ -302,6 +360,11 @@ Reviewers must keep these distinctions:
 - confirm the result names the live-evidence blind spot.
 - run the live-materializer tests and confirm output mode, negative cross-input
   cases, secret rejection, and permanently unasserted owner/proof axes.
+- run `review_rollback.py run-scenarios` and the rollback-readiness tests;
+- confirm rollback review output is private, content-bound, source-contract
+  bound, and fixed false for execution, admission, and effects;
+- confirm only the stack-owned projector can turn unchanged live evidence into
+  a temporary rollback-readiness observation.
 
 ## Technique traceability
 

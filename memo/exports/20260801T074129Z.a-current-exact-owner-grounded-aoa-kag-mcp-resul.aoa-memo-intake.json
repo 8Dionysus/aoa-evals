@@ -1,0 +1,30 @@
+{
+  "schema": "aoa_local_memo_export_v1",
+  "id": "export:aoa-evals:20260801T074129Z:a-current-exact-owner-grounded-aoa-kag-mcp-resul",
+  "repo": "aoa-evals",
+  "target_owner": "aoa-memo",
+  "target_route": "reviewed_intake",
+  "candidate_refs": [
+    "candidates/20260801T073802Z.67b06845.a-current-exact-owner-grounded-aoa-kag-mcp-resul.candidate.json"
+  ],
+  "receipt_refs": [
+    "receipts/20260801T074135Z.export-aoa-evals-20260801t074129z-a-current-exac.forwarding-receipt.json"
+  ],
+  "source_refs": [
+    "repo:aoa-evals/evals/boundary/aoa-organ-access-admission-integrity/EVAL.md",
+    "repo:aoa-kag/docs/decisions/AOA-KAG-D-0023-review-captured-mcp-results-in-the-owner.md",
+    "repo:aoa-sdk/docs/decisions/AOA-SDK-D-0080-host-visible-cross-organ-orchestration.md"
+  ],
+  "evidence_refs": [
+    "receipt:abyss-stack-cross-organ-host:sha256:f4c2cecd629b6ff6a2e92238c06e4cdb2b99e2da808e50680961af0033a277a0",
+    "receipt:abyss-stack-cross-organ-host:sha256:2b5f9d97f802c8f084b6e558dd78db85d92a543fc9a7a8c6824ee4755887dfa6",
+    "receipt:abyss-stack-cross-organ-host:sha256:f3eeb10fd2d71b9921aba34d853296a8a17f82c6f60a8f7441e15575e9dd6534",
+    "receipt:abyss-stack-cross-organ-host:sha256:11ddc972ccc3e1af514f8346d0ebadcd83628ad08671e26e4cee3bc8b1082d68",
+    "receipt:aoa-evals-central-review:sha256:b87f55e51b3bd7350505ca2d23ec886976bc92bd0dc28cde8c25b890af028c20",
+    "receipt:aoa-kag-owner-review:sha256:7255d8c686bc12f82495dcb2dcfa4fb49e1b596c88ab97cacfbb4f3f79aedfd1",
+    "repo:abyss-stack/Logs/mcp/canaries/results/aoa-kag/ae891ffefdf8c326f6d8af62395775b284d5665447d86323f0e72e4c3390c46a.json"
+  ],
+  "allowed_result": "reviewed_write",
+  "created_at": "2026-08-01T07:41:29Z",
+  "notes": "Reviewed by the aoa-evals origin owner after the current KAG owner review, four temporally ordered host-visible KAG-to-memo-to-eval receipts, and a new bounded central packet review. This authorizes only the aoa-memo reviewed-intake landing route; it does not itself create durable memory, admission, effect authority, cross-organ benefit, or rollback proof."
+}

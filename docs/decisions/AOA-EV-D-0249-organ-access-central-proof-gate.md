@@ -127,6 +127,23 @@ As of 2026-07-25:
 
 ## Review Log
 
+### 2026-08-01 - Add bounded rollback-readiness review
+
+- Previous state: the source bundle preserved rollback as an independent
+  unproven axis but had no candidate contract for an exact last-known-good
+  contour.
+- New reality: the existing admission-integrity bundle can review one
+  stack-issued, content-addressed rollback-readiness candidate and replay
+  negative identity, lifetime, and authority scenarios.
+- Boundary retained: this review is not the future pair-specific live rollback
+  suite, does not authenticate live references by itself, does not execute a
+  restoration, and cannot assert `rollback_proven`, admission, or effects.
+- Source surfaces updated:
+  - `evals/boundary/aoa-organ-access-admission-integrity/EVAL.md`
+  - `evals/boundary/aoa-organ-access-admission-integrity/schemas/rollback-readiness-candidate.schema.json`
+  - `evals/boundary/aoa-organ-access-admission-integrity/reports/rollback-review.schema.json`
+  - `evals/boundary/aoa-organ-access-admission-integrity/runners/review_rollback.py`
+
 ### 2026-07-25 - Establish organ-access proof boundary
 
 - Previous assumption: package-local MCP validation and existing candidate

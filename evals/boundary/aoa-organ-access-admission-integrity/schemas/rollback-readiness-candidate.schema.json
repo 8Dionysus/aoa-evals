@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-evals/evals/boundary/aoa-organ-access-admission-integrity/schemas/rollback-readiness-candidate.schema.json",
+  "title": "OS Abyss organ-access rollback readiness candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "candidate_id", "issuer", "organ_id", "policy_family",
+    "generated_at", "expires_at", "rollback_route", "observation", "registry",
+    "source_package", "last_known_good", "checks", "execution_authorized",
+    "admission_authorized", "rollback_executed", "contains_secrets", "claim_limits"
+  ],
+  "properties": {
+    "schema_version": {"const": "abyss_stack_mcp_rollback_candidate_v1"},
+    "candidate_id": {"$ref": "#/$defs/digest"},
+    "issuer": {"const": "abyss-stack"},
+    "organ_id": {"$ref": "#/$defs/identifier"},
+    "policy_family": {"const": "read"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": "string", "format": "date-time"},
+    "rollback_route": {"type": "string", "minLength": 3},
+    "observation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["observation_ref", "observation_digest", "generated_at", "expires_at"],
+      "properties": {
+        "observation_ref": {"type": "string", "minLength": 1},
+        "observation_digest": {"$ref": "#/$defs/digest"},
+        "generated_at": {"type": "string", "format": "date-time"},
+        "expires_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "registry": {
+      "type": "object", "additionalProperties": false,
+      "required": ["registry_id", "registry_digest", "registry_state"],
+      "properties": {
+        "registry_id": {"type": "string", "minLength": 1},
+        "registry_digest": {"$ref": "#/$defs/digest"},
+        "registry_state": {"enum": ["shadow", "admitted"]}
+      }
+    },
+    "source_package": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_root_owner", "source_revision", "source_tree_digest", "deployed_tree_digest", "file_count", "byte_count"],
+      "properties": {
+        "source_root_owner": {"const": "abyss-stack"},
+        "source_revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "source_tree_digest": {"$ref": "#/$defs/digest"},
+        "deployed_tree_digest": {"$ref": "#/$defs/digest"},
+        "file_count": {"type": "integer", "minimum": 1},
+        "byte_count": {"type": "integer", "minimum": 1}
+      }
+    },
+    "last_known_good": {"$ref": "#/$defs/rollbackTarget"},
+    "checks": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "immutable_manifest_verified", "source_commit_available", "source_package_reproduced",
+        "deployed_package_exact", "unit_and_executable_exact", "credential_present_without_read",
+        "consumer_registration_exact", "lkg_canary_distinct_and_grounded", "runtime_effect_executed"
+      ],
+      "properties": {
+        "immutable_manifest_verified": {"const": true},
+        "source_commit_available": {"const": true},
+        "source_package_reproduced": {"const": true},
+        "deployed_package_exact": {"const": true},
+        "unit_and_executable_exact": {"const": true},
+        "credential_present_without_read": {"const": true},
+        "consumer_registration_exact": {"const": true},
+        "lkg_canary_distinct_and_grounded": {"const": true},
+        "runtime_effect_executed": {"const": false}
+      }
+    },
+    "execution_authorized": {"const": false},
+    "admission_authorized": {"const": false},
+    "rollback_executed": {"const": false},
+    "contains_secrets": {"const": false},
+    "claim_limits": {
+      "type": "array", "minItems": 4, "uniqueItems": true,
+      "items": {"type": "string", "minLength": 20}
+    }
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "identifier": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,127}$"},
+    "rollbackTarget": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "consumer_registration_ref", "package_digest", "deploy_revision", "deploy_tree_digest",
+        "deploy_manifest_ref", "deploy_manifest_digest", "unit_name", "credential_class",
+        "executable_ref", "process_identity", "canary_route", "canary_ref"
+      ],
+      "properties": {
+        "consumer_registration_ref": {"type": "string", "minLength": 3},
+        "package_digest": {"$ref": "#/$defs/digest"},
+        "deploy_revision": {"type": "string", "minLength": 3},
+        "deploy_tree_digest": {"$ref": "#/$defs/digest"},
+        "deploy_manifest_ref": {"type": "string", "pattern": "^Logs/mcp/deployments/records/[0-9a-f]{64}\\.json$"},
+        "deploy_manifest_digest": {"$ref": "#/$defs/digest"},
+        "unit_name": {"type": "string", "pattern": "^[A-Za-z0-9_.@-]+\\.service$"},
+        "credential_class": {"$ref": "#/$defs/identifier"},
+        "executable_ref": {"type": "string", "pattern": "^/"},
+        "process_identity": {"type": "string", "pattern": "^systemd-user:.+:executable:sha256:[0-9a-f]{64}$"},
+        "canary_route": {"type": "string", "pattern": "/last-known-good$"},
+        "canary_ref": {"type": "string", "pattern": "/rollback-canaries/records/"}
+      }
+    }
+  }
+}

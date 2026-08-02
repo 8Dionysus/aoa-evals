@@ -9,6 +9,11 @@ Tracking starts with the community-docs baseline for this repository.
 
 ### Changed
 
+- Add decision `AOA-EV-D-0252`, owner-authored read, candidate, and proof-result
+  MCP capability profiles, and a bounded live cross-organ handoff eval. The
+  profiles reduce advertised context without collapsing candidate preparation,
+  proof ownership, owner acceptance, admission, benefit, or effect authority.
+
 - Decision `AOA-EV-D-0251` keeps active-organ readiness, model, OS replay,
   fault, accelerated, wall-clock, host, and operator-benefit lanes separate;
   current evidence selects R1 without creating production or landing

@@ -92,6 +92,34 @@ A green source suite cannot admit an organ, accept owner meaning, prove a live
 protocol pair, or change a registry. Live pair-specific proof remains a
 separate evidence and acceptance route.
 
+## Owner-Authored Organ Capabilities
+
+The exact agent-facing capability source is
+[`aoa_evals_mcp_capabilities.v1.json`](aoa_evals_mcp_capabilities.v1.json),
+validated by
+[`aoa_evals_mcp_capabilities.schema.json`](aoa_evals_mcp_capabilities.schema.json).
+It defines three non-overlapping capability profiles:
+
+| Capability | Policy and credential | Authority ceiling |
+| --- | --- | --- |
+| `eval-discovery-read` | read / `evals-read` | select and inspect bounded eval source routes only |
+| `eval-request-prepare` | candidate / `evals-candidate` | prepare one non-persistent typed `eval_need_v1` request candidate |
+| `proof-result-read` | read / `evals-read` | read one already issued bundle-local report without issuing, accepting, or strengthening its verdict |
+
+The source manifest is a capability declaration, not an admission record.
+`abyss-stack` binds the runnable catalogs to it; `aoa-sdk` may use it as one
+input to discovery and admission; neither may change proof meaning. Managed
+consumers should request one exact profile rather than loading the historical
+complete catalog. The portable complete catalog remains a compatibility
+surface until the profiled contours are landed, deployed, and admitted.
+
+`proof-result-read` is deliberately separate from proof issuance. The MCP
+adapter resolves an indexed source report and returns its exact source refs,
+content identity, owner revision, and bundle-local payload. It does not run an
+eval, compute a verdict, publish a report or receipt, or infer acceptance from
+the report's presence. The source report and bundle remain stronger than the
+MCP projection.
+
 ## Operating Card
 
 | Field | Route |
@@ -130,6 +158,7 @@ MCP output is always weaker than the source bundle and its manifest.
 | `aoa-evals://runtime-candidate-exports` | stack-owned private candidate export metadata and validation summaries | governed execution candidate-export lane |
 | `aoa-evals://runtime-candidate-export/{record_id}` | one stack-owned private candidate export without nested payload by default | governed execution candidate-export lane and bundle-local review |
 | `aoa-evals://reports` | generated report index | source reports and bundle-local report contracts |
+| `aoa-evals://proof-result/{report_id}` | one already issued indexed source report with content identity and owner revision | source report, source bundle, manifest, and report contract |
 | `aoa-evals://local-ports` | workspace local eval-port registry with validation summaries and advisory route recommendations | sibling `evals/PORT.yaml` files, `aoa-evals` local-port validator, and local-port inventory read-model |
 | `aoa-evals://local-port/{repo}` | one repo-local eval port summary, pressure counts, validator issues, and advisory route key | sibling repo-local `evals/` port |
 | `aoa-evals://local-port/{repo}/intake` | local `eval_need_v1` intake packets | sibling repo-local `evals/intake/` |
@@ -151,6 +180,8 @@ MCP output is always weaker than the source bundle and its manifest.
 | `aoa_evals_runtime_candidate_exports(limit)` | list stack-owned private runtime candidate exports with validation summaries | include nested private payloads, accept evidence, or publish results |
 | `aoa_evals_read_runtime_candidate_export(record_id, include_payload)` | read one stack-owned private candidate export for review routing | treat readability or schema validity as proof acceptance |
 | `aoa_evals_report_skeleton(name, evidence_refs)` | prepare a candidate-only report skeleton and required source refs | publish a receipt, compute a verdict, or mutate repo files |
+| `aoa_evals_prepare_request_candidate(proof_question, proposal)` | prepare a non-persistent typed `eval_need_v1` request candidate on the candidate contour | persist intake, approve a request, create a bundle, run an eval, or issue proof |
+| `aoa_evals_read_proof_result(report_id)` | read one already issued indexed source report with exact source and revision refs | compute, strengthen, accept, publish, or replace the source verdict |
 | `aoa_evals_local_ports(status, include_skeleton)` | list repo-local eval ports, validation summaries, pressure counts, and advisory route recommendations | treat local pressure as accepted proof |
 | `aoa_evals_local_port(repo)` | inspect one repo-local eval port, counts, validator issues, owner boundary, and advisory route key | override the sibling repo's local route card |
 | `aoa_evals_find_or_propose_local(repo, proof_question, proposal)` | shape a local `eval_need_v1` packet and target route for a sibling port | write source, approve proposal, or skip existing-route review |
@@ -176,6 +207,7 @@ MCP output is always weaker than the source bundle and its manifest.
   and a just-in-time revalidation succeeds; that route captures environment
   metadata and an execution receipt.
 - Do not compute verdicts.
+- Do not issue proof through MCP; reading an existing report is not proof issuance.
 - Do not publish receipts.
 - Do not promote bundles.
 - Do not mutate `aoa-evals` source from MCP.
@@ -355,7 +387,10 @@ The service may read:
 - generated readers from that checkout;
 - an approved runtime mirror when explicitly configured.
 
-The service must stay stdio-only until a later decision widens exposure.
+Portable execution remains stdio-first. Managed Streamable HTTP may be used
+only on loopback with separate read/candidate credentials and exact
+capability-profile catalogs. Transport reachability and bearer authentication
+remain runtime observations, not proof, admission, or effect authorization.
 
 ## Validation
 

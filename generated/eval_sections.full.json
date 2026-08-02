@@ -2257,6 +2257,100 @@
       "verdict_shape": "categorical"
     },
     {
+      "category": "boundary",
+      "eval_path": "evals/boundary/aoa-organ-access-live-cross-organ-handoff/EVAL.md",
+      "name": "aoa-organ-access-live-cross-organ-handoff",
+      "sections": [
+        {
+          "content_markdown": "This separately named live bundle closes the exact gap preserved by\n`AOA-EV-D-0249`: the admission-integrity bundle validates a public packet\ncontract but cannot issue a pair-specific verdict over direct owner calls.\n\nThe bounded question is whether one exact host-visible chain proves that KAG,\nMemo, and Evals were invoked directly, passed content-bound typed artifacts in\nthe pinned order, stayed within their policy ceilings, and stopped at an\n`aoa-evals` proof result without inferring `aoa-memo` durable acceptance.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "The proof unit is one `aoa_cross_organ_orchestration_run_v1` snapshot in\n`awaiting_eval_result` state plus seven explicit private inputs:\n\n- the KAG MCP call and its exact result artifact;\n- the Memo candidate MCP call and exact candidate file;\n- the Evals request MCP call and exact eval-need file; and\n- the aoa-sdk snapshot that binds their receipts and transitions.\n\nEvery input must be a private regular non-symlink file. The runner reads only\nthe paths supplied by the operator and never discovers a workspace or endpoint.",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "A `supported_bounded` proof result supports only that the inspected chain:\n\n- contains three ordered, deterministic SDK stages with valid content and\n  receipt digests;\n- binds every stage input to the preceding owner output;\n- uses the exact direct MCP server, tool, and profile inventory expected for\n  KAG read, Memo candidate, and Evals request preparation;\n- preserves current owner-qualified evidence and the declared read/candidate\n  ceilings;\n- keeps SDK owner execution, SDK proof computation, durable-memory write,\n  acceptance inference, and runtime execution fixed false; and\n- requires a later explicit `aoa-memo` owner decision.\n\nIt does not support admission, durable acceptance, runtime effects, rollback,\nmodern-protocol cutover, or generalization beyond the exact run.",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a direct-owner organ workflow is already at `awaiting_eval_result`;\n- all seven exact private inputs are available; and\n- an aware review timestamp remains inside the request window.\n\nDo not use this eval when:\n\n- only source-level packet checks or generic MCP health are available;\n- owner-local semantic truth, admission, or durable acceptance is requested; or\n- rollback or runtime-effect authorization is requested.",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- one private aoa-sdk orchestration snapshot;\n- three private direct MCP call records;\n- three exact owner output artifacts;\n- an aware review timestamp inside the request window;\n- the current bundle source files and report schema.",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "The offline scenario lane constructs a fictional, public-safe chain in a\ntemporary private directory. It covers:\n\n1. the motivating valid three-stage chain;\n2. stale KAG evidence;\n3. malformed Memo candidate output;\n4. Evals request denial;\n5. wrong owner;\n6. expired receipt;\n7. replayed stage;\n8. output-schema drift;\n9. acceptance falsely present before proof; and\n10. restore from a serialized intermediate snapshot.\n\nThe scenarios establish runner behavior only. They are not live proof.",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "`review` emits `supported_bounded` only when every live binding and authority\ncheck passes. Any mismatch fails closed and emits no positive report.\n\n`run-scenarios` reports `supports bounded claim` only when the motivating case\npasses and every negative case is rejected with its expected issue code.",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`. One exact run cannot prove improvement, reliability,\nconsumer diversity, or portability.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "Run the exact commands in `runners/contract.json`. A live review:\n\n- reads explicit private files only;\n- validates content addresses, SDK snapshot reconstruction, stage receipts,\n  direct MCP profiles, owner outputs, freshness, and stop lines;\n- writes one mode-`0600` private report atomically; and\n- performs no MCP call, owner acceptance, source write, registry change,\n  admission, service action, or external effect.\n\nThe report is an `aoa-evals` proof artifact. It becomes the typed input to the\nnext explicit owner stage; it cannot close the chain itself.",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "- one private `aoa_organ_access_live_cross_organ_proof_result_v1` report;\n- content digests for every reviewed input;\n- per-check booleans and the exact request expiry;\n- fixed-false acceptance, memory-write, admission, and runtime-effect fields;\n- explicit limitations and next owner `aoa-memo`.",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "- an MCP call record does not match its owner artifact;\n- a stage or receipt digest cannot be reconstructed;\n- an output is not the next stage's byte-identical typed input;\n- a profile exposes an unexpected tool;\n- evidence or receipt is expired, future-dated, replayed, or wrong-owner;\n- Memo candidate guardrails permit durable write;\n- Evals request preparation claims verdict authority;\n- SDK or proof output claims owner acceptance or runtime effect;\n- private payloads are copied into source fixtures or generated readers.",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- a network trace for every server process or Git-hosting authenticity;\n- consumer-catalog completeness or model-selection benefit;\n- rollback or runtime-effect safety; or\n- that a later owner decision is correct.\n\nSource-level profile tests and runtime process isolation remain independent\nevidence.",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat `supported_bounded` as one proof-owner verdict over one exact chain. It\nis stronger than a successful MCP call and weaker than the following explicit\n`aoa-memo` acceptance receipt. It never authorizes admission or effects.\n\nDo not treat `supported_bounded` as:\n\n- durable-memory acceptance;\n- organ admission;\n- runtime-effect authorization; or\n- proof that another run, owner pair, or protocol profile is valid.",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- run `runners/run_live_handoff.py run-scenarios`;\n- run the focused tests named by `runners/contract.json`;\n- validate the bundle with `scripts/validate_repo.py --eval`;\n- inspect the private report mode, digest, expiry, fixed-false authority fields,\n  and exact next-owner route;\n- re-run from fresh evidence after any source, schema, protocol, owner, or\n  request-expiry change.",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "No technique dependency is required.",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "The `aoa-evals` owner procedure authorizes source evolution and review routing;\nit does not supply proof evidence or strengthen this bundle's verdict.",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "- additional direct-owner stages require a new source revision;\n- a modern wire pair requires an independently pinned protocol profile;\n- admission and runtime-effect proof remain separate evals and owner decisions.",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "bounded",
+      "verdict_shape": "categorical"
+    },
+    {
       "category": "comparative",
       "eval_path": "evals/comparison/peer-compare/aoa-output-vs-process-gap/EVAL.md",
       "name": "aoa-output-vs-process-gap",

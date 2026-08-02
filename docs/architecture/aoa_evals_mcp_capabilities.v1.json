@@ -1,0 +1,163 @@
+{
+  "$schema": "./aoa_evals_mcp_capabilities.schema.json",
+  "schema_version": "aoa_evals_mcp_capabilities_v1",
+  "organ_id": "aoa-evals",
+  "source_owner": "aoa-evals",
+  "access_runtime_owner": "abyss-stack",
+  "admission_owner": "aoa-sdk",
+  "proof_owner": "aoa-evals",
+  "contains_secrets": false,
+  "admission_asserted": false,
+  "owner_acceptance_asserted": false,
+  "proof_issuance_via_mcp_allowed": false,
+  "effect_activation_authorized": false,
+  "capabilities": [
+    {
+      "capability_id": "eval-discovery-read",
+      "policy_family": "read",
+      "credential_class": "evals-read",
+      "process_contour": "read",
+      "authority_ceiling": "bounded eval discovery and source routing only",
+      "primitives": [
+        {
+          "primitive_id": "select-bounded-eval",
+          "kind": "tool",
+          "mcp_name": "aoa_evals_select",
+          "effect_class": "derive",
+          "idempotency": "read_only",
+          "approval_required": false,
+          "maximum_blast_radius": "one bounded proof question and at most twelve source-linked matches",
+          "rollback_route": null
+        },
+        {
+          "primitive_id": "inspect-bounded-eval",
+          "kind": "tool",
+          "mcp_name": "aoa_evals_inspect",
+          "effect_class": "observe",
+          "idempotency": "read_only",
+          "approval_required": false,
+          "maximum_blast_radius": "one generated bundle summary with exact source refs",
+          "rollback_route": null
+        },
+        {
+          "primitive_id": "read-eval-sections",
+          "kind": "tool",
+          "mcp_name": "aoa_evals_expand",
+          "effect_class": "observe",
+          "idempotency": "read_only",
+          "approval_required": false,
+          "maximum_blast_radius": "one generated section projection for one source bundle",
+          "rollback_route": null
+        },
+        {
+          "primitive_id": "read-evals-freshness",
+          "kind": "tool",
+          "mcp_name": "aoa_evals_runtime_status",
+          "effect_class": "observe",
+          "idempotency": "read_only",
+          "approval_required": false,
+          "maximum_blast_radius": "one source-or-mirror freshness packet",
+          "rollback_route": null
+        },
+        {
+          "primitive_id": "open-eval-catalog",
+          "kind": "resource",
+          "mcp_name": "aoa-evals://catalog",
+          "effect_class": "observe",
+          "idempotency": "read_only",
+          "approval_required": false,
+          "maximum_blast_radius": "one compact generated eval catalog",
+          "rollback_route": null
+        },
+        {
+          "primitive_id": "open-eval-bundle",
+          "kind": "resource_template",
+          "mcp_name": "aoa-evals://bundle/{name}",
+          "effect_class": "observe",
+          "idempotency": "read_only",
+          "approval_required": false,
+          "maximum_blast_radius": "one generated bundle summary with source refs",
+          "rollback_route": null
+        },
+        {
+          "primitive_id": "open-eval-sections",
+          "kind": "resource_template",
+          "mcp_name": "aoa-evals://bundle/{name}/sections",
+          "effect_class": "observe",
+          "idempotency": "read_only",
+          "approval_required": false,
+          "maximum_blast_radius": "one generated bundle section projection",
+          "rollback_route": null
+        },
+        {
+          "primitive_id": "open-evals-freshness",
+          "kind": "resource",
+          "mcp_name": "aoa-evals://runtime-status",
+          "effect_class": "observe",
+          "idempotency": "read_only",
+          "approval_required": false,
+          "maximum_blast_radius": "one source-or-mirror freshness packet",
+          "rollback_route": null
+        }
+      ]
+    },
+    {
+      "capability_id": "eval-request-prepare",
+      "policy_family": "candidate",
+      "credential_class": "evals-candidate",
+      "process_contour": "candidate",
+      "authority_ceiling": "non-persistent typed eval_need_v1 request candidate only",
+      "primitives": [
+        {
+          "primitive_id": "prepare-eval-request",
+          "kind": "tool",
+          "mcp_name": "aoa_evals_prepare_request_candidate",
+          "effect_class": "prepare_candidate",
+          "idempotency": "idempotent",
+          "approval_required": false,
+          "maximum_blast_radius": "one non-persistent typed eval request candidate with owner route",
+          "rollback_route": "owner://aoa-evals/rollback/discard-unpersisted-request"
+        }
+      ]
+    },
+    {
+      "capability_id": "proof-result-read",
+      "policy_family": "read",
+      "credential_class": "evals-read",
+      "process_contour": "read",
+      "authority_ceiling": "read one already issued bundle-local bounded report; no verdict issuance",
+      "primitives": [
+        {
+          "primitive_id": "read-issued-proof-result",
+          "kind": "tool",
+          "mcp_name": "aoa_evals_read_proof_result",
+          "effect_class": "observe",
+          "idempotency": "read_only",
+          "approval_required": false,
+          "maximum_blast_radius": "one indexed source report up to the runtime response limit",
+          "rollback_route": null
+        },
+        {
+          "primitive_id": "open-issued-proof-result",
+          "kind": "resource_template",
+          "mcp_name": "aoa-evals://proof-result/{report_id}",
+          "effect_class": "observe",
+          "idempotency": "read_only",
+          "approval_required": false,
+          "maximum_blast_radius": "one indexed source report up to the runtime response limit",
+          "rollback_route": null
+        }
+      ]
+    }
+  ],
+  "guardrails": {
+    "eval_execution_allowed": false,
+    "verdict_computation_allowed": false,
+    "report_publication_allowed": false,
+    "proof_acceptance_inference_allowed": false,
+    "registry_mutation_allowed": false,
+    "hidden_mcp_chaining_allowed": false,
+    "annotations_are_security_enforcement": false,
+    "discovery_can_expand_write_roots": false
+  }
+}

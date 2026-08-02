@@ -1,0 +1,21 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "evals/boundary/aoa-organ-access-live-cross-organ-handoff/runners/run_live_handoff.py",
+  "inputs": [
+    "one private aoa-sdk orchestration snapshot awaiting eval_result",
+    "three explicit private direct-owner MCP call records",
+    "three exact private owner output artifacts",
+    "one aware review timestamp inside the request window"
+  ],
+  "fixture_contract_paths": [
+    "evals/boundary/aoa-organ-access-live-cross-organ-handoff/reports/summary.schema.json"
+  ],
+  "scorer_helper_paths": [],
+  "report_schema_path": "evals/boundary/aoa-organ-access-live-cross-organ-handoff/reports/summary.schema.json",
+  "report_example_path": "evals/boundary/aoa-organ-access-live-cross-organ-handoff/reports/example-report.json",
+  "validation_commands": [
+    "python evals/boundary/aoa-organ-access-live-cross-organ-handoff/runners/run_live_handoff.py run-scenarios",
+    "python -m pytest -q tests/test_organ_access_live_cross_organ_handoff.py",
+    "python scripts/validate_repo.py --eval aoa-organ-access-live-cross-organ-handoff"
+  ]
+}

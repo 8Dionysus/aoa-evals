@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 18504071,
+  "allowed_tracked_bytes": 26413447,
+  "approved_by": "repository-owner",
+  "base_ref": "e2f34bc549fda80fa06c1bb84a728c2eebb5d17b",
+  "changed_generated_bytes": 18504071,
+  "changed_generated_files": 293,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "0e83525db1e5a2beb2058478efe97fd464622ba68ec81d11ec52b036930de657",
+  "reason": "Refresh the portable family after publishing eval-owned MCP proof contours and the bounded direct-owner cross-organ proof case; this receipt admits only the measured generated delta and does not raise standing budgets.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 26413447,
+  "tracked_bytes_max": 26214400
+}

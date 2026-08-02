@@ -51,6 +51,7 @@
 - [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)
 - [AOA-EV-D-0248 Typed Capability Dependencies](../AOA-EV-D-0248-typed-capability-dependencies.md) (`docs/decisions/AOA-EV-D-0248-typed-capability-dependencies.md`)
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
+- [AOA-EV-D-0252 Owner-Authored MCP Capability Profiles](../AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md) (`docs/decisions/AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md`)
 
 ## proof-loop
 
@@ -356,6 +357,7 @@
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
 - [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)
+- [AOA-EV-D-0252 Owner-Authored MCP Capability Profiles](../AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md) (`docs/decisions/AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md`)
 
 ## cross-parent
 

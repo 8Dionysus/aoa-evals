@@ -2344,6 +2344,79 @@
       "verdict_shape": "categorical"
     },
     {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
+      "category": "boundary",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "evals/boundary/aoa-organ-access-live-cross-organ-handoff/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/live-proof-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": false,
+      "interpretation_boundary": "durable-memory acceptance;; organ admission;; runtime-effect authorization; or",
+      "maturity_score": 3,
+      "name": "aoa-organ-access-live-cross-organ-handoff",
+      "object_under_evaluation": "one exact host-visible KAG evidence to Memo candidate to Evals request and result chain",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": null,
+        "paired_readout_path": null,
+        "report_example_path": "evals/boundary/aoa-organ-access-live-cross-organ-handoff/reports/example-report.json",
+        "report_schema_path": "evals/boundary/aoa-organ-access-live-cross-organ-handoff/reports/summary.schema.json",
+        "runner_contract_path": "evals/boundary/aoa-organ-access-live-cross-organ-handoff/runners/contract.json",
+        "runner_surface_path": "evals/boundary/aoa-organ-access-live-cross-organ-handoff/runners/run_live_handoff.py",
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": null
+      },
+      "proof_surface_kinds": [
+        "runner_contract",
+        "report_schema"
+      ],
+      "relations": [
+        {
+          "target": "aoa-organ-access-admission-integrity",
+          "type": "derived_from"
+        },
+        {
+          "target": "aoa-memo-write-path-guardrails",
+          "type": "complements"
+        }
+      ],
+      "repeatability": "high",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "selection_summary": "",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "bounded",
+      "summary": "Checks one exact live KAG to Memo to Evals handoff for direct owner calls, typed transition continuity, freshness, and authority separation before explicit owner acceptance.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "validation_strength": "baseline",
+      "verdict_shape": "categorical"
+    },
+    {
       "baseline_mode": "peer-compare",
       "blind_spot_disclosure": "required-and-present",
       "capability_dependencies": [

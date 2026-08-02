@@ -312,3 +312,7 @@
 ## 2026-07-29
 
 - [AOA-EV-D-0251 Active-Organ Proof Does Not Collapse Into Admission](../AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md) (`docs/decisions/AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md`)
+
+## 2026-08-01
+
+- [AOA-EV-D-0252 Owner-Authored MCP Capability Profiles](../AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md) (`docs/decisions/AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md`)

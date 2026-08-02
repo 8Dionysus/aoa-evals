@@ -1025,6 +1025,36 @@
       "what_this_does_not_prove": "evidence that a live organ is installed or reachable;; evidence that a result is grounded or fresh;; owner acceptance or control-plane admission;"
     },
     {
+      "blind_spot_short": "a network trace for every server process or Git-hosting authenticity;; consumer-catalog completeness or model-selection benefit;; rollback or runtime-effect safety; or",
+      "bounded_claim_short": "A supportedbounded proof result supports only that the inspected chain:",
+      "capability_dependencies": [],
+      "capability_refs": [],
+      "category": "boundary",
+      "comparison_surface": null,
+      "do_not_use_short": "only source-level packet checks or generic MCP health are available;; owner-local semantic truth, admission, or durable acceptance is requested; or",
+      "eval_path": "evals/boundary/aoa-organ-access-live-cross-organ-handoff/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-organ-access-live-cross-organ-handoff",
+      "proof_artifact_short": "runner contract; schema-backed report",
+      "proof_surface_kinds": [
+        "runner_contract",
+        "report_schema"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "bounded",
+      "summary": "Checks one exact live KAG to Memo to Evals handoff for direct owner calls, typed transition continuity, freshness, and authority separation before explicit owner acceptance.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "use_when_short": "a direct-owner organ workflow is already at awaitingevalresult;; all seven exact private inputs are available; and",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "durable-memory acceptance;; organ admission;; runtime-effect authorization; or"
+    },
+    {
       "blind_spot_short": "root-cause diagnosis for why one side outran the other; one-run artifact quality by itself; one-run workflow quality by itself",
       "bounded_claim_short": "under these conditions, artifact-side and process-side readings on the same bounded cases can be compared honestly enough to show whether one materially outruns the other or whether the...",
       "capability_dependencies": [

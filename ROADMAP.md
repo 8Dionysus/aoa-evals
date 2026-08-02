@@ -66,6 +66,9 @@ The current movement is proof-organ maturity:
 - grow the active proof loop from source bundle to evidence, review, report,
   receipt, and generated reader while bundle-local review keeps bounded claim
   strength
+- expose task-specific MCP capability profiles so agents can discover only the
+  eval, request, or proof-result surface they need without turning tool
+  selection into a proof or admission verdict
 
 ## Current Public Contour
 

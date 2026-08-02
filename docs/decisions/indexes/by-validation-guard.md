@@ -161,6 +161,7 @@
 ## authority boundary
 
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
+- [AOA-EV-D-0252 Owner-Authored MCP Capability Profiles](../AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md) (`docs/decisions/AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md`)
 
 ## bounded claim
 
@@ -169,6 +170,11 @@
 ## bounded proof
 
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
+- [AOA-EV-D-0252 Owner-Authored MCP Capability Profiles](../AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md) (`docs/decisions/AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md`)
+
+## candidate isolation
+
+- [AOA-EV-D-0252 Owner-Authored MCP Capability Profiles](../AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md) (`docs/decisions/AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md`)
 
 ## candidate-only mining
 
@@ -188,6 +194,10 @@
 ## consumer-zero
 
 - [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)
+
+## context economy
+
+- [AOA-EV-D-0252 Owner-Authored MCP Capability Profiles](../AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md) (`docs/decisions/AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md`)
 
 ## effect denial
 

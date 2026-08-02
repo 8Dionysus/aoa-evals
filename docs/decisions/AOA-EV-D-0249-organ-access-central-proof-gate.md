@@ -114,18 +114,46 @@ domain owner retains durable truth.
 
 ## Current Applicability
 
-As of 2026-07-25:
+As of 2026-08-02:
 
 - Still valid: bundle-local source proof and review remain stronger than
   generated readers and MCP output.
 - Changed: organ-access evidence has an executable bounded source packet
   contract and negative-inference suite in
-  `evals/boundary/aoa-organ-access-admission-integrity/`.
-- Not yet established: live pair-specific owner, runtime, registry, consumer,
-  denial, acceptance, cross-organ, and rollback proof.
+  `evals/boundary/aoa-organ-access-admission-integrity/`; one separately named
+  live KAG to Memo to Evals handoff can now be reviewed through
+  `evals/boundary/aoa-organ-access-live-cross-organ-handoff/`.
+- Not yet established: live runtime, registry, consumer, effect-denial,
+  durable-acceptance, admission, and executed rollback proof. The new live
+  handoff verdict remains exact-run evidence and does not fill those axes.
 - Superseded by: none.
 
 ## Review Log
+
+### 2026-08-02 - Add exact live cross-organ handoff review
+
+- Previous assumption: the admission-integrity bundle could preserve the
+  required shape and negative inferences, but no owner-issued bundle could
+  review exact direct KAG, Memo, and Evals calls as one content-bound chain.
+- New reality: `aoa-organ-access-live-cross-organ-handoff` can issue one
+  private `supported_bounded` proof result after reconstructing the SDK
+  snapshot, validating all three direct-owner profiles and byte-bound outputs,
+  and proving that acceptance, admission, and effects remain absent.
+- Reason: the active organ workflow reached a real `awaiting_eval_result`
+  boundary and required central proof without allowing the stack, SDK, or a
+  successful MCP call to manufacture that verdict.
+- Source surfaces updated:
+  - `evals/boundary/aoa-organ-access-live-cross-organ-handoff/EVAL.md`
+  - `evals/boundary/aoa-organ-access-live-cross-organ-handoff/eval.yaml`
+  - `evals/boundary/aoa-organ-access-live-cross-organ-handoff/runners/run_live_handoff.py`
+  - `evals/boundary/aoa-organ-access-live-cross-organ-handoff/reports/summary.schema.json`
+- Validation: run the exact scenario and focused test commands in
+  `evals/boundary/aoa-organ-access-live-cross-organ-handoff/runners/contract.json`,
+  then the bundle validator, decision-index parity, and repository release
+  routes.
+- Boundary retained: this closes only the exact cross-organ proof handoff. It
+  does not accept the Memo candidate, admit an organ, authorize an effect, or
+  prove a live rollback.
 
 ### 2026-08-01 - Add bounded rollback-readiness review
 

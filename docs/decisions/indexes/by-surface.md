@@ -383,6 +383,7 @@
 - [AOA-EV-D-0241 Local Eval Port Write-Side MCP](../AOA-EV-D-0241-local-eval-port-write-side-mcp.md) (`docs/decisions/AOA-EV-D-0241-local-eval-port-write-side-mcp.md`)
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 - [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)
+- [AOA-EV-D-0252 Owner-Authored MCP Capability Profiles](../AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md) (`docs/decisions/AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md`)
 
 ## MCP boundary
 
@@ -414,6 +415,10 @@
 - [AOA-EV-D-0161 Publication Receipts Live Validator Boundary](../AOA-EV-D-0161-publication-receipts-live-validator-boundary.md) (`docs/decisions/AOA-EV-D-0161-publication-receipts-live-validator-boundary.md`)
 - [AOA-EV-D-0180 Publication Receipts Route And Payload Subvalidators](../AOA-EV-D-0180-publication-receipts-route-payload-subvalidators.md) (`docs/decisions/AOA-EV-D-0180-publication-receipts-route-payload-subvalidators.md`)
 - [AOA-EV-D-0191 Publication Receipts Facade Removal](../AOA-EV-D-0191-publication-receipts-facade-removal.md) (`docs/decisions/AOA-EV-D-0191-publication-receipts-facade-removal.md`)
+
+## capability declaration
+
+- [AOA-EV-D-0252 Owner-Authored MCP Capability Profiles](../AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md) (`docs/decisions/AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md`)
 
 ## capability/permission
 
@@ -558,6 +563,7 @@
 
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
 - [AOA-EV-D-0251 Active-Organ Proof Does Not Collapse Into Admission](../AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md) (`docs/decisions/AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md`)
+- [AOA-EV-D-0252 Owner-Authored MCP Capability Profiles](../AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md) (`docs/decisions/AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md`)
 
 ## proof reference
 

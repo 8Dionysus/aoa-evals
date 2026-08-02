@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa-evals/evals/boundary/aoa-organ-access-live-cross-organ-handoff/reports/summary.schema.json",
+  "title": "aoa-organ-access live cross-organ proof result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_id",
+    "eval_name",
+    "bundle_status",
+    "run_id",
+    "snapshot_digest",
+    "proof_question",
+    "reviewed_at",
+    "expires_at",
+    "verdict",
+    "stage_count",
+    "direct_owner_calls",
+    "checks",
+    "input_digests",
+    "authority_boundary",
+    "limitations",
+    "next_owner",
+    "result_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "aoa_organ_access_live_cross_organ_proof_result_v1"},
+    "report_id": {"type": "string", "pattern": "^aoa-live-cross-organ-[a-z0-9-]{8,80}$"},
+    "eval_name": {"const": "aoa-organ-access-live-cross-organ-handoff"},
+    "bundle_status": {"const": "bounded"},
+    "run_id": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "snapshot_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "proof_question": {"type": "string", "minLength": 40},
+    "reviewed_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": "string", "format": "date-time"},
+    "verdict": {"const": "supported_bounded"},
+    "stage_count": {"const": 3},
+    "direct_owner_calls": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "prefixItems": [
+        {"$ref": "#/$defs/directCall", "properties": {"owner": {"const": "aoa-kag"}, "tool": {"const": "kag_search"}}},
+        {"$ref": "#/$defs/directCall", "properties": {"owner": {"const": "aoa-memo"}, "tool": {"const": "aoa_memo_create_candidate"}}},
+        {"$ref": "#/$defs/directCall", "properties": {"owner": {"const": "aoa-evals"}, "tool": {"const": "aoa_evals_prepare_request_candidate"}}}
+      ],
+      "items": false
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "snapshot_reconstructed",
+        "stage_and_receipt_digests_valid",
+        "typed_handoffs_exact",
+        "direct_profiles_exact",
+        "owner_outputs_content_bound",
+        "evidence_current",
+        "authority_separation_preserved",
+        "acceptance_absent"
+      ],
+      "properties": {
+        "snapshot_reconstructed": {"const": true},
+        "stage_and_receipt_digests_valid": {"const": true},
+        "typed_handoffs_exact": {"const": true},
+        "direct_profiles_exact": {"const": true},
+        "owner_outputs_content_bound": {"const": true},
+        "evidence_current": {"const": true},
+        "authority_separation_preserved": {"const": true},
+        "acceptance_absent": {"const": true}
+      }
+    },
+    "input_digests": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["snapshot", "kag_call", "kag_result", "memo_call", "memo_candidate", "eval_call", "eval_need"],
+      "properties": {
+        "snapshot": {"$ref": "#/$defs/digest"},
+        "kag_call": {"$ref": "#/$defs/digest"},
+        "kag_result": {"$ref": "#/$defs/digest"},
+        "memo_call": {"$ref": "#/$defs/digest"},
+        "memo_candidate": {"$ref": "#/$defs/digest"},
+        "eval_call": {"$ref": "#/$defs/digest"},
+        "eval_need": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "authority_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["proof_owner", "acceptance_owner", "owner_tools_executed_by_evals", "durable_memory_written", "owner_acceptance_inferred", "admission_authorized", "runtime_execution_authorized"],
+      "properties": {
+        "proof_owner": {"const": "aoa-evals"},
+        "acceptance_owner": {"const": "aoa-memo"},
+        "owner_tools_executed_by_evals": {"const": false},
+        "durable_memory_written": {"const": false},
+        "owner_acceptance_inferred": {"const": false},
+        "admission_authorized": {"const": false},
+        "runtime_execution_authorized": {"const": false}
+      }
+    },
+    "limitations": {"type": "array", "minItems": 3, "items": {"type": "string", "minLength": 12}},
+    "next_owner": {"const": "aoa-memo"},
+    "result_digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "directCall": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner", "tool", "protocol_version", "source_revision", "output_digest"],
+      "properties": {
+        "owner": {"type": "string", "minLength": 3},
+        "tool": {"type": "string", "minLength": 3},
+        "protocol_version": {"const": "2025-11-25"},
+        "source_revision": {"type": "string", "minLength": 8},
+        "output_digest": {"$ref": "#/$defs/digest"}
+      }
+    }
+  }
+}

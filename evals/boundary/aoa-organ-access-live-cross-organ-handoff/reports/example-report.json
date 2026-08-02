@@ -1,0 +1,71 @@
+{
+  "authority_boundary": {
+    "acceptance_owner": "aoa-memo",
+    "admission_authorized": false,
+    "durable_memory_written": false,
+    "owner_acceptance_inferred": false,
+    "owner_tools_executed_by_evals": false,
+    "proof_owner": "aoa-evals",
+    "runtime_execution_authorized": false
+  },
+  "bundle_status": "bounded",
+  "checks": {
+    "acceptance_absent": true,
+    "authority_separation_preserved": true,
+    "direct_profiles_exact": true,
+    "evidence_current": true,
+    "owner_outputs_content_bound": true,
+    "snapshot_reconstructed": true,
+    "stage_and_receipt_digests_valid": true,
+    "typed_handoffs_exact": true
+  },
+  "direct_owner_calls": [
+    {
+      "output_digest": "sha256:a7ecfe756bcea01a3580bc3f96bc4c792837927863d7a8f12386c51eae58472e",
+      "owner": "aoa-kag",
+      "protocol_version": "2025-11-25",
+      "source_revision": "aoa-kag-source-revision-0000",
+      "tool": "kag_search"
+    },
+    {
+      "output_digest": "sha256:53e282226aeb0e8f470399ea0326fca6ac83a02f6ae7a90893aa20339d6eb4bd",
+      "owner": "aoa-memo",
+      "protocol_version": "2025-11-25",
+      "source_revision": "aoa-memo-source-revision-0001",
+      "tool": "aoa_memo_create_candidate"
+    },
+    {
+      "output_digest": "sha256:483382219a8ec319f34dde92f2bfe0113757e4730a081b8e93a4bd1192546264",
+      "owner": "aoa-evals",
+      "protocol_version": "2025-11-25",
+      "source_revision": "aoa-evals-source-revision-0002",
+      "tool": "aoa_evals_prepare_request_candidate"
+    }
+  ],
+  "eval_name": "aoa-organ-access-live-cross-organ-handoff",
+  "expires_at": "2026-01-01T02:00:00Z",
+  "input_digests": {
+    "eval_call": "sha256:a8d497856a3cc535f06b3aeed04360418f8a0502416c1f7ebce15f76345c771f",
+    "eval_need": "sha256:483382219a8ec319f34dde92f2bfe0113757e4730a081b8e93a4bd1192546264",
+    "kag_call": "sha256:8096685ab745aa68027f4492ad0ecfa99e78060c7e767a355de5f0fea5c580b1",
+    "kag_result": "sha256:a7ecfe756bcea01a3580bc3f96bc4c792837927863d7a8f12386c51eae58472e",
+    "memo_call": "sha256:ba01f6f4fcd86a15e3b40b58ce92dcfc4a5624d2b8858be3d9be8abe94609af8",
+    "memo_candidate": "sha256:53e282226aeb0e8f470399ea0326fca6ac83a02f6ae7a90893aa20339d6eb4bd",
+    "snapshot": "sha256:d2b30c3380d394ac5e1c52652d10a02d65b3a1ef030af021f020002b5e296b18"
+  },
+  "limitations": [
+    "This is a fictional public-safe example and is not evidence of a live run.",
+    "It does not accept durable memory or authorize organ admission.",
+    "It does not authorize a runtime effect or prove rollback readiness."
+  ],
+  "next_owner": "aoa-memo",
+  "proof_question": "Does this exact direct-owner KAG to Memo to Evals chain preserve typed handoffs, current evidence, proof authority in aoa-evals, and durable acceptance authority in aoa-memo without hidden chaining?",
+  "report_id": "aoa-live-cross-organ-73ba9492683c2c8df8e4",
+  "result_digest": "sha256:7753461ecb119ae38c36ba7fcade87eaed538f48265092cd24235598bcb9b93e",
+  "reviewed_at": "2026-01-01T00:30:00Z",
+  "run_id": "sha256:73ba9492683c2c8df8e4bd0abfebd5ff8d5f3c875bf36a59b7b0de00fd654540",
+  "schema_version": "aoa_organ_access_live_cross_organ_proof_result_v1",
+  "snapshot_digest": "sha256:42d8b59b48dce7b6b919a7c552080f0b0228834a1143d8859779a9b60ccef94a",
+  "stage_count": 3,
+  "verdict": "supported_bounded"
+}

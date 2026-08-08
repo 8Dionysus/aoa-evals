@@ -110,13 +110,14 @@ Do not use this eval when:
 
 For optional live packet materialization:
 
-- one private deny-by-default `aoa-sdk` registry source;
+- one private deny-by-default `aoa-sdk` registry source in the organ-record v1
+  or contour-based v2 shape;
 - one exact content-addressed `abyss-stack` deployment manifest and its
   byte-identical immutable record;
 - one current private `abyss-stack` runtime observation whose endpoint and
   blocked-canary links reference the exact canary record;
 - one immutable private `abyss-stack` authenticated read-canary receipt in
-  the legacy v1 or current attested v2 shape;
+  the legacy v1, attested v2, or deployment-bound attested v3 shape;
 - for a successful call, its exact private content-addressed result artifact;
 - optionally, one exact private `aoa_organ_owner_result_review_v1` receipt from
   the named source or acceptance owner; and
@@ -168,12 +169,16 @@ It performs bounded local checks over:
 - secret-free input shape, regular-file and symlink posture, duplicate JSON
   keys, and private permissions for registry, observation, and canary inputs;
 - deployment content addressing and byte parity with the immutable record;
-- registry/observation owner, source-revision, and registry-record identity;
+- registry/observation owner, source-revision, and exact v1 record or v2 read
+  contour identity; a v2 shadow contour without declared maturity must carry
+  one exact owner-source observation for the selected source revision;
 - package/deploy/runtime identity and digest continuity;
 - canary content addressing, read-plane claim limit, server/package identity,
   loopback endpoint, schema, immutable evidence reference, blocked
-  owner-grounding posture, and for v2 the Ed25519 attestation field shape plus
-  receipt/result signer continuity;
+  owner-grounding posture, for v2/v3 the Ed25519 attestation field shape plus
+  receipt/result signer continuity, and for v3 exact deployment manifest,
+  service, source revision, package, deployed tree, and deployment-time
+  binding;
 - result-artifact content addressing, captured-payload digest, receipt
   identity, and explicit untrusted/no-instruction posture;
 - optional owner-review content addressing, source/acceptance-owner identity,

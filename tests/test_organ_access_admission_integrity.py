@@ -599,6 +599,96 @@ def upgrade_canary_inputs_to_v2(paths: dict[str, Path]) -> None:
     assert old_receipt_id != canary["receipt_id"]
 
 
+def upgrade_canary_inputs_to_v3(paths: dict[str, Path]) -> None:
+    upgrade_canary_inputs_to_v2(paths)
+    canary_path = paths["canary"]
+    canary = json.loads(canary_path.read_text(encoding="utf-8"))
+    old_receipt_id = canary["receipt_id"]
+    deployment = json.loads(paths["deployment"].read_text(encoding="utf-8"))
+    service = deployment["services"][0]
+    canary.update(
+        {
+            "schema_version": "abyss_stack_mcp_canary_receipt_v3",
+            "deployment_manifest_id": deployment["manifest_id"],
+            "deployment_service_id": service["service_id"],
+            "deployment_source_revision": service["package_source_revision"],
+            "deployment_package_digest": service["package_digest"],
+            "deployment_tree_digest": service["deployed_tree"]["tree_digest"],
+            "deployment_deployed_at": deployment["deployed_at"],
+        }
+    )
+    unsigned_canary = {
+        key: value
+        for key, value in canary.items()
+        if key not in {"receipt_id", "attestation"}
+    }
+    canary["receipt_id"] = canonical_digest(unsigned_canary)
+    new_canary_path = (
+        canary_path.parent
+        / f"{canary['receipt_id'].removeprefix('sha256:')}.json"
+    )
+    write_json(new_canary_path, canary, mode=0o600)
+    canary_path.unlink()
+    paths["canary"] = new_canary_path
+
+    observation_path = paths["observation"]
+    observation = json.loads(observation_path.read_text(encoding="utf-8"))
+    subject = observation["subjects"][0]
+    for section in ("endpoint", "canary"):
+        evidence = subject[section]["evidence"]["evidence_refs"][0]
+        evidence["evidence_ref"] = new_canary_path.absolute().as_posix()
+        evidence["revision"] = canary["receipt_id"]
+    write_json(observation_path, observation, mode=0o600)
+
+    assert old_receipt_id != canary["receipt_id"]
+
+
+def upgrade_registry_input_to_v2(paths: dict[str, Path]) -> None:
+    registry_path = paths["registry"]
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    record = registry["records"][0]
+    contour = {
+        "contour_id": "read",
+        "policy_family": "read",
+        "authority_class": "read",
+        "credential_class": "kag-read",
+        "registry_state": record.pop("registry_state"),
+        "revisions": record.pop("revisions"),
+        "maturity": record.pop("maturity"),
+        "capabilities": record.pop("capabilities"),
+    }
+    contour["maturity"]["declared"] = {
+        "state": "not_asserted",
+        "freshness_policy": None,
+        "evidence": None,
+    }
+    record["contours"] = [contour]
+    registry["schema_version"] = "aoa_organ_registry_source_v2"
+    write_json(registry_path, registry, mode=0o600)
+
+    observation_path = paths["observation"]
+    observation = json.loads(observation_path.read_text(encoding="utf-8"))
+    subject = observation["subjects"][0]
+    source_revision = contour["revisions"]["source"]["revision"]
+    subject["source"]["evidence"] = {
+        "state": "exact",
+        "observed_at": "2026-07-28T15:02:00Z",
+        "expires_at": "2026-07-28T15:10:00Z",
+        "evidence_refs": [
+            {
+                "owner": record["owners"]["source_owner"],
+                "evidence_ref": "owner://aoa-kag/source/fixture",
+                "revision": source_revision,
+                "observed_at": "2026-07-28T15:02:00Z",
+                "expires_at": "2026-07-28T15:10:00Z",
+            }
+        ],
+        "reason_codes": [],
+    }
+    subject["registry"]["registry_digest"] = canonical_digest(contour)
+    write_json(observation_path, observation, mode=0o600)
+
+
 def test_checked_in_scenarios_match_bounded_expectations() -> None:
     completed = run_runner("run-scenarios")
     assert completed.returncode == 0, completed.stderr or completed.stdout
@@ -821,6 +911,58 @@ def test_live_materializer_accepts_attested_canary_v2_shape(
     assert packet["maturity"]["call_succeeded"]["state"] == "asserted"
 
 
+def test_live_materializer_accepts_deployment_bound_canary_v3_shape(
+    tmp_path: Path,
+) -> None:
+    paths = live_packet_inputs(tmp_path)
+    upgrade_canary_inputs_to_v3(paths)
+
+    completed = run_materializer(paths)
+
+    assert completed.returncode == 0, completed.stderr or completed.stdout
+    packet = json.loads(paths["output"].read_text(encoding="utf-8"))
+    assert packet["maturity"]["call_succeeded"]["state"] == "asserted"
+
+
+def test_live_materializer_rejects_v3_deployment_binding_drift(
+    tmp_path: Path,
+) -> None:
+    paths = live_packet_inputs(tmp_path)
+    upgrade_canary_inputs_to_v3(paths)
+    canary = json.loads(paths["canary"].read_text(encoding="utf-8"))
+    canary["deployment_tree_digest"] = "sha256:" + ("9" * 64)
+    unsigned = {
+        key: value
+        for key, value in canary.items()
+        if key not in {"receipt_id", "attestation"}
+    }
+    canary["receipt_id"] = canonical_digest(unsigned)
+    write_json(paths["canary"], canary, mode=0o600)
+
+    completed = run_materializer(paths)
+
+    assert completed.returncode == 1
+    assert "v3 canary does not bind the selected deployment" in completed.stderr
+    assert not paths["output"].exists()
+
+
+def test_live_materializer_accepts_v2_read_contour_with_owner_source_observation(
+    tmp_path: Path,
+) -> None:
+    paths = live_packet_inputs(tmp_path)
+    upgrade_canary_inputs_to_v3(paths)
+    upgrade_registry_input_to_v2(paths)
+
+    completed = run_materializer(paths)
+
+    assert completed.returncode == 0, completed.stderr or completed.stdout
+    packet = json.loads(paths["output"].read_text(encoding="utf-8"))
+    assert packet["maturity"]["declared"]["state"] == "asserted"
+    assert packet["maturity"]["declared"]["evidence_ref"] == (
+        "owner://aoa-kag/source/fixture"
+    )
+
+
 def test_live_materializer_rejects_v2_result_signer_drift(
     tmp_path: Path,
 ) -> None:
@@ -1037,5 +1179,5 @@ def test_live_materializer_does_not_coerce_missing_owner_identity(
     completed = run_materializer(paths)
 
     assert completed.returncode == 1
-    assert "owner-issued declaration evidence" in completed.stderr
+    assert "registry lacks owner, source, or control identity" in completed.stderr
     assert not paths["output"].exists()

@@ -427,6 +427,7 @@ def canary_receipt(path: Path) -> dict[str, Any]:
         not in {
             "abyss_stack_mcp_canary_receipt_v1",
             "abyss_stack_mcp_canary_receipt_v2",
+            "abyss_stack_mcp_canary_receipt_v3",
         }
         or payload.get("issuer") != "abyss-stack"
         or payload.get("consumer_id") != "abyss-stack-mcp-canary"
@@ -548,14 +549,38 @@ def canary_receipt(path: Path) -> dict[str, Any]:
             )
     elif payload.get("result_artifact_ref") is not None:
         raise LivePacketError("failed canary cannot reference a result artifact")
-    if schema_version == "abyss_stack_mcp_canary_receipt_v2":
-        validate_v2_attestation_fields(payload, "canary receipt")
+    if schema_version in {
+        "abyss_stack_mcp_canary_receipt_v2",
+        "abyss_stack_mcp_canary_receipt_v3",
+    }:
+        validate_attestation_fields(payload, "canary receipt")
+    if schema_version == "abyss_stack_mcp_canary_receipt_v3":
+        for field in (
+            "deployment_manifest_id",
+            "deployment_package_digest",
+            "deployment_tree_digest",
+        ):
+            required_digest(payload.get(field), f"canary {field}")
+        for field in (
+            "deployment_service_id",
+            "deployment_source_revision",
+            "deployment_deployed_at",
+        ):
+            required_string(payload.get(field), f"canary {field}")
+        parse_time(
+            payload.get("deployment_deployed_at"),
+            "canary deployment_deployed_at",
+        )
     unsigned = {
         key: value
         for key, value in payload.items()
         if key != "receipt_id"
         and not (
-            schema_version == "abyss_stack_mcp_canary_receipt_v2"
+            schema_version
+            in {
+                "abyss_stack_mcp_canary_receipt_v2",
+                "abyss_stack_mcp_canary_receipt_v3",
+            }
             and key == "attestation"
         )
     }
@@ -564,7 +589,7 @@ def canary_receipt(path: Path) -> dict[str, Any]:
     return payload
 
 
-def validate_v2_attestation_fields(payload: dict[str, Any], label: str) -> None:
+def validate_attestation_fields(payload: dict[str, Any], label: str) -> None:
     signer_id = payload.get("signer_id")
     required_digest(signer_id, f"{label} signer_id")
     if payload.get("attestation_algorithm") != "ed25519":
@@ -609,7 +634,11 @@ def canary_result_artifact(
     canary_version = canary.get("schema_version")
     expected_artifact_version = (
         "abyss_stack_mcp_canary_result_artifact_v2"
-        if canary_version == "abyss_stack_mcp_canary_receipt_v2"
+        if canary_version
+        in {
+            "abyss_stack_mcp_canary_receipt_v2",
+            "abyss_stack_mcp_canary_receipt_v3",
+        }
         else "abyss_stack_mcp_canary_result_artifact_v1"
     )
     if (
@@ -639,8 +668,11 @@ def canary_result_artifact(
         raise LivePacketError("result artifact owner payload must be an object")
     if digest(owner_payload) != canary.get("result_digest"):
         raise LivePacketError("result artifact owner payload digest is invalid")
-    if canary_version == "abyss_stack_mcp_canary_receipt_v2":
-        validate_v2_attestation_fields(payload, "result artifact")
+    if canary_version in {
+        "abyss_stack_mcp_canary_receipt_v2",
+        "abyss_stack_mcp_canary_receipt_v3",
+    }:
+        validate_attestation_fields(payload, "result artifact")
         if payload.get("signer_id") != canary.get("signer_id"):
             raise LivePacketError("result artifact signer does not match canary receipt")
     unsigned = {
@@ -648,7 +680,11 @@ def canary_result_artifact(
         for key, value in payload.items()
         if key != "artifact_id"
         and not (
-            canary_version == "abyss_stack_mcp_canary_receipt_v2"
+            canary_version
+            in {
+                "abyss_stack_mcp_canary_receipt_v2",
+                "abyss_stack_mcp_canary_receipt_v3",
+            }
             and key == "attestation"
         )
     }
@@ -1039,8 +1075,10 @@ def registry_record(
     organ_id: str,
     materialized_at: datetime,
 ) -> tuple[dict[str, Any], str, str, datetime]:
+    schema_version = registry.get("schema_version")
     if (
-        registry.get("schema_version") != "aoa_organ_registry_source_v1"
+        schema_version
+        not in {"aoa_organ_registry_source_v1", "aoa_organ_registry_source_v2"}
         or registry.get("contains_secrets") is not False
         or registry.get("default_admission") != "deny"
     ):
@@ -1083,12 +1121,64 @@ def registry_record(
     ]
     if len(selected) != 1:
         raise LivePacketError("registry must contain one exact organ record")
+    selected_record = selected[0]
+    if schema_version == "aoa_organ_registry_source_v2":
+        contours = selected_record.get("contours")
+        selected_contours = [
+            contour
+            for contour in contours
+            if isinstance(contour, dict)
+            and contour.get("contour_id") == "read"
+            and contour.get("policy_family") == "read"
+        ] if isinstance(contours, list) else []
+        if len(selected_contours) != 1:
+            raise LivePacketError(
+                "v2 registry must contain one exact organ/read contour"
+            )
+        contour = selected_contours[0]
+        selected_record = {
+            **selected_record,
+            "registry_state": contour.get("registry_state"),
+            "revisions": contour.get("revisions"),
+            "maturity": contour.get("maturity"),
+            "capabilities": contour.get("capabilities"),
+            "credential_class": contour.get("credential_class"),
+        }
+        record_digest = digest(contour)
+    else:
+        record_digest = digest(selected_record)
     return (
-        selected[0],
-        digest(selected[0]),
+        selected_record,
+        record_digest,
         digest(registry),
         expires_at,
     )
+
+
+def require_v3_deployment_binding(
+    canary: dict[str, Any],
+    deployment: dict[str, Any],
+    service: dict[str, Any],
+) -> None:
+    if canary.get("schema_version") != "abyss_stack_mcp_canary_receipt_v3":
+        return
+    deployed_tree = service.get("deployed_tree")
+    if not isinstance(deployed_tree, dict):
+        raise LivePacketError("v3 canary deployment tree binding is unavailable")
+    expected = {
+        "deployment_manifest_id": deployment.get("manifest_id"),
+        "deployment_service_id": service.get("service_id"),
+        "deployment_source_revision": service.get("package_source_revision"),
+        "deployment_package_digest": service.get("package_digest"),
+        "deployment_tree_digest": deployed_tree.get("tree_digest"),
+    }
+    if any(canary.get(field) != value for field, value in expected.items()):
+        raise LivePacketError("v3 canary does not bind the selected deployment")
+    if parse_time(
+        canary.get("deployment_deployed_at"),
+        "canary deployment_deployed_at",
+    ) != parse_time(deployment.get("deployed_at"), "deployment deployed_at"):
+        raise LivePacketError("v3 canary deployment timestamp does not match")
 
 
 def select_service(
@@ -1467,6 +1557,7 @@ def materialize_packet(
         raise LivePacketError("canary service identity is unavailable")
     deployment, deployment_record_path = deployment_receipt(deployment_path)
     service = select_service(deployment, service_id)
+    require_v3_deployment_binding(canary, deployment, service)
     review, review_capability, _ = owner_result_review(
         owner_review_path,
         record=record,
@@ -1524,22 +1615,48 @@ def materialize_packet(
     source_revision_block = revisions.get("source")
     declared = maturity_source.get("declared")
     control_owner = owners.get("control_owner") if isinstance(owners, dict) else None
-    if (
-        not isinstance(source_revision_block, dict)
-        or not isinstance(source_revision_block.get("revision"), str)
-        or not isinstance(control_owner, str)
-        or IDENTIFIER.fullmatch(control_owner) is None
-        or not isinstance(declared, dict)
-        or declared.get("state") != "asserted"
-        or not isinstance(declared.get("evidence"), dict)
-    ):
-        raise LivePacketError("registry lacks owner-issued declaration evidence")
-    declaration = declared["evidence"]
     source_owner = required_string(
         owners.get("source_owner"),
         "registry source_owner",
         identifier=True,
     )
+    if (
+        not isinstance(source_revision_block, dict)
+        or not isinstance(source_revision_block.get("revision"), str)
+        or not isinstance(control_owner, str)
+        or IDENTIFIER.fullmatch(control_owner) is None
+    ):
+        raise LivePacketError("registry lacks owner, source, or control identity")
+    declaration = (
+        declared.get("evidence")
+        if isinstance(declared, dict) and declared.get("state") == "asserted"
+        else None
+    )
+    if not isinstance(declaration, dict):
+        observed_source = subject.get("source")
+        source_evidence = (
+            observed_source.get("evidence")
+            if isinstance(observed_source, dict)
+            else None
+        )
+        evidence_refs = (
+            source_evidence.get("evidence_refs")
+            if isinstance(source_evidence, dict)
+            and source_evidence.get("state") == "exact"
+            else None
+        )
+        matching_declarations = [
+            evidence
+            for evidence in evidence_refs
+            if isinstance(evidence, dict)
+            and evidence.get("owner") == source_owner
+            and evidence.get("revision") == source_revision_block["revision"]
+        ] if isinstance(evidence_refs, list) else []
+        if len(matching_declarations) != 1:
+            raise LivePacketError(
+                "registry shadow contour lacks one exact owner source observation"
+            )
+        declaration = matching_declarations[0]
     if (
         declaration.get("owner") != source_owner
         or declaration.get("revision") != source_revision_block["revision"]

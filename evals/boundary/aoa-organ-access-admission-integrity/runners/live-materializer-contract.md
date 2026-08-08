@@ -15,14 +15,15 @@ the registry, or mutate runtime state.
 
 - `--organ`: the exact registry and runtime organ identifier;
 - `--registry`: a mode-private, deny-by-default
-  `aoa_organ_registry_source_v1` source;
+  `aoa_organ_registry_source_v1` or contour-based
+  `aoa_organ_registry_source_v2` source;
 - `--deployment`: an exact `abyss_stack_mcp_deployment_manifest_v1`
   `latest.json` with its byte-identical content-addressed record beside it;
 - `--observation`: a mode-private, unexpired
   `abyss_stack_runtime_observation_v1`;
-- `--canary`: the mode-private immutable stack canary v1 or current attested
-  v2 record under `records/<organ>/<receipt-digest>.json`, not a copied or
-  rewritten receipt;
+- `--canary`: the mode-private immutable stack canary v1, attested v2, or
+  deployment-bound attested v3 record under
+  `records/<organ>/<receipt-digest>.json`, not a copied or rewritten receipt;
 - `--result`: for a successful call, the exact mode-private artifact named by
   the canary `result_artifact_ref`;
 - optionally `--owner-review`: one mode-private
@@ -45,12 +46,15 @@ The materializer fails closed on:
   or overly broad private inputs;
 - an expired registry, observation, or canary;
 - deployment content-address or immutable-record mismatch;
-- registry/observation owner, source revision, or record mismatch;
+- registry/observation owner, source revision, or exact v1 record/v2 read
+  contour mismatch;
 - package, deployed tree, manifest, runtime, endpoint, schema, server version,
   canary route, or receipt-reference mismatch;
 - missing, rewritten, relocated, secret-bearing, or digest-mismatched
   successful-call result artifacts;
-- malformed v2 Ed25519 attestation metadata or receipt/result signer drift;
+- malformed v2/v3 Ed25519 attestation metadata or receipt/result signer drift;
+- for v3, deployment manifest, service, source revision, package digest,
+  deployed-tree digest, or deployment-time mismatch;
 - owner-review SDK-contract, content-address, owner-role, registry
   capability/primitive/schema, source-revision, capture-ref, result-digest,
   schema-digest, watermark, evidence, freshness-window, or authority-ceiling
@@ -58,11 +62,17 @@ The materializer fails closed on:
 - a canary that exceeds the stack-issued read-only claim, or an observation
   that treats the stack canary as owner grounding.
 
+For a v2 registry, the materializer selects one exact `read` contour and binds
+the observation to that contour's digest. A shadow contour whose `declared`
+axis remains `not_asserted` must be accompanied by exactly one current
+owner-source observation for the selected source revision; the materializer
+does not turn registry authorship alone into a declaration.
+
 These are local structural, permission, content-address, and cross-input
-checks. For v2 they validate the attestation encoding and signer continuity,
-but they do not authenticate the Ed25519 signature or establish the signer as
-an owner trust root. That remains an explicit blind spot unless an
-independently pinned owner verifier supplies a separately bound review.
+checks. For v2/v3 canaries they validate the attestation encoding and signer
+continuity, but they do not authenticate the Ed25519 signature or establish
+the signer as an owner trust root. That remains an explicit blind spot unless
+an independently pinned owner verifier supplies a separately bound review.
 
 ## Output and claim ceiling
 

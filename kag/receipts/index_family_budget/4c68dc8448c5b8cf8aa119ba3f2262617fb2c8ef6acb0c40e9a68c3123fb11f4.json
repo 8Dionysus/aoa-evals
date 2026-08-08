@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 6832467,
+  "allowed_tracked_bytes": 26433609,
+  "approved_by": "repository-owner",
+  "base_ref": "6a6014aad6c024edef486a75009fd0535b332ae3",
+  "changed_generated_bytes": 6832467,
+  "changed_generated_files": 104,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "4c68dc8448c5b8cf8aa119ba3f2262617fb2c8ef6acb0c40e9a68c3123fb11f4",
+  "reason": "Refresh the content-addressed owner family for the landed canary-v3 proof delta and bind its bounded over-budget receipt.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 26433609,
+  "tracked_bytes_max": 26214400
+}

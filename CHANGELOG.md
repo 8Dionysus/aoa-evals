@@ -13,7 +13,11 @@ Tracking starts with the community-docs baseline for this repository.
   MCP capability profiles, and a bounded live cross-organ handoff eval. The
   profiles reduce advertised context without collapsing candidate preparation,
   proof ownership, owner acceptance, admission, benefit, or effect authority.
-
+- The organ-access live materializer now accepts exact contour-based registry
+  v2 inputs and deployment-bound stack canary v3 receipts. It binds v2
+  observations to one read-contour digest, requires owner-source evidence when
+  shadow declaration maturity is absent, and rejects v3 deployment identity
+  drift without widening central proof authority.
 - Decision `AOA-EV-D-0251` keeps active-organ readiness, model, OS replay,
   fault, accelerated, wall-clock, host, and operator-benefit lanes separate;
   current evidence selects R1 without creating production or landing

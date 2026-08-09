@@ -583,6 +583,26 @@ def canary_receipt(path: Path) -> dict[str, Any]:
             payload.get("deployment_deployed_at"),
             "canary deployment_deployed_at",
         )
+        process_identity = required_string(
+            payload.get("process_identity"),
+            "canary process_identity",
+        )
+        process_identity_before = required_string(
+            payload.get("process_identity_before"),
+            "canary process_identity_before",
+        )
+        process_identity_after = required_string(
+            payload.get("process_identity_after"),
+            "canary process_identity_after",
+        )
+        if not (
+            process_identity_before
+            == process_identity_after
+            == process_identity
+        ):
+            raise LivePacketError(
+                "v3 canary process identity changed across the probe"
+            )
     unsigned = {
         key: value
         for key, value in payload.items()
@@ -1596,6 +1616,15 @@ def materialize_packet(
         canary_path=canary_path,
         materialized_at=materialized_at,
     )
+    if canary.get("schema_version") == "abyss_stack_mcp_canary_receipt_v3":
+        process = subject.get("process")
+        if (
+            not isinstance(process, dict)
+            or process.get("process_identity") != canary.get("process_identity")
+        ):
+            raise LivePacketError(
+                "v3 canary process identity does not bind runtime observation"
+            )
 
     canary_observed_at = parse_time(
         canary.get("observed_at"),

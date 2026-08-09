@@ -70,6 +70,13 @@ CANARY_CLAIM_LIMIT = (
     "owner grounding, owner freshness, owner acceptance, central proof, "
     "admission, or rollback."
 )
+CANARY_V3_CLAIM_LIMIT = (
+    "This stack-issued receipt proves one authenticated loopback MCP "
+    "schema observation, bounded read canary, and exact named-systemd "
+    "process identity unchanged across the probe only. It does not prove "
+    "owner grounding, owner freshness, owner acceptance, central proof, "
+    "admission, or rollback."
+)
 RESULT_ARTIFACT_CLAIM_LIMIT = (
     "This private artifact preserves one bounded MCP canary result for "
     "independent owner review. Stack capture and content addressing do "
@@ -435,7 +442,12 @@ def canary_receipt(path: Path) -> dict[str, Any]:
         or payload.get("contains_secrets") is not False
         or payload.get("content_trust") != "untrusted_data"
         or payload.get("instruction_authority") != "none"
-        or payload.get("claim_limit") != CANARY_CLAIM_LIMIT
+        or payload.get("claim_limit")
+        != (
+            CANARY_V3_CLAIM_LIMIT
+            if schema_version == "abyss_stack_mcp_canary_receipt_v3"
+            else CANARY_CLAIM_LIMIT
+        )
     ):
         raise LivePacketError(
             "canary input is not a stack-issued secret-free read receipt"

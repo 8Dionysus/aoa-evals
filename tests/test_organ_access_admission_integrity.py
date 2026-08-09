@@ -609,6 +609,13 @@ def upgrade_canary_inputs_to_v3(paths: dict[str, Path]) -> None:
     canary.update(
         {
             "schema_version": "abyss_stack_mcp_canary_receipt_v3",
+            "claim_limit": (
+                "This stack-issued receipt proves one authenticated loopback MCP "
+                "schema observation, bounded read canary, and exact named-systemd "
+                "process identity unchanged across the probe only. It does not prove "
+                "owner grounding, owner freshness, owner acceptance, central proof, "
+                "admission, or rollback."
+            ),
             "deployment_manifest_id": deployment["manifest_id"],
             "deployment_service_id": service["service_id"],
             "deployment_source_revision": service["package_source_revision"],

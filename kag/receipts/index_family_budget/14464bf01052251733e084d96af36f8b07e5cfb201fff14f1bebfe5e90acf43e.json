@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 3891575,
+  "allowed_tracked_bytes": 26440637,
+  "approved_by": "repository-owner",
+  "base_ref": "4c5784fb48a9527421dc801e3fc3f5372e3d95bc",
+  "changed_generated_bytes": 3891575,
+  "changed_generated_files": 57,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "14464bf01052251733e084d96af36f8b07e5cfb201fff14f1bebfe5e90acf43e",
+  "reason": "MCP canary v3 review correction adds explicit process identity proof",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 26440637,
+  "tracked_bytes_max": 26214400
+}

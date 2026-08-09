@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 3810385,
+  "allowed_tracked_bytes": 26435095,
+  "approved_by": "repository-owner",
+  "base_ref": "4c5784fb48a9527421dc801e3fc3f5372e3d95bc",
+  "changed_generated_bytes": 3810385,
+  "changed_generated_files": 56,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "707e660e8456e66e9ebbc43c5553726800d85acb69cd5a9f1fe325ac1796a280",
+  "reason": "Refresh the aoa-evals portable family after the landed canary-v3 proof contract; the standing tracked-byte exceedance predates this bounded claim-limit compatibility fix.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 26435095,
+  "tracked_bytes_max": 26214400
+}

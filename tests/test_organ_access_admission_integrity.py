@@ -606,15 +606,27 @@ def upgrade_canary_inputs_to_v3(paths: dict[str, Path]) -> None:
     old_receipt_id = canary["receipt_id"]
     deployment = json.loads(paths["deployment"].read_text(encoding="utf-8"))
     service = deployment["services"][0]
+    observation = json.loads(paths["observation"].read_text(encoding="utf-8"))
+    process_identity = observation["subjects"][0]["process"]["process_identity"]
     canary.update(
         {
             "schema_version": "abyss_stack_mcp_canary_receipt_v3",
+            "claim_limit": (
+                "This stack-issued receipt proves one authenticated loopback MCP "
+                "schema observation, bounded read canary, and exact named-systemd "
+                "process identity unchanged across the probe only. It does not prove "
+                "owner grounding, owner freshness, owner acceptance, central proof, "
+                "admission, or rollback."
+            ),
             "deployment_manifest_id": deployment["manifest_id"],
             "deployment_service_id": service["service_id"],
             "deployment_source_revision": service["package_source_revision"],
             "deployment_package_digest": service["package_digest"],
             "deployment_tree_digest": service["deployed_tree"]["tree_digest"],
             "deployment_deployed_at": deployment["deployed_at"],
+            "process_identity_before": process_identity,
+            "process_identity_after": process_identity,
+            "process_identity": process_identity,
         }
     )
     unsigned_canary = {
@@ -943,6 +955,46 @@ def test_live_materializer_rejects_v3_deployment_binding_drift(
 
     assert completed.returncode == 1
     assert "v3 canary does not bind the selected deployment" in completed.stderr
+    assert not paths["output"].exists()
+
+
+def test_live_materializer_rejects_v3_process_change_during_probe(
+    tmp_path: Path,
+) -> None:
+    paths = live_packet_inputs(tmp_path)
+    upgrade_canary_inputs_to_v3(paths)
+    canary = json.loads(paths["canary"].read_text(encoding="utf-8"))
+    canary["process_identity_after"] = "systemd:aoa-kag:999"
+    unsigned = {
+        key: value
+        for key, value in canary.items()
+        if key not in {"receipt_id", "attestation"}
+    }
+    canary["receipt_id"] = canonical_digest(unsigned)
+    write_json(paths["canary"], canary, mode=0o600)
+
+    completed = run_materializer(paths)
+
+    assert completed.returncode == 1
+    assert "process identity changed across the probe" in completed.stderr
+    assert not paths["output"].exists()
+
+
+def test_live_materializer_rejects_v3_process_observation_drift(
+    tmp_path: Path,
+) -> None:
+    paths = live_packet_inputs(tmp_path)
+    upgrade_canary_inputs_to_v3(paths)
+    observation = json.loads(paths["observation"].read_text(encoding="utf-8"))
+    observation["subjects"][0]["process"]["process_identity"] = (
+        "systemd:aoa-kag:999"
+    )
+    write_json(paths["observation"], observation, mode=0o600)
+
+    completed = run_materializer(paths)
+
+    assert completed.returncode == 1
+    assert "does not bind runtime observation" in completed.stderr
     assert not paths["output"].exists()
 
 

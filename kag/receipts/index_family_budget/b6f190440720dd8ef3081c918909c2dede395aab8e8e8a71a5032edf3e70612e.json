@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 14692903,
+  "allowed_tracked_bytes": 26599324,
+  "approved_by": "repository-owner",
+  "base_ref": "1b531f51691fd0d655e50850a4ee1dca42f9aff5",
+  "changed_generated_bytes": 14692903,
+  "changed_generated_files": 228,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "b6f190440720dd8ef3081c918909c2dede395aab8e8e8a71a5032edf3e70612e",
+  "reason": "Owner-reviewed central proof capability home and typed evaluation-family handoff add deterministic skill discovery and composition surfaces; manual no-skill, direct, and composed trials plus existing owner validations passed before this digest-bound tracked-budget receipt.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 26599324,
+  "tracked_bytes_max": 26214400
+}

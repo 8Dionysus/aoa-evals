@@ -1,0 +1,24 @@
+{
+  "schema_version": "aoa_capability_home_port_v1",
+  "contract_ref": "aoa-skills:schemas/capability-home-port.schema.json",
+  "owner_repo": "aoa-evals",
+  "owner_ref": "capabilities/AGENTS.md",
+  "admission_ref": "docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md",
+  "source": {
+    "family_root": "capabilities/families",
+    "root_id": "aoa-evals"
+  },
+  "federation": {
+    "parent_owner": "aoa-skills",
+    "parent_node": "engineering.evaluation",
+    "relation": "specializes"
+  },
+  "skill_home_ref": "skills/port.manifest.json",
+  "projection": {
+    "authority": false,
+    "graph_json": "read-models/capability_graph.json",
+    "graph_markdown": "read-models/capability_graph.md",
+    "router_markdown": "skills/aoa-evals/references/capability-router.md",
+    "generated_by": "aoa-skills:scripts/build_capability_home_projection.py"
+  }
+}

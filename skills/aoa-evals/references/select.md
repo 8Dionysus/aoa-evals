@@ -1,5 +1,7 @@
 # Select a central eval
 
+### Mode: select
+
 ## Required input
 
 Require one bounded proof question, object under evaluation, claim class,

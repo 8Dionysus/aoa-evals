@@ -79,6 +79,9 @@ artifacts.
 - agent-facing route cards and maintained agent lanes under `.agents/`;
 - one admitted owner callable procedure under `skills/`, selected once by the
   OS-level Codex user profile;
+- one authored owner capability tree under `capabilities/`, federated beneath
+  `aoa-skills:engineering.evaluation`, with derived graph projections under
+  `read-models/` and the skill package router;
 - mechanics packages for repeatable proof-layer operations;
 - legacy and provenance bridges when old names remain accepted inputs.
 
@@ -248,6 +251,9 @@ measurements while `aoa-stats` owns the shared grammar and cross-owner
 composition.
 [`skills/`](skills/README.md) owns the admitted callable route through central
 proof work; it remains weaker than source eval bundles and admitted evidence.
+[`capabilities/`](capabilities/AGENTS.md) owns the semantic tree and typed mode
+composition for that existing bundle. Its `read-models/` projections are
+derived navigation surfaces, not proof or procedure authority.
 [`ROADMAP.md`](ROADMAP.md) points direction.
 [`QUESTBOOK.md`](QUESTBOOK.md) tracks proof obligations.
 [`docs/decisions/`](docs/decisions/) preserves durable structural and workflow

@@ -14,6 +14,11 @@ relations, result ABI, and coexistence boundary. They remain one bundle until
 held-out manual work proves that separate prompt-visible procedures improve
 outcomes.
 
+The authored semantic tree and mode-level ABI live in
+`../capabilities/families/central-proof.yaml`. The owner graph and router are
+derived from that source; task-local DAG instances remain in the active
+session or runtime.
+
 `port.manifest.json` declares the admitted source and its selection by the
 single OS-level `os-user-default` profile. Canonical files live under
 `skills/aoa-evals/`; this repository does not duplicate the globally installed

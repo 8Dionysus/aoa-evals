@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 360412,
+  "allowed_tracked_bytes": 26642858,
+  "approved_by": "repository-owner",
+  "base_ref": "de3baa1af2549e1d02ca4a2ccd4bd1dddae36ac8",
+  "changed_generated_bytes": 360412,
+  "changed_generated_files": 5,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "d0ce1962edd3a99f40e4df7442af3ebd05b335bb66061a72363579920c240e20",
+  "reason": "Refresh the content-addressed aoa-evals owner family for the canonical actor responsibility execution receipt mirror; this receipt admits only the measured generated delta and existing tracked-size exceedance without changing standing budgets.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "tracked_size",
+  "tracked_bytes": 26642858,
+  "tracked_bytes_max": 26214400
+}

@@ -4,8 +4,9 @@ identity:
   name: aoa-evals
   owner: aoa-evals
   canonical_source: skills/aoa-evals
-  version: 0.1.21
+  version: 0.1.22
   lifecycle: admitted
+  health: challenger
 
 authority:
   procedure_owner: skills/aoa-evals
@@ -20,6 +21,9 @@ freedom:
 
 modes:
   select:
+    input_abi: central-proof-question
+    output_abi: central-proof-review-request
+    reference: select.md
     input: [bounded proof question, object under evaluation, claim class, acceptance target, known evidence or comparison posture]
     output:
       type: central-eval-selection
@@ -27,6 +31,9 @@ modes:
     effects: none
     procedure: references/select.md
   review:
+    input_abi: central-proof-review-request
+    output_abi: proof-owner-evolution-request
+    reference: review.md
     input: [exact source bundle or already owner-routed central proof object, material accepted evidence or source-linked pressure, repository and environment posture]
     output:
       type: bounded-proof-review
@@ -34,6 +41,9 @@ modes:
     effects: none
     procedure: references/review.md
   evolve:
+    input_abi: proof-owner-evolution-request
+    output_abi: proof-owner-evolution-result
+    reference: evolve.md
     input: [accepted owner review or stable no-fit need, resolved owner, acceptance criteria, explicit effect authority, required human confirmation]
     output:
       type: proof-owner-evolution
@@ -56,9 +66,13 @@ common_output_abi:
     - exact claim limit and stop line
 
 relations:
-  primary-capability-parent: aoa-evals bounded-proof owner
+  primary-capability-parent: aoa-evals
+  federation-parent: aoa-skills:engineering.evaluation
+  internal-dag:
+    - {kind: hands-off-to, from: select, to: review, abi: central-proof-review-request, condition: an exact central source or owner-routed proof object was selected}
+    - {kind: hands-off-to, from: review, to: evolve, abi: proof-owner-evolution-request, condition: bounded owner change pressure survives review and the task asks for mutation}
   composes-with: [aoa-eval, aoa-decision, aoa-session-memory-global-route]
-  hands-off-to: [origin owner, aoa-skills, aoa-memo, aoa-stats, abyss-stack, inspected stronger owner]
+  hands-off-to: [aoa-eval, origin owner, aoa-skills, aoa-memo, aoa-stats, abyss-stack, inspected stronger owner]
   conflicts-with: [green-as-proof, readiness-as-verdict, candidate-as-bundle, report-as-source, generated-as-authority, implicit-maturity-promotion]
 
 tool_requirements:

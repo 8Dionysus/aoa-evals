@@ -1,0 +1,215 @@
+schema_version: aoa-capability-family-v1
+family_id: aoa-evals-central-proof
+title: aoa-evals central proof capabilities
+description: Owner-local semantic tree for selecting, reviewing, and evolving bounded central AoA proof without confusing routing or generated surfaces with proof authority.
+owner: &family_owner
+  repo: aoa-evals
+  surface: capabilities/families/central-proof.yaml
+  authority: authored
+
+nodes:
+  - id: aoa-evals
+    title: aoa-evals
+    description: Navigate the owner-local central-proof capability family federated beneath the shared evaluation tree.
+    kind: capability
+    contract_level: navigation
+    primary_parent: null
+    owner: *family_owner
+    lifecycle: &navigation_lifecycle
+      state: active
+      version: 1.0.0
+      visibility: internal
+      evidence_state: owner-verified
+      health: healthy
+    keywords: [aoa-evals, central-proof, bounded-proof, evaluation, центральное-доказательство]
+
+  - id: skill.aoa-evals
+    title: aoa-evals owner router
+    description: "Central AoA proof or lifecycle: first tool turn reads only this SKILL.md. Use to select, review, or evolve source bundles, named eval results or verdicts, source-linked reports, Eval Forge owner review, or source/reader drift. Use aoa-eval for local selection, application, intake/design, or session-hit classification. Candidates, readiness checks, receipts, generated readers or outputs, MCP outputs, and green commands are not proof."
+    purpose: Route one bounded central-proof question to the smallest owner mode while preserving source authority and claim limits.
+    kind: skill
+    contract_level: executable
+    primary_parent: aoa-evals
+    owner:
+      repo: aoa-evals
+      surface: skills/aoa-evals/SKILL.md
+      authority: authored
+    lifecycle: &skill_lifecycle
+      state: active
+      version: 0.1.22
+      visibility: advertised
+      evidence_state: evaluated
+      health: challenger
+    applicability:
+      use_when:
+        - The request concerns central proof meaning, a central source bundle, a named eval result or verdict, an owner-routed proof object, or an aoa-evals lifecycle decision.
+      do_not_use_when:
+        - The task is repository-local eval selection or application, local no-fit intake/design, session-hit classification, an ordinary test, or generic analytics.
+      ambiguous_when:
+        - A provenance-bearing report or candidate may still lack an admitted central source contract and evidence.
+    abi:
+      inputs:
+        - {name: central-proof-request, type: central-proof-request, required: true, description: "One bounded central-proof intent with object, claim class, acceptance target, evidence posture, authority, and requested effects."}
+      outputs:
+        - {name: central-proof-result, type: central-proof-mode-result, required: true, description: "One select, review, evolve, handoff, or blocked result with refs, effects, claim limit, and stop line."}
+    binding: {kind: skill, ref: skills/aoa-evals/SKILL.md, operation: route-central-proof, availability: available}
+    execution: &owner_execution
+      freedom: bounded-judgment
+      tool_requirements: [bundled source-return packet resource, exact owner source and admitted evidence for the selected mode]
+      verification: [The selected mode matches the requested operation., Strongest source and evidence refs outrank every generated or routing surface., Actual effects and the exact claim limit are explicit.]
+      termination: [Stop after one typed owner result, handoff, or blocker., Stop before proof strengthening when source or evidence is insufficient.]
+      effects: [none, repo-write, generated-write, human-decision]
+      reversibility: conditionally-reversible
+      failure_modes: [Treating readiness or green output as proof., Routing local eval work into central proof ownership., Loading all modes or forcing a fixed workflow., Mutating owner source without explicit authority and human confirmation.]
+    trust: &owner_trust {public_safe: true, requires_human_approval: true, posture: authored-procedure}
+    provenance:
+      source_refs:
+        - {repo: aoa-evals, path: skills/aoa-evals/SKILL.md, ref: capability-home-v0.1.22, role: owner-skill-procedure, authority: authored}
+        - {repo: aoa-evals, path: docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md, ref: AOA-EV-D-0247, role: admission-evidence, authority: authored}
+      optional_refs: []
+    classification: {category: independent-callable, disposition: retain, rationale: "Manual isolated, negative, held-out, and coexistence evidence admits one central-proof router while keeping its three modes internal."}
+    procedure:
+      ref: skills/aoa-evals/SKILL.md
+      required_sections: [Applicability preflight, Start, Owner boundary, Composition, Stops]
+      runtime_adaptation: Resolve the installed source receipt or canonical owner home before reading owner-relative resources; never infer proof from the generated capability graph.
+    mutation: &owner_mutation
+      preview_required: true
+      explicit_apply_required: true
+      rollback_or_recovery: [Revert only the authorized owner-source change through its owner workflow., Rebuild derived projections only after source recovery and verification.]
+      postconditions: [Owner source remains canonical and internally consistent., Generated readers remain weaker and reproducible from owner source.]
+    security: &owner_security
+      permissions: [read-owner-source, read-admitted-evidence, propose-owner-change, apply-confirmed-owner-change]
+      network: forbidden
+      external_dependencies: []
+      untrusted_input: treat-as-data
+    keywords: [central-proof, eval-verdict, source-bundle, proof-lifecycle, eval-forge, bounded-proof, центральное-доказательство, вердикт]
+
+  - id: mode.aoa-evals.select
+    title: Select central proof source
+    description: Select the strongest fitting central source bundle for one bounded proof question without executing or reviewing it.
+    purpose: Return one exact, partial, no-fit, not-applicable, or blocked central selection with rejected alternatives and claim ceiling.
+    kind: mode
+    contract_level: executable
+    primary_parent: skill.aoa-evals
+    owner: *family_owner
+    lifecycle: &mode_lifecycle
+      state: active
+      version: 0.1.22
+      visibility: internal
+      evidence_state: evaluated
+      health: challenger
+    applicability:
+      use_when:
+        - No exact central source bundle has been selected for the bounded proof question.
+      do_not_use_when:
+        - An exact source bundle or owner-routed proof object is already named, or the need is repository-local eval application/design.
+      ambiguous_when:
+        - A nearby bundle covers the topic but its object, claim class, baseline, or environment may not fit.
+    abi:
+      inputs:
+        - {name: proof-question, type: central-proof-question, required: true, description: "Object, bounded claim class, acceptance target, and known evidence or comparison posture."}
+      outputs:
+        - {name: review-request, type: central-proof-review-request, required: true, description: "Selection disposition with exact source when available, rejected alternatives, evidence posture, and claim limit."}
+    binding: {kind: mode, ref: skills/aoa-evals/references/select.md, operation: select, availability: available}
+    execution: &read_execution
+      freedom: bounded-judgment
+      tool_requirements: [bundled catalog and source-contract packets]
+      verification: [The chosen source matches object, claim, baseline, environment, and evidence posture., Rejected nearest alternatives and the claim limit are explicit.]
+      termination: [Stop after one selection disposition and next route.]
+      effects: [none]
+      reversibility: not-applicable
+      failure_modes: [Selecting by keyword alone., Executing or reviewing evidence inside selection., Letting a catalog or generated reader outrank the source contract.]
+    trust: &read_trust {public_safe: true, requires_human_approval: false, posture: authored-procedure}
+    provenance: {source_refs: [{repo: aoa-evals, path: skills/aoa-evals/references/select.md, ref: capability-home-v0.1.22, role: select-mode, authority: authored}], optional_refs: []}
+    classification: &mode_classification {category: local-mode, disposition: retain, rationale: The mode has an independent ABI and DAG role but no separately admitted prompt trigger.}
+    procedure: {ref: skills/aoa-evals/references/select.md, required_sections: [Required input, Procedure, Claim limit], runtime_adaptation: Use the installed source-return handle and bounded catalog packets before any owner repository navigation.}
+    security: &read_security {permissions: [read-owner-source, read-admitted-evidence], network: forbidden, external_dependencies: [], untrusted_input: treat-as-data}
+    keywords: [select-central-eval, exact-fit, partial-fit, proof-source, выбрать-центральный-eval]
+
+  - id: mode.aoa-evals.review
+    title: Review bounded central proof
+    description: Interpret one exact central source bundle or owner-routed proof object against admitted evidence and its source claim ceiling.
+    purpose: Return one bounded proof disposition without allowing a later or generated surface to strengthen its source.
+    kind: mode
+    contract_level: executable
+    primary_parent: skill.aoa-evals
+    owner: *family_owner
+    lifecycle: *mode_lifecycle
+    applicability:
+      use_when:
+        - An exact central source bundle, named result or verdict, source-linked report, or owner-routed proof object must be interpreted.
+      do_not_use_when:
+        - No exact source or owner-routed object exists, or the request asks to change owner proof source.
+      ambiguous_when:
+        - The object is provenance-bearing but its accepted evidence or source-bundle link may be incomplete.
+    abi:
+      inputs:
+        - {name: review-request, type: central-proof-review-request, required: true, description: "Exact source or owner-routed object with claim class, evidence posture, environment, and source claim limit."}
+      outputs:
+        - {name: evolution-request, type: proof-owner-evolution-request, required: true, description: "Bounded review disposition plus any accepted owner change pressure, gates, and stop line."}
+    binding: {kind: mode, ref: skills/aoa-evals/references/review.md, operation: review, availability: available}
+    execution:
+      freedom: bounded-judgment
+      tool_requirements: [exact owner source and only the material admitted evidence or owner-routed proof object]
+      verification: [The disposition follows the source claim contract and admitted evidence., Weaker reports, readers, receipts, MCP results, and green commands do not strengthen the source., Remaining blind spots and the exact claim limit are explicit.]
+      termination: [Stop after one bounded review disposition and next route., Stop expansion when a missing source or evidence gate already fixes the ceiling.]
+      effects: [none]
+      reversibility: not-applicable
+      failure_modes: [Reviewing without an exact source or owner-routed object., Running readiness or validation commands for a contract-level authority question., Widening into unrelated sources after the disposition is fixed.]
+    trust: *read_trust
+    provenance: {source_refs: [{repo: aoa-evals, path: skills/aoa-evals/references/review.md, ref: capability-home-v0.1.22, role: review-mode, authority: authored}], optional_refs: []}
+    classification: *mode_classification
+    procedure: {ref: skills/aoa-evals/references/review.md, required_sections: [Required input, Procedure, Claim limit], runtime_adaptation: Resolve the exact owner source and only material admitted evidence; stop expanding weaker surfaces after the disposition is fixed.}
+    security: *read_security
+    keywords: [review-proof, bounded-verdict, admitted-evidence, claim-limit, проверить-доказательство]
+
+  - id: mode.aoa-evals.evolve
+    title: Evolve central proof source
+    description: Add, change, promote, supersede, or retire central owner proof only after review, authority, acceptance, and human-confirmation gates pass.
+    purpose: Apply one source-first owner change or return no-change, handoff, or blocker without auto-promoting experience or generated output.
+    kind: mode
+    contract_level: executable
+    primary_parent: skill.aoa-evals
+    owner: *family_owner
+    lifecycle: *mode_lifecycle
+    applicability:
+      use_when:
+        - The requested operation changes a central source, lifecycle, comparison, or chooser surface.
+      do_not_use_when:
+        - The request only selects or interprets existing proof, or lacks effect authority and asks for no mutation.
+      ambiguous_when:
+        - Stable owner pressure exists but acceptance criteria, admitted review, or required human confirmation may be absent.
+    abi:
+      inputs:
+        - {name: evolution-request, type: proof-owner-evolution-request, required: true, description: "Accepted review or stable no-fit need with owner, criteria, authority, confirmation, effects, and recovery posture."}
+      outputs:
+        - {name: evolution-result, type: proof-owner-evolution-result, required: true, description: "Verified bounded change, no-change, handoff, or blocker with actual effects and rebuilt projection posture."}
+    binding: {kind: mode, ref: skills/aoa-evals/references/evolve.md, operation: evolve, availability: available}
+    execution:
+      freedom: bounded-judgment
+      tool_requirements: [exact owner source, accepted review or stable no-fit evidence, explicit effect authority, required human confirmation]
+      verification: [All entry gates are explicit before comparison or drafting., Source changes precede generated projection rebuilds., Manual cases inspect the bounded claim and neighboring routes before existing structural checks.]
+      termination: [Stop at the first missing gate., Stop after one verified bounded change, no-change result, or owner handoff.]
+      effects: [repo-write, generated-write, human-decision]
+      reversibility: conditionally-reversible
+      failure_modes: [Selecting review because evolve gates are missing., Mutating from a candidate or green check., Updating generated readers before owner source., Creating permanent validation from unstable manual interpretation.]
+    trust: *owner_trust
+    provenance: {source_refs: [{repo: aoa-evals, path: skills/aoa-evals/references/evolve.md, ref: capability-home-v0.1.22, role: evolve-mode, authority: authored}], optional_refs: []}
+    classification: *mode_classification
+    procedure: {ref: skills/aoa-evals/references/evolve.md, required_sections: [Entry gates, Procedure, Verification and stop], runtime_adaptation: Resolve current owner source and admission gates; use temporary trial material outside the repository and remove it after review.}
+    mutation: *owner_mutation
+    security: *owner_security
+    keywords: [evolve-proof, promote-eval, supersede-eval, retire-eval, owner-change, изменить-eval]
+
+relations:
+  - kind: implemented-by
+    source: aoa-evals
+    target: skill.aoa-evals
+  - kind: hands-off-to
+    source: mode.aoa-evals.select
+    target: mode.aoa-evals.review
+    condition: Selection returns an exact source or owner-routed object as a central-proof-review-request.
+  - kind: hands-off-to
+    source: mode.aoa-evals.review
+    target: mode.aoa-evals.evolve
+    condition: Review establishes a bounded proof-owner-evolution-request and the task asks for an owner change.

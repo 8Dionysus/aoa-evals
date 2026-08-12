@@ -33,6 +33,7 @@ to the owner surface instead of expanding this page.
 | Source proof objects | `evals/**/EVAL.md` and `evals/**/eval.yaml` |
 | Eval-owned statistical questions and reference measurements | [stats](stats/README.md) |
 | Owner callable procedure | [skills](skills/README.md) |
+| Owner semantic capability tree and typed DAG contracts | [capabilities](capabilities/AGENTS.md) |
 | Eval discovery | [Eval Bundle Selection Chooser](EVAL_SELECTION.md), [Eval Bundle Index](EVAL_INDEX.md) |
 | Full documentation map | [docs/README.md](docs/README.md) |
 | Durable rationale | [docs/decisions/README.md](docs/decisions/README.md) |
@@ -99,6 +100,8 @@ Source bundles, mechanics, decisions, and route cards keep meaning.
 | [memo](memo/README.md) | proof-layer local memory candidates before reviewed `aoa-memo` landing |
 | [stats](stats/README.md) | owner-local statistical questions, measurement contracts, and evidence-linked reference packets |
 | [skills](skills/README.md) | admitted callable route for central proof selection, review, and evolution |
+| [capabilities](capabilities/AGENTS.md) | authored semantic tree, mode ABI, and typed composition for the owner skill |
+| `read-models/` | derived capability graph; never proof or procedure authority |
 | [scripts](scripts/AGENTS.md) and [tests](tests/AGENTS.md) | root-wide validators, builders, and regression surfaces |
 
 Compatibility districts such as `fixtures/`, `reports/`, `schemas/`,

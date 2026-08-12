@@ -1,5 +1,7 @@
 # Review bounded proof
 
+### Mode: review
+
 ## Required input
 
 Require an exact source bundle or owner-routed proof object, the material

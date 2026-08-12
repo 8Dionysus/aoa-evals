@@ -20,6 +20,9 @@ This repository owns:
 - the admitted repo-specific `aoa-evals` callable procedure under top-level
   `skills/`; it routes central proof work while source bundles and admitted
   evidence keep proof authority
+- the owner-local semantic capability tree under `capabilities/`; it exposes
+  typed discovery and task-local composition contracts without owning runtime
+  DAG instances or generated graph authority
 
 Route outward for:
 
@@ -36,6 +39,7 @@ Route outward for:
 | local memory candidates | `memo/AGENTS.md`, `memo/README.md`, and `memo/PORT.yaml` |
 | local statistics | `stats/AGENTS.md`, `stats/README.md`, and `stats/port.manifest.json` |
 | owner callable procedure | `skills/AGENTS.md`, `skills/README.md`, `skills/port.manifest.json`, then `skills/aoa-evals/SKILL.md` |
+| owner capability tree | `capabilities/AGENTS.md`, `capabilities/port.manifest.json`, then `capabilities/families/*.yaml` |
 | output | bounded reports, receipts, generated readers, or owner handoffs only through their owning surface |
 | tools and checks | this card's `Verify` section and the nearest nested `AGENTS.md` |
 
@@ -48,16 +52,17 @@ Route outward for:
 5. `docs/architecture/PROOF_TOPOLOGY.md` when artifact classes, legacy, mechanics, or root districts change
 6. `mechanics/EVIDENCE_CLUSTERS.md` before moving root-district artifacts into or between mechanics
 7. `skills/AGENTS.md` when the owner callable procedure or projection changes
-8. `mechanics/README.md` when a repeatable proof operation or package changes
-9. `stats/README.md` when eval-owned statistical questions, contracts, or reference packets change
-10. `docs/architecture/ARCHITECTURE.md`
-11. `docs/guides/EVAL_PHILOSOPHY.md`
-12. `AUDIT.md` when auditing or reviewing proof claims
-13. the target `evals/**/EVAL.md`
-14. affected generated catalogs, capsules, comparison, receipt, or section surfaces
-15. upstream skill or technique docs if the claim depends on them
-16. `docs/decisions/` when a structural, topology, validation, or workflow route changes
-17. `docs/operations/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
+8. `capabilities/AGENTS.md` when semantic navigation, ABI, typed relations, or capability projections change
+9. `mechanics/README.md` when a repeatable proof operation or package changes
+10. `stats/README.md` when eval-owned statistical questions, contracts, or reference packets change
+11. `docs/architecture/ARCHITECTURE.md`
+12. `docs/guides/EVAL_PHILOSOPHY.md`
+13. `AUDIT.md` when auditing or reviewing proof claims
+14. the target `evals/**/EVAL.md`
+15. affected generated catalogs, capsules, comparison, receipt, or section surfaces
+16. upstream skill or technique docs if the claim depends on them
+17. `docs/decisions/` when a structural, topology, validation, or workflow route changes
+18. `docs/operations/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
 
 
 ## AGENTS stack law

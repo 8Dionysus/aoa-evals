@@ -110,6 +110,32 @@ As of 2026-07-23:
 
 ## Review Log
 
+### 2026-08-11 - Federate the existing bundle as an executable capability family
+
+- Observed defect: the shared `aoa-skills` graph placed `aoa-eval` and
+  `aoa-evals` under one navigation parent and named mutual handoffs, but the
+  external `aoa-evals` node remained navigation-only. Its owner had no
+  capability home, so deep retrieval and the task-local planner could not use
+  the admitted `select`, `review`, and `evolve` ABI as executable nodes.
+- Correction: version `0.1.22` keeps the same single advertised bundle and
+  adds one owner capability home federated beneath
+  `aoa-skills:engineering.evaluation`. The three existing modes remain
+  internal and now expose typed `central-proof-question ->
+  central-proof-review-request -> proof-owner-evolution-request ->
+  proof-owner-evolution-result` flow. Generated graph material lives under
+  `read-models/`; no task DAG or raw trial is committed.
+- Manual result: a central proof query exposed one compact advertised router
+  and deep-reranked the relevant internal modes; a repository-local test query
+  exposed none. Direct `review`, `select -> review`, and conditional
+  `select -> review -> evolve` plans were ready with typed data and handoff
+  edges. Direct `evolve` without its required reviewed request blocked before
+  mutation. Manual inspection also caught and corrected an initially shared
+  select/review verification anchor before structural checks ran.
+- Claim limit: this establishes owner-source discovery and task-local DAG
+  structure on the exercised local runtime. It does not prove live KAG
+  federation, fresh-session implicit selection, cross-host behavior, or proof
+  outcome superiority.
+
 ### 2026-07-25 - Preserve the activated gate and the generated-output ceiling
 
 - Review finding: the `0.1.21` description made central applicability and the

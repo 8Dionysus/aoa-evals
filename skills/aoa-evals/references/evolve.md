@@ -1,5 +1,7 @@
 # Evolve owner proof
 
+### Mode: evolve
+
 ## Entry gates
 
 Require a stable bounded need, accepted review or recorded duplicate/no-fit,

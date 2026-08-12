@@ -10,7 +10,7 @@
   },
   "federation": {
     "parent_owner": "aoa-skills",
-    "parent_node": "engineering.evaluation",
+    "parent_node": "engineering.evaluation.central-proof",
     "relation": "specializes"
   },
   "skill_home_ref": "skills/port.manifest.json",

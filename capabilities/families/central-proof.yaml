@@ -10,14 +10,14 @@ owner: &family_owner
 nodes:
   - id: aoa-evals
     title: aoa-evals
-    description: Navigate the owner-local central-proof capability family federated beneath the shared evaluation tree.
+    description: Navigate the owner-local central-proof subtree federated beneath the shared evaluation central-proof branch.
     kind: capability
     contract_level: navigation
     primary_parent: null
     owner: *family_owner
     lifecycle: &navigation_lifecycle
       state: active
-      version: 1.0.0
+      version: 1.0.1
       visibility: internal
       evidence_state: owner-verified
       health: healthy
@@ -36,7 +36,7 @@ nodes:
       authority: authored
     lifecycle: &skill_lifecycle
       state: active
-      version: 0.1.22
+      version: 0.1.23
       visibility: advertised
       evidence_state: evaluated
       health: challenger
@@ -79,7 +79,7 @@ nodes:
     trust: &owner_trust {public_safe: true, requires_human_approval: true, posture: authored-procedure}
     provenance:
       source_refs:
-        - {repo: aoa-evals, path: skills/aoa-evals/SKILL.md, ref: capability-home-v0.1.22, role: owner-skill-procedure, authority: authored}
+        - {repo: aoa-evals, path: skills/aoa-evals/SKILL.md, ref: capability-home-v0.1.23, role: owner-skill-procedure, authority: authored}
         - {repo: aoa-evals, path: docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md, ref: AOA-EV-D-0247, role: admission-evidence, authority: authored}
       optional_refs: []
     classification: {category: independent-callable, disposition: retain, rationale: "Manual isolated, negative, held-out, and coexistence evidence admits one central-proof router while keeping its three modes internal."}
@@ -109,7 +109,7 @@ nodes:
     owner: *family_owner
     lifecycle: &mode_lifecycle
       state: active
-      version: 0.1.22
+      version: 0.1.23
       visibility: internal
       evidence_state: evaluated
       health: challenger
@@ -143,7 +143,7 @@ nodes:
         - Executing or reviewing evidence inside selection.
         - Letting a catalog or generated reader outrank the source contract.
     trust: &read_trust {public_safe: true, requires_human_approval: false, posture: authored-procedure}
-    provenance: {source_refs: [{repo: aoa-evals, path: skills/aoa-evals/references/select.md, ref: capability-home-v0.1.22, role: select-mode, authority: authored}], optional_refs: []}
+    provenance: {source_refs: [{repo: aoa-evals, path: skills/aoa-evals/references/select.md, ref: capability-home-v0.1.23, role: select-mode, authority: authored}], optional_refs: []}
     classification: &mode_classification {category: local-mode, disposition: retain, rationale: The mode has an independent ABI and DAG role but no separately admitted prompt trigger.}
     procedure: {ref: skills/aoa-evals/references/select.md, required_sections: [Required input, Procedure, Claim limit], runtime_adaptation: Use the installed source-return handle and bounded catalog packets before any owner repository navigation.}
     security: &read_security {permissions: [read-owner-source, read-admitted-evidence], network: forbidden, external_dependencies: [], untrusted_input: treat-as-data}
@@ -190,7 +190,7 @@ nodes:
         - Running readiness or validation commands for a contract-level authority question.
         - Widening into unrelated sources after the disposition is fixed.
     trust: *read_trust
-    provenance: {source_refs: [{repo: aoa-evals, path: skills/aoa-evals/references/review.md, ref: capability-home-v0.1.22, role: review-mode, authority: authored}], optional_refs: []}
+    provenance: {source_refs: [{repo: aoa-evals, path: skills/aoa-evals/references/review.md, ref: capability-home-v0.1.23, role: review-mode, authority: authored}], optional_refs: []}
     classification: *mode_classification
     procedure: {ref: skills/aoa-evals/references/review.md, required_sections: [Required input, Procedure, Claim limit], runtime_adaptation: Resolve the exact owner source and only material admitted evidence; stop expanding weaker surfaces after the disposition is fixed.}
     security: *read_security
@@ -243,7 +243,7 @@ nodes:
         - Updating generated readers before owner source.
         - Creating permanent validation from unstable manual interpretation.
     trust: *owner_trust
-    provenance: {source_refs: [{repo: aoa-evals, path: skills/aoa-evals/references/evolve.md, ref: capability-home-v0.1.22, role: evolve-mode, authority: authored}], optional_refs: []}
+    provenance: {source_refs: [{repo: aoa-evals, path: skills/aoa-evals/references/evolve.md, ref: capability-home-v0.1.23, role: evolve-mode, authority: authored}], optional_refs: []}
     classification: *mode_classification
     procedure: {ref: skills/aoa-evals/references/evolve.md, required_sections: [Entry gates, Procedure, Verification and stop], runtime_adaptation: Resolve current owner source and admission gates; use temporary trial material outside the repository and remove it after review.}
     mutation: *owner_mutation

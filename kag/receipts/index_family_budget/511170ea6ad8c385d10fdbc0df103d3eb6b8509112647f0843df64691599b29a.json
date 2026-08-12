@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 1659363,
+  "allowed_tracked_bytes": 26641894,
+  "approved_by": "repository-owner",
+  "base_ref": "5637f2c702ebc1e4cedb6dc919d13bc689aaef68",
+  "changed_generated_bytes": 1659363,
+  "changed_generated_files": 31,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "511170ea6ad8c385d10fdbc0df103d3eb6b8509112647f0843df64691599b29a",
+  "reason": "Central-proof owner now attaches to the explicit shared evaluation branch and refreshes its owner-qualified capability records; the existing content-addressed family redistributes shards and crosses the tracked-size budget without adding a new owner surface.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 26641894,
+  "tracked_bytes_max": 26214400
+}

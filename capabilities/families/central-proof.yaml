@@ -55,12 +55,27 @@ nodes:
     binding: {kind: skill, ref: skills/aoa-evals/SKILL.md, operation: route-central-proof, availability: available}
     execution: &owner_execution
       freedom: bounded-judgment
-      tool_requirements: [bundled source-return packet resource, exact owner source and admitted evidence for the selected mode]
-      verification: [The selected mode matches the requested operation., Strongest source and evidence refs outrank every generated or routing surface., Actual effects and the exact claim limit are explicit.]
-      termination: [Stop after one typed owner result, handoff, or blocker., Stop before proof strengthening when source or evidence is insufficient.]
-      effects: [none, repo-write, generated-write, human-decision]
+      tool_requirements:
+        - bundled source-return packet resource
+        - exact owner source and admitted evidence for the selected mode
+      verification:
+        - The selected mode matches the requested operation.
+        - Strongest source and evidence refs outrank every generated or routing surface.
+        - Actual effects and the exact claim limit are explicit.
+      termination:
+        - Stop after one typed owner result, handoff, or blocker.
+        - Stop before proof strengthening when source or evidence is insufficient.
+      effects:
+        - none
+        - repo-write
+        - generated-write
+        - human-decision
       reversibility: conditionally-reversible
-      failure_modes: [Treating readiness or green output as proof., Routing local eval work into central proof ownership., Loading all modes or forcing a fixed workflow., Mutating owner source without explicit authority and human confirmation.]
+      failure_modes:
+        - Treating readiness or green output as proof.
+        - Routing local eval work into central proof ownership.
+        - Loading all modes or forcing a fixed workflow.
+        - Mutating owner source without explicit authority and human confirmation.
     trust: &owner_trust {public_safe: true, requires_human_approval: true, posture: authored-procedure}
     provenance:
       source_refs:
@@ -113,12 +128,20 @@ nodes:
     binding: {kind: mode, ref: skills/aoa-evals/references/select.md, operation: select, availability: available}
     execution: &read_execution
       freedom: bounded-judgment
-      tool_requirements: [bundled catalog and source-contract packets]
-      verification: [The chosen source matches object, claim, baseline, environment, and evidence posture., Rejected nearest alternatives and the claim limit are explicit.]
-      termination: [Stop after one selection disposition and next route.]
-      effects: [none]
+      tool_requirements:
+        - bundled catalog and source-contract packets
+      verification:
+        - The chosen source matches object, claim, baseline, environment, and evidence posture.
+        - Rejected nearest alternatives and the claim limit are explicit.
+      termination:
+        - Stop after one selection disposition and next route.
+      effects:
+        - none
       reversibility: not-applicable
-      failure_modes: [Selecting by keyword alone., Executing or reviewing evidence inside selection., Letting a catalog or generated reader outrank the source contract.]
+      failure_modes:
+        - Selecting by keyword alone.
+        - Executing or reviewing evidence inside selection.
+        - Letting a catalog or generated reader outrank the source contract.
     trust: &read_trust {public_safe: true, requires_human_approval: false, posture: authored-procedure}
     provenance: {source_refs: [{repo: aoa-evals, path: skills/aoa-evals/references/select.md, ref: capability-home-v0.1.22, role: select-mode, authority: authored}], optional_refs: []}
     classification: &mode_classification {category: local-mode, disposition: retain, rationale: The mode has an independent ABI and DAG role but no separately admitted prompt trigger.}
@@ -150,12 +173,22 @@ nodes:
     binding: {kind: mode, ref: skills/aoa-evals/references/review.md, operation: review, availability: available}
     execution:
       freedom: bounded-judgment
-      tool_requirements: [exact owner source and only the material admitted evidence or owner-routed proof object]
-      verification: [The disposition follows the source claim contract and admitted evidence., Weaker reports, readers, receipts, MCP results, and green commands do not strengthen the source., Remaining blind spots and the exact claim limit are explicit.]
-      termination: [Stop after one bounded review disposition and next route., Stop expansion when a missing source or evidence gate already fixes the ceiling.]
-      effects: [none]
+      tool_requirements:
+        - exact owner source and only the material admitted evidence or owner-routed proof object
+      verification:
+        - The disposition follows the source claim contract and admitted evidence.
+        - Weaker reports, readers, receipts, MCP results, and green commands do not strengthen the source.
+        - Remaining blind spots and the exact claim limit are explicit.
+      termination:
+        - Stop after one bounded review disposition and next route.
+        - Stop expansion when a missing source or evidence gate already fixes the ceiling.
+      effects:
+        - none
       reversibility: not-applicable
-      failure_modes: [Reviewing without an exact source or owner-routed object., Running readiness or validation commands for a contract-level authority question., Widening into unrelated sources after the disposition is fixed.]
+      failure_modes:
+        - Reviewing without an exact source or owner-routed object.
+        - Running readiness or validation commands for a contract-level authority question.
+        - Widening into unrelated sources after the disposition is fixed.
     trust: *read_trust
     provenance: {source_refs: [{repo: aoa-evals, path: skills/aoa-evals/references/review.md, ref: capability-home-v0.1.22, role: review-mode, authority: authored}], optional_refs: []}
     classification: *mode_classification
@@ -187,12 +220,28 @@ nodes:
     binding: {kind: mode, ref: skills/aoa-evals/references/evolve.md, operation: evolve, availability: available}
     execution:
       freedom: bounded-judgment
-      tool_requirements: [exact owner source, accepted review or stable no-fit evidence, explicit effect authority, required human confirmation]
-      verification: [All entry gates are explicit before comparison or drafting., Source changes precede generated projection rebuilds., Manual cases inspect the bounded claim and neighboring routes before existing structural checks.]
-      termination: [Stop at the first missing gate., Stop after one verified bounded change, no-change result, or owner handoff.]
-      effects: [repo-write, generated-write, human-decision]
+      tool_requirements:
+        - exact owner source
+        - accepted review or stable no-fit evidence
+        - explicit effect authority
+        - required human confirmation
+      verification:
+        - All entry gates are explicit before comparison or drafting.
+        - Source changes precede generated projection rebuilds.
+        - Manual cases inspect the bounded claim and neighboring routes before existing structural checks.
+      termination:
+        - Stop at the first missing gate.
+        - Stop after one verified bounded change, no-change result, or owner handoff.
+      effects:
+        - repo-write
+        - generated-write
+        - human-decision
       reversibility: conditionally-reversible
-      failure_modes: [Selecting review because evolve gates are missing., Mutating from a candidate or green check., Updating generated readers before owner source., Creating permanent validation from unstable manual interpretation.]
+      failure_modes:
+        - Selecting review because evolve gates are missing.
+        - Mutating from a candidate or green check.
+        - Updating generated readers before owner source.
+        - Creating permanent validation from unstable manual interpretation.
     trust: *owner_trust
     provenance: {source_refs: [{repo: aoa-evals, path: skills/aoa-evals/references/evolve.md, ref: capability-home-v0.1.22, role: evolve-mode, authority: authored}], optional_refs: []}
     classification: *mode_classification

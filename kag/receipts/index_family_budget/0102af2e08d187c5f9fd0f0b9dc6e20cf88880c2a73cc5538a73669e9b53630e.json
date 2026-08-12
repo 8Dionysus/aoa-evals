@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 9669605,
+  "allowed_tracked_bytes": 26637631,
+  "approved_by": "repository-owner",
+  "base_ref": "fb91232476ccd35246ed8f720e461a3166d02ab1",
+  "changed_generated_bytes": 9669605,
+  "changed_generated_files": 146,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "0102af2e08d187c5f9fd0f0b9dc6e20cf88880c2a73cc5538a73669e9b53630e",
+  "reason": "Regenerate the existing aoa-evals portable family after correcting comma-fragmented execution-contract scalars; no capability or source-surface expansion.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 26637631,
+  "tracked_bytes_max": 26214400
+}

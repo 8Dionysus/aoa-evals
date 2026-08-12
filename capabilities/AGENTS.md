@@ -14,8 +14,10 @@ runtime state, or generated graph authority.
 
 ## Editing posture
 
-- Keep `aoa-evals` under the shared `engineering.evaluation` federation
-  parent without copying shared `aoa-eval` procedure truth here.
+- Keep `aoa-evals` under the shared
+  `engineering.evaluation.central-proof` branch without copying shared
+  `aoa-eval` procedure truth here. The sibling
+  `engineering.evaluation.use` branch remains owned by `aoa-skills`.
 - Keep one advertised `aoa-evals` bundle. `select`, `review`, and `evolve`
   remain internal modes until manual evidence supports an independent bundle.
 - Give every node one primary parent and use typed relations for optional

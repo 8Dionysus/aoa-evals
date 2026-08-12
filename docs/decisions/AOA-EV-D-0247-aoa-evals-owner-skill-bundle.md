@@ -110,6 +110,21 @@ As of 2026-07-23:
 
 ## Review Log
 
+### 2026-08-12 - Attach central proof to its explicit shared branch
+
+- Observed defect: the owner home specialized the broad
+  `aoa-skills:engineering.evaluation` root, so the federated tree did not
+  distinguish evaluation use from central-proof stewardship even though the
+  callable bundles and handoff ABI already did.
+- Correction: version `0.1.23` attaches the unchanged owner-local
+  `select -> review -> evolve` subtree to
+  `aoa-skills:engineering.evaluation.central-proof`. The sibling shared-use
+  branch remains with `aoa-eval`; neither package nor proof authority is
+  copied across owners.
+- Claim limit: this corrects semantic navigation and composition identity. It
+  does not merge the two callable packages, change proof meaning, or establish
+  routing benefit beyond fresh manual trials.
+
 ### 2026-08-11 - Federate the existing bundle as an executable capability family
 
 - Observed defect: the shared `aoa-skills` graph placed `aoa-eval` and

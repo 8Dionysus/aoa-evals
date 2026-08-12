@@ -4,7 +4,7 @@ identity:
   name: aoa-evals
   owner: aoa-evals
   canonical_source: skills/aoa-evals
-  version: 0.1.22
+  version: 0.1.23
   lifecycle: admitted
   health: challenger
 
@@ -67,7 +67,7 @@ common_output_abi:
 
 relations:
   primary-capability-parent: aoa-evals
-  federation-parent: aoa-skills:engineering.evaluation
+  federation-parent: aoa-skills:engineering.evaluation.central-proof
   internal-dag:
     - {kind: hands-off-to, from: select, to: review, abi: central-proof-review-request, condition: an exact central source or owner-routed proof object was selected}
     - {kind: hands-off-to, from: review, to: evolve, abi: proof-owner-evolution-request, condition: bounded owner change pressure survives review and the task asks for mutation}

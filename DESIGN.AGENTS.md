@@ -139,7 +139,7 @@ improvement over a no-skill baseline have been demonstrated manually. Its
 canonical source then lives under top-level `skills/`; runtime projections are
 derived delivery surfaces, not alternate owners.
 
-`skills/aoa-evals/` is the admitted canonical owner bundle with internal
+`skills/aoa-evals-skills/` is the admitted canonical owner bundle with internal
 `select`, `review`, and `evolve` modes. The central `aoa-skills`
 `os-user-default` profile selects one managed user projection for global
 discovery. `.agents/` remains limited to maintained agent lanes and does not

@@ -18,7 +18,7 @@
     "authority": false,
     "graph_json": "read-models/capability_graph.json",
     "graph_markdown": "read-models/capability_graph.md",
-    "router_markdown": "skills/aoa-evals/references/capability-router.md",
+    "router_markdown": "skills/aoa-evals-skills/references/capability-router.md",
     "generated_by": "aoa-skills:scripts/build_capability_home_projection.py"
   }
 }

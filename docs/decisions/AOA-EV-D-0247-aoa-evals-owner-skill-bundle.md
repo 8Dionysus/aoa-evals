@@ -1,9 +1,9 @@
-# aoa-evals Owner Skill Bundle
+# aoa-evals-skills Owner Skill Bundle
 
 - Decision ID: AOA-EV-D-0247
 - Status: Accepted
 - Date: 2026-07-16
-- Owner surface: `skills/aoa-evals/SKILL.md` and `skills/port.manifest.json`
+- Owner surface: `skills/aoa-evals-skills/SKILL.md` and `skills/port.manifest.json`
 
 ## Index Metadata
 
@@ -93,22 +93,43 @@ projection invariant. Manual trials, not that validator, justify admission.
 
 ## Current Applicability
 
-As of 2026-07-23:
+As of 2026-08-12:
 
 - Still valid: one bundle with three internal modes is the admitted owner
   route; manual evidence across `select`, `review`, `evolve`, negative
   applicability, and coexistence, not projection validation, justifies
-  admission on the exercised Codex host and model. Version `0.1.20` is the
-  current owner package. It preserves the three-mode contract, exact
+  admission on the exercised Codex host and model. Version `0.2.0` is the
+  current owner package under the distinct `aoa-evals-skills` identity. It preserves the three-mode contract, exact
   packet-ID-only review route, and v2 installed-copy source identity while
   keeping central proof applicability visible in a shortened host catalog.
-- Changed: `aoa-evals` now has one repository skill home after the absence
-  state recorded by AOA-EV-D-0246. Its Codex exposure is now selected once by
-  the OS-level `os-user-default` profile rather than copied into this repo.
+- Changed: the `aoa-evals` repository now owns one `aoa-evals-skills` skill
+  family after the absence state recorded by AOA-EV-D-0246. The former
+  prompt-visible `aoa-evals` identity is superseded, not retained as an alias.
+  Codex exposure is selected once by the OS-level `os-user-default` profile
+  rather than copied into this repo.
 - Superseded by: the repo-scoped projection portion of this decision is
   superseded by the v2 owner-home exposure contract.
 
 ## Review Log
+
+### 2026-08-12 - Name the owner router after its skill family
+
+- Observed defect: the prompt-visible identities `aoa-eval` and `aoa-evals`
+  differed only by a plural suffix. Their procedures were separated in the
+  capability tree, but the names themselves still invited retrieval and agent
+  confusion about local eval operations versus central proof ownership.
+- Sibling grounding: the established owner pattern is
+  `aoa-agents -> aoa-agents-skills -> skill.aoa-agents-skills`. The evals owner
+  now follows the same semantic shape:
+  `aoa-evals -> aoa-evals-skills -> skill.aoa-evals-skills`.
+- Correction: version `0.2.0` renames the one advertised owner package and its
+  source home to `aoa-evals-skills`, inserts the explicit skill-family node,
+  and keeps `select`, `review`, and `evolve` as internal modes. Shared
+  repository-local operations remain with `aoa-eval`; no compatibility alias
+  or duplicate prompt-visible package is admitted.
+- Claim limit: this removes the known naming collision and aligns source,
+  semantic navigation, and installation identity. Fresh manual routing and
+  coexistence trials remain the behavioral evidence for the renamed package.
 
 ### 2026-08-12 - Attach central proof to its explicit shared branch
 

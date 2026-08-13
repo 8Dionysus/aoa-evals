@@ -12,29 +12,29 @@
     "by_classification": {
       "builder_or_projection": 5,
       "builder_with_check_mode": 16,
-      "deterministic_script_validator": 247,
-      "deterministic_test": 64,
+      "deterministic_script_validator": 248,
+      "deterministic_test": 66,
       "deterministic_validator": 227,
       "generated_readmodel_test": 9,
       "script_support": 11,
-      "trace_eval_test": 14
+      "trace_eval_test": 17
     },
     "by_kind": {
-      "script": 279,
-      "test": 87,
+      "script": 280,
+      "test": 92,
       "validator": 227
     },
     "by_lane": {
       "advisory": 29,
       "generated": 52,
       "latest_sibling": 4,
-      "mechanics_part_local": 52,
+      "mechanics_part_local": 54,
       "pinned_sibling": 1,
       "release": 16,
-      "source_fast": 439
+      "source_fast": 443
     },
     "by_recommended_route": {
-      "apply_as_deterministic_eval_support": 469,
+      "apply_as_deterministic_eval_support": 475,
       "candidate_only_eval_support": 8,
       "component_only_use_owning_validator_or_lane_command": 83,
       "forbidden_as_eval_apply_until_manual_owner_review": 4,
@@ -47,21 +47,21 @@
       "candidate_only": 8,
       "not_eval_relevant": 5,
       "reviewed_forbidden": 4,
-      "rule_reviewed": 576
+      "rule_reviewed": 582
     },
     "by_semantic_class": {
-      "deterministic_validator": 465,
+      "deterministic_validator": 466,
       "generated_parity_check": 32,
       "ordinary_support": 5,
       "owner_skill_navigation_resource": 1,
       "runtime_candidate_support": 8,
-      "trace_trajectory_eval_support": 14,
-      "unit_contract_property_test": 64,
+      "trace_trajectory_eval_support": 17,
+      "unit_contract_property_test": 66,
       "unsafe_side_effect_script": 4
     },
-    "eval_lane_relevant": 429,
-    "safe_to_apply_directly": 469,
-    "total_surfaces": 593,
+    "eval_lane_relevant": 435,
+    "safe_to_apply_directly": 475,
+    "total_surfaces": 599,
     "unsafe_side_effect_scripts": 4
   },
   "surfaces": [
@@ -796,6 +796,41 @@
       "side_effects": "writes generated phase-alpha matrix when run without --check",
       "source_truth_count": 2,
       "test_target": "tests/test_downstream_feed_contracts.py"
+    },
+    {
+      "classification": "deterministic_script_validator",
+      "classification_evidence": [
+        "family: part_local_validator",
+        "owner_surface: mechanics/proof-infra/parts/reportable-contracts/README.md",
+        "side_effects: validation output only; checks experiment-control shape and cross-field semantics without establishing benefit, verdict, policy promotion, training, production, or memory-semantic authority",
+        "validation_lane: mechanics_part_local"
+      ],
+      "classification_rule": "read_only_validator_script",
+      "eval_lane_relevant": true,
+      "failure_route": null,
+      "family": "part_local_validator",
+      "focused_target": null,
+      "forbidden_interpretations": [
+        "central_proof_acceptance"
+      ],
+      "kind": "script",
+      "lane": "mechanics_part_local",
+      "owner_surface": "mechanics/proof-infra/parts/reportable-contracts/README.md",
+      "path": "mechanics/proof-infra/parts/reportable-contracts/scripts/validate_active_organ_experiment_contracts.py",
+      "recommended_route": "apply_as_deterministic_eval_support",
+      "relevance_reasons": [
+        "proof",
+        "report",
+        "verdict",
+        "memory"
+      ],
+      "review_reason": "read-only validator script has validation-only side effects and an owner surface",
+      "review_status": "rule_reviewed",
+      "safe_to_apply_directly": true,
+      "semantic_class": "deterministic_validator",
+      "side_effects": "validation output only; checks experiment-control shape and cross-field semantics without establishing benefit, verdict, policy promotion, training, production, or memory-semantic authority",
+      "source_truth_count": 5,
+      "test_target": "mechanics/proof-infra/parts/reportable-contracts/tests/test_active_organ_experiment_contracts.py"
     },
     {
       "classification": "script_support",
@@ -9406,7 +9441,7 @@
       "kind": "script",
       "lane": "advisory",
       "owner_surface": "skills/AGENTS.md",
-      "path": "skills/aoa-evals/scripts/eval_contract_packet.py",
+      "path": "skills/aoa-evals-skills/scripts/eval_contract_packet.py",
       "recommended_route": "use_through_owner_skill_procedure",
       "relevance_reasons": [
         "eval",
@@ -9977,6 +10012,38 @@
       ],
       "classification_rule": "test_inventory_contract_or_invariant",
       "eval_lane_relevant": true,
+      "failure_route": "Fix the reportable active-organ experiment contract, example, semantic validator, or owner boundary before admitting a run.",
+      "family": "source/proof-contract",
+      "focused_target": "active-organ C21-C23 experiment pin, preregistration, run-status semantics, negative mutations, migration, and authority ceilings",
+      "forbidden_interpretations": [
+        "central_proof_acceptance"
+      ],
+      "kind": "test",
+      "lane": "mechanics_part_local",
+      "owner_surface": "mechanics/proof-infra/parts/reportable-contracts/README.md",
+      "path": "mechanics/proof-infra/parts/reportable-contracts/tests/test_active_organ_experiment_contracts.py",
+      "recommended_route": "apply_as_deterministic_eval_support",
+      "relevance_reasons": [
+        "proof",
+        "report"
+      ],
+      "review_reason": "test inventory entry constrains behavior through the owning test route",
+      "review_status": "rule_reviewed",
+      "safe_to_apply_directly": true,
+      "semantic_class": "unit_contract_property_test",
+      "side_effects": null,
+      "source_truth_count": null,
+      "test_target": null
+    },
+    {
+      "classification": "deterministic_test",
+      "classification_evidence": [
+        "family: source/proof-contract",
+        "owner_surface: mechanics/proof-infra/parts/reportable-contracts/README.md",
+        "coverage_authority: validation_lanes.mechanics_part_local"
+      ],
+      "classification_rule": "test_inventory_contract_or_invariant",
+      "eval_lane_relevant": true,
       "failure_route": "Fix the reportable contract source or schema.",
       "family": "source/proof-contract",
       "focused_target": "bounded rubric breakdown schema",
@@ -10482,6 +10549,41 @@
       "review_status": "rule_reviewed",
       "safe_to_apply_directly": true,
       "semantic_class": "trace_trajectory_eval_support",
+      "side_effects": null,
+      "source_truth_count": null,
+      "test_target": null
+    },
+    {
+      "classification": "deterministic_test",
+      "classification_evidence": [
+        "family: source/proof-contract",
+        "owner_surface: docs/architecture/AOA_EVALS_MCP_CONTRACT.md",
+        "coverage_authority: validation_lanes.source_fast"
+      ],
+      "classification_rule": "test_inventory_contract_or_invariant",
+      "eval_lane_relevant": true,
+      "failure_route": "Fix the owner capability declaration or its authority boundary before changing the stack runtime binding or admission candidate.",
+      "family": "source/proof-contract",
+      "focused_target": "owner-authored MCP capability manifest schema, exact discovery/request/proof-read separation, and proof non-issuance",
+      "forbidden_interpretations": [
+        "central_proof_acceptance"
+      ],
+      "kind": "test",
+      "lane": "source_fast",
+      "owner_surface": "docs/architecture/AOA_EVALS_MCP_CONTRACT.md",
+      "path": "tests/test_aoa_evals_mcp_capabilities.py",
+      "recommended_route": "apply_as_deterministic_eval_support",
+      "relevance_reasons": [
+        "eval",
+        "proof",
+        "candidate",
+        "runtime",
+        "quest"
+      ],
+      "review_reason": "test inventory entry constrains behavior through the owning test route",
+      "review_status": "rule_reviewed",
+      "safe_to_apply_directly": true,
+      "semantic_class": "unit_contract_property_test",
       "side_effects": null,
       "source_truth_count": null,
       "test_target": null
@@ -11630,6 +11732,107 @@
       "review_status": "rule_reviewed",
       "safe_to_apply_directly": true,
       "semantic_class": "unit_contract_property_test",
+      "side_effects": null,
+      "source_truth_count": null,
+      "test_target": null
+    },
+    {
+      "classification": "trace_eval_test",
+      "classification_evidence": [
+        "family: trace/eval-scenario",
+        "owner_surface: evals/boundary/aoa-organ-access-admission-integrity/EVAL.md",
+        "coverage_authority: validation_lanes.source_fast"
+      ],
+      "classification_rule": "test_family_trace_or_trajectory",
+      "eval_lane_relevant": true,
+      "failure_route": "Fix the organ-access source bundle, scenario runner, packet schema, fixtures, or report contract without inferring live admission.",
+      "family": "trace/eval-scenario",
+      "focused_target": "organ-access packet schema, negative admission inferences, honest insufficient evidence, and bounded report contract",
+      "forbidden_interpretations": [
+        "central_proof_acceptance"
+      ],
+      "kind": "test",
+      "lane": "source_fast",
+      "owner_surface": "evals/boundary/aoa-organ-access-admission-integrity/EVAL.md",
+      "path": "tests/test_organ_access_admission_integrity.py",
+      "recommended_route": "apply_as_deterministic_eval_support",
+      "relevance_reasons": [
+        "eval",
+        "report",
+        "trace"
+      ],
+      "review_reason": "test inventory entry constrains behavior through the owning test route",
+      "review_status": "rule_reviewed",
+      "safe_to_apply_directly": true,
+      "semantic_class": "trace_trajectory_eval_support",
+      "side_effects": null,
+      "source_truth_count": null,
+      "test_target": null
+    },
+    {
+      "classification": "trace_eval_test",
+      "classification_evidence": [
+        "family: trace/eval-scenario",
+        "owner_surface: evals/boundary/aoa-organ-access-live-cross-organ-handoff/EVAL.md",
+        "coverage_authority: validation_lanes.source_fast"
+      ],
+      "classification_rule": "test_family_trace_or_trajectory",
+      "eval_lane_relevant": true,
+      "failure_route": "Fix the live handoff bundle, report schema, runner, or direct-owner input contract without inferring acceptance, admission, or runtime authority.",
+      "family": "trace/eval-scenario",
+      "focused_target": "exact direct KAG to Memo to Evals handoff reconstruction, private proof output, authority separation, and negative live-input mutations",
+      "forbidden_interpretations": [
+        "central_proof_acceptance"
+      ],
+      "kind": "test",
+      "lane": "source_fast",
+      "owner_surface": "evals/boundary/aoa-organ-access-live-cross-organ-handoff/EVAL.md",
+      "path": "tests/test_organ_access_live_cross_organ_handoff.py",
+      "recommended_route": "apply_as_deterministic_eval_support",
+      "relevance_reasons": [
+        "eval",
+        "proof",
+        "report",
+        "runtime",
+        "trace"
+      ],
+      "review_reason": "test inventory entry constrains behavior through the owning test route",
+      "review_status": "rule_reviewed",
+      "safe_to_apply_directly": true,
+      "semantic_class": "trace_trajectory_eval_support",
+      "side_effects": null,
+      "source_truth_count": null,
+      "test_target": null
+    },
+    {
+      "classification": "trace_eval_test",
+      "classification_evidence": [
+        "family: trace/eval-scenario",
+        "owner_surface: evals/boundary/aoa-organ-access-admission-integrity/EVAL.md",
+        "coverage_authority: validation_lanes.source_fast"
+      ],
+      "classification_rule": "test_family_trace_or_trajectory",
+      "eval_lane_relevant": true,
+      "failure_route": "Fix the rollback candidate schema, review runner, or source contract without inferring executed or verified rollback.",
+      "family": "trace/eval-scenario",
+      "focused_target": "bounded rollback-readiness candidate schema, negative authority and identity drift, private review output, and no-execution claim ceiling",
+      "forbidden_interpretations": [
+        "central_proof_acceptance"
+      ],
+      "kind": "test",
+      "lane": "source_fast",
+      "owner_surface": "evals/boundary/aoa-organ-access-admission-integrity/EVAL.md",
+      "path": "tests/test_organ_access_rollback_readiness.py",
+      "recommended_route": "apply_as_deterministic_eval_support",
+      "relevance_reasons": [
+        "eval",
+        "candidate",
+        "trace"
+      ],
+      "review_reason": "test inventory entry constrains behavior through the owning test route",
+      "review_status": "rule_reviewed",
+      "safe_to_apply_directly": true,
+      "semantic_class": "trace_trajectory_eval_support",
       "side_effects": null,
       "source_truth_count": null,
       "test_target": null

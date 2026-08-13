@@ -45,7 +45,7 @@
     "portable_export_map_ref": "repo:aoa-skills/generated/portable_export_map.json",
     "portable_export_physical_required": false,
     "portable_export_ref": ".agents/skills/aoa-eval/SKILL.md",
-    "portable_export_sha256": "56f27d642f61f37c7f6f3e60fee482329987bb0e08df92c8baee9a851a52eaaf",
+    "portable_export_sha256": "0e1bb96e7618b92368011076cf3ce2aa3e8da3d9f683ef74af8ff4dece50eb67",
     "portable_export_source_ref": "skills/core/engineering/aoa-eval/SKILL.md",
     "portable_export_target_ref": ".agents/skills/aoa-eval/SKILL.md",
     "posture": "os_profile_source_ready",
@@ -55,14 +55,14 @@
     "release_bundle_revision_found": true,
     "release_deferred_skill_count": 2,
     "release_manifest_ref": "repo:aoa-skills/generated/release_manifest.json",
-    "source_bundle_hash": "e3e0312f9aa91933f5cf8ca433ec412ec6c12f0c450fc63a5e30ade56921cf54",
-    "source_bundle_revision": "e3e0312f9aa9",
+    "source_bundle_hash": "c917f5f84bd81b77bc9b1b20100cf306ac9617b2f91146a8e28a3d41e53803e4",
+    "source_bundle_revision": "c917f5f84bd8",
     "source_contract_ready": true,
     "source_exists": true,
     "source_profile": "portable-consumer-advertised",
     "source_profile_contains_aoa_eval": true,
     "source_profile_found": true,
-    "source_sha256": "e67dedab120fff7773f15a6fedcffbb8407e7b5e8a76722dd38b8da8fe42ebc6",
+    "source_sha256": "885dc45a389325bf95aff3a4eacfc01387f6a4c0b8c1936ce243c547a43104f7",
     "source_skill_ref": "repo:aoa-skills/skills/core/engineering/aoa-eval/SKILL.md",
     "subskills_posture": "select/apply/local-need/design/session-mining are internal modes; legacy child bundles stay unloaded",
     "verification_command": "python scripts/install_os_skill_profile.py --repo-root . --profile os-user-default --os-root <os-root> --source-root aoa-skills=<aoa-skills-root> --dest-root <host-user-skill-root> --check --format json"
@@ -222,7 +222,7 @@
             "AGENTS.md",
             "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
             "scripts/build_eval_readiness_dashboard.py",
-            "workspace:OS_ABYSS/aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
+            "repo:aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
           ],
           "packet_id": "session:aoa-eval-goal-shrink-completion-overclaim",
           "privacy_boundary": "Only bounded event refs and neutral route summaries are recorded; raw transcript text remains in .aoa.",
@@ -415,7 +415,7 @@
             "AGENTS.md",
             ".aoa/AGENTS.md",
             "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
-            "workspace:OS_ABYSS/aoa-skills/.agents/skills/aoa-eval/SKILL.md"
+            "repo:aoa-skills/.agents/skills/aoa-eval/SKILL.md"
           ],
           "packet_id": "session:aoa-eval-working-process-fossilized-as-doctrine",
           "privacy_boundary": "Only bounded event refs and normalized route descriptions are recorded; raw correction text stays in .aoa.",
@@ -849,24 +849,24 @@
     "authority_boundary": "central catalog routes to source bundles; it does not make local or runtime candidates accepted proof.",
     "by_category": {
       "artifact": 2,
-      "boundary": 10,
+      "boundary": 12,
       "capability": 3,
-      "comparative": 2,
+      "comparative": 3,
       "longitudinal": 2,
       "regression": 1,
       "stress": 2,
       "workflow": 17
     },
     "by_claim_type": {
-      "bounded": 34,
-      "comparative": 2,
+      "bounded": 36,
+      "comparative": 3,
       "longitudinal": 2,
       "regression": 1
     },
     "by_status": {
       "baseline": 1,
-      "bounded": 6,
-      "draft": 27,
+      "bounded": 8,
+      "draft": 28,
       "portable": 5
     },
     "next_route": "select existing central eval before designing new local or central bundle.",
@@ -913,7 +913,7 @@
       }
     ],
     "status": "ok",
-    "total_evals": 39,
+    "total_evals": 42,
     "trajectory_eval_refs": [
       "evals/workflow/aoa-tool-trajectory-discipline/EVAL.md",
       "evals/workflow/aoa-trace-outcome-separation/EVAL.md",
@@ -1144,29 +1144,29 @@
       "by_classification": {
         "builder_or_projection": 5,
         "builder_with_check_mode": 16,
-        "deterministic_script_validator": 247,
-        "deterministic_test": 64,
+        "deterministic_script_validator": 248,
+        "deterministic_test": 66,
         "deterministic_validator": 227,
         "generated_readmodel_test": 9,
         "script_support": 11,
-        "trace_eval_test": 14
+        "trace_eval_test": 17
       },
       "by_kind": {
-        "script": 279,
-        "test": 87,
+        "script": 280,
+        "test": 92,
         "validator": 227
       },
       "by_lane": {
         "advisory": 29,
         "generated": 52,
         "latest_sibling": 4,
-        "mechanics_part_local": 52,
+        "mechanics_part_local": 54,
         "pinned_sibling": 1,
         "release": 16,
-        "source_fast": 439
+        "source_fast": 443
       },
       "by_recommended_route": {
-        "apply_as_deterministic_eval_support": 469,
+        "apply_as_deterministic_eval_support": 475,
         "candidate_only_eval_support": 8,
         "component_only_use_owning_validator_or_lane_command": 83,
         "forbidden_as_eval_apply_until_manual_owner_review": 4,
@@ -1179,21 +1179,21 @@
         "candidate_only": 8,
         "not_eval_relevant": 5,
         "reviewed_forbidden": 4,
-        "rule_reviewed": 576
+        "rule_reviewed": 582
       },
       "by_semantic_class": {
-        "deterministic_validator": 465,
+        "deterministic_validator": 466,
         "generated_parity_check": 32,
         "ordinary_support": 5,
         "owner_skill_navigation_resource": 1,
         "runtime_candidate_support": 8,
-        "trace_trajectory_eval_support": 14,
-        "unit_contract_property_test": 64,
+        "trace_trajectory_eval_support": 17,
+        "unit_contract_property_test": 66,
         "unsafe_side_effect_script": 4
       },
-      "eval_lane_relevant": 429,
-      "safe_to_apply_directly": 469,
-      "total_surfaces": 593,
+      "eval_lane_relevant": 435,
+      "safe_to_apply_directly": 475,
+      "total_surfaces": 599,
       "unsafe_side_effect_scripts": 4
     }
   },

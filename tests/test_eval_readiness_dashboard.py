@@ -16,7 +16,11 @@ import build_eval_readiness_dashboard as readiness
 
 
 OWNER_SKILL_PACKET_PATH = (
-    REPO_ROOT / "skills" / "aoa-evals" / "scripts" / "eval_contract_packet.py"
+    REPO_ROOT
+    / "skills"
+    / "aoa-evals-skills"
+    / "scripts"
+    / "eval_contract_packet.py"
 )
 OWNER_SKILL_PACKET_SPEC = importlib.util.spec_from_file_location(
     "aoa_evals_owner_skill_packet",
@@ -822,7 +826,7 @@ def test_support_registry_routes_owner_skill_resource_through_skill_procedure() 
     support = readiness.build_support_registry(REPO_ROOT)
     entries = {entry["path"]: entry for entry in support["surfaces"]}
 
-    entry = entries["skills/aoa-evals/scripts/eval_contract_packet.py"]
+    entry = entries["skills/aoa-evals-skills/scripts/eval_contract_packet.py"]
     assert entry["semantic_class"] == "owner_skill_navigation_resource"
     assert entry["classification_rule"] == "read_only_owner_skill_resource"
     assert entry["review_status"] == "rule_reviewed"

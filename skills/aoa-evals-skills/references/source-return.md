@@ -37,7 +37,7 @@ The resource resolves and validates exactly one source route:
 - the canonical owner home uses its own `skills/port.manifest.json`;
 - direct maintenance may pass an explicit absolute `--owner-root`.
 
-Every command verifies owner `aoa-evals`, bundle `skills/aoa-evals`, the owner
+Every command verifies owner `aoa-evals`, bundle `skills/aoa-evals-skills`, the owner
 manifest, safe paths, and required owner files before returning data. Its
 `owner_source` object reports the route, owner root, source path, and available
 ref, version, digest, and dirty posture. `source` returns no selection,

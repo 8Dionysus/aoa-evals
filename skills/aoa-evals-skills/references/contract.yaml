@@ -1,15 +1,15 @@
 schema_version: aoa_owner_skill_contract_v1
 
 identity:
-  name: aoa-evals
+  name: aoa-evals-skills
   owner: aoa-evals
-  canonical_source: skills/aoa-evals
-  version: 0.1.23
+  canonical_source: skills/aoa-evals-skills
+  version: 0.2.0
   lifecycle: admitted
   health: challenger
 
 authority:
-  procedure_owner: skills/aoa-evals
+  procedure_owner: skills/aoa-evals-skills
   proof_meaning: [evals/**/EVAL.md, evals/**/eval.yaml, admitted bundle evidence]
   weaker_surfaces: [candidates, readiness checks, reports without accepted evidence, receipts, generated readers, MCP results, KAG nodes, green commands]
   trust_rule: A later or derived surface cannot strengthen its source proof contract.
@@ -66,7 +66,7 @@ common_output_abi:
     - exact claim limit and stop line
 
 relations:
-  primary-capability-parent: aoa-evals
+  primary-capability-parent: aoa-evals-skills
   federation-parent: aoa-skills:engineering.evaluation.central-proof
   internal-dag:
     - {kind: hands-off-to, from: select, to: review, abi: central-proof-review-request, condition: an exact central source or owner-routed proof object was selected}

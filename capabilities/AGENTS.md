@@ -8,7 +8,7 @@ This card applies to the `aoa-evals` owner capability home under
 ## Role
 
 This home owns the semantic tree and typed composition contracts for the
-existing `aoa-evals` central-proof skill. It does not own shared eval
+existing `aoa-evals-skills` central-proof skill family. It does not own shared eval
 selection/application, source-bundle proof meaning, task-local DAG instances,
 runtime state, or generated graph authority.
 
@@ -18,7 +18,7 @@ runtime state, or generated graph authority.
   `engineering.evaluation.central-proof` branch without copying shared
   `aoa-eval` procedure truth here. The sibling
   `engineering.evaluation.use` branch remains owned by `aoa-skills`.
-- Keep one advertised `aoa-evals` bundle. `select`, `review`, and `evolve`
+- Keep one advertised `aoa-evals-skills` bundle. `select`, `review`, and `evolve`
   remain internal modes until manual evidence supports an independent bundle.
 - Give every node one primary parent and use typed relations for optional
   `select -> review -> evolve` composition.

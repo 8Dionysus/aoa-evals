@@ -1,11 +1,11 @@
 ---
-name: aoa-evals
-description: "Central AoA proof or lifecycle: first tool turn reads only this SKILL.md. Use to select, review, or evolve source bundles, named eval results or verdicts, source-linked reports, Eval Forge owner review, or source/reader drift. Use aoa-eval for local selection, application, intake/design, or session-hit classification. Candidates, readiness checks, receipts, generated readers or outputs, MCP outputs, and green commands are not proof."
+name: aoa-evals-skills
+description: "Route the aoa-evals skill family for central proof selection, review, evolution, named results or verdicts, source-linked reports, Eval Forge owner review, and proof lifecycle. Hand repository-local eval selection, application, intake/design, or session-hit classification to aoa-eval. Candidates, readiness checks, receipts, generated readers, MCP outputs, and green commands are not proof."
 ---
 
-# aoa-evals
+# aoa-evals-skills
 
-Route one central bounded-proof question without letting a catalog, green
+Route one `aoa-evals` skill-family request without letting a catalog, green
 command, readiness check, candidate, report, receipt, generated reader, MCP
 result, or KAG node outrank its source bundle and admitted evidence.
 
@@ -20,7 +20,7 @@ Before resolving the central owner, inspect only the request:
   central proof object
 - begin this bundle only when the task already concerns central proof meaning,
   a central source bundle, a named eval result or verdict, an owner-routed
-  proof object, or an `aoa-evals` lifecycle decision
+  proof object, or an `aoa-evals` owner lifecycle decision
 
 Do not inspect the task workspace, search for an owner checkout, probe supplied
 paths, or run `pwd`, `rg`, `find`, or `test` for navigation after this bundle

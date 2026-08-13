@@ -17,7 +17,7 @@ This repository owns:
 - doctrine about claim limits and proof boundaries
 - progression, recurrence, and checkpoint proof posture only when explicitly defined here
 - owner-local statistical questions and source-backed measurement declarations about eval-owned surfaces under `stats/`
-- the admitted repo-specific `aoa-evals` callable procedure under top-level
+- the admitted repo-specific `aoa-evals-skills` callable procedure under top-level
   `skills/`; it routes central proof work while source bundles and admitted
   evidence keep proof authority
 - the owner-local semantic capability tree under `capabilities/`; it exposes
@@ -38,7 +38,7 @@ Route outward for:
 | proof operation | `mechanics/README.md`, then parent `README.md`, `DIRECTION.md`, `PARTS.md`, and part `README.md` |
 | local memory candidates | `memo/AGENTS.md`, `memo/README.md`, and `memo/PORT.yaml` |
 | local statistics | `stats/AGENTS.md`, `stats/README.md`, and `stats/port.manifest.json` |
-| owner callable procedure | `skills/AGENTS.md`, `skills/README.md`, `skills/port.manifest.json`, then `skills/aoa-evals/SKILL.md` |
+| owner callable procedure | `skills/AGENTS.md`, `skills/README.md`, `skills/port.manifest.json`, then `skills/aoa-evals-skills/SKILL.md` |
 | owner capability tree | `capabilities/AGENTS.md`, `capabilities/port.manifest.json`, then `capabilities/families/*.yaml` |
 | output | bounded reports, receipts, generated readers, or owner handoffs only through their owning surface |
 | tools and checks | this card's `Verify` section and the nearest nested `AGENTS.md` |

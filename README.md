@@ -52,7 +52,7 @@ Read only what matches the job.
 | Eval Forge session readiness | [Eval Forge Readiness Layer](docs/guides/EVAL_FORGE_READINESS_LAYER.md); `check_eval_forge_readiness.py` command route stays in [AGENTS.md#verify](AGENTS.md#verify) |
 | Proof operation or mechanic parent | [mechanics/README.md](mechanics/README.md), then parent `README.md`, `DIRECTION.md`, `PARTS.md`, and part `README.md` |
 | Eval bundle selection | [Eval Bundle Selection Chooser](EVAL_SELECTION.md) and [Eval Bundle Index](EVAL_INDEX.md) |
-| Central proof selection, review, or evolution procedure | [aoa-evals owner skill](skills/aoa-evals/SKILL.md) |
+| Central proof selection, review, or evolution procedure | [aoa-evals-skills owner router](skills/aoa-evals-skills/SKILL.md) |
 | First concrete proof object | [aoa-bounded-change-quality](evals/workflow/aoa-bounded-change-quality/EVAL.md) |
 | Full guide and evidence map | [docs/README.md](docs/README.md) |
 | Mechanics or payload movement | [mechanics/EVIDENCE_CLUSTERS.md](mechanics/EVIDENCE_CLUSTERS.md), then the owning mechanic |
@@ -123,7 +123,7 @@ operation or mechanics movement, start with [mechanics/AGENTS](mechanics/AGENTS.
 | --- | --- |
 | Portable eval bundle, bounded workflow evaluation, comparison or regression surface, verdict schema, fixture, runner, scorer, rubric, or report contract | keep in `aoa-evals` under the owning bundle, mechanic, generated reader, schema, test, or route card |
 | Reusable practice meaning | route to `aoa-techniques` |
-| Repo-specific callable procedure | use the admitted `skills/aoa-evals` bundle for central proof selection, review, or evolution; keep shared cross-repo selection and local apply with `aoa-skills` |
+| Repo-specific callable procedure | use the admitted `skills/aoa-evals-skills` bundle for central proof selection, review, or evolution; keep shared cross-repo selection and local apply with `aoa-skills` |
 | Shared bounded execution workflow meaning | route to `aoa-skills` |
 | Navigation, dispatch, and canonical routing contracts | route to `aoa-sdk`; use `aoa-routing` only for predecessor compatibility and historical provenance |
 | Role posture and handoff contracts | route to `aoa-agents` |

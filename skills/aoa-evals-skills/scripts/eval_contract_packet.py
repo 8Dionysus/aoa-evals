@@ -23,7 +23,7 @@ SOURCE_RECEIPT_SCHEMAS = {
     "aoa_skill_source_receipt_v1",
     "aoa_skill_source_receipt_v2",
 }
-SOURCE_BUNDLE_RELATIVE_PATH = Path("skills/aoa-evals")
+SOURCE_BUNDLE_RELATIVE_PATH = Path("skills/aoa-evals-skills")
 READINESS_RELATIVE_PATH = Path("docs/guides/EVAL_FORGE_READINESS_LAYER.md")
 CANDIDATE_PACKET_ROOT = Path(
     "mechanics/audit/parts/candidate-readers/packets"
@@ -126,11 +126,11 @@ def _load_owner(
     bundles = port.get("bundles")
     if not isinstance(bundles, list) or not any(
         isinstance(bundle, dict)
-        and bundle.get("name") == "aoa-evals"
-        and bundle.get("path") == "skills/aoa-evals"
+        and bundle.get("name") == "aoa-evals-skills"
+        and bundle.get("path") == "skills/aoa-evals-skills"
         for bundle in bundles
     ):
-        raise PacketError("owner skill port manifest does not admit skills/aoa-evals")
+        raise PacketError("owner skill port manifest does not admit skills/aoa-evals-skills")
 
     catalog_path = _owner_path(owner_root, CATALOG_RELATIVE_PATH)
     catalog = _load_json(catalog_path, "generated eval catalog")
@@ -190,7 +190,7 @@ def _resolve_owner(
                 "same-bundle source receipt has unexpected schema_version"
             )
         required = {
-            "name": "aoa-evals",
+            "name": "aoa-evals-skills",
             "owner_repo": "aoa-evals",
             "source_path": str(SOURCE_BUNDLE_RELATIVE_PATH),
         }
@@ -210,7 +210,7 @@ def _resolve_owner(
         bundle = next(
             item
             for item in port["bundles"]
-            if isinstance(item, dict) and item.get("name") == "aoa-evals"
+            if isinstance(item, dict) and item.get("name") == "aoa-evals-skills"
         )
         if (
             schema_version == "aoa_skill_source_receipt_v2"
@@ -512,7 +512,7 @@ def _source_packet(
     for bundle in port.get("bundles", []):
         if (
             isinstance(bundle, dict)
-            and bundle.get("name") == "aoa-evals"
+            and bundle.get("name") == "aoa-evals-skills"
             and bundle.get("path") == str(SOURCE_BUNDLE_RELATIVE_PATH)
         ):
             version = bundle.get("version")

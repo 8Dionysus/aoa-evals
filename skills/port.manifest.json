@@ -5,9 +5,9 @@
   "owner_ref": "AGENTS.md",
   "bundles": [
     {
-      "name": "aoa-evals",
-      "path": "skills/aoa-evals",
-      "version": "0.1.23",
+      "name": "aoa-evals-skills",
+      "path": "skills/aoa-evals-skills",
+      "version": "0.2.0",
       "lifecycle": "admitted",
       "visibility": "advertised",
       "admission_ref": "docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md"
@@ -19,7 +19,7 @@
     "profile": "os-user-default",
     "mode": "profile-selected",
     "skills": [
-      "aoa-evals"
+      "aoa-evals-skills"
     ]
   }
 }

@@ -7,7 +7,7 @@ by `aoa-evals`. It is not a mirror of the shared AoA skill catalog.
 
 | Bundle | Internal modes | Visibility | Admission |
 | --- | --- | --- | --- |
-| `aoa-evals` | `select`, `review`, `evolve` | OS-user-advertised | `docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md` |
+| `aoa-evals-skills` | `select`, `review`, `evolve` | OS-user-advertised | `docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md` |
 
 The modes share one central-proof trigger family, authority ladder, typed
 relations, result ABI, and coexistence boundary. They remain one bundle until
@@ -21,7 +21,7 @@ session or runtime.
 
 `port.manifest.json` declares the admitted source and its selection by the
 single OS-level `os-user-default` profile. Canonical files live under
-`skills/aoa-evals/`; this repository does not duplicate the globally installed
+`skills/aoa-evals-skills/`; this repository does not duplicate the globally installed
 bundle under `.agents/skills`.
 
 ## Verification posture

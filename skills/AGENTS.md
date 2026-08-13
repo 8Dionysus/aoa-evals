@@ -7,7 +7,7 @@ This card applies to the canonical `aoa-evals/skills/` home.
 ## Role
 
 This home owns only admitted repository-specific callable procedures. The
-current source is `skills/aoa-evals/SKILL.md`. Global Codex exposure is a
+current source is `skills/aoa-evals-skills/SKILL.md`. Global Codex exposure is a
 managed OS user-profile copy and never source truth.
 
 ## Read before editing
@@ -38,7 +38,7 @@ the selected mode.
 ## Validation
 
 Manual isolated, negative, held-out, coexistence, no-skill, and bounded-effect
-tasks decide usefulness. `skills-ref validate skills/aoa-evals` checks portable
+tasks decide usefulness. `skills-ref validate skills/aoa-evals-skills` checks portable
 shape when that tool is available. The pinned `aoa-skills` composite action
 checks manifest, owner, source, and package digest; the OS installer owns
 installed byte/mode parity. Green output makes no routing, outcome, safety, or

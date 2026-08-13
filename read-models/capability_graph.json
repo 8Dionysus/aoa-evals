@@ -17,7 +17,7 @@
         "evidence_state": "owner-verified",
         "health": "healthy",
         "state": "active",
-        "version": "1.0.1",
+        "version": "1.1.0",
         "visibility": "internal"
       },
       "owner": {
@@ -29,6 +29,35 @@
       "source_family": "aoa-evals-central-proof",
       "source_path": "capabilities/families/central-proof.yaml",
       "title": "aoa-evals"
+    },
+    {
+      "contract_level": "navigation",
+      "description": "Navigate the owner-local central-proof skill family and its select, review, and evolve modes while routing shared evaluation operations to their external owner.",
+      "id": "aoa-evals-skills",
+      "keywords": [
+        "evals-skills",
+        "central-proof",
+        "proof-lifecycle",
+        "source-bundle",
+        "навыки-оценки"
+      ],
+      "kind": "capability",
+      "lifecycle": {
+        "evidence_state": "owner-verified",
+        "health": "healthy",
+        "state": "active",
+        "version": "1.1.0",
+        "visibility": "internal"
+      },
+      "owner": {
+        "authority": "authored",
+        "repo": "aoa-evals",
+        "surface": "capabilities/families/central-proof.yaml"
+      },
+      "primary_parent": "aoa-evals",
+      "source_family": "aoa-evals-central-proof",
+      "source_path": "capabilities/families/central-proof.yaml",
+      "title": "aoa-evals-skills tree"
     },
     {
       "abi": {
@@ -64,7 +93,7 @@
         "availability": "available",
         "kind": "mode",
         "operation": "evolve",
-        "ref": "skills/aoa-evals/references/evolve.md"
+        "ref": "skills/aoa-evals-skills/references/evolve.md"
       },
       "classification": {
         "category": "local-mode",
@@ -103,7 +132,7 @@
           "Manual cases inspect the bounded claim and neighboring routes before existing structural checks."
         ]
       },
-      "id": "mode.aoa-evals.evolve",
+      "id": "mode.aoa-evals-skills.evolve",
       "keywords": [
         "evolve-proof",
         "promote-eval",
@@ -117,7 +146,7 @@
         "evidence_state": "evaluated",
         "health": "challenger",
         "state": "active",
-        "version": "0.1.23",
+        "version": "0.2.0",
         "visibility": "internal"
       },
       "mode_contract": {
@@ -164,12 +193,12 @@
         "surface": "capabilities/families/central-proof.yaml"
       },
       "owner_contract_ref": {
-        "path": "skills/aoa-evals/references/contract.yaml",
-        "sha256": "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58"
+        "path": "skills/aoa-evals-skills/references/contract.yaml",
+        "sha256": "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602"
       },
-      "primary_parent": "skill.aoa-evals",
+      "primary_parent": "skill.aoa-evals-skills",
       "procedure": {
-        "ref": "skills/aoa-evals/references/evolve.md",
+        "ref": "skills/aoa-evals-skills/references/evolve.md",
         "required_sections": [
           "Entry gates",
           "Procedure",
@@ -182,8 +211,8 @@
         "source_refs": [
           {
             "authority": "authored",
-            "path": "skills/aoa-evals/references/evolve.md",
-            "ref": "capability-home-v0.1.23",
+            "path": "skills/aoa-evals-skills/references/evolve.md",
+            "ref": "capability-home-v0.2.0",
             "repo": "aoa-evals",
             "role": "evolve-mode"
           }
@@ -244,7 +273,7 @@
         "availability": "available",
         "kind": "mode",
         "operation": "review",
-        "ref": "skills/aoa-evals/references/review.md"
+        "ref": "skills/aoa-evals-skills/references/review.md"
       },
       "classification": {
         "category": "local-mode",
@@ -277,7 +306,7 @@
           "Remaining blind spots and the exact claim limit are explicit."
         ]
       },
-      "id": "mode.aoa-evals.review",
+      "id": "mode.aoa-evals-skills.review",
       "keywords": [
         "review-proof",
         "bounded-verdict",
@@ -290,7 +319,7 @@
         "evidence_state": "evaluated",
         "health": "challenger",
         "state": "active",
-        "version": "0.1.23",
+        "version": "0.2.0",
         "visibility": "internal"
       },
       "mode_contract": {
@@ -324,12 +353,12 @@
         "surface": "capabilities/families/central-proof.yaml"
       },
       "owner_contract_ref": {
-        "path": "skills/aoa-evals/references/contract.yaml",
-        "sha256": "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58"
+        "path": "skills/aoa-evals-skills/references/contract.yaml",
+        "sha256": "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602"
       },
-      "primary_parent": "skill.aoa-evals",
+      "primary_parent": "skill.aoa-evals-skills",
       "procedure": {
-        "ref": "skills/aoa-evals/references/review.md",
+        "ref": "skills/aoa-evals-skills/references/review.md",
         "required_sections": [
           "Required input",
           "Procedure",
@@ -342,8 +371,8 @@
         "source_refs": [
           {
             "authority": "authored",
-            "path": "skills/aoa-evals/references/review.md",
-            "ref": "capability-home-v0.1.23",
+            "path": "skills/aoa-evals-skills/references/review.md",
+            "ref": "capability-home-v0.2.0",
             "repo": "aoa-evals",
             "role": "review-mode"
           }
@@ -402,7 +431,7 @@
         "availability": "available",
         "kind": "mode",
         "operation": "select",
-        "ref": "skills/aoa-evals/references/select.md"
+        "ref": "skills/aoa-evals-skills/references/select.md"
       },
       "classification": {
         "category": "local-mode",
@@ -433,7 +462,7 @@
           "Rejected nearest alternatives and the claim limit are explicit."
         ]
       },
-      "id": "mode.aoa-evals.select",
+      "id": "mode.aoa-evals-skills.select",
       "keywords": [
         "select-central-eval",
         "exact-fit",
@@ -446,7 +475,7 @@
         "evidence_state": "evaluated",
         "health": "challenger",
         "state": "active",
-        "version": "0.1.23",
+        "version": "0.2.0",
         "visibility": "internal"
       },
       "mode_contract": {
@@ -479,12 +508,12 @@
         "surface": "capabilities/families/central-proof.yaml"
       },
       "owner_contract_ref": {
-        "path": "skills/aoa-evals/references/contract.yaml",
-        "sha256": "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58"
+        "path": "skills/aoa-evals-skills/references/contract.yaml",
+        "sha256": "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602"
       },
-      "primary_parent": "skill.aoa-evals",
+      "primary_parent": "skill.aoa-evals-skills",
       "procedure": {
-        "ref": "skills/aoa-evals/references/select.md",
+        "ref": "skills/aoa-evals-skills/references/select.md",
         "required_sections": [
           "Required input",
           "Procedure",
@@ -497,8 +526,8 @@
         "source_refs": [
           {
             "authority": "authored",
-            "path": "skills/aoa-evals/references/select.md",
-            "ref": "capability-home-v0.1.23",
+            "path": "skills/aoa-evals-skills/references/select.md",
+            "ref": "capability-home-v0.2.0",
             "repo": "aoa-evals",
             "role": "select-mode"
           }
@@ -557,7 +586,7 @@
         "availability": "available",
         "kind": "skill",
         "operation": "route-central-proof",
-        "ref": "skills/aoa-evals/SKILL.md"
+        "ref": "skills/aoa-evals-skills/SKILL.md"
       },
       "classification": {
         "category": "independent-callable",
@@ -565,7 +594,7 @@
         "rationale": "Manual isolated, negative, held-out, and coexistence evidence admits one central-proof router while keeping its three modes internal."
       },
       "contract_level": "executable",
-      "description": "Central AoA proof or lifecycle: first tool turn reads only this SKILL.md. Use to select, review, or evolve source bundles, named eval results or verdicts, source-linked reports, Eval Forge owner review, or source/reader drift. Use aoa-eval for local selection, application, intake/design, or session-hit classification. Candidates, readiness checks, receipts, generated readers or outputs, MCP outputs, and green commands are not proof.",
+      "description": "Route the aoa-evals skill family for central proof selection, review, evolution, named results or verdicts, source-linked reports, Eval Forge owner review, and proof lifecycle. Hand repository-local eval selection, application, intake/design, or session-hit classification to aoa-eval. Candidates, readiness checks, receipts, generated readers, MCP outputs, and green commands are not proof.",
       "execution": {
         "effects": [
           "none",
@@ -595,7 +624,7 @@
           "Actual effects and the exact claim limit are explicit."
         ]
       },
-      "id": "skill.aoa-evals",
+      "id": "skill.aoa-evals-skills",
       "keywords": [
         "central-proof",
         "eval-verdict",
@@ -611,7 +640,7 @@
         "evidence_state": "evaluated",
         "health": "challenger",
         "state": "active",
-        "version": "0.1.23",
+        "version": "0.2.0",
         "visibility": "advertised"
       },
       "mutation": {
@@ -629,11 +658,11 @@
       "owner": {
         "authority": "authored",
         "repo": "aoa-evals",
-        "surface": "skills/aoa-evals/SKILL.md"
+        "surface": "skills/aoa-evals-skills/SKILL.md"
       },
       "owner_contract": {
         "authority": {
-          "procedure_owner": "skills/aoa-evals",
+          "procedure_owner": "skills/aoa-evals-skills",
           "proof_meaning": [
             "evals/**/EVAL.md",
             "evals/**/eval.yaml",
@@ -686,12 +715,12 @@
           ]
         },
         "identity": {
-          "canonical_source": "skills/aoa-evals",
+          "canonical_source": "skills/aoa-evals-skills",
           "health": "challenger",
           "lifecycle": "admitted",
-          "name": "aoa-evals",
+          "name": "aoa-evals-skills",
           "owner": "aoa-evals",
-          "version": "0.1.23"
+          "version": "0.2.0"
         },
         "modes": {
           "evolve": {
@@ -810,7 +839,7 @@
               "to": "evolve"
             }
           ],
-          "primary-capability-parent": "aoa-evals"
+          "primary-capability-parent": "aoa-evals-skills"
         },
         "schema_version": "aoa_owner_skill_contract_v1",
         "termination": [
@@ -826,66 +855,66 @@
         }
       },
       "owner_contract_ref": {
-        "path": "skills/aoa-evals/references/contract.yaml",
-        "sha256": "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58"
+        "path": "skills/aoa-evals-skills/references/contract.yaml",
+        "sha256": "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602"
       },
       "package": {
         "files": [
           {
-            "bytes": 5168,
+            "bytes": 5145,
             "executable": false,
-            "path": "skills/aoa-evals/SKILL.md",
-            "sha256": "7311b2f4ff78ece04f1e2def69f9b99d1a101e3f860bbb99a7ca1e2b4c77c78d"
+            "path": "skills/aoa-evals-skills/SKILL.md",
+            "sha256": "11ea4fe7b6b4aab17e793a94dfd447f55e0fc5bf47d9802fb46aab378f3fc386"
           },
           {
-            "bytes": 263,
+            "bytes": 277,
             "executable": false,
-            "path": "skills/aoa-evals/agents/openai.yaml",
-            "sha256": "ed812be5f9be1cade671ebf3e5e3ccaea2e93ea8e327d571d5faf2e20efcd53c"
+            "path": "skills/aoa-evals-skills/agents/openai.yaml",
+            "sha256": "33889ebb8ec1a880c32712ad0a7b82989c4fdaeec80f8c5dee8d1f2f8d086e94"
           },
           {
-            "bytes": 4019,
+            "bytes": 4046,
             "executable": false,
-            "path": "skills/aoa-evals/references/contract.yaml",
-            "sha256": "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58"
+            "path": "skills/aoa-evals-skills/references/contract.yaml",
+            "sha256": "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602"
           },
           {
             "bytes": 2775,
             "executable": false,
-            "path": "skills/aoa-evals/references/evolve.md",
+            "path": "skills/aoa-evals-skills/references/evolve.md",
             "sha256": "facffa2b26987d3f039abe477df6ea565dee7cedab0fc52537ff65882dbfd42c"
           },
           {
             "bytes": 3587,
             "executable": false,
-            "path": "skills/aoa-evals/references/review.md",
+            "path": "skills/aoa-evals-skills/references/review.md",
             "sha256": "249faddee26bcab24d238d5d829a95eb1421d9dbb43e1367eea612ec278be71e"
           },
           {
             "bytes": 3346,
             "executable": false,
-            "path": "skills/aoa-evals/references/select.md",
+            "path": "skills/aoa-evals-skills/references/select.md",
             "sha256": "3d1536d6a701ce4ac487e2d6f47cda66ebbeff795a65a1d6c5c5a403aaaf8480"
           },
           {
-            "bytes": 3116,
+            "bytes": 3123,
             "executable": false,
-            "path": "skills/aoa-evals/references/source-return.md",
-            "sha256": "d4b33a0f0ebc96b01ffe9cccc7d3b67c5608a9d66c5651619c20d2bb630e1d0e"
+            "path": "skills/aoa-evals-skills/references/source-return.md",
+            "sha256": "ea392c210cd1e488b0b0e4984272657ac271c74184ceaa9a2bf5b0bfa38c5df4"
           },
           {
-            "bytes": 27008,
+            "bytes": 27057,
             "executable": false,
-            "path": "skills/aoa-evals/scripts/eval_contract_packet.py",
-            "sha256": "582208b4402e0e2319ec234db25de72d6e9863a1f289436310cd8a3953678d45"
+            "path": "skills/aoa-evals-skills/scripts/eval_contract_packet.py",
+            "sha256": "25c4ab7f77715cc9d673ce1b605437e57a98fd21171f3fd2f09af2b91490ecd6"
           }
         ],
-        "fingerprint": "6ec5179c4eea9fba62ed90bf878085f1cb08ccbfb3eab2f8be2f1718b997ad39",
-        "version": "0.1.23"
+        "fingerprint": "2380582a6beb1c788ede5b371f658401fe4d69f800b6c9498129a390258b9375",
+        "version": "0.2.0"
       },
-      "primary_parent": "aoa-evals",
+      "primary_parent": "aoa-evals-skills",
       "procedure": {
-        "ref": "skills/aoa-evals/SKILL.md",
+        "ref": "skills/aoa-evals-skills/SKILL.md",
         "required_sections": [
           "Applicability preflight",
           "Start",
@@ -900,8 +929,8 @@
         "source_refs": [
           {
             "authority": "authored",
-            "path": "skills/aoa-evals/SKILL.md",
-            "ref": "capability-home-v0.1.23",
+            "path": "skills/aoa-evals-skills/SKILL.md",
+            "ref": "capability-home-v0.2.0",
             "repo": "aoa-evals",
             "role": "owner-skill-procedure"
           },
@@ -928,7 +957,7 @@
       },
       "source_family": "aoa-evals-central-proof",
       "source_path": "capabilities/families/central-proof.yaml",
-      "title": "aoa-evals owner router",
+      "title": "aoa-evals-skills organ router",
       "trust": {
         "posture": "authored-procedure",
         "public_safe": true,
@@ -940,56 +969,185 @@
     {
       "condition": "Review establishes a bounded proof-owner-evolution-request and the task asks for an owner change.",
       "kind": "hands-off-to",
-      "source": "mode.aoa-evals.review",
+      "source": "mode.aoa-evals-skills.review",
       "source_path": "capabilities/families/central-proof.yaml",
-      "target": "mode.aoa-evals.evolve"
+      "target": "mode.aoa-evals-skills.evolve"
     },
     {
       "condition": "Selection returns an exact source or owner-routed object as a central-proof-review-request.",
       "kind": "hands-off-to",
-      "source": "mode.aoa-evals.select",
+      "source": "mode.aoa-evals-skills.select",
       "source_path": "capabilities/families/central-proof.yaml",
-      "target": "mode.aoa-evals.review"
+      "target": "mode.aoa-evals-skills.review"
     },
     {
       "kind": "implemented-by",
-      "source": "aoa-evals",
+      "source": "aoa-evals-skills",
       "source_path": "capabilities/families/central-proof.yaml",
-      "target": "skill.aoa-evals"
+      "target": "skill.aoa-evals-skills"
     },
     {
       "kind": "primary-parent",
-      "source": "mode.aoa-evals.evolve",
-      "source_path": "capabilities/families/central-proof.yaml",
-      "target": "skill.aoa-evals"
-    },
-    {
-      "kind": "primary-parent",
-      "source": "mode.aoa-evals.review",
-      "source_path": "capabilities/families/central-proof.yaml",
-      "target": "skill.aoa-evals"
-    },
-    {
-      "kind": "primary-parent",
-      "source": "mode.aoa-evals.select",
-      "source_path": "capabilities/families/central-proof.yaml",
-      "target": "skill.aoa-evals"
-    },
-    {
-      "kind": "primary-parent",
-      "source": "skill.aoa-evals",
+      "source": "aoa-evals-skills",
       "source_path": "capabilities/families/central-proof.yaml",
       "target": "aoa-evals"
+    },
+    {
+      "kind": "primary-parent",
+      "source": "mode.aoa-evals-skills.evolve",
+      "source_path": "capabilities/families/central-proof.yaml",
+      "target": "skill.aoa-evals-skills"
+    },
+    {
+      "kind": "primary-parent",
+      "source": "mode.aoa-evals-skills.review",
+      "source_path": "capabilities/families/central-proof.yaml",
+      "target": "skill.aoa-evals-skills"
+    },
+    {
+      "kind": "primary-parent",
+      "source": "mode.aoa-evals-skills.select",
+      "source_path": "capabilities/families/central-proof.yaml",
+      "target": "skill.aoa-evals-skills"
+    },
+    {
+      "kind": "primary-parent",
+      "source": "skill.aoa-evals-skills",
+      "source_path": "capabilities/families/central-proof.yaml",
+      "target": "aoa-evals-skills"
     }
   ],
   "retrieval_documents": [
     {
       "contract_tokens": [
-        "0.1.23",
+        "1.1.0",
+        "active",
+        "aoa",
+        "aoa-evals",
+        "aoa-evals-central-proof",
+        "authored",
+        "beneath",
+        "bounded",
+        "bounded-proof",
+        "branch",
+        "capabilities",
+        "capability",
+        "central",
+        "central-proof",
+        "central-proof.yaml",
+        "evals",
+        "evaluation",
+        "families",
+        "federated",
+        "healthy",
+        "internal",
+        "local",
+        "navigate",
+        "navigation",
+        "owner",
+        "owner-local",
+        "owner-verified",
+        "proof",
+        "shared",
+        "subtree",
+        "verified",
+        "yaml",
+        "доказательств",
+        "центральн",
+        "центральное-доказательство"
+      ],
+      "description": "Navigate the owner-local central-proof subtree federated beneath the shared evaluation central-proof branch.",
+      "id": "aoa-evals",
+      "kind": "capability",
+      "negative_phrases": [],
+      "negative_text": "",
+      "negative_tokens": [],
+      "package_tokens": [],
+      "positive_text": "aoa-evals\naoa-evals\nNavigate the owner-local central-proof subtree federated beneath the shared evaluation central-proof branch.\naoa-evals\ncentral-proof\nbounded-proof\nevaluation\nцентральное-доказательство",
+      "positive_tokens": [
+        "aoa",
+        "aoa-evals",
+        "beneath",
+        "bounded",
+        "bounded-proof",
+        "branch",
+        "central",
+        "central-proof",
+        "evals",
+        "evaluation",
+        "federated",
+        "local",
+        "navigate",
+        "owner",
+        "owner-local",
+        "proof",
+        "shared",
+        "subtree",
+        "доказательств",
+        "центральн",
+        "центральное-доказательство"
+      ],
+      "routing_tokens": [
+        "aoa",
+        "aoa-evals",
+        "bounded",
+        "bounded-proof",
+        "central",
+        "central-proof",
+        "evals",
+        "evaluation",
+        "proof",
+        "доказательств",
+        "центральн",
+        "центральное-доказательство"
+      ],
+      "search_text": "navigation\nNavigate the owner-local central-proof subtree federated beneath the shared evaluation central-proof branch.\naoa-evals\naoa-evals\ncentral-proof\nbounded-proof\nevaluation\nцентральное-доказательство\ncapability\nowner-verified\nhealthy\nactive\n1.1.0\ninternal\nauthored\naoa-evals\ncapabilities/families/central-proof.yaml\naoa-evals-central-proof\ncapabilities/families/central-proof.yaml\naoa-evals",
+      "title": "aoa-evals",
+      "tokens": [
+        "1.1.0",
+        "active",
+        "aoa",
+        "aoa-evals",
+        "aoa-evals-central-proof",
+        "authored",
+        "beneath",
+        "bounded",
+        "bounded-proof",
+        "branch",
+        "capabilities",
+        "capability",
+        "central",
+        "central-proof",
+        "central-proof.yaml",
+        "evals",
+        "evaluation",
+        "families",
+        "federated",
+        "healthy",
+        "internal",
+        "local",
+        "navigate",
+        "navigation",
+        "owner",
+        "owner-local",
+        "owner-verified",
+        "proof",
+        "shared",
+        "subtree",
+        "verified",
+        "yaml",
+        "доказательств",
+        "центральн",
+        "центральное-доказательство"
+      ],
+      "visibility": "internal"
+    },
+    {
+      "contract_tokens": [
+        "0.2.0",
         "0247",
-        "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58",
-        "1.0.1",
-        "23",
+        "1.1.0",
+        "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602",
         "abyss",
         "abyss-stack",
         "acceptance",
@@ -1013,6 +1171,7 @@
         "aoa-eval",
         "aoa-evals",
         "aoa-evals-central-proof",
+        "aoa-evals-skills",
         "aoa-memo",
         "aoa-session-memory-global-route",
         "aoa-skills",
@@ -1031,7 +1190,6 @@
         "baseline",
         "bearing",
         "before",
-        "beneath",
         "blind",
         "blocked",
         "blocker",
@@ -1041,10 +1199,8 @@
         "bounded-judgment-read-only",
         "bounded-proof",
         "bounded-proof-review",
-        "branch",
         "bundle",
         "bundled",
-        "bundles",
         "callable",
         "candidate",
         "candidate-as-bundle",
@@ -1053,7 +1209,7 @@
         "canonical",
         "capabilities",
         "capability",
-        "capability-home-v0.1.23",
+        "capability-home-v0.2.0",
         "central",
         "central-eval-selection",
         "central-proof",
@@ -1091,7 +1247,6 @@
         "design",
         "disposition",
         "docs",
-        "drift",
         "effect",
         "effects",
         "engineering",
@@ -1104,6 +1259,7 @@
         "eval.md",
         "eval.yaml",
         "evals",
+        "evals-skills",
         "evaluated",
         "evaluation",
         "every",
@@ -1114,9 +1270,9 @@
         "exact",
         "executable",
         "explicit",
+        "external",
         "families",
-        "federated",
-        "first",
+        "family",
         "fit",
         "fixed",
         "forbidden",
@@ -1132,6 +1288,7 @@
         "graph",
         "green",
         "green-as-proof",
+        "hand",
         "handoff",
         "hands",
         "hands-off-to",
@@ -1203,7 +1360,9 @@
         "one",
         "only",
         "operation",
+        "operations",
         "ordinary",
+        "organ",
         "origin",
         "out",
         "output",
@@ -1245,12 +1404,10 @@
         "read",
         "read-admitted-evidence",
         "read-owner-source",
-        "reader",
         "readers",
         "readiness",
         "readiness-as-verdict",
         "reading",
-        "reads",
         "rebuild",
         "receipt",
         "receipts",
@@ -1299,7 +1456,7 @@
         "session-hit",
         "shared",
         "skill",
-        "skill.aoa-evals",
+        "skill.aoa-evals-skills",
         "skill.md",
         "skills",
         "skipped",
@@ -1320,7 +1477,6 @@
         "strengthening",
         "stronger",
         "strongest",
-        "subtree",
         "supported",
         "surface",
         "surfaces",
@@ -1328,18 +1484,17 @@
         "target",
         "task",
         "test",
+        "their",
         "three",
         "through",
-        "tool",
         "treat",
         "treat-as-data",
         "treating",
+        "tree",
         "trigger",
-        "turn",
         "typed",
         "uncertainty",
         "under",
-        "use",
         "v0",
         "v1",
         "verdict",
@@ -1358,11 +1513,14 @@
         "yaml",
         "вердикт",
         "доказательств",
+        "навык",
+        "навыки-оценки",
+        "оценк",
         "центральн",
         "центральное-доказательство"
       ],
-      "description": "Navigate the owner-local central-proof subtree federated beneath the shared evaluation central-proof branch.",
-      "id": "aoa-evals",
+      "description": "Navigate the owner-local central-proof skill family and its select, review, and evolve modes while routing shared evaluation operations to their external owner.",
+      "id": "aoa-evals-skills",
       "kind": "capability",
       "negative_phrases": [
         "The task is repository-local eval selection or application, local no-fit intake/design, session-hit classification, an ordinary test, or generic analytics."
@@ -1405,6 +1563,7 @@
         "aoa",
         "aoa-eval",
         "aoa-evals",
+        "aoa-evals-skills",
         "appears",
         "applicability",
         "application",
@@ -1426,12 +1585,10 @@
         "blocks",
         "boundary",
         "bounded",
-        "bounded-proof",
         "build",
         "bundle",
         "bundle-local",
         "bundled",
-        "bundles",
         "candidate",
         "candidates",
         "cannot",
@@ -1473,7 +1630,6 @@
         "directory",
         "do",
         "does",
-        "drift",
         "earlier",
         "edges",
         "eof",
@@ -1484,6 +1640,7 @@
         "evals",
         "even",
         "evidence",
+        "evolution",
         "evolve",
         "evolve.md",
         "exact",
@@ -1491,6 +1648,7 @@
         "execute",
         "execution",
         "explicit",
+        "family",
         "find",
         "first",
         "fit",
@@ -1601,14 +1759,12 @@
         "provenance-bearing",
         "proves",
         "pwd",
-        "question",
         "raw",
         "read",
         "read-only",
         "reader",
         "readers",
         "readiness",
-        "reads",
         "receipt",
         "receipts",
         "record",
@@ -1620,6 +1776,7 @@
         "report",
         "reports",
         "repository",
+        "repository-local",
         "request",
         "requested",
         "required",
@@ -1658,7 +1815,9 @@
         "session-memory",
         "shared",
         "skill",
+        "skill-family",
         "skill.md",
+        "skills",
         "source",
         "source-first",
         "source-linked",
@@ -1710,18 +1869,16 @@
         "workspace",
         "yaml"
       ],
-      "positive_text": "aoa-evals\naoa-evals\nNavigate the owner-local central-proof subtree federated beneath the shared evaluation central-proof branch.\naoa-evals\ncentral-proof\nbounded-proof\nevaluation\nцентральное-доказательство\nskill.aoa-evals\naoa-evals owner router\nCentral AoA proof or lifecycle: first tool turn reads only this SKILL.md. Use to select, review, or evolve source bundles, named eval results or verdicts, source-linked reports, Eval Forge owner review, or source/reader drift. Use aoa-eval for local selection, application, intake/design, or session-hit classification. Candidates, readiness checks, receipts, generated readers or outputs, MCP outputs, and green commands are not proof.\ncentral-proof\neval-verdict\nsource-bundle\nproof-lifecycle\neval-forge\nbounded-proof\nцентральное-доказательство\nвердикт\nThe request concerns central proof meaning, a central source bundle, a named eval result or verdict, an owner-routed proof object, or an aoa-evals lifecycle decision.",
+      "positive_text": "aoa-evals-skills\naoa-evals-skills tree\nNavigate the owner-local central-proof skill family and its select, review, and evolve modes while routing shared evaluation operations to their external owner.\nevals-skills\ncentral-proof\nproof-lifecycle\nsource-bundle\nнавыки-оценки\nskill.aoa-evals-skills\naoa-evals-skills organ router\nRoute the aoa-evals skill family for central proof selection, review, evolution, named results or verdicts, source-linked reports, Eval Forge owner review, and proof lifecycle. Hand repository-local eval selection, application, intake/design, or session-hit classification to aoa-eval. Candidates, readiness checks, receipts, generated readers, MCP outputs, and green commands are not proof.\ncentral-proof\neval-verdict\nsource-bundle\nproof-lifecycle\neval-forge\nbounded-proof\nцентральное-доказательство\nвердикт\nThe request concerns central proof meaning, a central source bundle, a named eval result or verdict, an owner-routed proof object, or an aoa-evals lifecycle decision.",
       "positive_tokens": [
         "aoa",
         "aoa-eval",
         "aoa-evals",
+        "aoa-evals-skills",
         "application",
-        "beneath",
         "bounded",
         "bounded-proof",
-        "branch",
         "bundle",
-        "bundles",
         "candidates",
         "central",
         "central-proof",
@@ -1731,74 +1888,80 @@
         "concerns",
         "decision",
         "design",
-        "drift",
         "eval",
         "eval-forge",
         "eval-verdict",
         "evals",
+        "evals-skills",
         "evaluation",
+        "evolution",
         "evolve",
-        "federated",
-        "first",
+        "external",
+        "family",
         "forge",
         "generated",
         "green",
+        "hand",
         "hit",
         "intake",
+        "its",
         "lifecycle",
         "linked",
         "local",
         "mcp",
-        "md",
         "meaning",
+        "modes",
         "named",
         "navigate",
         "not",
         "object",
-        "only",
+        "operations",
+        "organ",
         "outputs",
         "owner",
         "owner-local",
         "owner-routed",
         "proof",
         "proof-lifecycle",
-        "reader",
         "readers",
         "readiness",
-        "reads",
         "receipts",
         "reports",
+        "repository",
+        "repository-local",
         "request",
         "result",
         "results",
         "review",
+        "route",
         "routed",
         "router",
+        "routing",
         "select",
         "selection",
         "session",
         "session-hit",
         "shared",
         "skill",
-        "skill.aoa-evals",
-        "skill.md",
+        "skill.aoa-evals-skills",
+        "skills",
         "source",
         "source-bundle",
         "source-linked",
-        "subtree",
-        "tool",
-        "turn",
-        "use",
+        "their",
+        "tree",
         "verdict",
         "verdicts",
+        "while",
         "вердикт",
         "доказательств",
+        "навык",
+        "навыки-оценки",
+        "оценк",
         "центральн",
         "центральное-доказательство"
       ],
       "routing_tokens": [
-        "aoa",
-        "aoa-evals",
         "bounded",
         "bounded-proof",
         "bundle",
@@ -1808,27 +1971,30 @@
         "eval-forge",
         "eval-verdict",
         "evals",
-        "evaluation",
+        "evals-skills",
         "forge",
         "lifecycle",
         "proof",
         "proof-lifecycle",
+        "skills",
         "source",
         "source-bundle",
         "verdict",
         "вердикт",
         "доказательств",
+        "навык",
+        "навыки-оценки",
+        "оценк",
         "центральн",
         "центральное-доказательство"
       ],
-      "search_text": "navigation\nNavigate the owner-local central-proof subtree federated beneath the shared evaluation central-proof branch.\naoa-evals\naoa-evals\ncentral-proof\nbounded-proof\nevaluation\nцентральное-доказательство\ncapability\nowner-verified\nhealthy\nactive\n1.0.1\ninternal\nauthored\naoa-evals\ncapabilities/families/central-proof.yaml\naoa-evals-central-proof\ncapabilities/families/central-proof.yaml\naoa-evals\nOne bounded central-proof intent with object, claim class, acceptance target, evidence posture, authority, and requested effects.\ncentral-proof-request\ncentral-proof-request\nOne select, review, evolve, handoff, or blocked result with refs, effects, claim limit, and stop line.\ncentral-proof-result\ncentral-proof-mode-result\nA provenance-bearing report or candidate may still lack an admitted central source contract and evidence.\nThe task is repository-local eval selection or application, local no-fit intake/design, session-hit classification, an ordinary test, or generic analytics.\nThe request concerns central proof meaning, a central source bundle, a named eval result or verdict, an owner-routed proof object, or an aoa-evals lifecycle decision.\navailable\nskill\nroute-central-proof\nskills/aoa-evals/SKILL.md\nindependent-callable\nretain\nManual isolated, negative, held-out, and coexistence evidence admits one central-proof router while keeping its three modes internal.\nexecutable\nCentral AoA proof or lifecycle: first tool turn reads only this SKILL.md. Use to select, review, or evolve source bundles, named eval results or verdicts, source-linked reports, Eval Forge owner review, or source/reader drift. Use aoa-eval for local selection, application, intake/design, or session-hit classification. Candidates, readiness checks, receipts, generated readers or outputs, MCP outputs, and green commands are not proof.\nnone\nrepo-write\ngenerated-write\nhuman-decision\nTreating readiness or green output as proof.\nRouting local eval work into central proof ownership.\nLoading all modes or forcing a fixed workflow.\nMutating owner source without explicit authority and human confirmation.\nbounded-judgment\nconditionally-reversible\nStop after one typed owner result, handoff, or blocker.\nStop before proof strengthening when source or evidence is insufficient.\nbundled source-return packet resource\nexact owner source and admitted evidence for the selected mode\nThe selected mode matches the requested operation.\nStrongest source and evidence refs outrank every generated or routing surface.\nActual effects and the exact claim limit are explicit.\nskill.aoa-evals\ncentral-proof\neval-verdict\nsource-bundle\nproof-lifecycle\neval-forge\nbounded-proof\nцентральное-доказательство\nвердикт\nskill\nevaluated\nchallenger\nactive\n0.1.23\nadvertised\nOwner source remains canonical and internally consistent.\nGenerated readers remain weaker and reproducible from owner source.\nRevert only the authorized owner-source change through its owner workflow.\nRebuild derived projections only after source recovery and verification.\nauthored\naoa-evals\nskills/aoa-evals/SKILL.md\nskills/aoa-evals\nevals/**/EVAL.md\nevals/**/eval.yaml\nadmitted bundle evidence\nA later or derived surface cannot strengthen its source proof contract.\ncandidates\nreadiness checks\nreports without accepted evidence\nreceipts\ngenerated readers\nMCP results\nKAG nodes\ngreen commands\nselected mode and bounded proof question\nobject under evaluation and claim class\norigin owner and proof owner\nstrongest source and evidence refs\nweaker surfaces inspected\nrelevant fit, freshness, environment, baseline, lifecycle, and blind spots\none allowed disposition\nactual effects and verification\nskipped checks and remaining uncertainty\nnext owner route\nexact claim limit and stop line\nowner-gated-source-change\nbounded-judgment-read-only\nbounded-judgment-read-only\npositive trigger\nnegative trigger\nheld-out wording\ncoexistence\nbounded effects\nmaterial model change\nhost or workflow change\nsource bundle or skill change\nskills/aoa-evals\nchallenger\nadmitted\naoa-evals\naoa-evals\n0.1.23\nauthorized owner source change\ndeclared projection rebuild after source change\naccepted owner review or stable no-fit need\nresolved owner\nacceptance criteria\nexplicit effect authority\nrequired human confirmation\nproof-owner-evolution-request\nno_change\nowner_handoff\nblocked\nverified_bounded\nproof-owner-evolution\nproof-owner-evolution-result\nreferences/evolve.md\nevolve.md\nnone\nexact source bundle or already owner-routed central proof object\nmaterial accepted evidence or source-linked pressure\nrepository and environment posture\ncentral-proof-review-request\ncandidate_only\nsupported_bounded\ninsufficient_evidence\ndefer\nowner_handoff\nno_change\nverified_bounded\nblocked\nbounded-proof-review\nproof-owner-evolution-request\nreferences/review.md\nreview.md\nnone\nbounded proof question\nobject under evaluation\nclaim class\nacceptance target\nknown evidence or comparison posture\ncentral-proof-question\nexact_fit\npartial_fit\nno_fit\nnot_applicable\nblocked\ncentral-eval-selection\ncentral-proof-review-request\nreferences/select.md\nselect.md\naoa-eval\naoa-decision\naoa-session-memory-global-route\ngreen-as-proof\nreadiness-as-verdict\ncandidate-as-bundle\nreport-as-source\ngenerated-as-authority\nimplicit-maturity-promotion\naoa-skills:engineering.evaluation.central-proof\naoa-eval\norigin owner\naoa-skills\naoa-memo\naoa-stats\nabyss-stack\ninspected stronger owner\ncentral-proof-review-request\nan exact central source or owner-routed proof object was selected\nselect\nhands-off-to\nreview\nproof-owner-evolution-request\nbounded owner change pressure survives review and the task asks for mutation\nreview\nhands-off-to\nevolve\naoa-evals\naoa_owner_skill_contract_v1\none exact, partial, or no-fit selection\none bounded review disposition\none owner-authorized source change or no-change result\none owner handoff or blocker\nscripts/eval_contract_packet.py\nskills/aoa-evals/references/contract.yaml\n0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58\naoa-evals\nskills/aoa-evals/SKILL.md\nApplicability preflight\nStart\nOwner boundary\nComposition\nStops\nResolve the installed source receipt or canonical owner home before reading owner-relative resources; never infer proof from the generated capability graph.\nauthored\nskills/aoa-evals/SKILL.md\ncapability-home-v0.1.23\naoa-evals\nowner-skill-procedure\nauthored\ndocs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md\nAOA-EV-D-0247\naoa-evals\nadmission-evidence\nRoute one bounded central-proof question to the smallest owner mode while preserving source authority and claim limits.\nforbidden\nread-owner-source\nread-admitted-evidence\npropose-owner-change\napply-confirmed-owner-change\ntreat-as-data\naoa-evals-central-proof\ncapabilities/families/central-proof.yaml\naoa-evals owner router\nauthored-procedure\n---\nname: aoa-evals\ndescription: \"Central AoA proof or lifecycle: first tool turn reads only this SKILL.md. Use to select, review, or evolve source bundles, named eval results or verdicts, source-linked reports, Eval Forge owner review, or source/reader drift. Use aoa-eval for local selection, application, intake/design, or session-hit classification. Candidates, readiness checks, receipts, generated readers or outputs, MCP outputs, and green commands are not proof.\"\n---\n\n# aoa-evals\n\nRoute one central bounded-proof question without letting a catalog, green\ncommand, readiness check, candidate, report, receipt, generated reader, MCP\nresult, or KAG node outrank its source bundle and admitted evidence.\n\n## Applicability preflight\n\nBefore resolving the central owner, inspect only the request:\n\n- if it asks to classify supplied or retrieved session hits against an eval\n  trigger, route a local no-fit, design a local suite, or select/apply a\n  repository eval, return `owner_handoff` to `aoa-eval`\n- a packet being closed, reviewed, or provenance-bearing does not make it a\n  central proof object\n- begin this bundle only when the task already concerns central proof meaning,\n  a central source bundle, a named eval result or verdict, an owner-routed\n  proof object, or an `aoa-evals` lifecycle decision\n\nDo not inspect the task workspace, search for an owner checkout, probe supplied\npaths, or run `pwd`, `rg`, `find`, or `test` for navigation after this bundle\nloads. Read the contract, source-return rule, and selected mode first; then use\nthe declared bundled resource as the first navigation action.\n\n## Start\n\n1. The first tool turn must read only this `SKILL.md`. Record `<bundle_dir>` as\n   its absolute containing directory. If workspace inspection or search was\n   combined with that read, stop the attempt and restart in a fresh invocation;\n   later compliance cannot repair the unobserved package-first gate.\n2. Read `references/contract.yaml` and choose exactly one internal mode:\n\n   | Mode | Select when | Read |\n   | --- | --- | --- |\n   | `select` | No exact central source bundle has been selected for the bounded proof need. | `references/select.md` |\n   | `review` | A named central bundle, result, verdict, source-linked report, or already owner-routed proof object must be interpreted. | `references/review.md` |\n   | `evolve` | The request asks to add, change, promote, supersede, or retire a central source, lifecycle, comparison, or chooser surface, even when a required gate may later block the operation. | `references/evolve.md` |\n\n   Select by the requested operation, not by whether its gates have already\n   passed. Missing review, authority, or confirmation blocks `evolve`; it does\n   not turn a requested owner change into `review`.\n\n3. Read `references/source-return.md` and only the selected mode reference to\n   EOF. Do not load the other mode procedures merely because their vocabulary\n   appears nearby.\n4. Follow the selected procedure and return the common output ABI from\n   `references/contract.yaml`.\n\nKeep the modes internal until held-out manual work proves that splitting them\nimproves trigger precision, ABI, composition, and outcomes.\n\n## Owner boundary\n\n- Source `EVAL.md`, `eval.yaml`, and admitted evidence own proof meaning.\n- This skill owns procedure only. Its source receipt, catalog, scores, reports,\n  readiness surfaces, receipts, generated readers, MCP, KAG, and green checks\n  remain weaker.\n- Use shared `aoa-eval` for cross-repository selection, exact local\n  application, owner-local no-fit intake or design, and eval-trigger\n  classification of supplied or retrieved session hits. Begin here only at\n  central `aoa-evals` proof meaning or an owner decision.\n- Technique references are optional bundle-local lineage, never a runtime\n  prerequisite.\n- `select` and `review` are read-only. `evolve` may change owner source only\n  with explicit authority and required human confirmation.\n\n## Composition\n\nBuild only the task-local edges the request needs:\n\n```text\norigin need or candidate evidence\n  -> source proof contract and admitted evidence\n  -> execution support and reviewed result when material\n  -> derived readers or consumers when material\n```\n\n`select` may hand its exact source contract to `review`; an accepted `review`\nmay later hand off to `evolve`. Do not force a three-stage workflow. A later\nnode cannot repair or strengthen an earlier source or evidence gap.\n\nAn eval candidate ID beginning with `session:` remains an `aoa-evals`\nowner-routed object. Do not load session-memory guidance merely because of that\nprefix. Compose with session-memory only when the task actually requires raw,\nsegment, session, or retrieval evidence beyond the supplied owner object.\n\n## Stops\n\nStop after one selection, bounded review, authorized source-first change,\nno-change result, owner handoff, or explicit blocker. Never execute an eval\ninside `select`, mutate inside `review`, infer owner acceptance, or treat a\nschema-valid packet or valid DAG as proof.\n\nKeep raw trials, temporary rubrics, task-local DAGs, session notes, runtime\nstate, and test scaffolding outside the owner skill home.\n",
-      "title": "aoa-evals",
+      "search_text": "navigation\nNavigate the owner-local central-proof skill family and its select, review, and evolve modes while routing shared evaluation operations to their external owner.\naoa-evals-skills\nevals-skills\ncentral-proof\nproof-lifecycle\nsource-bundle\nнавыки-оценки\ncapability\nowner-verified\nhealthy\nactive\n1.1.0\ninternal\nauthored\naoa-evals\ncapabilities/families/central-proof.yaml\naoa-evals\naoa-evals-central-proof\ncapabilities/families/central-proof.yaml\naoa-evals-skills tree\nOne bounded central-proof intent with object, claim class, acceptance target, evidence posture, authority, and requested effects.\ncentral-proof-request\ncentral-proof-request\nOne select, review, evolve, handoff, or blocked result with refs, effects, claim limit, and stop line.\ncentral-proof-result\ncentral-proof-mode-result\nA provenance-bearing report or candidate may still lack an admitted central source contract and evidence.\nThe task is repository-local eval selection or application, local no-fit intake/design, session-hit classification, an ordinary test, or generic analytics.\nThe request concerns central proof meaning, a central source bundle, a named eval result or verdict, an owner-routed proof object, or an aoa-evals lifecycle decision.\navailable\nskill\nroute-central-proof\nskills/aoa-evals-skills/SKILL.md\nindependent-callable\nretain\nManual isolated, negative, held-out, and coexistence evidence admits one central-proof router while keeping its three modes internal.\nexecutable\nRoute the aoa-evals skill family for central proof selection, review, evolution, named results or verdicts, source-linked reports, Eval Forge owner review, and proof lifecycle. Hand repository-local eval selection, application, intake/design, or session-hit classification to aoa-eval. Candidates, readiness checks, receipts, generated readers, MCP outputs, and green commands are not proof.\nnone\nrepo-write\ngenerated-write\nhuman-decision\nTreating readiness or green output as proof.\nRouting local eval work into central proof ownership.\nLoading all modes or forcing a fixed workflow.\nMutating owner source without explicit authority and human confirmation.\nbounded-judgment\nconditionally-reversible\nStop after one typed owner result, handoff, or blocker.\nStop before proof strengthening when source or evidence is insufficient.\nbundled source-return packet resource\nexact owner source and admitted evidence for the selected mode\nThe selected mode matches the requested operation.\nStrongest source and evidence refs outrank every generated or routing surface.\nActual effects and the exact claim limit are explicit.\nskill.aoa-evals-skills\ncentral-proof\neval-verdict\nsource-bundle\nproof-lifecycle\neval-forge\nbounded-proof\nцентральное-доказательство\nвердикт\nskill\nevaluated\nchallenger\nactive\n0.2.0\nadvertised\nOwner source remains canonical and internally consistent.\nGenerated readers remain weaker and reproducible from owner source.\nRevert only the authorized owner-source change through its owner workflow.\nRebuild derived projections only after source recovery and verification.\nauthored\naoa-evals\nskills/aoa-evals-skills/SKILL.md\nskills/aoa-evals-skills\nevals/**/EVAL.md\nevals/**/eval.yaml\nadmitted bundle evidence\nA later or derived surface cannot strengthen its source proof contract.\ncandidates\nreadiness checks\nreports without accepted evidence\nreceipts\ngenerated readers\nMCP results\nKAG nodes\ngreen commands\nselected mode and bounded proof question\nobject under evaluation and claim class\norigin owner and proof owner\nstrongest source and evidence refs\nweaker surfaces inspected\nrelevant fit, freshness, environment, baseline, lifecycle, and blind spots\none allowed disposition\nactual effects and verification\nskipped checks and remaining uncertainty\nnext owner route\nexact claim limit and stop line\nowner-gated-source-change\nbounded-judgment-read-only\nbounded-judgment-read-only\npositive trigger\nnegative trigger\nheld-out wording\ncoexistence\nbounded effects\nmaterial model change\nhost or workflow change\nsource bundle or skill change\nskills/aoa-evals-skills\nchallenger\nadmitted\naoa-evals-skills\naoa-evals\n0.2.0\nauthorized owner source change\ndeclared projection rebuild after source change\naccepted owner review or stable no-fit need\nresolved owner\nacceptance criteria\nexplicit effect authority\nrequired human confirmation\nproof-owner-evolution-request\nno_change\nowner_handoff\nblocked\nverified_bounded\nproof-owner-evolution\nproof-owner-evolution-result\nreferences/evolve.md\nevolve.md\nnone\nexact source bundle or already owner-routed central proof object\nmaterial accepted evidence or source-linked pressure\nrepository and environment posture\ncentral-proof-review-request\ncandidate_only\nsupported_bounded\ninsufficient_evidence\ndefer\nowner_handoff\nno_change\nverified_bounded\nblocked\nbounded-proof-review\nproof-owner-evolution-request\nreferences/review.md\nreview.md\nnone\nbounded proof question\nobject under evaluation\nclaim class\nacceptance target\nknown evidence or comparison posture\ncentral-proof-question\nexact_fit\npartial_fit\nno_fit\nnot_applicable\nblocked\ncentral-eval-selection\ncentral-proof-review-request\nreferences/select.md\nselect.md\naoa-eval\naoa-decision\naoa-session-memory-global-route\ngreen-as-proof\nreadiness-as-verdict\ncandidate-as-bundle\nreport-as-source\ngenerated-as-authority\nimplicit-maturity-promotion\naoa-skills:engineering.evaluation.central-proof\naoa-eval\norigin owner\naoa-skills\naoa-memo\naoa-stats\nabyss-stack\ninspected stronger owner\ncentral-proof-review-request\nan exact central source or owner-routed proof object was selected\nselect\nhands-off-to\nreview\nproof-owner-evolution-request\nbounded owner change pressure survives review and the task asks for mutation\nreview\nhands-off-to\nevolve\naoa-evals-skills\naoa_owner_skill_contract_v1\none exact, partial, or no-fit selection\none bounded review disposition\none owner-authorized source change or no-change result\none owner handoff or blocker\nscripts/eval_contract_packet.py\nskills/aoa-evals-skills/references/contract.yaml\n90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602\naoa-evals-skills\nskills/aoa-evals-skills/SKILL.md\nApplicability preflight\nStart\nOwner boundary\nComposition\nStops\nResolve the installed source receipt or canonical owner home before reading owner-relative resources; never infer proof from the generated capability graph.\nauthored\nskills/aoa-evals-skills/SKILL.md\ncapability-home-v0.2.0\naoa-evals\nowner-skill-procedure\nauthored\ndocs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md\nAOA-EV-D-0247\naoa-evals\nadmission-evidence\nRoute one bounded central-proof question to the smallest owner mode while preserving source authority and claim limits.\nforbidden\nread-owner-source\nread-admitted-evidence\npropose-owner-change\napply-confirmed-owner-change\ntreat-as-data\naoa-evals-central-proof\ncapabilities/families/central-proof.yaml\naoa-evals-skills organ router\nauthored-procedure\n---\nname: aoa-evals-skills\ndescription: \"Route the aoa-evals skill family for central proof selection, review, evolution, named results or verdicts, source-linked reports, Eval Forge owner review, and proof lifecycle. Hand repository-local eval selection, application, intake/design, or session-hit classification to aoa-eval. Candidates, readiness checks, receipts, generated readers, MCP outputs, and green commands are not proof.\"\n---\n\n# aoa-evals-skills\n\nRoute one `aoa-evals` skill-family request without letting a catalog, green\ncommand, readiness check, candidate, report, receipt, generated reader, MCP\nresult, or KAG node outrank its source bundle and admitted evidence.\n\n## Applicability preflight\n\nBefore resolving the central owner, inspect only the request:\n\n- if it asks to classify supplied or retrieved session hits against an eval\n  trigger, route a local no-fit, design a local suite, or select/apply a\n  repository eval, return `owner_handoff` to `aoa-eval`\n- a packet being closed, reviewed, or provenance-bearing does not make it a\n  central proof object\n- begin this bundle only when the task already concerns central proof meaning,\n  a central source bundle, a named eval result or verdict, an owner-routed\n  proof object, or an `aoa-evals` owner lifecycle decision\n\nDo not inspect the task workspace, search for an owner checkout, probe supplied\npaths, or run `pwd`, `rg`, `find`, or `test` for navigation after this bundle\nloads. Read the contract, source-return rule, and selected mode first; then use\nthe declared bundled resource as the first navigation action.\n\n## Start\n\n1. The first tool turn must read only this `SKILL.md`. Record `<bundle_dir>` as\n   its absolute containing directory. If workspace inspection or search was\n   combined with that read, stop the attempt and restart in a fresh invocation;\n   later compliance cannot repair the unobserved package-first gate.\n2. Read `references/contract.yaml` and choose exactly one internal mode:\n\n   | Mode | Select when | Read |\n   | --- | --- | --- |\n   | `select` | No exact central source bundle has been selected for the bounded proof need. | `references/select.md` |\n   | `review` | A named central bundle, result, verdict, source-linked report, or already owner-routed proof object must be interpreted. | `references/review.md` |\n   | `evolve` | The request asks to add, change, promote, supersede, or retire a central source, lifecycle, comparison, or chooser surface, even when a required gate may later block the operation. | `references/evolve.md` |\n\n   Select by the requested operation, not by whether its gates have already\n   passed. Missing review, authority, or confirmation blocks `evolve`; it does\n   not turn a requested owner change into `review`.\n\n3. Read `references/source-return.md` and only the selected mode reference to\n   EOF. Do not load the other mode procedures merely because their vocabulary\n   appears nearby.\n4. Follow the selected procedure and return the common output ABI from\n   `references/contract.yaml`.\n\nKeep the modes internal until held-out manual work proves that splitting them\nimproves trigger precision, ABI, composition, and outcomes.\n\n## Owner boundary\n\n- Source `EVAL.md`, `eval.yaml`, and admitted evidence own proof meaning.\n- This skill owns procedure only. Its source receipt, catalog, scores, reports,\n  readiness surfaces, receipts, generated readers, MCP, KAG, and green checks\n  remain weaker.\n- Use shared `aoa-eval` for cross-repository selection, exact local\n  application, owner-local no-fit intake or design, and eval-trigger\n  classification of supplied or retrieved session hits. Begin here only at\n  central `aoa-evals` proof meaning or an owner decision.\n- Technique references are optional bundle-local lineage, never a runtime\n  prerequisite.\n- `select` and `review` are read-only. `evolve` may change owner source only\n  with explicit authority and required human confirmation.\n\n## Composition\n\nBuild only the task-local edges the request needs:\n\n```text\norigin need or candidate evidence\n  -> source proof contract and admitted evidence\n  -> execution support and reviewed result when material\n  -> derived readers or consumers when material\n```\n\n`select` may hand its exact source contract to `review`; an accepted `review`\nmay later hand off to `evolve`. Do not force a three-stage workflow. A later\nnode cannot repair or strengthen an earlier source or evidence gap.\n\nAn eval candidate ID beginning with `session:` remains an `aoa-evals`\nowner-routed object. Do not load session-memory guidance merely because of that\nprefix. Compose with session-memory only when the task actually requires raw,\nsegment, session, or retrieval evidence beyond the supplied owner object.\n\n## Stops\n\nStop after one selection, bounded review, authorized source-first change,\nno-change result, owner handoff, or explicit blocker. Never execute an eval\ninside `select`, mutate inside `review`, infer owner acceptance, or treat a\nschema-valid packet or valid DAG as proof.\n\nKeep raw trials, temporary rubrics, task-local DAGs, session notes, runtime\nstate, and test scaffolding outside the owner skill home.\n",
+      "title": "aoa-evals-skills tree",
       "tokens": [
-        "0.1.23",
+        "0.2.0",
         "0247",
-        "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58",
-        "1.0.1",
-        "23",
+        "1.1.0",
+        "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602",
         "abi",
         "absolute",
         "abyss",
@@ -1858,6 +2024,7 @@
         "aoa-eval",
         "aoa-evals",
         "aoa-evals-central-proof",
+        "aoa-evals-skills",
         "aoa-memo",
         "aoa-session-memory-global-route",
         "aoa-skills",
@@ -1883,7 +2050,6 @@
         "begin",
         "beginning",
         "being",
-        "beneath",
         "beyond",
         "blind",
         "block",
@@ -1896,12 +2062,10 @@
         "bounded-judgment-read-only",
         "bounded-proof",
         "bounded-proof-review",
-        "branch",
         "build",
         "bundle",
         "bundle-local",
         "bundled",
-        "bundles",
         "callable",
         "candidate",
         "candidate-as-bundle",
@@ -1910,7 +2074,7 @@
         "canonical",
         "capabilities",
         "capability",
-        "capability-home-v0.1.23",
+        "capability-home-v0.2.0",
         "catalog",
         "central",
         "central-eval-selection",
@@ -1971,7 +2135,6 @@
         "do",
         "docs",
         "does",
-        "drift",
         "earlier",
         "edges",
         "effect",
@@ -1988,6 +2151,7 @@
         "eval.md",
         "eval.yaml",
         "evals",
+        "evals-skills",
         "evaluated",
         "evaluation",
         "even",
@@ -2002,8 +2166,9 @@
         "execute",
         "execution",
         "explicit",
+        "external",
         "families",
-        "federated",
+        "family",
         "find",
         "first",
         "fit",
@@ -2127,8 +2292,10 @@
         "one",
         "only",
         "operation",
+        "operations",
         "optional",
         "ordinary",
+        "organ",
         "origin",
         "other",
         "out",
@@ -2194,7 +2361,6 @@
         "readiness",
         "readiness-as-verdict",
         "reading",
-        "reads",
         "rebuild",
         "receipt",
         "receipts",
@@ -2265,7 +2431,8 @@
         "session-memory",
         "shared",
         "skill",
-        "skill.aoa-evals",
+        "skill-family",
+        "skill.aoa-evals-skills",
         "skill.md",
         "skills",
         "skipped",
@@ -2291,7 +2458,6 @@
         "strengthening",
         "stronger",
         "strongest",
-        "subtree",
         "suite",
         "supersede",
         "supplied",
@@ -2317,6 +2483,7 @@
         "treat",
         "treat-as-data",
         "treating",
+        "tree",
         "trials",
         "trigger",
         "turn",
@@ -2348,6 +2515,9 @@
         "yaml",
         "вердикт",
         "доказательств",
+        "навык",
+        "навыки-оценки",
+        "оценк",
         "центральн",
         "центральное-доказательство"
       ],
@@ -2355,9 +2525,8 @@
     },
     {
       "contract_tokens": [
-        "0.1.23",
-        "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58",
-        "23",
+        "0.2.0",
+        "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602",
         "abi",
         "absent",
         "acceptance",
@@ -2372,6 +2541,7 @@
         "aoa",
         "aoa-evals",
         "aoa-evals-central-proof",
+        "aoa-evals-skills",
         "apply",
         "apply-confirmed-owner-change",
         "asks",
@@ -2393,7 +2563,7 @@
         "canonical",
         "capabilities",
         "capability",
-        "capability-home-v0.1.23",
+        "capability-home-v0.2.0",
         "cases",
         "central",
         "central-proof.yaml",
@@ -2474,7 +2644,7 @@
         "md",
         "missing",
         "mode",
-        "mode.aoa-evals.evolve",
+        "mode.aoa-evals-skills.evolve",
         "mutating",
         "mutation",
         "need",
@@ -2543,7 +2713,7 @@
         "selects",
         "separately",
         "skill",
-        "skill.aoa-evals",
+        "skill.aoa-evals-skills",
         "skills",
         "source",
         "source-first",
@@ -2575,7 +2745,7 @@
         "изменить-eval"
       ],
       "description": "Add, change, promote, supersede, or retire central owner proof only after review, authority, acceptance, and human-confirmation gates pass.",
-      "id": "mode.aoa-evals.evolve",
+      "id": "mode.aoa-evals-skills.evolve",
       "kind": "mode",
       "negative_phrases": [
         "The request only selects or interprets existing proof, or lacks effect authority and asks for no mutation."
@@ -2599,7 +2769,7 @@
         "evolve",
         "mode"
       ],
-      "positive_text": "mode.aoa-evals.evolve\nEvolve central proof source\nAdd, change, promote, supersede, or retire central owner proof only after review, authority, acceptance, and human-confirmation gates pass.\nevolve-proof\npromote-eval\nsupersede-eval\nretire-eval\nowner-change\nизменить-eval\nThe requested operation changes a central source, lifecycle, comparison, or chooser surface.",
+      "positive_text": "mode.aoa-evals-skills.evolve\nEvolve central proof source\nAdd, change, promote, supersede, or retire central owner proof only after review, authority, acceptance, and human-confirmation gates pass.\nevolve-proof\npromote-eval\nsupersede-eval\nretire-eval\nowner-change\nизменить-eval\nThe requested operation changes a central source, lifecycle, comparison, or chooser surface.",
       "positive_tokens": [
         "acceptance",
         "add",
@@ -2621,7 +2791,7 @@
         "human-confirmation",
         "lifecycle",
         "mode",
-        "mode.aoa-evals.evolve",
+        "mode.aoa-evals-skills.evolve",
         "only",
         "operation",
         "owner",
@@ -2634,6 +2804,7 @@
         "retire",
         "retire-eval",
         "review",
+        "skills",
         "source",
         "supersede",
         "supersede-eval",
@@ -2658,12 +2829,11 @@
         "изменит",
         "изменить-eval"
       ],
-      "search_text": "Accepted review or stable no-fit need with owner, criteria, authority, confirmation, effects, and recovery posture.\nevolution-request\nproof-owner-evolution-request\nVerified bounded change, no-change, handoff, or blocker with actual effects and rebuilt projection posture.\nevolution-result\nproof-owner-evolution-result\nStable owner pressure exists but acceptance criteria, admitted review, or required human confirmation may be absent.\nThe request only selects or interprets existing proof, or lacks effect authority and asks for no mutation.\nThe requested operation changes a central source, lifecycle, comparison, or chooser surface.\navailable\nmode\nevolve\nskills/aoa-evals/references/evolve.md\nlocal-mode\nretain\nThe mode has an independent ABI and DAG role but no separately admitted prompt trigger.\nexecutable\nAdd, change, promote, supersede, or retire central owner proof only after review, authority, acceptance, and human-confirmation gates pass.\nrepo-write\ngenerated-write\nhuman-decision\nSelecting review because evolve gates are missing.\nMutating from a candidate or green check.\nUpdating generated readers before owner source.\nCreating permanent validation from unstable manual interpretation.\nbounded-judgment\nconditionally-reversible\nStop at the first missing gate.\nStop after one verified bounded change, no-change result, or owner handoff.\nexact owner source\naccepted review or stable no-fit evidence\nexplicit effect authority\nrequired human confirmation\nAll entry gates are explicit before comparison or drafting.\nSource changes precede generated projection rebuilds.\nManual cases inspect the bounded claim and neighboring routes before existing structural checks.\nmode.aoa-evals.evolve\nevolve-proof\npromote-eval\nsupersede-eval\nretire-eval\nowner-change\nизменить-eval\nmode\nevaluated\nchallenger\nactive\n0.1.23\ninternal\nauthorized owner source change\ndeclared projection rebuild after source change\naccepted owner review or stable no-fit need\nresolved owner\nacceptance criteria\nexplicit effect authority\nrequired human confirmation\nproof-owner-evolution-request\nno_change\nowner_handoff\nblocked\nverified_bounded\nproof-owner-evolution\nproof-owner-evolution-result\nreferences/evolve.md\nevolve.md\nOwner source remains canonical and internally consistent.\nGenerated readers remain weaker and reproducible from owner source.\nRevert only the authorized owner-source change through its owner workflow.\nRebuild derived projections only after source recovery and verification.\nauthored\naoa-evals\ncapabilities/families/central-proof.yaml\nskills/aoa-evals/references/contract.yaml\n0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58\nskill.aoa-evals\nskills/aoa-evals/references/evolve.md\nEntry gates\nProcedure\nVerification and stop\nResolve current owner source and admission gates; use temporary trial material outside the repository and remove it after review.\nauthored\nskills/aoa-evals/references/evolve.md\ncapability-home-v0.1.23\naoa-evals\nevolve-mode\nApply one source-first owner change or return no-change, handoff, or blocker without auto-promoting experience or generated output.\nforbidden\nread-owner-source\nread-admitted-evidence\npropose-owner-change\napply-confirmed-owner-change\ntreat-as-data\naoa-evals-central-proof\ncapabilities/families/central-proof.yaml\nEvolve central proof source\nauthored-procedure\n### Mode: evolve\n\n",
+      "search_text": "Accepted review or stable no-fit need with owner, criteria, authority, confirmation, effects, and recovery posture.\nevolution-request\nproof-owner-evolution-request\nVerified bounded change, no-change, handoff, or blocker with actual effects and rebuilt projection posture.\nevolution-result\nproof-owner-evolution-result\nStable owner pressure exists but acceptance criteria, admitted review, or required human confirmation may be absent.\nThe request only selects or interprets existing proof, or lacks effect authority and asks for no mutation.\nThe requested operation changes a central source, lifecycle, comparison, or chooser surface.\navailable\nmode\nevolve\nskills/aoa-evals-skills/references/evolve.md\nlocal-mode\nretain\nThe mode has an independent ABI and DAG role but no separately admitted prompt trigger.\nexecutable\nAdd, change, promote, supersede, or retire central owner proof only after review, authority, acceptance, and human-confirmation gates pass.\nrepo-write\ngenerated-write\nhuman-decision\nSelecting review because evolve gates are missing.\nMutating from a candidate or green check.\nUpdating generated readers before owner source.\nCreating permanent validation from unstable manual interpretation.\nbounded-judgment\nconditionally-reversible\nStop at the first missing gate.\nStop after one verified bounded change, no-change result, or owner handoff.\nexact owner source\naccepted review or stable no-fit evidence\nexplicit effect authority\nrequired human confirmation\nAll entry gates are explicit before comparison or drafting.\nSource changes precede generated projection rebuilds.\nManual cases inspect the bounded claim and neighboring routes before existing structural checks.\nmode.aoa-evals-skills.evolve\nevolve-proof\npromote-eval\nsupersede-eval\nretire-eval\nowner-change\nизменить-eval\nmode\nevaluated\nchallenger\nactive\n0.2.0\ninternal\nauthorized owner source change\ndeclared projection rebuild after source change\naccepted owner review or stable no-fit need\nresolved owner\nacceptance criteria\nexplicit effect authority\nrequired human confirmation\nproof-owner-evolution-request\nno_change\nowner_handoff\nblocked\nverified_bounded\nproof-owner-evolution\nproof-owner-evolution-result\nreferences/evolve.md\nevolve.md\nOwner source remains canonical and internally consistent.\nGenerated readers remain weaker and reproducible from owner source.\nRevert only the authorized owner-source change through its owner workflow.\nRebuild derived projections only after source recovery and verification.\nauthored\naoa-evals\ncapabilities/families/central-proof.yaml\nskills/aoa-evals-skills/references/contract.yaml\n90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602\nskill.aoa-evals-skills\nskills/aoa-evals-skills/references/evolve.md\nEntry gates\nProcedure\nVerification and stop\nResolve current owner source and admission gates; use temporary trial material outside the repository and remove it after review.\nauthored\nskills/aoa-evals-skills/references/evolve.md\ncapability-home-v0.2.0\naoa-evals\nevolve-mode\nApply one source-first owner change or return no-change, handoff, or blocker without auto-promoting experience or generated output.\nforbidden\nread-owner-source\nread-admitted-evidence\npropose-owner-change\napply-confirmed-owner-change\ntreat-as-data\naoa-evals-central-proof\ncapabilities/families/central-proof.yaml\nEvolve central proof source\nauthored-procedure\n### Mode: evolve\n\n",
       "title": "Evolve central proof source",
       "tokens": [
-        "0.1.23",
-        "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58",
-        "23",
+        "0.2.0",
+        "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602",
         "abi",
         "absent",
         "acceptance",
@@ -2678,6 +2848,7 @@
         "aoa",
         "aoa-evals",
         "aoa-evals-central-proof",
+        "aoa-evals-skills",
         "apply",
         "apply-confirmed-owner-change",
         "asks",
@@ -2699,7 +2870,7 @@
         "canonical",
         "capabilities",
         "capability",
-        "capability-home-v0.1.23",
+        "capability-home-v0.2.0",
         "cases",
         "central",
         "central-proof.yaml",
@@ -2780,7 +2951,7 @@
         "md",
         "missing",
         "mode",
-        "mode.aoa-evals.evolve",
+        "mode.aoa-evals-skills.evolve",
         "mutating",
         "mutation",
         "need",
@@ -2849,7 +3020,7 @@
         "selects",
         "separately",
         "skill",
-        "skill.aoa-evals",
+        "skill.aoa-evals-skills",
         "skills",
         "source",
         "source-first",
@@ -2884,9 +3055,8 @@
     },
     {
       "contract_tokens": [
-        "0.1.23",
-        "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58",
-        "23",
+        "0.2.0",
+        "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602",
         "abi",
         "accepted",
         "active",
@@ -2900,6 +3070,7 @@
         "aoa",
         "aoa-evals",
         "aoa-evals-central-proof",
+        "aoa-evals-skills",
         "applicable",
         "asks",
         "authored",
@@ -2918,7 +3089,7 @@
         "candidate",
         "capabilities",
         "capability",
-        "capability-home-v0.1.23",
+        "capability-home-v0.2.0",
         "ceiling",
         "central",
         "central-proof-review-request",
@@ -2984,7 +3155,7 @@
         "md",
         "missing",
         "mode",
-        "mode.aoa-evals.review",
+        "mode.aoa-evals-skills.review",
         "must",
         "named",
         "next",
@@ -3037,7 +3208,7 @@
         "running",
         "separately",
         "skill",
-        "skill.aoa-evals",
+        "skill.aoa-evals-skills",
         "skills",
         "source",
         "source-bundle",
@@ -3067,7 +3238,7 @@
         "проверить-доказательство"
       ],
       "description": "Interpret one exact central source bundle or owner-routed proof object against admitted evidence and its source claim ceiling.",
-      "id": "mode.aoa-evals.review",
+      "id": "mode.aoa-evals-skills.review",
       "kind": "mode",
       "negative_phrases": [
         "No exact source or owner-routed object exists, or the request asks to change owner proof source."
@@ -3091,7 +3262,7 @@
         "mode",
         "review"
       ],
-      "positive_text": "mode.aoa-evals.review\nReview bounded central proof\nInterpret one exact central source bundle or owner-routed proof object against admitted evidence and its source claim ceiling.\nreview-proof\nbounded-verdict\nadmitted-evidence\nclaim-limit\nпроверить-доказательство\nAn exact central source bundle, named result or verdict, source-linked report, or owner-routed proof object must be interpreted.",
+      "positive_text": "mode.aoa-evals-skills.review\nReview bounded central proof\nInterpret one exact central source bundle or owner-routed proof object against admitted evidence and its source claim ceiling.\nreview-proof\nbounded-verdict\nadmitted-evidence\nclaim-limit\nпроверить-доказательство\nAn exact central source bundle, named result or verdict, source-linked report, or owner-routed proof object must be interpreted.",
       "positive_tokens": [
         "admitted",
         "admitted-evidence",
@@ -3113,7 +3284,7 @@
         "limit",
         "linked",
         "mode",
-        "mode.aoa-evals.review",
+        "mode.aoa-evals-skills.review",
         "must",
         "named",
         "object",
@@ -3126,6 +3297,7 @@
         "review",
         "review-proof",
         "routed",
+        "skills",
         "source",
         "source-linked",
         "verdict",
@@ -3150,12 +3322,11 @@
         "проверит",
         "проверить-доказательство"
       ],
-      "search_text": "Exact source or owner-routed object with claim class, evidence posture, environment, and source claim limit.\nreview-request\ncentral-proof-review-request\nBounded review disposition plus any accepted owner change pressure, gates, and stop line.\nevolution-request\nproof-owner-evolution-request\nThe object is provenance-bearing but its accepted evidence or source-bundle link may be incomplete.\nNo exact source or owner-routed object exists, or the request asks to change owner proof source.\nAn exact central source bundle, named result or verdict, source-linked report, or owner-routed proof object must be interpreted.\navailable\nmode\nreview\nskills/aoa-evals/references/review.md\nlocal-mode\nretain\nThe mode has an independent ABI and DAG role but no separately admitted prompt trigger.\nexecutable\nInterpret one exact central source bundle or owner-routed proof object against admitted evidence and its source claim ceiling.\nnone\nReviewing without an exact source or owner-routed object.\nRunning readiness or validation commands for a contract-level authority question.\nWidening into unrelated sources after the disposition is fixed.\nbounded-judgment\nnot-applicable\nStop after one bounded review disposition and next route.\nStop expansion when a missing source or evidence gate already fixes the ceiling.\nexact owner source and only the material admitted evidence or owner-routed proof object\nThe disposition follows the source claim contract and admitted evidence.\nWeaker reports, readers, receipts, MCP results, and green commands do not strengthen the source.\nRemaining blind spots and the exact claim limit are explicit.\nmode.aoa-evals.review\nreview-proof\nbounded-verdict\nadmitted-evidence\nclaim-limit\nпроверить-доказательство\nmode\nevaluated\nchallenger\nactive\n0.1.23\ninternal\nnone\nexact source bundle or already owner-routed central proof object\nmaterial accepted evidence or source-linked pressure\nrepository and environment posture\ncentral-proof-review-request\ncandidate_only\nsupported_bounded\ninsufficient_evidence\ndefer\nowner_handoff\nno_change\nverified_bounded\nblocked\nbounded-proof-review\nproof-owner-evolution-request\nreferences/review.md\nreview.md\nauthored\naoa-evals\ncapabilities/families/central-proof.yaml\nskills/aoa-evals/references/contract.yaml\n0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58\nskill.aoa-evals\nskills/aoa-evals/references/review.md\nRequired input\nProcedure\nClaim limit\nResolve the exact owner source and only material admitted evidence; stop expanding weaker surfaces after the disposition is fixed.\nauthored\nskills/aoa-evals/references/review.md\ncapability-home-v0.1.23\naoa-evals\nreview-mode\nReturn one bounded proof disposition without allowing a later or generated surface to strengthen its source.\nforbidden\nread-owner-source\nread-admitted-evidence\ntreat-as-data\naoa-evals-central-proof\ncapabilities/families/central-proof.yaml\nReview bounded central proof\nauthored-procedure\n### Mode: review\n\n",
+      "search_text": "Exact source or owner-routed object with claim class, evidence posture, environment, and source claim limit.\nreview-request\ncentral-proof-review-request\nBounded review disposition plus any accepted owner change pressure, gates, and stop line.\nevolution-request\nproof-owner-evolution-request\nThe object is provenance-bearing but its accepted evidence or source-bundle link may be incomplete.\nNo exact source or owner-routed object exists, or the request asks to change owner proof source.\nAn exact central source bundle, named result or verdict, source-linked report, or owner-routed proof object must be interpreted.\navailable\nmode\nreview\nskills/aoa-evals-skills/references/review.md\nlocal-mode\nretain\nThe mode has an independent ABI and DAG role but no separately admitted prompt trigger.\nexecutable\nInterpret one exact central source bundle or owner-routed proof object against admitted evidence and its source claim ceiling.\nnone\nReviewing without an exact source or owner-routed object.\nRunning readiness or validation commands for a contract-level authority question.\nWidening into unrelated sources after the disposition is fixed.\nbounded-judgment\nnot-applicable\nStop after one bounded review disposition and next route.\nStop expansion when a missing source or evidence gate already fixes the ceiling.\nexact owner source and only the material admitted evidence or owner-routed proof object\nThe disposition follows the source claim contract and admitted evidence.\nWeaker reports, readers, receipts, MCP results, and green commands do not strengthen the source.\nRemaining blind spots and the exact claim limit are explicit.\nmode.aoa-evals-skills.review\nreview-proof\nbounded-verdict\nadmitted-evidence\nclaim-limit\nпроверить-доказательство\nmode\nevaluated\nchallenger\nactive\n0.2.0\ninternal\nnone\nexact source bundle or already owner-routed central proof object\nmaterial accepted evidence or source-linked pressure\nrepository and environment posture\ncentral-proof-review-request\ncandidate_only\nsupported_bounded\ninsufficient_evidence\ndefer\nowner_handoff\nno_change\nverified_bounded\nblocked\nbounded-proof-review\nproof-owner-evolution-request\nreferences/review.md\nreview.md\nauthored\naoa-evals\ncapabilities/families/central-proof.yaml\nskills/aoa-evals-skills/references/contract.yaml\n90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602\nskill.aoa-evals-skills\nskills/aoa-evals-skills/references/review.md\nRequired input\nProcedure\nClaim limit\nResolve the exact owner source and only material admitted evidence; stop expanding weaker surfaces after the disposition is fixed.\nauthored\nskills/aoa-evals-skills/references/review.md\ncapability-home-v0.2.0\naoa-evals\nreview-mode\nReturn one bounded proof disposition without allowing a later or generated surface to strengthen its source.\nforbidden\nread-owner-source\nread-admitted-evidence\ntreat-as-data\naoa-evals-central-proof\ncapabilities/families/central-proof.yaml\nReview bounded central proof\nauthored-procedure\n### Mode: review\n\n",
       "title": "Review bounded central proof",
       "tokens": [
-        "0.1.23",
-        "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58",
-        "23",
+        "0.2.0",
+        "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602",
         "abi",
         "accepted",
         "active",
@@ -3169,6 +3340,7 @@
         "aoa",
         "aoa-evals",
         "aoa-evals-central-proof",
+        "aoa-evals-skills",
         "applicable",
         "asks",
         "authored",
@@ -3187,7 +3359,7 @@
         "candidate",
         "capabilities",
         "capability",
-        "capability-home-v0.1.23",
+        "capability-home-v0.2.0",
         "ceiling",
         "central",
         "central-proof-review-request",
@@ -3253,7 +3425,7 @@
         "md",
         "missing",
         "mode",
-        "mode.aoa-evals.review",
+        "mode.aoa-evals-skills.review",
         "must",
         "named",
         "next",
@@ -3306,7 +3478,7 @@
         "running",
         "separately",
         "skill",
-        "skill.aoa-evals",
+        "skill.aoa-evals-skills",
         "skills",
         "source",
         "source-bundle",
@@ -3339,9 +3511,8 @@
     },
     {
       "contract_tokens": [
-        "0.1.23",
-        "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58",
-        "23",
+        "0.2.0",
+        "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602",
         "abi",
         "acceptance",
         "active",
@@ -3354,6 +3525,7 @@
         "aoa",
         "aoa-evals",
         "aoa-evals-central-proof",
+        "aoa-evals-skills",
         "applicable",
         "application",
         "authored",
@@ -3370,7 +3542,7 @@
         "but",
         "capabilities",
         "capability",
-        "capability-home-v0.1.23",
+        "capability-home-v0.2.0",
         "catalog",
         "ceiling",
         "central",
@@ -3426,7 +3598,7 @@
         "may",
         "md",
         "mode",
-        "mode.aoa-evals.select",
+        "mode.aoa-evals-skills.select",
         "named",
         "navigation",
         "nearby",
@@ -3480,7 +3652,7 @@
         "selection",
         "separately",
         "skill",
-        "skill.aoa-evals",
+        "skill.aoa-evals-skills",
         "skills",
         "source",
         "source-contract",
@@ -3503,7 +3675,7 @@
         "центральн"
       ],
       "description": "Select the strongest fitting central source bundle for one bounded proof question without executing or reviewing it.",
-      "id": "mode.aoa-evals.select",
+      "id": "mode.aoa-evals-skills.select",
       "kind": "mode",
       "negative_phrases": [
         "An exact source bundle or owner-routed proof object is already named, or the need is repository-local eval application/design."
@@ -3532,7 +3704,7 @@
         "mode",
         "select"
       ],
-      "positive_text": "mode.aoa-evals.select\nSelect central proof source\nSelect the strongest fitting central source bundle for one bounded proof question without executing or reviewing it.\nselect-central-eval\nexact-fit\npartial-fit\nproof-source\nвыбрать-центральный-eval\nNo exact central source bundle has been selected for the bounded proof question.",
+      "positive_text": "mode.aoa-evals-skills.select\nSelect central proof source\nSelect the strongest fitting central source bundle for one bounded proof question without executing or reviewing it.\nselect-central-eval\nexact-fit\npartial-fit\nproof-source\nвыбрать-центральный-eval\nNo exact central source bundle has been selected for the bounded proof question.",
       "positive_tokens": [
         "aoa",
         "been",
@@ -3548,7 +3720,7 @@
         "fitting",
         "has",
         "mode",
-        "mode.aoa-evals.select",
+        "mode.aoa-evals-skills.select",
         "no",
         "one",
         "partial",
@@ -3560,6 +3732,7 @@
         "select",
         "select-central-eval",
         "selected",
+        "skills",
         "source",
         "strongest",
         "without",
@@ -3584,12 +3757,11 @@
         "выбрать-центральный-eval",
         "центральн"
       ],
-      "search_text": "Object, bounded claim class, acceptance target, and known evidence or comparison posture.\nproof-question\ncentral-proof-question\nSelection disposition with exact source when available, rejected alternatives, evidence posture, and claim limit.\nreview-request\ncentral-proof-review-request\nA nearby bundle covers the topic but its object, claim class, baseline, or environment may not fit.\nAn exact source bundle or owner-routed proof object is already named, or the need is repository-local eval application/design.\nNo exact central source bundle has been selected for the bounded proof question.\navailable\nmode\nselect\nskills/aoa-evals/references/select.md\nlocal-mode\nretain\nThe mode has an independent ABI and DAG role but no separately admitted prompt trigger.\nexecutable\nSelect the strongest fitting central source bundle for one bounded proof question without executing or reviewing it.\nnone\nSelecting by keyword alone.\nExecuting or reviewing evidence inside selection.\nLetting a catalog or generated reader outrank the source contract.\nbounded-judgment\nnot-applicable\nStop after one selection disposition and next route.\nbundled catalog and source-contract packets\nThe chosen source matches object, claim, baseline, environment, and evidence posture.\nRejected nearest alternatives and the claim limit are explicit.\nmode.aoa-evals.select\nselect-central-eval\nexact-fit\npartial-fit\nproof-source\nвыбрать-центральный-eval\nmode\nevaluated\nchallenger\nactive\n0.1.23\ninternal\nnone\nbounded proof question\nobject under evaluation\nclaim class\nacceptance target\nknown evidence or comparison posture\ncentral-proof-question\nexact_fit\npartial_fit\nno_fit\nnot_applicable\nblocked\ncentral-eval-selection\ncentral-proof-review-request\nreferences/select.md\nselect.md\nauthored\naoa-evals\ncapabilities/families/central-proof.yaml\nskills/aoa-evals/references/contract.yaml\n0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58\nskill.aoa-evals\nskills/aoa-evals/references/select.md\nRequired input\nProcedure\nClaim limit\nUse the installed source-return handle and bounded catalog packets before any owner repository navigation.\nauthored\nskills/aoa-evals/references/select.md\ncapability-home-v0.1.23\naoa-evals\nselect-mode\nReturn one exact, partial, no-fit, not-applicable, or blocked central selection with rejected alternatives and claim ceiling.\nforbidden\nread-owner-source\nread-admitted-evidence\ntreat-as-data\naoa-evals-central-proof\ncapabilities/families/central-proof.yaml\nSelect central proof source\nauthored-procedure\n### Mode: select\n\n",
+      "search_text": "Object, bounded claim class, acceptance target, and known evidence or comparison posture.\nproof-question\ncentral-proof-question\nSelection disposition with exact source when available, rejected alternatives, evidence posture, and claim limit.\nreview-request\ncentral-proof-review-request\nA nearby bundle covers the topic but its object, claim class, baseline, or environment may not fit.\nAn exact source bundle or owner-routed proof object is already named, or the need is repository-local eval application/design.\nNo exact central source bundle has been selected for the bounded proof question.\navailable\nmode\nselect\nskills/aoa-evals-skills/references/select.md\nlocal-mode\nretain\nThe mode has an independent ABI and DAG role but no separately admitted prompt trigger.\nexecutable\nSelect the strongest fitting central source bundle for one bounded proof question without executing or reviewing it.\nnone\nSelecting by keyword alone.\nExecuting or reviewing evidence inside selection.\nLetting a catalog or generated reader outrank the source contract.\nbounded-judgment\nnot-applicable\nStop after one selection disposition and next route.\nbundled catalog and source-contract packets\nThe chosen source matches object, claim, baseline, environment, and evidence posture.\nRejected nearest alternatives and the claim limit are explicit.\nmode.aoa-evals-skills.select\nselect-central-eval\nexact-fit\npartial-fit\nproof-source\nвыбрать-центральный-eval\nmode\nevaluated\nchallenger\nactive\n0.2.0\ninternal\nnone\nbounded proof question\nobject under evaluation\nclaim class\nacceptance target\nknown evidence or comparison posture\ncentral-proof-question\nexact_fit\npartial_fit\nno_fit\nnot_applicable\nblocked\ncentral-eval-selection\ncentral-proof-review-request\nreferences/select.md\nselect.md\nauthored\naoa-evals\ncapabilities/families/central-proof.yaml\nskills/aoa-evals-skills/references/contract.yaml\n90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602\nskill.aoa-evals-skills\nskills/aoa-evals-skills/references/select.md\nRequired input\nProcedure\nClaim limit\nUse the installed source-return handle and bounded catalog packets before any owner repository navigation.\nauthored\nskills/aoa-evals-skills/references/select.md\ncapability-home-v0.2.0\naoa-evals\nselect-mode\nReturn one exact, partial, no-fit, not-applicable, or blocked central selection with rejected alternatives and claim ceiling.\nforbidden\nread-owner-source\nread-admitted-evidence\ntreat-as-data\naoa-evals-central-proof\ncapabilities/families/central-proof.yaml\nSelect central proof source\nauthored-procedure\n### Mode: select\n\n",
       "title": "Select central proof source",
       "tokens": [
-        "0.1.23",
-        "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58",
-        "23",
+        "0.2.0",
+        "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602",
         "abi",
         "acceptance",
         "active",
@@ -3602,6 +3774,7 @@
         "aoa",
         "aoa-evals",
         "aoa-evals-central-proof",
+        "aoa-evals-skills",
         "applicable",
         "application",
         "authored",
@@ -3618,7 +3791,7 @@
         "but",
         "capabilities",
         "capability",
-        "capability-home-v0.1.23",
+        "capability-home-v0.2.0",
         "catalog",
         "ceiling",
         "central",
@@ -3674,7 +3847,7 @@
         "may",
         "md",
         "mode",
-        "mode.aoa-evals.select",
+        "mode.aoa-evals-skills.select",
         "named",
         "navigation",
         "nearby",
@@ -3728,7 +3901,7 @@
         "selection",
         "separately",
         "skill",
-        "skill.aoa-evals",
+        "skill.aoa-evals-skills",
         "skills",
         "source",
         "source-contract",
@@ -3754,10 +3927,9 @@
     },
     {
       "contract_tokens": [
-        "0.1.23",
+        "0.2.0",
         "0247",
-        "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58",
-        "23",
+        "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602",
         "abyss",
         "abyss-stack",
         "acceptance",
@@ -3781,6 +3953,7 @@
         "aoa-eval",
         "aoa-evals",
         "aoa-evals-central-proof",
+        "aoa-evals-skills",
         "aoa-memo",
         "aoa-session-memory-global-route",
         "aoa-skills",
@@ -3810,7 +3983,6 @@
         "bounded-proof-review",
         "bundle",
         "bundled",
-        "bundles",
         "callable",
         "candidate",
         "candidate-as-bundle",
@@ -3819,7 +3991,7 @@
         "canonical",
         "capabilities",
         "capability",
-        "capability-home-v0.1.23",
+        "capability-home-v0.2.0",
         "central",
         "central-eval-selection",
         "central-proof",
@@ -3857,7 +4029,6 @@
         "design",
         "disposition",
         "docs",
-        "drift",
         "effect",
         "effects",
         "engineering",
@@ -3881,7 +4052,7 @@
         "executable",
         "explicit",
         "families",
-        "first",
+        "family",
         "fit",
         "fixed",
         "forbidden",
@@ -3897,6 +4068,7 @@
         "graph",
         "green",
         "green-as-proof",
+        "hand",
         "handoff",
         "hands",
         "hands-off-to",
@@ -3966,6 +4138,7 @@
         "only",
         "operation",
         "ordinary",
+        "organ",
         "origin",
         "out",
         "output",
@@ -4005,12 +4178,10 @@
         "read",
         "read-admitted-evidence",
         "read-owner-source",
-        "reader",
         "readers",
         "readiness",
         "readiness-as-verdict",
         "reading",
-        "reads",
         "rebuild",
         "receipt",
         "receipts",
@@ -4058,7 +4229,7 @@
         "session",
         "session-hit",
         "skill",
-        "skill.aoa-evals",
+        "skill.aoa-evals-skills",
         "skill.md",
         "skills",
         "skipped",
@@ -4088,16 +4259,13 @@
         "test",
         "three",
         "through",
-        "tool",
         "treat",
         "treat-as-data",
         "treating",
         "trigger",
-        "turn",
         "typed",
         "uncertainty",
         "under",
-        "use",
         "v0",
         "v1",
         "verdict",
@@ -4119,8 +4287,8 @@
         "центральн",
         "центральное-доказательство"
       ],
-      "description": "Central AoA proof or lifecycle: first tool turn reads only this SKILL.md. Use to select, review, or evolve source bundles, named eval results or verdicts, source-linked reports, Eval Forge owner review, or source/reader drift. Use aoa-eval for local selection, application, intake/design, or session-hit classification. Candidates, readiness checks, receipts, generated readers or outputs, MCP outputs, and green commands are not proof.",
-      "id": "skill.aoa-evals",
+      "description": "Route the aoa-evals skill family for central proof selection, review, evolution, named results or verdicts, source-linked reports, Eval Forge owner review, and proof lifecycle. Hand repository-local eval selection, application, intake/design, or session-hit classification to aoa-eval. Candidates, readiness checks, receipts, generated readers, MCP outputs, and green commands are not proof.",
+      "id": "skill.aoa-evals-skills",
       "kind": "skill",
       "negative_phrases": [
         "The task is repository-local eval selection or application, local no-fit intake/design, session-hit classification, an ordinary test, or generic analytics."
@@ -4149,8 +4317,7 @@
         "test"
       ],
       "package_tokens": [
-        "0.1.23",
-        "23",
+        "0.2.0",
         "abi",
         "about",
         "absence",
@@ -4187,6 +4354,7 @@
         "aoa-decision",
         "aoa-eval",
         "aoa-evals",
+        "aoa-evals-skills",
         "aoa-memo",
         "aoa-session-memory-global-route",
         "aoa-skill-source.json",
@@ -4228,7 +4396,6 @@
         "boundary",
         "bounded",
         "bounded-judgment-read-only",
-        "bounded-proof",
         "bounded-proof-review",
         "broaden",
         "build",
@@ -4402,6 +4569,7 @@
         "fallback",
         "false",
         "falsely",
+        "family",
         "federation",
         "federation-parent",
         "fetch",
@@ -4703,7 +4871,6 @@
         "readiness",
         "readiness-as-verdict",
         "reading",
-        "reads",
         "ready",
         "rebuild",
         "rebuilt",
@@ -4735,6 +4902,7 @@
         "reporting",
         "reports",
         "repository",
+        "repository-local",
         "request",
         "requested",
         "require",
@@ -4816,6 +4984,7 @@
         "silently",
         "single",
         "skill",
+        "skill-family",
         "skill.md",
         "skills",
         "skipped",
@@ -4941,16 +5110,16 @@
         "yaml",
         "zero"
       ],
-      "positive_text": "skill.aoa-evals\naoa-evals owner router\nCentral AoA proof or lifecycle: first tool turn reads only this SKILL.md. Use to select, review, or evolve source bundles, named eval results or verdicts, source-linked reports, Eval Forge owner review, or source/reader drift. Use aoa-eval for local selection, application, intake/design, or session-hit classification. Candidates, readiness checks, receipts, generated readers or outputs, MCP outputs, and green commands are not proof.\ncentral-proof\neval-verdict\nsource-bundle\nproof-lifecycle\neval-forge\nbounded-proof\nцентральное-доказательство\nвердикт\nThe request concerns central proof meaning, a central source bundle, a named eval result or verdict, an owner-routed proof object, or an aoa-evals lifecycle decision.",
+      "positive_text": "skill.aoa-evals-skills\naoa-evals-skills organ router\nRoute the aoa-evals skill family for central proof selection, review, evolution, named results or verdicts, source-linked reports, Eval Forge owner review, and proof lifecycle. Hand repository-local eval selection, application, intake/design, or session-hit classification to aoa-eval. Candidates, readiness checks, receipts, generated readers, MCP outputs, and green commands are not proof.\ncentral-proof\neval-verdict\nsource-bundle\nproof-lifecycle\neval-forge\nbounded-proof\nцентральное-доказательство\nвердикт\nThe request concerns central proof meaning, a central source bundle, a named eval result or verdict, an owner-routed proof object, or an aoa-evals lifecycle decision.",
       "positive_tokens": [
         "aoa",
         "aoa-eval",
         "aoa-evals",
+        "aoa-evals-skills",
         "application",
         "bounded",
         "bounded-proof",
         "bundle",
-        "bundles",
         "candidates",
         "central",
         "central-proof",
@@ -4960,58 +5129,54 @@
         "concerns",
         "decision",
         "design",
-        "drift",
         "eval",
         "eval-forge",
         "eval-verdict",
         "evals",
-        "evolve",
-        "first",
+        "evolution",
+        "family",
         "forge",
         "generated",
         "green",
+        "hand",
         "hit",
         "intake",
         "lifecycle",
         "linked",
         "local",
         "mcp",
-        "md",
         "meaning",
         "named",
         "not",
         "object",
-        "only",
+        "organ",
         "outputs",
         "owner",
         "owner-routed",
         "proof",
         "proof-lifecycle",
-        "reader",
         "readers",
         "readiness",
-        "reads",
         "receipts",
         "reports",
+        "repository",
+        "repository-local",
         "request",
         "result",
         "results",
         "review",
+        "route",
         "routed",
         "router",
-        "select",
         "selection",
         "session",
         "session-hit",
         "skill",
-        "skill.aoa-evals",
-        "skill.md",
+        "skill.aoa-evals-skills",
+        "skills",
         "source",
         "source-bundle",
         "source-linked",
-        "tool",
-        "turn",
-        "use",
         "verdict",
         "verdicts",
         "вердикт",
@@ -5040,13 +5205,12 @@
         "центральн",
         "центральное-доказательство"
       ],
-      "search_text": "One bounded central-proof intent with object, claim class, acceptance target, evidence posture, authority, and requested effects.\ncentral-proof-request\ncentral-proof-request\nOne select, review, evolve, handoff, or blocked result with refs, effects, claim limit, and stop line.\ncentral-proof-result\ncentral-proof-mode-result\nA provenance-bearing report or candidate may still lack an admitted central source contract and evidence.\nThe task is repository-local eval selection or application, local no-fit intake/design, session-hit classification, an ordinary test, or generic analytics.\nThe request concerns central proof meaning, a central source bundle, a named eval result or verdict, an owner-routed proof object, or an aoa-evals lifecycle decision.\navailable\nskill\nroute-central-proof\nskills/aoa-evals/SKILL.md\nindependent-callable\nretain\nManual isolated, negative, held-out, and coexistence evidence admits one central-proof router while keeping its three modes internal.\nexecutable\nCentral AoA proof or lifecycle: first tool turn reads only this SKILL.md. Use to select, review, or evolve source bundles, named eval results or verdicts, source-linked reports, Eval Forge owner review, or source/reader drift. Use aoa-eval for local selection, application, intake/design, or session-hit classification. Candidates, readiness checks, receipts, generated readers or outputs, MCP outputs, and green commands are not proof.\nnone\nrepo-write\ngenerated-write\nhuman-decision\nTreating readiness or green output as proof.\nRouting local eval work into central proof ownership.\nLoading all modes or forcing a fixed workflow.\nMutating owner source without explicit authority and human confirmation.\nbounded-judgment\nconditionally-reversible\nStop after one typed owner result, handoff, or blocker.\nStop before proof strengthening when source or evidence is insufficient.\nbundled source-return packet resource\nexact owner source and admitted evidence for the selected mode\nThe selected mode matches the requested operation.\nStrongest source and evidence refs outrank every generated or routing surface.\nActual effects and the exact claim limit are explicit.\nskill.aoa-evals\ncentral-proof\neval-verdict\nsource-bundle\nproof-lifecycle\neval-forge\nbounded-proof\nцентральное-доказательство\nвердикт\nskill\nevaluated\nchallenger\nactive\n0.1.23\nadvertised\nOwner source remains canonical and internally consistent.\nGenerated readers remain weaker and reproducible from owner source.\nRevert only the authorized owner-source change through its owner workflow.\nRebuild derived projections only after source recovery and verification.\nauthored\naoa-evals\nskills/aoa-evals/SKILL.md\nskills/aoa-evals\nevals/**/EVAL.md\nevals/**/eval.yaml\nadmitted bundle evidence\nA later or derived surface cannot strengthen its source proof contract.\ncandidates\nreadiness checks\nreports without accepted evidence\nreceipts\ngenerated readers\nMCP results\nKAG nodes\ngreen commands\nselected mode and bounded proof question\nobject under evaluation and claim class\norigin owner and proof owner\nstrongest source and evidence refs\nweaker surfaces inspected\nrelevant fit, freshness, environment, baseline, lifecycle, and blind spots\none allowed disposition\nactual effects and verification\nskipped checks and remaining uncertainty\nnext owner route\nexact claim limit and stop line\nowner-gated-source-change\nbounded-judgment-read-only\nbounded-judgment-read-only\npositive trigger\nnegative trigger\nheld-out wording\ncoexistence\nbounded effects\nmaterial model change\nhost or workflow change\nsource bundle or skill change\nskills/aoa-evals\nchallenger\nadmitted\naoa-evals\naoa-evals\n0.1.23\nauthorized owner source change\ndeclared projection rebuild after source change\naccepted owner review or stable no-fit need\nresolved owner\nacceptance criteria\nexplicit effect authority\nrequired human confirmation\nproof-owner-evolution-request\nno_change\nowner_handoff\nblocked\nverified_bounded\nproof-owner-evolution\nproof-owner-evolution-result\nreferences/evolve.md\nevolve.md\nnone\nexact source bundle or already owner-routed central proof object\nmaterial accepted evidence or source-linked pressure\nrepository and environment posture\ncentral-proof-review-request\ncandidate_only\nsupported_bounded\ninsufficient_evidence\ndefer\nowner_handoff\nno_change\nverified_bounded\nblocked\nbounded-proof-review\nproof-owner-evolution-request\nreferences/review.md\nreview.md\nnone\nbounded proof question\nobject under evaluation\nclaim class\nacceptance target\nknown evidence or comparison posture\ncentral-proof-question\nexact_fit\npartial_fit\nno_fit\nnot_applicable\nblocked\ncentral-eval-selection\ncentral-proof-review-request\nreferences/select.md\nselect.md\naoa-eval\naoa-decision\naoa-session-memory-global-route\ngreen-as-proof\nreadiness-as-verdict\ncandidate-as-bundle\nreport-as-source\ngenerated-as-authority\nimplicit-maturity-promotion\naoa-skills:engineering.evaluation.central-proof\naoa-eval\norigin owner\naoa-skills\naoa-memo\naoa-stats\nabyss-stack\ninspected stronger owner\ncentral-proof-review-request\nan exact central source or owner-routed proof object was selected\nselect\nhands-off-to\nreview\nproof-owner-evolution-request\nbounded owner change pressure survives review and the task asks for mutation\nreview\nhands-off-to\nevolve\naoa-evals\naoa_owner_skill_contract_v1\none exact, partial, or no-fit selection\none bounded review disposition\none owner-authorized source change or no-change result\none owner handoff or blocker\nscripts/eval_contract_packet.py\nskills/aoa-evals/references/contract.yaml\n0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58\naoa-evals\nskills/aoa-evals/SKILL.md\nApplicability preflight\nStart\nOwner boundary\nComposition\nStops\nResolve the installed source receipt or canonical owner home before reading owner-relative resources; never infer proof from the generated capability graph.\nauthored\nskills/aoa-evals/SKILL.md\ncapability-home-v0.1.23\naoa-evals\nowner-skill-procedure\nauthored\ndocs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md\nAOA-EV-D-0247\naoa-evals\nadmission-evidence\nRoute one bounded central-proof question to the smallest owner mode while preserving source authority and claim limits.\nforbidden\nread-owner-source\nread-admitted-evidence\npropose-owner-change\napply-confirmed-owner-change\ntreat-as-data\naoa-evals-central-proof\ncapabilities/families/central-proof.yaml\naoa-evals owner router\nauthored-procedure\n---\nname: aoa-evals\ndescription: \"Central AoA proof or lifecycle: first tool turn reads only this SKILL.md. Use to select, review, or evolve source bundles, named eval results or verdicts, source-linked reports, Eval Forge owner review, or source/reader drift. Use aoa-eval for local selection, application, intake/design, or session-hit classification. Candidates, readiness checks, receipts, generated readers or outputs, MCP outputs, and green commands are not proof.\"\n---\n\n# aoa-evals\n\nRoute one central bounded-proof question without letting a catalog, green\ncommand, readiness check, candidate, report, receipt, generated reader, MCP\nresult, or KAG node outrank its source bundle and admitted evidence.\n\n## Applicability preflight\n\nBefore resolving the central owner, inspect only the request:\n\n- if it asks to classify supplied or retrieved session hits against an eval\n  trigger, route a local no-fit, design a local suite, or select/apply a\n  repository eval, return `owner_handoff` to `aoa-eval`\n- a packet being closed, reviewed, or provenance-bearing does not make it a\n  central proof object\n- begin this bundle only when the task already concerns central proof meaning,\n  a central source bundle, a named eval result or verdict, an owner-routed\n  proof object, or an `aoa-evals` lifecycle decision\n\nDo not inspect the task workspace, search for an owner checkout, probe supplied\npaths, or run `pwd`, `rg`, `find`, or `test` for navigation after this bundle\nloads. Read the contract, source-return rule, and selected mode first; then use\nthe declared bundled resource as the first navigation action.\n\n## Start\n\n1. The first tool turn must read only this `SKILL.md`. Record `<bundle_dir>` as\n   its absolute containing directory. If workspace inspection or search was\n   combined with that read, stop the attempt and restart in a fresh invocation;\n   later compliance cannot repair the unobserved package-first gate.\n2. Read `references/contract.yaml` and choose exactly one internal mode:\n\n   | Mode | Select when | Read |\n   | --- | --- | --- |\n   | `select` | No exact central source bundle has been selected for the bounded proof need. | `references/select.md` |\n   | `review` | A named central bundle, result, verdict, source-linked report, or already owner-routed proof object must be interpreted. | `references/review.md` |\n   | `evolve` | The request asks to add, change, promote, supersede, or retire a central source, lifecycle, comparison, or chooser surface, even when a required gate may later block the operation. | `references/evolve.md` |\n\n   Select by the requested operation, not by whether its gates have already\n   passed. Missing review, authority, or confirmation blocks `evolve`; it does\n   not turn a requested owner change into `review`.\n\n3. Read `references/source-return.md` and only the selected mode reference to\n   EOF. Do not load the other mode procedures merely because their vocabulary\n   appears nearby.\n4. Follow the selected procedure and return the common output ABI from\n   `references/contract.yaml`.\n\nKeep the modes internal until held-out manual work proves that splitting them\nimproves trigger precision, ABI, composition, and outcomes.\n\n## Owner boundary\n\n- Source `EVAL.md`, `eval.yaml`, and admitted evidence own proof meaning.\n- This skill owns procedure only. Its source receipt, catalog, scores, reports,\n  readiness surfaces, receipts, generated readers, MCP, KAG, and green checks\n  remain weaker.\n- Use shared `aoa-eval` for cross-repository selection, exact local\n  application, owner-local no-fit intake or design, and eval-trigger\n  classification of supplied or retrieved session hits. Begin here only at\n  central `aoa-evals` proof meaning or an owner decision.\n- Technique references are optional bundle-local lineage, never a runtime\n  prerequisite.\n- `select` and `review` are read-only. `evolve` may change owner source only\n  with explicit authority and required human confirmation.\n\n## Composition\n\nBuild only the task-local edges the request needs:\n\n```text\norigin need or candidate evidence\n  -> source proof contract and admitted evidence\n  -> execution support and reviewed result when material\n  -> derived readers or consumers when material\n```\n\n`select` may hand its exact source contract to `review`; an accepted `review`\nmay later hand off to `evolve`. Do not force a three-stage workflow. A later\nnode cannot repair or strengthen an earlier source or evidence gap.\n\nAn eval candidate ID beginning with `session:` remains an `aoa-evals`\nowner-routed object. Do not load session-memory guidance merely because of that\nprefix. Compose with session-memory only when the task actually requires raw,\nsegment, session, or retrieval evidence beyond the supplied owner object.\n\n## Stops\n\nStop after one selection, bounded review, authorized source-first change,\nno-change result, owner handoff, or explicit blocker. Never execute an eval\ninside `select`, mutate inside `review`, infer owner acceptance, or treat a\nschema-valid packet or valid DAG as proof.\n\nKeep raw trials, temporary rubrics, task-local DAGs, session notes, runtime\nstate, and test scaffolding outside the owner skill home.\n\nschema_version: aoa_owner_skill_contract_v1\n\nidentity:\n  name: aoa-evals\n  owner: aoa-evals\n  canonical_source: skills/aoa-evals\n  version: 0.1.23\n  lifecycle: admitted\n  health: challenger\n\nauthority:\n  procedure_owner: skills/aoa-evals\n  proof_meaning: [evals/**/EVAL.md, evals/**/eval.yaml, admitted bundle evidence]\n  weaker_surfaces: [candidates, readiness checks, reports without accepted evidence, receipts, generated readers, MCP results, KAG nodes, green commands]\n  trust_rule: A later or derived surface cannot strengthen its source proof contract.\n\nfreedom:\n  select: bounded-judgment-read-only\n  review: bounded-judgment-read-only\n  evolve: owner-gated-source-change\n\nmodes:\n  select:\n    input_abi: central-proof-question\n    output_abi: central-proof-review-request\n    reference: select.md\n    input: [bounded proof question, object under evaluation, claim class, acceptance target, known evidence or comparison posture]\n    output:\n      type: central-eval-selection\n      dispositions: [exact_fit, partial_fit, no_fit, not_applicable, blocked]\n    effects: none\n    procedure: references/select.md\n  review:\n    input_abi: central-proof-review-request\n    output_abi: proof-owner-evolution-request\n    reference: review.md\n    input: [exact source bundle or already owner-routed central proof object, material accepted evidence or source-linked pressure, repository and environment posture]\n    output:\n      type: bounded-proof-review\n      dispositions: [candidate_only, supported_bounded, insufficient_evidence, defer, owner_handoff, no_change, verified_bounded, blocked]\n    effects: none\n    procedure: references/review.md\n  evolve:\n    input_abi: proof-owner-evolution-request\n    output_abi: proof-owner-evolution-result\n    reference: evolve.md\n    input: [accepted owner review or stable no-fit need, resolved owner, acceptance criteria, explicit effect authority, required human confirmation]\n    output:\n      type: proof-owner-evolution\n      dispositions: [no_change, owner_handoff, blocked, verified_bounded]\n    effects: [authorized owner source change, declared projection rebuild after source change]\n    procedure: references/evolve.md\n\ncommon_output_abi:\n  required:\n    - selected mode and bounded proof question\n    - object under evaluation and claim class\n    - origin owner and proof owner\n    - strongest source and evidence refs\n    - weaker surfaces inspected\n    - relevant fit, freshness, environment, baseline, lifecycle, and blind spots\n    - one allowed disposition\n    - actual effects and verification\n    - skipped checks and remaining uncertainty\n    - next owner route\n    - exact claim limit and stop line\n\nrelations:\n  primary-capability-parent: aoa-evals\n  federation-parent: aoa-skills:engineering.evaluation.central-proof\n  internal-dag:\n    - {kind: hands-off-to, from: select, to: review, abi: central-proof-review-request, condition: an exact central source or owner-routed proof object was selected}\n    - {kind: hands-off-to, from: review, to: evolve, abi: proof-owner-evolution-request, condition: bounded owner change pressure survives review and the task asks for mutation}\n  composes-with: [aoa-eval, aoa-decision, aoa-session-memory-global-route]\n  hands-off-to: [aoa-eval, origin owner, aoa-skills, aoa-memo, aoa-stats, abyss-stack, inspected stronger owner]\n  conflicts-with: [green-as-proof, readiness-as-verdict, candidate-as-bundle, report-as-source, generated-as-authority, implicit-maturity-promotion]\n\ntool_requirements:\n  fixed_tool_dependency: false\n  techniques_runtime_dependency: false\n  bundled_read_resource: scripts/eval_contract_packet.py\n\ntermination:\n  - one exact, partial, or no-fit selection\n  - one bounded review disposition\n  - one owner-authorized source change or no-change result\n  - one owner handoff or blocker\n\nhealth:\n  recheck_after: [material model change, host or workflow change, source bundle or skill change]\n  manual_cases: [positive trigger, negative trigger, held-out wording, coexistence, bounded effects]\n\n---\nname: aoa-evals\ndescription: \"Central AoA proof or lifecycle: first tool turn reads only this SKILL.md. Use to select, review, or evolve source bundles, named eval results or verdicts, source-linked reports, Eval Forge owner review, or source/reader drift. Use aoa-eval for local selection, application, intake/design, or session-hit classification. Candidates, readiness checks, receipts, generated readers or outputs, MCP outputs, and green commands are not proof.\"\n---\n\n# aoa-evals\n\nRoute one central bounded-proof question without letting a catalog, green\ncommand, readiness check, candidate, report, receipt, generated reader, MCP\nresult, or KAG node outrank its source bundle and admitted evidence.\n\n## Applicability preflight\n\nBefore resolving the central owner, inspect only the request:\n\n- if it asks to classify supplied or retrieved session hits against an eval\n  trigger, route a local no-fit, design a local suite, or select/apply a\n  repository eval, return `owner_handoff` to `aoa-eval`\n- a packet being closed, reviewed, or provenance-bearing does not make it a\n  central proof object\n- begin this bundle only when the task already concerns central proof meaning,\n  a central source bundle, a named eval result or verdict, an owner-routed\n  proof object, or an `aoa-evals` lifecycle decision\n\nDo not inspect the task workspace, search for an owner checkout, probe supplied\npaths, or run `pwd`, `rg`, `find`, or `test` for navigation after this bundle\nloads. Read the contract, source-return rule, and selected mode first; then use\nthe declared bundled resource as the first navigation action.\n\n## Start\n\n1. The first tool turn must read only this `SKILL.md`. Record `<bundle_dir>` as\n   its absolute containing directory. If workspace inspection or search was\n   combined with that read, stop the attempt and restart in a fresh invocation;\n   later compliance cannot repair the unobserved package-first gate.\n2. Read `references/contract.yaml` and choose exactly one internal mode:\n\n   | Mode | Select when | Read |\n   | --- | --- | --- |\n   | `select` | No exact central source bundle has been selected for the bounded proof need. | `references/select.md` |\n   | `review` | A named central bundle, result, verdict, source-linked report, or already owner-routed proof object must be interpreted. | `references/review.md` |\n   | `evolve` | The request asks to add, change, promote, supersede, or retire a central source, lifecycle, comparison, or chooser surface, even when a required gate may later block the operation. | `references/evolve.md` |\n\n   Select by the requested operation, not by whether its gates have already\n   passed. Missing review, authority, or confirmation blocks `evolve`; it does\n   not turn a requested owner change into `review`.\n\n3. Read `references/source-return.md` and only the selected mode reference to\n   EOF. Do not load the other mode procedures merely because their vocabulary\n   appears nearby.\n4. Follow the selected procedure and return the common output ABI from\n   `references/contract.yaml`.\n\nKeep the modes internal until held-out manual work proves that splitting them\nimproves trigger precision, ABI, composition, and outcomes.\n\n## Owner boundary\n\n- Source `EVAL.md`, `eval.yaml`, and admitted evidence own proof meaning.\n- This skill owns procedure only. Its source receipt, catalog, scores, reports,\n  readiness surfaces, receipts, generated readers, MCP, KAG, and green checks\n  remain weaker.\n- Use shared `aoa-eval` for cross-repository selection, exact local\n  application, owner-local no-fit intake or design, and eval-trigger\n  classification of supplied or retrieved session hits. Begin here only at\n  central `aoa-evals` proof meaning or an owner decision.\n- Technique references are optional bundle-local lineage, never a runtime\n  prerequisite.\n- `select` and `review` are read-only. `evolve` may change owner source only\n  with explicit authority and required human confirmation.\n\n## Composition\n\nBuild only the task-local edges the request needs:\n\n```text\norigin need or candidate evidence\n  -> source proof contract and admitted evidence\n  -> execution support and reviewed result when material\n  -> derived readers or consumers when material\n```\n\n`select` may hand its exact source contract to `review`; an accepted `review`\nmay later hand off to `evolve`. Do not force a three-stage workflow. A later\nnode cannot repair or strengthen an earlier source or evidence gap.\n\nAn eval candidate ID beginning with `session:` remains an `aoa-evals`\nowner-routed object. Do not load session-memory guidance merely because of that\nprefix. Compose with session-memory only when the task actually requires raw,\nsegment, session, or retrieval evidence beyond the supplied owner object.\n\n## Stops\n\nStop after one selection, bounded review, authorized source-first change,\nno-change result, owner handoff, or explicit blocker. Never execute an eval\ninside `select`, mutate inside `review`, infer owner acceptance, or treat a\nschema-valid packet or valid DAG as proof.\n\nKeep raw trials, temporary rubrics, task-local DAGs, session notes, runtime\nstate, and test scaffolding outside the owner skill home.\n\ninterface:\n  display_name: \"AoA Evals\"\n  short_description: \"Own central eval proof and lifecycle\"\n  default_prompt: \"Use $aoa-evals to select, review, or evolve bounded proof through its owner source and claim limits.\"\n\npolicy:\n  allow_implicit_invocation: true\n\nschema_version: aoa_owner_skill_contract_v1\n\nidentity:\n  name: aoa-evals\n  owner: aoa-evals\n  canonical_source: skills/aoa-evals\n  version: 0.1.23\n  lifecycle: admitted\n  health: challenger\n\nauthority:\n  procedure_owner: skills/aoa-evals\n  proof_meaning: [evals/**/EVAL.md, evals/**/eval.yaml, admitted bundle evidence]\n  weaker_surfaces: [candidates, readiness checks, reports without accepted evidence, receipts, generated readers, MCP results, KAG nodes, green commands]\n  trust_rule: A later or derived surface cannot strengthen its source proof contract.\n\nfreedom:\n  select: bounded-judgment-read-only\n  review: bounded-judgment-read-only\n  evolve: owner-gated-source-change\n\nmodes:\n  select:\n    input_abi: central-proof-question\n    output_abi: central-proof-review-request\n    reference: select.md\n    input: [bounded proof question, object under evaluation, claim class, acceptance target, known evidence or comparison posture]\n    output:\n      type: central-eval-selection\n      dispositions: [exact_fit, partial_fit, no_fit, not_applicable, blocked]\n    effects: none\n    procedure: references/select.md\n  review:\n    input_abi: central-proof-review-request\n    output_abi: proof-owner-evolution-request\n    reference: review.md\n    input: [exact source bundle or already owner-routed central proof object, material accepted evidence or source-linked pressure, repository and environment posture]\n    output:\n      type: bounded-proof-review\n      dispositions: [candidate_only, supported_bounded, insufficient_evidence, defer, owner_handoff, no_change, verified_bounded, blocked]\n    effects: none\n    procedure: references/review.md\n  evolve:\n    input_abi: proof-owner-evolution-request\n    output_abi: proof-owner-evolution-result\n    reference: evolve.md\n    input: [accepted owner review or stable no-fit need, resolved owner, acceptance criteria, explicit effect authority, required human confirmation]\n    output:\n      type: proof-owner-evolution\n      dispositions: [no_change, owner_handoff, blocked, verified_bounded]\n    effects: [authorized owner source change, declared projection rebuild after source change]\n    procedure: references/evolve.md\n\ncommon_output_abi:\n  required:\n    - selected mode and bounded proof question\n    - object under evaluation and claim class\n    - origin owner and proof owner\n    - strongest source and evidence refs\n    - weaker surfaces inspected\n    - relevant fit, freshness, environment, baseline, lifecycle, and blind spots\n    - one allowed disposition\n    - actual effects and verification\n    - skipped checks and remaining uncertainty\n    - next owner route\n    - exact claim limit and stop line\n\nrelations:\n  primary-capability-parent: aoa-evals\n  federation-parent: aoa-skills:engineering.evaluation.central-proof\n  internal-dag:\n    - {kind: hands-off-to, from: select, to: review, abi: central-proof-review-request, condition: an exact central source or owner-routed proof object was selected}\n    - {kind: hands-off-to, from: review, to: evolve, abi: proof-owner-evolution-request, condition: bounded owner change pressure survives review and the task asks for mutation}\n  composes-with: [aoa-eval, aoa-decision, aoa-session-memory-global-route]\n  hands-off-to: [aoa-eval, origin owner, aoa-skills, aoa-memo, aoa-stats, abyss-stack, inspected stronger owner]\n  conflicts-with: [green-as-proof, readiness-as-verdict, candidate-as-bundle, report-as-source, generated-as-authority, implicit-maturity-promotion]\n\ntool_requirements:\n  fixed_tool_dependency: false\n  techniques_runtime_dependency: false\n  bundled_read_resource: scripts/eval_contract_packet.py\n\ntermination:\n  - one exact, partial, or no-fit selection\n  - one bounded review disposition\n  - one owner-authorized source change or no-change result\n  - one owner handoff or blocker\n\nhealth:\n  recheck_after: [material model change, host or workflow change, source bundle or skill change]\n  manual_cases: [positive trigger, negative trigger, held-out wording, coexistence, bounded effects]\n\n# Evolve owner proof\n\n### Mode: evolve\n\n## Entry gates\n\nRequire a stable bounded need, accepted review or recorded duplicate/no-fit,\nresolved owner, acceptance criteria, explicit effect authority, and every\nhuman confirmation required by root `AGENTS.md`. Stop `blocked` when any gate\nis missing.\n\n## Procedure\n\n1. Run the declared `source` command from `references/source-return.md` once.\n   Read the returned owner `AGENTS.md` before judging authority or required\n   human confirmation. Do not use catalog search unless comparison with source\n   bundles is material to the requested evolution. Treat a `session:` candidate\n   ID as an owner-routed eval object, not as a request to load session-memory;\n   use session-memory only when raw or segment evidence must actually be\n   retrieved.\n2. Check the entry gates against the exact supplied owner sources. When the\n   request forbids changes, effect authority is absent, or accepted owner\n   review and required human confirmation are missing, return one bounded\n   blocker after reading only the sources needed to establish those gaps. Do\n   not inventory alternative bundles, run the motivating-case suite, execute\n   readiness or validation commands, or draft a source change after a failed\n   gate.\n3. Only after every entry gate passes, decide the owner before the artifact:\n   - local pressure, suites, fixtures, and reports stay in the origin repo port;\n   - candidate packets and Eval Forge worksheets remain non-proof;\n   - reusable central proof meaning belongs in a source eval bundle;\n   - repeatable proof operations belong to their mechanic;\n   - generated readers, receipts, MCP, and KAG remain derived or access layers.\n4. Compare reuse, extension, a new bundle, maturity change, supersession,\n   retirement, and no change. Prefer the narrowest existing owner surface that\n   already answers the bounded need.\n5. Manually exercise the motivating case, strongest negative, nearest competing\n   bundle, evidence-gap case, and intended consumer.\n6. Add permanent automation only when those cases expose a stable, long-lived\n   invariant and the current task authorizes the write. Do not create a\n   validator to make an unresolved trial look green.\n7. When authorized, change owner source before generated companions. Rebuild\n   only declared projections, inspect the actual source and outputs, and state\n   what green checks do not prove.\n8. Otherwise return an owner-ready bounded proposal, `no_change`, handoff, or\n   blocker. Do not silently broaden the effect.\n\n## Verification and stop\n\nReport the exact source change, actual effects, manual cases, generated\ncompanions rebuilt, skipped checks, claim limit, rollback posture, and next\nowner. Stop after one bounded owner decision or source-first change.\n\n# Review bounded proof\n\n### Mode: review\n\n## Required input\n\nRequire an exact source bundle or owner-routed proof object, the material\nevidence/report/verdict/pressure, and enough repository, environment, baseline,\nfreshness, and review posture to interpret it. Route an unselected central need\nto `select`.\n\n## Procedure\n\n1. Run the one declared command from `references/source-return.md` before any\n   workspace or owner-path inspection. For an exact candidate packet ID, with\n   or without an exact owner-review report path, this must be `review-context`;\n   otherwise use `source`. Read the returned root owner `AGENTS.md`, then only\n   the exact material paths returned by the packet or supplied beneath that\n   owner root. Read-only evidence inspection is not an edit to those paths: do\n   not enumerate or load their edit-route `AGENTS.md` cards. Do not use catalog\n   search when the request already names the reviewed object. When citations\n   are needed, read each exact document with line numbers on the first pass.\n2. Read source `EVAL.md` and `eval.yaml` before any report, dashboard, receipt,\n   MCP result, KAG node, or generated reader only when the selected object has\n   an explicit accepted source-bundle link. When a candidate has no such link,\n   keep that absence explicit; do not probe the skill package or substitute or\n   search for a neighboring eval bundle. An unrelated source bundle cannot\n   raise the candidate's proof state.\n3. Read every material evidence ref and the actual named report or artifact.\n   Preserve repository revision, model, host, tools, fixture, environment,\n   baseline, accepted exits, scorer, and human review posture.\n4. Distinguish each state explicitly:\n   - source-contract readiness;\n   - execution success;\n   - evidence acceptance;\n   - report validity;\n   - bounded verdict;\n   - public maturity;\n   - central proof admission.\n\n   No state implies the next.\n5. For maturity, comparison, publication, or Eval Forge pressure, read\n   `docs/guides/EVAL_FORGE_READINESS_LAYER.md` and the exact named owner-review\n   report. Read implementation scripts only when their behavior is itself\n   under review. Require the bundle-local evidence kind and explicit human\n   confirmation named by root owner law. A green integrity sidecar cannot\n   promote its neighbor. Do not inspect neighboring reports, dashboards,\n   candidate reviews, or generated readers unless the named source or artifact\n   cites one and it can materially change the disposition.\n   Reading a readiness contract does not authorize its commands. Run a\n   readiness check, route command, validator, generator, or test only when the\n   request asks about current operational execution/readiness or when the\n   source contract makes that result material to the bounded verdict. A\n   contract-level proof-authority question normally needs no command execution.\n6. Replay the strongest overread or evidence-gap directly from the inspected\n   source and artifact. Once a missing source link, evidence acceptance,\n   required human confirmation, or other gate makes every higher disposition\n   impossible, stop expanding weaker surfaces. State which exact source or gate\n   would change the disposition.\n7. Return the narrowest supported review disposition and proof ceiling. Do not\n   modify source, chooser, status, baseline, or generated readers.\n\n## Claim limit\n\nReview can establish only the bounded disposition supported by the inspected\nsource contract, accepted evidence, environment, scorer, artifact, and review\ntrail. Missing or weaker layers remain explicit.\n\n# Select a central eval\n\n### Mode: select\n\n## Required input\n\nRequire one bounded proof question, object under evaluation, claim class,\nacceptance target, and known evidence or comparison posture. Return\n`blocked_missing_input` rather than inventing a missing material field.\n\n## Procedure\n\n1. Classify the disputed inference before searching:\n\n   | Disputed inference | Claim class |\n   | --- | --- |\n   | one true local check or path signal is widened into an overall outcome | outcome-vs-path separation |\n   | executed, skipped, blocked, or inferential checks are reported falsely | verification truthfulness |\n   | full scope, verification, and reporting workflow is the question | composite bounded workflow |\n   | requested and executed scope differ | scope alignment |\n   | tool order, proportionality, omissions, or churn are the question | tool trajectory |\n   | a checkpointed inquiry cannot honestly restart | long-horizon restart fidelity |\n\n2. Normalize the claim class and object into three to eight short English terms.\n   Start with the literal semantic terms of the chosen class from the table:\n   for example, `outcome path separation`, `verification truthfulness`, or\n   `scope alignment`. Add only material object terms after them. Do not replace\n   the class terms with contextual nouns such as `local`, `validator`, `long`,\n   `goal`, or `proof`, and do not use repository or expected bundle names.\n3. Run exactly one bounded shortlist:\n\n   ```text\n   python <bundle_dir>/scripts/eval_contract_packet.py catalog \\\n     --query \"<claim terms>\" --limit 8\n   ```\n\n   First decide whether any returned card covers the required object and claim\n   class. If so, choose one candidate and then one nearest alternative from\n   that candidate's `source_neighbor_hints`; consider a lower-ranked lexical\n   card only when the source hints do not cover the competing claim. Scores,\n   matched terms, and hints route inspection but never establish fit.\n4. Only when the result is `no_match` or lacks the required object class, make\n   one fallback call:\n\n   ```text\n   python <bundle_dir>/scripts/eval_contract_packet.py catalog\n   ```\n\n   Ignore neighbor hints from an inapplicable card until after this fallback.\n   Do not issue a second lexical query. Do not scan the eval tree or read\n   `EVAL_SELECTION.md` unless chooser drift is itself the task.\n5. Fetch the direct owner contracts for the candidate and nearest alternative:\n\n   ```text\n   python <bundle_dir>/scripts/eval_contract_packet.py contracts \\\n     --name <candidate> --name <neighbor>\n   ```\n\n   Pass exactly the candidate and one nearest alternative. Use the returned\n   source manifest and source sections. Expand a source file only if the packet\n   explicitly lacks a material field.\n6. Compare object, bounded claim, trigger boundary, maturity, baseline, inputs,\n   execution/report contract, blind spots, owner, and proof ceiling. Reject the\n   nearest tempting alternative explicitly.\n7. Return `exact_fit`, `partial_fit`, or `no_fit`. Do not execute an eval,\n   scaffold a new one, change maturity, or mutate an owner surface.\n\n## Claim limit\n\nSelection proves only that one inspected source contract is the strongest\nbounded fit among the compared candidates. It does not prove the claim,\nexecution, report, general agent reliability, or catalog completeness.\n\n# Owner source return\n\nUse the bundled read-only resource as the only ordinary source-return path.\nChoose the command by task; `<mode>` is not a literal or universal placeholder.\n\n- For `select`, run `catalog`; it returns `owner_source`. Then run `contracts`\n  for one or two exact candidates. Do not run `source` separately.\n- For `review` of a named candidate packet, resolve the owner, packet, and its\n  single packet-declared manual-review report in one call:\n\n  ```text\n  python <bundle_dir>/scripts/eval_contract_packet.py review-context \\\n    --packet-id <exact-packet-id>\n  ```\n\n  When the request also supplies an exact owner-relative report path, add\n  `--report <exact-owner-relative-report-path>` and require that report instead\n  of deriving it from the packet's own refs.\n\n  Read only the returned material paths. Do not run `source` separately, probe\n  guessed `EVAL.md` paths, enumerate route cards, or search for the packet.\n- For `review` or `evolve` when no catalog packet is needed, resolve the owner\n  exactly once:\n\n  ```text\n  python <bundle_dir>/scripts/eval_contract_packet.py source\n  ```\n\n`<bundle_dir>` is the absolute directory containing the loaded `SKILL.md`.\nDo not probe `--help` when one of these declared command shapes applies.\nDo not inspect the task workspace or supplied owner-relative paths before the\ndeclared command resolves the owner.\n\nThe resource resolves and validates exactly one source route:\n\n- an installed copy uses its same-bundle `.aoa-skill-source.json`;\n- the canonical owner home uses its own `skills/port.manifest.json`;\n- direct maintenance may pass an explicit absolute `--owner-root`.\n\nEvery command verifies owner `aoa-evals`, bundle `skills/aoa-evals`, the owner\nmanifest, safe paths, and required owner files before returning data. Its\n`owner_source` object reports the route, owner root, source path, and available\nref, version, digest, and dirty posture. `source` returns no selection,\nevidence acceptance, verdict, or change authority.\n\n`review-context` additionally resolves one exact packet ID and exactly one\nmanual-review report. Without `--report`, that report must be a safe,\nowner-relative `*.manual-review.md` ref declared by the packet itself; zero or\nmultiple matching refs are terminal and require an exact report path. The\ncommand returns their exact owner-relative paths and direct candidate route\nfields, and reports whether the packet itself carries an explicit source-bundle\nlink. It remains a navigation packet; the returned owner files retain meaning.\n\nIf source resolution fails, stop as `blocked_missing_owner_source`. Do not\nsearch parents, siblings, workspaces, `.system`, another skill copy, or a\nconventional checkout. Do not retry through another source route.\n\nTreat the source receipt, ref, digest, dirty posture, catalog score, and\nneighbor hints as provenance or navigation only. They do not prove installed\nparity, semantic fit, eval execution, report validity, maturity, or a verdict.\n\nReport the returned source route and strongest owner files used. Resolve every\nowner-relative path beneath the returned owner root.\n",
-      "title": "aoa-evals owner router",
+      "search_text": "One bounded central-proof intent with object, claim class, acceptance target, evidence posture, authority, and requested effects.\ncentral-proof-request\ncentral-proof-request\nOne select, review, evolve, handoff, or blocked result with refs, effects, claim limit, and stop line.\ncentral-proof-result\ncentral-proof-mode-result\nA provenance-bearing report or candidate may still lack an admitted central source contract and evidence.\nThe task is repository-local eval selection or application, local no-fit intake/design, session-hit classification, an ordinary test, or generic analytics.\nThe request concerns central proof meaning, a central source bundle, a named eval result or verdict, an owner-routed proof object, or an aoa-evals lifecycle decision.\navailable\nskill\nroute-central-proof\nskills/aoa-evals-skills/SKILL.md\nindependent-callable\nretain\nManual isolated, negative, held-out, and coexistence evidence admits one central-proof router while keeping its three modes internal.\nexecutable\nRoute the aoa-evals skill family for central proof selection, review, evolution, named results or verdicts, source-linked reports, Eval Forge owner review, and proof lifecycle. Hand repository-local eval selection, application, intake/design, or session-hit classification to aoa-eval. Candidates, readiness checks, receipts, generated readers, MCP outputs, and green commands are not proof.\nnone\nrepo-write\ngenerated-write\nhuman-decision\nTreating readiness or green output as proof.\nRouting local eval work into central proof ownership.\nLoading all modes or forcing a fixed workflow.\nMutating owner source without explicit authority and human confirmation.\nbounded-judgment\nconditionally-reversible\nStop after one typed owner result, handoff, or blocker.\nStop before proof strengthening when source or evidence is insufficient.\nbundled source-return packet resource\nexact owner source and admitted evidence for the selected mode\nThe selected mode matches the requested operation.\nStrongest source and evidence refs outrank every generated or routing surface.\nActual effects and the exact claim limit are explicit.\nskill.aoa-evals-skills\ncentral-proof\neval-verdict\nsource-bundle\nproof-lifecycle\neval-forge\nbounded-proof\nцентральное-доказательство\nвердикт\nskill\nevaluated\nchallenger\nactive\n0.2.0\nadvertised\nOwner source remains canonical and internally consistent.\nGenerated readers remain weaker and reproducible from owner source.\nRevert only the authorized owner-source change through its owner workflow.\nRebuild derived projections only after source recovery and verification.\nauthored\naoa-evals\nskills/aoa-evals-skills/SKILL.md\nskills/aoa-evals-skills\nevals/**/EVAL.md\nevals/**/eval.yaml\nadmitted bundle evidence\nA later or derived surface cannot strengthen its source proof contract.\ncandidates\nreadiness checks\nreports without accepted evidence\nreceipts\ngenerated readers\nMCP results\nKAG nodes\ngreen commands\nselected mode and bounded proof question\nobject under evaluation and claim class\norigin owner and proof owner\nstrongest source and evidence refs\nweaker surfaces inspected\nrelevant fit, freshness, environment, baseline, lifecycle, and blind spots\none allowed disposition\nactual effects and verification\nskipped checks and remaining uncertainty\nnext owner route\nexact claim limit and stop line\nowner-gated-source-change\nbounded-judgment-read-only\nbounded-judgment-read-only\npositive trigger\nnegative trigger\nheld-out wording\ncoexistence\nbounded effects\nmaterial model change\nhost or workflow change\nsource bundle or skill change\nskills/aoa-evals-skills\nchallenger\nadmitted\naoa-evals-skills\naoa-evals\n0.2.0\nauthorized owner source change\ndeclared projection rebuild after source change\naccepted owner review or stable no-fit need\nresolved owner\nacceptance criteria\nexplicit effect authority\nrequired human confirmation\nproof-owner-evolution-request\nno_change\nowner_handoff\nblocked\nverified_bounded\nproof-owner-evolution\nproof-owner-evolution-result\nreferences/evolve.md\nevolve.md\nnone\nexact source bundle or already owner-routed central proof object\nmaterial accepted evidence or source-linked pressure\nrepository and environment posture\ncentral-proof-review-request\ncandidate_only\nsupported_bounded\ninsufficient_evidence\ndefer\nowner_handoff\nno_change\nverified_bounded\nblocked\nbounded-proof-review\nproof-owner-evolution-request\nreferences/review.md\nreview.md\nnone\nbounded proof question\nobject under evaluation\nclaim class\nacceptance target\nknown evidence or comparison posture\ncentral-proof-question\nexact_fit\npartial_fit\nno_fit\nnot_applicable\nblocked\ncentral-eval-selection\ncentral-proof-review-request\nreferences/select.md\nselect.md\naoa-eval\naoa-decision\naoa-session-memory-global-route\ngreen-as-proof\nreadiness-as-verdict\ncandidate-as-bundle\nreport-as-source\ngenerated-as-authority\nimplicit-maturity-promotion\naoa-skills:engineering.evaluation.central-proof\naoa-eval\norigin owner\naoa-skills\naoa-memo\naoa-stats\nabyss-stack\ninspected stronger owner\ncentral-proof-review-request\nan exact central source or owner-routed proof object was selected\nselect\nhands-off-to\nreview\nproof-owner-evolution-request\nbounded owner change pressure survives review and the task asks for mutation\nreview\nhands-off-to\nevolve\naoa-evals-skills\naoa_owner_skill_contract_v1\none exact, partial, or no-fit selection\none bounded review disposition\none owner-authorized source change or no-change result\none owner handoff or blocker\nscripts/eval_contract_packet.py\nskills/aoa-evals-skills/references/contract.yaml\n90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602\naoa-evals-skills\nskills/aoa-evals-skills/SKILL.md\nApplicability preflight\nStart\nOwner boundary\nComposition\nStops\nResolve the installed source receipt or canonical owner home before reading owner-relative resources; never infer proof from the generated capability graph.\nauthored\nskills/aoa-evals-skills/SKILL.md\ncapability-home-v0.2.0\naoa-evals\nowner-skill-procedure\nauthored\ndocs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md\nAOA-EV-D-0247\naoa-evals\nadmission-evidence\nRoute one bounded central-proof question to the smallest owner mode while preserving source authority and claim limits.\nforbidden\nread-owner-source\nread-admitted-evidence\npropose-owner-change\napply-confirmed-owner-change\ntreat-as-data\naoa-evals-central-proof\ncapabilities/families/central-proof.yaml\naoa-evals-skills organ router\nauthored-procedure\n---\nname: aoa-evals-skills\ndescription: \"Route the aoa-evals skill family for central proof selection, review, evolution, named results or verdicts, source-linked reports, Eval Forge owner review, and proof lifecycle. Hand repository-local eval selection, application, intake/design, or session-hit classification to aoa-eval. Candidates, readiness checks, receipts, generated readers, MCP outputs, and green commands are not proof.\"\n---\n\n# aoa-evals-skills\n\nRoute one `aoa-evals` skill-family request without letting a catalog, green\ncommand, readiness check, candidate, report, receipt, generated reader, MCP\nresult, or KAG node outrank its source bundle and admitted evidence.\n\n## Applicability preflight\n\nBefore resolving the central owner, inspect only the request:\n\n- if it asks to classify supplied or retrieved session hits against an eval\n  trigger, route a local no-fit, design a local suite, or select/apply a\n  repository eval, return `owner_handoff` to `aoa-eval`\n- a packet being closed, reviewed, or provenance-bearing does not make it a\n  central proof object\n- begin this bundle only when the task already concerns central proof meaning,\n  a central source bundle, a named eval result or verdict, an owner-routed\n  proof object, or an `aoa-evals` owner lifecycle decision\n\nDo not inspect the task workspace, search for an owner checkout, probe supplied\npaths, or run `pwd`, `rg`, `find`, or `test` for navigation after this bundle\nloads. Read the contract, source-return rule, and selected mode first; then use\nthe declared bundled resource as the first navigation action.\n\n## Start\n\n1. The first tool turn must read only this `SKILL.md`. Record `<bundle_dir>` as\n   its absolute containing directory. If workspace inspection or search was\n   combined with that read, stop the attempt and restart in a fresh invocation;\n   later compliance cannot repair the unobserved package-first gate.\n2. Read `references/contract.yaml` and choose exactly one internal mode:\n\n   | Mode | Select when | Read |\n   | --- | --- | --- |\n   | `select` | No exact central source bundle has been selected for the bounded proof need. | `references/select.md` |\n   | `review` | A named central bundle, result, verdict, source-linked report, or already owner-routed proof object must be interpreted. | `references/review.md` |\n   | `evolve` | The request asks to add, change, promote, supersede, or retire a central source, lifecycle, comparison, or chooser surface, even when a required gate may later block the operation. | `references/evolve.md` |\n\n   Select by the requested operation, not by whether its gates have already\n   passed. Missing review, authority, or confirmation blocks `evolve`; it does\n   not turn a requested owner change into `review`.\n\n3. Read `references/source-return.md` and only the selected mode reference to\n   EOF. Do not load the other mode procedures merely because their vocabulary\n   appears nearby.\n4. Follow the selected procedure and return the common output ABI from\n   `references/contract.yaml`.\n\nKeep the modes internal until held-out manual work proves that splitting them\nimproves trigger precision, ABI, composition, and outcomes.\n\n## Owner boundary\n\n- Source `EVAL.md`, `eval.yaml`, and admitted evidence own proof meaning.\n- This skill owns procedure only. Its source receipt, catalog, scores, reports,\n  readiness surfaces, receipts, generated readers, MCP, KAG, and green checks\n  remain weaker.\n- Use shared `aoa-eval` for cross-repository selection, exact local\n  application, owner-local no-fit intake or design, and eval-trigger\n  classification of supplied or retrieved session hits. Begin here only at\n  central `aoa-evals` proof meaning or an owner decision.\n- Technique references are optional bundle-local lineage, never a runtime\n  prerequisite.\n- `select` and `review` are read-only. `evolve` may change owner source only\n  with explicit authority and required human confirmation.\n\n## Composition\n\nBuild only the task-local edges the request needs:\n\n```text\norigin need or candidate evidence\n  -> source proof contract and admitted evidence\n  -> execution support and reviewed result when material\n  -> derived readers or consumers when material\n```\n\n`select` may hand its exact source contract to `review`; an accepted `review`\nmay later hand off to `evolve`. Do not force a three-stage workflow. A later\nnode cannot repair or strengthen an earlier source or evidence gap.\n\nAn eval candidate ID beginning with `session:` remains an `aoa-evals`\nowner-routed object. Do not load session-memory guidance merely because of that\nprefix. Compose with session-memory only when the task actually requires raw,\nsegment, session, or retrieval evidence beyond the supplied owner object.\n\n## Stops\n\nStop after one selection, bounded review, authorized source-first change,\nno-change result, owner handoff, or explicit blocker. Never execute an eval\ninside `select`, mutate inside `review`, infer owner acceptance, or treat a\nschema-valid packet or valid DAG as proof.\n\nKeep raw trials, temporary rubrics, task-local DAGs, session notes, runtime\nstate, and test scaffolding outside the owner skill home.\n\nschema_version: aoa_owner_skill_contract_v1\n\nidentity:\n  name: aoa-evals-skills\n  owner: aoa-evals\n  canonical_source: skills/aoa-evals-skills\n  version: 0.2.0\n  lifecycle: admitted\n  health: challenger\n\nauthority:\n  procedure_owner: skills/aoa-evals-skills\n  proof_meaning: [evals/**/EVAL.md, evals/**/eval.yaml, admitted bundle evidence]\n  weaker_surfaces: [candidates, readiness checks, reports without accepted evidence, receipts, generated readers, MCP results, KAG nodes, green commands]\n  trust_rule: A later or derived surface cannot strengthen its source proof contract.\n\nfreedom:\n  select: bounded-judgment-read-only\n  review: bounded-judgment-read-only\n  evolve: owner-gated-source-change\n\nmodes:\n  select:\n    input_abi: central-proof-question\n    output_abi: central-proof-review-request\n    reference: select.md\n    input: [bounded proof question, object under evaluation, claim class, acceptance target, known evidence or comparison posture]\n    output:\n      type: central-eval-selection\n      dispositions: [exact_fit, partial_fit, no_fit, not_applicable, blocked]\n    effects: none\n    procedure: references/select.md\n  review:\n    input_abi: central-proof-review-request\n    output_abi: proof-owner-evolution-request\n    reference: review.md\n    input: [exact source bundle or already owner-routed central proof object, material accepted evidence or source-linked pressure, repository and environment posture]\n    output:\n      type: bounded-proof-review\n      dispositions: [candidate_only, supported_bounded, insufficient_evidence, defer, owner_handoff, no_change, verified_bounded, blocked]\n    effects: none\n    procedure: references/review.md\n  evolve:\n    input_abi: proof-owner-evolution-request\n    output_abi: proof-owner-evolution-result\n    reference: evolve.md\n    input: [accepted owner review or stable no-fit need, resolved owner, acceptance criteria, explicit effect authority, required human confirmation]\n    output:\n      type: proof-owner-evolution\n      dispositions: [no_change, owner_handoff, blocked, verified_bounded]\n    effects: [authorized owner source change, declared projection rebuild after source change]\n    procedure: references/evolve.md\n\ncommon_output_abi:\n  required:\n    - selected mode and bounded proof question\n    - object under evaluation and claim class\n    - origin owner and proof owner\n    - strongest source and evidence refs\n    - weaker surfaces inspected\n    - relevant fit, freshness, environment, baseline, lifecycle, and blind spots\n    - one allowed disposition\n    - actual effects and verification\n    - skipped checks and remaining uncertainty\n    - next owner route\n    - exact claim limit and stop line\n\nrelations:\n  primary-capability-parent: aoa-evals-skills\n  federation-parent: aoa-skills:engineering.evaluation.central-proof\n  internal-dag:\n    - {kind: hands-off-to, from: select, to: review, abi: central-proof-review-request, condition: an exact central source or owner-routed proof object was selected}\n    - {kind: hands-off-to, from: review, to: evolve, abi: proof-owner-evolution-request, condition: bounded owner change pressure survives review and the task asks for mutation}\n  composes-with: [aoa-eval, aoa-decision, aoa-session-memory-global-route]\n  hands-off-to: [aoa-eval, origin owner, aoa-skills, aoa-memo, aoa-stats, abyss-stack, inspected stronger owner]\n  conflicts-with: [green-as-proof, readiness-as-verdict, candidate-as-bundle, report-as-source, generated-as-authority, implicit-maturity-promotion]\n\ntool_requirements:\n  fixed_tool_dependency: false\n  techniques_runtime_dependency: false\n  bundled_read_resource: scripts/eval_contract_packet.py\n\ntermination:\n  - one exact, partial, or no-fit selection\n  - one bounded review disposition\n  - one owner-authorized source change or no-change result\n  - one owner handoff or blocker\n\nhealth:\n  recheck_after: [material model change, host or workflow change, source bundle or skill change]\n  manual_cases: [positive trigger, negative trigger, held-out wording, coexistence, bounded effects]\n\n---\nname: aoa-evals-skills\ndescription: \"Route the aoa-evals skill family for central proof selection, review, evolution, named results or verdicts, source-linked reports, Eval Forge owner review, and proof lifecycle. Hand repository-local eval selection, application, intake/design, or session-hit classification to aoa-eval. Candidates, readiness checks, receipts, generated readers, MCP outputs, and green commands are not proof.\"\n---\n\n# aoa-evals-skills\n\nRoute one `aoa-evals` skill-family request without letting a catalog, green\ncommand, readiness check, candidate, report, receipt, generated reader, MCP\nresult, or KAG node outrank its source bundle and admitted evidence.\n\n## Applicability preflight\n\nBefore resolving the central owner, inspect only the request:\n\n- if it asks to classify supplied or retrieved session hits against an eval\n  trigger, route a local no-fit, design a local suite, or select/apply a\n  repository eval, return `owner_handoff` to `aoa-eval`\n- a packet being closed, reviewed, or provenance-bearing does not make it a\n  central proof object\n- begin this bundle only when the task already concerns central proof meaning,\n  a central source bundle, a named eval result or verdict, an owner-routed\n  proof object, or an `aoa-evals` owner lifecycle decision\n\nDo not inspect the task workspace, search for an owner checkout, probe supplied\npaths, or run `pwd`, `rg`, `find`, or `test` for navigation after this bundle\nloads. Read the contract, source-return rule, and selected mode first; then use\nthe declared bundled resource as the first navigation action.\n\n## Start\n\n1. The first tool turn must read only this `SKILL.md`. Record `<bundle_dir>` as\n   its absolute containing directory. If workspace inspection or search was\n   combined with that read, stop the attempt and restart in a fresh invocation;\n   later compliance cannot repair the unobserved package-first gate.\n2. Read `references/contract.yaml` and choose exactly one internal mode:\n\n   | Mode | Select when | Read |\n   | --- | --- | --- |\n   | `select` | No exact central source bundle has been selected for the bounded proof need. | `references/select.md` |\n   | `review` | A named central bundle, result, verdict, source-linked report, or already owner-routed proof object must be interpreted. | `references/review.md` |\n   | `evolve` | The request asks to add, change, promote, supersede, or retire a central source, lifecycle, comparison, or chooser surface, even when a required gate may later block the operation. | `references/evolve.md` |\n\n   Select by the requested operation, not by whether its gates have already\n   passed. Missing review, authority, or confirmation blocks `evolve`; it does\n   not turn a requested owner change into `review`.\n\n3. Read `references/source-return.md` and only the selected mode reference to\n   EOF. Do not load the other mode procedures merely because their vocabulary\n   appears nearby.\n4. Follow the selected procedure and return the common output ABI from\n   `references/contract.yaml`.\n\nKeep the modes internal until held-out manual work proves that splitting them\nimproves trigger precision, ABI, composition, and outcomes.\n\n## Owner boundary\n\n- Source `EVAL.md`, `eval.yaml`, and admitted evidence own proof meaning.\n- This skill owns procedure only. Its source receipt, catalog, scores, reports,\n  readiness surfaces, receipts, generated readers, MCP, KAG, and green checks\n  remain weaker.\n- Use shared `aoa-eval` for cross-repository selection, exact local\n  application, owner-local no-fit intake or design, and eval-trigger\n  classification of supplied or retrieved session hits. Begin here only at\n  central `aoa-evals` proof meaning or an owner decision.\n- Technique references are optional bundle-local lineage, never a runtime\n  prerequisite.\n- `select` and `review` are read-only. `evolve` may change owner source only\n  with explicit authority and required human confirmation.\n\n## Composition\n\nBuild only the task-local edges the request needs:\n\n```text\norigin need or candidate evidence\n  -> source proof contract and admitted evidence\n  -> execution support and reviewed result when material\n  -> derived readers or consumers when material\n```\n\n`select` may hand its exact source contract to `review`; an accepted `review`\nmay later hand off to `evolve`. Do not force a three-stage workflow. A later\nnode cannot repair or strengthen an earlier source or evidence gap.\n\nAn eval candidate ID beginning with `session:` remains an `aoa-evals`\nowner-routed object. Do not load session-memory guidance merely because of that\nprefix. Compose with session-memory only when the task actually requires raw,\nsegment, session, or retrieval evidence beyond the supplied owner object.\n\n## Stops\n\nStop after one selection, bounded review, authorized source-first change,\nno-change result, owner handoff, or explicit blocker. Never execute an eval\ninside `select`, mutate inside `review`, infer owner acceptance, or treat a\nschema-valid packet or valid DAG as proof.\n\nKeep raw trials, temporary rubrics, task-local DAGs, session notes, runtime\nstate, and test scaffolding outside the owner skill home.\n\ninterface:\n  display_name: \"AoA Evals Skills\"\n  short_description: \"Own central eval proof and lifecycle\"\n  default_prompt: \"Use $aoa-evals-skills to select, review, or evolve bounded proof through its owner source and claim limits.\"\n\npolicy:\n  allow_implicit_invocation: true\n\nschema_version: aoa_owner_skill_contract_v1\n\nidentity:\n  name: aoa-evals-skills\n  owner: aoa-evals\n  canonical_source: skills/aoa-evals-skills\n  version: 0.2.0\n  lifecycle: admitted\n  health: challenger\n\nauthority:\n  procedure_owner: skills/aoa-evals-skills\n  proof_meaning: [evals/**/EVAL.md, evals/**/eval.yaml, admitted bundle evidence]\n  weaker_surfaces: [candidates, readiness checks, reports without accepted evidence, receipts, generated readers, MCP results, KAG nodes, green commands]\n  trust_rule: A later or derived surface cannot strengthen its source proof contract.\n\nfreedom:\n  select: bounded-judgment-read-only\n  review: bounded-judgment-read-only\n  evolve: owner-gated-source-change\n\nmodes:\n  select:\n    input_abi: central-proof-question\n    output_abi: central-proof-review-request\n    reference: select.md\n    input: [bounded proof question, object under evaluation, claim class, acceptance target, known evidence or comparison posture]\n    output:\n      type: central-eval-selection\n      dispositions: [exact_fit, partial_fit, no_fit, not_applicable, blocked]\n    effects: none\n    procedure: references/select.md\n  review:\n    input_abi: central-proof-review-request\n    output_abi: proof-owner-evolution-request\n    reference: review.md\n    input: [exact source bundle or already owner-routed central proof object, material accepted evidence or source-linked pressure, repository and environment posture]\n    output:\n      type: bounded-proof-review\n      dispositions: [candidate_only, supported_bounded, insufficient_evidence, defer, owner_handoff, no_change, verified_bounded, blocked]\n    effects: none\n    procedure: references/review.md\n  evolve:\n    input_abi: proof-owner-evolution-request\n    output_abi: proof-owner-evolution-result\n    reference: evolve.md\n    input: [accepted owner review or stable no-fit need, resolved owner, acceptance criteria, explicit effect authority, required human confirmation]\n    output:\n      type: proof-owner-evolution\n      dispositions: [no_change, owner_handoff, blocked, verified_bounded]\n    effects: [authorized owner source change, declared projection rebuild after source change]\n    procedure: references/evolve.md\n\ncommon_output_abi:\n  required:\n    - selected mode and bounded proof question\n    - object under evaluation and claim class\n    - origin owner and proof owner\n    - strongest source and evidence refs\n    - weaker surfaces inspected\n    - relevant fit, freshness, environment, baseline, lifecycle, and blind spots\n    - one allowed disposition\n    - actual effects and verification\n    - skipped checks and remaining uncertainty\n    - next owner route\n    - exact claim limit and stop line\n\nrelations:\n  primary-capability-parent: aoa-evals-skills\n  federation-parent: aoa-skills:engineering.evaluation.central-proof\n  internal-dag:\n    - {kind: hands-off-to, from: select, to: review, abi: central-proof-review-request, condition: an exact central source or owner-routed proof object was selected}\n    - {kind: hands-off-to, from: review, to: evolve, abi: proof-owner-evolution-request, condition: bounded owner change pressure survives review and the task asks for mutation}\n  composes-with: [aoa-eval, aoa-decision, aoa-session-memory-global-route]\n  hands-off-to: [aoa-eval, origin owner, aoa-skills, aoa-memo, aoa-stats, abyss-stack, inspected stronger owner]\n  conflicts-with: [green-as-proof, readiness-as-verdict, candidate-as-bundle, report-as-source, generated-as-authority, implicit-maturity-promotion]\n\ntool_requirements:\n  fixed_tool_dependency: false\n  techniques_runtime_dependency: false\n  bundled_read_resource: scripts/eval_contract_packet.py\n\ntermination:\n  - one exact, partial, or no-fit selection\n  - one bounded review disposition\n  - one owner-authorized source change or no-change result\n  - one owner handoff or blocker\n\nhealth:\n  recheck_after: [material model change, host or workflow change, source bundle or skill change]\n  manual_cases: [positive trigger, negative trigger, held-out wording, coexistence, bounded effects]\n\n# Evolve owner proof\n\n### Mode: evolve\n\n## Entry gates\n\nRequire a stable bounded need, accepted review or recorded duplicate/no-fit,\nresolved owner, acceptance criteria, explicit effect authority, and every\nhuman confirmation required by root `AGENTS.md`. Stop `blocked` when any gate\nis missing.\n\n## Procedure\n\n1. Run the declared `source` command from `references/source-return.md` once.\n   Read the returned owner `AGENTS.md` before judging authority or required\n   human confirmation. Do not use catalog search unless comparison with source\n   bundles is material to the requested evolution. Treat a `session:` candidate\n   ID as an owner-routed eval object, not as a request to load session-memory;\n   use session-memory only when raw or segment evidence must actually be\n   retrieved.\n2. Check the entry gates against the exact supplied owner sources. When the\n   request forbids changes, effect authority is absent, or accepted owner\n   review and required human confirmation are missing, return one bounded\n   blocker after reading only the sources needed to establish those gaps. Do\n   not inventory alternative bundles, run the motivating-case suite, execute\n   readiness or validation commands, or draft a source change after a failed\n   gate.\n3. Only after every entry gate passes, decide the owner before the artifact:\n   - local pressure, suites, fixtures, and reports stay in the origin repo port;\n   - candidate packets and Eval Forge worksheets remain non-proof;\n   - reusable central proof meaning belongs in a source eval bundle;\n   - repeatable proof operations belong to their mechanic;\n   - generated readers, receipts, MCP, and KAG remain derived or access layers.\n4. Compare reuse, extension, a new bundle, maturity change, supersession,\n   retirement, and no change. Prefer the narrowest existing owner surface that\n   already answers the bounded need.\n5. Manually exercise the motivating case, strongest negative, nearest competing\n   bundle, evidence-gap case, and intended consumer.\n6. Add permanent automation only when those cases expose a stable, long-lived\n   invariant and the current task authorizes the write. Do not create a\n   validator to make an unresolved trial look green.\n7. When authorized, change owner source before generated companions. Rebuild\n   only declared projections, inspect the actual source and outputs, and state\n   what green checks do not prove.\n8. Otherwise return an owner-ready bounded proposal, `no_change`, handoff, or\n   blocker. Do not silently broaden the effect.\n\n## Verification and stop\n\nReport the exact source change, actual effects, manual cases, generated\ncompanions rebuilt, skipped checks, claim limit, rollback posture, and next\nowner. Stop after one bounded owner decision or source-first change.\n\n# Review bounded proof\n\n### Mode: review\n\n## Required input\n\nRequire an exact source bundle or owner-routed proof object, the material\nevidence/report/verdict/pressure, and enough repository, environment, baseline,\nfreshness, and review posture to interpret it. Route an unselected central need\nto `select`.\n\n## Procedure\n\n1. Run the one declared command from `references/source-return.md` before any\n   workspace or owner-path inspection. For an exact candidate packet ID, with\n   or without an exact owner-review report path, this must be `review-context`;\n   otherwise use `source`. Read the returned root owner `AGENTS.md`, then only\n   the exact material paths returned by the packet or supplied beneath that\n   owner root. Read-only evidence inspection is not an edit to those paths: do\n   not enumerate or load their edit-route `AGENTS.md` cards. Do not use catalog\n   search when the request already names the reviewed object. When citations\n   are needed, read each exact document with line numbers on the first pass.\n2. Read source `EVAL.md` and `eval.yaml` before any report, dashboard, receipt,\n   MCP result, KAG node, or generated reader only when the selected object has\n   an explicit accepted source-bundle link. When a candidate has no such link,\n   keep that absence explicit; do not probe the skill package or substitute or\n   search for a neighboring eval bundle. An unrelated source bundle cannot\n   raise the candidate's proof state.\n3. Read every material evidence ref and the actual named report or artifact.\n   Preserve repository revision, model, host, tools, fixture, environment,\n   baseline, accepted exits, scorer, and human review posture.\n4. Distinguish each state explicitly:\n   - source-contract readiness;\n   - execution success;\n   - evidence acceptance;\n   - report validity;\n   - bounded verdict;\n   - public maturity;\n   - central proof admission.\n\n   No state implies the next.\n5. For maturity, comparison, publication, or Eval Forge pressure, read\n   `docs/guides/EVAL_FORGE_READINESS_LAYER.md` and the exact named owner-review\n   report. Read implementation scripts only when their behavior is itself\n   under review. Require the bundle-local evidence kind and explicit human\n   confirmation named by root owner law. A green integrity sidecar cannot\n   promote its neighbor. Do not inspect neighboring reports, dashboards,\n   candidate reviews, or generated readers unless the named source or artifact\n   cites one and it can materially change the disposition.\n   Reading a readiness contract does not authorize its commands. Run a\n   readiness check, route command, validator, generator, or test only when the\n   request asks about current operational execution/readiness or when the\n   source contract makes that result material to the bounded verdict. A\n   contract-level proof-authority question normally needs no command execution.\n6. Replay the strongest overread or evidence-gap directly from the inspected\n   source and artifact. Once a missing source link, evidence acceptance,\n   required human confirmation, or other gate makes every higher disposition\n   impossible, stop expanding weaker surfaces. State which exact source or gate\n   would change the disposition.\n7. Return the narrowest supported review disposition and proof ceiling. Do not\n   modify source, chooser, status, baseline, or generated readers.\n\n## Claim limit\n\nReview can establish only the bounded disposition supported by the inspected\nsource contract, accepted evidence, environment, scorer, artifact, and review\ntrail. Missing or weaker layers remain explicit.\n\n# Select a central eval\n\n### Mode: select\n\n## Required input\n\nRequire one bounded proof question, object under evaluation, claim class,\nacceptance target, and known evidence or comparison posture. Return\n`blocked_missing_input` rather than inventing a missing material field.\n\n## Procedure\n\n1. Classify the disputed inference before searching:\n\n   | Disputed inference | Claim class |\n   | --- | --- |\n   | one true local check or path signal is widened into an overall outcome | outcome-vs-path separation |\n   | executed, skipped, blocked, or inferential checks are reported falsely | verification truthfulness |\n   | full scope, verification, and reporting workflow is the question | composite bounded workflow |\n   | requested and executed scope differ | scope alignment |\n   | tool order, proportionality, omissions, or churn are the question | tool trajectory |\n   | a checkpointed inquiry cannot honestly restart | long-horizon restart fidelity |\n\n2. Normalize the claim class and object into three to eight short English terms.\n   Start with the literal semantic terms of the chosen class from the table:\n   for example, `outcome path separation`, `verification truthfulness`, or\n   `scope alignment`. Add only material object terms after them. Do not replace\n   the class terms with contextual nouns such as `local`, `validator`, `long`,\n   `goal`, or `proof`, and do not use repository or expected bundle names.\n3. Run exactly one bounded shortlist:\n\n   ```text\n   python <bundle_dir>/scripts/eval_contract_packet.py catalog \\\n     --query \"<claim terms>\" --limit 8\n   ```\n\n   First decide whether any returned card covers the required object and claim\n   class. If so, choose one candidate and then one nearest alternative from\n   that candidate's `source_neighbor_hints`; consider a lower-ranked lexical\n   card only when the source hints do not cover the competing claim. Scores,\n   matched terms, and hints route inspection but never establish fit.\n4. Only when the result is `no_match` or lacks the required object class, make\n   one fallback call:\n\n   ```text\n   python <bundle_dir>/scripts/eval_contract_packet.py catalog\n   ```\n\n   Ignore neighbor hints from an inapplicable card until after this fallback.\n   Do not issue a second lexical query. Do not scan the eval tree or read\n   `EVAL_SELECTION.md` unless chooser drift is itself the task.\n5. Fetch the direct owner contracts for the candidate and nearest alternative:\n\n   ```text\n   python <bundle_dir>/scripts/eval_contract_packet.py contracts \\\n     --name <candidate> --name <neighbor>\n   ```\n\n   Pass exactly the candidate and one nearest alternative. Use the returned\n   source manifest and source sections. Expand a source file only if the packet\n   explicitly lacks a material field.\n6. Compare object, bounded claim, trigger boundary, maturity, baseline, inputs,\n   execution/report contract, blind spots, owner, and proof ceiling. Reject the\n   nearest tempting alternative explicitly.\n7. Return `exact_fit`, `partial_fit`, or `no_fit`. Do not execute an eval,\n   scaffold a new one, change maturity, or mutate an owner surface.\n\n## Claim limit\n\nSelection proves only that one inspected source contract is the strongest\nbounded fit among the compared candidates. It does not prove the claim,\nexecution, report, general agent reliability, or catalog completeness.\n\n# Owner source return\n\nUse the bundled read-only resource as the only ordinary source-return path.\nChoose the command by task; `<mode>` is not a literal or universal placeholder.\n\n- For `select`, run `catalog`; it returns `owner_source`. Then run `contracts`\n  for one or two exact candidates. Do not run `source` separately.\n- For `review` of a named candidate packet, resolve the owner, packet, and its\n  single packet-declared manual-review report in one call:\n\n  ```text\n  python <bundle_dir>/scripts/eval_contract_packet.py review-context \\\n    --packet-id <exact-packet-id>\n  ```\n\n  When the request also supplies an exact owner-relative report path, add\n  `--report <exact-owner-relative-report-path>` and require that report instead\n  of deriving it from the packet's own refs.\n\n  Read only the returned material paths. Do not run `source` separately, probe\n  guessed `EVAL.md` paths, enumerate route cards, or search for the packet.\n- For `review` or `evolve` when no catalog packet is needed, resolve the owner\n  exactly once:\n\n  ```text\n  python <bundle_dir>/scripts/eval_contract_packet.py source\n  ```\n\n`<bundle_dir>` is the absolute directory containing the loaded `SKILL.md`.\nDo not probe `--help` when one of these declared command shapes applies.\nDo not inspect the task workspace or supplied owner-relative paths before the\ndeclared command resolves the owner.\n\nThe resource resolves and validates exactly one source route:\n\n- an installed copy uses its same-bundle `.aoa-skill-source.json`;\n- the canonical owner home uses its own `skills/port.manifest.json`;\n- direct maintenance may pass an explicit absolute `--owner-root`.\n\nEvery command verifies owner `aoa-evals`, bundle `skills/aoa-evals-skills`, the owner\nmanifest, safe paths, and required owner files before returning data. Its\n`owner_source` object reports the route, owner root, source path, and available\nref, version, digest, and dirty posture. `source` returns no selection,\nevidence acceptance, verdict, or change authority.\n\n`review-context` additionally resolves one exact packet ID and exactly one\nmanual-review report. Without `--report`, that report must be a safe,\nowner-relative `*.manual-review.md` ref declared by the packet itself; zero or\nmultiple matching refs are terminal and require an exact report path. The\ncommand returns their exact owner-relative paths and direct candidate route\nfields, and reports whether the packet itself carries an explicit source-bundle\nlink. It remains a navigation packet; the returned owner files retain meaning.\n\nIf source resolution fails, stop as `blocked_missing_owner_source`. Do not\nsearch parents, siblings, workspaces, `.system`, another skill copy, or a\nconventional checkout. Do not retry through another source route.\n\nTreat the source receipt, ref, digest, dirty posture, catalog score, and\nneighbor hints as provenance or navigation only. They do not prove installed\nparity, semantic fit, eval execution, report validity, maturity, or a verdict.\n\nReport the returned source route and strongest owner files used. Resolve every\nowner-relative path beneath the returned owner root.\n",
+      "title": "aoa-evals-skills organ router",
       "tokens": [
-        "0.1.23",
+        "0.2.0",
         "0247",
-        "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58",
-        "23",
+        "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602",
         "abi",
         "about",
         "absence",
@@ -5092,6 +5256,7 @@
         "aoa-eval",
         "aoa-evals",
         "aoa-evals-central-proof",
+        "aoa-evals-skills",
         "aoa-memo",
         "aoa-session-memory-global-route",
         "aoa-skill-source.json",
@@ -5156,7 +5321,7 @@
         "canonical",
         "capabilities",
         "capability",
-        "capability-home-v0.1.23",
+        "capability-home-v0.2.0",
         "card",
         "cards",
         "carries",
@@ -5330,6 +5495,7 @@
         "false",
         "falsely",
         "families",
+        "family",
         "federation",
         "federation-parent",
         "fetch",
@@ -5553,6 +5719,7 @@
         "optional",
         "order",
         "ordinary",
+        "organ",
         "origin",
         "other",
         "otherwise",
@@ -5656,7 +5823,6 @@
         "readiness",
         "readiness-as-verdict",
         "reading",
-        "reads",
         "ready",
         "rebuild",
         "rebuilt",
@@ -5779,7 +5945,8 @@
         "silently",
         "single",
         "skill",
-        "skill.aoa-evals",
+        "skill-family",
+        "skill.aoa-evals-skills",
         "skill.md",
         "skills",
         "skipped",
@@ -5925,7 +6092,7 @@
   ],
   "schema_version": "aoa-capability-graph-v1",
   "source": {
-    "content_hash": "54144700a75758a0f4345b7f26086e72269706de33951a0263ae6f54e0220dc5",
+    "content_hash": "e4c101ea893456759d2e3f4634d776cbfb5df8eb6b0797b0c30b01073aa603ae",
     "contract": {
       "contract_files": [
         {
@@ -5978,45 +6145,45 @@
     "family_files": [
       {
         "path": "capabilities/families/central-proof.yaml",
-        "sha256": "4816acc7a6444e73b94030e07584801a2d22391588117a13273119384e425bfe"
+        "sha256": "d6cc50e66f116f3e63228f7ab536255f6bf86642fba207d6b435b478c28e0221"
       }
     ],
     "port_manifest": {
       "path": "capabilities/port.manifest.json",
-      "sha256": "4843b080c39ca3e52b19cf139b87284663ef2f12619c9b3404b6a26c64f8a45c"
+      "sha256": "73433e21dc6d9288726669ce894721722b34d7fd9b9b8b0698348ea50278561d"
     },
     "referenced_files": [
       {
-        "path": "skills/aoa-evals/SKILL.md",
-        "sha256": "7311b2f4ff78ece04f1e2def69f9b99d1a101e3f860bbb99a7ca1e2b4c77c78d"
+        "path": "skills/aoa-evals-skills/SKILL.md",
+        "sha256": "11ea4fe7b6b4aab17e793a94dfd447f55e0fc5bf47d9802fb46aab378f3fc386"
       },
       {
-        "path": "skills/aoa-evals/agents/openai.yaml",
-        "sha256": "ed812be5f9be1cade671ebf3e5e3ccaea2e93ea8e327d571d5faf2e20efcd53c"
+        "path": "skills/aoa-evals-skills/agents/openai.yaml",
+        "sha256": "33889ebb8ec1a880c32712ad0a7b82989c4fdaeec80f8c5dee8d1f2f8d086e94"
       },
       {
-        "path": "skills/aoa-evals/references/contract.yaml",
-        "sha256": "0f529bf6b5e5496e94a38190e2e2ad80c260ef13a5abd190971066f509248b58"
+        "path": "skills/aoa-evals-skills/references/contract.yaml",
+        "sha256": "90f2a06d2fcbd711e300001da38d9d2dd8b7287f81414f5c1230c65c72d80602"
       },
       {
-        "path": "skills/aoa-evals/references/evolve.md",
+        "path": "skills/aoa-evals-skills/references/evolve.md",
         "sha256": "facffa2b26987d3f039abe477df6ea565dee7cedab0fc52537ff65882dbfd42c"
       },
       {
-        "path": "skills/aoa-evals/references/review.md",
+        "path": "skills/aoa-evals-skills/references/review.md",
         "sha256": "249faddee26bcab24d238d5d829a95eb1421d9dbb43e1367eea612ec278be71e"
       },
       {
-        "path": "skills/aoa-evals/references/select.md",
+        "path": "skills/aoa-evals-skills/references/select.md",
         "sha256": "3d1536d6a701ce4ac487e2d6f47cda66ebbeff795a65a1d6c5c5a403aaaf8480"
       },
       {
-        "path": "skills/aoa-evals/references/source-return.md",
-        "sha256": "d4b33a0f0ebc96b01ffe9cccc7d3b67c5608a9d66c5651619c20d2bb630e1d0e"
+        "path": "skills/aoa-evals-skills/references/source-return.md",
+        "sha256": "ea392c210cd1e488b0b0e4984272657ac271c74184ceaa9a2bf5b0bfa38c5df4"
       },
       {
-        "path": "skills/aoa-evals/scripts/eval_contract_packet.py",
-        "sha256": "582208b4402e0e2319ec234db25de72d6e9863a1f289436310cd8a3953678d45"
+        "path": "skills/aoa-evals-skills/scripts/eval_contract_packet.py",
+        "sha256": "25c4ab7f77715cc9d673ce1b605437e57a98fd21171f3fd2f09af2b91490ecd6"
       }
     ],
     "root": "capabilities/families"

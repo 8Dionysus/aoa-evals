@@ -1,0 +1,69 @@
+{
+  "schema_version": "aoa_eval_candidate_packet_v1",
+  "packet_id": "runtime:external-luna-landing-l2-20260802",
+  "candidate_only": true,
+  "proof_authority": false,
+  "promotion_allowed": false,
+  "source_kind": "runtime_export",
+  "source_ref": "/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/external-luna-closeout-v4f.eval_candidate.json#sha256:48baec5d425b69e2022e2a49200e66d03fea89cb9ed5514719483d9dcfd1d6bd",
+  "observed_at_utc": "2026-08-02T04:09:24Z",
+  "trigger_class_id": "runtime_candidate_export_needs_review",
+  "task_pressure": "The external Luna landing contour now includes a real parent Sol yield, inference-free durable wait, failed-event filtering, and exact-thread authority re-entry, while its economic and owner-admission questions remain unresolved.",
+  "expected_aoa_eval_route": "apply",
+  "actual_trajectory": "A first immutable Luna xhigh ambiguity-stop run chose escalation but failed runtime source-anchor admission and was filtered without a second parent turn. A corrected immutable run returned authority_blocked with the exact bound authority event; runtime resumed the same yielded Sol thread with a distilled digest-bound return, and Sol requested human authority. Earlier fixed-input landing work supplied Sol/Luna max/xhigh comparisons, separate writer/reviewer contexts, resume evidence, one confirmed blocker, and one false-readiness reviewer decision.",
+  "first_failure": "The first L2 Luna report used a bare numeric source anchor. Runtime rejected it as model_report_source_evidence_anchor_invalid and selected result.failed/stop rather than waking Sol.",
+  "consequence": "The failure demonstrates that safe semantic intent is insufficient for an admissible event; the corrected cycle proves transport mechanics but still cannot establish Luna fit, accepted outcome value, or net economic benefit.",
+  "owner_surface_refs": [
+    "evals/workflow/aoa-bounded-change-quality/EVAL.md",
+    "mechanics/audit/parts/candidate-readers/schemas/aoa-eval-candidate-packet.schema.json",
+    "/srv/AbyssOS/aoa-models/source/model-studies/external-codex-landing-ambiguity-stop-l2-reentry-v2-2026-08-02.json",
+    "/home/dionysus/src/.worktrees/abyss-stack-external-luna-20260801/mechanics/governed-execution/parts/external-codex-agent/CONTRACT.md"
+  ],
+  "evidence_refs": [
+    "/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/l2-reentry-closeout-v2.json#sha256:8db2434e77dbee04e6088c0a89737761086cf1c54a2a4a75482b15216bb3ce37",
+    "/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/state-l2-reentry-v1/reentries/b5beb318d2408c26af3ba03d35e1be83/state.json#sha256:2caea79a0afbee5d137c47fc7e092235ab23a6a41756558427d2e81a4ad23695",
+    "/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/state-l2-reentry-v2/reentries/96afcd46364eb2ab7ce9e3b7c7e6e299/state.json#sha256:98c7205def19912c43e3f753c8ef1ff6f395f6b242cf053c486769ed41e498eb",
+    "/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/comparison-candidate.json#sha256:10e4a1116f829d2a5eddbf02c72d8f987cc3a8e15afd81f6c48fbba892186df0",
+    "mechanics/audit/parts/candidate-readers/reports/runtime/2026-08-02-external-luna-landing-l2.manual-review.md"
+  ],
+  "freshness_refs": [
+    "observed_at:2026-08-02T04:09:24Z",
+    "codex_cli:0.146.0",
+    "target_head:4a7d6212011a3a01c61ffdd6f91f38b8faa9cfea",
+    "target_manifest:sha256:8848ac970aab337f7ea11e9446111fdefff1e0ac78c07a588921c8eee1786cfb"
+  ],
+  "privacy_boundary": "The packet contains artifact paths, digests, bounded decisions, and aggregate usage only. It embeds no private conversation transcript, secret, credential, or model chain-of-thought.",
+  "existing_surface_check": "aoa-bounded-change-quality is the nearest existing composite workflow bundle, but no owner-approved application maps this external runtime evidence to an accepted outcome or net-benefit verdict. The packet therefore remains candidate-only rather than creating a new eval bundle.",
+  "routing_rubric": {
+    "trigger_strength": 2,
+    "owner_surface_clarity": 2,
+    "consequence_severity": 2,
+    "repeatability": 2,
+    "freshness_dependency": 2,
+    "existing_eval_fit": 2,
+    "privacy_raw_evidence_boundary": 2
+  },
+  "evaluator_fit": "human_review_rubric",
+  "candidate_state": "needs_owner_review",
+  "candidate_state_reason": "L0-L2 transport, separated review, fixed-input max/xhigh comparison, failure filtering, and exact-thread re-entry are evidenced. An owner-local manual rubric review retains Luna xhigh as an unadmitted shadow candidate because target-owner acceptance, an aoa-evals bounded-proof reading, attributable parent/operator cost, and repaired-target R1 evidence remain absent.",
+  "promotion_forbidden_until": [
+    "the target owner reviews the confirmed KAG blocker and any repair",
+    "a fresh separated review establishes an accepted or honestly rejected target outcome after repair",
+    "aoa-evals applies an owner-approved proof route or records an explicit no-fit intake",
+    "system economics attribute parent Sol, Luna, review, rework, latency, and operator burden",
+    "the human owner reviews and accepts an exact Luna task boundary and effort"
+  ],
+  "forbidden_effects": [
+    "central_proof_promotion",
+    "verdict_acceptance",
+    "score_or_baseline_creation",
+    "mcp_created_bundle",
+    "repo_mutation",
+    "model_fit_admission",
+    "routing_activation",
+    "target_source_repair",
+    "center_registry_integration",
+    "commit_push_pr_merge_release_or_deployment"
+  ],
+  "next_step": "Run aoa-evals review-context against the exact linked manual report, preserve its candidate-only proof ceiling, and present retain_unadmitted_shadow_candidate to the sole human authority; do not infer admission or benefit from successful L2 transport."
+}

@@ -19,7 +19,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 - Candidate queue entries: 15
 - Candidate packet imports: 5
 - Eval Forge archetypes: 18
-- Eval Forge candidate hints: 5
+- Eval Forge candidate hints: 6
 - Session-mining reviewed episodes: 20
 - Support surfaces: 599 total, 435 eval-relevant
 - Eval-relevant surfaces with unresolved manual review: 0
@@ -121,6 +121,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 | Candidate | Decision | Archetype | Owner Route | Promotion |
 | --- | --- | --- | --- | --- |
+| `packet:runtime:external-luna-landing-l2-20260802` | keep | `human-review-rubric` | `domain owner` / `human_review_before_automation` | False |
 | `packet:session:aoa-eval-criteria-before-mining` | keep | `human-review-rubric` | `domain owner` / `human_review_before_automation` | False |
 | `packet:session:aoa-eval-goal-shrink-completion-overclaim` | keep | `trace-trajectory-eval` | `aoa-evals + .aoa candidate evidence` / `trajectory_eval_or_session_candidate` | False |
 | `packet:session:aoa-eval-keyword-mining-blindspot` | keep | `aoa-skills-trigger-eval` | `aoa-skills` / `trigger_design_case` | False |

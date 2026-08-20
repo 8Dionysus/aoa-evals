@@ -18,6 +18,8 @@ boundary metadata, review guides, and owner-review refs.
 - `mechanics/audit/parts/candidate-readers/examples/aoa_eval_candidate_packet.example.json`
 - `mechanics/audit/parts/candidate-readers/packets/**/*.eval_candidate.json`
 - `mechanics/audit/parts/candidate-readers/reports/session-mining/*.manual-review.md`
+- `mechanics/audit/parts/candidate-readers/reports/runtime/*.local-eval-design.md`
+- `mechanics/audit/parts/candidate-readers/reports/runtime/*.manual-review.md`
 - `mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json`
 - `mechanics/audit/parts/candidate-readers/generated/runtime_candidate_intake.min.json`
 
@@ -32,6 +34,9 @@ boundary metadata, review guides, and owner-review refs.
   writeback selected-evidence examples.
 - manually reviewed session/runtime/local candidate packets whose schema keeps
   them below proof acceptance.
+- owner-approved runtime review designs and their exact manual-review reports;
+  both remain candidate-only until a source bundle accepts their bounded
+  interpretation.
 
 ## Outputs
 

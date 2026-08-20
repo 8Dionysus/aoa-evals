@@ -45,7 +45,7 @@
     "portable_export_map_ref": "repo:aoa-skills/generated/portable_export_map.json",
     "portable_export_physical_required": false,
     "portable_export_ref": ".agents/skills/aoa-eval/SKILL.md",
-    "portable_export_sha256": "0e1bb96e7618b92368011076cf3ce2aa3e8da3d9f683ef74af8ff4dece50eb67",
+    "portable_export_sha256": "cf9a15303acbf685155dd6bba323693d71f19075fe10f62d7e180325ffabae7e",
     "portable_export_source_ref": "skills/core/engineering/aoa-eval/SKILL.md",
     "portable_export_target_ref": ".agents/skills/aoa-eval/SKILL.md",
     "posture": "os_profile_source_ready",
@@ -55,14 +55,14 @@
     "release_bundle_revision_found": true,
     "release_deferred_skill_count": 2,
     "release_manifest_ref": "repo:aoa-skills/generated/release_manifest.json",
-    "source_bundle_hash": "c917f5f84bd81b77bc9b1b20100cf306ac9617b2f91146a8e28a3d41e53803e4",
-    "source_bundle_revision": "c917f5f84bd8",
+    "source_bundle_hash": "253968be958999b757888e98f97b396e0e20b57bc18d212ccdb6c04c4d8f91fe",
+    "source_bundle_revision": "253968be9589",
     "source_contract_ready": true,
     "source_exists": true,
     "source_profile": "portable-consumer-advertised",
     "source_profile_contains_aoa_eval": true,
     "source_profile_found": true,
-    "source_sha256": "885dc45a389325bf95aff3a4eacfc01387f6a4c0b8c1936ce243c547a43104f7",
+    "source_sha256": "e1afc48722219de7b9b7dec81c3585baff7e7f2639b9acf6acd95bfe902e4231",
     "source_skill_ref": "repo:aoa-skills/skills/core/engineering/aoa-eval/SKILL.md",
     "subskills_posture": "select/apply/local-need/design/session-mining are internal modes; legacy child bundles stay unloaded",
     "verification_command": "python scripts/install_os_skill_profile.py --repo-root . --profile os-user-default --os-root <os-root> --source-root aoa-skills=<aoa-skills-root> --dest-root <host-user-skill-root> --check --format json"
@@ -118,9 +118,81 @@
     "authority_boundary": "Imported candidate packets seed routing only; they cannot accept proof or promote central bundles.",
     "issue_count": 0,
     "issues": [],
-    "packet_count": 5,
+    "packet_count": 6,
     "packet_root": "mechanics/audit/parts/candidate-readers/packets",
     "packets": [
+      {
+        "path": "mechanics/audit/parts/candidate-readers/packets/external-luna-landing-l2-20260802.eval_candidate.json",
+        "payload": {
+          "actual_trajectory": "A first immutable Luna xhigh ambiguity-stop run chose escalation but failed runtime source-anchor admission and was filtered without a second parent turn. A corrected immutable run returned authority_blocked with the exact bound authority event; runtime resumed the same yielded Sol thread with a distilled digest-bound return, and Sol requested human authority. Earlier fixed-input landing work supplied Sol/Luna max/xhigh comparisons, separate writer/reviewer contexts, resume evidence, one confirmed blocker, and one false-readiness reviewer decision.",
+          "candidate_only": true,
+          "candidate_state": "needs_owner_review",
+          "candidate_state_reason": "L0-L2 transport, separated review, fixed-input max/xhigh comparison, failure filtering, and exact-thread re-entry are evidenced. An owner-local manual rubric review retains Luna xhigh as an unadmitted shadow candidate because target-owner acceptance, an aoa-evals bounded-proof reading, attributable parent/operator cost, and repaired-target R1 evidence remain absent.",
+          "consequence": "The failure demonstrates that safe semantic intent is insufficient for an admissible event; the corrected cycle proves transport mechanics but still cannot establish Luna fit, accepted outcome value, or net economic benefit.",
+          "evaluator_fit": "human_review_rubric",
+          "evidence_refs": [
+            "artifact:external-codex-landing-track-20260801/l2-reentry-closeout-v2.json#sha256:8db2434e77dbee04e6088c0a89737761086cf1c54a2a4a75482b15216bb3ce37",
+            "artifact:external-codex-landing-track-20260801/state-l2-reentry-v1/reentries/b5beb318d2408c26af3ba03d35e1be83/state.json#sha256:2caea79a0afbee5d137c47fc7e092235ab23a6a41756558427d2e81a4ad23695",
+            "artifact:external-codex-landing-track-20260801/state-l2-reentry-v2/reentries/96afcd46364eb2ab7ce9e3b7c7e6e299/state.json#sha256:98c7205def19912c43e3f753c8ef1ff6f395f6b242cf053c486769ed41e498eb",
+            "artifact:external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/comparison-candidate.json#sha256:10e4a1116f829d2a5eddbf02c72d8f987cc3a8e15afd81f6c48fbba892186df0",
+            "mechanics/audit/parts/candidate-readers/reports/runtime/2026-08-02-external-luna-landing-l2.manual-review.md"
+          ],
+          "existing_surface_check": "aoa-bounded-change-quality is the nearest existing composite workflow bundle, but no owner-approved application maps this external runtime evidence to an accepted outcome or net-benefit verdict. The packet therefore remains candidate-only rather than creating a new eval bundle.",
+          "expected_aoa_eval_route": "apply",
+          "first_failure": "The first L2 Luna report used a bare numeric source anchor. Runtime rejected it as model_report_source_evidence_anchor_invalid and selected result.failed/stop rather than waking Sol.",
+          "forbidden_effects": [
+            "central_proof_promotion",
+            "verdict_acceptance",
+            "score_or_baseline_creation",
+            "mcp_created_bundle",
+            "repo_mutation",
+            "model_fit_admission",
+            "routing_activation",
+            "target_source_repair",
+            "center_registry_integration",
+            "commit_push_pr_merge_release_or_deployment"
+          ],
+          "freshness_refs": [
+            "observed_at:2026-08-02T04:09:24Z",
+            "codex_cli:0.146.0",
+            "target_head:4a7d6212011a3a01c61ffdd6f91f38b8faa9cfea",
+            "target_manifest:sha256:8848ac970aab337f7ea11e9446111fdefff1e0ac78c07a588921c8eee1786cfb"
+          ],
+          "next_step": "Run aoa-evals review-context against the exact linked manual report, preserve its candidate-only proof ceiling, and present retain_unadmitted_shadow_candidate to the sole human authority; do not infer admission or benefit from successful L2 transport.",
+          "observed_at_utc": "2026-08-02T04:09:24Z",
+          "owner_surface_refs": [
+            "evals/workflow/aoa-bounded-change-quality/EVAL.md",
+            "mechanics/audit/parts/candidate-readers/schemas/aoa-eval-candidate-packet.schema.json",
+            "repo:aoa-models/source/model-studies/external-codex-landing-ambiguity-stop-l2-reentry-v2-2026-08-02.json",
+            "repo:abyss-stack/mechanics/governed-execution/parts/external-codex-agent/CONTRACT.md"
+          ],
+          "packet_id": "runtime:external-luna-landing-l2-20260802",
+          "privacy_boundary": "The packet contains artifact paths, digests, bounded decisions, and aggregate usage only. It embeds no private conversation transcript, secret, credential, or model chain-of-thought.",
+          "promotion_allowed": false,
+          "promotion_forbidden_until": [
+            "the target owner reviews the confirmed KAG blocker and any repair",
+            "a fresh separated review establishes an accepted or honestly rejected target outcome after repair",
+            "aoa-evals applies an owner-approved proof route or records an explicit no-fit intake",
+            "system economics attribute parent Sol, Luna, review, rework, latency, and operator burden",
+            "the human owner reviews and accepts an exact Luna task boundary and effort"
+          ],
+          "proof_authority": false,
+          "routing_rubric": {
+            "consequence_severity": 2,
+            "existing_eval_fit": 2,
+            "freshness_dependency": 2,
+            "owner_surface_clarity": 2,
+            "privacy_raw_evidence_boundary": 2,
+            "repeatability": 2,
+            "trigger_strength": 2
+          },
+          "schema_version": "aoa_eval_candidate_packet_v1",
+          "source_kind": "runtime_export",
+          "source_ref": "artifact:external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/external-luna-closeout-v4f.eval_candidate.json#sha256:48baec5d425b69e2022e2a49200e66d03fea89cb9ed5514719483d9dcfd1d6bd",
+          "task_pressure": "The external Luna landing contour now includes a real parent Sol yield, inference-free durable wait, failed-event filtering, and exact-thread authority re-entry, while its economic and owner-admission questions remain unresolved.",
+          "trigger_class_id": "runtime_candidate_export_needs_review"
+        }
+      },
       {
         "path": "mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-criteria-before-mining.eval_candidate.json",
         "payload": {
@@ -447,10 +519,11 @@
     "schema_version": "os_abyss_eval_candidate_packet_import_v1",
     "summary": {
       "by_source_kind": {
+        "runtime_export": 1,
         "session_episode": 5
       },
       "by_state": {
-        "needs_owner_review": 5
+        "needs_owner_review": 6
       },
       "session_episode_packets": 5
     }
@@ -477,19 +550,33 @@
     "candidate_packet_import": {
       "authority_boundary": "packet import is routing evidence only and cannot create proof meaning",
       "issue_count": 0,
-      "packet_count": 5,
+      "packet_count": 6,
       "packet_root": "mechanics/audit/parts/candidate-readers/packets",
       "summary": {
         "by_source_kind": {
+          "runtime_export": 1,
           "session_episode": 5
         },
         "by_state": {
-          "needs_owner_review": 5
+          "needs_owner_review": 6
         },
         "session_episode_packets": 5
       }
     },
     "entries": [
+      {
+        "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
+        "candidate_id": "local-port:aoa-kag",
+        "evidence_count": 4,
+        "next_route": "active_intake_select_then_apply_or_design",
+        "owner_repo": "aoa-kag",
+        "promotion_allowed": false,
+        "proof_authority": false,
+        "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
+        "source_kind": "local_eval_port",
+        "source_ref": "aoa-kag",
+        "state": "needs_owner_review"
+      },
       {
         "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
         "candidate_id": "local-port:aoa-memo",
@@ -505,28 +592,28 @@
       },
       {
         "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
-        "candidate_id": "local-port:aoa-routing",
-        "evidence_count": 2,
-        "next_route": "active_intake_select_then_apply_or_design",
-        "owner_repo": "aoa-routing",
+        "candidate_id": "local-port:aoa-sdk",
+        "evidence_count": 7,
+        "next_route": "active_suite_apply_or_regression_check",
+        "owner_repo": "aoa-sdk",
         "promotion_allowed": false,
         "proof_authority": false,
         "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
         "source_kind": "local_eval_port",
-        "source_ref": "aoa-routing",
+        "source_ref": "aoa-sdk",
         "state": "needs_owner_review"
       },
       {
         "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
-        "candidate_id": "local-port:aoa-skills",
-        "evidence_count": 6,
-        "next_route": "active_suite_note_review_or_execution_contract_design",
-        "owner_repo": "aoa-skills",
+        "candidate_id": "local-port:aoa-session-memory",
+        "evidence_count": 5,
+        "next_route": "active_suite_contract_stale_review",
+        "owner_repo": "aoa-session-memory",
         "promotion_allowed": false,
         "proof_authority": false,
         "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
         "source_kind": "local_eval_port",
-        "source_ref": "aoa-skills",
+        "source_ref": "aoa-session-memory",
         "state": "needs_owner_review"
       },
       {
@@ -609,6 +696,37 @@
       },
       {
         "authority_boundary": "schema-valid candidate packet only; proof adoption remains forbidden until owner review",
+        "candidate_id": "packet:runtime:external-luna-landing-l2-20260802",
+        "candidate_state_reason": "L0-L2 transport, separated review, fixed-input max/xhigh comparison, failure filtering, and exact-thread re-entry are evidenced. An owner-local manual rubric review retains Luna xhigh as an unadmitted shadow candidate because target-owner acceptance, an aoa-evals bounded-proof reading, attributable parent/operator cost, and repaired-target R1 evidence remain absent.",
+        "dedupe_key": "runtime_candidate_export_needs_review::artifact:external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/external-luna-closeout-v4f.eval_candidate.json#sha256:48baec5d425b69e2022e2a49200e66d03fea89cb9ed5514719483d9dcfd1d6bd",
+        "evaluator_fit": "human_review_rubric",
+        "evidence_count": 5,
+        "expected_aoa_eval_route": "apply",
+        "freshness_refs": [
+          "observed_at:2026-08-02T04:09:24Z",
+          "codex_cli:0.146.0",
+          "target_head:4a7d6212011a3a01c61ffdd6f91f38b8faa9cfea",
+          "target_manifest:sha256:8848ac970aab337f7ea11e9446111fdefff1e0ac78c07a588921c8eee1786cfb"
+        ],
+        "next_route": "Run aoa-evals review-context against the exact linked manual report, preserve its candidate-only proof ceiling, and present retain_unadmitted_shadow_candidate to the sole human authority; do not infer admission or benefit from successful L2 transport.",
+        "owner_repo": "aoa-evals + abyss-stack",
+        "owner_surface_refs": [
+          "evals/workflow/aoa-bounded-change-quality/EVAL.md",
+          "mechanics/audit/parts/candidate-readers/schemas/aoa-eval-candidate-packet.schema.json",
+          "repo:aoa-models/source/model-studies/external-codex-landing-ambiguity-stop-l2-reentry-v2-2026-08-02.json",
+          "repo:abyss-stack/mechanics/governed-execution/parts/external-codex-agent/CONTRACT.md"
+        ],
+        "packet_ref": "mechanics/audit/parts/candidate-readers/packets/external-luna-landing-l2-20260802.eval_candidate.json",
+        "promotion_allowed": false,
+        "proof_authority": false,
+        "review_gate": "the target owner reviews the confirmed KAG blocker and any repair; a fresh separated review establishes an accepted or honestly rejected target outcome after repair; aoa-evals applies an owner-approved proof route or records an explicit no-fit intake; +2 more",
+        "source_kind": "runtime_export",
+        "source_ref": "artifact:external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/external-luna-closeout-v4f.eval_candidate.json#sha256:48baec5d425b69e2022e2a49200e66d03fea89cb9ed5514719483d9dcfd1d6bd",
+        "state": "needs_owner_review",
+        "trigger_class_id": "runtime_candidate_export_needs_review"
+      },
+      {
+        "authority_boundary": "schema-valid candidate packet only; proof adoption remains forbidden until owner review",
         "candidate_id": "packet:session:aoa-eval-criteria-before-mining",
         "candidate_state_reason": "Criteria design pressure is concrete and high-value, but the rubric needs owner review before broader automation.",
         "dedupe_key": "session_episode_candidate_for_eval_design::.aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0127/events:022746-023012",
@@ -657,7 +775,7 @@
           "AGENTS.md",
           "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
           "scripts/build_eval_readiness_dashboard.py",
-          "workspace:OS_ABYSS/aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
+          "repo:aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
         ],
         "packet_ref": "mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-goal-shrink-completion-overclaim.eval_candidate.json",
         "promotion_allowed": false,
@@ -747,7 +865,7 @@
           "AGENTS.md",
           ".aoa/AGENTS.md",
           "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
-          "workspace:OS_ABYSS/aoa-skills/.agents/skills/aoa-eval/SKILL.md"
+          "repo:aoa-skills/.agents/skills/aoa-eval/SKILL.md"
         ],
         "packet_ref": "mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-working-process-fossilized-as-doctrine.eval_candidate.json",
         "promotion_allowed": false,
@@ -827,17 +945,18 @@
     "schema_version": "os_abyss_eval_candidate_queue_v1",
     "summary": {
       "by_source_kind": {
-        "local_eval_port": 9,
+        "local_eval_port": 10,
         "runtime_candidate_export": 1,
+        "runtime_export": 1,
         "session_episode": 5
       },
       "by_state": {
-        "needs_owner_review": 14,
+        "needs_owner_review": 16,
         "observed": 1
       },
-      "central_catalog_total_evals": 39,
-      "entries": 15,
-      "packet_count": 5,
+      "central_catalog_total_evals": 42,
+      "entries": 17,
+      "packet_count": 6,
       "session_mining_report_refs": [
         "mechanics/audit/parts/candidate-readers/reports/session-mining/2026-06-25-aoa-eval-control.manual-review.md"
       ],
@@ -964,6 +1083,19 @@
       "validator": 1
     },
     "candidate_archetype_hints": [
+      {
+        "candidate_id": "packet:runtime:external-luna-landing-l2-20260802",
+        "decision": "keep",
+        "exact_next_command": "python mechanics/proof-object/parts/eval-authoring/scripts/eval_forge_route.py --candidate-packet mechanics/audit/parts/candidate-readers/packets/external-luna-landing-l2-20260802.eval_candidate.json --json",
+        "missing_evidence": [],
+        "owner_repo": "domain owner",
+        "packet_ref": "mechanics/audit/parts/candidate-readers/packets/external-luna-landing-l2-20260802.eval_candidate.json",
+        "promotion_allowed": false,
+        "proof_authority": false,
+        "reason": "case passes forge admission gates and can move to owner review worksheet",
+        "route_key": "human_review_before_automation",
+        "selected_archetype_id": "human-review-rubric"
+      },
       {
         "candidate_id": "packet:session:aoa-eval-criteria-before-mining",
         "decision": "keep",

@@ -89,7 +89,7 @@ TRACE_EVAL_HOOK_EXPECTATIONS: dict[str, dict[str, Any]] = {
     "AOA-P-0014": {
         "eval_anchor": "aoa-verification-honesty",
         "artifact_contract_refs": [
-            "repo:aoa-playbooks/playbooks/local-stack-diagnosis/PLAYBOOK.md#expected-artifacts",
+            "repo:aoa-playbooks/playbooks/operations/recovery/local-stack-diagnosis/PLAYBOOK.md#expected-artifacts",
             "repo:aoa-playbooks/mechanics/real-run-harvest/parts/phase-alpha-evidence-store/docs/alpha-readiness/local-stack-diagnosis.md",
             "repo:aoa-agents/mechanics/questbook/parts/alpha-reference-routes/examples/local-stack-diagnosis.example.json",
             "repo:aoa-memo/examples/phase-alpha/state_capsule.phase-alpha-local-stack.example.json",
@@ -103,7 +103,7 @@ TRACE_EVAL_HOOK_EXPECTATIONS: dict[str, dict[str, Any]] = {
         "eval_anchor": "aoa-approval-boundary-adherence",
         "artifact_contract_refs": [
             "repo:aoa-agents/mechanics/checkpoint/parts/self-agent-checkpoint/schemas/self-agent-checkpoint.schema.json",
-            "repo:aoa-playbooks/playbooks/self-agent-checkpoint-rollout/PLAYBOOK.md#expected-artifacts",
+            "repo:aoa-playbooks/playbooks/continuity/checkpoint/self-agent-checkpoint-rollout/PLAYBOOK.md#expected-artifacts",
             "repo:aoa-memo/docs/memory/MEMORY_MODEL.md#checkpoint-route-writeback",
             "repo:aoa-memo/mechanics/checkpoint/parts/approval-and-health-records/examples/checkpoint_approval_record.example.json",
             "repo:aoa-memo/mechanics/checkpoint/parts/approval-and-health-records/examples/checkpoint_health_check.example.json",
@@ -115,7 +115,7 @@ TRACE_EVAL_HOOK_EXPECTATIONS: dict[str, dict[str, Any]] = {
     "AOA-P-0018": {
         "eval_anchor": "aoa-scope-drift-detection",
         "artifact_contract_refs": [
-            "repo:aoa-playbooks/playbooks/validation-driven-remediation/PLAYBOOK.md#expected-artifacts",
+            "repo:aoa-playbooks/playbooks/operations/recovery/validation-driven-remediation/PLAYBOOK.md#expected-artifacts",
             "repo:aoa-playbooks/mechanics/real-run-harvest/parts/phase-alpha-evidence-store/docs/alpha-readiness/validation-driven-remediation.md",
             "repo:aoa-agents/mechanics/questbook/parts/alpha-reference-routes/examples/validation-driven-remediation.example.json",
             "repo:aoa-memo/examples/phase-alpha/episode.phase-alpha-validation-remediation.example.json",
@@ -153,14 +153,14 @@ TRACE_EVAL_HOOK_EXPECTATIONS: dict[str, dict[str, Any]] = {
     "AOA-P-0031": {
         "eval_anchor": "aoa-a2a-summon-return-checkpoint",
         "artifact_contract_refs": [
-            "repo:aoa-playbooks/playbooks/a2a-summon-return-checkpoint/PLAYBOOK.md#expected-artifacts",
-            "repo:aoa-skills/skills/core/session-growth/aoa-summon/references/summon-request-v3.schema.json",
-            "repo:aoa-skills/skills/core/session-growth/aoa-summon/references/summon-result-v3.schema.json",
+            "repo:aoa-playbooks/playbooks/continuity/checkpoint/a2a-summon-return-checkpoint/PLAYBOOK.md#expected-artifacts",
+            "repo:aoa-agents/skills/aoa-summon/references/summon-request-v3.schema.json",
+            "repo:aoa-agents/skills/aoa-summon/references/summon-result-v3.schema.json",
             "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/docs/summon-return-checkpoint.md",
             "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/codex_local_target.example.json",
             "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/return_transition_decision.example.json",
-            "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/checkpoint_bridge_plan.example.json",
-            "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/reviewed_closeout_request.example.json",
+            "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/checkpoint_evidence_handoff_plan.example.json",
+            "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/reviewed_return_handoff.example.json",
             "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/summon_return_checkpoint_e2e.fixture.json",
             "repo:aoa-memo/mechanics/writeback/docs/A2A_CHILD_RETURN_WRITEBACK.md",
             "repo:abyss-stack/mechanics/runtime-repair/parts/a2a-return-dry-run/docs/A2A_RETURN_DRY_RUN.md",
@@ -171,11 +171,11 @@ TRACE_EVAL_HOOK_EXPECTATIONS: dict[str, dict[str, Any]] = {
     "AOA-P-0032": {
         "eval_anchor": "aoa-witness-trace-integrity",
         "artifact_contract_refs": [
-            "repo:aoa-playbooks/playbooks/runtime-chaos-recovery/PLAYBOOK.md#expected-artifacts",
+            "repo:aoa-playbooks/playbooks/operations/recovery/runtime-chaos-recovery/PLAYBOOK.md#expected-artifacts",
             "repo:aoa-playbooks/mechanics/antifragility/parts/stress-lanes/examples/playbook_stress_lane.runtime-timeout-chaos.example.json",
             "repo:aoa-playbooks/mechanics/antifragility/parts/reentry-gates/examples/playbook_reentry_gate.retrieval-outage-honesty.example.json",
             "repo:aoa-sdk/mechanics/boundary-bridge/parts/consumed-surface-posture-gate/examples/composite_stress_route_hint.example.json",
-            "repo:aoa-kag/examples/regrounding_ticket.retrieval-outage-honesty.example.json",
+            "repo:aoa-kag/mechanics/antifragility/parts/retrieval-outage-regrounding/examples/regrounding_ticket.retrieval-outage-honesty.example.json",
             "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/schemas/service-degradation-receipt.schema.json",
             "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md",
         ],

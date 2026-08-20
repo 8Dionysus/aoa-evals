@@ -316,3 +316,7 @@
 ## 2026-08-01
 
 - [AOA-EV-D-0252 Owner-Authored MCP Capability Profiles](../AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md) (`docs/decisions/AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md`)
+
+## 2026-08-20
+
+- [AOA-EV-D-0253 Latest-Sibling Artifact Contract Paths Follow Current Owner Sources](../AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md) (`docs/decisions/AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md`)

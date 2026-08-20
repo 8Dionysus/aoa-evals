@@ -13,11 +13,11 @@
     "proof_handoff_candidate"
   ],
   "artifact_contract_refs": [
-    "repo:aoa-playbooks/playbooks/runtime-chaos-recovery/PLAYBOOK.md#expected-artifacts",
+    "repo:aoa-playbooks/playbooks/operations/recovery/runtime-chaos-recovery/PLAYBOOK.md#expected-artifacts",
     "repo:aoa-playbooks/mechanics/antifragility/parts/stress-lanes/examples/playbook_stress_lane.runtime-timeout-chaos.example.json",
     "repo:aoa-playbooks/mechanics/antifragility/parts/reentry-gates/examples/playbook_reentry_gate.retrieval-outage-honesty.example.json",
     "repo:aoa-sdk/mechanics/boundary-bridge/parts/consumed-surface-posture-gate/examples/composite_stress_route_hint.example.json",
-    "repo:aoa-kag/examples/regrounding_ticket.retrieval-outage-honesty.example.json",
+    "repo:aoa-kag/mechanics/antifragility/parts/retrieval-outage-regrounding/examples/regrounding_ticket.retrieval-outage-honesty.example.json",
     "repo:abyss-stack/mechanics/runtime-repair/parts/degradation-receipts/schemas/service-degradation-receipt.schema.json",
     "repo:aoa-memo/mechanics/recurrence-support/docs/WITNESS_TRACE_CONTRACT.md"
   ],

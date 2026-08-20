@@ -207,6 +207,10 @@
 
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 
+## fail-closed validation
+
+- [AOA-EV-D-0253 Latest-Sibling Artifact Contract Paths Follow Current Owner Sources](../AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md) (`docs/decisions/AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md`)
+
 ## freshness drift
 
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
@@ -269,6 +273,7 @@
 ## owner boundary
 
 - [AOA-EV-D-0248 Typed Capability Dependencies](../AOA-EV-D-0248-typed-capability-dependencies.md) (`docs/decisions/AOA-EV-D-0248-typed-capability-dependencies.md`)
+- [AOA-EV-D-0253 Latest-Sibling Artifact Contract Paths Follow Current Owner Sources](../AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md) (`docs/decisions/AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md`)
 
 ## owner succession
 
@@ -403,6 +408,7 @@
 ## source freshness
 
 - [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)
+- [AOA-EV-D-0253 Latest-Sibling Artifact Contract Paths Follow Current Owner Sources](../AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md) (`docs/decisions/AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md`)
 
 ## source/topology
 

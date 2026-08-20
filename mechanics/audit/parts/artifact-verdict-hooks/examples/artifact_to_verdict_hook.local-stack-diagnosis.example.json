@@ -12,7 +12,7 @@
     "shareable_summary"
   ],
   "artifact_contract_refs": [
-    "repo:aoa-playbooks/playbooks/local-stack-diagnosis/PLAYBOOK.md#expected-artifacts",
+    "repo:aoa-playbooks/playbooks/operations/recovery/local-stack-diagnosis/PLAYBOOK.md#expected-artifacts",
     "repo:aoa-playbooks/mechanics/real-run-harvest/parts/phase-alpha-evidence-store/docs/alpha-readiness/local-stack-diagnosis.md",
     "repo:aoa-agents/mechanics/questbook/parts/alpha-reference-routes/examples/local-stack-diagnosis.example.json",
     "repo:aoa-memo/examples/phase-alpha/state_capsule.phase-alpha-local-stack.example.json",

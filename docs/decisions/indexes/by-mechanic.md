@@ -335,6 +335,7 @@
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
 - [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)
+- [AOA-EV-D-0253 Latest-Sibling Artifact Contract Paths Follow Current Owner Sources](../AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md) (`docs/decisions/AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md`)
 
 ## boundary-bridge
 
@@ -358,6 +359,7 @@
 - [AOA-EV-D-0249 Organ Access Central Proof Gate](../AOA-EV-D-0249-organ-access-central-proof-gate.md) (`docs/decisions/AOA-EV-D-0249-organ-access-central-proof-gate.md`)
 - [AOA-EV-D-0250 SDK Routing Reference Succession](../AOA-EV-D-0250-sdk-routing-reference-succession.md) (`docs/decisions/AOA-EV-D-0250-sdk-routing-reference-succession.md`)
 - [AOA-EV-D-0252 Owner-Authored MCP Capability Profiles](../AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md) (`docs/decisions/AOA-EV-D-0252-owner-authored-mcp-capability-profiles.md`)
+- [AOA-EV-D-0253 Latest-Sibling Artifact Contract Paths Follow Current Owner Sources](../AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md) (`docs/decisions/AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md`)
 
 ## cross-parent
 

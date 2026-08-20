@@ -16,14 +16,14 @@
     "runtime_closeout_dry_run_receipt"
   ],
   "artifact_contract_refs": [
-    "repo:aoa-playbooks/playbooks/a2a-summon-return-checkpoint/PLAYBOOK.md#expected-artifacts",
-    "repo:aoa-skills/skills/core/session-growth/aoa-summon/references/summon-request-v3.schema.json",
-    "repo:aoa-skills/skills/core/session-growth/aoa-summon/references/summon-result-v3.schema.json",
+    "repo:aoa-playbooks/playbooks/continuity/checkpoint/a2a-summon-return-checkpoint/PLAYBOOK.md#expected-artifacts",
+    "repo:aoa-agents/skills/aoa-summon/references/summon-request-v3.schema.json",
+    "repo:aoa-agents/skills/aoa-summon/references/summon-result-v3.schema.json",
     "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/docs/summon-return-checkpoint.md",
     "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/codex_local_target.example.json",
     "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/return_transition_decision.example.json",
-    "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/checkpoint_bridge_plan.example.json",
-    "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/reviewed_closeout_request.example.json",
+    "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/checkpoint_evidence_handoff_plan.example.json",
+    "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/reviewed_return_handoff.example.json",
     "repo:aoa-sdk/mechanics/checkpoint/parts/child-task-reentry/examples/summon_return_checkpoint_e2e.fixture.json",
     "repo:aoa-memo/mechanics/writeback/docs/A2A_CHILD_RETURN_WRITEBACK.md",
     "repo:abyss-stack/mechanics/runtime-repair/parts/a2a-return-dry-run/docs/A2A_RETURN_DRY_RUN.md"

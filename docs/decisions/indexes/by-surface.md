@@ -622,6 +622,10 @@
 
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 
+## sibling compatibility
+
+- [AOA-EV-D-0253 Latest-Sibling Artifact Contract Paths Follow Current Owner Sources](../AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md) (`docs/decisions/AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md`)
+
 ## sibling reference
 
 - [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
@@ -631,6 +635,10 @@
 ## source eval package
 
 - [AOA-EV-D-0251 Active-Organ Proof Does Not Collapse Into Admission](../AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md) (`docs/decisions/AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md`)
+
+## source examples
+
+- [AOA-EV-D-0253 Latest-Sibling Artifact Contract Paths Follow Current Owner Sources](../AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md) (`docs/decisions/AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md`)
 
 ## source/topology
 
@@ -720,3 +728,7 @@
 
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
 - [AOA-EV-D-0245 Local Eval Suite Execution Contract](../AOA-EV-D-0245-local-eval-suite-execution-contract.md) (`docs/decisions/AOA-EV-D-0245-local-eval-suite-execution-contract.md`)
+
+## validation contract
+
+- [AOA-EV-D-0253 Latest-Sibling Artifact Contract Paths Follow Current Owner Sources](../AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md) (`docs/decisions/AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md`)

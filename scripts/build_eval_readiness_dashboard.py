@@ -45,6 +45,7 @@ DETERMINISTIC_DASHBOARD_KEYS = (
     "central_catalog",
     "runtime_candidate_exports",
     "candidate_packet_import",
+    "candidate_queue",
     "eval_support_registry",
     "trigger_criteria",
     "trajectory_eval_slice",

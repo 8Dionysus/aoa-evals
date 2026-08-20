@@ -327,6 +327,7 @@ def test_source_derived_refresh_preserves_recorded_live_snapshot() -> None:
         "schema_version": readiness.SCHEMA_VERSION,
         "generated_at_utc": "2026-06-25T00:00:00Z",
         "central_catalog": {"total_evals": 39},
+        "candidate_queue": {"summary": {"packet_count": 5}},
         "mcp_runtime_status": {"status": "ok", "freshness": "recorded"},
         "aoa_session_memory_freshness": {"status": "recorded-warning"},
         "workspace_git_drift": {"summary": {"dirty_repos": 2}},
@@ -340,6 +341,7 @@ def test_source_derived_refresh_preserves_recorded_live_snapshot() -> None:
         "schema_version": readiness.SCHEMA_VERSION,
         "generated_at_utc": "2026-07-18T00:00:00Z",
         "central_catalog": {"total_evals": 40},
+        "candidate_queue": {"summary": {"packet_count": 6}},
         "mcp_runtime_status": {"status": "failed", "freshness": "current"},
         "aoa_session_memory_freshness": {"status": "current-error"},
         "workspace_git_drift": {"summary": {"dirty_repos": 9}},
@@ -358,6 +360,7 @@ def test_source_derived_refresh_preserves_recorded_live_snapshot() -> None:
 
     assert merged["generated_at_utc"] == "2026-06-25T00:00:00Z"
     assert merged["central_catalog"] == {"total_evals": 40}
+    assert merged["candidate_queue"] == {"summary": {"packet_count": 6}}
     assert merged["mcp_runtime_status"] == current["mcp_runtime_status"]
     assert merged["aoa_session_memory_freshness"] == current[
         "aoa_session_memory_freshness"

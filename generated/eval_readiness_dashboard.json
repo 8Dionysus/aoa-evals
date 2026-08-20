@@ -550,19 +550,33 @@
     "candidate_packet_import": {
       "authority_boundary": "packet import is routing evidence only and cannot create proof meaning",
       "issue_count": 0,
-      "packet_count": 5,
+      "packet_count": 6,
       "packet_root": "mechanics/audit/parts/candidate-readers/packets",
       "summary": {
         "by_source_kind": {
+          "runtime_export": 1,
           "session_episode": 5
         },
         "by_state": {
-          "needs_owner_review": 5
+          "needs_owner_review": 6
         },
         "session_episode_packets": 5
       }
     },
     "entries": [
+      {
+        "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
+        "candidate_id": "local-port:aoa-kag",
+        "evidence_count": 4,
+        "next_route": "active_intake_select_then_apply_or_design",
+        "owner_repo": "aoa-kag",
+        "promotion_allowed": false,
+        "proof_authority": false,
+        "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
+        "source_kind": "local_eval_port",
+        "source_ref": "aoa-kag",
+        "state": "needs_owner_review"
+      },
       {
         "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
         "candidate_id": "local-port:aoa-memo",
@@ -578,28 +592,28 @@
       },
       {
         "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
-        "candidate_id": "local-port:aoa-routing",
-        "evidence_count": 2,
-        "next_route": "active_intake_select_then_apply_or_design",
-        "owner_repo": "aoa-routing",
+        "candidate_id": "local-port:aoa-sdk",
+        "evidence_count": 7,
+        "next_route": "active_suite_apply_or_regression_check",
+        "owner_repo": "aoa-sdk",
         "promotion_allowed": false,
         "proof_authority": false,
         "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
         "source_kind": "local_eval_port",
-        "source_ref": "aoa-routing",
+        "source_ref": "aoa-sdk",
         "state": "needs_owner_review"
       },
       {
         "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
-        "candidate_id": "local-port:aoa-skills",
-        "evidence_count": 6,
-        "next_route": "active_suite_note_review_or_execution_contract_design",
-        "owner_repo": "aoa-skills",
+        "candidate_id": "local-port:aoa-session-memory",
+        "evidence_count": 5,
+        "next_route": "active_suite_contract_stale_review",
+        "owner_repo": "aoa-session-memory",
         "promotion_allowed": false,
         "proof_authority": false,
         "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
         "source_kind": "local_eval_port",
-        "source_ref": "aoa-skills",
+        "source_ref": "aoa-session-memory",
         "state": "needs_owner_review"
       },
       {
@@ -682,6 +696,37 @@
       },
       {
         "authority_boundary": "schema-valid candidate packet only; proof adoption remains forbidden until owner review",
+        "candidate_id": "packet:runtime:external-luna-landing-l2-20260802",
+        "candidate_state_reason": "L0-L2 transport, separated review, fixed-input max/xhigh comparison, failure filtering, and exact-thread re-entry are evidenced. An owner-local manual rubric review retains Luna xhigh as an unadmitted shadow candidate because target-owner acceptance, an aoa-evals bounded-proof reading, attributable parent/operator cost, and repaired-target R1 evidence remain absent.",
+        "dedupe_key": "runtime_candidate_export_needs_review::artifact:external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/external-luna-closeout-v4f.eval_candidate.json#sha256:48baec5d425b69e2022e2a49200e66d03fea89cb9ed5514719483d9dcfd1d6bd",
+        "evaluator_fit": "human_review_rubric",
+        "evidence_count": 5,
+        "expected_aoa_eval_route": "apply",
+        "freshness_refs": [
+          "observed_at:2026-08-02T04:09:24Z",
+          "codex_cli:0.146.0",
+          "target_head:4a7d6212011a3a01c61ffdd6f91f38b8faa9cfea",
+          "target_manifest:sha256:8848ac970aab337f7ea11e9446111fdefff1e0ac78c07a588921c8eee1786cfb"
+        ],
+        "next_route": "Run aoa-evals review-context against the exact linked manual report, preserve its candidate-only proof ceiling, and present retain_unadmitted_shadow_candidate to the sole human authority; do not infer admission or benefit from successful L2 transport.",
+        "owner_repo": "aoa-evals + abyss-stack",
+        "owner_surface_refs": [
+          "evals/workflow/aoa-bounded-change-quality/EVAL.md",
+          "mechanics/audit/parts/candidate-readers/schemas/aoa-eval-candidate-packet.schema.json",
+          "repo:aoa-models/source/model-studies/external-codex-landing-ambiguity-stop-l2-reentry-v2-2026-08-02.json",
+          "repo:abyss-stack/mechanics/governed-execution/parts/external-codex-agent/CONTRACT.md"
+        ],
+        "packet_ref": "mechanics/audit/parts/candidate-readers/packets/external-luna-landing-l2-20260802.eval_candidate.json",
+        "promotion_allowed": false,
+        "proof_authority": false,
+        "review_gate": "the target owner reviews the confirmed KAG blocker and any repair; a fresh separated review establishes an accepted or honestly rejected target outcome after repair; aoa-evals applies an owner-approved proof route or records an explicit no-fit intake; +2 more",
+        "source_kind": "runtime_export",
+        "source_ref": "artifact:external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/external-luna-closeout-v4f.eval_candidate.json#sha256:48baec5d425b69e2022e2a49200e66d03fea89cb9ed5514719483d9dcfd1d6bd",
+        "state": "needs_owner_review",
+        "trigger_class_id": "runtime_candidate_export_needs_review"
+      },
+      {
+        "authority_boundary": "schema-valid candidate packet only; proof adoption remains forbidden until owner review",
         "candidate_id": "packet:session:aoa-eval-criteria-before-mining",
         "candidate_state_reason": "Criteria design pressure is concrete and high-value, but the rubric needs owner review before broader automation.",
         "dedupe_key": "session_episode_candidate_for_eval_design::.aoa:session:019eb8c7-a7b5-76f0-b66a-0eb3791305ff/task-0127/events:022746-023012",
@@ -730,7 +775,7 @@
           "AGENTS.md",
           "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
           "scripts/build_eval_readiness_dashboard.py",
-          "workspace:OS_ABYSS/aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
+          "repo:aoa-skills/.agents/skills/aoa-change-protocol/SKILL.md"
         ],
         "packet_ref": "mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-goal-shrink-completion-overclaim.eval_candidate.json",
         "promotion_allowed": false,
@@ -820,7 +865,7 @@
           "AGENTS.md",
           ".aoa/AGENTS.md",
           "docs/guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md",
-          "workspace:OS_ABYSS/aoa-skills/.agents/skills/aoa-eval/SKILL.md"
+          "repo:aoa-skills/.agents/skills/aoa-eval/SKILL.md"
         ],
         "packet_ref": "mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-working-process-fossilized-as-doctrine.eval_candidate.json",
         "promotion_allowed": false,
@@ -900,17 +945,18 @@
     "schema_version": "os_abyss_eval_candidate_queue_v1",
     "summary": {
       "by_source_kind": {
-        "local_eval_port": 9,
+        "local_eval_port": 10,
         "runtime_candidate_export": 1,
+        "runtime_export": 1,
         "session_episode": 5
       },
       "by_state": {
-        "needs_owner_review": 14,
+        "needs_owner_review": 16,
         "observed": 1
       },
-      "central_catalog_total_evals": 39,
-      "entries": 15,
-      "packet_count": 5,
+      "central_catalog_total_evals": 42,
+      "entries": 17,
+      "packet_count": 6,
       "session_mining_report_refs": [
         "mechanics/audit/parts/candidate-readers/reports/session-mining/2026-06-25-aoa-eval-control.manual-review.md"
       ],

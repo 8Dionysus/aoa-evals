@@ -16,8 +16,8 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 - Local invalid ports: 0
 - Actionable repo routes: 10
 - Runtime candidate exports: 14
-- Candidate queue entries: 15
-- Candidate packet imports: 5
+- Candidate queue entries: 17
+- Candidate packet imports: 6
 - Eval Forge archetypes: 18
 - Eval Forge candidate hints: 6
 - Session-mining reviewed episodes: 20
@@ -73,15 +73,17 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 | Candidate | State | Source | Owner | Evidence | Packet | Next Route |
 | --- | --- | --- | --- | ---: | --- | --- |
+| `local-port:aoa-kag` | needs_owner_review | local_eval_port | aoa-kag | 4 |  | active_intake_select_then_apply_or_design |
 | `local-port:aoa-memo` | needs_owner_review | local_eval_port | aoa-memo | 1 |  | active_intake_select_then_apply_or_design |
-| `local-port:aoa-routing` | needs_owner_review | local_eval_port | aoa-routing | 2 |  | active_intake_select_then_apply_or_design |
-| `local-port:aoa-skills` | needs_owner_review | local_eval_port | aoa-skills | 6 |  | active_suite_note_review_or_execution_contract_design |
+| `local-port:aoa-sdk` | needs_owner_review | local_eval_port | aoa-sdk | 7 |  | active_suite_apply_or_regression_check |
+| `local-port:aoa-session-memory` | needs_owner_review | local_eval_port | aoa-session-memory | 5 |  | active_suite_contract_stale_review |
 | `local-port:connectors/aoa-4pda-connector` | needs_owner_review | local_eval_port | connectors/aoa-4pda-connector | 2 |  | active_suite_note_review_or_execution_contract_design |
 | `local-port:connectors/aoa-course-connector` | needs_owner_review | local_eval_port | connectors/aoa-course-connector | 11 |  | active_suite_note_review_or_execution_contract_design |
 | `local-port:connectors/aoa-discord-connector` | needs_owner_review | local_eval_port | connectors/aoa-discord-connector | 1 |  | active_suite_note_review_or_execution_contract_design |
 | `local-port:connectors/aoa-stackoverflow-connector` | needs_owner_review | local_eval_port | connectors/aoa-stackoverflow-connector | 1 |  | active_suite_note_review_or_execution_contract_design |
 | `local-port:connectors/aoa-telegram-connector` | needs_owner_review | local_eval_port | connectors/aoa-telegram-connector | 1 |  | active_suite_note_review_or_execution_contract_design |
 | `local-port:connectors/aoa-xda-connector` | needs_owner_review | local_eval_port | connectors/aoa-xda-connector | 1 |  | active_suite_note_review_or_execution_contract_design |
+| `packet:runtime:external-luna-landing-l2-20260802` | needs_owner_review | runtime_export | aoa-evals + abyss-stack | 5 | `mechanics/audit/parts/candidate-readers/packets/external-luna-landing-l2-20260802.eval_candidate.json` | Run aoa-evals review-context against the exact linked manual report, preserve its candidate-only proof ceiling, and present retain_unadmitted_shadow_candidate to the sole human authority; do not infer admission or benefit from successful L2 transport. |
 | `packet:session:aoa-eval-criteria-before-mining` | needs_owner_review | session_episode | aoa-evals | 3 | `mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-criteria-before-mining.eval_candidate.json` | Use this packet to seed a criteria/rubric review before any larger session-mining wave. |
 | `packet:session:aoa-eval-goal-shrink-completion-overclaim` | needs_owner_review | session_episode | aoa-evals + aoa-skills | 3 | `mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-goal-shrink-completion-overclaim.eval_candidate.json` | Review the bounded source span against the current guide and decide whether this belongs in a trajectory eval slice or aoa-skills trigger case. |
 | `packet:session:aoa-eval-keyword-mining-blindspot` | needs_owner_review | session_episode | aoa-evals + .aoa | 3 | `mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-keyword-mining-blindspot.eval_candidate.json` | Use the manual review gates to design non-keyword pointer signals before any wider session-mining automation. |

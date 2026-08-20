@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 18555613,
+  "allowed_tracked_bytes": 26740639,
+  "approved_by": "repository-owner",
+  "base_ref": "3b0b3d41f7a555662af0e324955d482370945e63",
+  "changed_generated_bytes": 18555613,
+  "changed_generated_files": 284,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "c04fa4f350198b250f253a7960f83a9a8961d059e6426d28f67d2ea0332218fd",
+  "reason": "Refresh the existing aoa-evals portable family on current main for candidate-only lanes and source-derived candidate queue; no capability or source-surface expansion.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 26740639,
+  "tracked_bytes_max": 26214400
+}

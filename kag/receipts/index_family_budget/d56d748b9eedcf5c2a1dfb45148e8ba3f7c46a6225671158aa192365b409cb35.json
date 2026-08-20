@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 18348171,
+  "allowed_tracked_bytes": 26740192,
+  "approved_by": "repository-owner",
+  "base_ref": "3b0b3d41f7a555662af0e324955d482370945e63",
+  "changed_generated_bytes": 18348171,
+  "changed_generated_files": 277,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "d56d748b9eedcf5c2a1dfb45148e8ba3f7c46a6225671158aa192365b409cb35",
+  "reason": "Refresh the content-addressed aoa-evals owner family for the candidate-only Luna landing packet, candidate memo/export lane, and owner-local sibling path reconciliation; this receipt admits only the measured generated delta and existing tracked-size exceedance without promoting candidate evidence or changing proof verdict authority.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 26740192,
+  "tracked_bytes_max": 26214400
+}

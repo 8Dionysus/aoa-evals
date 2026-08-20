@@ -89,7 +89,8 @@ contracts must use current owner paths.
 
 ## Validation
 
-Run `python scripts/validate_repo.py`, the focused runtime-evidence tests,
-candidate/generated parity checks, and the latest-sibling canary against fresh
-sibling checkouts. A red canary caused by a new sibling move remains an honest
-compatibility residual rather than a reason to weaken strict validation.
+The source repository gate, focused runtime-evidence tests,
+candidate/generated parity checks, and latest-sibling canary against fresh
+sibling checkouts cover this decision. A red canary caused by a new sibling
+move remains an honest compatibility residual rather than a reason to weaken
+strict validation.

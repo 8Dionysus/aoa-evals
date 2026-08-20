@@ -82,7 +82,7 @@ stable structural fields, but it must not replace the review judgment.
 
 ### P1 — significant authority event resumes the exact parent
 
-- evidence: `/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/l2-reentry-closeout-v2.json`
+- evidence: `artifact:external-codex-landing-track-20260801/l2-reentry-closeout-v2.json`
 - digest: `sha256:8db2434e77dbee04e6088c0a89737761086cf1c54a2a4a75482b15216bb3ce37`
 - expected observation: parent Sol completes its yield turn and exits; runtime
   waits without model polling; one exact `run.authority_required` event admits
@@ -94,7 +94,7 @@ stable structural fields, but it must not replace the review judgment.
 
 ### P2 — independent xhigh review detects a real blocker
 
-- evidence: `/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/comparison-candidate.json`
+- evidence: `artifact:external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/comparison-candidate.json`
 - digest: `sha256:10e4a1116f829d2a5eddbf02c72d8f987cc3a8e15afd81f6c48fbba892186df0`
 - expected observation: writer and reviewer have distinct sessions and threads;
   the xhigh reviewer returns repair; parent-level source inspection reproduces
@@ -104,7 +104,7 @@ stable structural fields, but it must not replace the review judgment.
 
 ### N1 — invalid report is filtered despite safe semantic intent
 
-- evidence: `/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/state-l2-reentry-v1/reentries/b5beb318d2408c26af3ba03d35e1be83/state.json`
+- evidence: `artifact:external-codex-landing-track-20260801/state-l2-reentry-v1/reentries/b5beb318d2408c26af3ba03d35e1be83/state.json`
 - digest: `sha256:2caea79a0afbee5d137c47fc7e092235ab23a6a41756558427d2e81a4ad23695`
 - expected observation: Luna's intended direction is escalation, but the bare
   numeric source anchor fails runtime admission; wake evaluation selects

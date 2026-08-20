@@ -6,9 +6,9 @@
 | --- | --- |
 | packet ID | `runtime:external-luna-landing-l2-20260802` |
 | packet path | `mechanics/audit/parts/candidate-readers/packets/external-luna-landing-l2-20260802.eval_candidate.json` |
-| linked packet digest | `sha256:7dbbdad4ecaa0709452d62b85b766dca15a98552ea280a2a9c302246ae87a739` |
+| linked packet digest | `sha256:6dee214e95fa28171496ebf8e38380a0ba334fc9ac6b1c17f6524138ae2710d2` |
 | design path | `mechanics/audit/parts/candidate-readers/reports/runtime/2026-08-02-external-luna-landing-l2.local-eval-design.md` |
-| design digest | `sha256:f507b642aca0fea9dc7f761ca78ba6158b1d1e9c310b3d100b5b73f500d84936` |
+| design digest | `sha256:49bf76093be0e2c090771d36378d7ba0914aff02060be430dc2bf669142e2839` |
 | reviewer | `codex-root-sol-owner-review-preparation` |
 | review method | manual rubric reading of digest-pinned artifacts; no model-authored aggregate score |
 | reviewed at | `2026-08-02T05:00:59Z` |
@@ -46,11 +46,11 @@ or modify a source eval bundle.
 
 | Evidence | Verified digest | Review role |
 | --- | --- | --- |
-| `/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/l2-reentry-closeout-v2.json` | `sha256:8db2434e77dbee04e6088c0a89737761086cf1c54a2a4a75482b15216bb3ce37` | successful L2 cycle plus filtered counterexample |
-| `/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/state-l2-reentry-v1/reentries/b5beb318d2408c26af3ba03d35e1be83/state.json` | `sha256:2caea79a0afbee5d137c47fc7e092235ab23a6a41756558427d2e81a4ad23695` | invalid-report filtering and one-turn parent |
-| `/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/state-l2-reentry-v2/reentries/96afcd46364eb2ab7ce9e3b7c7e6e299/state.json` | `sha256:98c7205def19912c43e3f753c8ef1ff6f395f6b242cf053c486769ed41e498eb` | exact-thread authority re-entry |
-| `/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/comparison-candidate.json` | `sha256:10e4a1116f829d2a5eddbf02c72d8f987cc3a8e15afd81f6c48fbba892186df0` | max/xhigh, reviewer disagreement, system and economic limits |
-| `/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/completion-audit-20260802.json` | `sha256:576d536cf61fb3c2c5e906d180ca28ee2d775e5c43955dabb1dd8c0ecd6a8646` | goal-wide deliverable and authority gap |
+| `artifact:external-codex-landing-track-20260801/l2-reentry-closeout-v2.json` | `sha256:8db2434e77dbee04e6088c0a89737761086cf1c54a2a4a75482b15216bb3ce37` | successful L2 cycle plus filtered counterexample |
+| `artifact:external-codex-landing-track-20260801/state-l2-reentry-v1/reentries/b5beb318d2408c26af3ba03d35e1be83/state.json` | `sha256:2caea79a0afbee5d137c47fc7e092235ab23a6a41756558427d2e81a4ad23695` | invalid-report filtering and one-turn parent |
+| `artifact:external-codex-landing-track-20260801/state-l2-reentry-v2/reentries/96afcd46364eb2ab7ce9e3b7c7e6e299/state.json` | `sha256:98c7205def19912c43e3f753c8ef1ff6f395f6b242cf053c486769ed41e498eb` | exact-thread authority re-entry |
+| `artifact:external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/comparison-candidate.json` | `sha256:10e4a1116f829d2a5eddbf02c72d8f987cc3a8e15afd81f6c48fbba892186df0` | max/xhigh, reviewer disagreement, system and economic limits |
+| `artifact:external-codex-landing-track-20260801/completion-audit-20260802.json` | `sha256:576d536cf61fb3c2c5e906d180ca28ee2d775e5c43955dabb1dd8c0ecd6a8646` | goal-wide deliverable and authority gap |
 
 The current historical target remains identified as Git HEAD
 `4a7d6212011a3a01c61ffdd6f91f38b8faa9cfea` and manifest

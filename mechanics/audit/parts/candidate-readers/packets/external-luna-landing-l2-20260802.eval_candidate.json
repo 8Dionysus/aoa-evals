@@ -5,7 +5,7 @@
   "proof_authority": false,
   "promotion_allowed": false,
   "source_kind": "runtime_export",
-  "source_ref": "/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/external-luna-closeout-v4f.eval_candidate.json#sha256:48baec5d425b69e2022e2a49200e66d03fea89cb9ed5514719483d9dcfd1d6bd",
+  "source_ref": "artifact:external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/external-luna-closeout-v4f.eval_candidate.json#sha256:48baec5d425b69e2022e2a49200e66d03fea89cb9ed5514719483d9dcfd1d6bd",
   "observed_at_utc": "2026-08-02T04:09:24Z",
   "trigger_class_id": "runtime_candidate_export_needs_review",
   "task_pressure": "The external Luna landing contour now includes a real parent Sol yield, inference-free durable wait, failed-event filtering, and exact-thread authority re-entry, while its economic and owner-admission questions remain unresolved.",
@@ -16,14 +16,14 @@
   "owner_surface_refs": [
     "evals/workflow/aoa-bounded-change-quality/EVAL.md",
     "mechanics/audit/parts/candidate-readers/schemas/aoa-eval-candidate-packet.schema.json",
-    "/srv/AbyssOS/aoa-models/source/model-studies/external-codex-landing-ambiguity-stop-l2-reentry-v2-2026-08-02.json",
-    "/home/dionysus/src/.worktrees/abyss-stack-external-luna-20260801/mechanics/governed-execution/parts/external-codex-agent/CONTRACT.md"
+    "repo:aoa-models/source/model-studies/external-codex-landing-ambiguity-stop-l2-reentry-v2-2026-08-02.json",
+    "repo:abyss-stack/mechanics/governed-execution/parts/external-codex-agent/CONTRACT.md"
   ],
   "evidence_refs": [
-    "/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/l2-reentry-closeout-v2.json#sha256:8db2434e77dbee04e6088c0a89737761086cf1c54a2a4a75482b15216bb3ce37",
-    "/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/state-l2-reentry-v1/reentries/b5beb318d2408c26af3ba03d35e1be83/state.json#sha256:2caea79a0afbee5d137c47fc7e092235ab23a6a41756558427d2e81a4ad23695",
-    "/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/state-l2-reentry-v2/reentries/96afcd46364eb2ab7ce9e3b7c7e6e299/state.json#sha256:98c7205def19912c43e3f753c8ef1ff6f395f6b242cf053c486769ed41e498eb",
-    "/srv/abyss-machine/tmp/ai/external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/comparison-candidate.json#sha256:10e4a1116f829d2a5eddbf02c72d8f987cc3a8e15afd81f6c48fbba892186df0",
+    "artifact:external-codex-landing-track-20260801/l2-reentry-closeout-v2.json#sha256:8db2434e77dbee04e6088c0a89737761086cf1c54a2a4a75482b15216bb3ce37",
+    "artifact:external-codex-landing-track-20260801/state-l2-reentry-v1/reentries/b5beb318d2408c26af3ba03d35e1be83/state.json#sha256:2caea79a0afbee5d137c47fc7e092235ab23a6a41756558427d2e81a4ad23695",
+    "artifact:external-codex-landing-track-20260801/state-l2-reentry-v2/reentries/96afcd46364eb2ab7ce9e3b7c7e6e299/state.json#sha256:98c7205def19912c43e3f753c8ef1ff6f395f6b242cf053c486769ed41e498eb",
+    "artifact:external-codex-landing-track-20260801/comparison-closeout-pr342-canonical-summon-v4f/comparison-candidate.json#sha256:10e4a1116f829d2a5eddbf02c72d8f987cc3a8e15afd81f6c48fbba892186df0",
     "mechanics/audit/parts/candidate-readers/reports/runtime/2026-08-02-external-luna-landing-l2.manual-review.md"
   ],
   "freshness_refs": [

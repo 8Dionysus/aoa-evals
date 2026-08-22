@@ -67,8 +67,10 @@ observation requires at least one schema-valid identity-provenance binding,
 and the generated report preserves exactly one binding per admitted pair. The
 schema bounds that parity to the six-method set: one baseline plus at most five
 candidate pairs. A positive top-level verdict also requires a positive matched
-unit and observed-pair count. It is not a speedup, causal effect, proof result,
-or winner verdict.
+unit and observed-pair count. Admitted units must declare identity matched, and
+a positive observed unit must expose at least one jointly measured metric with
+baseline and candidate values. It is not a speedup, causal effect, proof
+result, or winner verdict.
 
 This eval does **not** support claims that:
 
@@ -169,8 +171,10 @@ matched positive units require at least one such binding, controlled matched
 units preserve the same binding invariant, and unmatched units carry an empty
 matched-binding list. The report schema binds the binding-array cardinality to
 the admitted-pair count and requires a matched unit for a positive top-level
-verdict. The declared command timeout must also be finite; non-finite literals
-and numeric overflow are rejected before admission.
+verdict. It also requires identity-match truth for admitted units and measured
+coverage for positive observed units. The declared command timeout must also
+be finite; non-finite literals and numeric overflow are rejected before
+admission.
 
 The apply packet is therefore a contract for a future owner-local run, not
 evidence that a run occurred. The checked-in example report is intentionally

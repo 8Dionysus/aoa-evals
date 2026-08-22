@@ -272,7 +272,20 @@
             "properties": {
               "matched_pair_count": {"minimum": 1},
               "observed_pair_count": {"minimum": 1},
-              "matched_identity_bindings": {"minItems": 1}
+              "matched_identity_bindings": {"minItems": 1},
+              "identity_match": {"const": true},
+              "metric_coverage": {
+                "anyOf": [
+                  {"properties": {"wall_seconds": {"properties": {"observed_values": {"minItems": 2}}}}},
+                  {"properties": {"cpu_ms": {"properties": {"observed_values": {"minItems": 2}}}}},
+                  {"properties": {"peak_rss_kib": {"properties": {"observed_values": {"minItems": 2}}}}},
+                  {"properties": {"io_read_bytes": {"properties": {"observed_values": {"minItems": 2}}}}},
+                  {"properties": {"io_write_bytes": {"properties": {"observed_values": {"minItems": 2}}}}},
+                  {"properties": {"setup_startup_seconds": {"properties": {"observed_values": {"minItems": 2}}}}},
+                  {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"minItems": 2}}}}},
+                  {"properties": {"retry_amplification": {"properties": {"observed_values": {"minItems": 2}}}}}
+                ]
+              }
             }
           }
         },
@@ -285,7 +298,20 @@
           "then": {
             "properties": {
               "matched_pair_count": {"minimum": 1},
-              "matched_identity_bindings": {"minItems": 1}
+              "matched_identity_bindings": {"minItems": 1},
+              "identity_match": {"const": true}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {"const": "unmatched"}
+            }
+          },
+          "then": {
+            "properties": {
+              "identity_match": {"const": false}
             }
           }
         },

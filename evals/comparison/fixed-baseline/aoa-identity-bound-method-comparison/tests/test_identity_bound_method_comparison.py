@@ -236,6 +236,29 @@ def test_report_schema_requires_a_matched_unit_for_positive_verdict(runner) -> N
     assert errors
 
 
+def test_report_schema_requires_identity_match_for_admitted_unit(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["identity_match"] = False
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_requires_observed_metric_coverage_for_positive_unit(runner) -> None:
+    report = runner.build_report(packet(runner))
+    for coverage in report["comparison_units"][0]["metric_coverage"].values():
+        coverage["observed_values"] = []
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
 def test_report_order_is_independent_of_observation_order(runner) -> None:
     payload = packet(runner)
     extra_rows = [

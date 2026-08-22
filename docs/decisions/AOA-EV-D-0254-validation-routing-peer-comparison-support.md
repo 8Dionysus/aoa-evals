@@ -66,9 +66,9 @@ absence or incomplete external evidence from becoming a score or green result.
   contract without changing source bundle claim meaning.
 - Positive: seeded stale/unknown/receipt/miss cases exercise fail-closed
   behavior and explanation coverage locally.
-- Positive: the repo-wide support registry classifies the read-only part-local
-  measurement runner as bounded comparison support, with proof and policy
-  interpretations forbidden.
+- Positive: the repo-wide support registry classifies the optionally
+  caller-write-capable part-local measurement runner as bounded comparison
+  support, with proof and policy interpretations forbidden.
 - Tradeoff: no real-session recall, external receipt timing, or population-level
   method choice is established by this slice.
 - Follow-up: bind exact `aoa-evals` commits to `aoa-kag` and canonical
@@ -77,13 +77,16 @@ absence or incomplete external evidence from becoming a score or green result.
 
 ## Current Applicability
 
-As of 2026-08-21:
+As of 2026-08-22:
 
 - Still valid: validation-routing support remains under `peer-compare` and is
   measurement-only.
 - Changed: peer-compare now includes a validation-routing fixture, runner,
   report, explicit candidate coverage map, seeded-only evidence policy, and
-  strict nested report ABI.
+  strict nested report ABI. The runner is read-only by default but is
+  optionally caller-write-capable when `--output` is supplied; that effect is
+  bounded to the caller-selected report path and does not change its
+  measurement-only claim posture.
 - Superseded by: none.
 
 ## Review Log
@@ -98,6 +101,21 @@ identity/method/measurement/scenario/event/oracle/escalation objects, admits
 only `seeded_fixture` evidence in v1, and names every latency value as a
 synthetic fixture proxy. It does not promote a seeded candidate to policy,
 proof, or a runtime performance result, and it leaves the owner gate intact.
+
+### 2026-08-22 - Receipt classification and effect currentness follow-up
+
+- Previous assumption: a declared owner-contract failure state could be used
+  as receipt evidence, and the runner could be described simply as read-only.
+- New reality: receipt shape and complete identity are the source-owned
+  classifier; `--output` can create directories and write the caller-selected
+  report path.
+- Reason: exact-head review exposed coverage disagreement for a complete
+  receipt mislabeled `malformed` and stale effect metadata in this decision.
+- Source surfaces updated: peer-compare runner/tests/fixture contract note and
+  this decision's applicability and consequence wording.
+- Validation: focused classifier matrix, peer-compare runner checks, owner
+  validators, generated parity, and hosted review remain separate evidence
+  layers.
 
 ## Boundaries
 

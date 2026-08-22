@@ -19,6 +19,12 @@ observed runtime performance. A generic method explanation cannot explain a
 missing node: the runner requires a non-empty node-keyed
 `missing_explanations[node]` entry.
 
+Owner-contract receipt states are derived from inspected receipt shape and the
+complete scenario identity tuple before any declared state label is trusted.
+Therefore a mislabeled complete receipt cannot fabricate malformed or
+wrong-identity adversarial coverage, and partial or mismatched receipts remain
+fail-closed.
+
 Required adversarial classes:
 
 - stale graph;

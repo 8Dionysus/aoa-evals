@@ -16,7 +16,7 @@ import math
 import sys
 from collections import Counter
 from pathlib import Path
-from typing import Any, Callable, Sequence
+from typing import Any, Callable, NamedTuple, Sequence
 
 
 PART_ROOT = Path(__file__).resolve().parents[1]
@@ -99,6 +99,14 @@ class ContractError(ValueError):
     """Raised when a fixture or report contract is not safe to compare."""
 
 
+class OwnerReceiptEvidence(NamedTuple):
+    """One receipt-shape classification shared by admission and measurement."""
+
+    state: str
+    reason: str
+    mismatched_fields: tuple[str, ...] = ()
+
+
 def load_object(path: Path) -> dict[str, Any]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
@@ -178,30 +186,62 @@ def canonical_digest(value: Any) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
-def owner_contract_signal_state(scenario: dict[str, Any]) -> str:
-    signals = scenario.get("signals", {})
-    signal = signals.get("owner_contracts") if isinstance(signals, dict) else None
-    if not isinstance(signal, dict):
-        return "unknown"
-
-    state = signal.get("state", "unknown")
-    if state != "valid":
-        return state if isinstance(state, str) and state in FAILURE_STATES else "blocked"
-
-    receipt = signal.get("receipt")
-    if not isinstance(receipt, dict):
-        return "malformed"
-    expected = {
+def expected_receipt(scenario: dict[str, Any]) -> dict[str, str]:
+    return {
         "workload_id": scenario["workload_id"],
         "candidate_set_id": scenario["candidate_set_id"],
         "environment_id": scenario["environment_id"],
         "source_ref": scenario["source_ref"],
     }
-    if any(key not in receipt for key in expected):
-        return "malformed"
-    if any(receipt.get(key) != value for key, value in expected.items()):
-        return "wrong_identity"
-    return "valid"
+
+
+def classify_owner_receipt(scenario: dict[str, Any]) -> OwnerReceiptEvidence:
+    """Classify owner evidence from receipt shape and identity, not its label."""
+    signals = scenario.get("signals", {})
+    signal = signals.get("owner_contracts") if isinstance(signals, dict) else None
+    if not isinstance(signal, dict):
+        return OwnerReceiptEvidence("unknown", "owner contract signal is not declared")
+
+    declared_state = signal.get("state", "unknown")
+    if "receipt" not in signal:
+        if declared_state in {"stale", "unknown", "blocked"}:
+            reason = signal.get("reason")
+            return OwnerReceiptEvidence(
+                declared_state,
+                str(reason) if reason else f"owner receipt state is {declared_state}",
+            )
+        return OwnerReceiptEvidence("malformed", "owner receipt is not declared")
+
+    receipt = signal.get("receipt")
+    if not isinstance(receipt, dict):
+        return OwnerReceiptEvidence("malformed", "owner receipt is not an object")
+    expected = expected_receipt(scenario)
+    missing = sorted(set(expected) - set(receipt))
+    if missing:
+        return OwnerReceiptEvidence(
+            "malformed", "owner receipt omitted identity field(s): " + ", ".join(missing)
+        )
+    mismatched = sorted(
+        key for key, value in expected.items() if receipt.get(key) != value
+    )
+    if mismatched:
+        return OwnerReceiptEvidence(
+            "wrong_identity",
+            "owner receipt identity mismatched: " + ", ".join(mismatched),
+            tuple(mismatched),
+        )
+    if declared_state != "valid":
+        return OwnerReceiptEvidence(
+            "valid",
+            "owner receipt shape and identity are valid; ignored declared state "
+            f"{declared_state!r}",
+        )
+    return OwnerReceiptEvidence("valid", "owner receipt shape and identity matched")
+
+
+def owner_contract_signal_state(scenario: dict[str, Any]) -> str:
+    """Expose the shared owner-receipt classification to admission checks."""
+    return classify_owner_receipt(scenario).state
 
 
 def adversarial_class_matches(scenario: dict[str, Any], adversarial_class: str) -> bool:
@@ -215,16 +255,10 @@ def adversarial_class_matches(scenario: dict[str, Any], adversarial_class: str) 
     if adversarial_class == "unknown_dependency":
         return dependency_state == "unknown"
     if adversarial_class == "wrong_candidate_environment_receipt":
-        owner_contracts = signals.get("owner_contracts") if isinstance(signals, dict) else None
-        receipt = owner_contracts.get("receipt") if isinstance(owner_contracts, dict) else None
-        return (
-            owner_contract_signal_state(scenario) == "wrong_identity"
-            and isinstance(receipt, dict)
-            and all(field in receipt for field in ("candidate_set_id", "environment_id"))
-            and (
-                receipt["candidate_set_id"] != scenario["candidate_set_id"]
-                or receipt["environment_id"] != scenario["environment_id"]
-            )
+        evidence = classify_owner_receipt(scenario)
+        return evidence.state == "wrong_identity" and bool(
+            set(evidence.mismatched_fields)
+            & {"candidate_set_id", "environment_id"}
         )
     if adversarial_class == "malformed_receipt":
         return owner_contract_signal_state(scenario) == "malformed"
@@ -619,64 +653,14 @@ def signal_result(
     }
 
 
-def expected_receipt(scenario: dict[str, Any]) -> dict[str, str]:
-    return {
-        "workload_id": scenario["workload_id"],
-        "candidate_set_id": scenario["candidate_set_id"],
-        "environment_id": scenario["environment_id"],
-        "source_ref": scenario["source_ref"],
-    }
-
-
 def owner_contract_result(
     scenario: dict[str, Any], *, method_id: str, latency_weights: dict[str, float]
 ) -> dict[str, Any]:
-    signal = scenario.get("signals", {}).get("owner_contracts")
-    if not isinstance(signal, dict):
-        return signal_result(
-            None,
-            method_id=method_id,
-            expected_state="valid",
-            latency_ms=latency_weights[method_id],
-        )
-    state = signal.get("state", "unknown")
-    if state != "valid":
-        return signal_result(
-            signal,
-            method_id=method_id,
-            expected_state="valid",
-            latency_ms=latency_weights[method_id],
-        )
-    receipt = signal.get("receipt")
-    if not isinstance(receipt, dict):
-        malformed = {**signal, "state": "malformed", "reason": "owner receipt is not an object"}
-        return signal_result(
-            malformed,
-            method_id=method_id,
-            expected_state="valid",
-            latency_ms=latency_weights[method_id],
-        )
-    expected = expected_receipt(scenario)
-    if any(key not in receipt for key in expected):
-        malformed = {**signal, "state": "malformed", "reason": "owner receipt omitted an identity field"}
-        return signal_result(
-            malformed,
-            method_id=method_id,
-            expected_state="valid",
-            latency_ms=latency_weights[method_id],
-        )
-    if any(receipt.get(key) != value for key, value in expected.items()):
-        wrong = {
-            **signal,
-            "state": "wrong_identity",
-            "reason": "owner receipt workload, candidate, environment, or source identity mismatched",
-        }
-        return signal_result(
-            wrong,
-            method_id=method_id,
-            expected_state="valid",
-            latency_ms=latency_weights[method_id],
-        )
+    raw_signal = scenario.get("signals", {}).get("owner_contracts")
+    signal = dict(raw_signal) if isinstance(raw_signal, dict) else {}
+    evidence = classify_owner_receipt(scenario)
+    signal["state"] = evidence.state
+    signal["reason"] = evidence.reason
     return signal_result(
         signal,
         method_id=method_id,

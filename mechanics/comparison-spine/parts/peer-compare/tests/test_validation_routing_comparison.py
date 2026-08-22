@@ -403,6 +403,63 @@ def test_wrong_receipt_class_rejects_partial_receipt_before_identity_comparison(
         comparison.build_report(load_json(CONTRACT_PATH), cases)
 
 
+@pytest.mark.parametrize(
+    ("declared_state", "receipt_shape", "expected_state"),
+    [
+        ("valid", "complete", "valid"),
+        ("malformed", "complete", "valid"),
+        ("wrong_identity", "complete", "valid"),
+        ("valid", "partial", "malformed"),
+        ("malformed", "partial", "malformed"),
+        ("valid", "wrong_identity", "wrong_identity"),
+        ("unknown", "missing", "unknown"),
+        ("valid", "missing", "malformed"),
+    ],
+)
+def test_owner_receipt_classifier_prioritizes_shape_and_identity(
+    declared_state: str, receipt_shape: str, expected_state: str
+) -> None:
+    cases = load_json(CASES_PATH)
+    scenario = copy.deepcopy(cases["scenarios"][0])
+    signal = scenario["signals"]["owner_contracts"]
+    signal["state"] = declared_state
+    if receipt_shape == "partial":
+        signal["receipt"] = {
+            "candidate_set_id": scenario["candidate_set_id"],
+        }
+    elif receipt_shape == "wrong_identity":
+        signal["receipt"]["candidate_set_id"] = "candidate-set-other"
+    elif receipt_shape == "missing":
+        signal.pop("receipt")
+
+    assert comparison.classify_owner_receipt(scenario).state == expected_state
+    assert comparison.owner_contract_signal_state(scenario) == expected_state
+    result = comparison.owner_contract_result(
+        scenario,
+        method_id="owner_contracts",
+        latency_weights=cases["latency_event_weights_ms_synthetic_proxy"],
+    )
+    assert result["signal_states"] == [expected_state]
+    assert comparison.adversarial_class_matches(scenario, "malformed_receipt") is (
+        expected_state == "malformed"
+    )
+    assert comparison.adversarial_class_matches(
+        scenario, "wrong_candidate_environment_receipt"
+    ) is (expected_state == "wrong_identity")
+
+
+def test_case_admission_rejects_mislabeled_complete_owner_receipt() -> None:
+    cases = load_json(CASES_PATH)
+    mislabeled = copy.deepcopy(cases["scenarios"][0])
+    mislabeled["scenario_id"] = "RVC-008-mislabeled-complete-receipt"
+    mislabeled["adversarial_class"] = "malformed_receipt"
+    mislabeled["signals"]["owner_contracts"]["state"] = "malformed"
+    cases["scenarios"].append(mislabeled)
+
+    with pytest.raises(comparison.ContractError, match="does not match"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
 def test_unbound_owner_class_requires_external_owner_in_both_oracle_node_sets() -> None:
     cases = load_json(CASES_PATH)
     unbound = copy.deepcopy(cases["scenarios"][6])

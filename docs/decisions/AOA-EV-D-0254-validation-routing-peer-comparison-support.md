@@ -204,6 +204,12 @@ widen owner proof, candidate families, comparison meaning, retry/resource
 limits, or the measurement-only posture. KAG convergence, the next exact-head
 review, and hosted landing remain separate evidence.
 
+### 2026-08-22 - Exact-head candidate-family admission
+
+The review annotation posted immediately after the `f67a5e8cf975fd3fd2cb30710f9619c25fad1d85` review header found one more source-admission gap: an implemented candidate family could be replaced with a policy label while remaining non-empty. The runner now preserves the source-owned v1 family for every implemented candidate, with a focused regression test for the policy-strengthening mutation.
+
+This closes catalog metadata drift only; it does not add a candidate, change a family meaning, or widen the measurement-only claim. The next exact-head review and the separate KAG/hosted landing gates remain required.
+
 ## Boundaries
 
 This decision does not make a seeded report real-session proof, a local green

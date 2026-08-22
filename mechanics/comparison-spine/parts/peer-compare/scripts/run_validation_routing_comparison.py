@@ -72,6 +72,14 @@ EXPECTED_IMPLEMENTED_CANDIDATE_DESCRIPTIONS = {
     "claim_risk": "Use declared claim/risk labels as candidate activation hints.",
     "hybrid_fail_closed": "Combine bounded signals and escalate unresolved cases to full owner proof.",
 }
+EXPECTED_IMPLEMENTED_CANDIDATE_FAMILIES = {
+    "static_paths": "static_paths",
+    "dependency_graph": "imports_dependencies",
+    "owner_contracts": "owner_contracts",
+    "history_correlation": "historical_failure_correlation",
+    "claim_risk": "claim_risk_classification",
+    "hybrid_fail_closed": "hybrid_owner_dag_adaptive",
+}
 EXPECTED_COMPARISON_IDENTITY_KEYS = {"candidate_set_id", "environment_id"}
 EXPECTED_ALLOWED_USE = (
     "bounded prior and route-gap input only; no raw session body or policy verdict copied"
@@ -541,6 +549,11 @@ def validate_contract(contract: dict[str, Any]) -> None:
         family = candidate.get("family")
         if not isinstance(family, str) or not family.strip():
             raise ContractError(f"candidate {method_id!r} needs a non-empty family")
+        expected_family = EXPECTED_IMPLEMENTED_CANDIDATE_FAMILIES.get(method_id)
+        if expected_family is not None and family != expected_family:
+            raise ContractError(
+                f"candidate {method_id!r} must preserve its source-owned family"
+            )
         if status == "implemented":
             description = candidate.get("description")
             if not isinstance(description, str) or not description.strip():

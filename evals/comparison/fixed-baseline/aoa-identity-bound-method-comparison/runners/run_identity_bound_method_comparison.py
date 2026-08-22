@@ -243,7 +243,10 @@ def _jointly_known_metric_names(
 
 
 def _metric_coverage(
-    rows: list[dict[str, Any]], *, eligible_observed_method_ids: set[str]
+    rows: list[dict[str, Any]],
+    *,
+    eligible_observed_method_ids: set[str],
+    eligible_controlled_method_ids: set[str],
 ) -> dict[str, Any]:
     coverage: dict[str, Any] = {}
     for metric_name in METRIC_NAMES:
@@ -271,7 +274,10 @@ def _metric_coverage(
                 value = {"method_id": row["method_id"], "value": measurement["value"], "unit": measurement["unit"]}
                 if origin == "observed" and row["method_id"] in eligible_observed_method_ids:
                     observed_values.append(value)
-                elif origin == "controlled":
+                elif (
+                    origin == "controlled"
+                    and row["method_id"] in eligible_controlled_method_ids
+                ):
                     controlled_values.append(value)
         coverage[metric_name] = {
             "state_counts": status_counts,
@@ -303,7 +309,11 @@ def _unit_result(
                 "identity_match": False,
                 "mismatched_fields": ["baseline_method_id"],
                 "observation_refs": sorted({ref for row in rows for ref in row["evidence_refs"]}),
-                "metric_coverage": _metric_coverage(rows, eligible_observed_method_ids=set()),
+                "metric_coverage": _metric_coverage(
+                    rows,
+                    eligible_observed_method_ids=set(),
+                    eligible_controlled_method_ids=set(),
+                ),
                 "claim_limit": "no declared baseline row; no method pair admitted",
             },
             [{"unit_id": unit_id, "reason": "baseline_method_missing", "mismatched_fields": ["baseline_method_id"]}],
@@ -325,7 +335,11 @@ def _unit_result(
                 "identity_match": False,
                 "mismatched_fields": ["comparison_candidate_method_id"],
                 "observation_refs": sorted({ref for row in rows for ref in row["evidence_refs"]}),
-                "metric_coverage": _metric_coverage(rows, eligible_observed_method_ids=set()),
+                "metric_coverage": _metric_coverage(
+                    rows,
+                    eligible_observed_method_ids=set(),
+                    eligible_controlled_method_ids=set(),
+                ),
                 "claim_limit": "one-sided baseline; no method pair admitted",
             },
             [{"unit_id": unit_id, "reason": reason, "mismatched_fields": ["comparison_candidate_method_id"]}],
@@ -336,6 +350,7 @@ def _unit_result(
     observed_pair_count = 0
     controlled_pair_count = 0
     eligible_observed_method_ids: set[str] = set()
+    eligible_controlled_method_ids: set[str] = set()
     for candidate in candidates:
         mismatches = _identity_mismatches(baseline, candidate)
         mismatches.extend(_packet_binding_mismatches(baseline, packet))
@@ -383,6 +398,11 @@ def _unit_result(
                 eligible_observed_method_ids.update({baseline_method_id, candidate["method_id"]})
             else:
                 controlled_pair_count += 1
+                eligible_controlled_method_ids.update(
+                    row["method_id"]
+                    for row in (baseline, candidate)
+                    if row["measurement_origin"] == "controlled"
+                )
 
     method_ids = [method_id for method_id in METHOD_IDS if method_id in {row["method_id"] for row in rows}]
     review_statuses = sorted({row["review_status"] for row in rows})
@@ -412,7 +432,9 @@ def _unit_result(
         "mismatched_fields": sorted(set(all_mismatches)),
         "observation_refs": refs,
         "metric_coverage": _metric_coverage(
-            rows, eligible_observed_method_ids=eligible_observed_method_ids
+            rows,
+            eligible_observed_method_ids=eligible_observed_method_ids,
+            eligible_controlled_method_ids=eligible_controlled_method_ids,
         ),
         "claim_limit": claim_limit,
     }

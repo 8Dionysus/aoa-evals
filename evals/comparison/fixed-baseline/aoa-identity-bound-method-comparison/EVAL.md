@@ -117,6 +117,9 @@ ratio as declared by the metric name. An observed pair is eligible only when
 at least one metric is jointly known for baseline and candidate under the same
 canonical unit. `matched_pair_count` includes all admitted origin pairs, while
 `eligible_real_pairs` counts only jointly measured observed pairs.
+Only rows from an eligible pair populate `observed_values` or
+`controlled_values`; rejected rows remain visible through state counts and
+`unmatched_cases`.
 
 Every observation `evidence_ref` must resolve to a declared packet artifact
 with `kind: public-safe-observation` and a SHA-256 digest. Only

@@ -11,6 +11,7 @@
     "baseline and method rows share the complete identity tuple before comparison",
     "cache posture and resource posture are explicit and known before an observed pair is admitted",
     "first-failure, retry, and resource fields preserve unknown, null, excluded, unobservable, and missing states",
+    "only rows from an eligible pair populate observed_values or controlled_values; rejected rows remain visible through state counts and unmatched cases",
     "synthetic or controlled values are accounted for separately and never reported as observed values",
     "unmatched units and their mismatch reasons remain visible",
     "a report cannot issue a universal winner, causal effect, central proof, or human-acceptance verdict"

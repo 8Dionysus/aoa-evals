@@ -219,6 +219,7 @@ def test_unmatched_controlled_candidate_does_not_hide_observed_pair(runner) -> N
     unit = report["comparison_units"][0]
     assert unit["disposition"] == "matched_observation_only"
     assert [item["value"] for item in unit["metric_coverage"]["wall_seconds"]["observed_values"]] == [10.0, 8.0]
+    assert unit["metric_coverage"]["wall_seconds"]["controlled_values"] == []
 
 
 def test_eligible_real_pairs_count_only_observed_pairs(runner) -> None:
@@ -245,6 +246,13 @@ def test_eligible_real_pairs_count_only_observed_pairs(runner) -> None:
     assert unit["observed_pair_count"] == 1
     assert report["admission"]["matched_pair_count"] == 2
     assert report["admission"]["eligible_real_pairs"] == 1
+
+
+def test_eligible_controlled_pair_populates_controlled_values(runner) -> None:
+    report = runner.build_report(packet(runner, origin="controlled"))
+    unit = report["comparison_units"][0]
+    assert unit["disposition"] == "controlled_accounting_only"
+    assert [item["value"] for item in unit["metric_coverage"]["wall_seconds"]["controlled_values"]] == [10.0, 8.0]
 
 
 def test_observed_pair_requires_jointly_known_metric(runner) -> None:

@@ -389,6 +389,32 @@ def test_wrong_receipt_class_requires_candidate_and_environment_mismatch() -> No
         comparison.build_report(load_json(CONTRACT_PATH), cases)
 
 
+def test_wrong_receipt_class_rejects_partial_receipt_before_identity_comparison() -> None:
+    cases = load_json(CASES_PATH)
+    partial = copy.deepcopy(cases["scenarios"][4])
+    partial["scenario_id"] = "RVC-008-partial-wrong-receipt"
+    partial["adversarial_class"] = "wrong_candidate_environment_receipt"
+    partial["signals"]["owner_contracts"]["receipt"]["environment_id"] = (
+        "seeded-other-environment-v1"
+    )
+    cases["scenarios"].append(partial)
+
+    with pytest.raises(comparison.ContractError, match="does not match"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_unbound_owner_class_requires_external_owner_in_both_oracle_node_sets() -> None:
+    cases = load_json(CASES_PATH)
+    unbound = copy.deepcopy(cases["scenarios"][6])
+    unbound["scenario_id"] = "RVC-008-unbound-owner-without-route"
+    unbound["oracle"]["required_nodes"] = ["source_fast"]
+    unbound["oracle"]["owner_proof_nodes"] = ["source_fast"]
+    cases["scenarios"].append(unbound)
+
+    with pytest.raises(comparison.ContractError, match="does not match"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
 def test_duplicate_signal_nodes_are_rejected_before_event_measurement() -> None:
     cases = load_json(CASES_PATH)
     cases["scenarios"][0]["signals"]["dependency_graph"]["nodes"].append("source_fast")

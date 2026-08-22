@@ -41,6 +41,7 @@ IMPLEMENTED_METHOD_IDS = (
 LATENCY_COMPONENT_METHOD_IDS = IMPLEMENTED_METHOD_IDS[:-1]
 UNSUPPORTED_METHOD_STATUS = "unsupported_missing_candidate"
 FAILURE_STATES = {"stale", "unknown", "malformed", "wrong_identity", "blocked"}
+EXTERNAL_OWNER_NODE = "owner_external_kag"
 REQUIRED_ADVERSARIAL_CLASSES = {
     "stale_graph",
     "unknown_dependency",
@@ -204,6 +205,7 @@ def owner_contract_signal_state(scenario: dict[str, Any]) -> str:
 
 
 def adversarial_class_matches(scenario: dict[str, Any], adversarial_class: str) -> bool:
+    """Credit a class only when its complete measured condition is present."""
     signals = scenario.get("signals", {})
     dependency_graph = signals.get("dependency_graph") if isinstance(signals, dict) else None
     dependency_state = dependency_graph.get("state") if isinstance(dependency_graph, dict) else None
@@ -216,8 +218,7 @@ def adversarial_class_matches(scenario: dict[str, Any], adversarial_class: str) 
         owner_contracts = signals.get("owner_contracts") if isinstance(signals, dict) else None
         receipt = owner_contracts.get("receipt") if isinstance(owner_contracts, dict) else None
         return (
-            isinstance(owner_contracts, dict)
-            and owner_contracts.get("state") == "valid"
+            owner_contract_signal_state(scenario) == "wrong_identity"
             and isinstance(receipt, dict)
             and all(field in receipt for field in ("candidate_set_id", "environment_id"))
             and (
@@ -229,10 +230,16 @@ def adversarial_class_matches(scenario: dict[str, Any], adversarial_class: str) 
         return owner_contract_signal_state(scenario) == "malformed"
     if adversarial_class == "unbound_external_owner":
         oracle = scenario["oracle"]
+        required_nodes = oracle.get("required_nodes")
+        owner_proof_nodes = oracle.get("owner_proof_nodes")
         return (
             oracle.get("complete") is False
             and oracle.get("owner_proof_status") == "unknown"
             and owner_contract_signal_state(scenario) == "unknown"
+            and isinstance(required_nodes, list)
+            and isinstance(owner_proof_nodes, list)
+            and EXTERNAL_OWNER_NODE in required_nodes
+            and EXTERNAL_OWNER_NODE in owner_proof_nodes
         )
     if adversarial_class == "unexplained_miss":
         activated, _matched_targets = static_path_targets(scenario)

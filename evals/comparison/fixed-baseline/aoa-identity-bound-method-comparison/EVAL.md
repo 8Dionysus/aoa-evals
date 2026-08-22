@@ -119,10 +119,12 @@ canonical unit. `matched_pair_count` includes all admitted origin pairs, while
 `eligible_real_pairs` counts only jointly measured observed pairs.
 
 Every observation `evidence_ref` must resolve to a declared packet artifact
-with a SHA-256 digest. Only `public-safe-contract` and
-`reviewed-owner-packet` evidence classes are admissible, and the artifact class
-must match the row identity class. Generated readers, validation receipts, and
-other derived surfaces cannot bind a positive observation disposition.
+with `kind: public-safe-observation` and a SHA-256 digest. Only
+`public-safe-contract` and `reviewed-owner-packet` evidence classes are
+admissible, and the artifact class must match the row identity class. Generated
+readers, validation receipts, and other derived surfaces cannot bind a positive
+observation disposition. Reports publish this complete two-class allowlist,
+even when one packet uses only one class.
 
 The contract keeps all of these states distinct:
 
@@ -231,7 +233,7 @@ The instrument must fail closed on:
 - source or environment digest/ref drift;
 - duplicate unit/method observations;
 - unknown cache or resource posture used as if it were zero;
-- provisional, unreviewed, or excluded rows presented as observed;
+- provisional, unreviewed, excluded, or controlled rows presented as observed;
 - synthetic or controlled values placed in observed output;
 - a noncanonical metric unit or a baseline/candidate unit mismatch;
 - an observed pair with no jointly known comparable metric;

@@ -63,8 +63,10 @@ CANONICAL_METRIC_UNITS = {
 ALLOWED_OBSERVATION_EVIDENCE_CLASSES = frozenset(
     {"public-safe-contract", "reviewed-owner-packet"}
 )
+OBSERVATION_ARTIFACT_KINDS = frozenset({"public-safe-observation"})
 NON_VALUE_STATUSES = ("unknown", "null", "excluded", "unobservable", "missing")
-OBSERVED_REVIEW_STATUSES = ("reviewed", "controlled")
+ALLOWED_REVIEW_STATUSES = frozenset({"reviewed", "controlled"})
+OBSERVED_REVIEW_STATUS = "reviewed"
 
 
 class ContractError(ValueError):
@@ -180,6 +182,11 @@ def _check_observation_evidence(packet: dict[str, Any]) -> None:
             if artifact is None:
                 raise ContractError(
                     f"observation evidence_ref is not declared in packet artifacts: {evidence_ref!r}"
+                )
+            artifact_kind = artifact["kind"]
+            if artifact_kind not in OBSERVATION_ARTIFACT_KINDS:
+                raise ContractError(
+                    f"observation evidence_ref uses disallowed artifact kind: {artifact_kind!r}"
                 )
             evidence_class = artifact["evidence_class"]
             if evidence_class not in ALLOWED_OBSERVATION_EVIDENCE_CLASSES:
@@ -333,10 +340,22 @@ def _unit_result(
         mismatches = _identity_mismatches(baseline, candidate)
         mismatches.extend(_packet_binding_mismatches(baseline, packet))
         mismatches.extend(_packet_binding_mismatches(candidate, packet))
-        if baseline["review_status"] not in OBSERVED_REVIEW_STATUSES:
+        if baseline["review_status"] not in ALLOWED_REVIEW_STATUSES:
             mismatches.append("review_status.baseline")
-        if candidate["review_status"] not in OBSERVED_REVIEW_STATUSES:
+        if candidate["review_status"] not in ALLOWED_REVIEW_STATUSES:
             mismatches.append(f"review_status.{candidate['method_id']}")
+        if (
+            baseline["measurement_origin"] == "observed"
+            and baseline["review_status"] != OBSERVED_REVIEW_STATUS
+        ):
+            mismatches.append("review_status.baseline_observed_requires_reviewed")
+        if (
+            candidate["measurement_origin"] == "observed"
+            and candidate["review_status"] != OBSERVED_REVIEW_STATUS
+        ):
+            mismatches.append(
+                f"review_status.{candidate['method_id']}_observed_requires_reviewed"
+            )
         if baseline["measurement_origin"] == "unobservable":
             mismatches.append("measurement_origin.baseline")
         if candidate["measurement_origin"] == "unobservable":
@@ -442,7 +461,7 @@ def build_report(packet: dict[str, Any]) -> dict[str, Any]:
             "required_fields": list(IDENTITY_FIELDS),
             "exact_match_required": True,
             "known_cache_and_resource_required_for_observed_pair": True,
-            "allowed_evidence_classes": sorted({row["identity"]["evidence_class"] for row in packet["observations"]}),
+            "allowed_evidence_classes": sorted(ALLOWED_OBSERVATION_EVIDENCE_CLASSES),
         },
         "selection_apply_contract": {
             "required_fields": [

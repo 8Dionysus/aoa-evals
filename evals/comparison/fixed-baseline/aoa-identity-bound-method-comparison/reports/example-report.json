@@ -26,7 +26,7 @@
     ],
     "exact_match_required": true,
     "known_cache_and_resource_required_for_observed_pair": true,
-    "allowed_evidence_classes": ["public-safe-design-contract"]
+    "allowed_evidence_classes": ["public-safe-contract", "reviewed-owner-packet"]
   },
   "selection_apply_contract": {
     "required_fields": [
@@ -73,7 +73,7 @@
         "owner_focused_affected_only"
       ],
       "review_statuses": ["provisional"],
-      "evidence_classes": ["public-safe-design-contract"],
+      "evidence_classes": ["public-safe-contract"],
       "identity_match": false,
       "mismatched_fields": ["identity.environment_id", "review_status.baseline"],
       "observation_refs": ["manual-case:unmatched_provisional_evidence"],

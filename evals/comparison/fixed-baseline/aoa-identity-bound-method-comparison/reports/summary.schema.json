@@ -65,7 +65,7 @@
         },
         "exact_match_required": {"const": true},
         "known_cache_and_resource_required_for_observed_pair": {"const": true},
-        "allowed_evidence_classes": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+        "allowed_evidence_classes": {"const": ["public-safe-contract", "reviewed-owner-packet"]}
       }
     },
     "selection_apply_contract": {

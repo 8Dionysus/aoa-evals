@@ -302,6 +302,35 @@ def test_disallowed_observation_evidence_class_is_rejected(runner) -> None:
         runner.build_report(payload)
 
 
+def test_derived_observation_artifact_kind_is_rejected(runner) -> None:
+    payload = packet(runner)
+    evidence_ref = payload["observations"][1]["evidence_refs"][0]
+    artifact = next(item for item in payload["artifacts"] if item["ref"] == evidence_ref)
+    artifact["kind"] = "generated-reader"
+    artifact["evidence_class"] = "public-safe-contract"
+    with pytest.raises(runner.ContractError, match="disallowed artifact kind"):
+        runner.build_report(payload)
+
+
+def test_observed_origin_requires_reviewed_status(runner) -> None:
+    payload = packet(runner)
+    for row in payload["observations"]:
+        row["review_status"] = "controlled"
+    report = runner.build_report(payload)
+    unit = report["comparison_units"][0]
+    assert report["verdict"] == "not_admitted"
+    assert unit["disposition"] == "unmatched"
+    assert "review_status.baseline_observed_requires_reviewed" in unit["mismatched_fields"]
+    assert "review_status.owner_focused_affected_only_observed_requires_reviewed" in unit["mismatched_fields"]
+
+
+def test_report_publishes_canonical_evidence_class_allowlist(runner) -> None:
+    report = runner.build_report(packet(runner))
+    assert report["identity_contract"]["allowed_evidence_classes"] == sorted(
+        runner.ALLOWED_OBSERVATION_EVIDENCE_CLASSES
+    )
+
+
 def test_unobservable_origin_is_unmatched(runner) -> None:
     payload = packet(runner, origin="unobservable")
     for row in payload["observations"]:

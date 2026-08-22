@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import copy
 import json
 import subprocess
 import sys
 from pathlib import Path
 
+import jsonschema
 import pytest
 
 
@@ -97,7 +99,10 @@ def test_stale_unknown_wrong_and_malformed_states_are_preserved(report: dict) ->
     assert unknown["state_counts"]["unknown"] == 1
     assert wrong["state_counts"]["wrong_identity"] == 1
     assert malformed["state_counts"]["malformed"] == 1
-    assert all(result["first_failure_latency_ms"] is not None for result in (stale, unknown, wrong, malformed))
+    assert all(
+        result["first_failure_latency_ms_synthetic_proxy"] is not None
+        for result in (stale, unknown, wrong, malformed)
+    )
 
 
 def test_hybrid_escalates_without_declaring_a_winner(report: dict) -> None:
@@ -125,6 +130,25 @@ def test_unexplained_miss_and_excess_activation_are_reported(report: dict) -> No
     assert claim_summary["excess_node_count"] >= 1
 
 
+def test_generic_method_rationale_cannot_explain_a_missing_node(report: dict) -> None:
+    static_miss = scenario_result(report, "static_paths", "RVC-006-unexplained-miss")
+    assert static_miss["explanation"]
+    assert static_miss["unexplained_miss_nodes"] == static_miss["missing_nodes"]
+
+
+def test_unknown_and_real_evidence_kinds_are_not_admitted_in_seeded_v1() -> None:
+    cases = load_json(CASES_PATH)
+    unknown = copy.deepcopy(cases)
+    unknown["scenarios"][0]["evidence_kind"] = "observed_runtime"
+    with pytest.raises(comparison.ContractError, match="evidence_kind"):
+        comparison.build_report(load_json(CONTRACT_PATH), unknown)
+
+    real = copy.deepcopy(cases)
+    real["scenarios"][0]["evidence_kind"] = "real_session"
+    with pytest.raises(comparison.ContractError, match="evidence_kind"):
+        comparison.build_report(load_json(CONTRACT_PATH), real)
+
+
 def test_precision_recall_are_null_when_oracle_denominator_is_incomplete(report: dict) -> None:
     unbound = scenario_result(report, "hybrid_fail_closed", "RVC-007-unbound-owner")
     assert unbound["precision_recall_denominator_valid"] is False
@@ -139,6 +163,8 @@ def test_example_preserves_runner_measurements_and_unsupported_candidates(report
     assert example["fixture_id"] == report["fixture_id"]
     assert example["claim_posture"] == report["claim_posture"]
     assert example["selection_status"] == report["selection_status"]
+    assert example["evidence_posture"] == report["evidence_posture"]
+    assert example["latency_posture"] == report["latency_posture"]
     assert example["real_miss_count"] is None
 
     methods = {entry["method_id"]: entry for entry in report["methods"]}
@@ -161,11 +187,49 @@ def test_report_schema_declares_required_measurements() -> None:
     required = set(schema["required"])
     assert {
         "policy_verdict",
+        "evidence_posture",
+        "latency_posture",
         "candidate_catalog",
         "adversarial_classes_covered",
         "methods",
         "oracle_rule",
     }.issubset(required)
+
+
+def test_emitted_report_matches_closed_schema_and_nested_mutations_fail(report: dict) -> None:
+    schema = load_json(REPORT_SCHEMA_PATH)
+    jsonschema.Draft202012Validator.check_schema(schema)
+    validator = jsonschema.Draft202012Validator(schema)
+    validator.validate(report)
+
+    mutations = {
+        "identity": lambda payload: payload["methods"][0]["scenario_results"][0]["identity"].pop("workload_id"),
+        "method": lambda payload: payload["methods"][0].__setitem__("method_id", 7),
+        "measurement": lambda payload: payload["methods"][0]["measurements"].__setitem__("precision", "one"),
+        "scenario": lambda payload: payload["methods"][0]["scenario_results"][0]["oracle"].pop("required_nodes"),
+        "event": lambda payload: payload["methods"][1]["scenario_results"][1]["events"][0].__setitem__(
+            "latency_ms_synthetic_proxy", "fast"
+        ),
+        "escalation": lambda payload: payload["methods"][5]["scenario_results"][1][
+            "fail_closed_escalation"
+        ].pop("fallback"),
+        "oracle": lambda payload: payload["methods"][5]["scenario_results"][1]["oracle"].__setitem__(
+            "owner_proof_status", "green"
+        ),
+    }
+    for _label, mutate in mutations.items():
+        malformed = copy.deepcopy(report)
+        mutate(malformed)
+        with pytest.raises(jsonschema.ValidationError):
+            validator.validate(malformed)
+
+
+def test_text_rendering_names_seeded_counts_and_synthetic_latency(report: dict) -> None:
+    rendered = comparison.render_text(report)
+    assert "seeded_fixture=7" in rendered
+    assert "real_session=0" in rendered
+    assert "synthetic_fixture_proxy" in rendered
+    assert "not observed runtime latency" in rendered
 
 
 def test_runner_cli_emits_json(tmp_path: Path) -> None:

@@ -40,8 +40,9 @@ dossiers, including validation-routing method comparison support.
 - peer-compare fixture-family routes for bounded artifact/process readings;
 - paired proof-flow dossiers for v1 and v2 comparison surfaces;
 - a seeded measurement-only validation-routing comparison with misses, excess
-  nodes, denominator-qualified precision/recall, latency, retry amplification,
-  explanations, and fail-closed escalation;
+  nodes, denominator-qualified precision/recall, synthetic fixture-proxy
+  latency, retry amplification, node-bound explanations, and fail-closed
+  escalation;
 - guidance that keeps both sides comparable without making either side default
   truth;
 - validation failures when peer comparison lacks matched conditions,

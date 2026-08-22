@@ -82,8 +82,22 @@ As of 2026-08-21:
 - Still valid: validation-routing support remains under `peer-compare` and is
   measurement-only.
 - Changed: peer-compare now includes a validation-routing fixture, runner,
-  report, and explicit candidate coverage map.
+  report, explicit candidate coverage map, seeded-only evidence policy, and
+  strict nested report ABI.
 - Superseded by: none.
+
+## Review Log
+
+On 2026-08-21, the Sol review kept this surface at `candidate_only` and
+identified four contract repairs before landing: generic rationale could
+over-explain missing nodes; the report schema did not constrain nested ABI;
+seeded and real evidence posture could disagree; and fixture latency was
+worded as observed timing. The repair keeps the report measurement-only,
+requires node-keyed missing explanations, strictly validates emitted nested
+identity/method/measurement/scenario/event/oracle/escalation objects, admits
+only `seeded_fixture` evidence in v1, and names every latency value as a
+synthetic fixture proxy. It does not promote a seeded candidate to policy,
+proof, or a runtime performance result, and it leaves the owner gate intact.
 
 ## Boundaries
 
@@ -98,7 +112,7 @@ zero, and it does not authorize weakening the full owner-proof route.
 ## Validation
 
 The source route is validated by the comparison-spine route cards, the seeded
-runner and focused tests, `python scripts/validate_repo.py`,
-`python scripts/validate_semantic_agents.py`, the generated catalog check, and
-decision-index parity. Hosted validation remains the acceptance boundary for a
-landed change.
+runner and focused negative tests, strict report-schema validation, the
+repository and semantic-agent validators, generated catalog and decision-index
+parity, and the owner-generated KAG family check. Hosted validation remains the
+acceptance boundary for a landed change.

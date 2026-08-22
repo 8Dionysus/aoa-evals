@@ -12,6 +12,13 @@ The cases are seeded fixtures. The validation-activation shadow report is
 bounded input metadata only; it does not become a real-session case, a receipt,
 an eval verdict, or a routing policy.
 
+The v1 evidence policy admits only `evidence_kind=seeded_fixture` and records
+`real_session` as not admitted. Latency values are synthetic fixture-event
+proxies and use the `_synthetic_proxy` field suffix; they do not describe
+observed runtime performance. A generic method explanation cannot explain a
+missing node: the runner requires a non-empty node-keyed
+`missing_explanations[node]` entry.
+
 Required adversarial classes:
 
 - stale graph;

@@ -24,6 +24,10 @@ DEFAULT_CONTRACT = PART_ROOT / "schemas" / "validation-routing-comparison-v1.con
 DEFAULT_CASES = PART_ROOT / "fixtures" / "validation-routing-bounded-v1" / "cases.json"
 
 REPORT_SCHEMA_VERSION = "validation_routing_comparison_report_v1"
+SEEDED_EVIDENCE_KIND = "seeded_fixture"
+REAL_EVIDENCE_KIND = "real_session"
+SYNTHETIC_LATENCY_KIND = "synthetic_fixture_proxy"
+SYNTHETIC_LATENCY_FIELD = "latency_ms_synthetic_proxy"
 IMPLEMENTED_METHOD_IDS = (
     "static_paths",
     "dependency_graph",
@@ -78,6 +82,34 @@ def validate_contract(contract: dict[str, Any]) -> None:
     if identity_fields != ["workload_id", "candidate_set_id", "environment_id", "source_ref"]:
         raise ContractError("identity_fields must preserve the four comparison identity dimensions")
 
+    evidence_policy = contract.get("evidence_policy")
+    if not isinstance(evidence_policy, dict):
+        raise ContractError("evidence_policy must declare the current evidence admission posture")
+    if evidence_policy.get("source_posture") != "seeded_public_safe_only":
+        raise ContractError("evidence_policy must declare seeded_public_safe_only")
+    accepted_evidence_kinds = unique_strings(
+        evidence_policy.get("accepted_evidence_kinds"),
+        field="evidence_policy.accepted_evidence_kinds",
+    )
+    if accepted_evidence_kinds != [SEEDED_EVIDENCE_KIND]:
+        raise ContractError(
+            "validation-routing comparison v1 admits seeded_fixture evidence only"
+        )
+    if evidence_policy.get("report_kind") != "seeded_validation_routing_method_measurement":
+        raise ContractError("evidence_policy.report_kind must describe a seeded report")
+    if evidence_policy.get("real_evidence_status") != "not_admitted_in_v1":
+        raise ContractError("evidence_policy must keep real evidence outside this seeded version")
+
+    latency_policy = contract.get("latency_policy")
+    if not isinstance(latency_policy, dict):
+        raise ContractError("latency_policy must declare the latency evidence semantics")
+    if latency_policy.get("kind") != SYNTHETIC_LATENCY_KIND:
+        raise ContractError("validation-routing v1 requires synthetic fixture proxy latency")
+    if latency_policy.get("runtime_observed") is not False:
+        raise ContractError("synthetic fixture proxy latency must not be marked runtime observed")
+    if latency_policy.get("field_suffix") != "_synthetic_proxy":
+        raise ContractError("synthetic latency fields must retain their explicit field suffix")
+
     candidates = contract.get("candidate_catalog")
     if not isinstance(candidates, list) or not candidates:
         raise ContractError("candidate_catalog must be a non-empty array")
@@ -94,7 +126,9 @@ def validate_contract(contract: dict[str, Any]) -> None:
             raise ContractError(f"unsupported candidate status for {method_id!r}: {status!r}")
         if status == "implemented" and method_id not in IMPLEMENTED_METHOD_IDS:
             raise ContractError(f"implemented candidate has no runner: {method_id!r}")
-        if status == UNSUPPORTED_METHOD_STATUS and not candidate.get("reason"):
+        if status == "implemented" and not isinstance(candidate.get("description"), str):
+            raise ContractError(f"implemented candidate {method_id!r} needs a description")
+        if status == UNSUPPORTED_METHOD_STATUS and not isinstance(candidate.get("reason"), str):
             raise ContractError(f"unsupported candidate {method_id!r} needs an explicit reason")
     if set(IMPLEMENTED_METHOD_IDS) - seen:
         missing = sorted(set(IMPLEMENTED_METHOD_IDS) - seen)
@@ -106,8 +140,8 @@ def validate_contract(contract: dict[str, Any]) -> None:
         "excess_nodes",
         "precision",
         "recall",
-        "first_failure_latency_ms",
-        "total_latency_ms",
+        "first_failure_latency_ms_synthetic_proxy",
+        "total_latency_ms_synthetic_proxy",
         "retry_amplification",
         "stale_unknown_behavior",
         "explanation",
@@ -133,9 +167,11 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
         raise ContractError("cases schema_version must be validation_routing_comparison_cases_v1")
     if cases.get("fixture_id") != contract.get("fixture_id"):
         raise ContractError("cases fixture_id must match the comparison contract")
+    evidence_policy = contract["evidence_policy"]
     source_posture = cases.get("source_posture")
-    if source_posture != "seeded_public_safe_only":
-        raise ContractError("cases must declare seeded_public_safe_only")
+    if source_posture != evidence_policy["source_posture"]:
+        raise ContractError("cases source_posture must match the contract evidence policy")
+    accepted_evidence_kinds = set(evidence_policy["accepted_evidence_kinds"])
 
     identity = cases.get("comparison_identity")
     if not isinstance(identity, dict):
@@ -149,10 +185,38 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
         raise ContractError("input_evidence must be an object")
     if input_evidence.get("source_kind") != "public_safe_external_report":
         raise ContractError("input_evidence must identify the public-safe shadow report")
-    if not isinstance(input_evidence.get("sha256"), str) or not input_evidence["sha256"]:
+    if not isinstance(input_evidence.get("path"), str) or not input_evidence["path"]:
+        raise ContractError("input_evidence must carry the shadow report path")
+    if (
+        not isinstance(input_evidence.get("sha256"), str)
+        or len(input_evidence["sha256"]) != 64
+        or any(character not in "0123456789abcdef" for character in input_evidence["sha256"])
+    ):
         raise ContractError("input_evidence must carry the shadow report digest")
+    if not isinstance(input_evidence.get("allowed_use"), str) or not input_evidence["allowed_use"]:
+        raise ContractError("input_evidence must declare its bounded allowed use")
     if input_evidence.get("raw_sessions_copied") is not False:
         raise ContractError("input_evidence must explicitly state that raw sessions were not copied")
+    route_gaps = unique_strings(
+        input_evidence.get("observed_real_route_gaps"),
+        field="input_evidence.observed_real_route_gaps",
+    )
+    if not route_gaps:
+        raise ContractError("input_evidence must retain observed route gaps")
+    wall_clock_proxies = input_evidence.get("observed_wall_clock_proxies")
+    if not isinstance(wall_clock_proxies, dict):
+        raise ContractError("input_evidence must retain the bounded wall-clock proxy record")
+    if not isinstance(wall_clock_proxies.get("full_local_release_check_seconds"), (int, float)):
+        raise ContractError("input_evidence full release proxy must be numeric")
+    targeted_proxies = wall_clock_proxies.get("targeted_local_route_proxy_seconds")
+    if (
+        not isinstance(targeted_proxies, list)
+        or not targeted_proxies
+        or not all(isinstance(value, (int, float)) for value in targeted_proxies)
+    ):
+        raise ContractError("input_evidence targeted route proxies must be a non-empty number array")
+    if not isinstance(wall_clock_proxies.get("speed_claim_status"), str):
+        raise ContractError("input_evidence speed claim status must be explicit")
 
     scenarios = cases.get("scenarios")
     if not isinstance(scenarios, list) or not scenarios:
@@ -169,6 +233,11 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
         for field in ("workload_id", "candidate_set_id", "environment_id", "source_ref"):
             if not isinstance(scenario.get(field), str) or not scenario[field]:
                 raise ContractError(f"scenario {scenario_id} must declare {field}")
+        evidence_kind = scenario.get("evidence_kind")
+        if evidence_kind not in accepted_evidence_kinds:
+            raise ContractError(
+                f"scenario {scenario_id} evidence_kind {evidence_kind!r} is not admitted by the seeded contract"
+            )
         if scenario["candidate_set_id"] != identity["candidate_set_id"]:
             raise ContractError(f"scenario {scenario_id} changes candidate_set_id across peers")
         if scenario["environment_id"] != identity["environment_id"]:
@@ -191,6 +260,8 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
         if adversarial_class:
             if not isinstance(adversarial_class, str):
                 raise ContractError(f"scenario {scenario_id}.adversarial_class must be a string")
+            if adversarial_class not in set(contract["adversarial_classes"]):
+                raise ContractError(f"scenario {scenario_id} declares an unknown adversarial class")
             observed_adversarial.add(adversarial_class)
 
     required_adversarial = {
@@ -223,7 +294,7 @@ def add_events(
                 "target": target,
                 "attempt": attempt + 1,
                 "status": "retry" if attempt < retry_count else status,
-                "latency_ms": latency_ms,
+                SYNTHETIC_LATENCY_FIELD: latency_ms,
                 "explanation": explanation,
             }
         )
@@ -447,16 +518,16 @@ def finalize_result(
     excess = [node for node in activated if node not in required]
     events = proposal.get("events", [])
     total_latency = sum(
-        float(event["latency_ms"])
+        float(event[SYNTHETIC_LATENCY_FIELD])
         for event in events
-        if isinstance(event, dict) and isinstance(event.get("latency_ms"), (int, float))
+        if isinstance(event, dict) and isinstance(event.get(SYNTHETIC_LATENCY_FIELD), (int, float))
     )
     cumulative = 0.0
     first_failure: float | None = None
     for event in events:
         if not isinstance(event, dict):
             continue
-        latency = event.get("latency_ms")
+        latency = event.get(SYNTHETIC_LATENCY_FIELD)
         if isinstance(latency, (int, float)):
             cumulative += float(latency)
         if first_failure is None and event.get("status") in FAILURE_STATES:
@@ -479,7 +550,12 @@ def finalize_result(
     missing_explanations = proposal.get("missing_explanations", {})
     if not isinstance(missing_explanations, dict):
         missing_explanations = {}
-    unexplained_misses = [node for node in missing if not missing_explanations.get(node) and not proposal.get("explanation")]
+    unexplained_misses = [
+        node
+        for node in missing
+        if not isinstance(missing_explanations.get(node), str)
+        or not missing_explanations[node].strip()
+    ]
     escalation = proposal.get(
         "fail_closed_escalation",
         {
@@ -513,8 +589,8 @@ def finalize_result(
         "precision": precision,
         "recall": recall,
         "precision_recall_denominator_valid": denominator_valid,
-        "first_failure_latency_ms": first_failure,
-        "total_latency_ms": total_latency,
+        "first_failure_latency_ms_synthetic_proxy": first_failure,
+        "total_latency_ms_synthetic_proxy": total_latency,
         "attempt_count": attempt_count,
         "unique_attempt_targets": len(unique_targets),
         "retry_amplification": retry_amplification,
@@ -579,11 +655,18 @@ def summarize_method(method_id: str, candidate: dict[str, Any], results: list[di
             "precision": total_true_positive / total_activated if total_activated else None,
             "recall": total_true_positive / total_required if total_required else None,
             "precision_recall_denominator_valid_case_count": len(denominator_valid_results),
-            "first_failure_latency_ms_min": min(
-                (result["first_failure_latency_ms"] for result in results if result["first_failure_latency_ms"] is not None),
+            "first_failure_latency_ms_synthetic_proxy_min": min(
+                (
+                    result["first_failure_latency_ms_synthetic_proxy"]
+                    for result in results
+                    if result["first_failure_latency_ms_synthetic_proxy"] is not None
+                ),
                 default=None,
             ),
-            "total_latency_ms_sum": sum(result["total_latency_ms"] for result in results),
+            "total_latency_ms_synthetic_proxy_sum": sum(
+                result["total_latency_ms_synthetic_proxy"] for result in results
+            ),
+            "latency_kind": SYNTHETIC_LATENCY_KIND,
             "retry_amplification": (
                 total_attempts / total_unique_targets if total_unique_targets else None
             ),
@@ -622,14 +705,28 @@ def build_report(contract: dict[str, Any], cases: dict[str, Any]) -> dict[str, A
         methods.append(summarize_method(method_id, candidate, results))
 
     identity = cases["comparison_identity"]
+    evidence_policy = contract["evidence_policy"]
+    latency_policy = contract["latency_policy"]
+    seeded_case_count = sum(
+        1 for scenario in scenarios if scenario.get("evidence_kind") == SEEDED_EVIDENCE_KIND
+    )
+    real_case_count = sum(
+        1 for scenario in scenarios if scenario.get("evidence_kind") == REAL_EVIDENCE_KIND
+    )
     return {
         "schema_version": REPORT_SCHEMA_VERSION,
-        "report_kind": "seeded_validation_routing_method_measurement",
+        "report_kind": evidence_policy["report_kind"],
         "comparison_mode": "peer-compare",
         "claim_posture": "measurement_only",
         "policy_verdict": None,
         "selection_status": "deferred_pending_bound_external_campaign",
         "fixture_id": cases["fixture_id"],
+        "evidence_posture": {
+            "source_posture": cases["source_posture"],
+            "accepted_evidence_kinds": list(evidence_policy["accepted_evidence_kinds"]),
+            "real_evidence_status": evidence_policy["real_evidence_status"],
+        },
+        "latency_posture": dict(latency_policy),
         "comparison_identity": identity,
         "comparison_identity_digest": canonical_digest(identity),
         "input_evidence": cases["input_evidence"],
@@ -642,8 +739,8 @@ def build_report(contract: dict[str, Any], cases: dict[str, Any]) -> dict[str, A
         "coverage_limits": contract["coverage_limits"],
         "methods": methods,
         "scenario_count": len(scenarios),
-        "real_case_count": sum(1 for scenario in scenarios if scenario.get("evidence_kind") == "real_session"),
-        "seeded_case_count": sum(1 for scenario in scenarios if scenario.get("evidence_kind") != "real_session"),
+        "real_case_count": real_case_count,
+        "seeded_case_count": seeded_case_count,
         "oracle_rule": contract["oracle_rule"],
     }
 
@@ -653,7 +750,16 @@ def render_text(report: dict[str, Any]) -> str:
         f"Validation-routing comparison fixture: {report['fixture_id']}",
         f"claim posture: {report['claim_posture']}",
         f"selection status: {report['selection_status']}",
-        f"scenarios: {report['scenario_count']} seeded, {report['real_case_count']} real",
+        (
+            "evidence posture: "
+            f"seeded_fixture={report['seeded_case_count']}, "
+            f"real_session={report['real_case_count']}"
+        ),
+        (
+            "latency posture: "
+            f"{report['latency_posture']['kind']} "
+            "(not observed runtime latency)"
+        ),
     ]
     for method in report["methods"]:
         lines.append("")
@@ -667,7 +773,9 @@ def render_text(report: dict[str, Any]) -> str:
                 f"- seeded misses: {measurements['seeded_miss_count']}",
                 f"- real misses: {measurements['real_miss_count']}",
                 f"- precision/recall: {measurements['precision']} / {measurements['recall']}",
-                f"- first failure min / total latency sum ms: {measurements['first_failure_latency_ms_min']} / {measurements['total_latency_ms_sum']}",
+                "- first failure synthetic proxy / total synthetic proxy latency ms: "
+                f"{measurements['first_failure_latency_ms_synthetic_proxy_min']} / "
+                f"{measurements['total_latency_ms_synthetic_proxy_sum']}",
                 f"- retry amplification: {measurements['retry_amplification']}",
                 f"- stale/unknown/malformed/wrong receipt: {measurements['stale_count']}/{measurements['unknown_count']}/{measurements['malformed_count']}/{measurements['wrong_identity_count']}",
                 f"- fail-closed escalations: {measurements['fail_closed_escalation_count']}",

@@ -20,13 +20,26 @@ or wrong-identity receipt, missing owner route, or unexplained miss remains
 explicit; `hybrid_fail_closed` escalates to the full owner proof route and
 reports incomplete when that fallback is not bound.
 
+Version 1 admits only `evidence_kind=seeded_fixture` under
+`source_posture=seeded_public_safe_only`. `real_session` evidence is not
+admitted in this contract, so `real_case_count` and real miss counts remain
+zero/null rather than being inferred from seeded cases. Every latency field
+ending in `_synthetic_proxy` is a declared fixture-event proxy; it is not
+observed runtime latency, a speed claim, or a method ranking.
+
+A method-level rationale never explains a missing node. Only a non-empty,
+node-keyed `missing_explanations[node]` entry may discharge that node's
+explanation requirement. Missing nodes without that exact entry stay in
+`unexplained_miss_nodes`, including when a generic method rationale is
+present.
+
 The report records:
 
 - real and seeded miss accounting, with real counts left `null` when no real
   cases are admitted;
 - excess activation nodes;
 - precision and recall only when the fixture oracle denominator is complete;
-- first-failure and total candidate-route latency;
+- first-failure and total synthetic fixture-proxy latency;
 - retry amplification;
 - stale/unknown/malformed/wrong-identity state behavior;
 - candidate explanations and unexplained misses; and
@@ -46,8 +59,9 @@ candidates. The absence is a coverage limit, not a zero score.
 ## Evidence boundary
 
 The input shadow report is a public-safe derivative of a bounded experiment.
-Its observed local timing proxies and owner-route gaps guide fixture pressure;
-no raw sessions, private payloads, synthetic cases relabeled as real, external
+Its local timing proxies and owner-route gaps guide fixture pressure; the
+runner preserves them as seeded fixture declarations, not observations. No
+raw sessions, private payloads, synthetic cases relabeled as real, external
 receipts, or universal method conclusions enter this dossier.
 
 The surface does not prove release readiness, KAG provider integrity, canonical

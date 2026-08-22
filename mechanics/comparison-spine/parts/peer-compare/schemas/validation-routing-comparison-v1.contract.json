@@ -9,6 +9,21 @@
     "environment_id",
     "source_ref"
   ],
+  "evidence_policy": {
+    "source_posture": "seeded_public_safe_only",
+    "accepted_evidence_kinds": [
+      "seeded_fixture"
+    ],
+    "report_kind": "seeded_validation_routing_method_measurement",
+    "real_evidence_status": "not_admitted_in_v1"
+  },
+  "latency_policy": {
+    "kind": "synthetic_fixture_proxy",
+    "runtime_observed": false,
+    "field_suffix": "_synthetic_proxy",
+    "source": "seeded fixture event declarations",
+    "interpretation_limit": "not observed runtime latency or a performance ranking"
+  },
   "oracle_rule": {
     "oracle": "full_owner_proof",
     "fallback": "full_owner_proof",
@@ -88,8 +103,8 @@
     "excess_nodes": "activated nodes outside the scenario oracle required-node set",
     "precision": "true positives divided by activated nodes only when the oracle denominator is complete and non-empty",
     "recall": "true positives divided by required oracle nodes only when the oracle denominator is complete and non-empty",
-    "first_failure_latency_ms": "cumulative candidate-route latency through the first stale, unknown, malformed, wrong-identity, or blocked event",
-    "total_latency_ms": "sum of observed fixture event latencies; fallback and unexecuted external routes stay null/unmeasured",
+    "first_failure_latency_ms_synthetic_proxy": "cumulative synthetic fixture proxy latency through the first stale, unknown, malformed, wrong-identity, or blocked event",
+    "total_latency_ms_synthetic_proxy": "sum of synthetic fixture proxy event latencies; this is not observed runtime timing and fallback or unexecuted external routes stay null/unmeasured",
     "retry_amplification": "attempt count divided by unique attempted targets; null when no target was attempted",
     "stale_unknown_behavior": "whether unresolved state was preserved, rejected, or escalated",
     "explanation": "candidate rationale plus missing-node explanation where available",

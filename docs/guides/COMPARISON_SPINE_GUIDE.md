@@ -106,7 +106,11 @@ Current machine-readable contract should keep explicit:
 The validation-routing support surface remains measurement-only. It may compare
 static, dependency, owner-contract, history, claim-risk, and hybrid candidate
 activation proposals on seeded cases, while unsupported families and missing
-external receipts remain explicit. It does not create a public baseline,
+external receipts remain explicit. Version 1 admits only `seeded_fixture`
+evidence; `real_session` is not admitted, and `_synthetic_proxy` latency fields
+are fixture-event proxies rather than observed runtime measurements. A generic
+method rationale never discharges a missing node: only a node-keyed
+`missing_explanations[node]` entry does. It does not create a public baseline,
 release verdict, or winning routing policy.
 
 ### `longitudinal-window`

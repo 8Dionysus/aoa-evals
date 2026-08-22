@@ -289,7 +289,7 @@
       "adversarial_class": "unexplained_miss",
       "method_overrides": {
         "static_paths": {
-          "explanation": ""
+          "explanation": "static paths selected local nodes but did not bind the external owner"
         }
       },
       "oracle": {

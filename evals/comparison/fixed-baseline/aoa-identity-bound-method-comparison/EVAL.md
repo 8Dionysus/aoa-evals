@@ -105,6 +105,8 @@ Every comparison unit carries these exact identity fields:
 
 The baseline and each method row must match these values exactly. Cache and
 resource posture must have `status: known` for an eligible observed pair.
+The `candidate_or_source_identity` field must itself be a SHA-256 digest;
+mutable candidate labels are not an admissible identity binding.
 The `source_ref_or_digest` identity field must carry the packet's exact
 `source_digest`; a mutable source ref is not an admissible observation binding.
 Every row must be `reviewed` or `controlled`; provisional rows remain

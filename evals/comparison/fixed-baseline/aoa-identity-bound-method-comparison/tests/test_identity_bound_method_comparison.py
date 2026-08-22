@@ -48,7 +48,7 @@ def state(status: str, unit: str) -> dict:
 def identity(source_digest: str, route: str = "treatment-A", cache_status: str = "known", resource_status: str = "known") -> dict:
     return {
         "workload_id": "workload-identity-contract-01",
-        "candidate_or_source_identity": "candidate-A",
+        "candidate_or_source_identity": digest("2"),
         "source_ref_or_digest": source_digest,
         "environment_id": "env-class-A",
         "route_or_treatment_identity": route,
@@ -185,6 +185,13 @@ def test_mutable_source_ref_is_not_an_observation_binding(runner) -> None:
     payload = packet(runner)
     payload["observations"][1]["identity"]["source_ref_or_digest"] = payload["source_ref"]
     with pytest.raises(runner.ContractError, match="source_ref_or_digest"):
+        runner.build_report(payload)
+
+
+def test_candidate_identity_must_be_digest_pinned(runner) -> None:
+    payload = packet(runner)
+    payload["observations"][1]["identity"]["candidate_or_source_identity"] = "candidate-A"
+    with pytest.raises(runner.ContractError, match="candidate_or_source_identity"):
         runner.build_report(payload)
 
 

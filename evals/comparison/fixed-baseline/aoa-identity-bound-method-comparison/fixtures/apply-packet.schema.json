@@ -186,7 +186,7 @@
       "required": ["workload_id", "candidate_or_source_identity", "source_ref_or_digest", "environment_id", "route_or_treatment_identity", "evidence_class", "acceptance_target", "cache_posture", "resource_posture"],
       "properties": {
         "workload_id": {"type": "string", "minLength": 1},
-        "candidate_or_source_identity": {"type": "string", "minLength": 1},
+        "candidate_or_source_identity": {"$ref": "#/$defs/digest"},
         "source_ref_or_digest": {"$ref": "#/$defs/digest"},
         "environment_id": {"type": "string", "minLength": 1},
         "route_or_treatment_identity": {"type": "string", "minLength": 1},

@@ -302,6 +302,15 @@ def test_implemented_candidates_cannot_be_marked_missing() -> None:
         comparison.build_report(contract, load_json(CASES_PATH))
 
 
+def test_candidate_entries_reject_undeclared_fields() -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "static_paths")
+    candidate["unexpected"] = "schema drift"
+
+    with pytest.raises(comparison.ContractError, match="undeclared field"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
 def test_empty_owner_proof_oracle_nodes_are_rejected() -> None:
     cases = load_json(CASES_PATH)
     cases["scenarios"][0]["oracle"]["required_nodes"] = []

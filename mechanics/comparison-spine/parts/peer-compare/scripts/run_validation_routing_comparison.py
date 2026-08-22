@@ -272,13 +272,23 @@ def validate_contract(contract: dict[str, Any]) -> None:
         status = candidate.get("status")
         if status not in {"implemented", UNSUPPORTED_METHOD_STATUS}:
             raise ContractError(f"unsupported candidate status for {method_id!r}: {status!r}")
+        if method_id in IMPLEMENTED_METHOD_IDS and status != "implemented":
+            raise ContractError(f"implemented candidate {method_id!r} must remain implemented")
+        allowed_keys = (
+            {"method_id", "family", "status", "description"}
+            if status == "implemented"
+            else {"method_id", "family", "status", "reason"}
+        )
+        undeclared_keys = sorted(set(candidate) - allowed_keys)
+        if undeclared_keys:
+            raise ContractError(
+                f"candidate {method_id!r} contains undeclared field(s): {', '.join(undeclared_keys)}"
+            )
         if status == "implemented" and method_id not in IMPLEMENTED_METHOD_IDS:
             raise ContractError(f"implemented candidate has no runner: {method_id!r}")
         family = candidate.get("family")
         if not isinstance(family, str) or not family.strip():
             raise ContractError(f"candidate {method_id!r} needs a non-empty family")
-        if method_id in IMPLEMENTED_METHOD_IDS and status != "implemented":
-            raise ContractError(f"implemented candidate {method_id!r} must remain implemented")
         if status == "implemented":
             description = candidate.get("description")
             if not isinstance(description, str) or not description.strip():

@@ -31,6 +31,17 @@ cannot fabricate stale or unknown coverage. The external shadow report's
 `allowed_use` is source-owned and fixed to bounded prior and route-gap input;
 it cannot authorize policy selection.
 
+The five v1 `coverage_limits` entries are also source-owned, ordered, and
+complete. A caller-supplied contract that omits, replaces, reorders, or extends
+that caveat set is rejected before report construction, so measurement-only
+wording cannot erase the receipt, mutation, real-session, or unsupported-family
+limits.
+
+Every admitted latency weight is finite, but scenario totals, cumulative
+first-failure totals, and method totals are checked after each addition. An
+overflowing aggregate fails closed before report emission; the CLI also uses
+strict JSON serialization and never emits non-standard `Infinity` or `NaN`.
+
 Required adversarial classes:
 
 - stale graph;

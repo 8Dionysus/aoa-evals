@@ -81,6 +81,13 @@ EXPECTED_ORACLE_RULE = {
     "unknown_rule": "preserve stale, unknown, malformed, and wrong-identity state; escalate without treating it as zero or green",
     "policy_rule": "measurement only; no method winner, release verdict, or routing policy is emitted",
 }
+EXPECTED_COVERAGE_LIMITS = (
+    "All current cases are seeded public-safe fixtures; no real-session case is copied into the fixture.",
+    "The validation-shadow report is a bounded prior and input reference, not a verdict or routing policy.",
+    "External KAG, canonical aoa-stats, and advisory trust-plane execution receipts remain absent or blocked.",
+    "No mutation injection, old-commit checkout, population estimate, causal claim, or universal false-negative rate is supported.",
+    "Unsupported candidate families remain explicit missing candidates until owner-bound evidence and a fair implementation exist.",
+)
 EXPECTED_LATENCY_POLICY = {
     "kind": SYNTHETIC_LATENCY_KIND,
     "runtime_observed": False,
@@ -146,12 +153,52 @@ def reject_undeclared_keys(value: dict[str, Any], *, allowed: set[str], field: s
 
 
 def is_finite_non_negative_number(value: Any) -> bool:
-    return (
-        isinstance(value, (int, float))
-        and not isinstance(value, bool)
-        and math.isfinite(float(value))
-        and value >= 0
-    )
+    if not isinstance(value, (int, float)) or isinstance(value, bool):
+        return False
+    try:
+        numeric = float(value)
+    except (OverflowError, TypeError, ValueError):
+        return False
+    return math.isfinite(numeric) and numeric >= 0
+
+
+def checked_non_negative_add(total: float, value: Any, *, field: str) -> float:
+    if not is_finite_non_negative_number(value):
+        raise ContractError(f"{field} must be a finite non-negative number")
+    aggregate = total + float(value)
+    if not math.isfinite(aggregate):
+        raise ContractError(f"{field} aggregate must remain finite")
+    return aggregate
+
+
+def finite_non_negative_sum(values: Sequence[Any], *, field: str) -> float:
+    total = 0.0
+    for index, value in enumerate(values):
+        total = checked_non_negative_add(total, value, field=f"{field}[{index}]")
+    return total
+
+
+def validate_source_owned_coverage_limits(value: Any) -> list[str]:
+    coverage_limits = unique_strings(value, field="coverage_limits")
+    if coverage_limits != list(EXPECTED_COVERAGE_LIMITS):
+        raise ContractError(
+            "coverage_limits must exactly preserve the source-owned ordered v1 caveat set"
+        )
+    return coverage_limits
+
+
+def ensure_strict_json_finite(value: Any, *, path: str = "report") -> None:
+    if isinstance(value, float):
+        if not math.isfinite(value):
+            raise ContractError(f"{path} contains a non-finite number")
+        return
+    if isinstance(value, dict):
+        for key, nested in value.items():
+            ensure_strict_json_finite(nested, path=f"{path}.{key}")
+        return
+    if isinstance(value, list):
+        for index, nested in enumerate(value):
+            ensure_strict_json_finite(nested, path=f"{path}[{index}]")
 
 
 def validate_latency_weights(value: Any) -> dict[str, float]:
@@ -193,7 +240,13 @@ def static_path_targets(scenario: dict[str, Any]) -> tuple[list[str], list[tuple
 
 
 def canonical_digest(value: Any) -> str:
-    encoded = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode()
+    encoded = json.dumps(
+        value,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=True,
+        allow_nan=False,
+    ).encode()
     return hashlib.sha256(encoded).hexdigest()
 
 
@@ -378,7 +431,7 @@ def validate_contract(contract: dict[str, Any]) -> None:
         raise ContractError(
             "oracle_rule must preserve the complete full-owner-proof v1 rule and measurement-only policy boundary"
         )
-    unique_strings(contract.get("coverage_limits"), field="coverage_limits")
+    validate_source_owned_coverage_limits(contract.get("coverage_limits"))
 
     candidates = contract.get("candidate_catalog")
     if not isinstance(candidates, list) or not candidates:
@@ -618,6 +671,10 @@ def add_events(
 ) -> None:
     if not isinstance(retry_count, int) or retry_count < 0:
         raise ContractError(f"retry_count for {target!r} must be a non-negative integer")
+    if not is_finite_non_negative_number(latency_ms):
+        raise ContractError(
+            f"{SYNTHETIC_LATENCY_FIELD} for {target!r} must be a finite non-negative number"
+        )
     for attempt in range(retry_count + 1):
         events.append(
             {
@@ -841,19 +898,30 @@ def finalize_result(
     missing = [node for node in required if node not in activated]
     excess = [node for node in activated if node not in required]
     events = proposal.get("events", [])
-    total_latency = sum(
-        float(event[SYNTHETIC_LATENCY_FIELD])
-        for event in events
-        if isinstance(event, dict) and isinstance(event.get(SYNTHETIC_LATENCY_FIELD), (int, float))
+    if not isinstance(events, list):
+        raise ContractError(f"{method_id}.{scenario['scenario_id']}.events must be an array")
+    event_latencies: list[Any] = []
+    for index, event in enumerate(events):
+        if not isinstance(event, dict):
+            raise ContractError(
+                f"{method_id}.{scenario['scenario_id']}.events[{index}] must be an object"
+            )
+        event_latencies.append(event.get(SYNTHETIC_LATENCY_FIELD))
+    total_latency = finite_non_negative_sum(
+        event_latencies,
+        field=f"{method_id}.{scenario['scenario_id']}.total_latency_ms_synthetic_proxy",
     )
     cumulative = 0.0
     first_failure: float | None = None
-    for event in events:
-        if not isinstance(event, dict):
-            continue
-        latency = event.get(SYNTHETIC_LATENCY_FIELD)
-        if isinstance(latency, (int, float)):
-            cumulative += float(latency)
+    for index, event in enumerate(events):
+        cumulative = checked_non_negative_add(
+            cumulative,
+            event[SYNTHETIC_LATENCY_FIELD],
+            field=(
+                f"{method_id}.{scenario['scenario_id']}."
+                f"first_failure_latency_ms_synthetic_proxy[{index}]"
+            ),
+        )
         if first_failure is None and event.get("status") in FAILURE_STATES:
             first_failure = cumulative
     unique_targets = {
@@ -988,8 +1056,9 @@ def summarize_method(method_id: str, candidate: dict[str, Any], results: list[di
                 ),
                 default=None,
             ),
-            "total_latency_ms_synthetic_proxy_sum": sum(
-                result["total_latency_ms_synthetic_proxy"] for result in results
+            "total_latency_ms_synthetic_proxy_sum": finite_non_negative_sum(
+                [result["total_latency_ms_synthetic_proxy"] for result in results],
+                field=f"{method_id}.total_latency_ms_synthetic_proxy_sum",
             ),
             "latency_kind": SYNTHETIC_LATENCY_KIND,
             "retry_amplification": (
@@ -1039,7 +1108,7 @@ def build_report(contract: dict[str, Any], cases: dict[str, Any]) -> dict[str, A
     real_case_count = sum(
         1 for scenario in scenarios if scenario.get("evidence_kind") == REAL_EVIDENCE_KIND
     )
-    return {
+    report = {
         "schema_version": REPORT_SCHEMA_VERSION,
         "report_kind": evidence_policy["report_kind"],
         "comparison_mode": "peer-compare",
@@ -1064,13 +1133,15 @@ def build_report(contract: dict[str, Any], cases: dict[str, Any]) -> dict[str, A
                 if scenario.get("adversarial_class")
             }
         ),
-        "coverage_limits": contract["coverage_limits"],
+        "coverage_limits": list(EXPECTED_COVERAGE_LIMITS),
         "methods": methods,
         "scenario_count": len(scenarios),
         "real_case_count": real_case_count,
         "seeded_case_count": seeded_case_count,
         "oracle_rule": contract["oracle_rule"],
     }
+    ensure_strict_json_finite(report)
+    return report
 
 
 def render_text(report: dict[str, Any]) -> str:
@@ -1130,9 +1201,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.output:
             output_path = Path(args.output)
             output_path.parent.mkdir(parents=True, exist_ok=True)
-            output_path.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            output_path.write_text(
+                json.dumps(report, indent=2, ensure_ascii=False, allow_nan=False) + "\n",
+                encoding="utf-8",
+            )
         if args.format == "json":
-            print(json.dumps(report, indent=2, ensure_ascii=False))
+            print(json.dumps(report, indent=2, ensure_ascii=False, allow_nan=False))
         else:
             print(render_text(report))
     except (ContractError, FileNotFoundError, json.JSONDecodeError) as exc:

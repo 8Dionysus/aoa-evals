@@ -33,6 +33,13 @@ explanation requirement. Missing nodes without that exact entry stay in
 `unexplained_miss_nodes`, including when a generic method rationale is
 present.
 
+The report's five v1 `coverage_limits` entries are source-owned, ordered, and
+complete. Missing, contradictory, reordered, or extended caller variants fail
+closed before construction. Finite event weights do not by themselves prove
+finite scenario, cumulative first-failure, or method aggregates: each sum is
+checked for finiteness, and strict JSON output rejects non-standard numeric
+tokens before emission.
+
 The report records:
 
 - real and seeded miss accounting, with real counts left `null` when no real

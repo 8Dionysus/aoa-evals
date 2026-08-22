@@ -68,10 +68,13 @@
       }
     },
     "coverage_limits": {
-      "type": "array",
-      "minItems": 1,
-      "uniqueItems": true,
-      "items": {"type": "string", "minLength": 1}
+      "const": [
+        "All current cases are seeded public-safe fixtures; no real-session case is copied into the fixture.",
+        "The validation-shadow report is a bounded prior and input reference, not a verdict or routing policy.",
+        "External KAG, canonical aoa-stats, and advisory trust-plane execution receipts remain absent or blocked.",
+        "No mutation injection, old-commit checkout, population estimate, causal claim, or universal false-negative rate is supported.",
+        "Unsupported candidate families remain explicit missing candidates until owner-bound evidence and a fair implementation exist."
+      ]
     },
     "methods": {
       "type": "array",

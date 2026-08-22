@@ -86,6 +86,24 @@ def test_contract_rejects_empty_or_duplicate_coverage_limits() -> None:
             comparison.build_report(contract, load_json(CASES_PATH))
 
 
+def test_contract_requires_exact_source_owned_v1_coverage_limits() -> None:
+    expected = list(comparison.EXPECTED_COVERAGE_LIMITS)
+    variants = (
+        expected[1:],
+        expected[:-1],
+        list(reversed(expected)),
+        expected + ["An extra caller-supplied limitation."],
+        [expected[0], "No blind spots; safe to select a winner.", *expected[2:]],
+    )
+
+    for coverage_limits in variants:
+        contract = load_json(CONTRACT_PATH)
+        contract["coverage_limits"] = coverage_limits
+
+        with pytest.raises(comparison.ContractError, match="source-owned ordered v1 caveat set"):
+            comparison.build_report(contract, load_json(CASES_PATH))
+
+
 def test_contract_rejects_latency_posture_drift() -> None:
     contract = load_json(CONTRACT_PATH)
     contract["latency_policy"]["source"] = "production telemetry"
@@ -271,6 +289,37 @@ def test_latency_weights_are_declared_by_fixture_and_used() -> None:
     result = scenario_result(report, "static_paths", "RVC-001-source-only-control")
 
     assert {event["latency_ms_synthetic_proxy"] for event in result["events"]} == {7.25}
+
+
+@pytest.mark.parametrize("value", [float("inf"), float("nan"), 10**400])
+def test_non_finite_or_unrepresentable_latency_weights_are_rejected(value: object) -> None:
+    cases = load_json(CASES_PATH)
+    cases["latency_event_weights_ms_synthetic_proxy"]["static_paths"] = value
+
+    with pytest.raises(comparison.ContractError, match="finite non-negative"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_scenario_latency_aggregate_overflow_fails_closed() -> None:
+    cases = load_json(CASES_PATH)
+    cases["latency_event_weights_ms_synthetic_proxy"]["dependency_graph"] = 1e308
+
+    with pytest.raises(comparison.ContractError, match="aggregate must remain finite"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_method_latency_aggregate_overflow_fails_closed_after_finite_scenarios() -> None:
+    cases = load_json(CASES_PATH)
+    cases["latency_event_weights_ms_synthetic_proxy"]["static_paths"] = 3e307
+
+    with pytest.raises(comparison.ContractError, match="aggregate must remain finite"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_built_report_is_strict_json_serializable(report: dict) -> None:
+    encoded = json.dumps(report, allow_nan=False)
+    assert "Infinity" not in encoded
+    assert "NaN" not in encoded
 
 
 def test_static_events_are_deduplicated_by_target() -> None:
@@ -601,6 +650,15 @@ def test_report_schema_rejects_arbitrary_allowed_use(report: dict) -> None:
     schema = load_json(REPORT_SCHEMA_PATH)
     malformed = copy.deepcopy(report)
     malformed["input_evidence"]["allowed_use"] = "may select the winning routing policy"
+
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.Draft202012Validator(schema).validate(malformed)
+
+
+def test_report_schema_requires_source_owned_coverage_limits(report: dict) -> None:
+    schema = load_json(REPORT_SCHEMA_PATH)
+    malformed = copy.deepcopy(report)
+    malformed["coverage_limits"] = ["No blind spots; safe to select a winner."]
 
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.Draft202012Validator(schema).validate(malformed)

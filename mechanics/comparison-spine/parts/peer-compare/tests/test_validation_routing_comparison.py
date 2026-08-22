@@ -215,6 +215,16 @@ def test_static_events_are_deduplicated_by_target() -> None:
     jsonschema.Draft202012Validator(load_json(REPORT_SCHEMA_PATH)).validate(report)
 
 
+def test_static_activation_overrides_are_rejected_as_unsynchronized() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["method_overrides"] = {
+        "static_paths": {"activated_nodes": ["source_fast"]}
+    }
+
+    with pytest.raises(comparison.ContractError, match="activated_nodes.*not admitted"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
 @pytest.mark.parametrize(
     ("field", "value"),
     [

@@ -25,6 +25,12 @@ Therefore a mislabeled complete receipt cannot fabricate malformed or
 wrong-identity adversarial coverage, and partial or mismatched receipts remain
 fail-closed.
 
+Every signal's normalized state and node shape is the same evidence used by
+measurement and adversarial-class admission; malformed node arrays therefore
+cannot fabricate stale or unknown coverage. The external shadow report's
+`allowed_use` is source-owned and fixed to bounded prior and route-gap input;
+it cannot authorize policy selection.
+
 Required adversarial classes:
 
 - stale graph;

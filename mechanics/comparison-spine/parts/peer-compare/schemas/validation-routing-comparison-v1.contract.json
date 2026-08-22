@@ -15,7 +15,8 @@
       "seeded_fixture"
     ],
     "report_kind": "seeded_validation_routing_method_measurement",
-    "real_evidence_status": "not_admitted_in_v1"
+    "real_evidence_status": "not_admitted_in_v1",
+    "allowed_use": "bounded prior and route-gap input only; no raw session body or policy verdict copied"
   },
   "latency_policy": {
     "kind": "synthetic_fixture_proxy",

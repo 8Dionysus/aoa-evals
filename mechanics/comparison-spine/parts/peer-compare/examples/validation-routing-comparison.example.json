@@ -133,6 +133,13 @@
       "method_id": "static_paths",
       "state": "missing_nodes_without_explanation",
       "behavior": "reported_as_unexplained_miss"
+    },
+    {
+      "scenario_id": "RVC-007-unbound-owner",
+      "method_id": "hybrid_fail_closed",
+      "state": "unknown",
+      "behavior": "preserved_and_escalated",
+      "fallback": "full_owner_proof"
     }
   ],
   "unsupported_candidates": [

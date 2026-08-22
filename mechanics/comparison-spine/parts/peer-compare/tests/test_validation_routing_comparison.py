@@ -104,6 +104,30 @@ def test_speed_claim_status_cannot_claim_runtime_policy_selection() -> None:
         comparison.build_report(load_json(CONTRACT_PATH), cases)
 
 
+@pytest.mark.parametrize(
+    "allowed_use",
+    [
+        "may select the winning routing policy",
+        "bounded prior and route-gap input only; policy selection is allowed",
+        None,
+    ],
+)
+def test_allowed_use_is_source_owned_measurement_only_posture(allowed_use: object) -> None:
+    cases = load_json(CASES_PATH)
+    cases["input_evidence"]["allowed_use"] = allowed_use
+
+    with pytest.raises(comparison.ContractError, match="allowed_use"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_contract_rejects_allowed_use_policy_drift() -> None:
+    contract = load_json(CONTRACT_PATH)
+    contract["evidence_policy"]["allowed_use"] = "may select the winning routing policy"
+
+    with pytest.raises(comparison.ContractError, match="evidence_policy.allowed_use"):
+        comparison.validate_contract(contract)
+
+
 def test_peer_identity_is_constant_for_each_scenario(report: dict) -> None:
     for method_entry in report["methods"]:
         for result in method_entry["scenario_results"]:
@@ -376,6 +400,36 @@ def test_adversarial_class_requires_its_class_specific_condition() -> None:
         comparison.build_report(load_json(CONTRACT_PATH), cases)
 
 
+@pytest.mark.parametrize(
+    ("declared_state", "nodes", "expected_state", "expected_match"),
+    [
+        ("stale", ["source_fast"], "stale", True),
+        ("stale", None, "malformed", False),
+        ("unknown", [], "unknown", True),
+        ("unknown", None, "malformed", False),
+    ],
+)
+def test_dependency_adversarial_coverage_uses_normalized_signal_state(
+    declared_state: str, nodes: object, expected_state: str, expected_match: bool
+) -> None:
+    cases = load_json(CASES_PATH)
+    scenario = copy.deepcopy(cases["scenarios"][1])
+    dependency_signal = scenario["signals"]["dependency_graph"]
+    dependency_signal["state"] = declared_state
+    dependency_signal["nodes"] = nodes
+
+    assert comparison.adversarial_class_matches(scenario, "stale_graph") is (
+        expected_match if declared_state == "stale" else False
+    )
+    assert comparison.adversarial_class_matches(scenario, "unknown_dependency") is (
+        expected_match if declared_state == "unknown" else False
+    )
+    result = comparison.dependency_graph_result(
+        scenario, cases["latency_event_weights_ms_synthetic_proxy"]
+    )
+    assert result["signal_states"] == [expected_state]
+
+
 def test_wrong_receipt_class_requires_candidate_and_environment_mismatch() -> None:
     cases = load_json(CASES_PATH)
     scenario = cases["scenarios"][3]
@@ -521,6 +575,35 @@ def test_example_preserves_runner_measurements_and_unsupported_candidates(report
         if entry["implementation_status"] == "unsupported_missing_candidate"
     }
     assert set(example["unsupported_candidates"]) == unsupported
+
+
+def test_example_adversarial_cases_match_fixture_and_report(report: dict) -> None:
+    cases = load_json(CASES_PATH)
+    example = load_json(EXAMPLE_PATH)
+    fixture_ids = {
+        scenario["scenario_id"]
+        for scenario in cases["scenarios"]
+        if scenario.get("adversarial_class")
+    }
+    example_ids = {entry["scenario_id"] for entry in example["adversarial_examples"]}
+
+    assert example_ids == fixture_ids
+    assert {
+        scenario["adversarial_class"]
+        for scenario in cases["scenarios"]
+        if scenario.get("adversarial_class")
+    } == set(report["adversarial_classes_covered"])
+    for entry in example["adversarial_examples"]:
+        scenario_result(report, entry["method_id"], entry["scenario_id"])
+
+
+def test_report_schema_rejects_arbitrary_allowed_use(report: dict) -> None:
+    schema = load_json(REPORT_SCHEMA_PATH)
+    malformed = copy.deepcopy(report)
+    malformed["input_evidence"]["allowed_use"] = "may select the winning routing policy"
+
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.Draft202012Validator(schema).validate(malformed)
 
 
 def test_report_schema_declares_required_measurements() -> None:

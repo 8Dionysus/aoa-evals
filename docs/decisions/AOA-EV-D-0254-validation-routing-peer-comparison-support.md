@@ -117,6 +117,22 @@ proof, or a runtime performance result, and it leaves the owner gate intact.
   validators, generated parity, and hosted review remain separate evidence
   layers.
 
+### 2026-08-22 - Normalized evidence boundary repair
+
+- Previous assumption: adversarial dependency classes and copied input metadata
+  could be checked independently from the normalized report evidence.
+- New reality: signal shape/state normalization, fixture adversarial coverage,
+  compact-example parity, and `input_evidence.allowed_use` must share the
+  source-owned measurement-only boundary.
+- Reason: exact-head review exposed malformed dependency nodes fabricating stale
+  or unknown coverage, an omitted external-owner example, and caller-controlled
+  policy text in `allowed_use`.
+- Source surfaces updated: peer-compare runner, contract/schema, fixture note,
+  example, and focused negative/parity tests.
+- Validation: the new shape matrix, exact allowed-use admission/schema checks,
+  and fixture/example parity assertion remain separate from hosted and KAG
+  owner-family gates.
+
 ## Boundaries
 
 This decision does not make a seeded report real-session proof, a local green

@@ -172,7 +172,9 @@
           "type": "string",
           "pattern": "^[0-9a-f]{64}$"
         },
-        "allowed_use": {"$ref": "#/$defs/non_empty_string"},
+        "allowed_use": {
+          "const": "bounded prior and route-gap input only; no raw session body or policy verdict copied"
+        },
         "raw_sessions_copied": {"const": false},
         "observed_real_route_gaps": {
           "type": "array",

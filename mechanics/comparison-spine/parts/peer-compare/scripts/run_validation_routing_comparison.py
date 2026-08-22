@@ -58,6 +58,9 @@ REQUIRED_UNSUPPORTED_CANDIDATE_IDS = {
     "llm_proposed_additions",
 }
 EXPECTED_COMPARISON_IDENTITY_KEYS = {"candidate_set_id", "environment_id"}
+EXPECTED_ALLOWED_USE = (
+    "bounded prior and route-gap input only; no raw session body or policy verdict copied"
+)
 EXPECTED_INPUT_EVIDENCE_KEYS = {
     "source_kind",
     "path",
@@ -105,6 +108,14 @@ class OwnerReceiptEvidence(NamedTuple):
     state: str
     reason: str
     mismatched_fields: tuple[str, ...] = ()
+
+
+class NormalizedSignal(NamedTuple):
+    """One signal-shape classification shared by admission and measurement."""
+
+    state: str
+    nodes: tuple[str, ...]
+    normalized_to_blocked: bool
 
 
 def load_object(path: Path) -> dict[str, Any]:
@@ -244,11 +255,35 @@ def owner_contract_signal_state(scenario: dict[str, Any]) -> str:
     return classify_owner_receipt(scenario).state
 
 
+def normalize_signal(
+    signal: Any, *, method_id: str, expected_state: str
+) -> NormalizedSignal:
+    """Normalize signal state and node shape before any consumer interprets it."""
+    if not isinstance(signal, dict):
+        signal = {"state": "unknown"}
+    raw_state = signal.get("state", "unknown")
+    normalized_to_blocked = not (
+        raw_state == expected_state
+        or (isinstance(raw_state, str) and raw_state in FAILURE_STATES)
+    )
+    state = "blocked" if normalized_to_blocked else raw_state
+    nodes = signal.get("nodes", [])
+    if not isinstance(nodes, list) or not all(isinstance(node, str) and node for node in nodes):
+        return NormalizedSignal("malformed", (), normalized_to_blocked)
+    if len(set(nodes)) != len(nodes):
+        raise ContractError(f"{method_id}.nodes must not contain duplicates")
+    return NormalizedSignal(state, tuple(nodes), normalized_to_blocked)
+
+
 def adversarial_class_matches(scenario: dict[str, Any], adversarial_class: str) -> bool:
     """Credit a class only when its complete measured condition is present."""
     signals = scenario.get("signals", {})
     dependency_graph = signals.get("dependency_graph") if isinstance(signals, dict) else None
-    dependency_state = dependency_graph.get("state") if isinstance(dependency_graph, dict) else None
+    dependency_state = normalize_signal(
+        dependency_graph,
+        method_id="dependency_graph",
+        expected_state="current",
+    ).state
 
     if adversarial_class == "stale_graph":
         return dependency_state == "stale"
@@ -320,6 +355,10 @@ def validate_contract(contract: dict[str, Any]) -> None:
         raise ContractError("evidence_policy.report_kind must describe a seeded report")
     if evidence_policy.get("real_evidence_status") != "not_admitted_in_v1":
         raise ContractError("evidence_policy must keep real evidence outside this seeded version")
+    if evidence_policy.get("allowed_use") != EXPECTED_ALLOWED_USE:
+        raise ContractError(
+            "evidence_policy.allowed_use must preserve the source-owned measurement-only posture"
+        )
 
     latency_policy = contract.get("latency_policy")
     if not isinstance(latency_policy, dict):
@@ -454,8 +493,10 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
         or any(character not in "0123456789abcdef" for character in input_evidence["sha256"])
     ):
         raise ContractError("input_evidence must carry the shadow report digest")
-    if not isinstance(input_evidence.get("allowed_use"), str) or not input_evidence["allowed_use"]:
-        raise ContractError("input_evidence must declare its bounded allowed use")
+    if input_evidence.get("allowed_use") != evidence_policy["allowed_use"]:
+        raise ContractError(
+            "input_evidence.allowed_use must preserve the source-owned measurement-only posture"
+        )
     if input_evidence.get("raw_sessions_copied") is not False:
         raise ContractError("input_evidence must explicitly state that raw sessions were not copied")
     route_gaps = unique_strings(
@@ -599,17 +640,14 @@ def signal_result(
     if not isinstance(signal, dict):
         signal = {"state": "unknown", "reason": "signal is not declared"}
     raw_state = signal.get("state", "unknown")
-    normalized_to_blocked = not (
-        raw_state == expected_state
-        or (isinstance(raw_state, str) and raw_state in FAILURE_STATES)
+    normalized = normalize_signal(
+        signal,
+        method_id=method_id,
+        expected_state=expected_state,
     )
-    state = "blocked" if normalized_to_blocked else raw_state
-    nodes = signal.get("nodes", [])
-    if not isinstance(nodes, list) or not all(isinstance(node, str) and node for node in nodes):
-        state = "malformed"
-        nodes = []
-    elif len(set(nodes)) != len(nodes):
-        raise ContractError(f"{method_id}.nodes must not contain duplicates")
+    state = normalized.state
+    nodes = list(normalized.nodes)
+    normalized_to_blocked = normalized.normalized_to_blocked
     retry_count = signal.get("retry_count", 0)
     if not isinstance(retry_count, int) or isinstance(retry_count, bool) or retry_count < 0:
         raise ContractError(f"retry_count for {method_id!r} must be a non-negative integer")

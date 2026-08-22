@@ -64,6 +64,13 @@ EXPECTED_UNSUPPORTED_CANDIDATE_REASONS = {
     "kag_relations": "Live KAG relation freshness and exact owner binding are not available in this fixture.",
     "llm_proposed_additions": "No LLM proposal set is admitted; speculative additions must not become routing evidence.",
 }
+EXPECTED_UNSUPPORTED_CANDIDATE_FAMILIES = {
+    "api_abi": "api_abi",
+    "coverage": "coverage",
+    "mutation": "mutation",
+    "kag_relations": "kag_relations",
+    "llm_proposed_additions": "llm_proposed_additions",
+}
 EXPECTED_IMPLEMENTED_CANDIDATE_DESCRIPTIONS = {
     "static_paths": "Map changed path prefixes to local validation nodes.",
     "dependency_graph": "Use a declared dependency signal when its freshness is current.",
@@ -550,6 +557,8 @@ def validate_contract(contract: dict[str, Any]) -> None:
         if not isinstance(family, str) or not family.strip():
             raise ContractError(f"candidate {method_id!r} needs a non-empty family")
         expected_family = EXPECTED_IMPLEMENTED_CANDIDATE_FAMILIES.get(method_id)
+        if status == UNSUPPORTED_METHOD_STATUS:
+            expected_family = EXPECTED_UNSUPPORTED_CANDIDATE_FAMILIES.get(method_id)
         if expected_family is not None and family != expected_family:
             raise ContractError(
                 f"candidate {method_id!r} must preserve its source-owned family"

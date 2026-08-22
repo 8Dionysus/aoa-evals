@@ -586,6 +586,19 @@ def test_implemented_candidate_families_remain_source_owned() -> None:
         comparison.build_report(contract, load_json(CASES_PATH))
 
 
+@pytest.mark.parametrize(
+    "method_id",
+    ["api_abi", "coverage", "mutation", "kag_relations", "llm_proposed_additions"],
+)
+def test_unsupported_candidate_families_remain_source_owned(method_id: str) -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == method_id)
+    candidate["family"] = "proven_default_policy"
+
+    with pytest.raises(comparison.ContractError, match="source-owned family"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
 def test_unsupported_candidate_reasons_remain_source_owned() -> None:
     contract = load_json(CONTRACT_PATH)
     candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "coverage")

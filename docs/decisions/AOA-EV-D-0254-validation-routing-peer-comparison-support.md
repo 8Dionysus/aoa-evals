@@ -210,6 +210,12 @@ The review annotation posted immediately after the `f67a5e8cf975fd3fd2cb30710f96
 
 This closes catalog metadata drift only; it does not add a candidate, change a family meaning, or widen the measurement-only claim. The next exact-head review and the separate KAG/hosted landing gates remain required.
 
+### 2026-08-22 - Exact-head unsupported-family admission
+
+The next exact-head review reproduced the same catalog-metadata drift for all five required unsupported candidates: a custom contract could replace a source-owned family with a policy label while remaining schema-valid. The runner now preserves the exact source-owned v1 family for API/ABI, coverage, mutation, live KAG relations, and LLM-proposed additions, with focused regression coverage for every required family.
+
+This remains a fail-closed metadata repair. It does not turn unsupported candidates into evidence, score them as zero, widen the measurement-only posture, or change the stronger-owner boundary.
+
 ## Boundaries
 
 This decision does not make a seeded report real-session proof, a local green

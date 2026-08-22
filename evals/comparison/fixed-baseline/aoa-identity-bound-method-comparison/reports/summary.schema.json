@@ -193,6 +193,7 @@
         "identity_match",
         "mismatched_fields",
         "observation_refs",
+        "matched_identity_bindings",
         "metric_coverage",
         "claim_limit"
       ],
@@ -207,6 +208,10 @@
         "identity_match": {"type": "boolean"},
         "mismatched_fields": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
         "observation_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "matched_identity_bindings": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/matched_identity_binding"}
+        },
         "metric_coverage": {
           "type": "object",
           "additionalProperties": false,
@@ -223,6 +228,77 @@
           }
         },
         "claim_limit": {"type": "string", "minLength": 10}
+      }
+    },
+    "matched_identity_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method_ids", "identity", "evidence_provenance"],
+      "properties": {
+        "method_ids": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {"enum": [
+            "legacy_serial_full_release",
+            "owner_focused_affected_only",
+            "claim_evidence_activated_subgraph_or_tiered",
+            "bounded_stable_prefix_session_measurement",
+            "retry_after_fix_first_failure",
+            "controlled_same_candidate_seeded_fault"
+          ]}
+        },
+        "identity": {"$ref": "#/$defs/identity_snapshot"},
+        "evidence_provenance": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/evidence_provenance"}
+        }
+      }
+    },
+    "identity_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["workload_id", "candidate_or_source_identity", "source_ref_or_digest", "environment_id", "route_or_treatment_identity", "evidence_class", "acceptance_target", "cache_posture", "resource_posture"],
+      "properties": {
+        "workload_id": {"type": "string", "minLength": 1},
+        "candidate_or_source_identity": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "source_ref_or_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "environment_id": {"type": "string", "minLength": 1},
+        "route_or_treatment_identity": {"type": "string", "minLength": 1},
+        "evidence_class": {"type": "string", "minLength": 1},
+        "acceptance_target": {"type": "string", "minLength": 1},
+        "cache_posture": {"$ref": "#/$defs/posture"},
+        "resource_posture": {"$ref": "#/$defs/posture"}
+      }
+    },
+    "posture": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "id"],
+          "properties": {"status": {"const": "known"}, "id": {"type": "string", "minLength": 1}}
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "id"],
+          "properties": {"status": {"enum": ["unknown", "null", "excluded", "unobservable", "missing"]}, "id": {"type": "null"}}
+        }
+      ]
+    },
+    "evidence_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method_id", "ref", "digest", "kind", "evidence_class"],
+      "properties": {
+        "method_id": {"type": "string", "minLength": 1},
+        "ref": {"type": "string", "minLength": 1},
+        "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "kind": {"const": "public-safe-observation"},
+        "evidence_class": {"enum": ["public-safe-contract", "reviewed-owner-packet"]}
       }
     },
     "unmatched_case": {

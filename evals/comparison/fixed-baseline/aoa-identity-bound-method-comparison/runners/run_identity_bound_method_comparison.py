@@ -9,6 +9,7 @@ or owner acceptance.
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 from collections import defaultdict
 import math
@@ -288,6 +289,40 @@ def _metric_coverage(
     return coverage
 
 
+def _identity_snapshot(identity: dict[str, Any]) -> dict[str, Any]:
+    return {field: copy.deepcopy(identity[field]) for field in IDENTITY_FIELDS}
+
+
+def _evidence_provenance(
+    rows: tuple[dict[str, Any], ...], packet: dict[str, Any]
+) -> list[dict[str, Any]]:
+    artifacts_by_ref = {artifact["ref"]: artifact for artifact in packet["artifacts"]}
+    provenance: list[dict[str, Any]] = []
+    for row in rows:
+        for evidence_ref in sorted(row["evidence_refs"]):
+            artifact = artifacts_by_ref[evidence_ref]
+            provenance.append(
+                {
+                    "method_id": row["method_id"],
+                    "ref": evidence_ref,
+                    "digest": artifact["digest"],
+                    "kind": artifact["kind"],
+                    "evidence_class": artifact["evidence_class"],
+                }
+            )
+    return provenance
+
+
+def _matched_identity_binding(
+    baseline: dict[str, Any], candidate: dict[str, Any], packet: dict[str, Any]
+) -> dict[str, Any]:
+    return {
+        "method_ids": [baseline["method_id"], candidate["method_id"]],
+        "identity": _identity_snapshot(baseline["identity"]),
+        "evidence_provenance": _evidence_provenance((baseline, candidate), packet),
+    }
+
+
 def _unit_result(
     unit_id: str,
     rows: list[dict[str, Any]],
@@ -309,6 +344,7 @@ def _unit_result(
                 "identity_match": False,
                 "mismatched_fields": ["baseline_method_id"],
                 "observation_refs": sorted({ref for row in rows for ref in row["evidence_refs"]}),
+                "matched_identity_bindings": [],
                 "metric_coverage": _metric_coverage(
                     rows,
                     eligible_observed_method_ids=set(),
@@ -335,6 +371,7 @@ def _unit_result(
                 "identity_match": False,
                 "mismatched_fields": ["comparison_candidate_method_id"],
                 "observation_refs": sorted({ref for row in rows for ref in row["evidence_refs"]}),
+                "matched_identity_bindings": [],
                 "metric_coverage": _metric_coverage(
                     rows,
                     eligible_observed_method_ids=set(),
@@ -351,6 +388,7 @@ def _unit_result(
     controlled_pair_count = 0
     eligible_observed_method_ids: set[str] = set()
     eligible_controlled_method_ids: set[str] = set()
+    matched_identity_bindings: list[dict[str, Any]] = []
     for candidate in candidates:
         mismatches = _identity_mismatches(baseline, candidate)
         mismatches.extend(_packet_binding_mismatches(baseline, packet))
@@ -393,6 +431,9 @@ def _unit_result(
             )
         else:
             pair_count += 1
+            matched_identity_bindings.append(
+                _matched_identity_binding(baseline, candidate, packet)
+            )
             if baseline["measurement_origin"] == "observed" and candidate["measurement_origin"] == "observed":
                 observed_pair_count += 1
                 eligible_observed_method_ids.update({baseline_method_id, candidate["method_id"]})
@@ -431,6 +472,7 @@ def _unit_result(
         "identity_match": pair_count > 0,
         "mismatched_fields": sorted(set(all_mismatches)),
         "observation_refs": refs,
+        "matched_identity_bindings": matched_identity_bindings,
         "metric_coverage": _metric_coverage(
             rows,
             eligible_observed_method_ids=eligible_observed_method_ids,

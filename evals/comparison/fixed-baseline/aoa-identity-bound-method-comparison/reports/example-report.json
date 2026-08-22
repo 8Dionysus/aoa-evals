@@ -77,6 +77,7 @@
       "identity_match": false,
       "mismatched_fields": ["identity.environment_id", "review_status.baseline"],
       "observation_refs": ["manual-case:unmatched_provisional_evidence"],
+      "matched_identity_bindings": [],
       "metric_coverage": {
         "wall_seconds": {"state_counts": {"known": 0, "unknown": 0, "null": 0, "excluded": 0, "unobservable": 2, "missing": 0}, "observed_values": [], "controlled_values": [], "synthetic_count": 0},
         "cpu_ms": {"state_counts": {"known": 0, "unknown": 0, "null": 0, "excluded": 0, "unobservable": 2, "missing": 0}, "observed_values": [], "controlled_values": [], "synthetic_count": 0},

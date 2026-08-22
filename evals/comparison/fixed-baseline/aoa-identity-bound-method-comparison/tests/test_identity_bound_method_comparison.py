@@ -168,6 +168,31 @@ def test_observed_identity_match_is_narrow_and_deterministic(runner) -> None:
     assert [item["value"] for item in first["comparison_units"][0]["metric_coverage"]["wall_seconds"]["observed_values"]] == [10.0, 8.0]
     assert first["comparison_units"][0]["metric_coverage"]["first_failure_latency_seconds"]["state_counts"]["null"] == 2
     assert first["comparison_units"][0]["metric_coverage"]["retry_amplification"]["state_counts"]["unobservable"] == 2
+    Draft202012Validator(json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))).validate(first)
+
+
+def test_report_preserves_matched_identity_and_evidence_provenance(runner) -> None:
+    payload = packet(runner)
+    report = runner.build_report(payload)
+    binding = report["comparison_units"][0]["matched_identity_bindings"][0]
+
+    assert binding["method_ids"] == [
+        "legacy_serial_full_release",
+        "owner_focused_affected_only",
+    ]
+    assert binding["identity"]["candidate_or_source_identity"] == digest("2")
+    assert binding["identity"]["source_ref_or_digest"] == digest("1")
+    assert binding["identity"]["environment_id"] == "env-class-A"
+    assert {item["method_id"] for item in binding["evidence_provenance"]} == {
+        "legacy_serial_full_release",
+        "owner_focused_affected_only",
+    }
+    assert {item["digest"] for item in binding["evidence_provenance"]} == {digest("3")}
+
+    changed = copy.deepcopy(payload)
+    for row in changed["observations"]:
+        row["identity"]["candidate_or_source_identity"] = digest("9")
+    assert runner.build_report(changed) != report
 
 
 def test_report_order_is_independent_of_observation_order(runner) -> None:

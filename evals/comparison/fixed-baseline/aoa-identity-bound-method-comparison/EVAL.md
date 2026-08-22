@@ -157,7 +157,10 @@ method set, and explicit observations.
 packet. It never invokes `command.argv`, reads live runtime state, invents
 telemetry, or repairs absent fields. It deterministically emits the report
 schema at `reports/summary.schema.json`, with comparison units ordered by
-`unit_id` and row-derived arrays ordered by canonical `method_id`.
+`unit_id` and row-derived arrays ordered by canonical `method_id`. Every
+admitted pair also carries its exact matched identity tuple and the digest,
+kind, class, and reference of each bound public-safe observation artifact;
+unmatched units carry an empty matched-binding list.
 
 The apply packet is therefore a contract for a future owner-local run, not
 evidence that a run occurred. The checked-in example report is intentionally

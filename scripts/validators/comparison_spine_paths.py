@@ -56,6 +56,38 @@ COMPARISON_SPINE_PEER_COMPARE_V2_FIXTURE_NAME = (
     "mechanics/comparison-spine/parts/peer-compare/fixtures/"
     "bounded-change-paired-v2/README.md"
 )
+COMPARISON_SPINE_VALIDATION_ROUTING_FIXTURE_NAME = (
+    "mechanics/comparison-spine/parts/peer-compare/fixtures/"
+    "validation-routing-bounded-v1/README.md"
+)
+COMPARISON_SPINE_VALIDATION_ROUTING_CASES_NAME = (
+    "mechanics/comparison-spine/parts/peer-compare/fixtures/"
+    "validation-routing-bounded-v1/cases.json"
+)
+COMPARISON_SPINE_VALIDATION_ROUTING_REPORT_NAME = (
+    "mechanics/comparison-spine/parts/peer-compare/reports/"
+    "validation-routing-comparison-proof-flow-v1.md"
+)
+COMPARISON_SPINE_VALIDATION_ROUTING_CONTRACT_NAME = (
+    "mechanics/comparison-spine/parts/peer-compare/schemas/"
+    "validation-routing-comparison-v1.contract.json"
+)
+COMPARISON_SPINE_VALIDATION_ROUTING_REPORT_SCHEMA_NAME = (
+    "mechanics/comparison-spine/parts/peer-compare/schemas/"
+    "validation-routing-comparison-report-v1.schema.json"
+)
+COMPARISON_SPINE_VALIDATION_ROUTING_EXAMPLE_NAME = (
+    "mechanics/comparison-spine/parts/peer-compare/examples/"
+    "validation-routing-comparison.example.json"
+)
+COMPARISON_SPINE_VALIDATION_ROUTING_SCRIPT_NAME = (
+    "mechanics/comparison-spine/parts/peer-compare/scripts/"
+    "run_validation_routing_comparison.py"
+)
+COMPARISON_SPINE_VALIDATION_ROUTING_TEST_NAME = (
+    "mechanics/comparison-spine/parts/peer-compare/tests/"
+    "test_validation_routing_comparison.py"
+)
 COMPARISON_SPINE_REPEATED_WINDOW_V1_REPORT_NAME = (
     "mechanics/comparison-spine/parts/longitudinal-window/reports/"
     "repeated-window-proof-flow-v1.md"
@@ -85,6 +117,9 @@ COMPARISON_SPINE_PROVENANCE_NAME = "mechanics/comparison-spine/PROVENANCE.md"
 COMPARISON_SPINE_LEGACY_INDEX_NAME = "mechanics/comparison-spine/legacy/INDEX.md"
 COMPARISON_SPINE_MECHANIC_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0011-comparison-spine-mechanic-package.md"
+)
+COMPARISON_SPINE_VALIDATION_ROUTING_DECISION_NAME = (
+    "docs/decisions/AOA-EV-D-0254-validation-routing-peer-comparison-support.md"
 )
 
 

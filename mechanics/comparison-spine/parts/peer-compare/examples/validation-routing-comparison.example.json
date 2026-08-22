@@ -1,0 +1,128 @@
+{
+  "schema_version": "validation_routing_comparison_example_v1",
+  "report_schema": "mechanics/comparison-spine/parts/peer-compare/schemas/validation-routing-comparison-report-v1.schema.json",
+  "fixture_id": "validation-routing-bounded-v1",
+  "claim_posture": "measurement_only",
+  "selection_status": "deferred_pending_bound_external_campaign",
+  "real_miss_count": null,
+  "example_measurements": [
+    {
+      "method_id": "static_paths",
+      "seeded_miss_count": 13,
+      "excess_node_count": 0,
+      "precision": 1.0,
+      "recall": 0.3888888888888889,
+      "first_failure_latency_ms_min": null,
+      "total_latency_ms_sum": 10.5,
+      "retry_amplification": 1.0,
+      "unexplained_miss_count": 2,
+      "fail_closed_escalation_count": 0
+    },
+    {
+      "method_id": "dependency_graph",
+      "seeded_miss_count": 12,
+      "excess_node_count": 0,
+      "precision": 1.0,
+      "recall": 0.4444444444444444,
+      "first_failure_latency_ms_min": 3.5,
+      "total_latency_ms_sum": 38.5,
+      "retry_amplification": 1.0,
+      "stale_count": 1,
+      "unknown_count": 2,
+      "fail_closed_escalation_count": 0
+    },
+    {
+      "method_id": "owner_contracts",
+      "seeded_miss_count": 12,
+      "excess_node_count": 0,
+      "precision": 1.0,
+      "recall": 0.4444444444444444,
+      "first_failure_latency_ms_min": 4.0,
+      "total_latency_ms_sum": 48.0,
+      "retry_amplification": 1.0,
+      "malformed_count": 1,
+      "unknown_count": 2,
+      "wrong_identity_count": 1,
+      "fail_closed_escalation_count": 0
+    },
+    {
+      "method_id": "history_correlation",
+      "seeded_miss_count": 13,
+      "excess_node_count": 0,
+      "precision": 1.0,
+      "recall": 0.3888888888888889,
+      "first_failure_latency_ms_min": 5.0,
+      "total_latency_ms_sum": 40.0,
+      "retry_amplification": 1.0,
+      "unknown_count": 1,
+      "fail_closed_escalation_count": 0
+    },
+    {
+      "method_id": "claim_risk",
+      "seeded_miss_count": 0,
+      "excess_node_count": 1,
+      "precision": 0.9473684210526315,
+      "recall": 1.0,
+      "first_failure_latency_ms_min": null,
+      "total_latency_ms_sum": 42.0,
+      "retry_amplification": 1.0,
+      "fail_closed_escalation_count": 0
+    },
+    {
+      "method_id": "hybrid_fail_closed",
+      "seeded_miss_count": 0,
+      "excess_node_count": 1,
+      "precision": 0.9473684210526315,
+      "recall": 1.0,
+      "first_failure_latency_ms_min": 3.5,
+      "total_latency_ms_sum": 179.0,
+      "retry_amplification": 2.0344827586206895,
+      "stale_count": 1,
+      "unknown_count": 5,
+      "malformed_count": 1,
+      "wrong_identity_count": 1,
+      "fail_closed_escalation_count": 5
+    }
+  ],
+  "adversarial_examples": [
+    {
+      "scenario_id": "RVC-002-stale-graph",
+      "method_id": "dependency_graph",
+      "state": "stale",
+      "behavior": "preserved_as_incomplete"
+    },
+    {
+      "scenario_id": "RVC-003-unknown-dependency",
+      "method_id": "hybrid_fail_closed",
+      "state": "unknown",
+      "behavior": "preserved_and_escalated",
+      "fallback": "full_owner_proof"
+    },
+    {
+      "scenario_id": "RVC-004-wrong-receipt",
+      "method_id": "owner_contracts",
+      "state": "wrong_identity",
+      "behavior": "rejected_identity"
+    },
+    {
+      "scenario_id": "RVC-005-malformed-receipt",
+      "method_id": "owner_contracts",
+      "state": "malformed",
+      "behavior": "preserved_as_incomplete"
+    },
+    {
+      "scenario_id": "RVC-006-unexplained-miss",
+      "method_id": "static_paths",
+      "state": "missing_nodes_without_explanation",
+      "behavior": "reported_as_unexplained_miss"
+    }
+  ],
+  "unsupported_candidates": [
+    "api_abi",
+    "coverage",
+    "mutation",
+    "kag_relations",
+    "llm_proposed_additions"
+  ],
+  "interpretation_limit": "These are seeded fixture measurements; they do not choose a routing policy or establish real-session proof."
+}

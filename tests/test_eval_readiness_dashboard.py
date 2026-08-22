@@ -838,6 +838,26 @@ def test_support_registry_routes_owner_skill_resource_through_skill_procedure() 
     assert "owner_skill_packet_as_verdict" in entry["forbidden_interpretations"]
 
 
+def test_support_registry_routes_bounded_measurement_runner_without_proof_authority() -> None:
+    raw = {
+        "path": "mechanics/example/parts/peer-compare/scripts/run_comparison.py",
+        "family": "part_local_runner",
+        "owner_surface": "mechanics/example/parts/peer-compare/README.md",
+        "side_effects": "read-only seeded measurement report to stdout; no policy selection",
+        "validation_lane": "mechanics_part_local",
+    }
+
+    semantic = readiness.semantic_support_classification("script", raw, relevant=True)
+
+    assert semantic["semantic_class"] == "bounded_measurement_support"
+    assert semantic["classification_rule"] == "read_only_bounded_measurement_runner"
+    assert semantic["review_status"] == "rule_reviewed"
+    assert semantic["recommended_route"] == "use_as_bounded_measurement_support"
+    assert semantic["safe_to_apply_directly"] is False
+    assert "central_proof_acceptance" in semantic["forbidden_interpretations"]
+    assert "routing_policy_selection" in semantic["forbidden_interpretations"]
+
+
 def test_owner_skill_catalog_marks_truncation_only_when_matches_are_omitted(
     tmp_path: Path,
 ) -> None:

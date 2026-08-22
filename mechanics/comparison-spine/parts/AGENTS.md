@@ -67,6 +67,8 @@ python scripts/validate_repo.py
 ```bash
 python scripts/build_catalog.py --check
 python scripts/validate_repo.py
+python mechanics/comparison-spine/parts/peer-compare/scripts/run_validation_routing_comparison.py --format text
+python -m pytest -q mechanics/comparison-spine/parts/peer-compare/tests/test_validation_routing_comparison.py
 ```
 
 ### `mechanics/comparison-spine/parts/spine-overview/VALIDATION.md`

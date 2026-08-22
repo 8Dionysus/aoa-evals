@@ -86,6 +86,10 @@ Full canonical-ID decision paths are the active source files:
 - `docs/decisions/AOA-EV-D-0002-*.md`
 - `docs/decisions/AOA-EV-D-####-*.md`
 
+The current validation-routing support rationale is
+`docs/decisions/AOA-EV-D-0254-validation-routing-peer-comparison-support.md`
+(`Validation-routing Peer-comparison Support`).
+
 Canonical IDs remain the stable handles. Previous short numbered paths such as
 `docs/decisions/0001-*.md` are not live files and are not preserved as a
 repository lookup layer. Use git history, PRs, or release notes when old path

@@ -82,6 +82,19 @@ def observation(runner, unit_id: str, method_id: str, *, origin: str = "observed
 
 
 def packet(runner, *, origin: str = "observed") -> dict:
+    observations = [
+        observation(runner, "unit-01", "legacy_serial_full_release", origin=origin),
+        observation(runner, "unit-01", "owner_focused_affected_only", origin=origin),
+    ]
+    observation_artifacts = [
+        {
+            "ref": row["evidence_refs"][0],
+            "digest": digest("3"),
+            "kind": "public-safe-observation",
+            "evidence_class": "reviewed-owner-packet",
+        }
+        for row in observations
+    ]
     return {
         "schema_version": "identity_bound_method_comparison_apply_v1",
         "eval_name": "aoa-identity-bound-method-comparison",
@@ -107,7 +120,8 @@ def packet(runner, *, origin: str = "observed") -> dict:
             {"id": "source-bound", "required": True, "status": "known", "evidence_ref": "owner-packet:source"}
         ],
         "artifacts": [
-            {"ref": "artifact:apply-contract", "digest": digest("2"), "kind": "public-safe-contract", "evidence_class": "reviewed-owner-packet"}
+            {"ref": "artifact:apply-contract", "digest": digest("2"), "kind": "public-safe-contract", "evidence_class": "public-safe-contract"},
+            *observation_artifacts,
         ],
         "pass_criteria": ["identity tuple matches", "unknown is not zero"],
         "effect_authority": "owner-local-observation-only",
@@ -120,10 +134,7 @@ def packet(runner, *, origin: str = "observed") -> dict:
             "method_ids": list(runner.METHOD_IDS),
             "manual_case_ids": ["positive_exact_identity_match"],
         },
-        "observations": [
-            observation(runner, "unit-01", "legacy_serial_full_release", origin=origin),
-            observation(runner, "unit-01", "owner_focused_affected_only", origin=origin),
-        ],
+        "observations": observations,
     }
 
 
@@ -188,14 +199,21 @@ def test_unmatched_observed_rows_do_not_enter_observed_values(runner) -> None:
 
 def test_unmatched_controlled_candidate_does_not_hide_observed_pair(runner) -> None:
     payload = packet(runner)
-    payload["observations"].append(
-        observation(
-            runner,
-            "unit-01",
-            "claim_evidence_activated_subgraph_or_tiered",
-            origin="controlled",
-            route="treatment-B",
-        )
+    extra = observation(
+        runner,
+        "unit-01",
+        "claim_evidence_activated_subgraph_or_tiered",
+        origin="controlled",
+        route="treatment-B",
+    )
+    payload["observations"].append(extra)
+    payload["artifacts"].append(
+        {
+            "ref": extra["evidence_refs"][0],
+            "digest": digest("4"),
+            "kind": "public-safe-observation",
+            "evidence_class": "reviewed-owner-packet",
+        }
     )
     report = runner.build_report(payload)
     unit = report["comparison_units"][0]
@@ -205,13 +223,20 @@ def test_unmatched_controlled_candidate_does_not_hide_observed_pair(runner) -> N
 
 def test_eligible_real_pairs_count_only_observed_pairs(runner) -> None:
     payload = packet(runner)
-    payload["observations"].append(
-        observation(
-            runner,
-            "unit-01",
-            "claim_evidence_activated_subgraph_or_tiered",
-            origin="controlled",
-        )
+    extra = observation(
+        runner,
+        "unit-01",
+        "claim_evidence_activated_subgraph_or_tiered",
+        origin="controlled",
+    )
+    payload["observations"].append(extra)
+    payload["artifacts"].append(
+        {
+            "ref": extra["evidence_refs"][0],
+            "digest": digest("4"),
+            "kind": "public-safe-observation",
+            "evidence_class": "reviewed-owner-packet",
+        }
     )
     report = runner.build_report(payload)
     unit = report["comparison_units"][0]
@@ -246,6 +271,22 @@ def test_metric_units_are_canonical_before_admission(runner) -> None:
     payload = packet(runner)
     payload["observations"][1]["metrics"]["wall_seconds"]["unit"] = "milliseconds"
     with pytest.raises(runner.ContractError, match="wall_seconds"):
+        runner.build_report(payload)
+
+
+def test_observation_evidence_must_be_declared_and_digest_pinned(runner) -> None:
+    payload = packet(runner)
+    payload["observations"][1]["evidence_refs"] = ["owner-packet:missing-evidence"]
+    with pytest.raises(runner.ContractError, match="evidence_ref"):
+        runner.build_report(payload)
+
+
+def test_disallowed_observation_evidence_class_is_rejected(runner) -> None:
+    payload = packet(runner)
+    evidence_ref = payload["observations"][1]["evidence_refs"][0]
+    artifact = next(item for item in payload["artifacts"] if item["ref"] == evidence_ref)
+    artifact["evidence_class"] = "generated-reader"
+    with pytest.raises(runner.ContractError, match="disallowed evidence class"):
         runner.build_report(payload)
 
 

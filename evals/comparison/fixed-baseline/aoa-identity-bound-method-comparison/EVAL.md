@@ -118,6 +118,12 @@ at least one metric is jointly known for baseline and candidate under the same
 canonical unit. `matched_pair_count` includes all admitted origin pairs, while
 `eligible_real_pairs` counts only jointly measured observed pairs.
 
+Every observation `evidence_ref` must resolve to a declared packet artifact
+with a SHA-256 digest. Only `public-safe-contract` and
+`reviewed-owner-packet` evidence classes are admissible, and the artifact class
+must match the row identity class. Generated readers, validation receipts, and
+other derived surfaces cannot bind a positive observation disposition.
+
 The contract keeps all of these states distinct:
 
 - known observed values
@@ -226,6 +232,8 @@ The instrument must fail closed on:
 - synthetic or controlled values placed in observed output;
 - a noncanonical metric unit or a baseline/candidate unit mismatch;
 - an observed pair with no jointly known comparable metric;
+- an observation reference that is undeclared, digest-unpinned, or from a
+  disallowed/derived evidence class;
 - an unmatched row silently dropped;
 - a generated reader, delivery receipt, or green validator treated as live
   evidence.

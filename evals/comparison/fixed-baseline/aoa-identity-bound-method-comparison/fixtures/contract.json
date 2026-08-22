@@ -6,6 +6,8 @@
   "public_safe_requirements": [
     "raw session transcripts, private host fingerprints, and private runtime logs are not copied into the public bundle",
     "the exact candidate or source identity includes a sha256 digest",
+    "every observation evidence_ref resolves to a declared sha256-digested artifact with an admissible public-safe evidence class",
+    "generated readers, validation receipts, and other derived surfaces cannot serve as observation evidence",
     "baseline and method rows share the complete identity tuple before comparison",
     "cache posture and resource posture are explicit and known before an observed pair is admitted",
     "first-failure, retry, and resource fields preserve unknown, null, excluded, unobservable, and missing states",

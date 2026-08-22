@@ -59,6 +59,9 @@ CANONICAL_METRIC_UNITS = {
     "first_failure_latency_seconds": "seconds",
     "retry_amplification": "ratio",
 }
+ALLOWED_OBSERVATION_EVIDENCE_CLASSES = frozenset(
+    {"public-safe-contract", "reviewed-owner-packet"}
+)
 NON_VALUE_STATUSES = ("unknown", "null", "excluded", "unobservable", "missing")
 OBSERVED_REVIEW_STATUSES = ("reviewed", "controlled")
 
@@ -141,6 +144,33 @@ def _check_metric_units(observations: list[dict[str, Any]]) -> None:
             if actual_unit != expected_unit:
                 raise ContractError(
                     f"{metric_name} must use canonical unit {expected_unit!r}; got {actual_unit!r}"
+                )
+
+
+def _check_observation_evidence(packet: dict[str, Any]) -> None:
+    artifacts_by_ref: dict[str, dict[str, Any]] = {}
+    for artifact in packet["artifacts"]:
+        ref = artifact["ref"]
+        if ref in artifacts_by_ref:
+            raise ContractError(f"duplicate artifact reference: {ref!r}")
+        artifacts_by_ref[ref] = artifact
+
+    for observation in packet["observations"]:
+        identity_class = observation["identity"]["evidence_class"]
+        for evidence_ref in observation["evidence_refs"]:
+            artifact = artifacts_by_ref.get(evidence_ref)
+            if artifact is None:
+                raise ContractError(
+                    f"observation evidence_ref is not declared in packet artifacts: {evidence_ref!r}"
+                )
+            evidence_class = artifact["evidence_class"]
+            if evidence_class not in ALLOWED_OBSERVATION_EVIDENCE_CLASSES:
+                raise ContractError(
+                    f"observation evidence_ref uses disallowed evidence class: {evidence_class!r}"
+                )
+            if evidence_class != identity_class:
+                raise ContractError(
+                    f"observation evidence class does not match identity.evidence_class for {evidence_ref!r}"
                 )
 
 
@@ -359,6 +389,7 @@ def build_report(packet: dict[str, Any]) -> dict[str, Any]:
     _require_exact_method_set(packet)
     _check_prerequisites(packet)
     _check_source_identity(packet)
+    _check_observation_evidence(packet)
     _check_collisions(packet["observations"])
     _check_metric_units(packet["observations"])
     _check_observation_semantics(packet["observations"])

@@ -169,6 +169,31 @@
           }
         }
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "verdict": {"const": "not_admitted"}
+        }
+      },
+      "then": {
+        "properties": {
+          "admission": {
+            "properties": {
+              "matched_unit_count": {"const": 0},
+              "eligible_real_pairs": {"const": 0}
+            }
+          },
+          "comparison_units": {
+            "not": {
+              "contains": {
+                "type": "object",
+                "properties": {"disposition": {"const": "matched_observation_only"}}
+              }
+            }
+          }
+        }
+      }
     }
   ],
   "$defs": {
@@ -199,6 +224,19 @@
           "items": {"$ref": "#/$defs/metric_value"}
         },
         "synthetic_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "empty_metric_coverage": {
+      "type": "object",
+      "properties": {
+        "wall_seconds": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}},
+        "cpu_ms": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}},
+        "peak_rss_kib": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}},
+        "io_read_bytes": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}},
+        "io_write_bytes": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}},
+        "setup_startup_seconds": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}},
+        "first_failure_latency_seconds": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}},
+        "retry_amplification": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}}
       }
     },
     "metric_value": {
@@ -344,7 +382,8 @@
               "identity_match": {"const": false},
               "matched_pair_count": {"const": 0},
               "observed_pair_count": {"const": 0},
-              "matched_identity_bindings": {"maxItems": 0}
+              "matched_identity_bindings": {"maxItems": 0},
+              "metric_coverage": {"$ref": "#/$defs/empty_metric_coverage"}
             }
           }
         },
@@ -353,36 +392,42 @@
             {
               "properties": {
                 "matched_pair_count": {"const": 0},
+                "observed_pair_count": {"maximum": 0},
                 "matched_identity_bindings": {"maxItems": 0}
               }
             },
             {
               "properties": {
                 "matched_pair_count": {"const": 1},
+                "observed_pair_count": {"maximum": 1},
                 "matched_identity_bindings": {"minItems": 1, "maxItems": 1}
               }
             },
             {
               "properties": {
                 "matched_pair_count": {"const": 2},
+                "observed_pair_count": {"maximum": 2},
                 "matched_identity_bindings": {"minItems": 2, "maxItems": 2}
               }
             },
             {
               "properties": {
                 "matched_pair_count": {"const": 3},
+                "observed_pair_count": {"maximum": 3},
                 "matched_identity_bindings": {"minItems": 3, "maxItems": 3}
               }
             },
             {
               "properties": {
                 "matched_pair_count": {"const": 4},
+                "observed_pair_count": {"maximum": 4},
                 "matched_identity_bindings": {"minItems": 4, "maxItems": 4}
               }
             },
             {
               "properties": {
                 "matched_pair_count": {"const": 5},
+                "observed_pair_count": {"maximum": 5},
                 "matched_identity_bindings": {"minItems": 5, "maxItems": 5}
               }
             }

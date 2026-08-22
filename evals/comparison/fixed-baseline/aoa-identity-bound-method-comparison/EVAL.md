@@ -75,9 +75,11 @@ candidate pairs. A positive top-level verdict also requires a positive matched
 unit and observed-pair count. Admitted units must declare identity matched, and
 a positive observed unit must expose at least one jointly measured metric whose
 values include the baseline and a candidate method from an admitted binding.
-The report schema also binds each named metric to its canonical unit and
-requires unmatched units to declare zero pair counts and no matched bindings.
-It is not a speedup,
+The report schema also binds each named metric to its canonical unit, caps
+observed-pair count at admitted-pair count, requires unmatched units to declare
+zero pair counts, no matched bindings, and empty observed or controlled value
+buckets, and rejects a `not_admitted` verdict that still contains an observed
+match. It is not a speedup,
 causal effect, proof result, or winner verdict.
 
 This eval does **not** support claims that:
@@ -178,7 +180,7 @@ admitted pair also carries its exact matched identity tuple and the digest,
 kind, class, and reference of each bound public-safe observation artifact;
 matched positive units require at least one such binding, controlled matched
 units preserve the same binding invariant, and unmatched units carry an empty
-matched-binding list and zero pair counts. The report schema binds the
+matched-binding list, zero pair counts, and empty metric value buckets. The report schema binds the
 binding-array cardinality to the admitted-pair count and requires a matched
 unit for a positive top-level verdict. It also requires identity-match truth for
 admitted units, canonical units for named report metrics, and measured coverage
@@ -273,6 +275,9 @@ The instrument must fail closed on:
 - binding provenance that omits either bound method or names another method;
 - measured candidate values that have no corresponding admitted binding;
 - an unmatched unit with nonzero pair counts or a matched binding;
+- an unmatched unit with observed or controlled metric values;
+- an observed-pair count greater than the admitted-pair count;
+- a `not_admitted` verdict that retains an observed matched unit;
 - an observation reference that is undeclared, digest-unpinned, or from a
   disallowed/derived evidence class;
 - an unmatched row silently dropped;

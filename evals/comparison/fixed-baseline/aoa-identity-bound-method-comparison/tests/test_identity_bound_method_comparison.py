@@ -315,6 +315,47 @@ def test_report_schema_requires_unmatched_pair_counts_and_bindings_zero(runner) 
     assert errors
 
 
+def test_report_schema_requires_empty_metric_buckets_for_unmatched_unit(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["verdict"] = "not_admitted"
+    report["admission"]["matched_unit_count"] = 0
+    report["admission"]["eligible_real_pairs"] = 0
+    unit = report["comparison_units"][0]
+    unit["disposition"] = "unmatched"
+    unit["identity_match"] = False
+    unit["matched_pair_count"] = 0
+    unit["observed_pair_count"] = 0
+    unit["matched_identity_bindings"] = []
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_caps_observed_pairs_at_admitted_pairs(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["observed_pair_count"] = 2
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_rejects_not_admitted_with_observed_match(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["verdict"] = "not_admitted"
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
 def test_report_schema_requires_canonical_metric_units(runner) -> None:
     report = runner.build_report(packet(runner))
     report["comparison_units"][0]["metric_coverage"]["wall_seconds"]["observed_values"][0]["unit"] = "milliseconds"

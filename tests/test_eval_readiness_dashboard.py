@@ -858,6 +858,13 @@ def test_support_registry_routes_bounded_measurement_runner_without_proof_author
     assert "routing_policy_selection" in semantic["forbidden_interpretations"]
 
 
+def test_bounded_measurement_class_describes_caller_write_posture() -> None:
+    description = readiness.SUPPORT_SEMANTIC_CLASSES["bounded_measurement_support"]
+
+    assert "caller-write-capable" in description
+    assert "Read-only" not in description
+
+
 def test_support_registry_routes_bounded_measurement_output_write_without_direct_apply() -> None:
     raw = {
         "path": "mechanics/example/parts/peer-compare/scripts/run_comparison.py",

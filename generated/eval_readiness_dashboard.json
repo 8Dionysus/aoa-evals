@@ -1262,7 +1262,7 @@
       "rule_reviewed": "classified by deterministic source-inventory rule and owner evidence"
     },
     "semantic_classes": {
-      "bounded_measurement_support": "Read-only bounded measurement support; useful for comparison evidence, not proof acceptance or policy selection.",
+      "bounded_measurement_support": "Optionally caller-write-capable bounded measurement support; useful for comparison evidence, not proof acceptance or policy selection.",
       "deterministic_validator": "Read-only validator with an explicit owner lane.",
       "generated_parity_check": "Generated/read-model parity support; useful for freshness, not proof acceptance.",
       "manual_review_needed": "Relevant support surface that needs human classification before eval use.",

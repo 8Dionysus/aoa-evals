@@ -49,6 +49,28 @@ REQUIRED_ADVERSARIAL_CLASSES = {
     "unexplained_miss",
     "unbound_external_owner",
 }
+REQUIRED_UNSUPPORTED_CANDIDATE_IDS = {
+    "api_abi",
+    "coverage",
+    "mutation",
+    "kag_relations",
+    "llm_proposed_additions",
+}
+EXPECTED_COMPARISON_IDENTITY_KEYS = {"candidate_set_id", "environment_id"}
+EXPECTED_INPUT_EVIDENCE_KEYS = {
+    "source_kind",
+    "path",
+    "sha256",
+    "allowed_use",
+    "raw_sessions_copied",
+    "observed_real_route_gaps",
+    "observed_wall_clock_proxies",
+}
+EXPECTED_WALL_CLOCK_PROXY_KEYS = {
+    "full_local_release_check_seconds",
+    "targeted_local_route_proxy_seconds",
+    "speed_claim_status",
+}
 EXPECTED_ORACLE_RULE = {
     "oracle": "full_owner_proof",
     "fallback": "full_owner_proof",
@@ -93,6 +115,14 @@ def unique_strings(values: Any, *, field: str) -> list[str]:
     if len(set(values)) != len(values):
         raise ContractError(f"{field} must not contain duplicates")
     return list(values)
+
+
+def reject_undeclared_keys(value: dict[str, Any], *, allowed: set[str], field: str) -> None:
+    undeclared = sorted(set(value) - allowed)
+    if undeclared:
+        raise ContractError(
+            f"{field} contains undeclared field(s): {', '.join(undeclared)}"
+        )
 
 
 def is_finite_non_negative_number(value: Any) -> bool:
@@ -286,6 +316,8 @@ def validate_contract(contract: dict[str, Any]) -> None:
             raise ContractError(f"unsupported candidate status for {method_id!r}: {status!r}")
         if method_id in IMPLEMENTED_METHOD_IDS and status != "implemented":
             raise ContractError(f"implemented candidate {method_id!r} must remain implemented")
+        if method_id in REQUIRED_UNSUPPORTED_CANDIDATE_IDS and status != UNSUPPORTED_METHOD_STATUS:
+            raise ContractError(f"unsupported candidate {method_id!r} must remain unsupported")
         allowed_keys = (
             {"method_id", "family", "status", "description"}
             if status == "implemented"
@@ -312,6 +344,11 @@ def validate_contract(contract: dict[str, Any]) -> None:
     if set(IMPLEMENTED_METHOD_IDS) - seen:
         missing = sorted(set(IMPLEMENTED_METHOD_IDS) - seen)
         raise ContractError(f"contract is missing implemented candidate(s): {', '.join(missing)}")
+    if REQUIRED_UNSUPPORTED_CANDIDATE_IDS - seen:
+        missing = sorted(REQUIRED_UNSUPPORTED_CANDIDATE_IDS - seen)
+        raise ContractError(
+            f"contract is missing required unsupported candidate(s): {', '.join(missing)}"
+        )
 
     metrics = contract.get("metrics")
     required_metrics = {
@@ -349,6 +386,11 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
     identity = cases.get("comparison_identity")
     if not isinstance(identity, dict):
         raise ContractError("comparison_identity must be an object")
+    reject_undeclared_keys(
+        identity,
+        allowed=EXPECTED_COMPARISON_IDENTITY_KEYS,
+        field="comparison_identity",
+    )
     for field in ("candidate_set_id", "environment_id"):
         if not isinstance(identity.get(field), str) or not identity[field]:
             raise ContractError(f"comparison_identity.{field} must be a non-empty string")
@@ -356,6 +398,11 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
     input_evidence = cases.get("input_evidence")
     if not isinstance(input_evidence, dict):
         raise ContractError("input_evidence must be an object")
+    reject_undeclared_keys(
+        input_evidence,
+        allowed=EXPECTED_INPUT_EVIDENCE_KEYS,
+        field="input_evidence",
+    )
     if input_evidence.get("source_kind") != "public_safe_external_report":
         raise ContractError("input_evidence must identify the public-safe shadow report")
     if not isinstance(input_evidence.get("path"), str) or not input_evidence["path"]:
@@ -379,6 +426,11 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
     wall_clock_proxies = input_evidence.get("observed_wall_clock_proxies")
     if not isinstance(wall_clock_proxies, dict):
         raise ContractError("input_evidence must retain the bounded wall-clock proxy record")
+    reject_undeclared_keys(
+        wall_clock_proxies,
+        allowed=EXPECTED_WALL_CLOCK_PROXY_KEYS,
+        field="input_evidence.observed_wall_clock_proxies",
+    )
     if not is_finite_non_negative_number(wall_clock_proxies.get("full_local_release_check_seconds")):
         raise ContractError("input_evidence full release proxy must be a finite non-negative number")
     targeted_proxies = wall_clock_proxies.get("targeted_local_route_proxy_seconds")

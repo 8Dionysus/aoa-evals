@@ -280,7 +280,7 @@ SUPPORT_SEMANTIC_CLASSES = {
     "unit_contract_property_test": "Pytest or test surface constraining a stable contract or invariant.",
     "trace_trajectory_eval_support": "Test or support surface about route trajectory, trace, or tool path behavior.",
     "generated_parity_check": "Generated/read-model parity support; useful for freshness, not proof acceptance.",
-    "bounded_measurement_support": "Read-only bounded measurement support; useful for comparison evidence, not proof acceptance or policy selection.",
+    "bounded_measurement_support": "Optionally caller-write-capable bounded measurement support; useful for comparison evidence, not proof acceptance or policy selection.",
     "runtime_candidate_support": "Runtime or session-derived candidate evidence; candidate-only until reviewed.",
     "unsafe_side_effect_script": "Write-capable script without a safe direct eval-apply route.",
     "ordinary_support": "Ordinary support surface with no eval-lane signal.",

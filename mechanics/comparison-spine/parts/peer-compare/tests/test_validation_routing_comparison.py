@@ -321,6 +321,36 @@ def test_candidate_entries_reject_undeclared_fields() -> None:
         comparison.build_report(contract, load_json(CASES_PATH))
 
 
+def test_required_unsupported_candidates_cannot_be_removed() -> None:
+    contract = load_json(CONTRACT_PATH)
+    contract["candidate_catalog"] = [
+        entry for entry in contract["candidate_catalog"] if entry["method_id"] != "coverage"
+    ]
+
+    with pytest.raises(comparison.ContractError, match="required unsupported candidate"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+def test_comparison_identity_rejects_undeclared_fields() -> None:
+    cases = load_json(CASES_PATH)
+    cases["comparison_identity"]["unexpected"] = "schema drift"
+
+    with pytest.raises(comparison.ContractError, match="comparison_identity.*undeclared"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+@pytest.mark.parametrize("location", ["input_evidence", "observed_wall_clock_proxies"])
+def test_input_evidence_rejects_undeclared_fields(location: str) -> None:
+    cases = load_json(CASES_PATH)
+    if location == "input_evidence":
+        cases["input_evidence"]["unexpected"] = "schema drift"
+    else:
+        cases["input_evidence"]["observed_wall_clock_proxies"]["unexpected"] = "schema drift"
+
+    with pytest.raises(comparison.ContractError, match="undeclared"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
 def test_empty_owner_proof_oracle_nodes_are_rejected() -> None:
     cases = load_json(CASES_PATH)
     cases["scenarios"][0]["oracle"]["required_nodes"] = []

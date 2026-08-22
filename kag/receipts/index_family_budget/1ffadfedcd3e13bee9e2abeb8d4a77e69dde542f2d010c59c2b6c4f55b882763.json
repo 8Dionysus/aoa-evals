@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 19028872,
+  "allowed_tracked_bytes": 26985245,
+  "approved_by": "repository-owner",
+  "base_ref": "cb734788b8a6fff9869f63bdf890fc54dbaf6563",
+  "changed_generated_bytes": 19028872,
+  "changed_generated_files": 295,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "1ffadfedcd3e13bee9e2abeb8d4a77e69dde542f2d010c59c2b6c4f55b882763",
+  "reason": "PR 454 review found four additional bounded admission gaps: required unsupported candidate families could be omitted, comparison identity and input-evidence objects accepted undeclared fields, and the generated readiness class described a caller-write-capable measurement runner as read-only. The owner generator deterministically rewrites the portable family from these aoa-evals source, generated, and negative-test changes; this is bounded shard amplification, not authored duplicate or cross-owner payload. Admit this exact repair candidate under AOA-KAG-D-0017 while preserving the standing 1 MiB generated-delta and 25 MiB tracked-size limits.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 26985245,
+  "tracked_bytes_max": 26214400
+}

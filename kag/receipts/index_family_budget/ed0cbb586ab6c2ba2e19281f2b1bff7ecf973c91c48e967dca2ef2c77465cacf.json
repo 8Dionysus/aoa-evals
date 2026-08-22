@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 18930663,
+  "allowed_tracked_bytes": 26956403,
+  "approved_by": "repository-owner",
+  "base_ref": "cb734788b8a6fff9869f63bdf890fc54dbaf6563",
+  "changed_generated_bytes": 18930663,
+  "changed_generated_files": 292,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "ed0cbb586ab6c2ba2e19281f2b1bff7ecf973c91c48e967dca2ef2c77465cacf",
+  "reason": "PR 454 repair strengthens the existing aoa-evals-owned comparison-spine validation contract with generic fail-closed admission and negative cases. The exact owner generator deterministically rewrites the portable family from these source and test changes; this is bounded shard amplification, not authored duplicate or cross-owner payload. Admit this exact repair candidate under AOA-KAG-D-0017 while preserving the standing 1 MiB generated-delta and 25 MiB tracked-size limits.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 26956403,
+  "tracked_bytes_max": 26214400
+}

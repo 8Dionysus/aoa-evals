@@ -1,0 +1,137 @@
+{
+  "schema_version": "validation_routing_comparison_contract_v1",
+  "fixture_id": "validation-routing-bounded-v1",
+  "comparison_mode": "peer-compare",
+  "claim_posture": "measurement_only",
+  "identity_fields": [
+    "workload_id",
+    "candidate_set_id",
+    "environment_id",
+    "source_ref"
+  ],
+  "evidence_policy": {
+    "source_posture": "seeded_public_safe_only",
+    "accepted_evidence_kinds": [
+      "seeded_fixture"
+    ],
+    "report_kind": "seeded_validation_routing_method_measurement",
+    "real_evidence_status": "not_admitted_in_v1",
+    "allowed_use": "bounded prior and route-gap input only; no raw session body or policy verdict copied"
+  },
+  "latency_policy": {
+    "kind": "synthetic_fixture_proxy",
+    "runtime_observed": false,
+    "field_suffix": "_synthetic_proxy",
+    "source": "seeded fixture event declarations",
+    "interpretation_limit": "not observed runtime latency or a performance ranking"
+  },
+  "resource_policy": {
+    "kind": "source_owned_retry_materialization_cap",
+    "max_retry_count": 64,
+    "max_materialized_events_per_signal": 4096,
+    "materialization_rule": "target_count * (retry_count + 1) <= max_materialized_events_per_signal",
+    "retry_representation": "one_event_per_admitted_attempt",
+    "overflow_behavior": "reject_before_event_allocation"
+  },
+  "oracle_rule": {
+    "oracle": "full_owner_proof",
+    "fallback": "full_owner_proof",
+    "unknown_rule": "preserve stale, unknown, malformed, and wrong-identity state; escalate without treating it as zero or green",
+    "policy_rule": "measurement only; no method winner, release verdict, or routing policy is emitted"
+  },
+  "candidate_catalog": [
+    {
+      "method_id": "static_paths",
+      "family": "static_paths",
+      "status": "implemented",
+      "description": "Map changed path prefixes to local validation nodes."
+    },
+    {
+      "method_id": "dependency_graph",
+      "family": "imports_dependencies",
+      "status": "implemented",
+      "description": "Use a declared dependency signal when its freshness is current."
+    },
+    {
+      "method_id": "owner_contracts",
+      "family": "owner_contracts",
+      "status": "implemented",
+      "description": "Use owner-declared nodes only with an identity-matched receipt."
+    },
+    {
+      "method_id": "history_correlation",
+      "family": "historical_failure_correlation",
+      "status": "implemented",
+      "description": "Use an explicit bounded historical signal when available."
+    },
+    {
+      "method_id": "claim_risk",
+      "family": "claim_risk_classification",
+      "status": "implemented",
+      "description": "Use declared claim/risk labels as candidate activation hints."
+    },
+    {
+      "method_id": "hybrid_fail_closed",
+      "family": "hybrid_owner_dag_adaptive",
+      "status": "implemented",
+      "description": "Combine bounded signals and escalate unresolved cases to full owner proof."
+    },
+    {
+      "method_id": "api_abi",
+      "family": "api_abi",
+      "status": "unsupported_missing_candidate",
+      "reason": "No stable API/ABI activation manifest is owned by this fixture."
+    },
+    {
+      "method_id": "coverage",
+      "family": "coverage",
+      "status": "unsupported_missing_candidate",
+      "reason": "Coverage data is not admitted as a routing oracle in this seeded slice."
+    },
+    {
+      "method_id": "mutation",
+      "family": "mutation",
+      "status": "unsupported_missing_candidate",
+      "reason": "No mutation-injection campaign is present; latent defect sensitivity remains unmeasured."
+    },
+    {
+      "method_id": "kag_relations",
+      "family": "kag_relations",
+      "status": "unsupported_missing_candidate",
+      "reason": "Live KAG relation freshness and exact owner binding are not available in this fixture."
+    },
+    {
+      "method_id": "llm_proposed_additions",
+      "family": "llm_proposed_additions",
+      "status": "unsupported_missing_candidate",
+      "reason": "No LLM proposal set is admitted; speculative additions must not become routing evidence."
+    }
+  ],
+  "metrics": {
+    "misses": "required oracle nodes absent from a candidate activation proposal, split by real versus seeded evidence",
+    "excess_nodes": "activated nodes outside the scenario oracle required-node set",
+    "precision": "true positives divided by activated nodes only when the oracle denominator is complete and non-empty",
+    "recall": "true positives divided by required oracle nodes only when the oracle denominator is complete and non-empty",
+    "first_failure_latency_ms_synthetic_proxy": "cumulative synthetic fixture proxy latency through the first stale, unknown, malformed, wrong-identity, or blocked event",
+    "total_latency_ms_synthetic_proxy": "sum of synthetic fixture proxy event latencies; this is not observed runtime timing and fallback or unexecuted external routes stay null/unmeasured",
+    "retry_amplification": "attempt count divided by unique attempted targets; null when no target was attempted",
+    "stale_unknown_behavior": "whether unresolved state was preserved, rejected, or escalated",
+    "explanation": "candidate rationale plus missing-node explanation where available",
+    "fail_closed_escalation": "explicit escalation object naming full_owner_proof fallback and its bounded status"
+  },
+  "adversarial_classes": [
+    "stale_graph",
+    "unknown_dependency",
+    "wrong_candidate_environment_receipt",
+    "malformed_receipt",
+    "unexplained_miss",
+    "unbound_external_owner"
+  ],
+  "coverage_limits": [
+    "All current cases are seeded public-safe fixtures; no real-session case is copied into the fixture.",
+    "The validation-shadow report is a bounded prior and input reference, not a verdict or routing policy.",
+    "External KAG, canonical aoa-stats, and advisory trust-plane execution receipts remain absent or blocked.",
+    "No mutation injection, old-commit checkout, population estimate, causal claim, or universal false-negative rate is supported.",
+    "Unsupported candidate families remain explicit missing candidates until owner-bound evidence and a fair implementation exist."
+  ]
+}

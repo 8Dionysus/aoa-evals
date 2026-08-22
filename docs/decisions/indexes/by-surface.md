@@ -278,6 +278,7 @@
 - [AOA-EV-D-0241 Local Eval Port Write-Side MCP](../AOA-EV-D-0241-local-eval-port-write-side-mcp.md) (`docs/decisions/AOA-EV-D-0241-local-eval-port-write-side-mcp.md`)
 - [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
 - [AOA-EV-D-0243 Local Memo Port](../AOA-EV-D-0243-local-memo-port.md) (`docs/decisions/AOA-EV-D-0243-local-memo-port.md`)
+- [AOA-EV-D-0254 Validation-routing Peer-comparison Support](../AOA-EV-D-0254-validation-routing-peer-comparison-support.md) (`docs/decisions/AOA-EV-D-0254-validation-routing-peer-comparison-support.md`)
 
 ## legacy/provenance
 
@@ -435,12 +436,14 @@
 - [AOA-EV-D-0125 Source Doctrine Validator Module Boundary](../AOA-EV-D-0125-source-doctrine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0125-source-doctrine-validator-module-boundary.md`)
 - [AOA-EV-D-0209 Source Doctrine Aggregate Removal](../AOA-EV-D-0209-source-doctrine-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0209-source-doctrine-aggregate-removal.md`)
 - [AOA-EV-D-0220 Comparison-spine Validator Layer Split](../AOA-EV-D-0220-comparison-spine-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0220-comparison-spine-validator-layer-split.md`)
+- [AOA-EV-D-0254 Validation-routing Peer-comparison Support](../AOA-EV-D-0254-validation-routing-peer-comparison-support.md) (`docs/decisions/AOA-EV-D-0254-validation-routing-peer-comparison-support.md`)
 
 ## fixture/support
 
 - [AOA-EV-D-0124 Proof Infra Validator Module Boundary](../AOA-EV-D-0124-proof-infra-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0124-proof-infra-validator-module-boundary.md`)
 - [AOA-EV-D-0201 Proof Infra Aggregate Removal](../AOA-EV-D-0201-proof-infra-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0201-proof-infra-aggregate-removal.md`)
 - [AOA-EV-D-0230 Proof-infra Route Token Layer Split](../AOA-EV-D-0230-proof-infra-route-token-layer-split.md) (`docs/decisions/AOA-EV-D-0230-proof-infra-route-token-layer-split.md`)
+- [AOA-EV-D-0254 Validation-routing Peer-comparison Support](../AOA-EV-D-0254-validation-routing-peer-comparison-support.md) (`docs/decisions/AOA-EV-D-0254-validation-routing-peer-comparison-support.md`)
 
 ## generated/read-model
 

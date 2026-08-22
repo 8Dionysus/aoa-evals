@@ -49,6 +49,16 @@ METRIC_NAMES = (
     "first_failure_latency_seconds",
     "retry_amplification",
 )
+CANONICAL_METRIC_UNITS = {
+    "wall_seconds": "seconds",
+    "cpu_ms": "milliseconds",
+    "peak_rss_kib": "kibibytes",
+    "io_read_bytes": "bytes",
+    "io_write_bytes": "bytes",
+    "setup_startup_seconds": "seconds",
+    "first_failure_latency_seconds": "seconds",
+    "retry_amplification": "ratio",
+}
 NON_VALUE_STATUSES = ("unknown", "null", "excluded", "unobservable", "missing")
 OBSERVED_REVIEW_STATUSES = ("reviewed", "controlled")
 
@@ -124,6 +134,16 @@ def _check_observation_semantics(observations: list[dict[str, Any]]) -> None:
             )
 
 
+def _check_metric_units(observations: list[dict[str, Any]]) -> None:
+    for observation in observations:
+        for metric_name, expected_unit in CANONICAL_METRIC_UNITS.items():
+            actual_unit = observation["metrics"][metric_name]["unit"]
+            if actual_unit != expected_unit:
+                raise ContractError(
+                    f"{metric_name} must use canonical unit {expected_unit!r}; got {actual_unit!r}"
+                )
+
+
 def _identity_mismatches(
     baseline: dict[str, Any], candidate: dict[str, Any]
 ) -> list[str]:
@@ -151,6 +171,20 @@ def _packet_binding_mismatches(
         if identity[field] != environment[field]:
             mismatches.append(f"identity.{field}.packet_binding")
     return mismatches
+
+
+def _jointly_known_metric_names(
+    baseline: dict[str, Any], candidate: dict[str, Any]
+) -> list[str]:
+    return [
+        metric_name
+        for metric_name, expected_unit in CANONICAL_METRIC_UNITS.items()
+        if baseline["metrics"][metric_name]["status"] == "known"
+        and candidate["metrics"][metric_name]["status"] == "known"
+        and baseline["metrics"][metric_name]["unit"]
+        == candidate["metrics"][metric_name]["unit"]
+        == expected_unit
+    ]
 
 
 def _metric_coverage(
@@ -207,6 +241,7 @@ def _unit_result(
                 "unit_id": unit_id,
                 "disposition": "unmatched",
                 "matched_pair_count": 0,
+                "observed_pair_count": 0,
                 "method_ids": sorted({row["method_id"] for row in rows}),
                 "review_statuses": sorted({row["review_status"] for row in rows}),
                 "evidence_classes": sorted({row["identity"]["evidence_class"] for row in rows}),
@@ -228,6 +263,7 @@ def _unit_result(
                 "unit_id": unit_id,
                 "disposition": "unmatched",
                 "matched_pair_count": 0,
+                "observed_pair_count": 0,
                 "method_ids": [baseline_method_id],
                 "review_statuses": sorted({row["review_status"] for row in rows}),
                 "evidence_classes": sorted({row["identity"]["evidence_class"] for row in rows}),
@@ -257,6 +293,12 @@ def _unit_result(
             mismatches.append("measurement_origin.baseline")
         if candidate["measurement_origin"] == "unobservable":
             mismatches.append(f"measurement_origin.{candidate['method_id']}")
+        if (
+            baseline["measurement_origin"] == "observed"
+            and candidate["measurement_origin"] == "observed"
+            and not _jointly_known_metric_names(baseline, candidate)
+        ):
+            mismatches.append("metric_coverage.no_jointly_known_metric")
         if mismatches:
             all_mismatches.extend(mismatches)
             unmatched.append(
@@ -295,6 +337,7 @@ def _unit_result(
         "unit_id": unit_id,
         "disposition": disposition,
         "matched_pair_count": pair_count,
+        "observed_pair_count": observed_pair_count,
         "method_ids": method_ids,
         "review_statuses": review_statuses,
         "evidence_classes": evidence_classes,
@@ -317,6 +360,7 @@ def build_report(packet: dict[str, Any]) -> dict[str, Any]:
     _check_prerequisites(packet)
     _check_source_identity(packet)
     _check_collisions(packet["observations"])
+    _check_metric_units(packet["observations"])
     _check_observation_semantics(packet["observations"])
 
     grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -380,7 +424,7 @@ def build_report(packet: dict[str, Any]) -> dict[str, Any]:
             "controlled_accounting_unit_count": len(controlled_units),
             "unmatched_unit_count": len(units) - len(matched_units) - len(controlled_units),
             "matched_pair_count": sum(unit["matched_pair_count"] for unit in units),
-            "eligible_real_pairs": sum(unit["matched_pair_count"] for unit in matched_units),
+            "eligible_real_pairs": sum(unit["observed_pair_count"] for unit in units),
             "unknown_is_not_zero": True,
             "method_effect_admitted": False,
         },

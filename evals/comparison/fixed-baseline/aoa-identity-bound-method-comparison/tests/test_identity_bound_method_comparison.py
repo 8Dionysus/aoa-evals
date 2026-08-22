@@ -151,6 +151,7 @@ def test_observed_identity_match_is_narrow_and_deterministic(runner) -> None:
     assert first["policy_verdict"] is None
     assert first["admission"]["eligible_real_pairs"] == 1
     assert first["admission"]["matched_pair_count"] == 1
+    assert first["comparison_units"][0]["observed_pair_count"] == 1
     assert first["admission"]["method_effect_admitted"] is False
     assert first["comparison_units"][0]["disposition"] == "matched_observation_only"
     assert [item["value"] for item in first["comparison_units"][0]["metric_coverage"]["wall_seconds"]["observed_values"]] == [10.0, 8.0]
@@ -202,10 +203,59 @@ def test_unmatched_controlled_candidate_does_not_hide_observed_pair(runner) -> N
     assert [item["value"] for item in unit["metric_coverage"]["wall_seconds"]["observed_values"]] == [10.0, 8.0]
 
 
+def test_eligible_real_pairs_count_only_observed_pairs(runner) -> None:
+    payload = packet(runner)
+    payload["observations"].append(
+        observation(
+            runner,
+            "unit-01",
+            "claim_evidence_activated_subgraph_or_tiered",
+            origin="controlled",
+        )
+    )
+    report = runner.build_report(payload)
+    unit = report["comparison_units"][0]
+    assert unit["disposition"] == "matched_observation_only"
+    assert unit["matched_pair_count"] == 2
+    assert unit["observed_pair_count"] == 1
+    assert report["admission"]["matched_pair_count"] == 2
+    assert report["admission"]["eligible_real_pairs"] == 1
+
+
+def test_observed_pair_requires_jointly_known_metric(runner) -> None:
+    payload = packet(runner)
+    payload["observations"] = [
+        {
+            **row,
+            "metrics": {
+                metric_name: state("unknown", unit)
+                for metric_name, unit in runner.CANONICAL_METRIC_UNITS.items()
+            },
+        }
+        for row in payload["observations"]
+    ]
+    report = runner.build_report(payload)
+    unit = report["comparison_units"][0]
+    assert report["verdict"] == "not_admitted"
+    assert unit["disposition"] == "unmatched"
+    assert "metric_coverage.no_jointly_known_metric" in unit["mismatched_fields"]
+    assert report["admission"]["eligible_real_pairs"] == 0
+
+
+def test_metric_units_are_canonical_before_admission(runner) -> None:
+    payload = packet(runner)
+    payload["observations"][1]["metrics"]["wall_seconds"]["unit"] = "milliseconds"
+    with pytest.raises(runner.ContractError, match="wall_seconds"):
+        runner.build_report(payload)
+
+
 def test_unobservable_origin_is_unmatched(runner) -> None:
     payload = packet(runner, origin="unobservable")
     for row in payload["observations"]:
-        row["metrics"] = {metric_name: state("unobservable", "unit") for metric_name in runner.METRIC_NAMES}
+        row["metrics"] = {
+            metric_name: state("unobservable", runner.CANONICAL_METRIC_UNITS[metric_name])
+            for metric_name in runner.METRIC_NAMES
+        }
     report = runner.build_report(payload)
     unit = report["comparison_units"][0]
     assert unit["disposition"] == "unmatched"

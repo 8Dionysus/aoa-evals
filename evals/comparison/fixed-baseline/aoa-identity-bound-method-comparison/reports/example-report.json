@@ -67,6 +67,7 @@
       "unit_id": "design-unmatched-unit",
       "disposition": "unmatched",
       "matched_pair_count": 0,
+      "observed_pair_count": 0,
       "method_ids": [
         "legacy_serial_full_release",
         "owner_focused_affected_only"

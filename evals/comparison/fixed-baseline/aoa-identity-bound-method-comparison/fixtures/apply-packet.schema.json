@@ -150,6 +150,36 @@
         }
       ]
     },
+    "seconds_measurement": {
+      "allOf": [
+        {"$ref": "#/$defs/measurement"},
+        {"type": "object", "properties": {"unit": {"const": "seconds"}}}
+      ]
+    },
+    "milliseconds_measurement": {
+      "allOf": [
+        {"$ref": "#/$defs/measurement"},
+        {"type": "object", "properties": {"unit": {"const": "milliseconds"}}}
+      ]
+    },
+    "kibibytes_measurement": {
+      "allOf": [
+        {"$ref": "#/$defs/measurement"},
+        {"type": "object", "properties": {"unit": {"const": "kibibytes"}}}
+      ]
+    },
+    "bytes_measurement": {
+      "allOf": [
+        {"$ref": "#/$defs/measurement"},
+        {"type": "object", "properties": {"unit": {"const": "bytes"}}}
+      ]
+    },
+    "ratio_measurement": {
+      "allOf": [
+        {"$ref": "#/$defs/measurement"},
+        {"type": "object", "properties": {"unit": {"const": "ratio"}}}
+      ]
+    },
     "identity": {
       "type": "object",
       "additionalProperties": false,
@@ -204,14 +234,14 @@
           "additionalProperties": false,
           "required": ["wall_seconds", "cpu_ms", "peak_rss_kib", "io_read_bytes", "io_write_bytes", "setup_startup_seconds", "first_failure_latency_seconds", "retry_amplification"],
           "properties": {
-            "wall_seconds": {"$ref": "#/$defs/measurement"},
-            "cpu_ms": {"$ref": "#/$defs/measurement"},
-            "peak_rss_kib": {"$ref": "#/$defs/measurement"},
-            "io_read_bytes": {"$ref": "#/$defs/measurement"},
-            "io_write_bytes": {"$ref": "#/$defs/measurement"},
-            "setup_startup_seconds": {"$ref": "#/$defs/measurement"},
-            "first_failure_latency_seconds": {"$ref": "#/$defs/measurement"},
-            "retry_amplification": {"$ref": "#/$defs/measurement"}
+            "wall_seconds": {"$ref": "#/$defs/seconds_measurement"},
+            "cpu_ms": {"$ref": "#/$defs/milliseconds_measurement"},
+            "peak_rss_kib": {"$ref": "#/$defs/kibibytes_measurement"},
+            "io_read_bytes": {"$ref": "#/$defs/bytes_measurement"},
+            "io_write_bytes": {"$ref": "#/$defs/bytes_measurement"},
+            "setup_startup_seconds": {"$ref": "#/$defs/seconds_measurement"},
+            "first_failure_latency_seconds": {"$ref": "#/$defs/seconds_measurement"},
+            "retry_amplification": {"$ref": "#/$defs/ratio_measurement"}
           }
         }
       }

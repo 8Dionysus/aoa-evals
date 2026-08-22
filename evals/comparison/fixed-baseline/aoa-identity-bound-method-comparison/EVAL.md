@@ -112,6 +112,12 @@ unmatched. An `unobservable`-origin row is never an eligible method pair, and
 known metric values under that origin are a contract error rather than an
 observed value.
 
+Named metrics use canonical units: seconds, milliseconds, kibibytes, bytes, or
+ratio as declared by the metric name. An observed pair is eligible only when
+at least one metric is jointly known for baseline and candidate under the same
+canonical unit. `matched_pair_count` includes all admitted origin pairs, while
+`eligible_real_pairs` counts only jointly measured observed pairs.
+
 The contract keeps all of these states distinct:
 
 - known observed values
@@ -164,7 +170,7 @@ no raw session transcript, private host fingerprint, or fabricated measurement.
 The runner uses these dispositions:
 
 - `matched_observation_only` when an observed baseline/candidate pair passes
-  identity and parity;
+  identity, parity, canonical-unit, and joint-metric coverage checks;
 - `controlled_accounting_only` when the pair is controlled or synthetic;
 - `unmatched` when identity, review, posture, origin, or comparison coverage is
   not eligible;
@@ -218,6 +224,8 @@ The instrument must fail closed on:
 - unknown cache or resource posture used as if it were zero;
 - provisional, unreviewed, or excluded rows presented as observed;
 - synthetic or controlled values placed in observed output;
+- a noncanonical metric unit or a baseline/candidate unit mismatch;
+- an observed pair with no jointly known comparable metric;
 - an unmatched row silently dropped;
 - a generated reader, delivery receipt, or green validator treated as live
   evidence.
@@ -237,7 +245,8 @@ This eval does not prove:
 ## Interpretation guidance
 
 Treat `matched_observation_only` as the narrowest possible positive reading:
-the packet contained an identity- and parity-matched observation pair. Treat
+the packet contained an identity-, parity-, unit-, and metric-covered observed
+pair. Treat
 `controlled_accounting_only` as accounting evidence only. Treat
 `unmatched` as visible absence of an eligible pair, not as a failed method or
 zero cost.

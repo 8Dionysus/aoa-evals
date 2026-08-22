@@ -129,6 +129,41 @@ def validate_report(report: Any) -> None:
                 f"report admission.{field}={actual_value!r} does not match comparison_units-derived {expected_value!r}"
             )
 
+    unit_by_id = {unit["unit_id"]: unit for unit in units}
+    unmatched_case_unit_ids = {case["unit_id"] for case in report["unmatched_cases"]}
+    unknown_case_units = unmatched_case_unit_ids - unit_by_id.keys()
+    if unknown_case_units:
+        raise ContractError(
+            "report unmatched_cases contains unknown unit IDs: "
+            + ", ".join(sorted(unknown_case_units))
+        )
+    expected_case_units = {
+        unit["unit_id"]
+        for unit in units
+        if unit["disposition"] == "unmatched" or unit["mismatched_fields"]
+    }
+    missing_case_units = expected_case_units - unmatched_case_unit_ids
+    if missing_case_units:
+        raise ContractError(
+            "report unmatched_cases omits units with unmatched reasons: "
+            + ", ".join(sorted(missing_case_units))
+        )
+
+    for unit in units:
+        admitted_method_ids = {
+            method_id
+            for binding in unit["matched_identity_bindings"]
+            for method_id in binding["method_ids"]
+        }
+        for metric in unit["metric_coverage"].values():
+            for bucket_name in ("observed_values", "controlled_values"):
+                for value in metric[bucket_name]:
+                    if value["method_id"] not in admitted_method_ids:
+                        raise ContractError(
+                            f"report {bucket_name} contains method_id={value['method_id']!r} "
+                            f"outside admitted bindings for unit {unit['unit_id']!r}"
+                        )
+
 
 def _require_exact_method_set(packet: dict[str, Any]) -> None:
     declared = packet["comparison"]["method_ids"]

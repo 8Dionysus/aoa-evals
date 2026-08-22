@@ -387,6 +387,65 @@ def test_report_schema_rejects_duplicate_matched_bindings(runner) -> None:
     assert errors
 
 
+def test_report_schema_rejects_duplicate_candidate_method_bindings(runner) -> None:
+    report = runner.build_report(packet(runner))
+    unit = report["comparison_units"][0]
+    duplicate = copy.deepcopy(unit["matched_identity_bindings"][0])
+    duplicate["identity"]["source_ref_or_digest"] = digest("9")
+    duplicate["evidence_provenance"][0]["digest"] = digest("9")
+    unit["matched_identity_bindings"].append(duplicate)
+    unit["matched_pair_count"] = 2
+    unit["observed_pair_count"] = 2
+    report["admission"]["matched_pair_count"] = 2
+    report["admission"]["eligible_real_pairs"] = 2
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_rejects_observed_values_outside_admitted_bindings(runner) -> None:
+    report = runner.build_report(packet(runner))
+    outsider = copy.deepcopy(
+        report["comparison_units"][0]["metric_coverage"]["wall_seconds"]["observed_values"][0]
+    )
+    outsider["method_id"] = runner.METHOD_IDS[2]
+    report["comparison_units"][0]["metric_coverage"]["wall_seconds"]["observed_values"].append(outsider)
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_rejects_controlled_values_outside_admitted_bindings(runner) -> None:
+    report = runner.build_report(packet(runner, origin="controlled"))
+    outsider = copy.deepcopy(
+        report["comparison_units"][0]["metric_coverage"]["wall_seconds"]["controlled_values"][0]
+    )
+    outsider["method_id"] = runner.METHOD_IDS[2]
+    report["comparison_units"][0]["metric_coverage"]["wall_seconds"]["controlled_values"].append(outsider)
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_validator_preserves_unmatched_reason_units(runner) -> None:
+    payload = packet(runner)
+    payload["observations"][1]["identity"]["route_or_treatment_identity"] = "treatment-B"
+    report = runner.build_report(payload)
+    assert report["unmatched_cases"]
+    report["unmatched_cases"] = []
+    with pytest.raises(runner.ContractError, match="unmatched_cases"):
+        runner.validate_report(report)
+
+
 def test_report_schema_requires_known_posture_for_positive_binding(runner) -> None:
     report = runner.build_report(packet(runner))
     report["comparison_units"][0]["matched_identity_bindings"][0]["identity"]["cache_posture"] = {

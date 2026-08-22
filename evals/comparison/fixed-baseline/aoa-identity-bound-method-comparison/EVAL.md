@@ -77,14 +77,20 @@ a positive observed unit must expose at least one jointly measured metric whose
 values include the baseline and a candidate method from an admitted binding.
 The report schema also binds each named metric to its canonical unit, caps
 observed-pair count at admitted-pair count, requires distinct matched bindings,
+allows each candidate method in at most one admitted binding, and requires every
+observed or controlled metric value to name a method from that unit's admitted
+bindings,
 requires known cache and resource posture in positive bindings, requires
 controlled-only units to have empty observed-value buckets, requires unmatched
 units to declare zero pair counts, no matched bindings, and empty observed or
-controlled value buckets, and rejects a `not_admitted` verdict that still
-contains an observed match. The runner's `validate_report` semantic validator
-additionally binds every admission counter to the corresponding
-`comparison_units` cardinality or sum; `build_report` invokes that validator
-before returning a report. It is not a speedup,
+controlled value buckets, preserves an `unmatched_cases` entry for every unit
+with an unmatched disposition or mismatch reason, and rejects a `not_admitted`
+verdict that still contains an observed match. The runner's `validate_report`
+semantic validator additionally binds every admission counter to the
+corresponding `comparison_units` cardinality or sum, checks metric-value method
+coverage against admitted bindings, and preserves those unmatched-reason unit
+entries; `build_report` invokes that validator before returning a report. It is
+not a speedup,
 causal effect, proof result, or winner verdict.
 
 This eval does **not** support claims that:
@@ -190,9 +196,12 @@ empty metric value buckets. The report schema binds the binding-array
 cardinality to the admitted-pair count and requires a matched unit for a
 positive top-level verdict. It also requires identity-match truth for admitted
 units, known cache and resource posture in positive bindings, distinct binding
-objects, canonical units for named report metrics, and measured coverage for
-positive observed units whose measured candidate is present in an admitted
-binding. `validate_report` checks the report schema and verifies that
+objects with no candidate repeated across bindings, canonical units for named
+report metrics, and measured coverage for positive observed units whose
+measured methods are present in admitted bindings. Every observed or controlled
+metric value must likewise be covered by an admitted binding, and each unit
+with an unmatched disposition or mismatch reason must remain represented in
+`unmatched_cases`. `validate_report` checks the report schema and verifies that
 observation, unit, disposition, matched-pair, and eligible-real-pair admission
 counters equal the derived `comparison_units` values. The declared command
 timeout must also be finite; non-finite literals and numeric overflow are
@@ -283,14 +292,16 @@ The instrument must fail closed on:
 - a noncanonical metric unit or a baseline/candidate unit mismatch;
 - an observed pair with no jointly known comparable metric;
 - binding provenance that omits either bound method or names another method;
-- measured candidate values that have no corresponding admitted binding;
+- a candidate method repeated across admitted bindings;
+- an observed or controlled metric value whose method has no corresponding
+  admitted binding;
 - an unmatched unit with nonzero pair counts or a matched binding;
 - an unmatched unit with observed or controlled metric values;
 - an observed-pair count greater than the admitted-pair count;
 - a `not_admitted` verdict that retains an observed matched unit;
 - an observation reference that is undeclared, digest-unpinned, or from a
   disallowed/derived evidence class;
-- an unmatched row silently dropped;
+- an unmatched row or mismatch reason silently dropped from `unmatched_cases`;
 - a generated reader, delivery receipt, or green validator treated as live
   evidence.
 

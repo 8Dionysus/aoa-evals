@@ -194,6 +194,26 @@
           }
         }
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "comparison_units": {
+            "contains": {
+              "type": "object",
+              "anyOf": [
+                {"properties": {"disposition": {"const": "unmatched"}}},
+                {"properties": {"mismatched_fields": {"minItems": 1}}}
+              ]
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "unmatched_cases": {"minItems": 1}
+        }
+      }
     }
   ],
   "$defs": {
@@ -299,7 +319,14 @@
         "matched_identity_bindings": {
           "type": "array",
           "uniqueItems": true,
-          "items": {"$ref": "#/$defs/matched_identity_binding"}
+          "items": {"$ref": "#/$defs/matched_identity_binding"},
+          "allOf": [
+            {"not": {"contains": {"$ref": "#/$defs/binding_candidate_owner_focused"}, "minContains": 2}},
+            {"not": {"contains": {"$ref": "#/$defs/binding_candidate_claim_evidence"}, "minContains": 2}},
+            {"not": {"contains": {"$ref": "#/$defs/binding_candidate_bounded_prefix"}, "minContains": 2}},
+            {"not": {"contains": {"$ref": "#/$defs/binding_candidate_retry"}, "minContains": 2}},
+            {"not": {"contains": {"$ref": "#/$defs/binding_candidate_controlled"}, "minContains": 2}}
+          ]
         },
         "metric_coverage": {
           "type": "object",
@@ -493,6 +520,26 @@
               {
                 "if": {"not": {"properties": {"method_ids": {"contains": {"const": "controlled_same_candidate_seeded_fault"}}}}},
                 "then": {"properties": {"matched_identity_bindings": {"not": {"contains": {"properties": {"method_ids": {"contains": {"const": "controlled_same_candidate_seeded_fault"}}}}}}}}
+              },
+              {
+                "if": {"not": {"properties": {"matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_owner_focused"}}}}},
+                "then": {"properties": {"metric_coverage": {"$ref": "#/$defs/metric_coverage_without_owner_focused"}}}
+              },
+              {
+                "if": {"not": {"properties": {"matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_claim_evidence"}}}}},
+                "then": {"properties": {"metric_coverage": {"$ref": "#/$defs/metric_coverage_without_claim_evidence"}}}
+              },
+              {
+                "if": {"not": {"properties": {"matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_bounded_prefix"}}}}},
+                "then": {"properties": {"metric_coverage": {"$ref": "#/$defs/metric_coverage_without_bounded_prefix"}}}
+              },
+              {
+                "if": {"not": {"properties": {"matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_retry"}}}}},
+                "then": {"properties": {"metric_coverage": {"$ref": "#/$defs/metric_coverage_without_retry"}}}
+              },
+              {
+                "if": {"not": {"properties": {"matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_controlled"}}}}},
+                "then": {"properties": {"metric_coverage": {"$ref": "#/$defs/metric_coverage_without_controlled"}}}
               }
             ]
           }
@@ -747,6 +794,71 @@
         {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
         {"properties": {"retry_amplification": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}}
       ]
+    },
+    "metric_coverage_without_owner_focused": {
+      "type": "object",
+      "properties": {
+        "wall_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}},
+        "cpu_ms": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}},
+        "peak_rss_kib": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}},
+        "io_read_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}},
+        "io_write_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}},
+        "setup_startup_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}},
+        "first_failure_latency_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}},
+        "retry_amplification": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}}
+      }
+    },
+    "metric_coverage_without_claim_evidence": {
+      "type": "object",
+      "properties": {
+        "wall_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}},
+        "cpu_ms": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}},
+        "peak_rss_kib": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}},
+        "io_read_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}},
+        "io_write_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}},
+        "setup_startup_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}},
+        "first_failure_latency_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}},
+        "retry_amplification": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}}
+      }
+    },
+    "metric_coverage_without_bounded_prefix": {
+      "type": "object",
+      "properties": {
+        "wall_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}},
+        "cpu_ms": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}},
+        "peak_rss_kib": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}},
+        "io_read_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}},
+        "io_write_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}},
+        "setup_startup_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}},
+        "first_failure_latency_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}},
+        "retry_amplification": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}}
+      }
+    },
+    "metric_coverage_without_retry": {
+      "type": "object",
+      "properties": {
+        "wall_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}},
+        "cpu_ms": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}},
+        "peak_rss_kib": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}},
+        "io_read_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}},
+        "io_write_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}},
+        "setup_startup_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}},
+        "first_failure_latency_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}},
+        "retry_amplification": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}}
+      }
+    },
+    "metric_coverage_without_controlled": {
+      "type": "object",
+      "properties": {
+        "wall_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}},
+        "cpu_ms": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}},
+        "peak_rss_kib": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}},
+        "io_read_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}},
+        "io_write_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}},
+        "setup_startup_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}},
+        "first_failure_latency_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}},
+        "retry_amplification": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}}
+      }
     },
     "matched_identity_binding": {
       "type": "object",

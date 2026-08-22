@@ -66,14 +66,18 @@ The result is either `matched_observation_only`,
 observation requires at least one schema-valid identity-provenance binding,
 and the generated report preserves exactly one fixed-baseline binding per
 admitted pair. Each binding contains the baseline and exactly one candidate,
-and its methods must belong to the enclosing comparison unit. Binding identity
-evidence class is restricted to the published two-class allowlist and must
-match every bound evidence-provenance class. The schema bounds that parity to
-the six-method set: one baseline plus at most five candidate pairs. A positive
-top-level verdict also requires a positive matched unit and observed-pair
-count. Admitted units must declare identity matched, and a positive observed
-unit must expose at least one jointly measured metric whose values include the
-baseline and a candidate method from an admitted binding. It is not a speedup,
+and its methods must belong to the enclosing comparison unit. Each binding's
+provenance must cover both bound method IDs and must not introduce a third
+method ID. Binding identity evidence class is restricted to the published
+two-class allowlist and must match every bound evidence-provenance class. The
+schema bounds that parity to the six-method set: one baseline plus at most five
+candidate pairs. A positive top-level verdict also requires a positive matched
+unit and observed-pair count. Admitted units must declare identity matched, and
+a positive observed unit must expose at least one jointly measured metric whose
+values include the baseline and a candidate method from an admitted binding.
+The report schema also binds each named metric to its canonical unit and
+requires unmatched units to declare zero pair counts and no matched bindings.
+It is not a speedup,
 causal effect, proof result, or winner verdict.
 
 This eval does **not** support claims that:
@@ -174,12 +178,13 @@ admitted pair also carries its exact matched identity tuple and the digest,
 kind, class, and reference of each bound public-safe observation artifact;
 matched positive units require at least one such binding, controlled matched
 units preserve the same binding invariant, and unmatched units carry an empty
-matched-binding list. The report schema binds the binding-array cardinality to
-the admitted-pair count and requires a matched unit for a positive top-level
-verdict. It also requires identity-match truth for admitted units and measured
-coverage for positive observed units. The declared command timeout must also
-be finite; non-finite literals and numeric overflow are rejected before
-admission.
+matched-binding list and zero pair counts. The report schema binds the
+binding-array cardinality to the admitted-pair count and requires a matched
+unit for a positive top-level verdict. It also requires identity-match truth for
+admitted units, canonical units for named report metrics, and measured coverage
+for positive observed units whose measured candidate is present in an admitted
+binding. The declared command timeout must also be finite; non-finite literals
+and numeric overflow are rejected before admission.
 
 The apply packet is therefore a contract for a future owner-local run, not
 evidence that a run occurred. The checked-in example report is intentionally
@@ -265,6 +270,9 @@ The instrument must fail closed on:
 - synthetic or controlled values placed in observed output;
 - a noncanonical metric unit or a baseline/candidate unit mismatch;
 - an observed pair with no jointly known comparable metric;
+- binding provenance that omits either bound method or names another method;
+- measured candidate values that have no corresponding admitted binding;
+- an unmatched unit with nonzero pair counts or a matched binding;
 - an observation reference that is undeclared, digest-unpinned, or from a
   disallowed/derived evidence class;
 - an unmatched row silently dropped;

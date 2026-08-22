@@ -272,6 +272,60 @@ def test_report_schema_requires_baseline_and_candidate_metric_methods(runner) ->
     assert errors
 
 
+def test_report_schema_requires_provenance_for_both_binding_methods(runner) -> None:
+    report = runner.build_report(packet(runner))
+    binding = report["comparison_units"][0]["matched_identity_bindings"][0]
+    for provenance in binding["evidence_provenance"]:
+        provenance["method_id"] = runner.METHOD_IDS[2]
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_requires_measured_candidate_in_admitted_binding(runner) -> None:
+    report = runner.build_report(packet(runner))
+    unit = report["comparison_units"][0]
+    unit["method_ids"].append(runner.METHOD_IDS[2])
+    for coverage in unit["metric_coverage"].values():
+        for observed_value in coverage["observed_values"]:
+            observed_value["method_id"] = runner.METHOD_IDS[2]
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_requires_unmatched_pair_counts_and_bindings_zero(runner) -> None:
+    report = runner.build_report(packet(runner))
+    unit = report["comparison_units"][0]
+    unit["disposition"] = "unmatched"
+    unit["identity_match"] = False
+    unit["matched_pair_count"] = 1
+    unit["observed_pair_count"] = 0
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_requires_canonical_metric_units(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["metric_coverage"]["wall_seconds"]["observed_values"][0]["unit"] = "milliseconds"
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
 def test_report_schema_requires_baseline_in_matched_binding(runner) -> None:
     report = runner.build_report(packet(runner))
     report["comparison_units"][0]["matched_identity_bindings"][0]["method_ids"] = [

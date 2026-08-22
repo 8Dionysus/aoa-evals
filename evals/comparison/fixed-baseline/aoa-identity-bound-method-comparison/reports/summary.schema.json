@@ -206,7 +206,7 @@
       "additionalProperties": false,
       "required": ["method_id", "value", "unit"],
       "properties": {
-        "method_id": {"type": "string", "minLength": 1},
+        "method_id": {"$ref": "#/$defs/canonical_method_id"},
         "value": {"type": "number", "minimum": 0},
         "unit": {"type": "string", "minLength": 1}
       }
@@ -254,14 +254,14 @@
           "additionalProperties": false,
           "required": ["wall_seconds", "cpu_ms", "peak_rss_kib", "io_read_bytes", "io_write_bytes", "setup_startup_seconds", "first_failure_latency_seconds", "retry_amplification"],
           "properties": {
-            "wall_seconds": {"$ref": "#/$defs/metric_coverage"},
-            "cpu_ms": {"$ref": "#/$defs/metric_coverage"},
-            "peak_rss_kib": {"$ref": "#/$defs/metric_coverage"},
-            "io_read_bytes": {"$ref": "#/$defs/metric_coverage"},
-            "io_write_bytes": {"$ref": "#/$defs/metric_coverage"},
-            "setup_startup_seconds": {"$ref": "#/$defs/metric_coverage"},
-            "first_failure_latency_seconds": {"$ref": "#/$defs/metric_coverage"},
-            "retry_amplification": {"$ref": "#/$defs/metric_coverage"}
+            "wall_seconds": {"$ref": "#/$defs/metric_coverage_seconds"},
+            "cpu_ms": {"$ref": "#/$defs/metric_coverage_milliseconds"},
+            "peak_rss_kib": {"$ref": "#/$defs/metric_coverage_kibibytes"},
+            "io_read_bytes": {"$ref": "#/$defs/metric_coverage_bytes"},
+            "io_write_bytes": {"$ref": "#/$defs/metric_coverage_bytes"},
+            "setup_startup_seconds": {"$ref": "#/$defs/metric_coverage_seconds"},
+            "first_failure_latency_seconds": {"$ref": "#/$defs/metric_coverage_seconds"},
+            "retry_amplification": {"$ref": "#/$defs/metric_coverage_ratio"}
           }
         },
         "claim_limit": {"type": "string", "minLength": 10}
@@ -278,20 +278,44 @@
               "matched_pair_count": {"minimum": 1},
               "observed_pair_count": {"minimum": 1},
               "matched_identity_bindings": {"minItems": 1},
-              "identity_match": {"const": true},
-              "metric_coverage": {
+              "identity_match": {"const": true}
+            },
+            "allOf": [
+              {
                 "anyOf": [
-                  {"properties": {"wall_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}},
-                  {"properties": {"cpu_ms": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}},
-                  {"properties": {"peak_rss_kib": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}},
-                  {"properties": {"io_read_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}},
-                  {"properties": {"io_write_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}},
-                  {"properties": {"setup_startup_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}},
-                  {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}},
-                  {"properties": {"retry_amplification": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}}
+                  {
+                    "properties": {
+                      "matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_owner_focused"}},
+                      "metric_coverage": {"$ref": "#/$defs/metric_coverage_owner_focused"}
+                    }
+                  },
+                  {
+                    "properties": {
+                      "matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_claim_evidence"}},
+                      "metric_coverage": {"$ref": "#/$defs/metric_coverage_claim_evidence"}
+                    }
+                  },
+                  {
+                    "properties": {
+                      "matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_bounded_prefix"}},
+                      "metric_coverage": {"$ref": "#/$defs/metric_coverage_bounded_prefix"}
+                    }
+                  },
+                  {
+                    "properties": {
+                      "matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_retry"}},
+                      "metric_coverage": {"$ref": "#/$defs/metric_coverage_retry"}
+                    }
+                  },
+                  {
+                    "properties": {
+                      "matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_controlled"}},
+                      "metric_coverage": {"$ref": "#/$defs/metric_coverage_controlled"}
+                    }
+                  }
                 ]
               }
-            }
+            ]
           }
         },
         {
@@ -303,6 +327,7 @@
           "then": {
             "properties": {
               "matched_pair_count": {"minimum": 1},
+              "observed_pair_count": {"const": 0},
               "matched_identity_bindings": {"minItems": 1},
               "identity_match": {"const": true}
             }
@@ -316,7 +341,10 @@
           },
           "then": {
             "properties": {
-              "identity_match": {"const": false}
+              "identity_match": {"const": false},
+              "matched_pair_count": {"const": 0},
+              "observed_pair_count": {"const": 0},
+              "matched_identity_bindings": {"maxItems": 0}
             }
           }
         },
@@ -438,6 +466,216 @@
         }
       ]
     },
+    "metric_value_seconds": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_value"},
+        {"properties": {"unit": {"const": "seconds"}}}
+      ]
+    },
+    "metric_value_milliseconds": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_value"},
+        {"properties": {"unit": {"const": "milliseconds"}}}
+      ]
+    },
+    "metric_value_kibibytes": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_value"},
+        {"properties": {"unit": {"const": "kibibytes"}}}
+      ]
+    },
+    "metric_value_bytes": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_value"},
+        {"properties": {"unit": {"const": "bytes"}}}
+      ]
+    },
+    "metric_value_ratio": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_value"},
+        {"properties": {"unit": {"const": "ratio"}}}
+      ]
+    },
+    "metric_coverage_seconds": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_coverage"},
+        {
+          "properties": {
+            "observed_values": {"items": {"$ref": "#/$defs/metric_value_seconds"}},
+            "controlled_values": {"items": {"$ref": "#/$defs/metric_value_seconds"}}
+          }
+        }
+      ]
+    },
+    "metric_coverage_milliseconds": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_coverage"},
+        {
+          "properties": {
+            "observed_values": {"items": {"$ref": "#/$defs/metric_value_milliseconds"}},
+            "controlled_values": {"items": {"$ref": "#/$defs/metric_value_milliseconds"}}
+          }
+        }
+      ]
+    },
+    "metric_coverage_kibibytes": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_coverage"},
+        {
+          "properties": {
+            "observed_values": {"items": {"$ref": "#/$defs/metric_value_kibibytes"}},
+            "controlled_values": {"items": {"$ref": "#/$defs/metric_value_kibibytes"}}
+          }
+        }
+      ]
+    },
+    "metric_coverage_bytes": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_coverage"},
+        {
+          "properties": {
+            "observed_values": {"items": {"$ref": "#/$defs/metric_value_bytes"}},
+            "controlled_values": {"items": {"$ref": "#/$defs/metric_value_bytes"}}
+          }
+        }
+      ]
+    },
+    "metric_coverage_ratio": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_coverage"},
+        {
+          "properties": {
+            "observed_values": {"items": {"$ref": "#/$defs/metric_value_ratio"}},
+            "controlled_values": {"items": {"$ref": "#/$defs/metric_value_ratio"}}
+          }
+        }
+      ]
+    },
+    "binding_candidate_owner_focused": {
+      "type": "object",
+      "required": ["method_ids"],
+      "properties": {
+        "method_ids": {"contains": {"const": "owner_focused_affected_only"}}
+      }
+    },
+    "binding_candidate_claim_evidence": {
+      "type": "object",
+      "required": ["method_ids"],
+      "properties": {
+        "method_ids": {"contains": {"const": "claim_evidence_activated_subgraph_or_tiered"}}
+      }
+    },
+    "binding_candidate_bounded_prefix": {
+      "type": "object",
+      "required": ["method_ids"],
+      "properties": {
+        "method_ids": {"contains": {"const": "bounded_stable_prefix_session_measurement"}}
+      }
+    },
+    "binding_candidate_retry": {
+      "type": "object",
+      "required": ["method_ids"],
+      "properties": {
+        "method_ids": {"contains": {"const": "retry_after_fix_first_failure"}}
+      }
+    },
+    "binding_candidate_controlled": {
+      "type": "object",
+      "required": ["method_ids"],
+      "properties": {
+        "method_ids": {"contains": {"const": "controlled_same_candidate_seeded_fault"}}
+      }
+    },
+    "matched_observed_values_owner_focused": {
+      "allOf": [
+        {"$ref": "#/$defs/matched_observed_values"},
+        {"contains": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}
+      ]
+    },
+    "matched_observed_values_claim_evidence": {
+      "allOf": [
+        {"$ref": "#/$defs/matched_observed_values"},
+        {"contains": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}
+      ]
+    },
+    "matched_observed_values_bounded_prefix": {
+      "allOf": [
+        {"$ref": "#/$defs/matched_observed_values"},
+        {"contains": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}
+      ]
+    },
+    "matched_observed_values_retry": {
+      "allOf": [
+        {"$ref": "#/$defs/matched_observed_values"},
+        {"contains": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}
+      ]
+    },
+    "matched_observed_values_controlled": {
+      "allOf": [
+        {"$ref": "#/$defs/matched_observed_values"},
+        {"contains": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}
+      ]
+    },
+    "metric_coverage_owner_focused": {
+      "anyOf": [
+        {"properties": {"wall_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}},
+        {"properties": {"cpu_ms": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}},
+        {"properties": {"peak_rss_kib": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}},
+        {"properties": {"io_read_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}},
+        {"properties": {"io_write_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}},
+        {"properties": {"setup_startup_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}},
+        {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}},
+        {"properties": {"retry_amplification": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}}
+      ]
+    },
+    "metric_coverage_claim_evidence": {
+      "anyOf": [
+        {"properties": {"wall_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}},
+        {"properties": {"cpu_ms": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}},
+        {"properties": {"peak_rss_kib": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}},
+        {"properties": {"io_read_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}},
+        {"properties": {"io_write_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}},
+        {"properties": {"setup_startup_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}},
+        {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}},
+        {"properties": {"retry_amplification": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}}
+      ]
+    },
+    "metric_coverage_bounded_prefix": {
+      "anyOf": [
+        {"properties": {"wall_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}},
+        {"properties": {"cpu_ms": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}},
+        {"properties": {"peak_rss_kib": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}},
+        {"properties": {"io_read_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}},
+        {"properties": {"io_write_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}},
+        {"properties": {"setup_startup_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}},
+        {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}},
+        {"properties": {"retry_amplification": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}}
+      ]
+    },
+    "metric_coverage_retry": {
+      "anyOf": [
+        {"properties": {"wall_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}},
+        {"properties": {"cpu_ms": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}},
+        {"properties": {"peak_rss_kib": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}},
+        {"properties": {"io_read_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}},
+        {"properties": {"io_write_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}},
+        {"properties": {"setup_startup_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}},
+        {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}},
+        {"properties": {"retry_amplification": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}}
+      ]
+    },
+    "metric_coverage_controlled": {
+      "anyOf": [
+        {"properties": {"wall_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
+        {"properties": {"cpu_ms": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
+        {"properties": {"peak_rss_kib": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
+        {"properties": {"io_read_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
+        {"properties": {"io_write_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
+        {"properties": {"setup_startup_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
+        {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
+        {"properties": {"retry_amplification": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}}
+      ]
+    },
     "matched_identity_binding": {
       "type": "object",
       "additionalProperties": false,
@@ -507,6 +745,216 @@
               }
             }
           }
+        },
+        {
+          "if": {
+            "properties": {
+              "method_ids": {"contains": {"const": "owner_focused_affected_only"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_provenance": {
+                "contains": {
+                  "type": "object",
+                  "required": ["method_id"],
+                  "properties": {"method_id": {"const": "legacy_serial_full_release"}}
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "required": ["method_id"],
+                      "properties": {"method_id": {"const": "owner_focused_affected_only"}}
+                    }
+                  },
+                  {
+                    "not": {
+                      "contains": {
+                        "type": "object",
+                        "required": ["method_id"],
+                        "properties": {
+                          "method_id": {
+                            "not": {
+                              "enum": ["legacy_serial_full_release", "owner_focused_affected_only"]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method_ids": {"contains": {"const": "claim_evidence_activated_subgraph_or_tiered"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_provenance": {
+                "contains": {
+                  "type": "object",
+                  "required": ["method_id"],
+                  "properties": {"method_id": {"const": "legacy_serial_full_release"}}
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "required": ["method_id"],
+                      "properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}
+                    }
+                  },
+                  {
+                    "not": {
+                      "contains": {
+                        "type": "object",
+                        "required": ["method_id"],
+                        "properties": {
+                          "method_id": {
+                            "not": {
+                              "enum": ["legacy_serial_full_release", "claim_evidence_activated_subgraph_or_tiered"]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method_ids": {"contains": {"const": "bounded_stable_prefix_session_measurement"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_provenance": {
+                "contains": {
+                  "type": "object",
+                  "required": ["method_id"],
+                  "properties": {"method_id": {"const": "legacy_serial_full_release"}}
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "required": ["method_id"],
+                      "properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}
+                    }
+                  },
+                  {
+                    "not": {
+                      "contains": {
+                        "type": "object",
+                        "required": ["method_id"],
+                        "properties": {
+                          "method_id": {
+                            "not": {
+                              "enum": ["legacy_serial_full_release", "bounded_stable_prefix_session_measurement"]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method_ids": {"contains": {"const": "retry_after_fix_first_failure"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_provenance": {
+                "contains": {
+                  "type": "object",
+                  "required": ["method_id"],
+                  "properties": {"method_id": {"const": "legacy_serial_full_release"}}
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "required": ["method_id"],
+                      "properties": {"method_id": {"const": "retry_after_fix_first_failure"}}
+                    }
+                  },
+                  {
+                    "not": {
+                      "contains": {
+                        "type": "object",
+                        "required": ["method_id"],
+                        "properties": {
+                          "method_id": {
+                            "not": {
+                              "enum": ["legacy_serial_full_release", "retry_after_fix_first_failure"]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method_ids": {"contains": {"const": "controlled_same_candidate_seeded_fault"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_provenance": {
+                "contains": {
+                  "type": "object",
+                  "required": ["method_id"],
+                  "properties": {"method_id": {"const": "legacy_serial_full_release"}}
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "required": ["method_id"],
+                      "properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}
+                    }
+                  },
+                  {
+                    "not": {
+                      "contains": {
+                        "type": "object",
+                        "required": ["method_id"],
+                        "properties": {
+                          "method_id": {
+                            "not": {
+                              "enum": ["legacy_serial_full_release", "controlled_same_candidate_seeded_fault"]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
         }
       ]
     },
@@ -547,7 +995,7 @@
       "additionalProperties": false,
       "required": ["method_id", "ref", "digest", "kind", "evidence_class"],
       "properties": {
-        "method_id": {"type": "string", "minLength": 1},
+        "method_id": {"$ref": "#/$defs/canonical_method_id"},
         "ref": {"type": "string", "minLength": 1},
         "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
         "kind": {"const": "public-safe-observation"},

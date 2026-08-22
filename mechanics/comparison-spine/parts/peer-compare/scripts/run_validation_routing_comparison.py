@@ -64,6 +64,14 @@ EXPECTED_UNSUPPORTED_CANDIDATE_REASONS = {
     "kag_relations": "Live KAG relation freshness and exact owner binding are not available in this fixture.",
     "llm_proposed_additions": "No LLM proposal set is admitted; speculative additions must not become routing evidence.",
 }
+EXPECTED_IMPLEMENTED_CANDIDATE_DESCRIPTIONS = {
+    "static_paths": "Map changed path prefixes to local validation nodes.",
+    "dependency_graph": "Use a declared dependency signal when its freshness is current.",
+    "owner_contracts": "Use owner-declared nodes only with an identity-matched receipt.",
+    "history_correlation": "Use an explicit bounded historical signal when available.",
+    "claim_risk": "Use declared claim/risk labels as candidate activation hints.",
+    "hybrid_fail_closed": "Combine bounded signals and escalate unresolved cases to full owner proof.",
+}
 EXPECTED_COMPARISON_IDENTITY_KEYS = {"candidate_set_id", "environment_id"}
 EXPECTED_ALLOWED_USE = (
     "bounded prior and route-gap input only; no raw session body or policy verdict copied"
@@ -408,7 +416,10 @@ def adversarial_class_matches(scenario: dict[str, Any], adversarial_class: str) 
             & {"candidate_set_id", "environment_id"}
         )
     if adversarial_class == "malformed_receipt":
-        return owner_contract_signal_state(scenario) == "malformed"
+        return (
+            classify_owner_receipt(scenario).state == "malformed"
+            and owner_contract_signal_state(scenario) == "malformed"
+        )
     if adversarial_class == "unbound_external_owner":
         oracle = scenario["oracle"]
         required_nodes = oracle.get("required_nodes")
@@ -534,6 +545,11 @@ def validate_contract(contract: dict[str, Any]) -> None:
             description = candidate.get("description")
             if not isinstance(description, str) or not description.strip():
                 raise ContractError(f"implemented candidate {method_id!r} needs a non-empty description")
+            expected_description = EXPECTED_IMPLEMENTED_CANDIDATE_DESCRIPTIONS.get(method_id)
+            if expected_description is not None and description != expected_description:
+                raise ContractError(
+                    f"implemented candidate {method_id!r} must preserve its source-owned description"
+                )
         if status == UNSUPPORTED_METHOD_STATUS:
             reason = candidate.get("reason")
             if not isinstance(reason, str) or not reason.strip():

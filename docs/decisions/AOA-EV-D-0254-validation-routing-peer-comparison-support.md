@@ -188,6 +188,22 @@ families, owner proof, comparison meaning, retry/resource limits, or the
 measurement-only claim. Hosted KAG owner-family convergence, a review of the
 next exact head, and merge/post-main evidence remain separate.
 
+### 2026-08-22 - Exact-head receipt and candidate-description admission
+
+The fresh review of `85c2fffad01d87798f51cb58fb55bc53c57ccc6f` reproduced two
+further source-admission gaps: malformed node metadata could be credited as
+`malformed_receipt` even when the receipt itself was complete and
+identity-matched, and an implemented candidate description could be replaced
+with a policy-selection claim. The runner now requires both malformed receipt
+classification and normalized malformed signal shape for that adversarial
+class, and preserves the source-owned v1 descriptions for implemented
+candidates. Focused regression tests cover both false-positive paths.
+
+The repair remains bounded to fail-closed fixture admission. It does not
+widen owner proof, candidate families, comparison meaning, retry/resource
+limits, or the measurement-only posture. KAG convergence, the next exact-head
+review, and hosted landing remain separate evidence.
+
 ## Boundaries
 
 This decision does not make a seeded report real-session proof, a local green

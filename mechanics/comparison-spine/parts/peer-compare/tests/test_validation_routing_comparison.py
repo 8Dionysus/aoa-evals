@@ -568,6 +568,15 @@ def test_implemented_candidates_cannot_be_marked_missing() -> None:
         comparison.build_report(contract, load_json(CASES_PATH))
 
 
+def test_implemented_candidate_descriptions_remain_source_owned() -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "static_paths")
+    candidate["description"] = "proven safest policy; select as default"
+
+    with pytest.raises(comparison.ContractError, match="source-owned description"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
 def test_unsupported_candidate_reasons_remain_source_owned() -> None:
     contract = load_json(CONTRACT_PATH)
     candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "coverage")
@@ -775,6 +784,21 @@ def test_wrong_receipt_coverage_requires_a_normalized_owner_signal() -> None:
 
     with pytest.raises(comparison.ContractError, match="does not match"):
         comparison.build_report(load_json(CONTRACT_PATH), {**cases, "scenarios": [scenario]})
+
+
+def test_malformed_receipt_coverage_requires_a_malformed_receipt() -> None:
+    cases = load_json(CASES_PATH)
+    scenario = copy.deepcopy(cases["scenarios"][0])
+    scenario["scenario_id"] = "RVC-008-false-malformed-receipt"
+    scenario["adversarial_class"] = "malformed_receipt"
+    scenario["signals"]["owner_contracts"]["nodes"] = None
+
+    assert comparison.classify_owner_receipt(scenario).state == "valid"
+    assert comparison.owner_contract_signal_state(scenario) == "malformed"
+    assert comparison.adversarial_class_matches(scenario, "malformed_receipt") is False
+
+    with pytest.raises(comparison.ContractError, match="does not match"):
+        comparison.build_report(load_json(CONTRACT_PATH), {**cases, "scenarios": [*cases["scenarios"], scenario]})
 
 
 def test_case_admission_rejects_mislabeled_complete_owner_receipt() -> None:

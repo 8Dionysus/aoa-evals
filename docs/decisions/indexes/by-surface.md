@@ -429,12 +429,20 @@
 
 - [AOA-EV-D-0251 Active-Organ Proof Does Not Collapse Into Admission](../AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md) (`docs/decisions/AOA-EV-D-0251-active-organ-proof-does-not-collapse-into-admission.md`)
 
+## comparison contract
+
+- [AOA-EV-D-0254 Identity-Bound Method Comparison Uses a Draft Fixed-Baseline ABI](../AOA-EV-D-0254-identity-bound-method-comparison-contract.md) (`docs/decisions/AOA-EV-D-0254-identity-bound-method-comparison-contract.md`)
+
 ## comparison/readout
 
 - [AOA-EV-D-0123 Comparison Spine Validator Module Boundary](../AOA-EV-D-0123-comparison-spine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0123-comparison-spine-validator-module-boundary.md`)
 - [AOA-EV-D-0125 Source Doctrine Validator Module Boundary](../AOA-EV-D-0125-source-doctrine-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0125-source-doctrine-validator-module-boundary.md`)
 - [AOA-EV-D-0209 Source Doctrine Aggregate Removal](../AOA-EV-D-0209-source-doctrine-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0209-source-doctrine-aggregate-removal.md`)
 - [AOA-EV-D-0220 Comparison-spine Validator Layer Split](../AOA-EV-D-0220-comparison-spine-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0220-comparison-spine-validator-layer-split.md`)
+
+## eval bundle
+
+- [AOA-EV-D-0254 Identity-Bound Method Comparison Uses a Draft Fixed-Baseline ABI](../AOA-EV-D-0254-identity-bound-method-comparison-contract.md) (`docs/decisions/AOA-EV-D-0254-identity-bound-method-comparison-contract.md`)
 
 ## fixture/support
 
@@ -609,6 +617,10 @@
 ## root chooser
 
 - [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
+
+## runner admission
+
+- [AOA-EV-D-0254 Identity-Bound Method Comparison Uses a Draft Fixed-Baseline ABI](../AOA-EV-D-0254-identity-bound-method-comparison-contract.md) (`docs/decisions/AOA-EV-D-0254-identity-bound-method-comparison-contract.md`)
 
 ## runtime-policy
 

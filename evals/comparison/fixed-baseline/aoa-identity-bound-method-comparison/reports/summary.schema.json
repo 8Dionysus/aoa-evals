@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-identity-bound-method-comparison comparative-summary report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "comparison_mode",
+    "baseline_target",
+    "method_set",
+    "identity_contract",
+    "selection_apply_contract",
+    "admission",
+    "comparison_units",
+    "unmatched_cases",
+    "verdict",
+    "policy_verdict",
+    "claim_boundary",
+    "limitations"
+  ],
+  "properties": {
+    "eval_name": {"const": "aoa-identity-bound-method-comparison"},
+    "bundle_status": {"const": "draft"},
+    "object_under_evaluation": {
+      "const": "identity-bound comparison of validation methods under an explicit workload, candidate, environment, treatment, evidence, acceptance, cache, and resource contract"
+    },
+    "comparison_mode": {"const": "fixed-baseline"},
+    "baseline_target": {"const": "legacy_serial_full_release"},
+    "method_set": {
+      "type": "array",
+      "const": [
+        "legacy_serial_full_release",
+        "owner_focused_affected_only",
+        "claim_evidence_activated_subgraph_or_tiered",
+        "bounded_stable_prefix_session_measurement",
+        "retry_after_fix_first_failure",
+        "controlled_same_candidate_seeded_fault"
+      ]
+    },
+    "identity_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_fields",
+        "exact_match_required",
+        "known_cache_and_resource_required_for_observed_pair",
+        "allowed_evidence_classes"
+      ],
+      "properties": {
+        "required_fields": {
+          "type": "array",
+          "const": [
+            "workload_id",
+            "candidate_or_source_identity",
+            "source_ref_or_digest",
+            "environment_id",
+            "route_or_treatment_identity",
+            "evidence_class",
+            "acceptance_target",
+            "cache_posture",
+            "resource_posture"
+          ]
+        },
+        "exact_match_required": {"const": true},
+        "known_cache_and_resource_required_for_observed_pair": {"const": true},
+        "allowed_evidence_classes": {"const": ["public-safe-contract", "reviewed-owner-packet"]}
+      }
+    },
+    "selection_apply_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_fields", "received_verdict", "ready_for_owner_apply", "proof_authority"],
+      "properties": {
+        "required_fields": {
+          "type": "array",
+          "const": [
+            "verdict",
+            "owner",
+            "source_ref",
+            "source_digest",
+            "environment",
+            "command.argv",
+            "command.cwd",
+            "command.timeout_seconds",
+            "command.accepted_exit_codes",
+            "prerequisites",
+            "artifacts",
+            "pass_criteria",
+            "effect_authority",
+            "expected_effect",
+            "proof_authority",
+            "proof_limit"
+          ]
+        },
+        "received_verdict": {"const": "exact_fit"},
+        "ready_for_owner_apply": {"const": true},
+        "proof_authority": {"const": false}
+      }
+    },
+    "admission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_count",
+        "unit_count",
+        "matched_unit_count",
+        "controlled_accounting_unit_count",
+        "unmatched_unit_count",
+        "matched_pair_count",
+        "eligible_real_pairs",
+        "unknown_is_not_zero",
+        "method_effect_admitted"
+      ],
+      "properties": {
+        "observation_count": {"type": "integer", "minimum": 1},
+        "unit_count": {"type": "integer", "minimum": 1},
+        "matched_unit_count": {"type": "integer", "minimum": 0},
+        "controlled_accounting_unit_count": {"type": "integer", "minimum": 0},
+        "unmatched_unit_count": {"type": "integer", "minimum": 0},
+        "matched_pair_count": {"type": "integer", "minimum": 0},
+        "eligible_real_pairs": {"type": "integer", "minimum": 0},
+        "unknown_is_not_zero": {"const": true},
+        "method_effect_admitted": {"const": false}
+      }
+    },
+    "comparison_units": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/comparison_unit"}
+    },
+    "unmatched_cases": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/unmatched_case"}
+    },
+    "verdict": {"enum": ["not_admitted", "matched_observation_only"]},
+    "policy_verdict": {"type": "null"},
+    "claim_boundary": {"type": "string", "minLength": 40},
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}}
+  },
+  "$defs": {
+    "metric_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state_counts", "observed_values", "controlled_values", "synthetic_count"],
+      "properties": {
+        "state_counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["known", "unknown", "null", "excluded", "unobservable", "missing"],
+          "properties": {
+            "known": {"type": "integer", "minimum": 0},
+            "unknown": {"type": "integer", "minimum": 0},
+            "null": {"type": "integer", "minimum": 0},
+            "excluded": {"type": "integer", "minimum": 0},
+            "unobservable": {"type": "integer", "minimum": 0},
+            "missing": {"type": "integer", "minimum": 0}
+          }
+        },
+        "observed_values": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/metric_value"}
+        },
+        "controlled_values": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/metric_value"}
+        },
+        "synthetic_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "metric_value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method_id", "value", "unit"],
+      "properties": {
+        "method_id": {"type": "string", "minLength": 1},
+        "value": {"type": "number", "minimum": 0},
+        "unit": {"type": "string", "minLength": 1}
+      }
+    },
+    "comparison_unit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit_id",
+        "disposition",
+        "matched_pair_count",
+        "observed_pair_count",
+        "method_ids",
+        "review_statuses",
+        "evidence_classes",
+        "identity_match",
+        "mismatched_fields",
+        "observation_refs",
+        "metric_coverage",
+        "claim_limit"
+      ],
+      "properties": {
+        "unit_id": {"type": "string", "minLength": 1},
+        "disposition": {"enum": ["matched_observation_only", "controlled_accounting_only", "unmatched"]},
+        "matched_pair_count": {"type": "integer", "minimum": 0},
+        "observed_pair_count": {"type": "integer", "minimum": 0},
+        "method_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "review_statuses": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "evidence_classes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "identity_match": {"type": "boolean"},
+        "mismatched_fields": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "observation_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "metric_coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["wall_seconds", "cpu_ms", "peak_rss_kib", "io_read_bytes", "io_write_bytes", "setup_startup_seconds", "first_failure_latency_seconds", "retry_amplification"],
+          "properties": {
+            "wall_seconds": {"$ref": "#/$defs/metric_coverage"},
+            "cpu_ms": {"$ref": "#/$defs/metric_coverage"},
+            "peak_rss_kib": {"$ref": "#/$defs/metric_coverage"},
+            "io_read_bytes": {"$ref": "#/$defs/metric_coverage"},
+            "io_write_bytes": {"$ref": "#/$defs/metric_coverage"},
+            "setup_startup_seconds": {"$ref": "#/$defs/metric_coverage"},
+            "first_failure_latency_seconds": {"$ref": "#/$defs/metric_coverage"},
+            "retry_amplification": {"$ref": "#/$defs/metric_coverage"}
+          }
+        },
+        "claim_limit": {"type": "string", "minLength": 10}
+      }
+    },
+    "unmatched_case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unit_id", "reason", "mismatched_fields"],
+      "properties": {
+        "unit_id": {"type": "string", "minLength": 1},
+        "reason": {"type": "string", "minLength": 1},
+        "method_id": {"type": "string", "minLength": 1},
+        "mismatched_fields": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}

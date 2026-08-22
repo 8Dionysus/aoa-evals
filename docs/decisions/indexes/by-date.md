@@ -320,3 +320,7 @@
 ## 2026-08-20
 
 - [AOA-EV-D-0253 Latest-Sibling Artifact Contract Paths Follow Current Owner Sources](../AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md) (`docs/decisions/AOA-EV-D-0253-latest-sibling-artifact-contract-paths.md`)
+
+## 2026-08-22
+
+- [AOA-EV-D-0254 Identity-Bound Method Comparison Uses a Draft Fixed-Baseline ABI](../AOA-EV-D-0254-identity-bound-method-comparison-contract.md) (`docs/decisions/AOA-EV-D-0254-identity-bound-method-comparison-contract.md`)

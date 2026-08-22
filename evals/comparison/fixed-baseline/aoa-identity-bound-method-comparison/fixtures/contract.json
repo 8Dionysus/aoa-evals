@@ -1,0 +1,19 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md",
+  "shared_case_surface": "public-safe comparison units whose workload, candidate/source digest, environment, treatment, evidence, acceptance, cache, and resource posture are explicit before any method row is compared",
+  "bounded_replacement_rule": "A local replacement may add workload cases only when every method uses the same identity tuple, keeps unknown/null/excluded/unobservable/missing states explicit, preserves baseline visibility, and does not turn synthetic accounting into observed latency.",
+  "public_safe_requirements": [
+    "raw session transcripts, private host fingerprints, and private runtime logs are not copied into the public bundle",
+    "the exact candidate or source identity includes a sha256 digest",
+    "every observation evidence_ref resolves to a declared sha256-digested public-safe-observation artifact with an admissible public-safe evidence class",
+    "generated readers, validation receipts, and other derived surfaces cannot serve as observation evidence",
+    "baseline and method rows share the complete identity tuple before comparison",
+    "cache posture and resource posture are explicit and known before an observed pair is admitted",
+    "first-failure, retry, and resource fields preserve unknown, null, excluded, unobservable, and missing states",
+    "only rows from an eligible pair populate observed_values or controlled_values; rejected rows remain visible through state counts and unmatched cases",
+    "synthetic or controlled values are accounted for separately and never reported as observed values",
+    "unmatched units and their mismatch reasons remain visible",
+    "a report cannot issue a universal winner, causal effect, central proof, or human-acceptance verdict"
+  ]
+}

@@ -149,6 +149,87 @@ def test_unknown_and_real_evidence_kinds_are_not_admitted_in_seeded_v1() -> None
         comparison.build_report(load_json(CONTRACT_PATH), real)
 
 
+def test_unrecognized_signal_state_is_normalized_to_blocked_and_escalated() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["signals"]["dependency_graph"]["state"] = "currnt"
+    report = comparison.build_report(load_json(CONTRACT_PATH), cases)
+    result = scenario_result(report, "hybrid_fail_closed", "RVC-001-source-only-control")
+
+    assert result["state_counts"]["blocked"] == 1
+    assert result["fail_closed_escalation"]["triggered"] is True
+    assert result["fail_closed_escalation"]["reasons"] == ["blocked"]
+    assert result["fail_closed_escalation"]["fallback"] == "full_owner_proof"
+    assert result["stale_unknown_behavior"] == "preserved_and_escalated"
+
+
+def test_successful_signal_states_do_not_look_stale_or_incomplete(report: dict) -> None:
+    result = scenario_result(report, "dependency_graph", "RVC-001-source-only-control")
+    assert result["state_counts"] == {
+        "stale": 0,
+        "unknown": 0,
+        "malformed": 0,
+        "wrong_identity": 0,
+        "blocked": 0,
+    }
+    assert result["stale_unknown_behavior"] == "not_observed"
+
+
+def test_adversarial_coverage_is_deduplicated_and_schema_valid() -> None:
+    cases = load_json(CASES_PATH)
+    duplicate = copy.deepcopy(cases["scenarios"][1])
+    duplicate["scenario_id"] = "RVC-008-duplicate-stale-class"
+    cases["scenarios"].append(duplicate)
+    report = comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+    jsonschema.Draft202012Validator(load_json(REPORT_SCHEMA_PATH)).validate(report)
+    assert len(report["adversarial_classes_covered"]) == len(set(report["adversarial_classes_covered"]))
+
+
+def test_implemented_candidates_cannot_be_marked_missing() -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "static_paths")
+    candidate["status"] = comparison.UNSUPPORTED_METHOD_STATUS
+    candidate["reason"] = "custom contract attempts to hide a built-in runner"
+
+    with pytest.raises(comparison.ContractError, match="must remain implemented"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+def test_empty_owner_proof_oracle_nodes_are_rejected() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["oracle"]["required_nodes"] = []
+    cases["scenarios"][0]["oracle"]["owner_proof_nodes"] = []
+
+    with pytest.raises(comparison.ContractError, match="must contain at least one node"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_adversarial_class_requires_its_class_specific_condition() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["adversarial_class"] = "stale_graph"
+
+    with pytest.raises(comparison.ContractError, match="does not match"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_duplicate_signal_nodes_are_rejected_before_event_measurement() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["signals"]["dependency_graph"]["nodes"].append("source_fast")
+
+    with pytest.raises(comparison.ContractError, match="nodes must not contain duplicates"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+@pytest.mark.parametrize("field", ["family", "description"])
+def test_implemented_candidate_strings_are_required(field: str) -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "static_paths")
+    candidate.pop(field)
+
+    with pytest.raises(comparison.ContractError, match="non-empty"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
 def test_precision_recall_are_null_when_oracle_denominator_is_incomplete(report: dict) -> None:
     unbound = scenario_result(report, "hybrid_fail_closed", "RVC-007-unbound-owner")
     assert unbound["precision_recall_denominator_valid"] is False

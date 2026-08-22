@@ -38,6 +38,14 @@ IMPLEMENTED_METHOD_IDS = (
 )
 UNSUPPORTED_METHOD_STATUS = "unsupported_missing_candidate"
 FAILURE_STATES = {"stale", "unknown", "malformed", "wrong_identity", "blocked"}
+REQUIRED_ADVERSARIAL_CLASSES = {
+    "stale_graph",
+    "unknown_dependency",
+    "wrong_candidate_environment_receipt",
+    "malformed_receipt",
+    "unexplained_miss",
+    "unbound_external_owner",
+}
 
 STATIC_PATH_RULES: tuple[tuple[str, str], ...] = (
     ("scripts/", "source_fast"),
@@ -69,6 +77,68 @@ def unique_strings(values: Any, *, field: str) -> list[str]:
 def canonical_digest(value: Any) -> str:
     encoded = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode()
     return hashlib.sha256(encoded).hexdigest()
+
+
+def owner_contract_signal_state(scenario: dict[str, Any]) -> str:
+    signals = scenario.get("signals", {})
+    signal = signals.get("owner_contracts") if isinstance(signals, dict) else None
+    if not isinstance(signal, dict):
+        return "unknown"
+
+    state = signal.get("state", "unknown")
+    if state != "valid":
+        return state if isinstance(state, str) and state in FAILURE_STATES else "blocked"
+
+    receipt = signal.get("receipt")
+    if not isinstance(receipt, dict):
+        return "malformed"
+    expected = {
+        "workload_id": scenario["workload_id"],
+        "candidate_set_id": scenario["candidate_set_id"],
+        "environment_id": scenario["environment_id"],
+        "source_ref": scenario["source_ref"],
+    }
+    if any(key not in receipt for key in expected):
+        return "malformed"
+    if any(receipt.get(key) != value for key, value in expected.items()):
+        return "wrong_identity"
+    return "valid"
+
+
+def adversarial_class_matches(scenario: dict[str, Any], adversarial_class: str) -> bool:
+    signals = scenario.get("signals", {})
+    dependency_graph = signals.get("dependency_graph") if isinstance(signals, dict) else None
+    dependency_state = dependency_graph.get("state") if isinstance(dependency_graph, dict) else None
+
+    if adversarial_class == "stale_graph":
+        return dependency_state == "stale"
+    if adversarial_class == "unknown_dependency":
+        return dependency_state == "unknown"
+    if adversarial_class == "wrong_candidate_environment_receipt":
+        return owner_contract_signal_state(scenario) == "wrong_identity"
+    if adversarial_class == "malformed_receipt":
+        return owner_contract_signal_state(scenario) == "malformed"
+    if adversarial_class == "unbound_external_owner":
+        oracle = scenario["oracle"]
+        return (
+            oracle.get("complete") is False
+            and oracle.get("owner_proof_status") == "unknown"
+            and owner_contract_signal_state(scenario) == "unknown"
+        )
+    if adversarial_class == "unexplained_miss":
+        proposal = static_paths_result(scenario)
+        required = set(scenario["oracle"]["required_nodes"])
+        activated = set(proposal["activated_nodes"])
+        missing = required - activated
+        explanations = proposal.get("missing_explanations", {})
+        return bool(
+            missing
+            and any(
+                not isinstance(explanations.get(node), str) or not explanations[node].strip()
+                for node in missing
+            )
+        )
+    raise ContractError(f"unsupported adversarial class predicate: {adversarial_class!r}")
 
 
 def validate_contract(contract: dict[str, Any]) -> None:
@@ -126,10 +196,19 @@ def validate_contract(contract: dict[str, Any]) -> None:
             raise ContractError(f"unsupported candidate status for {method_id!r}: {status!r}")
         if status == "implemented" and method_id not in IMPLEMENTED_METHOD_IDS:
             raise ContractError(f"implemented candidate has no runner: {method_id!r}")
-        if status == "implemented" and not isinstance(candidate.get("description"), str):
-            raise ContractError(f"implemented candidate {method_id!r} needs a description")
-        if status == UNSUPPORTED_METHOD_STATUS and not isinstance(candidate.get("reason"), str):
-            raise ContractError(f"unsupported candidate {method_id!r} needs an explicit reason")
+        family = candidate.get("family")
+        if not isinstance(family, str) or not family.strip():
+            raise ContractError(f"candidate {method_id!r} needs a non-empty family")
+        if method_id in IMPLEMENTED_METHOD_IDS and status != "implemented":
+            raise ContractError(f"implemented candidate {method_id!r} must remain implemented")
+        if status == "implemented":
+            description = candidate.get("description")
+            if not isinstance(description, str) or not description.strip():
+                raise ContractError(f"implemented candidate {method_id!r} needs a non-empty description")
+        if status == UNSUPPORTED_METHOD_STATUS:
+            reason = candidate.get("reason")
+            if not isinstance(reason, str) or not reason.strip():
+                raise ContractError(f"unsupported candidate {method_id!r} needs a non-empty reason")
     if set(IMPLEMENTED_METHOD_IDS) - seen:
         missing = sorted(set(IMPLEMENTED_METHOD_IDS) - seen)
         raise ContractError(f"contract is missing implemented candidate(s): {', '.join(missing)}")
@@ -150,15 +229,8 @@ def validate_contract(contract: dict[str, Any]) -> None:
     if not isinstance(metrics, dict) or not required_metrics.issubset(metrics):
         raise ContractError("metrics must name every bounded comparison measurement")
 
-    required_adversarial = {
-        "stale_graph",
-        "unknown_dependency",
-        "wrong_candidate_environment_receipt",
-        "malformed_receipt",
-        "unexplained_miss",
-    }
     declared_adversarial = set(unique_strings(contract.get("adversarial_classes"), field="adversarial_classes"))
-    if not required_adversarial.issubset(declared_adversarial):
+    if not REQUIRED_ADVERSARIAL_CLASSES.issubset(declared_adversarial):
         raise ContractError("contract must declare all required adversarial fixture classes")
 
 
@@ -247,9 +319,13 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
         if not isinstance(oracle, dict):
             raise ContractError(f"scenario {scenario_id} must declare an owner-proof oracle")
         required_nodes = unique_strings(oracle.get("required_nodes"), field=f"{scenario_id}.oracle.required_nodes")
+        if not required_nodes:
+            raise ContractError(f"scenario {scenario_id}.oracle.required_nodes must contain at least one node")
         owner_proof_nodes = unique_strings(
             oracle.get("owner_proof_nodes"), field=f"{scenario_id}.oracle.owner_proof_nodes"
         )
+        if not owner_proof_nodes:
+            raise ContractError(f"scenario {scenario_id}.oracle.owner_proof_nodes must contain at least one node")
         if not set(required_nodes).issubset(owner_proof_nodes):
             raise ContractError(f"scenario {scenario_id} oracle fallback must cover required nodes")
         if oracle.get("owner_proof_status") not in {"available", "blocked_external_receipt", "unknown"}:
@@ -257,22 +333,19 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
         if not isinstance(oracle.get("complete"), bool):
             raise ContractError(f"scenario {scenario_id}.oracle.complete must be boolean")
         adversarial_class = scenario.get("adversarial_class")
-        if adversarial_class:
-            if not isinstance(adversarial_class, str):
-                raise ContractError(f"scenario {scenario_id}.adversarial_class must be a string")
+        if adversarial_class is not None:
+            if not isinstance(adversarial_class, str) or not adversarial_class.strip():
+                raise ContractError(f"scenario {scenario_id}.adversarial_class must be a non-empty string or null")
             if adversarial_class not in set(contract["adversarial_classes"]):
                 raise ContractError(f"scenario {scenario_id} declares an unknown adversarial class")
+            if not adversarial_class_matches(scenario, adversarial_class):
+                raise ContractError(
+                    f"scenario {scenario_id}.adversarial_class {adversarial_class!r} does not match its signals and oracle"
+                )
             observed_adversarial.add(adversarial_class)
 
-    required_adversarial = {
-        "stale_graph",
-        "unknown_dependency",
-        "wrong_candidate_environment_receipt",
-        "malformed_receipt",
-        "unexplained_miss",
-    }
-    if not required_adversarial.issubset(observed_adversarial):
-        missing = sorted(required_adversarial - observed_adversarial)
+    if not REQUIRED_ADVERSARIAL_CLASSES.issubset(observed_adversarial):
+        missing = sorted(REQUIRED_ADVERSARIAL_CLASSES - observed_adversarial)
         raise ContractError(f"cases are missing adversarial class(es): {', '.join(missing)}")
     return scenarios
 
@@ -309,11 +382,21 @@ def signal_result(
 ) -> dict[str, Any]:
     if not isinstance(signal, dict):
         signal = {"state": "unknown", "reason": "signal is not declared"}
-    state = signal.get("state", "unknown")
+    raw_state = signal.get("state", "unknown")
+    normalized_to_blocked = not (
+        raw_state == expected_state
+        or (isinstance(raw_state, str) and raw_state in FAILURE_STATES)
+    )
+    state = "blocked" if normalized_to_blocked else raw_state
     nodes = signal.get("nodes", [])
     if not isinstance(nodes, list) or not all(isinstance(node, str) and node for node in nodes):
         state = "malformed"
         nodes = []
+    elif len(set(nodes)) != len(nodes):
+        raise ContractError(f"{method_id}.nodes must not contain duplicates")
+    retry_count = signal.get("retry_count", 0)
+    if not isinstance(retry_count, int) or isinstance(retry_count, bool) or retry_count < 0:
+        raise ContractError(f"retry_count for {method_id!r} must be a non-negative integer")
     events: list[dict[str, Any]] = []
     activated: list[str] = []
     explanations: list[str] = []
@@ -326,11 +409,16 @@ def signal_result(
                 status="activated",
                 latency_ms=latency_ms,
                 explanation=f"{method_id} accepted {expected_state} signal",
-                retry_count=int(signal.get("retry_count", 0)),
+                retry_count=retry_count,
             )
         explanations.append(f"{method_id} used a {expected_state} signal")
     else:
-        reason = signal.get("reason") or f"{method_id} received {state} instead of {expected_state}"
+        reason = signal.get("reason")
+        if not reason:
+            if normalized_to_blocked:
+                reason = f"{method_id} received unrecognized state {raw_state!r}; normalized to blocked"
+            else:
+                reason = f"{method_id} received {state} instead of {expected_state}"
         explanations.append(str(reason))
         add_events(
             events,
@@ -338,7 +426,7 @@ def signal_result(
             status=state if state in FAILURE_STATES else "blocked",
             latency_ms=latency_ms,
             explanation=str(reason),
-            retry_count=int(signal.get("retry_count", 0)),
+            retry_count=retry_count,
         )
     return {
         "activated_nodes": list(dict.fromkeys(activated)),
@@ -567,6 +655,7 @@ def finalize_result(
             "policy_verdict": None,
         },
     )
+    failure_state_count = sum(state_counts.get(state, 0) for state in FAILURE_STATES)
     return {
         "method_id": method_id,
         "family": candidate.get("family"),
@@ -604,7 +693,7 @@ def finalize_result(
         "stale_unknown_behavior": (
             "preserved_and_escalated"
             if escalation.get("triggered")
-            else ("preserved_as_incomplete" if state_counts else "not_observed")
+            else ("preserved_as_incomplete" if failure_state_count else "not_observed")
         ),
         "explanation": proposal.get("explanation", ""),
         "unexplained_miss_nodes": unexplained_misses,
@@ -732,9 +821,11 @@ def build_report(contract: dict[str, Any], cases: dict[str, Any]) -> dict[str, A
         "input_evidence": cases["input_evidence"],
         "candidate_catalog": contract["candidate_catalog"],
         "adversarial_classes_covered": sorted(
-            scenario["adversarial_class"]
-            for scenario in scenarios
-            if scenario.get("adversarial_class")
+            {
+                scenario["adversarial_class"]
+                for scenario in scenarios
+                if scenario.get("adversarial_class")
+            }
         ),
         "coverage_limits": contract["coverage_limits"],
         "methods": methods,

@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 18888497,
+  "allowed_tracked_bytes": 26925689,
+  "approved_by": "repository-owner",
+  "base_ref": "cb734788b8a6fff9869f63bdf890fc54dbaf6563",
+  "changed_generated_bytes": 18888497,
+  "changed_generated_files": 291,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "14c547eb7316ac754eb1a592c57aaecb887a62b8cecc18befdfa5acde092d13e",
+  "reason": "PR 454 adds nine aoa-evals-owned proof surfaces: the comparison-spine decision, fixture, report, schema, runner, example, and focused tests. The current owner generator yields a bounded semantic expansion of +9 source, +135 anchor, and +4 event records (+148 canonical records); the 18,888,497 changed bytes are deterministic shard rewrite amplification across 291 family paths, not an authored duplicate or cross-owner payload. The resulting 26,925,689 tracked bytes remain below the 48 MiB global ceiling. Admit this exact one-change family under AOA-KAG-D-0017 and preserve the standing 1 MiB delta and 25 MiB tracked-size limits.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 26925689,
+  "tracked_bytes_max": 26214400
+}

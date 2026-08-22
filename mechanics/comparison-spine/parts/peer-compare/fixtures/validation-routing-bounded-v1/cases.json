@@ -2,6 +2,13 @@
   "schema_version": "validation_routing_comparison_cases_v1",
   "fixture_id": "validation-routing-bounded-v1",
   "source_posture": "seeded_public_safe_only",
+  "latency_event_weights_ms_synthetic_proxy": {
+    "static_paths": 1.5,
+    "dependency_graph": 3.5,
+    "owner_contracts": 4.0,
+    "history_correlation": 5.0,
+    "claim_risk": 2.0
+  },
   "comparison_identity": {
     "candidate_set_id": "candidate-set-static-dependency-owner-history-risk-hybrid-v1",
     "environment_id": "seeded-current-tree-public-safe-v1"

@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import sys
 from collections import Counter
 from pathlib import Path
@@ -36,6 +37,7 @@ IMPLEMENTED_METHOD_IDS = (
     "claim_risk",
     "hybrid_fail_closed",
 )
+LATENCY_COMPONENT_METHOD_IDS = IMPLEMENTED_METHOD_IDS[:-1]
 UNSUPPORTED_METHOD_STATUS = "unsupported_missing_candidate"
 FAILURE_STATES = {"stale", "unknown", "malformed", "wrong_identity", "blocked"}
 REQUIRED_ADVERSARIAL_CLASSES = {
@@ -72,6 +74,45 @@ def unique_strings(values: Any, *, field: str) -> list[str]:
     if len(set(values)) != len(values):
         raise ContractError(f"{field} must not contain duplicates")
     return list(values)
+
+
+def is_finite_non_negative_number(value: Any) -> bool:
+    return (
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and math.isfinite(float(value))
+        and value >= 0
+    )
+
+
+def validate_latency_weights(value: Any) -> dict[str, float]:
+    if not isinstance(value, dict) or set(value) != set(LATENCY_COMPONENT_METHOD_IDS):
+        expected = ", ".join(LATENCY_COMPONENT_METHOD_IDS)
+        raise ContractError(
+            "latency_event_weights_ms_synthetic_proxy must declare exactly: " + expected
+        )
+    if any(not is_finite_non_negative_number(value[method_id]) for method_id in LATENCY_COMPONENT_METHOD_IDS):
+        raise ContractError(
+            "latency_event_weights_ms_synthetic_proxy values must be finite non-negative numbers"
+        )
+    return {method_id: float(value[method_id]) for method_id in LATENCY_COMPONENT_METHOD_IDS}
+
+
+def static_path_targets(scenario: dict[str, Any]) -> tuple[list[str], list[tuple[str, str]]]:
+    activated: list[str] = []
+    matched_targets: list[tuple[str, str]] = []
+    for changed_path in scenario["changed_paths"]:
+        for prefix, node in STATIC_PATH_RULES:
+            if changed_path.startswith(prefix):
+                if node not in activated:
+                    activated.append(node)
+                    matched_targets.append((prefix, node))
+                break
+    overrides = scenario.get("method_overrides") or {}
+    override = overrides.get("static_paths", {})
+    if "activated_nodes" in override:
+        activated = unique_strings(override["activated_nodes"], field="static_paths.activated_nodes")
+    return activated, matched_targets
 
 
 def canonical_digest(value: Any) -> str:
@@ -126,11 +167,10 @@ def adversarial_class_matches(scenario: dict[str, Any], adversarial_class: str) 
             and owner_contract_signal_state(scenario) == "unknown"
         )
     if adversarial_class == "unexplained_miss":
-        proposal = static_paths_result(scenario)
+        activated, _matched_targets = static_path_targets(scenario)
         required = set(scenario["oracle"]["required_nodes"])
-        activated = set(proposal["activated_nodes"])
-        missing = required - activated
-        explanations = proposal.get("missing_explanations", {})
+        missing = required - set(activated)
+        explanations = {}
         return bool(
             missing
             and any(
@@ -243,6 +283,7 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
     source_posture = cases.get("source_posture")
     if source_posture != evidence_policy["source_posture"]:
         raise ContractError("cases source_posture must match the contract evidence policy")
+    validate_latency_weights(cases.get("latency_event_weights_ms_synthetic_proxy"))
     accepted_evidence_kinds = set(evidence_policy["accepted_evidence_kinds"])
 
     identity = cases.get("comparison_identity")
@@ -278,15 +319,17 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
     wall_clock_proxies = input_evidence.get("observed_wall_clock_proxies")
     if not isinstance(wall_clock_proxies, dict):
         raise ContractError("input_evidence must retain the bounded wall-clock proxy record")
-    if not isinstance(wall_clock_proxies.get("full_local_release_check_seconds"), (int, float)):
-        raise ContractError("input_evidence full release proxy must be numeric")
+    if not is_finite_non_negative_number(wall_clock_proxies.get("full_local_release_check_seconds")):
+        raise ContractError("input_evidence full release proxy must be a finite non-negative number")
     targeted_proxies = wall_clock_proxies.get("targeted_local_route_proxy_seconds")
     if (
         not isinstance(targeted_proxies, list)
         or not targeted_proxies
-        or not all(isinstance(value, (int, float)) for value in targeted_proxies)
+        or not all(is_finite_non_negative_number(value) for value in targeted_proxies)
     ):
-        raise ContractError("input_evidence targeted route proxies must be a non-empty number array")
+        raise ContractError(
+            "input_evidence targeted route proxies must be a non-empty finite non-negative number array"
+        )
     if not isinstance(wall_clock_proxies.get("speed_claim_status"), str):
         raise ContractError("input_evidence speed claim status must be explicit")
 
@@ -446,51 +489,77 @@ def expected_receipt(scenario: dict[str, Any]) -> dict[str, str]:
     }
 
 
-def owner_contract_result(scenario: dict[str, Any], *, method_id: str) -> dict[str, Any]:
+def owner_contract_result(
+    scenario: dict[str, Any], *, method_id: str, latency_weights: dict[str, float]
+) -> dict[str, Any]:
     signal = scenario.get("signals", {}).get("owner_contracts")
     if not isinstance(signal, dict):
-        return signal_result(None, method_id=method_id, expected_state="valid", latency_ms=4.0)
+        return signal_result(
+            None,
+            method_id=method_id,
+            expected_state="valid",
+            latency_ms=latency_weights[method_id],
+        )
     state = signal.get("state", "unknown")
     if state != "valid":
-        return signal_result(signal, method_id=method_id, expected_state="valid", latency_ms=4.0)
+        return signal_result(
+            signal,
+            method_id=method_id,
+            expected_state="valid",
+            latency_ms=latency_weights[method_id],
+        )
     receipt = signal.get("receipt")
     if not isinstance(receipt, dict):
         malformed = {**signal, "state": "malformed", "reason": "owner receipt is not an object"}
-        return signal_result(malformed, method_id=method_id, expected_state="valid", latency_ms=4.0)
+        return signal_result(
+            malformed,
+            method_id=method_id,
+            expected_state="valid",
+            latency_ms=latency_weights[method_id],
+        )
     expected = expected_receipt(scenario)
     if any(key not in receipt for key in expected):
         malformed = {**signal, "state": "malformed", "reason": "owner receipt omitted an identity field"}
-        return signal_result(malformed, method_id=method_id, expected_state="valid", latency_ms=4.0)
+        return signal_result(
+            malformed,
+            method_id=method_id,
+            expected_state="valid",
+            latency_ms=latency_weights[method_id],
+        )
     if any(receipt.get(key) != value for key, value in expected.items()):
         wrong = {
             **signal,
             "state": "wrong_identity",
             "reason": "owner receipt workload, candidate, environment, or source identity mismatched",
         }
-        return signal_result(wrong, method_id=method_id, expected_state="valid", latency_ms=4.0)
-    return signal_result(signal, method_id=method_id, expected_state="valid", latency_ms=4.0)
+        return signal_result(
+            wrong,
+            method_id=method_id,
+            expected_state="valid",
+            latency_ms=latency_weights[method_id],
+        )
+    return signal_result(
+        signal,
+        method_id=method_id,
+        expected_state="valid",
+        latency_ms=latency_weights[method_id],
+    )
 
 
-def static_paths_result(scenario: dict[str, Any]) -> dict[str, Any]:
+def static_paths_result(scenario: dict[str, Any], latency_weights: dict[str, float]) -> dict[str, Any]:
     events: list[dict[str, Any]] = []
-    activated: list[str] = []
-    for changed_path in scenario["changed_paths"]:
-        for prefix, node in STATIC_PATH_RULES:
-            if changed_path.startswith(prefix):
-                if node not in activated:
-                    activated.append(node)
-                add_events(
-                    events,
-                    target=node,
-                    status="activated",
-                    latency_ms=1.5,
-                    explanation=f"changed path matched static prefix {prefix!r}",
-                )
-                break
-    override = scenario.get("method_overrides", {}).get("static_paths", {})
+    activated, matched_targets = static_path_targets(scenario)
+    for prefix, node in matched_targets:
+        add_events(
+            events,
+            target=node,
+            status="activated",
+            latency_ms=latency_weights["static_paths"],
+            explanation=f"changed path matched static prefix {prefix!r}",
+        )
+    overrides = scenario.get("method_overrides") or {}
+    override = overrides.get("static_paths", {})
     explanation = str(override.get("explanation", "static path prefixes selected local nodes"))
-    if "activated_nodes" in override:
-        activated = unique_strings(override["activated_nodes"], field="static_paths.activated_nodes")
     return {
         "activated_nodes": activated,
         "events": events,
@@ -500,40 +569,40 @@ def static_paths_result(scenario: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def dependency_graph_result(scenario: dict[str, Any]) -> dict[str, Any]:
+def dependency_graph_result(scenario: dict[str, Any], latency_weights: dict[str, float]) -> dict[str, Any]:
     return signal_result(
         scenario.get("signals", {}).get("dependency_graph"),
         method_id="dependency_graph",
         expected_state="current",
-        latency_ms=3.5,
+        latency_ms=latency_weights["dependency_graph"],
     )
 
 
-def history_result(scenario: dict[str, Any]) -> dict[str, Any]:
+def history_result(scenario: dict[str, Any], latency_weights: dict[str, float]) -> dict[str, Any]:
     return signal_result(
         scenario.get("signals", {}).get("history_correlation"),
         method_id="history_correlation",
         expected_state="available",
-        latency_ms=5.0,
+        latency_ms=latency_weights["history_correlation"],
     )
 
 
-def claim_risk_result(scenario: dict[str, Any]) -> dict[str, Any]:
+def claim_risk_result(scenario: dict[str, Any], latency_weights: dict[str, float]) -> dict[str, Any]:
     return signal_result(
         scenario.get("signals", {}).get("claim_risk"),
         method_id="claim_risk",
         expected_state="declared",
-        latency_ms=2.0,
+        latency_ms=latency_weights["claim_risk"],
     )
 
 
-def hybrid_result(scenario: dict[str, Any]) -> dict[str, Any]:
+def hybrid_result(scenario: dict[str, Any], latency_weights: dict[str, float]) -> dict[str, Any]:
     component_results = [
-        static_paths_result(scenario),
-        dependency_graph_result(scenario),
-        owner_contract_result(scenario, method_id="owner_contracts"),
-        history_result(scenario),
-        claim_risk_result(scenario),
+        static_paths_result(scenario, latency_weights),
+        dependency_graph_result(scenario, latency_weights),
+        owner_contract_result(scenario, method_id="owner_contracts", latency_weights=latency_weights),
+        history_result(scenario, latency_weights),
+        claim_risk_result(scenario, latency_weights),
     ]
     activated: list[str] = []
     events: list[dict[str, Any]] = []
@@ -583,10 +652,16 @@ def hybrid_result(scenario: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-METHOD_RUNNERS: dict[str, Callable[[dict[str, Any]], dict[str, Any]]] = {
+METHOD_RUNNERS: dict[
+    str, Callable[[dict[str, Any], dict[str, float]], dict[str, Any]]
+] = {
     "static_paths": static_paths_result,
     "dependency_graph": dependency_graph_result,
-    "owner_contracts": lambda scenario: owner_contract_result(scenario, method_id="owner_contracts"),
+    "owner_contracts": lambda scenario, latency_weights: owner_contract_result(
+        scenario,
+        method_id="owner_contracts",
+        latency_weights=latency_weights,
+    ),
     "history_correlation": history_result,
     "claim_risk": claim_risk_result,
     "hybrid_fail_closed": hybrid_result,
@@ -774,6 +849,7 @@ def summarize_method(method_id: str, candidate: dict[str, Any], results: list[di
 
 def build_report(contract: dict[str, Any], cases: dict[str, Any]) -> dict[str, Any]:
     validate_contract(contract)
+    latency_weights = validate_latency_weights(cases.get("latency_event_weights_ms_synthetic_proxy"))
     scenarios = validate_cases(cases, contract)
     candidates = {candidate["method_id"]: candidate for candidate in contract["candidate_catalog"]}
     methods: list[dict[str, Any]] = []
@@ -787,7 +863,7 @@ def build_report(contract: dict[str, Any], cases: dict[str, Any]) -> dict[str, A
                 method_id=method_id,
                 candidate=candidate,
                 scenario=scenario,
-                proposal=runner(scenario),
+                proposal=runner(scenario, latency_weights),
             )
             for scenario in scenarios
         ]

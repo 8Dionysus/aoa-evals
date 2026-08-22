@@ -185,6 +185,51 @@ def test_adversarial_coverage_is_deduplicated_and_schema_valid() -> None:
     assert len(report["adversarial_classes_covered"]) == len(set(report["adversarial_classes_covered"]))
 
 
+def test_latency_weights_are_declared_by_fixture_and_used() -> None:
+    cases = load_json(CASES_PATH)
+    weights = cases["latency_event_weights_ms_synthetic_proxy"]
+    assert weights == {
+        "static_paths": 1.5,
+        "dependency_graph": 3.5,
+        "owner_contracts": 4.0,
+        "history_correlation": 5.0,
+        "claim_risk": 2.0,
+    }
+    cases["latency_event_weights_ms_synthetic_proxy"]["static_paths"] = 7.25
+
+    report = comparison.build_report(load_json(CONTRACT_PATH), cases)
+    result = scenario_result(report, "static_paths", "RVC-001-source-only-control")
+
+    assert {event["latency_ms_synthetic_proxy"] for event in result["events"]} == {7.25}
+
+
+def test_static_events_are_deduplicated_by_target() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["changed_paths"] = ["scripts/a.py", "scripts/b.py"]
+
+    report = comparison.build_report(load_json(CONTRACT_PATH), cases)
+    result = scenario_result(report, "static_paths", "RVC-001-source-only-control")
+
+    assert [(event["target"], event["attempt"]) for event in result["events"]] == [("source_fast", 1)]
+    assert result["unique_attempt_targets"] == 1
+    jsonschema.Draft202012Validator(load_json(REPORT_SCHEMA_PATH)).validate(report)
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("full_local_release_check_seconds", -1),
+        ("targeted_local_route_proxy_seconds", [-1, 4.9]),
+    ],
+)
+def test_negative_wall_clock_proxies_are_rejected(field: str, value: object) -> None:
+    cases = load_json(CASES_PATH)
+    cases["input_evidence"]["observed_wall_clock_proxies"][field] = value
+
+    with pytest.raises(comparison.ContractError, match="finite non-negative"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
 def test_implemented_candidates_cannot_be_marked_missing() -> None:
     contract = load_json(CONTRACT_PATH)
     candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "static_paths")

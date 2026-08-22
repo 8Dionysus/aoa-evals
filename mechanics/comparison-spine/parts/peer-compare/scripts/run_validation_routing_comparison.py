@@ -57,6 +57,13 @@ REQUIRED_UNSUPPORTED_CANDIDATE_IDS = {
     "kag_relations",
     "llm_proposed_additions",
 }
+EXPECTED_UNSUPPORTED_CANDIDATE_REASONS = {
+    "api_abi": "No stable API/ABI activation manifest is owned by this fixture.",
+    "coverage": "Coverage data is not admitted as a routing oracle in this seeded slice.",
+    "mutation": "No mutation-injection campaign is present; latent defect sensitivity remains unmeasured.",
+    "kag_relations": "Live KAG relation freshness and exact owner binding are not available in this fixture.",
+    "llm_proposed_additions": "No LLM proposal set is admitted; speculative additions must not become routing evidence.",
+}
 EXPECTED_COMPARISON_IDENTITY_KEYS = {"candidate_set_id", "environment_id"}
 EXPECTED_ALLOWED_USE = (
     "bounded prior and route-gap input only; no raw session body or policy verdict copied"
@@ -502,7 +509,7 @@ def validate_contract(contract: dict[str, Any]) -> None:
             raise ContractError("candidate_catalog method_id values must be unique non-empty strings")
         seen.add(method_id)
         status = candidate.get("status")
-        if status not in {"implemented", UNSUPPORTED_METHOD_STATUS}:
+        if not isinstance(status, str) or status not in {"implemented", UNSUPPORTED_METHOD_STATUS}:
             raise ContractError(f"unsupported candidate status for {method_id!r}: {status!r}")
         if method_id in IMPLEMENTED_METHOD_IDS and status != "implemented":
             raise ContractError(f"implemented candidate {method_id!r} must remain implemented")
@@ -531,6 +538,11 @@ def validate_contract(contract: dict[str, Any]) -> None:
             reason = candidate.get("reason")
             if not isinstance(reason, str) or not reason.strip():
                 raise ContractError(f"unsupported candidate {method_id!r} needs a non-empty reason")
+            expected_reason = EXPECTED_UNSUPPORTED_CANDIDATE_REASONS.get(method_id)
+            if expected_reason is not None and reason != expected_reason:
+                raise ContractError(
+                    f"unsupported candidate {method_id!r} must preserve its source-owned reason"
+                )
     if set(IMPLEMENTED_METHOD_IDS) - seen:
         missing = sorted(set(IMPLEMENTED_METHOD_IDS) - seen)
         raise ContractError(f"contract is missing implemented candidate(s): {', '.join(missing)}")
@@ -697,11 +709,16 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
             raise ContractError(f"scenario {scenario_id}.oracle.owner_proof_nodes must contain at least one node")
         if not set(required_nodes).issubset(owner_proof_nodes):
             raise ContractError(f"scenario {scenario_id} oracle fallback must cover required nodes")
-        if oracle.get("owner_proof_status") not in {"available", "blocked_external_receipt", "unknown"}:
+        owner_proof_status = oracle.get("owner_proof_status")
+        if not isinstance(owner_proof_status, str) or owner_proof_status not in {
+            "available",
+            "blocked_external_receipt",
+            "unknown",
+        }:
             raise ContractError(f"scenario {scenario_id} has invalid owner_proof_status")
         if not isinstance(oracle.get("complete"), bool):
             raise ContractError(f"scenario {scenario_id}.oracle.complete must be boolean")
-        if oracle.get("owner_proof_status") == "unknown" and oracle["complete"]:
+        if owner_proof_status == "unknown" and oracle["complete"]:
             raise ContractError(
                 f"scenario {scenario_id}.oracle cannot be complete when owner_proof_status is unknown"
             )

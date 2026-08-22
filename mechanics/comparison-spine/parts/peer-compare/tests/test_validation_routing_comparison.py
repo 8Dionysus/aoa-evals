@@ -568,6 +568,34 @@ def test_implemented_candidates_cannot_be_marked_missing() -> None:
         comparison.build_report(contract, load_json(CASES_PATH))
 
 
+def test_unsupported_candidate_reasons_remain_source_owned() -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "coverage")
+    candidate["reason"] = "proven safe and unnecessary for routing"
+
+    with pytest.raises(comparison.ContractError, match="source-owned reason"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+@pytest.mark.parametrize("value", [["implemented"], {"status": "implemented"}])
+def test_candidate_status_requires_a_string(value: object) -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "static_paths")
+    candidate["status"] = value
+
+    with pytest.raises(comparison.ContractError, match="unsupported candidate status"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+@pytest.mark.parametrize("value", [["available"], {"status": "available"}])
+def test_owner_proof_status_requires_a_string(value: object) -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["oracle"]["owner_proof_status"] = value
+
+    with pytest.raises(comparison.ContractError, match="invalid owner_proof_status"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
 def test_candidate_entries_reject_undeclared_fields() -> None:
     contract = load_json(CONTRACT_PATH)
     candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "static_paths")

@@ -173,6 +173,21 @@ proof, or a runtime performance result, and it leaves the owner gate intact.
   focused runner tests pass, with hosted KAG-family currentness and final-head
   review remaining separate gates.
 
+### 2026-08-22 - Exact-head typed status and unsupported-reason admission
+
+The fresh review of `eef73280491567c210cdfe5453e5f008ab7f87c8` reproduced three
+generic contract gaps: a caller-controlled unsupported-candidate reason could
+contradict the missing-evidence posture, and list/object values for candidate
+`status` or owner-proof `owner_proof_status` raised an uncaught `TypeError`
+during set membership. The runner now preserves the source-owned v1 reason
+text and rejects non-string status values through `ContractError`; focused
+regression tests cover the accepted-shape and malformed-shape cases.
+
+This is a fail-closed admission repair only. It does not widen candidate
+families, owner proof, comparison meaning, retry/resource limits, or the
+measurement-only claim. Hosted KAG owner-family convergence, a review of the
+next exact head, and merge/post-main evidence remain separate.
+
 ## Boundaries
 
 This decision does not make a seeded report real-session proof, a local green

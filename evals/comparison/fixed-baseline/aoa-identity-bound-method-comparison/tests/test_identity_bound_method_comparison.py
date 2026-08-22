@@ -274,6 +274,18 @@ def test_metric_units_are_canonical_before_admission(runner) -> None:
         runner.build_report(payload)
 
 
+def test_non_finite_metric_values_and_json_literals_are_rejected(runner, tmp_path) -> None:
+    payload = packet(runner)
+    payload["observations"][1]["metrics"]["wall_seconds"]["value"] = float("nan")
+    with pytest.raises(runner.ContractError, match="must be finite"):
+        runner.build_report(payload)
+
+    input_path = tmp_path / "non-finite.json"
+    input_path.write_text("{\"value\": NaN}\n", encoding="utf-8")
+    with pytest.raises(runner.ContractError, match="non-finite JSON"):
+        runner._load_json(input_path)
+
+
 def test_observation_evidence_must_be_declared_and_digest_pinned(runner) -> None:
     payload = packet(runner)
     payload["observations"][1]["evidence_refs"] = ["owner-packet:missing-evidence"]
@@ -351,3 +363,10 @@ def test_partial_fit_is_rejected_and_all_methods_are_declared(runner) -> None:
     with pytest.raises(runner.ContractError, match="verdict"):
         runner.build_report(payload)
     assert set(runner.METHOD_IDS) == set(json.loads(MANUAL_CASE_PATH.read_text(encoding="utf-8"))["method_ids"])
+
+
+def test_synthetic_manual_case_keeps_baseline_visible(runner) -> None:
+    manual = json.loads(MANUAL_CASE_PATH.read_text(encoding="utf-8"))
+    case = next(item for item in manual["cases"] if item["case_id"] == "synthetic_latency_accounting_seal")
+    assert runner.METHOD_IDS[0] in case["methods"]
+    assert "controlled_same_candidate_seeded_fault" in case["methods"]

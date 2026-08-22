@@ -62,9 +62,10 @@
     {
       "case_id": "synthetic_latency_accounting_seal",
       "kind": "negative",
-      "methods": ["controlled_same_candidate_seeded_fault"],
+      "methods": ["legacy_serial_full_release", "controlled_same_candidate_seeded_fault"],
       "expected_disposition": "controlled_accounting_only",
       "asserts": [
+        "the baseline method remains visible before controlled accounting is classified",
         "synthetic measurement origin is visible",
         "synthetic values do not enter observed_values",
         "policy_verdict remains null"

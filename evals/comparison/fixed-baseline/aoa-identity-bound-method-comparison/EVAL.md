@@ -167,11 +167,14 @@ public-safe cases:
 - a negative identity mismatch
 - a duplicate-unit or duplicate-method collision
 - a regression where cache, resource, or first-failure posture is incomplete
-- a synthetic-latency accounting seal
+- a synthetic-latency accounting seal with the baseline row visible
 - an unmatched evidence-class or review-state case
 
 The cases preserve the reason for rejection and the claim limit. They contain
 no raw session transcript, private host fingerprint, or fabricated measurement.
+The controlled/synthetic accounting case declares the baseline method so its
+expected `controlled_accounting_only` disposition remains executable by a
+future harness rather than silently becoming a one-sided unmatched case.
 
 The runner uses these dispositions:
 

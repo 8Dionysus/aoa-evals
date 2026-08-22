@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 from collections import defaultdict
+import math
 from pathlib import Path
 from typing import Any
 
@@ -70,9 +71,16 @@ class ContractError(ValueError):
     """Raised when the input would make comparison semantics ambiguous."""
 
 
+def _reject_non_finite_json_constant(value: str) -> Any:
+    raise ContractError(f"non-finite JSON numeric literal is not allowed: {value}")
+
+
 def _load_json(path: Path) -> Any:
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        return json.loads(
+            path.read_text(encoding="utf-8"),
+            parse_constant=_reject_non_finite_json_constant,
+        )
     except (OSError, json.JSONDecodeError) as exc:
         raise ContractError(f"cannot load JSON {path}: {exc}") from exc
 
@@ -144,6 +152,16 @@ def _check_metric_units(observations: list[dict[str, Any]]) -> None:
             if actual_unit != expected_unit:
                 raise ContractError(
                     f"{metric_name} must use canonical unit {expected_unit!r}; got {actual_unit!r}"
+                )
+
+
+def _check_metric_finiteness(observations: list[dict[str, Any]]) -> None:
+    for observation in observations:
+        for metric_name in METRIC_NAMES:
+            measurement = observation["metrics"][metric_name]
+            if measurement["status"] == "known" and not math.isfinite(measurement["value"]):
+                raise ContractError(
+                    f"{metric_name} known value must be finite before admission"
                 )
 
 
@@ -392,6 +410,7 @@ def build_report(packet: dict[str, Any]) -> dict[str, Any]:
     _check_observation_evidence(packet)
     _check_collisions(packet["observations"])
     _check_metric_units(packet["observations"])
+    _check_metric_finiteness(packet["observations"])
     _check_observation_semantics(packet["observations"])
 
     grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)

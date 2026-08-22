@@ -64,8 +64,11 @@ The result is either `matched_observation_only`,
 `controlled_accounting_only`, or `unmatched`; the top-level draft report is
 `not_admitted` until a matched observation is actually present. A matched
 observation requires at least one schema-valid identity-provenance binding,
-and the generated report preserves one binding per admitted pair. It is not a
-speedup, causal effect, proof result, or winner verdict.
+and the generated report preserves exactly one binding per admitted pair. The
+schema bounds that parity to the six-method set: one baseline plus at most five
+candidate pairs. A positive top-level verdict also requires a positive matched
+unit and observed-pair count. It is not a speedup, causal effect, proof result,
+or winner verdict.
 
 This eval does **not** support claims that:
 
@@ -164,8 +167,10 @@ admitted pair also carries its exact matched identity tuple and the digest,
 kind, class, and reference of each bound public-safe observation artifact;
 matched positive units require at least one such binding, controlled matched
 units preserve the same binding invariant, and unmatched units carry an empty
-matched-binding list. The declared command timeout must also be finite;
-non-finite literals and numeric overflow are rejected before admission.
+matched-binding list. The report schema binds the binding-array cardinality to
+the admitted-pair count and requires a matched unit for a positive top-level
+verdict. The declared command timeout must also be finite; non-finite literals
+and numeric overflow are rejected before admission.
 
 The apply packet is therefore a contract for a future owner-local run, not
 evidence that a run occurred. The checked-in example report is intentionally

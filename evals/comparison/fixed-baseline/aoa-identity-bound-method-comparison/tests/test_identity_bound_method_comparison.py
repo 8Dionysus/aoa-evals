@@ -207,6 +207,35 @@ def test_report_schema_requires_provenance_binding_for_positive_unit(runner) -> 
     )
 
 
+def test_report_schema_requires_binding_cardinality_parity(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["matched_pair_count"] = 2
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_requires_a_matched_unit_for_positive_verdict(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["verdict"] = "matched_observation_only"
+    report["admission"]["matched_unit_count"] = 0
+    report["admission"]["matched_pair_count"] = 0
+    report["admission"]["eligible_real_pairs"] = 0
+    report["comparison_units"][0]["disposition"] = "unmatched"
+    report["comparison_units"][0]["matched_pair_count"] = 0
+    report["comparison_units"][0]["observed_pair_count"] = 0
+    report["comparison_units"][0]["matched_identity_bindings"] = []
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
 def test_report_order_is_independent_of_observation_order(runner) -> None:
     payload = packet(runner)
     extra_rows = [

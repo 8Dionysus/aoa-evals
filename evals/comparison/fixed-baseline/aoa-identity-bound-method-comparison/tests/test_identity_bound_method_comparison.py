@@ -356,6 +356,58 @@ def test_report_schema_rejects_not_admitted_with_observed_match(runner) -> None:
     assert errors
 
 
+def test_report_schema_requires_empty_observed_buckets_for_controlled_unit(runner) -> None:
+    report = runner.build_report(packet(runner, origin="controlled"))
+    coverage = report["comparison_units"][0]["metric_coverage"]["wall_seconds"]
+    coverage["observed_values"] = copy.deepcopy(coverage["controlled_values"])
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_rejects_duplicate_matched_bindings(runner) -> None:
+    report = runner.build_report(packet(runner))
+    unit = report["comparison_units"][0]
+    unit["matched_identity_bindings"] = [
+        copy.deepcopy(unit["matched_identity_bindings"][0]),
+        copy.deepcopy(unit["matched_identity_bindings"][0]),
+    ]
+    unit["matched_pair_count"] = 2
+    unit["observed_pair_count"] = 2
+    report["admission"]["matched_pair_count"] = 2
+    report["admission"]["eligible_real_pairs"] = 2
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_requires_known_posture_for_positive_binding(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["matched_identity_bindings"][0]["identity"]["cache_posture"] = {
+        "status": "unknown",
+        "id": None,
+    }
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_validator_rejects_admission_counter_drift(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["admission"]["eligible_real_pairs"] = 999
+    with pytest.raises(runner.ContractError, match="eligible_real_pairs"):
+        runner.validate_report(report)
+
+
 def test_report_schema_requires_canonical_metric_units(runner) -> None:
     report = runner.build_report(packet(runner))
     report["comparison_units"][0]["metric_coverage"]["wall_seconds"]["observed_values"][0]["unit"] = "milliseconds"

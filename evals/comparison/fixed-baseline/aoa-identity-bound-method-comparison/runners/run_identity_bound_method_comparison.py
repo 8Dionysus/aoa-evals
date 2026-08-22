@@ -21,6 +21,7 @@ from jsonschema import Draft202012Validator
 
 BUNDLE_ROOT = Path(__file__).resolve().parents[1]
 APPLY_SCHEMA_PATH = BUNDLE_ROOT / "fixtures" / "apply-packet.schema.json"
+REPORT_SCHEMA_PATH = BUNDLE_ROOT / "reports" / "summary.schema.json"
 
 METHOD_IDS = (
     "legacy_serial_full_release",
@@ -95,6 +96,38 @@ def _validate_schema(payload: Any) -> None:
         error = errors[0]
         location = ".".join(str(part) for part in error.path) or "$"
         raise ContractError(f"apply packet schema error at {location}: {error.message}")
+
+
+def validate_report(report: Any) -> None:
+    """Validate report shape and preserve admission-counter parity with units."""
+
+    schema = _load_json(REPORT_SCHEMA_PATH)
+    errors = sorted(Draft202012Validator(schema).iter_errors(report), key=lambda error: list(error.path))
+    if errors:
+        error = errors[0]
+        location = ".".join(str(part) for part in error.path) or "$"
+        raise ContractError(f"report schema error at {location}: {error.message}")
+
+    units = report["comparison_units"]
+    expected = {
+        "observation_count": sum(len(unit["method_ids"]) for unit in units),
+        "unit_count": len(units),
+        "matched_unit_count": sum(
+            unit["disposition"] == "matched_observation_only" for unit in units
+        ),
+        "controlled_accounting_unit_count": sum(
+            unit["disposition"] == "controlled_accounting_only" for unit in units
+        ),
+        "unmatched_unit_count": sum(unit["disposition"] == "unmatched" for unit in units),
+        "matched_pair_count": sum(unit["matched_pair_count"] for unit in units),
+        "eligible_real_pairs": sum(unit["observed_pair_count"] for unit in units),
+    }
+    for field, expected_value in expected.items():
+        actual_value = report["admission"][field]
+        if actual_value != expected_value:
+            raise ContractError(
+                f"report admission.{field}={actual_value!r} does not match comparison_units-derived {expected_value!r}"
+            )
 
 
 def _require_exact_method_set(packet: dict[str, Any]) -> None:
@@ -592,6 +625,7 @@ def build_report(packet: dict[str, Any]) -> dict[str, Any]:
             "no central proof, runtime health, policy, or human-acceptance verdict is emitted",
         ],
     }
+    validate_report(report)
     return report
 
 

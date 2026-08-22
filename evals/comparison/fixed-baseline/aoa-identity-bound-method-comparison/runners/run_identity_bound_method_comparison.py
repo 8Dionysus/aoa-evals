@@ -150,6 +150,14 @@ def validate_report(report: Any) -> None:
         )
 
     for unit in units:
+        method_count = len(unit["method_ids"])
+        for metric_name, metric in unit["metric_coverage"].items():
+            state_count = sum(metric["state_counts"].values()) + metric["synthetic_count"]
+            if state_count != method_count:
+                raise ContractError(
+                    f"report {metric_name}.state_counts plus synthetic_count={state_count!r} "
+                    f"does not match method count {method_count!r} for unit {unit['unit_id']!r}"
+                )
         admitted_method_ids = {
             method_id
             for binding in unit["matched_identity_bindings"]

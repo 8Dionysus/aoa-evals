@@ -89,8 +89,9 @@ verdict that still contains an observed match. The runner's `validate_report`
 semantic validator additionally binds every admission counter to the
 corresponding `comparison_units` cardinality or sum, checks metric-value method
 coverage against admitted bindings, and preserves those unmatched-reason unit
-entries; `build_report` invokes that validator before returning a report. It is
-not a speedup,
+entries, and binds each metric's state-count plus synthetic-count total to the
+unit method cardinality; `build_report` invokes that validator before returning
+a report. It is not a speedup,
 causal effect, proof result, or winner verdict.
 
 This eval does **not** support claims that:
@@ -203,9 +204,10 @@ metric value must likewise be covered by an admitted binding, and each unit
 with an unmatched disposition or mismatch reason must remain represented in
 `unmatched_cases`. `validate_report` checks the report schema and verifies that
 observation, unit, disposition, matched-pair, and eligible-real-pair admission
-counters equal the derived `comparison_units` values. The declared command
-timeout must also be finite; non-finite literals and numeric overflow are
-rejected before admission.
+counters equal the derived `comparison_units` values, and that every metric
+state-count plus synthetic-count total equals the unit method cardinality. The
+declared command timeout must also be finite; non-finite literals and numeric
+overflow are rejected before admission.
 
 The apply packet is therefore a contract for a future owner-local run, not
 evidence that a run occurred. The checked-in example report is intentionally
@@ -295,6 +297,8 @@ The instrument must fail closed on:
 - a candidate method repeated across admitted bindings;
 - an observed or controlled metric value whose method has no corresponding
   admitted binding;
+- metric state counts plus synthetic count that do not equal the unit method
+  cardinality;
 - an unmatched unit with nonzero pair counts or a matched binding;
 - an unmatched unit with observed or controlled metric values;
 - an observed-pair count greater than the admitted-pair count;

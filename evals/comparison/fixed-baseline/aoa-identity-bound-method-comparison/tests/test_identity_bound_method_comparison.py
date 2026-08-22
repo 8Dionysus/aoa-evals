@@ -446,6 +446,15 @@ def test_report_validator_preserves_unmatched_reason_units(runner) -> None:
         runner.validate_report(report)
 
 
+def test_report_validator_binds_metric_state_counts_to_unit_methods(runner) -> None:
+    report = json.loads(
+        (BUNDLE_ROOT / "reports" / "example-report.json").read_text(encoding="utf-8")
+    )
+    report["comparison_units"][0]["metric_coverage"]["wall_seconds"]["state_counts"]["unknown"] += 1
+    with pytest.raises(runner.ContractError, match="state_counts"):
+        runner.validate_report(report)
+
+
 def test_report_schema_requires_known_posture_for_positive_binding(runner) -> None:
     report = runner.build_report(packet(runner))
     report["comparison_units"][0]["matched_identity_bindings"][0]["identity"]["cache_posture"] = {

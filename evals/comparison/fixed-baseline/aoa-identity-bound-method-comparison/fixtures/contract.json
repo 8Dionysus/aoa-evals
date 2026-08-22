@@ -12,7 +12,7 @@
     "a positive report verdict requires a positive matched unit and observed-pair count",
     "admitted units declare identity_match true, unmatched units declare identity_match false with zero pair counts, no bindings, and empty metric value buckets, and positive observed units expose baseline and a candidate method from an admitted binding for at least one canonical-unit metric",
     "observed_pair_count does not exceed matched_pair_count, controlled-only units have empty observed-value buckets, and a not_admitted report cannot retain an observed matched unit or eligible real pair",
-    "report admission counters must equal the derived comparison-unit cardinalities and pair sums; the runner's validate_report semantic validator enforces this parity, metric-value binding coverage, and unmatched-reason preservation for reports produced or consumed outside the packet builder",
+    "report admission counters must equal the derived comparison-unit cardinalities and pair sums; the runner's validate_report semantic validator enforces this parity, metric-value binding coverage, unmatched-reason preservation, and per-metric state-count plus synthetic-count parity with unit method cardinality for reports produced or consumed outside the packet builder",
     "command.timeout_seconds is finite; non-finite literals and numeric overflow are rejected before admission",
     "baseline and method rows share the complete identity tuple before comparison",
     "cache posture and resource posture are explicit and known before an observed pair is admitted",

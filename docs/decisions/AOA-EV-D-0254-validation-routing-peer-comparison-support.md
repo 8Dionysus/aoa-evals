@@ -133,6 +133,27 @@ proof, or a runtime performance result, and it leaves the owner gate intact.
   and fixture/example parity assertion remain separate from hosted and KAG
   owner-family gates.
 
+### 2026-08-22 - Retry materialization boundary repair
+
+- Previous assumption: any admitted non-negative retry_count could be
+  expanded into one event per attempt without a source-owned resource bound.
+- New reality: a compact input such as retry_count=1000000000 was admitted,
+  and per-target event construction could allocate retry_count + 1 dicts;
+  target fanout multiplied that allocation before aggregate checks.
+- Decision: retain one event per admitted attempt, but require a source-owned
+  retry_count cap of 64 and a per-signal materialization budget of 4096
+  events. Reject boolean, negative, over-cap, and target-fanout inputs before
+  proportional allocation. Do not replace retry evidence with compact
+  aggregation in this v1.
+- Reason: the bounded combination preserves exact attempt count, retry
+  amplification, first-failure latency, and failure-state semantics while
+  making resource consequences finite and machine-readable.
+- Source surfaces updated: peer-compare runner, contract, report schema,
+  fixture note, proof-flow dossier, example, and focused adversarial tests.
+- Validation: direct huge-count admission rejection, admitted-boundary
+  semantic checks, target-fanout preflight, focused runner/schema tests, and
+  full repository validation remain separate from hosted KAG-family gates.
+
 ## Boundaries
 
 This decision does not make a seeded report real-session proof, a local green

@@ -95,6 +95,16 @@ EXPECTED_LATENCY_POLICY = {
     "source": "seeded fixture event declarations",
     "interpretation_limit": "not observed runtime latency or a performance ranking",
 }
+MAX_RETRY_COUNT = 64
+MAX_MATERIALIZED_EVENTS_PER_SIGNAL = 4096
+EXPECTED_RESOURCE_POLICY = {
+    "kind": "source_owned_retry_materialization_cap",
+    "max_retry_count": MAX_RETRY_COUNT,
+    "max_materialized_events_per_signal": MAX_MATERIALIZED_EVENTS_PER_SIGNAL,
+    "materialization_rule": "target_count * (retry_count + 1) <= max_materialized_events_per_signal",
+    "retry_representation": "one_event_per_admitted_attempt",
+    "overflow_behavior": "reject_before_event_allocation",
+}
 EXPECTED_SPEED_CLAIM_STATUS = "rejected_as_final_saving_until_owner_receipts_are bound"
 
 STATIC_PATH_RULES: tuple[tuple[str, str], ...] = (
@@ -212,6 +222,38 @@ def validate_latency_weights(value: Any) -> dict[str, float]:
             "latency_event_weights_ms_synthetic_proxy values must be finite non-negative numbers"
         )
     return {method_id: float(value[method_id]) for method_id in LATENCY_COMPONENT_METHOD_IDS}
+
+
+def validate_retry_count(value: Any, *, field: str) -> int:
+    if not isinstance(value, int) or isinstance(value, bool) or value < 0:
+        raise ContractError(f"{field} must be a non-negative integer")
+    if value > MAX_RETRY_COUNT:
+        raise ContractError(
+            f"{field} exceeds source-owned retry_count cap {MAX_RETRY_COUNT}"
+        )
+    return value
+
+
+def validate_event_materialization_budget(
+    target_count: int,
+    retry_count: int,
+    *,
+    existing_count: int = 0,
+    field: str,
+) -> int:
+    if not isinstance(target_count, int) or isinstance(target_count, bool) or target_count < 0:
+        raise ContractError(f"{field} target count must be a non-negative integer")
+    if not isinstance(existing_count, int) or isinstance(existing_count, bool) or existing_count < 0:
+        raise ContractError(f"{field} existing event count must be a non-negative integer")
+    validate_retry_count(retry_count, field=f"{field}.retry_count")
+    planned_count = target_count * (retry_count + 1)
+    total_count = existing_count + planned_count
+    if total_count > MAX_MATERIALIZED_EVENTS_PER_SIGNAL:
+        raise ContractError(
+            f"{field} would materialize {total_count} events; source-owned per-signal budget is "
+            f"{MAX_MATERIALIZED_EVENTS_PER_SIGNAL}"
+        )
+    return planned_count
 
 
 def static_path_targets(scenario: dict[str, Any]) -> tuple[list[str], list[tuple[str, str]]]:
@@ -426,6 +468,11 @@ def validate_contract(contract: dict[str, Any]) -> None:
         raise ContractError(
             "latency_policy must preserve the complete synthetic fixture proxy v1 posture"
         )
+    resource_policy = contract.get("resource_policy")
+    if resource_policy != EXPECTED_RESOURCE_POLICY:
+        raise ContractError(
+            "resource_policy must preserve the source-owned retry materialization boundary"
+        )
 
     if contract.get("oracle_rule") != EXPECTED_ORACLE_RULE:
         raise ContractError(
@@ -608,6 +655,12 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
             raise ContractError(f"scenario {scenario_id} changes environment_id across peers")
         if not isinstance(scenario.get("signals"), dict):
             raise ContractError(f"scenario {scenario_id}.signals must be an object")
+        for signal_id, signal in scenario["signals"].items():
+            if isinstance(signal, dict) and "retry_count" in signal:
+                validate_retry_count(
+                    signal["retry_count"],
+                    field=f"{scenario_id}.signals.{signal_id}.retry_count",
+                )
         unique_strings(scenario.get("changed_paths"), field=f"{scenario_id}.changed_paths")
         method_overrides = scenario.get("method_overrides")
         if method_overrides is not None and not isinstance(method_overrides, dict):
@@ -669,8 +722,13 @@ def add_events(
     explanation: str,
     retry_count: int = 0,
 ) -> None:
-    if not isinstance(retry_count, int) or retry_count < 0:
-        raise ContractError(f"retry_count for {target!r} must be a non-negative integer")
+    validate_retry_count(retry_count, field=f"retry_count for {target!r}")
+    validate_event_materialization_budget(
+        1,
+        retry_count,
+        existing_count=len(events),
+        field=f"retry materialization for {target!r}",
+    )
     if not is_finite_non_negative_number(latency_ms):
         raise ContractError(
             f"{SYNTHETIC_LATENCY_FIELD} for {target!r} must be a finite non-negative number"
@@ -706,8 +764,13 @@ def signal_result(
     nodes = list(normalized.nodes)
     normalized_to_blocked = normalized.normalized_to_blocked
     retry_count = signal.get("retry_count", 0)
-    if not isinstance(retry_count, int) or isinstance(retry_count, bool) or retry_count < 0:
-        raise ContractError(f"retry_count for {method_id!r} must be a non-negative integer")
+    validate_retry_count(retry_count, field=f"retry_count for {method_id!r}")
+    target_count = len(nodes) if state == expected_state else 1
+    validate_event_materialization_budget(
+        target_count,
+        retry_count,
+        field=f"retry materialization for {method_id!r}",
+    )
     events: list[dict[str, Any]] = []
     activated: list[str] = []
     explanations: list[str] = []
@@ -1122,6 +1185,7 @@ def build_report(contract: dict[str, Any], cases: dict[str, Any]) -> dict[str, A
             "real_evidence_status": evidence_policy["real_evidence_status"],
         },
         "latency_posture": dict(latency_policy),
+        "resource_policy": dict(contract["resource_policy"]),
         "comparison_identity": identity,
         "comparison_identity_digest": canonical_digest(identity),
         "input_evidence": cases["input_evidence"],

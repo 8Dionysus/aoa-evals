@@ -16,6 +16,14 @@
     "source": "seeded fixture event declarations",
     "interpretation_limit": "not observed runtime latency or a performance ranking"
   },
+  "resource_policy": {
+    "kind": "source_owned_retry_materialization_cap",
+    "max_retry_count": 64,
+    "max_materialized_events_per_signal": 4096,
+    "materialization_rule": "target_count * (retry_count + 1) <= max_materialized_events_per_signal",
+    "retry_representation": "one_event_per_admitted_attempt",
+    "overflow_behavior": "reject_before_event_allocation"
+  },
   "real_miss_count": null,
   "example_measurements": [
     {

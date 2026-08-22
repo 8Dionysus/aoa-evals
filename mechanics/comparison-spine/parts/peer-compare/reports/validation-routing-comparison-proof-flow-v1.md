@@ -52,6 +52,16 @@ The report records:
 - candidate explanations and unexplained misses; and
 - fail-closed escalation details, including fallback status.
 
+Retry evidence is materialized as one event per admitted attempt. The
+source-owned resource boundary admits counts from 0 through 64 and bounds each
+signal to 4096 events using
+target_count * (retry_count + 1) <= 4096; invalid, over-cap, and
+target-fanout inputs fail before event allocation. The bounded combination
+preserves exact attempt counts, retry amplification, cumulative
+first-failure latency, and final failure status within the admitted boundary.
+Compact aggregation is not used in this v1, so the resource policy is explicit
+in the contract, report schema, example, and runner tests.
+
 All fallback or external-owner timing remains unmeasured unless an actual
 identity-bound receipt exists.
 

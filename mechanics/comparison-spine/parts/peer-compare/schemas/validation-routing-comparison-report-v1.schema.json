@@ -14,6 +14,7 @@
     "fixture_id",
     "evidence_posture",
     "latency_posture",
+    "resource_policy",
     "comparison_identity",
     "comparison_identity_digest",
     "input_evidence",
@@ -36,6 +37,7 @@
     "fixture_id": {"const": "validation-routing-bounded-v1"},
     "evidence_posture": {"$ref": "#/$defs/evidence_posture"},
     "latency_posture": {"$ref": "#/$defs/latency_posture"},
+    "resource_policy": {"$ref": "#/$defs/resource_policy"},
     "comparison_identity": {"$ref": "#/$defs/comparison_identity"},
     "comparison_identity_digest": {
       "type": "string",
@@ -145,6 +147,28 @@
         "interpretation_limit": {
           "const": "not observed runtime latency or a performance ranking"
         }
+      }
+    },
+    "resource_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "max_retry_count",
+        "max_materialized_events_per_signal",
+        "materialization_rule",
+        "retry_representation",
+        "overflow_behavior"
+      ],
+      "properties": {
+        "kind": {"const": "source_owned_retry_materialization_cap"},
+        "max_retry_count": {"const": 64},
+        "max_materialized_events_per_signal": {"const": 4096},
+        "materialization_rule": {
+          "const": "target_count * (retry_count + 1) <= max_materialized_events_per_signal"
+        },
+        "retry_representation": {"const": "one_event_per_admitted_attempt"},
+        "overflow_behavior": {"const": "reject_before_event_allocation"}
       }
     },
     "comparison_identity": {

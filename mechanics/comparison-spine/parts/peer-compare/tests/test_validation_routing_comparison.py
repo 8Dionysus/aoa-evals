@@ -112,6 +112,180 @@ def test_contract_rejects_latency_posture_drift() -> None:
         comparison.build_report(contract, load_json(CASES_PATH))
 
 
+def test_contract_rejects_retry_resource_policy_drift() -> None:
+    contract = load_json(CONTRACT_PATH)
+    contract["resource_policy"]["max_retry_count"] = 65
+
+    with pytest.raises(comparison.ContractError, match="resource_policy"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+def test_report_emits_source_owned_retry_resource_policy(report: dict) -> None:
+    assert report["resource_policy"] == comparison.EXPECTED_RESOURCE_POLICY
+
+
+@pytest.mark.parametrize("retry_count", [True, -1, 1.5, None])
+def test_retry_count_boolean_negative_and_non_integer_inputs_are_rejected(
+    retry_count: object,
+) -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["signals"]["dependency_graph"]["retry_count"] = retry_count
+
+    with pytest.raises(comparison.ContractError, match="retry_count"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+@pytest.mark.parametrize(
+    "retry_count",
+    [comparison.MAX_RETRY_COUNT + 1, 1_000_000_000],
+)
+def test_retry_count_above_source_cap_is_rejected_before_report_build(
+    retry_count: int,
+) -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["signals"]["dependency_graph"]["retry_count"] = retry_count
+
+    with pytest.raises(comparison.ContractError, match="source-owned retry_count cap"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_admitted_retry_boundary_preserves_attempts_and_latency() -> None:
+    contract = load_json(CONTRACT_PATH)
+    cases = load_json(CASES_PATH)
+    scenario = cases["scenarios"][0]
+    signal = copy.deepcopy(scenario["signals"]["dependency_graph"])
+    signal["retry_count"] = comparison.MAX_RETRY_COUNT
+
+    proposal = comparison.signal_result(
+        signal,
+        method_id="dependency_graph",
+        expected_state="current",
+        latency_ms=3.5,
+    )
+    candidate = next(
+        entry
+        for entry in contract["candidate_catalog"]
+        if entry["method_id"] == "dependency_graph"
+    )
+    result = comparison.finalize_result(
+        method_id="dependency_graph",
+        candidate=candidate,
+        scenario=scenario,
+        proposal=proposal,
+    )
+
+    assert len(result["events"]) == 2 * (comparison.MAX_RETRY_COUNT + 1)
+    assert result["attempt_count"] == 130
+    assert result["unique_attempt_targets"] == 2
+    assert result["retry_amplification"] == 65.0
+    assert result["total_latency_ms_synthetic_proxy"] == pytest.approx(455.0)
+    assert all(
+        event["status"] == "retry"
+        for event in result["events"]
+        if event["attempt"] <= comparison.MAX_RETRY_COUNT
+    )
+    assert all(
+        event["status"] == "activated"
+        for event in result["events"]
+        if event["attempt"] == comparison.MAX_RETRY_COUNT + 1
+    )
+
+
+def test_retry_failure_semantics_preserve_first_failure_and_status() -> None:
+    contract = load_json(CONTRACT_PATH)
+    cases = load_json(CASES_PATH)
+    scenario = cases["scenarios"][1]
+    signal = copy.deepcopy(scenario["signals"]["dependency_graph"])
+    signal["retry_count"] = 2
+
+    proposal = comparison.signal_result(
+        signal,
+        method_id="dependency_graph",
+        expected_state="current",
+        latency_ms=3.5,
+    )
+    candidate = next(
+        entry
+        for entry in contract["candidate_catalog"]
+        if entry["method_id"] == "dependency_graph"
+    )
+    result = comparison.finalize_result(
+        method_id="dependency_graph",
+        candidate=candidate,
+        scenario=scenario,
+        proposal=proposal,
+    )
+
+    assert [event["status"] for event in result["events"]] == ["retry", "retry", "stale"]
+    assert result["attempt_count"] == 3
+    assert result["unique_attempt_targets"] == 1
+    assert result["retry_amplification"] == 3.0
+    assert result["total_latency_ms_synthetic_proxy"] == pytest.approx(10.5)
+    assert result["first_failure_latency_ms_synthetic_proxy"] == pytest.approx(10.5)
+
+
+def test_target_fanout_is_rejected_before_event_allocation(monkeypatch: pytest.MonkeyPatch) -> None:
+    cases = load_json(CASES_PATH)
+    signal = copy.deepcopy(cases["scenarios"][0]["signals"]["dependency_graph"])
+    signal["nodes"] = [
+        f"node-{index}"
+        for index in range(comparison.MAX_MATERIALIZED_EVENTS_PER_SIGNAL + 1)
+    ]
+    calls: list[object] = []
+    monkeypatch.setattr(
+        comparison,
+        "add_events",
+        lambda *args, **kwargs: calls.append((args, kwargs)),
+    )
+
+    with pytest.raises(comparison.ContractError, match="per-signal budget"):
+        comparison.signal_result(
+            signal,
+            method_id="dependency_graph",
+            expected_state="current",
+            latency_ms=3.5,
+        )
+
+    assert calls == []
+
+
+def test_target_fanout_at_budget_preserves_one_event_per_attempt() -> None:
+    cases = load_json(CASES_PATH)
+    signal = copy.deepcopy(cases["scenarios"][0]["signals"]["dependency_graph"])
+    signal["nodes"] = [
+        f"node-{index}"
+        for index in range(comparison.MAX_MATERIALIZED_EVENTS_PER_SIGNAL // 2)
+    ]
+    signal["retry_count"] = 1
+
+    proposal = comparison.signal_result(
+        signal,
+        method_id="dependency_graph",
+        expected_state="current",
+        latency_ms=3.5,
+    )
+
+    assert len(proposal["events"]) == comparison.MAX_MATERIALIZED_EVENTS_PER_SIGNAL
+    assert proposal["events"][0]["attempt"] == 1
+    assert proposal["events"][-1]["attempt"] == 2
+
+
+def test_add_events_rejects_over_cap_without_partial_materialization() -> None:
+    events: list[dict] = []
+
+    with pytest.raises(comparison.ContractError, match="source-owned retry_count cap"):
+        comparison.add_events(
+            events,
+            target="dependency_graph",
+            status="activated",
+            latency_ms=3.5,
+            explanation="test",
+            retry_count=1_000_000_000,
+        )
+
+    assert events == []
+
+
 def test_speed_claim_status_cannot_claim_runtime_policy_selection() -> None:
     cases = load_json(CASES_PATH)
     cases["input_evidence"]["observed_wall_clock_proxies"][
@@ -609,6 +783,7 @@ def test_example_preserves_runner_measurements_and_unsupported_candidates(report
     assert example["selection_status"] == report["selection_status"]
     assert example["evidence_posture"] == report["evidence_posture"]
     assert example["latency_posture"] == report["latency_posture"]
+    assert example["resource_policy"] == report["resource_policy"]
     assert example["real_miss_count"] is None
 
     methods = {entry["method_id"]: entry for entry in report["methods"]}
@@ -671,6 +846,7 @@ def test_report_schema_declares_required_measurements() -> None:
         "policy_verdict",
         "evidence_posture",
         "latency_posture",
+        "resource_policy",
         "candidate_catalog",
         "adversarial_classes_covered",
         "methods",

@@ -42,6 +42,16 @@ first-failure totals, and method totals are checked after each addition. An
 overflowing aggregate fails closed before report emission; the CLI also uses
 strict JSON serialization and never emits non-standard `Infinity` or `NaN`.
 
+Retry evidence remains one event per admitted attempt, so retry amplification,
+attempt counts, first-failure latency, and failure status stay measurable. The
+source-owned resource policy admits retry_count from 0 through 64 and permits
+at most 4096 materialized events per signal under
+target_count * (retry_count + 1) <= 4096. Boolean, negative, over-cap, and
+target-fanout inputs are rejected before proportional event allocation. This
+v1 chooses a bounded combination rather than compact aggregation; the cap is a
+resource boundary, not a fixture-only lowering or a claim that unbounded
+retry evidence is safe.
+
 Required adversarial classes:
 
 - stale graph;

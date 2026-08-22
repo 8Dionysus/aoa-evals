@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 19023838,
+  "allowed_tracked_bytes": 26978468,
+  "approved_by": "repository-owner",
+  "base_ref": "cb734788b8a6fff9869f63bdf890fc54dbaf6563",
+  "changed_generated_bytes": 19023838,
+  "changed_generated_files": 295,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "cee7b8f3c73b1f1e5ed0f8d52da5ffd22ba9f745aeb7bee0625e1d640463ce62",
+  "reason": "PR 454 review found two generic fail-closed gaps in the existing aoa-evals comparison-spine contract: adversarial coverage must verify candidate/environment identity dimensions explicitly, and seeded speed-claim posture must remain an exact measurement-only rejection value. The owner generator deterministically rewrites the portable family from these owner source, schema, and negative-test changes; this is bounded shard amplification, not authored duplicate or cross-owner payload. Admit this exact repair candidate under AOA-KAG-D-0017 while preserving the standing 1 MiB generated-delta and 25 MiB tracked-size limits.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 26978468,
+  "tracked_bytes_max": 26214400
+}

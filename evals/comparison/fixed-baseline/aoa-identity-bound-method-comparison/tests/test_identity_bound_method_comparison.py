@@ -170,6 +170,33 @@ def test_observed_identity_match_is_narrow_and_deterministic(runner) -> None:
     assert first["comparison_units"][0]["metric_coverage"]["retry_amplification"]["state_counts"]["unobservable"] == 2
 
 
+def test_report_order_is_independent_of_observation_order(runner) -> None:
+    payload = packet(runner)
+    extra_rows = [
+        observation(runner, "unit-00", method_id)
+        for method_id in ("owner_focused_affected_only", "legacy_serial_full_release")
+    ]
+    payload["observations"].extend(extra_rows)
+    payload["artifacts"].extend(
+        {
+            "ref": row["evidence_refs"][0],
+            "digest": digest(str(index + 5)),
+            "kind": "public-safe-observation",
+            "evidence_class": "reviewed-owner-packet",
+        }
+        for index, row in enumerate(extra_rows)
+    )
+
+    reordered = copy.deepcopy(payload)
+    reordered["observations"].reverse()
+
+    assert runner.build_report(reordered) == runner.build_report(payload)
+    assert [unit["unit_id"] for unit in runner.build_report(reordered)["comparison_units"]] == [
+        "unit-00",
+        "unit-01",
+    ]
+
+
 def test_identity_mismatch_is_unmatched_and_visible(runner) -> None:
     payload = packet(runner)
     payload["observations"][1]["identity"]["route_or_treatment_identity"] = "treatment-B"

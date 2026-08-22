@@ -460,7 +460,8 @@ def build_report(packet: dict[str, Any]) -> dict[str, Any]:
 
     units: list[dict[str, Any]] = []
     unmatched_cases: list[dict[str, Any]] = []
-    for unit_id, rows in grouped.items():
+    for unit_id in sorted(grouped):
+        rows = sorted(grouped[unit_id], key=lambda row: row["method_id"])
         unit, unit_unmatched = _unit_result(
             unit_id,
             rows,

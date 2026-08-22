@@ -156,7 +156,8 @@ method set, and explicit observations.
 `runners/run_identity_bound_method_comparison.py` validates and consumes this
 packet. It never invokes `command.argv`, reads live runtime state, invents
 telemetry, or repairs absent fields. It deterministically emits the report
-schema at `reports/summary.schema.json`.
+schema at `reports/summary.schema.json`, with comparison units ordered by
+`unit_id` and row-derived arrays ordered by canonical `method_id`.
 
 The apply packet is therefore a contract for a future owner-local run, not
 evidence that a run occurred. The checked-in example report is intentionally

@@ -48,6 +48,12 @@ REQUIRED_ADVERSARIAL_CLASSES = {
     "unexplained_miss",
     "unbound_external_owner",
 }
+EXPECTED_ORACLE_RULE = {
+    "oracle": "full_owner_proof",
+    "fallback": "full_owner_proof",
+    "unknown_rule": "preserve stale, unknown, malformed, and wrong-identity state; escalate without treating it as zero or green",
+    "policy_rule": "measurement only; no method winner, release verdict, or routing policy is emitted",
+}
 
 STATIC_PATH_RULES: tuple[tuple[str, str], ...] = (
     ("scripts/", "source_fast"),
@@ -221,6 +227,11 @@ def validate_contract(contract: dict[str, Any]) -> None:
         raise ContractError("synthetic fixture proxy latency must not be marked runtime observed")
     if latency_policy.get("field_suffix") != "_synthetic_proxy":
         raise ContractError("synthetic latency fields must retain their explicit field suffix")
+
+    if contract.get("oracle_rule") != EXPECTED_ORACLE_RULE:
+        raise ContractError(
+            "oracle_rule must preserve the complete full-owner-proof v1 rule and measurement-only policy boundary"
+        )
 
     candidates = contract.get("candidate_catalog")
     if not isinstance(candidates, list) or not candidates:

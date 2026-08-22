@@ -53,9 +53,18 @@ def test_report_is_measurement_only_and_covers_required_adversarial_classes(repo
         "wrong_candidate_environment_receipt",
         "malformed_receipt",
         "unexplained_miss",
+        "unbound_external_owner",
     }.issubset(report["adversarial_classes_covered"])
     assert report["real_case_count"] == 0
     assert report["seeded_case_count"] == 7
+
+
+def test_contract_rejects_full_owner_proof_rule_drift() -> None:
+    contract = load_json(CONTRACT_PATH)
+    contract["oracle_rule"]["oracle"] = "heuristic"
+
+    with pytest.raises(comparison.ContractError, match="oracle_rule"):
+        comparison.validate_contract(contract)
 
 
 def test_peer_identity_is_constant_for_each_scenario(report: dict) -> None:

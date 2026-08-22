@@ -25,7 +25,8 @@ Required adversarial classes:
 - unknown dependency;
 - wrong candidate/environment receipt;
 - malformed receipt; and
-- unexplained miss.
+- unexplained miss; and
+- unbound external owner.
 
 The family intentionally records unsupported candidates for API/ABI, coverage,
 mutation, live KAG relations, and LLM-proposed additions rather than inventing

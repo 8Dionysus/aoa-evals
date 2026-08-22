@@ -108,6 +108,22 @@ def _check_collisions(observations: list[dict[str, Any]]) -> None:
         seen.add(key)
 
 
+def _check_observation_semantics(observations: list[dict[str, Any]]) -> None:
+    for observation in observations:
+        if observation["measurement_origin"] != "unobservable":
+            continue
+        known_metrics = [
+            metric_name
+            for metric_name in METRIC_NAMES
+            if observation["metrics"][metric_name]["status"] == "known"
+        ]
+        if known_metrics:
+            raise ContractError(
+                "measurement_origin=unobservable cannot carry known metrics: "
+                + ", ".join(known_metrics)
+            )
+
+
 def _identity_mismatches(
     baseline: dict[str, Any], candidate: dict[str, Any]
 ) -> list[str]:
@@ -129,10 +145,7 @@ def _packet_binding_mismatches(
     mismatches: list[str] = []
     if identity["environment_id"] != environment["environment_id"]:
         mismatches.append("identity.environment_id")
-    if identity["source_ref_or_digest"] not in {
-        packet["source_ref"],
-        packet["source_digest"],
-    }:
+    if identity["source_ref_or_digest"] != packet["source_digest"]:
         mismatches.append("identity.source_ref_or_digest")
     for field in ("cache_posture", "resource_posture"):
         if identity[field] != environment[field]:
@@ -140,7 +153,9 @@ def _packet_binding_mismatches(
     return mismatches
 
 
-def _metric_coverage(rows: list[dict[str, Any]]) -> dict[str, Any]:
+def _metric_coverage(
+    rows: list[dict[str, Any]], *, eligible_observed_method_ids: set[str]
+) -> dict[str, Any]:
     coverage: dict[str, Any] = {}
     for metric_name in METRIC_NAMES:
         status_counts = {
@@ -165,7 +180,7 @@ def _metric_coverage(rows: list[dict[str, Any]]) -> dict[str, Any]:
             else:
                 status_counts["known"] += 1
                 value = {"method_id": row["method_id"], "value": measurement["value"], "unit": measurement["unit"]}
-                if origin == "observed":
+                if origin == "observed" and row["method_id"] in eligible_observed_method_ids:
                     observed_values.append(value)
                 elif origin == "controlled":
                     controlled_values.append(value)
@@ -198,7 +213,7 @@ def _unit_result(
                 "identity_match": False,
                 "mismatched_fields": ["baseline_method_id"],
                 "observation_refs": sorted({ref for row in rows for ref in row["evidence_refs"]}),
-                "metric_coverage": _metric_coverage(rows),
+                "metric_coverage": _metric_coverage(rows, eligible_observed_method_ids=set()),
                 "claim_limit": "no declared baseline row; no method pair admitted",
             },
             [{"unit_id": unit_id, "reason": "baseline_method_missing", "mismatched_fields": ["baseline_method_id"]}],
@@ -219,7 +234,7 @@ def _unit_result(
                 "identity_match": False,
                 "mismatched_fields": ["comparison_candidate_method_id"],
                 "observation_refs": sorted({ref for row in rows for ref in row["evidence_refs"]}),
-                "metric_coverage": _metric_coverage(rows),
+                "metric_coverage": _metric_coverage(rows, eligible_observed_method_ids=set()),
                 "claim_limit": "one-sided baseline; no method pair admitted",
             },
             [{"unit_id": unit_id, "reason": reason, "mismatched_fields": ["comparison_candidate_method_id"]}],
@@ -227,7 +242,9 @@ def _unit_result(
 
     all_mismatches: list[str] = []
     pair_count = 0
-    controlled_only = False
+    observed_pair_count = 0
+    controlled_pair_count = 0
+    eligible_observed_method_ids: set[str] = set()
     for candidate in candidates:
         mismatches = _identity_mismatches(baseline, candidate)
         mismatches.extend(_packet_binding_mismatches(baseline, packet))
@@ -236,8 +253,10 @@ def _unit_result(
             mismatches.append("review_status.baseline")
         if candidate["review_status"] not in OBSERVED_REVIEW_STATUSES:
             mismatches.append(f"review_status.{candidate['method_id']}")
-        if baseline["measurement_origin"] != "observed" or candidate["measurement_origin"] != "observed":
-            controlled_only = True
+        if baseline["measurement_origin"] == "unobservable":
+            mismatches.append("measurement_origin.baseline")
+        if candidate["measurement_origin"] == "unobservable":
+            mismatches.append(f"measurement_origin.{candidate['method_id']}")
         if mismatches:
             all_mismatches.extend(mismatches)
             unmatched.append(
@@ -250,17 +269,22 @@ def _unit_result(
             )
         else:
             pair_count += 1
+            if baseline["measurement_origin"] == "observed" and candidate["measurement_origin"] == "observed":
+                observed_pair_count += 1
+                eligible_observed_method_ids.update({baseline_method_id, candidate["method_id"]})
+            else:
+                controlled_pair_count += 1
 
     method_ids = [method_id for method_id in METHOD_IDS if method_id in {row["method_id"] for row in rows}]
     review_statuses = sorted({row["review_status"] for row in rows})
     evidence_classes = sorted({row["identity"]["evidence_class"] for row in rows})
     refs = sorted({ref for row in rows for ref in row["evidence_refs"]})
-    if pair_count and controlled_only:
-        disposition = "controlled_accounting_only"
-        claim_limit = "identity-matched accounting only; controlled or synthetic values are not observed effect"
-    elif pair_count:
+    if observed_pair_count:
         disposition = "matched_observation_only"
         claim_limit = "identity-bound observation pair only; no effect, proof, policy, or winner claim"
+    elif controlled_pair_count:
+        disposition = "controlled_accounting_only"
+        claim_limit = "identity-matched accounting only; controlled or synthetic values are not observed effect"
     else:
         disposition = "unmatched"
         claim_limit = "no eligible identity- and parity-matched method pair"
@@ -277,7 +301,9 @@ def _unit_result(
         "identity_match": pair_count > 0,
         "mismatched_fields": sorted(set(all_mismatches)),
         "observation_refs": refs,
-        "metric_coverage": _metric_coverage(rows),
+        "metric_coverage": _metric_coverage(
+            rows, eligible_observed_method_ids=eligible_observed_method_ids
+        ),
         "claim_limit": claim_limit,
     }
     return result, unmatched
@@ -291,6 +317,7 @@ def build_report(packet: dict[str, Any]) -> dict[str, Any]:
     _check_prerequisites(packet)
     _check_source_identity(packet)
     _check_collisions(packet["observations"])
+    _check_observation_semantics(packet["observations"])
 
     grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for observation in packet["observations"]:

@@ -105,8 +105,12 @@ Every comparison unit carries these exact identity fields:
 
 The baseline and each method row must match these values exactly. Cache and
 resource posture must have `status: known` for an eligible observed pair.
-Source or candidate identity must include an explicit `sha256:` digest. Every
-row must be `reviewed` or `controlled`; provisional rows remain unmatched.
+The `source_ref_or_digest` identity field must carry the packet's exact
+`source_digest`; a mutable source ref is not an admissible observation binding.
+Every row must be `reviewed` or `controlled`; provisional rows remain
+unmatched. An `unobservable`-origin row is never an eligible method pair, and
+known metric values under that origin are a contract error rather than an
+observed value.
 
 The contract keeps all of these states distinct:
 
@@ -162,8 +166,8 @@ The runner uses these dispositions:
 - `matched_observation_only` when an observed baseline/candidate pair passes
   identity and parity;
 - `controlled_accounting_only` when the pair is controlled or synthetic;
-- `unmatched` when identity, review, posture, or comparison coverage is not
-  eligible;
+- `unmatched` when identity, review, posture, origin, or comparison coverage is
+  not eligible;
 - `contract_error` when the packet collides or fails its schema.
 
 No disposition creates `policy_verdict`; it remains JSON `null`.

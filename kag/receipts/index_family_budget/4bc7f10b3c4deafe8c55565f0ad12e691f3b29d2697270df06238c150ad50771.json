@@ -8,7 +8,7 @@
   "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
   "default_limit_bytes": 1048576,
   "head_family_digest": "4bc7f10b3c4deafe8c55565f0ad12e691f3b29d2697270df06238c150ad50771",
-  "reason": "Regenerate the governed aoa-evals portable v3 family with the exact aoa-kag CI action generator after PR #455 exposed a compatibility-digest mismatch; preserve the bounded candidate-only comparison ABI with no runtime or policy claim expansion.",
+  "reason": "Regenerate the governed aoa-evals portable v3 family with the exact aoa-kag@cc0ba190 generator after the bounded identity/evidence admission repair in PR #455; preserve the draft candidate-only claim with no runtime or policy expansion.",
   "repo": "aoa-evals",
   "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
   "scope": "generated_delta_and_tracked_size",

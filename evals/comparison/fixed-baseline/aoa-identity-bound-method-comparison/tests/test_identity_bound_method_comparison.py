@@ -169,6 +169,55 @@ def test_identity_mismatch_is_unmatched_and_visible(runner) -> None:
     assert report["unmatched_cases"][0]["mismatched_fields"]
 
 
+def test_mutable_source_ref_is_not_an_observation_binding(runner) -> None:
+    payload = packet(runner)
+    payload["observations"][1]["identity"]["source_ref_or_digest"] = payload["source_ref"]
+    with pytest.raises(runner.ContractError, match="source_ref_or_digest"):
+        runner.build_report(payload)
+
+
+def test_unmatched_observed_rows_do_not_enter_observed_values(runner) -> None:
+    payload = packet(runner)
+    payload["observations"][1]["review_status"] = "provisional"
+    report = runner.build_report(payload)
+    unit = report["comparison_units"][0]
+    assert unit["disposition"] == "unmatched"
+    assert unit["metric_coverage"]["wall_seconds"]["observed_values"] == []
+
+
+def test_unmatched_controlled_candidate_does_not_hide_observed_pair(runner) -> None:
+    payload = packet(runner)
+    payload["observations"].append(
+        observation(
+            runner,
+            "unit-01",
+            "claim_evidence_activated_subgraph_or_tiered",
+            origin="controlled",
+            route="treatment-B",
+        )
+    )
+    report = runner.build_report(payload)
+    unit = report["comparison_units"][0]
+    assert unit["disposition"] == "matched_observation_only"
+    assert [item["value"] for item in unit["metric_coverage"]["wall_seconds"]["observed_values"]] == [10.0, 8.0]
+
+
+def test_unobservable_origin_is_unmatched(runner) -> None:
+    payload = packet(runner, origin="unobservable")
+    for row in payload["observations"]:
+        row["metrics"] = {metric_name: state("unobservable", "unit") for metric_name in runner.METRIC_NAMES}
+    report = runner.build_report(payload)
+    unit = report["comparison_units"][0]
+    assert unit["disposition"] == "unmatched"
+    assert "measurement_origin.baseline" in unit["mismatched_fields"]
+    assert report["admission"]["eligible_real_pairs"] == 0
+
+
+def test_unobservable_origin_cannot_carry_known_metric(runner) -> None:
+    with pytest.raises(runner.ContractError, match="measurement_origin=unobservable"):
+        runner.build_report(packet(runner, origin="unobservable"))
+
+
 def test_unknown_cache_or_resource_is_not_zero(runner) -> None:
     payload = packet(runner)
     payload["observations"][0]["identity"]["cache_posture"] = posture("cache-disabled", "unknown")

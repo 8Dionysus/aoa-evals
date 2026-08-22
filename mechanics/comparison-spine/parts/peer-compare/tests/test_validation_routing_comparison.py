@@ -67,6 +67,16 @@ def test_contract_rejects_full_owner_proof_rule_drift() -> None:
         comparison.validate_contract(contract)
 
 
+def test_contract_rejects_non_v1_fixture_identity() -> None:
+    contract = load_json(CONTRACT_PATH)
+    cases = load_json(CASES_PATH)
+    contract["fixture_id"] = "custom-fixture"
+    cases["fixture_id"] = "custom-fixture"
+
+    with pytest.raises(comparison.ContractError, match="fixture_id"):
+        comparison.build_report(contract, cases)
+
+
 def test_peer_identity_is_constant_for_each_scenario(report: dict) -> None:
     for method_entry in report["methods"]:
         for result in method_entry["scenario_results"]:
@@ -265,6 +275,14 @@ def test_empty_owner_proof_oracle_nodes_are_rejected() -> None:
     cases["scenarios"][0]["oracle"]["owner_proof_nodes"] = []
 
     with pytest.raises(comparison.ContractError, match="must contain at least one node"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_unknown_owner_proof_cannot_be_scored_as_complete() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][-1]["oracle"]["complete"] = True
+
+    with pytest.raises(comparison.ContractError, match="cannot be complete"):
         comparison.build_report(load_json(CONTRACT_PATH), cases)
 
 

@@ -25,6 +25,7 @@ DEFAULT_CONTRACT = PART_ROOT / "schemas" / "validation-routing-comparison-v1.con
 DEFAULT_CASES = PART_ROOT / "fixtures" / "validation-routing-bounded-v1" / "cases.json"
 
 REPORT_SCHEMA_VERSION = "validation_routing_comparison_report_v1"
+FIXTURE_ID = "validation-routing-bounded-v1"
 SEEDED_EVIDENCE_KIND = "seeded_fixture"
 REAL_EVIDENCE_KIND = "real_session"
 SYNTHETIC_LATENCY_KIND = "synthetic_fixture_proxy"
@@ -192,6 +193,8 @@ def adversarial_class_matches(scenario: dict[str, Any], adversarial_class: str) 
 def validate_contract(contract: dict[str, Any]) -> None:
     if contract.get("schema_version") != "validation_routing_comparison_contract_v1":
         raise ContractError("contract schema_version must be validation_routing_comparison_contract_v1")
+    if contract.get("fixture_id") != FIXTURE_ID:
+        raise ContractError(f"contract fixture_id must be {FIXTURE_ID}")
     if contract.get("comparison_mode") != "peer-compare":
         raise ContractError("validation-routing contract must remain a peer-compare support artifact")
     if contract.get("claim_posture") != "measurement_only":
@@ -398,6 +401,10 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
             raise ContractError(f"scenario {scenario_id} has invalid owner_proof_status")
         if not isinstance(oracle.get("complete"), bool):
             raise ContractError(f"scenario {scenario_id}.oracle.complete must be boolean")
+        if oracle.get("owner_proof_status") == "unknown" and oracle["complete"]:
+            raise ContractError(
+                f"scenario {scenario_id}.oracle cannot be complete when owner_proof_status is unknown"
+            )
         adversarial_class = scenario.get("adversarial_class")
         if adversarial_class is not None:
             if not isinstance(adversarial_class, str) or not adversarial_class.strip():

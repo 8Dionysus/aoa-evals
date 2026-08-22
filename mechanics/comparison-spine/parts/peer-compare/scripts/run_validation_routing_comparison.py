@@ -62,6 +62,7 @@ EXPECTED_LATENCY_POLICY = {
     "source": "seeded fixture event declarations",
     "interpretation_limit": "not observed runtime latency or a performance ranking",
 }
+EXPECTED_SPEED_CLAIM_STATUS = "rejected_as_final_saving_until_owner_receipts_are bound"
 
 STATIC_PATH_RULES: tuple[tuple[str, str], ...] = (
     ("scripts/", "source_fast"),
@@ -182,7 +183,18 @@ def adversarial_class_matches(scenario: dict[str, Any], adversarial_class: str) 
     if adversarial_class == "unknown_dependency":
         return dependency_state == "unknown"
     if adversarial_class == "wrong_candidate_environment_receipt":
-        return owner_contract_signal_state(scenario) == "wrong_identity"
+        owner_contracts = signals.get("owner_contracts") if isinstance(signals, dict) else None
+        receipt = owner_contracts.get("receipt") if isinstance(owner_contracts, dict) else None
+        return (
+            isinstance(owner_contracts, dict)
+            and owner_contracts.get("state") == "valid"
+            and isinstance(receipt, dict)
+            and all(field in receipt for field in ("candidate_set_id", "environment_id"))
+            and (
+                receipt["candidate_set_id"] != scenario["candidate_set_id"]
+                or receipt["environment_id"] != scenario["environment_id"]
+            )
+        )
     if adversarial_class == "malformed_receipt":
         return owner_contract_signal_state(scenario) == "malformed"
     if adversarial_class == "unbound_external_owner":
@@ -378,8 +390,10 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
         raise ContractError(
             "input_evidence targeted route proxies must be a non-empty finite non-negative number array"
         )
-    if not isinstance(wall_clock_proxies.get("speed_claim_status"), str):
-        raise ContractError("input_evidence speed claim status must be explicit")
+    if wall_clock_proxies.get("speed_claim_status") != EXPECTED_SPEED_CLAIM_STATUS:
+        raise ContractError(
+            "input_evidence speed claim status must preserve the bounded rejection posture"
+        )
 
     scenarios = cases.get("scenarios")
     if not isinstance(scenarios, list) or not scenarios:

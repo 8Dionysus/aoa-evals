@@ -94,6 +94,16 @@ def test_contract_rejects_latency_posture_drift() -> None:
         comparison.build_report(contract, load_json(CASES_PATH))
 
 
+def test_speed_claim_status_cannot_claim_runtime_policy_selection() -> None:
+    cases = load_json(CASES_PATH)
+    cases["input_evidence"]["observed_wall_clock_proxies"][
+        "speed_claim_status"
+    ] = "confirmed_runtime_speedup_and_ready_for_policy_selection"
+
+    with pytest.raises(comparison.ContractError, match="speed claim status"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
 def test_peer_identity_is_constant_for_each_scenario(report: dict) -> None:
     for method_entry in report["methods"]:
         for result in method_entry["scenario_results"]:
@@ -331,6 +341,19 @@ def test_unknown_owner_proof_cannot_be_scored_as_complete() -> None:
 def test_adversarial_class_requires_its_class_specific_condition() -> None:
     cases = load_json(CASES_PATH)
     cases["scenarios"][0]["adversarial_class"] = "stale_graph"
+
+    with pytest.raises(comparison.ContractError, match="does not match"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_wrong_receipt_class_requires_candidate_and_environment_mismatch() -> None:
+    cases = load_json(CASES_PATH)
+    scenario = cases["scenarios"][3]
+    receipt = scenario["signals"]["owner_contracts"]["receipt"]
+    receipt["candidate_set_id"] = scenario["candidate_set_id"]
+    receipt["environment_id"] = scenario["environment_id"]
+    receipt["workload_id"] = "other-workload"
+    receipt["source_ref"] = "fixture:other-source"
 
     with pytest.raises(comparison.ContractError, match="does not match"):
         comparison.build_report(load_json(CONTRACT_PATH), cases)

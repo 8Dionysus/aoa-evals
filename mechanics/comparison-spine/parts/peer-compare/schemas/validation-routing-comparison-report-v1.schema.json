@@ -198,7 +198,9 @@
               "minItems": 1,
               "items": {"type": "number", "minimum": 0}
             },
-            "speed_claim_status": {"$ref": "#/$defs/non_empty_string"}
+            "speed_claim_status": {
+              "const": "rejected_as_final_saving_until_owner_receipts_are bound"
+            }
           }
         }
       }

@@ -154,6 +154,25 @@ proof, or a runtime performance result, and it leaves the owner gate intact.
   semantic checks, target-fanout preflight, focused runner/schema tests, and
   full repository validation remain separate from hosted KAG-family gates.
 
+### 2026-08-22 - Exact-head normalized owner coverage and evidence-kind admission
+
+- Previous assumption: receipt identity classification could establish
+  wrong-identity adversarial coverage independently of the owner signal's
+  normalized node shape, and JSON evidence kinds could be checked by set
+  membership without a type gate.
+- New reality: a malformed owner signal must remain malformed in both
+  measurement and adversarial coverage, and unhashable evidence-kind values
+  must fail through the runner's typed `ContractError` boundary.
+- Reason: the fresh exact-head review reproduced null owner nodes being
+  credited as wrong-identity coverage and list/object evidence kinds escaping
+  as an uncaught `TypeError`.
+- Source surfaces updated: peer-compare runner and focused adversarial tests;
+  claim posture, retry/resource boundary, and unsupported-family semantics are
+  unchanged.
+- Validation: direct reproductions now reject both cases generically;
+  focused runner tests pass, with hosted KAG-family currentness and final-head
+  review remaining separate gates.
+
 ## Boundaries
 
 This decision does not make a seeded report real-session proof, a local green

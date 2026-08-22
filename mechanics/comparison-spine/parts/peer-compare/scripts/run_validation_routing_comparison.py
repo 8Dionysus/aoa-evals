@@ -346,8 +346,18 @@ def classify_owner_receipt(scenario: dict[str, Any]) -> OwnerReceiptEvidence:
 
 
 def owner_contract_signal_state(scenario: dict[str, Any]) -> str:
-    """Expose the shared owner-receipt classification to admission checks."""
-    return classify_owner_receipt(scenario).state
+    """Expose the normalized owner signal state to admission checks."""
+    signals = scenario.get("signals", {})
+    raw_signal = signals.get("owner_contracts") if isinstance(signals, dict) else None
+    signal = dict(raw_signal) if isinstance(raw_signal, dict) else {}
+    evidence = classify_owner_receipt(scenario)
+    signal["state"] = evidence.state
+    signal["reason"] = evidence.reason
+    return normalize_signal(
+        signal,
+        method_id="owner_contracts",
+        expected_state="valid",
+    ).state
 
 
 def normalize_signal(
@@ -386,7 +396,7 @@ def adversarial_class_matches(scenario: dict[str, Any], adversarial_class: str) 
         return dependency_state == "unknown"
     if adversarial_class == "wrong_candidate_environment_receipt":
         evidence = classify_owner_receipt(scenario)
-        return evidence.state == "wrong_identity" and bool(
+        return owner_contract_signal_state(scenario) == "wrong_identity" and bool(
             set(evidence.mismatched_fields)
             & {"candidate_set_id", "environment_id"}
         )
@@ -645,7 +655,7 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
             if not isinstance(scenario.get(field), str) or not scenario[field]:
                 raise ContractError(f"scenario {scenario_id} must declare {field}")
         evidence_kind = scenario.get("evidence_kind")
-        if evidence_kind not in accepted_evidence_kinds:
+        if not isinstance(evidence_kind, str) or evidence_kind not in accepted_evidence_kinds:
             raise ContractError(
                 f"scenario {scenario_id} evidence_kind {evidence_kind!r} is not admitted by the seeded contract"
             )

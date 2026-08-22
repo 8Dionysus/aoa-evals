@@ -411,6 +411,15 @@ def test_unknown_and_real_evidence_kinds_are_not_admitted_in_seeded_v1() -> None
         comparison.build_report(load_json(CONTRACT_PATH), real)
 
 
+@pytest.mark.parametrize("evidence_kind", [["seeded_fixture"], {"kind": "seeded_fixture"}])
+def test_non_string_evidence_kind_is_rejected_as_a_contract_error(evidence_kind: object) -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["evidence_kind"] = evidence_kind
+
+    with pytest.raises(comparison.ContractError, match="evidence_kind"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
 def test_unrecognized_signal_state_is_normalized_to_blocked_and_escalated() -> None:
     cases = load_json(CASES_PATH)
     cases["scenarios"][0]["signals"]["dependency_graph"]["state"] = "currnt"
@@ -723,6 +732,21 @@ def test_owner_receipt_classifier_prioritizes_shape_and_identity(
     assert comparison.adversarial_class_matches(
         scenario, "wrong_candidate_environment_receipt"
     ) is (expected_state == "wrong_identity")
+
+
+def test_wrong_receipt_coverage_requires_a_normalized_owner_signal() -> None:
+    cases = load_json(CASES_PATH)
+    scenario = copy.deepcopy(cases["scenarios"][3])
+    scenario["signals"]["owner_contracts"]["nodes"] = None
+
+    assert comparison.classify_owner_receipt(scenario).state == "wrong_identity"
+    assert comparison.owner_contract_signal_state(scenario) == "malformed"
+    assert comparison.adversarial_class_matches(
+        scenario, "wrong_candidate_environment_receipt"
+    ) is False
+
+    with pytest.raises(comparison.ContractError, match="does not match"):
+        comparison.build_report(load_json(CONTRACT_PATH), {**cases, "scenarios": [scenario]})
 
 
 def test_case_admission_rejects_mislabeled_complete_owner_receipt() -> None:

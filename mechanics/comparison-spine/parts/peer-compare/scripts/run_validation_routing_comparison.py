@@ -55,6 +55,13 @@ EXPECTED_ORACLE_RULE = {
     "unknown_rule": "preserve stale, unknown, malformed, and wrong-identity state; escalate without treating it as zero or green",
     "policy_rule": "measurement only; no method winner, release verdict, or routing policy is emitted",
 }
+EXPECTED_LATENCY_POLICY = {
+    "kind": SYNTHETIC_LATENCY_KIND,
+    "runtime_observed": False,
+    "field_suffix": "_synthetic_proxy",
+    "source": "seeded fixture event declarations",
+    "interpretation_limit": "not observed runtime latency or a performance ranking",
+}
 
 STATIC_PATH_RULES: tuple[tuple[str, str], ...] = (
     ("scripts/", "source_fast"),
@@ -240,6 +247,10 @@ def validate_contract(contract: dict[str, Any]) -> None:
         raise ContractError("synthetic fixture proxy latency must not be marked runtime observed")
     if latency_policy.get("field_suffix") != "_synthetic_proxy":
         raise ContractError("synthetic latency fields must retain their explicit field suffix")
+    if latency_policy != EXPECTED_LATENCY_POLICY:
+        raise ContractError(
+            "latency_policy must preserve the complete synthetic fixture proxy v1 posture"
+        )
 
     if contract.get("oracle_rule") != EXPECTED_ORACLE_RULE:
         raise ContractError(
@@ -384,6 +395,8 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
             raise ContractError(f"scenario {scenario_id} changes candidate_set_id across peers")
         if scenario["environment_id"] != identity["environment_id"]:
             raise ContractError(f"scenario {scenario_id} changes environment_id across peers")
+        if not isinstance(scenario.get("signals"), dict):
+            raise ContractError(f"scenario {scenario_id}.signals must be an object")
         unique_strings(scenario.get("changed_paths"), field=f"{scenario_id}.changed_paths")
         method_overrides = scenario.get("method_overrides")
         if method_overrides is not None and not isinstance(method_overrides, dict):

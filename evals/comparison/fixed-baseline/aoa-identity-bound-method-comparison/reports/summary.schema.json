@@ -228,7 +228,36 @@
           }
         },
         "claim_limit": {"type": "string", "minLength": 10}
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "disposition": {"const": "matched_observation_only"}
+            }
+          },
+          "then": {
+            "properties": {
+              "matched_pair_count": {"minimum": 1},
+              "observed_pair_count": {"minimum": 1},
+              "matched_identity_bindings": {"minItems": 1}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {"const": "controlled_accounting_only"}
+            }
+          },
+          "then": {
+            "properties": {
+              "matched_pair_count": {"minimum": 1},
+              "matched_identity_bindings": {"minItems": 1}
+            }
+          }
+        }
+      ]
     },
     "matched_identity_binding": {
       "type": "object",

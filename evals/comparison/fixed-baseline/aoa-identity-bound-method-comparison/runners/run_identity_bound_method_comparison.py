@@ -168,6 +168,11 @@ def _check_metric_finiteness(observations: list[dict[str, Any]]) -> None:
                 )
 
 
+def _check_command_finiteness(packet: dict[str, Any]) -> None:
+    if not math.isfinite(packet["command"]["timeout_seconds"]):
+        raise ContractError("command.timeout_seconds must be finite before admission")
+
+
 def _check_observation_evidence(packet: dict[str, Any]) -> None:
     artifacts_by_ref: dict[str, dict[str, Any]] = {}
     for artifact in packet["artifacts"]:
@@ -487,6 +492,7 @@ def build_report(packet: dict[str, Any]) -> dict[str, Any]:
     """Validate a packet and return a stable report payload."""
 
     _validate_schema(packet)
+    _check_command_finiteness(packet)
     _require_exact_method_set(packet)
     _check_prerequisites(packet)
     _check_source_identity(packet)
@@ -512,6 +518,17 @@ def build_report(packet: dict[str, Any]) -> dict[str, Any]:
         )
         units.append(unit)
         unmatched_cases.extend(unit_unmatched)
+
+    for unit in units:
+        binding_count = len(unit["matched_identity_bindings"])
+        if binding_count != unit["matched_pair_count"]:
+            raise ContractError(
+                "matched_identity_bindings must preserve one binding per admitted pair"
+            )
+        if unit["disposition"] == "matched_observation_only" and binding_count == 0:
+            raise ContractError(
+                "matched_observation_only requires matched identity provenance"
+            )
 
     matched_units = [unit for unit in units if unit["disposition"] == "matched_observation_only"]
     controlled_units = [unit for unit in units if unit["disposition"] == "controlled_accounting_only"]

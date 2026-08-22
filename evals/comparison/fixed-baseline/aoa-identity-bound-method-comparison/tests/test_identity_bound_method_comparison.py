@@ -195,6 +195,18 @@ def test_report_preserves_matched_identity_and_evidence_provenance(runner) -> No
     assert runner.build_report(changed) != report
 
 
+def test_report_schema_requires_provenance_binding_for_positive_unit(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["matched_identity_bindings"] = []
+    errors = list(
+        Draft202012Validator(json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))).iter_errors(report)
+    )
+    assert any(
+        list(error.absolute_path)[-1:] == ["matched_identity_bindings"]
+        for error in errors
+    )
+
+
 def test_report_order_is_independent_of_observation_order(runner) -> None:
     payload = packet(runner)
     extra_rows = [
@@ -351,6 +363,18 @@ def test_non_finite_metric_values_and_json_literals_are_rejected(runner, tmp_pat
     input_path.write_text("{\"value\": NaN}\n", encoding="utf-8")
     with pytest.raises(runner.ContractError, match="non-finite JSON"):
         runner._load_json(input_path)
+
+
+def test_timeout_seconds_overflow_is_rejected(runner, tmp_path) -> None:
+    input_path = tmp_path / "overflow-timeout.json"
+    serialized = json.dumps(packet(runner), indent=2).replace(
+        '"timeout_seconds": 30', '"timeout_seconds": 1e999'
+    )
+    input_path.write_text(serialized, encoding="utf-8")
+    loaded = runner._load_json(input_path)
+    assert loaded["command"]["timeout_seconds"] == float("inf")
+    with pytest.raises(runner.ContractError, match="timeout_seconds"):
+        runner.build_report(loaded)
 
 
 def test_observation_evidence_must_be_declared_and_digest_pinned(runner) -> None:

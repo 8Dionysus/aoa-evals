@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 18965988,
+  "allowed_tracked_bytes": 26951272,
+  "approved_by": "repository-owner",
+  "base_ref": "cb734788b8a6fff9869f63bdf890fc54dbaf6563",
+  "changed_generated_bytes": 18965988,
+  "changed_generated_files": 291,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "621ce7560be573f17b4003477afd2247d677eab7f5e128623fe20ba0fcb9f7b4",
+  "reason": "Regenerate the governed aoa-evals portable v3 family after the exact PR #455 authored source refresh for a bounded candidate-only comparison ABI; no runtime or policy claim expansion.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 26951272,
+  "tracked_bytes_max": 26214400
+}

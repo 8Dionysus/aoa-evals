@@ -234,7 +234,12 @@
         "disposition": {"enum": ["matched_observation_only", "controlled_accounting_only", "unmatched"]},
         "matched_pair_count": {"type": "integer", "minimum": 0},
         "observed_pair_count": {"type": "integer", "minimum": 0},
-        "method_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "method_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/canonical_method_id"}
+        },
         "review_statuses": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
         "evidence_classes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
         "identity_match": {"type": "boolean"},
@@ -276,14 +281,14 @@
               "identity_match": {"const": true},
               "metric_coverage": {
                 "anyOf": [
-                  {"properties": {"wall_seconds": {"properties": {"observed_values": {"minItems": 2}}}}},
-                  {"properties": {"cpu_ms": {"properties": {"observed_values": {"minItems": 2}}}}},
-                  {"properties": {"peak_rss_kib": {"properties": {"observed_values": {"minItems": 2}}}}},
-                  {"properties": {"io_read_bytes": {"properties": {"observed_values": {"minItems": 2}}}}},
-                  {"properties": {"io_write_bytes": {"properties": {"observed_values": {"minItems": 2}}}}},
-                  {"properties": {"setup_startup_seconds": {"properties": {"observed_values": {"minItems": 2}}}}},
-                  {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"minItems": 2}}}}},
-                  {"properties": {"retry_amplification": {"properties": {"observed_values": {"minItems": 2}}}}}
+                  {"properties": {"wall_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}},
+                  {"properties": {"cpu_ms": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}},
+                  {"properties": {"peak_rss_kib": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}},
+                  {"properties": {"io_read_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}},
+                  {"properties": {"io_write_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}},
+                  {"properties": {"setup_startup_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}},
+                  {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}},
+                  {"properties": {"retry_amplification": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values"}}}}}
                 ]
               }
             }
@@ -354,6 +359,82 @@
               }
             }
           ]
+        },
+        {
+          "if": {
+            "required": ["disposition", "method_ids", "matched_identity_bindings"],
+            "properties": {
+              "disposition": {"enum": ["matched_observation_only", "controlled_accounting_only"]}
+            }
+          },
+          "then": {
+            "properties": {
+              "method_ids": {
+                "contains": {"const": "legacy_serial_full_release"}
+              }
+            },
+            "allOf": [
+              {
+                "if": {"not": {"properties": {"method_ids": {"contains": {"const": "owner_focused_affected_only"}}}}},
+                "then": {"properties": {"matched_identity_bindings": {"not": {"contains": {"properties": {"method_ids": {"contains": {"const": "owner_focused_affected_only"}}}}}}}}
+              },
+              {
+                "if": {"not": {"properties": {"method_ids": {"contains": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}},
+                "then": {"properties": {"matched_identity_bindings": {"not": {"contains": {"properties": {"method_ids": {"contains": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}}}
+              },
+              {
+                "if": {"not": {"properties": {"method_ids": {"contains": {"const": "bounded_stable_prefix_session_measurement"}}}}},
+                "then": {"properties": {"matched_identity_bindings": {"not": {"contains": {"properties": {"method_ids": {"contains": {"const": "bounded_stable_prefix_session_measurement"}}}}}}}}
+              },
+              {
+                "if": {"not": {"properties": {"method_ids": {"contains": {"const": "retry_after_fix_first_failure"}}}}},
+                "then": {"properties": {"matched_identity_bindings": {"not": {"contains": {"properties": {"method_ids": {"contains": {"const": "retry_after_fix_first_failure"}}}}}}}}
+              },
+              {
+                "if": {"not": {"properties": {"method_ids": {"contains": {"const": "controlled_same_candidate_seeded_fault"}}}}},
+                "then": {"properties": {"matched_identity_bindings": {"not": {"contains": {"properties": {"method_ids": {"contains": {"const": "controlled_same_candidate_seeded_fault"}}}}}}}}
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "canonical_method_id": {
+      "enum": [
+        "legacy_serial_full_release",
+        "owner_focused_affected_only",
+        "claim_evidence_activated_subgraph_or_tiered",
+        "bounded_stable_prefix_session_measurement",
+        "retry_after_fix_first_failure",
+        "controlled_same_candidate_seeded_fault"
+      ]
+    },
+    "matched_observed_values": {
+      "type": "array",
+      "minItems": 2,
+      "items": {"$ref": "#/$defs/metric_value"},
+      "contains": {
+        "type": "object",
+        "required": ["method_id"],
+        "properties": {"method_id": {"const": "legacy_serial_full_release"}}
+      },
+      "allOf": [
+        {
+          "contains": {
+            "type": "object",
+            "required": ["method_id"],
+            "properties": {
+              "method_id": {
+                "enum": [
+                  "owner_focused_affected_only",
+                  "claim_evidence_activated_subgraph_or_tiered",
+                  "bounded_stable_prefix_session_measurement",
+                  "retry_after_fix_first_failure",
+                  "controlled_same_candidate_seeded_fault"
+                ]
+              }
+            }
+          }
         }
       ]
     },
@@ -367,14 +448,21 @@
           "minItems": 2,
           "maxItems": 2,
           "uniqueItems": true,
-          "items": {"enum": [
-            "legacy_serial_full_release",
-            "owner_focused_affected_only",
-            "claim_evidence_activated_subgraph_or_tiered",
-            "bounded_stable_prefix_session_measurement",
-            "retry_after_fix_first_failure",
-            "controlled_same_candidate_seeded_fault"
-          ]}
+          "items": {"$ref": "#/$defs/canonical_method_id"},
+          "contains": {"const": "legacy_serial_full_release"},
+          "allOf": [
+            {
+              "contains": {
+                "enum": [
+                  "owner_focused_affected_only",
+                  "claim_evidence_activated_subgraph_or_tiered",
+                  "bounded_stable_prefix_session_measurement",
+                  "retry_after_fix_first_failure",
+                  "controlled_same_candidate_seeded_fault"
+                ]
+              }
+            }
+          ]
         },
         "identity": {"$ref": "#/$defs/identity_snapshot"},
         "evidence_provenance": {
@@ -382,7 +470,45 @@
           "minItems": 1,
           "items": {"$ref": "#/$defs/evidence_provenance"}
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "identity": {
+                "properties": {"evidence_class": {"const": "public-safe-contract"}}
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_provenance": {
+                "items": {
+                  "properties": {"evidence_class": {"const": "public-safe-contract"}}
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "identity": {
+                "properties": {"evidence_class": {"const": "reviewed-owner-packet"}}
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_provenance": {
+                "items": {
+                  "properties": {"evidence_class": {"const": "reviewed-owner-packet"}}
+                }
+              }
+            }
+          }
+        }
+      ]
     },
     "identity_snapshot": {
       "type": "object",
@@ -394,7 +520,7 @@
         "source_ref_or_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
         "environment_id": {"type": "string", "minLength": 1},
         "route_or_treatment_identity": {"type": "string", "minLength": 1},
-        "evidence_class": {"type": "string", "minLength": 1},
+        "evidence_class": {"enum": ["public-safe-contract", "reviewed-owner-packet"]},
         "acceptance_target": {"type": "string", "minLength": 1},
         "cache_posture": {"$ref": "#/$defs/posture"},
         "resource_posture": {"$ref": "#/$defs/posture"}

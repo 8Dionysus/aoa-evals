@@ -64,13 +64,17 @@ The result is either `matched_observation_only`,
 `controlled_accounting_only`, or `unmatched`; the top-level draft report is
 `not_admitted` until a matched observation is actually present. A matched
 observation requires at least one schema-valid identity-provenance binding,
-and the generated report preserves exactly one binding per admitted pair. The
-schema bounds that parity to the six-method set: one baseline plus at most five
-candidate pairs. A positive top-level verdict also requires a positive matched
-unit and observed-pair count. Admitted units must declare identity matched, and
-a positive observed unit must expose at least one jointly measured metric with
-baseline and candidate values. It is not a speedup, causal effect, proof
-result, or winner verdict.
+and the generated report preserves exactly one fixed-baseline binding per
+admitted pair. Each binding contains the baseline and exactly one candidate,
+and its methods must belong to the enclosing comparison unit. Binding identity
+evidence class is restricted to the published two-class allowlist and must
+match every bound evidence-provenance class. The schema bounds that parity to
+the six-method set: one baseline plus at most five candidate pairs. A positive
+top-level verdict also requires a positive matched unit and observed-pair
+count. Admitted units must declare identity matched, and a positive observed
+unit must expose at least one jointly measured metric whose values include the
+baseline and a candidate method from an admitted binding. It is not a speedup,
+causal effect, proof result, or winner verdict.
 
 This eval does **not** support claims that:
 
@@ -136,7 +140,8 @@ with `kind: public-safe-observation` and a SHA-256 digest. Only
 admissible, and the artifact class must match the row identity class. Generated
 readers, validation receipts, and other derived surfaces cannot bind a positive
 observation disposition. Reports publish this complete two-class allowlist,
-even when one packet uses only one class.
+even when one packet uses only one class. Matched report bindings preserve the
+same class in their identity snapshot and every evidence-provenance row.
 
 The contract keeps all of these states distinct:
 

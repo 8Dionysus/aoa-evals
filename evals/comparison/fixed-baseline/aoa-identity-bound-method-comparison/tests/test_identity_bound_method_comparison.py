@@ -259,6 +259,69 @@ def test_report_schema_requires_observed_metric_coverage_for_positive_unit(runne
     assert errors
 
 
+def test_report_schema_requires_baseline_and_candidate_metric_methods(runner) -> None:
+    report = runner.build_report(packet(runner))
+    for coverage in report["comparison_units"][0]["metric_coverage"].values():
+        for observed_value in coverage["observed_values"]:
+            observed_value["method_id"] = runner.METHOD_IDS[0]
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_requires_baseline_in_matched_binding(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["matched_identity_bindings"][0]["method_ids"] = [
+        runner.METHOD_IDS[1],
+        runner.METHOD_IDS[2],
+    ]
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_requires_binding_methods_in_enclosing_unit(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["matched_identity_bindings"][0]["method_ids"] = [
+        runner.METHOD_IDS[0],
+        runner.METHOD_IDS[2],
+    ]
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_restricts_binding_identity_evidence_class(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["matched_identity_bindings"][0]["identity"]["evidence_class"] = "generated-reader"
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_matches_binding_identity_and_provenance_class(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["matched_identity_bindings"][0]["identity"]["evidence_class"] = "public-safe-contract"
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
 def test_report_order_is_independent_of_observation_order(runner) -> None:
     payload = packet(runner)
     extra_rows = [

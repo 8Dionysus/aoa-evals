@@ -77,6 +77,15 @@ def test_contract_rejects_non_v1_fixture_identity() -> None:
         comparison.build_report(contract, cases)
 
 
+def test_contract_rejects_empty_or_duplicate_coverage_limits() -> None:
+    for coverage_limits in ([], ["same limit", "same limit"]):
+        contract = load_json(CONTRACT_PATH)
+        contract["coverage_limits"] = coverage_limits
+
+        with pytest.raises(comparison.ContractError, match="coverage_limits"):
+            comparison.build_report(contract, load_json(CASES_PATH))
+
+
 def test_peer_identity_is_constant_for_each_scenario(report: dict) -> None:
     for method_entry in report["methods"]:
         for result in method_entry["scenario_results"]:
@@ -241,6 +250,14 @@ def test_static_activation_overrides_are_rejected_as_unsynchronized() -> None:
     }
 
     with pytest.raises(comparison.ContractError, match="activated_nodes.*not admitted"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_null_static_path_overrides_are_rejected_as_contract_errors() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["method_overrides"] = {"static_paths": None}
+
+    with pytest.raises(comparison.ContractError, match="static_paths must be an object"):
         comparison.build_report(load_json(CONTRACT_PATH), cases)
 
 

@@ -76,7 +76,11 @@ def load_object(path: Path) -> dict[str, Any]:
 
 
 def unique_strings(values: Any, *, field: str) -> list[str]:
-    if not isinstance(values, list) or not all(isinstance(value, str) and value for value in values):
+    if (
+        not isinstance(values, list)
+        or not values
+        or not all(isinstance(value, str) and value for value in values)
+    ):
         raise ContractError(f"{field} must be a non-empty string array")
     if len(set(values)) != len(values):
         raise ContractError(f"{field} must not contain duplicates")
@@ -115,8 +119,14 @@ def static_path_targets(scenario: dict[str, Any]) -> tuple[list[str], list[tuple
                     activated.append(node)
                     matched_targets.append((prefix, node))
                 break
-    overrides = scenario.get("method_overrides") or {}
+    overrides = scenario.get("method_overrides")
+    if overrides is None:
+        overrides = {}
+    if not isinstance(overrides, dict):
+        raise ContractError("method_overrides must be an object or null")
     override = overrides.get("static_paths", {})
+    if not isinstance(override, dict):
+        raise ContractError("method_overrides.static_paths must be an object")
     if "activated_nodes" in override:
         raise ContractError(
             "static_paths.activated_nodes overrides are not admitted because events must match activated nodes"
@@ -235,6 +245,7 @@ def validate_contract(contract: dict[str, Any]) -> None:
         raise ContractError(
             "oracle_rule must preserve the complete full-owner-proof v1 rule and measurement-only policy boundary"
         )
+    unique_strings(contract.get("coverage_limits"), field="coverage_limits")
 
     candidates = contract.get("candidate_catalog")
     if not isinstance(candidates, list) or not candidates:
@@ -378,7 +389,7 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
         if method_overrides is not None and not isinstance(method_overrides, dict):
             raise ContractError(f"scenario {scenario_id}.method_overrides must be an object or null")
         static_override = (method_overrides or {}).get("static_paths")
-        if static_override is not None and not isinstance(static_override, dict):
+        if "static_paths" in (method_overrides or {}) and not isinstance(static_override, dict):
             raise ContractError(f"scenario {scenario_id}.method_overrides.static_paths must be an object")
         if isinstance(static_override, dict) and "activated_nodes" in static_override:
             raise ContractError(
@@ -387,6 +398,8 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
         oracle = scenario.get("oracle")
         if not isinstance(oracle, dict):
             raise ContractError(f"scenario {scenario_id} must declare an owner-proof oracle")
+        if oracle.get("required_nodes") == [] or oracle.get("owner_proof_nodes") == []:
+            raise ContractError(f"scenario {scenario_id}.oracle node arrays must contain at least one node")
         required_nodes = unique_strings(oracle.get("required_nodes"), field=f"{scenario_id}.oracle.required_nodes")
         if not required_nodes:
             raise ContractError(f"scenario {scenario_id}.oracle.required_nodes must contain at least one node")

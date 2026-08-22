@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aoa.invalid/schemas/identity-bound-method-comparison-apply-packet-v1.json",
+  "title": "Identity-bound method comparison apply packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "eval_name",
+    "verdict",
+    "owner",
+    "source_ref",
+    "source_digest",
+    "environment",
+    "command",
+    "prerequisites",
+    "artifacts",
+    "pass_criteria",
+    "effect_authority",
+    "expected_effect",
+    "proof_authority",
+    "proof_limit",
+    "comparison",
+    "observations"
+  ],
+  "properties": {
+    "schema_version": {"const": "identity_bound_method_comparison_apply_v1"},
+    "eval_name": {"const": "aoa-identity-bound-method-comparison"},
+    "verdict": {"const": "exact_fit"},
+    "owner": {"type": "string", "minLength": 1},
+    "source_ref": {"type": "string", "minLength": 1},
+    "source_digest": {"$ref": "#/$defs/digest"},
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["environment_id", "runtime_id", "source_ref", "source_digest", "cache_posture", "resource_posture"],
+      "properties": {
+        "environment_id": {"type": "string", "minLength": 1},
+        "runtime_id": {"type": "string", "minLength": 1},
+        "source_ref": {"type": "string", "minLength": 1},
+        "source_digest": {"$ref": "#/$defs/digest"},
+        "cache_posture": {"$ref": "#/$defs/posture"},
+        "resource_posture": {"$ref": "#/$defs/posture"}
+      }
+    },
+    "command": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["argv", "cwd", "timeout_seconds", "accepted_exit_codes"],
+      "properties": {
+        "argv": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "cwd": {"type": "string", "minLength": 1},
+        "timeout_seconds": {"type": "number", "exclusiveMinimum": 0},
+        "accepted_exit_codes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer"}}
+      }
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/prerequisite"}
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/artifact"}
+    },
+    "pass_criteria": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "effect_authority": {"const": "owner-local-observation-only"},
+    "expected_effect": {"type": "string", "minLength": 1},
+    "proof_authority": {"const": false},
+    "proof_limit": {"type": "string", "minLength": 1},
+    "comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "baseline_method_id", "method_ids", "manual_case_ids"],
+      "properties": {
+        "mode": {"const": "fixed-baseline"},
+        "baseline_method_id": {"const": "legacy_serial_full_release"},
+        "method_ids": {
+          "type": "array",
+          "minItems": 6,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/method_id"}
+        },
+        "manual_case_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/observation"}
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "method_id": {
+      "type": "string",
+      "enum": [
+        "legacy_serial_full_release",
+        "owner_focused_affected_only",
+        "claim_evidence_activated_subgraph_or_tiered",
+        "bounded_stable_prefix_session_measurement",
+        "retry_after_fix_first_failure",
+        "controlled_same_candidate_seeded_fault"
+      ]
+    },
+    "posture": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "id"],
+          "properties": {"status": {"const": "known"}, "id": {"type": "string", "minLength": 1}}
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "id"],
+          "properties": {"status": {"enum": ["unknown", "null", "excluded", "unobservable", "missing"]}, "id": {"type": "null"}}
+        }
+      ]
+    },
+    "measurement": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "value", "unit"],
+          "properties": {
+            "status": {"const": "known"},
+            "value": {"type": "number", "minimum": 0},
+            "unit": {"type": "string", "minLength": 1}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "value", "unit"],
+          "properties": {
+            "status": {"enum": ["unknown", "null", "excluded", "unobservable", "missing"]},
+            "value": {"type": "null"},
+            "unit": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["workload_id", "candidate_or_source_identity", "source_ref_or_digest", "environment_id", "route_or_treatment_identity", "evidence_class", "acceptance_target", "cache_posture", "resource_posture"],
+      "properties": {
+        "workload_id": {"type": "string", "minLength": 1},
+        "candidate_or_source_identity": {"type": "string", "minLength": 1},
+        "source_ref_or_digest": {"type": "string", "minLength": 1},
+        "environment_id": {"type": "string", "minLength": 1},
+        "route_or_treatment_identity": {"type": "string", "minLength": 1},
+        "evidence_class": {"type": "string", "minLength": 1},
+        "acceptance_target": {"type": "string", "minLength": 1},
+        "cache_posture": {"$ref": "#/$defs/posture"},
+        "resource_posture": {"$ref": "#/$defs/posture"}
+      }
+    },
+    "prerequisite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "required", "status", "evidence_ref"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "required": {"type": "boolean"},
+        "status": {"enum": ["known", "unknown", "missing", "blocked"]},
+        "evidence_ref": {"type": "string", "minLength": 1}
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref", "digest", "kind", "evidence_class"],
+      "properties": {
+        "ref": {"type": "string", "minLength": 1},
+        "digest": {"$ref": "#/$defs/digest"},
+        "kind": {"type": "string", "minLength": 1},
+        "evidence_class": {"type": "string", "minLength": 1}
+      }
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unit_id", "method_id", "identity", "review_status", "measurement_origin", "evidence_refs", "metrics"],
+      "properties": {
+        "unit_id": {"type": "string", "minLength": 1},
+        "method_id": {"$ref": "#/$defs/method_id"},
+        "identity": {"$ref": "#/$defs/identity"},
+        "review_status": {"enum": ["reviewed", "controlled", "provisional", "unreviewed", "excluded"]},
+        "measurement_origin": {"enum": ["observed", "controlled", "synthetic", "unobservable"]},
+        "evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["wall_seconds", "cpu_ms", "peak_rss_kib", "io_read_bytes", "io_write_bytes", "setup_startup_seconds", "first_failure_latency_seconds", "retry_amplification"],
+          "properties": {
+            "wall_seconds": {"$ref": "#/$defs/measurement"},
+            "cpu_ms": {"$ref": "#/$defs/measurement"},
+            "peak_rss_kib": {"$ref": "#/$defs/measurement"},
+            "io_read_bytes": {"$ref": "#/$defs/measurement"},
+            "io_write_bytes": {"$ref": "#/$defs/measurement"},
+            "setup_startup_seconds": {"$ref": "#/$defs/measurement"},
+            "first_failure_latency_seconds": {"$ref": "#/$defs/measurement"},
+            "retry_amplification": {"$ref": "#/$defs/measurement"}
+          }
+        }
+      }
+    }
+  }
+}

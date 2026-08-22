@@ -1223,6 +1223,100 @@
       "verdict_shape": "categorical"
     },
     {
+      "category": "comparative",
+      "eval_path": "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/EVAL.md",
+      "name": "aoa-identity-bound-method-comparison",
+      "sections": [
+        {
+          "content_markdown": "Use this draft eval to design and later apply a bounded comparison of\nvalidation methods when a method-effect row is meaningful only under an exact\nidentity and parity contract.\n\nThe pressure for this bundle is an identity-bound comparison ABI, not a list of\ncommands. A method row is admissible only when the workload, exact\ncandidate/source, environment, route or treatment, evidence class, acceptance\ntarget, cache posture, and resource posture are explicit and matched. The\nbundle therefore preserves rejected, unmatched, unknown, null, excluded, and\nunobservable states instead of filling gaps with zeros or inferred telemetry.\n\nThis is a design-and-application contract. It carries no real-session\ntelemetry in the repository and cannot issue a universal winner, causal\neffect, central proof verdict, runtime-health verdict, or owner acceptance.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "This eval covers the identity-bound comparison contract for these method\nshapes:\n\n- `legacy_serial_full_release`\n- `owner_focused_affected_only`\n- `claim_evidence_activated_subgraph_or_tiered`\n- `bounded_stable_prefix_session_measurement`\n- `retry_after_fix_first_failure`\n- `controlled_same_candidate_seeded_fault`\n\nThe method IDs are compared as named observation routes. They are not\ncapability or quality rankings. A method may produce a controlled accounting\nrow, an observed row, or no admissible row for a particular unit.",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "When a complete apply packet supplies the required identity tuple, explicit\nsource and environment identity, known cache and resource posture, reviewed\nor controlled evidence, and matched method observations, the runner can\nreport a bounded observation disposition for that unit.\n\nThe result is either `matched_observation_only`,\n`controlled_accounting_only`, or `unmatched`; the top-level draft report is\n`not_admitted` until a matched observation is actually present. A matched\nobservation is not a speedup, causal effect, proof result, or winner verdict.\n\nThis eval does **not** support claims that:\n\n- one validation method is universally faster, safer, or better\n- synthetic or controlled fixture latency is observed real-session latency\n- a stable-prefix measurement proves a whole-session or cross-host effect\n- a missing, unknown, null, excluded, or unobservable field is zero\n- a green validator, generated reader, or delivery receipt is semantic\n  acceptance\n- the comparison is central proof, runtime health, policy, or human acceptance",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- a proposed method comparison needs a complete identity-bound apply ABI\n- multiple validation shapes must be compared without collapsing evidence\n  classes or retry/failure/resource posture\n- manual positive, negative, collision, and regression cases need a durable\n  owner-local contract\n- a future caller needs a deterministic report without letting the runner\n  execute an arbitrary command\n\nDo not use this eval when:\n\n- the question is only a same-task regression with no method identity pressure\n- the evidence is a broad runtime benchmark or health claim\n- a method result is being used to rank agents, models, hosts, or owners\n- a central proof verdict or human acceptance is required\n- raw private session telemetry has not been reduced to a public-safe packet",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "Every comparison unit carries these exact identity fields:\n\n`workload_id`, `candidate_or_source_identity`, `source_ref_or_digest`,\n`environment_id`, `route_or_treatment_identity`, `evidence_class`,\n`acceptance_target`, `cache_posture`, and `resource_posture`.\n\nThe baseline and each method row must match these values exactly. Cache and\nresource posture must have `status: known` for an eligible observed pair.\nSource or candidate identity must include an explicit `sha256:` digest. Every\nrow must be `reviewed` or `controlled`; provisional rows remain unmatched.\n\nThe contract keeps all of these states distinct:\n\n- known observed values\n- unknown values\n- semantic null values\n- excluded evidence\n- unobservable values\n- missing fields\n- controlled or synthetic accounting values\n- unmatched identity or parity\n\nSynthetic values may demonstrate that accounting is wired, but they never\nenter `observed_values` and never produce an effect or policy verdict.",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "The full apply input ABI is in `fixtures/apply-packet.schema.json`. It is deliberately\nlarger than a selection result. It requires `verdict: exact_fit`, owner and\nsource identity, environment, command shape, prerequisites, artifacts,\npass criteria, effect authority, expected effect, proof limit, the complete\nmethod set, and explicit observations.\n\n`runners/run_identity_bound_method_comparison.py` validates and consumes this\npacket. It never invokes `command.argv`, reads live runtime state, invents\ntelemetry, or repairs absent fields. It deterministically emits the report\nschema at `reports/summary.schema.json`.\n\nThe apply packet is therefore a contract for a future owner-local run, not\nevidence that a run occurred. The checked-in example report is intentionally\nan unmatched design example.\n\nThe shared fixture family and replacement boundary are declared in\n`fixtures/contract.json`.",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "`fixtures/manual-case-trace.json` turns the evaluator pressure into durable\npublic-safe cases:\n\n- a positive exact identity match\n- a negative identity mismatch\n- a duplicate-unit or duplicate-method collision\n- a regression where cache, resource, or first-failure posture is incomplete\n- a synthetic-latency accounting seal\n- an unmatched evidence-class or review-state case\n\nThe cases preserve the reason for rejection and the claim limit. They contain\nno raw session transcript, private host fingerprint, or fabricated measurement.\n\nThe runner uses these dispositions:\n\n- `matched_observation_only` when an observed baseline/candidate pair passes\n  identity and parity;\n- `controlled_accounting_only` when the pair is controlled or synthetic;\n- `unmatched` when identity, review, posture, or comparison coverage is not\n  eligible;\n- `contract_error` when the packet collides or fails its schema.\n\nNo disposition creates `policy_verdict`; it remains JSON `null`.",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses the existing `fixed-baseline` comparison part. The baseline\nlabel is the declared `legacy_serial_full_release` method. The comparison\nsurface is anchored to `aoa-runtime-latency-tradeoff` only as the nearest\nexisting routing neighbor; that anchor is not an evidence input and its\nruntime measurements are not reused for this contract.\n\nThe paired readout is\n`mechanics/comparison-spine/parts/fixed-baseline/reports/identity-bound-method-comparison-proof-flow-v1.md`.\nThe readout explains how the identity ABI constrains interpretation; it does\nnot promote the draft bundle or create a repo-global score.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "Validation must cover the source bundle, fixture and runner contracts, report\nschema/example, manual cases, deterministic runner behavior, generated\ncatalog/readers, and the repository's semantic checks. A green check proves\nonly the declared contract. It does not prove that a matched real-session\ncohort exists.",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "The runner emits one schema-backed report with:\n\n- the declared baseline and complete method set;\n- identity contract and apply-field admission summary;\n- per-unit disposition, identity mismatches, evidence refs, and metric-state\n  coverage;\n- unmatched cases and explicit limitations;\n- `policy_verdict: null` and no universal winner field.\n\n`reports/example-report.json` is an unmatched design-only example. A future\nactual report must be separately reviewed before it is used outside this\nowner-local contract.",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "The instrument must fail closed on:\n\n- `partial_fit` or any apply packet missing the complete exact-fit ABI;\n- source or environment digest/ref drift;\n- duplicate unit/method observations;\n- unknown cache or resource posture used as if it were zero;\n- provisional, unreviewed, or excluded rows presented as observed;\n- synthetic or controlled values placed in observed output;\n- an unmatched row silently dropped;\n- a generated reader, delivery receipt, or green validator treated as live\n  evidence.",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- that any real-session method pair exists\n- first-failure latency or retry amplification when those fields are\n  unobservable\n- resource or cache parity outside the supplied packet\n- causal impact, statistical significance, or a deployment decision\n- a universal method winner or owner acceptance\n- current Goal readiness or runtime health",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat `matched_observation_only` as the narrowest possible positive reading:\nthe packet contained an identity- and parity-matched observation pair. Treat\n`controlled_accounting_only` as accounting evidence only. Treat\n`unmatched` as visible absence of an eligible pair, not as a failed method or\nzero cost.\n\nDo not derive a speedup, cost, causal, proof, policy, acceptance, or global\ncomparison claim from this bundle without a separately owned contract and\nfresh evidence.\n\nDo not treat a positive result as:\n\n- a universal method winner or ranking;\n- observed real-session latency when the origin is synthetic or controlled;\n- proof of first-failure, retry, cache, or resource behavior when those fields\n  are unknown or unobservable;\n- central proof, runtime health, policy, deployment, or human acceptance;\n- evidence that the current Goal is ready or accepted.",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- run the bundle-local tests and validate both JSON schemas;\n- run source, fixture, runner, report, and comparison-surface validators;\n- regenerate and check catalogs, selection/report readers, and decision indexes;\n- run repository semantic validation and the minimum repository test route;\n- keep any missing live cohort or fresh owner receipt as an explicit residual\n  risk.",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "Technique linkage is intentionally bounded to the identity/parity comparison\ncontract. No technique is credited with a performance effect by this draft.",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "Skill linkage is intentionally deferred. The bundle checks a proof ABI and\nevidence boundary, not direct agent skill quality.",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "Project overlays may add:\n\n- owner-local method fixtures and reviewed evidence refs;\n- a separately approved apply wrapper that still validates this packet;\n- local report consumers that preserve the same unknown/null/unmatched states;\n- additional manual cases without widening the bounded claim.",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "comparative"
+    },
+    {
       "category": "boundary",
       "eval_path": "evals/boundary/aoa-local-text-contract-fit/EVAL.md",
       "name": "aoa-local-text-contract-fit",

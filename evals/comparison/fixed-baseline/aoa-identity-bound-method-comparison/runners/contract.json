@@ -1,0 +1,22 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/runners/run_identity_bound_method_comparison.py",
+  "inputs": [
+    "one explicit identity_bound_method_comparison_apply_v1 JSON packet",
+    "the bundle-local apply packet schema",
+    "reviewed, controlled, provisional, or excluded observation rows supplied by the owner"
+  ],
+  "fixture_contract_paths": [
+    "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/fixtures/contract.json",
+    "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/fixtures/apply-packet.schema.json",
+    "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/fixtures/manual-case-trace.json"
+  ],
+  "scorer_helper_paths": [],
+  "report_schema_path": "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/reports/summary.schema.json",
+  "report_example_path": "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/reports/example-report.json",
+  "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/identity-bound-method-comparison-proof-flow-v1.md",
+  "validation_commands": [
+    "python -m pytest -q evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/tests/test_identity_bound_method_comparison.py",
+    "python scripts/validate_repo.py --eval aoa-identity-bound-method-comparison"
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "schema_version": "identity_bound_method_manual_case_trace_v1",
+  "data_class": "public-safe-design-contract",
+  "method_ids": [
+    "legacy_serial_full_release",
+    "owner_focused_affected_only",
+    "claim_evidence_activated_subgraph_or_tiered",
+    "bounded_stable_prefix_session_measurement",
+    "retry_after_fix_first_failure",
+    "controlled_same_candidate_seeded_fault"
+  ],
+  "cases": [
+    {
+      "case_id": "positive_exact_identity_match",
+      "kind": "positive",
+      "methods": ["legacy_serial_full_release", "owner_focused_affected_only"],
+      "expected_disposition": "matched_observation_only",
+      "asserts": [
+        "all nine identity fields match exactly",
+        "source and candidate digest are explicit",
+        "cache and resource posture are known",
+        "both rows are reviewed and observed",
+        "the report contains observed values but policy_verdict remains null"
+      ],
+      "claim_limit": "one identity-bound observation pair only"
+    },
+    {
+      "case_id": "negative_treatment_identity_mismatch",
+      "kind": "negative",
+      "methods": ["legacy_serial_full_release", "owner_focused_affected_only"],
+      "expected_disposition": "unmatched",
+      "asserts": [
+        "route_or_treatment_identity mismatch is retained",
+        "no observed effect row is emitted",
+        "the mismatch is not converted to zero or a slower/faster verdict"
+      ],
+      "claim_limit": "absence of an eligible pair, not a method failure"
+    },
+    {
+      "case_id": "collision_duplicate_unit_or_method",
+      "kind": "collision",
+      "methods": ["legacy_serial_full_release", "owner_focused_affected_only"],
+      "expected_disposition": "contract_error",
+      "asserts": [
+        "duplicate unit_id or method_id is rejected before report emission",
+        "the runner does not silently merge rows"
+      ],
+      "claim_limit": "input collision only"
+    },
+    {
+      "case_id": "regression_incomplete_cache_resource_or_failure",
+      "kind": "regression",
+      "methods": ["legacy_serial_full_release", "retry_after_fix_first_failure"],
+      "expected_disposition": "unmatched",
+      "asserts": [
+        "unknown cache or resource posture remains unknown",
+        "first_failure_latency_seconds and retry_amplification may be null or unobservable",
+        "the row is not admitted as a zero-cost or zero-latency observation"
+      ],
+      "claim_limit": "parity regression and evidence gap only"
+    },
+    {
+      "case_id": "synthetic_latency_accounting_seal",
+      "kind": "negative",
+      "methods": ["controlled_same_candidate_seeded_fault"],
+      "expected_disposition": "controlled_accounting_only",
+      "asserts": [
+        "synthetic measurement origin is visible",
+        "synthetic values do not enter observed_values",
+        "policy_verdict remains null"
+      ],
+      "claim_limit": "fixture accounting only, never observed real-session latency"
+    },
+    {
+      "case_id": "unmatched_provisional_evidence",
+      "kind": "negative",
+      "methods": ["bounded_stable_prefix_session_measurement", "retry_after_fix_first_failure"],
+      "expected_disposition": "unmatched",
+      "asserts": [
+        "provisional review status remains visible",
+        "unobservable first-failure and resource states are preserved",
+        "no universal winner or causal verdict is issued"
+      ],
+      "claim_limit": "bounded measurement context without an eligible comparison pair"
+    }
+  ]
+}

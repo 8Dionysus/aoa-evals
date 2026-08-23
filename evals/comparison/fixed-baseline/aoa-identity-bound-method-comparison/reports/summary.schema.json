@@ -1249,7 +1249,14 @@
       "required": ["unit_id", "reason", "mismatched_fields"],
       "properties": {
         "unit_id": {"type": "string", "minLength": 1},
-        "reason": {"type": "string", "minLength": 1},
+        "reason": {
+          "enum": [
+            "baseline_method_missing",
+            "comparison_candidate_missing",
+            "identity_or_parity_mismatch",
+            "no_eligible_pair"
+          ]
+        },
         "method_id": {"type": "string", "minLength": 1},
         "mismatched_fields": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
       }

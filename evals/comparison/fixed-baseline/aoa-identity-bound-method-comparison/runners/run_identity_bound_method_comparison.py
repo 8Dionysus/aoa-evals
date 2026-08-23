@@ -68,6 +68,14 @@ ALLOWED_OBSERVATION_EVIDENCE_CLASSES = frozenset(
 OBSERVATION_ARTIFACT_KINDS = frozenset({"public-safe-observation"})
 NON_VALUE_STATUSES = ("unknown", "null", "excluded", "unobservable", "missing")
 ALLOWED_REVIEW_STATUSES = frozenset({"reviewed", "controlled"})
+UNMATCHED_CASE_REASONS = frozenset(
+    {
+        "baseline_method_missing",
+        "comparison_candidate_missing",
+        "identity_or_parity_mismatch",
+        "no_eligible_pair",
+    }
+)
 OBSERVED_REVIEW_STATUS = "reviewed"
 REPORT_CLAIM_BOUNDARY = (
     "This report preserves identity-bound observation or accounting dispositions "
@@ -117,6 +125,61 @@ def _unmatched_case_signature(case: dict[str, Any]) -> tuple[Any, ...]:
         case["reason"],
         tuple(sorted(case["mismatched_fields"])),
     )
+
+
+def _validate_unmatched_case_reasons(
+    unit: dict[str, Any],
+    cases: list[dict[str, Any]],
+    baseline_target: str,
+) -> None:
+    unit_method_ids = set(unit["method_ids"])
+    for case in cases:
+        reason = case["reason"]
+        method_id = case.get("method_id")
+        if reason not in UNMATCHED_CASE_REASONS:
+            raise ContractError(
+                "report unmatched case has a reason outside the runner vocabulary: "
+                f"{reason!r}"
+            )
+        if reason == "baseline_method_missing":
+            if baseline_target in unit_method_ids:
+                raise ContractError(
+                    "report baseline_method_missing reason is invalid when the "
+                    f"baseline target {baseline_target!r} is present in unit "
+                    f"{unit['unit_id']!r}"
+                )
+            if method_id is None or method_id not in unit_method_ids:
+                raise ContractError(
+                    "report baseline_method_missing reason must name a method "
+                    f"from unit {unit['unit_id']!r}"
+                )
+        elif reason == "comparison_candidate_missing":
+            if unit_method_ids != {baseline_target}:
+                raise ContractError(
+                    "report comparison_candidate_missing reason requires the unit "
+                    f"to contain only baseline target {baseline_target!r}"
+                )
+            if method_id != baseline_target:
+                raise ContractError(
+                    "report comparison_candidate_missing reason must name the "
+                    f"baseline target {baseline_target!r}"
+                )
+        elif reason == "identity_or_parity_mismatch":
+            if baseline_target not in unit_method_ids:
+                raise ContractError(
+                    "report identity_or_parity_mismatch reason requires the unit "
+                    f"to contain baseline target {baseline_target!r}"
+                )
+            if method_id is None or method_id not in unit_method_ids:
+                raise ContractError(
+                    "report identity_or_parity_mismatch reason must name a method "
+                    f"from unit {unit['unit_id']!r}"
+                )
+        elif method_id is not None or case["mismatched_fields"]:
+            raise ContractError(
+                "report no_eligible_pair reason cannot name a method or mismatch "
+                f"fields for unit {unit['unit_id']!r}"
+            )
 
 
 def _expected_claim_limit(unit: dict[str, Any]) -> str:
@@ -215,6 +278,13 @@ def validate_report(report: Any) -> None:
 
     for unit in units:
         method_count = len(unit["method_ids"])
+        unit_cases = cases_by_unit.get(unit["unit_id"], [])
+        expected_unit_cases = unit["unmatched_case_expectations"]
+        _validate_unmatched_case_reasons(
+            unit,
+            unit_cases + expected_unit_cases,
+            report["baseline_target"],
+        )
         expected_claim_limit = _expected_claim_limit(unit)
         if unit["claim_limit"] != expected_claim_limit:
             raise ContractError(
@@ -387,7 +457,6 @@ def validate_report(report: Any) -> None:
             - admitted_method_ids
             - {report["baseline_target"]}
         )
-        unit_cases = cases_by_unit.get(unit["unit_id"], [])
         case_method_ids = {
             case["method_id"]
             for case in unit_cases
@@ -431,7 +500,6 @@ def validate_report(report: Any) -> None:
                 f"{unit['unit_id']!r}: "
                 + "; ".join(details)
             )
-        expected_unit_cases = unit["unmatched_case_expectations"]
         if not rejected_method_ids and not expected_reason_fields and (
             unit_cases or expected_unit_cases
         ):

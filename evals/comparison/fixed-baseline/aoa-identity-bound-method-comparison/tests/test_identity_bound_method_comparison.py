@@ -615,6 +615,24 @@ def test_report_validator_preserves_unmatched_reason_units(runner) -> None:
         runner.validate_report(report)
 
 
+def test_report_validator_binds_unmatched_reason_to_unit_state(runner) -> None:
+    payload = packet(runner)
+    payload["observations"][1]["identity"]["route_or_treatment_identity"] = "treatment-B"
+    report = runner.build_report(payload)
+    unit = report["comparison_units"][0]
+    for case in report["unmatched_cases"]:
+        case["reason"] = "baseline_method_missing"
+    for case in unit["unmatched_case_expectations"]:
+        case["reason"] = "baseline_method_missing"
+    unit["claim_limit"] = runner.CLAIM_LIMIT_BASELINE_MISSING
+
+    with pytest.raises(
+        runner.ContractError,
+        match="baseline_method_missing.*baseline target.*present",
+    ):
+        runner.validate_report(report)
+
+
 def test_report_validator_rejects_spurious_no_eligible_pair_for_fully_matched_unit(
     runner,
 ) -> None:
@@ -814,6 +832,19 @@ def test_report_schema_restricts_binding_identity_evidence_class(runner) -> None
 def test_report_schema_matches_binding_identity_and_provenance_class(runner) -> None:
     report = runner.build_report(packet(runner))
     report["comparison_units"][0]["matched_identity_bindings"][0]["identity"]["evidence_class"] = "public-safe-contract"
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_restricts_unmatched_case_reason(runner) -> None:
+    payload = packet(runner)
+    payload["observations"][1]["identity"]["route_or_treatment_identity"] = "treatment-B"
+    report = runner.build_report(payload)
+    report["unmatched_cases"][0]["reason"] = "private-internal"
     errors = list(
         Draft202012Validator(
             json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))

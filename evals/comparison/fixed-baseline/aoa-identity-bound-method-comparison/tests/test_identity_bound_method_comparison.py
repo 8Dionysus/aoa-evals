@@ -286,6 +286,30 @@ def test_report_validator_rejects_conflicting_provenance_digests(runner) -> None
         runner.validate_report(report)
 
 
+def test_report_validator_rejects_inconsistent_repeated_method_provenance(
+    runner,
+) -> None:
+    report = runner.build_report(
+        packet_with_candidates(runner, (runner.METHOD_IDS[2], runner.METHOD_IDS[3]))
+    )
+    unit = report["comparison_units"][0]
+    duplicate_baseline_provenance = copy.deepcopy(
+        unit["matched_identity_bindings"][1]["evidence_provenance"][0]
+    )
+    duplicate_baseline_provenance["ref"] = "owner-packet:unit-01:baseline-duplicate"
+    duplicate_baseline_provenance["digest"] = digest("9")
+    unit["matched_identity_bindings"][1]["evidence_provenance"][0] = (
+        duplicate_baseline_provenance
+    )
+    unit["observation_refs"].append(duplicate_baseline_provenance["ref"])
+
+    with pytest.raises(
+        runner.ContractError,
+        match="provenance must stay consistent per repeated method across bindings",
+    ):
+        runner.validate_report(report)
+
+
 def test_report_schema_requires_provenance_binding_for_positive_unit(runner) -> None:
     report = runner.build_report(packet(runner))
     report["comparison_units"][0]["matched_identity_bindings"] = []

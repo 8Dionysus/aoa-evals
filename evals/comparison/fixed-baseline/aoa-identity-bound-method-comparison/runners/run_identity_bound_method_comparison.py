@@ -226,10 +226,27 @@ def validate_report(report: Any) -> None:
             for binding in unit["matched_identity_bindings"]
             for method_id in binding["method_ids"]
         }
+        provenance_by_method: dict[
+            str, list[frozenset[tuple[str, str, str, str, str]]]
+        ] = defaultdict(list)
         provenance_digests: dict[str, set[str]] = defaultdict(set)
         for binding in unit["matched_identity_bindings"]:
+            binding_provenance_by_method: dict[
+                str, set[tuple[str, str, str, str, str]]
+            ] = defaultdict(set)
             for provenance in binding["evidence_provenance"]:
+                binding_provenance_by_method[provenance["method_id"]].add(
+                    (
+                        provenance["ref"],
+                        provenance["digest"],
+                        provenance["kind"],
+                        provenance["evidence_class"],
+                        provenance["measurement_origin"],
+                    )
+                )
                 provenance_digests[provenance["ref"]].add(provenance["digest"])
+            for method_id, provenance_set in binding_provenance_by_method.items():
+                provenance_by_method[method_id].append(frozenset(provenance_set))
         conflicting_provenance = {
             ref: sorted(digests)
             for ref, digests in provenance_digests.items()
@@ -270,6 +287,18 @@ def validate_report(report: Any) -> None:
                 "report measurement_origin must stay consistent per method "
                 "across bindings for unit "
                 f"{unit['unit_id']!r}: {conflicting_method_origins!r}"
+            )
+        inconsistent_repeated_provenance = sorted(
+            method_id
+            for method_id, provenance_sets in provenance_by_method.items()
+            if len(set(provenance_sets)) > 1
+        )
+        if inconsistent_repeated_provenance:
+            raise ContractError(
+                "report matched identity provenance must stay consistent per "
+                "repeated method across bindings for unit "
+                f"{unit['unit_id']!r}: "
+                + ", ".join(inconsistent_repeated_provenance)
             )
         bound_observation_refs = {
             provenance["ref"]

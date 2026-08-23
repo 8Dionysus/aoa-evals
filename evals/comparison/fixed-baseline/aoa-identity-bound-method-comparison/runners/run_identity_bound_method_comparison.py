@@ -256,6 +256,21 @@ def validate_report(report: Any) -> None:
                     f"{unit['unit_id']!r}"
                 )
             binding_origins.append(origins_by_method)
+        unit_origins_by_method: dict[str, set[str]] = defaultdict(set)
+        for origins_by_method in binding_origins:
+            for method_id, origins in origins_by_method.items():
+                unit_origins_by_method[method_id].update(origins)
+        conflicting_method_origins = {
+            method_id: sorted(origins)
+            for method_id, origins in unit_origins_by_method.items()
+            if len(origins) > 1
+        }
+        if conflicting_method_origins:
+            raise ContractError(
+                "report measurement_origin must stay consistent per method "
+                "across bindings for unit "
+                f"{unit['unit_id']!r}: {conflicting_method_origins!r}"
+            )
         bound_observation_refs = {
             provenance["ref"]
             for binding in unit["matched_identity_bindings"]
@@ -404,12 +419,21 @@ def validate_report(report: Any) -> None:
                     f"emitted={emitted_value_count!r}"
                 )
         for metric in unit["metric_coverage"].values():
-            for bucket_name in ("observed_values", "controlled_values"):
+            for bucket_name, expected_origin in (
+                ("observed_values", "observed"),
+                ("controlled_values", "controlled"),
+            ):
                 for value in metric[bucket_name]:
                     if value["method_id"] not in admitted_method_ids:
                         raise ContractError(
                             f"report {bucket_name} contains method_id={value['method_id']!r} "
                             f"outside admitted bindings for unit {unit['unit_id']!r}"
+                        )
+                    if unit_origins_by_method[value["method_id"]] != {expected_origin}:
+                        raise ContractError(
+                            f"report {bucket_name} requires {expected_origin} "
+                            "measurement_origin for bound method "
+                            f"{value['method_id']!r} in unit {unit['unit_id']!r}"
                         )
 
 

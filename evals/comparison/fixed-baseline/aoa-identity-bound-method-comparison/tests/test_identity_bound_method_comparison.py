@@ -244,6 +244,37 @@ def test_report_validator_rejects_observed_coverage_for_controlled_provenance(
         runner.validate_report(report)
 
 
+def test_report_validator_rejects_conflicting_origins_across_bindings(runner) -> None:
+    report = runner.build_report(
+        packet_with_candidates(runner, (runner.METHOD_IDS[2],))
+    )
+    bindings = report["comparison_units"][0]["matched_identity_bindings"]
+    for provenance in bindings[1]["evidence_provenance"]:
+        if provenance["method_id"] == runner.METHOD_IDS[0]:
+            provenance["measurement_origin"] = "controlled"
+
+    with pytest.raises(
+        runner.ContractError,
+        match="measurement_origin must stay consistent per method across bindings",
+    ):
+        runner.validate_report(report)
+
+
+def test_report_validator_rejects_controlled_values_for_noncontrolled_provenance(
+    runner,
+) -> None:
+    report = runner.build_report(packet(runner, origin="controlled"))
+    binding = report["comparison_units"][0]["matched_identity_bindings"][0]
+    for provenance in binding["evidence_provenance"]:
+        provenance["measurement_origin"] = "synthetic"
+
+    with pytest.raises(
+        runner.ContractError,
+        match="controlled_values requires controlled measurement_origin",
+    ):
+        runner.validate_report(report)
+
+
 def test_report_validator_rejects_conflicting_provenance_digests(runner) -> None:
     report = runner.build_report(packet(runner))
     unit = report["comparison_units"][0]

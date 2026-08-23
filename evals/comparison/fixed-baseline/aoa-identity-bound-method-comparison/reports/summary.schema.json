@@ -236,12 +236,10 @@
           }
         },
         "observed_values": {
-          "type": "array",
-          "items": {"$ref": "#/$defs/metric_value"}
+          "$ref": "#/$defs/metric_values"
         },
         "controlled_values": {
-          "type": "array",
-          "items": {"$ref": "#/$defs/metric_value"}
+          "$ref": "#/$defs/metric_values"
         },
         "synthetic_count": {"type": "integer", "minimum": 0}
       }
@@ -271,6 +269,18 @@
         "first_failure_latency_seconds": {"properties": {"observed_values": {"maxItems": 0}}},
         "retry_amplification": {"properties": {"observed_values": {"maxItems": 0}}}
       }
+    },
+    "metric_values": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/metric_value"},
+      "allOf": [
+        {"not": {"contains": {"properties": {"method_id": {"const": "legacy_serial_full_release"}}}, "minContains": 2}},
+        {"not": {"contains": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}, "minContains": 2}},
+        {"not": {"contains": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}, "minContains": 2}},
+        {"not": {"contains": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}, "minContains": 2}},
+        {"not": {"contains": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}, "minContains": 2}},
+        {"not": {"contains": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}, "minContains": 2}}
+      ]
     },
     "metric_value": {
       "type": "object",
@@ -357,6 +367,7 @@
               "matched_pair_count": {"minimum": 1},
               "observed_pair_count": {"minimum": 1},
               "identity_match": {"const": true},
+              "review_statuses": {"contains": {"const": "reviewed"}},
               "matched_identity_bindings": {
                 "minItems": 1,
                 "items": {
@@ -419,7 +430,19 @@
             "properties": {
               "matched_pair_count": {"minimum": 1},
               "observed_pair_count": {"const": 0},
-              "matched_identity_bindings": {"minItems": 1},
+              "matched_identity_bindings": {
+                "minItems": 1,
+                "items": {
+                  "properties": {
+                    "identity": {
+                      "properties": {
+                        "cache_posture": {"$ref": "#/$defs/known_posture"},
+                        "resource_posture": {"$ref": "#/$defs/known_posture"}
+                      }
+                    }
+                  }
+                }
+              },
               "identity_match": {"const": true},
               "metric_coverage": {"$ref": "#/$defs/empty_observed_metric_coverage"}
             }

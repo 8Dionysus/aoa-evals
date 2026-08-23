@@ -89,9 +89,11 @@ verdict that still contains an observed match. The runner's `validate_report`
 semantic validator additionally binds every admission counter to the
 corresponding `comparison_units` cardinality or sum, checks metric-value method
 coverage against admitted bindings, and preserves those unmatched-reason unit
-entries, and binds each metric's state-count plus synthetic-count total to the
-unit method cardinality; `build_report` invokes that validator before returning
-a report. It is not a speedup,
+entries at both rejected-method and mismatch-reason level, rejects duplicate
+unit IDs, non-finite report metric values, and metric buckets with duplicate
+method IDs, and binds each metric's state-count plus synthetic-count total to
+the unit method cardinality; `build_report` invokes that validator before
+returning a report. It is not a speedup,
 causal effect, proof result, or winner verdict.
 
 This eval does **not** support claims that:
@@ -206,8 +208,11 @@ with an unmatched disposition or mismatch reason must remain represented in
 observation, unit, disposition, matched-pair, and eligible-real-pair admission
 counters equal the derived `comparison_units` values, and that every metric
 state-count plus synthetic-count total equals the unit method cardinality. The
-declared command timeout must also be finite; non-finite literals and numeric
-overflow are rejected before admission.
+declared command timeout and report metric values must also be finite;
+non-finite literals and numeric overflow are rejected before admission. An
+observed matched unit must retain a `reviewed` status, controlled bindings must
+retain known cache and resource posture, and each metric value bucket has at
+most one value per method.
 
 The apply packet is therefore a contract for a future owner-local run, not
 evidence that a run occurred. The checked-in example report is intentionally
@@ -297,6 +302,8 @@ The instrument must fail closed on:
 - a candidate method repeated across admitted bindings;
 - an observed or controlled metric value whose method has no corresponding
   admitted binding;
+- duplicate comparison unit IDs, duplicate metric values for one method, or a
+  non-finite report metric value;
 - metric state counts plus synthetic count that do not equal the unit method
   cardinality;
 - an unmatched unit with nonzero pair counts or a matched binding;
@@ -305,7 +312,8 @@ The instrument must fail closed on:
 - a `not_admitted` verdict that retains an observed matched unit;
 - an observation reference that is undeclared, digest-unpinned, or from a
   disallowed/derived evidence class;
-- an unmatched row or mismatch reason silently dropped from `unmatched_cases`;
+- an unmatched candidate row or mismatch reason silently dropped from
+  `unmatched_cases`;
 - a generated reader, delivery receipt, or green validator treated as live
   evidence.
 

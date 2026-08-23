@@ -129,6 +129,16 @@ def validate_report(report: Any) -> None:
                 f"report admission.{field}={actual_value!r} does not match comparison_units-derived {expected_value!r}"
             )
 
+    unit_ids = [unit["unit_id"] for unit in units]
+    if len(unit_ids) != len(set(unit_ids)):
+        duplicates = sorted(
+            {unit_id for unit_id in unit_ids if unit_ids.count(unit_id) > 1}
+        )
+        raise ContractError(
+            "report comparison_units contains duplicate unit_id values: "
+            + ", ".join(duplicates)
+        )
+
     unit_by_id = {unit["unit_id"]: unit for unit in units}
     unmatched_case_unit_ids = {case["unit_id"] for case in report["unmatched_cases"]}
     unknown_case_units = unmatched_case_unit_ids - unit_by_id.keys()
@@ -149,20 +159,81 @@ def validate_report(report: Any) -> None:
             + ", ".join(sorted(missing_case_units))
         )
 
+    cases_by_unit: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for case in report["unmatched_cases"]:
+        cases_by_unit[case["unit_id"]].append(case)
+
     for unit in units:
         method_count = len(unit["method_ids"])
+        admitted_method_ids = {
+            method_id
+            for binding in unit["matched_identity_bindings"]
+            for method_id in binding["method_ids"]
+        }
+        rejected_method_ids = (
+            set(unit["method_ids"])
+            - admitted_method_ids
+            - {report["baseline_target"]}
+        )
+        unit_cases = cases_by_unit.get(unit["unit_id"], [])
+        case_method_ids = {
+            case["method_id"]
+            for case in unit_cases
+            if case.get("method_id") is not None
+        }
+        unknown_case_method_ids = case_method_ids - set(unit["method_ids"])
+        if unknown_case_method_ids:
+            raise ContractError(
+                "report unmatched_cases names method IDs outside their unit: "
+                + ", ".join(sorted(unknown_case_method_ids))
+            )
+        admitted_case_method_ids = case_method_ids & admitted_method_ids
+        if admitted_case_method_ids:
+            raise ContractError(
+                "report unmatched_cases names admitted method IDs: "
+                + ", ".join(sorted(admitted_case_method_ids))
+            )
+        missing_rejected_method_ids = rejected_method_ids - case_method_ids
+        if missing_rejected_method_ids:
+            raise ContractError(
+                "report unmatched_cases omits rejected method IDs for unit "
+                f"{unit['unit_id']!r}: "
+                + ", ".join(sorted(missing_rejected_method_ids))
+            )
+        expected_reason_fields = set(unit["mismatched_fields"])
+        case_reason_fields = {
+            field
+            for case in unit_cases
+            for field in case["mismatched_fields"]
+        }
+        if case_reason_fields != expected_reason_fields:
+            missing_reason_fields = expected_reason_fields - case_reason_fields
+            extra_reason_fields = case_reason_fields - expected_reason_fields
+            details = []
+            if missing_reason_fields:
+                details.append("missing=" + ",".join(sorted(missing_reason_fields)))
+            if extra_reason_fields:
+                details.append("unexpected=" + ",".join(sorted(extra_reason_fields)))
+            raise ContractError(
+                "report unmatched_cases reason parity failed for unit "
+                f"{unit['unit_id']!r}: "
+                + "; ".join(details)
+            )
+
         for metric_name, metric in unit["metric_coverage"].items():
+            for bucket_name in ("observed_values", "controlled_values"):
+                for value in metric[bucket_name]:
+                    if not math.isfinite(value["value"]):
+                        raise ContractError(
+                            f"report {metric_name}.{bucket_name} value must be finite "
+                            f"for unit {unit['unit_id']!r}"
+                        )
             state_count = sum(metric["state_counts"].values()) + metric["synthetic_count"]
             if state_count != method_count:
                 raise ContractError(
                     f"report {metric_name}.state_counts plus synthetic_count={state_count!r} "
                     f"does not match method count {method_count!r} for unit {unit['unit_id']!r}"
                 )
-        admitted_method_ids = {
-            method_id
-            for binding in unit["matched_identity_bindings"]
-            for method_id in binding["method_ids"]
-        }
         for metric in unit["metric_coverage"].values():
             for bucket_name in ("observed_values", "controlled_values"):
                 for value in metric[bucket_name]:
@@ -433,7 +504,15 @@ def _unit_result(
                 ),
                 "claim_limit": "no declared baseline row; no method pair admitted",
             },
-            [{"unit_id": unit_id, "reason": "baseline_method_missing", "mismatched_fields": ["baseline_method_id"]}],
+            [
+                {
+                    "unit_id": unit_id,
+                    "reason": "baseline_method_missing",
+                    "method_id": row["method_id"],
+                    "mismatched_fields": ["baseline_method_id"],
+                }
+                for row in rows
+            ],
         )
 
     baseline = baseline_rows[0]
@@ -460,7 +539,14 @@ def _unit_result(
                 ),
                 "claim_limit": "one-sided baseline; no method pair admitted",
             },
-            [{"unit_id": unit_id, "reason": reason, "mismatched_fields": ["comparison_candidate_method_id"]}],
+            [
+                {
+                    "unit_id": unit_id,
+                    "reason": reason,
+                    "method_id": baseline_method_id,
+                    "mismatched_fields": ["comparison_candidate_method_id"],
+                }
+            ],
         )
 
     all_mismatches: list[str] = []

@@ -436,6 +436,43 @@ def test_report_schema_rejects_controlled_values_outside_admitted_bindings(runne
     assert errors
 
 
+def test_report_schema_requires_reviewed_status_for_observed_match(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["review_statuses"] = ["controlled"]
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_requires_known_posture_for_controlled_binding(runner) -> None:
+    report = runner.build_report(packet(runner, origin="controlled"))
+    report["comparison_units"][0]["matched_identity_bindings"][0]["identity"]["resource_posture"] = {
+        "status": "unknown",
+        "id": None,
+    }
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
+def test_report_schema_rejects_duplicate_metric_values_for_one_method(runner) -> None:
+    report = runner.build_report(packet(runner))
+    coverage = report["comparison_units"][0]["metric_coverage"]["wall_seconds"]
+    coverage["observed_values"].append(copy.deepcopy(coverage["observed_values"][0]))
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
 def test_report_validator_preserves_unmatched_reason_units(runner) -> None:
     payload = packet(runner)
     payload["observations"][1]["identity"]["route_or_treatment_identity"] = "treatment-B"
@@ -446,12 +483,62 @@ def test_report_validator_preserves_unmatched_reason_units(runner) -> None:
         runner.validate_report(report)
 
 
+def test_report_validator_preserves_each_rejected_candidate_and_reason(runner) -> None:
+    payload = packet(runner)
+    for method_id, route in zip(runner.METHOD_IDS[2:4], ("treatment-B", "treatment-C")):
+        row = observation(runner, "unit-01", method_id, route=route)
+        payload["observations"].append(row)
+        payload["artifacts"].append(
+            {
+                "ref": row["evidence_refs"][0],
+                "digest": digest("4"),
+                "kind": "public-safe-observation",
+                "evidence_class": "reviewed-owner-packet",
+            }
+        )
+    report = runner.build_report(payload)
+    assert {
+        case["method_id"]
+        for case in report["unmatched_cases"]
+    } == set(runner.METHOD_IDS[2:4])
+
+    report["unmatched_cases"].pop()
+    with pytest.raises(runner.ContractError, match="rejected method IDs"):
+        runner.validate_report(report)
+
+    report = runner.build_report(payload)
+    for case in report["unmatched_cases"]:
+        case["mismatched_fields"] = []
+    with pytest.raises(runner.ContractError, match="reason parity"):
+        runner.validate_report(report)
+
+
 def test_report_validator_binds_metric_state_counts_to_unit_methods(runner) -> None:
     report = json.loads(
         (BUNDLE_ROOT / "reports" / "example-report.json").read_text(encoding="utf-8")
     )
     report["comparison_units"][0]["metric_coverage"]["wall_seconds"]["state_counts"]["unknown"] += 1
     with pytest.raises(runner.ContractError, match="state_counts"):
+        runner.validate_report(report)
+
+
+def test_report_validator_rejects_duplicate_comparison_unit_ids(runner) -> None:
+    report = runner.build_report(packet(runner))
+    duplicate = copy.deepcopy(report["comparison_units"][0])
+    report["comparison_units"].append(duplicate)
+    report["admission"]["observation_count"] += len(duplicate["method_ids"])
+    report["admission"]["unit_count"] += 1
+    report["admission"]["matched_unit_count"] += 1
+    report["admission"]["matched_pair_count"] += duplicate["matched_pair_count"]
+    report["admission"]["eligible_real_pairs"] += duplicate["observed_pair_count"]
+    with pytest.raises(runner.ContractError, match="duplicate unit_id"):
+        runner.validate_report(report)
+
+
+def test_report_validator_rejects_non_finite_metric_values(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["metric_coverage"]["wall_seconds"]["observed_values"][0]["value"] = float("inf")
+    with pytest.raises(runner.ContractError, match="must be finite"):
         runner.validate_report(report)
 
 

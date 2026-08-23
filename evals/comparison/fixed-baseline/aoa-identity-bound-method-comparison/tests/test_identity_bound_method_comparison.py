@@ -286,6 +286,23 @@ def test_report_schema_rejects_unreviewed_binding_provenance(runner) -> None:
     assert errors
 
 
+def test_report_validator_requires_reviewed_status_for_observed_provenance(
+    runner,
+) -> None:
+    report = runner.build_report(packet(runner))
+    unit = report["comparison_units"][0]
+    unit["review_statuses"].append("controlled")
+    for binding in unit["matched_identity_bindings"]:
+        for provenance in binding["evidence_provenance"]:
+            provenance["review_status"] = "controlled"
+
+    with pytest.raises(
+        runner.ContractError,
+        match="observed-origin binding requires reviewed review_status",
+    ):
+        runner.validate_report(report)
+
+
 def test_report_validator_rejects_conflicting_origins_across_bindings(runner) -> None:
     report = runner.build_report(
         packet_with_candidates(runner, (runner.METHOD_IDS[2],))

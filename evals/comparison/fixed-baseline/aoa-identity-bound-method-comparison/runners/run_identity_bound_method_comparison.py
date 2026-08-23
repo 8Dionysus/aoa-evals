@@ -426,6 +426,11 @@ def validate_report(report: Any) -> None:
             unit["matched_identity_bindings"], binding_origins
         ):
             binding_method_ids = set(binding["method_ids"])
+            review_statuses_by_method: dict[str, set[str]] = defaultdict(set)
+            for provenance in binding["evidence_provenance"]:
+                review_statuses_by_method[provenance["method_id"]].add(
+                    provenance["review_status"]
+                )
             binding_review_statuses = {
                 provenance["review_status"]
                 for provenance in binding["evidence_provenance"]
@@ -440,6 +445,24 @@ def validate_report(report: Any) -> None:
                 raise ContractError(
                     "report review_statuses must include every admitted binding "
                     f"status for unit {unit['unit_id']!r}"
+                )
+            if set(review_statuses_by_method) != binding_method_ids or any(
+                len(statuses) != 1 for statuses in review_statuses_by_method.values()
+            ):
+                raise ContractError(
+                    "report matched identity provenance must bind one review_status "
+                    "per admitted method in unit "
+                    f"{unit['unit_id']!r}"
+                )
+            if any(
+                origins_by_method[method_id] == {"observed"}
+                and review_statuses_by_method[method_id] != {OBSERVED_REVIEW_STATUS}
+                for method_id in binding_method_ids
+            ):
+                raise ContractError(
+                    "report observed-origin binding requires reviewed review_status "
+                    "for every bound method in unit "
+                    f"{unit['unit_id']!r}"
                 )
             has_observed_metric = any(
                 binding_method_ids

@@ -593,6 +593,16 @@ def test_report_validator_binds_metric_state_counts_to_unit_methods(runner) -> N
         runner.validate_report(report)
 
 
+def test_report_validator_binds_metric_state_labels_to_emitted_values(runner) -> None:
+    report = runner.build_report(packet(runner))
+    metric = report["comparison_units"][0]["metric_coverage"]["wall_seconds"]
+    emitted_value_count = len(metric["observed_values"]) + len(metric["controlled_values"])
+    metric["state_counts"]["known"] = 0
+    metric["state_counts"]["unknown"] += emitted_value_count
+    with pytest.raises(runner.ContractError, match="known.*emitted"):
+        runner.validate_report(report)
+
+
 def test_report_validator_rejects_duplicate_comparison_unit_ids(runner) -> None:
     report = runner.build_report(packet(runner))
     duplicate = copy.deepcopy(report["comparison_units"][0])

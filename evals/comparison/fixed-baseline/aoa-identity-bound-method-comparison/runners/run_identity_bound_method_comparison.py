@@ -336,6 +336,17 @@ def validate_report(report: Any) -> None:
                     f"report {metric_name}.state_counts plus synthetic_count={state_count!r} "
                     f"does not match method count {method_count!r} for unit {unit['unit_id']!r}"
                 )
+            emitted_value_count = sum(
+                len(metric[bucket_name])
+                for bucket_name in ("observed_values", "controlled_values")
+            )
+            if metric["state_counts"]["known"] < emitted_value_count:
+                raise ContractError(
+                    f"report {metric_name}.state_counts.known does not cover emitted "
+                    f"values for unit {unit['unit_id']!r}: "
+                    f"known={metric['state_counts']['known']!r}, "
+                    f"emitted={emitted_value_count!r}"
+                )
         for metric in unit["metric_coverage"].values():
             for bucket_name in ("observed_values", "controlled_values"):
                 for value in metric[bucket_name]:

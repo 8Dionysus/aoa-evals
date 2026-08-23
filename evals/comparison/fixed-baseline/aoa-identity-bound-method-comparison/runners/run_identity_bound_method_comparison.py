@@ -226,6 +226,20 @@ def validate_report(report: Any) -> None:
             for binding in unit["matched_identity_bindings"]
             for method_id in binding["method_ids"]
         }
+        bound_observation_refs = {
+            provenance["ref"]
+            for binding in unit["matched_identity_bindings"]
+            for provenance in binding["evidence_provenance"]
+        }
+        if unit["matched_identity_bindings"] and bound_observation_refs != set(
+            unit["observation_refs"]
+        ):
+            raise ContractError(
+                "report observation_refs must match matched identity provenance "
+                f"for unit {unit['unit_id']!r}: "
+                f"declared={sorted(unit['observation_refs'])!r}, "
+                f"bound={sorted(bound_observation_refs)!r}"
+            )
         binding_identities = [
             binding["identity"] for binding in unit["matched_identity_bindings"]
         ]
@@ -732,7 +746,13 @@ def _unit_result(
     method_ids = [method_id for method_id in METHOD_IDS if method_id in {row["method_id"] for row in rows}]
     review_statuses = sorted({row["review_status"] for row in rows})
     evidence_classes = sorted({row["identity"]["evidence_class"] for row in rows})
-    refs = sorted({ref for row in rows for ref in row["evidence_refs"]})
+    all_refs = {ref for row in rows for ref in row["evidence_refs"]}
+    bound_refs = {
+        provenance["ref"]
+        for binding in matched_identity_bindings
+        for provenance in binding["evidence_provenance"]
+    }
+    refs = sorted(bound_refs if matched_identity_bindings else all_refs)
     if observed_pair_count:
         disposition = "matched_observation_only"
         claim_limit = CLAIM_LIMIT_OBSERVED

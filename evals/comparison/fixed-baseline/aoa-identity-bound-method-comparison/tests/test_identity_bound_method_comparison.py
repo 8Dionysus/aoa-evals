@@ -211,6 +211,21 @@ def test_report_preserves_matched_identity_and_evidence_provenance(runner) -> No
     assert runner.build_report(changed) != report
 
 
+def test_report_validator_binds_observation_refs_to_matched_provenance(runner) -> None:
+    report = runner.build_report(packet(runner))
+    unit = report["comparison_units"][0]
+    bound_refs = {
+        provenance["ref"]
+        for binding in unit["matched_identity_bindings"]
+        for provenance in binding["evidence_provenance"]
+    }
+    assert set(unit["observation_refs"]) == bound_refs
+
+    unit["observation_refs"] = ["owner-packet:forged-observation-ref"]
+    with pytest.raises(runner.ContractError, match="observation_refs.*provenance"):
+        runner.validate_report(report)
+
+
 def test_report_schema_requires_provenance_binding_for_positive_unit(runner) -> None:
     report = runner.build_report(packet(runner))
     report["comparison_units"][0]["matched_identity_bindings"] = []

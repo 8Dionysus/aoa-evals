@@ -89,6 +89,15 @@ def _load_json(path: Path) -> Any:
         raise ContractError(f"cannot load JSON {path}: {exc}") from exc
 
 
+def _unmatched_case_signature(case: dict[str, Any]) -> tuple[Any, ...]:
+    return (
+        case["unit_id"],
+        case.get("method_id"),
+        case["reason"],
+        tuple(sorted(case["mismatched_fields"])),
+    )
+
+
 def _validate_schema(payload: Any) -> None:
     schema = _load_json(APPLY_SCHEMA_PATH)
     errors = sorted(Draft202012Validator(schema).iter_errors(payload), key=lambda error: list(error.path))
@@ -249,6 +258,21 @@ def validate_report(report: Any) -> None:
                 "report unmatched_cases reason parity failed for unit "
                 f"{unit['unit_id']!r}: "
                 + "; ".join(details)
+            )
+        expected_unit_cases = unit["unmatched_case_expectations"]
+        if any(
+            case["unit_id"] != unit["unit_id"] for case in expected_unit_cases
+        ):
+            raise ContractError(
+                "report unmatched_case_expectations contains a case for a different "
+                f"unit under {unit['unit_id']!r}"
+            )
+        if sorted(map(_unmatched_case_signature, unit_cases)) != sorted(
+            map(_unmatched_case_signature, expected_unit_cases)
+        ):
+            raise ContractError(
+                "report unmatched_cases candidate-specific mismatch parity failed "
+                f"for unit {unit['unit_id']!r}"
             )
 
         for metric_name, metric in unit["metric_coverage"].items():
@@ -515,6 +539,15 @@ def _unit_result(
     baseline_rows = [row for row in rows if row["method_id"] == baseline_method_id]
     unmatched: list[dict[str, Any]] = []
     if not baseline_rows:
+        unmatched = [
+            {
+                "unit_id": unit_id,
+                "reason": "baseline_method_missing",
+                "method_id": row["method_id"],
+                "mismatched_fields": ["baseline_method_id"],
+            }
+            for row in rows
+        ]
         return (
             {
                 "unit_id": unit_id,
@@ -528,6 +561,7 @@ def _unit_result(
                 "mismatched_fields": ["baseline_method_id"],
                 "observation_refs": sorted({ref for row in rows for ref in row["evidence_refs"]}),
                 "matched_identity_bindings": [],
+                "unmatched_case_expectations": copy.deepcopy(unmatched),
                 "metric_coverage": _metric_coverage(
                     rows,
                     eligible_observed_method_ids=set(),
@@ -535,21 +569,21 @@ def _unit_result(
                 ),
                 "claim_limit": "no declared baseline row; no method pair admitted",
             },
-            [
-                {
-                    "unit_id": unit_id,
-                    "reason": "baseline_method_missing",
-                    "method_id": row["method_id"],
-                    "mismatched_fields": ["baseline_method_id"],
-                }
-                for row in rows
-            ],
+            unmatched,
         )
 
     baseline = baseline_rows[0]
     candidates = [row for row in rows if row["method_id"] != baseline_method_id]
     if not candidates:
         reason = "comparison_candidate_missing"
+        unmatched = [
+            {
+                "unit_id": unit_id,
+                "reason": reason,
+                "method_id": baseline_method_id,
+                "mismatched_fields": ["comparison_candidate_method_id"],
+            }
+        ]
         return (
             {
                 "unit_id": unit_id,
@@ -563,6 +597,7 @@ def _unit_result(
                 "mismatched_fields": ["comparison_candidate_method_id"],
                 "observation_refs": sorted({ref for row in rows for ref in row["evidence_refs"]}),
                 "matched_identity_bindings": [],
+                "unmatched_case_expectations": copy.deepcopy(unmatched),
                 "metric_coverage": _metric_coverage(
                     rows,
                     eligible_observed_method_ids=set(),
@@ -570,14 +605,7 @@ def _unit_result(
                 ),
                 "claim_limit": "one-sided baseline; no method pair admitted",
             },
-            [
-                {
-                    "unit_id": unit_id,
-                    "reason": reason,
-                    "method_id": baseline_method_id,
-                    "mismatched_fields": ["comparison_candidate_method_id"],
-                }
-            ],
+            unmatched,
         )
 
     all_mismatches: list[str] = []
@@ -671,6 +699,7 @@ def _unit_result(
         "mismatched_fields": sorted(set(all_mismatches)),
         "observation_refs": refs,
         "matched_identity_bindings": matched_identity_bindings,
+        "unmatched_case_expectations": copy.deepcopy(unmatched),
         "metric_coverage": _metric_coverage(
             rows,
             eligible_observed_method_ids=eligible_observed_method_ids,

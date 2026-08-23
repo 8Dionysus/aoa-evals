@@ -94,8 +94,11 @@ unit IDs, non-finite report metric values, and metric buckets with duplicate
 method IDs, and binds each metric's state-count plus synthetic-count total to
 the unit method cardinality. It also requires every counted observed pair to
 have jointly measured values in at least one metric bucket and requires all
-bindings in a unit to preserve one identity snapshot; `build_report` invokes
-that validator before returning a report. It is not a speedup,
+bindings in a unit to preserve one identity snapshot. Each unit carries
+candidate-specific `unmatched_case_expectations`, and `validate_report`
+requires the top-level `unmatched_cases` entries to match those expectations
+per method, reason, and mismatch field; `build_report` invokes that validator
+before returning a report. It is not a speedup,
 causal effect, proof result, or winner verdict.
 
 This eval does **not** support claims that:
@@ -206,7 +209,9 @@ report metrics, and measured coverage for positive observed units whose
 measured methods are present in admitted bindings. Every observed or controlled
 metric value must likewise be covered by an admitted binding, and each unit
 with an unmatched disposition or mismatch reason must remain represented in
-`unmatched_cases`. `validate_report` checks the report schema and verifies that
+`unmatched_cases`, with candidate-specific mismatch reasons preserved in each
+unit's `unmatched_case_expectations`. `validate_report` checks the report schema
+and verifies that
 observation, unit, disposition, matched-pair, and eligible-real-pair admission
 counters equal the derived `comparison_units` values, and that every metric
 state-count plus synthetic-count total equals the unit method cardinality. The
@@ -216,7 +221,8 @@ observed matched unit must retain a `reviewed` status, controlled bindings must
 retain known cache and resource posture, and each metric value bucket has at
 most one value per method. Every binding counted by `observed_pair_count` must
 have a jointly measured metric bucket, and all bindings in one unit must carry
-the same identity snapshot.
+the same identity snapshot. Swapping mismatch fields between rejected
+candidates is rejected because each case must match its unit expectation.
 
 The apply packet is therefore a contract for a future owner-local run, not
 evidence that a run occurred. The checked-in example report is intentionally
@@ -320,6 +326,8 @@ The instrument must fail closed on:
   disallowed/derived evidence class;
 - an unmatched candidate row or mismatch reason silently dropped from
   `unmatched_cases`;
+- candidate-specific mismatch fields or reasons swapped between rejected
+  methods;
 - a generated reader, delivery receipt, or green validator treated as live
   evidence.
 

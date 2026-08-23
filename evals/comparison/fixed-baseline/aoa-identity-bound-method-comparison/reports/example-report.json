@@ -78,6 +78,20 @@
       "mismatched_fields": ["identity.environment_id", "review_status.baseline"],
       "observation_refs": ["manual-case:unmatched_provisional_evidence"],
       "matched_identity_bindings": [],
+      "unmatched_case_expectations": [
+        {
+          "unit_id": "design-unmatched-unit",
+          "reason": "identity_or_parity_mismatch",
+          "method_id": "legacy_serial_full_release",
+          "mismatched_fields": ["identity.environment_id", "review_status.baseline"]
+        },
+        {
+          "unit_id": "design-unmatched-unit",
+          "reason": "identity_or_parity_mismatch",
+          "method_id": "owner_focused_affected_only",
+          "mismatched_fields": ["identity.environment_id", "review_status.baseline"]
+        }
+      ],
       "metric_coverage": {
         "wall_seconds": {"state_counts": {"known": 0, "unknown": 0, "null": 0, "excluded": 0, "unobservable": 2, "missing": 0}, "observed_values": [], "controlled_values": [], "synthetic_count": 0},
         "cpu_ms": {"state_counts": {"known": 0, "unknown": 0, "null": 0, "excluded": 0, "unobservable": 2, "missing": 0}, "observed_values": [], "controlled_values": [], "synthetic_count": 0},

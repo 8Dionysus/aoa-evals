@@ -503,6 +503,8 @@ def test_report_validator_preserves_each_rejected_candidate_and_reason(runner) -
     payload = packet(runner)
     for method_id, route in zip(runner.METHOD_IDS[2:4], ("treatment-B", "treatment-C")):
         row = observation(runner, "unit-01", method_id, route=route)
+        if method_id == runner.METHOD_IDS[3]:
+            row["review_status"] = "provisional"
         payload["observations"].append(row)
         payload["artifacts"].append(
             {
@@ -518,6 +520,19 @@ def test_report_validator_preserves_each_rejected_candidate_and_reason(runner) -
         for case in report["unmatched_cases"]
     } == set(runner.METHOD_IDS[2:4])
 
+    cases_by_method = {
+        case["method_id"]: case for case in report["unmatched_cases"]
+    }
+    first_method, second_method = runner.METHOD_IDS[2:4]
+    first_fields = cases_by_method[first_method]["mismatched_fields"]
+    cases_by_method[first_method]["mismatched_fields"] = cases_by_method[
+        second_method
+    ]["mismatched_fields"]
+    cases_by_method[second_method]["mismatched_fields"] = first_fields
+    with pytest.raises(runner.ContractError, match="candidate-specific mismatch parity"):
+        runner.validate_report(report)
+
+    report = runner.build_report(payload)
     report["unmatched_cases"].pop()
     with pytest.raises(runner.ContractError, match="rejected method IDs"):
         runner.validate_report(report)

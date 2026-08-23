@@ -307,6 +307,7 @@
         "mismatched_fields",
         "observation_refs",
         "matched_identity_bindings",
+        "unmatched_case_expectations",
         "metric_coverage",
         "claim_limit"
       ],
@@ -337,6 +338,11 @@
             {"not": {"contains": {"$ref": "#/$defs/binding_candidate_retry"}, "minContains": 2}},
             {"not": {"contains": {"$ref": "#/$defs/binding_candidate_controlled"}, "minContains": 2}}
           ]
+        },
+        "unmatched_case_expectations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/unmatched_case"}
         },
         "metric_coverage": {
           "type": "object",

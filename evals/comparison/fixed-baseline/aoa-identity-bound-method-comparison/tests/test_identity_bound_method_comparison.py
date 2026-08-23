@@ -319,6 +319,28 @@ def test_report_validator_rejects_conflicting_origins_across_bindings(runner) ->
         runner.validate_report(report)
 
 
+def test_report_validator_rejects_inconsistent_repeated_method_review_status(
+    runner,
+) -> None:
+    report = runner.build_report(
+        packet_with_candidates(runner, (runner.METHOD_IDS[2], runner.METHOD_IDS[3]))
+    )
+    unit = report["comparison_units"][0]
+    for binding in unit["matched_identity_bindings"]:
+        for provenance in binding["evidence_provenance"]:
+            provenance["measurement_origin"] = "controlled"
+    unit["review_statuses"].append("controlled")
+    for provenance in unit["matched_identity_bindings"][1]["evidence_provenance"]:
+        if provenance["method_id"] == runner.METHOD_IDS[0]:
+            provenance["review_status"] = "controlled"
+
+    with pytest.raises(
+        runner.ContractError,
+        match="provenance must stay consistent per repeated method across bindings",
+    ):
+        runner.validate_report(report)
+
+
 def test_report_validator_rejects_controlled_values_for_noncontrolled_provenance(
     runner,
 ) -> None:

@@ -297,12 +297,12 @@ def validate_report(report: Any) -> None:
             for method_id in binding["method_ids"]
         }
         provenance_by_method: dict[
-            str, list[frozenset[tuple[str, str, str, str, str]]]
+            str, list[frozenset[tuple[str, str, str, str, str, str]]]
         ] = defaultdict(list)
         provenance_digests: dict[str, set[str]] = defaultdict(set)
         for binding in unit["matched_identity_bindings"]:
             binding_provenance_by_method: dict[
-                str, set[tuple[str, str, str, str, str]]
+                str, set[tuple[str, str, str, str, str, str]]
             ] = defaultdict(set)
             for provenance in binding["evidence_provenance"]:
                 binding_provenance_by_method[provenance["method_id"]].add(
@@ -312,6 +312,7 @@ def validate_report(report: Any) -> None:
                         provenance["kind"],
                         provenance["evidence_class"],
                         provenance["measurement_origin"],
+                        provenance["review_status"],
                     )
                 )
                 provenance_digests[provenance["ref"]].add(provenance["digest"])

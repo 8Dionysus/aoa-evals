@@ -257,6 +257,31 @@ def validate_report(report: Any) -> None:
                 "report matched identity provenance has conflicting digests per ref: "
                 f"{conflicting_provenance!r}"
             )
+        reported_evidence_classes = set(unit["evidence_classes"])
+        disallowed_evidence_classes = (
+            reported_evidence_classes - ALLOWED_OBSERVATION_EVIDENCE_CLASSES
+        )
+        if disallowed_evidence_classes:
+            raise ContractError(
+                "report evidence_classes must use canonical observation classes for unit "
+                f"{unit['unit_id']!r}: "
+                f"disallowed={sorted(disallowed_evidence_classes)!r}"
+            )
+        bound_evidence_classes = {
+            provenance["evidence_class"]
+            for binding in unit["matched_identity_bindings"]
+            for provenance in binding["evidence_provenance"]
+        }
+        if (
+            unit["matched_identity_bindings"]
+            and reported_evidence_classes != bound_evidence_classes
+        ):
+            raise ContractError(
+                "report evidence_classes must match matched identity provenance "
+                f"for unit {unit['unit_id']!r}: "
+                f"declared={sorted(reported_evidence_classes)!r}, "
+                f"bound={sorted(bound_evidence_classes)!r}"
+            )
         binding_origins: list[dict[str, set[str]]] = []
         for binding in unit["matched_identity_bindings"]:
             origins_by_method: dict[str, set[str]] = defaultdict(set)
@@ -407,6 +432,13 @@ def validate_report(report: Any) -> None:
                 + "; ".join(details)
             )
         expected_unit_cases = unit["unmatched_case_expectations"]
+        if not rejected_method_ids and not expected_reason_fields and (
+            unit_cases or expected_unit_cases
+        ):
+            raise ContractError(
+                "report unmatched_cases are not permitted for a fully matched unit "
+                f"{unit['unit_id']!r}"
+            )
         if any(
             case["unit_id"] != unit["unit_id"] for case in expected_unit_cases
         ):
@@ -841,13 +873,22 @@ def _unit_result(
 
     method_ids = [method_id for method_id in METHOD_IDS if method_id in {row["method_id"] for row in rows}]
     review_statuses = sorted({row["review_status"] for row in rows})
-    evidence_classes = sorted({row["identity"]["evidence_class"] for row in rows})
     all_refs = {ref for row in rows for ref in row["evidence_refs"]}
     bound_refs = {
         provenance["ref"]
         for binding in matched_identity_bindings
         for provenance in binding["evidence_provenance"]
     }
+    bound_evidence_classes = {
+        provenance["evidence_class"]
+        for binding in matched_identity_bindings
+        for provenance in binding["evidence_provenance"]
+    }
+    evidence_classes = sorted(
+        bound_evidence_classes
+        if matched_identity_bindings
+        else {row["identity"]["evidence_class"] for row in rows}
+    )
     refs = sorted(bound_refs if matched_identity_bindings else all_refs)
     if observed_pair_count:
         disposition = "matched_observation_only"

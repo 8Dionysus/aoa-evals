@@ -615,6 +615,24 @@ def test_report_validator_preserves_unmatched_reason_units(runner) -> None:
         runner.validate_report(report)
 
 
+def test_report_validator_rejects_spurious_no_eligible_pair_for_fully_matched_unit(
+    runner,
+) -> None:
+    report = runner.build_report(packet(runner))
+    spurious_case = {
+        "unit_id": "unit-01",
+        "reason": "no_eligible_pair",
+        "mismatched_fields": [],
+    }
+    report["unmatched_cases"].append(copy.deepcopy(spurious_case))
+    report["comparison_units"][0]["unmatched_case_expectations"].append(
+        spurious_case
+    )
+
+    with pytest.raises(runner.ContractError, match="fully matched unit"):
+        runner.validate_report(report)
+
+
 def test_report_validator_preserves_each_rejected_candidate_and_reason(runner) -> None:
     payload = packet(runner)
     for method_id, route in zip(runner.METHOD_IDS[2:4], ("treatment-B", "treatment-C")):
@@ -802,6 +820,20 @@ def test_report_schema_matches_binding_identity_and_provenance_class(runner) -> 
         ).iter_errors(report)
     )
     assert errors
+
+
+def test_report_validator_restricts_evidence_classes_to_bound_provenance(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["evidence_classes"] = ["private-internal"]
+    with pytest.raises(runner.ContractError, match="evidence_classes.*canonical"):
+        runner.validate_report(report)
+
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["evidence_classes"] = ["public-safe-contract"]
+    with pytest.raises(
+        runner.ContractError, match="evidence_classes must match matched identity provenance"
+    ):
+        runner.validate_report(report)
 
 
 def test_report_order_is_independent_of_observation_order(runner) -> None:

@@ -351,7 +351,7 @@ def test_report_validator_rejects_controlled_values_for_noncontrolled_provenance
 
     with pytest.raises(
         runner.ContractError,
-        match="controlled_values requires controlled measurement_origin",
+        match="method_states measurement_origin does not match admitted provenance",
     ):
         runner.validate_report(report)
 
@@ -364,6 +364,41 @@ def test_report_validator_rejects_conflicting_provenance_digests(runner) -> None
     provenance[1]["digest"] = digest("9")
     unit["observation_refs"] = [provenance[0]["ref"]]
     with pytest.raises(runner.ContractError, match="conflicting digests"):
+        runner.validate_report(report)
+
+
+def test_report_validator_rejects_report_global_provenance_digest_conflict(
+    runner,
+) -> None:
+    payload = packet(runner)
+    second_rows = [
+        observation(runner, "unit-02", method_id)
+        for method_id in (runner.METHOD_IDS[0], runner.METHOD_IDS[1])
+    ]
+    payload["observations"].extend(second_rows)
+    payload["artifacts"].extend(
+        {
+            "ref": row["evidence_refs"][0],
+            "digest": digest("4"),
+            "kind": "public-safe-observation",
+            "evidence_class": "reviewed-owner-packet",
+        }
+        for row in second_rows
+    )
+    report = runner.build_report(payload)
+    first_unit, second_unit = report["comparison_units"]
+    shared_ref = first_unit["matched_identity_bindings"][0]["evidence_provenance"][0]["ref"]
+    second_provenance = second_unit["matched_identity_bindings"][0]["evidence_provenance"]
+    second_provenance[0]["ref"] = shared_ref
+    second_provenance[0]["digest"] = digest("9")
+    second_unit["observation_refs"] = sorted(
+        {item["ref"] for item in second_provenance}
+    )
+
+    with pytest.raises(
+        runner.ContractError,
+        match="report-global.*conflicting digests",
+    ):
         runner.validate_report(report)
 
 
@@ -849,7 +884,36 @@ def test_report_validator_binds_metric_state_labels_to_emitted_values(runner) ->
     emitted_value_count = len(metric["observed_values"]) + len(metric["controlled_values"])
     metric["state_counts"]["known"] = 0
     metric["state_counts"]["unknown"] += emitted_value_count
-    with pytest.raises(runner.ContractError, match="known.*emitted"):
+    with pytest.raises(
+        runner.ContractError,
+        match="state_counts and synthetic_count.*derived from method_states",
+    ):
+        runner.validate_report(report)
+
+
+def test_report_validator_rejects_erased_controlled_metric_values(runner) -> None:
+    report = runner.build_report(packet(runner, origin="controlled"))
+    metric = report["comparison_units"][0]["metric_coverage"]["wall_seconds"]
+    metric["controlled_values"] = []
+
+    with pytest.raises(
+        runner.ContractError,
+        match="controlled_values must match known controlled method_states",
+    ):
+        runner.validate_report(report)
+
+
+def test_report_validator_rejects_metric_state_recast_as_synthetic(runner) -> None:
+    report = runner.build_report(packet(runner))
+    metric = report["comparison_units"][0]["metric_coverage"]["cpu_ms"]
+    metric["observed_values"] = []
+    metric["state_counts"]["known"] = 0
+    metric["synthetic_count"] = 2
+
+    with pytest.raises(
+        runner.ContractError,
+        match="state_counts and synthetic_count.*derived from method_states",
+    ):
         runner.validate_report(report)
 
 

@@ -281,6 +281,24 @@ def validate_report(report: Any) -> None:
     for case in report["unmatched_cases"]:
         cases_by_unit[case["unit_id"]].append(case)
 
+    report_provenance_digests: dict[str, set[str]] = defaultdict(set)
+    for unit in units:
+        for binding in unit["matched_identity_bindings"]:
+            for provenance in binding["evidence_provenance"]:
+                report_provenance_digests[provenance["ref"]].add(
+                    provenance["digest"]
+                )
+    conflicting_report_provenance = {
+        ref: sorted(digests)
+        for ref, digests in report_provenance_digests.items()
+        if len(digests) > 1
+    }
+    if conflicting_report_provenance:
+        raise ContractError(
+            "report-global matched identity provenance has conflicting digests per ref: "
+            f"{conflicting_report_provenance!r}"
+        )
+
     for unit in units:
         method_count = len(unit["method_ids"])
         unit_cases = cases_by_unit.get(unit["unit_id"], [])
@@ -503,6 +521,24 @@ def validate_report(report: Any) -> None:
                 f"{unit['unit_id']!r}"
             )
 
+        expected_observed_value_methods: set[str] = set()
+        expected_controlled_value_methods: set[str] = set()
+        for binding, origins_by_method in zip(
+            unit["matched_identity_bindings"], binding_origins
+        ):
+            binding_method_ids = set(binding["method_ids"])
+            if all(
+                origins_by_method[method_id] == {"observed"}
+                for method_id in binding_method_ids
+            ):
+                expected_observed_value_methods.update(binding_method_ids)
+            else:
+                expected_controlled_value_methods.update(
+                    method_id
+                    for method_id in binding_method_ids
+                    if origins_by_method[method_id] == {"controlled"}
+                )
+
         rejected_method_ids = (
             set(unit["method_ids"])
             - admitted_method_ids
@@ -579,6 +615,61 @@ def validate_report(report: Any) -> None:
             )
 
         for metric_name, metric in unit["metric_coverage"].items():
+            method_states = metric["method_states"]
+            method_state_by_method: dict[str, dict[str, str]] = {}
+            for method_state in method_states:
+                method_id = method_state["method_id"]
+                if method_id in method_state_by_method:
+                    raise ContractError(
+                        f"report {metric_name}.method_states contains duplicate method_id="
+                        f"{method_id!r} for unit {unit['unit_id']!r}"
+                    )
+                method_state_by_method[method_id] = method_state
+            if set(method_state_by_method) != set(unit["method_ids"]):
+                raise ContractError(
+                    f"report {metric_name}.method_states must contain exactly the "
+                    f"unit methods for unit {unit['unit_id']!r}"
+                )
+
+            expected_state_counts = {
+                "known": 0,
+                **{status: 0 for status in NON_VALUE_STATUSES},
+            }
+            expected_synthetic_count = 0
+            for method_state in method_states:
+                method_id = method_state["method_id"]
+                state = method_state["state"]
+                origin = method_state["measurement_origin"]
+                expected_origin_by_state = {
+                    "known": "observed",
+                    "controlled": "controlled",
+                    "synthetic": "synthetic",
+                }
+                required_origin = expected_origin_by_state.get(state)
+                if required_origin is not None and origin != required_origin:
+                    raise ContractError(
+                        f"report {metric_name}.method_states state={state!r} "
+                        f"requires measurement_origin={required_origin!r} for "
+                        f"method {method_id!r} in unit {unit['unit_id']!r}"
+                    )
+                if method_id in unit_origins_by_method and origin not in unit_origins_by_method[method_id]:
+                    raise ContractError(
+                        f"report {metric_name}.method_states measurement_origin does not "
+                        f"match admitted provenance for method {method_id!r} in unit "
+                        f"{unit['unit_id']!r}"
+                    )
+                if state == "synthetic":
+                    expected_synthetic_count += 1
+                elif state in ("known", "controlled"):
+                    expected_state_counts["known"] += 1
+                else:
+                    expected_state_counts[state] += 1
+            if metric["state_counts"] != expected_state_counts or metric["synthetic_count"] != expected_synthetic_count:
+                raise ContractError(
+                    f"report {metric_name}.state_counts and synthetic_count must be "
+                    "derived from method_states"
+                )
+
             for bucket_name in ("observed_values", "controlled_values"):
                 for value in metric[bucket_name]:
                     if not math.isfinite(value["value"]):
@@ -592,16 +683,35 @@ def validate_report(report: Any) -> None:
                     f"report {metric_name}.state_counts plus synthetic_count={state_count!r} "
                     f"does not match method count {method_count!r} for unit {unit['unit_id']!r}"
                 )
-            emitted_value_count = sum(
-                len(metric[bucket_name])
-                for bucket_name in ("observed_values", "controlled_values")
-            )
-            if metric["state_counts"]["known"] < emitted_value_count:
+            expected_observed_methods = {
+                method_id
+                for method_id in expected_observed_value_methods
+                if method_state_by_method[method_id]["state"] == "known"
+            }
+            expected_controlled_methods = {
+                method_id
+                for method_id in expected_controlled_value_methods
+                if method_state_by_method[method_id]["state"] == "controlled"
+            }
+            actual_observed_methods = {
+                value["method_id"] for value in metric["observed_values"]
+            }
+            actual_controlled_methods = {
+                value["method_id"] for value in metric["controlled_values"]
+            }
+            if actual_observed_methods != expected_observed_methods:
                 raise ContractError(
-                    f"report {metric_name}.state_counts.known does not cover emitted "
-                    f"values for unit {unit['unit_id']!r}: "
-                    f"known={metric['state_counts']['known']!r}, "
-                    f"emitted={emitted_value_count!r}"
+                    f"report {metric_name}.observed_values must match known observed "
+                    f"method_states for unit {unit['unit_id']!r}: "
+                    f"expected={sorted(expected_observed_methods)!r}, "
+                    f"actual={sorted(actual_observed_methods)!r}"
+                )
+            if actual_controlled_methods != expected_controlled_methods:
+                raise ContractError(
+                    f"report {metric_name}.controlled_values must match known controlled "
+                    f"method_states for unit {unit['unit_id']!r}: "
+                    f"expected={sorted(expected_controlled_methods)!r}, "
+                    f"actual={sorted(actual_controlled_methods)!r}"
                 )
         for metric in unit["metric_coverage"].values():
             for bucket_name, expected_origin in (
@@ -791,6 +901,7 @@ def _metric_coverage(
         }
         observed_values: list[dict[str, Any]] = []
         controlled_values: list[dict[str, Any]] = []
+        method_states: list[dict[str, str]] = []
         synthetic_count = 0
         for row in rows:
             measurement = row["metrics"][metric_name]
@@ -798,19 +909,42 @@ def _metric_coverage(
             origin = row["measurement_origin"]
             if status in NON_VALUE_STATUSES:
                 status_counts[status] += 1
+                method_state = status
             elif origin == "synthetic":
                 synthetic_count += 1
+                method_state = "synthetic"
+            elif origin == "controlled":
+                status_counts["known"] += 1
+                method_state = "controlled"
+                if row["method_id"] in eligible_controlled_method_ids:
+                    controlled_values.append(
+                        {
+                            "method_id": row["method_id"],
+                            "value": measurement["value"],
+                            "unit": measurement["unit"],
+                        }
+                    )
             else:
                 status_counts["known"] += 1
-                value = {"method_id": row["method_id"], "value": measurement["value"], "unit": measurement["unit"]}
+                method_state = "known"
+                value = {
+                    "method_id": row["method_id"],
+                    "value": measurement["value"],
+                    "unit": measurement["unit"],
+                }
                 if origin == "observed" and row["method_id"] in eligible_observed_method_ids:
                     observed_values.append(value)
-                elif (
-                    origin == "controlled"
-                    and row["method_id"] in eligible_controlled_method_ids
-                ):
+                elif origin == "controlled" and row["method_id"] in eligible_controlled_method_ids:
                     controlled_values.append(value)
+            method_states.append(
+                {
+                    "method_id": row["method_id"],
+                    "state": method_state,
+                    "measurement_origin": origin,
+                }
+            )
         coverage[metric_name] = {
+            "method_states": method_states,
             "state_counts": status_counts,
             "observed_values": observed_values,
             "controlled_values": controlled_values,

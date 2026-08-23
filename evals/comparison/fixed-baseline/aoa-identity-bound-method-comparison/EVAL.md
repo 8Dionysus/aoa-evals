@@ -91,8 +91,11 @@ corresponding `comparison_units` cardinality or sum, checks metric-value method
 coverage against admitted bindings, and preserves those unmatched-reason unit
 entries at both rejected-method and mismatch-reason level, rejects duplicate
 unit IDs, non-finite report metric values, and metric buckets with duplicate
-method IDs, and binds each metric's state-count plus synthetic-count total to
-the unit method cardinality. It also requires every counted observed pair to
+method IDs, rejects report-global digest conflicts for one provenance ref across
+comparison units, requires one `method_states` entry for every method in every
+metric, derives each metric's state counts and synthetic count from those entries,
+and requires observed and controlled value buckets to match the corresponding
+known method states. It also requires every counted observed pair to
 have jointly measured values in at least one metric bucket and requires all
 bindings in a unit to preserve one identity snapshot. Each unit carries
 candidate-specific `unmatched_case_expectations`, and `validate_report`
@@ -155,9 +158,13 @@ ratio as declared by the metric name. An observed pair is eligible only when
 at least one metric is jointly known for baseline and candidate under the same
 canonical unit. `matched_pair_count` includes all admitted origin pairs, while
 `eligible_real_pairs` counts only jointly measured observed pairs.
-Only rows from an eligible pair populate `observed_values` or
-`controlled_values`; rejected rows remain visible through state counts and
-`unmatched_cases`.
+Each metric's `method_states` preserves one state and `measurement_origin` for
+every method in the unit, including rejected rows. The `state_counts` and
+`synthetic_count` fields are derived summaries of those per-method states; only
+eligible known observed or controlled methods populate `observed_values` or
+`controlled_values`, and those buckets must remain in exact parity with the
+canonical method states. Rejected rows remain visible through the state entries,
+state counts, and `unmatched_cases`.
 
 Every observation `evidence_ref` must resolve to a declared packet artifact
 with `kind: public-safe-observation` and a SHA-256 digest. Only
@@ -311,15 +318,17 @@ The instrument must fail closed on:
 - a noncanonical metric unit or a baseline/candidate unit mismatch;
 - an observed pair with no jointly known comparable metric;
 - binding provenance that omits either bound method or names another method;
+- one provenance ref with conflicting digests across comparison units;
 - a candidate method repeated across admitted bindings;
 - an observed or controlled metric value whose method has no corresponding
   admitted binding;
 - duplicate comparison unit IDs, duplicate metric values for one method, or a
   non-finite report metric value;
+- missing, duplicated, or origin-inconsistent `method_states`, state counts or
+  synthetic counts that do not derive from them, or observed/controlled buckets
+  that omit or recast a known method;
 - an observed-pair count that lacks jointly measured coverage for one of its
   admitted bindings, or bindings in one unit with different identity snapshots;
-- metric state counts plus synthetic count that do not equal the unit method
-  cardinality;
 - an unmatched unit with nonzero pair counts or a matched binding;
 - an unmatched unit with observed or controlled metric values;
 - an observed-pair count greater than the admitted-pair count;

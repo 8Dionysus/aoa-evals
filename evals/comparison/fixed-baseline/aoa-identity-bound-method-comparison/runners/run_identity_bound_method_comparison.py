@@ -240,6 +240,22 @@ def validate_report(report: Any) -> None:
                 "report matched identity provenance has conflicting digests per ref: "
                 f"{conflicting_provenance!r}"
             )
+        binding_origins: list[dict[str, set[str]]] = []
+        for binding in unit["matched_identity_bindings"]:
+            origins_by_method: dict[str, set[str]] = defaultdict(set)
+            for provenance in binding["evidence_provenance"]:
+                origins_by_method[provenance["method_id"]].add(
+                    provenance["measurement_origin"]
+                )
+            if set(origins_by_method) != set(binding["method_ids"]) or any(
+                len(origins) != 1 for origins in origins_by_method.values()
+            ):
+                raise ContractError(
+                    "report matched identity provenance must bind one "
+                    "measurement_origin per admitted method for unit "
+                    f"{unit['unit_id']!r}"
+                )
+            binding_origins.append(origins_by_method)
         bound_observation_refs = {
             provenance["ref"]
             for binding in unit["matched_identity_bindings"]
@@ -266,16 +282,28 @@ def validate_report(report: Any) -> None:
             )
 
         covered_observed_pair_count = 0
-        for binding in unit["matched_identity_bindings"]:
+        for binding, origins_by_method in zip(
+            unit["matched_identity_bindings"], binding_origins
+        ):
             binding_method_ids = set(binding["method_ids"])
-            if any(
+            has_observed_metric = any(
                 binding_method_ids
                 <= {
                     value["method_id"]
                     for value in metric["observed_values"]
                 }
                 for metric in unit["metric_coverage"].values()
-            ):
+            )
+            if has_observed_metric:
+                if any(
+                    origins_by_method[method_id] != {"observed"}
+                    for method_id in binding_method_ids
+                ):
+                    raise ContractError(
+                        "report observed metric coverage requires observed "
+                        "measurement_origin for every bound method in unit "
+                        f"{unit['unit_id']!r}"
+                    )
                 covered_observed_pair_count += 1
         if covered_observed_pair_count != unit["observed_pair_count"]:
             raise ContractError(
@@ -601,6 +629,7 @@ def _evidence_provenance(
                     "digest": artifact["digest"],
                     "kind": artifact["kind"],
                     "evidence_class": artifact["evidence_class"],
+                    "measurement_origin": row["measurement_origin"],
                 }
             )
     return provenance

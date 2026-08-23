@@ -1233,13 +1233,14 @@
     "evidence_provenance": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["method_id", "ref", "digest", "kind", "evidence_class"],
+      "required": ["method_id", "ref", "digest", "kind", "evidence_class", "measurement_origin"],
       "properties": {
         "method_id": {"$ref": "#/$defs/canonical_method_id"},
         "ref": {"type": "string", "minLength": 1},
         "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
         "kind": {"const": "public-safe-observation"},
-        "evidence_class": {"enum": ["public-safe-contract", "reviewed-owner-packet"]}
+        "evidence_class": {"enum": ["public-safe-contract", "reviewed-owner-packet"]},
+        "measurement_origin": {"enum": ["observed", "controlled", "synthetic"]}
       }
     },
     "unmatched_case": {

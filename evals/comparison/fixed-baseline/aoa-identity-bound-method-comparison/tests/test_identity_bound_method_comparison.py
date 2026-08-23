@@ -204,6 +204,9 @@ def test_report_preserves_matched_identity_and_evidence_provenance(runner) -> No
         "owner_focused_affected_only",
     }
     assert {item["digest"] for item in binding["evidence_provenance"]} == {digest("3")}
+    assert {item["measurement_origin"] for item in binding["evidence_provenance"]} == {
+        "observed"
+    }
 
     changed = copy.deepcopy(payload)
     for row in changed["observations"]:
@@ -223,6 +226,21 @@ def test_report_validator_binds_observation_refs_to_matched_provenance(runner) -
 
     unit["observation_refs"] = ["owner-packet:forged-observation-ref"]
     with pytest.raises(runner.ContractError, match="observation_refs.*provenance"):
+        runner.validate_report(report)
+
+
+def test_report_validator_rejects_observed_coverage_for_controlled_provenance(
+    runner,
+) -> None:
+    report = runner.build_report(packet(runner))
+    binding = report["comparison_units"][0]["matched_identity_bindings"][0]
+    for provenance in binding["evidence_provenance"]:
+        provenance["measurement_origin"] = "controlled"
+
+    with pytest.raises(
+        runner.ContractError,
+        match="observed metric coverage requires observed measurement_origin",
+    ):
         runner.validate_report(report)
 
 

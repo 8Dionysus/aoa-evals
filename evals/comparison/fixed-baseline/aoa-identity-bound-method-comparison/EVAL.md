@@ -92,8 +92,10 @@ coverage against admitted bindings, and preserves those unmatched-reason unit
 entries at both rejected-method and mismatch-reason level, rejects duplicate
 unit IDs, non-finite report metric values, and metric buckets with duplicate
 method IDs, and binds each metric's state-count plus synthetic-count total to
-the unit method cardinality; `build_report` invokes that validator before
-returning a report. It is not a speedup,
+the unit method cardinality. It also requires every counted observed pair to
+have jointly measured values in at least one metric bucket and requires all
+bindings in a unit to preserve one identity snapshot; `build_report` invokes
+that validator before returning a report. It is not a speedup,
 causal effect, proof result, or winner verdict.
 
 This eval does **not** support claims that:
@@ -212,7 +214,9 @@ declared command timeout and report metric values must also be finite;
 non-finite literals and numeric overflow are rejected before admission. An
 observed matched unit must retain a `reviewed` status, controlled bindings must
 retain known cache and resource posture, and each metric value bucket has at
-most one value per method.
+most one value per method. Every binding counted by `observed_pair_count` must
+have a jointly measured metric bucket, and all bindings in one unit must carry
+the same identity snapshot.
 
 The apply packet is therefore a contract for a future owner-local run, not
 evidence that a run occurred. The checked-in example report is intentionally
@@ -304,6 +308,8 @@ The instrument must fail closed on:
   admitted binding;
 - duplicate comparison unit IDs, duplicate metric values for one method, or a
   non-finite report metric value;
+- an observed-pair count that lacks jointly measured coverage for one of its
+  admitted bindings, or bindings in one unit with different identity snapshots;
 - metric state counts plus synthetic count that do not equal the unit method
   cardinality;
 - an unmatched unit with nonzero pair counts or a matched binding;

@@ -170,6 +170,37 @@ def validate_report(report: Any) -> None:
             for binding in unit["matched_identity_bindings"]
             for method_id in binding["method_ids"]
         }
+        binding_identities = [
+            binding["identity"] for binding in unit["matched_identity_bindings"]
+        ]
+        if binding_identities and any(
+            identity != binding_identities[0] for identity in binding_identities[1:]
+        ):
+            raise ContractError(
+                "report matched identity bindings must preserve one identity snapshot "
+                f"for unit {unit['unit_id']!r}"
+            )
+
+        covered_observed_pair_count = 0
+        for binding in unit["matched_identity_bindings"]:
+            binding_method_ids = set(binding["method_ids"])
+            if any(
+                binding_method_ids
+                <= {
+                    value["method_id"]
+                    for value in metric["observed_values"]
+                }
+                for metric in unit["metric_coverage"].values()
+            ):
+                covered_observed_pair_count += 1
+        if covered_observed_pair_count != unit["observed_pair_count"]:
+            raise ContractError(
+                "report observed_pair_count does not match bindings with jointly "
+                f"measured metric coverage for unit {unit['unit_id']!r}: "
+                f"declared={unit['observed_pair_count']!r}, "
+                f"covered={covered_observed_pair_count!r}"
+            )
+
         rejected_method_ids = (
             set(unit["method_ids"])
             - admitted_method_ids

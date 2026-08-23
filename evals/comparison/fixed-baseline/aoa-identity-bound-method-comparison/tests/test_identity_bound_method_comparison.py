@@ -138,6 +138,22 @@ def packet(runner, *, origin: str = "observed") -> dict:
     }
 
 
+def packet_with_candidates(runner, method_ids: tuple[str, ...]) -> dict:
+    payload = packet(runner)
+    for method_id in method_ids:
+        row = observation(runner, "unit-01", method_id)
+        payload["observations"].append(row)
+        payload["artifacts"].append(
+            {
+                "ref": row["evidence_refs"][0],
+                "digest": digest("4"),
+                "kind": "public-safe-observation",
+                "evidence_class": "reviewed-owner-packet",
+            }
+        )
+    return payload
+
+
 @pytest.fixture(scope="module")
 def runner():
     return load_runner()
@@ -510,6 +526,29 @@ def test_report_validator_preserves_each_rejected_candidate_and_reason(runner) -
     for case in report["unmatched_cases"]:
         case["mismatched_fields"] = []
     with pytest.raises(runner.ContractError, match="reason parity"):
+        runner.validate_report(report)
+
+
+def test_report_validator_covers_every_counted_observed_pair(runner) -> None:
+    second_candidate = runner.METHOD_IDS[2]
+    report = runner.build_report(packet_with_candidates(runner, (second_candidate,)))
+    assert report["comparison_units"][0]["observed_pair_count"] == 2
+    for coverage in report["comparison_units"][0]["metric_coverage"].values():
+        coverage["observed_values"] = [
+            value
+            for value in coverage["observed_values"]
+            if value["method_id"] != second_candidate
+        ]
+    with pytest.raises(runner.ContractError, match="observed_pair_count"):
+        runner.validate_report(report)
+
+
+def test_report_validator_requires_one_identity_snapshot_per_unit(runner) -> None:
+    report = runner.build_report(
+        packet_with_candidates(runner, (runner.METHOD_IDS[2],))
+    )
+    report["comparison_units"][0]["matched_identity_bindings"][1]["identity"]["environment_id"] = "env-class-B"
+    with pytest.raises(runner.ContractError, match="identity snapshot"):
         runner.validate_report(report)
 
 

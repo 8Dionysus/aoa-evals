@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 19086261,
+  "allowed_tracked_bytes": 27104529,
+  "approved_by": "repository-owner",
+  "base_ref": "cb734788b8a6fff9869f63bdf890fc54dbaf6563",
+  "changed_generated_bytes": 19086261,
+  "changed_generated_files": 291,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "6e0a63d5786ac55a624a1d7d164cd5595f07a0f0f74dd60be749e424dc36b079",
+  "reason": "PR #455 exact-head measurement-origin consistency repair requires a fresh portable owner family before merge",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 27104529,
+  "tracked_bytes_max": 26214400
+}

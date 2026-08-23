@@ -226,6 +226,20 @@ def validate_report(report: Any) -> None:
             for binding in unit["matched_identity_bindings"]
             for method_id in binding["method_ids"]
         }
+        provenance_digests: dict[str, set[str]] = defaultdict(set)
+        for binding in unit["matched_identity_bindings"]:
+            for provenance in binding["evidence_provenance"]:
+                provenance_digests[provenance["ref"]].add(provenance["digest"])
+        conflicting_provenance = {
+            ref: sorted(digests)
+            for ref, digests in provenance_digests.items()
+            if len(digests) > 1
+        }
+        if conflicting_provenance:
+            raise ContractError(
+                "report matched identity provenance has conflicting digests per ref: "
+                f"{conflicting_provenance!r}"
+            )
         bound_observation_refs = {
             provenance["ref"]
             for binding in unit["matched_identity_bindings"]

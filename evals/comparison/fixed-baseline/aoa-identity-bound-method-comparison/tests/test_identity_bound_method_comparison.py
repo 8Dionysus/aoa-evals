@@ -226,6 +226,17 @@ def test_report_validator_binds_observation_refs_to_matched_provenance(runner) -
         runner.validate_report(report)
 
 
+def test_report_validator_rejects_conflicting_provenance_digests(runner) -> None:
+    report = runner.build_report(packet(runner))
+    unit = report["comparison_units"][0]
+    provenance = unit["matched_identity_bindings"][0]["evidence_provenance"]
+    provenance[1]["ref"] = provenance[0]["ref"]
+    provenance[1]["digest"] = digest("9")
+    unit["observation_refs"] = [provenance[0]["ref"]]
+    with pytest.raises(runner.ContractError, match="conflicting digests"):
+        runner.validate_report(report)
+
+
 def test_report_schema_requires_provenance_binding_for_positive_unit(runner) -> None:
     report = runner.build_report(packet(runner))
     report["comparison_units"][0]["matched_identity_bindings"] = []

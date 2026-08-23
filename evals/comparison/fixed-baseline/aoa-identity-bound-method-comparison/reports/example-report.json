@@ -102,7 +102,7 @@
         "first_failure_latency_seconds": {"state_counts": {"known": 0, "unknown": 0, "null": 0, "excluded": 0, "unobservable": 2, "missing": 0}, "observed_values": [], "controlled_values": [], "synthetic_count": 0},
         "retry_amplification": {"state_counts": {"known": 0, "unknown": 0, "null": 0, "excluded": 0, "unobservable": 2, "missing": 0}, "observed_values": [], "controlled_values": [], "synthetic_count": 0}
       },
-      "claim_limit": "absence of an eligible identity- and parity-matched method pair"
+      "claim_limit": "no eligible identity- and parity-matched method pair"
     }
   ],
   "unmatched_cases": [
@@ -123,8 +123,8 @@
   "policy_verdict": null,
   "claim_boundary": "This report preserves identity-bound observation or accounting dispositions only; it does not issue method effects, causal claims, proof, policy, acceptance, or a universal winner.",
   "limitations": [
-    "this is a design-only example with no eligible real-session pair",
     "the runner consumes an explicit packet and never executes command.argv",
+    "a generated reader or green validator is not real-session telemetry",
     "synthetic and controlled values are excluded from observed_values",
     "unknown, null, excluded, unobservable, and missing states are not zero",
     "no central proof, runtime health, policy, or human-acceptance verdict is emitted"

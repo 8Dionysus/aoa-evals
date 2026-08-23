@@ -223,6 +223,8 @@ most one value per method. Every binding counted by `observed_pair_count` must
 have a jointly measured metric bucket, and all bindings in one unit must carry
 the same identity snapshot. Swapping mismatch fields between rejected
 candidates is rejected because each case must match its unit expectation.
+The report-level `claim_boundary`, `limitations`, and each unit's `claim_limit`
+are canonical contract text; replacements that broaden the claim are rejected.
 
 The apply packet is therefore a contract for a future owner-local run, not
 evidence that a run occurred. The checked-in example report is intentionally

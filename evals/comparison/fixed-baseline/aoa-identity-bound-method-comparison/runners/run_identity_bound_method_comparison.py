@@ -69,6 +69,27 @@ OBSERVATION_ARTIFACT_KINDS = frozenset({"public-safe-observation"})
 NON_VALUE_STATUSES = ("unknown", "null", "excluded", "unobservable", "missing")
 ALLOWED_REVIEW_STATUSES = frozenset({"reviewed", "controlled"})
 OBSERVED_REVIEW_STATUS = "reviewed"
+REPORT_CLAIM_BOUNDARY = (
+    "This report preserves identity-bound observation or accounting dispositions "
+    "only; it does not issue method effects, causal claims, proof, policy, "
+    "acceptance, or a universal winner."
+)
+REPORT_LIMITATIONS = [
+    "the runner consumes an explicit packet and never executes command.argv",
+    "a generated reader or green validator is not real-session telemetry",
+    "synthetic and controlled values are excluded from observed_values",
+    "unknown, null, excluded, unobservable, and missing states are not zero",
+    "no central proof, runtime health, policy, or human-acceptance verdict is emitted",
+]
+CLAIM_LIMIT_OBSERVED = (
+    "identity-bound observation pair only; no effect, proof, policy, or winner claim"
+)
+CLAIM_LIMIT_CONTROLLED = (
+    "identity-matched accounting only; controlled or synthetic values are not observed effect"
+)
+CLAIM_LIMIT_UNMATCHED = "no eligible identity- and parity-matched method pair"
+CLAIM_LIMIT_BASELINE_MISSING = "no declared baseline row; no method pair admitted"
+CLAIM_LIMIT_CANDIDATE_MISSING = "one-sided baseline; no method pair admitted"
 
 
 class ContractError(ValueError):
@@ -98,6 +119,21 @@ def _unmatched_case_signature(case: dict[str, Any]) -> tuple[Any, ...]:
     )
 
 
+def _expected_claim_limit(unit: dict[str, Any]) -> str:
+    if unit["disposition"] == "matched_observation_only":
+        return CLAIM_LIMIT_OBSERVED
+    if unit["disposition"] == "controlled_accounting_only":
+        return CLAIM_LIMIT_CONTROLLED
+    reasons = {
+        case["reason"] for case in unit["unmatched_case_expectations"]
+    }
+    if "baseline_method_missing" in reasons:
+        return CLAIM_LIMIT_BASELINE_MISSING
+    if "comparison_candidate_missing" in reasons:
+        return CLAIM_LIMIT_CANDIDATE_MISSING
+    return CLAIM_LIMIT_UNMATCHED
+
+
 def _validate_schema(payload: Any) -> None:
     schema = _load_json(APPLY_SCHEMA_PATH)
     errors = sorted(Draft202012Validator(schema).iter_errors(payload), key=lambda error: list(error.path))
@@ -116,6 +152,11 @@ def validate_report(report: Any) -> None:
         error = errors[0]
         location = ".".join(str(part) for part in error.path) or "$"
         raise ContractError(f"report schema error at {location}: {error.message}")
+
+    if report["claim_boundary"] != REPORT_CLAIM_BOUNDARY:
+        raise ContractError("report claim_boundary must preserve the canonical boundary")
+    if report["limitations"] != REPORT_LIMITATIONS:
+        raise ContractError("report limitations must preserve the canonical limitations")
 
     units = report["comparison_units"]
     expected = {
@@ -174,6 +215,12 @@ def validate_report(report: Any) -> None:
 
     for unit in units:
         method_count = len(unit["method_ids"])
+        expected_claim_limit = _expected_claim_limit(unit)
+        if unit["claim_limit"] != expected_claim_limit:
+            raise ContractError(
+                "report claim_limit must preserve the canonical boundary for unit "
+                f"{unit['unit_id']!r}"
+            )
         admitted_method_ids = {
             method_id
             for binding in unit["matched_identity_bindings"]
@@ -677,13 +724,13 @@ def _unit_result(
     refs = sorted({ref for row in rows for ref in row["evidence_refs"]})
     if observed_pair_count:
         disposition = "matched_observation_only"
-        claim_limit = "identity-bound observation pair only; no effect, proof, policy, or winner claim"
+        claim_limit = CLAIM_LIMIT_OBSERVED
     elif controlled_pair_count:
         disposition = "controlled_accounting_only"
-        claim_limit = "identity-matched accounting only; controlled or synthetic values are not observed effect"
+        claim_limit = CLAIM_LIMIT_CONTROLLED
     else:
         disposition = "unmatched"
-        claim_limit = "no eligible identity- and parity-matched method pair"
+        claim_limit = CLAIM_LIMIT_UNMATCHED
         if not unmatched:
             unmatched.append({"unit_id": unit_id, "reason": "no_eligible_pair", "mismatched_fields": []})
 
@@ -805,14 +852,8 @@ def build_report(packet: dict[str, Any]) -> dict[str, Any]:
         "unmatched_cases": unmatched_cases,
         "verdict": "matched_observation_only" if matched_units else "not_admitted",
         "policy_verdict": None,
-        "claim_boundary": "This report preserves identity-bound observation or accounting dispositions only; it does not issue method effects, causal claims, proof, policy, acceptance, or a universal winner.",
-        "limitations": [
-            "the runner consumes an explicit packet and never executes command.argv",
-            "a generated reader or green validator is not real-session telemetry",
-            "synthetic and controlled values are excluded from observed_values",
-            "unknown, null, excluded, unobservable, and missing states are not zero",
-            "no central proof, runtime health, policy, or human-acceptance verdict is emitted",
-        ],
+        "claim_boundary": REPORT_CLAIM_BOUNDARY,
+        "limitations": copy.deepcopy(REPORT_LIMITATIONS),
     }
     validate_report(report)
     return report

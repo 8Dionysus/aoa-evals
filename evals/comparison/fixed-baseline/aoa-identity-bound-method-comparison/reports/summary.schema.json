@@ -136,8 +136,18 @@
     },
     "verdict": {"enum": ["not_admitted", "matched_observation_only"]},
     "policy_verdict": {"type": "null"},
-    "claim_boundary": {"type": "string", "minLength": 40},
-    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 3}}
+    "claim_boundary": {
+      "const": "This report preserves identity-bound observation or accounting dispositions only; it does not issue method effects, causal claims, proof, policy, acceptance, or a universal winner."
+    },
+    "limitations": {
+      "const": [
+        "the runner consumes an explicit packet and never executes command.argv",
+        "a generated reader or green validator is not real-session telemetry",
+        "synthetic and controlled values are excluded from observed_values",
+        "unknown, null, excluded, unobservable, and missing states are not zero",
+        "no central proof, runtime health, policy, or human-acceptance verdict is emitted"
+      ]
+    }
   },
   "allOf": [
     {
@@ -274,12 +284,12 @@
       "type": "array",
       "items": {"$ref": "#/$defs/metric_value"},
       "allOf": [
-        {"not": {"contains": {"properties": {"method_id": {"const": "legacy_serial_full_release"}}}, "minContains": 2}},
-        {"not": {"contains": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}, "minContains": 2}},
-        {"not": {"contains": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}, "minContains": 2}},
-        {"not": {"contains": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}, "minContains": 2}},
-        {"not": {"contains": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}, "minContains": 2}},
-        {"not": {"contains": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}, "minContains": 2}}
+        {"contains": {"properties": {"method_id": {"const": "legacy_serial_full_release"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}, "minContains": 0, "maxContains": 1}
       ]
     },
     "metric_value": {
@@ -332,11 +342,11 @@
           "uniqueItems": true,
           "items": {"$ref": "#/$defs/matched_identity_binding"},
           "allOf": [
-            {"not": {"contains": {"$ref": "#/$defs/binding_candidate_owner_focused"}, "minContains": 2}},
-            {"not": {"contains": {"$ref": "#/$defs/binding_candidate_claim_evidence"}, "minContains": 2}},
-            {"not": {"contains": {"$ref": "#/$defs/binding_candidate_bounded_prefix"}, "minContains": 2}},
-            {"not": {"contains": {"$ref": "#/$defs/binding_candidate_retry"}, "minContains": 2}},
-            {"not": {"contains": {"$ref": "#/$defs/binding_candidate_controlled"}, "minContains": 2}}
+            {"contains": {"$ref": "#/$defs/binding_candidate_owner_focused"}, "minContains": 0, "maxContains": 1},
+            {"contains": {"$ref": "#/$defs/binding_candidate_claim_evidence"}, "minContains": 0, "maxContains": 1},
+            {"contains": {"$ref": "#/$defs/binding_candidate_bounded_prefix"}, "minContains": 0, "maxContains": 1},
+            {"contains": {"$ref": "#/$defs/binding_candidate_retry"}, "minContains": 0, "maxContains": 1},
+            {"contains": {"$ref": "#/$defs/binding_candidate_controlled"}, "minContains": 0, "maxContains": 1}
           ]
         },
         "unmatched_case_expectations": {
@@ -359,7 +369,15 @@
             "retry_amplification": {"$ref": "#/$defs/metric_coverage_ratio"}
           }
         },
-        "claim_limit": {"type": "string", "minLength": 10}
+        "claim_limit": {
+          "enum": [
+            "identity-bound observation pair only; no effect, proof, policy, or winner claim",
+            "identity-matched accounting only; controlled or synthetic values are not observed effect",
+            "no eligible identity- and parity-matched method pair",
+            "no declared baseline row; no method pair admitted",
+            "one-sided baseline; no method pair admitted"
+          ]
+        }
       },
       "allOf": [
         {

@@ -422,6 +422,23 @@ def test_report_schema_rejects_duplicate_candidate_method_bindings(runner) -> No
     assert errors
 
 
+def test_report_validator_preserves_canonical_claim_boundary(runner) -> None:
+    report = runner.build_report(packet(runner))
+    report["claim_boundary"] = "this report proves the fastest method"
+    with pytest.raises(runner.ContractError, match="claim_boundary"):
+        runner.validate_report(report)
+
+    report = runner.build_report(packet(runner))
+    report["limitations"][0] = "causal effect established"
+    with pytest.raises(runner.ContractError, match="limitations"):
+        runner.validate_report(report)
+
+    report = runner.build_report(packet(runner))
+    report["comparison_units"][0]["claim_limit"] = "unbounded winner claim"
+    with pytest.raises(runner.ContractError, match="claim_limit"):
+        runner.validate_report(report)
+
+
 def test_report_schema_rejects_observed_values_outside_admitted_bindings(runner) -> None:
     report = runner.build_report(packet(runner))
     outsider = copy.deepcopy(

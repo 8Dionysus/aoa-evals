@@ -409,7 +409,8 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     assert entries["aoa-longitudinal-growth-snapshot"]["comparison_surface"]["window_family_label"] == "repeated-window-bounded-v1 bounded workflow sequence"
     assert entries["aoa-stress-recovery-window"]["comparison_surface"]["window_family_label"] == "stress-recovery-window-bounded-v1 bounded stress recovery sequence"
     assert set(comparison_entries) == {
-            "aoa-longitudinal-growth-snapshot",
+        "aoa-identity-bound-method-comparison",
+        "aoa-longitudinal-growth-snapshot",
             "aoa-memo-active-organ-offline-replay",
             "aoa-output-vs-process-gap",
         "aoa-regression-same-task",

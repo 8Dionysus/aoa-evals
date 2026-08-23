@@ -2,6 +2,46 @@
   "comparison_spine_version": 1,
   "evals": [
     {
+      "baseline_mode": "fixed-baseline",
+      "comparison_surface": {
+        "anchor_surface": "aoa-runtime-latency-tradeoff",
+        "baseline_target_label": "legacy serial full-release path",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/identity-bound-method-comparison-proof-flow-v1.md",
+        "selection_question": "Do you need a fixed-baseline contract that admits method-effect observations only when identity, evidence, cache, and resource posture are matched?",
+        "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+      },
+      "eval_path": "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/EVAL.md",
+      "interpretation_boundary": "a universal method winner or ranking;; observed real-session latency when the origin is synthetic or controlled;; proof of first-failure, retry, cache, or resource behavior when those fields",
+      "name": "aoa-identity-bound-method-comparison",
+      "proof_artifacts": {
+        "fixture_contract_path": "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/fixtures/contract.json",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/identity-bound-method-comparison-proof-flow-v1.md",
+        "report_example_path": "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/reports/example-report.json",
+        "report_schema_path": "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/reports/summary.schema.json",
+        "runner_contract_path": "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/runners/contract.json",
+        "runner_surface_path": "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/runners/run_identity_bound_method_comparison.py",
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+      },
+      "relations": [
+        {
+          "target": "aoa-runtime-latency-tradeoff",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-regression-same-task",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-output-vs-process-gap",
+          "type": "complements"
+        }
+      ],
+      "selection_summary": "Do you need a fixed-baseline contract that admits method-effect observations only when identity, evidence, cache, and resource posture are matched?",
+      "status": "draft"
+    },
+    {
       "baseline_mode": "longitudinal-window",
       "comparison_surface": {
         "anchor_surface": "aoa-bounded-change-quality",

@@ -187,6 +187,10 @@
 - [AOA-EV-D-0206 Boundary Bridge Aggregate Removal](../AOA-EV-D-0206-boundary-bridge-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0206-boundary-bridge-aggregate-removal.md`)
 - [AOA-EV-D-0208 Questbook Source Aggregate Removal](../AOA-EV-D-0208-questbook-source-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0208-questbook-source-aggregate-removal.md`)
 
+## claim boundary
+
+- [AOA-EV-D-0254 Identity-Bound Method Comparison Uses a Draft Fixed-Baseline ABI](../AOA-EV-D-0254-identity-bound-method-comparison-contract.md) (`docs/decisions/AOA-EV-D-0254-identity-bound-method-comparison-contract.md`)
+
 ## comparison
 
 - [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
@@ -206,6 +210,10 @@
 ## eval-forge readiness
 
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
+
+## evidence class
+
+- [AOA-EV-D-0254 Identity-Bound Method Comparison Uses a Draft Fixed-Baseline ABI](../AOA-EV-D-0254-identity-bound-method-comparison-contract.md) (`docs/decisions/AOA-EV-D-0254-identity-bound-method-comparison-contract.md`)
 
 ## fail-closed validation
 
@@ -227,6 +235,10 @@
 - [AOA-EV-D-0126 Proof Object Validator Module Boundary](../AOA-EV-D-0126-proof-object-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0126-proof-object-validator-module-boundary.md`)
 - [AOA-EV-D-0209 Source Doctrine Aggregate Removal](../AOA-EV-D-0209-source-doctrine-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0209-source-doctrine-aggregate-removal.md`)
 - [AOA-EV-D-0220 Comparison-spine Validator Layer Split](../AOA-EV-D-0220-comparison-spine-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0220-comparison-spine-validator-layer-split.md`)
+
+## identity parity
+
+- [AOA-EV-D-0254 Identity-Bound Method Comparison Uses a Draft Fixed-Baseline ABI](../AOA-EV-D-0254-identity-bound-method-comparison-contract.md) (`docs/decisions/AOA-EV-D-0254-identity-bound-method-comparison-contract.md`)
 
 ## local eval port
 

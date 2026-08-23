@@ -244,6 +244,48 @@ def test_report_validator_rejects_observed_coverage_for_controlled_provenance(
         runner.validate_report(report)
 
 
+def test_report_validator_requires_metric_coverage_for_observed_origin_binding(
+    runner,
+) -> None:
+    report = runner.build_report(packet(runner, origin="controlled"))
+    unit = report["comparison_units"][0]
+    for binding in unit["matched_identity_bindings"]:
+        for provenance in binding["evidence_provenance"]:
+            provenance["measurement_origin"] = "observed"
+    for metric in unit["metric_coverage"].values():
+        metric["controlled_values"] = []
+
+    with pytest.raises(
+        runner.ContractError,
+        match="observed-origin binding.*jointly measured metric coverage",
+    ):
+        runner.validate_report(report)
+
+
+def test_report_validator_requires_admitted_binding_review_status(runner) -> None:
+    report = runner.build_report(packet(runner, origin="controlled"))
+    unit = report["comparison_units"][0]
+    unit["review_statuses"] = ["unreviewed"]
+    with pytest.raises(
+        runner.ContractError,
+        match="review_statuses.*admitted binding",
+    ):
+        runner.validate_report(report)
+
+
+def test_report_schema_rejects_unreviewed_binding_provenance(runner) -> None:
+    report = runner.build_report(packet(runner, origin="controlled"))
+    report["comparison_units"][0]["matched_identity_bindings"][0][
+        "evidence_provenance"
+    ][0]["review_status"] = "unreviewed"
+    errors = list(
+        Draft202012Validator(
+            json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))
+        ).iter_errors(report)
+    )
+    assert errors
+
+
 def test_report_validator_rejects_conflicting_origins_across_bindings(runner) -> None:
     report = runner.build_report(
         packet_with_candidates(runner, (runner.METHOD_IDS[2],))
@@ -648,6 +690,40 @@ def test_report_validator_rejects_spurious_no_eligible_pair_for_fully_matched_un
     )
 
     with pytest.raises(runner.ContractError, match="fully matched unit"):
+        runner.validate_report(report)
+
+
+def test_report_validator_rejects_no_eligible_pair_when_a_pair_is_admitted(
+    runner,
+) -> None:
+    payload = packet(runner)
+    extra = observation(
+        runner,
+        "unit-01",
+        runner.METHOD_IDS[2],
+        route="treatment-B",
+    )
+    payload["observations"].append(extra)
+    payload["artifacts"].append(
+        {
+            "ref": extra["evidence_refs"][0],
+            "digest": digest("4"),
+            "kind": "public-safe-observation",
+            "evidence_class": "reviewed-owner-packet",
+        }
+    )
+    report = runner.build_report(payload)
+    spurious_case = {
+        "unit_id": "unit-01",
+        "reason": "no_eligible_pair",
+        "mismatched_fields": [],
+    }
+    report["unmatched_cases"].append(copy.deepcopy(spurious_case))
+    report["comparison_units"][0]["unmatched_case_expectations"].append(
+        spurious_case
+    )
+
+    with pytest.raises(runner.ContractError, match="admits a pair"):
         runner.validate_report(report)
 
 

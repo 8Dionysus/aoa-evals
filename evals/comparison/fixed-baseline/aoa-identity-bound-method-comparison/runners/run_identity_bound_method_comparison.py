@@ -180,6 +180,11 @@ def _validate_unmatched_case_reasons(
                 "report no_eligible_pair reason cannot name a method or mismatch "
                 f"fields for unit {unit['unit_id']!r}"
             )
+        elif unit["matched_pair_count"] > 0:
+            raise ContractError(
+                "report no_eligible_pair reason is invalid when unit "
+                f"{unit['unit_id']!r} admits a pair"
+            )
 
 
 def _expected_claim_limit(unit: dict[str, Any]) -> str:
@@ -280,11 +285,6 @@ def validate_report(report: Any) -> None:
         method_count = len(unit["method_ids"])
         unit_cases = cases_by_unit.get(unit["unit_id"], [])
         expected_unit_cases = unit["unmatched_case_expectations"]
-        _validate_unmatched_case_reasons(
-            unit,
-            unit_cases + expected_unit_cases,
-            report["baseline_target"],
-        )
         expected_claim_limit = _expected_claim_limit(unit)
         if unit["claim_limit"] != expected_claim_limit:
             raise ContractError(
@@ -421,10 +421,26 @@ def validate_report(report: Any) -> None:
             )
 
         covered_observed_pair_count = 0
+        observed_origin_binding_without_metric = False
         for binding, origins_by_method in zip(
             unit["matched_identity_bindings"], binding_origins
         ):
             binding_method_ids = set(binding["method_ids"])
+            binding_review_statuses = {
+                provenance["review_status"]
+                for provenance in binding["evidence_provenance"]
+            }
+            if not binding_review_statuses <= ALLOWED_REVIEW_STATUSES:
+                raise ContractError(
+                    "report matched identity provenance must bind an admissible "
+                    "review_status for every method in unit "
+                    f"{unit['unit_id']!r}"
+                )
+            if binding_review_statuses - set(unit["review_statuses"]):
+                raise ContractError(
+                    "report review_statuses must include every admitted binding "
+                    f"status for unit {unit['unit_id']!r}"
+                )
             has_observed_metric = any(
                 binding_method_ids
                 <= {
@@ -442,14 +458,25 @@ def validate_report(report: Any) -> None:
                         "report observed metric coverage requires observed "
                         "measurement_origin for every bound method in unit "
                         f"{unit['unit_id']!r}"
-                    )
+                )
                 covered_observed_pair_count += 1
+            elif all(
+                origins_by_method[method_id] == {"observed"}
+                for method_id in binding_method_ids
+            ):
+                observed_origin_binding_without_metric = True
         if covered_observed_pair_count != unit["observed_pair_count"]:
             raise ContractError(
                 "report observed_pair_count does not match bindings with jointly "
                 f"measured metric coverage for unit {unit['unit_id']!r}: "
                 f"declared={unit['observed_pair_count']!r}, "
                 f"covered={covered_observed_pair_count!r}"
+            )
+        if observed_origin_binding_without_metric:
+            raise ContractError(
+                "report observed-origin binding requires jointly measured "
+                "metric coverage for unit "
+                f"{unit['unit_id']!r}"
             )
 
         rejected_method_ids = (
@@ -507,6 +534,11 @@ def validate_report(report: Any) -> None:
                 "report unmatched_cases are not permitted for a fully matched unit "
                 f"{unit['unit_id']!r}"
             )
+        _validate_unmatched_case_reasons(
+            unit,
+            unit_cases + expected_unit_cases,
+            report["baseline_target"],
+        )
         if any(
             case["unit_id"] != unit["unit_id"] for case in expected_unit_cases
         ):
@@ -783,6 +815,7 @@ def _evidence_provenance(
                     "kind": artifact["kind"],
                     "evidence_class": artifact["evidence_class"],
                     "measurement_origin": row["measurement_origin"],
+                    "review_status": row["review_status"],
                 }
             )
     return provenance

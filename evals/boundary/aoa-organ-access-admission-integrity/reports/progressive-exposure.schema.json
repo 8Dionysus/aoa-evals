@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aoa-evals:organ-access:progressive-exposure-report-v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "eval_id",
+    "track",
+    "integrity_verdict",
+    "fixture_breakdown",
+    "matched_selection",
+    "visibility_comparison",
+    "economy",
+    "activation_authorized",
+    "execution_authorized",
+    "owner_acceptance_inferred",
+    "central_proof_asserted",
+    "claim_limit"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aoa_progressive_exposure_eval_report_v1"
+    },
+    "eval_id": {"const": "aoa-organ-access-admission-integrity"},
+    "track": {"const": "progressive-tool-exposure"},
+    "integrity_verdict": {
+      "enum": ["supports_bounded_claim", "does_not_support_bounded_claim"]
+    },
+    "fixture_breakdown": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fixture_id", "mode", "observed", "issue_codes"],
+        "properties": {
+          "fixture_id": {"type": "string", "minLength": 1},
+          "mode": {"enum": ["default_off", "explicit_candidate", "pair"]},
+          "observed": {"enum": ["accept", "reject"]},
+          "issue_codes": {"type": "array", "items": {"type": "string"}},
+          "source_selection_digest": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "matched_selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_selection_digest", "same_selection"],
+      "properties": {
+        "source_selection_digest": {"type": ["string", "null"]},
+        "same_selection": {"const": true}
+      }
+    },
+    "visibility_comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "default_off_bytes",
+        "candidate_bytes",
+        "candidate_minus_default_bytes",
+        "default_off_tokens",
+        "candidate_tokens",
+        "candidate_minus_default_tokens"
+      ],
+      "properties": {
+        "default_off_bytes": {"type": "integer", "minimum": 0},
+        "candidate_bytes": {"type": "integer", "minimum": 0},
+        "candidate_minus_default_bytes": {"type": "integer"},
+        "default_off_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "candidate_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "candidate_minus_default_tokens": {"type": ["integer", "null"], "minimum": 0}
+      }
+    },
+    "economy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "baseline_ready",
+        "utility_observed",
+        "latency_observed",
+        "promotion_authorized",
+        "claim_limit"
+      ],
+      "properties": {
+        "status": {"const": "not_run_baseline_admission_missing"},
+        "baseline_ready": {"const": false},
+        "utility_observed": {"const": false},
+        "latency_observed": {"const": false},
+        "promotion_authorized": {"const": false},
+        "claim_limit": {"type": "string", "minLength": 1}
+      }
+    },
+    "activation_authorized": {"const": false},
+    "execution_authorized": {"const": false},
+    "owner_acceptance_inferred": {"const": false},
+    "central_proof_asserted": {"const": false},
+    "claim_limit": {"type": "string", "minLength": 1}
+  }
+}

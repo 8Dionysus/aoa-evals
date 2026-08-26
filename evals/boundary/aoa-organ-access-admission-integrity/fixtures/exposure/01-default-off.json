@@ -1,0 +1,86 @@
+{
+  "expected": {
+    "economy_status": "not_run_baseline_admission_missing",
+    "plan_state": "blocked",
+    "rendered_bytes": 2,
+    "rendered_tokens": null,
+    "visible_tool_count": 0
+  },
+  "fixture_id": "progressive-exposure-default-off-v1",
+  "mode": "default_off",
+  "plan": {
+    "activation_authorized": false,
+    "approval_ref": null,
+    "baseline_ready": false,
+    "capability": {
+      "approval_ref": null,
+      "capability_digest": "sha256:471310ceeae7b8045d8de1c8c858d6a0b40aba98fe09f220c0467a7edfd065b2",
+      "capability_id": "knowledge-inspect",
+      "effect_ceiling": "read",
+      "freshness": {
+        "expires_at": "2026-08-26T06:00:00Z",
+        "observed_at": "2026-08-26T05:00:00Z",
+        "provider_watermark": "aoa-kag-exposure-v1",
+        "reason_codes": [],
+        "source_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "source_ref": "owner://aoa-kag/exposure-source",
+        "state": "fresh",
+        "ttl_seconds": 3600
+      },
+      "organ_id": "aoa-kag",
+      "owners": {
+        "acceptance_owner": "aoa-kag",
+        "access_owner": "aoa-kag",
+        "control_owner": "aoa-sdk",
+        "proof_owner": "aoa-evals",
+        "runtime_owner": "abyss-stack",
+        "source_owner": "aoa-kag"
+      },
+      "qualified_capability_id": "aoa-kag:aoa-kag:knowledge-inspect",
+      "rollback_route": "owner://aoa-kag/rollback/exposure",
+      "schema_digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "source_revision": {
+        "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "revision": "source-exposure-fixture-v1"
+      }
+    },
+    "claim_limit": "This source fixture proves deterministic disclosure accounting only. It does not prove a live endpoint, activation, owner acceptance, central proof, utility, latency, or economy effect.",
+    "execution_authorized": false,
+    "expansion_reasons": [],
+    "expires_at": "2026-08-26T06:00:00Z",
+    "feature_enabled": false,
+    "plan_id": "sha256:534b96a713961e9c6818b92c1fc03c8ed26fcee24126cf3e92ed769c64fb71ce",
+    "plan_state": "blocked",
+    "refusal_reasons": [
+      "progressive_exposure_disabled",
+      "baseline_not_ready",
+      "schema_reveal_not_requested"
+    ],
+    "rendered_snapshot": {
+      "expires_at": "2026-08-26T06:00:00Z",
+      "observed_at": "2026-08-26T05:00:00Z",
+      "refusal_reasons": [],
+      "rendered_bytes": 2,
+      "rendered_schema_digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "rendered_tokens": null,
+      "schema_version": "aoa_organ_exposure_snapshot_v1",
+      "snapshot_id": "sha256:148257c9559a234420d790293848f2699f495edecb1e27be5189ec089e5f8a82",
+      "source_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "token_count_method": null,
+      "token_count_posture": "unknown",
+      "tools": [],
+      "visible_tool_ids": []
+    },
+    "request_id": "exposure-matched-request-v1",
+    "requested_at": "2026-08-26T05:00:00Z",
+    "requested_policy_family": "read",
+    "requested_primitive_ids": [
+      "inspect-knowledge"
+    ],
+    "rollback_route": "owner://aoa-kag/rollback/exposure",
+    "schema_version": "aoa_organ_exposure_plan_v1",
+    "visible_tools": []
+  },
+  "schema_version": "aoa_progressive_exposure_fixture_v1",
+  "source_selection_digest": "sha256:888cafbccae0520b721f5cf4ee374047caa5f7cd513ef2a6dcd58a3bed737de3"
+}

@@ -88,6 +88,8 @@ EXPECTED_IMPLEMENTED_CANDIDATE_FAMILIES = {
     "hybrid_fail_closed": "hybrid_owner_dag_adaptive",
 }
 EXPECTED_COMPARISON_IDENTITY_KEYS = {"candidate_set_id", "environment_id"}
+EXPECTED_METHOD_OVERRIDE_KEYS = {"static_paths"}
+EXPECTED_STATIC_PATH_OVERRIDE_KEYS = {"explanation"}
 EXPECTED_ALLOWED_USE = (
     "bounded prior and route-gap input only; no raw session body or policy verdict copied"
 )
@@ -190,6 +192,37 @@ def reject_undeclared_keys(value: dict[str, Any], *, allowed: set[str], field: s
         raise ContractError(
             f"{field} contains undeclared field(s): {', '.join(undeclared)}"
         )
+
+
+def validate_method_overrides(value: Any, *, field: str) -> dict[str, Any]:
+    """Validate the small, source-declared override ABI before measurement."""
+
+    if value is None:
+        return {}
+    if not isinstance(value, dict):
+        raise ContractError(f"{field} must be an object or null")
+    reject_undeclared_keys(value, allowed=EXPECTED_METHOD_OVERRIDE_KEYS, field=field)
+
+    static_override = value.get("static_paths", {})
+    if not isinstance(static_override, dict):
+        raise ContractError(f"{field}.static_paths must be an object")
+    if "activated_nodes" in static_override:
+        raise ContractError(
+            f"{field}.static_paths.activated_nodes overrides are not admitted because events must match activated nodes"
+        )
+    reject_undeclared_keys(
+        static_override,
+        allowed=EXPECTED_STATIC_PATH_OVERRIDE_KEYS,
+        field=f"{field}.static_paths",
+    )
+    if "explanation" in static_override and (
+        not isinstance(static_override["explanation"], str)
+        or not static_override["explanation"].strip()
+    ):
+        raise ContractError(
+            f"{field}.static_paths.explanation must be a non-empty string"
+        )
+    return value
 
 
 def is_finite_non_negative_number(value: Any) -> bool:
@@ -296,18 +329,9 @@ def static_path_targets(scenario: dict[str, Any]) -> tuple[list[str], list[tuple
                     activated.append(node)
                     matched_targets.append((prefix, node))
                 break
-    overrides = scenario.get("method_overrides")
-    if overrides is None:
-        overrides = {}
-    if not isinstance(overrides, dict):
-        raise ContractError("method_overrides must be an object or null")
-    override = overrides.get("static_paths", {})
-    if not isinstance(override, dict):
-        raise ContractError("method_overrides.static_paths must be an object")
-    if "activated_nodes" in override:
-        raise ContractError(
-            "static_paths.activated_nodes overrides are not admitted because events must match activated nodes"
-        )
+    validate_method_overrides(
+        scenario.get("method_overrides"), field="method_overrides"
+    )
     return activated, matched_targets
 
 
@@ -722,16 +746,10 @@ def validate_cases(cases: dict[str, Any], contract: dict[str, Any]) -> list[dict
                     field=f"{scenario_id}.signals.{signal_id}.retry_count",
                 )
         unique_strings(scenario.get("changed_paths"), field=f"{scenario_id}.changed_paths")
-        method_overrides = scenario.get("method_overrides")
-        if method_overrides is not None and not isinstance(method_overrides, dict):
-            raise ContractError(f"scenario {scenario_id}.method_overrides must be an object or null")
-        static_override = (method_overrides or {}).get("static_paths")
-        if "static_paths" in (method_overrides or {}) and not isinstance(static_override, dict):
-            raise ContractError(f"scenario {scenario_id}.method_overrides.static_paths must be an object")
-        if isinstance(static_override, dict) and "activated_nodes" in static_override:
-            raise ContractError(
-                f"scenario {scenario_id}.method_overrides.static_paths.activated_nodes is not admitted"
-            )
+        validate_method_overrides(
+            scenario.get("method_overrides"),
+            field=f"scenario {scenario_id}.method_overrides",
+        )
         oracle = scenario.get("oracle")
         if not isinstance(oracle, dict):
             raise ContractError(f"scenario {scenario_id} must declare an owner-proof oracle")
@@ -903,9 +921,11 @@ def static_paths_result(scenario: dict[str, Any], latency_weights: dict[str, flo
             latency_ms=latency_weights["static_paths"],
             explanation=f"changed path matched static prefix {prefix!r}",
         )
-    overrides = scenario.get("method_overrides") or {}
+    overrides = validate_method_overrides(
+        scenario.get("method_overrides"), field="method_overrides"
+    )
     override = overrides.get("static_paths", {})
-    explanation = str(override.get("explanation", "static path prefixes selected local nodes"))
+    explanation = override.get("explanation", "static path prefixes selected local nodes")
     return {
         "activated_nodes": activated,
         "events": events,

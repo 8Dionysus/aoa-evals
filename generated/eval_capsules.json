@@ -644,7 +644,7 @@
       "technique_refs": [],
       "use_when_short": "a proposed method comparison needs a complete identity-bound apply ABI; multiple validation shapes must be compared without collapsing evidence",
       "verdict_shape": "comparative",
-      "what_this_does_not_prove": "a universal method winner or ranking;; observed real-session latency when the origin is synthetic or controlled;; proof of first-failure, retry, cache, or resource behavior when those fields"
+      "what_this_does_not_prove": "a universal method winner or ranking;; observed real-session latency when the origin is synthetic or controlled;; proof of first-failure, retry, cache, or resource behavior when those fields are unknown or unobservable;"
     },
     {
       "blind_spot_short": "rich answer quality; long-context behavior; tool-calling discipline",

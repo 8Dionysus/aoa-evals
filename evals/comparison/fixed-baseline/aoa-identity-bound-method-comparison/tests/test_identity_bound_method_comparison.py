@@ -121,6 +121,7 @@ def packet(runner, *, origin: str = "observed") -> dict:
         ],
         "artifacts": [
             {"ref": "artifact:apply-contract", "digest": digest("2"), "kind": "public-safe-contract", "evidence_class": "public-safe-contract"},
+            {"ref": "owner-packet:source", "digest": digest("1"), "kind": "public-safe-contract", "evidence_class": "public-safe-contract"},
             *observation_artifacts,
         ],
         "pass_criteria": ["identity tuple matches", "unknown is not zero"],
@@ -185,6 +186,17 @@ def test_observed_identity_match_is_narrow_and_deterministic(runner) -> None:
     assert first["comparison_units"][0]["metric_coverage"]["first_failure_latency_seconds"]["state_counts"]["null"] == 2
     assert first["comparison_units"][0]["metric_coverage"]["retry_amplification"]["state_counts"]["unobservable"] == 2
     Draft202012Validator(json.loads(REPORT_SCHEMA_PATH.read_text(encoding="utf-8"))).validate(first)
+
+
+def test_required_prerequisite_evidence_ref_must_be_declared(runner) -> None:
+    payload = packet(runner)
+    payload["prerequisites"][0]["evidence_ref"] = "owner-packet:missing"
+
+    with pytest.raises(
+        runner.ContractError,
+        match="required prerequisite evidence_ref is not declared in packet artifacts",
+    ):
+        runner.build_report(payload)
 
 
 def test_report_preserves_matched_identity_and_evidence_provenance(runner) -> None:

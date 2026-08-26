@@ -747,6 +747,15 @@ def _check_prerequisites(packet: dict[str, Any]) -> None:
     blocked = [item["id"] for item in required if item["status"] != "known"]
     if blocked:
         raise ContractError(f"required prerequisites are not known: {', '.join(blocked)}")
+    artifact_refs = {artifact["ref"] for artifact in packet["artifacts"]}
+    missing_evidence = [
+        item["id"] for item in required if item["evidence_ref"] not in artifact_refs
+    ]
+    if missing_evidence:
+        raise ContractError(
+            "required prerequisite evidence_ref is not declared in packet artifacts: "
+            + ", ".join(missing_evidence)
+        )
 
 
 def _check_source_identity(packet: dict[str, Any]) -> None:

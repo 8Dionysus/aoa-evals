@@ -535,6 +535,33 @@ def test_null_static_path_overrides_are_rejected_as_contract_errors() -> None:
         comparison.build_report(load_json(CONTRACT_PATH), cases)
 
 
+@pytest.mark.parametrize(
+    ("method_overrides", "error_pattern"),
+    [
+        (
+            {"dependency_graph": {"nodes": ["custom"]}},
+            "method_overrides.*undeclared.*dependency_graph",
+        ),
+        (
+            {"static_paths": {"nodes": ["custom"]}},
+            "static_paths contains undeclared.*nodes",
+        ),
+        (
+            {"static_paths": {"explanation": []}},
+            "explanation must be a non-empty string",
+        ),
+    ],
+)
+def test_undeclared_method_overrides_are_rejected_before_measurement(
+    method_overrides: dict[str, object], error_pattern: str
+) -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["method_overrides"] = method_overrides
+
+    with pytest.raises(comparison.ContractError, match=error_pattern):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
 def test_null_signals_are_rejected_as_contract_errors() -> None:
     cases = load_json(CASES_PATH)
     cases["scenarios"][0]["signals"] = None

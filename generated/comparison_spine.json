@@ -12,7 +12,7 @@
         "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
       },
       "eval_path": "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/EVAL.md",
-      "interpretation_boundary": "a universal method winner or ranking;; observed real-session latency when the origin is synthetic or controlled;; proof of first-failure, retry, cache, or resource behavior when those fields",
+      "interpretation_boundary": "a universal method winner or ranking;; observed real-session latency when the origin is synthetic or controlled;; proof of first-failure, retry, cache, or resource behavior when those fields are unknown or unobservable;",
       "name": "aoa-identity-bound-method-comparison",
       "proof_artifacts": {
         "fixture_contract_path": "evals/comparison/fixed-baseline/aoa-identity-bound-method-comparison/fixtures/contract.json",

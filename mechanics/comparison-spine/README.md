@@ -7,7 +7,8 @@ Start with this README for role and owned operation. Then read [DIRECTION.md](DI
 ## Role
 
 `mechanics/comparison-spine/` routes the operation that keeps baseline,
-peer-compare, and longitudinal-window proof claims bounded.
+peer-compare, validation-routing method comparisons, and longitudinal-window
+proof claims bounded.
 
 Source bundles and reports keep result meaning, status, and promotion posture.
 This package keeps comparison claim posture, shared comparison artifacts,
@@ -39,8 +40,16 @@ This package routes the comparison operation. Source claim meaning stays in
 - `mechanics/comparison-spine/parts/longitudinal-window/reports/repeated-window-proof-flow-v2.md`
 - `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v1/README.md`
 - `mechanics/comparison-spine/parts/peer-compare/fixtures/bounded-change-paired-v2/README.md`
+- `mechanics/comparison-spine/parts/peer-compare/fixtures/validation-routing-bounded-v1/README.md`
+- `mechanics/comparison-spine/parts/peer-compare/fixtures/validation-routing-bounded-v1/cases.json`
 - `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v1.md`
 - `mechanics/comparison-spine/parts/peer-compare/reports/artifact-process-paired-proof-flow-v2.md`
+- `mechanics/comparison-spine/parts/peer-compare/reports/validation-routing-comparison-proof-flow-v1.md`
+- `mechanics/comparison-spine/parts/peer-compare/examples/validation-routing-comparison.example.json`
+- `mechanics/comparison-spine/parts/peer-compare/schemas/validation-routing-comparison-v1.contract.json`
+- `mechanics/comparison-spine/parts/peer-compare/schemas/validation-routing-comparison-report-v1.schema.json`
+- `mechanics/comparison-spine/parts/peer-compare/scripts/run_validation_routing_comparison.py`
+- `mechanics/comparison-spine/parts/peer-compare/tests/test_validation_routing_comparison.py`
 - `mechanics/comparison-spine/parts/longitudinal-window/reports/stress-recovery-window-proof-flow-v1.md`
 - bundle-local `evals/<family>/<eval>/fixtures/contract.json`,
   `evals/<family>/<eval>/runners/contract.json`, and
@@ -55,6 +64,8 @@ This package routes the comparison operation. Source claim meaning stays in
 - a paired readout path
 - an integrity sidecar
 - a selection question
+- a validation-routing peer-comparison contract with identical workload,
+  candidate, environment, and source identities;
 - comparison-mode-specific anchors:
   - `anchor_surface` and `baseline_target_label` for `fixed-baseline` and
     `previous-version`
@@ -67,6 +78,8 @@ This package routes the comparison operation. Source claim meaning stays in
 - source-aligned comparison metadata in eval frontmatter and `eval.yaml`
 - generated `generated/comparison_spine.json` entries derived from source
 - report routes that preserve the comparison mode
+- seeded method measurements that preserve full-owner-proof fallback and
+  unresolved external state
 - explicit anti-overread language for baseline drift, peer-compare blur,
   longitudinal movement, and style-only movement
 
@@ -95,6 +108,11 @@ Use when two peer readings are compared side by side on matched bounded cases.
 Peer comparison stays a side-by-side reading until the source bundle declares a
 fixed-baseline route.
 
+The peer-compare part may also carry validation-routing method measurements.
+That support surface compares candidate activation proposals under identical
+identity fields; it does not add a baseline mode, public eval status, or routing
+policy verdict.
+
 ### `longitudinal-window`
 
 Use when ordered named windows stay on one bounded workflow surface.
@@ -114,6 +132,8 @@ growth or progression owners accept a broader reading.
 | draft comparison bundle looks promoted by generated metadata | route promotion through bundle-local review and release surfaces |
 | `aoa-eval-integrity-check` used as a promotion shortcut | keep it as an integrity sidecar below promotion routes |
 | fixed baseline, peer comparison, and longitudinal movement collapse into one score | keep the three comparison modes separate |
+| validation-routing method measurement becomes a policy winner | keep the peer support report measurement-only and return policy to the stronger routing owner |
+| stale/unknown/malformed/wrong-identity evidence becomes zero or green | preserve the state and escalate to the full owner proof route |
 
 ## Provenance
 

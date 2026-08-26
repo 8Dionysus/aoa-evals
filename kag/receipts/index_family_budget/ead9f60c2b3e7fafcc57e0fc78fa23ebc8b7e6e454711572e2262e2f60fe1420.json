@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 386866,
+  "allowed_tracked_bytes": 26744916,
+  "approved_by": "repository-owner",
+  "base_ref": "cb734788b8a6fff9869f63bdf890fc54dbaf6563",
+  "changed_generated_bytes": 386866,
+  "changed_generated_files": 4,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "ead9f60c2b3e7fafcc57e0fc78fa23ebc8b7e6e454711572e2262e2f60fe1420",
+  "reason": "Accepted aoa-evals Wave 2 source integration is regenerated into the owner-local portable family; the digest-bound receipt records this measured one-change tracked-size exceedance without raising the standing budget.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "tracked_size",
+  "tracked_bytes": 26744916,
+  "tracked_bytes_max": 26214400
+}

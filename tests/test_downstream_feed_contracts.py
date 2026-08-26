@@ -293,6 +293,25 @@ class DownstreamFeedContractsTests(unittest.TestCase):
             self.assertTrue(entry["selection_summary"])
             self.assertTrue(entry["interpretation_boundary"])
 
+        eval_name = "aoa-identity-bound-method-comparison"
+        catalog_entry = next(
+            entry
+            for entry in load_json("generated/eval_catalog.json")["evals"]
+            if entry["name"] == eval_name
+        )
+        capsule_entry = next(
+            entry
+            for entry in load_json("generated/eval_capsules.json")["evals"]
+            if entry["name"] == eval_name
+        )
+        spine_entry = next(entry for entry in current["evals"] if entry["name"] == eval_name)
+        for reading in (
+            catalog_entry["interpretation_boundary"],
+            capsule_entry["what_this_does_not_prove"],
+            spine_entry["interpretation_boundary"],
+        ):
+            self.assertIn("unknown or unobservable", reading)
+
     def test_runtime_candidate_template_index_is_generator_backed_and_complete(self) -> None:
         current = load_json("mechanics/audit/parts/candidate-readers/generated/runtime_candidate_template_index.min.json")
         expected = runtime_template_index_builder.build_runtime_candidate_template_index_payload()

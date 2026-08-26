@@ -838,6 +838,54 @@ def test_support_registry_routes_owner_skill_resource_through_skill_procedure() 
     assert "owner_skill_packet_as_verdict" in entry["forbidden_interpretations"]
 
 
+def test_support_registry_routes_bounded_measurement_runner_without_proof_authority() -> None:
+    raw = {
+        "path": "mechanics/example/parts/peer-compare/scripts/run_comparison.py",
+        "family": "part_local_runner",
+        "owner_surface": "mechanics/example/parts/peer-compare/README.md",
+        "side_effects": "read-only seeded measurement report to stdout; no policy selection",
+        "validation_lane": "mechanics_part_local",
+    }
+
+    semantic = readiness.semantic_support_classification("script", raw, relevant=True)
+
+    assert semantic["semantic_class"] == "bounded_measurement_support"
+    assert semantic["classification_rule"] == "read_only_bounded_measurement_runner"
+    assert semantic["review_status"] == "rule_reviewed"
+    assert semantic["recommended_route"] == "use_as_bounded_measurement_support"
+    assert semantic["safe_to_apply_directly"] is False
+    assert "central_proof_acceptance" in semantic["forbidden_interpretations"]
+    assert "routing_policy_selection" in semantic["forbidden_interpretations"]
+
+
+def test_bounded_measurement_class_describes_caller_write_posture() -> None:
+    description = readiness.SUPPORT_SEMANTIC_CLASSES["bounded_measurement_support"]
+
+    assert "caller-write-capable" in description
+    assert "Read-only" not in description
+
+
+def test_support_registry_routes_bounded_measurement_output_write_without_direct_apply() -> None:
+    raw = {
+        "path": "mechanics/example/parts/peer-compare/scripts/run_comparison.py",
+        "family": "part_local_runner",
+        "owner_surface": "mechanics/example/parts/peer-compare/README.md",
+        "writes": ["optional caller-specified output path when requested"],
+        "side_effects": "seeded measurement report to stdout by default; --output creates parent directories and overwrites only the caller-specified output path; no policy selection",
+        "validation_lane": "mechanics_part_local",
+    }
+
+    semantic = readiness.semantic_support_classification("script", raw, relevant=True)
+
+    assert semantic["semantic_class"] == "bounded_measurement_support"
+    assert semantic["classification_rule"] == "bounded_measurement_runner_with_caller_scoped_output"
+    assert semantic["review_status"] == "rule_reviewed"
+    assert semantic["recommended_route"] == "use_as_bounded_measurement_support"
+    assert semantic["safe_to_apply_directly"] is False
+    assert "direct_eval_apply" in semantic["forbidden_interpretations"]
+    assert "central_proof_acceptance" in semantic["forbidden_interpretations"]
+
+
 def test_owner_skill_catalog_marks_truncation_only_when_matches_are_omitted(
     tmp_path: Path,
 ) -> None:

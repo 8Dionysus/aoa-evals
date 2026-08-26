@@ -1,0 +1,553 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "aoa-evals://comparison-spine/peer-compare/validation-routing-comparison-report-v1",
+  "title": "Validation Routing Comparison Report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_kind",
+    "comparison_mode",
+    "claim_posture",
+    "policy_verdict",
+    "selection_status",
+    "fixture_id",
+    "evidence_posture",
+    "latency_posture",
+    "resource_policy",
+    "comparison_identity",
+    "comparison_identity_digest",
+    "input_evidence",
+    "candidate_catalog",
+    "adversarial_classes_covered",
+    "coverage_limits",
+    "methods",
+    "scenario_count",
+    "real_case_count",
+    "seeded_case_count",
+    "oracle_rule"
+  ],
+  "properties": {
+    "schema_version": {"const": "validation_routing_comparison_report_v1"},
+    "report_kind": {"const": "seeded_validation_routing_method_measurement"},
+    "comparison_mode": {"const": "peer-compare"},
+    "claim_posture": {"const": "measurement_only"},
+    "policy_verdict": {"type": "null"},
+    "selection_status": {"const": "deferred_pending_bound_external_campaign"},
+    "fixture_id": {"const": "validation-routing-bounded-v1"},
+    "evidence_posture": {"$ref": "#/$defs/evidence_posture"},
+    "latency_posture": {"$ref": "#/$defs/latency_posture"},
+    "resource_policy": {"$ref": "#/$defs/resource_policy"},
+    "comparison_identity": {"$ref": "#/$defs/comparison_identity"},
+    "comparison_identity_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "input_evidence": {"$ref": "#/$defs/input_evidence"},
+    "candidate_catalog": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {"$ref": "#/$defs/implemented_candidate"},
+          {"$ref": "#/$defs/unsupported_candidate"}
+        ]
+      }
+    },
+    "adversarial_classes_covered": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "stale_graph",
+          "unknown_dependency",
+          "wrong_candidate_environment_receipt",
+          "malformed_receipt",
+          "unexplained_miss",
+          "unbound_external_owner"
+        ]
+      }
+    },
+    "coverage_limits": {
+      "const": [
+        "All current cases are seeded public-safe fixtures; no real-session case is copied into the fixture.",
+        "The validation-shadow report is a bounded prior and input reference, not a verdict or routing policy.",
+        "External KAG, canonical aoa-stats, and advisory trust-plane execution receipts remain absent or blocked.",
+        "No mutation injection, old-commit checkout, population estimate, causal claim, or universal false-negative rate is supported.",
+        "Unsupported candidate families remain explicit missing candidates until owner-bound evidence and a fair implementation exist."
+      ]
+    },
+    "methods": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {"$ref": "#/$defs/implemented_method"},
+          {"$ref": "#/$defs/unsupported_method"}
+        ]
+      }
+    },
+    "scenario_count": {"type": "integer", "minimum": 1},
+    "real_case_count": {"const": 0},
+    "seeded_case_count": {"type": "integer", "minimum": 1},
+    "oracle_rule": {"$ref": "#/$defs/oracle_rule"}
+  },
+  "$defs": {
+    "non_empty_string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "string_array": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/non_empty_string"}
+    },
+    "nullable_ratio": {
+      "anyOf": [
+        {"type": "null"},
+        {"type": "number", "minimum": 0, "maximum": 1}
+      ]
+    },
+    "nullable_non_negative_number": {
+      "anyOf": [
+        {"type": "null"},
+        {"type": "number", "minimum": 0}
+      ]
+    },
+    "evidence_posture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_posture",
+        "accepted_evidence_kinds",
+        "real_evidence_status"
+      ],
+      "properties": {
+        "source_posture": {"const": "seeded_public_safe_only"},
+        "accepted_evidence_kinds": {"const": ["seeded_fixture"]},
+        "real_evidence_status": {"const": "not_admitted_in_v1"}
+      }
+    },
+    "latency_posture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "runtime_observed",
+        "field_suffix",
+        "source",
+        "interpretation_limit"
+      ],
+      "properties": {
+        "kind": {"const": "synthetic_fixture_proxy"},
+        "runtime_observed": {"const": false},
+        "field_suffix": {"const": "_synthetic_proxy"},
+        "source": {"const": "seeded fixture event declarations"},
+        "interpretation_limit": {
+          "const": "not observed runtime latency or a performance ranking"
+        }
+      }
+    },
+    "resource_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "max_retry_count",
+        "max_materialized_events_per_signal",
+        "materialization_rule",
+        "retry_representation",
+        "overflow_behavior"
+      ],
+      "properties": {
+        "kind": {"const": "source_owned_retry_materialization_cap"},
+        "max_retry_count": {"const": 64},
+        "max_materialized_events_per_signal": {"const": 4096},
+        "materialization_rule": {
+          "const": "target_count * (retry_count + 1) <= max_materialized_events_per_signal"
+        },
+        "retry_representation": {"const": "one_event_per_admitted_attempt"},
+        "overflow_behavior": {"const": "reject_before_event_allocation"}
+      }
+    },
+    "comparison_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_set_id", "environment_id"],
+      "properties": {
+        "candidate_set_id": {"$ref": "#/$defs/non_empty_string"},
+        "environment_id": {"$ref": "#/$defs/non_empty_string"}
+      }
+    },
+    "input_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_kind",
+        "path",
+        "sha256",
+        "allowed_use",
+        "raw_sessions_copied",
+        "observed_real_route_gaps",
+        "observed_wall_clock_proxies"
+      ],
+      "properties": {
+        "source_kind": {"const": "public_safe_external_report"},
+        "path": {"$ref": "#/$defs/non_empty_string"},
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "allowed_use": {
+          "const": "bounded prior and route-gap input only; no raw session body or policy verdict copied"
+        },
+        "raw_sessions_copied": {"const": false},
+        "observed_real_route_gaps": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/non_empty_string"}
+        },
+        "observed_wall_clock_proxies": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "full_local_release_check_seconds",
+            "targeted_local_route_proxy_seconds",
+            "speed_claim_status"
+          ],
+          "properties": {
+            "full_local_release_check_seconds": {
+              "type": "number",
+              "minimum": 0
+            },
+            "targeted_local_route_proxy_seconds": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"type": "number", "minimum": 0}
+            },
+            "speed_claim_status": {
+              "const": "rejected_as_final_saving_until_owner_receipts_are bound"
+            }
+          }
+        }
+      }
+    },
+    "implemented_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method_id", "family", "status", "description"],
+      "properties": {
+        "method_id": {"$ref": "#/$defs/non_empty_string"},
+        "family": {"$ref": "#/$defs/non_empty_string"},
+        "status": {"const": "implemented"},
+        "description": {"$ref": "#/$defs/non_empty_string"}
+      }
+    },
+    "unsupported_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method_id", "family", "status", "reason"],
+      "properties": {
+        "method_id": {"$ref": "#/$defs/non_empty_string"},
+        "family": {"$ref": "#/$defs/non_empty_string"},
+        "status": {"const": "unsupported_missing_candidate"},
+        "reason": {"$ref": "#/$defs/non_empty_string"}
+      }
+    },
+    "method_measurements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seeded_case_count",
+        "real_case_count",
+        "seeded_miss_count",
+        "real_miss_count",
+        "excess_node_count",
+        "precision",
+        "recall",
+        "precision_recall_denominator_valid_case_count",
+        "first_failure_latency_ms_synthetic_proxy_min",
+        "total_latency_ms_synthetic_proxy_sum",
+        "latency_kind",
+        "retry_amplification",
+        "stale_count",
+        "unknown_count",
+        "malformed_count",
+        "wrong_identity_count",
+        "unexplained_miss_count",
+        "fail_closed_escalation_count"
+      ],
+      "properties": {
+        "seeded_case_count": {"type": "integer", "minimum": 0},
+        "real_case_count": {"const": 0},
+        "seeded_miss_count": {"type": "integer", "minimum": 0},
+        "real_miss_count": {"const": null},
+        "excess_node_count": {"type": "integer", "minimum": 0},
+        "precision": {"$ref": "#/$defs/nullable_ratio"},
+        "recall": {"$ref": "#/$defs/nullable_ratio"},
+        "precision_recall_denominator_valid_case_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "first_failure_latency_ms_synthetic_proxy_min": {
+          "$ref": "#/$defs/nullable_non_negative_number"
+        },
+        "total_latency_ms_synthetic_proxy_sum": {
+          "type": "number",
+          "minimum": 0
+        },
+        "latency_kind": {"const": "synthetic_fixture_proxy"},
+        "retry_amplification": {
+          "$ref": "#/$defs/nullable_non_negative_number"
+        },
+        "stale_count": {"type": "integer", "minimum": 0},
+        "unknown_count": {"type": "integer", "minimum": 0},
+        "malformed_count": {"type": "integer", "minimum": 0},
+        "wrong_identity_count": {"type": "integer", "minimum": 0},
+        "unexplained_miss_count": {"type": "integer", "minimum": 0},
+        "fail_closed_escalation_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "implemented_method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method_id",
+        "family",
+        "implementation_status",
+        "scenario_count",
+        "measurements",
+        "scenario_results"
+      ],
+      "properties": {
+        "method_id": {"$ref": "#/$defs/non_empty_string"},
+        "family": {"$ref": "#/$defs/non_empty_string"},
+        "implementation_status": {"const": "implemented"},
+        "scenario_count": {"type": "integer", "minimum": 1},
+        "measurements": {"$ref": "#/$defs/method_measurements"},
+        "scenario_results": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/scenario_result"}
+        }
+      }
+    },
+    "unsupported_method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method_id",
+        "family",
+        "implementation_status",
+        "reason",
+        "scenario_count",
+        "measurements",
+        "scenario_results"
+      ],
+      "properties": {
+        "method_id": {"$ref": "#/$defs/non_empty_string"},
+        "family": {"$ref": "#/$defs/non_empty_string"},
+        "implementation_status": {"const": "unsupported_missing_candidate"},
+        "reason": {"$ref": "#/$defs/non_empty_string"},
+        "scenario_count": {"const": 0},
+        "measurements": {"const": null},
+        "scenario_results": {"const": []}
+      }
+    },
+    "scenario_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "workload_id",
+        "candidate_set_id",
+        "environment_id",
+        "source_ref"
+      ],
+      "properties": {
+        "workload_id": {"$ref": "#/$defs/non_empty_string"},
+        "candidate_set_id": {"$ref": "#/$defs/non_empty_string"},
+        "environment_id": {"$ref": "#/$defs/non_empty_string"},
+        "source_ref": {"$ref": "#/$defs/non_empty_string"}
+      }
+    },
+    "oracle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "complete",
+        "required_nodes",
+        "owner_proof_nodes",
+        "owner_proof_status"
+      ],
+      "properties": {
+        "complete": {"type": "boolean"},
+        "required_nodes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/non_empty_string"}
+        },
+        "owner_proof_nodes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/non_empty_string"}
+        },
+        "owner_proof_status": {
+          "enum": ["available", "blocked_external_receipt", "unknown"]
+        }
+      }
+    },
+    "state_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stale", "unknown", "malformed", "wrong_identity", "blocked"],
+      "properties": {
+        "stale": {"type": "integer", "minimum": 0},
+        "unknown": {"type": "integer", "minimum": 0},
+        "malformed": {"type": "integer", "minimum": 0},
+        "wrong_identity": {"type": "integer", "minimum": 0},
+        "blocked": {"type": "integer", "minimum": 0}
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target",
+        "attempt",
+        "status",
+        "latency_ms_synthetic_proxy",
+        "explanation"
+      ],
+      "properties": {
+        "target": {"$ref": "#/$defs/non_empty_string"},
+        "attempt": {"type": "integer", "minimum": 1},
+        "status": {
+          "enum": [
+            "activated",
+            "retry",
+            "stale",
+            "unknown",
+            "malformed",
+            "wrong_identity",
+            "blocked"
+          ]
+        },
+        "latency_ms_synthetic_proxy": {
+          "type": "number",
+          "minimum": 0
+        },
+        "explanation": {"$ref": "#/$defs/non_empty_string"}
+      }
+    },
+    "fail_closed_escalation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "triggered",
+        "reasons",
+        "fallback",
+        "fallback_nodes",
+        "fallback_status",
+        "policy_verdict"
+      ],
+      "properties": {
+        "triggered": {"type": "boolean"},
+        "reasons": {"$ref": "#/$defs/string_array"},
+        "fallback": {
+          "anyOf": [
+            {"type": "null"},
+            {"const": "full_owner_proof"}
+          ]
+        },
+        "fallback_nodes": {"$ref": "#/$defs/string_array"},
+        "fallback_status": {
+          "enum": ["not_needed", "available", "blocked_external_receipt", "unknown"]
+        },
+        "policy_verdict": {"const": null}
+      }
+    },
+    "scenario_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method_id",
+        "family",
+        "implementation_status",
+        "scenario_id",
+        "evidence_kind",
+        "identity",
+        "oracle",
+        "activated_nodes",
+        "missing_nodes",
+        "excess_nodes",
+        "precision",
+        "recall",
+        "precision_recall_denominator_valid",
+        "first_failure_latency_ms_synthetic_proxy",
+        "total_latency_ms_synthetic_proxy",
+        "attempt_count",
+        "unique_attempt_targets",
+        "retry_amplification",
+        "state_counts",
+        "stale_unknown_behavior",
+        "explanation",
+        "unexplained_miss_nodes",
+        "fail_closed_escalation",
+        "events"
+      ],
+      "properties": {
+        "method_id": {"$ref": "#/$defs/non_empty_string"},
+        "family": {"$ref": "#/$defs/non_empty_string"},
+        "implementation_status": {"const": "implemented"},
+        "scenario_id": {"$ref": "#/$defs/non_empty_string"},
+        "evidence_kind": {"const": "seeded_fixture"},
+        "identity": {"$ref": "#/$defs/scenario_identity"},
+        "oracle": {"$ref": "#/$defs/oracle"},
+        "activated_nodes": {"$ref": "#/$defs/string_array"},
+        "missing_nodes": {"$ref": "#/$defs/string_array"},
+        "excess_nodes": {"$ref": "#/$defs/string_array"},
+        "precision": {"$ref": "#/$defs/nullable_ratio"},
+        "recall": {"$ref": "#/$defs/nullable_ratio"},
+        "precision_recall_denominator_valid": {"type": "boolean"},
+        "first_failure_latency_ms_synthetic_proxy": {
+          "$ref": "#/$defs/nullable_non_negative_number"
+        },
+        "total_latency_ms_synthetic_proxy": {
+          "type": "number",
+          "minimum": 0
+        },
+        "attempt_count": {"type": "integer", "minimum": 0},
+        "unique_attempt_targets": {"type": "integer", "minimum": 0},
+        "retry_amplification": {
+          "$ref": "#/$defs/nullable_non_negative_number"
+        },
+        "state_counts": {"$ref": "#/$defs/state_counts"},
+        "stale_unknown_behavior": {
+          "enum": ["not_observed", "preserved_as_incomplete", "preserved_and_escalated"]
+        },
+        "explanation": {"type": "string"},
+        "unexplained_miss_nodes": {"$ref": "#/$defs/string_array"},
+        "fail_closed_escalation": {"$ref": "#/$defs/fail_closed_escalation"},
+        "events": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/event"}
+        }
+      }
+    },
+    "oracle_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["oracle", "fallback", "unknown_rule", "policy_rule"],
+      "properties": {
+        "oracle": {"const": "full_owner_proof"},
+        "fallback": {"const": "full_owner_proof"},
+        "unknown_rule": {"$ref": "#/$defs/non_empty_string"},
+        "policy_rule": {"$ref": "#/$defs/non_empty_string"}
+      }
+    }
+  }
+}

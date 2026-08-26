@@ -187,6 +187,10 @@
 - [AOA-EV-D-0206 Boundary Bridge Aggregate Removal](../AOA-EV-D-0206-boundary-bridge-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0206-boundary-bridge-aggregate-removal.md`)
 - [AOA-EV-D-0208 Questbook Source Aggregate Removal](../AOA-EV-D-0208-questbook-source-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0208-questbook-source-aggregate-removal.md`)
 
+## claim boundary
+
+- [AOA-EV-D-0255 Identity-Bound Method Comparison Uses a Draft Fixed-Baseline ABI](../AOA-EV-D-0255-identity-bound-method-comparison-contract.md) (`docs/decisions/AOA-EV-D-0255-identity-bound-method-comparison-contract.md`)
+
 ## comparison
 
 - [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
@@ -206,6 +210,10 @@
 ## eval-forge readiness
 
 - [AOA-EV-D-0244 Eval Forge Readiness Layer](../AOA-EV-D-0244-eval-forge-readiness-layer.md) (`docs/decisions/AOA-EV-D-0244-eval-forge-readiness-layer.md`)
+
+## evidence class
+
+- [AOA-EV-D-0255 Identity-Bound Method Comparison Uses a Draft Fixed-Baseline ABI](../AOA-EV-D-0255-identity-bound-method-comparison-contract.md) (`docs/decisions/AOA-EV-D-0255-identity-bound-method-comparison-contract.md`)
 
 ## fail-closed validation
 
@@ -227,6 +235,10 @@
 - [AOA-EV-D-0126 Proof Object Validator Module Boundary](../AOA-EV-D-0126-proof-object-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0126-proof-object-validator-module-boundary.md`)
 - [AOA-EV-D-0209 Source Doctrine Aggregate Removal](../AOA-EV-D-0209-source-doctrine-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0209-source-doctrine-aggregate-removal.md`)
 - [AOA-EV-D-0220 Comparison-spine Validator Layer Split](../AOA-EV-D-0220-comparison-spine-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0220-comparison-spine-validator-layer-split.md`)
+
+## identity parity
+
+- [AOA-EV-D-0255 Identity-Bound Method Comparison Uses a Draft Fixed-Baseline ABI](../AOA-EV-D-0255-identity-bound-method-comparison-contract.md) (`docs/decisions/AOA-EV-D-0255-identity-bound-method-comparison-contract.md`)
 
 ## local eval port
 
@@ -523,6 +535,7 @@
 - [AOA-EV-D-0240 Local Eval Port Standard](../AOA-EV-D-0240-local-eval-port-standard.md) (`docs/decisions/AOA-EV-D-0240-local-eval-port-standard.md`)
 - [AOA-EV-D-0241 Local Eval Port Write-Side MCP](../AOA-EV-D-0241-local-eval-port-write-side-mcp.md) (`docs/decisions/AOA-EV-D-0241-local-eval-port-write-side-mcp.md`)
 - [AOA-EV-D-0247 aoa-evals-skills Owner Skill Bundle](../AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md) (`docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md`)
+- [AOA-EV-D-0254 Validation-routing Peer-comparison Support](../AOA-EV-D-0254-validation-routing-peer-comparison-support.md) (`docs/decisions/AOA-EV-D-0254-validation-routing-peer-comparison-support.md`)
 
 ## trace/eval
 
@@ -552,6 +565,7 @@
 - [AOA-EV-D-0235 Method-growth Validator Layer Split](../AOA-EV-D-0235-method-growth-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0235-method-growth-validator-layer-split.md`)
 - [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
+- [AOA-EV-D-0254 Validation-routing Peer-comparison Support](../AOA-EV-D-0254-validation-routing-peer-comparison-support.md) (`docs/decisions/AOA-EV-D-0254-validation-routing-peer-comparison-support.md`)
 
 ## validation
 

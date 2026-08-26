@@ -84,6 +84,7 @@ def collect_bullets_after_label(
     text: str,
     *,
     label_matcher: Callable[[str], bool],
+    join_indented_continuations: bool = False,
 ) -> list[str]:
     lines = text.splitlines()
     collecting = False
@@ -101,6 +102,14 @@ def collect_bullets_after_label(
         if not stripped:
             if bullets:
                 break
+            continue
+        if (
+            join_indented_continuations
+            and bullets
+            and line[:1].isspace()
+            and not stripped.startswith("#")
+        ):
+            bullets[-1] = normalize_markdown_text(f"{bullets[-1]} {stripped}")
             continue
         if bullets:
             break
@@ -145,6 +154,7 @@ def extract_interpretation_limit_bullets(section_text: str) -> list[str]:
     return collect_bullets_after_label(
         section_text,
         label_matcher=lambda line: line.startswith("Do not treat ") and line.endswith(":"),
+        join_indented_continuations=True,
     )
 
 
@@ -234,7 +244,7 @@ def summarize_blind_spots(section_text: str) -> str:
 
 def summarize_interpretation_limits(section_text: str) -> str:
     limits = extract_interpretation_limit_bullets(section_text)
-    return trim_summary("; ".join(limits[:3]), max_words=28, max_chars=190)
+    return trim_summary("; ".join(limits[:3]), max_words=36, max_chars=240)
 
 
 def summarize_proof_artifacts(catalog_entry: dict[str, Any]) -> str:

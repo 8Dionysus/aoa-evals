@@ -280,6 +280,7 @@ SUPPORT_SEMANTIC_CLASSES = {
     "unit_contract_property_test": "Pytest or test surface constraining a stable contract or invariant.",
     "trace_trajectory_eval_support": "Test or support surface about route trajectory, trace, or tool path behavior.",
     "generated_parity_check": "Generated/read-model parity support; useful for freshness, not proof acceptance.",
+    "bounded_measurement_support": "Optionally caller-write-capable bounded measurement support; useful for comparison evidence, not proof acceptance or policy selection.",
     "runtime_candidate_support": "Runtime or session-derived candidate evidence; candidate-only until reviewed.",
     "unsafe_side_effect_script": "Write-capable script without a safe direct eval-apply route.",
     "ordinary_support": "Ordinary support surface with no eval-lane signal.",
@@ -941,6 +942,36 @@ def semantic_support_classification(kind: str, entry: dict[str, Any], relevant: 
                 "safe_smoke_without_owner_check",
             ],
         }
+    if (
+        kind == "script"
+        and family == "part_local_runner"
+        and "measurement" in text
+        and has_write
+        and has_guard
+        and any(
+            token in text
+            for token in (
+                "caller-specified",
+                "explicitly requested output path",
+                "optional output path",
+            )
+        )
+    ):
+        return {
+            "semantic_class": "bounded_measurement_support",
+            "classification_rule": "bounded_measurement_runner_with_caller_scoped_output",
+            "review_status": "rule_reviewed",
+            "review_reason": "bounded measurement runner may write only the caller-scoped report path; it remains measurement support and cannot accept proof or select policy",
+            "classification_evidence": evidence,
+            "recommended_route": "use_as_bounded_measurement_support",
+            "safe_to_apply_directly": False,
+            "forbidden_interpretations": [
+                "central_proof_acceptance",
+                "routing_policy_selection",
+                "real_session_coverage",
+                "direct_eval_apply",
+            ],
+        }
     if kind == "validator":
         return {
             "semantic_class": "deterministic_validator",
@@ -1011,6 +1042,27 @@ def semantic_support_classification(kind: str, entry: dict[str, Any], relevant: 
             "recommended_route": "apply_as_deterministic_eval_support",
             "safe_to_apply_directly": True,
             "forbidden_interpretations": ["central_proof_acceptance"],
+        }
+    if (
+        kind == "script"
+        and family == "part_local_runner"
+        and not has_write
+        and "read-only" in str(entry.get("side_effects", "")).lower()
+        and "measurement" in text
+    ):
+        return {
+            "semantic_class": "bounded_measurement_support",
+            "classification_rule": "read_only_bounded_measurement_runner",
+            "review_status": "rule_reviewed",
+            "review_reason": "read-only part-local measurement runner is bounded comparison support and cannot accept proof or select policy",
+            "classification_evidence": evidence,
+            "recommended_route": "use_as_bounded_measurement_support",
+            "safe_to_apply_directly": False,
+            "forbidden_interpretations": [
+                "central_proof_acceptance",
+                "routing_policy_selection",
+                "real_session_coverage",
+            ],
         }
     if kind == "script" and family == "owner_skill_resource" and not has_write:
         return {

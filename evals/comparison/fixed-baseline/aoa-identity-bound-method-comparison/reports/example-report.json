@@ -1,0 +1,132 @@
+{
+  "eval_name": "aoa-identity-bound-method-comparison",
+  "bundle_status": "draft",
+  "object_under_evaluation": "identity-bound comparison of validation methods under an explicit workload, candidate, environment, treatment, evidence, acceptance, cache, and resource contract",
+  "comparison_mode": "fixed-baseline",
+  "baseline_target": "legacy_serial_full_release",
+  "method_set": [
+    "legacy_serial_full_release",
+    "owner_focused_affected_only",
+    "claim_evidence_activated_subgraph_or_tiered",
+    "bounded_stable_prefix_session_measurement",
+    "retry_after_fix_first_failure",
+    "controlled_same_candidate_seeded_fault"
+  ],
+  "identity_contract": {
+    "required_fields": [
+      "workload_id",
+      "candidate_or_source_identity",
+      "source_ref_or_digest",
+      "environment_id",
+      "route_or_treatment_identity",
+      "evidence_class",
+      "acceptance_target",
+      "cache_posture",
+      "resource_posture"
+    ],
+    "exact_match_required": true,
+    "known_cache_and_resource_required_for_observed_pair": true,
+    "allowed_evidence_classes": ["public-safe-contract", "reviewed-owner-packet"]
+  },
+  "selection_apply_contract": {
+    "required_fields": [
+      "verdict",
+      "owner",
+      "source_ref",
+      "source_digest",
+      "environment",
+      "command.argv",
+      "command.cwd",
+      "command.timeout_seconds",
+      "command.accepted_exit_codes",
+      "prerequisites",
+      "artifacts",
+      "pass_criteria",
+      "effect_authority",
+      "expected_effect",
+      "proof_authority",
+      "proof_limit"
+    ],
+    "received_verdict": "exact_fit",
+    "ready_for_owner_apply": true,
+    "proof_authority": false
+  },
+  "admission": {
+    "observation_count": 2,
+    "unit_count": 1,
+    "matched_unit_count": 0,
+    "controlled_accounting_unit_count": 0,
+    "unmatched_unit_count": 1,
+    "matched_pair_count": 0,
+    "eligible_real_pairs": 0,
+    "unknown_is_not_zero": true,
+    "method_effect_admitted": false
+  },
+  "comparison_units": [
+    {
+      "unit_id": "design-unmatched-unit",
+      "disposition": "unmatched",
+      "matched_pair_count": 0,
+      "observed_pair_count": 0,
+      "method_ids": [
+        "legacy_serial_full_release",
+        "owner_focused_affected_only"
+      ],
+      "review_statuses": ["provisional"],
+      "evidence_classes": ["public-safe-contract"],
+      "identity_match": false,
+      "mismatched_fields": ["identity.environment_id", "review_status.baseline"],
+      "observation_refs": ["manual-case:unmatched_provisional_evidence"],
+      "matched_identity_bindings": [],
+      "unmatched_case_expectations": [
+        {
+          "unit_id": "design-unmatched-unit",
+          "reason": "identity_or_parity_mismatch",
+          "method_id": "legacy_serial_full_release",
+          "mismatched_fields": ["identity.environment_id", "review_status.baseline"]
+        },
+        {
+          "unit_id": "design-unmatched-unit",
+          "reason": "identity_or_parity_mismatch",
+          "method_id": "owner_focused_affected_only",
+          "mismatched_fields": ["identity.environment_id", "review_status.baseline"]
+        }
+      ],
+      "metric_coverage": {
+        "wall_seconds": {"method_states": [{"method_id": "legacy_serial_full_release", "state": "unobservable", "measurement_origin": "unobservable"}, {"method_id": "owner_focused_affected_only", "state": "unobservable", "measurement_origin": "unobservable"}], "state_counts": {"known": 0, "unknown": 0, "null": 0, "excluded": 0, "unobservable": 2, "missing": 0}, "observed_values": [], "controlled_values": [], "synthetic_count": 0},
+        "cpu_ms": {"method_states": [{"method_id": "legacy_serial_full_release", "state": "unobservable", "measurement_origin": "unobservable"}, {"method_id": "owner_focused_affected_only", "state": "unobservable", "measurement_origin": "unobservable"}], "state_counts": {"known": 0, "unknown": 0, "null": 0, "excluded": 0, "unobservable": 2, "missing": 0}, "observed_values": [], "controlled_values": [], "synthetic_count": 0},
+        "peak_rss_kib": {"method_states": [{"method_id": "legacy_serial_full_release", "state": "unobservable", "measurement_origin": "unobservable"}, {"method_id": "owner_focused_affected_only", "state": "unobservable", "measurement_origin": "unobservable"}], "state_counts": {"known": 0, "unknown": 0, "null": 0, "excluded": 0, "unobservable": 2, "missing": 0}, "observed_values": [], "controlled_values": [], "synthetic_count": 0},
+        "io_read_bytes": {"method_states": [{"method_id": "legacy_serial_full_release", "state": "unobservable", "measurement_origin": "unobservable"}, {"method_id": "owner_focused_affected_only", "state": "unobservable", "measurement_origin": "unobservable"}], "state_counts": {"known": 0, "unknown": 0, "null": 0, "excluded": 0, "unobservable": 2, "missing": 0}, "observed_values": [], "controlled_values": [], "synthetic_count": 0},
+        "io_write_bytes": {"method_states": [{"method_id": "legacy_serial_full_release", "state": "unobservable", "measurement_origin": "unobservable"}, {"method_id": "owner_focused_affected_only", "state": "unobservable", "measurement_origin": "unobservable"}], "state_counts": {"known": 0, "unknown": 0, "null": 0, "excluded": 0, "unobservable": 2, "missing": 0}, "observed_values": [], "controlled_values": [], "synthetic_count": 0},
+        "setup_startup_seconds": {"method_states": [{"method_id": "legacy_serial_full_release", "state": "unobservable", "measurement_origin": "unobservable"}, {"method_id": "owner_focused_affected_only", "state": "unobservable", "measurement_origin": "unobservable"}], "state_counts": {"known": 0, "unknown": 0, "null": 0, "excluded": 0, "unobservable": 2, "missing": 0}, "observed_values": [], "controlled_values": [], "synthetic_count": 0},
+        "first_failure_latency_seconds": {"method_states": [{"method_id": "legacy_serial_full_release", "state": "unobservable", "measurement_origin": "unobservable"}, {"method_id": "owner_focused_affected_only", "state": "unobservable", "measurement_origin": "unobservable"}], "state_counts": {"known": 0, "unknown": 0, "null": 0, "excluded": 0, "unobservable": 2, "missing": 0}, "observed_values": [], "controlled_values": [], "synthetic_count": 0},
+        "retry_amplification": {"method_states": [{"method_id": "legacy_serial_full_release", "state": "unobservable", "measurement_origin": "unobservable"}, {"method_id": "owner_focused_affected_only", "state": "unobservable", "measurement_origin": "unobservable"}], "state_counts": {"known": 0, "unknown": 0, "null": 0, "excluded": 0, "unobservable": 2, "missing": 0}, "observed_values": [], "controlled_values": [], "synthetic_count": 0}
+      },
+      "claim_limit": "no eligible identity- and parity-matched method pair"
+    }
+  ],
+  "unmatched_cases": [
+    {
+      "unit_id": "design-unmatched-unit",
+      "reason": "identity_or_parity_mismatch",
+      "method_id": "legacy_serial_full_release",
+      "mismatched_fields": ["identity.environment_id", "review_status.baseline"]
+    },
+    {
+      "unit_id": "design-unmatched-unit",
+      "reason": "identity_or_parity_mismatch",
+      "method_id": "owner_focused_affected_only",
+      "mismatched_fields": ["identity.environment_id", "review_status.baseline"]
+    }
+  ],
+  "verdict": "not_admitted",
+  "policy_verdict": null,
+  "claim_boundary": "This report preserves identity-bound observation or accounting dispositions only; it does not issue method effects, causal claims, proof, policy, acceptance, or a universal winner.",
+  "limitations": [
+    "the runner consumes an explicit packet and never executes command.argv",
+    "a generated reader or green validator is not real-session telemetry",
+    "synthetic and controlled values are excluded from observed_values",
+    "unknown, null, excluded, unobservable, and missing states are not zero",
+    "no central proof, runtime health, policy, or human-acceptance verdict is emitted"
+  ]
+}

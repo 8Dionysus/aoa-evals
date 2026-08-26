@@ -1,0 +1,1011 @@
+from __future__ import annotations
+
+import copy
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+import jsonschema
+import pytest
+
+
+PART_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[5]
+SCRIPT_PATH = PART_ROOT / "scripts" / "run_validation_routing_comparison.py"
+CONTRACT_PATH = PART_ROOT / "schemas" / "validation-routing-comparison-v1.contract.json"
+REPORT_SCHEMA_PATH = PART_ROOT / "schemas" / "validation-routing-comparison-report-v1.schema.json"
+CASES_PATH = PART_ROOT / "fixtures" / "validation-routing-bounded-v1" / "cases.json"
+EXAMPLE_PATH = PART_ROOT / "examples" / "validation-routing-comparison.example.json"
+
+if str(SCRIPT_PATH.parent) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_PATH.parent))
+
+import run_validation_routing_comparison as comparison  # noqa: E402
+
+
+def load_json(path: Path) -> dict:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+@pytest.fixture(scope="module")
+def report() -> dict:
+    return comparison.build_report(load_json(CONTRACT_PATH), load_json(CASES_PATH))
+
+
+def method(report: dict, method_id: str) -> dict:
+    return next(entry for entry in report["methods"] if entry["method_id"] == method_id)
+
+
+def scenario_result(report: dict, method_id: str, scenario_id: str) -> dict:
+    entry = method(report, method_id)
+    return next(result for result in entry["scenario_results"] if result["scenario_id"] == scenario_id)
+
+
+def test_report_is_measurement_only_and_covers_required_adversarial_classes(report: dict) -> None:
+    assert report["schema_version"] == "validation_routing_comparison_report_v1"
+    assert report["claim_posture"] == "measurement_only"
+    assert report["policy_verdict"] is None
+    assert report["selection_status"] == "deferred_pending_bound_external_campaign"
+    assert {
+        "stale_graph",
+        "unknown_dependency",
+        "wrong_candidate_environment_receipt",
+        "malformed_receipt",
+        "unexplained_miss",
+        "unbound_external_owner",
+    }.issubset(report["adversarial_classes_covered"])
+    assert report["real_case_count"] == 0
+    assert report["seeded_case_count"] == 7
+
+
+def test_contract_rejects_full_owner_proof_rule_drift() -> None:
+    contract = load_json(CONTRACT_PATH)
+    contract["oracle_rule"]["oracle"] = "heuristic"
+
+    with pytest.raises(comparison.ContractError, match="oracle_rule"):
+        comparison.validate_contract(contract)
+
+
+def test_contract_rejects_non_v1_fixture_identity() -> None:
+    contract = load_json(CONTRACT_PATH)
+    cases = load_json(CASES_PATH)
+    contract["fixture_id"] = "custom-fixture"
+    cases["fixture_id"] = "custom-fixture"
+
+    with pytest.raises(comparison.ContractError, match="fixture_id"):
+        comparison.build_report(contract, cases)
+
+
+def test_contract_rejects_empty_or_duplicate_coverage_limits() -> None:
+    for coverage_limits in ([], ["same limit", "same limit"]):
+        contract = load_json(CONTRACT_PATH)
+        contract["coverage_limits"] = coverage_limits
+
+        with pytest.raises(comparison.ContractError, match="coverage_limits"):
+            comparison.build_report(contract, load_json(CASES_PATH))
+
+
+def test_contract_requires_exact_source_owned_v1_coverage_limits() -> None:
+    expected = list(comparison.EXPECTED_COVERAGE_LIMITS)
+    variants = (
+        expected[1:],
+        expected[:-1],
+        list(reversed(expected)),
+        expected + ["An extra caller-supplied limitation."],
+        [expected[0], "No blind spots; safe to select a winner.", *expected[2:]],
+    )
+
+    for coverage_limits in variants:
+        contract = load_json(CONTRACT_PATH)
+        contract["coverage_limits"] = coverage_limits
+
+        with pytest.raises(comparison.ContractError, match="source-owned ordered v1 caveat set"):
+            comparison.build_report(contract, load_json(CASES_PATH))
+
+
+def test_contract_rejects_latency_posture_drift() -> None:
+    contract = load_json(CONTRACT_PATH)
+    contract["latency_policy"]["source"] = "production telemetry"
+
+    with pytest.raises(comparison.ContractError, match="latency_policy"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+def test_contract_rejects_retry_resource_policy_drift() -> None:
+    contract = load_json(CONTRACT_PATH)
+    contract["resource_policy"]["max_retry_count"] = 65
+
+    with pytest.raises(comparison.ContractError, match="resource_policy"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+def test_report_emits_source_owned_retry_resource_policy(report: dict) -> None:
+    assert report["resource_policy"] == comparison.EXPECTED_RESOURCE_POLICY
+
+
+@pytest.mark.parametrize("retry_count", [True, -1, 1.5, None])
+def test_retry_count_boolean_negative_and_non_integer_inputs_are_rejected(
+    retry_count: object,
+) -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["signals"]["dependency_graph"]["retry_count"] = retry_count
+
+    with pytest.raises(comparison.ContractError, match="retry_count"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+@pytest.mark.parametrize(
+    "retry_count",
+    [comparison.MAX_RETRY_COUNT + 1, 1_000_000_000],
+)
+def test_retry_count_above_source_cap_is_rejected_before_report_build(
+    retry_count: int,
+) -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["signals"]["dependency_graph"]["retry_count"] = retry_count
+
+    with pytest.raises(comparison.ContractError, match="source-owned retry_count cap"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_admitted_retry_boundary_preserves_attempts_and_latency() -> None:
+    contract = load_json(CONTRACT_PATH)
+    cases = load_json(CASES_PATH)
+    scenario = cases["scenarios"][0]
+    signal = copy.deepcopy(scenario["signals"]["dependency_graph"])
+    signal["retry_count"] = comparison.MAX_RETRY_COUNT
+
+    proposal = comparison.signal_result(
+        signal,
+        method_id="dependency_graph",
+        expected_state="current",
+        latency_ms=3.5,
+    )
+    candidate = next(
+        entry
+        for entry in contract["candidate_catalog"]
+        if entry["method_id"] == "dependency_graph"
+    )
+    result = comparison.finalize_result(
+        method_id="dependency_graph",
+        candidate=candidate,
+        scenario=scenario,
+        proposal=proposal,
+    )
+
+    assert len(result["events"]) == 2 * (comparison.MAX_RETRY_COUNT + 1)
+    assert result["attempt_count"] == 130
+    assert result["unique_attempt_targets"] == 2
+    assert result["retry_amplification"] == 65.0
+    assert result["total_latency_ms_synthetic_proxy"] == pytest.approx(455.0)
+    assert all(
+        event["status"] == "retry"
+        for event in result["events"]
+        if event["attempt"] <= comparison.MAX_RETRY_COUNT
+    )
+    assert all(
+        event["status"] == "activated"
+        for event in result["events"]
+        if event["attempt"] == comparison.MAX_RETRY_COUNT + 1
+    )
+
+
+def test_retry_failure_semantics_preserve_first_failure_and_status() -> None:
+    contract = load_json(CONTRACT_PATH)
+    cases = load_json(CASES_PATH)
+    scenario = cases["scenarios"][1]
+    signal = copy.deepcopy(scenario["signals"]["dependency_graph"])
+    signal["retry_count"] = 2
+
+    proposal = comparison.signal_result(
+        signal,
+        method_id="dependency_graph",
+        expected_state="current",
+        latency_ms=3.5,
+    )
+    candidate = next(
+        entry
+        for entry in contract["candidate_catalog"]
+        if entry["method_id"] == "dependency_graph"
+    )
+    result = comparison.finalize_result(
+        method_id="dependency_graph",
+        candidate=candidate,
+        scenario=scenario,
+        proposal=proposal,
+    )
+
+    assert [event["status"] for event in result["events"]] == ["retry", "retry", "stale"]
+    assert result["attempt_count"] == 3
+    assert result["unique_attempt_targets"] == 1
+    assert result["retry_amplification"] == 3.0
+    assert result["total_latency_ms_synthetic_proxy"] == pytest.approx(10.5)
+    assert result["first_failure_latency_ms_synthetic_proxy"] == pytest.approx(10.5)
+
+
+def test_target_fanout_is_rejected_before_event_allocation(monkeypatch: pytest.MonkeyPatch) -> None:
+    cases = load_json(CASES_PATH)
+    signal = copy.deepcopy(cases["scenarios"][0]["signals"]["dependency_graph"])
+    signal["nodes"] = [
+        f"node-{index}"
+        for index in range(comparison.MAX_MATERIALIZED_EVENTS_PER_SIGNAL + 1)
+    ]
+    calls: list[object] = []
+    monkeypatch.setattr(
+        comparison,
+        "add_events",
+        lambda *args, **kwargs: calls.append((args, kwargs)),
+    )
+
+    with pytest.raises(comparison.ContractError, match="per-signal budget"):
+        comparison.signal_result(
+            signal,
+            method_id="dependency_graph",
+            expected_state="current",
+            latency_ms=3.5,
+        )
+
+    assert calls == []
+
+
+def test_target_fanout_at_budget_preserves_one_event_per_attempt() -> None:
+    cases = load_json(CASES_PATH)
+    signal = copy.deepcopy(cases["scenarios"][0]["signals"]["dependency_graph"])
+    signal["nodes"] = [
+        f"node-{index}"
+        for index in range(comparison.MAX_MATERIALIZED_EVENTS_PER_SIGNAL // 2)
+    ]
+    signal["retry_count"] = 1
+
+    proposal = comparison.signal_result(
+        signal,
+        method_id="dependency_graph",
+        expected_state="current",
+        latency_ms=3.5,
+    )
+
+    assert len(proposal["events"]) == comparison.MAX_MATERIALIZED_EVENTS_PER_SIGNAL
+    assert proposal["events"][0]["attempt"] == 1
+    assert proposal["events"][-1]["attempt"] == 2
+
+
+def test_add_events_rejects_over_cap_without_partial_materialization() -> None:
+    events: list[dict] = []
+
+    with pytest.raises(comparison.ContractError, match="source-owned retry_count cap"):
+        comparison.add_events(
+            events,
+            target="dependency_graph",
+            status="activated",
+            latency_ms=3.5,
+            explanation="test",
+            retry_count=1_000_000_000,
+        )
+
+    assert events == []
+
+
+def test_speed_claim_status_cannot_claim_runtime_policy_selection() -> None:
+    cases = load_json(CASES_PATH)
+    cases["input_evidence"]["observed_wall_clock_proxies"][
+        "speed_claim_status"
+    ] = "confirmed_runtime_speedup_and_ready_for_policy_selection"
+
+    with pytest.raises(comparison.ContractError, match="speed claim status"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+@pytest.mark.parametrize(
+    "allowed_use",
+    [
+        "may select the winning routing policy",
+        "bounded prior and route-gap input only; policy selection is allowed",
+        None,
+    ],
+)
+def test_allowed_use_is_source_owned_measurement_only_posture(allowed_use: object) -> None:
+    cases = load_json(CASES_PATH)
+    cases["input_evidence"]["allowed_use"] = allowed_use
+
+    with pytest.raises(comparison.ContractError, match="allowed_use"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_contract_rejects_allowed_use_policy_drift() -> None:
+    contract = load_json(CONTRACT_PATH)
+    contract["evidence_policy"]["allowed_use"] = "may select the winning routing policy"
+
+    with pytest.raises(comparison.ContractError, match="evidence_policy.allowed_use"):
+        comparison.validate_contract(contract)
+
+
+def test_peer_identity_is_constant_for_each_scenario(report: dict) -> None:
+    for method_entry in report["methods"]:
+        for result in method_entry["scenario_results"]:
+            assert result["identity"]["candidate_set_id"] == report["comparison_identity"]["candidate_set_id"]
+            assert result["identity"]["environment_id"] == report["comparison_identity"]["environment_id"]
+            assert set(result["identity"]) == {
+                "workload_id",
+                "candidate_set_id",
+                "environment_id",
+                "source_ref",
+            }
+
+
+def test_unsupported_candidate_families_are_explicit_missing_candidates(report: dict) -> None:
+    missing = {
+        entry["method_id"]: entry
+        for entry in report["methods"]
+        if entry["implementation_status"] == "unsupported_missing_candidate"
+    }
+    assert set(missing) == {
+        "api_abi",
+        "coverage",
+        "mutation",
+        "kag_relations",
+        "llm_proposed_additions",
+    }
+    assert all(entry["measurements"] is None for entry in missing.values())
+    assert all(entry["reason"] for entry in missing.values())
+
+
+def test_stale_unknown_wrong_and_malformed_states_are_preserved(report: dict) -> None:
+    stale = scenario_result(report, "dependency_graph", "RVC-002-stale-graph")
+    unknown = scenario_result(report, "dependency_graph", "RVC-003-unknown-dependency")
+    wrong = scenario_result(report, "owner_contracts", "RVC-004-wrong-receipt")
+    malformed = scenario_result(report, "owner_contracts", "RVC-005-malformed-receipt")
+
+    assert stale["state_counts"]["stale"] == 1
+    assert stale["stale_unknown_behavior"] == "preserved_as_incomplete"
+    assert unknown["state_counts"]["unknown"] == 1
+    assert wrong["state_counts"]["wrong_identity"] == 1
+    assert malformed["state_counts"]["malformed"] == 1
+    assert all(
+        result["first_failure_latency_ms_synthetic_proxy"] is not None
+        for result in (stale, unknown, wrong, malformed)
+    )
+
+
+def test_hybrid_escalates_without_declaring_a_winner(report: dict) -> None:
+    hybrid = method(report, "hybrid_fail_closed")
+    by_id = {result["scenario_id"]: result for result in hybrid["scenario_results"]}
+    for scenario_id in (
+        "RVC-002-stale-graph",
+        "RVC-003-unknown-dependency",
+        "RVC-004-wrong-receipt",
+        "RVC-005-malformed-receipt",
+        "RVC-007-unbound-owner",
+    ):
+        escalation = by_id[scenario_id]["fail_closed_escalation"]
+        assert escalation["triggered"] is True
+        assert escalation["fallback"] == "full_owner_proof"
+        assert escalation["policy_verdict"] is None
+    assert hybrid["measurements"]["fail_closed_escalation_count"] == 5
+
+
+def test_unexplained_miss_and_excess_activation_are_reported(report: dict) -> None:
+    static_miss = scenario_result(report, "static_paths", "RVC-006-unexplained-miss")
+    claim_summary = method(report, "claim_risk")["measurements"]
+    assert static_miss["missing_nodes"] == ["source_fast", "owner_external_kag"]
+    assert static_miss["unexplained_miss_nodes"] == ["source_fast", "owner_external_kag"]
+    assert claim_summary["excess_node_count"] >= 1
+
+
+def test_generic_method_rationale_cannot_explain_a_missing_node(report: dict) -> None:
+    static_miss = scenario_result(report, "static_paths", "RVC-006-unexplained-miss")
+    assert static_miss["explanation"]
+    assert static_miss["unexplained_miss_nodes"] == static_miss["missing_nodes"]
+
+
+def test_unknown_and_real_evidence_kinds_are_not_admitted_in_seeded_v1() -> None:
+    cases = load_json(CASES_PATH)
+    unknown = copy.deepcopy(cases)
+    unknown["scenarios"][0]["evidence_kind"] = "observed_runtime"
+    with pytest.raises(comparison.ContractError, match="evidence_kind"):
+        comparison.build_report(load_json(CONTRACT_PATH), unknown)
+
+    real = copy.deepcopy(cases)
+    real["scenarios"][0]["evidence_kind"] = "real_session"
+    with pytest.raises(comparison.ContractError, match="evidence_kind"):
+        comparison.build_report(load_json(CONTRACT_PATH), real)
+
+
+@pytest.mark.parametrize("evidence_kind", [["seeded_fixture"], {"kind": "seeded_fixture"}])
+def test_non_string_evidence_kind_is_rejected_as_a_contract_error(evidence_kind: object) -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["evidence_kind"] = evidence_kind
+
+    with pytest.raises(comparison.ContractError, match="evidence_kind"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_unrecognized_signal_state_is_normalized_to_blocked_and_escalated() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["signals"]["dependency_graph"]["state"] = "currnt"
+    report = comparison.build_report(load_json(CONTRACT_PATH), cases)
+    result = scenario_result(report, "hybrid_fail_closed", "RVC-001-source-only-control")
+
+    assert result["state_counts"]["blocked"] == 1
+    assert result["fail_closed_escalation"]["triggered"] is True
+    assert result["fail_closed_escalation"]["reasons"] == ["blocked"]
+    assert result["fail_closed_escalation"]["fallback"] == "full_owner_proof"
+    assert result["stale_unknown_behavior"] == "preserved_and_escalated"
+
+
+def test_successful_signal_states_do_not_look_stale_or_incomplete(report: dict) -> None:
+    result = scenario_result(report, "dependency_graph", "RVC-001-source-only-control")
+    assert result["state_counts"] == {
+        "stale": 0,
+        "unknown": 0,
+        "malformed": 0,
+        "wrong_identity": 0,
+        "blocked": 0,
+    }
+    assert result["stale_unknown_behavior"] == "not_observed"
+
+
+def test_adversarial_coverage_is_deduplicated_and_schema_valid() -> None:
+    cases = load_json(CASES_PATH)
+    duplicate = copy.deepcopy(cases["scenarios"][1])
+    duplicate["scenario_id"] = "RVC-008-duplicate-stale-class"
+    cases["scenarios"].append(duplicate)
+    report = comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+    jsonschema.Draft202012Validator(load_json(REPORT_SCHEMA_PATH)).validate(report)
+    assert len(report["adversarial_classes_covered"]) == len(set(report["adversarial_classes_covered"]))
+
+
+def test_latency_weights_are_declared_by_fixture_and_used() -> None:
+    cases = load_json(CASES_PATH)
+    weights = cases["latency_event_weights_ms_synthetic_proxy"]
+    assert weights == {
+        "static_paths": 1.5,
+        "dependency_graph": 3.5,
+        "owner_contracts": 4.0,
+        "history_correlation": 5.0,
+        "claim_risk": 2.0,
+    }
+    cases["latency_event_weights_ms_synthetic_proxy"]["static_paths"] = 7.25
+
+    report = comparison.build_report(load_json(CONTRACT_PATH), cases)
+    result = scenario_result(report, "static_paths", "RVC-001-source-only-control")
+
+    assert {event["latency_ms_synthetic_proxy"] for event in result["events"]} == {7.25}
+
+
+@pytest.mark.parametrize("value", [float("inf"), float("nan"), 10**400])
+def test_non_finite_or_unrepresentable_latency_weights_are_rejected(value: object) -> None:
+    cases = load_json(CASES_PATH)
+    cases["latency_event_weights_ms_synthetic_proxy"]["static_paths"] = value
+
+    with pytest.raises(comparison.ContractError, match="finite non-negative"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_scenario_latency_aggregate_overflow_fails_closed() -> None:
+    cases = load_json(CASES_PATH)
+    cases["latency_event_weights_ms_synthetic_proxy"]["dependency_graph"] = 1e308
+
+    with pytest.raises(comparison.ContractError, match="aggregate must remain finite"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_method_latency_aggregate_overflow_fails_closed_after_finite_scenarios() -> None:
+    cases = load_json(CASES_PATH)
+    cases["latency_event_weights_ms_synthetic_proxy"]["static_paths"] = 3e307
+
+    with pytest.raises(comparison.ContractError, match="aggregate must remain finite"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_built_report_is_strict_json_serializable(report: dict) -> None:
+    encoded = json.dumps(report, allow_nan=False)
+    assert "Infinity" not in encoded
+    assert "NaN" not in encoded
+
+
+def test_static_events_are_deduplicated_by_target() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["changed_paths"] = ["scripts/a.py", "scripts/b.py"]
+
+    report = comparison.build_report(load_json(CONTRACT_PATH), cases)
+    result = scenario_result(report, "static_paths", "RVC-001-source-only-control")
+
+    assert [(event["target"], event["attempt"]) for event in result["events"]] == [("source_fast", 1)]
+    assert result["unique_attempt_targets"] == 1
+    jsonschema.Draft202012Validator(load_json(REPORT_SCHEMA_PATH)).validate(report)
+
+
+def test_static_activation_overrides_are_rejected_as_unsynchronized() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["method_overrides"] = {
+        "static_paths": {"activated_nodes": ["source_fast"]}
+    }
+
+    with pytest.raises(comparison.ContractError, match="activated_nodes.*not admitted"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_null_static_path_overrides_are_rejected_as_contract_errors() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["method_overrides"] = {"static_paths": None}
+
+    with pytest.raises(comparison.ContractError, match="static_paths must be an object"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_null_signals_are_rejected_as_contract_errors() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["signals"] = None
+
+    with pytest.raises(comparison.ContractError, match="signals must be an object"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("full_local_release_check_seconds", -1),
+        ("targeted_local_route_proxy_seconds", [-1, 4.9]),
+    ],
+)
+def test_negative_wall_clock_proxies_are_rejected(field: str, value: object) -> None:
+    cases = load_json(CASES_PATH)
+    cases["input_evidence"]["observed_wall_clock_proxies"][field] = value
+
+    with pytest.raises(comparison.ContractError, match="finite non-negative"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_implemented_candidates_cannot_be_marked_missing() -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "static_paths")
+    candidate["status"] = comparison.UNSUPPORTED_METHOD_STATUS
+    candidate["reason"] = "custom contract attempts to hide a built-in runner"
+
+    with pytest.raises(comparison.ContractError, match="must remain implemented"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+def test_implemented_candidate_descriptions_remain_source_owned() -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "static_paths")
+    candidate["description"] = "proven safest policy; select as default"
+
+    with pytest.raises(comparison.ContractError, match="source-owned description"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+def test_implemented_candidate_families_remain_source_owned() -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "static_paths")
+    candidate["family"] = "proven_default_policy"
+
+    with pytest.raises(comparison.ContractError, match="source-owned family"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+@pytest.mark.parametrize(
+    "method_id",
+    ["api_abi", "coverage", "mutation", "kag_relations", "llm_proposed_additions"],
+)
+def test_unsupported_candidate_families_remain_source_owned(method_id: str) -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == method_id)
+    candidate["family"] = "proven_default_policy"
+
+    with pytest.raises(comparison.ContractError, match="source-owned family"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+def test_unsupported_candidate_reasons_remain_source_owned() -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "coverage")
+    candidate["reason"] = "proven safe and unnecessary for routing"
+
+    with pytest.raises(comparison.ContractError, match="source-owned reason"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+@pytest.mark.parametrize("value", [["implemented"], {"status": "implemented"}])
+def test_candidate_status_requires_a_string(value: object) -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "static_paths")
+    candidate["status"] = value
+
+    with pytest.raises(comparison.ContractError, match="unsupported candidate status"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+@pytest.mark.parametrize("value", [["available"], {"status": "available"}])
+def test_owner_proof_status_requires_a_string(value: object) -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["oracle"]["owner_proof_status"] = value
+
+    with pytest.raises(comparison.ContractError, match="invalid owner_proof_status"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_candidate_entries_reject_undeclared_fields() -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "static_paths")
+    candidate["unexpected"] = "schema drift"
+
+    with pytest.raises(comparison.ContractError, match="undeclared field"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+def test_required_unsupported_candidates_cannot_be_removed() -> None:
+    contract = load_json(CONTRACT_PATH)
+    contract["candidate_catalog"] = [
+        entry for entry in contract["candidate_catalog"] if entry["method_id"] != "coverage"
+    ]
+
+    with pytest.raises(comparison.ContractError, match="required unsupported candidate"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+def test_comparison_identity_rejects_undeclared_fields() -> None:
+    cases = load_json(CASES_PATH)
+    cases["comparison_identity"]["unexpected"] = "schema drift"
+
+    with pytest.raises(comparison.ContractError, match="comparison_identity.*undeclared"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+@pytest.mark.parametrize("location", ["input_evidence", "observed_wall_clock_proxies"])
+def test_input_evidence_rejects_undeclared_fields(location: str) -> None:
+    cases = load_json(CASES_PATH)
+    if location == "input_evidence":
+        cases["input_evidence"]["unexpected"] = "schema drift"
+    else:
+        cases["input_evidence"]["observed_wall_clock_proxies"]["unexpected"] = "schema drift"
+
+    with pytest.raises(comparison.ContractError, match="undeclared"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_empty_owner_proof_oracle_nodes_are_rejected() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["oracle"]["required_nodes"] = []
+    cases["scenarios"][0]["oracle"]["owner_proof_nodes"] = []
+
+    with pytest.raises(comparison.ContractError, match="must contain at least one node"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_unknown_owner_proof_cannot_be_scored_as_complete() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][-1]["oracle"]["complete"] = True
+
+    with pytest.raises(comparison.ContractError, match="cannot be complete"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_adversarial_class_requires_its_class_specific_condition() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["adversarial_class"] = "stale_graph"
+
+    with pytest.raises(comparison.ContractError, match="does not match"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+@pytest.mark.parametrize(
+    ("declared_state", "nodes", "expected_state", "expected_match"),
+    [
+        ("stale", ["source_fast"], "stale", True),
+        ("stale", None, "malformed", False),
+        ("unknown", [], "unknown", True),
+        ("unknown", None, "malformed", False),
+    ],
+)
+def test_dependency_adversarial_coverage_uses_normalized_signal_state(
+    declared_state: str, nodes: object, expected_state: str, expected_match: bool
+) -> None:
+    cases = load_json(CASES_PATH)
+    scenario = copy.deepcopy(cases["scenarios"][1])
+    dependency_signal = scenario["signals"]["dependency_graph"]
+    dependency_signal["state"] = declared_state
+    dependency_signal["nodes"] = nodes
+
+    assert comparison.adversarial_class_matches(scenario, "stale_graph") is (
+        expected_match if declared_state == "stale" else False
+    )
+    assert comparison.adversarial_class_matches(scenario, "unknown_dependency") is (
+        expected_match if declared_state == "unknown" else False
+    )
+    result = comparison.dependency_graph_result(
+        scenario, cases["latency_event_weights_ms_synthetic_proxy"]
+    )
+    assert result["signal_states"] == [expected_state]
+
+
+def test_wrong_receipt_class_requires_candidate_and_environment_mismatch() -> None:
+    cases = load_json(CASES_PATH)
+    scenario = cases["scenarios"][3]
+    receipt = scenario["signals"]["owner_contracts"]["receipt"]
+    receipt["candidate_set_id"] = scenario["candidate_set_id"]
+    receipt["environment_id"] = scenario["environment_id"]
+    receipt["workload_id"] = "other-workload"
+    receipt["source_ref"] = "fixture:other-source"
+
+    with pytest.raises(comparison.ContractError, match="does not match"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_wrong_receipt_class_rejects_partial_receipt_before_identity_comparison() -> None:
+    cases = load_json(CASES_PATH)
+    partial = copy.deepcopy(cases["scenarios"][4])
+    partial["scenario_id"] = "RVC-008-partial-wrong-receipt"
+    partial["adversarial_class"] = "wrong_candidate_environment_receipt"
+    partial["signals"]["owner_contracts"]["receipt"]["environment_id"] = (
+        "seeded-other-environment-v1"
+    )
+    cases["scenarios"].append(partial)
+
+    with pytest.raises(comparison.ContractError, match="does not match"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+@pytest.mark.parametrize(
+    ("declared_state", "receipt_shape", "expected_state"),
+    [
+        ("valid", "complete", "valid"),
+        ("malformed", "complete", "valid"),
+        ("wrong_identity", "complete", "valid"),
+        ("valid", "partial", "malformed"),
+        ("malformed", "partial", "malformed"),
+        ("valid", "wrong_identity", "wrong_identity"),
+        ("unknown", "missing", "unknown"),
+        ("valid", "missing", "malformed"),
+    ],
+)
+def test_owner_receipt_classifier_prioritizes_shape_and_identity(
+    declared_state: str, receipt_shape: str, expected_state: str
+) -> None:
+    cases = load_json(CASES_PATH)
+    scenario = copy.deepcopy(cases["scenarios"][0])
+    signal = scenario["signals"]["owner_contracts"]
+    signal["state"] = declared_state
+    if receipt_shape == "partial":
+        signal["receipt"] = {
+            "candidate_set_id": scenario["candidate_set_id"],
+        }
+    elif receipt_shape == "wrong_identity":
+        signal["receipt"]["candidate_set_id"] = "candidate-set-other"
+    elif receipt_shape == "missing":
+        signal.pop("receipt")
+
+    assert comparison.classify_owner_receipt(scenario).state == expected_state
+    assert comparison.owner_contract_signal_state(scenario) == expected_state
+    result = comparison.owner_contract_result(
+        scenario,
+        method_id="owner_contracts",
+        latency_weights=cases["latency_event_weights_ms_synthetic_proxy"],
+    )
+    assert result["signal_states"] == [expected_state]
+    assert comparison.adversarial_class_matches(scenario, "malformed_receipt") is (
+        expected_state == "malformed"
+    )
+    assert comparison.adversarial_class_matches(
+        scenario, "wrong_candidate_environment_receipt"
+    ) is (expected_state == "wrong_identity")
+
+
+def test_wrong_receipt_coverage_requires_a_normalized_owner_signal() -> None:
+    cases = load_json(CASES_PATH)
+    scenario = copy.deepcopy(cases["scenarios"][3])
+    scenario["signals"]["owner_contracts"]["nodes"] = None
+
+    assert comparison.classify_owner_receipt(scenario).state == "wrong_identity"
+    assert comparison.owner_contract_signal_state(scenario) == "malformed"
+    assert comparison.adversarial_class_matches(
+        scenario, "wrong_candidate_environment_receipt"
+    ) is False
+
+    with pytest.raises(comparison.ContractError, match="does not match"):
+        comparison.build_report(load_json(CONTRACT_PATH), {**cases, "scenarios": [scenario]})
+
+
+def test_malformed_receipt_coverage_requires_a_malformed_receipt() -> None:
+    cases = load_json(CASES_PATH)
+    scenario = copy.deepcopy(cases["scenarios"][0])
+    scenario["scenario_id"] = "RVC-008-false-malformed-receipt"
+    scenario["adversarial_class"] = "malformed_receipt"
+    scenario["signals"]["owner_contracts"]["nodes"] = None
+
+    assert comparison.classify_owner_receipt(scenario).state == "valid"
+    assert comparison.owner_contract_signal_state(scenario) == "malformed"
+    assert comparison.adversarial_class_matches(scenario, "malformed_receipt") is False
+
+    with pytest.raises(comparison.ContractError, match="does not match"):
+        comparison.build_report(load_json(CONTRACT_PATH), {**cases, "scenarios": [*cases["scenarios"], scenario]})
+
+
+def test_case_admission_rejects_mislabeled_complete_owner_receipt() -> None:
+    cases = load_json(CASES_PATH)
+    mislabeled = copy.deepcopy(cases["scenarios"][0])
+    mislabeled["scenario_id"] = "RVC-008-mislabeled-complete-receipt"
+    mislabeled["adversarial_class"] = "malformed_receipt"
+    mislabeled["signals"]["owner_contracts"]["state"] = "malformed"
+    cases["scenarios"].append(mislabeled)
+
+    with pytest.raises(comparison.ContractError, match="does not match"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_unbound_owner_class_requires_external_owner_in_both_oracle_node_sets() -> None:
+    cases = load_json(CASES_PATH)
+    unbound = copy.deepcopy(cases["scenarios"][6])
+    unbound["scenario_id"] = "RVC-008-unbound-owner-without-route"
+    unbound["oracle"]["required_nodes"] = ["source_fast"]
+    unbound["oracle"]["owner_proof_nodes"] = ["source_fast"]
+    cases["scenarios"].append(unbound)
+
+    with pytest.raises(comparison.ContractError, match="does not match"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+def test_duplicate_signal_nodes_are_rejected_before_event_measurement() -> None:
+    cases = load_json(CASES_PATH)
+    cases["scenarios"][0]["signals"]["dependency_graph"]["nodes"].append("source_fast")
+
+    with pytest.raises(comparison.ContractError, match="nodes must not contain duplicates"):
+        comparison.build_report(load_json(CONTRACT_PATH), cases)
+
+
+@pytest.mark.parametrize("field", ["family", "description"])
+def test_implemented_candidate_strings_are_required(field: str) -> None:
+    contract = load_json(CONTRACT_PATH)
+    candidate = next(entry for entry in contract["candidate_catalog"] if entry["method_id"] == "static_paths")
+    candidate.pop(field)
+
+    with pytest.raises(comparison.ContractError, match="non-empty"):
+        comparison.build_report(contract, load_json(CASES_PATH))
+
+
+def test_precision_recall_are_null_when_oracle_denominator_is_incomplete(report: dict) -> None:
+    unbound = scenario_result(report, "hybrid_fail_closed", "RVC-007-unbound-owner")
+    assert unbound["precision_recall_denominator_valid"] is False
+    assert unbound["precision"] is None
+    assert unbound["recall"] is None
+    assert method(report, "hybrid_fail_closed")["measurements"]["precision"] is not None
+    assert method(report, "hybrid_fail_closed")["measurements"]["precision"] < 1.0
+
+
+def test_example_preserves_runner_measurements_and_unsupported_candidates(report: dict) -> None:
+    example = load_json(EXAMPLE_PATH)
+    assert example["fixture_id"] == report["fixture_id"]
+    assert example["claim_posture"] == report["claim_posture"]
+    assert example["selection_status"] == report["selection_status"]
+    assert example["evidence_posture"] == report["evidence_posture"]
+    assert example["latency_posture"] == report["latency_posture"]
+    assert example["resource_policy"] == report["resource_policy"]
+    assert example["real_miss_count"] is None
+
+    methods = {entry["method_id"]: entry for entry in report["methods"]}
+    for measurement in example["example_measurements"]:
+        actual = methods[measurement["method_id"]]["measurements"]
+        for key, value in measurement.items():
+            if key != "method_id":
+                assert actual[key] == value
+
+    unsupported = {
+        entry["method_id"]
+        for entry in report["methods"]
+        if entry["implementation_status"] == "unsupported_missing_candidate"
+    }
+    assert set(example["unsupported_candidates"]) == unsupported
+
+
+def test_example_adversarial_cases_match_fixture_and_report(report: dict) -> None:
+    cases = load_json(CASES_PATH)
+    example = load_json(EXAMPLE_PATH)
+    fixture_ids = {
+        scenario["scenario_id"]
+        for scenario in cases["scenarios"]
+        if scenario.get("adversarial_class")
+    }
+    example_ids = {entry["scenario_id"] for entry in example["adversarial_examples"]}
+
+    assert example_ids == fixture_ids
+    assert {
+        scenario["adversarial_class"]
+        for scenario in cases["scenarios"]
+        if scenario.get("adversarial_class")
+    } == set(report["adversarial_classes_covered"])
+    for entry in example["adversarial_examples"]:
+        scenario_result(report, entry["method_id"], entry["scenario_id"])
+
+
+def test_report_schema_rejects_arbitrary_allowed_use(report: dict) -> None:
+    schema = load_json(REPORT_SCHEMA_PATH)
+    malformed = copy.deepcopy(report)
+    malformed["input_evidence"]["allowed_use"] = "may select the winning routing policy"
+
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.Draft202012Validator(schema).validate(malformed)
+
+
+def test_report_schema_requires_source_owned_coverage_limits(report: dict) -> None:
+    schema = load_json(REPORT_SCHEMA_PATH)
+    malformed = copy.deepcopy(report)
+    malformed["coverage_limits"] = ["No blind spots; safe to select a winner."]
+
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.Draft202012Validator(schema).validate(malformed)
+
+
+def test_report_schema_declares_required_measurements() -> None:
+    schema = load_json(REPORT_SCHEMA_PATH)
+    required = set(schema["required"])
+    assert {
+        "policy_verdict",
+        "evidence_posture",
+        "latency_posture",
+        "resource_policy",
+        "candidate_catalog",
+        "adversarial_classes_covered",
+        "methods",
+        "oracle_rule",
+    }.issubset(required)
+
+
+def test_emitted_report_matches_closed_schema_and_nested_mutations_fail(report: dict) -> None:
+    schema = load_json(REPORT_SCHEMA_PATH)
+    jsonschema.Draft202012Validator.check_schema(schema)
+    validator = jsonschema.Draft202012Validator(schema)
+    validator.validate(report)
+
+    mutations = {
+        "identity": lambda payload: payload["methods"][0]["scenario_results"][0]["identity"].pop("workload_id"),
+        "method": lambda payload: payload["methods"][0].__setitem__("method_id", 7),
+        "measurement": lambda payload: payload["methods"][0]["measurements"].__setitem__("precision", "one"),
+        "scenario": lambda payload: payload["methods"][0]["scenario_results"][0]["oracle"].pop("required_nodes"),
+        "event": lambda payload: payload["methods"][1]["scenario_results"][1]["events"][0].__setitem__(
+            "latency_ms_synthetic_proxy", "fast"
+        ),
+        "escalation": lambda payload: payload["methods"][5]["scenario_results"][1][
+            "fail_closed_escalation"
+        ].pop("fallback"),
+        "oracle": lambda payload: payload["methods"][5]["scenario_results"][1]["oracle"].__setitem__(
+            "owner_proof_status", "green"
+        ),
+    }
+    for _label, mutate in mutations.items():
+        malformed = copy.deepcopy(report)
+        mutate(malformed)
+        with pytest.raises(jsonschema.ValidationError):
+            validator.validate(malformed)
+
+
+def test_text_rendering_names_seeded_counts_and_synthetic_latency(report: dict) -> None:
+    rendered = comparison.render_text(report)
+    assert "seeded_fixture=7" in rendered
+    assert "real_session=0" in rendered
+    assert "synthetic_fixture_proxy" in rendered
+    assert "not observed runtime latency" in rendered
+
+
+def test_runner_cli_emits_json(tmp_path: Path) -> None:
+    output_path = tmp_path / "validation-routing-report.json"
+    process = subprocess.run(
+        [
+            sys.executable,
+            str(SCRIPT_PATH),
+            "--format",
+            "json",
+            "--output",
+            str(output_path),
+        ],
+        cwd=REPO_ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert process.returncode == 0, process.stderr
+    parsed_stdout = json.loads(process.stdout)
+    parsed_output = load_json(output_path)
+    assert parsed_stdout["comparison_identity_digest"] == parsed_output["comparison_identity_digest"]
+    assert parsed_output["claim_posture"] == "measurement_only"

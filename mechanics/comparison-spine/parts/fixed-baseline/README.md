@@ -10,6 +10,7 @@ dossier.
 - `mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md`
 - `mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md`
 - `mechanics/comparison-spine/parts/fixed-baseline/reports/runtime-latency-tradeoff-proof-flow-v1.md`
+- `mechanics/comparison-spine/parts/fixed-baseline/reports/identity-bound-method-comparison-proof-flow-v1.md`
 
 ## Inputs
 
@@ -26,6 +27,7 @@ dossier.
 - fixed-baseline fixture-family route for same-task regression claims;
 - `same-task-baseline-proof-flow-v1.md` readout dossier;
 - `runtime-latency-tradeoff-proof-flow-v1.md` readout dossier;
+- `identity-bound-method-comparison-proof-flow-v1.md` readout dossier;
 - bounded baseline interpretation guidance for source bundles and generated
   readers;
 - validation failures when fixed-baseline claims lack anchor surfaces, shared

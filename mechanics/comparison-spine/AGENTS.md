@@ -10,8 +10,8 @@ Start with the package README. Then read `mechanics/comparison-spine/DIRECTION.m
 
 ## Role
 
-This package routes baseline, peer-compare, and longitudinal-window proof
-operations.
+This package routes baseline, peer-compare (including validation-routing method
+support), and longitudinal-window proof operations.
 
 It keeps comparison evidence aligned with source proof objects, fixture
 contracts, paired readouts, and generated comparison readers while preserving
@@ -21,7 +21,7 @@ bundle-local interpretation.
 
 | Field | Route |
 | --- | --- |
-| role | comparison route for baseline, peer-compare, and longitudinal-window proof operations |
+| role | comparison route for baseline, peer-compare, validation-routing method support, and longitudinal-window proof operations |
 | input | `baseline_mode`, `comparison_surface`, fixture contract changes, paired readouts, and generated comparison reader drift |
 | output | source bundle alignment, part-local comparison fixture/readout route, generated reader check, or bundle-local review handoff |
 | owner | source proof bundle owns claim meaning; comparison-spine owns comparison shape and anti-overread route |
@@ -35,7 +35,7 @@ bundle-local interpretation.
 | --- | --- |
 | source claim meaning | affected `evals/**/EVAL.md` and `evals/**/eval.yaml` |
 | fixed baseline fixture/readout | `mechanics/comparison-spine/parts/fixed-baseline/` |
-| peer comparison fixture/readout | `mechanics/comparison-spine/parts/peer-compare/` |
+| peer comparison fixture/readout, including validation-routing method support | `mechanics/comparison-spine/parts/peer-compare/` |
 | longitudinal-window fixture/readout | `mechanics/comparison-spine/parts/longitudinal-window/` |
 | generated comparison reader | source bundle plus `python scripts/build_catalog.py --check` |
 | promotion, deprecation, or report interpretation | bundle-local review and release/report owner route |
@@ -78,6 +78,9 @@ bundle-local interpretation.
   posture.
 - Keep peer comparison, fixed baseline, and longitudinal-window semantics
   distinct.
+- Keep validation-routing method measurements under `peer-compare`; identical
+  identity fields and full-owner-proof fallback are required, while policy
+  selection and external validator execution remain outside this support part.
 - Route bundle promotion or deprecation through bundle-local review and release
   surfaces.
 

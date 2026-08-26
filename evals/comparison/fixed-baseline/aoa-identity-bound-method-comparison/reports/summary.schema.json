@@ -1,0 +1,1310 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-identity-bound-method-comparison comparative-summary report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "comparison_mode",
+    "baseline_target",
+    "method_set",
+    "identity_contract",
+    "selection_apply_contract",
+    "admission",
+    "comparison_units",
+    "unmatched_cases",
+    "verdict",
+    "policy_verdict",
+    "claim_boundary",
+    "limitations"
+  ],
+  "properties": {
+    "eval_name": {"const": "aoa-identity-bound-method-comparison"},
+    "bundle_status": {"const": "draft"},
+    "object_under_evaluation": {
+      "const": "identity-bound comparison of validation methods under an explicit workload, candidate, environment, treatment, evidence, acceptance, cache, and resource contract"
+    },
+    "comparison_mode": {"const": "fixed-baseline"},
+    "baseline_target": {"const": "legacy_serial_full_release"},
+    "method_set": {
+      "type": "array",
+      "const": [
+        "legacy_serial_full_release",
+        "owner_focused_affected_only",
+        "claim_evidence_activated_subgraph_or_tiered",
+        "bounded_stable_prefix_session_measurement",
+        "retry_after_fix_first_failure",
+        "controlled_same_candidate_seeded_fault"
+      ]
+    },
+    "identity_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_fields",
+        "exact_match_required",
+        "known_cache_and_resource_required_for_observed_pair",
+        "allowed_evidence_classes"
+      ],
+      "properties": {
+        "required_fields": {
+          "type": "array",
+          "const": [
+            "workload_id",
+            "candidate_or_source_identity",
+            "source_ref_or_digest",
+            "environment_id",
+            "route_or_treatment_identity",
+            "evidence_class",
+            "acceptance_target",
+            "cache_posture",
+            "resource_posture"
+          ]
+        },
+        "exact_match_required": {"const": true},
+        "known_cache_and_resource_required_for_observed_pair": {"const": true},
+        "allowed_evidence_classes": {"const": ["public-safe-contract", "reviewed-owner-packet"]}
+      }
+    },
+    "selection_apply_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_fields", "received_verdict", "ready_for_owner_apply", "proof_authority"],
+      "properties": {
+        "required_fields": {
+          "type": "array",
+          "const": [
+            "verdict",
+            "owner",
+            "source_ref",
+            "source_digest",
+            "environment",
+            "command.argv",
+            "command.cwd",
+            "command.timeout_seconds",
+            "command.accepted_exit_codes",
+            "prerequisites",
+            "artifacts",
+            "pass_criteria",
+            "effect_authority",
+            "expected_effect",
+            "proof_authority",
+            "proof_limit"
+          ]
+        },
+        "received_verdict": {"const": "exact_fit"},
+        "ready_for_owner_apply": {"const": true},
+        "proof_authority": {"const": false}
+      }
+    },
+    "admission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_count",
+        "unit_count",
+        "matched_unit_count",
+        "controlled_accounting_unit_count",
+        "unmatched_unit_count",
+        "matched_pair_count",
+        "eligible_real_pairs",
+        "unknown_is_not_zero",
+        "method_effect_admitted"
+      ],
+      "properties": {
+        "observation_count": {"type": "integer", "minimum": 1},
+        "unit_count": {"type": "integer", "minimum": 1},
+        "matched_unit_count": {"type": "integer", "minimum": 0},
+        "controlled_accounting_unit_count": {"type": "integer", "minimum": 0},
+        "unmatched_unit_count": {"type": "integer", "minimum": 0},
+        "matched_pair_count": {"type": "integer", "minimum": 0},
+        "eligible_real_pairs": {"type": "integer", "minimum": 0},
+        "unknown_is_not_zero": {"const": true},
+        "method_effect_admitted": {"const": false}
+      }
+    },
+    "comparison_units": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/comparison_unit"}
+    },
+    "unmatched_cases": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/unmatched_case"}
+    },
+    "verdict": {"enum": ["not_admitted", "matched_observation_only"]},
+    "policy_verdict": {"type": "null"},
+    "claim_boundary": {
+      "const": "This report preserves identity-bound observation or accounting dispositions only; it does not issue method effects, causal claims, proof, policy, acceptance, or a universal winner."
+    },
+    "limitations": {
+      "const": [
+        "the runner consumes an explicit packet and never executes command.argv",
+        "a generated reader or green validator is not real-session telemetry",
+        "synthetic and controlled values are excluded from observed_values",
+        "unknown, null, excluded, unobservable, and missing states are not zero",
+        "no central proof, runtime health, policy, or human-acceptance verdict is emitted"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verdict": {"const": "matched_observation_only"}
+        }
+      },
+      "then": {
+        "properties": {
+          "admission": {
+            "properties": {
+              "matched_unit_count": {"minimum": 1},
+              "matched_pair_count": {"minimum": 1},
+              "eligible_real_pairs": {"minimum": 1}
+            }
+          },
+          "comparison_units": {
+            "contains": {
+              "type": "object",
+              "required": ["disposition", "matched_pair_count", "observed_pair_count", "matched_identity_bindings"],
+              "properties": {
+                "disposition": {"const": "matched_observation_only"},
+                "matched_pair_count": {"minimum": 1},
+                "observed_pair_count": {"minimum": 1},
+                "matched_identity_bindings": {"minItems": 1}
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verdict": {"const": "not_admitted"}
+        }
+      },
+      "then": {
+        "properties": {
+          "admission": {
+            "properties": {
+              "matched_unit_count": {"const": 0},
+              "eligible_real_pairs": {"const": 0}
+            }
+          },
+          "comparison_units": {
+            "not": {
+              "contains": {
+                "type": "object",
+                "properties": {"disposition": {"const": "matched_observation_only"}}
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "comparison_units": {
+            "contains": {
+              "type": "object",
+              "anyOf": [
+                {"properties": {"disposition": {"const": "unmatched"}}},
+                {"properties": {"mismatched_fields": {"minItems": 1}}}
+              ]
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "unmatched_cases": {"minItems": 1}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "metric_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method_states", "state_counts", "observed_values", "controlled_values", "synthetic_count"],
+      "properties": {
+        "method_states": {
+          "$ref": "#/$defs/metric_method_states"
+        },
+        "state_counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["known", "unknown", "null", "excluded", "unobservable", "missing"],
+          "properties": {
+            "known": {"type": "integer", "minimum": 0},
+            "unknown": {"type": "integer", "minimum": 0},
+            "null": {"type": "integer", "minimum": 0},
+            "excluded": {"type": "integer", "minimum": 0},
+            "unobservable": {"type": "integer", "minimum": 0},
+            "missing": {"type": "integer", "minimum": 0}
+          }
+        },
+        "observed_values": {
+          "$ref": "#/$defs/metric_values"
+        },
+        "controlled_values": {
+          "$ref": "#/$defs/metric_values"
+        },
+        "synthetic_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "metric_method_states": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/metric_method_state"},
+      "allOf": [
+        {"contains": {"properties": {"method_id": {"const": "legacy_serial_full_release"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}, "minContains": 0, "maxContains": 1}
+      ]
+    },
+    "metric_method_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method_id", "state", "measurement_origin"],
+      "properties": {
+        "method_id": {"$ref": "#/$defs/canonical_method_id"},
+        "state": {
+          "enum": ["known", "controlled", "synthetic", "unknown", "null", "excluded", "unobservable", "missing"]
+        },
+        "measurement_origin": {
+          "enum": ["observed", "controlled", "synthetic", "unobservable"]
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"state": {"const": "known"}}},
+          "then": {"properties": {"measurement_origin": {"const": "observed"}}}
+        },
+        {
+          "if": {"properties": {"state": {"const": "controlled"}}},
+          "then": {"properties": {"measurement_origin": {"const": "controlled"}}}
+        },
+        {
+          "if": {"properties": {"state": {"const": "synthetic"}}},
+          "then": {"properties": {"measurement_origin": {"const": "synthetic"}}}
+        }
+      ]
+    },
+    "empty_metric_coverage": {
+      "type": "object",
+      "properties": {
+        "wall_seconds": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}},
+        "cpu_ms": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}},
+        "peak_rss_kib": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}},
+        "io_read_bytes": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}},
+        "io_write_bytes": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}},
+        "setup_startup_seconds": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}},
+        "first_failure_latency_seconds": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}},
+        "retry_amplification": {"properties": {"observed_values": {"maxItems": 0}, "controlled_values": {"maxItems": 0}}}
+      }
+    },
+    "empty_observed_metric_coverage": {
+      "type": "object",
+      "properties": {
+        "wall_seconds": {"properties": {"observed_values": {"maxItems": 0}}},
+        "cpu_ms": {"properties": {"observed_values": {"maxItems": 0}}},
+        "peak_rss_kib": {"properties": {"observed_values": {"maxItems": 0}}},
+        "io_read_bytes": {"properties": {"observed_values": {"maxItems": 0}}},
+        "io_write_bytes": {"properties": {"observed_values": {"maxItems": 0}}},
+        "setup_startup_seconds": {"properties": {"observed_values": {"maxItems": 0}}},
+        "first_failure_latency_seconds": {"properties": {"observed_values": {"maxItems": 0}}},
+        "retry_amplification": {"properties": {"observed_values": {"maxItems": 0}}}
+      }
+    },
+    "metric_values": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/metric_value"},
+      "allOf": [
+        {"contains": {"properties": {"method_id": {"const": "legacy_serial_full_release"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}, "minContains": 0, "maxContains": 1},
+        {"contains": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}, "minContains": 0, "maxContains": 1}
+      ]
+    },
+    "metric_value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method_id", "value", "unit"],
+      "properties": {
+        "method_id": {"$ref": "#/$defs/canonical_method_id"},
+        "value": {"type": "number", "minimum": 0},
+        "unit": {"type": "string", "minLength": 1}
+      }
+    },
+    "comparison_unit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit_id",
+        "disposition",
+        "matched_pair_count",
+        "observed_pair_count",
+        "method_ids",
+        "review_statuses",
+        "evidence_classes",
+        "identity_match",
+        "mismatched_fields",
+        "observation_refs",
+        "matched_identity_bindings",
+        "unmatched_case_expectations",
+        "metric_coverage",
+        "claim_limit"
+      ],
+      "properties": {
+        "unit_id": {"type": "string", "minLength": 1},
+        "disposition": {"enum": ["matched_observation_only", "controlled_accounting_only", "unmatched"]},
+        "matched_pair_count": {"type": "integer", "minimum": 0},
+        "observed_pair_count": {"type": "integer", "minimum": 0},
+        "method_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/canonical_method_id"}
+        },
+        "review_statuses": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "evidence_classes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "identity_match": {"type": "boolean"},
+        "mismatched_fields": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "observation_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "matched_identity_bindings": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/matched_identity_binding"},
+          "allOf": [
+            {"contains": {"$ref": "#/$defs/binding_candidate_owner_focused"}, "minContains": 0, "maxContains": 1},
+            {"contains": {"$ref": "#/$defs/binding_candidate_claim_evidence"}, "minContains": 0, "maxContains": 1},
+            {"contains": {"$ref": "#/$defs/binding_candidate_bounded_prefix"}, "minContains": 0, "maxContains": 1},
+            {"contains": {"$ref": "#/$defs/binding_candidate_retry"}, "minContains": 0, "maxContains": 1},
+            {"contains": {"$ref": "#/$defs/binding_candidate_controlled"}, "minContains": 0, "maxContains": 1}
+          ]
+        },
+        "unmatched_case_expectations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/unmatched_case"}
+        },
+        "metric_coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["wall_seconds", "cpu_ms", "peak_rss_kib", "io_read_bytes", "io_write_bytes", "setup_startup_seconds", "first_failure_latency_seconds", "retry_amplification"],
+          "properties": {
+            "wall_seconds": {"$ref": "#/$defs/metric_coverage_seconds"},
+            "cpu_ms": {"$ref": "#/$defs/metric_coverage_milliseconds"},
+            "peak_rss_kib": {"$ref": "#/$defs/metric_coverage_kibibytes"},
+            "io_read_bytes": {"$ref": "#/$defs/metric_coverage_bytes"},
+            "io_write_bytes": {"$ref": "#/$defs/metric_coverage_bytes"},
+            "setup_startup_seconds": {"$ref": "#/$defs/metric_coverage_seconds"},
+            "first_failure_latency_seconds": {"$ref": "#/$defs/metric_coverage_seconds"},
+            "retry_amplification": {"$ref": "#/$defs/metric_coverage_ratio"}
+          }
+        },
+        "claim_limit": {
+          "enum": [
+            "identity-bound observation pair only; no effect, proof, policy, or winner claim",
+            "identity-matched accounting only; controlled or synthetic values are not observed effect",
+            "no eligible identity- and parity-matched method pair",
+            "no declared baseline row; no method pair admitted",
+            "one-sided baseline; no method pair admitted"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "disposition": {"const": "matched_observation_only"}
+            }
+          },
+          "then": {
+            "properties": {
+              "matched_pair_count": {"minimum": 1},
+              "observed_pair_count": {"minimum": 1},
+              "identity_match": {"const": true},
+              "review_statuses": {"contains": {"const": "reviewed"}},
+              "matched_identity_bindings": {
+                "minItems": 1,
+                "items": {
+                  "properties": {
+                    "identity": {
+                      "properties": {
+                        "cache_posture": {"$ref": "#/$defs/known_posture"},
+                        "resource_posture": {"$ref": "#/$defs/known_posture"}
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "allOf": [
+              {
+                "anyOf": [
+                  {
+                    "properties": {
+                      "matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_owner_focused"}},
+                      "metric_coverage": {"$ref": "#/$defs/metric_coverage_owner_focused"}
+                    }
+                  },
+                  {
+                    "properties": {
+                      "matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_claim_evidence"}},
+                      "metric_coverage": {"$ref": "#/$defs/metric_coverage_claim_evidence"}
+                    }
+                  },
+                  {
+                    "properties": {
+                      "matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_bounded_prefix"}},
+                      "metric_coverage": {"$ref": "#/$defs/metric_coverage_bounded_prefix"}
+                    }
+                  },
+                  {
+                    "properties": {
+                      "matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_retry"}},
+                      "metric_coverage": {"$ref": "#/$defs/metric_coverage_retry"}
+                    }
+                  },
+                  {
+                    "properties": {
+                      "matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_controlled"}},
+                      "metric_coverage": {"$ref": "#/$defs/metric_coverage_controlled"}
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {"const": "controlled_accounting_only"}
+            }
+          },
+          "then": {
+            "properties": {
+              "matched_pair_count": {"minimum": 1},
+              "observed_pair_count": {"const": 0},
+              "matched_identity_bindings": {
+                "minItems": 1,
+                "items": {
+                  "properties": {
+                    "identity": {
+                      "properties": {
+                        "cache_posture": {"$ref": "#/$defs/known_posture"},
+                        "resource_posture": {"$ref": "#/$defs/known_posture"}
+                      }
+                    }
+                  }
+                }
+              },
+              "identity_match": {"const": true},
+              "metric_coverage": {"$ref": "#/$defs/empty_observed_metric_coverage"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition": {"const": "unmatched"}
+            }
+          },
+          "then": {
+            "properties": {
+              "identity_match": {"const": false},
+              "matched_pair_count": {"const": 0},
+              "observed_pair_count": {"const": 0},
+              "matched_identity_bindings": {"maxItems": 0},
+              "metric_coverage": {"$ref": "#/$defs/empty_metric_coverage"}
+            }
+          }
+        },
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "matched_pair_count": {"const": 0},
+                "observed_pair_count": {"maximum": 0},
+                "matched_identity_bindings": {"maxItems": 0}
+              }
+            },
+            {
+              "properties": {
+                "matched_pair_count": {"const": 1},
+                "observed_pair_count": {"maximum": 1},
+                "matched_identity_bindings": {"minItems": 1, "maxItems": 1}
+              }
+            },
+            {
+              "properties": {
+                "matched_pair_count": {"const": 2},
+                "observed_pair_count": {"maximum": 2},
+                "matched_identity_bindings": {"minItems": 2, "maxItems": 2}
+              }
+            },
+            {
+              "properties": {
+                "matched_pair_count": {"const": 3},
+                "observed_pair_count": {"maximum": 3},
+                "matched_identity_bindings": {"minItems": 3, "maxItems": 3}
+              }
+            },
+            {
+              "properties": {
+                "matched_pair_count": {"const": 4},
+                "observed_pair_count": {"maximum": 4},
+                "matched_identity_bindings": {"minItems": 4, "maxItems": 4}
+              }
+            },
+            {
+              "properties": {
+                "matched_pair_count": {"const": 5},
+                "observed_pair_count": {"maximum": 5},
+                "matched_identity_bindings": {"minItems": 5, "maxItems": 5}
+              }
+            }
+          ]
+        },
+        {
+          "if": {
+            "required": ["disposition", "method_ids", "matched_identity_bindings"],
+            "properties": {
+              "disposition": {"enum": ["matched_observation_only", "controlled_accounting_only"]}
+            }
+          },
+          "then": {
+            "properties": {
+              "method_ids": {
+                "contains": {"const": "legacy_serial_full_release"}
+              }
+            },
+            "allOf": [
+              {
+                "if": {"not": {"properties": {"method_ids": {"contains": {"const": "owner_focused_affected_only"}}}}},
+                "then": {"properties": {"matched_identity_bindings": {"not": {"contains": {"properties": {"method_ids": {"contains": {"const": "owner_focused_affected_only"}}}}}}}}
+              },
+              {
+                "if": {"not": {"properties": {"method_ids": {"contains": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}},
+                "then": {"properties": {"matched_identity_bindings": {"not": {"contains": {"properties": {"method_ids": {"contains": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}}}
+              },
+              {
+                "if": {"not": {"properties": {"method_ids": {"contains": {"const": "bounded_stable_prefix_session_measurement"}}}}},
+                "then": {"properties": {"matched_identity_bindings": {"not": {"contains": {"properties": {"method_ids": {"contains": {"const": "bounded_stable_prefix_session_measurement"}}}}}}}}
+              },
+              {
+                "if": {"not": {"properties": {"method_ids": {"contains": {"const": "retry_after_fix_first_failure"}}}}},
+                "then": {"properties": {"matched_identity_bindings": {"not": {"contains": {"properties": {"method_ids": {"contains": {"const": "retry_after_fix_first_failure"}}}}}}}}
+              },
+              {
+                "if": {"not": {"properties": {"method_ids": {"contains": {"const": "controlled_same_candidate_seeded_fault"}}}}},
+                "then": {"properties": {"matched_identity_bindings": {"not": {"contains": {"properties": {"method_ids": {"contains": {"const": "controlled_same_candidate_seeded_fault"}}}}}}}}
+              },
+              {
+                "if": {"not": {"properties": {"matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_owner_focused"}}}}},
+                "then": {"properties": {"metric_coverage": {"$ref": "#/$defs/metric_coverage_without_owner_focused"}}}
+              },
+              {
+                "if": {"not": {"properties": {"matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_claim_evidence"}}}}},
+                "then": {"properties": {"metric_coverage": {"$ref": "#/$defs/metric_coverage_without_claim_evidence"}}}
+              },
+              {
+                "if": {"not": {"properties": {"matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_bounded_prefix"}}}}},
+                "then": {"properties": {"metric_coverage": {"$ref": "#/$defs/metric_coverage_without_bounded_prefix"}}}
+              },
+              {
+                "if": {"not": {"properties": {"matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_retry"}}}}},
+                "then": {"properties": {"metric_coverage": {"$ref": "#/$defs/metric_coverage_without_retry"}}}
+              },
+              {
+                "if": {"not": {"properties": {"matched_identity_bindings": {"contains": {"$ref": "#/$defs/binding_candidate_controlled"}}}}},
+                "then": {"properties": {"metric_coverage": {"$ref": "#/$defs/metric_coverage_without_controlled"}}}
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "canonical_method_id": {
+      "enum": [
+        "legacy_serial_full_release",
+        "owner_focused_affected_only",
+        "claim_evidence_activated_subgraph_or_tiered",
+        "bounded_stable_prefix_session_measurement",
+        "retry_after_fix_first_failure",
+        "controlled_same_candidate_seeded_fault"
+      ]
+    },
+    "matched_observed_values": {
+      "type": "array",
+      "minItems": 2,
+      "items": {"$ref": "#/$defs/metric_value"},
+      "contains": {
+        "type": "object",
+        "required": ["method_id"],
+        "properties": {"method_id": {"const": "legacy_serial_full_release"}}
+      },
+      "allOf": [
+        {
+          "contains": {
+            "type": "object",
+            "required": ["method_id"],
+            "properties": {
+              "method_id": {
+                "enum": [
+                  "owner_focused_affected_only",
+                  "claim_evidence_activated_subgraph_or_tiered",
+                  "bounded_stable_prefix_session_measurement",
+                  "retry_after_fix_first_failure",
+                  "controlled_same_candidate_seeded_fault"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "metric_value_seconds": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_value"},
+        {"properties": {"unit": {"const": "seconds"}}}
+      ]
+    },
+    "metric_value_milliseconds": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_value"},
+        {"properties": {"unit": {"const": "milliseconds"}}}
+      ]
+    },
+    "metric_value_kibibytes": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_value"},
+        {"properties": {"unit": {"const": "kibibytes"}}}
+      ]
+    },
+    "metric_value_bytes": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_value"},
+        {"properties": {"unit": {"const": "bytes"}}}
+      ]
+    },
+    "metric_value_ratio": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_value"},
+        {"properties": {"unit": {"const": "ratio"}}}
+      ]
+    },
+    "metric_coverage_seconds": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_coverage"},
+        {
+          "properties": {
+            "observed_values": {"items": {"$ref": "#/$defs/metric_value_seconds"}},
+            "controlled_values": {"items": {"$ref": "#/$defs/metric_value_seconds"}}
+          }
+        }
+      ]
+    },
+    "metric_coverage_milliseconds": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_coverage"},
+        {
+          "properties": {
+            "observed_values": {"items": {"$ref": "#/$defs/metric_value_milliseconds"}},
+            "controlled_values": {"items": {"$ref": "#/$defs/metric_value_milliseconds"}}
+          }
+        }
+      ]
+    },
+    "metric_coverage_kibibytes": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_coverage"},
+        {
+          "properties": {
+            "observed_values": {"items": {"$ref": "#/$defs/metric_value_kibibytes"}},
+            "controlled_values": {"items": {"$ref": "#/$defs/metric_value_kibibytes"}}
+          }
+        }
+      ]
+    },
+    "metric_coverage_bytes": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_coverage"},
+        {
+          "properties": {
+            "observed_values": {"items": {"$ref": "#/$defs/metric_value_bytes"}},
+            "controlled_values": {"items": {"$ref": "#/$defs/metric_value_bytes"}}
+          }
+        }
+      ]
+    },
+    "metric_coverage_ratio": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_coverage"},
+        {
+          "properties": {
+            "observed_values": {"items": {"$ref": "#/$defs/metric_value_ratio"}},
+            "controlled_values": {"items": {"$ref": "#/$defs/metric_value_ratio"}}
+          }
+        }
+      ]
+    },
+    "binding_candidate_owner_focused": {
+      "type": "object",
+      "required": ["method_ids"],
+      "properties": {
+        "method_ids": {"contains": {"const": "owner_focused_affected_only"}}
+      }
+    },
+    "binding_candidate_claim_evidence": {
+      "type": "object",
+      "required": ["method_ids"],
+      "properties": {
+        "method_ids": {"contains": {"const": "claim_evidence_activated_subgraph_or_tiered"}}
+      }
+    },
+    "binding_candidate_bounded_prefix": {
+      "type": "object",
+      "required": ["method_ids"],
+      "properties": {
+        "method_ids": {"contains": {"const": "bounded_stable_prefix_session_measurement"}}
+      }
+    },
+    "binding_candidate_retry": {
+      "type": "object",
+      "required": ["method_ids"],
+      "properties": {
+        "method_ids": {"contains": {"const": "retry_after_fix_first_failure"}}
+      }
+    },
+    "binding_candidate_controlled": {
+      "type": "object",
+      "required": ["method_ids"],
+      "properties": {
+        "method_ids": {"contains": {"const": "controlled_same_candidate_seeded_fault"}}
+      }
+    },
+    "matched_observed_values_owner_focused": {
+      "allOf": [
+        {"$ref": "#/$defs/matched_observed_values"},
+        {"contains": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}
+      ]
+    },
+    "matched_observed_values_claim_evidence": {
+      "allOf": [
+        {"$ref": "#/$defs/matched_observed_values"},
+        {"contains": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}
+      ]
+    },
+    "matched_observed_values_bounded_prefix": {
+      "allOf": [
+        {"$ref": "#/$defs/matched_observed_values"},
+        {"contains": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}
+      ]
+    },
+    "matched_observed_values_retry": {
+      "allOf": [
+        {"$ref": "#/$defs/matched_observed_values"},
+        {"contains": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}
+      ]
+    },
+    "matched_observed_values_controlled": {
+      "allOf": [
+        {"$ref": "#/$defs/matched_observed_values"},
+        {"contains": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}
+      ]
+    },
+    "metric_coverage_owner_focused": {
+      "anyOf": [
+        {"properties": {"wall_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}},
+        {"properties": {"cpu_ms": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}},
+        {"properties": {"peak_rss_kib": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}},
+        {"properties": {"io_read_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}},
+        {"properties": {"io_write_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}},
+        {"properties": {"setup_startup_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}},
+        {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}},
+        {"properties": {"retry_amplification": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_owner_focused"}}}}}
+      ]
+    },
+    "metric_coverage_claim_evidence": {
+      "anyOf": [
+        {"properties": {"wall_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}},
+        {"properties": {"cpu_ms": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}},
+        {"properties": {"peak_rss_kib": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}},
+        {"properties": {"io_read_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}},
+        {"properties": {"io_write_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}},
+        {"properties": {"setup_startup_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}},
+        {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}},
+        {"properties": {"retry_amplification": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_claim_evidence"}}}}}
+      ]
+    },
+    "metric_coverage_bounded_prefix": {
+      "anyOf": [
+        {"properties": {"wall_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}},
+        {"properties": {"cpu_ms": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}},
+        {"properties": {"peak_rss_kib": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}},
+        {"properties": {"io_read_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}},
+        {"properties": {"io_write_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}},
+        {"properties": {"setup_startup_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}},
+        {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}},
+        {"properties": {"retry_amplification": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_bounded_prefix"}}}}}
+      ]
+    },
+    "metric_coverage_retry": {
+      "anyOf": [
+        {"properties": {"wall_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}},
+        {"properties": {"cpu_ms": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}},
+        {"properties": {"peak_rss_kib": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}},
+        {"properties": {"io_read_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}},
+        {"properties": {"io_write_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}},
+        {"properties": {"setup_startup_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}},
+        {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}},
+        {"properties": {"retry_amplification": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_retry"}}}}}
+      ]
+    },
+    "metric_coverage_controlled": {
+      "anyOf": [
+        {"properties": {"wall_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
+        {"properties": {"cpu_ms": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
+        {"properties": {"peak_rss_kib": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
+        {"properties": {"io_read_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
+        {"properties": {"io_write_bytes": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
+        {"properties": {"setup_startup_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
+        {"properties": {"first_failure_latency_seconds": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}},
+        {"properties": {"retry_amplification": {"properties": {"observed_values": {"$ref": "#/$defs/matched_observed_values_controlled"}}}}}
+      ]
+    },
+    "metric_coverage_without_owner_focused": {
+      "type": "object",
+      "properties": {
+        "wall_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}},
+        "cpu_ms": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}},
+        "peak_rss_kib": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}},
+        "io_read_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}},
+        "io_write_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}},
+        "setup_startup_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}},
+        "first_failure_latency_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}},
+        "retry_amplification": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "owner_focused_affected_only"}}}}}}}
+      }
+    },
+    "metric_coverage_without_claim_evidence": {
+      "type": "object",
+      "properties": {
+        "wall_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}},
+        "cpu_ms": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}},
+        "peak_rss_kib": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}},
+        "io_read_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}},
+        "io_write_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}},
+        "setup_startup_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}},
+        "first_failure_latency_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}},
+        "retry_amplification": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}}}}}}
+      }
+    },
+    "metric_coverage_without_bounded_prefix": {
+      "type": "object",
+      "properties": {
+        "wall_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}},
+        "cpu_ms": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}},
+        "peak_rss_kib": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}},
+        "io_read_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}},
+        "io_write_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}},
+        "setup_startup_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}},
+        "first_failure_latency_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}},
+        "retry_amplification": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}}}}}}
+      }
+    },
+    "metric_coverage_without_retry": {
+      "type": "object",
+      "properties": {
+        "wall_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}},
+        "cpu_ms": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}},
+        "peak_rss_kib": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}},
+        "io_read_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}},
+        "io_write_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}},
+        "setup_startup_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}},
+        "first_failure_latency_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}},
+        "retry_amplification": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "retry_after_fix_first_failure"}}}}}}}
+      }
+    },
+    "metric_coverage_without_controlled": {
+      "type": "object",
+      "properties": {
+        "wall_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}},
+        "cpu_ms": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}},
+        "peak_rss_kib": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}},
+        "io_read_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}},
+        "io_write_bytes": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}},
+        "setup_startup_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}},
+        "first_failure_latency_seconds": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}},
+        "retry_amplification": {"properties": {"observed_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}, "controlled_values": {"items": {"not": {"properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}}}}}}
+      }
+    },
+    "matched_identity_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method_ids", "identity", "evidence_provenance"],
+      "properties": {
+        "method_ids": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/canonical_method_id"},
+          "contains": {"const": "legacy_serial_full_release"},
+          "allOf": [
+            {
+              "contains": {
+                "enum": [
+                  "owner_focused_affected_only",
+                  "claim_evidence_activated_subgraph_or_tiered",
+                  "bounded_stable_prefix_session_measurement",
+                  "retry_after_fix_first_failure",
+                  "controlled_same_candidate_seeded_fault"
+                ]
+              }
+            }
+          ]
+        },
+        "identity": {"$ref": "#/$defs/identity_snapshot"},
+        "evidence_provenance": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/evidence_provenance"}
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "identity": {
+                "properties": {"evidence_class": {"const": "public-safe-contract"}}
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_provenance": {
+                "items": {
+                  "properties": {"evidence_class": {"const": "public-safe-contract"}}
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "identity": {
+                "properties": {"evidence_class": {"const": "reviewed-owner-packet"}}
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_provenance": {
+                "items": {
+                  "properties": {"evidence_class": {"const": "reviewed-owner-packet"}}
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method_ids": {"contains": {"const": "owner_focused_affected_only"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_provenance": {
+                "contains": {
+                  "type": "object",
+                  "required": ["method_id"],
+                  "properties": {"method_id": {"const": "legacy_serial_full_release"}}
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "required": ["method_id"],
+                      "properties": {"method_id": {"const": "owner_focused_affected_only"}}
+                    }
+                  },
+                  {
+                    "not": {
+                      "contains": {
+                        "type": "object",
+                        "required": ["method_id"],
+                        "properties": {
+                          "method_id": {
+                            "not": {
+                              "enum": ["legacy_serial_full_release", "owner_focused_affected_only"]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method_ids": {"contains": {"const": "claim_evidence_activated_subgraph_or_tiered"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_provenance": {
+                "contains": {
+                  "type": "object",
+                  "required": ["method_id"],
+                  "properties": {"method_id": {"const": "legacy_serial_full_release"}}
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "required": ["method_id"],
+                      "properties": {"method_id": {"const": "claim_evidence_activated_subgraph_or_tiered"}}
+                    }
+                  },
+                  {
+                    "not": {
+                      "contains": {
+                        "type": "object",
+                        "required": ["method_id"],
+                        "properties": {
+                          "method_id": {
+                            "not": {
+                              "enum": ["legacy_serial_full_release", "claim_evidence_activated_subgraph_or_tiered"]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method_ids": {"contains": {"const": "bounded_stable_prefix_session_measurement"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_provenance": {
+                "contains": {
+                  "type": "object",
+                  "required": ["method_id"],
+                  "properties": {"method_id": {"const": "legacy_serial_full_release"}}
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "required": ["method_id"],
+                      "properties": {"method_id": {"const": "bounded_stable_prefix_session_measurement"}}
+                    }
+                  },
+                  {
+                    "not": {
+                      "contains": {
+                        "type": "object",
+                        "required": ["method_id"],
+                        "properties": {
+                          "method_id": {
+                            "not": {
+                              "enum": ["legacy_serial_full_release", "bounded_stable_prefix_session_measurement"]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method_ids": {"contains": {"const": "retry_after_fix_first_failure"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_provenance": {
+                "contains": {
+                  "type": "object",
+                  "required": ["method_id"],
+                  "properties": {"method_id": {"const": "legacy_serial_full_release"}}
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "required": ["method_id"],
+                      "properties": {"method_id": {"const": "retry_after_fix_first_failure"}}
+                    }
+                  },
+                  {
+                    "not": {
+                      "contains": {
+                        "type": "object",
+                        "required": ["method_id"],
+                        "properties": {
+                          "method_id": {
+                            "not": {
+                              "enum": ["legacy_serial_full_release", "retry_after_fix_first_failure"]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method_ids": {"contains": {"const": "controlled_same_candidate_seeded_fault"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_provenance": {
+                "contains": {
+                  "type": "object",
+                  "required": ["method_id"],
+                  "properties": {"method_id": {"const": "legacy_serial_full_release"}}
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "required": ["method_id"],
+                      "properties": {"method_id": {"const": "controlled_same_candidate_seeded_fault"}}
+                    }
+                  },
+                  {
+                    "not": {
+                      "contains": {
+                        "type": "object",
+                        "required": ["method_id"],
+                        "properties": {
+                          "method_id": {
+                            "not": {
+                              "enum": ["legacy_serial_full_release", "controlled_same_candidate_seeded_fault"]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "identity_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["workload_id", "candidate_or_source_identity", "source_ref_or_digest", "environment_id", "route_or_treatment_identity", "evidence_class", "acceptance_target", "cache_posture", "resource_posture"],
+      "properties": {
+        "workload_id": {"type": "string", "minLength": 1},
+        "candidate_or_source_identity": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "source_ref_or_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "environment_id": {"type": "string", "minLength": 1},
+        "route_or_treatment_identity": {"type": "string", "minLength": 1},
+        "evidence_class": {"enum": ["public-safe-contract", "reviewed-owner-packet"]},
+        "acceptance_target": {"type": "string", "minLength": 1},
+        "cache_posture": {"$ref": "#/$defs/posture"},
+        "resource_posture": {"$ref": "#/$defs/posture"}
+      }
+    },
+    "posture": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "id"],
+          "properties": {"status": {"const": "known"}, "id": {"type": "string", "minLength": 1}}
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "id"],
+          "properties": {"status": {"enum": ["unknown", "null", "excluded", "unobservable", "missing"]}, "id": {"type": "null"}}
+        }
+      ]
+    },
+    "known_posture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "id"],
+      "properties": {
+        "status": {"const": "known"},
+        "id": {"type": "string", "minLength": 1}
+      }
+    },
+    "evidence_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method_id", "ref", "digest", "kind", "evidence_class", "measurement_origin", "review_status"],
+      "properties": {
+        "method_id": {"$ref": "#/$defs/canonical_method_id"},
+        "ref": {"type": "string", "minLength": 1},
+        "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "kind": {"const": "public-safe-observation"},
+        "evidence_class": {"enum": ["public-safe-contract", "reviewed-owner-packet"]},
+        "measurement_origin": {"enum": ["observed", "controlled", "synthetic"]},
+        "review_status": {"enum": ["reviewed", "controlled"]}
+      }
+    },
+    "unmatched_case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unit_id", "reason", "mismatched_fields"],
+      "properties": {
+        "unit_id": {"type": "string", "minLength": 1},
+        "reason": {
+          "enum": [
+            "baseline_method_missing",
+            "comparison_candidate_missing",
+            "identity_or_parity_mismatch",
+            "no_eligible_pair"
+          ]
+        },
+        "method_id": {"type": "string", "minLength": 1},
+        "mismatched_fields": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}

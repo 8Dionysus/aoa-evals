@@ -221,6 +221,14 @@ See also:
 - `aoa-runtime-latency-tradeoff`
   Keep this as a draft runtime tradeoff surface. It may carry selected public-safe runtime evidence, but it does not rank reasoning quality, agent behavior, hosts, or hardware tiers.
 
+### Do you need a fixed-baseline contract that admits method-effect observations only when identity, evidence, cache, and resource posture are matched?
+- `aoa-identity-bound-method-comparison`
+  Use this draft ABI when a validation-method comparison needs the complete
+  workload/source/environment/treatment identity tuple, explicit apply fields,
+  visible unmatched states, and separate observed versus controlled or
+  synthetic accounting. It does not issue a method winner, causal effect,
+  central proof, runtime-health, or acceptance verdict.
+
 ### Does the bounded task require a fixed-baseline causal comparison of memory-disabled, pull-only, monolithic proactive, and federated policy-gated memory?
 - `aoa-memo-active-organ-offline-replay`
   Keep this draft public-safe and shadow-only. Treat conformance, erasure,
@@ -252,7 +260,7 @@ See also:
 | `stress` | You care about incomplete, conflicting, or underspecified task meaning, or about one bounded owner-local stressor family and whether degraded continuation stayed reviewable, source-owned, and weaker than the normal path. | `aoa-ambiguity-handling`, `aoa-antifragility-posture` |
 | `regression` | You care about frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | `artifact` | You care about the produced artifact itself or about provenance-preserving compost artifacts derived from witness-facing inputs. | `aoa-artifact-review-rubric`, `aoa-compost-provenance-preservation` |
-| `comparative` | You care about cross-surface divergence, a public-safe runtime latency/resource tradeoff, or a pinned active-memory architecture comparison under matched conditions. | `aoa-output-vs-process-gap`, `aoa-runtime-latency-tradeoff`, `aoa-memo-active-organ-offline-replay` |
+| `comparative` | You care about cross-surface divergence, a public-safe runtime latency/resource tradeoff, an identity-bound validation-method comparison, or a pinned active-memory architecture comparison under matched conditions. | `aoa-output-vs-process-gap`, `aoa-runtime-latency-tradeoff`, `aoa-identity-bound-method-comparison`, `aoa-memo-active-organ-offline-replay` |
 | `capability` | You care about whether a bounded eval-side review surface is present, such as integrity checking of public eval bundles, growth-refinery lineage coherence, or continuity-anchor integrity as distinct bounded abilities. | `aoa-eval-integrity-check`, `aoa-candidate-lineage-integrity`, `aoa-continuity-anchor-integrity` |
 | `longitudinal` | You care about ordered repeated-window movement on the same bounded surface, or about repeated-window stress recovery posture on one named stressor family; one-run and baseline questions route to their own surfaces. | `aoa-longitudinal-growth-snapshot`, `aoa-stress-recovery-window` |
 

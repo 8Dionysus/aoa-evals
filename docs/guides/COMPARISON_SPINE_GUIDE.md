@@ -35,6 +35,7 @@ The current public ladder is:
 Current public comparison bundles:
 - `aoa-regression-same-task`
 - `aoa-runtime-latency-tradeoff`
+- `aoa-identity-bound-method-comparison`
 - `aoa-memo-active-organ-offline-replay`
 - `aoa-output-vs-process-gap`
 - `aoa-longitudinal-growth-snapshot`
@@ -45,6 +46,9 @@ This ladder is intentionally asymmetric:
 - `aoa-regression-same-task` is the first and only public `baseline` default
 - `aoa-runtime-latency-tradeoff` remains a draft fixed-baseline runtime
   tradeoff surface and is not a public default baseline
+- `aoa-identity-bound-method-comparison` remains a draft fixed-baseline ABI
+  surface; it admits only identity- and parity-matched observation shapes and
+  does not issue method-effect or winner claims
 - `aoa-memo-active-organ-offline-replay` remains a draft fixed-baseline
   active-memory architecture lab and cannot admit policy or production
 - `aoa-output-vs-process-gap` remains a draft peer-comparison bridge
@@ -59,6 +63,7 @@ This ladder is intentionally asymmetric:
 Current bundle:
 - `aoa-regression-same-task`
 - `aoa-runtime-latency-tradeoff`
+- `aoa-identity-bound-method-comparison`
 - `aoa-memo-active-organ-offline-replay`
 
 Use when:
@@ -68,6 +73,9 @@ Use when:
 - or selected runtime evidence needs a public-safe latency/resource tradeoff
   read without becoming reasoning-quality, agent-quality, host, or hardware
   ranking
+- or a future method comparison needs an explicit workload, source/candidate,
+  environment, treatment, evidence, acceptance, cache, and resource identity
+  contract before any observation row can be admitted
 - or a pinned public-safe memory lab needs to compare memory-disabled,
   reviewed pull-only, monolithic sandbox, and federated policy-gated memory
   while conformance and erasure remain blocking gates
@@ -97,8 +105,21 @@ Current machine-readable contract should keep explicit:
 - matched surface
 - paired readout path
 - integrity sidecar
+- when the peer surface is validation-routing support, identical workload,
+  candidate, environment, and source identities plus a full-owner-proof
+  oracle/fallback
 - selection summary
 - interpretation boundary
+
+The validation-routing support surface remains measurement-only. It may compare
+static, dependency, owner-contract, history, claim-risk, and hybrid candidate
+activation proposals on seeded cases, while unsupported families and missing
+external receipts remain explicit. Version 1 admits only `seeded_fixture`
+evidence; `real_session` is not admitted, and `_synthetic_proxy` latency fields
+are fixture-event proxies rather than observed runtime measurements. A generic
+method rationale never discharges a missing node: only a node-keyed
+`missing_explanations[node]` entry does. It does not create a public baseline,
+release verdict, or winning routing policy.
 
 ### `longitudinal-window`
 
@@ -127,8 +148,9 @@ Read the comparison spine in this order:
 
 1. Read the one-run anchor surface first.
 2. Read `fixed-baseline` when the question is candidate-versus-frozen-target
-   regression, a selected runtime latency/resource tradeoff, or a pinned
-   active-memory architecture comparison under matched fixture conditions.
+   regression, a selected runtime latency/resource tradeoff, an identity-bound
+   method comparison, or a pinned active-memory architecture comparison under
+   matched fixture conditions.
 3. Read `peer-compare` when the question is side-by-side divergence on the same bounded cases.
 4. Read `longitudinal-window` when the question is ordered movement across named windows on one bounded surface.
 5. Add `aoa-eval-integrity-check` when public wording, routing, maturity posture, or generated contracts are moving enough that the comparison read could start implying more than the evidence carries.
@@ -150,6 +172,8 @@ Shared public read-order artifact:
 | repeated-window stress recovery as live health authority | stress-recovery owner route and runtime owner route |
 | runtime latency improvement as reasoning quality | `aoa-runtime-latency-tradeoff` plus the appropriate quality eval before any stronger reading |
 | runtime resource cost hidden behind a winner label | `aoa-runtime-latency-tradeoff` support notes and report schema |
+| method-effect row without exact identity or parity | `aoa-identity-bound-method-comparison` apply ABI and unmatched disposition |
+| synthetic or controlled latency treated as observed method performance | `aoa-identity-bound-method-comparison` report schema and evidence-class boundary |
 | symbolic active-memory result as production or policy authority | `aoa-memo-active-organ-offline-replay` claim limit plus owner review |
 | monolithic architecture B confused with C22 pull-only arm B | `aoa-memo-active-organ-offline-replay` label translation and secondary-arm manifest |
 | integrity sidecar success as direct agent-quality proof | underlying comparison bundle plus integrity sidecar route |
@@ -159,6 +183,7 @@ Shared public read-order artifact:
 Status remains intentionally conservative:
 - `aoa-regression-same-task` stays the only default public `baseline` surface
 - `aoa-runtime-latency-tradeoff` stays `draft`
+- `aoa-identity-bound-method-comparison` stays `draft`
 - `aoa-memo-active-organ-offline-replay` stays `draft`
 - `aoa-output-vs-process-gap` stays `draft`
 - `aoa-longitudinal-growth-snapshot` stays `draft`

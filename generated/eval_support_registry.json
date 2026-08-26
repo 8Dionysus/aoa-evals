@@ -13,55 +13,57 @@
       "builder_or_projection": 5,
       "builder_with_check_mode": 16,
       "deterministic_script_validator": 248,
-      "deterministic_test": 66,
+      "deterministic_test": 67,
       "deterministic_validator": 227,
       "generated_readmodel_test": 9,
-      "script_support": 11,
+      "script_support": 12,
       "trace_eval_test": 17
     },
     "by_kind": {
-      "script": 280,
-      "test": 92,
+      "script": 281,
+      "test": 93,
       "validator": 227
     },
     "by_lane": {
       "advisory": 29,
       "generated": 52,
       "latest_sibling": 4,
-      "mechanics_part_local": 54,
+      "mechanics_part_local": 56,
       "pinned_sibling": 1,
       "release": 16,
       "source_fast": 443
     },
     "by_recommended_route": {
-      "apply_as_deterministic_eval_support": 475,
+      "apply_as_deterministic_eval_support": 476,
       "candidate_only_eval_support": 8,
       "component_only_use_owning_validator_or_lane_command": 83,
       "forbidden_as_eval_apply_until_manual_owner_review": 4,
       "generated_readmodel_support": 6,
       "ordinary_owner_route": 5,
       "run_check_mode_before_eval_support": 17,
+      "use_as_bounded_measurement_support": 1,
       "use_through_owner_skill_procedure": 1
     },
     "by_review_status": {
       "candidate_only": 8,
       "not_eval_relevant": 5,
       "reviewed_forbidden": 4,
-      "rule_reviewed": 582
+      "rule_reviewed": 584
     },
     "by_semantic_class": {
+      "bounded_measurement_support": 1,
       "deterministic_validator": 466,
       "generated_parity_check": 32,
       "ordinary_support": 5,
       "owner_skill_navigation_resource": 1,
       "runtime_candidate_support": 8,
       "trace_trajectory_eval_support": 17,
-      "unit_contract_property_test": 66,
+      "unit_contract_property_test": 67,
       "unsafe_side_effect_script": 4
     },
-    "eval_lane_relevant": 435,
-    "safe_to_apply_directly": 475,
-    "total_surfaces": 599,
+    "eval_lane_relevant": 437,
+    "safe_to_apply_directly": 476,
+    "total_surfaces": 601,
     "unsafe_side_effect_scripts": 4
   },
   "surfaces": [
@@ -796,6 +798,42 @@
       "side_effects": "writes generated phase-alpha matrix when run without --check",
       "source_truth_count": 2,
       "test_target": "tests/test_downstream_feed_contracts.py"
+    },
+    {
+      "classification": "script_support",
+      "classification_evidence": [
+        "family: part_local_runner",
+        "owner_surface: mechanics/comparison-spine/parts/peer-compare/README.md",
+        "side_effects: seeded measurement report to stdout by default; --output creates parent directories and overwrites only the caller-specified output path; does not execute validators, query KAG/stats, or select policy",
+        "validation_lane: mechanics_part_local",
+        "writes: optional caller-specified output path when requested"
+      ],
+      "classification_rule": "bounded_measurement_runner_with_caller_scoped_output",
+      "eval_lane_relevant": true,
+      "failure_route": null,
+      "family": "part_local_runner",
+      "focused_target": null,
+      "forbidden_interpretations": [
+        "central_proof_acceptance",
+        "routing_policy_selection",
+        "real_session_coverage",
+        "direct_eval_apply"
+      ],
+      "kind": "script",
+      "lane": "mechanics_part_local",
+      "owner_surface": "mechanics/comparison-spine/parts/peer-compare/README.md",
+      "path": "mechanics/comparison-spine/parts/peer-compare/scripts/run_validation_routing_comparison.py",
+      "recommended_route": "use_as_bounded_measurement_support",
+      "relevance_reasons": [
+        "report"
+      ],
+      "review_reason": "bounded measurement runner may write only the caller-scoped report path; it remains measurement support and cannot accept proof or select policy",
+      "review_status": "rule_reviewed",
+      "safe_to_apply_directly": false,
+      "semantic_class": "bounded_measurement_support",
+      "side_effects": "seeded measurement report to stdout by default; --output creates parent directories and overwrites only the caller-specified output path; does not execute validators, query KAG/stats, or select policy",
+      "source_truth_count": 4,
+      "test_target": "mechanics/comparison-spine/parts/peer-compare/tests/test_validation_routing_comparison.py"
     },
     {
       "classification": "deterministic_script_validator",
@@ -9817,6 +9855,38 @@
       "path": "mechanics/checkpoint/parts/a2a-summon-return/tests/test_a2a_summon_return_checkpoint_fixture.py",
       "recommended_route": "apply_as_deterministic_eval_support",
       "relevance_reasons": [],
+      "review_reason": "test inventory entry constrains behavior through the owning test route",
+      "review_status": "rule_reviewed",
+      "safe_to_apply_directly": true,
+      "semantic_class": "unit_contract_property_test",
+      "side_effects": null,
+      "source_truth_count": null,
+      "test_target": null
+    },
+    {
+      "classification": "deterministic_test",
+      "classification_evidence": [
+        "family: mechanics/part-local",
+        "owner_surface: mechanics/comparison-spine/parts/peer-compare/README.md",
+        "coverage_authority: validation_lanes.mechanics_part_local"
+      ],
+      "classification_rule": "test_inventory_contract_or_invariant",
+      "eval_lane_relevant": true,
+      "failure_route": "Fix the peer-compare validation-routing contract, fixture, runner, or report schema before widening the comparison claim.",
+      "family": "mechanics/part-local",
+      "focused_target": "seeded validation-routing comparison contract, identity binding, adversarial states, unsupported candidates, and measurement-only report posture",
+      "forbidden_interpretations": [
+        "central_proof_acceptance"
+      ],
+      "kind": "test",
+      "lane": "mechanics_part_local",
+      "owner_surface": "mechanics/comparison-spine/parts/peer-compare/README.md",
+      "path": "mechanics/comparison-spine/parts/peer-compare/tests/test_validation_routing_comparison.py",
+      "recommended_route": "apply_as_deterministic_eval_support",
+      "relevance_reasons": [
+        "report",
+        "candidate"
+      ],
       "review_reason": "test inventory entry constrains behavior through the owning test route",
       "review_status": "rule_reviewed",
       "safe_to_apply_directly": true,

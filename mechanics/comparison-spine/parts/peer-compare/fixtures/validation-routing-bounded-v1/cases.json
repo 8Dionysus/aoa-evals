@@ -1,0 +1,385 @@
+{
+  "schema_version": "validation_routing_comparison_cases_v1",
+  "fixture_id": "validation-routing-bounded-v1",
+  "source_posture": "seeded_public_safe_only",
+  "latency_event_weights_ms_synthetic_proxy": {
+    "static_paths": 1.5,
+    "dependency_graph": 3.5,
+    "owner_contracts": 4.0,
+    "history_correlation": 5.0,
+    "claim_risk": 2.0
+  },
+  "comparison_identity": {
+    "candidate_set_id": "candidate-set-static-dependency-owner-history-risk-hybrid-v1",
+    "environment_id": "seeded-current-tree-public-safe-v1"
+  },
+  "input_evidence": {
+    "source_kind": "public_safe_external_report",
+    "path": "directions/validation-shadow/live-01/validation-activation-shadow-report.json",
+    "sha256": "24b71c23a6acd2549376a4d686b7d9c0b01b68f1d89e0b0adf847706d5fa9323",
+    "allowed_use": "bounded prior and route-gap input only; no raw session body or policy verdict copied",
+    "raw_sessions_copied": false,
+    "observed_real_route_gaps": [
+      "aoa-kag:scripts/validate_kag.py was owner-required but not executed against the exact aoa-evals checkout",
+      "canonical aoa-stats envelope validation was not independently executed",
+      "source-fast and advisory trust-plane routes were outside the local release sequence or blocked"
+    ],
+    "observed_wall_clock_proxies": {
+      "full_local_release_check_seconds": 64.58,
+      "targeted_local_route_proxy_seconds": [3.54, 4.9],
+      "speed_claim_status": "rejected_as_final_saving_until_owner_receipts_are bound"
+    }
+  },
+  "scenarios": [
+    {
+      "scenario_id": "RVC-001-source-only-control",
+      "evidence_kind": "seeded_fixture",
+      "workload_id": "validation-workload-source-only-control",
+      "candidate_set_id": "candidate-set-static-dependency-owner-history-risk-hybrid-v1",
+      "environment_id": "seeded-current-tree-public-safe-v1",
+      "source_ref": "fixture:validation-routing-bounded-v1/RVC-001-source-only-control",
+      "changed_paths": [
+        "scripts/validate_repo.py",
+        "tests/test_validate_repo.py"
+      ],
+      "adversarial_class": null,
+      "oracle": {
+        "complete": true,
+        "required_nodes": [
+          "source_fast",
+          "behavior_tests"
+        ],
+        "owner_proof_nodes": [
+          "source_fast",
+          "behavior_tests"
+        ],
+        "owner_proof_status": "available"
+      },
+      "signals": {
+        "dependency_graph": {
+          "state": "current",
+          "nodes": ["source_fast", "behavior_tests"]
+        },
+        "owner_contracts": {
+          "state": "valid",
+          "nodes": ["source_fast", "behavior_tests"],
+          "receipt": {
+            "workload_id": "validation-workload-source-only-control",
+            "candidate_set_id": "candidate-set-static-dependency-owner-history-risk-hybrid-v1",
+            "environment_id": "seeded-current-tree-public-safe-v1",
+            "source_ref": "fixture:validation-routing-bounded-v1/RVC-001-source-only-control"
+          }
+        },
+        "history_correlation": {
+          "state": "available",
+          "nodes": ["source_fast"]
+        },
+        "claim_risk": {
+          "state": "declared",
+          "nodes": ["source_fast", "behavior_tests"]
+        }
+      }
+    },
+    {
+      "scenario_id": "RVC-002-stale-graph",
+      "evidence_kind": "seeded_fixture",
+      "workload_id": "validation-workload-stale-graph",
+      "candidate_set_id": "candidate-set-static-dependency-owner-history-risk-hybrid-v1",
+      "environment_id": "seeded-current-tree-public-safe-v1",
+      "source_ref": "fixture:validation-routing-bounded-v1/RVC-002-stale-graph",
+      "changed_paths": [
+        "kag/indexes/shards/source/ed.jsonl",
+        "mechanics/comparison-spine/parts/peer-compare/README.md",
+        "tests/test_validation_routing_comparison.py"
+      ],
+      "adversarial_class": "stale_graph",
+      "oracle": {
+        "complete": true,
+        "required_nodes": [
+          "source_fast",
+          "generated",
+          "mechanics_part_local",
+          "behavior_tests",
+          "owner_external_kag"
+        ],
+        "owner_proof_nodes": [
+          "source_fast",
+          "generated",
+          "mechanics_part_local",
+          "behavior_tests",
+          "owner_external_kag"
+        ],
+        "owner_proof_status": "blocked_external_receipt"
+      },
+      "signals": {
+        "dependency_graph": {
+          "state": "stale",
+          "nodes": ["source_fast", "generated", "mechanics_part_local"],
+          "reason": "graph digest predates the changed KAG shard"
+        },
+        "owner_contracts": {
+          "state": "valid",
+          "nodes": ["source_fast", "generated", "mechanics_part_local", "behavior_tests"],
+          "receipt": {
+            "workload_id": "validation-workload-stale-graph",
+            "candidate_set_id": "candidate-set-static-dependency-owner-history-risk-hybrid-v1",
+            "environment_id": "seeded-current-tree-public-safe-v1",
+            "source_ref": "fixture:validation-routing-bounded-v1/RVC-002-stale-graph"
+          }
+        },
+        "history_correlation": {
+          "state": "available",
+          "nodes": ["source_fast", "mechanics_part_local"]
+        },
+        "claim_risk": {
+          "state": "declared",
+          "nodes": ["source_fast", "generated", "mechanics_part_local", "behavior_tests", "owner_external_kag"]
+        }
+      }
+    },
+    {
+      "scenario_id": "RVC-003-unknown-dependency",
+      "evidence_kind": "seeded_fixture",
+      "workload_id": "validation-workload-unknown-dependency",
+      "candidate_set_id": "candidate-set-static-dependency-owner-history-risk-hybrid-v1",
+      "environment_id": "seeded-current-tree-public-safe-v1",
+      "source_ref": "fixture:validation-routing-bounded-v1/RVC-003-unknown-dependency",
+      "changed_paths": [
+        "src/validation_graph.py",
+        "scripts/validate_repo.py"
+      ],
+      "adversarial_class": "unknown_dependency",
+      "oracle": {
+        "complete": true,
+        "required_nodes": [
+          "source_fast",
+          "owner_external_kag"
+        ],
+        "owner_proof_nodes": [
+          "source_fast",
+          "owner_external_kag"
+        ],
+        "owner_proof_status": "blocked_external_receipt"
+      },
+      "signals": {
+        "dependency_graph": {
+          "state": "unknown",
+          "nodes": [],
+          "reason": "dependency resolver could not bind the changed graph"
+        },
+        "owner_contracts": {
+          "state": "unknown",
+          "nodes": [],
+          "reason": "owner manifest route is not bound in the seeded environment"
+        },
+        "history_correlation": {
+          "state": "available",
+          "nodes": ["source_fast"]
+        },
+        "claim_risk": {
+          "state": "declared",
+          "nodes": ["source_fast", "owner_external_kag"]
+        }
+      }
+    },
+    {
+      "scenario_id": "RVC-004-wrong-receipt",
+      "evidence_kind": "seeded_fixture",
+      "workload_id": "validation-workload-wrong-receipt",
+      "candidate_set_id": "candidate-set-static-dependency-owner-history-risk-hybrid-v1",
+      "environment_id": "seeded-current-tree-public-safe-v1",
+      "source_ref": "fixture:validation-routing-bounded-v1/RVC-004-wrong-receipt",
+      "changed_paths": [
+        "kag/manifest.json",
+        "mechanics/publication-receipts/parts/stats-envelope-mirror/README.md"
+      ],
+      "adversarial_class": "wrong_candidate_environment_receipt",
+      "oracle": {
+        "complete": true,
+        "required_nodes": [
+          "source_fast",
+          "generated",
+          "mechanics_part_local",
+          "owner_external_kag"
+        ],
+        "owner_proof_nodes": [
+          "source_fast",
+          "generated",
+          "mechanics_part_local",
+          "owner_external_kag"
+        ],
+        "owner_proof_status": "blocked_external_receipt"
+      },
+      "signals": {
+        "dependency_graph": {
+          "state": "current",
+          "nodes": ["source_fast", "generated", "mechanics_part_local"]
+        },
+        "owner_contracts": {
+          "state": "valid",
+          "nodes": ["source_fast", "generated", "mechanics_part_local", "owner_external_kag"],
+          "receipt": {
+            "workload_id": "validation-workload-wrong-receipt",
+            "candidate_set_id": "candidate-set-other",
+            "environment_id": "seeded-other-environment-v1",
+            "source_ref": "fixture:other-source/wrong-binding"
+          }
+        },
+        "history_correlation": {
+          "state": "available",
+          "nodes": ["source_fast"]
+        },
+        "claim_risk": {
+          "state": "declared",
+          "nodes": ["source_fast", "generated", "mechanics_part_local", "owner_external_kag", "owner_canonical_stats"]
+        }
+      }
+    },
+    {
+      "scenario_id": "RVC-005-malformed-receipt",
+      "evidence_kind": "seeded_fixture",
+      "workload_id": "validation-workload-malformed-receipt",
+      "candidate_set_id": "candidate-set-static-dependency-owner-history-risk-hybrid-v1",
+      "environment_id": "seeded-current-tree-public-safe-v1",
+      "source_ref": "fixture:validation-routing-bounded-v1/RVC-005-malformed-receipt",
+      "changed_paths": [
+        "docs/validation/validation_lanes.json",
+        "scripts/ci_gate.py"
+      ],
+      "adversarial_class": "malformed_receipt",
+      "oracle": {
+        "complete": true,
+        "required_nodes": [
+          "source_fast",
+          "generated",
+          "behavior_tests"
+        ],
+        "owner_proof_nodes": [
+          "source_fast",
+          "generated",
+          "behavior_tests"
+        ],
+        "owner_proof_status": "available"
+      },
+      "signals": {
+        "dependency_graph": {
+          "state": "current",
+          "nodes": ["source_fast", "generated"]
+        },
+        "owner_contracts": {
+          "state": "valid",
+          "nodes": ["source_fast", "generated", "behavior_tests"],
+          "receipt": {
+            "candidate_set_id": "candidate-set-static-dependency-owner-history-risk-hybrid-v1"
+          }
+        },
+        "history_correlation": {
+          "state": "available",
+          "nodes": ["source_fast"]
+        },
+        "claim_risk": {
+          "state": "declared",
+          "nodes": ["source_fast", "generated", "behavior_tests"]
+        }
+      }
+    },
+    {
+      "scenario_id": "RVC-006-unexplained-miss",
+      "evidence_kind": "seeded_fixture",
+      "workload_id": "validation-workload-unexplained-miss",
+      "candidate_set_id": "candidate-set-static-dependency-owner-history-risk-hybrid-v1",
+      "environment_id": "seeded-current-tree-public-safe-v1",
+      "source_ref": "fixture:validation-routing-bounded-v1/RVC-006-unexplained-miss",
+      "changed_paths": [
+        "kag/manifest.json"
+      ],
+      "adversarial_class": "unexplained_miss",
+      "method_overrides": {
+        "static_paths": {
+          "explanation": "static paths selected local nodes but did not bind the external owner"
+        }
+      },
+      "oracle": {
+        "complete": true,
+        "required_nodes": [
+          "source_fast",
+          "owner_external_kag"
+        ],
+        "owner_proof_nodes": [
+          "source_fast",
+          "owner_external_kag"
+        ],
+        "owner_proof_status": "available"
+      },
+      "signals": {
+        "dependency_graph": {
+          "state": "current",
+          "nodes": ["source_fast"]
+        },
+        "owner_contracts": {
+          "state": "valid",
+          "nodes": ["source_fast", "owner_external_kag"],
+          "receipt": {
+            "workload_id": "validation-workload-unexplained-miss",
+            "candidate_set_id": "candidate-set-static-dependency-owner-history-risk-hybrid-v1",
+            "environment_id": "seeded-current-tree-public-safe-v1",
+            "source_ref": "fixture:validation-routing-bounded-v1/RVC-006-unexplained-miss"
+          }
+        },
+        "history_correlation": {
+          "state": "available",
+          "nodes": ["source_fast"]
+        },
+        "claim_risk": {
+          "state": "declared",
+          "nodes": ["source_fast", "owner_external_kag"]
+        }
+      }
+    },
+    {
+      "scenario_id": "RVC-007-unbound-owner",
+      "evidence_kind": "seeded_fixture",
+      "workload_id": "validation-workload-unbound-owner",
+      "candidate_set_id": "candidate-set-static-dependency-owner-history-risk-hybrid-v1",
+      "environment_id": "seeded-current-tree-public-safe-v1",
+      "source_ref": "fixture:validation-routing-bounded-v1/RVC-007-unbound-owner",
+      "changed_paths": [
+        "kag/indexes/shards/source/ed.jsonl"
+      ],
+      "adversarial_class": "unbound_external_owner",
+      "oracle": {
+        "complete": false,
+        "required_nodes": [
+          "source_fast",
+          "owner_external_kag"
+        ],
+        "owner_proof_nodes": [
+          "source_fast",
+          "owner_external_kag"
+        ],
+        "owner_proof_status": "unknown"
+      },
+      "signals": {
+        "dependency_graph": {
+          "state": "unknown",
+          "nodes": [],
+          "reason": "external graph freshness is unknown"
+        },
+        "owner_contracts": {
+          "state": "unknown",
+          "nodes": [],
+          "reason": "exact external owner receipt is absent"
+        },
+        "history_correlation": {
+          "state": "unknown",
+          "nodes": [],
+          "reason": "historical correlation is not admitted for this owner"
+        },
+        "claim_risk": {
+          "state": "declared",
+          "nodes": ["source_fast", "owner_external_kag"]
+        }
+      }
+    }
+  ]
+}

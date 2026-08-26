@@ -11,7 +11,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 - Generated at: `2026-07-18T10:27:58Z`
 - Workspace root: `workspace:OS_ABYSS`
-- Central evals: 42
+- Central evals: 43
 - Local active ports: 9
 - Local invalid ports: 0
 - Actionable repo routes: 10
@@ -21,7 +21,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 - Eval Forge archetypes: 18
 - Eval Forge candidate hints: 6
 - Session-mining reviewed episodes: 20
-- Support surfaces: 599 total, 435 eval-relevant
+- Support surfaces: 601 total, 437 eval-relevant
 - Eval-relevant surfaces with unresolved manual review: 0
 - Unsafe side-effect scripts: 4
 - MCP runtime status: `ok`
@@ -155,10 +155,10 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 ## Support Registry
 
 - Support registry JSON: `generated/eval_support_registry.json`
-- Eval-relevant surfaces: 435
-- Recommended routes: `{"apply_as_deterministic_eval_support": 475, "candidate_only_eval_support": 8, "component_only_use_owning_validator_or_lane_command": 83, "forbidden_as_eval_apply_until_manual_owner_review": 4, "generated_readmodel_support": 6, "ordinary_owner_route": 5, "run_check_mode_before_eval_support": 17, "use_through_owner_skill_procedure": 1}`
-- Semantic classes: `{"deterministic_validator": 466, "generated_parity_check": 32, "ordinary_support": 5, "owner_skill_navigation_resource": 1, "runtime_candidate_support": 8, "trace_trajectory_eval_support": 17, "unit_contract_property_test": 66, "unsafe_side_effect_script": 4}`
-- Review status: `{"candidate_only": 8, "not_eval_relevant": 5, "reviewed_forbidden": 4, "rule_reviewed": 582}`
+- Eval-relevant surfaces: 437
+- Recommended routes: `{"apply_as_deterministic_eval_support": 476, "candidate_only_eval_support": 8, "component_only_use_owning_validator_or_lane_command": 83, "forbidden_as_eval_apply_until_manual_owner_review": 4, "generated_readmodel_support": 6, "ordinary_owner_route": 5, "run_check_mode_before_eval_support": 17, "use_as_bounded_measurement_support": 1, "use_through_owner_skill_procedure": 1}`
+- Semantic classes: `{"bounded_measurement_support": 1, "deterministic_validator": 466, "generated_parity_check": 32, "ordinary_support": 5, "owner_skill_navigation_resource": 1, "runtime_candidate_support": 8, "trace_trajectory_eval_support": 17, "unit_contract_property_test": 67, "unsafe_side_effect_script": 4}`
+- Review status: `{"candidate_only": 8, "not_eval_relevant": 5, "reviewed_forbidden": 4, "rule_reviewed": 584}`
 
 ## aoa-eval Source And Host Posture
 

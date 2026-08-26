@@ -44,17 +44,16 @@
         "revision": "source-exposure-fixture-v1"
       }
     },
-    "claim_limit": "This source fixture proves deterministic disclosure accounting only. It does not prove a live endpoint, activation, owner acceptance, central proof, utility, latency, or economy effect.",
+    "claim_limit": "This candidate records deterministic disclosure identity and visibility accounting only. It does not authorize activation, execute a tool, prove runtime reachability, establish owner acceptance, or issue central proof.",
     "execution_authorized": false,
     "expansion_reasons": [],
     "expires_at": "2026-08-26T06:00:00Z",
     "feature_enabled": false,
-    "plan_id": "sha256:534b96a713961e9c6818b92c1fc03c8ed26fcee24126cf3e92ed769c64fb71ce",
+    "plan_id": "sha256:43ae561ad4ad3f040344a3d8a5e1cbc63f693ddfc94e21c3d195dc083a76eb50",
     "plan_state": "blocked",
     "refusal_reasons": [
       "progressive_exposure_disabled",
-      "baseline_not_ready",
-      "schema_reveal_not_requested"
+      "baseline_not_ready"
     ],
     "rendered_snapshot": {
       "expires_at": "2026-08-26T06:00:00Z",

@@ -27,7 +27,7 @@
     "python evals/boundary/aoa-organ-access-admission-integrity/runners/review_rollback.py run-scenarios",
     "python evals/boundary/aoa-organ-access-admission-integrity/runners/generate_exposure_fixtures.py --check",
     "python evals/boundary/aoa-organ-access-admission-integrity/runners/review_exposure.py run-scenarios",
-    "python -m pytest -q tests/test_organ_access_admission_integrity.py tests/test_organ_access_rollback_readiness.py",
+    "python -m pytest -q tests/test_organ_access_admission_integrity.py tests/test_organ_access_rollback_readiness.py tests/test_progressive_exposure.py",
     "python scripts/validate_repo.py --eval aoa-organ-access-admission-integrity"
   ]
 }

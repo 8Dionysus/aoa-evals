@@ -1,17 +1,17 @@
 {
   "expected": {
     "economy_status": "not_run_baseline_admission_missing",
-    "plan_state": "candidate",
-    "rendered_bytes": 415,
-    "rendered_tokens": 104,
-    "visible_tool_count": 1
+    "plan_state": "blocked",
+    "rendered_bytes": 2,
+    "rendered_tokens": null,
+    "visible_tool_count": 0
   },
-  "fixture_id": "progressive-exposure-explicit-candidate-v1",
-  "mode": "explicit_candidate",
+  "fixture_id": "progressive-exposure-feature-enabled-baseline-missing-v1",
+  "mode": "feature_enabled_baseline_missing",
   "plan": {
     "activation_authorized": false,
     "approval_ref": null,
-    "baseline_ready": true,
+    "baseline_ready": false,
     "capability": {
       "approval_ref": null,
       "capability_digest": "sha256:471310ceeae7b8045d8de1c8c858d6a0b40aba98fe09f220c0467a7edfd065b2",
@@ -46,47 +46,28 @@
     },
     "claim_limit": "This candidate records deterministic disclosure identity and visibility accounting only. It does not authorize activation, execute a tool, prove runtime reachability, establish owner acceptance, or issue central proof.",
     "execution_authorized": false,
-    "expansion_reasons": [
-      "baseline_gate_satisfied",
-      "progressive_exposure_explicitly_enabled",
-      "explicit_schema_reveal",
-      "ordered_tool_selection",
-      "visibility_budget_recorded"
-    ],
+    "expansion_reasons": [],
     "expires_at": "2026-08-26T06:00:00Z",
     "feature_enabled": true,
-    "plan_id": "sha256:111b3d5ae7f666df9d955b4f191596155e4abcd8b3f77c1e2111d4d1ae94479a",
-    "plan_state": "candidate",
-    "refusal_reasons": [],
+    "plan_id": "sha256:7109f5b90e09dbfc3080cf4ef8796130cd8f30ffb3b45027cdd321bc9053125c",
+    "plan_state": "blocked",
+    "refusal_reasons": [
+      "baseline_not_ready"
+    ],
     "rendered_snapshot": {
       "expires_at": "2026-08-26T06:00:00Z",
       "observed_at": "2026-08-26T05:00:00Z",
       "refusal_reasons": [],
-      "rendered_bytes": 415,
-      "rendered_schema_digest": "sha256:4139c8aea7e3cb2d6f88f3f224f46cabfdf4733239e99f74e4cafa66969c775e",
-      "rendered_tokens": 104,
+      "rendered_bytes": 2,
+      "rendered_schema_digest": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "rendered_tokens": null,
       "schema_version": "aoa_organ_exposure_snapshot_v1",
-      "snapshot_id": "sha256:1af70a8720e681bbfdbb24010e02bfe0d40e37af199ee905de5f0d1d69190156",
+      "snapshot_id": "sha256:148257c9559a234420d790293848f2699f495edecb1e27be5189ec089e5f8a82",
       "source_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-      "token_count_method": "utf8_bytes_per_4_v1",
-      "token_count_posture": "estimated",
-      "tools": [
-        {
-          "capability_id": "knowledge-inspect",
-          "effect_ceiling": "read",
-          "effect_class": "observe",
-          "input_schema_ref": "owner://aoa-kag/schema/input",
-          "mcp_name": "runtime-inspect",
-          "output_schema_ref": "owner://aoa-kag/schema/output",
-          "policy_family": "read",
-          "primitive_id": "inspect-knowledge",
-          "schema_digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
-          "tool_id": "knowledge-inspect.inspect-knowledge"
-        }
-      ],
-      "visible_tool_ids": [
-        "knowledge-inspect.inspect-knowledge"
-      ]
+      "token_count_method": null,
+      "token_count_posture": "unknown",
+      "tools": [],
+      "visible_tool_ids": []
     },
     "request_id": "exposure-matched-request-v1",
     "requested_at": "2026-08-26T05:00:00Z",
@@ -96,20 +77,7 @@
     ],
     "rollback_route": "owner://aoa-kag/rollback/exposure",
     "schema_version": "aoa_organ_exposure_plan_v1",
-    "visible_tools": [
-      {
-        "capability_id": "knowledge-inspect",
-        "effect_ceiling": "read",
-        "effect_class": "observe",
-        "input_schema_ref": "owner://aoa-kag/schema/input",
-        "mcp_name": "runtime-inspect",
-        "output_schema_ref": "owner://aoa-kag/schema/output",
-        "policy_family": "read",
-        "primitive_id": "inspect-knowledge",
-        "schema_digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
-        "tool_id": "knowledge-inspect.inspect-knowledge"
-      }
-    ]
+    "visible_tools": []
   },
   "schema_version": "aoa_progressive_exposure_fixture_v1",
   "source_selection_digest": "sha256:888cafbccae0520b721f5cf4ee374047caa5f7cd513ef2a6dcd58a3bed737de3"

@@ -7,7 +7,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
 
 BUNDLE_ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +15,23 @@ FIXTURE_ROOT = BUNDLE_ROOT / "fixtures" / "exposure"
 CLAIM_LIMIT = (
     "This source-contract review proves deterministic disclosure accounting and fail-closed authority boundaries only. It does not prove a live endpoint, activation, owner acceptance, central proof, utility, latency, or economy effect."
 )
+PLAN_CLAIM_LIMIT = (
+    "This candidate records deterministic disclosure identity and visibility accounting only. It does not authorize activation, execute a tool, prove runtime reachability, establish owner acceptance, or issue central proof."
+)
+EXPECTED_EXPANSION_REASONS = (
+    "baseline_gate_satisfied",
+    "progressive_exposure_explicitly_enabled",
+    "explicit_schema_reveal",
+    "ordered_tool_selection",
+    "visibility_budget_recorded",
+)
+EXPECTED_MODES = {
+    "default_off",
+    "explicit_candidate",
+    "feature_disabled_baseline_ready",
+    "feature_enabled_baseline_missing",
+}
+POLICY_RANK = {"read": 0, "candidate": 1}
 
 
 def canonical(value: Any) -> bytes:
@@ -37,6 +54,47 @@ def load(path: Path) -> dict[str, Any]:
     return value
 
 
+def selection_identity(plan: Mapping[str, Any]) -> dict[str, Any] | None:
+    capability = plan.get("capability")
+    primitive_ids = plan.get("requested_primitive_ids")
+    if not isinstance(capability, Mapping) or not isinstance(primitive_ids, list):
+        return None
+    if not all(isinstance(item, str) and item for item in primitive_ids):
+        return None
+    qualified = capability.get("qualified_capability_id")
+    policy = plan.get("requested_policy_family")
+    if not isinstance(qualified, str) or not qualified or not isinstance(policy, str):
+        return None
+    return {
+        "qualified_capability_id": qualified,
+        "requested_policy_family": policy,
+        "requested_primitive_ids": primitive_ids,
+    }
+
+
+def snapshot_metrics(fixture: Mapping[str, Any]) -> tuple[int, int | None]:
+    plan = fixture.get("plan")
+    snapshot = plan.get("rendered_snapshot") if isinstance(plan, Mapping) else None
+    if not isinstance(snapshot, Mapping):
+        return 0, None
+    rendered_bytes = snapshot.get("rendered_bytes")
+    rendered_tokens = snapshot.get("rendered_tokens")
+    safe_bytes = (
+        rendered_bytes
+        if isinstance(rendered_bytes, int) and not isinstance(rendered_bytes, bool)
+        and rendered_bytes >= 0
+        else 0
+    )
+    safe_tokens = (
+        rendered_tokens
+        if isinstance(rendered_tokens, int)
+        and not isinstance(rendered_tokens, bool)
+        and rendered_tokens >= 0
+        else None
+    )
+    return safe_bytes, safe_tokens
+
+
 def review_fixture(fixture: dict[str, Any]) -> list[str]:
     issues: list[str] = []
     plan = fixture.get("plan")
@@ -45,6 +103,11 @@ def review_fixture(fixture: dict[str, Any]) -> list[str]:
         issues.append("fixture_schema_version_invalid")
     if not isinstance(plan, dict) or not isinstance(expected, dict):
         return ["fixture_plan_or_expected_missing"]
+    identity = selection_identity(plan)
+    if identity is None:
+        issues.append("selection_identity_missing")
+    elif fixture.get("source_selection_digest") != digest(identity):
+        issues.append("source_selection_digest_invalid")
     snapshot = plan.get("rendered_snapshot")
     capability = plan.get("capability")
     tools = plan.get("visible_tools")
@@ -70,17 +133,71 @@ def review_fixture(fixture: dict[str, Any]) -> list[str]:
     }
     if snapshot.get("snapshot_id") != digest(snapshot_unsigned):
         issues.append("snapshot_not_content_addressed")
-    plan_unsigned = {key: value for key, value in plan.items() if key != "plan_id"}
+    plan_unsigned = {
+        key: value
+        for key, value in plan.items()
+        if key not in {"plan_id", "claim_limit"}
+    }
     if plan.get("plan_id") != digest(plan_unsigned):
         issues.append("plan_not_content_addressed")
+    if plan.get("claim_limit") != PLAN_CLAIM_LIMIT:
+        issues.append("plan_claim_limit_invalid")
     if plan.get("execution_authorized") is not False:
         issues.append("execution_authority_not_false")
     if plan.get("activation_authorized") is not False:
         issues.append("activation_authority_not_false")
-    if capability.get("qualified_capability_id") != (
-        f"{capability.get('owners', {}).get('source_owner')}:{capability.get('organ_id')}:{capability.get('capability_id')}"
+    owners = capability.get("owners")
+    if not isinstance(owners, Mapping) or capability.get("qualified_capability_id") != (
+        f"{owners.get('source_owner')}:{capability.get('organ_id')}:{capability.get('capability_id')}"
     ):
         issues.append("capability_not_owner_qualified")
+    if capability.get("effect_ceiling") != "read":
+        issues.append("capability_effect_ceiling_widened")
+    requested_policy_family = plan.get("requested_policy_family")
+    capability_effect_ceiling = capability.get("effect_ceiling")
+    if not (
+        isinstance(requested_policy_family, str)
+        and requested_policy_family in POLICY_RANK
+        and isinstance(capability_effect_ceiling, str)
+        and capability_effect_ceiling in POLICY_RANK
+        and POLICY_RANK[requested_policy_family]
+        <= POLICY_RANK[capability_effect_ceiling]
+    ):
+        issues.append("requested_policy_exceeds_capability")
+    freshness = capability.get("freshness")
+    if not isinstance(freshness, Mapping) or snapshot.get("source_digest") != freshness.get(
+        "source_digest"
+    ):
+        issues.append("snapshot_source_not_capability_bound")
+    if plan.get("rollback_route") != capability.get("rollback_route"):
+        issues.append("rollback_route_not_capability_bound")
+    requested_primitive_ids = plan.get("requested_primitive_ids")
+    requested_capability_id = capability.get("capability_id")
+    if (
+        not isinstance(requested_primitive_ids, list)
+        or not all(isinstance(item, str) and item for item in requested_primitive_ids)
+        or not isinstance(requested_capability_id, str)
+    ):
+        issues.append("requested_selection_missing")
+        requested_tool_ids: list[str] = []
+    else:
+        if len(set(requested_primitive_ids)) != len(requested_primitive_ids):
+            issues.append("requested_selection_not_unique")
+        requested_tool_ids = [
+            f"{requested_capability_id}.{primitive_id}"
+            for primitive_id in requested_primitive_ids
+        ]
+    requested_ids_for_check = (
+        requested_primitive_ids if isinstance(requested_primitive_ids, list) else []
+    )
+    actual_tool_ids = [
+        tool.get("tool_id") for tool in tools if isinstance(tool, Mapping)
+    ]
+    if plan.get("plan_state") == "candidate":
+        if actual_tool_ids != requested_tool_ids:
+            issues.append("visible_tool_selection_mismatch")
+    elif tools:
+        issues.append("blocked_plan_revealed_tools")
     for tool in tools:
         if not isinstance(tool, dict):
             issues.append("visible_tool_not_object")
@@ -97,20 +214,52 @@ def review_fixture(fixture: dict[str, Any]) -> list[str]:
             issues.append("tool_effect_policy_mismatch")
         if tool.get("effect_ceiling") != "read":
             issues.append("tool_effect_ceiling_widened")
+        if tool.get("schema_digest") != capability.get("schema_digest"):
+            issues.append("visible_tool_schema_not_capability_bound")
+        if tool.get("capability_id") != requested_capability_id:
+            issues.append("visible_tool_capability_mismatch")
+        if tool.get("primitive_id") not in requested_ids_for_check:
+            issues.append("visible_tool_primitive_not_requested")
+    rendered_bytes = snapshot.get("rendered_bytes")
+    rendered_tokens = snapshot.get("rendered_tokens")
+    if tools:
+        if snapshot.get("token_count_posture") != "estimated":
+            issues.append("candidate_token_posture_invalid")
+        if snapshot.get("token_count_method") != "utf8_bytes_per_4_v1":
+            issues.append("candidate_token_method_invalid")
+        if not isinstance(rendered_bytes, int) or rendered_tokens != max(
+            1, (rendered_bytes + 3) // 4
+        ):
+            issues.append("candidate_token_estimate_invalid")
+    elif rendered_tokens is not None:
+        issues.append("blocked_plan_reported_tokens")
     mode = fixture.get("mode")
-    if mode == "default_off":
+    if mode in {
+        "default_off",
+        "feature_disabled_baseline_ready",
+        "feature_enabled_baseline_missing",
+    }:
         if plan.get("plan_state") != "blocked":
             issues.append("default_off_plan_not_blocked")
-        if plan.get("feature_enabled") is not False:
-            issues.append("default_off_feature_flag_not_false")
-        if plan.get("baseline_ready") is not False:
-            issues.append("default_off_baseline_not_false")
+        expected_feature, expected_baseline = {
+            "default_off": (False, False),
+            "feature_disabled_baseline_ready": (False, True),
+            "feature_enabled_baseline_missing": (True, False),
+        }[mode]
+        if plan.get("feature_enabled") is not expected_feature:
+            issues.append("feature_gate_state_mismatch")
+        if plan.get("baseline_ready") is not expected_baseline:
+            issues.append("baseline_gate_state_mismatch")
         if tools or snapshot.get("rendered_bytes") != 2:
             issues.append("default_off_revealed_schema")
         if snapshot.get("rendered_tokens") is not None:
             issues.append("default_off_reported_tokens")
         if not plan.get("refusal_reasons"):
             issues.append("default_off_refusal_reasons_missing")
+        if mode == "feature_disabled_baseline_ready" and "progressive_exposure_disabled" not in plan.get("refusal_reasons", []):
+            issues.append("feature_gate_refusal_missing")
+        if mode == "feature_enabled_baseline_missing" and "baseline_not_ready" not in plan.get("refusal_reasons", []):
+            issues.append("baseline_gate_refusal_missing")
     elif mode == "explicit_candidate":
         if plan.get("plan_state") != "candidate":
             issues.append("candidate_plan_not_candidate")
@@ -122,8 +271,12 @@ def review_fixture(fixture: dict[str, Any]) -> list[str]:
             issues.append("candidate_visibility_accounting_missing")
         if not plan.get("expansion_reasons"):
             issues.append("candidate_expansion_reasons_missing")
+        if tuple(plan.get("expansion_reasons", ())) != EXPECTED_EXPANSION_REASONS:
+            issues.append("candidate_expansion_reasons_invalid")
     else:
         issues.append("fixture_mode_unknown")
+    if plan.get("plan_state") != "candidate" and plan.get("expansion_reasons"):
+        issues.append("blocked_plan_expansion_reasons_present")
     if expected.get("plan_state") != plan.get("plan_state"):
         issues.append("expected_plan_state_mismatch")
     if expected.get("visible_tool_count") != len(tools):
@@ -137,10 +290,7 @@ def review_fixture(fixture: dict[str, Any]) -> list[str]:
 
 def run_scenarios() -> tuple[dict[str, Any], bool]:
     fixtures = [load(path) for path in sorted(FIXTURE_ROOT.glob("*.json"))]
-    if {item.get("mode") for item in fixtures} != {
-        "default_off",
-        "explicit_candidate",
-    }:
+    if {item.get("mode") for item in fixtures} != EXPECTED_MODES:
         raise ValueError("matched exposure fixtures are incomplete")
     breakdown: list[dict[str, Any]] = []
     for fixture in fixtures:
@@ -154,10 +304,22 @@ def run_scenarios() -> tuple[dict[str, Any], bool]:
                 "source_selection_digest": fixture.get("source_selection_digest"),
             }
         )
-    selection_digests = {
-        item["source_selection_digest"] for item in breakdown
-    }
-    if len(selection_digests) != 1:
+    identities: list[dict[str, Any] | None] = [
+        selection_identity(item.get("plan", {}))
+        if isinstance(item.get("plan"), Mapping)
+        else None
+        for item in fixtures
+    ]
+    valid_selection = all(
+        identity is not None
+        and fixture.get("source_selection_digest") == digest(identity)
+        for fixture, identity in zip(fixtures, identities)
+    )
+    comparable_identities = [identity for identity in identities if identity is not None]
+    same_selection = valid_selection and len(
+        {digest(identity) for identity in comparable_identities}
+    ) == 1
+    if not same_selection:
         breakdown.append(
             {
                 "fixture_id": "matched-selection",
@@ -175,8 +337,8 @@ def run_scenarios() -> tuple[dict[str, Any], bool]:
     candidate = next(
         item for item in fixtures if item["mode"] == "explicit_candidate"
     )
-    default_snapshot = default["plan"]["rendered_snapshot"]
-    candidate_snapshot = candidate["plan"]["rendered_snapshot"]
+    default_bytes, default_tokens = snapshot_metrics(default)
+    candidate_bytes, candidate_tokens = snapshot_metrics(candidate)
     report = {
         "schema_version": "aoa_progressive_exposure_eval_report_v1",
         "eval_id": "aoa-organ-access-admission-integrity",
@@ -186,19 +348,22 @@ def run_scenarios() -> tuple[dict[str, Any], bool]:
         ),
         "fixture_breakdown": breakdown,
         "matched_selection": {
-            "source_selection_digest": next(iter(selection_digests), None),
-            "same_selection": len(selection_digests) == 1,
+            "source_selection_digest": (
+                digest(comparable_identities[0]) if same_selection else None
+            ),
+            "same_selection": same_selection,
         },
         "visibility_comparison": {
-            "default_off_bytes": default_snapshot["rendered_bytes"],
-            "candidate_bytes": candidate_snapshot["rendered_bytes"],
-            "candidate_minus_default_bytes": (
-                candidate_snapshot["rendered_bytes"]
-                - default_snapshot["rendered_bytes"]
+            "default_off_bytes": default_bytes,
+            "candidate_bytes": candidate_bytes,
+            "candidate_minus_default_bytes": candidate_bytes - default_bytes,
+            "default_off_tokens": default_tokens,
+            "candidate_tokens": candidate_tokens,
+            "candidate_minus_default_tokens": (
+                candidate_tokens - default_tokens
+                if candidate_tokens is not None and default_tokens is not None
+                else None
             ),
-            "default_off_tokens": default_snapshot["rendered_tokens"],
-            "candidate_tokens": candidate_snapshot["rendered_tokens"],
-            "candidate_minus_default_tokens": candidate_snapshot["rendered_tokens"],
         },
         "economy": {
             "status": "not_run_baseline_admission_missing",

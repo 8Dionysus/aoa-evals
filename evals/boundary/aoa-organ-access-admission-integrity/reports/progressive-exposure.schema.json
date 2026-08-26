@@ -29,14 +29,22 @@
     },
     "fixture_breakdown": {
       "type": "array",
-      "minItems": 2,
+      "minItems": 4,
       "items": {
         "type": "object",
         "additionalProperties": false,
         "required": ["fixture_id", "mode", "observed", "issue_codes"],
         "properties": {
           "fixture_id": {"type": "string", "minLength": 1},
-          "mode": {"enum": ["default_off", "explicit_candidate", "pair"]},
+          "mode": {
+            "enum": [
+              "default_off",
+              "explicit_candidate",
+              "feature_disabled_baseline_ready",
+              "feature_enabled_baseline_missing",
+              "pair"
+            ]
+          },
           "observed": {"enum": ["accept", "reject"]},
           "issue_codes": {"type": "array", "items": {"type": "string"}},
           "source_selection_digest": {"type": ["string", "null"]}
@@ -49,7 +57,7 @@
       "required": ["source_selection_digest", "same_selection"],
       "properties": {
         "source_selection_digest": {"type": ["string", "null"]},
-        "same_selection": {"const": true}
+        "same_selection": {"type": "boolean"}
       }
     },
     "visibility_comparison": {

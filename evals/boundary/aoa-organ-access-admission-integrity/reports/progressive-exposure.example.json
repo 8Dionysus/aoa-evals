@@ -26,6 +26,20 @@
       "mode": "explicit_candidate",
       "observed": "accept",
       "source_selection_digest": "sha256:888cafbccae0520b721f5cf4ee374047caa5f7cd513ef2a6dcd58a3bed737de3"
+    },
+    {
+      "fixture_id": "progressive-exposure-feature-off-baseline-ready-v1",
+      "issue_codes": [],
+      "mode": "feature_disabled_baseline_ready",
+      "observed": "accept",
+      "source_selection_digest": "sha256:888cafbccae0520b721f5cf4ee374047caa5f7cd513ef2a6dcd58a3bed737de3"
+    },
+    {
+      "fixture_id": "progressive-exposure-feature-enabled-baseline-missing-v1",
+      "issue_codes": [],
+      "mode": "feature_enabled_baseline_missing",
+      "observed": "accept",
+      "source_selection_digest": "sha256:888cafbccae0520b721f5cf4ee374047caa5f7cd513ef2a6dcd58a3bed737de3"
     }
   ],
   "integrity_verdict": "supports_bounded_claim",
@@ -39,7 +53,7 @@
   "visibility_comparison": {
     "candidate_bytes": 415,
     "candidate_minus_default_bytes": 413,
-    "candidate_minus_default_tokens": 104,
+    "candidate_minus_default_tokens": null,
     "candidate_tokens": 104,
     "default_off_bytes": 2,
     "default_off_tokens": null

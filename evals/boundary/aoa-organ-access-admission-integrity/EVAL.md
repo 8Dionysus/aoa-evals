@@ -220,8 +220,8 @@ rollback-readiness observation.
 ### Progressive tool-exposure track
 
 The bundle also carries a matched, public-safe source-contract track for the
-provider-neutral `aoa_organ_exposure_plan_v1` candidate. The two fixtures use
-the same owner-qualified capability and ordered primitive selection:
+provider-neutral `aoa_organ_exposure_plan_v1` candidate. Four fixtures use the
+same owner-qualified capability and ordered primitive selection:
 
 - `fixtures/exposure/01-default-off.json` keeps the feature and baseline gate
   closed and therefore exposes zero tools, two serialized bytes for the empty
@@ -229,6 +229,10 @@ the same owner-qualified capability and ordered primitive selection:
 - `fixtures/exposure/02-explicit-candidate.json` exercises the future explicit
   disclosure path and records the ordered visible tool-set, schema digest,
   bytes, and an explicitly estimated token count.
+- `fixtures/exposure/03-feature-off-baseline-ready.json` closes only the
+  feature gate and still exposes zero tools.
+- `fixtures/exposure/04-feature-enabled-baseline-missing.json` closes only the
+  baseline gate and still exposes zero tools.
 
 `runners/review_exposure.py` checks content addressing, effect ceilings,
 selection parity, refusal/expansion reasons, and the fixed-false activation and

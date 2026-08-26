@@ -17,6 +17,9 @@ EXPIRES_AT = "2026-08-26T06:00:00Z"
 CLAIM_LIMIT = (
     "This source fixture proves deterministic disclosure accounting only. It does not prove a live endpoint, activation, owner acceptance, central proof, utility, latency, or economy effect."
 )
+PLAN_CLAIM_LIMIT = (
+    "This candidate records deterministic disclosure identity and visibility accounting only. It does not authorize activation, execute a tool, prove runtime reachability, establish owner acceptance, or issue central proof."
+)
 
 
 def canonical(value: Any) -> bytes:
@@ -102,15 +105,21 @@ def snapshot(tools: list[dict[str, Any]]) -> dict[str, Any]:
     return {"snapshot_id": digest(snapshot_body), **snapshot_body}
 
 
-def plan(*, candidate: bool) -> dict[str, Any]:
+def plan(*, feature_enabled: bool, baseline_ready: bool) -> dict[str, Any]:
+    candidate = feature_enabled and baseline_ready
     tools = [visible_tool()] if candidate else []
+    refusal_reasons = []
+    if not feature_enabled:
+        refusal_reasons.append("progressive_exposure_disabled")
+    if not baseline_ready:
+        refusal_reasons.append("baseline_not_ready")
     body = {
         "schema_version": "aoa_organ_exposure_plan_v1",
         "plan_state": "candidate" if candidate else "blocked",
         "execution_authorized": False,
         "activation_authorized": False,
-        "feature_enabled": candidate,
-        "baseline_ready": candidate,
+        "feature_enabled": feature_enabled,
+        "baseline_ready": baseline_ready,
         "request_id": "exposure-matched-request-v1",
         "capability": capability(),
         "requested_policy_family": "read",
@@ -132,34 +141,28 @@ def plan(*, candidate: bool) -> dict[str, Any]:
             if candidate
             else []
         ),
-        "refusal_reasons": (
-            [
-                "progressive_exposure_disabled",
-                "baseline_not_ready",
-                "schema_reveal_not_requested",
-            ]
-            if not candidate
-            else []
-        ),
-        "claim_limit": CLAIM_LIMIT,
+        "refusal_reasons": refusal_reasons,
+        "claim_limit": PLAN_CLAIM_LIMIT,
     }
-    return {"plan_id": digest(body), **body}
+    unsigned = {key: value for key, value in body.items() if key != "claim_limit"}
+    return {"plan_id": digest(unsigned), **body}
 
 
 def rendered() -> dict[Path, str]:
+    selection_digest = digest(
+        {
+            "qualified_capability_id": capability()["qualified_capability_id"],
+            "requested_policy_family": "read",
+            "requested_primitive_ids": ["inspect-knowledge"],
+        }
+    )
     fixtures = {
         FIXTURE_ROOT / "01-default-off.json": {
             "schema_version": "aoa_progressive_exposure_fixture_v1",
             "fixture_id": "progressive-exposure-default-off-v1",
             "mode": "default_off",
-            "source_selection_digest": digest(
-                {
-                    "qualified_capability_id": capability()["qualified_capability_id"],
-                    "requested_policy_family": "read",
-                    "requested_primitive_ids": ["inspect-knowledge"],
-                }
-            ),
-            "plan": plan(candidate=False),
+            "source_selection_digest": selection_digest,
+            "plan": plan(feature_enabled=False, baseline_ready=False),
             "expected": {
                 "plan_state": "blocked",
                 "visible_tool_count": 0,
@@ -172,19 +175,41 @@ def rendered() -> dict[Path, str]:
             "schema_version": "aoa_progressive_exposure_fixture_v1",
             "fixture_id": "progressive-exposure-explicit-candidate-v1",
             "mode": "explicit_candidate",
-            "source_selection_digest": digest(
-                {
-                    "qualified_capability_id": capability()["qualified_capability_id"],
-                    "requested_policy_family": "read",
-                    "requested_primitive_ids": ["inspect-knowledge"],
-                }
-            ),
-            "plan": plan(candidate=True),
+            "source_selection_digest": selection_digest,
+            "plan": plan(feature_enabled=True, baseline_ready=True),
             "expected": {
                 "plan_state": "candidate",
                 "visible_tool_count": 1,
                 "rendered_bytes": len(canonical([visible_tool()])),
                 "rendered_tokens": max(1, (len(canonical([visible_tool()])) + 3) // 4),
+                "economy_status": "not_run_baseline_admission_missing",
+            },
+        },
+        FIXTURE_ROOT / "03-feature-off-baseline-ready.json": {
+            "schema_version": "aoa_progressive_exposure_fixture_v1",
+            "fixture_id": "progressive-exposure-feature-off-baseline-ready-v1",
+            "mode": "feature_disabled_baseline_ready",
+            "source_selection_digest": selection_digest,
+            "plan": plan(feature_enabled=False, baseline_ready=True),
+            "expected": {
+                "plan_state": "blocked",
+                "visible_tool_count": 0,
+                "rendered_bytes": 2,
+                "rendered_tokens": None,
+                "economy_status": "not_run_baseline_admission_missing",
+            },
+        },
+        FIXTURE_ROOT / "04-feature-enabled-baseline-missing.json": {
+            "schema_version": "aoa_progressive_exposure_fixture_v1",
+            "fixture_id": "progressive-exposure-feature-enabled-baseline-missing-v1",
+            "mode": "feature_enabled_baseline_missing",
+            "source_selection_digest": selection_digest,
+            "plan": plan(feature_enabled=True, baseline_ready=False),
+            "expected": {
+                "plan_state": "blocked",
+                "visible_tool_count": 0,
+                "rendered_bytes": 2,
+                "rendered_tokens": None,
                 "economy_status": "not_run_baseline_admission_missing",
             },
         },

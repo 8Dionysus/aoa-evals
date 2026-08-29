@@ -32,6 +32,11 @@ OBSERVATION_CONTRACT = {
         "document:",
     ),
 }
+CLAIM_LIMITS = [
+    "Actual provider execution and common-envelope normalization are shown.",
+    "Candidate execution does not establish artifact admission or deployed runtime availability.",
+    "The packet does not establish scanner completeness, SBOM completeness, document fidelity, semantic proof, landing, or owner acceptance.",
+]
 
 
 def _observation_issue(key: str, observation: Any) -> str | None:
@@ -114,6 +119,8 @@ def validate(path: Path) -> dict[str, Any]:
     ]
     evidence: dict[str, Any] = {}
     if not schema_errors:
+        if payload.get("claim_limits") != CLAIM_LIMITS:
+            issues.append("claim_limits_mismatch")
         for key, (provider_id, capability_class) in EXPECTED.items():
             batch = payload["batches"][key]
             provider = batch.get("provider", {})

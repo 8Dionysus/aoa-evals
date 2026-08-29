@@ -13,6 +13,11 @@ from jsonschema import Draft202012Validator, FormatChecker
 BUNDLE_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = BUNDLE_ROOT / "schemas" / "provider-agreement.schema.json"
 REQUIRED_PROVIDERS = {"tree-sitter", "scip", "lsp"}
+CLAIM_BOUNDARY = (
+    "This exact-source-epoch comparison checks only agreement among supplied, "
+    "unadmitted normalized observations; it is not provider correctness, machine "
+    "admission, runtime health, KAG acceptance, proof promotion, or owner acceptance."
+)
 
 
 def _normalized_observation_issue(observation: Any) -> str | None:
@@ -95,6 +100,9 @@ def validate(path: Path) -> dict[str, Any]:
     if schema_errors:
         return _result(payload, issues, {})
 
+    if payload.get("claim_boundary") != CLAIM_BOUNDARY:
+        issues.append("claim_boundary_mismatch")
+
     envelopes = payload["envelopes"]
     providers = [envelope["provider"]["id"] for envelope in envelopes]
     if len(providers) != len(set(providers)):
@@ -173,9 +181,5 @@ def _result(
             if not issues
             else "does not support bounded cross-provider agreement"
         ),
-        "claim_limit": (
-            "Agreement is limited to supplied normalized observations at one exact "
-            "source epoch; it is not provider correctness, admission, runtime health, "
-            "KAG acceptance, or owner acceptance."
-        ),
+        "claim_limit": CLAIM_BOUNDARY,
     }

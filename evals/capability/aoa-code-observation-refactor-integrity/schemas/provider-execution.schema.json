@@ -57,9 +57,11 @@
           }
         },
         "claim_limits": {
-          "type": "array",
-          "minItems": 1,
-          "items": {"type": "string", "minLength": 1}
+          "const": [
+            "source-bound execution of the checked-in synthetic fixture only",
+            "provider candidate remains not_admitted and is not machine-currentness evidence",
+            "does not establish installation, trust, deployment, runtime health, KAG truth, proof, or owner acceptance"
+          ]
         },
         "current_contract_digest": {"$ref": "#/$defs/digest"},
         "snapshot_currentness": {

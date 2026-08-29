@@ -91,7 +91,7 @@ def test_typescript_provider_agreement_requires_shared_source_and_facts(
         "schema_version": "aoa_code_observation_provider_agreement_v1",
         "observed_at": "2026-08-29T00:00:00Z",
         "required_facts": facts,
-        "claim_boundary": "This is bounded normalized-envelope agreement only and is not correctness, admission, runtime health, proof, transport, or owner acceptance.",
+        "claim_boundary": provider_agreement.CLAIM_BOUNDARY,
         "envelopes": [
             _agreement_envelope(provider_id, facts)
             for provider_id in ("tree-sitter", "scip", "lsp")
@@ -106,6 +106,27 @@ def test_typescript_provider_agreement_requires_shared_source_and_facts(
     payload["envelopes"][2]["source"]["source_epoch"] = "git:other"
     path.write_text(json.dumps(payload), encoding="utf-8")
     assert "source_identity_mismatch" in provider_agreement.validate(path)["issues"]
+
+
+def test_provider_agreement_rejects_claim_boundary_drift(tmp_path: Path) -> None:
+    facts = ["definition:render"]
+    payload = {
+        "schema_version": "aoa_code_observation_provider_agreement_v1",
+        "observed_at": "2026-08-29T00:00:00Z",
+        "required_facts": facts,
+        "claim_boundary": "This envelope proves provider correctness and admission.",
+        "envelopes": [
+            _agreement_envelope(provider_id, facts)
+            for provider_id in ("tree-sitter", "scip", "lsp")
+        ],
+    }
+    path = tmp_path / "agreement-boundary-drift.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    result = provider_agreement.validate(path)
+
+    assert any("claim_boundary" in issue for issue in result["issues"])
+    assert result["verdict"] == "does not support bounded cross-provider agreement"
 
 
 def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
@@ -171,11 +192,7 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
         "providers": {},
         "batches": batches,
         "summary": {"all_provider_lanes_unadmitted": True},
-        "claim_limits": [
-            "This fixture is bounded to exact supplied observations only.",
-            "This fixture does not establish artifact admission or deployment.",
-            "This fixture does not establish provider completeness or owner acceptance.",
-        ],
+        "claim_limits": adjacent_provider_evidence.CLAIM_LIMITS,
     }
     path = tmp_path / "adjacent.json"
     path.write_text(json.dumps(payload), encoding="utf-8")
@@ -183,6 +200,14 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
     assert result["issues"] == []
     assert result["verdict"] == "supports bounded adjacent-provider envelope evidence"
 
+    payload["claim_limits"] = ["This packet proves provider correctness."] * 3
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert any(
+        "claim_limits" in issue
+        for issue in adjacent_provider_evidence.validate(path)["issues"]
+    )
+
+    payload["claim_limits"] = adjacent_provider_evidence.CLAIM_LIMITS
     payload["batches"]["static_security"]["qualification"]["machine_admission"][
         "state"
     ] = "admitted"
@@ -346,6 +371,77 @@ def test_report_binds_semantic_identity_to_unique_local_case_paths(
     )
 
 
+def test_report_rejects_invented_relation_identity(tmp_path: Path) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    relation = report["observations"][6]["semantic_identity"]["entities"][0][
+        "relations"
+    ][0]
+    relation["target"] = "fixture:invented-target"
+    path = tmp_path / "relation-drift.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    assert any(
+        "semantic_relation_mismatch:multi-file-impact:fixture:eta.symbol" in error
+        for error in json.loads(result.stdout)["errors"]
+    )
+
+
+def test_report_rejects_duplicate_metric_declarations(tmp_path: Path) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    report["observations"][0]["metrics"].append(
+        copy.deepcopy(report["observations"][0]["metrics"][0])
+    )
+    path = tmp_path / "duplicate-metric.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    assert any(
+        "duplicate_metric:rename-symbol:definitions_references" in error
+        for error in json.loads(result.stdout)["errors"]
+    )
+
+
+def test_report_rejects_source_provenance_drift(tmp_path: Path) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    report["observations"][0]["provenance"]["source_ref"] = (
+        "fixture://unrelated-source"
+    )
+    path = tmp_path / "source-provenance-drift.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    assert any(
+        "source_provenance_mismatch:rename-symbol" in error
+        for error in json.loads(result.stdout)["errors"]
+    )
+
+
+def test_report_rejects_inflated_branch_count_and_inconsistent_confidence(
+    tmp_path: Path,
+) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    lineage = report["observations"][7]["lineage"]
+    lineage["alternatives"] = 100
+    lineage["confidence"] = 0.01
+    path = tmp_path / "inflated-lineage.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    assert any(
+        "lineage_ambiguity_mismatch:split-symbol" in error
+        for error in json.loads(result.stdout)["errors"]
+    )
+
+
 def test_report_rejects_unbounded_invalidation_and_metric_drift(tmp_path: Path) -> None:
     report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
     observation = report["observations"][0]
@@ -487,10 +583,7 @@ def provider_execution_payload() -> dict[str, object]:
             "admission_state": "not_admitted",
             "admission_receipt_ref": None,
             "owner_bindings": runner.OWNER_BINDINGS,
-            "claim_limits": [
-                "test fixture only",
-                "does not grant machine admission or proof acceptance",
-            ],
+            "claim_limits": runner.PROVIDER_EXECUTION_CLAIM_LIMITS,
         },
         "provider": {
             "id": provider["id"],
@@ -545,6 +638,22 @@ def test_provider_execution_binds_state_to_machine_contract(tmp_path: Path) -> N
     assert payload["valid"] is True
     assert payload["admission_state"] == "not_admitted"
     assert payload["case_ids"] == ["delta-full-parity"]
+
+
+def test_provider_execution_rejects_claim_limit_drift(tmp_path: Path) -> None:
+    envelope = provider_execution_payload()
+    envelope["machine_binding"]["claim_limits"] = [  # type: ignore[index]
+        "This provider proves runtime health and proof acceptance."
+    ]
+    execution_path = tmp_path / "claim-limit-drift.json"
+    execution_path.write_text(json.dumps(envelope), encoding="utf-8")
+
+    result = run_runner("validate-provider-execution", str(execution_path))
+
+    assert result.returncode == 1
+    assert any(
+        "claim_limits" in error for error in json.loads(result.stdout)["errors"]
+    )
 
 
 def test_provider_execution_rejects_state_digest_drift(tmp_path: Path) -> None:
@@ -771,6 +880,70 @@ def test_complete_provider_execution_rejects_overconfident_split_lineage(
     )
 
 
+def test_complete_provider_execution_rejects_inflated_split_lineage(
+    tmp_path: Path,
+) -> None:
+    envelope = complete_provider_execution_payload()
+    lineage = envelope["executions"][7]["observation"]["lineage"]  # type: ignore[index]
+    lineage["alternatives"] = 100
+    lineage["confidence"] = 0.01
+    execution_path = tmp_path / "inflated-split-lineage.json"
+    execution_path.write_text(json.dumps(envelope), encoding="utf-8")
+
+    result = run_runner("validate-provider-execution", str(execution_path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert any(
+        "execution[7]:case_lineage_alternatives" in error for error in errors
+    )
+    assert any(
+        "execution[7]:case_lineage_confidence" in error for error in errors
+    )
+
+
+def test_complete_provider_execution_binds_all_parity_digests(
+    tmp_path: Path,
+) -> None:
+    envelope = complete_provider_execution_payload()
+    execution = envelope["executions"][10]  # type: ignore[index]
+    forged_top_level = "sha256:" + ("f" * 64)
+    forged_observation = "sha256:" + ("e" * 64)
+    execution["full_state_projection_digest"] = forged_top_level
+    execution["delta_state_projection_digest"] = forged_top_level
+    parity = execution["observation"]["parity"]
+    parity["full_projection_digest"] = forged_observation
+    parity["delta_projection_digest"] = forged_observation
+    execution["provider_state"]["source"]["projection_digest"] = forged_top_level
+    state = execution["provider_state"]
+    execution["state_digest"] = runner.canonical_digest(state)
+    execution["repeated_state_digest"] = runner.stable_provider_state_digest(state)
+    execution_path = tmp_path / "forged-parity-digests.json"
+    execution_path.write_text(json.dumps(envelope), encoding="utf-8")
+
+    result = run_runner("validate-provider-execution", str(execution_path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert any("execution_projection_digest:execution[10]" in error for error in errors)
+    assert any(
+        "execution_parity_projection:execution[10]:full" in error
+        for error in errors
+    )
+    assert any(
+        "execution_parity_projection:execution[10]:delta" in error
+        for error in errors
+    )
+    assert any(
+        "execution_parity_observation:execution[10]:full" in error
+        for error in errors
+    )
+    assert any(
+        "execution_parity_observation:execution[10]:delta" in error
+        for error in errors
+    )
+
+
 def test_complete_provider_execution_rejects_provider_fixture_version_drift(
     tmp_path: Path,
 ) -> None:
@@ -922,7 +1095,7 @@ def test_provider_agreement_rejects_placeholder_observation(tmp_path: Path) -> N
         "schema_version": "aoa_code_observation_provider_agreement_v1",
         "observed_at": "2026-08-29T00:00:00Z",
         "required_facts": facts,
-        "claim_boundary": "This is bounded normalized-envelope agreement only and is not correctness, admission, runtime health, proof, transport, or owner acceptance.",
+        "claim_boundary": provider_agreement.CLAIM_BOUNDARY,
         "envelopes": [
             _agreement_envelope(provider_id, facts)
             for provider_id in ("tree-sitter", "scip", "lsp")
@@ -976,11 +1149,7 @@ def test_adjacent_provider_evidence_rejects_placeholder_observation(
         "providers": {},
         "batches": batches,
         "summary": {"all_provider_lanes_unadmitted": True},
-        "claim_limits": [
-            "This fixture is bounded to exact supplied observations only.",
-            "This fixture does not establish artifact admission or deployment.",
-            "This fixture does not establish provider completeness or owner acceptance.",
-        ],
+        "claim_limits": adjacent_provider_evidence.CLAIM_LIMITS,
     }
     path = tmp_path / "placeholder-adjacent.json"
     path.write_text(json.dumps(payload), encoding="utf-8")

@@ -61,6 +61,11 @@ MACHINE_WORKSPACE_MANIFEST_DIGEST = (
     "sha256:3da4c03be2d8ca518012e1228d17a4ca0018d6d3b0ad3d871fed03768489622b"
 )
 MACHINE_PROVIDER_ID = "python-ast-bootstrap"
+PROVIDER_EXECUTION_CLAIM_LIMITS = [
+    "source-bound execution of the checked-in synthetic fixture only",
+    "provider candidate remains not_admitted and is not machine-currentness evidence",
+    "does not establish installation, trust, deployment, runtime health, KAG truth, proof, or owner acceptance",
+]
 OWNER_BINDINGS = {
     "host_install_and_trust_owner": "abyss-machine",
     "provider_lifecycle_owner": "abyss-stack",
@@ -84,6 +89,38 @@ EXPECTED_SEMANTIC_IDENTITIES = {
     "delta-full-parity": {"fixture:mu.module": "module"},
     "affected-test-selection": {"fixture:nu.symbol": "function"},
 }
+EXPECTED_RELATIONS = {
+    "rename-symbol": {
+        "fixture:alpha.symbol": (("references", "fixture:test_alpha"),),
+    },
+    "move-symbol": {
+        "fixture:beta.symbol": (("references", "fixture:test_beta"),),
+    },
+    "signature-change": {"fixture:signature.symbol": ()},
+    "add-entity": {"fixture:delta.symbol": ()},
+    "delete-entity": {
+        "fixture:epsilon.symbol": (("references", "fixture:test_epsilon"),),
+    },
+    "import-change": {
+        "fixture:zeta.module": (("imports", "fixture:new_dependency"),),
+    },
+    "multi-file-impact": {
+        "fixture:eta.symbol": (("calls", "fixture:theta.symbol"),),
+        "fixture:theta.symbol": (("called-by", "fixture:eta.symbol"),),
+    },
+    "split-symbol": {
+        "fixture:iota.symbol": (("references", "fixture:test_iota"),),
+    },
+    "merge-symbol": {
+        "fixture:kappa.symbol": (("references", "fixture:test_kappa"),),
+    },
+    "stale-index": {"fixture:lambda.symbol": ()},
+    "delta-full-parity": {"fixture:mu.module": ()},
+    "affected-test-selection": {
+        "fixture:nu.symbol": (("references", "fixture:test_nu"),),
+    },
+}
+CONTROLLED_SOURCE_REF_PREFIX = "fixture://"
 
 SUMMARY_LIMITATIONS = [
     "synthetic cases do not establish provider correctness or production performance",
@@ -357,6 +394,46 @@ def source_projection(tree: dict[str, list[str]]) -> dict[str, Any]:
     return {"symbols": ast_symbol_records(tree), "imports": imports}
 
 
+def independently_calculated_delta_projection(
+    before: dict[str, list[str]],
+    after: dict[str, list[str]],
+    invalidated: list[str],
+) -> dict[str, Any]:
+    """Rebuild the delta projection independently of the provider candidate."""
+
+    before_projection = source_projection(before)
+    after_projection = source_projection(after)
+    invalidated_set = set(invalidated)
+    symbols = [
+        symbol
+        for symbol in before_projection["symbols"]
+        if symbol["path"] not in invalidated_set and symbol["path"] in after
+    ]
+    symbols.extend(
+        symbol
+        for symbol in after_projection["symbols"]
+        if symbol["path"] in invalidated_set
+    )
+    symbols.sort(
+        key=lambda symbol: (symbol["path"], symbol["start_line"], symbol["name"])
+    )
+    imports = {
+        path: (
+            after_projection["imports"][path]
+            if path in invalidated_set
+            else before_projection["imports"][path]
+        )
+        for path in sorted(after)
+    }
+    return {"symbols": symbols, "imports": imports}
+
+
+def controlled_source_ref(source_epoch: dict[str, Any]) -> str:
+    """Return the sole source reference accepted for the controlled fixture."""
+
+    return CONTROLLED_SOURCE_REF_PREFIX + source_epoch["revision"]
+
+
 def provider_case_observation_errors(
     execution: dict[str, Any],
     fixture_case: dict[str, Any],
@@ -461,10 +538,14 @@ def provider_case_observation_errors(
         )
         if lineage.get("stable_ids") != common_lineage_ids:
             errors.append(issue("case_lineage_stability", case_id))
-        if lineage.get("alternatives", 0) < branch_count:
+        if lineage.get("alternatives") != branch_count:
             errors.append(issue("case_lineage_alternatives", case_id))
         confidence = lineage.get("confidence", 1)
-        if not isinstance(confidence, (int, float)) or not 0 < confidence < 1:
+        expected_confidence = round(1 / branch_count, 2) if branch_count else 0
+        if (
+            not isinstance(confidence, (int, float))
+            or confidence != expected_confidence
+        ):
             errors.append(issue("case_lineage_confidence", case_id))
     elif lineage.get("stable_ids"):
         errors.append(issue("case_lineage_not_applicable", case_id))
@@ -649,6 +730,13 @@ def provider_execution_errors(
     if binding["owner_bindings"] != OWNER_BINDINGS:
         errors.append(
             issue("owner_bindings", "owner split differs from the machine contract")
+        )
+    if binding.get("claim_limits") != PROVIDER_EXECUTION_CLAIM_LIMITS:
+        errors.append(
+            issue(
+                "claim_limits",
+                "provider-execution boundary differs from the canonical limits",
+            )
         )
     if (
         binding["admission_state"] == "admitted"
@@ -938,6 +1026,56 @@ def provider_execution_errors(
                 )
                 if state_source.get("projection_digest") != expected_projection_digest:
                     errors.append(issue("execution_projection_digest", location))
+                expected_delta_projection_digest = canonical_digest(
+                    independently_calculated_delta_projection(
+                        scenario["before"],
+                        scenario["after"],
+                        sorted(expected_invalidated),
+                    )
+                )
+                observation_parity = execution.get("observation", {}).get(
+                    "parity", {}
+                )
+                if case_id == "delta-full-parity":
+                    if full_projection != expected_projection_digest:
+                        errors.append(
+                            issue("execution_parity_projection", f"{location}:full")
+                        )
+                    if delta_projection != expected_delta_projection_digest:
+                        errors.append(
+                            issue("execution_parity_projection", f"{location}:delta")
+                        )
+                    if (
+                        observation_parity.get("full_projection_digest")
+                        != expected_projection_digest
+                    ):
+                        errors.append(
+                            issue(
+                                "execution_parity_observation",
+                                f"{location}:full",
+                            )
+                        )
+                    if (
+                        observation_parity.get("delta_projection_digest")
+                        != expected_delta_projection_digest
+                    ):
+                        errors.append(
+                            issue(
+                                "execution_parity_observation",
+                                f"{location}:delta",
+                            )
+                        )
+                    expected_parity_status = (
+                        "equal"
+                        if expected_projection_digest == expected_delta_projection_digest
+                        else "different"
+                    )
+                    if observation_parity.get("status") != expected_parity_status:
+                        errors.append(
+                            issue("execution_parity_observation", f"{location}:status")
+                        )
+                elif full_projection is not None or delta_projection is not None:
+                    errors.append(issue("parity_unexpected", location))
                 expected_full_rebuild = case_id == "delta-full-parity"
                 expected_reused = (
                     set()
@@ -1181,11 +1319,28 @@ def semantic_case_issues(
             )
         )
     if case["expected_lineage"] == "branched":
-        if lineage.get("alternatives", 0) < 1 or lineage.get("confidence", 1) >= 1:
+        before_groups = _lineage_groups(ast_symbol_records(scenario["before"]))
+        after_groups = _lineage_groups(ast_symbol_records(scenario["after"]))
+        common_groups = sorted(set(before_groups) & set(after_groups))
+        expected_alternatives = max(
+            [
+                max(len(before_groups[lineage_id]), len(after_groups[lineage_id]))
+                for lineage_id in common_groups
+            ]
+            or [0]
+        )
+        expected_confidence = (
+            round(1 / expected_alternatives, 2) if expected_alternatives else 0
+        )
+        if (
+            lineage.get("alternatives") != expected_alternatives
+            or lineage.get("confidence") != expected_confidence
+        ):
             errors.append(
                 issue(
-                    "ambiguity_not_exposed",
-                    f"{case_id} requires alternatives and sub-certainty",
+                    "lineage_ambiguity_mismatch",
+                    f"{case_id} requires exactly {expected_alternatives} alternatives "
+                    f"and confidence {expected_confidence}",
                 )
             )
     elif case["expected_lineage"] == "preserve":
@@ -1275,6 +1430,18 @@ def semantic_case_issues(
                 errors.append(
                     issue("semantic_identity_occurrence", f"{case_id}:{path}")
                 )
+        expected_relations = EXPECTED_RELATIONS[case_id].get(semantic_id)
+        if expected_relations is not None:
+            actual_relations = tuple(
+                sorted(
+                    (relation.get("kind"), relation.get("target"))
+                    for relation in entity.get("relations", [])
+                )
+            )
+            if actual_relations != tuple(sorted(expected_relations)):
+                errors.append(
+                    issue("semantic_relation_mismatch", f"{case_id}:{semantic_id}")
+                )
 
     invalidation = observation.get("invalidation", {})
     if invalidation.get("scope") != case["expected_invalidation_scope"]:
@@ -1309,9 +1476,17 @@ def semantic_case_issues(
     if invalidation.get("scope") == "full" and set(affected_paths) != source_paths:
         errors.append(issue("invalidation_full_scope", case_id))
 
-    metric_map = {
-        metric.get("metric_id"): metric for metric in observation.get("metrics", [])
-    }
+    metrics = observation.get("metrics", [])
+    metric_ids = [metric.get("metric_id") for metric in metrics]
+    for metric_id in sorted(
+        {
+            candidate
+            for candidate in metric_ids
+            if candidate is not None and metric_ids.count(candidate) > 1
+        }
+    ):
+        errors.append(issue("duplicate_metric", f"{case_id}:{metric_id}"))
+    metric_map = {metric.get("metric_id"): metric for metric in metrics}
     expected_metric_units = {
         "definitions_references": "count",
         "dependency_relations": "count",
@@ -1402,6 +1577,8 @@ def semantic_case_issues(
     provenance = observation.get("provenance", {})
     provider = report["provider"]
     source_epoch = report["source_epoch"]
+    if provenance.get("source_ref") != controlled_source_ref(source_epoch):
+        errors.append(issue("source_provenance_mismatch", case_id))
     if provenance.get("provider_ref") != provider["id"]:
         errors.append(issue("provider_provenance_mismatch", case_id))
     if provenance.get("config_ref") != provider["config_digest"]:

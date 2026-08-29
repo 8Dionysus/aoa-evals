@@ -31,7 +31,13 @@
       }
     },
     "summary": {"type": "object"},
-    "claim_limits": {"type": "array", "minItems": 3, "items": {"type": "string", "minLength": 20}}
+    "claim_limits": {
+      "const": [
+        "Actual provider execution and common-envelope normalization are shown.",
+        "Candidate execution does not establish artifact admission or deployed runtime availability.",
+        "The packet does not establish scanner completeness, SBOM completeness, document fidelity, semantic proof, landing, or owner acceptance."
+      ]
+    }
   },
   "$defs": {
     "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},

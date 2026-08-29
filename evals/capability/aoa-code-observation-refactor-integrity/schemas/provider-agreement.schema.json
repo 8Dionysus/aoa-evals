@@ -13,7 +13,9 @@
       "uniqueItems": true,
       "items": {"type": "string", "pattern": "^(definition|references|calls):[^:]+$"}
     },
-    "claim_boundary": {"type": "string", "minLength": 80},
+    "claim_boundary": {
+      "const": "This exact-source-epoch comparison checks only agreement among supplied, unadmitted normalized observations; it is not provider correctness, machine admission, runtime health, KAG acceptance, proof promotion, or owner acceptance."
+    },
     "envelopes": {"type": "array", "minItems": 3, "items": {"$ref": "#/$defs/envelope"}}
   },
   "$defs": {

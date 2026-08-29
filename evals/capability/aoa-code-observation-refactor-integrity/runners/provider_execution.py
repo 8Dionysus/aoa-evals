@@ -25,11 +25,7 @@ COMMAND_REF = (
     "python3:evals/capability/aoa-code-observation-refactor-integrity/"
     "runners/provider_execution.py"
 )
-CLAIM_LIMITS = [
-    "source-bound execution of the checked-in synthetic fixture only",
-    "provider candidate remains not_admitted and is not machine-currentness evidence",
-    "does not establish installation, trust, deployment, runtime health, KAG truth, proof, or owner acceptance",
-]
+CLAIM_LIMITS = list(contract.PROVIDER_EXECUTION_CLAIM_LIMITS)
 
 
 def now_utc() -> str:
@@ -60,6 +56,15 @@ def peak_resource_bytes() -> int:
 
 def source_index(tree: dict[str, list[str]]) -> dict[str, Any]:
     return contract.source_projection(tree)
+
+
+def execute_projection_once(tree: dict[str, list[str]]) -> dict[str, Any]:
+    """Run one provider projection over a freshly materialized source snapshot."""
+
+    snapshot = {
+        path: list(lines) for path, lines in sorted(tree.items())
+    }
+    return source_index(snapshot)
 
 
 def delta_source_index(
@@ -269,11 +274,13 @@ def case_execution(
             "evidence_posture": EXECUTION_POSTURE,
         }
 
-    state = build_state(source_index(after))
-    # This is a distinct provider projection and state construction.  The
-    # repeated digest is therefore evidence from a second execution, not a
+    # Each call parses a newly materialized source snapshot.  The repeated
+    # digest is therefore evidence from a second provider execution, not a
     # second hash of the first state object.
-    repeated_state = build_state(source_index(after))
+    first_projection = execute_projection_once(after)
+    repeated_projection = execute_projection_once(after)
+    state = build_state(first_projection)
+    repeated_state = build_state(repeated_projection)
     observation = {
         "operation": fixture_case["operation"],
         "source_epoch": after_epoch,
@@ -314,7 +321,7 @@ def case_execution(
     started = time.perf_counter_ns()
     # Re-run the projection during the measured section to make latency an
     # observation of this provider candidate, not a supplied fixture value.
-    measured_index = source_index(after)
+    measured_index = execute_projection_once(after)
     if full_rebuild and projection_digest(measured_index) != full_projection:
         raise RuntimeError("parity projection changed during execution")
     latency_ms = max(0.001, (time.perf_counter_ns() - started) / 1_000_000)

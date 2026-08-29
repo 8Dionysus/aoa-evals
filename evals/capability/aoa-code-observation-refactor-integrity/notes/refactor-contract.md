@@ -8,4 +8,3 @@ parity evidence where the case demands it.
 
 The family does not decide whether a provider's observations are true. It
 only rejects incomplete or internally inconsistent envelopes.
-

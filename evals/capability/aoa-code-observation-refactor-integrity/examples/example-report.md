@@ -26,4 +26,3 @@ This example does not prove provider correctness, parser or index quality,
 LSP/KAG currentness, production latency, canonical owner truth, proof
 acceptance, deployment, runtime, transport, or owner acceptance. The bundle
 remains `draft`, `review_required`, and not export-ready.
-

@@ -8,4 +8,3 @@ truth source.
 The previous direction report identified this gap but stopped at reports. This
 bundle is the smallest source-bearing slice that turns the gap into an
 executable, reviewable contract while keeping the bundle draft.
-

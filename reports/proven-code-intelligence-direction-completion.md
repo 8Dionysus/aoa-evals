@@ -1,8 +1,8 @@
 # PROVEN code-intelligence direction completion
 
-Status: `review_required`  
-Decision: `submit_for_review`  
-Owner: `aoa-evals`  
+Status: `review_required`
+Decision: `submit_for_review`
+Owner: `aoa-evals`
 Goal: `01a02fec-b609-7120-b11c-fa80d34ee86a`
 
 ## Result

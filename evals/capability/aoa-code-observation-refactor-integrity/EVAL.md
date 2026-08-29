@@ -65,6 +65,13 @@ checks exact source identity, explicit non-admission, and a declared set of
 shared definition/reference facts. Agreement is evidence about the common
 envelope only; it is not a provider-correctness or admission verdict.
 
+An adjacent-provider evidence route consumes one exact packet containing
+Semgrep/SARIF, Syft/CycloneDX, in-toto provenance, and MarkItDown document
+structure batches. It requires all four capability classes, non-empty actual
+observations, one source epoch per batch, and explicit non-admission. This
+checks common-envelope integrity only; it does not convert candidate execution
+or host trust-tool availability into artifact admission or deployment.
+
 The reusable cases live at
 `mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/`.
 The bundle-local fixture contract connects that public-safe family to this
@@ -120,6 +127,8 @@ Do not use this eval when:
   corpus, with Python-AST and optional host-Ctags observations;
 - optional normalized Tree-sitter, SCIP, and LSP envelopes for one exact
   TypeScript source epoch;
+- optional normalized Semgrep, Syft, in-toto, and MarkItDown batches for one
+  exact adjacent-provider evidence packet;
 - provider identity and configuration digest;
 - source epoch, observation planes, and case-specific evidence fields.
 
@@ -175,6 +184,9 @@ epochs, runtimes, or model quality.
 7. Emit a deterministic categorical summary with one breakdown entry per case.
 8. Validate cross-provider TypeScript agreement separately, preserving the
    raw normalized envelopes and refusing mixed source epochs or admitted claims.
+9. Validate adjacent-provider evidence separately, requiring all four declared
+   capability classes, actual observations, exact source epochs, and explicit
+   candidate/non-admitted posture.
 
 The raw report is evidence input. The summary is a candidate report artifact,
 not a promoted proof result.
@@ -208,6 +220,8 @@ This eval does not prove:
 - parser recall, index completeness, or provider correctness;
 - LSP or runtime latency and resource safety in production;
 - admission, installation, trust, or deployment of the bound provider;
+- admission or deployment of adjacent Semgrep/MarkItDown candidates, or
+  completeness of SARIF, SBOM, provenance, or document extraction;
 - completeness or correctness of a host Ctags installation beyond the emitted
   local observations;
 - cross-repository semantic identity or actual blast-radius accuracy;

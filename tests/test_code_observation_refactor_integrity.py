@@ -14,6 +14,7 @@ EXAMPLE = ROOT / "evals/capability/aoa-code-observation-refactor-integrity/fixtu
 sys.path.insert(0, str(RUNNER.parent))
 import run_scenarios as runner  # noqa: E402
 import provider_agreement  # noqa: E402
+import adjacent_provider_evidence  # noqa: E402
 
 
 def run_runner(*arguments: str) -> subprocess.CompletedProcess[str]:
@@ -63,6 +64,56 @@ def test_typescript_provider_agreement_requires_shared_source_and_facts(tmp_path
     payload["envelopes"][2]["source"]["source_epoch"] = "git:other"
     path.write_text(json.dumps(payload), encoding="utf-8")
     assert "source_identity_mismatch" in provider_agreement.validate(path)["issues"]
+
+
+def test_adjacent_provider_evidence_requires_all_unadmitted_classes(tmp_path: Path) -> None:
+    source_epoch = "commit:" + "a" * 40
+    specs = {
+        "static_security": ("semgrep", "static-security"),
+        "software_components": ("syft", "software-components"),
+        "artifact_provenance": ("in-toto", "artifact-provenance"),
+        "document_structure": ("markitdown", "document-structure"),
+    }
+    batches = {}
+    for key, (provider_id, capability) in specs.items():
+        batches[key] = {
+            "schema_version": "aoa-code-observation-v1",
+            "capability_class": capability,
+            "provider": {"id": provider_id, "lane": {"status": "supplied_unadmitted"}},
+            "source": {"source_epoch": source_epoch},
+            "parse_status": "parsed",
+            "observations": [{"observation_kind": "symbol"}],
+            "qualification": {"machine_admission": {"state": "not_admitted"}},
+        }
+    payload = {
+        "schema": "abyssos_adjacent_provider_evidence_v1",
+        "goal_id": "fixture",
+        "observed_at": "2026-08-29T00:00:00Z",
+        "source_epoch": source_epoch,
+        "artifact": {
+            "sha256": "sha256:" + "1" * 64,
+            "subject_digest": "sha256:" + "2" * 64,
+            "signature_status": "missing",
+            "admission_status": "not_admitted",
+        },
+        "providers": {},
+        "batches": batches,
+        "summary": {"all_provider_lanes_unadmitted": True},
+        "claim_limits": [
+            "This fixture is bounded to exact supplied observations only.",
+            "This fixture does not establish artifact admission or deployment.",
+            "This fixture does not establish provider completeness or owner acceptance.",
+        ],
+    }
+    path = tmp_path / "adjacent.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    result = adjacent_provider_evidence.validate(path)
+    assert result["issues"] == []
+    assert result["verdict"] == "supports bounded adjacent-provider envelope evidence"
+
+    payload["batches"]["static_security"]["qualification"]["machine_admission"]["state"] = "admitted"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "provider_not_bounded:semgrep" in adjacent_provider_evidence.validate(path)["issues"]
 
 
 def test_example_observation_report_supports_all_cases() -> None:

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aoa-evals:adjacent-provider-envelope-evidence:v1",
+  "type": "object",
+  "required": ["schema", "goal_id", "observed_at", "source_epoch", "artifact", "providers", "batches", "summary", "claim_limits"],
+  "properties": {
+    "schema": {"const": "abyssos_adjacent_provider_evidence_v1"},
+    "goal_id": {"type": "string", "minLength": 1},
+    "observed_at": {"type": "string", "format": "date-time"},
+    "source_epoch": {"type": "string", "pattern": "^(commit|git|sha256):"},
+    "artifact": {
+      "type": "object",
+      "required": ["sha256", "subject_digest", "signature_status", "admission_status"],
+      "properties": {
+        "sha256": {"$ref": "#/$defs/digest"},
+        "subject_digest": {"$ref": "#/$defs/digest"},
+        "signature_status": {"const": "missing"},
+        "admission_status": {"const": "not_admitted"}
+      }
+    },
+    "providers": {"type": "object"},
+    "batches": {
+      "type": "object",
+      "required": ["static_security", "software_components", "artifact_provenance", "document_structure"],
+      "additionalProperties": false,
+      "properties": {
+        "static_security": {"$ref": "#/$defs/batch"},
+        "software_components": {"$ref": "#/$defs/batch"},
+        "artifact_provenance": {"$ref": "#/$defs/batch"},
+        "document_structure": {"$ref": "#/$defs/batch"}
+      }
+    },
+    "summary": {"type": "object"},
+    "claim_limits": {"type": "array", "minItems": 3, "items": {"type": "string", "minLength": 20}}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "batch": {
+      "type": "object",
+      "required": ["schema_version", "capability_class", "provider", "source", "parse_status", "observations", "qualification"],
+      "properties": {
+        "schema_version": {"const": "aoa-code-observation-v1"},
+        "capability_class": {"enum": ["static-security", "software-components", "artifact-provenance", "document-structure"]},
+        "provider": {"type": "object"},
+        "source": {"type": "object"},
+        "parse_status": {"const": "parsed"},
+        "observations": {"type": "array", "minItems": 1},
+        "qualification": {"type": "object"}
+      }
+    }
+  }
+}

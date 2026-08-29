@@ -1343,6 +1343,9 @@ def parse_args() -> argparse.Namespace:
     provider_agreement_parser = subparsers.add_parser("validate-provider-agreement")
     provider_agreement_parser.add_argument("evidence", type=Path)
 
+    adjacent_evidence_parser = subparsers.add_parser("validate-adjacent-provider-evidence")
+    adjacent_evidence_parser.add_argument("evidence", type=Path)
+
     run_parser = subparsers.add_parser("run-scenarios")
     run_parser.add_argument("report", nargs="?", type=Path, default=EXAMPLE_REPORT_PATH)
     return parser.parse_args()
@@ -1366,6 +1369,12 @@ def main() -> int:
         import provider_agreement
 
         result = provider_agreement.validate(args.evidence)
+        print(json.dumps(result, indent=2, sort_keys=True))
+        return 0 if not result["issues"] else 1
+    if args.command == "validate-adjacent-provider-evidence":
+        import adjacent_provider_evidence
+
+        result = adjacent_provider_evidence.validate(args.evidence)
         print(json.dumps(result, indent=2, sort_keys=True))
         return 0 if not result["issues"] else 1
     if args.command == "run-scenarios":
